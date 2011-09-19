@@ -30,4 +30,6 @@ gem 'jquery-rails'
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'cucumber', '~> 1.0.6'
+  gem 'cucumber-rails', '~> 1.0.5'
 end
