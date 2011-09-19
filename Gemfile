@@ -32,4 +32,5 @@ group :test do
   gem 'turn', :require => false
   gem 'cucumber', '~> 1.0.6'
   gem 'cucumber-rails', '~> 1.0.5'
+  gem 'database_cleaner', '~> 0.5.2'
 end
