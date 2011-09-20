@@ -4,7 +4,9 @@ A policy writer
 Should be able to edit and save draft policies
 
 Scenario: Saving a draft policy
-Given I visit the new policy page
+Given I visit the list of draft policies
+And I click create new policy
+Then I should be on the new policy page
 When I write and save a policy called "Milk for kids" with body
   """
   Calcium is good for growing bones!

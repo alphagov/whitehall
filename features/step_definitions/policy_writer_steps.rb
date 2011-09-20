@@ -39,3 +39,7 @@ end
 Given /^I click edit for the policy "([^"]*)"$/ do |policy_title|
   click_link "Edit #{policy_title}"
 end
+
+Given /^I click create new policy$/ do
+  click_link "Draft new policy"
+end
