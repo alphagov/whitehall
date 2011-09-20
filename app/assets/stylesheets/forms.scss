@@ -5,7 +5,9 @@ form {
   margin-bottom: 20px;
 }
 fieldset {
-  margin-bottom: 20px;
+  border: none;
+  padding: 0;
+  margin: 0 0 20px 0;
 }
 input[type="text"],
 input[type="password"],
@@ -61,6 +63,12 @@ legend span {
   font-weight: normal;
   font-size: 13px;
   color: #444;
+}
+
+fieldset {
+  label {
+    margin-left: 4px;
+  }
 }
 
 .field_with_errors {

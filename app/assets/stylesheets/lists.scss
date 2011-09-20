@@ -51,3 +51,57 @@ ul#errors {
     color: #d0160c;
   }
 }
+
+/*
+Resource list.
+
+A group of related objects that are created
+in a usual CRUD style manner.
+They usually have links to the resource and perhaps
+links to edit and delete etc.
+================================================== */
+section.resource_list {
+  margin-bottom: 40px;
+  h1 {
+    font-size: 21px;
+    line-height: 30px;
+    margin-bottom: 0;
+    border-bottom: 1px solid #ccc;
+    background: #eee;
+    padding: 20px 20px 10px 20px;
+  }
+
+  ul {
+    margin-top: 0;
+    background: #fefefe;
+    li {
+      margin: 0;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 20px;
+
+      h2 {
+        margin: 0;
+        font-size: 14px;
+        line-height: 20px;
+        float: left;
+      }
+
+      .actions {
+        float: right;
+        a {
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+
+    }
+
+    li:last-child {
+      border-bottom: 1px solid #bbb;
+    }
+
+    li:hover {
+      background: #fcfcfc;
+    }
+  }
+}

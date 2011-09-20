@@ -1,1 +1,73 @@
-<div style="min-height: 600px"></div>
+%h1 Styleguide
+%hr
+
+%h3 Typography
+
+%h1 This is a heading 1
+%h2 This is a heading 2
+%h3 This is a heading 3
+%h4 This is a heading 4
+%h5 This is a heading 5
+
+%p
+  This is a paragraph with a
+  =link_to "link", "#"
+  inside it
+
+%hr
+%h3 Forms
+
+%form
+  %label Label
+  =text_field_tag 'text', 'textfield'
+
+  %label Textarea
+  =text_area_tag 'hello'
+
+  %label Select something
+  %select{:id => "selectList"}
+    -5.times do |i|
+      %option{:value => "Option #{i+1}"}="Option #{i+1}"
+
+
+  %fieldset
+    %legend Checkboxes
+    %label{:for => "checkbox_1"}
+      =check_box_tag 'checkbox_1'
+      %span checkbox
+
+    %label{:for => "checkbox_2"}
+      =check_box_tag 'checkbox_2'
+      %span checkbox 2
+
+  %fieldset
+    %legend Radio buttons
+    %label{:for => "radios_one"}
+      =radio_button_tag 'radios', 'one', true
+      %span Love
+
+    %label{:for => "radios_two"}
+      =radio_button_tag 'radios', 'two'
+      %span Hate
+
+  =submit_tag 'Submit'
+
+  %span.or_cancel
+    or
+    =link_to "cancel", "#"
+
+%hr
+%h3 Components
+
+%section.resource_list
+  %h1 Resource list
+  %ul
+    %li.group
+      %h2 Element name
+      .actions
+        =link_to 'edit'
+    %li.group
+      %h2 Element name
+      .actions
+        =link_to 'edit'
+        =link_to 'delete'

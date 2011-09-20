@@ -1,11 +1,12 @@
-%h2 Policies
+%h1 Policies
 
 %p=link_to "Draft new policy", new_policy_path
 
-
-%h3 Drafts
-%ul#draft_policies
-  - @policies.each do |policy|
-    %li.policy
-      = policy.title
-      = link_to 'Edit', edit_policy_path(policy), :title => "Edit #{policy.title}"
+%section.resource_list
+  %h1 Drafts
+  %ul#draft_policies
+    - @policies.each do |policy|
+      %li.policy.group
+        %h2= policy.title
+        .actions
+          = link_to 'Edit', edit_policy_path(policy), :title => "Edit #{policy.title}"
