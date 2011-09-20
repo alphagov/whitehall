@@ -16,6 +16,7 @@
 </head>
 <body>
   <div id="wrapper" class="group">
+    <%= render :partial => 'shared/notices' %>
     <%= yield %>
   </div>
   <%= javascript_include_tag "application" %>

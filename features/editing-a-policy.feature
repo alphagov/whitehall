@@ -30,3 +30,8 @@ And I visit the list of draft policies
 And I click edit for the policy "Legalise beards"
 When I click cancel
 Then I should be on the policies page
+
+Scenario: Entering invalid data
+Given I visit the new policy page
+When I write and save a policy called "Britons on the Moon" with body ""
+Then I should be warned "There are some problems with the policy"
