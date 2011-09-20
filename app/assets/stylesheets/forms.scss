@@ -63,6 +63,23 @@ legend span {
   color: #444;
 }
 
+.field_with_errors {
+  label {
+    color: #d0160c;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  textarea,
+  select {
+    border: 1px solid #d0160c;
+  }
+}
+
+span.or_cancel {
+  font-size: 13px;
+}
 
 /* #Buttons
 ================================================== */

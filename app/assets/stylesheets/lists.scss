@@ -41,3 +41,13 @@ ul.large li {
 li p {
   line-height: 21px;
 }
+
+/* ul#errors — Used to list each invalid model attribute
+================================================== */
+
+ul#errors {
+  li {
+    font-size: 13px;
+    color: #d0160c;
+  }
+}
