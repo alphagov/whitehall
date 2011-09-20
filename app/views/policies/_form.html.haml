@@ -1,0 +1,6 @@
+= form_for @policy do |policy_form|
+  = policy_form.label :title
+  = policy_form.text_field :title
+  = policy_form.label :body, 'Policy'
+  = policy_form.text_area :body
+  = policy_form.submit 'Save'

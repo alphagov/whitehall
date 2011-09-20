@@ -1,0 +1,5 @@
+%ul#draft_policies
+  - @policies.each do |policy|
+    %li.policy
+      = policy.title
+      = link_to 'Edit', edit_policy_path(policy), :title => "Edit #{policy.title}"
