@@ -1,4 +1,9 @@
 = form_for @policy do |policy_form|
+  - if @policy.errors.any?
+    %ul#errors
+      - @policy.errors.full_messages.each do |msg|
+        %li= msg
+
   = policy_form.label :title
   = policy_form.text_field :title
   = policy_form.label :body, 'Policy'
