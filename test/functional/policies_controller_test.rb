@@ -3,7 +3,9 @@ require 'test_helper'
 class PoliciesControllerTest < ActionController::TestCase
   test 'saving should leave the writer in the policy editor' do
     post :create, :policy => FactoryGirl.attributes_for(:policy)
+
     assert_redirected_to edit_policy_path(Policy.last)
+    assert_equal 'The policy has been saved', flash[:notice]
   end
 
   test 'creating with invalid data should leave the writer in the policy editor' do
@@ -24,7 +26,9 @@ class PoliciesControllerTest < ActionController::TestCase
   test 'updating should leave the writer in the policy editor' do
     policy = FactoryGirl.create(:policy)
     post :update, :id => policy.id, :policy => {:title => 'new-title', :body => 'new-body'}
+
     assert_redirected_to edit_policy_path(policy)
+    assert_equal 'The policy has been saved', flash[:notice]
   end
 
   test 'updating with invalid data should not save the policy' do

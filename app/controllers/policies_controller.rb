@@ -10,6 +10,7 @@ class PoliciesController < ApplicationController
   def create
     @policy = Policy.new(params[:policy])
     if @policy.save
+      flash[:notice] = 'The policy has been saved'
       redirect_to edit_policy_path(@policy)
     else
       flash.now[:warning] = 'There are some problems with the policy'
@@ -24,6 +25,7 @@ class PoliciesController < ApplicationController
   def update
     @policy = Policy.find(params[:id])
     if @policy.update_attributes(params[:policy])
+      flash[:notice] = 'The policy has been saved'
       redirect_to edit_policy_path(@policy)
     else
       flash.now[:warning] = 'There are some problems with the policy'
