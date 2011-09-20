@@ -4,3 +4,6 @@
   = policy_form.label :body, 'Policy'
   = policy_form.text_area :body
   = policy_form.submit 'Save'
+  %span
+    or
+    =link_to 'cancel', policies_path

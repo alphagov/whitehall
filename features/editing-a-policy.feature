@@ -11,8 +11,20 @@ When I write and save a policy called "Milk for kids" with body
   """
 Then I should see the policy "Milk for kids" in my list of draft policies
 
+Scenario: Cancelling the draft policy
+Given I visit the new policy page
+When I click cancel
+Then I should be on the policies page
+
 Scenario: Editing an existing draft policy
 Given I have written a policy called "Legalise beards"
 And I visit the list of draft policies
 When I change the policy "Legalise beards" to "Decriminalise beards"
 Then I should see the policy "Decriminalise beards" in my list of draft policies
+
+Scenario: Cancelling the draft policy
+Given I have written a policy called "Legalise beards"
+And I visit the list of draft policies
+And I click edit for the policy "Legalise beards"
+When I click cancel
+Then I should be on the policies page

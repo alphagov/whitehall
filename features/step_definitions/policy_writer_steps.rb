@@ -31,3 +31,11 @@ When /^I change the policy "([^"]*)" to "([^"]*)"$/ do |old_title, new_title|
   fill_in 'Title', :with => new_title
   click_button 'Save'
 end
+
+When /^I click cancel$/ do
+  click_link "cancel"
+end
+
+Given /^I click edit for the policy "([^"]*)"$/ do |policy_title|
+  click_link "Edit #{policy_title}"
+end
