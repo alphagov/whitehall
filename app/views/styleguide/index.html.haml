@@ -14,6 +14,32 @@
   =link_to "link", "#"
   inside it
 
+
+%h5 Unordered lists
+%ul
+  -3.times do |i|
+    %li="unordered list item #{i+1}"
+
+%p Circle
+%ul.circle
+  -3.times do |i|
+    %li="unordered list item #{i+1}"
+
+%p Disc
+%ul.disc
+  -3.times do |i|
+    %li="unordered list item #{i+1}"
+
+%p Square
+%ul.square
+  -3.times do |i|
+    %li="unordered list item #{i+1}"
+
+%h5 Ordered list
+%ol
+  -3.times do |i|
+    %li="unordered list item #{i+1}"
+
 %hr
 %h3 Forms
 
@@ -28,7 +54,6 @@
   %select{:id => "selectList"}
     -5.times do |i|
       %option{:value => "Option #{i+1}"}="Option #{i+1}"
-
 
   %fieldset
     %legend Checkboxes
