@@ -9,31 +9,11 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
-  <header role="banner" class="group">
-    <div class="inner">
-      <div class="header-global">
-        <h1><a href="/" title="return to the www.gov.uk homepage">www.gov.uk</a></h1>
-				<nav role="navigation">
-					<ul>
-					  <li><a href="#">Citizens home</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div><!-- end inner -->
-		<div class="header-context citizen group">
-			<div class="inner">
-				<nav role="navigation">
-					<ol>
-						<li class="current-context"><a href="/">Goverment Departments</a></li>
-					</ol>
-				</nav>
-			</div><!-- end inner -->
-    </div><!-- end header-context -->
-  </header><!--end header-->
   <div id="wrapper" class="group">
-    <%= yield %>
-  </div><!--end wrapper-->
-  <%= render :partial => 'shared/footer' %>
+    <section role="main">
+      <%= yield %>
+    </section>
+  </div>
   <%= javascript_include_tag "application" %>
 </body>
 </html>
