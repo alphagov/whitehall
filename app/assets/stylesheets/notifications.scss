@@ -1,6 +1,14 @@
-.warning {
+.flash {
   padding: 12px 20px;
   font-size: 13px;
+}
+
+.warning {
   background: #fcd0ce;
   border-bottom: 1px solid #d0160c;
+}
+
+.notice {
+  background: #b1e7b9;
+  border-bottom: 1px solid #39b54a;
 }
