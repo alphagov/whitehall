@@ -68,6 +68,7 @@ GEM
     ffi (1.0.9)
     gherkin (2.4.21)
       json (>= 1.4.6)
+    haml (3.0.24)
     hike (1.2.1)
     i18n (0.6.0)
     jquery-rails (1.0.14)
@@ -148,6 +149,7 @@ DEPENDENCIES
   cucumber (~> 1.0.6)
   cucumber-rails (~> 1.0.5)
   database_cleaner (~> 0.5.2)
+  haml
   jquery-rails
   mysql2
   rails (= 3.1.0)
