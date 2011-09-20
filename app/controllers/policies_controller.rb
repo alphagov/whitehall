@@ -12,7 +12,7 @@ class PoliciesController < ApplicationController
     if @policy.save
       redirect_to edit_policy_path(@policy)
     else
-      flash[:warning] = 'There are some problems with the policy'
+      flash.now[:warning] = 'There are some problems with the policy'
       render :action => 'new'
     end
   end
@@ -26,7 +26,7 @@ class PoliciesController < ApplicationController
     if @policy.update_attributes(params[:policy])
       redirect_to edit_policy_path(@policy)
     else
-      flash[:warning] = 'There are some problems with the policy'
+      flash.now[:warning] = 'There are some problems with the policy'
       render :action => 'edit'
     end
   end
