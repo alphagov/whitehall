@@ -65,6 +65,10 @@ section.resource_list {
       }
     }
 
+    th, td {
+      padding: 10px 20px;
+    }
+
     tr {
       margin: 0;
       border-bottom: 1px solid #ddd;
@@ -73,10 +77,15 @@ section.resource_list {
       td {
         line-height: 20px;
       }
+
+      &:last-child {
+        border-bottom: 1px solid #bbb;
+      }
     }
 
-    .actions {
 
+    .actions {
+      text-align: right;
     }
   }
 }
