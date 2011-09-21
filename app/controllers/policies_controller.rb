@@ -1,5 +1,10 @@
 class PoliciesController < ApplicationController
   def index
+    unless current_user
+      flash[:warning] = "You're not authorised to view this page" 
+      redirect_to login_path
+    end
+
     @policies = Policy.all
   end
 
