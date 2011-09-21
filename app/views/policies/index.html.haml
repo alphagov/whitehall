@@ -11,9 +11,9 @@
         %th Author
         %th.actions Actions
     %tbody
-    - @policies.each do |policy|
-      %tr.policy
-        %td.name= policy.title
-        %td.author= policy.author.name
-        %td.actions
-          = link_to 'Edit', edit_policy_path(policy), :title => "Edit #{policy.title}"
+      - @policies.each do |policy|
+        %tr.policy
+          %td.name= policy.title
+          %td.author= policy.author.name
+          %td.actions
+            = link_to 'Edit', edit_policy_path(policy), :title => "Edit #{policy.title}"
