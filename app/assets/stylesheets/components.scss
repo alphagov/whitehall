@@ -1,3 +1,5 @@
+@import "utils";
+
 /*
 Resource list.
 
@@ -12,12 +14,14 @@ links to edit and delete etc.
   border-bottom: 1px solid #ddd;
   padding: 10px 20px;
 
+  @include transition(background-color);
+
   &:last-child {
     border-bottom: 1px solid #bbb;
   }
 
   &:hover {
-    background: #fcfcfc;
+    background: #f5f5f5;
   }
 }
 
@@ -66,6 +70,10 @@ section.resource_list {
 
     tr {
       @include list-row;
+    }
+
+    thead tr:hover {
+      background: transparent;
     }
 
     th, td {

@@ -1,0 +1,107 @@
+/*
+  utils.
+  https://raw.github.com/jasoncale/frontend-bits/master/utils.scss
+--------------------------------------------- */
+
+@mixin rounded($amount: 5px) {
+  -moz-border-radius: 5px; /* FF1+ */
+  -webkit-border-radius: 5px; /* Saf3+, Chrome */
+  border-radius: 5px; /* Opera 10.5, IE 9 */
+}
+
+@mixin rounded_specific($topleft: 5px, $topright: 5px, $bottomright: 5px, $bottomleft: 5px) {
+  -moz-border-radius-topleft: $topleft;
+  -webkit-border-top-left-radius: $topleft;
+  border-top-left-radius: $topleft;
+
+  -moz-border-radius-topright: $topright;
+  -webkit-border-top-right-radius: $topright;
+  border-top-right-radius: $topright;
+
+  -moz-border-radius-bottomright: $bottomright;
+  -webkit-border-bottom-right-radius: $bottomright;
+  border-bottom-right-radius: $bottomright;
+
+  -moz-border-radius-bottomleft: $bottomleft;
+  -webkit-border-bottom-left-radius: $bottomleft;
+  border-bottom-left-radius: $bottomleft;
+}
+
+@mixin rounded_top($amount: 5px) {
+  @include rounded_specific($amount, $amount, 0, 0);
+}
+
+@mixin rounded_right($amount: 5px) {
+  @include rounded_specific(0, $amount, $amount, 0);
+}
+
+@mixin rounded_left($amount: 5px) {
+  @include rounded_specific($amount, 0, 0, $amount);
+}
+
+@mixin rounded_bottom($amount: 5px) {
+  @include rounded_specific(0, 0, $amount, $amount);
+}
+
+@mixin transition($properties, $duration: 0.3s, $tf: linear) {
+  -o-transition-property: $properties;
+  -o-transition-duration: $duration;
+  -o-transition-timing-function: $tf;
+
+  -moz-transition-property: $properties;
+  -moz-transition-duration: $duration;
+  -moz-transition-timing-function: $tf;
+
+  -webkit-transition-property: $properties;
+  -webkit-transition-duration: $duration;
+  -webkit-transition-timing-function: $tf;
+
+  transition-property: $properties;
+  transition-duration: $duration;
+  transition-timing-function: $tf;
+}
+
+@mixin no-transitions {
+  @include transition(none, 0);
+}
+
+@mixin rounded_padded_heading($radius: 5px) {
+  background: #eee;
+  padding: 0 1em;
+  margin: 0;
+  color: #333;
+  border-top: 1px solid #fdfdfd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
+  text-shadow: #fff 0px 1px 0;
+  @include rounded_specific($radius, $radius, 0, 0);
+}
+
+@mixin box-shadow($horiz-offset, $vert-offset, $blur, $colour) {
+  -moz-box-shadow: $horiz-offset $vert-offset $blur $colour; /* FF3.5+ */
+  -webkit-box-shadow: $horiz-offset $vert-offset $blur $colour; /* Saf3.0+, Chrome */
+  box-shadow: $horiz-offset $vert-offset $blur $colour; /* Opera 10.5, IE 9.0 */
+}
+
+@mixin clear-box-shadow {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+/* self-clear floats */
+
+@mixin clearfix {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/*
+.group:after {
+  @include clearfix;
+}
+*/
