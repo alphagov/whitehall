@@ -1,8 +1,12 @@
 class PoliciesController < ApplicationController
   before_filter :authenticate!
-  
+
   def index
     @policies = Policy.all
+  end
+
+  def show
+    @policy = Policy.find(params[:id])
   end
 
   def new
@@ -33,5 +37,9 @@ class PoliciesController < ApplicationController
       flash.now[:warning] = 'There are some problems with the policy'
       render :action => 'edit'
     end
+  end
+
+  def submitted
+    @policies = Policy.all
   end
 end

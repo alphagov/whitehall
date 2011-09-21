@@ -1,0 +1,14 @@
+%h1 Policies
+
+%section.resource_list
+  %h1 Submitted
+  %table#submitted_policies
+    %thead
+      %tr
+        %th Name
+        %th Author
+    %tbody
+    - @policies.each do |policy|
+      %tr.policy
+        %td.name= link_to policy.title, policy_path(policy), :title => "Show #{policy.title}"
+        %td.author= policy.author.name
