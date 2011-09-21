@@ -23,7 +23,7 @@ class PoliciesControllerAuthenticationTest < ActionController::TestCase
 
   test 'guests should not be able to access edit' do
     policy = FactoryGirl.create(:policy)
-    
+
     get :edit, :id => policy.to_param
 
     assert_login_required
@@ -41,7 +41,7 @@ class PoliciesControllerTest < ActionController::TestCase
   setup do
     login_as "George"
   end
-  
+
   test 'saving should leave the writer in the policy editor' do
     post :create, :policy => FactoryGirl.attributes_for(:policy)
 
@@ -87,5 +87,12 @@ class PoliciesControllerTest < ActionController::TestCase
     post :update, :id => policy.id, :policy => attributes.merge(:title => '')
 
     assert_equal 'There are some problems with the policy', flash.now[:warning]
+  end
+
+  test 'viewing the list of submitted policies should not show draft policies' do
+    draft_policy = Factory.create(:draft_policy)
+    get :submitted
+
+    assert_not assigns(:policies).include?(draft_policy)
   end
 end

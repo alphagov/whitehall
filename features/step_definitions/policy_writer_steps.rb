@@ -12,9 +12,10 @@ When /^I write and save a policy called "([^"]*)" with body "([^"]*)"$/ do |titl
   click_button 'Save'
 end
 
-Then /^I should see the policy "([^"]*)" in my list of draft policies$/ do |title|
+Then /^I should( not)? see the policy "([^"]*)" in my list of draft policies$/ do |invert, title|
   Given "I visit the list of draft policies"
-  assert page.has_css?('#draft_policies .policy', :text => title)
+  page_has_policy = page.has_css?('#draft_policies .policy', :text => title)
+  assert(invert.nil? ? page_has_policy : !page_has_policy)
 end
 
 Then /^I should see the policy "([^"]*)" written by "([^"]*)" in my list of draft policies$/ do |title, author|
@@ -47,4 +48,9 @@ end
 
 Given /^I click create new policy$/ do
   click_link "Draft new Policy"
+end
+
+Given /^I submit the policy for the second set of eyes$/ do
+  check 'Submit to second set of eyes'
+  click_button 'Save'
 end

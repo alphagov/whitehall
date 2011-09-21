@@ -2,7 +2,7 @@ class PoliciesController < ApplicationController
   before_filter :authenticate!
 
   def index
-    @policies = Policy.all
+    @policies = Policy.drafts
   end
 
   def show
@@ -31,8 +31,12 @@ class PoliciesController < ApplicationController
   def update
     @policy = Policy.find(params[:id])
     if @policy.update_attributes(params[:policy])
-      flash[:notice] = 'The policy has been saved'
-      redirect_to edit_policy_path(@policy)
+      if @policy.submitted?
+        redirect_to policies_path
+      else
+        flash[:notice] = 'The policy has been saved'
+        redirect_to edit_policy_path(@policy)
+      end
     else
       flash.now[:warning] = 'There are some problems with the policy'
       render :action => 'edit'
@@ -40,6 +44,6 @@ class PoliciesController < ApplicationController
   end
 
   def submitted
-    @policies = Policy.all
+    @policies = Policy.submitted
   end
 end

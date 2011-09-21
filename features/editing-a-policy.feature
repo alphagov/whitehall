@@ -19,6 +19,12 @@ Scenario: Saving a draft policy
     """
   Then I should see the policy "Milk for kids" written by "George" in my list of draft policies
 
+Scenario: Submitting a draft policy to the second set of eyes
+  Given I am logged in as "George"
+  And I have written a policy called "Legalise beards"
+  And I submit the policy for the second set of eyes
+  Then I should not see the policy "Legalise beards" in my list of draft policies
+
 Scenario: Cancelling the draft policy
   Given I am logged in as "George"
   And I visit the new policy page

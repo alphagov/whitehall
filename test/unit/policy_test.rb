@@ -15,4 +15,16 @@ class PolicyTest < ActiveSupport::TestCase
     policy = Factory.build(:policy, :body => nil)
     assert_not policy.valid?
   end
+  
+  test 'should only return the draft policies' do
+    draft_policy = Factory.create(:draft_policy)
+    submitted_policy = Factory.create(:submitted_policy)
+    assert_equal [draft_policy], Policy.drafts
+  end
+  
+  test 'should only return the submitted policies' do
+    draft_policy = Factory.create(:draft_policy)
+    submitted_policy = Factory.create(:submitted_policy)
+    assert_equal [submitted_policy], Policy.submitted
+  end
 end

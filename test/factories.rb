@@ -4,6 +4,14 @@ FactoryGirl.define do
     body  'policy-body'
   end
 
+  factory :draft_policy, :parent => :policy do
+    submitted false
+  end
+  
+  factory :submitted_policy, :parent => :policy do
+    submitted true
+  end
+
   factory :user do
     name 'Daaaaaaave'
   end
