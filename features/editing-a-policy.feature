@@ -17,7 +17,7 @@ Scenario: Saving a draft policy
     """
     Calcium is good for growing bones!
     """
-  Then I should see the policy "Milk for kids" in my list of draft policies
+  Then I should see the policy "Milk for kids" written by "George" in my list of draft policies
 
 Scenario: Cancelling the draft policy
   Given I am logged in as "George"

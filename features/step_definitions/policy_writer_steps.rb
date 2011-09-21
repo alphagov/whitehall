@@ -17,6 +17,11 @@ Then /^I should see the policy "([^"]*)" in my list of draft policies$/ do |titl
   assert page.has_css?('#draft_policies .policy', :text => title)
 end
 
+Then /^I should see the policy "([^"]*)" written by "([^"]*)" in my list of draft policies$/ do |title, author|
+  Then %{I should see the policy "#{title}" in my list of draft policies}
+  assert page.has_css?('#draft_policies .author', :text => author)
+end
+
 Given /^I have written a policy called "([^"]*)"$/ do |title|
   When "I visit the new policy page"
   And %{I write and save a policy called "#{title}" with body "Blah blah blah"}

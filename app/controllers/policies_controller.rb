@@ -10,7 +10,7 @@ class PoliciesController < ApplicationController
   end
 
   def create
-    @policy = Policy.new(params[:policy])
+    @policy = current_user.policies.build(params[:policy])
     if @policy.save
       flash[:notice] = 'The policy has been saved'
       redirect_to edit_policy_path(@policy)

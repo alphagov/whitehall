@@ -53,4 +53,30 @@ section.resource_list {
       background: #fcfcfc;
     }
   }
+
+  table {
+    margin: 0;
+    background: #fefefe;
+    width: 100%;
+
+    thead {
+      th {
+        text-align: left;
+      }
+    }
+
+    tr {
+      margin: 0;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 20px;
+
+      td {
+        line-height: 20px;
+      }
+    }
+
+    .actions {
+
+    }
+  }
 }

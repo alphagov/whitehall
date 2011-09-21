@@ -4,9 +4,16 @@
 
 %section.resource_list
   %h1 Drafts
-  %ul#draft_policies
+  %table#draft_policies
+    %thead
+      %tr
+        %th Name
+        %th Author
+        %th Actions
+    %tbody
     - @policies.each do |policy|
-      %li.policy.group
-        %h2= policy.title
-        .actions
+      %tr.policy
+        %td.name= policy.title
+        %td.author= policy.author.name
+        %td.actions
           = link_to 'Edit', edit_policy_path(policy), :title => "Edit #{policy.title}"
