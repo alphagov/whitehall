@@ -4,6 +4,5 @@ class Policy < ActiveRecord::Base
   scope :drafts, where(:submitted => false)
   scope :submitted, where(:submitted => true)
 
-  validates_presence_of :title
-  validates_presence_of :body
+  validates_presence_of :title, :body, :author
 end

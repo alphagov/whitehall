@@ -16,6 +16,11 @@ class PolicyTest < ActiveSupport::TestCase
     assert_not policy.valid?
   end
   
+  test 'should be invalid without an author' do
+    policy = Factory.build(:policy, :author => nil)
+    assert_not policy.valid?
+  end
+  
   test 'should only return the draft policies' do
     draft_policy = Factory.create(:draft_policy)
     submitted_policy = Factory.create(:submitted_policy)

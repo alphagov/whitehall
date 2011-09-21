@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :policy do
+    author
     title 'policy-title'
     body  'policy-body'
   end
@@ -12,7 +13,7 @@ FactoryGirl.define do
     submitted true
   end
 
-  factory :user do
+  factory :user, :aliases => [:author] do
     name 'Daaaaaaave'
   end
 end
