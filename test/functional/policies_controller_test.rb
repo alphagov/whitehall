@@ -1,6 +1,47 @@
 require 'test_helper'
 
+class PoliciesControllerAuthenticationTest < ActionController::TestCase
+  tests PoliciesController
+
+  test 'guests should not be able to access index' do
+    get :index
+
+    assert_login_required
+  end
+
+  test 'guests should not be able to access new' do
+    get :new
+
+    assert_login_required
+  end
+
+  test 'guests should not be able to access create' do
+    post :create, :policy => FactoryGirl.attributes_for(:policy)
+
+    assert_login_required
+  end
+
+  test 'guests should not be able to access edit' do
+    policy = FactoryGirl.create(:policy)
+    
+    get :edit, :id => policy.to_param
+
+    assert_login_required
+  end
+
+  test 'guests should not be able to access update' do
+    policy = FactoryGirl.create(:policy)
+    post :update, :id => policy.to_param, :policy => FactoryGirl.attributes_for(:policy)
+
+    assert_login_required
+  end
+end
+
 class PoliciesControllerTest < ActionController::TestCase
+  setup do
+    login_as "George"
+  end
+  
   test 'saving should leave the writer in the policy editor' do
     post :create, :policy => FactoryGirl.attributes_for(:policy)
 

@@ -15,3 +15,14 @@ class ActiveSupport::TestCase
     assert_equal false, condition
   end
 end
+
+class ActionController::TestCase
+  def login_as(name)
+    user = User.find_or_create_by_name(name)
+    session[:user_id] = user.id
+  end
+  
+  def assert_login_required
+    assert_redirected_to login_path
+  end
+end

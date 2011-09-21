@@ -41,6 +41,7 @@ When I click cancel
 Then I should be on the policies page
 
 Scenario: Entering invalid data
-Given I visit the new policy page
+Given I am logged in as "George"
+And I visit the new policy page
 When I write and save a policy called "Britons on the Moon" with body ""
 Then I should be warned "There are some problems with the policy"

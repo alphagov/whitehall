@@ -1,10 +1,7 @@
 class PoliciesController < ApplicationController
+  before_filter :authenticate!
+  
   def index
-    unless current_user
-      flash[:warning] = "You're not authorised to view this page" 
-      redirect_to login_path
-    end
-
     @policies = Policy.all
   end
 
