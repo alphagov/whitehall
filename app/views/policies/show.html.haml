@@ -1,0 +1,11 @@
+%p.inset
+  back to
+  =link_to 'policies', policies_path
+
+.policy
+  %h1.title= @policy.title
+  %div.body
+    = @policy.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
+  %p.written_by
+    Written by
+    %span.author= @policy.author.name

@@ -10,5 +10,5 @@
     %tbody
       - @policies.each do |policy|
         %tr.policy
-          %td.name= policy.title
+          %td.name= link_to policy.title, policy_path(policy), :title => "View #{policy.title}"
           %td.author= policy.author.name

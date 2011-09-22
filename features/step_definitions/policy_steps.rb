@@ -5,11 +5,13 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
   And %{I submit the policy for the second set of eyes}
 end
 
-Then /^the policy "([^"]*)" should( not)? be visible to the public$/ do |policy_name, invert|
+Then /^the policy "([^"]*)" should( not)? be visible to the public$/ do |policy_title, invert|
   visit policies_path
-  published_policy_selector = ["#published_policies .policy .name", :text => policy_name]
+  published_policy_selector = ["#published_policies .policy .name", :text => policy_title]
   if invert.nil?
     assert page.has_css?(*published_policy_selector)
+    click_link policy_title
+    assert page.has_css?(".policy .title", :text => policy_title)
   else
     assert page.has_no_css?(*published_policy_selector)
   end
