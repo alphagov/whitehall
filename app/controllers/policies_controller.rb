@@ -32,6 +32,7 @@ class PoliciesController < ApplicationController
     @policy = Policy.find(params[:id])
     if @policy.update_attributes(params[:policy])
       if @policy.submitted?
+        flash[:notice] = 'Your policy has been submitted to your second pair of eyes'
         redirect_to policies_path
       else
         flash[:notice] = 'The policy has been saved'
