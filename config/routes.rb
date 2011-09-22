@@ -1,6 +1,6 @@
 Whitehall::Application.routes.draw do
   root :to => 'policies#index'
-  resources :policies, :only => [:index]
+  resources :policies, :only => [:index, :show]
 
   namespace :admin do
     root :to => 'policies#index'

@@ -1,0 +1,14 @@
+%h1 Policies
+
+%section.resource_list
+  %h1 Policies
+  %table#published_policies
+    %thead
+      %tr
+        %th Name
+        %th Author
+    %tbody
+      - @policies.each do |policy|
+        %tr.policy
+          %td.name= policy.title
+          %td.author= policy.author.name

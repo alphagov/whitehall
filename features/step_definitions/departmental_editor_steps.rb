@@ -15,9 +15,10 @@ Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
 end
 
 When /^I publish the policy called "([^"]*)"$/ do |arg1|
-click_button "Publish"
+  click_button "Publish"
 end
 
-Then /^the policy "([^"]*)" should be visible to the public$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then /^the policy "([^"]*)" should be visible to the public$/ do |policy_name|
+  visit policies_path
+  assert page.has_css?("#published_policies .policy .name", :text => policy_name)
 end
