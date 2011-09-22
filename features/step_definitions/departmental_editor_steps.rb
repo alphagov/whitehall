@@ -17,8 +17,3 @@ end
 When /^I publish the policy called "([^"]*)"$/ do |arg1|
   click_button "Publish"
 end
-
-Then /^the policy "([^"]*)" should be visible to the public$/ do |policy_name|
-  visit policies_path
-  assert page.has_css?("#published_policies .policy .name", :text => policy_name)
-end

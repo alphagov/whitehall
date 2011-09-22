@@ -45,7 +45,8 @@ class Admin::PoliciesController < ApplicationController
   end
 
   def publish
-    # @policy = Policy.find(params[:id])
+    policy = Policy.find(params[:id])
+    policy.publish!
     render :nothing => true
   end
 

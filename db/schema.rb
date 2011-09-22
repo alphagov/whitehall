@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110921113323) do
+ActiveRecord::Schema.define(:version => 20110922152415) do
 
   create_table "policies", :force => true do |t|
     t.string   "title"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20110921113323) do
     t.datetime "updated_at"
     t.integer  "author_id"
     t.boolean  "submitted",  :default => false
+    t.boolean  "published",  :default => false
   end
 
   create_table "users", :force => true do |t|
