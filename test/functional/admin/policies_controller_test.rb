@@ -102,4 +102,11 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     assert_not assigns(:policies).include?(draft_policy)
   end
+
+  test 'publishing should redirect back to submitted policies' do
+    submitted_policy = Factory.create(:submitted_policy)
+    post :publish, :id => submitted_policy.to_param
+
+    assert_redirected_to submitted_admin_policies_path
+  end
 end

@@ -46,12 +46,10 @@ class Admin::PoliciesController < ApplicationController
 
   def publish
     policy = Policy.find(params[:id])
-    if policy.publish_as!(current_user)
-      render :nothing => true
-    else
+    unless policy.publish_as!(current_user)
       flash[:warning] = "You are not the second set of eyes"
-      redirect_to :back
     end
+    redirect_to submitted_admin_policies_path
   end
 
   def submitted
