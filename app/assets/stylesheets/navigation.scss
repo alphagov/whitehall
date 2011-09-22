@@ -1,0 +1,14 @@
+@import "utils";
+
+nav.sub {
+  margin-bottom: 20px;
+  a {
+    padding: 5px 10px;
+  }
+  a.current {
+    @include rounded(2px);
+    background: #ddd;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #bbb;
+  }
+}

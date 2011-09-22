@@ -28,6 +28,7 @@ links to edit and delete etc.
 section.resource_list {
   margin-bottom: 40px;
   border: 1px solid #ddd;
+  position: relative;
 
   h1 {
     font-size: 21px;
@@ -37,6 +38,12 @@ section.resource_list {
     border-bottom: 1px solid #ccc;
     background: #eee;
     padding: 10px 20px 10px 20px;
+  }
+
+  .new_resource {
+    position: absolute;
+    top: 9px;
+    right: 10px;
   }
 
   ul, table {
