@@ -8,7 +8,7 @@ Given /^I visit the login page$/ do
 end
 
 Given /^I login as "([^"]*)"$/ do |name|
-  fill_in 'Name', :with => name
+  fill_in 'Your name', :with => name
   click_button 'Login'
 end
 

@@ -1,4 +1,8 @@
+%h1 Please login
+
+%p Please enter any name you like below.
+
 = form_tag session_path, :html => {:method => :post} do
-  = label_tag :name
+  = label_tag :name, 'Your name'
   = text_field_tag :name
   = submit_tag 'Login'
