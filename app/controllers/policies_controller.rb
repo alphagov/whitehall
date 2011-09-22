@@ -44,6 +44,11 @@ class PoliciesController < ApplicationController
     end
   end
 
+  def publish
+    # @policy = Policy.find(params[:id])
+    render :nothing => true
+  end
+
   def submitted
     @policies = Policy.submitted
   end

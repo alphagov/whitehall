@@ -4,6 +4,9 @@ Whitehall::Application.routes.draw do
     collection do
       get :submitted
     end
+    member do
+      post :publish
+    end
   end
 
   resource :session, :only => [:create]

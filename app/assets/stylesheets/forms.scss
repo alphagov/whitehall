@@ -167,3 +167,15 @@ input[type="button"].full-width {
   padding-right: 0 !important;
   text-align: center;
 }
+
+
+/* #Rails' button_to forms
+================================================== */
+
+form.button_to {
+  margin-bottom: 0px;
+
+  input {
+    margin-bottom: 0px;
+  }
+}

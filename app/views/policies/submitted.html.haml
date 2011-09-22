@@ -8,8 +8,11 @@
       %tr
         %th Name
         %th Author
+        %th Actions
     %tbody
     - @policies.each do |policy|
       %tr.policy
         %td.name= link_to policy.title, policy_path(policy), :title => "Show #{policy.title}"
         %td.author= policy.author.name
+        %td.actions
+          = button_to 'Publish', publish_policy_path(policy), :title => "Publish #{policy.title}"
