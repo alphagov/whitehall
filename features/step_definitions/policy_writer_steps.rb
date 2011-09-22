@@ -1,5 +1,5 @@
 When /^I visit the new policy page$/ do
-  visit new_policy_path
+  visit new_admin_policy_path
 end
 
 When /^I write and save a policy called "([^"]*)" with body$/ do |title, body|
@@ -29,7 +29,7 @@ Given /^I have written a policy called "([^"]*)"$/ do |title|
 end
 
 Given /^I visit the list of draft policies$/ do
-  visit policies_path
+  visit admin_policies_path
 end
 
 When /^I change the policy "([^"]*)" to "([^"]*)"$/ do |old_title, new_title|

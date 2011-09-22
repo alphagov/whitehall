@@ -1,5 +1,5 @@
 When /^I visit the list of policies awaiting review$/ do
-  visit submitted_policies_path
+  visit submitted_admin_policies_path
 end
 
 When /^I view the policy titled "([^"]*)"$/ do |title|

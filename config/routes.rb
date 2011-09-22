@@ -1,11 +1,16 @@
 Whitehall::Application.routes.draw do
   root :to => 'policies#index'
-  resources :policies, :except => [:destroy] do
-    collection do
-      get :submitted
-    end
-    member do
-      post :publish
+  resources :policies, :only => [:index]
+
+  namespace :admin do
+    root :to => 'policies#index'
+    resources :policies, :except => [:destroy] do
+      collection do
+        get :submitted
+      end
+      member do
+        post :publish
+      end
     end
   end
 

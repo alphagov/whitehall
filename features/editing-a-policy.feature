@@ -30,7 +30,7 @@ Scenario: Cancelling the draft policy
   Given I am logged in as "George"
   And I visit the new policy page
   When I click cancel
-  Then I should be on the policies page
+  Then I should be on the policies admin page
 
 Scenario: Editing an existing draft policy
   Given I am logged in as "George"
@@ -45,7 +45,7 @@ Scenario: Cancelling the draft policy
   And I visit the list of draft policies
   And I click edit for the policy "Legalise beards"
   When I click cancel
-  Then I should be on the policies page
+  Then I should be on the policies admin page
 
 Scenario: Entering invalid data
   Given I am logged in as "George"

@@ -1,4 +1,4 @@
-= form_for @policy do |policy_form|
+= form_for [:admin, @policy] do |policy_form|
   - if @policy.errors.any?
     %p To save the policy please fix the following issues:
     %ul#errors
@@ -15,4 +15,4 @@
   = policy_form.submit 'Save'
   %span.or_cancel
     or
-    =link_to 'cancel', policies_path
+    =link_to 'cancel', admin_policies_path

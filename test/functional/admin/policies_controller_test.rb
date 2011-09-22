@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class PoliciesControllerAuthenticationTest < ActionController::TestCase
-  tests PoliciesController
+class Admin::PoliciesControllerAuthenticationTest < ActionController::TestCase
+  tests Admin::PoliciesController
 
   test 'guests should not be able to access index' do
     get :index
@@ -37,7 +37,7 @@ class PoliciesControllerAuthenticationTest < ActionController::TestCase
   end
 end
 
-class PoliciesControllerTest < ActionController::TestCase
+class Admin::PoliciesControllerTest < ActionController::TestCase
   setup do
     login_as "George"
   end
@@ -45,7 +45,7 @@ class PoliciesControllerTest < ActionController::TestCase
   test 'saving should leave the writer in the policy editor' do
     post :create, :policy => FactoryGirl.attributes_for(:policy)
 
-    assert_redirected_to edit_policy_path(Policy.last)
+    assert_redirected_to edit_admin_policy_path(Policy.last)
     assert_equal 'The policy has been saved', flash[:notice]
   end
 
@@ -68,7 +68,7 @@ class PoliciesControllerTest < ActionController::TestCase
     policy = FactoryGirl.create(:policy)
     post :update, :id => policy.id, :policy => {:title => 'new-title', :body => 'new-body'}
 
-    assert_redirected_to edit_policy_path(policy)
+    assert_redirected_to edit_admin_policy_path(policy)
     assert_equal 'The policy has been saved', flash[:notice]
   end
 

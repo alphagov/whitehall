@@ -12,7 +12,7 @@
     %tbody
     - @policies.each do |policy|
       %tr.policy
-        %td.name= link_to policy.title, policy_path(policy), :title => "Show #{policy.title}"
+        %td.name= link_to policy.title, admin_policy_path(policy), :title => "Show #{policy.title}"
         %td.author= policy.author.name
         %td.actions
-          = button_to 'Publish', publish_policy_path(policy), :title => "Publish #{policy.title}"
+          = button_to 'Publish', publish_admin_policy_path(policy), :title => "Publish #{policy.title}"

@@ -17,6 +17,12 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
 
+    when /^the new policy page$/
+      new_admin_policy_path
+
+    when /^the policies admin page$/
+      admin_policies_path
+
     else
       begin
         page_name =~ /^the (.*) page$/
