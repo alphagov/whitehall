@@ -1,5 +1,4 @@
-%h1 Policies
-=render :partial => 'navigation'
+=render :partial => 'index_heading'
 
 %section.resource_list
   %h1 Drafts
@@ -8,13 +7,13 @@
   %table#draft_policies
     %thead
       %tr
-        %th Name
+        %th Title
         %th Author
         %th.actions Actions
     %tbody
       - @policies.each do |policy|
         %tr.policy
-          %td.name= policy.title
+          %td.title= policy.title
           %td.author= policy.author.name
           %td.actions
             = link_to 'Edit', edit_admin_policy_path(policy), :title => "Edit #{policy.title}"

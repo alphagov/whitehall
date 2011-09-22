@@ -1,18 +1,17 @@
-%h1 Policies
-=render :partial => 'navigation'
+=render :partial => 'index_heading'
 
 %section.resource_list
   %h1 Submitted
   %table#submitted_policies
     %thead
       %tr
-        %th Name
+        %th Title
         %th Author
-        %th Actions
+        %th.actions Actions
     %tbody
     - @policies.each do |policy|
       %tr.policy
-        %td.name= link_to policy.title, admin_policy_path(policy), :title => "Show #{policy.title}"
+        %td.title= link_to policy.title, admin_policy_path(policy), :title => "Show #{policy.title}"
         %td.author= policy.author.name
         %td.actions
           = button_to 'Publish', publish_admin_policy_path(policy), :title => "Publish #{policy.title}"

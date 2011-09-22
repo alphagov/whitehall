@@ -1,14 +1,20 @@
-%h1 Policies
-
+%h1 Government Department
+%p
+  So far you can view published policies, and if you
+  =link_to "login", admin_policies_path
+  you can write your own.
 %section.resource_list
-  %h1 Policies
+  %h1 Published policies
   %table#published_policies
     %thead
       %tr
-        %th Name
+        %th Title
         %th Author
     %tbody
       - @policies.each do |policy|
         %tr.policy
-          %td.name= link_to policy.title, policy_path(policy), :title => "View #{policy.title}"
+          %td.title= link_to policy.title, policy_path(policy), :title => "View #{policy.title}"
           %td.author= policy.author.name
+      - if @policies.empty?
+        %tr
+          %td{:colspan => 2} Our authors have not published any policies at present.
