@@ -15,7 +15,14 @@ alice = User.create!(name: "Alice Anderson")
 bob = User.create!(name: "Bob Bailey")
 clive = User.create!(name: "Clive Custer")
 
+# Draft policies
 alice.policies.create! title: "Free cats for pensioners", body: random_policy_text, submitted: false
 bob.policies.create! title: "Decriminalise beards", body: random_policy_text(5), submitted: false
+
+# Submitted policies
 alice.policies.create! title: "Less gravity on Sundays", body: random_policy_text, submitted: true
 clive.policies.create! title: "Ducks pulling chariots of fire", body: random_policy_text(4), submitted: true
+
+# Published policies
+clive.policies.create! title: "No more supernanny", body: random_policy_text, published: true
+alice.policies.create! title: "Laser eyes for millionaires", body: random_policy_text, published: true
