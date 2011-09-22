@@ -47,4 +47,10 @@ class PolicyTest < ActiveSupport::TestCase
     assert policy.publish_as!(other_user)
     assert policy.published?
   end
+
+  test 'should not return published policies in submitted' do
+    policy = Factory.create(:policy, submitted: true)
+    policy.publish_as!(Factory.create(:user))
+    assert_not Policy.submitted.include?(policy)
+  end
 end

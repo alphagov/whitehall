@@ -109,4 +109,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     assert_redirected_to submitted_admin_policies_path
   end
+
+  test 'publishing should remove it from the set of submitted policies' do
+    policy_to_publish = Factory.create(:submitted_policy)
+    post :publish, :id => policy_to_publish.to_param
+
+    get :submitted
+    assert_not assigns(:policies).include?(policy_to_publish)
+  end
 end
