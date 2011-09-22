@@ -35,6 +35,13 @@ class Admin::PoliciesControllerAuthenticationTest < ActionController::TestCase
 
     assert_login_required
   end
+
+  test 'guests should not be able to access publish' do
+    policy = FactoryGirl.create(:policy)
+    post :publish, :id => policy.to_param
+
+    assert_login_required
+  end
 end
 
 class Admin::PoliciesControllerTest < ActionController::TestCase

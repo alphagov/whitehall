@@ -17,3 +17,7 @@ end
 When /^I publish the policy called "([^"]*)"$/ do |arg1|
   click_button "Publish"
 end
+
+Then /^I should be warned that I am not the second set of eyes$/ do
+  assert page.has_css?(".flash.warning", :text => "You are not the second set of eyes")
+end
