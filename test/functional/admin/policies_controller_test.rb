@@ -118,4 +118,10 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     get :submitted
     assert_not assigns(:policies).include?(policy_to_publish)
   end
+  
+  test "submitted policies can't be set back to draft" do
+    submitted_policy = Factory.create(:submitted_policy)
+    get :edit, :id => submitted_policy.to_param
+    assert_select "input[type='checkbox'][name='policy[submitted]']", :count => 0
+  end
 end
