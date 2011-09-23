@@ -1,3 +1,5 @@
+@import "utils";
+
 /* #Forms
 ================================================== */
 
@@ -17,9 +19,6 @@ select {
   border: 1px solid #ccc;
   padding: 6px 4px;
   outline: none;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
   font: 13px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #777;
   margin: 0;
@@ -28,7 +27,13 @@ select {
   display: block;
   margin-bottom: 20px;
   background: #fff;
+  @include rounded(2px); 
 }
+
+textarea {
+  width: 100%;
+}
+
 select {
   padding: 0;
 }
@@ -63,6 +68,10 @@ legend span {
   font-weight: normal;
   font-size: 13px;
   color: #444;
+}
+
+label.for_checkbox {
+  margin-bottom: 10px;
 }
 
 fieldset {
