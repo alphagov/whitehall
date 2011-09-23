@@ -10,7 +10,7 @@ Given /^I am logged in as a ([^"]*) called "([^"]*)"$/ do |role, name|
 end
 
 Then /^I should see that I am logged in as a ([^"]*)$/ do |role|
-  assert page.has_css?(".session .role", :text => role)
+  assert page.has_css?("#session .role", :text => role)
 end
 
 Given /^I visit the login page$/ do
@@ -27,11 +27,11 @@ Then /^I should be given the opportunity to login$/ do
 end
 
 Then /^I should not see a link to login$/ do
-  assert page.has_no_css?(".session a[href='#{login_path}']")
+  assert page.has_no_css?("#session a[href='#{login_path}']")
 end
 
 Then /^I should see that I am logged in as "([^"]*)"$/ do |name|
-  assert page.has_css?('.session .current_user_name', :text => name)
+  assert page.has_css?('#session .current_user_name', :text => name)
 end
 
 Given /^I logout$/ do
@@ -39,5 +39,5 @@ Given /^I logout$/ do
 end
 
 Then /^I should see that I am not logged in$/ do
-  assert page.has_no_css?('.session .current_user_name')
+  assert page.has_no_css?('#session .current_user_name')
 end
