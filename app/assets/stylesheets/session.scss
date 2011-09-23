@@ -1,0 +1,17 @@
+#session {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #eee;
+  padding: 5px 10px;
+
+  p {
+    float: left;
+    margin: 0;
+  }
+
+  form {
+    float: left;
+    margin-left: 6px;
+  }
+}
