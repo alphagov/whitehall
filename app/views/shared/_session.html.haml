@@ -2,8 +2,9 @@
   - if current_user
     %p
       You are logged in as
-      = succeed "." do
+      = succeed "," do
         %span.current_user_name= current_user.name
+      %span.role= user_role(current_user)
     = button_to "Logout", logout_path, class: 'link'
 
   - elsif not_on_login_page?

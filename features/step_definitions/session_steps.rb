@@ -3,10 +3,14 @@ Given /^I am logged in as "([^"]*)"$/ do |name|
   And %{I login as "#{name}"}
 end
 
-Given /^I am logged in as a departmental editor called "([^"]*)"$/ do |name|
+Given /^I am logged in as a ([^"]*) called "([^"]*)"$/ do |role, name|
   Given "I visit the login page"
-  check "I am a departmental editor"
+  check "I am a departmental editor" if role == "departmental editor"
   And %{I login as "#{name}"}
+end
+
+Then /^I should see that I am logged in as a ([^"]*)$/ do |role|
+  assert page.has_css?(".session .role", :text => role)
 end
 
 Given /^I visit the login page$/ do

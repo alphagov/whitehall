@@ -24,3 +24,9 @@ Scenario: Logged-in users should be able to logout
 Scenario: Don't show a login link on the login page
   Given I am on the login page
   Then I should not see a link to login
+
+Scenario: Logged in users should see their role
+  Given I am logged in as a policy writer called "Dave"
+  Then I should see that I am logged in as a policy writer
+  Given I am logged in as a departmental editor called "John"
+  Then I should see that I am logged in as a departmental editor

@@ -24,4 +24,12 @@ module ApplicationHelper
     end
   end
 
+  def user_role(user)
+    if user.departmental_editor?
+      "departmental editor"
+    else
+      "policy writer"
+    end
+  end
+
 end
