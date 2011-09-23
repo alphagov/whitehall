@@ -14,8 +14,9 @@
     = csrf_meta_tags
     %link{rel: "shortcut icon", href: "/favicon.ico", type: "image/x-icon"}
   %body
+    %header.group
+      = render partial: 'shared/session' if show_session_controls?
     #wrapper.group
       = render partial: 'shared/notices'
-      = render partial: 'shared/session' if show_session_controls?
       = yield
     = javascript_include_tag "application"
