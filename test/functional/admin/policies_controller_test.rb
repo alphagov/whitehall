@@ -64,7 +64,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_template "policies/new"
   end
 
-  test 'creating with invalid data should set a warning in the flash' do
+  test 'creating with invalid data should set an alert in the flash' do
     attributes = FactoryGirl.attributes_for(:policy)
     post :create, policy: attributes.merge(title: '')
 
@@ -88,7 +88,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_template "policies/edit"
   end
 
-  test 'updating with invalid data should set a warning in the flash' do
+  test 'updating with invalid data should set an alert in the flash' do
     attributes = FactoryGirl.attributes_for(:policy)
     policy = FactoryGirl.create(:policy, attributes)
     post :update, id: policy.id, policy: attributes.merge(title: '')
