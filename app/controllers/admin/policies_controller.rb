@@ -16,10 +16,9 @@ class Admin::PoliciesController < ApplicationController
   def create
     @policy = current_user.policies.build(params[:policy])
     if @policy.save
-      flash[:notice] = 'The policy has been saved'
-      redirect_to edit_admin_policy_path(@policy)
+      redirect_to edit_admin_policy_path(@policy), notice: 'The policy has been saved'
     else
-      flash.now[:warning] = 'There are some problems with the policy'
+      flash.now[:alert] = 'There are some problems with the policy'
       render action: 'new'
     end
   end
@@ -36,29 +35,30 @@ class Admin::PoliciesController < ApplicationController
     else 
       if @policy.update_attributes(params[:policy])
         if @policy.submitted?
-          flash[:notice] = 'Your policy has been submitted to your second pair of eyes'
-          redirect_to admin_policies_path
+          redirect_to admin_policies_path,
+            notice: 'Your policy has been submitted to your second pair of eyes'
         else
-          flash[:notice] = 'The policy has been saved'
-          redirect_to edit_admin_policy_path(@policy)
+          redirect_to edit_admin_policy_path(@policy),
+            notice: 'The policy has been saved'
         end
       else
-        flash.now[:warning] = 'There are some problems with the policy'
+        flash.now[:alert] = 'There are some problems with the policy'
         render action: 'edit'
       end
     end
   end
 
   def publish
+    warning = nil
     if current_user.departmental_editor?
       policy = Policy.find(params[:id])
       unless policy.publish_as!(current_user)
-        flash[:warning] = "You are not the second set of eyes"
+        warning = "You are not the second set of eyes"
       end
     else
-      flash[:warning] = "Only departmental editors can publish policies"
+      warning = "Only departmental editors can publish policies"
     end
-    redirect_to submitted_admin_policies_path
+    redirect_to submitted_admin_policies_path, alert: warning
   end
 
   def submitted

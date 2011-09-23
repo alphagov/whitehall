@@ -9,7 +9,7 @@ class SessionsControllerTest < ActionController::TestCase
   test 'warn if the user name supplied was empty' do
     post :create, name: ''
     assert_template 'sessions/new'
-    assert_equal "Name can't be blank", flash.now[:warning]
+    assert_equal "Name can't be blank", flash.now[:alert]
   end
 
   test 'should create a departmental editor if the flag was checked' do

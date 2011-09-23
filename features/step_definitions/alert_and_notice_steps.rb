@@ -1,5 +1,5 @@
-Then /^I should be warned "([^"]*)"$/ do |warning|
-  assert page.has_css?(".warning", text: warning)
+Then /^I should be alerted "([^"]*)"$/ do |warning|
+  assert page.has_css?(".alert", text: warning)
 end
 
 Then /^I should be notified "([^"]*)"$/ do |notice|

@@ -27,9 +27,9 @@
   	$(".notice", this).flashNotice();
   }
 
-  $.fn.showError = function (message) {
-  	$(this).html("<p class='flash error'>"+message+"</p>")
-  	$(".error", this).flashNotice();
+  $.fn.showAlert = function (message) {
+  	$(this).html("<p class='flash alert'>"+message+"</p>")
+  	$(".alert", this).flashNotice();
   }
 
 })(jQuery);

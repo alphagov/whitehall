@@ -68,7 +68,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     attributes = FactoryGirl.attributes_for(:policy)
     post :create, policy: attributes.merge(title: '')
 
-    assert_equal 'There are some problems with the policy', flash.now[:warning]
+    assert_equal 'There are some problems with the policy', flash.now[:alert]
   end
 
   test 'updating should leave the writer in the policy editor' do
@@ -93,7 +93,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     policy = FactoryGirl.create(:policy, attributes)
     post :update, id: policy.id, policy: attributes.merge(title: '')
 
-    assert_equal 'There are some problems with the policy', flash.now[:warning]
+    assert_equal 'There are some problems with the policy', flash.now[:alert]
   end
 
   test 'viewing the list of submitted policies should not show draft policies' do

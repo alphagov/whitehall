@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to admin_root_path
     else
-      flash.now[:warning] = "Name can't be blank"
+      flash.now[:alert] = "Name can't be blank"
       render :new
     end
   end

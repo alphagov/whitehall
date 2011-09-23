@@ -21,7 +21,7 @@ Scenario: The policy author shouldn't be able to publish the policy
   And I submit the policy for the second set of eyes
   And I visit the list of policies awaiting review
   When I publish the policy called "Eddie The Eagle as Olypmic Tsar"
-  Then I should be warned that I am not the second set of eyes
+  Then I should be alerted that I am not the second set of eyes
   And the policy "Eddie The Eagle as Olypmic Tsar" should not be visible to the public
 
 Scenario: A policy writer shouldn't be able to publish policies
@@ -29,5 +29,5 @@ Scenario: A policy writer shouldn't be able to publish policies
   And I am logged in as "Wally Writer"
   And I visit the list of policies awaiting review
   When I publish the policy called "Legalise beards"
-  Then I should be warned that I do not have privileges to publish policies
+  Then I should be alerted that I do not have privileges to publish policies
   Then the policy "Legalise beards" should not be visible to the public
