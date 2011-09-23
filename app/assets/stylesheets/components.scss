@@ -67,6 +67,7 @@ section.resource_list {
         a {
           font-size: 14px;
           line-height: 20px;
+          padding-left: 6px;
         }
       }
     }
@@ -91,6 +92,22 @@ section.resource_list {
 
     .actions {
       text-align: right;
+      a, .button_to {
+        float: right;
+        margin-right: 10px;
+
+        &:first-child {
+          margin-right: 0;
+        }
+      }
+
+      a {
+        line-height: 30px;
+      }
+    }
+
+    .actions:after {
+      @include clearfix;
     }
   }
 }

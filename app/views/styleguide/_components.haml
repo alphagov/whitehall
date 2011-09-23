@@ -13,7 +13,6 @@
         =link_to 'edit'
         =link_to 'delete'
 
-
 %section.resource_list
   %h1 Resource list (table)
   %table
@@ -27,7 +26,30 @@
         %td.name This is the name
         %td.author jason
         %td.actions
-          %a{:href => "/policies/1/edit", :title => "Edit This is the name"} Edit
-
+          %a{:href => "#", :title => "Edit This is the name"} delete
+          %a{:href => "#", :title => "Edit This is the name"} edit
+      %tr.policy
+        %td.name This is the name
+        %td.author jason
+        %td.actions
+          %form.button_to
+            %div
+              =submit_tag 'publish'
+      %tr.policy
+        %td.name This is the name
+        %td.author jason
+        %td.actions
+          %a{:href => "#", :title => "Edit This is the name"} edit
+          %form.button_to
+            %div
+              =submit_tag 'publish'
+      %tr.policy
+        %td.name This is the name
+        %td.author jason
+        %td.actions
+          %form.button_to
+            %div
+              =submit_tag 'publish'
+          %a{:href => "#", :title => "Edit This is the name"} edit
 
 %hr

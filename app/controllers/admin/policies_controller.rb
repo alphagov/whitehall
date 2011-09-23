@@ -30,17 +30,22 @@ class Admin::PoliciesController < ApplicationController
 
   def update
     @policy = Policy.find(params[:id])
-    if @policy.update_attributes(params[:policy])
-      if @policy.submitted?
-        flash[:notice] = 'Your policy has been submitted to your second pair of eyes'
-        redirect_to admin_policies_path
+    if @policy.submitted?
+      @policy.update_attributes(params[:policy])
+      redirect_to submitted_admin_policies_path
+    else 
+      if @policy.update_attributes(params[:policy])
+        if @policy.submitted?
+          flash[:notice] = 'Your policy has been submitted to your second pair of eyes'
+          redirect_to admin_policies_path
+        else
+          flash[:notice] = 'The policy has been saved'
+          redirect_to edit_admin_policy_path(@policy)
+        end
       else
-        flash[:notice] = 'The policy has been saved'
-        redirect_to edit_admin_policy_path(@policy)
+        flash.now[:warning] = 'There are some problems with the policy'
+        render :action => 'edit'
       end
-    else
-      flash.now[:warning] = 'There are some problems with the policy'
-      render :action => 'edit'
     end
   end
 
