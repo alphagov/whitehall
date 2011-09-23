@@ -5,8 +5,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate!
     unless current_user
-      flash[:alert] = "You're not authorised to view this page"
-      redirect_to login_path
+      redirect_to login_path, alert: "You're not authorised to view this page"
     end
   end
 
