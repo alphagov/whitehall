@@ -8,7 +8,7 @@ class Policy < ActiveRecord::Base
   validates_presence_of :title, :body, :author
 
   def publish_as!(user)
-    if user != author
+    if user != author && user.departmental_editor?
       update_attribute(:published, true)
       true
     else

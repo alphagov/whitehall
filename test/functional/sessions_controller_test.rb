@@ -11,4 +11,10 @@ class SessionsControllerTest < ActionController::TestCase
     assert_template 'sessions/new'
     assert_equal "Name can't be blank", flash.now[:warning]
   end
+
+  test 'should create a departmental editor if the flag was checked' do
+    post :create, :name => 'Eddie Edtior', :departmental_editor => true
+    user = User.last
+    assert user.departmental_editor?
+  end
 end

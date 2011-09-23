@@ -17,8 +17,8 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  def login_as(name)
-    user = User.find_or_create_by_name(name)
+  def login_as(name, attributes={})
+    user = User.find_or_create_by_name(name, attributes)
     session[:user_id] = user.id
   end
   

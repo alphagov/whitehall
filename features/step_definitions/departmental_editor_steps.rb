@@ -22,6 +22,9 @@ Then /^I should be warned that I am not the second set of eyes$/ do
   assert page.has_css?(".flash.warning", :text => "You are not the second set of eyes")
 end
 
+Then /^I should be warned that I do not have privileges to publish policies$/ do
+  assert page.has_css?(".flash.warning", :text => "Only departmental editors can publish policies")
+end
 Then /^I should see the policy "([^"]*)" in the list of submitted policies$/ do |title|
   assert page.has_css?('#submitted_policies .policy', :text => title)
 end

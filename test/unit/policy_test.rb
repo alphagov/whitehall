@@ -34,23 +34,29 @@ class PolicyTest < ActiveSupport::TestCase
   end
 
   test 'should not be publishable by the author' do
-    author = Factory.create(:user)
+    author = Factory.create(:departmental_editor)
     policy = Factory.create(:policy, author: author)
     assert_not policy.publish_as!(author)
     assert_not policy.published?
   end
 
-  test 'should be publishable by other users' do
-    author = Factory.create(:user)
+  test 'should be publishable by departmental editors' do
+    author = Factory.create(:policy_writer)
     policy = Factory.create(:policy, author: author)
-    other_user = Factory.create(:user)
+    other_user = Factory.create(:departmental_editor)
     assert policy.publish_as!(other_user)
     assert policy.published?
   end
 
   test 'should not return published policies in submitted' do
-    policy = Factory.create(:policy, submitted: true)
-    policy.publish_as!(Factory.create(:user))
+    policy = Factory.create(:submitted_policy)
+    policy.publish_as!(Factory.create(:departmental_editor))
     assert_not Policy.submitted.include?(policy)
+  end
+
+  test 'should not be publishable by normal users' do
+    policy = Factory.create(:submitted_policy)
+    assert !policy.publish_as!(Factory.create(:policy_writer))
+    assert !policy.published?
   end
 end

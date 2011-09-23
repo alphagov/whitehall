@@ -112,6 +112,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   test 'publishing should remove it from the set of submitted policies' do
     policy_to_publish = Factory.create(:submitted_policy)
+    login_as "Eddie", :departmental_editor => true
     post :publish, :id => policy_to_publish.to_param
 
     get :submitted

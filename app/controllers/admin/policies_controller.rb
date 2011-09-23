@@ -50,9 +50,13 @@ class Admin::PoliciesController < ApplicationController
   end
 
   def publish
-    policy = Policy.find(params[:id])
-    unless policy.publish_as!(current_user)
-      flash[:warning] = "You are not the second set of eyes"
+    if current_user.departmental_editor?
+      policy = Policy.find(params[:id])
+      unless policy.publish_as!(current_user)
+        flash[:warning] = "You are not the second set of eyes"
+      end
+    else
+      flash[:warning] = "Only departmental editors can publish policies"
     end
     redirect_to submitted_admin_policies_path
   end
