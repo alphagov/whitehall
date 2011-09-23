@@ -1,8 +1,8 @@
-=render :partial => 'index_heading'
+=render partial: 'index_heading'
 
 %section.resource_list
   %h1 Drafts
-  =link_to "Draft new Policy", new_admin_policy_path, :class => "button new_resource"
+  =link_to "Draft new Policy", new_admin_policy_path, class: "button new_resource"
 
   %table#draft_policies
     %thead
@@ -16,4 +16,4 @@
           %td.title= policy.title
           %td.author= policy.author.name
           %td.actions
-            = link_to 'Edit', edit_admin_policy_path(policy), :title => "Edit #{policy.title}"
+            = link_to 'Edit', edit_admin_policy_path(policy), title: "Edit #{policy.title}"

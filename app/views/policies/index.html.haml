@@ -13,8 +13,8 @@
     %tbody
       - @policies.each do |policy|
         %tr.policy
-          %td.title= link_to policy.title, policy_path(policy), :title => "View #{policy.title}"
+          %td.title= link_to policy.title, policy_path(policy), title: "View #{policy.title}"
           %td.author= policy.author.name
       - if @policies.empty?
         %tr
-          %td{:colspan => 2} Our authors have not published any policies at present.
+          %td{colspan: 2} Our authors have not published any policies at present.

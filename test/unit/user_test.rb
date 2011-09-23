@@ -7,7 +7,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'should be invalid without a name' do
-    user = Factory.build(:user, :name => nil)
+    user = Factory.build(:user, name: nil)
     assert_not user.valid?
   end
 end

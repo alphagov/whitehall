@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0'
 
 # Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
+# gem 'rails',     git: 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
 
@@ -25,11 +25,11 @@ gem 'haml', '~> 3.1.3'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+# gem 'ruby-debug19', require: 'ruby-debug'
 
 group :test do
   # Pretty printed test output
-  gem 'turn', :require => false
+  gem 'turn', require: false
   gem 'cucumber', '~> 1.0.6'
   gem 'cucumber-rails', '~> 1.0.5'
   gem 'database_cleaner', '~> 0.5.2'

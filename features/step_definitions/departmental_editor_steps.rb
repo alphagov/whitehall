@@ -7,11 +7,11 @@ When /^I view the policy titled "([^"]*)"$/ do |title|
 end
 
 Then /^I should see that "([^"]*)" is the policy author$/ do |name|
-  assert page.has_css?(".policy .author", :text => name)
+  assert page.has_css?(".policy .author", text: name)
 end
 
 Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
-  assert page.has_css?(".policy .body", :text => policy_body)
+  assert page.has_css?(".policy .body", text: policy_body)
 end
 
 When /^I publish the policy called "([^"]*)"$/ do |arg1|
@@ -19,12 +19,12 @@ When /^I publish the policy called "([^"]*)"$/ do |arg1|
 end
 
 Then /^I should be warned that I am not the second set of eyes$/ do
-  assert page.has_css?(".flash.warning", :text => "You are not the second set of eyes")
+  assert page.has_css?(".flash.warning", text: "You are not the second set of eyes")
 end
 
 Then /^I should be warned that I do not have privileges to publish policies$/ do
-  assert page.has_css?(".flash.warning", :text => "Only departmental editors can publish policies")
+  assert page.has_css?(".flash.warning", text: "Only departmental editors can publish policies")
 end
 Then /^I should see the policy "([^"]*)" in the list of submitted policies$/ do |title|
-  assert page.has_css?('#submitted_policies .policy', :text => title)
+  assert page.has_css?('#submitted_policies .policy', text: title)
 end

@@ -7,17 +7,17 @@ class PolicyTest < ActiveSupport::TestCase
   end
 
   test 'should be invalid without a title' do
-    policy = Factory.build(:policy, :title => nil)
+    policy = Factory.build(:policy, title: nil)
     assert_not policy.valid?
   end
 
   test 'should be invalid without a body' do
-    policy = Factory.build(:policy, :body => nil)
+    policy = Factory.build(:policy, body: nil)
     assert_not policy.valid?
   end
 
   test 'should be invalid without an author' do
-    policy = Factory.build(:policy, :author => nil)
+    policy = Factory.build(:policy, author: nil)
     assert_not policy.valid?
   end
 

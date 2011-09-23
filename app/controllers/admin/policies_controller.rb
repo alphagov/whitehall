@@ -20,7 +20,7 @@ class Admin::PoliciesController < ApplicationController
       redirect_to edit_admin_policy_path(@policy)
     else
       flash.now[:warning] = 'There are some problems with the policy'
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -44,7 +44,7 @@ class Admin::PoliciesController < ApplicationController
         end
       else
         flash.now[:warning] = 'There are some problems with the policy'
-        render :action => 'edit'
+        render action: 'edit'
       end
     end
   end

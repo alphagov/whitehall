@@ -8,27 +8,27 @@
   =text_area_tag 'hello'
 
   %label Select something
-  %select{:id => "selectList"}
+  %select{id: "selectList"}
     -5.times do |i|
-      %option{:value => "Option #{i+1}"}="Option #{i+1}"
+      %option{value: "Option #{i+1}"}="Option #{i+1}"
 
   %fieldset
     %legend Checkboxes
-    %label{:for => "checkbox_1"}
+    %label{for: "checkbox_1"}
       =check_box_tag 'checkbox_1'
       %span checkbox
 
-    %label{:for => "checkbox_2"}
+    %label{for: "checkbox_2"}
       =check_box_tag 'checkbox_2'
       %span checkbox 2
 
   %fieldset
     %legend Radio buttons
-    %label{:for => "radios_one"}
+    %label{for: "radios_one"}
       =radio_button_tag 'radios', 'one', true
       %span Love
 
-    %label{:for => "radios_two"}
+    %label{for: "radios_two"}
       =radio_button_tag 'radios', 'two'
       %span Hate
 

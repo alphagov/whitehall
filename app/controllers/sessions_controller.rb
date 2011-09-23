@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_or_create_by_name(params[:name], :departmental_editor => params[:departmental_editor])
+    user = User.find_or_create_by_name(params[:name], departmental_editor: params[:departmental_editor])
     if user.valid?
       session[:user_id] = user.id
       redirect_to admin_root_path
