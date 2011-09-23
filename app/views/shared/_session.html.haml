@@ -1,0 +1,10 @@
+.session
+  - if current_user
+    %p
+      You are logged in as
+      = succeed "." do
+        %span.current_user_name= current_user.name
+    = button_to "Logout", logout_path, class: 'link'
+
+  - else
+    %p= link_to 'Login', login_path

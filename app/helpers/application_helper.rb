@@ -6,6 +6,11 @@ module ApplicationHelper
     end
   end
 
+  def show_session_controls?
+    params[:controller].split("/").first == "admin" ||
+    params[:controller] == "sessions"
+  end
+
   def labelled_check_box(object_name, attribute, text)
     for_attribute = [object_name, attribute].map(&:to_s).join("_")
     label_tag "", {for: for_attribute, class: "for_checkbox"} do

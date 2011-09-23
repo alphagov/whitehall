@@ -188,3 +188,15 @@ form.button_to {
     margin-bottom: 0px;
   }
 }
+
+/* #Making buttons sometimes look like links
+================================================== */
+
+input[type="submit"].link {
+  border: none;
+  background: none;
+  padding: 0;
+  font-weight: normal;
+  text-decoration: underline;
+  font-size: 14px;
+}

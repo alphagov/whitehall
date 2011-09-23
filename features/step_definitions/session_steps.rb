@@ -21,3 +21,24 @@ end
 Then /^I should be given the opportunity to login$/ do
   assert page.has_css?("form[action='#{session_path}']")
 end
+
+Then /^I should not see a link to login$/ do
+  assert page.has_no_css?(".session a[href='#{login_path}']")
+end
+
+Then /^I should be able to login$/ do
+  click_link "Login"
+  Then %{I should be given the opportunity to login}
+end
+
+Then /^I should see that I am logged in as "([^"]*)"$/ do |name|
+  assert page.has_css?('.session .current_user_name', :text => name)
+end
+
+Given /^I logout$/ do
+  click_button "Logout"
+end
+
+Then /^I should see that I am not logged in$/ do
+  assert page.has_no_css?('.session .current_user_name')
+end

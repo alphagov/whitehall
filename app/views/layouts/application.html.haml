@@ -16,5 +16,6 @@
   %body
     #wrapper.group
       = render partial: 'shared/notices'
+      = render partial: 'shared/session' if show_session_controls?
       = yield
     = javascript_include_tag "application"
