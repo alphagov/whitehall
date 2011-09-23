@@ -9,7 +9,7 @@ Scenario: The public policies page shouldn't have login links
 
 Scenario: The admin root should have a login link
   Given I go to the policies admin page
-  Then I should be able to login
+  Then I should be given the opportunity to login
 
 Scenario: Logged-in users should see they are logged in
   Given I am logged in as "Dave"
@@ -20,3 +20,7 @@ Scenario: Logged-in users should be able to logout
   And I logout
   Then I should be on the login page
   And I should see that I am not logged in
+
+Scenario: Don't show a login link on the login page
+  Given I am on the login page
+  Then I should not see a link to login

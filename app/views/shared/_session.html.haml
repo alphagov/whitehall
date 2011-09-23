@@ -6,5 +6,5 @@
         %span.current_user_name= current_user.name
     = button_to "Logout", logout_path, class: 'link'
 
-  - else
+  - elsif not_on_login_page?
     %p= link_to 'Login', login_path
