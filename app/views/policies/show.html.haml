@@ -2,7 +2,7 @@
   back to
   =link_to 'policies', policies_path
 
-.policy
+.policy_document
   %h1.title= @policy.title
   %div.body
     = @policy.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
