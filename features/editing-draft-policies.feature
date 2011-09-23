@@ -1,4 +1,4 @@
-Feature: As a policy writer I should be able to edit and save a policy
+Feature: Editing draft policies
 In order to send the best version of a policy to the departmental editor
 A policy writer
 Should be able to edit and save draft policies

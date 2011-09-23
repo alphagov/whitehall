@@ -1,4 +1,4 @@
-Feature: Editing a submitted policy
+Feature: Editing submitted policies
 In order to publish policies of a consistent quality
 A department editor
 Should be able to edit submitted policies

@@ -1,4 +1,4 @@
-Feature: Reviewing policies
+Feature: Publishing policies
 In order to allow the public to view policies
 A departmental editor
 Should be able to publish policies
