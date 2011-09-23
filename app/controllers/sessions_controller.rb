@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_or_create_by_name(params[:name])
     if user.valid?
       session[:user_id] = user.id
-      redirect_to root_path
+      redirect_to admin_root_path
     else
       flash.now[:warning] = "Name can't be blank"
       render :new
