@@ -124,4 +124,16 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     get :edit, :id => submitted_policy.to_param
     assert_select "input[type='checkbox'][name='policy[submitted]']", :count => 0
   end
+  
+  test "cancelling a submitted policy takes the user to the list of submissions" do
+    submitted_policy = Factory.create(:submitted_policy)
+    get :edit, :id => submitted_policy.to_param
+    assert_select "a[href=#{submitted_admin_policies_path}]", :text => /cancel/i, :count => 1
+  end
+  
+  test "cancelling a draft policy takes the user to the list of drafts" do
+    draft_policy = Factory.create(:draft_policy)
+    get :edit, :id => draft_policy.to_param
+    assert_select "a[href=#{admin_policies_path}]", :text => /cancel/i, :count => 1
+  end
 end
