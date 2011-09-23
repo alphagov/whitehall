@@ -9,9 +9,7 @@
   = policy_form.text_field :title
   = policy_form.label :body, 'Policy'
   = policy_form.text_area :body
-  = label_tag "", {:for => :policy_submitted} do
-    = policy_form.check_box :submitted
-    %span Submit to second set of eyes
+  = labelled_check_box :policy, :submitted, 'Submit to second set of eyes'
   = policy_form.submit 'Save'
   %span.or_cancel
     or

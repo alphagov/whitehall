@@ -3,6 +3,12 @@ Given /^I am logged in as "([^"]*)"$/ do |name|
   And %{I login as "#{name}"}
 end
 
+Given /^I am logged in as a departmental editor called "([^"]*)"$/ do |name|
+  Given "I visit the login page"
+  check "I am a departmental editor"
+  And %{I login as "#{name}"}
+end
+
 Given /^I visit the login page$/ do
   visit login_path
 end
