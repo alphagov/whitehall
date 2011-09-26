@@ -21,6 +21,11 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
+  test 'should be invalid without a policy' do
+    edition = Factory.build(:edition, policy: nil)
+    assert_not edition.valid?
+  end
+
   test 'should only return the draft policies' do
     draft_edition = Factory.create(:draft_edition)
     submitted_edition = Factory.create(:submitted_edition)

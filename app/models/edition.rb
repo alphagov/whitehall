@@ -1,11 +1,12 @@
 class Edition < ActiveRecord::Base
   belongs_to :author, class_name: "User"
+  belongs_to :policy
 
   scope :drafts, where(submitted: false)
   scope :submitted, where(submitted: true, published: false)
   scope :published, where(published: true)
 
-  validates_presence_of :title, :body, :author
+  validates_presence_of :title, :body, :author, :policy
 
   def publish_as!(user, lock_version = self.lock_version)
     if user == author

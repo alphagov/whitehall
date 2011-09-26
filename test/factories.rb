@@ -1,5 +1,9 @@
 FactoryGirl.define do
+  factory :policy do
+  end
+  
   factory :edition do
+    policy
     author
     title 'edition-title'
     body  'edition-body'
