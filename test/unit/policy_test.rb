@@ -38,6 +38,7 @@ class PolicyTest < ActiveSupport::TestCase
     policy = Factory.create(:policy, author: author)
     assert_not policy.publish_as!(author)
     assert_not policy.published?
+    assert_equal ["You are not the second set of eyes"], policy.errors.full_messages
   end
 
   test 'should be publishable by departmental editors' do
@@ -56,7 +57,20 @@ class PolicyTest < ActiveSupport::TestCase
 
   test 'should not be publishable by normal users' do
     policy = Factory.create(:submitted_policy)
-    assert !policy.publish_as!(Factory.create(:policy_writer))
-    assert !policy.published?
+    assert_not policy.publish_as!(Factory.create(:policy_writer))
+    assert_not policy.published?
+    assert_equal ["Only departmental editors can publish policies"], policy.errors.full_messages
+  end
+
+  test 'should not be publishable if lock version is not current' do
+    editor = Factory.create(:departmental_editor)
+    policy = Factory.create(:policy, title: "old title")
+
+    other_instance = Policy.find(policy.id)
+    other_instance.update_attributes(title: "new title")
+
+    assert_not policy.publish_as!(editor, policy.lock_version)
+    assert_not Policy.find(policy.id).published?
+    assert_equal ["This policy has been edited since you viewed it"], policy.errors.full_messages
   end
 end

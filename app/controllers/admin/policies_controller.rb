@@ -32,7 +32,7 @@ class Admin::PoliciesController < ApplicationController
     if @policy.submitted?
       @policy.update_attributes(params[:policy])
       redirect_to submitted_admin_policies_path
-    else 
+    else
       if @policy.update_attributes(params[:policy])
         if @policy.submitted?
           redirect_to admin_policies_path,
@@ -49,16 +49,12 @@ class Admin::PoliciesController < ApplicationController
   end
 
   def publish
-    alert = nil
-    if current_user.departmental_editor?
-      policy = Policy.find(params[:id])
-      unless policy.publish_as!(current_user)
-        alert = "You are not the second set of eyes"
-      end
+    policy = Policy.find(params[:id])
+    if policy.publish_as!(current_user, params[:policy][:lock_version])
+      redirect_to submitted_admin_policies_path
     else
-      alert = "Only departmental editors can publish policies"
+      redirect_to admin_policy_path(policy), alert: policy.errors.full_messages.to_sentence
     end
-    redirect_to submitted_admin_policies_path, alert: alert
   end
 
   def submitted

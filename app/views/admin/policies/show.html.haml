@@ -10,4 +10,7 @@
     Written by
     %span.author= @policy.author.name
 
-%div= button_to 'publish', publish_admin_policy_path(@policy), title: "Publish #{@policy.title}"
+%div
+  = form_for [:admin, @policy], {:url => publish_admin_policy_path(@policy)} do |policy_form|
+    = policy_form.hidden_field :lock_version
+    = policy_form.submit "Publish", :title => "Public #{@policy.title}"

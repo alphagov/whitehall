@@ -28,3 +28,13 @@ Scenario: A policy writer shouldn't be able to publish policies
   When I publish the policy called "Legalise beards"
   Then I should be alerted that I do not have privileges to publish policies
   Then the policy "Legalise beards" should not be visible to the public
+
+Scenario: Policies shouldn't be publishable when they've been changed by another user
+  Given "Ben Beardson" submitted "Legalise beards" with body "Beards for everyone!"
+  And I am logged in as a departmental editor called "Edward Editor"
+  And I open the policy "Legalise beards"
+  When another user changes the title from "Legalise beards" to "Decriminalise beards"
+  And I press publish
+  Then I should be alerted that the policy has been changed
+  And the policy "Legalise beards" should not be visible to the public
+  And the policy "Decriminalise beards" should not be visible to the public

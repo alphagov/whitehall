@@ -7,12 +7,17 @@ class Policy < ActiveRecord::Base
 
   validates_presence_of :title, :body, :author
 
-  def publish_as!(user)
-    if user != author && user.departmental_editor?
-      update_attribute(:published, true)
-      true
+  def publish_as!(user, lock_version = self.lock_version)
+    if user == author
+      errors.add(:base, "You are not the second set of eyes")
+    elsif !user.departmental_editor?
+      errors.add(:base, "Only departmental editors can publish policies")
     else
-      false
+      update_attributes(published: true, lock_version: lock_version)
     end
+    errors.empty?
+  rescue ActiveRecord::StaleObjectError
+    errors.add(:base, "This policy has been edited since you viewed it")
+    false
   end
 end

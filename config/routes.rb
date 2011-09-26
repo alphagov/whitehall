@@ -9,7 +9,7 @@ Whitehall::Application.routes.draw do
         get :submitted
       end
       member do
-        post :publish
+        put :publish
       end
     end
   end

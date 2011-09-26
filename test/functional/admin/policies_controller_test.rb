@@ -38,7 +38,7 @@ class Admin::PoliciesControllerAuthenticationTest < ActionController::TestCase
 
   test 'guests should not be able to access publish' do
     policy = FactoryGirl.create(:policy)
-    post :publish, id: policy.to_param
+    put :publish, id: policy.to_param
 
     assert_login_required
   end
@@ -105,7 +105,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   test 'publishing should redirect back to submitted policies' do
     submitted_policy = Factory.create(:submitted_policy)
-    post :publish, id: submitted_policy.to_param
+    login_as "Eddie", departmental_editor: true
+    put :publish, id: submitted_policy.to_param, policy: {lock_version: submitted_policy.lock_version}
 
     assert_redirected_to submitted_admin_policies_path
   end
@@ -113,24 +114,40 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   test 'publishing should remove it from the set of submitted policies' do
     policy_to_publish = Factory.create(:submitted_policy)
     login_as "Eddie", departmental_editor: true
-    post :publish, id: policy_to_publish.to_param
+    put :publish, id: policy_to_publish.to_param, policy: {lock_version: policy_to_publish.lock_version}
 
     get :submitted
     assert_not assigns(:policies).include?(policy_to_publish)
   end
-  
+
+  test 'failing to publish a policy should set a flash' do
+    policy_to_publish = Factory.create(:submitted_policy)
+    login_as "Willy Writer", departmental_editor: false
+    put :publish, id: policy_to_publish.to_param, policy: {lock_version: policy_to_publish.lock_version}
+
+    assert_equal "Only departmental editors can publish policies", flash[:alert]
+  end
+
+  test 'failing to publish a policy should redirect back to the policy' do
+    policy_to_publish = Factory.create(:submitted_policy)
+    login_as "Willy Writer", departmental_editor: false
+    put :publish, id: policy_to_publish.to_param, policy: {lock_version: policy_to_publish.lock_version}
+
+    assert_redirected_to admin_policy_path(policy_to_publish)
+  end
+
   test "submitted policies can't be set back to draft" do
     submitted_policy = Factory.create(:submitted_policy)
     get :edit, :id => submitted_policy.to_param
     assert_select "input[type='checkbox'][name='policy[submitted]']", :count => 0
   end
-  
+
   test "cancelling a submitted policy takes the user to the list of submissions" do
     submitted_policy = Factory.create(:submitted_policy)
     get :edit, :id => submitted_policy.to_param
     assert_select "a[href=#{submitted_admin_policies_path}]", :text => /cancel/i, :count => 1
   end
-  
+
   test "cancelling a draft policy takes the user to the list of drafts" do
     draft_policy = Factory.create(:draft_policy)
     get :edit, :id => draft_policy.to_param
