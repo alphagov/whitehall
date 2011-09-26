@@ -14,6 +14,4 @@
         %td.title= link_to policy.title, admin_policy_path(policy), title: "Show #{policy.title}"
         %td.author= policy.author.name
         %td.actions
-          = button_to 'publish', publish_admin_policy_path(policy), title: "Publish #{policy.title}"
           = link_to 'edit', edit_admin_policy_path(policy), title: "Edit #{policy.title}"
-          

@@ -14,7 +14,9 @@ Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
   assert page.has_css?(".policy .body", text: policy_body)
 end
 
-When /^I publish the policy called "([^"]*)"$/ do |arg1|
+When /^I publish the policy called "([^"]*)"$/ do |title|
+  When %{I visit the list of policies awaiting review}
+  click_link title
   click_button "Publish"
 end
 

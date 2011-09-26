@@ -9,3 +9,5 @@
   %p.written_by
     Written by
     %span.author= @policy.author.name
+
+%div= button_to 'publish', publish_admin_policy_path(@policy), title: "Publish #{@policy.title}"
