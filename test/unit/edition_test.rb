@@ -26,6 +26,13 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
+  test 'should be invalid if policy has existing unpublished editions' do
+    policy = Factory.create(:policy)
+    existing_edition = Factory.create(:draft_edition, policy: policy)
+    edition = Factory.build(:edition, policy: policy)
+    assert_not edition.valid?
+  end
+
   test 'should only return the draft policies' do
     draft_edition = Factory.create(:draft_edition)
     submitted_edition = Factory.create(:submitted_edition)
