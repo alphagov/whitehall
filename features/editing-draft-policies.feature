@@ -3,11 +3,6 @@ In order to send the best version of a policy to the departmental editor
 A policy writer
 Should be able to edit and save draft policies
 
-Scenario: Viewing the list of drafts as a guest
-  When I visit the list of draft policies
-  Then I should be alerted "You're not authorised to view this page"
-  And I should be given the opportunity to login
-
 Scenario: Saving a draft policy
   Given I am logged in as "George"
   And I visit the list of draft policies
