@@ -5,6 +5,14 @@ class Admin::EditionsController < ApplicationController
     @editions = Edition.drafts
   end
 
+  def submitted
+    @editions = Edition.submitted
+  end
+
+  def published
+    @editions = Edition.published
+  end
+
   def show
     @edition = Edition.find(params[:id])
   end
@@ -60,13 +68,5 @@ class Admin::EditionsController < ApplicationController
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to admin_edition_path(edition), alert: "This policy has been edited since you viewed it; you are now viewing the latest version"
-  end
-
-  def submitted
-    @editions = Edition.submitted
-  end
-
-  def published
-    @editions = Edition.published
   end
 end
