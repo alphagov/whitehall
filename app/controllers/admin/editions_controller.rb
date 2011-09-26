@@ -1,5 +1,6 @@
 class Admin::EditionsController < ApplicationController
   before_filter :authenticate!
+  before_filter :find_edition, :only => [:show, :edit, :update, :publish]
 
   def index
     @editions = Edition.drafts
@@ -14,7 +15,6 @@ class Admin::EditionsController < ApplicationController
   end
 
   def show
-    @edition = Edition.find(params[:id])
   end
 
   def new
@@ -32,11 +32,9 @@ class Admin::EditionsController < ApplicationController
   end
 
   def edit
-    @edition = Edition.find(params[:id])
   end
 
   def update
-    @edition = Edition.find(params[:id])
     if @edition.submitted?
       @edition.update_attributes(params[:edition])
       redirect_to submitted_admin_editions_path
@@ -60,13 +58,18 @@ class Admin::EditionsController < ApplicationController
   end
 
   def publish
-    edition = Edition.find(params[:id])
-    if edition.publish_as!(current_user, params[:edition][:lock_version])
+    if @edition.publish_as!(current_user, params[:edition][:lock_version])
       redirect_to submitted_admin_editions_path
     else
-      redirect_to admin_edition_path(edition), alert: edition.errors.full_messages.to_sentence
+      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to admin_edition_path(edition), alert: "This policy has been edited since you viewed it; you are now viewing the latest version"
+    redirect_to admin_edition_path(@edition), alert: "This policy has been edited since you viewed it; you are now viewing the latest version"
+  end
+
+  private
+
+  def find_edition
+    @edition = Edition.find(params[:id])
   end
 end
