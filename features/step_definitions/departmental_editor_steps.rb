@@ -1,5 +1,5 @@
 When /^I visit the list of policies awaiting review$/ do
-  visit submitted_admin_policies_path
+  visit submitted_admin_editions_path
 end
 
 When /^I view the policy titled "([^"]*)"$/ do |title|
@@ -37,7 +37,7 @@ Given /^I open the policy "([^"]*)"$/ do |title|
 end
 
 When /^another user changes the title from "([^"]*)" to "([^"]*)"$/ do |old_title, new_title|
-  policy = Policy.find_by_title(old_title)
+  policy = Edition.find_by_title(old_title)
   policy.update_attributes(:title => new_title)
 end
 

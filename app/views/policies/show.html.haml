@@ -3,9 +3,9 @@
   =link_to 'policies', policies_path
 
 .policy_document
-  %h1.title= @policy.title
+  %h1.title= @edition.title
   %div.body
-    = @policy.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
+    = @edition.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
   %p.written_by
     Written by
-    %span.author= @policy.author.name
+    %span.author= @edition.author.name

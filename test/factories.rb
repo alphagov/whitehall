@@ -1,15 +1,15 @@
 FactoryGirl.define do
-  factory :policy do
+  factory :edition do
     author
-    title 'policy-title'
-    body  'policy-body'
+    title 'edition-title'
+    body  'edition-body'
   end
 
-  factory :draft_policy, parent: :policy do
+  factory :draft_edition, parent: :edition do
     submitted false
   end
   
-  factory :submitted_policy, parent: :policy do
+  factory :submitted_edition, parent: :edition do
     submitted true
   end
 

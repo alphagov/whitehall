@@ -18,10 +18,10 @@ module NavigationHelpers
     #     user_profile_path(User.find_by_login($1))
 
     when /^the new policy page$/
-      new_admin_policy_path
+      new_admin_edition_path
 
     when /^the policies admin page$/
-      admin_policies_path
+      admin_editions_path
 
     else
       begin

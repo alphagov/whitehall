@@ -1,4 +1,4 @@
-class Policy < ActiveRecord::Base
+class Edition < ActiveRecord::Base
   belongs_to :author, class_name: "User"
 
   scope :drafts, where(submitted: false)

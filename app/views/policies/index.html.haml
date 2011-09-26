@@ -11,10 +11,10 @@
         %th Title
         %th Author
     %tbody
-      - @policies.each do |policy|
+      - @editions.each do |edition|
         %tr.policy
-          %td.title= link_to policy.title, policy_path(policy), title: "View #{policy.title}"
-          %td.author= policy.author.name
-      - if @policies.empty?
+          %td.title= link_to edition.title, policy_path(edition), title: "View #{edition.title}"
+          %td.author= edition.author.name
+      - if @editions.empty?
         %tr
           %td{colspan: 2} Our authors have not published any policies at present.

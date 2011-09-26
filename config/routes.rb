@@ -3,8 +3,8 @@ Whitehall::Application.routes.draw do
   resources :policies, only: [:index, :show]
 
   namespace :admin do
-    root to: 'policies#index'
-    resources :policies, except: [:destroy] do
+    root to: 'editions#index'
+    resources :editions, except: [:destroy] do
       collection do
         get :submitted
       end

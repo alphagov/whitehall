@@ -1,0 +1,16 @@
+%p.inset
+  back to
+  =link_to 'submitted policies', submitted_admin_editions_path
+
+.policy
+  %h1.title= @edition.title
+  %div.body
+    = @edition.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
+  %p.written_by
+    Written by
+    %span.author= @edition.author.name
+
+%div
+  = form_for [:admin, @edition], {:url => publish_admin_edition_path(@edition)} do |edition_form|
+    = edition_form.hidden_field :lock_version
+    = edition_form.submit "Publish", :title => "Public #{@edition.title}"

@@ -1,9 +1,9 @@
 class PoliciesController < ApplicationController
   def index
-    @policies = Policy.published
+    @editions = Edition.published
   end
 
   def show
-    @policy = Policy.find(params[:id])
+    @edition = Edition.find(params[:id])
   end
 end
