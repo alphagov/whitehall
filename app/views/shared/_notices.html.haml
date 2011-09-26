@@ -1,4 +1,4 @@
 - if flash[:alert]
-  .flash.alert= flash[:alert]
+  .flash.alert= flash[:alert].html_safe
 - if flash[:notice]
   .flash.notice= flash[:notice]

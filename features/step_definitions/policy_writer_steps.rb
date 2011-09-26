@@ -69,5 +69,7 @@ Then /^I should be alerted that the policy has been changed$/ do
 end
 
 Then /^I should be alerted that the policy has been saved while I was editing$/ do
-  Then %{I should be alerted "This policy has been saved since you opened it. You probably want to copy your changes into a text editor and reload to see the latest version"}
+  edition_path = page.current_path
+  edit_edition_path = (edition_path + '/edit').gsub('/', '\/')
+  Then %{I should be alerted with a message including "This policy has been saved since you opened it."}
 end

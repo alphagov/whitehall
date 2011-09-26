@@ -47,7 +47,7 @@ class Admin::EditionsController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    flash.now[:alert] = "This policy has been saved since you opened it. You probably want to copy your changes into a text editor and reload to see the latest version"
+    flash.now[:alert] = %{This policy has been saved since you opened it. You probably want to copy your changes into a text editor and <a href="#{edit_admin_edition_path(@edition)}">load the latest version</a>.}
     render action: 'edit'
   end
 
@@ -65,7 +65,7 @@ class Admin::EditionsController < ApplicationController
   def submitted
     @editions = Edition.submitted
   end
-  
+
   def published
     @editions = Edition.published
   end
