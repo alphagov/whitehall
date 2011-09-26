@@ -2,7 +2,7 @@ development:
   adapter: mysql2
   database: whitehall_development
   username: root
-  password:
+  password: <%= ENV["WHITEHALL_DB_PASSWORD"] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -11,7 +11,7 @@ test: &test
   adapter: mysql2
   database: whitehall_test
   username: root
-  password: <%= ENV["WHITEHALL_TEST_DB_PASSWORD"] %>
+  password: <%= ENV["WHITEHALL_DB_PASSWORD"] %>
 
 production:
   adapter: mysql2
