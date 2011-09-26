@@ -56,7 +56,9 @@ class Admin::EditionsController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    flash.now[:alert] = %{This policy has been saved since you opened it. You probably want to copy your changes into a text editor and <a href="#{edit_admin_edition_path(@edition)}">load the latest version</a>.}
+    flash.now[:alert] = %{This policy has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it.}
+    @conflicting_edition = Edition.find(params[:id])
+    @edition.lock_version = @conflicting_edition.lock_version
     render action: 'edit'
   end
 

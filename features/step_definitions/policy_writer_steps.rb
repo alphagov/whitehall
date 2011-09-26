@@ -69,7 +69,18 @@ Then /^I should be alerted that the policy has been changed$/ do
 end
 
 Then /^I should be alerted that the policy has been saved while I was editing$/ do
-  edition_path = page.current_path
-  edit_edition_path = (edition_path + '/edit').gsub('/', '\/')
-  Then %{I should be alerted with a message including "This policy has been saved since you opened it."}
+  Then %{I should be alerted "This policy has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it."}
+end
+
+Then /^I should see the "([^"]*)" version and the "([^"]*)" version of the policy side\-by\-side$/ do |new_title, latest_title|
+  assert page.has_css?(".conflicting.new #edition_title", value: new_title)
+  assert page.has_css?(".conflicting.latest #edition_title", value: latest_title)
+end
+
+When /^I change my version of the policy title to "([^"]*)"$/ do |new_title|
+  fill_in 'Title', with: new_title
+end
+
+Then /^I should be notified that the policy has been saved successfully$/ do
+  Then %{I should be notified "The policy has been saved"}
 end

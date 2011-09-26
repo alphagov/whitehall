@@ -1,18 +1,19 @@
-= form_for [:admin, @edition] do |edition_form|
-  - if @edition.errors.any?
+= form_for [:admin, edition] do |edition_form|
+  - if edition.errors.any?
     %p To save the edition please fix the following issues:
     %ul#errors
-      - @edition.errors.full_messages.each do |msg|
+      - edition.errors.full_messages.each do |msg|
         %li= msg
 
   = edition_form.hidden_field :lock_version
   = edition_form.label :title
-  = edition_form.text_field :title
+  = edition_form.text_field :title, disabled: disabled
   = edition_form.label :body, 'Policy'
-  = edition_form.text_area :body
-  -unless @edition.submitted?
-    = labelled_check_box :edition, :submitted, 'Submit to second set of eyes'
-  = edition_form.submit 'Save'
-  %span.or_cancel
-    or
-    =link_to 'cancel', (edition_form.object.submitted? ? submitted_admin_editions_path : admin_editions_path)
+  = edition_form.text_area :body, disabled: disabled
+  - unless disabled
+    -unless edition.submitted?
+      = labelled_check_box :edition, :submitted, 'Submit to second set of eyes'
+    = edition_form.submit 'Save'
+    %span.or_cancel
+      or
+      =link_to 'cancel', (edition_form.object.submitted? ? submitted_admin_editions_path : admin_editions_path)

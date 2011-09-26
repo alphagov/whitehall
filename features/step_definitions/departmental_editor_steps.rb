@@ -36,11 +36,6 @@ Given /^I open the policy "([^"]*)"$/ do |title|
   click_link title
 end
 
-When /^another user changes the title from "([^"]*)" to "([^"]*)"$/ do |old_title, new_title|
-  policy = Edition.find_by_title(old_title)
-  policy.update_attributes(:title => new_title)
-end
-
 When /^I press publish$/ do
   click_button "Publish"
 end

@@ -108,17 +108,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the policy', flash.now[:alert]
   end
 
-  test 'updating where someone has saved in the interim should include a link to reload in the flash' do
-    attributes = FactoryGirl.attributes_for(:edition)
-    edition = FactoryGirl.create(:edition, attributes)
-    stale_lock_version = edition.lock_version
-    edition.update_attributes(title: edition.title + " update")
-
-    post :update, id: edition.to_param, edition: attributes.merge(lock_version: stale_lock_version)
-
-    assert_match Regexp.new(%{<a href="#{edit_admin_edition_path(edition)}">load the latest version</a>}), flash.now[:alert]
-  end
-
   test 'viewing the list of submitted policies should not show draft policies' do
     draft_edition = Factory.create(:draft_edition)
     get :submitted

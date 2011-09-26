@@ -1,2 +1,8 @@
 %h1 Edit policy
-= render partial: "form"
+- if @conflicting_edition
+  .conflicting.new
+    = render partial: "form", locals: {disabled: false, edition: @edition}
+  .conflicting.latest
+    = render partial: "form", locals: {disabled: true, edition: @conflicting_edition}
+- else
+  = render partial: "form", locals: {disabled: false, edition: @edition}

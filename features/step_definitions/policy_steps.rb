@@ -16,3 +16,8 @@ Then /^the policy "([^"]*)" should( not)? be visible to the public$/ do |policy_
     assert page.has_no_css?(*published_policy_selector)
   end
 end
+
+When /^another user changes the title from "([^"]*)" to "([^"]*)"$/ do |old_title, new_title|
+  policy = Edition.find_by_title(old_title)
+  policy.update_attributes(:title => new_title)
+end
