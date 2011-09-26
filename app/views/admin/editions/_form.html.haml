@@ -5,6 +5,7 @@
       - @edition.errors.full_messages.each do |msg|
         %li= msg
 
+  = edition_form.hidden_field :lock_version
   = edition_form.label :title
   = edition_form.text_field :title
   = edition_form.label :body, 'Policy'

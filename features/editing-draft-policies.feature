@@ -52,3 +52,12 @@ Scenario: Entering invalid data
   And I visit the new policy page
   When I write and save a policy called "Britons on the Moon" with body ""
   Then I should be alerted "There are some problems with the policy"
+
+Scenario: Trying to save a policy that has been changed by another user
+  Given I am logged in as "George"
+  And I have written a policy called "Legalise beards"
+  And I visit the list of draft policies
+  And I click edit for the policy "Legalise beards"
+  When another user changes the body for "Legalise beards" to "Hair is good!"
+  And I press save
+  Then I should be alerted that the policy has been changed

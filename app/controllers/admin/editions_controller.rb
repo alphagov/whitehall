@@ -46,6 +46,9 @@ class Admin::EditionsController < ApplicationController
         render action: 'edit'
       end
     end
+  rescue ActiveRecord::StaleObjectError
+    flash.now[:alert] = "This policy has been edited since you viewed it; you are now viewing the latest version"
+    render action: 'edit'
   end
 
   def publish

@@ -54,3 +54,12 @@ Given /^I submit the policy for the second set of eyes$/ do
   check 'Submit to second set of eyes'
   click_button 'Save'
 end
+
+When /^another user changes the body for "([^"]*)" to "([^"]*)"$/ do |title, new_body|
+  policy = Edition.find_by_title(title)
+  policy.update_attributes(:body => new_body)
+end
+
+When /^I press save$/ do
+  click_button 'Save'
+end
