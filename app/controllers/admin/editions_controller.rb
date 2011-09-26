@@ -47,7 +47,7 @@ class Admin::EditionsController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    flash.now[:alert] = "This policy has been edited since you viewed it; you are now viewing the latest version"
+    flash.now[:alert] = "This policy has been saved since you opened it. You probably want to copy your changes into a text editor and reload to see the latest version"
     render action: 'edit'
   end
 

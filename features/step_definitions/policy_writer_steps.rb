@@ -63,3 +63,11 @@ end
 When /^I press save$/ do
   click_button 'Save'
 end
+
+Then /^I should be alerted that the policy has been changed$/ do
+  Then %{I should be alerted "This policy has been edited since you viewed it; you are now viewing the latest version"}
+end
+
+Then /^I should be alerted that the policy has been saved while I was editing$/ do
+  Then %{I should be alerted "This policy has been saved since you opened it. You probably want to copy your changes into a text editor and reload to see the latest version"}
+end

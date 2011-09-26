@@ -60,4 +60,4 @@ Scenario: Trying to save a policy that has been changed by another user
   And I click edit for the policy "Legalise beards"
   When another user changes the body for "Legalise beards" to "Hair is good!"
   And I press save
-  Then I should be alerted that the policy has been changed
+  Then I should be alerted that the policy has been saved while I was editing
