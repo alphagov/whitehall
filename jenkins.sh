@@ -2,4 +2,4 @@
 source '/usr/local/lib/rvm'
 export GEM_HOME="/home/jenkins/bundles/${JOB_NAME}"
 mkdir -p "${GEM_HOME}"
-bundle install && bundle exec rake db:create db:migrate test --trace
+bundle install && bundle exec rake db:create db:migrate test cucumber --trace
