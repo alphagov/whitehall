@@ -69,8 +69,9 @@ class PolicyTest < ActiveSupport::TestCase
     other_instance = Policy.find(policy.id)
     other_instance.update_attributes(title: "new title")
 
-    assert_not policy.publish_as!(editor, policy.lock_version)
+    assert_raises(ActiveRecord::StaleObjectError) do
+      assert_not policy.publish_as!(editor, policy.lock_version)
+    end
     assert_not Policy.find(policy.id).published?
-    assert_equal ["This policy has been edited since you viewed it"], policy.errors.full_messages
   end
 end

@@ -16,8 +16,5 @@ class Policy < ActiveRecord::Base
       update_attributes(published: true, lock_version: lock_version)
     end
     errors.empty?
-  rescue ActiveRecord::StaleObjectError
-    errors.add(:base, "This policy has been edited since you viewed it")
-    false
   end
 end

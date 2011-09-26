@@ -46,5 +46,5 @@ When /^I press publish$/ do
 end
 
 Then /^I should be alerted that the policy has been changed$/ do
-  Then %{I should be alerted "This policy has been edited since you viewed it"}
+  Then %{I should be alerted "This policy has been edited since you viewed it; you are now viewing the latest version"}
 end

@@ -55,6 +55,8 @@ class Admin::PoliciesController < ApplicationController
     else
       redirect_to admin_policy_path(policy), alert: policy.errors.full_messages.to_sentence
     end
+  rescue ActiveRecord::StaleObjectError
+    redirect_to admin_policy_path(policy), alert: "This policy has been edited since you viewed it; you are now viewing the latest version"
   end
 
   def submitted
