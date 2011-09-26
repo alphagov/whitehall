@@ -35,4 +35,5 @@ group :test do
   gem 'database_cleaner', '~> 0.5.2'
   gem 'factory_girl', '~> 2.1.0'
   gem 'launchy', '~> 2.0.5'
+  gem 'mocha'
 end

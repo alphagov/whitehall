@@ -7,6 +7,7 @@ Whitehall::Application.routes.draw do
     resources :editions, except: [:destroy] do
       collection do
         get :submitted
+        get :published
       end
       member do
         put :publish

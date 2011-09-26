@@ -8,9 +8,13 @@ FactoryGirl.define do
   factory :draft_edition, parent: :edition do
     submitted false
   end
-  
+
   factory :submitted_edition, parent: :edition do
     submitted true
+  end
+
+  factory :published_edition, parent: :edition do
+    published true
   end
 
   factory :user, aliases: [:author] do

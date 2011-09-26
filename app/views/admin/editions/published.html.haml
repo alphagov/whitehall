@@ -1,0 +1,14 @@
+=render partial: 'index_heading'
+
+%section.resource_list
+  %h1 Published
+  %table#published_policies
+    %thead
+      %tr
+        %th Title
+        %th Author
+    %tbody
+    - @editions.each do |edition|
+      %tr.policy
+        %td.title= link_to edition.title, admin_edition_path(edition), title: "Show #{edition.title}"
+        %td.author= edition.author.name

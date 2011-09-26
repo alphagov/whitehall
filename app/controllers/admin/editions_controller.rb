@@ -65,4 +65,8 @@ class Admin::EditionsController < ApplicationController
   def submitted
     @editions = Edition.submitted
   end
+  
+  def published
+    @editions = Edition.published
+  end
 end
