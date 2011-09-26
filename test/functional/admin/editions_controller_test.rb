@@ -9,6 +9,18 @@ class Admin::EditionsControllerAuthenticationTest < ActionController::TestCase
     assert_login_required
   end
 
+  test 'guests should not be able to access published' do
+    get :published
+
+    assert_login_required
+  end
+
+  test 'guests should not be able to access submitted' do
+    get :submitted
+
+    assert_login_required
+  end
+
   test 'guests should not be able to access new' do
     get :new
 
