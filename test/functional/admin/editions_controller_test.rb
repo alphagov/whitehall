@@ -123,13 +123,12 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'viewing the list of published policies should only show published policies' do
-    published_editions = [FactoryGirl.build(:published_edition, id: 1)]
-    Edition.stubs(published: published_editions)
+    published_editions = [FactoryGirl.create(:published_edition)]
     get :published
 
     assert_equal published_editions, assigns(:editions)
   end
-
+    
   test 'publishing should redirect back to submitted policies' do
     submitted_edition = Factory.create(:submitted_edition)
     login_as "Eddie", departmental_editor: true
