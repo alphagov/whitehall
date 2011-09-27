@@ -54,11 +54,18 @@ class Admin::EditionsControllerAuthenticationTest < ActionController::TestCase
 
     assert_login_required
   end
+
+  test 'guests should not be able to access revise' do
+    edition = FactoryGirl.create(:edition)
+    post :revise, id: edition.to_param
+
+    assert_login_required
+  end
 end
 
 class Admin::EditionsControllerTest < ActionController::TestCase
   setup do
-    login_as "George"
+    @user = login_as "George"
   end
 
   test 'saving should leave the writer in the policy editor' do
@@ -180,5 +187,24 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     put :update, id: submitted_edition.to_param, edition: attributes.merge(:title => '')
 
     assert_template 'edit'
+  end
+
+  test "revising a published edition redirects to edit for the new draft" do
+    published_edition = Factory.create(:published_edition)
+
+    post :revise, id: published_edition.to_param
+
+    draft_edition = Edition.last
+    assert_redirected_to edit_admin_edition_path(draft_edition.reload)
+  end
+
+  test "failing to revise an edition should redirect to the existing draft" do
+    published_edition = Factory.create(:published_edition)
+    existing_draft = Factory.create(:draft_edition, policy: published_edition.policy)
+
+    post :revise, id: published_edition.to_param
+
+    assert_redirected_to edit_admin_edition_path(existing_draft)
+    assert_equal "There's already a draft policy", flash[:alert]
   end
 end

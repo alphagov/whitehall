@@ -86,4 +86,17 @@ class EditionTest < ActiveSupport::TestCase
     end
     assert_not Edition.find(edition.id).published?
   end
+
+  test 'should build a draft copy of the existing edition with the supplied author' do
+    published_edition = Factory.create(:published_edition)
+    new_author = Factory.create(:author)
+    draft_edition = published_edition.build_draft(new_author)
+
+    assert draft_edition.new_record?
+    assert_not draft_edition.published?
+    assert_not draft_edition.submitted?
+    assert_equal new_author, draft_edition.author
+    assert_equal published_edition.title, draft_edition.title
+    assert_equal published_edition.body, draft_edition.body
+  end
 end

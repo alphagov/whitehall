@@ -21,3 +21,28 @@ When /^another user changes the title from "([^"]*)" to "([^"]*)"$/ do |old_titl
   policy = Edition.find_by_title(old_title)
   policy.update_attributes(:title => new_title)
 end
+
+Given /^a published policy exists$/ do
+  @policy = FactoryGirl.create(:published_edition)
+end
+
+When /^I create a new edition of the published policy$/ do
+  Given %{I visit the list of published policies}
+  click_button 'Create new draft'
+end
+
+Given /^I visit the list of published policies$/ do
+  visit published_admin_editions_path
+end
+
+When /^I edit the new edition$/ do
+  fill_in 'Title', with: "New title"
+  fill_in 'Policy', with: "New policy"
+  click_button 'Save'
+end
+
+Then /^the published policy should remain unchanged$/ do
+  visit policy_path(@policy)
+  assert page.has_css?('.policy_document .title', text: @policy.title)
+  assert page.has_css?('.policy_document .body', text: @policy.body)
+end

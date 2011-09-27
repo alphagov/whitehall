@@ -28,4 +28,9 @@ class Edition < ActiveRecord::Base
     end
     errors.empty?
   end
+
+  def build_draft(user)
+    draft_attributes = {published: false, submitted: false, author: user}
+    self.class.new(attributes.merge(draft_attributes))
+  end
 end

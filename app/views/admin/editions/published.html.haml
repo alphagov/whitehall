@@ -7,8 +7,11 @@
       %tr
         %th Title
         %th Author
+        %th Actions
     %tbody
     - @editions.each do |edition|
       %tr.policy
         %td.title= link_to edition.title, admin_edition_path(edition), title: "Show #{edition.title}"
         %td.author= edition.author.name
+        %td.actions
+          = button_to 'Create new draft', revise_admin_edition_path(edition), title: "Create new draft"

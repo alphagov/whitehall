@@ -1,6 +1,6 @@
 class Admin::EditionsController < ApplicationController
   before_filter :authenticate!
-  before_filter :find_edition, only: [:show, :edit, :update, :publish]
+  before_filter :find_edition, only: [:show, :edit, :update, :publish, :revise]
 
   def index
     @editions = Edition.drafts
@@ -70,6 +70,16 @@ class Admin::EditionsController < ApplicationController
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to admin_edition_path(@edition), alert: "This policy has been edited since you viewed it; you are now viewing the latest version"
+  end
+
+  def revise
+    edition = @edition.build_draft(current_user)
+    if edition.save
+      redirect_to edit_admin_edition_path(edition)
+    else
+      redirect_to edit_admin_edition_path(@edition.policy.editions.unpublished.first),
+        alert: "There's already a draft policy"
+    end
   end
 
   private
