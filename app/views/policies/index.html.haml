@@ -13,7 +13,7 @@
     %tbody
       - @editions.each do |edition|
         %tr.policy
-          %td.title= link_to edition.title, policy_path(edition), title: "View #{edition.title}"
+          %td.title= link_to edition.title, policy_path(edition.policy), title: "View #{edition.title}"
           %td.author= edition.author.name
       - if @editions.empty?
         %tr

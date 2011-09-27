@@ -33,6 +33,13 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
+  test 'should be invalid when published if policy has existing published editions' do
+    policy = Factory.create(:policy)
+    existing_edition = Factory.create(:published_edition, policy: policy)
+    edition = Factory.build(:published_edition, policy: policy)
+    assert_not edition.valid?
+  end
+
   test 'should only return unsubmitted draft policies' do
     draft_edition = Factory.create(:draft_edition)
     submitted_edition = Factory.create(:submitted_edition)
@@ -91,6 +98,17 @@ class EditionTest < ActiveSupport::TestCase
       assert_not edition.publish_as!(editor, edition.lock_version)
     end
     assert_not Edition.find(edition.id).published?
+  end
+
+  test 'should archive earlier editions on publication' do
+    published_edition = Factory.create(:published_edition)
+    author = Factory.create(:policy_writer)
+    edition = Factory.create(:submitted_edition, policy: published_edition.policy, author: author)
+    editor = Factory.create(:departmental_editor)
+    edition.publish_as!(editor)
+
+    published_edition.reload
+    assert published_edition.archived?
   end
 
   test 'should build a draft copy of the existing edition with the supplied author' do

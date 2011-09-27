@@ -23,7 +23,7 @@ When /^another user changes the title from "([^"]*)" to "([^"]*)"$/ do |old_titl
 end
 
 Given /^a published policy exists$/ do
-  @policy = FactoryGirl.create(:published_edition)
+  @edition = FactoryGirl.create(:published_edition)
 end
 
 When /^I create a new edition of the published policy$/ do
@@ -42,7 +42,7 @@ When /^I edit the new edition$/ do
 end
 
 Then /^the published policy should remain unchanged$/ do
-  visit policy_path(@policy)
-  assert page.has_css?('.policy_document .title', text: @policy.title)
-  assert page.has_css?('.policy_document .body', text: @policy.body)
+  visit policy_path(@edition.policy)
+  assert page.has_css?('.policy_document .title', text: @edition.title)
+  assert page.has_css?('.policy_document .body', text: @edition.body)
 end

@@ -22,6 +22,10 @@ FactoryGirl.define do
     state 'published'
   end
 
+  factory :archived_edition, parent: :edition do
+    state 'archived'
+  end
+
   factory :user, aliases: [:author] do
     name 'Daaaaaaave'
   end

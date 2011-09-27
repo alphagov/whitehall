@@ -22,7 +22,7 @@ class ActionController::TestCase
     session[:user_id] = user.id
     user
   end
-  
+
   def assert_login_required
     assert_redirected_to login_path
   end

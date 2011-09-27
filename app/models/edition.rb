@@ -5,9 +5,14 @@ class Edition < ActiveRecord::Base
   state_machine do
     state :draft
     state :published
+    state :archived
 
-    event :publish do
+    event :publish, :success => :archive_previous_editions do
       transitions from: :draft, to: :published
+    end
+
+    event :archive do
+      transitions from: :published, to: :archived
     end
   end
 
@@ -15,6 +20,14 @@ class Edition < ActiveRecord::Base
     def validate(record)
       if record.policy && record.policy.editions.draft.any?
         record.errors.add(:policy, "has existing unpublished editions")
+      end
+    end
+  end
+
+  class PolicyHasNoOtherPublishedEditionsValidator
+    def validate(record)
+      if record.published? && record.policy && record.policy.editions.published.any?
+        record.errors.add(:policy, "has existing published editions")
       end
     end
   end
@@ -29,6 +42,7 @@ class Edition < ActiveRecord::Base
 
   validates_presence_of :title, :body, :author, :policy
   validates_with PolicyHasNoUnpublishedEditionsValidator, on: :create
+  validates_with PolicyHasNoOtherPublishedEditionsValidator, on: :create
 
   def publish_as!(user, lock_version = self.lock_version)
     if !submitted?
@@ -51,5 +65,11 @@ class Edition < ActiveRecord::Base
   def build_draft(user)
     draft_attributes = {state: "draft", author: user}
     self.class.new(attributes.merge(draft_attributes))
+  end
+
+  def archive_previous_editions
+    policy.editions.published.each do |edition|
+      edition.archive! unless edition == self
+    end
   end
 end
