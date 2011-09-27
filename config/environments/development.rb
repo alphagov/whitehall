@@ -27,4 +27,8 @@ Whitehall::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  config.whitehall.domain = 'whitehall.local'
+  
+  config.action_mailer.default_url_options = { :host => config.whitehall.domain }
 end

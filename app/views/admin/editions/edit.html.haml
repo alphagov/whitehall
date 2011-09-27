@@ -6,3 +6,10 @@
     = render partial: "form", locals: {disabled: true, edition: @conflicting_edition}
 - else
   = render partial: "form", locals: {disabled: false, edition: @edition}
+  %hr
+  %section
+    %h1 Request fact checking
+    = form_tag fact_check_admin_edition_path(@edition), method: :put do
+      = label_tag :email_address, 'Email address'
+      = text_field_tag :email_address
+      = submit_tag 'Request fact checking'

@@ -1,6 +1,6 @@
 class Admin::EditionsController < ApplicationController
   before_filter :authenticate!
-  before_filter :find_edition, only: [:show, :edit, :update, :publish, :revise]
+  before_filter :find_edition, only: [:show, :edit, :update, :publish, :revise, :fact_check]
 
   def index
     @editions = Edition.drafts
@@ -79,6 +79,17 @@ class Admin::EditionsController < ApplicationController
     else
       redirect_to edit_admin_edition_path(@edition.policy.editions.unpublished.first),
         alert: "There's already a draft policy"
+    end
+  end
+  
+  def fact_check
+    if params[:email_address].present?
+      Notifications.fact_check(@edition, params[:email_address]).deliver
+      redirect_to edit_admin_edition_path(@edition),
+        notice: "The policy has been sent to #{params[:email_address]}"
+    else
+      redirect_to edit_admin_edition_path(@edition),
+        alert: "Please enter the email address of the fact checker"
     end
   end
 

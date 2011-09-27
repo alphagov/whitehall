@@ -1,9 +1,19 @@
+Given /^I have written a draft policy$/ do
+  @edition = FactoryGirl.create(:draft_edition)
+end
+
 When /^I visit the new policy page$/ do
   visit new_admin_edition_path
 end
 
 When /^I write and save a policy called "([^"]*)" with body$/ do |title, body|
   When %{I write and save a policy called "#{title}" with body "#{body}"}
+end
+
+When /^I request that "([^"]*)" fact checks the policy$/ do |email_address|
+  visit edit_admin_edition_path(@edition)
+  fill_in "Email address", :with => email_address
+  click_button "Request fact checking"
 end
 
 When /^I write and save a policy called "([^"]*)" with body "([^"]*)"$/ do |title, body|

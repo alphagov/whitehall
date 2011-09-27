@@ -12,6 +12,7 @@ Whitehall::Application.routes.draw do
       member do
         put :publish
         post :revise
+        put :fact_check
       end
     end
   end
