@@ -45,9 +45,15 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [submitted_edition], Edition.submitted
   end
 
+  test 'should not be publishable when not submitted' do
+    edition = FactoryGirl.create(:draft_edition)
+    edition.publish_as!(FactoryGirl.create(:departmental_editor))
+    assert_not edition.published?
+  end
+
   test 'should not be publishable by the author' do
     author = Factory.create(:departmental_editor)
-    edition = Factory.create(:edition, author: author)
+    edition = Factory.create(:submitted_edition, author: author)
     assert_not edition.publish_as!(author)
     assert_not edition.published?
     assert_equal ["You are not the second set of eyes"], edition.errors.full_messages
@@ -55,7 +61,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test 'should be publishable by departmental editors' do
     author = Factory.create(:policy_writer)
-    edition = Factory.create(:edition, author: author)
+    edition = Factory.create(:submitted_edition, author: author)
     other_user = Factory.create(:departmental_editor)
     assert edition.publish_as!(other_user)
     assert edition.published?
@@ -76,7 +82,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test 'should not be publishable if lock version is not current' do
     editor = Factory.create(:departmental_editor)
-    edition = Factory.create(:edition, title: "old title")
+    edition = Factory.create(:submitted_edition, title: "old title")
 
     other_instance = Edition.find(edition.id)
     other_instance.update_attributes(title: "new title")
@@ -99,4 +105,29 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal published_edition.title, draft_edition.title
     assert_equal published_edition.body, draft_edition.body
   end
+
+  test 'when initially created' do
+    edition = FactoryGirl.create(:edition)
+    assert edition.draft?
+    assert_not edition.submitted?
+    assert_not edition.published?
+  end
+
+  test 'when submitted' do
+    edition = FactoryGirl.create(:edition)
+    edition.update_attributes!(submitted: true)
+    assert edition.draft?
+    assert edition.submitted?
+    assert_not edition.published?
+  end
+
+  test 'when published' do
+    edition = FactoryGirl.create(:edition)
+    edition.update_attributes!(submitted: true)
+    edition.publish_as!(FactoryGirl.create(:departmental_editor))
+    assert_not edition.draft?
+    assert edition.submitted?
+    assert edition.published?
+  end
+
 end

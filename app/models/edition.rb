@@ -19,7 +19,9 @@ class Edition < ActiveRecord::Base
   validates_with PolicyHasNoUnpublishedEditionsValidator, on: :create
 
   def publish_as!(user, lock_version = self.lock_version)
-    if user == author
+    if !submitted?
+      errors.add(:base, "Not ready for publication")
+    elsif user == author
       errors.add(:base, "You are not the second set of eyes")
     elsif !user.departmental_editor?
       errors.add(:base, "Only departmental editors can publish policies")
@@ -27,6 +29,10 @@ class Edition < ActiveRecord::Base
       update_attributes(published: true, lock_version: lock_version)
     end
     errors.empty?
+  end
+
+  def draft?
+    !published?
   end
 
   def build_draft(user)
