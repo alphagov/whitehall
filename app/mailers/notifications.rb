@@ -1,5 +1,5 @@
 class Notifications < ActionMailer::Base
-  default from: "fact-check-request@#{Whitehall.host}"
+  default from: "fact-check-request@#{Whitehall.domain}"
 
   def fact_check(policy, to)
     @policy = policy

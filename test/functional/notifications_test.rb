@@ -14,7 +14,7 @@ class NotificationsTest < ActionMailer::TestCase
   end
   
   test "fact check should be sent from a generic email address" do
-    assert_equal ["fact-check-request@#{Whitehall.host}"], @mail.from
+    assert_equal ["fact-check-request@#{Whitehall.domain}"], @mail.from
   end
   
   test "fact check subject" do
