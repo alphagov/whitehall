@@ -24,5 +24,5 @@ alice.editions.create! title: "Less gravity on Sundays", body: random_policy_tex
 clive.editions.create! title: "Ducks pulling chariots of fire", body: random_policy_text(4), submitted: true, policy: Policy.new
 
 # Published policies
-clive.editions.create! title: "No more supernanny", body: random_policy_text, published: true, policy: Policy.new
-alice.editions.create! title: "Laser eyes for millionaires", body: random_policy_text, published: true, policy: Policy.new
+clive.editions.create! title: "No more supernanny", body: random_policy_text, state: 'published', policy: Policy.new
+alice.editions.create! title: "Laser eyes for millionaires", body: random_policy_text, state: 'published', policy: Policy.new
