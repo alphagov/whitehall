@@ -17,6 +17,7 @@ end
 
 gem 'jquery-rails'
 gem 'haml', '~> 3.1.3'
+gem 'transitions', require: ['transitions', 'active_record/transitions']
 
 # Use unicorn as the web server
 # gem 'unicorn'

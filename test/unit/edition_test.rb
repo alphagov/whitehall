@@ -33,10 +33,10 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
-  test 'should only return the draft policies' do
+  test 'should only return unsubmitted draft policies' do
     draft_edition = Factory.create(:draft_edition)
     submitted_edition = Factory.create(:submitted_edition)
-    assert_equal [draft_edition], Edition.drafts
+    assert_equal [draft_edition], Edition.unsubmitted
   end
 
   test 'should only return the submitted policies' do
@@ -114,19 +114,16 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'when submitted' do
-    edition = FactoryGirl.create(:edition)
-    edition.update_attributes!(submitted: true)
+    edition = FactoryGirl.create(:submitted_edition)
     assert edition.draft?
     assert edition.submitted?
     assert_not edition.published?
   end
 
   test 'when published' do
-    edition = FactoryGirl.create(:edition)
-    edition.update_attributes!(submitted: true)
+    edition = FactoryGirl.create(:submitted_edition)
     edition.publish_as!(FactoryGirl.create(:departmental_editor))
     assert_not edition.draft?
-    assert edition.submitted?
     assert edition.published?
   end
 

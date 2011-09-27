@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :policy do
   end
-  
+
   factory :edition do
     policy
     author
@@ -10,15 +10,16 @@ FactoryGirl.define do
   end
 
   factory :draft_edition, parent: :edition do
-    submitted false
+    state 'draft'
   end
 
   factory :submitted_edition, parent: :edition do
+    state 'draft'
     submitted true
   end
 
   factory :published_edition, parent: :edition do
-    published true
+    state 'published'
   end
 
   factory :user, aliases: [:author] do

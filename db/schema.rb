@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110926144536) do
+ActiveRecord::Schema.define(:version => 20110927140904) do
 
   create_table "editions", :force => true do |t|
     t.string   "title"
@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(:version => 20110926144536) do
     t.datetime "updated_at"
     t.integer  "author_id"
     t.boolean  "submitted",    :default => false
-    t.boolean  "published",    :default => false
     t.integer  "lock_version", :default => 0
     t.integer  "policy_id"
+    t.string   "state",        :default => "draft", :null => false
   end
 
   create_table "policies", :force => true do |t|

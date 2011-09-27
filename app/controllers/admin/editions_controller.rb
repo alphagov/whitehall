@@ -3,7 +3,7 @@ class Admin::EditionsController < ApplicationController
   before_filter :find_edition, only: [:show, :edit, :update, :publish, :revise, :fact_check]
 
   def index
-    @editions = Edition.drafts
+    @editions = Edition.unsubmitted
   end
 
   def submitted
@@ -77,7 +77,7 @@ class Admin::EditionsController < ApplicationController
     if edition.save
       redirect_to edit_admin_edition_path(edition)
     else
-      redirect_to edit_admin_edition_path(@edition.policy.editions.unpublished.first),
+      redirect_to edit_admin_edition_path(@edition.policy.editions.draft.first),
         alert: "There's already a draft policy"
     end
   end
