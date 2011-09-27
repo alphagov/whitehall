@@ -4,5 +4,7 @@ Whitehall::Application.configure do
   # Compile assets on the fly if they're missing on staging
   config.assets.compile = true
 
+  config.action_mailer.smtp_settings = {:enable_starttls_auto => false}
+
   config.whitehall.host = 'whitehall.staging.alphagov.co.uk:8080'
 end
