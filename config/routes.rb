@@ -16,7 +16,7 @@ Whitehall::Application.routes.draw do
   end
 
   resource :session, only: [:create, :destroy]
-  match 'login' => 'sessions#new', :via => :get
-  match 'logout' => 'sessions#destroy', :via => :post
+  match 'login' => 'sessions#new', via: :get
+  match 'logout' => 'sessions#destroy', via: :post
   match 'styleguide' => 'styleguide#index'
 end

@@ -16,7 +16,7 @@ class Edition < ActiveRecord::Base
   scope :unpublished, where(published: false)
 
   validates_presence_of :title, :body, :author, :policy
-  validates_with PolicyHasNoUnpublishedEditionsValidator, :on => :create
+  validates_with PolicyHasNoUnpublishedEditionsValidator, on: :create
 
   def publish_as!(user, lock_version = self.lock_version)
     if user == author

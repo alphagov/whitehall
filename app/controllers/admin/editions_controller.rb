@@ -1,6 +1,6 @@
 class Admin::EditionsController < ApplicationController
   before_filter :authenticate!
-  before_filter :find_edition, :only => [:show, :edit, :update, :publish]
+  before_filter :find_edition, only: [:show, :edit, :update, :publish]
 
   def index
     @editions = Edition.drafts
@@ -22,7 +22,7 @@ class Admin::EditionsController < ApplicationController
   end
 
   def create
-    @edition = current_user.editions.build(params[:edition].merge(:policy => Policy.new))
+    @edition = current_user.editions.build(params[:edition].merge(policy: Policy.new))
     if @edition.save
       redirect_to edit_admin_edition_path(@edition), notice: 'The policy has been saved'
     else

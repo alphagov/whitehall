@@ -127,7 +127,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'viewing the list of published policies should only show published policies' do
-    published_editions = [FactoryGirl.build(:published_edition, :id => 1)]
+    published_editions = [FactoryGirl.build(:published_edition, id: 1)]
     Edition.stubs(published: published_editions)
     get :published
 
@@ -169,19 +169,19 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "submitted policies can't be set back to draft" do
     submitted_edition = Factory.create(:submitted_edition)
-    get :edit, :id => submitted_edition.to_param
-    assert_select "input[type='checkbox'][name='policy[submitted]']", :count => 0
+    get :edit, id: submitted_edition.to_param
+    assert_select "input[type='checkbox'][name='policy[submitted]']", count: 0
   end
 
   test "cancelling a submitted edition takes the user to the list of submissions" do
     submitted_edition = Factory.create(:submitted_edition)
-    get :edit, :id => submitted_edition.to_param
-    assert_select "a[href=#{submitted_admin_editions_path}]", :text => /cancel/i, :count => 1
+    get :edit, id: submitted_edition.to_param
+    assert_select "a[href=#{submitted_admin_editions_path}]", text: /cancel/i, count: 1
   end
 
   test "cancelling a draft edition takes the user to the list of drafts" do
     draft_edition = Factory.create(:draft_edition)
-    get :edit, :id => draft_edition.to_param
-    assert_select "a[href=#{admin_editions_path}]", :text => /cancel/i, :count => 1
+    get :edit, id: draft_edition.to_param
+    assert_select "a[href=#{admin_editions_path}]", text: /cancel/i, count: 1
   end
 end
