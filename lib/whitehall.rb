@@ -1,7 +1,7 @@
 module Whitehall
 
-  mattr_accessor :domain
-  self.domain = nil
+  mattr_accessor :host
+  self.host = nil
 
   class Railtie < Rails::Railtie
     config.whitehall = ActiveSupport::OrderedOptions.new

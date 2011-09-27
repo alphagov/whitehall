@@ -40,7 +40,5 @@ Whitehall::Application.configure do
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
   
-  config.whitehall.domain = 'example.com'
-  
-  config.action_mailer.default_url_options = { :host => config.whitehall.domain }
+  config.whitehall.host = 'example.com'
 end
