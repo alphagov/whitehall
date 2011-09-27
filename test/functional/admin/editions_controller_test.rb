@@ -184,4 +184,12 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :edit, id: draft_edition.to_param
     assert_select "a[href=#{admin_editions_path}]", text: /cancel/i, count: 1
   end
+
+  test 'updating a submitted policy with bad data should show errors' do
+    attributes = FactoryGirl.attributes_for(:submitted_edition)
+    submitted_edition = Factory.create(:submitted_edition, attributes)
+    put :update, id: submitted_edition.to_param, edition: attributes.merge(:title => '')
+
+    assert_template 'edit'
+  end
 end

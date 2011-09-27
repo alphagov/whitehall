@@ -36,8 +36,11 @@ class Admin::EditionsController < ApplicationController
 
   def update
     if @edition.submitted?
-      @edition.update_attributes(params[:edition])
-      redirect_to submitted_admin_editions_path
+      if @edition.update_attributes(params[:edition])
+        redirect_to submitted_admin_editions_path
+      else
+        render action: 'edit'
+      end
     else
       if @edition.update_attributes(params[:edition])
         if @edition.submitted?
