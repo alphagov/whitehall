@@ -43,17 +43,18 @@ Then /^the published policy should remain unchanged$/ do
   assert page.has_css?('.policy_document .body', text: @edition.body)
 end
 
-Given /^I have received an email requesting that I fact check a draft policy$/ do
-  @draft = FactoryGirl.create(:draft_edition)
-  Notifications.fact_check(@draft, 'fact-checker@example.com').deliver
+Given /^"([^"]*)" has received an email requesting they fact check a draft policy titled "([^"]*)"$/ do |email, title|
+  edition = FactoryGirl.create(:draft_edition, :title => title)
+  Notifications.fact_check(edition, email).deliver
 end
 
-When /^I click on the link to the draft policy$/ do
-  When %{I open the last email sent to "fact-checker@example.com"}
+When /^"([^"]*)" clicks the email link to the draft policy$/ do |email|
+  When %{I open the last email sent to "#{email}"}
   And %{I click the first link in the email}
 end
 
-Then /^I should see the draft policy$/ do
-  assert page.has_css?('.policy .title', :text => @draft.title)
-  assert page.has_css?('.policy .body', :text => @draft.body)
+Then /^they should see the draft policy titled "([^"]*)"$/ do |title|
+  edition = Edition.find_by_title(title)
+  assert page.has_css?('.policy .title', :text => edition.title)
+  assert page.has_css?('.policy .body', :text => edition.body)
 end

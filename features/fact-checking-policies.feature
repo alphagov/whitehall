@@ -12,8 +12,8 @@ Scenario: Policy writer requests fact checking
   Then "fact-checker@example.com" should receive an email requesting fact checking
 
 Scenario: Fact checker views the draft policy
-  Given I have received an email requesting that I fact check a draft policy
+  Given "fact-checker@example.com" has received an email requesting they fact check a draft policy titled "Check me"
 
-  When I click on the link to the draft policy
+  When "fact-checker@example.com" clicks the email link to the draft policy
 
-  Then I should see the draft policy
+  Then they should see the draft policy titled "Check me"
