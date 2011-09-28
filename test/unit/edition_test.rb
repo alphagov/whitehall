@@ -2,94 +2,94 @@ require 'test_helper'
 
 class EditionTest < ActiveSupport::TestCase
   test 'should be valid when built from the factory' do
-    edition = FactoryGirl.build(:edition)
+    edition = build(:edition)
     assert edition.valid?
   end
 
   test 'should be invalid without a title' do
-    edition = FactoryGirl.build(:edition, title: nil)
+    edition = build(:edition, title: nil)
     assert_not edition.valid?
   end
 
   test 'should be invalid without a body' do
-    edition = FactoryGirl.build(:edition, body: nil)
+    edition = build(:edition, body: nil)
     assert_not edition.valid?
   end
 
   test 'should be invalid without an author' do
-    edition = FactoryGirl.build(:edition, author: nil)
+    edition = build(:edition, author: nil)
     assert_not edition.valid?
   end
 
   test 'should be invalid without a policy' do
-    edition = FactoryGirl.build(:edition, policy: nil)
+    edition = build(:edition, policy: nil)
     assert_not edition.valid?
   end
 
   test 'should be invalid if policy has existing unpublished editions' do
-    policy = FactoryGirl.create(:policy)
-    existing_edition = FactoryGirl.create(:draft_edition, policy: policy)
-    edition = FactoryGirl.build(:edition, policy: policy)
+    policy = create(:policy)
+    existing_edition = create(:draft_edition, policy: policy)
+    edition = build(:edition, policy: policy)
     assert_not edition.valid?
   end
 
   test 'should be invalid when published if policy has existing published editions' do
-    policy = FactoryGirl.create(:policy)
-    existing_edition = FactoryGirl.create(:published_edition, policy: policy)
-    edition = FactoryGirl.build(:published_edition, policy: policy)
+    policy = create(:policy)
+    existing_edition = create(:published_edition, policy: policy)
+    edition = build(:published_edition, policy: policy)
     assert_not edition.valid?
   end
 
   test 'should only return unsubmitted draft policies' do
-    draft_edition = FactoryGirl.create(:draft_edition)
-    submitted_edition = FactoryGirl.create(:submitted_edition)
+    draft_edition = create(:draft_edition)
+    submitted_edition = create(:submitted_edition)
     assert_equal [draft_edition], Edition.unsubmitted
   end
 
   test 'should only return the submitted policies' do
-    draft_edition = FactoryGirl.create(:draft_edition)
-    submitted_edition = FactoryGirl.create(:submitted_edition)
+    draft_edition = create(:draft_edition)
+    submitted_edition = create(:submitted_edition)
     assert_equal [submitted_edition], Edition.submitted
   end
 
   test 'should not be publishable when not submitted' do
-    edition = FactoryGirl.create(:draft_edition)
-    edition.publish_as!(FactoryGirl.create(:departmental_editor))
+    edition = create(:draft_edition)
+    edition.publish_as!(create(:departmental_editor))
     assert_not edition.published?
   end
 
   test 'should not be publishable by the author' do
-    author = FactoryGirl.create(:departmental_editor)
-    edition = FactoryGirl.create(:submitted_edition, author: author)
+    author = create(:departmental_editor)
+    edition = create(:submitted_edition, author: author)
     assert_not edition.publish_as!(author)
     assert_not edition.published?
     assert_equal ["You are not the second set of eyes"], edition.errors.full_messages
   end
 
   test 'should be publishable by departmental editors' do
-    author = FactoryGirl.create(:policy_writer)
-    edition = FactoryGirl.create(:submitted_edition, author: author)
-    other_user = FactoryGirl.create(:departmental_editor)
+    author = create(:policy_writer)
+    edition = create(:submitted_edition, author: author)
+    other_user = create(:departmental_editor)
     assert edition.publish_as!(other_user)
     assert edition.published?
   end
 
   test 'should not return published policies in submitted' do
-    edition = FactoryGirl.create(:submitted_edition)
-    edition.publish_as!(FactoryGirl.create(:departmental_editor))
+    edition = create(:submitted_edition)
+    edition.publish_as!(create(:departmental_editor))
     assert_not Edition.submitted.include?(edition)
   end
 
   test 'should not be publishable by normal users' do
-    edition = FactoryGirl.create(:submitted_edition)
-    assert_not edition.publish_as!(FactoryGirl.create(:policy_writer))
+    edition = create(:submitted_edition)
+    assert_not edition.publish_as!(create(:policy_writer))
     assert_not edition.published?
     assert_equal ["Only departmental editors can publish policies"], edition.errors.full_messages
   end
 
   test 'should not be publishable if lock version is not current' do
-    editor = FactoryGirl.create(:departmental_editor)
-    edition = FactoryGirl.create(:submitted_edition, title: "old title")
+    editor = create(:departmental_editor)
+    edition = create(:submitted_edition, title: "old title")
 
     other_instance = Edition.find(edition.id)
     other_instance.update_attributes(title: "new title")
@@ -102,9 +102,9 @@ class EditionTest < ActiveSupport::TestCase
 
   test 'should archive earlier editions on publication' do
     published_edition = create(:published_edition)
-    author = FactoryGirl.create(:policy_writer)
-    edition = FactoryGirl.create(:submitted_edition, policy: published_edition.policy, author: author)
-    editor = FactoryGirl.create(:departmental_editor)
+    author = create(:policy_writer)
+    edition = create(:submitted_edition, policy: published_edition.policy, author: author)
+    editor = create(:departmental_editor)
     edition.publish_as!(editor)
 
     published_edition.reload
@@ -112,8 +112,8 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'should build a draft copy of the existing edition with the supplied author' do
-    published_edition = FactoryGirl.create(:published_edition, submitted: true)
-    new_author = FactoryGirl.create(:policy_writer)
+    published_edition = create(:published_edition, submitted: true)
+    new_author = create(:policy_writer)
     draft_edition = published_edition.build_draft(new_author)
 
     assert draft_edition.new_record?
@@ -125,22 +125,22 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'when initially created' do
-    edition = FactoryGirl.create(:edition)
+    edition = create(:edition)
     assert edition.draft?
     assert_not edition.submitted?
     assert_not edition.published?
   end
 
   test 'when submitted' do
-    edition = FactoryGirl.create(:submitted_edition)
+    edition = create(:submitted_edition)
     assert edition.draft?
     assert edition.submitted?
     assert_not edition.published?
   end
 
   test 'when published' do
-    edition = FactoryGirl.create(:submitted_edition)
-    edition.publish_as!(FactoryGirl.create(:departmental_editor))
+    edition = create(:submitted_edition)
+    edition.publish_as!(create(:departmental_editor))
     assert_not edition.draft?
     assert edition.published?
   end
