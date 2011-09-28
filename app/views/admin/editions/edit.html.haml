@@ -19,5 +19,8 @@
       %ul#fact_check_requests
         - @edition.fact_check_requests.completed.each do |fact_check_request|
           %li.fact_check_request
-            .from= fact_check_request.email_address
+            .details
+              %span.from= fact_check_request.email_address
+              on
+              %span.time= fact_check_request.updated_at.to_s(:long_ordinal)
             .comments= fact_check_request.comments
