@@ -58,6 +58,12 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.published?
   end
 
+  test 'should not be publishable when already published' do
+    edition = create(:published_edition)
+    refute edition.publish_as!(create(:departmental_editor))
+    assert_equal ["This edition has already been published"], edition.errors.full_messages
+  end
+
   test 'should not be publishable by the author' do
     author = create(:departmental_editor)
     edition = create(:submitted_edition, author: author)

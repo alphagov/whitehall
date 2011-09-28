@@ -47,7 +47,9 @@ class Edition < ActiveRecord::Base
   validates_with PolicyHasNoOtherPublishedEditionsValidator, on: :create
 
   def publish_as!(user, lock_version = self.lock_version)
-    if !submitted?
+    if published?
+      errors.add(:base, "This edition has already been published")
+    elsif !submitted?
       errors.add(:base, "Not ready for publication")
     elsif user == author
       errors.add(:base, "You are not the second set of eyes")
