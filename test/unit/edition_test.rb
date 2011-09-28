@@ -52,10 +52,20 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [submitted_edition], Edition.submitted
   end
 
+  test 'should not be publishable when not submitted' do
+    edition = create(:draft_edition)
+    refute edition.publishable_by?(create(:departmental_editor))
+  end
+
   test 'should fail publication when not submitted' do
     edition = create(:draft_edition)
     edition.publish_as!(create(:departmental_editor))
     assert_not edition.published?
+  end
+
+  test 'should not be publishable when already published' do
+    edition = create(:published_edition)
+    refute edition.publishable_by?(create(:departmental_editor))
   end
 
   test 'should fail publication when already published' do
@@ -64,12 +74,24 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal ["This edition has already been published"], edition.errors.full_messages
   end
 
+  test 'should not be publishable by the original author' do
+    author = create(:departmental_editor)
+    edition = create(:submitted_edition, author: author)
+    refute edition.publishable_by?(author)
+  end
+
   test 'should fail publication by the author' do
     author = create(:departmental_editor)
     edition = create(:submitted_edition, author: author)
     assert_not edition.publish_as!(author)
     assert_not edition.published?
     assert_equal ["You are not the second set of eyes"], edition.errors.full_messages
+  end
+
+  test 'should be publishable by departmental editors' do
+    edition = create(:submitted_edition)
+    departmental_editor = create(:departmental_editor)
+    assert edition.publishable_by?(departmental_editor)
   end
 
   test 'should succeed publication when published by departmental editors' do
@@ -115,6 +137,11 @@ class EditionTest < ActiveSupport::TestCase
 
     published_edition.reload
     assert published_edition.archived?
+  end
+
+  test 'should not be publishable when archived' do
+    edition = create(:archived_edition)
+    refute edition.publishable_by?(create(:departmental_editor))
   end
 
   test 'should build a draft copy of the existing edition with the supplied author' do

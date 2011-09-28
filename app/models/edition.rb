@@ -46,20 +46,33 @@ class Edition < ActiveRecord::Base
   validates_with PolicyHasNoUnpublishedEditionsValidator, on: :create
   validates_with PolicyHasNoOtherPublishedEditionsValidator, on: :create
 
+  def publishable_by?(user)
+    reason_to_prevent_publication_by(user).nil?
+  end
+
   def publish_as!(user, lock_version = self.lock_version)
-    if published?
-      errors.add(:base, "This edition has already been published")
-    elsif !submitted?
-      errors.add(:base, "Not ready for publication")
-    elsif user == author
-      errors.add(:base, "You are not the second set of eyes")
-    elsif !user.departmental_editor?
-      errors.add(:base, "Only departmental editors can publish policies")
-    else
+    if publishable_by?(user)
       self.lock_version = lock_version
       publish!
+      true
+    else
+      errors.add(:base, reason_to_prevent_publication_by(user))
+      false
     end
-    errors.empty?
+  end
+
+  def reason_to_prevent_publication_by(user)
+    if published?
+      "This edition has already been published"
+    elsif archived?
+      "This edition has been archived"
+    elsif !submitted?
+      "Not ready for publication"
+    elsif user == author
+      "You are not the second set of eyes"
+    elsif !user.departmental_editor?
+      "Only departmental editors can publish policies"
+    end
   end
 
   def build_draft(user)

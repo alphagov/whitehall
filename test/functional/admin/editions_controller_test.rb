@@ -213,4 +213,12 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to edit_admin_edition_path(existing_draft)
     assert_equal "There is already an active draft for this policy", flash[:alert]
   end
+
+  test "don't show the publish button to user's who can't publish an edition" do
+    submitted_edition = create(:submitted_edition)
+
+    get :show, id: submitted_edition.to_param
+
+    assert_select "form[action='#{publish_admin_edition_path(submitted_edition)}']", count: 0
+  end
 end

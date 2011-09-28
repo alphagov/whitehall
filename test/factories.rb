@@ -25,6 +25,7 @@ FactoryGirl.define do
 
   factory :archived_edition, parent: :edition do
     state 'archived'
+    submitted true
   end
 
   factory :fact_check_request do

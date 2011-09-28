@@ -11,6 +11,7 @@
     %span.author= @edition.author.name
 
 %div
-  = form_for [:admin, @edition], {url: publish_admin_edition_path(@edition)} do |edition_form|
-    = edition_form.hidden_field :lock_version
-    = edition_form.submit "Publish", title: "Public #{@edition.title}"
+  - if @edition.publishable_by?(current_user)
+    = form_for [:admin, @edition], {url: publish_admin_edition_path(@edition)} do |edition_form|
+      = edition_form.hidden_field :lock_version
+      = edition_form.submit "Publish", title: "Public #{@edition.title}" 
