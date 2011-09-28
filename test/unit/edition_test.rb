@@ -101,7 +101,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'should archive earlier editions on publication' do
-    published_edition = FactoryGirl.create(:published_edition)
+    published_edition = create(:published_edition)
     author = FactoryGirl.create(:policy_writer)
     edition = FactoryGirl.create(:submitted_edition, policy: published_edition.policy, author: author)
     editor = FactoryGirl.create(:departmental_editor)

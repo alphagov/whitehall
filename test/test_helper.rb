@@ -4,6 +4,7 @@ require 'rails/test_help'
 require 'factories'
 
 class ActiveSupport::TestCase
+  include Factory::Syntax::Methods
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
