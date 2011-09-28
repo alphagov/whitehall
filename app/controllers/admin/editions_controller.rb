@@ -79,7 +79,7 @@ class Admin::EditionsController < ApplicationController
       redirect_to edit_admin_edition_path(edition)
     else
       redirect_to edit_admin_edition_path(@edition.policy.editions.draft.first),
-        alert: "There's already a draft policy"
+        alert: edition.errors.full_messages.to_sentence
     end
   end
 

@@ -19,7 +19,7 @@ class Edition < ActiveRecord::Base
   class PolicyHasNoUnpublishedEditionsValidator
     def validate(record)
       if record.policy && record.policy.editions.draft.any?
-        record.errors.add(:policy, "has existing unpublished editions")
+        record.errors.add(:base, "There is already an active draft for this policy")
       end
     end
   end

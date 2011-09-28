@@ -226,7 +226,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     post :revise, id: published_edition.to_param
 
     assert_redirected_to edit_admin_edition_path(existing_draft)
-    assert_equal "There's already a draft policy", flash[:alert]
+    assert_equal "There is already an active draft for this policy", flash[:alert]
   end
 
   test "should send an email when a fact check has been requested" do
