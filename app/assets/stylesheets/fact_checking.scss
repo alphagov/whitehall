@@ -1,0 +1,17 @@
+.fact_check_request {
+  border: 1px solid #ddd;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  background: #F7FFD7;
+
+  .details {
+    font-style: italic;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0.6em;
+    color: #888;
+  }
+  
+  .comments p:last-child {
+    margin-bottom: 0;
+  }
+}
