@@ -52,19 +52,19 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [submitted_edition], Edition.submitted
   end
 
-  test 'should not be publishable when not submitted' do
+  test 'should fail publication when not submitted' do
     edition = create(:draft_edition)
     edition.publish_as!(create(:departmental_editor))
     assert_not edition.published?
   end
 
-  test 'should not be publishable when already published' do
+  test 'should fail publication when already published' do
     edition = create(:published_edition)
     refute edition.publish_as!(create(:departmental_editor))
     assert_equal ["This edition has already been published"], edition.errors.full_messages
   end
 
-  test 'should not be publishable by the author' do
+  test 'should fail publication by the author' do
     author = create(:departmental_editor)
     edition = create(:submitted_edition, author: author)
     assert_not edition.publish_as!(author)
@@ -72,7 +72,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal ["You are not the second set of eyes"], edition.errors.full_messages
   end
 
-  test 'should be publishable by departmental editors' do
+  test 'should succeed publication when published by departmental editors' do
     author = create(:policy_writer)
     edition = create(:submitted_edition, author: author)
     other_user = create(:departmental_editor)
@@ -86,14 +86,14 @@ class EditionTest < ActiveSupport::TestCase
     assert_not Edition.submitted.include?(edition)
   end
 
-  test 'should not be publishable by normal users' do
+  test 'should fail publication by normal users' do
     edition = create(:submitted_edition)
     assert_not edition.publish_as!(create(:policy_writer))
     assert_not edition.published?
     assert_equal ["Only departmental editors can publish policies"], edition.errors.full_messages
   end
 
-  test 'should not be publishable if lock version is not current' do
+  test 'should fail publication if lock version is not current' do
     editor = create(:departmental_editor)
     edition = create(:submitted_edition, title: "old title")
 
