@@ -4,7 +4,7 @@ Feature: Fact checking policies
   I want to request fact checking of a draft policy
 
 Scenario: Policy writer requests fact checking
-  Given I am logged in as "George"
+  Given I am logged in as a policy writer
   And I have drafted a policy
 
   When I request that "fact-checker@example.com" fact checks the policy

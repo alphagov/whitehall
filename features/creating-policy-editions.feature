@@ -4,7 +4,7 @@ A policy writer
 Should be able to create a new edition of a published policy
 
 Scenario: Creating a new edition
-  Given I am logged in as "George"
+  Given I am logged in as a policy writer
   And a published policy exists
 
   When I create a new edition of the published policy

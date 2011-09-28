@@ -16,7 +16,7 @@ Scenario: Logged-in users should see they are logged in
   Then I should see that I am logged in as "Dave"
 
 Scenario: Logged-in users should be able to logout
-  Given I am logged in as "Dave"
+  Given I am logged in as a policy writer
   And I logout
   Then I should be on the login page
   And I should see that I am not logged in
@@ -26,7 +26,7 @@ Scenario: Don't show a login link on the login page
   Then I should not see a link to login
 
 Scenario: Logged in users should see their role
-  Given I am logged in as a policy writer called "Dave"
+  Given I am logged in as a policy writer
   Then I should see that I am logged in as a policy writer
-  Given I am logged in as a departmental editor called "John"
+  Given I am logged in as a departmental editor
   Then I should see that I am logged in as a departmental editor

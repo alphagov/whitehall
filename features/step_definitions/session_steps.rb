@@ -1,6 +1,13 @@
+Given /^I am logged in as a policy writer$/ do
+  Given %{I am logged in as a policy writer called "Wally Writer"}
+end
+
+Given /^I am logged in as a departmental editor$/ do
+  Given %{I am logged in as a departmental editor called "Eddie Editor"}
+end
+
 Given /^I am logged in as "([^"]*)"$/ do |name|
-  Given "I visit the login page"
-  And %{I login as "#{name}"}
+  Given %{I am logged in as a policy writer called "#{name}"}
 end
 
 Given /^I am logged in as a ([^"]*) called "([^"]*)"$/ do |role, name|
