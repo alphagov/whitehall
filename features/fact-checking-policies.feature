@@ -27,19 +27,15 @@ Scenario: Fact checker enters feedback
   Then they should be notified "Your feedback has been saved"
 
 Scenario: Policy writer reviews fact checker comments
-  Given "fact-checker@example.com" has received an email requesting they fact check a draft policy titled "Check me"
-  And "fact-checker@example.com" clicks the email link to the draft policy
-  And they provide feedback "We cannot establish the moral character of all dogs"
+  Given a fact checker has commented "This looks good" on the draft policy titled "Check me"
   When I am logged in as a policy writer
   And I visit the list of draft policies
   And I click edit for the policy "Check me"
-  Then I should see the fact checking feedback "We cannot establish the moral character of all dogs"
+  Then I should see the fact checking feedback "This looks good"
 
 Scenario: Departmental editor reviews fact checker comments
-  Given "fact-checker@example.com" has received an email requesting they fact check a draft policy titled "Check me"
-  And "fact-checker@example.com" clicks the email link to the draft policy
-  And they provide feedback "We cannot establish the moral character of all dogs"
+  Given a fact checker has commented "This looks good" on the draft policy titled "Check me"
   When I am logged in as a departmental editor
   And I visit the list of draft policies
   And I click edit for the policy "Check me"
-  Then I should see the fact checking feedback "We cannot establish the moral character of all dogs"
+  Then I should see the fact checking feedback "This looks good"

@@ -5,6 +5,11 @@ Given /^someone has requested fact checking by "([^"]*)" for a policy called "([
   And %{I logout}
 end
 
+Given /^a fact checker has commented "([^"]*)" on the draft policy titled "([^"]*)"$/ do |comment, title|
+  edition = create(:draft_edition, title: title)
+  create(:fact_check_request, edition: edition, comments: comment)
+end
+
 Then /^"([^"]*)" should receive an email requesting fact checking$/ do |email_address|
   Then %{"#{email_address}" should receive an email}
   When %{I open the last email sent to "#{email_address}"}
