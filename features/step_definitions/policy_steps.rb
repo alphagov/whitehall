@@ -44,7 +44,7 @@ Then /^the published policy should remain unchanged$/ do
 end
 
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy titled "([^"]*)"$/ do |email, title|
-  edition = FactoryGirl.create(:draft_edition, :title => title)
+  edition = create(:draft_edition, :title => title)
   Notifications.fact_check(edition, email).deliver
 end
 
