@@ -63,7 +63,7 @@ class Edition < ActiveRecord::Base
   end
 
   def build_draft(user)
-    draft_attributes = {state: "draft", author: user}
+    draft_attributes = {state: "draft", author: user, submitted: false}
     self.class.new(attributes.merge(draft_attributes))
   end
 

@@ -20,6 +20,7 @@ FactoryGirl.define do
 
   factory :published_edition, parent: :edition do
     state 'published'
+    submitted true
   end
 
   factory :archived_edition, parent: :edition do

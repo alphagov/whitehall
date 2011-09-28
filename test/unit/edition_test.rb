@@ -112,7 +112,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'should build a draft copy of the existing edition with the supplied author' do
-    published_edition = FactoryGirl.create(:published_edition)
+    published_edition = FactoryGirl.create(:published_edition, submitted: true)
     new_author = FactoryGirl.create(:policy_writer)
     draft_edition = published_edition.build_draft(new_author)
 
