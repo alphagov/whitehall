@@ -32,4 +32,8 @@ module ApplicationHelper
     end
   end
 
+  def format_in_paragraphs(string)
+    string.split(/(\r?\n){2}/).collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
+  end
+
 end

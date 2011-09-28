@@ -5,7 +5,7 @@
 .policy_document
   %h1.title= @edition.title
   %div.body
-    = @edition.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
+    = format_in_paragraphs @edition.body
   %p.written_by
     Written by
     %span.author= @edition.author.name

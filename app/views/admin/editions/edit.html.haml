@@ -23,4 +23,4 @@
               %span.from= fact_check_request.email_address
               on
               %span.time= fact_check_request.updated_at.to_s(:long_ordinal)
-            .comments= fact_check_request.comments
+            .comments= format_in_paragraphs fact_check_request.comments
