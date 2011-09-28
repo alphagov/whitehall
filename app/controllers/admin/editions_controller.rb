@@ -1,6 +1,5 @@
 class Admin::EditionsController < ApplicationController
-  before_filter :authenticate!, except: [:show]
-  before_filter :authenticate_with_token, only: [:show]
+  before_filter :authenticate!
   before_filter :find_edition, only: [:show, :edit, :update, :publish, :revise, :fact_check]
 
   def index
@@ -13,9 +12,6 @@ class Admin::EditionsController < ApplicationController
 
   def published
     @editions = Edition.published
-  end
-
-  def show
   end
 
   def new
@@ -83,24 +79,9 @@ class Admin::EditionsController < ApplicationController
     end
   end
 
-  def fact_check
-    if params[:email_address].present?
-      Notifications.fact_check(@edition, params[:email_address]).deliver
-      redirect_to edit_admin_edition_path(@edition),
-        notice: "The policy has been sent to #{params[:email_address]}"
-    else
-      redirect_to edit_admin_edition_path(@edition),
-        alert: "Please enter the email address of the fact checker"
-    end
-  end
-
   private
 
   def find_edition
     @edition = Edition.find(params[:id])
-  end
-
-  def authenticate_with_token
-    authenticate! unless FactCheckRequest.find_by_token(params[:token])
   end
 end

@@ -17,3 +17,12 @@ Scenario: Fact checker views the draft policy
   When "fact-checker@example.com" clicks the email link to the draft policy
 
   Then they should see the draft policy titled "Check me"
+
+Scenario: Fact checker enters feedback
+  Given "fact-checker@example.com" has received an email requesting they fact check a draft policy titled "Check me"
+
+  When "fact-checker@example.com" clicks the email link to the draft policy
+
+  And they provide feedback "We cannot establish the moral character of all dogs"
+
+  Then they should be notified "Your feedback has been saved"

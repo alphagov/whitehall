@@ -1,0 +1,13 @@
+.policy
+  %h1.title= @edition.title
+  %div.body
+    = @edition.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
+  %p.written_by
+    Written by
+    %span.author= @edition.author.name
+
+%div
+  = form_for([:admin, @edition, @fact_check_request]) do |fact_check_form|
+    = fact_check_form.label :comments
+    = fact_check_form.text_area :comments
+    = fact_check_form.submit "Submit"

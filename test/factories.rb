@@ -29,6 +29,7 @@ FactoryGirl.define do
 
   factory :fact_check_request do
     edition
+    email_address 'fact-checker@example.com'
   end
 
   factory :user do

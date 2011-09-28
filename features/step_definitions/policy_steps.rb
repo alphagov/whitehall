@@ -45,7 +45,8 @@ end
 
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy titled "([^"]*)"$/ do |email, title|
   edition = create(:draft_edition, :title => title)
-  Notifications.fact_check(edition, email).deliver
+  fact_check_request = edition.fact_check_requests.create(:email_address => email)
+  Notifications.fact_check(fact_check_request).deliver
 end
 
 When /^"([^"]*)" clicks the email link to the draft policy$/ do |email|

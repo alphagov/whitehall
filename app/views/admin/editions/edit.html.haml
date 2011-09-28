@@ -9,7 +9,7 @@
   %hr
   %section
     %h1 Request fact checking
-    = form_tag fact_check_admin_edition_path(@edition), method: :put do
-      = label_tag :email_address, 'Email address'
-      = text_field_tag :email_address
-      = submit_tag 'Request fact checking'
+    = form_for [:admin, @edition, FactCheckRequest.new] do |f|
+      = f.label :email_address, 'Email address'
+      = f.text_field :email_address
+      = f.submit 'Request fact checking'

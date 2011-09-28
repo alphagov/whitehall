@@ -68,21 +68,6 @@ class Admin::EditionsControllerAuthenticationTest < ActionController::TestCase
 
     assert_login_required
   end
-
-  test 'users with a valid token should be able to view the policy' do
-    edition = create(:edition)
-    fact_check_request = create(:fact_check_request, edition: edition)
-    get :show, id: edition.to_param, token: fact_check_request.token
-    assert_response :success
-    assert_template 'admin/editions/show'
-  end
-
-  test 'users with invalid tokens should not be able to view the policy' do
-    edition = create(:edition)
-    get :show, id: edition.to_param, token: 'invalid-token'
-
-    assert_login_required
-  end
 end
 
 class Admin::EditionsControllerTest < ActionController::TestCase
@@ -227,43 +212,5 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
     assert_redirected_to edit_admin_edition_path(existing_draft)
     assert_equal "There is already an active draft for this policy", flash[:alert]
-  end
-
-  test "should send an email when a fact check has been requested" do
-    ActionMailer::Base.deliveries.clear
-    edition = create(:draft_edition)
-    put :fact_check, id: edition.to_param, email_address: 'fact-checker@example.com'
-    assert_equal 1, ActionMailer::Base.deliveries.length
-  end
-
-  test "display an informational message when a fact check has been requested" do
-    edition = create(:draft_edition)
-    put :fact_check, id: edition.to_param, email_address: 'fact-checker@example.com'
-    assert_equal "The policy has been sent to fact-checker@example.com", flash[:notice]
-  end
-
-  test "redirect to the edit form when a fact check has been requested" do
-    edition = create(:draft_edition)
-    put :fact_check, id: edition.to_param, email_address: 'fact-checker@example.com'
-    assert_redirected_to edit_admin_edition_path(edition)
-  end
-
-  test "should not send an email if the fact checker's email address is missing" do
-    ActionMailer::Base.deliveries.clear
-    edition = create(:draft_edition)
-    put :fact_check, id: edition.to_param, email_address: ''
-    assert_equal 0, ActionMailer::Base.deliveries.length
-  end
-
-  test "should display a warning if the fact checker's email address is missing" do
-    edition = create(:draft_edition)
-    put :fact_check, id: edition.to_param, email_address: ''
-    assert_equal "Please enter the email address of the fact checker", flash[:alert]
-  end
-
-  test "redirect to the edit form if the fact checker's email address is missing" do
-    edition = create(:draft_edition)
-    put :fact_check, id: edition.to_param, email_address: ''
-    assert_redirected_to edit_admin_edition_path(edition)
   end
 end
