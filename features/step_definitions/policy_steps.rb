@@ -22,10 +22,6 @@ When /^another user changes the title from "([^"]*)" to "([^"]*)"$/ do |old_titl
   policy.update_attributes(:title => new_title)
 end
 
-Given /^a published policy exists$/ do
-  @edition = FactoryGirl.create(:published_edition)
-end
-
 When /^I create a new edition of the published policy$/ do
   Given %{I visit the list of published policies}
   click_button 'Create new draft'

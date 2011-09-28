@@ -5,7 +5,7 @@ Should be able to publish policies
 
 Scenario: Draft policies shouldn't be viewable by the public
   Given I am logged in as "Ben Beardson"
-  And I have written a policy called "Legalise beards"
+  And I have drafted a policy called "Legalise beards"
   Then the policy "Legalise beards" should not be visible to the public
 
 Scenario: Publishing a policy that's been submitted to the second set of eyes
@@ -16,7 +16,7 @@ Scenario: Publishing a policy that's been submitted to the second set of eyes
 
 Scenario: The policy author shouldn't be able to publish the policy
   Given I am logged in as a departmental editor called "Edward Editor"
-  And I have written a policy called "Eddie The Eagle as Olypmic Tsar"
+  And I have drafted a policy called "Eddie The Eagle as Olypmic Tsar"
   And I submit the policy for the second set of eyes
   When I publish the policy called "Eddie The Eagle as Olypmic Tsar"
   Then I should be alerted that I am not the second set of eyes

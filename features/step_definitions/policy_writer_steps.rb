@@ -1,7 +1,3 @@
-Given /^I have written a draft policy$/ do
-  @edition = FactoryGirl.create(:draft_edition)
-end
-
 When /^I visit the new policy page$/ do
   visit new_admin_edition_path
 end
@@ -11,7 +7,6 @@ When /^I write and save a policy called "([^"]*)" with body$/ do |title, body|
 end
 
 When /^I request that "([^"]*)" fact checks the policy$/ do |email_address|
-  visit edit_admin_edition_path(@edition)
   fill_in "Email address", :with => email_address
   click_button "Request fact checking"
 end
@@ -33,7 +28,11 @@ Then /^I should see the policy "([^"]*)" written by "([^"]*)" in my list of draf
   assert page.has_css?('#draft_policies .author', text: author)
 end
 
-Given /^I have written a policy called "([^"]*)"$/ do |title|
+Given /^I have drafted a policy$/ do
+  Given %{I have drafted a policy called "Whatever"}
+end
+
+Given /^I have drafted a policy called "([^"]*)"$/ do |title|
   When "I visit the new policy page"
   And %{I write and save a policy called "#{title}" with body "Blah blah blah"}
 end
