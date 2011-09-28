@@ -116,7 +116,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'viewing the list of submitted policies should not show draft policies' do
-    draft_edition = Factory.create(:draft_edition)
+    draft_edition = FactoryGirl.create(:draft_edition)
     get :submitted
 
     assert_not assigns(:editions).include?(draft_edition)
@@ -130,7 +130,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'publishing should redirect back to submitted policies' do
-    submitted_edition = Factory.create(:submitted_edition)
+    submitted_edition = FactoryGirl.create(:submitted_edition)
     login_as "Eddie", departmental_editor: true
     put :publish, id: submitted_edition.to_param, edition: {lock_version: submitted_edition.lock_version}
 
@@ -138,7 +138,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'publishing should remove it from the set of submitted policies' do
-    edition_to_publish = Factory.create(:submitted_edition)
+    edition_to_publish = FactoryGirl.create(:submitted_edition)
     login_as "Eddie", departmental_editor: true
     put :publish, id: edition_to_publish.to_param, edition: {lock_version: edition_to_publish.lock_version}
 
@@ -147,7 +147,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'failing to publish a edition should set a flash' do
-    edition_to_publish = Factory.create(:submitted_edition)
+    edition_to_publish = FactoryGirl.create(:submitted_edition)
     login_as "Willy Writer", departmental_editor: false
     put :publish, id: edition_to_publish.to_param, edition: {lock_version: edition_to_publish.lock_version}
 
@@ -155,7 +155,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'failing to publish a edition should redirect back to the edition' do
-    edition_to_publish = Factory.create(:submitted_edition)
+    edition_to_publish = FactoryGirl.create(:submitted_edition)
     login_as "Willy Writer", departmental_editor: false
     put :publish, id: edition_to_publish.to_param, edition: {lock_version: edition_to_publish.lock_version}
 
@@ -163,33 +163,33 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "submitted policies can't be set back to draft" do
-    submitted_edition = Factory.create(:submitted_edition)
+    submitted_edition = FactoryGirl.create(:submitted_edition)
     get :edit, id: submitted_edition.to_param
     assert_select "input[type='checkbox'][name='policy[submitted]']", count: 0
   end
 
   test "cancelling a submitted edition takes the user to the list of submissions" do
-    submitted_edition = Factory.create(:submitted_edition)
+    submitted_edition = FactoryGirl.create(:submitted_edition)
     get :edit, id: submitted_edition.to_param
     assert_select "a[href=#{submitted_admin_editions_path}]", text: /cancel/i, count: 1
   end
 
   test "cancelling a draft edition takes the user to the list of drafts" do
-    draft_edition = Factory.create(:draft_edition)
+    draft_edition = FactoryGirl.create(:draft_edition)
     get :edit, id: draft_edition.to_param
     assert_select "a[href=#{admin_editions_path}]", text: /cancel/i, count: 1
   end
 
   test 'updating a submitted policy with bad data should show errors' do
     attributes = FactoryGirl.attributes_for(:submitted_edition)
-    submitted_edition = Factory.create(:submitted_edition, attributes)
+    submitted_edition = FactoryGirl.create(:submitted_edition, attributes)
     put :update, id: submitted_edition.to_param, edition: attributes.merge(:title => '')
 
     assert_template 'edit'
   end
 
   test "revising a published edition redirects to edit for the new draft" do
-    published_edition = Factory.create(:published_edition)
+    published_edition = FactoryGirl.create(:published_edition)
 
     post :revise, id: published_edition.to_param
 
@@ -198,8 +198,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "failing to revise an edition should redirect to the existing draft" do
-    published_edition = Factory.create(:published_edition)
-    existing_draft = Factory.create(:draft_edition, policy: published_edition.policy)
+    published_edition = FactoryGirl.create(:published_edition)
+    existing_draft = FactoryGirl.create(:draft_edition, policy: published_edition.policy)
 
     post :revise, id: published_edition.to_param
 

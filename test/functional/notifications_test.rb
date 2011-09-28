@@ -4,7 +4,7 @@ class NotificationsTest < ActionMailer::TestCase
   enable_url_helpers
   
   setup do
-    @policy = Factory.create(:draft_edition)
+    @policy = FactoryGirl.create(:draft_edition)
     @email_address_of_fact_checker = 'fact-check@example.com'
     @mail = Notifications.fact_check(@policy, @email_address_of_fact_checker)
   end
