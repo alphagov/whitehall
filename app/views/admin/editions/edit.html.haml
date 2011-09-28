@@ -13,3 +13,11 @@
       = f.label :email_address, 'Email address'
       = f.text_field :email_address
       = f.submit 'Request fact checking'
+
+    - if @edition.fact_check_requests.completed.any?
+      %h2 Completed requests
+      %ul#fact_check_requests
+        - @edition.fact_check_requests.completed.each do |fact_check_request|
+          %li.fact_check_request
+            .from= fact_check_request.email_address
+            .comments= fact_check_request.comments

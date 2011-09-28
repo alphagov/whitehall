@@ -93,3 +93,7 @@ end
 Then /^I should be notified that the policy has been saved successfully$/ do
   Then %{I should be notified "The policy has been saved"}
 end
+
+Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
+  assert page.has_css?(".fact_check_request .comments", :text => comments)
+end

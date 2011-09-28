@@ -19,3 +19,12 @@ Scenario: Fact checker enters feedback
   When "fact-checker@example.com" clicks the email link to the draft policy
   And they provide feedback "We cannot establish the moral character of all dogs"
   Then they should be notified "Your feedback has been saved"
+
+Scenario: Reviewing fact checker comments
+  Given "fact-checker@example.com" has received an email requesting they fact check a draft policy titled "Check me"
+  And "fact-checker@example.com" clicks the email link to the draft policy
+  And they provide feedback "We cannot establish the moral character of all dogs"
+  When I am logged in as a policy writer
+  And I visit the list of draft policies
+  And I click edit for the policy "Check me"
+  Then I should see the fact checking feedback "We cannot establish the moral character of all dogs"
