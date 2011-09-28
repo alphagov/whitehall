@@ -26,11 +26,11 @@ FactoryGirl.define do
     state 'archived'
   end
 
-  factory :user, aliases: [:author] do
+  factory :user do
     name 'Daaaaaaave'
   end
 
-  factory :policy_writer, parent: :user do
+  factory :policy_writer, parent: :user, aliases: [:author] do
     departmental_editor false
   end
 
