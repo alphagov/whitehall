@@ -21,7 +21,7 @@ class NotificationsTest < ActionMailer::TestCase
     assert_equal "Fact checking request", @mail.subject
   end
     
-  test "fact check email should contain a link to the policy" do
-    assert_match /#{policy_url(@policy)}/, @mail.body.to_s
+  test "fact check email should contain a policy link containing a token" do
+    assert_match /#{admin_edition_url(@policy)}\?token=.+/, @mail.body.to_s
   end
 end

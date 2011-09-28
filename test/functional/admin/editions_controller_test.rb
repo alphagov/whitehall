@@ -61,6 +61,28 @@ class Admin::EditionsControllerAuthenticationTest < ActionController::TestCase
 
     assert_login_required
   end
+
+  test 'guests should not be able to access show' do
+    edition = FactoryGirl.create(:edition)
+    get :show, id: edition.to_param
+
+    assert_login_required
+  end
+
+  test 'users with a valid token should be able to view the policy' do
+    edition = FactoryGirl.create(:edition)
+    fact_check_request = FactoryGirl.create(:fact_check_request, edition: edition)
+    get :show, id: edition.to_param, token: fact_check_request.token
+    assert_response :success
+    assert_template 'admin/editions/show'
+  end
+
+  test 'users with invalid tokens should not be able to view the policy' do
+    edition = FactoryGirl.create(:edition)
+    get :show, id: edition.to_param, token: 'invalid-token'
+
+    assert_login_required
+  end
 end
 
 class Admin::EditionsControllerTest < ActionController::TestCase

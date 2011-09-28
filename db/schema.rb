@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110927140904) do
+ActiveRecord::Schema.define(:version => 20110928111447) do
 
   create_table "editions", :force => true do |t|
     t.string   "title"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(:version => 20110927140904) do
     t.integer  "lock_version", :default => 0
     t.integer  "policy_id"
     t.string   "state",        :default => "draft", :null => false
+  end
+
+  create_table "fact_check_requests", :force => true do |t|
+    t.integer  "edition_id"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "policies", :force => true do |t|

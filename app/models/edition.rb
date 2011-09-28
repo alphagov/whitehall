@@ -35,6 +35,8 @@ class Edition < ActiveRecord::Base
   belongs_to :author, class_name: "User"
   belongs_to :policy
 
+  has_many :fact_check_requests
+
   scope :draft, where(state: "draft")
   scope :unsubmitted, where(state: "draft", submitted: false)
   scope :submitted, where(state: "draft", submitted: true)

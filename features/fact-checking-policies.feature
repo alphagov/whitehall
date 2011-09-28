@@ -10,3 +10,10 @@ Scenario: Policy writer requests fact checking
   When I request that "fact-checker@example.com" fact checks the policy
 
   Then "fact-checker@example.com" should receive an email requesting fact checking
+
+Scenario: Fact checker views the draft policy
+  Given I have received an email requesting that I fact check a draft policy
+
+  When I click on the link to the draft policy
+
+  Then I should see the draft policy

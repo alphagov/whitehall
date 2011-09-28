@@ -27,6 +27,10 @@ FactoryGirl.define do
     state 'archived'
   end
 
+  factory :fact_check_request do
+    edition
+  end
+
   factory :user do
     name 'Daaaaaaave'
   end
