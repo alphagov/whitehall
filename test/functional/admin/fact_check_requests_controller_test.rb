@@ -1,28 +1,21 @@
 require 'test_helper'
 
-class AdminFactCheckRequestsControllerGuestTest < ActionController::TestCase
-  tests Admin::FactCheckRequestsController
+class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
+  setup do
+    @edition = create(:draft_edition)
+  end
 
   test 'users with a valid token should be able to access the policy' do
-    fact_check_request = create(:fact_check_request)
-    get :edit, edition_id: fact_check_request.edition.to_param, id: fact_check_request.token
+    fact_check_request = create(:fact_check_request, edition: @edition)
+    get :edit, edition_id: @edition.to_param, id: fact_check_request.token
     assert_response :success
     assert_template 'admin/fact_check_requests/edit'
   end
 
   test 'users with invalid tokens should not be able to access the policy' do
-    edition = create(:edition)
-    get :edit, edition_id: edition.to_param, id: 'invalid-token'
+    get :edit, edition_id: @edition.to_param, id: 'invalid-token'
 
     assert_response :not_found
-  end
-end
-
-
-class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
-  setup do
-    login_as "George"
-    @edition = create(:draft_edition)
   end
 
   test "should send an email when a fact check has been requested" do
