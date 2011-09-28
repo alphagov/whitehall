@@ -14,7 +14,7 @@ Whitehall::Application.routes.draw do
         post :revise
       end
 
-      resources :fact_check_requests, only: [:create, :edit, :update]
+      resources :fact_check_requests, only: [:show, :create, :edit, :update]
     end
   end
 

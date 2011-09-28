@@ -49,4 +49,12 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     post :create, edition_id: @edition.to_param, fact_check_request: {email_address: ''}
     assert_redirected_to edit_admin_edition_path(@edition)
   end
+
+  test "redirect to the show page when a fact check has been completed" do
+    fact_check_request = create(:fact_check_request, edition: @edition)
+    put :update, edition_id: @edition.to_param, id: fact_check_request.to_param,
+        fact_check_request: {email_address: 'fact-checker@example.com', comments: 'looks fine to me'}
+    assert_redirected_to admin_edition_fact_check_request_path(@edition, fact_check_request)
+  end
+
 end
