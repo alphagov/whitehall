@@ -40,10 +40,16 @@ section.resource_list {
     padding: 10px 20px 10px 20px;
   }
 
-  .new_resource {
+
+  .action_buttons {
     position: absolute;
     top: 9px;
     right: 10px;
+
+    .button {
+      float: right;
+      margin-left: 8px;
+    }
   }
 
   ul, table {
