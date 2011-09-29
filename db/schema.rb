@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20110929105024) do
     t.integer  "lock_version",  :default => 0
     t.integer  "document_id"
     t.string   "state",         :default => "draft",  :null => false
-    t.string   "document_type", :default => "Policy", :null => false
     t.string   "attachment"
+    t.string   "document_type", :default => "Policy", :null => false
   end
 
   create_table "fact_check_requests", :force => true do |t|

@@ -71,7 +71,7 @@ end
 
 When /^I visit the policy titled "([^"]*)"$/ do |title|
   edition = Edition.find_by_title(title)
-  visit policy_path(edition.policy)
+  visit policy_path(edition.document)
 end
 
 Then /^I should see a link to the PDF attachment$/ do

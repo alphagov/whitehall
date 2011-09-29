@@ -1,4 +1,0 @@
-* do we really need multi-line body for policy steps?
-* think about disabled fields in policy form
-* not sure the split between the 3 policy step files is useful
-* remove comments from gemfile
