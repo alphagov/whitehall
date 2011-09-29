@@ -206,7 +206,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "failing to revise an edition should redirect to the existing draft" do
     published_edition = create(:published_edition)
-    existing_draft = create(:draft_edition, policy: published_edition.policy)
+    existing_draft = create(:draft_edition, document: published_edition.document)
 
     post :revise, id: published_edition.to_param
 

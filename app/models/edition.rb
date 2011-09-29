@@ -16,24 +16,24 @@ class Edition < ActiveRecord::Base
     end
   end
 
-  class PolicyHasNoUnpublishedEditionsValidator
+  class DocumentHasNoUnpublishedEditionsValidator
     def validate(record)
-      if record.policy && record.policy.editions.draft.any?
+      if record.document && record.document.editions.draft.any?
         record.errors.add(:base, "There is already an active draft for this policy")
       end
     end
   end
 
-  class PolicyHasNoOtherPublishedEditionsValidator
+  class DocumentHasNoOtherPublishedEditionsValidator
     def validate(record)
-      if record.published? && record.policy && record.policy.editions.published.any?
+      if record.published? && record.document && record.document.editions.published.any?
         record.errors.add(:policy, "has existing published editions")
       end
     end
   end
 
   belongs_to :author, class_name: "User"
-  belongs_to :policy, :foreign_key => "document_id"
+  belongs_to :document, :polymorphic => true
 
   has_many :fact_check_requests
 
@@ -42,9 +42,9 @@ class Edition < ActiveRecord::Base
   scope :submitted, where(state: "draft", submitted: true)
   scope :published, where(state: "published")
 
-  validates_presence_of :title, :body, :author, :policy
-  validates_with PolicyHasNoUnpublishedEditionsValidator, on: :create
-  validates_with PolicyHasNoOtherPublishedEditionsValidator, on: :create
+  validates_presence_of :title, :body, :author, :document
+  validates_with DocumentHasNoUnpublishedEditionsValidator, on: :create
+  validates_with DocumentHasNoOtherPublishedEditionsValidator, on: :create
 
   def publishable_by?(user)
     reason_to_prevent_publication_by(user).nil?
@@ -81,7 +81,7 @@ class Edition < ActiveRecord::Base
   end
 
   def archive_previous_editions
-    policy.editions.published.each do |edition|
+    document.editions.published.each do |edition|
       edition.archive! unless edition == self
     end
   end

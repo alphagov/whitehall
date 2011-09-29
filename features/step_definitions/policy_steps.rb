@@ -38,7 +38,7 @@ When /^I edit the new edition$/ do
 end
 
 Then /^the published policy should remain unchanged$/ do
-  visit policy_path(@edition.policy)
+  visit policy_path(@edition.document)
   assert page.has_css?('.policy_document .title', text: @edition.title)
   assert page.has_css?('.policy_document .body', text: @edition.body)
 end

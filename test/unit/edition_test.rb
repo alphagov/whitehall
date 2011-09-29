@@ -21,22 +21,22 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
-  test 'should be invalid without a policy' do
-    edition = build(:edition, policy: nil)
+  test 'should be invalid without a document' do
+    edition = build(:edition, document: nil)
     assert_not edition.valid?
   end
 
   test 'should be invalid if policy has existing unpublished editions' do
     policy = create(:policy)
-    existing_edition = create(:draft_edition, policy: policy)
-    edition = build(:edition, policy: policy)
+    existing_edition = create(:draft_edition, document: policy)
+    edition = build(:edition, document: policy)
     assert_not edition.valid?
   end
 
   test 'should be invalid when published if policy has existing published editions' do
     policy = create(:policy)
-    existing_edition = create(:published_edition, policy: policy)
-    edition = build(:published_edition, policy: policy)
+    existing_edition = create(:published_edition, document: policy)
+    edition = build(:published_edition, document: policy)
     assert_not edition.valid?
   end
 
@@ -131,7 +131,7 @@ class EditionTest < ActiveSupport::TestCase
   test 'should archive earlier editions on publication' do
     published_edition = create(:published_edition)
     author = create(:policy_writer)
-    edition = create(:submitted_edition, policy: published_edition.policy, author: author)
+    edition = create(:submitted_edition, document: published_edition.document, author: author)
     editor = create(:departmental_editor)
     edition.publish_as!(editor)
 

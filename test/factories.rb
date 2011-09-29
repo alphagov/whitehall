@@ -1,9 +1,9 @@
 FactoryGirl.define do
-  factory :policy do
+  factory :policy, aliases: [:document] do
   end
 
   factory :edition do
-    policy
+    document 
     author
     title 'edition-title'
     body  'edition-body'

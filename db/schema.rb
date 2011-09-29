@@ -24,10 +24,11 @@ ActiveRecord::Schema.define(:version => 20110929093706) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "author_id"
-    t.boolean  "submitted",    :default => false
-    t.integer  "lock_version", :default => 0
+    t.boolean  "submitted",     :default => false
+    t.integer  "lock_version",  :default => 0
     t.integer  "document_id"
-    t.string   "state",        :default => "draft", :null => false
+    t.string   "state",         :default => "draft",  :null => false
+    t.string   "document_type", :default => "Policy", :null => false
   end
 
   create_table "fact_check_requests", :force => true do |t|

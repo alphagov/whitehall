@@ -19,7 +19,7 @@ class Admin::EditionsController < ApplicationController
   end
 
   def create
-    @edition = current_user.editions.build(params[:edition].merge(policy: Policy.new))
+    @edition = current_user.editions.build(params[:edition].merge(document: Policy.new))
     if @edition.save
       redirect_to edit_admin_edition_path(@edition), notice: 'The policy has been saved'
     else
@@ -74,7 +74,7 @@ class Admin::EditionsController < ApplicationController
     if edition.save
       redirect_to edit_admin_edition_path(edition)
     else
-      redirect_to edit_admin_edition_path(@edition.policy.editions.draft.first),
+      redirect_to edit_admin_edition_path(@edition.document.editions.draft.first),
         alert: edition.errors.full_messages.to_sentence
     end
   end

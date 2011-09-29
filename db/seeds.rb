@@ -16,13 +16,13 @@ bob = User.create!(name: "Bob Bailey")
 clive = User.create!(name: "Clive Custer")
 
 # Draft policies
-alice.editions.create! title: "Free cats for pensioners", body: random_policy_text, submitted: false, policy: Policy.new
-bob.editions.create! title: "Decriminalise beards", body: random_policy_text(5), submitted: false, policy: Policy.new
+alice.editions.create! title: "Free cats for pensioners", body: random_policy_text, submitted: false, document: Policy.new
+bob.editions.create! title: "Decriminalise beards", body: random_policy_text(5), submitted: false, document: Policy.new
 
 # Submitted policies
-alice.editions.create! title: "Less gravity on Sundays", body: random_policy_text, submitted: true, policy: Policy.new
-clive.editions.create! title: "Ducks pulling chariots of fire", body: random_policy_text(4), submitted: true, policy: Policy.new
+alice.editions.create! title: "Less gravity on Sundays", body: random_policy_text, submitted: true, document: Policy.new
+clive.editions.create! title: "Ducks pulling chariots of fire", body: random_policy_text(4), submitted: true, document: Policy.new
 
 # Published policies
-clive.editions.create! title: "No more supernanny", body: random_policy_text, state: 'published', policy: Policy.new
-alice.editions.create! title: "Laser eyes for millionaires", body: random_policy_text, state: 'published', policy: Policy.new
+clive.editions.create! title: "No more supernanny", body: random_policy_text, state: 'published', document: Policy.new
+alice.editions.create! title: "Laser eyes for millionaires", body: random_policy_text, state: 'published', document: Policy.new
