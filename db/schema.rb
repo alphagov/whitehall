@@ -11,11 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110929105024) do
+ActiveRecord::Schema.define(:version => 20110929154009) do
 
   create_table "documents", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type",       :default => "Policy", :null => false
   end
 
   create_table "editions", :force => true do |t|
@@ -24,12 +25,11 @@ ActiveRecord::Schema.define(:version => 20110929105024) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "author_id"
-    t.boolean  "submitted",     :default => false
-    t.integer  "lock_version",  :default => 0
+    t.boolean  "submitted",    :default => false
+    t.integer  "lock_version", :default => 0
     t.integer  "document_id"
-    t.string   "state",         :default => "draft",  :null => false
+    t.string   "state",        :default => "draft", :null => false
     t.string   "attachment"
-    t.string   "document_type", :default => "Policy", :null => false
   end
 
   create_table "fact_check_requests", :force => true do |t|

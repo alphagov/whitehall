@@ -35,7 +35,7 @@ class Edition < ActiveRecord::Base
   end
 
   belongs_to :author, class_name: "User"
-  belongs_to :document, :polymorphic => true
+  belongs_to :document
 
   has_many :fact_check_requests
 
