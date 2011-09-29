@@ -91,7 +91,7 @@ end
 
 Then /^I should see the "([^"]*)" version and the "([^"]*)" version of the policy side\-by\-side$/ do |new_title, latest_title|
   assert page.has_css?(".conflicting.new #edition_title", value: new_title)
-  assert page.has_css?(".conflicting.latest #edition_title", value: latest_title)
+  assert page.has_css?(".conflicting.latest #edition_title[disabled]", value: latest_title)
 end
 
 When /^I change my version of the policy title to "([^"]*)"$/ do |new_title|
