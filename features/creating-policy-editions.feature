@@ -1,10 +1,10 @@
 Feature: Creating policy editions
 In order to revise a policy without affecting what the public see
-A policy writer
+A writer
 Should be able to create a new edition of a published policy
 
 Scenario: Creating a new edition
-  Given I am logged in as a policy writer
+  Given I am a writer
   And a published policy exists
 
   When I create a new edition of the published policy

@@ -1,24 +1,12 @@
-Given /^I am (?:a|an) (writer|editor)$/ do |role|
+Given /^I am (?:a|an) (writer|editor)(?: called "([^"]*)")?$/ do |role, name|
   visit login_path
   if role == "writer"
-    fill_in 'Your name', with: "Wally Writer"
+    fill_in 'Your name', with: name || "Wally Writer"
   else
-    fill_in 'Your name', with: "Eddie Editor"
+    fill_in 'Your name', with: name || "Eddie Editor"
     check "I am a departmental editor" 
   end
   click_button 'Login'
-end
-
-Given /^I am logged in as a policy writer$/ do
-  Given %{I am logged in as a policy writer called "Wally Writer"}
-end
-
-Given /^I am logged in as a departmental editor$/ do
-  Given %{I am logged in as a departmental editor called "Eddie Editor"}
-end
-
-Given /^I am logged in as "([^"]*)"$/ do |name|
-  Given %{I am logged in as a policy writer called "#{name}"}
 end
 
 Given /^I am logged in as a ([^"]*) called "([^"]*)"$/ do |role, name|

@@ -1,5 +1,5 @@
 Given /^someone has requested fact checking by "([^"]*)" for a policy called "([^"]*)"$/ do |email_address, title|
-  Given %{I am logged in as "George"}
+  Given %{I am a writer called "George"}
   And %{I have drafted a policy called "title"}
   And %{I request that "#{email_address}" fact checks the policy}
   And %{I logout}

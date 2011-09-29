@@ -4,13 +4,13 @@ Feature: Fact checking policies
   I want to garner comments on a draft policy from other individuals
 
 Scenario: Policy writer requests fact checking
-  Given I am logged in as a policy writer
+  Given I am a writer
   And I have drafted a policy
   When I request that "fact-checker@example.com" fact checks the policy
   Then "fact-checker@example.com" should receive an email requesting fact checking
 
 Scenario: Departmental editor requests fact checking
-  Given I am logged in as a departmental editor
+  Given I am an editor
   And I have drafted a policy
   When I request that "fact-checker@example.com" fact checks the policy
   Then "fact-checker@example.com" should receive an email requesting fact checking
@@ -28,14 +28,14 @@ Scenario: Fact checker enters feedback
 
 Scenario: Policy writer reviews fact checker comments
   Given a fact checker has commented "This looks good" on the draft policy titled "Check me"
-  When I am logged in as a policy writer
+  When I am a writer
   And I visit the list of draft policies
   And I click edit for the policy "Check me"
   Then I should see the fact checking feedback "This looks good"
 
 Scenario: Departmental editor reviews fact checker comments
   Given a fact checker has commented "This looks good" on the draft policy titled "Check me"
-  When I am logged in as a departmental editor
+  When I am an editor
   And I visit the list of draft policies
   And I click edit for the policy "Check me"
   Then I should see the fact checking feedback "This looks good"

@@ -5,7 +5,7 @@ Should be able to edit submitted policies
 
 Scenario: Editing a submitted policy
   Given "Ben Beardson" submitted "Legalise beards" with body "Beards for everyone!"
-  And I am logged in as a departmental editor
+  And I am an editor
   And I visit the list of policies awaiting review
   
   When I change the policy "Legalise beards" to "Decriminalise beards"
