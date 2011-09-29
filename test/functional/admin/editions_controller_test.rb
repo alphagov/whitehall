@@ -144,6 +144,33 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the policy', flash.now[:alert]
   end
 
+  test 'should distinguish between document types when viewing the list of draft documents' do
+    policy = create(:draft_edition, document: create(:policy))
+    publication = create(:draft_edition, document: create(:publication))
+    get :index
+
+    assert_select_object(policy) { assert_select ".type", text: "Policy" }
+    assert_select_object(publication) { assert_select ".type", text: "Publication" }
+  end
+
+  test 'should distinguish between document types when viewing the list of submitted documents' do
+    policy = create(:submitted_edition, document: create(:policy))
+    publication = create(:submitted_edition, document: create(:publication))
+    get :submitted
+
+    assert_select_object(policy) { assert_select ".type", text: "Policy" }
+    assert_select_object(publication) { assert_select ".type", text: "Publication" }
+  end
+
+  test 'should distinguish between document types when viewing the list of published documents' do
+    policy = create(:published_edition, document: create(:policy))
+    publication = create(:published_edition, document: create(:publication))
+    get :published
+
+    assert_select_object(policy) { assert_select ".type", text: "Policy" }
+    assert_select_object(publication) { assert_select ".type", text: "Publication" }
+  end
+
   test 'viewing the list of submitted policies should not show draft policies' do
     draft_edition = create(:draft_edition)
     get :submitted

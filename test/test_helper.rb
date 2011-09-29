@@ -18,6 +18,8 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
+  include ActionController::RecordIdentifier
+
   def login_as(name, attributes={})
     user = User.find_or_create_by_name(name, attributes)
     session[:user_id] = user.id
@@ -26,6 +28,10 @@ class ActionController::TestCase
 
   def assert_login_required
     assert_redirected_to login_path
+  end
+
+  def assert_select_object(object, &block)
+    assert_select "##{dom_id(object)}", &block
   end
 end
 

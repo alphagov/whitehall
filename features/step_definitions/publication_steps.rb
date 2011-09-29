@@ -19,7 +19,7 @@ end
 When /^I submit the publication "([^"]*)"$/ do |title|
   publication = Edition.find_by_title(title)
   visit admin_editions_path
-  within(".edition-#{publication.id}") do
+  within("##{dom_id(publication)}") do
     click_link "Edit"
   end
   check "Submit to second set of eyes"
@@ -30,7 +30,7 @@ When /^I publish the publication "([^"]*)"$/ do |title|
   publication = Edition.find_by_title(title)
   visit admin_editions_path
   click_link "submitted"
-  within(".edition-#{publication.id}") do
+  within("##{dom_id(publication)}") do
     click_link title
   end
   click_button "Publish"
