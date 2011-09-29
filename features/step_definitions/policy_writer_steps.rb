@@ -49,6 +49,10 @@ Given /^I visit the list of draft policies$/ do
   visit admin_editions_path
 end
 
+Given /^I visit the list of submitted policies$/ do
+  visit submitted_admin_editions_path
+end
+
 When /^I change the policy "([^"]*)" to "([^"]*)"$/ do |old_title, new_title|
   click_link "Edit #{old_title}"
   fill_in 'Title', with: new_title

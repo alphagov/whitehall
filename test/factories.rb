@@ -2,6 +2,9 @@ FactoryGirl.define do
   factory :policy, aliases: [:document] do
   end
 
+  factory :publication do
+  end
+
   factory :edition do
     document 
     author

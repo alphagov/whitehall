@@ -12,7 +12,7 @@
         %th Author
     %tbody
       - @editions.each do |edition|
-        %tr.policy
+        %tr{class: [edition.document.class.name.downcase, (edition.document.class.name.downcase + "-" + edition.id.to_s)]}
           %td.title= link_to edition.title, policy_path(edition.document), title: "View #{edition.title}"
           %td.author= edition.author.name
       - if @editions.empty?

@@ -15,11 +15,11 @@ class Admin::EditionsController < ApplicationController
   end
 
   def new
-    @edition = Edition.new
+    @edition = Edition.new(document: document_class.new)
   end
 
   def create
-    @edition = current_user.editions.build(params[:edition].merge(document: Policy.new))
+    @edition = current_user.editions.build(params[:edition].merge(document: document_class.new))
     if @edition.save
       redirect_to edit_admin_edition_path(@edition), notice: 'The policy has been saved'
     else
@@ -80,6 +80,10 @@ class Admin::EditionsController < ApplicationController
   end
 
   private
+
+  def document_class
+    @document_class ||= params[:document_type] == "Publication" ? Publication : Policy
+  end
 
   def find_edition
     @edition = Edition.find(params[:id])

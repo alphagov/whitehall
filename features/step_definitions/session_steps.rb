@@ -1,3 +1,14 @@
+Given /^I am (?:a|an) (writer|editor)$/ do |role|
+  visit login_path
+  if role == "writer"
+    fill_in 'Your name', with: "Wally Writer"
+  else
+    fill_in 'Your name', with: "Eddie Editor"
+    check "I am a departmental editor" 
+  end
+  click_button 'Login'
+end
+
 Given /^I am logged in as a policy writer$/ do
   Given %{I am logged in as a policy writer called "Wally Writer"}
 end

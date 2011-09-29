@@ -10,7 +10,7 @@
         %th.actions Actions
     %tbody
     - @editions.each do |edition|
-      %tr.policy
+      %tr.policy{class: "edition-#{edition.id}"}
         %td.title= link_to edition.title, admin_edition_path(edition), title: "Show #{edition.title}"
         %td.author= edition.author.name
         %td.actions

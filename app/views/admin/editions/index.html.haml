@@ -3,6 +3,7 @@
 %section.resource_list
   %h1 Drafts
   =link_to "Draft new Policy", new_admin_edition_path, class: "button new_resource"
+  =link_to "Draft new Publication", new_admin_edition_path, class: "button new_resource"
 
   %table#draft_policies
     %thead
@@ -12,7 +13,7 @@
         %th.actions Actions
     %tbody
       - @editions.each do |edition|
-        %tr.policy
+        %tr.policy{class: "edition-#{edition.id}"}
           %td.title= edition.title
           %td.author= edition.author.name
           %td.actions

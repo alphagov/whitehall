@@ -2,6 +2,8 @@ class Edition < ActiveRecord::Base
   include ::Transitions
   include ActiveRecord::Transitions
 
+  delegate :type, to: :document, prefix: :document
+
   mount_uploader :attachment, AttachmentUploader
 
   state_machine do

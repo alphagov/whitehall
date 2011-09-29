@@ -6,6 +6,7 @@
         %li= msg
 
   = edition_form.hidden_field :lock_version
+  = hidden_field_tag :document_type, @edition.document_type
   = edition_form.label :title
   = edition_form.text_field :title, disabled: disabled
   = edition_form.label :body, 'Policy'

@@ -75,11 +75,33 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     @user = login_as "George"
   end
 
+  test 'new form should be for Policies if no document type given' do
+    get :new
+
+    assert_select "input[type='hidden'][name='document_type'][value='Policy']", count: 1
+  end
+
+  test 'new form should be for Publications if Publication passed in' do
+    get :new, {document_type: 'Publication'}
+
+    assert_select "input[type='hidden'][name='document_type'][value='Publication']", count: 1
+  end
+
   test 'saving should leave the writer in the policy editor' do
     post :create, edition: attributes_for(:edition)
 
     assert_redirected_to edit_admin_edition_path(Edition.last)
     assert_equal 'The policy has been saved', flash[:notice]
+  end
+
+  test 'creating with no document type should create a Policy' do
+    post :create, edition: attributes_for(:edition)
+    assert_equal 1, Policy.count
+  end
+
+  test 'creating with publication document type should create a Publication' do
+    post :create, edition: attributes_for(:edition), document_type: 'Publication'
+    assert_equal 1, Publication.count
   end
 
   test 'creating with invalid data should leave the writer in the policy editor' do
