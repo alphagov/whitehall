@@ -63,3 +63,10 @@ Scenario: Trying to save a policy that has been changed by another user
   And I save the policy
   Then I should be notified that the policy has been saved successfully
   And I should see the policy "Legalise beards and Hair is good!" in my list of draft policies
+
+Scenario: Editing a policy that has a PDF attachment
+  Given a draft policy titled "Legalise beards" with a PDF attachment
+  And I am logged in as a policy writer
+  And I visit the list of draft policies
+  When I click edit for the policy "Legalise beards"
+  Then I should see a link to the PDF attachment

@@ -6,6 +6,7 @@
   %h1.title= @edition.title
   %div.body
     = format_in_paragraphs @edition.body
+  %p.attachment= link_to_attachment(@edition.attachment)
   %p.written_by
     Written by
     %span.author= @edition.author.name
@@ -14,4 +15,4 @@
   - if @edition.publishable_by?(current_user)
     = form_for [:admin, @edition], {url: publish_admin_edition_path(@edition)} do |edition_form|
       = edition_form.hidden_field :lock_version
-      = edition_form.submit "Publish", title: "Public #{@edition.title}" 
+      = edition_form.submit "Publish", title: "Public #{@edition.title}"

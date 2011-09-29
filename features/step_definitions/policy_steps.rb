@@ -64,6 +64,16 @@ When /^I attach a PDF file to the policy$/ do
   attach_file "Attachment", pdf_attachment
 end
 
+Given /^a draft policy titled "([^"]*)" with a PDF attachment$/ do |title|
+  attachment = File.open(pdf_attachment)
+  create(:draft_edition, title: title, attachment: attachment)
+end
+
+Given /^a submitted policy titled "([^"]*)" with a PDF attachment$/ do |title|
+  attachment = File.open(pdf_attachment)
+  create(:submitted_edition, title: title, attachment: attachment)
+end
+
 Given /^a published policy titled "([^"]*)" with a PDF attachment$/ do |title|
   attachment = File.open(pdf_attachment)
   create(:published_edition, title: title, attachment: attachment)
@@ -75,7 +85,7 @@ When /^I visit the policy titled "([^"]*)"$/ do |title|
 end
 
 Then /^I should see a link to the PDF attachment$/ do
-  assert page.has_css?(".policy_document .attachment a[href*='attachment.pdf']", :text => /^attachment\.pdf$/)
+  assert page.has_css?(".attachment a[href*='attachment.pdf']", :text => /^attachment\.pdf$/)
 end
 
 def pdf_attachment
