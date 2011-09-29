@@ -3,7 +3,7 @@ Whitehall::Application.routes.draw do
   resources :policies, only: [:index, :show]
 
   namespace :admin do
-    root to: 'editions#index'
+    root to: redirect('/admin/editions')
     resources :editions, except: [:destroy] do
       collection do
         get :submitted
