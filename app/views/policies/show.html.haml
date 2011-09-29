@@ -6,6 +6,7 @@
   %h1.title= @edition.title
   %div.body
     = format_in_paragraphs @edition.body
+  %p.attachment= link_to_attachment(@edition.attachment)
   %p.written_by
     Written by
     %span.author= @edition.author.name

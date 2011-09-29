@@ -8,10 +8,12 @@ Scenario: Saving a draft policy
   And I visit the list of draft policies
   And I click create new policy
   Then I should be on the new policy page
-  When I write and save a policy called "Milk for kids" with body
+  When I write a policy called "Milk for kids" with body
     """
     Calcium is good for growing bones!
     """
+  And I attach a PDF file to the policy
+  And I save the policy
   Then I should see the policy "Milk for kids" written by "George" in my list of draft policies
 
 Scenario: Submitting a draft policy to the second set of eyes
@@ -54,10 +56,10 @@ Scenario: Trying to save a policy that has been changed by another user
   And I visit the list of draft policies
   And I click edit for the policy "Legalise beards"
   When another user changes the title from "Legalise beards" to "Hair is good!"
-  And I press save
+  And I save the policy
   Then I should be alerted that the policy has been saved while I was editing
   And I should see the "Legalise beards" version and the "Hair is good!" version of the policy side-by-side
   When I change my version of the policy title to "Legalise beards and Hair is good!"
-  And I press save
+  And I save the policy
   Then I should be notified that the policy has been saved successfully
   And I should see the policy "Legalise beards and Hair is good!" in my list of draft policies

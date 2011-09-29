@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110929093706) do
+ActiveRecord::Schema.define(:version => 20110929105024) do
 
   create_table "documents", :force => true do |t|
     t.datetime "created_at"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20110929093706) do
     t.integer  "document_id"
     t.string   "state",         :default => "draft",  :null => false
     t.string   "document_type", :default => "Policy", :null => false
+    t.string   "attachment"
   end
 
   create_table "fact_check_requests", :force => true do |t|

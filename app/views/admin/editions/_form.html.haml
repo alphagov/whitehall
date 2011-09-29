@@ -10,6 +10,8 @@
   = edition_form.text_field :title, disabled: disabled
   = edition_form.label :body, 'Policy'
   = edition_form.text_area :body, disabled: disabled
+  = edition_form.label :attachment
+  = edition_form.file_field :attachment
   - unless disabled
     -unless edition.submitted?
       = labelled_check_box :edition, :submitted, 'Submit to second set of eyes'

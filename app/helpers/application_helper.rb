@@ -36,4 +36,9 @@ module ApplicationHelper
     string.split(/(\r?\n){2}/).collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
   end
 
+  def link_to_attachment(attachment)
+    return unless attachment.present?
+    link_to File.basename(attachment.current_path), attachment.url
+  end
+
 end

@@ -59,3 +59,25 @@ Then /^they should see the draft policy titled "([^"]*)"$/ do |title|
   assert page.has_css?('.policy .title', :text => edition.title)
   assert page.has_css?('.policy .body', :text => edition.body)
 end
+
+When /^I attach a PDF file to the policy$/ do
+  attach_file "Attachment", pdf_attachment
+end
+
+Given /^a published policy titled "([^"]*)" with a PDF attachment$/ do |title|
+  attachment = File.open(pdf_attachment)
+  create(:published_edition, title: title, attachment: attachment)
+end
+
+When /^I visit the policy titled "([^"]*)"$/ do |title|
+  edition = Edition.find_by_title(title)
+  visit policy_path(edition.policy)
+end
+
+Then /^I should see a link to the PDF attachment$/ do
+  assert page.has_css?(".policy_document .attachment a[href*='attachment.pdf']", :text => /^attachment\.pdf$/)
+end
+
+def pdf_attachment
+  Rails.root.join("features/fixtures/attachment.pdf")
+end

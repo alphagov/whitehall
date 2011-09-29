@@ -2,6 +2,10 @@ When /^I visit the new policy page$/ do
   visit new_admin_edition_path
 end
 
+When /^I write a policy called "([^"]*)" with body$/ do |title, body|
+  When %{I write a policy called "#{title}" with body "#{body}"}
+end
+
 When /^I write and save a policy called "([^"]*)" with body$/ do |title, body|
   When %{I write and save a policy called "#{title}" with body "#{body}"}
 end
@@ -12,9 +16,13 @@ When /^I request that "([^"]*)" fact checks the policy$/ do |email_address|
 end
 
 When /^I write and save a policy called "([^"]*)" with body "([^"]*)"$/ do |title, body|
+  When %{I write a policy called "#{title}" with body "#{body}"}
+  click_button 'Save'
+end
+
+When /^I write a policy called "([^"]*)" with body "([^"]*)"$/ do |title, body|
   fill_in 'Title', with: title
   fill_in 'Policy', with: body
-  click_button 'Save'
 end
 
 Then /^I should( not)? see the policy "([^"]*)" in my list of draft policies$/ do |invert, title|
@@ -69,7 +77,7 @@ When /^another user changes the body for "([^"]*)" to "([^"]*)"$/ do |title, new
   policy.update_attributes(:body => new_body)
 end
 
-When /^I press save$/ do
+When /^I save the policy$/ do
   click_button 'Save'
 end
 

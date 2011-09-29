@@ -2,6 +2,8 @@ class Edition < ActiveRecord::Base
   include ::Transitions
   include ActiveRecord::Transitions
 
+  mount_uploader :attachment, AttachmentUploader
+
   state_machine do
     state :draft
     state :published
