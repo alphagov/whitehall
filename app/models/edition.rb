@@ -33,7 +33,7 @@ class Edition < ActiveRecord::Base
   end
 
   belongs_to :author, class_name: "User"
-  belongs_to :policy
+  belongs_to :policy, :foreign_key => "document_id"
 
   has_many :fact_check_requests
 

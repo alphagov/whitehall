@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110928135740) do
+ActiveRecord::Schema.define(:version => 20110929093706) do
+
+  create_table "documents", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "editions", :force => true do |t|
     t.string   "title"
@@ -21,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20110928135740) do
     t.integer  "author_id"
     t.boolean  "submitted",    :default => false
     t.integer  "lock_version", :default => 0
-    t.integer  "policy_id"
+    t.integer  "document_id"
     t.string   "state",        :default => "draft", :null => false
   end
 
@@ -32,11 +37,6 @@ ActiveRecord::Schema.define(:version => 20110928135740) do
     t.datetime "updated_at"
     t.string   "email_address"
     t.text     "comments"
-  end
-
-  create_table "policies", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

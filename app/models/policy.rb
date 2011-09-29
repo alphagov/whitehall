@@ -1,3 +1,2 @@
-class Policy < ActiveRecord::Base
-  has_many :editions
+class Policy < Document
 end
