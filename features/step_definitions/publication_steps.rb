@@ -53,7 +53,7 @@ Then /^I should see the publication "([^"]*)" in the list of published documents
 end
 
 Then /^the publication "([^"]*)" should be visible to the public$/ do |title|
-  publication = Edition.find_by_title(title)
+  publication = Edition.find_by_title(title).document
   visit policies_path
   assert page.has_css?(object_css_selector(publication), text: title)
 end
