@@ -7,11 +7,11 @@ When /^I view the policy titled "([^"]*)"$/ do |title|
 end
 
 Then /^I should see that "([^"]*)" is the policy author$/ do |name|
-  assert page.has_css?(".policy .author", text: name)
+  assert page.has_css?(".document_view .author", text: name)
 end
 
 Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
-  assert page.has_css?(".policy .body", text: policy_body)
+  assert page.has_css?(".document_view .body", text: policy_body)
 end
 
 When /^I publish the policy called "([^"]*)"$/ do |title|

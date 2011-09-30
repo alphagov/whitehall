@@ -7,7 +7,7 @@
   - elsif @edition.published?
     = link_to 'published documents', published_admin_editions_path
 
-.policy
+.document_view
   %h1.title= @edition.title
   %div.body
     = format_in_paragraphs @edition.body

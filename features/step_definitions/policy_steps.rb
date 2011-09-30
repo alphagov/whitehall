@@ -11,7 +11,7 @@ Then /^the policy "([^"]*)" should( not)? be visible to the public$/ do |policy_
   if invert.nil?
     assert page.has_css?(*published_policy_selector)
     click_link policy_title
-    assert page.has_css?(".policy_document .title", text: policy_title)
+    assert page.has_css?(".document_view .title", text: policy_title)
   else
     assert page.has_no_css?(*published_policy_selector)
   end
@@ -40,8 +40,8 @@ end
 
 Then /^the published policy should remain unchanged$/ do
   visit document_path(@edition.document)
-  assert page.has_css?('.policy_document .title', text: @edition.title)
-  assert page.has_css?('.policy_document .body', text: @edition.body)
+  assert page.has_css?('.document_view .title', text: @edition.title)
+  assert page.has_css?('.document_view .body', text: @edition.body)
 end
 
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy titled "([^"]*)"$/ do |email, title|
