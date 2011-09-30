@@ -1,3 +1,39 @@
+@import "utils";
+
+#document_nav {
+  margin-bottom: 20px;
+
+  p.back {
+    float: left;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    margin-left: 10px;
+    line-height: 53px;
+  }
+
+  #document_actions {
+    background: #eee;
+    border: 1px solid #e6e6e6;
+    padding: 10px 10px 10px 0;
+    @include rounded;
+    float: left;
+
+    form {
+      margin-bottom: 0;
+    }
+
+    input[type=submit] {
+      margin-bottom: 0;
+    }
+
+    a.button, form {
+      margin-bottom: 0;
+      float: left;
+      margin-left: 10px;
+    }
+  }
+}
+
 .document_view {
   border: 1px solid #ddd;
   border-bottom: 3px solid #ccc;
@@ -22,5 +58,4 @@
       font-weight: bold;
     }
   }
-
 }

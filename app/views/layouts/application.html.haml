@@ -15,8 +15,9 @@
     %link{rel: "shortcut icon", href: "/favicon.ico", type: "image/x-icon"}
   %body
     %header.group
+      #notices
+        = render partial: 'shared/notices'
       = render partial: 'shared/session' if show_session_controls?
     #wrapper.group
-      = render partial: 'shared/notices'
       = yield
     = javascript_include_tag "application"
