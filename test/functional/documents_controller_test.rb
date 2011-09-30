@@ -1,24 +1,16 @@
 require 'test_helper'
 
 class DocumentsControllerTest < ActionController::TestCase
-  test 'show policy with one draft edition' do
-    draft_edition = create(:draft_edition)
-    get :show, id: draft_edition.document.to_param
+  test "should render 404 if the document doesn't have a published edition" do
+    document = create(:document)
+    get :show, id: document.to_param
 
     assert_response :not_found
   end
 
-  test 'show policy with one published edition' do
+  test 'should display the published edition' do
     document = create(:document)
-    published_edition = create(:published_edition, document: document)
-    get :show, id: document.to_param
-
-    assert_response :success
-    assert_equal published_edition, assigns[:published_edition]
-  end
-
-  test 'show policy with one published edition and one draft edition' do
-    document = create(:document)
+    create(:archived_edition, document: document)
     published_edition = create(:published_edition, document: document)
     create(:draft_edition, document: document)
     get :show, id: document.to_param
@@ -27,52 +19,14 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_equal published_edition, assigns[:published_edition]
   end
 
-  test 'show policy with one published edition and one archived edition' do
-    document = create(:document)
-    archived_edition = create(:archived_edition, document: document)
-    published_edition = create(:published_edition, document: document)
-
-    get :show, id: document.to_param
-
-    assert_response :success
-    assert_equal published_edition, assigns[:published_edition]
-  end
-
-  test 'index policy with one draft edition' do
-    draft_edition = create(:draft_edition)
-    get :index
-
-    assert_equal [], assigns[:documents]
-  end
-
-  test 'index policy with one published edition' do
-    document = create(:document)
-    published_edition = create(:published_edition, document: document)
+  test 'should only display published documents' do
+    draft_document = create(:document, editions: [build(:draft_edition)])
+    published_document = create(:document, editions: [build(:published_edition)])
+    archived_document = create(:document, editions: [build(:archived_edition)])
     get :index
 
     assert_response :success
-    assert_equal [document], assigns[:documents]
-  end
-
-  test 'index policy with one published edition and one draft edition' do
-    document = create(:document)
-    published_edition = create(:published_edition, document: document)
-    edition = create(:draft_edition, document: document)
-    get :index
-
-    assert_response :success
-    assert_equal [document], assigns[:documents]
-  end
-
-  test 'index policy with one published edition and one archived edition' do
-    document = create(:document)
-    archived_edition = create(:archived_edition, document: document)
-    published_edition = create(:published_edition, document: document)
-
-    get :index
-
-    assert_response :success
-    assert_equal [document], assigns[:documents]
+    assert_equal [published_document], assigns[:documents]
   end
 
   test 'should distinguish between document types when viewing the list of documents' do
