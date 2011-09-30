@@ -9,7 +9,7 @@
 
 %p The policy is show below.
 
-.policy
+.document_view
   %h1.title= @edition.title
   %div.body
     = @edition.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe

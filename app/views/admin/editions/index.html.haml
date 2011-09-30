@@ -4,5 +4,5 @@
   %h1 Drafts
   .action_buttons
     =link_to "Draft new Policy", new_admin_edition_path, class: "button new_resource"
-    =link_to "Draft new Publication", new_admin_edition_path, class: "button new_resource"
+    =link_to "Draft new Publication", new_admin_edition_path(document_type: 'Publication'), class: "button new_resource"
   =render partial: 'edition_table', locals: { editions: @editions }

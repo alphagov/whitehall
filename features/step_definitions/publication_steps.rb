@@ -18,6 +18,7 @@ end
 
 When /^I submit the publication "([^"]*)"$/ do |title|
   publication = Edition.find_by_title(title)
+  assert publication.document.is_a?(Publication)
   visit admin_editions_path
   within(object_css_selector(publication)) do
     click_link title
@@ -26,10 +27,11 @@ When /^I submit the publication "([^"]*)"$/ do |title|
 end
 
 When /^I publish the publication "([^"]*)"$/ do |title|
-  publication = Edition.find_by_title(title)
+  edition = Edition.find_by_title(title)
+  assert edition.document.is_a?(Publication)
   visit admin_editions_path
   click_link "submitted"
-  within(object_css_selector(publication)) do
+  within(object_css_selector(edition)) do
     click_link title
   end
   click_button "Publish"
@@ -51,7 +53,9 @@ Then /^I should see the publication "([^"]*)" in the list of published documents
 end
 
 Then /^the publication "([^"]*)" should be visible to the public$/ do |title|
-  publication = Edition.find_by_title(title).document
+  edition = Edition.find_by_title(title)
+  assert edition.document.is_a?(Publication)
   visit documents_path
-  assert page.has_css?(object_css_selector(publication), text: title)
+  save_and_open_page
+  assert page.has_css?(object_css_selector(edition.document), text: title)
 end
