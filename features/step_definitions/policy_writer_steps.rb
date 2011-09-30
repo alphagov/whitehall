@@ -10,9 +10,18 @@ When /^I write and save a policy called "([^"]*)" with body$/ do |title, body|
   When %{I write and save a policy called "#{title}" with body "#{body}"}
 end
 
-When /^I request that "([^"]*)" fact checks the policy$/ do |email_address|
-  fill_in "Email address", :with => email_address
-  click_button "Request fact checking"
+When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, title|
+  edition = Edition.find_by_title(title)
+  assert edition.document.is_a?(Policy)
+  visit admin_editions_path
+  within(object_css_selector(edition)) do
+    click_link title
+  end
+  click_link 'Edit'
+  within("#new_fact_check_request") do
+    fill_in "Email address", with: email
+    click_button "Request fact checking"
+  end
 end
 
 When /^I write and save a policy called "([^"]*)" with body "([^"]*)"$/ do |title, body|
@@ -34,6 +43,11 @@ end
 Then /^I should see the policy "([^"]*)" written by "([^"]*)" in my list of draft policies$/ do |title, author|
   Then %{I should see the policy "#{title}" in my list of draft policies}
   assert page.has_css?('.edition .author', text: author)
+end
+
+Given /^a draft policy called "([^"]*)" exists$/ do |title|
+  policy = create(:policy)
+  create(:draft_edition, title: title, document: policy)
 end
 
 Given /^I have drafted a policy$/ do
@@ -74,7 +88,6 @@ Given /^I click create new policy$/ do
 end
 
 Given /^I submit the policy for the second set of eyes$/ do
-  click_link 'cancel'
   click_button 'Submit to 2nd pair of eyes'
 end
 

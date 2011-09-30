@@ -21,7 +21,7 @@ class Admin::EditionsController < ApplicationController
   def create
     @edition = current_user.editions.build(params[:edition].merge(document: document_class.new))
     if @edition.save
-      redirect_to edit_admin_edition_path(@edition), notice: 'The policy has been saved'
+      redirect_to admin_edition_path(@edition), notice: 'The policy has been saved'
     else
       flash.now[:alert] = 'There are some problems with the policy'
       render action: 'new'

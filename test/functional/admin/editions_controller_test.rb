@@ -87,10 +87,10 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "input[type='hidden'][name='document_type'][value='Publication']", count: 1
   end
 
-  test 'saving should leave the writer in the policy editor' do
+  test 'saving should take the writer to the edition page' do
     post :create, edition: attributes_for(:edition)
 
-    assert_redirected_to edit_admin_edition_path(Edition.last)
+    assert_redirected_to admin_edition_path(Edition.last)
     assert_equal 'The policy has been saved', flash[:notice]
   end
 

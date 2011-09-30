@@ -3,16 +3,10 @@ Feature: Fact checking policies
   As someone involved in drafting policy
   I want to garner comments on a draft policy from other individuals
 
-Scenario: Policy writer requests fact checking
-  Given I am a writer
-  And I have drafted a policy
-  When I request that "fact-checker@example.com" fact checks the policy
-  Then "fact-checker@example.com" should receive an email requesting fact checking
-
 Scenario: Departmental editor requests fact checking
-  Given I am an editor
-  And I have drafted a policy
-  When I request that "fact-checker@example.com" fact checks the policy
+  Given I am an writer
+  And a draft policy called "Standard Beard Lengths" exists
+  When I request that "fact-checker@example.com" fact checks the policy "Standard Beard Lengths"
   Then "fact-checker@example.com" should receive an email requesting fact checking
 
 Scenario: Fact checker views the draft policy
