@@ -58,13 +58,33 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'should not be editable if published' do
-    draft_edition = create(:published_edition)
-    refute draft_edition.editable_by?(create(:policy_writer))
+    published_edition = create(:published_edition)
+    refute published_edition.editable_by?(create(:policy_writer))
   end
 
   test 'should not be editable if archived' do
-    draft_edition = create(:archived_edition)
-    refute draft_edition.editable_by?(create(:policy_writer))
+    archived_edition = create(:archived_edition)
+    refute archived_edition.editable_by?(create(:policy_writer))
+  end
+
+  test 'should be submittable if draft and not submitted' do
+    draft_edition = create(:draft_edition)
+    assert draft_edition.submittable_by?(create(:policy_writer))
+  end
+
+  test 'not be submittable if submitted' do
+    submitted_edition = create(:submitted_edition)
+    refute submitted_edition.submittable_by?(create(:policy_writer))
+  end
+
+  test 'not be submittable if published' do
+    published_edition = create(:published_edition)
+    refute published_edition.submittable_by?(create(:policy_writer))
+  end
+
+  test 'not be archived if archived' do
+    archived_edition = create(:archived_edition)
+    refute archived_edition.submittable_by?(create(:policy_writer))
   end
 
   test 'should not be publishable when not submitted' do

@@ -22,9 +22,7 @@ When /^I submit the publication "([^"]*)"$/ do |title|
   within(object_css_selector(publication)) do
     click_link title
   end
-  click_link "Edit"
-  check "Submit to second set of eyes"
-  click_button "Save"
+  click_button "Submit to 2nd pair of eyes"
 end
 
 When /^I publish the publication "([^"]*)"$/ do |title|

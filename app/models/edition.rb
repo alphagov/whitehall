@@ -54,6 +54,10 @@ class Edition < ActiveRecord::Base
     draft?
   end
 
+  def submittable_by?(user)
+    draft? && !submitted?
+  end
+
   def publishable_by?(user)
     reason_to_prevent_publication_by(user).nil?
   end
