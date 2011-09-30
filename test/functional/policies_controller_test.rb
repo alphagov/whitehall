@@ -68,4 +68,13 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal [published_edition], assigns[:editions]
   end
+
+  test 'should distinguish between document types when viewing the list of documents' do
+    policy = create(:published_edition, document: create(:policy))
+    publication = create(:published_edition, document: create(:publication))
+    get :index
+
+    assert_select_object(policy) { assert_select ".type", text: "Policy" }
+    assert_select_object(publication) { assert_select ".type", text: "Publication" }
+  end
 end
