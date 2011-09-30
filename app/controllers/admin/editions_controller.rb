@@ -44,7 +44,7 @@ class Admin::EditionsController < ApplicationController
           redirect_to admin_editions_path,
             notice: 'Your policy has been submitted to your second pair of eyes'
         else
-          redirect_to edit_admin_edition_path(@edition),
+          redirect_to admin_edition_path(@edition),
             notice: 'The policy has been saved'
         end
       else

@@ -119,11 +119,11 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the policy', flash.now[:alert]
   end
 
-  test 'updating should leave the writer in the policy editor' do
+  test 'updating should take the writer to the edition page' do
     edition = create(:edition)
     post :update, id: edition.id, edition: {title: 'new-title', body: 'new-body'}
 
-    assert_redirected_to edit_admin_edition_path(edition)
+    assert_redirected_to admin_edition_path(edition)
     assert_equal 'The policy has been saved', flash[:notice]
   end
 
