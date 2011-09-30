@@ -1,3 +1,7 @@
+Given /^I am on the policies admin page$/ do
+  visit admin_editions_path
+end
+
 Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
   Given %{I am logged in as a writer called "#{author}"}
   And %{I visit the new policy page}

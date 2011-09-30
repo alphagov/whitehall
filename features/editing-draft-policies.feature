@@ -7,7 +7,6 @@ Scenario: Saving a draft policy
   Given I am a writer called "George"
   And I visit the list of draft policies
   And I click create new policy
-  Then I should be on the new policy page
   When I write a policy called "Milk for kids" with body
     """
     Calcium is good for growing bones!

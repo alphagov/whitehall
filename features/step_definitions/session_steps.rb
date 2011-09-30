@@ -1,3 +1,7 @@
+Given /^I am on the login page$/ do
+  visit login_path
+end
+
 Given /^I am (?:a|an) (writer|editor)(?: called "([^"]*)")?$/ do |role, name|
   visit login_path
   if role == "writer"

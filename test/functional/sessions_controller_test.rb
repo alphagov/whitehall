@@ -17,4 +17,15 @@ class SessionsControllerTest < ActionController::TestCase
     user = User.last
     assert user.departmental_editor?
   end
+
+  test 'should set the current user to nil' do
+    session[:user_id] = 1
+    delete :destroy
+    assert_nil session[:user_id]
+  end
+
+  test 'should redirect to the login page' do
+    delete :destroy
+    assert_redirected_to login_path
+  end
 end
