@@ -4,8 +4,8 @@ class DocumentsController < ApplicationController
   end
 
   def show
-    policy = Policy.find(params[:id])
-    unless @edition = policy.editions.published.last
+    document = Document.find(params[:id])
+    unless @published_edition = document.published_edition
       render text: "Not found", status: :not_found
     end
   end

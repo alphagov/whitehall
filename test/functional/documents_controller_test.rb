@@ -9,30 +9,33 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test 'show policy with one published edition' do
-    published_edition = create(:published_edition)
-    get :show, id: published_edition.document.to_param
+    document = create(:document)
+    published_edition = create(:published_edition, document: document)
+    get :show, id: document.to_param
 
     assert_response :success
-    assert_equal published_edition, assigns[:edition]
+    assert_equal published_edition, assigns[:published_edition]
   end
 
   test 'show policy with one published edition and one draft edition' do
-    published_edition = create(:published_edition)
-    edition = create(:draft_edition, document: published_edition.document)
-    get :show, id: published_edition.document.to_param
+    document = create(:document)
+    published_edition = create(:published_edition, document: document)
+    create(:draft_edition, document: document)
+    get :show, id: document.to_param
 
     assert_response :success
-    assert_equal published_edition, assigns[:edition]
+    assert_equal published_edition, assigns[:published_edition]
   end
 
   test 'show policy with one published edition and one archived edition' do
-    archived_edition = create(:archived_edition)
-    published_edition = create(:published_edition, document: archived_edition.document)
+    document = create(:document)
+    archived_edition = create(:archived_edition, document: document)
+    published_edition = create(:published_edition, document: document)
 
-    get :show, id: archived_edition.document.to_param
+    get :show, id: document.to_param
 
     assert_response :success
-    assert_equal published_edition, assigns[:edition]
+    assert_equal published_edition, assigns[:published_edition]
   end
 
   test 'index policy with one draft edition' do

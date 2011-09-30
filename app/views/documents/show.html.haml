@@ -3,10 +3,10 @@
   =link_to 'policies', documents_path
 
 .policy_document
-  %h1.title= @edition.title
+  %h1.title= @published_edition.title
   %div.body
-    = format_in_paragraphs @edition.body
-  %p.attachment= link_to_attachment(@edition.attachment)
+    = format_in_paragraphs @published_edition.body
+  %p.attachment= link_to_attachment(@published_edition.attachment)
   %p.written_by
     Written by
-    %span.author= @edition.author.name
+    %span.author= @published_edition.author.name
