@@ -1,6 +1,11 @@
 %p.inset
   back to
-  =link_to 'submitted policies', submitted_admin_editions_path
+  - if @edition.submitted?
+    = link_to 'submitted documents', submitted_admin_editions_path
+  - elsif @edition.draft?
+    = link_to 'draft documents', admin_editions_path
+  - elsif @edition.published?
+    = link_to 'published documents', published_admin_editions_path
 
 .policy
   %h1.title= @edition.title
