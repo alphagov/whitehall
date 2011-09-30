@@ -6,7 +6,7 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
 end
 
 Then /^the policy "([^"]*)" should( not)? be visible to the public$/ do |policy_title, invert|
-  visit policies_path
+  visit documents_path
   published_policy_selector = ["#published_policies .policy .title", text: policy_title]
   if invert.nil?
     assert page.has_css?(*published_policy_selector)
@@ -39,7 +39,7 @@ When /^I edit the new edition$/ do
 end
 
 Then /^the published policy should remain unchanged$/ do
-  visit policy_path(@edition.document)
+  visit document_path(@edition.document)
   assert page.has_css?('.policy_document .title', text: @edition.title)
   assert page.has_css?('.policy_document .body', text: @edition.body)
 end
@@ -82,7 +82,7 @@ end
 
 When /^I visit the policy titled "([^"]*)"$/ do |title|
   edition = Edition.find_by_title(title)
-  visit policy_path(edition.document)
+  visit document_path(edition.document)
 end
 
 Then /^I should see a link to the PDF attachment$/ do

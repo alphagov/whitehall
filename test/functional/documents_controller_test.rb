@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PoliciesControllerTest < ActionController::TestCase
+class DocumentsControllerTest < ActionController::TestCase
   test 'show policy with one draft edition' do
     draft_edition = create(:draft_edition)
     get :show, id: draft_edition.document.to_param

@@ -14,7 +14,7 @@
     %tbody
       - @documents.each do |document|
         = content_tag_for(:tr, document) do
-          %td.title= link_to document.published_edition.title, policy_path(document), title: "View #{document.published_edition.title}"
+          %td.title= link_to document.published_edition.title, document_path(document), title: "View #{document.published_edition.title}"
           %td.author= document.published_edition.author.name
           %td.type= document.type
       - if @documents.empty?

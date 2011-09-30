@@ -54,6 +54,6 @@ end
 
 Then /^the publication "([^"]*)" should be visible to the public$/ do |title|
   publication = Edition.find_by_title(title).document
-  visit policies_path
+  visit documents_path
   assert page.has_css?(object_css_selector(publication), text: title)
 end

@@ -1,4 +1,4 @@
-class PoliciesController < ApplicationController
+class DocumentsController < ApplicationController
   def index
     @documents = Document.published
   end

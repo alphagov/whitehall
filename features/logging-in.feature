@@ -4,7 +4,7 @@ I want to be able to login and log out
 So that I can manage my access to the application
 
 Scenario: The public policies page shouldn't have login links
-  Given I go to the policies page
+  Given I go to the documents page
   Then I should not see a link to login
 
 Scenario: The admin root should have a login link
