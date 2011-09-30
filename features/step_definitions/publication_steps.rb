@@ -19,7 +19,7 @@ end
 When /^I submit the publication "([^"]*)"$/ do |title|
   publication = Edition.find_by_title(title)
   visit admin_editions_path
-  within("##{dom_id(publication)}") do
+  within(object_css_selector(publication)) do
     click_link "Edit"
   end
   check "Submit to second set of eyes"
@@ -30,7 +30,7 @@ When /^I publish the publication "([^"]*)"$/ do |title|
   publication = Edition.find_by_title(title)
   visit admin_editions_path
   click_link "submitted"
-  within("##{dom_id(publication)}") do
+  within(object_css_selector(publication)) do
     click_link title
   end
   click_button "Publish"
@@ -54,5 +54,5 @@ end
 Then /^the publication "([^"]*)" should be visible to the public$/ do |title|
   publication = Edition.find_by_title(title)
   visit policies_path
-  assert page.has_css?("##{dom_id(publication)}", text: title)
+  assert page.has_css?(object_css_selector(publication), text: title)
 end

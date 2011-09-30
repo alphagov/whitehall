@@ -2,6 +2,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'factories'
+Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
 class ActiveSupport::TestCase
   include Factory::Syntax::Methods
@@ -18,8 +19,7 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  include ActionController::RecordIdentifier
-
+  include CssSelectors
   def login_as(name, attributes={})
     user = User.find_or_create_by_name(name, attributes)
     session[:user_id] = user.id
@@ -31,7 +31,7 @@ class ActionController::TestCase
   end
 
   def assert_select_object(object, &block)
-    assert_select "##{dom_id(object)}", &block
+    assert_select object_css_selector(object), &block
   end
 end
 
