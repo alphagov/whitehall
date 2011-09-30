@@ -7,7 +7,7 @@ end
 
 Then /^the policy "([^"]*)" should( not)? be visible to the public$/ do |policy_title, invert|
   visit documents_path
-  published_policy_selector = ["#published_policies .policy .title", text: policy_title]
+  published_policy_selector = [".policy .title", text: policy_title]
   if invert.nil?
     assert page.has_css?(*published_policy_selector)
     click_link policy_title
