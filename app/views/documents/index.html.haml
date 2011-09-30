@@ -1,10 +1,10 @@
 %h1 Government Department
 %p
-  So far you can view published policies, and if you
+  So far you can view published documents, and if you
   =link_to "login", login_path
   you can write your own.
 %section.resource_list
-  %h1 Published policies
+  %h1 Published documents
   %table#published_policies
     %thead
       %tr
@@ -19,4 +19,4 @@
           %td.type= document.type
       - if @documents.empty?
         %tr
-          %td{colspan: 2} Our authors have not published any policies at present.
+          %td{colspan: 2} Our authors have not published any documents at present.
