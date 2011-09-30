@@ -6,18 +6,18 @@
         %li= msg
 
   = edition_form.hidden_field :lock_version
-  = hidden_field_tag :document_type, @edition.document_type
+  = hidden_field_tag :document_type, edition.document_type
   = edition_form.label :title
   = edition_form.text_field :title, disabled: disabled
   = edition_form.label :body, 'Policy'
   = edition_form.text_area :body, disabled: disabled
   = edition_form.label :attachment
   = edition_form.file_field :attachment, disabled: disabled
-  %p.attachment= link_to_attachment(@edition.attachment)
+  %p.attachment= link_to_attachment(edition.attachment)
   - unless disabled
     -unless edition.submitted?
       = labelled_check_box :edition, :submitted, 'Submit to second set of eyes'
     = edition_form.submit 'Save'
     %span.or_cancel
       or
-      =link_to 'cancel', (edition_form.object.submitted? ? submitted_admin_editions_path : admin_editions_path)
+      =link_to 'cancel', (edition.new_record? ? admin_editions_path : admin_edition_path(edition))

@@ -224,16 +224,15 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "input[type='checkbox'][name='policy[submitted]']", count: 0
   end
 
-  test "cancelling a submitted edition takes the user to the list of submissions" do
-    submitted_edition = create(:submitted_edition)
-    get :edit, id: submitted_edition.to_param
-    assert_select "a[href=#{submitted_admin_editions_path}]", text: /cancel/i, count: 1
+  test "cancelling a new edition takes the user to the list of drafts" do
+    get :new
+    assert_select "a[href=#{admin_editions_path}]", text: /cancel/i, count: 1
   end
 
-  test "cancelling a draft edition takes the user to the list of drafts" do
+  test "cancelling an existing edition takes the user to that edition" do
     draft_edition = create(:draft_edition)
     get :edit, id: draft_edition.to_param
-    assert_select "a[href=#{admin_editions_path}]", text: /cancel/i, count: 1
+    assert_select "a[href=#{admin_edition_path(draft_edition)}]", text: /cancel/i, count: 1
   end
 
   test 'updating a submitted policy with bad data should show errors' do

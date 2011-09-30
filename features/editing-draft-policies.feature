@@ -23,26 +23,12 @@ Scenario: Submitting a draft policy to the second set of eyes
   Then I should be notified "Your policy has been submitted to your second pair of eyes"
   And I should not see the policy "Legalise beards" in my list of draft policies
 
-Scenario: Cancelling the draft policy
-  Given I am a writer
-  And I visit the new policy page
-  When I click cancel
-  Then I should be on the policies admin page
-
 Scenario: Editing an existing draft policy
   Given I am a writer
   And I have drafted a policy called "Legalise beards"
   And I visit the list of draft policies
   When I change the policy "Legalise beards" to "Decriminalise beards"
   Then I should see the policy "Decriminalise beards" in my list of draft policies
-
-Scenario: Cancelling the draft policy
-  Given I am a writer
-  And I have drafted a policy called "Legalise beards"
-  And I visit the list of draft policies
-  And I click edit for the policy "Legalise beards"
-  When I click cancel
-  Then I should be on the policies admin page
 
 Scenario: Entering invalid data
   Given I am a writer
