@@ -52,6 +52,21 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [submitted_edition], Edition.submitted
   end
 
+  test 'should be editable if a draft' do
+    draft_edition = create(:draft_edition)
+    assert draft_edition.editable_by?(create(:policy_writer))
+  end
+
+  test 'should not be editable if published' do
+    draft_edition = create(:published_edition)
+    refute draft_edition.editable_by?(create(:policy_writer))
+  end
+
+  test 'should not be editable if archived' do
+    draft_edition = create(:archived_edition)
+    refute draft_edition.editable_by?(create(:policy_writer))
+  end
+
   test 'should not be publishable when not submitted' do
     edition = create(:draft_edition)
     refute edition.publishable_by?(create(:departmental_editor))

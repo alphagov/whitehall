@@ -50,6 +50,10 @@ class Edition < ActiveRecord::Base
   validates_with DocumentHasNoUnpublishedEditionsValidator, on: :create
   validates_with DocumentHasNoOtherPublishedEditionsValidator, on: :create
 
+  def editable_by?(user)
+    draft?
+  end
+
   def publishable_by?(user)
     reason_to_prevent_publication_by(user).nil?
   end

@@ -1,0 +1,12 @@
+%table.editions
+  %thead
+    %tr
+      %th Title
+      %th Author
+      %th Type
+  %tbody
+    -editions.each do |edition|
+      = content_tag_for(:tr, edition) do
+        %td.title= link_to edition.title, admin_edition_path(edition), title: "View edition #{edition.title}"
+        %td.author= edition.author.name
+        %td.type= edition.document.type

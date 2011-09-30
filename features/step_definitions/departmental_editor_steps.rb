@@ -28,7 +28,7 @@ Then /^I should be alerted that I do not have privileges to publish policies$/ d
 end
 
 Then /^I should see the policy "([^"]*)" in the list of submitted policies$/ do |title|
-  assert page.has_css?('#submitted_policies .policy', text: title)
+  assert page.has_css?('.edition', text: title)
 end
 
 Given /^I open the policy "([^"]*)"$/ do |title|

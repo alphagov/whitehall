@@ -5,19 +5,4 @@
   .action_buttons
     =link_to "Draft new Policy", new_admin_edition_path, class: "button new_resource"
     =link_to "Draft new Publication", new_admin_edition_path, class: "button new_resource"
-
-  %table#draft_policies
-    %thead
-      %tr
-        %th Title
-        %th Author
-        %th Type
-        %th.actions Actions
-    %tbody
-      - @editions.each do |edition|
-        = content_tag_for(:tr, edition, :class => 'policy') do
-          %td.title= edition.title
-          %td.author= edition.author.name
-          %td.type= edition.document.type
-          %td.actions
-            = link_to 'Edit', edit_admin_edition_path(edition), title: "Edit #{edition.title}"
+  =render partial: 'edition_table', locals: { editions: @editions }

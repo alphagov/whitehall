@@ -27,13 +27,13 @@ end
 
 Then /^I should( not)? see the policy "([^"]*)" in my list of draft policies$/ do |invert, title|
   Given "I visit the list of draft policies"
-  page_has_policy = page.has_css?('#draft_policies .policy', text: title)
+  page_has_policy = page.has_css?('.edition', text: title)
   assert(invert.nil? ? page_has_policy : !page_has_policy)
 end
 
 Then /^I should see the policy "([^"]*)" written by "([^"]*)" in my list of draft policies$/ do |title, author|
   Then %{I should see the policy "#{title}" in my list of draft policies}
-  assert page.has_css?('#draft_policies .author', text: author)
+  assert page.has_css?('.edition .author', text: author)
 end
 
 Given /^I have drafted a policy$/ do
@@ -54,7 +54,8 @@ Given /^I visit the list of submitted policies$/ do
 end
 
 When /^I change the policy "([^"]*)" to "([^"]*)"$/ do |old_title, new_title|
-  click_link "Edit #{old_title}"
+  click_link old_title
+  click_link "Edit"
   fill_in 'Title', with: new_title
   click_button 'Save'
 end
@@ -64,7 +65,8 @@ When /^I click cancel$/ do
 end
 
 Given /^I click edit for the policy "([^"]*)"$/ do |policy_title|
-  click_link "Edit #{policy_title}"
+  click_link policy_title
+  click_link "Edit"
 end
 
 Given /^I click create new policy$/ do

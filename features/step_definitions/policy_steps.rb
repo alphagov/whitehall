@@ -24,6 +24,7 @@ end
 
 When /^I create a new edition of the published policy$/ do
   Given %{I visit the list of published policies}
+  click_link Edition.published.last.title
   click_button 'Create new draft'
 end
 

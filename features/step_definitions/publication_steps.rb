@@ -20,8 +20,9 @@ When /^I submit the publication "([^"]*)"$/ do |title|
   publication = Edition.find_by_title(title)
   visit admin_editions_path
   within(object_css_selector(publication)) do
-    click_link "Edit"
+    click_link title
   end
+  click_link "Edit"
   check "Submit to second set of eyes"
   click_button "Save"
 end
@@ -38,17 +39,17 @@ end
 
 Then /^I should see the publication "([^"]*)" in the list of draft documents$/ do |title|
   visit admin_editions_path
-  assert page.has_css?("#draft_policies .policy", text: title)
+  assert page.has_css?(".edition", text: title)
 end
 
 Then /^I should see the publication "([^"]*)" in the list of submitted documents$/ do |title|
   visit submitted_admin_editions_path
-  assert page.has_css?("#submitted_policies .policy", text: title)
+  assert page.has_css?(".edition", text: title)
 end
 
 Then /^I should see the publication "([^"]*)" in the list of published documents$/ do |title|
   visit published_admin_editions_path
-  assert page.has_css?("#published_policies .policy", text: title)
+  assert page.has_css?(".edition", text: title)
 end
 
 Then /^the publication "([^"]*)" should be visible to the public$/ do |title|

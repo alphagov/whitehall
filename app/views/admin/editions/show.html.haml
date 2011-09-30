@@ -12,7 +12,13 @@
     %span.author= @edition.author.name
 
 %div
+  - if @edition.editable_by?(current_user)
+    = link_to 'Edit', edit_admin_edition_path(@edition), title: "Edit #{@edition.title}"
+  - else @edition.published?
+    = button_to 'Create new draft', revise_admin_edition_path(@edition), title: "Create new draft"
+
   - if @edition.publishable_by?(current_user)
     = form_for [:admin, @edition], {url: publish_admin_edition_path(@edition)} do |edition_form|
       = edition_form.hidden_field :lock_version
       = edition_form.submit "Publish", title: "Public #{@edition.title}"
+
