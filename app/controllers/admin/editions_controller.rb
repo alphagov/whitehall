@@ -1,6 +1,6 @@
 class Admin::EditionsController < ApplicationController
   before_filter :authenticate!
-  before_filter :find_edition, only: [:show, :edit, :update, :publish, :revise, :fact_check]
+  before_filter :find_edition, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check]
 
   def index
     @editions = Edition.unsubmitted
@@ -32,31 +32,24 @@ class Admin::EditionsController < ApplicationController
   end
 
   def update
-    if @edition.submitted?
-      if @edition.update_attributes(params[:edition])
-        redirect_to submitted_admin_editions_path
-      else
-        render action: 'edit'
-      end
+    if @edition.update_attributes(params[:edition])
+      redirect_to admin_edition_path(@edition),
+        notice: 'The policy has been saved'
     else
-      if @edition.update_attributes(params[:edition])
-        if @edition.submitted?
-          redirect_to admin_editions_path,
-            notice: 'Your policy has been submitted to your second pair of eyes'
-        else
-          redirect_to admin_edition_path(@edition),
-            notice: 'The policy has been saved'
-        end
-      else
-        flash.now[:alert] = 'There are some problems with the policy'
-        render action: 'edit'
-      end
+      flash.now[:alert] = 'There are some problems with the policy'
+      render action: 'edit'
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = %{This policy has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it.}
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
     render action: 'edit'
+  end
+
+  def submit
+    @edition.update_attributes(submitted: true)
+    redirect_to admin_edition_path(@edition), 
+      notice: 'Your policy has been submitted to your second pair of eyes'
   end
 
   def publish

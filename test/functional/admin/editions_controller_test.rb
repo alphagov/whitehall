@@ -185,6 +185,21 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal published_editions, assigns(:editions)
   end
 
+  test 'submitting should set submitted on the edition' do
+    draft_edition = create(:draft_edition)
+    put :submit, id: draft_edition.to_param
+
+    assert draft_edition.reload.submitted?
+  end
+
+  test 'submitting should redirect back to show page' do
+    draft_edition = create(:draft_edition)
+    put :submit, id: draft_edition.to_param
+
+    assert_redirected_to admin_edition_path(draft_edition)
+    assert_equal "Your policy has been submitted to your second pair of eyes", flash[:notice]
+  end
+
   test 'publishing should redirect back to submitted policies' do
     submitted_edition = create(:submitted_edition)
     login_as "Eddie", departmental_editor: true

@@ -6,7 +6,7 @@
       = button_to 'Create new draft', revise_admin_edition_path(@edition), title: "Create new draft"
 
     - if @edition.submittable_by?(current_user)
-      = form_for [:admin, @edition], {url: admin_edition_path(edition: {submitted: true})} do |submit_form|
+      = form_for [:admin, @edition], {url: submit_admin_edition_path(@edition), method: :put} do |submit_form|
         = submit_form.submit "Submit to 2nd pair of eyes"
 
     - if @edition.publishable_by?(current_user)
