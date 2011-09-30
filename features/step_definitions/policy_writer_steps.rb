@@ -74,8 +74,8 @@ Given /^I click create new policy$/ do
 end
 
 Given /^I submit the policy for the second set of eyes$/ do
-  check 'Submit to second set of eyes'
-  click_button 'Save'
+  click_link 'cancel'
+  click_button 'Submit to 2nd pair of eyes'
 end
 
 When /^another user changes the body for "([^"]*)" to "([^"]*)"$/ do |title, new_body|
