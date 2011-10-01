@@ -19,21 +19,14 @@ end
 When /^I submit the publication "([^"]*)"$/ do |title|
   publication = Edition.find_by_title(title)
   assert publication.document.is_a?(Publication)
-  visit admin_editions_path
-  within(object_css_selector(publication)) do
-    click_link title
-  end
+  visit admin_edition_path(publication)
   click_button "Submit to 2nd pair of eyes"
 end
 
 When /^I publish the publication "([^"]*)"$/ do |title|
   edition = Edition.find_by_title(title)
   assert edition.document.is_a?(Publication)
-  visit admin_editions_path
-  click_link "submitted"
-  within(object_css_selector(edition)) do
-    click_link title
-  end
+  visit admin_edition_path(edition)
   click_button "Publish"
 end
 
