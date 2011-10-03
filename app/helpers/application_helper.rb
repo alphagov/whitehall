@@ -41,8 +41,8 @@ module ApplicationHelper
   end
 
   def link_to_attachment(attachment)
-    return unless attachment.present?
-    link_to File.basename(attachment.current_path), attachment.url
+    return unless attachment && attachment.name.present?
+    link_to File.basename(attachment.name.current_path), attachment.name.url
   end
 
 end

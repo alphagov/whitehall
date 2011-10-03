@@ -70,17 +70,17 @@ When /^I attach a PDF file to the policy$/ do
 end
 
 Given /^a draft policy titled "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = File.open(pdf_attachment)
+  attachment = Attachment.new(name: File.open(pdf_attachment))
   create(:draft_edition, title: title, attachment: attachment)
 end
 
 Given /^a submitted policy titled "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = File.open(pdf_attachment)
+  attachment = Attachment.new(name: File.open(pdf_attachment))
   create(:submitted_edition, title: title, attachment: attachment)
 end
 
 Given /^a published policy titled "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = File.open(pdf_attachment)
+  attachment = Attachment.new(name: File.open(pdf_attachment))
   create(:published_edition, title: title, attachment: attachment)
 end
 

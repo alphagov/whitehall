@@ -4,7 +4,11 @@ class Edition < ActiveRecord::Base
 
   delegate :type, to: :document, prefix: :document
 
-  mount_uploader :attachment, AttachmentUploader
+  belongs_to :attachment
+
+  def attach_file=(file)
+    self.attachment = build_attachment(name: file)
+  end
 
   state_machine do
     state :draft

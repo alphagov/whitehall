@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110929154009) do
+ActiveRecord::Schema.define(:version => 20111003141922) do
+
+  create_table "attachments", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "documents", :force => true do |t|
     t.datetime "created_at"
@@ -25,11 +31,11 @@ ActiveRecord::Schema.define(:version => 20110929154009) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "author_id"
-    t.boolean  "submitted",    :default => false
-    t.integer  "lock_version", :default => 0
+    t.boolean  "submitted",     :default => false
+    t.integer  "lock_version",  :default => 0
     t.integer  "document_id"
-    t.string   "state",        :default => "draft", :null => false
-    t.string   "attachment"
+    t.string   "state",         :default => "draft", :null => false
+    t.integer  "attachment_id"
   end
 
   create_table "fact_check_requests", :force => true do |t|

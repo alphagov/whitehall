@@ -11,8 +11,8 @@
   = edition_form.text_field :title, disabled: disabled
   = edition_form.label :body, 'Policy'
   = edition_form.text_area :body, disabled: disabled
-  = edition_form.label :attachment
-  = edition_form.file_field :attachment, disabled: disabled
+  = edition_form.label :attach_file, 'Attachment'
+  = edition_form.file_field :attach_file, disabled: disabled
   %p.attachment= link_to_attachment(edition.attachment)
   - unless disabled
     = edition_form.submit 'Save'

@@ -8,36 +8,36 @@ FactoryGirl.define do
   factory :edition do
     document 
     author
-    title 'edition-title'
-    body  'edition-body'
+    title "edition-title"
+    body  "edition-body"
   end
 
   factory :draft_edition, parent: :edition do
-    state 'draft'
+    state "draft"
   end
 
   factory :submitted_edition, parent: :edition do
-    state 'draft'
+    state "draft"
     submitted true
   end
 
   factory :published_edition, parent: :edition do
-    state 'published'
+    state "published"
     submitted true
   end
 
   factory :archived_edition, parent: :edition do
-    state 'archived'
+    state "archived"
     submitted true
   end
 
   factory :fact_check_request do
     edition
-    email_address 'fact-checker@example.com'
+    email_address "fact-checker@example.com"
   end
 
   factory :user do
-    name 'Daaaaaaave'
+    name "Daaaaaaave"
   end
 
   factory :policy_writer, parent: :user, aliases: [:author] do
@@ -46,5 +46,9 @@ FactoryGirl.define do
 
   factory :departmental_editor, parent: :user do
     departmental_editor true
+  end
+
+  factory :attachment do
+    name "whitepaper.pdf"
   end
 end
