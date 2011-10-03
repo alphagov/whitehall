@@ -61,8 +61,8 @@ end
 
 Then /^they should see the draft policy titled "([^"]*)"$/ do |title|
   edition = Edition.find_by_title(title)
-  assert page.has_css?('.policy .title', text: edition.title)
-  assert page.has_css?('.policy .body', text: edition.body)
+  assert page.has_css?('.document_view .title', text: edition.title)
+  assert page.has_css?('.document_view .body', text: edition.body)
 end
 
 When /^I attach a PDF file to the policy$/ do
