@@ -135,7 +135,7 @@ GEM
     sprockets (2.0.0)
       hike (~> 1.2)
       rack (~> 1.0)
-      tilt (!= 1.3.0, ~> 1.1)
+      tilt (~> 1.1, != 1.3.0)
     term-ansicolor (1.0.6)
     therubyracer (0.9.4)
       libv8 (~> 3.3.10)
