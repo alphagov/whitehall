@@ -1,0 +1,10 @@
+<p class="inset">back to <%= link_to 'documents', documents_path %></p>
+
+<div class="document_view">
+  <h1 class="title"><%= @published_edition.title %></h1>
+  <div class="body">
+    <%= govspeak_to_html @published_edition.body %>
+  </div>
+  <p class="attachment"><%= link_to_attachment(@published_edition.attachment) %></p>
+  <p class="written_by">Written by <span class="author"><%= @published_edition.author.name %></span></p>
+</div>

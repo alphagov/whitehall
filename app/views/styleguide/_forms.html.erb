@@ -1,0 +1,48 @@
+<h3>Forms</h3>
+
+<form>
+  <label>Label</label>
+  <%=text_field_tag 'text', 'textfield' %>
+
+  <label>Textarea</label>
+  <%=text_area_tag 'hello' %>
+
+  <label>Select something</label>
+  <select id="selectList">
+    <% 5.times do |i| %>
+      <option value="Option <%= i+1 %>">
+        Option <%= i+1 %>
+      </option>
+    <% end %>
+  </select>
+
+  <fieldset>
+    <legend>Checkboxes</legend>
+    <label for="checkbox_1">
+      <%= check_box_tag 'checkbox_1' %>
+      <span>checkbox</span>
+    </label>
+    <label for="checkbox_2">
+      <%= check_box_tag 'checkbox_2' %>
+      <span>checkbox 2</span>
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Radio buttons</legend>
+    <label for="radios_one">
+      <%= radio_button_tag 'radios', 'one', true %>
+      <span>Love</span>
+    </label>
+    <label for="radios_two">
+      <%= radio_button_tag 'radios', 'two', true %>
+      <span>Hate</span>
+    </label>
+  </fieldset>
+
+  <%=submit_tag 'Submit' %>
+
+  <span class="or_cancel">or <%=link_to "cancel", "#" %></span>
+</form>
+
+<hr />

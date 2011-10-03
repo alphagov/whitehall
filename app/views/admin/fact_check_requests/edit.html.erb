@@ -1,0 +1,16 @@
+<p class="inset">You've been asked to review this policy for factual accuracy. Please read it, and then provide any comments in the form below</p>
+
+<div class="document_view">
+  <h1 class="title"><%= @edition.title %></h1>
+  <div class="body">
+    <%= @edition.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe %>
+  </div>
+  <p class="written_by">Written by <span class="author"><%= @edition.author.name %></span></p>
+</div>
+<div>
+  <%= form_for([:admin, @edition, @fact_check_request]) do |fact_check_form| %>
+    <%= fact_check_form.label :comments %>
+    <%= fact_check_form.text_area :comments %>
+    <%= fact_check_form.submit "Submit" %>
+  <% end %>
+</div>

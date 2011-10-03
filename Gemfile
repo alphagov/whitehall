@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0'
 gem 'mysql2'
 gem 'jquery-rails'
-gem 'haml', '~> 3.1.3'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave'
 gem 'govspeak', :git => 'git://github.com/alphagov/govspeak.git'

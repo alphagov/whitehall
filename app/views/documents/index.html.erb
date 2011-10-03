@@ -1,0 +1,29 @@
+<h1>Government Department</h1>
+<p>So far you can view published documents, and if you <%= link_to "login", login_path %> you can write your own.</p>
+
+<section class="resource_list">
+  <h1>Published documents</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @documents.each do |document| %>
+        <%= content_tag_for(:tr, document) do %>
+          <td class="title"><%= link_to document.published_edition.title, document_path(document), title: "View #{document.published_edition.title}" %></td>
+          <td class="author"><%= document.published_edition.author.name %></td>
+          <td class="type"><%= document.type %></td>
+        <% end %>
+      <% end %>
+      <% if @documents.empty? %>
+        <tr>
+          <td colspan="2">Our authors have not published any documents at present.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

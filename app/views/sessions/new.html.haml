@@ -1,9 +1,0 @@
-%h1 Please login
-
-%p Please enter any name you like below.
-
-= form_tag session_path, html: {method: :post} do
-  = label_tag :name, 'Your name'
-  = text_field_tag :name
-  = labelled_check_box nil, :departmental_editor, 'I am a departmental editor'
-  = submit_tag 'Login'

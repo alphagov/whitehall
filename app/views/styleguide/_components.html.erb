@@ -1,0 +1,80 @@
+<h3>Components</h3>
+
+<section class="resource_list">
+  <h1>Resource list</h1>
+  <ul>
+    <li class="group">
+      <h2>Element name</h2>
+      <div class="actions">
+        <%= link_to 'edit' %>
+      </div>
+    </li>
+    <li class="group">
+      <h2>Element name</h2>
+      <div class="actions">
+        <%= link_to 'edit' %>
+        <%= link_to 'delete' %>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section class="resource_list">
+  <h1>Resource list (table)</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Author</th>
+        <th class="actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="policy">
+        <td class="name">This is the name</td>
+        <td class="author">jason</td>
+        <td class="actions">
+          <a href="#" title="Edit This is the name">delete</a>
+          <a href="#" title="Edit This is the name">edit</a>
+        </td>
+      </tr>
+      <tr class="policy">
+        <td class="name">This is the name</td>
+        <td class="author">jason</td>
+        <td class="actions">
+          <form class="button_to">
+            <div>
+              <%= submit_tag 'publish' %>
+            </div>
+          </form>
+        </td>
+      </tr>
+      <tr class="policy">
+        <td class="name">This is the name</td>
+        <td class="author">jason</td>
+        <td class="actions">
+          <a href="#" title="Edit This is the name">delete</a>
+          <form class="button_to">
+            <div>
+              <%= submit_tag 'publish' %>
+            </div>
+          </form>
+        </td>
+      </tr>
+      <tr class="policy">
+        <td class="name">This is the name</td>
+        <td class="author">jason</td>
+        <td class="actions">
+          <form class="button_to">
+            <div>
+              <%= submit_tag 'publish' %>
+            </div>
+          </form>
+          <a href="#" title="Edit This is the name">delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr />

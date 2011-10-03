@@ -1,0 +1,39 @@
+<section id="document_nav" class="inset group">
+  <div id="document_actions" class="group">
+    <% if @edition.editable_by?(current_user) %>
+      <%= link_to 'Edit', edit_admin_edition_path(@edition), title: "Edit #{@edition.title}", :class => "button" %>
+    <% else @edition.published? %>
+      <%= button_to 'Create new draft', revise_admin_edition_path(@edition), title: "Create new draft" %>
+    <% end %>
+    <% if @edition.submittable_by?(current_user) %>
+      <%= form_for [:admin, @edition], {url: submit_admin_edition_path(@edition), method: :put} do |submit_form| %>
+        <%= submit_form.submit "Submit to 2nd pair of eyes" %>
+      <% end %>
+    <% end %>
+    <% if @edition.publishable_by?(current_user) %>
+      <%= form_for [:admin, @edition], {url: publish_admin_edition_path(@edition)} do |edition_form| %>
+        <%= edition_form.hidden_field :lock_version %>
+        <%= edition_form.submit "Publish", title: "Public #{@edition.title}" %>
+      <% end %>
+    <% end %>
+  </div>
+  <p class="back">
+    back to
+    <% if @edition.submitted? %>
+      <%= link_to 'submitted documents', submitted_admin_editions_path %>
+    <% elsif @edition.draft? %>
+      <%= link_to 'draft documents', admin_editions_path %>
+    <% elsif @edition.published? %>
+      <%= link_to 'published documents', published_admin_editions_path %>
+    <% end %>
+  </p>
+</section>
+
+<div class="document_view">
+  <h1 class="title"><%= @edition.title %></h1>
+  <div class="body">
+    <%= govspeak_to_html @edition.body %>
+  </div>
+  <p class="attachment"><%= link_to_attachment(@edition.attachment) %></p>
+  <p class="written_by">Written by <span class="author"><%= @edition.author.name %></span></p>
+</div>

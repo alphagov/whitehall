@@ -1,0 +1,12 @@
+<div id="session" class="group">
+  <% if current_user %>
+    <p>
+      You are logged in as
+      <span class="current_user_name"><%= current_user.name %></span>,
+      <span class="role"><%= user_role(current_user) %></span>
+    </p>
+    <%= button_to "Logout", logout_path, class: 'link' %>
+  <% elsif not_on_login_page? %>
+    <p><%= link_to 'Login', login_path %></p>
+  <% end %>
+</div>

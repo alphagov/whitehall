@@ -1,0 +1,37 @@
+<h1>Edit policy</h1>
+<% if @conflicting_edition %>
+  <div class="conflicting new">
+    <%= render partial: "form", locals: {disabled: false, edition: @edition} %>
+  </div>
+  <div class="conflicting latest">
+    <%= render partial: "form", locals: {disabled: true, edition: @conflicting_edition} %>
+  </div>
+<% else %>
+  <%= render partial: "form", locals: {disabled: false, edition: @edition} %>
+  <hr />
+  <section>
+    <h1>Request fact checking</h1>
+    <%= form_for [:admin, @edition, FactCheckRequest.new] do |f| %>
+      <%= f.label :email_address, 'Email address' %>
+      <%= f.text_field :email_address %>
+      <%= f.submit 'Request fact checking' %>
+    <% end %>
+    <% if @edition.fact_check_requests.completed.any? %>
+      <h2>Completed requests</h2>
+      <ul id="fact_check_requests">
+        <% @edition.fact_check_requests.completed.each do |fact_check_request| %>
+          <li class="fact_check_request">
+            <div class="details">
+              <span class="from"><%= fact_check_request.email_address %></span>
+              on
+              <span class="time"><%= fact_check_request.updated_at.to_s(:long_ordinal) %></span>
+            </div>
+            <div class="comments">
+              <%= format_in_paragraphs fact_check_request.comments %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </section>
+<% end %>
