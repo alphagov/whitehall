@@ -5,15 +5,18 @@
       - edition.errors.full_messages.each do |msg|
         %li= msg
 
-  = edition_form.hidden_field :lock_version
-  = hidden_field_tag :document_type, edition.document_type
-  = edition_form.label :title
-  = edition_form.text_field :title, disabled: disabled
-  = edition_form.label :body, 'Policy'
-  = edition_form.text_area :body, disabled: disabled
-  = edition_form.label :attach_file, 'Attachment'
-  = edition_form.file_field :attach_file, disabled: disabled
-  %p.attachment= link_to_attachment(edition.attachment)
+  %fieldset
+    = edition_form.hidden_field :lock_version
+    = hidden_field_tag :document_type, edition.document_type
+    = edition_form.label :title
+    = edition_form.text_field :title, disabled: disabled
+    = edition_form.label :body, 'Policy'
+    = edition_form.text_area :body, disabled: disabled
+    = edition_form.label :attach_file, 'Attachment'
+    = edition_form.file_field :attach_file, disabled: disabled
+    - unless edition.new_record?
+      %p.attachment= link_to_attachment(edition.attachment)
+
   - unless disabled
     = edition_form.submit 'Save'
     %span.or_cancel

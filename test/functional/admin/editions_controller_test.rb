@@ -119,6 +119,14 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the policy', flash.now[:alert]
   end
 
+  test 'creating with invalid data should not show any attachment info' do
+    attributes = attributes_for(:edition)
+    attributes[:attach_file] = fixture_file_upload('greenpaper.pdf')
+    post :create, edition: attributes.merge(title: '')
+
+    assert_select "p.attachment", count: 0
+  end
+
   test 'updating should take the writer to the edition page' do
     edition = create(:edition)
     post :update, id: edition.id, edition: {title: 'new-title', body: 'new-body'}
