@@ -19,6 +19,18 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_equal published_edition, assigns[:published_edition]
   end
 
+  test "should render the content using govspeak markup" do
+    published_document = create(:document, editions: [build(:published_edition, body: "body-text")])
+
+    govspeak_document = mock("govspeak-document")
+    govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
+    Govspeak::Document.stubs(:new).with("body-text").returns(govspeak_document)
+
+    get :show, id: published_document.to_param
+
+    assert_select ".body", text: "body-text-as-govspeak"
+  end
+
   test 'should only display published documents' do
     draft_document = create(:document, editions: [build(:draft_edition)])
     published_document = create(:document, editions: [build(:published_edition)])

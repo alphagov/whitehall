@@ -284,4 +284,16 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
     assert_select "form[action='#{publish_admin_edition_path(submitted_edition)}']", count: 0
   end
+
+  test "should render the content using govspeak markup" do
+    draft_edition = create(:draft_edition, body: "body-text")
+
+    govspeak_document = mock("govspeak-document")
+    govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
+    Govspeak::Document.stubs(:new).with("body-text").returns(govspeak_document)
+
+    get :show, id: draft_edition.to_param
+
+    assert_select ".body", text: "body-text-as-govspeak"
+  end
 end

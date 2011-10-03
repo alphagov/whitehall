@@ -6,6 +6,7 @@ gem 'jquery-rails'
 gem 'haml', '~> 3.1.3'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave'
+gem 'govspeak', :git => 'git://github.com/alphagov/govspeak.git'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'
@@ -21,4 +22,5 @@ group :test do
   gem 'factory_girl', '~> 2.1.0'
   gem 'launchy', '~> 2.0.5'
   gem 'hash_syntax'
+  gem 'mocha', :require => false
 end

@@ -48,7 +48,7 @@ class Admin::EditionsController < ApplicationController
 
   def submit
     @edition.update_attributes(submitted: true)
-    redirect_to admin_edition_path(@edition), 
+    redirect_to admin_edition_path(@edition),
       notice: 'Your policy has been submitted to your second pair of eyes'
   end
 

@@ -5,6 +5,19 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     @edition = create(:draft_edition)
   end
 
+  test "should render the content using govspeak markup" do
+    @edition.update_attributes!(body: "body-text")
+    fact_check_request = create(:fact_check_request, edition: @edition, comments: "comment")
+
+    govspeak_document = mock("govspeak-document")
+    govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
+    Govspeak::Document.stubs(:new).with("body-text").returns(govspeak_document)
+
+    get :show, id: fact_check_request.token, edition_id: @edition.to_param
+
+    assert_select ".body", text: "body-text-as-govspeak"
+  end
+
   test 'users with a valid token should be able to access the policy' do
     fact_check_request = create(:fact_check_request, edition: @edition)
     get :edit, edition_id: @edition.to_param, id: fact_check_request.token

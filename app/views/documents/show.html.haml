@@ -5,7 +5,7 @@
 .document_view
   %h1.title= @published_edition.title
   %div.body
-    = format_in_paragraphs @published_edition.body
+    = govspeak_to_html @published_edition.body
   %p.attachment= link_to_attachment(@published_edition.attachment)
   %p.written_by
     Written by
