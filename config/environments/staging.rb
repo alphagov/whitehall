@@ -5,7 +5,7 @@ Whitehall::Application.configure do
   config.assets.compile = true
 
   # Prevent `OpenSSL::SSL::SSLError (hostname was not match with the server certificate)` on staging
-  config.action_mailer.smtp_settings = {:enable_starttls_auto => false}
+  config.action_mailer.smtp_settings = {enable_starttls_auto: false}
 
   config.whitehall.host = 'whitehall.staging.alphagov.co.uk:8080'
 end

@@ -17,6 +17,6 @@ Then /^"([^"]*)" should receive an email requesting fact checking$/ do |email_ad
 end
 
 Then /^they provide feedback "([^"]*)"$/ do |comments|
-  fill_in "Comments", :with => comments
+  fill_in "Comments", with: comments
   click_button "Submit"
 end

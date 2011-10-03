@@ -1,6 +1,6 @@
 class RecreatePolicies < ActiveRecord::Migration
   def change
-    create_table :policies, :force => true do |t|
+    create_table :policies, force: true do |t|
       t.timestamps
     end
 

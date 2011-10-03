@@ -11,7 +11,7 @@ class Edition < ActiveRecord::Base
     state :published
     state :archived
 
-    event :publish, :success => :archive_previous_editions do
+    event :publish, success: :archive_previous_editions do
       transitions from: :draft, to: :published
     end
 

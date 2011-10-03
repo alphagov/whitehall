@@ -253,7 +253,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test 'updating a submitted policy with bad data should show errors' do
     attributes = attributes_for(:submitted_edition)
     submitted_edition = create(:submitted_edition, attributes)
-    put :update, id: submitted_edition.to_param, edition: attributes.merge(:title => '')
+    put :update, id: submitted_edition.to_param, edition: attributes.merge(title: '')
 
     assert_template 'edit'
   end

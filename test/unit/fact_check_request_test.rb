@@ -8,7 +8,7 @@ class FactCheckRequestTest < ActiveSupport::TestCase
   end
 
   test 'should be invalid without a edition' do
-    fact_check_request = build(:fact_check_request, :edition => nil)
+    fact_check_request = build(:fact_check_request, edition: nil)
     assert_not fact_check_request.valid?
   end
   
@@ -27,7 +27,7 @@ class FactCheckRequestTest < ActiveSupport::TestCase
   end
   
   test 'should generate a token on creation' do
-    fact_check_request = build(:fact_check_request, :token => nil)
+    fact_check_request = build(:fact_check_request, token: nil)
     fact_check_request.save!
     assert_not_nil fact_check_request.token
   end

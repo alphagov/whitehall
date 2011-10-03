@@ -23,7 +23,7 @@ end
 
 When /^another user changes the title from "([^"]*)" to "([^"]*)"$/ do |old_title, new_title|
   policy = Edition.find_by_title(old_title)
-  policy.update_attributes(:title => new_title)
+  policy.update_attributes(title: new_title)
 end
 
 When /^I create a new edition of the published policy$/ do
@@ -49,8 +49,8 @@ Then /^the published policy should remain unchanged$/ do
 end
 
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy titled "([^"]*)"$/ do |email, title|
-  edition = create(:draft_edition, :title => title)
-  fact_check_request = edition.fact_check_requests.create(:email_address => email)
+  edition = create(:draft_edition, title: title)
+  fact_check_request = edition.fact_check_requests.create(email_address: email)
   Notifications.fact_check(fact_check_request).deliver
 end
 
@@ -61,8 +61,8 @@ end
 
 Then /^they should see the draft policy titled "([^"]*)"$/ do |title|
   edition = Edition.find_by_title(title)
-  assert page.has_css?('.policy .title', :text => edition.title)
-  assert page.has_css?('.policy .body', :text => edition.body)
+  assert page.has_css?('.policy .title', text: edition.title)
+  assert page.has_css?('.policy .body', text: edition.body)
 end
 
 When /^I attach a PDF file to the policy$/ do
@@ -90,7 +90,7 @@ When /^I visit the policy titled "([^"]*)"$/ do |title|
 end
 
 Then /^I should see a link to the PDF attachment$/ do
-  assert page.has_css?(".attachment a[href*='attachment.pdf']", :text => /^attachment\.pdf$/)
+  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: /^attachment\.pdf$/)
 end
 
 def pdf_attachment

@@ -93,7 +93,7 @@ end
 
 When /^another user changes the body for "([^"]*)" to "([^"]*)"$/ do |title, new_body|
   policy = Edition.find_by_title(title)
-  policy.update_attributes(:body => new_body)
+  policy.update_attributes(body: new_body)
 end
 
 When /^I save the policy$/ do
@@ -122,5 +122,5 @@ Then /^I should be notified that the policy has been saved successfully$/ do
 end
 
 Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
-  assert page.has_css?(".fact_check_request .comments", :text => comments)
+  assert page.has_css?(".fact_check_request .comments", text: comments)
 end

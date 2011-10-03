@@ -21,7 +21,7 @@ module NavigationHelpers
       new_admin_edition_path
 
     when /^the new publication page$/
-      new_admin_edition_path(:type => 'publication')
+      new_admin_edition_path(type: 'publication')
 
     when /^the policies admin page$/
       admin_editions_path
