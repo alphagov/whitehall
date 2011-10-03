@@ -1,7 +1,6 @@
-.explanation
-  %p You've been asked to review this policy for factual accuracy. Please read it, and then provide any comments in the form below
+%p.inset You've been asked to review this policy for factual accuracy. Please read it, and then provide any comments in the form below
 
-.policy
+.document_view
   %h1.title= @edition.title
   %div.body
     = @edition.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
