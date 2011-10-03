@@ -13,7 +13,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
     Govspeak::Document.stubs(:new).with("body-text").returns(govspeak_document)
 
-    get :show, id: fact_check_request.token, edition_id: @edition.to_param
+    get :show, edition_id: @edition.to_param, id: fact_check_request.token
 
     assert_select ".body", text: "body-text-as-govspeak"
   end
@@ -26,7 +26,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test 'users with invalid tokens should not be able to access the policy' do
-    get :edit, edition_id: @edition.to_param, id: 'invalid-token'
+    get :edit, id: 'invalid-token', edition_id: @edition.to_param
 
     assert_response :not_found
   end
