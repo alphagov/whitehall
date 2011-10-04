@@ -14,7 +14,7 @@ When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, ti
   edition = Edition.find_by_title(title)
   assert edition.document.is_a?(Policy)
   visit admin_editions_path
-  within(object_css_selector(edition)) do
+  within(record_css_selector(edition)) do
     click_link title
   end
   click_link 'Edit'

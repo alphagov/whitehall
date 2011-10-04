@@ -17,4 +17,10 @@ class DocumentTest < ActiveSupport::TestCase
 
     assert_equal published_edition, document.published_edition
   end
+
+  test 'should only return published policies' do
+    published_policy = create(:published_policy)
+    create(:draft_policy)
+    assert_equal [published_policy], Document.published
+  end
 end

@@ -32,7 +32,7 @@ class ActionController::TestCase
   end
 
   def assert_select_object(object, &block)
-    assert_select object_css_selector(object), &block
+    assert_select record_css_selector(object), &block
   end
 end
 

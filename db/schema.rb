@@ -11,10 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111003141922) do
+ActiveRecord::Schema.define(:version => 20111003161929) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "document_topics", :id => false, :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -45,6 +52,12 @@ ActiveRecord::Schema.define(:version => 20111003141922) do
     t.datetime "updated_at"
     t.string   "email_address"
     t.text     "comments"
+  end
+
+  create_table "topics", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

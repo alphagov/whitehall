@@ -1,6 +1,7 @@
 Whitehall::Application.routes.draw do
   root to: 'documents#index'
   resources :documents, only: [:index, :show]
+  resources :topics, only: [:show]
 
   namespace :admin do
     root to: redirect('/admin/editions')

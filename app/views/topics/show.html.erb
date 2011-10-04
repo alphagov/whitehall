@@ -1,0 +1,26 @@
+<h1><%= @topic.name %></h1>
+
+<section class="resource_list">
+  <h1>Published policies</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @topic.policies.published.each do |policy| %>
+        <%= content_tag_for(:tr, policy) do %>
+          <td class="title"><%= link_to policy.published_edition.title, document_path(policy), title: "View #{policy.published_edition.title}" %></td>
+          <td class="author"><%= policy.published_edition.author.name %></td>
+        <% end %>
+      <% end %>
+      <% if @topic.policies.published.empty? %>
+        <tr>
+          <td colspan="2">Our authors have not published any policies in this topic at present.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

@@ -2,11 +2,19 @@ FactoryGirl.define do
   factory :policy, aliases: [:document] do
   end
 
+  factory :published_policy, parent: :policy do
+    editions { [FactoryGirl.build(:published_edition)] }
+  end
+
+  factory :draft_policy, parent: :policy do
+    editions { [FactoryGirl.build(:draft_edition)] }
+  end
+
   factory :publication do
   end
 
   factory :edition do
-    document 
+    document
     author
     title "edition-title"
     body  "edition-body"
@@ -51,4 +59,9 @@ FactoryGirl.define do
   factory :attachment do
     name "whitepaper.pdf"
   end
+
+  factory :topic do
+    sequence(:name) { |index| "topic-#{index}" }
+  end
+
 end
