@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='content-type'>
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+
+    <!-- http://t.co/dKP3o1e -->
+    <meta content='True' name='HandheldFriendly'>
+    <meta content='320' name='MobileOptimized'>
+    <meta content='width=device-width, target-densitydpi=160dpi, initial-scale=1' name='viewport'>
+
+    <title>Government Departments</title>
+    <%= stylesheet_link_tag "website" %>
+    <%= csrf_meta_tags %>
+    <link href='/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+  </head>
+
+  <body>
+    <header class='group'>
+      <div id='notices'>
+        <%= render partial: 'shared/notices' %>
+      </div>
+      <%= render partial: 'shared/session' if show_session_controls? %>
+    </header>
+
+    <div class='group' id='wrapper'>
+      <%= yield %>
+    </div>
+    <%= javascript_include_tag "application" %>
+  </body>
+</html>

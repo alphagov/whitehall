@@ -1,4 +1,4 @@
-class Admin::EditionsController < ApplicationController
+class Admin::EditionsController < Admin::BaseController
   before_filter :authenticate!
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check]
 

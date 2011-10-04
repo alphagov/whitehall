@@ -1,4 +1,4 @@
-class Admin::FactCheckRequestsController < ApplicationController
+class Admin::FactCheckRequestsController < Admin::BaseController
   before_filter :load_fact_check_request, only: [:show, :edit]
 
   def show
