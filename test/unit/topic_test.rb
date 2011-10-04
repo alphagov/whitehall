@@ -8,12 +8,12 @@ class TopicTest < ActiveSupport::TestCase
 
   test 'should be invalid without a name' do
     topic = build(:topic, name: nil)
-    assert_not topic.valid?
+    refute topic.valid?
   end
 
   test 'should be invalid without unique name' do
     existing_topic = create(:topic)
     new_topic = build(:topic, name: existing_topic.name)
-    assert_not new_topic.valid?
+    refute new_topic.valid?
   end
 end

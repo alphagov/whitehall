@@ -8,6 +8,6 @@ class UserTest < ActiveSupport::TestCase
 
   test 'should be invalid without a name' do
     user = build(:user, name: nil)
-    assert_not user.valid?
+    refute user.valid?
   end
 end

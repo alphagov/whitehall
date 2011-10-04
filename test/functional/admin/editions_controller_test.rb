@@ -183,7 +183,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     draft_edition = create(:draft_edition)
     get :submitted
 
-    assert_not assigns(:editions).include?(draft_edition)
+    refute assigns(:editions).include?(draft_edition)
   end
 
   test 'viewing the list of published policies should only show published policies' do
@@ -222,7 +222,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     put :publish, id: edition_to_publish.to_param, edition: {lock_version: edition_to_publish.lock_version}
 
     get :submitted
-    assert_not assigns(:editions).include?(edition_to_publish)
+    refute assigns(:editions).include?(edition_to_publish)
   end
 
   test 'failing to publish a edition should set a flash' do

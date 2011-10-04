@@ -14,9 +14,6 @@ class ActiveSupport::TestCase
   # fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  def assert_not(condition)
-    assert_equal false, condition
-  end
 end
 
 class ActionController::TestCase
