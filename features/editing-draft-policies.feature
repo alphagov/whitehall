@@ -3,7 +3,6 @@ In order to send the best version of a policy to the departmental editor
 A writer
 Should be able to edit and save draft policies
 
-@wip
 Scenario: Saving a draft policy
   Given I am a writer called "George"
   And I visit the list of draft policies
