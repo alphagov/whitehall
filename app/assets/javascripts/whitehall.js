@@ -1,3 +1,3 @@
 jQuery(document).ready(function($) {
-  $(".flash.notice, .flash.error").flashNotice();
+  $(".flash.notice, .flash.alert").flashNotice();
 });
