@@ -16,12 +16,16 @@
   </head>
 
   <body>
-    <header class='group'>
-      <div id='notices'>
-        <%= render partial: 'shared/notices' %>
-      </div>
+    <header class='group' id="main">
+      <h1>
+        <%= link_to "Document publisher", logged_in? ? admin_root_path : login_path %>
+      </h1>
       <%= render partial: 'shared/session' if show_session_controls? %>
     </header>
+
+    <div id='notices'>
+      <%= render partial: 'shared/notices' %>
+    </div>
 
     <div class='group' id='wrapper'>
       <%= yield %>

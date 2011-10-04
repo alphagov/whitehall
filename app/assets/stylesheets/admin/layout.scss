@@ -1,13 +1,19 @@
-#notices {
-  width: 70%;
-  float: left;
-  height: 40px;
-}
 #wrapper {
   width: 80%;
   margin: 0 auto;
+  padding-top: 5em;
+}
 
-  .inset {
-    margin-top: 52px;
+/* 480px */
+@media only screen and (min-width: 480px) {
+  #wrapper {
+    margin: 0 auto;
+  }
+}
+
+/* 992px */
+@media only screen and (min-width: 992px) {
+  #wrapper {
+    max-width: 960px;
   }
 }

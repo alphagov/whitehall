@@ -1,4 +1,5 @@
 @import "../shared/utils";
+@import "../shared/mixins";
 
 #document_nav {
   margin-bottom: 20px;
@@ -12,25 +13,7 @@
   }
 
   #document_actions {
-    background: #eee;
-    border: 1px solid #e6e6e6;
-    padding: 10px 10px 10px 0;
-    @include rounded;
     float: left;
-
-    form {
-      margin-bottom: 0;
-    }
-
-    input[type=submit] {
-      margin-bottom: 0;
-    }
-
-    a.button, form {
-      margin-bottom: 0;
-      float: left;
-      margin-left: 10px;
-    }
   }
 }
 

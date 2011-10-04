@@ -1,0 +1,40 @@
+<section class="resource_list">
+  <nav class="group">  
+    <div class="actions">
+      <h3 class="label">Draft new</h3>  
+      <%= link_to "Policy", new_admin_edition_path, class: "button new_resource", title: "Draft new Policy" %>
+      <%= link_to "Publication", new_admin_edition_path(document_type: 'Publication'), class: "button new_resource", title: "Draft new Publication" %>
+    </div>
+
+    <div class="states">
+      <%=navigation_link 'drafts', admin_editions_path %>
+      <%=navigation_link 'submitted', submitted_admin_editions_path %>
+      <%=navigation_link 'published', published_admin_editions_path %>
+    </div>
+  </nav>
+  
+  <h1><%= edition_state %> documents</h1>
+  <table class="editions">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% editions.each do |edition| %>
+        <%= content_tag_for(:tr, edition) do %>
+          <td class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View edition #{edition.title}" %></td>
+          <td class="author"><%= edition.author.name %></td>
+          <td class="type"><%= edition.document.type %></td>
+        <% end %>
+      <% end %>
+      <% if editions.blank? %>
+        <tr>
+          <td colspan="3">No documents have been created.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

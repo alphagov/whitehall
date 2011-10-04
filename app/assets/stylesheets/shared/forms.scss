@@ -1,4 +1,5 @@
 @import "utils";
+@import "mixins";
 
 /* #Forms
 ================================================== */
@@ -200,4 +201,7 @@ input[type="submit"].link {
   font-weight: normal;
   text-decoration: underline;
   font-size: 14px;
+  text-shadow: none;
+  -webkit-appearance: none;
+  @include link_color;
 }

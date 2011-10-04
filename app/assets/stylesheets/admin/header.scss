@@ -1,0 +1,87 @@
+header#main {
+  background: #555;
+  padding: 0 1em;
+
+  h1 {
+    float: left;
+    margin: 0 1em 0 0;
+    color: #eee;
+    font-size: 1.2em;
+    font-weight: bold;
+    
+    a {
+      color: #ddd;
+      text-decoration: none;
+    
+      &:hover {
+        color: #fff;
+      };
+    }
+  }
+}
+
+#session {
+  color: #eee;
+  line-height: 50px;
+  float: left;
+  
+  p {
+    float: left;
+    margin: 0;
+  }
+    
+  .current_user_name {
+    font-weight: bold;
+  }
+
+  form {
+    float: left;
+    margin-left: 6px;
+  
+    .link {
+      color: white;
+    }
+  }
+}
+
+#notices {  
+  position: absolute;
+  width: 100%;
+  .flash {
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .alert {
+    background: #fcd0ce;
+    border-bottom: 1px solid #d0160c;
+  }
+
+  .notice {
+    background: #b1e7b9;
+    border-bottom: 1px solid #39b54a;
+  }
+}
+
+/* 480px */
+@media only screen and (min-width: 480px) {
+  header#main {
+    padding: 0 10%;
+  }
+}
+
+/* 768px */
+@media only screen and (min-width: 768px) {
+  #session {
+    float: right;
+  }
+}
+
+/* 1382px */
+@media only screen and (min-width: 1382px) {
+  header#main {
+    padding: 0 16%;
+  }
+}

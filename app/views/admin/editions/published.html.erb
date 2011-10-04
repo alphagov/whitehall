@@ -1,6 +1,1 @@
-<%= render partial: 'index_heading' %>
-
-<section class="resource_list">
-  <h1>Published</h1>
-  <%= render partial: 'edition_table', locals: { editions: @editions } %>
-</section>
+<%= render partial: 'edition_list', locals: { edition_state: 'Published', editions: @editions } %>

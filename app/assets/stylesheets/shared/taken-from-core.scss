@@ -1,26 +1,11 @@
+@import "mixins";
+
 /*
  * Global link styles
  */
 
 a {
-	color: #2200C1;
-}
-
-a:hover {
-	color: #1D97FF;
-}
-
-a:visited {
-	color: #5800AE;
-}
-
-a:active {
-	color: #c11;
-}
-
-a[rel="external"] {
-	background: url(/images/external-link.png) 100% 0 no-repeat;
-	padding-right: 1.2em;
+  @include link_color;
 }
 
 /* For image replacement */

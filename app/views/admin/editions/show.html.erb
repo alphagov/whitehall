@@ -1,5 +1,5 @@
-<section id="document_nav" class="inset group">
-  <div id="document_actions" class="group">
+<section id="document_nav" class="group">
+  <div id="document_actions" class="actions group">
     <% if @edition.editable_by?(current_user) %>
       <%= link_to 'Edit', edit_admin_edition_path(@edition), title: "Edit #{@edition.title}", :class => "button" %>
     <% else @edition.published? %>

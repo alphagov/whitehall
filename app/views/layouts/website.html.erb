@@ -16,13 +16,6 @@
   </head>
 
   <body>
-    <header class='group'>
-      <div id='notices'>
-        <%= render partial: 'shared/notices' %>
-      </div>
-      <%= render partial: 'shared/session' if show_session_controls? %>
-    </header>
-
     <div class='group' id='wrapper'>
       <%= yield %>
     </div>
