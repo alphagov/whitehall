@@ -5,7 +5,6 @@
   *
   */
   $.fn.flashNotice = function (static) {
-  	$(this).hide();
   	$(this).fadeIn();
 
   	if (!static) {
