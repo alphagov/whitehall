@@ -129,7 +129,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test 'updating should take the writer to the edition page' do
     edition = create(:edition)
-    post :update, id: edition.id, edition: {title: 'new-title', body: 'new-body'}
+    put :update, id: edition.id, edition: {title: 'new-title', body: 'new-body'}
 
     assert_redirected_to admin_edition_path(edition)
     assert_equal 'The policy has been saved', flash[:notice]
@@ -138,7 +138,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test 'updating with invalid data should not save the edition' do
     attributes = attributes_for(:edition)
     edition = create(:edition, attributes)
-    post :update, id: edition.id, edition: attributes.merge(title: '')
+    put :update, id: edition.id, edition: attributes.merge(title: '')
 
     assert_equal attributes[:title], edition.reload.title
     assert_template "editions/edit"
@@ -147,9 +147,23 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test 'updating with invalid data should set an alert in the flash' do
     attributes = attributes_for(:edition)
     edition = create(:edition, attributes)
-    post :update, id: edition.id, edition: attributes.merge(title: '')
+    put :update, id: edition.id, edition: attributes.merge(title: '')
 
     assert_equal 'There are some problems with the policy', flash.now[:alert]
+  end
+
+  test 'updating a stale policy should render edit page with conflicting policy' do
+    edition = create(:draft_edition)
+    lock_version = edition.lock_version
+    edition.update_attributes!(title: "new title")
+
+    put :update, id: edition.to_param, edition: edition.attributes.merge(lock_version: lock_version)
+
+    assert_template 'edit'
+    conflicting_edition = edition.reload
+    assert_equal conflicting_edition, assigns[:conflicting_edition]
+    assert_equal conflicting_edition.lock_version, assigns[:edition].lock_version
+    assert_equal %{This policy has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it.}, flash[:alert]
   end
 
   test 'should distinguish between document types when viewing the list of draft documents' do
@@ -225,7 +239,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute assigns(:editions).include?(edition_to_publish)
   end
 
-  test 'failing to publish a edition should set a flash' do
+  test 'failing to publish an edition should set a flash' do
     edition_to_publish = create(:submitted_edition)
     login_as "Willy Writer", departmental_editor: false
     put :publish, id: edition_to_publish.to_param, edition: {lock_version: edition_to_publish.lock_version}
@@ -233,12 +247,23 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal "Only departmental editors can publish policies", flash[:alert]
   end
 
-  test 'failing to publish a edition should redirect back to the edition' do
+  test 'failing to publish an edition should redirect back to the edition' do
     edition_to_publish = create(:submitted_edition)
     login_as "Willy Writer", departmental_editor: false
     put :publish, id: edition_to_publish.to_param, edition: {lock_version: edition_to_publish.lock_version}
 
     assert_redirected_to admin_edition_path(edition_to_publish)
+  end
+
+  test 'failing to publish a stale edition should redirect back to the edition' do
+    edition_to_publish = create(:submitted_edition)
+    lock_version = edition_to_publish.lock_version
+    edition_to_publish.update_attributes!(title: "new title")
+    login_as "Eddie", departmental_editor: true
+    put :publish, id: edition_to_publish.to_param, edition: {lock_version: lock_version}
+
+    assert_redirected_to admin_edition_path(edition_to_publish)
+    assert_equal "This policy has been edited since you viewed it; you are now viewing the latest version", flash[:alert]
   end
 
   test "submitted policies can't be set back to draft" do
