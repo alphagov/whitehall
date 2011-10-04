@@ -13,29 +13,3 @@ end
 Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
   assert page.has_css?(".document_view .body", text: policy_body)
 end
-
-When /^I publish the policy called "([^"]*)"$/ do |title|
-  When %{I open the policy "#{title}"}
-  And %{I press publish}
-end
-
-Then /^I should be alerted that I am not the second set of eyes$/ do
-  Then %{I should be alerted "You are not the second set of eyes"}
-end
-
-Then /^I should be alerted that I do not have privileges to publish policies$/ do
-  Then %{I should be alerted "Only departmental editors can publish policies"}
-end
-
-Then /^I should see the policy "([^"]*)" in the list of submitted policies$/ do |title|
-  assert page.has_css?('.edition', text: title)
-end
-
-Given /^I open the policy "([^"]*)"$/ do |title|
-  When %{I visit the list of policies awaiting review}
-  click_link title
-end
-
-When /^I press publish$/ do
-  click_button "Publish"
-end

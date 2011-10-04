@@ -1,10 +1,3 @@
-Given /^someone has requested fact checking by "([^"]*)" for a policy called "([^"]*)"$/ do |email_address, title|
-  Given %{I am a writer called "George"}
-  And %{I have drafted a policy called "title"}
-  And %{I request that "#{email_address}" fact checks the policy}
-  And %{I logout}
-end
-
 Given /^a fact checker has commented "([^"]*)" on the draft policy titled "([^"]*)"$/ do |comment, title|
   edition = create(:draft_edition, title: title)
   create(:fact_check_request, edition: edition, comments: comment)

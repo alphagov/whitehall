@@ -9,23 +9,6 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
   And %{I submit the policy for the second set of eyes}
 end
 
-Then /^the policy "([^"]*)" should( not)? be visible to the public$/ do |policy_title, invert|
-  visit documents_path
-  published_policy_selector = [".policy .title", text: policy_title]
-  if invert.nil?
-    assert page.has_css?(*published_policy_selector)
-    click_link policy_title
-    assert page.has_css?(".document_view .title", text: policy_title)
-  else
-    assert page.has_no_css?(*published_policy_selector)
-  end
-end
-
-When /^another user changes the title from "([^"]*)" to "([^"]*)"$/ do |old_title, new_title|
-  policy = Edition.find_by_title(old_title)
-  policy.update_attributes(title: new_title)
-end
-
 When /^I create a new edition of the published policy$/ do
   Given %{I visit the list of published policies}
   click_link Edition.published.last.title
@@ -63,15 +46,6 @@ Then /^they should see the draft policy titled "([^"]*)"$/ do |title|
   edition = Edition.find_by_title(title)
   assert page.has_css?('.document_view .title', text: edition.title)
   assert page.has_css?('.document_view .body', text: edition.body)
-end
-
-When /^I attach a PDF file to the policy$/ do
-  attach_file "Attachment", pdf_attachment
-end
-
-Given /^a draft policy titled "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(name: File.open(pdf_attachment))
-  create(:draft_edition, title: title, attachment: attachment)
 end
 
 Given /^a submitted policy titled "([^"]*)" with a PDF attachment$/ do |title|

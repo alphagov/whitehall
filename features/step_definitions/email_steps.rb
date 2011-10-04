@@ -30,10 +30,6 @@ Then /^(?:I|they) should see "([^"]*)" in the email subject$/ do |subject|
   assert_equal subject, @current_email.subject
 end
 
-Then /^(?:I|they) should see "([^"]*)" in the email body$/ do |body|
-  assert_match Regexp.new(body), @current_email.body.to_s
-end
-
 When /^I click the first link in the email$/ do
   links = URI.extract(@current_email.body.to_s, ["http", "https"])
   visit links.first

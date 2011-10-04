@@ -3,55 +3,29 @@ In order to send the best version of a policy to the departmental editor
 A writer
 Should be able to edit and save draft policies
 
-Scenario: Saving a draft policy
-  Given I am a writer called "George"
-  And I visit the list of draft policies
-  And I click create new policy
-  When I write a policy called "Milk for kids" with body
-    """
-    Calcium is good for growing bones!
-    """
-  And I attach a PDF file to the policy
-  And I save the policy
-  Then I should see the policy "Milk for kids" written by "George" in my list of draft policies
-
-Scenario: Submitting a draft policy to the second set of eyes
+Scenario: Creating a new draft policy
   Given I am a writer
-  And I have drafted a policy called "Legalise beards"
-  And I submit the policy for the second set of eyes
-  Then I should be notified "Your policy has been submitted to your second pair of eyes"
-  And I should not see the policy "Legalise beards" in my list of draft policies
+  When I draft a new policy "Outlaw Moustaches"
+  Then I should see the policy "Outlaw Moustaches" in the list of draft documents
+
+Scenario: Submitting a draft policy to a second pair of eyes
+  Given I am a writer
+  And a draft policy called "Outlaw Moustaches" exists
+  When I submit the policy "Outlaw Moustaches"
+  Then I should see the policy "Outlaw Moustaches" in the list of submitted documents
 
 Scenario: Editing an existing draft policy
   Given I am a writer
-  And I have drafted a policy called "Legalise beards"
-  And I visit the list of draft policies
-  When I change the policy "Legalise beards" to "Decriminalise beards"
-  Then I should see the policy "Decriminalise beards" in my list of draft policies
-
-Scenario: Entering invalid data
-  Given I am a writer
-  And I visit the new policy page
-  When I write and save a policy called "Britons on the Moon" with body ""
-  Then I should be alerted "There are some problems with the policy"
+  And a draft policy called "Outlaw Moustaches" exists
+  When I edit the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"
+  Then I should see the policy "Ban Moustaches" in the list of draft documents
 
 Scenario: Trying to save a policy that has been changed by another user
   Given I am a writer
-  And I have drafted a policy called "Legalise beards"
-  And I visit the list of draft policies
-  And I click edit for the policy "Legalise beards"
-  When another user changes the title from "Legalise beards" to "Hair is good!"
-  And I save the policy
-  Then I should be alerted that the policy has been saved while I was editing
-  And I should see the "Legalise beards" version and the "Hair is good!" version of the policy side-by-side
-  When I change my version of the policy title to "Legalise beards and Hair is good!"
-  And I save the policy
-  Then I should be notified that the policy has been saved successfully
-  And I should see the policy "Legalise beards and Hair is good!" in my list of draft policies
-
-Scenario: Editing a policy that has a PDF attachment
-  Given a draft policy titled "Legalise beards" with a PDF attachment
-  And I am a writer
-  And I visit the list of draft policies
-  When I click edit for the policy "Legalise beards"
-  Then I should see a link to the PDF attachment
+  And a draft policy called "Outlaw Moustaches" exists
+  And I start editing the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"
+  And another user edits the policy "Outlaw Moustaches" changing the title to "Ban Beards"
+  When I save my changes to the policy
+  Then I should see the conflict between the policy titles "Ban Moustaches" and "Ban Beards"
+  When I edit the policy changing the title to "Ban Moustaches and Beards"
+  Then I should see the policy "Ban Moustaches and Beards" in the list of draft documents
