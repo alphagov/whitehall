@@ -29,7 +29,7 @@ links to edit and delete etc.
 .actions {
   background: #eee;
   border: 1px solid #e6e6e6;
-  padding: 6px 10px 8px 0;
+  padding: 6px 10px 6px 0;
   @include rounded;
 
   .label {
@@ -53,6 +53,11 @@ links to edit and delete etc.
     margin-bottom: 0;
     margin-left: 5px;
     display: inline;
+  }
+  
+  a.button {
+    padding-top: 6px;
+    padding-bottom: 7px;
   }
 
   &:after {
@@ -108,6 +113,10 @@ section.resource_list {
           @include rounded_specific(0, 3px, 0, 0);
         }
       }
+    }
+    
+    .actions {
+      padding: 10px 10px 10px 0;
     }
   }
 
