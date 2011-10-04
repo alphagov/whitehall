@@ -33,7 +33,7 @@ links to edit and delete etc.
   @include rounded;
 
   .label {
-    float: left;
+    display: inline;
     font-size: 12px;
     line-height: 8px;
     margin-left: 10px;
@@ -51,8 +51,7 @@ links to edit and delete etc.
 
   a.button, form {
     margin-bottom: 0;
-    float: left;
-    margin-left: 10px;
+    margin-left: 5px;
   }
 
   &:after {
