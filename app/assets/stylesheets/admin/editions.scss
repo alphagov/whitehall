@@ -16,29 +16,3 @@
     float: left;
   }
 }
-
-.document_view {
-  border: 1px solid #ddd;
-  border-bottom: 3px solid #ccc;
-  background: #fcfcfc;
-  padding: 40px 80px;
-  max-width: 40em;
-  margin-bottom: 20px;
-
-  h1.title {
-    font-size: 24px;
-    line-height: 48px;
-  }
-
-  div.body {
-    line-height: 24px;
-  }
-
-  .written_by {
-    font-style: italic;
-    .author {
-      font-style: normal;
-      font-weight: bold;
-    }
-  }
-}
