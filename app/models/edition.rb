@@ -8,10 +8,6 @@ class Edition < ActiveRecord::Base
   has_many :edition_topics
   has_many :topics, through: :edition_topics
 
-  def topic_ids
-    topics.map(&:id)
-  end
-
   def topic_ids=(ids)
     self.topics = Topic.find(ids)
   end
