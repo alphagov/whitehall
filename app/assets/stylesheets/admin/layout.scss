@@ -1,13 +1,14 @@
 #wrapper {
-  width: 80%;
+  padding: 1em;
   margin: 0 auto;
-  padding-top: 5em;
 }
 
 /* 480px */
 @media only screen and (min-width: 480px) {
   #wrapper {
     margin: 0 auto;
+    padding: 2em 0 1em 0;
+    width: 80%;
   }
 }
 

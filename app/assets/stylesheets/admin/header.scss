@@ -3,7 +3,6 @@ header#main {
   padding: 0 1em;
 
   h1 {
-    float: left;
     margin: 0 1em 0 0;
     color: #eee;
     font-size: 1.2em;
@@ -12,7 +11,7 @@ header#main {
     a {
       color: #ddd;
       text-decoration: none;
-    
+
       &:hover {
         color: #fff;
       };
@@ -22,16 +21,15 @@ header#main {
 
 #session {
   color: #eee;
-  line-height: 50px;
   float: left;
   
-  p {
-    float: left;
-    margin: 0;
-  }
-    
   .current_user_name {
     font-weight: bold;
+  }
+
+  p {
+    float: left;
+    font-size: 0.85em;
   }
 
   form {
@@ -39,6 +37,7 @@ header#main {
     margin-left: 6px;
   
     .link {
+      font-size: 0.85em;
       color: white;
     }
   }
@@ -47,6 +46,7 @@ header#main {
 #notices {  
   position: absolute;
   width: 100%;
+  
   .flash {
     padding: 14px 20px;
     font-size: 16px;
@@ -69,6 +69,23 @@ header#main {
 @media only screen and (min-width: 480px) {
   header#main {
     padding: 0 10%;
+    h1 {
+      float: left;
+    }
+  }
+  #session {
+    p {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media only screen and (min-width: 617px) {
+  #session {
+    margin-top: 15px;
+    p {
+      margin-bottom: 0;
+    }
   }
 }
 
