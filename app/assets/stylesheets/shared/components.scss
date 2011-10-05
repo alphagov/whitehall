@@ -29,14 +29,16 @@ links to edit and delete etc.
 .actions {
   background: #eee;
   border: 1px solid #e6e6e6;
-  padding: 6px 10px 6px 0;
+  padding: 6px 6px 6px 0;
   @include rounded;
 
   .label {
-    display: inline;
+    float: left;
+    display: block;
     font-size: 12px;
     line-height: 8px;
     margin-left: 10px;
+    margin-right: 5px;
     color: #555;
     text-transform: uppercase;
   }
@@ -50,14 +52,10 @@ links to edit and delete etc.
   }
 
   a.button, form {
+    float: left;
     margin-bottom: 0;
     margin-left: 5px;
     display: inline;
-  }
-  
-  a.button {
-    padding-top: 6px;
-    padding-bottom: 7px;
   }
 
   &:after {
@@ -101,7 +99,6 @@ section.resource_list {
         &.current {
           background: #eee;
           font-weight: bold;
-
         }
 
         &:first-child {
@@ -116,7 +113,6 @@ section.resource_list {
     }
     
     .actions {
-      padding: 10px 10px 10px 0;
     }
   }
 
@@ -157,7 +153,7 @@ section.resource_list {
 @media only screen and (min-width: 768px) {
   section.resource_list nav .states {
     float: left;
-    padding-top: 21px;
+    padding-top: 24px;
   }
 
   section.resource_list nav .actions {
