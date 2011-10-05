@@ -181,7 +181,8 @@ class EditionTest < ActiveSupport::TestCase
 
   test 'should build a draft copy of the existing edition with the supplied author' do
     attachment = create(:attachment)
-    published_edition = create(:published_edition, attachment: attachment, submitted: true)
+    topic = create(:topic)
+    published_edition = create(:published_edition, attachment: attachment, submitted: true, topics: [topic])
     new_author = create(:policy_writer)
     draft_edition = published_edition.build_draft(new_author)
 
@@ -192,6 +193,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal published_edition.attachment, draft_edition.attachment
     assert_equal published_edition.title, draft_edition.title
     assert_equal published_edition.body, draft_edition.body
+    assert_equal published_edition.topics, draft_edition.topics
   end
 
   test 'when initially created' do

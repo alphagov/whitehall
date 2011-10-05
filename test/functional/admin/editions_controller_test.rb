@@ -310,6 +310,16 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_template 'edit'
   end
 
+  test "revising the published edition should create a new draft edition" do
+    published_edition = create(:published_edition)
+    Edition.stubs(:find).returns(published_edition)
+    draft_edition = create(:draft_edition)
+    published_edition.expects(:build_draft).with(@user).returns(draft_edition)
+    draft_edition.expects(:save).returns(true)
+
+    post :revise, id: published_edition.to_param
+  end
+
   test "revising a published edition redirects to edit for the new draft" do
     published_edition = create(:published_edition)
 
