@@ -14,7 +14,7 @@
     <h1>Related topics</h1>
     <ul class="topics">
     <% @published_edition.topics.each do |topic| %>
-      <li class="topic"><%= topic.name %></li>
+      <li class="topic"><%= link_to topic.name, topic_path(topic) %></li>
     <% end %>
     </ul>
   </section>
