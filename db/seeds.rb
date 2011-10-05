@@ -50,7 +50,7 @@ end
 "Government Efficiency",
 "Transparency",
 "Big Society"].each do |topic_name|
-  Topic.create!(name: topic_name)
+  Topic.create!(name: topic_name, description: Faker::Lorem.sentence)
 end
 
 higher_education = Topic.find_by_name("Higher education")

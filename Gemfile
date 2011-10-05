@@ -14,6 +14,10 @@ group :assets do
   gem 'therubyracer'
 end
 
+group :development, :staging, :test do
+  gem 'faker'
+end
+
 group :test do
   gem 'cucumber', '~> 1.0.6'
   gem 'cucumber-rails', '~> 1.0.5'
