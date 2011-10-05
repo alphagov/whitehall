@@ -26,6 +26,13 @@ Scenario: Editing an existing draft policy
   When I edit the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"
   Then I should see the policy "Ban Moustaches" in the list of draft documents
 
+Scenario: Editing an existing draft policy assigning multiple topics
+  Given I am a writer
+  And two topics "Facial Hair" and "Hirsuteness" exist
+  And a draft policy called "Outlaw Moustaches" exists in the "Facial Hair" topic
+  When I edit the policy "Outlaw Moustaches" adding it to the "Hirsuteness" topic
+  Then the policy "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
+
 Scenario: Trying to save a policy that has been changed by another user
   Given I am a writer
   And a draft policy called "Outlaw Moustaches" exists

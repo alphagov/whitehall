@@ -91,7 +91,9 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     first_topic = create(:topic)
     second_topic = create(:topic)
     attributes = attributes_for(:edition)
+
     post :create, edition: attributes.merge(topic_ids: [first_topic.id, second_topic.id])
+
     created_edition = Edition.last
     assert_equal attributes[:title], created_edition.title
     assert_equal attributes[:body], created_edition.body
@@ -138,6 +140,19 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "p.attachment", count: 0
   end
 
+  test 'updating should save modified edition attributes' do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
+    edition = create(:edition, topics: [first_topic])
+
+    put :update, id: edition.id, edition: { title: "new-title", body: "new-body", topic_ids: [second_topic.id] }
+
+    saved_edition = edition.reload
+    assert_equal "new-title", saved_edition.title
+    assert_equal "new-body", saved_edition.body
+    assert_equal [second_topic], saved_edition.topics
+  end
+
   test 'updating should take the writer to the edition page' do
     edition = create(:edition)
     put :update, id: edition.id, edition: {title: 'new-title', body: 'new-body'}
@@ -153,13 +168,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
     assert_equal attributes[:title], edition.reload.title
     assert_template "editions/edit"
-  end
-
-  test 'updating with invalid data should set an alert in the flash' do
-    attributes = attributes_for(:edition)
-    edition = create(:edition, attributes)
-    put :update, id: edition.id, edition: attributes.merge(title: '')
-
     assert_equal 'There are some problems with the policy', flash.now[:alert]
   end
 

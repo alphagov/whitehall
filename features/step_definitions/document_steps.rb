@@ -3,6 +3,12 @@ Given /^a draft (publication|policy) called "([^"]*)" exists$/ do |document_type
   create(:draft_edition, title: title, document: document)
 end
 
+Given /^a draft (publication|policy) called "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
+  document = create(document_type.to_sym)
+  topic = Topic.find_by_name(topic_name)
+  create(:draft_edition, title: title, document: document, topics: [topic])
+end
+
 Given /^a submitted (publication|policy) called "([^"]*)" exists$/ do |document_type, title|
   document = create(document_type.to_sym)
   create(:submitted_edition, title: title, document: document)
@@ -84,6 +90,14 @@ When /^I edit the (publication|policy) "([^"]*)" changing the title to "([^"]*)"
   visit admin_edition_path(edition)
   click_link "Edit"
   fill_in "Title", with: new_title
+  click_button "Save"
+end
+
+When /^I edit the (publication|policy) "([^"]*)" adding it to the "([^"]*)" topic$/ do |document_type, title, topic_name|
+  edition = Edition.find_by_title(title)
+  visit admin_edition_path(edition)
+  click_link "Edit"
+  select topic_name, from: "Topics"
   click_button "Save"
 end
 
