@@ -3,5 +3,5 @@
 /log/*.log
 /tmp/
 /.sass-cache/
-/public/uploads/
+/public/system/
 /bin
