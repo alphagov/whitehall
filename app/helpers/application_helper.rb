@@ -44,5 +44,13 @@ module ApplicationHelper
     return unless attachment && attachment.name.present?
     link_to File.basename(attachment.name.current_path), attachment.name.url
   end
+  
+  def empty_edition_document_verb(edition_state)
+    if edition_state.downcase == "draft"
+      "drafted"
+    else
+      edition_state.downcase
+    end
+  end
 
 end
