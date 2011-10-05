@@ -87,7 +87,18 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "input[type='hidden'][name='document_type'][value='Publication']", count: 1
   end
 
-  test 'saving should take the writer to the edition page' do
+  test 'creating should create a new edition' do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
+    attributes = attributes_for(:edition)
+    post :create, edition: attributes.merge(topic_ids: [first_topic.id, second_topic.id])
+    created_edition = Edition.last
+    assert_equal attributes[:title], created_edition.title
+    assert_equal attributes[:body], created_edition.body
+    assert_equal [first_topic, second_topic], created_edition.topics
+  end
+
+  test 'creating should take the writer to the edition page' do
     post :create, edition: attributes_for(:edition)
 
     assert_redirected_to admin_edition_path(Edition.last)

@@ -18,3 +18,8 @@ Then /^I should only see published policies belonging to the "([^"]*)" topic$/ d
   policies = records_from_elements(Policy, page.all(".policy"))
   assert policies.all? { |policy| topic.documents.published.include? policy }
 end
+
+Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic|
+  create(:topic, name: first_topic)
+  create(:topic, name: second_topic)
+end

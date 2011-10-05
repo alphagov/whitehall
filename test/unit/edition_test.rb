@@ -215,4 +215,18 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.published?
   end
 
+  test 'topic_ids returns ids of associated topics' do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
+    edition = create(:draft_edition, topics: [first_topic, second_topic])
+    assert_equal [first_topic.id, second_topic.id], edition.topic_ids
+  end
+
+  test 'setting topic_ids assigns associated topics' do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
+    edition = create(:draft_edition, topics: [first_topic])
+    edition.topic_ids = [first_topic.id, second_topic.id]
+    assert_equal [first_topic, second_topic], edition.topics
+  end
 end

@@ -8,6 +8,12 @@ Scenario: Creating a new draft policy
   When I draft a new policy "Outlaw Moustaches"
   Then I should see the policy "Outlaw Moustaches" in the list of draft documents
 
+Scenario: Creating a new draft policy in multiple topics
+  Given I am a writer
+  And two topics "Facial Hair" and "Hirsuteness" exist
+  When I draft a new policy "Outlaw Moustaches" in the "Facial Hair" and "Hirsuteness" topics
+  Then the policy "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
+
 Scenario: Submitting a draft policy to a second pair of eyes
   Given I am a writer
   And a draft policy called "Outlaw Moustaches" exists

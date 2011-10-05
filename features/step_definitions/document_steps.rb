@@ -16,6 +16,16 @@ When /^I draft a new (publication|policy) "([^"]*)"$/ do |document_type, title|
   click_button "Save"
 end
 
+When /^I draft a new (publication|policy) "([^"]*)" in the "([^"]*)" and "([^"]*)" topics$/ do |document_type, title, first_topic, second_topic|
+  visit admin_editions_path
+  click_link "Draft new #{document_type.capitalize}"
+  fill_in "Title", with: title
+  fill_in "Policy", with: "Any old iron"
+  select first_topic, from: "Topics"
+  select second_topic, from: "Topics"
+  click_button "Save"
+end
+
 When /^I submit the (publication|policy) "([^"]*)"$/ do |document_type, title|
   edition = Edition.find_by_title(title)
   assert edition.document.is_a?(document_type.classify.constantize)
@@ -59,6 +69,14 @@ Then /^the (publication|policy) "([^"]*)" should be visible to the public$/ do |
   assert edition.document.is_a?(document_type.classify.constantize)
   visit documents_path
   assert page.has_css?(record_css_selector(edition.document), text: title)
+end
+
+Then /^the (publication|policy) "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |document_type, title, first_topic, second_topic|
+  edition = Edition.find_by_title(title)
+  assert edition.document.is_a?(document_type.classify.constantize)
+  visit admin_edition_path(edition)
+  assert has_css?(".topic", text: first_topic)
+  assert has_css?(".topic", text: second_topic)
 end
 
 When /^I edit the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|

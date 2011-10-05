@@ -5,6 +5,16 @@ class Edition < ActiveRecord::Base
   delegate :type, to: :document, prefix: :document
 
   belongs_to :attachment
+  has_many :edition_topics
+  has_many :topics, through: :edition_topics
+
+  def topic_ids
+    topics.map(&:id)
+  end
+
+  def topic_ids=(ids)
+    self.topics = Topic.find(ids)
+  end
 
   def attach_file=(file)
     self.attachment = build_attachment(name: file)
