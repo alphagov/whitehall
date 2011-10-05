@@ -8,3 +8,14 @@
   <p class="attachment"><%= link_to_attachment(@published_edition.attachment) %></p>
   <p class="written_by">Written by <span class="author"><%= @published_edition.author.name %></span></p>
 </div>
+
+<% if @published_edition.topics.any? %>
+  <section id="related_topics">
+    <h1>Related topics</h1>
+    <ul class="topics">
+    <% @published_edition.topics.each do |topic| %>
+      <li class="topic"><%= topic.name %></li>
+    <% end %>
+    </ul>
+  </section>
+<% end %>

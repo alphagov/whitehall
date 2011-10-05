@@ -31,6 +31,14 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-text-as-govspeak"
   end
 
+  test "should not display the related topics section if there aren't any" do
+    edition = create(:published_edition)
+
+    get :show, id: edition.document.to_param
+
+    assert_select "#related_topics", count: 0
+  end
+
   test 'should only display published documents' do
     draft_document = create(:document, editions: [build(:draft_edition)])
     published_document = create(:document, editions: [build(:published_edition)])

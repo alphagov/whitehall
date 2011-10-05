@@ -9,6 +9,17 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
   And %{I submit the policy for the second set of eyes}
 end
 
+Given /^a published policy titled "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" topics$/ do |policy_title, topic_1, topic_2|
+  edition = create(:published_edition, title: policy_title)
+  create(:topic, name: topic_1, editions: [edition])
+  create(:topic, name: topic_2, editions: [edition])
+end
+
+Then /^I should see that the "([^"]*)" and "([^"]*)" topics are related$/ do |topic_1, topic_2|
+  assert page.has_css?('#related_topics .topic', text: topic_1)
+  assert page.has_css?('#related_topics .topic', text: topic_2)
+end
+
 When /^I create a new edition of the published policy$/ do
   Given %{I visit the list of published policies}
   click_link Edition.published.last.title

@@ -44,6 +44,8 @@ class Edition < ActiveRecord::Base
   belongs_to :document
 
   has_many :fact_check_requests
+  has_many :edition_topics
+  has_many :topics, through: :edition_topics
 
   scope :draft, where(state: "draft")
   scope :unsubmitted, where(state: "draft", submitted: false)
