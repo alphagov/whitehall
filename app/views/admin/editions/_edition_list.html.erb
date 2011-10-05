@@ -1,7 +1,7 @@
 <section class="resource_list">
-  <nav class="group">  
+  <nav class="group">
     <div class="actions">
-      <h3 class="label">Draft new</h3>  
+      <h3 class="label">Draft new</h3>
       <%= link_to "Policy", new_admin_edition_path, class: "button new_resource", title: "Draft new Policy" %>
       <%= link_to "Publication", new_admin_edition_path(document_type: 'Publication'), class: "button new_resource", title: "Draft new Publication" %>
     </div>
@@ -12,7 +12,7 @@
       <%=navigation_link 'published', published_admin_editions_path %>
     </div>
   </nav>
-  
+
   <h1><%= edition_state %> documents</h1>
   <table class="editions">
     <thead>

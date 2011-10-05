@@ -5,19 +5,19 @@ $link-color-active: #c11;
 
 @mixin link_color($normal: $link-color, $hover: $link-color-hover, $visited: $link-color-visted, $active: $link-color-active) {
  	color: $normal;
-  
+
   &:hover {
   	color: $hover;
   }
-  
+
   &:visited {
   	color: $visited;
   }
-  
+
   &:active {
   	color: $active;
   }
-  
+
   &[rel="external"] {
   	background: url(/images/external-link.png) 100% 0 no-repeat;
   	padding-right: 1.2em;

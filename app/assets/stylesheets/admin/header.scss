@@ -7,7 +7,7 @@ header#main {
     color: #eee;
     font-size: 1.2em;
     font-weight: bold;
-    
+
     a {
       color: #ddd;
       text-decoration: none;
@@ -23,7 +23,7 @@ header#main {
   color: #eee;
   float: left;
   font-style: italic;
-  
+
   .current_user_name {
     font-weight: bold;
   }
@@ -40,7 +40,7 @@ header#main {
   form {
     float: left;
     margin-left: 6px;
-  
+
     .link {
       font-size: 0.85em;
       color: white;
@@ -48,10 +48,10 @@ header#main {
   }
 }
 
-#notices {  
+#notices {
   position: absolute;
   width: 100%;
-  
+
   .flash {
     padding: 14px 20px;
     font-size: 16px;
