@@ -22,9 +22,14 @@ header#main {
 #session {
   color: #eee;
   float: left;
+  font-style: italic;
   
   .current_user_name {
     font-weight: bold;
+  }
+
+  .role, .current_user_name {
+    font-style: normal;
   }
 
   p {
