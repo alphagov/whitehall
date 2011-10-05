@@ -1,11 +1,11 @@
 Given /^the topic "([^"]*)" contains some policies$/ do |name|
-  policies = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
-  create(:topic, name: name, documents: policies)
+  editions = Array.new(5) { build(:published_edition) } + Array.new(2) { build(:draft_edition) }
+  create(:topic, name: name, editions: editions)
 end
 
 Given /^other topics also have policies$/ do
-  create(:topic, documents: [build(:published_policy)])
-  create(:topic, documents: [build(:published_policy)])
+  create(:topic, editions: [build(:published_edition)])
+  create(:topic, editions: [build(:published_edition)])
 end
 
 When /^I visit the "([^"]*)" topic$/ do |name|

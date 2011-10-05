@@ -11,6 +11,10 @@ def random_policy_text(number_of_paragraphs=3)
   @policy_data.shuffle[0...number_of_paragraphs].join("\n\n")
 end
 
+higher_education = Topic.create!(name: "Higher Education")
+student_finance = Topic.create!(name: "Student Finance")
+sustainable_development = Topic.create!(name: "Sustainable Development")
+
 alice = User.create!(name: "Alice Anderson")
 bob = User.create!(name: "Bob Bailey")
 clive = User.create!(name: "Clive Custer")
