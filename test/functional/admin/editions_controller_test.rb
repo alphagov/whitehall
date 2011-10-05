@@ -43,7 +43,7 @@ class Admin::EditionsControllerAuthenticationTest < ActionController::TestCase
 
   test 'guests should not be able to access update' do
     edition = create(:edition)
-    post :update, id: edition.to_param, edition: attributes_for(:edition)
+    put :update, id: edition.to_param, edition: attributes_for(:edition)
 
     assert_login_required
   end
