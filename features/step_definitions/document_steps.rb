@@ -44,7 +44,7 @@ Then /^I should see the (publication|policy) "([^"]*)" in the list of draft docu
   edition = Edition.find_by_title(title)
   visit admin_editions_path
   within record_css_selector(edition) do
-    has_css?(".type", text: document_type.classify)
+    assert has_css?(".type", text: document_type.classify)
   end
 end
 
@@ -52,7 +52,7 @@ Then /^I should see the (publication|policy) "([^"]*)" in the list of submitted 
   edition = Edition.find_by_title(title)
   visit submitted_admin_editions_path
   within record_css_selector(edition) do
-    has_css?(".type", text: document_type.classify)
+    assert has_css?(".type", text: document_type.classify)
   end
 end
 
@@ -60,7 +60,7 @@ Then /^I should see the (publication|policy) "([^"]*)" in the list of published 
   edition = Edition.find_by_title(title)
   visit published_admin_editions_path
   within record_css_selector(edition) do
-    has_css?(".type", text: document_type.classify)
+    assert has_css?(".type", text: document_type.classify)
   end
 end
 
