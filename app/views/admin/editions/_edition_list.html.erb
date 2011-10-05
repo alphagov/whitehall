@@ -32,7 +32,7 @@
       <% end %>
       <% if editions.blank? %>
         <tr>
-          <td colspan="3">No documents have been created.</td>
+          <td colspan="3">No documents have been <%= (empty_verb || edition_state || "created").downcase %>.</td>
         </tr>
       <% end %>
     </tbody>
