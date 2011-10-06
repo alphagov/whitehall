@@ -1,27 +1,5 @@
 <h1>Documents</h1>
 
-<% if @policies.any? %>
-<section id="policies" class="g1">
-  <h1>Policies</h1>
-  <ul class="policies">
-    <% @policies.each do |policy| %>
-      <%= content_tag_for(:li, policy) do %>
-        <%= link_to policy.published_edition.title, document_path(policy), title: "View #{policy.published_edition.title}" %>
-      <% end %>
-    <% end %>
-  </ul>
-</section>
-<% end %>
+<%= render partial: "policies", object: @policies %>
 
-<% if @publications.any? %>
-<section id="publications" class="g1">
-  <h1>Publications</h1>
-  <ul class="publications">
-    <% @publications.each do |publication| %>
-      <%= content_tag_for(:li, publication) do %>
-        <%= link_to publication.published_edition.title, document_path(publication), title: "View #{publication.published_edition.title}" %>
-      <% end %>
-    <% end %>
-  </ul>
-</section>
-<% end %>
+<%= render partial: "publications", object: @publications %>

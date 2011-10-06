@@ -1,0 +1,12 @@
+<% if publications.any? %>
+<section id="publications" class="g1">
+  <h1>Publications</h1>
+  <ul class="publications">
+    <% publications.each do |publication| %>
+      <%= content_tag_for(:li, publication) do %>
+        <%= link_to publication.published_edition.title, document_path(publication), title: "View #{publication.published_edition.title}" %>
+      <% end %>
+    <% end %>
+  </ul>
+</section>
+<% end %>
