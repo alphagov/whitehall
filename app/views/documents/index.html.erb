@@ -3,3 +3,7 @@
 <%= render partial: "policies", object: @policies %>
 
 <%= render partial: "publications", object: @publications %>
+
+<% if @policies.empty? and @publications.empty? %>
+  <p>We don't have any published documents at present.</p>
+<% end %>
