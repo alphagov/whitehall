@@ -15,8 +15,8 @@ end
 
 Then /^I should only see published policies belonging to the "([^"]*)" topic$/ do |name|
   topic = Topic.find_by_name(name)
-  policies = records_from_elements(Policy, page.all(".policy"))
-  assert policies.all? { |policy| topic.documents.published.include? policy }
+  editions = records_from_elements(Edition, page.all(".edition"))
+  assert editions.all? { |edition| topic.editions.published.include?(edition) }
 end
 
 Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic|

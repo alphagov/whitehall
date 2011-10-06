@@ -11,13 +11,13 @@
         </tr>
       </thead>
       <tbody>
-        <% @topic.documents.published.each do |policy| %>
-          <%= content_tag_for(:tr, policy) do %>
-            <td class="title"><%= link_to policy.published_edition.title, document_path(policy), title: "View #{policy.published_edition.title}" %></td>
-            <td class="author"><%= policy.published_edition.author.name %></td>
+        <% @topic.editions.published.each do |edition| %>
+          <%= content_tag_for(:tr, edition) do %>
+            <td class="title"><%= link_to edition.title, document_path(edition.document), title: "View #{edition.title}" %></td>
+            <td class="author"><%= edition.author.name %></td>
           <% end %>
         <% end %>
-        <% if @topic.documents.published.empty? %>
+        <% if @topic.editions.published.empty? %>
           <tr>
             <td colspan="2">Our authors have not published any policies in this topic at present.</td>
           </tr>

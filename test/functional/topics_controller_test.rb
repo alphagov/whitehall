@@ -13,7 +13,7 @@ class TopicsControllerTest < ActionController::TestCase
     draft_edition = create(:draft_edition)
     topic = create(:topic, editions: [published_edition, draft_edition])
     get :show, id: topic.to_param
-    assert_select_object(published_edition.document)
-    assert_select_object(draft_edition.document, count: 0)
+    assert_select_object(published_edition)
+    assert_select_object(draft_edition, count: 0)
   end
 end
