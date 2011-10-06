@@ -47,23 +47,25 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select "#topics", count: 0
   end
 
-  test "should only display published documents" do
-    draft_document = create(:document, editions: [build(:draft_edition)])
-    published_document = create(:document, editions: [build(:published_edition)])
-    archived_document = create(:document, editions: [build(:archived_edition)])
+  test "should only display published policies" do
+    archived_policy = create(:archived_policy)
+    published_policy = create(:published_policy)
+    draft_policy = create(:draft_policy)
     get :index
 
-    assert_response :success
-    assert_equal [published_document], assigns[:documents]
+    assert_select_object(published_policy)
+    assert_select_object(archived_policy, count: 0)
+    assert_select_object(draft_policy, count: 0)
   end
 
-  test "should distinguish between document types when viewing the list of documents" do
-    policy, publication = create(:policy), create(:publication)
-    create(:published_edition, document: policy)
-    create(:published_edition, document: publication)
+  test "should only display published publications" do
+    archived_publication = create(:archived_publication)
+    published_publication = create(:published_publication)
+    draft_publication = create(:draft_publication)
     get :index
 
-    assert_select_object(policy) { assert_select ".type", text: "Policy" }
-    assert_select_object(publication) { assert_select ".type", text: "Publication" }
+    assert_select_object(published_publication)
+    assert_select_object(archived_publication, count: 0)
+    assert_select_object(draft_publication, count: 0)
   end
 end

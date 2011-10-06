@@ -2,6 +2,9 @@ FactoryGirl.define do
   factory :policy, aliases: [:document] do
   end
 
+  factory :publication do
+  end
+
   factory :published_policy, parent: :policy do
     editions { [FactoryGirl.build(:published_edition)] }
   end
@@ -10,7 +13,20 @@ FactoryGirl.define do
     editions { [FactoryGirl.build(:draft_edition)] }
   end
 
-  factory :publication do
+  factory :archived_policy, parent: :policy do
+    editions { [FactoryGirl.build(:archived_edition)] }
+  end
+
+  factory :published_publication, parent: :publication do
+    editions { [FactoryGirl.build(:published_edition)] }
+  end
+
+  factory :draft_publication, parent: :publication do
+    editions { [FactoryGirl.build(:draft_edition)] }
+  end
+
+  factory :archived_publication, parent: :publication do
+    editions { [FactoryGirl.build(:archived_edition)] }
   end
 
   factory :edition do

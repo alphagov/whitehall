@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   def index
-    @documents = Document.published
+    @policies, @publications = Policy.published, Publication.published
   end
 
   def show
