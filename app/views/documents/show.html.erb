@@ -26,7 +26,7 @@
   <section id="organisations">
     <h1>Topics</h1>
     <ul class="organisations">
-    <% @published_edition.organisations.each do |topic| %>
+    <% @published_edition.organisations.each do |organisation| %>
       <%= content_tag_for :li, organisation do %>
         <%= link_to organisation.name, organisation_path(organisation) %>
       <% end %>

@@ -31,6 +31,17 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-text-as-govspeak"
   end
 
+  test "should display topics" do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
+    edition = create(:published_edition, topics: [first_topic, second_topic])
+
+    get :show, id: edition.document.to_param
+
+    assert_select ".topic", text: first_topic.name
+    assert_select ".topic", text: second_topic.name
+  end
+
   test "should not display the topics section if there aren't any" do
     edition = create(:published_edition)
 
@@ -39,12 +50,23 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select "#topics", count: 0
   end
 
+  test "should display organisations" do
+    first_org = create(:organisation)
+    second_org = create(:organisation)
+    edition = create(:published_edition, organisations: [first_org, second_org])
+
+    get :show, id: edition.document.to_param
+
+    assert_select ".organisation", text: first_org.name
+    assert_select ".organisation", text: second_org.name
+  end
+
   test "should not display the organisations section if there aren't any" do
     edition = create(:published_edition)
 
     get :show, id: edition.document.to_param
 
-    assert_select "#topics", count: 0
+    assert_select "#organisations", count: 0
   end
 
   test "should only display published policies" do
