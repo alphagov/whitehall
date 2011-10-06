@@ -12,69 +12,124 @@ def random_policy_text(number_of_paragraphs=3)
 end
 alias :random_publication_text :random_policy_text
 
-["Regulation reform",
-"International trade",
-"European Union",
-"Export control",
-"Employment rights",
-"Business law",
-"Consumer protection",
-"Further education and skills",
-"Higher education",
-"Economic growth",
-"Business support",
-"Green economy",
-"IT infrastructure",
-"Science and Innovation",
-"Government-owned businesses",
-"Public data corporation",
-"Public sector innovation",
-"Communities and neighbourhoods",
-"Fire and emergencies",
-"Housing",
-"Local Government",
-"Planning, building and the environment",
-"Regeneration and economic growth",
-"Education",
-"Health",
-"Economic Growth",
-"Governance and Conflict",
-"Climate and Environment",
-"Water and Sanitisation",
-"Food and Nutrition",
-"Humanitarian disasters and emergencies",
-"Consular Services",
-"Security",
-"Prosperity",
-"National Security",
-"Constitutional Reform",
-"Government Efficiency",
-"Transparency",
-"Big Society"].each do |topic_name|
-  Topic.create!(name: topic_name, description: Faker::Lorem.sentence)
+def organisations(*names)
+  names.each do |name|
+    Organisation.create!(name: name)
+  end
 end
+
+def topics(*names)
+  names.each do |name|
+    Topic.create!(name: name, description: Faker::Lorem.sentence)
+  end
+end
+
+def create_edition(type, attributes)
+  attributes[:topics] = Topic.where(name: (attributes[:topics] || []))
+  attributes[:organisations] = Organisation.where(name: (attributes[:organisations] || []))
+  attributes[:author] ||= User.create(name: Faker::Name.name)
+  Edition.create!({
+    title: "title-n",
+    body: random_policy_text,
+    document: type.new
+  }.merge(attributes))
+end
+
+def create_draft(type, attributes = {})
+  create_edition(type, attributes)
+end
+
+def create_submitted(type, attributes = {})
+  create_edition(type, attributes.merge(submitted: true))
+end
+
+def create_published(type, attributes = {})
+  create_edition(type, attributes.merge(submitted: true, state: "published"))
+end
+
+organisations(
+  "Attorney General's Office",
+  "Cabinet Office",
+  "Department for Business, Innovation and Skills",
+  "Department for Communities and Local Government",
+  "Department for Culture, Media and Sport",
+  "Department for Education",
+  "Department for Environment, Food and Rural Affairs",
+  "Department for International Development",
+  "Department for Transport",
+  "Department for Work and Pensions",
+  "Department of Energy and Climate Change",
+  "Department of Health",
+  "Foreign and Commonwealth Office",
+  "Government Equalities Office",
+  "Her Majesty's Treasury",
+  "Home Office",
+  "Ministry of Defence",
+  "Ministry of Justice",
+  "Northern Ireland Office",
+  "Office of the Advocate General for Scotland",
+  "Office of the Leader of the House of Commons",
+  "Office of the Leader of the House of Lords",
+  "Scotland Office",
+  "Wales Office"
+)
+
+topics(
+  "Regulation reform",
+  "International trade",
+  "European Union",
+  "Export control",
+  "Employment rights",
+  "Business law",
+  "Consumer protection",
+  "Further education and skills",
+  "Higher education",
+  "Economic growth",
+  "Business support",
+  "Green economy",
+  "IT infrastructure",
+  "Science and Innovation",
+  "Government-owned businesses",
+  "Public data corporation",
+  "Public sector innovation",
+  "Communities and neighbourhoods",
+  "Fire and emergencies",
+  "Housing",
+  "Local Government",
+  "Planning, building and the environment",
+  "Regeneration and economic growth",
+  "Education",
+  "Health",
+  "Economic Growth",
+  "Governance and Conflict",
+  "Climate and Environment",
+  "Water and Sanitisation",
+  "Food and Nutrition",
+  "Humanitarian disasters and emergencies",
+  "Consular Services",
+  "Security",
+  "Prosperity",
+  "National Security",
+  "Constitutional Reform",
+  "Government Efficiency",
+  "Transparency",
+  "Big Society"
+)
 
 higher_education = Topic.find_by_name("Higher education")
 consular_services = Topic.find_by_name("Consular Services")
 fire_and_emergencies = Topic.find_by_name("Fire and emergencies")
 
-alice = User.create!(name: "Alice Anderson")
-bob = User.create!(name: "Bob Bailey")
-clive = User.create!(name: "Clive Custer")
+create_draft(Policy, title: "Free cats for pensioners", topics: ["Higher Education"], organisations: ["Attorney General's Office", "Cabinet Office"])
+create_draft(Policy, title: "Decriminalise beards", topics: ["Higher Education", "Consular Services"], organisations: ["Public sector innovation"])
 
-# Draft policies
-alice.editions.create! title: "Free cats for pensioners", body: random_policy_text, submitted: false, document: Policy.new, topics: [higher_education]
-bob.editions.create! title: "Decriminalise beards", body: random_policy_text(5), submitted: false, document: Policy.new, topics: [higher_education, consular_services]
+create_submitted(Policy, title: "Less gravity on Sundays", topics: ["Local Government", "International trade"], organisations: ["Department for Environment, Food and Rural Affairs", "Home Office"])
+create_submitted(Policy, title: "Ducks pulling chariots of fire", topics: ["Economic Growth", "Prosperity"], organisations: ["Her Majesty's Treasury"])
 
-# Submitted policies
-alice.editions.create! title: "Less gravity on Sundays", body: random_policy_text, submitted: true, document: Policy.new, topics: [consular_services]
-clive.editions.create! title: "Ducks pulling chariots of fire", body: random_policy_text(4), submitted: true, document: Policy.new, topics: [consular_services, fire_and_emergencies]
+create_published(Policy, title: "No more supernanny", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
+create_published(Policy, title: "Laser eyes for millionaires", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
 
-# Published policies
-clive.editions.create! title: "No more supernanny", body: random_policy_text, state: 'published', document: Policy.new, topics: [higher_education, consular_services, fire_and_emergencies]
-alice.editions.create! title: "Laser eyes for millionaires", body: random_policy_text, state: 'published', document: Policy.new, topics: [higher_education, fire_and_emergencies]
-
-# Published publications
-clive.editions.create! title: "Publication 1", body: random_publication_text, state: 'published', document: Publication.new, topics: [higher_education, consular_services, fire_and_emergencies]
-bob.editions.create! title: "Publication 2", body: random_publication_text, state: 'published', document: Publication.new, topics: [fire_and_emergencies, consular_services]
-alice.editions.create! title: "Publication 3", body: random_publication_text, state: 'published', document: Publication.new, topics: [higher_education, fire_and_emergencies]
+create_published(Publication, title: "Cat Extermination White Paper", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
+create_published(Publication, title: "Dog Erradicated Green Paper", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
+create_published(Publication, title: "Canine Consultation", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
+create_published(Publication, title: "Feline Consultation", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
