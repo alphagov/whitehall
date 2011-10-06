@@ -21,8 +21,8 @@ class ActionController::TestCase
     assert_redirected_to login_path
   end
 
-  def assert_select_object(object, &block)
-    assert_select record_css_selector(object), &block
+  def assert_select_object(object, *args, &block)
+    assert_select record_css_selector(object), *args, &block
   end
 end
 

@@ -9,9 +9,11 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   test "shows only published policies associated with topic" do
-    published_policy = create(:published_policy)
-    topic = create(:topic, editions: [published_policy.published_edition, build(:draft_edition)])
+    published_edition = create(:published_edition)
+    draft_edition = create(:draft_edition)
+    topic = create(:topic, editions: [published_edition, draft_edition])
     get :show, id: topic.to_param
-    assert_select_object(published_policy)
+    assert_select_object(published_edition.document)
+    assert_select_object(draft_edition.document, count: 0)
   end
 end
