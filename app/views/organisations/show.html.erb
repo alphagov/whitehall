@@ -1,0 +1,29 @@
+<%= content_tag_for :article, @organisation do %>
+  <h1 class="name"><%= @organisation.name %></h1>
+<% end %>
+
+<% if @organisation.published_policies.any? %>
+<section id="policies">
+  <h1>Policies</h1>
+  <ul class="policies">
+    <% @organisation.published_policies.each do |policy| %>
+      <%= content_tag_for(:li, policy.published_edition) do %>
+        <%= link_to policy.published_edition.title, document_path(policy), title: "View #{policy.published_edition.title}" %>
+      <% end %>
+    <% end %>
+  </ul>
+</section>
+<% end %>
+
+<% if @organisation.published_publications.any? %>
+<section id="publications">
+  <h1>Publications</h1>
+  <ul class="publications">
+    <% @organisation.published_publications.each do |publication| %>
+      <%= content_tag_for(:li, publication.published_edition) do %>
+        <%= link_to publication.published_edition.title, document_path(publication), title: "View #{publication.published_edition.title}" %>
+      <% end %>
+    <% end %>
+  </ul>
+</section>
+<% end %>

@@ -65,4 +65,7 @@ FactoryGirl.define do
     description { Faker::Lorem.sentence }
   end
 
+  factory :organisation do
+    sequence(:name) { |index| "topic-#{index}" }
+  end
 end

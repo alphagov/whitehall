@@ -14,6 +14,12 @@ Scenario: Creating a new draft policy in multiple topics
   When I draft a new policy "Outlaw Moustaches" in the "Facial Hair" and "Hirsuteness" topics
   Then the policy "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
 
+Scenario: Creating a new draft policy in multiple organisations
+  Given I am a writer
+  And two organisations "Department of Paperclips" and "Stationery Standards Authority" exist
+  When I draft a new policy "Ban Tinfoil Paperclips" in the "Department of Paperclips" and "Stationery Standards Authority" organisations
+  Then the policy "Ban Tinfoil Paperclips" should be in the "Department of Paperclips" and "Stationery Standards Authority" organisations
+
 Scenario: Submitting a draft policy to a second pair of eyes
   Given I am a writer
   And a draft policy called "Outlaw Moustaches" exists

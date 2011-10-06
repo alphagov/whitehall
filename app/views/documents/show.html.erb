@@ -19,3 +19,14 @@
     </ul>
   </section>
 <% end %>
+
+<% if @published_edition.organisations.any? %>
+  <section id="organisations">
+    <h1>Topics</h1>
+    <ul class="organisations">
+    <% @published_edition.organisations.each do |topic| %>
+      <li class="organisation"><%= link_to organisation.name, topic_path(organisation) %></li>
+    <% end %>
+    </ul>
+  </section>
+<% end %>

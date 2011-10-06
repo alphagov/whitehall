@@ -39,6 +39,17 @@
 </div>
 
 <section>
+  <h1>Organisations</h1>
+  <ul class="organisations">
+  <% @edition.organisations.each do |organisation| %>
+    <%= content_tag_for(:li, organisation) do %>
+      <%= link_to organisation.name, organisation_path(organisation) %>
+    <% end %>
+  <% end %>
+  </ul>
+</section>
+
+<section>
   <h1>Topics</h1>
   <ul class="topics">
   <% @edition.topics.each do |topic| %>

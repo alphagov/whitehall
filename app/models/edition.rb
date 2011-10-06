@@ -3,8 +3,12 @@ class Edition < ActiveRecord::Base
   include ActiveRecord::Transitions
 
   belongs_to :attachment
+
   has_many :edition_topics
   has_many :topics, through: :edition_topics
+
+  has_many :edition_organisations
+  has_many :organisations, through: :edition_organisations
 
   belongs_to :author, class_name: "User"
   belongs_to :document

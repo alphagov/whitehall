@@ -90,14 +90,20 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test 'creating should create a new edition' do
     first_topic = create(:topic)
     second_topic = create(:topic)
+    first_org = create(:organisation)
+    second_org = create(:organisation)
     attributes = attributes_for(:edition)
 
-    post :create, edition: attributes.merge(topic_ids: [first_topic.id, second_topic.id])
+    post :create, edition: attributes.merge(
+      topic_ids: [first_topic.id, second_topic.id], 
+      organisation_ids: [first_org.id, second_org.id]
+    )
 
     created_edition = Edition.last
     assert_equal attributes[:title], created_edition.title
     assert_equal attributes[:body], created_edition.body
     assert_equal [first_topic, second_topic], created_edition.topics
+    assert_equal [first_org, second_org], created_edition.organisations
   end
 
   test 'creating should take the writer to the edition page' do

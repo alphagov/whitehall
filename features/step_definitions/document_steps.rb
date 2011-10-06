@@ -32,6 +32,16 @@ When /^I draft a new (publication|policy) "([^"]*)" in the "([^"]*)" and "([^"]*
   click_button "Save"
 end
 
+When /^I draft a new (publication|policy) "([^"]*)" in the "([^"]*)" and "([^"]*)" organisations$/ do |document_type, title, first_org, second_org|
+  visit admin_editions_path
+  click_link "Draft new #{document_type.capitalize}"
+  fill_in "Title", with: title
+  fill_in "Policy", with: "Any old iron"
+  select first_org, from: "Organisations"
+  select second_org, from: "Organisations"
+  click_button "Save"
+end
+
 When /^I submit the (publication|policy) "([^"]*)"$/ do |document_type, title|
   edition = Edition.find_by_title(title)
   assert edition.document.is_a?(document_type.classify.constantize)
@@ -83,6 +93,14 @@ Then /^the (publication|policy) "([^"]*)" should be in the "([^"]*)" and "([^"]*
   visit admin_edition_path(edition)
   assert has_css?(".topic", text: first_topic)
   assert has_css?(".topic", text: second_topic)
+end
+
+Then /^the (publication|policy) "([^"]*)" should be in the "([^"]*)" and "([^"]*)" organisations$/ do |document_type, title, first_org, second_org|
+  edition = Edition.find_by_title(title)
+  assert edition.document.is_a?(document_type.classify.constantize)
+  visit admin_edition_path(edition)
+  assert has_css?(".organisation", text: first_org)
+  assert has_css?(".organisation", text: second_org)
 end
 
 When /^I edit the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|

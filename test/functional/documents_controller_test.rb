@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class DocumentsControllerTest < ActionController::TestCase
   test "should render 404 if the document doesn't have a published edition" do
@@ -8,7 +8,7 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test 'should display the published edition' do
+  test "should display the published edition" do
     document = create(:document)
     create(:archived_edition, document: document)
     published_edition = create(:published_edition, document: document)
@@ -39,7 +39,15 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select "#topics", count: 0
   end
 
-  test 'should only display published documents' do
+  test "should not display the organisations section if there aren't any" do
+    edition = create(:published_edition)
+
+    get :show, id: edition.document.to_param
+
+    assert_select "#topics", count: 0
+  end
+
+  test "should only display published documents" do
     draft_document = create(:document, editions: [build(:draft_edition)])
     published_document = create(:document, editions: [build(:published_edition)])
     archived_document = create(:document, editions: [build(:archived_edition)])
@@ -49,7 +57,7 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_equal [published_document], assigns[:documents]
   end
 
-  test 'should distinguish between document types when viewing the list of documents' do
+  test "should distinguish between document types when viewing the list of documents" do
     policy, publication = create(:policy), create(:publication)
     create(:published_edition, document: policy)
     create(:published_edition, document: publication)
