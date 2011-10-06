@@ -5,4 +5,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
     get "/admin"
     assert_redirected_to "/admin/editions"
   end
+
+  test "visiting / redirects to /topics" do
+    get "/"
+    assert_redirected_to "/topics"
+  end
 end

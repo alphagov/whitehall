@@ -1,5 +1,6 @@
 Whitehall::Application.routes.draw do
-  root to: 'documents#index'
+  root to: redirect('/topics')
+
   resources :documents, only: [:index, :show]
   resources :topics, only: [:index, :show]
   resources :organisations, only: [:show]
