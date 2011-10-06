@@ -10,6 +10,7 @@ def random_policy_text(number_of_paragraphs=3)
   @policy_data ||= File.read(File.expand_path("../seed_policy_bodies.txt", __FILE__)).split("\n")
   @policy_data.shuffle[0...number_of_paragraphs].join("\n\n")
 end
+alias :random_publication_text :random_policy_text
 
 ["Regulation reform",
 "International trade",
@@ -72,3 +73,8 @@ clive.editions.create! title: "Ducks pulling chariots of fire", body: random_pol
 # Published policies
 clive.editions.create! title: "No more supernanny", body: random_policy_text, state: 'published', document: Policy.new, topics: [higher_education, consular_services, fire_and_emergencies]
 alice.editions.create! title: "Laser eyes for millionaires", body: random_policy_text, state: 'published', document: Policy.new, topics: [higher_education, fire_and_emergencies]
+
+# Published publications
+clive.editions.create! title: "Publication 1", body: random_publication_text, state: 'published', document: Publication.new, topics: [higher_education, consular_services, fire_and_emergencies]
+bob.editions.create! title: "Publication 2", body: random_publication_text, state: 'published', document: Publication.new, topics: [fire_and_emergencies, consular_services]
+alice.editions.create! title: "Publication 3", body: random_publication_text, state: 'published', document: Publication.new, topics: [higher_education, fire_and_emergencies]
