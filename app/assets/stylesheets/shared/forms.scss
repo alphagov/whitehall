@@ -11,6 +11,7 @@ form {
     padding: 0;
     margin: 0 0 20px 0;
   }
+
   input[type="text"],
   input[type="password"],
   input[type="email"],
@@ -42,6 +43,7 @@ form {
   select {
     padding: 0;
   }
+
   input[type="text"]:focus,
   input[type="password"]:focus,
   input[type="email"]:focus,
@@ -96,7 +98,6 @@ form {
   span.or_cancel {
     font-size: 13px;
   }
-
 }
 
 /* #Buttons
@@ -177,15 +178,11 @@ input[type="button"].full-width {
   text-align: center;
 }
 
-
-
-
 /* #Rails' button_to forms
 ================================================== */
 
 form.button_to {
   margin-bottom: 0px;
-
   input {
     margin-bottom: 0px;
   }
@@ -204,4 +201,23 @@ input[type="submit"].link {
   -webkit-appearance: none;
   @include link_color;
   @include type-14;
+}
+
+/* # Form error messages
+================================================== */
+
+.form-errors {
+  color: #600a06;
+  background: #fcd0ce;
+  border: 1px solid #d0160c;
+  margin-bottom: 1em;
+  padding: 1em;
+
+  ul {
+    margin-bottom: 0;
+    li {
+      @include type-14;
+      margin-bottom: 0;
+    }
+  }
 }

@@ -1,11 +1,13 @@
 <%= form_for [:admin, edition] do |edition_form| %>
   <% if edition.errors.any? %>
-    <p>To save the edition please fix the following issues:</p>
-    <ul id="errors">
-      <% edition.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+    <div class="form-errors">
+      <p>To save the edition please fix the following issues:</p>
+      <ul class="errors disc">
+        <% edition.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
   <fieldset>
     <%= edition_form.hidden_field :lock_version %>
