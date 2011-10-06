@@ -1,4 +1,4 @@
-@import "mixins";
+@import "utils";
 
 /*
  * Global link styles
@@ -23,7 +23,6 @@ a {
 
 /* Hide visually and from screenreaders, but maintain layout */
 .invisible { visibility: hidden; }
-
 
 /* self-clearing floats */
 .group:before, .group:after { content: "\0020"; display: block; height: 0; overflow: hidden; }

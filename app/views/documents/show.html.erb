@@ -1,6 +1,6 @@
 <p>back to <%= link_to 'documents', documents_path %></p>
 
-<div class="document_view">
+<div class="document_view g2 first">
   <h1 class="title"><%= @published_edition.title %></h1>
   <div class="body">
     <%= govspeak_to_html @published_edition.body %>
@@ -10,7 +10,7 @@
 </div>
 
 <% if @published_edition.topics.any? %>
-  <section id="topics">
+  <section id="topics" class="g1">
     <h1>Topics</h1>
     <ul class="topics">
     <% @published_edition.topics.each do |topic| %>

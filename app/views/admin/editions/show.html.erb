@@ -1,5 +1,5 @@
-<section id="document_nav" class="group">
-  <div id="document_actions" class="actions group">
+<section class="edition g2 first">
+  <nav class="actions">
     <% if @edition.editable_by?(current_user) %>
       <%= link_to 'Edit', edit_admin_edition_path(@edition), title: "Edit #{@edition.title}", :class => "button" %>
     <% else @edition.published? %>
@@ -16,29 +16,29 @@
         <%= edition_form.submit "Publish", title: "Publish #{@edition.title}" %>
       <% end %>
     <% end %>
-  </div>
-  <p class="back">
-    back to
-    <% if @edition.submitted? %>
-      <%= link_to 'submitted documents', submitted_admin_editions_path %>
-    <% elsif @edition.draft? %>
-      <%= link_to 'draft documents', admin_editions_path %>
-    <% elsif @edition.published? %>
-      <%= link_to 'published documents', published_admin_editions_path %>
-    <% end %>
-  </p>
+    <span class="back">
+      back to
+      <% if @edition.submitted? %>
+        <%= link_to 'submitted documents', submitted_admin_editions_path %>
+      <% elsif @edition.draft? %>
+        <%= link_to 'draft documents', admin_editions_path %>
+      <% elsif @edition.published? %>
+        <%= link_to 'published documents', published_admin_editions_path %>
+      <% end %>
+    </span>
+  </nav>
+
+  <article class="document_view">
+    <h1 class="title"><%= @edition.title %></h1>
+    <div class="body">
+      <%= govspeak_to_html @edition.body %>
+    </div>
+    <p class="attachment"><%= link_to_attachment(@edition.attachment) %></p>
+    <p class="written_by">Written by <span class="author"><%= @edition.author.name %></span></p>
+  </article>
 </section>
 
-<div class="document_view">
-  <h1 class="title"><%= @edition.title %></h1>
-  <div class="body">
-    <%= govspeak_to_html @edition.body %>
-  </div>
-  <p class="attachment"><%= link_to_attachment(@edition.attachment) %></p>
-  <p class="written_by">Written by <span class="author"><%= @edition.author.name %></span></p>
-</div>
-
-<section>
+<section class="g1">
   <h1>Organisations</h1>
   <ul class="organisations">
   <% @edition.organisations.each do |organisation| %>
@@ -49,7 +49,7 @@
   </ul>
 </section>
 
-<section>
+<section class="g1">
   <h1>Topics</h1>
   <ul class="topics">
   <% @edition.topics.each do |topic| %>

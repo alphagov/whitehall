@@ -1,0 +1,292 @@
+@import "utils";
+
+/*
+Fluid Baseline Grid v1.0.0
+Designed & Built by Josh Hopkins and 40 Horse, http://40horse.com
+Licensed under Unlicense, http://unlicense.org/
+
+Base stylesheet with CSS normalization, typographic baseline grid and progressive responsiveness
+*/
+
+/* HTML5 DECLARATIONS */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, dialog {
+  display: block
+}
+audio[controls],canvas,video {
+  display: inline-block; *display: inline;
+  zoom: 1
+}
+
+/* BASE */
+html {
+  height: 100%;
+  font-size: 100%;
+  overflow-y: scroll;
+  /* Force scrollbar in non-IE and Remove iOS text size adjust without disabling user zoom */
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-height: 100%;
+  /* Improve default text rendering, handling of kerning pairs and ligatures */
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.dev {
+  background: url('/images/24px_grid_bg.gif');
+}
+
+@media only screen and (min-width: 1800px) {
+  body.dev {
+    background: url('/images/28px_grid_bg.gif');
+  }
+}
+
+/* TABLES */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 1.5em
+}
+th {
+  text-align: left
+}
+tr, th, td {
+  padding-right: 1.5em;
+  border-bottom: 0 solid #333
+}
+
+/* FORMS */
+form {
+  margin: 0
+}
+fieldset {
+  border: 0;
+  padding: 0
+}
+textarea {
+  overflow: auto;
+  vertical-align: top
+}
+legend {*margin-left: -.75em}
+button, input, select, textarea {
+  vertical-align: baseline; *vertical-align: middle
+}
+/* IE7 and older */
+button, input {
+  line-height: normal; *overflow: visible
+}
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button
+}
+input[type="checkbox"], input[type="radio"] {
+  box-sizing: border-box
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0
+}
+
+/* QUOTES */
+blockquote, q {
+  quotes: none
+}
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none
+}
+blockquote, q, cite {
+  font-style: italic
+}
+blockquote {
+  padding-left: 1.5em;
+  border-left: 3px solid #ccc
+}
+blockquote > p {
+  padding: 0
+}
+
+/* LISTS */
+ul, ol {
+  list-style-position: inside;
+  padding: 0
+}
+li ul, li ol {
+  margin: 0 1.5em
+}
+dl dd {
+  margin-left: 1.5em
+}
+dt {
+  font-family: Futura, "Century Gothic", AppleGothic, sans-serif
+}
+
+/* HYPERLINKS */
+a {
+  text-decoration: none;
+  color: #c47529
+}
+a:hover {
+  text-decoration: underline
+}
+a:focus {
+  outline: thin dotted
+}
+a:hover, a:active {
+  outline: none
+}
+/* Better CSS Outline Suppression */
+
+/* MEDIA */
+figure {
+  margin: 0
+}
+img, object, embed, video {
+  max-width: 100%;
+  _width: 100%
+}
+/* Fluid images */
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic
+}
+/* Improve IE's resizing of images */
+svg:not(:root) {
+  overflow: hidden
+}
+/* Correct IE9 overflow */
+
+/* ABBREVIATION */
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted #333;
+  cursor: help
+}
+
+/* MARKED/INSERTED/DELETED AND SELECTED TEXT */
+ins, mark {
+  text-decoration: none
+}
+mark {
+  background: #c47529
+}
+ins {
+  background: #d49855
+}
+del {
+  text-decoration: line-through
+}
+::-moz-selection {
+  background: #c47529;
+  color: #fff;
+  text-shadow: none
+}
+/* selected text */
+::selection {
+  background: #c47529;
+  color: #fff;
+  text-shadow: none
+}
+/* selected text */
+
+/* OTHERS */
+strong, b, dt {
+  font-weight: bold
+}
+dfn {
+  font-style: italic
+}
+var, address {
+  font-style: normal
+}
+sub, sup {
+  /* Position 'sub' and 'sup' without affecting line-height */
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline
+}
+sup {
+  /* Move superscripted text up */
+  top: -0.5em
+}
+sub {
+  /* Move subscripted text down */
+  bottom: -0.25em
+}
+
+/* MICRO CLEARFIX HACK */
+.cf:before, .cf:after {
+  content: "";
+  display: table
+}
+/* For modern browsers */
+.cf:after {
+  clear: both
+}
+.cf {
+  /* For IE 6/7 (trigger hasLayout) */
+  zoom: 1
+}
+
+
+/* PRINT */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    text-shadow: none !important;
+    filter: none !important;
+    -ms-filter: none !important
+  }
+  /* Black prints faster */
+  a, a:visited {
+    color: #444 !important;
+    text-decoration: underline
+  }
+  a[href]:after {
+    content: " (" attr(href) ")"
+  }
+  abbr[title]:after {
+    content: " (" attr(title) ")"
+  }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+    content: ""
+  }
+  /* Don't print links for images, javascript or internal links */
+  pre, blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  /* Repeat header row at top of each printed page */
+  tr, img {
+    page-break-inside: avoid;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  @page {
+    margin: 0.5cm
+  }
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3
+  }
+  h2, h3 {
+    page-break-after: avoid
+  }
+}

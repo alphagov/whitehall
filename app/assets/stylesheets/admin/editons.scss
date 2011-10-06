@@ -1,0 +1,151 @@
+@import "../shared/utils";
+
+.fact_check_request {
+  border: 1px solid #ddd;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  background: #F7FFD7;
+
+  .details {
+    font-style: italic;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0.6em;
+    color: #888;
+  }
+
+  .comments p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/*
+Resource list.
+
+A group of related objects that are created
+in a usual CRUD style manner.
+They usually have links to the resource and perhaps
+links to edit and delete etc.
+================================================== */
+
+@mixin list-row {
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px;
+
+  @include transition(background-color);
+
+  &:last-child {
+    border-bottom: 1px solid #bbb;
+  }
+
+  &:hover {
+    background: #f9f9f9;
+  }
+}
+
+nav.actions {
+  margin-bottom: 1em;
+
+  a {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  form {
+    display: inline-block;
+    margin-bottom: 0;
+    input {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  span.back {
+    display: none;
+  }
+}
+
+section.resource_list {
+
+  nav {
+    margin-left: 0;
+  }
+
+  .filter {
+    @include type-14;
+
+    a {
+      padding-right: 0.35em;
+      border-right: 1px solid #999;
+
+      &:last-child {
+        border: none;
+        padding: none;
+      };
+    }
+  }
+
+  .collection {
+    clear: both;
+
+    h1 {
+      font-size: 21px;
+      line-height: 30px;
+      margin-bottom: 0;
+      margin-top: 0;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+      background: #eee;
+      padding: 10px 20px 10px 20px;
+      @include rounded_top(3px);
+    }
+
+    ul, table {
+      margin: 0;
+      background: #fefefe;
+    }
+
+    ul {
+      li {
+        @include list-row;
+      }
+    }
+
+    table {
+      width: 100%;
+
+      tr {
+        @include type-14;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+      }
+
+      thead tr {
+        border-bottom: 1px solid #ddd;
+        background: #fbfbfb;
+      }
+
+      tbody tr {
+        @include list-row;
+      }
+
+      th, td {
+        text-align: left;
+        padding: 10px 20px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+/* TABLET/NETBOOK */
+@media only screen and (min-width: 768px) {
+  section.resource_list {
+    .filter {
+      float: right;
+      text-align: right;
+    }
+  }
+}

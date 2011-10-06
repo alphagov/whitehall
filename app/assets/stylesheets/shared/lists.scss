@@ -1,7 +1,9 @@
+@import "utils";
+
 /* #Lists
 ================================================== */
 ul, ol {
-  margin-bottom: 20px;
+  margin-bottom: 1em;
   padding: 0;
 }
 ul {
@@ -32,14 +34,13 @@ ol ol li, ol ul li {
   margin-bottom: 6px;
 }
 li {
-  line-height: 18px;
-  margin-bottom: 12px;
+  @include type-16;
 }
 ul.large li {
-  line-height: 21px;
+  @include type-21;
 }
 li p {
-  line-height: 21px;
+  line-height: 1em;
 }
 
 /* ul#errors — Used to list each invalid model attribute
@@ -47,7 +48,7 @@ li p {
 
 ul#errors {
   li {
-    font-size: 13px;
+    @include type-14;
     color: #d0160c;
   }
 }

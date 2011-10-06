@@ -1,107 +1,90 @@
-body {
-	font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	color: #444;
-	-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
-	-webkit-text-size-adjust: 100%;
+@import "utils";
+
+/* DEFAULT FONT SETTINGS */
+/* 16px base font size with 150% (24px) friendly, unitless line height and margin for vertical rhythm */
+/* Font-size percentage is based on 16px browser default size */
+body, button, input, select, textarea {
+  /* IE7 and older can't resize px based text */
+  font: 100%/1.5 "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; *font-size: 1em;
+  color: #333
 }
 
-/* #Typography
-================================================== */
+/* WIDESCREEN */
+/* Increased body size for legibility */
+@media only screen and (min-width: 1800px) {
+  body {
+    /* 18.5px / 28px */
+    font-size: 116.5%;
+  }
+}
+
+p, blockquote, q, pre, address, hr, code, samp, dl, ol, ul, form, table, fieldset, menu, img {
+  margin: 0 0 1.5em;
+  padding: 0
+}
+
+/* TYPOGRAPHY */
+/* Composed to a scale of 12px, 14px, 16px, 18px, 21px, 24px, 36px, 48px, 60px and 72px */
 h1, h2, h3, h4, h5, h6 {
-  color: #181818;
-  font-weight: bold;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222;
 }
-h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
-  font-weight: inherit;
-}
+
 h1 {
-  font-size: 46px;
-  line-height: 50px;
-  margin-bottom: 14px;
+  @include type-60;
 }
+
 h2 {
-  font-size: 35px;
-  line-height: 40px;
-  margin-bottom: 10px;
+  @include type-48;
 }
+
 h3 {
-  font-size: 28px;
-  line-height: 34px;
-  margin-bottom: 8px;
+  @include type-36;
 }
+
 h4 {
-  font-size: 21px;
-  line-height: 30px;
-  margin-bottom: 4px;
+  @include type-24;
 }
+
 h5 {
-  font-size: 17px;
-  line-height: 24px;
+  @include type-21;
 }
+
 h6 {
-  font-size: 14px;
-  line-height: 21px;
-}
-.subheader {
-  color: #777;
+  @include type-18;
 }
 
-p {
-  margin: 0 0 20px 0;
+p, ul, blockquote, pre, td, th, label {
+  @include type-16;
 }
-p img {
-  margin: 0;
-}
-p.lead {
-  font-size: 21px;
-  line-height: 27px;
-  color: #777;
-}
-
-em {
-  font-style: italic;
-}
-strong {
-  font-weight: bold;
-  color: #333;
-}
-small {
-  font-size: 80%;
-}
-
-/* Blockquotes */
-blockquote, blockquote p {
-  font-size: 17px;
-  line-height: 24px;
-  color: #777;
-  font-style: italic;
-}
-blockquote {
-  margin: 0 0 20px;
-  padding: 9px 20px 0 19px;
-  border-left: 1px solid #ddd;
-}
-blockquote cite {
-  display: block;
-  font-size: 12px;
-  color: #555;
-}
-blockquote cite:before {
-  content: "\2014 \0020";
-}
-blockquote cite a, blockquote cite a:visited, blockquote cite a:visited {
-  color: #555;
-}
-
-hr {
-  border: solid #ddd;
-  border-width: 1px 0 0;
-  clear: both;
-  margin: 10px 0 30px;
-  height: 0;
+small, p.small {
+  @include type-14;
 }
 
 section h1 {
-  font-size: 1.5em;
-  line-height: 1em;
+  @include type-24;
+}
+
+/* CODE */
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word
+}
+/* Allow line wrapping of 'pre' */
+pre, code, kbd, samp {
+  font-size: 1em;
+  line-height: 1.5em;
+  margin-bottom: 1.5em;
+  font-family: Menlo, Consolas, 'DejaVu Sans Mono', Monaco, monospace
+}
+
+span.amp {
+  /* Best available ampersand */
+  font-family: Adobe Caslon Pro,Baskerville,"Goudy Old Style","Palatino","Palatino Linotype","Book Antiqua",Georgia,"Times New Roman",Times,serif;
+  font-style: italic;
+  font-size: 110%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline
 }

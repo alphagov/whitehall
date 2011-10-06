@@ -1,40 +1,40 @@
 <section class="resource_list">
-  <nav class="group">
-    <div class="actions">
-      <h3 class="label">Draft new</h3>
-      <%= link_to "Policy", new_admin_edition_path, class: "button new_resource", title: "Draft new Policy" %>
-      <%= link_to "Publication", new_admin_edition_path(document_type: 'Publication'), class: "button new_resource", title: "Draft new Publication" %>
-    </div>
-
-    <div class="states">
-      <%=navigation_link 'drafts', admin_editions_path %>
-      <%=navigation_link 'submitted', submitted_admin_editions_path %>
-      <%=navigation_link 'published', published_admin_editions_path %>
-    </div>
+  <nav class="g2 actions">
+    <%= link_to "Draft New Policy", new_admin_edition_path, class: "button new_resource", title: "Draft new Policy" %>
+    <%= link_to "Draft New Publication", new_admin_edition_path(document_type: 'Publication'), class: "button new_resource", title: "Draft new Publication" %>
   </nav>
 
-  <h1><%= edition_state %> documents</h1>
-  <table class="editions">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% editions.each do |edition| %>
-        <%= content_tag_for(:tr, edition) do %>
-          <td class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View edition #{edition.title}" %></td>
-          <td class="author"><%= edition.author.name %></td>
-          <td class="type"><%= edition.document.type %></td>
-        <% end %>
-      <% end %>
-      <% if editions.blank? %>
+  <nav class="g1 filter">
+    <span>Filter by:</span>
+    <%=navigation_link 'drafts', admin_editions_path %>
+    <%=navigation_link 'submitted', submitted_admin_editions_path %>
+    <%=navigation_link 'published', published_admin_editions_path %>
+  </nav>
+
+  <div class="collection">
+    <h1><%= edition_state %> documents</h1>
+    <table class="editions">
+      <thead>
         <tr>
-          <td colspan="3">No documents have been <%= empty_editions_list_verb(edition_state) %>.</td>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Type</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% editions.each do |edition| %>
+          <%= content_tag_for(:tr, edition) do %>
+            <td class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View edition #{edition.title}" %></td>
+            <td class="author"><%= edition.author.name %></td>
+            <td class="type"><%= edition.document.type %></td>
+          <% end %>
+        <% end %>
+        <% if editions.blank? %>
+          <tr>
+            <td colspan="3">No documents have been <%= empty_editions_list_verb(edition_state) %>.</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </section>
