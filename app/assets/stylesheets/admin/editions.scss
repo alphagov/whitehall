@@ -72,8 +72,16 @@ section.resource_list {
   }
 
   .filter {
-    @include type-14;
-    @include pipe_separated_links;
+    nav {
+      @include type-14;
+      @include pipe_separated_links;
+      @include rounded(3px);
+      display: inline-block;
+      background: #eee;
+      padding: 0.3em 1em;
+      margin-bottom: 1em;
+      border: 1px solid #ddd;
+    }
   }
 
   .collection {
@@ -137,6 +145,11 @@ section.resource_list {
     .filter {
       float: right;
       text-align: right;
+      margin-right: 0;
+
+      nav {
+        margin-bottom: 0;
+      }
     }
   }
 }

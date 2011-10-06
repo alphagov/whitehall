@@ -4,12 +4,14 @@
     <%= link_to "Draft New Publication", new_admin_edition_path(document_type: 'Publication'), class: "button new_resource", title: "Draft new Publication" %>
   </nav>
 
-  <nav class="g1 filter">
-    <span>Filter by:</span>
-    <%=navigation_link 'drafts', admin_editions_path %>
-    <%=navigation_link 'submitted', submitted_admin_editions_path %>
-    <%=navigation_link 'published', published_admin_editions_path %>
-  </nav>
+  <div class="g1 filter">
+    <nav>
+      <span>Filter by:</span>
+      <%=navigation_link 'drafts', admin_editions_path %>
+      <%=navigation_link 'submitted', submitted_admin_editions_path %>
+      <%=navigation_link 'published', published_admin_editions_path %>
+    </nav>
+  </div>
 
   <div class="collection">
     <h1><%= edition_state %> documents</h1>
