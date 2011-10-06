@@ -54,10 +54,6 @@ class Edition < ActiveRecord::Base
   validates_with DocumentHasNoUnpublishedEditionsValidator, on: :create
   validates_with DocumentHasNoOtherPublishedEditionsValidator, on: :create
 
-  def topic_ids=(ids)
-    self.topics = Topic.find(ids)
-  end
-
   def attach_file=(file)
     self.attachment = build_attachment(name: file)
   end
