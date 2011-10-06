@@ -54,7 +54,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def publish
     if @edition.publish_as!(current_user, params[:edition][:lock_version])
-      redirect_to submitted_admin_editions_path
+      redirect_to published_admin_editions_path, notice: "The document #{@edition.title} has been published"
     else
       redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
     end

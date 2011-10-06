@@ -247,12 +247,13 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
   end
 
-  test 'publishing should redirect back to submitted policies' do
+  test 'publishing should redirect back to published documents' do
     submitted_edition = create(:submitted_edition)
     login_as "Eddie", departmental_editor: true
     put :publish, id: submitted_edition.to_param, edition: {lock_version: submitted_edition.lock_version}
 
-    assert_redirected_to submitted_admin_editions_path
+    assert_redirected_to published_admin_editions_path
+    assert_equal "The document #{submitted_edition.title} has been published", flash[:notice]
   end
 
   test 'publishing should remove it from the set of submitted policies' do
