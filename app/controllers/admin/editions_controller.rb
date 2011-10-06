@@ -21,10 +21,10 @@ class Admin::EditionsController < Admin::BaseController
   def create
     @edition = current_user.editions.build(params[:edition].merge(document: document_class.new))
     if @edition.save
-      redirect_to admin_edition_path(@edition), notice: 'The policy has been saved'
+      redirect_to admin_edition_path(@edition), notice: "The document has been saved"
     else
-      flash.now[:alert] = 'There are some problems with the policy'
-      render action: 'new'
+      flash.now[:alert] = "There are some problems with the document"
+      render action: "new"
     end
   end
 
@@ -34,22 +34,22 @@ class Admin::EditionsController < Admin::BaseController
   def update
     if @edition.update_attributes(params[:edition])
       redirect_to admin_edition_path(@edition),
-        notice: 'The policy has been saved'
+        notice: "The document has been saved"
     else
-      flash.now[:alert] = 'There are some problems with the policy'
-      render action: 'edit'
+      flash.now[:alert] = "There are some problems with the document"
+      render action: "edit"
     end
   rescue ActiveRecord::StaleObjectError
-    flash.now[:alert] = %{This policy has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it.}
+    flash.now[:alert] = %{This document has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it.}
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
-    render action: 'edit'
+    render action: "edit"
   end
 
   def submit
     @edition.update_attributes(submitted: true)
     redirect_to admin_edition_path(@edition),
-      notice: 'Your policy has been submitted to your second pair of eyes'
+      notice: "Your document has been submitted for review by a second pair of eyes"
   end
 
   def publish
@@ -59,7 +59,7 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to admin_edition_path(@edition), alert: "This policy has been edited since you viewed it; you are now viewing the latest version"
+    redirect_to admin_edition_path(@edition), alert: "This document has been edited since you viewed it; you are now viewing the latest version"
   end
 
   def revise

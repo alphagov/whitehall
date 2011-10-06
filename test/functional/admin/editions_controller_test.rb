@@ -95,7 +95,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     attributes = attributes_for(:edition)
 
     post :create, edition: attributes.merge(
-      topic_ids: [first_topic.id, second_topic.id], 
+      topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id]
     )
 
@@ -110,7 +110,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     post :create, edition: attributes_for(:edition)
 
     assert_redirected_to admin_edition_path(Edition.last)
-    assert_equal 'The policy has been saved', flash[:notice]
+    assert_equal 'The document has been saved', flash[:notice]
   end
 
   test 'creating with no document type should create a Policy' do
@@ -123,7 +123,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal 1, Publication.count
   end
 
-  test 'creating with invalid data should leave the writer in the policy editor' do
+  test 'creating with invalid data should leave the writer in the document editor' do
     attributes = attributes_for(:edition)
     post :create, edition: attributes.merge(title: '')
 
@@ -135,7 +135,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     attributes = attributes_for(:edition)
     post :create, edition: attributes.merge(title: '')
 
-    assert_equal 'There are some problems with the policy', flash.now[:alert]
+    assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
   test 'creating with invalid data should not show any attachment info' do
@@ -164,7 +164,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     put :update, id: edition.id, edition: {title: 'new-title', body: 'new-body'}
 
     assert_redirected_to admin_edition_path(edition)
-    assert_equal 'The policy has been saved', flash[:notice]
+    assert_equal 'The document has been saved', flash[:notice]
   end
 
   test 'updating with invalid data should not save the edition' do
@@ -174,7 +174,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
     assert_equal attributes[:title], edition.reload.title
     assert_template "editions/edit"
-    assert_equal 'There are some problems with the policy', flash.now[:alert]
+    assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
   test 'updating a stale policy should render edit page with conflicting policy' do
@@ -188,7 +188,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     conflicting_edition = edition.reload
     assert_equal conflicting_edition, assigns[:conflicting_edition]
     assert_equal conflicting_edition.lock_version, assigns[:edition].lock_version
-    assert_equal %{This policy has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it.}, flash[:alert]
+    assert_equal %{This document has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it.}, flash[:alert]
   end
 
   test 'should distinguish between document types when viewing the list of draft documents' do
@@ -244,7 +244,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     put :submit, id: draft_edition.to_param
 
     assert_redirected_to admin_edition_path(draft_edition)
-    assert_equal "Your policy has been submitted to your second pair of eyes", flash[:notice]
+    assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
   end
 
   test 'publishing should redirect back to submitted policies' do
@@ -288,7 +288,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     put :publish, id: edition_to_publish.to_param, edition: {lock_version: lock_version}
 
     assert_redirected_to admin_edition_path(edition_to_publish)
-    assert_equal "This policy has been edited since you viewed it; you are now viewing the latest version", flash[:alert]
+    assert_equal "This document has been edited since you viewed it; you are now viewing the latest version", flash[:alert]
   end
 
   test "submitted policies can't be set back to draft" do
@@ -342,7 +342,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     post :revise, id: published_edition.to_param
 
     assert_redirected_to edit_admin_edition_path(existing_draft)
-    assert_equal "There is already an active draft for this policy", flash[:alert]
+    assert_equal "There is already an active draft for this document", flash[:alert]
   end
 
   test "don't show the publish button to user's who can't publish an edition" do
