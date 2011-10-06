@@ -1,28 +1,30 @@
-<%= content_tag_for :section, @topic do %>
+<%= content_tag_for :article, @topic do %>
   <h1 class="name"><%= @topic.name %></h1>
-  <div class="description"><%= @topic.description %></div>
-  <section class="resource_list">
-    <h1>Published policies</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @topic.editions.published.each do |edition| %>
-          <%= content_tag_for(:tr, edition) do %>
-            <td class="title"><%= link_to edition.title, document_path(edition.document), title: "View #{edition.title}" %></td>
-            <td class="author"><%= edition.author.name %></td>
-          <% end %>
-        <% end %>
-        <% if @topic.editions.published.empty? %>
-          <tr>
-            <td colspan="2">Our authors have not published any policies in this topic at present.</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </section>
+  <p class="description"><%= @topic.description %></p>
+<% end %>
+
+<% if @topic.published_policies.any? %>
+<section id="policies">
+  <h1>Policies</h1>
+  <ul class="policies">
+    <% @topic.published_policies.each do |policy| %>
+      <%= content_tag_for(:li, policy.published_edition) do %>
+        <%= link_to policy.published_edition.title, document_path(policy), title: "View #{policy.published_edition.title}" %>
+      <% end %>
+    <% end %>
+  </ul>
+</section>
+<% end %>
+
+<% if @topic.published_publications.any? %>
+<section id="publications">
+  <h1>Publications</h1>
+  <ul class="publications">
+    <% @topic.published_publications.each do |publication| %>
+      <%= content_tag_for(:li, publication.published_edition) do %>
+        <%= link_to publication.published_edition.title, document_path(publication), title: "View #{publication.published_edition.title}" %>
+      <% end %>
+    <% end %>
+  </ul>
+</section>
 <% end %>

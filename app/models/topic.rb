@@ -4,4 +4,16 @@ class Topic < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
+
+  def published_policies
+    published_documents.select { |document| document.is_a?(Policy) }
+  end
+
+  def published_publications
+    published_documents.select { |document| document.is_a?(Publication) }
+  end
+
+  def published_documents
+    editions.published.includes(:document).map(&:document)
+  end
 end
