@@ -19,8 +19,12 @@
     <% unless edition.new_record? %>
       <p class="attachment"><%= link_to_attachment(edition.attachment) %></p>
     <% end %>
+  </fieldset>
+  <fieldset>
     <%= edition_form.label :organisation_ids, 'Organisations' %>
     <%= edition_form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', edition.organisation_ids), {}, multiple: true %>
+  </fieldset>
+  <fieldset>
     <%= edition_form.label :topic_ids, 'Topics' %>
     <%= edition_form.select :topic_ids, options_from_collection_for_select(Topic.all, 'id', 'name', edition.topic_ids), {}, multiple: true %>
   </fieldset>

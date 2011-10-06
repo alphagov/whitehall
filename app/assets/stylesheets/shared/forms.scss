@@ -5,98 +5,98 @@
 
 form {
   margin-bottom: 20px;
-}
-fieldset {
-  border: none;
-  padding: 0;
-  margin: 0 0 20px 0;
-}
-input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea,
-select {
-  border: 1px solid #ccc;
-  padding: 6px 4px;
-  outline: none;
-  font: 13px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #777;
-  margin: 0;
-  width: 210px;
-  max-width: 100%;
-  display: block;
-  margin-bottom: 20px;
-  background: #fff;
-  @include rounded(2px);
-}
 
-textarea {
-  width: 100%;
-  line-height: 20px;
-}
-
-select {
-  padding: 0;
-}
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus,
-textarea:focus {
-  border: 1px solid #aaa;
-  color: #444;
-  -moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
-  -webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
-  box-shadow: 0 0 3px rgba(0,0,0,.2);
-}
-textarea {
-  min-height: 60px;
-}
-label,
-legend {
-  display: block;
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 2em;
-}
-select {
-  width: 220px;
-}
-input[type="checkbox"] {
-  display: inline;
-}
-label span,
-legend span {
-  font-weight: normal;
-  font-size: 13px;
-  color: #444;
-}
-
-label.for_checkbox {
-  margin-bottom: 10px;
-}
-
-fieldset {
-  label {
-    margin-left: 4px;
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 20px 0;
   }
-}
-
-.field_with_errors {
-  label {
-    color: #d0160c;
-  }
-
   input[type="text"],
   input[type="password"],
   input[type="email"],
   textarea,
   select {
-    border: 1px solid #d0160c;
+    border: 1px solid #ccc;
+    padding: 6px 4px;
+    outline: none;
+    font: 13px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #777;
+    margin: 0;
+    width: 210px;
+    max-width: 100%;
+    display: block;
+    margin-bottom: 20px;
+    background: #fff;
+    @include rounded(2px);
   }
-}
 
-span.or_cancel {
-  font-size: 13px;
+  input[type="file"] {
+    font-size: 0.75em;
+  }
+
+  textarea {
+    width: 100%;
+    line-height: 20px;
+  }
+
+  select {
+    padding: 0;
+  }
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    border: 1px solid #aaa;
+    color: #444;
+    -moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
+    box-shadow: 0 0 3px rgba(0,0,0,.2);
+  }
+  textarea {
+    min-height: 60px;
+  }
+  label,
+  legend {
+    display: block;
+    font-weight: bold;
+    @include type-14;
+    margin-bottom: 0;
+  }
+  select {
+    width: 220px;
+  }
+  input[type="checkbox"] {
+    display: inline;
+  }
+  label span,
+  legend span {
+    font-weight: normal;
+    @include type-14;
+    color: #444;
+  }
+
+  label.for_checkbox {
+    margin-bottom: 10px;
+  }
+
+  .field_with_errors {
+    label {
+      color: #d0160c;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    textarea,
+    select {
+      border: 1px solid #d0160c;
+    }
+  }
+
+  span.or_cancel {
+    font-size: 13px;
+  }
+
 }
 
 /* #Buttons
@@ -124,14 +124,13 @@ input[type="button"] {
   border-radius: 3px;
   color: #444;
   display: inline-block;
-  font-size: 13px;
   font-weight: bold;
   text-decoration: none;
   text-shadow: 0 1px rgba(255, 255, 255, .75);
   cursor: pointer;
   margin-bottom: 20px;
-  line-height: 21px;
-  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  @include type-14;
 }
 
 a.button:hover,
@@ -179,6 +178,8 @@ input[type="button"].full-width {
 }
 
 
+
+
 /* #Rails' button_to forms
 ================================================== */
 
@@ -199,8 +200,8 @@ input[type="submit"].link {
   padding: 0;
   font-weight: normal;
   text-decoration: underline;
-  font-size: 14px;
   text-shadow: none;
   -webkit-appearance: none;
   @include link_color;
+  @include type-14;
 }
