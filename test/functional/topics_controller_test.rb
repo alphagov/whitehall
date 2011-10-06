@@ -37,4 +37,14 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic.to_param
     assert_select "#publications", count: 0
   end
+
+  test "should show list of topics with published documents" do
+    topic_1, topic_2 = create(:topic), create(:topic)
+    Topic.stubs(:with_published_documents).returns([topic_1, topic_2])
+
+    get :index
+
+    assert_select_object(topic_1)
+    assert_select_object(topic_2)
+  end
 end

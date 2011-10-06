@@ -16,4 +16,8 @@ class Topic < ActiveRecord::Base
   def published_documents
     editions.published.includes(:document).map(&:document)
   end
+
+  def self.with_published_documents
+    all.select { |topic| topic.published_documents.any? }
+  end
 end

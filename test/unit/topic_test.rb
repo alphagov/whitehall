@@ -49,4 +49,17 @@ class TopicTest < ActiveSupport::TestCase
 
     assert_equal [published_publication], topic_1.reload.published_publications
   end
+
+  test "should return a list of topics with published documents" do
+    published_policy_edition = create(:published_edition, document: build(:policy))
+    published_publication_edition = create(:published_edition, document: build(:publication))
+    draft_policy_edition = create(:draft_edition, document: build(:policy))
+    draft_publication_edition = create(:draft_edition, document: build(:publication))
+    topic_with_published_policy = create(:topic, editions: [published_policy_edition])
+    topic_with_published_publication = create(:topic, editions: [published_publication_edition])
+    topic_without_published_policy = create(:topic, editions: [draft_policy_edition])
+    topic_without_published_publication = create(:topic, editions: [draft_publication_edition])
+
+    assert_equal [topic_with_published_policy, topic_with_published_publication].to_set, Topic.with_published_documents.to_set
+  end
 end

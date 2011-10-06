@@ -3,9 +3,18 @@ Given /^the topic "([^"]*)" contains some policies$/ do |name|
   create(:topic, name: name, editions: editions)
 end
 
+Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic|
+  create(:topic, name: first_topic)
+  create(:topic, name: second_topic)
+end
+
 Given /^other topics also have policies$/ do
   create(:topic, editions: [build(:published_edition)])
   create(:topic, editions: [build(:published_edition)])
+end
+
+When /^I visit the list of topics$/ do
+  visit topics_path
 end
 
 When /^I visit the "([^"]*)" topic$/ do |name|
@@ -19,7 +28,9 @@ Then /^I should only see published policies belonging to the "([^"]*)" topic$/ d
   assert editions.all? { |edition| topic.editions.published.include?(edition) }
 end
 
-Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic|
-  create(:topic, name: first_topic)
-  create(:topic, name: second_topic)
+Then /^I should see the topics "([^"]*)" and "([^"]*)"$/ do |first_topic_name, second_topic_name|
+  first_topic = Topic.find_by_name(first_topic_name)
+  second_topic = Topic.find_by_name(second_topic_name)
+  assert page.has_css?(record_css_selector(first_topic), text: first_topic_name)
+  assert page.has_css?(record_css_selector(second_topic), text: second_topic_name)
 end
