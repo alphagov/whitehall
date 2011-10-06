@@ -5,6 +5,8 @@ require 'mocha'
 require 'factories'
 Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
+Mocha::Configuration.prevent(:stubbing_non_existent_method)
+
 class ActiveSupport::TestCase
   include Factory::Syntax::Methods
 end
