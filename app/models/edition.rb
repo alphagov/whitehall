@@ -2,19 +2,23 @@ class Edition < ActiveRecord::Base
   include ::Transitions
   include ActiveRecord::Transitions
 
-  delegate :type, to: :document, prefix: :document
-
   belongs_to :attachment
   has_many :edition_topics
   has_many :topics, through: :edition_topics
 
-  def topic_ids=(ids)
-    self.topics = Topic.find(ids)
-  end
+  belongs_to :author, class_name: "User"
+  belongs_to :document
 
-  def attach_file=(file)
-    self.attachment = build_attachment(name: file)
-  end
+  has_many :fact_check_requests
+  has_many :edition_topics
+  has_many :topics, through: :edition_topics
+
+  scope :draft, where(state: "draft")
+  scope :unsubmitted, where(state: "draft", submitted: false)
+  scope :submitted, where(state: "draft", submitted: true)
+  scope :published, where(state: "published")
+
+  delegate :type, to: :document, prefix: :document
 
   state_machine do
     state :draft
@@ -46,21 +50,17 @@ class Edition < ActiveRecord::Base
     end
   end
 
-  belongs_to :author, class_name: "User"
-  belongs_to :document
-
-  has_many :fact_check_requests
-  has_many :edition_topics
-  has_many :topics, through: :edition_topics
-
-  scope :draft, where(state: "draft")
-  scope :unsubmitted, where(state: "draft", submitted: false)
-  scope :submitted, where(state: "draft", submitted: true)
-  scope :published, where(state: "published")
-
   validates_presence_of :title, :body, :author, :document
   validates_with DocumentHasNoUnpublishedEditionsValidator, on: :create
   validates_with DocumentHasNoOtherPublishedEditionsValidator, on: :create
+
+  def topic_ids=(ids)
+    self.topics = Topic.find(ids)
+  end
+
+  def attach_file=(file)
+    self.attachment = build_attachment(name: file)
+  end
 
   def editable_by?(user)
     draft?
