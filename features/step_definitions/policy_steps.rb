@@ -15,11 +15,11 @@ Given /^a published policy titled "([^"]*)" that appears in the "([^"]*)" and "(
   create(:topic, name: topic_2, editions: [edition])
 end
 
-Then /^I should see links to the "([^"]*)" and "([^"]*)" related topics$/ do |topic_1_name, topic_2_name|
+Then /^I should see links to the "([^"]*)" and "([^"]*)" topics$/ do |topic_1_name, topic_2_name|
   topic_1 = Topic.find_by_name(topic_1_name)
   topic_2 = Topic.find_by_name(topic_2_name)
-  assert page.has_css?("#related_topics a[href='#{topic_path(topic_1)}']", text: topic_1_name)
-  assert page.has_css?("#related_topics a[href='#{topic_path(topic_2)}']", text: topic_2_name)
+  assert page.has_css?("#topics a[href='#{topic_path(topic_1)}']", text: topic_1_name)
+  assert page.has_css?("#topics a[href='#{topic_path(topic_2)}']", text: topic_2_name)
 end
 
 When /^I create a new edition of the published policy$/ do

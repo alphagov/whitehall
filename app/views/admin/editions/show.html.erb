@@ -36,7 +36,10 @@
   </div>
   <p class="attachment"><%= link_to_attachment(@edition.attachment) %></p>
   <p class="written_by">Written by <span class="author"><%= @edition.author.name %></span></p>
-  <h3>Topics</h3>
+</div>
+
+<section>
+  <h1>Topics</h1>
   <ul class="topics">
   <% @edition.topics.each do |topic| %>
     <%= content_tag_for(:li, topic) do %>
@@ -44,4 +47,4 @@
     <% end %>
   <% end %>
   </ul>
-</div>
+</section>

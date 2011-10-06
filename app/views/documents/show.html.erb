@@ -10,8 +10,8 @@
 </div>
 
 <% if @published_edition.topics.any? %>
-  <section id="related_topics">
-    <h1>Related topics</h1>
+  <section id="topics">
+    <h1>Topics</h1>
     <ul class="topics">
     <% @published_edition.topics.each do |topic| %>
       <li class="topic"><%= link_to topic.name, topic_path(topic) %></li>
