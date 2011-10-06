@@ -1,5 +1,16 @@
-.wrapper {
+@import "../shared/utils";
+
+header, .wrapper {
   margin: 0 auto;
-  padding-top: 3em;
   width: 92%;
+}
+header {
+  padding-top: 2em;
+}
+.wrapper {
+  padding-top: 3em;
+}
+
+nav {
+  @include pipe_separated_links;
 }

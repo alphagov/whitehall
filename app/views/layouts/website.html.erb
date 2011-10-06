@@ -20,6 +20,14 @@
     <![endif]-->
   </head>
   <body>
+    <header>
+      <h1><%= link_to "Whitehall App", root_path %></h1>
+      <nav>
+        <%= link_to "Topics", topics_path %>
+        <%= link_to "Documents", documents_path %>
+        <%= link_to "Publisher", admin_root_path %>
+      </nav>
+    </header>
     <div class="cf wrapper">
       <%= yield %>
     </div>

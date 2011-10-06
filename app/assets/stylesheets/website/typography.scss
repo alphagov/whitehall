@@ -1,0 +1,5 @@
+@import "../shared/utils";
+
+header h1 {
+  @include type-24;
+}
