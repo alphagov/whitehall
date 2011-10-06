@@ -14,7 +14,9 @@
     <h1>Topics</h1>
     <ul class="topics">
     <% @published_edition.topics.each do |topic| %>
-      <li class="topic"><%= link_to topic.name, topic_path(topic) %></li>
+      <%= content_tag_for :li, topic do %>
+        <%= link_to topic.name, topic_path(topic) %>
+      <% end %>
     <% end %>
     </ul>
   </section>
@@ -25,7 +27,9 @@
     <h1>Topics</h1>
     <ul class="organisations">
     <% @published_edition.organisations.each do |topic| %>
-      <li class="organisation"><%= link_to organisation.name, topic_path(organisation) %></li>
+      <%= content_tag_for :li, organisation do %>
+        <%= link_to organisation.name, organisation_path(organisation) %>
+      <% end %>
     <% end %>
     </ul>
   </section>
