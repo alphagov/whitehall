@@ -47,4 +47,12 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select_object(topic_1)
     assert_select_object(topic_2)
   end
+
+  test "should not display an empty list of topics" do
+    Topic.stubs(:with_published_documents).returns([])
+
+    get :index
+
+    assert_select ".topics", count: 0
+  end
 end
