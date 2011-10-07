@@ -35,6 +35,12 @@ Given /^a published policy titled "([^"]*)" with a PDF attachment$/ do |title|
   create(:published_edition, title: title, attachment: attachment)
 end
 
+Given /^a published policy titled "([^"]*)" that's the responsibility of "([^"]*)" and "([^"]*)"$/ do |title, minister_1_name, minister_2_name|
+  minister_1 = create(:minister, name: minister_1_name)
+  minister_2 = create(:minister, name: minister_2_name)
+  create(:published_edition, title: title, ministers: [minister_1, minister_2])
+end
+
 When /^I create a new edition of the published policy$/ do
   Given %{I visit the list of published policies}
   click_link Edition.published.last.title
@@ -78,6 +84,11 @@ end
 
 Then /^I should see a link to the PDF attachment$/ do
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: /^attachment\.pdf$/)
+end
+
+Then /^I should see that "([^"]*)" and "([^"]*)" are responsible for the policy$/ do |minister_1, minister_2|
+  assert page.has_css?("#ministers_responsible .minister", text: minister_1)
+  assert page.has_css?("#ministers_responsible .minister", text: minister_2)
 end
 
 def pdf_attachment

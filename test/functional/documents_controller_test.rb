@@ -68,6 +68,22 @@ class DocumentsControllerTest < ActionController::TestCase
 
     assert_select "#organisations", count: 0
   end
+  
+  test "should display the minister section" do
+    edition = create(:published_edition, ministers: [build(:minister)])
+
+    get :show, id: edition.document.to_param
+
+    assert_select ministers_responsible_selector, count: 1
+  end
+  
+  test "should not display an empty ministers section" do
+    edition = create(:published_edition)
+
+    get :show, id: edition.document.to_param
+
+    assert_select ministers_responsible_selector, count: 0
+  end
 
   test "should only display published policies" do
     archived_policy = create(:archived_policy)
@@ -89,5 +105,11 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select_object(published_publication)
     assert_select_object(archived_publication, count: 0)
     assert_select_object(draft_publication, count: 0)
+  end
+  
+  private
+  
+  def ministers_responsible_selector
+    "#ministers_responsible"
   end
 end
