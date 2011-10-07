@@ -5,12 +5,12 @@ end
 Given /^I am (?:a|an) (writer|editor)(?: called "([^"]*)")?$/ do |role, name|
   visit login_path
   if role == "writer"
-    fill_in 'Your name', with: name || "Wally Writer"
+    fill_in "name", with: name || "Wally Writer"
   else
-    fill_in 'Your name', with: name || "Eddie Editor"
-    check "I am a departmental editor" 
+    fill_in "name", with: name || "Eddie Editor"
+    check "I am a departmental editor"
   end
-  click_button 'Login'
+  click_button "Login"
 end
 
 Given /^I am logged in as a ([^"]*) called "([^"]*)"$/ do |role, name|
@@ -28,8 +28,8 @@ Given /^I visit the login page$/ do
 end
 
 Given /^I login as "([^"]*)"$/ do |name|
-  fill_in 'Your name', with: name
-  click_button 'Login'
+  fill_in "name", with: name
+  click_button "Login"
 end
 
 Then /^I should be given the opportunity to login$/ do
@@ -41,7 +41,7 @@ Then /^I should not see a link to login$/ do
 end
 
 Then /^I should see that I am logged in as "([^"]*)"$/ do |name|
-  assert page.has_css?('#session .current_user_name', text: name)
+  assert page.has_css?("#session .current_user_name", text: name)
 end
 
 Given /^I logout$/ do
@@ -49,5 +49,5 @@ Given /^I logout$/ do
 end
 
 Then /^I should see that I am not logged in$/ do
-  assert page.has_no_css?('#session .current_user_name')
+  assert page.has_no_css?("#session .current_user_name")
 end

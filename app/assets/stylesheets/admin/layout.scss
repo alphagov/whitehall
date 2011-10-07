@@ -94,3 +94,43 @@
   padding-top: 3em;
   width: 92%;
 }
+
+.login-form {
+  margin: 0 auto;
+  background: #eee;
+  max-width: 20em;
+  border: 1px solid #e5e5e5;
+  border-bottom: 1px solid #ccc;
+  @include rounded;
+
+  h1 {
+    background: #ddd;
+    padding: 0.5em 0.8em;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #ccc;
+    @include type-21;
+    margin-bottom: 0;
+    color: #666;
+    @include rounded-top;
+    text-shadow: #fff 0px 1px 1px;
+  }
+
+  form {
+    margin-bottom: 0;
+    padding: 1.75em 1em 1em 1em;
+    border-top: 1px solid #f5f5f5;
+
+    input[type=text] {
+      width: 100%;
+      @include type-18;
+      max-width: 15.4em;
+      margin-bottom: 0.6em;
+    }
+
+    input[type=submit] {
+      margin-top: 0.85em;
+      width: 100%;
+      margin-bottom: 0;
+    }
+  }
+}

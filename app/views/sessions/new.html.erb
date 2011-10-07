@@ -1,10 +1,9 @@
-<h1>Please login</h1>
-
-<p>Please enter any name you like below.</p>
-
-<%= form_tag session_path, html: {method: :post} do %>
-  <%= label_tag :name, 'Your name' %>
-  <%= text_field_tag :name %>
-  <%= labelled_check_box nil, :departmental_editor, 'I am a departmental editor' %>
-  <%= submit_tag 'Login' %>
-<% end %>
+<div class="login-form">
+  <h1>Please login</h1>
+  <%= form_tag session_path, html: {method: :post} do %>
+    <%= label_tag :name, 'What is your name?' %>
+    <%= text_field_tag :name %>
+    <%= labelled_check_box nil, :departmental_editor, 'I am a departmental editor' %>
+    <%= submit_tag 'Login' %>
+  <% end %>
+</div>
