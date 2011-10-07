@@ -2,8 +2,7 @@
 
 .masthead {
   padding: 0.8em 4%;
-  background: #333;
-  background-color: rgba(22,22,22, 0.8);
+  background: #2a2a00;
 
   h1 {
     @include type-21;
@@ -89,10 +88,36 @@
   }
 }
 
+body {
+  background: #f8f7f5;
+}
+
 .wrapper {
   margin: 0 auto;
   padding-top: 3em;
   width: 92%;
+}
+
+section {
+  .container {
+    background: #f2eeeb;
+    border: 1px solid #ebe5e1;
+    margin-bottom: 1em;
+    margin-left: 2%;
+    padding: 1em 1em 0 1em;
+
+    h1 {
+      @include type-21;
+      border-bottom: 1px solid #c9b9ae;
+      padding-bottom: 0.25em;
+      margin-bottom: 0.5715em;
+    }
+
+    h1.downplay {
+      @include type-18;
+    }
+
+  }
 }
 
 .login-form {

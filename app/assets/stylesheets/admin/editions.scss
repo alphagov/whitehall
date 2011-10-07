@@ -1,23 +1,5 @@
 @import "../shared/utils";
 
-.fact_check_request {
-  border: 1px solid #ddd;
-  padding: 0.5em;
-  margin-bottom: 1em;
-  background: #F7FFD7;
-
-  .details {
-    font-style: italic;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 0.6em;
-    color: #888;
-  }
-
-  .comments p:last-child {
-    margin-bottom: 0;
-  }
-}
-
 /*
 Resource list.
 
@@ -81,6 +63,10 @@ section.resource_list {
       padding: 0.3em 1em;
       margin-bottom: 1em;
       border: 1px solid #ddd;
+
+      a.current {
+        color: $link-color-active;
+      }
     }
   }
 
@@ -153,3 +139,35 @@ section.resource_list {
     }
   }
 }
+
+.fact_checking {
+  form {
+    margin-bottom: 0;
+  }
+}
+
+.fact_check_request {
+
+  .details {
+    font-style: italic;
+    color: #333;
+    @include type-12;
+    margin-bottom: 0.5em;
+    padding-left: 1em;
+    span { font-weight: bold; }
+  }
+
+  .comments {
+    background: #fff;
+    padding: 0.5em;
+  }
+
+  .comments p {
+    @include type-13;
+  }
+
+  .comments p:last-child {
+    margin-bottom: 0;
+  }
+}
+

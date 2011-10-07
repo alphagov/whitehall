@@ -61,8 +61,22 @@ small, p.small {
   @include type-14;
 }
 
-section h1 {
-  @include type-24;
+section {
+  h1 {
+    @include type-24;
+  }
+
+  h2 {
+    @include type-21;
+  }
+
+  h3 {
+    @include type-18;
+  }
+
+  h4,h5,h6 {
+    @include type-16
+  }
 }
 
 /* CODE */
