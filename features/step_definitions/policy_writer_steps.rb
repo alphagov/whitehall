@@ -25,7 +25,7 @@ When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, ti
   click_link 'Edit'
   within("#new_fact_check_request") do
     fill_in "Email address", with: email
-    click_button "Request fact checking"
+    click_button "Send request"
   end
 end
 
