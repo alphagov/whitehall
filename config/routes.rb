@@ -26,4 +26,5 @@ Whitehall::Application.routes.draw do
   match 'login' => 'sessions#new', via: :get
   match 'logout' => 'sessions#destroy', via: :post
   match 'styleguide' => 'styleguide#index'
+  match 'site/sha' => 'site#sha'
 end
