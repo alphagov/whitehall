@@ -33,7 +33,9 @@ def create_draft(type, attributes = {})
 end
 
 def create_submitted(type, attributes = {})
-  create_edition(type, attributes.merge(submitted: true))
+  edition = create_edition(type, attributes.merge(submitted: true))
+  edition.fact_check_requests.create email_address: Faker::Internet.email, comments: Faker::Lorem.paragraph
+  edition
 end
 
 def create_published(type, attributes = {})
