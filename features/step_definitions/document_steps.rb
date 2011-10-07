@@ -14,6 +14,18 @@ Given /^a submitted (publication|policy) called "([^"]*)" exists$/ do |document_
   create(:submitted_edition, title: title, document: document)
 end
 
+Given /^I start editing the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
+  edition = Edition.find_by_title(original_title)
+  visit admin_edition_path(edition)
+  click_link "Edit"
+  fill_in "Title", with: new_title
+end
+
+Given /^another user edits the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
+  edition = Edition.find_by_title(original_title)
+  edition.update_attributes!(title: new_title)
+end
+
 When /^I draft a new (publication|policy) "([^"]*)"$/ do |document_type, title|
   visit admin_editions_path
   click_link "Draft new #{document_type.capitalize}"
@@ -53,6 +65,39 @@ When /^I publish the (publication|policy) "([^"]*)"$/ do |document_type, title|
   edition = Edition.find_by_title(title)
   assert edition.document.is_a?(document_type.classify.constantize)
   visit admin_edition_path(edition)
+  click_button "Publish"
+end
+
+When /^I edit the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
+  edition = Edition.find_by_title(original_title)
+  visit admin_edition_path(edition)
+  click_link "Edit"
+  fill_in "Title", with: new_title
+  click_button "Save"
+end
+
+When /^I edit the (publication|policy) "([^"]*)" adding it to the "([^"]*)" topic$/ do |document_type, title, topic_name|
+  edition = Edition.find_by_title(title)
+  visit admin_edition_path(edition)
+  click_link "Edit"
+  select topic_name, from: "Topics"
+  click_button "Save"
+end
+
+When /^I save my changes to the (publication|policy)$/ do |document_type|
+  click_button "Save"
+end
+
+When /^I edit the (publication|policy) changing the title to "([^"]*)"$/ do |document_type, new_title|
+  fill_in "Title", with: new_title
+  click_button "Save"
+end
+
+When /^I publish the (publication|policy) "([^"]*)" but another user edits it while I am viewing it$/ do |document_type, title|
+  edition = Edition.find_by_title(title)
+  assert edition.document.is_a?(document_type.classify.constantize)
+  visit admin_edition_path(edition)
+  edition.update_attributes!(body: 'A new body')
   click_button "Publish"
 end
 
@@ -103,54 +148,9 @@ Then /^the (publication|policy) "([^"]*)" should be in the "([^"]*)" and "([^"]*
   assert has_css?(".organisation", text: second_org)
 end
 
-When /^I edit the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
-  edition = Edition.find_by_title(original_title)
-  visit admin_edition_path(edition)
-  click_link "Edit"
-  fill_in "Title", with: new_title
-  click_button "Save"
-end
-
-When /^I edit the (publication|policy) "([^"]*)" adding it to the "([^"]*)" topic$/ do |document_type, title, topic_name|
-  edition = Edition.find_by_title(title)
-  visit admin_edition_path(edition)
-  click_link "Edit"
-  select topic_name, from: "Topics"
-  click_button "Save"
-end
-
-Given /^I start editing the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
-  edition = Edition.find_by_title(original_title)
-  visit admin_edition_path(edition)
-  click_link "Edit"
-  fill_in "Title", with: new_title
-end
-
-Given /^another user edits the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
-  edition = Edition.find_by_title(original_title)
-  edition.update_attributes!(title: new_title)
-end
-
-When /^I save my changes to the (publication|policy)$/ do |document_type|
-  click_button "Save"
-end
-
 Then /^I should see the conflict between the (publication|policy) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
   assert page.has_css?(".conflicting.new #edition_title", value: new_title)
   assert page.has_css?(".conflicting.latest #edition_title[disabled]", value: latest_title)
-end
-
-When /^I edit the (publication|policy) changing the title to "([^"]*)"$/ do |document_type, new_title|
-  fill_in "Title", with: new_title
-  click_button "Save"
-end
-
-When /^I publish the (publication|policy) "([^"]*)" but another user edits it while I am viewing it$/ do |document_type, title|
-  edition = Edition.find_by_title(title)
-  assert edition.document.is_a?(document_type.classify.constantize)
-  visit admin_edition_path(edition)
-  edition.update_attributes!(body: 'A new body')
-  click_button "Publish"
 end
 
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|

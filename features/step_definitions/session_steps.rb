@@ -19,10 +19,6 @@ Given /^I am logged in as a ([^"]*) called "([^"]*)"$/ do |role, name|
   And %{I login as "#{name}"}
 end
 
-Then /^I should see that I am logged in as a ([^"]*)$/ do |role|
-  assert page.has_css?("#session .role", text: role)
-end
-
 Given /^I visit the login page$/ do
   visit login_path
 end
@@ -30,6 +26,14 @@ end
 Given /^I login as "([^"]*)"$/ do |name|
   fill_in "name", with: name
   click_button "Login"
+end
+
+Given /^I logout$/ do
+  click_button "Logout"
+end
+
+Then /^I should see that I am logged in as a ([^"]*)$/ do |role|
+  assert page.has_css?("#session .role", text: role)
 end
 
 Then /^I should be given the opportunity to login$/ do
@@ -42,10 +46,6 @@ end
 
 Then /^I should see that I am logged in as "([^"]*)"$/ do |name|
   assert page.has_css?("#session .current_user_name", text: name)
-end
-
-Given /^I logout$/ do
-  click_button "Logout"
 end
 
 Then /^I should see that I am not logged in$/ do

@@ -17,20 +17,20 @@ end
 
 World(EmailHelpers)
 
-Then /^"([^"]*?)" should receive an email$/ do |address|
-  assert_equal 1, unread_emails_for(address).size
-end
-
 When /^(?:I open|an admin opens) the last email sent to "([^"]*)"$/ do |address|
   @current_email = emails_for(address).last
   read_emails_for(address) << @current_email
 end
 
-Then /^(?:I|they) should see "([^"]*)" in the email subject$/ do |subject|
-  assert_equal subject, @current_email.subject
-end
-
 When /^I click the first link in the email$/ do
   links = URI.extract(@current_email.body.to_s, ["http", "https"])
   visit links.first
+end
+
+Then /^"([^"]*?)" should receive an email$/ do |address|
+  assert_equal 1, unread_emails_for(address).size
+end
+
+Then /^(?:I|they) should see "([^"]*)" in the email subject$/ do |subject|
+  assert_equal subject, @current_email.subject
 end

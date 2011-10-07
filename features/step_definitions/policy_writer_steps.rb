@@ -1,3 +1,16 @@
+Given /^I visit the list of draft policies$/ do
+  visit admin_editions_path
+end
+
+Given /^I click edit for the policy "([^"]*)"$/ do |policy_title|
+  click_link policy_title
+  click_link "Edit"
+end
+
+Given /^I submit the policy for the second set of eyes$/ do
+  click_button 'Submit to 2nd pair of eyes'
+end
+
 When /^I visit the new policy page$/ do
   visit new_admin_edition_path
 end
@@ -24,19 +37,6 @@ end
 When /^I write a policy called "([^"]*)" with body "([^"]*)"$/ do |title, body|
   fill_in 'Title', with: title
   fill_in 'Policy', with: body
-end
-
-Given /^I visit the list of draft policies$/ do
-  visit admin_editions_path
-end
-
-Given /^I click edit for the policy "([^"]*)"$/ do |policy_title|
-  click_link policy_title
-  click_link "Edit"
-end
-
-Given /^I submit the policy for the second set of eyes$/ do
-  click_button 'Submit to 2nd pair of eyes'
 end
 
 Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
