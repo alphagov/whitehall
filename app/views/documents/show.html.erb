@@ -1,9 +1,11 @@
-<div class="document_view g2 first">
-  <h1 class="title"><%= @published_edition.title %></h1>
-  <div class="body">
-    <%= govspeak_to_html @published_edition.body %>
-  </div>
-  <p class="attachment"><%= link_to_attachment(@published_edition.attachment) %></p>
+<div class="g2 first">
+  <section class="document_view">
+    <h1 class="title"><%= @published_edition.title %></h1>
+    <div class="body">
+      <%= govspeak_to_html @published_edition.body %>
+    </div>
+    <p class="attachment"><%= link_to_attachment(@published_edition.attachment) %></p>
+  </section>
 </div>
 
 <% if @published_edition.topics.any? %>
