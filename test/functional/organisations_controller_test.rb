@@ -36,4 +36,24 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation.to_param
     assert_select "#publications", count: 0
   end
+
+  test "shows ministers associated with organisation" do
+    first_minister = create(:minister)
+    second_minister = create(:minister)
+    organisation = create(:organisation, ministers: [first_minister, second_minister])
+    minister_in_another_organisation = create(:minister)
+
+    get :show, id: organisation.to_param
+
+    assert_select_object(first_minister)
+    assert_select_object(second_minister)
+    assert_select_object(minister_in_another_organisation, count: 0)
+  end
+
+  test "should not display an empty ministers section" do
+    organisation = create(:organisation)
+    get :show, id: organisation.to_param
+    assert_select "#ministers", count: 0
+  end
+
 end

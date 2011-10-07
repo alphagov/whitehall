@@ -3,6 +3,12 @@ Given /^the organisation "([^"]*)" contains some policies$/ do |name|
   create(:organisation, name: name, editions: editions)
 end
 
+Given /^ministers "([^"]*)" and "([^"]*)" are in the "([^"]*)"$/ do |first_minister, second_minister, organisation_name|
+  organisation = Organisation.find_by_name(organisation_name)
+  organisation.ministers << build(:minister, name: first_minister)
+  organisation.ministers << build(:minister, name: second_minister)
+end
+
 Given /^other organisations also have policies$/ do
   create(:organisation, editions: [build(:published_edition)])
   create(:organisation, editions: [build(:published_edition)])
@@ -22,4 +28,9 @@ Then /^I should only see published policies belonging to the "([^"]*)" organisat
   organisation = Organisation.find_by_name(name)
   editions = records_from_elements(Edition, page.all(".edition"))
   assert editions.all? { |edition| organisation.editions.published.include?(edition) }
+end
+
+Then /^I should see ministers "([^"]*)" and "([^"]*)"$/ do |first_minister, second_minister|
+  assert has_css?(".minister", text: first_minister)
+  assert has_css?(".minister", text: second_minister)
 end
