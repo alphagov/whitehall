@@ -131,68 +131,66 @@ $link-color-active: #c11;
   }
 }
 
+$base_font_size_in_px: 16 !default;
+$baseline_in_px: 24 !default;
+
+@mixin scaled_type($size_in_px, $line_height_in_px: 24) {
+  $vertical_rhythm: ($baseline_in_px / $size_in_px);
+
+  margin: 0;
+  font-size: #{($size_in_px/$base_font_size_in_px)}em;
+  line-height: #{$vertical_rhythm * ($line_height_in_px / $baseline_in_px)}em;
+  margin-bottom: #{$vertical_rhythm}em;
+}
+
 @mixin type-60 {
   /* 60px / 72px */
-  margin: 0;
-  font-size: 3.75em;
-  line-height: 1.2em;
-  margin-bottom: 0.4em;
+  @include scaled_type(60, 72);
 }
 
 @mixin type-48 {
   /* 48px / 48px */
-  margin: 0;
-  font-size: 3em;
-  line-height: 1em;
-  margin-bottom: 0.5em;
+  @include scaled_type(48, 48);
 }
 
 @mixin type-36 {
   /* 36px / 48px */
-  margin: 0;
-  font-size: 2.25em;
-  line-height: 1.3333333333333333333333333333333em;
-  margin-bottom: 0.6667em;
+  @include scaled_type(36, 48);
 }
 
 @mixin type-24 {
   /* 24px / 24px */
-  margin: 0;
-  font-size: 1.5em;
-  line-height: 1em;
-  margin-bottom: 1em;
+  @include scaled_type(24);
 }
 
 @mixin type-21 {
   /* 21px / 24px */
-  margin: 0;
-  font-size: 1.3125em;
-  line-height: 1.1428571428571428571428571428571em;
-  margin-bottom: 1.1428571428571428571428571428571em;
+  @include scaled_type(21);
 }
 
 @mixin type-18 {
   /* 18px / 24px */
-  margin: 0;
-  font-size: 1.125em;
-  line-height: 1.3333333333333333333333333333333em;
-  margin-bottom: 1.3333333333333333333333333333333em;
+  @include scaled_type(18);
 }
 
 @mixin type-16 {
   /* 16px / 24px */
-  margin: 0;
-  font-size: 1em;
-  line-height: 1.5em;
-  margin-bottom: 1.5em;
+  @include scaled_type(16);
 }
 
 @mixin type-14 {
   /* 14px / 24px */
-  margin: 0;
-  font-size: 0.875em;
-  line-height: 1.7142857142857142857142857142857em;
-  margin-bottom: 1.7142857142857142857142857142857em;
+  @include scaled_type(14);
+}
+
+@mixin type-12 {
+  /* 12px / 24px */
+  @include scaled_type(12);
+}
+
+@mixin type-10 {
+  /* 10px / 24px */
+  @include scaled_type(10);
 }
 
 @mixin pipe_separated_links {
