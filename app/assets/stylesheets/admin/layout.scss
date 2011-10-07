@@ -117,6 +117,10 @@ section {
       @include type-18;
     }
 
+    ul li {
+      @include type-14;
+      margin-bottom: 0.75em;
+    }
   }
 }
 
