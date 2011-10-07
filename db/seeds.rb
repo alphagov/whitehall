@@ -20,6 +20,7 @@ def create_edition(type, attributes)
   attributes[:topics] = Topic.where(name: (attributes[:topics] || []))
   attributes[:organisations] = Organisation.where(name: (attributes[:organisations] || []))
   attributes[:author] ||= User.create(name: Faker::Name.name)
+  attributes[:ministers] = Array.new(rand(2) + 1) { Minister.create!(name: Faker::Name.name) }
   Edition.create!({
     title: "title-n",
     body: random_policy_text,
