@@ -239,6 +239,9 @@ sub {
   /* For IE 6/7 (trigger hasLayout) */
   zoom: 1
 }
+.clear {
+  clear: both;
+}
 
 
 /* PRINT */

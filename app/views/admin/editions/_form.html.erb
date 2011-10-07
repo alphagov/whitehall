@@ -1,3 +1,4 @@
+
 <%= form_for [:admin, edition] do |edition_form| %>
   <% if edition.errors.any? %>
     <div class="form-errors">
@@ -22,14 +23,16 @@
       <p class="attachment"><%= link_to_attachment(edition.attachment) %></p>
     <% end %>
   </fieldset>
-  <fieldset>
+  <fieldset class="g1 first">
     <%= edition_form.label :organisation_ids, 'Organisations' %>
     <%= edition_form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', edition.organisation_ids), {}, multiple: true %>
   </fieldset>
-  <fieldset>
+  <fieldset class="g1">
     <%= edition_form.label :topic_ids, 'Topics' %>
     <%= edition_form.select :topic_ids, options_from_collection_for_select(Topic.all, 'id', 'name', edition.topic_ids), {}, multiple: true %>
   </fieldset>
+
+  <fieldset class="clear">
   <% unless disabled %>
     <%= edition_form.submit 'Save' %>
     <span class="or_cancel">
@@ -37,4 +40,6 @@
       <%= link_to 'cancel', (edition.new_record? ? admin_editions_path : admin_edition_path(edition)) %>
     </span>
   <% end %>
+  </fieldset>
+
 <% end %>
