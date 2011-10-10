@@ -9,6 +9,6 @@ class Topic < ActiveRecord::Base
   validates :description, presence: true
 
   def self.with_published_documents
-    joins(:published_documents)
+    joins(:published_documents).group(:topic_id)
   end
 end

@@ -45,15 +45,13 @@ class TopicTest < ActiveSupport::TestCase
   end
 
   test "should return a list of topics with published documents" do
-    published_policy = create(:published_policy)
-    published_publication = create(:published_publication)
-    draft_policy = create(:draft_policy)
-    draft_publication = create(:draft_publication)
-    topic_with_published_policy = create(:topic, documents: [published_policy])
-    topic_with_published_publication = create(:topic, documents: [published_publication])
-    topic_without_published_policy = create(:topic, documents: [draft_policy])
-    topic_without_published_publication = create(:topic, documents: [draft_publication])
+    topic_with_published_policy = create(:topic, documents: [build(:published_policy)])
+    topic_with_published_publication = create(:topic, documents: [build(:published_publication)])
+    topic_with_published_policy_and_publication = create(:topic, documents: [build(:published_policy), build(:published_publication)])
+    create(:topic, documents: [build(:draft_policy)])
+    create(:topic, documents: [build(:draft_publication)])
 
-    assert_equal [topic_with_published_policy, topic_with_published_publication].to_set, Topic.with_published_documents.to_set
+    expected = [topic_with_published_policy, topic_with_published_publication, topic_with_published_policy_and_publication]
+    assert_equal expected, Topic.with_published_documents
   end
 end
