@@ -92,7 +92,7 @@ FactoryGirl.define do
   end
 
   factory :role do
-    sequence(:name) { |index| "role-#{index}" }
+    name "Parliamentary Under-Secretary of State"
   end
 
   factory :person do

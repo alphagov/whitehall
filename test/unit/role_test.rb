@@ -10,10 +10,4 @@ class RoleTest < ActiveSupport::TestCase
     role = build(:role, name: nil)
     refute role.valid?
   end
-
-  test "should be invalid with a duplicate name" do
-    existing_role = create(:role)
-    new_role = build(:role, name: existing_role.name)
-    refute new_role.valid?
-  end
 end
