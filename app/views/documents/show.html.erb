@@ -35,14 +35,17 @@
 <% end %>
 
 <% if @published_document.roles.any? %>
-  <section id="ministers_responsible" class="g1">
-    <h1>Ministers</h1>
-    <ul class="ministers">
+<section id="ministers_responsible">
+  <h1>Ministers</h1>
+  <ul class="ministers">
     <% @published_document.roles.each do |role| %>
-      <%= content_tag_for :li, role do %>
-        <%= role.name %>
+      <%= content_tag_for(:li, role) do %>
+        <p class="title"><%= role.name %></p>
+        <% if role.person %>
+          <p class="name"><%= role.person.name %></p>
+        <% end %>
       <% end %>
     <% end %>
-    </ul>
-  </section>
+  </ul>
+</section>
 <% end %>

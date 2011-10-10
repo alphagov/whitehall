@@ -86,9 +86,29 @@ Then /^I should see a link to the PDF attachment$/ do
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: /^attachment\.pdf$/)
 end
 
-Then /^I should see that "([^"]*)" and "([^"]*)" are responsible for the policy$/ do |role_1, role_2|
-  assert page.has_css?("#ministers_responsible .role", text: role_1)
-  assert page.has_css?("#ministers_responsible .role", text: role_2)
+# Then /^I should see that "([^"]*)" and "([^"]*)" are responsible for the policy$/ do |role_1, role_2|
+#   assert page.has_css?("#ministers_responsible .role", text: role_1)
+#   assert page.has_css?("#ministers_responsible .role", text: role_2)
+# end
+
+Given /^a published policy titled "([^"]*)" that's the responsibility of:$/ do |title, table|
+  # table is a Cucumber::Ast::Table
+  document = create(:published_policy, title: title)
+  table.hashes.each do |row|
+    person = Person.find_or_create_by_name(row["Person"])
+    document.roles.create!(name: row["Role"], person: person)
+  end
+end
+
+Then /^I should see that those responsible for the policy are:$/ do |table|
+  # table is a Cucumber::Ast::Table
+  all_roles_present = table.hashes.all? do |row|
+    page.all(".role").any? do |element|
+      element.has_css?(".title", text: row["Role"]) &&
+      element.has_css?(".name", text: row["Person"])
+    end
+  end
+  assert all_roles_present
 end
 
 def pdf_attachment
