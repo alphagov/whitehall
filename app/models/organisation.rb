@@ -8,7 +8,5 @@ class Organisation < ActiveRecord::Base
   has_many :roles
   has_many :people, through: :roles
 
-  has_many :ministers
-
   validates :name, presence: true, uniqueness: true
 end
