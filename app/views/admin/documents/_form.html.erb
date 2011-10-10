@@ -1,0 +1,45 @@
+
+<%= form_for [:admin, document], as: :document do |document_form| %>
+  <% if document.errors.any? %>
+    <div class="form-errors">
+      <p>To save the document please fix the following issues:</p>
+      <ul class="errors disc">
+        <% document.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <fieldset>
+    <%= document_form.hidden_field :lock_version %>
+    <%= hidden_field_tag :document_type, document.type %>
+    <%= document_form.label :title %>
+    <%= document_form.text_field :title, disabled: disabled %>
+    <%= document_form.label :body, 'Policy' %>
+    <%= document_form.text_area :body, disabled: disabled %>
+    <%= document_form.label :attach_file, 'Attachment' %>
+    <%= document_form.file_field :attach_file, disabled: disabled %>
+    <% unless document.new_record? %>
+      <p class="attachment"><%= link_to_attachment(document.attachment) %></p>
+    <% end %>
+  </fieldset>
+  <fieldset class="g1 first">
+    <%= document_form.label :organisation_ids, 'Organisations' %>
+    <%= document_form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', document.organisation_ids), {}, multiple: true %>
+  </fieldset>
+  <fieldset class="g1">
+    <%= document_form.label :topic_ids, 'Topics' %>
+    <%= document_form.select :topic_ids, options_from_collection_for_select(Topic.all, 'id', 'name', document.topic_ids), {}, multiple: true %>
+  </fieldset>
+
+  <fieldset class="clear">
+  <% unless disabled %>
+    <%= document_form.submit 'Save' %>
+    <span class="or_cancel">
+      or
+      <%= link_to 'cancel', (document.new_record? ? admin_documents_path : admin_document_path(document)) %>
+    </span>
+  <% end %>
+  </fieldset>
+
+<% end %>

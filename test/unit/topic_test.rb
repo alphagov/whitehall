@@ -49,10 +49,10 @@ class TopicTest < ActiveSupport::TestCase
     published_publication = create(:published_publication)
     draft_policy = create(:draft_policy)
     draft_publication = create(:draft_publication)
-    topic_with_published_policy = create(:topic, editions: [published_policy])
-    topic_with_published_publication = create(:topic, editions: [published_publication])
-    topic_without_published_policy = create(:topic, editions: [draft_policy])
-    topic_without_published_publication = create(:topic, editions: [draft_publication])
+    topic_with_published_policy = create(:topic, documents: [published_policy])
+    topic_with_published_publication = create(:topic, documents: [published_publication])
+    topic_without_published_policy = create(:topic, documents: [draft_policy])
+    topic_without_published_publication = create(:topic, documents: [draft_publication])
 
     assert_equal [topic_with_published_policy, topic_with_published_publication].to_set, Topic.with_published_documents.to_set
   end

@@ -21,8 +21,8 @@ class NotificationsTest < ActionMailer::TestCase
   end
 
   test "fact check email should contain a policy link containing a token" do
-    edition = @fact_check_request.edition
-    url = edit_admin_edition_fact_check_request_url(edition.to_param, @fact_check_request.to_param)
+    document = @fact_check_request.document
+    url = edit_admin_document_fact_check_request_url(document.to_param, @fact_check_request.to_param)
     assert_match /#{url}/, @mail.body.to_s
   end
 end

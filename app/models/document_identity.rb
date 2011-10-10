@@ -1,8 +1,8 @@
 class DocumentIdentity < ActiveRecord::Base
-  has_many :editions
-  has_one :published_edition, class_name: 'Edition', conditions: { state: 'published' }
+  has_many :documents
+  has_one :published_document, class_name: 'Document', conditions: { state: 'published' }
 
   def self.published
-    joins(:published_edition)
+    joins(:published_document)
   end
 end

@@ -1,0 +1,42 @@
+<section class="resource_list">
+  <nav class="g2 actions">
+    <%= link_to "Draft New Policy", new_admin_document_path, class: "button new_resource", title: "Draft new Policy" %>
+    <%= link_to "Draft New Publication", new_admin_document_path(document_type: 'Publication'), class: "button new_resource", title: "Draft new Publication" %>
+  </nav>
+
+  <div class="g1 filter">
+    <nav>
+      <span>Filter by:</span>
+      <%=navigation_link 'drafts', admin_documents_path %>
+      <%=navigation_link 'submitted', submitted_admin_documents_path %>
+      <%=navigation_link 'published', published_admin_documents_path %>
+    </nav>
+  </div>
+
+  <div class="collection">
+    <h1><%= document_state %> documents</h1>
+    <table class="documents">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% documents.each do |document| %>
+          <%= content_tag_for(:tr, document) do %>
+            <td class="title"><%= link_to document.title, admin_document_path(document), title: "View document #{document.title}" %></td>
+            <td class="author"><%= document.author.name %></td>
+            <td class="type"><%= document.type %></td>
+          <% end %>
+        <% end %>
+        <% if documents.blank? %>
+          <tr>
+            <td colspan="3">No documents have been <%= empty_documents_list_verb(document_state) %>.</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

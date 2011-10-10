@@ -9,21 +9,21 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   test "shows only published policies associated with topic" do
-    published_edition = create(:published_policy)
-    draft_edition = create(:draft_policy)
-    topic = create(:topic, editions: [published_edition, draft_edition])
+    published_document = create(:published_policy)
+    draft_document = create(:draft_policy)
+    topic = create(:topic, documents: [published_document, draft_document])
     get :show, id: topic.to_param
-    assert_select_object(published_edition)
-    assert_select_object(draft_edition, count: 0)
+    assert_select_object(published_document)
+    assert_select_object(draft_document, count: 0)
   end
 
   test "shows only published publications associated with topic" do
-    published_edition = create(:published_publication)
-    draft_edition = create(:draft_publication)
-    topic = create(:topic, editions: [published_edition, draft_edition])
+    published_document = create(:published_publication)
+    draft_document = create(:draft_publication)
+    topic = create(:topic, documents: [published_document, draft_document])
     get :show, id: topic.to_param
-    assert_select_object(published_edition)
-    assert_select_object(draft_edition, count: 0)
+    assert_select_object(published_document)
+    assert_select_object(draft_document, count: 0)
   end
 
   test "should not display an empty published policies section" do

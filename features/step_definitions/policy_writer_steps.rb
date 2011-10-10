@@ -1,5 +1,5 @@
 Given /^I visit the list of draft policies$/ do
-  visit admin_editions_path
+  visit admin_documents_path
 end
 
 Given /^I click edit for the policy "([^"]*)"$/ do |policy_title|
@@ -12,14 +12,14 @@ Given /^I submit the policy for the second set of eyes$/ do
 end
 
 When /^I visit the new policy page$/ do
-  visit new_admin_edition_path
+  visit new_admin_document_path
 end
 
 When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, title|
-  edition = Edition.find_by_title(title)
-  assert edition.is_a?(Policy)
-  visit admin_editions_path
-  within(record_css_selector(edition)) do
+  document = Document.find_by_title(title)
+  assert document.is_a?(Policy)
+  visit admin_documents_path
+  within(record_css_selector(document)) do
     click_link title
   end
   click_link 'Edit'

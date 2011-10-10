@@ -14,9 +14,9 @@
 <p>The policy is show below.</p>
 
 <div class="document_view">
-  <h1 class="title"><%= @edition.title %></h1>
+  <h1 class="title"><%= @document.title %></h1>
   <div class="body">
-    <%= govspeak_to_html @edition.body %>
+    <%= govspeak_to_html @document.body %>
   </div>
-  <p class="written_by">Written by <span class="author"><%= @edition.author.name %></span></p>
+  <p class="written_by">Written by <span class="author"><%= @document.author.name %></span></p>
 </div>

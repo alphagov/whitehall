@@ -1,6 +1,6 @@
 Given /^the topic "([^"]*)" contains some policies$/ do |name|
-  editions = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
-  create(:topic, name: name, editions: editions)
+  documents = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
+  create(:topic, name: name, documents: documents)
 end
 
 Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic|
@@ -9,8 +9,8 @@ Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic
 end
 
 Given /^other topics also have policies$/ do
-  create(:topic, editions: [build(:published_policy)])
-  create(:topic, editions: [build(:published_policy)])
+  create(:topic, documents: [build(:published_policy)])
+  create(:topic, documents: [build(:published_policy)])
 end
 
 When /^I visit the list of topics$/ do
@@ -24,8 +24,8 @@ end
 
 Then /^I should only see published policies belonging to the "([^"]*)" topic$/ do |name|
   topic = Topic.find_by_name(name)
-  editions = records_from_elements(Edition, page.all(".edition"))
-  assert editions.all? { |edition| topic.editions.published.include?(edition) }
+  documents = records_from_elements(Document, page.all(".document"))
+  assert documents.all? { |document| topic.documents.published.include?(document) }
 end
 
 Then /^I should see the topics "([^"]*)" and "([^"]*)"$/ do |first_topic_name, second_topic_name|

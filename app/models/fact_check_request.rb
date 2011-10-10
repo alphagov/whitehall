@@ -1,6 +1,6 @@
 class FactCheckRequest < ActiveRecord::Base
-  belongs_to :edition
-  validates_presence_of :edition, :email_address
+  belongs_to :document
+  validates_presence_of :document, :email_address
   before_create :generate_token
 
   scope :completed, where('comments IS NOT NULL')

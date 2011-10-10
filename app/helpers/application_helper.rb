@@ -45,39 +45,39 @@ module ApplicationHelper
     link_to File.basename(attachment.name.current_path), attachment.name.url
   end
 
-  def empty_editions_list_verb(edition_state)
-    if edition_state.downcase == "draft"
+  def empty_documents_list_verb(document_state)
+    if document_state.downcase == "draft"
       "drafted"
     else
-      edition_state.downcase
+      document_state.downcase
     end
   end
 
   def admin_policy_path(*args)
-    admin_edition_path(*args)
+    admin_document_path(*args)
   end
 
   def admin_publication_path(*args)
-    admin_edition_path(*args)
+    admin_document_path(*args)
   end
 
   def admin_policies_path(*args)
-    admin_editions_path(*args)
+    admin_documents_path(*args)
   end
 
   def admin_publications_path(*args)
-    admin_editions_path(*args)
+    admin_documents_path(*args)
   end
 
   def admin_policy_fact_check_requests_path(*args)
-    admin_edition_fact_check_requests_path(*args)
+    admin_document_fact_check_requests_path(*args)
   end
 
   def admin_publication_fact_check_requests_path(*args)
-    admin_edition_fact_check_requests_path(*args)
+    admin_document_fact_check_requests_path(*args)
   end
 
   def admin_policy_fact_check_request_path(*args)
-    admin_edition_fact_check_request_path(*args)
+    admin_document_fact_check_request_path(*args)
   end
 end

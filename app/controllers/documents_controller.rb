@@ -5,7 +5,7 @@ class DocumentsController < ApplicationController
 
   def show
     document = DocumentIdentity.find(params[:id])
-    unless @published_edition = document.published_edition
+    unless @published_document = document.published_document
       render text: "Not found", status: :not_found
     end
   end

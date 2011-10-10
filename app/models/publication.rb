@@ -1,2 +1,2 @@
-class Publication < Edition
+class Publication < Document
 end

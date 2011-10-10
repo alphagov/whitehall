@@ -1,5 +1,5 @@
 Given /^I am on the policies admin page$/ do
-  visit admin_editions_path
+  visit admin_documents_path
 end
 
 Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
@@ -10,18 +10,18 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
 end
 
 Given /^a published policy titled "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" topics$/ do |policy_title, topic_1, topic_2|
-  edition = create(:published_policy, title: policy_title)
-  create(:topic, name: topic_1, editions: [edition])
-  create(:topic, name: topic_2, editions: [edition])
+  document = create(:published_policy, title: policy_title)
+  create(:topic, name: topic_1, documents: [document])
+  create(:topic, name: topic_2, documents: [document])
 end
 
 Given /^I visit the list of published policies$/ do
-  visit published_admin_editions_path
+  visit published_admin_documents_path
 end
 
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy titled "([^"]*)"$/ do |email, title|
-  edition = create(:draft_policy, title: title)
-  fact_check_request = edition.fact_check_requests.create(email_address: email)
+  document = create(:draft_policy, title: title)
+  fact_check_request = document.fact_check_requests.create(email_address: email)
   Notifications.fact_check(fact_check_request).deliver
 end
 
@@ -43,7 +43,7 @@ end
 
 When /^I create a new edition of the published policy$/ do
   Given %{I visit the list of published policies}
-  click_link Edition.published.last.title
+  click_link Document.published.last.title
   click_button 'Create new draft'
 end
 
@@ -59,8 +59,8 @@ When /^"([^"]*)" clicks the email link to the draft policy$/ do |email|
 end
 
 When /^I visit the policy titled "([^"]*)"$/ do |title|
-  edition = Edition.find_by_title(title)
-  visit document_path(edition.document_identity)
+  document = Document.find_by_title(title)
+  visit document_path(document.document_identity)
 end
 
 Then /^I should see links to the "([^"]*)" and "([^"]*)" topics$/ do |topic_1_name, topic_2_name|
@@ -71,15 +71,15 @@ Then /^I should see links to the "([^"]*)" and "([^"]*)" topics$/ do |topic_1_na
 end
 
 Then /^the published policy should remain unchanged$/ do
-  visit document_path(@edition.document_identity)
-  assert page.has_css?('.document_view .title', text: @edition.title)
-  assert page.has_css?('.document_view .body', text: @edition.body)
+  visit document_path(@document.document_identity)
+  assert page.has_css?('.document_view .title', text: @document.title)
+  assert page.has_css?('.document_view .body', text: @document.body)
 end
 
 Then /^they should see the draft policy titled "([^"]*)"$/ do |title|
-  edition = Edition.find_by_title(title)
-  assert page.has_css?('.document_view .title', text: edition.title)
-  assert page.has_css?('.document_view .body', text: edition.body)
+  document = Document.find_by_title(title)
+  assert page.has_css?('.document_view .title', text: document.title)
+  assert page.has_css?('.document_view .body', text: document.body)
 end
 
 Then /^I should see a link to the PDF attachment$/ do

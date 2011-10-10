@@ -16,7 +16,7 @@ def topics(*names)
   end
 end
 
-def create_edition(type, attributes)
+def create_document(type, attributes)
   attributes[:topics] = Topic.where(name: (attributes[:topics] || []))
   attributes[:organisations] = Organisation.where(name: (attributes[:organisations] || []))
   attributes[:author] ||= User.create(name: Faker::Name.name)
@@ -29,17 +29,17 @@ def create_edition(type, attributes)
 end
 
 def create_draft(type, attributes = {})
-  create_edition(type, attributes)
+  create_document(type, attributes)
 end
 
 def create_submitted(type, attributes = {})
-  edition = create_edition(type, attributes.merge(submitted: true))
-  edition.fact_check_requests.create email_address: Faker::Internet.email, comments: Faker::Lorem.paragraph
-  edition
+  document = create_document(type, attributes.merge(submitted: true))
+  document.fact_check_requests.create email_address: Faker::Internet.email, comments: Faker::Lorem.paragraph
+  document
 end
 
 def create_published(type, attributes = {})
-  create_edition(type, attributes.merge(submitted: true, state: "published"))
+  create_document(type, attributes.merge(submitted: true, state: "published"))
 end
 
 organisations(

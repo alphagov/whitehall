@@ -1,6 +1,6 @@
 Given /^a fact checker has commented "([^"]*)" on the draft policy titled "([^"]*)"$/ do |comment, title|
-  edition = create(:draft_policy, title: title)
-  create(:fact_check_request, edition: edition, comments: comment)
+  document = create(:draft_policy, title: title)
+  create(:fact_check_request, document: document, comments: comment)
 end
 
 Then /^"([^"]*)" should receive an email requesting fact checking$/ do |email_address|

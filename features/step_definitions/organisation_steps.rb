@@ -1,6 +1,6 @@
 Given /^the organisation "([^"]*)" contains some policies$/ do |name|
-  editions = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
-  create(:organisation, name: name, editions: editions)
+  documents = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
+  create(:organisation, name: name, documents: documents)
 end
 
 Given /^ministers "([^"]*)" and "([^"]*)" are in the "([^"]*)"$/ do |first_minister, second_minister, organisation_name|
@@ -10,8 +10,8 @@ Given /^ministers "([^"]*)" and "([^"]*)" are in the "([^"]*)"$/ do |first_minis
 end
 
 Given /^other organisations also have policies$/ do
-  create(:organisation, editions: [build(:published_policy)])
-  create(:organisation, editions: [build(:published_policy)])
+  create(:organisation, documents: [build(:published_policy)])
+  create(:organisation, documents: [build(:published_policy)])
 end
 
 Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation, second_organisation|
@@ -34,8 +34,8 @@ end
 
 Then /^I should only see published policies belonging to the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name(name)
-  editions = records_from_elements(Edition, page.all(".edition"))
-  assert editions.all? { |edition| organisation.editions.published.include?(edition) }
+  documents = records_from_elements(Document, page.all(".document"))
+  assert documents.all? { |document| organisation.documents.published.include?(document) }
 end
 
 Then /^I should see "([^"]*)" has the "([^"]*)" role$/ do |person_name, role_name|

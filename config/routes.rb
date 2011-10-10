@@ -6,8 +6,8 @@ Whitehall::Application.routes.draw do
   resources :organisations, only: [:show]
 
   namespace :admin do
-    root to: redirect('/admin/editions')
-    resources :editions, except: [:destroy] do
+    root to: redirect('/admin/documents')
+    resources :documents, except: [:destroy] do
       collection do
         get :submitted
         get :published

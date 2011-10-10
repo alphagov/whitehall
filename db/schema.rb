@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111010135212) do
+ActiveRecord::Schema.define(:version => 20111010142702) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
@@ -24,28 +24,28 @@ ActiveRecord::Schema.define(:version => 20111010135212) do
     t.datetime "updated_at"
   end
 
-  create_table "edition_organisations", :force => true do |t|
-    t.integer  "edition_id"
+  create_table "document_organisations", :force => true do |t|
+    t.integer  "document_id"
     t.integer  "organisation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "edition_roles", :force => true do |t|
-    t.integer  "edition_id"
+  create_table "document_roles", :force => true do |t|
+    t.integer  "document_id"
     t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "edition_topics", :id => false, :force => true do |t|
+  create_table "document_topics", :id => false, :force => true do |t|
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "edition_id"
+    t.integer  "document_id"
   end
 
-  create_table "editions", :force => true do |t|
+  create_table "documents", :force => true do |t|
     t.string   "title"
     t.text     "body"
     t.datetime "created_at"
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(:version => 20111010135212) do
   end
 
   create_table "fact_check_requests", :force => true do |t|
-    t.integer  "edition_id"
+    t.integer  "document_id"
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"

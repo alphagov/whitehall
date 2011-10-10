@@ -2,11 +2,11 @@ FactoryGirl.define do
   factory :document_identity do
   end
 
-  factory :edition do
+  factory :document do
     document_identity
     author
-    title "edition-title"
-    body  "edition-body"
+    title "document-title"
+    body  "document-body"
   end
 
   factory :policy do
@@ -62,7 +62,7 @@ FactoryGirl.define do
   end
 
   factory :fact_check_request do
-    edition
+    document
     email_address "fact-checker@example.com"
   end
 
