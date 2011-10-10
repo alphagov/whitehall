@@ -1,18 +1,18 @@
 <div class="g2 first">
   <section class="document_view">
-    <h1 class="title"><%= @published_document.title %></h1>
+    <h1 class="title"><%= @document.title %></h1>
     <div class="body">
-      <%= govspeak_to_html @published_document.body %>
+      <%= govspeak_to_html @document.body %>
     </div>
-    <p class="attachment"><%= link_to_attachment(@published_document.attachment) %></p>
+    <p class="attachment"><%= link_to_attachment(@document.attachment) %></p>
   </section>
 </div>
 
-<% if @published_document.topics.any? %>
+<% if @document.topics.any? %>
   <section id="topics" class="g1">
     <h1>Topics</h1>
     <ul class="topics">
-    <% @published_document.topics.each do |topic| %>
+    <% @document.topics.each do |topic| %>
       <%= content_tag_for :li, topic do %>
         <%= link_to topic.name, topic_path(topic) %>
       <% end %>
@@ -21,11 +21,11 @@
   </section>
 <% end %>
 
-<% if @published_document.organisations.any? %>
+<% if @document.organisations.any? %>
   <section id="organisations" class="g1">
     <h1>Organisations</h1>
     <ul class="organisations">
-    <% @published_document.organisations.each do |organisation| %>
+    <% @document.organisations.each do |organisation| %>
       <%= content_tag_for :li, organisation do %>
         <%= link_to organisation.name, organisation_path(organisation) %>
       <% end %>
@@ -34,11 +34,11 @@
   </section>
 <% end %>
 
-<% if @published_document.roles.any? %>
+<% if @document.roles.any? %>
 <section id="ministers_responsible">
   <h1>Ministers</h1>
   <ul class="ministers">
-    <% @published_document.roles.each do |role| %>
+    <% @document.roles.each do |role| %>
       <%= content_tag_for(:li, role) do %>
         <p class="title"><%= role.name %></p>
         <% if role.person %>

@@ -60,6 +60,13 @@ class Document < ActiveRecord::Base
   validates_with DocumentHasNoUnpublishedDocumentsValidator, on: :create
   validates_with DocumentHasNoOtherPublishedDocumentsValidator, on: :create
 
+  class << self
+    def from_public_identity(id)
+      identity = DocumentIdentity.find_by_id(id)
+      identity.published_document
+    end
+  end
+
   def attach_file=(file)
     self.attachment = build_attachment(name: file)
   end

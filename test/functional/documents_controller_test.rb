@@ -16,7 +16,7 @@ class DocumentsControllerTest < ActionController::TestCase
     get :show, id: document_identity.to_param
 
     assert_response :success
-    assert_equal published_document, assigns[:published_document]
+    assert_equal published_document, assigns[:document]
   end
 
   test "should render the content using govspeak markup" do
