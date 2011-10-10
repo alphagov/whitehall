@@ -14,6 +14,6 @@ Scenario: Viewing a policy that appears in multiple topics
   Then I should see links to the "Education" and "Work and pensions" topics
 
 Scenario: Viewing a policy that has multiple responsible ministers
-  Given a published policy titled "Policy" that's the responsibility of "George" and "Frank"
+  Given a published policy titled "Policy" that's the responsibility of "Prime Minister" and "Secretary of State"
   When I visit the policy titled "Policy"
-  Then I should see that "George" and "Frank" are responsible for the policy
+  Then I should see that "Prime Minister" and "Secretary of State" are responsible for the policy

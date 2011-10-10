@@ -86,9 +86,9 @@ Then /^I should see a link to the PDF attachment$/ do
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: /^attachment\.pdf$/)
 end
 
-Then /^I should see that "([^"]*)" and "([^"]*)" are responsible for the policy$/ do |minister_1, minister_2|
-  assert page.has_css?("#ministers_responsible .role", text: minister_1)
-  assert page.has_css?("#ministers_responsible .role", text: minister_2)
+Then /^I should see that "([^"]*)" and "([^"]*)" are responsible for the policy$/ do |role_1, role_2|
+  assert page.has_css?("#ministers_responsible .role", text: role_1)
+  assert page.has_css?("#ministers_responsible .role", text: role_2)
 end
 
 def pdf_attachment
