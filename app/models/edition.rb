@@ -9,9 +9,9 @@ class Edition < ActiveRecord::Base
 
   has_many :edition_organisations
   has_many :organisations, through: :edition_organisations
-  
-  has_many :edition_ministers
-  has_many :ministers, through: :edition_ministers
+
+  has_many :edition_roles
+  has_many :roles, through: :edition_roles
 
   belongs_to :author, class_name: "User"
   belongs_to :document

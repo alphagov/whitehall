@@ -38,10 +38,10 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows ministers associated with organisation" do
-    first_minister = create(:minister)
-    second_minister = create(:minister)
-    organisation = create(:organisation, ministers: [first_minister, second_minister])
-    minister_in_another_organisation = create(:minister)
+    first_minister = create(:role)
+    second_minister = create(:role)
+    organisation = create(:organisation, roles: [first_minister, second_minister])
+    minister_in_another_organisation = create(:role)
 
     get :show, id: organisation.to_param
 

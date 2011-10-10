@@ -72,7 +72,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test "should display the minister section" do
-    edition = create(:published_edition, ministers: [build(:minister)])
+    edition = create(:published_edition, roles: [build(:role)])
 
     get :show, id: edition.document.to_param
 

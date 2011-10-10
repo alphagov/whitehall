@@ -5,8 +5,8 @@ end
 
 Given /^ministers "([^"]*)" and "([^"]*)" are in the "([^"]*)"$/ do |first_minister, second_minister, organisation_name|
   organisation = Organisation.find_by_name(organisation_name)
-  organisation.ministers << build(:minister, name: first_minister)
-  organisation.ministers << build(:minister, name: second_minister)
+  organisation.roles << build(:role, name: first_minister)
+  organisation.roles << build(:role, name: second_minister)
 end
 
 Given /^other organisations also have policies$/ do
@@ -31,6 +31,6 @@ Then /^I should only see published policies belonging to the "([^"]*)" organisat
 end
 
 Then /^I should see ministers "([^"]*)" and "([^"]*)"$/ do |first_minister, second_minister|
-  assert has_css?(".minister", text: first_minister)
-  assert has_css?(".minister", text: second_minister)
+  assert has_css?(".role", text: first_minister)
+  assert has_css?(".role", text: second_minister)
 end

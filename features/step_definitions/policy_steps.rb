@@ -35,10 +35,10 @@ Given /^a published policy titled "([^"]*)" with a PDF attachment$/ do |title|
   create(:published_edition, title: title, attachment: attachment)
 end
 
-Given /^a published policy titled "([^"]*)" that's the responsibility of "([^"]*)" and "([^"]*)"$/ do |title, minister_1_name, minister_2_name|
-  minister_1 = create(:minister, name: minister_1_name)
-  minister_2 = create(:minister, name: minister_2_name)
-  create(:published_edition, title: title, ministers: [minister_1, minister_2])
+Given /^a published policy titled "([^"]*)" that's the responsibility of "([^"]*)" and "([^"]*)"$/ do |title, role_1_name, role_2_name|
+  role_1 = create(:role, name: role_1_name)
+  role_2 = create(:role, name: role_2_name)
+  create(:published_edition, title: title, roles: [role_1, role_2])
 end
 
 When /^I create a new edition of the published policy$/ do
@@ -87,8 +87,8 @@ Then /^I should see a link to the PDF attachment$/ do
 end
 
 Then /^I should see that "([^"]*)" and "([^"]*)" are responsible for the policy$/ do |minister_1, minister_2|
-  assert page.has_css?("#ministers_responsible .minister", text: minister_1)
-  assert page.has_css?("#ministers_responsible .minister", text: minister_2)
+  assert page.has_css?("#ministers_responsible .role", text: minister_1)
+  assert page.has_css?("#ministers_responsible .role", text: minister_2)
 end
 
 def pdf_attachment

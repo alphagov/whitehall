@@ -34,13 +34,13 @@
   </section>
 <% end %>
 
-<% if @published_edition.ministers.any? %>
+<% if @published_edition.roles.any? %>
   <section id="ministers_responsible" class="g1">
     <h1>Ministers</h1>
     <ul class="ministers">
-    <% @published_edition.ministers.each do |minister| %>
-      <%= content_tag_for :li, minister do %>
-        <%= minister.name %>
+    <% @published_edition.roles.each do |role| %>
+      <%= content_tag_for :li, role do %>
+        <%= role.name %>
       <% end %>
     <% end %>
     </ul>

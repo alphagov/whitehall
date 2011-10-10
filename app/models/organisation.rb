@@ -1,7 +1,8 @@
 class Organisation < ActiveRecord::Base
   has_many :edition_organisations
   has_many :editions, through: :edition_organisations
-  has_many :ministers
+  has_many :roles
+  has_many :people, through: :roles
 
   validates :name, presence: true, uniqueness: true
 

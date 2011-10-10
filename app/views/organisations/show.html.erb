@@ -28,13 +28,13 @@
 </section>
 <% end %>
 
-<% if @organisation.ministers.any? %>
+<% if @organisation.roles.any? %>
 <section id="ministers">
   <h1>Ministers</h1>
   <ul class="ministers">
-    <% @organisation.ministers.each do |minister| %>
-      <%= content_tag_for(:li, minister) do %>
-        <%= minister.name %>
+    <% @organisation.roles.each do |role| %>
+      <%= content_tag_for(:li, role) do %>
+        <%= role.name %>
       <% end %>
     <% end %>
   </ul>

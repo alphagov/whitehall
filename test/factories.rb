@@ -85,7 +85,10 @@ FactoryGirl.define do
     sequence(:name) { |index| "topic-#{index}" }
   end
 
-  factory :minister do
+  factory :role do
+  end
+
+  factory :person do
     name "George"
   end
 end
