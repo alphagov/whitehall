@@ -82,10 +82,11 @@ FactoryGirl.define do
   end
 
   factory :organisation do
-    sequence(:name) { |index| "topic-#{index}" }
+    sequence(:name) { |index| "organisation-#{index}" }
   end
 
   factory :role do
+    sequence(:name) { |index| "role-#{index}" }
   end
 
   factory :person do
