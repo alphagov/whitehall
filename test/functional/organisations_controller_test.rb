@@ -50,6 +50,15 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_object(minister_in_another_organisation, count: 0)
   end
 
+  test "shows minister role even if it is not currently fulfilled by any person" do
+    minister = create(:role, person: nil)
+    organisation = create(:organisation, roles: [minister])
+
+    get :show, id: organisation.to_param
+
+    assert_select_object(minister)
+  end
+
   test "should not display an empty ministers section" do
     organisation = create(:organisation)
     get :show, id: organisation.to_param

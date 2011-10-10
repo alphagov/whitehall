@@ -34,7 +34,10 @@
   <ul class="ministers">
     <% @organisation.roles.each do |role| %>
       <%= content_tag_for(:li, role) do %>
-        <%= role.name %>
+        <p class="title"><%= role.name %></p>
+        <% if role.person %>
+          <p class="name"><%= role.person.name %></p>
+        <% end %>
       <% end %>
     <% end %>
   </ul>

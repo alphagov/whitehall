@@ -19,6 +19,14 @@ Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation
   create(:organisation, name: second_organisation)
 end
 
+Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
+  organisation = Organisation.find_or_create_by_name(organisation_name)
+  table.hashes.each do |row|
+    person = Person.find_or_create_by_name(row["Person"])
+    organisation.roles.find_or_create_by_name(row["Role"], person: person)
+  end
+end
+
 When /^I visit the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name(name)
   visit organisation_path(organisation)
@@ -30,7 +38,11 @@ Then /^I should only see published policies belonging to the "([^"]*)" organisat
   assert editions.all? { |edition| organisation.editions.published.include?(edition) }
 end
 
-Then /^I should see ministers "([^"]*)" and "([^"]*)"$/ do |first_minister, second_minister|
-  assert has_css?(".role", text: first_minister)
-  assert has_css?(".role", text: second_minister)
+Then /^I should see "([^"]*)" has the "([^"]*)" role$/ do |person_name, role_name|
+  # DEV NOTE! changing braces to do/end here will cause Ruby to pass the block to
+  # the assert method, rather than any? - weird.
+  assert page.all(".role").any? { |element|
+    element.has_css?(".title", text: role_name) &&
+    element.has_css?(".name", text: person_name)
+  }
 end
