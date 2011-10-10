@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-puts "Seeding data in #{Rails.env} environment..."
+puts "Seeding data in #{Rails.env} environment..." unless Rails.env.test?
 
 def organisations(*names)
   names.each do |name|
@@ -243,4 +243,4 @@ create_published(Publication, title: "Dog Erradicated Green Paper", topics: ["Co
 create_published(Publication, title: "Canine Consultation", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
 create_published(Publication, title: "Feline Consultation", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
 
-puts "...done."
+puts "...done." unless Rails.env.test?
