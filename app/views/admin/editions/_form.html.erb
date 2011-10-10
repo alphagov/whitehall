@@ -1,5 +1,5 @@
 
-<%= form_for [:admin, edition] do |edition_form| %>
+<%= form_for [:admin, edition], as: :edition do |edition_form| %>
   <% if edition.errors.any? %>
     <div class="form-errors">
       <p>To save the edition please fix the following issues:</p>
@@ -12,7 +12,7 @@
   <% end %>
   <fieldset>
     <%= edition_form.hidden_field :lock_version %>
-    <%= hidden_field_tag :document_type, edition.document_type %>
+    <%= hidden_field_tag :document_type, edition.type %>
     <%= edition_form.label :title %>
     <%= edition_form.text_field :title, disabled: disabled %>
     <%= edition_form.label :body, 'Policy' %>

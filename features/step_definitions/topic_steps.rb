@@ -1,5 +1,5 @@
 Given /^the topic "([^"]*)" contains some policies$/ do |name|
-  editions = Array.new(5) { build(:published_edition) } + Array.new(2) { build(:draft_edition) }
+  editions = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
   create(:topic, name: name, editions: editions)
 end
 
@@ -9,8 +9,8 @@ Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic
 end
 
 Given /^other topics also have policies$/ do
-  create(:topic, editions: [build(:published_edition)])
-  create(:topic, editions: [build(:published_edition)])
+  create(:topic, editions: [build(:published_policy)])
+  create(:topic, editions: [build(:published_policy)])
 end
 
 When /^I visit the list of topics$/ do

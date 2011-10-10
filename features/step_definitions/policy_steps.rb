@@ -10,7 +10,7 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
 end
 
 Given /^a published policy titled "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" topics$/ do |policy_title, topic_1, topic_2|
-  edition = create(:published_edition, title: policy_title)
+  edition = create(:published_policy, title: policy_title)
   create(:topic, name: topic_1, editions: [edition])
   create(:topic, name: topic_2, editions: [edition])
 end
@@ -20,25 +20,25 @@ Given /^I visit the list of published policies$/ do
 end
 
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy titled "([^"]*)"$/ do |email, title|
-  edition = create(:draft_edition, title: title)
+  edition = create(:draft_policy, title: title)
   fact_check_request = edition.fact_check_requests.create(email_address: email)
   Notifications.fact_check(fact_check_request).deliver
 end
 
 Given /^a submitted policy titled "([^"]*)" with a PDF attachment$/ do |title|
   attachment = Attachment.new(name: File.open(pdf_attachment))
-  create(:submitted_edition, title: title, attachment: attachment)
+  create(:submitted_policy, title: title, attachment: attachment)
 end
 
 Given /^a published policy titled "([^"]*)" with a PDF attachment$/ do |title|
   attachment = Attachment.new(name: File.open(pdf_attachment))
-  create(:published_edition, title: title, attachment: attachment)
+  create(:published_policy, title: title, attachment: attachment)
 end
 
 Given /^a published policy titled "([^"]*)" that's the responsibility of "([^"]*)" and "([^"]*)"$/ do |title, role_1_name, role_2_name|
   role_1 = create(:role, name: role_1_name)
   role_2 = create(:role, name: role_2_name)
-  create(:published_edition, title: title, roles: [role_1, role_2])
+  create(:published_policy, title: title, roles: [role_1, role_2])
 end
 
 When /^I create a new edition of the published policy$/ do

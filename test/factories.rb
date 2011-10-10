@@ -1,32 +1,5 @@
 FactoryGirl.define do
-  factory :policy, aliases: [:document] do
-  end
-
-  factory :publication do
-  end
-
-  factory :published_policy, parent: :policy do
-    editions { [FactoryGirl.build(:published_edition)] }
-  end
-
-  factory :draft_policy, parent: :policy do
-    editions { [FactoryGirl.build(:draft_edition)] }
-  end
-
-  factory :archived_policy, parent: :policy do
-    editions { [FactoryGirl.build(:archived_edition)] }
-  end
-
-  factory :published_publication, parent: :publication do
-    editions { [FactoryGirl.build(:published_edition)] }
-  end
-
-  factory :draft_publication, parent: :publication do
-    editions { [FactoryGirl.build(:draft_edition)] }
-  end
-
-  factory :archived_publication, parent: :publication do
-    editions { [FactoryGirl.build(:archived_edition)] }
+  factory :document do
   end
 
   factory :edition do
@@ -36,22 +9,55 @@ FactoryGirl.define do
     body  "edition-body"
   end
 
-  factory :draft_edition, parent: :edition do
-    state "draft"
+  factory :policy do
+    document
+    author
+    title "policy-title"
+    body  "policy-body"
   end
 
-  factory :submitted_edition, parent: :edition do
-    state "draft"
-    submitted true
+  factory :publication do
+    document
+    author
+    title "publication-title"
+    body  "publication-body"
   end
 
-  factory :published_edition, parent: :edition do
+  factory :published_policy, parent: :policy do
     state "published"
     submitted true
   end
 
-  factory :archived_edition, parent: :edition do
+  factory :draft_policy, parent: :policy do
+    state "draft"
+  end
+
+  factory :archived_policy, parent: :policy do
     state "archived"
+    submitted true
+  end
+
+  factory :submitted_policy, parent: :policy do
+    state "draft"
+    submitted true
+  end
+
+  factory :published_publication, parent: :publication do
+    state "published"
+    submitted true
+  end
+
+  factory :draft_publication, parent: :publication do
+    state "draft"
+  end
+
+  factory :archived_publication, parent: :publication do
+    state "archived"
+    submitted true
+  end
+
+  factory :submitted_publication, parent: :publication do
+    state "draft"
     submitted true
   end
 

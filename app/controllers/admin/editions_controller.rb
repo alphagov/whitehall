@@ -15,11 +15,11 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def new
-    @edition = Edition.new(document: document_class.new)
+    @edition = document_class.new
   end
 
   def create
-    @edition = current_user.editions.build(params[:edition].merge(document: document_class.new))
+    @edition = document_class.new(params[:edition].merge(author: current_user, document: Document.new))
     if @edition.save
       redirect_to admin_edition_path(@edition), notice: "The document has been saved"
     else

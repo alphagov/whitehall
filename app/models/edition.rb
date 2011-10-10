@@ -25,8 +25,6 @@ class Edition < ActiveRecord::Base
   scope :submitted, where(state: "draft", submitted: true)
   scope :published, where(state: "published")
 
-  delegate :type, to: :document, prefix: :document
-
   state_machine do
     state :draft
     state :published

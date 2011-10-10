@@ -178,7 +178,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'updating a stale policy should render edit page with conflicting policy' do
-    edition = create(:draft_edition)
+    edition = create(:draft_policy)
     lock_version = edition.lock_version
     edition.update_attributes!(title: "new title")
 
@@ -192,8 +192,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'should distinguish between document types when viewing the list of draft documents' do
-    policy = create(:draft_edition, document: create(:policy))
-    publication = create(:draft_edition, document: create(:publication))
+    policy = create(:draft_policy)
+    publication = create(:draft_publication)
     get :index
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
@@ -201,8 +201,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'should distinguish between document types when viewing the list of submitted documents' do
-    policy = create(:submitted_edition, document: create(:policy))
-    publication = create(:submitted_edition, document: create(:publication))
+    policy = create(:submitted_policy)
+    publication = create(:submitted_publication)
     get :submitted
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
@@ -210,8 +210,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'should distinguish between document types when viewing the list of published documents' do
-    policy = create(:published_edition, document: create(:policy))
-    publication = create(:published_edition, document: create(:publication))
+    policy = create(:published_policy)
+    publication = create(:published_publication)
     get :published
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
@@ -219,28 +219,28 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'viewing the list of submitted policies should not show draft policies' do
-    draft_edition = create(:draft_edition)
+    draft_edition = create(:draft_policy)
     get :submitted
 
     refute assigns(:editions).include?(draft_edition)
   end
 
   test 'viewing the list of published policies should only show published policies' do
-    published_editions = [create(:published_edition)]
+    published_editions = [create(:published_policy)]
     get :published
 
     assert_equal published_editions, assigns(:editions)
   end
 
   test 'submitting should set submitted on the edition' do
-    draft_edition = create(:draft_edition)
+    draft_edition = create(:draft_policy)
     put :submit, id: draft_edition.to_param
 
     assert draft_edition.reload.submitted?
   end
 
   test 'submitting should redirect back to show page' do
-    draft_edition = create(:draft_edition)
+    draft_edition = create(:draft_policy)
     put :submit, id: draft_edition.to_param
 
     assert_redirected_to admin_edition_path(draft_edition)
@@ -248,7 +248,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'publishing should redirect back to published documents' do
-    submitted_edition = create(:submitted_edition)
+    submitted_edition = create(:submitted_policy)
     login_as "Eddie", departmental_editor: true
     put :publish, id: submitted_edition.to_param, edition: {lock_version: submitted_edition.lock_version}
 
@@ -257,7 +257,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'publishing should remove it from the set of submitted policies' do
-    edition_to_publish = create(:submitted_edition)
+    edition_to_publish = create(:submitted_policy)
     login_as "Eddie", departmental_editor: true
     put :publish, id: edition_to_publish.to_param, edition: {lock_version: edition_to_publish.lock_version}
 
@@ -266,7 +266,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'failing to publish an edition should set a flash' do
-    edition_to_publish = create(:submitted_edition)
+    edition_to_publish = create(:submitted_policy)
     login_as "Willy Writer", departmental_editor: false
     put :publish, id: edition_to_publish.to_param, edition: {lock_version: edition_to_publish.lock_version}
 
@@ -274,7 +274,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'failing to publish an edition should redirect back to the edition' do
-    edition_to_publish = create(:submitted_edition)
+    edition_to_publish = create(:submitted_policy)
     login_as "Willy Writer", departmental_editor: false
     put :publish, id: edition_to_publish.to_param, edition: {lock_version: edition_to_publish.lock_version}
 
@@ -282,20 +282,14 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test 'failing to publish a stale edition should redirect back to the edition' do
-    edition_to_publish = create(:submitted_edition)
-    lock_version = edition_to_publish.lock_version
-    edition_to_publish.update_attributes!(title: "new title")
+    policy_to_publish = create(:submitted_policy)
+    lock_version = policy_to_publish.lock_version
+    policy_to_publish.update_attributes!(title: "new title")
     login_as "Eddie", departmental_editor: true
-    put :publish, id: edition_to_publish.to_param, edition: {lock_version: lock_version}
+    put :publish, id: policy_to_publish.to_param, edition: {lock_version: lock_version}
 
-    assert_redirected_to admin_edition_path(edition_to_publish)
+    assert_redirected_to admin_edition_path(policy_to_publish)
     assert_equal "This document has been edited since you viewed it; you are now viewing the latest version", flash[:alert]
-  end
-
-  test "submitted policies can't be set back to draft" do
-    submitted_edition = create(:submitted_edition)
-    get :edit, id: submitted_edition.to_param
-    assert_select "input[type='checkbox'][name='policy[submitted]']", count: 0
   end
 
   test "cancelling a new edition takes the user to the list of drafts" do
@@ -304,23 +298,23 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "cancelling an existing edition takes the user to that edition" do
-    draft_edition = create(:draft_edition)
-    get :edit, id: draft_edition.to_param
-    assert_select "a[href=#{admin_edition_path(draft_edition)}]", text: /cancel/i, count: 1
+    draft_policy = create(:draft_policy)
+    get :edit, id: draft_policy.to_param
+    assert_select "a[href=#{admin_edition_path(draft_policy)}]", text: /cancel/i, count: 1
   end
 
   test 'updating a submitted policy with bad data should show errors' do
-    attributes = attributes_for(:submitted_edition)
-    submitted_edition = create(:submitted_edition, attributes)
-    put :update, id: submitted_edition.to_param, edition: attributes.merge(title: '')
+    attributes = attributes_for(:submitted_policy)
+    submitted_policy = create(:submitted_policy, attributes)
+    put :update, id: submitted_policy.to_param, edition: attributes.merge(title: '')
 
     assert_template 'edit'
   end
 
   test "revising the published edition should create a new draft edition" do
-    published_edition = create(:published_edition)
+    published_edition = create(:published_policy)
     Edition.stubs(:find).returns(published_edition)
-    draft_edition = create(:draft_edition)
+    draft_edition = create(:draft_policy)
     published_edition.expects(:build_draft).with(@user).returns(draft_edition)
     draft_edition.expects(:save).returns(true)
 
@@ -328,7 +322,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "revising a published edition redirects to edit for the new draft" do
-    published_edition = create(:published_edition)
+    published_edition = create(:published_policy)
 
     post :revise, id: published_edition.to_param
 
@@ -337,8 +331,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "failing to revise an edition should redirect to the existing draft" do
-    published_edition = create(:published_edition)
-    existing_draft = create(:draft_edition, document: published_edition.document)
+    published_edition = create(:published_policy)
+    existing_draft = create(:draft_policy, document: published_edition.document)
 
     post :revise, id: published_edition.to_param
 
@@ -347,7 +341,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "don't show the publish button to user's who can't publish an edition" do
-    submitted_edition = create(:submitted_edition)
+    submitted_edition = create(:submitted_policy)
 
     get :show, id: submitted_edition.to_param
 
@@ -355,7 +349,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "should render the content using govspeak markup" do
-    draft_edition = create(:draft_edition, body: "body-text")
+    draft_edition = create(:draft_policy, body: "body-text")
 
     govspeak_document = mock("govspeak-document")
     govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")

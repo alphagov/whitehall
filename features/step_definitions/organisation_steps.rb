@@ -1,5 +1,5 @@
 Given /^the organisation "([^"]*)" contains some policies$/ do |name|
-  editions = Array.new(5) { build(:published_edition) } + Array.new(2) { build(:draft_edition) }
+  editions = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
   create(:organisation, name: name, editions: editions)
 end
 
@@ -10,8 +10,8 @@ Given /^ministers "([^"]*)" and "([^"]*)" are in the "([^"]*)"$/ do |first_minis
 end
 
 Given /^other organisations also have policies$/ do
-  create(:organisation, editions: [build(:published_edition)])
-  create(:organisation, editions: [build(:published_edition)])
+  create(:organisation, editions: [build(:published_policy)])
+  create(:organisation, editions: [build(:published_policy)])
 end
 
 Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation, second_organisation|

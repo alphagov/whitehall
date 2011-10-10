@@ -10,9 +10,9 @@ class DocumentsControllerTest < ActionController::TestCase
 
   test "should display the published edition" do
     document = create(:document)
-    create(:archived_edition, document: document)
-    published_edition = create(:published_edition, document: document)
-    create(:draft_edition, document: document)
+    create(:archived_policy)
+    published_edition = create(:published_policy, document: document)
+    create(:draft_policy, document: document)
     get :show, id: document.to_param
 
     assert_response :success
@@ -20,13 +20,12 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test "should render the content using govspeak markup" do
-    published_document = create(:document, editions: [build(:published_edition, body: "body-text")])
-
+    published_document = create(:published_policy, body: "body-text")
     govspeak_document = mock("govspeak-document")
     govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
     Govspeak::Document.stubs(:new).with("body-text").returns(govspeak_document)
 
-    get :show, id: published_document.to_param
+    get :show, id: published_document.document.to_param
 
     assert_select ".body", text: "body-text-as-govspeak"
   end
@@ -34,7 +33,7 @@ class DocumentsControllerTest < ActionController::TestCase
   test "should display topics" do
     first_topic = create(:topic)
     second_topic = create(:topic)
-    edition = create(:published_edition, topics: [first_topic, second_topic])
+    edition = create(:published_policy, topics: [first_topic, second_topic])
 
     get :show, id: edition.document.to_param
 
@@ -44,7 +43,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test "should not display the topics section if there aren't any" do
-    edition = create(:published_edition)
+    edition = create(:published_policy)
 
     get :show, id: edition.document.to_param
 
@@ -54,7 +53,7 @@ class DocumentsControllerTest < ActionController::TestCase
   test "should display organisations" do
     first_org = create(:organisation)
     second_org = create(:organisation)
-    edition = create(:published_edition, organisations: [first_org, second_org])
+    edition = create(:published_policy, organisations: [first_org, second_org])
 
     get :show, id: edition.document.to_param
 
@@ -64,7 +63,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test "should not display the organisations section if there aren't any" do
-    edition = create(:published_edition)
+    edition = create(:published_policy)
 
     get :show, id: edition.document.to_param
 
@@ -72,7 +71,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test "should display the minister section" do
-    edition = create(:published_edition, roles: [build(:role)])
+    edition = create(:published_policy, roles: [build(:role)])
 
     get :show, id: edition.document.to_param
 
@@ -80,7 +79,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test "should not display an empty ministers section" do
-    edition = create(:published_edition)
+    edition = create(:published_policy)
 
     get :show, id: edition.document.to_param
 

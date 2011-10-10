@@ -53,4 +53,31 @@ module ApplicationHelper
     end
   end
 
+  def admin_policy_path(*args)
+    admin_edition_path(*args)
+  end
+
+  def admin_publication_path(*args)
+    admin_edition_path(*args)
+  end
+
+  def admin_policies_path(*args)
+    admin_editions_path(*args)
+  end
+
+  def admin_publications_path(*args)
+    admin_editions_path(*args)
+  end
+
+  def admin_policy_fact_check_requests_path(*args)
+    admin_edition_fact_check_requests_path(*args)
+  end
+
+  def admin_publication_fact_check_requests_path(*args)
+    admin_edition_fact_check_requests_path(*args)
+  end
+
+  def admin_policy_fact_check_request_path(*args)
+    admin_edition_fact_check_request_path(*args)
+  end
 end

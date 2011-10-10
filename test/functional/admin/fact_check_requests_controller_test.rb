@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   setup do
-    @edition = create(:draft_edition)
+    @edition = create(:draft_policy)
   end
 
   test "should render the content using govspeak markup" do

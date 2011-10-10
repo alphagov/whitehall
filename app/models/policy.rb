@@ -1,2 +1,2 @@
-class Policy < Document
+class Policy < Edition
 end

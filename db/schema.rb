@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(:version => 20111010105223) do
   create_table "documents", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type",       :default => "Policy", :null => false
   end
 
   create_table "edition_organisations", :force => true do |t|
@@ -57,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20111010105223) do
     t.integer  "document_id"
     t.string   "state",         :default => "draft", :null => false
     t.integer  "attachment_id"
+    t.string   "type"
   end
 
   create_table "fact_check_requests", :force => true do |t|

@@ -1,23 +1,14 @@
 class Topic < ActiveRecord::Base
   has_many :edition_topics
   has_many :editions, through: :edition_topics
+  has_many :published_editions, through: :edition_topics, class_name: "Edition", conditions: { state: "published" }, source: :edition
+  has_many :published_policies, through: :edition_topics, class_name: "Policy", conditions: { state: "published" }, source: :edition
+  has_many :published_publications, through: :edition_topics, class_name: "Publication", conditions: { state: "published" }, source: :edition
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 
-  def published_policies
-    published_documents.select { |document| document.is_a?(Policy) }
-  end
-
-  def published_publications
-    published_documents.select { |document| document.is_a?(Publication) }
-  end
-
-  def published_documents
-    editions.published.includes(:document).map(&:document)
-  end
-
   def self.with_published_documents
-    all.select { |topic| topic.published_documents.any? }
+    joins(:published_editions)
   end
 end

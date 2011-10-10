@@ -28,7 +28,7 @@
           <%= content_tag_for(:tr, edition) do %>
             <td class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View edition #{edition.title}" %></td>
             <td class="author"><%= edition.author.name %></td>
-            <td class="type"><%= edition.document.type %></td>
+            <td class="type"><%= edition.type %></td>
           <% end %>
         <% end %>
         <% if editions.blank? %>

@@ -27,124 +27,122 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'should be invalid if policy has existing unpublished editions' do
-    policy = create(:policy)
-    existing_edition = create(:draft_edition, document: policy)
-    edition = build(:edition, document: policy)
+    policy = create(:draft_policy)
+    edition = build(:edition, document: policy.document)
     refute edition.valid?
   end
 
   test 'should be invalid when published if policy has existing published editions' do
-    policy = create(:policy)
-    existing_edition = create(:published_edition, document: policy)
-    edition = build(:published_edition, document: policy)
+    policy = create(:published_policy)
+    edition = build(:published_policy, document: policy.document)
     refute edition.valid?
   end
 
   test 'should only return unsubmitted draft policies' do
-    draft_edition = create(:draft_edition)
-    submitted_edition = create(:submitted_edition)
-    assert_equal [draft_edition], Edition.unsubmitted
+    draft_policy = create(:draft_policy)
+    submitted_policy = create(:submitted_policy)
+    assert_equal [draft_policy], Edition.unsubmitted
   end
 
   test 'should only return the submitted policies' do
-    draft_edition = create(:draft_edition)
-    submitted_edition = create(:submitted_edition)
-    assert_equal [submitted_edition], Edition.submitted
+    draft_policy = create(:draft_policy)
+    submitted_policy = create(:submitted_policy)
+    assert_equal [submitted_policy], Edition.submitted
   end
 
   test 'should be editable if a draft' do
-    draft_edition = create(:draft_edition)
-    assert draft_edition.editable_by?(create(:policy_writer))
+    draft_policy = create(:draft_policy)
+    assert draft_policy.editable_by?(create(:policy_writer))
   end
 
   test 'should not be editable if published' do
-    published_edition = create(:published_edition)
-    refute published_edition.editable_by?(create(:policy_writer))
+    published_policy = create(:published_policy)
+    refute published_policy.editable_by?(create(:policy_writer))
   end
 
   test 'should not be editable if archived' do
-    archived_edition = create(:archived_edition)
-    refute archived_edition.editable_by?(create(:policy_writer))
+    archived_policy = create(:archived_policy)
+    refute archived_policy.editable_by?(create(:policy_writer))
   end
 
   test 'should be submittable if draft and not submitted' do
-    draft_edition = create(:draft_edition)
-    assert draft_edition.submittable_by?(create(:policy_writer))
+    draft_policy = create(:draft_policy)
+    assert draft_policy.submittable_by?(create(:policy_writer))
   end
 
   test 'not be submittable if submitted' do
-    submitted_edition = create(:submitted_edition)
-    refute submitted_edition.submittable_by?(create(:policy_writer))
+    submitted_policy = create(:submitted_policy)
+    refute submitted_policy.submittable_by?(create(:policy_writer))
   end
 
   test 'not be submittable if published' do
-    published_edition = create(:published_edition)
-    refute published_edition.submittable_by?(create(:policy_writer))
+    published_policy = create(:published_policy)
+    refute published_policy.submittable_by?(create(:policy_writer))
   end
 
   test 'not be archived if archived' do
-    archived_edition = create(:archived_edition)
-    refute archived_edition.submittable_by?(create(:policy_writer))
+    archived_policy = create(:archived_policy)
+    refute archived_policy.submittable_by?(create(:policy_writer))
   end
 
   test 'should not be publishable when not submitted' do
-    edition = create(:draft_edition)
+    edition = create(:draft_policy)
     refute edition.publishable_by?(create(:departmental_editor))
   end
 
   test 'should fail publication when not submitted' do
-    edition = create(:draft_edition)
+    edition = create(:draft_policy)
     edition.publish_as!(create(:departmental_editor))
     refute edition.published?
   end
 
   test 'should not be publishable when already published' do
-    edition = create(:published_edition)
+    edition = create(:published_policy)
     refute edition.publishable_by?(create(:departmental_editor))
   end
 
   test 'should fail publication when already published' do
-    edition = create(:published_edition)
+    edition = create(:published_policy)
     refute edition.publish_as!(create(:departmental_editor))
     assert_equal ["This edition has already been published"], edition.errors.full_messages
   end
 
   test 'should not be publishable by the original author' do
     author = create(:departmental_editor)
-    edition = create(:submitted_edition, author: author)
+    edition = create(:submitted_policy, author: author)
     refute edition.publishable_by?(author)
   end
 
   test 'should fail publication by the author' do
     author = create(:departmental_editor)
-    edition = create(:submitted_edition, author: author)
+    edition = create(:submitted_policy, author: author)
     refute edition.publish_as!(author)
     refute edition.published?
     assert_equal ["You are not the second set of eyes"], edition.errors.full_messages
   end
 
   test 'should be publishable by departmental editors' do
-    edition = create(:submitted_edition)
+    edition = create(:submitted_policy)
     departmental_editor = create(:departmental_editor)
     assert edition.publishable_by?(departmental_editor)
   end
 
   test 'should succeed publication when published by departmental editors' do
     author = create(:policy_writer)
-    edition = create(:submitted_edition, author: author)
+    edition = create(:submitted_policy, author: author)
     other_user = create(:departmental_editor)
     assert edition.publish_as!(other_user)
     assert edition.published?
   end
 
   test 'should not return published policies in submitted' do
-    edition = create(:submitted_edition)
+    edition = create(:submitted_policy)
     edition.publish_as!(create(:departmental_editor))
     refute Edition.submitted.include?(edition)
   end
 
   test 'should fail publication by normal users' do
-    edition = create(:submitted_edition)
+    edition = create(:submitted_policy)
     refute edition.publish_as!(create(:policy_writer))
     refute edition.published?
     assert_equal ["Only departmental editors can publish policies"], edition.errors.full_messages
@@ -152,7 +150,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test 'should fail publication if lock version is not current' do
     editor = create(:departmental_editor)
-    edition = create(:submitted_edition, title: "old title")
+    edition = create(:submitted_policy, title: "old title")
 
     other_instance = Edition.find(edition.id)
     other_instance.update_attributes(title: "new title")
@@ -164,36 +162,36 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'should archive earlier editions on publication' do
-    published_edition = create(:published_edition)
+    published_policy = create(:published_policy)
     author = create(:policy_writer)
-    edition = create(:submitted_edition, document: published_edition.document, author: author)
+    edition = create(:submitted_policy, document: published_policy.document, author: author)
     editor = create(:departmental_editor)
     edition.publish_as!(editor)
 
-    published_edition.reload
-    assert published_edition.archived?
+    published_policy.reload
+    assert published_policy.archived?
   end
 
   test 'should not be publishable when archived' do
-    edition = create(:archived_edition)
+    edition = create(:archived_policy)
     refute edition.publishable_by?(create(:departmental_editor))
   end
 
   test 'should build a draft copy of the existing edition with the supplied author' do
     attachment = create(:attachment)
     topic = create(:topic)
-    published_edition = create(:published_edition, attachment: attachment, submitted: true, topics: [topic])
+    published_policy = create(:published_policy, attachment: attachment, submitted: true, topics: [topic])
     new_author = create(:policy_writer)
-    draft_edition = published_edition.build_draft(new_author)
+    draft_policy = published_policy.build_draft(new_author)
 
-    assert draft_edition.new_record?
-    refute draft_edition.published?
-    refute draft_edition.submitted?
-    assert_equal new_author, draft_edition.author
-    assert_equal published_edition.attachment, draft_edition.attachment
-    assert_equal published_edition.title, draft_edition.title
-    assert_equal published_edition.body, draft_edition.body
-    assert_equal published_edition.topics, draft_edition.topics
+    assert draft_policy.new_record?
+    refute draft_policy.published?
+    refute draft_policy.submitted?
+    assert_equal new_author, draft_policy.author
+    assert_equal published_policy.attachment, draft_policy.attachment
+    assert_equal published_policy.title, draft_policy.title
+    assert_equal published_policy.body, draft_policy.body
+    assert_equal published_policy.topics, draft_policy.topics
   end
 
   test 'when initially created' do
@@ -204,14 +202,14 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'when submitted' do
-    edition = create(:submitted_edition)
+    edition = create(:submitted_policy)
     assert edition.draft?
     assert edition.submitted?
     refute edition.published?
   end
 
   test 'when published' do
-    edition = create(:submitted_edition)
+    edition = create(:submitted_policy)
     edition.publish_as!(create(:departmental_editor))
     refute edition.draft?
     assert edition.published?

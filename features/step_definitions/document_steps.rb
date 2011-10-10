@@ -1,17 +1,14 @@
 Given /^a draft (publication|policy) called "([^"]*)" exists$/ do |document_type, title|
-  document = create(document_type.to_sym)
-  create(:draft_edition, title: title, document: document)
+  create("draft_#{document_type}".to_sym, title: title)
 end
 
 Given /^a draft (publication|policy) called "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
-  document = create(document_type.to_sym)
   topic = Topic.find_by_name(topic_name)
-  create(:draft_edition, title: title, document: document, topics: [topic])
+  create("draft_#{document_type}".to_sym, title: title, topics: [topic])
 end
 
 Given /^a submitted (publication|policy) called "([^"]*)" exists$/ do |document_type, title|
-  document = create(document_type.to_sym)
-  create(:submitted_edition, title: title, document: document)
+  create("submitted_#{document_type}".to_sym, title: title)
 end
 
 Given /^I start editing the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
@@ -56,14 +53,14 @@ end
 
 When /^I submit the (publication|policy) "([^"]*)"$/ do |document_type, title|
   edition = Edition.find_by_title(title)
-  assert edition.document.is_a?(document_type.classify.constantize)
+  assert edition.is_a?(document_type.classify.constantize)
   visit admin_edition_path(edition)
   click_button "Submit to 2nd pair of eyes"
 end
 
 When /^I publish the (publication|policy) "([^"]*)"$/ do |document_type, title|
   edition = Edition.find_by_title(title)
-  assert edition.document.is_a?(document_type.classify.constantize)
+  assert edition.is_a?(document_type.classify.constantize)
   visit admin_edition_path(edition)
   click_button "Publish"
 end
@@ -95,7 +92,7 @@ end
 
 When /^I publish the (publication|policy) "([^"]*)" but another user edits it while I am viewing it$/ do |document_type, title|
   edition = Edition.find_by_title(title)
-  assert edition.document.is_a?(document_type.classify.constantize)
+  assert edition.is_a?(document_type.classify.constantize)
   visit admin_edition_path(edition)
   edition.update_attributes!(body: 'A new body')
   click_button "Publish"
@@ -127,14 +124,14 @@ end
 
 Then /^the (publication|policy) "([^"]*)" should be visible to the public$/ do |document_type, title|
   edition = Edition.find_by_title(title)
-  assert edition.document.is_a?(document_type.classify.constantize)
+  assert edition.is_a?(document_type.classify.constantize)
   visit documents_path
-  assert page.has_css?(record_css_selector(edition.document), text: title)
+  assert page.has_css?(record_css_selector(edition), text: title)
 end
 
 Then /^the (publication|policy) "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |document_type, title, first_topic, second_topic|
   edition = Edition.find_by_title(title)
-  assert edition.document.is_a?(document_type.classify.constantize)
+  assert edition.is_a?(document_type.classify.constantize)
   visit admin_edition_path(edition)
   assert has_css?(".topic", text: first_topic)
   assert has_css?(".topic", text: second_topic)
@@ -142,7 +139,7 @@ end
 
 Then /^the (publication|policy) "([^"]*)" should be in the "([^"]*)" and "([^"]*)" organisations$/ do |document_type, title, first_org, second_org|
   edition = Edition.find_by_title(title)
-  assert edition.document.is_a?(document_type.classify.constantize)
+  assert edition.is_a?(document_type.classify.constantize)
   visit admin_edition_path(edition)
   assert has_css?(".organisation", text: first_org)
   assert has_css?(".organisation", text: second_org)

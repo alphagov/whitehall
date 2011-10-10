@@ -1,5 +1,5 @@
 Given /^a fact checker has commented "([^"]*)" on the draft policy titled "([^"]*)"$/ do |comment, title|
-  edition = create(:draft_edition, title: title)
+  edition = create(:draft_policy, title: title)
   create(:fact_check_request, edition: edition, comments: comment)
 end
 

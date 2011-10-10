@@ -8,8 +8,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows only published policies associated with organisation" do
-    published_edition = create(:published_edition)
-    draft_edition = create(:draft_edition)
+    published_edition = create(:published_policy)
+    draft_edition = create(:draft_policy)
     organisation = create(:organisation, editions: [published_edition, draft_edition])
     get :show, id: organisation.to_param
     assert_select_object(published_edition)
@@ -17,8 +17,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows only published publications associated with organisation" do
-    published_edition = create(:published_edition, document: build(:publication))
-    draft_edition = create(:draft_edition, document: build(:publication))
+    published_edition = create(:published_publication)
+    draft_edition = create(:draft_publication)
     organisation = create(:organisation, editions: [published_edition, draft_edition])
     get :show, id: organisation.to_param
     assert_select_object(published_edition)

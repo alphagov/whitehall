@@ -21,10 +21,10 @@ def create_edition(type, attributes)
   attributes[:organisations] = Organisation.where(name: (attributes[:organisations] || []))
   attributes[:author] ||= User.create(name: Faker::Name.name)
   attributes[:roles] = Array.new(rand(2) + 1) { Role.create!(name: Faker::Name.name, organisation: Organisation.order("RAND()").first) }
-  Edition.create!({
+  type.create!({
     title: "title-n",
     body: random_policy_text,
-    document: type.new
+    document: Document.new
   }.merge(attributes))
 end
 
