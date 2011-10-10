@@ -1,23 +1,23 @@
 FactoryGirl.define do
-  factory :document do
+  factory :document_identity do
   end
 
   factory :edition do
-    document
+    document_identity
     author
     title "edition-title"
     body  "edition-body"
   end
 
   factory :policy do
-    document
+    document_identity
     author
     title "policy-title"
     body  "policy-body"
   end
 
   factory :publication do
-    document
+    document_identity
     author
     title "publication-title"
     body  "publication-body"

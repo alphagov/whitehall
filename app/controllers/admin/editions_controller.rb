@@ -19,7 +19,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def create
-    @edition = document_class.new(params[:edition].merge(author: current_user, document: Document.new))
+    @edition = document_class.new(params[:edition].merge(author: current_user, document_identity: DocumentIdentity.new))
     if @edition.save
       redirect_to admin_edition_path(@edition), notice: "The document has been saved"
     else
@@ -67,7 +67,7 @@ class Admin::EditionsController < Admin::BaseController
     if edition.save
       redirect_to edit_admin_edition_path(edition)
     else
-      redirect_to edit_admin_edition_path(@edition.document.editions.draft.first),
+      redirect_to edit_admin_edition_path(@edition.document_identity.editions.draft.first),
         alert: edition.errors.full_messages.to_sentence
     end
   end

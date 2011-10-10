@@ -60,7 +60,7 @@ end
 
 When /^I visit the policy titled "([^"]*)"$/ do |title|
   edition = Edition.find_by_title(title)
-  visit document_path(edition.document)
+  visit document_path(edition.document_identity)
 end
 
 Then /^I should see links to the "([^"]*)" and "([^"]*)" topics$/ do |topic_1_name, topic_2_name|
@@ -71,7 +71,7 @@ Then /^I should see links to the "([^"]*)" and "([^"]*)" topics$/ do |topic_1_na
 end
 
 Then /^the published policy should remain unchanged$/ do
-  visit document_path(@edition.document)
+  visit document_path(@edition.document_identity)
   assert page.has_css?('.document_view .title', text: @edition.title)
   assert page.has_css?('.document_view .body', text: @edition.body)
 end

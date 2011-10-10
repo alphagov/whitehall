@@ -1,4 +1,4 @@
-class Document < ActiveRecord::Base
+class DocumentIdentity < ActiveRecord::Base
   has_many :editions
   has_one :published_edition, class_name: 'Edition', conditions: { state: 'published' }
 

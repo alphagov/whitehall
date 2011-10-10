@@ -24,7 +24,7 @@ def create_edition(type, attributes)
   type.create!({
     title: "title-n",
     body: random_policy_text,
-    document: Document.new
+    document_identity: DocumentIdentity.new
   }.merge(attributes))
 end
 

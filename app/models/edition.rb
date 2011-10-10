@@ -4,6 +4,11 @@ class Edition < ActiveRecord::Base
 
   belongs_to :attachment
 
+  belongs_to :author, class_name: "User"
+  belongs_to :document_identity
+
+  has_many :fact_check_requests
+
   has_many :edition_topics
   has_many :topics, through: :edition_topics
 
@@ -13,10 +18,6 @@ class Edition < ActiveRecord::Base
   has_many :edition_roles
   has_many :roles, through: :edition_roles
 
-  belongs_to :author, class_name: "User"
-  belongs_to :document
-
-  has_many :fact_check_requests
   has_many :edition_topics
   has_many :topics, through: :edition_topics
 
@@ -41,7 +42,7 @@ class Edition < ActiveRecord::Base
 
   class DocumentHasNoUnpublishedEditionsValidator
     def validate(record)
-      if record.document && record.document.editions.draft.any?
+      if record.document_identity && record.document_identity.editions.draft.any?
         record.errors.add(:base, "There is already an active draft for this document")
       end
     end
@@ -49,13 +50,13 @@ class Edition < ActiveRecord::Base
 
   class DocumentHasNoOtherPublishedEditionsValidator
     def validate(record)
-      if record.published? && record.document && record.document.editions.published.any?
+      if record.published? && record.document_identity && record.document_identity.editions.published.any?
         record.errors.add(:policy, "has existing published editions")
       end
     end
   end
 
-  validates_presence_of :title, :body, :author, :document
+  validates_presence_of :title, :body, :author, :document_identity
   validates_with DocumentHasNoUnpublishedEditionsValidator, on: :create
   validates_with DocumentHasNoOtherPublishedEditionsValidator, on: :create
 
@@ -106,7 +107,7 @@ class Edition < ActiveRecord::Base
   end
 
   def archive_previous_editions
-    document.editions.published.each do |edition|
+    document_identity.editions.published.each do |edition|
       edition.archive! unless edition == self
     end
   end

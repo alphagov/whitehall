@@ -22,19 +22,19 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'should be invalid without a document' do
-    edition = build(:edition, document: nil)
+    edition = build(:edition, document_identity: nil)
     refute edition.valid?
   end
 
   test 'should be invalid if policy has existing unpublished editions' do
     policy = create(:draft_policy)
-    edition = build(:edition, document: policy.document)
+    edition = build(:edition, document_identity: policy.document_identity)
     refute edition.valid?
   end
 
   test 'should be invalid when published if policy has existing published editions' do
     policy = create(:published_policy)
-    edition = build(:published_policy, document: policy.document)
+    edition = build(:published_policy, document_identity: policy.document_identity)
     refute edition.valid?
   end
 
@@ -164,7 +164,7 @@ class EditionTest < ActiveSupport::TestCase
   test 'should archive earlier editions on publication' do
     published_policy = create(:published_policy)
     author = create(:policy_writer)
-    edition = create(:submitted_policy, document: published_policy.document, author: author)
+    edition = create(:submitted_policy, document_identity: published_policy.document_identity, author: author)
     editor = create(:departmental_editor)
     edition.publish_as!(editor)
 

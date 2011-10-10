@@ -2,30 +2,30 @@ require "test_helper"
 
 class DocumentsControllerTest < ActionController::TestCase
   test "should render 404 if the document doesn't have a published edition" do
-    document = create(:document)
-    get :show, id: document.to_param
+    document_identity = create(:document_identity)
+    get :show, id: document_identity.to_param
 
     assert_response :not_found
   end
 
   test "should display the published edition" do
-    document = create(:document)
+    document_identity = create(:document_identity)
     create(:archived_policy)
-    published_edition = create(:published_policy, document: document)
-    create(:draft_policy, document: document)
-    get :show, id: document.to_param
+    published_edition = create(:published_policy, document_identity: document_identity)
+    create(:draft_policy, document_identity: document_identity)
+    get :show, id: document_identity.to_param
 
     assert_response :success
     assert_equal published_edition, assigns[:published_edition]
   end
 
   test "should render the content using govspeak markup" do
-    published_document = create(:published_policy, body: "body-text")
+    published_policy = create(:published_policy, body: "body-text")
     govspeak_document = mock("govspeak-document")
     govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
     Govspeak::Document.stubs(:new).with("body-text").returns(govspeak_document)
 
-    get :show, id: published_document.document.to_param
+    get :show, id: published_policy.document_identity.to_param
 
     assert_select ".body", text: "body-text-as-govspeak"
   end
@@ -35,7 +35,7 @@ class DocumentsControllerTest < ActionController::TestCase
     second_topic = create(:topic)
     edition = create(:published_policy, topics: [first_topic, second_topic])
 
-    get :show, id: edition.document.to_param
+    get :show, id: edition.document_identity.to_param
 
     assert_select topics_selector, count: 1
     assert_select ".topic", text: first_topic.name
@@ -45,7 +45,7 @@ class DocumentsControllerTest < ActionController::TestCase
   test "should not display the topics section if there aren't any" do
     edition = create(:published_policy)
 
-    get :show, id: edition.document.to_param
+    get :show, id: edition.document_identity.to_param
 
     assert_select topics_selector, count: 0
   end
@@ -55,7 +55,7 @@ class DocumentsControllerTest < ActionController::TestCase
     second_org = create(:organisation)
     edition = create(:published_policy, organisations: [first_org, second_org])
 
-    get :show, id: edition.document.to_param
+    get :show, id: edition.document_identity.to_param
 
     assert_select organisations_selector, count: 1
     assert_select ".organisation", text: first_org.name
@@ -65,7 +65,7 @@ class DocumentsControllerTest < ActionController::TestCase
   test "should not display the organisations section if there aren't any" do
     edition = create(:published_policy)
 
-    get :show, id: edition.document.to_param
+    get :show, id: edition.document_identity.to_param
 
     assert_select organisations_selector, count: 0
   end
@@ -73,7 +73,7 @@ class DocumentsControllerTest < ActionController::TestCase
   test "should display the minister section" do
     edition = create(:published_policy, roles: [build(:role)])
 
-    get :show, id: edition.document.to_param
+    get :show, id: edition.document_identity.to_param
 
     assert_select ministers_responsible_selector, count: 1
   end
@@ -81,7 +81,7 @@ class DocumentsControllerTest < ActionController::TestCase
   test "should not display an empty ministers section" do
     edition = create(:published_policy)
 
-    get :show, id: edition.document.to_param
+    get :show, id: edition.document_identity.to_param
 
     assert_select ministers_responsible_selector, count: 0
   end

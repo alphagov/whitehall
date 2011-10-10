@@ -4,7 +4,7 @@
   <ul class="policies">
     <% policies.each do |policy| %>
       <%= content_tag_for(:li, policy) do %>
-        <%= link_to policy.title, document_path(policy.document), title: "View #{policy.title}" %>
+        <%= link_to policy.title, document_path(policy.document_identity), title: "View #{policy.title}" %>
       <% end %>
     <% end %>
   </ul>
