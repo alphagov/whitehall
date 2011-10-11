@@ -55,13 +55,7 @@
   <section class="container">
     <h1>Topics</h1>
     <% if @document.topics.any? %>
-      <ul class="topics">
-        <% @document.topics.each do |topic| %>
-          <%= content_tag_for(:li, topic) do %>
-            <%= link_to topic.name, topic_path(topic) %>
-          <% end %>
-        <% end %>
-      </ul>
+      <%= render partial: "topics/list", locals: {topics: @document.topics} %>
     <% else %>
       <p>This document isn't assigned to any topics.</p>
     <% end %>

@@ -1,0 +1,7 @@
+<ul class="topics">
+  <% topics.each do |topic| %>
+    <%= content_tag_for(:li, topic) do %>
+      <%= link_to topic.name, topic_path(topic) %>
+    <% end %>
+  <% end %>
+</ul>

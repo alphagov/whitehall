@@ -1,13 +1,7 @@
 <h1>Topics</h1>
 
 <% if @topics.any? %>
-  <ul class="topics">
-    <% @topics.each do |topic| %>
-      <%= content_tag_for(:li, topic) do %>
-        <%= link_to topic.name, topic_path(topic) %>
-      <% end %>
-    <% end %>
-  </ul>
+  <%= render partial: "list", locals: {topics: @topics} %>
 <% else %>
   <p>We don't have any topics with <%= link_to "published documents", documents_path %> at present.</p>
 <% end %>
