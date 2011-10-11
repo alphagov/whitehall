@@ -2,31 +2,8 @@
   <h1 class="name"><%= @organisation.name %></h1>
 <% end %>
 
-<% if @organisation.published_policies.any? %>
-<section id="policies">
-  <h1>Policies</h1>
-  <ul class="policies">
-    <% @organisation.published_policies.each do |policy| %>
-      <%= content_tag_for(:li, policy) do %>
-        <%= link_to policy.title, document_path(policy.document_identity), title: "View #{policy.title}" %>
-      <% end %>
-    <% end %>
-  </ul>
-</section>
-<% end %>
-
-<% if @organisation.published_publications.any? %>
-<section id="publications">
-  <h1>Publications</h1>
-  <ul class="publications">
-    <% @organisation.published_publications.each do |publication| %>
-      <%= content_tag_for(:li, publication) do %>
-        <%= link_to publication.title, document_path(publication.document_identity), title: "View #{publication.title}" %>
-      <% end %>
-    <% end %>
-  </ul>
-</section>
-<% end %>
+<%= render partial: "documents/policies", object: @organisation.published_policies %>
+<%= render partial: "documents/publications", object: @organisation.published_publications %>
 
 <% if @organisation.roles.any? %>
 <section id="ministers">
