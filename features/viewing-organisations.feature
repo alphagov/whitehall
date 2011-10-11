@@ -8,9 +8,9 @@ Scenario: Organisation page should show policies
 
 Scenario: Organisation page should show ministers
   Given the "Attorney General's Office" organisation contains:
-    | Role              | Person          |
+    | Ministerial Role  | Person          |
     | Attorney General  | Colonel Mustard |
     | Solicitor General | Professor Plum  |
   When I visit the "Attorney General's Office" organisation
-  Then I should see "Colonel Mustard" has the "Attorney General" role
-  And I should see "Professor Plum" has the "Solicitor General" role
+  Then I should see "Colonel Mustard" has the "Attorney General" ministerial role
+  And I should see "Professor Plum" has the "Solicitor General" ministerial role

@@ -15,8 +15,8 @@ class Document < ActiveRecord::Base
   has_many :document_organisations
   has_many :organisations, through: :document_organisations
 
-  has_many :document_roles
-  has_many :roles, through: :document_roles
+  has_many :document_ministerial_roles
+  has_many :ministerial_roles, through: :document_ministerial_roles
 
   scope :draft, where(state: "draft")
   scope :unsubmitted, where(state: "draft", submitted: false)

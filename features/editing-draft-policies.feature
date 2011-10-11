@@ -22,7 +22,7 @@ Scenario: Creating a new draft policy in multiple organisations
 
 Scenario: Creating a new draft policy that's the responsibility of multiple ministers
   Given ministers exist:
-    | Role                | Person     |
+    | Ministerial Role    | Person     |
     | Minister of Finance | John Smith |
     | Treasury Secretary  | Jane Doe   |
   When I draft a new policy "Pinch more pennies" associated with "John Smith (Minister of Finance)" and "Jane Doe (Treasury Secretary)"

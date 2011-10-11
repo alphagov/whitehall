@@ -15,11 +15,11 @@ Scenario: Viewing a policy that appears in multiple topics
 
 Scenario: Viewing a policy that has multiple responsible ministers
   Given a published policy titled "Policy" that's the responsibility of:
-    | Role              | Person          |
+    | Ministerial Role  | Person          |
     | Attorney General  | Colonel Mustard |
     | Solicitor General | Professor Plum  |
   When I visit the policy titled "Policy"
   Then I should see that those responsible for the policy are:
-    | Role              | Person          |
+    | Ministerial Role  | Person          |
     | Attorney General  | Colonel Mustard |
     | Solicitor General | Professor Plum  |

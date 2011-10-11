@@ -65,8 +65,8 @@
 <div class="g1">
   <section class="container">
     <h1>Ministers</h1>
-    <% if @document.roles.any? %>
-      <%= render partial: "roles/list", locals: {roles: @document.roles} %>
+    <% if @document.ministerial_roles.any? %>
+      <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @document.ministerial_roles} %>
     <% else %>
       <p>This document isn't assigned to any ministers.</p>
     <% end %>

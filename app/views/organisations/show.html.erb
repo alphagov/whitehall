@@ -5,9 +5,9 @@
 <%= render partial: "documents/policies", object: @organisation.published_policies %>
 <%= render partial: "documents/publications", object: @organisation.published_publications %>
 
-<% if @organisation.roles.any? %>
+<% if @organisation.ministerial_roles.any? %>
 <section id="ministers" class="g1">
   <h1>Ministers</h1>
-  <%= render partial: "roles/list", locals: {roles: @organisation.roles} %>
+  <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @organisation.ministerial_roles} %>
 </section>
 <% end %>

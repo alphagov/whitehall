@@ -71,7 +71,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test "should display the minister section" do
-    document = create(:published_policy, roles: [build(:role)])
+    document = create(:published_policy, ministerial_roles: [build(:ministerial_role)])
 
     get :show, id: document.document_identity.to_param
 

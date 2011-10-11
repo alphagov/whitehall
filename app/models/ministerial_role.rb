@@ -1,6 +1,6 @@
-class Role < ActiveRecord::Base
-  has_many :organisation_roles
-  has_many :organisations, through: :organisation_roles
+class MinisterialRole < ActiveRecord::Base
+  has_many :organisation_ministerial_roles
+  has_many :organisations, through: :organisation_ministerial_roles
   belongs_to :person
 
   validates :name, presence: true

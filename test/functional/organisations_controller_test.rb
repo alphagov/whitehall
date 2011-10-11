@@ -38,10 +38,10 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows ministers associated with organisation" do
-    first_minister = create(:role)
-    second_minister = create(:role)
-    organisation = create(:organisation, roles: [first_minister, second_minister])
-    minister_in_another_organisation = create(:role)
+    first_minister = create(:ministerial_role)
+    second_minister = create(:ministerial_role)
+    organisation = create(:organisation, ministerial_roles: [first_minister, second_minister])
+    minister_in_another_organisation = create(:ministerial_role)
 
     get :show, id: organisation.to_param
 
@@ -51,8 +51,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows minister role even if it is not currently fulfilled by any person" do
-    minister = create(:role, person: nil)
-    organisation = create(:organisation, roles: [minister])
+    minister = create(:ministerial_role, person: nil)
+    organisation = create(:organisation, ministerial_roles: [minister])
 
     get :show, id: organisation.to_param
 

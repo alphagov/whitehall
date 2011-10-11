@@ -2,7 +2,7 @@ def create_document(type, attributes)
   attributes[:topics] = Topic.where(name: (attributes[:topics] || []))
   attributes[:organisations] = Organisation.where(name: (attributes[:organisations] || []))
   attributes[:author] ||= User.create(name: Faker::Name.name)
-  attributes[:roles] = Array.new(rand(2) + 1) { Role.order("RAND()").first }
+  attributes[:ministerial_roles] = Array.new(rand(2) + 1) { MinisterialRole.order("RAND()").first }
   type.create!({
     title: "title-n",
     body: random_policy_text,

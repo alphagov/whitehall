@@ -36,9 +36,9 @@ Given /^a published policy titled "([^"]*)" with a PDF attachment$/ do |title|
 end
 
 Given /^a published policy titled "([^"]*)" that's the responsibility of "([^"]*)" and "([^"]*)"$/ do |title, role_1_name, role_2_name|
-  role_1 = create(:role, name: role_1_name)
-  role_2 = create(:role, name: role_2_name)
-  create(:published_policy, title: title, roles: [role_1, role_2])
+  ministerial_role_1 = create(:ministerial_role, name: role_1_name)
+  ministerial_role_2 = create(:ministerial_role, name: role_2_name)
+  create(:published_policy, title: title, ministerial_roles: [ministerial_role_1, ministerial_role_2])
 end
 
 When /^I create a new edition of the published policy$/ do
@@ -90,15 +90,15 @@ Given /^a published policy titled "([^"]*)" that's the responsibility of:$/ do |
   document = create(:published_policy, title: title)
   table.hashes.each do |row|
     person = Person.find_or_create_by_name(row["Person"])
-    document.roles.create!(name: row["Role"], person: person)
+    document.ministerial_roles.create!(name: row["Ministerial Role"], person: person)
   end
 end
 
 Then /^I should see that those responsible for the policy are:$/ do |table|
   table.hashes.each do |row|
     person = Person.find_by_name(row["Person"])
-    role = person.roles.find_by_name(row["Role"])
-    assert page.has_css?(".role", text: role.to_s)
+    ministerial_role = person.ministerial_roles.find_by_name(row["Ministerial Role"])
+    assert page.has_css?(".ministerial_role", text: ministerial_role.to_s)
   end
 end
 

@@ -134,8 +134,8 @@ end
 
 Then /^I should see in the preview that "([^"]*)" is associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
   visit_document_preview title
-  assert has_css?(".role", text: minister_1)
-  assert has_css?(".role", text: minister_2)
+  assert has_css?(".ministerial_role", text: minister_1)
+  assert has_css?(".ministerial_role", text: minister_2)
 end
 
 Then /^I should see the conflict between the (publication|policy) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|

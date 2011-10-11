@@ -1,0 +1,7 @@
+<ul class="ministerial_roles">
+  <% ministerial_roles.each do |ministerial_role| %>
+    <%= content_tag_for(:li, ministerial_role) do %>
+      <%= ministerial_role %>
+    <% end %>
+  <% end %>
+</ul>

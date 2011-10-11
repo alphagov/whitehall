@@ -18,11 +18,11 @@ def people(person_to_role_to_organisation)
     role_to_organisation.each do |role_name, organisation_name|
       if organisation_name
         organisation = Organisation.find_by_name!(organisation_name)
-        role = organisation.roles.create!(name: role_name)
+        role = organisation.ministerial_roles.create!(name: role_name)
       else
-        role = Role.create!(name: role_name)
+        role = MinisterialRole.create!(name: role_name)
       end
-      person.roles << role
+      person.ministerial_roles << role
     end
   end
 end

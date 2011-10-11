@@ -32,8 +32,8 @@
     <%= document_form.select :topic_ids, options_from_collection_for_select(Topic.all, 'id', 'name', document.topic_ids), {}, multiple: true %>
   </fieldset>
   <fieldset class="g1">
-    <%= document_form.label :role_ids, 'Ministers' %>
-    <%= document_form.select :role_ids, options_from_collection_for_select(Role.all, 'id', 'to_s', document.role_ids), {}, multiple: true %>
+    <%= document_form.label :ministerial_role_ids, 'Ministers' %>
+    <%= document_form.select :ministerial_role_ids, options_from_collection_for_select(MinisterialRole.all, 'id', 'to_s', document.ministerial_role_ids), {}, multiple: true %>
   </fieldset>
 
   <fieldset class="clear">

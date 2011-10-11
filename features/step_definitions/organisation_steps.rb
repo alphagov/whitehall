@@ -5,8 +5,8 @@ end
 
 Given /^ministers "([^"]*)" and "([^"]*)" are in the "([^"]*)"$/ do |first_minister, second_minister, organisation_name|
   organisation = Organisation.find_by_name(organisation_name)
-  organisation.roles << build(:role, name: first_minister)
-  organisation.roles << build(:role, name: second_minister)
+  organisation.ministerial_roles << build(:ministerial_role, name: first_minister)
+  organisation.ministerial_roles << build(:ministerial_role, name: second_minister)
 end
 
 Given /^other organisations also have policies$/ do
@@ -23,7 +23,7 @@ Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
   organisation = Organisation.find_or_create_by_name(organisation_name)
   table.hashes.each do |row|
     person = Person.find_or_create_by_name(row["Person"])
-    organisation.roles.create!(name: row["Role"], person: person)
+    organisation.ministerial_roles.create!(name: row["Ministerial Role"], person: person)
   end
 end
 
@@ -38,8 +38,8 @@ Then /^I should only see published policies belonging to the "([^"]*)" organisat
   assert documents.all? { |document| organisation.documents.published.include?(document) }
 end
 
-Then /^I should see "([^"]*)" has the "([^"]*)" role$/ do |person_name, role_name|
+Then /^I should see "([^"]*)" has the "([^"]*)" ministerial role$/ do |person_name, role_name|
   person = Person.find_by_name(person_name)
-  role = person.roles.find_by_name(role_name)
-  assert page.has_css?(".role", text: role.to_s)
+  ministerial_role = person.ministerial_roles.find_by_name(role_name)
+  assert page.has_css?(".ministerial_role", text: ministerial_role.to_s)
 end
