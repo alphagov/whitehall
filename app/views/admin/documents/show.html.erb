@@ -44,13 +44,7 @@
   <section class="container">
     <h1>Organisations</h1>
     <% if @document.organisations.any? %>
-      <ul class="organisations">
-        <% @document.organisations.each do |organisation| %>
-          <%= content_tag_for(:li, organisation) do %>
-            <%= link_to organisation.name, organisation_path(organisation) %>
-          <% end %>
-        <% end %>
-      </ul>
+      <%= render partial: "organisations/list", locals: {organisations: @document.organisations} %>
     <% else %>
       <p>This document isn't assigned to any organisations.</p>
     <% end %>

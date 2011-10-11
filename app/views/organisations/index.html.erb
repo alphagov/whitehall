@@ -1,9 +1,3 @@
 <h1>Organisations</h1>
 
-<ul class="organisations">
-  <% @organisations.each do |organisation| %>
-    <%= content_tag_for(:li, organisation) do %>
-      <%= link_to organisation.name, organisation_path(organisation) %>
-    <% end %>
-  <% end %>
-</ul>
+<%= render partial: "list", locals: {organisations: @organisations} %>
