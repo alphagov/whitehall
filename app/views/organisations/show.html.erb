@@ -2,8 +2,8 @@
   <h1 class="name"><%= @organisation.name %></h1>
 <% end %>
 
-<%= render partial: "documents/policies", object: @organisation.published_policies %>
-<%= render partial: "documents/publications", object: @organisation.published_publications %>
+<%= render partial: "documents/policies", object: @policies %>
+<%= render partial: "documents/publications", object: @publications %>
 
 <% if @organisation.ministerial_roles.any? %>
 <section id="ministers" class="g1">
