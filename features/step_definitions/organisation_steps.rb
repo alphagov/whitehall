@@ -39,10 +39,7 @@ Then /^I should only see published policies belonging to the "([^"]*)" organisat
 end
 
 Then /^I should see "([^"]*)" has the "([^"]*)" role$/ do |person_name, role_name|
-  # DEV NOTE! changing braces to do/end here will cause Ruby to pass the block to
-  # the assert method, rather than any? - weird.
-  assert page.all(".role").any? { |element|
-    element.has_css?(".title", text: role_name) &&
-    element.has_css?(".name", text: person_name)
-  }
+  person = Person.find_by_name(person_name)
+  role = person.roles.find_by_name(role_name)
+  assert page.has_css?(".role", text: role.to_s)
 end

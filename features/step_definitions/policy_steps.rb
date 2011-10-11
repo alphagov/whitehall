@@ -101,14 +101,11 @@ Given /^a published policy titled "([^"]*)" that's the responsibility of:$/ do |
 end
 
 Then /^I should see that those responsible for the policy are:$/ do |table|
-  # table is a Cucumber::Ast::Table
-  all_roles_present = table.hashes.all? do |row|
-    page.all(".role").any? do |element|
-      element.has_css?(".title", text: row["Role"]) &&
-      element.has_css?(".name", text: row["Person"])
-    end
+  table.hashes.each do |row|
+    person = Person.find_by_name(row["Person"])
+    role = person.roles.find_by_name(row["Role"])
+    assert page.has_css?(".role", text: role.to_s)
   end
-  assert all_roles_present
 end
 
 def pdf_attachment

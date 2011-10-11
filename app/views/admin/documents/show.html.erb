@@ -66,13 +66,7 @@
   <section class="container">
     <h1>Ministers</h1>
     <% if @document.roles.any? %>
-      <ul class="ministers">
-        <% @document.roles.each do |role| %>
-          <%= content_tag_for(:li, role) do %>
-            <%= role %>
-          <% end %>
-        <% end %>
-      </ul>
+      <%= render partial: "roles/list", locals: {roles: @document.roles} %>
     <% else %>
       <p>This document isn't assigned to any ministers.</p>
     <% end %>
