@@ -13,12 +13,12 @@ Scenario: Creating a new draft policy
 Scenario: Creating a new draft policy in multiple topics
   Given two topics "Facial Hair" and "Hirsuteness" exist
   When I draft a new policy "Outlaw Moustaches" in the "Facial Hair" and "Hirsuteness" topics
-  Then the policy "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
+  Then I should see in the preview that "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
 
 Scenario: Creating a new draft policy in multiple organisations
   Given two organisations "Department of Paperclips" and "Stationery Standards Authority" exist
   When I draft a new policy "Ban Tinfoil Paperclips" in the "Department of Paperclips" and "Stationery Standards Authority" organisations
-  Then the policy "Ban Tinfoil Paperclips" should be in the "Department of Paperclips" and "Stationery Standards Authority" organisations
+  Then I should see in the preview that "Ban Tinfoil Paperclips" should be in the "Department of Paperclips" and "Stationery Standards Authority" organisations
 
 Scenario: Creating a new draft policy that's the responsibility of multiple ministers
   Given ministers exist:
@@ -42,7 +42,7 @@ Scenario: Editing an existing draft policy assigning multiple topics
   Given two topics "Facial Hair" and "Hirsuteness" exist
   And a draft policy called "Outlaw Moustaches" exists in the "Facial Hair" topic
   When I edit the policy "Outlaw Moustaches" adding it to the "Hirsuteness" topic
-  Then the policy "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
+  Then I should see in the preview that "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
 
 Scenario: Trying to save a policy that has been changed by another user
   Given a draft policy called "Outlaw Moustaches" exists

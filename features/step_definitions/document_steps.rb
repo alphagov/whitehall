@@ -11,10 +11,8 @@ Given /^a submitted (publication|policy) called "([^"]*)" exists$/ do |document_
   create("submitted_#{document_type}".to_sym, title: title)
 end
 
-Given /^I start editing the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
-  document = Document.find_by_title(original_title)
-  visit admin_document_path(document)
-  click_link "Edit"
+Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
+  begin_editing_document original_title
   fill_in "Title", with: new_title
 end
 
@@ -52,29 +50,25 @@ end
 When /^I submit the (publication|policy) "([^"]*)"$/ do |document_type, title|
   document = Document.find_by_title(title)
   assert document.is_a?(document_type.classify.constantize)
-  visit admin_document_path(document)
+  visit_document_preview title
   click_button "Submit to 2nd pair of eyes"
 end
 
 When /^I publish the (publication|policy) "([^"]*)"$/ do |document_type, title|
   document = Document.find_by_title(title)
   assert document.is_a?(document_type.classify.constantize)
-  visit admin_document_path(document)
+  visit_document_preview title
   click_button "Publish"
 end
 
-When /^I edit the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
-  document = Document.find_by_title(original_title)
-  visit admin_document_path(document)
-  click_link "Edit"
+When /^I edit the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
+  begin_editing_document original_title
   fill_in "Title", with: new_title
   click_button "Save"
 end
 
-When /^I edit the (publication|policy) "([^"]*)" adding it to the "([^"]*)" topic$/ do |document_type, title, topic_name|
-  document = Document.find_by_title(title)
-  visit admin_document_path(document)
-  click_link "Edit"
+When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" topic$/ do |title, topic_name|
+  begin_editing_document title
   select topic_name, from: "Topics"
   click_button "Save"
 end
@@ -88,10 +82,9 @@ When /^I edit the (publication|policy) changing the title to "([^"]*)"$/ do |doc
   click_button "Save"
 end
 
-When /^I publish the (publication|policy) "([^"]*)" but another user edits it while I am viewing it$/ do |document_type, title|
+When /^I publish the policy "([^"]*)" but another user edits it while I am viewing it$/ do |title|
   document = Document.find_by_title(title)
-  assert document.is_a?(document_type.classify.constantize)
-  visit admin_document_path(document)
+  visit_document_preview title
   document.update_attributes!(body: 'A new body')
   click_button "Publish"
 end
@@ -127,25 +120,20 @@ Then /^the (publication|policy) "([^"]*)" should be visible to the public$/ do |
   assert page.has_css?(record_css_selector(document), text: title)
 end
 
-Then /^the (publication|policy) "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |document_type, title, first_topic, second_topic|
-  document = Document.find_by_title(title)
-  assert document.is_a?(document_type.classify.constantize)
-  visit admin_document_path(document)
+Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
+  visit_document_preview title
   assert has_css?(".topic", text: first_topic)
   assert has_css?(".topic", text: second_topic)
 end
 
-Then /^the (publication|policy) "([^"]*)" should be in the "([^"]*)" and "([^"]*)" organisations$/ do |document_type, title, first_org, second_org|
-  document = Document.find_by_title(title)
-  assert document.is_a?(document_type.classify.constantize)
-  visit admin_document_path(document)
+Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
+  visit_document_preview title
   assert has_css?(".organisation", text: first_org)
   assert has_css?(".organisation", text: second_org)
 end
 
 Then /^I should see in the preview that "([^"]*)" is associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
-  document = Document.find_by_title(title)
-  visit admin_document_path(document)
+  visit_document_preview title
   assert has_css?(".role", text: minister_1)
   assert has_css?(".role", text: minister_2)
 end
