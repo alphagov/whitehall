@@ -65,4 +65,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "#ministers", count: 0
   end
 
+  test "should display a list of organisations" do
+    organisation_1 = create(:organisation)
+    organisation_2 = create(:organisation)
+
+    get :index
+
+    assert_select_object(organisation_1)
+    assert_select_object(organisation_2)
+  end
+
 end
