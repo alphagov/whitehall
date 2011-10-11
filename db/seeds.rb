@@ -14,7 +14,9 @@ end
 
 def people(person_to_role_to_organisation)
   person_to_role_to_organisation.each do |person_name, role_to_organisation|
-    person = Person.create!(name: person_name)
+    privy = person_name.starts_with?("The Rt Hon ")
+    person_name = person_name.from(11) if privy
+    person = Person.create!(name: person_name, privy_councillor: privy)
     role_to_organisation.each do |role_name, organisation_name|
       if organisation_name
         organisation = Organisation.find_by_name!(organisation_name)
