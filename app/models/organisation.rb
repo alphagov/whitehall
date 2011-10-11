@@ -5,7 +5,8 @@ class Organisation < ActiveRecord::Base
   has_many :published_policies, through: :document_organisations, class_name: "Policy", conditions: { state: "published" }, source: :document
   has_many :published_publications, through: :document_organisations, class_name: "Publication", conditions: { state: "published" }, source: :document
 
-  has_many :roles
+  has_many :organisation_roles
+  has_many :roles, through: :organisation_roles
   has_many :people, through: :roles
 
   validates :name, presence: true, uniqueness: true
