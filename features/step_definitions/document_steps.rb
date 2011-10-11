@@ -24,38 +24,26 @@ Given /^another user edits the (publication|policy) "([^"]*)" changing the title
 end
 
 When /^I draft a new (publication|policy) "([^"]*)"$/ do |document_type, title|
-  visit admin_documents_path
-  click_link "Draft new #{document_type.capitalize}"
-  fill_in "Title", with: title
-  fill_in "Policy", with: "Any old iron"
+  begin_drafting_document type: document_type, title: title
   click_button "Save"
 end
 
-When /^I draft a new (publication|policy) "([^"]*)" in the "([^"]*)" and "([^"]*)" topics$/ do |document_type, title, first_topic, second_topic|
-  visit admin_documents_path
-  click_link "Draft new #{document_type.capitalize}"
-  fill_in "Title", with: title
-  fill_in "Policy", with: "Any old iron"
+When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
+  begin_drafting_document type: "Policy", title: title
   select first_topic, from: "Topics"
   select second_topic, from: "Topics"
   click_button "Save"
 end
 
-When /^I draft a new (publication|policy) "([^"]*)" in the "([^"]*)" and "([^"]*)" organisations$/ do |document_type, title, first_org, second_org|
-  visit admin_documents_path
-  click_link "Draft new #{document_type.capitalize}"
-  fill_in "Title", with: title
-  fill_in "Policy", with: "Any old iron"
+When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
+  begin_drafting_document type: "Policy", title: title
   select first_org, from: "Organisations"
   select second_org, from: "Organisations"
   click_button "Save"
 end
 
 When /^I draft a new policy "([^"]*)" associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
-  visit admin_documents_path
-  click_link "Draft new Policy"
-  fill_in "Title", with: title
-  fill_in "Policy", with: "Any old iron"
+  begin_drafting_document type: "Policy", title: title
   select minister_1, from: "Ministers"
   select minister_2, from: "Ministers"
   click_button "Save"
