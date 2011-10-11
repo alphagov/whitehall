@@ -20,6 +20,15 @@ Scenario: Creating a new draft policy in multiple organisations
   When I draft a new policy "Ban Tinfoil Paperclips" in the "Department of Paperclips" and "Stationery Standards Authority" organisations
   Then the policy "Ban Tinfoil Paperclips" should be in the "Department of Paperclips" and "Stationery Standards Authority" organisations
 
+Scenario: Creating a new draft policy that's the responsibility of multiple ministers
+  Given I am a writer
+  And ministers exist:
+    | Role                | Person     |
+    | Minister of Finance | John Smith |
+    | Treasury Secretary  | Jane Doe   |
+  When I draft a new policy "Pinch more pennies" associated with "John Smith (Minister of Finance)" and "Jane Doe (Treasury Secretary)"
+  Then I should see in the preview that "Pinch more pennies" is associated with "John Smith (Minister of Finance)" and "Jane Doe (Treasury Secretary)"
+
 Scenario: Submitting a draft policy to a second pair of eyes
   Given I am a writer
   And a draft policy called "Outlaw Moustaches" exists

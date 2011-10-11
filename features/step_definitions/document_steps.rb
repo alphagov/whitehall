@@ -51,6 +51,16 @@ When /^I draft a new (publication|policy) "([^"]*)" in the "([^"]*)" and "([^"]*
   click_button "Save"
 end
 
+When /^I draft a new policy "([^"]*)" associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
+  visit admin_documents_path
+  click_link "Draft new Policy"
+  fill_in "Title", with: title
+  fill_in "Policy", with: "Any old iron"
+  select minister_1, from: "Ministers"
+  select minister_2, from: "Ministers"
+  click_button "Save"
+end
+
 When /^I submit the (publication|policy) "([^"]*)"$/ do |document_type, title|
   document = Document.find_by_title(title)
   assert document.is_a?(document_type.classify.constantize)
@@ -143,6 +153,13 @@ Then /^the (publication|policy) "([^"]*)" should be in the "([^"]*)" and "([^"]*
   visit admin_document_path(document)
   assert has_css?(".organisation", text: first_org)
   assert has_css?(".organisation", text: second_org)
+end
+
+Then /^I should see in the preview that "([^"]*)" is associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
+  document = Document.find_by_title(title)
+  visit admin_document_path(document)
+  assert has_css?(".role", text: minister_1)
+  assert has_css?(".role", text: minister_2)
 end
 
 Then /^I should see the conflict between the (publication|policy) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
