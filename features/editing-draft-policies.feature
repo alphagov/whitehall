@@ -3,26 +3,25 @@ In order to send the best version of a policy to the departmental editor
 A writer
 Should be able to edit and save draft policies
 
-Scenario: Creating a new draft policy
+Background:
   Given I am a writer
+
+Scenario: Creating a new draft policy
   When I draft a new policy "Outlaw Moustaches"
   Then I should see the policy "Outlaw Moustaches" in the list of draft documents
 
 Scenario: Creating a new draft policy in multiple topics
-  Given I am a writer
-  And two topics "Facial Hair" and "Hirsuteness" exist
+  Given two topics "Facial Hair" and "Hirsuteness" exist
   When I draft a new policy "Outlaw Moustaches" in the "Facial Hair" and "Hirsuteness" topics
   Then the policy "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
 
 Scenario: Creating a new draft policy in multiple organisations
-  Given I am a writer
-  And two organisations "Department of Paperclips" and "Stationery Standards Authority" exist
+  Given two organisations "Department of Paperclips" and "Stationery Standards Authority" exist
   When I draft a new policy "Ban Tinfoil Paperclips" in the "Department of Paperclips" and "Stationery Standards Authority" organisations
   Then the policy "Ban Tinfoil Paperclips" should be in the "Department of Paperclips" and "Stationery Standards Authority" organisations
 
 Scenario: Creating a new draft policy that's the responsibility of multiple ministers
-  Given I am a writer
-  And ministers exist:
+  Given ministers exist:
     | Role                | Person     |
     | Minister of Finance | John Smith |
     | Treasury Secretary  | Jane Doe   |
@@ -30,27 +29,23 @@ Scenario: Creating a new draft policy that's the responsibility of multiple mini
   Then I should see in the preview that "Pinch more pennies" is associated with "John Smith (Minister of Finance)" and "Jane Doe (Treasury Secretary)"
 
 Scenario: Submitting a draft policy to a second pair of eyes
-  Given I am a writer
-  And a draft policy called "Outlaw Moustaches" exists
+  Given a draft policy called "Outlaw Moustaches" exists
   When I submit the policy "Outlaw Moustaches"
   Then I should see the policy "Outlaw Moustaches" in the list of submitted documents
 
 Scenario: Editing an existing draft policy
-  Given I am a writer
-  And a draft policy called "Outlaw Moustaches" exists
+  Given a draft policy called "Outlaw Moustaches" exists
   When I edit the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"
   Then I should see the policy "Ban Moustaches" in the list of draft documents
 
 Scenario: Editing an existing draft policy assigning multiple topics
-  Given I am a writer
-  And two topics "Facial Hair" and "Hirsuteness" exist
+  Given two topics "Facial Hair" and "Hirsuteness" exist
   And a draft policy called "Outlaw Moustaches" exists in the "Facial Hair" topic
   When I edit the policy "Outlaw Moustaches" adding it to the "Hirsuteness" topic
   Then the policy "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
 
 Scenario: Trying to save a policy that has been changed by another user
-  Given I am a writer
-  And a draft policy called "Outlaw Moustaches" exists
+  Given a draft policy called "Outlaw Moustaches" exists
   And I start editing the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"
   And another user edits the policy "Outlaw Moustaches" changing the title to "Ban Beards"
   When I save my changes to the policy
