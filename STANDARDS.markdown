@@ -20,3 +20,4 @@
 - Write steps to be independent, not relying on the user being on a certain page.
 - Avoid testing negatives; these are better tested in functional/unit tests.
 - Avoid testing incidental behaviour (e.g. flash messages); these are better tested in functional/unit tests.
+- Never call a cucumber step from within another one; extract the behaviour into a method which can be called from both.
