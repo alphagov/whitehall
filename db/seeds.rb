@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-puts "Seeding data in #{Rails.env} environment..." unless Rails.env.test?
-
 def organisations(*names)
   names.each do |name|
     Organisation.find_or_create_by_name(name: name)
@@ -10,7 +8,7 @@ end
 
 def topics(*names)
   names.each do |name|
-    Topic.create!(name: name, description: Faker::Lorem.sentence)
+    Topic.create!(name: name, description: "A description of the #{name} topic goes here.")
   end
 end
 
@@ -193,54 +191,6 @@ topics(
   "Big Society"
 )
 
-
-# Randomly generated document-type data
-
-def create_document(type, attributes)
-  attributes[:topics] = Topic.where(name: (attributes[:topics] || []))
-  attributes[:organisations] = Organisation.where(name: (attributes[:organisations] || []))
-  attributes[:author] ||= User.create(name: Faker::Name.name)
-  attributes[:roles] = Array.new(rand(2) + 1) { Role.order("RAND()").first }
-  type.create!({
-    title: "title-n",
-    body: random_policy_text,
-    document_identity: DocumentIdentity.new
-  }.merge(attributes))
+if Rails.env.development? || Rails.env.test?
+  require Rails.root.join("db/random_seeds.rb")
 end
-
-def create_draft(type, attributes = {})
-  create_document(type, attributes)
-end
-
-def create_submitted(type, attributes = {})
-  document = create_document(type, attributes.merge(submitted: true))
-  document.fact_check_requests.create email_address: Faker::Internet.email, comments: Faker::Lorem.paragraph
-  document
-end
-
-def create_published(type, attributes = {})
-  create_document(type, attributes.merge(submitted: true, state: "published"))
-end
-
-def random_policy_text(number_of_paragraphs=3)
-  @policy_data ||= File.read(File.expand_path("../seed_policy_bodies.txt", __FILE__)).split("\n")
-  @policy_data.shuffle[0...number_of_paragraphs].join("\n\n")
-end
-alias :random_publication_text :random_policy_text
-
-
-create_draft(Policy, title: "Free cats for pensioners", topics: ["Higher Education"], organisations: ["Attorney General's Office", "Cabinet Office"])
-create_draft(Policy, title: "Decriminalise beards", topics: ["Higher Education", "Consular Services"], organisations: ["Public sector innovation"])
-
-create_submitted(Policy, title: "Less gravity on Sundays", topics: ["Local Government", "International trade"], organisations: ["Department for Environment, Food and Rural Affairs", "Home Office"])
-create_submitted(Policy, title: "Ducks pulling chariots of fire", topics: ["Economic Growth", "Prosperity"], organisations: ["Her Majesty's Treasury"])
-
-create_published(Policy, title: "No more supernanny", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
-create_published(Policy, title: "Laser eyes for millionaires", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
-
-create_published(Publication, title: "Cat Extermination White Paper", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
-create_published(Publication, title: "Dog Erradicated Green Paper", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
-create_published(Publication, title: "Canine Consultation", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
-create_published(Publication, title: "Feline Consultation", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
-
-puts "...done." unless Rails.env.test?
