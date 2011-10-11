@@ -18,9 +18,6 @@ class Document < ActiveRecord::Base
   has_many :document_roles
   has_many :roles, through: :document_roles
 
-  has_many :document_topics
-  has_many :topics, through: :document_topics
-
   scope :draft, where(state: "draft")
   scope :unsubmitted, where(state: "draft", submitted: false)
   scope :submitted, where(state: "draft", submitted: true)
