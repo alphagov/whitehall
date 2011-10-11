@@ -29,12 +29,12 @@ def people(person_to_role_to_organisation)
   end
 end
 
-people({"The Rt Hon David Cameron" => {"Prime Minister" => "Cabinet Office, Prime Minister's Office"},
+people({"The Rt Hon David Cameron" => {"Prime Minister" => "Cabinet Office"},
  "The Rt Hon Nick Clegg MP" => {"Deputy Prime Minister" => "Cabinet Office"},
  "The Rt Hon William Hague MP" => {"First Secretary of State" => "Foreign and Commonwealth Office"},
  "The Rt Hon George Osborne MP" => {"Chancellor of the Exchequer" => "HM Treasury"},
  "The Rt Hon Kenneth Clarke QC MP" => {"Secretary of State for Justice" => "Ministry of Justice"},
- "The Rt Hon Theresa May MP" => {"Secretary of State for the Home Department" => "Home Office, Government Equalities Office"},
+ "The Rt Hon Theresa May MP" => {"Secretary of State for the Home Department" => "Home Office", "Minister for Women and Equalities" => "Government Equalities Office"},
  "The Rt Hon Dr Liam Fox MP" => {"Secretary of State for Defence" => nil},
  "The Rt Hon Dr Vincent Cable MP" => {"Secretary of State for Business, Innovation and Skills" => "Department for Business, Innovation and Skills"},
  "The Rt Hon Iain Duncan Smith MP" => {"Secretary of State for Work and Pensions" => "Department for Work and Pensions"},
