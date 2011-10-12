@@ -11,8 +11,21 @@
     @include type-36;
   }
   .body {
-    p {
+    p, ul, ol {
       @include type-14;
+    }
+    ul {
+      list-style-type: disc;
+    }
+    ol {
+      list-style-type: decimal;
+    }
+    ul, ol {
+      margin-left: 30px;
+      ul, ol {
+        font-size: 100%;
+        margin-top: #{$baseline_in_px / 14}em;
+      }
     }
   }
 
