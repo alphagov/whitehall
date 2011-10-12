@@ -53,11 +53,6 @@ When /^I edit the new edition$/ do
   click_button 'Save'
 end
 
-When /^"([^"]*)" clicks the email link to the draft policy$/ do |email|
-  When %{I open the last email sent to "#{email}"}
-  And %{I click the first link in the email}
-end
-
 When /^I visit the policy titled "([^"]*)"$/ do |title|
   document = Document.find_by_title(title)
   visit document_path(document.document_identity)
