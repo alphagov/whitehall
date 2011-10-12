@@ -3,7 +3,7 @@
 <div class="document_view">
   <h1 class="title"><%= @document.title %></h1>
   <div class="body">
-    <%= @document.body.split("\n\n").collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe %>
+    <%= govspeak_to_html @document.body %>
   </div>
   <p class="written_by">Written by <span class="author"><%= @document.author.name %></span></p>
 </div>

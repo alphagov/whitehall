@@ -25,6 +25,19 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_template 'admin/fact_check_requests/edit'
   end
 
+  test 'turn govspeak into nice markup when editing' do
+    @document.update_attributes!(body: "body-text")
+    fact_check_request = create(:fact_check_request, document: @document)
+
+    govspeak_document = mock("govspeak-document")
+    govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
+    Govspeak::Document.stubs(:new).with("body-text").returns(govspeak_document)
+
+    get :edit, document_id: @document.to_param, id: fact_check_request.token
+
+    assert_select ".body", text: "body-text-as-govspeak"
+  end
+
   test 'users with invalid tokens should not be able to access the policy' do
     get :edit, id: 'invalid-token', document_id: @document.to_param
 
