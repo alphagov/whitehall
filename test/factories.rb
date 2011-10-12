@@ -102,5 +102,6 @@ FactoryGirl.define do
   factory :supporting_document do
     title "Something Supportive"
     body "Some supporting information"
+    document
   end
 end

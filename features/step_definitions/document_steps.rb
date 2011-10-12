@@ -157,8 +157,10 @@ Then /^my attempt to publish "([^"]*)" should fail$/ do |title|
   assert !document.published?
 end
 
-Then /^I should see the supporting document "([^"]*)" on the "([^"]*)" policy$/ do |supporting_title, policy_title|
+Then /^I can access the supporting document "([^"]*)" from the "([^"]*)" policy$/ do |supporting_title, policy_title|
   policy = Policy.find_by_title(policy_title)
   visit admin_document_path(policy)
   assert has_css?(".supporting_document", text: supporting_title)
+  click_link supporting_title
+  assert has_css?(".title", text: supporting_title)
 end

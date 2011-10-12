@@ -15,4 +15,9 @@ class SupportingDocumentTest < ActiveSupport::TestCase
     supporting_document = build(:supporting_document, body: nil)
     refute supporting_document.valid?
   end
+
+  test "should be invalid without a document" do
+    supporting_document = build(:supporting_document, document: nil)
+    refute supporting_document.valid?
+  end
 end

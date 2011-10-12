@@ -1,5 +1,5 @@
 class SupportingDocument < ActiveRecord::Base
   belongs_to :document
 
-  validates :title, :body, presence: true
+  validates :title, :body, :document, presence: true
 end

@@ -31,7 +31,7 @@ Scenario: Creating a new draft policy that's the responsibility of multiple mini
 Scenario: Adding a supporting document to a draft policy
   Given a draft policy called "Outlaw Moustaches" exists
   When I add a supporting document "Handlebar Waxing" to the "Outlaw Moustaches" policy
-  Then I should see the supporting document "Handlebar Waxing" on the "Outlaw Moustaches" policy
+  Then I can access the supporting document "Handlebar Waxing" from the "Outlaw Moustaches" policy
 
 Scenario: Submitting a draft policy to a second pair of eyes
   Given a draft policy called "Outlaw Moustaches" exists

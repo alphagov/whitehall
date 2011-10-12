@@ -10,6 +10,23 @@ class Admin::SupportingDocumentsControllerAuthenticationTest < ActionController:
 
     assert_login_required
   end
+
+  test "guests should not be able to access create" do
+    document = create(:draft_policy)
+
+    post :create, document_id: document.to_param, supporting_document: attributes_for(:supporting_document)
+
+    assert_login_required
+  end
+
+  test "guests should not be able to access show" do
+    document = create(:draft_policy)
+    supporting_document = create(:supporting_document, document: document)
+
+    get :show, document_id: document.to_param, id: supporting_document.to_param
+
+    assert_login_required
+  end
 end
 
 class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
@@ -55,5 +72,27 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
 
     assert_template "new"
     assert_equal "There was a problem: Title can't be blank", flash[:alert]
+  end
+
+  test "shows the title and a link back to the parent" do
+    document = create(:document)
+    supporting_document = create(:supporting_document, document: document)
+
+    get :show, document_id: document.to_param, id: supporting_document.to_param
+
+    assert_select ".title", supporting_document.title
+    assert_select "a[href='#{admin_document_path(document)}']", text: "Back to '#{document.title}'"
+  end
+
+  test "shows the body using govspeak markup" do
+    supporting_document = create(:supporting_document, body: "govspeak-body-text")
+
+    govspeak_document = mock("govspeak-document")
+    govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
+    Govspeak::Document.stubs(:new).with("govspeak-body-text").returns(govspeak_document)
+
+    get :show, document_id: supporting_document.document.to_param, id: supporting_document.to_param
+
+    assert_select ".body", text: "body-text-as-govspeak"
   end
 end
