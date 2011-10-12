@@ -19,6 +19,7 @@ Whitehall::Application.routes.draw do
         post :revise
       end
 
+      resources :supporting_documents, only: [:new, :create, :show, :edit, :update]
       resources :fact_check_requests, only: [:show, :create, :edit, :update]
     end
   end

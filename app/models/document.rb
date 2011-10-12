@@ -7,6 +7,8 @@ class Document < ActiveRecord::Base
   belongs_to :author, class_name: "User"
   belongs_to :document_identity
 
+  has_many :supporting_documents
+
   has_many :fact_check_requests
 
   has_many :document_topics

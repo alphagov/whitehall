@@ -98,4 +98,9 @@ FactoryGirl.define do
   factory :person do
     name "George"
   end
+
+  factory :supporting_document do
+    title "Something Supportive"
+    body "Some supporting information"
+  end
 end

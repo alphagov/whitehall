@@ -3,6 +3,7 @@
     <nav class="actions">
       <% if @document.editable_by?(current_user) %>
         <%= link_to 'Edit', edit_admin_document_path(@document), title: "Edit #{@document.title}", :class => "button" %>
+        <%= link_to 'Add supporting document', new_admin_document_supporting_document_path(@document), title: "Add supporting document to #{@document.title}", :class => "button" %>
       <% else @document.published? %>
         <%= button_to 'Create new draft', revise_admin_document_path(@document), title: "Create new draft" %>
       <% end %>
@@ -37,6 +38,16 @@
       <p class="attachment"><%= link_to_attachment(@document.attachment) %></p>
       <p class="written_by">Written by <span class="author"><%= @document.author.name %></span></p>
     </article>
+  </section>
+
+  <section class="supporting_documents">
+    <ul>
+      <% @document.supporting_documents.each do |supporting_document| %>
+        <%= content_tag_for :li, supporting_document do %>
+          <%= supporting_document.title %>
+        <% end %>
+      <% end %>
+    </ul>
   </section>
 </div>
 

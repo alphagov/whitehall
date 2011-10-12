@@ -89,6 +89,15 @@ When /^I publish the policy "([^"]*)" but another user edits it while I am viewi
   click_button "Publish"
 end
 
+When /^I add a supporting document "([^"]*)" to the "([^"]*)" policy$/ do |supporting_title, policy_title|
+  policy = Policy.find_by_title(policy_title)
+  visit admin_document_path(policy)
+  click_link "Add supporting document"
+  fill_in "Title", with: supporting_title
+  fill_in "Body", with: "Some supporting information"
+  click_button "Save"
+end
+
 Then /^I should see the (publication|policy) "([^"]*)" in the list of draft documents$/ do |document_type, title|
   document = Document.find_by_title(title)
   visit admin_documents_path
@@ -146,4 +155,10 @@ end
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|
   document = Document.find_by_title(title)
   assert !document.published?
+end
+
+Then /^I should see the supporting document "([^"]*)" on the "([^"]*)" policy$/ do |supporting_title, policy_title|
+  policy = Policy.find_by_title(policy_title)
+  visit admin_document_path(policy)
+  assert has_css?(".supporting_document", text: supporting_title)
 end

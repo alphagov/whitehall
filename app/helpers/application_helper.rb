@@ -80,4 +80,8 @@ module ApplicationHelper
   def admin_policy_fact_check_request_path(*args)
     admin_document_fact_check_request_path(*args)
   end
+
+  def admin_policy_supporting_documents_path(*args)
+    admin_document_supporting_documents_path(*args)
+  end
 end

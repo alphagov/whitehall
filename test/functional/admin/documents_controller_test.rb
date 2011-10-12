@@ -348,6 +348,22 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_select "form[action='#{publish_admin_document_path(submitted_document)}']", count: 0
   end
 
+  test "show the 'add supporting document' button for an unpublished document" do
+    draft_document = create(:draft_policy)
+
+    get :show, id: draft_document.to_param
+
+    assert_select "a[href='#{new_admin_document_supporting_document_path(draft_document)}']"
+  end
+
+  test "don't show the 'add supporting document' button for a published document" do
+    published_document = create(:published_policy)
+
+    get :show, id: published_document.to_param
+
+    assert_select "a[href='#{new_admin_document_supporting_document_path(published_document)}']", count: 0
+  end
+
   test "should render the content using govspeak markup" do
     draft_document = create(:draft_policy, body: "body-text")
 
@@ -358,5 +374,18 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     get :show, id: draft_document.to_param
 
     assert_select ".body", text: "body-text-as-govspeak"
+  end
+
+  test "show lists supporting documents" do
+    draft_document = create(:draft_policy, body: "body-text")
+    first_supporting_document = create(:supporting_document, document: draft_document)
+    second_supporting_document = create(:supporting_document, document: draft_document)
+
+    get :show, id: draft_document.to_param
+
+    assert_select ".supporting_documents" do
+      assert_select_object(first_supporting_document)
+      assert_select_object(second_supporting_document)
+    end
   end
 end
