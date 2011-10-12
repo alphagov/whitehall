@@ -33,7 +33,7 @@
   </fieldset>
   <fieldset class="g1">
     <%= document_form.label :ministerial_role_ids, 'Ministers' %>
-    <%= document_form.select :ministerial_role_ids, options_from_collection_for_select(MinisterialRole.all, 'id', 'to_s', document.ministerial_role_ids), {}, multiple: true %>
+    <%= document_form.select :ministerial_role_ids, options_from_collection_for_select(MinisterialRole.alphabetical_by_person, 'id', 'to_s', document.ministerial_role_ids), {}, multiple: true %>
   </fieldset>
 
   <fieldset class="clear">

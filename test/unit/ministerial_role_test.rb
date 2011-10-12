@@ -59,4 +59,12 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     ministerial_role = build(:ministerial_role, person: nil)
     assert_equal "No one is assigned to this role", ministerial_role.person_name
   end
+
+  test "can return the set of ministers in alphabetical order" do
+    charlie = create(:ministerial_role, person: build(:person, name: "Charlie Parker"))
+    alphonse = create(:ministerial_role, person: build(:person, name: "Alphonse Ziller"))
+    boris = create(:ministerial_role, person: build(:person, name: "Boris Swingler"))
+
+    assert_equal [alphonse, boris, charlie], MinisterialRole.alphabetical_by_person
+  end
 end

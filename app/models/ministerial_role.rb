@@ -8,6 +8,8 @@ class MinisterialRole < ActiveRecord::Base
   has_many :published_policies, through: :document_ministerial_roles, class_name: "Policy", conditions: { state: "published" }, source: :document
   has_many :published_publications, through: :document_ministerial_roles, class_name: "Publication", conditions: { state: "published" }, source: :document
 
+  scope :alphabetical_by_person, includes(:person).order("people.name ASC")
+
   validates :name, presence: true
 
   def to_s
