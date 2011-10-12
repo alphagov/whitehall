@@ -1,6 +1,6 @@
 class Admin::SupportingDocumentsController < Admin::BaseController
   before_filter :authenticate!
-  before_filter :find_document
+  before_filter :find_document, only: [:new, :create]
   before_filter :find_supporting_document, only: [:show]
 
   def new
@@ -27,6 +27,6 @@ class Admin::SupportingDocumentsController < Admin::BaseController
   end
 
   def find_supporting_document
-    @supporting_document = @document.supporting_documents.find(params[:id])
+    @supporting_document = SupportingDocument.find(params[:id])
   end
 end

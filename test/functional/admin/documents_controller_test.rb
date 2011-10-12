@@ -385,10 +385,10 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
     assert_select ".supporting_documents" do
       assert_select_object(first_supporting_document) do
-        assert_select "a[href='#{admin_document_supporting_document_path(draft_document, first_supporting_document)}']", text: first_supporting_document.title
+        assert_select "a[href='#{admin_supporting_document_path(first_supporting_document)}']", text: first_supporting_document.title
       end
       assert_select_object(second_supporting_document) do
-        assert_select "a[href='#{admin_document_supporting_document_path(draft_document, second_supporting_document)}']", text: second_supporting_document.title
+        assert_select "a[href='#{admin_supporting_document_path(second_supporting_document)}']", text: second_supporting_document.title
       end
     end
   end

@@ -78,7 +78,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
     document = create(:document)
     supporting_document = create(:supporting_document, document: document)
 
-    get :show, document_id: document.to_param, id: supporting_document.to_param
+    get :show, id: supporting_document.to_param
 
     assert_select ".title", supporting_document.title
     assert_select "a[href='#{admin_document_path(document)}']", text: "Back to '#{document.title}'"
@@ -91,7 +91,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
     govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
     Govspeak::Document.stubs(:new).with("govspeak-body-text").returns(govspeak_document)
 
-    get :show, document_id: supporting_document.document.to_param, id: supporting_document.to_param
+    get :show, id: supporting_document.to_param
 
     assert_select ".body", text: "body-text-as-govspeak"
   end
