@@ -1,5 +1,6 @@
 class Admin::FactCheckRequestsController < Admin::BaseController
   before_filter :load_fact_check_request, only: [:show, :edit]
+  skip_before_filter :authenticate!, except: [:create]
 
   def show
   end

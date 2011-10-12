@@ -1,52 +1,12 @@
 require "test_helper"
 
-class Admin::SupportingDocumentsControllerAuthenticationTest < ActionController::TestCase
-  tests Admin::SupportingDocumentsController
-
-  test "guests should not be able to access new" do
-    document = create(:draft_policy)
-
-    get :new, document_id: document.to_param
-
-    assert_login_required
-  end
-
-  test "guests should not be able to access create" do
-    document = create(:draft_policy)
-
-    post :create, document_id: document.to_param, supporting_document: attributes_for(:supporting_document)
-
-    assert_login_required
-  end
-
-  test "guests should not be able to access show" do
-    supporting_document = create(:supporting_document)
-
-    get :show, id: supporting_document.to_param
-
-    assert_login_required
-  end
-
-  test "guests should not be able to access edit" do
-    supporting_document = create(:supporting_document)
-
-    get :edit, id: supporting_document.to_param
-
-    assert_login_required
-  end
-
-  test "guests should not be able to access update" do
-    supporting_document = create(:supporting_document)
-
-    put :update, id: supporting_document.to_param
-
-    assert_login_required
-  end
-end
-
 class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
   setup do
     @user = login_as "George"
+  end
+
+  test 'is an admin controller' do
+    assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
   end
 
   test "new form has title and body inputs" do

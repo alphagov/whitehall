@@ -1,5 +1,4 @@
 class Admin::SupportingDocumentsController < Admin::BaseController
-  before_filter :authenticate!
   before_filter :find_document, only: [:new, :create]
   before_filter :find_supporting_document, only: [:show, :edit, :update]
 

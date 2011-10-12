@@ -1,5 +1,4 @@
 class Admin::DocumentsController < Admin::BaseController
-  before_filter :authenticate!
   before_filter :find_document, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check]
 
   def index

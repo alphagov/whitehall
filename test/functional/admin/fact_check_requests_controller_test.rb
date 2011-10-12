@@ -1,9 +1,12 @@
 require 'test_helper'
 
-
 class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   setup do
     @document = create(:draft_policy)
+  end
+
+  test 'is an admin controller' do
+    assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
   end
 
   test 'users with a valid token should be able to access the policy' do

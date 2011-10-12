@@ -1,78 +1,12 @@
 require 'test_helper'
 
-class Admin::DocumentsControllerAuthenticationTest < ActionController::TestCase
-  tests Admin::DocumentsController
-
-  test 'guests should not be able to access index' do
-    get :index
-
-    assert_login_required
-  end
-
-  test 'guests should not be able to access published' do
-    get :published
-
-    assert_login_required
-  end
-
-  test 'guests should not be able to access submitted' do
-    get :submitted
-
-    assert_login_required
-  end
-
-  test 'guests should not be able to access new' do
-    get :new
-
-    assert_login_required
-  end
-
-  test 'guests should not be able to access create' do
-    post :create, document: attributes_for(:document)
-
-    assert_login_required
-  end
-
-  test 'guests should not be able to access edit' do
-    document = create(:document)
-
-    get :edit, id: document.to_param
-
-    assert_login_required
-  end
-
-  test 'guests should not be able to access update' do
-    document = create(:document)
-    put :update, id: document.to_param, document: attributes_for(:document)
-
-    assert_login_required
-  end
-
-  test 'guests should not be able to access publish' do
-    document = create(:document)
-    put :publish, id: document.to_param
-
-    assert_login_required
-  end
-
-  test 'guests should not be able to access revise' do
-    document = create(:document)
-    post :revise, id: document.to_param
-
-    assert_login_required
-  end
-
-  test 'guests should not be able to access show' do
-    document = create(:document)
-    get :show, id: document.to_param
-
-    assert_login_required
-  end
-end
-
 class Admin::DocumentsControllerTest < ActionController::TestCase
   setup do
     @user = login_as "George"
+  end
+
+  test 'is an admin controller' do
+    assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
   end
 
   test 'new form should be for Policies if no document type given' do
