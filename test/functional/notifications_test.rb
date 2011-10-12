@@ -17,12 +17,16 @@ class NotificationsTest < ActionMailer::TestCase
     assert_equal ["fact-check-request@example.com"], @mail.from
   end
 
-  test "fact check subject" do
+  test "fact check subject contains the name of the requester" do
     assert_equal "Fact checking request from #{@requester.name}", @mail.subject
   end
 
   test "fact check email should contain a policy link containing a token" do
     url = edit_admin_document_fact_check_request_url(@fact_check_request.document, @fact_check_request)
     assert_match /#{url}/, @mail.body.to_s
+  end
+
+  test "fact check body contains the title of the document to be checked" do
+    assert_match /#{Regexp.escape(@fact_check_request.document.title)}/, @mail.body.to_s
   end
 end
