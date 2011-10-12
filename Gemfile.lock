@@ -161,6 +161,7 @@ GEM
     uglifier (1.0.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    validates_email_format_of (1.5.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -187,3 +188,4 @@ DEPENDENCIES
   therubyracer
   transitions
   uglifier
+  validates_email_format_of

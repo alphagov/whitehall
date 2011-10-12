@@ -11,7 +11,12 @@ class FactCheckRequestTest < ActiveSupport::TestCase
     fact_check_request = build(:fact_check_request, document: nil)
     refute fact_check_request.valid?
   end
-  
+
+  test 'should be invalid with a mangled email address' do
+    fact_check_request = build(:fact_check_request, email_address: 'not-a-valid-email')
+    refute fact_check_request.valid?
+  end
+
   test 'should not allow the token to be changed' do
     fact_check_request = create(:fact_check_request)
     original_token = fact_check_request.token

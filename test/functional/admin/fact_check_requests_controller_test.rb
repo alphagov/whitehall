@@ -95,4 +95,9 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     post :create, document_id: @document.to_param, fact_check_request: {email_address: ''}
     assert_redirected_to edit_admin_document_path(@document)
   end
+
+  test "should reject invalid email addresses" do
+    post :create, document_id: @document.to_param, fact_check_request: {email_address: 'not-an-email'}
+    assert_equal "There was a problem: Email address does not appear to be valid", flash[:alert]
+  end
 end
