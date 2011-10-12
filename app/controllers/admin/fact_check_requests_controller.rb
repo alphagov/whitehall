@@ -8,7 +8,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     @document = Document.find(params[:document_id])
     fact_check_request = @document.fact_check_requests.build(params[:fact_check_request])
     if fact_check_request.save
-      Notifications.fact_check(fact_check_request).deliver
+      Notifications.fact_check(fact_check_request, mailer_url_options).deliver
       redirect_to edit_admin_document_path(@document),
         notice: "The policy has been sent to #{params[:fact_check_request][:email_address]}"
     else
@@ -29,6 +29,10 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   private
+
+  def mailer_url_options
+    { host: request.host, port: request.port, scheme: request.scheme }
+  end
 
   def load_fact_check_request
     @fact_check_request = FactCheckRequest.find_by_token(params[:id])

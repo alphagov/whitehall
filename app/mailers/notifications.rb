@@ -1,11 +1,10 @@
 class Notifications < ActionMailer::Base
-  default from: "fact-check-request@#{Whitehall.domain}"
-
-  def fact_check(fact_check_request)
-    @document = fact_check_request.document
+  def fact_check(fact_check_request, url_options)
     @fact_check_request = fact_check_request
+    @url_options = url_options
 
-    mail to: @fact_check_request.email_address,
-         subject: 'Fact checking request'
+    mail from: "fact-check-request@#{url_options[:host]}",
+         to: @fact_check_request.email_address,
+         subject: "Fact checking request"
   end
 end

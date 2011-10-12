@@ -33,7 +33,7 @@ class ActionMailer::TestCase
     # See http://jakegoulding.com/blog/2011/02/26/using-named-routes-in-actionmailer-tests-with-rails-3/
     include Rails.application.routes.url_helpers
     define_method :default_url_options do
-      Rails.application.config.action_mailer.default_url_options
+      {host: "example.com"}
     end
   end
 end
