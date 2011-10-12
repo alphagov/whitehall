@@ -29,18 +29,18 @@ Scenario: Creating a new draft policy that's the responsibility of multiple mini
   Then I should see in the preview that "Pinch more pennies" is associated with "John Smith (Minister of Finance)" and "Jane Doe (Treasury Secretary)"
 
 Scenario: Adding a supporting document to a draft policy
-  Given a draft policy called "Outlaw Moustaches" exists
+  Given a draft policy "Outlaw Moustaches" exists
   When I add a supporting document "Handlebar Waxing" to the "Outlaw Moustaches" policy
   Then I can visit the supporting document "Handlebar Waxing" from the admin preview of "Outlaw Moustaches" policy
 
 Scenario: Editing an existing draft policy
-  Given a draft policy called "Outlaw Moustaches" exists
+  Given a draft policy "Outlaw Moustaches" exists
   When I edit the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"
   Then I should see the policy "Ban Moustaches" in the list of draft documents
 
 Scenario: Editing an existing draft policy assigning multiple topics
   Given two topics "Facial Hair" and "Hirsuteness" exist
-  And a draft policy called "Outlaw Moustaches" exists in the "Facial Hair" topic
+  And a draft policy "Outlaw Moustaches" exists in the "Facial Hair" topic
   When I edit the policy "Outlaw Moustaches" adding it to the "Hirsuteness" topic
   Then I should see in the preview that "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
 
@@ -50,7 +50,7 @@ Scenario: Editing an existing supporting document
   Then I can visit the supporting document "Waxing Dangers" from the admin preview of "Outlaw Moustaches" policy
 
 Scenario: Trying to save a policy that has been changed by another user
-  Given a draft policy called "Outlaw Moustaches" exists
+  Given a draft policy "Outlaw Moustaches" exists
   And I start editing the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"
   And another user edits the policy "Outlaw Moustaches" changing the title to "Ban Beards"
   When I save my changes to the policy
@@ -59,6 +59,6 @@ Scenario: Trying to save a policy that has been changed by another user
   Then I should see the policy "Ban Moustaches and Beards" in the list of draft documents
 
 Scenario: Submitting a draft policy to a second pair of eyes
-  Given a draft policy called "Outlaw Moustaches" exists
+  Given a draft policy "Outlaw Moustaches" exists
   When I submit the policy "Outlaw Moustaches"
   Then I should see the policy "Outlaw Moustaches" in the list of submitted documents

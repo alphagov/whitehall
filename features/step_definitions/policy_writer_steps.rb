@@ -29,12 +29,12 @@ When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, ti
   end
 end
 
-When /^I write and save a policy called "([^"]*)" with body "([^"]*)"$/ do |title, body|
-  When %{I write a policy called "#{title}" with body "#{body}"}
+When /^I write and save a policy "([^"]*)" with body "([^"]*)"$/ do |title, body|
+  When %{I write a policy "#{title}" with body "#{body}"}
   click_button 'Save'
 end
 
-When /^I write a policy called "([^"]*)" with body "([^"]*)"$/ do |title, body|
+When /^I write a policy "([^"]*)" with body "([^"]*)"$/ do |title, body|
   fill_in 'Title', with: title
   fill_in 'Policy', with: body
 end

@@ -1,4 +1,4 @@
-Given /^a fact checker has commented "([^"]*)" on the draft policy titled "([^"]*)"$/ do |comment, title|
+Given /^a fact checker has commented "([^"]*)" on the draft publication "([^"]*)"$/ do |comment, title|
   document = create(:draft_policy, title: title)
   create(:fact_check_request, document: document, comments: comment)
 end

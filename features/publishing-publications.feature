@@ -10,13 +10,13 @@ Scenario: Creating a new draft publication
 
 Scenario: Submitting a draft publication to a second pair of eyes
   Given I am a writer
-  And a draft publication called "Standard Beard Lengths" exists
+  And a draft publication "Standard Beard Lengths" exists
   When I submit the publication "Standard Beard Lengths"
   Then I should see the publication "Standard Beard Lengths" in the list of submitted documents
 
 Scenario: Publishing a submitted publication
   Given I am an editor
-  And a submitted publication called "Standard Beard Lengths" exists
+  And a submitted publication "Standard Beard Lengths" exists
   When I publish the publication "Standard Beard Lengths"
   Then I should see the publication "Standard Beard Lengths" in the list of published documents
   And the publication "Standard Beard Lengths" should be visible to the public

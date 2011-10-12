@@ -2,7 +2,7 @@ When /^I visit the list of policies awaiting review$/ do
   visit submitted_admin_documents_path
 end
 
-When /^I view the policy titled "([^"]*)"$/ do |title|
+When /^I view the publication "([^"]*)"$/ do |title|
   click_link title
 end
 
