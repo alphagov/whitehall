@@ -13,6 +13,11 @@ Scenario: Viewing a policy that appears in multiple topics
   When I visit the policy titled "Policy"
   Then I should see links to the "Education" and "Work and pensions" topics
 
+Scenario: Viewing a policy that has supporting documents
+  Given a published policy titled "Outlaw Moustaches" with supporting documents "Waxing Dangers" and "Hair Lip"
+  Then I can visit the supporting document "Waxing Dangers" from the "Outlaw Moustaches" policy
+  And I can visit the supporting document "Hair Lip" from the "Outlaw Moustaches" policy
+
 Scenario: Viewing a policy that has multiple responsible ministers
   Given a published policy titled "Policy" that's the responsibility of:
     | Ministerial Role  | Person          |

@@ -16,6 +16,12 @@ Given /^a supporting document "([^"]*)" exists on a draft policy "([^"]*)"$/ do 
   create(:supporting_document, document: document, title: supporting_title)
 end
 
+Given /^a published policy titled "([^"]*)" with supporting documents "([^"]*)" and "([^"]*)"$/ do |policy_title, first_supporting_title, second_supporting_title|
+  document = create(:published_policy, title: policy_title)
+  create(:supporting_document, document: document, title: first_supporting_title)
+  create(:supporting_document, document: document, title: second_supporting_title)
+end
+
 Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   begin_editing_document original_title
   fill_in "Title", with: new_title
@@ -171,9 +177,17 @@ Then /^my attempt to publish "([^"]*)" should fail$/ do |title|
   assert !document.published?
 end
 
-Then /^I can access the supporting document "([^"]*)" from the "([^"]*)" policy$/ do |supporting_title, policy_title|
+Then /^I can visit the supporting document "([^"]*)" from the admin preview of "([^"]*)" policy$/ do |supporting_title, policy_title|
   policy = Policy.find_by_title(policy_title)
   visit admin_document_path(policy)
+  assert has_css?(".supporting_document", text: supporting_title)
+  click_link supporting_title
+  assert has_css?(".title", text: supporting_title)
+end
+
+Then /^I can visit the supporting document "([^"]*)" from the "([^"]*)" policy$/ do |supporting_title, policy_title|
+  policy = Policy.find_by_title(policy_title)
+  visit document_path(policy.document_identity)
   assert has_css?(".supporting_document", text: supporting_title)
   click_link supporting_title
   assert has_css?(".title", text: supporting_title)

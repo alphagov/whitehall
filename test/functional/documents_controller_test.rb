@@ -108,6 +108,31 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select_object(draft_publication, count: 0)
   end
 
+  test "show lists supporting documents when there are some" do
+    published_document = create(:published_policy)
+    first_supporting_document = create(:supporting_document, document: published_document)
+    second_supporting_document = create(:supporting_document, document: published_document)
+
+    get :show, id: published_document.document_identity.to_param
+
+    assert_select ".supporting_documents" do
+      assert_select_object(first_supporting_document) do
+        assert_select "a[href='#{document_supporting_document_path(published_document.document_identity, first_supporting_document)}']", text: first_supporting_document.title
+      end
+      assert_select_object(second_supporting_document) do
+        assert_select "a[href='#{document_supporting_document_path(published_document.document_identity, second_supporting_document)}']", text: second_supporting_document.title
+      end
+    end
+  end
+
+  test "doesn't show supporting documents list when empty" do
+    published_document = create(:published_policy)
+
+    get :show, id: published_document.document_identity.to_param
+
+    assert_select ".supporting_documents", count: 0
+  end
+
   private
 
   def organisations_selector

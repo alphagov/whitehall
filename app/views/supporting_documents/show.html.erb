@@ -1,0 +1,11 @@
+<div class="g2 first">
+  <nav class="actions">
+    <%= link_to "Back to '#{@document.title}'", document_path(@document), title: "Back to #{@document.title}" %>
+  </nav>
+  <section class="document_view">
+    <h1 class="title"><%= @supporting_document.title %></h1>
+    <div class="body">
+      <%= govspeak_to_html @supporting_document.body %>
+    </div>
+  </section>
+</div>
