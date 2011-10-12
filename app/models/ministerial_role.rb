@@ -17,4 +17,8 @@ class MinisterialRole < ActiveRecord::Base
     return "#{person.name} (#{name})" if person
     return name
   end
+
+  def person_name
+    person ? person.name : "No one is assigned to this role"
+  end
 end

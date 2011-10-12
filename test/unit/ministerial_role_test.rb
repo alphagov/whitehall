@@ -49,4 +49,14 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     ministerial_role = build(:ministerial_role, name: "Treasury secretary", person: nil, organisations: [])
     assert_equal "Treasury secretary", ministerial_role.to_s
   end
+
+  test "should return the person's name" do
+    ministerial_role = build(:ministerial_role, person: build(:person, name: "Bob"))
+    assert_equal "Bob", ministerial_role.person_name
+  end
+
+  test "should indicate that the role is vacant" do
+    ministerial_role = build(:ministerial_role, person: nil)
+    assert_equal "No one is assigned to this role", ministerial_role.person_name
+  end
 end
