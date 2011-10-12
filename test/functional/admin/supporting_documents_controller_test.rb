@@ -142,6 +142,17 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
     end
   end
 
+  test "edit form include lock version to prevent conflicting changes overwriting each other" do
+    document = create(:draft_policy)
+    supporting_document = create(:supporting_document, document: document)
+
+    get :edit, document_id: document.to_param, id: supporting_document.to_param
+
+    assert_select "form[action='#{admin_supporting_document_path(supporting_document)}']" do
+      assert_select "input[name='supporting_document[lock_version]'][type='hidden'][value='#{supporting_document.lock_version}']"
+    end
+  end
+
   test "update modifies supporting document" do
     supporting_document = create(:supporting_document)
 
