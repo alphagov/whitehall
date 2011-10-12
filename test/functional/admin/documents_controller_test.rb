@@ -376,7 +376,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-text-as-govspeak"
   end
 
-  test "show lists supporting documents" do
+  test "show lists supporting documents when there are some" do
     draft_document = create(:draft_policy, body: "body-text")
     first_supporting_document = create(:supporting_document, document: draft_document)
     second_supporting_document = create(:supporting_document, document: draft_document)
@@ -391,5 +391,13 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
         assert_select "a[href='#{admin_supporting_document_path(second_supporting_document)}']", text: second_supporting_document.title
       end
     end
+  end
+
+  test "doesn't show supporting documents list when empty" do
+    draft_document = create(:draft_policy, body: "body-text")
+    
+    get :show, id: draft_document.to_param
+
+    assert_select ".supporting_documents", count: 0
   end
 end
