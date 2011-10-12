@@ -4,7 +4,8 @@ class NotificationsTest < ActionMailer::TestCase
   enable_url_helpers
 
   setup do
-    @fact_check_request = create(:fact_check_request, email_address: 'fact-check@example.com')
+    @policy = create(:policy)
+    @fact_check_request = create(:fact_check_request, email_address: 'fact-check@example.com', document: @policy)
     @requester = build(:user)
     @mail = Notifications.fact_check(@fact_check_request, @requester, host: "example.com")
   end
@@ -27,6 +28,10 @@ class NotificationsTest < ActionMailer::TestCase
   end
 
   test "fact check body contains the title of the document to be checked" do
-    assert_match /#{Regexp.escape(@fact_check_request.document.title)}/, @mail.body.to_s
+    assert_match /#{Regexp.escape(@policy.title)}/, @mail.body.to_s
+  end
+
+  test "fact check body contains the type of the document to be checked" do
+    assert_match /policy/, @mail.body.to_s
   end
 end
