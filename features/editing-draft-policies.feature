@@ -33,11 +33,6 @@ Scenario: Adding a supporting document to a draft policy
   When I add a supporting document "Handlebar Waxing" to the "Outlaw Moustaches" policy
   Then I can access the supporting document "Handlebar Waxing" from the "Outlaw Moustaches" policy
 
-Scenario: Submitting a draft policy to a second pair of eyes
-  Given a draft policy called "Outlaw Moustaches" exists
-  When I submit the policy "Outlaw Moustaches"
-  Then I should see the policy "Outlaw Moustaches" in the list of submitted documents
-
 Scenario: Editing an existing draft policy
   Given a draft policy called "Outlaw Moustaches" exists
   When I edit the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"
@@ -49,6 +44,11 @@ Scenario: Editing an existing draft policy assigning multiple topics
   When I edit the policy "Outlaw Moustaches" adding it to the "Hirsuteness" topic
   Then I should see in the preview that "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
 
+Scenario: Editing an existing supporting document
+  Given a supporting document "Handlebar Waxing" exists on a draft policy "Outlaw Moustaches"
+  When I edit the supporting document "Handlebar Waxing" changing the title to "Waxing Dangers"
+  Then I can access the supporting document "Waxing Dangers" from the "Outlaw Moustaches" policy
+
 Scenario: Trying to save a policy that has been changed by another user
   Given a draft policy called "Outlaw Moustaches" exists
   And I start editing the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"
@@ -57,3 +57,8 @@ Scenario: Trying to save a policy that has been changed by another user
   Then I should see the conflict between the policy titles "Ban Moustaches" and "Ban Beards"
   When I edit the policy changing the title to "Ban Moustaches and Beards"
   Then I should see the policy "Ban Moustaches and Beards" in the list of draft documents
+
+Scenario: Submitting a draft policy to a second pair of eyes
+  Given a draft policy called "Outlaw Moustaches" exists
+  When I submit the policy "Outlaw Moustaches"
+  Then I should see the policy "Outlaw Moustaches" in the list of submitted documents

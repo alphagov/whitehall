@@ -1,0 +1,7 @@
+<%= form_for [:admin, @document, @supporting_document] do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+  <%= form.label :body %>
+  <%= form.text_area :body %>
+  <%= form.submit "Save" %>
+<% end %>

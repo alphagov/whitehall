@@ -11,6 +11,11 @@ Given /^a submitted (publication|policy) called "([^"]*)" exists$/ do |document_
   create("submitted_#{document_type}".to_sym, title: title)
 end
 
+Given /^a supporting document "([^"]*)" exists on a draft policy "([^"]*)"$/ do |supporting_title, document_title|
+  document = create(:draft_policy, title: document_title)
+  create(:supporting_document, document: document, title: supporting_title)
+end
+
 Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   begin_editing_document original_title
   fill_in "Title", with: new_title
@@ -70,6 +75,15 @@ end
 When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" topic$/ do |title, topic_name|
   begin_editing_document title
   select topic_name, from: "Topics"
+  click_button "Save"
+end
+
+When /^I edit the supporting document "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
+  supporting_document = SupportingDocument.find_by_title(original_title)
+  visit admin_document_path(supporting_document.document)
+  click_link original_title
+  click_link "Edit"
+  fill_in "Title", with: new_title
   click_button "Save"
 end
 
