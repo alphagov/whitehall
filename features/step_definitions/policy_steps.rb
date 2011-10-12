@@ -86,11 +86,12 @@ Then /^I should see a link to the PDF attachment$/ do
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: /^attachment\.pdf$/)
 end
 
-Given /^a published policy titled "([^"]*)" that's the responsibility of:$/ do |title, table|
-  document = create(:published_policy, title: title)
+Given /^a published (policy|publication) titled "([^"]*)" that's the responsibility of:$/ do |document_type, title, table|
+  document = create(:"published_#{document_type}", title: title)
   table.hashes.each do |row|
     person = Person.find_or_create_by_name(row["Person"])
-    document.ministerial_roles.create!(name: row["Ministerial Role"], person: person)
+    role = person.ministerial_roles.find_or_create_by_name(row["Ministerial Role"])
+    document.ministerial_roles << role
   end
 end
 
