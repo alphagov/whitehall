@@ -5,7 +5,8 @@ class NotificationsTest < ActionMailer::TestCase
 
   setup do
     @fact_check_request = create(:fact_check_request, email_address: 'fact-check@example.com')
-    @mail = Notifications.fact_check(@fact_check_request, host: "example.com")
+    @requester = build(:user)
+    @mail = Notifications.fact_check(@fact_check_request, @requester, host: "example.com")
   end
 
   test "fact check should be sent to the specified email address" do
@@ -17,7 +18,7 @@ class NotificationsTest < ActionMailer::TestCase
   end
 
   test "fact check subject" do
-    assert_equal "Fact checking request", @mail.subject
+    assert_equal "Fact checking request from #{@requester.name}", @mail.subject
   end
 
   test "fact check email should contain a policy link containing a token" do

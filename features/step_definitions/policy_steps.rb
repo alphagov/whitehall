@@ -22,7 +22,7 @@ end
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy titled "([^"]*)"$/ do |email, title|
   document = create(:draft_policy, title: title)
   fact_check_request = document.fact_check_requests.create(email_address: email)
-  Notifications.fact_check(fact_check_request, host: "example.com").deliver
+  Notifications.fact_check(fact_check_request, create(:user), host: "example.com").deliver
 end
 
 Given /^a submitted policy titled "([^"]*)" with a PDF attachment$/ do |title|

@@ -2,6 +2,7 @@ require 'test_helper'
 
 class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   setup do
+    login_as "George"
     @document = create(:draft_policy)
   end
 
