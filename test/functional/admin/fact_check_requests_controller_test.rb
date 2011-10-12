@@ -60,14 +60,38 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   tests Admin::FactCheckRequestsController
 
   setup do
+    ActionMailer::Base.deliveries.clear
     @document = create(:draft_policy)
     login_as "George"
   end
 
+  teardown do
+    request.host = "test.host"
+    request.env["HTTPS"] = nil
+  end
+
   test "should send an email when a fact check has been requested" do
-    ActionMailer::Base.deliveries.clear
     post :create, document_id: @document.to_param, fact_check_request: {email_address: 'fact-checker@example.com'}
     assert_equal 1, ActionMailer::Base.deliveries.length
+  end
+
+  test "uses host from request in email urls" do
+    request.host = "whitehall.example.com"
+    post :create, document_id: @document.to_param, fact_check_request: {email_address: 'fact-checker@example.com'}
+    assert_match Regexp.new(Regexp.escape("http://whitehall.example.com/")), ActionMailer::Base.deliveries.last.body.to_s
+  end
+
+  test "uses protocol from request in email urls" do
+    request.env["HTTPS"] = "on"
+    request.host = "whitehall.example.com"
+    post :create, document_id: @document.to_param, fact_check_request: {email_address: 'fact-checker@example.com'}
+    assert_match Regexp.new(Regexp.escape("https://whitehall.example.com/")), ActionMailer::Base.deliveries.last.body.to_s
+  end
+
+  test "uses port from request in email urls" do
+    request.host = "whitehall.example.com:8182"
+    post :create, document_id: @document.to_param, fact_check_request: {email_address: 'fact-checker@example.com'}
+    assert_match Regexp.new(Regexp.escape("http://whitehall.example.com:8182/")), ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test "display an informational message when a fact check has been requested" do

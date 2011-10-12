@@ -32,7 +32,10 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   private
 
   def mailer_url_options
-    { host: request.host, port: request.port, scheme: request.scheme }
+    options = { host: request.host }
+    options[:protocol] = request.protocol unless request.protocol == 'http://'
+    options[:port] = request.port unless request.port == 80 || request.port == 443
+    options
   end
 
   def load_fact_check_request
