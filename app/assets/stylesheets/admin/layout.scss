@@ -128,14 +128,13 @@ section {
   margin: 0 auto;
   background: #eee;
   max-width: 20em;
-  border: 1px solid #e5e5e5;
-  border-bottom: 1px solid #ccc;
+  border: 1px solid #bbb;
+  border-bottom: 1px solid #aaa;
   @include rounded;
 
   h1 {
     background: #ddd;
     padding: 0.5em 0.8em;
-    border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #ccc;
     @include type-21;
     margin-bottom: 0;
