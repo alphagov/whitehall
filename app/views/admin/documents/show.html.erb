@@ -8,12 +8,12 @@
         <%= button_to 'Create new draft', revise_admin_document_path(@document), title: "Create new draft" %>
       <% end %>
       <% if @document.submittable_by?(current_user) %>
-        <%= form_for [:admin, @document], {url: submit_admin_document_path(@document), method: :put} do |submit_form| %>
+        <%= form_for [:admin, @document], {url: submit_admin_document_path(@document), method: :post} do |submit_form| %>
           <%= submit_form.submit "Submit to 2nd pair of eyes" %>
         <% end %>
       <% end %>
       <% if @document.publishable_by?(current_user) %>
-        <%= form_for [:admin, @document], {as: :document, url: publish_admin_document_path(@document)} do |document_form| %>
+        <%= form_for [:admin, @document], {as: :document, url: publish_admin_document_path(@document), method: :post} do |document_form| %>
           <%= document_form.hidden_field :lock_version %>
           <%= document_form.submit "Publish", title: "Publish #{@document.title}" %>
         <% end %>

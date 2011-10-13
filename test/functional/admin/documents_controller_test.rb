@@ -168,14 +168,14 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test 'submitting should set submitted on the document' do
     draft_document = create(:draft_policy)
-    put :submit, id: draft_document
+    post :submit, id: draft_document
 
     assert draft_document.reload.submitted?
   end
 
   test 'submitting should redirect back to show page' do
     draft_document = create(:draft_policy)
-    put :submit, id: draft_document
+    post :submit, id: draft_document
 
     assert_redirected_to admin_document_path(draft_document)
     assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
@@ -184,7 +184,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test 'publishing should redirect back to published documents' do
     submitted_document = create(:submitted_policy)
     login_as "Eddie", departmental_editor: true
-    put :publish, id: submitted_document, document: {lock_version: submitted_document.lock_version}
+    post :publish, id: submitted_document, document: {lock_version: submitted_document.lock_version}
 
     assert_redirected_to published_admin_documents_path
     assert_equal "The document #{submitted_document.title} has been published", flash[:notice]
@@ -193,7 +193,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test 'publishing should remove it from the set of submitted policies' do
     document_to_publish = create(:submitted_policy)
     login_as "Eddie", departmental_editor: true
-    put :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
+    post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
 
     get :submitted
     refute assigns(:documents).include?(document_to_publish)
@@ -202,7 +202,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test 'failing to publish an document should set a flash' do
     document_to_publish = create(:submitted_policy)
     login_as "Willy Writer", departmental_editor: false
-    put :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
+    post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
 
     assert_equal "Only departmental editors can publish policies", flash[:alert]
   end
@@ -210,7 +210,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test 'failing to publish an document should redirect back to the document' do
     document_to_publish = create(:submitted_policy)
     login_as "Willy Writer", departmental_editor: false
-    put :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
+    post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
 
     assert_redirected_to admin_document_path(document_to_publish)
   end
@@ -220,7 +220,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     lock_version = policy_to_publish.lock_version
     policy_to_publish.update_attributes!(title: "new title")
     login_as "Eddie", departmental_editor: true
-    put :publish, id: policy_to_publish, document: {lock_version: lock_version}
+    post :publish, id: policy_to_publish, document: {lock_version: lock_version}
 
     assert_redirected_to admin_document_path(policy_to_publish)
     assert_equal "This document has been edited since you viewed it; you are now viewing the latest version", flash[:alert]

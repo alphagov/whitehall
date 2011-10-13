@@ -17,8 +17,8 @@ Whitehall::Application.routes.draw do
         get :published
       end
       member do
-        put :publish
-        put :submit
+        post :publish
+        post :submit
         post :revise
       end
 
