@@ -4,7 +4,7 @@ class DocumentsController < ApplicationController
   end
 
   def show
-    unless @document = Document.from_public_identity(params[:id])
+    unless @document = Document.published_as(params[:id])
       render text: "Not found", status: :not_found
     end
   end

@@ -41,12 +41,12 @@ class DocumentTest < ActiveSupport::TestCase
   test "should be findable through public identity if published" do
     published_policy = create(:published_policy)
     draft_policy = create(:draft_policy, document_identity: published_policy.document_identity)
-    assert_equal published_policy, Document.from_public_identity(published_policy.document_identity.id)
+    assert_equal published_policy, Document.published_as(published_policy.document_identity.id)
   end
 
   test "should not be findable through public identity if not" do
     draft_policy = create(:draft_policy)
-    assert_nil Document.from_public_identity(draft_policy.document_identity.id)
+    assert_nil Document.published_as(draft_policy.document_identity.id)
   end
 
   test "should only return unsubmitted draft policies" do
@@ -224,5 +224,19 @@ class DocumentTest < ActiveSupport::TestCase
     document.publish_as!(create(:departmental_editor))
     refute document.draft?
     assert document.published?
+  end
+
+  test "is findable by document identity when published" do
+    document = create(:published_policy)
+    assert_equal document, Document.published_as(document.document_identity.to_param)
+  end
+
+  test "is not findable by document identity when not published" do
+    document = create(:submitted_policy)
+    assert_nil Document.published_as(document.document_identity.to_param)
+  end
+
+  test "returns nil if found by unknown document identity" do
+    assert_nil Document.published_as('unknown')
   end
 end

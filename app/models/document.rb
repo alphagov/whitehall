@@ -60,9 +60,9 @@ class Document < ActiveRecord::Base
   validates_with DocumentHasNoOtherPublishedDocumentsValidator, on: :create
 
   class << self
-    def from_public_identity(id)
-      identity = DocumentIdentity.find_by_id(id)
-      identity.published_document
+    def published_as(id)
+      identity = DocumentIdentity.from_param(id)
+      identity && identity.published_document
     end
   end
 
