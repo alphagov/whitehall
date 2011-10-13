@@ -52,36 +52,4 @@ module ApplicationHelper
       document_state.downcase
     end
   end
-
-  def admin_policy_path(*args)
-    admin_document_path(*args)
-  end
-
-  def admin_publication_path(*args)
-    admin_document_path(*args)
-  end
-
-  def admin_policies_path(*args)
-    admin_documents_path(*args)
-  end
-
-  def admin_publications_path(*args)
-    admin_documents_path(*args)
-  end
-
-  def admin_policy_fact_check_requests_path(*args)
-    admin_document_fact_check_requests_path(*args)
-  end
-
-  def admin_publication_fact_check_requests_path(*args)
-    admin_document_fact_check_requests_path(*args)
-  end
-
-  def admin_policy_fact_check_request_path(*args)
-    admin_document_fact_check_request_path(*args)
-  end
-
-  def admin_policy_supporting_documents_path(*args)
-    admin_document_supporting_documents_path(*args)
-  end
 end
