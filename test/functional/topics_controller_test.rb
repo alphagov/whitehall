@@ -3,7 +3,7 @@ require "test_helper"
 class TopicsControllerTest < ActionController::TestCase
   test "shows topic title and description" do
     topic = create(:topic)
-    get :show, id: topic.to_param
+    get :show, id: topic
     assert_select ".topic .name", text: topic.name
     assert_select ".topic .description", text: topic.description
   end
@@ -12,7 +12,7 @@ class TopicsControllerTest < ActionController::TestCase
     published_document = create(:published_policy)
     draft_document = create(:draft_policy)
     topic = create(:topic, documents: [published_document, draft_document])
-    get :show, id: topic.to_param
+    get :show, id: topic
     assert_select_object(published_document)
     assert_select_object(draft_document, count: 0)
   end
@@ -21,20 +21,20 @@ class TopicsControllerTest < ActionController::TestCase
     published_document = create(:published_publication)
     draft_document = create(:draft_publication)
     topic = create(:topic, documents: [published_document, draft_document])
-    get :show, id: topic.to_param
+    get :show, id: topic
     assert_select_object(published_document)
     assert_select_object(draft_document, count: 0)
   end
 
   test "should not display an empty published policies section" do
     topic = create(:topic)
-    get :show, id: topic.to_param
+    get :show, id: topic
     assert_select "#policies", count: 0
   end
 
   test "should not display an empty published publications section" do
     topic = create(:topic)
-    get :show, id: topic.to_param
+    get :show, id: topic
     assert_select "#publications", count: 0
   end
 

@@ -5,7 +5,7 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
     document = create(:published_policy)
     supporting_document = create(:supporting_document, document: document)
 
-    get :show, document_id: document.document_identity.to_param, id: supporting_document.to_param
+    get :show, document_id: document.document_identity, id: supporting_document
 
     assert_select ".title", text: supporting_document.title
     assert_select "a[href='#{document_path(document)}']", text: "Back to '#{document.title}'"
@@ -19,7 +19,7 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
     govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
     Govspeak::Document.stubs(:new).with("govspeak-body-text").returns(govspeak_document)
 
-    get :show, document_id: document.document_identity.to_param, id: supporting_document.to_param
+    get :show, document_id: document.document_identity, id: supporting_document
 
     assert_select ".body", text: "body-text-as-govspeak"
   end
@@ -28,7 +28,7 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
     document = create(:draft_policy)
     supporting_document = create(:supporting_document, document: document)
 
-    get :show, document_id: document.document_identity.to_param, id: supporting_document.to_param
+    get :show, document_id: document.document_identity, id: supporting_document
 
     assert_response :not_found
   end
