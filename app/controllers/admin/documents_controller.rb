@@ -52,7 +52,7 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def publish
-    if @document.publish_as!(current_user, params[:document][:lock_version])
+    if @document.publish_as(current_user, params[:document][:lock_version])
       redirect_to published_admin_documents_path, notice: "The document #{@document.title} has been published"
     else
       redirect_to admin_document_path(@document), alert: @document.errors.full_messages.to_sentence

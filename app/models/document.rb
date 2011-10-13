@@ -80,7 +80,7 @@ class Document < ActiveRecord::Base
     reason_to_prevent_publication_by(user).nil?
   end
 
-  def publish_as!(user, lock_version = self.lock_version)
+  def publish_as(user, lock_version = self.lock_version)
     if publishable_by?(user)
       self.lock_version = lock_version
       publish!
