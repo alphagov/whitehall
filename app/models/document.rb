@@ -76,6 +76,10 @@ class Document < ActiveRecord::Base
     draft? && !submitted?
   end
 
+  def submit_as(user)
+    update_attribute(:submitted, true)
+  end
+
   def publishable_by?(user)
     reason_to_prevent_publication_by(user).nil?
   end
