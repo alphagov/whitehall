@@ -22,6 +22,10 @@ Given /^a published publication "([^"]*)" with supporting documents "([^"]*)" an
   create(:supporting_document, document: document, title: second_supporting_title)
 end
 
+Given /^a published policy exists$/ do
+  @document = create(:published_policy)
+end
+
 Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   begin_editing_document original_title
   fill_in "Title", with: new_title
