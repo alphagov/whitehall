@@ -6,6 +6,6 @@ class Notifications < ActionMailer::Base
 
     mail from: "fact-check-request@#{url_options[:host]}",
          to: @fact_check_request.email_address,
-         subject: "Fact checking request from #{requester.name}"
+         subject: "Fact checking request from #{requester.name}: #{fact_check_request.document.title}"
   end
 end

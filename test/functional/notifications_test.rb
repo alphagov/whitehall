@@ -18,8 +18,8 @@ class NotificationsTest < ActionMailer::TestCase
     assert_equal ["fact-check-request@example.com"], @mail.from
   end
 
-  test "fact check subject contains the name of the requester" do
-    assert_equal "Fact checking request from #{@requester.name}", @mail.subject
+  test "fact check subject contains the name of the requester and document title" do
+    assert_equal "Fact checking request from #{@requester.name}: #{@policy.title}", @mail.subject
   end
 
   test "fact check email should contain a policy link containing a token" do

@@ -7,7 +7,7 @@ Scenario: Departmental editor requests fact checking
   Given I am an writer called "Bob"
   And a draft policy "Standard Beard Lengths" exists
   When I request that "fact-checker@example.com" fact checks the policy "Standard Beard Lengths"
-  Then "fact-checker@example.com" should be notified by email that "Bob" has requested a fact check
+  Then "fact-checker@example.com" should be notified by email that "Bob" has requested a fact check for "Standard Beard Lengths"
 
 Scenario: Fact checker views the draft policy
   Given "fact-checker@example.com" has received an email requesting they fact check a draft publication "Check me"
