@@ -25,10 +25,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   test "should render the content using govspeak markup" do
     @document.update_attributes!(body: "body-text")
     fact_check_request = create(:fact_check_request, document: @document, comments: "comment")
-
-    govspeak_document = mock("govspeak-document")
-    govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
-    Govspeak::Document.stubs(:new).with("body-text").returns(govspeak_document)
+    Govspeak::Document.stubs(:to_html).with("body-text").returns("body-text-as-govspeak")
 
     get :show, document_id: @document, id: fact_check_request.token
 
@@ -38,10 +35,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   test 'turn govspeak into nice markup when editing' do
     @document.update_attributes!(body: "body-text")
     fact_check_request = create(:fact_check_request, document: @document)
-
-    govspeak_document = mock("govspeak-document")
-    govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
-    Govspeak::Document.stubs(:new).with("body-text").returns(govspeak_document)
+    Govspeak::Document.stubs(:to_html).with("body-text").returns("body-text-as-govspeak")
 
     get :edit, document_id: @document, id: fact_check_request.token
 

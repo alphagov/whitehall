@@ -21,9 +21,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
   test "should render the content using govspeak markup" do
     published_policy = create(:published_policy, body: "body-text")
-    govspeak_document = mock("govspeak-document")
-    govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
-    Govspeak::Document.stubs(:new).with("body-text").returns(govspeak_document)
+    Govspeak::Document.stubs(:to_html).with("body-text").returns("body-text-as-govspeak")
 
     get :show, id: published_policy.document_identity
 

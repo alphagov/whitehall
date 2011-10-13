@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def govspeak_to_html(text)
-    Govspeak::Document.new(text).to_html.html_safe
+    Govspeak::Document.to_html(text).html_safe
   end
 
   def link_to_attachment(attachment)

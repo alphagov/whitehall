@@ -61,10 +61,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
 
   test "shows the body using govspeak markup" do
     supporting_document = create(:supporting_document, body: "govspeak-body-text")
-
-    govspeak_document = mock("govspeak-document")
-    govspeak_document.stubs(:to_html).returns("body-text-as-govspeak")
-    Govspeak::Document.stubs(:new).with("govspeak-body-text").returns(govspeak_document)
+    Govspeak::Document.stubs(:to_html).with("govspeak-body-text").returns("body-text-as-govspeak")
 
     get :show, id: supporting_document
 
