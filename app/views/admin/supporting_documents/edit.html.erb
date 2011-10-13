@@ -1,4 +1,13 @@
 <section class="g2 first">
   <h1>Edit supporting document <%= @supporting_document.title %></h1>
-  <%= render partial: "form" %>
+  <% if @conflicting_supporting_document %>
+    <div class="conflicting new">
+      <%= render partial: "form", locals: {disabled: false, supporting_document: @supporting_document} %>
+    </div>
+    <div class="conflicting latest">
+      <%= render partial: "form", locals: {disabled: true, supporting_document: @conflicting_supporting_document} %>
+    </div>
+  <% else %>
+    <%= render partial: "form", locals: {disabled: false, supporting_document: @supporting_document} %>
+  <% end %>
 </section>

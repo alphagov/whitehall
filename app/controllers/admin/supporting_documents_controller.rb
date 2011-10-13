@@ -29,6 +29,11 @@ class Admin::SupportingDocumentsController < Admin::BaseController
       flash[:alert] = "There was a problem: #{@supporting_document.errors.full_messages.to_sentence}"
       render :edit
     end
+  rescue ActiveRecord::StaleObjectError
+    flash.now[:alert] = %{This document has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it.}
+    @conflicting_supporting_document = SupportingDocument.find(params[:id])
+    @supporting_document.lock_version = @conflicting_supporting_document.lock_version
+    render action: "edit"
   end
 
   private

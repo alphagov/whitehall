@@ -140,4 +140,20 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
     assert_template "edit"
     assert_equal "There was a problem: Title can't be blank", flash[:alert]
   end
+
+  test "updating a stale supporting document should render edit page with conflicting supporting document" do
+    supporting_document = create(:supporting_document)
+    lock_version = supporting_document.lock_version
+    supporting_document.update_attributes!(title: "new title")
+
+    attributes = { title: "new-title", body: "new-body" }
+    put :update, id: supporting_document, supporting_document: attributes.merge(lock_version: lock_version)
+
+    assert_template 'edit'
+    conflicting_supporting_document = supporting_document.reload
+    assert_equal conflicting_supporting_document, assigns[:conflicting_supporting_document]
+    assert_equal conflicting_supporting_document.lock_version, assigns[:supporting_document].lock_version
+    assert_equal %{This document has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it.}, flash[:alert]
+  end
+
 end

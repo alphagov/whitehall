@@ -1,4 +1,4 @@
 <section class="g2 first">
   <h1>Add new supporting document to <%= @document.title %></h1>
-  <%= render partial: "form" %>
+  <%= render partial: "form", locals: {disabled: false, supporting_document: @supporting_document} %>
 </section>

@@ -1,8 +1,10 @@
-<%= form_for [:admin, @document, @supporting_document] do |form| %>
+<%= form_for [:admin, @document, supporting_document] do |form| %>
   <%= form.hidden_field :lock_version %>
   <%= form.label :title %>
-  <%= form.text_field :title %>
+  <%= form.text_field :title, disabled: disabled %>
   <%= form.label :body %>
-  <%= form.text_area :body %>
-  <%= form.submit "Save" %>
+  <%= form.text_area :body, disabled: disabled %>
+  <% unless disabled %>
+    <%= form.submit 'Save' %>
+  <% end %>
 <% end %>

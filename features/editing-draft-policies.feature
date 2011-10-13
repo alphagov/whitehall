@@ -58,6 +58,15 @@ Scenario: Trying to save a policy that has been changed by another user
   When I edit the policy changing the title to "Ban Moustaches and Beards"
   Then I should see the policy "Ban Moustaches and Beards" in the list of draft documents
 
+Scenario: Trying to save a supporting document that has been changed by another user
+  Given a supporting document "Handlebar Waxing" exists on a draft policy "Outlaw Moustaches"
+  And I start editing the supporting document "Handlebar Waxing" changing the title to "Waxing Dangers"
+  And another user edits the supporting document "Handlebar Waxing" changing the title to "Something Else"
+  When I save my changes to the supporting document
+  Then I should see the conflict between the supporting document titles "Waxing Dangers" and "Something Else"
+  When I edit the supporting document changing the title to "Waxing Dangers and Something Else"
+  Then I should see in the preview that "Outlaw Moustaches" includes the "Waxing Dangers and Something Else" supporting document
+
 Scenario: Submitting a draft policy to a second pair of eyes
   Given a draft policy "Outlaw Moustaches" exists
   When I submit the policy "Outlaw Moustaches"
