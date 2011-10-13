@@ -31,7 +31,7 @@ Scenario: Creating a new draft policy that's the responsibility of multiple mini
 Scenario: Adding a supporting document to a draft policy
   Given a draft policy "Outlaw Moustaches" exists
   When I add a supporting document "Handlebar Waxing" to the "Outlaw Moustaches" policy
-  Then I can visit the supporting document "Handlebar Waxing" from the admin preview of "Outlaw Moustaches" policy
+  Then I should see in the preview that "Outlaw Moustaches" includes the "Handlebar Waxing" supporting document
 
 Scenario: Editing an existing draft policy
   Given a draft policy "Outlaw Moustaches" exists
@@ -47,7 +47,7 @@ Scenario: Editing an existing draft policy assigning multiple topics
 Scenario: Editing an existing supporting document
   Given a supporting document "Handlebar Waxing" exists on a draft policy "Outlaw Moustaches"
   When I edit the supporting document "Handlebar Waxing" changing the title to "Waxing Dangers"
-  Then I can visit the supporting document "Waxing Dangers" from the admin preview of "Outlaw Moustaches" policy
+  Then I should see in the preview that "Outlaw Moustaches" includes the "Waxing Dangers" supporting document
 
 Scenario: Trying to save a policy that has been changed by another user
   Given a draft policy "Outlaw Moustaches" exists

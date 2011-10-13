@@ -167,6 +167,13 @@ Then /^I should see in the preview that "([^"]*)" is associated with "([^"]*)" a
   assert has_css?(".ministerial_role", text: minister_2)
 end
 
+Then /^I should see in the preview that "([^"]*)" includes the "([^"]*)" supporting document$/ do |title, supporting_title|
+  visit_document_preview title
+  assert has_css?(".supporting_document", text: supporting_title)
+  click_link supporting_title
+  assert has_css?(".title", text: supporting_title)
+end
+
 Then /^I should see the conflict between the (publication|policy) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
   assert page.has_css?(".conflicting.new #document_title", value: new_title)
   assert page.has_css?(".conflicting.latest #document_title[disabled]", value: latest_title)
@@ -175,14 +182,6 @@ end
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|
   document = Document.find_by_title(title)
   assert !document.published?
-end
-
-Then /^I can visit the supporting document "([^"]*)" from the admin preview of "([^"]*)" policy$/ do |supporting_title, policy_title|
-  policy = Policy.find_by_title(policy_title)
-  visit admin_document_path(policy)
-  assert has_css?(".supporting_document", text: supporting_title)
-  click_link supporting_title
-  assert has_css?(".title", text: supporting_title)
 end
 
 Then /^I can visit the supporting document "([^"]*)" from the "([^"]*)" policy$/ do |supporting_title, policy_title|
