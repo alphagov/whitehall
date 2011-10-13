@@ -41,7 +41,7 @@ class DocumentTest < ActiveSupport::TestCase
   test "should be findable through public identity if published" do
     published_policy = create(:published_policy)
     draft_policy = create(:draft_policy, document_identity: published_policy.document_identity)
-    assert_equal published_policy, Document.published_as(published_policy.document_identity.id)
+    assert_equal published_policy, Document.published_as(published_policy.document_identity.to_param)
   end
 
   test "should not be findable through public identity if not" do

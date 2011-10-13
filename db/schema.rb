@@ -22,7 +22,10 @@ ActiveRecord::Schema.define(:version => 20111014153312) do
   create_table "document_identities", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "key",        :limit => 8
   end
+
+  add_index "document_identities", ["key"], :name => "index_document_identities_on_key", :unique => true
 
   create_table "document_ministerial_roles", :force => true do |t|
     t.integer  "document_id"
