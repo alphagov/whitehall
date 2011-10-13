@@ -42,6 +42,20 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
+  test "adding comments to a policy" do
+    policy = create(:policy)
+    fact_check_request = create(:fact_check_request, document: policy)
+    get :edit, document_id: 'blah', id: fact_check_request.token
+    assert_response :success
+  end
+
+  test "adding comments to a publication" do
+    publication = create(:publication)
+    fact_check_request = create(:fact_check_request, document: publication)
+    get :edit, document_id: 'blah', id: fact_check_request.token
+    assert_response :success
+  end
+
   test "redirect to the show page when a fact check has been completed" do
     fact_check_request = create(:fact_check_request, document: @document)
     put :update, document_id: @document, id: fact_check_request,
