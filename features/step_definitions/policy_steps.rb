@@ -15,10 +15,6 @@ Given /^a published publication "([^"]*)" that appears in the "([^"]*)" and "([^
   create(:topic, name: topic_2, documents: [document])
 end
 
-Given /^I visit the list of published policies$/ do
-  visit published_admin_documents_path
-end
-
 Given /^"([^"]*)" has received an email requesting they fact check a draft publication "([^"]*)"$/ do |email, title|
   document = create(:draft_policy, title: title)
   fact_check_request = document.fact_check_requests.create(email_address: email)
@@ -42,7 +38,7 @@ Given /^a published publication "([^"]*)" that's the responsibility of "([^"]*)"
 end
 
 When /^I create a new edition of the published policy$/ do
-  Given %{I visit the list of published policies}
+  visit published_admin_documents_path
   click_link Document.published.last.title
   click_button 'Create new draft'
 end
