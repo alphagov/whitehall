@@ -60,12 +60,12 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
   end
 
   test "shows the body using govspeak markup" do
-    supporting_document = create(:supporting_document, body: "govspeak-body-text")
-    Govspeak::Document.stubs(:to_html).with("govspeak-body-text").returns("body-text-as-govspeak")
+    supporting_document = create(:supporting_document, body: "body-in-govspeak")
+    Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
 
     get :show, id: supporting_document
 
-    assert_select ".body", text: "body-text-as-govspeak"
+    assert_select ".body", text: "body-in-html"
   end
 
   test "shows edit link if parent document is not published" do

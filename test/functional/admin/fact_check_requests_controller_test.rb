@@ -23,23 +23,23 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "should render the content using govspeak markup" do
-    @document.update_attributes!(body: "body-text")
+    @document.update_attributes!(body: "body-in-govspeak")
     fact_check_request = create(:fact_check_request, document: @document, comments: "comment")
-    Govspeak::Document.stubs(:to_html).with("body-text").returns("body-text-as-govspeak")
+    Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
 
     get :show, document_id: @document, id: fact_check_request.token
 
-    assert_select ".body", text: "body-text-as-govspeak"
+    assert_select ".body", text: "body-in-html"
   end
 
   test 'turn govspeak into nice markup when editing' do
-    @document.update_attributes!(body: "body-text")
+    @document.update_attributes!(body: "body-in-govspeak")
     fact_check_request = create(:fact_check_request, document: @document)
-    Govspeak::Document.stubs(:to_html).with("body-text").returns("body-text-as-govspeak")
+    Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
 
     get :edit, document_id: @document, id: fact_check_request.token
 
-    assert_select ".body", text: "body-text-as-govspeak"
+    assert_select ".body", text: "body-in-html"
   end
 
   test "redirect to the show page when a fact check has been completed" do
