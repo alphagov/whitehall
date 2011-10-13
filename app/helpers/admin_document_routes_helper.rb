@@ -25,7 +25,6 @@ module AdminDocumentRoutesHelper
 
   document_instance_route :admin_document_path
   document_instance_route :admin_document_fact_check_requests_path
-  document_instance_route :admin_document_fact_check_request_path
   document_instance_route :admin_document_supporting_documents_path
 
   documents_collection_route :admin_documents_path

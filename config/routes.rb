@@ -23,7 +23,7 @@ Whitehall::Application.routes.draw do
       end
 
       resources :supporting_documents, only: [:new, :create, :show, :edit, :update], shallow: true
-      resources :fact_check_requests, only: [:show, :create, :edit, :update]
+      resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
     end
   end
 

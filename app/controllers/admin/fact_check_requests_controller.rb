@@ -24,7 +24,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   def update
     @fact_check_request = FactCheckRequest.find_by_token(params[:id])
     if @fact_check_request.update_attributes(params[:fact_check_request])
-      redirect_to admin_document_fact_check_request_path(@fact_check_request.document, @fact_check_request),
+      redirect_to admin_fact_check_request_path(@fact_check_request),
                   notice: "Your feedback has been saved"
     end
   end
