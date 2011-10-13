@@ -108,7 +108,7 @@ class Document < ActiveRecord::Base
   end
 
   def build_draft(user)
-    draft_attributes = {state: "draft", author: user, submitted: false, topics: topics}
+    draft_attributes = {state: "draft", author: user, submitted: false, topics: topics, organisations: organisations, ministerial_roles: ministerial_roles}
     self.class.new(attributes.merge(draft_attributes)).tap do |draft|
       supporting_documents.each do |sd|
         draft.supporting_documents.build(sd.attributes.except("document_id"))

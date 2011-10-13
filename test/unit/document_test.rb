@@ -190,8 +190,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should build a draft copy of the existing document with the supplied author" do
     attachment = create(:attachment)
-    topic = create(:topic)
-    published_policy = create(:published_policy, attachment: attachment, topics: [topic])
+    published_policy = create(:published_policy, attachment: attachment)
     new_author = create(:policy_writer)
     draft_policy = published_policy.build_draft(new_author)
 
@@ -202,7 +201,20 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal published_policy.attachment, draft_policy.attachment
     assert_equal published_policy.title, draft_policy.title
     assert_equal published_policy.body, draft_policy.body
-    assert_equal published_policy.topics, draft_policy.topics
+  end
+
+  test "should build a draft copy with references to topics, organisations & ministerial roles" do
+    topic = create(:topic)
+    organisation = create(:organisation)
+    ministerial_role = create(:ministerial_role)
+
+    published_policy = create(:published_policy, topics: [topic], organisations: [organisation], ministerial_roles: [ministerial_role])
+
+    draft_policy = published_policy.build_draft(create(:policy_writer))
+
+    assert_equal [topic], draft_policy.topics
+    assert_equal [organisation], draft_policy.organisations
+    assert_equal [ministerial_role], draft_policy.ministerial_roles
   end
 
   test "should build a draft copy with copies of supporting documents" do
