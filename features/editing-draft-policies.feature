@@ -28,6 +28,12 @@ Scenario: Creating a new draft policy that's the responsibility of multiple mini
   When I draft a new policy "Pinch more pennies" associated with "John Smith (Minister of Finance)" and "Jane Doe (Treasury Secretary)"
   Then I should see in the preview that "Pinch more pennies" is associated with "John Smith (Minister of Finance)" and "Jane Doe (Treasury Secretary)"
 
+Scenario: Creating a new draft policy that applies to multiple nations
+  When I draft a new policy "Outlaw Moustaches" that applies to the nations:
+    | Scotland | Wales |
+  Then I should see in the preview that "Outlaw Moustaches" only applies to the nations:
+    | Scotland | Wales |
+
 Scenario: Adding a supporting document to a draft policy
   Given a draft policy "Outlaw Moustaches" exists
   When I add a supporting document "Handlebar Waxing" to the "Outlaw Moustaches" policy

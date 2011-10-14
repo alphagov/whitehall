@@ -18,6 +18,9 @@ class Document < ActiveRecord::Base
   has_many :document_ministerial_roles
   has_many :ministerial_roles, through: :document_ministerial_roles
 
+  has_many :nation_applicabilities
+  has_many :nations, through: :nation_applicabilities
+
   scope :draft, where(state: "draft")
   scope :unsubmitted, where(state: "draft", submitted: false)
   scope :submitted, where(state: "draft", submitted: true)

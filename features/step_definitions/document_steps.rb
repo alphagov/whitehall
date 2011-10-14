@@ -43,6 +43,14 @@ When /^I draft a new (publication|policy) "([^"]*)"$/ do |document_type, title|
   click_button "Save"
 end
 
+When /^I draft a new policy "([^"]*)" that applies to the nations:$/ do |title, nations|
+  begin_drafting_document type: "Policy", title: title
+  nations.raw.flatten.each do |nation_name|
+    select nation_name, from: "Nations"
+  end
+  click_button "Save"
+end
+
 When /^I submit the (publication|policy) "([^"]*)"$/ do |document_type, title|
   document = document_type.classify.constantize.find_by_title(title)
   visit_document_preview title
@@ -110,6 +118,13 @@ Then /^I should see in the preview that "([^"]*)" is associated with "([^"]*)" a
   visit_document_preview title
   assert has_css?(".ministerial_role", text: minister_1)
   assert has_css?(".ministerial_role", text: minister_2)
+end
+
+Then /^I should see in the preview that "([^"]*)" only applies to the nations:$/ do |title, nation_names|
+  visit_document_preview title
+  nation_names.raw.flatten.each do |nation_name|
+    assert has_css?(".nation", nation_name)
+  end
 end
 
 Then /^I should see the conflict between the (publication|policy) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
