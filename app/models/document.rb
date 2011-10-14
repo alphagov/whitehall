@@ -125,6 +125,10 @@ class Document < ActiveRecord::Base
     end
   end
 
+  def allows_attachment?
+    respond_to?(:attachment)
+  end
+
   private
 
   def ensure_applicable_to_england

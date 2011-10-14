@@ -17,7 +17,7 @@
     <%= document_form.text_field :title, disabled: disabled %>
     <%= document_form.label :body, 'Policy' %>
     <%= document_form.text_area :body, disabled: disabled %>
-    <% if document.is_a?(Publication) %>
+    <% if document.allows_attachment? %>
       <%= document_form.label :attach_file, 'Attachment' %>
       <%= document_form.file_field :attach_file, disabled: disabled %>
       <% unless document.new_record? %>

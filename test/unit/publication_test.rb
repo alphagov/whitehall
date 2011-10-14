@@ -10,4 +10,8 @@ class PublicationTest < ActiveSupport::TestCase
 
     assert_equal published_publication.attachment, draft_publication.attachment
   end
+
+  test "allows attachment" do
+    assert build(:publication).allows_attachment?
+  end
 end

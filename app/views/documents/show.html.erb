@@ -4,7 +4,7 @@
     <div class="body">
       <%= govspeak_to_html @document.body %>
     </div>
-    <% if @document.is_a?(Publication) %>
+    <% if @document.allows_attachment? %>
       <p class="attachment"><%= link_to_attachment(@document.attachment) %></p>
     <% end %>
   </section>
