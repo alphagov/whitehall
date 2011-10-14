@@ -37,11 +37,13 @@
     <%= document_form.label :ministerial_role_ids, 'Ministers' %>
     <%= document_form.select :ministerial_role_ids, options_from_collection_for_select(MinisterialRole.alphabetical_by_person, 'id', 'to_s', document.ministerial_role_ids), {}, multiple: true, disabled: disabled %>
   </fieldset>
-  <fieldset class="g1">
-    <%= document_form.label :nation_ids, 'Applicable Nations' %>
-    <span class="description">England is always applicable</span>
-    <%= document_form.select :nation_ids, options_from_collection_for_select(Nation.except_england.all, 'id', 'name', document.nation_ids), {}, multiple: true, disabled: disabled %>
-  </fieldset>
+  <% if document.respond_to?(:nations) %>
+    <fieldset class="g1">
+      <%= document_form.label :nation_ids, 'Applicable Nations' %>
+      <span class="description">England is always applicable</span>
+      <%= document_form.select :nation_ids, options_from_collection_for_select(Nation.except_england.all, 'id', 'name', document.nation_ids), {}, multiple: true, disabled: disabled %>
+    </fieldset>
+  <% end %>
 
 
   <fieldset class="clear">

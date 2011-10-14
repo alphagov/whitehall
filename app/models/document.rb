@@ -18,15 +18,10 @@ class Document < ActiveRecord::Base
   has_many :document_ministerial_roles
   has_many :ministerial_roles, through: :document_ministerial_roles
 
-  has_many :nation_applicabilities
-  has_many :nations, through: :nation_applicabilities
-
   scope :draft, where(state: "draft")
   scope :unsubmitted, where(state: "draft", submitted: false)
   scope :submitted, where(state: "draft", submitted: true)
   scope :published, where(state: "published")
-
-  before_save :ensure_applicable_to_england
 
   state_machine do
     state :draft
@@ -127,11 +122,5 @@ class Document < ActiveRecord::Base
 
   def allows_attachment?
     respond_to?(:attachment)
-  end
-
-  private
-
-  def ensure_applicable_to_england
-    nations << Nation.england unless nations.include?(Nation.england)
   end
 end
