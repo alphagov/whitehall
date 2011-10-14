@@ -153,7 +153,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
     conflicting_supporting_document = supporting_document.reload
     assert_equal conflicting_supporting_document, assigns[:conflicting_supporting_document]
     assert_equal conflicting_supporting_document.lock_version, assigns[:supporting_document].lock_version
-    assert_equal %{This document has been saved since you opened it. Your version appears on the left and the latest version appears on the right. Please incorporate any relevant changes into your version and then save it.}, flash[:alert]
+    assert_equal %{This document has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}, flash[:alert]
   end
 
 end
