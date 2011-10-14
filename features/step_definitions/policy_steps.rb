@@ -15,26 +15,21 @@ Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)"
   create(:topic, name: topic_2, documents: [document])
 end
 
-Given /^"([^"]*)" has received an email requesting they fact check a draft publication "([^"]*)"$/ do |email, title|
-  document = create(:draft_policy, title: title)
-  fact_check_request = document.fact_check_requests.create(email_address: email)
-  Notifications.fact_check(fact_check_request, create(:user), host: "example.com").deliver
+Given /^I visit the list of draft policies$/ do
+  visit admin_documents_path
 end
 
-Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(name: File.open(pdf_attachment))
-  create(:submitted_policy, title: title, attachment: attachment)
+Given /^I click edit for the policy "([^"]*)"$/ do |policy_title|
+  click_link policy_title
+  click_link "Edit"
 end
 
-Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(name: File.open(pdf_attachment))
-  create(:published_policy, title: title, attachment: attachment)
+Given /^I submit the policy for the second set of eyes$/ do
+  click_button 'Submit to 2nd pair of eyes'
 end
 
-Given /^a published publication "([^"]*)" that's the responsibility of "([^"]*)" and "([^"]*)"$/ do |title, role_1_name, role_2_name|
-  ministerial_role_1 = create(:ministerial_role, name: role_1_name)
-  ministerial_role_2 = create(:ministerial_role, name: role_2_name)
-  create(:published_policy, title: title, ministerial_roles: [ministerial_role_1, ministerial_role_2])
+When /^I visit the list of policies awaiting review$/ do
+  visit submitted_admin_documents_path
 end
 
 When /^I create a new edition of the published policy$/ do
@@ -49,41 +44,42 @@ When /^I edit the new edition$/ do
   click_button 'Save'
 end
 
-When /^I visit the (policy|publication) "([^"]*)"$/ do |document_type, title|
-  document = Document.find_by_title(title)
-  visit document_path(document.document_identity)
+When /^I visit the new policy page$/ do
+  visit new_admin_document_path
 end
 
-Then /^I should see links to the "([^"]*)" and "([^"]*)" topics$/ do |topic_1_name, topic_2_name|
-  topic_1 = Topic.find_by_name(topic_1_name)
-  topic_2 = Topic.find_by_name(topic_2_name)
-  assert page.has_css?("#topics a[href='#{topic_path(topic_1)}']", text: topic_1_name)
-  assert page.has_css?("#topics a[href='#{topic_path(topic_2)}']", text: topic_2_name)
+When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, title|
+  document = Document.find_by_title(title)
+  assert document.is_a?(Policy)
+  visit admin_documents_path
+  within(record_css_selector(document)) do
+    click_link title
+  end
+  click_link 'Edit'
+  within("#new_fact_check_request") do
+    fill_in "Email address", with: email
+    click_button "Send request"
+  end
+end
+
+When /^I write and save a policy "([^"]*)" with body "([^"]*)"$/ do |title, body|
+  When %{I write a policy "#{title}" with body "#{body}"}
+  click_button 'Save'
+end
+
+When /^I write a policy "([^"]*)" with body "([^"]*)"$/ do |title, body|
+  fill_in 'Title', with: title
+  fill_in 'Policy', with: body
+end
+
+Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
+  assert page.has_css?(".fact_check_request .comments", text: comments)
 end
 
 Then /^the published policy should remain unchanged$/ do
   visit document_path(@document.document_identity)
   assert page.has_css?('.document_view .title', text: @document.title)
   assert page.has_css?('.document_view .body', text: @document.body)
-end
-
-Then /^they should see the draft publication "([^"]*)"$/ do |title|
-  document = Document.find_by_title(title)
-  assert page.has_css?('.document_view .title', text: document.title)
-  assert page.has_css?('.document_view .body', text: document.body)
-end
-
-Then /^I should see a link to the PDF attachment$/ do
-  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: /^attachment\.pdf$/)
-end
-
-Given /^a published (policy|publication) "([^"]*)" that's the responsibility of:$/ do |document_type, title, table|
-  document = create(:"published_#{document_type}", title: title)
-  table.hashes.each do |row|
-    person = Person.find_or_create_by_name(row["Person"])
-    role = person.ministerial_roles.find_or_create_by_name(row["Ministerial Role"])
-    document.ministerial_roles << role
-  end
 end
 
 Then /^I should see that those responsible for the policy are:$/ do |table|
@@ -94,6 +90,10 @@ Then /^I should see that those responsible for the policy are:$/ do |table|
   end
 end
 
-def pdf_attachment
-  Rails.root.join("features/fixtures/attachment.pdf")
+Then /^I should see that "([^"]*)" is the policy author$/ do |name|
+  assert page.has_css?(".document_view .author", text: name)
+end
+
+Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
+  assert page.has_css?(".document_view .body", text: policy_body)
 end

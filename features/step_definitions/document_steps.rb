@@ -25,6 +25,20 @@ Given /^another user edits the (publication|policy) "([^"]*)" changing the title
   document.update_attributes!(title: new_title)
 end
 
+Given /^a published (policy|publication) "([^"]*)" that's the responsibility of:$/ do |document_type, title, table|
+  document = create(:"published_#{document_type}", title: title)
+  table.hashes.each do |row|
+    person = Person.find_or_create_by_name(row["Person"])
+    role = person.ministerial_roles.find_or_create_by_name(row["Ministerial Role"])
+    document.ministerial_roles << role
+  end
+end
+
+When /^I visit the (policy|publication) "([^"]*)"$/ do |document_type, title|
+  document = Document.find_by_title(title)
+  visit document_path(document.document_identity)
+end
+
 When /^I draft a new (publication|policy) "([^"]*)"$/ do |document_type, title|
   begin_drafting_document type: document_type, title: title
   click_button "Save"
