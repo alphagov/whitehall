@@ -9,7 +9,7 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
   And %{I submit the policy for the second set of eyes}
 end
 
-Given /^a published publication "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" topics$/ do |policy_title, topic_1, topic_2|
+Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" topics$/ do |policy_title, topic_1, topic_2|
   document = create(:published_policy, title: policy_title)
   create(:topic, name: topic_1, documents: [document])
   create(:topic, name: topic_2, documents: [document])
@@ -49,7 +49,7 @@ When /^I edit the new edition$/ do
   click_button 'Save'
 end
 
-When /^I visit the publication "([^"]*)"$/ do |title|
+When /^I visit the (policy|publication) "([^"]*)"$/ do |document_type, title|
   document = Document.find_by_title(title)
   visit document_path(document.document_identity)
 end
