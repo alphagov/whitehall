@@ -37,10 +37,6 @@ Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ d
   fill_in "Title", with: new_title
 end
 
-When /^I visit the list of policies awaiting review$/ do
-  visit submitted_admin_documents_path
-end
-
 When /^I create a new edition of the published policy$/ do
   visit published_admin_documents_path
   click_link Policy.published.last.title

@@ -20,10 +20,6 @@ Given /^a published publication "([^"]*)" that's the responsibility of "([^"]*)"
   create(:published_publication, title: title, ministerial_roles: [ministerial_role_1, ministerial_role_2])
 end
 
-When /^I view the publication "([^"]*)"$/ do |title|
-  click_link title
-end
-
 Then /^they should see the draft publication "([^"]*)"$/ do |title|
   publication = Publication.draft.find_by_title(title)
   assert page.has_css?('.document_view .title', text: publication.title)

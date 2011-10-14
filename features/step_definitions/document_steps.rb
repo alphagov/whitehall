@@ -25,6 +25,14 @@ Given /^a published (policy|publication) "([^"]*)" that's the responsibility of:
   end
 end
 
+When /^I view the (policy|publication) "([^"]*)"$/ do |document_type, title|
+  click_link title
+end
+
+When /^I visit the list of documents awaiting review$/ do
+  visit submitted_admin_documents_path
+end
+
 When /^I visit the (policy|publication) "([^"]*)"$/ do |document_type, title|
   document = document_type.classify.constantize.find_by_title(title)
   visit document_path(document.document_identity)
