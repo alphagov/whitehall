@@ -17,10 +17,12 @@
     <%= document_form.text_field :title, disabled: disabled %>
     <%= document_form.label :body, 'Policy' %>
     <%= document_form.text_area :body, disabled: disabled %>
-    <%= document_form.label :attach_file, 'Attachment' %>
-    <%= document_form.file_field :attach_file, disabled: disabled %>
-    <% unless document.new_record? %>
-      <p class="attachment"><%= link_to_attachment(document.attachment) %></p>
+    <% if document.is_a?(Publication) %>
+      <%= document_form.label :attach_file, 'Attachment' %>
+      <%= document_form.file_field :attach_file, disabled: disabled %>
+      <% unless document.new_record? %>
+        <p class="attachment"><%= link_to_attachment(document.attachment) %></p>
+      <% end %>
     <% end %>
   </fieldset>
   <fieldset class="g1 first">

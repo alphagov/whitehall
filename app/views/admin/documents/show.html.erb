@@ -35,7 +35,9 @@
       <div class="body">
         <%= govspeak_to_html @document.body %>
       </div>
-      <p class="attachment"><%= link_to_attachment(@document.attachment) %></p>
+      <% if @document.is_a?(Publication) %>
+        <p class="attachment"><%= link_to_attachment(@document.attachment) %></p>
+      <% end %>
       <p class="written_by">Written by <span class="author"><%= @document.author.name %></span></p>
     </article>
   </section>

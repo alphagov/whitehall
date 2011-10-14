@@ -72,10 +72,10 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
-  test 'creating with invalid data should not show any attachment info' do
-    attributes = attributes_for(:document)
+  test 'creating a publication with invalid data should not show any attachment info' do
+    attributes = attributes_for(:publication)
     attributes[:attach_file] = fixture_file_upload('greenpaper.pdf')
-    post :create, document: attributes.merge(title: '')
+    post :create, document_type: 'Publication', document: attributes.merge(title: '')
 
     assert_select "p.attachment", count: 0
   end

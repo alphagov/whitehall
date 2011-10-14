@@ -189,8 +189,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the existing document with the supplied author" do
-    attachment = create(:attachment)
-    published_policy = create(:published_policy, attachment: attachment)
+    published_policy = create(:published_policy)
     new_author = create(:policy_writer)
     draft_policy = published_policy.build_draft(new_author)
 
@@ -198,7 +197,6 @@ class DocumentTest < ActiveSupport::TestCase
     refute draft_policy.published?
     refute draft_policy.submitted?
     assert_equal new_author, draft_policy.author
-    assert_equal published_policy.attachment, draft_policy.attachment
     assert_equal published_policy.title, draft_policy.title
     assert_equal published_policy.body, draft_policy.body
   end

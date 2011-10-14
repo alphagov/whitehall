@@ -2,8 +2,6 @@ class Document < ActiveRecord::Base
   include ::Transitions
   include ActiveRecord::Transitions
 
-  belongs_to :attachment
-
   belongs_to :author, class_name: "User"
   belongs_to :document_identity
 
