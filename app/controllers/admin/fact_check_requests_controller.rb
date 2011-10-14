@@ -22,7 +22,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   def update
-    @fact_check_request = FactCheckRequest.find_by_token(params[:id])
+    @fact_check_request = FactCheckRequest.from_param(params[:id])
     if @fact_check_request.update_attributes(params[:fact_check_request])
       redirect_to admin_fact_check_request_path(@fact_check_request),
                   notice: "Your feedback has been saved"
@@ -39,7 +39,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   def load_fact_check_request
-    @fact_check_request = FactCheckRequest.find_by_token(params[:id])
+    @fact_check_request = FactCheckRequest.from_param(params[:id])
     if @fact_check_request
       @document = @fact_check_request.document
     else

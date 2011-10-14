@@ -64,12 +64,14 @@ ActiveRecord::Schema.define(:version => 20111014153312) do
 
   create_table "fact_check_requests", :force => true do |t|
     t.integer  "document_id"
-    t.string   "token"
+    t.string   "key"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email_address"
     t.text     "comments"
   end
+
+  add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
 
   create_table "ministerial_roles", :force => true do |t|
     t.datetime "created_at"

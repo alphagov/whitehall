@@ -1,23 +1,23 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   setup do
     @document = create(:draft_policy)
   end
 
-  test 'is an admin controller' do
+  test "is an admin controller" do
     assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
   end
 
-  test 'users with a valid token should be able to access the policy' do
+  test "users with a valid.to_param should be able to access the policy" do
     fact_check_request = create(:fact_check_request, document: @document)
-    get :edit, id: fact_check_request.token
+    get :edit, id: fact_check_request.to_param
     assert_response :success
-    assert_template 'admin/fact_check_requests/edit'
+    assert_template "admin/fact_check_requests/edit"
   end
 
-  test 'users with invalid tokens should not be able to access the policy' do
-    get :edit, id: 'invalid-token'
+  test "users with invalid token should not be able to access the policy" do
+    get :edit, id: "invalid-token"
 
     assert_response :not_found
   end
@@ -27,17 +27,17 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     fact_check_request = create(:fact_check_request, document: @document, comments: "comment")
     Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
 
-    get :show, id: fact_check_request.token
+    get :show, id: fact_check_request.to_param
 
     assert_select ".body", text: "body-in-html"
   end
 
-  test 'turn govspeak into nice markup when editing' do
+  test "turn govspeak into nice markup when editing" do
     @document.update_attributes!(body: "body-in-govspeak")
     fact_check_request = create(:fact_check_request, document: @document)
     Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
 
-    get :edit, id: fact_check_request.token
+    get :edit, id: fact_check_request.to_param
 
     assert_select ".body", text: "body-in-html"
   end
@@ -45,21 +45,21 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   test "adding comments to a policy" do
     policy = create(:policy)
     fact_check_request = create(:fact_check_request, document: policy)
-    get :edit, id: fact_check_request.token
+    get :edit, id: fact_check_request.to_param
     assert_response :success
   end
 
   test "adding comments to a publication" do
     publication = create(:publication)
     fact_check_request = create(:fact_check_request, document: publication)
-    get :edit, id: fact_check_request.token
+    get :edit, id: fact_check_request.to_param
     assert_response :success
   end
 
   test "redirect to the show page when a fact check has been completed" do
     fact_check_request = create(:fact_check_request, document: @document)
     put :update, id: fact_check_request,
-        fact_check_request: {email_address: 'fact-checker@example.com', comments: 'looks fine to me'}
+        fact_check_request: {email_address: "fact-checker@example.com", comments: "looks fine to me"}
     assert_redirected_to admin_fact_check_request_path(fact_check_request)
   end
 end
@@ -79,57 +79,57 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   end
 
   test "should send an email when a fact check has been requested" do
-    post :create, document_id: @document.id, fact_check_request: {email_address: 'fact-checker@example.com'}
+    post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
     assert_equal 1, ActionMailer::Base.deliveries.length
   end
 
   test "uses host from request in email urls" do
     request.host = "whitehall.example.com"
-    post :create, document_id: @document.id, fact_check_request: {email_address: 'fact-checker@example.com'}
+    post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
     assert_match Regexp.new(Regexp.escape("http://whitehall.example.com/")), ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test "uses protocol from request in email urls" do
     request.env["HTTPS"] = "on"
     request.host = "whitehall.example.com"
-    post :create, document_id: @document.id, fact_check_request: {email_address: 'fact-checker@example.com'}
+    post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
     assert_match Regexp.new(Regexp.escape("https://whitehall.example.com/")), ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test "uses port from request in email urls" do
     request.host = "whitehall.example.com:8182"
-    post :create, document_id: @document.id, fact_check_request: {email_address: 'fact-checker@example.com'}
+    post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
     assert_match Regexp.new(Regexp.escape("http://whitehall.example.com:8182/")), ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test "display an informational message when a fact check has been requested" do
-    post :create, document_id: @document.id, fact_check_request: {email_address: 'fact-checker@example.com'}
+    post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
     assert_equal "The policy has been sent to fact-checker@example.com", flash[:notice]
   end
 
   test "redirect to the edit form when a fact check has been requested" do
-    post :create, document_id: @document.id, fact_check_request: {email_address: 'fact-checker@example.com'}
+    post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
     assert_redirected_to edit_admin_document_path(@document)
   end
 
   test "should not send an email if the fact checker's email address is missing" do
     ActionMailer::Base.deliveries.clear
-    post :create, document_id: @document.id, fact_check_request: {email_address: ''}
+    post :create, document_id: @document.id, fact_check_request: {email_address: ""}
     assert_equal 0, ActionMailer::Base.deliveries.length
   end
 
   test "should display a warning if the fact checker's email address is missing" do
-    post :create, document_id: @document.id, fact_check_request: {email_address: ''}
+    post :create, document_id: @document.id, fact_check_request: {email_address: ""}
     assert_equal "There was a problem: Email address can't be blank", flash[:alert]
   end
 
   test "redirect to the edit form if the fact checker's email address is missing" do
-    post :create, document_id: @document.id, fact_check_request: {email_address: ''}
+    post :create, document_id: @document.id, fact_check_request: {email_address: ""}
     assert_redirected_to edit_admin_document_path(@document)
   end
 
   test "should reject invalid email addresses" do
-    post :create, document_id: @document.id, fact_check_request: {email_address: 'not-an-email'}
+    post :create, document_id: @document.id, fact_check_request: {email_address: "not-an-email"}
     assert_equal "There was a problem: Email address does not appear to be valid", flash[:alert]
   end
 end

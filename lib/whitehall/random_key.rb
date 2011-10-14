@@ -3,6 +3,11 @@ require 'whitehall'
 module Whitehall::RandomKey
   extend ActiveSupport::Concern
 
+  included do
+    cattr_accessor :random_key_length
+    self.random_key_length = 8
+  end
+
   def initialize(*args, &block)
     super
     write_attribute(:key, self.class.unique_random_key)
@@ -12,7 +17,7 @@ module Whitehall::RandomKey
     key
   end
 
-  def key=(key)
+  def key=(value)
   end
 
   module ClassMethods
@@ -26,7 +31,7 @@ module Whitehall::RandomKey
     end
 
     def random_key
-      Whitehall::Random.base32(8)
+      Whitehall::Random.base32(random_key_length)
     end
 
     def from_param(key)
