@@ -6,7 +6,5 @@
       <span class="role">(<%= user_role(current_user) %>)</span>
     </p>
     <%= button_to "Logout", logout_path, class: 'link' %>
-  <% elsif not_on_login_page? %>
-    <p><%= link_to 'Login', login_path %></p>
   <% end %>
 </div>

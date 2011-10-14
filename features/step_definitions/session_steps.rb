@@ -1,7 +1,3 @@
-Given /^I am on the login page$/ do
-  visit login_path
-end
-
 Given /^I am (?:a|an) (writer|editor)(?: called "([^"]*)")?$/ do |role, name|
   visit login_path
   if role == "writer"
@@ -38,10 +34,6 @@ end
 
 Then /^I should be given the opportunity to login$/ do
   assert page.has_css?("form[action='#{session_path}']")
-end
-
-Then /^I should not see a link to login$/ do
-  assert page.has_no_css?("#session a[href='#{login_path}']")
 end
 
 Then /^I should see that I am logged in as "([^"]*)"$/ do |name|
