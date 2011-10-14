@@ -28,13 +28,22 @@ Given /^I submit the policy for the second set of eyes$/ do
   click_button 'Submit to 2nd pair of eyes'
 end
 
+Given /^a published policy exists$/ do
+  @document = create(:published_policy)
+end
+
+Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
+  begin_editing_document original_title
+  fill_in "Title", with: new_title
+end
+
 When /^I visit the list of policies awaiting review$/ do
   visit submitted_admin_documents_path
 end
 
 When /^I create a new edition of the published policy$/ do
   visit published_admin_documents_path
-  click_link Document.published.last.title
+  click_link Policy.published.last.title
   click_button 'Create new draft'
 end
 
@@ -49,8 +58,7 @@ When /^I visit the new policy page$/ do
 end
 
 When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, title|
-  document = Document.find_by_title(title)
-  assert document.is_a?(Policy)
+  document = Policy.find_by_title(title)
   visit admin_documents_path
   within(record_css_selector(document)) do
     click_link title
@@ -70,6 +78,46 @@ end
 When /^I write a policy "([^"]*)" with body "([^"]*)"$/ do |title, body|
   fill_in 'Title', with: title
   fill_in 'Policy', with: body
+end
+
+When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
+  begin_drafting_document type: "Policy", title: title
+  select first_topic, from: "Topics"
+  select second_topic, from: "Topics"
+  click_button "Save"
+end
+
+When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
+  begin_drafting_document type: "Policy", title: title
+  select first_org, from: "Organisations"
+  select second_org, from: "Organisations"
+  click_button "Save"
+end
+
+When /^I draft a new policy "([^"]*)" associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
+  begin_drafting_document type: "Policy", title: title
+  select minister_1, from: "Ministers"
+  select minister_2, from: "Ministers"
+  click_button "Save"
+end
+
+When /^I edit the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
+  begin_editing_document original_title
+  fill_in "Title", with: new_title
+  click_button "Save"
+end
+
+When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" topic$/ do |title, topic_name|
+  begin_editing_document title
+  select topic_name, from: "Topics"
+  click_button "Save"
+end
+
+When /^I publish the policy "([^"]*)" but another user edits it while I am viewing it$/ do |title|
+  document = Policy.find_by_title(title)
+  visit_document_preview title
+  document.update_attributes!(body: 'A new body')
+  click_button "Publish"
 end
 
 Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
