@@ -46,7 +46,7 @@ end
 When /^I draft a new policy "([^"]*)" that applies to the nations:$/ do |title, nations|
   begin_drafting_document type: "Policy", title: title
   nations.raw.flatten.each do |nation_name|
-    select nation_name, from: "Nations"
+    select nation_name, from: "Applicable Nations"
   end
   click_button "Save"
 end

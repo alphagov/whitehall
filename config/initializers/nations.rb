@@ -1,0 +1,1 @@
+Nation.ensure_existence!

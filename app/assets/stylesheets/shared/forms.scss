@@ -10,6 +10,11 @@ form {
     border: none;
     padding: 0;
     margin: 0 0 20px 0;
+
+    .description {
+      @include type-12;
+      font-style: italic;
+    }
   }
 
   input[type="text"],

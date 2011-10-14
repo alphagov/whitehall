@@ -26,6 +26,8 @@ class Document < ActiveRecord::Base
   scope :submitted, where(state: "draft", submitted: true)
   scope :published, where(state: "published")
 
+  before_save :ensure_applicable_to_england
+
   state_machine do
     state :draft
     state :published
@@ -121,5 +123,11 @@ class Document < ActiveRecord::Base
     document_identity.documents.published.each do |document|
       document.archive! unless document == self
     end
+  end
+
+  private
+
+  def ensure_applicable_to_england
+    nations << Nation.england unless nations.include?(Nation.england)
   end
 end

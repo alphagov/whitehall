@@ -9,6 +9,10 @@ Mocha::Configuration.prevent(:stubbing_non_existent_method)
 
 class ActiveSupport::TestCase
   include Factory::Syntax::Methods
+
+  def assert_same_elements(array1, array2)
+    assert_equal array1.sort, array2.sort, "Different elements in #{array1.inspect} and #{array2}.inspect"
+  end
 end
 
 class ActionController::TestCase
