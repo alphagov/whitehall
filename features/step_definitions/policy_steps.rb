@@ -3,7 +3,7 @@ Given /^I am on the policies admin page$/ do
 end
 
 Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
-  Given %{I am logged in as a writer called "#{author}"}
+  Given %{I am a writer called "#{author}"}
   And %{I visit the new policy page}
   And %{I write and save a policy "#{title}" with body "#{body}"}
   And %{I submit the policy for the second set of eyes}

@@ -9,21 +9,6 @@ Given /^I am (?:a|an) (writer|editor)(?: called "([^"]*)")?$/ do |role, name|
   click_button "Login"
 end
 
-Given /^I am logged in as a ([^"]*) called "([^"]*)"$/ do |role, name|
-  Given "I visit the login page"
-  check "I am a departmental editor" if role == "departmental editor"
-  And %{I login as "#{name}"}
-end
-
-Given /^I visit the login page$/ do
-  visit login_path
-end
-
-Given /^I login as "([^"]*)"$/ do |name|
-  fill_in "name", with: name
-  click_button "Login"
-end
-
 Given /^I logout$/ do
   click_button "Logout"
 end
