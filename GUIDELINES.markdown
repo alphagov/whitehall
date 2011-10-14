@@ -1,7 +1,6 @@
 ## Code ##
 
 - Don't commit additional whitespace
-- Use double quotes, not single quotes
 - Use ruby 1.9.2 hash syntax wherever possible
 - Models should have:
   - All associations at the top
