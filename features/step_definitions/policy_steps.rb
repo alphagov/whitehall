@@ -15,6 +15,13 @@ Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)"
   create(:topic, name: topic_2, documents: [document])
 end
 
+Given /^a published policy "([^"]*)" that only applies to the nations:$/ do |policy_title, nation_names|
+  policy = create(:published_policy, title: policy_title)
+  nation_names.raw.flatten.each do |nation_name|
+    policy.nations << Nation.find_by_name(nation_name)
+  end
+end
+
 Given /^I visit the list of draft policies$/ do
   visit admin_documents_path
 end
@@ -97,6 +104,14 @@ When /^I draft a new policy "([^"]*)" associated with "([^"]*)" and "([^"]*)"$/ 
   click_button "Save"
 end
 
+When /^I draft a new policy "([^"]*)" that only applies to the nations:$/ do |title, nations|
+  begin_drafting_document type: "Policy", title: title
+  nations.raw.flatten.each do |nation_name|
+    select nation_name, from: "Applicable Nations"
+  end
+  click_button "Save"
+end
+
 When /^I edit the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   begin_editing_document original_title
   fill_in "Title", with: new_title
@@ -140,4 +155,9 @@ end
 
 Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
   assert page.has_css?(".document_view .body", text: policy_body)
+end
+
+Then /^I should see that the policy does not apply to:$/ do |nation_names|
+  message = "This policy does not apply to #{nation_names.raw.flatten.sort.to_sentence}."
+  assert page.has_css?("#inapplicable_nations p", text: message)
 end

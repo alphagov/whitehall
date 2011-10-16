@@ -4,6 +4,10 @@ class Policy < Document
 
   before_save :ensure_applicable_to_england
 
+  def inapplicable_nations
+    Nation.all - nations
+  end
+
   private
 
   def ensure_applicable_to_england

@@ -43,3 +43,9 @@
   <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @document.ministerial_roles} %>
 </section>
 <% end %>
+
+<% if @document.respond_to?(:inapplicable_nations) %>
+  <section id="inapplicable_nations" class="g1">
+    <p>This policy does not apply to <%= @document.inapplicable_nations.map(&:name).sort.to_sentence %>.</p>
+  </section>
+<% end %>
