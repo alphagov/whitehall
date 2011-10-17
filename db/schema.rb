@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111015100013) do
+ActiveRecord::Schema.define(:version => 20111017131540) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20111015100013) do
     t.string   "state",                :default => "draft", :null => false
     t.integer  "attachment_id"
     t.string   "type"
+    t.datetime "publish_at"
   end
 
   create_table "fact_check_requests", :force => true do |t|
