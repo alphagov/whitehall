@@ -121,7 +121,7 @@ end
 
 Then /^I should see the conflict between the (publication|policy) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
   assert page.has_css?(".conflicting.new #document_title", value: new_title)
-  assert page.has_css?(".conflicting.latest #document_title[disabled]", value: latest_title)
+  assert page.has_css?(".conflicting.latest .document .title", value: latest_title)
 end
 
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|

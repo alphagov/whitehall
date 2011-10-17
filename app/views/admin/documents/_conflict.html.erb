@@ -1,0 +1,52 @@
+<section class="document">
+  <article class="document_view">
+    <h1 class="title"><%= document.title %></h1>
+    <pre class="body">
+      <%= document.body %>
+    </pre>
+    <% if document.allows_attachment? %>
+      <p class="attachment"><%= link_to_attachment(document.attachment) %></p>
+    <% end %>
+    <p class="written_by">Written by <span class="author"><%= document.author.name %></span></p>
+  </article>
+</section>
+
+<div class="g1">
+  <section class="container">
+    <h1>Organisations</h1>
+    <% if document.organisations.any? %>
+      <%= render partial: "organisations/list", locals: {organisations: document.organisations} %>
+    <% else %>
+      <p>This document isn't assigned to any organisations.</p>
+    <% end %>
+  </section>
+
+  <section class="container">
+    <h1>Topics</h1>
+    <% if document.topics.any? %>
+      <%= render partial: "topics/list", locals: {topics: document.topics} %>
+    <% else %>
+      <p>This document isn't assigned to any topics.</p>
+    <% end %>
+  </section>
+
+  <section class="container">
+    <h1>Ministers</h1>
+    <% if document.ministerial_roles.any? %>
+      <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: document.ministerial_roles} %>
+    <% else %>
+      <p>This document isn't assigned to any ministers.</p>
+    <% end %>
+  </section>
+
+  <% if document.respond_to?(:nations) %>
+    <section class="container">
+      <h1>Nations</h1>
+      <% if document.nations.any? %>
+        <%= render partial: "nations/list", locals: {nations: document.nations} %>
+      <% else %>
+        <p>This document isn't assigned to any nations.</p>
+      <% end %>
+    </section>
+  <% end %>
+</div>

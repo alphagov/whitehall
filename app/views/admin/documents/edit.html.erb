@@ -2,13 +2,13 @@
   <h1>Edit policy</h1>
   <% if @conflicting_document %>
     <div class="conflicting new">
-      <%= render partial: "form", locals: {disabled: false, document: @document} %>
+      <%= render partial: "form", locals: {document: @document} %>
     </div>
     <div class="conflicting latest">
-      <%= render partial: "form", locals: {disabled: true, document: @conflicting_document} %>
+      <%= render partial: "conflict", locals: {document: @conflicting_document} %>
     </div>
   <% else %>
-    <%= render partial: "form", locals: {disabled: false, document: @document} %>
+    <%= render partial: "form", locals: {document: @document} %>
   <% end %>
 </section>
 
