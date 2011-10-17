@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(:version => 20111017131540) do
     t.string   "state",                :default => "draft", :null => false
     t.integer  "attachment_id"
     t.string   "type"
-    t.datetime "publish_at"
   end
 
   create_table "fact_check_requests", :force => true do |t|
