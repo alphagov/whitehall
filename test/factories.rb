@@ -2,14 +2,7 @@ FactoryGirl.define do
   factory :document_identity do
   end
 
-  factory :document do
-    document_identity
-    author
-    title "document-title"
-    body  "document-body"
-  end
-
-  factory :policy do
+  factory :policy, aliases: [:document] do
     document_identity
     author
     title "policy-title"

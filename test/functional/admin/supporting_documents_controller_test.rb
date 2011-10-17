@@ -32,11 +32,11 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
   end
 
   test "create should redirect to the document page" do
-    document = create(:draft_policy)
+    policy = create(:draft_policy)
     attributes = { title: "title", body: "body" }
-    post :create, document_id: document, supporting_document: attributes
+    post :create, document_id: policy, supporting_document: attributes
 
-    assert_redirected_to admin_document_path(document)
+    assert_redirected_to admin_policy_path(policy)
     assert_equal flash[:notice], "The supporting document was added successfully"
   end
 
@@ -56,7 +56,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
     get :show, id: supporting_document
 
     assert_select ".title", supporting_document.title
-    assert_select "a[href='#{admin_document_path(document)}']", text: "Back to '#{document.title}'"
+    assert_select "a[href='#{admin_policy_path(document)}']", text: "Back to '#{document.title}'"
   end
 
   test "shows the body using govspeak markup" do

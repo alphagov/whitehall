@@ -61,7 +61,7 @@ When /^I edit the new edition$/ do
 end
 
 When /^I visit the new policy page$/ do
-  visit new_admin_document_path
+  visit new_admin_policy_path
 end
 
 When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, title|

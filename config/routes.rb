@@ -11,7 +11,7 @@ Whitehall::Application.routes.draw do
 
   namespace :admin do
     root to: redirect('/admin/documents')
-    resources :documents, except: [:destroy] do
+    resources :documents, except: [:new, :create, :edit, :update, :show, :destroy] do
       collection do
         get :submitted
         get :published
@@ -25,6 +25,9 @@ Whitehall::Application.routes.draw do
       resources :supporting_documents, only: [:new, :create, :show, :edit, :update], shallow: true
       resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
     end
+
+    resources :publications, only: [:new, :create, :edit, :update, :show]
+    resources :policies, only: [:new, :create, :edit, :update, :show]
   end
 
   resource :session, only: [:create, :destroy]

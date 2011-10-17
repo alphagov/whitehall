@@ -74,10 +74,10 @@ class Admin::DocumentsController < Admin::BaseController
   private
 
   def document_class
-    @document_class ||= params[:document_type] == "Publication" ? Publication : Policy
+    Document
   end
 
   def find_document
-    @document = Document.find(params[:id])
+    @document = document_class.find(params[:id])
   end
 end
