@@ -60,7 +60,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows minister role even if it is not currently fulfilled by any person" do
-    minister = create(:ministerial_role, person: nil)
+    minister = create(:ministerial_role, people: [])
     organisation = create(:organisation, ministerial_roles: [minister])
 
     get :show, id: organisation

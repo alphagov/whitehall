@@ -23,7 +23,9 @@ Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
   organisation = Organisation.find_or_create_by_name(organisation_name)
   table.hashes.each do |row|
     person = Person.find_or_create_by_name(row["Person"])
-    organisation.ministerial_roles.create!(name: row["Ministerial Role"], person: person)
+    ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
+    organisation.ministerial_roles << ministerial_role
+    person.ministerial_roles << ministerial_role
   end
 end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111017131540) do
+ActiveRecord::Schema.define(:version => 20111017141400) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
@@ -73,10 +73,16 @@ ActiveRecord::Schema.define(:version => 20111017131540) do
 
   add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
 
+  create_table "ministerial_appointments", :force => true do |t|
+    t.integer  "ministerial_role_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "ministerial_roles", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "person_id"
     t.string   "name"
   end
 

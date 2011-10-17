@@ -1,7 +1,8 @@
 Given /^ministers exist:$/ do |table|
   table.hashes.each do |row|
     person = Person.find_or_create_by_name(row["Person"])
-    person.ministerial_roles.find_or_create_by_name(row["Ministerial Role"])
+    ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
+    person.ministerial_roles << ministerial_role
   end
 end
 

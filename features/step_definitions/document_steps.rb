@@ -20,8 +20,9 @@ Given /^a published (publication|policy|news article) "([^"]*)" that's the respo
   document = create(:"published_#{document_type}", title: title)
   table.hashes.each do |row|
     person = Person.find_or_create_by_name(row["Person"])
-    role = person.ministerial_roles.find_or_create_by_name(row["Ministerial Role"])
-    document.ministerial_roles << role
+    ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
+    person.ministerial_roles << ministerial_role
+    document.ministerial_roles << ministerial_role
   end
 end
 
