@@ -39,7 +39,7 @@ class Admin::DocumentsController < Admin::BaseController
       render action: "edit"
     end
   rescue ActiveRecord::StaleObjectError
-    flash.now[:alert] = %{This document has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}
+    flash.now[:alert] = "This document has been saved since you opened it"
     @conflicting_document = Document.find(params[:id])
     @document.lock_version = @conflicting_document.lock_version
     render action: "edit"

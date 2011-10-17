@@ -66,28 +66,6 @@
   }
 }
 
-.notices {
-  .flash {
-    @include type-16;
-    margin-bottom: 0;
-    line-height: 3em;
-    text-align: center;
-    color: #555;
-  }
-
-  .alert {
-    color: #600a06;
-    background: #fcd0ce;
-    border-bottom: 1px solid #d0160c;
-  }
-
-  .notice {
-    color: #1d5b25;
-    background: #b1e7b9;
-    border-bottom: 1px solid #39b54a;
-  }
-}
-
 body {
   background: #f8f7f5;
 }
@@ -162,3 +140,5 @@ section {
     }
   }
 }
+
+@import "flash-notices";

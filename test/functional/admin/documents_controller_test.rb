@@ -122,7 +122,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     conflicting_document = document.reload
     assert_equal conflicting_document, assigns[:conflicting_document]
     assert_equal conflicting_document.lock_version, assigns[:document].lock_version
-    assert_equal %{This document has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}, flash[:alert]
+    assert_equal "This document has been saved since you opened it", flash[:alert]
   end
 
   test 'should distinguish between document types when viewing the list of draft documents' do

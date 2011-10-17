@@ -1,6 +1,12 @@
 <section class="g2 first">
   <h1>Edit policy</h1>
   <% if @conflicting_document %>
+
+    <div class="alert">
+      <p>This document has been updated by another user since you started editing it.</p>
+      <p>Please review conflicts between the two versions and incorporate any changes before pressing save again.</p>
+    </div>
+
     <div class="conflicting new">
       <%= render partial: "form", locals: {document: @document} %>
     </div>
