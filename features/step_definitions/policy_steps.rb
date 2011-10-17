@@ -26,6 +26,10 @@ Given /^I visit the list of draft policies$/ do
   visit admin_documents_path
 end
 
+Given /^I click on the policy "([^"]*)"$/ do |policy_title|
+  click_link policy_title
+end
+
 Given /^I click edit for the policy "([^"]*)"$/ do |policy_title|
   click_link policy_title
   click_link "Edit"
@@ -66,7 +70,6 @@ When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, ti
   within(record_css_selector(document)) do
     click_link title
   end
-  click_link 'Edit'
   within("#new_fact_check_request") do
     fill_in "Email address", with: email
     click_button "Send request"

@@ -1,5 +1,5 @@
 /* column grid */
-.g1,.g2,.g3 {
+.g1,.g2,.g3,.g-half {
   display: block;
   position: relative;
   margin-left: 1%;
@@ -71,6 +71,16 @@ Change widths as necessary
   body {
 
   }
+
+  .g-half {
+    display: inline;
+    float: left;
+  }
+
+  .g-half {
+    width: 48%;
+  }
+
 
   /* 3 COLUMN GRID */
   .g1 {

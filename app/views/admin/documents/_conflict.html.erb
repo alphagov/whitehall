@@ -1,4 +1,4 @@
-<section class="document">
+<section class="document conflict">
   <article class="document_view">
     <h1 class="title"><%= document.title %></h1>
     <pre class="body">
@@ -9,9 +9,7 @@
     <% end %>
     <p class="written_by">Written by <span class="author"><%= document.author.name %></span></p>
   </article>
-</section>
 
-<div class="g1">
   <section class="container">
     <h1>Organisations</h1>
     <% if document.organisations.any? %>
@@ -49,4 +47,5 @@
       <% end %>
     </section>
   <% end %>
-</div>
+
+</section>

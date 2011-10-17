@@ -95,3 +95,39 @@
     </section>
   <% end %>
 </div>
+
+<div class="cf">&nbsp;</div>
+
+<% if @document.fact_check_requests.completed.any? %>
+<div class="g2 first">
+  <section class="container">
+    <h1>Fact checking responses</h1>
+    <ul id="fact_check_requests">
+      <% @document.fact_check_requests.completed.each do |fact_check_request| %>
+        <li class="fact_check_request">
+          <div class="details">
+            <span class="from"><%= fact_check_request.email_address %></span>
+            on
+            <span class="time"><%= fact_check_request.updated_at.to_s(:long_ordinal) %></span>
+            wrote:
+          </div>
+          <div class="comments">
+            <%= format_in_paragraphs fact_check_request.comments %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+</div>
+<% end %>
+
+<div class="g1<%= @document.fact_check_requests.completed.any? ? '' : ' first' %>">
+  <section class="fact_checking container">
+    <h1 class="downplay">Request fact checking</h1>
+    <%= form_for [:admin, @document, FactCheckRequest.new] do |f| %>
+      <%= f.label :email_address, 'Email address' %>
+      <%= f.text_field :email_address %>
+      <%= f.submit 'Send request' %>
+    <% end %>
+  </section>
+</div>
