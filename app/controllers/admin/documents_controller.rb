@@ -62,8 +62,8 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def revise
-    document = @document.build_draft(current_user)
-    if document.save
+    document = @document.create_draft(current_user)
+    if document.valid?
       redirect_to edit_admin_document_path(document)
     else
       redirect_to edit_admin_document_path(@document.document_identity.documents.draft.first),

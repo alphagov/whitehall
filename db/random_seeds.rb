@@ -24,6 +24,10 @@ def create_published(type, attributes = {})
   create_document(type, attributes.merge(submitted: true, state: "published"))
 end
 
+def create_supporting(document, attributes={})
+  document.supporting_documents.create!(attributes)
+end
+
 def random_policy_text(number_of_paragraphs=3)
   @policy_data ||= File.read(File.expand_path("../seed_policy_bodies.txt", __FILE__)).split("\n")
   @policy_data.shuffle[0...number_of_paragraphs].join("\n\n")
@@ -46,4 +50,5 @@ create_published(Policy, title: "Laser eyes for millionaires", topics: ["Constit
 create_published(Publication, title: "Cat Extermination White Paper", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
 create_published(Publication, title: "Dog Erradicated Green Paper", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
 create_published(Publication, title: "Canine Consultation", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
-create_published(Publication, title: "Feline Consultation", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
+doc = create_published(Publication, title: "Feline Consultation", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
+create_supporting(doc, title: "Some more cat details", body: "Miaaaaow.")

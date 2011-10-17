@@ -6,7 +6,7 @@ class PublicationTest < ActiveSupport::TestCase
     attachment = create(:attachment)
     published_publication = create(:published_publication, attachment: attachment)
 
-    draft_publication = published_publication.build_draft(create(:policy_writer))
+    draft_publication = published_publication.create_draft(create(:policy_writer))
 
     assert_equal published_publication.attachment, draft_publication.attachment
   end

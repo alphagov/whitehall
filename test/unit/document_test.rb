@@ -209,9 +209,8 @@ class DocumentTest < ActiveSupport::TestCase
   test "should build a draft copy of the existing document with the supplied author" do
     published_policy = create(:published_policy)
     new_author = create(:policy_writer)
-    draft_policy = published_policy.build_draft(new_author)
+    draft_policy = published_policy.create_draft(new_author)
 
-    assert draft_policy.new_record?
     refute draft_policy.published?
     refute draft_policy.submitted?
     assert_equal new_author, draft_policy.author
@@ -226,7 +225,7 @@ class DocumentTest < ActiveSupport::TestCase
 
     published_policy = create(:published_policy, topics: [topic], organisations: [organisation], ministerial_roles: [ministerial_role])
 
-    draft_policy = published_policy.build_draft(create(:policy_writer))
+    draft_policy = published_policy.create_draft(create(:policy_writer))
 
     assert_equal [topic], draft_policy.topics
     assert_equal [organisation], draft_policy.organisations
@@ -236,11 +235,12 @@ class DocumentTest < ActiveSupport::TestCase
   test "should build a draft copy with copies of supporting documents" do
     published_policy = create(:published_policy)
     supporting_document = create(:supporting_document, document: published_policy)
-    draft_policy = published_policy.build_draft(create(:policy_writer))
+    draft_policy = published_policy.create_draft(create(:policy_writer))
+
+    assert draft_policy.valid?
 
     assert new_supporting_document = draft_policy.supporting_documents.last
     refute_equal supporting_document, new_supporting_document
-    assert_nil new_supporting_document.document
     assert_equal supporting_document.title, new_supporting_document.title
     assert_equal supporting_document.body, new_supporting_document.body
   end

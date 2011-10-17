@@ -114,13 +114,15 @@ class Document < ActiveRecord::Base
     end
   end
 
-  def build_draft(user)
+  def create_draft(user)
     draft_attributes = {state: "draft", author: user, submitted: false, topics: topics, organisations: organisations, ministerial_roles: ministerial_roles}
-    self.class.new(attributes.merge(draft_attributes)).tap do |draft|
+    new_draft = self.class.create(attributes.merge(draft_attributes))
+    if new_draft.valid?
       supporting_documents.each do |sd|
-        draft.supporting_documents.build(sd.attributes.except("document_id"))
+        new_draft.supporting_documents.create(sd.attributes.except("document_id"))
       end
     end
+    new_draft
   end
 
   def archive_previous_documents
