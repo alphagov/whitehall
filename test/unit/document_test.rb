@@ -21,7 +21,7 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.valid?
   end
 
-  test "should be invalid without a document" do
+  test "should be invalid without a document identity" do
     document = build(:document, document_identity: nil)
     refute document.valid?
   end
@@ -36,6 +36,18 @@ class DocumentTest < ActiveSupport::TestCase
     policy = create(:published_policy)
     document = build(:published_policy, document_identity: policy.document_identity)
     refute document.valid?
+  end
+
+  test "adds a document identity during initialization if none provided" do
+    document = Document.new
+    assert_not_nil document.document_identity
+    assert_kind_of DocumentIdentity, document.document_identity
+  end
+
+  test "uses provided document identity if available" do
+    identity = build(:document_identity)
+    document = Document.new(document_identity: identity)
+    assert_equal identity, document.document_identity
   end
 
   test "should be findable through public identity if published" do

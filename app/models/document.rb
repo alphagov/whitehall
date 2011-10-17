@@ -64,6 +64,11 @@ class Document < ActiveRecord::Base
     end
   end
 
+  def initialize(*args, &block)
+    super
+    self.document_identity ||= DocumentIdentity.new
+  end
+
   def attach_file=(file)
     self.attachment = build_attachment(name: file)
   end
