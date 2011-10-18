@@ -66,6 +66,10 @@ class Document < ActiveRecord::Base
     def in_topic(topic)
       joins(:topics).where('topics.id' => topic)
     end
+
+    def in_organisation(organisation)
+      joins(:organisations).where('organisations.id' => organisation)
+    end
   end
 
   def initialize(*args, &block)

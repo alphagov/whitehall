@@ -5,7 +5,7 @@ class OrganisationsController < ApplicationController
 
   def show
     @organisation = Organisation.find(params[:id])
-    @policies = @organisation.published_policies
-    @publications = @organisation.published_publications
+    @policies = Policy.published.in_organisation(@organisation)
+    @publications = Publication.published.in_organisation(@organisation)
   end
 end
