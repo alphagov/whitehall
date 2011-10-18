@@ -16,6 +16,13 @@ FactoryGirl.define do
     body  "publication-body"
   end
 
+  factory :news_article do
+    document_identity
+    author
+    title "news-title"
+    body  "news-body"
+  end
+
   factory :published_policy, parent: :policy do
     state "published"
     submitted true
@@ -51,6 +58,25 @@ FactoryGirl.define do
 
   factory :submitted_publication, parent: :publication do
     state "draft"
+    submitted true
+  end
+
+  factory :draft_news_article, parent: :news_article do
+    state "draft"
+  end
+
+  factory :submitted_news_article, parent: :news_article do
+    state "draft"
+    submitted true
+  end
+
+  factory :published_news_article, parent: :news_article do
+    state "published"
+    submitted true
+  end
+
+  factory :archived_news_article, parent: :news_article do
+    state "archived"
     submitted true
   end
 

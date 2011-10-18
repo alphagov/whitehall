@@ -1,4 +1,8 @@
 module DocumentHelper
+  def document_class(type)
+    type.gsub(" ", "_").classify.constantize
+  end
+
   def begin_drafting_document(options)
     visit admin_documents_path
     click_link "Draft new #{options[:type].capitalize}"

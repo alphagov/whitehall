@@ -1,5 +1,5 @@
 module AdminDocumentRoutesHelper
-  DOCUMENT_TYPES = [Policy, Publication]
+  DOCUMENT_TYPES = [Policy, Publication, NewsArticle]
 
   def self.documents_collection_route(name)
     DOCUMENT_TYPES.each do |type|

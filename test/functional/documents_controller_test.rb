@@ -106,6 +106,18 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select_object(draft_publication, count: 0)
   end
 
+  test "should only display published news articles" do
+    archived_news_article = create(:archived_news_article)
+    published_news_article = create(:published_news_article)
+    draft_news_article = create(:draft_news_article)
+
+    get :index
+
+    assert_select_object(published_news_article)
+    assert_select_object(archived_news_article, count: 0)
+    assert_select_object(draft_news_article, count: 0)
+  end
+
   test "show lists supporting documents when there are some" do
     published_document = create(:published_policy)
     first_supporting_document = create(:supporting_document, document: published_document)

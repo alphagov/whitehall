@@ -1,0 +1,12 @@
+<% if news_articles.any? %>
+<section id="news_articles" class="g1">
+  <h1>News Articles</h1>
+  <ul class="news_articles">
+    <% news_articles.each do |news_article| %>
+      <%= content_tag_for(:li, news_article) do %>
+        <%= link_to news_article.title, document_path(news_article.document_identity), title: "View #{news_article.title}" %>
+      <% end %>
+    <% end %>
+  </ul>
+</section>
+<% end %>

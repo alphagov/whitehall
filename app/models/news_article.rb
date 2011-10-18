@@ -1,0 +1,2 @@
+class NewsArticle < Document
+end

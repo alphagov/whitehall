@@ -1,22 +1,22 @@
-Given /^a draft (publication|policy) "([^"]*)" exists$/ do |document_type, title|
-  create("draft_#{document_type}".to_sym, title: title)
+Given /^a draft (publication|policy|news article) "([^"]*)" exists$/ do |document_type, title|
+  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
-Given /^a draft (publication|policy) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
+Given /^a draft (publication|policy|news article) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
   topic = Topic.find_by_name(topic_name)
-  create("draft_#{document_type}".to_sym, title: title, topics: [topic])
+  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
-Given /^a submitted (publication|policy) "([^"]*)" exists$/ do |document_type, title|
-  create("submitted_#{document_type}".to_sym, title: title)
+Given /^a submitted (publication|policy|news article) "([^"]*)" exists$/ do |document_type, title|
+  create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
-Given /^another user edits the (publication|policy) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
-  document = document_type.classify.constantize.find_by_title(original_title)
+Given /^another user edits the (publication|policy|news article) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
+  document = document_class(document_type).find_by_title(original_title)
   document.update_attributes!(title: new_title)
 end
 
-Given /^a published (policy|publication) "([^"]*)" that's the responsibility of:$/ do |document_type, title, table|
+Given /^a published (publication|policy|news article) "([^"]*)" that's the responsibility of:$/ do |document_type, title, table|
   document = create(:"published_#{document_type}", title: title)
   table.hashes.each do |row|
     person = Person.find_or_create_by_name(row["Person"])
@@ -25,7 +25,7 @@ Given /^a published (policy|publication) "([^"]*)" that's the responsibility of:
   end
 end
 
-When /^I view the (policy|publication) "([^"]*)"$/ do |document_type, title|
+When /^I view the (publication|policy|news article) "([^"]*)"$/ do |document_type, title|
   click_link title
 end
 
@@ -33,63 +33,57 @@ When /^I visit the list of documents awaiting review$/ do
   visit submitted_admin_documents_path
 end
 
-When /^I visit the (policy|publication) "([^"]*)"$/ do |document_type, title|
-  document = document_type.classify.constantize.find_by_title(title)
+When /^I visit the (publication|policy|news article) "([^"]*)"$/ do |document_type, title|
+  document = document_class(document_type).find_by_title(title)
   visit document_path(document.document_identity)
 end
 
-When /^I draft a new (publication|policy) "([^"]*)"$/ do |document_type, title|
+When /^I draft a new (publication|policy|news article) "([^"]*)"$/ do |document_type, title|
   begin_drafting_document type: document_type, title: title
   click_button "Save"
 end
 
-When /^I submit the (publication|policy) "([^"]*)"$/ do |document_type, title|
-  document = document_type.classify.constantize.find_by_title(title)
+When /^I submit the (publication|policy|news article) "([^"]*)"$/ do |document_type, title|
+  document = document_class(document_type).find_by_title(title)
   visit_document_preview title
   click_button "Submit to 2nd pair of eyes"
 end
 
-When /^I publish the (publication|policy) "([^"]*)"$/ do |document_type, title|
-  document = document_type.classify.constantize.find_by_title(title)
+When /^I publish the (publication|policy|news article) "([^"]*)"$/ do |document_type, title|
+  document = document_class(document_type).find_by_title(title)
   visit_document_preview title
   click_button "Publish"
 end
 
-When /^I save my changes to the (publication|policy)$/ do |document_type|
+When /^I save my changes to the (publication|policy|news article)$/ do |document_type|
   click_button "Save"
 end
 
-When /^I edit the (publication|policy) changing the title to "([^"]*)"$/ do |document_type, new_title|
+When /^I edit the (publication|policy|news article) changing the title to "([^"]*)"$/ do |document_type, new_title|
   fill_in "Title", with: new_title
   click_button "Save"
 end
 
-Then /^I should see the (publication|policy) "([^"]*)" in the list of draft documents$/ do |document_type, title|
-  document = document_type.classify.constantize.find_by_title(title)
+Then /^I should see the (publication|policy|news article) "([^"]*)" in the list of draft documents$/ do |document_type, title|
+  document = document_class(document_type).find_by_title(title)
   visit admin_documents_path
-  within record_css_selector(document) do
-    assert has_css?(".type", text: document_type.classify)
-  end
+  assert has_css?(record_css_selector(document))
 end
 
-Then /^I should see the (publication|policy) "([^"]*)" in the list of submitted documents$/ do |document_type, title|
-  document = document_type.classify.constantize.find_by_title(title)
+Then /^I should see the (publication|policy|news article) "([^"]*)" in the list of submitted documents$/ do |document_type, title|
+  document = document_class(document_type).find_by_title(title)
   visit submitted_admin_documents_path
-  within record_css_selector(document) do
-    assert has_css?(".type", text: document_type.classify)
-  end
+  assert has_css?(record_css_selector(document))
 end
 
-Then /^I should see the (publication|policy) "([^"]*)" in the list of published documents$/ do |document_type, title|
-  document = document_type.classify.constantize.find_by_title(title)
+Then /^I should see the (publication|policy|news article) "([^"]*)" in the list of published documents$/ do |document_type, title|
+  document = document_class(document_type).find_by_title(title)
   visit published_admin_documents_path
-  within record_css_selector(document) do
-    assert has_css?(".type", text: document_type.classify)
-  end
+  assert has_css?(record_css_selector(document))
 end
 
-Then /^the (publication|policy) "([^"]*)" should be visible to the public$/ do |document_type, title|
-  document = document_type.classify.constantize.find_by_title(title)
+Then /^the (publication|policy|news article) "([^"]*)" should be visible to the public$/ do |document_type, title|
+  document = document_class(document_type).find_by_title(title)
   visit documents_path
   assert page.has_css?(record_css_selector(document), text: title)
 end
@@ -119,7 +113,7 @@ Then /^I should see in the preview that "([^"]*)" only applies to the nations:$/
   end
 end
 
-Then /^I should see the conflict between the (publication|policy) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
+Then /^I should see the conflict between the (publication|policy|news article) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
   assert page.has_css?(".conflicting.new #document_title", value: new_title)
   assert page.has_css?(".conflicting.latest .document .title", value: latest_title)
 end
