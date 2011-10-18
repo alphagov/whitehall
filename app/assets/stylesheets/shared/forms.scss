@@ -75,6 +75,9 @@ form {
   input[type="checkbox"] {
     display: inline;
   }
+  select.chzn-select {
+    width: 100%;
+  }
   label span,
   legend span {
     font-weight: normal;

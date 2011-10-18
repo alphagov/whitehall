@@ -23,17 +23,17 @@
       <% end %>
     <% end %>
   </fieldset>
-  <fieldset class="g1 first">
+  <fieldset>
     <%= document_form.label :organisation_ids, 'Organisations' %>
-    <%= document_form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', document.organisation_ids), {}, multiple: true %>
+    <%= document_form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', document.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
   </fieldset>
-  <fieldset class="g1">
+  <fieldset>
     <%= document_form.label :topic_ids, 'Topics' %>
-    <%= document_form.select :topic_ids, options_from_collection_for_select(Topic.all, 'id', 'name', document.topic_ids), {}, multiple: true %>
+    <%= document_form.select :topic_ids, options_from_collection_for_select(Topic.all, 'id', 'name', document.topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose topics..."} %>
   </fieldset>
-  <fieldset class="g1">
+  <fieldset>
     <%= document_form.label :ministerial_role_ids, 'Ministers' %>
-    <%= document_form.select :ministerial_role_ids, options_from_collection_for_select(MinisterialRole.alphabetical_by_person, 'id', 'to_s', document.ministerial_role_ids), {}, multiple: true %>
+    <%= document_form.select :ministerial_role_ids, options_from_collection_for_select(MinisterialRole.alphabetical_by_person, 'id', 'to_s', document.ministerial_role_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose ministers..."} %>
   </fieldset>
   <% if document.respond_to?(:nations) %>
     <fieldset class="g1">

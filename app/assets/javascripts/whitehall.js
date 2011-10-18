@@ -17,4 +17,6 @@ jQuery(document).ready(function($) {
       cmdDown = false;
     }
   });
+
+  $(".chzn-select").chosen();
 });
