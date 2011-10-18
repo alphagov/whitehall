@@ -22,28 +22,6 @@ class TopicTest < ActiveSupport::TestCase
     refute topic.valid?
   end
 
-  test "should return a list of published policies" do
-    topic_1 = create(:topic)
-    topic_2 = create(:topic)
-    draft_policy = create(:draft_policy, topics: [topic_1])
-    published_policy = create(:published_policy, topics: [topic_1])
-    published_publication = create(:published_publication, topics: [topic_1])
-    create(:published_policy, topics: [topic_2])
-
-    assert_equal [published_policy], topic_1.reload.published_policies
-  end
-
-  test "should return a list of published publications" do
-    topic_1 = create(:topic)
-    topic_2 = create(:topic)
-    draft_publication = create(:draft_publication, topics: [topic_1])
-    published_publication = create(:published_publication, topics: [topic_1])
-    published_policy = create(:published_policy, topics: [topic_1])
-    create(:published_publication, topics: [topic_2])
-
-    assert_equal [published_publication], topic_1.reload.published_publications
-  end
-
   test "should return a list of topics with published documents" do
     topic_with_published_policy = create(:topic, documents: [build(:published_policy)])
     topic_with_published_publication = create(:topic, documents: [build(:published_publication)])

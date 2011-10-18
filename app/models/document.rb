@@ -62,6 +62,10 @@ class Document < ActiveRecord::Base
       identity = DocumentIdentity.from_param(id)
       identity && identity.published_document
     end
+
+    def in_topic(topic)
+      joins(:topics).where('topics.id' => topic)
+    end
   end
 
   def initialize(*args, &block)
