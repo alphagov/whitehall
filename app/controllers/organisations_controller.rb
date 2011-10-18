@@ -5,7 +5,6 @@ class OrganisationsController < ApplicationController
 
   def show
     @organisation = Organisation.find(params[:id])
-    @policies = Policy.published.in_organisation(@organisation)
-    @publications = Publication.published.in_organisation(@organisation)
+    load_published_documents_in_scope { |scope| scope.in_organisation(@organisation) }
   end
 end

@@ -20,4 +20,10 @@ class ApplicationController < ActionController::Base
   def logged_in?
     !!current_user
   end
+
+  def load_published_documents_in_scope(&block)
+    @policies = yield(Policy.published)
+    @publications = yield(Publication.published)
+    @news_articles = yield(NewsArticle.published)
+  end
 end

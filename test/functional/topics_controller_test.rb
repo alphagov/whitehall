@@ -26,6 +26,15 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select_object(draft_document, count: 0)
   end
 
+  test "shows only published news articles associated with topic" do
+    published_document = create(:published_news_article)
+    draft_document = create(:draft_news_article)
+    topic = create(:topic, documents: [published_document, draft_document])
+    get :show, id: topic
+    assert_select_object(published_document)
+    assert_select_object(draft_document, count: 0)
+  end
+
   test "should not display an empty published policies section" do
     topic = create(:topic)
     get :show, id: topic

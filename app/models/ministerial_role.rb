@@ -5,6 +5,7 @@ class MinisterialRole < ActiveRecord::Base
   has_many :organisations, through: :organisation_ministerial_roles
 
   has_many :document_ministerial_roles
+  has_many :documents, through: :document_ministerial_roles
 
   scope :alphabetical_by_person, includes(:person, :organisations).order("people.name ASC")
 

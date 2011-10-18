@@ -1,25 +1,30 @@
 require "test_helper"
 
 class MinisterialRolesControllerTest < ActionController::TestCase
-
-  test "don't show draft policies" do
-    ministerial_role = create(:ministerial_role)
-    draft_policy = create(:draft_policy)
-    draft_policy.ministerial_roles << ministerial_role
-
-    get :show, id: ministerial_role.id
-
-    refute assigns(:policies).include?(draft_policy)
+  test "shows only published policies associated with ministerial role" do
+    published_document = create(:published_policy)
+    draft_document = create(:draft_policy)
+    ministerial_role = create(:ministerial_role, documents: [published_document, draft_document])
+    get :show, id: ministerial_role
+    assert_select_object(published_document)
+    assert_select_object(draft_document, count: 0)
   end
 
-  test "don't show draft publications" do
-    ministerial_role = create(:ministerial_role)
-    draft_publication = create(:draft_publication)
-    draft_publication.ministerial_roles << ministerial_role
-
-    get :show, id: ministerial_role.id
-
-    refute assigns(:policies).include?(draft_publication)
+  test "shows only published publications associated with ministerial role" do
+    published_document = create(:published_publication)
+    draft_document = create(:draft_publication)
+    ministerial_role = create(:ministerial_role, documents: [published_document, draft_document])
+    get :show, id: ministerial_role
+    assert_select_object(published_document)
+    assert_select_object(draft_document, count: 0)
   end
 
+  test "shows only published news articles associated with ministerial role" do
+    published_document = create(:published_news_article)
+    draft_document = create(:draft_news_article)
+    ministerial_role = create(:ministerial_role, documents: [published_document, draft_document])
+    get :show, id: ministerial_role
+    assert_select_object(published_document)
+    assert_select_object(draft_document, count: 0)
+  end
 end

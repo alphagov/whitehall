@@ -5,7 +5,6 @@ class MinisterialRolesController < ApplicationController
 
   def show
     @ministerial_role = MinisterialRole.find(params[:id])
-    @policies = Policy.published.in_ministerial_role(@ministerial_role)
-    @publications = Publication.published.in_ministerial_role(@ministerial_role)
+    load_published_documents_in_scope { |scope| scope.in_ministerial_role(@ministerial_role) }
   end
 end
