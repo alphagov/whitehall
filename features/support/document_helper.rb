@@ -7,7 +7,7 @@ module DocumentHelper
     visit admin_documents_path
     click_link "Draft new #{options[:type].capitalize}"
     fill_in "Title", with: options[:title]
-    fill_in "Policy", with: "Any old iron"
+    fill_in "Body", with: "Any old iron"
   end
 
   def begin_editing_document(title)

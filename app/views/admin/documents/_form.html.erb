@@ -13,7 +13,7 @@
     <%= document_form.hidden_field :lock_version %>
     <%= document_form.label :title %>
     <%= document_form.text_field :title %>
-    <%= document_form.label :body, 'Policy' %>
+    <%= document_form.label :body, 'Body' %>
     <%= document_form.text_area :body %>
     <% if document.allows_attachment? %>
       <%= document_form.label :attach_file, 'Attachment' %>

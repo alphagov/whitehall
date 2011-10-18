@@ -56,7 +56,7 @@ end
 
 When /^I edit the new edition$/ do
   fill_in 'Title', with: "New title"
-  fill_in 'Policy', with: "New policy"
+  fill_in 'Body', with: "New policy"
   click_button 'Save'
 end
 
@@ -83,7 +83,7 @@ end
 
 When /^I write a policy "([^"]*)" with body "([^"]*)"$/ do |title, body|
   fill_in 'Title', with: title
-  fill_in 'Policy', with: body
+  fill_in 'Body', with: body
 end
 
 When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
