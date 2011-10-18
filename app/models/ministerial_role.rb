@@ -1,5 +1,5 @@
 class MinisterialRole < ActiveRecord::Base
-  has_many :ministerial_appointments
+  has_many :ministerial_appointments, conditions: MinisterialAppointment::CURRENT_CONDITION
   has_many :people, through: :ministerial_appointments
 
   has_many :organisation_ministerial_roles
@@ -13,7 +13,8 @@ class MinisterialRole < ActiveRecord::Base
   validates :name, presence: true
 
   def person
-    people.first
+    current_appointment = ministerial_appointments.first
+    current_appointment ? current_appointment.person : nil
   end
 
   def to_s

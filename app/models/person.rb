@@ -1,5 +1,5 @@
 class Person < ActiveRecord::Base
-  has_many :ministerial_appointments
+  has_many :ministerial_appointments, conditions: MinisterialAppointment::CURRENT_CONDITION
   has_many :ministerial_roles, through: :ministerial_appointments
 
   has_many :organisation_ministerial_roles, through: :ministerial_roles

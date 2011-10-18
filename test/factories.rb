@@ -114,6 +114,12 @@ FactoryGirl.define do
     name "Parliamentary Under-Secretary of State"
   end
 
+  factory :ministerial_appointment do
+    ministerial_role
+    person
+    started_at 1.day.ago
+  end
+
   factory :person do
     name "George"
   end

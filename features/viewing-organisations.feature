@@ -6,7 +6,6 @@ Scenario: Organisation page should show policies
   When I visit the "Attorney General's Office" organisation
   Then I should only see published policies belonging to the "Attorney General's Office" organisation
 
-@wip
 Scenario: Organisation page should show ministers
   Given the "Attorney General's Office" organisation contains:
     | Ministerial Role  | Person          |
