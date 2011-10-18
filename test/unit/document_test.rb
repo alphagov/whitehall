@@ -87,6 +87,19 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [published_in_second_organisation], Document.in_organisation(organisation_2)
   end
 
+  test "should return a list of documents in a ministerial role" do
+    ministerial_role_1 = create(:ministerial_role)
+    ministerial_role_2 = create(:ministerial_role)
+    draft_policy = create(:draft_policy, ministerial_roles: [ministerial_role_1])
+    published_policy = create(:published_policy, ministerial_roles: [ministerial_role_1])
+    published_publication = create(:published_publication, ministerial_roles: [ministerial_role_1])
+    published_in_second_ministerial_role = create(:published_policy, ministerial_roles: [ministerial_role_2])
+
+    assert_equal [draft_policy, published_policy], Policy.in_ministerial_role(ministerial_role_1)
+    assert_equal [published_policy], Policy.published.in_ministerial_role(ministerial_role_1)
+    assert_equal [published_in_second_ministerial_role], Document.in_ministerial_role(ministerial_role_2)
+  end
+
   test "should only return unsubmitted draft policies" do
     draft_policy = create(:draft_policy)
     submitted_policy = create(:submitted_policy)

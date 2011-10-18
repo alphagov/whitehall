@@ -5,7 +5,7 @@ class MinisterialRolesController < ApplicationController
 
   def show
     @ministerial_role = MinisterialRole.find(params[:id])
-    @policies = @ministerial_role.published_policies
-    @publications = @ministerial_role.published_publications
+    @policies = Policy.published.in_ministerial_role(@ministerial_role)
+    @publications = Publication.published.in_ministerial_role(@ministerial_role)
   end
 end

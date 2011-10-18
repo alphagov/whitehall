@@ -5,8 +5,6 @@ class MinisterialRole < ActiveRecord::Base
   has_many :organisations, through: :organisation_ministerial_roles
 
   has_many :document_ministerial_roles
-  has_many :published_policies, through: :document_ministerial_roles, class_name: "Policy", conditions: { state: "published" }, source: :document
-  has_many :published_publications, through: :document_ministerial_roles, class_name: "Publication", conditions: { state: "published" }, source: :document
 
   scope :alphabetical_by_person, includes(:person, :organisations).order("people.name ASC")
 

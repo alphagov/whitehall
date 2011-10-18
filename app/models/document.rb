@@ -70,6 +70,10 @@ class Document < ActiveRecord::Base
     def in_organisation(organisation)
       joins(:organisations).where('organisations.id' => organisation)
     end
+
+    def in_ministerial_role(role)
+      joins(:ministerial_roles).where('ministerial_roles.id' => role)
+    end
   end
 
   def initialize(*args, &block)
