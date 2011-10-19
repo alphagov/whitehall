@@ -13,8 +13,7 @@ class MinisterialRole < Role
   validates :name, presence: true
 
   def person
-    current_appointment = ministerial_appointments.first
-    current_appointment ? current_appointment.person : nil
+    people.first
   end
 
   def to_s
