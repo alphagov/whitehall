@@ -28,14 +28,14 @@
       }
     }
     table {
-      width: 100%;
       tr {
         padding: 0;
+
         td {
-          border: 1px solid #ddd;
+          padding: 0;
           @include type-14;
-          padding-left: 2%;
-          padding-right: 2%;
+          border: 1px solid #ddd;
+          padding: 0 0.75em;
         }
       }
     }
