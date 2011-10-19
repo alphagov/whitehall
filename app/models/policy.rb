@@ -2,6 +2,8 @@ class Policy < Document
   has_many :nation_applicabilities
   has_many :nations, through: :nation_applicabilities
 
+  has_many :supporting_documents, foreign_key: :document_id
+
   before_save :ensure_applicable_to_england
 
   def inapplicable_nations

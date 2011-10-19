@@ -5,8 +5,6 @@ class Document < ActiveRecord::Base
   belongs_to :author, class_name: "User"
   belongs_to :document_identity
 
-  has_many :supporting_documents
-
   has_many :fact_check_requests
 
   has_many :document_topics
@@ -129,7 +127,7 @@ class Document < ActiveRecord::Base
   def create_draft(user)
     draft_attributes = {state: "draft", author: user, submitted: false, topics: topics, organisations: organisations, ministerial_roles: ministerial_roles}
     new_draft = self.class.create(attributes.merge(draft_attributes))
-    if new_draft.valid?
+    if new_draft.valid? && allows_supporting_documents?
       supporting_documents.each do |sd|
         new_draft.supporting_documents.create(sd.attributes.except("document_id"))
       end
@@ -145,5 +143,9 @@ class Document < ActiveRecord::Base
 
   def allows_attachment?
     respond_to?(:attachment)
+  end
+
+  def allows_supporting_documents?
+    respond_to?(:supporting_documents)
   end
 end

@@ -123,22 +123,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_template 'edit'
   end
 
-  test "show the 'add supporting document' button for an unpublished document" do
-    draft_publication = create(:draft_publication)
-
-    get :show, id: draft_publication
-
-    assert_select "a[href='#{new_admin_document_supporting_document_path(draft_publication)}']"
-  end
-
-  test "don't show the 'add supporting document' button for a published publication" do
-    published_publication = create(:published_publication)
-
-    get :show, id: published_publication
-
-    assert_select "a[href='#{new_admin_document_supporting_document_path(published_publication)}']", count: 0
-  end
-
   test "should render the content using govspeak markup" do
     draft_publication = create(:draft_publication, body: "body-in-govspeak")
     Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")

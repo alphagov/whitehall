@@ -50,7 +50,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
   end
 
   test "shows the title and a link back to the parent" do
-    document = create(:document)
+    document = create(:draft_policy)
     supporting_document = create(:supporting_document, document: document)
 
     get :show, id: supporting_document

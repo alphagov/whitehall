@@ -41,23 +41,25 @@
     </article>
   </section>
 
-  <section class="supporting_documents">
-    <h1>Supporting documents</h1>
-    <ul class="group">
-      <% @document.supporting_documents.each do |supporting_document| %>
-        <%= content_tag_for :li, supporting_document do %>
-          <%= link_to admin_supporting_document_path(supporting_document) do %>
-            <span class="title"><%= supporting_document.title %></span>
-            <span class="body"><%= truncate(supporting_document.body, { length: 100 }) %></span>
+  <% if @document.allows_supporting_documents? %>
+    <section class="supporting_documents">
+      <h1>Supporting documents</h1>
+      <ul class="group">
+        <% @document.supporting_documents.each do |supporting_document| %>
+          <%= content_tag_for :li, supporting_document do %>
+            <%= link_to admin_supporting_document_path(supporting_document) do %>
+              <span class="title"><%= supporting_document.title %></span>
+              <span class="body"><%= truncate(supporting_document.body, { length: 100 }) %></span>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
 
-      <% if @document.editable_by?(current_user) %>
-        <li class="add_supporting_document"><%= link_to 'Add', new_admin_document_supporting_document_path(@document), title: "Add supporting document to #{@document.title}", :class => "button" %></li>
-      <% end %>
-    </ul>
-  </section>
+        <% if @document.editable_by?(current_user) %>
+          <li class="add_supporting_document"><%= link_to 'Add', new_admin_document_supporting_document_path(@document), title: "Add supporting document to #{@document.title}", :class => "button" %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
 
 </div>
 

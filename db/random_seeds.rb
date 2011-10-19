@@ -45,10 +45,10 @@ create_submitted(Policy, title: "Less gravity on Sundays", topics: ["Local Gover
 create_submitted(Policy, title: "Ducks pulling chariots of fire", topics: ["Economic Growth", "Prosperity"], organisations: ["Her Majesty's Treasury"])
 
 create_published(Policy, title: "No more supernanny", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
-create_published(Policy, title: "Laser eyes for millionaires", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
+policy = create_published(Policy, title: "Laser eyes for millionaires", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
 
 create_published(Publication, title: "Cat Extermination White Paper", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
 create_published(Publication, title: "Dog Erradicated Green Paper", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
 create_published(Publication, title: "Canine Consultation", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
-doc = create_published(Publication, title: "Feline Consultation", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
-create_supporting(doc, title: "Some more cat details", body: "Miaaaaow.")
+create_published(Publication, title: "Feline Consultation", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
+create_supporting(policy, title: "Some more cat details", body: "Miaaaaow.")

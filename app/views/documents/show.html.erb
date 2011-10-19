@@ -9,7 +9,7 @@
     <% end %>
   </section>
 
-  <% if @document.supporting_documents.any? %>
+  <% if @document.allows_supporting_documents? && @document.supporting_documents.any? %>
     <section class="supporting_documents">
       <h1>Supporting documents</h1>
       <ul>
