@@ -110,12 +110,12 @@ FactoryGirl.define do
     sequence(:name) { |index| "organisation-#{index}" }
   end
 
-  factory :ministerial_role do
+  factory :ministerial_role, aliases: [:role] do
     name "Parliamentary Under-Secretary of State"
   end
 
-  factory :ministerial_appointment do
-    ministerial_role
+  factory :role_appointment do
+    role
     person
     started_at 1.day.ago
   end

@@ -1,11 +1,11 @@
-class MinisterialAppointment < ActiveRecord::Base
+class RoleAppointment < ActiveRecord::Base
   CURRENT_CONDITION = {ended_at: nil}
 
-  belongs_to :ministerial_role
+  belongs_to :role
   belongs_to :person
 
-  scope :for_ministerial_role, -> ministerial_role {
-    where(ministerial_role_id: ministerial_role.id)
+  scope :for_role, -> role {
+    where(role_id: role.id)
   }
 
   scope :excluding, -> *ids {
@@ -17,7 +17,7 @@ class MinisterialAppointment < ActiveRecord::Base
   private
 
   def make_other_appointments_non_current
-    other_appointments = self.class.for_ministerial_role(ministerial_role).excluding(self)
+    other_appointments = self.class.for_role(role).excluding(self)
     other_appointments.update_all({ended_at: Time.zone.now})
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111019135142) do
+ActiveRecord::Schema.define(:version => 20111019161324) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
@@ -73,15 +73,6 @@ ActiveRecord::Schema.define(:version => 20111019135142) do
 
   add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
 
-  create_table "ministerial_appointments", :force => true do |t|
-    t.integer  "ministerial_role_id"
-    t.integer  "person_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "started_at"
-    t.datetime "ended_at"
-  end
-
   create_table "nation_applicabilities", :force => true do |t|
     t.integer  "nation_id"
     t.integer  "policy_id"
@@ -93,9 +84,9 @@ ActiveRecord::Schema.define(:version => 20111019135142) do
     t.string "name"
   end
 
-  create_table "organisation_ministerial_roles", :force => true do |t|
+  create_table "organisation_roles", :force => true do |t|
     t.integer  "organisation_id"
-    t.integer  "ministerial_role_id"
+    t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -111,6 +102,15 @@ ActiveRecord::Schema.define(:version => 20111019135142) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "privy_councillor", :default => false
+  end
+
+  create_table "role_appointments", :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "started_at"
+    t.datetime "ended_at"
   end
 
   create_table "roles", :force => true do |t|
