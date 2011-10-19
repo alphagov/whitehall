@@ -1,9 +1,7 @@
 <h1>Documents</h1>
 
 <%= render partial: "policies", object: @policies %>
-
 <%= render partial: "publications", object: @publications %>
-
 <%= render partial: "news_articles", object: @news_articles %>
 
 <% if @policies.empty? && @publications.empty? && @news_articles.empty? %>
