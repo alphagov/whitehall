@@ -12,3 +12,10 @@
   <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @organisation.ministerial_roles} %>
 </section>
 <% end %>
+
+<% if @organisation.board_member_roles.any? %>
+<section id="board_members" class="g1">
+  <h1>Board Members</h1>
+  <%= render partial: "board_member_roles/list", locals: {board_member_roles: @organisation.board_member_roles} %>
+</section>
+<% end %>

@@ -5,7 +5,9 @@ class Organisation < ActiveRecord::Base
 
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles
-  has_many :ministerial_roles, through: :organisation_roles, source: :role
+  has_many :ministerial_roles, class_name: 'MinisterialRole', through: :organisation_roles, source: :role
+  has_many :board_member_roles, class_name: 'BoardMemberRole', through: :organisation_roles, source: :role
+
   has_many :people, through: :roles
 
   validates :name, presence: true, uniqueness: true

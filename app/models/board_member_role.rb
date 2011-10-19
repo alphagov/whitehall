@@ -1,0 +1,2 @@
+class BoardMemberRole < Role
+end

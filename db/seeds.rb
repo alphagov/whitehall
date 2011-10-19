@@ -15,7 +15,7 @@ def topics(*names)
   end
 end
 
-def people(person_to_role_to_organisation)
+def politicians(person_to_role_to_organisation)
   person_to_role_to_organisation.each do |person_name, role_to_organisation|
     privy = person_name.starts_with?("The Rt Hon ")
     person_name = person_name.from(11) if privy
@@ -28,6 +28,23 @@ def people(person_to_role_to_organisation)
         role = MinisterialRole.create!(name: role_name)
       end
       person.ministerial_roles << role
+    end
+  end
+end
+
+def civil_servants(person_to_role_to_organisation)
+  person_to_role_to_organisation.each do |person_name, role_to_organisation|
+    privy = person_name.starts_with?("The Rt Hon ")
+    person_name = person_name.from(11) if privy
+    person = Person.create!(name: person_name, privy_councillor: privy)
+    role_to_organisation.each do |role_name, organisation_name|
+      if organisation_name
+        organisation = Organisation.find_by_name!(organisation_name)
+        role = organisation.board_member_roles.create!(name: role_name)
+      else
+        role = BoardMemberRole.create!(name: role_name)
+      end
+      person.board_member_roles << role
     end
   end
 end
@@ -59,7 +76,7 @@ organisations(
   "Wales Office"
 )
 
-people({"The Rt Hon David Cameron" => {"Prime Minister" => "Cabinet Office"},
+politicians({"The Rt Hon David Cameron" => {"Prime Minister" => "Cabinet Office"},
  "The Rt Hon Nick Clegg MP" => {"Deputy Prime Minister" => "Cabinet Office"},
  "The Rt Hon William Hague MP" => {"First Secretary of State" => "Foreign and Commonwealth Office"},
  "The Rt Hon George Osborne MP" => {"Chancellor of the Exchequer" => "Her Majesty's Treasury"},
@@ -153,6 +170,37 @@ people({"The Rt Hon David Cameron" => {"Prime Minister" => "Cabinet Office"},
  "Steve Webb MP" => {"Minister of State (Pensions)" => "Department for Work and Pensions"},
  "Maria Miller MP" => {"Parliamentary Under-Secretary of State (Minister for Disabled People)" => "Department for Work and Pensions"},
  "Lord Freud" => {"Parliamentary Under-Secretary of State (Welfare Reform)" => "Department for Work and Pensions"}})
+
+civil_servants(
+  "Alex Allan" => {"Permanent Secretary" => "Cabinet Office"},
+  "Jeremy Heywood" => {"Permanent Secretary" => "Cabinet Office"},
+  "Sir Gus O’Donnell" => {"Permanent Secretary" => "Cabinet Office"},
+  "Ian Watmore" => {"Permanent Secretary" => "Cabinet Office"},
+  "Sir Jon Cunliffe" => {"Permanent Secretary" => "Cabinet Office"},
+  "Sir Peter Ricketts" => {"Permanent Secretary" => "Cabinet Office"},
+  "Martin Donnelly" => {"Permanent Secretary" => "Department for Business, Innovation and Skills"},
+  "Sir Bob Kerslake" => {"Permanent Secretary" => "Department for Communities and Local Government"},
+  "Jonathan Stephens" => {"Permanent Secretary" => "Department for Culture, Media and Sport"},
+  "David Bell" => {"Permanent Secretary" => "Department for Education"},
+  "Bronwyn Hill" => {"Permanent Secretary" => "Department for Environment, Food and Rural Affairs"},
+  "Mark Lowcock" => {"Permanent Secretary" => "Department for International Development"},
+  "Lin Homer" => {"Permanent Secretary" => "Department for Transport"},
+  "Robert Devereux" => {"Permanent Secretary" => "Department for Work and Pensions"},
+  "Darra Singh" => {"Permanent Secretary" => "Department for Work and Pensions"},
+  "Moira Wallace" => {"Permanent Secretary" => "Department for Energy and Climate Change"},
+  "Una O’Brien" => {"Permanent Secretary" => "Department of Health"},
+  "Professor Dame Sally Davies" => {"Permanent Secretary" => "Department of Health"},
+  "Sir David Nicholson" => {"Permanent Secretary" => "Department of Health"},
+  "Simon Fraser" => {"Permanent Secretary" => "Foreign and Commonwealth Office"},
+  "Sir Nicholas Macpherson" => {"Permanent Secretary" => "Her Majesty's Treasury"},
+  "Tom Scholar" => {"Permanent Secretary" => "Her Majesty's Treasury"},
+  "Dame Helen Ghosh" => {"Permanent Secretary" => "Home Office"},
+  "Ursula Brennan" => {"Permanent Secretary" => "Ministry of Defence"},
+  "Bernard Gray" => {"Permanent Secretary" => "Ministry of Defence"},
+  "Professor Mark Welland" => {"Permanent Secretary" => "Ministry of Defence"},
+  "Jon Day" => {"Permanent Secretary" => "Ministry of Defence"},
+  "Sir Suma Chakrabarti" => {"Permanent Secretary" => "Ministry of Justice"}
+)
 
 topics(
   "Regulation reform",
