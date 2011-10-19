@@ -27,6 +27,16 @@
         margin-top: #{$baseline_in_px / 14}em;
       }
     }
+    table {
+      tr {
+        td {
+          border: 1px solid #ddd;
+          @include type-14;
+          padding-left: 2%;
+          padding-right: 2%;
+        }
+      }
+    }
   }
 
   pre.body {
