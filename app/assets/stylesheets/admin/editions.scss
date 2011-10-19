@@ -45,6 +45,13 @@ nav.actions {
   span.back {
     display: none;
   }
+
+  a.back {
+    float: right;
+    @include type-14;
+    margin-bottom: 0;
+    margin-top: 0.5em;
+  }
 }
 
 section.resource_list {

@@ -1,9 +1,9 @@
 <div class="g2 first">
   <nav class="actions">
-    <%= link_to "Back to '#{@supporting_document.document.title}'", admin_document_path(@supporting_document.document), title: "Back to #{@supporting_document.document.title}" %>
     <% if @supporting_document.document.editable_by?(current_user) %>
         <%= link_to 'Edit', edit_admin_supporting_document_path(@supporting_document), title: "Edit #{@supporting_document.title}", :class => "button" %>
     <% end %>
+    <%= link_to "Back to '#{@supporting_document.document.title}'", admin_document_path(@supporting_document.document), title: "Back to #{@supporting_document.document.title}", class: "back" %>
   </nav>
   <section class="document_view">
     <h1 class="title"><%= @supporting_document.title %></h1>
