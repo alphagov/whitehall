@@ -95,6 +95,11 @@ ActiveRecord::Schema.define(:version => 20111019161324) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email"
+    t.text     "address"
+    t.string   "postcode"
+    t.decimal  "latitude",   :precision => 15, :scale => 10
+    t.decimal  "longitude",  :precision => 15, :scale => 10
   end
 
   create_table "people", :force => true do |t|
@@ -102,6 +107,12 @@ ActiveRecord::Schema.define(:version => 20111019161324) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "privy_councillor", :default => false
+  end
+
+  create_table "phone_numbers", :force => true do |t|
+    t.integer "organisation_id"
+    t.string  "number"
+    t.string  "description"
   end
 
   create_table "role_appointments", :force => true do |t|

@@ -40,4 +40,27 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation, roles:  [minister])
     assert_equal [], organisation.board_member_roles
   end
+
+  test 'should be creatable with contact data' do
+    params = {
+      email: "someone@gov.uk", address: "Aviation House, London",
+      postcode: "WC2A 1BE", latitude: -0.112311, longitude: 51.215125,
+      phone_numbers_attributes: [
+        {description: "Helpline", number: "020712345678"},
+        {description: "Fax", number: "020712345679"}
+      ]
+    }
+    organisation = create(:organisation, params)
+
+    assert_equal "someone@gov.uk", organisation.email
+    assert_equal "Aviation House, London", organisation.address
+    assert_equal "WC2A 1BE", organisation.postcode
+    assert_equal -0.112311, organisation.latitude
+    assert_equal 51.215125, organisation.longitude
+    assert_equal 2, organisation.phone_numbers.count
+    assert_equal "Helpline", organisation.phone_numbers[0].description
+    assert_equal "020712345678", organisation.phone_numbers[0].number
+    assert_equal "Fax", organisation.phone_numbers[1].description
+    assert_equal "020712345679", organisation.phone_numbers[1].number
+  end
 end
