@@ -70,7 +70,7 @@ class Document < ActiveRecord::Base
     end
 
     def in_ministerial_role(role)
-      joins(:ministerial_roles).where('ministerial_roles.id' => role)
+      joins(:ministerial_roles).where('roles.id' => role)
     end
   end
 

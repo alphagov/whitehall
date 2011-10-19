@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111019133513) do
+ActiveRecord::Schema.define(:version => 20111019135142) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
@@ -82,12 +82,6 @@ ActiveRecord::Schema.define(:version => 20111019133513) do
     t.datetime "ended_at"
   end
 
-  create_table "ministerial_roles", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name"
-  end
-
   create_table "nation_applicabilities", :force => true do |t|
     t.integer  "nation_id"
     t.integer  "policy_id"
@@ -117,6 +111,13 @@ ActiveRecord::Schema.define(:version => 20111019133513) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "privy_councillor", :default => false
+  end
+
+  create_table "roles", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "type",       :default => "MinisterialRole", :null => false
   end
 
   create_table "supporting_documents", :force => true do |t|

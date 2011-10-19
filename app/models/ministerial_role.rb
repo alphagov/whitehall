@@ -1,4 +1,4 @@
-class MinisterialRole < ActiveRecord::Base
+class MinisterialRole < Role
   has_many :ministerial_appointments, conditions: MinisterialAppointment::CURRENT_CONDITION
   has_many :people, through: :ministerial_appointments
 
