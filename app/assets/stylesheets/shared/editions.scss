@@ -28,7 +28,9 @@
       }
     }
     table {
+      width: 100%;
       tr {
+        padding: 0;
         td {
           border: 1px solid #ddd;
           @include type-14;
