@@ -1,4 +1,3 @@
-@wip
 Feature: Publishing news articles
 
 Scenario: Creating a new draft news article
