@@ -20,7 +20,3 @@ jQuery(document).ready(function($) {
 
   $(".chzn-select").chosen();
 });
-
-jQuery(document).ready(function($) {
-
-});
