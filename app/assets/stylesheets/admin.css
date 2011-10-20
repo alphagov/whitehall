@@ -6,4 +6,5 @@
  *= require shared/framework
  *= require_tree ./shared
  *= require_tree ./admin
+ *= require chosen
 */
