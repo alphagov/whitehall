@@ -14,11 +14,14 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     second_topic = create(:topic)
     first_org = create(:organisation)
     second_org = create(:organisation)
+    first_policy = create(:published_policy)
+    second_policy = create(:published_policy)
     attributes = attributes_for(:publication)
 
     post :create, document: attributes.merge(
       topic_ids: [first_topic.id, second_topic.id],
-      organisation_ids: [first_org.id, second_org.id]
+      organisation_ids: [first_org.id, second_org.id],
+      documents_related_to_ids: [first_policy.id, second_policy.id]
     )
 
     created_publication = Publication.last
@@ -26,6 +29,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal attributes[:body], created_publication.body
     assert_equal [first_topic, second_topic], created_publication.topics
     assert_equal [first_org, second_org], created_publication.organisations
+    assert_equal [first_policy, second_policy], created_publication.documents_related_to
   end
 
   test 'creating should take the writer to the publication page' do

@@ -16,6 +16,16 @@ class Document < ActiveRecord::Base
   has_many :document_ministerial_roles
   has_many :ministerial_roles, through: :document_ministerial_roles
 
+  has_many :document_relations_to, class_name: "DocumentRelation", foreign_key: 'document_id'
+  has_many :document_relations_from, class_name: "DocumentRelation", foreign_key: 'related_document_id'
+
+  has_many :documents_related_with, through: :document_relations_to, source: :related_document
+  has_many :documents_related_to, through: :document_relations_from, source: :document
+
+  def related_documents
+    [*documents_related_to, *documents_related_with].uniq
+  end
+
   scope :draft, where(state: "draft")
   scope :unsubmitted, where(state: "draft", submitted: false)
   scope :submitted, where(state: "draft", submitted: true)
@@ -125,7 +135,11 @@ class Document < ActiveRecord::Base
   end
 
   def create_draft(user)
-    draft_attributes = {state: "draft", author: user, submitted: false, topics: topics, organisations: organisations, ministerial_roles: ministerial_roles}
+    draft_attributes = {
+      state: "draft", author: user, submitted: false, topics: topics,
+      organisations: organisations, ministerial_roles: ministerial_roles,
+      documents_related_with: documents_related_with, documents_related_to: documents_related_to
+    }
     new_draft = self.class.create(attributes.merge(draft_attributes))
     if new_draft.valid? && allows_supporting_documents?
       supporting_documents.each do |sd|
@@ -147,5 +161,10 @@ class Document < ActiveRecord::Base
 
   def allows_supporting_documents?
     respond_to?(:supporting_documents)
+  end
+
+  def title_with_state
+    state_string = (draft? && submitted?) ? 'submitted' : state
+    "#{title} (#{state_string})"
   end
 end

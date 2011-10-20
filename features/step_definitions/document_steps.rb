@@ -114,6 +114,12 @@ Then /^I should see in the preview that "([^"]*)" only applies to the nations:$/
   end
 end
 
+Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" and "([^"]*)" policies$/ do |title, related_policy_1, related_policy_2|
+  visit_document_preview title
+  assert has_css?("#related-documents .policy", text: related_policy_1)
+  assert has_css?("#related-documents .policy", text: related_policy_2)
+end
+
 Then /^I should see the conflict between the (publication|policy|news article) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
   assert page.has_css?(".conflicting.new #document_title", value: new_title)
   assert page.has_css?(".conflicting.latest .document .title", value: latest_title)

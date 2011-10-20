@@ -101,6 +101,21 @@
       <% end %>
     </section>
   <% end %>
+
+  <section class="container" id="related-documents">
+    <h1>Related Documents</h1>
+    <% if @document.related_documents.any? %>
+      <ul>
+        <% @document.related_documents.each do |related_document| %>
+          <%= content_tag_for :li, related_document do %>
+            <%= link_to "#{related_document.title} (#{related_document.type.titleize})", admin_document_path(related_document) %>
+          <% end %>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>This document doesn't have any related documents.</p>
+    <% end %>
+  </section>
 </div>
 
 <div class="cf">&nbsp;</div>
