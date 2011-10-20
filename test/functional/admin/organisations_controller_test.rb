@@ -15,6 +15,11 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal organisations, assigns(:organisations)
   end
 
+  test "should allow entry of new organisation data" do
+    get :new
+    assert_template "organisations/new"
+  end
+
   test "creating should create a new Organisation" do
     post :create, organisation: {name: "Ministry of Sound", address: "Clubtown, London",
                                  email: "minister@beatsinternational.co.uk",

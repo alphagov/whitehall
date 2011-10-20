@@ -20,11 +20,12 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body class="admin">
     <header class="cf masthead">
-      <h1>
-        <%= link_to "Document publisher", logged_in? ? admin_root_path : login_path %>
-      </h1>
+      <nav>
+        <%= link_to "Document publisher", logged_in? ? admin_documents_path : login_path %>
+        <%= link_to "Organisations", logged_in? ? admin_organisations_path : login_path %>
+      </nav>
       <%= render partial: "shared/session" if show_session_controls? %>
     </header>
 

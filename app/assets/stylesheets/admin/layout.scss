@@ -4,8 +4,9 @@
   padding: 0.8em 4%;
   background: #2a2a00;
 
-  h1 {
+  nav {
     @include type-21;
+    @include pipe_separated_links;
     float: left;
     padding-right: 1em;
     margin-bottom: 0;

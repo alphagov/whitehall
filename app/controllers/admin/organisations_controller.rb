@@ -4,6 +4,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def new
+    @organisation = Organisation.new
   end
 
   def create
