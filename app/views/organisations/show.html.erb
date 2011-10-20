@@ -22,8 +22,30 @@
 <% end %>
 
 <% if @organisation.board_member_roles.any? %>
-<section id="board_members" class="g1">
-  <h1>Board Members</h1>
-  <%= render partial: "board_member_roles/list", locals: {board_member_roles: @organisation.board_member_roles} %>
-</section>
+  <section id="board_members" class="g1">
+  <% if @organisation.leading_board_member_roles.any? %>
+    <section id="leading_board_members">
+      <h1>Permanent Secretaries</h1>
+      <ul class="leading_board_member_roles">
+        <% @organisation.leading_board_member_roles.each do |board_member_role| %>
+          <%= content_tag_for(:li, board_member_role) do %>
+            <%= board_member_role %>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+  <% if @organisation.other_board_member_roles.any? %>
+    <section id="other_board_members">
+      <h1>Other Board Members</h1>
+      <ul class="other_board_member_roles">
+        <% @organisation.other_board_member_roles.each do |board_member_role| %>
+          <%= content_tag_for(:li, board_member_role) do %>
+            <%= board_member_role %>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+  </section>
 <% end %>

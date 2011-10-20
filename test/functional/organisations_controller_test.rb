@@ -96,19 +96,41 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "#ministers", count: 0
   end
 
+  test "shows leading board members associated with organisation" do
+    permanent_secretary = create(:board_member_role, leader: true)
+    organisation = create(:organisation, board_member_roles: [permanent_secretary])
+
+    get :show, id: organisation
+
+    assert_select "#leading_board_members" do
+      assert_select_object(permanent_secretary)
+    end
+  end
+
+  test "should not display an empty leading board members section" do
+    junior = create(:board_member_role)
+    organisation = create(:organisation, board_member_roles: [junior])
+
+    get :show, id: organisation
+
+    assert_select "#leading_board_members", count: 0
+  end
+
   test "shows board members associated with organisation" do
     permanent_secretary = create(:board_member_role)
     organisation = create(:organisation, board_member_roles: [permanent_secretary])
 
     get :show, id: organisation
 
-    assert_select_object(permanent_secretary)
+    assert_select "#other_board_members" do
+      assert_select_object(permanent_secretary)
+    end
   end
 
   test "should not display an empty board members section" do
     organisation = create(:organisation)
     get :show, id: organisation
-    assert_select "#board_members", count: 0
+    assert_select "#other_board_members", count: 0
   end
 
   test "should display a list of organisations" do

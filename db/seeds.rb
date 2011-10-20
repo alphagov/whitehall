@@ -32,7 +32,7 @@ def politicians(person_to_role_to_organisation)
   end
 end
 
-def civil_servants(person_to_role_to_organisation)
+def civil_servants(person_to_role_to_organisation, leader = false)
   person_to_role_to_organisation.each do |person_name, role_to_organisation|
     privy = person_name.starts_with?("The Rt Hon ")
     person_name = person_name.from(11) if privy
@@ -40,13 +40,21 @@ def civil_servants(person_to_role_to_organisation)
     role_to_organisation.each do |role_name, organisation_name|
       if organisation_name
         organisation = Organisation.find_by_name!(organisation_name)
-        role = organisation.board_member_roles.create!(name: role_name)
+        role = organisation.board_member_roles.create!(name: role_name, leader: leader)
       else
-        role = BoardMemberRole.create!(name: role_name)
+        role = BoardMemberRole.create!(name: role_name, leader: leader)
       end
       person.board_member_roles << role
     end
   end
+end
+
+def leader_civil_servants(person_to_role_to_organisation)
+  civil_servants(person_to_role_to_organisation, true)
+end
+
+def other_civil_servants(person_to_role_to_organisation)
+  civil_servants(person_to_role_to_organisation, false)
 end
 
 organisations(
@@ -171,13 +179,13 @@ politicians({"The Rt Hon David Cameron" => {"Prime Minister" => "Cabinet Office"
  "Maria Miller MP" => {"Parliamentary Under-Secretary of State (Minister for Disabled People)" => "Department for Work and Pensions"},
  "Lord Freud" => {"Parliamentary Under-Secretary of State (Welfare Reform)" => "Department for Work and Pensions"}})
 
-civil_servants(
-  "Alex Allan" => {"Permanent Secretary" => "Cabinet Office"},
-  "Jeremy Heywood" => {"Permanent Secretary" => "Cabinet Office"},
-  "Sir Gus O’Donnell" => {"Permanent Secretary" => "Cabinet Office"},
-  "Ian Watmore" => {"Permanent Secretary" => "Cabinet Office"},
-  "Sir Jon Cunliffe" => {"Permanent Secretary" => "Cabinet Office"},
-  "Sir Peter Ricketts" => {"Permanent Secretary" => "Cabinet Office"},
+leader_civil_servants(
+  "Alex Allan" => {"Permanent Secretary (Intelligence)" => "Cabinet Office"},
+  "Jeremy Heywood" => {"Permanent Secretary (10 Downing Street)" => "Cabinet Office"},
+  "Sir Gus O’Donnell" => {"Cabinet Secretary and Head of the Home Civil Service" => "Cabinet Office"},
+  "Ian Watmore" => {"Permanent Secretary (Efficiency & Reform)" => "Cabinet Office"},
+  "Sir Jon Cunliffe" => {"Permanent Secretary (International Economic Affairs and Europe)" => "Cabinet Office"},
+  "Sir Peter Ricketts" => {"Permanent Secretary (Security)" => "Cabinet Office"},
   "Martin Donnelly" => {"Permanent Secretary" => "Department for Business, Innovation and Skills"},
   "Sir Bob Kerslake" => {"Permanent Secretary" => "Department for Communities and Local Government"},
   "Jonathan Stephens" => {"Permanent Secretary" => "Department for Culture, Media and Sport"},
@@ -186,14 +194,13 @@ civil_servants(
   "Mark Lowcock" => {"Permanent Secretary" => "Department for International Development"},
   "Lin Homer" => {"Permanent Secretary" => "Department for Transport"},
   "Robert Devereux" => {"Permanent Secretary" => "Department for Work and Pensions"},
-  "Darra Singh" => {"Permanent Secretary" => "Department for Work and Pensions"},
+  "Darra Singh" => {"Chief Executive of Jobcentre Plus" => "Department for Work and Pensions"},
   "Moira Wallace" => {"Permanent Secretary" => "Department for Energy and Climate Change"},
   "Una O’Brien" => {"Permanent Secretary" => "Department of Health"},
-  "Professor Dame Sally Davies" => {"Permanent Secretary" => "Department of Health"},
-  "Sir David Nicholson" => {"Permanent Secretary" => "Department of Health"},
+  "Professor Dame Sally Davies" => {"Chief Medical Officer" => "Department of Health"},
+  "Sir David Nicholson" => {"NHS Chief Executive" => "Department of Health"},
   "Simon Fraser" => {"Permanent Secretary" => "Foreign and Commonwealth Office"},
   "Sir Nicholas Macpherson" => {"Permanent Secretary" => "Her Majesty's Treasury"},
-  "Tom Scholar" => {"Permanent Secretary" => "Her Majesty's Treasury"},
   "Dame Helen Ghosh" => {"Permanent Secretary" => "Home Office"},
   "Ursula Brennan" => {"Permanent Secretary" => "Ministry of Defence"},
   "Bernard Gray" => {"Permanent Secretary" => "Ministry of Defence"},
@@ -201,6 +208,20 @@ civil_servants(
   "Jon Day" => {"Permanent Secretary" => "Ministry of Defence"},
   "Sir Suma Chakrabarti" => {"Permanent Secretary" => "Ministry of Justice"}
 )
+
+other_civil_servants(
+  "Tom Scholar" => {"Second Permanent Secretary" => "Her Majesty's Treasury"},
+  "Bernard Gray" => {"Chief of Defence Material" => "Ministry of Defence"},
+  "Professor Mark Welland" => {"Chief Scientific Adviser" => "Ministry of Defence"},
+  "Jon Day" => {"Second Permanent Secretary" => "Ministry of Defence"},
+  "Tera Allas" => {"Director General (Economics, Strategy and Better Regulation)" => "Department for Business, Innovation and Skills"},
+  "Nick Baird" => {"Chief Executive (UK Trade & Investment)" => "Department for Business, Innovation and Skills"},
+  "Bernadette Kelly" => {"Director General (Market Frameworks)" => "Department for Business, Innovation and Skills"},
+  "Stephen Lovegrove" => {"Chief Executive (Shareholder Executive)" => "Department for Business, Innovation and Skills"},
+  "Howard Orme" => {"Director General (Finance and Commercial)" => "Department for Business, Innovation and Skills"},
+  "Philip Rutnam" => {"Director General (Business and Skills)" => "Department for Business, Innovation and Skills"},
+  "Rachel Sandby-Thomas" => {"The Solicitor and Director General Legal, People and Communications" => "Department for Business, Innovation and Skills"},
+  "Sir Adrian Smith" => {"Director General (Knowledge and Innovation)" => "Department for Business, Innovation and Skills"})
 
 topics(
   "Regulation reform",

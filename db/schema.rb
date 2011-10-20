@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111020110835) do
+ActiveRecord::Schema.define(:version => 20111020133833) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(:version => 20111020110835) do
     t.datetime "updated_at"
     t.string   "name"
     t.string   "type",       :default => "MinisterialRole", :null => false
+    t.boolean  "leader",     :default => false
   end
 
   create_table "supporting_documents", :force => true do |t|
