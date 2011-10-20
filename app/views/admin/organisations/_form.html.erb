@@ -1,0 +1,53 @@
+<%= form_for [:admin, organisation], as: :organisation do |organisation_form| %>
+  <% if organisation.errors.any? %>
+    <div class="form-errors">
+      <p>To save the document please fix the following issues:</p>
+      <ul class="errors disc">
+        <% organisation.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <fieldset>
+    <%= organisation_form.label :name %>
+    <%= organisation_form.text_field :name %>
+  </fieldset>
+  <fieldset>
+    <%= organisation_form.label :address %>
+    <%= organisation_form.text_area :address %>
+    <%= organisation_form.label :postcode %>
+    <%= organisation_form.text_field :postcode %>
+    <%= organisation_form.label :latitude %>
+    <%= organisation_form.text_field :latitude %>
+    <%= organisation_form.label :longitude %>
+    <%= organisation_form.text_field :longitude %>
+  </fieldset>
+  <fieldset>
+    <%= organisation_form.label :email %>
+    <%= organisation_form.text_field :email %>
+  </fieldset>
+  <fieldset>
+    <legend>Phone numbers</legend>
+    <%= organisation_form.fields_for :phone_numbers do |phone_numbers_form| %>
+      <%= phone_numbers_form.label :description %>
+      <%= phone_numbers_form.text_field :description %>
+      <%= phone_numbers_form.label :number %>
+      <%= phone_numbers_form.text_field :number %>
+    <% end %>
+    <%= organisation_form.fields_for :phone_numbers, PhoneNumber.new do |phone_numbers_form| %>
+      <%= phone_numbers_form.label :description %>
+      <%= phone_numbers_form.text_field :description %>
+      <%= phone_numbers_form.label :number %>
+      <%= phone_numbers_form.text_field :number %>
+    <% end %>
+  </fieldset>
+
+  <fieldset class="clear">
+    <%= organisation_form.submit 'Save' %>
+    <span class="or_cancel">
+      or
+      <%= link_to 'cancel', (organisation.new_record? ? admin_organisations_path : admin_organisation_path(organisation)) %>
+    </span>
+  </fieldset>
+<% end %>
