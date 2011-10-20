@@ -7,6 +7,28 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".organisation .name", text: organisation.name
   end
 
+  test "presents the contact details of the organisation using hcard" do
+    organisation = create(:organisation, name: "Ministry of Pomp", email: "pomp@gov.uk",
+                          address: "1 Smashing Place, London", postcode: "LO1 8DN",
+                          phone_numbers_attributes: [
+                            {description: "Helpline", number: "02079460000"},
+                            {description: "Fax", number: "02079460001"}
+                          ])
+    get :show, id: organisation
+
+    assert_select ".organisation.hcard" do
+      assert_select ".fn.org", "Ministry of Pomp"
+      assert_select ".adr" do
+        assert_select ".street-address", "1 Smashing Place, London"
+        assert_select ".postal-code", "LO1 8DN"
+      end
+      assert_select ".tel", /02079460000$/ do
+        assert_select ".type", "Helpline"
+      end
+      assert_select ".email", organisation.email
+    end
+  end
+
   test "shows only published policies associated with organisation" do
     published_document = create(:published_policy)
     draft_document = create(:draft_policy)
