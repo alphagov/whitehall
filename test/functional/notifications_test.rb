@@ -34,4 +34,21 @@ class NotificationsTest < ActionMailer::TestCase
   test "fact check body contains the type of the document to be checked" do
     assert_match /policy/, @mail.body.to_s
   end
+
+  test "fact check request instructions shouldn't be escaped in the body" do
+    fact_check_request = create(:fact_check_request, instructions: %{Don't escape "this" text})
+    requester = build(:user)
+    mail = Notifications.fact_check(fact_check_request, requester, host: "example.com")
+
+    assert_match /Don't escape "this" text/, mail.body.to_s
+  end
+
+  test "document titles shouldn't be escaped in the body" do
+    policy = create(:policy, title: %{Use "double quotes" everywhere})
+    fact_check_request = create(:fact_check_request, document: policy)
+    requester = build(:user)
+    mail = Notifications.fact_check(fact_check_request, requester, host: "example.com")
+
+    assert_match /Use "double quotes" everywhere/, mail.body.to_s
+  end
 end
