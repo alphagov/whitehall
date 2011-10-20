@@ -1,5 +1,12 @@
 <p>You've been asked to review this policy for factual accuracy. Please read it, and then provide any comments in the form below</p>
 
+<% if @fact_check_request.instructions %>
+<section>
+  <h2>Extra instructions</h2>
+  <p><%= @fact_check_request.instructions %></p>
+</section>
+<% end %>
+
 <div class="document_view">
   <h1 class="title"><%= @document.title %></h1>
   <div class="body">
