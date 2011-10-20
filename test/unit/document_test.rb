@@ -311,6 +311,19 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal supporting_document.body, new_supporting_document.body
   end
 
+  test "should build a draft copy with references to related documents" do
+    publication = create(:published_publication)
+    policy = create(:published_policy)
+    published_policy = create(:published_policy, documents_related_with: [publication], documents_related_to: [policy])
+
+    draft_policy = published_policy.create_draft(create(:policy_writer))
+    assert draft_policy.valid?
+
+    assert_equal [policy], draft_policy.documents_related_to
+    assert_equal [publication], draft_policy.documents_related_with
+    assert_equal [policy, publication], draft_policy.related_documents
+  end
+
   test "when initially created" do
     document = create(:document)
     assert document.draft?
