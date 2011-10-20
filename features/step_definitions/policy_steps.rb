@@ -60,6 +60,10 @@ Given /^two published policies "([^"]*)" and "([^"]*)" exist$/ do |policy_title_
   create(:published_policy, title: policy_title_2)
 end
 
+Given /^a published policy "([^"]*)" with related draft publication "([^"]*)"$/ do |policy_title, publication_title|
+  create(:published_policy, title: policy_title, documents_related_with: [create(:draft_publication, title: publication_title)])
+end
+
 When /^I create a new edition of the published policy$/ do
   visit published_admin_documents_path
   click_link Policy.published.last.title
@@ -176,4 +180,10 @@ end
 Then /^I should see that the policy does not apply to:$/ do |nation_names|
   message = "This policy does not apply to #{nation_names.raw.flatten.sort.to_sentence}."
   assert page.has_css?("#inapplicable_nations p", text: message)
+end
+
+Then /^I should not see "([^"]*)" from the "([^"]*)" policy$/ do |publication_title, policy_title|
+  policy = Policy.find_by_title(policy_title)
+  visit document_path(policy.document_identity)
+  refute has_css?("#related-documents .publication a", text: publication_title)
 end

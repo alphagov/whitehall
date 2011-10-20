@@ -35,3 +35,7 @@ Scenario: Viewing a policy that has multiple publications associated
   Given a published policy "What Makes A Beard" with related published publications "Standard Beard Lengths" and "Exotic Beard Lengths"
   Then I can visit the published publication "Standard Beard Lengths" from the "What Makes A Beard" policy
   And I can visit the published publication "Exotic Beard Lengths" from the "What Makes A Beard" policy
+
+Scenario: Viewing a policy that has draft publication associated
+  Given a published policy "What Makes A Beard" with related draft publication "Proposed Beard Lengths"
+  Then I should not see "Proposed Beard Lengths" from the "What Makes A Beard" policy
