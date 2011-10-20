@@ -84,40 +84,6 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select ministers_responsible_selector, count: 0
   end
 
-  test "should only display published policies" do
-    archived_policy = create(:archived_policy)
-    published_policy = create(:published_policy)
-    draft_policy = create(:draft_policy)
-    get :index
-
-    assert_select_object(published_policy)
-    assert_select_object(archived_policy, count: 0)
-    assert_select_object(draft_policy, count: 0)
-  end
-
-  test "should only display published publications" do
-    archived_publication = create(:archived_publication)
-    published_publication = create(:published_publication)
-    draft_publication = create(:draft_publication)
-    get :index
-
-    assert_select_object(published_publication)
-    assert_select_object(archived_publication, count: 0)
-    assert_select_object(draft_publication, count: 0)
-  end
-
-  test "should only display published news articles" do
-    archived_news_article = create(:archived_news_article)
-    published_news_article = create(:published_news_article)
-    draft_news_article = create(:draft_news_article)
-
-    get :index
-
-    assert_select_object(published_news_article)
-    assert_select_object(archived_news_article, count: 0)
-    assert_select_object(draft_news_article, count: 0)
-  end
-
   test "show lists supporting documents when there are some" do
     published_document = create(:published_policy)
     first_supporting_document = create(:supporting_document, document: published_document)
@@ -154,6 +120,41 @@ class DocumentsControllerTest < ActionController::TestCase
     get :show, id: news_article.document_identity
     assert_response :success
   end
+
+  test "should only display published policies" do
+    archived_policy = create(:archived_policy)
+    published_policy = create(:published_policy)
+    draft_policy = create(:draft_policy)
+    get :index
+
+    assert_select_object(published_policy)
+    assert_select_object(archived_policy, count: 0)
+    assert_select_object(draft_policy, count: 0)
+  end
+
+  test "should only display published publications" do
+    archived_publication = create(:archived_publication)
+    published_publication = create(:published_publication)
+    draft_publication = create(:draft_publication)
+    get :index
+
+    assert_select_object(published_publication)
+    assert_select_object(archived_publication, count: 0)
+    assert_select_object(draft_publication, count: 0)
+  end
+
+  test "should only display published news articles" do
+    archived_news_article = create(:archived_news_article)
+    published_news_article = create(:published_news_article)
+    draft_news_article = create(:draft_news_article)
+
+    get :index
+
+    assert_select_object(published_news_article)
+    assert_select_object(archived_news_article, count: 0)
+    assert_select_object(draft_news_article, count: 0)
+  end
+
 
   private
 
