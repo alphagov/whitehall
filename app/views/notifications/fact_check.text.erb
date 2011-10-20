@@ -3,7 +3,7 @@ Hi,
 I would like you to check the <%= @fact_check_request.document.type.downcase %> titled "<%= raw @fact_check_request.document.title %>" for factual accuracy.
 
 <%- if @fact_check_request.instructions.present? -%>
-<%= raw @fact_check_request.instructions %>
+Extra instructions: <%= raw @fact_check_request.instructions %>
 <%- end -%>
 
 You can do this by visiting the following URL: <%= edit_admin_fact_check_request_url(@fact_check_request, @url_options) %>
