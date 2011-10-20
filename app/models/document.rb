@@ -46,7 +46,7 @@ class Document < ActiveRecord::Base
   class DocumentHasNoOtherPublishedDocumentsValidator
     def validate(record)
       if record.published? && record.document_identity && record.document_identity.documents.published.any?
-        record.errors.add(:policy, "has existing published editions")
+        record.errors.add(:base, "There is already a published edition for this document")
       end
     end
   end
@@ -120,7 +120,7 @@ class Document < ActiveRecord::Base
     elsif user == author
       "You are not the second set of eyes"
     elsif !user.departmental_editor?
-      "Only departmental editors can publish policies"
+      "Only departmental editors can publish"
     end
   end
 

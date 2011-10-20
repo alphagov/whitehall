@@ -88,7 +88,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     login_as "Willy Writer", departmental_editor: false
     post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
 
-    assert_equal "Only departmental editors can publish policies", flash[:alert]
+    assert_equal "Only departmental editors can publish", flash[:alert]
   end
 
   test 'failing to publish an document should redirect back to the document' do

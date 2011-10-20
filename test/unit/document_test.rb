@@ -213,7 +213,7 @@ class DocumentTest < ActiveSupport::TestCase
     document = create(:submitted_policy)
     refute document.publish_as(create(:policy_writer))
     refute document.published?
-    assert_equal ["Only departmental editors can publish policies"], document.errors.full_messages
+    assert_equal ["Only departmental editors can publish"], document.errors.full_messages
   end
 
   test "should fail publication if lock version is not current" do
