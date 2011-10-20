@@ -30,3 +30,8 @@ Scenario: Viewing a policy that is applicable to certain nations
   When I visit the policy "Haggis for every meal"
   Then I should see that the policy does not apply to:
     | Northern Ireland | Wales |
+
+Scenario: Viewing a policy that has multiple publications associated
+  Given a published policy "What Makes A Beard" with related published publications "Standard Beard Lengths" and "Exotic Beard Lengths"
+  Then I can visit the published publication "Standard Beard Lengths" from the "What Makes A Beard" policy
+  And I can visit the published publication "Exotic Beard Lengths" from the "What Makes A Beard" policy

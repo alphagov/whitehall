@@ -23,6 +23,19 @@
   <% end %>
 </div>
 
+<% if @document.related_documents.any? %>
+  <section id="related-documents" class="g1">
+    <h1>Related documents</h1>
+    <ul>
+      <% @document.related_documents.each do |related_document| %>
+        <%= content_tag_for :li, related_document do %>
+          <%= link_to related_document.title, document_path(related_document.document_identity) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
 <% if @document.topics.any? %>
   <section id="topics" class="g1">
     <h1>Topics</h1>

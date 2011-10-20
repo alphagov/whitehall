@@ -20,6 +20,13 @@ Given /^a published publication "([^"]*)" that's the responsibility of "([^"]*)"
   create(:published_publication, title: title, ministerial_roles: [ministerial_role_1, ministerial_role_2])
 end
 
+When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
+  begin_drafting_document type: "Publication", title: title
+  select first_policy, from: "Related Policies"
+  select second_policy, from: "Related Policies"
+  click_button "Save"
+end
+
 Then /^they should see the draft publication "([^"]*)"$/ do |title|
   publication = Publication.draft.find_by_title(title)
   assert page.has_css?('.document_view .title', text: publication.title)
@@ -30,6 +37,15 @@ Then /^I should see a link to the PDF attachment$/ do
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: /^attachment\.pdf$/)
 end
 
+Then /^I can visit the published publication "([^"]*)" from the "([^"]*)" policy$/ do |publication_title, policy_title|
+  policy = Policy.find_by_title(policy_title)
+  visit document_path(policy.document_identity)
+  assert has_css?("#related-documents .publication a", text: publication_title)
+  click_link publication_title
+  assert has_css?(".title", text: publication_title)
+end
+
 def pdf_attachment
   Rails.root.join("features/fixtures/attachment.pdf")
 end
+

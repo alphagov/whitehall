@@ -48,6 +48,18 @@ Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ d
   fill_in "Title", with: new_title
 end
 
+Given /^a published policy "([^"]*)" with related published publications "([^"]*)" and "([^"]*)"$/ do |policy_title, publication_title_1, publication_title_2|
+  publication_1 = create(:published_publication, title: publication_title_1)
+  publication_2 = create(:published_publication, title: publication_title_2)
+
+  policy = create(:published_policy, title: policy_title, documents_related_with: [publication_1, publication_2])
+end
+
+Given /^two published policies "([^"]*)" and "([^"]*)" exist$/ do |policy_title_1, policy_title_2|
+  create(:published_policy, title: policy_title_1)
+  create(:published_policy, title: policy_title_2)
+end
+
 When /^I create a new edition of the published policy$/ do
   visit published_admin_documents_path
   click_link Policy.published.last.title

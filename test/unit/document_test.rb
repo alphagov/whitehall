@@ -100,6 +100,33 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [published_in_second_ministerial_role], Document.in_ministerial_role(ministerial_role_2)
   end
 
+  test "should return a list of documents related to specific document" do
+    published_publication_1 = create(:published_publication)
+    published_publication_2 = create(:published_publication)
+    published_policy = create(:published_policy, documents_related_with: [published_publication_1, published_publication_2])
+
+    assert_equal [published_publication_1, published_publication_2], published_policy.documents_related_with.reload
+  end
+
+  test "should return a list of documents the specific document is related to" do
+    published_policy = create(:published_policy)
+    published_publication_1 = create(:published_publication, documents_related_with: [published_policy])
+    published_publication_2 = create(:published_publication, documents_related_with: [published_policy])
+
+    assert_equal [published_publication_1, published_publication_2], published_policy.documents_related_to.reload
+  end
+
+  test "should return a list of documents related to and from" do
+    publication_1 = create(:published_publication)
+    publication_2 = create(:published_publication)
+    published_policy = create(:published_policy, documents_related_with: [publication_1, publication_2])
+    other_policy = create(:published_policy, documents_related_with: [published_policy])
+
+    assert_equal [other_policy], published_policy.documents_related_to
+    assert_equal [publication_1, publication_2], published_policy.documents_related_with
+    assert_equal [other_policy, publication_1, publication_2], published_policy.related_documents
+  end
+
   test "should only return unsubmitted draft policies" do
     draft_policy = create(:draft_policy)
     submitted_policy = create(:submitted_policy)
@@ -317,5 +344,18 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "returns nil if found by unknown document identity" do
     assert_nil Document.published_as('unknown')
+  end
+
+  test "return compound title with state included" do
+    draft = create(:document, title: "Holding back")
+    assert_equal "Holding back (draft)", draft.title_with_state
+
+    document = create(:submitted_policy, title: "Dog Eyes")
+    assert document.submitted?
+    assert_equal "Dog Eyes (submitted)", document.title_with_state
+
+    document.publish_as(create(:departmental_editor))
+    assert document.published?
+    assert_equal "Dog Eyes (published)", document.reload.title_with_state
   end
 end

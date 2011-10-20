@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(:version => 20111020110835) do
     t.datetime "updated_at"
   end
 
+  create_table "document_relations", :force => true do |t|
+    t.integer  "document_id",         :null => false
+    t.integer  "related_document_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "document_topics", :id => false, :force => true do |t|
     t.integer  "topic_id"
     t.datetime "created_at"
