@@ -134,6 +134,8 @@
     <%= form_for [:admin, @document, FactCheckRequest.new] do |f| %>
       <%= f.label :email_address, 'Email address' %>
       <%= f.text_field :email_address %>
+      <%= f.label :instructions, 'Extra instructions' %>
+      <%= f.text_area :instructions %>
       <%= f.submit 'Send request' %>
     <% end %>
   </section>

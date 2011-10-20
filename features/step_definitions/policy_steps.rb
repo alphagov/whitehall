@@ -64,7 +64,7 @@ When /^I visit the new policy page$/ do
   visit new_admin_policy_path
 end
 
-When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, title|
+When /^I request that "([^"]*)" fact checks the policy "([^"]*)" with instructions "([^"]*)"$/ do |email, title, instructions|
   document = Policy.find_by_title(title)
   visit admin_documents_path
   within(record_css_selector(document)) do
@@ -72,6 +72,7 @@ When /^I request that "([^"]*)" fact checks the policy "([^"]*)"$/ do |email, ti
   end
   within("#new_fact_check_request") do
     fill_in "Email address", with: email
+    fill_in "Extra instructions", with: instructions
     click_button "Send request"
   end
 end

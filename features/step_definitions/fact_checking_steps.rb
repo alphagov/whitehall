@@ -3,10 +3,11 @@ Given /^a fact checker has commented "([^"]*)" on the draft publication "([^"]*)
   create(:fact_check_request, document: document, comments: comment)
 end
 
-Then /^"([^"]*)" should be notified by email that "([^"]*)" has requested a fact check for "([^"]*)"$/ do |email_address, writer_name, title|
+Then /^"([^"]*)" should be notified by email that "([^"]*)" has requested a fact check for "([^"]*)" with instructions "([^"]*)"$/ do |email_address, writer_name, title, instructions|
   assert_equal 1, unread_emails_for(email_address).size
   email = unread_emails_for(email_address).last
   assert_equal "Fact checking request from #{writer_name}: #{title}", email.subject
+  assert_match /#{instructions}/, email.body.to_s
 end
 
 When /^"([^"]*)" clicks the email link to the draft policy$/ do |email_address|
