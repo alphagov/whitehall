@@ -68,7 +68,8 @@ form {
   select {
     padding: 0;
     width: 220px;
-    .chzn-select {
+
+    &.chzn-select {
       width: 100%;
     }
   }
