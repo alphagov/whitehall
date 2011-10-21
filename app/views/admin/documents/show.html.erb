@@ -1,66 +1,11 @@
 <div class="g2 first">
   <section class="document">
-    <nav class="actions">
-      <% if @document.editable_by?(current_user) %>
-        <%= link_to 'Edit', edit_admin_document_path(@document), title: "Edit #{@document.title}", :class => "button" %>
-      <% else @document.published? %>
-        <%= button_to 'Create new draft', revise_admin_document_path(@document), title: "Create new draft" %>
-      <% end %>
-      <% if @document.submittable_by?(current_user) %>
-        <%= form_for [:admin, @document], {url: submit_admin_document_path(@document), method: :post} do |submit_form| %>
-          <%= submit_form.submit "Submit to 2nd pair of eyes" %>
-        <% end %>
-      <% end %>
-      <% if @document.publishable_by?(current_user) %>
-        <%= form_for [:admin, @document], {as: :document, url: publish_admin_document_path(@document), method: :post} do |document_form| %>
-          <%= document_form.hidden_field :lock_version %>
-          <%= document_form.submit "Publish", title: "Publish #{@document.title}" %>
-        <% end %>
-      <% end %>
-      <span class="back">
-        back to
-        <% if @document.submitted? %>
-          <%= link_to 'submitted documents', submitted_admin_documents_path %>
-        <% elsif @document.draft? %>
-          <%= link_to 'draft documents', admin_documents_path %>
-        <% elsif @document.published? %>
-          <%= link_to 'published documents', published_admin_documents_path %>
-        <% end %>
-      </span>
-    </nav>
+    <%= render partial: 'navigation', locals: { document: @document } %>
 
-    <article class="document_view">
-      <h1 class="title"><%= @document.title %></h1>
-      <div class="body">
-        <%= govspeak_to_html @document.body %>
-      </div>
-      <% if @document.allows_attachment? %>
-        <p class="attachment"><%= link_to_attachment(@document.attachment) %></p>
-      <% end %>
-      <p class="written_by">Written by <span class="author"><%= @document.author.name %></span></p>
-    </article>
+    <%= render partial: 'document', locals: { document: @document } %>
   </section>
 
-  <% if @document.allows_supporting_documents? %>
-    <section class="supporting_documents">
-      <h1>Supporting documents</h1>
-      <ul class="group">
-        <% @document.supporting_documents.each do |supporting_document| %>
-          <%= content_tag_for :li, supporting_document do %>
-            <%= link_to admin_supporting_document_path(supporting_document) do %>
-              <span class="title"><%= supporting_document.title %></span>
-              <span class="body"><%= truncate(supporting_document.body, { length: 100 }) %></span>
-            <% end %>
-          <% end %>
-        <% end %>
-
-        <% if @document.editable_by?(current_user) %>
-          <li class="add_supporting_document"><%= link_to 'Add', new_admin_document_supporting_document_path(@document), title: "Add supporting document to #{@document.title}", :class => "button" %></li>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
-
+  <%= render partial: 'supporting_documents', locals: { document: @document } %>
 </div>
 
 <div class="g1">

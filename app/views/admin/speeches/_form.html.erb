@@ -1,0 +1,5 @@
+<%= form_for [:admin, document], as: :document do |form| %>
+  <%= render partial: 'form_errors', locals: { document: document }%>
+  <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
+  <%= render partial: 'form_submit', locals: { form: form, document: document }%>
+<% end %>

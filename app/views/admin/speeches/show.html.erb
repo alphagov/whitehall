@@ -1,0 +1,9 @@
+<div class="g2 first">
+  <section class="document">
+    <%= render partial: 'navigation', locals: { document: @document } %>
+
+    <%= render partial: 'document', locals: { document: @document } %>
+  </section>
+
+  <%= render partial: 'supporting_documents', locals: { document: @document } %>
+</div>

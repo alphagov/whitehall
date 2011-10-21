@@ -10,22 +10,13 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   end
 
   test 'creating should create a new speech' do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
-    first_org = create(:organisation)
-    second_org = create(:organisation)
     attributes = attributes_for(:speech)
 
-    post :create, document: attributes.merge(
-      topic_ids: [first_topic.id, second_topic.id],
-      organisation_ids: [first_org.id, second_org.id]
-    )
+    post :create, document: attributes
 
     created_speech = Speech.last
     assert_equal attributes[:title], created_speech.title
     assert_equal attributes[:body], created_speech.body
-    assert_equal [first_topic, second_topic], created_speech.topics
-    assert_equal [first_org, second_org], created_speech.organisations
   end
 
   test 'creating should take the writer to the speech page' do
@@ -51,16 +42,13 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   end
 
   test 'updating should save modified document attributes' do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
-    speech = create(:speech, topics: [first_topic])
+    speech = create(:speech)
 
-    put :update, id: speech.id, document: { title: "new-title", body: "new-body", topic_ids: [second_topic.id] }
+    put :update, id: speech.id, document: { title: "new-title", body: "new-body" }
 
     saved_speech = speech.reload
     assert_equal "new-title", saved_speech.title
     assert_equal "new-body", saved_speech.body
-    assert_equal [second_topic], saved_speech.topics
   end
 
   test 'updating should take the writer to the speech page' do
