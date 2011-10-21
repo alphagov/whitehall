@@ -1,9 +1,9 @@
 class Document < ActiveRecord::Base
   include ::Transitions
   include ActiveRecord::Transitions
+  include Shared::Identifiable
 
   belongs_to :author, class_name: "User"
-  belongs_to :document_identity
 
   has_many :fact_check_requests
 
@@ -61,16 +61,11 @@ class Document < ActiveRecord::Base
     end
   end
 
-  validates_presence_of :title, :body, :author, :document_identity
+  validates_presence_of :title, :body, :author
   validates_with DocumentHasNoUnpublishedDocumentsValidator, on: :create
   validates_with DocumentHasNoOtherPublishedDocumentsValidator, on: :create
 
   class << self
-    def published_as(id)
-      identity = DocumentIdentity.from_param(id)
-      identity && identity.published_document
-    end
-
     def in_topic(topic)
       joins(:topics).where('topics.id' => topic)
     end
@@ -82,11 +77,6 @@ class Document < ActiveRecord::Base
     def in_ministerial_role(role)
       joins(:ministerial_roles).where('roles.id' => role)
     end
-  end
-
-  def initialize(*args, &block)
-    super
-    self.document_identity ||= DocumentIdentity.new
   end
 
   def attach_file=(file)
