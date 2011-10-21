@@ -1,0 +1,12 @@
+<% if consultations.any? %>
+<section id="consultations" class="g1">
+  <h1>Consultations</h1>
+  <ul class="consultations">
+    <% consultations.each do |consultation| %>
+      <%= content_tag_for(:li, consultation) do %>
+        <%= link_to consultation.title, document_path(consultation.document_identity), title: "View #{consultation.title}" %>
+      <% end %>
+    <% end %>
+  </ul>
+</section>
+<% end %>

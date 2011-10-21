@@ -30,6 +30,7 @@ Whitehall::Application.routes.draw do
     resources :publications, only: [:new, :create, :edit, :update, :show]
     resources :policies, only: [:new, :create, :edit, :update, :show]
     resources :news_articles, only: [:new, :create, :edit, :update, :show]
+    resources :consultations, only: [:new, :create, :edit, :update, :show]
   end
 
   resource :session, only: [:create, :destroy]

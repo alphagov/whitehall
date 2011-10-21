@@ -25,5 +25,6 @@ class ApplicationController < ActionController::Base
     @policies = yield(Policy.published)
     @publications = yield(Publication.published)
     @news_articles = yield(NewsArticle.published)
+    @consultations = yield(Consultation.published)
   end
 end

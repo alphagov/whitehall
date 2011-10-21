@@ -155,6 +155,17 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select_object(draft_news_article, count: 0)
   end
 
+  test "should only display published consultations" do
+    archived_consultation = create(:archived_consultation)
+    published_consultation = create(:published_consultation)
+    draft_consultation = create(:draft_consultation)
+
+    get :index
+
+    assert_select_object(published_consultation)
+    assert_select_object(archived_consultation, count: 0)
+    assert_select_object(draft_consultation, count: 0)
+  end
 
   private
 

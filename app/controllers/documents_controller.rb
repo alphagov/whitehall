@@ -3,6 +3,7 @@ class DocumentsController < ApplicationController
     @policies = Policy.published
     @publications = Publication.published
     @news_articles = NewsArticle.published
+    @consultations = Consultation.published
   end
 
   def show
