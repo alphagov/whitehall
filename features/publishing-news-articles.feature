@@ -11,7 +11,7 @@ Scenario: Submitting a draft publication to a second pair of eyes
   When I submit the news article "Stubble to be Outlawed"
   Then I should see the news article "Stubble to be Outlawed" in the list of submitted documents
 
-Scenario: Publishing a submitted publication
+Scenario: Publishing a submitted news article
   Given I am an editor
   And a submitted news article "Stubble to be Outlawed" exists
   When I publish the news article "Stubble to be Outlawed"
