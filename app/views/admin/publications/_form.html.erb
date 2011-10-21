@@ -2,13 +2,12 @@
   <%= render partial: 'form_errors', locals: { document: document }%>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
 
-  <%= render partial: 'attachment_fields', locals: { form: form, document: document } if document.allows_attachment? %>
-  <%= render partial: 'related_policy_fields', locals: { form: form, document: document } if document.type == 'Publication' %>
+  <%= render partial: 'attachment_fields', locals: { form: form, document: document } %>
+  <%= render partial: 'related_policy_fields', locals: { form: form, document: document } %>
 
   <%= render partial: 'organisation_fields', locals: { form: form, document: document } %>
   <%= render partial: 'topic_fields', locals: { form: form, document: document } %>
   <%= render partial: 'minister_fields', locals: { form: form, document: document } %>
 
-  <%= render partial: 'nation_fields', locals: { form: form, document: document } if document.respond_to?(:nations) %>
   <%= render partial: 'form_submit', locals: { form: form, document: document }%>
 <% end %>
