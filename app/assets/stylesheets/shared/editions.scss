@@ -27,6 +27,15 @@
         margin-top: #{$baseline_in_px / 14}em;
       }
     }
+
+    li {
+      @include type-16;
+      p {
+        font-size: 100%;
+        line-height: 100%;
+      }
+    }
+
     table {
       tr {
         padding: 0;
