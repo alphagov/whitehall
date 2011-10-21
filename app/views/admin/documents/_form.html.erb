@@ -1,62 +1,14 @@
-<%= form_for [:admin, document], as: :document do |document_form| %>
-  <% if document.errors.any? %>
-    <div class="form-errors">
-      <p>To save the document please fix the following issues:</p>
-      <ul class="errors disc">
-        <% document.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <fieldset>
-    <%= document_form.hidden_field :lock_version %>
-    <%= document_form.label :title %>
-    <%= document_form.text_field :title %>
-    <%= document_form.label :body, 'Body' %>
-    <%= document_form.text_area :body %>
-    <% if document.allows_attachment? %>
-      <%= document_form.label :attach_file, 'Attachment' %>
-      <%= document_form.file_field :attach_file %>
-      <% unless document.new_record? %>
-        <p class="attachment"><%= link_to_attachment(document.attachment) %></p>
-      <% end %>
-    <% end %>
-  </fieldset>
+<%= form_for [:admin, document], as: :document do |form| %>
+  <%= render partial: 'form_errors', locals: { document: document }%>
+  <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
 
-  <% if document.type == 'Publication' %>
-    <fieldset>
-      <%= document_form.label :documents_related_to_ids, 'Related Policies' %>
-      <%= document_form.select :documents_related_to_ids, options_from_collection_for_select(Policy.all, 'id', 'title_with_state', document.documents_related_to_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related policies..."} %>
-    </fieldset>
-  <% end %>
+  <%= render partial: 'attachment_fields', locals: { form: form, document: document } if document.allows_attachment? %>
+  <%= render partial: 'related_policy_fields', locals: { form: form, document: document } if document.type == 'Publication' %>
 
-  <fieldset>
-    <%= document_form.label :organisation_ids, 'Organisations' %>
-    <%= document_form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', document.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
-  </fieldset>
-  <fieldset>
-    <%= document_form.label :topic_ids, 'Topics' %>
-    <%= document_form.select :topic_ids, options_from_collection_for_select(Topic.all, 'id', 'name', document.topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose topics..."} %>
-  </fieldset>
-  <fieldset>
-    <%= document_form.label :ministerial_role_ids, 'Ministers' %>
-    <%= document_form.select :ministerial_role_ids, options_from_collection_for_select(MinisterialRole.alphabetical_by_person, 'id', 'to_s', document.ministerial_role_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose ministers..."} %>
-  </fieldset>
-  <% if document.respond_to?(:nations) %>
-    <fieldset>
-      <%= document_form.label :nation_ids, 'Applicable Nations' %>
-      <span class="description">England is always applicable</span>
-      <%= document_form.select :nation_ids, options_from_collection_for_select(Nation.except_england.all, 'id', 'name', document.nation_ids), {}, multiple: true %>
-    </fieldset>
-  <% end %>
+  <%= render partial: 'organisation_fields', locals: { form: form, document: document } %>
+  <%= render partial: 'topic_fields', locals: { form: form, document: document } %>
+  <%= render partial: 'minister_fields', locals: { form: form, document: document } %>
 
-  <fieldset class="clear">
-    <%= document_form.submit 'Save' %>
-    <span class="or_cancel">
-      or
-      <%= link_to 'cancel', (document.new_record? ? admin_documents_path : admin_document_path(document)) %>
-    </span>
-  </fieldset>
-
+  <%= render partial: 'nation_fields', locals: { form: form, document: document } if document.respond_to?(:nations) %>
+  <%= render partial: 'form_submit', locals: { form: form, document: document }%>
 <% end %>

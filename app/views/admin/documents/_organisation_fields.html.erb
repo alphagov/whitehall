@@ -1,0 +1,4 @@
+<fieldset>
+  <%= form.label :organisation_ids, 'Organisations' %>
+  <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', document.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
+</fieldset>

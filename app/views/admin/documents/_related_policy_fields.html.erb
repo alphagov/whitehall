@@ -1,0 +1,4 @@
+<fieldset>
+  <%= form.label :documents_related_to_ids, 'Related Policies' %>
+  <%= form.select :documents_related_to_ids, options_from_collection_for_select(Policy.all, 'id', 'title_with_state', document.documents_related_to_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related policies..."} %>
+</fieldset>

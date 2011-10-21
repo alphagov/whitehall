@@ -1,0 +1,7 @@
+<fieldset class="clear">
+  <%= form.submit 'Save' %>
+  <span class="or_cancel">
+    or
+    <%= link_to 'cancel', (document.new_record? ? admin_documents_path : admin_document_path(document)) %>
+  </span>
+</fieldset>

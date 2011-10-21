@@ -1,0 +1,10 @@
+<% if document.errors.any? %>
+  <div class="form-errors">
+    <p>To save the document please fix the following issues:</p>
+    <ul class="errors disc">
+      <% document.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

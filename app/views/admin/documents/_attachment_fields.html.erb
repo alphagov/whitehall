@@ -1,0 +1,7 @@
+<fieldset>
+  <%= form.label :attach_file, 'Attachment' %>
+  <%= form.file_field :attach_file %>
+  <% unless document.new_record? %>
+    <p class="attachment"><%= link_to_attachment(document.attachment) %></p>
+  <% end %>
+</fieldset>
