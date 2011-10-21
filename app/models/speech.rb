@@ -1,0 +1,2 @@
+class Speech < Document
+end

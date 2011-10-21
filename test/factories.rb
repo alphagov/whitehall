@@ -9,6 +9,30 @@ FactoryGirl.define do
     body  "policy-body"
   end
 
+<<<<<<< HEAD
+=======
+  factory :publication do
+    document_identity
+    author
+    title "publication-title"
+    body  "publication-body"
+  end
+
+  factory :news_article do
+    document_identity
+    author
+    title "news-title"
+    body  "news-body"
+  end
+
+  factory :speech do
+    document_identity
+    author
+    title "speech-title"
+    body  "speech-body"
+  end
+
+>>>>>>> Add speeches as a subclass of Document.
   factory :published_policy, parent: :policy do
     state "published"
     submitted true
@@ -80,6 +104,7 @@ FactoryGirl.define do
     submitted true
   end
 
+<<<<<<< HEAD
   factory :consultation do
     document_identity
     author
@@ -94,16 +119,31 @@ FactoryGirl.define do
   end
 
   factory :submitted_consultation, parent: :consultation do
+=======
+  factory :draft_speech, parent: :speech do
+    state "draft"
+  end
+
+  factory :submitted_speech, parent: :speech do
+>>>>>>> Add speeches as a subclass of Document.
     state "draft"
     submitted true
   end
 
+<<<<<<< HEAD
   factory :published_consultation, parent: :consultation do
+=======
+  factory :published_speech, parent: :speech do
+>>>>>>> Add speeches as a subclass of Document.
     state "published"
     submitted true
   end
 
+<<<<<<< HEAD
   factory :archived_consultation, parent: :consultation do
+=======
+  factory :archived_speech, parent: :speech do
+>>>>>>> Add speeches as a subclass of Document.
     state "archived"
     submitted true
   end

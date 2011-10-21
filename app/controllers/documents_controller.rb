@@ -4,6 +4,7 @@ class DocumentsController < ApplicationController
     @publications = Publication.published
     @news_articles = NewsArticle.published
     @consultations = Consultation.published
+    @speeches = Speech.published
   end
 
   def show

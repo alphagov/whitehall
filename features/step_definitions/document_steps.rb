@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists$/ do |document_type, title|
+=======
+Given /^a draft (publication|policy|news article|speech) "([^"]*)" exists$/ do |document_type, title|
+>>>>>>> Add speeches as a subclass of Document.
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
@@ -7,11 +11,19 @@ Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists 
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
+<<<<<<< HEAD
 Given /^a submitted (publication|policy|news article|consultation) "([^"]*)" exists$/ do |document_type, title|
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
 Given /^another user edits the (publication|policy|news article|consultation) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
+=======
+Given /^a submitted (publication|policy|news article|speech) "([^"]*)" exists$/ do |document_type, title|
+  create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
+end
+
+Given /^another user edits the (publication|policy|news article|speech) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
+>>>>>>> Add speeches as a subclass of Document.
   document = document_class(document_type).find_by_title(original_title)
   document.update_attributes!(title: new_title)
 end
@@ -26,7 +38,11 @@ Given /^a published (publication|policy|news article|consultation) "([^"]*)" tha
   end
 end
 
+<<<<<<< HEAD
 When /^I view the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
+=======
+When /^I view the (publication|policy|news article|speech) "([^"]*)"$/ do |document_type, title|
+>>>>>>> Add speeches as a subclass of Document.
   click_link title
 end
 
@@ -39,11 +55,12 @@ When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do
   visit document_path(document.document_identity)
 end
 
-When /^I draft a new (publication|policy|news article) "([^"]*)"$/ do |document_type, title|
+When /^I draft a new (publication|policy|news article|speech) "([^"]*)"$/ do |document_type, title|
   begin_drafting_document type: document_type, title: title
   click_button "Save"
 end
 
+<<<<<<< HEAD
 When /^I draft a new consultation "([^"]*)"$/ do |title|
   begin_drafting_document type: 'consultation', title: title
   select_date "Opening Date", with: 1.day.ago.to_s
@@ -52,18 +69,29 @@ When /^I draft a new consultation "([^"]*)"$/ do |title|
 end
 
 When /^I submit the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
+=======
+When /^I submit the (publication|policy|news article|speech) "([^"]*)"$/ do |document_type, title|
+>>>>>>> Add speeches as a subclass of Document.
   document = document_class(document_type).find_by_title(title)
   visit_document_preview title
   click_button "Submit to 2nd pair of eyes"
 end
 
+<<<<<<< HEAD
 When /^I publish the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
+=======
+When /^I publish the (publication|policy|news article|speech) "([^"]*)"$/ do |document_type, title|
+>>>>>>> Add speeches as a subclass of Document.
   document = document_class(document_type).find_by_title(title)
   visit_document_preview title
   click_button "Publish"
 end
 
+<<<<<<< HEAD
 When /^I save my changes to the (publication|policy|news article|consultation)$/ do |document_type|
+=======
+When /^I save my changes to the (publication|policy|news article|speech)$/ do |document_type|
+>>>>>>> Add speeches as a subclass of Document.
   click_button "Save"
 end
 
@@ -72,25 +100,41 @@ When /^I edit the (publication|policy|news article|consultation) changing the ti
   click_button "Save"
 end
 
+<<<<<<< HEAD
 Then /^I should see the (publication|policy|news article|consultation) "([^"]*)" in the list of draft documents$/ do |document_type, title|
+=======
+Then /^I should see the (publication|policy|news article|speech) "([^"]*)" in the list of draft documents$/ do |document_type, title|
+>>>>>>> Add speeches as a subclass of Document.
   document = document_class(document_type).find_by_title(title)
   visit admin_documents_path
   assert has_css?(record_css_selector(document))
 end
 
+<<<<<<< HEAD
 Then /^I should see the (publication|policy|news article|consultation) "([^"]*)" in the list of submitted documents$/ do |document_type, title|
+=======
+Then /^I should see the (publication|policy|news article|speech) "([^"]*)" in the list of submitted documents$/ do |document_type, title|
+>>>>>>> Add speeches as a subclass of Document.
   document = document_class(document_type).find_by_title(title)
   visit submitted_admin_documents_path
   assert has_css?(record_css_selector(document))
 end
 
+<<<<<<< HEAD
 Then /^I should see the (publication|policy|news article|consultation) "([^"]*)" in the list of published documents$/ do |document_type, title|
+=======
+Then /^I should see the (publication|policy|news article|speech) "([^"]*)" in the list of published documents$/ do |document_type, title|
+>>>>>>> Add speeches as a subclass of Document.
   document = document_class(document_type).find_by_title(title)
   visit published_admin_documents_path
   assert has_css?(record_css_selector(document))
 end
 
+<<<<<<< HEAD
 Then /^the (publication|policy|news article|consultation) "([^"]*)" should be visible to the public$/ do |document_type, title|
+=======
+Then /^the (publication|policy|news article|speech) "([^"]*)" should be visible to the public$/ do |document_type, title|
+>>>>>>> Add speeches as a subclass of Document.
   document = document_class(document_type).find_by_title(title)
   visit documents_path
   assert page.has_css?(record_css_selector(document), text: title)
@@ -127,7 +171,11 @@ Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" an
   assert has_css?("#related-documents .policy", text: related_policy_2)
 end
 
+<<<<<<< HEAD
 Then /^I should see the conflict between the (publication|policy|news article|consultation) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
+=======
+Then /^I should see the conflict between the (publication|policy|news article|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
+>>>>>>> Add speeches as a subclass of Document.
   assert page.has_css?(".conflicting.new #document_title", value: new_title)
   assert page.has_css?(".conflicting.latest .document .title", value: latest_title)
 end
