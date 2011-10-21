@@ -44,7 +44,7 @@
     <%= document_form.select :ministerial_role_ids, options_from_collection_for_select(MinisterialRole.alphabetical_by_person, 'id', 'to_s', document.ministerial_role_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose ministers..."} %>
   </fieldset>
   <% if document.respond_to?(:nations) %>
-    <fieldset class="g1">
+    <fieldset>
       <%= document_form.label :nation_ids, 'Applicable Nations' %>
       <span class="description">England is always applicable</span>
       <%= document_form.select :nation_ids, options_from_collection_for_select(Nation.except_england.all, 'id', 'name', document.nation_ids), {}, multiple: true %>
