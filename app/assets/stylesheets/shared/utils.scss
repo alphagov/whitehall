@@ -140,8 +140,19 @@ $baseline_in_px: 24 !default;
   margin: 0;
   font-size: #{($size_in_px/$base_font_size_in_px)}em;
   line-height: #{$vertical_rhythm * ($line_height_in_px / $baseline_in_px)}em;
+  @include scaled_margin_bottom($size_in_px, $line_height_in_px);
+}
+
+@mixin scaled_margin_top($size_in_px, $line_height_in_px: 24) {
+  $vertical_rhythm: ($baseline_in_px / $size_in_px);
+  margin-top: #{$vertical_rhythm}em;
+}
+
+@mixin scaled_margin_bottom($size_in_px, $line_height_in_px: 24) {
+  $vertical_rhythm: ($baseline_in_px / $size_in_px);
   margin-bottom: #{$vertical_rhythm}em;
 }
+
 
 @mixin type-60 {
   /* 60px / 72px */

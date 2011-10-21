@@ -11,6 +11,17 @@
     @include type-36;
   }
   .body {
+
+    h2 {
+      @include scaled_type(24);
+      @include scaled_margin_top(16);
+    }
+
+    h3 {
+      @include type-18;
+      margin-bottom: 0;
+    }
+
     p, ul, ol {
       @include type-14;
     }
@@ -30,9 +41,12 @@
 
     li {
       @include type-16;
+      @include scaled_margin_bottom(24);
+
       p {
         font-size: 100%;
         line-height: 100%;
+        margin-bottom: 0;
       }
     }
 
