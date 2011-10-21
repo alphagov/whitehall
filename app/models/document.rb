@@ -1,8 +1,7 @@
 class Document < ActiveRecord::Base
-  include ::Transitions
-  include ActiveRecord::Transitions
   include Shared::Identifiable
   include Shared::AccessControl
+  include Shared::Workflow
 
   belongs_to :author, class_name: "User"
 
@@ -27,44 +26,8 @@ class Document < ActiveRecord::Base
     [*documents_related_to, *documents_related_with].uniq
   end
 
-  scope :draft, where(state: "draft")
-  scope :unsubmitted, where(state: "draft", submitted: false)
-  scope :submitted, where(state: "draft", submitted: true)
-  scope :published, where(state: "published")
-
-  state_machine do
-    state :draft
-    state :published
-    state :archived
-
-    event :publish, success: :archive_previous_documents do
-      transitions from: :draft, to: :published
-    end
-
-    event :archive do
-      transitions from: :published, to: :archived
-    end
-  end
-
-  class DocumentHasNoUnpublishedDocumentsValidator
-    def validate(record)
-      if record.document_identity && record.document_identity.documents.draft.any?
-        record.errors.add(:base, "There is already an active draft for this document")
-      end
-    end
-  end
-
-  class DocumentHasNoOtherPublishedDocumentsValidator
-    def validate(record)
-      if record.published? && record.document_identity && record.document_identity.documents.published.any?
-        record.errors.add(:base, "There is already a published edition for this document")
-      end
-    end
-  end
 
   validates_presence_of :title, :body, :author
-  validates_with DocumentHasNoUnpublishedDocumentsValidator, on: :create
-  validates_with DocumentHasNoOtherPublishedDocumentsValidator, on: :create
 
   class << self
     def in_topic(topic)
@@ -112,12 +75,6 @@ class Document < ActiveRecord::Base
       end
     end
     new_draft
-  end
-
-  def archive_previous_documents
-    document_identity.documents.published.each do |document|
-      document.archive! unless document == self
-    end
   end
 
   def allows_attachment?
