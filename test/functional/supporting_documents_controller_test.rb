@@ -8,7 +8,7 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
     get :show, document_id: document.document_identity, id: supporting_document
 
     assert_select ".title", text: supporting_document.title
-    assert_select "a[href='#{document_path(document)}']", text: "Back to '#{document.title}'"
+    assert_select "a[href='#{policy_path(document.document_identity)}']", text: "Back to '#{document.title}'"
   end
 
   test "shows the body using govspeak markup" do

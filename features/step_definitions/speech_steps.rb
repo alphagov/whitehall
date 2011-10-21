@@ -84,7 +84,7 @@ Then /^I should see that "([^"]*)" is the speech body$/ do |body|
 end
 
 Then /^the published speech should remain unchanged$/ do
-  visit document_path(@speech.document_identity)
+  visit speech_path(@speech.document_identity)
   assert page.has_css?('.document_view .title', text: @speech.title)
   assert page.has_css?('.document_view .body', text: @speech.body)
 end

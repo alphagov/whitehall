@@ -4,7 +4,7 @@
   <ul class="news_articles">
     <% news_articles.each do |news_article| %>
       <%= content_tag_for(:li, news_article) do %>
-        <%= link_to news_article.title, document_path(news_article.document_identity), title: "View #{news_article.title}" %>
+        <%= link_to news_article.title, public_document_path(news_article), title: "View #{news_article.title}" %>
       <% end %>
     <% end %>
   </ul>

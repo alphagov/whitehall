@@ -39,7 +39,7 @@ end
 
 Then /^I can visit the published publication "([^"]*)" from the "([^"]*)" policy$/ do |publication_title, policy_title|
   policy = Policy.find_by_title(policy_title)
-  visit document_path(policy.document_identity)
+  visit public_document_path(policy)
   assert has_css?("#related-documents .publication a", text: publication_title)
   click_link publication_title
   assert has_css?(".title", text: publication_title)

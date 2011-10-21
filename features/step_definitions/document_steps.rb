@@ -36,7 +36,7 @@ end
 
 When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
   document = document_class(document_type).find_by_title(title)
-  visit document_path(document.document_identity)
+  visit public_document_path(document)
 end
 
 When /^I draft a new (publication|policy|news article) "([^"]*)"$/ do |document_type, title|

@@ -156,7 +156,7 @@ Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
 end
 
 Then /^the published policy should remain unchanged$/ do
-  visit document_path(@document.document_identity)
+  visit public_document_path(@document)
   assert page.has_css?('.document_view .title', text: @document.title)
   assert page.has_css?('.document_view .body', text: @document.body)
 end
@@ -184,6 +184,6 @@ end
 
 Then /^I should not see "([^"]*)" from the "([^"]*)" policy$/ do |publication_title, policy_title|
   policy = Policy.find_by_title(policy_title)
-  visit document_path(policy.document_identity)
+  visit public_document_path(policy)
   refute has_css?("#related-documents .publication a", text: publication_title)
 end

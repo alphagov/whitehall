@@ -4,7 +4,7 @@
   <ul class="speeches">
     <% speeches.each do |speech| %>
       <%= content_tag_for(:li, speech) do %>
-        <%= link_to speech.title, document_path(speech.document_identity), title: "View #{speech.title}" %>
+        <%= link_to speech.title, public_document_path(speech), title: "View #{speech.title}" %>
       <% end %>
     <% end %>
   </ul>

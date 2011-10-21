@@ -1,1 +1,2 @@
 World(AdminDocumentRoutesHelper)
+World(PublicDocumentRoutesHelper)
