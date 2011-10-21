@@ -1,5 +1,19 @@
 <%= form_for [:admin, document], as: :document do |form| %>
   <%= render partial: 'form_errors', locals: { document: document }%>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
+
+  <fieldset>
+    <%= form.label :role_appointment_id, 'Delivered by' %>
+    <%= form.select :role_appointment_id, options_from_collection_for_select(MinisterialRole.alphabetical_by_person.map { |role| role.role_appointments.current.first }, 'id', 'to_s', document.role_appointment_id), {}, class: 'chzn-select', data: { placeholder: "Choose a minister..." } %>
+  </fieldset>
+
+  <fieldset>
+    <%= form.label :delivered_on %>
+    <%= form.date_select :delivered_on, include_blank: true %>
+
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </fieldset>
+
   <%= render partial: 'form_submit', locals: { form: form, document: document }%>
 <% end %>

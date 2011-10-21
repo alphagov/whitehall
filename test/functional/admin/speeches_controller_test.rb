@@ -9,25 +9,53 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
   end
 
+  test "new displays speech form" do
+    get :new
+
+    assert_select "form[action='#{admin_speeches_path}']" do
+      assert_select "input[name='document[title]'][type='text']"
+      assert_select "textarea[name='document[body]']"
+      assert_select "select[name='document[role_appointment_id]']"
+      assert_select "select[name*='document[delivered_on']", count: 3
+      assert_select "input[name='document[location]'][type='text']"
+      assert_select "input[type='submit']"
+    end
+  end
+
   test 'creating should create a new speech' do
-    attributes = attributes_for(:speech)
+    role_appointment = create(:role_appointment)
+    attributes = attributes_for(:speech).merge(
+      role_appointment_id: role_appointment.id
+    )
 
     post :create, document: attributes
 
-    created_speech = Speech.last
-    assert_equal attributes[:title], created_speech.title
-    assert_equal attributes[:body], created_speech.body
+    assert speech = Speech.last
+    assert_equal attributes[:title], speech.title
+    assert_equal attributes[:body], speech.body
+    assert_equal role_appointment, speech.role_appointment
+    assert_equal attributes[:delivered_on], speech.delivered_on
+    assert_equal attributes[:location], speech.location
   end
 
   test 'creating should take the writer to the speech page' do
-    post :create, document: attributes_for(:speech)
+    role_appointment = create(:role_appointment)
+    attributes = attributes_for(:speech).merge(
+      role_appointment_id: role_appointment.id
+    )
+
+    post :create, document: attributes
 
     assert_redirected_to admin_speech_path(Speech.last)
     assert_equal 'The document has been saved', flash[:notice]
   end
 
   test 'creating with invalid data should leave the writer in the speech editor' do
-    attributes = attributes_for(:speech)
+    role_appointment = create(:role_appointment)
+    attributes = attributes_for(:speech).merge(
+      role_appointment_id: role_appointment.id
+    )
+
     post :create, document: attributes.merge(title: '')
 
     assert_equal attributes[:body], assigns(:document).body, "the valid data should not have been lost"
@@ -35,7 +63,11 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   end
 
   test 'creating with invalid data should set an alert in the flash' do
-    attributes = attributes_for(:speech)
+    role_appointment = create(:role_appointment)
+    attributes = attributes_for(:speech).merge(
+      role_appointment_id: role_appointment.id
+    )
+
     post :create, document: attributes.merge(title: '')
 
     assert_equal 'There are some problems with the document', flash.now[:alert]
@@ -43,12 +75,23 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   test 'updating should save modified document attributes' do
     speech = create(:speech)
+    new_role_appointment = create(:role_appointment)
+    new_delivered_on = speech.delivered_on + 1
 
-    put :update, id: speech.id, document: { title: "new-title", body: "new-body" }
+    put :update, id: speech.id, document: {
+      title: "new-title",
+      body: "new-body",
+      role_appointment_id: new_role_appointment.id,
+      delivered_on: new_delivered_on,
+      location: "new-location"
+    }
 
-    saved_speech = speech.reload
-    assert_equal "new-title", saved_speech.title
-    assert_equal "new-body", saved_speech.body
+    speech = speech.reload
+    assert_equal "new-title", speech.title
+    assert_equal "new-body", speech.body
+    assert_equal new_role_appointment, speech.role_appointment
+    assert_equal new_delivered_on, speech.delivered_on
+    assert_equal "new-location", speech.location
   end
 
   test 'updating should take the writer to the speech page' do

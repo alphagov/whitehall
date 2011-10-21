@@ -20,8 +20,13 @@ Given /^I write and save a speech "([^"]*)" with body "([^"]*)"$/ do |title, bod
 end
 
 Given /^I write a speech "([^"]*)" with body "([^"]*)"$/ do |title, body|
-  fill_in 'Title', with: title
-  fill_in 'Body', with: body
+  person = create(:person, name: "Colonel Mustard")
+  role = create(:ministerial_role, name: "Attorney General")
+  role_appointment = create(:role_appointment, person: person, role: role)
+  begin_drafting_document type: 'speech', title: title, body: body
+  select "Colonel Mustard (Attorney General)", from: "Delivered by"
+  select_date "Delivered on", with: 1.day.ago.to_s
+  fill_in "Location", with: "The Drawing Room"
 end
 
 Given /^I submit the speech for the second set of eyes$/ do
@@ -31,6 +36,7 @@ end
 Given /^a published speech exists$/ do
   @speech = create(:published_speech)
 end
+
 
 
 When /^I edit the speech "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
@@ -54,6 +60,17 @@ When /^I create a new edition of the published speech$/ do
   visit published_admin_documents_path
   click_link Speech.published.last.title
   click_button 'Create new draft'
+end
+
+When /^I draft a new speech "([^"]*)"$/ do |title|
+  person = create(:person, name: "Colonel Mustard")
+  role = create(:ministerial_role, name: "Attorney General")
+  role_appointment = create(:role_appointment, person: person, role: role)
+  begin_drafting_document type: 'speech', title: title
+  select "Colonel Mustard (Attorney General)", from: "Delivered by"
+  select_date "Delivered on", with: 1.day.ago.to_s
+  fill_in "Location", with: "The Drawing Room"
+  click_button "Save"
 end
 
 

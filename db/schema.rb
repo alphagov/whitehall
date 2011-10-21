@@ -67,11 +67,11 @@ ActiveRecord::Schema.define(:version => 20111021110801) do
     t.string   "state",                :default => "draft", :null => false
     t.integer  "attachment_id"
     t.string   "type"
-    t.date     "opening_on"
-    t.date     "closing_on"
     t.integer  "role_appointment_id"
     t.string   "location"
     t.date     "delivered_on"
+    t.date     "opening_on"
+    t.date     "closing_on"
   end
 
   create_table "fact_check_requests", :force => true do |t|

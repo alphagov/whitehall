@@ -9,8 +9,6 @@ FactoryGirl.define do
     body  "policy-body"
   end
 
-<<<<<<< HEAD
-=======
   factory :publication do
     document_identity
     author
@@ -30,9 +28,20 @@ FactoryGirl.define do
     author
     title "speech-title"
     body  "speech-body"
+    role_appointment
+    delivered_on Date.today
+    location "speech-location"
   end
 
->>>>>>> Add speeches as a subclass of Document.
+  factory :consultation do
+    document_identity
+    author
+    title "consultation-title"
+    body  "consultation-body"
+    opening_on 1.day.ago
+    closing_on 6.weeks.from_now
+  end
+
   factory :published_policy, parent: :policy do
     state "published"
     submitted true
@@ -50,13 +59,6 @@ FactoryGirl.define do
   factory :submitted_policy, parent: :policy do
     state "draft"
     submitted true
-  end
-
-  factory :publication do
-    document_identity
-    author
-    title "publication-title"
-    body  "publication-body"
   end
 
   factory :published_publication, parent: :publication do
@@ -78,13 +80,6 @@ FactoryGirl.define do
     submitted true
   end
 
-  factory :news_article do
-    document_identity
-    author
-    title "news-title"
-    body  "news-body"
-  end
-
   factory :draft_news_article, parent: :news_article do
     state "draft"
   end
@@ -104,46 +99,40 @@ FactoryGirl.define do
     submitted true
   end
 
-<<<<<<< HEAD
-  factory :consultation do
-    document_identity
-    author
-    title "consultation-title"
-    body  "consultation-body"
-    opening_on 1.day.ago
-    closing_on 6.weeks.from_now
-  end
-
   factory :draft_consultation, parent: :consultation do
     state "draft"
   end
 
   factory :submitted_consultation, parent: :consultation do
-=======
+    state "draft"
+    submitted true
+  end
+
+  factory :published_consultation, parent: :consultation do
+    state "published"
+    submitted true
+  end
+
+  factory :archived_consultation, parent: :consultation do
+    state "archived"
+    submitted true
+  end
+
   factory :draft_speech, parent: :speech do
     state "draft"
   end
 
   factory :submitted_speech, parent: :speech do
->>>>>>> Add speeches as a subclass of Document.
     state "draft"
     submitted true
   end
 
-<<<<<<< HEAD
-  factory :published_consultation, parent: :consultation do
-=======
   factory :published_speech, parent: :speech do
->>>>>>> Add speeches as a subclass of Document.
     state "published"
     submitted true
   end
 
-<<<<<<< HEAD
-  factory :archived_consultation, parent: :consultation do
-=======
   factory :archived_speech, parent: :speech do
->>>>>>> Add speeches as a subclass of Document.
     state "archived"
     submitted true
   end

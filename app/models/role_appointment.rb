@@ -12,6 +12,8 @@ class RoleAppointment < ActiveRecord::Base
     where("id NOT IN (?)", ids)
   }
 
+  scope :current, where(CURRENT_CONDITION)
+
   after_create :make_other_appointments_non_current
 
   private
@@ -19,5 +21,9 @@ class RoleAppointment < ActiveRecord::Base
   def make_other_appointments_non_current
     other_appointments = self.class.for_role(role).excluding(self)
     other_appointments.update_all({ended_at: Time.zone.now})
+  end
+
+  def to_s
+    role.to_s
   end
 end
