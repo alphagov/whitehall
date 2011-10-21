@@ -1,7 +1,7 @@
 class Document < ActiveRecord::Base
-  include Shared::Identifiable
-  include Shared::AccessControl
-  include Shared::Workflow
+  include Document::Identifiable
+  include Document::AccessControl
+  include Document::Workflow
 
   belongs_to :author, class_name: "User"
 
