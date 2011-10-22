@@ -5,8 +5,7 @@ def create_document(type, attributes)
   attributes[:ministerial_roles] = Array.new(rand(2) + 1) { MinisterialRole.order("RAND()").first }
   type.create!({
     title: "title-n",
-    body: random_policy_text,
-    document_identity: DocumentIdentity.new
+    body: random_policy_text
   }.merge(attributes))
 end
 
