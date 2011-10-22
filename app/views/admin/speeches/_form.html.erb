@@ -4,7 +4,7 @@
 
   <fieldset>
     <%= form.label :role_appointment_id, 'Delivered by' %>
-    <%= form.select :role_appointment_id, options_from_collection_for_select(MinisterialRole.alphabetical_by_person.map { |role| role.role_appointments.current.first }, 'id', 'to_s', document.role_appointment_id), {}, class: 'chzn-select', data: { placeholder: "Choose a minister..." } %>
+    <%= form.select :role_appointment_id, options_from_collection_for_select(ministerial_appointment_options, :first, :last, document.role_appointment_id), {}, class: 'chzn-select', data: { placeholder: "Choose a minister..." } %>
   </fieldset>
 
   <fieldset>

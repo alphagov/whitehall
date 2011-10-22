@@ -48,4 +48,10 @@ module ApplicationHelper
       document_state.downcase
     end
   end
+
+  def ministerial_appointment_options
+    MinisterialRole.alphabetical_by_person.includes(:role_appointments).map do |role|
+      [role.current_role_appointment.id, role.to_s]
+    end
+  end
 end

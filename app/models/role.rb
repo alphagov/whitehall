@@ -9,6 +9,10 @@ class Role < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def current_role_appointment
+    role_appointments.first
+  end
+
   def person
     people.first
   end
