@@ -36,6 +36,11 @@ form {
     @include rounded(2px);
   }
 
+  select.date {
+    display: inline;
+    width: 60px;
+  }
+
   input[type="file"] {
     font-size: 0.75em;
   }

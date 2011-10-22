@@ -9,7 +9,7 @@
 
   <fieldset>
     <%= form.label :delivered_on %>
-    <%= form.date_select :delivered_on, include_blank: true %>
+    <%= form.date_select :delivered_on, { include_blank: true }, { :class => "date" } %>
 
     <%= form.label :location %>
     <%= form.text_field :location %>
