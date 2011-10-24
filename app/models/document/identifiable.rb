@@ -13,8 +13,12 @@ module Document::Identifiable
 
   module ClassMethods
     def published_as(id)
-      identity = DocumentIdentity.from_param(id)
-      identity && identity.published_document
+      begin
+        identity = DocumentIdentity.find(id)
+        identity && identity.published_document
+      rescue ActiveRecord::RecordNotFound
+        nil
+      end
     end
   end
 end
