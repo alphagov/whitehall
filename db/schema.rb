@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111024155806) do
+ActiveRecord::Schema.define(:version => 20111024161103) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
@@ -146,7 +146,10 @@ ActiveRecord::Schema.define(:version => 20111024155806) do
     t.string   "name"
     t.string   "type",       :default => "MinisterialRole", :null => false
     t.boolean  "leader",     :default => false
+    t.string   "slug"
   end
+
+  add_index "roles", ["slug"], :name => "index_roles_on_slug"
 
   create_table "supporting_documents", :force => true do |t|
     t.integer  "document_id"
