@@ -24,6 +24,15 @@ module Whitehall
       end
     end
 
+    def text_field(method, *args)
+      label(method) + super
+    end
+
+    def text_area(method, *args)
+      label_text = (args.last || {}).delete(:label)
+      label(method, label_text) + super
+    end
+
     private
 
     def cancel_path(path)

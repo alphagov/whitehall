@@ -72,10 +72,8 @@
   <section class="fact_checking container">
     <h1 class="downplay">Request fact checking</h1>
     <%= form_for [:admin, @document, FactCheckRequest.new] do |f| %>
-      <%= f.label :email_address, 'Email address' %>
       <%= f.text_field :email_address %>
-      <%= f.label :instructions, 'Extra instructions' %>
-      <%= f.text_area :instructions, cols: nil, rows: nil %>
+      <%= f.text_area :instructions, cols: nil, rows: nil, label: "Extra instructions" %>
       <%= f.submit 'Send request' %>
     <% end %>
   </section>

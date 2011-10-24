@@ -1,35 +1,25 @@
 <%= form_for [:admin, organisation], as: :organisation do |organisation_form| %>
   <%= organisation_form.errors %>
   <fieldset>
-    <%= organisation_form.label :name %>
     <%= organisation_form.text_field :name %>
   </fieldset>
   <fieldset>
-    <%= organisation_form.label :address %>
     <%= organisation_form.text_area :address %>
-    <%= organisation_form.label :postcode %>
     <%= organisation_form.text_field :postcode %>
-    <%= organisation_form.label :latitude %>
     <%= organisation_form.text_field :latitude %>
-    <%= organisation_form.label :longitude %>
     <%= organisation_form.text_field :longitude %>
   </fieldset>
   <fieldset>
-    <%= organisation_form.label :email %>
     <%= organisation_form.text_field :email %>
   </fieldset>
   <fieldset>
     <legend>Phone numbers</legend>
     <%= organisation_form.fields_for :phone_numbers do |phone_numbers_form| %>
-      <%= phone_numbers_form.label :description %>
       <%= phone_numbers_form.text_field :description %>
-      <%= phone_numbers_form.label :number %>
       <%= phone_numbers_form.text_field :number %>
     <% end %>
     <%= organisation_form.fields_for :phone_numbers, PhoneNumber.new do |phone_numbers_form| %>
-      <%= phone_numbers_form.label :description %>
       <%= phone_numbers_form.text_field :description %>
-      <%= phone_numbers_form.label :number %>
       <%= phone_numbers_form.text_field :number %>
     <% end %>
   </fieldset>
