@@ -1,6 +1,8 @@
 class RoleAppointment < ActiveRecord::Base
   CURRENT_CONDITION = {ended_at: nil}
 
+  has_many :speeches
+
   belongs_to :role
   belongs_to :person
 

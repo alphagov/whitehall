@@ -27,4 +27,14 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_select_object(published_document)
     assert_select_object(draft_document, count: 0)
   end
+
+  test "shows only published speeches associated with ministerial role" do
+    ministerial_role = create(:ministerial_role)
+    role_appointment = create(:role_appointment, role: ministerial_role)
+    published_document = create(:published_speech, role_appointment: role_appointment)
+    draft_document = create(:draft_speech, role_appointment: role_appointment)
+    get :show, id: ministerial_role
+    assert_select_object(published_document)
+    assert_select_object(draft_document, count: 0)
+  end
 end

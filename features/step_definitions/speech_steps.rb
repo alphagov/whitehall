@@ -10,6 +10,11 @@ Given /^"([^"]*)" submitted a speech "([^"]*)" with body "([^"]*)"$/ do |author,
   And %{I submit the speech for the second set of eyes}
 end
 
+Given /^a published speech "([^"]*)" by "([^"]*)" on "([^"]*)" at "([^"]*)"$/ do |title, ministerial_role, delivered_on, location|
+  role_appointment = MinisterialRole.all.detect { |mr| mr.to_s == ministerial_role }.current_role_appointment
+  create(:published_speech, title: title, role_appointment: role_appointment, delivered_on: Date.parse(delivered_on), location: location)
+end
+
 Given /^I visit the new speech page$/ do
   visit new_admin_speech_path
 end
@@ -73,6 +78,11 @@ When /^I draft a new speech "([^"]*)"$/ do |title|
   click_button "Save"
 end
 
+When /^I visit the speech "([^"]*)"$/ do |title|
+  speech = Speech.find_by_title(title)
+  visit speech_path(speech.document_identity)
+end
+
 
 
 Then /^I should see that "([^"]*)" is the speech author$/ do |name|
@@ -88,3 +98,14 @@ Then /^the published speech should remain unchanged$/ do
   assert page.has_css?('.document_view .title', text: @speech.title)
   assert page.has_css?('.document_view .body', text: @speech.body)
 end
+
+Then /^I should see the speech "([^"]*)"$/ do |title|
+  speech = Speech.find_by_title(title)
+  assert has_css?(record_css_selector(speech))
+end
+
+Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |delivered_on, location|
+  assert page.has_css?('.document_view .delivery .date', text: delivered_on)
+  assert page.has_css?('.document_view .delivery .location', text: location)
+end
+
