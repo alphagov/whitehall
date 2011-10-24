@@ -23,7 +23,7 @@
   <body class="admin">
     <header class="cf masthead">
       <nav>
-        <%= link_to "Document publisher", logged_in? ? admin_documents_path : login_path %>
+        <%= link_to "Documents", logged_in? ? admin_documents_path : login_path %>
         <%= link_to "Organisations", logged_in? ? admin_organisations_path : login_path %>
         <%= link_to "Topics", logged_in? ? admin_topics_path : login_path %>
       </nav>
