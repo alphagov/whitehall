@@ -46,7 +46,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   test 'show displays consultation closing date' do
-    consultation = create(:consultation, closing_on: Date.new(2011, 01, 01))
+    consultation = create(:consultation, opening_on: Date.new(2010, 01, 01), closing_on: Date.new(2011, 01, 01))
     get :show, id: consultation
     assert_select '.closing_on', text: 'Closed on January 1st, 2011'
   end
