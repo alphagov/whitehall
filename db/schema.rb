@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111024114223) do
+ActiveRecord::Schema.define(:version => 20111024135306) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
@@ -22,11 +22,9 @@ ActiveRecord::Schema.define(:version => 20111024114223) do
   create_table "document_identities", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "key",        :limit => 8
     t.string   "slug"
   end
 
-  add_index "document_identities", ["key"], :name => "index_document_identities_on_key", :unique => true
   add_index "document_identities", ["slug"], :name => "index_document_identities_on_slug", :unique => true
 
   create_table "document_ministerial_roles", :force => true do |t|

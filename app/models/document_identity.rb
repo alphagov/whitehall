@@ -1,5 +1,4 @@
 class DocumentIdentity < ActiveRecord::Base
-  include Whitehall::RandomKey
   extend FriendlyId
   friendly_id :document_title, use: :slugged
 
