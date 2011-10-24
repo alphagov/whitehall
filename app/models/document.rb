@@ -85,6 +85,10 @@ class Document < ActiveRecord::Base
     respond_to?(:supporting_documents)
   end
 
+  def has_supporting_documents?
+    allows_supporting_documents? && supporting_documents.any?
+  end
+
   def title_with_state
     state_string = (draft? && submitted?) ? 'submitted' : state
     "#{title} (#{state_string})"

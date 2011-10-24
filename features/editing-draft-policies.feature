@@ -38,6 +38,7 @@ Scenario: Adding a supporting document to a draft policy
   Given a draft policy "Outlaw Moustaches" exists
   When I add a supporting document "Handlebar Waxing" to the "Outlaw Moustaches" policy
   Then I should see in the preview that "Outlaw Moustaches" includes the "Handlebar Waxing" supporting document
+  And I should see in the list of draft documents that "Outlaw Moustaches" has supporting document "Handlebar Waxing"
 
 Scenario: Editing an existing draft policy
   Given a draft policy "Outlaw Moustaches" exists

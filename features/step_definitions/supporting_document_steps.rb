@@ -67,3 +67,11 @@ Then /^I can visit the supporting document "([^"]*)" from the "([^"]*)" policy$/
   click_link supporting_title
   assert has_css?(".title", text: supporting_title)
 end
+
+Then /^I should see in the list of draft documents that "([^"]*)" has supporting document "([^"]*)"$/ do |title, supporting_document_title|
+  visit admin_documents_path
+  document = Document.find_by_title(title)
+  within(record_css_selector(document)) do
+    assert has_css?(".supporting_documents", text: /#{supporting_document_title}/)
+  end
+end
