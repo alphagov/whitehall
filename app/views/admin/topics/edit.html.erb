@@ -1,0 +1,33 @@
+<div class="g2 first">
+  <section>
+    <h1>Edit topic</h1>
+    <%= form_for [:admin, @topic] do |topic_form| %>
+      <% if topic_form.object.errors.any? %>
+        <div class="form-errors">
+          <p>To save the topic please fix the following issues:</p>
+          <ul class="errors disc">
+            <% topic_form.object.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <fieldset>
+        <%= topic_form.label :name %>
+        <%= topic_form.text_field :name %>
+        <%= topic_form.label :description %>
+        <%= topic_form.text_area :description %>
+      </fieldset>
+
+      <fieldset class="clear">
+        <%= topic_form.submit 'Save' %>
+        <span class="or_cancel">
+          or
+          <%= link_to 'cancel', admin_topics_path %>
+        </span>
+      </fieldset>
+
+    <% end %>
+  </section>
+</div>

@@ -33,6 +33,7 @@ Whitehall::Application.routes.draw do
       resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
     end
 
+    resources :topics, only: [:index, :edit, :update]
     resources :publications, only: [:new, :create, :edit, :update, :show]
     resources :policies, only: [:new, :create, :edit, :update, :show]
     resources :news_articles, only: [:new, :create, :edit, :update, :show]

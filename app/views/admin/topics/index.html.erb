@@ -1,0 +1,25 @@
+<section class="resource_list">
+  <nav class="g3 actions">
+    <%#= link_to "Create Policy", new_admin_policy_path, class: "button new_resource", title: "Draft a Policy" %>
+  </nav>
+
+  <div class="collection">
+    <h1>Topics</h1>
+    <table class="topics">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @topics.each do |topic| %>
+          <%= content_tag_for(:tr, topic) do %>
+            <td class="name"><%= link_to topic.name, edit_admin_topic_path(topic), title: "Edit topic #{topic.name}" %></td>
+            <td class="description"><%= topic.description %></td>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

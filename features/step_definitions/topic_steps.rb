@@ -1,3 +1,20 @@
+Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
+  create(:topic, name: name, description: description, documents: [create(:published_policy)])
+end
+
+When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, description|
+  visit admin_topics_path
+  click_link name
+  fill_in "Description", with: description
+  click_button "Save"
+end
+
+Then /^I should see the "([^"]*)" topic description is "([^"]*)"$/ do |name, description|
+  visit topics_path
+  click_link name
+  assert page.has_css?(".description", text: description)
+end
+
 Given /^the topic "([^"]*)" contains some policies$/ do |name|
   documents = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
   create(:topic, name: name, documents: documents)
