@@ -6,5 +6,5 @@
   <%= render partial: 'topic_fields', locals: { form: form, document: document } %>
   <%= render partial: 'minister_fields', locals: { form: form, document: document } %>
 
-  <%= render partial: 'form_submit', locals: { form: form, document: document }%>
+  <%= form.save_or_cancel %>
 <% end %>

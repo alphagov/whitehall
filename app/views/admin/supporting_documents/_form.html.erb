@@ -5,12 +5,6 @@
   <%= form.label :body %>
   <%= form.text_area :body, disabled: disabled %>
   <% unless disabled %>
-    <fieldset class="clear">
-      <%= form.submit 'Save' %>
-      <span class="or_cancel">
-        or
-        <%= link_to 'cancel', (supporting_document.new_record? ? admin_document_path(@document) : admin_supporting_document_path(supporting_document)) %>
-      </span>
-    </fieldset>
+    <%= form.save_or_cancel cancel: (supporting_document.new_record? ? admin_document_path(@document) : admin_supporting_document_path(supporting_document))%>
   <% end %>
 <% end %>

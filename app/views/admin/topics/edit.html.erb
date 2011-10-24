@@ -20,14 +20,7 @@
         <%= topic_form.text_area :description %>
       </fieldset>
 
-      <fieldset class="clear">
-        <%= topic_form.submit 'Save' %>
-        <span class="or_cancel">
-          or
-          <%= link_to 'cancel', admin_topics_path %>
-        </span>
-      </fieldset>
-
+      <%= topic_form.save_or_cancel cancel: admin_topics_path %>
     <% end %>
   </section>
 </div>

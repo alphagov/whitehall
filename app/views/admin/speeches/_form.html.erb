@@ -15,5 +15,5 @@
     <%= form.text_field :location %>
   </fieldset>
 
-  <%= render partial: 'form_submit', locals: { form: form, document: document }%>
+  <%= form.save_or_cancel %>
 <% end %>

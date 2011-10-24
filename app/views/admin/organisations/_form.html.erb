@@ -43,11 +43,5 @@
     <% end %>
   </fieldset>
 
-  <fieldset class="clear">
-    <%= organisation_form.submit 'Save' %>
-    <span class="or_cancel">
-      or
-      <%= link_to 'cancel', (organisation.new_record? ? admin_organisations_path : admin_organisation_path(organisation)) %>
-    </span>
-  </fieldset>
+  <%= organisation_form.save_or_cancel %>
 <% end %>
