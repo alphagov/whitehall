@@ -45,15 +45,9 @@ class SupportingDocumentTest < ActiveSupport::TestCase
     assert_equal 'love-all-the-people', supporting_document.slug
   end
 
-  test "should be findable by a slug" do
-    supporting_document = create(:supporting_document, title: 'Love all the people')
-    assert_equal supporting_document, SupportingDocument.find('love-all-the-people')
-  end
-
   test "should not change the slug when the title is changed" do
     supporting_document = create(:supporting_document, title: 'Love all the people')
     supporting_document.update_attributes(title: 'Hold hands')
     assert_equal 'love-all-the-people', supporting_document.slug
   end
-
 end
