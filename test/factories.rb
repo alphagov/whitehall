@@ -3,28 +3,24 @@ FactoryGirl.define do
   end
 
   factory :policy, aliases: [:document] do
-    document_identity
     author
     title "policy-title"
     body  "policy-body"
   end
 
   factory :publication do
-    document_identity
     author
     title "publication-title"
     body  "publication-body"
   end
 
   factory :news_article do
-    document_identity
     author
     title "news-title"
     body  "news-body"
   end
 
   factory :speech do
-    document_identity
     author
     title "speech-title"
     body  "speech-body"
@@ -34,7 +30,6 @@ FactoryGirl.define do
   end
 
   factory :consultation do
-    document_identity
     author
     title "consultation-title"
     body  "consultation-body"
