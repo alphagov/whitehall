@@ -1,5 +1,18 @@
 module Whitehall
   class FormBuilder < ActionView::Helpers::FormBuilder
+    def errors
+       return unless object.errors.any?
+       error_list = @template.content_tag(:ul, "class" => "errors disc") do
+         object.errors.full_messages.each do |msg|
+           @template.concat @template.content_tag(:li, msg)
+         end
+       end
+       @template.content_tag(:div, "class" => "form-errors") do
+         @template.concat @template.content_tag(:p, "To save the #{object.class.name.downcase} please fix the following issues:")
+         @template.concat error_list
+       end
+     end
+
     def save_or_cancel(options={})
       cancel = @template.content_tag(:span, "class" => "or_cancel") do
         @template.concat %{ or }

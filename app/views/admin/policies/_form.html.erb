@@ -1,5 +1,5 @@
 <%= form_for [:admin, document], as: :document do |form| %>
-  <%= render partial: 'form_errors', locals: { document: document }%>
+  <%= form.errors %>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
 
   <%= render partial: 'organisation_fields', locals: { form: form, document: document } %>

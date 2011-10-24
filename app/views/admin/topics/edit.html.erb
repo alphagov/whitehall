@@ -2,16 +2,7 @@
   <section>
     <h1>Edit topic</h1>
     <%= form_for [:admin, @topic] do |topic_form| %>
-      <% if topic_form.object.errors.any? %>
-        <div class="form-errors">
-          <p>To save the topic please fix the following issues:</p>
-          <ul class="errors disc">
-            <% topic_form.object.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+      <%= topic_form.errors %>
 
       <fieldset>
         <%= topic_form.label :name %>
