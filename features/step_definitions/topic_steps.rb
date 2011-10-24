@@ -3,7 +3,8 @@ Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, descript
 end
 
 When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, description|
-  visit admin_topics_path
+  visit admin_root_path
+  click_link "Topics"
   click_link name
   fill_in "Description", with: description
   click_button "Save"
