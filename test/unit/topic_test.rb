@@ -32,4 +32,15 @@ class TopicTest < ActiveSupport::TestCase
     expected = [topic_with_published_policy, topic_with_published_publication, topic_with_published_policy_and_publication]
     assert_equal expected, Topic.with_published_documents
   end
+
+  test "should set a slug from the topic name" do
+    topic = create(:topic, name: 'Love all the people')
+    assert_equal 'love-all-the-people', topic.slug
+  end
+
+  test "should not change the slug when the name is changed" do
+    topic = create(:topic, name: 'Love all the people')
+    topic.update_attributes(name: 'Hold hands')
+    assert_equal 'love-all-the-people', topic.slug
+  end
 end

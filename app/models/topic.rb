@@ -6,6 +6,13 @@ class Topic < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
+  def should_generate_new_friendly_id?
+    new_record?
+  end
+
   def self.with_published_documents
     joins(:published_documents).group(:topic_id)
   end
