@@ -11,7 +11,7 @@ class ConsultationTest < ActiveSupport::TestCase
     refute consultation.valid?
   end
 
-  test "should not be valid without an closing on date" do
+  test "should not be valid without a closing on date" do
     consultation = build(:consultation, closing_on: nil)
     refute consultation.valid?
   end
