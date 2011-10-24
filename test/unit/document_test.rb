@@ -22,7 +22,8 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should be invalid without a document identity" do
-    document = build(:document, document_identity: nil)
+    document = build(:document)
+    document.stubs(:document_identity).returns(nil)
     refute document.valid?
   end
 
@@ -38,8 +39,9 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.valid?
   end
 
-  test "adds a document identity during initialization if none provided" do
+  test "adds a document identity before validation if none provided" do
     document = Document.new
+    document.valid?
     assert_not_nil document.document_identity
     assert_kind_of DocumentIdentity, document.document_identity
   end
@@ -370,5 +372,10 @@ class DocumentTest < ActiveSupport::TestCase
     document.publish_as(create(:departmental_editor))
     assert document.published?
     assert_equal "Dog Eyes (published)", document.reload.title_with_state
+  end
+
+  test "should use the document title as the basis for the document identity's slug" do
+    policy = create(:policy, title: 'My Policy Title')
+    assert_equal 'my-policy-title', policy.document_identity.slug
   end
 end

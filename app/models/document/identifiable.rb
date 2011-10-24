@@ -4,11 +4,11 @@ module Document::Identifiable
   included do
     belongs_to :document_identity
     validates :document_identity, presence: true
+    before_validation :set_document_identity, on: :create
   end
 
-  def initialize(*args, &block)
-    super
-    self.document_identity ||= DocumentIdentity.new
+  def set_document_identity
+    self.document_identity ||= DocumentIdentity.new(sluggable_string: self.title)
   end
 
   module ClassMethods
