@@ -1,0 +1,12 @@
+<% if document.related_documents.any? %>
+  <section id="related-documents" class="g1">
+    <h1>Related publications</h1>
+    <ul>
+      <% document.documents_related_with.published.each do |related_document| %>
+        <%= content_tag_for :li, related_document do %>
+          <%= link_to related_document.title, public_document_path(related_document) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

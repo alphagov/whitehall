@@ -8,8 +8,15 @@ class DocumentsController < ApplicationController
   end
 
   def show
-    unless @document = Document.published_as(params[:id])
+    unless @document = document_class.published_as(params[:id])
       render text: "Not found", status: :not_found
     end
   end
+
+  private
+
+  def document_class
+    Document
+  end
+
 end

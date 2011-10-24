@@ -1,0 +1,12 @@
+<% if document.supporting_documents.any? %>
+  <section class="supporting_documents">
+    <h1>Supporting documents</h1>
+    <ul>
+      <% document.supporting_documents.each do |supporting_document| %>
+        <%= content_tag_for :li, supporting_document do %>
+          <%= link_to supporting_document.title, document_supporting_document_path(document.document_identity, supporting_document) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

@@ -1,0 +1,6 @@
+<% if document.topics.any? %>
+  <section id="topics" class="g1">
+    <h1>Topics</h1>
+    <%= render partial: "topics/list", locals: {topics: document.topics} %>
+  </section>
+<% end %>
