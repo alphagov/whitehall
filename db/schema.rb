@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111024154925) do
+ActiveRecord::Schema.define(:version => 20111024155806) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
@@ -113,7 +113,10 @@ ActiveRecord::Schema.define(:version => 20111024154925) do
     t.string   "postcode"
     t.decimal  "latitude",   :precision => 15, :scale => 10
     t.decimal  "longitude",  :precision => 15, :scale => 10
+    t.string   "slug"
   end
+
+  add_index "organisations", ["slug"], :name => "index_organisations_on_slug"
 
   create_table "people", :force => true do |t|
     t.string   "name"

@@ -16,4 +16,11 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :phone_numbers, reject_if: :all_blank
 
   validates :name, presence: true, uniqueness: true
+
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
+  def should_generate_new_friendly_id?
+    new_record?
+  end
 end

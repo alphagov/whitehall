@@ -63,4 +63,15 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "Fax", organisation.phone_numbers[1].description
     assert_equal "020712345679", organisation.phone_numbers[1].number
   end
+
+  test "should set a slug from the organisation name" do
+    organisation = create(:organisation, name: 'Love all the people')
+    assert_equal 'love-all-the-people', organisation.slug
+  end
+
+  test "should not change the slug when the name is changed" do
+    organisation = create(:organisation, name: 'Love all the people')
+    organisation.update_attributes(name: 'Hold hands')
+    assert_equal 'love-all-the-people', organisation.slug
+  end
 end
