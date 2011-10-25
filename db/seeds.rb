@@ -72,6 +72,7 @@ organisations(
   "Department of Health",
   "Foreign and Commonwealth Office",
   "Government Equalities Office",
+  "Her Majesty's Revenue and Customs",
   "Her Majesty's Treasury",
   "Home Office",
   "Ministry of Defence",
@@ -206,7 +207,8 @@ leader_civil_servants(
   "Bernard Gray" => {"Permanent Secretary" => "Ministry of Defence"},
   "Professor Mark Welland" => {"Permanent Secretary" => "Ministry of Defence"},
   "Jon Day" => {"Permanent Secretary" => "Ministry of Defence"},
-  "Sir Suma Chakrabarti" => {"Permanent Secretary" => "Ministry of Justice"}
+  "Sir Suma Chakrabarti" => {"Permanent Secretary" => "Ministry of Justice"},
+  "Dame Lesley Strathie" => {"Permanent Secretary" => "Her Majesty's Revenue and Customs"}
 )
 
 other_civil_servants(
