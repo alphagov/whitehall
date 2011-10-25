@@ -58,7 +58,21 @@ section.resource_list {
 
   .collection {
 
-    nav {
+    h1 {
+      font-size: 21px;
+      line-height: 30px;
+      margin-bottom: 0;
+      margin-top: 0;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+      background: #eee;
+      padding: 10px 20px 10px 20px;
+      @include rounded_top(3px);
+    }
+
+    nav.filter {
       margin-bottom: 0;
       margin-top: 0;
       border-bottom: 1px solid #ccc;
@@ -165,15 +179,6 @@ section.resource_list {
 /* TABLET/NETBOOK */
 @media only screen and (min-width: 768px) {
   section.resource_list {
-    .filter {
-      float: right;
-      text-align: right;
-      margin-right: 0;
-
-      nav {
-        margin-bottom: 0;
-      }
-    }
   }
 }
 
