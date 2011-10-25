@@ -1,7 +1,9 @@
 module("Previewing contents of a textarea", {
   setup: function() {
-    var textarea = $('<textarea># preview this</textarea>');
+    var textarea = $('<textarea id="blah"># preview this</textarea>');
+    var label = $('<label for="blah"></label>');
     $('#qunit-fixture').append(textarea);
+    $('#qunit-fixture').append(label);
     textarea.enablePreview();
 
     this.stubbingAjax = function(callback) {
@@ -27,9 +29,11 @@ test("should post the textarea value to the preview controller", function() {
   })
 
   sinon.assert.calledOnce(ajax);
-  var callParams = jQuery.ajax.getCall(0).args[0];
-  equals(callParams.url, "/admin/preview");
-  equals(callParams.data.body, "# preview this");
+  if (jQuery.ajax.getCall(0)) {
+    var callParams = jQuery.ajax.getCall(0).args[0];
+    equals(callParams.url, "/admin/preview");
+    equals(callParams.data.body, "# preview this");
+  }
 });
 
 test("should include the authenticity token in the posted data", function() {
@@ -46,7 +50,7 @@ test("should hide the text area", function() {
     $("a.show-preview").click();
   });
 
-  var editor = $("textarea").parent();
+  var editor = $("textarea");
   ok(!editor.is(":visible"));
 })
 
@@ -55,7 +59,7 @@ test("should show the preview contents when the server responds", function() {
     $("a.show-preview").click();
   });
 
-  var previewForTextArea = $("textarea").parent().parent().find(".preview");
+  var previewForTextArea = $("#blah_preview");
   ok(previewForTextArea.is(":visible"));
 })
 
@@ -64,8 +68,8 @@ test("should show the rendered preview when the server responds", function() {
     $("a.show-preview").click();
   });
 
-  var previewForTextArea = $("textarea").parent().parent().find(".preview");
-  equals(previewForTextArea.find(".preview-content").html(), "<h1>preview this</h1>");
+  var previewForTextArea = $("#blah_preview");
+  equals(previewForTextArea.html(), "<h1>preview this</h1>");
 })
 
 test("should hide the preview contents when clicking edit again", function() {
@@ -73,7 +77,7 @@ test("should hide the preview contents when clicking edit again", function() {
     $("a.show-preview").click();
   });
 
-  $("a.hide-preview").click();
+  $("a.show-editor").click();
 
   var previewForTextArea = $("textarea").parent().parent().find(".preview");
   ok(!previewForTextArea.is(":visible"));
@@ -84,7 +88,7 @@ test("should show the editor when clicking edit again", function() {
     $("a.show-preview").click();
   });
 
-  $("a.hide-preview").click();
+  $("a.show-editor").click();
 
   var editor = $("textarea").parent();
   ok(editor.is(":visible"));

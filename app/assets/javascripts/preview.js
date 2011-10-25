@@ -1,42 +1,50 @@
 (function ($) {
   var _enablePreview = function() {
-    var container = $("<div class='previewable-editor'></div>");
-    var editor = $("<div class='editor'></div>");
-    var preview_link = $("<a href='#' class='show-preview'>preview</a>");
-    var textarea = $(this);
+    $(this).each(function() {
+      var textarea = $(this);
+      var preview = $("<div id='" + textarea.attr("id") + "_preview'></div>");
+      var preview_controls = $("<span class='preview-controls'></span>");
+      var preview_link = $("<a href='#' class='show-preview'>preview</a>");
+      var edit_link = $("<a href='#' class='show-editor'>edit</a>");
+      var label = $("label[for=" + textarea.attr("id") +"]");
 
-    textarea.replaceWith(container);
+      textarea.after(preview);
+      preview_controls.append(preview_link);
+      preview_controls.append(edit_link);
+      label.append(preview_controls);
 
-    editor.append(preview_link);
-    editor.append(textarea);
-
-    var preview = $("<div class='preview'></div>")
-    var preview_content = $("<div class='preview-content'></div>");
-    var edit_link = $("<a href='#' class='hide-preview'>edit</a>")
-    preview.append(edit_link);
-    preview.append(preview_content);
-
-    container.append(editor);
-    container.append(preview);
-    preview.hide();
-
-    preview_link.click(function() {
-      params = {
-        body: textarea.val(),
-        authenticity_token: $("meta[name=csrf-token]").attr('content')
+      var showEditor = function() {
+        preview.hide();
+        edit_link.hide();
+        textarea.show();
+        preview_link.show();
       }
-      $.post("/admin/preview", params, function(data) {
-        preview_content.html(data);
-        editor.hide();
-        preview.show();
-      });
-      return false;
-    })
 
-    edit_link.click(function() {
-      preview.hide();
-      editor.show();
-      return false;
+      var showPreview = function() {
+        textarea.hide();
+        preview_link.hide();
+        preview.show();
+        edit_link.show();
+      }
+
+      showEditor();
+
+      preview_link.click(function() {
+        params = {
+          body: textarea.val(),
+          authenticity_token: $("meta[name=csrf-token]").attr('content')
+        }
+        $.post("/admin/preview", params, function(data) {
+          preview.html(data);
+          showPreview();
+        });
+        return false;
+      })
+
+      edit_link.click(function() {
+        showEditor();
+        return false;
+      })
     })
   }
 
