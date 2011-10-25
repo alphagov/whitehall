@@ -6,8 +6,14 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.valid?
   end
 
-  test 'should be invalid without a name' do
+  test 'should be invalid without a file' do
     attachment = build(:attachment, file: nil)
     refute attachment.valid?
+  end
+
+  test 'should return filename even after reloading' do
+    attachment = create(:attachment)
+    refute_nil attachment.filename
+    assert_equal attachment.filename, Attachment.find(attachment.id).filename
   end
 end

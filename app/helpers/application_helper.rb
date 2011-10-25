@@ -38,7 +38,7 @@ module ApplicationHelper
 
   def link_to_attachment(attachment)
     return unless attachment
-    link_to File.basename(attachment.file.current_path), attachment.file.url
+    link_to attachment.filename, attachment.url
   end
 
   def empty_documents_list_verb(document_state)
