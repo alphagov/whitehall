@@ -143,4 +143,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_object(organisation_2)
   end
 
+  test "should display orgsanisations in alphabetical order" do
+    organisation_c = create(:organisation, name: 'C')
+    organisation_a = create(:organisation, name: 'A')
+    organisation_b = create(:organisation, name: 'B')
+
+    get :index
+
+    assert_equal [organisation_a, organisation_b, organisation_c], assigns[:organisations]
+  end
+
 end

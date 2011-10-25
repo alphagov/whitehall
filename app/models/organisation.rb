@@ -17,6 +17,8 @@ class Organisation < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
+  default_scope order(:name)
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 
