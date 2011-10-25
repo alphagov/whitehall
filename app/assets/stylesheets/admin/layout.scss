@@ -5,15 +5,16 @@
   background: #2a2a00;
 
   nav {
-    @include type-21;
-    @include pipe_separated_links;
     float: left;
     padding-right: 1em;
-    margin-bottom: 0;
-    a {
-      @include link_color(#fff, $link-color-hover, #fff, $active: $link-color-active);
-      text-decoration: none;
-    }
+  }
+
+  a {
+    @include type-14;
+    @include link_color(#fff, $link-color-hover, none, $link-color-active);
+    text-decoration: none;
+    font-weight: bold;
+    padding-right: 1em;
   }
 }
 
