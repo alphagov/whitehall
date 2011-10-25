@@ -61,4 +61,4 @@ namespace :test do
 
 end
 
-task :default => "test:javascript"
+# task :default => "test:javascript"
