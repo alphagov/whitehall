@@ -24,4 +24,13 @@ class ConsultationsControllerTest < ActionController::TestCase
     get :show, id: consultation.document_identity
     assert_select '.attachment a', text: consultation.attachment.filename
   end
+
+  test 'show displays inapplicable nations' do
+    consultation = create(:published_consultation)
+    consultation.nations << Nation.wales
+
+    get :show, id: consultation.document_identity
+
+    assert_select "#inapplicable_nations", "This policy does not apply to Northern Ireland and Scotland."
+  end
 end

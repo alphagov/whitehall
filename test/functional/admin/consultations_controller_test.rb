@@ -58,6 +58,15 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select '.attachment a', text: consultation.attachment.filename
   end
 
+  test 'show displays inapplicable nations' do
+    published_policy = create(:consultation)
+    published_policy.nations << Nation.wales
+
+    get :show, id: published_policy
+
+    assert_select_object Nation.wales
+  end
+
   test 'edit displays consultation form' do
     consultation = create(:consultation)
 
