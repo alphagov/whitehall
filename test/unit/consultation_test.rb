@@ -24,4 +24,12 @@ class ConsultationTest < ActiveSupport::TestCase
   test "allows attachment" do
     assert build(:publication).allows_attachment?
   end
+
+  test "should build a draft copy of the existing consultation with inapplicable nations" do
+    published_consultation = create(:published_consultation, inapplicable_nations: [Nation.wales, Nation.scotland])
+
+    draft_consultation = published_consultation.create_draft(create(:policy_writer))
+
+    assert_equal published_consultation.inapplicable_nations, draft_consultation.inapplicable_nations
+  end
 end

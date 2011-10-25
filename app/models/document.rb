@@ -64,10 +64,18 @@ class Document < ActiveRecord::Base
 
   def create_draft(user)
     draft_attributes = {
-      state: "draft", author: user, submitted: false, topics: topics,
-      organisations: organisations, ministerial_roles: ministerial_roles,
-      documents_related_with: documents_related_with, documents_related_to: documents_related_to
+      state: "draft",
+      author: user,
+      submitted: false,
+      topics: topics,
+      organisations: organisations,
+      ministerial_roles: ministerial_roles,
+      documents_related_with: documents_related_with,
+      documents_related_to: documents_related_to
     }
+    if respond_to?(:inapplicable_nations)
+      draft_attributes[:inapplicable_nations] = inapplicable_nations
+    end
     new_draft = self.class.create(attributes.merge(draft_attributes))
     if new_draft.valid? && allows_supporting_documents?
       supporting_documents.each do |sd|
