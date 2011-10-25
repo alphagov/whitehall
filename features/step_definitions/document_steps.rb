@@ -107,7 +107,7 @@ Then /^I should see in the preview that "([^"]*)" is associated with "([^"]*)" a
   assert has_css?(".ministerial_role", text: minister_2)
 end
 
-Then /^I should see in the preview that "([^"]*)" only applies to the nations:$/ do |title, nation_names|
+Then /^I should see in the preview that "([^"]*)" does not apply to the nations:$/ do |title, nation_names|
   visit_document_preview title
   nation_names.raw.flatten.each do |nation_name|
     assert has_css?(".nation", nation_name)

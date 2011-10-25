@@ -35,13 +35,13 @@
     <% end %>
   </section>
 
-  <% if @document.respond_to?(:nations) %>
+  <% if @document.respond_to?(:inapplicable_nations) %>
     <section class="container">
-      <h1>Nations</h1>
-      <% if @document.nations.any? %>
-        <%= render partial: "nations/list", locals: {nations: @document.nations} %>
+      <h1>Excluded Nations</h1>
+      <% if @document.inapplicable_nations.any? %>
+        <%= render partial: "nations/list", locals: {nations: @document.inapplicable_nations} %>
       <% else %>
-        <p>This document isn't assigned to any nations.</p>
+        <p>This document is applicable to all nations.</p>
       <% end %>
     </section>
   <% end %>

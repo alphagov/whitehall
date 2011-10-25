@@ -25,8 +25,8 @@ Scenario: Viewing a policy that has multiple responsible ministers
     | Solicitor General | Professor Plum  |
 
 Scenario: Viewing a policy that is applicable to certain nations
-  Given a published policy "Haggis for every meal" that only applies to the nations:
-    | Scotland |
+  Given a published policy "Haggis for every meal" that does not apply to the nations:
+    | Northern Ireland | Wales |
   When I visit the policy "Haggis for every meal"
   Then I should see that the policy does not apply to:
     | Northern Ireland | Wales |

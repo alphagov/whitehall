@@ -27,7 +27,8 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test 'show displays inapplicable nations' do
     consultation = create(:published_consultation)
-    consultation.nations << Nation.wales
+    consultation.inapplicable_nations << Nation.northern_ireland
+    consultation.inapplicable_nations << Nation.scotland
 
     get :show, id: consultation.document_identity
 

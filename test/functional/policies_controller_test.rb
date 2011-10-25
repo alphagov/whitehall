@@ -3,7 +3,8 @@ require "test_helper"
 class PoliciesControllerTest < ActionController::TestCase
   test "should show inapplicable nations" do
     published_policy = create(:published_policy)
-    published_policy.nations << Nation.wales
+    published_policy.inapplicable_nations << Nation.northern_ireland
+    published_policy.inapplicable_nations << Nation.scotland
 
     get :show, id: published_policy.document_identity
 

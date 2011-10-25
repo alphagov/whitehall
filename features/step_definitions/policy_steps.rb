@@ -15,10 +15,10 @@ Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)"
   create(:topic, name: topic_2, documents: [document])
 end
 
-Given /^a published policy "([^"]*)" that only applies to the nations:$/ do |policy_title, nation_names|
+Given /^a published policy "([^"]*)" that does not apply to the nations:$/ do |policy_title, nation_names|
   policy = create(:published_policy, title: policy_title)
   nation_names.raw.flatten.each do |nation_name|
-    policy.nations << Nation.find_by_name(nation_name)
+    policy.inapplicable_nations << Nation.find_by_name(nation_name)
   end
 end
 
@@ -124,10 +124,10 @@ When /^I draft a new policy "([^"]*)" associated with "([^"]*)" and "([^"]*)"$/ 
   click_button "Save"
 end
 
-When /^I draft a new policy "([^"]*)" that only applies to the nations:$/ do |title, nations|
+When /^I draft a new policy "([^"]*)" that does not apply to the nations:$/ do |title, nations|
   begin_drafting_document type: "Policy", title: title
   nations.raw.flatten.each do |nation_name|
-    select nation_name, from: "Applicable Nations"
+    select nation_name, from: "Excluded Nations"
   end
   click_button "Save"
 end

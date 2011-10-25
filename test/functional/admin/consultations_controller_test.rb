@@ -60,7 +60,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   test 'show displays inapplicable nations' do
     published_policy = create(:consultation)
-    published_policy.nations << Nation.wales
+    published_policy.inapplicable_nations << Nation.wales
 
     get :show, id: published_policy
 
