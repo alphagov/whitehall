@@ -1,4 +1,6 @@
 class Attachment < ActiveRecord::Base
-  mount_uploader :name, AttachmentUploader
+  mount_uploader :file, AttachmentUploader
   has_many :documents
+
+  validates :file, presence: true
 end

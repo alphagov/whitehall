@@ -11,10 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111024161103) do
+ActiveRecord::Schema.define(:version => 20111025102344) do
 
   create_table "attachments", :force => true do |t|
-    t.string   "name"
+    t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

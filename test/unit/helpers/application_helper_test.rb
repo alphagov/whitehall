@@ -22,4 +22,13 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal options.first, [philip_hammond_appointment.id, "Philip Hammond (Secretary of State, Ministry of Defence)"]
     assert_equal options.last, [theresa_may_appointment.id, "Theresa May (Secretary of State, Home Office)"]
   end
+
+  test '#link_to_attachment returns nil when attachment is nil' do
+    assert_nil link_to_attachment(nil)
+  end
+
+  test '#link_to_attachment returns link to an attachment given attachment' do
+    attachment = create(:attachment)
+    refute_nil link_to_attachment(attachment)
+  end
 end

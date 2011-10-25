@@ -150,7 +150,7 @@ FactoryGirl.define do
   end
 
   factory :attachment do
-    name "whitepaper.pdf"
+    file { File.open(File.join(Rails.root, 'test', 'fixtures', 'greenpaper.pdf')) }
   end
 
   factory :topic do

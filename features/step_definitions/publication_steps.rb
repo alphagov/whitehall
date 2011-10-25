@@ -5,12 +5,12 @@ Given /^"([^"]*)" has received an email requesting they fact check a draft publi
 end
 
 Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(name: File.open(pdf_attachment))
+  attachment = Attachment.new(file: File.open(pdf_attachment))
   create(:submitted_publication, title: title, attachment: attachment)
 end
 
 Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(name: File.open(pdf_attachment))
+  attachment = Attachment.new(file: File.open(pdf_attachment))
   create(:published_publication, title: title, attachment: attachment)
 end
 

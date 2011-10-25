@@ -44,7 +44,7 @@ class Document < ActiveRecord::Base
   end
 
   def attach_file=(file)
-    self.attachment = build_attachment(name: file)
+    self.attachment = build_attachment(file: file)
   end
 
   def submit_as(user)
