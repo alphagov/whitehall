@@ -1,8 +1,3 @@
-/*
-  utils.
-  https://raw.github.com/jasoncale/frontend-bits/master/utils.scss
---------------------------------------------- */
-
 @mixin rounded($amount: 5px) {
   -moz-border-radius: $amount; /* FF1+ */
   -webkit-border-radius: $amount; /* Saf3+, Chrome */
@@ -107,27 +102,27 @@ eg:
 
 $link-color: #2200C1;
 $link-color-hover: #1D97FF;
-$link-color-visted: #5800AE;
+$link-color-visted: #2200C1;
 $link-color-active: #c11;
 
 @mixin link_color($normal: $link-color, $hover: $link-color-hover, $visited: $link-color-visted, $active: $link-color-active) {
   color: $normal;
 
   &:hover {
-  color: $hover;
+    color: $hover;
   }
 
   &:visited {
-  color: $visited;
+    color: $visited;
   }
 
   &:active {
-  color: $active;
+    color: $active;
   }
 
   &[rel="external"] {
-  background: url(/images/external-link.png) 100% 0 no-repeat;
-  padding-right: 1.2em;
+    background: url(/images/external-link.png) 100% 0 no-repeat;
+    padding-right: 1.2em;
   }
 }
 
