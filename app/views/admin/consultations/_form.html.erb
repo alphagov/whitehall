@@ -2,6 +2,8 @@
   <%= form.errors %>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
 
+  <%= render partial: 'attachment_fields', locals: { form: form, document: document }%>
+
   <fieldset>
     <%= form.label :opening_on, 'Opening Date' %>
     <%= form.date_select :opening_on, { include_blank: true }, { :class => "date" } %>

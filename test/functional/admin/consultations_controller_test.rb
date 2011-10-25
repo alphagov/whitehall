@@ -17,6 +17,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
+      assert_select "input[name='document[attach_file]'][type='file']"
       assert_select "input[type='submit']"
     end
   end
@@ -49,6 +50,12 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     consultation = create(:consultation, opening_on: Date.new(2010, 01, 01), closing_on: Date.new(2011, 01, 01))
     get :show, id: consultation
     assert_select '.closing_on', text: 'Closed on January 1st, 2011'
+  end
+
+  test 'show displays consultation attachment' do
+    consultation = create(:consultation, attachment: create(:attachment))
+    get :show, id: consultation
+    assert_select '.attachment a', text: consultation.attachment.filename
   end
 
   test 'edit displays consultation form' do

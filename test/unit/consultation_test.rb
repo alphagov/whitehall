@@ -20,4 +20,8 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation = build(:consultation, opening_on: 1.day.ago, closing_on: 2.days.ago)
     refute consultation.valid?
   end
+
+  test "allows attachment" do
+    assert build(:publication).allows_attachment?
+  end
 end

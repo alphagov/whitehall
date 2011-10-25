@@ -44,13 +44,6 @@ When /^I draft a new (publication|policy|news article) "([^"]*)"$/ do |document_
   click_button "Save"
 end
 
-When /^I draft a new consultation "([^"]*)"$/ do |title|
-  begin_drafting_document type: 'consultation', title: title
-  select_date "Opening Date", with: 1.day.ago.to_s
-  select_date "Closing Date", with: 6.days.from_now.to_s
-  click_button "Save"
-end
-
 When /^I submit the (publication|policy|news article|consultation|speech) "([^"]*)"$/ do |document_type, title|
   document = document_class(document_type).find_by_title(title)
   visit_document_preview title
