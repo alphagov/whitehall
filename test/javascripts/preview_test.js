@@ -45,6 +45,14 @@ test("should include the authenticity token in the posted data", function() {
   equals(callParams.data.authenticity_token, $("meta[name-csrf-token]").val());
 })
 
+test("should indicate that the preview is loading", function() {
+  var ajax = this.stubbingAjax(function() {
+    $("a.show-preview").click();
+  })
+
+  ok($(".preview-controls .loading").is(":visible"));
+})
+
 test("should hide the text area", function() {
   this.stubbingServer(function() {
     $("a.show-preview").click();
@@ -61,6 +69,14 @@ test("should show the preview contents when the server responds", function() {
 
   var previewForTextArea = $("#blah_preview");
   ok(previewForTextArea.is(":visible"));
+})
+
+test("should hide the loading indicator when the server responds", function() {
+  this.stubbingServer(function() {
+    $("a.show-preview").click();
+  });
+
+  ok(!$(".preview-controls .loading").is(":visible"));
 })
 
 test("should show the rendered preview when the server responds", function() {
