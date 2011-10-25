@@ -16,6 +16,11 @@ class Role < ActiveRecord::Base
     new_record?
   end
 
+  def normalize_friendly_id(value)
+    value = value.gsub(/'/, '') if value
+    super value
+  end
+
   def current_role_appointment
     role_appointments.first
   end

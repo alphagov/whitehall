@@ -13,6 +13,11 @@ class Topic < ActiveRecord::Base
     new_record?
   end
 
+  def normalize_friendly_id(value)
+    value = value.gsub(/'/, '') if value
+    super value
+  end
+
   def self.with_published_documents
     joins(:published_documents).group(:topic_id)
   end

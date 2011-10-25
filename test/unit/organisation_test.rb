@@ -74,4 +74,9 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.update_attributes(name: 'Hold hands')
     assert_equal 'love-all-the-people', organisation.slug
   end
+
+  test "should concatenate words containing apostrophes" do
+    organisation = create(:organisation, name: "Bob's bike")
+    assert_equal 'bobs-bike', organisation.slug
+  end
 end

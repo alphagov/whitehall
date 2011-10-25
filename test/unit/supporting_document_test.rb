@@ -50,4 +50,9 @@ class SupportingDocumentTest < ActiveSupport::TestCase
     supporting_document.update_attributes(title: 'Hold hands')
     assert_equal 'love-all-the-people', supporting_document.slug
   end
+
+  test "should concatenate words containing apostrophes" do
+    supporting_document = create(:supporting_document, title: "Bob's bike")
+    assert_equal 'bobs-bike', supporting_document.slug
+  end
 end

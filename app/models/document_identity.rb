@@ -7,6 +7,11 @@ class DocumentIdentity < ActiveRecord::Base
 
   attr_accessor :sluggable_string
 
+  def normalize_friendly_id(value)
+    value = value.gsub(/'/, '') if value
+    super value
+  end
+
   class << self
     def published
       joins(:published_document)

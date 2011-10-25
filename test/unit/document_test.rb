@@ -378,4 +378,9 @@ class DocumentTest < ActiveSupport::TestCase
     policy = create(:policy, title: 'My Policy Title')
     assert_equal 'my-policy-title', policy.document_identity.slug
   end
+
+  test "should concatenate words containing apostrophes" do
+    policy = create(:policy, title: "Bob's bike")
+    assert_equal 'bobs-bike', policy.document_identity.slug
+  end
 end

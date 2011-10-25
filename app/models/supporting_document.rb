@@ -10,6 +10,11 @@ class SupportingDocument < ActiveRecord::Base
     new_record?
   end
 
+  def normalize_friendly_id(value)
+    value = value.gsub(/'/, '') if value
+    super value
+  end
+
   after_save do
     document.touch
   end

@@ -67,4 +67,9 @@ class RoleTest < ActiveSupport::TestCase
 
     assert_equal [alphonse, boris, charlie], MinisterialRole.alphabetical_by_person
   end
+
+  test "should concatenate words containing apostrophes" do
+    role = create(:ministerial_role, name: "Bob's bike")
+    assert_equal 'bobs-bike', role.slug
+  end
 end
