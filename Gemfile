@@ -29,4 +29,5 @@ group :test do
   gem 'launchy', '~> 2.0.5'
   gem 'hash_syntax'
   gem 'mocha', :require => false
+  gem 'test_track'
 end

@@ -39,6 +39,8 @@ Whitehall::Application.routes.draw do
     resources :news_articles, only: [:new, :create, :edit, :update, :show]
     resources :consultations, only: [:new, :create, :edit, :update, :show]
     resources :speeches, only: [:new, :create, :edit, :update, :show]
+
+    match "preview" => "preview#preview", via: :post
   end
 
   resource :session, only: [:create, :destroy]
@@ -46,4 +48,6 @@ Whitehall::Application.routes.draw do
   match 'logout' => 'sessions#destroy', via: :post
   match 'styleguide' => 'styleguide#index'
   match 'site/sha' => 'site#sha'
+
+  mount TestTrack::Engine => "test" if Rails.env.test?
 end
