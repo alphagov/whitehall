@@ -1,6 +1,11 @@
-<%= form_for [:admin, document], as: :document do |form| %>
+<%= form_for [:admin, document.becomes(Speech)], as: :document do |form| %>
   <%= form.errors %>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
+
+  <fieldset>
+    <%= form.label :type %>
+    <%= form.select :type, options_from_collection_for_select(Speech.subclasses.map { |s| [s.name, s.name.demodulize.titleize] }, :first, :last, document.class.name) %>
+  </fieldset>
 
   <fieldset>
     <%= form.label :role_appointment_id, 'Delivered by' %>

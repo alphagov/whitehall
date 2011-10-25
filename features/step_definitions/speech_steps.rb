@@ -29,6 +29,7 @@ Given /^I write a speech "([^"]*)" with body "([^"]*)"$/ do |title, body|
   role = create(:ministerial_role, name: "Attorney General")
   role_appointment = create(:role_appointment, person: person, role: role)
   begin_drafting_document type: 'speech', title: title, body: body
+  select "Speaking Notes", from: "Type"
   select "Colonel Mustard (Attorney General)", from: "Delivered by"
   select_date "Delivered on", with: 1.day.ago.to_s
   fill_in "Location", with: "The Drawing Room"
@@ -72,6 +73,7 @@ When /^I draft a new speech "([^"]*)"$/ do |title|
   role = create(:ministerial_role, name: "Attorney General")
   role_appointment = create(:role_appointment, person: person, role: role)
   begin_drafting_document type: 'speech', title: title
+  select "Draft Text", from: "Type"
   select "Colonel Mustard (Attorney General)", from: "Delivered by"
   select_date "Delivered on", with: 1.day.ago.to_s
   fill_in "Location", with: "The Drawing Room"
@@ -105,7 +107,7 @@ Then /^I should see the speech "([^"]*)"$/ do |title|
 end
 
 Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |delivered_on, location|
-  assert page.has_css?('.document_view .delivery .date', text: delivered_on)
-  assert page.has_css?('.document_view .delivery .location', text: location)
+  assert page.has_css?('.document_view .details .delivered_on', text: delivered_on)
+  assert page.has_css?('.document_view .details .location', text: location)
 end
 

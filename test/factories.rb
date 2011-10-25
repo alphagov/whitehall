@@ -20,7 +20,7 @@ FactoryGirl.define do
     body  "news-body"
   end
 
-  factory :speech do
+  factory :speech, class: Speech::Transcript do
     author
     title "speech-title"
     body  "speech-body"

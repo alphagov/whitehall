@@ -27,10 +27,18 @@ module AdminDocumentRoutesHelper
   document_instance_route :admin_document_supporting_documents_path
 
   def admin_document_path(document, *args)
-    polymorphic_path([:admin, document], *args)
+    if document.is_a?(Speech)
+      admin_speech_path(document, *args)
+    else
+      polymorphic_path([:admin, document], *args)
+    end
   end
 
   def edit_admin_document_path(document, *args)
-    polymorphic_path([:edit, :admin, document], *args)
+    if document.is_a?(Speech)
+      edit_admin_speech_path(document, *args)
+    else
+      polymorphic_path([:edit, :admin, document], *args)
+    end
   end
 end

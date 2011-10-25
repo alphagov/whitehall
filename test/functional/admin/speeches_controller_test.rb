@@ -15,6 +15,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_speeches_path}']" do
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
+      assert_select "select[name='document[type]']"
       assert_select "select[name='document[role_appointment_id]']"
       assert_select "select[name*='document[delivered_on']", count: 3
       assert_select "input[name='document[location]'][type='text']"
@@ -25,12 +26,13 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   test 'creating should create a new speech' do
     role_appointment = create(:role_appointment)
     attributes = attributes_for(:speech).merge(
-      role_appointment_id: role_appointment.id
+      role_appointment_id: role_appointment.id,
+      type: "Speech::Transcript"
     )
 
     post :create, document: attributes
 
-    assert speech = Speech.last
+    assert speech = Speech::Transcript.last
     assert_equal attributes[:title], speech.title
     assert_equal attributes[:body], speech.body
     assert_equal role_appointment, speech.role_appointment
@@ -73,6 +75,12 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
+  test "edit displays speech form" do
+    speech = create(:speech)
+    get :edit, id: speech.id
+    assert_select "form[action='#{admin_speech_path(speech)}']"
+  end
+
   test 'updating should save modified document attributes' do
     speech = create(:speech)
     new_role_appointment = create(:role_appointment)
@@ -83,10 +91,11 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
       body: "new-body",
       role_appointment_id: new_role_appointment.id,
       delivered_on: new_delivered_on,
-      location: "new-location"
+      location: "new-location",
+      type: "Speech::WrittenStatement"
     }
 
-    speech = speech.reload
+    speech = Speech::WrittenStatement.last
     assert_equal "new-title", speech.title
     assert_equal "new-body", speech.body
     assert_equal new_role_appointment, speech.role_appointment
@@ -154,7 +163,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "should display who delivered the speech, and when & where it was delivered" do
+  test "should display details about the speech" do
     home_office = create(:organisation, name: "Home Office")
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     theresa_may = create(:person, name: "Theresa May")
@@ -163,9 +172,10 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: draft_speech
 
-    assert_select ".delivery .ministerial_role", "Theresa May (Secretary of State, Home Office)"
-    assert_select ".delivery .date", "June 1st, 2011"
-    assert_select ".delivery .location", "The Guidhall"
+    assert_select ".details .type", "Transcript"
+    assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
+    assert_select ".details .delivered_on", "June 1st, 2011"
+    assert_select ".details .location", "The Guidhall"
   end
 
 end

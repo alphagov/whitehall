@@ -2,7 +2,7 @@ require "test_helper"
 
 class SpeechesControllerTest < ActionController::TestCase
 
-  test "should display who delivered the speech, and when & where it was delivered" do
+  test "should display details about the speech" do
     home_office = create(:organisation, name: "Home Office")
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     theresa_may = create(:person, name: "Theresa May")
@@ -11,9 +11,10 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document_identity
 
-    assert_select ".delivery .ministerial_role", "Theresa May (Secretary of State, Home Office)"
-    assert_select ".delivery .date", "June 1st, 2011"
-    assert_select ".delivery .location", "The Guidhall"
+    assert_select ".details .type", "Transcript"
+    assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
+    assert_select ".details .delivered_on", "June 1st, 2011"
+    assert_select ".details .location", "The Guidhall"
   end
 
 end

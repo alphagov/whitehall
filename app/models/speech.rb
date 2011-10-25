@@ -1,4 +1,11 @@
 class Speech < Document
+
+  class Transcript < Speech; end
+  class DraftText < Speech; end
+  class SpeakingNotes < Speech; end
+  class WrittenStatement < Speech; end
+  class OralStatement < Speech; end
+
   belongs_to :role_appointment
 
   validates :role_appointment, :delivered_on, :location, presence: true
