@@ -29,7 +29,11 @@ class Document < ActiveRecord::Base
   end
 
   def allows_supporting_documents?
-    respond_to?(:supporting_documents)
+    false
+  end
+
+  def has_supporting_documents?
+    false
   end
 
   def submit_as(user)
@@ -68,10 +72,6 @@ class Document < ActiveRecord::Base
       end
     end
     new_draft
-  end
-
-  def has_supporting_documents?
-    allows_supporting_documents? && supporting_documents.any?
   end
 
   def title_with_state
