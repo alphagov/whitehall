@@ -67,6 +67,13 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select_object Nation.wales
   end
 
+  test 'show displays related policies' do
+    policy = create(:policy)
+    consultation = create(:consultation, documents_related_to: [policy])
+    get :show, id: consultation
+    assert_select_object policy
+  end
+
   test 'edit displays consultation form' do
     consultation = create(:consultation)
 

@@ -26,7 +26,6 @@ class Document < ActiveRecord::Base
     [*documents_related_to, *documents_related_with].uniq
   end
 
-
   validates_presence_of :title, :body, :author
 
   class << self

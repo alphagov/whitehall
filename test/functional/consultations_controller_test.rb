@@ -25,6 +25,20 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_select '.attachment a', text: consultation.attachment.filename
   end
 
+  test 'show displays related published policies' do
+    published_policy = create(:published_policy)
+    consultation = create(:published_consultation, documents_related_to: [published_policy])
+    get :show, id: consultation.document_identity
+    assert_select_object published_policy
+  end
+
+  test 'show doesn\'t display related unpublished policies' do
+    draft_policy = create(:draft_policy)
+    consultation = create(:published_consultation, documents_related_to: [draft_policy])
+    get :show, id: consultation.document_identity
+    assert_select_object draft_policy, count: 0
+  end
+
   test 'show displays inapplicable nations' do
     consultation = create(:published_consultation)
     consultation.inapplicable_nations << Nation.northern_ireland
