@@ -6,6 +6,8 @@ class Document < ActiveRecord::Base
 
   belongs_to :author, class_name: "User"
 
+  validates_presence_of :title, :body, :author
+
   def can_be_associated_with_topics?
     false
   end
@@ -22,7 +24,13 @@ class Document < ActiveRecord::Base
     false
   end
 
-  validates_presence_of :title, :body, :author
+  def allows_attachment?
+    respond_to?(:attachment)
+  end
+
+  def allows_supporting_documents?
+    respond_to?(:supporting_documents)
+  end
 
   def attach_file=(file)
     self.attachment = build_attachment(file: file)
@@ -64,14 +72,6 @@ class Document < ActiveRecord::Base
       end
     end
     new_draft
-  end
-
-  def allows_attachment?
-    respond_to?(:attachment)
-  end
-
-  def allows_supporting_documents?
-    respond_to?(:supporting_documents)
   end
 
   def has_supporting_documents?
