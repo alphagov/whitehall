@@ -19,15 +19,13 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
       assert_select "select[name*='document[organisation_ids]']"
-      assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
       assert_select "input[type='submit']"
     end
   end
 
   test 'creating creates a new consultation' do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
     first_org = create(:organisation)
     second_org = create(:organisation)
     first_minister = create(:ministerial_role)
@@ -35,9 +33,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     attributes = attributes_for(:consultation)
 
     post :create, document: attributes.merge(
-      topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id],
-      ministerial_role_ids: [first_minister.id, second_minister.id]
+      ministerial_role_ids: [first_minister.id, second_minister.id],
+      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: true, nation_id: Nation.scotland}, "2" => {_destroy: false, nation_id: Nation.wales}, "3" => {_destroy: false, nation_id: Nation.northern_ireland}}
     )
 
     created_consultation = Consultation.last
@@ -45,9 +43,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal attributes[:body], created_consultation.body
     assert_equal attributes[:opening_on].to_date, created_consultation.opening_on
     assert_equal attributes[:closing_on].to_date, created_consultation.closing_on
-    assert_equal [first_topic, second_topic], created_consultation.topics
     assert_equal [first_org, second_org], created_consultation.organisations
     assert_equal [first_minister, second_minister], created_consultation.ministerial_roles
+    assert_equal [Nation.wales, Nation.northern_ireland], created_consultation.inapplicable_nations
   end
 
   test 'creating takes the writer to the consultation page' do
@@ -92,7 +90,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   test 'edit displays consultation form' do
-    consultation = create(:consultation)
+    consultation = create(:consultation, inapplicable_nations: [Nation.northern_ireland])
 
     get :edit, id: consultation
 
@@ -103,30 +101,30 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
       assert_select "select[name*='document[organisation_ids]']"
-      assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
       assert_select "input[type='submit']"
     end
   end
 
   test 'update updates consultation' do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
     first_org = create(:organisation)
     second_org = create(:organisation)
     first_minister = create(:ministerial_role)
     second_minister = create(:ministerial_role)
 
-    consultation = create(:consultation, topics: [first_topic], organisations: [first_org], ministerial_roles: [first_minister])
+    consultation = create(:consultation, organisations: [first_org], ministerial_roles: [first_minister])
+    northern_ireland_inapplicability = consultation.nation_inapplicabilities.create!(nation: Nation.northern_ireland)
 
     put :update, id: consultation, document: {
       title: "new-title",
       body: "new-body",
       opening_on: 1.day.ago,
       closing_on: 50.days.from_now,
-      topic_ids: [second_topic.id],
       organisation_ids: [second_org.id],
-      ministerial_role_ids: [second_minister.id]
+      ministerial_role_ids: [second_minister.id],
+      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: false, nation_id: Nation.scotland}, "2" => {_destroy: true, nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: true, nation_id: northern_ireland_inapplicability.nation_id}}
     }
 
     consultation.reload
@@ -134,8 +132,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal "new-body", consultation.body
     assert_equal 1.day.ago.to_date, consultation.opening_on
     assert_equal 50.days.from_now.to_date, consultation.closing_on
-    assert_equal [second_topic], consultation.topics
     assert_equal [second_org], consultation.organisations
     assert_equal [second_minister], consultation.ministerial_roles
+    assert_equal [Nation.scotland], consultation.inapplicable_nations
   end
 end

@@ -127,7 +127,7 @@ end
 When /^I draft a new policy "([^"]*)" that does not apply to the nations:$/ do |title, nations|
   begin_drafting_document type: "Policy", title: title
   nations.raw.flatten.each do |nation_name|
-    select nation_name, from: "Excluded Nations"
+    check nation_name
   end
   click_button "Save"
 end

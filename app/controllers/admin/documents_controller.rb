@@ -1,5 +1,6 @@
 class Admin::DocumentsController < Admin::BaseController
   before_filter :find_document, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check]
+  before_filter :build_document, only: [:new]
 
   def index
     @documents = Document.unsubmitted
@@ -14,7 +15,6 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def new
-    @document = document_class.new
   end
 
   def create
@@ -75,6 +75,10 @@ class Admin::DocumentsController < Admin::BaseController
 
   def document_class
     Document
+  end
+
+  def build_document
+    @document = document_class.new
   end
 
   def find_document

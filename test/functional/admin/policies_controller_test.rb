@@ -18,6 +18,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
       assert_select "input[type='submit']"
     end
   end
@@ -34,7 +35,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     post :create, document: attributes.merge(
       topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id],
-      ministerial_role_ids: [first_minister.id, second_minister.id]
+      ministerial_role_ids: [first_minister.id, second_minister.id],
+      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: true, nation_id: Nation.scotland}, "2" => {_destroy: false, nation_id: Nation.wales}, "3" => {_destroy: false, nation_id: Nation.northern_ireland}}
     )
 
     created_policy = Policy.last
@@ -43,6 +45,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal [first_topic, second_topic], created_policy.topics
     assert_equal [first_org, second_org], created_policy.organisations
     assert_equal [first_minister, second_minister], created_policy.ministerial_roles
+    assert_equal [Nation.wales, Nation.northern_ireland], created_policy.inapplicable_nations
   end
 
   test 'creating should take the writer to the policy page' do
@@ -68,7 +71,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test 'edit displays policy form' do
-    policy = create(:policy)
+    policy = create(:policy, inapplicable_nations: [Nation.northern_ireland])
 
     get :edit, id: policy
 
@@ -78,6 +81,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
       assert_select "input[type='submit']"
     end
   end
@@ -91,13 +96,15 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     second_minister = create(:ministerial_role)
 
     policy = create(:policy, topics: [first_topic], organisations: [first_org], ministerial_roles: [first_minister])
+    northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland)
 
     put :update, id: policy.id, document: {
       title: "new-title",
       body: "new-body",
       topic_ids: [second_topic.id],
       organisation_ids: [second_org.id],
-      ministerial_role_ids: [second_minister.id]
+      ministerial_role_ids: [second_minister.id],
+      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: false, nation_id: Nation.scotland}, "2" => {_destroy: true, nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: true, nation_id: northern_ireland_inapplicability.nation_id}}
     }
 
     saved_policy = policy.reload
@@ -106,6 +113,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal [second_topic], saved_policy.topics
     assert_equal [second_org], saved_policy.organisations
     assert_equal [second_minister], saved_policy.ministerial_roles
+    assert_equal [Nation.scotland], saved_policy.inapplicable_nations
   end
 
   test 'updating should take the writer to the policy page' do

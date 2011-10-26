@@ -1,4 +1,8 @@
 <fieldset>
-  <%= form.label :inapplicable_nation_ids, 'Excluded Nations' %>
-  <%= form.select :inapplicable_nation_ids, options_from_collection_for_select(Nation.all, 'id', 'name', document.inapplicable_nation_ids), {}, multiple: true %>
+  <legend>Excluded Nations</legend>
+  <%= form.fields_for :nation_inapplicabilities do |inapplicability_form| %>
+    <%= inapplicability_form.label :_destroy, inapplicability_form.object.nation.name %>
+    <%= inapplicability_form.check_box :_destroy, { checked: inapplicability_form.object.persisted? }, '0', '1' %>
+    <%= inapplicability_form.hidden_field :nation_id %>
+  <% end %>
 </fieldset>

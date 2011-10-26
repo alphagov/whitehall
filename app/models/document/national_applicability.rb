@@ -4,6 +4,12 @@ module Document::NationalApplicability
   included do
     has_many :nation_inapplicabilities, foreign_key: :document_id
     has_many :inapplicable_nations, through: :nation_inapplicabilities, source: :nation
+
+    accepts_nested_attributes_for :nation_inapplicabilities, allow_destroy: true
+  end
+
+  def applicable_nations
+    (Nation.all - inapplicable_nations)
   end
 
   def can_apply_to_subset_of_nations?
