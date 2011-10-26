@@ -1,9 +1,15 @@
-<fieldset>
+<fieldset class="excluded_nations">
   <legend>Excluded Nations</legend>
   <%= form.fields_for :nation_inapplicabilities do |inapplicability_form| %>
-    <%= inapplicability_form.label :_destroy, inapplicability_form.object.nation.name %>
-    <%= inapplicability_form.check_box :_destroy, { checked: inapplicability_form.object.persisted? }, '0', '1' %>
-    <%= inapplicability_form.text_field :alternative_url %>
-    <%= inapplicability_form.hidden_field :nation_id %>
+    <div class="group">
+      <div class="col nation">
+      <%= inapplicability_form.label :_destroy, inapplicability_form.object.nation.name %>
+      <%= inapplicability_form.check_box :_destroy, { checked: inapplicability_form.object.persisted? }, '0', '1' %>
+      </div>
+      <div class="col">
+        <%= inapplicability_form.text_field :alternative_url %>
+        <%= inapplicability_form.hidden_field :nation_id %>
+      </div>
+    </div>
   <% end %>
 </fieldset>

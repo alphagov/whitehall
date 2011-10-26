@@ -15,6 +15,13 @@ form {
       @include type-12;
       font-style: italic;
     }
+
+    .group {
+      div.col {
+        float: left;
+        margin-right: 2%;
+      }
+    }
   }
 
   input[type="text"],
