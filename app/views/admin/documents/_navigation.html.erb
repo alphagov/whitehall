@@ -13,7 +13,7 @@
     <%= form_for [:admin, document], {as: :document, url: publish_admin_document_path(document), method: :post} do |document_form| %>
       <%= document_form.hidden_field :lock_version %>
       <% submit_options = {title: "Publish #{document.title}"}
-         if document.supporting_documents.any?
+         if document.has_supporting_documents?
            submit_options[:confirm] = "Have you checked the #{document.supporting_documents.count} supporting documents?"
          end
       %>
