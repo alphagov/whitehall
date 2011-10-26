@@ -9,16 +9,32 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
   end
 
+  test "new displays policy form" do
+    get :new
+
+    assert_select "form[action='#{admin_policies_path}']" do
+      assert_select "input[name='document[title]'][type='text']"
+      assert_select "textarea[name='document[body]']"
+      assert_select "select[name*='document[organisation_ids]']"
+      assert_select "select[name*='document[topic_ids]']"
+      assert_select "select[name*='document[ministerial_role_ids]']"
+      assert_select "input[type='submit']"
+    end
+  end
+
   test 'creating should create a new policy' do
     first_topic = create(:topic)
     second_topic = create(:topic)
     first_org = create(:organisation)
     second_org = create(:organisation)
+    first_minister = create(:ministerial_role)
+    second_minister = create(:ministerial_role)
     attributes = attributes_for(:policy)
 
     post :create, document: attributes.merge(
       topic_ids: [first_topic.id, second_topic.id],
-      organisation_ids: [first_org.id, second_org.id]
+      organisation_ids: [first_org.id, second_org.id],
+      ministerial_role_ids: [first_minister.id, second_minister.id]
     )
 
     created_policy = Policy.last
@@ -26,6 +42,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal attributes[:body], created_policy.body
     assert_equal [first_topic, second_topic], created_policy.topics
     assert_equal [first_org, second_org], created_policy.organisations
+    assert_equal [first_minister, second_minister], created_policy.ministerial_roles
   end
 
   test 'creating should take the writer to the policy page' do
@@ -50,17 +67,45 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
+  test 'edit displays policy form' do
+    policy = create(:policy)
+
+    get :edit, id: policy
+
+    assert_select "form[action='#{admin_policy_path(policy)}']" do
+      assert_select "input[name='document[title]'][type='text']"
+      assert_select "textarea[name='document[body]']"
+      assert_select "select[name*='document[organisation_ids]']"
+      assert_select "select[name*='document[topic_ids]']"
+      assert_select "select[name*='document[ministerial_role_ids]']"
+      assert_select "input[type='submit']"
+    end
+  end
+
   test 'updating should save modified document attributes' do
     first_topic = create(:topic)
     second_topic = create(:topic)
-    policy = create(:policy, topics: [first_topic])
+    first_org = create(:organisation)
+    second_org = create(:organisation)
+    first_minister = create(:ministerial_role)
+    second_minister = create(:ministerial_role)
 
-    put :update, id: policy.id, document: { title: "new-title", body: "new-body", topic_ids: [second_topic.id] }
+    policy = create(:policy, topics: [first_topic], organisations: [first_org], ministerial_roles: [first_minister])
+
+    put :update, id: policy.id, document: {
+      title: "new-title",
+      body: "new-body",
+      topic_ids: [second_topic.id],
+      organisation_ids: [second_org.id],
+      ministerial_role_ids: [second_minister.id]
+    }
 
     saved_policy = policy.reload
     assert_equal "new-title", saved_policy.title
     assert_equal "new-body", saved_policy.body
     assert_equal [second_topic], saved_policy.topics
+    assert_equal [second_org], saved_policy.organisations
+    assert_equal [second_minister], saved_policy.ministerial_roles
   end
 
   test 'updating should take the writer to the policy page' do
