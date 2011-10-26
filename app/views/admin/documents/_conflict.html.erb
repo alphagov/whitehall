@@ -44,8 +44,8 @@
   <% if document.can_apply_to_subset_of_nations? %>
     <section class="container">
       <h1>Excluded Nations</h1>
-      <% if document.inapplicable_nations.any? %>
-        <%= render partial: "nations/list", locals: {nations: document.inapplicable_nations} %>
+      <% if document.nation_inapplicabilities.any? %>
+        <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: document.nation_inapplicabilities} %>
       <% else %>
         <p>This document is applicable to all nations.</p>
       <% end %>

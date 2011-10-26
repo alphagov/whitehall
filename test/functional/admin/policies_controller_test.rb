@@ -141,7 +141,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test 'updating a stale policy should render edit page with conflicting policy' do
-    policy = create(:draft_policy)
+    policy = create(:draft_policy, topics: [build(:topic)], organisations: [build(:organisation)], ministerial_roles: [build(:ministerial_role)], inapplicable_nations: [Nation.scotland])
     lock_version = policy.lock_version
     policy.update_attributes!(title: "new title")
 
