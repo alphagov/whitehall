@@ -10,5 +10,6 @@ class Admin::ConsultationsController < Admin::DocumentsController
 
   def build_nation_inapplicabilities
     @document.applicable_nations.each { |nation| @document.nation_inapplicabilities.build(nation: nation) }
+    @document.nation_inapplicabilities.sort_by! { |na| na.nation }
   end
 end
