@@ -80,7 +80,7 @@ section.resource_list {
       border-right: 1px solid #ddd;
       border-top: 1px solid #ddd;
       background: #eee;
-      padding: 10px 2%;
+      padding: 10px 10px;
       @include rounded_top(3px);
 
       a {
@@ -134,12 +134,12 @@ section.resource_list {
 
     }
 
-    ul, table {
+    > ul, table {
       margin: 0;
       background: #fefefe;
     }
 
-    ul {
+    > ul {
       li {
         @include list-row;
       }
@@ -149,7 +149,6 @@ section.resource_list {
       width: 100%;
 
       tr {
-        @include type-14;
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
       }
@@ -164,15 +163,99 @@ section.resource_list {
       }
 
       th, td {
+        @include type-12;
         text-align: left;
         padding: 10px 2%;
         line-height: 20px;
       }
+    }
+  }
+}
 
-      td p.additional_information {
+section.resource_list .collection {
+  table.documents {
+
+    .type {
+      width: 8%;
+      padding: 0 2%;
+      text-align: center;
+    }
+
+    td.type {
+      color: #777;
+      font-weight: bold;
+      font-size: 11px;
+    }
+
+    td.title {
+      padding: 0;
+
+      h2 {
+        padding: 0.75em 3.5%;
+        @include type-18;
         margin-bottom: 0;
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+      }
+
+      div.toggle_group {
+        border-right: 1px solid #eee;
+
+        h2 {
+          float: left;
+          border-right: none;
+        }
+
+        a.toggle {
+          float: left;
+          font-size: 10px;
+          margin-right: 2.5%;
+          line-height: 3.6em;
+        }
+      }
+
+      div.additional_information {
+        border-top: 1px solid #ccc;
+        padding: 0.25em 0 0 0;
+        margin-bottom: 0;
+        background: #eee;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+
+        h3 {
+          border-left: 1px solid #eee;
+          padding: 0.5em 3.5% 0.5em 3.5%;
+          @include type-16;
+          margin: 0;
+          color: #777;
+          text-shadow: 0 1px rgba(255, 255, 255, .75);
+        }
+
+        ul {
+          border-left: 1px solid #eee;
+          padding: 0 0 0.1em 0;
+          margin: 0 2%;
+
+          li {
+            margin: 0;
+            display: block;
+            background: #fff;
+            margin-bottom: 0.5em;
+            border: 1px solid #eee;
+            border-bottom: 1px solid #ddd;
+
+            @include rounded(3px);
+
+            a {
+              display: block;
+              padding: 0.5em 0.75em;
+            }
+          }
+
+        }
       }
     }
+
   }
 }
 

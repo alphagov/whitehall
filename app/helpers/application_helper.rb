@@ -54,13 +54,4 @@ module ApplicationHelper
       [role.current_role_appointment.id, role.to_s]
     end
   end
-
-  def supporting_documents_sentence(document)
-    sentence = pluralize(document.supporting_documents.count, "supporting document")
-    sentence += ": "
-    sentence += document.supporting_documents.map do |sd|
-      %{"#{link_to sd.title, admin_supporting_document_path(sd)}"}
-    end.to_sentence
-    sentence.html_safe
-  end
 end

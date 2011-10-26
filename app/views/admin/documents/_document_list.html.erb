@@ -17,22 +17,29 @@
     <table class="documents">
       <thead>
         <tr>
+          <th class="type">Type</th>
           <th>Title</th>
           <th>Author</th>
-          <th>Type</th>
         </tr>
       </thead>
       <tbody>
         <% documents.each do |document| %>
           <%= content_tag_for(:tr, document) do %>
+            <td class="type"><%= document.type.titleize %></td>
             <td class="title">
-              <%= link_to document.title, admin_document_path(document), title: "View document #{document.title}" %>
+              <h2><%= link_to document.title, admin_document_path(document), title: "View document #{document.title}" %></h2>
               <% if document.has_supporting_documents? %>
-              <p class="supporting_documents additional_information"><%= supporting_documents_sentence(document)%> </p>
+                <div class="supporting_documents additional_information">
+                  <h3>Supporting Documents</h3>
+                  <ul>
+                    <% document.supporting_documents.each do |supporting_document| %>
+                    <li><%= link_to supporting_document.title, admin_supporting_document_path(supporting_document) %></li>
+                    <% end %>
+                  </ul>
+                </div>
               <% end %>
             </td>
             <td class="author"><%= document.author.name %></td>
-            <td class="type"><%= document.type.titleize %></td>
           <% end %>
         <% end %>
         <% if documents.blank? %>
