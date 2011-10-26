@@ -5,6 +5,7 @@ When /^I draft a new consultation "([^"]*)"$/ do |title|
   select_date "Closing Date", with: 6.days.from_now.to_s
   attach_file "Attachment", Rails.root.join("features/fixtures/attachment.pdf")
   check "Wales"
+  fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
   check "Scotland"
   select policy.title, from: "Related Policies"
   click_button "Save"

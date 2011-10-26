@@ -19,6 +19,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
       assert_select "input[type='submit']"
     end
   end
@@ -36,16 +37,17 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id],
       ministerial_role_ids: [first_minister.id, second_minister.id],
-      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: true, nation_id: Nation.scotland}, "2" => {_destroy: false, nation_id: Nation.wales}, "3" => {_destroy: false, nation_id: Nation.northern_ireland}}
+      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: true, nation_id: Nation.scotland}, "2" => {_destroy: false, nation_id: Nation.wales, alternative_url: "http://www.visitwales.co.uk/"}, "3" => {_destroy: false, nation_id: Nation.northern_ireland}}
     )
 
-    created_policy = Policy.last
-    assert_equal attributes[:title], created_policy.title
-    assert_equal attributes[:body], created_policy.body
-    assert_equal [first_topic, second_topic], created_policy.topics
-    assert_equal [first_org, second_org], created_policy.organisations
-    assert_equal [first_minister, second_minister], created_policy.ministerial_roles
-    assert_equal [Nation.wales, Nation.northern_ireland], created_policy.inapplicable_nations
+    policy = Policy.last
+    assert_equal attributes[:title], policy.title
+    assert_equal attributes[:body], policy.body
+    assert_equal [first_topic, second_topic], policy.topics
+    assert_equal [first_org, second_org], policy.organisations
+    assert_equal [first_minister, second_minister], policy.ministerial_roles
+    assert_equal [Nation.wales, Nation.northern_ireland], policy.inapplicable_nations
+    assert_equal "http://www.visitwales.co.uk/", policy.nation_inapplicabilities.for_nation(Nation.wales).first.alternative_url
   end
 
   test 'creating should take the writer to the policy page' do
@@ -71,7 +73,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test 'edit displays policy form' do
-    policy = create(:policy, inapplicable_nations: [Nation.northern_ireland])
+    policy = create(:policy)
+    northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
     get :edit, id: policy
 
@@ -83,6 +86,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
       assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text'][value='http://www.discovernorthernireland.com/']", count: 1
       assert_select "input[type='submit']"
     end
   end
@@ -96,7 +101,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     second_minister = create(:ministerial_role)
 
     policy = create(:policy, topics: [first_topic], organisations: [first_org], ministerial_roles: [first_minister])
-    northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland)
+    northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
     put :update, id: policy.id, document: {
       title: "new-title",
@@ -104,7 +109,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       topic_ids: [second_topic.id],
       organisation_ids: [second_org.id],
       ministerial_role_ids: [second_minister.id],
-      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: false, nation_id: Nation.scotland}, "2" => {_destroy: true, nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: true, nation_id: northern_ireland_inapplicability.nation_id}}
+      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: false, nation_id: Nation.scotland, alternative_url: "http://www.visitscotland.com/"}, "2" => {_destroy: true, nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: true, nation_id: northern_ireland_inapplicability.nation_id, alternative_url: "http://www.discovernorthernireland.com/"}}
     }
 
     saved_policy = policy.reload
@@ -114,6 +119,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal [second_org], saved_policy.organisations
     assert_equal [second_minister], saved_policy.ministerial_roles
     assert_equal [Nation.scotland], saved_policy.inapplicable_nations
+    assert_equal "http://www.visitscotland.com/", policy.nation_inapplicabilities.for_nation(Nation.scotland).first.alternative_url
   end
 
   test 'updating should take the writer to the policy page' do

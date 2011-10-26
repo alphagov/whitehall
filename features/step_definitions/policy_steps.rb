@@ -128,6 +128,7 @@ When /^I draft a new policy "([^"]*)" that does not apply to the nations:$/ do |
   begin_drafting_document type: "Policy", title: title
   nations.raw.flatten.each do |nation_name|
     check nation_name
+    fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
   end
   click_button "Save"
 end

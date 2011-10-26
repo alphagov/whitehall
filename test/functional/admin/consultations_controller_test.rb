@@ -21,6 +21,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
       assert_select "input[type='submit']"
     end
   end
@@ -35,17 +36,18 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     post :create, document: attributes.merge(
       organisation_ids: [first_org.id, second_org.id],
       ministerial_role_ids: [first_minister.id, second_minister.id],
-      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: true, nation_id: Nation.scotland}, "2" => {_destroy: false, nation_id: Nation.wales}, "3" => {_destroy: false, nation_id: Nation.northern_ireland}}
+      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: true, nation_id: Nation.scotland}, "2" => {_destroy: false, nation_id: Nation.wales, alternative_url: "http://www.visitwales.co.uk/"}, "3" => {_destroy: false, nation_id: Nation.northern_ireland}}
     )
 
-    created_consultation = Consultation.last
-    assert_equal attributes[:title], created_consultation.title
-    assert_equal attributes[:body], created_consultation.body
-    assert_equal attributes[:opening_on].to_date, created_consultation.opening_on
-    assert_equal attributes[:closing_on].to_date, created_consultation.closing_on
-    assert_equal [first_org, second_org], created_consultation.organisations
-    assert_equal [first_minister, second_minister], created_consultation.ministerial_roles
-    assert_equal [Nation.wales, Nation.northern_ireland], created_consultation.inapplicable_nations
+    consultation = Consultation.last
+    assert_equal attributes[:title], consultation.title
+    assert_equal attributes[:body], consultation.body
+    assert_equal attributes[:opening_on].to_date, consultation.opening_on
+    assert_equal attributes[:closing_on].to_date, consultation.closing_on
+    assert_equal [first_org, second_org], consultation.organisations
+    assert_equal [first_minister, second_minister], consultation.ministerial_roles
+    assert_equal [Nation.wales, Nation.northern_ireland], consultation.inapplicable_nations
+    assert_equal "http://www.visitwales.co.uk/", consultation.nation_inapplicabilities.for_nation(Nation.wales).first.alternative_url
   end
 
   test 'creating takes the writer to the consultation page' do
@@ -90,7 +92,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   test 'edit displays consultation form' do
-    consultation = create(:consultation, inapplicable_nations: [Nation.northern_ireland])
+    consultation = create(:consultation)
+    northern_ireland_inapplicability = consultation.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
     get :edit, id: consultation
 
@@ -104,6 +107,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
       assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
+      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text'][value='http://www.discovernorthernireland.com/']", count: 1
       assert_select "input[type='submit']"
     end
   end
@@ -115,7 +120,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     second_minister = create(:ministerial_role)
 
     consultation = create(:consultation, organisations: [first_org], ministerial_roles: [first_minister])
-    northern_ireland_inapplicability = consultation.nation_inapplicabilities.create!(nation: Nation.northern_ireland)
+    northern_ireland_inapplicability = consultation.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
     put :update, id: consultation, document: {
       title: "new-title",
@@ -124,7 +129,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       closing_on: 50.days.from_now,
       organisation_ids: [second_org.id],
       ministerial_role_ids: [second_minister.id],
-      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: false, nation_id: Nation.scotland}, "2" => {_destroy: true, nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: true, nation_id: northern_ireland_inapplicability.nation_id}}
+      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: false, nation_id: Nation.scotland, alternative_url: "http://www.visitscotland.com/"}, "2" => {_destroy: true, nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: true, nation_id: northern_ireland_inapplicability.nation_id, alternative_url: "http://www.discovernorthernireland.com/"}}
     }
 
     consultation.reload
@@ -135,5 +140,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal [second_org], consultation.organisations
     assert_equal [second_minister], consultation.ministerial_roles
     assert_equal [Nation.scotland], consultation.inapplicable_nations
+    assert_equal "http://www.visitscotland.com/", consultation.nation_inapplicabilities.for_nation(Nation.scotland).first.alternative_url
+
   end
 end
