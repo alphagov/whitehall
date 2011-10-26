@@ -52,6 +52,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_equal 'The document has been saved', flash[:notice]
   end
 
+
   test 'creating with invalid data should leave the writer in the speech editor' do
     role_appointment = create(:role_appointment)
     attributes = attributes_for(:speech).merge(
@@ -73,6 +74,17 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     post :create, document: attributes.merge(title: '')
 
     assert_equal 'There are some problems with the document', flash.now[:alert]
+  end
+
+  test 'creating with invalid data should highlight fields in the form' do
+    role_appointment = create(:role_appointment)
+    attributes = attributes_for(:speech).merge(
+      role_appointment_id: role_appointment.id
+    )
+
+    post :create, document: attributes.merge(title: '')
+
+    assert_select ".field_with_errors input#document_title"
   end
 
   test "edit displays speech form" do
