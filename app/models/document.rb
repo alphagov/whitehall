@@ -7,9 +7,6 @@ class Document < ActiveRecord::Base
 
   has_many :fact_check_requests
 
-  has_many :document_topics
-  has_many :topics, through: :document_topics
-
   has_many :document_organisations
   has_many :organisations, through: :document_organisations
 
@@ -22,6 +19,10 @@ class Document < ActiveRecord::Base
   has_many :documents_related_with, through: :document_relations_to, source: :related_document
   has_many :documents_related_to, through: :document_relations_from, source: :document
 
+  def can_be_associated_with_topics?
+    false
+  end
+
   def related_documents
     [*documents_related_to, *documents_related_with].uniq
   end
@@ -29,10 +30,6 @@ class Document < ActiveRecord::Base
   validates_presence_of :title, :body, :author
 
   class << self
-    def in_topic(topic)
-      joins(:topics).where('topics.id' => topic)
-    end
-
     def in_organisation(organisation)
       joins(:organisations).where('organisations.id' => organisation)
     end
@@ -66,12 +63,12 @@ class Document < ActiveRecord::Base
       state: "draft",
       author: user,
       submitted: false,
-      topics: topics,
       organisations: organisations,
       ministerial_roles: ministerial_roles,
       documents_related_with: documents_related_with,
       documents_related_to: documents_related_to
     }
+    draft_attributes[:topics] = topics if can_be_associated_with_topics?
     if respond_to?(:inapplicable_nations)
       draft_attributes[:inapplicable_nations] = inapplicable_nations
     end

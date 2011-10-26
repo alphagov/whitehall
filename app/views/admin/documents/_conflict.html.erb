@@ -19,14 +19,16 @@
     <% end %>
   </section>
 
-  <section class="container">
-    <h1>Topics</h1>
-    <% if document.topics.any? %>
-      <%= render partial: "topics/list", locals: {topics: document.topics} %>
-    <% else %>
-      <p>This document isn't assigned to any topics.</p>
-    <% end %>
-  </section>
+  <% if document.can_be_associated_with_topics? %>
+    <section class="container">
+      <h1>Topics</h1>
+      <% if document.topics.any? %>
+        <%= render partial: "topics/list", locals: {topics: document.topics} %>
+      <% else %>
+        <p>This document isn't assigned to any topics.</p>
+      <% end %>
+    </section>
+  <% end %>
 
   <section class="container">
     <h1>Ministers</h1>

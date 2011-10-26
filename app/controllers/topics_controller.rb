@@ -5,6 +5,8 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
-    load_published_documents_in_scope { |scope| scope.in_topic(@topic) }
+    @policies = Policy.published.in_topic(@topic)
+    @publications = Publication.published.in_topic(@topic)
+    @news_articles = NewsArticle.published.in_topic(@topic)
   end
 end
