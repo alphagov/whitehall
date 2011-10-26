@@ -39,13 +39,31 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_select_object draft_policy, count: 0
   end
 
-  test 'show displays inapplicable nations' do
-    consultation = create(:published_consultation)
-    consultation.inapplicable_nations << Nation.northern_ireland
-    consultation.inapplicable_nations << Nation.scotland
+  test "should show inapplicable nations" do
+    published_consultation = create(:published_consultation)
+    northern_ireland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
+    scotland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com/")
 
-    get :show, id: consultation.document_identity
+    get :show, id: published_consultation.document_identity
 
-    assert_select "#inapplicable_nations", "This policy does not apply to Northern Ireland and Scotland."
+    assert_select "#inapplicable_nations" do
+      assert_select "p", "This consultation does not apply to Northern Ireland and Scotland."
+      assert_select_object northern_ireland_inapplicability do
+        assert_select "a[href='http://northern-ireland.com/']"
+      end
+      assert_select_object scotland_inapplicability do
+        assert_select "a[href='http://scotland.com/']"
+      end
+    end
+  end
+
+  test "should explain that consultation applies to the whole of the UK" do
+    published_consultation = create(:published_consultation)
+
+    get :show, id: published_consultation.document_identity
+
+    assert_select "#inapplicable_nations" do
+      assert_select "p", "This consultation applies to the whole of the UK."
+    end
   end
 end

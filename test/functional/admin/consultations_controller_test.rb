@@ -75,13 +75,29 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select '.attachment a', text: consultation.attachment.filename
   end
 
-  test 'show displays inapplicable nations' do
-    published_policy = create(:consultation)
-    published_policy.inapplicable_nations << Nation.wales
+  test "show lists nation inapplicabilities when there are some" do
+    draft_consultation = create(:draft_consultation)
+    scotland_inapplicability = draft_consultation.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com/")
+    wales_inapplicability = draft_consultation.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://wales.com/")
 
-    get :show, id: published_policy
+    get :show, id: draft_consultation
 
-    assert_select_object Nation.wales
+    assert_select ".nation_inapplicabilities" do
+      assert_select_object scotland_inapplicability, text: /Scotland/ do
+        assert_select ".alternative_url a[href='http://scotland.com/']"
+      end
+      assert_select_object wales_inapplicability, text: /Wales/ do
+        assert_select ".alternative_url a[href='http://wales.com/']"
+      end
+    end
+  end
+
+  test "show explains the document applies to the whole of the UK" do
+    draft_consultation = create(:draft_consultation)
+
+    get :show, id: draft_consultation
+
+    assert_select "p", "This document applies to the whole of the UK."
   end
 
   test 'show displays related policies' do
@@ -143,4 +159,5 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal "http://www.visitscotland.com/", consultation.nation_inapplicabilities.for_nation(Nation.scotland).first.alternative_url
 
   end
+
 end

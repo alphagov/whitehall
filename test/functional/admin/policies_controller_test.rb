@@ -199,7 +199,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show lists supporting documents when there are some" do
-    draft_policy = create(:draft_policy, body: "body-text")
+    draft_policy = create(:draft_policy)
     first_supporting_document = create(:supporting_document, document: draft_policy)
     second_supporting_document = create(:supporting_document, document: draft_policy)
 
@@ -216,10 +216,35 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test "doesn't show supporting documents list when empty" do
-    draft_policy = create(:draft_policy, body: "body-text")
+    draft_policy = create(:draft_policy)
 
     get :show, id: draft_policy
 
     assert_select ".supporting_documents .supporting_document", count: 0
+  end
+
+  test "show lists nation inapplicabilities when there are some" do
+    draft_policy = create(:draft_policy)
+    scotland_inapplicability = draft_policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com/")
+    wales_inapplicability = draft_policy.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://wales.com/")
+
+    get :show, id: draft_policy
+
+    assert_select ".nation_inapplicabilities" do
+      assert_select_object scotland_inapplicability, text: /Scotland/ do
+        assert_select ".alternative_url a[href='http://scotland.com/']"
+      end
+      assert_select_object wales_inapplicability, text: /Wales/ do
+        assert_select ".alternative_url a[href='http://wales.com/']"
+      end
+    end
+  end
+
+  test "show explains the document applies to the whole of the UK" do
+    draft_policy = create(:draft_policy)
+
+    get :show, id: draft_policy
+
+    assert_select "p", "This document applies to the whole of the UK."
   end
 end

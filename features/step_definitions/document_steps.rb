@@ -110,7 +110,7 @@ end
 Then /^I should see in the preview that "([^"]*)" does not apply to the nations:$/ do |title, nation_names|
   visit_document_preview title
   nation_names.raw.flatten.each do |nation_name|
-    assert has_css?(".nation", nation_name)
+    assert has_css?(".nation_inapplicability", nation_name)
   end
 end
 

@@ -1,3 +1,14 @@
 <section id="inapplicable_nations" class="g1">
-  <p>This policy does not apply to <%= document.inapplicable_nations.map(&:name).sort.to_sentence %>.</p>
+<% if document.nation_inapplicabilities.any? %>
+  <p>This <%= document.class.name.downcase %> does not apply to <%= document.inapplicable_nations.map(&:name).sort.to_sentence %>.</p>
+  <ul class="nation_inapplicabilities">
+    <% document.nation_inapplicabilities.each do |nation_inapplicability| %>
+      <%= content_tag_for(:li, nation_inapplicability) do %>
+        Information about <%= link_to "#{document.title} #{document.class.name.downcase} in #{nation_inapplicability.nation.name}", nation_inapplicability.alternative_url %>
+      <% end %>
+    <% end %>
+  </ul>
+<% else %>
+  <p>This <%= document.class.name.downcase %> applies to the whole of the UK.</p>
+<% end %>
 </section>

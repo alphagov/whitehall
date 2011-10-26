@@ -3,12 +3,30 @@ require "test_helper"
 class PoliciesControllerTest < ActionController::TestCase
   test "should show inapplicable nations" do
     published_policy = create(:published_policy)
-    published_policy.inapplicable_nations << Nation.northern_ireland
-    published_policy.inapplicable_nations << Nation.scotland
+    northern_ireland_inapplicability = published_policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
+    scotland_inapplicability = published_policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com/")
 
     get :show, id: published_policy.document_identity
 
-    assert_select "#inapplicable_nations", "This policy does not apply to Northern Ireland and Scotland."
+    assert_select "#inapplicable_nations" do
+      assert_select "p", "This policy does not apply to Northern Ireland and Scotland."
+      assert_select_object northern_ireland_inapplicability do
+        assert_select "a[href='http://northern-ireland.com/']"
+      end
+      assert_select_object scotland_inapplicability do
+        assert_select "a[href='http://scotland.com/']"
+      end
+    end
+  end
+
+  test "should explain that policy applies to the whole of the UK" do
+    published_policy = create(:published_policy)
+
+    get :show, id: published_policy.document_identity
+
+    assert_select "#inapplicable_nations" do
+      assert_select "p", "This policy applies to the whole of the UK."
+    end
   end
 
   test "should show related documents" do
