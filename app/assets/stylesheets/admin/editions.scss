@@ -208,9 +208,12 @@ section.resource_list .collection {
 
         a.toggle {
           float: right;
-          font-size: 10px;
+          @include type-16;
           margin-right: 2.5%;
-          line-height: 3.6em;
+          margin-bottom: 0;
+          line-height: 3.3em;
+          width: 12em;
+          text-align: right;
         }
       }
 
