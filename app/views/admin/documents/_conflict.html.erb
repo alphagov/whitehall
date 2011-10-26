@@ -30,14 +30,16 @@
     </section>
   <% end %>
 
-  <section class="container">
-    <h1>Ministers</h1>
-    <% if document.ministerial_roles.any? %>
-      <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: document.ministerial_roles} %>
-    <% else %>
-      <p>This document isn't assigned to any ministers.</p>
-    <% end %>
-  </section>
+  <% if document.can_be_associated_with_ministers? %>
+    <section class="container">
+      <h1>Ministers</h1>
+      <% if document.ministerial_roles.any? %>
+        <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: document.ministerial_roles} %>
+      <% else %>
+        <p>This document isn't assigned to any ministers.</p>
+      <% end %>
+    </section>
+  <% end %>
 
   <% if document.respond_to?(:inapplicable_nations) %>
     <section class="container">

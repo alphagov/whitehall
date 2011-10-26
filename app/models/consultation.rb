@@ -1,5 +1,6 @@
 class Consultation < Document
   include Document::NationalApplicability
+  include Document::Ministers
 
   validates :opening_on, presence: true
   validates :closing_on, presence: true

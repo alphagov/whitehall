@@ -99,7 +99,7 @@ class DocumentTest < ActiveSupport::TestCase
 
     assert_equal [draft_policy, published_policy], Policy.in_ministerial_role(ministerial_role_1)
     assert_equal [published_policy], Policy.published.in_ministerial_role(ministerial_role_1)
-    assert_equal [published_in_second_ministerial_role], Document.in_ministerial_role(ministerial_role_2)
+    assert_equal [published_in_second_ministerial_role], Policy.in_ministerial_role(ministerial_role_2)
   end
 
   test "should return a list of documents related to specific document" do

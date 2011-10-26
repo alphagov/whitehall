@@ -10,9 +10,6 @@ class Document < ActiveRecord::Base
   has_many :document_organisations
   has_many :organisations, through: :document_organisations
 
-  has_many :document_ministerial_roles
-  has_many :ministerial_roles, through: :document_ministerial_roles
-
   has_many :document_relations_to, class_name: "DocumentRelation", foreign_key: 'document_id'
   has_many :document_relations_from, class_name: "DocumentRelation", foreign_key: 'related_document_id'
 
@@ -20,6 +17,10 @@ class Document < ActiveRecord::Base
   has_many :documents_related_to, through: :document_relations_from, source: :document
 
   def can_be_associated_with_topics?
+    false
+  end
+
+  def can_be_associated_with_ministers?
     false
   end
 
@@ -32,10 +33,6 @@ class Document < ActiveRecord::Base
   class << self
     def in_organisation(organisation)
       joins(:organisations).where('organisations.id' => organisation)
-    end
-
-    def in_ministerial_role(role)
-      joins(:ministerial_roles).where('roles.id' => role)
     end
   end
 
@@ -64,11 +61,11 @@ class Document < ActiveRecord::Base
       author: user,
       submitted: false,
       organisations: organisations,
-      ministerial_roles: ministerial_roles,
       documents_related_with: documents_related_with,
       documents_related_to: documents_related_to
     }
     draft_attributes[:topics] = topics if can_be_associated_with_topics?
+    draft_attributes[:ministerial_roles] = ministerial_roles if can_be_associated_with_ministers?
     if respond_to?(:inapplicable_nations)
       draft_attributes[:inapplicable_nations] = inapplicable_nations
     end
