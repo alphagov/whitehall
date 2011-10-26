@@ -6,4 +6,8 @@ module Document::NationalApplicability
     has_many :inapplicable_nations, through: :nation_inapplicabilities, source: :nation
   end
 
+  def can_apply_to_subset_of_nations?
+    true
+  end
+
 end

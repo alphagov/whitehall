@@ -24,6 +24,10 @@ class Document < ActiveRecord::Base
     false
   end
 
+  def can_apply_to_subset_of_nations?
+    false
+  end
+
   def allows_attachment?
     false
   end
@@ -62,9 +66,7 @@ class Document < ActiveRecord::Base
     draft_attributes[:ministerial_roles] = ministerial_roles if can_be_associated_with_ministers?
     draft_attributes[:documents_related_with] = documents_related_with if can_be_related_to_other_documents?
     draft_attributes[:documents_related_to] = documents_related_to if can_be_related_to_other_documents?
-    if respond_to?(:inapplicable_nations)
-      draft_attributes[:inapplicable_nations] = inapplicable_nations
-    end
+    draft_attributes[:inapplicable_nations] = inapplicable_nations if can_apply_to_subset_of_nations?
     new_draft = self.class.create(attributes.merge(draft_attributes))
     if new_draft.valid? && allows_supporting_documents?
       supporting_documents.each do |sd|

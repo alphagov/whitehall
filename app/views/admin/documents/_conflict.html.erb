@@ -41,7 +41,7 @@
     </section>
   <% end %>
 
-  <% if document.respond_to?(:inapplicable_nations) %>
+  <% if document.can_apply_to_subset_of_nations? %>
     <section class="container">
       <h1>Excluded Nations</h1>
       <% if document.inapplicable_nations.any? %>
