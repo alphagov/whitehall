@@ -1,7 +1,7 @@
 <p>You've been asked to review this policy for factual accuracy. Please read it, and then provide any comments in the form below</p>
 
-<% if @fact_check_request.instructions %>
-<section>
+<% if @fact_check_request.instructions.present? %>
+<section id="fact_check_request_instructions">
   <h2>Extra instructions</h2>
   <p><%= @fact_check_request.instructions %></p>
 </section>

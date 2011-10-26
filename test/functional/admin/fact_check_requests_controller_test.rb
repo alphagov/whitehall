@@ -62,6 +62,18 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
         fact_check_request: {email_address: "fact-checker@example.com", comments: "looks fine to me"}
     assert_redirected_to admin_fact_check_request_path(fact_check_request)
   end
+
+  test "should display any additional instructions to the fact checker" do
+    fact_check_request = create(:fact_check_request, instructions: "Please concentrate on the content")
+    get :edit, id: fact_check_request.to_param
+    assert_select "#fact_check_request_instructions", text: /Please concentrate on the content/
+  end
+
+  test "should not display the extra instructions section" do
+    fact_check_request = create(:fact_check_request, instructions: "")
+    get :edit, id: fact_check_request.to_param
+    assert_select "#fact_check_request_instructions", count: 0
+  end
 end
 
 class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCase
