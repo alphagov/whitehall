@@ -25,15 +25,11 @@ class Document < ActiveRecord::Base
   end
 
   def allows_attachment?
-    respond_to?(:attachment)
+    false
   end
 
   def allows_supporting_documents?
     respond_to?(:supporting_documents)
-  end
-
-  def attach_file=(file)
-    self.attachment = build_attachment(file: file)
   end
 
   def submit_as(user)
