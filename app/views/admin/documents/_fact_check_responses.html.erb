@@ -1,4 +1,4 @@
-<% if document.fact_check_requests.completed.any? %>
+<% if document.can_be_fact_checked? && document.fact_check_requests.completed.any? %>
 <section class="container">
   <h1>Fact checking responses</h1>
   <ul id="fact_check_requests">

@@ -5,8 +5,6 @@ class Document < ActiveRecord::Base
 
   belongs_to :author, class_name: "User"
 
-  has_many :fact_check_requests
-
   has_many :document_organisations
   has_many :organisations, through: :document_organisations
 
@@ -21,6 +19,10 @@ class Document < ActiveRecord::Base
   end
 
   def can_be_associated_with_ministers?
+    false
+  end
+
+  def can_be_fact_checked?
     false
   end
 
