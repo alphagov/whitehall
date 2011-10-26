@@ -12,7 +12,12 @@
   <% if document.publishable_by?(current_user) %>
     <%= form_for [:admin, document], {as: :document, url: publish_admin_document_path(document), method: :post} do |document_form| %>
       <%= document_form.hidden_field :lock_version %>
-      <%= document_form.submit "Publish", title: "Publish #{document.title}" %>
+      <% submit_options = {title: "Publish #{document.title}"}
+         if document.supporting_documents.any?
+           submit_options[:confirm] = "Have you checked the #{document.supporting_documents.count} supporting documents?"
+         end
+      %>
+      <%= document_form.submit "Publish", submit_options %>
     <% end %>
   <% end %>
   <span class="back">
