@@ -8,12 +8,6 @@ class Document < ActiveRecord::Base
   has_many :document_organisations
   has_many :organisations, through: :document_organisations
 
-  has_many :document_relations_to, class_name: "DocumentRelation", foreign_key: 'document_id'
-  has_many :document_relations_from, class_name: "DocumentRelation", foreign_key: 'related_document_id'
-
-  has_many :documents_related_with, through: :document_relations_to, source: :related_document
-  has_many :documents_related_to, through: :document_relations_from, source: :document
-
   def can_be_associated_with_topics?
     false
   end
@@ -26,8 +20,8 @@ class Document < ActiveRecord::Base
     false
   end
 
-  def related_documents
-    [*documents_related_to, *documents_related_with].uniq
+  def can_be_related_to_other_documents?
+    false
   end
 
   validates_presence_of :title, :body, :author
@@ -62,12 +56,12 @@ class Document < ActiveRecord::Base
       state: "draft",
       author: user,
       submitted: false,
-      organisations: organisations,
-      documents_related_with: documents_related_with,
-      documents_related_to: documents_related_to
+      organisations: organisations
     }
     draft_attributes[:topics] = topics if can_be_associated_with_topics?
     draft_attributes[:ministerial_roles] = ministerial_roles if can_be_associated_with_ministers?
+    draft_attributes[:documents_related_with] = documents_related_with if can_be_related_to_other_documents?
+    draft_attributes[:documents_related_to] = documents_related_to if can_be_related_to_other_documents?
     if respond_to?(:inapplicable_nations)
       draft_attributes[:inapplicable_nations] = inapplicable_nations
     end
