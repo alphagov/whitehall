@@ -2,11 +2,9 @@ class Document < ActiveRecord::Base
   include Document::Identifiable
   include Document::AccessControl
   include Document::Workflow
+  include Document::Organisations
 
   belongs_to :author, class_name: "User"
-
-  has_many :document_organisations
-  has_many :organisations, through: :document_organisations
 
   def can_be_associated_with_topics?
     false
@@ -25,12 +23,6 @@ class Document < ActiveRecord::Base
   end
 
   validates_presence_of :title, :body, :author
-
-  class << self
-    def in_organisation(organisation)
-      joins(:organisations).where('organisations.id' => organisation)
-    end
-  end
 
   def attach_file=(file)
     self.attachment = build_attachment(file: file)
