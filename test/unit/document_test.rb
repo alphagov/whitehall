@@ -129,6 +129,38 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [other_policy, publication_1, publication_2], published_policy.related_documents
   end
 
+  test ".related_to includes documents_related_to document" do
+    publication = create(:publication)
+    policy = create(:policy, documents_related_to: [publication])
+    assert Document.related_to(policy).include?(publication)
+  end
+
+  test ".related_to includes documents_related_with document" do
+    publication = create(:publication)
+    policy = create(:policy, documents_related_with: [publication])
+    assert Document.related_to(policy).include?(publication)
+  end
+
+  test ".related_to includes documents a single time if in both documents_related_with and documents_related_to" do
+    publication = create(:publication)
+    policy = create(:policy, documents_related_with: [publication], documents_related_to: [publication])
+    assert Document.related_to(policy).include?(publication)
+    assert_equal 1, Document.related_to(policy).count
+  end
+
+  test ".related_to respects chained scopes" do
+    publication = create(:publication)
+    policy = create(:policy, documents_related_with: [publication], documents_related_to: [publication])
+    assert Publication.related_to(policy).include?(publication)
+    refute Policy.related_to(policy).include?(publication)
+  end
+
+  test ".related_to excludes unrelated documents" do
+    publication = create(:publication)
+    policy = create(:policy)
+    refute Document.related_to(policy).include?(publication)
+  end
+
   test "should only return unsubmitted draft policies" do
     draft_policy = create(:draft_policy)
     submitted_policy = create(:submitted_policy)

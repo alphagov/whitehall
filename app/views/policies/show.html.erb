@@ -8,11 +8,24 @@
 
 <%= render partial: 'inapplicable_nations', locals: { document: @document } %>
 
-<% if @document.documents_related_with.published.any? %>
-  <section id="related-documents" class="g1">
+<% if @related_publications.any? %>
+  <section id="related-publications" class="g1">
     <h1>Related publications</h1>
     <ul>
-      <% @document.documents_related_with.published.each do |related_document| %>
+      <% @related_publications.each do |related_document| %>
+        <%= content_tag_for :li, related_document do %>
+          <%= link_to related_document.title, public_document_path(related_document) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
+<% if @related_consultations.any? %>
+  <section id="related-consultations" class="g1">
+    <h1>Related consultations</h1>
+    <ul>
+      <% @related_consultations.each do |related_document| %>
         <%= content_tag_for :li, related_document do %>
           <%= link_to related_document.title, public_document_path(related_document) %>
         <% end %>

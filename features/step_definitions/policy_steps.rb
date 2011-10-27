@@ -55,6 +55,14 @@ Given /^a published policy "([^"]*)" with related published publications "([^"]*
   policy = create(:published_policy, title: policy_title, documents_related_with: [publication_1, publication_2])
 end
 
+Given /^a published policy "([^"]*)" with related published consultations "([^"]*)" and "([^"]*)"$/ do |policy_title, consultation_title_1, consultation_title_2|
+  consultation_1 = create(:published_consultation, title: consultation_title_1)
+  consultation_2 = create(:published_consultation, title: consultation_title_2)
+
+  policy = create(:published_policy, title: policy_title, documents_related_with: [consultation_1, consultation_2])
+end
+
+
 Given /^two published policies "([^"]*)" and "([^"]*)" exist$/ do |policy_title_1, policy_title_2|
   create(:published_policy, title: policy_title_1)
   create(:published_policy, title: policy_title_2)

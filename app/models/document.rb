@@ -80,4 +80,10 @@ class Document < ActiveRecord::Base
     state_string = (draft? && submitted?) ? 'submitted' : state
     "#{title} (#{state_string})"
   end
+
+  class << self
+    def related_to(document)
+      where(id: document.related_documents.collect(&:id))
+    end
+  end
 end

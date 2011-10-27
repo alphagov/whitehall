@@ -27,14 +27,43 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should show related documents" do
+  test "show displays related published publications" do
     related_publication = create(:published_publication, title: "Voting Patterns")
     published_policy = create(:published_policy, documents_related_with: [related_publication])
 
     get :show, id: published_policy.document_identity
 
-    assert_select "#related-documents" do
+    assert_select "#related-publications" do
       assert_select_object related_publication
     end
+  end
+
+  test "show excludes related unpublished publications" do
+    related_publication = create(:draft_publication, title: "Voting Patterns")
+    published_policy = create(:published_policy, documents_related_with: [related_publication])
+
+    get :show, id: published_policy.document_identity
+
+    assert_select "#related-publications", count: 0
+  end
+
+  test "show displays related published consultations" do
+    related_consultation = create(:published_consultation, title: "Consultation on Voting Patterns")
+    published_policy = create(:published_policy, documents_related_with: [related_consultation])
+
+    get :show, id: published_policy.document_identity
+
+    assert_select "#related-consultations" do
+      assert_select_object related_consultation
+    end
+  end
+
+  test "show excludes related unpublished consultations" do
+    related_consultation = create(:draft_consultation, title: "Consultation on Voting Patterns")
+    published_policy = create(:published_policy, documents_related_with: [related_consultation])
+
+    get :show, id: published_policy.document_identity
+
+    assert_select "#related-consultations", count: 0
   end
 end
