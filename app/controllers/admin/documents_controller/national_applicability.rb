@@ -1,4 +1,4 @@
-module Admin::Documents::NationalApplicability
+module Admin::DocumentsController::NationalApplicability
   extend ActiveSupport::Concern
 
   included do

@@ -1,6 +1,6 @@
 class Admin::ConsultationsController < Admin::DocumentsController
 
-  include Admin::Documents::NationalApplicability
+  include Admin::DocumentsController::NationalApplicability
 
   private
 
