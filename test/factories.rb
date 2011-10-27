@@ -185,4 +185,7 @@ FactoryGirl.define do
     body "Some supporting information"
     document
   end
+
+  factory :nation_inapplicability do
+  end
 end
