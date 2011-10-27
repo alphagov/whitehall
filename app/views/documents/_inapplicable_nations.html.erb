@@ -1,4 +1,4 @@
-<section id="inapplicable_nations" class="g1">
+<section id="inapplicable_nations">
 <% if document.nation_inapplicabilities.any? %>
   <p>This <%= document.class.name.downcase %> does not apply to <%= document.inapplicable_nations.map(&:name).sort.to_sentence %>.</p>
   <ul class="nation_inapplicabilities">

@@ -1,5 +1,5 @@
 <% if document.ministerial_roles.any? %>
-<section id="ministers_responsible" class="g1">
+<section id="ministers_responsible">
   <h1>Ministers</h1>
   <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: document.ministerial_roles} %>
 </section>

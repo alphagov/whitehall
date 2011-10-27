@@ -1,16 +1,14 @@
-<div class="g2 first">
-  <section class="document_view">
-    <h1 class="title"><%= document.title %></h1>
-    <div class="body">
-      <%= govspeak_to_html document.body %>
-    </div>
+<section class="document_view">
+  <h1 class="title"><%= document.title %></h1>
+  <div class="body">
+    <%= govspeak_to_html document.body %>
+  </div>
 
-    <% if document.allows_attachment? %>
-      <p class="attachment"><%= link_to_attachment(document.attachment) %></p>
-    <% end %>
-  </section>
-
-  <% if document.allows_supporting_documents? %>
-    <%= render partial: 'supporting_documents', locals: { document: document }%>
+  <% if document.allows_attachment? %>
+    <p class="attachment"><%= link_to_attachment(document.attachment) %></p>
   <% end %>
-</div>
+</section>
+
+<% if document.allows_supporting_documents? %>
+  <%= render partial: 'supporting_documents', locals: { document: document }%>
+<% end %>

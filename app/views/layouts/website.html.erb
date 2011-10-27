@@ -19,10 +19,10 @@
     <script src="/javascripts/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
-    <header>
-      <h1><%= link_to "Whitehall App", root_path %></h1>
-      <nav>
+  <body class="website">
+    <header class="cf masthead">
+      <h1><%= link_to "Gov.uk", root_path %></h1>
+      <nav class="group">
         <%= link_to "Topics", topics_path %>
         <%= link_to "Organisations", organisations_path %>
         <%= link_to "Ministers", ministerial_roles_path %>
@@ -30,9 +30,9 @@
         <%= link_to "Admin", admin_root_path %>
       </nav>
     </header>
-    <div class="cf wrapper">
+    <section class="cf wrapper">
       <%= yield %>
-    </div>
+    </section>
     <%= javascript_include_tag "application" %>
   </body>
 </html>

@@ -1,7 +1,9 @@
-<h1>Topics</h1>
+<div class="g2">
+  <h1>Topics</h1>
 
-<% if @topics.any? %>
-  <%= render partial: "list", locals: {topics: @topics} %>
-<% else %>
-  <p>We don't have any topics with <%= link_to "published documents", documents_path %> at present.</p>
-<% end %>
+  <% if @topics.any? %>
+    <%= render partial: "list", locals: {topics: @topics} %>
+  <% else %>
+    <p>We don't have any topics with <%= link_to "published documents", documents_path %> at present.</p>
+  <% end %>
+</div>

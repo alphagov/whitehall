@@ -1,51 +1,63 @@
-<%= content_tag_for :section, @organisation, :class => "hcard" do %>
-  <h1 class="fn org name"><%= @organisation.name %></h1>
-  <div class="adr">
-    <p class="street-address"><%= @organisation.address %></p>
-    <p class="postal-code"><%= @organisation.postcode %></p>
+<div class="g2">
+  <%= content_tag_for :section, @organisation, :class => "hcard" do %>
+    <h1 class="fn org name"><%= @organisation.name %></h1>
+    <div class="adr">
+      <p class="street-address"><%= @organisation.address %></p>
+      <p class="postal-code"><%= @organisation.postcode %></p>
+    </div>
+    <p><%= mail_to @organisation.email, @organisation.email, :class => "email" %></p>
+    <% @organisation.phone_numbers.each do |phone_number| %>
+      <p class="tel"><span class="type"><%= phone_number.description %></span> <%= phone_number.number %></p>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="g1">
+  <%= render partial: "documents/policies", object: @policies %>
+  <%= render partial: "documents/publications", object: @publications %>
+  <%= render partial: "documents/news_articles", object: @news_articles %>
+</div>
+
+<div class="g3">
+
+  <div class="g-half first">
+    <% if @organisation.ministerial_roles.any? %>
+    <section id="ministers">
+      <h1>Ministers</h1>
+      <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @organisation.ministerial_roles} %>
+    </section>
+    <% end %>
   </div>
-  <p><%= mail_to @organisation.email, @organisation.email, :class => "email" %></p>
-  <% @organisation.phone_numbers.each do |phone_number| %>
-    <p class="tel"><span class="type"><%= phone_number.description %></span> <%= phone_number.number %></p>
-  <% end %>
-<% end %>
 
-<%= render partial: "documents/policies", object: @policies %>
-<%= render partial: "documents/publications", object: @publications %>
-<%= render partial: "documents/news_articles", object: @news_articles %>
+  <div class="g-half">
+    <% if @organisation.board_member_roles.any? %>
+      <section id="board_members">
+      <% if @organisation.leading_board_member_roles.any? %>
+        <section id="leading_board_members">
+          <h1>Permanent Secretaries</h1>
+          <ul class="leading_board_member_roles">
+            <% @organisation.leading_board_member_roles.each do |board_member_role| %>
+              <%= content_tag_for(:li, board_member_role) do %>
+                <%= board_member_role %>
+              <% end %>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+      <% if @organisation.other_board_member_roles.any? %>
+        <section id="other_board_members">
+          <h1>Other Board Members</h1>
+          <ul class="other_board_member_roles">
+            <% @organisation.other_board_member_roles.each do |board_member_role| %>
+              <%= content_tag_for(:li, board_member_role) do %>
+                <%= board_member_role %>
+              <% end %>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+      </section>
+    <% end %>
+  </div>
 
-<% if @organisation.ministerial_roles.any? %>
-<section id="ministers" class="g1">
-  <h1>Ministers</h1>
-  <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @organisation.ministerial_roles} %>
-</section>
-<% end %>
-
-<% if @organisation.board_member_roles.any? %>
-  <section id="board_members" class="g1">
-  <% if @organisation.leading_board_member_roles.any? %>
-    <section id="leading_board_members">
-      <h1>Permanent Secretaries</h1>
-      <ul class="leading_board_member_roles">
-        <% @organisation.leading_board_member_roles.each do |board_member_role| %>
-          <%= content_tag_for(:li, board_member_role) do %>
-            <%= board_member_role %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
-  <% if @organisation.other_board_member_roles.any? %>
-    <section id="other_board_members">
-      <h1>Other Board Members</h1>
-      <ul class="other_board_member_roles">
-        <% @organisation.other_board_member_roles.each do |board_member_role| %>
-          <%= content_tag_for(:li, board_member_role) do %>
-            <%= board_member_role %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
-  </section>
-<% end %>
+</div>

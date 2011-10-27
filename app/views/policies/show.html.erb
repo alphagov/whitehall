@@ -1,35 +1,37 @@
-<%= render partial: 'document', locals: { document: @document } %>
+<div class="g2"><%= render partial: 'document', locals: { document: @document } %></div>
 
-<%= render partial: 'topics', locals: { document: @document } %>
+<div class="g1">
+  <%= render partial: 'topics', locals: { document: @document } %>
 
-<%= render partial: 'organisations', locals: { document: @document } %>
+  <%= render partial: 'organisations', locals: { document: @document } %>
 
-<%= render partial: 'ministerial_roles', locals: { document: @document } %>
+  <%= render partial: 'ministerial_roles', locals: { document: @document } %>
 
-<%= render partial: 'inapplicable_nations', locals: { document: @document } %>
+  <%= render partial: 'inapplicable_nations', locals: { document: @document } %>
 
-<% if @related_publications.any? %>
-  <section id="related-publications" class="g1">
-    <h1>Related publications</h1>
-    <ul>
-      <% @related_publications.each do |related_document| %>
-        <%= content_tag_for :li, related_document do %>
-          <%= link_to related_document.title, public_document_path(related_document) %>
+  <% if @related_publications.any? %>
+    <section id="related-publications">
+      <h1>Related publications</h1>
+      <ul>
+        <% @related_publications.each do |related_document| %>
+          <%= content_tag_for :li, related_document do %>
+            <%= link_to related_document.title, public_document_path(related_document) %>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
-  </section>
-<% end %>
+      </ul>
+    </section>
+  <% end %>
 
-<% if @related_consultations.any? %>
-  <section id="related-consultations" class="g1">
-    <h1>Related consultations</h1>
-    <ul>
-      <% @related_consultations.each do |related_document| %>
-        <%= content_tag_for :li, related_document do %>
-          <%= link_to related_document.title, public_document_path(related_document) %>
+  <% if @related_consultations.any? %>
+    <section id="related-consultations">
+      <h1>Related consultations</h1>
+      <ul>
+        <% @related_consultations.each do |related_document| %>
+          <%= content_tag_for :li, related_document do %>
+            <%= link_to related_document.title, public_document_path(related_document) %>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
-  </section>
-<% end %>
+      </ul>
+    </section>
+  <% end %>
+</div>

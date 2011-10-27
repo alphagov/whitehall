@@ -1,10 +1,14 @@
-<section class="topic g2">
-  <%= content_tag_for :article, @topic do %>
-    <h1 class="name"><%= @topic.name %></h1>
-    <p class="description"><%= @topic.description %></p>
-  <% end %>
-</section>
+<div class="g2">
+  <section class="topic">
+    <%= content_tag_for :article, @topic do %>
+      <h1 class="name"><%= @topic.name %></h1>
+      <p class="description"><%= @topic.description %></p>
+    <% end %>
+  </section>
+</div>
 
-<%= render partial: "documents/policies", object: @policies %>
-<%= render partial: "documents/publications", object: @publications %>
-<%= render partial: "documents/news_articles", object: @news_articles %>
+<div class="g1">
+  <%= render partial: "documents/policies", object: @policies %>
+  <%= render partial: "documents/publications", object: @publications %>
+  <%= render partial: "documents/news_articles", object: @news_articles %>
+</div>

@@ -1,7 +1,7 @@
-<%= render partial: 'document', locals: { document: @document } %>
+<div class="g2"><%= render partial: 'document', locals: { document: @document } %></div>
 
-<%= render partial: 'topics', locals: { document: @document } %>
-
-<%= render partial: 'organisations', locals: { document: @document } %>
-
-<%= render partial: 'ministerial_roles', locals: { document: @document } %>
+<div class="g1">
+  <%= render partial: 'topics', locals: { document: @document } %>
+  <%= render partial: 'organisations', locals: { document: @document } %>
+  <%= render partial: 'ministerial_roles', locals: { document: @document } %>
+</div>

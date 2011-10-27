@@ -1,16 +1,86 @@
 @import "../shared/utils";
 
-header, .wrapper {
-  margin: 0 auto;
-  width: 92%;
-}
-header {
-  padding-top: 2em;
-}
-.wrapper {
-  padding-top: 3em;
+body {
+  background: #eee;
 }
 
-nav {
-  @include pipe_separated_links;
+.masthead {
+  background: #444;
+  border-bottom: 1px solid #222;
+
+  h1 {
+    background: #333;
+    padding: 0.2em 5%;
+    margin-bottom: 0;
+    border-bottom: 1px solid #222;
+  }
+
+  nav {
+    @include type-14;
+    margin-bottom: 0;
+    padding: 0 5%;
+
+    a {
+      border-right: 1px solid #333;
+      padding: 0.5em 0.75em;
+      float: left;
+      margin: 0;
+      color: #eee;
+
+      &:hover {
+        border-right: 1px solid #222;
+        background: #333;
+        color: #fff;
+      };
+
+      &:first-child {
+        border-left: none;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+
+  a {
+    @include type-14;
+    @include link_color(#fff, $link-color-hover, none, $link-color-active);
+    text-decoration: none;
+    font-weight: bold;
+    padding-right: 1em;
+  }
+}
+
+header, .wrapper {
+
+}
+
+.wrapper {
+  margin: 0 auto;
+  padding-top: 2.75em;
+  padding-bottom: 2.75em;
+  width: 92%;
+}
+
+@media only screen and (min-width: 600px) {
+  .masthead {
+    h1 {
+      padding: 0.4em 10%;
+    }
+    nav {
+      padding: 0 10%;
+      @include type-16;
+      margin-bottom: 0;
+
+      a {
+        padding: 0.75em 1em;
+
+      }
+    }
+  }
+
+  .wrapper {
+    width: 81%;
+  }
 }
