@@ -10,9 +10,10 @@ Scenario: Departmental editor requests fact checking
   Then "fact-checker@example.com" should be notified by email that "Bob" has requested a fact check for "Standard Beard Lengths" with instructions "I'm not sure about the length"
 
 Scenario: Fact checker views the draft policy
-  Given "fact-checker@example.com" has received an email requesting they fact check a draft publication "Check me"
+  Given "fact-checker@example.com" has received an email requesting they fact check a draft policy "Check me" with supporting document "And me!"
   When "fact-checker@example.com" clicks the email link to the draft policy
-  Then they should see the draft publication "Check me"
+  Then they should see the draft policy "Check me"
+  And they should see the supporting document "And me!"
 
 Scenario: Fact checker enters feedback
   Given "fact-checker@example.com" has received an email requesting they fact check a draft publication "Check me"

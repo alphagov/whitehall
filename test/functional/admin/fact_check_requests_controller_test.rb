@@ -74,6 +74,20 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     get :edit, id: fact_check_request.to_param
     assert_select "#fact_check_request_instructions", count: 0
   end
+
+  test "should not display the supporting documents section" do
+    policy = create(:policy, supporting_documents: [])
+    fact_check_request = create(:fact_check_request, document: policy)
+    get :edit, id: fact_check_request.to_param
+    assert_select "#supporting_documents", count: 0
+  end
+
+  test "should display the supporting documents section" do
+    policy = create(:policy, supporting_documents: [create(:supporting_document, title: "Blah!")])
+    fact_check_request = create(:fact_check_request, document: policy)
+    get :edit, id: fact_check_request.to_param
+    assert_select "#supporting_documents .title", "Blah!"
+  end
 end
 
 class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCase

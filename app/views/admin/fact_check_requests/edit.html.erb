@@ -14,6 +14,21 @@
   </div>
   <p class="written_by">Written by <span class="author"><%= @document.author.name %></span></p>
 </div>
+
+<% if @document.has_supporting_documents? %>
+  <section id="supporting_documents">
+    <h1>Supporting documents</h1>
+    <% @document.supporting_documents.each do |supporting_document| %>
+      <div class="document_view">
+        <h1 class="title"><%= supporting_document.title %></h1>
+        <div class="body">
+          <%= govspeak_to_html supporting_document.body %>
+        </div>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+
 <div>
   <%= form_for([:admin, @fact_check_request]) do |fact_check_form| %>
     <%= fact_check_form.text_area :comments %>

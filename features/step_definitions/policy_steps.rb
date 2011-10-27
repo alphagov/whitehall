@@ -64,6 +64,13 @@ Given /^a published policy "([^"]*)" with related draft publication "([^"]*)"$/ 
   create(:published_policy, title: policy_title, documents_related_with: [create(:draft_publication, title: publication_title)])
 end
 
+Given /^"([^"]*)" has received an email requesting they fact check a draft policy "([^"]*)" with supporting document "([^"]*)"$/ do |email, title, supporting_document_title|
+  policy = create(:draft_policy, title: title)
+  supporting_document = create(:supporting_document, document: policy, title: supporting_document_title)
+  fact_check_request = policy.fact_check_requests.create(email_address: email)
+  Notifications.fact_check(fact_check_request, create(:user), host: "example.com").deliver
+end
+
 When /^I create a new edition of the published policy$/ do
   visit published_admin_documents_path
   click_link Policy.published.last.title
@@ -187,4 +194,16 @@ Then /^I should not see "([^"]*)" from the "([^"]*)" policy$/ do |publication_ti
   policy = Policy.find_by_title(policy_title)
   visit public_document_path(policy)
   refute has_css?("#related-documents .publication a", text: publication_title)
+end
+
+Then /^they should see the draft policy "([^"]*)"$/ do |title|
+  policy = Policy.draft.find_by_title(title)
+  assert page.has_css?('.document_view .title', text: policy.title)
+  assert page.has_css?('.document_view .body', text: policy.body)
+end
+
+Then /^they should see the supporting document "([^"]*)"$/ do |title|
+  supporting_document = SupportingDocument.find_by_title(title)
+  assert page.has_css?('#supporting_documents .document_view .title', text: supporting_document.title)
+  assert page.has_css?('#supporting_documents .document_view .body', text: supporting_document.body)
 end
