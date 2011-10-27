@@ -41,6 +41,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisations_path
   end
 
+  test "creating without a name should reshow the edit form" do
+    attributes = attributes_for(:organisation)
+    post :create, organisation: attributes.merge(
+      name: '',
+      phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
+    )
+
+    assert_template "organisations/new"
+  end
+
   test "editing should load the requested organisation" do
     organisation = create(:organisation)
     get :edit, id: organisation.to_param

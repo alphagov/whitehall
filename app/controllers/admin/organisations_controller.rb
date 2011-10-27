@@ -8,9 +8,12 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def create
-    organisation = Organisation.new(params[:organisation])
-    organisation.save
-    redirect_to admin_organisations_path
+    @organisation = Organisation.new(params[:organisation])
+    if @organisation.save
+      redirect_to admin_organisations_path
+    else
+      render action: "new"
+    end
   end
 
   def edit
