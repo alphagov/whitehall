@@ -3,8 +3,10 @@
   <p>This <%= document.class.name.downcase %> does not apply to <%= document.inapplicable_nations.map(&:name).sort.to_sentence %>.</p>
   <ul class="nation_inapplicabilities">
     <% document.nation_inapplicabilities.each do |nation_inapplicability| %>
-      <%= content_tag_for(:li, nation_inapplicability) do %>
-        Information about <%= link_to "#{document.title} #{document.class.name.downcase} in #{nation_inapplicability.nation.name}", nation_inapplicability.alternative_url %>
+      <% if nation_inapplicability.alternative_url.present? %>
+        <%= content_tag_for(:li, nation_inapplicability) do %>
+          Information about <%= link_to "#{document.title} #{document.class.name.downcase} in #{nation_inapplicability.nation.name}", nation_inapplicability.alternative_url %>
+        <% end %>
       <% end %>
     <% end %>
   </ul>

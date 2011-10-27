@@ -42,7 +42,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   test "should show inapplicable nations" do
     published_consultation = create(:published_consultation)
     northern_ireland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
-    scotland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com/")
+    scotland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.scotland)
 
     get :show, id: published_consultation.document_identity
 
@@ -51,9 +51,7 @@ class ConsultationsControllerTest < ActionController::TestCase
       assert_select_object northern_ireland_inapplicability do
         assert_select "a[href='http://northern-ireland.com/']"
       end
-      assert_select_object scotland_inapplicability do
-        assert_select "a[href='http://scotland.com/']"
-      end
+      assert_select_object scotland_inapplicability, count: 0
     end
   end
 
