@@ -1,6 +1,3 @@
-require 'uri'
-require 'nokogiri'
-
 module GovspeakHelper
 
   def govspeak_to_admin_html(text)

@@ -9,6 +9,7 @@ gem 'carrierwave'
 gem 'govspeak', :git => 'git://github.com/alphagov/govspeak.git'
 gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.0.beta14'
+gem 'nokogiri'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'
