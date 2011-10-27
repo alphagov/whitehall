@@ -226,7 +226,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   test "show lists nation inapplicabilities when there are some" do
     draft_policy = create(:draft_policy)
     scotland_inapplicability = draft_policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com/")
-    wales_inapplicability = draft_policy.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://wales.com/")
+    wales_inapplicability = draft_policy.nation_inapplicabilities.create!(nation: Nation.wales)
 
     get :show, id: draft_policy
 
@@ -235,7 +235,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
         assert_select ".alternative_url a[href='http://scotland.com/']"
       end
       assert_select_object wales_inapplicability, text: /Wales/ do
-        assert_select ".alternative_url a[href='http://wales.com/']"
+        assert_select ".alternative_url a", count: 0
       end
     end
   end

@@ -2,7 +2,9 @@
   <% nation_inapplicabilities.each do |nation_inapplicability| %>
     <%= content_tag_for(:li, nation_inapplicability) do %>
       <%= nation_inapplicability.nation.name %>
-      <span class="alternative_url">(<%= link_to "alternative URL", nation_inapplicability.alternative_url %>)</span>
+      <% if nation_inapplicability.alternative_url.present? %>
+        <span class="alternative_url">(<%= link_to "alternative URL", nation_inapplicability.alternative_url %>)</span>
+      <% end %>
     <% end %>
   <% end %>
 </ul>
