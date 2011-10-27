@@ -9,10 +9,16 @@ class GovspeakHelperTest < ActionView::TestCase
     assert html.html_safe?
   end
 
-  test "should link to draft documents in admin preview" do
+  test "should highlight links to draft documents in admin preview" do
     publication = create(:draft_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
-    assert_equal %{<p>this and <a href="#{admin_publication_url(publication)}">that</a></p>}, html.strip
+    assert_equal %{<p>this and <span class="draft_link"><a href="#{admin_publication_url(publication)}">that</a> <sup class="explanation">(draft)</sup></span></p>}, html.strip
+  end
+
+  test "should highlight links to published documents in admin preview" do
+    publication = create(:published_publication)
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    assert_equal %{<p>this and <span class="published_link"><a href="#{admin_publication_url(publication)}">that</a> <sup class="explanation">(<a class="public_link" href="#{public_document_path(publication)}">public link</a>)</sup></span></p>}, html.strip
   end
 
   test "should mark the govspeak output as html safe" do
