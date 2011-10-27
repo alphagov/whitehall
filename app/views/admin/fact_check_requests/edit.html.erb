@@ -1,4 +1,4 @@
-<p>You've been asked to review this document for factual accuracy. Please read it, and then provide any comments in the form below</p>
+<p>You've been asked to review this document for factual accuracy. Please read it, and then provide any comments in the form below.</p>
 
 <% if @fact_check_request.instructions.present? %>
 <section id="fact_check_request_instructions">
@@ -30,6 +30,10 @@
 <% end %>
 
 <div>
+  <% if @document.has_supporting_documents? %>
+    <p>To help <%= @document.author.name %>, try to be clear where your comments refer to a supporting document rather than the main document body.</p>
+  <% end %>
+
   <%= form_for([:admin, @fact_check_request]) do |fact_check_form| %>
     <%= fact_check_form.text_area :comments %>
     <%= fact_check_form.submit "Submit" %>
