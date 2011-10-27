@@ -72,6 +72,20 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
+  test 'creating with invalid data should not lose the checked nation inapplicabilities' do
+    attributes = attributes_for(:policy)
+    post :create, document: attributes.merge(
+      title: '',
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "0", nation_id: Nation.england, alternative_url: "http://www.england.com/"}, "1" => {_destroy: "1", nation_id: Nation.scotland}, "2" => {_destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "1", nation_id: Nation.northern_ireland}}
+    )
+
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][0][_destroy]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][0][alternative_url]'][value='http://www.england.com/']", count: 1
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
+  end
+
   test 'edit displays policy form' do
     policy = create(:policy)
     northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
@@ -138,6 +152,24 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal attributes[:title], policy.reload.title
     assert_template "documents/edit"
     assert_equal 'There are some problems with the document', flash.now[:alert]
+  end
+
+  test 'updating with invalid data should not lose the checked nation inapplicabilities' do
+    attributes = attributes_for(:policy)
+    policy = create(:policy, attributes)
+    scotland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
+    wales_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
+
+    put :update, id: policy.id, document: attributes.merge(
+      title: '',
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {_destroy: "1", nation_id: Nation.scotland}, "2" => {_destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland, alternative_url: "http://www.northernireland.com/"}}
+    )
+
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][3][_destroy]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][3][alternative_url]'][value='http://www.northernireland.com/']", count: 1
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
   end
 
   test 'updating a stale policy should render edit page with conflicting policy' do

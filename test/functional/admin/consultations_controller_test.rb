@@ -63,6 +63,35 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select '.opening_on', text: 'Opened on October 10th, 2011'
   end
 
+  test 'creating with invalid data should leave the writer in the consultation editor' do
+    attributes = attributes_for(:consultation)
+    post :create, document: attributes.merge(title: '')
+
+    assert_equal attributes[:body], assigns(:document).body, "the valid data should not have been lost"
+    assert_template "documents/new"
+  end
+
+  test 'creating with invalid data should set an alert in the flash' do
+    attributes = attributes_for(:consultation)
+    post :create, document: attributes.merge(title: '')
+
+    assert_equal 'There are some problems with the document', flash.now[:alert]
+  end
+
+  test 'creating with invalid data should not lose the checked nation inapplicabilities' do
+    attributes = attributes_for(:consultation)
+    post :create, document: attributes.merge(
+      title: '',
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "0", nation_id: Nation.england, alternative_url: "http://www.england.com/"}, "1" => {_destroy: "1", nation_id: Nation.scotland}, "2" => {_destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "1", nation_id: Nation.northern_ireland}}
+    )
+
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][0][_destroy]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][0][alternative_url]'][value='http://www.england.com/']", count: 1
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
+  end
+
   test 'show displays consultation closing date' do
     consultation = create(:consultation, opening_on: Date.new(2010, 01, 01), closing_on: Date.new(2011, 01, 01))
     get :show, id: consultation
@@ -157,7 +186,24 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal [second_minister], consultation.ministerial_roles
     assert_equal [Nation.scotland], consultation.inapplicable_nations
     assert_equal "http://www.visitscotland.com/", consultation.nation_inapplicabilities.for_nation(Nation.scotland).first.alternative_url
+  end
 
+  test 'updating with invalid data should not lose the checked nation inapplicabilities' do
+    attributes = attributes_for(:consultation)
+    consultation = create(:consultation, attributes)
+    scotland_inapplicability = consultation.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
+    wales_inapplicability = consultation.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
+
+    put :update, id: consultation.id, document: attributes.merge(
+      title: '',
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {_destroy: "1", nation_id: Nation.scotland}, "2" => {_destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland, alternative_url: "http://www.northernireland.com/"}}
+    )
+
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][3][_destroy]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][3][alternative_url]'][value='http://www.northernireland.com/']", count: 1
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
   end
 
 end

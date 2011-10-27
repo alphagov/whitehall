@@ -4,7 +4,9 @@
     <div class="group">
       <div class="col nation">
       <%= inapplicability_form.label :_destroy, inapplicability_form.object.nation.name %>
-      <%= inapplicability_form.check_box :_destroy, { checked: inapplicability_form.object.persisted? }, '0', '1' %>
+      <%= inapplicability_form.check_box :_destroy, {
+        checked: inapplicability_form.object[:_destroy].present? ? (inapplicability_form.object[:_destroy] == "0") : inapplicability_form.object.persisted?
+      }, '0', '1' %>
       </div>
       <div class="col">
         <%= inapplicability_form.text_field :alternative_url %>
