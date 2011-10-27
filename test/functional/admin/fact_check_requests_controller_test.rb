@@ -133,9 +133,9 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     assert_equal "The policy has been sent to fact-checker@example.com", flash[:notice]
   end
 
-  test "redirect to the edit form when a fact check has been requested" do
+  test "redirect back to the document preview when a fact check has been requested" do
     post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
-    assert_redirected_to edit_admin_policy_path(@document)
+    assert_redirected_to admin_policy_path(@document)
   end
 
   test "should not send an email if the fact checker's email address is missing" do
@@ -149,9 +149,9 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     assert_equal "There was a problem: Email address can't be blank", flash[:alert]
   end
 
-  test "redirect to the edit form if the fact checker's email address is missing" do
+  test "redirect back to the document preview if the fact checker's email address is missing" do
     post :create, document_id: @document.id, fact_check_request: {email_address: ""}
-    assert_redirected_to edit_admin_policy_path(@document)
+    assert_redirected_to admin_policy_path(@document)
   end
 
   test "should reject invalid email addresses" do
