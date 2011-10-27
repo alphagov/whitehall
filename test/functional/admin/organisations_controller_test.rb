@@ -21,24 +21,22 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "creating should create a new Organisation" do
-    post :create, organisation: {name: "Ministry of Sound", address: "Clubtown, London",
-                                 email: "minister@beatsinternational.co.uk",
-                                 phone_numbers_attributes: [
-                                   {description: "Fax", number: "020712435678"}
-                                 ]}
+    attributes = attributes_for(:organisation)
+    post :create, organisation: attributes.merge(
+      phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
+    )
 
-    organisation = Organisation.last
-    assert_equal "Ministry of Sound", organisation.name
+    assert organisation = Organisation.last
+    assert_equal attributes[:name], organisation.name
     assert_equal 1, organisation.phone_numbers.count
     assert_equal "Fax", organisation.phone_numbers.first.description
   end
 
   test "creating should redirect back to the index" do
-    post :create, organisation: {name: "Ministry of Sound", address: "Clubtown, London",
-                                 email: "minister@beatsinternational.co.uk",
-                                 phone_numbers_attributes: [
-                                   {description: "Fax", number: "020712435678"}
-                                 ]}
+    attributes = attributes_for(:organisation)
+    post :create, organisation: attributes.merge(
+      phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
+    )
 
     assert_redirected_to admin_organisations_path
   end
