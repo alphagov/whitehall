@@ -16,4 +16,11 @@ module Document::NationalApplicability
     true
   end
 
+  def build_nation_applicabilities_for_all_nations
+    (Nation.all.map(&:id) - nation_inapplicabilities.map(&:nation_id)).each do |nation_id|
+      nation_inapplicabilities.build(nation_id: nation_id)
+    end
+    nation_inapplicabilities.sort_by! { |na| na.nation_id }
+  end
+
 end
