@@ -21,6 +21,14 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
     end
   end
 
+  test "new form has previewable body" do
+    document = create(:draft_policy)
+
+    get :new, document_id: document
+
+    assert_select "textarea[name='supporting_document[body]'].previewable"
+  end
+
   test "create adds supporting document" do
     document = create(:draft_policy)
     attributes = { title: "title", body: "body" }
@@ -97,6 +105,15 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
       assert_select "textarea[name='supporting_document[body]']", text: supporting_document.body
       assert_select "input[type='submit']"
     end
+  end
+
+  test "edit form has previewable body" do
+    document = create(:draft_policy)
+    supporting_document = create(:supporting_document, document: document)
+
+    get :new, document_id: document, id: supporting_document
+
+    assert_select "textarea[name='supporting_document[body]'].previewable"
   end
 
   test "edit form include lock version to prevent conflicting changes overwriting each other" do

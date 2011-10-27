@@ -1,7 +1,7 @@
 <%= form_for [:admin, @document, supporting_document] do |form| %>
   <%= form.hidden_field :lock_version %>
   <%= form.text_field :title, disabled: disabled %>
-  <%= form.text_area :body, disabled: disabled %>
+  <%= form.text_area :body, disabled: disabled, "class" => "previewable" %>
   <% unless disabled %>
     <%= form.save_or_cancel cancel: (supporting_document.new_record? ? admin_document_path(@document) : admin_supporting_document_path(supporting_document))%>
   <% end %>

@@ -24,6 +24,11 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     end
   end
 
+  test "new form has previewable body" do
+    get :new
+    assert_select "textarea[name='document[body]'].previewable"
+  end
+
   test 'creating should create a new policy' do
     first_topic = create(:topic)
     second_topic = create(:topic)
@@ -104,6 +109,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text'][value='http://www.discovernorthernireland.com/']", count: 1
       assert_select "input[type='submit']"
     end
+  end
+
+  test "edit form has previewable body" do
+    policy = create(:policy)
+    get :edit, id: policy
+    assert_select "textarea[name='document[body]'].previewable"
   end
 
   test 'updating should save modified policy attributes' do
