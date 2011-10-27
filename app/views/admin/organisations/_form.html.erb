@@ -12,7 +12,7 @@
   <fieldset>
     <%= organisation_form.text_field :email %>
   </fieldset>
-  <fieldset>
+  <fieldset class="named">
     <legend>Phone numbers</legend>
     <%= organisation_form.fields_for :phone_numbers do |phone_numbers_form| %>
       <%= phone_numbers_form.text_field :description %>
