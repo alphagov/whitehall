@@ -1,7 +1,13 @@
+@import "../shared/utils";
+
 fieldset.excluded_nations {
   div.group {
     div.nation {
       width: 25%;
     }
   }
+}
+
+.chzn-container {
+  @include scaled_margin_bottom(16, 24);
 }

@@ -4,13 +4,11 @@
 ================================================== */
 
 form {
-  margin-bottom: 20px;
+  margin-bottom: 1em;
 
   fieldset {
-    border: none;
-    padding: 0;
-    margin: 0 0 20px 0;
-
+    margin: 0;
+    padding: 0 0 0 0;
     .description {
       @include type-12;
       font-style: italic;
@@ -24,32 +22,44 @@ form {
     }
   }
 
+  fieldset.named {
+    padding-top: 0.5em;
+  }
+
+  legend {
+    padding: 0;
+    @include type-14;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #ddd;
+    color: #777;
+  }
+
   input[type="text"],
   input[type="password"],
   input[type="email"],
   textarea,
   select {
-    border: 1px solid #ccc;
-    padding: 6px 4px;
-    outline: none;
-    font: 13px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #777;
-    margin: 0;
-    width: 210px;
-    max-width: 100%;
-    display: block;
-    margin-bottom: 20px;
-    background: #fff;
     @include rounded(2px);
+    @include type-13;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #777;
+    display: block;
+    max-width: 100%;
+    outline: none;
+    padding: 0.25em;
+    width: 17.5em;
   }
 
   select.date {
     display: inline;
-    width: 60px;
+    width: auto;
   }
 
   input[type="file"] {
-    font-size: 0.75em;
+    @include type-12;
   }
 
   textarea {
@@ -69,8 +79,7 @@ form {
     box-shadow: 0 0 3px rgba(0,0,0,.2);
   }
 
-  label,
-  legend {
+  label{
     display: block;
     font-weight: bold;
     @include type-14;
@@ -94,7 +103,6 @@ form {
   label span,
   legend span {
     font-weight: normal;
-    @include type-14;
     color: #444;
   }
 
@@ -117,7 +125,8 @@ form {
   }
 
   span.or_cancel {
-    font-size: 13px;
+    @include type-14;
+    margin-left: 0.5em;
   }
 }
 
@@ -150,7 +159,6 @@ input[type="button"] {
   text-decoration: none;
   text-shadow: 0 1px rgba(255, 255, 255, .75);
   cursor: pointer;
-  margin-bottom: 20px;
 
   @include type-16;
 }
