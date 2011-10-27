@@ -63,6 +63,48 @@ header, .wrapper {
   width: 92%;
 }
 
+.wrapper {
+  section {
+    h1 {
+      @include type-18;
+    }
+  }
+  .secondary {
+    > section {
+      border: 1px solid #ddd;
+      padding: 2% 4%;
+      background: #f9f9f9;
+      margin-bottom: 1em;
+      h1 {
+        @include type-16;
+        color: #555;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 0.4444em;
+      }
+
+      ul {
+        margin-bottom: 0.5em;
+
+        li {
+          @include type-12;
+          margin-bottom: 0;
+        }
+      }
+
+      p {
+        @include type-12;
+      }
+    }
+    section#inapplicable_nations {
+      p {
+        @include type-12;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+
 @media only screen and (min-width: 600px) {
   .masthead {
     h1 {
