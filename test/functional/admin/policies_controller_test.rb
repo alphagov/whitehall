@@ -37,7 +37,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id],
       ministerial_role_ids: [first_minister.id, second_minister.id],
-      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: true, nation_id: Nation.scotland}, "2" => {_destroy: false, nation_id: Nation.wales, alternative_url: "http://www.visitwales.co.uk/"}, "3" => {_destroy: false, nation_id: Nation.northern_ireland}}
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {_destroy: "1", nation_id: Nation.scotland}, "2" => {_destroy: false, nation_id: Nation.wales, alternative_url: "http://www.visitwales.co.uk/"}, "3" => {_destroy: false, nation_id: Nation.northern_ireland}}
     )
 
     policy = Policy.last
@@ -106,7 +106,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test 'updating should save modified document attributes' do
+  test 'updating should save modified policy attributes' do
     first_topic = create(:topic)
     second_topic = create(:topic)
     first_org = create(:organisation)
@@ -123,7 +123,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       topic_ids: [second_topic.id],
       organisation_ids: [second_org.id],
       ministerial_role_ids: [second_minister.id],
-      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: false, nation_id: Nation.scotland, alternative_url: "http://www.visitscotland.com/"}, "2" => {_destroy: true, nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: true, nation_id: northern_ireland_inapplicability.nation_id, alternative_url: "http://www.discovernorthernireland.com/"}}
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {_destroy: "0", nation_id: Nation.scotland, alternative_url: "http://www.visitscotland.com/"}, "2" => {_destroy: "1", nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: "1", nation_id: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/"}}
     }
 
     saved_policy = policy.reload
@@ -162,7 +162,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     put :update, id: policy.id, document: attributes.merge(
       title: '',
-      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {_destroy: "1", nation_id: Nation.scotland}, "2" => {_destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland, alternative_url: "http://www.northernireland.com/"}}
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {id: scotland_inapplicability, _destroy: "1", nation_id: Nation.scotland}, "2" => {id: wales_inapplicability, _destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland, alternative_url: "http://www.northernireland.com/"}}
     )
 
     assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
@@ -173,17 +173,28 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test 'updating a stale policy should render edit page with conflicting policy' do
-    policy = create(:draft_policy, topics: [build(:topic)], organisations: [build(:organisation)], ministerial_roles: [build(:ministerial_role)], inapplicable_nations: [Nation.scotland])
+    policy = create(:draft_policy, topics: [build(:topic)], organisations: [build(:organisation)], ministerial_roles: [build(:ministerial_role)])
+    scotland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
+    wales_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
     lock_version = policy.lock_version
     policy.update_attributes!(title: "new title")
 
-    put :update, id: policy, document: policy.attributes.merge(lock_version: lock_version)
+    put :update, id: policy, document: policy.attributes.merge(
+      lock_version: lock_version,
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {id: scotland_inapplicability, _destroy: "1", nation_id: Nation.scotland}, "2" => {id: wales_inapplicability, _destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland, alternative_url: "http://www.northernireland.com/"}}
+    )
 
     assert_template 'edit'
     conflicting_policy = policy.reload
     assert_equal conflicting_policy, assigns[:conflicting_document]
     assert_equal conflicting_policy.lock_version, assigns[:document].lock_version
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
+
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][3][_destroy]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][3][alternative_url]'][value='http://www.northernireland.com/']", count: 1
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
   end
 
   test "cancelling a new policy takes the user to the list of drafts" do

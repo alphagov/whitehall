@@ -36,7 +36,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     post :create, document: attributes.merge(
       organisation_ids: [first_org.id, second_org.id],
       ministerial_role_ids: [first_minister.id, second_minister.id],
-      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: true, nation_id: Nation.scotland}, "2" => {_destroy: false, nation_id: Nation.wales, alternative_url: "http://www.visitwales.co.uk/"}, "3" => {_destroy: false, nation_id: Nation.northern_ireland}}
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {_destroy: "1", nation_id: Nation.scotland}, "2" => {_destroy: "0", nation_id: Nation.wales, alternative_url: "http://www.visitwales.co.uk/"}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland}}
     )
 
     consultation = Consultation.last
@@ -158,7 +158,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'update updates consultation' do
+  test 'updating should save modified policy attributes' do
     first_org = create(:organisation)
     second_org = create(:organisation)
     first_minister = create(:ministerial_role)
@@ -174,7 +174,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       closing_on: 50.days.from_now,
       organisation_ids: [second_org.id],
       ministerial_role_ids: [second_minister.id],
-      nation_inapplicabilities_attributes: {"0" => {_destroy: true, nation_id: Nation.england}, "1" => {_destroy: false, nation_id: Nation.scotland, alternative_url: "http://www.visitscotland.com/"}, "2" => {_destroy: true, nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: true, nation_id: northern_ireland_inapplicability.nation_id, alternative_url: "http://www.discovernorthernireland.com/"}}
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {_destroy: "0", nation_id: Nation.scotland, alternative_url: "http://www.visitscotland.com/"}, "2" => {_destroy: "1", nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: "1", nation_id: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/"}}
     }
 
     consultation.reload
@@ -196,7 +196,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     put :update, id: consultation.id, document: attributes.merge(
       title: '',
-      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {_destroy: "1", nation_id: Nation.scotland}, "2" => {_destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland, alternative_url: "http://www.northernireland.com/"}}
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {id: scotland_inapplicability, _destroy: "1", nation_id: Nation.scotland}, "2" => {id: wales_inapplicability, _destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland, alternative_url: "http://www.northernireland.com/"}}
     )
 
     assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
@@ -206,4 +206,28 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
   end
 
+  test 'updating a stale consultation should render edit page with conflicting consultation' do
+    consultation = create(:draft_consultation, organisations: [build(:organisation)], ministerial_roles: [build(:ministerial_role)])
+    scotland_inapplicability = consultation.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
+    wales_inapplicability = consultation.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
+    lock_version = consultation.lock_version
+    consultation.update_attributes!(title: "new title")
+
+    put :update, id: consultation, document: consultation.attributes.merge(
+      lock_version: lock_version,
+      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {id: scotland_inapplicability, _destroy: "1", nation_id: Nation.scotland}, "2" => {id: wales_inapplicability, _destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland, alternative_url: "http://www.northernireland.com/"}}
+    )
+
+    assert_template 'edit'
+    conflicting_consultation = consultation.reload
+    assert_equal conflicting_consultation, assigns[:conflicting_document]
+    assert_equal conflicting_consultation.lock_version, assigns[:document].lock_version
+    assert_equal %{This document has been saved since you opened it}, flash[:alert]
+
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][3][_destroy]'][type='checkbox'][checked='checked']", count: 1
+    assert_select "input[name='document[nation_inapplicabilities_attributes][3][alternative_url]'][value='http://www.northernireland.com/']", count: 1
+    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
+  end
 end
