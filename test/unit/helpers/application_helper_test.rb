@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
-  test "should mark the govspeak output as html safe" do
-    html = govspeak_to_html("govspeak-text")
-    assert html.html_safe?
-  end
-
   test "should supply options with IDs and descriptions for the current ministerial appointments" do
     home_office = create(:organisation, name: "Home Office")
     ministry_of_defence = create(:organisation, name: "Ministry of Defence")

@@ -10,7 +10,7 @@
 <div class="document_view">
   <h1 class="title"><%= @document.title %></h1>
   <div class="body">
-    <%= govspeak_to_html @document.body %>
+    <%= govspeak_to_admin_html @document.body %>
   </div>
   <p class="written_by">Written by <span class="author"><%= @document.author.name %></span></p>
 </div>
@@ -22,7 +22,7 @@
       <div class="document_view">
         <h1 class="title"><%= supporting_document.title %></h1>
         <div class="body">
-          <%= govspeak_to_html supporting_document.body %>
+          <%= govspeak_to_admin_html supporting_document.body %>
         </div>
       </div>
     <% end %>

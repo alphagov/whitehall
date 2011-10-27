@@ -5,7 +5,7 @@
     <article class="document_view">
       <h1 class="title"><%= @document.title %></h1>
       <div class="body">
-        <%= govspeak_to_html @document.body %>
+        <%= govspeak_to_admin_html @document.body %>
       </div>
       <p class="details"><span class="type"><%= @document.class.name.demodulize.titleize %></span> for speech delivered by <span class="ministerial_role"><%= link_to @document.role_appointment.role, @document.role_appointment.role %></span> on <span class="delivered_on"><%= @document.delivered_on.to_s(:long_ordinal) %></span> at <span class="location"><%= @document.location %></span></p>
       <p class="written_by">Written by <span class="author"><%= @document.author.name %></span></p>
