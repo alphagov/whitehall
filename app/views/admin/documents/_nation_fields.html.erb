@@ -3,8 +3,11 @@
   <%= form.fields_for :nation_inapplicabilities do |ni_form| %>
     <div class="group">
       <div class="col nation">
-        <%= ni_form.label :_destroy, ni_form.object.nation.name %>
-        <%= ni_form.check_box :_destroy, *inapplicability_checkbox_options(ni_form) %>
+        <%= ni_form.label :_destroy do %>
+          <%- checkbox = ni_form.check_box :_destroy, *inapplicability_checkbox_options(ni_form) %>
+          <%- label_text = ni_form.object.nation.name %>
+          <%- checkbox + label_text %>
+        <% end %>
       </div>
       <div class="col">
         <%= ni_form.text_field :alternative_url %>
