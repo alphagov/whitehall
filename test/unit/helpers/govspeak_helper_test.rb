@@ -4,9 +4,24 @@ class GovspeakHelperTest < ActionView::TestCase
   include AdminDocumentRoutesHelper
   include PublicDocumentRoutesHelper
 
+  setup do
+    @request  = ActionController::TestRequest.new
+  end
+  attr_reader :request
+
   test "should mark the admin govspeak output as html safe" do
     html = govspeak_to_admin_html("govspeak-text")
     assert html.html_safe?
+  end
+
+  test "should not alter urls to other sites in the admin preview" do
+    html = govspeak_to_admin_html("no [change](http://external.example.com/page.html)")
+    assert_equal %{<p>no <a href="http://external.example.com/page.html">change</a></p>}, html.strip
+  end
+
+  test "should not alter urls to other sites" do
+    html = govspeak_to_html("no [change](http://external.example.com/page.html)")
+    assert_equal %{<p>no <a href="http://external.example.com/page.html">change</a></p>}, html.strip
   end
 
   test "should highlight links to draft documents in admin preview" do
@@ -35,7 +50,7 @@ class GovspeakHelperTest < ActionView::TestCase
   [Policy, Publication, NewsArticle, Consultation].each do |document_class|
     test "should rewrite absolute links to admin previews of #{document_class.name} as their public document identity" do
       document = create(:"published_#{document_class.name.underscore}")
-      html = govspeak_to_html("this and [that](http://test.host/#{admin_document_path(document)}) yeah?")
+      html = govspeak_to_html("this and [that](http://test.host#{admin_document_path(document)}) yeah?")
       assert_equal %{<p>this and <a href="#{public_document_path(document)}">that</a> yeah?</p>}, html.strip
     end
   end
@@ -43,21 +58,21 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should rewrite absolute links to admin previews of Speeches as their public document identity" do
     speech = create(:published_speech)
     public_path = public_document_path(speech.becomes(Speech))
-    html = govspeak_to_html("this and [that](http://test.host/#{admin_speech_path(speech)}) yeah?")
+    html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
     assert_equal %{<p>this and <a href="#{public_path}">that</a> yeah?</p>}, html.strip
   end
 
   test "should rewrite absolute links to admin previews of SupportingDocuments as their public document identity" do
     policy = create(:published_policy)
     supporting_document = create(:supporting_document, document: policy)
-    html = govspeak_to_html("this and [that](http://test.host/#{admin_supporting_document_path(supporting_document)}) yeah?")
+    html = govspeak_to_html("this and [that](#{admin_supporting_document_url(supporting_document)}) yeah?")
     assert_equal %{<p>this and <a href="#{document_supporting_document_path(policy, supporting_document)}">that</a> yeah?</p>}, html.strip
   end
 
   test "should not link to SupportingDocuments whose documents are not published" do
     policy = create(:draft_policy)
     supporting_document = create(:supporting_document, document: policy)
-    html = govspeak_to_html("this and [that](http://test.host/#{admin_supporting_document_path(supporting_document)}) yeah?")
+    html = govspeak_to_html("this and [that](http://test.host#{admin_supporting_document_path(supporting_document)}) yeah?")
     assert_equal %{<p>this and that yeah?</p>}, html.strip
   end
 

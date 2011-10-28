@@ -1,10 +1,10 @@
 module GovspeakHelper
 
   def govspeak_to_admin_html(text)
-    r = Regexp.escape("http://test.host/admin")
     html = Govspeak::Document.to_html(text)
     doc = Nokogiri::HTML.fragment(html)
     doc.search('a').each do |anchor|
+      next unless is_internal_admin_link?(anchor['href'])
       document, supporting_document = find_documents_from_uri(anchor['href'])
       if document.published?
         public_uri = rewritten_href_for_documents(document, supporting_document)
@@ -17,10 +17,10 @@ module GovspeakHelper
   end
 
   def govspeak_to_html(text)
-    r = Regexp.escape("http://test.host/admin")
     html = Govspeak::Document.to_html(text)
     doc = Nokogiri::HTML.fragment(html)
     doc.search('a').each do |anchor|
+      next unless is_internal_admin_link?(anchor['href'])
       document, supporting_document = find_documents_from_uri(anchor['href'])
       if document.published?
         anchor['href'] = rewritten_href_for_documents(document, supporting_document)
@@ -32,6 +32,13 @@ module GovspeakHelper
   end
 
   private
+
+  def is_internal_admin_link?(href)
+    uri = URI.parse(href)
+    truncated_link_uri = [uri.host, uri.path.split("/")[1]].join("/")
+    truncated_host_uri = [request.host, "admin"].join("/")
+    truncated_link_uri == truncated_host_uri
+  end
 
   def find_documents_from_uri(uri)
     id = uri[/\/([^\/]+)$/, 1]
