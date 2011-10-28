@@ -33,18 +33,18 @@ Scenario: Viewing a policy that is applicable to certain nations
 
 Scenario: Viewing a policy that has multiple publications associated
   Given a published policy "What Makes A Beard" with related published publications "Standard Beard Lengths" and "Exotic Beard Lengths"
-  Then I can visit the published publication "Standard Beard Lengths" from the "What Makes A Beard" policy
-  And I can visit the published publication "Exotic Beard Lengths" from the "What Makes A Beard" policy
+  When I visit the published policy "What Makes A Beard"
+  Then I can see links to the related published publications "Standard Beard Lengths" and "Exotic Beard Lengths"
 
 Scenario: Viewing a policy that has multiple consultations associated
   Given a published policy "What Makes A Beard" with related published consultations "Standard Beard Lengths" and "Exotic Beard Lengths"
-  Then I can visit the published consultation "Standard Beard Lengths" from the "What Makes A Beard" policy
-  And I can visit the published consultation "Exotic Beard Lengths" from the "What Makes A Beard" policy
+  When I visit the published policy "What Makes A Beard"
+  Then I can see links to the related published consultations "Standard Beard Lengths" and "Exotic Beard Lengths"
 
 Scenario: Viewing a policy that has multiple news articles associated
   Given a published policy "What Makes A Beard" with related published news articles "Standard Beard Lengths" and "Exotic Beard Lengths"
-  Then I can visit the published news article "Standard Beard Lengths" from the "What Makes A Beard" policy
-  And I can visit the published news article "Exotic Beard Lengths" from the "What Makes A Beard" policy
+  When I visit the published policy "What Makes A Beard"
+  Then I can see links to the related published news articles "Standard Beard Lengths" and "Exotic Beard Lengths"
 
 Scenario: Viewing a policy that has draft publication associated
   Given a published policy "What Makes A Beard" with related draft publication "Proposed Beard Lengths"

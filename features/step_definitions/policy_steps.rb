@@ -173,6 +173,11 @@ When /^I publish the policy "([^"]*)" but another user edits it while I am viewi
   click_button "Publish"
 end
 
+When /^I visit the published policy "([^"]*)"$/ do |title|
+  policy = Policy.published.find_by_title(title)
+  visit public_document_path(policy)
+end
+
 Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
   assert page.has_css?(".fact_check_request .comments", text: comments)
 end

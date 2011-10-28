@@ -37,20 +37,11 @@ Then /^I should see a link to the PDF attachment$/ do
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: /^attachment\.pdf$/)
 end
 
-Then /^I can visit the published publication "([^"]*)" from the "([^"]*)" policy$/ do |publication_title, policy_title|
-  policy = Policy.find_by_title(policy_title)
-  visit public_document_path(policy)
-  assert has_css?("#related-publications .publication a", text: publication_title)
-  click_link publication_title
-  assert has_css?(".title", text: publication_title)
-end
-
-Then /^I can visit the published consultation "([^"]*)" from the "([^"]*)" policy$/ do |consultation_title, policy_title|
-  policy = Policy.find_by_title(policy_title)
-  visit public_document_path(policy)
-  assert has_css?("#related-consultations .consultation a", text: consultation_title)
-  click_link consultation_title
-  assert has_css?(".title", text: consultation_title)
+Then /^I can see links to the related published publications "([^"]*)" and "([^"]*)"$/ do |publication_title_1, publication_title_2|
+  publication_1 = Publication.published.find_by_title(publication_title_1)
+  publication_2 = Publication.published.find_by_title(publication_title_2)
+  assert has_css?("#related-publications .publication a", text: publication_title_1)
+  assert has_css?("#related-publications .publication a", text: publication_title_2)
 end
 
 def pdf_attachment

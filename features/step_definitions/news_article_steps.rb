@@ -5,10 +5,9 @@ When /^I draft a new news article "([^"]*)" relating it to "([^"]*)" and "([^"]*
   click_button "Save"
 end
 
-Then /^I can visit the published news article "([^"]*)" from the "([^"]*)" policy$/ do |news_article_title, policy_title|
-  policy = Policy.find_by_title(policy_title)
-  visit public_document_path(policy)
-  assert has_css?("#related-news-articles .news_article a", text: news_article_title)
-  click_link news_article_title
-  assert has_css?(".title", text: news_article_title)
+Then /^I can see links to the related published news articles "([^"]*)" and "([^"]*)"$/ do |news_article_title_1, news_article_title_2|
+  news_article_1 = NewsArticle.published.find_by_title(news_article_title_1)
+  news_article_2 = NewsArticle.published.find_by_title(news_article_title_2)
+  assert has_css?("#related-news-articles .news_article a", text: news_article_title_1)
+  assert has_css?("#related-news-articles .news_article a", text: news_article_title_2)
 end

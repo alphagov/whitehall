@@ -10,3 +10,10 @@ When /^I draft a new consultation "([^"]*)"$/ do |title|
   select policy.title, from: "Related Policies"
   click_button "Save"
 end
+
+Then /^I can see links to the related published consultations "([^"]*)" and "([^"]*)"$/ do |consultation_title_1, consultation_title_2|
+  consultation_1 = Consultation.published.find_by_title(consultation_title_1)
+  consultation_2 = Consultation.published.find_by_title(consultation_title_2)
+  assert has_css?("#related-consultations .consultation a", text: consultation_title_1)
+  assert has_css?("#related-consultations .consultation a", text: consultation_title_2)
+end
