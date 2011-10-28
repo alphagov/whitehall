@@ -34,4 +34,17 @@
       </ul>
     </section>
   <% end %>
+
+  <% if @related_news_articles.any? %>
+    <section id="related-news-articles">
+      <h1>Related news</h1>
+      <ul>
+        <% @related_news_articles.each do |related_document| %>
+          <%= content_tag_for :li, related_document do %>
+            <%= link_to related_document.title, public_document_path(related_document) %>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
 </div>

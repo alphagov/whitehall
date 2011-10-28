@@ -66,4 +66,24 @@ class PoliciesControllerTest < ActionController::TestCase
 
     assert_select "#related-consultations", count: 0
   end
+
+  test "show displays related news articles" do
+    related_news_article = create(:published_news_article, title: "News about Voting Patterns")
+    published_policy = create(:published_policy, documents_related_with: [related_news_article])
+
+    get :show, id: published_policy.document_identity
+
+    assert_select "#related-news-articles" do
+      assert_select_object related_news_article
+    end
+  end
+
+  test "show excludes related unpublished news articles" do
+    related_news_article = create(:draft_news_article, title: "News about Voting Patterns")
+    published_policy = create(:published_policy, documents_related_with: [related_news_article])
+
+    get :show, id: published_policy.document_identity
+
+    assert_select "#related-news-articles", count: 0
+  end
 end
