@@ -9,16 +9,33 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
   end
 
+  test 'new displays news articles form' do
+    get :new
+
+    assert_select "form[action='#{admin_news_articles_path}']" do
+      assert_select "input[name='document[title]'][type='text']"
+      assert_select "textarea[name='document[body]']"
+      assert_select "select[name*='document[documents_related_to_ids]']"
+      assert_select "select[name*='document[organisation_ids]']"
+      assert_select "select[name*='document[topic_ids]']"
+      assert_select "select[name*='document[ministerial_role_ids]']"
+      assert_select "input[type='submit']"
+    end
+  end
+
   test 'creating should create a new news article' do
     first_topic = create(:topic)
     second_topic = create(:topic)
     first_org = create(:organisation)
     second_org = create(:organisation)
+    first_policy = create(:published_policy)
+    second_policy = create(:published_policy)
     attributes = attributes_for(:news_article)
 
     post :create, document: attributes.merge(
       topic_ids: [first_topic.id, second_topic.id],
-      organisation_ids: [first_org.id, second_org.id]
+      organisation_ids: [first_org.id, second_org.id],
+      documents_related_to_ids: [first_policy.id, second_policy.id]
     )
 
     created_news_article = NewsArticle.last
@@ -26,6 +43,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal attributes[:body], created_news_article.body
     assert_equal [first_topic, second_topic], created_news_article.topics
     assert_equal [first_org, second_org], created_news_article.organisations
+    assert_equal [first_policy, second_policy], created_news_article.documents_related_to
   end
 
   test 'creating should take the writer to the news article page' do
@@ -53,14 +71,22 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   test 'updating should save modified document attributes' do
     first_topic = create(:topic)
     second_topic = create(:topic)
-    news_article = create(:news_article, topics: [first_topic])
+    first_policy = create(:published_policy)
+    second_policy = create(:published_policy)
+    news_article = create(:news_article, topics: [first_topic], documents_related_to: [first_policy])
 
-    put :update, id: news_article.id, document: { title: "new-title", body: "new-body", topic_ids: [second_topic.id] }
+    put :update, id: news_article.id, document: {
+      title: "new-title",
+      body: "new-body",
+      topic_ids: [second_topic.id],
+      documents_related_to_ids: [second_policy.id]
+    }
 
     saved_news_article = news_article.reload
     assert_equal "new-title", saved_news_article.title
     assert_equal "new-body", saved_news_article.body
     assert_equal [second_topic], saved_news_article.topics
+    assert_equal [second_policy], saved_news_article.documents_related_to
   end
 
   test 'updating should take the writer to the news article page' do
