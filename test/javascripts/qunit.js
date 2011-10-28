@@ -3,3 +3,4 @@
 // TEST SRC DIR :: test/javascripts
 //
 //= require preview_test
+//= require govspeak_help_test

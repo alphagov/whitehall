@@ -29,8 +29,16 @@ module Whitehall
     end
 
     def text_area(method, *args)
-      label_text = (args.last || {}).delete(:label)
-      label(method, label_text) + super
+      options = (args.last || {})
+      label_text = options.delete(:label)
+      if options.delete(:help)
+        help_link = @template.link_to("formatting help", "#govspeak_help", "class" => "govspeak_help")
+      else
+        help_link = ""
+      end
+      label_tag = label(method, label_text)
+      label_tag.gsub!("</label>", " #{help_link}</label>")
+      label_tag.html_safe + super
     end
 
     private

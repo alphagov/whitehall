@@ -25,6 +25,7 @@
     <section>
       <h1>Edit <%= @document.type.titleize %></h1>
       <%= render partial: "form", locals: {document: @document} %>
+      <%= render partial: "govspeak_help" %>
     </section>
   </div>
   <div class="g1">

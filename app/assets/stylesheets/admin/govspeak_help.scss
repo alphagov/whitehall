@@ -1,0 +1,24 @@
+@import "../shared/utils";
+
+section#govspeak_help {
+  font-size: 0.7em;
+  background: #fff;
+  padding: 1em 0 0 1em;
+  overflow: auto;
+  width: 97.4%;
+  border: 1px solid #ccc;
+  margin-bottom: 0.5em;
+
+  > h1 {
+    @include type-24;
+  }
+
+  .g1 pre {
+    background: #eee;
+    padding: 0.5em 1em;
+  }
+}
+
+a.govspeak_help {
+ margin-left: 0.5em;
+}
