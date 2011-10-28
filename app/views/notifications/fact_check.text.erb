@@ -1,6 +1,6 @@
 Hi,
 
-I would like you to check the <%= @fact_check_request.document.type.downcase %> titled "<%= raw @fact_check_request.document.title %>" for factual accuracy.
+Please check the following <%= @fact_check_request.document.type.downcase %> for factual accuracy: <%= raw @fact_check_request.document.title %>
 
 <%- if @fact_check_request.instructions.present? -%>
 Extra instructions: <%= raw @fact_check_request.instructions %>
