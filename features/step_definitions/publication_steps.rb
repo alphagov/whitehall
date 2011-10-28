@@ -14,23 +14,11 @@ Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
   create(:published_publication, title: title, attachment: attachment)
 end
 
-Given /^a published publication "([^"]*)" that's the responsibility of "([^"]*)" and "([^"]*)"$/ do |title, role_1_name, role_2_name|
-  ministerial_role_1 = create(:ministerial_role, name: role_1_name)
-  ministerial_role_2 = create(:ministerial_role, name: role_2_name)
-  create(:published_publication, title: title, ministerial_roles: [ministerial_role_1, ministerial_role_2])
-end
-
 When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_document type: "Publication", title: title
   select first_policy, from: "Related Policies"
   select second_policy, from: "Related Policies"
   click_button "Save"
-end
-
-Then /^they should see the draft publication "([^"]*)"$/ do |title|
-  publication = Publication.draft.find_by_title(title)
-  assert page.has_css?('.document_view .title', text: publication.title)
-  assert page.has_css?('.document_view .body', text: publication.body)
 end
 
 Then /^I should see a link to the PDF attachment$/ do

@@ -3,12 +3,6 @@ Given /^the organisation "([^"]*)" contains some policies$/ do |name|
   create(:organisation, name: name, documents: documents)
 end
 
-Given /^ministers "([^"]*)" and "([^"]*)" are in the "([^"]*)"$/ do |first_minister, second_minister, organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
-  organisation.ministerial_roles << build(:ministerial_role, name: first_minister)
-  organisation.ministerial_roles << build(:ministerial_role, name: second_minister)
-end
-
 Given /^other organisations also have policies$/ do
   create(:organisation, documents: [build(:published_policy)])
   create(:organisation, documents: [build(:published_policy)])

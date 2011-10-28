@@ -30,11 +30,6 @@ Given /^I click on the policy "([^"]*)"$/ do |policy_title|
   click_link policy_title
 end
 
-Given /^I click edit for the policy "([^"]*)"$/ do |policy_title|
-  click_link policy_title
-  click_link "Edit"
-end
-
 Given /^I submit the policy for the second set of eyes$/ do
   click_button 'Submit to 2nd pair of eyes'
 end
