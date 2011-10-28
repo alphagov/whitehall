@@ -80,8 +80,20 @@ section.resource_list {
       border-right: 1px solid #ddd;
       border-top: 1px solid #ddd;
       background: #eee;
-      padding: 10px 10px;
+      padding: 10px 10px 0 10px;
       @include rounded_top(3px);
+
+      .type {
+        float: left;
+        width: 472px;
+        margin-bottom: 10px;
+      }
+
+      .state {
+        float: right;
+        width: 241px;
+        margin-bottom: 10px;
+      }
 
       a {
         @include type-13;
@@ -91,7 +103,7 @@ section.resource_list {
         border: 1px solid #ccc;
         border-top: 1px solid #aaa;
         border-right: none;
-        display: inline-block;
+        display: block;
         float: left;
 
         color: #777;
@@ -130,8 +142,6 @@ section.resource_list {
           border-top: 1px solid #ddd;
         }
       }
-
-
     }
 
     > ul, table {

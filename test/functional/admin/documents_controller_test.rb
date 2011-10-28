@@ -138,4 +138,13 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_redirected_to edit_admin_policy_path(existing_draft)
     assert_equal "There is already an active draft for this document", flash[:alert]
   end
+
+  test "should be able to filter document types when viewing list of documents" do
+    policy = create(:draft_policy)
+    publication = create(:draft_publication)
+    get :index, filter: 'policy'
+
+    assert_select_object(policy) { assert_select ".type", text: "Policy" }
+    assert_select ".type", text: "Publication", count: 0
+  end
 end

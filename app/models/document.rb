@@ -81,6 +81,8 @@ class Document < ActiveRecord::Base
     "#{title} (#{state_string})"
   end
 
+  scope :by_type, lambda { |type| where(type: type) }
+
   class << self
     def related_to(document)
       where(id: document.related_documents.collect(&:id))

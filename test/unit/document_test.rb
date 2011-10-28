@@ -415,4 +415,12 @@ class DocumentTest < ActiveSupport::TestCase
     policy = create(:policy, title: "Bob's bike")
     assert_equal 'bobs-bike', policy.document_identity.slug
   end
+
+  test "is filterable by document type" do
+    policy = create(:submitted_policy)
+    publication = create(:published_publication)
+
+    assert_equal [policy], Document.by_type('policy')
+    assert_equal [publication], Document.by_type('publication')
+  end
 end
