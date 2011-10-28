@@ -1,4 +1,5 @@
 <section class="g2 first">
   <h1>Create <%= @document.type.titleize %></h1>
   <%= render partial: "form", locals: {document: @document} %>
+  <%= render partial: "govspeak_help" %>
 </section>
