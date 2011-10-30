@@ -88,7 +88,9 @@ class Admin::DocumentsController < Admin::BaseController
   def filtered_documents(state)
     @document_state = state
     if params[:filter]
-      document_class.by_type(params[:filter]).send(@document_state)
+      filter_by = params[:filter].classify
+      filter_by = 'Speech::Transcript' if filter_by == 'Speech'
+      document_class.by_type(filter_by).send(@document_state)
     else
       document_class.send(@document_state)
     end

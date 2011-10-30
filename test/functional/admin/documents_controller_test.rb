@@ -139,12 +139,48 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_equal "There is already an active draft for this document", flash[:alert]
   end
 
-  test "should be able to filter document types when viewing list of documents" do
+  test "should be able to filter by policies when viewing list of documents" do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
     get :index, filter: 'policy'
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
     assert_select ".type", text: "Publication", count: 0
+  end
+
+  test "should be able to filter by publications when viewing list of documents" do
+    policy = create(:draft_policy)
+    publication = create(:draft_publication)
+    get :index, filter: 'publication'
+
+    assert_select_object(publication) { assert_select ".type", text: "Publication" }
+    assert_select ".type", text: "Policy", count: 0
+  end
+
+  test "should be able to filter by speeches when viewing list of documents" do
+    policy = create(:draft_policy)
+    speech = create(:speech)
+    get :index, filter: 'speech'
+
+    assert_select_object(speech) { assert_select ".type", text: "Speech/Transcript" }
+    assert_select ".type", text: "Policy", count: 0
+  end
+
+  test "should be able to filter by news articles when viewing list of documents" do
+    policy = create(:draft_policy)
+    news = create(:news_article)
+    get :index, filter: 'news_article'
+
+    assert_select_object(news) { assert_select ".type", text: "News Article" }
+    assert_select ".type", text: "Policy", count: 0
+  end
+
+  test "should be able to filter by consultations when viewing list of documents" do
+    policy = create(:draft_policy)
+    consultation = create(:consultation)
+    get :index, filter: 'consultation'
+
+    assert_select_object(consultation) { assert_select ".type", text: "Consultation" }
+    assert_select ".type", text: "Policy", count: 0
   end
 end

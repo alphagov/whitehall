@@ -14,7 +14,7 @@
         <%= link_to 'all', admin_documents_state_path(@document_state), current_filter_class('all') %>
         <%= link_to 'policies', admin_documents_state_path(@document_state, filter: 'policy'), current_filter_class('policy') %>
         <%= link_to 'publications', admin_documents_state_path(@document_state, filter: 'publication'), current_filter_class('publication') %>
-        <%= link_to 'news', admin_documents_state_path(@document_state, filter: 'news'), current_filter_class('news') %>
+        <%= link_to 'news articles', admin_documents_state_path(@document_state, filter: 'news_article'), current_filter_class('news_article') %>
         <%= link_to 'consultations', admin_documents_state_path(@document_state, filter: 'consultation'), current_filter_class('consultation') %>
         <%= link_to 'speeches', admin_documents_state_path(@document_state, filter: 'speech'), current_filter_class('speech') %>
       </div>
@@ -56,7 +56,7 @@
         <% end %>
         <% if documents.blank? %>
           <tr>
-            <td colspan="3">No <%= (params[:filter].present? ? params[:filter].pluralize() : 'documents') %> have been <%= empty_documents_list_verb(document_state) %>.</td>
+            <td colspan="3">No <%= (params[:filter].present? ? params[:filter].humanize.pluralize.downcase : 'documents') %> have been <%= empty_documents_list_verb(document_state) %>.</td>
           </tr>
         <% end %>
       </tbody>

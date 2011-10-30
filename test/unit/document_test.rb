@@ -419,8 +419,14 @@ class DocumentTest < ActiveSupport::TestCase
   test "is filterable by document type" do
     policy = create(:submitted_policy)
     publication = create(:published_publication)
+    news = create(:news_article)
+    speech = create(:speech)
+    consultation = create(:consultation)
 
-    assert_equal [policy], Document.by_type('policy')
-    assert_equal [publication], Document.by_type('publication')
+    assert_equal [policy], Document.by_type('Policy')
+    assert_equal [publication], Document.by_type('Publication')
+    assert_equal [news], Document.by_type('NewsArticle')
+    assert_equal [speech], Document.by_type('Speech::Transcript')
+    assert_equal [consultation], Document.by_type('Consultation')
   end
 end
