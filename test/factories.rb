@@ -166,7 +166,7 @@ FactoryGirl.define do
     name "Parliamentary Under-Secretary of State"
   end
 
-  factory :board_member_role, do
+  factory :board_member_role do
     name "Permanent Secretary"
   end
 
