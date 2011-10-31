@@ -34,7 +34,7 @@ module Document::Workflow
     end
   end
 
-  class DocumentHasNoUnpublishedDocumentsValidator
+  class DocumentHasNoUnpublishedDocumentsValidator < ActiveModel::Validator
     def validate(record)
       if record.document_identity && record.document_identity.documents.draft.any?
         record.errors.add(:base, "There is already an active draft for this document")
@@ -42,7 +42,7 @@ module Document::Workflow
     end
   end
 
-  class DocumentHasNoOtherPublishedDocumentsValidator
+  class DocumentHasNoOtherPublishedDocumentsValidator < ActiveModel::Validator
     def validate(record)
       if record.published? && record.document_identity && record.document_identity.documents.published.any?
         record.errors.add(:base, "There is already a published edition for this document")
