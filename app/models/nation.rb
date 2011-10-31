@@ -11,4 +11,6 @@ class Nation < ActiveRecord::Base
     def wales; find_by_name("Wales"); end
     def northern_ireland; find_by_name("Northern Ireland"); end
   end
+
+  scope :potentially_inapplicable, where(%{name <> "England"})
 end

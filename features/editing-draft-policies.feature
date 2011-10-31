@@ -32,7 +32,7 @@ Scenario: Creating a new draft policy that applies to multiple nations
   When I draft a new policy "Outlaw Moustaches" that does not apply to the nations:
     | Scotland | Wales |
   Then I should see in the preview that "Outlaw Moustaches" does not apply to the nations:
-    | England | Scotland | Wales |
+    | Scotland | Wales |
 
 Scenario: Adding a supporting document to a draft policy
   Given a draft policy "Outlaw Moustaches" exists

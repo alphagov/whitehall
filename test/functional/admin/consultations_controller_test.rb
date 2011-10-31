@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::ConsultationsControllerTest < ActionController::TestCase
+  include NationApplicabilityAssertions
+
   setup do
     @user = login_as "George"
   end
@@ -20,8 +22,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "select[name*='document[closing_on']", count: 3
       assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
-      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
-      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
+      assert_nation_inapplicability_fields_exist
       assert_select "input[type='submit']"
     end
   end
@@ -36,8 +37,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     post :create, document: attributes.merge(
       organisation_ids: [first_org.id, second_org.id],
       ministerial_role_ids: [first_minister.id, second_minister.id],
-      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {_destroy: "1", nation_id: Nation.scotland}, "2" => {_destroy: "0", nation_id: Nation.wales, alternative_url: "http://www.visitwales.co.uk/"}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland}}
-    )
+    ).merge(nation_inapplicabilities_attributes_for(Nation.wales => "http://www.visitwales.co.uk/", Nation.northern_ireland => nil))
 
     consultation = Consultation.last
     assert_equal attributes[:title], consultation.title
@@ -81,15 +81,11 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test 'creating with invalid data should not lose the checked nation inapplicabilities' do
     attributes = attributes_for(:consultation)
     post :create, document: attributes.merge(
-      title: '',
-      nation_inapplicabilities_attributes: {"0" => {_destroy: "0", nation_id: Nation.england, alternative_url: "http://www.england.com/"}, "1" => {_destroy: "1", nation_id: Nation.scotland}, "2" => {_destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "1", nation_id: Nation.northern_ireland}}
-    )
+      title: ''
+    ).merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
 
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
-    assert_select "input[name='document[nation_inapplicabilities_attributes][0][_destroy]'][type='checkbox'][checked='checked']", count: 1
-    assert_select "input[name='document[nation_inapplicabilities_attributes][0][alternative_url]'][value='http://www.england.com/']", count: 1
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
+    assert_nation_inapplicability_fields_exist
+    assert_nation_inapplicability_fields_set_as(index: 0, checked: true, alternative_url: "http://www.scotland.com/")
   end
 
   test 'show displays consultation closing date' do
@@ -150,10 +146,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "select[name*='document[closing_on']", count: 3
       assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
-      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
-      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
-      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
-      assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text'][value='http://www.discovernorthernireland.com/']", count: 1
+      assert_nation_inapplicability_fields_exist
+      assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.discovernorthernireland.com/")
       assert_select "input[type='submit']"
     end
   end
@@ -173,9 +167,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       opening_on: 1.day.ago,
       closing_on: 50.days.from_now,
       organisation_ids: [second_org.id],
-      ministerial_role_ids: [second_minister.id],
-      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {_destroy: "0", nation_id: Nation.scotland, alternative_url: "http://www.visitscotland.com/"}, "2" => {_destroy: "1", nation_id: Nation.wales}, "3" => {id: northern_ireland_inapplicability, _destroy: "1", nation_id: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/"}}
-    }
+      ministerial_role_ids: [second_minister.id]
+    }.merge(nation_inapplicabilities_attributes_for({Nation.scotland => "http://www.visitscotland.com/"}, northern_ireland_inapplicability))
 
     consultation.reload
     assert_equal "new-title", consultation.title
@@ -195,15 +188,11 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     wales_inapplicability = consultation.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
 
     put :update, id: consultation.id, document: attributes.merge(
-      title: '',
-      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {id: scotland_inapplicability, _destroy: "1", nation_id: Nation.scotland}, "2" => {id: wales_inapplicability, _destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland, alternative_url: "http://www.northernireland.com/"}}
-    )
+      title: ''
+    ).merge(nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability))
 
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
-    assert_select "input[name='document[nation_inapplicabilities_attributes][3][_destroy]'][type='checkbox'][checked='checked']", count: 1
-    assert_select "input[name='document[nation_inapplicabilities_attributes][3][alternative_url]'][value='http://www.northernireland.com/']", count: 1
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
+    assert_nation_inapplicability_fields_exist
+    assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
   end
 
   test 'updating a stale consultation should render edit page with conflicting consultation' do
@@ -214,9 +203,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     consultation.update_attributes!(title: "new title")
 
     put :update, id: consultation, document: consultation.attributes.merge(
-      lock_version: lock_version,
-      nation_inapplicabilities_attributes: {"0" => {_destroy: "1", nation_id: Nation.england}, "1" => {id: scotland_inapplicability, _destroy: "1", nation_id: Nation.scotland}, "2" => {id: wales_inapplicability, _destroy: "1", nation_id: Nation.wales}, "3" => {_destroy: "0", nation_id: Nation.northern_ireland, alternative_url: "http://www.northernireland.com/"}}
-    )
+      lock_version: lock_version
+    ).merge(nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability))
 
     assert_template 'edit'
     conflicting_consultation = consultation.reload
@@ -224,10 +212,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal conflicting_consultation.lock_version, assigns[:document].lock_version
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
 
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: 4
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox'][checked='checked']", count: 1
-    assert_select "input[name='document[nation_inapplicabilities_attributes][3][_destroy]'][type='checkbox'][checked='checked']", count: 1
-    assert_select "input[name='document[nation_inapplicabilities_attributes][3][alternative_url]'][value='http://www.northernireland.com/']", count: 1
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: 4
+    assert_nation_inapplicability_fields_exist
+    assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
   end
 end
