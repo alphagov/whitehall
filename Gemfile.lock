@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/alphagov/govspeak.git
-  revision: 209083cfe4dafb5f92b1a12566009a46af25217f
+  revision: 958b2c81f1c84a10bab025c43a359b0cd808e974
   specs:
     govspeak (0.8.3)
       kramdown (~> 0.13.3)
