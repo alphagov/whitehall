@@ -7,4 +7,5 @@ class FactCheckRequest < ActiveRecord::Base
   validates :email_address, email_format: {allow_blank: true}
 
   scope :completed, where('comments IS NOT NULL')
+  scope :pending, where('comments IS NULL')
 end

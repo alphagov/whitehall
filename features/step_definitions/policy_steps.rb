@@ -177,6 +177,11 @@ Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
   assert page.has_css?(".fact_check_request .comments", text: comments)
 end
 
+Then /^I should see the pending fact check request to "([^"]*)" for policy "([^"]*)"$/ do |email_address, title|
+  visit admin_policy_path(Policy.find_by_title(title))
+  assert page.has_css?(".fact_check_request.pending .from", text: email_address)
+end
+
 Then /^the published policy should remain unchanged$/ do
   visit public_document_path(@document)
   assert page.has_css?('.document_view .title', text: @document.title)
