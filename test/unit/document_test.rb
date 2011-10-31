@@ -425,7 +425,20 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [policy], Document.by_type('Policy')
     assert_equal [publication], Document.by_type('Publication')
     assert_equal [news], Document.by_type('NewsArticle')
-    assert_equal [speech], Document.by_type('Speech::Transcript')
+    assert_equal [speech], Document.by_type('Speech')
     assert_equal [consultation], Document.by_type('Consultation')
   end
+
+  test "should include all speech subtypes when filtering by speech" do
+    types = [
+      :speech_transcript,
+      :speech_draft_text,
+      :speech_speaking_notes,
+      :speech_written_statement,
+      :speech_oral_statement
+    ]
+
+    assert_equal types.map {|t| create(t) }, Document.by_type('Speech')
+  end
+
 end

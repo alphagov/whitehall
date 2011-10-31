@@ -29,6 +29,21 @@ FactoryGirl.define do
     location "speech-location"
   end
 
+  factory :speech_transcript, class: Speech::Transcript, parent: :speech do
+  end
+
+  factory :speech_draft_text, class: Speech::DraftText, parent: :speech do
+  end
+
+  factory :speech_speaking_notes, class: Speech::SpeakingNotes, parent: :speech do
+  end
+
+  factory :speech_written_statement, class: Speech::WrittenStatement, parent: :speech do
+  end
+
+  factory :speech_oral_statement, class: Speech::OralStatement, parent: :speech do
+  end
+
   factory :consultation do
     author
     title "consultation-title"

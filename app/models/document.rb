@@ -81,7 +81,7 @@ class Document < ActiveRecord::Base
     "#{title} (#{state_string})"
   end
 
-  scope :by_type, lambda { |type| where(type: type) }
+  scope :by_type, lambda { |type| where(Document.arel_table[:type].matches("%#{type}%")) }
 
   class << self
     def related_to(document)
