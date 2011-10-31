@@ -287,4 +287,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_select "p", "This document applies to the whole of the UK."
   end
 
+  should_link_to_public_version_when_published :policy
+  should_not_link_to_public_version_when_not_published :policy
 end

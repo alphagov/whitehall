@@ -215,4 +215,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_nation_inapplicability_fields_exist
     assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
   end
+
+  should_link_to_public_version_when_published :consultation
+  should_not_link_to_public_version_when_not_published :consultation
 end

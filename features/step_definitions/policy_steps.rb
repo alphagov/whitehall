@@ -233,3 +233,9 @@ Then /^I can see links to the related published policies "([^"]*)" and "([^"]*)"
   assert has_css?("#related-policies .policy a", text: policy_title_1)
   assert has_css?("#related-policies .policy a", text: policy_title_2)
 end
+
+Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |policy_title|
+  policy = Policy.published.find_by_title(policy_title)
+  visit admin_document_path(policy)
+  assert has_css?(".actions .public_version a", href: public_document_path(policy)), "Link to public version of policy not found"
+end
