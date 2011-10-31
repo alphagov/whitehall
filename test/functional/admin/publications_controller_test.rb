@@ -19,7 +19,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     attributes = attributes_for(:publication)
 
     post :create, document: attributes.merge(
-      topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id],
       documents_related_to_ids: [first_policy.id, second_policy.id]
     )
@@ -27,7 +26,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     created_publication = Publication.last
     assert_equal attributes[:title], created_publication.title
     assert_equal attributes[:body], created_publication.body
-    assert_equal [first_topic, second_topic], created_publication.topics
     assert_equal [first_org, second_org], created_publication.organisations
     assert_equal [first_policy, second_policy], created_publication.documents_related_to
   end
@@ -64,16 +62,13 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
 
   test 'updating should save modified document attributes' do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
-    publication = create(:publication, topics: [first_topic])
+    publication = create(:publication)
 
-    put :update, id: publication.id, document: { title: "new-title", body: "new-body", topic_ids: [second_topic.id] }
+    put :update, id: publication.id, document: { title: "new-title", body: "new-body" }
 
     saved_publication = publication.reload
     assert_equal "new-title", saved_publication.title
     assert_equal "new-body", saved_publication.body
-    assert_equal [second_topic], saved_publication.topics
   end
 
   test 'updating should take the writer to the publication page' do
@@ -125,6 +120,19 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     put :update, id: submitted_publication, document: attributes.merge(title: '')
 
     assert_template 'edit'
+  end
+
+  test "show lists nation inapplicabilities when there are some" do
+    draft_consultation = create(:draft_publication)
+    inapplicability = draft_consultation.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com/")
+
+    get :show, id: draft_consultation
+
+    assert_select ".nation_inapplicabilities" do
+      assert_select_object inapplicability, text: /Scotland/ do
+        assert_select ".alternative_url a[href='http://scotland.com/']"
+      end
+    end
   end
 
   test "should render the content using govspeak markup" do

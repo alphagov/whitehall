@@ -68,7 +68,6 @@ class DocumentTest < ActiveSupport::TestCase
     topic_2 = create(:topic)
     draft_policy = create(:draft_policy, topics: [topic_1])
     published_policy = create(:published_policy, topics: [topic_1])
-    published_publication = create(:published_publication, topics: [topic_1])
     published_in_second_topic = create(:published_policy, topics: [topic_2])
 
     assert_equal [draft_policy, published_policy], Policy.in_topic(topic_1)

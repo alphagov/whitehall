@@ -1,5 +1,5 @@
 class Publication < Document
-  include Document::Topics
+  include Document::NationalApplicability
   include Document::Ministers
   include Document::FactCheckable
   include Document::RelatedDocuments

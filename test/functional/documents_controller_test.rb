@@ -109,12 +109,6 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select ".supporting_documents", count: 0
   end
 
-  test "shows published publications" do
-    publication = create(:published_publication)
-    get :show, id: publication.document_identity
-    assert_response :success
-  end
-
   test "shows published news articles" do
     news_article = create(:published_news_article)
     get :show, id: news_article.document_identity
