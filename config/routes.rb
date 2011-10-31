@@ -7,7 +7,7 @@ Whitehall::Application.routes.draw do
 
   resources :policies, only: [:show]
   resources :publications, controller: :documents, only: [:show]
-  resources :news_articles, controller: :documents, only: [:show]
+  resources :news_articles, only: [:show]
   resources :consultations, only: [:show]
   resources :speeches, only: [:show]
 
