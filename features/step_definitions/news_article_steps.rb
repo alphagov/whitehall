@@ -12,8 +12,6 @@ When /^I draft a new news article "([^"]*)" relating it to "([^"]*)" and "([^"]*
 end
 
 Then /^I can see links to the related published news articles "([^"]*)" and "([^"]*)"$/ do |news_article_title_1, news_article_title_2|
-  news_article_1 = NewsArticle.published.find_by_title(news_article_title_1)
-  news_article_2 = NewsArticle.published.find_by_title(news_article_title_2)
   assert has_css?("#related-news-articles .news_article a", text: news_article_title_1)
   assert has_css?("#related-news-articles .news_article a", text: news_article_title_2)
 end
