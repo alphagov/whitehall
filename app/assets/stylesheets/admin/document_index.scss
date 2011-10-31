@@ -142,6 +142,36 @@ section.resource_list {
           border-top: 1px solid #ddd;
         }
       }
+
+      .type {
+        padding-top: 3px;
+        a {
+          background: transparent;
+          border: none;
+
+          padding: 1px 12px 1px 12px;
+          margin-right: 0.5em;
+
+          &:hover {
+            padding: 0px 11px 1px 11px;
+            border: 1px solid #ccc;
+            border-bottom: 1px solid #ddd;
+            background: #e5e5e5;
+            @include box-shadow(0, -1px, 0, #bbb);
+            @include rounded(12px);
+          }
+
+          &.current {
+            padding: 0px 11px 1px 11px;
+
+            border: 1px solid #b5b5b5;
+            border-bottom: 1px solid #c5c5c5;
+            background: #d5d5d5;
+            @include box-shadow(0, -1px, 0, #aaa);
+            @include rounded(12px);
+          };
+        }
+      }
     }
 
     > ul, table {
