@@ -8,10 +8,6 @@ module Document::NationalApplicability
     accepts_nested_attributes_for :nation_inapplicabilities, allow_destroy: true
   end
 
-  def applicable_nations
-    (Nation.all - inapplicable_nations)
-  end
-
   def can_apply_to_subset_of_nations?
     true
   end
