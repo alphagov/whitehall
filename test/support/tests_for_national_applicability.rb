@@ -10,7 +10,7 @@ module TestsForNationalApplicability
     end
   end
 
-  test 'create should create a new policy with nation inapplicabilities' do
+  test 'create should create a new document with nation inapplicabilities' do
     attributes = attributes_for_document
 
     post :create, document: attributes.merge(
@@ -71,7 +71,7 @@ module TestsForNationalApplicability
     assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
   end
 
-  test 'updating a stale policy should not lose the nation inapplicability fields or values' do
+  test 'updating a stale document should not lose the nation inapplicability fields or values' do
     document = create_document
     scotland_inapplicability = document.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
     wales_inapplicability = document.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")

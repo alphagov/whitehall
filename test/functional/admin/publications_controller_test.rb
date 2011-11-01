@@ -122,19 +122,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_template 'edit'
   end
 
-  test "show lists nation inapplicabilities when there are some" do
-    draft_consultation = create(:draft_publication)
-    inapplicability = draft_consultation.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com/")
-
-    get :show, id: draft_consultation
-
-    assert_select ".nation_inapplicabilities" do
-      assert_select_object inapplicability, text: /Scotland/ do
-        assert_select ".alternative_url a[href='http://scotland.com/']"
-      end
-    end
-  end
-
   test "should render the content using govspeak markup" do
     draft_publication = create(:draft_publication, body: "body-in-govspeak")
     Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
