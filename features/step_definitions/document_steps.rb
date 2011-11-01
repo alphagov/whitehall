@@ -39,7 +39,7 @@ When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do
   visit public_document_path(document)
 end
 
-When /^I draft a new (publication|policy|news article) "([^"]*)"$/ do |document_type, title|
+When /^I draft a new (policy|news article) "([^"]*)"$/ do |document_type, title|
   begin_drafting_document type: document_type, title: title
   click_button "Save"
 end

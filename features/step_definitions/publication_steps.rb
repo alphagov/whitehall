@@ -1,3 +1,22 @@
+When /^I draft a new publication "([^"]*)"$/ do |title|
+  policy = create(:policy)
+  begin_drafting_document type: 'publication', title: title
+  attach_file "Attachment", Rails.root.join("features/fixtures/attachment.pdf")
+  check "Wales"
+  fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
+  select policy.title, from: "Related Policies"
+  click_button "Save"
+end
+
+When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
+  begin_drafting_document type: 'publication', title: title
+  nations.raw.flatten.each do |nation_name|
+    check nation_name
+    fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
+  end
+  click_button "Save"
+end
+
 Given /^"([^"]*)" has received an email requesting they fact check a draft publication "([^"]*)"$/ do |email, title|
   publication = create(:draft_publication, title: title)
   fact_check_request = publication.fact_check_requests.create(email_address: email)

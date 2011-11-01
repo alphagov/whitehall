@@ -14,6 +14,13 @@ Scenario: Creating a new draft publication related to multiple policies
   When I draft a new publication "Healthy Eating" relating it to "Totally Tangy Tofu" and "Awakened Tastebuds"
   Then I should see in the preview that "Healthy Eating" should related to "Totally Tangy Tofu" and "Awakened Tastebuds" policies
 
+Scenario: Creating a new draft policy that applies to multiple nations
+  Given I am a writer
+  When I draft a new publication "Standard Beard Lengths" that does not apply to the nations:
+    | Scotland | Wales |
+  Then I should see in the preview that "Standard Beard Lengths" does not apply to the nations:
+    | Scotland | Wales |
+
 Scenario: Submitting a draft publication to a second pair of eyes
   Given I am a writer
   And a draft publication "Standard Beard Lengths" exists
