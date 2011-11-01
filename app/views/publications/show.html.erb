@@ -10,7 +10,7 @@
   <%= render partial: 'inapplicable_nations', locals: { document: @document } %>
 
   <% if @document.documents_related_to.published.any? %>
-    <section id="related-documents" class="g1">
+    <section id="related-documents">
       <h1>Related policies</h1>
       <ul>
         <% @document.documents_related_to.published.each do |related_document| %>
