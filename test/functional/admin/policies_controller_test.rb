@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Admin::PoliciesControllerTest < ActionController::TestCase
-  include NationApplicabilityAssertions
 
   setup do
     @user = login_as "George"
@@ -14,13 +13,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   test "new displays policy form" do
     get :new
 
-    assert_select "form[action='#{admin_policies_path}']" do
+    assert_select "form#document_new[action='#{admin_policies_path}']" do
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
-      assert_nation_inapplicability_fields_exist
       assert_select "input[type='submit']"
     end
   end
@@ -43,7 +41,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id],
       ministerial_role_ids: [first_minister.id, second_minister.id]
-    ).merge(nation_inapplicabilities_attributes_for(Nation.wales => "http://www.visitwales.co.uk/", Nation.northern_ireland => nil))
+    )
 
     policy = Policy.last
     assert_equal attributes[:title], policy.title
@@ -51,8 +49,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal [first_topic, second_topic], policy.topics
     assert_equal [first_org, second_org], policy.organisations
     assert_equal [first_minister, second_minister], policy.ministerial_roles
-    assert_equal [Nation.wales, Nation.northern_ireland], policy.inapplicable_nations
-    assert_equal "http://www.visitwales.co.uk/", policy.nation_inapplicabilities.for_nation(Nation.wales).first.alternative_url
   end
 
   test 'creating should take the writer to the policy page' do
@@ -77,30 +73,17 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
-  test 'creating with invalid data should not lose the checked nation inapplicabilities' do
-    attributes = attributes_for(:policy)
-    post :create, document: attributes.merge(
-      title: ''
-    ).merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
-
-    assert_nation_inapplicability_fields_exist
-    assert_nation_inapplicability_fields_set_as(index: 0, checked: true, alternative_url: "http://www.scotland.com/")
-  end
-
   test 'edit displays policy form' do
     policy = create(:policy)
-    northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
     get :edit, id: policy
 
-    assert_select "form[action='#{admin_policy_path(policy)}']" do
+    assert_select "form#document_edit[action='#{admin_policy_path(policy)}']" do
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
-      assert_nation_inapplicability_fields_exist
-      assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.discovernorthernireland.com/")
       assert_select "input[type='submit']"
     end
   end
@@ -120,29 +103,26 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     second_minister = create(:ministerial_role)
 
     policy = create(:policy, topics: [first_topic], organisations: [first_org], ministerial_roles: [first_minister])
-    northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
-    put :update, id: policy.id, document: {
+    put :update, id: policy, document: {
       title: "new-title",
       body: "new-body",
       topic_ids: [second_topic.id],
       organisation_ids: [second_org.id],
       ministerial_role_ids: [second_minister.id]
-    }.merge(nation_inapplicabilities_attributes_for({Nation.scotland => "http://www.visitscotland.com/"}, northern_ireland_inapplicability))
+    }
 
-    saved_policy = policy.reload
-    assert_equal "new-title", saved_policy.title
-    assert_equal "new-body", saved_policy.body
-    assert_equal [second_topic], saved_policy.topics
-    assert_equal [second_org], saved_policy.organisations
-    assert_equal [second_minister], saved_policy.ministerial_roles
-    assert_equal [Nation.scotland], saved_policy.inapplicable_nations
-    assert_equal "http://www.visitscotland.com/", policy.nation_inapplicabilities.for_nation(Nation.scotland).first.alternative_url
+    policy.reload
+    assert_equal "new-title", policy.title
+    assert_equal "new-body", policy.body
+    assert_equal [second_topic], policy.topics
+    assert_equal [second_org], policy.organisations
+    assert_equal [second_minister], policy.ministerial_roles
   end
 
   test 'updating should take the writer to the policy page' do
     policy = create(:policy)
-    put :update, id: policy.id, document: {title: 'new-title', body: 'new-body'}
+    put :update, id: policy, document: {title: 'new-title', body: 'new-body'}
 
     assert_redirected_to admin_policy_path(policy)
     assert_equal 'The document has been saved', flash[:notice]
@@ -151,46 +131,25 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   test 'updating with invalid data should not save the policy' do
     attributes = attributes_for(:policy)
     policy = create(:policy, attributes)
-    put :update, id: policy.id, document: attributes.merge(title: '')
+    put :update, id: policy, document: attributes.merge(title: '')
 
     assert_equal attributes[:title], policy.reload.title
     assert_template "documents/edit"
     assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
-  test 'updating with invalid data should not lose the checked nation inapplicabilities' do
-    attributes = attributes_for(:policy)
-    policy = create(:policy, attributes)
-    scotland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
-    wales_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
-
-    put :update, id: policy.id, document: attributes.merge(
-      title: ''
-    ).merge(nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability))
-
-    assert_nation_inapplicability_fields_exist
-    assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
-  end
-
   test 'updating a stale policy should render edit page with conflicting policy' do
     policy = create(:draft_policy, topics: [build(:topic)], organisations: [build(:organisation)], ministerial_roles: [build(:ministerial_role)])
-    scotland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
-    wales_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
     lock_version = policy.lock_version
     policy.update_attributes!(title: "new title")
 
-    put :update, id: policy, document: policy.attributes.merge(
-      lock_version: lock_version
-    ).merge(nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability))
+    put :update, id: policy, document: { lock_version: lock_version }
 
     assert_template 'edit'
     conflicting_policy = policy.reload
     assert_equal conflicting_policy, assigns[:conflicting_document]
     assert_equal conflicting_policy.lock_version, assigns[:document].lock_version
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
-
-    assert_nation_inapplicability_fields_exist
-    assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
   end
 
   test "cancelling a new policy takes the user to the list of drafts" do
@@ -260,31 +219,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     get :show, id: draft_policy
 
     assert_select ".supporting_documents .supporting_document", count: 0
-  end
-
-  test "show lists nation inapplicabilities when there are some" do
-    draft_policy = create(:draft_policy)
-    scotland_inapplicability = draft_policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com/")
-    wales_inapplicability = draft_policy.nation_inapplicabilities.create!(nation: Nation.wales)
-
-    get :show, id: draft_policy
-
-    assert_select ".nation_inapplicabilities" do
-      assert_select_object scotland_inapplicability, text: /Scotland/ do
-        assert_select ".alternative_url a[href='http://scotland.com/']"
-      end
-      assert_select_object wales_inapplicability, text: /Wales/ do
-        assert_select ".alternative_url a", count: 0
-      end
-    end
-  end
-
-  test "show explains the document applies to the whole of the UK" do
-    draft_policy = create(:draft_policy)
-
-    get :show, id: draft_policy
-
-    assert_select "p", "This document applies to the whole of the UK."
   end
 
   should_link_to_public_version_when_published :policy

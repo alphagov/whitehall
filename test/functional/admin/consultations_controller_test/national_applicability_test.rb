@@ -1,0 +1,19 @@
+require 'test_helper'
+
+class Admin::ConsultationsControllerTest < ActionController::TestCase
+  class NationalApplicabilityTest < ActionController::TestCase
+    tests Admin::ConsultationsController
+
+    setup do
+      login_as "Somebody"
+    end
+
+    include TestsForNationalApplicability
+
+    private
+
+    def document_class
+      Consultation
+    end
+  end
+end
