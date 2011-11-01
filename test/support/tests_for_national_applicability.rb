@@ -1,3 +1,5 @@
+require 'support/nation_applicability_assertions'
+
 module TestsForNationalApplicability
   extend ActiveSupport::Testing::Declarative
   include NationApplicabilityAssertions
