@@ -52,6 +52,23 @@ nav.actions {
     margin-bottom: 0;
     margin-top: 0.5em;
   }
+
+  .public_version {
+    margin-bottom: 1em;
+    padding: 0;
+    p {
+      @include type-14;
+      border: 1px solid #ddd;
+      padding: 0.5em 1em 0.5em 1em;
+      margin: 0;
+      background: #eee;
+      display: inline-block;
+
+      a {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 section.resource_list {
@@ -163,7 +180,6 @@ section.resource_list {
 
           &.current {
             padding: 0px 11px 1px 11px;
-
             border: 1px solid #b5b5b5;
             border-bottom: 1px solid #c5c5c5;
             background: #d5d5d5;
