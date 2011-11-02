@@ -27,15 +27,15 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.valid?
   end
 
-  test "should be invalid if policy has existing unpublished documents" do
-    policy = create(:draft_policy)
-    document = build(:document, document_identity: policy.document_identity)
+  test "should be invalid if document identity has existing unpublished documents" do
+    draft_document = create(:draft_document)
+    document = build(:document, document_identity: draft_document.document_identity)
     refute document.valid?
   end
 
-  test "should be invalid when published if policy has existing published documents" do
-    policy = create(:published_policy)
-    document = build(:published_policy, document_identity: policy.document_identity)
+  test "should be invalid when published if document identity has existing published documents" do
+    published_document = create(:published_document)
+    document = build(:published_policy, document_identity: published_document.document_identity)
     refute document.valid?
   end
 
@@ -53,18 +53,18 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test ".published_as returns document if document is published" do
-    document = create(:published_policy)
+    document = create(:published_document)
     assert_equal document, Document.published_as(document.document_identity.to_param)
   end
 
   test ".published_as returns latest published document if several documents share identity" do
-    document = create(:published_policy)
-    new_draft = create(:draft_policy, document_identity: document.document_identity)
+    document = create(:published_document)
+    new_draft = create(:draft_document, document_identity: document.document_identity)
     assert_equal document, Document.published_as(document.document_identity.to_param)
   end
 
   test ".published_as returns nil if document is not published" do
-    document = create(:submitted_policy)
+    document = create(:submitted_document)
     assert_nil Document.published_as(document.document_identity.to_param)
   end
 
@@ -87,13 +87,12 @@ class DocumentTest < ActiveSupport::TestCase
   test "should return a list of documents in an organisation" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
-    draft_policy = create(:draft_policy, organisations: [organisation_1])
-    published_policy = create(:published_policy, organisations: [organisation_1])
-    published_publication = create(:published_publication, organisations: [organisation_1])
-    published_in_second_organisation = create(:published_policy, organisations: [organisation_2])
+    draft_document = create(:draft_document, organisations: [organisation_1])
+    published_document = create(:published_document, organisations: [organisation_1])
+    published_in_second_organisation = create(:published_document, organisations: [organisation_2])
 
-    assert_equal [draft_policy, published_policy], Policy.in_organisation(organisation_1)
-    assert_equal [published_policy], Policy.published.in_organisation(organisation_1)
+    assert_equal [draft_document, published_document], Document.in_organisation(organisation_1)
+    assert_equal [published_document], Document.published.in_organisation(organisation_1)
     assert_equal [published_in_second_organisation], Document.in_organisation(organisation_2)
   end
 
@@ -169,80 +168,80 @@ class DocumentTest < ActiveSupport::TestCase
     refute Document.related_to(policy).include?(publication)
   end
 
-  test "should only return unsubmitted draft policies" do
-    draft_policy = create(:draft_policy)
-    submitted_policy = create(:submitted_policy)
-    assert_equal [draft_policy], Document.unsubmitted
+  test "should only return unsubmitted draft documents" do
+    draft_document = create(:draft_document)
+    submitted_document = create(:submitted_document)
+    assert_equal [draft_document], Document.unsubmitted
   end
 
-  test "should only return the submitted policies" do
-    draft_policy = create(:draft_policy)
-    submitted_policy = create(:submitted_policy)
-    assert_equal [submitted_policy], Document.submitted
+  test "should only return the submitted documents" do
+    draft_document = create(:draft_document)
+    submitted_document = create(:submitted_document)
+    assert_equal [submitted_document], Document.submitted
   end
 
   test "should be editable if a draft" do
-    draft_policy = create(:draft_policy)
-    assert draft_policy.editable_by?(create(:policy_writer))
+    draft_document = create(:draft_document)
+    assert draft_document.editable_by?(create(:policy_writer))
   end
 
   test "should not be editable if published" do
-    published_policy = create(:published_policy)
-    refute published_policy.editable_by?(create(:policy_writer))
+    published_document = create(:published_document)
+    refute published_document.editable_by?(create(:policy_writer))
   end
 
   test "should not be editable if archived" do
-    archived_policy = create(:archived_policy)
-    refute archived_policy.editable_by?(create(:policy_writer))
+    archived_document = create(:archived_document)
+    refute archived_document.editable_by?(create(:policy_writer))
   end
 
   test "should be submittable if draft and not submitted" do
-    draft_policy = create(:draft_policy)
-    assert draft_policy.submittable_by?(create(:policy_writer))
+    draft_document = create(:draft_document)
+    assert draft_document.submittable_by?(create(:policy_writer))
   end
 
   test "not be submittable if submitted" do
-    submitted_policy = create(:submitted_policy)
-    refute submitted_policy.submittable_by?(create(:policy_writer))
+    submitted_document = create(:submitted_document)
+    refute submitted_document.submittable_by?(create(:policy_writer))
   end
 
   test "not be submittable if published" do
-    published_policy = create(:published_policy)
-    refute published_policy.submittable_by?(create(:policy_writer))
+    published_document = create(:published_document)
+    refute published_document.submittable_by?(create(:policy_writer))
   end
 
   test "not be archived if archived" do
-    archived_policy = create(:archived_policy)
-    refute archived_policy.submittable_by?(create(:policy_writer))
+    archived_document = create(:archived_document)
+    refute archived_document.submittable_by?(create(:policy_writer))
   end
 
   test "should not be publishable when not submitted" do
-    document = create(:draft_policy)
-    refute document.publishable_by?(create(:departmental_editor))
+    draft_document = create(:draft_document)
+    refute draft_document.publishable_by?(create(:departmental_editor))
   end
 
   test "should set submitted flag when submitted" do
-    document = create(:draft_policy)
+    document = create(:draft_document)
     document.submit_as(create(:policy_writer))
     assert document.reload.submitted?
   end
 
-  test "should not return published policies in submitted" do
-    document = create(:submitted_policy)
+  test "should not return published documents in submitted" do
+    document = create(:submitted_document)
     document.publish_as(create(:departmental_editor))
     refute Document.submitted.include?(document)
   end
 
   test "should build a draft copy of the existing document with the supplied author" do
-    published_policy = create(:published_policy)
+    published_document = create(:published_document)
     new_author = create(:policy_writer)
-    draft_policy = published_policy.create_draft(new_author)
+    draft_document = published_document.create_draft(new_author)
 
-    refute draft_policy.published?
-    refute draft_policy.submitted?
-    assert_equal new_author, draft_policy.author
-    assert_equal published_policy.title, draft_policy.title
-    assert_equal published_policy.body, draft_policy.body
+    refute draft_document.published?
+    refute draft_document.submitted?
+    assert_equal new_author, draft_document.author
+    assert_equal published_document.title, draft_document.title
+    assert_equal published_document.body, draft_document.body
   end
 
   test "should build a draft copy with references to topics, organisations & ministerial roles" do
@@ -293,40 +292,38 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "when submitted" do
-    document = create(:submitted_policy)
+    document = create(:submitted_document)
     assert document.draft?
     assert document.submitted?
     refute document.published?
   end
 
   test "when published" do
-    document = create(:submitted_policy)
+    document = create(:submitted_document)
     document.publish_as(create(:departmental_editor))
     refute document.draft?
     assert document.published?
   end
 
   test "return compound title with state included" do
-    draft = create(:document, title: "Holding back")
-    assert_equal "Holding back (draft)", draft.title_with_state
+    draft_document = create(:draft_document, title: "Holding back")
+    assert_equal "Holding back (draft)", draft_document.title_with_state
 
-    document = create(:submitted_policy, title: "Dog Eyes")
-    assert document.submitted?
-    assert_equal "Dog Eyes (submitted)", document.title_with_state
+    submitted_document = create(:submitted_document, title: "Dog Eyes")
+    assert_equal "Dog Eyes (submitted)", submitted_document.title_with_state
 
-    document.publish_as(create(:departmental_editor))
-    assert document.published?
-    assert_equal "Dog Eyes (published)", document.reload.title_with_state
+    published_document = create(:published_document, title: "Dog Eyes")
+    assert_equal "Dog Eyes (published)", published_document.reload.title_with_state
   end
 
   test "should use the document title as the basis for the document identity's slug" do
-    policy = create(:policy, title: 'My Policy Title')
-    assert_equal 'my-policy-title', policy.document_identity.slug
+    document = create(:document, title: 'My Policy Title')
+    assert_equal 'my-policy-title', document.document_identity.slug
   end
 
   test "should concatenate words containing apostrophes" do
-    policy = create(:policy, title: "Bob's bike")
-    assert_equal 'bobs-bike', policy.document_identity.slug
+    document = create(:document, title: "Bob's bike")
+    assert_equal 'bobs-bike', document.document_identity.slug
   end
 
   test "is filterable by document type" do
@@ -356,26 +353,25 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "deleting a draft document transitions it into the deleted state" do
-    draft_policy = create(:draft_policy)
-    draft_policy.delete!
-    assert draft_policy.deleted?
+    draft_document = create(:draft_document)
+    draft_document.delete!
+    assert draft_document.deleted?
   end
 
   test "should prevent a published document being deleted" do
-    published_policy = create(:published_policy)
-    published_policy.delete! rescue nil
-    refute published_policy.deleted?
+    published_document = create(:published_document)
+    published_document.delete! rescue nil
+    refute published_document.deleted?
   end
 
   test "should prevent an archived document being deleted" do
-    archived_policy = create(:archived_policy)
-    archived_policy.delete! rescue nil
-    refute archived_policy.deleted?
+    archived_document = create(:archived_document)
+    archived_document.delete! rescue nil
+    refute archived_document.deleted?
   end
 
   test "should not find deleted documents by default" do
-    deleted_document = create(:deleted_policy)
+    deleted_document = create(:deleted_document)
     assert_nil Document.find_by_id(deleted_document.id)
   end
-
 end

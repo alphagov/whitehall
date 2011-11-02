@@ -8,6 +8,26 @@ FactoryGirl.define do
     body "document-body"
   end
 
+  factory :draft_document, parent: :document do
+    state "draft"
+  end
+
+  factory :submitted_document, parent: :draft_document do
+    submitted true
+  end
+
+  factory :published_document, parent: :document do
+    state "published"
+  end
+
+  factory :deleted_document, parent: :document do
+    state "deleted"
+  end
+
+  factory :archived_document, parent: :document do
+    state "archived"
+  end
+
   factory :policy do
     author
     title "policy-title"
