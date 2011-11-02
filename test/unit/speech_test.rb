@@ -39,4 +39,15 @@ class SpeechTest < ActiveSupport::TestCase
 
     assert_equal [organisation], speech.organisations
   end
+
+  test "should know about all its subclasses" do
+    speech_types = [
+      Speech::Transcript,
+      Speech::DraftText,
+      Speech::SpeakingNotes,
+      Speech::WrittenStatement,
+      Speech::OralStatement
+    ]
+    assert_equal speech_types, Speech.subclasses
+  end
 end
