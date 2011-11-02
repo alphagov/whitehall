@@ -12,7 +12,7 @@ Scenario: Adding a new topic
 Scenario: Editing the description
   Given a topic called "No more beards" with description "No more hairy-faced men"
   When I edit the topic "No more beards" to have description "No more hairy-faced people"
-  Then I should see the "No more beards" topic description is "No more hairy-faced people"
+  Then I should see in the admin the "No more beards" topic description is "No more hairy-faced people"
 
 Scenario: Deleting a topic
   Given a topic called "No more beards" with description "No more hairy-faced men"

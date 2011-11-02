@@ -1,5 +1,5 @@
 Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
-  create(:topic, name: name, description: description, documents: [create(:published_policy)])
+  create(:topic, name: name, description: description)
 end
 
 When /^I create a new topic "([^"]*)" with description "([^"]*)"$/ do |name, description|
