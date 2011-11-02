@@ -4,8 +4,10 @@
     <pre class="body">
       <%= document.body %>
     </pre>
-    <% if document.allows_attachment? %>
-      <p class="attachment"><%= link_to_attachment(document.attachment) %></p>
+    <% if document.allows_attachments? %>
+      <% document.attachments.each do |attachment| %>
+        <p class="attachment"><%= link_to_attachment(attachment) %></p>
+      <% end %>
     <% end %>
     <p class="written_by">Written by <span class="author"><%= document.author.name %></span></p>
   </article>

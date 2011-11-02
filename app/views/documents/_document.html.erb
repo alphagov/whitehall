@@ -4,8 +4,10 @@
     <%= govspeak_to_html document.body %>
   </div>
 
-  <% if document.allows_attachment? %>
-    <p class="attachment"><%= link_to_attachment(document.attachment) %></p>
+  <% if document.allows_attachments? %>
+    <% document.attachments.each do |attachment| %>
+      <p class="attachment"><%= link_to_attachment(attachment) %></p>
+    <% end %>
   <% end %>
 </section>
 

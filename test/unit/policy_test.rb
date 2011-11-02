@@ -3,7 +3,7 @@ require "test_helper"
 class PolicyTest < ActiveSupport::TestCase
 
   test "does not allow attachment" do
-    refute build(:policy).allows_attachment?
+    refute build(:policy).allows_attachments?
   end
 
   test "should build a draft copy of the existing policy with inapplicable nations" do

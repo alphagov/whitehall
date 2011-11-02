@@ -25,12 +25,12 @@ end
 
 Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
   attachment = Attachment.new(file: File.open(pdf_attachment))
-  create(:submitted_publication, title: title, attachment: attachment)
+  create(:submitted_publication, title: title, attachments: [attachment])
 end
 
 Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
   attachment = Attachment.new(file: File.open(pdf_attachment))
-  create(:published_publication, title: title, attachment: attachment)
+  create(:published_publication, title: title, attachments: [attachment])
 end
 
 When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|

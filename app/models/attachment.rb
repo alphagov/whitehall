@@ -1,6 +1,7 @@
 class Attachment < ActiveRecord::Base
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
-  has_many :documents
+  has_many :document_attachments
+  has_many :documents, through: :document_attachments
 
   delegate :url, to: :file
 

@@ -20,9 +20,9 @@ class ConsultationsControllerTest < ActionController::TestCase
   end
 
   test 'show displays consultation attachment' do
-    consultation = create(:published_consultation, attachment: create(:attachment))
+    consultation = create(:published_consultation, attachments: [create(:attachment)])
     get :show, id: consultation.document_identity
-    assert_select '.attachment a', text: consultation.attachment.filename
+    assert_select '.attachment a', text: consultation.attachments.first.filename
   end
 
   test 'show displays related published policies' do
