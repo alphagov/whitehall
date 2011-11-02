@@ -3,6 +3,7 @@ class Document < ActiveRecord::Base
   include Document::AccessControl
   include Document::Workflow
   include Document::Organisations
+  include Document::Publishing
 
   belongs_to :author, class_name: "User"
 
@@ -42,17 +43,6 @@ class Document < ActiveRecord::Base
 
   def submit_as(user)
     update_attribute(:submitted, true)
-  end
-
-  def publish_as(user, lock_version = self.lock_version)
-    if publishable_by?(user)
-      self.lock_version = lock_version
-      publish!
-      true
-    else
-      errors.add(:base, reason_to_prevent_publication_by(user))
-      false
-    end
   end
 
   def create_draft(user)
