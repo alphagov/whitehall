@@ -2,7 +2,13 @@ FactoryGirl.define do
   factory :document_identity do
   end
 
-  factory :policy, aliases: [:document] do
+  factory :document do
+    author
+    title "document-title"
+    body "document-body"
+  end
+
+  factory :policy do
     author
     title "policy-title"
     body  "policy-body"
@@ -152,7 +158,7 @@ FactoryGirl.define do
   end
 
   factory :fact_check_request do
-    document
+    association :document, factory: :policy
     email_address "fact-checker@example.com"
   end
 
@@ -173,7 +179,7 @@ FactoryGirl.define do
   end
 
   factory :document_attachment do
-    document
+    association :document, factory: :publication
     attachment
   end
 
@@ -207,7 +213,7 @@ FactoryGirl.define do
   factory :supporting_document do
     title "Something Supportive"
     body "Some supporting information"
-    document
+    association :document, factory: :policy
   end
 
   factory :nation_inapplicability do
