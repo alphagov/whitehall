@@ -13,6 +13,10 @@ module Document::AccessControl
     reason_to_prevent_publication_by(user).nil?
   end
 
+  def deletable?
+    draft?
+  end
+
   def reason_to_prevent_publication_by(user)
     if published?
       "This edition has already been published"

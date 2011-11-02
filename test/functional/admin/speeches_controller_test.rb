@@ -190,6 +190,8 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_select ".details .location", "The Guidhall"
   end
 
+  should_be_able_to_delete_a_document :speech
+
   should_link_to_public_version_when_published :speech
   should_not_link_to_public_version_when_not_published :speech
 end

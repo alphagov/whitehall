@@ -21,6 +21,9 @@
       <%= document_form.submit "Publish", submit_options %>
     <% end %>
   <% end %>
+  <% if document.deletable? %>
+    <%= button_to 'Delete', admin_document_path(document), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?" %>
+  <% end %>
   <span class="back">
     back to
     <% if document.submitted? %>

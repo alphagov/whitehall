@@ -149,6 +149,8 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
+  should_be_able_to_delete_a_document :news_article
+
   should_link_to_public_version_when_published :news_article
   should_not_link_to_public_version_when_not_published :news_article
 end

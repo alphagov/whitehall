@@ -35,11 +35,11 @@ Whitehall::Application.routes.draw do
     end
 
     resources :topics, only: [:index, :edit, :update]
-    resources :publications, only: [:new, :create, :edit, :update, :show]
-    resources :policies, only: [:new, :create, :edit, :update, :show]
-    resources :news_articles, only: [:new, :create, :edit, :update, :show]
-    resources :consultations, only: [:new, :create, :edit, :update, :show]
-    resources :speeches, only: [:new, :create, :edit, :update, :show]
+    resources :publications, only: [:new, :create, :edit, :update, :show, :destroy]
+    resources :policies, only: [:new, :create, :edit, :update, :show, :destroy]
+    resources :news_articles, only: [:new, :create, :edit, :update, :show, :destroy]
+    resources :consultations, only: [:new, :create, :edit, :update, :show, :destroy]
+    resources :speeches, only: [:new, :create, :edit, :update, :show, :destroy]
 
     match "preview" => "preview#preview", via: :post
   end

@@ -221,6 +221,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_select ".supporting_documents .supporting_document", count: 0
   end
 
+  should_be_able_to_delete_a_document :policy
+
   should_link_to_public_version_when_published :policy
   should_not_link_to_public_version_when_not_published :policy
 end

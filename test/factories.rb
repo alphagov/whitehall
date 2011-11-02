@@ -61,6 +61,10 @@ FactoryGirl.define do
     state "draft"
   end
 
+  factory :deleted_policy, parent: :policy do
+    state "deleted"
+  end
+
   factory :archived_policy, parent: :policy do
     state "archived"
     submitted true

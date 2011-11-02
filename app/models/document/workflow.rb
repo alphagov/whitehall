@@ -5,6 +5,7 @@ module Document::Workflow
     include ::Transitions
     include ActiveRecord::Transitions
 
+    default_scope where(%{state <> "deleted"})
     scope :draft, where(state: "draft")
     scope :unsubmitted, where(state: "draft", submitted: false)
     scope :submitted, where(state: "draft", submitted: true)
@@ -14,6 +15,11 @@ module Document::Workflow
       state :draft
       state :published
       state :archived
+      state :deleted
+
+      event :delete do
+        transitions from: :draft, to: :deleted
+      end
 
       event :publish, success: :archive_previous_documents do
         transitions from: :draft, to: :published

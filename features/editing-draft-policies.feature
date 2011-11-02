@@ -78,3 +78,8 @@ Scenario: Submitting a draft policy to a second pair of eyes
   Given a draft policy "Outlaw Moustaches" exists
   When I submit the policy "Outlaw Moustaches"
   Then I should see the policy "Outlaw Moustaches" in the list of submitted documents
+
+Scenario: Deleting a draft policy that has not been published
+  Given a draft policy "Outlaw All Body Hair" exists
+  When I delete the draft policy "Outlaw All Body Hair"
+  Then I should not see the policy "Outlaw All Body Hair" in the list of draft documents

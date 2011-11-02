@@ -83,6 +83,11 @@ Then /^I should see the (publication|policy|news article|consultation|speech) "(
   assert has_css?(record_css_selector(document))
 end
 
+Then /^I should not see the policy "([^"]*)" in the list of draft documents$/ do |title|
+  visit admin_documents_path
+  assert has_no_css?(".policy a", text: title)
+end
+
 Then /^the (publication|policy|news article|consultation|speech) "([^"]*)" should be visible to the public$/ do |document_type, title|
   document = document_class(document_type).find_by_title(title)
   visit documents_path

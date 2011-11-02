@@ -152,6 +152,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
   end
 
+  should_be_able_to_delete_a_document :consultation
+
   should_link_to_public_version_when_published :consultation
   should_not_link_to_public_version_when_not_published :consultation
 end

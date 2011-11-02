@@ -173,6 +173,12 @@ When /^I visit the published policy "([^"]*)"$/ do |title|
   visit public_document_path(policy)
 end
 
+When /^I delete the draft policy "([^"]*)"$/ do |title|
+  policy = Policy.draft.find_by_title(title)
+  visit admin_document_path(policy)
+  click_button "Delete"
+end
+
 Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
   assert page.has_css?(".fact_check_request .comments", text: comments)
 end

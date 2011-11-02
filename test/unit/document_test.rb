@@ -441,4 +441,27 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal types.map {|t| create(t) }, Document.by_type('Speech')
   end
 
+  test "deleting a draft document transitions it into the deleted state" do
+    draft_policy = create(:draft_policy)
+    draft_policy.delete!
+    assert draft_policy.deleted?
+  end
+
+  test "should prevent a published document being deleted" do
+    published_policy = create(:published_policy)
+    published_policy.delete! rescue nil
+    refute published_policy.deleted?
+  end
+
+  test "should prevent an archived document being deleted" do
+    archived_policy = create(:archived_policy)
+    archived_policy.delete! rescue nil
+    refute archived_policy.deleted?
+  end
+
+  test "should not find deleted documents by default" do
+    deleted_document = create(:deleted_policy)
+    assert_nil Document.find_by_id(deleted_document.id)
+  end
+
 end

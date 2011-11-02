@@ -1,5 +1,5 @@
 class Admin::DocumentsController < Admin::BaseController
-  before_filter :find_document, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check]
+  before_filter :find_document, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check, :destroy]
   before_filter :build_document, only: [:new]
 
   def index
@@ -69,6 +69,11 @@ class Admin::DocumentsController < Admin::BaseController
       redirect_to edit_admin_document_path(@document.document_identity.documents.draft.first),
         alert: document.errors.full_messages.to_sentence
     end
+  end
+
+  def destroy
+    @document.delete!
+    redirect_to admin_documents_path, notice: "The document '#{@document.title}' has been deleted"
   end
 
   private
