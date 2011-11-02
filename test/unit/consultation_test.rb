@@ -22,7 +22,7 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "allows attachment" do
-    assert build(:publication).allows_attachments?
+    assert build(:consultation).allows_attachments?
   end
 
   test "should build a draft copy of the existing consultation with inapplicable nations" do
