@@ -52,15 +52,24 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal identity, document.document_identity
   end
 
-  test "should be findable through public identity if published" do
-    published_policy = create(:published_policy)
-    draft_policy = create(:draft_policy, document_identity: published_policy.document_identity)
-    assert_equal published_policy, Document.published_as(published_policy.document_identity.to_param)
+  test ".published_as returns document if document is published" do
+    document = create(:published_policy)
+    assert_equal document, Document.published_as(document.document_identity.to_param)
   end
 
-  test "should not be findable through public identity if not" do
-    draft_policy = create(:draft_policy)
-    assert_nil Document.published_as(draft_policy.document_identity.id)
+  test ".published_as returns latest published document if several documents share identity" do
+    document = create(:published_policy)
+    new_draft = create(:draft_policy, document_identity: document.document_identity)
+    assert_equal document, Document.published_as(document.document_identity.to_param)
+  end
+
+  test ".published_as returns nil if document is not published" do
+    document = create(:submitted_policy)
+    assert_nil Document.published_as(document.document_identity.to_param)
+  end
+
+  test ".published_as returns nil if identity is unknown" do
+    assert_nil Document.published_as('unknown')
   end
 
   test "should return a list of documents in a topic" do
@@ -295,20 +304,6 @@ class DocumentTest < ActiveSupport::TestCase
     document.publish_as(create(:departmental_editor))
     refute document.draft?
     assert document.published?
-  end
-
-  test "is findable by document identity when published" do
-    document = create(:published_policy)
-    assert_equal document, Document.published_as(document.document_identity.to_param)
-  end
-
-  test "is not findable by document identity when not published" do
-    document = create(:submitted_policy)
-    assert_nil Document.published_as(document.document_identity.to_param)
-  end
-
-  test "returns nil if found by unknown document identity" do
-    assert_nil Document.published_as('unknown')
   end
 
   test "return compound title with state included" do
