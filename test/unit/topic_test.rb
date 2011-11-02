@@ -48,4 +48,10 @@ class TopicTest < ActiveSupport::TestCase
     topic = create(:topic, name: "Bob's bike")
     assert_equal 'bobs-bike', topic.slug
   end
+
+  test "should not be destroyable when it has associated content" do
+    topic_with_published_policy = create(:topic, documents: [build(:published_policy)])
+    refute topic_with_published_policy.destroyable?
+    assert_equal false, topic_with_published_policy.destroy
+  end
 end

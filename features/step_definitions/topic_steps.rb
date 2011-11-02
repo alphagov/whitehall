@@ -2,6 +2,15 @@ Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, descript
   create(:topic, name: name, description: description, documents: [create(:published_policy)])
 end
 
+When /^I create a new topic "([^"]*)" with description "([^"]*)"$/ do |name, description|
+  visit admin_root_path
+  click_link "Topics"
+  click_link "Create Topic"
+  fill_in "Name", with: name
+  fill_in "Description", with: description
+  click_button "Save"
+end
+
 When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, description|
   visit admin_root_path
   click_link "Topics"
@@ -14,6 +23,20 @@ Then /^I should see the "([^"]*)" topic description is "([^"]*)"$/ do |name, des
   visit topics_path
   click_link name
   assert page.has_css?(".description", text: description)
+end
+
+Then /^I should see in the admin the "([^"]*)" topic description is "([^"]*)"$/ do |name, description|
+  visit admin_topics_path
+  assert page.has_css?(".name", text: name)
+  assert page.has_css?(".description", text: description)
+end
+
+Then /^I should be able to delete the topic "([^"]*)"$/ do |name|
+  visit admin_topics_path
+  topic = Topic.find_by_name(name)
+  within(record_css_selector(topic)) do
+    click_button 'delete'
+  end
 end
 
 Given /^the topic "([^"]*)" contains some policies$/ do |name|

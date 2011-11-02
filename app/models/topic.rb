@@ -6,6 +6,8 @@ class Topic < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 
+  before_destroy :prevent_destruction_if_associated
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 
@@ -20,5 +22,15 @@ class Topic < ActiveRecord::Base
 
   def self.with_published_documents
     joins(:published_documents).group(:topic_id)
+  end
+
+  def destroyable?
+    documents.blank?
+  end
+
+  private
+
+  def prevent_destruction_if_associated
+    return false unless destroyable?
   end
 end

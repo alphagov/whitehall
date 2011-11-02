@@ -3,6 +3,19 @@ class Admin::TopicsController < Admin::BaseController
     @topics = Topic.all
   end
 
+  def new
+    @topic = Topic.new
+  end
+
+  def create
+    @topic = Topic.new(params[:topic])
+    if @topic.save
+      redirect_to admin_topics_path, alert: "Topic created"
+    else
+      render action: "new"
+    end
+  end
+
   def edit
     @topic = Topic.find(params[:id])
   end
@@ -13,6 +26,15 @@ class Admin::TopicsController < Admin::BaseController
       redirect_to admin_topics_path, alert: "Topic updated"
     else
       render action: "edit"
+    end
+  end
+
+  def destroy
+    @topic = Topic.find(params[:id])
+    if @topic.destroy
+      redirect_to admin_topics_path, notice: "Topic destroyed"
+    else
+      redirect_to admin_topics_path, alert: "Cannot destroy topic with associated content"
     end
   end
 end

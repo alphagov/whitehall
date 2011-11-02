@@ -224,6 +224,19 @@ section.resource_list {
         padding: 10px 2%;
         line-height: 20px;
       }
+
+      td.delete {
+        span {
+          opacity: 0;
+          @include transition(opacity);
+        }
+
+        &:hover {
+          span {
+            opacity: 1;
+          }
+        }
+      }
     }
   }
 }

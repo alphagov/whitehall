@@ -1,0 +1,10 @@
+<%= form_for [:admin, topic] do |topic_form| %>
+  <%= topic_form.errors %>
+
+  <fieldset>
+    <%= topic_form.text_field :name %>
+    <%= topic_form.text_area :description %>
+  </fieldset>
+
+  <%= topic_form.save_or_cancel cancel: admin_topics_path %>
+<% end %>

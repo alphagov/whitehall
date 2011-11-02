@@ -9,7 +9,7 @@ module Document::Topics
   def can_be_associated_with_topics?
     true
   end
-  
+
   module ClassMethods
     def in_topic(topic)
       joins(:topics).where('topics.id' => topic)
