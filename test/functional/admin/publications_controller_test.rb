@@ -60,7 +60,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "p.attachment", count: 0
   end
 
-
   test 'updating should save modified document attributes' do
     publication = create(:publication)
 
