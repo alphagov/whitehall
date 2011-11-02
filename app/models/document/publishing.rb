@@ -17,7 +17,7 @@ module Document::Publishing
     end
   end
 
-  def publish_as(user, lock_version = self.lock_version)
+  def publish_as(user)
     if publishable_by?(user)
       self.lock_version = lock_version
       publish!

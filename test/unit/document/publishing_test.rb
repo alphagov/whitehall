@@ -61,7 +61,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
     other_instance.update_attributes(title: "new title")
 
     assert_raises(ActiveRecord::StaleObjectError) do
-      refute document.publish_as(editor, document.lock_version)
+      refute document.publish_as(editor)
     end
     refute Document.find(document.id).published?
   end

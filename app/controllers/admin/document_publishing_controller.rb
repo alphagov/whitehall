@@ -1,8 +1,9 @@
 class Admin::DocumentPublishingController < Admin::BaseController
   before_filter :find_document
+  before_filter :lock_document
 
   def create
-    if @document.publish_as(current_user, params[:document][:lock_version])
+    if @document.publish_as(current_user)
       redirect_to published_admin_documents_path, notice: "The document #{@document.title} has been published"
     else
       redirect_to admin_document_path(@document), alert: @document.errors.full_messages.to_sentence
@@ -15,5 +16,11 @@ class Admin::DocumentPublishingController < Admin::BaseController
 
   def find_document
     @document = Document.find(params[:document_id])
+  end
+
+  def lock_document
+    if params[:document] && params[:document][:lock_version]
+      @document.lock_version = params[:document][:lock_version]
+    end
   end
 end
