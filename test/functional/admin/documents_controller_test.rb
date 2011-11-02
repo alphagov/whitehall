@@ -65,51 +65,6 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
   end
 
-  test 'publishing should redirect back to published documents' do
-    submitted_document = create(:submitted_policy)
-    login_as "Eddie", departmental_editor: true
-    post :publish, id: submitted_document, document: {lock_version: submitted_document.lock_version}
-
-    assert_redirected_to published_admin_documents_path
-    assert_equal "The document #{submitted_document.title} has been published", flash[:notice]
-  end
-
-  test 'publishing should remove it from the set of submitted policies' do
-    document_to_publish = create(:submitted_policy)
-    login_as "Eddie", departmental_editor: true
-    post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
-
-    get :submitted
-    refute assigns(:documents).include?(document_to_publish)
-  end
-
-  test 'failing to publish an document should set a flash' do
-    document_to_publish = create(:submitted_policy)
-    login_as "Willy Writer", departmental_editor: false
-    post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
-
-    assert_equal "Only departmental editors can publish", flash[:alert]
-  end
-
-  test 'failing to publish an document should redirect back to the document' do
-    document_to_publish = create(:submitted_policy)
-    login_as "Willy Writer", departmental_editor: false
-    post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
-
-    assert_redirected_to admin_policy_path(document_to_publish)
-  end
-
-  test 'failing to publish a stale document should redirect back to the document' do
-    policy_to_publish = create(:submitted_policy)
-    lock_version = policy_to_publish.lock_version
-    policy_to_publish.update_attributes!(title: "new title")
-    login_as "Eddie", departmental_editor: true
-    post :publish, id: policy_to_publish, document: {lock_version: lock_version}
-
-    assert_redirected_to admin_policy_path(policy_to_publish)
-    assert_equal "This document has been edited since you viewed it; you are now viewing the latest version", flash[:alert]
-  end
-
   test "revising the published document should create a new draft document" do
     published_document = create(:published_policy)
     Document.stubs(:find).returns(published_document)

@@ -25,11 +25,10 @@ Whitehall::Application.routes.draw do
         get :published
       end
       member do
-        post :publish
         post :submit
         post :revise
       end
-
+      resource :publishing, controller: :document_publishing, only: [:create]
       resources :supporting_documents, only: [:new, :create, :show, :edit, :update], shallow: true
       resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
     end
