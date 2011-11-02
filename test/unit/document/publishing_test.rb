@@ -6,42 +6,46 @@ class Document::PublishingTest < ActiveSupport::TestCase
     assert document.publishable_by?(create(:departmental_editor))
   end
 
-  test "is not publishable by a writer" do
+  test "is never publishable by a writer" do
     document = create(:submitted_policy)
     refute document.publishable_by?(create(:policy_writer))
     assert_equal "Only departmental editors can publish", document.reason_to_prevent_publication_by(create(:policy_writer))
   end
 
-  test "is not publishable when already published" do
+  test "is never publishable when already published" do
     document = create(:published_policy)
     refute document.publishable_by?(create(:departmental_editor))
     assert_equal "This edition has already been published", document.reason_to_prevent_publication_by(create(:departmental_editor))
   end
 
-  test "is not publishable when not submitted" do
+  test "is not normally publishable when not submitted" do
     document = create(:draft_policy)
     refute document.publishable_by?(create(:departmental_editor))
     assert_equal "Not ready for publication", document.reason_to_prevent_publication_by(create(:departmental_editor))
   end
 
-  test "is not publishable by the original author" do
+  test "is publishable when not submitted if force flag provided" do
+    document = create(:draft_policy)
+    assert document.publishable_by?(create(:departmental_editor), force: true)
+  end
+
+  test "is not normally publishable by the original author" do
     editor = create(:departmental_editor)
     document = create(:submitted_policy, author: editor)
     refute document.publishable_by?(editor)
     assert_equal "You are not the second set of eyes", document.reason_to_prevent_publication_by(editor)
   end
 
-  test "is not publishable when archived" do
+  test "is publishable by the original author if force flag provided" do
+    editor = create(:departmental_editor)
+    document = create(:submitted_policy, author: editor)
+    assert document.publishable_by?(editor, force: true)
+  end
+
+  test "is never publishable when archived" do
     document = create(:archived_policy)
     refute document.publishable_by?(create(:departmental_editor))
     assert_equal "This edition has been archived", document.reason_to_prevent_publication_by(create(:departmental_editor))
-  end
-
-  test "fails publication if not publishable by user" do
-    editor = create(:departmental_editor)
-    document = create(:submitted_policy)
-    document.stubs(:publishable_by?).with(editor).returns(false)
-    refute document.publish_as(editor)
   end
 
   test "publication marks document as published" do
@@ -60,7 +64,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
   test "publication fails if not publishable by user" do
     editor = create(:departmental_editor)
     document = create(:submitted_policy)
-    document.stubs(:publishable_by?).with(editor).returns(false)
+    document.stubs(:publishable_by?).with(editor, {}).returns(false)
     refute document.publish_as(editor)
     refute document.reload.published?
   end
@@ -69,7 +73,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
     editor = create(:departmental_editor)
     document = create(:submitted_policy)
     document.stubs(:publishable_by?).returns(false)
-    document.stubs(:reason_to_prevent_publication_by).with(editor).returns('a spurious reason')
+    document.stubs(:reason_to_prevent_publication_by).with(editor, {}).returns('a spurious reason')
     document.publish_as(editor)
     assert_equal ['a spurious reason'], document.errors.full_messages
   end
