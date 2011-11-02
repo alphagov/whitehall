@@ -22,6 +22,18 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
+  test "it should not be possible to fact check a deleted document" do
+    document = create(:draft_policy, title: "deleted-policy-title", body: "deleted-policy-body")
+    fact_check_request = create(:fact_check_request, document: document)
+    document.delete!
+
+    get :edit, id: fact_check_request.to_param
+
+    assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
+    assert_select "document_view .title", text: "deleted-policy-title", count: 0
+    assert_select "document_view .body", text: "deleted-policy-body", count: 0
+  end
+
   test "should render the content using govspeak markup" do
     @document.update_attributes!(body: "body-in-govspeak")
     fact_check_request = create(:fact_check_request, document: @document, comments: "comment")
@@ -30,6 +42,18 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     get :show, id: fact_check_request.to_param
 
     assert_select ".body", text: "body-in-html"
+  end
+
+  test "should not display the document if it has been deleted" do
+    document = create(:draft_policy, title: "deleted-policy-title", body: "deleted-policy-body")
+    fact_check_request = create(:fact_check_request, document: document)
+    document.delete!
+
+    get :show, id: fact_check_request.to_param
+
+    assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
+    assert_select ".title", text: "deleted-policy-title", count: 0
+    assert_select ".body", text: "deleted-policy-body", count: 0
   end
 
   test "turn govspeak into nice markup when editing" do
@@ -61,6 +85,14 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     put :update, id: fact_check_request,
         fact_check_request: {email_address: "fact-checker@example.com", comments: "looks fine to me"}
     assert_redirected_to admin_fact_check_request_path(fact_check_request)
+  end
+
+  test "display an apology if comments are submitted for a deleted document" do
+    fact_check_request = create(:fact_check_request, document: @document)
+    @document.delete!
+    put :update, id: fact_check_request,
+        fact_check_request: {email_address: "fact-checker@example.com", comments: "looks fine to me"}
+    assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
   end
 
   test "should display any additional instructions to the fact checker" do
@@ -147,6 +179,12 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   test "should display a warning if the fact checker's email address is missing" do
     post :create, document_id: @document.id, fact_check_request: {email_address: ""}
     assert_equal "There was a problem: Email address can't be blank", flash[:alert]
+  end
+
+  test "should display an apology if requesting a fact check for a document that has been deleted" do
+    @document.delete!
+    post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
+    assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
   end
 
   test "redirect back to the document preview if the fact checker's email address is missing" do

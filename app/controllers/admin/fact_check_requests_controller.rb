@@ -1,14 +1,17 @@
 class Admin::FactCheckRequestsController < Admin::BaseController
-  before_filter :load_fact_check_request, only: [:show, :edit]
+  before_filter :load_fact_check_request, only: [:show, :edit, :update]
+  before_filter :check_document_availability, only: [:show, :edit]
   skip_before_filter :authenticate!, except: [:create]
 
   def show
   end
 
   def create
-    @document = Document.find(params[:document_id])
+    @document = Document.unscoped.find(params[:document_id])
     fact_check_request = @document.fact_check_requests.build(params[:fact_check_request])
-    if fact_check_request.save
+    if @document.deleted?
+      render "document_unavailable"
+    elsif fact_check_request.save
       Notifications.fact_check(fact_check_request, current_user, mailer_url_options).deliver
       redirect_to admin_document_path(@document),
         notice: "The policy has been sent to #{params[:fact_check_request][:email_address]}"
@@ -22,10 +25,11 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   def update
-    @fact_check_request = FactCheckRequest.from_param(params[:id])
     if @fact_check_request.update_attributes(params[:fact_check_request])
       redirect_to admin_fact_check_request_path(@fact_check_request),
                   notice: "Your feedback has been saved"
+    else
+      render "document_unavailable"
     end
   end
 
@@ -41,9 +45,15 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   def load_fact_check_request
     @fact_check_request = FactCheckRequest.from_param(params[:id])
     if @fact_check_request
-      @document = @fact_check_request.document
+      @document = Document.unscoped.find(@fact_check_request.document_id)
     else
       render text: "Not found", status: :not_found
+    end
+  end
+
+  def check_document_availability
+    if @document.deleted?
+      render "document_unavailable"
     end
   end
 end
