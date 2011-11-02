@@ -331,8 +331,8 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "is filterable by document type" do
-    policy = create(:submitted_policy)
-    publication = create(:published_publication)
+    policy = create(:policy)
+    publication = create(:publication)
     news = create(:news_article)
     speech = create(:speech)
     consultation = create(:consultation)
