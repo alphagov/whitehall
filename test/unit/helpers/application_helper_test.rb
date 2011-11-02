@@ -26,4 +26,10 @@ class ApplicationHelperTest < ActionView::TestCase
     attachment = create(:attachment)
     assert_equal %{<a href="#{attachment.url}">#{File.basename(attachment.filename)}</a>}, link_to_attachment(attachment)
   end
+
+  test "should format into paragraphs" do
+    assert_equal "", format_in_paragraphs(nil)
+    assert_equal "", format_in_paragraphs("")
+    assert_equal "<p>line one</p>", format_in_paragraphs("line one")
+  end
 end
