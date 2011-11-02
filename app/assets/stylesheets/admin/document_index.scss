@@ -225,15 +225,18 @@ section.resource_list {
         line-height: 20px;
       }
 
-      td.delete {
-        span {
-          opacity: 0;
-          @include transition(opacity);
-        }
-
-        &:hover {
+      tr {
+        td.delete {
           span {
-            opacity: 1;
+            opacity: 0;
+            @include transition(opacity);
+          }
+        }
+        &:hover {
+          td.delete {
+            span {
+              opacity: 1;
+            }
           }
         }
       }
