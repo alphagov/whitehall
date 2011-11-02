@@ -172,6 +172,11 @@ FactoryGirl.define do
     file { File.open(File.join(Rails.root, 'test', 'fixtures', 'greenpaper.pdf')) }
   end
 
+  factory :document_attachment do
+    document
+    attachment
+  end
+
   factory :topic do
     sequence(:name) { |index| "topic-#{index}" }
     description { Faker::Lorem.sentence }

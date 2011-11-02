@@ -10,4 +10,8 @@ class Attachment < ActiveRecord::Base
   def filename
     url && File.basename(url)
   end
+
+  def destroy_if_unassociated
+    self.destroy if document_attachments.empty?
+  end
 end
