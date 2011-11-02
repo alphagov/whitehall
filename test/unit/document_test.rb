@@ -182,37 +182,37 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should be editable if a draft" do
     draft_document = create(:draft_document)
-    assert draft_document.editable_by?(create(:policy_writer))
+    assert draft_document.editable?
   end
 
   test "should not be editable if published" do
     published_document = create(:published_document)
-    refute published_document.editable_by?(create(:policy_writer))
+    refute published_document.editable?
   end
 
   test "should not be editable if archived" do
     archived_document = create(:archived_document)
-    refute archived_document.editable_by?(create(:policy_writer))
+    refute archived_document.editable?
   end
 
   test "should be submittable if draft and not submitted" do
     draft_document = create(:draft_document)
-    assert draft_document.submittable_by?(create(:policy_writer))
+    assert draft_document.submittable?
   end
 
   test "not be submittable if submitted" do
     submitted_document = create(:submitted_document)
-    refute submitted_document.submittable_by?(create(:policy_writer))
+    refute submitted_document.submittable?
   end
 
   test "not be submittable if published" do
     published_document = create(:published_document)
-    refute published_document.submittable_by?(create(:policy_writer))
+    refute published_document.submittable?
   end
 
   test "not be archived if archived" do
     archived_document = create(:archived_document)
-    refute archived_document.submittable_by?(create(:policy_writer))
+    refute archived_document.submittable?
   end
 
   test "should not be publishable when not submitted" do

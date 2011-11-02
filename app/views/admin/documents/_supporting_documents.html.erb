@@ -11,7 +11,7 @@
         <% end %>
       <% end %>
 
-      <% if document.editable_by?(current_user) %>
+      <% if document.editable? %>
         <li class="add_supporting_document"><%= link_to 'Add', new_admin_document_supporting_document_path(document), title: "Add supporting document to #{document.title}", :class => "button" %></li>
       <% end %>
     </ul>

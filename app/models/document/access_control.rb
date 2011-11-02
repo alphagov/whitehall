@@ -5,11 +5,11 @@ module Document::AccessControl
     draft?
   end
 
-  def editable_by?(user)
+  def editable?
     draft?
   end
 
-  def submittable_by?(user)
+  def submittable?
     draft? && !submitted?
   end
 end
