@@ -1,6 +1,10 @@
 module Document::AccessControl
   extend ActiveSupport::Concern
 
+  def deletable?
+    draft?
+  end
+
   def editable_by?(user)
     draft?
   end
