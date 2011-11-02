@@ -1,84 +1,87 @@
 require "test_helper"
 
 class Document::PublishingTest < ActiveSupport::TestCase
-  test "should fail publication when not submitted" do
-    document = create(:draft_policy)
-    document.publish_as(create(:departmental_editor))
-    refute document.published?
+  test "is publishable by an editor when submitted" do
+    document = create(:submitted_policy)
+    assert document.publishable_by?(create(:departmental_editor))
   end
 
-  test "should not be publishable when already published" do
+  test "is not publishable by a writer" do
+    document = create(:submitted_policy)
+    refute document.publishable_by?(create(:policy_writer))
+    assert_equal "Only departmental editors can publish", document.reason_to_prevent_publication_by(create(:policy_writer))
+  end
+
+  test "is not publishable when already published" do
     document = create(:published_policy)
     refute document.publishable_by?(create(:departmental_editor))
+    assert_equal "This edition has already been published", document.reason_to_prevent_publication_by(create(:departmental_editor))
   end
 
-  test "should fail publication when already published" do
-    document = create(:published_policy)
-    refute document.publish_as(create(:departmental_editor))
-    assert_equal ["This edition has already been published"], document.errors.full_messages
+  test "is not publishable when not submitted" do
+    document = create(:draft_policy)
+    refute document.publishable_by?(create(:departmental_editor))
+    assert_equal "Not ready for publication", document.reason_to_prevent_publication_by(create(:departmental_editor))
   end
 
-  test "should not be publishable by the original author" do
-    author = create(:departmental_editor)
-    document = create(:submitted_policy, author: author)
-    refute document.publishable_by?(author)
-  end
-
-  test "should fail publication by the author" do
-    author = create(:departmental_editor)
-    document = create(:submitted_policy, author: author)
-    refute document.publish_as(author)
-    refute document.published?
-    assert_equal ["You are not the second set of eyes"], document.errors.full_messages
-  end
-
-  test "should be publishable by departmental editors" do
-    document = create(:submitted_policy)
-    departmental_editor = create(:departmental_editor)
-    assert document.publishable_by?(departmental_editor)
-  end
-
-  test "should succeed publication when published by departmental editors" do
-    author = create(:policy_writer)
-    document = create(:submitted_policy, author: author)
-    other_user = create(:departmental_editor)
-    assert document.publish_as(other_user)
-    assert document.published?
-  end
-
-  test "should fail publication by normal users" do
-    document = create(:submitted_policy)
-    refute document.publish_as(create(:policy_writer))
-    refute document.published?
-    assert_equal ["Only departmental editors can publish"], document.errors.full_messages
-  end
-
-  test "should fail publication if lock version is not current" do
+  test "is not publishable by the original author" do
     editor = create(:departmental_editor)
-    document = create(:submitted_policy, title: "old title")
-
-    other_instance = Document.find(document.id)
-    other_instance.update_attributes(title: "new title")
-
-    assert_raises(ActiveRecord::StaleObjectError) do
-      refute document.publish_as(editor)
-    end
-    refute Document.find(document.id).published?
+    document = create(:submitted_policy, author: editor)
+    refute document.publishable_by?(editor)
+    assert_equal "You are not the second set of eyes", document.reason_to_prevent_publication_by(editor)
   end
 
-  test "should archive earlier documents on publication" do
-    published_policy = create(:published_policy)
-    author = create(:policy_writer)
-    document = create(:submitted_policy, document_identity: published_policy.document_identity, author: author)
-    editor = create(:departmental_editor)
-    document.publish_as(editor)
-
-    published_policy.reload
-    assert published_policy.archived?
-  end
-
-  test "should not be publishable when archived" do
+  test "is not publishable when archived" do
     document = create(:archived_policy)
     refute document.publishable_by?(create(:departmental_editor))
+    assert_equal "This edition has been archived", document.reason_to_prevent_publication_by(create(:departmental_editor))
+  end
+
+  test "fails publication if not publishable by user" do
+    editor = create(:departmental_editor)
+    document = create(:submitted_policy)
+    document.stubs(:publishable_by?).with(editor).returns(false)
+    refute document.publish_as(editor)
+  end
+
+  test "publication marks document as published" do
+    document = create(:submitted_policy)
+    document.publish_as(create(:departmental_editor))
+    assert document.reload.published?
+  end
+
+  test "publication archives previous published versions" do
+    published_policy = create(:published_policy)
+    document = create(:submitted_policy, document_identity: published_policy.document_identity)
+    document.publish_as(create(:departmental_editor))
+    assert published_policy.reload.archived?
+  end
+
+  test "publication fails if not publishable by user" do
+    editor = create(:departmental_editor)
+    document = create(:submitted_policy)
+    document.stubs(:publishable_by?).with(editor).returns(false)
+    refute document.publish_as(editor)
+    refute document.reload.published?
+  end
+
+  test "publication adds reason for failure to validation errors" do
+    editor = create(:departmental_editor)
+    document = create(:submitted_policy)
+    document.stubs(:publishable_by?).returns(false)
+    document.stubs(:reason_to_prevent_publication_by).with(editor).returns('a spurious reason')
+    document.publish_as(editor)
+    assert_equal ['a spurious reason'], document.errors.full_messages
+  end
+
+  test "publication raises StaleObjectError if lock version is not current" do
+    document = create(:submitted_policy, title: "old title")
+
+    Document.find(document.id).update_attributes(title: "new title")
+
+    assert_raises(ActiveRecord::StaleObjectError) do
+      document.publish_as(create(:departmental_editor))
+    end
+    refute Document.find(document.id).published?
   end
 end
