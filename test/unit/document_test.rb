@@ -305,13 +305,17 @@ class DocumentTest < ActiveSupport::TestCase
     assert document.published?
   end
 
-  test "return compound title with state included" do
+  test "generate title for a draft document" do
     draft_document = create(:draft_document, title: "Holding back")
     assert_equal "Holding back (draft)", draft_document.title_with_state
+  end
 
+  test "generate title for a submitted document" do
     submitted_document = create(:submitted_document, title: "Dog Eyes")
     assert_equal "Dog Eyes (submitted)", submitted_document.title_with_state
+  end
 
+  test "generate title for a published document" do
     published_document = create(:published_document, title: "Dog Eyes")
     assert_equal "Dog Eyes (published)", published_document.reload.title_with_state
   end
