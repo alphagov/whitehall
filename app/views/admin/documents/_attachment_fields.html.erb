@@ -1,9 +1,14 @@
 <fieldset>
   <%= form.label :attach_file, 'Attachment' %>
   <%= form.file_field :attach_file %>
-  <% unless document.new_record? %>
-    <% document.attachments.each do |attachment| %>
-      <p class="attachment"><%= link_to_attachment(attachment) %></p>
+  <% unless form.object.new_record? %>
+    <%= form.fields_for :document_attachments do |attachment_fields| %>
+      <p class="attachment">
+        <%= attachment_fields.label :_destroy do %>
+          <%- checkbox = attachment_fields.check_box :_destroy, *nested_attribute_destroy_checkbox_options(attachment_fields) %>
+          <%- checkbox + link_to_attachment(attachment_fields.object.attachment) + " (uncheck to remove)" %>
+        <% end %>
+      </p>
     <% end %>
   <% end %>
 </fieldset>

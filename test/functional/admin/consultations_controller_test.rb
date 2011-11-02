@@ -152,6 +152,21 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
   end
 
+  test 'updating should allow removal of attachments' do
+    attachment_1 = create(:attachment)
+    attachment_2 = create(:attachment)
+    attributes = attributes_for(:consultation)
+    consultation = create(:consultation, attributes.merge(attachments: [attachment_1, attachment_2]))
+    document_attachments_attributes = consultation.document_attachments.inject({}) do |h, da|
+      h[da.id] = da.attributes.merge("_destroy" => (da.attachment == attachment_1 ? "1" : "0"))
+      h
+    end
+    put :update, id: consultation, document: attributes.merge(document_attachments_attributes: document_attachments_attributes)
+
+    consultation.reload
+    assert_equal [attachment_2], consultation.attachments
+  end
+
   should_be_able_to_delete_a_document :consultation
 
   should_link_to_public_version_when_published :consultation

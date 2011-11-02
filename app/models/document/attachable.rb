@@ -4,6 +4,8 @@ module Document::Attachable
   included do
     has_many :document_attachments, foreign_key: "document_id"
     has_many :attachments, through: :document_attachments
+
+    accepts_nested_attributes_for :document_attachments, allow_destroy: true
   end
 
   def allows_attachments?

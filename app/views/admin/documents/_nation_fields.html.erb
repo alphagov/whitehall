@@ -4,7 +4,7 @@
     <div class="group">
       <div class="col nation">
         <%= ni_form.label :_destroy do %>
-          <%- checkbox = ni_form.check_box :_destroy, *inapplicability_checkbox_options(ni_form) %>
+          <%- checkbox = ni_form.check_box :_destroy, *nested_attribute_destroy_checkbox_options(ni_form) %>
           <%- label_text = ni_form.object.nation.name %>
           <%- checkbox + label_text %>
         <% end %>

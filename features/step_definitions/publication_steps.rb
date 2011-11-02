@@ -23,13 +23,23 @@ Given /^"([^"]*)" has received an email requesting they fact check a draft publi
   Notifications.fact_check(fact_check_request, create(:user), host: "example.com").deliver
 end
 
+Given /^a draft publication "([^"]*)" with a PDF attachment "([^"]*)"$/ do |title, attachment_title|
+  attachment = Attachment.new(file: pdf_attachment(attachment_title))
+  create(:draft_publication, title: title, attachments: [attachment])
+end
+
 Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(file: File.open(pdf_attachment))
+  attachment = Attachment.new(file: pdf_attachment)
   create(:submitted_publication, title: title, attachments: [attachment])
 end
 
 Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(file: File.open(pdf_attachment))
+  attachment = Attachment.new(file: pdf_attachment)
+  create(:published_publication, title: title, attachments: [attachment])
+end
+
+Given /^a published publication "([^"]*)" with a PDF attachment "([^"]*)"$/ do |title, attachment_title|
+  attachment = Attachment.new(file: pdf_attachment(attachment_title))
   create(:published_publication, title: title, attachments: [attachment])
 end
 
@@ -40,8 +50,28 @@ When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)
   click_button "Save"
 end
 
+When /^I remove the attachment "([^"]*)" from the publication "([^"]*)"$/ do |attachment, title|
+  begin_editing_document title
+  uncheck "document_document_attachments_attributes_0__destroy"
+  click_button "Save"
+end
+
+When /^I remove the attachment "([^"]*)" from a new draft of the publication "([^"]*)"$/ do |attachment, title|
+  begin_new_draft_document title
+  uncheck "document_document_attachments_attributes_0__destroy"
+  click_button "Save"
+end
+
+Then /^I should not see a link to the PDF attachment "([^"]*)"$/ do |name|
+  assert page.has_no_css?(".attachment a[href*='#{name}']", text: name)
+end
+
 Then /^I should see a link to the PDF attachment$/ do
-  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: /^attachment\.pdf$/)
+  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "attachment.pdf")
+end
+
+Then /^I should see a link to the PDF attachment "([^"]*)"$/ do |name|
+  assert page.has_css?(".attachment a[href*='#{name}']", text: name)
 end
 
 Then /^I can see links to the related published publications "([^"]*)" and "([^"]*)"$/ do |publication_title_1, publication_title_2|
@@ -51,7 +81,14 @@ Then /^I can see links to the related published publications "([^"]*)" and "([^"
   assert has_css?("#related-publications .publication a", text: publication_title_2)
 end
 
-def pdf_attachment
-  Rails.root.join("features/fixtures/attachment.pdf")
+def pdf_attachment(filename=nil)
+  fixture_path = Rails.root.join("features/fixtures/attachment.pdf")
+  if filename
+    path = File.join(Dir.tmpdir, filename)
+    File.open(path, "w") { |f| f.write filename }
+    File.open(path)
+  else
+    File.open(fixture_path)
+  end
 end
 

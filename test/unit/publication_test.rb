@@ -24,4 +24,20 @@ class PublicationTest < ActiveSupport::TestCase
 
     assert_equal [attachment_1, attachment_2], publication.attachments
   end
+
+  test "should allow deletion of attachments via nested attributes" do
+    attachment_1 = create(:attachment)
+    attachment_2 = create(:attachment)
+
+    publication = create(:publication, attachments: [attachment_1, attachment_2])
+
+    document_attachments_attributes = publication.document_attachments.inject({}) do |h, da|
+      h[da.id] = da.attributes.merge("_destroy" => (da.attachment == attachment_1 ? "1" : "0"))
+      h
+    end
+    publication.update_attributes(document_attachments_attributes: document_attachments_attributes)
+    publication.reload
+
+    assert_equal [attachment_2], publication.attachments
+  end
 end

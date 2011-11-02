@@ -30,6 +30,10 @@ When /^I view the (publication|policy|news article|consultation|speech) "([^"]*)
   click_link title
 end
 
+When /^I visit the list of draft documents$/ do
+  visit admin_documents_path
+end
+
 When /^I visit the list of documents awaiting review$/ do
   visit submitted_admin_documents_path
 end

@@ -15,6 +15,11 @@ module DocumentHelper
     click_link "Edit"
   end
 
+  def begin_new_draft_document(title)
+    visit_document_preview title
+    click_button "Create new draft"
+  end
+
   def visit_document_preview(title)
     document = Document.find_by_title(title)
     visit admin_document_path(document)
