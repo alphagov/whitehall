@@ -1,3 +1,7 @@
+THE_DOCUMENT = Transform(/the (publication|policy|news article|consultation|speech) "([^"]*)"/) do |document_type, title|
+  document = document_class(document_type).find_by_title(title)
+end
+
 Given /^a draft (publication|policy|news article|consultation|speech) "([^"]*)" exists$/ do |document_type, title|
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
@@ -48,21 +52,18 @@ When /^I draft a new (policy|news article) "([^"]*)"$/ do |document_type, title|
   click_button "Save"
 end
 
-When /^I submit the (publication|policy|news article|consultation|speech) "([^"]*)"$/ do |document_type, title|
-  document = document_class(document_type).find_by_title(title)
-  visit_document_preview title
+When /^I submit (#{THE_DOCUMENT})$/ do |document|
+  visit_document_preview document.title
   click_button "Submit to 2nd pair of eyes"
 end
 
-When /^I publish the (publication|policy|news article|consultation|speech) "([^"]*)"$/ do |document_type, title|
-  document = document_class(document_type).find_by_title(title)
-  visit_document_preview title
+When /^I publish (#{THE_DOCUMENT})$/ do |document|
+  visit_document_preview document.title
   click_button "Publish"
 end
 
-When /^I force publish the (publication|policy|news article|consultation|speech) "([^"]*)"$/ do |document_type, title|
-  document = document_class(document_type).find_by_title(title)
-  visit_document_preview title
+When /^I force publish (#{THE_DOCUMENT})$/ do |document|
+  visit_document_preview document.title
   click_button "Force Publish"
 end
 
@@ -75,20 +76,17 @@ When /^I edit the (publication|policy|news article|consultation) changing the ti
   click_button "Save"
 end
 
-Then /^I should see the (publication|policy|news article|consultation|speech) "([^"]*)" in the list of draft documents$/ do |document_type, title|
-  document = document_class(document_type).find_by_title(title)
+Then /^I should see (#{THE_DOCUMENT}) in the list of draft documents$/ do |document|
   visit admin_documents_path
   assert has_css?(record_css_selector(document))
 end
 
-Then /^I should see the (publication|policy|news article|consultation|speech) "([^"]*)" in the list of submitted documents$/ do |document_type, title|
-  document = document_class(document_type).find_by_title(title)
+Then /^I should see (#{THE_DOCUMENT}) in the list of submitted documents$/ do |document|
   visit submitted_admin_documents_path
   assert has_css?(record_css_selector(document))
 end
 
-Then /^I should see the (publication|policy|news article|consultation|speech) "([^"]*)" in the list of published documents$/ do |document_type, title|
-  document = document_class(document_type).find_by_title(title)
+Then /^I should see (#{THE_DOCUMENT}) in the list of published documents$/ do |document|
   visit published_admin_documents_path
   assert has_css?(record_css_selector(document))
 end
@@ -98,10 +96,9 @@ Then /^I should not see the policy "([^"]*)" in the list of draft documents$/ do
   assert has_no_css?(".policy a", text: title)
 end
 
-Then /^the (publication|policy|news article|consultation|speech) "([^"]*)" should be visible to the public$/ do |document_type, title|
-  document = document_class(document_type).find_by_title(title)
+Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
   visit documents_path
-  assert page.has_css?(record_css_selector(document), text: title)
+  assert page.has_css?(record_css_selector(document), text: document.title)
 end
 
 Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
