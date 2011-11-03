@@ -1,9 +1,19 @@
 class Admin::DocumentsController < Admin::BaseController
   before_filter :find_document, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check, :destroy]
   before_filter :build_document, only: [:new]
+  before_filter :remember_filters, only: [:unsubmitted, :submitted, :published]
 
   def index
+    if session[:document_filters]
+      redirect_to session[:document_filters]
+    else
+      redirect_to action: :unsubmitted
+    end
+  end
+
+  def unsubmitted
     @documents = filter_documents(document_class.unsubmitted)
+    render action: :index
   end
 
   def submitted
@@ -86,5 +96,9 @@ class Admin::DocumentsController < Admin::BaseController
     documents = documents.authored_by(User.find(params[:author])) if params[:author]
     documents = documents.in_organisation(Organisation.find(params[:organisation])) if params[:organisation]
     documents.order("updated_at DESC")
+  end
+
+  def remember_filters
+    session[:document_filters] = params.slice('action', 'filter', 'author', 'organisation')
   end
 end
