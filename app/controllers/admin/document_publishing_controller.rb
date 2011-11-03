@@ -3,7 +3,7 @@ class Admin::DocumentPublishingController < Admin::BaseController
   before_filter :lock_document
 
   def create
-    if @document.publish_as(current_user)
+    if @document.publish_as(current_user, force: params[:force].present?)
       redirect_to published_admin_documents_path, notice: "The document #{@document.title} has been published"
     else
       redirect_to admin_document_path(@document), alert: @document.errors.full_messages.to_sentence

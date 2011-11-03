@@ -52,4 +52,13 @@ class Admin::DocumentPublishingControllerTest < ActionController::TestCase
     assert_redirected_to admin_policy_path(policy_to_publish)
     assert_equal "This document has been edited since you viewed it; you are now viewing the latest version", flash[:alert]
   end
+
+  test 'force publishing should succeed where normal publishing would fail' do
+    submitted_document = create(:draft_policy)
+    login_as "Eddie", departmental_editor: true
+    post :create, document_id: submitted_document, document: {lock_version: submitted_document.lock_version}, force: true
+
+    assert_redirected_to published_admin_documents_path
+    assert_equal "The document #{submitted_document.title} has been published", flash[:notice]
+  end
 end

@@ -60,6 +60,12 @@ When /^I publish the (publication|policy|news article|consultation|speech) "([^"
   click_button "Publish"
 end
 
+When /^I force publish the (publication|policy|news article|consultation|speech) "([^"]*)"$/ do |document_type, title|
+  document = document_class(document_type).find_by_title(title)
+  visit_document_preview title
+  click_button "Force Publish"
+end
+
 When /^I save my changes to the (publication|policy|news article|consultation|speech)$/ do |document_type|
   click_button "Save"
 end
