@@ -4,7 +4,7 @@
   <% if document.fact_check_requests.completed.any? %>
   <ul id="fact_check_requests">
     <% document.fact_check_requests.completed.each do |fact_check_request| %>
-      <li class="fact_check_request">
+      <%= content_tag_for(:li, fact_check_request) do %>
         <div class="details">
           <span class="from"><%= fact_check_request.email_address %></span>
           on
@@ -14,7 +14,7 @@
         <div class="comments">
           <%= format_in_paragraphs fact_check_request.comments %>
         </div>
-      </li>
+      <% end %>
     <% end %>
   </ul>
   <% end %>
