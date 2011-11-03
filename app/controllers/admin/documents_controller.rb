@@ -3,15 +3,18 @@ class Admin::DocumentsController < Admin::BaseController
   before_filter :build_document, only: [:new]
 
   def index
-    @documents = filtered_documents(:unsubmitted)
+    @document_state = :unsubmitted
+    @documents = filter_documents(document_class.unsubmitted)
   end
 
   def submitted
-    @documents = filtered_documents(:submitted)
+    @document_state = :submitted
+    @documents = filter_documents(document_class.submitted)
   end
 
   def published
-    @documents = filtered_documents(:published)
+    @document_state = :published
+    @documents = filter_documents(document_class.published)
   end
 
   def new
@@ -81,12 +84,8 @@ class Admin::DocumentsController < Admin::BaseController
     @document = document_class.find(params[:id])
   end
 
-  def filtered_documents(state)
-    @document_state = state
-    if params[:filter]
-      document_class.by_type(params[:filter].classify).send(@document_state)
-    else
-      document_class.send(@document_state)
-    end
+  def filter_documents(documents)
+    documents = documents.by_type(params[:filter].classify) if params[:filter]
+    documents
   end
 end
