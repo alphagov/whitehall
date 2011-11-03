@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::DocumentsControllerTest < ActionController::TestCase
   setup do
-    @user = login_as "George"
+    @user = login_as :policy_writer
   end
 
   test 'is an admin controller' do

@@ -19,8 +19,8 @@ class ActionController::TestCase
   include CssSelectors
   include DocumentControllerTestHelpers
 
-  def login_as(name, attributes={})
-    user = User.find_or_create_by_name(name, attributes)
+  def login_as(role_or_user)
+    user = role_or_user.is_a?(Symbol) ? create(role_or_user) : role_or_user
     session[:user_id] = user.id
     user
   end

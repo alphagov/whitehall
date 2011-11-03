@@ -5,7 +5,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     tests Admin::PublicationsController
 
     setup do
-      login_as "Somebody"
+      login_as :policy_writer
     end
 
     include TestsForNationalApplicability

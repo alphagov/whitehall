@@ -128,7 +128,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   setup do
     ActionMailer::Base.deliveries.clear
     @document = create(:draft_policy)
-    login_as "George"
+    login_as :policy_writer
   end
 
   teardown do

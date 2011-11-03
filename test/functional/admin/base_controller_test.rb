@@ -17,7 +17,7 @@ class Admin::ExampleControllerTest < ActionController::TestCase
 
   test "allows action to be called when authenticated" do
     with_example_routing do
-      login_as "Dave"
+      login_as :policy_writer
 
       get :show
 
