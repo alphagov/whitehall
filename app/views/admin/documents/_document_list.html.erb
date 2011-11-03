@@ -37,6 +37,7 @@
           <th class="type">Type</th>
           <th>Title</th>
           <th>Author</th>
+          <th>Updated</th>
         </tr>
       </thead>
       <tbody>
@@ -57,6 +58,7 @@
               <% end %>
             </td>
             <td class="author"><%= document.author.name %></td>
+            <td class="updated"><%= time_ago_in_words document.updated_at %> ago</td>
           <% end %>
         <% end %>
         <% if documents.blank? %>
