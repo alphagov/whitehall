@@ -83,7 +83,8 @@ class Admin::DocumentsController < Admin::BaseController
 
   def filter_documents(documents)
     documents = documents.by_type(params[:filter].classify) if params[:filter]
-    documents = documents.authored_by(params[:author]) if params[:author]
+    documents = documents.authored_by(User.find(params[:author])) if params[:author]
+    documents = documents.in_organisation(Organisation.find(params[:organisation])) if params[:organisation]
     documents.order("updated_at DESC")
   end
 end

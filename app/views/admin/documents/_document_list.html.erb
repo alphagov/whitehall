@@ -26,8 +26,9 @@
       </div>
       
       <div class="type group">
-        <%= link_to_filter 'written by me', author: current_user %>
-        <%= link_to_filter 'written by everyone', author: nil %>
+        <%= link_to_filter('by everyone', author: nil, organisation: nil) %>
+        <%= link_to_filter('by my department', author: nil, organisation: current_user.organisation) %>
+        <%= link_to_filter('by me', author: current_user, organisation: nil) %>
       </div>
     </nav>
 

@@ -168,4 +168,17 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_select_object authored_policy
     assert_select_object other_policy, count: 0
   end
+
+  test "should be able to show only documents related to an organisation" do
+    organisation = create(:organisation)
+    user = create(:policy_writer, organisation: organisation)
+
+    policy_in_organisation = create(:draft_policy, organisations: [organisation])
+    other_policy = create(:draft_policy, organisations: [create(:organisation)])
+
+    get :index, organisation: organisation
+
+    assert_select_object policy_in_organisation
+    assert_select_object other_policy, count: 0
+  end
 end

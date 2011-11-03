@@ -9,6 +9,13 @@ Given /^I am (?:a|an) (writer|editor)(?: called "([^"]*)")?$/ do |role, name|
   click_button "Login"
 end
 
+Given /^I am a writer in the organisation "([^"]*)"$/ do |organisation|
+  visit login_path
+  fill_in "name", with: "Wally Writer"
+  select organisation, from: "Organisation"
+  click_button "Login"
+end
+
 Given /^I logout$/ do
   click_button "Logout"
 end
