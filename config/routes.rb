@@ -18,8 +18,11 @@ Whitehall::Application.routes.draw do
 
   namespace :admin do
     root to: redirect('/admin/documents')
+
     resources :organisations, only: [:index, :new, :create, :edit, :update]
-    resources :documents, except: [:new, :create, :edit, :update, :show, :destroy] do
+    resources :topics, only: [:index, :new, :create, :edit, :update, :destroy]
+
+    resources :documents, only: [:index] do
       collection do
         get :submitted
         get :published
@@ -33,7 +36,6 @@ Whitehall::Application.routes.draw do
       resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
     end
 
-    resources :topics, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :publications, only: [:new, :create, :edit, :update, :show, :destroy]
     resources :policies, only: [:new, :create, :edit, :update, :show, :destroy]
     resources :news_articles, only: [:new, :create, :edit, :update, :show, :destroy]
