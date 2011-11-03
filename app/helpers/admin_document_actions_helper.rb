@@ -43,7 +43,6 @@ module AdminDocumentActionsHelper
     end
   end
 
-
   def delete_document_button(document)
     button_to 'Delete', admin_document_path(document), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?"
   end
