@@ -13,7 +13,7 @@ end
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy "([^"]*)"$/ do |email, title|
   policy = create(:draft_policy, title: title)
   fact_check_request = create(:fact_check_request, document: policy, email_address: email)
-  Notifications.fact_check(fact_check_request, host: "example.com").deliver
+  Notifications.fact_check_request(fact_check_request, host: "example.com").deliver
 end
 
 When /^"([^"]*)" clicks the email link to the draft policy$/ do |email_address|

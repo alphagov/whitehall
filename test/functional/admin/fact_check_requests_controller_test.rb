@@ -126,6 +126,28 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_equal "looks fine to me", fact_check_request.comments
   end
 
+  test "notify a requestor with an email address that the fact checker has added a comment" do
+    requestor = create(:fact_check_requestor, email_address: "fact-check-requestor@example.com")
+    fact_check_request = create(:fact_check_request, requestor: requestor)
+    attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
+    ActionMailer::Base.deliveries.clear
+
+    put :update, id: fact_check_request, fact_check_request: attributes
+
+    assert_equal 1, ActionMailer::Base.deliveries.length
+  end
+
+  test "do not notify a requestor without an email address that the fact checker has added a comment" do
+    requestor = create(:fact_check_requestor, email_address: nil)
+    fact_check_request = create(:fact_check_request, requestor: requestor)
+    attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
+    ActionMailer::Base.deliveries.clear
+
+    put :update, id: fact_check_request, fact_check_request: attributes
+
+    assert_equal 0, ActionMailer::Base.deliveries.length
+  end
+
   test "redirect to the show page when a fact check has been completed" do
     fact_check_request = create(:fact_check_request)
     attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
@@ -151,10 +173,10 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   tests Admin::FactCheckRequestsController
 
   setup do
-    ActionMailer::Base.deliveries.clear
     @attributes = attributes_for(:fact_check_request)
     @document = create(:draft_policy)
     @requestor = login_as(:policy_writer)
+    ActionMailer::Base.deliveries.clear
   end
 
   teardown do
@@ -217,7 +239,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   test "should not send an email if the fact checker's email address is missing" do
     @attributes.merge!(email_address: "")
-    ActionMailer::Base.deliveries.clear
 
     post :create, document_id: @document.id, fact_check_request: @attributes
 
