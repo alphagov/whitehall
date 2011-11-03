@@ -17,12 +17,6 @@ When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/
   click_button "Save"
 end
 
-Given /^"([^"]*)" has received an email requesting they fact check a draft publication "([^"]*)"$/ do |email, title|
-  publication = create(:draft_publication, title: title)
-  fact_check_request = create(:fact_check_request, email_address: email)
-  Notifications.fact_check(fact_check_request, host: "example.com").deliver
-end
-
 Given /^a draft publication "([^"]*)" with a PDF attachment "([^"]*)"$/ do |title, attachment_title|
   attachment = Attachment.new(file: pdf_attachment(attachment_title))
   create(:draft_publication, title: title, attachments: [attachment])

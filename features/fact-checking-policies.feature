@@ -17,20 +17,20 @@ Scenario: Fact checker views the draft policy
   And they should see the supporting document "And me!"
 
 Scenario: Fact checker enters feedback
-  Given "fact-checker@example.com" has received an email requesting they fact check a draft publication "Check me"
+  Given "fact-checker@example.com" has received an email requesting they fact check a draft policy "Check me"
   When "fact-checker@example.com" clicks the email link to the draft policy
   And they provide feedback "We cannot establish the moral character of all dogs"
   Then they should be notified "Your feedback has been saved"
 
 Scenario: Policy writer reviews fact checker comments
-  Given a fact checker has commented "This looks good" on the draft publication "Check me"
+  Given a fact checker has commented "This looks good" on the draft policy "Check me"
   When I am a writer
   And I visit the list of draft policies
   And I click on the policy "Check me"
   Then I should see the fact checking feedback "This looks good"
 
 Scenario: Departmental editor reviews fact checker comments
-  Given a fact checker has commented "This looks good" on the draft publication "Check me"
+  Given a fact checker has commented "This looks good" on the draft policy "Check me"
   When I am an editor
   And I visit the list of draft policies
   And I click on the policy "Check me"
