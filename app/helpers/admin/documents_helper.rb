@@ -5,22 +5,15 @@ module Admin::DocumentsHelper
     [{ checked: checked }, checked_value, unchecked_value]
   end
 
-  def admin_documents_state_path(state, options = {})
-    case state.to_s
-    when 'submitted'
-      submitted_admin_documents_path(options)
-    when 'published'
-      published_admin_documents_path(options)
-    else
-      admin_documents_path(options)
-    end
+  def link_to_filter(link, options)
+    link_to link, url_for(options), class: filter_class(options)
   end
 
-  def current_filter_class(filter)
-    if (params[:filter].to_s == filter.to_s) || (filter == 'all' && params[:filter].blank?)
-      {class: 'current'}
-    else
-      {}
+  def filter_class(options)
+    current = options.keys.all? do |key|
+      options[key] == params[key]
     end
+
+    'current' if current
   end
 end

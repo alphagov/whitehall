@@ -11,12 +11,12 @@
 
     <nav class="filter group">
       <div class="type group">
-        <%= link_to 'all', admin_documents_state_path(@document_state), current_filter_class('all') %>
-        <%= link_to 'policies', admin_documents_state_path(@document_state, filter: 'policy'), current_filter_class('policy') %>
-        <%= link_to 'publications', admin_documents_state_path(@document_state, filter: 'publication'), current_filter_class('publication') %>
-        <%= link_to 'news articles', admin_documents_state_path(@document_state, filter: 'news_article'), current_filter_class('news_article') %>
-        <%= link_to 'consultations', admin_documents_state_path(@document_state, filter: 'consultation'), current_filter_class('consultation') %>
-        <%= link_to 'speeches', admin_documents_state_path(@document_state, filter: 'speech'), current_filter_class('speech') %>
+        <%= link_to_filter 'all', filter: nil %>
+        <%= link_to_filter 'policies', filter: 'policy' %>
+        <%= link_to_filter 'publications', filter: 'publication' %>
+        <%= link_to_filter 'news articles', filter: 'news_article' %>
+        <%= link_to_filter 'consultations', filter: 'consultation' %>
+        <%= link_to_filter 'speeches', filter: 'speech' %>
       </div>
 
       <div class="state group">

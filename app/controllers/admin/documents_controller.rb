@@ -3,17 +3,14 @@ class Admin::DocumentsController < Admin::BaseController
   before_filter :build_document, only: [:new]
 
   def index
-    @document_state = :unsubmitted
     @documents = filter_documents(document_class.unsubmitted)
   end
 
   def submitted
-    @document_state = :submitted
     @documents = filter_documents(document_class.submitted)
   end
 
   def published
-    @document_state = :published
     @documents = filter_documents(document_class.published)
   end
 
