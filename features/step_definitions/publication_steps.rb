@@ -19,7 +19,7 @@ end
 
 Given /^"([^"]*)" has received an email requesting they fact check a draft publication "([^"]*)"$/ do |email, title|
   publication = create(:draft_publication, title: title)
-  fact_check_request = publication.fact_check_requests.create(email_address: email)
+  fact_check_request = create(:fact_check_request, email_address: email)
   Notifications.fact_check(fact_check_request, create(:user), host: "example.com").deliver
 end
 

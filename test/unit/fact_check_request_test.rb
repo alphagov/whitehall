@@ -17,6 +17,11 @@ class FactCheckRequestTest < ActiveSupport::TestCase
     refute fact_check_request.valid?
   end
 
+  test "should be invalid without a requestor" do
+    fact_check_request = build(:fact_check_request, requestor: nil)
+    refute fact_check_request.valid?
+  end
+
   test "sets a 16 character random key during initialization" do
     keys = 100.times.collect { FactCheckRequest.new.key }
     assert_equal 100, keys.compact.uniq.size

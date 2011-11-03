@@ -8,7 +8,8 @@ class Admin::FactCheckRequestsController < Admin::BaseController
 
   def create
     @document = Document.unscoped.find(params[:document_id])
-    fact_check_request = @document.fact_check_requests.build(params[:fact_check_request])
+    attributes = params[:fact_check_request].merge(requestor: current_user)
+    fact_check_request = @document.fact_check_requests.build(attributes)
     if @document.deleted?
       render "document_unavailable"
     elsif fact_check_request.save

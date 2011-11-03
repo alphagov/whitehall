@@ -128,12 +128,19 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   setup do
     ActionMailer::Base.deliveries.clear
     @document = create(:draft_policy)
-    login_as :policy_writer
+    @requestor = login_as(:policy_writer)
   end
 
   teardown do
     request.host = "test.host"
     request.env["HTTPS"] = nil
+  end
+
+  test "should create a fact check request" do
+    post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
+    assert fact_check_request = @document.fact_check_requests.last
+    assert_equal "fact-checker@example.com", fact_check_request.email_address
+    assert_equal @requestor, fact_check_request.requestor
   end
 
   test "should send an email when a fact check has been requested" do

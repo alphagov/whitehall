@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111103154303) do
+ActiveRecord::Schema.define(:version => 20111103160632) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20111103154303) do
     t.string   "email_address"
     t.text     "comments"
     t.text     "instructions"
+    t.integer  "requestor_id"
   end
 
   add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
