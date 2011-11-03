@@ -85,8 +85,6 @@ When /^I visit the speech "([^"]*)"$/ do |title|
   visit speech_path(speech.document_identity)
 end
 
-
-
 Then /^I should see that "([^"]*)" is the speech author$/ do |name|
   assert page.has_css?(".document_view .author", text: name)
 end
