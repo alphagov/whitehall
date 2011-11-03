@@ -79,6 +79,10 @@ class Document < ActiveRecord::Base
   end
 
   class << self
+    def authored_by(user)
+      where(author_id: user)
+    end
+
     def by_type(type)
       where(Document.arel_table[:type].matches("%#{type}%"))
     end

@@ -168,6 +168,23 @@ class DocumentTest < ActiveSupport::TestCase
     refute Document.related_to(policy).include?(publication)
   end
 
+  test ".authored_by includes documents authored by given user" do
+    publication = create(:publication)
+    assert Document.authored_by(publication.author).include?(publication)
+  end
+
+  test ".authored_by excludes documents authored by another user" do
+    publication = create(:publication)
+    refute Document.authored_by(create(:policy_writer)).include?(publication)
+  end
+
+  test ".authored_by respects chained scopes" do
+    publication = create(:publication)
+    assert Document.authored_by(publication.author).include?(publication)
+    assert Publication.authored_by(publication.author).include?(publication)
+    refute Policy.authored_by(publication.author).include?(publication)
+  end
+
   test "should only return unsubmitted draft documents" do
     draft_document = create(:draft_document)
     submitted_document = create(:submitted_document)
