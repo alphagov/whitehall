@@ -23,3 +23,8 @@ Scenario: Logged in writers should see their role
 Scenario: Logged in editors should see their role
   Given I am an editor
   Then I should see that I am logged in as a departmental editor
+
+Scenario: Logged in users should be able to set their email address
+  Given I am a writer called "John Smith"
+  When I set the email address for "John Smith" to "writer@example.com"
+  Then I should see my email address is "writer@example.com"
