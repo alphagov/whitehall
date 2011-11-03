@@ -18,6 +18,14 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
   end
 
+  test "should order by most recently updated" do
+    policy = create(:draft_policy, updated_at: 3.days.ago)
+    newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
+    get :index
+
+    assert_equal [newer_policy, policy], assigns(:documents)
+  end
+
   test 'should distinguish between document types when viewing the list of submitted documents' do
     policy = create(:submitted_policy)
     publication = create(:submitted_publication)
