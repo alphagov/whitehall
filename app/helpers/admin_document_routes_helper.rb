@@ -23,6 +23,14 @@ module AdminDocumentRoutesHelper
     end
   end
 
+  def admin_document_url(document, *args)
+    if document.is_a?(Speech)
+      admin_speech_url(document, *args)
+    else
+      polymorphic_url([:admin, document], *args)
+    end
+  end
+
   def edit_admin_document_path(document, *args)
     if document.is_a?(Speech)
       edit_admin_speech_path(document, *args)
