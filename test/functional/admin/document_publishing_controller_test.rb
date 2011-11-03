@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class Admin::DocumentPublishingControllerTest < ActionController::TestCase
-  setup do
-    @user = login_as "George"
-  end
-
   test 'is an admin controller' do
     assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
   end
