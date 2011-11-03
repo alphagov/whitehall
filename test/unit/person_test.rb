@@ -34,4 +34,11 @@ class PersonTest < ActiveSupport::TestCase
     person = create(:person, roles:  [minister])
     assert_equal [], person.board_member_roles
   end
+
+  test "should not be destroyable when it has appointments" do
+    person = create(:person)
+    create(:role_appointment, person: person)
+    refute person.destroyable?
+    assert_equal false, person.destroy
+  end
 end

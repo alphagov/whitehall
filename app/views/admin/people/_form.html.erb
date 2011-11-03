@@ -1,0 +1,9 @@
+<%= form_for [:admin, person] do |person_form| %>
+  <%= person_form.errors %>
+
+  <fieldset>
+    <%= person_form.text_field :name %>
+  </fieldset>
+
+  <%= person_form.save_or_cancel cancel: admin_people_path %>
+<% end %>

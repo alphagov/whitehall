@@ -9,4 +9,16 @@ class Person < ActiveRecord::Base
   has_many :organisations, through: :organisation_roles
 
   validates :name, presence: true
+
+  before_destroy :prevent_destruction_if_appointed
+
+  def destroyable?
+    role_appointments.empty?
+  end
+
+  private
+
+  def prevent_destruction_if_appointed
+    return false unless destroyable?
+  end
 end

@@ -1,4 +1,4 @@
-Given /^I am (?:a|an) (writer|editor)(?: called "([^"]*)")?$/ do |role, name|
+Given /^I am (?:a|an) (writer|editor|admin)(?: called "([^"]*)")?$/ do |role, name|
   visit login_path
   if role == "writer"
     fill_in "name", with: name || "Wally Writer"

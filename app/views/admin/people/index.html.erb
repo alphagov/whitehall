@@ -1,0 +1,33 @@
+<section class="resource_list">
+  <div class="collection">
+
+    <nav class="actions">
+      <%= link_to "Create Person", new_admin_person_path, class: "button new_resource", title: "Create a Person" %>
+    </nav>
+
+    <h1>People</h1>
+
+    <table class="people">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @people.each do |person| %>
+          <%= content_tag_for(:tr, person) do %>
+            <td class="name"><%= link_to person.name, edit_admin_person_path(person), title: "Edit person #{person.name}" %></td>
+            <td class="delete">
+              <% if person.destroyable? %>
+                <%= button_to 'delete', admin_person_path(person), method: :delete %>
+              <% else %>
+                <span>Cannot delete</span>
+              <% end %>
+            </td>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
