@@ -20,9 +20,9 @@
       </div>
 
       <div class="state group">
-        <%=navigation_link 'drafts', admin_documents_path %>
-        <%=navigation_link 'submitted', submitted_admin_documents_path %>
-        <%=navigation_link 'published', published_admin_documents_path %>
+        <%= link_to_filter 'drafts', action: :index %>
+        <%= link_to_filter 'submitted', action: :submitted %>
+        <%= link_to_filter 'published', action: :published  %>
       </div>
       
       <div class="type group">
