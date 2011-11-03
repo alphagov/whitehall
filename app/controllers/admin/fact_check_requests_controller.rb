@@ -13,7 +13,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     if @document.deleted?
       render "document_unavailable"
     elsif fact_check_request.save
-      Notifications.fact_check(fact_check_request, current_user, mailer_url_options).deliver
+      Notifications.fact_check(fact_check_request, mailer_url_options).deliver
       notice = "The policy has been sent to #{fact_check_request.email_address}"
       redirect_to admin_document_path(@document), notice: notice
     else

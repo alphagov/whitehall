@@ -77,7 +77,7 @@ Given /^"([^"]*)" has received an email requesting they fact check a draft polic
   policy = create(:draft_policy, title: title)
   supporting_document = create(:supporting_document, document: policy, title: supporting_document_title)
   fact_check_request = create(:fact_check_request, document: policy, email_address: email)
-  Notifications.fact_check(fact_check_request, create(:user), host: "example.com").deliver
+  Notifications.fact_check(fact_check_request, host: "example.com").deliver
 end
 
 When /^I create a new edition of the published policy$/ do

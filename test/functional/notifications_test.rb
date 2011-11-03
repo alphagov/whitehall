@@ -5,9 +5,9 @@ class NotificationsTest < ActionMailer::TestCase
 
   setup do
     @policy = create(:policy)
-    @fact_check_request = create(:fact_check_request, email_address: 'fact-check@example.com', document: @policy)
-    @requester = build(:user)
-    @mail = Notifications.fact_check(@fact_check_request, @requester, host: "example.com")
+    @requestor = create(:fact_check_requestor)
+    @fact_check_request = create(:fact_check_request, email_address: 'fact-check@example.com', document: @policy, requestor: @requestor)
+    @mail = Notifications.fact_check(@fact_check_request, host: "example.com")
   end
 
   test "fact check should be sent to the specified email address" do
@@ -18,8 +18,8 @@ class NotificationsTest < ActionMailer::TestCase
     assert_equal ["fact-check-request@example.com"], @mail.from
   end
 
-  test "fact check subject contains the name of the requester and document title" do
-    assert_equal "Fact checking request from #{@requester.name}: #{@policy.title}", @mail.subject
+  test "fact check subject contains the name of the requestor and document title" do
+    assert_equal "Fact checking request from #{@requestor.name}: #{@policy.title}", @mail.subject
   end
 
   test "fact check email should contain a policy link containing a token" do
@@ -37,8 +37,7 @@ class NotificationsTest < ActionMailer::TestCase
 
   test "fact check request instructions shouldn't be escaped in the body" do
     fact_check_request = create(:fact_check_request, instructions: %{Don't escape "this" text})
-    requester = build(:user)
-    mail = Notifications.fact_check(fact_check_request, requester, host: "example.com")
+    mail = Notifications.fact_check(fact_check_request, host: "example.com")
 
     assert_match /Don't escape "this" text/, mail.body.to_s
   end
@@ -46,8 +45,7 @@ class NotificationsTest < ActionMailer::TestCase
   test "document titles shouldn't be escaped in the body" do
     policy = create(:policy, title: %{Use "double quotes" everywhere})
     fact_check_request = create(:fact_check_request, document: policy)
-    requester = build(:user)
-    mail = Notifications.fact_check(fact_check_request, requester, host: "example.com")
+    mail = Notifications.fact_check(fact_check_request, host: "example.com")
 
     assert_match /Use "double quotes" everywhere/, mail.body.to_s
   end
