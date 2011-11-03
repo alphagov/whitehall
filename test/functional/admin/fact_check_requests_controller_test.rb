@@ -106,6 +106,14 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_select "#supporting_documents .title", "Blah!"
   end
 
+  test "save the fact checkers comment" do
+    fact_check_request = create(:fact_check_request, document: @document)
+    put :update, id: fact_check_request,
+        fact_check_request: {email_address: "fact-checker@example.com", comments: "looks fine to me"}
+    fact_check_request.reload
+    assert_equal "looks fine to me", fact_check_request.comments
+  end
+
   test "redirect to the show page when a fact check has been completed" do
     fact_check_request = create(:fact_check_request, document: @document)
     put :update, id: fact_check_request,
