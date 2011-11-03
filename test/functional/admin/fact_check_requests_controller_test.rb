@@ -144,20 +144,20 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   test "uses host from request in email urls" do
     request.host = "whitehall.example.com"
     post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
-    assert_match Regexp.new(Regexp.escape("http://whitehall.example.com/")), ActionMailer::Base.deliveries.last.body.to_s
+    assert_last_email_body_contains("http://whitehall.example.com/")
   end
 
   test "uses protocol from request in email urls" do
     request.env["HTTPS"] = "on"
     request.host = "whitehall.example.com"
     post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
-    assert_match Regexp.new(Regexp.escape("https://whitehall.example.com/")), ActionMailer::Base.deliveries.last.body.to_s
+    assert_last_email_body_contains("https://whitehall.example.com/")
   end
 
   test "uses port from request in email urls" do
     request.host = "whitehall.example.com:8182"
     post :create, document_id: @document.id, fact_check_request: {email_address: "fact-checker@example.com"}
-    assert_match Regexp.new(Regexp.escape("http://whitehall.example.com:8182/")), ActionMailer::Base.deliveries.last.body.to_s
+    assert_last_email_body_contains("http://whitehall.example.com:8182/")
   end
 
   test "display an informational message when a fact check has been requested" do
@@ -196,4 +196,11 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     post :create, document_id: @document.id, fact_check_request: {email_address: "not-an-email"}
     assert_equal "There was a problem: Email address does not appear to be valid", flash[:alert]
   end
+
+  private
+
+  def assert_last_email_body_contains(text)
+    assert_match Regexp.new(Regexp.escape(text)), ActionMailer::Base.deliveries.last.body.to_s
+  end
+
 end
