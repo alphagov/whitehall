@@ -24,6 +24,11 @@
         <%=navigation_link 'submitted', submitted_admin_documents_path %>
         <%=navigation_link 'published', published_admin_documents_path %>
       </div>
+      
+      <div class="type group">
+        <%= link_to_filter 'written by me', author: current_user %>
+        <%= link_to_filter 'written by everyone', author: nil %>
+      </div>
     </nav>
 
     <table class="documents">

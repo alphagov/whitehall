@@ -83,6 +83,7 @@ class Admin::DocumentsController < Admin::BaseController
 
   def filter_documents(documents)
     documents = documents.by_type(params[:filter].classify) if params[:filter]
+    documents = documents.authored_by(params[:author]) if params[:author]
     documents
   end
 end

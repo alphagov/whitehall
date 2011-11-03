@@ -101,11 +101,6 @@ Then /^the published speech should remain unchanged$/ do
   assert page.has_css?('.document_view .body', text: @speech.body)
 end
 
-Then /^I should see the speech "([^"]*)"$/ do |title|
-  speech = Speech.find_by_title(title)
-  assert has_css?(record_css_selector(speech))
-end
-
 Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |delivered_on, location|
   assert page.has_css?('.document_view .details .delivered_on', text: delivered_on)
   assert page.has_css?('.document_view .details .location', text: location)

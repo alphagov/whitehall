@@ -42,6 +42,10 @@ When /^I visit the list of documents awaiting review$/ do
   visit submitted_admin_documents_path
 end
 
+When /^I select the "([^"]*)" filter$/ do |filter|
+  click_link filter
+end
+
 When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
   document = document_class(document_type).find_by_title(title)
   visit public_document_path(document)
@@ -74,6 +78,14 @@ end
 When /^I edit the (publication|policy|news article|consultation) changing the title to "([^"]*)"$/ do |document_type, new_title|
   fill_in "Title", with: new_title
   click_button "Save"
+end
+
+Then /^I should see (#{THE_DOCUMENT})$/ do |document|
+  assert has_css?(record_css_selector(document))
+end
+
+Then /^I should not see (#{THE_DOCUMENT})$/ do |document|
+  refute has_css?(record_css_selector(document))
 end
 
 Then /^I should see (#{THE_DOCUMENT}) in the list of draft documents$/ do |document|

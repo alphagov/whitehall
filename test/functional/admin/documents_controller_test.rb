@@ -149,4 +149,15 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_select_object(consultation) { assert_select ".type", text: "Consultation" }
     assert_select ".type", text: "Policy", count: 0
   end
+
+  test "should be able to show only documents authored by user when viewing list of documents" do
+    user = create(:policy_writer)
+    authored_policy = create(:draft_policy, author: user)
+    other_policy = create(:draft_policy)
+
+    get :index, author: user
+
+    assert_select_object authored_policy
+    assert_select_object other_policy, count: 0
+  end
 end
