@@ -28,6 +28,10 @@ module ApplicationHelper
     end
   end
 
+  def user_organisation(user)
+    " in #{user.organisation.name}" if user.organisation
+  end
+
   def format_in_paragraphs(string)
     (string || "").split(/(\r?\n){2}/).collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
   end

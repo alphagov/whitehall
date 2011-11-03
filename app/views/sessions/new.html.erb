@@ -1,9 +1,11 @@
 <div class="login-form">
   <h1>Please login</h1>
-  <%= form_tag session_path, html: {method: :post} do %>
+  <%= form_for :session, url: session_path, html: {method: :post} do %>
     <%= label_tag :name, 'What is your name?' %>
     <%= text_field_tag :name %>
     <%= labelled_check_box nil, :departmental_editor, 'I am a departmental editor' %>
+    <%= label_tag :organisation_id, 'Organisation' %>
+    <%= select_tag :organisation_id, options_from_collection_for_select(Organisation.all, 'id', 'name', []), class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
     <%= submit_tag 'Login' %>
   <% end %>
 </div>
