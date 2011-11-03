@@ -13,11 +13,11 @@ class Admin::FactCheckRequestsController < Admin::BaseController
       render "document_unavailable"
     elsif fact_check_request.save
       Notifications.fact_check(fact_check_request, current_user, mailer_url_options).deliver
-      redirect_to admin_document_path(@document),
-        notice: "The policy has been sent to #{params[:fact_check_request][:email_address]}"
+      notice = "The policy has been sent to #{fact_check_request.email_address}"
+      redirect_to admin_document_path(@document), notice: notice
     else
-      redirect_to admin_document_path(@document),
-        alert: "There was a problem: #{fact_check_request.errors.full_messages.to_sentence}"
+      alert = "There was a problem: #{fact_check_request.errors.full_messages.to_sentence}"
+      redirect_to admin_document_path(@document), alert: alert
     end
   end
 
@@ -26,8 +26,8 @@ class Admin::FactCheckRequestsController < Admin::BaseController
 
   def update
     if @fact_check_request.update_attributes(params[:fact_check_request])
-      redirect_to admin_fact_check_request_path(@fact_check_request),
-                  notice: "Your feedback has been saved"
+      notice = "Your feedback has been saved"
+      redirect_to admin_fact_check_request_path(@fact_check_request), notice: notice
     else
       render "document_unavailable"
     end
