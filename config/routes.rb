@@ -19,6 +19,7 @@ Whitehall::Application.routes.draw do
   namespace :admin do
     root to: redirect('/admin/documents')
 
+    resource :user, only: [:show, :edit, :update]
     resources :organisations, only: [:index, :new, :create, :edit, :update]
     resources :topics, only: [:index, :new, :create, :edit, :update, :destroy]
 

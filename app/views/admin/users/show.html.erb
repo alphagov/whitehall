@@ -1,0 +1,14 @@
+<section class="user">
+  <nav class="actions">
+    <%= link_to "Edit", edit_admin_user_path, title: "Edit Settings", class: "button" %>
+  </nav>
+  <div class="user">
+    <h1>Settings</h1>
+
+    <h2>Name</h2>
+    <p class="name"><%= @user.name %></p>
+
+    <h2>Email Address</h2>
+    <p class="email_address"><%= @user.email_address %></p>
+  </div>
+</section>
