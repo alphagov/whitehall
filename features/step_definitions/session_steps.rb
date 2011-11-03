@@ -20,6 +20,14 @@ Given /^I logout$/ do
   click_button "Logout"
 end
 
+When /^I set the email address for "([^"]*)" to "([^"]*)"$/ do |name, email_address|
+  visit admin_root_path
+  click_link name
+  click_link "Edit"
+  fill_in "Email address", with: email_address
+  click_button "Save"
+end
+
 Then /^I should see that I am logged in as a ([^"]*)$/ do |role|
   assert page.has_css?("#session .role", text: role)
 end
@@ -34,4 +42,9 @@ end
 
 Then /^I should see that I am not logged in$/ do
   assert page.has_no_css?("#session .current_user_name")
+end
+
+Then /^I should see my email address is "([^"]*)"$/ do |email_address|
+  visit admin_user_path
+  assert page.has_css?(".user .email_address", text: email_address)
 end

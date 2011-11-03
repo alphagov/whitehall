@@ -2,7 +2,7 @@
   <% if current_user %>
     <p>
       You are logged in as
-      <span class="current_user_name"><%= current_user.name %></span>
+      <span class="current_user_name"><%= link_to current_user.name, admin_user_path %></span>
       <span class="role">(<%= user_role(current_user) %><%= user_organisation(current_user) %>)</span>
     </p>
     <%= button_to "Logout", logout_path, class: 'link' %>
