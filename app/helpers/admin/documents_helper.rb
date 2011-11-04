@@ -6,7 +6,7 @@ module Admin::DocumentsHelper
   end
 
   def link_to_filter(link, options)
-    link_to link, url_for(params.slice('filter', 'author').merge(options)), class: filter_class(options)
+    link_to link, url_for(params.slice('filter', 'author', 'organisation').merge(options)), class: filter_class(options)
   end
 
   def filter_class(options)
