@@ -24,18 +24,18 @@ Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
 end
 
 When /^I visit the "([^"]*)" organisation$/ do |name|
-  organisation = Organisation.find_by_name(name)
+  organisation = Organisation.find_by_name!(name)
   visit organisation_path(organisation)
 end
 
 Then /^I should only see published policies belonging to the "([^"]*)" organisation$/ do |name|
-  organisation = Organisation.find_by_name(name)
+  organisation = Organisation.find_by_name!(name)
   documents = records_from_elements(Document, page.all(".document"))
   assert documents.all? { |document| organisation.documents.published.include?(document) }
 end
 
 Then /^I should see "([^"]*)" has the "([^"]*)" ministerial role$/ do |person_name, role_name|
-  person = Person.find_by_name(person_name)
-  ministerial_role = person.ministerial_roles.find_by_name(role_name)
+  person = Person.find_by_name!(person_name)
+  ministerial_role = person.ministerial_roles.find_by_name!(role_name)
   assert page.has_css?(".ministerial_role", text: ministerial_role.to_s)
 end

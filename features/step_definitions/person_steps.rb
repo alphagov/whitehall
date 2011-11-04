@@ -18,7 +18,7 @@ end
 
 When /^I remove the person "([^"]*)"$/ do |name|
   visit_people_admin
-  person = Person.find_by_name(name)
+  person = Person.find_by_name!(name)
   within(record_css_selector(person)) do
     click_button 'delete'
   end

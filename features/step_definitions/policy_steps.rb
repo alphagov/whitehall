@@ -18,7 +18,7 @@ end
 Given /^a published policy "([^"]*)" that does not apply to the nations:$/ do |policy_title, nation_names|
   policy = create(:published_policy, title: policy_title)
   nation_names.raw.flatten.each do |nation_name|
-    policy.inapplicable_nations << Nation.find_by_name(nation_name)
+    policy.inapplicable_nations << Nation.find_by_name!(nation_name)
   end
 end
 
@@ -97,7 +97,7 @@ When /^I visit the new policy page$/ do
 end
 
 When /^I request that "([^"]*)" fact checks the policy "([^"]*)" with instructions "([^"]*)"$/ do |email, title, instructions|
-  document = Policy.find_by_title(title)
+  document = Policy.find_by_title!(title)
   visit admin_documents_path
   within(record_css_selector(document)) do
     click_link title
@@ -162,19 +162,19 @@ When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" topic$/ do |title,
 end
 
 When /^I publish the policy "([^"]*)" but another user edits it while I am viewing it$/ do |title|
-  document = Policy.find_by_title(title)
+  document = Policy.find_by_title!(title)
   visit_document_preview title
   document.update_attributes!(body: 'A new body')
   click_button "Publish"
 end
 
 When /^I visit the published policy "([^"]*)"$/ do |title|
-  policy = Policy.published.find_by_title(title)
+  policy = Policy.published.find_by_title!(title)
   visit public_document_path(policy)
 end
 
 When /^I delete the draft policy "([^"]*)"$/ do |title|
-  policy = Policy.draft.find_by_title(title)
+  policy = Policy.draft.find_by_title!(title)
   visit admin_document_path(policy)
   click_button "Delete"
 end
@@ -184,7 +184,7 @@ Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
 end
 
 Then /^I should see the pending fact check request to "([^"]*)" for policy "([^"]*)"$/ do |email_address, title|
-  visit admin_policy_path(Policy.find_by_title(title))
+  visit admin_policy_path(Policy.find_by_title!(title))
   assert page.has_css?(".fact_check_request.pending .from", text: email_address)
 end
 
@@ -196,8 +196,8 @@ end
 
 Then /^I should see that those responsible for the policy are:$/ do |table|
   table.hashes.each do |row|
-    person = Person.find_by_name(row["Person"])
-    ministerial_role = person.ministerial_roles.find_by_name(row["Ministerial Role"])
+    person = Person.find_by_name!(row["Person"])
+    ministerial_role = person.ministerial_roles.find_by_name!(row["Ministerial Role"])
     assert page.has_css?(".ministerial_role", text: ministerial_role.to_s)
   end
 end
@@ -216,19 +216,19 @@ Then /^I should see that the policy does not apply to:$/ do |nation_names|
 end
 
 Then /^I should not see "([^"]*)" from the "([^"]*)" policy$/ do |publication_title, policy_title|
-  policy = Policy.find_by_title(policy_title)
+  policy = Policy.find_by_title!(policy_title)
   visit public_document_path(policy)
   refute has_css?("#related-documents .publication a", text: publication_title)
 end
 
 Then /^they should see the draft policy "([^"]*)"$/ do |title|
-  policy = Policy.draft.find_by_title(title)
+  policy = Policy.draft.find_by_title!(title)
   assert page.has_css?('.document_view .title', text: policy.title)
   assert page.has_css?('.document_view .body', text: policy.body)
 end
 
 Then /^they should see the supporting document "([^"]*)"$/ do |title|
-  supporting_document = SupportingDocument.find_by_title(title)
+  supporting_document = SupportingDocument.find_by_title!(title)
   assert page.has_css?('#supporting_documents .document_view .title', text: supporting_document.title)
   assert page.has_css?('#supporting_documents .document_view .body', text: supporting_document.body)
 end
@@ -239,7 +239,7 @@ Then /^I can see links to the related published policies "([^"]*)" and "([^"]*)"
 end
 
 Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |policy_title|
-  policy = Policy.published.find_by_title(policy_title)
+  policy = Policy.published.find_by_title!(policy_title)
   visit admin_document_path(policy)
   assert has_css?(".actions .public_version a", href: public_document_path(policy)), "Link to public version of policy not found"
 end

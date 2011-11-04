@@ -10,14 +10,14 @@ Given /^a published policy "([^"]*)" with supporting documents "([^"]*)" and "([
 end
 
 Given /^I start editing the supporting document "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
-  supporting_document = SupportingDocument.find_by_title(original_title)
+  supporting_document = SupportingDocument.find_by_title!(original_title)
   visit admin_supporting_document_path(supporting_document)
   click_link "Edit"
   fill_in "Title", with: new_title
 end
 
 Given /^another user edits the supporting document "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
-  supporting_document = SupportingDocument.find_by_title(original_title)
+  supporting_document = SupportingDocument.find_by_title!(original_title)
   supporting_document.update_attributes!(title: new_title)
 end
 
@@ -26,7 +26,7 @@ When /^I save my changes to the supporting document$/ do
 end
 
 When /^I edit the supporting document "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
-  supporting_document = SupportingDocument.find_by_title(original_title)
+  supporting_document = SupportingDocument.find_by_title!(original_title)
   visit admin_document_path(supporting_document.document)
   click_link original_title
   click_link "Edit"
@@ -35,7 +35,7 @@ When /^I edit the supporting document "([^"]*)" changing the title to "([^"]*)"$
 end
 
 When /^I add a supporting document "([^"]*)" to the "([^"]*)" policy$/ do |supporting_title, policy_title|
-  policy = Policy.find_by_title(policy_title)
+  policy = Policy.find_by_title!(policy_title)
   visit admin_document_path(policy)
   click_link "Add supporting document"
   fill_in "Title", with: supporting_title
@@ -61,7 +61,7 @@ Then /^I should see in the preview that "([^"]*)" includes the "([^"]*)" support
 end
 
 Then /^I can visit the supporting document "([^"]*)" from the "([^"]*)" policy$/ do |supporting_title, policy_title|
-  policy = Policy.find_by_title(policy_title)
+  policy = Policy.find_by_title!(policy_title)
   visit public_document_path(policy)
   assert has_css?(".supporting_document", text: supporting_title)
   click_link supporting_title
@@ -70,7 +70,7 @@ end
 
 Then /^I should see in the list of draft documents that "([^"]*)" has supporting document "([^"]*)"$/ do |title, supporting_document_title|
   visit admin_documents_path
-  document = Document.find_by_title(title)
+  document = Document.find_by_title!(title)
   within(record_css_selector(document)) do
     assert has_css?(".supporting_documents", text: /#{supporting_document_title}/)
   end

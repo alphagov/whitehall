@@ -1,5 +1,5 @@
 THE_DOCUMENT = Transform(/the (publication|policy|news article|consultation|speech) "([^"]*)"/) do |document_type, title|
-  document = document_class(document_type).find_by_title(title)
+  document = document_class(document_type).find_by_title!(title)
 end
 
 Given /^a draft (publication|policy|news article|consultation|speech) "([^"]*)" exists$/ do |document_type, title|
@@ -7,12 +7,12 @@ Given /^a draft (publication|policy|news article|consultation|speech) "([^"]*)" 
 end
 
 Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
-  topic = Topic.find_by_name(topic_name)
+  topic = Topic.find_by_name!(topic_name)
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
 Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by_name!(organisation_name)
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
 end
 
@@ -21,7 +21,7 @@ Given /^a submitted (publication|policy|news article|consultation|speech) "([^"]
 end
 
 Given /^another user edits the (publication|policy|news article|consultation|speech) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
-  document = document_class(document_type).find_by_title(original_title)
+  document = document_class(document_type).find_by_title!(original_title)
   document.update_attributes!(title: new_title)
 end
 
@@ -52,7 +52,7 @@ When /^I select the "([^"]*)" filter$/ do |filter|
 end
 
 When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
-  document = document_class(document_type).find_by_title(title)
+  document = document_class(document_type).find_by_title!(title)
   visit public_document_path(document)
 end
 
@@ -155,6 +155,6 @@ Then /^I should see the conflict between the (publication|policy|news article|co
 end
 
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|
-  document = Document.find_by_title(title)
+  document = Document.find_by_title!(title)
   assert !document.published?
 end

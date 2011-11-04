@@ -33,7 +33,7 @@ end
 
 Then /^I should be able to delete the topic "([^"]*)"$/ do |name|
   visit admin_topics_path
-  topic = Topic.find_by_name(name)
+  topic = Topic.find_by_name!(name)
   within(record_css_selector(topic)) do
     click_button 'delete'
   end
@@ -59,26 +59,26 @@ When /^I visit the list of topics$/ do
 end
 
 When /^I visit the "([^"]*)" topic$/ do |name|
-  topic = Topic.find_by_name(name)
+  topic = Topic.find_by_name!(name)
   visit topic_path(topic)
 end
 
 Then /^I should only see published policies belonging to the "([^"]*)" topic$/ do |name|
-  topic = Topic.find_by_name(name)
+  topic = Topic.find_by_name!(name)
   documents = records_from_elements(Document, page.all(".document"))
   assert documents.all? { |document| topic.documents.published.include?(document) }
 end
 
 Then /^I should see the topics "([^"]*)" and "([^"]*)"$/ do |first_topic_name, second_topic_name|
-  first_topic = Topic.find_by_name(first_topic_name)
-  second_topic = Topic.find_by_name(second_topic_name)
+  first_topic = Topic.find_by_name!(first_topic_name)
+  second_topic = Topic.find_by_name!(second_topic_name)
   assert page.has_css?(record_css_selector(first_topic), text: first_topic_name)
   assert page.has_css?(record_css_selector(second_topic), text: second_topic_name)
 end
 
 Then /^I should see links to the "([^"]*)" and "([^"]*)" topics$/ do |topic_1_name, topic_2_name|
-  topic_1 = Topic.find_by_name(topic_1_name)
-  topic_2 = Topic.find_by_name(topic_2_name)
+  topic_1 = Topic.find_by_name!(topic_1_name)
+  topic_2 = Topic.find_by_name!(topic_2_name)
   assert page.has_css?("#topics a[href='#{topic_path(topic_1)}']", text: topic_1_name)
   assert page.has_css?("#topics a[href='#{topic_path(topic_2)}']", text: topic_2_name)
 end
