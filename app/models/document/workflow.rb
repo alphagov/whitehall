@@ -7,22 +7,27 @@ module Document::Workflow
 
     default_scope where(%{state <> "deleted"})
     scope :draft, where(state: "draft")
-    scope :unsubmitted, where(state: "draft", submitted: false)
-    scope :submitted, where(state: "draft", submitted: true)
+    scope :unsubmitted, where(state: "draft")
+    scope :submitted, where(state: "submitted")
     scope :published, where(state: "published")
 
     state_machine do
       state :draft
+      state :submitted
       state :published
       state :archived
       state :deleted
 
       event :delete do
-        transitions from: :draft, to: :deleted
+        transitions from: [:draft, :submitted], to: :deleted
+      end
+
+      event :submit do
+        transitions from: :draft, to: :submitted
       end
 
       event :publish, success: :archive_previous_documents do
-        transitions from: :draft, to: :published
+        transitions from: [:draft, :submitted], to: :published
       end
 
       event :archive do
@@ -42,7 +47,7 @@ module Document::Workflow
 
   class DocumentHasNoUnpublishedDocumentsValidator < ActiveModel::Validator
     def validate(record)
-      if record.document_identity && record.document_identity.documents.draft.any?
+      if record.document_identity && (record.document_identity.documents.draft.any? || record.document_identity.documents.submitted.any?)
         record.errors.add(:base, "There is already an active draft for this document")
       end
     end

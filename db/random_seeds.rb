@@ -14,13 +14,13 @@ def create_draft(type, attributes = {})
 end
 
 def create_submitted(type, attributes = {})
-  document = create_document(type, attributes.merge(submitted: true))
+  document = create_document(type, attributes.merge(state: "submitted"))
   document.fact_check_requests.create email_address: Faker::Internet.email, comments: Faker::Lorem.paragraph
   document
 end
 
 def create_published(type, attributes = {})
-  create_document(type, attributes.merge(submitted: true, state: "published"))
+  create_document(type, attributes.merge(state: "published"))
 end
 
 def create_supporting(document, attributes={})

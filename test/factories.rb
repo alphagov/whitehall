@@ -13,7 +13,7 @@ FactoryGirl.define do
   end
 
   factory :submitted_document, parent: :draft_document do
-    submitted true
+    state "submitted"
   end
 
   factory :published_document, parent: :document do
@@ -80,7 +80,6 @@ FactoryGirl.define do
 
   factory :published_policy, parent: :policy do
     state "published"
-    submitted true
   end
 
   factory :draft_policy, parent: :policy do
@@ -93,17 +92,14 @@ FactoryGirl.define do
 
   factory :archived_policy, parent: :policy do
     state "archived"
-    submitted true
   end
 
   factory :submitted_policy, parent: :policy do
-    state "draft"
-    submitted true
+    state "submitted"
   end
 
   factory :published_publication, parent: :publication do
     state "published"
-    submitted true
   end
 
   factory :draft_publication, parent: :publication do
@@ -112,12 +108,10 @@ FactoryGirl.define do
 
   factory :archived_publication, parent: :publication do
     state "archived"
-    submitted true
   end
 
   factory :submitted_publication, parent: :publication do
-    state "draft"
-    submitted true
+    state "submitted"
   end
 
   factory :draft_news_article, parent: :news_article do
@@ -125,18 +119,15 @@ FactoryGirl.define do
   end
 
   factory :submitted_news_article, parent: :news_article do
-    state "draft"
-    submitted true
+    state "submitted"
   end
 
   factory :published_news_article, parent: :news_article do
     state "published"
-    submitted true
   end
 
   factory :archived_news_article, parent: :news_article do
     state "archived"
-    submitted true
   end
 
   factory :draft_consultation, parent: :consultation do
@@ -144,18 +135,15 @@ FactoryGirl.define do
   end
 
   factory :submitted_consultation, parent: :consultation do
-    state "draft"
-    submitted true
+    state "submitted"
   end
 
   factory :published_consultation, parent: :consultation do
     state "published"
-    submitted true
   end
 
   factory :archived_consultation, parent: :consultation do
     state "archived"
-    submitted true
   end
 
   factory :draft_speech, parent: :speech do
@@ -163,18 +151,15 @@ FactoryGirl.define do
   end
 
   factory :submitted_speech, parent: :speech do
-    state "draft"
-    submitted true
+    state "submitted"
   end
 
   factory :published_speech, parent: :speech do
     state "published"
-    submitted true
   end
 
   factory :archived_speech, parent: :speech do
     state "archived"
-    submitted true
   end
 
   factory :fact_check_request do

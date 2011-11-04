@@ -72,8 +72,8 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def destroy
-    @document.delete!
     redirect_path = @document.submitted? ? submitted_admin_documents_path : admin_documents_path
+    @document.delete!
     redirect_to redirect_path, notice: "The document '#{@document.title}' has been deleted"
   end
 

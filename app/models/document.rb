@@ -42,14 +42,13 @@ class Document < ActiveRecord::Base
   end
 
   def submit_as(user)
-    update_attribute(:submitted, true)
+    submit!
   end
 
   def create_draft(user)
     draft_attributes = {
       state: "draft",
       author: user,
-      submitted: false,
       organisations: organisations
     }
     draft_attributes[:topics] = topics if can_be_associated_with_topics?
@@ -74,8 +73,7 @@ class Document < ActiveRecord::Base
   end
 
   def title_with_state
-    state_string = (draft? && submitted?) ? 'submitted' : state
-    "#{title} (#{state_string})"
+    "#{title} (#{state})"
   end
 
   class << self

@@ -27,9 +27,15 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.valid?
   end
 
-  test "should be invalid if document identity has existing unpublished documents" do
+  test "should be invalid if document identity has existing draft documents" do
     draft_document = create(:draft_document)
     document = build(:document, document_identity: draft_document.document_identity)
+    refute document.valid?
+  end
+
+  test "should be invalid if document identity has existing submitted documents" do
+    submitted_document = create(:submitted_document)
+    document = build(:document, document_identity: submitted_document.document_identity)
     refute document.valid?
   end
 
@@ -197,9 +203,34 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [submitted_document], Document.submitted
   end
 
+  test "should be deletable if a draft" do
+    draft_document = create(:draft_document)
+    assert draft_document.deletable?
+  end
+
+  test "should be deletable if submitted" do
+    submitted_document = create(:submitted_document)
+    assert submitted_document.deletable?
+  end
+
+  test "should not be deletable if published" do
+    published_document = create(:published_document)
+    refute published_document.deletable?
+  end
+
+  test "should not be deletable if archived" do
+    archived_document = create(:archived_document)
+    refute archived_document.deletable?
+  end
+
   test "should be editable if a draft" do
     draft_document = create(:draft_document)
     assert draft_document.editable?
+  end
+
+  test "should be editable if submitted" do
+    submitted_document = create(:submitted_document)
+    assert submitted_document.editable?
   end
 
   test "should not be editable if published" do
@@ -212,7 +243,7 @@ class DocumentTest < ActiveSupport::TestCase
     refute archived_document.editable?
   end
 
-  test "should be submittable if draft and not submitted" do
+  test "should be submittable if draft" do
     draft_document = create(:draft_document)
     assert draft_document.submittable?
   end
@@ -227,7 +258,7 @@ class DocumentTest < ActiveSupport::TestCase
     refute published_document.submittable?
   end
 
-  test "not be archived if archived" do
+  test "not be submittable if archived" do
     archived_document = create(:archived_document)
     refute archived_document.submittable?
   end
@@ -310,7 +341,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "when submitted" do
     document = create(:submitted_document)
-    assert document.draft?
+    refute document.draft?
     assert document.submitted?
     refute document.published?
   end
@@ -373,10 +404,34 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal types.map {|t| create(t) }, Document.by_type('Speech')
   end
 
+  test "submitting a draft document transitions it into the submitted state" do
+    draft_document = create(:draft_document)
+    draft_document.submit!
+    assert draft_document.submitted?
+  end
+
+  test "should prevent a published document being submitted" do
+    published_document = create(:published_document)
+    published_document.submit! rescue nil
+    refute published_document.submitted?
+  end
+
+  test "should prevent an archived document being submitted" do
+    archived_document = create(:archived_document)
+    archived_document.submit! rescue nil
+    refute archived_document.submitted?
+  end
+
   test "deleting a draft document transitions it into the deleted state" do
     draft_document = create(:draft_document)
     draft_document.delete!
     assert draft_document.deleted?
+  end
+
+  test "deleting a submitted document transitions it into the deleted state" do
+    submitted_document = create(:submitted_document)
+    submitted_document.delete!
+    assert submitted_document.deleted?
   end
 
   test "should prevent a published document being deleted" do
@@ -394,5 +449,23 @@ class DocumentTest < ActiveSupport::TestCase
   test "should not find deleted documents by default" do
     deleted_document = create(:deleted_document)
     assert_nil Document.find_by_id(deleted_document.id)
+  end
+
+  test "publishing a draft document transitions it into the published state" do
+    draft_document = create(:draft_document)
+    draft_document.publish!
+    assert draft_document.published?
+  end
+
+  test "publishing a submitted document transitions it into the published state" do
+    submitted_document = create(:submitted_document)
+    submitted_document.publish!
+    assert submitted_document.published?
+  end
+
+  test "should prevent an archived document being published" do
+    archived_document = create(:archived_document)
+    archived_document.publish! rescue nil
+    refute archived_document.published?
   end
 end
