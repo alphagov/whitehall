@@ -1,11 +1,19 @@
 <section class="resource_list">
-  <nav class="actions">
-    <%= link_to "Create Policy", new_admin_policy_path, class: "button new_resource", title: "Draft a Policy" %>
-    <%= link_to "Create Publication", new_admin_publication_path, class: "button new_resource", title: "Draft a Publication" %>
-    <%= link_to "Create News Article", new_admin_news_article_path, class: "button new_resource", title: "Draft a News article" %>
-    <%= link_to "Create Consultation", new_admin_consultation_path, class: "button new_resource", title: "Draft a Consultation" %>
-    <%= link_to "Create Speech", new_admin_speech_path, class: "button new_resource", title: "Draft a Speech" %>
-  </nav>
+  <div class="group">
+    <nav class="actions create_buttons">
+      <%= link_to "Create Policy", new_admin_policy_path, class: "button new_resource", title: "Draft a Policy" %>
+      <%= link_to "Create Publication", new_admin_publication_path, class: "button new_resource", title: "Draft a Publication" %>
+      <%= link_to "Create News Article", new_admin_news_article_path, class: "button new_resource", title: "Draft a News article" %>
+      <%= link_to "Create Consultation", new_admin_consultation_path, class: "button new_resource", title: "Draft a Consultation" %>
+      <%= link_to "Create Speech", new_admin_speech_path, class: "button new_resource", title: "Draft a Speech" %>
+    </nav>
+
+    <nav class="author_scope group">
+      <%= link_to_filter('by everyone', author: nil, organisation: nil) %>
+      <%= link_to_filter('by my department', author: nil, organisation: current_user.organisation) %>
+      <%= link_to_filter('by me', author: current_user, organisation: nil) %>
+    </nav>
+  </div>
 
   <div class="collection">
 
@@ -23,12 +31,6 @@
         <%= link_to_filter 'drafts', action: :unsubmitted %>
         <%= link_to_filter 'submitted', action: :submitted %>
         <%= link_to_filter 'published', action: :published  %>
-      </div>
-      
-      <div class="type group">
-        <%= link_to_filter('by everyone', author: nil, organisation: nil) %>
-        <%= link_to_filter('by my department', author: nil, organisation: current_user.organisation) %>
-        <%= link_to_filter('by me', author: current_user, organisation: nil) %>
       </div>
     </nav>
 

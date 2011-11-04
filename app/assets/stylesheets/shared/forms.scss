@@ -84,6 +84,10 @@ form {
     font-weight: bold;
     @include type-14;
     margin-bottom: 0;
+
+    input[type="checkbox"] {
+      margin-right: 0.5em;
+    }
   }
 
   select {
@@ -139,27 +143,29 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-  background: #eee; /* Old browsers */
-  background: #eee -moz-linear-gradient(top, rgba(255,255,255,.2) 0%, rgba(0,0,0,.2) 100%); /* FF3.6+ */
-  background: #eee -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.2)), color-stop(100%,rgba(0,0,0,.2))); /* Chrome,Safari4+ */
-  background: #eee -webkit-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* Chrome10+,Safari5.1+ */
-  background: #eee -o-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* Opera11.10+ */
-  background: #eee -ms-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* IE10+ */
-  background: #eee linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* W3C */
-  border: 1px solid #aaa;
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  padding: 4px 12px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  color: #444;
+  background-color: #ffffff;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(239, 239, 239)));
+  background-image: -webkit-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
+  background-image: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
+  background-image: -o-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
+  background-image: -ms-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
+  background-image: linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#efefef');
+
+  border: 1px solid #ddd;
+  border-bottom: 1px solid #aaa;
+  border-top: 1px solid #e5e5e5;
+
+  padding: 0.35em 0.75em;
+  @include rounded(6px);
+
+  color: #777;
   display: inline-block;
   font-weight: bold;
   text-decoration: none;
   text-shadow: 0 1px rgba(255, 255, 255, .75);
   cursor: pointer;
-
+  @include transition(background);
   @include type-16;
 }
 
@@ -168,17 +174,18 @@ button:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover,
 input[type="button"]:hover {
-  color: #222;
-  background: #ddd; /* Old browsers */
-  background: #ddd -moz-linear-gradient(top, rgba(255,255,255,.3) 0%, rgba(0,0,0,.3) 100%); /* FF3.6+ */
-  background: #ddd -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.3)), color-stop(100%,rgba(0,0,0,.3))); /* Chrome,Safari4+ */
-  background: #ddd -webkit-linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* Chrome10+,Safari5.1+ */
-  background: #ddd -o-linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* Opera11.10+ */
-  background: #ddd -ms-linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* IE10+ */
-  background: #ddd linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* W3C */
-  border: 1px solid #888;
-  border-top: 1px solid #aaa;
-  border-left: 1px solid #aaa;
+  color: #666;
+  background-color: #fafdff;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(250, 253, 255)), to(rgb(216, 237, 255)));
+  background-image: -webkit-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
+  background-image: -moz-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
+  background-image: -o-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
+  background-image: -ms-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
+  background-image: linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafdff', EndColorStr='#d8edff');
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #999;
+  border-top: 1px solid #ddd;
 }
 
 a.button:active,
@@ -186,14 +193,15 @@ button:active,
 input[type="submit"]:active,
 input[type="reset"]:active,
 input[type="button"]:active {
-  border: 1px solid #666;
-  background: #ccc; /* Old browsers */
-  background: #ccc -moz-linear-gradient(top, rgba(255,255,255,.35) 0%, rgba(10,10,10,.4) 100%); /* FF3.6+ */
-  background: #ccc -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.35)), color-stop(100%,rgba(10,10,10,.4))); /* Chrome,Safari4+ */
-  background: #ccc -webkit-linear-gradient(top, rgba(255,255,255,.35) 0%,rgba(10,10,10,.4) 100%); /* Chrome10+,Safari5.1+ */
-  background: #ccc -o-linear-gradient(top, rgba(255,255,255,.35) 0%,rgba(10,10,10,.4) 100%); /* Opera11.10+ */
-  background: #ccc -ms-linear-gradient(top, rgba(255,255,255,.35) 0%,rgba(10,10,10,.4) 100%); /* IE10+ */
-  background: #ccc linear-gradient(top, rgba(255,255,255,.35) 0%,rgba(10,10,10,.4) 100%); /* W3C */
+  border: 1px solid #999;
+  background-color: #fafdff;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(250, 253, 255)), to(rgb(182, 221, 255)));
+  background-image: -webkit-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
+  background-image: -moz-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
+  background-image: -o-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
+  background-image: -ms-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
+  background-image: linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafdff', EndColorStr='#b6ddff');
 }
 
 .button.full-width,
