@@ -23,10 +23,10 @@
   <body class="admin">
     <header class="cf masthead">
       <nav>
-        <%= link_to "Documents", logged_in? ? admin_documents_path : login_path %>
-        <%= link_to "Organisations", logged_in? ? admin_organisations_path : login_path %>
-        <%= link_to "Topics", logged_in? ? admin_topics_path : login_path %>
-        <%= link_to "People", logged_in? ? admin_people_path : login_path %>
+        <%= admin_documents_header_link %>
+        <%= admin_organisations_header_link %>
+        <%= admin_topics_header_link %>
+        <%= admin_people_header_link %>
         <%= link_to "Government Website", root_path %>
       </nav>
       <%= render partial: "shared/session" if show_session_controls? %>
