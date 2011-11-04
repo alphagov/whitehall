@@ -83,3 +83,9 @@ Scenario: Deleting a draft policy that has not been published
   Given a draft policy "Outlaw All Body Hair" exists
   When I delete the draft policy "Outlaw All Body Hair"
   Then I should not see the policy "Outlaw All Body Hair" in the list of draft documents
+
+Scenario: Editing a draft policy that's been submitted to a second pair of eyes
+  Given a submitted policy titled "The policy"
+  And I am an editor
+  When I edit the policy "The policy" changing the title to "The new policy"
+  Then I should see the policy "The new policy" in the list of submitted documents

@@ -80,6 +80,10 @@ Given /^"([^"]*)" has received an email requesting they fact check a draft polic
   Notifications.fact_check(fact_check_request, host: "example.com").deliver
 end
 
+Given /^a submitted policy titled "([^"]*)"$/ do |policy_title|
+  create(:submitted_policy, title: policy_title)
+end
+
 When /^I create a new edition of the published policy$/ do
   visit published_admin_documents_path
   click_link Policy.published.last.title
