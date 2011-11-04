@@ -64,7 +64,7 @@
         <% end %>
         <% if documents.blank? %>
           <tr>
-            <td colspan="3">No <%= (params[:filter].present? ? params[:filter].humanize.pluralize.downcase : 'documents') %> have been <%= empty_documents_list_verb(document_state) %>.</td>
+            <td colspan="4">No <%= (params[:filter].present? ? params[:filter].humanize.pluralize.downcase : 'documents') %> have been <%= empty_documents_list_verb(document_state) %>.</td>
           </tr>
         <% end %>
       </tbody>
