@@ -52,4 +52,16 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     delete :destroy, id: person.id
     assert_equal "Cannot destroy a person with appointments", flash[:alert]
   end
+
+  test "lists people by ordered name" do
+    person_b = create(:person, name: "B")
+    person_a = create(:person, name: "A")
+    person_c = create(:person, name: "C")
+
+    get :index
+
+    assert_select ".people tr.person:nth-of-type(1)", text: "A"
+    assert_select ".people tr.person:nth-of-type(2)", text: "B"
+    assert_select ".people tr.person:nth-of-type(3)", text: "C"
+  end
 end
