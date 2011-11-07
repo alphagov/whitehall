@@ -210,60 +210,6 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [submitted_document], Document.submitted
   end
 
-  [:draft, :submitted, :rejected].each do |state|
-    test "should be deletable if #{state}" do
-      document = create("#{state}_document")
-      assert document.deletable?
-    end
-  end
-
-  [:published, :archived, :deleted].each do |state|
-    test "should not be deletable if #{state}" do
-      document = create("#{state}_document")
-      refute document.deletable?
-    end
-  end
-
-  [:draft, :submitted, :rejected].each do |state|
-    test "should be editable if #{state}" do
-      document = create("#{state}_document")
-      assert document.editable?
-    end
-  end
-
-  [:published, :archived, :deleted].each do |state|
-    test "should not be editable if #{state}" do
-      document = create("#{state}_document")
-      refute document.editable?
-    end
-  end
-
-  [:draft, :rejected].each do |state|
-    test "should be submittable if #{state}" do
-      document = create("#{state}_document")
-      assert document.submittable?
-    end
-  end
-
-  [:submitted, :published, :archived, :deleted].each do |state|
-    test "should not be submittable if #{state}" do
-      document = create("#{state}_document")
-      refute document.submittable?
-    end
-  end
-
-  test "should be rejectable if submitted" do
-    document = create(:submitted_document)
-    assert document.rejectable?
-  end
-
-  [:draft, :rejected, :published, :archived, :deleted].each do |state|
-    test "should not be rejectable if #{state}" do
-      document = create("#{state}_document")
-      refute document.rejectable?
-    end
-  end
-
   test "should not be publishable when not submitted" do
     draft_document = create(:draft_document)
     refute draft_document.publishable_by?(create(:departmental_editor))
@@ -405,10 +351,36 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal types.map {|t| create(t) }, Document.by_type('Speech')
   end
 
+  [:draft, :submitted, :rejected].each do |state|
+    test "should be editable if #{state}" do
+      document = create("#{state}_document")
+      assert document.editable?
+    end
+  end
+
+  [:published, :archived, :deleted].each do |state|
+    test "should not be editable if #{state}" do
+      document = create("#{state}_document")
+      refute document.editable?
+    end
+  end
+
+  test "should be rejectable if submitted" do
+    document = create(:submitted_document)
+    assert document.rejectable?
+  end
+
   test "rejecting a submitted document transitions it into the rejected state" do
     submitted_document = create(:submitted_document)
     submitted_document.reject!
     assert submitted_document.rejected?
+  end
+
+  [:draft, :rejected, :published, :archived, :deleted].each do |state|
+    test "should not be rejectable if #{state}" do
+      document = create("#{state}_document")
+      refute document.rejectable?
+    end
   end
 
   [:draft, :published, :archived, :deleted].each do |state|
@@ -420,10 +392,24 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   [:draft, :rejected].each do |state|
+    test "should be submittable if #{state}" do
+      document = create("#{state}_document")
+      assert document.submittable?
+    end
+  end
+
+  [:draft, :rejected].each do |state|
     test "submitting a #{state} document transitions it into the submitted state" do
       document = create("#{state}_document")
       document.submit!
       assert document.submitted?
+    end
+  end
+
+  [:submitted, :published, :archived, :deleted].each do |state|
+    test "should not be submittable if #{state}" do
+      document = create("#{state}_document")
+      refute document.submittable?
     end
   end
 
@@ -436,10 +422,24 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   [:draft, :submitted, :rejected].each do |state|
+    test "should be deletable if #{state}" do
+      document = create("#{state}_document")
+      assert document.deletable?
+    end
+  end
+
+  [:draft, :submitted, :rejected].each do |state|
     test "deleting a #{state} document transitions it into the deleted state" do
       document = create("#{state}_document")
       document.delete!
       assert document.deleted?
+    end
+  end
+
+  [:published, :archived, :deleted].each do |state|
+    test "should not be deletable if #{state}" do
+      document = create("#{state}_document")
+      refute document.deletable?
     end
   end
 
