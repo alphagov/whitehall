@@ -88,5 +88,9 @@ class Document < ActiveRecord::Base
     def related_to(document)
       where(id: document.related_documents.collect(&:id))
     end
+
+    def newest_first
+      order('created_at desc')
+    end
   end
 end

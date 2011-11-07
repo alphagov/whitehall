@@ -191,6 +191,13 @@ class DocumentTest < ActiveSupport::TestCase
     refute Policy.authored_by(publication.author).include?(publication)
   end
 
+  test ".newest_first orders by creation date descending" do
+    policy = create(:policy, created_at: 2.hours.ago)
+    publication = create(:publication, created_at: 4.hours.ago)
+    article = create(:news_article, created_at: 1.hour.ago)
+    assert_equal [article, policy, publication], Document.newest_first
+  end
+
   test "should only return the submitted documents" do
     draft_document = create(:draft_document)
     submitted_document = create(:submitted_document)
