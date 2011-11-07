@@ -451,11 +451,6 @@ class DocumentTest < ActiveSupport::TestCase
     end
   end
 
-  test "should not find deleted documents by default" do
-    deleted_document = create(:deleted_document)
-    assert_nil Document.find_by_id(deleted_document.id)
-  end
-
   [:draft, :submitted].each do |state|
     test "publishing a #{state} document transitions it into the published state" do
       document = create("#{state}_document")
@@ -470,5 +465,10 @@ class DocumentTest < ActiveSupport::TestCase
       document.publish! rescue nil
       refute document.published?
     end
+  end
+
+  test "should not find deleted documents by default" do
+    deleted_document = create(:deleted_document)
+    assert_nil Document.find_by_id(deleted_document.id)
   end
 end
