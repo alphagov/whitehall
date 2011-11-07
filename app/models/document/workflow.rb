@@ -7,7 +7,6 @@ module Document::Workflow
 
     default_scope where(%{state <> "deleted"})
     scope :draft, where(state: "draft")
-    scope :unsubmitted, where(state: "draft")
     scope :submitted, where(state: "submitted")
     scope :published, where(state: "published")
 

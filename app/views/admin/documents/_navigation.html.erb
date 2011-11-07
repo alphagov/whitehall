@@ -19,7 +19,7 @@
     <% if document.submitted? %>
       <%= link_to 'submitted documents', submitted_admin_documents_path %>
     <% elsif document.draft? %>
-      <%= link_to 'draft documents', unsubmitted_admin_documents_path %>
+      <%= link_to 'draft documents', draft_admin_documents_path %>
     <% elsif document.published? %>
       <%= link_to 'published documents', published_admin_documents_path %>
     <% end %>

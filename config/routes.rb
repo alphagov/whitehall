@@ -25,7 +25,7 @@ Whitehall::Application.routes.draw do
 
     resources :documents, only: [:index] do
       collection do
-        get :unsubmitted
+        get :draft
         get :submitted
         get :published
       end

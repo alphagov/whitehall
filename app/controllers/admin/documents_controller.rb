@@ -1,18 +1,18 @@
 class Admin::DocumentsController < Admin::BaseController
   before_filter :find_document, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check, :destroy]
   before_filter :build_document, only: [:new]
-  before_filter :remember_filters, only: [:unsubmitted, :submitted, :published]
+  before_filter :remember_filters, only: [:draft, :submitted, :published]
 
   def index
     if session[:document_filters]
       redirect_to session[:document_filters]
     else
-      redirect_to action: :unsubmitted
+      redirect_to action: :draft
     end
   end
 
-  def unsubmitted
-    @documents = filter_documents(document_class.unsubmitted)
+  def draft
+    @documents = filter_documents(document_class.draft)
     render action: :index
   end
 

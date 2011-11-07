@@ -191,12 +191,6 @@ class DocumentTest < ActiveSupport::TestCase
     refute Policy.authored_by(publication.author).include?(publication)
   end
 
-  test "should only return unsubmitted draft documents" do
-    draft_document = create(:draft_document)
-    submitted_document = create(:submitted_document)
-    assert_equal [draft_document], Document.unsubmitted
-  end
-
   test "should only return the submitted documents" do
     draft_document = create(:draft_document)
     submitted_document = create(:submitted_document)

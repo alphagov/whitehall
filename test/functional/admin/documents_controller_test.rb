@@ -12,7 +12,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test 'should distinguish between document types when viewing the list of draft documents' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    get :unsubmitted
+    get :draft
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
@@ -21,7 +21,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should order by most recently updated" do
     policy = create(:draft_policy, updated_at: 3.days.ago)
     newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
-    get :unsubmitted
+    get :draft
 
     assert_equal [newer_policy, policy], assigns(:documents)
   end
@@ -105,7 +105,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by policies when viewing list of documents" do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    get :unsubmitted, filter: 'policy'
+    get :draft, filter: 'policy'
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
     assert_select ".type", text: "Publication", count: 0
@@ -114,7 +114,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by publications when viewing list of documents" do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    get :unsubmitted, filter: 'publication'
+    get :draft, filter: 'publication'
 
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
     assert_select ".type", text: "Policy", count: 0
@@ -131,7 +131,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     ]
     instances_of_each_speech_type = speech_types.map {|t| create(t) }
 
-    get :unsubmitted, filter: 'speech'
+    get :draft, filter: 'speech'
 
     instances_of_each_speech_type.each do |speech|
       assert_select_object(speech) { assert_select ".type", text: speech.type.titleize }
@@ -143,7 +143,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by news articles when viewing list of documents" do
     policy = create(:draft_policy)
     news = create(:news_article)
-    get :unsubmitted, filter: 'news_article'
+    get :draft, filter: 'news_article'
 
     assert_select_object(news) { assert_select ".type", text: "News Article" }
     assert_select ".type", text: "Policy", count: 0
@@ -152,7 +152,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by consultations when viewing list of documents" do
     policy = create(:draft_policy)
     consultation = create(:consultation)
-    get :unsubmitted, filter: 'consultation'
+    get :draft, filter: 'consultation'
 
     assert_select_object(consultation) { assert_select ".type", text: "Consultation" }
     assert_select ".type", text: "Policy", count: 0
@@ -163,7 +163,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     authored_policy = create(:draft_policy, author: user)
     other_policy = create(:draft_policy)
 
-    get :unsubmitted, author: user
+    get :draft, author: user
 
     assert_select_object authored_policy
     assert_select_object other_policy, count: 0
@@ -176,31 +176,31 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     policy_in_organisation = create(:draft_policy, organisations: [organisation])
     other_policy = create(:draft_policy, organisations: [create(:organisation)])
 
-    get :unsubmitted, organisation: organisation
+    get :draft, organisation: organisation
 
     assert_select_object policy_in_organisation
     assert_select_object other_policy, count: 0
   end
 
   test "should remember standard filter options" do
-    get :unsubmitted, filter: 'consultation'
+    get :draft, filter: 'consultation'
     assert_equal 'consultation', session[:document_filters][:filter]
   end
 
   test "should remember author filter options" do
-    get :unsubmitted, author: @user
+    get :draft, author: @user
     assert_equal @user.to_param, session[:document_filters][:author]
   end
 
   test "should remember organisation filter options" do
     organisation = create(:organisation)
-    get :unsubmitted, organisation: organisation
+    get :draft, organisation: organisation
     assert_equal organisation.to_param, session[:document_filters][:organisation]
   end
 
   test "should remember state filter options" do
-    get :unsubmitted
-    assert_equal 'unsubmitted', session[:document_filters][:action]
+    get :draft
+    assert_equal 'draft', session[:document_filters][:action]
   end
 
   test "index should redirect to remembered filtered options if available" do
@@ -210,8 +210,8 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_redirected_to submitted_admin_documents_path(author: @user, organisation: organisation)
   end
 
-  test "index should redirect to unsubmitted if filtered options not available" do
+  test "index should redirect to drafts if filtered options not available" do
     get :index
-    assert_redirected_to unsubmitted_admin_documents_path
+    assert_redirected_to draft_admin_documents_path
   end
 end
