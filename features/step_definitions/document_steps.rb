@@ -114,7 +114,12 @@ Then /^I should not see the policy "([^"]*)" in the list of draft documents$/ do
 end
 
 Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
-  visit documents_path
+  case document
+  when Publication
+    visit publications_path
+  else
+    visit documents_path
+  end
   assert page.has_css?(record_css_selector(document), text: document.title)
 end
 
