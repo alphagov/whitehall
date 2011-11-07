@@ -9,6 +9,8 @@ class Admin::DocumentsController < Admin::BaseController
     else
       redirect_to action: :draft
     end
+  rescue ActionController::RoutingError => e
+    redirect_to action: :draft
   end
 
   def draft

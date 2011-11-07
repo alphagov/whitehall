@@ -214,4 +214,10 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to draft_admin_documents_path
   end
+
+  test "index should redirect to drafts if filtered options don't form a route" do
+    session[:document_filters] = { action: :unknown }
+    get :index
+    assert_redirected_to draft_admin_documents_path
+  end
 end
