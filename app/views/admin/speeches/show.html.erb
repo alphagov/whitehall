@@ -1,6 +1,7 @@
 <div class="g2 first">
   <section class="document">
     <%= render partial: 'navigation', locals: { document: @document } %>
+    <%= render partial: "rejected_by", locals: { document: @document } %>
 
     <article class="document_view">
       <h1 class="title"><%= @document.title %></h1>
@@ -12,4 +13,6 @@
     </article>
 
   </section>
+
+  <%= render partial: "editorial_remarks", locals: { document: @document } %>
 </div>

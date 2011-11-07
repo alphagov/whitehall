@@ -16,6 +16,10 @@ FactoryGirl.define do
     state "submitted"
   end
 
+  factory :rejected_document, parent: :document do
+    state "rejected"
+  end
+
   factory :published_document, parent: :document do
     state "published"
   end
@@ -32,6 +36,10 @@ FactoryGirl.define do
     author
     title "policy-title"
     body  "policy-body"
+  end
+
+  factory :rejected_policy, parent: :policy do
+    state "rejected"
   end
 
   factory :publication do
@@ -114,12 +122,20 @@ FactoryGirl.define do
     state "submitted"
   end
 
+  factory :rejected_publication, parent: :publication do
+    state "rejected"
+  end
+
   factory :draft_news_article, parent: :news_article do
     state "draft"
   end
 
   factory :submitted_news_article, parent: :news_article do
     state "submitted"
+  end
+
+  factory :rejected_news_article, parent: :news_article do
+    state "rejected"
   end
 
   factory :published_news_article, parent: :news_article do
@@ -138,6 +154,10 @@ FactoryGirl.define do
     state "submitted"
   end
 
+  factory :rejected_consultation, parent: :consultation do
+    state "rejected"
+  end
+
   factory :published_consultation, parent: :consultation do
     state "published"
   end
@@ -152,6 +172,10 @@ FactoryGirl.define do
 
   factory :submitted_speech, parent: :speech do
     state "submitted"
+  end
+
+  factory :rejected_speech, parent: :speech do
+    state "rejected"
   end
 
   factory :published_speech, parent: :speech do
@@ -223,5 +247,11 @@ FactoryGirl.define do
   end
 
   factory :nation_inapplicability do
+  end
+
+  factory :editorial_remark do
+    document
+    author
+    body "editorial-remark-body"
   end
 end

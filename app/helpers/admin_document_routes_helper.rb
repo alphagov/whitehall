@@ -14,6 +14,7 @@ module AdminDocumentRoutesHelper
 
   document_instance_route :admin_document_fact_check_requests_path
   document_instance_route :admin_document_supporting_documents_path
+  document_instance_route :admin_document_editorial_remarks_path
 
   def admin_document_path(document, *args)
     if document.is_a?(Speech)

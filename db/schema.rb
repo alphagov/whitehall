@@ -80,6 +80,14 @@ ActiveRecord::Schema.define(:version => 20111107145034) do
     t.datetime "published_at"
   end
 
+  create_table "editorial_remarks", :force => true do |t|
+    t.text     "body"
+    t.integer  "document_id"
+    t.integer  "author_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "fact_check_requests", :force => true do |t|
     t.integer  "document_id"
     t.string   "key"

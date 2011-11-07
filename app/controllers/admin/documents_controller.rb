@@ -24,6 +24,10 @@ class Admin::DocumentsController < Admin::BaseController
     @documents = filter_documents(document_class.published)
   end
 
+  def rejected
+    @documents = filter_documents(document_class.rejected)
+  end
+
   def new
   end
 

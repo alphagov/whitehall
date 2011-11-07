@@ -2,14 +2,18 @@ module Document::AccessControl
   extend ActiveSupport::Concern
 
   def deletable?
-    draft? || submitted?
+    draft? || submitted? || rejected?
   end
 
   def editable?
-    draft? || submitted?
+    draft? || submitted? || rejected?
   end
 
   def submittable?
-    draft?
+    draft? || rejected?
+  end
+  
+  def rejectable?
+    submitted?
   end
 end

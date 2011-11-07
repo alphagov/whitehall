@@ -1,3 +1,7 @@
+Given /^a submitted policy titled "([^"]*)"$/ do |policy_title|
+  create(:submitted_policy, title: policy_title)
+end
+
 Given /^I am on the policies admin page$/ do
   visit admin_documents_path
 end
@@ -80,8 +84,18 @@ Given /^"([^"]*)" has received an email requesting they fact check a draft polic
   Notifications.fact_check_request(fact_check_request, host: "example.com").deliver
 end
 
-Given /^a submitted policy titled "([^"]*)"$/ do |policy_title|
-  create(:submitted_policy, title: policy_title)
+Given /^an editor named "([^"]*)" has rejected the policy titled "([^"]*)" because "([^"]*)"$/ do |editor_name, policy_title, rejection_reason|
+  editor = create(:departmental_editor, name: editor_name)
+  policy = create(:rejected_policy, title: policy_title)
+  policy.editorial_remarks.create! author: editor, body: rejection_reason
+end
+
+When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
+  policy = Policy.find_by_title(policy_title)
+  visit admin_policy_path(policy)
+  click_link "Reject"
+  fill_in "Reason for rejection", with: "reason-for-rejection"
+  click_button "Confirm rejection"
 end
 
 When /^I create a new edition of the published policy$/ do
@@ -183,6 +197,17 @@ When /^I delete the draft policy "([^"]*)"$/ do |title|
   click_button "Delete"
 end
 
+When /^I view the policy titled "([^"]*)"$/ do |policy_title|
+  policy = Policy.find_by_title!(policy_title)
+  visit admin_document_path(policy)
+end
+
+When /^I resubmit the policy titled "([^"]*)"$/ do |policy_title|
+  policy = Policy.find_by_title!(policy_title)
+  visit admin_document_path(policy)
+  click_button "Submit to 2nd pair of eyes"
+end
+
 Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
   assert page.has_css?(".fact_check_request .comments", text: comments)
 end
@@ -246,4 +271,23 @@ Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |p
   policy = Policy.published.find_by_title!(policy_title)
   visit admin_document_path(policy)
   assert has_css?(".actions .public_version a", href: public_document_path(policy)), "Link to public version of policy not found"
+end
+
+Then /^I should see the policy titled "([^"]*)" in the list of documents that need work$/ do |policy_title|
+  visit admin_documents_path
+  click_link "rejected"
+  policy = Policy.find_by_title(policy_title)
+  assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
+end
+
+Then /^I should see that it was rejected by "([^"]*)" because "([^"]*)"$/ do |rejected_by, editorial_remark|
+  assert page.has_css?('.rejected_by', text: rejected_by)
+  assert page.has_css?('.editorial_remark', text: editorial_remark)
+end
+
+Then /^I should see the policy titled "([^"]*)" in the list of submitted documents$/ do |policy_title|
+  visit admin_documents_path
+  click_link "submitted"
+  policy = Policy.find_by_title!(policy_title)
+  assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
 end

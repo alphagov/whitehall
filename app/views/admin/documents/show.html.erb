@@ -1,10 +1,12 @@
 <div class="g2 first">
   <section class="document">
     <%= render partial: 'navigation', locals: { document: @document } %>
+    <%= render partial: "rejected_by", locals: { document: @document } %>
     <%= render partial: 'document', locals: { document: @document } %>
   </section>
 
   <%= render partial: 'supporting_documents', locals: { document: @document } %>
+  <%= render partial: "editorial_remarks", locals: { document: @document } %>
 </div>
 
 <div class="g1">

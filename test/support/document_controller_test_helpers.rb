@@ -84,5 +84,33 @@ module DocumentControllerTestHelpers
         assert_select ".actions .public_version", count: 0
       end
     end
+
+    def should_show_the_list_of_editorial_remarks(document_type)
+      test "should not show the editorial remarks section" do
+        document = create("submitted_#{document_type}")
+        get :show, id: document
+        assert_select "#editorial_remarks", count: 0
+      end
+
+      test "should show the list of editorial remarks" do
+        document = create("rejected_#{document_type}")
+        remark = document.editorial_remarks.create!(body: "editorial-remark-body", author: @user)
+        get :show, id: document
+        assert_select "#editorial_remarks .editorial_remark" do
+          assert_select ".body", text: "editorial-remark-body"
+          assert_select ".author", text: @user.name
+          assert_select "abbr.created_at[title=#{remark.created_at.iso8601}]"
+        end
+      end
+    end
+
+    def should_show_who_rejected_the(document_type)
+      test "should show who rejected the document" do
+        document = create("rejected_#{document_type}")
+        document.editorial_remarks.create!(body: "editorial-remark-body", author: @user)
+        get :show, id: document
+        assert_select ".rejected_by", text: @user.name
+      end
+    end
   end
 end

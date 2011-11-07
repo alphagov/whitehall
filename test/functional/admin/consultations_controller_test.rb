@@ -167,6 +167,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal [attachment_2], consultation.attachments
   end
 
+  should_show_who_rejected_the :consultation
+  should_show_the_list_of_editorial_remarks :consultation
   should_be_able_to_delete_a_document :consultation
 
   should_link_to_public_version_when_published :consultation

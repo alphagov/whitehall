@@ -130,6 +130,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
+  should_show_who_rejected_the :publication
+  should_show_the_list_of_editorial_remarks :publication
   should_be_able_to_delete_a_document :publication
 
   should_link_to_public_version_when_published :publication

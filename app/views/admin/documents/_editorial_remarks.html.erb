@@ -1,0 +1,17 @@
+<% if document.editorial_remarks.any? %>
+  <section id="editorial_remarks">
+    <h1>Editorial remarks</h1>
+    <ul>
+      <% document.editorial_remarks.each do |editorial_remark| %>
+        <li class="editorial_remark">
+          <span class="author"><%= editorial_remark.author.name %></span>
+          wrote
+          <abbr class="created_at" title="<%= editorial_remark.created_at.iso8601 %>">
+            <%= time_ago_in_words(editorial_remark.created_at) %>
+          </abbr> ago:
+          <div class="body"><%= editorial_remark.body %></div>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

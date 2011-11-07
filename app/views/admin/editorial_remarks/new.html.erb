@@ -1,0 +1,10 @@
+<%= form_for [:admin, @document, @editorial_remark] do |feedback_form| %>
+  <%= feedback_form.errors %>
+  <%= feedback_form.text_area :body, label: "Reason for rejection (you can see the document at the bottom of the page)" %>
+  <%= feedback_form.submit "Confirm rejection" %>
+<% end %>
+
+<%= content_tag_for(:article, @document) do %>
+  <h1 class="title"><%= @document.title %></h1>
+  <div class="body"><%= @document.body %></div>
+<% end %>

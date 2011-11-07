@@ -39,6 +39,12 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.valid?
   end
 
+  test "should be invalid if document identity has existing documents that need work" do
+    rejected_document = create(:rejected_document)
+    document = build(:document, document_identity: rejected_document.document_identity)
+    refute document.valid?
+  end
+
   test "should be invalid when published if document identity has existing published documents" do
     published_document = create(:published_document)
     document = build(:published_policy, document_identity: published_document.document_identity)
@@ -204,7 +210,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [submitted_document], Document.submitted
   end
 
-  [:draft, :submitted].each do |state|
+  [:draft, :submitted, :rejected].each do |state|
     test "should be deletable if a #{state}" do
       document = create("#{state}_document")
       assert document.deletable?
@@ -218,7 +224,7 @@ class DocumentTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :submitted].each do |state|
+  [:draft, :submitted, :rejected].each do |state|
     test "should be editable if a #{state}" do
       document = create("#{state}_document")
       assert document.editable?
@@ -232,15 +238,29 @@ class DocumentTest < ActiveSupport::TestCase
     end
   end
 
-  test "should be submittable if draft" do
-    draft_document = create(:draft_document)
-    assert draft_document.submittable?
+  [:draft, :rejected].each do |state|
+    test "should be submittable if #{state}" do
+      document = create("#{state}_document")
+      assert document.submittable?
+    end
   end
 
   [:submitted, :published, :archived, :deleted].each do |state|
     test "should not be submittable if #{state}" do
       document = create("#{state}_document")
       refute document.submittable?
+    end
+  end
+
+  test "should be rejectable if submitted" do
+    document = create(:submitted_document)
+    assert document.rejectable?
+  end
+
+  [:draft, :rejected, :published, :archived, :deleted].each do |state|
+    test "should not be rejectable if #{state}" do
+      document = create("#{state}_document")
+      refute document.rejectable?
     end
   end
 
@@ -383,6 +403,36 @@ class DocumentTest < ActiveSupport::TestCase
     ]
 
     assert_equal types.map {|t| create(t) }, Document.by_type('Speech')
+  end
+
+  test "should prevent a draft document being rejected" do
+    draft_document = create(:draft_document)
+    draft_document.reject! rescue nil
+    refute draft_document.rejected?
+  end
+
+  test "rejecting a submitted document transitions it into the rejected state" do
+    submitted_document = create(:submitted_document)
+    submitted_document.reject!
+    assert submitted_document.rejected?
+  end
+
+  test "should prevent a published document being rejected" do
+    published_document = create(:published_document)
+    published_document.reject! rescue nil
+    refute published_document.rejected?
+  end
+
+  test "should prevent an archived document being rejected" do
+    archived_document = create(:archived_document)
+    archived_document.reject! rescue nil
+    refute archived_document.rejected?
+  end
+
+  test "should prevent a deleted document being rejected" do
+    deleted_document = create(:deleted_document)
+    deleted_document.reject! rescue nil
+    refute deleted_document.rejected?
   end
 
   test "submitting a draft document transitions it into the submitted state" do

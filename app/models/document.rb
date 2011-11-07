@@ -6,6 +6,7 @@ class Document < ActiveRecord::Base
   include Document::Publishing
 
   belongs_to :author, class_name: "User"
+  has_many :editorial_remarks
 
   validates_presence_of :title, :body, :author
 
