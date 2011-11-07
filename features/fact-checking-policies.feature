@@ -22,6 +22,11 @@ Scenario: Fact checker enters feedback
   And they provide feedback "We cannot establish the moral character of all dogs"
   Then they should be notified "Your feedback has been saved"
 
+Scenario: Policy writer is notified that fact checker has added a comment
+  Given "writer@example.com" has asked "fact-checker@example.com" for feedback on the draft policy "Check me"
+  When "fact-checker@example.com" adds feedback "This looks good" to "Check me"
+  Then "writer@example.com" should be notified by email that "fact-checker@example.com" has added a comment "This looks good" to "Check me"
+
 Scenario: Policy writer reviews fact checker comments
   Given a fact checker has commented "This looks good" on the draft policy "Check me"
   When I am a writer

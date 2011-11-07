@@ -26,3 +26,22 @@ Then /^they provide feedback "([^"]*)"$/ do |comments|
   fill_in "Comments", with: comments
   click_button "Submit"
 end
+
+Given /^"([^"]*)" has asked "([^"]*)" for feedback on the draft policy "([^"]*)"$/ do |requestor_email, fact_checker_email, title|
+  requestor = create(:user, email_address: requestor_email)
+  document = create(:draft_policy, title: title)
+  create(:fact_check_request, requestor: requestor, document: document, email_address: fact_checker_email)
+end
+
+When /^"([^"]*)" adds feedback "([^"]*)" to "([^"]*)"$/ do |fact_checker_email, comments, title|
+  fact_check_request = FactCheckRequest.find_all_by_email_address(fact_checker_email).last
+  visit edit_admin_fact_check_request_path(fact_check_request)
+  fill_in "Comments", with: comments
+  click_button "Submit"
+end
+
+Then /^"([^"]*)" should be notified by email that "([^"]*)" has added a comment "([^"]*)" to "([^"]*)"$/ do |requestor_email, fact_checker_email, comment, title|
+  assert_equal 1, unread_emails_for(requestor_email).size
+  email = unread_emails_for(requestor_email).last
+  assert_equal "Fact check comment added by #{fact_checker_email}: #{title}", email.subject
+end
