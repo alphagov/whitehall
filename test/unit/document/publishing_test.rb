@@ -54,6 +54,12 @@ class Document::PublishingTest < ActiveSupport::TestCase
     assert document.reload.published?
   end
 
+  test "publication records time of publication" do
+    document = create(:submitted_policy)
+    document.publish_as(create(:departmental_editor))
+    assert_equal Time.now, document.reload.published_at
+  end
+
   test "publication archives previous published versions" do
     published_policy = create(:published_policy)
     document = create(:submitted_policy, document_identity: published_policy.document_identity)

@@ -20,6 +20,7 @@ module Document::Publishing
   def publish_as(user, options = {})
     if publishable_by?(user, options)
       self.lock_version = lock_version
+      self.published_at = Time.now
       publish!
       true
     else

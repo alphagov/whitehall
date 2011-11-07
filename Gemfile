@@ -32,4 +32,5 @@ group :test do
   gem 'hash_syntax'
   gem 'mocha', :require => false
   gem 'test_track'
+  gem 'timecop'
 end
