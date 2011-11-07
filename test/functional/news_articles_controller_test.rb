@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class NewsArticlesControllerTest < ActionController::TestCase
+  test "shows published news articles" do
+    news_article = create(:published_news_article)
+    get :show, id: news_article.document_identity
+    assert_response :success
+  end
 
   test "should not display related policies unless they are published" do
     draft_policy = create(:draft_policy)
@@ -21,5 +26,4 @@ class NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: news_article.document_identity
     assert_select "#related-policies", count: 0
   end
-
 end
