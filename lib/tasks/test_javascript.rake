@@ -1,9 +1,17 @@
 require 'socket'
+require 'versionomy'
 
 namespace :test do
 
   desc "Run javascript tests"
   task :javascript => :environment do
+    phantomjs_version = Versionomy.parse(`phantomjs --version`.strip) rescue nil
+    unless phantomjs_version && (phantomjs_version >= Versionomy.parse("1.3.0"))
+      STDERR.puts "The version of phantomjs (v#{phantomjs_version}) is not compatible with the current phantom-driver.js."
+      STDERR.puts "Please upgrade your version of phantomjs and re-run this task."
+      exit 1
+    end
+
     test_port = 3100
     pid_file = Rails.root.join('tmp', 'pids', 'javascript_tests.pid')
 

@@ -1,40 +1,97 @@
-if (phantom.state.length === 0) {
-    if (phantom.args.length === 0 || phantom.args.length > 2) {
-        console.log('Usage: run-qunit.js URL');
-        phantom.exit();
-    } else {
-        phantom.state = 'run-qunit';
-        phantom.open(phantom.args[0]);
+/*
+ * Qt+WebKit powered (mostly) headless test runner using Phantomjs
+ *
+ * Phantomjs installation: http://code.google.com/p/phantomjs/wiki/BuildInstructions
+ *
+ * Run with:
+ *  phantomjs test.js [url-of-your-qunit-testsuite]
+ *
+ * E.g.
+ *      phantomjs test.js http://localhost/qunit/test
+ */
+
+var url = phantom.args[0];
+
+var page = require('webpage').create();
+
+//Route "console.log()" calls from within the Page context to the main Phantom context (i.e. current "this")
+page.onConsoleMessage = function(msg) {
+  console.log(msg);
+};
+
+page.open(url, function(status){
+  if (status !== "success") {
+    console.log("Unable to access network: " + status);
+    phantom.exit(1);
+  } else {
+    page.evaluate(addLogging);
+    var interval = setInterval(function() {
+      if (finished()) {
+        clearInterval(interval);
+        onfinishedTests();
+      }
+    }, 500);
+  }
+});
+
+function finished() {
+  return page.evaluate(function(){
+    return !!window.qunitDone;
+  });
+};
+
+function onfinishedTests() {
+  var output = page.evaluate(function() {
+      return JSON.stringify(window.qunitDone);
+  });
+  phantom.exit(JSON.parse(output).failed > 0 ? 1 : 0);
+};
+
+function addLogging() {
+  var current_test_assertions = [];
+  var module;
+
+  QUnit.moduleStart = function(context) {
+    module = context.name;
+  };
+
+  QUnit.testDone = function(result) {
+    var name = module + ': ' + result.name;
+    var i;
+
+    if (result.failed) {
+      console.log('Assertion Failed: ' + name);
+
+      for (i = 0; i < current_test_assertions.length; i++) {
+        console.log('    ' + current_test_assertions[i]);
+      }
     }
-} else {
-    setInterval(function() {
-        var el = document.getElementById('qunit-testresult');
-        if (phantom.state !== 'finish') {
-            if (el && el.innerText.match('completed')) {
-                phantom.state = 'finish';
-                console.log(el.innerText);
-                failedCount = null;
-                try {
-                    var listOfTests = document.getElementById("qunit-tests");
-                    for(var i = 0; i < listOfTests.childNodes.length; i++) {
-                        var testItem = listOfTests.childNodes[i];
-                        if (testItem.className == "fail") {
-                          var moduleName = testItem.getElementsByClassName("module-name")[0].innerText;
-                          var testName = testItem.getElementsByClassName("test-name")[0].innerText;
-                          var counts = testItem.getElementsByClassName("counts")[0].innerText;
-                          var failures = testItem.getElementsByClassName("fail")
-                          for(var j = 0; j < failures.length; j++) {
-                            console.log("Test failure - " + moduleName + ": " + testName + " " + counts + " " + failures[j].innerText);
-                          }
-                        }
-                    }
-                    failedElements = el.getElementsByClassName('failed');
-                    failedCount = failedElements[0].innerHTML;
-                } catch (e) {
-                  console.log("Exception parsing test results: " + e);
-                }
-                phantom.exit((parseInt(failedCount, 10) > 0) ? 1 : 0);
-            }
-        }
-    }, 100);
+
+    current_test_assertions = [];
+  };
+
+  QUnit.log = function(details) {
+    var response;
+
+    if (details.result) {
+      return;
+    }
+
+    response = details.message || '';
+
+    if (typeof details.expected !== 'undefined') {
+      if (response) {
+        response += ', ';
+      }
+
+      response += 'expected: ' + details.expected + ', but was: ' + details.actual;
+    }
+
+    current_test_assertions.push('Failed assertion: ' + response);
+  };
+
+  QUnit.done = function(result){
+    console.log('Took ' + result.runtime +  'ms to run ' + result.total + ' tests. ' + result.passed + ' passed, ' + result.failed + ' failed.');
+    window.qunitDone = result;
+  };
 }
