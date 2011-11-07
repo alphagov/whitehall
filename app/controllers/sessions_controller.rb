@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     user.update_attributes(params.slice('departmental_editor', 'organisation_id'))
     if user.valid?
       session[:user_id] = user.id
-      redirect_to admin_root_path
+      redirect_back admin_root_path
     else
       flash.now[:alert] = "Name can't be blank"
       render :new

@@ -20,12 +20,23 @@ Given /^I logout$/ do
   click_button "Logout"
 end
 
+Given /^I try to access a page that requires authentication$/ do
+  draft_policy = create(:draft_policy)
+  @path_requiring_authentication = admin_document_path(draft_policy)
+  visit @path_requiring_authentication
+end
+
 When /^I set the email address for "([^"]*)" to "([^"]*)"$/ do |name, email_address|
   visit admin_root_path
   click_link name
   click_link "Edit"
   fill_in "Email address", with: email_address
   click_button "Save"
+end
+
+When /^I login as a writer$/ do
+  fill_in "name", with: "Wally Writer"
+  click_button "Login"
 end
 
 Then /^I should see that I am logged in as a ([^"]*)$/ do |role|
@@ -47,4 +58,12 @@ end
 Then /^I should see my email address is "([^"]*)"$/ do |email_address|
   visit admin_user_path
   assert page.has_css?(".user .email_address", text: email_address)
+end
+
+Then /^I should be asked to login$/ do
+  assert page.has_css?("form[action='#{session_path}']")
+end
+
+Then /^I should be taken to my original destination$/ do
+  assert_current_url @path_requiring_authentication
 end

@@ -5,11 +5,13 @@ class ApplicationController < ActionController::Base
 
   layout 'website'
 
+  include RedirectAwayAndBack
+
   private
 
   def authenticate!
     unless current_user
-      redirect_to login_path, alert: "You're not authorised to view this page"
+      redirect_away login_path, alert: "You're not authorised to view this page"
     end
   end
 
