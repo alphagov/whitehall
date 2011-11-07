@@ -19,4 +19,6 @@ jQuery(document).ready(function($) {
   });
 
   $(".chzn-select").chosen();
+
+  $("#completed_fact_check_requests").markLinkedAnchor();
 });
