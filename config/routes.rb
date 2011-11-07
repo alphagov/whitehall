@@ -6,7 +6,7 @@ Whitehall::Application.routes.draw do
   end
 
   resources :policies, only: [:show]
-  resources :news_articles, only: [:show]
+  resources :news, as: :news_articles, controller: :news_articles, only: [:show]
   resources :publications, only: [:show]
   resources :consultations, only: [:show]
   resources :speeches, only: [:show]
@@ -39,7 +39,7 @@ Whitehall::Application.routes.draw do
 
     resources :publications, only: [:new, :create, :edit, :update, :show, :destroy]
     resources :policies, only: [:new, :create, :edit, :update, :show, :destroy]
-    resources :news_articles, only: [:new, :create, :edit, :update, :show, :destroy]
+    resources :news, as: :news_articles, controller: :news_articles, only: [:new, :create, :edit, :update, :show, :destroy]
     resources :consultations, only: [:new, :create, :edit, :update, :show, :destroy]
     resources :speeches, only: [:new, :create, :edit, :update, :show, :destroy]
     resources :people, only: [:index, :new, :create, :edit, :update, :destroy]
