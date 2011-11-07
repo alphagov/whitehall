@@ -1,6 +1,17 @@
 require "test_helper"
 
 class PublicationsControllerTest < ActionController::TestCase
+  test "should only display published publications" do
+    archived_publication = create(:archived_publication)
+    published_publication = create(:published_publication)
+    draft_publication = create(:draft_publication)
+    get :index
+
+    assert_select_object(published_publication)
+    assert_select_object(archived_publication, count: 0)
+    assert_select_object(draft_publication, count: 0)
+  end
+
   test 'show displays published publications' do
     published_publication = create(:published_publication)
     get :show, id: published_publication.document_identity
