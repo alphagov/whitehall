@@ -20,7 +20,7 @@ module Document::Workflow
       state :deleted
 
       event :delete do
-        transitions from: [:draft, :submitted], to: :deleted
+        transitions from: [:draft, :submitted, :rejected], to: :deleted
       end
 
       event :submit do

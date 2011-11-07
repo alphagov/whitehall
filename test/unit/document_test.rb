@@ -211,7 +211,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   [:draft, :submitted, :rejected].each do |state|
-    test "should be deletable if a #{state}" do
+    test "should be deletable if #{state}" do
       document = create("#{state}_document")
       assert document.deletable?
     end
@@ -225,7 +225,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   [:draft, :submitted, :rejected].each do |state|
-    test "should be editable if a #{state}" do
+    test "should be editable if #{state}" do
       document = create("#{state}_document")
       assert document.editable?
     end
@@ -405,76 +405,50 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal types.map {|t| create(t) }, Document.by_type('Speech')
   end
 
-  test "should prevent a draft document being rejected" do
-    draft_document = create(:draft_document)
-    draft_document.reject! rescue nil
-    refute draft_document.rejected?
-  end
-
   test "rejecting a submitted document transitions it into the rejected state" do
     submitted_document = create(:submitted_document)
     submitted_document.reject!
     assert submitted_document.rejected?
   end
 
-  test "should prevent a published document being rejected" do
-    published_document = create(:published_document)
-    published_document.reject! rescue nil
-    refute published_document.rejected?
+  [:draft, :published, :archived, :deleted].each do |state|
+    test "should prevent a #{state} document being rejected" do
+      document = create("#{state}_document")
+      document.reject! rescue nil
+      refute document.rejected?
+    end
   end
 
-  test "should prevent an archived document being rejected" do
-    archived_document = create(:archived_document)
-    archived_document.reject! rescue nil
-    refute archived_document.rejected?
+  [:draft, :rejected].each do |state|
+    test "submitting a #{state} document transitions it into the submitted state" do
+      document = create("#{state}_document")
+      document.submit!
+      assert document.submitted?
+    end
   end
 
-  test "should prevent a deleted document being rejected" do
-    deleted_document = create(:deleted_document)
-    deleted_document.reject! rescue nil
-    refute deleted_document.rejected?
+  [:published, :archived, :deleted].each do |state|
+    test "should prevent a #{state} document being submitted" do
+      document = create("#{state}_document")
+      document.submit! rescue nil
+      refute document.submitted?
+    end
   end
 
-  test "submitting a draft document transitions it into the submitted state" do
-    draft_document = create(:draft_document)
-    draft_document.submit!
-    assert draft_document.submitted?
+  [:draft, :submitted, :rejected].each do |state|
+    test "deleting a #{state} document transitions it into the deleted state" do
+      document = create("#{state}_document")
+      document.delete!
+      assert document.deleted?
+    end
   end
 
-  test "should prevent a published document being submitted" do
-    published_document = create(:published_document)
-    published_document.submit! rescue nil
-    refute published_document.submitted?
-  end
-
-  test "should prevent an archived document being submitted" do
-    archived_document = create(:archived_document)
-    archived_document.submit! rescue nil
-    refute archived_document.submitted?
-  end
-
-  test "deleting a draft document transitions it into the deleted state" do
-    draft_document = create(:draft_document)
-    draft_document.delete!
-    assert draft_document.deleted?
-  end
-
-  test "deleting a submitted document transitions it into the deleted state" do
-    submitted_document = create(:submitted_document)
-    submitted_document.delete!
-    assert submitted_document.deleted?
-  end
-
-  test "should prevent a published document being deleted" do
-    published_document = create(:published_document)
-    published_document.delete! rescue nil
-    refute published_document.deleted?
-  end
-
-  test "should prevent an archived document being deleted" do
-    archived_document = create(:archived_document)
-    archived_document.delete! rescue nil
-    refute archived_document.deleted?
+  [:published, :archived].each do |state|
+    test "should prevent a #{state} document being deleted" do
+      document = create("#{state}_document")
+      document.delete! rescue nil
+      refute document.deleted?
+    end
   end
 
   test "should not find deleted documents by default" do
@@ -482,21 +456,19 @@ class DocumentTest < ActiveSupport::TestCase
     assert_nil Document.find_by_id(deleted_document.id)
   end
 
-  test "publishing a draft document transitions it into the published state" do
-    draft_document = create(:draft_document)
-    draft_document.publish!
-    assert draft_document.published?
+  [:draft, :submitted].each do |state|
+    test "publishing a #{state} document transitions it into the published state" do
+      document = create("#{state}_document")
+      document.publish!
+      assert document.published?
+    end
   end
 
-  test "publishing a submitted document transitions it into the published state" do
-    submitted_document = create(:submitted_document)
-    submitted_document.publish!
-    assert submitted_document.published?
-  end
-
-  test "should prevent an archived document being published" do
-    archived_document = create(:archived_document)
-    archived_document.publish! rescue nil
-    refute archived_document.published?
+  [:rejected, :archived, :deleted].each do |state|
+    test "should prevent a #{state} document being published" do
+      document = create("#{state}_document")
+      document.publish! rescue nil
+      refute document.published?
+    end
   end
 end
