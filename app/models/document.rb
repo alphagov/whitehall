@@ -42,10 +42,6 @@ class Document < ActiveRecord::Base
     false
   end
 
-  def submit_as(user)
-    submit!
-  end
-
   def create_draft(user)
     draft_attributes = {
       state: "draft",

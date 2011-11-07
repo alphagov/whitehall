@@ -215,12 +215,6 @@ class DocumentTest < ActiveSupport::TestCase
     refute draft_document.publishable_by?(create(:departmental_editor))
   end
 
-  test "should set submitted flag when submitted" do
-    document = create(:draft_document)
-    document.submit_as(create(:policy_writer))
-    assert document.reload.submitted?
-  end
-
   test "should not return published documents in submitted" do
     document = create(:submitted_document)
     document.publish_as(create(:departmental_editor))

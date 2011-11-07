@@ -62,7 +62,7 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def submit
-    @document.submit_as(current_user)
+    @document.submit!
     redirect_to admin_document_path(@document),
       notice: "Your document has been submitted for review by a second pair of eyes"
   end
