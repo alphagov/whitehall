@@ -197,44 +197,32 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [submitted_document], Document.submitted
   end
 
-  test "should be deletable if a draft" do
-    draft_document = create(:draft_document)
-    assert draft_document.deletable?
+  [:draft, :submitted].each do |state|
+    test "should be deletable if a #{state}" do
+      document = create("#{state}_document")
+      assert document.deletable?
+    end
   end
 
-  test "should be deletable if submitted" do
-    submitted_document = create(:submitted_document)
-    assert submitted_document.deletable?
+  [:published, :archived, :deleted].each do |state|
+    test "should not be deletable if #{state}" do
+      document = create("#{state}_document")
+      refute document.deletable?
+    end
   end
 
-  test "should not be deletable if published" do
-    published_document = create(:published_document)
-    refute published_document.deletable?
+  [:draft, :submitted].each do |state|
+    test "should be editable if a #{state}" do
+      document = create("#{state}_document")
+      assert document.editable?
+    end
   end
 
-  test "should not be deletable if archived" do
-    archived_document = create(:archived_document)
-    refute archived_document.deletable?
-  end
-
-  test "should be editable if a draft" do
-    draft_document = create(:draft_document)
-    assert draft_document.editable?
-  end
-
-  test "should be editable if submitted" do
-    submitted_document = create(:submitted_document)
-    assert submitted_document.editable?
-  end
-
-  test "should not be editable if published" do
-    published_document = create(:published_document)
-    refute published_document.editable?
-  end
-
-  test "should not be editable if archived" do
-    archived_document = create(:archived_document)
-    refute archived_document.editable?
+  [:published, :archived, :deleted].each do |state|
+    test "should not be editable if #{state}" do
+      document = create("#{state}_document")
+      refute document.editable?
+    end
   end
 
   test "should be submittable if draft" do
@@ -242,19 +230,11 @@ class DocumentTest < ActiveSupport::TestCase
     assert draft_document.submittable?
   end
 
-  test "not be submittable if submitted" do
-    submitted_document = create(:submitted_document)
-    refute submitted_document.submittable?
-  end
-
-  test "not be submittable if published" do
-    published_document = create(:published_document)
-    refute published_document.submittable?
-  end
-
-  test "not be submittable if archived" do
-    archived_document = create(:archived_document)
-    refute archived_document.submittable?
+  [:submitted, :published, :archived, :deleted].each do |state|
+    test "should not be submittable if #{state}" do
+      document = create("#{state}_document")
+      refute document.submittable?
+    end
   end
 
   test "should not be publishable when not submitted" do
