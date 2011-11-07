@@ -89,8 +89,8 @@ class Document < ActiveRecord::Base
       where(id: document.related_documents.collect(&:id))
     end
 
-    def newest_first
-      order('created_at desc')
+    def by_publication_date
+      order('published_at desc')
     end
   end
 end

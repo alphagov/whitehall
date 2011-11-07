@@ -28,9 +28,9 @@ class NewsArticlesControllerTest < ActionController::TestCase
   end
 
   test "index lists newest articles first" do
-    article_a = create(:published_news_article, title: 'A', created_at: 2.hours.ago)
-    article_c = create(:published_news_article, title: 'C', created_at: 4.hours.ago)
-    article_b = create(:published_news_article, title: 'B', created_at: 1.hour.ago)
+    article_a = create(:published_news_article, title: 'A', published_at: 2.hours.ago)
+    article_c = create(:published_news_article, title: 'C', published_at: 4.hours.ago)
+    article_b = create(:published_news_article, title: 'B', published_at: 1.hour.ago)
 
     get :index
 
