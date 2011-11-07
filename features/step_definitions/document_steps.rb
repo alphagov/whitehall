@@ -117,6 +117,8 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
   case document
   when Publication
     visit publications_path
+  when NewsArticle
+    visit news_articles_path
   else
     visit documents_path
   end

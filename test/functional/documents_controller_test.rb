@@ -12,18 +12,6 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select_object(draft_policy, count: 0)
   end
 
-  test "should only display published news articles" do
-    archived_news_article = create(:archived_news_article)
-    published_news_article = create(:published_news_article)
-    draft_news_article = create(:draft_news_article)
-
-    get :index
-
-    assert_select_object(published_news_article)
-    assert_select_object(archived_news_article, count: 0)
-    assert_select_object(draft_news_article, count: 0)
-  end
-
   test "should only display published consultations" do
     archived_consultation = create(:archived_consultation)
     published_consultation = create(:published_consultation)
