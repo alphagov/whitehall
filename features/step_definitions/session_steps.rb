@@ -39,8 +39,11 @@ When /^I login as a writer$/ do
   click_button "Login"
 end
 
-Then /^I should see that I am logged in as a ([^"]*)$/ do |role|
-  assert page.has_css?("#session .role", text: role)
+Then /^I should see that I am logged in as a "([^"]*)"$/ do |role|
+  within "#session" do
+    click_link "#user_settings"
+  end
+  assert page.has_css?(".user .settings .role", text: role)
 end
 
 Then /^I should be given the opportunity to login$/ do

@@ -14,7 +14,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
   test "show displays user name and email address" do
     get :show
 
-    assert_select ".user" do
+    assert_select ".user .settings" do
       assert_select ".name", "user-name"
       assert_select ".email_address", "user@example.com"
     end

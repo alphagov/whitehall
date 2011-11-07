@@ -18,11 +18,11 @@ Scenario: Logged-in users should be able to logout
 
 Scenario: Logged in writers should see their role
   Given I am a writer
-  Then I should see that I am logged in as a policy writer
+  Then I should see that I am logged in as a "Policy Writer"
 
 Scenario: Logged in editors should see their role
   Given I am an editor
-  Then I should see that I am logged in as a departmental editor
+  Then I should see that I am logged in as a "Departmental Editor"
 
 Scenario: Logged in users should be able to set their email address
   Given I am a writer called "John Smith"
