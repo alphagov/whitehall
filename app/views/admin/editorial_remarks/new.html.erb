@@ -6,5 +6,5 @@
 
 <%= content_tag_for(:article, @document) do %>
   <h1 class="title"><%= @document.title %></h1>
-  <div class="body"><%= @document.body %></div>
+  <div class="body"><%= govspeak_to_admin_html @document.body %></div>
 <% end %>
