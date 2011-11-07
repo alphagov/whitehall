@@ -160,10 +160,13 @@ nav.actions {
 }
 
 nav.create_buttons {
-  background: #ddd;
-  padding: 0.5em 1em 0em 1em;
+  padding: 0em 1em;
   border-bottom: 1px solid #ccc;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
+
+  span {
+    margin-right: 0.5em;
+  }
 
   a {
     margin-right: 0.25em;
@@ -171,14 +174,12 @@ nav.create_buttons {
   }
 
   @media only screen and (min-width: 910px) {
-    background: transparent;
     border: none;
     float: left;
   }
 }
 
 nav.author_scope {
-
   display: inline-block;
   margin: 0 1em 0.5em 1em;
   @include rounded();
@@ -216,7 +217,6 @@ nav.author_scope {
   }
 
   @media only screen and (min-width: 910px) {
-    margin-top: 0.5em;
     float: right;
   }
 }
