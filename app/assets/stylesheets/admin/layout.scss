@@ -74,9 +74,21 @@ body {
 
 .wrapper {
   margin: 0 auto;
-  padding-top: 3em;
-  padding-bottom: 3em;
-  width: 92%;
+}
+
+@media only screen and (min-width: 720px) {
+  .wrapper {
+    width: 92%;
+  }
+}
+
+
+@media only screen and (min-width: 1200px) {
+  body {
+    .wrapper {
+      padding-bottom: 3em;
+    }
+  }
 }
 
 section {

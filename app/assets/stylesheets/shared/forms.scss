@@ -143,14 +143,7 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-  background-color: #ffffff;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(239, 239, 239)));
-  background-image: -webkit-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
-  background-image: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
-  background-image: -o-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
-  background-image: -ms-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
-  background-image: linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#efefef');
+  @include vertical_gradient(#ffffff, #efefef);
 
   border: 1px solid #ddd;
   border-bottom: 1px solid #aaa;
@@ -175,14 +168,7 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 input[type="button"]:hover {
   color: #666;
-  background-color: #fafdff;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(250, 253, 255)), to(rgb(216, 237, 255)));
-  background-image: -webkit-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
-  background-image: -moz-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
-  background-image: -o-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
-  background-image: -ms-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
-  background-image: linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafdff', EndColorStr='#d8edff');
+  @include vertical_gradient(#fafdff, #d8d8d8);
   border: 1px solid #ccc;
   border-bottom: 1px solid #999;
   border-top: 1px solid #ddd;
@@ -194,14 +180,7 @@ input[type="submit"]:active,
 input[type="reset"]:active,
 input[type="button"]:active {
   border: 1px solid #999;
-  background-color: #fafdff;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(250, 253, 255)), to(rgb(182, 221, 255)));
-  background-image: -webkit-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
-  background-image: -moz-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
-  background-image: -o-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
-  background-image: -ms-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
-  background-image: linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafdff', EndColorStr='#b6ddff');
+  @include vertical_gradient(#fafdff, #bbb);
 }
 
 .button.full-width,

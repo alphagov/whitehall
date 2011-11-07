@@ -44,14 +44,15 @@ links to edit and delete etc.
     @include filter_link;
     margin: 0;
     background: #d5d5d5;
-    padding: 0.3em 1em;
+    padding: 0em 1em;
     border: 1px solid #ccc;
     border-top: 1px solid #aaa;
     border-right: none;
-    display: block;
-    float: left;
+    display: inline-block;
+    margin-left: -4px;
 
     &:first-child {
+      margin-left: 0;
       @include rounded_left();
     }
 
@@ -60,19 +61,17 @@ links to edit and delete etc.
       border-right: 1px solid #ccc;
     }
 
+    &:hover {
+      @include vertical_gradient(#e5e5e5, #eee);
+    }
+
     &:active {
       color: $link-color-active;
     }
 
     &.current {
       color: #444;
-      background: #eee; /* Old browsers */
-      background: #eee -moz-linear-gradient(top, rgba(255,255,255,.2) 0%, rgba(0,0,0,.2) 100%); /* FF3.6+ */
-      background: #eee -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.2)), color-stop(100%,rgba(0,0,0,.2))); /* Chrome,Safari4+ */
-      background: #eee -webkit-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* Chrome10+,Safari5.1+ */
-      background: #eee -o-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* Opera11.10+ */
-      background: #eee -ms-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* IE10+ */
-      background: #eee linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* W3C */
+      @include vertical_gradient(#eee, #ccc);
       border-bottom: 1px solid #aaa;
       border-top: 1px solid #ddd;
     }
@@ -86,16 +85,19 @@ links to edit and delete etc.
     background: transparent;
     border: none;
 
-    padding: 0.3em 12px 0.3em 12px;
+    padding: 1px 10px;
     margin-right: 0.5em;
-    margin-bottom: 0;
+    margin-bottom: 0.5em;
+    display: inline-block;
+
+    white-space: nowrap;
 
     @include transition(background);
     @include transition(color);
     @include rounded(12px);
 
     &:hover {
-      padding: 0.2em 11px 0.35em 11px;
+      padding: 0 9px;
       border: 1px solid #ccc;
       border-bottom: 1px solid #ddd;
       background: #e5e5e5;
@@ -103,7 +105,7 @@ links to edit and delete etc.
     }
 
     &.current {
-      padding: 0.2em 11px 0.35em 11px;
+      padding: 0 9px;
       border: 1px solid #b5b5b5;
       border-bottom: 1px solid #c5c5c5;
       background: #d5d5d5;
@@ -158,38 +160,42 @@ nav.actions {
 }
 
 nav.create_buttons {
-  float: left;
+  background: #ddd;
+  padding: 0.5em 1em 0em 1em;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1em;
+
+  a {
+    margin-right: 0.25em;
+    margin-bottom: 0.5em;
+  }
+
+  @media only screen and (min-width: 910px) {
+    background: transparent;
+    border: none;
+    float: left;
+  }
 }
 
 nav.author_scope {
-  float: right;
-  margin-bottom: 0;
-  margin-top: 0;
-  border-bottom: 1px solid #bbb;
-  border-top: 1px solid #ddd;
+
+  display: inline-block;
+  margin: 0 1em 0.5em 1em;
   @include rounded();
 
   a {
     @include filter_link;
-
-    border-left: 1px solid #fff;
+    @include vertical_gradient(#ffffff, #efefef);
+    border-bottom: 1px solid #bbb;
+    border-top: 1px solid #ddd;
     border-right: 1px solid #ddd;
-
-    background-color: #ffffff;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(239, 239, 239)));
-    background-image: -webkit-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
-    background-image: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
-    background-image: -o-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
-    background-image: -ms-linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
-    background-image: linear-gradient(top, rgb(255, 255, 255), rgb(239, 239, 239));
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#efefef');
-
     padding: 0.35em 1em 0.5em 1em;
-    display: block;
-    float: left;
+    display: inline-block;
+    margin-left: -4px;
     margin-bottom: 0;
 
     &:first-child {
+      margin-left: 0;
       @include rounded_left();
       border-left: 1px solid #ddd;
     }
@@ -200,32 +206,24 @@ nav.author_scope {
     }
 
     &:hover {
-      background-color: #fafdff;
-      background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(250, 253, 255)), to(rgb(216, 237, 255)));
-      background-image: -webkit-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
-      background-image: -moz-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
-      background-image: -o-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
-      background-image: -ms-linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
-      background-image: linear-gradient(top, rgb(250, 253, 255), rgb(216, 237, 255));
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafdff', EndColorStr='#d8edff');
+      @include vertical_gradient(#fafdff, #d8d8d8);
     }
 
     &.current {
-      background-color: #fafdff;
-      background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(250, 253, 255)), to(rgb(182, 221, 255)));
-      background-image: -webkit-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
-      background-image: -moz-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
-      background-image: -o-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
-      background-image: -ms-linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
-      background-image: linear-gradient(top, rgb(250, 253, 255), rgb(182, 221, 255));
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafdff', EndColorStr='#b6ddff');
+      color: #444;
+      @include vertical_gradient(#fafdff, #ccc);
     }
+  }
+
+  @media only screen and (min-width: 910px) {
+    margin-top: 0.5em;
+    float: right;
   }
 }
 
 section.resource_list {
-
   .collection {
+    padding: 0 1em 1em 1em;
 
     h1 {
       font-size: 21px;
@@ -249,22 +247,36 @@ section.resource_list {
       border-right: 1px solid #ddd;
       border-top: 1px solid #ddd;
       background: #eee;
-      padding: 10px 10px 0 10px;
-      @include rounded_top(3px);
+      @include rounded_specific(3px, 0, 0, 0);
+      @include vertical_gradient(#fff, #eee);
 
       .type {
-        float: left;
-        width: 35em;
         margin-bottom: 10px;
-        padding-top: 3px;
+        padding: 8px 10px 0px 10px;
+        background-color: #eee;
+        border-bottom: 1px solid #fff;
+        @include rounded_specific(3px, 0, 0, 0);
         @include rounded_link;
       }
 
       .state {
-        float: right;
-        width: 20.5em;
+        margin-left: 10px;
         margin-bottom: 10px;
         @include state_link;
+      }
+
+      @media only screen and (min-width: 910px) {
+        .state {
+          float: right;
+          margin: 0.45em 0.45em 0 0;
+        }
+
+        .type {
+          background-color: transparent;
+          float: left;
+          margin: 0;
+          border-bottom: 0;
+        }
       }
     }
 
