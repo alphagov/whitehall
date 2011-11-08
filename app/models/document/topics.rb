@@ -12,7 +12,7 @@ module Document::Topics
 
   module ClassMethods
     def in_topic(topic)
-      joins(:topics).where('topics.id' => topic)
+      joins(:topics).where('topics.id' => topic).order("document_topics.ordering ASC")
     end
   end
 end
