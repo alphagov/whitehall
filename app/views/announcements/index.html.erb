@@ -1,0 +1,25 @@
+<section id="news_articles" class="g1">
+  <h1>News</h1>
+  <% if @news_articles.any? %>
+    <ul>
+      <% @news_articles.each do |news_article| %>
+        <%= content_tag_for(:li, news_article) do %>
+          <%= link_to news_article.title, public_document_path(news_article), class: "title" %>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+</section>
+
+<section id="speeches" class="g1">
+  <h1>Speeches</h1>
+  <% if @speeches.any? %>
+    <ul>
+      <% @speeches.each do |speech| %>
+        <%= content_tag_for(:li, speech) do %>
+          <%= link_to speech.title, public_document_path(speech.becomes(Speech)), class: "title" %>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+</section>
