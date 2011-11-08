@@ -192,8 +192,6 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   should_be_rejectable :speech
   should_be_force_publishable :speech
-  should_show_who_rejected_the :speech
-  should_show_the_list_of_editorial_remarks :speech
   should_be_able_to_delete_a_document :speech
 
   should_link_to_public_version_when_published :speech

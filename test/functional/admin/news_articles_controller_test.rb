@@ -151,8 +151,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   should_be_rejectable :news_article
   should_be_force_publishable :news_article
-  should_show_who_rejected_the :news_article
-  should_show_the_list_of_editorial_remarks :news_article
   should_be_able_to_delete_a_document :news_article
 
   should_link_to_public_version_when_published :news_article

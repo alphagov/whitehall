@@ -223,8 +223,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   should_be_rejectable :policy
   should_be_force_publishable :policy
-  should_show_who_rejected_the :policy
-  should_show_the_list_of_editorial_remarks :policy
   should_be_able_to_delete_a_document :policy
 
   should_link_to_public_version_when_published :policy
