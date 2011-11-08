@@ -1,0 +1,7 @@
+<ul class="countries">
+  <% countries.each do |country| %>
+    <%= content_tag_for(:li, country) do %>
+      <%= country.name %>
+    <% end %>
+  <% end %>
+</ul>
