@@ -76,16 +76,16 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     second_topic = create(:topic)
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
-    news_article = create(:news_article, topics: [first_topic], documents_related_to: [first_policy])
     first_country = create(:country)
     second_country = create(:country)
+    news_article = create(:news_article, topics: [first_topic], documents_related_to: [first_policy], countries: [first_country])
 
     put :update, id: news_article.id, document: {
       title: "new-title",
       body: "new-body",
       topic_ids: [second_topic.id],
       documents_related_to_ids: [second_policy.id],
-      country_ids: [first_country.id, second_country.id]
+      country_ids: [second_country.id]
     }
 
     saved_news_article = news_article.reload
@@ -93,7 +93,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal "new-body", saved_news_article.body
     assert_equal [second_topic], saved_news_article.topics
     assert_equal [second_policy], saved_news_article.documents_related_to
-    assert_equal [first_country, second_country], saved_news_article.countries
+    assert_equal [second_country], saved_news_article.countries
   end
 
   test 'updating should take the writer to the news article page' do
