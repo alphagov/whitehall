@@ -8,6 +8,8 @@ class Topic < ActiveRecord::Base
 
   before_destroy :prevent_destruction_if_associated
 
+  accepts_nested_attributes_for :document_topics
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 

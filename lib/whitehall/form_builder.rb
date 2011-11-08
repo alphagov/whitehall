@@ -24,8 +24,9 @@ module Whitehall
       end
     end
 
-    def text_field(method, *args)
-      label(method) + super
+    def text_field(method, options={})
+      label_text = options.delete(:label_text)
+      label(method, label_text) + super(method, options)
     end
 
     def text_area(method, *args)

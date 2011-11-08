@@ -49,6 +49,22 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', topic.slug
   end
 
+  test "should allow setting ordering of associated documents" do
+    topic = create(:topic)
+    first_policy = create(:policy, topics: [topic])
+    second_policy = create(:policy, topics: [topic])
+    first_association = topic.document_topics.find_by_document_id(first_policy.id)
+    second_association = topic.document_topics.find_by_document_id(second_policy.id)
+
+    topic.update_attributes(document_topics_attributes: {
+      first_association.id => {id: first_association.id, document_id: first_policy.id, ordering: "2"},
+      second_association.id => {id: second_association.id, document_id: second_policy.id, ordering: "1"}
+    })
+
+    assert_equal 2, first_association.reload.ordering
+    assert_equal 1, second_association.reload.ordering
+  end
+
   test "should not be destroyable when it has associated content" do
     topic_with_published_policy = create(:topic, documents: [build(:published_policy)])
     refute topic_with_published_policy.destroyable?

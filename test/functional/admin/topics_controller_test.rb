@@ -26,6 +26,18 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
+  test "allows updating of document ordering" do
+    topic = create(:topic)
+    policy = create(:policy, topics: [topic])
+    association = topic.document_topics.first
+
+    put :update, id: topic.id, topic: {name: "Blah", description: "Blah", document_topics_attributes: {
+      "0" => {id: association.id, ordering: "4"}
+    }}
+
+    assert_equal 4, association.reload.ordering
+  end
+
   test "should be able to destroy a destroyable topic" do
     topic = create(:topic)
     delete :destroy, id: topic.id

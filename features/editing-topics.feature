@@ -17,3 +17,18 @@ Scenario: Editing the description
 Scenario: Deleting a topic
   Given a topic called "No more beards" with description "No more hairy-faced men"
   Then I should be able to delete the topic "No more beards"
+
+Scenario: Ordering policies within a topic
+  Given a topic called "Facial Hair" with description "Against All Follicles"
+  And a published policy "Outlaw Moustaches" exists in the "Facial Hair" topic
+  And a published policy "No more beards" exists in the "Facial Hair" topic
+  And a published policy "Free monobrow treatment" exists in the "Facial Hair" topic
+  When I set the order of the policies in the "Facial Hair" topic to:
+    |Topic|
+    |No more beards|
+    |Outlaw Moustaches|
+    |Free monobrow treatment|
+  Then I should see the order of the policies in the "Facial Hair" topic is:
+    |No more beards|
+    |Outlaw Moustaches|
+    |Free monobrow treatment|

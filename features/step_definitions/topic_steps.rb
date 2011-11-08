@@ -63,6 +63,21 @@ When /^I visit the "([^"]*)" topic$/ do |name|
   visit topic_path(topic)
 end
 
+When /^I set the order of the policies in the "([^"]*)" topic to:$/ do |name, table|
+  topic = Topic.find_by_name!(name)
+  visit edit_admin_topic_path(topic)
+  table.rows.each_with_index do |(policy_name), index|
+    fill_in policy_name, with: index
+  end
+  click_button "Save"
+end
+
+Then /^I should see the order of the policies in the "([^"]*)" topic is:$/ do |name, table|
+  topic = Topic.find_by_name!(name)
+  visit topic_path(topic)
+  table.diff!(tableish('#policies ul.policies li', "a"))
+end
+
 Then /^I should only see published policies belonging to the "([^"]*)" topic$/ do |name|
   topic = Topic.find_by_name!(name)
   documents = records_from_elements(Document, page.all(".document"))
