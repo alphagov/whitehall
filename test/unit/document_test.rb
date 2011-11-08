@@ -359,9 +359,14 @@ class DocumentTest < ActiveSupport::TestCase
     end
   end
 
-  test "should be rejectable if submitted" do
+  test "should be rejectable by editors if submitted" do
     document = create(:submitted_document)
-    assert document.rejectable?
+    assert document.rejectable_by?(build(:departmental_editor))
+  end
+
+  test "should not be rejectable by writers" do
+    document = create(:submitted_document)
+    refute document.rejectable_by?(build(:policy_writer))
   end
 
   test "rejecting a submitted document transitions it into the rejected state" do
@@ -373,7 +378,7 @@ class DocumentTest < ActiveSupport::TestCase
   [:draft, :rejected, :published, :archived, :deleted].each do |state|
     test "should not be rejectable if #{state}" do
       document = create("#{state}_document")
-      refute document.rejectable?
+      refute document.rejectable_by?(build(:departmental_editor))
     end
   end
 

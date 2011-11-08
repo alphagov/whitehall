@@ -113,6 +113,26 @@ module DocumentControllerTestHelpers
       end
     end
 
+    def should_be_rejectable(document_type)
+      document_type_class = document_type.to_s.classify.constantize
+
+      test "should display the 'Reject' button" do
+        document = create(document_type)
+        document.stubs(:rejectable_by?).returns(true)
+        document_type_class.stubs(:find).with(document.to_param).returns(document)
+        get :show, id: document
+        assert_select "a[href=#{new_admin_document_editorial_remark_path(document)}]", count: 1
+      end
+
+      test "shouldn't display the 'Reject' button" do
+        document = create(document_type)
+        document.stubs(:rejectable_by?).returns(false)
+        document_type_class.stubs(:find).with(document.to_param).returns(document)
+        get :show, id: document
+        assert_select "a[href=#{new_admin_document_editorial_remark_path(document)}]", count: 0
+      end
+    end
+
     def should_be_force_publishable(document_type)
       document_type_class = document_type.to_s.classify.constantize
 

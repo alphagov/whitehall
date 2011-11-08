@@ -190,6 +190,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_select ".details .location", "The Guidhall"
   end
 
+  should_be_rejectable :speech
   should_be_force_publishable :speech
   should_show_who_rejected_the :speech
   should_show_the_list_of_editorial_remarks :speech

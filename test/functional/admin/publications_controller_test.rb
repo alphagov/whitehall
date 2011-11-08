@@ -130,6 +130,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
+  should_be_rejectable :publication
   should_be_force_publishable :publication
   should_show_who_rejected_the :publication
   should_show_the_list_of_editorial_remarks :publication
