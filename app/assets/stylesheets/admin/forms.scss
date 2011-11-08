@@ -11,3 +11,9 @@ fieldset.excluded_nations {
 .chzn-container {
   @include scaled_margin_bottom(16, 24);
 }
+
+fieldset#policy_order {
+  .state {
+    color: #bbb;
+  }
+}

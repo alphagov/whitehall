@@ -6,11 +6,11 @@
     <%= topic_form.text_area :description %>
   </fieldset>
 
-  <fieldset class="named sortable">
+  <fieldset id="policy_order" class="named sortable">
     <legend>Policy ordering</legend>
     <%= topic_form.fields_for :document_topics do |document_topic_form| %>
       <% if document_topic_form.object.document.is_a?(Policy) %>
-        <%= document_topic_form.text_field :ordering, label_text: link_to(document_topic_form.object.document.title, admin_document_path(document_topic_form.object.document)) %>
+        <%= document_topic_form.text_field :ordering, label_text: link_to(document_topic_form.object.document.title, admin_document_path(document_topic_form.object.document)) + %{ <span class="state">#{document_topic_form.object.document.state}</span>}.html_safe %>
       <% end %>
     <% end %>
   </fieldset>
