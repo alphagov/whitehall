@@ -26,32 +26,4 @@ class NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: news_article.document_identity
     assert_select "#related-policies", count: 0
   end
-
-  test "index lists newest articles first" do
-    article_a = create(:published_news_article, title: 'A', published_at: 2.hours.ago)
-    article_c = create(:published_news_article, title: 'C', published_at: 4.hours.ago)
-    article_b = create(:published_news_article, title: 'B', published_at: 1.hour.ago)
-
-    get :index
-
-    assert_equal [article_b, article_a, article_c], assigns[:articles]
-  end
-
-  test "index includes published articles" do
-    news_article = create(:published_news_article)
-    get :index
-    assert_select_object news_article
-  end
-
-  test "index excludes unpublished articles" do
-    news_article = create(:draft_news_article)
-    get :index
-    assert_select_object news_article, count: 0
-  end
-
-  test "index excludes other published documents" do
-    policy = create(:published_policy)
-    get :index
-    assert_select_object policy, count: 0
-  end
 end

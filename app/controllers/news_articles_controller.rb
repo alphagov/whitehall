@@ -1,8 +1,4 @@
 class NewsArticlesController < DocumentsController
-  def index
-    @articles = NewsArticle.published.by_publication_date
-  end
-
   def show
     @related_policies = Policy.published.related_to(@document)
   end
