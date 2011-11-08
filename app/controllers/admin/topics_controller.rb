@@ -10,7 +10,7 @@ class Admin::TopicsController < Admin::BaseController
   def create
     @topic = Topic.new(params[:topic])
     if @topic.save
-      redirect_to admin_topics_path, alert: "Topic created"
+      redirect_to admin_topics_path, notice: "Topic created"
     else
       render action: "new"
     end
@@ -23,7 +23,7 @@ class Admin::TopicsController < Admin::BaseController
   def update
     @topic = Topic.find(params[:id])
     if @topic.update_attributes(params[:topic])
-      redirect_to admin_topics_path, alert: "Topic updated"
+      redirect_to admin_topics_path, notice: "Topic updated"
     else
       render action: "edit"
     end
