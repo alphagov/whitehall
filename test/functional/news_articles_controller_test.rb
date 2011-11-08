@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class NewsArticlesControllerTest < ActionController::TestCase
-  test "shows published news articles" do
+  test "shows published news article" do
     news_article = create(:published_news_article)
     get :show, id: news_article.document_identity
     assert_response :success
