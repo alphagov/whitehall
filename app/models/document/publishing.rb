@@ -8,6 +8,8 @@ module Document::Publishing
       "This edition has already been published"
     elsif archived?
       "This edition has been archived"
+    elsif deleted?
+      "This edition has been deleted"
     elsif !submitted? && !options[:force]
       "Not ready for publication"
     elsif user == author && !options[:force]

@@ -48,6 +48,12 @@ class Document::PublishingTest < ActiveSupport::TestCase
     assert_equal "This edition has been archived", document.reason_to_prevent_publication_by(create(:departmental_editor))
   end
 
+  test "is never publishable when deleted" do
+    document = create(:deleted_policy)
+    refute document.publishable_by?(create(:departmental_editor))
+    assert_equal "This edition has been deleted", document.reason_to_prevent_publication_by(create(:departmental_editor))
+  end
+
   test "publication marks document as published" do
     document = create(:submitted_policy)
     document.publish_as(create(:departmental_editor))
