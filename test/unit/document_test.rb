@@ -273,6 +273,18 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [policy, publication], draft_policy.related_documents
   end
 
+  test "should build a draft copy preserving ordering with topic" do
+    topic = create(:topic)
+    published_policy = create(:published_policy, topics: [topic])
+    association = topic.document_topics.where(document_id: published_policy.id).first
+    association.update_attributes(ordering: 31)
+
+    draft_policy = published_policy.create_draft(create(:policy_writer))
+
+    new_association = topic.document_topics.where(document_id: draft_policy.id).first
+    assert_equal 31, new_association.ordering
+  end
+
   test "when initially created" do
     document = create(:document)
     assert document.draft?

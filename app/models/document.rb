@@ -48,7 +48,11 @@ class Document < ActiveRecord::Base
       author: user,
       organisations: organisations
     }
-    draft_attributes[:topics] = topics if can_be_associated_with_topics?
+    if can_be_associated_with_topics?
+      draft_attributes[:document_topics] = document_topics.map do |dt|
+        DocumentTopic.new(dt.attributes.except(:id))
+      end
+    end
     draft_attributes[:ministerial_roles] = ministerial_roles if can_be_associated_with_ministers?
     draft_attributes[:documents_related_with] = documents_related_with if can_be_related_to_other_documents?
     draft_attributes[:documents_related_to] = documents_related_to if can_be_related_to_other_documents?
