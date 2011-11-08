@@ -26,6 +26,19 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
+  test "editing only shows published documents for ordering" do
+    topic = create(:topic)
+    policy = create(:published_policy, topics: [topic])
+    draft_policy = create(:draft_policy, topics: [topic])
+    published_association = topic.document_topics.where(document_id: policy.id).first
+    draft_association = topic.document_topics.where(document_id: draft_policy.id).first
+
+    get :edit, id: topic.id
+
+    assert_select "#policy_order input[type=hidden][value=#{published_association.id}]"
+    assert_select "#policy_order input[type=hidden][value=#{draft_association.id}]", false
+  end
+
   test "allows updating of document ordering" do
     topic = create(:topic)
     policy = create(:policy, topics: [topic])
