@@ -1,10 +1,11 @@
 require 'socket'
-require 'versionomy'
 
 namespace :test do
 
   desc "Run javascript tests"
   task :javascript => :environment do
+    require 'versionomy'
+
     minimum_supported_version = Versionomy.parse("1.3.0")
     phantomjs_version = Versionomy.parse(`phantomjs --version`.strip) rescue nil
     unless phantomjs_version && (phantomjs_version >= minimum_supported_version)
