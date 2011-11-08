@@ -47,6 +47,14 @@ class Document::PublishingTest < ActiveSupport::TestCase
     assert document.force_publishable_by?(editor)
   end
 
+  test "is never publishable when rejected" do
+    editor = create(:departmental_editor)
+    document = create(:rejected_document)
+    refute document.publishable_by?(editor)
+    refute document.force_publishable_by?(editor)
+    assert_equal "This edition has been rejected", document.reason_to_prevent_publication_by(editor)
+  end
+
   test "is never publishable when archived" do
     editor = create(:departmental_editor)
     document = create(:archived_policy)

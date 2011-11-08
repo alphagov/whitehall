@@ -14,6 +14,8 @@ module Document::Publishing
       "This edition has been archived"
     elsif deleted?
       "This edition has been deleted"
+    elsif rejected?
+      "This edition has been rejected"
     elsif !submitted? && !options[:force]
       "Not ready for publication"
     elsif user == author && !options[:force]
