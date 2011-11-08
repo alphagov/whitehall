@@ -112,5 +112,27 @@ module DocumentControllerTestHelpers
         assert_select ".rejected_by", text: @user.name
       end
     end
+
+    def should_be_force_publishable(document_type)
+      document_type_class = document_type.to_s.classify.constantize
+
+      test "should display the 'Force Publish' button" do
+        document = create(document_type)
+        document.stubs(:publishable_by?).returns(false)
+        document.stubs(:force_publishable_by?).returns(true)
+        document_type_class.stubs(:find).with(document.to_param).returns(document)
+        get :show, id: document
+        assert_select "form[action=#{admin_document_publishing_path(document, force: true)}]", count: 1
+      end
+
+      test "shouldn't display the 'Force Publish' button" do
+        document = create(document_type)
+        document.stubs(:publishable_by?).returns(false)
+        document.stubs(:force_publishable_by?).returns(false)
+        document_type_class.stubs(:find).with(document.to_param).returns(document)
+        get :show, id: document
+        assert_select "form[action=#{admin_document_publishing_path(document, force: true)}]", count: 0
+      end
+    end
   end
 end

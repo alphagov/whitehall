@@ -149,6 +149,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
+  should_be_force_publishable :news_article
   should_show_who_rejected_the :news_article
   should_show_the_list_of_editorial_remarks :news_article
   should_be_able_to_delete_a_document :news_article

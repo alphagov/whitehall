@@ -221,6 +221,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_select ".supporting_documents .supporting_document", count: 0
   end
 
+  should_be_force_publishable :policy
   should_show_who_rejected_the :policy
   should_show_the_list_of_editorial_remarks :policy
   should_be_able_to_delete_a_document :policy
