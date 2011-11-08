@@ -13,13 +13,5 @@
 
 <section id="speeches" class="g1">
   <h1>Speeches</h1>
-  <% if @speeches.any? %>
-    <ul>
-      <% @speeches.each do |speech| %>
-        <%= content_tag_for(:li, speech) do %>
-          <%= link_to speech.title, public_document_path(speech.becomes(Speech)), class: "title" %>
-        <% end %>
-      <% end %>
-    </ul>
-  <% end %>
+  <%= render partial: "speeches/list", locals: {speeches: @speeches} %>
 </section>

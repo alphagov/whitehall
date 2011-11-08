@@ -1,12 +1,6 @@
 <% if speeches.any? %>
-<section id="speeches">
-  <h1>Speeches</h1>
-  <ul class="speeches">
-    <% speeches.each do |speech| %>
-      <%= content_tag_for(:li, speech) do %>
-        <%= link_to speech.title, public_document_path(speech.becomes(Speech)), title: "View #{speech.title}" %>
-      <% end %>
-    <% end %>
-  </ul>
-</section>
+  <section id="speeches">
+    <h1>Speeches</h1>
+    <%= render partial: "speeches/list", locals: {speeches: @speeches} %>
+  </section>
 <% end %>

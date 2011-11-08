@@ -1,0 +1,9 @@
+<% if speeches.any? %>
+  <ul>
+    <% speeches.each do |speech| %>
+      <%= content_tag_for(:li, speech) do %>
+        <%= link_to speech.title, public_document_path(speech.becomes(Speech)), class: "title", title: "View #{speech.title}" %>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
