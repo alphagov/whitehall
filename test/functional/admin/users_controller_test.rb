@@ -37,6 +37,12 @@ class Admin::UsersControllerTest < ActionController::TestCase
     end
   end
 
+  test "edit displays cancel link" do
+    get :edit
+
+    assert_select ".or_cancel a[href='#{admin_user_path}']"
+  end
+
   test "update saves changes" do
     put :update, user: { email_address: "new-user@example.com" }
 
