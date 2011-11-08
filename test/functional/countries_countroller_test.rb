@@ -1,8 +1,6 @@
 require "test_helper"
 
 class CountriesControllerTest < ActionController::TestCase
-  test_controller_is_a ApplicationController
-
   test "index should display a list of countries" do
     bat = create(:country, name: "British Antarctic Territory")
     png = create(:country, name: "Papua New Guinea")
