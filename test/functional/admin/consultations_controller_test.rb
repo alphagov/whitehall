@@ -6,7 +6,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     @user = login_as :policy_writer
   end
 
-  test_controller_is_a Admin::DocumentsController
+  test_controller_is_a Admin::BaseController
 
   test 'new displays consultation form' do
     get :new
