@@ -177,6 +177,11 @@ nav.create_buttons {
     border: none;
     float: left;
   }
+
+  @media only screen and (min-width: 720px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 nav.author_scope {
@@ -218,6 +223,11 @@ nav.author_scope {
 
   @media only screen and (min-width: 910px) {
     float: right;
+  }
+
+  @media only screen and (min-width: 720px) {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -265,7 +275,7 @@ section.resource_list {
         @include state_link;
       }
 
-      @media only screen and (min-width: 910px) {
+      @media only screen and (min-width: 960px) {
         .state {
           float: right;
           margin: 0.45em 0.45em 0 0;
@@ -330,6 +340,11 @@ section.resource_list {
           }
         }
       }
+    }
+
+    @media only screen and (min-width: 720px) {
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 }

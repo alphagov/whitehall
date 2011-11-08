@@ -7,14 +7,16 @@
   nav {
     float: left;
     padding-right: 1em;
+    a {
+      @include type-14;
+      font-weight: bold;
+      padding-right: 1em;
+    }
   }
 
   a {
-    @include type-14;
-    @include link_color(#fff, $link-color-hover, none, $link-color-active);
     text-decoration: none;
-    font-weight: bold;
-    padding-right: 1em;
+    @include link_color(#fff, $link-color-hover, none, $link-color-active);
   }
 }
 
@@ -29,23 +31,20 @@
 }
 
 .session_info {
-  color: #eee;
-  font-style: italic;
   float: left;
-
-  .current_user_name {
-    font-weight: bold;
-  }
-
-  .role, .current_user_name {
-    font-style: normal;
-  }
 
   p {
     @include type-14;
     margin-bottom: 0;
-    padding-right: 1em;
     display: inline;
+    font-style: italic;
+    color: #eee;
+    margin-right: 1em;
+
+    .current_user_name a {
+      font-weight: bold;
+      font-style: normal;
+    }
   }
 
   form {
@@ -56,6 +55,7 @@
       @include type-14;
       margin-bottom: 0;
       color: white;
+      text-decoration: none;
     }
   }
 }
