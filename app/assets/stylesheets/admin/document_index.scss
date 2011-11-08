@@ -431,48 +431,9 @@ section.resource_list .collection {
               padding: 0.5em 0.75em;
             }
           }
-
         }
       }
     }
-
-  }
-}
-
-/* TABLET/NETBOOK */
-@media only screen and (min-width: 768px) {
-  section.resource_list {
-  }
-}
-
-.fact_checking {
-  form {
-    margin-bottom: 0;
-  }
-}
-
-.fact_check_request {
-  .details {
-    font-style: italic;
-    color: #333;
-    @include type-14;
-    margin-bottom: 0.5em;
-    padding-left: 1em;
-    span { font-weight: bold; }
-  }
-
-  .comments {
-    font-size: 16px;
-    background: #fff;
-    padding: 0.5em 1em;
-  }
-
-  .comments p {
-    @include type-13;
-  }
-
-  .comments p:last-child {
-    margin-bottom: 0;
   }
 }
 

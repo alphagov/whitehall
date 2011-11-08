@@ -69,18 +69,4 @@
 </div>
 
 <div class="cf">&nbsp;</div>
-
-<div class="g2 first">
-  <%= render partial: 'fact_check_responses', locals: {document: @document}  %>
-</div>
-
-<div class="g1<%= @document.fact_check_requests.completed.any? ? '' : ' first' %>">
-  <section class="fact_checking container">
-    <h1 class="downplay">Request fact checking</h1>
-    <%= form_for [:admin, @document, FactCheckRequest.new] do |f| %>
-      <%= f.text_field :email_address %>
-      <%= f.text_area :instructions, cols: nil, rows: nil, label: "Extra instructions" %>
-      <%= f.submit 'Send request' %>
-    <% end %>
-  </section>
-</div>
+<%= render partial: 'fact_check_responses', locals: {document: @document}  %>

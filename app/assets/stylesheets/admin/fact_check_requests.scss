@@ -1,5 +1,97 @@
-#completed_fact_check_requests .fact_check_request.linked {
-  color: #1d5b25;
-  background: #b1e7b9;
-  border-color: #39b54a;
+@import "../shared/utils";
+
+section.fact_checking {
+  background: #eee;
+  border: 1px solid #bbb;
+
+  > h1 {
+    background: #ddd;
+    padding: 0.5em 2%;
+    border-bottom: 1px solid #ccc;
+  }
+
+  section {
+    padding: 0 4% 0 4%;
+    h1 {
+      @include type-16;
+    }
+  }
+
+  section.request {
+    background: #fef7ea;
+    border: 1px solid #ddd;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+
+    form {
+      margin-bottom: 0;
+    }
+  }
+
+  ul#completed_fact_check_requests {
+    li.fact_check_request {
+      background: #fff;
+      @include clearfix;
+      padding: 0.5em;
+      border: 1px solid #ddd;
+      margin-bottom: 0.75em;
+
+      .details {
+        @include type-12;
+        float: left;
+        margin: 0;
+        width: 30%;
+
+        .from {
+          font-weight: bold;
+          display: block;
+          margin-bottom: 0;
+          padding-right: 0.5em;
+        }
+
+        .time {
+          display: block;
+          @include type-10;
+          margin-bottom: 0;
+        }
+      }
+
+      .comments {
+        width: 69%;
+        float: left;
+        background: inherit;
+        display: inline-block;
+        border-left: 1px solid #eee;
+
+        p {
+          padding: 0 1em 0 1em;
+          @include type-13;
+        }
+      }
+
+      &.linked {
+        background: #fef7ea;
+        border-color: #777;
+      }
+    }
+  }
+
+  .pending {
+    h1 {
+      margin-bottom: 0.75em;
+      color: #666;
+    }
+
+    li {
+      @include type-12;
+      margin: 0;
+      color: #666;
+
+      .time {
+        @include type-10;
+        margin-bottom: 0;
+
+      }
+    }
+  }
 }
