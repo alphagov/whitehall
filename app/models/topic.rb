@@ -3,6 +3,9 @@ class Topic < ActiveRecord::Base
   has_many :documents, through: :document_topics
   has_many :published_documents, through: :document_topics, class_name: "Document", conditions: { state: "published" }, source: :document
 
+  has_many :published_policies, through: :document_topics, class_name: "Policy", conditions: { state: "published" }, source: :document
+  has_many :published_news_articles, through: :document_topics, class_name: "NewsArticle", conditions: { state: "published" }, source: :document
+
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 
@@ -34,5 +37,11 @@ class Topic < ActiveRecord::Base
 
   def prevent_destruction_if_associated
     return false unless destroyable?
+  end
+
+  class << self
+    def random
+      order("RAND()").first
+    end
   end
 end

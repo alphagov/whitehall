@@ -5,7 +5,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
-    @policies = Policy.published.in_topic(@topic)
-    @news_articles = NewsArticle.published.in_topic(@topic)
+    @policies = @topic.published_policies
+    @news_articles = @topic.published_news_articles
   end
 end
