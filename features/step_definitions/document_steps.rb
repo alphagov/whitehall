@@ -128,6 +128,8 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
     visit publications_path
   when NewsArticle
     visit announcements_path
+  when Speech
+    visit announcements_path
   else
     visit documents_path
   end

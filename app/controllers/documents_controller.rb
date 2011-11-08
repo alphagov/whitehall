@@ -4,7 +4,6 @@ class DocumentsController < ApplicationController
   def index
     @policies = Policy.published
     @consultations = Consultation.published
-    @speeches = Speech.published
   end
 
   def show
