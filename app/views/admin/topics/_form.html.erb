@@ -6,7 +6,7 @@
     <%= topic_form.text_area :description %>
   </fieldset>
 
-  <fieldset>
+  <fieldset class="named">
     <legend>Policy ordering</legend>
     <%= topic_form.fields_for :document_topics do |document_topic_form| %>
       <% if document_topic_form.object.document.is_a?(Policy) %>
