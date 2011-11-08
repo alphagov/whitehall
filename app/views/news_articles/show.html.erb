@@ -6,6 +6,7 @@
   <%= render partial: 'topics', locals: { document: @document } %>
   <%= render partial: 'organisations', locals: { document: @document } %>
   <%= render partial: 'ministerial_roles', locals: { document: @document } %>
+  <%= render partial: 'countries', locals: { document: @document } %>
 
   <% if @related_policies.any? %>
     <section id="related-policies">

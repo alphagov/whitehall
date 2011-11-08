@@ -26,4 +26,25 @@ class NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: news_article.document_identity
     assert_select "#related-policies", count: 0
   end
+
+  test "should display countries to which this news article relates" do
+    first_country = create(:country)
+    second_country = create(:country)
+    news_article = create(:published_news_article, countries: [first_country, second_country])
+
+    get :show, id: news_article.document_identity
+
+    assert_select "#countries" do
+      assert_select_object(first_country)
+      assert_select_object(second_country)
+    end
+  end
+
+  test "should not display an empty list of countries" do
+    news_article = create(:published_news_article, countries: [])
+
+    get :show, id: news_article.document_identity
+
+    assert_select "#countries", count: 0
+  end
 end

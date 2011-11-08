@@ -1,7 +1,7 @@
 <ul class="countries">
   <% countries.each do |country| %>
     <%= content_tag_for(:li, country) do %>
-      <%= country.name %>
+      <%= link_to country.name, country_path(country) %>
     <% end %>
   <% end %>
 </ul>

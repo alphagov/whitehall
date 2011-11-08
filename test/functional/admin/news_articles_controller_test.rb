@@ -19,6 +19,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
       assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
+      assert_select "select[name*='document[country_ids]']"
       assert_select "input[type='submit']"
     end
   end
@@ -30,12 +31,15 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     second_org = create(:organisation)
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
+    first_country = create(:country)
+    second_country = create(:country)
     attributes = attributes_for(:news_article)
 
     post :create, document: attributes.merge(
       topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id],
-      documents_related_to_ids: [first_policy.id, second_policy.id]
+      documents_related_to_ids: [first_policy.id, second_policy.id],
+      country_ids: [first_country.id, second_country.id]
     )
 
     created_news_article = NewsArticle.last
@@ -44,6 +48,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal [first_topic, second_topic], created_news_article.topics
     assert_equal [first_org, second_org], created_news_article.organisations
     assert_equal [first_policy, second_policy], created_news_article.documents_related_to
+    assert_equal [first_country, second_country], created_news_article.countries
   end
 
   test 'creating should take the writer to the news article page' do
@@ -74,12 +79,15 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
     news_article = create(:news_article, topics: [first_topic], documents_related_to: [first_policy])
+    first_country = create(:country)
+    second_country = create(:country)
 
     put :update, id: news_article.id, document: {
       title: "new-title",
       body: "new-body",
       topic_ids: [second_topic.id],
-      documents_related_to_ids: [second_policy.id]
+      documents_related_to_ids: [second_policy.id],
+      country_ids: [first_country.id, second_country.id]
     }
 
     saved_news_article = news_article.reload
@@ -87,6 +95,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal "new-body", saved_news_article.body
     assert_equal [second_topic], saved_news_article.topics
     assert_equal [second_policy], saved_news_article.documents_related_to
+    assert_equal [first_country, second_country], saved_news_article.countries
   end
 
   test 'updating should take the writer to the news article page' do
@@ -119,6 +128,13 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal conflicting_news_article, assigns[:conflicting_document]
     assert_equal conflicting_news_article.lock_version, assigns[:document].lock_version
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
+
+    assert_select ".document.conflict" do
+      assert_select "h1", "Organisations"
+      assert_select "h1", "Topics"
+      assert_select "h1", "Ministers"
+      assert_select "h1", "Countries"
+    end
   end
 
   test "cancelling a new news article takes the user to the list of drafts" do
@@ -147,6 +163,25 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: draft_news_article
 
     assert_select ".body", text: "body-in-html"
+  end
+
+  test "should display the countries to which the news article relates" do
+    first_country = create(:country)
+    second_country = create(:country)
+    draft_news_article = create(:draft_news_article, countries: [first_country, second_country])
+
+    get :show, id: draft_news_article
+
+    assert_select_object(first_country)
+    assert_select_object(second_country)
+  end
+
+  test "should indicate that the news article does not relate to any country" do
+    draft_news_article = create(:draft_news_article, countries: [])
+
+    get :show, id: draft_news_article
+
+    assert_select "p", "This document isn't assigned to any countries."
   end
 
   should_be_rejectable :news_article

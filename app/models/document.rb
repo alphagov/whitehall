@@ -18,6 +18,10 @@ class Document < ActiveRecord::Base
     false
   end
 
+  def can_be_associated_with_countries?
+    false
+  end
+
   def can_be_fact_checked?
     false
   end

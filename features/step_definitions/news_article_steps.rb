@@ -4,6 +4,11 @@ Given /^a published news article "([^"]*)" with related published policies "([^"
   create(:published_news_article, title: news_article_title, documents_related_to: [policy_1, policy_2])
 end
 
+Given /^a published news article "([^"]*)" exists relating to the country "([^"]*)"$/ do |title, country_name|
+  country = Country.find_by_name!(country_name)
+  create(:published_news_article, title: title, countries: [country])
+end
+
 When /^I draft a new news article "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_document type: "News Article", title: title
   select first_policy, from: "Related Policies"

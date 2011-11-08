@@ -43,6 +43,17 @@
     </section>
   <% end %>
 
+  <% if document.can_be_associated_with_countries? %>
+    <section class="container">
+      <h1>Countries</h1>
+      <% if document.countries.any? %>
+        <%= render partial: "countries/list", locals: {countries: document.countries} %>
+      <% else %>
+        <p>This document isn't assigned to any countries.</p>
+      <% end %>
+    </section>
+  <% end %>
+
   <% if document.can_apply_to_subset_of_nations? %>
     <section class="container">
       <h1>Excluded Nations</h1>

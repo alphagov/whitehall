@@ -15,7 +15,7 @@ Whitehall::Application.routes.draw do
   resources :topics, only: [:index, :show]
   resources :organisations, only: [:index, :show]
   resources :ministers, only: [:index, :show], as: :ministerial_roles, controller: :ministerial_roles
-  resources :countries, only: [:index]
+  resources :countries, only: [:index, :show]
 
   namespace :admin do
     root to: redirect('/admin/documents')
