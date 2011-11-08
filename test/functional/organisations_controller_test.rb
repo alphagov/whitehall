@@ -68,6 +68,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "#publications", count: 0
   end
 
+  test "should not display an empty published news articles section" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    assert_select "#news_articles", count: 0
+  end
+
   test "shows ministers associated with organisation" do
     first_minister = create(:ministerial_role)
     second_minister = create(:ministerial_role)
