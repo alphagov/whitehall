@@ -29,14 +29,14 @@ Scenario: Policy writer is notified that fact checker has added a comment
 
 Scenario: Policy writer reviews fact checker comments
   Given a fact checker has commented "This looks good" on the draft policy "Check me"
-  When I am a writer
-  And I visit the list of draft policies
+  And I am a writer
+  When I visit the list of draft policies
   And I click on the policy "Check me"
   Then I should see the fact checking feedback "This looks good"
 
 Scenario: Departmental editor reviews fact checker comments
   Given a fact checker has commented "This looks good" on the draft policy "Check me"
-  When I am an editor
-  And I visit the list of draft policies
+  And I am an editor
+  When I visit the list of draft policies
   And I click on the policy "Check me"
   Then I should see the fact checking feedback "This looks good"
