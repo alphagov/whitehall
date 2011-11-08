@@ -1,6 +1,18 @@
 module DocumentControllerTestHelpers
   extend ActiveSupport::Concern
 
+  def force_publish_button_selector(document)
+    "form[action=#{admin_document_publishing_path(document, force: true)}]"
+  end
+
+  def reject_button_selector(document)
+    "a[href=#{new_admin_document_editorial_remark_path(document)}]"
+  end
+
+  def link_to_public_version_selector
+    ".actions .public_version"
+  end
+
   module ClassMethods
 
     def should_be_able_to_delete_a_document(document_type)
@@ -73,7 +85,7 @@ module DocumentControllerTestHelpers
       test "should link to public version when published" do
         published_document = create("published_#{document_type}")
         get :show, id: published_document
-        assert_select ".actions .public_version", count: 1
+        assert_select link_to_public_version_selector, count: 1
       end
     end
 
@@ -81,7 +93,7 @@ module DocumentControllerTestHelpers
       test "should not link to public version when not published" do
         draft_document = create("draft_#{document_type}")
         get :show, id: draft_document
-        assert_select ".actions .public_version", count: 0
+        assert_select link_to_public_version_selector, count: 0
       end
     end
 
@@ -93,7 +105,7 @@ module DocumentControllerTestHelpers
         document.stubs(:rejectable_by?).returns(true)
         document_type_class.stubs(:find).with(document.to_param).returns(document)
         get :show, id: document
-        assert_select "a[href=#{new_admin_document_editorial_remark_path(document)}]", count: 1
+        assert_select reject_button_selector(document), count: 1
       end
 
       test "shouldn't display the 'Reject' button" do
@@ -101,7 +113,7 @@ module DocumentControllerTestHelpers
         document.stubs(:rejectable_by?).returns(false)
         document_type_class.stubs(:find).with(document.to_param).returns(document)
         get :show, id: document
-        assert_select "a[href=#{new_admin_document_editorial_remark_path(document)}]", count: 0
+        assert_select reject_button_selector(document), count: 0
       end
 
       test "should show who rejected the document and link to the comments" do
@@ -139,7 +151,7 @@ module DocumentControllerTestHelpers
         document.stubs(:force_publishable_by?).returns(true)
         document_type_class.stubs(:find).with(document.to_param).returns(document)
         get :show, id: document
-        assert_select "form[action=#{admin_document_publishing_path(document, force: true)}]", count: 1
+        assert_select force_publish_button_selector(document), count: 1
       end
 
       test "shouldn't display the 'Force Publish' button" do
@@ -148,7 +160,7 @@ module DocumentControllerTestHelpers
         document.stubs(:force_publishable_by?).returns(false)
         document_type_class.stubs(:find).with(document.to_param).returns(document)
         get :show, id: document
-        assert_select "form[action=#{admin_document_publishing_path(document, force: true)}]", count: 0
+        assert_select force_publish_button_selector(document), count: 0
       end
     end
   end
