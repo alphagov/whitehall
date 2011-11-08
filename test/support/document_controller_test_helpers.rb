@@ -104,11 +104,12 @@ module DocumentControllerTestHelpers
         assert_select "a[href=#{new_admin_document_editorial_remark_path(document)}]", count: 0
       end
 
-      test "should show who rejected the document" do
+      test "should show who rejected the document and link to the comments" do
         document = create("rejected_#{document_type}")
         document.editorial_remarks.create!(body: "editorial-remark-body", author: @user)
         get :show, id: document
         assert_select ".rejected_by", text: @user.name
+        assert_select "a[href=#editorial_remarks]"
       end
 
       test "should not show the editorial remarks section" do
