@@ -1,9 +1,7 @@
 require "test_helper"
 
 class CountriesControllerTest < ActionController::TestCase
-  test 'is an application controller' do
-    assert @controller.is_a?(ApplicationController), "the controller should have the behaviour of an ApplicationController"
-  end
+  test_controller_is_a ApplicationController
 
   test "index should display a list of countries" do
     bat = create(:country, name: "British Antarctic Territory")

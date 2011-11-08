@@ -5,9 +5,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     @user = login_as :policy_writer
   end
 
-  test 'is an admin controller' do
-    assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
-  end
+  test_controller_is_a Admin::BaseController
 
   test 'should distinguish between document types when viewing the list of draft documents' do
     policy = create(:draft_policy)

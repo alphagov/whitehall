@@ -1,9 +1,7 @@
 require 'test_helper'
 
 class Admin::DocumentPublishingControllerTest < ActionController::TestCase
-  test 'is an admin controller' do
-    assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
-  end
+  test_controller_is_a Admin::BaseController
 
   test 'publishing should redirect back to published documents' do
     submitted_document = create(:submitted_policy)

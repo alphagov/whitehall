@@ -6,9 +6,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     @user = login_as :policy_writer
   end
 
-  test 'is a document controller' do
-    assert @controller.is_a?(Admin::DocumentsController), "the controller should have the behaviour of an Admin::DocumentsController"
-  end
+  test_controller_is_a Admin::DocumentsController
 
   test 'new displays consultation form' do
     get :new

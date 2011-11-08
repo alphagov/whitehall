@@ -1,9 +1,7 @@
 require "test_helper"
 
 class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
-  test "is an admin controller" do
-    assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
-  end
+  test_controller_is_a Admin::BaseController
 
   test "should render the content using govspeak markup" do
     document = create(:document, body: "body-in-govspeak")

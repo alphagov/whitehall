@@ -5,9 +5,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     @user = login_as :policy_writer
   end
 
-  test "is an admin controller" do
-    assert @controller.is_a?(Admin::BaseController), "the controller should have the behaviour of an Admin::BaseController"
-  end
+  test_controller_is_a Admin::BaseController
 
   test "creating a topic without a name shows errors" do
     post :create, topic: { name: "", description: "description" }
