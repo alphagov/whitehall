@@ -25,7 +25,7 @@ end
 
 class ActionController::TestCase
   include CssSelectors
-  include DocumentControllerTestHelpers
+  include AdminDocumentControllerTestHelpers
   include ControllerTestHelpers
 
   def login_as(role_or_user)

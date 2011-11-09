@@ -1,4 +1,4 @@
-module DocumentControllerTestHelpers
+module AdminDocumentControllerTestHelpers
   extend ActiveSupport::Concern
 
   def force_publish_button_selector(document)
