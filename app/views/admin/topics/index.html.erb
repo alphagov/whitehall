@@ -12,7 +12,6 @@
         <tr>
           <th>Name</th>
           <th>Description</th>
-          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -20,13 +19,6 @@
           <%= content_tag_for(:tr, topic) do %>
             <td class="name"><%= link_to topic.name, edit_admin_topic_path(topic), title: "Edit topic #{topic.name}" %></td>
             <td class="description"><%= topic.description %></td>
-            <td class="delete">
-              <% if topic.destroyable? %>
-                <%= button_to 'delete', admin_topic_path(topic), method: :delete %>
-              <% else %>
-                <span>Cannot delete</span>
-              <% end %>
-            </td>
           <% end %>
         <% end %>
       </tbody>

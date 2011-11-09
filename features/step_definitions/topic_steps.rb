@@ -33,10 +33,8 @@ end
 
 Then /^I should be able to delete the topic "([^"]*)"$/ do |name|
   visit admin_topics_path
-  topic = Topic.find_by_name!(name)
-  within(record_css_selector(topic)) do
-    click_button 'delete'
-  end
+  click_link name
+  click_button 'Delete'
 end
 
 Given /^the topic "([^"]*)" contains some policies$/ do |name|
