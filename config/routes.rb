@@ -6,7 +6,7 @@ Whitehall::Application.routes.draw do
   end
 
   resources :announcements, only: [:index]
-  resources :policies, only: [:show]
+  resources :policies, only: [:index, :show]
   resources :news, as: :news_articles, controller: :news_articles, only: [:show, :index]
   resources :publications, only: [:index, :show]
   resources :consultations, only: [:index, :show]

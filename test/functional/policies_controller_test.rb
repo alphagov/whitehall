@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PoliciesControllerTest < ActionController::TestCase
+  should_render_a_list_of :policies
+
   test "should show inapplicable nations" do
     published_policy = create(:published_policy)
     northern_ireland_inapplicability = published_policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
