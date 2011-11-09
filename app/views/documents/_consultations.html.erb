@@ -4,7 +4,7 @@
   <ul class="consultations">
     <% consultations.each do |consultation| %>
       <%= content_tag_for(:li, consultation) do %>
-        <%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %>
+        <%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}", class: "title" %>
       <% end %>
     <% end %>
   </ul>

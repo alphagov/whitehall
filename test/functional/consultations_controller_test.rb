@@ -1,6 +1,9 @@
 require "test_helper"
 
 class ConsultationsControllerTest < ActionController::TestCase
+
+  should_render_a_list_of :consultations
+
   test 'show displays published consultations' do
     published_consultation = create(:published_consultation)
     get :show, id: published_consultation.document_identity

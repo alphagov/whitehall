@@ -1,0 +1,8 @@
+<div class="g3">
+  <% if @consultations.empty? %>
+    <h1>Consultations</h1>
+    <p>We don't have any published consultations at present.</p>
+  <% else %>
+    <%= render partial: "consultations", object: @consultations %>
+  <% end %>
+</div>
