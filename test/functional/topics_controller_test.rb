@@ -94,4 +94,24 @@ class TopicsControllerTest < ActionController::TestCase
       assert_select_object(topic)
     end
   end
+
+  test "shows featured topic policies" do
+    policy = create(:published_policy)
+    topic = create(:topic, documents: [policy])
+    Topic.stubs(:featured).returns([topic])
+
+    get :index
+
+    assert_select_object policy
+  end
+
+  test "shows featured topic news articles" do
+    article = create(:published_news_article)
+    topic = create(:topic, documents: [article])
+    Topic.stubs(:featured).returns([topic])
+
+    get :index
+
+    assert_select_object article
+  end
 end

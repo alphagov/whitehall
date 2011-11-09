@@ -9,12 +9,14 @@
 </div>
 
 <% if @featured_topic %>
-  <div class="g1">
-    <section class="featured">
+  <div class="g1 featured">
+    <section>
       <%= content_tag_for :article, @featured_topic do %>
         <h1 class="name"><%= link_to @featured_topic.name, topic_path(@featured_topic) %></h1>
         <p class="description"><%= @featured_topic.description %></p>
       <% end %>
     </section>
+    <%= render partial: "documents/policies", object: @featured_topic.policies.published %>
+    <%= render partial: "documents/news_articles", object: @featured_topic.news_articles.published %>
   </div>
 <% end %>
