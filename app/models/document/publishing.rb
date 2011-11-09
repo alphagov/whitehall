@@ -28,7 +28,7 @@ module Document::Publishing
   def publish_as(user, options = {})
     if options[:force] && force_publishable_by?(user) || publishable_by?(user)
       self.lock_version = lock_version
-      self.published_at = Time.now
+      self.published_at = Time.zone.now
       publish!
       true
     else

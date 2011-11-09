@@ -80,7 +80,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
   test "publication records time of publication" do
     document = create(:submitted_document)
     document.publish_as(create(:departmental_editor))
-    assert_equal Time.now, document.reload.published_at
+    assert_equal Time.zone.now, document.reload.published_at
   end
 
   test "publication archives previous published versions" do
