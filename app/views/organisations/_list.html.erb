@@ -1,7 +1,12 @@
-<ul class="organisations">
-  <% organisations.each do |organisation| %>
-    <%= content_tag_for(:li, organisation) do %>
-      <%= link_to organisation.name, organisation_path(organisation) %>
-    <% end %>
-  <% end %>
-</ul>
+<% organisations.group_by {|o| o.name.first.upcase }.sort.each do |letter, organisations| %>
+  <div class="alphabetical_group" id="organisations_<%= letter %>">
+    <h2><%= letter %></h2>
+    <ul class="organisations">
+      <% organisations.each do |organisation| %>
+        <%= content_tag_for(:li, organisation, class: "g1") do %>
+          <%= link_to organisation.name, organisation_path(organisation) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
