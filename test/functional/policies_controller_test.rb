@@ -98,10 +98,10 @@ class PoliciesControllerTest < ActionController::TestCase
 
     assert_select ".supporting_documents" do
       assert_select_object(first_supporting_document) do
-        assert_select "a[href='#{document_supporting_document_path(published_document.document_identity, first_supporting_document)}']", text: first_supporting_document.title
+        assert_select "a[href='#{policy_supporting_document_path(published_document.document_identity, first_supporting_document)}']", text: first_supporting_document.title
       end
       assert_select_object(second_supporting_document) do
-        assert_select "a[href='#{document_supporting_document_path(published_document.document_identity, second_supporting_document)}']", text: second_supporting_document.title
+        assert_select "a[href='#{policy_supporting_document_path(published_document.document_identity, second_supporting_document)}']", text: second_supporting_document.title
       end
     end
   end

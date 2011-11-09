@@ -4,7 +4,7 @@
     <ul>
       <% document.supporting_documents.each do |supporting_document| %>
         <%= content_tag_for :li, supporting_document do %>
-          <%= link_to supporting_document.title, document_supporting_document_path(document.document_identity, supporting_document) %>
+          <%= link_to supporting_document.title, policy_supporting_document_path(document.document_identity, supporting_document) %>
         <% end %>
       <% end %>
     </ul>

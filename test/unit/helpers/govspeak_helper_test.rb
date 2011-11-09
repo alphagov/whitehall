@@ -78,7 +78,7 @@ class GovspeakHelperTest < ActionView::TestCase
     policy = create(:published_policy)
     supporting_document = create(:supporting_document, document: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_document_url(supporting_document)}) yeah?")
-    assert_equal %{<p>this and <a href="#{document_supporting_document_path(policy, supporting_document)}">that</a> yeah?</p>}, html.strip
+    assert_equal %{<p>this and <a href="#{policy_supporting_document_path(policy, supporting_document)}">that</a> yeah?</p>}, html.strip
   end
 
   test "should not link to SupportingDocuments whose documents are not published" do
