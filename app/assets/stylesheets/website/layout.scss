@@ -1,7 +1,6 @@
 @import "../shared/utils";
 
 body {
-  background: #eee;
 }
 
 .masthead {
@@ -64,6 +63,13 @@ header, .wrapper {
 }
 
 .wrapper {
+
+  h1 {
+    font-family: georgia;
+    @include type-48;
+    margin-bottom: 1em;
+  }
+
   section {
     h1 {
       @include type-18;

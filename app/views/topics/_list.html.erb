@@ -1,7 +1,12 @@
-<ul class="topics">
-  <% topics.each do |topic| %>
-    <%= content_tag_for(:li, topic) do %>
-      <%= link_to topic.name, topic_path(topic) %>
-    <% end %>
-  <% end %>
-</ul>
+<% topics.group_by {|t| t.name.first.upcase }.sort.each do |letter, topic_group| %>
+  <div class="alphabetical_group" id="topics_<%= letter.downcase %>">
+    <h2><%= letter %></h2>
+    <ul class="topics">
+      <% topic_group.each do |topic| %>
+        <%= content_tag_for(:li, topic, class: "g1") do %>
+          <%= link_to topic.name, topic_path(topic) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

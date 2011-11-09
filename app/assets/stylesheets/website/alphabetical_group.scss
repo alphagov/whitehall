@@ -1,0 +1,52 @@
+@import "../shared/utils";
+
+.alphabetical_group {
+  @include clearfix;
+  border-bottom: 2px solid #ddd;
+  margin-left: 0;
+  margin-bottom: 2.7em;
+  padding-left: 4em;
+  position: relative;
+
+  h2 {
+    @include type-24;
+    color: #fff;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0.2em;
+    width: 2em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    background: #555;
+    font-family: georgia;
+  }
+
+  ul {
+    @include clearfix;
+    margin-bottom: 0;
+
+    li {
+      float: left;
+      margin-bottom: 0;
+      padding-top: 0.75em;
+      padding-bottom: 0.9em;
+
+      h3, p {
+        margin-bottom: 0;
+      }
+
+      p {
+        @include type-12;
+        margin-bottom: 0;
+      }
+
+      a {
+        @include type-18;
+        font-weight: bold;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
