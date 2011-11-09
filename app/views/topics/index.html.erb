@@ -7,3 +7,14 @@
     <p>We don't have any topics with <%= link_to "published documents", documents_path %> at present.</p>
   <% end %>
 </div>
+
+<% if @featured_topic %>
+  <div class="g1">
+    <section class="featured">
+      <%= content_tag_for :article, @featured_topic do %>
+        <h1 class="name"><%= link_to @featured_topic.name, topic_path(@featured_topic) %></h1>
+        <p class="description"><%= @featured_topic.description %></p>
+      <% end %>
+    </section>
+  </div>
+<% end %>

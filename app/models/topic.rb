@@ -40,8 +40,8 @@ class Topic < ActiveRecord::Base
   end
 
   class << self
-    def random
-      order("RAND()").first
+    def featured
+      with_published_documents.order('RAND()')
     end
   end
 end

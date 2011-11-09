@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   def index
     @topics = Topic.with_published_documents
+    @featured_topic = Topic.featured.first
   end
 
   def show

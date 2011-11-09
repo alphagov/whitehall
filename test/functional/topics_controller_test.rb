@@ -35,6 +35,7 @@ class TopicsControllerTest < ActionController::TestCase
   test "should show list of topics with published documents" do
     topic_1, topic_2 = create(:topic), create(:topic)
     Topic.stubs(:with_published_documents).returns([topic_1, topic_2])
+    Topic.stubs(:featured).returns([])
 
     get :index
 
@@ -44,9 +45,21 @@ class TopicsControllerTest < ActionController::TestCase
 
   test "should not display an empty list of topics" do
     Topic.stubs(:with_published_documents).returns([])
+    Topic.stubs(:featured).returns([])
 
     get :index
 
     assert_select ".topics", count: 0
+  end
+
+  test "shows a featured topic if one exists" do
+    topic = create(:topic)
+    Topic.stubs(:featured).returns([topic])
+
+    get :index
+
+    assert_select ".featured" do
+      assert_select_object(topic)
+    end
   end
 end
