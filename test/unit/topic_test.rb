@@ -70,40 +70,4 @@ class TopicTest < ActiveSupport::TestCase
     refute topic_with_published_policy.destroyable?
     assert_equal false, topic_with_published_policy.destroy
   end
-
-  test ".published_policies includes published policies" do
-    topic = create(:topic)
-    published_policy = create(:published_policy, topics: [topic])
-    assert topic.published_policies.include?(published_policy)
-  end
-
-  test ".published_policies excludes draft policies" do
-    topic = create(:topic)
-    draft_policy = create(:draft_policy, topics: [topic])
-    refute topic.published_policies.include?(draft_policy)
-  end
-
-  test ".published_policies excludes other document types" do
-    topic = create(:topic)
-    published_article = create(:published_news_article, topics: [topic])
-    refute topic.published_policies.include?(published_article)
-  end
-
-  test ".published_news_articles includes published news articles" do
-    topic = create(:topic)
-    published_article = create(:published_news_article, topics: [topic])
-    assert topic.published_news_articles.include?(published_article)
-  end
-
-  test ".published_news_articles excludes draft policies" do
-    topic = create(:topic)
-    draft_article = create(:draft_news_article, topics: [topic])
-    refute topic.published_news_articles.include?(draft_article)
-  end
-
-  test ".published_news_articles excludes other document types" do
-    topic = create(:topic)
-    published_policy = create(:published_policy, topics: [topic])
-    refute topic.published_news_articles.include?(published_policy)
-  end
 end
