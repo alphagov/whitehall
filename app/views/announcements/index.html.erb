@@ -1,14 +1,6 @@
 <section id="news_articles" class="g1">
   <h1>News</h1>
-  <% if @news_articles.any? %>
-    <ul>
-      <% @news_articles.each do |news_article| %>
-        <%= content_tag_for(:li, news_article) do %>
-          <%= link_to news_article.title, public_document_path(news_article), class: "title" %>
-        <% end %>
-      <% end %>
-    </ul>
-  <% end %>
+  <%= render partial: "news_articles/list", locals: {news_articles: @news_articles} %>
 </section>
 
 <section id="speeches" class="g1">

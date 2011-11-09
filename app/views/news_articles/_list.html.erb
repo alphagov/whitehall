@@ -1,0 +1,9 @@
+<% if news_articles.any? %>
+  <ul>
+    <% news_articles.each do |news_article| %>
+      <%= content_tag_for(:li, news_article) do %>
+        <%= link_to news_article.title, public_document_path(news_article), class: "title" %>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
