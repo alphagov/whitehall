@@ -96,7 +96,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_document.document_identity
 
-    assert_select ".supporting_documents" do
+    assert_select "#supporting_documents" do
       assert_select_object(first_supporting_document) do
         assert_select "a[href='#{policy_supporting_document_path(published_document.document_identity, first_supporting_document)}']", text: first_supporting_document.title
       end
@@ -111,7 +111,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_document.document_identity
 
-    assert_select ".supporting_documents", count: 0
+    assert_select "#supporting_documents", count: 0
   end
 
   test "should render the content using govspeak markup" do

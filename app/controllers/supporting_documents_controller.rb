@@ -1,6 +1,10 @@
 class SupportingDocumentsController < ApplicationController
   before_filter :find_policy
-  before_filter :find_supporting_document
+  before_filter :find_supporting_document, only: [:show]
+
+  def index
+    @supporting_documents = @policy.supporting_documents
+  end
 
   def show
   end

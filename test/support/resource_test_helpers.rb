@@ -6,8 +6,8 @@ module ResourceTestHelpers
       type = plural.to_s.singularize
       test "index links to published #{plural}" do
         thing = create(:"published_#{type}", title: "#{type}-title")
-        thing_path = send("#{type}_path", thing.document_identity)
         get :index
+        thing_path = send("#{type}_path", thing.document_identity)
         assert_select "##{plural}" do
           assert_select_object thing do
             assert_select "a[href=#{thing_path}]"
