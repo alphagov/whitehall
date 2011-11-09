@@ -1,12 +1,21 @@
 module Document::RelatedDocuments
   extend ActiveSupport::Concern
 
+  class Trait < Document::Traits::Trait
+    def copy_associations_to(document)
+      document.documents_related_with = @document.documents_related_with
+      document.documents_related_to = @document.documents_related_to
+    end
+  end
+
   included do
     has_many :document_relations_to, class_name: "DocumentRelation", foreign_key: "document_id"
     has_many :document_relations_from, class_name: "DocumentRelation", foreign_key: "related_document_id"
 
     has_many :documents_related_with, through: :document_relations_to, source: :related_document
     has_many :documents_related_to, through: :document_relations_from, source: :document
+
+    add_trait Trait
   end
 
   def can_be_related_to_other_documents?

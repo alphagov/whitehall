@@ -1,4 +1,7 @@
 class Document < ActiveRecord::Base
+
+  include Document::Traits
+
   include Document::Identifiable
   include Document::AccessControl
   include Document::Workflow
@@ -47,34 +50,12 @@ class Document < ActiveRecord::Base
   end
 
   def create_draft(user)
-    draft_attributes = {
-      state: "draft",
-      author: user,
-      organisations: organisations
-    }
-    if can_be_associated_with_topics?
-      draft_attributes[:document_topics] = document_topics.map do |dt|
-        DocumentTopic.new(dt.attributes.except(:id))
+    self.class.new(attributes.merge(state: "draft", author: user)).tap do |draft|
+      traits.each { |t| t.assign_associations_to(draft) }
+      if draft.save
+        traits.each { |t| t.copy_associations_to(draft) }
       end
     end
-    draft_attributes[:ministerial_roles] = ministerial_roles if can_be_associated_with_ministers?
-    draft_attributes[:documents_related_with] = documents_related_with if can_be_related_to_other_documents?
-    draft_attributes[:documents_related_to] = documents_related_to if can_be_related_to_other_documents?
-    draft_attributes[:inapplicable_nations] = inapplicable_nations if can_apply_to_subset_of_nations?
-    new_draft = self.class.create(attributes.merge(draft_attributes))
-    if new_draft.valid?
-      if allows_supporting_documents?
-        supporting_documents.each do |sd|
-          new_draft.supporting_documents.create(sd.attributes.except("document_id"))
-        end
-      end
-      if allows_attachments?
-        attachments.each do |a|
-          new_draft.document_attachments.create(attachment_id: a.id)
-        end
-      end
-    end
-    new_draft
   end
 
   def title_with_state

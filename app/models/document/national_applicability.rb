@@ -1,11 +1,19 @@
 module Document::NationalApplicability
   extend ActiveSupport::Concern
 
+  class Trait < Document::Traits::Trait
+    def assign_associations_to(document)
+      document.inapplicable_nations = @document.inapplicable_nations
+    end
+  end
+
   included do
     has_many :nation_inapplicabilities, foreign_key: :document_id
     has_many :inapplicable_nations, through: :nation_inapplicabilities, source: :nation
 
     accepts_nested_attributes_for :nation_inapplicabilities, allow_destroy: true
+
+    add_trait Trait
   end
 
   def can_apply_to_subset_of_nations?
