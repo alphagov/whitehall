@@ -1,9 +1,13 @@
-<section id="news_articles" class="g1">
-  <h1>News</h1>
-  <%= render partial: "news_articles/list", locals: {news_articles: @news_articles} %>
-</section>
+<div class="g1">
+  <section id="news_articles">
+    <h1>News</h1>
+    <%= render partial: "news_articles/list", locals: {news_articles: @news_articles} %>
+  </section>
+</div>
 
-<section id="speeches" class="g1">
-  <h1>Speeches</h1>
-  <%= render partial: "speeches/list", locals: {speeches: @speeches} %>
-</section>
+<div class="g1">
+  <section id="speeches">
+    <h1>Speeches</h1>
+    <%= render partial: "speeches/list", locals: {speeches: @speeches} %>
+  </section>
+</div>
