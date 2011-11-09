@@ -376,15 +376,15 @@ class DocumentTest < ActiveSupport::TestCase
     assert document.rejectable_by?(build(:departmental_editor))
   end
 
-  test "should not be rejectable by writers" do
-    document = create(:submitted_document)
-    refute document.rejectable_by?(build(:policy_writer))
-  end
-
   test "rejecting a submitted document transitions it into the rejected state" do
     submitted_document = create(:submitted_document)
     submitted_document.reject!
     assert submitted_document.rejected?
+  end
+
+  test "should not be rejectable by writers" do
+    document = create(:submitted_document)
+    refute document.rejectable_by?(build(:policy_writer))
   end
 
   [:draft, :rejected, :published, :archived, :deleted].each do |state|
@@ -475,6 +475,20 @@ class DocumentTest < ActiveSupport::TestCase
       document = create("#{state}_document")
       document.publish! rescue nil
       refute document.published?
+    end
+  end
+
+  test "archiving a published document transitions it into the archived state" do
+    document = create(:published_document)
+    document.archive!
+    assert document.archived?
+  end
+
+  [:draft, :submitted, :rejected, :deleted].each do |state|
+    test "should prevent a #{state} document being archived" do
+      document = create("#{state}_document")
+      document.archive! rescue nil
+      refute document.archived?
     end
   end
 
