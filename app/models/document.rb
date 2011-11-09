@@ -95,7 +95,7 @@ class Document < ActiveRecord::Base
     end
 
     def by_publication_date
-      order('published_at desc')
+      order(arel_table[:published_at].desc)
     end
   end
 end
