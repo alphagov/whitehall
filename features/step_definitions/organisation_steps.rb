@@ -37,5 +37,6 @@ end
 Then /^I should see "([^"]*)" has the "([^"]*)" ministerial role$/ do |person_name, role_name|
   person = Person.find_by_name!(person_name)
   ministerial_role = person.ministerial_roles.find_by_name!(role_name)
-  assert page.has_css?(".ministerial_role", text: ministerial_role.to_s)
+  assert page.has_css?(".ministerial_role h3", text: ministerial_role.person_name)
+  assert page.has_css?(".ministerial_role p", text: ministerial_role.name)
 end

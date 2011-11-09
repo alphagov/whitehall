@@ -227,7 +227,8 @@ Then /^I should see that those responsible for the policy are:$/ do |table|
   table.hashes.each do |row|
     person = Person.find_by_name!(row["Person"])
     ministerial_role = person.ministerial_roles.find_by_name!(row["Ministerial Role"])
-    assert page.has_css?(".ministerial_role", text: ministerial_role.to_s)
+    assert page.has_css?(".ministerial_role h3", text: ministerial_role.person_name)
+    assert page.has_css?(".ministerial_role p", text: ministerial_role.name)
   end
 end
 

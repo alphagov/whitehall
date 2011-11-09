@@ -25,8 +25,8 @@ Scenario: Creating a new draft policy that's the responsibility of multiple mini
     | Ministerial Role    | Person     |
     | Minister of Finance | John Smith |
     | Treasury Secretary  | Jane Doe   |
-  When I draft a new policy "Pinch more pennies" associated with "John Smith (Minister of Finance)" and "Jane Doe (Treasury Secretary)"
-  Then I should see in the preview that "Pinch more pennies" is associated with "John Smith (Minister of Finance)" and "Jane Doe (Treasury Secretary)"
+  When I draft a new policy "Pinch more pennies" associated with "John Smith" and "Jane Doe"
+  Then I should see in the preview that "Pinch more pennies" is associated with "John Smith" and "Jane Doe"
 
 Scenario: Creating a new draft policy that applies to multiple nations
   When I draft a new policy "Outlaw Moustaches" that does not apply to the nations:
