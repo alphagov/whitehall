@@ -150,7 +150,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test 'updating a stale consultation should render edit page with conflicting consultation' do
     consultation = create(:draft_consultation, organisations: [build(:organisation)], ministerial_roles: [build(:ministerial_role)])
     lock_version = consultation.lock_version
-    consultation.update_attributes!(title: "new title")
+    consultation.touch
 
     put :update, id: consultation, document: consultation.attributes.merge(
       lock_version: lock_version

@@ -132,7 +132,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   test 'updating a stale news article should render edit page with conflicting news article' do
     news_article = create(:draft_news_article)
     lock_version = news_article.lock_version
-    news_article.update_attributes!(title: "new title")
+    news_article.touch
 
     put :update, id: news_article, document: news_article.attributes.merge(lock_version: lock_version)
 

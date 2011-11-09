@@ -159,7 +159,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
   test "updating a stale supporting document should render edit page with conflicting supporting document" do
     supporting_document = create(:supporting_document)
     lock_version = supporting_document.lock_version
-    supporting_document.update_attributes!(title: "new title")
+    supporting_document.touch
 
     attributes = { title: "new-title", body: "new-body" }
     put :update, id: supporting_document, supporting_document: attributes.merge(lock_version: lock_version)

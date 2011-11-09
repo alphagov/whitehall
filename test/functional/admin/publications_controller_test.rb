@@ -103,7 +103,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test 'updating a stale publication should render edit page with conflicting publication' do
     publication = create(:draft_publication)
     lock_version = publication.lock_version
-    publication.update_attributes!(title: "new title")
+    publication.touch
 
     put :update, id: publication, document: publication.attributes.merge(lock_version: lock_version)
 

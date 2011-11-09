@@ -134,7 +134,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   test 'updating a stale speech should render edit page with conflicting speech' do
     speech = create(:draft_speech)
     lock_version = speech.lock_version
-    speech.update_attributes!(title: "new title")
+    speech.touch
 
     put :update, id: speech, document: speech.attributes.merge(lock_version: lock_version)
 
