@@ -33,7 +33,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should highlight links to deleted documents in admin preview" do
     publication = create(:deleted_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
-    assert_equal %{<p>this and <span class="deleted_link"><a href="#{admin_publication_url(publication)}">that</a> <sup class="explanation">(deleted)</sup></span></p>}, html.strip
+    assert_equal %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html.strip
   end
 
   test "should highlight links to published documents in admin preview" do

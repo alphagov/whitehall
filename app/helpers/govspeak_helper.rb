@@ -10,7 +10,8 @@ module GovspeakHelper
         public_uri = rewritten_href_for_documents(document, supporting_document)
         anchor.replace %{<span class="published_link">#{anchor} <sup class="explanation">(<a class="public_link" href="#{public_uri}">public link</a>)</sup></span>}
       else
-        anchor.replace %{<span class="#{document.state}_link">#{anchor} <sup class="explanation">(#{document.state})</sup></span>}
+        inner_element = document.deleted? ? %{<del>#{anchor.inner_text}</del>} : anchor
+        anchor.replace %{<span class="#{document.state}_link">#{inner_element} <sup class="explanation">(#{document.state})</sup></span>}
       end
     end
     doc.to_html.html_safe
