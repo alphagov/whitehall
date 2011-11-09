@@ -10,7 +10,7 @@ Whitehall::Application.routes.draw do
   resources :news, as: :news_articles, controller: :news_articles, only: [:show, :index]
   resources :publications, only: [:index, :show]
   resources :consultations, only: [:show]
-  resources :speeches, only: [:show]
+  resources :speeches, only: [:index, :show]
 
   resources :topics, only: [:index, :show]
   resources :organisations, only: [:index, :show]
