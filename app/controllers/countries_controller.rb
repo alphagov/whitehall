@@ -5,6 +5,6 @@ class CountriesController < ApplicationController
 
   def show
     @country = Country.find(params[:id])
-    @news_articles = NewsArticle.published.in_country(@country)
+    @news_articles = NewsArticle.published.in_country(@country).by_publication_date
   end
 end
