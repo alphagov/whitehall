@@ -1,6 +1,6 @@
 <% if news_articles.any? %>
   <section id="news_articles">
-    <h1>News Articles</h1>
+    <h1>News</h1>
     <ul>
       <% news_articles.each do |news_article| %>
         <%= content_tag_for(:li, news_article) do %>
