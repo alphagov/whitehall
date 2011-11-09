@@ -68,6 +68,20 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal "new-body", saved_publication.body
   end
 
+  test 'updating should remove all organisations, related documents and ministerial roles if none in params' do
+    org = create(:organisation)
+    policy = create(:policy)
+    minister = create(:ministerial_role)
+    publication = create(:publication, organisations: [org], documents_related_to: [policy], ministerial_roles: [minister])
+
+    put :update, id: publication, document: {}
+
+    publication.reload
+    assert_equal [], publication.organisations
+    assert_equal [], publication.documents_related_to
+    assert_equal [], publication.ministerial_roles
+  end
+
   test 'updating should take the writer to the publication page' do
     publication = create(:publication)
     put :update, id: publication.id, document: {title: 'new-title', body: 'new-body'}

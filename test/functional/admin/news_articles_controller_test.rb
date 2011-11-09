@@ -96,6 +96,21 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal [second_country], saved_news_article.countries
   end
 
+  test 'updating should remove all topics, related documents and countries if none in params' do
+    topic = create(:topic)
+    policy = create(:published_policy)
+    country = create(:country)
+
+    news_article = create(:news_article, topics: [topic], documents_related_to: [policy], countries: [country])
+
+    put :update, id: news_article, document: {}
+
+    news_article.reload
+    assert_equal [], news_article.topics
+    assert_equal [], news_article.documents_related_to
+    assert_equal [], news_article.countries
+  end
+
   test 'updating should take the writer to the news article page' do
     news_article = create(:news_article)
     put :update, id: news_article.id, document: {title: 'new-title', body: 'new-body'}

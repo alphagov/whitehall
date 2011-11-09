@@ -118,6 +118,21 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal [second_minister], policy.ministerial_roles
   end
 
+  test 'updating should remove all topics, organisations and ministerial roles if none in params' do
+    topic = create(:topic)
+    org = create(:organisation)
+    minister = create(:ministerial_role)
+
+    policy = create(:policy, topics: [topic], organisations: [org], ministerial_roles: [minister])
+
+    put :update, id: policy, document: {}
+
+    policy.reload
+    assert_equal [], policy.topics
+    assert_equal [], policy.organisations
+    assert_equal [], policy.ministerial_roles
+  end
+
   test 'updating should take the writer to the policy page' do
     policy = create(:policy)
     put :update, id: policy, document: {title: 'new-title', body: 'new-body'}

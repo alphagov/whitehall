@@ -1,5 +1,6 @@
 class Admin::DocumentsController < Admin::BaseController
   before_filter :find_document, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check, :destroy]
+  before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_document, only: [:new]
   before_filter :remember_filters, only: [:draft, :submitted, :published]
 
@@ -95,6 +96,22 @@ class Admin::DocumentsController < Admin::BaseController
 
   def find_document
     @document = document_class.find(params[:id])
+  end
+
+  def default_arrays_of_ids_to_empty
+    params[:document][:organisation_ids] ||= []
+    if @document.can_be_associated_with_topics?
+      params[:document][:topic_ids] ||= []
+    end
+    if @document.can_be_associated_with_ministers?
+      params[:document][:ministerial_role_ids] ||= []
+    end
+    if @document.can_be_related_to_other_documents?
+      params[:document][:documents_related_to_ids] ||= []
+    end
+    if @document.can_be_associated_with_countries?
+      params[:document][:country_ids] ||= []
+    end
   end
 
   def filter_documents(documents)

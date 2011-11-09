@@ -134,6 +134,19 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal [second_minister], consultation.ministerial_roles
   end
 
+  test 'updating should remove all organisation and ministerial roles if none in params' do
+    org = create(:organisation)
+    minister = create(:ministerial_role)
+
+    consultation = create(:consultation, organisations: [org], ministerial_roles: [minister])
+
+    put :update, id: consultation, document: {}
+
+    consultation.reload
+    assert_equal [], consultation.organisations
+    assert_equal [], consultation.ministerial_roles
+  end
+
   test 'updating a stale consultation should render edit page with conflicting consultation' do
     consultation = create(:draft_consultation, organisations: [build(:organisation)], ministerial_roles: [build(:ministerial_role)])
     lock_version = consultation.lock_version
