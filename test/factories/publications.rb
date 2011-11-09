@@ -13,6 +13,10 @@ FactoryGirl.define do
     state "draft"
   end
 
+  factory :deleted_publication, parent: :publication do
+    state "deleted"
+  end
+
   factory :archived_publication, parent: :publication do
     state "archived"
   end

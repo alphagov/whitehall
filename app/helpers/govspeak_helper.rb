@@ -10,7 +10,7 @@ module GovspeakHelper
         public_uri = rewritten_href_for_documents(document, supporting_document)
         anchor.replace %{<span class="published_link">#{anchor} <sup class="explanation">(<a class="public_link" href="#{public_uri}">public link</a>)</sup></span>}
       else
-        anchor.replace %{<span class="draft_link">#{anchor} <sup class="explanation">(draft)</sup></span>}
+        anchor.replace %{<span class="#{document.state}_link">#{anchor} <sup class="explanation">(#{document.state})</sup></span>}
       end
     end
     doc.to_html.html_safe
@@ -46,7 +46,7 @@ module GovspeakHelper
       supporting_document = SupportingDocument.find(id)
       document = supporting_document.document
     else
-      document = Document.find(id)
+      document = Document.send(:with_exclusive_scope) { Document.find(id) }
       supporting_document = nil
     end
     [document, supporting_document]

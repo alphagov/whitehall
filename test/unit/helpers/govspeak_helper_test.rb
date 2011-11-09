@@ -30,6 +30,12 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal %{<p>this and <span class="draft_link"><a href="#{admin_publication_url(publication)}">that</a> <sup class="explanation">(draft)</sup></span></p>}, html.strip
   end
 
+  test "should highlight links to deleted documents in admin preview" do
+    publication = create(:deleted_publication)
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    assert_equal %{<p>this and <span class="deleted_link"><a href="#{admin_publication_url(publication)}">that</a> <sup class="explanation">(deleted)</sup></span></p>}, html.strip
+  end
+
   test "should highlight links to published documents in admin preview" do
     publication = create(:published_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
@@ -43,6 +49,12 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should not link to draft documents" do
     publication = create(:draft_publication)
+    html = govspeak_to_html("this and [that](#{admin_publication_url(publication)})")
+    assert_equal "<p>this and that</p>", html.strip
+  end
+
+  test "should not link to deleted documents" do
+    publication = create(:deleted_publication)
     html = govspeak_to_html("this and [that](#{admin_publication_url(publication)})")
     assert_equal "<p>this and that</p>", html.strip
   end
