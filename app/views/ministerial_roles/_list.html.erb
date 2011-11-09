@@ -1,7 +1,13 @@
-<ul class="ministerial_roles">
-  <% ministerial_roles.each do |ministerial_role| %>
-    <%= content_tag_for(:li, ministerial_role) do %>
-      <%= link_to ministerial_role, ministerial_role %>
-    <% end %>
-  <% end %>
-</ul>
+<% ministerial_roles.group_by {|r| r.person.name.first.upcase }.sort.each do |letter, ministerial_roles_group| %>
+  <div class="alphabetical_group" id="ministerial_roles_<%= letter.downcase %>">
+    <h2><%= letter %></h2>
+    <ul class="ministerial_roles">
+      <% ministerial_roles_group.each do |ministerial_role| %>
+        <%= content_tag_for(:li, ministerial_role, class: "g1") do %>
+          <h3><%= link_to ministerial_role.person_name, ministerial_role %></h3>
+          <p><%= ministerial_role.name %></p>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
