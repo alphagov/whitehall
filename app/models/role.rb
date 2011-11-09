@@ -29,8 +29,8 @@ class Role < ActiveRecord::Base
     people.first
   end
 
-  def person_name
-    person ? person.name : "No one is assigned to this role"
+  def person_name(default="No one is assigned to this role")
+    person ? person.name : default
   end
 
   def to_s

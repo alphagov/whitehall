@@ -1,4 +1,4 @@
-<% ministerial_roles.group_by {|r| r.person.name.first.upcase }.sort.each do |letter, ministerial_roles_group| %>
+<% ministerial_roles.group_by {|r| r.person_name("-").first.upcase }.sort.each do |letter, ministerial_roles_group| %>
   <div class="alphabetical_group" id="ministerial_roles_<%= letter.downcase %>">
     <h2><%= letter %></h2>
     <ul class="ministerial_roles">
