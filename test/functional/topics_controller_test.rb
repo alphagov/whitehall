@@ -8,28 +8,60 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select ".topic .description", text: topic.description
   end
 
-  test "shows only published policies associated with topic" do
-    published_document = create(:published_policy)
-    draft_document = create(:draft_policy)
-    topic = create(:topic, documents: [published_document, draft_document])
+  test "shows published policies associated with topic" do
+    published_policy = create(:published_policy)
+    topic = create(:topic, documents: [published_policy])
+
     get :show, id: topic
-    assert_select_object(published_document)
-    assert_select_object(draft_document, count: 0)
+
+    assert_select "#policies" do
+      assert_select_object(published_policy)
+    end
+
+    assert_select_object(published_policy, count: 1)
   end
 
-  test "shows only published news articles associated with topic" do
-    published_document = create(:published_news_article)
-    draft_document = create(:draft_news_article)
-    topic = create(:topic, documents: [published_document, draft_document])
+  test "doesn't show unpublished policies" do
+    draft_policy = create(:draft_news_article)
+    topic = create(:topic, documents: [draft_policy])
+
     get :show, id: topic
-    assert_select_object(published_document)
-    assert_select_object(draft_document, count: 0)
+
+    assert_select_object(draft_policy, count: 0)
   end
 
   test "should not display an empty published policies section" do
     topic = create(:topic)
     get :show, id: topic
     assert_select "#policies", count: 0
+  end
+
+  test "shows published news articles associated with topic" do
+    published_article = create(:published_news_article)
+    topic = create(:topic, documents: [published_article])
+
+    get :show, id: topic
+
+    assert_select "#news_articles" do
+      assert_select_object(published_article)
+    end
+
+    assert_select_object(published_article, count: 1)
+  end
+
+  test "doesn't show unpublished news articles" do
+    draft_article = create(:draft_news_article)
+    topic = create(:topic, documents: [draft_article])
+
+    get :show, id: topic
+
+    assert_select_object(draft_article, count: 0)
+  end
+
+  test "should not display an empty news articles section" do
+    topic = create(:topic)
+    get :show, id: topic
+    assert_select "#news_articles", count: 0
   end
 
   test "should show list of topics with published documents" do

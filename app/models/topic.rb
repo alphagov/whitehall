@@ -1,8 +1,8 @@
 class Topic < ActiveRecord::Base
   has_many :document_topics
   has_many :documents, through: :document_topics
-  has_many :policies, through: :document_topics, source: :document
-  has_many :news_articles, through: :document_topics, source: :document
+  has_many :policies, through: :document_topics, class_name: "Policy", source: :document
+  has_many :news_articles, through: :document_topics, class_name: "NewsArticle", source: :document
 
   has_many :published_documents, through: :document_topics, class_name: "Document", conditions: { state: "published" }, source: :document
 
