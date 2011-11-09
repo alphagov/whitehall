@@ -2,7 +2,7 @@ require "test_helper"
 
 class SpeechesControllerTest < ActionController::TestCase
 
-  should_render_a_list_of_speeches
+  should_render_a_list_of :speeches
 
   test "should display details about the speech" do
     home_office = create(:organisation, name: "Home Office")

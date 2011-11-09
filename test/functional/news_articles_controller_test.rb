@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class NewsArticlesControllerTest < ActionController::TestCase
-  should_render_a_list_of_news_articles
+  should_render_a_list_of :news_articles
 
   test "shows published news article" do
     news_article = create(:published_news_article)

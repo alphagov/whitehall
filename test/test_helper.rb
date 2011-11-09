@@ -27,8 +27,7 @@ class ActionController::TestCase
   include CssSelectors
   include AdminDocumentControllerTestHelpers
   include ControllerTestHelpers
-  include NewsArticleTestHelpers
-  include SpeechesTestHelpers
+  include ResourceTestHelpers
 
   def login_as(role_or_user)
     user = role_or_user.is_a?(Symbol) ? create(role_or_user) : role_or_user
