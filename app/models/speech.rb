@@ -6,6 +6,8 @@ class Speech < Document
   class WrittenStatement < Speech; end
   class OralStatement < Speech; end
 
+  include Document::RelatedDocuments
+
   belongs_to :role_appointment
 
   validates :role_appointment, :delivered_on, :location, presence: true

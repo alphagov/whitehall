@@ -6,6 +6,11 @@ class SpeechTest < ActiveSupport::TestCase
     assert speech.valid?
   end
 
+  test "should be able to relate to other documents" do
+    article = build(:news_article)
+    assert article.can_be_related_to_other_documents?
+  end
+
   test "should be invalid without a role_appointment" do
     speech = build(:speech, role_appointment: nil)
     refute speech.valid?
