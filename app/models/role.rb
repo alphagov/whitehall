@@ -12,6 +12,16 @@ class Role < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  class << self
+    def humanized_type
+      name.gsub(/Role/, '').underscore.split("_").join(" ").humanize
+    end
+  end
+
+  def humanized_type
+    self.class.humanized_type
+  end
+
   def should_generate_new_friendly_id?
     new_record?
   end
@@ -31,10 +41,6 @@ class Role < ActiveRecord::Base
 
   def person_name(default="No one is assigned to this role")
     person ? person.name : default
-  end
-
-  def humanized_type
-    self.class.name.underscore.split("_")[0..-2].join(" ").humanize
   end
 
   def organisation_names

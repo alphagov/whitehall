@@ -72,4 +72,11 @@ class RoleTest < ActiveSupport::TestCase
     role = create(:ministerial_role, name: "Bob's bike")
     assert_equal 'bobs-bike', role.slug
   end
+
+  test "should generate user-friendly types" do
+    assert_equal "Ministerial", build(:ministerial_role).humanized_type
+    assert_equal "Board member", build(:board_member_role).humanized_type
+    assert_equal "Ministerial", MinisterialRole.humanized_type
+    assert_equal "Board member", BoardMemberRole.humanized_type
+  end
 end
