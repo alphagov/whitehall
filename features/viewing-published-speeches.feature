@@ -7,3 +7,8 @@ Scenario: Viewing speeches made by a minister
   Then I should see the speech "Abolish Fig Rolls"
   When I visit the speech "Abolish Fig Rolls"
   Then I should see the speech was delivered on "June 23rd, 2010" at "The Mansion House"
+
+Scenario: Viewing a published speech with related policies
+  Given a published speech "Things I Have Thought" with related published policies "Policy 1" and "Policy 2"
+  When I visit the speech "Things I Have Thought"
+  Then I can see links to the related published policies "Policy 1" and "Policy 2"
