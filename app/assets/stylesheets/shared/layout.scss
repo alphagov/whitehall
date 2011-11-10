@@ -20,3 +20,8 @@
   }
 }
 
+.g1,.g2,.g3 {
+  &.first {
+    margin-left: 0;
+  };
+}
