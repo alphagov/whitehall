@@ -40,8 +40,12 @@ class Topic < ActiveRecord::Base
   end
 
   class << self
+    def randomized
+      order('RAND()')
+    end
+
     def featured
-      with_published_documents.order('RAND()')
+      where(featured: true)
     end
   end
 end

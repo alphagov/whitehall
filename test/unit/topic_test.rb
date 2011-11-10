@@ -71,13 +71,13 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal false, topic_with_published_policy.destroy
   end
 
-  test "should return a featured topic with documents" do
-    topic_with_published_policy = create(:topic, documents: [build(:published_policy)])
-    assert_equal topic_with_published_policy, Topic.featured.first
+  test ".featured includes all featured topics" do
+    topic = create(:topic, featured: true)
+    assert Topic.featured.include?(topic)
   end
 
-  test "should not feature topics without documents" do
-    topic = create(:topic)
-    assert_nil Topic.featured.first
+  test ".featured excludes unfeatured topics" do
+    topic = create(:topic, featured: false)
+    refute Topic.featured.include?(topic)
   end
 end

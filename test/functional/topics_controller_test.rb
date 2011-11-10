@@ -67,7 +67,7 @@ class TopicsControllerTest < ActionController::TestCase
   test "should show list of topics with published documents" do
     topic_1, topic_2 = create(:topic), create(:topic)
     Topic.stubs(:with_published_documents).returns([topic_1, topic_2])
-    Topic.stubs(:featured).returns([])
+    TopicsController::FeaturedTopicChooser.stubs(:choose_topic)
 
     get :index
 
@@ -77,7 +77,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   test "should not display an empty list of topics" do
     Topic.stubs(:with_published_documents).returns([])
-    Topic.stubs(:featured).returns([])
+    TopicsController::FeaturedTopicChooser.stubs(:choose_topic)
 
     get :index
 
@@ -86,7 +86,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   test "shows a featured topic if one exists" do
     topic = create(:topic)
-    Topic.stubs(:featured).returns([topic])
+    TopicsController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
 
     get :index
 
@@ -98,7 +98,7 @@ class TopicsControllerTest < ActionController::TestCase
   test "shows featured topic policies" do
     policy = create(:published_policy)
     topic = create(:topic, documents: [policy])
-    Topic.stubs(:featured).returns([topic])
+    TopicsController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
 
     get :index
 
@@ -108,10 +108,24 @@ class TopicsControllerTest < ActionController::TestCase
   test "shows featured topic news articles" do
     article = create(:published_news_article)
     topic = create(:topic, documents: [article])
-    Topic.stubs(:featured).returns([topic])
+    TopicsController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
 
     get :index
 
     assert_select_object article
+  end
+
+  class FeaturedTopicChooserTest < ActiveSupport::TestCase
+    test "chooses random featured topic if one exists" do
+      TopicsController::FeaturedTopicChooser.stubs(:choose_random_featured_topic).returns(:random_featured_topic)
+      TopicsController::FeaturedTopicChooser.expects(:choose_random_topic).never
+      assert_equal :random_featured_topic, TopicsController::FeaturedTopicChooser.choose_topic
+    end
+
+    test "chooses random topic if no featured topics found" do
+      TopicsController::FeaturedTopicChooser.stubs(:choose_random_featured_topic).returns(nil)
+      TopicsController::FeaturedTopicChooser.expects(:choose_random_topic).returns(:random_topic)
+      assert_equal :random_topic, TopicsController::FeaturedTopicChooser.choose_topic
+    end
   end
 end
