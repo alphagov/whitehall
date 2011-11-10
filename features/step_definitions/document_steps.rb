@@ -134,7 +134,7 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
   when Policy
     click_link "Policies"
   else
-    click_link "Documents"
+    raise "Don't know what to click on for #{document.class.name}s"
   end
   assert page.has_css?(record_css_selector(document), text: document.title)
 end

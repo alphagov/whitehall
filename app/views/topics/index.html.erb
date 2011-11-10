@@ -4,7 +4,7 @@
   <% if @topics.any? %>
     <%= render partial: "list", locals: {topics: @topics} %>
   <% else %>
-    <p>We don't have any topics with <%= link_to "published documents", documents_path %> at present.</p>
+    <p>We don't have any topics with published documents at present.</p>
   <% end %>
 </div>
 
