@@ -12,6 +12,7 @@
         <tr>
           <th>Name</th>
           <th>Type</th>
+          <th>Leader</th>
           <th>Organisations</th>
           <th>Currently Appointed</th>
         </tr>
@@ -20,9 +21,10 @@
         <% @roles.each do |role| %>
           <%= content_tag_for(:tr, role) do %>
             <td class="name"><%= role.name %></td>
-            <td class="name"><%= role.humanized_type %></td>
-            <td class="name"><%= role.organisation_names %></td>
-            <td class="name"><%= role.person_name %></td>
+            <td class="type"><%= role.humanized_type %></td>
+            <td class="leader"><%= role.leader? ? "Yes" : "No" %></td>
+            <td class="organisations"><%= role.organisation_names %></td>
+            <td class="person"><%= role.person_name %></td>
           <% end %>
         <% end %>
       </tbody>

@@ -8,16 +8,29 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test_controller_is_a Admin::BaseController
 
   test "index should display a list of roles" do
-    role_one = create(:role, name: "role-one")
-    role_two = create(:role, name: "role-two")
-    role_three = create(:role, name: "role-three")
+    org_one = create(:organisation, name: "org-one")
+    org_two = create(:organisation, name: "org-two")
+    person = create(:person, name: "person-name")
+    role_one = create(:ministerial_role, name: "role-one", leader: false, organisations: [org_one, org_two], people: [person])
+    role_two = create(:board_member_role, name: "role-two", leader: true, organisations: [org_one])
 
     get :index
 
     assert_select ".roles" do
-      assert_select_object role_one
-      assert_select_object role_two
-      assert_select_object role_three
+      assert_select_object role_one do
+        assert_select ".name", "role-one"
+        assert_select ".type", "Ministerial"
+        assert_select ".leader", "No"
+        assert_select ".organisations", "org-one and org-two"
+        assert_select ".person", "person-name"
+      end
+      assert_select_object role_two do
+        assert_select ".name", "role-two"
+        assert_select ".type", "Board member"
+        assert_select ".leader", "Yes"
+        assert_select ".organisations", "org-one"
+        assert_select ".person", "No one is assigned to this role"
+      end
     end
   end
 
