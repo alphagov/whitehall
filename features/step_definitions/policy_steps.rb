@@ -38,10 +38,6 @@ Given /^I submit the policy for the second set of eyes$/ do
   click_button 'Submit to 2nd pair of eyes'
 end
 
-Given /^a published policy exists$/ do
-  @document = create(:published_policy)
-end
-
 Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   begin_editing_document original_title
   fill_in "Title", with: new_title
@@ -98,9 +94,9 @@ When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
   click_button "Confirm rejection"
 end
 
-When /^I create a new edition of the published policy$/ do
+When /^I create a new edition of the published policy "([^"]*)"$/ do |policy_title|
   visit published_admin_documents_path
-  click_link Policy.published.last.title
+  click_link policy_title
   click_button 'Create new draft'
 end
 
@@ -217,10 +213,11 @@ Then /^I should see the pending fact check request to "([^"]*)" for policy "([^"
   assert page.has_css?(".fact_check_request.pending .from", text: email_address)
 end
 
-Then /^the published policy should remain unchanged$/ do
-  visit public_document_path(@document)
-  assert page.has_css?('.document_view .title', text: @document.title)
-  assert page.has_css?('.document_view .body', text: @document.body)
+Then /^the published policy "([^"]*)" should remain unchanged$/ do |policy_title|
+  policy = Policy.find_by_title!(policy_title)
+  visit public_document_path(policy)
+  assert page.has_css?('.document_view .title', text: policy.title)
+  assert page.has_css?('.document_view .body', text: policy.body)
 end
 
 Then /^I should see that those responsible for the policy are:$/ do |table|

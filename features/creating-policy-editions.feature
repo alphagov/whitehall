@@ -5,9 +5,9 @@ Should be able to create a new edition of a published policy
 
 Scenario: Creating a new edition
   Given I am a writer
-  And a published policy exists
+  And a published policy "Ban beards" exists
 
-  When I create a new edition of the published policy
+  When I create a new edition of the published policy "Ban beards"
   And I edit the new edition
 
-  Then the published policy should remain unchanged
+  Then the published policy "Ban beards" should remain unchanged
