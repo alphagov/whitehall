@@ -1,0 +1,6 @@
+<% countries.group_by {|c| c.name.first.upcase }.sort.each do |letter, countries_group| %>
+  <div class="alphabetical_group" id="countries_<%= letter.downcase %>">
+    <h2><%= letter %></h2>
+    <%= render partial: "list", locals: { countries: countries_group } %>
+  </div>
+<% end %>

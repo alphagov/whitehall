@@ -1,0 +1,6 @@
+<% organisations.group_by {|o| o.name.first.upcase }.sort.each do |letter, organisations_group| %>
+  <div class="alphabetical_group" id="organisations_<%= letter %>">
+    <h2><%= letter %></h2>
+    <%= render partial: "list", locals: { organisations: organisations_group } %>
+  </div>
+<% end %>

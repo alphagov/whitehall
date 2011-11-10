@@ -31,6 +31,7 @@
       margin-bottom: 0;
       padding-top: 0.75em;
       padding-bottom: 0.9em;
+      @include span_one_column;
 
       h3, p {
         margin-bottom: 0;
@@ -48,8 +49,9 @@
       }
     }
   }
-}
 
-.ministerial_role {
-  min-height: 5.45em;
+  .ministerial_role {
+    min-height: 5.45em;
+  }
+
 }

@@ -53,3 +53,9 @@ class ActionMailer::TestCase
     end
   end
 end
+
+class ActionView::TestCase
+  def assert_select_in_html(text, *args, &block)
+    assert_select HTML::Document.new(text).root, *args, &block
+  end
+end

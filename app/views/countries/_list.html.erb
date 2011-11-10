@@ -1,12 +1,7 @@
-<% countries.group_by {|c| c.name.first.upcase }.sort.each do |letter, country_group| %>
-  <div class="alphabetical_group" id="countries_<%= letter.downcase %>">
-    <h2><%= letter %></h2>
-    <ul class="countries">
-      <% country_group.each do |country| %>
-        <%= content_tag_for(:li, country, class: "g1") do %>
-          <%= link_to country.name, country_path(country) %>
-        <% end %>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<ul class="countries">
+  <% countries.each do |country| %>
+    <%= content_tag_for(:li, country) do %>
+      <%= link_to country.name, country_path(country) %>
+    <% end %>
+  <% end %>
+</ul>

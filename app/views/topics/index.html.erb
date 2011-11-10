@@ -2,7 +2,7 @@
   <h1>Topics</h1>
 
   <% if @topics.any? %>
-    <%= render partial: "list", locals: {topics: @topics} %>
+    <%= render partial: "grouped_list", locals: {topics: @topics} %>
   <% else %>
     <p>We don't have any topics with published documents at present.</p>
   <% end %>
