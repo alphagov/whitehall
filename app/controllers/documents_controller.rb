@@ -3,7 +3,6 @@ class DocumentsController < ApplicationController
 
   def index
     @policies = Policy.published
-    @consultations = Consultation.published
   end
 
   def show
