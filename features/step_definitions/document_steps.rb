@@ -129,6 +129,8 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
     click_link "Publications"
   when NewsArticle, Speech
     click_link "Announcements"
+  when Consultation
+    click_link "Consultations"
   else
     click_link "Documents"
   end
