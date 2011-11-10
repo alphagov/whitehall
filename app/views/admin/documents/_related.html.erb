@@ -1,0 +1,7 @@
+<ul id="related-documents">
+  <% related_documents.each do |related_document| %>
+    <%= content_tag_for :li, related_document do %>
+      <%= link_to "[#{related_document.type.titleize}] #{related_document.title_with_state}", admin_document_path(related_document) %>
+    <% end %>
+  <% end %>
+</ul>

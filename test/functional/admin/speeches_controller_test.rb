@@ -188,6 +188,13 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_select ".details .location", "The Guidhall"
   end
 
+  test 'show displays related policies' do
+    policy = create(:policy)
+    speech = create(:speech, documents_related_to: [policy])
+    get :show, id: speech
+    assert_select_object policy
+  end
+
   should_be_rejectable :speech
   should_be_force_publishable :speech
   should_be_able_to_delete_a_document :speech
