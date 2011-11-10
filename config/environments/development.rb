@@ -27,4 +27,6 @@ Whitehall::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.middleware.swap Rails::Rack::Logger, Whitehall::QuietAssetLogger
 end
