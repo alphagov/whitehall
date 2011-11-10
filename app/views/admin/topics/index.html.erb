@@ -17,9 +17,16 @@
       </thead>
       <tbody>
         <% @topics.each do |topic| %>
-          <%= content_tag_for(:tr, topic) do %>
+          <%= content_tag_for(:tr, topic, class: topic_css_classes(topic)) do %>
             <td class="name"><%= link_to topic.name, edit_admin_topic_path(topic), title: "Edit topic #{topic.name}" %></td>
             <td class="description"><%= topic.description %></td>
+            <td class="actions">
+              <% if topic.featured? %>
+                <%= button_to 'No Longer Feature', unfeature_admin_topic_path(topic), method: :post %>
+              <% else %>
+                <%= button_to 'Feature Topic', feature_admin_topic_path(topic), method: :post %>
+              <% end %>
+            </td>
           <% end %>
         <% end %>
       </tbody>

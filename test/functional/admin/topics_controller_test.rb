@@ -17,6 +17,26 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
+  test "indexing shows a feature or unfeature button for topics" do
+    featured_topic = create(:topic, featured: true)
+    unfeatured_topic = create(:topic, featured: false)
+    get :index
+
+    assert_select_object featured_topic do
+      assert_select "form[action='#{unfeature_admin_topic_path(featured_topic)}']" do
+        assert_select "input[type='submit'][value='No Longer Feature']"
+      end
+      assert_select "form[action='#{feature_admin_topic_path(featured_topic)}']", count: 0
+    end
+
+    assert_select_object unfeatured_topic do
+      assert_select "form[action='#{feature_admin_topic_path(unfeatured_topic)}']" do
+        assert_select "input[type='submit'][value='Feature Topic']"
+      end
+      assert_select "form[action='#{unfeature_admin_topic_path(unfeatured_topic)}']", count: 0
+    end
+  end
+
   test "updating without a description shows errors" do
     topic = create(:topic)
     put :update, id: topic.id, topic: {name: "Blah", description: ""}
@@ -62,5 +82,31 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
     delete :destroy, id: topic_with_published_policy.id
     assert_equal "Cannot destroy topic with associated content", flash[:alert]
+  end
+
+  test "featuring sets topic featured flag" do
+    topic = create(:topic, featured: false)
+    post :feature, id: topic
+    assert topic.reload.featured?
+  end
+
+  test "featuring redirects to index and informs user the topic is now featured" do
+    topic = create(:topic, featured: false)
+    post :feature, id: topic
+    assert_redirected_to admin_topics_path
+    assert_equal flash[:notice], "The topic #{topic.name} is now featured"
+  end
+
+  test "unfeaturing unsets topic featured flag" do
+    topic = create(:topic, featured: true)
+    post :unfeature, id: topic
+    refute topic.reload.featured?
+  end
+
+  test "unfeaturing redirects to index and informs user the topic is no longer featured" do
+    topic = create(:topic, featured: false)
+    post :unfeature, id: topic
+    assert_redirected_to admin_topics_path
+    assert_equal flash[:notice], "The topic #{topic.name} is no longer featured"
   end
 end

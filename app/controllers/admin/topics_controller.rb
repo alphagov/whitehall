@@ -29,6 +29,18 @@ class Admin::TopicsController < Admin::BaseController
     end
   end
 
+  def feature
+    @topic = Topic.find(params[:id])
+    @topic.update_attributes(featured: true)
+    redirect_to admin_topics_path, notice: "The topic #{@topic.name} is now featured"
+  end
+
+  def unfeature
+    @topic = Topic.find(params[:id])
+    @topic.update_attributes(featured: false)
+    redirect_to admin_topics_path, notice: "The topic #{@topic.name} is no longer featured"
+  end
+
   def destroy
     @topic = Topic.find(params[:id])
     if @topic.destroy
