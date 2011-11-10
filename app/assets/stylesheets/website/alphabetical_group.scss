@@ -18,9 +18,8 @@
     width: 2em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    background: #555;
-    @include vertical_gradient(#666, #444);
-
+    background: #333;
+    @include vertical_gradient(#333, #111);
   }
 
   ul {

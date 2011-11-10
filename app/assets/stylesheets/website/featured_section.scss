@@ -19,7 +19,8 @@
         padding-left: 0.5em;
         padding-bottom: 0.25em;
         padding-top: 0.5em;
-        @include vertical_gradient(#333, #222);
+        @include vertical_gradient(#333, #111);
+
         border-top: 1px solid #000;
         border-bottom: 1px solid #fff;
 
