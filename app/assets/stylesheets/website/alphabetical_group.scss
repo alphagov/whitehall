@@ -19,7 +19,8 @@
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     background: #555;
-    font-family: georgia;
+    @include vertical_gradient(#666, #444);
+
   }
 
   ul {
