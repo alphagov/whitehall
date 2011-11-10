@@ -4,6 +4,10 @@
   padding: 0.8em 4%;
   background: #2a2a00;
 
+  @media only screen and (min-width: 833px) {
+    padding: 0.8em 4% 0 4%;
+  }
+
   nav {
     float: left;
     padding-right: 1em;
@@ -11,6 +15,9 @@
       @include type-14;
       font-weight: bold;
       padding-right: 1em;
+      white-space: nowrap;
+      display: inline-block;
+      margin-bottom: 0.5em;
     }
   }
 
@@ -18,20 +25,19 @@
     text-decoration: none;
     @include link_color(#fff, $link-color-hover, none, $link-color-active);
   }
-}
 
-@media only screen and (min-width: 480px) {
-  body {
-    .masthead {
-      h1 {
-        float: left;
-      }
-    }
+  a.open_website {
+    margin-left: 1em;
+    padding: 0.2em 1em 0.2em 1em;
+    background: #111;
+    border: 1px solid #333;
+    margin-top: -0.4em;
   }
 }
 
 .session_info {
   float: left;
+  margin-top: 0.5em;
 
   p {
     @include type-14;
@@ -58,15 +64,14 @@
       text-decoration: none;
     }
   }
-}
 
-@media only screen and (min-width: 480px) {
-  body {
-    .session_info {
-      float: right;
-    }
+  @media only screen and (min-width: 833px) {
+    margin-top: 0;
+    float: right;
   }
 }
+
+
 
 body {
   background: #f8f7f5;
