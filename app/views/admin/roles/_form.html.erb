@@ -1,4 +1,4 @@
-<%= form_for [:admin, role] do |form| %>
+<%= form_for [:admin, role.becomes(Role)], as: :role do |form| %>
   <%= form.errors %>
 
   <fieldset>

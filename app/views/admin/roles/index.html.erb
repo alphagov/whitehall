@@ -20,7 +20,7 @@
       <tbody>
         <% @roles.each do |role| %>
           <%= content_tag_for(:tr, role) do %>
-            <td class="name"><%= role.name %></td>
+            <td class="name"><%= link_to role.name, edit_admin_role_path(role), title: "Edit role #{role.name}" %></td>
             <td class="type"><%= role.humanized_type %></td>
             <td class="leader"><%= role.leader? ? "Yes" : "No" %></td>
             <td class="organisations"><%= role.organisation_names %></td>
