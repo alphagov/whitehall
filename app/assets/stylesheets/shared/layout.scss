@@ -1,107 +1,22 @@
-/* column grid */
-.g1,.g2,.g3,.g-half {
-  display: block;
-  position: relative;
-  margin-left: 1%;
-  margin-right: 1%
+@import "utils";
+
+.g1 {
+  @include span_one_column;
 }
 
-/* 1 column grid */
-.g1,.g2,.g3 {
-  width: 98.0%
+.g2 {
+  @include span_two_columns;
 }
 
-/* @media Queries
-
-FOLDING FLUID GRID
-< 767px - 1-Column Fluid Grid
-768px - 1023px - 2-Column Fluid Grid
-> 1024px - 3-Column Fluid Grid
-Change widths as necessary
-------------------------------------------- */
-
-/* MOBILE PORTRAIT */
-@media only screen and (min-width: 320px) {
-  body {
-  }
+.g3 {
+  @include span_three_columns;
 }
 
-/* MOBILE LANDSCAPE */
-@media only screen and (min-width: 480px) {
-  body {
-  }
-}
+.g-half {
+  @include grid_column;
 
-/* SMALL TABLET */
-@media only screen and (min-width: 600px) {
-  body {
-  }
-}
-
-/* TABLET/NETBOOK */
-@media only screen and (min-width: 768px) {
-  body {
-  }
-
-  /* COLUMN GRID */
-  .g1,.g2,.g3 {
-    display: inline;
-    float: left;
-  }
-
-  .first {
-    margin-left: 0;
-  }
-
-  /* 2 COLUMN GRID */
-  .g1 {
-    width: 48.0%
-  }
-  .g2 {
-    width: 48.0%
-  }
-  .g3 {
-    width: 98.0%
-  }
-
-}
-
-/* LANDSCAPE TABLET/NETBOOK/LAPTOP */
-@media only screen and (min-width: 1024px) {
-  body {
-
-  }
-
-  .g-half {
-    display: inline;
-    float: left;
-  }
-
-  .g-half {
+  @media only screen and (min-width: 768px) {
     width: 48%;
   }
-
-
-  /* 3 COLUMN GRID */
-  .g1 {
-    width: 31.333%
-  }
-  .g2 {
-    width: 64.667%;
-  }
-  .g3 {
-    width: 98.0%
-  }
 }
 
-@media only screen and (min-width: 1280px) {
-/* DESKTOP */
-  body {
-  }
-}
-
-/* WIDESCREEN */
-@media only screen and (min-width: 1400px) {
-  body {
-  }
-}
