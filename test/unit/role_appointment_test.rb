@@ -2,6 +2,26 @@ require "test_helper"
 
 class RoleAppointmentTest < ActiveSupport::TestCase
 
+  test "should be valid when built from the factory" do
+    role_appointment = build(:role_appointment)
+    assert role_appointment.valid?
+  end
+
+  test "should be invalid with no started_at" do
+    role_appointment = build(:role_appointment, started_at: nil)
+    refute role_appointment.valid?
+  end
+
+  test "should be invalid with no role" do
+    role_appointment = build(:role_appointment, role: nil)
+    refute role_appointment.valid?
+  end
+
+  test "should be invalid with no person" do
+    role_appointment = build(:role_appointment, person: nil)
+    refute role_appointment.valid?
+  end
+
   test "should link a MinisterialRole to the Person who currently holds the role" do
     role = create(:ministerial_role)
     alice = create(:person, name: "Alice")
