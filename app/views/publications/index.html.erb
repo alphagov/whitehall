@@ -1,6 +1,8 @@
-<% if @publications.empty? %>
-  <h1>Publications</h1>
-  <p>We don't have any published publications at present.</p>
-<% else %>
-  <%= render partial: "publications", object: @publications %>
-<% end %>
+<div class="g3">
+  <% if @publications.empty? %>
+    <h1>Publications</h1>
+    <p>We don't have any published publications at present.</p>
+  <% else %>
+    <%= render partial: "publications", object: @publications %>
+  <% end %>
+</div>
