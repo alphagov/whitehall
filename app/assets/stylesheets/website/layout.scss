@@ -1,6 +1,7 @@
 @import "../shared/utils";
 
-body {
+header h1 {
+  @include type-24;
 }
 
 .masthead {
@@ -12,12 +13,22 @@ body {
     padding: 0.2em 5%;
     margin-bottom: 0;
     border-bottom: 1px solid #222;
+
+    @media only screen and (min-width: 600px) {
+      padding: 0.4em 10%;
+    }
   }
 
   nav {
     @include type-14;
     margin-bottom: 0;
     padding: 0 5%;
+
+    @media only screen and (min-width: 600px) {
+      padding: 0 10%;
+      @include type-16;
+      margin-bottom: 0;
+    }
 
     a {
       border-right: 1px solid #333;
@@ -39,6 +50,10 @@ body {
       &:last-child {
         border-right: none;
       }
+
+      @media only screen and (min-width: 600px) {
+        padding: 0.75em 1em;
+      }
     }
   }
 
@@ -51,30 +66,22 @@ body {
   }
 }
 
-header, .wrapper {
-
-}
-
 .wrapper {
   margin: 0 auto;
-  padding-top: 2.75em;
-  padding-bottom: 2.75em;
   width: 92%;
-}
 
-.wrapper {
+  padding-top: 1.5em;
+  padding-bottom: 3em;
+
+
+  @media only screen and (min-width: 600px) {
+    width: 81%;
+  }
 
   h1 {
-    font-family: georgia;
-    @include type-48;
-    margin-bottom: 1em;
+    @include type-36;
   }
 
-  section {
-    h1 {
-      @include type-18;
-    }
-  }
   .secondary {
     > section {
       border: 1px solid #ddd;
@@ -107,28 +114,5 @@ header, .wrapper {
         margin-bottom: 0;
       }
     }
-  }
-}
-
-
-@media only screen and (min-width: 600px) {
-  .masthead {
-    h1 {
-      padding: 0.4em 10%;
-    }
-    nav {
-      padding: 0 10%;
-      @include type-16;
-      margin-bottom: 0;
-
-      a {
-        padding: 0.75em 1em;
-
-      }
-    }
-  }
-
-  .wrapper {
-    width: 81%;
   }
 }
