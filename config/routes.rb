@@ -45,6 +45,7 @@ Whitehall::Application.routes.draw do
     resources :consultations, only: [:new, :create, :edit, :update, :show, :destroy]
     resources :speeches, only: [:new, :create, :edit, :update, :show, :destroy]
     resources :people, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :roles, only: [:index]
 
     match "preview" => "preview#preview", via: :post
   end

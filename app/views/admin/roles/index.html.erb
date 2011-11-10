@@ -1,0 +1,30 @@
+<section class="resource_list">
+  <div class="collection">
+
+    <nav class="actions">
+    </nav>
+
+    <h1>Roles</h1>
+
+    <table class="roles">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Organisations</th>
+          <th>Currently Appointed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @roles.each do |role| %>
+          <%= content_tag_for(:tr, role) do %>
+            <td class="name"><%= role.name %></td>
+            <td class="name"><%= role.humanized_type %></td>
+            <td class="name"><%= role.organisation_names %></td>
+            <td class="name"><%= role.person_name %></td>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

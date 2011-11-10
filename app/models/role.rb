@@ -33,8 +33,15 @@ class Role < ActiveRecord::Base
     person ? person.name : default
   end
 
+  def humanized_type
+    self.class.name.underscore.split("_")[0..-2].join(" ").humanize
+  end
+
+  def organisation_names
+    organisations.map(&:name).join(' and ')
+  end
+
   def to_s
-    organisation_names = organisations.map(&:name).join(' and ')
     return "#{person.name} (#{name}, #{organisation_names})" if organisations.any? && person
     return "#{name}, #{organisation_names}" if organisations.any?
     return "#{person.name} (#{name})" if person

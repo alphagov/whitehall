@@ -9,12 +9,16 @@ module Admin::DocumentsHelper
     admin_header_link "Documents", admin_documents_path, /^\/admin\/(documents|publications|policies|news_articles|consultations|speeches)/
   end
 
+  def admin_topics_header_link
+    admin_header_link "Topics", admin_topics_path
+  end
+
   def admin_organisations_header_link
     admin_header_link "Organisations", admin_organisations_path
   end
 
-  def admin_topics_header_link
-    admin_header_link "Topics", admin_topics_path
+  def admin_roles_header_link
+    admin_header_link "Roles", admin_roles_path
   end
 
   def admin_people_header_link
