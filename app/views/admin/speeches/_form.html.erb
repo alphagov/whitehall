@@ -19,5 +19,7 @@
     <%= form.text_field :location %>
   </fieldset>
 
+  <%= render partial: "related_policy_fields", locals: { form: form, document: document } %>
+
   <%= form.save_or_cancel %>
 <% end %>

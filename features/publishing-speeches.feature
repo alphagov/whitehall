@@ -17,3 +17,9 @@ Scenario: Publishing a submitted publication
   When I publish the speech "Stubble to be Outlawed"
   Then I should see the speech "Stubble to be Outlawed" in the list of published documents
   And the speech "Stubble to be Outlawed" should be visible to the public
+
+Scenario: Creating a speech related to multiple policies
+  Given I am a writer
+  And two published policies "Against All Cods" and "O For Tuna" exist
+  When I draft a new speech "Fishy Business" relating it to "Against All Cods" and "O For Tuna"
+  Then I should see in the preview that "Fishy Business" should related to "Against All Cods" and "O For Tuna" policies

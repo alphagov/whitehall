@@ -43,8 +43,6 @@ Given /^a published speech exists$/ do
   @speech = create(:published_speech)
 end
 
-
-
 When /^I edit the speech "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   speech = Speech.find_by_title!(original_title)
   visit admin_document_path(speech)
@@ -69,20 +67,20 @@ When /^I create a new edition of the published speech$/ do
 end
 
 When /^I draft a new speech "([^"]*)"$/ do |title|
-  person = create(:person, name: "Colonel Mustard")
-  role = create(:ministerial_role, name: "Attorney General")
-  role_appointment = create(:role_appointment, person: person, role: role)
-  begin_drafting_document type: 'speech', title: title
-  select "Draft Text", from: "Type"
-  select "Colonel Mustard (Attorney General)", from: "Delivered by"
-  select_date "Delivered on", with: 1.day.ago.to_s
-  fill_in "Location", with: "The Drawing Room"
+  begin_drafting_speech title: title
   click_button "Save"
 end
 
 When /^I visit the speech "([^"]*)"$/ do |title|
   speech = Speech.find_by_title!(title)
   visit speech_path(speech.document_identity)
+end
+
+When /^I draft a new speech "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
+  begin_drafting_speech title: title
+  select first_policy, from: "Related Policies"
+  select second_policy, from: "Related Policies"
+  click_button "Save"
 end
 
 Then /^I should see that "([^"]*)" is the speech author$/ do |name|
@@ -103,4 +101,3 @@ Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |del
   assert page.has_css?('.document_view .details .delivered_on', text: delivered_on)
   assert page.has_css?('.document_view .details .location', text: location)
 end
-
