@@ -2,7 +2,7 @@ class Admin::RolesController < Admin::BaseController
   before_filter :load_role, only: [:edit, :update]
 
   def index
-    @roles = Role.order(:name)
+    @roles = Role.includes(:organisations, :people).order(:name)
   end
 
   def new
