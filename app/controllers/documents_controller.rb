@@ -1,13 +1,6 @@
 class DocumentsController < ApplicationController
   before_filter :find_document, only: [:show]
 
-  def index
-    @policies = Policy.published
-  end
-
-  def show
-  end
-
   private
 
   def find_document
@@ -19,5 +12,4 @@ class DocumentsController < ApplicationController
   def document_class
     Document
   end
-
 end
