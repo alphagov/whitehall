@@ -52,12 +52,12 @@ class RoleTest < ActiveSupport::TestCase
 
   test "should return the person's name" do
     ministerial_role = create(:ministerial_role, people: [create(:person, name: "Bob")])
-    assert_equal "Bob", ministerial_role.person_name
+    assert_equal "Bob", ministerial_role.current_person_name
   end
 
   test "should indicate that the role is vacant" do
     ministerial_role = create(:ministerial_role, people: [])
-    assert_equal "No one is assigned to this role", ministerial_role.person_name
+    assert_equal "No one is assigned to this role", ministerial_role.current_person_name
   end
 
   test "can return the set of ministers in alphabetical order" do

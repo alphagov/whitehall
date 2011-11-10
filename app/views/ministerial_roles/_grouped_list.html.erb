@@ -1,9 +1,9 @@
-<% ministerial_roles.group_by {|r| r.person_name("-").first.upcase }.sort.each do |letter, ministerial_roles_group| %>
+<% ministerial_roles.group_by {|r| r.current_person_name("-").first.upcase }.sort.each do |letter, ministerial_roles_group| %>
   <div class="alphabetical_group" id="ministerial_roles_<%= letter.downcase %>">
     <h2><%= letter %></h2>
     <%#= render partial: "list", locals: { ministerial_roles: ministerial_roles_group } %>
     <%= render_list_of_ministerial_roles ministerial_roles_group do |ministerial_role| %>
-      <h3><%= link_to ministerial_role.person_name, ministerial_role %></h3>
+      <h3><%= link_to ministerial_role.current_person_name, ministerial_role %></h3>
       <p><%= ministerial_role.name %></p>
     <% end %>
   </div>

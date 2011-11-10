@@ -19,7 +19,7 @@ Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
     person = Person.find_or_create_by_name(row["Person"])
     ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
     organisation.ministerial_roles << ministerial_role
-    person.ministerial_roles << ministerial_role
+    person.current_ministerial_roles << ministerial_role
   end
 end
 
@@ -36,6 +36,6 @@ end
 
 Then /^I should see "([^"]*)" has the "([^"]*)" ministerial role$/ do |person_name, role_name|
   person = Person.find_by_name!(person_name)
-  ministerial_role = person.ministerial_roles.find_by_name!(role_name)
+  ministerial_role = person.current_ministerial_roles.find_by_name!(role_name)
   assert page.has_css?(".ministerial_role", text: ministerial_role.to_s)
 end

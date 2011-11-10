@@ -1,6 +1,9 @@
 class Role < ActiveRecord::Base
-  has_many :role_appointments, conditions: RoleAppointment::CURRENT_CONDITION
+  has_many :role_appointments
   has_many :people, through: :role_appointments
+
+  has_many :current_role_appointments, class_name: 'RoleAppointment', conditions: RoleAppointment::CURRENT_CONDITION
+  has_many :current_people, class_name: 'Person', through: :current_role_appointments, source: :person
 
   has_many :organisation_roles
   has_many :organisations, through: :organisation_roles
@@ -32,15 +35,15 @@ class Role < ActiveRecord::Base
   end
 
   def current_role_appointment
-    role_appointments.first
+    current_role_appointments.first
   end
 
-  def person
-    people.first
+  def current_person
+    current_people.first
   end
 
-  def person_name(default="No one is assigned to this role")
-    person ? person.name : default
+  def current_person_name(default="No one is assigned to this role")
+    current_person ? current_person.name : default
   end
 
   def organisation_names
@@ -48,9 +51,9 @@ class Role < ActiveRecord::Base
   end
 
   def to_s
-    return "#{person.name} (#{name}, #{organisation_names})" if organisations.any? && person
+    return "#{current_person.name} (#{name}, #{organisation_names})" if organisations.any? && current_person
     return "#{name}, #{organisation_names}" if organisations.any?
-    return "#{person.name} (#{name})" if person
+    return "#{current_person.name} (#{name})" if current_person
     return name
   end
 end

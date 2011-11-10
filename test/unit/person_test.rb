@@ -14,25 +14,25 @@ class PersonTest < ActiveSupport::TestCase
   test '#ministerial_roles includes all ministerial roles' do
     minister = create(:ministerial_role)
     person = create(:person, roles:  [minister])
-    assert_equal [minister], person.ministerial_roles
+    assert_equal [minister], person.current_ministerial_roles
   end
 
   test '#ministerial_roles excludes non-ministerial roles' do
     permanent_secretary = create(:board_member_role)
     person = create(:person, roles:  [permanent_secretary])
-    assert_equal [], person.ministerial_roles
+    assert_equal [], person.current_ministerial_roles
   end
 
   test '#board_member_roles includes all non-ministerial roles' do
     permanent_secretary = create(:board_member_role)
     person = create(:person, roles:  [permanent_secretary])
-    assert_equal [permanent_secretary], person.board_member_roles
+    assert_equal [permanent_secretary], person.current_board_member_roles
   end
 
   test '#board_member_roles excludes any ministerial roles' do
     minister = create(:ministerial_role)
     person = create(:person, roles:  [minister])
-    assert_equal [], person.board_member_roles
+    assert_equal [], person.current_board_member_roles
   end
 
   test "should not be destroyable when it has appointments" do

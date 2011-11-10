@@ -33,7 +33,7 @@ def politicians(person_to_role_to_organisation)
       else
         role = MinisterialRole.create!(name: role_name)
       end
-      person.ministerial_roles << role
+      person.current_ministerial_roles << role
     end
   end
 end
@@ -50,7 +50,7 @@ def civil_servants(person_to_role_to_organisation, leader = false)
       else
         role = BoardMemberRole.create!(name: role_name, leader: leader)
       end
-      person.board_member_roles << role
+      person.current_board_member_roles << role
     end
   end
 end

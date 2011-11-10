@@ -2,7 +2,7 @@ Given /^ministers exist:$/ do |table|
   table.hashes.each do |row|
     person = Person.find_or_create_by_name(row["Person"])
     ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
-    person.ministerial_roles << ministerial_role
+    person.current_ministerial_roles << ministerial_role
   end
 end
 
@@ -11,7 +11,7 @@ Given /^"([^"]*)" is the "([^"]*)" for the "([^"]*)"$/ do |person, ministerial_r
   organisation = Organisation.create!(name: organisation_name)
   role = MinisterialRole.create!(name: ministerial_role)
   organisation.ministerial_roles << role
-  person.ministerial_roles << role
+  person.current_ministerial_roles << role
 end
 
 When /^I visit the minister page for "([^"]*)"$/ do |name|
