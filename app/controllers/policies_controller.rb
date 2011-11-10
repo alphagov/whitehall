@@ -7,6 +7,7 @@ class PoliciesController < DocumentsController
     @related_publications = Publication.published.related_to(@document)
     @related_consultations = Consultation.published.related_to(@document)
     @related_news_articles = NewsArticle.published.related_to(@document)
+    @related_speeches = Speech.published.related_to(@document)
   end
 
   private

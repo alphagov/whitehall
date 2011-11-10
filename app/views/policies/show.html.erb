@@ -47,4 +47,17 @@
       </ul>
     </section>
   <% end %>
+
+  <% if @related_speeches.any? %>
+    <section id="related-speeches">
+      <h1>Related speeches</h1>
+      <ul>
+        <% @related_speeches.each do |speech| %>
+          <%= content_tag_for :li, speech do %>
+            <%= link_to speech.title, public_document_path(speech) %>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
 </div>

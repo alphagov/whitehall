@@ -49,3 +49,8 @@ Scenario: Viewing a policy that has multiple news articles associated
 Scenario: Viewing a policy that has draft publication associated
   Given a published policy "What Makes A Beard" with related draft publication "Proposed Beard Lengths"
   Then I should not see "Proposed Beard Lengths" from the "What Makes A Beard" policy
+
+Scenario: Viewing a policy that has been related to a speech
+  Given a published speech "Blah blah" with related published policies "Policy 1" and "Policy 2"
+  When I visit the published policy "Policy 1"
+  Then I can see links to the related published speech "Blah blah"
