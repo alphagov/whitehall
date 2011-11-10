@@ -79,4 +79,11 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal "Ministerial", MinisterialRole.humanized_type
     assert_equal "Board member", BoardMemberRole.humanized_type
   end
+
+  test "should not be destroyable when it has appointments" do
+    role = create(:role)
+    create(:role_appointment, role: role)
+    refute role.destroyable?
+    assert_equal false, role.destroy
+  end
 end

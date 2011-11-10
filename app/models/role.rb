@@ -12,6 +12,8 @@ class Role < ActiveRecord::Base
 
   validates :name, presence: true
 
+  before_destroy :prevent_destruction_if_appointed_to
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 
@@ -55,5 +57,15 @@ class Role < ActiveRecord::Base
     return "#{name}, #{organisation_names}" if organisations.any?
     return "#{current_person.name} (#{name})" if current_person
     return name
+  end
+
+  def destroyable?
+    role_appointments.empty?
+  end
+
+  private
+
+  def prevent_destruction_if_appointed_to
+    return false unless destroyable?
   end
 end
