@@ -14,5 +14,20 @@
     <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', role.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
   </fieldset>
 
+  <fieldset class="named">
+    <legend>Appointments</legend>
+    <%= form.fields_for :role_appointments do |ra_form| %>
+      <fieldset>
+        <%= ra_form.label :person_id, 'Person' %>
+        <%= ra_form.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', ra_form.object.person_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose person..." } %>
+        <%= ra_form.label :started_at %>
+        <%= ra_form.date_select :started_at, { include_blank: true }, { :class => "date" } %>
+        <%= ra_form.label :ended_at %>
+        <%= ra_form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
+        <%= ra_form.hidden_field :role_id %>
+      </fieldset>
+    <% end %>
+  </fieldset>
+
   <%= form.save_or_cancel cancel: admin_roles_path %>
 <% end %>

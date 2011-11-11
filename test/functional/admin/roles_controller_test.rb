@@ -191,6 +191,42 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
+  test "edit should display fields for updating an existing appointment" do
+    person = create(:person, name: "person-name")
+    role = create(:ministerial_role, name: "role-name")
+    create(:role_appointment, role: role, person: person)
+
+    get :edit, id: role
+
+    assert_select "form#role_edit" do
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
+        assert_select "option[selected='selected']", text: "person-name"
+      end
+      assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
+      assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 3
+      assert_select "input[name='role[role_appointments_attributes][0][role_id]'][type='hidden'][value='#{role.id}']"
+    end
+  end
+
+  test "edit should display existing appointments in the order in which they started" do
+    person_one = create(:person, name: "person-one")
+    person_two = create(:person, name: "person-two")
+    role = create(:ministerial_role, name: "role-name")
+    create(:role_appointment, role: role, person: person_one, started_at: 1.year.ago)
+    create(:role_appointment, role: role, person: person_two, started_at: 2.years.ago)
+
+    get :edit, id: role
+
+    assert_select "form#role_edit" do
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
+        assert_select "option[selected='selected']", text: "person-two"
+      end
+      assert_select "select[name='role[role_appointments_attributes][1][person_id]']" do
+        assert_select "option[selected='selected']", text: "person-one"
+      end
+    end
+  end
+
   test "update should modify existing role" do
     org_one, org_two = create(:organisation), create(:organisation)
     role = create(:ministerial_role, name: "role-name", leader: true, organisations: [org_one])
@@ -207,6 +243,30 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal "new-name", role.name
     refute role.leader
     assert_equal [org_two], role.organisations
+  end
+
+  test "update should modify existing appointment" do
+    person = create(:person, name: "person")
+    role = create(:ministerial_role)
+    role_appointment = create(:role_appointment, role: role, person: person)
+    another_person = create(:person, name: "another-person")
+
+    put :update, id: role, role: {
+      role_appointments_attributes: {
+        "0" => {
+          id: role_appointment.id,
+          person_id: another_person.id,
+          role_id: role.id,
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
+          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
+        }
+      }
+    }
+
+    role_appointment.reload
+    assert_equal another_person, role_appointment.person
+    assert_equal Time.zone.parse("2010-06-15"), role_appointment.started_at
+    assert_equal Time.zone.parse("2011-07-23"), role_appointment.ended_at
   end
 
   test "update should allow removal of all organisations" do

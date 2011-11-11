@@ -1,5 +1,5 @@
 class Role < ActiveRecord::Base
-  has_many :role_appointments
+  has_many :role_appointments, order: 'started_at'
   has_many :people, through: :role_appointments
 
   has_many :current_role_appointments, class_name: 'RoleAppointment', conditions: RoleAppointment::CURRENT_CONDITION
@@ -16,6 +16,8 @@ class Role < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :name, use: :slugged
+
+  accepts_nested_attributes_for :role_appointments
 
   class << self
     def humanized_type
