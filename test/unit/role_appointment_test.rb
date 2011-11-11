@@ -22,6 +22,14 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     refute role_appointment.valid?
   end
 
+  test "should be invalid if ended_at is before started_at" do
+    role_appointment = build(:role_appointment,
+      started_at: Time.zone.parse("2000-12-30"),
+      ended_at: Time.zone.parse("1999-01-01")
+    )
+    refute role_appointment.valid?
+  end
+
   test "should link a MinisterialRole to the Person who currently holds the role" do
     role = create(:ministerial_role)
     alice = create(:person, name: "Alice")

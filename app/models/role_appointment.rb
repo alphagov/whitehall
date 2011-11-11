@@ -6,7 +6,16 @@ class RoleAppointment < ActiveRecord::Base
   belongs_to :role
   belongs_to :person
 
+  class ArrowOfTimeValidator < ActiveModel::Validator
+    def validate(record)
+      if record.ended_at && (record.ended_at < record.started_at)
+        record.errors[:ends_at] << "should not be before appointment starts"
+      end
+    end
+  end
+
   validates :role, :person, :started_at, presence: true
+  validates_with ArrowOfTimeValidator
 
   scope :for_role, -> role {
     where(role_id: role.id)
