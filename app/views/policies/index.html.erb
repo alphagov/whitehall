@@ -1,8 +1,10 @@
 <div class="g3">
-  <% if @policies.empty? %>
+  <section id="policies">
     <h1>Policies</h1>
-    <p>We don't have any published policies at present.</p>
-  <% else %>
-    <%= render partial: "policies", object: @policies %>
-  <% end %>
+    <% if @policies.any? %>
+      <%= render partial: "grouped_list", locals: {policies: @policies} %>
+    <% else %>
+      <p>We don't have any published policies at present.</p>
+    <% end %>
+  </section>
 </div>

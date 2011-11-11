@@ -1,0 +1,6 @@
+<% policies.group_by {|t| t.title.first.upcase }.sort.each do |letter, policies_group| %>
+  <div class="alphabetical_group" id="policies_<%= letter.downcase %>">
+    <h2><%= letter %></h2>
+    <%= render partial: "list", locals: { policies: policies_group } %>
+  </div>
+<% end %>
