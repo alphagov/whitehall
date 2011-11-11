@@ -39,7 +39,7 @@ Given /^a published (publication|policy|news article|consultation|speech) "([^"]
   table.hashes.each do |row|
     person = Person.find_or_create_by_name(row["Person"])
     ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
-    person.current_ministerial_roles << ministerial_role
+    create(:role_appointment, role: ministerial_role, person: person)
     document.ministerial_roles << ministerial_role
   end
 end

@@ -19,7 +19,7 @@ Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
     person = Person.find_or_create_by_name(row["Person"])
     ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
     organisation.ministerial_roles << ministerial_role
-    person.current_ministerial_roles << ministerial_role
+    create(:role_appointment, role: ministerial_role, person: person)
   end
 end
 

@@ -12,22 +12,28 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the person, ministerial role and all organisation names" do
-    ministerial_role = create(:ministerial_role, name: "Treasury secretary", people: [create(:person, name: "Frank")],
+    frank = create(:person, name: "Frank")
+    ministerial_role = create(:ministerial_role, name: "Treasury secretary",
                         organisations: [
                           create(:organisation, name: "Department of Health"),
                           create(:organisation, name: "Department for Education")])
+    create(:role_appointment, role: ministerial_role, person: frank)
     assert_equal "Frank (Treasury secretary, Department of Health and Department for Education)", ministerial_role.to_s
   end
 
   test "should return the person, ministerial role and organisation names" do
-    ministerial_role = create(:ministerial_role, name: "Treasury secretary", people: [create(:person, name: "Frank")],
+    frank = create(:person, name: "Frank")
+    ministerial_role = create(:ministerial_role, name: "Treasury secretary",
                         organisations: [create(:organisation, name: "Department of Health")])
+    create(:role_appointment, role: ministerial_role, person: frank)
     assert_equal "Frank (Treasury secretary, Department of Health)", ministerial_role.to_s
   end
 
   test "should return the person and ministerial role names when there are no organisations" do
-    ministerial_role = create(:ministerial_role, name: "Treasury secretary", people: [create(:person, name: "Frank")],
+    frank = create(:person, name: "Frank")
+    ministerial_role = create(:ministerial_role, name: "Treasury secretary",
                         organisations: [])
+    create(:role_appointment, role: ministerial_role, person: frank)
     assert_equal "Frank (Treasury secretary)", ministerial_role.to_s
   end
 
@@ -51,7 +57,9 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the person's name" do
-    ministerial_role = create(:ministerial_role, people: [create(:person, name: "Bob")])
+    bob = create(:person, name: "Bob")
+    ministerial_role = create(:ministerial_role)
+    create(:role_appointment, role: ministerial_role, person: bob)
     assert_equal "Bob", ministerial_role.current_person_name
   end
 
@@ -61,9 +69,17 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "can return the set of ministers in alphabetical order" do
-    charlie = create(:ministerial_role, people: [create(:person, name: "Charlie Parker")])
-    alphonse = create(:ministerial_role, people: [create(:person, name: "Alphonse Ziller")])
-    boris = create(:ministerial_role, people: [create(:person, name: "Boris Swingler")])
+    charlie_parker = create(:person, name: "Charlie Parker")
+    alphonse_ziller = create(:person, name: "Alphonse Ziller")
+    boris_swingler = create(:person, name: "Boris Swingler")
+
+    charlie = create(:ministerial_role)
+    alphonse = create(:ministerial_role)
+    boris = create(:ministerial_role)
+
+    create(:role_appointment, role: charlie, person: charlie_parker)
+    create(:role_appointment, role: alphonse, person: alphonse_ziller)
+    create(:role_appointment, role: boris, person: boris_swingler)
 
     assert_equal [alphonse, boris, charlie], MinisterialRole.alphabetical_by_person
   end

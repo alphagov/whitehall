@@ -11,7 +11,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
     org_one = create(:organisation, name: "org-one")
     org_two = create(:organisation, name: "org-two")
     person = create(:person, name: "person-name")
-    role_one = create(:ministerial_role, name: "role-one", leader: false, organisations: [org_one, org_two], people: [person])
+    role_one = create(:ministerial_role, name: "role-one", leader: false, organisations: [org_one, org_two])
+    create(:role_appointment, role: role_one, person: person)
     role_two = create(:board_member_role, name: "role-two", leader: true, organisations: [org_one])
 
     get :index

@@ -25,14 +25,9 @@ class RoleAppointment < ActiveRecord::Base
     where("id NOT IN (?)", ids)
   }
 
-  after_initialize :set_defaults
   after_create :make_other_appointments_non_current
 
   private
-
-  def set_defaults
-    self.started_at ||= Time.zone.now
-  end
 
   def make_other_appointments_non_current
     other_appointments = self.class.for_role(role).excluding(self)
