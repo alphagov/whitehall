@@ -68,4 +68,14 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal [role], bob.current_roles, "bob should be the minister"
   end
 
+  test "should default started_at to current time" do
+    role_appointment = RoleAppointment.new(started_at: nil)
+    assert_equal Time.zone.now, role_appointment.started_at
+  end
+
+  test "should not override started_at with default if a value is provided" do
+    role_appointment = RoleAppointment.new(started_at: Time.zone.parse("2010-01-01"))
+    assert_equal Time.zone.parse("2010-01-01"), role_appointment.started_at
+  end
+
 end
