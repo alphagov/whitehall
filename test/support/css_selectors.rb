@@ -12,4 +12,16 @@ module CssSelectors
   def records_from_elements(klass, elements)
     klass.find(elements.map { |element| record_id_from(element) })
   end
+
+  def organisations_selector
+    "#organisations"
+  end
+
+  def topics_selector
+    "#topics"
+  end
+
+  def ministers_responsible_selector
+    "#ministers_responsible"
+  end
 end

@@ -237,16 +237,4 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
 
     assert_select ministers_responsible_selector, count: 0
   end
-
-  def organisations_selector
-    "#organisations"
-  end
-
-  def topics_selector
-    "#topics"
-  end
-
-  def ministers_responsible_selector
-    "#ministers_responsible"
-  end
 end
