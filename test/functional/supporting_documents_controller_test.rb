@@ -34,7 +34,7 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
     get :show, policy_id: policy.document_identity, id: supporting_document
 
     assert_select ".title", text: supporting_document.title
-    assert_select "a[href='#{policy_path(policy.document_identity)}']", text: "Back to '#{policy.title}'"
+    assert_select "a[href='#{policy_path(policy.document_identity)}']", text: "Policy Overview"
   end
 
   test "shows the body using govspeak markup" do
@@ -158,13 +158,9 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document_identity, id: supporting_document
 
-    assert_select "#supporting_documents" do
-      assert_select_object(first_supporting_document) do
-        assert_select "a[href='#{policy_supporting_document_path(policy.document_identity, first_supporting_document)}']", text: first_supporting_document.title
-      end
-      assert_select_object(second_supporting_document) do
-        assert_select "a[href='#{policy_supporting_document_path(policy.document_identity, second_supporting_document)}']", text: second_supporting_document.title
-      end
+    assert_select ".policy_view nav" do
+      assert_select "a[href='#{policy_supporting_document_path(policy.document_identity, first_supporting_document)}']", text: first_supporting_document.title
+      assert_select "a[href='#{policy_supporting_document_path(policy.document_identity, second_supporting_document)}']", text: second_supporting_document.title
     end
   end
 

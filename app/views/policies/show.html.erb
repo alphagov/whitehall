@@ -1,6 +1,7 @@
-<div class="g2">
-  <%= render partial: 'document', locals: { document: @document } %>
-  <%= render partial: 'supporting_documents', locals: { document: @document }%>
+<div class="g3">
+  <%= render partial: "policy_view", locals: { policy: @document, document: @document } %>
 </div>
 
-<%= render partial: "policy_relationships", locals: { policy: @document } %>
+<div class="g1 secondary">
+  <%= render partial: "policy_relationships", locals: { policy: @document } %>
+</div>

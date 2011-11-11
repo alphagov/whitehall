@@ -1,0 +1,26 @@
+<section class="policy_view">
+  <h1 class="title"><%= policy.title %></h1>
+
+  <div class="g1 first">
+    <nav>
+      <%= link_to_with_current 'Policy Overview', public_document_path(policy) %>
+      <% policy.supporting_documents.each do |supporting_document| %>
+        <%= link_to_with_current supporting_document.title, policy_supporting_document_path(policy.document_identity, supporting_document) %>
+      <% end %>
+    </nav>
+  </div>
+
+  <div class="g2">
+    <article class="document">
+      <h1 class="title"><%= document.title %></h1>
+      <div class="body">
+        <%= govspeak_to_html document.body %>
+      </div>
+      <% if document.allows_attachments? %>
+        <% document.attachments.each do |attachment| %>
+          <div class="attachment"><%= link_to_attachment(attachment) %></div>
+        <% end %>
+      <% end %>
+    </article>
+  </div>
+</section>

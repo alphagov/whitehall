@@ -47,4 +47,16 @@ module ApplicationHelper
       end
     end
   end
+
+  def link_to_with_current(name, path, options={})
+    path_matcher = options.delete(:current_path) || Regexp.new("^#{Regexp.escape(path)}$")
+    css_classes = [options[:class], current_link_class(path_matcher)].join(" ").strip
+    options[:class] = css_classes unless css_classes.blank?
+
+    link_to name, path, options
+  end
+
+  def current_link_class(path_matcher)
+    request.path =~ path_matcher ? 'current' : ''
+  end
 end

@@ -1,9 +1,7 @@
-<div class="g2">
-  <nav class="actions">
-    <%= link_to "Back to '#{@policy.title}'", public_document_path(@policy), title: "Back to #{@policy.title}" %>
-  </nav>
-  <%= render partial: "documents/document", locals: {document: @supporting_document} %>
-  <%= render partial: 'policies/supporting_documents', locals: { document: @policy }%>
+<div class="g3">
+  <%= render partial: "policies/policy_view", locals: { policy: @policy, document: @supporting_document } %>
 </div>
 
-<%= render partial: "policies/policy_relationships", locals: { policy: @policy } %>
+<div class="g1 secondary">
+  <%= render partial: "policies/policy_relationships", locals: { policy: @policy } %>
+</div>

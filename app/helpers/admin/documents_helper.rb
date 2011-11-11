@@ -28,7 +28,7 @@ module Admin::DocumentsHelper
   def admin_header_link(name, path, path_matcher = nil)
     path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
     if logged_in?
-      link_to name, path, class: header_link_class(path_matcher)
+      link_to name, path, class: current_link_class(path_matcher)
     end
   end
 
@@ -42,9 +42,5 @@ module Admin::DocumentsHelper
     end
 
     'current' if current
-  end
-
-  def header_link_class(path_matcher)
-    'current' if request.path =~ path_matcher
   end
 end

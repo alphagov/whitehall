@@ -216,8 +216,8 @@ end
 Then /^the published policy "([^"]*)" should remain unchanged$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit public_document_path(policy)
-  assert page.has_css?('.document_view .title', text: policy.title)
-  assert page.has_css?('.document_view .body', text: policy.body)
+  assert page.has_css?('.policy_view .document .title', text: policy.title)
+  assert page.has_css?('.policy_view .document .body', text: policy.body)
 end
 
 Then /^I should see that those responsible for the policy are:$/ do |table|

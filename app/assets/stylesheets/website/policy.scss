@@ -1,0 +1,47 @@
+@import "../shared/utils";
+@import "../shared/document_view";
+
+.policy_view {
+  @include clearfix;
+  padding: 1em;
+  margin-bottom: 1.5em;
+
+  .g1, .g2 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  nav {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-left: 0;
+    background: #eee;
+    border: 1px solid #ddd;
+    border-right: 0;
+    @include rounded_left;
+
+    a {
+      display: block;
+      padding: 0.5em 1em;
+      border-bottom: 1px solid #ddd;
+      background: #f5f5f5;
+      border-top: 1px solid #fff;
+
+      &:hover {
+        background: #fff;
+      };
+
+      &.current {
+        background: #FCFCFC;
+        right: -1px;
+        margin-left: 0.5em;
+        position: relative;
+        z-index: 9999;
+      }
+    }
+  }
+
+  article.document {
+    @extend .document_view;
+  }
+}
