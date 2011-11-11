@@ -34,10 +34,70 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "index should order roles by name" do
-    role_A = create(:role, name: "A")
-    role_C = create(:role, name: "C")
-    role_B = create(:role, name: "B")
+  test "index should order roles by organisation names versus role name" do
+    org_A = create(:organisation, name: "A")
+    org_C = create(:organisation, name: "C")
+    org_B = create(:organisation, name: "B")
+    role_A = create(:role, name: "name", organisations: [org_A])
+    role_C = create(:role, name: "name", organisations: [org_C])
+    role_B = create(:role, name: "name", organisations: [org_B])
+
+    get :index
+
+    assert_equal [role_A, role_B, role_C], assigns(:roles)
+  end
+
+  test "index should order roles by organisation names versus role type" do
+    org_A = create(:organisation, name: "A")
+    org_C = create(:organisation, name: "C")
+    org_B = create(:organisation, name: "B")
+    ministerial_role_A = create(:ministerial_role, name: "name", organisations: [org_A])
+    ministerial_role_C = create(:ministerial_role, name: "name", organisations: [org_C])
+    board_member_role = create(:board_member_role, name: "name", organisations: [org_B])
+
+    get :index
+
+    assert_equal [ministerial_role_A, board_member_role, ministerial_role_C], assigns(:roles)
+  end
+
+  test "index should order roles by role type (ministers first) versus role name" do
+    org = create(:organisation)
+    ministerial_role_B = create(:ministerial_role, name: "B", organisations: [org])
+    board_member_role = create(:board_member_role, name: "A", organisations: [org])
+    ministerial_role_A = create(:ministerial_role, name: "A", organisations: [org])
+
+    get :index
+
+    assert_equal [ministerial_role_A, ministerial_role_B, board_member_role], assigns(:roles)
+  end
+
+  test "index should order roles by role type with ministers first versus role leader" do
+    org = create(:organisation)
+    ministerial_role_B = create(:ministerial_role, name: "name", organisations: [org], leader: false)
+    board_member_role = create(:board_member_role, name: "name", organisations: [org], leader: true)
+    ministerial_role_A = create(:ministerial_role, name: "name", organisations: [org], leader: true)
+
+    get :index
+
+    assert_equal [ministerial_role_A, ministerial_role_B, board_member_role], assigns(:roles)
+  end
+
+  test "index should order roles by leader versus role name" do
+    org = create(:organisation)
+    leader_role_B = create(:role, name: "B", organisations: [org], leader: true)
+    non_leader_role = create(:role, name: "A", organisations: [org], leader: false)
+    leader_role_A = create(:role, name: "A", organisations: [org], leader: true)
+
+    get :index
+
+    assert_equal [leader_role_A, leader_role_B, non_leader_role], assigns(:roles)
+  end
+
+  test "index should order roles by name all other things being equal" do
+    org = create(:organisation)
+    role_A = create(:role, name: "A", organisations: [org])
+    role_C = create(:role, name: "C", organisations: [org])
+    role_B = create(:role, name: "B", organisations: [org])
 
     get :index
 
