@@ -16,7 +16,7 @@
 
   <fieldset class="named">
     <legend>Appointments</legend>
-    <%= form.fields_for :role_appointments do |ra_form| %>
+    <%= form.fields_for :role_appointments, role.role_appointments do |ra_form| %>
       <fieldset>
         <%= ra_form.label :person_id, 'Person' %>
         <%= ra_form.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', ra_form.object.person_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose person..." } %>

@@ -302,4 +302,43 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     assert_select ".form-errors"
   end
+
+  test 'updating with invalid data should not lose the appointment fields or values' do
+    person = create(:person, name: "person")
+    role = create(:ministerial_role)
+    role_appointment = create(:role_appointment, role: role, person: person)
+    another_person = create(:person, name: "another-person")
+
+    put :update, id: role, role: attributes_for(:role,
+      name: nil
+    ).merge(
+      role_appointments_attributes: {
+        "0" => {
+          id: role_appointment.id,
+          person_id: another_person.id,
+          role_id: role.id,
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
+          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
+        }
+      }
+    )
+
+    assert_select "form#role_edit" do
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
+        assert_select "option[selected='selected']", text: "another-person"
+      end
+      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+      assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
+    end
+  end
+
+  private
+
+  def assert_select_role_appointment_date_select(child_index, attribute_name, date)
+    (0..2).each do |index|
+      assert_select "select[name='role[role_appointments_attributes][#{child_index}][#{attribute_name}(#{index + 1}i)]']" do
+        assert_select "option[selected='selected'][value='#{date[index]}']"
+      end
+    end
+  end
 end

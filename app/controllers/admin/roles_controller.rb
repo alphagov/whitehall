@@ -24,10 +24,12 @@ class Admin::RolesController < Admin::BaseController
 
   def update
     params[:role][:organisation_ids] ||= []
+    params[:role][:role_appointments_attributes] ||= {}
     @role.type = params[:role].delete(:type)
     if @role.update_attributes(params[:role])
       redirect_to admin_roles_path, notice: %{"#{@role.name}" updated.}
     else
+      @role.role_appointments_attributes = params[:role][:role_appointments_attributes]
       render action: "edit"
     end
   end
