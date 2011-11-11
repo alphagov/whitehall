@@ -6,7 +6,7 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
     supporting_document = create(:supporting_document, title: "supporting-document-title", document: policy)
     get :index, policy_id: policy.document_identity
     path = policy_supporting_document_path(policy.document_identity, supporting_document)
-    assert_select "#supporting_documents" do
+    assert_select supporting_documents_selector do
       assert_select_object supporting_document do
         assert_select "a[href=#{path}]"
         assert_select ".title", text: "supporting-document-title"
@@ -24,7 +24,7 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
   test "index doesn't display an empty list if there aren't any supporting documents" do
     policy = create(:published_policy)
     get :index, policy_id: policy.document_identity
-    assert_select "#supporting_documents ul", count: 0
+    assert_select "#{supporting_documents_selector} ul", count: 0
   end
 
   test "shows title and link to parent document" do

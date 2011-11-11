@@ -255,8 +255,8 @@ end
 
 Then /^they should see the supporting document "([^"]*)"$/ do |title|
   supporting_document = SupportingDocument.find_by_title!(title)
-  assert page.has_css?('#supporting_documents .document_view .title', text: supporting_document.title)
-  assert page.has_css?('#supporting_documents .document_view .body', text: supporting_document.body)
+  assert page.has_css?("#{supporting_documents_selector} .document_view .title", text: supporting_document.title)
+  assert page.has_css?("#{supporting_documents_selector} .document_view .body", text: supporting_document.body)
 end
 
 Then /^I can see links to the related published policies "([^"]*)" and "([^"]*)"$/ do |policy_title_1, policy_title_2|

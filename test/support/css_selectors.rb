@@ -24,4 +24,8 @@ module CssSelectors
   def ministers_responsible_selector
     "#ministers_responsible"
   end
+
+  def supporting_documents_selector
+    "#supporting_documents"
+  end
 end

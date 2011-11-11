@@ -107,7 +107,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_document.document_identity
 
-    assert_select "#supporting_documents", count: 0
+    assert_select supporting_documents_selector, count: 0
   end
 
   test "should render the content using govspeak markup" do

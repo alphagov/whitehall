@@ -102,7 +102,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     get :edit, id: fact_check_request.to_param
 
-    assert_select "#supporting_documents", count: 0
+    assert_select supporting_documents_selector, count: 0
   end
 
   test "should display the supporting documents section" do
@@ -111,7 +111,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     get :edit, id: fact_check_request.to_param
 
-    assert_select "#supporting_documents .title", "Blah!"
+    assert_select "#{supporting_documents_selector} .title", "Blah!"
   end
 
   test "save the fact checkers comment" do
