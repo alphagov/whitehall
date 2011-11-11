@@ -1,11 +1,9 @@
-<div class="g2 first">
+<div class="g2">
   <nav class="actions">
     <%= link_to "Back to '#{@policy.title}'", public_document_path(@policy), title: "Back to #{@policy.title}" %>
   </nav>
-  <section class="document_view">
-    <h1 class="title"><%= @supporting_document.title %></h1>
-    <div class="body">
-      <%= govspeak_to_html @supporting_document.body %>
-    </div>
-  </section>
+  <%= render partial: "documents/document", locals: {document: @supporting_document} %>
+  <%= render partial: 'policies/supporting_documents', locals: { document: @policy }%>
 </div>
+
+<%= render partial: "policies/policy_relationships", locals: { policy: @policy } %>

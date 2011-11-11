@@ -1,63 +1,6 @@
-<div class="g2"><%= render partial: 'document', locals: { document: @document } %></div>
-
-<div class="g1 secondary">
-  <%= render partial: 'topics', locals: { document: @document } %>
-
-  <%= render partial: 'organisations', locals: { document: @document } %>
-
-  <%= render partial: 'ministerial_roles', locals: { document: @document } %>
-
-  <%= render partial: 'inapplicable_nations', locals: { document: @document } %>
-
-  <% if @related_publications.any? %>
-    <section id="related-publications">
-      <h1>Related publications</h1>
-      <ul>
-        <% @related_publications.each do |related_document| %>
-          <%= content_tag_for :li, related_document do %>
-            <%= link_to related_document.title, public_document_path(related_document) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
-
-  <% if @related_consultations.any? %>
-    <section id="related-consultations">
-      <h1>Related consultations</h1>
-      <ul>
-        <% @related_consultations.each do |related_document| %>
-          <%= content_tag_for :li, related_document do %>
-            <%= link_to related_document.title, public_document_path(related_document) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
-
-  <% if @related_news_articles.any? %>
-    <section id="related-news-articles">
-      <h1>Related news</h1>
-      <ul>
-        <% @related_news_articles.each do |related_document| %>
-          <%= content_tag_for :li, related_document do %>
-            <%= link_to related_document.title, public_document_path(related_document) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
-
-  <% if @related_speeches.any? %>
-    <section id="related-speeches">
-      <h1>Related speeches</h1>
-      <ul>
-        <% @related_speeches.each do |speech| %>
-          <%= content_tag_for :li, speech do %>
-            <%= link_to speech.title, public_document_path(speech) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
+<div class="g2">
+  <%= render partial: 'document', locals: { document: @document } %>
+  <%= render partial: 'supporting_documents', locals: { document: @document }%>
 </div>
+
+<%= render partial: "policy_relationships", locals: { policy: @document } %>

@@ -15,6 +15,9 @@ class SupportingDocument < ActiveRecord::Base
     super value
   end
 
+  def allows_attachments?
+  end
+
   after_save do
     document.touch
   end

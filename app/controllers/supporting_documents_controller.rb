@@ -7,6 +7,10 @@ class SupportingDocumentsController < ApplicationController
   end
 
   def show
+    @related_publications = Publication.published.related_to(@policy)
+    @related_consultations = Consultation.published.related_to(@policy)
+    @related_news_articles = NewsArticle.published.related_to(@policy)
+    @related_speeches = Speech.published.related_to(@policy)
   end
 
   private
