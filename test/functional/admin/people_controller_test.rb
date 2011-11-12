@@ -62,4 +62,22 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_select ".people tr.person:nth-of-type(2)", text: "B"
     assert_select ".people tr.person:nth-of-type(3)", text: "C"
   end
+
+  test "provides delete buttons for destroyable people" do
+    destroyable_person = create(:person)
+    role_appointment = create(:role_appointment)
+    indestructable_person = create(:person, role_appointments: [role_appointment])
+
+    get :index
+
+    assert_select_object destroyable_person do
+      assert_select ".delete form[action='#{admin_person_path(destroyable_person)}']" do
+        assert_select "input[name='_method'][value='delete']"
+        assert_select "input[type='submit']"
+      end
+    end
+    assert_select_object indestructable_person do
+      assert_select ".delete form[action='#{admin_person_path(indestructable_person)}']", count: 0
+    end
+  end
 end
