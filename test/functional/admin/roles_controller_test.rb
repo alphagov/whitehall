@@ -270,7 +270,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "edit should display fields for updating an existing appointment" do
     person = create(:person, name: "person-name")
-    role = create(:ministerial_role, name: "role-name")
+    role = create(:ministerial_role)
     create(:role_appointment, role: role, person: person)
 
     get :edit, id: role
@@ -285,9 +285,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "edit should display checkbox for deleting existing appointment" do
-    person = create(:person, name: "person-name")
     role = create(:ministerial_role, name: "role-name")
-    create(:role_appointment, role: role, person: person)
+    create(:role_appointment, role: role)
 
     get :edit, id: role
 
@@ -297,10 +296,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "edit should not display checkbox for deleting existing indestructible appointment" do
-    person = create(:person, name: "person-name")
-    role = create(:ministerial_role, name: "role-name")
-    speech = create(:speech)
-    create(:role_appointment, role: role, person: person, speeches: [speech])
+    role = create(:ministerial_role)
+    create(:role_appointment, role: role, speeches: [create(:speech)])
 
     get :edit, id: role
 
@@ -312,7 +309,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "edit should display existing appointments in the order in which they started" do
     person_one = create(:person, name: "person-one")
     person_two = create(:person, name: "person-two")
-    role = create(:ministerial_role, name: "role-name")
+    role = create(:ministerial_role)
     create(:role_appointment, role: role, person: person_one, started_at: 1.year.ago)
     create(:role_appointment, role: role, person: person_two, started_at: 2.years.ago)
 
@@ -329,17 +326,15 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "edit should display fields for creating a new appointment" do
-    person = create(:person, name: "person-name")
-    role = create(:ministerial_role, name: "role-name")
-    create(:role_appointment, role: role, person: person)
+    role = create(:ministerial_role)
 
     get :edit, id: role
 
     assert_select "form#role_edit" do
-      assert_select "select[name='role[role_appointments_attributes][1][person_id]']"
-      assert_select "select[name*='role[role_appointments_attributes][1][started_at']", count: 3
-      assert_select "select[name*='role[role_appointments_attributes][1][ended_at']", count: 3
-      assert_select "input[name='role[role_appointments_attributes][1][role_id]'][type='hidden']", count: 0
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+      assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
+      assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 3
+      assert_select "input[name='role[role_appointments_attributes][0][role_id]'][type='hidden']", count: 0
     end
   end
 
@@ -372,9 +367,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "update should modify existing appointment" do
-    person = create(:person, name: "person")
     role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: role, person: person)
+    role_appointment = create(:role_appointment, role: role)
     another_person = create(:person, name: "another-person")
 
     put :update, id: role, role: {
@@ -487,9 +481,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test 'updating with invalid data should not lose the appointment fields or values' do
-    person = create(:person, name: "person")
     role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: role, person: person)
+    role_appointment = create(:role_appointment, role: role)
     another_person = create(:person, name: "another-person")
 
     put :update, id: role, role: attributes_for(:role,
