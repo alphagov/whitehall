@@ -91,4 +91,16 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal [role], bob.current_roles, "bob should be the minister"
   end
 
+  test "should not be destroyable when it has speeches" do
+    speech = create(:speech)
+    appointment = create(:role_appointment, speeches: [speech])
+    refute appointment.destroyable?
+    refute appointment.destroy
+  end
+
+  test "should be destroyable when it has no speeches" do
+    appointment = create(:role_appointment, speeches: [])
+    assert appointment.destroyable?
+    assert appointment.destroy
+  end
 end

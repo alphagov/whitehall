@@ -26,9 +26,14 @@ class RoleAppointment < ActiveRecord::Base
   }
 
   after_create :make_other_appointments_non_current
+  before_destroy :prevent_destruction_unless_destroyable
 
   def current?
     started_at.present? && ended_at.nil?
+  end
+
+  def destroyable?
+    speeches.empty?
   end
 
   private
@@ -36,5 +41,9 @@ class RoleAppointment < ActiveRecord::Base
   def make_other_appointments_non_current
     other_appointments = self.class.for_role(role).excluding(self)
     other_appointments.update_all({ended_at: Time.zone.now})
+  end
+
+  def prevent_destruction_unless_destroyable
+    return false unless destroyable?
   end
 end
