@@ -168,6 +168,14 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
+  test "new should not display checkbox for deleting new appointment" do
+    get :new
+
+    assert_select "form#role_new" do
+      assert_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']", count: 0
+    end
+  end
+
   test "create should create a new role" do
     org_one, org_two = create(:organisation), create(:organisation)
 
@@ -276,6 +284,31 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
+  test "edit should display checkbox for deleting existing appointment" do
+    person = create(:person, name: "person-name")
+    role = create(:ministerial_role, name: "role-name")
+    create(:role_appointment, role: role, person: person)
+
+    get :edit, id: role
+
+    assert_select "form#role_edit" do
+      assert_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']"
+    end
+  end
+
+  test "edit should not display checkbox for deleting existing indestructible appointment" do
+    person = create(:person, name: "person-name")
+    role = create(:ministerial_role, name: "role-name")
+    speech = create(:speech)
+    create(:role_appointment, role: role, person: person, speeches: [speech])
+
+    get :edit, id: role
+
+    assert_select "form#role_edit" do
+      assert_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']", count: 0
+    end
+  end
+
   test "edit should display existing appointments in the order in which they started" do
     person_one = create(:person, name: "person-one")
     person_two = create(:person, name: "person-two")
@@ -307,6 +340,16 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select "select[name*='role[role_appointments_attributes][1][started_at']", count: 3
       assert_select "select[name*='role[role_appointments_attributes][1][ended_at']", count: 3
       assert_select "input[name='role[role_appointments_attributes][1][role_id]'][type='hidden']", count: 0
+    end
+  end
+
+  test "edit should not display checkbox for deleting new appointment" do
+    role = create(:ministerial_role)
+
+    get :edit, id: role
+
+    assert_select "form#role_edit" do
+      assert_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']", count: 0
     end
   end
 
@@ -350,6 +393,22 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal another_person, role_appointment.person
     assert_equal Time.zone.parse("2010-06-15"), role_appointment.started_at
     assert_equal Time.zone.parse("2011-07-23"), role_appointment.ended_at
+  end
+
+  test "update should destroy existing appointment" do
+    role = create(:ministerial_role)
+    role_appointment = create(:role_appointment, role: role)
+
+    put :update, id: role, role: {
+      role_appointments_attributes: {
+        "0" => {
+          id: role_appointment.id,
+          _destroy: true
+        }
+      }
+    }
+
+    refute role.role_appointments.find_by_id(role_appointment.id)
   end
 
   test "update should create a new appointment" do
