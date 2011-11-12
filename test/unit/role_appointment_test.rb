@@ -95,7 +95,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     speech = create(:speech)
     appointment = create(:role_appointment, speeches: [speech])
     refute appointment.destroyable?
-    refute appointment.destroy
+    assert_equal false, appointment.destroy
   end
 
   test "should be destroyable when it has no speeches" do

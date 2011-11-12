@@ -39,9 +39,14 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test "should not be destroyable when it has appointments" do
-    person = create(:person)
-    create(:role_appointment, person: person)
+    person = create(:person, role_appointments: [create(:role_appointment)])
     refute person.destroyable?
     assert_equal false, person.destroy
+  end
+
+  test "should be destroyable when it has no appointments" do
+    person = create(:person, role_appointments: [])
+    assert person.destroyable?
+    assert person.destroy
   end
 end

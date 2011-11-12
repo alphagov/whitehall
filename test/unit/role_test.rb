@@ -97,8 +97,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should not be destroyable when it has appointments" do
-    role = create(:role)
-    create(:role_appointment, role: role)
+    role = create(:role, role_appointments: [create(:role_appointment)])
     refute role.destroyable?
     assert_equal false, role.destroy
   end
@@ -113,5 +112,11 @@ class RoleTest < ActiveSupport::TestCase
     role = create(:role, documents: [create(:document)])
     refute role.destroyable?
     assert_equal false, role.destroy
+  end
+
+  test "should be destroyable when it has no appointments, organisations or documents" do
+    role = create(:role, role_appointments: [], organisations: [], documents: [])
+    assert role.destroyable?
+    assert role.destroy
   end
 end
