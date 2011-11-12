@@ -102,4 +102,16 @@ class RoleTest < ActiveSupport::TestCase
     refute role.destroyable?
     assert_equal false, role.destroy
   end
+
+  test "should not be destroyable when it has organisations" do
+    role = create(:role, organisations: [create(:organisation)])
+    refute role.destroyable?
+    assert_equal false, role.destroy
+  end
+
+  test "should not be destroyable when it is responsible for documents" do
+    role = create(:role, documents: [create(:document)])
+    refute role.destroyable?
+    assert_equal false, role.destroy
+  end
 end

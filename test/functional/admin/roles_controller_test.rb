@@ -127,6 +127,24 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
+  test "provides delete buttons for destroyable roles" do
+    destroyable_role = create(:role)
+    document = create(:document)
+    indestructable_role = create(:role, documents: [document])
+
+    get :index
+
+    assert_select_object destroyable_role do
+      assert_select ".delete form[action='#{admin_role_path(destroyable_role)}']" do
+        assert_select "input[name='_method'][value='delete']"
+        assert_select "input[type='submit']"
+      end
+    end
+    assert_select_object indestructable_role do
+      assert_select ".delete form[action='#{admin_role_path(indestructable_role)}']", count: 0
+    end
+  end
+
   test "new should display form for creating a new role" do
     get :new
 
@@ -436,6 +454,27 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
       assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
     end
+  end
+
+  test "should be able to destroy a destroyable role" do
+    role = create(:role, name: "Prime Minister")
+
+    delete :destroy, id: role.id
+
+    assert_redirected_to admin_roles_path
+    refute Role.find_by_id(role.id)
+    assert_equal %{"Prime Minister" destroyed.}, flash[:notice]
+  end
+
+  test "destroying an indestructible role" do
+    role = create(:role)
+    create(:role_appointment, role: role)
+
+    delete :destroy, id: role.id
+
+    assert_redirected_to admin_roles_path
+    assert Role.find_by_id(role.id)
+    assert_equal "Cannot destroy a role with appointments, organisations, or documents", flash[:alert]
   end
 
   private

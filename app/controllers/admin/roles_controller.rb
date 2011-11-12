@@ -1,5 +1,5 @@
 class Admin::RolesController < Admin::BaseController
-  before_filter :load_role, only: [:edit, :update]
+  before_filter :load_role, only: [:edit, :update, :destroy]
 
   def index
     @roles = Role.includes(:organisations, :people).order("organisations.name, roles.type DESC, roles.leader DESC, roles.name")
@@ -31,6 +31,15 @@ class Admin::RolesController < Admin::BaseController
     else
       @role.role_appointments_attributes = params[:role][:role_appointments_attributes]
       render action: "edit"
+    end
+  end
+
+  def destroy
+    if @role.destroy
+      redirect_to admin_roles_path, notice: %{"#{@role.name}" destroyed.}
+    else
+      message = "Cannot destroy a role with appointments, organisations, or documents"
+      redirect_to admin_roles_path, alert: message
     end
   end
 

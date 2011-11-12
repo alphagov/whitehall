@@ -8,6 +8,9 @@ class Role < ActiveRecord::Base
   has_many :organisation_roles
   has_many :organisations, through: :organisation_roles
 
+  has_many :document_ministerial_roles
+  has_many :documents, through: :document_ministerial_roles
+
   scope :alphabetical_by_person, includes(:people, :organisations).order("people.name ASC")
 
   validates :name, presence: true
@@ -62,7 +65,7 @@ class Role < ActiveRecord::Base
   end
 
   def destroyable?
-    role_appointments.empty?
+    role_appointments.empty? && organisations.empty? && documents.empty?
   end
 
   private
