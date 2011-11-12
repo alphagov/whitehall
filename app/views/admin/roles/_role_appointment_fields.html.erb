@@ -1,0 +1,9 @@
+<fieldset class="named">
+  <legend><%= role_appointment_type(role_appointment_form.object) %></legend>
+  <%= role_appointment_form.label :person_id, 'Person' %>
+  <%= role_appointment_form.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', role_appointment_form.object.person_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose person..." } %>
+  <%= role_appointment_form.label :started_at %>
+  <%= role_appointment_form.date_select :started_at, { include_blank: true }, { :class => "date" } %>
+  <%= role_appointment_form.label :ended_at %>
+  <%= role_appointment_form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
+</fieldset>
