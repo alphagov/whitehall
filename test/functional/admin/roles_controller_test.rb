@@ -139,6 +139,17 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
+  test "new should display fields for creating a new appointment" do
+    get :new
+
+    assert_select "form#role_new" do
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+      assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
+      assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 3
+      assert_select "input[name='role[role_appointments_attributes][0][role_id]'][type='hidden']", count: 0
+    end
+  end
+
   test "create should create a new role" do
     org_one, org_two = create(:organisation), create(:organisation)
 
@@ -153,6 +164,45 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal "role-name", role.name
     assert role.leader
     assert_equal [org_one, org_two], role.organisations
+  end
+
+  test "create should create a new appointment" do
+    role = create(:role)
+    person = create(:person)
+
+    post :create, role: attributes_for(:role,
+      role_appointments_attributes: {
+        "0" => {
+          person_id: person.id,
+          role_id: role.id,
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
+          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
+        }
+      }
+    )
+
+    assert role = MinisterialRole.last
+    assert appointment = role.role_appointments.last
+    assert_equal person, appointment.person
+    assert_equal role, appointment.role
+    assert_equal Time.zone.parse("2010-06-15"), appointment.started_at
+    assert_equal Time.zone.parse("2011-07-23"), appointment.ended_at
+  end
+
+  test "create should not create a new appointment if all fields are blank" do
+    post :create, role: attributes_for(:role,
+      role_appointments_attributes: {
+        "0" => {
+          person_id: "",
+          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => "",
+          "ended_at(1i)" => "", "ended_at(2i)" => "", "ended_at(3i)" => ""
+        }
+      }
+    )
+
+    assert_select ".form-errors", count: 0
+    assert role = MinisterialRole.last
+    assert_equal 0, role.role_appointments.length
   end
 
   test "create redirects to the index on success" do
@@ -205,7 +255,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
       end
       assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
       assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 3
-      assert_select "input[name='role[role_appointments_attributes][0][role_id]'][type='hidden'][value='#{role.id}']"
     end
   end
 
@@ -225,6 +274,21 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select "select[name='role[role_appointments_attributes][1][person_id]']" do
         assert_select "option[selected='selected']", text: "person-one"
       end
+    end
+  end
+
+  test "edit should display fields for creating a new appointment" do
+    person = create(:person, name: "person-name")
+    role = create(:ministerial_role, name: "role-name")
+    create(:role_appointment, role: role, person: person)
+
+    get :edit, id: role
+
+    assert_select "form#role_edit" do
+      assert_select "select[name='role[role_appointments_attributes][1][person_id]']"
+      assert_select "select[name*='role[role_appointments_attributes][1][started_at']", count: 3
+      assert_select "select[name*='role[role_appointments_attributes][1][ended_at']", count: 3
+      assert_select "input[name='role[role_appointments_attributes][1][role_id]'][type='hidden']", count: 0
     end
   end
 
@@ -268,6 +332,47 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal another_person, role_appointment.person
     assert_equal Time.zone.parse("2010-06-15"), role_appointment.started_at
     assert_equal Time.zone.parse("2011-07-23"), role_appointment.ended_at
+  end
+
+  test "update should create a new appointment" do
+    role = create(:ministerial_role)
+    person = create(:person)
+
+    put :update, id: role, role: role.attributes.merge(
+      role_appointments_attributes: {
+        "0" => {
+          person_id: person.id,
+          role_id: role.id,
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
+          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
+        }
+      }
+    )
+
+    role.reload
+    assert appointment = role.role_appointments.last
+    assert_equal person, appointment.person
+    assert_equal role, appointment.role
+    assert_equal Time.zone.parse("2010-06-15"), appointment.started_at
+    assert_equal Time.zone.parse("2011-07-23"), appointment.ended_at
+  end
+
+  test "update should not create a new appointment if all fields are blank" do
+    role = create(:ministerial_role)
+
+    put :update, id: role, role: role.attributes.merge(
+      role_appointments_attributes: {
+        "0" => {
+          person_id: "",
+          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => "",
+          "ended_at(1i)" => "", "ended_at(2i)" => "", "ended_at(3i)" => ""
+        }
+      }
+    )
+
+    assert_select ".form-errors", count: 0
+    role.reload
+    assert_equal 0, role.role_appointments.length
   end
 
   test "update should allow removal of all organisations" do

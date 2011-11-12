@@ -27,6 +27,10 @@ class RoleAppointment < ActiveRecord::Base
 
   after_create :make_other_appointments_non_current
 
+  def current?
+    started_at.present? && ended_at.nil?
+  end
+
   private
 
   def make_other_appointments_non_current

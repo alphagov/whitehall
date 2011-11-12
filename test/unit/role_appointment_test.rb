@@ -30,6 +30,21 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     refute role_appointment.valid?
   end
 
+  test "should not be current if not started" do
+    role_appointment = build(:role_appointment, started_at: nil, ended_at: nil)
+    refute role_appointment.current?
+  end
+
+  test "should be current if started but not ended" do
+    role_appointment = build(:role_appointment, started_at: 2.years.ago, ended_at: nil)
+    assert role_appointment.current?
+  end
+
+  test "should not be current if started and ended" do
+    role_appointment = build(:role_appointment, started_at: 2.years.ago, ended_at: 1.year.ago)
+    refute role_appointment.current?
+  end
+
   test "should link a MinisterialRole to the Person who currently holds the role" do
     role = create(:ministerial_role)
     alice = create(:person, name: "Alice")

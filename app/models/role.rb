@@ -17,7 +17,7 @@ class Role < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  accepts_nested_attributes_for :role_appointments
+  accepts_nested_attributes_for :role_appointments, reject_if: :all_blank
 
   class << self
     def humanized_type
