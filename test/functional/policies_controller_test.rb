@@ -137,59 +137,34 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_equal published_document, assigns[:document]
   end
 
-  test "should display topics" do
+  test "should link to topics from within the metadata navigation" do
     first_topic = create(:topic)
     second_topic = create(:topic)
     document = create(:published_policy, topics: [first_topic, second_topic])
 
     get :show, id: document.document_identity
 
-    assert_select topics_selector, count: 1
-    assert_select ".topic", text: first_topic.name
-    assert_select ".topic", text: second_topic.name
+    assert_select "#{metadata_nav_selector} a.topic", text: first_topic.name
+    assert_select "#{metadata_nav_selector} a.topic", text: second_topic.name
   end
 
-  test "should not display the topics section if there aren't any" do
-    document = create(:published_policy)
-
-    get :show, id: document.document_identity
-
-    assert_select topics_selector, count: 0
-  end
-
-  test "should display organisations" do
+  test "should link to organisations from within the metadata navigation" do
     first_org = create(:organisation)
     second_org = create(:organisation)
     document = create(:published_policy, organisations: [first_org, second_org])
 
     get :show, id: document.document_identity
 
-    assert_select organisations_selector, count: 1
-    assert_select ".organisation", text: first_org.name
-    assert_select ".organisation", text: second_org.name
+    assert_select "#{metadata_nav_selector} a.organisation", text: first_org.name
+    assert_select "#{metadata_nav_selector} a.organisation", text: second_org.name
   end
 
-  test "should not display the organisations section if there aren't any" do
-    document = create(:published_policy)
+  test "should link to ministers from within the metadata navigation" do
+    appointment = create(:role_appointment, person: create(:person, name: "minister-name"))
+    document = create(:published_policy, ministerial_roles: [appointment.role])
 
     get :show, id: document.document_identity
 
-    assert_select organisations_selector, count: 0
-  end
-
-  test "should display the minister section" do
-    document = create(:published_policy, ministerial_roles: [build(:ministerial_role)])
-
-    get :show, id: document.document_identity
-
-    assert_select ministers_responsible_selector, count: 1
-  end
-
-  test "should not display an empty ministers section" do
-    document = create(:published_policy)
-
-    get :show, id: document.document_identity
-
-    assert_select ministers_responsible_selector, count: 0
+    assert_select "#{metadata_nav_selector} a.minister", text: "minister-name"
   end
 end

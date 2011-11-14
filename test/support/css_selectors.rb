@@ -28,4 +28,8 @@ module CssSelectors
   def supporting_documents_selector
     "#supporting_documents"
   end
+
+  def metadata_nav_selector
+    "nav.meta"
+  end
 end

@@ -216,15 +216,14 @@ end
 Then /^the published policy "([^"]*)" should remain unchanged$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit public_document_path(policy)
-  assert page.has_css?('.policy_view .document .title', text: policy.title)
+  assert page.has_css?('.policy_view .title', text: policy.title)
   assert page.has_css?('.policy_view .document .body', text: policy.body)
 end
 
 Then /^I should see that those responsible for the policy are:$/ do |table|
   table.hashes.each do |row|
     person = Person.find_by_name!(row["Person"])
-    ministerial_role = person.current_ministerial_roles.find_by_name!(row["Ministerial Role"])
-    assert page.has_css?(".ministerial_role", text: ministerial_role.to_s)
+    assert page.has_css?(".minister", text: person.name)
   end
 end
 

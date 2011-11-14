@@ -65,7 +65,8 @@ Then /^I can visit the supporting document "([^"]*)" from the "([^"]*)" policy$/
   visit public_document_path(policy)
   assert has_css?(".policy_view nav a", text: supporting_title)
   click_link supporting_title
-  assert has_css?(".title", text: supporting_title)
+  supporting_document = policy.supporting_documents.find_by_title!(supporting_title)
+  assert has_css?(".document .body", text: supporting_document.body)
 end
 
 Then /^I should see in the list of draft documents that "([^"]*)" has supporting document "([^"]*)"$/ do |title, supporting_document_title|

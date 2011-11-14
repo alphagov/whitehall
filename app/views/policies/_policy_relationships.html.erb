@@ -1,11 +1,3 @@
-<%= render partial: 'documents/topics', locals: { document: policy } %>
-
-<%= render partial: 'documents/organisations', locals: { document: policy } %>
-
-<%= render partial: 'documents/ministerial_roles', locals: { document: policy } %>
-
-<%= render partial: 'documents/inapplicable_nations', locals: { document: policy } %>
-
 <% if @related_publications.any? %>
   <section id="related-publications">
     <h1>Related publications</h1>

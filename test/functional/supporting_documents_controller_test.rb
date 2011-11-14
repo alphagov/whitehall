@@ -27,13 +27,12 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
     assert_select "#{supporting_documents_selector} ul", count: 0
   end
 
-  test "shows title and link to parent document" do
+  test "shows link to policy overview" do
     policy = create(:published_policy)
     supporting_document = create(:supporting_document, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_document
 
-    assert_select ".title", text: supporting_document.title
     assert_select "a[href='#{policy_path(policy.document_identity)}']", text: "Policy Overview"
   end
 
@@ -176,7 +175,7 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
     assert_equal policy, assigns[:policy]
   end
 
-  test "should display topics" do
+  test "should link to topics from within the metadata navigation" do
     first_topic = create(:topic)
     second_topic = create(:topic)
     policy = create(:published_policy, topics: [first_topic, second_topic])
@@ -184,21 +183,11 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document_identity, id: supporting_document
 
-    assert_select topics_selector, count: 1
-    assert_select ".topic", text: first_topic.name
-    assert_select ".topic", text: second_topic.name
+    assert_select "#{metadata_nav_selector} a.topic", text: first_topic.name
+    assert_select "#{metadata_nav_selector} a.topic", text: second_topic.name
   end
 
-  test "should not display the topics section if there aren't any" do
-    policy = create(:published_policy)
-    supporting_document = create(:supporting_document, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_document
-
-    assert_select topics_selector, count: 0
-  end
-
-  test "should display organisations" do
+  test "should link to organisations from within the metadata navigation" do
     first_org = create(:organisation)
     second_org = create(:organisation)
     policy = create(:published_policy, organisations: [first_org, second_org])
@@ -206,35 +195,17 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document_identity, id: supporting_document
 
-    assert_select organisations_selector, count: 1
-    assert_select ".organisation", text: first_org.name
-    assert_select ".organisation", text: second_org.name
+    assert_select "#{metadata_nav_selector} a.organisation", text: first_org.name
+    assert_select "#{metadata_nav_selector} a.organisation", text: second_org.name
   end
 
-  test "should not display the organisations section if there aren't any" do
-    policy = create(:published_policy)
+  test "should link to ministers from within the metadata navigation" do
+    appointment = create(:role_appointment, person: create(:person, name: "minister-name"))
+    policy = create(:published_policy, ministerial_roles: [appointment.role])
     supporting_document = create(:supporting_document, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_document
 
-    assert_select organisations_selector, count: 0
-  end
-
-  test "should display the minister section" do
-    policy = create(:published_policy, ministerial_roles: [build(:ministerial_role)])
-    supporting_document = create(:supporting_document, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_document
-
-    assert_select ministers_responsible_selector, count: 1
-  end
-
-  test "should not display an empty ministers section" do
-    policy = create(:published_policy)
-    supporting_document = create(:supporting_document, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_document
-
-    assert_select ministers_responsible_selector, count: 0
+    assert_select "#{metadata_nav_selector} a.minister", text: "minister-name"
   end
 end

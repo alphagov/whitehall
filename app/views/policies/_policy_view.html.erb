@@ -1,8 +1,21 @@
 <section class="policy_view">
   <h1 class="title"><%= policy.title %></h1>
+  <nav class="meta">
+    <% policy.topics.each do |topic| %>
+      <%= link_to topic.name, topic_path(topic), class: "topic" %>
+    <% end %>
+    <% policy.organisations.each do |organisation| %>
+      <%= link_to organisation.name, organisation_path(organisation), class: "organisation" %>
+    <% end %>
+    <% policy.ministerial_roles.each do |ministerial_role| %>
+      <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
+    <% end %>
+  </nav>
+
+  <%= render partial: 'documents/inapplicable_nations', locals: { document: policy } %>
 
   <div class="g1 first">
-    <nav>
+    <nav class="policy_parts">
       <%= link_to_with_current 'Policy Overview', public_document_path(policy) %>
       <% policy.supporting_documents.each do |supporting_document| %>
         <%= link_to_with_current supporting_document.title, policy_supporting_document_path(policy.document_identity, supporting_document) %>
@@ -12,7 +25,6 @@
 
   <div class="g2">
     <article class="document">
-      <h1 class="title"><%= document.title %></h1>
       <div class="body">
         <%= govspeak_to_html document.body %>
       </div>

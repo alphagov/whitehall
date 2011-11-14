@@ -92,6 +92,6 @@ end
 Then /^I should see links to the "([^"]*)" and "([^"]*)" topics$/ do |topic_1_name, topic_2_name|
   topic_1 = Topic.find_by_name!(topic_1_name)
   topic_2 = Topic.find_by_name!(topic_2_name)
-  assert page.has_css?("#topics a[href='#{topic_path(topic_1)}']", text: topic_1_name)
-  assert page.has_css?("#topics a[href='#{topic_path(topic_2)}']", text: topic_2_name)
+  assert page.has_css?("a[href='#{topic_path(topic_1)}']", text: topic_1_name)
+  assert page.has_css?("a[href='#{topic_path(topic_2)}']", text: topic_2_name)
 end
