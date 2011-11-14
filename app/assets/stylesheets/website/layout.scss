@@ -83,7 +83,7 @@ header h1 {
   }
 
   .secondary {
-    > section {
+    > section, div > section {
       border: 1px solid #ddd;
       padding: 2% 1em;
       background: #f9f9f9;

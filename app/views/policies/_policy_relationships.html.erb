@@ -1,4 +1,5 @@
 <% if @recently_changed_documents.any? %>
+<div class="g1">
   <section id="recently-changed">
     <h1>Recently changed</h1>
     <ul>
@@ -9,9 +10,11 @@
       <% end %>
     </ul>
   </section>
+</div>
 <% end %>
 
 <% if @related_publications.any? %>
+<div class="g1">
   <section id="related-publications">
     <h1>Related publications</h1>
     <ul>
@@ -22,9 +25,11 @@
       <% end %>
     </ul>
   </section>
+</div>
 <% end %>
 
 <% if @related_consultations.any? %>
+<div class="g1">
   <section id="related-consultations">
     <h1>Related consultations</h1>
     <ul>
@@ -35,9 +40,11 @@
       <% end %>
     </ul>
   </section>
+</div>
 <% end %>
 
 <% if @related_news_articles.any? %>
+<div class="g1">
   <section id="related-news-articles">
     <h1>Related news</h1>
     <ul>
@@ -48,9 +55,11 @@
       <% end %>
     </ul>
   </section>
+</div>
 <% end %>
 
 <% if @related_speeches.any? %>
+<div class="g1">
   <section id="related-speeches">
     <h1>Related speeches</h1>
     <ul>
@@ -61,4 +70,5 @@
       <% end %>
     </ul>
   </section>
+</div>
 <% end %>
