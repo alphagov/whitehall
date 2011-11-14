@@ -10,8 +10,8 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def create
-    @role = Role.new(params[:role])
-    if @role.save
+    @role = Role.new(params[:role].except(:role_appointments_attributes))
+    if @role.save && @role.update_attributes(params[:role])
       redirect_to admin_roles_path, notice: %{"#{@role.name}" created.}
     else
       render action: "new"

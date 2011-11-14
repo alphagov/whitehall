@@ -164,7 +164,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
       assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
       assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 3
-      assert_select "input[name='role[role_appointments_attributes][0][role_id]'][type='hidden']", count: 0
     end
   end
 
@@ -193,14 +192,12 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "create should create a new appointment" do
-    role = create(:role)
     person = create(:person)
 
     post :create, role: attributes_for(:role,
       role_appointments_attributes: {
         "0" => {
           person_id: person.id,
-          role_id: role.id,
           "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
           "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
         }
@@ -334,7 +331,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
       assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
       assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 3
-      assert_select "input[name='role[role_appointments_attributes][0][role_id]'][type='hidden']", count: 0
     end
   end
 
@@ -376,7 +372,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
         "0" => {
           id: role_appointment.id,
           person_id: another_person.id,
-          role_id: role.id,
           "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
           "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
         }
@@ -413,7 +408,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
       role_appointments_attributes: {
         "0" => {
           person_id: person.id,
-          role_id: role.id,
           "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
           "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
         }
@@ -492,7 +486,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
         "0" => {
           id: role_appointment.id,
           person_id: another_person.id,
-          role_id: role.id,
           "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
           "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
         }
