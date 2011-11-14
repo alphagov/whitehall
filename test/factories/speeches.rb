@@ -4,7 +4,7 @@ FactoryGirl.define do
     title "speech-title"
     body  "speech-body"
     role_appointment
-    delivered_on Date.today
+    delivered_on { Date.today }
     location "speech-location"
   end
 

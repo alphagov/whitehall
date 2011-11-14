@@ -3,8 +3,8 @@ FactoryGirl.define do
     author
     title "consultation-title"
     body  "consultation-body"
-    opening_on 1.day.ago
-    closing_on 6.weeks.from_now
+    opening_on { 1.day.ago }
+    closing_on { 6.weeks.from_now }
   end
 
   factory :draft_consultation, parent: :consultation do
