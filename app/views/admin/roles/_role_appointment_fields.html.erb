@@ -4,9 +4,9 @@
   <%= role_appointment_form.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', role_appointment_form.object.person_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose person..." } %>
   <%= role_appointment_form.label :started_at %>
   <%= role_appointment_form.date_select :started_at, { include_blank: true }, { :class => "date" } %>
-  <%= role_appointment_form.label :ended_at %>
-  <%= role_appointment_form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
   <% if role_appointment_form.object.persisted? %>
+    <%= role_appointment_form.label :ended_at %>
+    <%= role_appointment_form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
     <% if role_appointment_form.object.destroyable? %>
       <%= role_appointment_form.check_box :_destroy, label_text: "Delete" %>
     <% else %>

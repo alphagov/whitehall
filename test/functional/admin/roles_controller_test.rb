@@ -163,7 +163,14 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_select "form#role_new" do
       assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
       assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
-      assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 3
+    end
+  end
+
+  test "new should not display ended_at select for new appointment" do
+    get :new
+
+    assert_select "form#role_new" do
+      assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 0
     end
   end
 
@@ -206,8 +213,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       role_appointments_attributes: {
         "0" => {
           person_id: person.id,
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
-          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15
         }
       }
     )
@@ -217,7 +223,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal person, appointment.person
     assert_equal role, appointment.role
     assert_equal Time.zone.parse("2010-06-15"), appointment.started_at
-    assert_equal Time.zone.parse("2011-07-23"), appointment.ended_at
+    assert_nil appointment.ended_at
   end
 
   test "create should not create a new appointment if all fields are blank" do
@@ -225,8 +231,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       role_appointments_attributes: {
         "0" => {
           person_id: "",
-          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => "",
-          "ended_at(1i)" => "", "ended_at(2i)" => "", "ended_at(3i)" => ""
+          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => ""
         }
       }
     )
@@ -338,7 +343,16 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_select "form#role_edit" do
       assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
       assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
-      assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 3
+    end
+  end
+
+  test "edit should not display ended_at select for new appointment" do
+    role = create(:ministerial_role)
+
+    get :edit, id: role
+
+    assert_select "form#role_edit" do
+      assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 0
     end
   end
 
@@ -425,8 +439,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       role_appointments_attributes: {
         "0" => {
           person_id: person.id,
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
-          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15
         }
       }
     )
@@ -436,7 +449,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal person, appointment.person
     assert_equal role, appointment.role
     assert_equal Time.zone.parse("2010-06-15"), appointment.started_at
-    assert_equal Time.zone.parse("2011-07-23"), appointment.ended_at
+    assert_nil appointment.ended_at
   end
 
   test "update should not create a new appointment if all fields are blank" do
@@ -446,8 +459,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       role_appointments_attributes: {
         "0" => {
           person_id: "",
-          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => "",
-          "ended_at(1i)" => "", "ended_at(2i)" => "", "ended_at(3i)" => ""
+          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => ""
         }
       }
     )
