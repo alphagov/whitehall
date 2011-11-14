@@ -175,10 +175,10 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "create should create a new role" do
+  test "create should create a new ministerial role" do
     org_one, org_two = create(:organisation), create(:organisation)
 
-    post :create, role: attributes_for(:role,
+    post :create, role: attributes_for(:ministerial_role,
       name: "role-name",
       type: MinisterialRole,
       leader: true,
@@ -189,6 +189,14 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal "role-name", role.name
     assert role.leader
     assert_equal [org_one, org_two], role.organisations
+  end
+
+  test "create should create a new board member role" do
+    post :create, role: attributes_for(:board_member_role,
+      type: BoardMemberRole,
+    )
+
+    assert role = BoardMemberRole.last
   end
 
   test "create should create a new appointment" do
@@ -360,6 +368,15 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal "new-name", role.name
     refute role.leader
     assert_equal [org_two], role.organisations
+  end
+
+  test "update should not change type if no type supplied" do
+    role = create(:board_member_role)
+
+    put :update, id: role, role: { type: nil }
+
+    role = Role.find(role.id)
+    assert_equal BoardMemberRole, role.class
   end
 
   test "update should modify existing appointment" do
