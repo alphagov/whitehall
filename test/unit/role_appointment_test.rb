@@ -91,6 +91,15 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal [role], bob.current_roles, "bob should be the minister"
   end
 
+  test "should not overwrite ended_at if ended_at already set" do
+    role = create(:role)
+    existing_appointment = create(:role_appointment, role: role, started_at: 20.days.ago, ended_at: 10.days.ago)
+    new_appointment = create(:role_appointment, role: role,  started_at: 10.days.ago, ended_at: nil)
+
+    existing_appointment.reload
+    assert_equal 10.days.ago, existing_appointment.ended_at
+  end
+
   test "should not be destroyable when it has speeches" do
     speech = create(:speech)
     appointment = create(:role_appointment, speeches: [speech])
