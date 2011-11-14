@@ -42,6 +42,13 @@ module Whitehall
       label_tag.html_safe + super
     end
 
+    def check_box(method, options = {}, *args)
+      label_text = options.delete(:label_text)
+      label(method, label_text) do
+        super + label_text
+      end
+    end
+
     private
 
     def cancel_path(path)

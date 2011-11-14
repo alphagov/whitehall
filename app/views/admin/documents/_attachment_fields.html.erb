@@ -4,10 +4,10 @@
   <% unless form.object.new_record? %>
     <%= form.fields_for :document_attachments do |attachment_fields| %>
       <p class="attachment">
-        <%= attachment_fields.label :_destroy do %>
-          <%- checkbox = attachment_fields.check_box :_destroy, *nested_attribute_destroy_checkbox_options(attachment_fields) %>
-          <%- checkbox + link_to_attachment(attachment_fields.object.attachment) + " (uncheck to remove)" %>
-        <% end %>
+        <% checkbox_args = nested_attribute_destroy_checkbox_options(attachment_fields) %>
+        <% label_text = link_to_attachment(attachment_fields.object.attachment) + " (uncheck to remove)" %>
+        <% checkbox_args[0].merge!(label_text: label_text) %>
+        <%= attachment_fields.check_box :_destroy, *checkbox_args  %>
       </p>
     <% end %>
   <% end %>

@@ -5,11 +5,7 @@
     <%= form.text_field :name %>
     <%= form.label :type %>
     <%= form.select :type, options_from_collection_for_select([MinisterialRole, BoardMemberRole].map { |s| [s.name, s.humanized_type] }, :first, :last, role.class.name) %>
-    <%= form.label :leader do %>
-      <%- checkbox = form.check_box :leader %>
-      <%- label_text = "Leader?" %>
-      <%- checkbox + label_text %>
-    <% end %>
+    <%= form.check_box :leader, label_text: "Leader?" %>
     <%= form.label :organisation_ids, 'Organisations' %>
     <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', role.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
   </fieldset>

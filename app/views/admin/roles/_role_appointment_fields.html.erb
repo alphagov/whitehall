@@ -8,11 +8,7 @@
   <%= role_appointment_form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
   <% if role_appointment_form.object.persisted? %>
     <% if role_appointment_form.object.destroyable? %>
-      <%= role_appointment_form.label :delete do %>
-        <%- checkbox = role_appointment_form.check_box :_destroy %>
-        <%- label_text = "Delete" %>
-        <%- checkbox + label_text %>
-      <% end %>
+      <%= role_appointment_form.check_box :_destroy, label_text: "Delete" %>
     <% else %>
       <p>Cannot delete</p>
     <% end %>
