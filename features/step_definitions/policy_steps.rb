@@ -237,7 +237,7 @@ end
 
 Then /^I should see that the policy does not apply to:$/ do |nation_names|
   message = "This policy does not apply to #{nation_names.raw.flatten.sort.to_sentence}."
-  assert page.has_css?("#inapplicable_nations p", text: message)
+  assert page.has_css?("#{inapplicable_nations_selector} p", text: message)
 end
 
 Then /^I should not see "([^"]*)" from the "([^"]*)" policy$/ do |publication_title, policy_title|

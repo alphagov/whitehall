@@ -32,4 +32,20 @@ module CssSelectors
   def metadata_nav_selector
     "nav.meta"
   end
+
+  def related_news_articles_selector
+    "#related-news-articles"
+  end
+
+  def related_consultations_selector
+    "#related-consultations"
+  end
+
+  def related_publications_selector
+    "#related-publications"
+  end
+
+  def inapplicable_nations_selector
+    "#inapplicable_nations"
+  end
 end

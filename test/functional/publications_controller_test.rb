@@ -39,7 +39,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: published_publication.document_identity
 
-    assert_select "#inapplicable_nations" do
+    assert_select inapplicable_nations_selector do
       assert_select "p", "This publication does not apply to Northern Ireland and Scotland."
       assert_select_object northern_ireland_inapplicability do
         assert_select "a[href='http://northern-ireland.com/']"
@@ -53,7 +53,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: published_consultation.document_identity
 
-    assert_select "#inapplicable_nations" do
+    assert_select inapplicable_nations_selector do
       assert_select "p", "This consultation applies to the whole of the UK."
     end
   end

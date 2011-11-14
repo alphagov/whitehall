@@ -10,7 +10,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select "#inapplicable_nations" do
+    assert_select inapplicable_nations_selector do
       assert_select "p", "This policy does not apply to Northern Ireland and Scotland."
       assert_select_object northern_ireland_inapplicability do
         assert_select "a[href='http://northern-ireland.com/']"
@@ -24,7 +24,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select "#inapplicable_nations" do
+    assert_select inapplicable_nations_selector do
       assert_select "p", "This policy applies to the whole of the UK."
     end
   end
@@ -35,7 +35,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select "#related-publications" do
+    assert_select related_publications_selector do
       assert_select_object related_publication
     end
   end
@@ -46,7 +46,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select "#related-publications", count: 0
+    assert_select related_publications_selector, count: 0
   end
 
   test "show displays related published consultations" do
@@ -55,7 +55,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select "#related-consultations" do
+    assert_select related_consultations_selector do
       assert_select_object related_consultation
     end
   end
@@ -66,7 +66,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select "#related-consultations", count: 0
+    assert_select related_consultations_selector, count: 0
   end
 
   test "show displays related news articles" do
@@ -75,7 +75,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select "#related-news-articles" do
+    assert_select related_news_articles_selector do
       assert_select_object related_news_article
     end
   end
@@ -86,7 +86,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select "#related-news-articles", count: 0
+    assert_select related_news_articles_selector, count: 0
   end
 
   test "show lists supporting documents when there are some" do
