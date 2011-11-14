@@ -11,9 +11,9 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Organisations</th>
           <th>Type</th>
           <th>Leader</th>
-          <th>Organisations</th>
           <th>Currently Appointed</th>
           <th>Actions</th>
         </tr>
@@ -22,9 +22,9 @@
         <% @roles.each do |role| %>
           <%= content_tag_for(:tr, role) do %>
             <td class="name"><%= link_to role.name, edit_admin_role_path(role), title: "Edit role #{role.name}" %></td>
+            <td class="organisations"><%= role.organisation_names %></td>
             <td class="type"><%= role.humanized_type %></td>
             <td class="leader"><%= role.leader? ? "Yes" : "No" %></td>
-            <td class="organisations"><%= role.organisation_names %></td>
             <td class="person"><%= role.current_person_name %></td>
             <td class="delete">
               <% if role.destroyable? %>
