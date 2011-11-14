@@ -30,6 +30,16 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     refute role_appointment.valid?
   end
 
+  test "should be invalid if started_at is in the future" do
+    role_appointment = build(:role_appointment, started_at: 1.second.from_now)
+    refute role_appointment.valid?
+  end
+
+  test "should be invalid if ended_at is in the future" do
+    role_appointment = build(:role_appointment, ended_at: 1.second.from_now)
+    refute role_appointment.valid?
+  end
+
   test "should not be current if not started" do
     role_appointment = build(:role_appointment, started_at: nil, ended_at: nil)
     refute role_appointment.current?
