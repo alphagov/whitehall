@@ -12,7 +12,7 @@ class Admin::RolesController < Admin::BaseController
 
   def create
     @role = Role.new(params[:role].except(:role_appointments_attributes, :type))
-    @role.type = params[:role][:type] || MinisterialRole.name
+    @role.type = params[:role].delete(:type) || MinisterialRole.name
     if @role.save
       if @role.update_attributes(params[:role])
         redirect_to admin_roles_path, notice: %{"#{@role.name}" created.}
