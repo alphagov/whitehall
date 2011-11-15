@@ -11,7 +11,7 @@ class Document < ActiveRecord::Base
   belongs_to :author, class_name: "User"
   has_many :editorial_remarks
 
-  validates_presence_of :title, :body, :author
+  validates :title, :body, :author, presence: true
 
   def can_be_associated_with_topics?
     false

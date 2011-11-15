@@ -5,7 +5,7 @@ class FactCheckRequest < ActiveRecord::Base
   belongs_to :document
   belongs_to :requestor, class_name: "User"
 
-  validates_presence_of :document, :email_address, :requestor
+  validates :document, :email_address, :requestor, presence: true
   validates :email_address, email_format: {allow_blank: true}
 
   scope :completed, where('comments IS NOT NULL')
