@@ -58,6 +58,6 @@ Whitehall::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # Prevent `OpenSSL::SSL::SSLError (hostname was not match with the server certificate)` on staging
+  # Prevent `OpenSSL::SSL::SSLError (hostname was not match with the server certificate)`
   config.action_mailer.smtp_settings = {enable_starttls_auto: false}
 end
