@@ -17,7 +17,7 @@ module DocumentHelper
 
   def begin_new_draft_document(title)
     visit_document_preview title
-    click_button "Create new draft"
+    click_button "Create new edition"
   end
 
   def begin_drafting_speech(options)

@@ -97,7 +97,7 @@ end
 When /^I create a new edition of the published policy "([^"]*)"$/ do |policy_title|
   visit published_admin_documents_path
   click_link policy_title
-  click_button 'Create new draft'
+  click_button 'Create new edition'
 end
 
 When /^I edit the new edition$/ do

@@ -4,7 +4,7 @@ module AdminDocumentActionsHelper
   end
 
   def redraft_document_button(document)
-    button_to 'Create new draft', revise_admin_document_path(document), title: "Create new draft"
+    button_to 'Create new edition', revise_admin_document_path(document), title: "Create new edition"
   end
 
   def submit_document_button(document)

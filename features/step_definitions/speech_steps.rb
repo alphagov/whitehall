@@ -69,7 +69,7 @@ end
 When /^I create a new edition of the published speech$/ do
   visit published_admin_documents_path
   click_link Speech.published.last.title
-  click_button 'Create new draft'
+  click_button 'Create new edition'
 end
 
 When /^I draft a new speech "([^"]*)"$/ do |title|
