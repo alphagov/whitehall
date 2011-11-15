@@ -5,7 +5,7 @@
     <%= form.text_field :name %>
     <%= form.label :type %>
     <%= form.select :type, options_from_collection_for_select([MinisterialRole, BoardMemberRole].map { |s| [s.name, s.humanized_type] }, :first, :last, role.class.name) %>
-    <%= form.check_box :leader, label_text: "Leader?" %>
+    <%= form.check_box :leader, label_text: "Permanent Secretary? (only applies to Board Members)" %>
     <%= form.label :organisation_ids, 'Organisations' %>
     <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', role.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
   </fieldset>
