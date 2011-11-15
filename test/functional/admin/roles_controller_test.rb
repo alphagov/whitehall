@@ -157,10 +157,11 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "new should display fields for creating a new appointment" do
+  test "new should display fields for creating one new appointment" do
     get :new
 
     assert_select "form#role_new" do
+      assert_select "legend", text: "New Appointment", count: 1
       assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
       assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
     end
@@ -254,9 +255,66 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "create with invalid data should display errors" do
-    post :create, role: attributes_for(:role, name: nil)
+    post :create, role: attributes_for(:role, name: nil, role_appointments_attributes: {})
 
     assert_select ".form-errors"
+  end
+
+  test 'create with invalid role data should not lose or duplicate the appointment fields or values' do
+    person = create(:person, name: "person-name")
+
+    post :create, role: attributes_for(:role,
+      name: nil,
+      role_appointments_attributes: {
+        "0" => {
+          person_id: person.id,
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15
+        }
+      }
+    )
+
+    assert_select "form#role_new" do
+      assert_select "legend", text: "New Appointment", count: 1
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
+        assert_select "option[selected='selected']", text: "person-name"
+      end
+      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+    end
+  end
+
+  test 'create with invalid role data and blank new appointment should not lose or duplicate the appointment fields or values' do
+    post :create, role: attributes_for(:role,
+      name: nil,
+      role_appointments_attributes: {
+        "0" => {
+          person_id: "",
+          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => ""
+        }
+      }
+    )
+
+    assert_select "form#role_new" do
+      assert_select "legend", text: "New Appointment", count: 1
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+      assert_select_role_appointment_date_select 0, "started_at", ["", "", ""]
+    end
+  end
+
+  test 'create with invalid appointment data should not lose or duplicate the appointment fields or values' do
+    post :create, role: attributes_for(:role,
+      role_appointments_attributes: {
+        "0" => {
+          person_id: "",
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15
+        }
+      }
+    )
+
+    assert_select "form#role_edit" do
+      assert_select "legend", text: "New Appointment", count: 1
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+    end
   end
 
   test "edit should display form for updating an existing role" do
@@ -335,12 +393,13 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit should display fields for creating a new appointment" do
+  test "edit should display fields for creating one new appointment" do
     role = create(:ministerial_role)
 
     get :edit, id: role
 
     assert_select "form#role_edit" do
+      assert_select "legend", text: "New Appointment", count: 1
       assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
       assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
     end
@@ -503,30 +562,129 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
-  test 'updating with invalid data should not lose the appointment fields or values' do
+  test 'update with invalid role data and blank new appointment should not lose or duplicate the appointment fields or values' do
     role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: role)
     another_person = create(:person, name: "another-person")
 
     put :update, id: role, role: attributes_for(:role,
-      name: nil
-    ).merge(
+      name: nil,
       role_appointments_attributes: {
         "0" => {
           id: role_appointment.id,
           person_id: another_person.id,
           "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
           "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
+        },
+        "1" => {
+          person_id: "",
+          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => ""
         }
       }
     )
 
     assert_select "form#role_edit" do
+      assert_select "legend", text: "Previous Appointment", count: 1
       assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
         assert_select "option[selected='selected']", text: "another-person"
       end
       assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
       assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
+      assert_select "legend", text: "New Appointment", count: 1
+    end
+  end
+
+  test 'update with invalid role data and populated new appointment should not lose or duplicate the appointment fields or values' do
+    role = create(:ministerial_role)
+    role_appointment = create(:role_appointment, role: role)
+    another_person = create(:person, name: "another-person")
+
+    put :update, id: role, role: attributes_for(:role,
+      name: nil,
+      role_appointments_attributes: {
+        "0" => {
+          id: role_appointment.id,
+          person_id: another_person.id,
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
+          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
+        },
+        "1" => {
+          person_id: "",
+          "started_at(1i)" => 2011, "started_at(2i)" => 8, "started_at(3i)" => 31
+        }
+      }
+    )
+
+    assert_select "form#role_edit" do
+      assert_select "legend", text: "Previous Appointment", count: 1
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
+        assert_select "option[selected='selected']", text: "another-person"
+      end
+      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+      assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
+      assert_select "legend", text: "New Appointment", count: 1
+    end
+  end
+
+  test 'update with invalid appointment data and blank new appointment should not lose or duplicate the appointment fields or values' do
+    role = create(:ministerial_role)
+    role_appointment = create(:role_appointment, role: role)
+
+    put :update, id: role, role: attributes_for(:role,
+      role_appointments_attributes: {
+        "0" => {
+          id: role_appointment.id,
+          person_id: "",
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
+          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
+        },
+        "1" => {
+          person_id: "",
+          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => ""
+        }
+      }
+    )
+
+    assert_select "form#role_edit" do
+      assert_select "legend", text: "Previous Appointment", count: 1
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+      assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
+      assert_select "legend", text: "New Appointment", count: 1
+    end
+  end
+
+  test 'update with invalid appointment data and populated new appointment should not lose or duplicate the appointment fields or values' do
+    role = create(:ministerial_role)
+    role_appointment = create(:role_appointment, role: role)
+    person = create(:person, name: "person-name")
+
+    put :update, id: role, role: attributes_for(:role,
+      role_appointments_attributes: {
+        "0" => {
+          id: role_appointment.id,
+          person_id: "",
+          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
+          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
+        },
+        "1" => {
+          person_id: person.id,
+          "started_at(1i)" => 2011, "started_at(2i)" => 8, "started_at(3i)" => 31
+        }
+      }
+    )
+
+    assert_select "form#role_edit" do
+      assert_select "legend", text: "Previous Appointment", count: 1
+      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+      assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
+
+      assert_select "legend", text: "New Appointment", count: 1
+      assert_select "select[name='role[role_appointments_attributes][1][person_id]']" do
+        assert_select "option[selected='selected']", text: "person-name"
+      end
+      assert_select_role_appointment_date_select 1, "started_at", [2011, 8, 31]
     end
   end
 
@@ -556,7 +714,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   def assert_select_role_appointment_date_select(child_index, attribute_name, date)
     (0..2).each do |index|
       assert_select "select[name='role[role_appointments_attributes][#{child_index}][#{attribute_name}(#{index + 1}i)]']" do
-        assert_select "option[selected='selected'][value='#{date[index]}']"
+        assert_select "option[selected='selected'][value='#{date[index]}']" if date[index].present?
       end
     end
   end

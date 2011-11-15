@@ -14,9 +14,5 @@
     <%= render partial: "role_appointment_fields", locals: { role_appointment_form: ra_form } %>
   <% end %>
 
-  <%= form.fields_for :role_appointments, role.role_appointments.build do |ra_form| %>
-    <%= render partial: "role_appointment_fields", locals: { role_appointment_form: ra_form } %>
-  <% end %>
-
   <%= form.save_or_cancel cancel: admin_roles_path %>
 <% end %>
