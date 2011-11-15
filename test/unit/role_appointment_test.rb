@@ -110,6 +110,15 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal 10.days.ago, existing_appointment.ended_at
   end
 
+  test "should set ended_at on existing appointment to started_at on new appointment" do
+    role = create(:role)
+    existing_appointment = create(:role_appointment, role: role, started_at: 20.days.ago, ended_at: nil)
+    new_appointment = create(:role_appointment, role: role,  started_at: 10.days.ago, ended_at: nil)
+
+    existing_appointment.reload
+    assert_equal 10.days.ago, existing_appointment.ended_at
+  end
+
   test "should not be destroyable when it has speeches" do
     speech = create(:speech)
     appointment = create(:role_appointment, speeches: [speech])

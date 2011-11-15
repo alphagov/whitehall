@@ -47,7 +47,7 @@ class RoleAppointment < ActiveRecord::Base
 
   def make_other_current_appointments_non_current
     other_appointments = self.class.for_role(role).current.excluding(self)
-    other_appointments.update_all({ended_at: Time.zone.now})
+    other_appointments.update_all({ended_at: started_at})
   end
 
   def prevent_destruction_unless_destroyable
