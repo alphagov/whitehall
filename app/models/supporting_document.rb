@@ -21,4 +21,16 @@ class SupportingDocument < ActiveRecord::Base
   after_save do
     document.touch
   end
+
+  before_destroy :prevent_destruction_on_published_documents
+
+  def destroyable?
+    !document.published?
+  end
+
+  private
+
+  def prevent_destruction_on_published_documents
+    return false unless destroyable?
+  end
 end

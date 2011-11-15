@@ -171,4 +171,26 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
     assert_equal %{This document has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}, flash[:alert]
   end
 
+  test "should be able to destroy a destroyable supporting document" do
+    document = create(:draft_policy)
+    supporting_document = create(:supporting_document, document: document, title: "Blah blah")
+
+    delete :destroy, id: supporting_document.id
+
+    assert_redirected_to admin_policy_path(document)
+    refute SupportingDocument.find_by_id(supporting_document.id)
+    assert_equal %{"Blah blah" destroyed.}, flash[:notice]
+  end
+
+  test "destroying an indestructible role" do
+    document = create(:published_policy)
+    supporting_document = create(:supporting_document, document: document, title: "Blah blah")
+
+    delete :destroy, id: supporting_document.id
+
+    assert_redirected_to admin_policy_path(document)
+    assert SupportingDocument.find_by_id(supporting_document.id)
+    assert_equal "Cannot destroy a supporting document that has been published", flash[:alert]
+  end
+
 end

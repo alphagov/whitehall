@@ -39,7 +39,7 @@ Whitehall::Application.routes.draw do
         post :revise
       end
       resource :publishing, controller: :document_publishing, only: [:create]
-      resources :supporting_documents, only: [:new, :create, :show, :edit, :update], shallow: true
+      resources :supporting_documents, only: [:new, :create, :show, :edit, :update, :destroy], shallow: true
       resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
       resources :editorial_remarks, only: [:new, :create], shallow: true
     end

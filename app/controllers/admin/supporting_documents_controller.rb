@@ -1,6 +1,6 @@
 class Admin::SupportingDocumentsController < Admin::BaseController
   before_filter :find_document, only: [:new, :create]
-  before_filter :find_supporting_document, only: [:show, :edit, :update]
+  before_filter :find_supporting_document, only: [:show, :edit, :update, :destroy]
 
   def new
     @supporting_document = @document.supporting_documents.build(params[:supporting_document])
@@ -34,6 +34,16 @@ class Admin::SupportingDocumentsController < Admin::BaseController
     @conflicting_supporting_document = SupportingDocument.find(params[:id])
     @supporting_document.lock_version = @conflicting_supporting_document.lock_version
     render action: "edit"
+  end
+
+  def destroy
+    if @supporting_document.destroyable?
+      @supporting_document.destroy
+      flash[:notice] = %{"#{@supporting_document.title}" destroyed.}
+    else
+      flash[:alert] = "Cannot destroy a supporting document that has been published"
+    end
+    redirect_to admin_document_path(@supporting_document.document)
   end
 
   private

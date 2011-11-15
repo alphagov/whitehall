@@ -40,6 +40,11 @@ Scenario: Adding a supporting document to a draft policy
   Then I should see in the preview that "Outlaw Moustaches" includes the "Handlebar Waxing" supporting document
   And I should see in the list of draft documents that "Outlaw Moustaches" has supporting document "Handlebar Waxing"
 
+Scenario: Removing a supporting document from a draft policy
+  Given a draft policy "Bigger Brass" with supporting documents "Massive Trumpets" and "Giant Cornets"
+  When I remove the supporting document "Massive Trumpets" from "Bigger Brass"
+  Then I should see in the preview that the only supporting document for "Bigger Brass" is "Giant Cornets"
+
 Scenario: Editing an existing draft policy
   Given a draft policy "Outlaw Moustaches" exists
   When I edit the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"

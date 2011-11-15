@@ -55,4 +55,18 @@ class SupportingDocumentTest < ActiveSupport::TestCase
     supporting_document = create(:supporting_document, title: "Bob's bike")
     assert_equal 'bobs-bike', supporting_document.slug
   end
+
+  test "should not be destroyable if its document is published" do
+    supporting_document = create(:supporting_document, document: create(:published_policy))
+    refute supporting_document.destroyable?
+    refute supporting_document.destroy
+    assert_nothing_raised { supporting_document.reload }
+  end
+
+  test "should be destroyable if its document is not published" do
+    supporting_document = create(:supporting_document, document: create(:draft_policy))
+    assert supporting_document.destroyable?
+    assert supporting_document.destroy
+    assert_raises(ActiveRecord::RecordNotFound) { supporting_document.reload }
+  end
 end

@@ -3,6 +3,9 @@
     <% if @supporting_document.document.editable? %>
         <%= link_to 'Edit', edit_admin_supporting_document_path(@supporting_document), title: "Edit #{@supporting_document.title}", :class => "button" %>
     <% end %>
+    <% if @supporting_document.destroyable? %>
+        <%= button_to 'Remove', admin_supporting_document_path(@supporting_document), method: :delete, title: "Remove #{@supporting_document.title}" %>
+    <% end %>
     <%= link_to "Back to '#{@supporting_document.document.title}'", admin_document_path(@supporting_document.document), title: "Back to #{@supporting_document.document.title}", class: "back" %>
   </nav>
   <section class="document_view">
