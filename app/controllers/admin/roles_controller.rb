@@ -33,7 +33,6 @@ class Admin::RolesController < Admin::BaseController
 
   def update
     params[:role][:organisation_ids] ||= []
-    params[:role][:role_appointments_attributes] ||= {}
     if new_type = params[:role].delete(:type)
       @role.type = new_type
     end
