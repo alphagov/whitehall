@@ -6,17 +6,20 @@ module GovspeakHelper
     doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(anchor['href'])
       document, supporting_document = find_documents_from_uri(anchor['href'])
-      if document
+      if document.nil? || document.deleted?
+        inner_text = "<del>#{anchor.inner_text}</del>"
+        explanation = state = "deleted"
+      else
+        inner_text = anchor
+        state = document.state
         if document.published?
           public_uri = rewritten_href_for_documents(document, supporting_document)
-          anchor.replace %{<span class="published_link">#{anchor} <sup class="explanation">(<a class="public_link" href="#{public_uri}">public link</a>)</sup></span>}
+          explanation = %{<a class="public_link" href="#{public_uri}">public link</a>}
         else
-          inner_element = document.deleted? ? %{<del>#{anchor.inner_text}</del>} : anchor
-          anchor.replace %{<span class="#{document.state}_link">#{inner_element} <sup class="explanation">(#{document.state})</sup></span>}
+          explanation = state
         end
-      else
-        anchor.replace %{<span class="deleted_link"><del>#{anchor.inner_text}</del> <sup class="explanation">(deleted)</sup></span>}
       end
+      anchor.replace %{<span class="#{state}_link">#{inner_text} <sup class="explanation">(#{explanation})</sup></span>}
     end
     doc.to_html.html_safe
   end
