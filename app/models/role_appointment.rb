@@ -19,7 +19,7 @@ class RoleAppointment < ActiveRecord::Base
     end
   end
 
-  validates :role, :person, :started_at, presence: true
+  validates :role, :person_id, :started_at, presence: true
   validates_with Validator
 
   scope :for_role, -> role {

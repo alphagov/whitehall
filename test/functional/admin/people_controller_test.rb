@@ -65,8 +65,8 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
   test "provides delete buttons for destroyable people" do
     destroyable_person = create(:person)
-    role_appointment = create(:role_appointment)
-    indestructable_person = create(:person, role_appointments: [role_appointment])
+    indestructable_person = create(:person)
+    create(:role_appointment, person: indestructable_person)
 
     get :index
 
