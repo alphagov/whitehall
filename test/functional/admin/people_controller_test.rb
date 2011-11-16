@@ -27,6 +27,13 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     refute_nil Person.last.image
   end
 
+  test "editing shows existing image" do
+    person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
+    get :edit, id: person
+
+    assert_select "img[src='#{person.image_url}']"
+  end
+
   test "updating without a name shows errors" do
     person = create(:person)
 

@@ -3,7 +3,10 @@
 
   <fieldset>
     <%= person_form.text_field :name %>
+  </fieldset>
+  <fieldset class="image">
     <%= person_form.label :image, 'Image' %>
+    <%= image_tag person.image_url || 'blank-person.jpg' %>
     <%= person_form.file_field :image %>
   </fieldset>
 

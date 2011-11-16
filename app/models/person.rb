@@ -26,6 +26,10 @@ class Person < ActiveRecord::Base
     role_appointments.empty?
   end
 
+  def image_filename
+    image_url && File.basename(image_url)
+  end
+
   private
 
   def prevent_destruction_if_appointed

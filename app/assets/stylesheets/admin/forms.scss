@@ -17,3 +17,10 @@ fieldset#policy_order {
     color: #bbb;
   }
 }
+
+fieldset.image img {
+  width: 80px;
+  height: 80px;
+  float: left;
+  padding-right: 8px;
+}
