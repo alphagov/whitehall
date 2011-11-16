@@ -210,14 +210,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "create should create a new appointment" do
     person = create(:person)
 
-    post :create, role: attributes_for(:role,
-      role_appointments_attributes: {
-        "0" => {
-          person_id: person.id,
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15
-        }
-      }
-    )
+    post :create, role: attributes_for(:role, role_appointments_attributes_for(
+      { person: person, started_at: "2010-06-15" }
+    ))
 
     assert role = MinisterialRole.last
     assert appointment = role.role_appointments.last
@@ -228,14 +223,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "create should not create a new appointment if all fields are blank" do
-    post :create, role: attributes_for(:role,
-      role_appointments_attributes: {
-        "0" => {
-          person_id: "",
-          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => ""
-        }
-      }
-    )
+    post :create, role: attributes_for(:role, role_appointments_attributes_for(
+      { person: nil, started_at: nil }
+    ))
 
     assert_select ".form-errors", count: 0
     assert role = MinisterialRole.last
@@ -263,15 +253,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test 'create with invalid role data should not lose or duplicate the appointment fields or values' do
     person = create(:person, name: "person-name")
 
-    post :create, role: attributes_for(:role,
-      name: nil,
-      role_appointments_attributes: {
-        "0" => {
-          person_id: person.id,
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15
-        }
-      }
-    )
+    post :create, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
+      { person: person, started_at: "2010-06-15" }
+    ))
 
     assert_select "form#role_new" do
       assert_select "legend", text: "New Appointment", count: 1
@@ -283,15 +267,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test 'create with invalid role data and blank new appointment should not lose or duplicate the appointment fields or values' do
-    post :create, role: attributes_for(:role,
-      name: nil,
-      role_appointments_attributes: {
-        "0" => {
-          person_id: "",
-          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => ""
-        }
-      }
-    )
+    post :create, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
+      { person: nil, started_at: nil }
+    ))
 
     assert_select "form#role_new" do
       assert_select "legend", text: "New Appointment", count: 1
@@ -301,14 +279,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test 'create with invalid appointment data should not lose or duplicate the appointment fields or values' do
-    post :create, role: attributes_for(:role,
-      role_appointments_attributes: {
-        "0" => {
-          person_id: "",
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15
-        }
-      }
-    )
+    post :create, role: attributes_for(:role, role_appointments_attributes_for(
+      { person: nil, started_at: "2010-06-15" }
+    ))
 
     assert_select "form#role_edit" do
       assert_select "legend", text: "New Appointment", count: 1
@@ -457,16 +430,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
     role_appointment = create(:role_appointment, role: role)
     another_person = create(:person, name: "another-person")
 
-    put :update, id: role, role: {
-      role_appointments_attributes: {
-        "0" => {
-          id: role_appointment.id,
-          person_id: another_person.id,
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
-          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
-        }
-      }
-    }
+    put :update, id: role, role: role_appointments_attributes_for(
+      { role_appointment: role_appointment, person: another_person, started_at: "2010-06-15", ended_at: "2011-07-23" }
+    )
 
     role_appointment.reload
     assert_equal another_person, role_appointment.person
@@ -478,14 +444,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
     role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: role)
 
-    put :update, id: role, role: {
-      role_appointments_attributes: {
-        "0" => {
-          id: role_appointment.id,
-          _destroy: true
-        }
-      }
-    }
+    put :update, id: role, role: role_appointments_attributes_for(
+      { role_appointment: role_appointment, _destroy: true }
+    )
 
     refute role.role_appointments.find_by_id(role_appointment.id)
   end
@@ -494,14 +455,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
     role = create(:ministerial_role)
     person = create(:person)
 
-    put :update, id: role, role: role.attributes.merge(
-      role_appointments_attributes: {
-        "0" => {
-          person_id: person.id,
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15
-        }
-      }
-    )
+    put :update, id: role, role: role.attributes.merge(role_appointments_attributes_for(
+      { person: person, started_at: "2010-06-15" }
+    ))
 
     role.reload
     assert appointment = role.role_appointments.last
@@ -514,14 +470,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "update should not create a new appointment if all fields are blank" do
     role = create(:ministerial_role)
 
-    put :update, id: role, role: role.attributes.merge(
-      role_appointments_attributes: {
-        "0" => {
-          person_id: "",
-          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => ""
-        }
-      }
-    )
+    put :update, id: role, role: role.attributes.merge(role_appointments_attributes_for(
+      { person: nil, started_at: nil }
+    ))
 
     assert_select ".form-errors", count: 0
     role.reload
@@ -567,21 +518,10 @@ class Admin::RolesControllerTest < ActionController::TestCase
     role_appointment = create(:role_appointment, role: role)
     another_person = create(:person, name: "another-person")
 
-    put :update, id: role, role: attributes_for(:role,
-      name: nil,
-      role_appointments_attributes: {
-        "0" => {
-          id: role_appointment.id,
-          person_id: another_person.id,
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
-          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
-        },
-        "1" => {
-          person_id: "",
-          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => ""
-        }
-      }
-    )
+    put :update, id: role, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
+      { role_appointment: role_appointment, person: another_person, started_at: "2010-06-15", ended_at: "2011-07-23" },
+      { person: nil, started_at: nil }
+    ))
 
     assert_select "form#role_edit" do
       assert_select "legend", text: "Previous Appointment", count: 1
@@ -599,21 +539,10 @@ class Admin::RolesControllerTest < ActionController::TestCase
     role_appointment = create(:role_appointment, role: role)
     another_person = create(:person, name: "another-person")
 
-    put :update, id: role, role: attributes_for(:role,
-      name: nil,
-      role_appointments_attributes: {
-        "0" => {
-          id: role_appointment.id,
-          person_id: another_person.id,
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
-          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
-        },
-        "1" => {
-          person_id: "",
-          "started_at(1i)" => 2011, "started_at(2i)" => 8, "started_at(3i)" => 31
-        }
-      }
-    )
+    put :update, id: role, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
+      { role_appointment: role_appointment, person: another_person, started_at: "2010-06-15", ended_at: "2011-07-23" },
+      { person: nil, started_at: "2011-07-23" }
+    ))
 
     assert_select "form#role_edit" do
       assert_select "legend", text: "Previous Appointment", count: 1
@@ -630,20 +559,10 @@ class Admin::RolesControllerTest < ActionController::TestCase
     role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: role)
 
-    put :update, id: role, role: attributes_for(:role,
-      role_appointments_attributes: {
-        "0" => {
-          id: role_appointment.id,
-          person_id: "",
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
-          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
-        },
-        "1" => {
-          person_id: "",
-          "started_at(1i)" => "", "started_at(2i)" => "", "started_at(3i)" => ""
-        }
-      }
-    )
+    put :update, id: role, role: attributes_for(:role, role_appointments_attributes_for(
+      { role_appointment: role_appointment, person: nil, started_at: "2010-06-15", ended_at: "2011-07-23" },
+      { person: nil, started_at: nil }
+    ))
 
     assert_select "form#role_edit" do
       assert_select "legend", text: "Previous Appointment", count: 1
@@ -659,20 +578,10 @@ class Admin::RolesControllerTest < ActionController::TestCase
     role_appointment = create(:role_appointment, role: role)
     person = create(:person, name: "person-name")
 
-    put :update, id: role, role: attributes_for(:role,
-      role_appointments_attributes: {
-        "0" => {
-          id: role_appointment.id,
-          person_id: "",
-          "started_at(1i)" => 2010, "started_at(2i)" => 6, "started_at(3i)" => 15,
-          "ended_at(1i)" => 2011, "ended_at(2i)" => 7, "ended_at(3i)" => 23
-        },
-        "1" => {
-          person_id: person.id,
-          "started_at(1i)" => 2011, "started_at(2i)" => 8, "started_at(3i)" => 31
-        }
-      }
-    )
+    put :update, id: role, role: attributes_for(:role, role_appointments_attributes_for(
+      { role_appointment: role_appointment, person: nil, started_at: "2010-06-15", ended_at: "2011-07-23" },
+      { person: person, started_at: "2011-08-31" }
+    ))
 
     assert_select "form#role_edit" do
       assert_select "legend", text: "Previous Appointment", count: 1
@@ -710,6 +619,24 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   private
+
+  def role_appointments_attributes_for(*appointments)
+    result = {}
+    appointments.each_with_index do |appointment, index|
+      result[index.to_s] = {
+        id: appointment[:role_appointment] ? appointment[:role_appointment].id : "",
+        person_id: appointment[:person] ? appointment[:person].id : "",
+        "started_at(1i)" => appointment[:started_at] ? Date.parse(appointment[:started_at]).year : "",
+        "started_at(2i)" => appointment[:started_at] ? Date.parse(appointment[:started_at]).month : "",
+        "started_at(3i)" => appointment[:started_at] ? Date.parse(appointment[:started_at]).day : "",
+        "ended_at(1i)" => appointment[:ended_at] ? Date.parse(appointment[:ended_at]).year : "",
+        "ended_at(2i)" => appointment[:ended_at] ? Date.parse(appointment[:ended_at]).month : "",
+        "ended_at(3i)" => appointment[:ended_at] ? Date.parse(appointment[:ended_at]).day : "",
+        _destroy: appointment[:_destroy]
+      }
+    end
+    {role_appointments_attributes: result}
+  end
 
   def assert_select_role_appointment_date_select(child_index, attribute_name, date)
     (0..2).each do |index|
