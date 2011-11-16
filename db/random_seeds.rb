@@ -2,7 +2,7 @@ def create_document(type, attributes)
   attributes[:topics] = Topic.where(name: (attributes[:topics] || [])) if type.new.respond_to?(:topics=)
   attributes[:organisations] = Organisation.where(name: (attributes[:organisations] || []))
   attributes[:author] ||= User.create(name: Faker::Name.name)
-  attributes[:ministerial_roles] = Array.new(rand(2) + 1) { MinisterialRole.order("RAND()").first }
+  attributes[:ministerial_roles] = Array.new(rand(2) + 1) { MinisterialRole.order("RAND()").first } unless type == Speech
   type.create!({
     title: "title-n",
     body: random_policy_text
@@ -44,10 +44,14 @@ create_submitted(Policy, title: "Less gravity on Sundays", topics: ["Local Gover
 create_submitted(Policy, title: "Ducks pulling chariots of fire", topics: ["Economic Growth", "Prosperity"], organisations: ["Her Majesty's Treasury"])
 
 create_published(Policy, title: "No more supernanny", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
-policy = create_published(Policy, title: "Laser eyes for millionaires", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
+published_laser_eyes_policy = create_published(Policy, title: "Laser eyes for millionaires", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
 
 create_published(Publication, title: "Cat Extermination White Paper", organisations: ["Foreign and Commonwealth Office"])
 create_published(Publication, title: "Dog Erradicated Green Paper", organisations: ["Northern Ireland Office"])
 create_published(Publication, title: "Canine Consultation", organisations: ["Foreign and Commonwealth Office"])
 create_published(Publication, title: "Feline Consultation", organisations: ["Northern Ireland Office"])
-create_supporting(policy, title: "Some more cat details", body: "Miaaaaow.")
+create_supporting(published_laser_eyes_policy, title: "Some more cat details", body: "Miaaaaow.")
+
+create_published(NewsArticle, title: "News about Laser eyes", documents_related_to: [published_laser_eyes_policy])
+create_published(Consultation, title: "Consultation about Laser eyes", opening_on: 1.year.ago, closing_on: 6.months.ago, documents_related_to: [published_laser_eyes_policy])
+create_published(Speech, title: "Speech about Laser eyes", delivered_on: 1.day.ago, location: "Whitehall", role_appointment: RoleAppointment.first, documents_related_to: [published_laser_eyes_policy])
