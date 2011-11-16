@@ -161,9 +161,10 @@ class Admin::RolesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#role_new" do
-      assert_select "legend", text: "New Appointment", count: 1
-      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
-      assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
+      assert_select ".new.appointment", count: 1 do
+        assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+        assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
+      end
     end
   end
 
@@ -258,11 +259,12 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_new" do
-      assert_select "legend", text: "New Appointment", count: 1
-      assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
-        assert_select "option[selected='selected']", text: "person-name"
+      assert_select ".new.appointment", count: 1 do
+        assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
+          assert_select "option[selected='selected']", text: "person-name"
+        end
+        assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
       end
-      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
     end
   end
 
@@ -272,9 +274,10 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_new" do
-      assert_select "legend", text: "New Appointment", count: 1
-      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
-      assert_select_role_appointment_date_select 0, "started_at", ["", "", ""]
+      assert_select ".new.appointment", count: 1 do
+        assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+        assert_select_role_appointment_date_select 0, "started_at", ["", "", ""]
+      end
     end
   end
 
@@ -284,9 +287,10 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_edit" do
-      assert_select "legend", text: "New Appointment", count: 1
-      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
-      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+      assert_select ".new.appointment", count: 1 do
+        assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+        assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+      end
     end
   end
 
@@ -372,9 +376,10 @@ class Admin::RolesControllerTest < ActionController::TestCase
     get :edit, id: role
 
     assert_select "form#role_edit" do
-      assert_select "legend", text: "New Appointment", count: 1
-      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
-      assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
+      assert_select ".new.appointment", count: 1 do
+        assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+        assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
+      end
     end
   end
 
@@ -524,13 +529,14 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_edit" do
-      assert_select "legend", text: "Previous Appointment", count: 1
-      assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
-        assert_select "option[selected='selected']", text: "another-person"
+      assert_select ".previous.appointment", count: 1 do
+        assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
+          assert_select "option[selected='selected']", text: "another-person"
+        end
+        assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+        assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
       end
-      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
-      assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
-      assert_select "legend", text: "New Appointment", count: 1
+      assert_select ".new.appointment", count: 1
     end
   end
 
@@ -545,13 +551,14 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_edit" do
-      assert_select "legend", text: "Previous Appointment", count: 1
-      assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
-        assert_select "option[selected='selected']", text: "another-person"
+      assert_select ".previous.appointment", count: 1 do
+        assert_select "select[name='role[role_appointments_attributes][0][person_id]']" do
+          assert_select "option[selected='selected']", text: "another-person"
+        end
+        assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+        assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
       end
-      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
-      assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
-      assert_select "legend", text: "New Appointment", count: 1
+      assert_select ".new.appointment", count: 1
     end
   end
 
@@ -565,11 +572,12 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_edit" do
-      assert_select "legend", text: "Previous Appointment", count: 1
-      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
-      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
-      assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
-      assert_select "legend", text: "New Appointment", count: 1
+      assert_select ".previous.appointment", count: 1 do
+        assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+        assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+        assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
+      end
+      assert_select ".new.appointment", count: 1
     end
   end
 
@@ -584,16 +592,18 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_edit" do
-      assert_select "legend", text: "Previous Appointment", count: 1
-      assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
-      assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
-      assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
-
-      assert_select "legend", text: "New Appointment", count: 1
-      assert_select "select[name='role[role_appointments_attributes][1][person_id]']" do
-        assert_select "option[selected='selected']", text: "person-name"
+      assert_select ".previous.appointment", count: 1 do
+        assert_select "select[name='role[role_appointments_attributes][0][person_id]']"
+        assert_select_role_appointment_date_select 0, "started_at", [2010, 6, 15]
+        assert_select_role_appointment_date_select 0, "ended_at", [2011, 7, 23]
       end
-      assert_select_role_appointment_date_select 1, "started_at", [2011, 8, 31]
+
+      assert_select ".new.appointment", count: 1 do
+        assert_select "select[name='role[role_appointments_attributes][1][person_id]']" do
+          assert_select "option[selected='selected']", text: "person-name"
+        end
+        assert_select_role_appointment_date_select 1, "started_at", [2011, 8, 31]
+      end
     end
   end
 
