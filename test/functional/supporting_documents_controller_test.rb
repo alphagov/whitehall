@@ -208,4 +208,13 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
 
     assert_select "#{metadata_nav_selector} a.minister", text: "minister-name"
   end
+
+  test "should be compatible with and render the policies/show template" do
+    policy = create(:published_policy)
+    supporting_document = create(:supporting_document, document: policy)
+    get :show, policy_id: policy.document_identity, id: supporting_document
+    assert_equal policy, assigns(:policy)
+    assert_equal supporting_document, assigns(:document)
+    assert_template "policies/show"
+  end
 end

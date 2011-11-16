@@ -1,7 +1,7 @@
 <div class="g3">
-  <%= render partial: "policy_view", locals: { policy: @document, document: @document } %>
+  <%= render partial: "policies/policy_view", locals: { policy: @policy, document: @document } %>
 </div>
 
 <div class="g3 secondary">
-  <%= render partial: "policy_relationships", locals: { policy: @document } %>
+  <%= render partial: "policies/policy_relationships", locals: { policy: @policy } %>
 </div>

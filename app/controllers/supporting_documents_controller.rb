@@ -7,10 +7,12 @@ class SupportingDocumentsController < ApplicationController
   end
 
   def show
+    @document = @supporting_document
     @related_publications = Publication.published.related_to(@policy)
     @related_consultations = Consultation.published.related_to(@policy)
     @related_news_articles = NewsArticle.published.related_to(@policy)
     @related_speeches = Speech.published.related_to(@policy)
+    render template: "policies/show"
   end
 
   private
