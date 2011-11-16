@@ -1,6 +1,6 @@
-<% if document.organisations.any? %>
+<% if organisations.any? %>
   <section id="organisations">
     <h1>Organisations</h1>
-    <%= render partial: "organisations/list", locals: {organisations: document.organisations} %>
+    <%= render partial: "organisations/list", locals: {organisations: organisations} %>
   </section>
 <% end %>

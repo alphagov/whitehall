@@ -3,9 +3,9 @@
 </div>
 
 <div class="g1 secondary">
-  <%= render partial: 'organisations', locals: { document: @document } %>
+  <%= render partial: 'organisations', locals: { organisations: @document.organisations } %>
 
-  <%= render partial: 'ministerial_roles', locals: { document: @document } %>
+  <%= render partial: 'ministerial_roles', locals: { ministerial_roles: @document.ministerial_roles } %>
 
   <%= render partial: 'inapplicable_nations', locals: { document: @document } %>
 

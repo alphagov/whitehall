@@ -3,10 +3,10 @@
 </div>
 
 <div class="g1 secondary">
-  <%= render partial: 'topics', locals: { document: @document } %>
-  <%= render partial: 'organisations', locals: { document: @document } %>
-  <%= render partial: 'ministerial_roles', locals: { document: @document } %>
-  <%= render partial: 'countries', locals: { document: @document } %>
+  <%= render partial: 'topics', locals: { topics: @document.topics } %>
+  <%= render partial: 'organisations', locals: { organisations: @document.organisations } %>
+  <%= render partial: 'ministerial_roles', locals: { ministerial_roles: @document.ministerial_roles } %>
+  <%= render partial: 'countries', locals: { countries: @document.countries } %>
 
   <% if @related_policies.any? %>
     <section id="related-policies">
