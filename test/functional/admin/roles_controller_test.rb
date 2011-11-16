@@ -161,10 +161,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#role_new" do
-      assert_select ".new.appointment", count: 1 do
-        assert_select_role_appointment_person(index: 0)
-        assert_select_role_appointment_date_select(:started_at, index: 0)
-      end
+      assert_select_role_appointment(:new, index: 0, person: nil, started_at: nil)
     end
   end
 
@@ -259,10 +256,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_new" do
-      assert_select ".new.appointment", count: 1 do
-        assert_select_role_appointment_person(index: 0, person: person)
-        assert_select_role_appointment_date_select(:started_at, index: 0, date: [2010, 6, 15])
-      end
+      assert_select_role_appointment(:new, index: 0, person: person, started_at: [2010, 6, 15])
     end
   end
 
@@ -272,10 +266,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_new" do
-      assert_select ".new.appointment", count: 1 do
-        assert_select_role_appointment_person(index: 0)
-        assert_select_role_appointment_date_select(:started_at, index: 0)
-      end
+      assert_select_role_appointment(:new, index: 0, person: nil, started_at: nil)
     end
   end
 
@@ -285,10 +276,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_edit" do
-      assert_select ".new.appointment", count: 1 do
-        assert_select_role_appointment_person(index: 0)
-        assert_select_role_appointment_date_select(:started_at, index: 0, date: [2010, 6, 15])
-      end
+      assert_select_role_appointment(:new, index: 0, person: nil, started_at: [2010, 6, 15])
     end
   end
 
@@ -319,9 +307,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     get :edit, id: role
 
     assert_select "form#role_edit" do
-      assert_select_role_appointment_person(index: 0, person: person)
-      assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
-      assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 3
+      assert_select_role_appointment(:current, index: 0, person: person, started_at: nil, ended_at: nil)
     end
   end
 
@@ -351,14 +337,16 @@ class Admin::RolesControllerTest < ActionController::TestCase
     person_one = create(:person, name: "person-one")
     person_two = create(:person, name: "person-two")
     role = create(:ministerial_role)
-    create(:role_appointment, role: role, person: person_one, started_at: 1.year.ago)
-    create(:role_appointment, role: role, person: person_two, started_at: 2.years.ago)
+    create(:role_appointment, role: role, person: person_one, started_at: 1.year.ago, ended_at: 1.day.ago)
+    create(:role_appointment, role: role, person: person_two, started_at: 2.years.ago, ended_at: 1.year.ago)
 
     get :edit, id: role
 
     assert_select "form#role_edit" do
-      assert_select_role_appointment_person(index: 0, person: person_two)
-      assert_select_role_appointment_person(index: 1, person: person_one)
+      assert_select ".previous.appointment" do
+        assert_select_role_appointment_person(index: 0, person: person_two)
+        assert_select_role_appointment_person(index: 1, person: person_one)
+      end
     end
   end
 
@@ -368,10 +356,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     get :edit, id: role
 
     assert_select "form#role_edit" do
-      assert_select ".new.appointment", count: 1 do
-        assert_select_role_appointment_person(index: 0)
-        assert_select "select[name*='role[role_appointments_attributes][0][started_at']", count: 3
-      end
+      assert_select_role_appointment(:new, index: 0, person: nil, started_at: nil)
     end
   end
 
@@ -521,12 +506,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_edit" do
-      assert_select ".previous.appointment", count: 1 do
-        assert_select_role_appointment_person(index: 0, person: another_person)
-        assert_select_role_appointment_date_select(:started_at, index: 0, date: [2010, 6, 15])
-        assert_select_role_appointment_date_select(:ended_at, index: 0, date: [2011, 7, 23])
-      end
-      assert_select ".new.appointment", count: 1
+      assert_select_role_appointment(:previous, index: 0, person: another_person, started_at: [2010, 6, 15], ended_at: [2011, 7, 23])
+      assert_select_role_appointment(:new, index: 1)
     end
   end
 
@@ -541,11 +522,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_edit" do
-      assert_select ".previous.appointment", count: 1 do
-        assert_select_role_appointment_person(index: 0, person: another_person)
-        assert_select_role_appointment_date_select(:started_at, index: 0, date: [2010, 6, 15])
-        assert_select_role_appointment_date_select(:ended_at, index: 0, date: [2011, 7, 23])
-      end
+      assert_select_role_appointment(:previous, index: 0, person: another_person, started_at: [2010, 6, 15], ended_at: [2011, 7, 23])
+      assert_select_role_appointment(:new, index: 1)
       assert_select ".new.appointment", count: 1
     end
   end
@@ -560,12 +538,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_edit" do
-      assert_select ".previous.appointment", count: 1 do
-        assert_select_role_appointment_person(index: 0)
-        assert_select_role_appointment_date_select(:started_at, index: 0, date: [2010, 6, 15])
-        assert_select_role_appointment_date_select(:ended_at, index: 0, date: [2011, 7, 23])
-      end
-      assert_select ".new.appointment", count: 1
+      assert_select_role_appointment(:previous, index: 0, person: nil, started_at: [2010, 6, 15], ended_at: [2011, 7, 23])
+      assert_select_role_appointment(:new, index: 1)
     end
   end
 
@@ -580,16 +554,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
     ))
 
     assert_select "form#role_edit" do
-      assert_select ".previous.appointment", count: 1 do
-        assert_select_role_appointment_person(index: 0)
-        assert_select_role_appointment_date_select(:started_at, index: 0, date: [2010, 6, 15])
-        assert_select_role_appointment_date_select(:ended_at, index: 0, date: [2011, 7, 23])
-      end
-
-      assert_select ".new.appointment", count: 1 do
-        assert_select_role_appointment_person(index: 1, person: person)
-        assert_select_role_appointment_date_select(:started_at, index: 1, date: [2011, 8, 31])
-      end
+      assert_select_role_appointment(:previous, index: 0, person: nil, started_at: [2010, 6, 15], ended_at: [2011, 7, 23])
+      assert_select_role_appointment(:new, index: 1, person: person, started_at: [2011, 8, 31])
     end
   end
 
@@ -632,9 +598,23 @@ class Admin::RolesControllerTest < ActionController::TestCase
     {role_appointments_attributes: result}
   end
 
-  def assert_select_role_appointment_date_select(attribute_name, options = {})
+  def assert_select_role_appointment(type, options = {})
+    assert_select ".#{type}.appointment", count: 1 do
+      if options.has_key?(:person)
+        assert_select_role_appointment_person(options.slice(:index, :person))
+      end
+      if options.has_key?(:started_at)
+        assert_select_role_appointment_date_select(options.slice(:index).merge(attribute: :started_at, date: options[:started_at]))
+      end
+      if options.has_key?(:ended_at)
+        assert_select_role_appointment_date_select(options.slice(:index).merge(attribute: :ended_at, date: options[:ended_at]))
+      end
+    end
+  end
+
+  def assert_select_role_appointment_date_select(options = {})
     (0..2).each do |index|
-      assert_select "select[name='role[role_appointments_attributes][#{options[:index]}][#{attribute_name}(#{index + 1}i)]']" do
+      assert_select "select[name='role[role_appointments_attributes][#{options[:index]}][#{options[:attribute]}(#{index + 1}i)]']" do
         if options[:date].present? && options[:date][index].present?
           assert_select "option[selected='selected'][value='#{options[:date][index]}']"
         end
