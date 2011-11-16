@@ -633,15 +633,13 @@ class Admin::RolesControllerTest < ActionController::TestCase
   def role_appointments_attributes_for(*appointments)
     result = {}
     appointments.each_with_index do |appointment, index|
+      started_at = appointment[:started_at] ? Time.zone.parse(appointment[:started_at]) : nil
+      ended_at = appointment[:ended_at] ? Time.zone.parse(appointment[:ended_at]) : nil
       result[index.to_s] = {
         id: appointment[:role_appointment] ? appointment[:role_appointment].id : "",
         person_id: appointment[:person] ? appointment[:person].id : "",
-        "started_at(1i)" => appointment[:started_at] ? Date.parse(appointment[:started_at]).year : "",
-        "started_at(2i)" => appointment[:started_at] ? Date.parse(appointment[:started_at]).month : "",
-        "started_at(3i)" => appointment[:started_at] ? Date.parse(appointment[:started_at]).day : "",
-        "ended_at(1i)" => appointment[:ended_at] ? Date.parse(appointment[:ended_at]).year : "",
-        "ended_at(2i)" => appointment[:ended_at] ? Date.parse(appointment[:ended_at]).month : "",
-        "ended_at(3i)" => appointment[:ended_at] ? Date.parse(appointment[:ended_at]).day : "",
+        started_at: started_at,
+        ended_at: ended_at,
         _destroy: appointment[:_destroy]
       }
     end
