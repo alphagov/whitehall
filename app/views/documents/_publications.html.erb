@@ -1,12 +1,12 @@
 <% if publications.any? %>
-<section id="publications">
-  <h1>Publications</h1>
-  <ul class="publications">
-    <% publications.each do |publication| %>
-      <%= content_tag_for(:li, publication) do %>
-        <%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %>
+  <section id="publications">
+    <h1>Publications</h1>
+    <ul class="publications">
+      <% publications.each do |publication| %>
+        <%= content_tag_for(:li, publication) do %>
+          <%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %>
+        <% end %>
       <% end %>
-    <% end %>
-  </ul>
-</section>
+    </ul>
+  </section>
 <% end %>

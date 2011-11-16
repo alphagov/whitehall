@@ -1,12 +1,12 @@
 <% if policies.any? %>
-<section id="policies">
-  <h1>Policies</h1>
-  <ul class="policies">
-    <% policies.each do |policy| %>
-      <%= content_tag_for(:li, policy) do %>
-        <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %>
+  <section id="policies">
+    <h1>Policies</h1>
+    <ul class="policies">
+      <% policies.each do |policy| %>
+        <%= content_tag_for(:li, policy) do %>
+          <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %>
+        <% end %>
       <% end %>
-    <% end %>
-  </ul>
-</section>
+    </ul>
+  </section>
 <% end %>
