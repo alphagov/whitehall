@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
 
   layout 'website'
 
-  include RedirectAwayAndBack
-
   private
 
   def authenticate!

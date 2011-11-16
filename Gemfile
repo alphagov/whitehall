@@ -11,6 +11,7 @@ gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.0.beta14'
 gem 'nokogiri'
 gem 'rake', '0.9.2.2'
+gem 'boomerang-rails'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'
