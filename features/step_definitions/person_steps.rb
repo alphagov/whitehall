@@ -6,6 +6,7 @@ When /^I add a new person called "([^"]*)"$/ do |name|
   visit_people_admin
   click_link "Create Person"
   fill_in "Name", with: name
+  attach_file "Image", Rails.root.join("features/fixtures/minister-of-soul.jpg")
   click_button "Save"
 end
 

@@ -3,6 +3,8 @@
 
   <fieldset>
     <%= person_form.text_field :name %>
+    <%= person_form.label :image, 'Image' %>
+    <%= person_form.file_field :image %>
   </fieldset>
 
   <%= person_form.save_or_cancel cancel: admin_people_path %>

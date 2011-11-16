@@ -1,4 +1,6 @@
 class Person < ActiveRecord::Base
+  mount_uploader :image, PersonImageUploader, mount_on: :carrierwave_image
+
   has_many :role_appointments
   has_many :current_role_appointments, class_name: 'RoleAppointment', conditions: RoleAppointment::CURRENT_CONDITION
 
@@ -15,6 +17,8 @@ class Person < ActiveRecord::Base
   has_many :organisations, through: :organisation_roles
 
   validates :name, presence: true
+
+  delegate :url, to: :image, prefix: :image
 
   before_destroy :prevent_destruction_if_appointed
 

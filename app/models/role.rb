@@ -53,6 +53,10 @@ class Role < ActiveRecord::Base
     current_person ? current_person.name : default
   end
 
+  def current_person_image_url
+    current_person && current_person.image_url
+  end
+
   def organisation_names
     organisations.map(&:name).join(' and ')
   end

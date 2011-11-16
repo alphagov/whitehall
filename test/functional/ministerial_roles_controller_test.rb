@@ -37,4 +37,19 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_select_object(published_document)
     assert_select_object(draft_document, count: 0)
   end
+
+  test "shows minister's picture if available" do
+    minister = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
+    role_appointment = create(:ministerial_role_appointment, person: minister)
+    get :show, id: role_appointment.role.id
+
+    assert_select "img[src='#{minister.image.url}']"
+  end
+
+  test "shows placeholder picture if minister has none" do
+    role_appointment = create(:ministerial_role_appointment)
+    get :show, id: role_appointment.role.id
+
+    assert_select "img[src='/assets/blank-person.jpg']"
+  end
 end

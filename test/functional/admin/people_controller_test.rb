@@ -19,6 +19,14 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_redirected_to admin_people_path
   end
 
+  test "creating allows attachment of an image" do
+    attributes = attributes_for(:person)
+    attributes[:image] = fixture_file_upload('minister-of-funk.jpg')
+    post :create, person: attributes
+
+    refute_nil Person.last.image
+  end
+
   test "updating without a name shows errors" do
     person = create(:person)
 
