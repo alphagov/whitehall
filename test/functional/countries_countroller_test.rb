@@ -59,4 +59,51 @@ class CountriesControllerTest < ActionController::TestCase
 
     assert_select "#news_articles", count: 0
   end
+
+  test "shows only published policies" do
+    published_document = create(:published_policy)
+    draft_document = create(:draft_policy)
+    country = create(:country, documents: [published_document, draft_document])
+
+    get :show, id: country
+
+    assert_select "#policies" do
+      assert_select_object(published_document)
+      assert_select_object(draft_document, count: 0)
+    end
+  end
+
+  test "shows only policies associated with country" do
+    published_document = create(:published_policy)
+    another_published_document = create(:published_policy)
+    country = create(:country, documents: [published_document])
+
+    get :show, id: country
+
+    assert_select "#policies" do
+      assert_select_object(published_document)
+      assert_select_object(another_published_document, count: 0)
+    end
+  end
+
+  test "shows most recent policies at the top" do
+    later_document = create(:published_policy, published_at: 1.hour.ago)
+    earlier_document = create(:published_policy, published_at: 2.hours.ago)
+    country = create(:country, documents: [earlier_document, later_document])
+
+    get :show, id: country
+
+    expected_ids = [later_document, earlier_document].map { |d| dom_id(d) }
+    assert_select "#policies .policy" do |policies|
+      assert_equal expected_ids, policies.map { |a| a["id"] }
+    end
+  end
+
+  test "should not display an empty published policies section" do
+    country = create(:country, documents: [])
+
+    get :show, id: country
+
+    assert_select "#policies", count: 0
+  end
 end

@@ -5,4 +5,5 @@ class Policy < Document
   include Document::FactCheckable
   include Document::RelatedDocuments
   include Document::SupportingDocuments
+  include Document::Countries
 end

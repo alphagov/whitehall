@@ -13,3 +13,8 @@ Scenario: View news articles relating to a country
   When I view the country "British Antarctic Territory"
   Then I should see the news article "Larsen ice sheet disintegrates"
 
+Scenario: View policies relating to a country
+  Given a country "British Antarctic Territory"
+  And a published policy "Icebergs of the World, Unite!" exists relating to the country "British Antarctic Territory"
+  When I view the country "British Antarctic Territory"
+  Then I should see the policy "Icebergs of the World, Unite!"

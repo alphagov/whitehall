@@ -86,6 +86,11 @@ Given /^an editor named "([^"]*)" has rejected the policy titled "([^"]*)" becau
   policy.editorial_remarks.create! author: editor, body: rejection_reason
 end
 
+Given /^a published policy "([^"]*)" exists relating to the country "([^"]*)"$/ do |title, country_name|
+  country = Country.find_by_name!(country_name)
+  create(:published_policy, title: title, countries: [country])
+end
+
 When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title(policy_title)
   visit admin_policy_path(policy)
