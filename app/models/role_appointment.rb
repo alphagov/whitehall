@@ -39,6 +39,16 @@ class RoleAppointment < ActiveRecord::Base
     started_at.present? && ended_at.nil?
   end
 
+  def type
+    if new_record?
+      "new"
+    elsif current?
+      "current"
+    else
+      "previous"
+    end
+  end
+
   def destroyable?
     speeches.empty?
   end
