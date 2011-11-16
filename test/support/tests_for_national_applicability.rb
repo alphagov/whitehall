@@ -116,11 +116,11 @@ module TestsForNationalApplicability
   private
 
   def attributes_for_document(attributes = {})
-    attributes_for(document_class.name.downcase, attributes)
+    attributes_for(document_class.name.underscore, attributes)
   end
 
   def create_document(attributes = {})
-    create(document_class.name.downcase, attributes)
+    create(document_class.name.underscore, attributes)
   end
 
   def document_class
