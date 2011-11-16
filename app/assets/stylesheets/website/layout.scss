@@ -84,7 +84,6 @@ header h1 {
 
   .secondary {
     > section {
-      @include span_one_column;
       border: 1px solid #ddd;
       padding: 2% 1em;
       background: #f9f9f9;
