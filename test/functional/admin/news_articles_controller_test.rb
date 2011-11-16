@@ -10,14 +10,13 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   test 'new displays news articles form' do
     get :new
 
-    assert_select "form[action='#{admin_news_articles_path}']" do
+    assert_select "form#document_new[action='#{admin_news_articles_path}']" do
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[documents_related_to_ids]']"
       assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
-      assert_select "select[name*='document[country_ids]']"
       assert_select "input[type='submit']"
     end
   end
@@ -29,15 +28,12 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     second_org = create(:organisation)
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
-    first_country = create(:country)
-    second_country = create(:country)
     attributes = attributes_for(:news_article)
 
     post :create, document: attributes.merge(
       topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id],
-      documents_related_to_ids: [first_policy.id, second_policy.id],
-      country_ids: [first_country.id, second_country.id]
+      documents_related_to_ids: [first_policy.id, second_policy.id]
     )
 
     created_news_article = NewsArticle.last
@@ -46,7 +42,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal [first_topic, second_topic], created_news_article.topics
     assert_equal [first_org, second_org], created_news_article.organisations
     assert_equal [first_policy, second_policy], created_news_article.documents_related_to
-    assert_equal [first_country, second_country], created_news_article.countries
   end
 
   test 'creating should take the writer to the news article page' do
@@ -76,16 +71,13 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     second_topic = create(:topic)
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
-    first_country = create(:country)
-    second_country = create(:country)
-    news_article = create(:news_article, topics: [first_topic], documents_related_to: [first_policy], countries: [first_country])
+    news_article = create(:news_article, topics: [first_topic], documents_related_to: [first_policy])
 
     put :update, id: news_article.id, document: {
       title: "new-title",
       body: "new-body",
       topic_ids: [second_topic.id],
-      documents_related_to_ids: [second_policy.id],
-      country_ids: [second_country.id]
+      documents_related_to_ids: [second_policy.id]
     }
 
     saved_news_article = news_article.reload
@@ -93,22 +85,19 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal "new-body", saved_news_article.body
     assert_equal [second_topic], saved_news_article.topics
     assert_equal [second_policy], saved_news_article.documents_related_to
-    assert_equal [second_country], saved_news_article.countries
   end
 
-  test 'updating should remove all topics, related documents and countries if none in params' do
+  test 'updating should remove all topics and related documents if none in params' do
     topic = create(:topic)
     policy = create(:published_policy)
-    country = create(:country)
 
-    news_article = create(:news_article, topics: [topic], documents_related_to: [policy], countries: [country])
+    news_article = create(:news_article, topics: [topic], documents_related_to: [policy])
 
     put :update, id: news_article, document: {}
 
     news_article.reload
     assert_equal [], news_article.topics
     assert_equal [], news_article.documents_related_to
-    assert_equal [], news_article.countries
   end
 
   test 'updating should take the writer to the news article page' do
@@ -146,7 +135,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
       assert_select "h1", "Organisations"
       assert_select "h1", "Topics"
       assert_select "h1", "Ministers"
-      assert_select "h1", "Countries"
     end
   end
 
@@ -176,25 +164,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: draft_news_article
 
     assert_select ".body", text: "body-in-html"
-  end
-
-  test "should display the countries to which the news article relates" do
-    first_country = create(:country)
-    second_country = create(:country)
-    draft_news_article = create(:draft_news_article, countries: [first_country, second_country])
-
-    get :show, id: draft_news_article
-
-    assert_select_object(first_country)
-    assert_select_object(second_country)
-  end
-
-  test "should indicate that the news article does not relate to any country" do
-    draft_news_article = create(:draft_news_article, countries: [])
-
-    get :show, id: draft_news_article
-
-    assert_select "p", "This document isn't assigned to any countries."
   end
 
   should_be_rejectable :news_article
