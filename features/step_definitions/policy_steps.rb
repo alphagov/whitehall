@@ -91,6 +91,12 @@ Given /^a published policy "([^"]*)" exists relating to the country "([^"]*)"$/ 
   create(:published_policy, title: title, countries: [country])
 end
 
+Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the policy "([^"]*)"$/ do |document_type, document_title, policy_title|
+  document = create("published_#{document_class(document_type).name.underscore}".to_sym, title: document_title)
+  policy = Policy.find_by_title!(policy_title)
+  policy.documents_related_to << document
+end
+
 When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title(policy_title)
   visit admin_policy_path(policy)
@@ -295,4 +301,9 @@ Then /^I should see the policy titled "([^"]*)" in the list of submitted documen
   click_link "submitted"
   policy = Policy.find_by_title!(policy_title)
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
+end
+
+Then /^I can see links to the recently changed document "([^"]*)"$/ do |title|
+  document = Document.find_by_title!(title)
+  assert page.has_css?("#recently-changed #{record_css_selector(document)} a", text: document.title), "#{document.title} not found"
 end

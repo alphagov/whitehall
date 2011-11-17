@@ -217,4 +217,40 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
     assert_equal supporting_document, assigns(:document)
     assert_template "policies/show"
   end
+
+  test "show displays recently changed documents related to the policy" do
+    publication = create(:published_publication)
+    consultation = create(:published_consultation)
+    news_article = create(:published_news_article)
+    speech = create(:published_speech)
+    policy = create(:published_policy,
+      documents_related_with: [publication, consultation, news_article, speech]
+    )
+    supporting_document = create(:supporting_document, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_document
+
+    assert_select "#recently-changed" do
+      assert_select_object publication
+      assert_select_object consultation
+      assert_select_object news_article
+      assert_select_object speech
+    end
+  end
+
+  test "show orders recently changed documents related to the policy most recent first" do
+    publication = create(:published_publication, published_at: 4.weeks.ago)
+    consultation = create(:published_consultation, published_at: 1.weeks.ago)
+    news_article = create(:published_news_article, published_at: 3.weeks.ago)
+    speech = create(:published_speech, published_at: 2.weeks.ago)
+    policy = create(:published_policy,
+      documents_related_with: [publication, consultation, news_article, speech]
+    )
+    supporting_document = create(:supporting_document, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_document
+
+    assert_equal [consultation, speech, news_article, publication], assigns[:recently_changed_documents]
+  end
+
 end

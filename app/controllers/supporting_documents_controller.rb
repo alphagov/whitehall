@@ -12,6 +12,7 @@ class SupportingDocumentsController < ApplicationController
     @related_consultations = Consultation.published.related_to(@policy)
     @related_news_articles = NewsArticle.published.related_to(@policy)
     @related_speeches = Speech.published.related_to(@policy)
+    @recently_changed_documents = Document.published.related_to(@policy).by_publication_date
     render template: "policies/show"
   end
 
