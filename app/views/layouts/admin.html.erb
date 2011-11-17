@@ -20,7 +20,7 @@
   </head>
 
   <body class="admin" id="wrapper">
-    <header class="cf masthead">
+    <header class="group masthead">
       <nav>
         <%= admin_documents_header_link %>
         <%= admin_topics_header_link %>
@@ -36,7 +36,7 @@
       <%= render partial: "shared/notices" %>
     </section>
 
-    <section class="cf wrapper">
+    <section class="group wrapper">
       <%= yield %>
     </section>
     <%= javascript_include_tag "application" %>

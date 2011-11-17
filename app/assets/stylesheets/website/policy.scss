@@ -1,77 +1,79 @@
 @import "../shared/utils";
 @import "../shared/document_view";
 
-.policy_view {
-  @include clearfix;
-  padding: 1em;
-  margin-bottom: 1.5em;
-
-  h1.title {
-    margin-bottom: 0;
-  }
-
-  nav.meta {
-    margin-bottom: 1.5em;
-    a {
-      @include type-12;
-      margin-right: 1em;
-    }
-  }
-
-  .offering {
-    @extend .document_view;
-    padding: 0;
-    background-color: transparent;
-    border: none;
-  }
-
-  nav.policy_parts {
-    background: #eee;
+#content {
+  .policy_view {
+    @include clearfix;
     padding: 1em;
-    margin-right: 1em;
     margin-bottom: 1.5em;
 
-    h3 {
-      @include type-16;
-      margin-bottom: 0.75em;
-    }
-
-    a {
-      display: block;
-      @include type-12;
+    h1.title {
       margin-bottom: 0;
     }
-  }
 
-  article.document {
-    .body {
-      h2 {
-        margin-top: 0;
+    nav.meta {
+      margin-bottom: 1.5em;
+      a {
+        @include type-12;
+        margin-right: 1em;
       }
+    }
+
+    .offering {
+      @extend .document_view;
+      padding: 0;
+      background-color: transparent;
+      border: none;
+    }
+
+    nav.policy_parts {
+      background: #eee;
+      padding: 1em;
+      margin-right: 1em;
+      margin-bottom: 1.5em;
+
+      h3 {
+        @include type-16;
+        margin-bottom: 0.75em;
+      }
+
+      a {
+        display: block;
+        @include type-12;
+        margin-bottom: 0;
+      }
+    }
+
+    article.document {
+      .body {
+        h2 {
+          margin-top: 0;
+        }
+
+        p {
+          max-width: 50em;
+        }
+      }
+    }
+
+    .notice {
+      border: 1px solid #d1d31b;
+      background: #f7f7c3;
+      padding: 0.75em 1.5em 0 1.5em;
+      margin-bottom: 1.5em;
 
       p {
-        max-width: 50em;
+        font-weight: bold;
       }
-    }
-  }
 
-  .notice {
-    border: 1px solid #d1d31b;
-    background: #f7f7c3;
-    padding: 0.75em 1.5em 0 1.5em;
-    margin-bottom: 1.5em;
+      p, li {
+         @include type-12;
+         margin-bottom: 0.75em;
+      }
 
-    p {
-      font-weight: bold;
-    }
-
-    p, li {
-       @include type-12;
-       margin-bottom: 0.75em;
-    }
-
-    ul {
-      margin-bottom: 0;
+      ul {
+        margin-bottom: 0;
+      }
     }
   }
 }

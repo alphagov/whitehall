@@ -1,104 +1,106 @@
 @import "utils";
 
-/* DEFAULT FONT SETTINGS */
-/* 16px base font size with 150% (24px) friendly, unitless line height and margin for vertical rhythm */
-/* Font-size percentage is based on 16px browser default size */
-body, button, input, select, textarea {
-  /* IE7 and older can't resize px based text */
+@mixin default_font_settings {
+  /* DEFAULT FONT SETTINGS */
+  /* 16px base font size with 150% (24px) friendly, unitless line height and margin for vertical rhythm */
+  /* Font-size percentage is based on 16px browser default size */  /* IE7 and older can't resize px based text */
   font: 100%/1.5 "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; *font-size: 1em;
-  color: #333
-}
+  color: #333;
 
-/* WIDESCREEN */
-/* Increased body size for legibility */
-@media only screen and (min-width: 1800px) {
-  body {
+  /* WIDESCREEN */
+  /* Increased body size for legibility */
+  @media only screen and (min-width: 1800px) {
     /* 18.5px / 28px */
     font-size: 116.5%;
   }
 }
 
-p, blockquote, q, pre, address, hr, code, samp, dl, ol, ul, form, table, fieldset, menu, img {
-  margin: 0 0 1.5em;
-  padding: 0
-}
+#content {
+  @include default_font_settings;
 
-/* TYPOGRAPHY */
-/* Composed to a scale of 12px, 14px, 16px, 18px, 21px, 24px, 36px, 48px, 60px and 72px */
-h1, h2, h3, h4, h5, h6 {
-  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #222;
-}
+  p, blockquote, q, pre, address, hr, code, samp, dl, ol, ul, form, table, fieldset, menu, img {
+    margin: 0 0 1.5em;
+    padding: 0
+  }
 
-h1 {
-  @include type-60;
-}
+  /* TYPOGRAPHY */
+  /* Composed to a scale of 12px, 14px, 16px, 18px, 21px, 24px, 36px, 48px, 60px and 72px */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #222;
+  }
 
-h2 {
-  @include type-48;
-}
-
-h3 {
-  @include type-36;
-}
-
-h4 {
-  @include type-24;
-}
-
-h5 {
-  @include type-21;
-}
-
-h6 {
-  @include type-18;
-}
-
-p, ul, blockquote, pre, td, th, label {
-  @include type-16;
-}
-small, p.small {
-  @include type-14;
-}
-
-section {
   h1 {
-    @include type-24;
+    @include type-60;
   }
 
   h2 {
-    @include type-21;
+    @include type-48;
   }
 
   h3 {
+    @include type-36;
+  }
+
+  h4 {
+    @include type-24;
+  }
+
+  h5 {
+    @include type-21;
+  }
+
+  h6 {
     @include type-18;
   }
 
-  h4,h5,h6 {
-    @include type-16
+  p, ul, blockquote, pre, td, th, label {
+    @include type-16;
   }
-}
+  small, p.small {
+    @include type-14;
+  }
 
-/* CODE */
-pre {
-  white-space: pre;
-  white-space: pre-wrap;
-  word-wrap: break-word
-}
-/* Allow line wrapping of 'pre' */
-pre, code, kbd, samp {
-  font-size: 1em;
-  line-height: 1.5em;
-  margin-bottom: 1.5em;
-  font-family: Menlo, Consolas, 'DejaVu Sans Mono', Monaco, monospace
-}
+  section {
+    h1 {
+      @include type-24;
+    }
 
-span.amp {
-  /* Best available ampersand */
-  font-family: Adobe Caslon Pro,Baskerville,"Goudy Old Style","Palatino","Palatino Linotype","Book Antiqua",Georgia,"Times New Roman",Times,serif;
-  font-style: italic;
-  font-size: 110%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline
+    h2 {
+      @include type-21;
+    }
+
+    h3 {
+      @include type-18;
+    }
+
+    h4,h5,h6 {
+      @include type-16
+    }
+  }
+
+  /* CODE */
+  pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word
+  }
+
+  /* Allow line wrapping of 'pre' */
+  pre, code, kbd, samp {
+    font-size: 1em;
+    line-height: 1.5em;
+    margin-bottom: 1.5em;
+    font-family: Menlo, Consolas, 'DejaVu Sans Mono', Monaco, monospace
+  }
+
+  span.amp {
+    /* Best available ampersand */
+    font-family: Adobe Caslon Pro,Baskerville,"Goudy Old Style","Palatino","Palatino Linotype","Book Antiqua",Georgia,"Times New Roman",Times,serif;
+    font-style: italic;
+    font-size: 110%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline
+  }
 }

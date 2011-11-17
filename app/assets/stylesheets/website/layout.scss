@@ -1,127 +1,150 @@
 @import "../shared/utils";
 
-header h1 {
-  @include type-24;
-}
-
-.masthead {
-  background: #444;
-  border-bottom: 1px solid #222;
-
-  h1 {
-    background: #333;
-    padding: 0.2em 5%;
-    margin-bottom: 0;
-    border-bottom: 1px solid #222;
-
-    @media only screen and (min-width: 600px) {
-      padding: 0.4em 10%;
-    }
+#content {
+  header {
+    margin-top: 4.5em;
   }
 
-  nav {
-    @include type-14;
-    margin-bottom: 0;
-    padding: 0 5%;
+  section {
+    margin: 0;
+    width: auto;
+  }
 
-    @media only screen and (min-width: 600px) {
-      padding: 0 10%;
-      @include type-16;
+  article {
+    background: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    float: none;
+    margin-right: 0;
+    min-height: inherit;
+    position: inherit;
+    width: auto;
+    z-index: inherit;
+  }
+
+
+  .masthead {
+    background: #444;
+    border-bottom: 1px solid #222;
+
+    h1 {
+      background: #333;
+      padding: 0.2em 5%;
       margin-bottom: 0;
+      border-bottom: 1px solid #222;
+
+      @media only screen and (min-width: 600px) {
+        padding: 0.4em 10%;
+      }
+    }
+
+    nav {
+      @include type-14;
+      margin-bottom: 0;
+      padding: 0 5%;
+
+      @media only screen and (min-width: 600px) {
+        padding: 0 10%;
+        @include type-16;
+        margin-bottom: 0;
+      }
+
+      a {
+        border-right: 1px solid #333;
+        padding: 0.5em 0.75em;
+        float: left;
+        margin: 0;
+        color: #eee;
+
+        &:hover {
+          border-right: 1px solid #222;
+          background: #333;
+          color: #fff;
+        };
+
+        &:first-child {
+          border-left: none;
+        }
+
+        &:last-child {
+          border-right: none;
+        }
+
+        @media only screen and (min-width: 600px) {
+          padding: 0.75em 1em;
+        }
+      }
     }
 
     a {
-      border-right: 1px solid #333;
-      padding: 0.5em 0.75em;
-      float: left;
-      margin: 0;
-      color: #eee;
-
-      &:hover {
-        border-right: 1px solid #222;
-        background: #333;
-        color: #fff;
-      };
-
-      &:first-child {
-        border-left: none;
-      }
-
-      &:last-child {
-        border-right: none;
-      }
-
-      @media only screen and (min-width: 600px) {
-        padding: 0.75em 1em;
-      }
+      @include type-14;
+      @include link_color(#fff, $link-color-hover, none, $link-color-active);
+      text-decoration: none;
+      font-weight: bold;
+      padding-right: 1em;
     }
   }
 
-  a {
-    @include type-14;
-    @include link_color(#fff, $link-color-hover, none, $link-color-active);
-    text-decoration: none;
-    font-weight: bold;
-    padding-right: 1em;
-  }
-}
+  .wrapper {
+    margin: 0 auto;
+    width: 92%;
 
-.wrapper {
-  margin: 0 auto;
-  width: 92%;
-
-  padding-top: 1.5em;
-  padding-bottom: 3em;
+    padding-top: 1.5em;
+    padding-bottom: 3em;
 
 
-  @media only screen and (min-width: 600px) {
-    width: 81%;
-  }
+    @media only screen and (min-width: 600px) {
+      width: 81%;
+    }
 
-  h1 {
-    @include type-36;
-  }
+    h1 {
+      @include type-36;
+    }
 
-  .secondary {
-    > section, div > section {
-      border: 1px solid #ddd;
-      padding: 2% 1em;
-      background: #f9f9f9;
-      margin-bottom: 1em;
-      h1 {
-        @include type-16;
-        color: #555;
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 0.4444em;
-      }
+    .secondary {
+      > section, div > section {
+        border: 1px solid #ddd;
+        padding: 2% 1em;
+        background: #f9f9f9;
+        margin-bottom: 1em;
+        h1 {
+          @include type-16;
+          color: #555;
+          border-bottom: 1px solid #ccc;
+          margin-bottom: 0.4444em;
+        }
 
-      ul {
-        margin-bottom: 0.5em;
+        ul {
+          margin-bottom: 0.5em;
 
-        li {
-          @include type-12;
-          margin-bottom: 0.75em;
+          li {
+            @include type-12;
+            margin-bottom: 0.75em;
 
-          p {
-            font-size: inherit;
-            line-height: inherit;
-            margin-bottom: 0;
-          }
-          h3 {
-            margin-bottom: 0;
+            p {
+              font-size: inherit;
+              line-height: inherit;
+              margin-bottom: 0;
+            }
+
+            h3 {
+              margin-bottom: 0;
+            }
           }
         }
-      }
 
-      p {
-        @include type-12;
+        p {
+          @include type-12;
+        }
       }
-    }
-    section#inapplicable_nations {
-      p {
-        @include type-12;
-        margin-bottom: 0;
+      section#inapplicable_nations {
+        p {
+          @include type-12;
+          margin-bottom: 0;
+        }
       }
     }
   }
+
 }

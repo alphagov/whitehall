@@ -1,57 +1,58 @@
 @import "../shared/utils";
 
-.alphabetical_group {
-  @include clearfix;
-  border-bottom: 2px solid #ddd;
-  margin-left: 0;
-  margin-bottom: 2.7em;
-  padding-left: 4em;
-  position: relative;
-
-  h2 {
-    @include type-24;
-    color: #fff;
-    left: 0;
-    position: absolute;
-    text-align: center;
-    top: 0.2em;
-    width: 2em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    background: #333;
-    @include vertical_gradient(#333, #111);
-  }
-
-  ul {
+#content {
+  .alphabetical_group {
     @include clearfix;
-    margin-bottom: 0;
+    border-bottom: 2px solid #ddd;
+    margin-left: 0;
+    margin-bottom: 2.7em;
+    padding-left: 4em;
+    position: relative;
 
-    li {
-      float: left;
+    h2 {
+      @include type-24;
+      color: #fff;
+      left: 0;
+      position: absolute;
+      text-align: center;
+      top: 0.2em;
+      width: 2em;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      background: #333;
+      @include vertical_gradient(#333, #111);
+    }
+
+    ul {
+      @include clearfix;
       margin-bottom: 0;
-      padding-top: 0.75em;
-      padding-bottom: 0.9em;
-      @include span_one_column;
 
-      h3, p {
+      li {
+        float: left;
         margin-bottom: 0;
-      }
+        padding-top: 0.75em;
+        padding-bottom: 0.9em;
+        @include span_one_column;
 
-      p {
-        @include type-12;
-        margin-bottom: 0;
-      }
+        h3, p {
+          margin-bottom: 0;
+        }
 
-      a {
-        @include type-18;
-        font-weight: bold;
-        margin-bottom: 0;
+        p {
+          @include type-12;
+          margin-bottom: 0;
+        }
+
+        a {
+          @include type-18;
+          font-weight: bold;
+          margin-bottom: 0;
+        }
       }
     }
-  }
 
-  .ministerial_role {
-    min-height: 5.45em;
+    .ministerial_role {
+      min-height: 5.45em;
+    }
   }
-
 }

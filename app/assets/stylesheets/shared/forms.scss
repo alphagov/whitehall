@@ -1,122 +1,39 @@
 @import "utils";
 
-/* #Forms
-================================================== */
+#content {
+  /* #Forms
+  ================================================== */
+  form {
+    margin-bottom: 1em;
 
-form {
-  margin-bottom: 1em;
+    fieldset {
+      margin: 0;
+      padding: 0 0 0 0;
+      .description {
+        @include type-12;
+        font-style: italic;
+      }
 
-  fieldset {
-    margin: 0;
-    padding: 0 0 0 0;
-    .description {
-      @include type-12;
-      font-style: italic;
-    }
-
-    .group {
-      div.col {
-        float: left;
-        margin-right: 2%;
+      .group {
+        div.col {
+          float: left;
+          margin-right: 2%;
+        }
       }
     }
-  }
 
-  fieldset.named {
-    padding-top: 0.5em;
-  }
-
-  legend {
-    padding: 0;
-    @include type-14;
-    display: block;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-    border-bottom: 1px solid #ddd;
-    color: #777;
-  }
-
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  textarea,
-  select {
-    @include rounded(2px);
-    @include type-13;
-    background: #fff;
-    border: 1px solid #ccc;
-    color: #777;
-    display: block;
-    max-width: 100%;
-    outline: none;
-    padding: 0.25em;
-    width: 17.5em;
-  }
-
-  select.date {
-    display: inline;
-    width: auto;
-  }
-
-  input[type="file"] {
-    @include type-12;
-  }
-
-  textarea {
-    width: 98%;
-    line-height: 1.5em;
-    min-height: 6em;
-  }
-
-  input[type="text"]:focus,
-  input[type="password"]:focus,
-  input[type="email"]:focus,
-  textarea:focus {
-    border: 1px solid #aaa;
-    color: #444;
-    -moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
-    -webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
-    box-shadow: 0 0 3px rgba(0,0,0,.2);
-  }
-
-  label{
-    display: block;
-    font-weight: bold;
-    @include type-14;
-    margin-bottom: 0;
-
-    input[type="checkbox"] {
-      margin-right: 0.5em;
+    fieldset.named {
+      padding-top: 0.5em;
     }
-  }
 
-  select {
-    padding: 0;
-    width: 220px;
-
-    &.chzn-select {
-      width: 100%;
-    }
-  }
-
-  input[type="checkbox"] {
-    display: inline;
-  }
-
-  select
-  label span,
-  legend span {
-    font-weight: normal;
-    color: #444;
-  }
-
-  label.for_checkbox {
-    margin-bottom: 10px;
-  }
-
-  .field_with_errors {
-    label {
-      color: #d0160c;
+    legend {
+      padding: 0;
+      @include type-14;
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      border-bottom: 1px solid #ddd;
+      color: #777;
     }
 
     input[type="text"],
@@ -124,116 +41,200 @@ form {
     input[type="email"],
     textarea,
     select {
-      border: 1px solid #d0160c;
+      @include rounded(2px);
+      @include type-13;
+      background: #fff;
+      border: 1px solid #ccc;
+      color: #777;
+      display: block;
+      max-width: 100%;
+      outline: none;
+      padding: 0.25em;
+      width: 17.5em;
+    }
+
+    select.date {
+      display: inline;
+      width: auto;
+    }
+
+    input[type="file"] {
+      @include type-12;
+    }
+
+    textarea {
+      width: 98%;
+      line-height: 1.5em;
+      min-height: 6em;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border: 1px solid #aaa;
+      color: #444;
+      -moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
+      -webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
+      box-shadow: 0 0 3px rgba(0,0,0,.2);
+    }
+
+    label{
+      display: block;
+      font-weight: bold;
+      @include type-14;
+      margin-bottom: 0;
+
+      input[type="checkbox"] {
+        margin-right: 0.5em;
+      }
+    }
+
+    select {
+      padding: 0;
+      width: 220px;
+
+      &.chzn-select {
+        width: 100%;
+      }
+    }
+
+    input[type="checkbox"] {
+      display: inline;
+    }
+
+    select
+    label span,
+    legend span {
+      font-weight: normal;
+      color: #444;
+    }
+
+    label.for_checkbox {
+      margin-bottom: 10px;
+    }
+
+    .field_with_errors {
+      label {
+        color: #d0160c;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      textarea,
+      select {
+        border: 1px solid #d0160c;
+      }
+    }
+
+    span.or_cancel {
+      @include type-14;
+      margin-left: 0.5em;
     }
   }
 
-  span.or_cancel {
-    @include type-14;
-    margin-left: 0.5em;
+  /* #Buttons
+  ================================================== */
+
+  a.button,
+  a.button:visited,
+  button,
+  input[type="submit"],
+  input[type="reset"],
+  input[type="button"] {
+    @include vertical_gradient(#ffffff, #efefef);
+
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #aaa;
+    border-top: 1px solid #e5e5e5;
+
+    padding: 0.35em 0.75em;
+    @include rounded(6px);
+
+    color: #777;
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0 1px rgba(255, 255, 255, .75);
+    cursor: pointer;
+    @include transition(background);
+    @include type-16;
   }
-}
 
-/* #Buttons
-================================================== */
+  a.button:hover,
+  button:hover,
+  input[type="submit"]:hover,
+  input[type="reset"]:hover,
+  input[type="button"]:hover {
+    color: #666;
+    @include vertical_gradient(#fafdff, #d8d8d8);
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #999;
+    border-top: 1px solid #ddd;
+  }
 
-a.button,
-a.button:visited,
-button,
-input[type="submit"],
-input[type="reset"],
-input[type="button"] {
-  @include vertical_gradient(#ffffff, #efefef);
+  a.button:active,
+  button:active,
+  input[type="submit"]:active,
+  input[type="reset"]:active,
+  input[type="button"]:active {
+    border: 1px solid #999;
+    @include vertical_gradient(#fafdff, #bbb);
+  }
 
-  border: 1px solid #ddd;
-  border-bottom: 1px solid #aaa;
-  border-top: 1px solid #e5e5e5;
+  .button.full-width,
+  button.full-width,
+  input[type="submit"].full-width,
+  input[type="reset"].full-width,
+  input[type="button"].full-width {
+    width: 100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-align: center;
+  }
 
-  padding: 0.35em 0.75em;
-  @include rounded(6px);
+  /* #Rails' button_to forms
+  ================================================== */
 
-  color: #777;
-  display: inline-block;
-  font-weight: bold;
-  text-decoration: none;
-  text-shadow: 0 1px rgba(255, 255, 255, .75);
-  cursor: pointer;
-  @include transition(background);
-  @include type-16;
-}
-
-a.button:hover,
-button:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-input[type="button"]:hover {
-  color: #666;
-  @include vertical_gradient(#fafdff, #d8d8d8);
-  border: 1px solid #ccc;
-  border-bottom: 1px solid #999;
-  border-top: 1px solid #ddd;
-}
-
-a.button:active,
-button:active,
-input[type="submit"]:active,
-input[type="reset"]:active,
-input[type="button"]:active {
-  border: 1px solid #999;
-  @include vertical_gradient(#fafdff, #bbb);
-}
-
-.button.full-width,
-button.full-width,
-input[type="submit"].full-width,
-input[type="reset"].full-width,
-input[type="button"].full-width {
-  width: 100%;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  text-align: center;
-}
-
-/* #Rails' button_to forms
-================================================== */
-
-form.button_to {
-  margin-bottom: 0px;
-  input {
+  form.button_to {
     margin-bottom: 0px;
+    input {
+      margin-bottom: 0px;
+    }
   }
-}
 
-/* #Making buttons sometimes look like links
-================================================== */
+  /* #Making buttons sometimes look like links
+  ================================================== */
 
-input[type="submit"].link {
-  border: none;
-  background: none;
-  padding: 0;
-  font-weight: normal;
-  text-decoration: underline;
-  text-shadow: none;
-  -webkit-appearance: none;
-  @include link_color;
-  @include type-14;
-}
+  input[type="submit"].link {
+    border: none;
+    background: none;
+    padding: 0;
+    font-weight: normal;
+    text-decoration: underline;
+    text-shadow: none;
+    -webkit-appearance: none;
+    @include link_color;
+    @include type-14;
+  }
 
-/* # Form error messages
-================================================== */
+  /* # Form error messages
+  ================================================== */
 
-.form-errors {
-  color: #600a06;
-  background: #fcd0ce;
-  border: 1px solid #d0160c;
-  margin-bottom: 1em;
-  padding: 1em;
+  .form-errors {
+    color: #600a06;
+    background: #fcd0ce;
+    border: 1px solid #d0160c;
+    margin-bottom: 1em;
+    padding: 1em;
 
-  ul {
-    margin-bottom: 0;
-    li {
-      @include type-14;
+    ul {
       margin-bottom: 0;
+      li {
+        @include type-14;
+        margin-bottom: 0;
+      }
     }
   }
 }

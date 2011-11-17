@@ -20,23 +20,25 @@
     <![endif]-->
   </head>
   <body class="website" id="wrapper">
-    <header class="cf masthead">
-      <h1><%= link_to "Gov.uk", root_path %></h1>
-      <nav class="group">
-        <%= link_to "Topics", topics_path %>
-        <%= link_to "Organisations", organisations_path %>
-        <%= link_to "Ministers", ministerial_roles_path %>
-        <%= link_to "Announcements", announcements_path %>
-        <%= link_to "Publications", publications_path %>
-        <%= link_to "Consultations", consultations_path %>
-        <%= link_to "Policies", policies_path %>
-        <%= link_to "Countries", countries_path %>
-        <%= link_to "Admin", admin_root_path %>
-      </nav>
-    </header>
-    <section class="cf wrapper">
-      <%= yield %>
-    </section>
+    <div id="content">
+      <header class="group masthead">
+        <nav class="group">
+          <%= link_to "Topics", topics_path %>
+          <%= link_to "Organisations", organisations_path %>
+          <%= link_to "Ministers", ministerial_roles_path %>
+          <%= link_to "Announcements", announcements_path %>
+          <%= link_to "Publications", publications_path %>
+          <%= link_to "Consultations", consultations_path %>
+          <%= link_to "Policies", policies_path %>
+          <%= link_to "Countries", countries_path %>
+          <%= link_to "Admin", admin_root_path %>
+        </nav>
+      </header>
+      <section class="group wrapper">
+        <%= yield %>
+      </section>
+
+    </div>
     <%= javascript_include_tag "application" %>
   </body>
 </html>

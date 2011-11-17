@@ -1,78 +1,80 @@
 @import "../shared/utils";
 
-.wrapper {
+#content {
+  .wrapper {
 
-  section.featured {
-    @include clearfix;
-    background: #e9e9e9;
-    @include vertical_gradient(#eee, #ddd);
-    border: 1px solid #ddd;
-    border-bottom-color: #999;
-    margin-bottom: 3em;
+    section.featured {
+      @include clearfix;
+      background: #e9e9e9;
+      @include vertical_gradient(#eee, #ddd);
+      border: 1px solid #ddd;
+      border-bottom-color: #999;
+      margin-bottom: 3em;
 
-    article.topic {
-      padding: 1.5em 0;
-
-      h1 {
-        @include type-48;
-        background: #333;
-        padding-left: 0.5em;
-        padding-bottom: 0.25em;
-        padding-top: 0.5em;
-        @include vertical_gradient(#333, #111);
-
-        border-top: 1px solid #000;
-        border-bottom: 1px solid #fff;
-
-        a {
-          color: #fff;
-        }
-      }
-
-      .description {
-        padding: 0 1.5em;
-      }
-    }
-
-    .secondary {
-
-      background: #fefefe;
-      margin-top: 1.5em;
-      border-right: 1px solid #ddd;
-      border-left: 1px solid #d5d5d5;
-      border-top: 6px solid #333;
-      border-bottom: 1px solid #ccc;
-      @include vertical_gradient(#fff, #fefefe);
-
-      section {
-        background: none;
-        border: none;
-        margin-bottom: 0;
-        padding: 0em 1em 0 1em;
+      article.topic {
+        padding: 1.5em 0;
 
         h1 {
-          @include type-21;
-          margin-bottom: 0.25em;
-          border-bottom: none;
-          color: #555;
-        }
+          @include type-48;
+          background: #333;
+          padding-left: 0.5em;
+          padding-bottom: 0.25em;
+          padding-top: 0.5em;
+          @include vertical_gradient(#333, #111);
 
-        ul {
-          padding: 0;
-          margin-bottom: 0;
-          li  {
-            @include type-14;
-             margin-bottom: 0.857em;
+          border-top: 1px solid #000;
+          border-bottom: 1px solid #fff;
+
+          a {
+            color: #fff;
           }
         }
 
-        &:first-child {
-          h1 {
-            margin-top: 0.45em;
-          }
-        };
+        .description {
+          padding: 0 1.5em;
+        }
       }
-    }
 
+      .secondary {
+
+        background: #fefefe;
+        margin-top: 1.5em;
+        border-right: 1px solid #ddd;
+        border-left: 1px solid #d5d5d5;
+        border-top: 6px solid #333;
+        border-bottom: 1px solid #ccc;
+        @include vertical_gradient(#fff, #fefefe);
+
+        section {
+          background: none;
+          border: none;
+          margin-bottom: 0;
+          padding: 0em 1em 0 1em;
+
+          h1 {
+            @include type-21;
+            margin-bottom: 0.25em;
+            border-bottom: none;
+            color: #555;
+          }
+
+          ul {
+            padding: 0;
+            margin-bottom: 0;
+            li  {
+              @include type-14;
+               margin-bottom: 0.857em;
+            }
+          }
+
+          &:first-child {
+            h1 {
+              margin-top: 0.45em;
+            }
+          };
+        }
+      }
+
+    }
   }
 }

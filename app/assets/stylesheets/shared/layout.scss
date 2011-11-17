@@ -1,40 +1,41 @@
 @import "utils";
 
-.g1 {
-  @include span_one_column;
-}
+#content {
+  .g1 {
+    @include span_one_column;
+  }
 
-.g1r {
-  @include span_one_column(right);
-}
+  .g1r {
+    @include span_one_column(right);
+  }
 
-.g2 {
-  @include span_two_columns;
-}
+  .g2 {
+    @include span_two_columns;
+  }
 
-.g2r {
-  @include span_two_columns(right);
-}
+  .g2r {
+    @include span_two_columns(right);
+  }
 
-.g3 {
-  @include span_three_columns;
-}
+  .g3 {
+    @include span_three_columns;
+  }
 
-.g3r {
-  @include span_three_columns(right);
-}
+  .g3r {
+    @include span_three_columns(right);
+  }
 
-.g-half {
-  @include grid_column;
+  .g-half {
+    @include grid_column;
 
-  @media only screen and (min-width: 768px) {
-    width: 48%;
+    @media only screen and (min-width: 768px) {
+      width: 48%;
+    }
+  }
+
+  .g1,.g2,.g3 {
+    &.first {
+      margin-left: 0;
+    };
   }
 }
-
-.g1,.g2,.g3 {
-  &.first {
-    margin-left: 0;
-  };
-}
-
