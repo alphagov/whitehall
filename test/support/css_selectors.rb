@@ -48,4 +48,8 @@ module CssSelectors
   def inapplicable_nations_selector
     "#inapplicable_nations"
   end
+
+  def parent_organisations_list_selector
+    "select[name='organisation[parent_organisation_ids][]']"
+  end
 end

@@ -4,6 +4,10 @@
     <%= organisation_form.text_field :name %>
   </fieldset>
   <fieldset>
+    <%= organisation_form.label :parent_organisation_ids, 'Parent organisations' %>
+    <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.all - [organisation_form.object], 'id', 'name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose parent organisations..." } %>
+  </fieldset>
+  <fieldset>
     <%= organisation_form.text_area :address %>
     <%= organisation_form.text_field :postcode %>
     <%= organisation_form.text_field :latitude %>

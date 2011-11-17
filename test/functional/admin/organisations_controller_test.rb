@@ -7,8 +7,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test_controller_is_a Admin::BaseController
 
-  test "index should list all the organisations" do
-    organisations = [create(:organisation), create(:organisation)]
+  test "index should list all the organisations in alphabetical order" do
+    organisations = [create(:organisation, name: "org 1"), create(:organisation, name: "org 2")]
     get :index
     assert_equal organisations, assigns(:organisations)
   end
@@ -16,6 +16,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "should allow entry of new organisation data" do
     get :new
     assert_template "organisations/new"
+    assert_select parent_organisations_list_selector
   end
 
   test "creating should create a new Organisation" do
@@ -49,10 +50,27 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_template "organisations/new"
   end
 
+  test "creating with multiple parent organisations" do
+    parent_org_1 = create(:organisation)
+    parent_org_2 = create(:organisation)
+    attributes = attributes_for(:organisation)
+    post :create, organisation: attributes.merge(
+      parent_organisation_ids: [parent_org_1.id, parent_org_2.id]
+    )
+    created_organisation = Organisation.last
+    assert_equal [parent_org_1, parent_org_2], created_organisation.parent_organisations
+  end
+
   test "editing should load the requested organisation" do
     organisation = create(:organisation)
     get :edit, id: organisation.to_param
     assert_equal organisation, assigns(:organisation)
+  end
+
+  test "editing shouldn't show the current organisation in the list of parent organisations" do
+    organisation = create(:organisation)
+    get :edit, id: organisation.to_param
+    assert_select "#{parent_organisations_list_selector} option[value='#{organisation.id}']", false
   end
 
   test "updating should modify the organisation" do
