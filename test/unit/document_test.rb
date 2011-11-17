@@ -27,6 +27,16 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.valid?
   end
 
+  test "should be valid from the factory when published" do
+    document = build(:published_document)
+    assert document.valid?
+  end
+
+  test "should be invalid when published without published_at" do
+    document = build(:published_document, published_at: nil)
+    refute document.valid?
+  end
+
   test "should be invalid if document identity has existing draft documents" do
     draft_document = create(:draft_document)
     document = build(:document, document_identity: draft_document.document_identity)
@@ -464,7 +474,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:draft, :submitted].each do |state|
     test "publishing a #{state} document transitions it into the published state" do
-      document = create("#{state}_document")
+      document = create("#{state}_document", published_at: 1.day.ago)
       document.publish!
       assert document.published?
     end
@@ -472,7 +482,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:rejected, :archived, :deleted].each do |state|
     test "should prevent a #{state} document being published" do
-      document = create("#{state}_document")
+      document = create("#{state}_document", published_at: 1.day.ago)
       document.publish! rescue nil
       refute document.published?
     end

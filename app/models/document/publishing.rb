@@ -1,4 +1,10 @@
 module Document::Publishing
+  extend ActiveSupport::Concern
+
+  included do
+    validates :published_at, presence: true, if: -> document { document.published? }
+  end
+
   def publishable_by?(user)
     reason_to_prevent_publication_by(user).nil?
   end

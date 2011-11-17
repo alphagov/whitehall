@@ -7,7 +7,10 @@ FactoryGirl.define do
     trait(:draft) { state "draft" }
     trait(:submitted) { state "submitted" }
     trait(:rejected) { state "rejected" }
-    trait(:published) { state "published" }
+    trait(:published) do
+      state "published"
+      published_at { 1.day.ago }
+    end
     trait(:deleted) { state "deleted" }
     trait(:archived) { state "archived" }
   end
