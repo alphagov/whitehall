@@ -1,31 +1,13 @@
 FactoryGirl.define do
-  factory :publication do
-    author
+  factory :publication, class: Publication, parent: :document do
     title "publication-title"
     body  "publication-body"
   end
 
-  factory :published_publication, parent: :publication do
-    state "published"
-  end
-
-  factory :draft_publication, parent: :publication do
-    state "draft"
-  end
-
-  factory :deleted_publication, parent: :publication do
-    state "deleted"
-  end
-
-  factory :archived_publication, parent: :publication do
-    state "archived"
-  end
-
-  factory :submitted_publication, parent: :publication do
-    state "submitted"
-  end
-
-  factory :rejected_publication, parent: :publication do
-    state "rejected"
-  end
+  factory :draft_publication, parent: :publication, traits: [:draft]
+  factory :submitted_publication, parent: :publication, traits: [:submitted]
+  factory :rejected_publication, parent: :publication, traits: [:rejected]
+  factory :published_publication, parent: :publication, traits: [:published]
+  factory :deleted_publication, parent: :publication, traits: [:deleted]
+  factory :archived_publication, parent: :publication, traits: [:archived]
 end

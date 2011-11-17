@@ -75,7 +75,8 @@ GEM
     erubis (2.7.0)
     execjs (1.2.4)
       multi_json (~> 1.0)
-    factory_girl (2.1.0)
+    factory_girl (2.2.0)
+      activesupport
     faker (1.0.1)
       i18n (~> 0.4)
     ffi (1.0.9)
@@ -184,7 +185,7 @@ DEPENDENCIES
   cucumber (~> 1.0.6)
   cucumber-rails (~> 1.0.5)
   database_cleaner (~> 0.5.2)
-  factory_girl (~> 2.1.0)
+  factory_girl (~> 2.2.0)
   faker
   friendly_id (= 4.0.0.beta14)
   govspeak!

@@ -3,29 +3,19 @@ FactoryGirl.define do
     author
     title "document-title"
     body "document-body"
+
+    trait(:draft) { state "draft" }
+    trait(:submitted) { state "submitted" }
+    trait(:rejected) { state "rejected" }
+    trait(:published) { state "published" }
+    trait(:deleted) { state "deleted" }
+    trait(:archived) { state "archived" }
   end
 
-  factory :draft_document, parent: :document do
-    state "draft"
-  end
-
-  factory :submitted_document, parent: :draft_document do
-    state "submitted"
-  end
-
-  factory :rejected_document, parent: :document do
-    state "rejected"
-  end
-
-  factory :published_document, parent: :document do
-    state "published"
-  end
-
-  factory :deleted_document, parent: :document do
-    state "deleted"
-  end
-
-  factory :archived_document, parent: :document do
-    state "archived"
-  end
+  factory :draft_document, parent: :document, traits: [:draft]
+  factory :submitted_document, parent: :document, traits: [:submitted]
+  factory :rejected_document, parent: :document, traits: [:rejected]
+  factory :published_document, parent: :document, traits: [:published]
+  factory :deleted_document, parent: :document, traits: [:deleted]
+  factory :archived_document, parent: :document, traits: [:archived]
 end
