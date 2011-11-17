@@ -235,7 +235,7 @@ $baseline_in_px: 24 !default;
 
 /* GRID HELPERS */
 
-@mixin grid_column {
+@mixin grid_column($float_direction: left) {
   display: block;
   position: relative;
   margin-left: 1%;
@@ -244,12 +244,12 @@ $baseline_in_px: 24 !default;
 
   @media only screen and (min-width: 768px) {
     display: inline;
-    float: left;
+    float: $float_direction;
   }
 }
 
-@mixin span_one_column {
-  @include grid_column;
+@mixin span_one_column($float_direction: left) {
+  @include grid_column($float_direction);
 
   @media only screen and (min-width: 768px) {
     width: 48.0%;
@@ -260,8 +260,8 @@ $baseline_in_px: 24 !default;
   }
 }
 
-@mixin span_two_columns {
-  @include grid_column;
+@mixin span_two_columns($float_direction: left) {
+  @include grid_column($float_direction);
 
   @media only screen and (min-width: 768px) {
     width: 48.0%;
@@ -272,7 +272,6 @@ $baseline_in_px: 24 !default;
   }
 }
 
-@mixin span_three_columns {
-  @include grid_column;
+@mixin span_three_columns($float_direction: left) {
+  @include grid_column($float_direction);
 }
-

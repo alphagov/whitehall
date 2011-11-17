@@ -6,11 +6,6 @@
   padding: 1em;
   margin-bottom: 1.5em;
 
-  .g1, .g2 {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
   h1.title {
     margin-bottom: 0;
   }
@@ -23,37 +18,60 @@
     }
   }
 
+  .offering {
+    @extend .document_view;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+  }
+
   nav.policy_parts {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    margin-left: 0;
     background: #eee;
-    border: 1px solid #ddd;
-    border-right: 0;
-    @include rounded_left;
+    padding: 1em;
+    margin-right: 1em;
+    margin-bottom: 1.5em;
+
+    h3 {
+      @include type-16;
+      margin-bottom: 0.75em;
+    }
 
     a {
       display: block;
-      padding: 0.5em 1em;
-      border-bottom: 1px solid #ddd;
-      background: #f5f5f5;
-      border-top: 1px solid #fff;
-
-      &:hover {
-        background: #fff;
-      };
-
-      &.current {
-        background: #FCFCFC;
-        right: -1px;
-        margin-left: 0.5em;
-        position: relative;
-        z-index: 9999;
-      }
+      @include type-12;
+      margin-bottom: 0;
     }
   }
 
   article.document {
-    @extend .document_view;
+    .body {
+      h2 {
+        margin-top: 0;
+      }
+
+      p {
+        max-width: 50em;
+      }
+    }
+  }
+
+  .notice {
+    border: 1px solid #d1d31b;
+    background: #f7f7c3;
+    padding: 0.75em 1.5em 0 1.5em;
+    margin-bottom: 1.5em;
+
+    p {
+      font-weight: bold;
+    }
+
+    p, li {
+       @include type-12;
+       margin-bottom: 0.75em;
+    }
+
+    ul {
+      margin-bottom: 0;
+    }
   }
 }

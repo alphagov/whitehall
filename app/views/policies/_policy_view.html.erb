@@ -12,27 +12,30 @@
     <% end %>
   </nav>
 
-  <%= render partial: 'documents/inapplicable_nations', locals: { document: policy } %>
-
-  <div class="g1 first">
-    <nav class="policy_parts">
-      <%= link_to_with_current 'Policy Overview', public_document_path(policy) %>
-      <% policy.supporting_documents.each do |supporting_document| %>
-        <%= link_to_with_current supporting_document.title, policy_supporting_document_path(policy.document_identity, supporting_document) %>
-      <% end %>
-    </nav>
-  </div>
-
-  <div class="g2">
-    <article class="document">
-      <div class="body">
-        <%= govspeak_to_html document.body %>
-      </div>
-      <% if document.allows_attachments? %>
-        <% document.attachments.each do |attachment| %>
-          <div class="attachment"><%= link_to_attachment(attachment) %></div>
+  <div class="group offering">
+    <div class="g1r">
+      <nav class="policy_parts">
+        <h3>At a glance</h3>
+        <%= link_to_with_current 'Policy definition', public_document_path(policy) %>
+        <% policy.supporting_documents.each do |supporting_document| %>
+          <%= link_to_with_current supporting_document.title, policy_supporting_document_path(policy.document_identity, supporting_document) %>
         <% end %>
-      <% end %>
-    </article>
+      </nav>
+    </div>
+
+    <div class="g2 first">
+      <%= render partial: 'documents/inapplicable_nations', locals: { document: policy } %>
+
+      <article class="document">
+        <div class="body">
+          <%= govspeak_to_html document.body %>
+        </div>
+        <% if document.allows_attachments? %>
+          <% document.attachments.each do |attachment| %>
+            <div class="attachment"><%= link_to_attachment(attachment) %></div>
+          <% end %>
+        <% end %>
+      </article>
+    </div>
   </div>
 </section>

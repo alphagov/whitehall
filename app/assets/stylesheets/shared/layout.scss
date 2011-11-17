@@ -4,12 +4,24 @@
   @include span_one_column;
 }
 
+.g1r {
+  @include span_one_column(right);
+}
+
 .g2 {
   @include span_two_columns;
 }
 
+.g2r {
+  @include span_two_columns(right);
+}
+
 .g3 {
   @include span_three_columns;
+}
+
+.g3r {
+  @include span_three_columns(right);
 }
 
 .g-half {
@@ -25,3 +37,4 @@
     margin-left: 0;
   };
 }
+
