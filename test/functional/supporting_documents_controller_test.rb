@@ -33,7 +33,7 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document_identity, id: supporting_document
 
-    assert_select "a[href='#{policy_path(policy.document_identity)}']", text: "Policy Overview"
+    assert_select "a[href='#{policy_path(policy.document_identity)}']", text: "Policy definition"
   end
 
   test "shows the body using govspeak markup" do
