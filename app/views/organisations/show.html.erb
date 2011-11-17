@@ -4,6 +4,7 @@
     <div class="adr">
       <p class="street-address"><%= @organisation.address %></p>
       <p class="postal-code"><%= @organisation.postcode %></p>
+      <p><%= link_to_google_map(@organisation) %></p>
     </div>
     <p><%= mail_to @organisation.email, @organisation.email, :class => "email" %></p>
     <% @organisation.phone_numbers.each do |phone_number| %>

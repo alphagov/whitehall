@@ -151,7 +151,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
     assert_select "#child_organisations", false
   end
-  
+
   test "should link to the parent organisations" do
     parent_organisation = create(:organisation)
     child_organisation = create(:organisation, parent_organisations: [parent_organisation])
@@ -163,6 +163,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :show, id: organisation
     assert_select "#parent_organisations", false
+  end
+
+  test "should link to a google map" do
+    organisation = create(:organisation, latitude: 51.498772, longitude: -0.130974)
+    get :show, id: organisation
+    assert_select "a[href='http://maps.google.co.uk/maps?q=51.498772,-0.130974']"
   end
 
   test "should display a list of organisations" do
