@@ -5,8 +5,9 @@ GIT
     govspeak (0.8.3)
       kramdown (~> 0.13.3)
 
-PATH
-  remote: /Users/james/Code/freerange/alphagov/slimmer
+GIT
+  remote: git://github.com/alphagov/slimmer.git
+  revision: a1953e68f5cbcdcf198b1e2f1e736823655b4425
   specs:
     slimmer (0.9.0.beta)
       nokogiri (~> 1.5.0)
