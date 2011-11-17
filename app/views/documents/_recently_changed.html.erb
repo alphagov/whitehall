@@ -1,0 +1,14 @@
+<% if recently_changed.any? %>
+<div class="g1">
+  <section id="recently-changed">
+    <h1>Recently changed</h1>
+    <ul>
+      <% recently_changed.each do |document| %>
+        <%= content_tag_for :li, document do %>
+          <%= link_to document.title, public_document_path(document), class: "title" %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+</div>
+<% end %>

@@ -15,10 +15,8 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select "#policies" do
-      assert_select_object(published_policy)
+      assert_select_object(published_policy, count: 1)
     end
-
-    assert_select_object(published_policy, count: 1)
   end
 
   test "doesn't show unpublished policies" do
@@ -43,10 +41,8 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select "#news_articles" do
-      assert_select_object(published_article)
+      assert_select_object(published_article, count: 1)
     end
-
-    assert_select_object(published_article, count: 1)
   end
 
   test "doesn't show unpublished news articles" do
@@ -62,6 +58,35 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic)
     get :show, id: topic
     assert_select "#news_articles", count: 0
+  end
+
+  test "show displays recently changed documents relating to the topic" do
+    policy_1 = create(:published_policy)
+    policy_2 = create(:published_policy)
+    news_article_1 = create(:published_news_article)
+    news_article_2 = create(:published_news_article)
+    topic = create(:topic, documents: [policy_1, policy_2, news_article_1, news_article_2])
+
+    get :show, id: topic
+
+    assert_select "#recently-changed" do
+      assert_select_object policy_1
+      assert_select_object policy_2
+      assert_select_object news_article_1
+      assert_select_object news_article_2
+    end
+  end
+
+  test "show orders recently changed documents relating to the topic most recent first" do
+    policy_1 = create(:published_policy, published_at: 4.weeks.ago)
+    policy_2 = create(:published_policy, published_at: 1.weeks.ago)
+    news_article_1 = create(:published_news_article, published_at: 3.weeks.ago)
+    news_article_2 = create(:published_news_article, published_at: 2.weeks.ago)
+    topic = create(:topic, documents: [policy_1, policy_2, news_article_1, news_article_2])
+
+    get :show, id: topic
+
+    assert_equal [policy_2, news_article_2, news_article_1, policy_1], assigns[:recently_changed_documents]
   end
 
   test "should show list of topics with published documents" do

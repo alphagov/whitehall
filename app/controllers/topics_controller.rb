@@ -8,6 +8,7 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
     @policies = @topic.policies.published
     @news_articles = @topic.news_articles.published
+    @recently_changed_documents = @topic.documents.published.by_publication_date
   end
 
   class FeaturedTopicChooser
