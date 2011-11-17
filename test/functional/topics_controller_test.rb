@@ -77,7 +77,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show orders recently changed documents relating to the topic most recent first" do
+  test "show orders recently changed related documents most recent first" do
     policy_1 = create(:published_policy, published_at: 4.weeks.ago)
     policy_2 = create(:published_policy, published_at: 1.weeks.ago)
     news_article_1 = create(:published_news_article, published_at: 3.weeks.ago)
@@ -87,6 +87,18 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_equal [policy_2, news_article_2, news_article_1, policy_1], assigns[:recently_changed_documents]
+  end
+
+  test "show orders recently changed related documents most recent first ignoring admin ordering" do
+    policy_1 = create(:published_policy, published_at: 1.weeks.ago)
+    policy_2 = create(:published_policy, published_at: 2.weeks.ago)
+    topic = create(:topic)
+    create(:document_topic, topic: topic, document: policy_1, ordering: 2)
+    create(:document_topic, topic: topic, document: policy_2, ordering: 1)
+
+    get :show, id: topic
+
+    assert_equal [policy_1, policy_2], assigns[:recently_changed_documents]
   end
 
   test "should show list of topics with published documents" do

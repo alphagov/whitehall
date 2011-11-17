@@ -30,6 +30,10 @@ class Topic < ActiveRecord::Base
     joins(:published_documents).group(:topic_id)
   end
 
+  def recently_published_documents
+    DocumentTopic.send(:with_exclusive_scope) { documents.published.by_publication_date }
+  end
+
   def destroyable?
     documents.blank?
   end
