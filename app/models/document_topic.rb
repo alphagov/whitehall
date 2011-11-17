@@ -2,6 +2,8 @@ class DocumentTopic < ActiveRecord::Base
   belongs_to :document
   belongs_to :topic
 
+  validates :document, :topic, presence: true
+
   default_scope order("document_topics.ordering ASC")
 
   class << self
