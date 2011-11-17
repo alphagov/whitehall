@@ -31,7 +31,7 @@ module ApplicationHelper
   end
 
   def ministerial_appointment_options
-    MinisterialRole.alphabetical_by_person.includes(:current_role_appointments).map do |role|
+    MinisterialRole.joins(:current_role_appointments).alphabetical_by_person.map do |role|
       [role.current_role_appointment.id, role.to_s]
     end
   end

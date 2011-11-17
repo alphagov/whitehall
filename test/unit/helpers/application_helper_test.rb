@@ -18,6 +18,16 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal options.last, [theresa_may_appointment.id, "Theresa May (Secretary of State, Home Office)"]
   end
 
+  test "should not include non-current appointments" do
+    create(:ministerial_role_appointment, started_at: 2.weeks.ago, ended_at: 1.week.ago)
+    assert_equal [], ministerial_appointment_options
+  end
+
+  test "should not include non-ministerial appointments" do
+    create(:board_member_role_appointment)
+    assert_equal [], ministerial_appointment_options
+  end
+
   test '#link_to_attachment returns nil when attachment is nil' do
     assert_nil link_to_attachment(nil)
   end

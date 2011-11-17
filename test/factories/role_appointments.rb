@@ -8,4 +8,8 @@ FactoryGirl.define do
   factory :ministerial_role_appointment, parent: :role_appointment do
     association :role, factory: :ministerial_role
   end
+
+  factory :board_member_role_appointment, parent: :role_appointment do
+    association :role, factory: :board_member_role
+  end
 end
