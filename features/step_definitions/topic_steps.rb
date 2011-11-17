@@ -70,6 +70,24 @@ When /^I set the order of the policies in the "([^"]*)" topic to:$/ do |name, ta
   click_button "Save"
 end
 
+When /^I set the featured policies in the "([^"]*)" topic to:$/ do |name, table|
+  topic = Topic.find_by_name!(name)
+  visit edit_admin_topic_path(topic)
+  table.rows.each_with_index do |(policy_name), index|
+    policy = Policy.find_by_title(policy_name)
+    within record_css_selector(policy) do
+      check "Featured?"
+    end
+  end
+  click_button "Save"
+end
+
+Then /^I should see the featured policies in the "([^"]*)" topic are:$/ do |name, table|
+  topic = Topic.find_by_name!(name)
+  visit topic_path(topic)
+  table.diff!(tableish('ul.featured.policies li', "a"))
+end
+
 Then /^I should see the order of the policies in the "([^"]*)" topic is:$/ do |name, table|
   topic = Topic.find_by_name!(name)
   visit topic_path(topic)

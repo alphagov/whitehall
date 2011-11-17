@@ -2,12 +2,12 @@
   var _enableSortable = function() {
     var fieldset = $(this);
     var list = $("<ul></ul>");
-    fieldset.children("label").each(function(i, label) {
+    fieldset.find("input.ordering").hide();
+    fieldset.children("div").each(function(i, item) {
       var li = $('<li class="sort_item"></li>');
-      li.append(label);
+      li.append(item);
       list.append(li);
     })
-    fieldset.children("input").hide();
     fieldset.after(list);
     list.sortable({
       delay: 250,

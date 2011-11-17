@@ -5,6 +5,15 @@
       <p class="description"><%= @topic.description %></p>
     <% end %>
   </section>
+  <% if @featured_policies.any? %>
+  <section>
+    <ul class="featured policies">
+      <% @featured_policies.each do |policy| %>
+        <li><%= link_to policy.title, public_document_path(policy) %></li>
+      <% end %>
+    </ul>
+  </section>
+  <% end %>
 </div>
 
 <div class="g1 secondary">
