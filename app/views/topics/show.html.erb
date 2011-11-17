@@ -8,7 +8,18 @@
 </div>
 
 <div class="g1 secondary">
-  <%= render partial: "documents/recently_changed", object: @recently_changed_documents %>
+  <% if @recently_changed_documents.any? %>
+    <section id="recently-changed">
+      <h1>Recently changed</h1>
+      <ul>
+        <% @recently_changed_documents.each do |document| %>
+          <%= content_tag_for :li, document do %>
+            <%= link_to document.title, public_document_path(document), class: "title" %>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
   <%= render partial: "documents/policies", object: @policies %>
   <%= render partial: "documents/news_articles", object: @news_articles %>
 </div>
