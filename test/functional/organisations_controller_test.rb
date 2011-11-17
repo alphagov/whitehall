@@ -139,6 +139,32 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "#other_board_members", count: 0
   end
 
+  test "should link to the child organisations" do
+    parent_organisation = create(:organisation)
+    child_organisation = create(:organisation, parent_organisations: [parent_organisation])
+    get :show, id: parent_organisation
+    assert_select "#child_organisations a[href='#{organisation_path(child_organisation)}']"
+  end
+
+  test "should not display the child organisations section" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    assert_select "#child_organisations", false
+  end
+  
+  test "should link to the parent organisations" do
+    parent_organisation = create(:organisation)
+    child_organisation = create(:organisation, parent_organisations: [parent_organisation])
+    get :show, id: child_organisation
+    assert_select "#parent_organisations a[href='#{organisation_path(parent_organisation)}']"
+  end
+
+  test "should not display the parent organisations section" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    assert_select "#parent_organisations", false
+  end
+
   test "should display a list of organisations" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)

@@ -55,3 +55,11 @@ create_supporting(published_laser_eyes_policy, title: "Some more cat details", b
 create_published(NewsArticle, title: "News about Laser eyes", documents_related_to: [published_laser_eyes_policy])
 create_published(Consultation, title: "Consultation about Laser eyes", opening_on: 1.year.ago, closing_on: 6.months.ago, documents_related_to: [published_laser_eyes_policy])
 create_published(Speech, title: "Speech about Laser eyes", delivered_on: 1.day.ago, location: "Whitehall", role_appointment: RoleAppointment.first, documents_related_to: [published_laser_eyes_policy])
+
+bis = Organisation.find_by_name! "Department for Business, Innovation and Skills"
+bis.child_organisations << Organisation.create!(name: "Companies House")
+bis.child_organisations << Organisation.create!(name: "UKTI")
+
+the_stabilisation_unit = Organisation.create!(name: "The stabilisation unit")
+the_stabilisation_unit.parent_organisations << Organisation.find_by_name!("Department for International Development")
+the_stabilisation_unit.parent_organisations << Organisation.find_by_name!("Foreign and Commonwealth Office")

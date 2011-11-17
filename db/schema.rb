@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111116111849) do
+ActiveRecord::Schema.define(:version => 20111117104814) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -133,6 +133,16 @@ ActiveRecord::Schema.define(:version => 20111116111849) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "organisational_relationships", :force => true do |t|
+    t.integer  "parent_organisation_id"
+    t.integer  "child_organisation_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "organisational_relationships", ["child_organisation_id"], :name => "index_organisational_relationships_on_child_organisation_id"
+  add_index "organisational_relationships", ["parent_organisation_id"], :name => "index_organisational_relationships_on_parent_organisation_id"
 
   create_table "organisations", :force => true do |t|
     t.string   "name"

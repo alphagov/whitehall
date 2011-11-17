@@ -1,4 +1,9 @@
 class Organisation < ActiveRecord::Base
+  has_many :child_organisational_relationships, foreign_key: :parent_organisation_id, class_name: "OrganisationalRelationship"
+  has_many :parent_organisational_relationships, foreign_key: :child_organisation_id, class_name: "OrganisationalRelationship"
+  has_many :child_organisations, through: :child_organisational_relationships
+  has_many :parent_organisations, through: :parent_organisational_relationships
+
   has_many :document_organisations
   has_many :documents, through: :document_organisations
   has_many :published_documents, through: :document_organisations, class_name: "Document", conditions: { state: "published" }, source: :document

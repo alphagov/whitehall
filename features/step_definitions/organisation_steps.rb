@@ -23,6 +23,18 @@ Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
   end
 end
 
+Given /^that "([^"]*)" is responsible for "([^"]*)" and "([^"]*)"$/ do |parent_org_name, child_org_1_name, child_org_2_name|
+  child_org_1 = create(:organisation, name: child_org_1_name)
+  child_org_2 = create(:organisation, name: child_org_2_name)
+  create(:organisation, name: parent_org_name, child_organisations: [child_org_1, child_org_2])
+end
+
+Given /^that "([^"]*)" is the responsibility of "([^"]*)" and "([^"]*)"$/ do |child_org_name, parent_org_1_name, parent_org_2_name|
+  parent_org_1 = create(:organisation, name: parent_org_1_name)
+  parent_org_2 = create(:organisation, name: parent_org_2_name)
+  create(:organisation, name: child_org_name, parent_organisations: [parent_org_1, parent_org_2])
+end
+
 When /^I visit the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)
   visit organisation_path(organisation)
@@ -38,4 +50,14 @@ Then /^I should see "([^"]*)" has the "([^"]*)" ministerial role$/ do |person_na
   person = Person.find_by_name!(person_name)
   ministerial_role = person.current_ministerial_roles.find_by_name!(role_name)
   assert page.has_css?(".ministerial_role", text: ministerial_role.to_s)
+end
+
+Then /^I should see that "([^"]*)" is responsible for "([^"]*)"$/ do |parent_org_name, child_org_name|
+  child_org = Organisation.find_by_name!(child_org_name)
+  assert page.has_css?("#child_organisations #{record_css_selector(child_org)}")
+end
+
+Then /^I should see that "([^"]*)" is the responsibility of "([^"]*)"$/ do |child_org_name, parent_org_name|
+  parent_org = Organisation.find_by_name!(parent_org_name)
+  assert page.has_css?("#parent_organisations #{record_css_selector(parent_org)}")
 end

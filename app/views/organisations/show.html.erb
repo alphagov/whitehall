@@ -16,6 +16,20 @@
   <%= render partial: "documents/policies", object: @policies %>
   <%= render partial: "documents/publications", object: @publications %>
   <%= render partial: "documents/news_articles", object: @news_articles %>
+
+  <% if @organisation.child_organisations.any? %>
+    <section id="child_organisations">
+      <h1>Child organisations</h1>
+      <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
+    </section>
+  <% end %>
+  
+  <% if @organisation.parent_organisations.any? %>
+    <section id="parent_organisations">
+      <h1>Parent organisations</h1>
+      <%= render partial: "organisations/list", locals: {organisations: @organisation.parent_organisations} %>
+    </section>
+  <% end %>
 </div>
 
 <div class="g3">

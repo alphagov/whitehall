@@ -16,6 +16,26 @@ class OrganisationTest < ActiveSupport::TestCase
     new_organisation = build(:organisation, name: existing_organisation.name)
     refute new_organisation.valid?
   end
+  
+  test "#child_organisations should return the parent's children organisations" do
+    parent_org_1 = create(:organisation)
+    parent_org_2 = create(:organisation)
+    child_org_1 = create(:organisation, parent_organisations: [parent_org_1])
+    child_org_2 = create(:organisation, parent_organisations: [parent_org_1])
+    child_org_3 = create(:organisation, parent_organisations: [parent_org_2])
+
+    assert_equal [child_org_1, child_org_2], parent_org_1.child_organisations
+  end
+  
+  test "#parent_organisations should return the child's parent organisations" do
+    child_org_1 = create(:organisation)
+    child_org_2 = create(:organisation)
+    parent_org_1 = create(:organisation, child_organisations: [child_org_1])
+    parent_org_2 = create(:organisation, child_organisations: [child_org_1])
+    parent_org_3 = create(:organisation, child_organisations: [child_org_2])
+
+    assert_equal [parent_org_1, parent_org_2], child_org_1.parent_organisations
+  end
 
   test '#ministerial_roles includes all ministerial roles' do
     minister = create(:ministerial_role)
