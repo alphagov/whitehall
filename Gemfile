@@ -12,6 +12,7 @@ gem 'friendly_id', '4.0.0.beta14'
 gem 'nokogiri'
 gem 'rake', '0.9.2.2'
 gem 'boomerang-rails'
+gem 'slimmer', :path => "/Users/james/Code/freerange/alphagov/slimmer" #:git => 'git://github.com/alphagov/slimmer.git'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'

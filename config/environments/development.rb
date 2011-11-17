@@ -28,5 +28,8 @@ Whitehall::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  config.slimmer.asset_host = "/static-assets"
+  config.middleware.use Whitehall::StaticAssetServing, "/static-assets", Rails.root.join("../static/public")
+
   config.middleware.swap Rails::Rack::Logger, Whitehall::QuietAssetLogger
 end
