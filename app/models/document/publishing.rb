@@ -5,6 +5,12 @@ module Document::Publishing
     validates :published_at, presence: true, if: -> document { document.published? }
   end
 
+  module ClassMethods
+    def by_publication_date
+      order(arel_table[:published_at].desc)
+    end
+  end
+
   def publishable_by?(user)
     reason_to_prevent_publication_by(user).nil?
   end

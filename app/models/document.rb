@@ -74,9 +74,5 @@ class Document < ActiveRecord::Base
     def related_to(document)
       where(id: document.related_documents.collect(&:id))
     end
-
-    def by_publication_date
-      order(arel_table[:published_at].desc)
-    end
   end
 end
