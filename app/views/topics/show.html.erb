@@ -7,13 +7,23 @@
   </section>
   <% if @featured_policies.any? %>
   <section>
+    <h1>Priority policies</h1>
     <ul class="featured policies">
       <% @featured_policies.each do |policy| %>
-        <li><%= link_to policy.title, public_document_path(policy) %></li>
+        <li>
+          <%= content_tag_for :article, policy, class: "featured_policy" do %>
+            <h2><%= link_to policy.title, public_document_path(policy) %></h2>
+            <p>Updated <%= time_ago_in_words policy.updated_at %> ago</p>
+            <% if document = policy.most_recently_updated_related_document %>
+              <p><%= link_to document.title, public_document_path(document) %></p>
+            <% end %>
+          <% end %>
+        </li>
       <% end %>
     </ul>
   </section>
   <% end %>
+  <%= render partial: "documents/policies", object: @policies, locals: {title: "All Policies"} %>
 </div>
 
 <div class="g1 secondary">
@@ -30,6 +40,5 @@
       </ul>
     </section>
   <% end %>
-  <%= render partial: "documents/policies", object: @policies %>
   <%= render partial: "documents/news_articles", object: @news_articles %>
 </div>

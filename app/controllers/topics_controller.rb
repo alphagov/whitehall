@@ -9,7 +9,7 @@ class TopicsController < ApplicationController
     @policies = @topic.policies.published
     @news_articles = @topic.news_articles.published
     @recently_changed_documents = @topic.recently_published_documents
-    @featured_policies = @topic.featured_policies
+    @featured_policies = FeaturedPolicyPresenter.new(@topic)
   end
 
   class FeaturedTopicChooser
@@ -24,6 +24,18 @@ class TopicsController < ApplicationController
 
       def choose_random_topic
         Topic.with_published_documents.randomized.first
+      end
+    end
+  end
+
+  class FeaturedPolicyPresenter < Whitehall::Presenters::Collection
+    def initialize(topic)
+      super(topic.featured_policies)
+    end
+
+    present_object_with do
+      def most_recently_updated_related_document
+        Document.published.related_to(@record).by_publication_date.first
       end
     end
   end
