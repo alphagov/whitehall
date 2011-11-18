@@ -1,80 +1,78 @@
 @import "utils";
 
-#content {
-  .document_view {
-    border: 1px solid #ddd;
-    border-bottom: 3px solid #ccc;
-    background: #fcfcfc;
-    padding: 3em 10% 1em 10%;
-    margin-bottom: 2em;
+@mixin document_view {
+  border: 1px solid #ddd;
+  border-bottom: 3px solid #ccc;
+  background: #fcfcfc;
+  padding: 3em 10% 1em 10%;
+  margin-bottom: 2em;
 
-    .title {
-      @include type-36;
-    }
-    .body {
+  .title {
+    @include type-36;
+  }
+  .body {
 
-      h2 {
-        @include scaled_type(24);
-        @include scaled_margin_top(16);
-      }
-
-      h3 {
-        @include type-18;
-        margin-bottom: 0;
-      }
-
-      p, ul, ol {
-        @include type-14;
-      }
-      ul {
-        list-style-type: disc;
-      }
-      ol {
-        list-style-type: decimal;
-      }
-      ul, ol {
-        margin-left: 30px;
-        ul, ol {
-          font-size: 100%;
-          margin-top: #{$baseline_in_px / 14}em;
-        }
-      }
-
-      li {
-        @include type-16;
-        @include scaled_margin_bottom(24);
-
-        p {
-          font-size: 100%;
-          line-height: 100%;
-          margin-bottom: 0;
-        }
-      }
-
-      table {
-        tr {
-          padding: 0;
-
-          td {
-            padding: 0;
-            @include type-14;
-            border: 1px solid #ddd;
-            padding: 0 0.75em;
-          }
-        }
-      }
+    h2 {
+      @include scaled_type(24);
+      @include scaled_margin_top(16);
     }
 
-    pre.body {
+    h3 {
+      @include type-18;
+      margin-bottom: 0;
+    }
+
+    p, ul, ol {
       @include type-14;
     }
-
-    .written_by {
-      font-style: italic;
-      .authors {
-        font-style: normal;
-        font-weight: bold;
+    ul {
+      list-style-type: disc;
+    }
+    ol {
+      list-style-type: decimal;
+    }
+    ul, ol {
+      margin-left: 30px;
+      ul, ol {
+        font-size: 100%;
+        margin-top: #{$baseline_in_px / 14}em;
       }
+    }
+
+    li {
+      @include type-16;
+      @include scaled_margin_bottom(24);
+
+      p {
+        font-size: 100%;
+        line-height: 100%;
+        margin-bottom: 0;
+      }
+    }
+
+    table {
+      tr {
+        padding: 0;
+
+        td {
+          padding: 0;
+          @include type-14;
+          border: 1px solid #ddd;
+          padding: 0 0.75em;
+        }
+      }
+    }
+  }
+
+  pre.body {
+    @include type-14;
+  }
+
+  .written_by {
+    font-style: italic;
+    .author {
+      font-style: normal;
+      font-weight: bold;
     }
   }
 }

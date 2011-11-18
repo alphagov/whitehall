@@ -1,6 +1,6 @@
 @import "utils";
 
-#content {
+@mixin grid_styles {
   .g1 {
     @include span_one_column;
   }

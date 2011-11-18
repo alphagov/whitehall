@@ -1,4 +1,9 @@
 @import "../shared/utils";
+@import "../shared/forms";
+
+body {
+  @include form_styles;
+}
 
 fieldset.excluded_nations {
   div.group {

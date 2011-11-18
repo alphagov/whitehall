@@ -1,6 +1,6 @@
 @import "utils";
 
-#content {
+@mixin form_styles {
   /* #Forms
   ================================================== */
   form {

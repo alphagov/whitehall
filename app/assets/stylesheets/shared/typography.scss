@@ -15,7 +15,7 @@
   }
 }
 
-#content {
+@mixin type_styles {
   @include default_font_settings;
 
   p, blockquote, q, pre, address, hr, code, samp, dl, ol, ul, form, table, fieldset, menu, img {

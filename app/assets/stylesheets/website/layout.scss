@@ -1,6 +1,11 @@
 @import "../shared/utils";
+@import "../shared/grid";
+@import "../shared/document_view";
+@import "../shared/type_styles";
 
 #content {
+  @include grid_styles;
+  @include type_styles;
 
   min-height: 37em;
 
@@ -25,7 +30,6 @@
     width: auto;
     z-index: inherit;
   }
-
 
   .masthead {
     background: #444;
@@ -150,4 +154,7 @@
     }
   }
 
+  .document_view {
+    @include document_view;
+  }
 }

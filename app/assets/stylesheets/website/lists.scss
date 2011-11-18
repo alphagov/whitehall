@@ -1,0 +1,5 @@
+@import "../shared/lists";
+
+#content {
+  @include list_styles;
+}

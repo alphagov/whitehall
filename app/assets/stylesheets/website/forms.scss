@@ -1,0 +1,5 @@
+@import "../shared/forms";
+
+#content {
+  @include form_styles;
+}

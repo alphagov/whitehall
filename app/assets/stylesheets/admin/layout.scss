@@ -1,4 +1,15 @@
 @import "../shared/utils";
+@import "../shared/lists";
+@import "../shared/grid";
+@import "../shared/document_view";
+@import "../shared/typography";
+@import "flash-notices";
+
+body {
+  @include grid_styles;
+  @include list_styles;
+  @include type_styles;
+}
 
 .masthead {
   padding: 0.8em 4%;
@@ -162,4 +173,6 @@ section {
   }
 }
 
-@import "flash-notices";
+.document_view {
+  @include document_view;
+}
