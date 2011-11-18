@@ -1,7 +1,7 @@
 @import "../shared/utils";
 @import "../shared/grid";
 @import "../shared/document_view";
-@import "../shared/type_styles";
+@import "../shared/typography";
 
 #content {
   @include grid_styles;
