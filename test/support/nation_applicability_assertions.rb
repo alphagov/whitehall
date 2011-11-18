@@ -26,7 +26,14 @@ module NationApplicabilityAssertions
 
   def assert_nation_inapplicability_fields_set_as(attributes)
     name_fragment = "document[nation_inapplicabilities_attributes][#{attributes[:index]}]"
-    assert_select "input[name='#{name_fragment}[_destroy]'][type='checkbox'][checked='checked']"
-    assert_select "input[name='#{name_fragment}[alternative_url]'][value='#{attributes[:alternative_url]}']"
+    if attributes[:checked]
+      assert_select "input[name='#{name_fragment}[_destroy]'][type='checkbox'][checked='checked']"
+    else
+      assert_select "input[name='#{name_fragment}[_destroy]'][type='checkbox'][checked='checked']", count: 0
+      assert_select "input[name='#{name_fragment}[_destroy]'][type='checkbox']"
+    end
+    if attributes[:alternative_url]
+      assert_select "input[name='#{name_fragment}[alternative_url]'][value='#{attributes[:alternative_url]}']"
+    end
   end
 end

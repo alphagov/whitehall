@@ -15,15 +15,14 @@ module TestsForNationalApplicability
   test 'create should create a new document with nation inapplicabilities' do
     attributes = attributes_for_document
 
-    post :create, document: attributes.merge(
-      title: ''
-    ).merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
+    post :create, document: attributes.merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
 
-    assert_nation_inapplicability_fields_exist
-    assert_nation_inapplicability_fields_set_as(index: 0, checked: true, alternative_url: "http://www.scotland.com/")
+    assert document = Document.last
+    assert scotland_inapplicability = document.nation_inapplicabilities.for_nation(Nation.scotland).first
+    assert_equal "http://www.scotland.com/", scotland_inapplicability.alternative_url
   end
 
-  test 'creating with invalid data should not lose the nation inapplicability fields or values' do
+  test 'creating with invalid document data should not lose the nation inapplicability fields or values' do
     attributes = attributes_for_document
     post :create, document: attributes.merge(
       title: ''
@@ -31,6 +30,20 @@ module TestsForNationalApplicability
 
     assert_nation_inapplicability_fields_exist
     assert_nation_inapplicability_fields_set_as(index: 0, checked: true, alternative_url: "http://www.scotland.com/")
+    assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
+    assert_nation_inapplicability_fields_set_as(index: 2, checked: false)
+  end
+
+  test 'creating with invalid nation inapplicability data should not lose the nation inapplicability fields or values' do
+    attributes = attributes_for_document
+    post :create, document: attributes.merge(
+      nation_inapplicabilities_attributes_for(Nation.scotland => "invalid-url")
+    )
+
+    assert_nation_inapplicability_fields_exist
+    assert_nation_inapplicability_fields_set_as(index: 0, checked: true, alternative_url: "invalid-url")
+    assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
+    assert_nation_inapplicability_fields_set_as(index: 2, checked: false)
   end
 
   test 'edit displays document form with nation inapplicability fields and values' do
@@ -41,6 +54,8 @@ module TestsForNationalApplicability
 
     assert_select "form#document_edit" do
       assert_nation_inapplicability_fields_exist
+      assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
       assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.discovernorthernireland.com/")
     end
   end
@@ -59,7 +74,7 @@ module TestsForNationalApplicability
     assert_equal "http://www.visitscotland.com/", document.nation_inapplicabilities.for_nation(Nation.scotland).first.alternative_url
   end
 
-  test 'updating with invalid data should not lose the nation inapplicability fields or values' do
+  test 'updating with invalid document data should not lose the nation inapplicability fields or values' do
     attributes = attributes_for_document
     document = create_document(attributes)
     scotland_inapplicability = document.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
@@ -70,7 +85,28 @@ module TestsForNationalApplicability
     ).merge(nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability))
 
     assert_nation_inapplicability_fields_exist
+    assert_nation_inapplicability_fields_set_as(index: 0, checked: false, alternative_url: "http://www.scotland.com/")
+    assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.wales.com/")
     assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
+  end
+
+  test 'updating with invalid nation inapplicability data should not lose the nation inapplicability fields or values' do
+    attributes = attributes_for_document
+    document = create_document(attributes)
+    scotland_inapplicability = document.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
+    wales_inapplicability = document.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
+
+    put :update, id: document, document: attributes.merge(
+      nation_inapplicabilities_attributes_for(
+        {Nation.northern_ireland => "invalid-url"},
+        scotland_inapplicability,
+        wales_inapplicability
+    ))
+
+    assert_nation_inapplicability_fields_exist
+    assert_nation_inapplicability_fields_set_as(index: 0, checked: false, alternative_url: "http://www.scotland.com/")
+    assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.wales.com/")
+    assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "invalid-url")
   end
 
   test 'updating a stale document should not lose the nation inapplicability fields or values' do
@@ -85,6 +121,8 @@ module TestsForNationalApplicability
     ).merge(nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability))
 
     assert_nation_inapplicability_fields_exist
+    assert_nation_inapplicability_fields_set_as(index: 0, checked: false, alternative_url: "http://www.scotland.com/")
+    assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.wales.com/")
     assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
   end
 
