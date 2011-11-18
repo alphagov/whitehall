@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111117165914) do
+ActiveRecord::Schema.define(:version => 20111118094148) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(:version => 20111117165914) do
   create_table "document_attachments", :force => true do |t|
     t.integer  "document_id"
     t.integer  "attachment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "document_authors", :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,7 +89,6 @@ ActiveRecord::Schema.define(:version => 20111117165914) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "author_id"
     t.integer  "lock_version",         :default => 0
     t.integer  "document_identity_id"
     t.string   "state",                :default => "draft", :null => false

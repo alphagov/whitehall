@@ -1,5 +1,4 @@
 class Document < ActiveRecord::Base
-
   include Document::Traits
 
   include Document::Identifiable
@@ -8,10 +7,18 @@ class Document < ActiveRecord::Base
   include Document::Organisations
   include Document::Publishing
 
-  belongs_to :author, class_name: "User"
   has_many :editorial_remarks
+  has_one :document_author
 
   validates :title, :body, :author, presence: true
+
+  def author
+    document_author && document_author.user
+  end
+
+  def author=(user)
+    build_document_author(user: user)
+  end
 
   def can_be_associated_with_topics?
     false
@@ -64,7 +71,7 @@ class Document < ActiveRecord::Base
 
   class << self
     def authored_by(user)
-      where(author_id: user)
+      joins(:document_author).where(document_authors: {user_id: user})
     end
 
     def by_type(type)
