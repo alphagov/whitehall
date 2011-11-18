@@ -232,6 +232,20 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     end
   end
 
+  test "show lists each document author" do
+    tom = create(:user, name: "Tom")
+    dick = create(:user, name: "Dick")
+    harry = create(:user, name: "Harry")
+
+    draft_policy = create(:draft_policy, creator: tom)
+    draft_policy.edit_as(dick)
+    draft_policy.edit_as(harry)
+
+    get :show, id: draft_policy
+
+    assert_select ".authors", text: "Tom, Dick, and Harry"
+  end
+
   test "doesn't show supporting documents list when empty" do
     draft_policy = create(:draft_policy)
 

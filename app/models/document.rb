@@ -81,6 +81,10 @@ class Document < ActiveRecord::Base
     save_as(user)
   end
 
+  def author_names
+    document_authors.map(&:user).map(&:name)
+  end
+
   def title_with_state
     "#{title} (#{state})"
   end

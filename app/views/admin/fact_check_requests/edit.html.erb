@@ -12,7 +12,7 @@
   <div class="body">
     <%= govspeak_to_admin_html @document.body %>
   </div>
-  <p class="written_by">Written by <span class="author"><%= @document.creator.name %></span></p>
+  <p class="written_by">Written by <span class="authors"><%= @document.author_names.to_sentence %></span></p>
 </div>
 
 <% if @document.has_supporting_documents? %>

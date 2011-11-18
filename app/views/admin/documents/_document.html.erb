@@ -8,5 +8,5 @@
       <p class="attachment"><%= link_to_attachment(attachment) %></p>
     <% end %>
   <% end %>
-  <p class="written_by">Written by <span class="author"><%= document.creator.name %></span></p>
+  <p class="written_by">Written by <span class="authors"><%= document.author_names.to_sentence %></span></p>
 </article>
