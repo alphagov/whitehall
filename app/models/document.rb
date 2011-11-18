@@ -82,7 +82,7 @@ class Document < ActiveRecord::Base
   end
 
   def author_names
-    document_authors.map(&:user).map(&:name)
+    document_authors.map(&:user).map(&:name).uniq
   end
 
   def title_with_state

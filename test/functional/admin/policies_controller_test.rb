@@ -232,7 +232,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "show lists each document author" do
+  test "show lists each document author once" do
     tom = create(:user, name: "Tom")
     dick = create(:user, name: "Dick")
     harry = create(:user, name: "Harry")
@@ -240,6 +240,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     draft_policy = create(:draft_policy, creator: tom)
     draft_policy.edit_as(dick)
     draft_policy.edit_as(harry)
+    draft_policy.edit_as(dick)
 
     get :show, id: draft_policy
 
