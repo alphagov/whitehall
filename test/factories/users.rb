@@ -1,6 +1,10 @@
 FactoryGirl.define do
+  sequence :name do |n|
+    "user-#{n}"
+  end
+
   factory :user do
-    name "Daaaaaaave"
+    name
   end
 
   factory :policy_writer, parent: :user, aliases: [:author, :fact_check_requestor] do
