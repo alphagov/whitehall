@@ -39,7 +39,10 @@
     <% if @organisation.ministerial_roles.any? %>
     <section id="ministers">
       <h1>Ministers</h1>
-      <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @organisation.ministerial_roles} %>
+      <%= render_list_of_ministerial_roles(@organisation.ministerial_roles) do |ministerial_role| %>
+        <h3><%= link_to ministerial_role.name, ministerial_role %></h3>
+        <p class="current_appointee"><%= ministerial_role.current_person_name %></p>
+      <% end %>
     </section>
     <% end %>
   </div>

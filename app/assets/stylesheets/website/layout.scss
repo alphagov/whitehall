@@ -100,7 +100,16 @@ header h1 {
 
         li {
           @include type-12;
-          margin-bottom: 0;
+          margin-bottom: 0.75em;
+
+          p {
+            font-size: inherit;
+            line-height: inherit;
+            margin-bottom: 0;
+          }
+          h3 {
+            margin-bottom: 0;
+          }
         }
       }
 

@@ -74,16 +74,26 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "#news_articles", count: 0
   end
 
-  test "shows ministers associated with organisation" do
-    first_minister = create(:ministerial_role)
-    second_minister = create(:ministerial_role)
-    organisation = create(:organisation, ministerial_roles: [first_minister, second_minister])
+  test "shows names and roles of those ministers associated with organisation" do
+    person_1 = create(:person, name: "Fred")
+    person_2 = create(:person, name: "Bob")
+    ministerial_role_1 = create(:ministerial_role, name: "Secretary of State")
+    ministerial_role_2 = create(:ministerial_role, name: "Minister of State")
+    create(:role_appointment, person: person_1, role: ministerial_role_1)
+    create(:role_appointment, person: person_2, role: ministerial_role_2)
+    organisation = create(:organisation, ministerial_roles: [ministerial_role_1, ministerial_role_2])
     minister_in_another_organisation = create(:ministerial_role)
 
     get :show, id: organisation
 
-    assert_select_object(first_minister)
-    assert_select_object(second_minister)
+    assert_select_object(ministerial_role_1) do
+      assert_select ".current_appointee", "Fred"
+      assert_select "a[href=#{ministerial_role_path(ministerial_role_1)}]", text: "Secretary of State"
+    end
+    assert_select_object(ministerial_role_2) do
+      assert_select ".current_appointee", "Bob"
+      assert_select "a[href=#{ministerial_role_path(ministerial_role_2)}]", text: "Minister of State"
+    end
     assert_select_object(minister_in_another_organisation, count: 0)
   end
 
