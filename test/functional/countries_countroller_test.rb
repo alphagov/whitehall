@@ -46,10 +46,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     get :show, id: country
 
-    expected_ids = [later_document, earlier_document].map { |d| dom_id(d) }
-    assert_select "#news_articles .news_article" do |news_articles|
-      assert_equal expected_ids, news_articles.map { |a| a["id"] }
-    end
+    assert_equal [later_document, earlier_document], assigns[:news_articles]
   end
 
   test "should not display an empty published news articles section" do
@@ -93,10 +90,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     get :show, id: country
 
-    expected_ids = [later_document, earlier_document].map { |d| dom_id(d) }
-    assert_select "#policies .policy" do |policies|
-      assert_equal expected_ids, policies.map { |a| a["id"] }
-    end
+    assert_equal [later_document, earlier_document], assigns[:policies]
   end
 
   test "should not display an empty published policies section" do
