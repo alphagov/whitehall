@@ -16,4 +16,21 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     role.update_attributes(name: 'Prime Minister')
     assert_equal 'prime-minister-cabinet-office', role.slug
   end
+
+  test "should generate user-friendly types" do
+    assert_equal "Ministerial", build(:ministerial_role).humanized_type
+    assert_equal "Ministerial", MinisterialRole.humanized_type
+  end
+
+  test "should not be destroyable when it is responsible for documents" do
+    ministerial_role = create(:ministerial_role, documents: [create(:document)])
+    refute ministerial_role.destroyable?
+    assert_equal false, ministerial_role.destroy
+  end
+
+  test "should be destroyable when it has no appointments, organisations or documents" do
+    ministerial_role = create(:ministerial_role, role_appointments: [], organisations: [], documents: [])
+    assert ministerial_role.destroyable?
+    assert ministerial_role.destroy
+  end
 end

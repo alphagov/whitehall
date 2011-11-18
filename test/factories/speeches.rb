@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :speech, class: Speech::Transcript, parent: :document do
     title "speech-title"
     body  "speech-body"
-    role_appointment
+    association :role_appointment, factory: :ministerial_role_appointment
     delivered_on { Date.today }
     location "speech-location"
   end

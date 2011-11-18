@@ -193,7 +193,8 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "should link to ministers from within the metadata navigation" do
-    appointment = create(:role_appointment, person: create(:person, name: "minister-name"))
+    role = create(:ministerial_role)
+    appointment = create(:role_appointment, person: create(:person, name: "minister-name"), role: role)
     document = create(:published_policy, ministerial_roles: [appointment.role])
 
     get :show, id: document.document_identity

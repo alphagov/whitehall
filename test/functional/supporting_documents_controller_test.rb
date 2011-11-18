@@ -200,7 +200,8 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
   end
 
   test "should link to ministers from within the metadata navigation" do
-    appointment = create(:role_appointment, person: create(:person, name: "minister-name"))
+    role = create(:ministerial_role)
+    appointment = create(:role_appointment, person: create(:person, name: "minister-name"), role: role)
     policy = create(:published_policy, ministerial_roles: [appointment.role])
     supporting_document = create(:supporting_document, document: policy)
 

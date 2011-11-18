@@ -130,7 +130,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "provides delete buttons for destroyable roles" do
     destroyable_role = create(:role)
     document = create(:document)
-    indestructable_role = create(:role, documents: [document])
+    indestructable_role = create(:ministerial_role, documents: [document])
 
     get :index
 
@@ -208,7 +208,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "create should create a new appointment" do
     person = create(:person)
 
-    post :create, role: attributes_for(:role, role_appointments_attributes_for(
+    post :create, role: attributes_for(:ministerial_role, role_appointments_attributes_for(
       { person: person, started_at: "2010-06-15" }
     ))
 
@@ -221,7 +221,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "create should not create a new appointment if all fields are blank" do
-    post :create, role: attributes_for(:role, role_appointments_attributes_for(
+    post :create, role: attributes_for(:ministerial_role, role_appointments_attributes_for(
       { person: nil, started_at: nil }
     ))
 
