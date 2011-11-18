@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :document do
-    author
+    creator
     title "document-title"
     body "document-body"
 

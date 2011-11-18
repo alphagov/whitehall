@@ -34,16 +34,16 @@ class Document::PublishingTest < ActiveSupport::TestCase
     assert document.force_publishable_by?(create(:departmental_editor))
   end
 
-  test "is not normally publishable by the original author" do
+  test "is not normally publishable by the original creator" do
     editor = create(:departmental_editor)
-    document = create(:submitted_document, author: editor)
+    document = create(:submitted_document, creator: editor)
     refute document.publishable_by?(editor)
     assert_equal "You are not the second set of eyes", document.reason_to_prevent_publication_by(editor)
   end
 
-  test "is force publishable by the original author" do
+  test "is force publishable by the original creator" do
     editor = create(:departmental_editor)
-    document = create(:submitted_document, author: editor)
+    document = create(:submitted_document, creator: editor)
     assert document.force_publishable_by?(editor)
   end
 

@@ -7,7 +7,7 @@ FactoryGirl.define do
     name
   end
 
-  factory :policy_writer, parent: :user, aliases: [:author, :fact_check_requestor] do
+  factory :policy_writer, parent: :user, aliases: [:author, :creator, :fact_check_requestor] do
     departmental_editor false
   end
 

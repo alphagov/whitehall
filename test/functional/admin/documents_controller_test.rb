@@ -158,7 +158,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test "should be able to show only documents authored by user when viewing list of documents" do
     user = create(:policy_writer)
-    authored_policy = create(:draft_policy, author: user)
+    authored_policy = create(:draft_policy, creator: user)
     other_policy = create(:draft_policy)
 
     get :draft, author: user

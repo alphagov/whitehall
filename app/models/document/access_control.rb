@@ -12,7 +12,7 @@ module Document::AccessControl
   def submittable?
     draft? || rejected?
   end
-  
+
   def rejectable_by?(user)
     submitted? && user.departmental_editor?
   end

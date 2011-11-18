@@ -1,7 +1,7 @@
 def create_document(type, attributes)
   attributes[:topics] = Topic.where(name: (attributes[:topics] || [])) if type.new.respond_to?(:topics=)
   attributes[:organisations] = Organisation.where(name: (attributes[:organisations] || []))
-  attributes[:author] ||= User.create(name: Faker::Name.name)
+  attributes[:creator] ||= User.create(name: Faker::Name.name)
   attributes[:ministerial_roles] = Array.new(rand(2) + 1) { MinisterialRole.order("RAND()").first } unless type == Speech
   type.create!({
     title: "title-n",

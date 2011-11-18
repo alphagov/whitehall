@@ -16,8 +16,8 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.valid?
   end
 
-  test "should be invalid without an author" do
-    document = build(:document, author: nil)
+  test "should be invalid without an creator" do
+    document = build(:document, creator: nil)
     refute document.valid?
   end
 
@@ -158,16 +158,16 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [other_policy, publication_1, publication_2], published_policy.related_documents
   end
 
-  test "#author= builds a document_author with the given author for new records" do
-    author = create(:user)
-    document = build(:document, author: author)
-    assert_equal author, document.document_authors.first.user
+  test "#creator= builds a document_creator with the given creator for new records" do
+    creator = create(:user)
+    document = build(:document, creator: creator)
+    assert_equal creator, document.document_authors.first.user
   end
 
-  test "#author= raises an exception if called for a persisted record" do
+  test "#creator= raises an exception if called for a persisted record" do
     document = create(:document)
     assert_raises RuntimeError do
-      document.author = create(:user)
+      document.creator = create(:user)
     end
   end
 
@@ -178,7 +178,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal 'new-title', document.reload.title
   end
 
-  test "#edit_as records new author if edit succeeds" do
+  test "#edit_as records new creator if edit succeeds" do
     document = create(:policy)
     document.expects(:save).returns(true)
     user = create(:user)
@@ -193,7 +193,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert document.edit_as(create(:user), {})
   end
 
-  test "#edit_as does not record new author if edit fails" do
+  test "#edit_as does not record new creator if edit fails" do
     document = create(:policy)
     document.expects(:save).returns(false)
     user = create(:user)
@@ -213,7 +213,7 @@ class DocumentTest < ActiveSupport::TestCase
     document.save_as(create(:user))
   end
 
-  test "#save_as records the new author if save succeeds" do
+  test "#save_as records the new creator if save succeeds" do
     document = create(:policy)
     document.expects(:save).returns(true)
     user = create(:user)
@@ -222,7 +222,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal user, document.document_authors.last.user
   end
 
-  test "#save_as does not record new author if save fails" do
+  test "#save_as does not record new creator if save fails" do
     document = create(:policy)
     document.expects(:save).returns(true)
     user = create(:user)
@@ -277,7 +277,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test ".authored_by includes documents created by the given user" do
     publication = create(:publication)
-    assert Document.authored_by(publication.author).include?(publication)
+    assert Document.authored_by(publication.creator).include?(publication)
   end
 
   test ".authored_by includes documents edited by given user" do
@@ -296,16 +296,16 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal 1, Document.authored_by(writer).all.size
   end
 
-  test ".authored_by excludes documents authored by another user" do
+  test ".authored_by excludes documents creatored by another user" do
     publication = create(:publication)
     refute Document.authored_by(create(:policy_writer)).include?(publication)
   end
 
   test ".authored_by respects chained scopes" do
     publication = create(:publication)
-    assert Document.authored_by(publication.author).include?(publication)
-    assert Publication.authored_by(publication.author).include?(publication)
-    refute Policy.authored_by(publication.author).include?(publication)
+    assert Document.authored_by(publication.creator).include?(publication)
+    assert Publication.authored_by(publication.creator).include?(publication)
+    refute Policy.authored_by(publication.creator).include?(publication)
   end
 
   test ".by_publication_date orders by publication date descending" do
@@ -332,14 +332,14 @@ class DocumentTest < ActiveSupport::TestCase
     refute Document.submitted.include?(document)
   end
 
-  test "should build a draft copy of the existing document with the supplied author" do
+  test "should build a draft copy of the existing document with the supplied creator" do
     published_document = create(:published_document)
-    new_author = create(:policy_writer)
-    draft_document = published_document.create_draft(new_author)
+    new_creator = create(:policy_writer)
+    draft_document = published_document.create_draft(new_creator)
 
     refute draft_document.published?
     refute draft_document.submitted?
-    assert_equal new_author, draft_document.author
+    assert_equal new_creator, draft_document.creator
     assert_equal published_document.title, draft_document.title
     assert_equal published_document.body, draft_document.body
   end

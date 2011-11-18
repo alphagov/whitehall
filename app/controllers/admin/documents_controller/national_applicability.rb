@@ -7,7 +7,7 @@ module Admin::DocumentsController::NationalApplicability
 
   def create
     nation_inapplicabilities_attributes = params[:document].delete(:nation_inapplicabilities_attributes) || {}
-    @document = document_class.new(params[:document].merge(author: current_user))
+    @document = document_class.new(params[:document].merge(creator: current_user))
     if @document.valid?
       @document.nation_inapplicabilities_attributes = nation_inapplicabilities_attributes
     end

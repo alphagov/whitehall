@@ -30,7 +30,7 @@ module Document::Publishing
       "This edition has been rejected"
     elsif !submitted? && !options[:force]
       "Not ready for publication"
-    elsif user == author && !options[:force]
+    elsif user == creator && !options[:force]
       "You are not the second set of eyes"
     elsif !user.departmental_editor?
       "Only departmental editors can publish"

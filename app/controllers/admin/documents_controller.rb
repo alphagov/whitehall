@@ -35,7 +35,7 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def create
-    @document = document_class.new(params[:document].merge(author: current_user))
+    @document = document_class.new(params[:document].merge(creator: current_user))
     if @document.save
       redirect_to admin_document_path(@document), notice: "The document has been saved"
     else

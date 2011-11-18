@@ -10,13 +10,13 @@ class Document < ActiveRecord::Base
   has_many :editorial_remarks
   has_many :document_authors
 
-  validates :title, :body, :author, presence: true
+  validates :title, :body, :creator, presence: true
 
-  def author
+  def creator
     document_authors.first && document_authors.first.user
   end
 
-  def author=(user)
+  def creator=(user)
     if new_record?
       document_author = document_authors.first || document_authors.build
       document_author.user = user
@@ -62,7 +62,7 @@ class Document < ActiveRecord::Base
   end
 
   def create_draft(user)
-    self.class.new(attributes.merge(state: "draft", author: user)).tap do |draft|
+    self.class.new(attributes.merge(state: "draft", creator: user)).tap do |draft|
       traits.each { |t| t.assign_associations_to(draft) }
       if draft.save
         traits.each { |t| t.copy_associations_to(draft) }
