@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
     @news_articles = yield(NewsArticle.published)
     @consultations = yield(Consultation.published)
   end
+
+  def skip_slimmer
+    response.headers[Slimmer::SKIP_HEADER] = "true"
+  end
 end

@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   layout 'admin'
+  before_filter :skip_slimmer
 
   def new
   end

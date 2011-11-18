@@ -3,4 +3,5 @@ class Admin::BaseController < ApplicationController
 
   layout 'admin'
   before_filter :authenticate!
+  before_filter :skip_slimmer
 end
