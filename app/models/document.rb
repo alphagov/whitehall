@@ -8,16 +8,21 @@ class Document < ActiveRecord::Base
   include Document::Publishing
 
   has_many :editorial_remarks
-  has_one :document_author
+  has_many :document_authors
 
   validates :title, :body, :author, presence: true
 
   def author
-    document_author && document_author.user
+    document_authors.first && document_authors.first.user
   end
 
   def author=(user)
-    build_document_author(user: user)
+    if new_record?
+      document_author = document_authors.first || document_authors.build
+      document_author.user = user
+    else
+      raise "author can only be set on new records"
+    end
   end
 
   def can_be_associated_with_topics?
@@ -65,13 +70,24 @@ class Document < ActiveRecord::Base
     end
   end
 
+  def save_as(user)
+    if save
+      document_authors.create!(user: user)
+    end
+  end
+
+  def edit_as(user, attributes = {})
+    assign_attributes(attributes)
+    save_as(user)
+  end
+
   def title_with_state
     "#{title} (#{state})"
   end
 
   class << self
     def authored_by(user)
-      joins(:document_author).where(document_authors: {user_id: user})
+      joins(:document_authors).where(document_authors: {user_id: user}).group(:document_id)
     end
 
     def by_type(type)

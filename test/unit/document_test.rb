@@ -158,6 +158,91 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [other_policy, publication_1, publication_2], published_policy.related_documents
   end
 
+  test "#author= builds a document_author with the given author for new records" do
+    author = create(:user)
+    document = build(:document, author: author)
+    assert_equal author, document.document_authors.first.user
+  end
+
+  test "#author= raises an exception if called for a persisted record" do
+    document = create(:document)
+    assert_raises RuntimeError do
+      document.author = create(:user)
+    end
+  end
+
+  test "#edit_as updates the document" do
+    attributes = stub(:attributes)
+    document = create(:policy)
+    document.edit_as(create(:user), title: 'new-title')
+    assert_equal 'new-title', document.reload.title
+  end
+
+  test "#edit_as records new author if edit succeeds" do
+    document = create(:policy)
+    document.expects(:save).returns(true)
+    user = create(:user)
+    document.edit_as(user, {})
+    assert_equal 2, document.document_authors.count
+    assert_equal user, document.document_authors.last.user
+  end
+
+  test "#edit_as returns true if edit succeeds" do
+    document = create(:policy)
+    document.expects(:save).returns(true)
+    assert document.edit_as(create(:user), {})
+  end
+
+  test "#edit_as does not record new author if edit fails" do
+    document = create(:policy)
+    document.expects(:save).returns(false)
+    user = create(:user)
+    document.edit_as(user, {})
+    assert_equal 1, document.document_authors.count
+  end
+
+  test "#edit_as returns false if edit fails" do
+    document = create(:policy)
+    document.expects(:save).returns(false)
+    refute document.edit_as(create(:user), {})
+  end
+
+  test "#save_as saves the document" do
+    document = create(:policy)
+    document.expects(:save)
+    document.save_as(create(:user))
+  end
+
+  test "#save_as records the new author if save succeeds" do
+    document = create(:policy)
+    document.expects(:save).returns(true)
+    user = create(:user)
+    document.save_as(user)
+    assert_equal 2, document.document_authors.count
+    assert_equal user, document.document_authors.last.user
+  end
+
+  test "#save_as does not record new author if save fails" do
+    document = create(:policy)
+    document.expects(:save).returns(true)
+    user = create(:user)
+    document.save_as(user)
+    assert_equal 2, document.document_authors.count
+    assert_equal user, document.document_authors.last.user
+  end
+
+  test "#save_as returns true if save succeeds" do
+    document = create(:policy)
+    document.expects(:save).returns(true)
+    assert document.save_as(create(:user))
+  end
+
+  test "#edit_as returns false if save fails" do
+    document = create(:policy)
+    document.expects(:save).returns(false)
+    refute document.save_as(create(:user))
+  end
+
   test ".related_to includes documents_related_to document" do
     publication = create(:publication)
     policy = create(:policy, documents_related_to: [publication])
@@ -190,9 +275,25 @@ class DocumentTest < ActiveSupport::TestCase
     refute Document.related_to(policy).include?(publication)
   end
 
-  test ".authored_by includes documents authored by given user" do
+  test ".authored_by includes documents created by the given user" do
     publication = create(:publication)
     assert Document.authored_by(publication.author).include?(publication)
+  end
+
+  test ".authored_by includes documents edited by given user" do
+    publication = create(:publication)
+    writer = create(:policy_writer)
+    publication.edit_as(writer, {})
+    assert Document.authored_by(writer).include?(publication)
+  end
+
+  test ".authored_by includes documents only once no matter how many edits a user has made" do
+    publication = create(:publication)
+    writer = create(:policy_writer)
+    publication.edit_as(writer, {})
+    publication.edit_as(writer, {})
+    publication.edit_as(writer, {})
+    assert_equal 1, Document.authored_by(writer).all.size
   end
 
   test ".authored_by excludes documents authored by another user" do

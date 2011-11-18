@@ -27,7 +27,7 @@ module Admin::DocumentsController::NationalApplicability
     if @document.valid?
       @document.nation_inapplicabilities_attributes = nation_inapplicabilities_attributes
     end
-    if @document.save
+    if @document.save_as(current_user)
       redirect_to admin_document_path(@document),
         notice: "The document has been saved"
     else

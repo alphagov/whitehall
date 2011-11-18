@@ -141,6 +141,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal 'The document has been saved', flash[:notice]
   end
 
+  test 'updating records the user who changed the document' do
+    policy = create(:policy)
+    put :update, id: policy, document: {title: 'new-title', body: 'new-body'}
+    assert_equal @user, policy.document_authors(true).last.user
+  end
+
   test 'updating with invalid data should not save the policy' do
     attributes = attributes_for(:policy)
     policy = create(:policy, attributes)

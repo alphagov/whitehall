@@ -48,7 +48,7 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def update
-    if @document.update_attributes(params[:document])
+    if @document.edit_as(current_user, params[:document])
       redirect_to admin_document_path(@document),
         notice: "The document has been saved"
     else

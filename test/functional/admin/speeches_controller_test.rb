@@ -121,6 +121,12 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_equal 'The document has been saved', flash[:notice]
   end
 
+  test 'updating records the user who changed the document' do
+    speech = create(:speech)
+    put :update, id: speech.id, document: { title: 'new-title', body: 'new-body', type: speech.type }
+    assert_equal @user, speech.document_authors(true).last.user
+  end
+
   test 'updating with invalid data should not save the speech' do
     attributes = attributes_for(:speech)
     speech = create(:speech, attributes)
