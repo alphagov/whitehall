@@ -1,5 +1,1 @@
-module Slimmer
-  SKIP_HEADER = 'skip-this-in-tests'
-end
-
-World(Slimmer)
+require Rails.root.join('test/support/skip_slimmer.rb')
