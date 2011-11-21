@@ -9,7 +9,6 @@ class Whitehall::StaticAssetServing
   def call(env)
     if env["PATH_INFO"] =~ @path_regexp
       env["PATH_INFO"] = env["PATH_INFO"].gsub(@path_regexp, "")
-      p "loading from asset app"
       @asset_app.call(env)
     else
       @app.call(env)
