@@ -33,4 +33,10 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     assert ministerial_role.destroyable?
     assert ministerial_role.destroy
   end
+
+  test "can never be a permanent secretary" do
+    ministerial_role = build(:ministerial_role, permanent_secretary: true)
+    refute ministerial_role.permanent_secretary?
+    refute ministerial_role.permanent_secretary
+  end
 end

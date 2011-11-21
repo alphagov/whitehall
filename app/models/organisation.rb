@@ -12,8 +12,8 @@ class Organisation < ActiveRecord::Base
   has_many :roles, through: :organisation_roles
   has_many :ministerial_roles, class_name: 'MinisterialRole', through: :organisation_roles, source: :role
   has_many :board_member_roles, class_name: 'BoardMemberRole', through: :organisation_roles, source: :role
-  has_many :leading_board_member_roles, class_name: 'BoardMemberRole', through: :organisation_roles, source: :role, conditions: { leader: true }
-  has_many :other_board_member_roles, class_name: 'BoardMemberRole', through: :organisation_roles, source: :role, conditions: { leader: false }
+  has_many :permanent_secretary_board_member_roles, class_name: 'BoardMemberRole', through: :organisation_roles, source: :role, conditions: { permanent_secretary: true }
+  has_many :other_board_member_roles, class_name: 'BoardMemberRole', through: :organisation_roles, source: :role, conditions: { permanent_secretary: false }
 
   has_many :people, through: :roles
 
