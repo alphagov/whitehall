@@ -51,7 +51,7 @@
     <% if @organisation.board_member_roles.any? %>
       <section id="board_members">
       <% if @organisation.permanent_secretary_board_member_roles.any? %>
-        <section id="leading_board_members">
+        <section id="permanent_secretary_board_members">
           <h1>Permanent Secretaries</h1>
           <ul class="permanent_secretary_board_member_roles">
             <% @organisation.permanent_secretary_board_member_roles.each do |board_member_role| %>
