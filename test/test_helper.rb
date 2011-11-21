@@ -59,7 +59,3 @@ class ActionView::TestCase
     assert_select HTML::Document.new(text).root, *args, &block
   end
 end
-
-module Slimmer
-  SKIP_HEADER = 'skip-this-in-tests'
-end
