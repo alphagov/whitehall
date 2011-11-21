@@ -9,10 +9,6 @@
 
   min-height: 37em;
 
-  header {
-    margin-top: 4.5em;
-  }
-
   section {
     margin: 0;
     width: auto;
@@ -55,6 +51,16 @@
         padding: 0 10%;
         @include type-16;
         margin-bottom: 0;
+      }
+
+      @media only screen and (min-width: 920px) {
+        .documents {
+          float: left;
+        }
+
+        .structure {
+          float: right;
+        }
       }
 
       a {
@@ -156,5 +162,21 @@
 
   .document_view {
     @include document_view;
+  }
+}
+
+#content {
+  padding-top: 11em;
+
+  @media only screen and (min-width: 403px) {
+    padding-top: 9.75em;
+  }
+
+  @media only screen and (min-width: 467px) {
+    padding-top: 7.3em;
+  }
+
+  @media only screen and (min-width: 568px) {
+    padding-top: 4.5em;
   }
 }

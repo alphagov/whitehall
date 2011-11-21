@@ -23,13 +23,17 @@
     <div id="content">
       <header class="group masthead">
         <nav class="group">
-          <%= link_to "Topics", topics_path %>
-          <%= link_to "Organisations", organisations_path %>
-          <%= link_to "Ministers", ministerial_roles_path %>
-          <%= link_to "Latest", announcements_path %>
-          <%= link_to "Publications", publications_path %>
-          <%= link_to "Consultations", consultations_path %>
-          <%= link_to "UK in the World", countries_path %>
+          <div class="documents">
+            <%= link_to "Latest", announcements_path %>
+            <%= link_to "Topics", topics_path %>
+            <%= link_to "Publications", publications_path %>
+            <%= link_to "Consultations", consultations_path %>
+          </div>
+          <div class="structure">
+            <%= link_to "Ministers", ministerial_roles_path %>
+            <%= link_to "Organisations", organisations_path %>
+            <%= link_to "UK in the World", countries_path %>
+          </div>
         </nav>
       </header>
       <section class="group wrapper">
