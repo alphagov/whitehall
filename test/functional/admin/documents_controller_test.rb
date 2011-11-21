@@ -208,9 +208,17 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_redirected_to submitted_admin_documents_path(author: @user, organisation: organisation)
   end
 
-  test "index should redirect to drafts if filtered options not available" do
+  test "index should redirect to submitted in my department if logged an editor has no remembered filters" do
+    organisation = create(:organisation)
+    editor = login_as create(:departmental_editor, organisation: organisation)
     get :index
-    assert_redirected_to draft_admin_documents_path
+    assert_redirected_to submitted_admin_documents_path(organisation: organisation)
+  end
+
+  test "index should redirect to drafts I have written if a writer has no remembered filters" do
+    writer = login_as create(:policy_writer)
+    get :index
+    assert_redirected_to draft_admin_documents_path(author: writer)
   end
 
   test "index should redirect to drafts if filtered options don't form a route" do

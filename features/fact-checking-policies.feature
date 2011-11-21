@@ -4,7 +4,7 @@ Feature: Fact checking policies
   I want to garner comments on a draft policy from other individuals
 
 Scenario: Departmental editor requests fact checking
-  Given I am an writer called "Bob"
+  Given I am a writer called "Bob"
   And a draft policy "Standard Beard Lengths" exists
   When I request that "fact-checker@example.com" fact checks the policy "Standard Beard Lengths" with instructions "I'm not sure about the length"
   Then "fact-checker@example.com" should be notified by email that "Bob" has requested a fact check for "Standard Beard Lengths" with instructions "I'm not sure about the length"

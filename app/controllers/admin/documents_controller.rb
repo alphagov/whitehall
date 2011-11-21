@@ -7,8 +7,10 @@ class Admin::DocumentsController < Admin::BaseController
   def index
     if session[:document_filters]
       redirect_to session[:document_filters]
+    elsif current_user.departmental_editor?
+      redirect_to action: :submitted, organisation: current_user.organisation
     else
-      redirect_to action: :draft
+      redirect_to action: :draft, author: current_user
     end
   rescue ActionController::RoutingError => e
     redirect_to action: :draft

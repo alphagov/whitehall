@@ -49,7 +49,7 @@ When /^I view the (publication|policy|news article|consultation|speech) "([^"]*)
 end
 
 When /^I visit the list of draft documents$/ do
-  visit admin_documents_path
+  visit draft_admin_documents_path
 end
 
 When /^I visit the list of documents awaiting review$/ do
