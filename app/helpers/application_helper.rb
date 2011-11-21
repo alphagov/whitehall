@@ -36,16 +36,20 @@ module ApplicationHelper
     end
   end
 
-  def render_list_of_ministerial_roles(ministerial_roles, &block)
+  def render_list_of_roles(roles, class_name = "ministerial_roles", &block)
     raise ArgumentError, "please supply the content of the list item" unless block_given?
-    content_tag(:ul, class: "ministerial_roles") do
-      ministerial_roles.each do |ministerial_role|
-        li = content_tag_for(:li, ministerial_role) do
-          block.call(ministerial_role).html_safe
+    content_tag(:ul, class: class_name) do
+      roles.each do |role|
+        li = content_tag_for(:li, role) do
+          block.call(role).html_safe
         end.html_safe
         concat li
       end
     end
+  end
+
+  def render_list_of_ministerial_roles(ministerial_roles, &block)
+    render_list_of_roles(ministerial_roles, &block)
   end
 
   def link_to_with_current(name, path, options={})
