@@ -11,7 +11,7 @@ Given /^"([^"]*)" submitted a speech "([^"]*)" with body "([^"]*)"$/ do |author,
 end
 
 Given /^a published speech "([^"]*)" by "([^"]*)" on "([^"]*)" at "([^"]*)"$/ do |title, ministerial_role, delivered_on, location|
-  role_appointment = MinisterialRole.all.detect { |mr| mr.to_s == ministerial_role }.current_role_appointment
+  role_appointment = MinisterialRole.all.detect { |mr| mr.name == ministerial_role }.current_role_appointment
   create(:published_speech, title: title, role_appointment: role_appointment, delivered_on: Date.parse(delivered_on), location: location)
 end
 

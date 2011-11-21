@@ -26,3 +26,14 @@ Scenario: An agency if the responsibility of multiple departments
   When I visit the "The stabilisation unit" organisation
   Then I should see that "The stabilisation unit" is the responsibility of "DFID"
   And I should see that "The stabilisation unit" is the responsibility of "FCO"
+
+Scenario: Seeing all speeches for an organisation
+  Given "Barry Tweaker" is the "Moustachemaster General" for the "Ministry of Facial Topiary"
+  And "Margaret Cummerbund" is the "Chinbeard Invigilator" for the "Ministry of Facial Topiary"
+  And a published speech "The Wax of Empire" by "Moustachemaster General" on "2011-11-01" at "10 Downing Street"
+  And a published speech "The Chin Unseen" by "Chinbeard Invigilator" on "2011-11-02" at "Whitehall"
+  When I visit the "Ministry of Facial Topiary" organisation
+  Then I should see the following speeches are associated with the "Facial Topiary Management" organisation:
+    | Title             |
+    | The Wax of Empire |
+    | The Chin Unseen   |

@@ -62,3 +62,9 @@ Then /^I should see that "([^"]*)" is the responsibility of "([^"]*)"$/ do |chil
   parent_org = Organisation.find_by_name!(parent_org_name)
   assert page.has_css?("#parent_organisations #{record_css_selector(parent_org)}")
 end
+
+Then /^I should see the following speeches are associated with the "([^"]*)" organisation:$/ do |name, table|
+  table.hashes.each do |row|
+    assert page.has_css?("#speeches .speech_transcript .title", row["Title"])
+  end
+end
