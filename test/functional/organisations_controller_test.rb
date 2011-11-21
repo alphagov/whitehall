@@ -118,7 +118,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select "#leading_board_members" do
+    assert_select permanent_secretary_board_members_selector do
       assert_select_object(permanent_secretary)
     end
   end
@@ -129,7 +129,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select "#leading_board_members", count: 0
+    assert_select permanent_secretary_board_members_selector, count: 0
   end
 
   test "shows board members associated with organisation" do

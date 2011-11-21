@@ -52,4 +52,8 @@ module CssSelectors
   def parent_organisations_list_selector
     "select[name='organisation[parent_organisation_ids][]']"
   end
+
+  def permanent_secretary_board_members_selector
+    "#permanent_secretary_board_members"
+  end
 end
