@@ -113,7 +113,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows leading board members associated with organisation" do
-    permanent_secretary = create(:board_member_role, leader: true)
+    permanent_secretary = create(:board_member_role, permanent_secretary: true)
     organisation = create(:organisation, board_member_roles: [permanent_secretary])
 
     get :show, id: organisation
