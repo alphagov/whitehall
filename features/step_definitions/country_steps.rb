@@ -4,7 +4,7 @@ end
 
 When /^I view the list of countries$/ do
   visit root_path
-  click_link "Countries"
+  click_link "UK in the World"
 end
 
 When /^I view the country "([^"]*)"$/ do |name|
