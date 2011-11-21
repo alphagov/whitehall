@@ -80,4 +80,57 @@ class TopicTest < ActiveSupport::TestCase
     topic = create(:topic, featured: false)
     refute Topic.featured.include?(topic)
   end
+
+  test "return published documents relating to policies in the topic without duplicates" do
+    policy_1 = create(:published_policy)
+    policy_2 = create(:published_policy)
+    publication_1 = create(:published_publication, documents_related_to: [policy_1])
+    publication_2 = create(:published_publication, documents_related_to: [policy_1, policy_2])
+    topic = create(:topic, documents: [policy_1, policy_2])
+
+    assert_equal [publication_1, publication_2], topic.published_related_documents
+  end
+
+  test "return only *published* documents relating to policies in the topic" do
+    published_policy = create(:published_policy)
+    create(:draft_publication, documents_related_to: [published_policy])
+    topic = create(:topic, documents: [published_policy])
+
+    assert_equal [], topic.published_related_documents
+  end
+
+  test "return documents relating to only *published* policies in the topic" do
+    draft_policy = create(:draft_policy)
+    create(:published_publication, documents_related_to: [draft_policy])
+    topic = create(:topic, documents: [draft_policy])
+
+    assert_equal [], topic.published_related_documents
+  end
+
+  test "return published documents relating from policies in the topic without duplicates" do
+    publication_1 = create(:published_publication)
+    publication_2 = create(:published_publication)
+    policy_1 = create(:published_policy, documents_related_to: [publication_1])
+    policy_2 = create(:published_policy, documents_related_to: [publication_1, publication_2])
+    topic = create(:topic, documents: [policy_1, policy_2])
+
+    assert_equal [publication_1, publication_2], topic.published_related_documents
+  end
+
+  test "return only *published* documents relating from policies in the topic" do
+    draft_publication = create(:draft_publication)
+    published_policy = create(:published_policy, documents_related_to: [draft_publication])
+    topic = create(:topic, documents: [published_policy])
+
+    assert_equal [], topic.published_related_documents
+  end
+
+  test "return documents relating from only *published* policies in the topic" do
+    published_publication = create(:published_publication)
+    draft_policy = create(:draft_policy, documents_related_to: [published_publication])
+    topic = create(:topic, documents: [draft_policy])
+
+    assert_equal [], topic.published_related_documents
+  end
+
 end

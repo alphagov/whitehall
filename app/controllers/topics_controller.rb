@@ -8,7 +8,7 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
     @policies = @topic.policies.published
     @news_articles = @topic.news_articles.published
-    @recently_changed_documents = @topic.recently_published_documents
+    @recently_changed_documents = @topic.published_related_documents.sort_by(&:published_at).reverse
     @featured_policies = FeaturedPolicyPresenter.new(@topic)
   end
 

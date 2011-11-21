@@ -30,8 +30,11 @@ class Topic < ActiveRecord::Base
     joins(:published_documents).group(:topic_id)
   end
 
-  def recently_published_documents
-    DocumentTopic.send(:with_exclusive_scope) { documents.published.by_publication_date }
+  def published_related_documents
+    documents.published.includes(
+      :published_documents_related_to,
+      :published_documents_related_with
+    ).map(&:published_related_documents).flatten.uniq
   end
 
   def destroyable?

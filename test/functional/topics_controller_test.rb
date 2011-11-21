@@ -60,45 +60,45 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#news_articles", count: 0
   end
 
-  test "show displays recently changed documents relating to the topic" do
+  test "show displays recently changed documents relating to policies in the topic" do
     policy_1 = create(:published_policy)
+    publication_1 = create(:published_publication, documents_related_to: [policy_1])
+    news_article_1 = create(:published_news_article, documents_related_to: [policy_1])
+    consultation = create(:published_consultation, documents_related_to: [policy_1])
+
     policy_2 = create(:published_policy)
-    news_article_1 = create(:published_news_article)
-    news_article_2 = create(:published_news_article)
-    topic = create(:topic, documents: [policy_1, policy_2, news_article_1, news_article_2])
+    news_article_2 = create(:published_news_article, documents_related_to: [policy_2])
+    publication_2 = create(:published_publication, documents_related_to: [policy_2])
+    speech = create(:published_speech, documents_related_to: [policy_2])
+
+    topic = create(:topic, documents: [policy_1, policy_2])
 
     get :show, id: topic
 
     assert_select "#recently-changed" do
-      assert_select_object policy_1
-      assert_select_object policy_2
       assert_select_object news_article_1
       assert_select_object news_article_2
+      assert_select_object publication_1
+      assert_select_object publication_2
+      assert_select_object consultation
+      assert_select_object speech
     end
   end
 
-  test "show orders recently changed related documents most recent first" do
-    policy_1 = create(:published_policy, published_at: 4.weeks.ago)
-    policy_2 = create(:published_policy, published_at: 1.weeks.ago)
-    news_article_1 = create(:published_news_article, published_at: 3.weeks.ago)
-    news_article_2 = create(:published_news_article, published_at: 2.weeks.ago)
-    topic = create(:topic, documents: [policy_1, policy_2, news_article_1, news_article_2])
+  test "show displays recently changed documents in order of publication date with most recent first" do
+    policy_1 = create(:published_policy)
+    publication_1 = create(:published_publication, published_at: 4.weeks.ago, documents_related_to: [policy_1])
+    news_article_1 = create(:published_news_article, published_at: 1.week.ago, documents_related_to: [policy_1])
+
+    policy_2 = create(:published_policy)
+    news_article_2 = create(:published_news_article, published_at: 3.weeks.ago, documents_related_to: [policy_2])
+    publication_2 = create(:published_publication, published_at: 2.weeks.ago, documents_related_to: [policy_2])
+
+    topic = create(:topic, documents: [policy_1, policy_2])
 
     get :show, id: topic
 
-    assert_equal [policy_2, news_article_2, news_article_1, policy_1], assigns[:recently_changed_documents]
-  end
-
-  test "show orders recently changed related documents most recent first ignoring admin ordering" do
-    policy_1 = create(:published_policy, published_at: 1.weeks.ago)
-    policy_2 = create(:published_policy, published_at: 2.weeks.ago)
-    topic = create(:topic)
-    create(:document_topic, topic: topic, document: policy_1, ordering: 2)
-    create(:document_topic, topic: topic, document: policy_2, ordering: 1)
-
-    get :show, id: topic
-
-    assert_equal [policy_1, policy_2], assigns[:recently_changed_documents]
+    assert_equal [news_article_1, publication_2, news_article_2, publication_1], assigns[:recently_changed_documents]
   end
 
   test "should show list of topics with published documents" do

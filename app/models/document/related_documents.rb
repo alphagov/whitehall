@@ -15,6 +15,9 @@ module Document::RelatedDocuments
     has_many :documents_related_with, through: :document_relations_to, source: :related_document
     has_many :documents_related_to, through: :document_relations_from, source: :document
 
+    has_many :published_documents_related_with, through: :document_relations_to, source: :related_document, conditions: { "documents.state" => "published" }
+    has_many :published_documents_related_to, through: :document_relations_from, source: :document, conditions: { "documents.state" => "published" }
+
     add_trait Trait
   end
 
@@ -24,5 +27,9 @@ module Document::RelatedDocuments
 
   def related_documents
     [*documents_related_to, *documents_related_with].uniq
+  end
+
+  def published_related_documents
+    [*published_documents_related_to, *published_documents_related_with].uniq
   end
 end
