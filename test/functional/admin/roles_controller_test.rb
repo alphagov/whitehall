@@ -11,9 +11,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
     org_one = create(:organisation, name: "org-one")
     org_two = create(:organisation, name: "org-two")
     person = create(:person, name: "person-name")
-    role_one = create(:ministerial_role, name: "role-one", leader: false, organisations: [org_one, org_two])
+    role_one = create(:ministerial_role, name: "role-one", organisations: [org_one, org_two])
     create(:role_appointment, role: role_one, person: person)
-    role_two = create(:board_member_role, name: "role-two", leader: true, organisations: [org_one])
+    role_two = create(:board_member_role, name: "role-two", permanent_secretary: true, organisations: [org_one])
 
     get :index
 
@@ -21,14 +21,14 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select_object role_one do
         assert_select ".name", "role-one"
         assert_select ".type", "Ministerial"
-        assert_select ".leader", "No"
+        assert_select ".permanent_secretary", "No"
         assert_select ".organisations", "org-one and org-two"
         assert_select ".person", "person-name"
       end
       assert_select_object role_two do
         assert_select ".name", "role-two"
         assert_select ".type", "Board member"
-        assert_select ".leader", "Yes"
+        assert_select ".permanent_secretary", "Yes"
         assert_select ".organisations", "org-one"
         assert_select ".person", "No one is assigned to this role"
       end
@@ -72,26 +72,26 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal [ministerial_role_A, ministerial_role_B, board_member_role], assigns(:roles)
   end
 
-  test "index should order roles by role type with ministers first versus role leader" do
+  test "index should order roles by role type with ministers first versus role permanent secretary status" do
     org = create(:organisation)
-    ministerial_role_B = create(:ministerial_role, name: "name", organisations: [org], leader: false)
-    board_member_role = create(:board_member_role, name: "name", organisations: [org], leader: true)
-    ministerial_role_A = create(:ministerial_role, name: "name", organisations: [org], leader: true)
+    ministerial_role = create(:ministerial_role, name: "name", organisations: [org])
+    board_member_role_B = create(:board_member_role, name: "name", organisations: [org], permanent_secretary: false)
+    board_member_role_A = create(:board_member_role, name: "name", organisations: [org], permanent_secretary: true)
 
     get :index
 
-    assert_equal [ministerial_role_A, ministerial_role_B, board_member_role], assigns(:roles)
+    assert_equal [ministerial_role, board_member_role_A, board_member_role_B], assigns(:roles)
   end
 
-  test "index should order roles by leader versus role name" do
+  test "index should order roles by permanent secretary status versus role name" do
     org = create(:organisation)
-    leader_role_B = create(:role, name: "B", organisations: [org], leader: true)
-    non_leader_role = create(:role, name: "A", organisations: [org], leader: false)
-    leader_role_A = create(:role, name: "A", organisations: [org], leader: true)
+    permanent_secretary_role_B = create(:role, name: "B", organisations: [org], permanent_secretary: true)
+    non_permanent_secretary_role = create(:role, name: "A", organisations: [org], permanent_secretary: false)
+    permanent_secretary_role_A = create(:role, name: "A", organisations: [org], permanent_secretary: true)
 
     get :index
 
-    assert_equal [leader_role_A, leader_role_B, non_leader_role], assigns(:roles)
+    assert_equal [permanent_secretary_role_A, permanent_secretary_role_B, non_permanent_secretary_role], assigns(:roles)
   end
 
   test "index should order roles by name all other things being equal" do
@@ -151,7 +151,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_roles_path}']" do
       assert_select "input[name='role[name]'][type='text']"
       assert_select "select[name='role[type]']"
-      assert_select "input[name='role[leader]'][type='checkbox']"
+      assert_select "input[name='role[permanent_secretary]'][type='checkbox']"
       assert_select "select[name*='role[organisation_ids]']"
       assert_select "input[type='submit']"
     end
@@ -187,13 +187,11 @@ class Admin::RolesControllerTest < ActionController::TestCase
     post :create, role: attributes_for(:ministerial_role,
       name: "role-name",
       type: MinisterialRole,
-      leader: true,
       organisation_ids: [org_one.id, org_two.id]
     )
 
     assert role = MinisterialRole.last
     assert_equal "role-name", role.name
-    assert role.leader
     assert_equal [org_one, org_two], role.organisations
   end
 
@@ -282,7 +280,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "edit should display form for updating an existing role" do
     org = create(:organisation, name: "org-name")
-    role = create(:ministerial_role, name: "role-name", leader: true, organisations: [org])
+    role = create(:ministerial_role, name: "role-name", permanent_secretary: false, organisations: [org])
 
     get :edit, id: role
 
@@ -291,7 +289,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select "select[name='role[type]']" do
         assert_select "option[selected='selected'][value='MinisterialRole']"
       end
-      assert_select "input[name='role[leader]'][value='1']"
+      assert_select "input[name='role[permanent_secretary]'][value='0']"
       assert_select "select[name*='role[organisation_ids]']" do
         assert_select "option[selected='selected']", text: "org-name"
       end
@@ -382,19 +380,19 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "update should modify existing role" do
     org_one, org_two = create(:organisation), create(:organisation)
-    role = create(:ministerial_role, name: "role-name", leader: true, organisations: [org_one])
+    role = create(:ministerial_role, name: "role-name", permanent_secretary: false, organisations: [org_one])
 
     put :update, id: role, role: {
       name: "new-name",
       type: BoardMemberRole,
-      leader: false,
+      permanent_secretary: true,
       organisation_ids: [org_two.id]
     }
 
     role = Role.find(role.id)
     assert_equal BoardMemberRole, role.class
     assert_equal "new-name", role.name
-    refute role.leader
+    assert role.permanent_secretary?
     assert_equal [org_two], role.organisations
   end
 

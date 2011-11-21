@@ -38,7 +38,7 @@ def politicians(person_to_role_to_organisation)
   end
 end
 
-def civil_servants(person_to_role_to_organisation, leader = false)
+def civil_servants(person_to_role_to_organisation, permanent_secretary = false)
   person_to_role_to_organisation.each do |person_name, role_to_organisation|
     privy = person_name.starts_with?("The Rt Hon ")
     person_name = person_name.from(11) if privy
@@ -46,16 +46,16 @@ def civil_servants(person_to_role_to_organisation, leader = false)
     role_to_organisation.each do |role_name, organisation_name|
       if organisation_name
         organisation = Organisation.find_by_name!(organisation_name)
-        role = organisation.board_member_roles.create!(name: role_name, leader: leader)
+        role = organisation.board_member_roles.create!(name: role_name, permanent_secretary: permanent_secretary)
       else
-        role = BoardMemberRole.create!(name: role_name, leader: leader)
+        role = BoardMemberRole.create!(name: role_name, permanent_secretary: permanent_secretary)
       end
       RoleAppointment.create!(role: role, person: person, started_at: 2.years.ago)
     end
   end
 end
 
-def leader_civil_servants(person_to_role_to_organisation)
+def permanent_secretary_civil_servants(person_to_role_to_organisation)
   civil_servants(person_to_role_to_organisation, true)
 end
 
@@ -352,7 +352,7 @@ politicians({"The Rt Hon David Cameron" => {"Prime Minister" => "Cabinet Office"
  "Maria Miller MP" => {"Parliamentary Under-Secretary of State (Minister for Disabled People)" => "Department for Work and Pensions"},
  "Lord Freud" => {"Parliamentary Under-Secretary of State (Welfare Reform)" => "Department for Work and Pensions"}})
 
-leader_civil_servants(
+permanent_secretary_civil_servants(
   "Alex Allan" => {"Permanent Secretary (Intelligence)" => "Cabinet Office"},
   "Jeremy Heywood" => {"Permanent Secretary (10 Downing Street)" => "Cabinet Office"},
   "Sir Gus O’Donnell" => {"Cabinet Secretary and Head of the Home Civil Service" => "Cabinet Office"},
