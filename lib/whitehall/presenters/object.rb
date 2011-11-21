@@ -10,6 +10,14 @@ module Whitehall
         @record.class
       end
 
+      def inspect
+        "<Presenter:#{super}>"
+      end
+
+      def __is_presenter?
+        true
+      end
+
       def __setobj__(record)
         @record = record
       end

@@ -1,6 +1,6 @@
 class Admin::TopicsController < Admin::BaseController
   def index
-    @topics = Topic.all
+    @topics = TopicsPresenter.new
   end
 
   def new
@@ -47,6 +47,22 @@ class Admin::TopicsController < Admin::BaseController
       redirect_to admin_topics_path, notice: "Topic destroyed"
     else
       redirect_to admin_topics_path, alert: "Cannot destroy topic with associated content"
+    end
+  end
+
+  class TopicsPresenter < Whitehall::Presenters::Collection
+    def initialize
+      super(Topic.all)
+    end
+
+    present_object_with do
+      def document_breakdown
+        {
+          "featured policy" => @record.document_topics.where(featured: true).count,
+          "published policy" => @record.policies.published.count,
+          "published document" => @record.published_documents.count
+        }
+      end
     end
   end
 end
