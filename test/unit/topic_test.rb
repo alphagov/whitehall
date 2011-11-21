@@ -81,6 +81,16 @@ class TopicTest < ActiveSupport::TestCase
     refute Topic.featured.include?(topic)
   end
 
+  test "return published documents relating to only *policies* in the topic" do
+    policy = create(:published_policy)
+    news_article = create(:published_news_article)
+    publication_1 = create(:published_publication, documents_related_to: [policy])
+    publication_2 = create(:published_publication, documents_related_to: [news_article])
+    topic = create(:topic, documents: [policy, news_article])
+
+    assert_equal [publication_1], topic.published_related_documents
+  end
+
   test "return published documents relating to policies in the topic without duplicates" do
     policy_1 = create(:published_policy)
     policy_2 = create(:published_policy)

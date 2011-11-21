@@ -31,7 +31,7 @@ class Topic < ActiveRecord::Base
   end
 
   def published_related_documents
-    documents.published.includes(
+    policies.published.includes(
       :published_documents_related_to,
       :published_documents_related_with
     ).map(&:published_related_documents).flatten.uniq
