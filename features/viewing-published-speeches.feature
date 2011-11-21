@@ -2,7 +2,7 @@ Feature: Viewing published speeches
 
 Scenario: Viewing speeches made by a minister
   Given "David Cameron" is the "Prime Minister" for the "Cabinet Office"
-  And a published speech "Abolish Fig Rolls" by "David Cameron (Prime Minister, Cabinet Office)" on "June 23rd, 2010" at "The Mansion House"
+  And a published speech "Abolish Fig Rolls" by "Prime Minister" on "June 23rd, 2010" at "The Mansion House"
   When I visit the minister page for "David Cameron"
   Then I should see the speech "Abolish Fig Rolls"
   When I visit the speech "Abolish Fig Rolls"
