@@ -132,7 +132,7 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
   when Consultation
     click_link "Consultations"
   when Policy
-    click_link "Policies"
+    visit policies_path
   else
     raise "Don't know what to click on for #{document.class.name}s"
   end
