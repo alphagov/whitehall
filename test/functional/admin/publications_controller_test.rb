@@ -8,8 +8,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test_controller_is_a Admin::BaseController
 
   test 'creating should create a new publication' do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
     first_org = create(:organisation)
     second_org = create(:organisation)
     first_policy = create(:published_policy)
