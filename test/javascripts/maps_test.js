@@ -9,7 +9,10 @@ module("Showing maps via lat/lng links", {
       maps: {
         MapTypeId: {ROADMAP: 1},
         LatLng: function() {this.is = "defaultLatLng";},
-        Map: function() {this.is = "defaultMap";},
+        Map: function() {
+          this.is = "defaultMap";
+          this.setCenter = function() {};
+        },
         Marker: function() {this.is = "defaultMarker";}
       }
     }
@@ -22,14 +25,19 @@ test("should hide the link", function() {
  ok(!this.map_link.is(":visible"));
 })
 
-test("should instantiate a map using the lat & lng from the link href", function() {
+test("should center the map using the lat and lng from the link", function() {
   sinon.stub(google.maps, "LatLng", function() { this.is = "fakeLatLng" });
-  var map_spy = sinon.spy(google.maps, "Map")
+
+  var stub_map = {setCenter: function() {}};
+  sinon.stub(google.maps, "Map", function() {
+    return stub_map;
+  });
+  var map_spy = sinon.spy(stub_map, "setCenter")
 
   $(".link_to_map").replaceWithMap();
 
-  var call = map_spy.getCall(0)
-  equals(call.args[1].center.is, "fakeLatLng");
+  var call = map_spy.getCall(0);
+  equals(call.args[0].is, "fakeLatLng");
 })
 
 test("should show a map", function() {
@@ -44,7 +52,7 @@ test("should show a map", function() {
 
 test("should add a marker", function() {
   sinon.stub(google.maps, "LatLng", function() { this.is = "fakeLatLng" });
-  sinon.stub(google.maps, "Map", function() { this.is = "fakeMap" });
+  sinon.stub(google.maps, "Map", function() { this.is = "fakeMap"; this.setCenter = function() {}; });
   var marker_spy = sinon.spy(google.maps, "Marker");
 
   $(".link_to_map").replaceWithMap();

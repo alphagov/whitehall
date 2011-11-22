@@ -1,4 +1,6 @@
 function UnobtrusiveMap(map_link) {
+  var _this = this;
+
   var map_url = map_link.href;
   var match = map_url.match(/(-?\d+\.\d+),(-?\d+\.\d+)/);
   var myOptions = {
@@ -6,21 +8,25 @@ function UnobtrusiveMap(map_link) {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
-  this.map_canvas = jQuery('<div class="map_canvas"></div>');
-  jQuery(map_link).after(this.map_canvas);
+  _this.map_canvas = jQuery('<div class="map_canvas"></div>');
+  jQuery(map_link).after(_this.map_canvas);
 
-  var self = this;
+  _this.map = new google.maps.Map(_this.map_canvas[0], myOptions);
 
-  this.displayMapViaGeocoder = function(results, status) {
+  _this.addMarkerAndCenterMap = function(location) {
+    _this.map.setCenter(location);
+    new google.maps.Marker({
+      map: _this.map,
+      position: location
+    });
+    jQuery(map_link).hide();
+  };
+
+  _this.displayMapViaGeocoder = function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
-      map.setCenter(results[0].geometry.location);
-      new google.maps.Marker({
-        map: map,
-        position: results[0].geometry.location
-      });
-      jQuery(map_link).hide();
+      _this.addMarkerAndCenterMap(results[0].geometry.location);
     } else {
-      self.map_canvas.hide();
+      _this.map_canvas.hide();
     }
   };
 
@@ -28,19 +34,12 @@ function UnobtrusiveMap(map_link) {
     var lat = match[1];
     var lng = match[2];
     var latlng = new google.maps.LatLng(lat, lng);
-    myOptions.center = latlng;
-    var map = new google.maps.Map(this.map_canvas[0], myOptions);
-    var marker = new google.maps.Marker({
-        map: map,
-        position: latlng
-    });
-    jQuery(map_link).hide();
+    _this.addMarkerAndCenterMap(latlng);
   } else {
     match = map_url.match(/q=(.*)/);
     var postcode = decodeURIComponent(match[1]);
-    var map = new google.maps.Map(this.map_canvas[0], myOptions);
     var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({'address': postcode}, this.displayMapViaGeocoder);
+    geocoder.geocode({'address': postcode}, _this.displayMapViaGeocoder);
   }
 }
 
