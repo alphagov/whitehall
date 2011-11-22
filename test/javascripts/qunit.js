@@ -6,3 +6,4 @@
 //= require govspeak_help_test
 //= require mark_linked_anchor_test
 //= require sortable_test
+//= require maps_test
