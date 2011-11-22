@@ -7,7 +7,10 @@ module Admin::DocumentsController::NationalApplicability
 
   def create
     params[:document][:nation_inapplicabilities_attributes] ||= {}
-    @document = document_class.new(params[:document].except(:nation_inapplicabilities_attributes).merge(creator: current_user))
+    @document = document_class.new(params[:document].except(
+      :nation_inapplicabilities_attributes,
+      :attach_file
+    ).merge(creator: current_user))
     if @document.save
       if @document.update_attributes(params[:document])
         redirect_to admin_document_path(@document), notice: "The document has been saved"

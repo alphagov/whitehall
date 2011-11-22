@@ -28,6 +28,17 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal [first_policy, second_policy], created_publication.documents_related_to
   end
 
+  test 'creating a publication should attach file' do
+    attributes = attributes_for(:publication)
+    attributes[:attach_file] = fixture_file_upload('greenpaper.pdf')
+    post :create, document: attributes
+
+    assert publication = Publication.last
+    assert_equal 1, publication.attachments.length
+    attachment = publication.attachments.first
+    assert_equal "greenpaper.pdf", attachment.carrierwave_file
+  end
+
   test 'creating should take the writer to the publication page' do
     post :create, document: attributes_for(:publication)
 

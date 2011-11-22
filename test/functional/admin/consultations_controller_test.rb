@@ -44,6 +44,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal [first_minister, second_minister], consultation.ministerial_roles
   end
 
+  test 'creating a consultation should attach file' do
+    attributes = attributes_for(:consultation)
+    attributes[:attach_file] = fixture_file_upload('greenpaper.pdf')
+    post :create, document: attributes
+
+    assert consultation = Consultation.last
+    assert_equal 1, consultation.attachments.length
+    attachment = consultation.attachments.first
+    assert_equal "greenpaper.pdf", attachment.carrierwave_file
+  end
+
   test 'creating takes the writer to the consultation page' do
     post :create, document: attributes_for(:consultation)
 
