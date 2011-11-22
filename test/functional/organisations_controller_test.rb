@@ -181,6 +181,24 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "a[href='http://maps.google.co.uk/maps?q=51.498772,-0.130974']"
   end
 
+  test "should display the minister's picture if available" do
+    ministerial_role = create(:ministerial_role)
+    person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
+    create(:role_appointment, person: person, role: ministerial_role)
+    organisation = create(:organisation, ministerial_roles: [ministerial_role])
+    get :show, id: organisation
+    assert_select "img[src*=minister-of-funk.jpg]"
+  end
+
+  test "should display a generic image if the minister doesn't have their own picture" do
+    ministerial_role = create(:ministerial_role)
+    person = create(:person)
+    create(:role_appointment, person: person, role: ministerial_role)
+    organisation = create(:organisation, ministerial_roles: [ministerial_role])
+    get :show, id: organisation
+    assert_select "img[src*=blank-person.jpg]"
+  end
+
   test "should display a list of organisations" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
