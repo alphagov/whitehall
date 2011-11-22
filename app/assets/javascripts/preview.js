@@ -59,6 +59,6 @@
   });
 })(jQuery);
 
-jQuery(function() {
-  jQuery("textarea.previewable").enablePreview();
+jQuery(function($) {
+  $("textarea.previewable").enablePreview();
 })

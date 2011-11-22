@@ -26,6 +26,6 @@
   });
 })(jQuery);
 
-jQuery(function() {
-  jQuery(".sortable").enableSortable();
+jQuery(function($) {
+  $(".sortable").enableSortable();
 })

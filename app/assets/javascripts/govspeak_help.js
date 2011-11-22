@@ -21,6 +21,6 @@
   });
 })(jQuery);
 
-jQuery(function() {
-  jQuery("textarea.govspeak").enableGovspeakHelp();
-})
+jQuery(function($) {
+  $("textarea.govspeak").enableGovspeakHelp();
+});
