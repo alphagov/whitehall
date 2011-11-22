@@ -13,12 +13,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def login(user)
+    session[:user_id] = user.id
+    @current_user = user
+  end
+
+  def logout
+    @current_user = nil
+    reset_session
+  end
+
   def current_user
-    User.find_by_id(session[:user_id])
+    @current_user ||= User.find_by_id(session[:user_id])
   end
 
   def logged_in?
-    !!current_user
+    current_user.present?
   end
 
   def load_published_documents_in_scope(&block)

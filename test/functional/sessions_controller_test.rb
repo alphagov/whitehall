@@ -6,6 +6,13 @@ class SessionsControllerTest < ActionController::TestCase
     assert_redirected_to admin_root_path
   end
 
+  test 'should set current_user after logging in' do
+    @controller.send(:logout)
+    post :create, name: 'George'
+    assert user = @controller.send(:current_user)
+    assert_equal "George", user.name
+  end
+
   test 'warn if the user name supplied was empty' do
     post :create, name: ''
     assert_template 'sessions/new'
@@ -22,6 +29,13 @@ class SessionsControllerTest < ActionController::TestCase
     session[:user_id] = 1
     delete :destroy
     assert_equal({}, session)
+  end
+
+  test 'should reset the current_user' do
+    user = build(:user)
+    @controller.send(:login, user)
+    delete :destroy
+    assert_nil @controller.send(:current_user)
   end
 
   test 'should redirect to the login page' do
