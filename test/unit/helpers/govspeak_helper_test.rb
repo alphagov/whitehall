@@ -24,6 +24,16 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal %{<p>no <a href="http://external.example.com/page.html">change</a></p>}, html.strip
   end
 
+  test "should not alter mailto urls in the admin preview" do
+    html = govspeak_to_admin_html("no [change](mailto:dave@example.com)")
+    assert_equal %{<p>no <a href="mailto:dave@example.com">change</a></p>}, html.strip
+  end
+
+  test "should not alter mailto urls" do
+    html = govspeak_to_html("no [change](mailto:dave@example.com)")
+    assert_equal %{<p>no <a href="mailto:dave@example.com">change</a></p>}, html.strip
+  end
+
   test "should highlight links to draft documents in admin preview" do
     publication = create(:draft_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
