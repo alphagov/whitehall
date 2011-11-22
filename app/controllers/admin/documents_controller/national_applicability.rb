@@ -7,10 +7,7 @@ module Admin::DocumentsController::NationalApplicability
 
   def create
     params[:document][:nation_inapplicabilities_attributes] ||= {}
-    @document = document_class.new(params[:document].except(
-      :nation_inapplicabilities_attributes,
-      :attach_file
-    ).merge(creator: current_user))
+    @document = document_class.new(without_attributes_for_child_objects(params[:document]).merge(creator: current_user))
     if @document.save
       if @document.update_attributes(params[:document])
         redirect_to admin_document_path(@document), notice: "The document has been saved"
@@ -58,5 +55,8 @@ module Admin::DocumentsController::NationalApplicability
   def build_nation_inapplicabilities
     @document.build_nation_applicabilities_for_all_nations
   end
-  
+
+  def without_attributes_for_child_objects(attributes)
+    attributes.except(*document_class.attributes_for_child_objects)
+  end
 end
