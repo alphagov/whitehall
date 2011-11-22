@@ -443,45 +443,7 @@ section.resource_list .collection {
 }
 
 .supporting_document {
-  float: left;
-  border: 1px solid #ddd;
-  border-bottom: 2px solid #ccc;
-  background: #fefefe;
-  margin-right: 2%;
-
-  a {
-    padding: 0 0.5em;
-    display: block;
-    margin-bottom: 0;
-    padding: 1em 1em 2.5em 1em;
-    width: 6.5em;
-    min-height: 7em;
-    max-height: 7em;
-    overflow: hidden;
-
-    span.title {
-      @include type-13;
-      line-height: 1.75em;
-      display: block;
-      margin-bottom: 0.5em;
-    }
-
-    span.body {
-      color: #888;
-      font-size: 60%;
-      line-height: 1.5em;
-      display: block;
-    }
-
-    &:hover {
-      text-decoration: none;
-      background: #fff;
-
-      span.title {
-        text-decoration: underline;
-      }
-    }
-  }
+  @include looks_like_a_floated_document;
 }
 
 .add_supporting_document {

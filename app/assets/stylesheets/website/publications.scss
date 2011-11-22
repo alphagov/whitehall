@@ -1,0 +1,10 @@
+@import "../shared/utils";
+
+#content {
+  ul.publications {
+    @include clearfix;
+    li {
+      @include looks_like_a_floated_document;
+    }
+  }
+}
