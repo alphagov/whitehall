@@ -12,18 +12,19 @@
   .header-global {
       h1 {
         float: left;
+        margin-right: 1em;
       }
 
       ul {
         float: left;
         margin-right: 0;
 
-        @media only screen and (min-width: 570px) {
+        @media only screen and (min-width: 583px) {
           float: right;
         }
 
         @media only screen and (min-width: 852px) {
-          margin-right: 17.5em;
+          margin-right: 18.5em;
           float: right;
         }
       }
