@@ -6,3 +6,4 @@
 /public/system/
 /public/uploads/
 /bin
+/config/whitehall_secrets.yml

@@ -14,6 +14,7 @@ gem 'rake', '0.9.2.2'
 gem 'boomerang-rails'
 gem 'slimmer', :git => 'git://github.com/alphagov/slimmer.git'
 gem 'plek', git: 'git://github.com/alphagov/plek.git'
+gem 'fog'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'
