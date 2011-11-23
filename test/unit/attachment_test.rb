@@ -51,4 +51,18 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_equal "application/pdf", attachment.content_type
     assert_equal whitepaper_pdf.size, attachment.file_size
   end
+
+  test "should set content type based on file extension when browser supplies octet-stream content type" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/octet-stream')
+    attachment = create(:attachment, file: greenpaper_pdf)
+    attachment.reload
+    assert_equal "application/pdf", attachment.content_type
+  end
+
+  test "should set content type based on file extension when browser supplies no content type" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', nil)
+    attachment = create(:attachment, file: greenpaper_pdf)
+    attachment.reload
+    assert_equal "application/pdf", attachment.content_type
+  end
 end
