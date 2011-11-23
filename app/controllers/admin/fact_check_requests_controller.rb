@@ -50,9 +50,15 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     @fact_check_request = FactCheckRequest.from_param(params[:id])
     if @fact_check_request
       @document = Document.unscoped.find(@fact_check_request.document_id)
+    elsif request.host == 'whitehall.preview.alphagov.co.uk'
+      temporary_redirect_from_preview_to_production
     else
       render text: "Not found", status: :not_found
     end
+  end
+
+  def temporary_redirect_from_preview_to_production
+    redirect_to admin_fact_check_request_url(id: params[:id], host: 'whitehall.production.alphagov.co.uk')
   end
 
   def check_document_availability

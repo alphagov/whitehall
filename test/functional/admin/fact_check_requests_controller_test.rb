@@ -282,3 +282,14 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   end
 
 end
+
+class Admin::TemporaryProductionRedirectFactCheckRequestsControllerTest < ActionController::TestCase
+  tests Admin::FactCheckRequestsController
+
+  test "redirects to production controller if not found on preview" do
+    request.host = "whitehall.preview.alphagov.co.uk"
+    get :show, id: 'not-on-preview-server'
+    assert_redirected_to admin_fact_check_request_url(id: 'not-on-preview-server', host: 'whitehall.production.alphagov.co.uk')
+  end
+end
+
