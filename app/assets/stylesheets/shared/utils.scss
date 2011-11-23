@@ -205,6 +205,11 @@ $baseline_in_px: 24 !default;
   @include scaled_type(12);
 }
 
+@mixin type-11 {
+  /* 11px / 24px */
+  @include scaled_type(11);
+}
+
 @mixin type-10 {
   /* 10px / 24px */
   @include scaled_type(10);
@@ -281,45 +286,41 @@ $baseline_in_px: 24 !default;
 // and publications etc
 // ----------------------------------------
 @mixin looks_like_a_document {
+  border: 1px solid #ddd;
+  border-bottom: 2px solid #ccc;
+  background: #fefefe;
+  padding: 0 0.5em;
+  display: block;
+  margin-bottom: 0;
+  padding: 1em 1em 2.5em 1em;
+  width: 6.5em;
+  min-height: 7em;
+  max-height: 7em;
+  overflow: hidden;
+  text-decoration: none;
+  @include transition(background-color);
 
-
-  a {
-    border: 1px solid #ddd;
-    border-bottom: 2px solid #ccc;
-    background: #fefefe;
-    padding: 0 0.5em;
+  span.title {
+    @include type-13;
+    line-height: 1.75em;
     display: block;
-    margin-bottom: 0;
-    padding: 1em 1em 2.5em 1em;
-    width: 6.5em;
-    min-height: 7em;
-    max-height: 7em;
-    overflow: hidden;
-    text-decoration: none;
-    @include transition(background-color);
+    margin-bottom: 0.5em;
+  }
+
+  span.body {
+    color: #888;
+    font-size: 60%;
+    line-height: 1.5em;
+    display: block;
+  }
+
+  &:hover {
+    background: #fcffd7;
+    border: 1px solid #bbb;
+    border-bottom: 2px solid #aaa;
 
     span.title {
-      @include type-13;
-      line-height: 1.75em;
-      display: block;
-      margin-bottom: 0.5em;
-    }
-
-    span.body {
-      color: #888;
-      font-size: 60%;
-      line-height: 1.5em;
-      display: block;
-    }
-
-    &:hover {
-      background: #fcffd7;
-      border: 1px solid #bbb;
-      border-bottom: 2px solid #aaa;
-
-      span.title {
-        text-decoration: underline;
-      }
+      text-decoration: underline;
     }
   }
 }
@@ -327,5 +328,7 @@ $baseline_in_px: 24 !default;
 @mixin looks_like_a_floated_document {
   float: left;
   margin-right: 2%;
-  @include looks_like_a_document;
+  a {
+    @include looks_like_a_document;
+  }
 }

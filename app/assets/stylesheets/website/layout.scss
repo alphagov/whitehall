@@ -9,7 +9,7 @@
 
   min-height: 37em;
   background: #f5f5f5;
-  @include vertical_gradient(#f5f5f5, #f5f5fe);
+  @include vertical_gradient(#f5f5f5, #ececeb);
 
   section {
     margin: 0;
@@ -55,7 +55,7 @@
         border: 1px solid #ddd;
         border-bottom: 1px solid #bbb;
         @include rounded;
-        @include vertical_gradient(#eee, #e5e5ee);
+        @include vertical_gradient(#eee, #d2d4d0);
         display: inline-block;
       }
 
@@ -82,7 +82,7 @@
 
         &:hover {
           background: #fff;
-          @include vertical_gradient(#fff, #f5f5fe);
+          @include vertical_gradient(#fff, #ececeb);
           color: #44444e;
         };
 
