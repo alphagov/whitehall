@@ -27,14 +27,18 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'creating a publication should attach file' do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     attributes = attributes_for(:publication)
-    attributes[:attach_file] = fixture_file_upload('greenpaper.pdf')
+    attributes[:attach_file] = greenpaper_pdf
+
     post :create, document: attributes
 
     assert publication = Publication.last
     assert_equal 1, publication.attachments.length
     attachment = publication.attachments.first
     assert_equal "greenpaper.pdf", attachment.carrierwave_file
+    assert_equal "application/pdf", attachment.content_type
+    assert_equal greenpaper_pdf.size, attachment.file_size
   end
 
   test 'creating should take the writer to the publication page' do
@@ -75,6 +79,20 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     saved_publication = publication.reload
     assert_equal "new-title", saved_publication.title
     assert_equal "new-body", saved_publication.body
+  end
+
+  test 'updating a publication should attach file' do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+    publication = create(:publication)
+
+    put :update, id: publication, document: publication.attributes.merge(attach_file: greenpaper_pdf)
+
+    publication.reload
+    assert_equal 1, publication.attachments.length
+    attachment = publication.attachments.first
+    assert_equal "greenpaper.pdf", attachment.carrierwave_file
+    assert_equal "application/pdf", attachment.content_type
+    assert_equal greenpaper_pdf.size, attachment.file_size
   end
 
   test 'updating should remove all organisations, related documents and ministerial roles if none in params' do
@@ -149,6 +167,19 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     get :show, id: draft_publication
 
     assert_select ".body", text: "body-in-html"
+  end
+
+  test "should display size and type of attachment" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+    attachment = create(:attachment, file: greenpaper_pdf)
+    publication = create(:publication, attachments: [attachment])
+
+    get :show, id: publication
+
+    assert_select_object(attachment) do
+      assert_select ".type", "PDF"
+      assert_select ".size", "3.39 KB"
+    end
   end
 
   should_be_rejectable :publication

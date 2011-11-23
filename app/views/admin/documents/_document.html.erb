@@ -5,7 +5,11 @@
   </div>
   <% if document.allows_attachments? %>
     <% document.attachments.each do |attachment| %>
-      <p class="attachment"><%= link_to_attachment(attachment) %></p>
+      <%= content_tag_for(:p, attachment) do %>
+        <%= link_to_attachment(attachment) %>
+        <span class="type"><%= humanized_content_type(attachment.content_type) %></span>
+        <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
+      <% end %>
     <% end %>
   <% end %>
   <p class="written_by">Written by <span class="authors"><%= document.author_names.to_sentence %></span></p>

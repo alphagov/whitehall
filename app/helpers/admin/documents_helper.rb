@@ -43,4 +43,8 @@ module Admin::DocumentsHelper
 
     'current' if current
   end
+
+  def humanized_content_type(content_type)
+    content_type.present? && content_type.split("/").last.upcase
+  end
 end
