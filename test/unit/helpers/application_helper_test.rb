@@ -41,6 +41,10 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "", format_in_paragraphs(nil)
     assert_equal "", format_in_paragraphs("")
     assert_equal "<p>line one</p>", format_in_paragraphs("line one")
+    assert_equal "<p>line one\nline two</p>", format_in_paragraphs("line one\nline two")
+    assert_equal "<p>line one\r\nline two</p>", format_in_paragraphs("line one\r\nline two")
+    assert_equal "<p>line one</p><p>line two</p>", format_in_paragraphs("line one\n\nline two")
+    assert_equal "<p>line one</p><p>line two</p>", format_in_paragraphs("line one\r\n\r\nline two")
   end
 
   test "should raise unless you supply the content of the list item" do
