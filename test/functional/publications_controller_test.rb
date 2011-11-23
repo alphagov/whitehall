@@ -57,4 +57,17 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select "p", "This consultation applies to the whole of the UK."
     end
   end
+
+  test "should display size and type of attachment" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+    attachment = create(:attachment, file: greenpaper_pdf)
+    publication = create(:published_publication, attachments: [attachment])
+
+    get :show, id: publication.document_identity
+
+    assert_select_object(attachment) do
+      assert_select ".type", "PDF"
+      assert_select ".size", "3.39 KB"
+    end
+  end
 end
