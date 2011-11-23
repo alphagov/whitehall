@@ -67,6 +67,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_select_object(attachment) do
       assert_select ".type", "PDF"
+      assert_select ".number_of_pages", "1 page"
       assert_select ".size", "3.39 KB"
     end
   end

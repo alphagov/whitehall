@@ -47,6 +47,7 @@ class AttachmentTest < ActiveSupport::TestCase
     whitepaper_pdf = fixture_file_upload('whitepaper.pdf', 'application/pdf')
     attachment = create(:attachment, file: greenpaper_pdf)
     attachment.update_attributes!(file: whitepaper_pdf)
+    attachment.reload
     assert_equal "whitepaper.pdf", attachment.filename
     assert_equal "application/pdf", attachment.content_type
     assert_equal whitepaper_pdf.size, attachment.file_size
@@ -64,5 +65,27 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment = create(:attachment, file: greenpaper_pdf)
     attachment.reload
     assert_equal "application/pdf", attachment.content_type
+  end
+
+  test "should set page count on create" do
+    two_pages_pdf = fixture_file_upload('two-pages.pdf')
+    attachment = create(:attachment, file: two_pages_pdf)
+    attachment.reload
+    assert_equal 2, attachment.number_of_pages
+  end
+
+  test "should set page count on update" do
+    two_pages_pdf = fixture_file_upload('two-pages.pdf')
+    three_pages_pdf = fixture_file_upload('three-pages.pdf')
+    attachment = create(:attachment, file: two_pages_pdf)
+    attachment.update_attributes!(file: three_pages_pdf)
+    attachment.reload
+    assert_equal 3, attachment.number_of_pages
+  end
+
+  test "should save attachment even if parsing the PDF raises an exception" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+    PDF::Reader.stubs(:new).raises
+    assert_nothing_raised { create(:attachment, file: greenpaper_pdf) }
   end
 end

@@ -15,6 +15,7 @@ gem 'boomerang-rails'
 gem 'slimmer', :git => 'git://github.com/alphagov/slimmer.git'
 gem 'plek', git: 'git://github.com/alphagov/plek.git'
 gem 'fog'
+gem 'pdf-reader'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'

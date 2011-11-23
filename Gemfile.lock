@@ -23,6 +23,7 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    Ascii85 (1.0.1)
     actionmailer (3.1.1)
       actionpack (= 3.1.1)
       mail (~> 2.3.0)
@@ -139,6 +140,8 @@ GEM
     net-ssh (2.2.1)
     nokogiri (1.5.0)
     object_regex (1.0.1)
+    pdf-reader (0.10.1)
+      Ascii85 (~> 1.0.0)
     polyglot (0.3.3)
     rack (1.3.5)
     rack-cache (1.1)
@@ -227,6 +230,7 @@ DEPENDENCIES
   mocha
   mysql2
   nokogiri
+  pdf-reader
   plek!
   rack (= 1.3.5)
   rails (= 3.1.1)
