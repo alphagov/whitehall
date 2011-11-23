@@ -48,13 +48,13 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should explain that consultation applies to the whole of the UK" do
-    published_consultation = create(:published_consultation)
+  test "should explain that publication applies to the whole of the UK" do
+    published_publication = create(:published_publication)
 
-    get :show, id: published_consultation.document_identity
+    get :show, id: published_publication.document_identity
 
     assert_select inapplicable_nations_selector do
-      assert_select "p", "This consultation applies to the whole of the UK."
+      assert_select "p", "This publication applies to the whole of the UK."
     end
   end
 
