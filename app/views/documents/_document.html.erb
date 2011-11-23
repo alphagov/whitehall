@@ -9,7 +9,9 @@
       <%= content_tag_for(:p, attachment) do %>
         <%= link_to_attachment(attachment) %>
         <span class="type"><%= humanized_content_type(attachment.content_type) %></span>
-        <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
+        <% if attachment.number_of_pages.present? %>
+          <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
+        <% end %>
         <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
       <% end %>
     <% end %>

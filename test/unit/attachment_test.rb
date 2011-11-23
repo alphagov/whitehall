@@ -67,14 +67,14 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_equal "application/pdf", attachment.content_type
   end
 
-  test "should set page count on create" do
+  test "should set page count for PDF on create" do
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     attachment = create(:attachment, file: two_pages_pdf)
     attachment.reload
     assert_equal 2, attachment.number_of_pages
   end
 
-  test "should set page count on update" do
+  test "should set page count for PDF on update" do
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     three_pages_pdf = fixture_file_upload('three-pages.pdf')
     attachment = create(:attachment, file: two_pages_pdf)
@@ -87,5 +87,33 @@ class AttachmentTest < ActiveSupport::TestCase
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
     PDF::Reader.stubs(:new).raises
     assert_nothing_raised { create(:attachment, file: greenpaper_pdf) }
+  end
+
+  test "should allow CSV file types as attachments" do
+    sample_from_excel_csv = fixture_file_upload('sample-from-excel.csv')
+    attachment = create(:attachment, file: sample_from_excel_csv)
+    attachment.reload
+    assert_equal "text/csv", attachment.content_type
+  end
+
+  test "should not set page count for non-PDF" do
+    sample_from_excel_csv = fixture_file_upload('sample-from-excel.csv')
+    attachment = create(:attachment, file: sample_from_excel_csv)
+    attachment.reload
+    assert_nil attachment.number_of_pages
+  end
+
+  test "should be a PDF if underlying content type is application/pdf" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+    attachment = create(:attachment, file: greenpaper_pdf)
+    attachment.reload
+    assert attachment.pdf?
+  end
+
+  test "should not be a PDF if underlying content type is not application/pdf" do
+    sample_csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
+    attachment = create(:attachment, file: sample_csv)
+    attachment.reload
+    refute attachment.pdf?
   end
 end

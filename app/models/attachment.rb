@@ -17,13 +17,19 @@ class Attachment < ActiveRecord::Base
     self.destroy if document_attachments.empty?
   end
 
+  def pdf?
+    content_type == "application/pdf"
+  end
+
   private
 
   def update_file_attributes
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type
       self.file_size = file.file.size
-      self.number_of_pages = calculate_number_of_pages
+      if pdf?
+        self.number_of_pages = calculate_number_of_pages
+      end
     end
   end
 
