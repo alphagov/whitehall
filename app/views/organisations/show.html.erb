@@ -2,7 +2,7 @@
   <%= content_tag_for :section, @organisation, :class => "hcard" do %>
     <h1 class="fn org name"><%= @organisation.name %></h1>
     <div class="adr">
-      <p class="street-address"><%= @organisation.address %></p>
+      <p class="street-address"><%= format_with_html_line_breaks(@organisation.address) %></p>
       <p class="postal-code"><%= @organisation.postcode %></p>
       <p><%= link_to_google_map(@organisation) %></p>
     </div>

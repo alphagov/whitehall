@@ -29,6 +29,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should use html line breaks when displaying the address" do
+    organisation = create(:organisation, address: "Line 1\nLine 2")
+    get :show, id: organisation
+    assert_select ".street-address", /Line 1/
+    assert_select ".street-address", /Line 2/
+    assert_select ".street-address br", count: 1
+  end
+
   test "shows only published policies associated with organisation" do
     published_document = create(:published_policy)
     draft_document = create(:draft_policy)

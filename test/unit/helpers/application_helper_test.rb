@@ -45,6 +45,18 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "<p>line one\r\nline two</p>", format_in_paragraphs("line one\r\nline two")
     assert_equal "<p>line one</p><p>line two</p>", format_in_paragraphs("line one\n\nline two")
     assert_equal "<p>line one</p><p>line two</p>", format_in_paragraphs("line one\r\n\r\nline two")
+    assert format_in_paragraphs("").html_safe?
+  end
+
+  test "should format with html line breaks and mark the string as html safe" do
+    assert_equal "", format_with_html_line_breaks(nil)
+    assert_equal "", format_with_html_line_breaks("")
+    assert_equal "line 1", format_with_html_line_breaks("line 1")
+    assert_equal "line 1<br/>line 2", format_with_html_line_breaks("line 1\nline 2")
+    assert_equal "line 1<br/>line 2", format_with_html_line_breaks("line 1\r\nline 2")
+    assert_equal "line 1<br/><br/>line 2", format_with_html_line_breaks("line 1\n\nline 2")
+    assert_equal "line 1<br/><br/>line 2", format_with_html_line_breaks("line 1\r\n\r\nline 2")
+    assert format_with_html_line_breaks("").html_safe?
   end
 
   test "should raise unless you supply the content of the list item" do

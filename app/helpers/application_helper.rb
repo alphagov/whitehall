@@ -17,6 +17,10 @@ module ApplicationHelper
     safe_join (string||"").split(/(?:\r?\n){2}/).collect { |paragraph| content_tag(:p, paragraph) }
   end
 
+  def format_with_html_line_breaks(string)
+    (string||"").gsub(/(?:\r?\n)/, "<br/>").html_safe
+  end
+
   def link_to_attachment(attachment)
     return unless attachment
     link_to attachment.filename, attachment.url
