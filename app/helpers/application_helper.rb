@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def format_in_paragraphs(string)
-    (string || "").split(/(?:\r?\n){2}/).collect{|paragraph| "<p>#{paragraph}</p>" }.join.html_safe
+    safe_join (string||"").split(/(?:\r?\n){2}/).collect { |paragraph| content_tag(:p, paragraph) }
   end
 
   def link_to_attachment(attachment)
