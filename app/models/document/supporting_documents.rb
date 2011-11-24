@@ -2,7 +2,7 @@ module Document::SupportingDocuments
   extend ActiveSupport::Concern
 
   class Trait < Document::Traits::Trait
-    def copy_associations_to(document)
+    def process_associations_after_save(document)
       @document.supporting_documents.each do |sd|
         document.supporting_documents.create(sd.attributes.except("document_id"))
       end

@@ -2,7 +2,7 @@ module Document::Organisations
   extend ActiveSupport::Concern
 
   class Trait < Document::Traits::Trait
-    def assign_associations_to(document)
+    def process_associations_before_save(document)
       document.organisations = @document.organisations
     end
   end

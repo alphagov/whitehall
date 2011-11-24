@@ -2,7 +2,7 @@ module Document::RelatedDocuments
   extend ActiveSupport::Concern
 
   class Trait < Document::Traits::Trait
-    def copy_associations_to(document)
+    def process_associations_after_save(document)
       document.documents_related_with = @document.documents_related_with
       document.documents_related_to = @document.documents_related_to
     end

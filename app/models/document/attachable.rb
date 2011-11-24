@@ -2,7 +2,7 @@ module Document::Attachable
   extend ActiveSupport::Concern
 
   class Trait < Document::Traits::Trait
-    def copy_associations_to(document)
+    def process_associations_after_save(document)
       @document.attachments.each do |a|
         document.document_attachments.create(attachment_id: a.id)
       end

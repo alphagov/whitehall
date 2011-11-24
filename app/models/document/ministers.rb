@@ -2,7 +2,7 @@ module Document::Ministers
   extend ActiveSupport::Concern
 
   class Trait < Document::Traits::Trait
-    def assign_associations_to(document)
+    def process_associations_before_save(document)
       document.ministerial_roles = @document.ministerial_roles
     end
   end

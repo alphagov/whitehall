@@ -64,9 +64,9 @@ class Document < ActiveRecord::Base
 
   def create_draft(user)
     self.class.new(attributes.merge(state: "draft", creator: user)).tap do |draft|
-      traits.each { |t| t.assign_associations_to(draft) }
+      traits.each { |t| t.process_associations_before_save(draft) }
       if draft.save
-        traits.each { |t| t.copy_associations_to(draft) }
+        traits.each { |t| t.process_associations_after_save(draft) }
       end
     end
   end

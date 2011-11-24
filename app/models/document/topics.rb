@@ -2,7 +2,7 @@ module Document::Topics
   extend ActiveSupport::Concern
 
   class Trait < Document::Traits::Trait
-    def assign_associations_to(document)
+    def process_associations_before_save(document)
       document.document_topics = @document.document_topics.map do |dt|
         DocumentTopic.new(dt.attributes.except(:id))
       end

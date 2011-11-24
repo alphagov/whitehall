@@ -6,8 +6,8 @@ module Document::Traits
       @document = document
     end
 
-    def assign_associations_to(document); end
-    def copy_associations_to(document); end
+    def process_associations_before_save(document); end
+    def process_associations_after_save(document); end
   end
 
   included do
