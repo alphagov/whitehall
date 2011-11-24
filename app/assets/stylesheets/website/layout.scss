@@ -9,7 +9,7 @@
 
   min-height: 37em;
   background: #f5f5f5;
-  @include vertical_gradient(#f5f5f5, #ececeb);
+  @include vertical_gradient(#fff, #f5f5f5);
 
   section {
     margin: 0;
@@ -34,7 +34,6 @@
   }
 
   header.masthead {
-    padding-top: 1em;
     background: #fff;
     border-bottom: 1px solid #ddd;
 
@@ -51,11 +50,6 @@
       }
 
       div {
-        background: #eee;
-        border: 1px solid #ddd;
-        border-bottom: 1px solid #bbb;
-        @include rounded;
-        @include vertical_gradient(#eee, #d2d4d0);
         display: inline-block;
       }
 
@@ -81,19 +75,15 @@
         text-shadow: #fff 0px 1px 0;
 
         &:hover {
-          background: #fff;
-          @include vertical_gradient(#fff, #ececeb);
           color: #44444e;
         };
 
         &:first-child {
           border-left: none;
-          @include rounded_left;
         }
 
         &:last-child {
           border-right: none;
-          @include rounded_right;
         }
       }
 
@@ -182,5 +172,9 @@
 
   @media only screen and (min-width: 583px) {
     padding-top: 4.5em;
+  }
+
+  @media only screen and (min-width: 1000px) {
+    padding-top: 3.5em;
   }
 }

@@ -39,6 +39,7 @@
     input[type="text"],
     input[type="password"],
     input[type="email"],
+    input[type=search],
     textarea,
     select {
       @include rounded(2px);
@@ -71,6 +72,7 @@
     input[type="text"]:focus,
     input[type="password"]:focus,
     input[type="email"]:focus,
+    input[type=search]:focus,
     textarea:focus {
       border: 1px solid #aaa;
       color: #444;

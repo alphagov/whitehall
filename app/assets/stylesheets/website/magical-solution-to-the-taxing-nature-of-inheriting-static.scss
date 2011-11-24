@@ -1,3 +1,6 @@
+@import "../shared/utils";
+@import "../shared/forms";
+
 .header-global {
   .customise-options {
     // Adding a unstyled link breaks the layout ..
@@ -13,11 +16,26 @@
       h1 {
         float: left;
         margin-right: 1em;
+        padding-top: 0.3em;
+        padding-bottom: 0.3em;
       }
 
       ul {
         float: left;
         margin-right: 0;
+        line-height: 3em;
+
+        li {
+          margin-bottom: 0;
+
+          a {
+            text-decoration: none;
+            font-weight: bold;
+            &:hover {
+              color: #fff;
+            };
+          }
+        }
 
         @media only screen and (min-width: 583px) {
           float: right;
@@ -30,7 +48,17 @@
       }
   }
 
+  @include clear-box-shadow;
+
   .header-context {
+    border-bottom: 0;
+
+    @include form_styles;
+
+    nav {
+      display: none;
+    }
+
     .search-help {
       margin-top: 0;
       border: none;
@@ -38,20 +66,37 @@
       padding: 0;
       margin-right: 1em;
 
+      fieldset {
+        margin-bottom: 0;
+      }
+
+      input[type=search] {
+        @include rounded();
+        @include type-16;
+        display: inline-block;
+        margin-right: 0.5em;
+        margin-bottom: 0;
+        margin-top: 0;
+        width: 12.5em;
+      }
+
+      input[type="submit"] {
+        margin-top: 0.25em;
+        padding-top: 0.25em;
+        padding-bottom: 0.2em;
+      }
+
 
       @media only screen and (min-width: 879px) {
-        float: right;
+        @include rounded_top(0.5em);
 
+        float: right;
         border: solid 0.25em #ED6900;
-        border-bottom: none;
-        -webkit-border-radius: 0.5em 0.5em 0 0;
-        -moz-border-radius: 0.5em 0.5em 0 0;
-        border-radius: 0.5em 0.5em 0 0;
-
+        border-bottom: 0;
         float: right;
-        height: 1.5em;
-        margin: -2.5em 0 0 0;
-        padding: 0.5em 0.75em 0 0.75em;
+        height: 2.45em;
+        margin: -3.2em 0 0 0;
+        padding: 0.25em 0.5em 0 0.5em;
       }
     }
   }
