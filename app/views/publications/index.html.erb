@@ -5,11 +5,17 @@
       <ul class="publications">
         <% @publications.each_with_index do |publication, index| %>
           <%= content_tag_for(:li, publication) do %>
-            <img class="cover" src="/images/pub-cover.png" />
-            <h2 class="title"><%= link_to truncate(publication.title, { length: 40 }), public_document_path(publication), title: "View #{publication.title}" %></h2>
-            <p class="body"><%= truncate(publication.body, { length: 100 }) %></p>
+            <div class="cover">
+              <img src="/images/pub-cover.png" />
+            </div>
+            <div class="description">
+              <h2 class="title"><%= link_to truncate(publication.title, { length: 40 }), public_document_path(publication), title: "View #{publication.title}" %></h2>
+              <p class="body"><%= truncate(publication.body, { length: 200 }) %></p>
+            </div>
             <% if index.zero? %>
-            <%= link_to "Read Publication", public_document_path(publication), title: "View #{publication.title}", class: "button" %>
+              <div class="cta">
+                <%= link_to "Read Publication", public_document_path(publication), title: "View #{publication.title}", class: "button" %>
+              </div>
             <% end %>
           <% end %>
         <% end %>

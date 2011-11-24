@@ -1,52 +1,60 @@
 @import "../shared/utils";
 
 #content {
+
+  h1 {
+    border-bottom: 2px solid #ddd;
+    color: #999;
+    display: inline-block;
+  }
+
   ul.publications {
-    @include clearfix;
 
     li {
-      float: left;
-      width: 8em;
+      @include clearfix;
       padding-right: 4%;
-      height: 16em;
+      margin-bottom: 0.75em;
 
-      img.cover {
+      @media only screen and (min-width: 800px) {
+        display: inline-block;
+        width: 29%;
+      }
+
+      div.cover {
         margin-bottom: 1em;
         display: none;
         padding: 0;
-        width: 100%;
         border: 1px solid #ddd;
+        width: 8em;
+        height: 6em;
+        overflow: hidden;
+        float: left;
+        margin-right: 1em;
 
         @media only screen and (min-width: 800px) {
           display: block;
         }
       }
 
-      h2 {
-        @include type-12;
-        margin-bottom: 0;
-        color: #777;
-        text-shadow: #fff 0px 1px 0;
-
-
-        a {
-          color: #31332f;
-          text-decoration: none;
+      .description {
+        h2 {
+          @include type-12;
+          margin-bottom: 0;
+          color: #777;
+          text-shadow: #fff 0px 1px 0;
         }
-      }
 
-      p.body {
-        @include type-12;
-        display: none;
+        p.body {
+          @include type-12;
+          display: none;
+        }
       }
 
       &:first-child {
         @include span_three_columns;
-
-        background: #eee;
-        @include vertical_gradient(#dbdcd9,#e3e4e2);
-
-        border: 0.25em solid #b9bbb6;
+        @include rounded();
+        background: #fff;
+        border: 8px solid #ddd;
         margin: 0;
         margin-bottom: 3em;
         margin-top: 1em;
@@ -54,50 +62,79 @@
         position: relative;
         height: auto;
 
-        h2 {
-          @include type-36;
-          margin: 1em 4% 0.3335em 4%;
+        border-color: rgba(150,150,150,0.4);
+        @include box-shadow(0, 1px, 2px, rgba(10,10,10,0.2));
 
-          a {
-            color: #31332f;
-            text-decoration: none;
+        .description {
+          padding: 1em 1em 0 1em;
+          width: auto;
+
+          h2 {
+            @include type-18;
+            margin-bottom: 0.3335em;
+
+            a {
+              text-decoration: none;
+            }
           }
-        }
 
-        p.body {
-          @include type-14;
-          display: block;
-          margin-left: 4%;
-          margin-right: 4%;
-        }
+          p.body {
+            @include type-14;
+            display: block;
+            color: #999;
+            margin-bottom: 1em;
+          }
 
-        @media only screen and (min-width: 800px) {
-          h2, p.body {
+          @media only screen and (min-width: 900px) {
             float: left;
-            width: 64%;
+            width: 60%;
+
+            h2 {
+              @include type-21;
+              margin-bottom: 0.5em;
+            }
+          }
+
+          @media only screen and (min-width: 1200px) {
+            width: 70%;
+            padding-left: 1.5em;
+            padding-right: 1.5em;
           }
         }
 
-        img.cover {
-          float: left;
-          @include type-24;
-          margin-left: 2%;
-          margin-top: -1em;
-          width: 25%;
-          border: 1px solid #ccc;
+        div.cover {
+          margin: -1em 1em 0 1em;
+          width: 12em;
+          height: 10em;
+          border: 1px solid #ddd;
+          border-bottom: 1px solid #ccc;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+          }
         }
 
-        a.button {
-          float: right;
-          margin-top: 1em;
-          margin-right: 4%;
+        .cta {
+          margin-left: 1em;
+
+          @media only screen and (min-width: 800px) {
+            float: right;
+            padding-right: 1em;
+          }
+
+          @media only screen and (min-width: 1200px) {
+            float: left;
+            width: 70%;
+            padding-left: 0.5em;
+            padding-right: 1em;
+          }
         }
       }
 
       &:last-child {
         padding-right: 0;
       }
-
     }
   }
 }
