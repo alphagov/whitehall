@@ -100,4 +100,48 @@ class CountriesControllerTest < ActionController::TestCase
 
     assert_select "#policies", count: 0
   end
+
+  test "shows only published speeches" do
+    published_document = create(:published_speech)
+    draft_document = create(:draft_speech)
+    country = create(:country, documents: [published_document, draft_document])
+
+    get :show, id: country
+
+    assert_select "#speeches" do
+      assert_select_object(published_document)
+      assert_select_object(draft_document, count: 0)
+    end
+  end
+
+  test "shows only speeches associated with country" do
+    published_document = create(:published_speech)
+    another_published_document = create(:published_speech)
+    country = create(:country, documents: [published_document])
+
+    get :show, id: country
+
+    assert_select "#speeches" do
+      assert_select_object(published_document)
+      assert_select_object(another_published_document, count: 0)
+    end
+  end
+
+  test "shows most recent speeches at the top" do
+    later_document = create(:published_speech, published_at: 1.hour.ago)
+    earlier_document = create(:published_speech, published_at: 2.hours.ago)
+    country = create(:country, documents: [earlier_document, later_document])
+
+    get :show, id: country
+
+    assert_equal [later_document, earlier_document], assigns[:speeches]
+  end
+
+  test "should not display an empty published speeches section" do
+    country = create(:country, documents: [])
+
+    get :show, id: country
+
+    assert_select "#speeches", count: 0
+  end
 end
