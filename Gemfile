@@ -13,7 +13,7 @@ gem 'nokogiri'
 gem 'rake', '0.9.2.2'
 gem 'boomerang-rails'
 gem 'slimmer', :git => 'git://github.com/alphagov/slimmer.git'
-gem 'plek', git: 'git://github.com/alphagov/plek.git'
+gem 'plek'
 gem 'fog'
 gem 'pdf-reader'
 
