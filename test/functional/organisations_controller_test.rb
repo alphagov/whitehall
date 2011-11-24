@@ -8,8 +8,10 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "presents the contact details of the organisation using hcard" do
+    ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, name: "Ministry of Pomp", email: "pomp@gov.uk",
                           address: "1 Smashing Place, London", postcode: "LO1 8DN",
+                          organisation_type: ministerial_department,
                           phone_numbers_attributes: [
                             {description: "Helpline", number: "02079460000"},
                             {description: "Fax", number: "02079460001"}
@@ -18,6 +20,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select ".organisation.hcard" do
       assert_select ".fn.org", "Ministry of Pomp"
+      assert_select ".category", "Ministerial Department"
       assert_select ".adr" do
         assert_select ".street-address", "1 Smashing Place, London"
         assert_select ".postal-code", "LO1 8DN"

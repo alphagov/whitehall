@@ -1,6 +1,9 @@
 <div class="g2">
   <%= content_tag_for :section, @organisation, :class => "hcard" do %>
     <h1 class="fn org name"><%= @organisation.name %></h1>
+    <% if @organisation.organisation_type %>
+      <h2 class="category"><%= @organisation.organisation_type.name %></h2>
+    <% end %>
     <div class="adr">
       <p class="street-address"><%= format_with_html_line_breaks(@organisation.address) %></p>
       <p class="postal-code"><%= @organisation.postcode %></p>
