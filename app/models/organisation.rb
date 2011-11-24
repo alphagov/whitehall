@@ -23,6 +23,7 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :phone_numbers, reject_if: :all_blank
 
   validates :name, presence: true, uniqueness: true
+  validates :organisation_type_id, presence: true
 
   default_scope order(:name)
 

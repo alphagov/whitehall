@@ -57,9 +57,9 @@ create_published(Consultation, title: "Consultation about Laser eyes", opening_o
 create_published(Speech, title: "Speech about Laser eyes", delivered_on: 1.day.ago, location: "Whitehall", role_appointment: RoleAppointment.first, documents_related_to: [published_laser_eyes_policy])
 
 bis = Organisation.find_by_name! "Department for Business, Innovation and Skills"
-bis.child_organisations << Organisation.create!(name: "Companies House")
-bis.child_organisations << Organisation.create!(name: "UKTI")
+bis.child_organisations << Organisation.create!(name: "Companies House", organisation_type: OrganisationType.first)
+bis.child_organisations << Organisation.create!(name: "UKTI", organisation_type: OrganisationType.first)
 
-the_stabilisation_unit = Organisation.create!(name: "The stabilisation unit")
+the_stabilisation_unit = Organisation.create!(name: "The stabilisation unit", organisation_type: OrganisationType.first)
 the_stabilisation_unit.parent_organisations << Organisation.find_by_name!("Department for International Development")
 the_stabilisation_unit.parent_organisations << Organisation.find_by_name!("Foreign and Commonwealth Office")

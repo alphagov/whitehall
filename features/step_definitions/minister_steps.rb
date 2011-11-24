@@ -8,7 +8,7 @@ end
 
 Given /^"([^"]*)" is the "([^"]*)" for the "([^"]*)"$/ do |person, ministerial_role, organisation_name|
   person = Person.find_or_create_by_name(person)
-  organisation = Organisation.find_or_create_by_name(organisation_name)
+  organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
   role = MinisterialRole.create!(name: ministerial_role)
   organisation.ministerial_roles << role
   create(:role_appointment, role: role, person: person)

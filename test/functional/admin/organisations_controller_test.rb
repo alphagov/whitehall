@@ -21,8 +21,10 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "creating should create a new Organisation" do
+    organisation_type = create(:organisation_type)
     attributes = attributes_for(:organisation)
     post :create, organisation: attributes.merge(
+      organisation_type_id: organisation_type.id,
       phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
     )
 
@@ -33,8 +35,10 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "creating should redirect back to the index" do
+    organisation_type = create(:organisation_type)
     attributes = attributes_for(:organisation)
     post :create, organisation: attributes.merge(
+      organisation_type_id: organisation_type.id,
       phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
     )
 
@@ -52,10 +56,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "creating with multiple parent organisations" do
+    organisation_type = create(:organisation_type)
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)
     attributes = attributes_for(:organisation)
     post :create, organisation: attributes.merge(
+      organisation_type_id: organisation_type.id,
       parent_organisation_ids: [parent_org_1.id, parent_org_2.id]
     )
     created_organisation = Organisation.last

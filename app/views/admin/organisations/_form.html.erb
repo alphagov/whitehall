@@ -5,7 +5,7 @@
   </fieldset>
   <fieldset>
     <%= organisation_form.label :organisation_type_id, "Organisation type" %>
-    <%= organisation_form.select :organisation_type_id, options_from_collection_for_select(OrganisationType.all, "id", "name", organisation.organisation_type_id), {}, class: 'chzn-select', data: { placeholder: "Choose the organisation type..." } %>
+    <%= organisation_form.select :organisation_type_id, options_from_collection_for_select(OrganisationType.all, "id", "name", organisation.organisation_type_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the organisation type..." } %>
   </fieldset>
   <fieldset>
     <%= organisation_form.label :parent_organisation_ids, 'Parent organisations' %>

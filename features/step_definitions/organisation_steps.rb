@@ -14,7 +14,7 @@ Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation
 end
 
 Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
-  organisation = Organisation.find_or_create_by_name(organisation_name)
+  organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
   table.hashes.each do |row|
     person = Person.find_or_create_by_name(row["Person"])
     ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])

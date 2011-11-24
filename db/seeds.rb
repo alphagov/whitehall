@@ -3,9 +3,14 @@
   Nation.find_or_create_by_name(nation_name)
 end
 
+["Ministerial Department", "Non-ministerial department"].each do |name|
+  OrganisationType.find_or_create_by_name(name: name)
+end
+
 def organisations(*names)
+  organisation_type_ids = OrganisationType.all.map(&:id)
   names.each do |name|
-    Organisation.find_or_create_by_name(name: name)
+    Organisation.find_or_create_by_name(name: name, organisation_type_id: organisation_type_ids.shuffle.first)
   end
 end
 
