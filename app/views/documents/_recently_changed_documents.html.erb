@@ -1,0 +1,13 @@
+<% if recently_changed_documents.any? %>
+  <section id="recently-changed">
+    <h1>Recently changed</h1>
+    <ul>
+      <% recently_changed_documents.each do |document| %>
+        <%= content_tag_for :li, document do %>
+          <%= link_to document.title, public_document_path(document), class: "title" %>
+          <span class="time">(<%= distance_of_time_in_words_to_now(document.published_at) %> ago)</span>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
