@@ -16,6 +16,7 @@ gem 'slimmer', :git => 'git://github.com/alphagov/slimmer.git'
 gem 'plek'
 gem 'fog'
 gem 'pdf-reader'
+gem 'isbn_validation'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'

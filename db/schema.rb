@@ -189,6 +189,17 @@ ActiveRecord::Schema.define(:version => 20111124123708) do
     t.string  "description"
   end
 
+  create_table "publication_metadata", :force => true do |t|
+    t.integer  "publication_id"
+    t.date     "publication_date"
+    t.string   "unique_reference"
+    t.string   "isbn"
+    t.boolean  "research",         :default => false
+    t.string   "order_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "role_appointments", :force => true do |t|
     t.integer  "role_id"
     t.integer  "person_id"
