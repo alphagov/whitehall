@@ -42,7 +42,7 @@ module ApplicationHelper
 
   def image_for_ministerial_role(ministerial_role)
     url = ministerial_role.current_person_image_url || "/assets/blank-person.jpg"
-    url = "mustachify.me/?src=" + url if params[:plummy]
+    url = "http://mustachify.me/?src=" + url if params[:plummy]
     image_tag url
   end
 
