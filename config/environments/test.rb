@@ -42,3 +42,4 @@ Whitehall::Application.configure do
 end
 
 require Rails.root.join("test/support/skip_slimmer")
+TestTrack.application_manifest = "all"

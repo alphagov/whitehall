@@ -17,12 +17,4 @@ jQuery(document).ready(function($) {
       cmdDown = false;
     }
   });
-
-  $(".chzn-select").chosen({allow_single_deselect: true});
-
-  $("#completed_fact_check_requests").markLinkedAnchor();
-
-  $('fieldset.sortable legend').each(function () {
-    $(this).append(' (drag up and down to re-order)');
-  })
 });
