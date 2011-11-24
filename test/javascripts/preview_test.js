@@ -6,25 +6,23 @@ module("Previewing contents of a textarea", {
     $('#qunit-fixture').append(label);
     textarea.enablePreview();
 
-    this.stubbingAjax = function(callback) {
+    this.stubbingPreviewAjax = function(callback, preventResponse) {
       var ajax = this.spy(jQuery, "ajax");
-      callback();
-      return ajax
-    }
-
-    this.stubbingServer = function(callback) {
       var server = this.sandbox.useFakeServer();
       server.respondWith("POST", "/admin/preview",
                          [200, { "Content-Type": "text/html" },
                           '<h1>preview this</h1>']);
       callback();
-      server.respond();
+      if (!preventResponse) {
+        server.respond();
+      }
+      return ajax
     }
   }
 });
 
 test("should post the textarea value to the preview controller", function() {
-  var ajax = this.stubbingAjax(function() {
+  var ajax = this.stubbingPreviewAjax(function() {
     $("a.show-preview").click();
   })
 
@@ -37,7 +35,7 @@ test("should post the textarea value to the preview controller", function() {
 });
 
 test("should include the authenticity token in the posted data", function() {
-  var ajax = this.stubbingAjax(function() {
+  this.stubbingPreviewAjax(function() {
     $("a.show-preview").click();
   })
 
@@ -46,15 +44,15 @@ test("should include the authenticity token in the posted data", function() {
 })
 
 test("should indicate that the preview is loading", function() {
-  var ajax = this.stubbingAjax(function() {
+  this.stubbingPreviewAjax(function() {
     $("a.show-preview").click();
-  })
+  }, true)
 
   ok($(".preview-controls .loading").is(":visible"));
 })
 
 test("should hide the text area", function() {
-  this.stubbingServer(function() {
+  this.stubbingPreviewAjax(function() {
     $("a.show-preview").click();
   });
 
@@ -63,7 +61,7 @@ test("should hide the text area", function() {
 })
 
 test("should show the preview contents when the server responds", function() {
-  this.stubbingServer(function() {
+  this.stubbingPreviewAjax(function() {
     $("a.show-preview").click();
   });
 
@@ -72,7 +70,7 @@ test("should show the preview contents when the server responds", function() {
 })
 
 test("should hide the loading indicator when the server responds", function() {
-  this.stubbingServer(function() {
+  this.stubbingPreviewAjax(function() {
     $("a.show-preview").click();
   });
 
@@ -80,7 +78,7 @@ test("should hide the loading indicator when the server responds", function() {
 })
 
 test("should show the rendered preview when the server responds", function() {
-  this.stubbingServer(function() {
+  this.stubbingPreviewAjax(function() {
     $("a.show-preview").click();
   });
 
@@ -89,7 +87,7 @@ test("should show the rendered preview when the server responds", function() {
 })
 
 test("should hide the preview contents when clicking edit again", function() {
-  this.stubbingServer(function() {
+  this.stubbingPreviewAjax(function() {
     $("a.show-preview").click();
   });
 
@@ -100,7 +98,7 @@ test("should hide the preview contents when clicking edit again", function() {
 })
 
 test("should show the editor when clicking edit again", function() {
-  this.stubbingServer(function() {
+  this.stubbingPreviewAjax(function() {
     $("a.show-preview").click();
   });
 
