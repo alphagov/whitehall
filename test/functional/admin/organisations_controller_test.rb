@@ -17,6 +17,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     get :new
     assert_template "organisations/new"
     assert_select parent_organisations_list_selector
+    assert_select organisation_type_list_selector
   end
 
   test "creating should create a new Organisation" do
@@ -59,6 +60,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     )
     created_organisation = Organisation.last
     assert_equal [parent_org_1, parent_org_2], created_organisation.parent_organisations
+  end
+
+  test "creating with an organisation type" do
+    organisation_type = create(:organisation_type)
+    attributes = attributes_for(:organisation)
+    post :create, organisation: attributes.merge(
+      organisation_type_id: organisation_type.id
+    )
+    created_organisation = Organisation.last
+    assert_equal organisation_type, created_organisation.organisation_type
   end
 
   test "editing should load the requested organisation" do
