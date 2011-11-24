@@ -2,6 +2,16 @@ require "test_helper"
 
 class PublicationTest < ActiveSupport::TestCase
 
+  test "should be valid when built from the factory" do
+    publication = build(:publication)
+    assert publication.valid?
+  end
+
+  test "should be invalid without publication metadatum" do
+    publication = build(:publication, publication_metadatum: nil)
+    refute publication.valid?
+  end
+
   test "should build a draft copy of the existing publication" do
     attachment = create(:attachment)
     published_publication = create(:published_publication, attachments: [attachment])
@@ -39,5 +49,17 @@ class PublicationTest < ActiveSupport::TestCase
     publication.reload
 
     assert_equal [attachment_2], publication.attachments
+  end
+
+  test "should build a draft copy with copy of publication metadatum" do
+    metadatum = create(:publication_metadatum)
+    published_publication = create(:published_publication, publication_metadatum: metadatum)
+    draft_publication = published_publication.create_draft(create(:policy_writer))
+
+    assert draft_publication.valid?
+
+    assert new_metadatum = draft_publication.publication_metadatum
+    refute_equal metadatum, new_metadatum
+    assert_equal metadatum.publication_date, new_metadatum.publication_date
   end
 end

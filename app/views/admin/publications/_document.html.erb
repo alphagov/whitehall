@@ -1,0 +1,22 @@
+<article class="document_view">
+  <h1 class="title"><%= document.title %></h1>
+  <div class="body">
+    <%= govspeak_to_admin_html document.body %>
+  </div>
+  <p>Publication date: <span class="publication_date"><%= document.publication_metadatum.publication_date.to_s(:long_ordinal) %></span></p>
+  <p>Unique reference: <span class="unique_reference"><%= document.publication_metadatum.unique_reference %></span></p>
+  <p>ISBN: <span class="isbn"><%= document.publication_metadatum.isbn %></span></p>
+  <p>Research? <span class="research"><%= document.publication_metadatum.research? ? "Yes" : "No" %></span></p>
+  <p>Order URL: <%= link_to "link", document.publication_metadatum.order_url, class: "order_url" %></p>
+  <% document.attachments.each do |attachment| %>
+    <%= content_tag_for(:p, attachment) do %>
+      <%= link_to_attachment(attachment) %>
+      <span class="type"><%= humanized_content_type(attachment.content_type) %></span>
+      <% if attachment.number_of_pages.present? %>
+        <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
+      <% end %>
+      <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
+    <% end %>
+  <% end %>
+  <p class="written_by">Written by <span class="authors"><%= document.author_names.to_sentence %></span></p>
+</article>

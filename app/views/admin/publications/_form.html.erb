@@ -2,6 +2,17 @@
   <%= form.errors %>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
 
+  <fieldset>
+    <%= form.fields_for :publication_metadatum do |metadatum_fields| %>
+      <%= metadatum_fields.label :publication_date %>
+      <%= metadatum_fields.date_select :publication_date, { include_blank: true }, { :class => "date" } %>
+      <%= metadatum_fields.text_field :unique_reference %>
+      <%= metadatum_fields.text_field :isbn, label_text: "ISBN" %>
+      <%= metadatum_fields.check_box :research, label_text: "Research?" %>
+      <%= metadatum_fields.text_field :order_url, label_text: "Order URL" %>
+    <% end %>
+  </fieldset>
+
   <%= render partial: 'attachment_fields', locals: { form: form, document: document } %>
 
   <%= render partial: 'related_policy_fields', locals: { form: form, document: document } %>
