@@ -40,6 +40,12 @@ module ApplicationHelper
     end
   end
 
+  def image_for_ministerial_role(ministerial_role)
+    url = ministerial_role.current_person_image_url || "/assets/blank-person.jpg"
+    url = "mustachify.me/?src=" + url if params[:plummy]
+    image_tag url
+  end
+
   def render_list_of_roles(roles, class_name = "ministerial_roles", &block)
     raise ArgumentError, "please supply the content of the list item" unless block_given?
     content_tag(:ul, class: class_name) do
