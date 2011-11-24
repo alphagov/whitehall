@@ -17,4 +17,9 @@ class MapHelperTest < ActionView::TestCase
     organisation = build(:organisation, latitude: nil, longitude: nil, postcode: nil)
     assert_nil link_to_google_map(organisation)
   end
+
+  test "should return nil if latitude, longitude or postcode are blank strings" do
+    organisation = build(:organisation, latitude: "", longitude: "", postcode: "")
+    assert_nil link_to_google_map(organisation)
+  end
 end
