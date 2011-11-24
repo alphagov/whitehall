@@ -1,4 +1,4 @@
-Given /^a country "([^"]*)"$/ do |name|
+Given /^a country "([^"]*)" exists$/ do |name|
   create(:country, name: name)
 end
 

@@ -23,3 +23,10 @@ Scenario: Creating a speech related to multiple policies
   And two published policies "Against All Cods" and "O For Tuna" exist
   When I draft a new speech "Fishy Business" relating it to "Against All Cods" and "O For Tuna"
   Then I should see in the preview that "Fishy Business" should related to "Against All Cods" and "O For Tuna" policies
+
+Scenario: Creating a speech related to different countries
+  Given I am a writer
+  And a country "England" exists
+  And a country "Iceland" exists
+  When I draft a new speech "For the love of cod" related to countries "England" and "Iceland"
+  Then I should see in the preview that "For the love of cod" is related to countries "England" and "Iceland"

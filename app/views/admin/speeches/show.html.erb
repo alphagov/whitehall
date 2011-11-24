@@ -19,6 +19,15 @@
 
 <div class="g1">
   <section class="container">
+    <h1>Countries</h1>
+    <% if @document.countries.any? %>
+      <%= render partial: "countries/list", locals: {countries: @document.countries} %>
+    <% else %>
+      <p>This document isn't assigned to any countries.</p>
+    <% end %>
+  </section>
+
+  <section class="container">
     <h1>Related Policies</h1>
     <% if @document.related_documents.any? %>
       <%= render partial: "admin/documents/related", locals: {related_documents: @document.related_documents} %>

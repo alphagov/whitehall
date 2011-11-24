@@ -7,6 +7,7 @@ class Speech < Document
   class OralStatement < Speech; end
 
   include Document::RelatedDocuments
+  include Document::Countries
 
   belongs_to :role_appointment
 

@@ -107,3 +107,17 @@ Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |del
   assert page.has_css?('.document_view .details .delivered_on', text: delivered_on)
   assert page.has_css?('.document_view .details .location', text: location)
 end
+
+When /^I draft a new speech "([^"]*)" related to countries "([^"]*)" and "([^"]*)"$/ do |title, first_country, second_country|
+  begin_drafting_speech title: title
+  select first_country, from: "Countries"
+  select second_country, from: "Countries"
+  click_button "Save"
+end
+
+Then /^I should see in the preview that "([^"]*)" is related to countries "([^"]*)" and "([^"]*)"$/ do |title, first_country, second_country|
+  visit_document_preview title
+  assert page.has_css? '.country', text: first_country
+  assert page.has_css? '.country', text: second_country
+end
+
