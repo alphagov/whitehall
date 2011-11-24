@@ -37,11 +37,7 @@
           }
         }
 
-        @media only screen and (min-width: 583px) {
-          float: right;
-        }
-
-        @media only screen and (min-width: 879px) {
+        @media only screen and (min-width: 923px) {
           margin-right: 18.5em;
           float: right;
         }
@@ -87,7 +83,7 @@
       }
 
 
-      @media only screen and (min-width: 879px) {
+      @media only screen and (min-width: 923px) {
         @include rounded_top(0.5em);
 
         float: right;

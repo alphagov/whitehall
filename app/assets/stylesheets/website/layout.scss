@@ -44,6 +44,7 @@
       background: #fff;
       margin-left: auto;
       margin-right: auto;
+      padding-top: 0.5em;
 
       @media only screen and (min-width: 600px) {
         width: 79.5%;
@@ -160,21 +161,17 @@
 }
 
 #content {
-  padding-top: 11em;
+  padding-top: 12em;
 
-  @media only screen and (min-width: 403px) {
-    padding-top: 9.75em;
+  @media only screen and (min-width: 507px) {
+    padding-top: 8.4em;
   }
 
-  @media only screen and (min-width: 467px) {
-    padding-top: 7.3em;
+  @media only screen and (min-width: 625px) {
+    padding-top: 5.5em;
   }
 
-  @media only screen and (min-width: 583px) {
-    padding-top: 4.5em;
-  }
-
-  @media only screen and (min-width: 1000px) {
+  @media only screen and (min-width: 923px) {
     padding-top: 3.5em;
   }
 }
