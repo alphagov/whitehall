@@ -15,38 +15,87 @@
       padding-right: 4%;
       margin-bottom: 0.75em;
 
-      @media only screen and (min-width: 800px) {
+      @media only screen and (min-width: 900px) {
         display: inline-block;
-        width: 29%;
+        width: 26%;
+        margin-right: 2%;
+
+        background: #f3f3f3;
+        border: 1px solid #ddd;
+        padding: 1em;
+
+        &:nth-child(3n+1) {
+          margin-right: 0;
+        };
+      }
+
+      @media only screen and (min-width: 1121px) {
+        width: 28%;
       }
 
       div.cover {
         margin-bottom: 1em;
         display: none;
         padding: 0;
-        border: 1px solid #ddd;
-        width: 8em;
-        height: 6em;
+        border: 1px solid #333;
+        width: 4em;
+        height: 4em;
         overflow: hidden;
         float: left;
         margin-right: 1em;
+        @include box-shadow(0px, 1px, 1px, rgba(10,10,10,0.2));
+        opacity: 0.8;
 
-        @media only screen and (min-width: 800px) {
+        &:hover {
+          opacity: 1;
+        };
+
+
+        @media only screen and (min-width: 900px) {
           display: block;
+        }
+
+        @media only screen and (min-width: 1121px) {
+          width: 6em;
+          height: 5em;
+        }
+
+        @media only screen and (min-width: 1312px) {
+          width: 8em;
+          height: 7em;
         }
       }
 
       .description {
+
+        @media only screen and (min-width: 900px) {
+          float: left;
+          width: 50%;
+          height: 7.75em;
+          overflow: hidden;
+          display: block;
+        }
+
+
         h2 {
-          @include type-12;
+          @include type-14;
           margin-bottom: 0;
           color: #777;
           text-shadow: #fff 0px 1px 0;
+
+          a {
+            text-decoration: none;
+          }
+
+          @media only screen and (min-width: 900px) {
+            display: block;
+          }
         }
 
         p.body {
           @include type-12;
-          display: none;
+          text-shadow: #fefefe 0px 1px 0;
+
         }
       }
 
@@ -68,6 +117,7 @@
         .description {
           padding: 1em 1em 0 1em;
           width: auto;
+          height: auto;
 
           h2 {
             @include type-18;
@@ -106,9 +156,10 @@
           margin: -1em 1em 0 1em;
           width: 12em;
           height: 10em;
-          border: 1px solid #ddd;
-          border-bottom: 1px solid #ccc;
+          border-bottom: 1px solid #222;
           overflow: hidden;
+
+
 
           img {
             width: 100%;
@@ -130,10 +181,6 @@
             padding-right: 1em;
           }
         }
-      }
-
-      &:last-child {
-        padding-right: 0;
       }
     }
   }
