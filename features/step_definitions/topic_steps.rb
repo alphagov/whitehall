@@ -82,16 +82,20 @@ When /^I set the featured policies in the "([^"]*)" topic to:$/ do |name, table|
   click_button "Save"
 end
 
-Then /^I should see the featured policies in the "([^"]*)" topic are:$/ do |name, table|
+Then /^I should see the featured policies in the "([^"]*)" topic are:$/ do |name, expected_table|
   topic = Topic.find_by_name!(name)
   visit topic_path(topic)
-  table.diff!(tableish('ul.featured.policies li', "a"))
+  rows = find("ul.featured.policies").all('li')
+  table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
+  expected_table.diff!(table)
 end
 
-Then /^I should see the order of the policies in the "([^"]*)" topic is:$/ do |name, table|
+Then /^I should see the order of the policies in the "([^"]*)" topic is:$/ do |name, expected_table|
   topic = Topic.find_by_name!(name)
   visit topic_path(topic)
-  table.diff!(tableish('#policies ul.policies li', "a"))
+  rows = find("#policies ul.policies").all('li')
+  table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
+  expected_table.diff!(table)
 end
 
 Then /^I should only see published policies belonging to the "([^"]*)" topic$/ do |name|
