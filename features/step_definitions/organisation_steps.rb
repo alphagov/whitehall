@@ -65,6 +65,6 @@ end
 
 Then /^I should see the following speeches are associated with the "([^"]*)" organisation:$/ do |name, table|
   table.hashes.each do |row|
-    assert page.has_css?("#speeches .speech_transcript .title", row["Title"])
+    assert page.has_css?("#speeches .speech .title", row["Title"])
   end
 end

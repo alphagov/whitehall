@@ -184,7 +184,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     theresa_may = create(:person, name: "Theresa May")
     theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may)
-    draft_speech = create(:draft_speech, role_appointment: theresa_may_appointment, delivered_on: Date.parse("2011-06-01"), location: "The Guidhall")
+    draft_speech = create(:draft_speech_transcript, role_appointment: theresa_may_appointment, delivered_on: Date.parse("2011-06-01"), location: "The Guidhall")
 
     get :show, id: draft_speech
 

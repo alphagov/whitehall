@@ -275,7 +275,7 @@ Then /^I can see links to the related published policies "([^"]*)" and "([^"]*)"
 end
 
 Then /^I can see links to the related published speech "([^"]*)"$/ do |speech_title|
-  assert has_css?("#related-speeches .speech_transcript a", text: speech_title)
+  assert has_css?("#related-speeches .speech a", text: speech_title)
 end
 
 Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |policy_title|

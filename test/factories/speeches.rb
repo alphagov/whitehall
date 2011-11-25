@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :speech, class: Speech::Transcript, parent: :document do
+  factory :speech, class: Speech, parent: :document do
     title "speech-title"
     body  "speech-body"
     association :role_appointment, factory: :ministerial_role_appointment
@@ -19,4 +19,7 @@ FactoryGirl.define do
   factory :speech_speaking_notes, class: Speech::SpeakingNotes, parent: :speech
   factory :speech_written_statement, class: Speech::WrittenStatement, parent: :speech
   factory :speech_oral_statement, class: Speech::OralStatement, parent: :speech
+
+  factory :draft_speech_transcript, parent: :speech_transcript, traits: [:draft]
+  factory :published_speech_transcript, parent: :speech_transcript, traits: [:published]
 end
