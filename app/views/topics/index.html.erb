@@ -9,8 +9,8 @@
       </div>
 
       <div class="g1 secondary">
-        <%= render partial: "documents/policies", object: @featured_topic.policies.published %>
-        <%= render partial: "documents/news_articles", object: @featured_topic.news_articles.published %>
+        <%= render partial: "documents/policies", object: @featured_topic.policies.published.limit(2) %>
+        <%= render partial: "documents/news_articles", object: @featured_topic.news_articles.published.limit(2) %>
       </div>
 
     </section>

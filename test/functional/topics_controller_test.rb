@@ -160,6 +160,16 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select_object policy
   end
 
+  test "shows a maximum of 2 featured topic policies" do
+    policies = [create(:published_policy), create(:published_policy), create(:published_policy)]
+    topic = create(:topic, documents: policies)
+    TopicsController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
+
+    get :index
+
+    assert_select ".featured .policy", count: 2
+  end
+
   test "shows featured topic news articles" do
     article = create(:published_news_article)
     topic = create(:topic, documents: [article])
@@ -168,6 +178,16 @@ class TopicsControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object article
+  end
+
+  test "shows a maximum of 2 featured news articles" do
+    news_articles = [create(:published_news_article), create(:published_news_article), create(:published_news_article)]
+    topic = create(:topic, documents: news_articles)
+    TopicsController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
+
+    get :index
+
+    assert_select ".featured .news_article", count: 2
   end
 
   class FeaturedTopicChooserTest < ActiveSupport::TestCase
