@@ -46,6 +46,11 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html.strip
   end
 
+  test "should highlight links to missing documents in admin preview" do
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url('missing-id')})")
+    assert_equal %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html.strip
+  end
+
   test "should highlight links to destroyed supporting documents in admin preview" do
     html = govspeak_to_admin_html("this and [that](#{admin_supporting_document_url("missing-id")})")
     assert_equal %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html.strip
