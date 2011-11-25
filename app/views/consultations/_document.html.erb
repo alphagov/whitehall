@@ -3,9 +3,9 @@
   <div class="body">
     <%= govspeak_to_html document.body %>
   </div>
-  <% document.attachments.each do |attachment| %>
-    <p class="attachment"><%= link_to_attachment(attachment) %></p>
-  <% end %>
+
+  <%= render partial: "attachments", locals: { document: document } %>
+
   <p class="opening_on"><%= consultation_opening_phrase(document) %></p>
   <p class="closing_on"><%= consultation_closing_phrase(document) %></p>
 </section>

@@ -1,6 +1,7 @@
 require "test_helper"
 
 class ConsultationsControllerTest < ActionController::TestCase
+  include DocumentControllerTestHelpers
 
   should_render_a_list_of :consultations
 
@@ -67,4 +68,6 @@ class ConsultationsControllerTest < ActionController::TestCase
       assert_select "p", "This consultation applies to the whole of the UK."
     end
   end
+
+  should_display_attachment_metadata_for :consultation
 end
