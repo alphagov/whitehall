@@ -14,6 +14,35 @@ module AdminDocumentControllerTestHelpers
   end
 
   module ClassMethods
+    def should_display_attachments_for(document_type)
+      test "should display PDF attachment metadata" do
+        two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
+        attachment = create(:attachment, file: two_page_pdf)
+        document = create(document_type, attachments: [attachment])
+
+        get :show, id: document
+
+        assert_select_object(attachment) do
+          assert_select ".type", "PDF"
+          assert_select ".number_of_pages", "2 pages"
+          assert_select ".size", "1.41 KB"
+        end
+      end
+
+      test "should display CSV attachment metadata" do
+        csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
+        attachment = create(:attachment, file: csv)
+        document = create(document_type, attachments: [attachment])
+
+        get :show, id: document
+
+        assert_select_object(attachment) do
+          assert_select ".type", "CSV"
+          assert_select ".number_of_pages", count: 0
+          assert_select ".size", "121 Bytes"
+        end
+      end
+    end
 
     def should_be_able_to_delete_a_document(document_type)
       test "show displays the delete button for draft documents" do

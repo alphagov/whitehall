@@ -5,9 +5,7 @@
       <%= document.body %>
     </pre>
     <% if document.allows_attachments? %>
-      <% document.attachments.each do |attachment| %>
-        <p class="attachment"><%= link_to_attachment(attachment) %></p>
-      <% end %>
+      <%= render partial: "attachments", locals: { document: document }  %>
     <% end %>
     <p class="written_by">Written by <span class="authors"><%= document.author_names.to_sentence %></span></p>
   </article>
