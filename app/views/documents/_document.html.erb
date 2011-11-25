@@ -1,6 +1,3 @@
 <section class="document_view">
-  <h1 class="title"><%= document.title %></h1>
-  <div class="body">
-    <%= govspeak_to_html document.body %>
-  </div>
+  <%= render partial: "standard_elements", locals: { document: document } %>
 </section>

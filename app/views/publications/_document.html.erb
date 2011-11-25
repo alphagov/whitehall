@@ -1,8 +1,5 @@
 <section class="document_view">
-  <h1 class="title"><%= document.title %></h1>
-  <div class="body">
-    <%= govspeak_to_html document.body %>
-  </div>
+  <%= render partial: "standard_elements", locals: { document: document } %>
 
   <p>Publication date: <span class="publication_date"><%= document.publication_date.to_s(:long_ordinal) %></span></p>
   <p>Unique reference: <span class="unique_reference"><%= document.unique_reference %></span></p>
