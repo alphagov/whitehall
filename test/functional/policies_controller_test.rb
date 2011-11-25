@@ -49,7 +49,7 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show displays metadata about the recently changed documents" do
-    speech = create(:published_speech)
+    speech = create(:published_speech_transcript)
     policy = create(:published_policy,
       documents_related_with: [speech]
     )

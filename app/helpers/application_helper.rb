@@ -73,4 +73,8 @@ module ApplicationHelper
   def current_link_class(path_matcher)
     request.path =~ path_matcher ? 'current' : ''
   end
+
+  def main_document_type(document)
+    document.type.tableize.split("/").first.singularize.humanize
+  end
 end

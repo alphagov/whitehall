@@ -6,7 +6,7 @@
         <%= content_tag_for :li, document do %>
           <%= link_to document.title, public_document_path(document), class: "title" %>
           <p class="metadata">
-            <span class="document_type"><%= document.type.tableize.singularize.humanize %></span>
+            <span class="document_type"><%= main_document_type(document) %></span>
             published
             <span class="time"><%= distance_of_time_in_words_to_now(document.published_at) %> ago</span>
           </p>

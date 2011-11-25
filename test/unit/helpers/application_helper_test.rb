@@ -70,4 +70,17 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_select_in_html(html, 'ul li p', text: "Jack")
     assert_select_in_html(html, 'ul li p', text: "Jill")
   end
+
+  test "should return the main type of the document" do
+    assert_equal "Consultation", main_document_type(build(:consultation))
+    assert_equal "News article", main_document_type(build(:news_article))
+    assert_equal "Policy", main_document_type(build(:policy))
+    assert_equal "Publication", main_document_type(build(:publication))
+    assert_equal "Speech", main_document_type(build(:speech))
+    assert_equal "Speech", main_document_type(build(:speech_transcript))
+    assert_equal "Speech", main_document_type(build(:speech_draft_text))
+    assert_equal "Speech", main_document_type(build(:speech_speaking_notes))
+    assert_equal "Speech", main_document_type(build(:speech_written_statement))
+    assert_equal "Speech", main_document_type(build(:speech_oral_statement))
+  end
 end
