@@ -85,4 +85,24 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select ".size", "121 Bytes"
     end
   end
+
+  test "should display publication metadata" do
+    publication = create(:published_publication,
+      publication_date: Date.parse("1916-05-31"),
+      unique_reference: "unique-reference",
+      isbn: "0099532816",
+      research: true,
+      order_url: "http://example.com/order-path"
+    )
+
+    get :show, id: publication.document_identity
+
+    assert_select ".document_view" do
+      assert_select ".publication_date", text: "May 31st, 1916"
+      assert_select ".unique_reference", text: "unique-reference"
+      assert_select ".isbn", text: "0099532816"
+      assert_select ".research", text: "Yes"
+      assert_select "a.order_url[href='http://example.com/order-path']"
+    end
+  end
 end
