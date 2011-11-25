@@ -7,11 +7,6 @@ class PublicationTest < ActiveSupport::TestCase
     assert publication.valid?
   end
 
-  test "should be invalid without publication metadatum" do
-    publication = build(:publication, publication_metadatum: nil)
-    refute publication.valid?
-  end
-
   test "should build a draft copy of the existing publication" do
     attachment = create(:attachment)
     published_publication = create(:published_publication, attachments: [attachment])

@@ -17,7 +17,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
 
     def attributes_for_document(attributes = {})
-      super.merge(publication_metadatum_attributes: attributes_for(:publication_metadatum))
+      super.merge(attributes_for(:publication_metadatum))
     end
   end
 end

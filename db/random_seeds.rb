@@ -3,7 +3,7 @@ def create_document(type, attributes)
   attributes[:organisations] = Organisation.where(name: (attributes[:organisations] || []))
   attributes[:creator] ||= User.create(name: Faker::Name.name)
   attributes[:ministerial_roles] = Array.new(rand(2) + 1) { MinisterialRole.order("RAND()").first } unless type == Speech
-  attributes[:publication_metadatum] = PublicationMetadatum.new(
+  attributes.merge!(
     publication_date: rand(365).days.ago,
     unique_reference: rand(1000000).to_s,
     isbn: "0140621431",
