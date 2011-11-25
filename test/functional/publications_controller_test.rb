@@ -77,7 +77,7 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select ".publication_date", text: "May 31st, 1916"
       assert_select ".unique_reference", text: "unique-reference"
       assert_select ".isbn", text: "0099532816"
-      assert_select ".research", text: "Yes"
+      assert_select ".research", text: "This is a research paper."
       assert_select "a.order_url[href='http://example.com/order-path']"
     end
   end
