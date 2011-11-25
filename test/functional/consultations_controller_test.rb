@@ -23,12 +23,6 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_select '.closing_on', text: 'Closed on January 1st, 2011'
   end
 
-  test 'show displays consultation attachment' do
-    consultation = create(:published_consultation, attachments: [create(:attachment)])
-    get :show, id: consultation.document_identity
-    assert_select '.attachment a', text: consultation.attachments.first.filename
-  end
-
   test 'show displays related published policies' do
     published_policy = create(:published_policy)
     consultation = create(:published_consultation, documents_related_to: [published_policy])
@@ -69,5 +63,5 @@ class ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  should_display_attachment_metadata_for :consultation
+  should_display_attachments_for :consultation
 end

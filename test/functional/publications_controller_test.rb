@@ -60,7 +60,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  should_display_attachment_metadata_for :publication
+  should_display_attachments_for :publication
 
   test "should display publication metadata" do
     publication = create(:published_publication,
