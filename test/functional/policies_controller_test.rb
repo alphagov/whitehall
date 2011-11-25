@@ -48,6 +48,22 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
+  test "show displays metadata about the recently changed documents" do
+    speech = create(:published_speech)
+    policy = create(:published_policy,
+      documents_related_with: [speech]
+    )
+
+    get :show, id: policy.document_identity
+
+    assert_select "#recently-changed" do
+      assert_select_object speech do
+        assert_select '.metadata .document_type', text: "Speech"
+        assert_select '.metadata .time', count: 1
+      end
+    end
+  end
+
   test "show orders recently changed documents relating to the policy most recent first" do
     publication = create(:published_publication, published_at: 4.weeks.ago)
     consultation = create(:published_consultation, published_at: 1.weeks.ago)
