@@ -30,11 +30,6 @@
         <div class="body">
           <%= govspeak_to_html document.body %>
         </div>
-        <% if document.allows_attachments? %>
-          <% document.attachments.each do |attachment| %>
-            <div class="attachment"><%= link_to_attachment(attachment) %></div>
-          <% end %>
-        <% end %>
       </article>
     </div>
   </div>
