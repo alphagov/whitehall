@@ -77,4 +77,8 @@ module ApplicationHelper
   def main_document_type(document)
     document.type.tableize.split("/").first.singularize.humanize
   end
+
+  def yes_or_no(boolean)
+    boolean ? "Yes" : "No"
+  end
 end

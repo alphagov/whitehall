@@ -7,7 +7,7 @@
   <p>Publication date: <span class="publication_date"><%= document.publication_date.to_s(:long_ordinal) %></span></p>
   <p>Unique reference: <span class="unique_reference"><%= document.unique_reference %></span></p>
   <p>ISBN: <span class="isbn"><%= document.isbn %></span></p>
-  <p>Research? <span class="research"><%= document.research? ? "Yes" : "No" %></span></p>
+  <p>Research? <span class="research"><%= yes_or_no(document.research?) %></span></p>
   <p>Order URL: <%= link_to "link", document.order_url, class: "order_url" %></p>
 
   <%= render partial: "attachments", locals: { document: document }  %>

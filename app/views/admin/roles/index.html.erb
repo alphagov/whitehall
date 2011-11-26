@@ -24,7 +24,7 @@
             <td class="name"><%= link_to role.name, edit_admin_role_path(role), title: "Edit role #{role.name}" %></td>
             <td class="organisations"><%= role.organisation_names %></td>
             <td class="type"><%= role.humanized_type %></td>
-            <td class="permanent_secretary"><%= role.permanent_secretary? ? "Yes" : "No" %></td>
+            <td class="permanent_secretary"><%= yes_or_no(role.permanent_secretary?) %></td>
             <td class="person"><%= role.current_person_name %></td>
             <td class="delete">
               <% if role.destroyable? %>
