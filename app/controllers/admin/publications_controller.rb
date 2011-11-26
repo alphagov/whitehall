@@ -13,7 +13,11 @@ class Admin::PublicationsController < Admin::DocumentsController
     values = (1..3).map do |i|
       params[:document].delete("publication_date(#{i}i)")
     end
-    publication_date = values.all? ? Date.parse(values.join("-")) : nil
+    if values.all?(&:blank?)
+      publication_date = nil
+    else
+      publication_date = Date.new(*values.map { |v| v.blank? ? 1 : v.to_i })
+    end
     params[:document][:publication_date] ||= publication_date
   end
 end

@@ -60,4 +60,52 @@ class PublicationMetadatumTest < ActiveSupport::TestCase
     publication = build(:publication, order_url: nil)
     assert publication.valid?
   end
+
+  test "should provide writers and readers for metadatum attributes" do
+    publication = build(:publication,
+      publication_date: Date.parse("1900-01-01"),
+      unique_reference: "ABC-123",
+      isbn: "0140621431",
+      research: true,
+      order_url: "http://example.com/order-url"
+    )
+    assert_equal Date.parse("1900-01-01"), publication.publication_date
+    assert_equal "ABC-123", publication.unique_reference
+    assert_equal "0140621431", publication.isbn
+    assert publication.research?
+    assert_equal "http://example.com/order-url", publication.order_url
+  end
+
+  test "should save metadatum attributes on create" do
+    publication = create(:publication,
+      publication_date: Date.parse("1900-01-01"),
+      unique_reference: "ABC-123",
+      isbn: "0140621431",
+      research: true,
+      order_url: "http://example.com/order-url"
+    )
+    publication.reload
+    assert_equal Date.parse("1900-01-01"), publication.publication_date
+    assert_equal "ABC-123", publication.unique_reference
+    assert_equal "0140621431", publication.isbn
+    assert publication.research?
+    assert_equal "http://example.com/order-url", publication.order_url
+  end
+
+  test "should save metadatum attributes on update" do
+    publication = create(:publication)
+    publication.update_attributes(
+      publication_date: Date.parse("1900-01-01"),
+      unique_reference: "ABC-123",
+      isbn: "0140621431",
+      research: true,
+      order_url: "http://example.com/order-url"
+    )
+    publication.reload
+    assert_equal Date.parse("1900-01-01"), publication.publication_date
+    assert_equal "ABC-123", publication.unique_reference
+    assert_equal "0140621431", publication.isbn
+    assert publication.research?
+    assert_equal "http://example.com/order-url", publication.order_url
+  end
 end

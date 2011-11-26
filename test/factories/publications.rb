@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :publication, class: Publication, parent: :document do
     title "publication-title"
     body  "publication-body"
-    publication_metadatum
+    publication_date { 10.days.ago }
   end
 
   factory :draft_publication, parent: :publication, traits: [:draft]
