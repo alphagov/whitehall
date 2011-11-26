@@ -1,7 +1,4 @@
 <article class="document_view">
-  <h1 class="title"><%= document.title %></h1>
-  <div class="body">
-    <%= govspeak_to_admin_html document.body %>
-  </div>
-  <p class="written_by">Written by <span class="authors"><%= document.author_names.to_sentence %></span></p>
+  <%= render partial: "standard_elements", locals: { document: document } %>
+  <%= render partial: "authors", locals: { document: document } %>
 </article>
