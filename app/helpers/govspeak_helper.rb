@@ -19,7 +19,8 @@ module GovspeakHelper
           explanation = state
         end
       end
-      anchor.replace %{<span class="#{state}_link">#{inner_text} <sup class="explanation">(#{explanation})</sup></span>}
+      html_fragment = %{<span class="#{state}_link">#{inner_text} <sup class="explanation">(#{explanation})</sup></span>}
+      anchor.replace Nokogiri::HTML.fragment(html_fragment)
     end
     doc.to_html.html_safe
   end
