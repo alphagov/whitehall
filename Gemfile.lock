@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/slimmer.git
-  revision: d8c43214fc8d9950fe3af52c7a5d2356bb83eb55
+  revision: 8f77279cdb49b4e114299d8b8dfc16232dd4e330
   specs:
-    slimmer (1.1.3)
+    slimmer (1.1.4beta1)
       nokogiri (~> 1.5.0)
       plek (>= 0.1.8)
       rack (~> 1.3.5)
