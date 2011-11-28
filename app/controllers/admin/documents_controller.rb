@@ -75,7 +75,7 @@ class Admin::DocumentsController < Admin::BaseController
     if document.valid?
       redirect_to edit_admin_document_path(document)
     else
-      redirect_to edit_admin_document_path(@document.document_identity.documents.draft.first),
+      redirect_to edit_admin_document_path(@document.document_identity.unpublished_edition),
         alert: document.errors.full_messages.to_sentence
     end
   end

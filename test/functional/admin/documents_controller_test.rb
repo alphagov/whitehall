@@ -97,7 +97,27 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     post :revise, id: published_document
 
     assert_redirected_to edit_admin_policy_path(existing_draft)
-    assert_equal "There is already an active draft for this document", flash[:alert]
+    assert_equal "There is already an active draft edition for this document", flash[:alert]
+  end
+
+  test "failing to revise an document should redirect to the existing submitted document" do
+    published_document = create(:published_policy)
+    existing_submitted = create(:submitted_policy, document_identity: published_document.document_identity)
+
+    post :revise, id: published_document
+
+    assert_redirected_to edit_admin_policy_path(existing_submitted)
+    assert_equal "There is already an active submitted edition for this document", flash[:alert]
+  end
+
+  test "failing to revise an document should redirect to the existing rejected document" do
+    published_document = create(:published_publication)
+    existing_rejected = create(:rejected_publication, document_identity: published_document.document_identity)
+
+    post :revise, id: published_document
+
+    assert_redirected_to edit_admin_publication_path(existing_rejected)
+    assert_equal "There is already an active rejected edition for this document", flash[:alert]
   end
 
   test "should be able to filter by policies when viewing list of documents" do

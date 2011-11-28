@@ -52,8 +52,8 @@ module Document::Workflow
 
   class DocumentHasNoUnpublishedDocumentsValidator < ActiveModel::Validator
     def validate(record)
-      if record.document_identity && (record.document_identity.documents.draft.any? || record.document_identity.documents.submitted.any? || record.document_identity.documents.rejected.any?)
-        record.errors.add(:base, "There is already an active draft for this document")
+      if record.document_identity && (existing_edition = record.document_identity.unpublished_edition)
+        record.errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
       end
     end
   end

@@ -12,6 +12,10 @@ class DocumentIdentity < ActiveRecord::Base
     super value
   end
 
+  def unpublished_edition
+    documents.where("state IN (:draft_states)", draft_states: [:draft, :submitted, :rejected]).first
+  end
+
   class << self
     def published
       joins(:published_document)
