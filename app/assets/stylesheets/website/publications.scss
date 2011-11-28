@@ -76,10 +76,6 @@
           color: #777;
           text-shadow: #fff 0px 1px 0;
 
-          a {
-            text-decoration: none;
-          }
-
           @media only screen and (min-width: 900px) {
             display: block;
           }
@@ -94,18 +90,10 @@
 
       &:first-child {
         @include span_three_columns;
-        @include rounded();
-        background: #fff;
-        border: 8px solid #ddd;
-        margin: 0;
-        margin-bottom: 3em;
-        margin-top: 1em;
-        padding: 0;
+        @include featured_box;
+
         position: relative;
         height: auto;
-
-        border-color: rgba(150,150,150,0.4);
-        @include box-shadow(0, 1px, 2px, rgba(10,10,10,0.2));
 
         .description {
           padding: 1em 1em 0 1em;
@@ -115,16 +103,12 @@
           h2 {
             @include type-18;
             margin-bottom: 0.3335em;
-
-            a {
-              text-decoration: none;
-            }
           }
 
           p.body {
             @include type-14;
             display: block;
-            color: #999;
+            color: #555;
             margin-bottom: 1em;
           }
 
@@ -151,8 +135,6 @@
           height: 10em;
           border-bottom: 1px solid #222;
           overflow: hidden;
-
-
 
           img {
             width: 100%;

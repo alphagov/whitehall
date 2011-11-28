@@ -10,7 +10,7 @@
         <% end %>
       </div>
 
-      <div class="g1 secondary">
+      <div class="g1 related">
         <%= render partial: "documents/policies", object: @featured_topic.policies.published.limit(2) %>
         <%= render partial: "documents/news_articles", object: @featured_topic.news_articles.published.limit(2) %>
       </div>
