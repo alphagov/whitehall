@@ -1,7 +1,7 @@
 @import "../shared/utils";
 
 #content {
-  ul.publications {
+  #publication_index ul.publications {
 
     li {
       @include clearfix;
