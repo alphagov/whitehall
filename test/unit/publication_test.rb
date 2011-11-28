@@ -150,8 +150,8 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy with copy of publication metadatum" do
-    metadatum = create(:publication_metadatum)
-    published_publication = create(:published_publication, publication_metadatum: metadatum)
+    published_publication = create(:published_publication)
+    metadatum = published_publication.publication_metadatum
     draft_publication = published_publication.create_draft(create(:policy_writer))
 
     assert draft_publication.valid?

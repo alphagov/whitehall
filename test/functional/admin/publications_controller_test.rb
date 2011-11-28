@@ -26,7 +26,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     second_policy = create(:published_policy)
     attributes = attributes_for(:publication)
 
-    post :create, document: attributes.merge(attributes_for(:publication_metadatum)).merge(
+    post :create, document: attributes.merge(
       organisation_ids: [first_org.id, second_org.id],
       documents_related_to_ids: [first_policy.id, second_policy.id]
     )
@@ -43,7 +43,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     attributes = attributes_for(:publication)
     attributes[:attach_file] = greenpaper_pdf
 
-    post :create, document: attributes.merge(attributes_for(:publication_metadatum))
+    post :create, document: attributes
 
     assert publication = Publication.last
     assert_equal 1, publication.attachments.length
@@ -73,9 +73,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'creating should take the writer to the publication page' do
-    post :create, document: attributes_for(:publication).merge(
-      attributes_for(:publication_metadatum)
-    )
+    post :create, document: attributes_for(:publication)
 
     assert_redirected_to admin_publication_path(Publication.last)
     assert_equal 'The document has been saved', flash[:notice]
@@ -214,13 +212,13 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test "updating a publication should save modified metadatum attributes" do
     publication = create(:publication)
-    new_metadatum_attributes = attributes_for(:publication_metadatum,
+    new_metadatum_attributes = {
       publication_date: Date.parse("1815-06-18"),
       unique_reference: "new-reference",
       isbn: "0099532816",
       research: true,
       order_url: "https://example.com/new-order-path"
-    )
+    }
 
     put :update, id: publication, document: publication.attributes.merge(new_metadatum_attributes)
 
@@ -268,11 +266,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "updating with invalid metadatum data" do
-    publication = create(:publication, {
-      title: "original-title"
-    }.merge(attributes_for(:publication_metadatum,
+    publication = create(:publication,
+      title: "original-title",
       unique_reference: "original-reference"
-    )))
+    )
 
     put :update, id: publication.id, document: publication.attributes.merge(
       title: "valid-title-to-keep",
@@ -403,14 +400,13 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "should display publication metadata" do
-    metadatum = build(:publication_metadatum,
+    publication = create(:publication,
       publication_date: Date.parse("1916-05-31"),
       unique_reference: "unique-reference",
       isbn: "0099532816",
       research: true,
       order_url: "http://example.com/order-path"
     )
-    publication = create(:publication, publication_metadatum: metadatum)
 
     get :show, id: publication
 
