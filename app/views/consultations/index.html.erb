@@ -1,6 +1,6 @@
 <div class="g3">
+  <h1 class="page_title">Consultations</h1>
   <% if @consultations.empty? %>
-    <h1>Consultations</h1>
     <p>We don't have any published consultations at present.</p>
   <% else %>
     <%= render partial: "consultations", object: @consultations %>

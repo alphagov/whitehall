@@ -1,6 +1,6 @@
 <div class="g2">
   <%= content_tag_for :section, @organisation, :class => "hcard" do %>
-    <h1 class="fn org name"><%= @organisation.name %></h1>
+    <h1 class="page_title fn org name"><%= @organisation.name %></h1>
     <% if @organisation.organisation_type %>
       <h2 class="category"><%= @organisation.organisation_type.name %></h2>
     <% end %>
@@ -28,7 +28,7 @@
       <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
     </section>
   <% end %>
-  
+
   <% if @organisation.parent_organisations.any? %>
     <section id="parent_organisations">
       <h1>Parent organisations</h1>

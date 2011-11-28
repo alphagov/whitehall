@@ -1,5 +1,7 @@
-<% if @featured_topic %>
-  <div class="g3">
+<div class="g3">
+  <h1 class="page_title">Topics</h1>
+
+  <% if @featured_topic %>
     <section class="featured">
       <div class="g2 first">
         <%= content_tag_for :article, @featured_topic do %>
@@ -12,13 +14,8 @@
         <%= render partial: "documents/policies", object: @featured_topic.policies.published.limit(2) %>
         <%= render partial: "documents/news_articles", object: @featured_topic.news_articles.published.limit(2) %>
       </div>
-
     </section>
-  </div>
-<% end %>
-
-<div class="g3">
-  <h1>Topics</h1>
+  <% end %>
 
   <% if @topics.any? %>
     <%= render partial: "grouped_list", locals: {topics: @topics} %>
