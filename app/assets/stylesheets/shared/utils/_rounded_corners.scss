@@ -1,0 +1,39 @@
+@mixin rounded($amount: 5px) {
+  -moz-border-radius: $amount; /* FF1+ */
+  -webkit-border-radius: $amount; /* Saf3+, Chrome */
+  border-radius: $amount; /* Opera 10.5, IE 9 */
+}
+
+@mixin rounded_specific($topleft: 5px, $topright: 5px, $bottomright: 5px, $bottomleft: 5px) {
+  -moz-border-radius-topleft: $topleft;
+  -webkit-border-top-left-radius: $topleft;
+  border-top-left-radius: $topleft;
+
+  -moz-border-radius-topright: $topright;
+  -webkit-border-top-right-radius: $topright;
+  border-top-right-radius: $topright;
+
+  -moz-border-radius-bottomright: $bottomright;
+  -webkit-border-bottom-right-radius: $bottomright;
+  border-bottom-right-radius: $bottomright;
+
+  -moz-border-radius-bottomleft: $bottomleft;
+  -webkit-border-bottom-left-radius: $bottomleft;
+  border-bottom-left-radius: $bottomleft;
+}
+
+@mixin rounded_top($amount: 5px) {
+  @include rounded_specific($amount, $amount, 0, 0);
+}
+
+@mixin rounded_right($amount: 5px) {
+  @include rounded_specific(0, $amount, $amount, 0);
+}
+
+@mixin rounded_left($amount: 5px) {
+  @include rounded_specific($amount, 0, 0, $amount);
+}
+
+@mixin rounded_bottom($amount: 5px) {
+  @include rounded_specific(0, 0, $amount, $amount);
+}

@@ -1,0 +1,42 @@
+/* GRID HELPERS */
+
+@mixin grid_column($float_direction: left) {
+  display: block;
+  position: relative;
+  margin-left: 1%;
+  margin-right: 1%;
+  width: 98.0%;
+
+  @media only screen and (min-width: 768px) {
+    display: inline;
+    float: $float_direction;
+  }
+}
+
+@mixin span_one_column($float_direction: left) {
+  @include grid_column($float_direction);
+
+  @media only screen and (min-width: 768px) {
+    width: 48.0%;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    width: 31.333%
+  }
+}
+
+@mixin span_two_columns($float_direction: left) {
+  @include grid_column($float_direction);
+
+  @media only screen and (min-width: 768px) {
+    width: 48.0%;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    width: 64.667%;
+  }
+}
+
+@mixin span_three_columns($float_direction: left) {
+  @include grid_column($float_direction);
+}

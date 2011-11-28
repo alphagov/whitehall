@@ -1,63 +1,22 @@
-@mixin rounded($amount: 5px) {
-  -moz-border-radius: $amount; /* FF1+ */
-  -webkit-border-radius: $amount; /* Saf3+, Chrome */
-  border-radius: $amount; /* Opera 10.5, IE 9 */
-}
+@import "utils/anchors";
+@import "utils/clearfix";
+@import "utils/gradients";
+@import "utils/grid";
+@import "utils/rounded_corners";
+@import "utils/shadows";
+@import "utils/transitions";
+@import "utils/type_sizing";
 
-@mixin rounded_specific($topleft: 5px, $topright: 5px, $bottomright: 5px, $bottomleft: 5px) {
-  -moz-border-radius-topleft: $topleft;
-  -webkit-border-top-left-radius: $topleft;
-  border-top-left-radius: $topleft;
+@mixin pipe_separated_links {
+  a {
+    padding-right: 0.35em;
+    border-right: 1px solid #999;
 
-  -moz-border-radius-topright: $topright;
-  -webkit-border-top-right-radius: $topright;
-  border-top-right-radius: $topright;
-
-  -moz-border-radius-bottomright: $bottomright;
-  -webkit-border-bottom-right-radius: $bottomright;
-  border-bottom-right-radius: $bottomright;
-
-  -moz-border-radius-bottomleft: $bottomleft;
-  -webkit-border-bottom-left-radius: $bottomleft;
-  border-bottom-left-radius: $bottomleft;
-}
-
-@mixin rounded_top($amount: 5px) {
-  @include rounded_specific($amount, $amount, 0, 0);
-}
-
-@mixin rounded_right($amount: 5px) {
-  @include rounded_specific(0, $amount, $amount, 0);
-}
-
-@mixin rounded_left($amount: 5px) {
-  @include rounded_specific($amount, 0, 0, $amount);
-}
-
-@mixin rounded_bottom($amount: 5px) {
-  @include rounded_specific(0, 0, $amount, $amount);
-}
-
-@mixin transition($properties, $duration: 0.3s, $tf: linear) {
-  -o-transition-property: $properties;
-  -o-transition-duration: $duration;
-  -o-transition-timing-function: $tf;
-
-  -moz-transition-property: $properties;
-  -moz-transition-duration: $duration;
-  -moz-transition-timing-function: $tf;
-
-  -webkit-transition-property: $properties;
-  -webkit-transition-duration: $duration;
-  -webkit-transition-timing-function: $tf;
-
-  transition-property: $properties;
-  transition-duration: $duration;
-  transition-timing-function: $tf;
-}
-
-@mixin no-transitions {
-  @include transition(none, 0);
+    &:last-child {
+      border: none;
+      padding: none;
+    };
+  }
 }
 
 @mixin rounded_padded_heading($radius: 5px) {
@@ -73,147 +32,82 @@
   @include rounded_specific($radius, $radius, 0, 0);
 }
 
-@mixin box-shadow($horiz-offset, $vert-offset, $blur, $colour) {
-  -moz-box-shadow: $horiz-offset $vert-offset $blur $colour; /* FF3.5+ */
-  -webkit-box-shadow: $horiz-offset $vert-offset $blur $colour; /* Saf3.0+, Chrome */
-  box-shadow: $horiz-offset $vert-offset $blur $colour; /* Opera 10.5, IE 9.0 */
-}
+//
+// This is used by supporting documents
+// and publications etc
+// ----------------------------------------
+@mixin looks_like_a_document {
+  border: 1px solid #ddd;
+  border-bottom: 2px solid #ccc;
+  background: #fefefe;
+  padding: 0 0.5em;
+  display: block;
+  margin-bottom: 0;
+  padding: 1em 1em 2.5em 1em;
+  width: 6.5em;
+  min-height: 7em;
+  max-height: 7em;
+  overflow: hidden;
+  text-decoration: none;
+  @include transition(background-color);
 
-@mixin clear-box-shadow {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-}
-
-/* self-clear floats
-eg:
-  .group {
-    @include clearfix;
-  }
-*/
-
-@mixin clearfix {
-  &:after {
-    content: ".";
+  span.title {
+    @include type-13;
+    line-height: 1.75em;
     display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
+    margin-bottom: 0.5em;
   }
-}
 
-$link-color: #2200C1;
-$link-color-hover: #1D97FF;
-$link-color-visted: #2200C1;
-$link-color-active: #c11;
-
-@mixin link_color($normal: $link-color, $hover: $link-color-hover, $visited: $link-color-visted, $active: $link-color-active) {
-  color: $normal;
+  span.body {
+    color: #888;
+    font-size: 60%;
+    line-height: 1.5em;
+    display: block;
+  }
 
   &:hover {
-    color: $hover;
-  }
+    background: #fcffd7;
+    border: 1px solid #bbb;
+    border-bottom: 2px solid #aaa;
 
-  &:visited {
-    color: $visited;
-  }
-
-  &:active {
-    color: $active;
-  }
-
-  &.current {
-    color: $active;
-  }
-
-  &[rel="external"] {
-    background: url(/images/external-link.png) 100% 0 no-repeat;
-    padding-right: 1.2em;
+    span.title {
+      text-decoration: underline;
+    }
   }
 }
 
-$base_font_size_in_px: 16 !default;
-$baseline_in_px: 24 !default;
+@mixin looks_like_a_floated_document {
+  float: left;
+  margin-right: 2%;
+  a {
+    @include looks_like_a_document;
+  }
+}
 
-@mixin scaled_type($size_in_px, $line_height_in_px: 24) {
-  $vertical_rhythm: ($baseline_in_px / $size_in_px);
-
+@mixin featured_box {
+  @include rounded();
+  @include box-shadow(0, 1px, 2px, rgba(10,10,10,0.2));
+  background: #fff;
+  border-color: rgba(150,150,150,0.4);
+  border: 8px solid #ddd;
   margin: 0;
-  font-size: #{($size_in_px/$base_font_size_in_px)}em;
-  line-height: #{$vertical_rhythm * ($line_height_in_px / $baseline_in_px)}em;
-  @include scaled_margin_bottom($size_in_px, $line_height_in_px);
+  margin-bottom: 3em;
+  margin-top: 1em;
+  padding: 0;
+
+  h1 {
+
+  }
 }
 
-@mixin scaled_margin_top($size_in_px, $line_height_in_px: 24) {
-  $vertical_rhythm: ($baseline_in_px / $size_in_px);
-  margin-top: #{$vertical_rhythm}em;
-}
-
-@mixin scaled_margin_bottom($size_in_px, $line_height_in_px: 24) {
-  $vertical_rhythm: ($baseline_in_px / $size_in_px);
-  margin-bottom: #{$vertical_rhythm}em;
-}
-
-
-@mixin type-60 {
-  /* 60px / 72px */
-  @include scaled_type(60, 72);
-}
-
-@mixin type-48 {
-  /* 48px / 48px */
-  @include scaled_type(48, 48);
-}
-
-@mixin type-36 {
-  /* 36px / 48px */
-  @include scaled_type(36, 48);
-}
-
-@mixin type-24 {
-  /* 24px / 24px */
-  @include scaled_type(24);
-}
-
-@mixin type-21 {
-  /* 21px / 24px */
-  @include scaled_type(21);
-}
-
-@mixin type-18 {
-  /* 18px / 24px */
-  @include scaled_type(18);
-}
-
-@mixin type-16 {
-  /* 16px / 24px */
-  @include scaled_type(16);
-}
-
-@mixin type-14 {
-  /* 14px / 24px */
-  @include scaled_type(14);
-}
-
-@mixin type-13 {
-  /* 13px / 24px */
-  @include scaled_type(13);
-}
-
-@mixin type-12 {
-  /* 12px / 24px */
-  @include scaled_type(12);
-}
-
-@mixin type-11 {
-  /* 11px / 24px */
-  @include scaled_type(11);
-}
-
-@mixin type-10 {
-  /* 10px / 24px */
-  @include scaled_type(10);
-}
+@import "utils/anchors";
+@import "utils/clearfix";
+@import "utils/gradients";
+@import "utils/grid";
+@import "utils/rounded_corners";
+@import "utils/shadows";
+@import "utils/transitions";
+@import "utils/type_sizing";
 
 @mixin pipe_separated_links {
   a {
@@ -227,58 +121,323 @@ $baseline_in_px: 24 !default;
   }
 }
 
-@mixin vertical_gradient($from_hex, $to_hex) {
-  background-color: $from_hex;
-  background-image: -webkit-gradient(linear, left top, left bottom, from($from_hex), to($to_hex));
-  background-image: -webkit-linear-gradient(top, $from_hex, $to_hex);
-  background-image: -moz-linear-gradient(top, $from_hex, $to_hex);
-  background-image: -o-linear-gradient(top, $from_hex, $to_hex);
-  background-image: -ms-linear-gradient(top, $from_hex, $to_hex);
-  background-image: linear-gradient(top, $from_hex, $to_hex);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$from_hex}', EndColorStr='#{$to_hex}');
+@mixin rounded_padded_heading($radius: 5px) {
+  background: #eee;
+  padding: 0 1em;
+  margin: 0;
+  color: #333;
+  border-top: 1px solid #fdfdfd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
+  text-shadow: #fff 0px 1px 0;
+  @include rounded_specific($radius, $radius, 0, 0);
 }
 
-/* GRID HELPERS */
-
-@mixin grid_column($float_direction: left) {
+//
+// This is used by supporting documents
+// and publications etc
+// ----------------------------------------
+@mixin looks_like_a_document {
+  border: 1px solid #ddd;
+  border-bottom: 2px solid #ccc;
+  background: #fefefe;
+  padding: 0 0.5em;
   display: block;
-  position: relative;
-  margin-left: 1%;
-  margin-right: 1%;
-  width: 98.0%;
+  margin-bottom: 0;
+  padding: 1em 1em 2.5em 1em;
+  width: 6.5em;
+  min-height: 7em;
+  max-height: 7em;
+  overflow: hidden;
+  text-decoration: none;
+  @include transition(background-color);
 
-  @media only screen and (min-width: 768px) {
-    display: inline;
-    float: $float_direction;
+  span.title {
+    @include type-13;
+    line-height: 1.75em;
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
+  span.body {
+    color: #888;
+    font-size: 60%;
+    line-height: 1.5em;
+    display: block;
+  }
+
+  &:hover {
+    background: #fcffd7;
+    border: 1px solid #bbb;
+    border-bottom: 2px solid #aaa;
+
+    span.title {
+      text-decoration: underline;
+    }
   }
 }
 
-@mixin span_one_column($float_direction: left) {
-  @include grid_column($float_direction);
-
-  @media only screen and (min-width: 768px) {
-    width: 48.0%;
-  }
-
-  @media only screen and (min-width: 1024px) {
-    width: 31.333%
+@mixin looks_like_a_floated_document {
+  float: left;
+  margin-right: 2%;
+  a {
+    @include looks_like_a_document;
   }
 }
 
-@mixin span_two_columns($float_direction: left) {
-  @include grid_column($float_direction);
+@mixin featured_box {
+  @include rounded();
+  @include box-shadow(0, 1px, 2px, rgba(10,10,10,0.2));
+  background: #fff;
+  border-color: rgba(150,150,150,0.4);
+  border: 8px solid #ddd;
+  margin: 0;
+  margin-bottom: 3em;
+  margin-top: 1em;
+  padding: 0;
 
-  @media only screen and (min-width: 768px) {
-    width: 48.0%;
-  }
+  h1 {
 
-  @media only screen and (min-width: 1024px) {
-    width: 64.667%;
   }
 }
 
-@mixin span_three_columns($float_direction: left) {
-  @include grid_column($float_direction);
+@import "utils/anchors";
+@import "utils/clearfix";
+@import "utils/gradients";
+@import "utils/grid";
+@import "utils/rounded_corners";
+@import "utils/shadows";
+@import "utils/transitions";
+@import "utils/type_sizing";
+
+@mixin pipe_separated_links {
+  a {
+    padding-right: 0.35em;
+    border-right: 1px solid #999;
+
+    &:last-child {
+      border: none;
+      padding: none;
+    };
+  }
+}
+
+@mixin rounded_padded_heading($radius: 5px) {
+  background: #eee;
+  padding: 0 1em;
+  margin: 0;
+  color: #333;
+  border-top: 1px solid #fdfdfd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
+  text-shadow: #fff 0px 1px 0;
+  @include rounded_specific($radius, $radius, 0, 0);
+}
+
+//
+// This is used by supporting documents
+// and publications etc
+// ----------------------------------------
+@mixin looks_like_a_document {
+  border: 1px solid #ddd;
+  border-bottom: 2px solid #ccc;
+  background: #fefefe;
+  padding: 0 0.5em;
+  display: block;
+  margin-bottom: 0;
+  padding: 1em 1em 2.5em 1em;
+  width: 6.5em;
+  min-height: 7em;
+  max-height: 7em;
+  overflow: hidden;
+  text-decoration: none;
+  @include transition(background-color);
+
+  span.title {
+    @include type-13;
+    line-height: 1.75em;
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
+  span.body {
+    color: #888;
+    font-size: 60%;
+    line-height: 1.5em;
+    display: block;
+  }
+
+  &:hover {
+    background: #fcffd7;
+    border: 1px solid #bbb;
+    border-bottom: 2px solid #aaa;
+
+    span.title {
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin looks_like_a_floated_document {
+  float: left;
+  margin-right: 2%;
+  a {
+    @include looks_like_a_document;
+  }
+}
+
+@mixin featured_box {
+  @include rounded();
+  @include box-shadow(0, 1px, 2px, rgba(10,10,10,0.2));
+  background: #fff;
+  border-color: rgba(150,150,150,0.4);
+  border: 8px solid #ddd;
+  margin: 0;
+  margin-bottom: 3em;
+  margin-top: 1em;
+  padding: 0;
+
+  h1 {
+
+  }
+}
+
+@import "utils/anchors";
+@import "utils/clearfix";
+@import "utils/gradients";
+@import "utils/grid";
+@import "utils/rounded_corners";
+@import "utils/shadows";
+@import "utils/transitions";
+@import "utils/type_sizing";
+
+@mixin pipe_separated_links {
+  a {
+    padding-right: 0.35em;
+    border-right: 1px solid #999;
+
+    &:last-child {
+      border: none;
+      padding: none;
+    };
+  }
+}
+
+@mixin rounded_padded_heading($radius: 5px) {
+  background: #eee;
+  padding: 0 1em;
+  margin: 0;
+  color: #333;
+  border-top: 1px solid #fdfdfd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
+  text-shadow: #fff 0px 1px 0;
+  @include rounded_specific($radius, $radius, 0, 0);
+}
+
+//
+// This is used by supporting documents
+// and publications etc
+// ----------------------------------------
+@mixin looks_like_a_document {
+  border: 1px solid #ddd;
+  border-bottom: 2px solid #ccc;
+  background: #fefefe;
+  padding: 0 0.5em;
+  display: block;
+  margin-bottom: 0;
+  padding: 1em 1em 2.5em 1em;
+  width: 6.5em;
+  min-height: 7em;
+  max-height: 7em;
+  overflow: hidden;
+  text-decoration: none;
+  @include transition(background-color);
+
+  span.title {
+    @include type-13;
+    line-height: 1.75em;
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
+  span.body {
+    color: #888;
+    font-size: 60%;
+    line-height: 1.5em;
+    display: block;
+  }
+
+  &:hover {
+    background: #fcffd7;
+    border: 1px solid #bbb;
+    border-bottom: 2px solid #aaa;
+
+    span.title {
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin looks_like_a_floated_document {
+  float: left;
+  margin-right: 2%;
+  a {
+    @include looks_like_a_document;
+  }
+}
+
+@mixin featured_box {
+  @include rounded();
+  @include box-shadow(0, 1px, 2px, rgba(10,10,10,0.2));
+  background: #fff;
+  border-color: rgba(150,150,150,0.4);
+  border: 8px solid #ddd;
+  margin: 0;
+  margin-bottom: 3em;
+  margin-top: 1em;
+  padding: 0;
+
+  h1 {
+
+  }
+}
+
+@import "utils/anchors";
+@import "utils/clearfix";
+@import "utils/gradients";
+@import "utils/grid";
+@import "utils/rounded_corners";
+@import "utils/shadows";
+@import "utils/transitions";
+@import "utils/type_sizing";
+
+@mixin pipe_separated_links {
+  a {
+    padding-right: 0.35em;
+    border-right: 1px solid #999;
+
+    &:last-child {
+      border: none;
+      padding: none;
+    };
+  }
+}
+
+@mixin rounded_padded_heading($radius: 5px) {
+  background: #eee;
+  padding: 0 1em;
+  margin: 0;
+  color: #333;
+  border-top: 1px solid #fdfdfd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
+  text-shadow: #fff 0px 1px 0;
+  @include rounded_specific($radius, $radius, 0, 0);
 }
 
 //

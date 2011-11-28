@@ -1,0 +1,10 @@
+@mixin vertical_gradient($from_hex, $to_hex) {
+  background-color: $from_hex;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($from_hex), to($to_hex));
+  background-image: -webkit-linear-gradient(top, $from_hex, $to_hex);
+  background-image: -moz-linear-gradient(top, $from_hex, $to_hex);
+  background-image: -o-linear-gradient(top, $from_hex, $to_hex);
+  background-image: -ms-linear-gradient(top, $from_hex, $to_hex);
+  background-image: linear-gradient(top, $from_hex, $to_hex);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$from_hex}', EndColorStr='#{$to_hex}');
+}

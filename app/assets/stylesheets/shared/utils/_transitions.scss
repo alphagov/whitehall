@@ -1,0 +1,21 @@
+@mixin transition($properties, $duration: 0.3s, $tf: linear) {
+  -o-transition-property: $properties;
+  -o-transition-duration: $duration;
+  -o-transition-timing-function: $tf;
+
+  -moz-transition-property: $properties;
+  -moz-transition-duration: $duration;
+  -moz-transition-timing-function: $tf;
+
+  -webkit-transition-property: $properties;
+  -webkit-transition-duration: $duration;
+  -webkit-transition-timing-function: $tf;
+
+  transition-property: $properties;
+  transition-duration: $duration;
+  transition-timing-function: $tf;
+}
+
+@mixin no-transitions {
+  @include transition(none, 0);
+}
