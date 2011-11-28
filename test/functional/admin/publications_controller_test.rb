@@ -7,7 +7,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test_controller_is_a Admin::BaseController
 
-  test "new displays publication metadatum fields" do
+  test "new displays publication fields" do
     get :new
 
     assert_select "form#document_new" do
@@ -24,7 +24,13 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     second_org = create(:organisation)
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
-    attributes = attributes_for(:publication)
+    attributes = attributes_for(:publication,
+      publication_date: Date.parse("1805-10-21"),
+      unique_reference: "unique-reference",
+      isbn: "0140621431",
+      research: true,
+      order_url: "http://example.com/order-path"
+    )
 
     post :create, document: attributes.merge(
       organisation_ids: [first_org.id, second_org.id],
@@ -36,6 +42,11 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal attributes[:body], created_publication.body
     assert_equal [first_org, second_org], created_publication.organisations
     assert_equal [first_policy, second_policy], created_publication.documents_related_to
+    assert_equal Date.parse("1805-10-21"), created_publication.publication_date
+    assert_equal "unique-reference", created_publication.unique_reference
+    assert_equal "0140621431", created_publication.isbn
+    assert created_publication.research?
+    assert_equal "http://example.com/order-path", created_publication.order_url
   end
 
   test 'creating a publication should attach file' do
@@ -51,25 +62,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal "greenpaper.pdf", attachment.carrierwave_file
     assert_equal "application/pdf", attachment.content_type
     assert_equal greenpaper_pdf.size, attachment.file_size
-  end
-
-  test 'creating a publication should create publication metadatum' do
-    attributes = attributes_for(:publication).merge(
-      publication_date: Date.parse("1805-10-21"),
-      unique_reference: "unique-reference",
-      isbn: "0140621431",
-      research: true,
-      order_url: "http://example.com/order-path"
-    )
-
-    post :create, document: attributes
-
-    assert publication = Publication.last
-    assert_equal Date.parse("1805-10-21"), publication.publication_date
-    assert_equal "unique-reference", publication.unique_reference
-    assert_equal "0140621431", publication.isbn
-    assert publication.research?
-    assert_equal "http://example.com/order-path", publication.order_url
   end
 
   test 'creating should take the writer to the publication page' do
@@ -102,33 +94,27 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "p.attachment", count: 0
   end
 
-  test "creating a publication with invalid metadatum data" do
-    attributes = attributes_for(:publication,
-      title: "valid-title-to-keep",
-      unique_reference: "valid-reference-to-keep"
-    ).except(:publication_date)
-
-    post :create, document: attributes
-
-    assert_template "new"
-    assert_select ".errors"
-    assert_nil Publication.last
-    assert_nil PublicationMetadatum.last
-    assert_select "input[name='document[title]'][value='valid-title-to-keep']"
-    assert_select "input[name='document[unique_reference]'][value='valid-reference-to-keep']"
-  end
-
   test 'updating should save modified document attributes' do
     publication = create(:publication)
 
     put :update, id: publication.id, document: publication.document_attributes.merge(
       title: "new-title",
-      body: "new-body"
+      body: "new-body",
+      publication_date: Date.parse("1815-06-18"),
+      unique_reference: "new-reference",
+      isbn: "0099532816",
+      research: true,
+      order_url: "https://example.com/new-order-path"
     )
 
     saved_publication = publication.reload
     assert_equal "new-title", saved_publication.title
     assert_equal "new-body", saved_publication.body
+    assert_equal Date.parse("1815-06-18"), saved_publication.publication_date
+    assert_equal "new-reference", saved_publication.unique_reference
+    assert_equal "0099532816", saved_publication.isbn
+    assert saved_publication.research?
+    assert_equal "https://example.com/new-order-path", saved_publication.order_url
   end
 
   test 'updating a publication should attach file' do
@@ -143,26 +129,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal "greenpaper.pdf", attachment.carrierwave_file
     assert_equal "application/pdf", attachment.content_type
     assert_equal greenpaper_pdf.size, attachment.file_size
-  end
-
-  test "updating a publication should save modified metadatum attributes" do
-    publication = create(:publication)
-    new_metadatum_attributes = {
-      publication_date: Date.parse("1815-06-18"),
-      unique_reference: "new-reference",
-      isbn: "0099532816",
-      research: true,
-      order_url: "https://example.com/new-order-path"
-    }
-
-    put :update, id: publication, document: publication.attributes.merge(new_metadatum_attributes)
-
-    publication.reload
-    assert_equal Date.parse("1815-06-18"), publication.publication_date
-    assert_equal "new-reference", publication.unique_reference
-    assert_equal "0099532816", publication.isbn
-    assert publication.research?
-    assert_equal "https://example.com/new-order-path", publication.order_url
   end
 
   test 'updating should remove all organisations, related documents and ministerial roles if none in params' do
@@ -198,27 +164,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal attributes[:title], publication.reload.title
     assert_template "documents/edit"
     assert_equal 'There are some problems with the document', flash.now[:alert]
-  end
-
-  test "updating with invalid metadatum data" do
-    publication = create(:publication,
-      title: "original-title",
-      unique_reference: "original-reference"
-    )
-
-    put :update, id: publication.id, document: publication.attributes.merge(
-      title: "valid-title-to-keep",
-      publication_date: nil,
-      unique_reference: "valid-reference-to-keep"
-    )
-
-    assert_template "edit"
-    assert_select ".errors"
-    publication.reload
-    assert_equal "original-title", publication.title
-    assert_equal "original-reference", publication.unique_reference
-    assert_select "input[name='document[title]'][value='valid-title-to-keep']"
-    assert_select "input[name='document[unique_reference]'][value='valid-reference-to-keep']"
   end
 
   test 'updating a stale publication should render edit page with conflicting publication' do
@@ -263,7 +208,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "should display publication metadata" do
+  test "should display publication attributes" do
     publication = create(:publication,
       publication_date: Date.parse("1916-05-31"),
       unique_reference: "unique-reference",
