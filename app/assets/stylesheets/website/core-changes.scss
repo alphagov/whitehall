@@ -1,0 +1,35 @@
+@import "../shared/utils";
+
+// make the global header a little more responsive ..
+#global-header {
+  .header-global {
+      h1 {
+        float: left;
+        margin-right: 6em;
+        padding-top: 0.3em;
+        padding-bottom: 0.3em;
+      }
+
+      ul {
+        float: left;
+        margin-right: 0;
+        line-height: 3em;
+
+        li {
+          margin-bottom: 0;
+
+          a {
+            text-decoration: none;
+            font-weight: bold;
+            &:hover {
+              color: #fff;
+            };
+          }
+        }
+      }
+  }
+
+  @include clear-box-shadow;
+}
+
+

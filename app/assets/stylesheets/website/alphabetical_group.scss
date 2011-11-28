@@ -44,7 +44,7 @@
         }
 
         a {
-          @include type-18;
+          @include type-16;
           font-weight: bold;
           margin-bottom: 0;
         }
@@ -52,7 +52,16 @@
     }
 
     .ministerial_role {
-      min-height: 5.45em;
+      min-height: 4.5em;
+
+      h3 {
+        @include type-16;
+        margin-bottom: 0;
+        a {
+          font-size: 100%;
+        }
+      }
+
     }
   }
 }

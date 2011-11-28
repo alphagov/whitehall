@@ -19,27 +19,27 @@
     <script src="/javascripts/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="website" id="wrapper">
-    <div id="content">
-      <header class="group masthead">
-        <nav class="group">
-          <div class="documents">
-            <%= link_to "Latest", announcements_path %>
-            <%= link_to "Topics", topics_path %>
-            <%= link_to "Publications", publications_path %>
-            <%= link_to "Consultations", consultations_path %>
-          </div>
-          <div class="structure">
-            <%= link_to "Ministers", ministerial_roles_path %>
-            <%= link_to "Organisations", organisations_path %>
-            <%= link_to "UK in the World", countries_path %>
-          </div>
-        </nav>
-      </header>
-      <section class="group wrapper">
+  <body class="website">
+    <div class="header-context government group">
+      <nav class="group" role="navigation">
+        <%= link_to "Home", root_path, class: "home" %>
+        <div class="documents">
+          <%= link_to "Latest", announcements_path %>
+          <%= link_to "Topics", topics_path %>
+          <%= link_to "Publications", publications_path %>
+          <%= link_to "Consultations", consultations_path %>
+        </div>
+        <div class="structure">
+          <%= link_to "Ministers", ministerial_roles_path %>
+          <%= link_to "Organisations", organisations_path %>
+          <%= link_to "UK in the World", countries_path %>
+        </div>
+      </nav>
+    </div>
+    <div id="wrapper">
+      <div id="content" class="group">
         <%= yield %>
-      </section>
-
+      </div>
     </div>
     <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false" %>
     <%= javascript_include_tag "application", defer: true %>

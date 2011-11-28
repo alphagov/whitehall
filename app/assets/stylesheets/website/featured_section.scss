@@ -1,53 +1,51 @@
 @import "../shared/utils";
 
 #content {
-  .wrapper {
-    section.featured {
-      @include clearfix;
-      @include featured_box;
+  section.featured {
+    @include clearfix;
+    @include featured_box;
 
-      padding-top: 1em;
+    padding-top: 1em;
 
-      article.topic {
+    article.topic {
+      h1 {
+        padding-left: 1em;
+        padding-bottom: 0em;
+        @include type-21;
+        margin-bottom: 0.5em;
+      }
+
+      .description {
+        padding: 0 1.5em;
+        @include type-14;
+        color: #555;
+      }
+    }
+
+    .related {
+      background: #fefefe;
+      section {
+        background: none;
+        border: none;
+        margin-bottom: 0;
+        padding: 0;
+
         h1 {
-          padding-left: 1em;
-          padding-bottom: 0em;
           @include type-21;
           margin-bottom: 0.5em;
         }
 
-        .description {
-          padding: 0 1.5em;
-          @include type-14;
-          color: #555;
-        }
-      }
-
-      .related {
-        background: #fefefe;
-        section {
-          background: none;
-          border: none;
-          margin-bottom: 0;
+        ul {
           padding: 0;
-
-          h1 {
-            @include type-21;
-            margin-bottom: 0.5em;
-          }
-
-          ul {
-            padding: 0;
-            li  {
-              margin-bottom: 0.857em;
-              a {
-                padding: 0;
-              }
+          li  {
+            margin-bottom: 0.857em;
+            a {
+              padding: 0;
             }
           }
         }
       }
-
     }
+
   }
 }
