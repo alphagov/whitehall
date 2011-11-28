@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111124143505) do
+ActiveRecord::Schema.define(:version => 20111128190540) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -102,6 +102,11 @@ ActiveRecord::Schema.define(:version => 20111124143505) do
     t.date     "opening_on"
     t.date     "closing_on"
     t.datetime "published_at"
+    t.date     "publication_date"
+    t.string   "unique_reference"
+    t.string   "isbn"
+    t.boolean  "research",             :default => false
+    t.string   "order_url"
   end
 
   create_table "editorial_remarks", :force => true do |t|

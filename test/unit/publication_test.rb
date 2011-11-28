@@ -112,12 +112,24 @@ class PublicationTest < ActiveSupport::TestCase
 
   test "should build a draft copy of the existing publication" do
     attachment = create(:attachment)
-    published_publication = create(:published_publication, attachments: [attachment])
+    published_publication = create(:published_publication,
+      publication_date: Date.parse("2010-01-01"),
+      unique_reference: "ABC-123",
+      isbn: "0099532816",
+      research: true,
+      order_url: "http://example.com/order-url",
+      attachments: [attachment]
+    )
 
     draft_publication = published_publication.create_draft(create(:policy_writer))
 
     assert_kind_of Attachment, published_publication.attachments.first
     assert_equal published_publication.attachments, draft_publication.attachments
+    assert_equal published_publication.publication_date, draft_publication.publication_date
+    assert_equal published_publication.unique_reference, draft_publication.unique_reference
+    assert_equal published_publication.isbn, draft_publication.isbn
+    assert_equal published_publication.research, draft_publication.research
+    assert_equal published_publication.order_url, draft_publication.order_url
   end
 
   test "allows attachment" do
@@ -147,17 +159,5 @@ class PublicationTest < ActiveSupport::TestCase
     publication.reload
 
     assert_equal [attachment_2], publication.attachments
-  end
-
-  test "should build a draft copy with copy of publication metadatum" do
-    published_publication = create(:published_publication)
-    metadatum = published_publication.publication_metadatum
-    draft_publication = published_publication.create_draft(create(:policy_writer))
-
-    assert draft_publication.valid?
-
-    assert new_metadatum = draft_publication.publication_metadatum
-    refute_equal metadatum, new_metadatum
-    assert_equal metadatum.publication_date, new_metadatum.publication_date
   end
 end
