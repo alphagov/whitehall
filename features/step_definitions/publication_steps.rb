@@ -1,7 +1,7 @@
 When /^I draft a new publication "([^"]*)"$/ do |title|
   policy = create(:policy)
   begin_drafting_document type: 'publication', title: title
-  fill_in_publication_metadata
+  fill_in_publication_fields
   attach_file "Attachment", Rails.root.join("features/fixtures/attachment.pdf")
   check "Wales"
   fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
@@ -11,7 +11,7 @@ end
 
 When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
   begin_drafting_document type: 'publication', title: title
-  fill_in_publication_metadata
+  fill_in_publication_fields
   nations.raw.flatten.each do |nation_name|
     check nation_name
     fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
@@ -41,7 +41,7 @@ end
 
 When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_document type: "Publication", title: title
-  fill_in_publication_metadata
+  fill_in_publication_fields
   select first_policy, from: "Related Policies"
   select second_policy, from: "Related Policies"
   click_button "Save"
@@ -89,7 +89,7 @@ def pdf_attachment(filename=nil)
   end
 end
 
-def fill_in_publication_metadata
+def fill_in_publication_fields
   select_date "Publication date", with: "2010-01-01"
   fill_in "Unique reference", with: "ABC-123"
   fill_in "ISBN", with: "0099532816"
