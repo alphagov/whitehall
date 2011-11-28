@@ -8,9 +8,9 @@
           <p class="metadata">
             <span class="document_type"><%= main_document_type(document) %></span>
             published
-            <abbr class="published_at" title="<%= document.published_at.iso8601 %>">
+            <%= render_datetime_microformat(document, :published_at) do %>
               <%= time_ago_in_words(document.published_at) %>
-            </abbr> ago
+            <% end %> ago
           </p>
         <% end %>
       <% end %>

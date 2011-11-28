@@ -6,9 +6,9 @@
         <li class="editorial_remark">
           <span class="author"><%= editorial_remark.author.name %></span>
           wrote
-          <abbr class="created_at" title="<%= editorial_remark.created_at.iso8601 %>">
+          <%= render_datetime_microformat(editorial_remark, :created_at) do %>
             <%= time_ago_in_words(editorial_remark.created_at) %>
-          </abbr> ago:
+          <% end %> ago:
           <div class="body"><%= editorial_remark.body %></div>
         </li>
       <% end %>

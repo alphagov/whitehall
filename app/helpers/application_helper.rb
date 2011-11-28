@@ -81,4 +81,8 @@ module ApplicationHelper
   def yes_or_no(boolean)
     boolean ? "Yes" : "No"
   end
+
+  def render_datetime_microformat(object, method, &block)
+    content_tag(:abbr, class: method, title: object.send(method).iso8601, &block)
+  end
 end

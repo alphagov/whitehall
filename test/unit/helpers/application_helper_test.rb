@@ -71,6 +71,13 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_select_in_html(html, 'ul li p', text: "Jill")
   end
 
+  test "should render a object's datetime using the datetime microformat" do
+    created_at = Time.zone.now
+    object = stub(created_at: created_at)
+    html = render_datetime_microformat(object, :created_at) { "human-friendly" }
+    assert_select_in_html(html, "abbr.created_at[title='#{created_at.iso8601}']", text: "human-friendly")
+  end
+
   test "should return the main type of the document" do
     assert_equal "Consultation", main_document_type(build(:consultation))
     assert_equal "News article", main_document_type(build(:news_article))
