@@ -86,7 +86,8 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   test "show displays metadata about the recently changed documents" do
-    speech = create(:published_speech_transcript)
+    published_at = Time.zone.now
+    speech = create(:published_speech_transcript, published_at: published_at)
     policy = create(:published_policy,
       documents_related_with: [speech]
     )
@@ -98,7 +99,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#recently-changed" do
       assert_select_object speech do
         assert_select '.metadata .document_type', text: "Speech"
-        assert_select '.metadata .time', count: 1
+        assert_select ".metadata .published_at[title='#{published_at.iso8601}']"
       end
     end
   end

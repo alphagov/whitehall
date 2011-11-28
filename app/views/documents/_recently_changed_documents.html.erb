@@ -8,7 +8,9 @@
           <p class="metadata">
             <span class="document_type"><%= main_document_type(document) %></span>
             published
-            <span class="time"><%= distance_of_time_in_words_to_now(document.published_at) %> ago</span>
+            <abbr class="published_at" title="<%= document.published_at.iso8601 %>">
+              <%= time_ago_in_words(document.published_at) %>
+            </abbr> ago
           </p>
         <% end %>
       <% end %>
