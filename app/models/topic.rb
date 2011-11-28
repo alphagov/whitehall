@@ -14,6 +14,8 @@ class Topic < ActiveRecord::Base
 
   accepts_nested_attributes_for :document_topics
 
+  default_scope order(:name)
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 
