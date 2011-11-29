@@ -97,7 +97,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test 'updating should save modified document attributes' do
     publication = create(:publication)
 
-    put :update, id: publication.id, document: publication.document_attributes.merge(
+    put :update, id: publication.id, document: publication.attributes.merge(
       title: "new-title",
       body: "new-body",
       publication_date: Date.parse("1815-06-18"),
@@ -121,7 +121,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     publication = create(:publication)
 
-    put :update, id: publication, document: publication.document_attributes.merge(attach_file: greenpaper_pdf)
+    put :update, id: publication, document: publication.attributes.merge(attach_file: greenpaper_pdf)
 
     publication.reload
     assert_equal 1, publication.attachments.length
@@ -147,7 +147,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test 'updating should take the writer to the publication page' do
     publication = create(:publication)
-    put :update, id: publication.id, document: publication.document_attributes.merge(
+    put :update, id: publication.id, document: publication.attributes.merge(
       title: 'new-title',
       body: 'new-body'
     )
@@ -171,7 +171,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     lock_version = publication.lock_version
     publication.touch
 
-    put :update, id: publication, document: publication.document_attributes.merge(lock_version: lock_version)
+    put :update, id: publication, document: publication.attributes.merge(lock_version: lock_version)
 
     assert_template 'edit'
     conflicting_publication = publication.reload
