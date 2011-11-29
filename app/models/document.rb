@@ -1,6 +1,5 @@
 class Document < ActiveRecord::Base
   include Document::Traits
-  include Document::AttributesForChildObjects
 
   include Document::Identifiable
   include Document::AccessControl

@@ -7,17 +7,11 @@ module Admin::DocumentsController::NationalApplicability
 
   def create
     params[:document][:nation_inapplicabilities_attributes] ||= {}
-    @document = document_class.new(without_attributes_for_child_objects(params[:document]).merge(creator: current_user))
+    @document = document_class.new(params[:document].merge(creator: current_user))
     if @document.save
-      if @document.update_attributes(params[:document])
-        redirect_to admin_document_path(@document), notice: "The document has been saved"
-      else
-        process_nation_inapplicabilities
-        render action: "edit"
-      end
+      redirect_to admin_document_path(@document), notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
-      @document.nation_inapplicabilities_attributes = params[:document][:nation_inapplicabilities_attributes]
       process_nation_inapplicabilities
       render action: "new"
     end
@@ -54,9 +48,5 @@ module Admin::DocumentsController::NationalApplicability
 
   def build_nation_inapplicabilities
     @document.build_nation_applicabilities_for_all_nations
-  end
-
-  def without_attributes_for_child_objects(attributes)
-    attributes.except(*document_class.attributes_for_child_objects)
   end
 end

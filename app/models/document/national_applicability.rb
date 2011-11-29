@@ -12,7 +12,6 @@ module Document::NationalApplicability
     has_many :inapplicable_nations, through: :nation_inapplicabilities, source: :nation
 
     accepts_nested_attributes_for :nation_inapplicabilities, allow_destroy: true
-    attribute_for_child_objects :nation_inapplicabilities_attributes
 
     add_trait Trait
   end

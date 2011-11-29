@@ -14,7 +14,6 @@ module Document::Attachable
     has_many :attachments, through: :document_attachments
 
     accepts_nested_attributes_for :document_attachments, allow_destroy: true
-    attribute_for_child_objects :attach_file
 
     add_trait Trait
   end
