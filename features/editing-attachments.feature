@@ -1,7 +1,7 @@
 Feature: Editing attachments
 In order to send the best version of a policy to the departmental editor
 A writer
-Should be able to manipulate the attachments to a document
+Should be able to manipulate the attachments on a document
 
 Background:
   Given I am a writer
@@ -18,3 +18,9 @@ Scenario: Preserving attachments on published documents
   When I remove the attachment "something.pdf" from a new draft of the publication "Standard Beard Lengths"
   And I visit the publication "Standard Beard Lengths"
   Then I should see a link to the PDF attachment "something.pdf"
+
+Scenario: Remember uploaded file after validation failure
+  Given I attempt to create an invalid publication with a attachment "something.pdf"
+  When I set the publication title to "Validation Error Fixed" and save
+  Then I should see a link to the PDF attachment "something.pdf"
+  

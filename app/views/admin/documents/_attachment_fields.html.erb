@@ -3,6 +3,7 @@
     <% if attachment_fields.object.new_record? %>
       <%= attachment_fields.label :file, 'Attachment' %>
       <%= attachment_fields.file_field :file %>
+      <%= attachment_fields.hidden_field :file_cache %>
     <% end %>
   <% end %>
 

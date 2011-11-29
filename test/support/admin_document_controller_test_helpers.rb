@@ -61,6 +61,19 @@ module AdminDocumentControllerTestHelpers
         end
       end
 
+      test "creating a document with invalid data and an attachment should remember the uploaded file" do
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+        post :create, document: attributes_for(document_type,
+          title: "",
+          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+        )
+
+        assert_select "form#document_new" do
+          assert_select "input[name='document[attachments_attributes][0][file_cache]'][type='hidden'][value$='greenpaper.pdf']"
+        end
+      end
+
       test 'creating a document with invalid data should not show any attachment info' do
         attributes = attributes_for(document_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
@@ -120,6 +133,20 @@ module AdminDocumentControllerTestHelpers
         end
       end
 
+      test "updating a document with invalid data and an attachment should remember the uploaded file" do
+        document = create(document_type)
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+        put :update, id: document, document: attributes_for(document_type,
+          title: "",
+          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+        )
+
+        assert_select "form#document_edit" do
+          assert_select "input[name='document[attachments_attributes][0][file_cache]'][type='hidden'][value$='greenpaper.pdf']"
+        end
+      end
+
       test "updating a stale document should still allow attachment to be selected for upload" do
         document = create("draft_#{document_type}")
         lock_version = document.lock_version
@@ -151,14 +178,21 @@ module AdminDocumentControllerTestHelpers
       test 'updating should allow removal of attachments' do
         attachment_1 = create(:attachment)
         attachment_2 = create(:attachment)
-        attributes = attributes_for(document_type)
-        document = create(document_type, attributes.merge(attachments: [attachment_1, attachment_2]))
-        document_attachments_attributes = document.document_attachments.inject({}) do |h, da|
-          h[da.id] = da.attributes.merge("_destroy" => (da.attachment == attachment_1 ? "1" : "0"))
-          h
-        end
-        put :update, id: document, document: attributes.merge(document_attachments_attributes: document_attachments_attributes)
+        document = create(document_type)
+        document_attachment_1 = create(:document_attachment, document: document, attachment: attachment_1)
+        document_attachment_2 = create(:document_attachment, document: document, attachment: attachment_2)
 
+        put :update, id: document, document: document.attributes.merge(
+          document_attachments_attributes: {
+            "0" => {id: document_attachment_1.id.to_s, _destroy: "1"},
+            "1" => {id: document_attachment_2.id.to_s, _destroy: "0"}
+          },
+          attachments_attributes: {
+            "0" => {file_cache: ""}
+          }
+        )
+
+        assert_select ".errors", count: 0
         document.reload
         assert_equal [attachment_2], document.attachments
       end

@@ -7,6 +7,8 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
   process :set_content_type
 
+  after :retrieve_from_cache, :set_content_type
+
   def store_dir
     "system/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
