@@ -14,6 +14,156 @@ module AdminDocumentControllerTestHelpers
   end
 
   module ClassMethods
+    def should_allow_attachments_for(document_type)
+      document_class = document_class(document_type)
+
+      test "new displays document attachment fields" do
+        get :new
+
+        assert_select "form#document_new" do
+          assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+        end
+      end
+
+      test 'creating a document should attach file' do
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+        attributes = attributes_for(document_type)
+        attributes[:attachments_attributes] = { "0" => { file: greenpaper_pdf } }
+
+        post :create, document: attributes
+
+        assert document = document_class.last
+        assert_equal 1, document.attachments.length
+        attachment = document.attachments.first
+        assert_equal "greenpaper.pdf", attachment.carrierwave_file
+        assert_equal "application/pdf", attachment.content_type
+        assert_equal greenpaper_pdf.size, attachment.file_size
+      end
+
+      test "creating a document with invalid data should still allow attachment to be selected for upload" do
+        post :create, document: attributes_for(document_type, title: "")
+
+        assert_select "form#document_new" do
+          assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+        end
+      end
+
+      test "creating a document with invalid data should only allow a single attachment to be selected for upload" do
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+        post :create, document: attributes_for(document_type,
+          title: "",
+          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+        )
+
+        assert_select "form#document_new" do
+          assert_select "input[name*='document[attachments_attributes]'][type='file']", count: 1
+        end
+      end
+
+      test 'creating a document with invalid data should not show any attachment info' do
+        attributes = attributes_for(document_type)
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+        attributes[:attachments_attributes] = { "0" => { file: greenpaper_pdf } }
+
+        post :create, document: attributes.merge(title: '')
+
+        assert_select "p.attachment", count: 0
+      end
+
+      test 'edit displays document attachment fields' do
+        document = create(document_type)
+
+        get :edit, id: document
+
+        assert_select "form#document_edit" do
+          assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+        end
+      end
+
+      test 'updating a document should attach file' do
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+        document = create(document_type)
+
+        put :update, id: document, document: document.attributes.merge(
+          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+        )
+
+        document.reload
+        assert_equal 1, document.attachments.length
+        attachment = document.attachments.first
+        assert_equal "greenpaper.pdf", attachment.carrierwave_file
+        assert_equal "application/pdf", attachment.content_type
+        assert_equal greenpaper_pdf.size, attachment.file_size
+      end
+
+      test "updating a document with invalid data should still allow attachment to be selected for upload" do
+        document = create(document_type)
+        put :update, id: document, document: document.attributes.merge(title: "")
+
+        assert_select "form#document_edit" do
+          assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+        end
+      end
+
+      test "updating a document with invalid data should only allow a single attachment to be selected for upload" do
+        document = create(document_type)
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+        put :update, id: document, document: attributes_for(document_type,
+          title: "",
+          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+        )
+
+        assert_select "form#document_edit" do
+          assert_select "input[name*='document[attachments_attributes]'][type='file']", count: 1
+        end
+      end
+
+      test "updating a stale document should still allow attachment to be selected for upload" do
+        document = create("draft_#{document_type}")
+        lock_version = document.lock_version
+        document.touch
+
+        put :update, id: document, document: document.attributes.merge(lock_version: lock_version)
+
+        assert_select "form#document_edit" do
+          assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+        end
+      end
+
+      test "updating a stale document should only allow a single attachment to be selected for upload" do
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+        document = create("draft_#{document_type}")
+        lock_version = document.lock_version
+        document.touch
+
+        put :update, id: document, document: document.attributes.merge(
+          lock_version: lock_version,
+          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+        )
+
+        assert_select "form#document_edit" do
+          assert_select "input[name*='document[attachments_attributes]'][type='file']", count: 1
+        end
+      end
+
+      test 'updating should allow removal of attachments' do
+        attachment_1 = create(:attachment)
+        attachment_2 = create(:attachment)
+        attributes = attributes_for(document_type)
+        document = create(document_type, attributes.merge(attachments: [attachment_1, attachment_2]))
+        document_attachments_attributes = document.document_attachments.inject({}) do |h, da|
+          h[da.id] = da.attributes.merge("_destroy" => (da.attachment == attachment_1 ? "1" : "0"))
+          h
+        end
+        put :update, id: document, document: attributes.merge(document_attachments_attributes: document_attachments_attributes)
+
+        document.reload
+        assert_equal [attachment_2], document.attachments
+      end
+    end
+
     def should_display_attachments_for(document_type)
       test "should display PDF attachment metadata" do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
@@ -23,6 +173,7 @@ module AdminDocumentControllerTestHelpers
         get :show, id: document
 
         assert_select_object(attachment) do
+          assert_select "a", text: document.attachments.first.filename
           assert_select ".type", "PDF"
           assert_select ".number_of_pages", "2 pages"
           assert_select ".size", "1.41 KB"
@@ -37,6 +188,7 @@ module AdminDocumentControllerTestHelpers
         get :show, id: document
 
         assert_select_object(attachment) do
+          assert_select "a", text: document.attachments.first.filename
           assert_select ".type", "CSV"
           assert_select ".number_of_pages", count: 0
           assert_select ".size", "121 Bytes"
@@ -172,13 +324,13 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_be_force_publishable(document_type)
-      document_type_class = document_type.to_s.classify.constantize
+      document_class = document_class(document_type)
 
       test "should display the 'Force Publish' button" do
         document = create(document_type)
         document.stubs(:publishable_by?).returns(false)
         document.stubs(:force_publishable_by?).returns(true)
-        document_type_class.stubs(:find).with(document.to_param).returns(document)
+        document_class.stubs(:find).with(document.to_param).returns(document)
         get :show, id: document
         assert_select force_publish_button_selector(document), count: 1
       end
@@ -187,10 +339,16 @@ module AdminDocumentControllerTestHelpers
         document = create(document_type)
         document.stubs(:publishable_by?).returns(false)
         document.stubs(:force_publishable_by?).returns(false)
-        document_type_class.stubs(:find).with(document.to_param).returns(document)
+        document_class.stubs(:find).with(document.to_param).returns(document)
         get :show, id: document
         assert_select force_publish_button_selector(document), count: 0
       end
+    end
+
+    private
+
+    def document_class(document_type)
+      document_type.to_s.classify.constantize
     end
   end
 end
