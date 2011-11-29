@@ -105,13 +105,6 @@ $coalition-green: #cdce00;
   border-bottom: 1px solid #ddd;
   padding: 0.25em 4% 0.5em 4%;
 
-  form {
-
-    @media only screen and (max-device-width: 480px) {
-      color: #777;
-    }
-  }
-
   fieldset {
     margin-bottom: 0;
   }
