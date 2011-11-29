@@ -4,7 +4,6 @@ module Whitehall
   autoload :FormBuilder, 'whitehall/form_builder'
   autoload :QuietAssetLogger, 'whitehall/quiet_asset_logger'
   autoload :Presenters, 'whitehall/presenters'
-  autoload :StaticAssetServing, 'whitehall/static_asset_serving'
 
   class << self
     def platform

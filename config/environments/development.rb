@@ -29,8 +29,7 @@ Whitehall::Application.configure do
   config.assets.debug = true
 
   if ENV["STATIC_DEV"]
-    config.slimmer.asset_host = "/static-assets"
-    config.middleware.use Whitehall::StaticAssetServing, "/static-assets", Rails.root.join("../static/public")
+    config.slimmer.asset_host = ENV["STATIC_DEV"]
   else
     config.slimmer.asset_host = Plek.new("preview").find("assets")
   end
