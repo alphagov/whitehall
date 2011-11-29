@@ -3,61 +3,6 @@
 @import "../shared/document_view";
 @import "../shared/typography";
 
-$coalition-green: #cdce00;
-
-.header-context {
-  background: #fff;
-  border-bottom: 1px solid $coalition-green;
-  border-top: 4px solid $coalition-green;
-  padding: 0;
-
-  nav {
-    @include type-14;
-    margin-bottom: 0;
-    width: 100%;
-    background: #fff;
-    padding: 0.25em 0;
-    margin: 0 auto;
-
-    div {
-      display: inline;
-    }
-
-    @media only screen and (min-width: 865px) {
-      a.home {
-        float: left;
-        margin-right: 5.5%;
-      }
-
-      .documents {
-        float: left;
-      }
-
-      .structure {
-        float: right;
-      }
-
-      .documents, .structure {
-        display: block;
-
-        a:last-child {
-          margin-right: 0;
-        };
-      }
-    }
-
-    a {
-      font-weight: bold;
-      text-decoration: none;
-      color: #777;
-      margin-right: 4%;
-    }
-
-  }
-
-}
-
-
 #wrapper {
   @include grid_styles;
   @include type_styles;
@@ -160,7 +105,7 @@ $coalition-green: #cdce00;
 }
 
 #wrapper {
-  padding-top: 8em;
+  padding-top: 9em;
 
   @media only screen and (min-width: 923px) {
     padding-top: 6em;

@@ -3,6 +3,7 @@
 // make the global header a little more responsive ..
 #global-header {
   .header-global {
+    padding: 0 4%;
       h1 {
         float: left;
         margin-right: 6em;
@@ -32,4 +33,151 @@
   @include clear-box-shadow;
 }
 
+$coalition-green: #cdce00;
 
+#global-header .header-context {
+  background: #fff;
+  border-bottom: 1px solid #ED6900;
+  border-top: 4px solid #ED6900;
+  padding: 0;
+
+  nav {
+    @include type-14;
+    margin-bottom: 0;
+    width: 100%;
+    background: #fff;
+    padding: 0.25em 4%;
+    margin: 0 auto;
+
+    div {
+      display: inline;
+    }
+
+    @media only screen and (min-width: 865px) {
+      a.home {
+        float: left;
+        margin-right: 5.5%;
+      }
+    }
+
+    a {
+      font-weight: bold;
+      text-decoration: none;
+      color: #777;
+      margin-right: 2%;
+
+      &:hover {
+        color: #9a9b00;
+      };
+
+      &:last-child {
+        margin-right: 0;
+      };
+    }
+
+  }
+
+  &.government {
+    border-color: $coalition-green;
+    border-bottom-color: #9a9b00;
+
+    .search-help {
+      border-color: $coalition-green;
+    }
+  }
+
+  &.citizen {
+    border-color: #ED6900;
+
+    .search-help {
+      border-color: #ED6900;
+    }
+  }
+
+}
+
+.search-help {
+  border: none;
+  clear: both;
+  float: none;
+  height: auto;
+  margin: 0;
+  padding-bottom: 0;
+  border-bottom: 1px solid #ddd;
+  padding: 0.25em 4% 0.5em 4%;
+
+  form {
+
+    @media only screen and (max-device-width: 480px) {
+      color: #777;
+    }
+  }
+
+  fieldset {
+    margin-bottom: 0;
+  }
+
+  input[type=search], #site-search-text {
+    @include rounded(2px);
+    @include type-16;
+
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #777;
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 0.5em;
+    margin-top: 0;
+    max-width: 100%;
+    outline: none;
+    padding: 0.25em;
+    line-height: 1.65em;
+    width: 12.5em;
+  }
+
+  input[type="submit"] {
+    @include rounded(6px);
+    @include transition(background);
+    @include type-16;
+    @include vertical_gradient(#ffffff, #efefef);
+    border-bottom: 1px solid #aaa;
+    border-top: 1px solid #e5e5e5;
+    border: 1px solid #ddd;
+    color: #777;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    margin-top: 0.2em;
+    margin-bottom: 0;
+    padding-bottom: 0.2em;
+    padding-top: 0.25em;
+    padding: 0.35em 0.75em;
+    text-decoration: none;
+    text-shadow: 0 1px rgba(255, 255, 255, .75);
+  }
+
+  input[type="submit"]:hover {
+    color: #666;
+    @include vertical_gradient(#fafdff, #d8d8d8);
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #999;
+    border-top: 1px solid #ddd;
+  }
+
+  input[type="submit"]:active {
+    border: 1px solid #999;
+    @include vertical_gradient(#fafdff, #bbb);
+  }
+
+  @media only screen and (min-width:670px) {
+    @include rounded_top(0.5em);
+
+    float: right;
+    border: solid 0.25em #ED6900;
+    border-bottom: 0;
+    float: right;
+    height: 2.45em;
+    margin: -2.95em 4% 0 0;
+    padding: 0.25em 0.5em 0 0.5em;
+  }
+}
