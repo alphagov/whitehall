@@ -44,7 +44,6 @@ $coalition-green: #cdce00;
   nav {
     @include type-14;
     margin-bottom: 0;
-    width: 100%;
     background: #fff;
     padding: 0.25em 4%;
     margin: 0 auto;
@@ -55,8 +54,7 @@ $coalition-green: #cdce00;
 
     @media only screen and (min-width: 865px) {
       a.home {
-        float: left;
-        margin-right: 5.5%;
+        margin-right: 4%;
       }
     }
 
@@ -65,6 +63,7 @@ $coalition-green: #cdce00;
       text-decoration: none;
       color: #777;
       margin-right: 2%;
+      white-space: nowrap;
 
       &:hover {
         color: #9a9b00;
