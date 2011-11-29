@@ -14,7 +14,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_consultations_path}']" do
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
-      assert_select "input[name='document[attach_file]'][type='file']"
+      assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
       assert_select "select[name*='document[organisation_ids]']"
@@ -46,7 +46,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   test 'creating a consultation should attach file' do
     attributes = attributes_for(:consultation)
-    attributes[:attach_file] = fixture_file_upload('greenpaper.pdf')
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+    attributes[:attachments_attributes] = { "0" => { file: greenpaper_pdf } }
+
     post :create, document: attributes
 
     assert consultation = Consultation.last
@@ -83,6 +85,27 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
+  test "creating a consultation with invalid data should still allow attachment to be selected for upload" do
+    post :create, document: attributes_for(:consultation, title: "")
+
+    assert_select "form#document_new" do
+      assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+    end
+  end
+
+  test "creating a consultation with invalid data should only allow a single attachment to be selected for upload" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+    post :create, document: attributes_for(:consultation,
+      title: "",
+      attachments_attributes: { "0" => { file: greenpaper_pdf } }
+    )
+
+    assert_select "form#document_new" do
+      assert_select "input[name*='document[attachments_attributes]'][type='file']", count: 1
+    end
+  end
+
   test 'show displays consultation closing date' do
     consultation = create(:consultation, opening_on: Date.new(2010, 01, 01), closing_on: Date.new(2011, 01, 01))
     get :show, id: consultation
@@ -110,7 +133,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_consultation_path(consultation)}']" do
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
-      assert_select "input[name='document[attach_file]'][type='file']"
+      assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
       assert_select "select[name*='document[organisation_ids]']"
@@ -158,6 +181,29 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal [], consultation.ministerial_roles
   end
 
+  test "updating a consultation with invalid data should still allow attachment to be selected for upload" do
+    consultation = create(:consultation)
+    put :update, id: consultation, document: consultation.attributes.merge(title: "")
+
+    assert_select "form#document_edit" do
+      assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+    end
+  end
+
+  test "updating a consultation with invalid data should only allow a single attachment to be selected for upload" do
+    consultation = create(:consultation)
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+    put :update, id: consultation, document: attributes_for(:consultation,
+      title: "",
+      attachments_attributes: { "0" => { file: greenpaper_pdf } }
+    )
+
+    assert_select "form#document_edit" do
+      assert_select "input[name*='document[attachments_attributes]'][type='file']", count: 1
+    end
+  end
+
   test 'updating a stale consultation should render edit page with conflicting consultation' do
     consultation = create(:draft_consultation, organisations: [build(:organisation)], ministerial_roles: [build(:ministerial_role)])
     lock_version = consultation.lock_version
@@ -172,6 +218,36 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal conflicting_consultation, assigns[:conflicting_document]
     assert_equal conflicting_consultation.lock_version, assigns[:document].lock_version
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
+  end
+
+  test "updating a stale consultation should still allow attachment to be selected for upload" do
+    consultation = create(:draft_consultation)
+    lock_version = consultation.lock_version
+    consultation.touch
+
+    put :update, id: consultation, document: consultation.attributes.merge(lock_version: lock_version)
+
+    assert_select "form#document_edit" do
+      assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+    end
+  end
+
+  test "updating a stale consultation should only allow a single attachment to be selected for upload" do
+    consultation = create(:consultation)
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+    consultation = create(:draft_consultation)
+    lock_version = consultation.lock_version
+    consultation.touch
+
+    put :update, id: consultation, document: consultation.attributes.merge(
+      lock_version: lock_version,
+      attachments_attributes: { "0" => { file: greenpaper_pdf } }
+    )
+
+    assert_select "form#document_edit" do
+      assert_select "input[name*='document[attachments_attributes]'][type='file']", count: 1
+    end
   end
 
   test 'updating should allow removal of attachments' do

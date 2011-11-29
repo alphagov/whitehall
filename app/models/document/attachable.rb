@@ -14,15 +14,12 @@ module Document::Attachable
     has_many :attachments, through: :document_attachments
 
     accepts_nested_attributes_for :document_attachments, allow_destroy: true
+    accepts_nested_attributes_for :attachments
 
     add_trait Trait
   end
 
   def allows_attachments?
     true
-  end
-
-  def attach_file=(file)
-    self.attachments.build(file: file)
   end
 end

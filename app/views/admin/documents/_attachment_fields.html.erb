@@ -1,6 +1,11 @@
 <fieldset>
-  <%= form.label :attach_file, 'Attachment' %>
-  <%= form.file_field :attach_file %>
+  <%= form.fields_for :attachments do |attachment_fields| %>
+    <% if attachment_fields.object.new_record? %>
+      <%= attachment_fields.label :file, 'Attachment' %>
+      <%= attachment_fields.file_field :file %>
+    <% end %>
+  <% end %>
+
   <% unless form.object.new_record? %>
     <%= form.fields_for :document_attachments do |attachment_fields| %>
       <p class="attachment">

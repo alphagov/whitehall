@@ -12,6 +12,7 @@ module Admin::DocumentsController::NationalApplicability
       redirect_to admin_document_path(@document), notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
+      build_document_attachment
       process_nation_inapplicabilities
       render action: "new"
     end
@@ -24,11 +25,13 @@ module Admin::DocumentsController::NationalApplicability
         notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
+      build_document_attachment
       process_nation_inapplicabilities
       render action: "edit"
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
+    build_document_attachment
     @conflicting_document = Document.find(params[:id])
     @document.lock_version = @conflicting_document.lock_version
     process_nation_inapplicabilities
@@ -48,5 +51,8 @@ module Admin::DocumentsController::NationalApplicability
 
   def build_nation_inapplicabilities
     @document.build_nation_applicabilities_for_all_nations
+  end
+
+  def build_document_attachment
   end
 end

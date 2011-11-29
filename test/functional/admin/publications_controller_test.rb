@@ -11,6 +11,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#document_new" do
+      assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
       assert_select "select[name*='document[publication_date']", count: 3
       assert_select "input[name='document[unique_reference]'][type='text']"
       assert_select "input[name='document[isbn]'][type='text']"
@@ -52,7 +53,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test 'creating a publication should attach file' do
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     attributes = attributes_for(:publication)
-    attributes[:attach_file] = greenpaper_pdf
+    attributes[:attachments_attributes] = { "0" => { file: greenpaper_pdf } }
 
     post :create, document: attributes
 
@@ -86,9 +87,32 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
+  test "creating a publication with invalid data should still allow attachment to be selected for upload" do
+    post :create, document: attributes_for(:publication, title: "")
+
+    assert_select "form#document_new" do
+      assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+    end
+  end
+
+  test "creating a publication with invalid data should only allow a single attachment to be selected for upload" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+    post :create, document: attributes_for(:publication,
+      title: "",
+      attachments_attributes: { "0" => { file: greenpaper_pdf } }
+    )
+
+    assert_select "form#document_new" do
+      assert_select "input[name*='document[attachments_attributes]'][type='file']", count: 1
+    end
+  end
+
   test 'creating a publication with invalid data should not show any attachment info' do
     attributes = attributes_for(:publication)
-    attributes[:attach_file] = fixture_file_upload('greenpaper.pdf')
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+    attributes[:attachments_attributes] = { "0" => { file: greenpaper_pdf } }
+
     post :create, document: attributes.merge(title: '')
 
     assert_select "p.attachment", count: 0
@@ -121,7 +145,9 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     publication = create(:publication)
 
-    put :update, id: publication, document: publication.attributes.merge(attach_file: greenpaper_pdf)
+    put :update, id: publication, document: publication.attributes.merge(
+      attachments_attributes: { "0" => { file: greenpaper_pdf } }
+    )
 
     publication.reload
     assert_equal 1, publication.attachments.length
@@ -166,6 +192,29 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal 'There are some problems with the document', flash.now[:alert]
   end
 
+  test "updating a publication with invalid data should still allow attachment to be selected for upload" do
+    publication = create(:publication)
+    put :update, id: publication, document: publication.attributes.merge(title: "")
+
+    assert_select "form#document_edit" do
+      assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+    end
+  end
+
+  test "updating a publication with invalid data should only allow a single attachment to be selected for upload" do
+    publication = create(:publication)
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+    put :update, id: publication, document: attributes_for(:publication,
+      title: "",
+      attachments_attributes: { "0" => { file: greenpaper_pdf } }
+    )
+
+    assert_select "form#document_edit" do
+      assert_select "input[name*='document[attachments_attributes]'][type='file']", count: 1
+    end
+  end
+
   test 'updating a stale publication should render edit page with conflicting publication' do
     publication = create(:draft_publication)
     lock_version = publication.lock_version
@@ -180,9 +229,49 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
   end
 
+  test "updating a stale publication should still allow attachment to be selected for upload" do
+    publication = create(:draft_publication)
+    lock_version = publication.lock_version
+    publication.touch
+
+    put :update, id: publication, document: publication.attributes.merge(lock_version: lock_version)
+
+    assert_select "form#document_edit" do
+      assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+    end
+  end
+
+  test "updating a stale publication should only allow a single attachment to be selected for upload" do
+    publication = create(:publication)
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+    publication = create(:draft_publication)
+    lock_version = publication.lock_version
+    publication.touch
+
+    put :update, id: publication, document: publication.attributes.merge(
+      lock_version: lock_version,
+      attachments_attributes: { "0" => { file: greenpaper_pdf } }
+    )
+
+    assert_select "form#document_edit" do
+      assert_select "input[name*='document[attachments_attributes]'][type='file']", count: 1
+    end
+  end
+
   test "cancelling a new publication takes the user to the list of drafts" do
     get :new
     assert_select "a[href=#{admin_documents_path}]", text: /cancel/i, count: 1
+  end
+
+  test 'edit displays publication form' do
+    publication = create(:publication)
+
+    get :edit, id: publication
+
+    assert_select "form[action='#{admin_publication_path(publication)}']" do
+      assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
+    end
   end
 
   test "cancelling an existing publication takes the user to that publication" do
