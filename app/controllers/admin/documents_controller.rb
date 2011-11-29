@@ -120,7 +120,7 @@ class Admin::DocumentsController < Admin::BaseController
     documents = documents.by_type(params[:filter].classify) if params[:filter]
     documents = documents.authored_by(User.find(params[:author])) if params[:author]
     documents = documents.in_organisation(Organisation.find(params[:organisation])) if params[:organisation]
-    documents.order("updated_at DESC")
+    documents.includes(document_authors: :user).order("updated_at DESC")
   end
 
   def remember_filters
