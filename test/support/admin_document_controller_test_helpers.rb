@@ -71,6 +71,7 @@ module AdminDocumentControllerTestHelpers
 
         assert_select "form#document_new" do
           assert_select "input[name='document[attachments_attributes][0][file_cache]'][type='hidden'][value$='greenpaper.pdf']"
+          assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
 
@@ -144,6 +145,7 @@ module AdminDocumentControllerTestHelpers
 
         assert_select "form#document_edit" do
           assert_select "input[name='document[attachments_attributes][0][file_cache]'][type='hidden'][value$='greenpaper.pdf']"
+          assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
 

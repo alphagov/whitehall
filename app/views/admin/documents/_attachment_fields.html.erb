@@ -3,6 +3,9 @@
     <% if attachment_fields.object.new_record? %>
       <%= attachment_fields.label :file, 'Attachment' %>
       <%= attachment_fields.file_field :file %>
+      <% if attachment_fields.object.file_cache.present? %>
+        <span class="already_uploaded"><%= File.basename(attachment_fields.object.file_cache) %> already uploaded</span>
+      <% end %>
       <%= attachment_fields.hidden_field :file_cache %>
     <% end %>
   <% end %>
