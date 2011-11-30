@@ -203,5 +203,23 @@ class TopicsControllerTest < ActionController::TestCase
       TopicsController::FeaturedTopicChooser.expects(:choose_random_topic).returns(:random_topic)
       assert_equal :random_topic, TopicsController::FeaturedTopicChooser.choose_topic
     end
+
+    test "chooses a featured topic at random" do
+      available_featured_topics = Array.new(2) { create(:featured_topic) }
+      repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time = 10
+      randomly_chosen_featured_topics = (0..repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time).collect do
+        TopicsController::FeaturedTopicChooser.choose_random_featured_topic
+      end
+      assert_equal available_featured_topics.uniq.sort, randomly_chosen_featured_topics.uniq.sort
+    end
+
+    test "chooses a topic with published documents at random" do
+      available_topics = Array.new(2) { create(:topic, documents: [create(:published_document)]) }
+      repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time = 10
+      randomly_chosen_topics = (0..repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time).collect do
+        TopicsController::FeaturedTopicChooser.choose_random_topic
+      end
+      assert_equal available_topics.uniq.sort, randomly_chosen_topics.uniq.sort
+    end
   end
 end
