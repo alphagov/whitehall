@@ -15,4 +15,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
     get topics_path
     assert_select "script[src=?]", "/government/assets/application.js"
   end
+
+  test "visiting / redirects to #{Whitehall.router_prefix}" do
+    get "/"
+    assert_redirected_to "#{Whitehall.router_prefix}/"
+  end
 end

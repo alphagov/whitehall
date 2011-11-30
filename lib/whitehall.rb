@@ -4,6 +4,7 @@ module Whitehall
   autoload :FormBuilder, 'whitehall/form_builder'
   autoload :QuietAssetLogger, 'whitehall/quiet_asset_logger'
   autoload :Presenters, 'whitehall/presenters'
+  autoload :RedirectToRouterPrefix, 'whitehall/redirect_to_router_prefix'
 
   class << self
     def router_prefix
