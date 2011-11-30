@@ -50,6 +50,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     role_appointment = create(:ministerial_role_appointment)
     get :show, id: role_appointment.role.id
 
-    assert_select "img[src='/assets/blank-person.jpg']"
+    assert_select "img[src$='blank-person.jpg']"
   end
 end

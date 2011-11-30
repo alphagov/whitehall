@@ -6,8 +6,13 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to "#{Whitehall.router_prefix}/admin/documents"
   end
 
-  test "visiting / redirects to /topics" do
+  test "visiting #{Whitehall.router_prefix}/ redirects to #{Whitehall.router_prefix}/topics" do
     get "#{Whitehall.router_prefix}"
     assert_redirected_to "#{Whitehall.router_prefix}/topics"
+  end
+
+  test "assets are served under the #{Whitehall.router_prefix} prefix" do
+    get topics_path
+    assert_select "script[src=?]", "/government/assets/application.js"
   end
 end
