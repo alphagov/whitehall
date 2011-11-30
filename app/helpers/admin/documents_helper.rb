@@ -47,4 +47,9 @@ module Admin::DocumentsHelper
   def humanized_content_type(content_type)
     content_type.present? && content_type.split("/").last.upcase
   end
+
+  def order_link(document)
+    return "" unless document.order_url.present?
+    link_to document.order_url, document.order_url, class: "order_url"
+  end
 end

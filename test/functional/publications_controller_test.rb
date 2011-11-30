@@ -81,4 +81,14 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select "a.order_url[href='http://example.com/order-path']"
     end
   end
+
+  test "should not display an order link if no order url exists" do
+    publication = create(:published_publication, order_url: nil)
+
+    get :show, id: publication.document_identity
+
+    assert_select ".document_view" do
+      assert_select "a.order_url", count: 0
+    end
+  end
 end

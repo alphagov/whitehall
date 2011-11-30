@@ -199,6 +199,16 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should not display an order link if no order url exists" do
+    publication = create(:publication, order_url: nil)
+
+    get :show, id: publication
+
+    assert_select ".document_view" do
+      assert_select "a.order_url", count: 0
+    end
+  end
+
   should_allow_attachments_for :publication
   should_display_attachments_for :publication
 

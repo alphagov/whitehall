@@ -7,7 +7,9 @@
   <% if document.research? %>
     <p class="research">This is a research paper.</p>
   <% end %>
-  <p><%= link_to "Order a copy", document.order_url, class: "order_url button", title: "Order a copy of the publication" %></p>
+  <% if document.order_url.present? %>
+    <p><%= link_to "Order a copy", document.order_url, class: "order_url button", title: "Order a copy of the publication" %></p>
+  <% end %>
 
   <%= render partial: "attachments", locals: { document: document } %>
 </section>
