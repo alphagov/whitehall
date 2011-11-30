@@ -15,7 +15,7 @@ Given /^"([^"]*)" is the "([^"]*)" for the "([^"]*)"$/ do |person, ministerial_r
 end
 
 When /^I visit the minister page for "([^"]*)"$/ do |name|
-  visit "/"
+  visit homepage
   click_link "Ministers"
   click_link name
 end

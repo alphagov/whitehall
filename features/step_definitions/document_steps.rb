@@ -123,7 +123,7 @@ Then /^I should not see the policy "([^"]*)" in the list of draft documents$/ do
 end
 
 Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
-  visit "/"
+  visit homepage
   case document
   when Publication
     click_link "Publications"

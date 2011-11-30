@@ -6,6 +6,10 @@ module Whitehall
   autoload :Presenters, 'whitehall/presenters'
 
   class << self
+    def router_prefix
+      "/government"
+    end
+
     def platform
       ENV["FACTER_govuk_platform"] || Rails.env
     end

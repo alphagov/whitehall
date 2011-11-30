@@ -45,8 +45,8 @@ module GovspeakHelper
   def is_internal_admin_link?(href)
     uri = URI.parse(href)
     return false unless %w(http https).include?(uri.scheme)
-    truncated_link_uri = [uri.host, uri.path.split("/")[1]].join("/")
-    truncated_host_uri = [request.host, "admin"].join("/")
+    truncated_link_uri = [uri.host, uri.path.split("/")[1,2]].join("/")
+    truncated_host_uri = [request.host + Whitehall.router_prefix, "admin"].join("/")
     truncated_link_uri == truncated_host_uri
   end
 
