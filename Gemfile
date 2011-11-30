@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+source 'https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/'
 
 gem 'rails', '3.1.1'
 gem 'rack', '1.3.5'
@@ -40,4 +41,8 @@ group :test do
   gem 'test_track'
   gem 'timecop'
   gem 'versionomy'
+end
+
+group :router do
+  gem 'router-client', git: "git://github.com/alphagov/router-client.git", require: "router"
 end
