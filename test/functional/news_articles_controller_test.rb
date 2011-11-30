@@ -9,6 +9,16 @@ class NewsArticlesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "shows when news article was last updated" do
+    news_article = create(:published_news_article, published_at: 10.days.ago)
+
+    get :show, id: news_article.document_identity
+
+    assert_select ".document_view .metadata" do
+      assert_select ".published_at", text: "10 days ago"
+    end
+  end
+
   test "should not display related policies unless they are published" do
     draft_policy = create(:draft_policy)
     news_article = create(:published_news_article, documents_related_to: [draft_policy])

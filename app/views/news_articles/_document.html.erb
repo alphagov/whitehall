@@ -1,0 +1,9 @@
+<section class="document_view">
+  <%= render partial: "standard_elements", locals: { document: document } %>
+  <p class="metadata">
+    Last updated
+    <%= render_datetime_microformat(@document, :published_at) do %>
+      <%= time_ago_in_words(@document.published_at) %> ago
+    <% end %>
+  </p>
+</section>
