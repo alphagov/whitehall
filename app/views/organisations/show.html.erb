@@ -4,6 +4,7 @@
     <% if @organisation.organisation_type %>
       <h2 class="category"><%= @organisation.organisation_type.name %></h2>
     <% end %>
+    <p class="description"><%= format_with_html_line_breaks(@organisation.description) %></p>
     <div class="adr">
       <p class="street-address"><%= format_with_html_line_breaks(@organisation.address) %></p>
       <p class="postal-code"><%= @organisation.postcode %></p>

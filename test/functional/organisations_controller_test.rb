@@ -1,21 +1,30 @@
 require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
-  test "shows organisation title" do
-    organisation = create(:organisation)
+  test "shows organisation title and description" do
+    organisation = create(:organisation,
+      name: "organisation-name",
+      description: "organisation-description"
+    )
     get :show, id: organisation
-    assert_select ".organisation .name", text: organisation.name
+    assert_select ".organisation" do
+      assert_select ".name", text: "organisation-name"
+      assert_select ".description", text: "organisation-description"
+    end
   end
 
   test "presents the contact details of the organisation using hcard" do
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
-    organisation = create(:organisation, name: "Ministry of Pomp", email: "pomp@gov.uk",
-                          address: "1 Smashing Place, London", postcode: "LO1 8DN",
-                          organisation_type: ministerial_department,
-                          phone_numbers_attributes: [
-                            {description: "Helpline", number: "02079460000"},
-                            {description: "Fax", number: "02079460001"}
-                          ])
+    organisation = create(:organisation,
+      name: "Ministry of Pomp",
+      email: "pomp@gov.uk",
+      address: "1 Smashing Place, London", postcode: "LO1 8DN",
+      organisation_type: ministerial_department,
+      phone_numbers_attributes: [
+        {description: "Helpline", number: "02079460000"},
+        {description: "Fax", number: "02079460001"}
+      ]
+    )
     get :show, id: organisation
 
     assert_select ".organisation.hcard" do

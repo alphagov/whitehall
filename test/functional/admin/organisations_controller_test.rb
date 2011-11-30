@@ -16,13 +16,14 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "should allow entry of new organisation data" do
     get :new
     assert_template "organisations/new"
+    assert_select "textarea[name='organisation[description]']"
     assert_select parent_organisations_list_selector
     assert_select organisation_type_list_selector
   end
 
   test "creating should create a new Organisation" do
     organisation_type = create(:organisation_type)
-    attributes = attributes_for(:organisation)
+    attributes = attributes_for(:organisation, description: "organisation-description")
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
       phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
@@ -30,6 +31,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     assert organisation = Organisation.last
     assert_equal attributes[:name], organisation.name
+    assert_equal attributes[:description], organisation.description
     assert_equal 1, organisation.phone_numbers.count
     assert_equal "Fax", organisation.phone_numbers.first.description
   end
@@ -92,11 +94,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "updating should modify the organisation" do
     organisation = create(:organisation, name: "Ministry of Sound")
-    organisation_attributes = {name: "Ministry of Noise"}
+    organisation_attributes = {
+      name: "Ministry of Noise",
+      description: "organisation-description"
+    }
 
     put :update, id: organisation.to_param, organisation: organisation_attributes
 
-    assert_equal "Ministry of Noise", organisation.reload.name
+    organisation.reload
+    assert_equal "Ministry of Noise", organisation.name
+    assert_equal "organisation-description", organisation.description
   end
 
   test "updating without a name should reshow the edit form" do
