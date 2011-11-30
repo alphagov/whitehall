@@ -12,6 +12,7 @@ end
 module Whitehall
   class Application < Rails::Application
     require 'whitehall'
+    require 'whitehall/router_prefix_engine'
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
