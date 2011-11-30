@@ -7,8 +7,8 @@
           <span class="author"><%= editorial_remark.author.name %></span>
           wrote
           <%= render_datetime_microformat(editorial_remark, :created_at) do %>
-            <%= time_ago_in_words(editorial_remark.created_at) %>
-          <% end %> ago:
+            <%= time_ago_in_words(editorial_remark.created_at) %> ago:
+          <% end %>
           <div class="body"><%= editorial_remark.body %></div>
         </li>
       <% end %>
