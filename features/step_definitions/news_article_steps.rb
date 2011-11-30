@@ -9,6 +9,10 @@ Given /^a published news article "([^"]*)" exists relating to the country "([^"]
   create(:published_news_article, title: title, countries: [country])
 end
 
+Given /^a published news article "([^"]*)" with editorial guidance "([^"]*)"$/ do |title, editorial_guidance|
+  create(:published_news_article, title: title, editorial_guidance: editorial_guidance)
+end
+
 When /^I draft a new news article "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_document type: "News Article", title: title
   select first_policy, from: "Related Policies"
@@ -19,4 +23,8 @@ end
 Then /^I can see links to the related published news articles "([^"]*)" and "([^"]*)"$/ do |news_article_title_1, news_article_title_2|
   assert has_css?("#{related_news_articles_selector} .news_article a", text: news_article_title_1)
   assert has_css?("#{related_news_articles_selector} .news_article a", text: news_article_title_2)
+end
+
+Then /^I should see the editorial guidance "([^"]*)" for the news article$/ do |editorial_guidance|
+  assert has_css?(".editorial_guidance", text: editorial_guidance)
 end
