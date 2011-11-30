@@ -19,11 +19,11 @@ class TopicsController < ApplicationController
       end
 
       def choose_random_featured_topic
-        Topic.featured.randomized.first
+        Topic.unscoped.featured.randomized.first
       end
 
       def choose_random_topic
-        Topic.with_published_documents.randomized.first
+        Topic.unscoped.with_published_documents.randomized.first
       end
     end
   end

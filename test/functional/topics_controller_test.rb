@@ -213,6 +213,14 @@ class TopicsControllerTest < ActionController::TestCase
       assert_equal available_featured_topics.uniq.sort, randomly_chosen_featured_topics.uniq.sort
     end
 
+    test "never chooses a non-featured topic" do
+      non_featured_topic = create(:topic)
+      repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time = 10
+      (0..repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time).collect do
+        assert_nil TopicsController::FeaturedTopicChooser.choose_random_featured_topic
+      end
+    end
+
     test "chooses a topic with published documents at random" do
       available_topics = Array.new(2) { create(:topic, documents: [create(:published_document)]) }
       repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time = 10
@@ -220,6 +228,14 @@ class TopicsControllerTest < ActionController::TestCase
         TopicsController::FeaturedTopicChooser.choose_random_topic
       end
       assert_equal available_topics.uniq.sort, randomly_chosen_topics.uniq.sort
+    end
+
+    test "never chooses a topic without published documents" do
+      topic_without_published_document = create(:topic)
+      repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time = 10
+      (0..repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time).collect do
+        assert_nil TopicsController::FeaturedTopicChooser.choose_random_topic
+      end
     end
   end
 end

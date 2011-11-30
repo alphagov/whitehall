@@ -51,7 +51,7 @@ class Topic < ActiveRecord::Base
 
   class << self
     def randomized
-      unscoped.order('RAND()')
+      order('RAND()')
     end
 
     def featured
