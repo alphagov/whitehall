@@ -110,3 +110,12 @@
     padding-top: 6em;
   }
 }
+
+.lte-ie8 {
+  #wrapper {
+    padding-top: 6em;
+    max-width: 100%;
+    min-width: 761px;
+    width: auto;
+  }
+}
