@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/router-client.git
-  revision: 4d74c01988d9ec86004df2ce9a22f7354f592297
+  revision: 8ea03352d507c315770a88a034406fdfb6b62b4b
   specs:
-    router-client (2.0.0)
+    router-client (2.0.2)
       builder
       null_logger
 
