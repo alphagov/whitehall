@@ -9,7 +9,7 @@ module("Previewing contents of a textarea", {
     this.stubbingPreviewAjax = function(callback, preventResponse) {
       var ajax = this.spy(jQuery, "ajax");
       var server = this.sandbox.useFakeServer();
-      server.respondWith("POST", "/admin/preview",
+      server.respondWith("POST", "/government/admin/preview",
                          [200, { "Content-Type": "text/html" },
                           '<h1>preview this</h1>']);
       callback();
@@ -29,7 +29,7 @@ test("should post the textarea value to the preview controller", function() {
   sinon.assert.calledOnce(ajax);
   if (jQuery.ajax.getCall(0)) {
     var callParams = jQuery.ajax.getCall(0).args[0];
-    equals(callParams.url, "/admin/preview");
+    equals(callParams.url, "/government/admin/preview");
     equals(callParams.data.body, "# preview this");
   }
 });

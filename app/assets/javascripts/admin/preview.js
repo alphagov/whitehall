@@ -39,7 +39,7 @@
         }
         loading_indicator.show();
         preview_link.hide();
-        $.post("/admin/preview", params, function(data) {
+        $.post("/government/admin/preview", params, function(data) {
           loading_indicator.hide();
           preview.html(data);
           showPreview();
