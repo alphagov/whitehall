@@ -40,6 +40,12 @@ module GovspeakHelper
     doc.to_html.html_safe
   end
 
+  def govspeak_headers(text, level = 2)
+    Govspeak::Document.new(text).headers.each do |header|
+      header.level == level
+    end
+  end
+
   private
 
   def is_internal_admin_link?(href)

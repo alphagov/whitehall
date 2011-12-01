@@ -33,7 +33,33 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document_identity, id: supporting_document
 
-    assert_select "a[href='#{policy_path(policy.document_identity)}']", text: "Policy definition"
+    assert_select "a[href='#{policy_path(policy.document_identity)}#policy_view']", text: policy.title
+  end
+
+  test "shows link to each policy section in the markdown" do
+    policy = create(:published_policy, body: %{
+## First Section
+
+Some content
+
+## Another Bit
+
+More content
+
+## Final Part
+
+That's all
+})
+
+    supporting_document = create(:supporting_document, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_document
+
+    assert_select "ol#policy_sections" do
+      assert_select "li a[href='#{policy_path(policy.document_identity, anchor: 'first-section')}']", text: 'First Section'
+      assert_select "li a[href='#{policy_path(policy.document_identity, anchor: 'another-bit')}']", text: 'Another Bit'
+      assert_select "li a[href='#{policy_path(policy.document_identity, anchor: 'final-part')}']", text: 'Final Part'
+    end
   end
 
   test "shows the body using govspeak markup" do

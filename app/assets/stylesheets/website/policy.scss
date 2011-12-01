@@ -42,6 +42,14 @@
         @include type-12;
         margin-bottom: 0;
       }
+
+      ol {
+        list-style-type:circle
+      }
+
+      li {
+        margin: 0
+      }
     }
 
     article.document {
