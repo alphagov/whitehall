@@ -12,7 +12,6 @@ end
 module Whitehall
   class Application < Rails::Application
     require 'whitehall'
-    require 'whitehall/router_prefix_engine'
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -47,5 +46,7 @@ module Whitehall
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.assets.prefix = Whitehall.router_prefix + config.assets.prefix
   end
 end
