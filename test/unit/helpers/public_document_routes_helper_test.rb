@@ -6,6 +6,11 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal policy_path(policy.document_identity), public_document_path(policy)
   end
 
+  test 'respects additional path options' do
+    policy = create(:policy)
+    assert_equal policy_path(policy.document_identity, anchor: 'additional'), public_document_path(policy, anchor: 'additional')
+  end
+
   test 'returns the policy_path for Policy instances' do
     policy = create(:policy)
     assert_equal policy_path(policy.document_identity), public_document_path(policy)
