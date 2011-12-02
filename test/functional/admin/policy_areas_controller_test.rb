@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::TopicsControllerTest < ActionController::TestCase
+class Admin::PolicyAreasControllerTest < ActionController::TestCase
   setup do
     @user = login_as :policy_writer
   end

@@ -29,7 +29,7 @@ Whitehall::Application.routes.draw do
 
       resource :user, only: [:show, :edit, :update]
       resources :organisations, only: [:index, :new, :create, :edit, :update]
-      resources :policy_areas, as: :topics, controller: :topics, only: [:index, :new, :create, :edit, :update, :destroy] do
+      resources :policy_areas, as: :topics, controller: :policy_areas, only: [:index, :new, :create, :edit, :update, :destroy] do
         member do
           post :feature
           post :unfeature

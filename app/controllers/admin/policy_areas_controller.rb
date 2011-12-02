@@ -1,6 +1,6 @@
-class Admin::TopicsController < Admin::BaseController
+class Admin::PolicyAreasController < Admin::BaseController
   def index
-    @topics = TopicsPresenter.new
+    @topics = PolicyAreasPresenter.new
   end
 
   def new
@@ -50,7 +50,7 @@ class Admin::TopicsController < Admin::BaseController
     end
   end
 
-  class TopicsPresenter < Whitehall::Presenters::Collection
+  class PolicyAreasPresenter < Whitehall::Presenters::Collection
     def initialize
       super(Topic.all)
     end
