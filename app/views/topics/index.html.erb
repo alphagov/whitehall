@@ -1,5 +1,5 @@
 <div class="g3">
-  <h1 class="page_title">Topics</h1>
+  <h1 class="page_title">Policy Areas</h1>
 
   <% if @featured_topic %>
     <section class="featured">
@@ -20,6 +20,6 @@
   <% if @topics.any? %>
     <%= render partial: "grouped_list", locals: {topics: @topics} %>
   <% else %>
-    <p>We don't have any topics with published documents at present.</p>
+    <p>We don't have any policy areas with published documents at present.</p>
   <% end %>
 </div>

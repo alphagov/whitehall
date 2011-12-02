@@ -27,11 +27,11 @@
 
   <% if @document.can_be_associated_with_topics? %>
     <section class="container">
-      <h1>Topics</h1>
+      <h1>Policy Areas</h1>
       <% if @document.topics.any? %>
         <%= render partial: "topics/list", locals: {topics: @document.topics} %>
       <% else %>
-        <p>This document isn't assigned to any topics.</p>
+        <p>This document isn't assigned to any policy areas.</p>
       <% end %>
     </section>
   <% end %>

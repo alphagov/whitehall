@@ -2,10 +2,10 @@
   <div class="collection">
 
     <nav class="actions">
-      <%= link_to "Create Topic", new_admin_topic_path, class: "button new_resource", title: "Create a Topic" %>
+      <%= link_to "Create Policy Area", new_admin_topic_path, class: "button new_resource", title: "Create a Policy Area" %>
     </nav>
 
-    <h1>Topics</h1>
+    <h1>Policy Areas</h1>
 
     <table class="topics">
       <thead>
@@ -19,7 +19,7 @@
       <tbody>
         <% @topics.each do |topic| %>
           <%= content_tag_for(:tr, topic, class: topic_css_classes(topic)) do %>
-            <td class="name"><%= link_to topic.name, edit_admin_topic_path(topic), title: "Edit topic #{topic.name}" %></td>
+            <td class="name"><%= link_to topic.name, edit_admin_topic_path(topic), title: "Edit policy area #{topic.name}" %></td>
             <td class="description"><%= topic.description %></td>
             <td class="details">
               <%= topic.document_breakdown.map { |key, count|
@@ -30,7 +30,7 @@
               <% if topic.featured? %>
                 <%= button_to 'No Longer Feature', unfeature_admin_topic_path(topic), method: :post %>
               <% else %>
-                <%= button_to 'Feature Topic', feature_admin_topic_path(topic), method: :post %>
+                <%= button_to 'Feature Policy Area', feature_admin_topic_path(topic), method: :post %>
               <% end %>
             </td>
           <% end %>

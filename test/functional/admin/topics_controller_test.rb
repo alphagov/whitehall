@@ -31,7 +31,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
     assert_select_object unfeatured_topic do
       assert_select "form[action='#{feature_admin_topic_path(unfeatured_topic)}']" do
-        assert_select "input[type='submit'][value='Feature Topic']"
+        assert_select "input[type='submit'][value='Feature Policy Area']"
       end
       refute_select "form[action='#{unfeature_admin_topic_path(unfeatured_topic)}']"
     end
@@ -74,7 +74,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     delete :destroy, id: topic.id
 
     assert_response :redirect
-    assert_equal "Topic destroyed", flash[:notice]
+    assert_equal "Policy area destroyed", flash[:notice]
   end
 
   test "should indicate that a document is not destroyable when editing" do
@@ -91,7 +91,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     topic_with_published_policy = create(:topic, documents: [build(:published_policy)])
 
     delete :destroy, id: topic_with_published_policy.id
-    assert_equal "Cannot destroy topic with associated content", flash[:alert]
+    assert_equal "Cannot destroy policy area with associated content", flash[:alert]
   end
 
   test "featuring sets topic featured flag" do
@@ -104,7 +104,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     topic = create(:topic, featured: false)
     post :feature, id: topic
     assert_redirected_to admin_topics_path
-    assert_equal flash[:notice], "The topic #{topic.name} is now featured"
+    assert_equal flash[:notice], "The policy area #{topic.name} is now featured"
   end
 
   test "unfeaturing unsets topic featured flag" do
@@ -117,6 +117,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     topic = create(:topic, featured: false)
     post :unfeature, id: topic
     assert_redirected_to admin_topics_path
-    assert_equal flash[:notice], "The topic #{topic.name} is no longer featured"
+    assert_equal flash[:notice], "The policy area #{topic.name} is no longer featured"
   end
 end
