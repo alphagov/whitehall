@@ -1,6 +1,6 @@
 require "test_helper"
 
-class TopicsControllerTest < ActionController::TestCase
+class PolicyAreasControllerTest < ActionController::TestCase
   test "shows topic title and description" do
     topic = create(:topic)
     get :show, id: topic
@@ -123,7 +123,7 @@ class TopicsControllerTest < ActionController::TestCase
   test "should show list of topics with published documents" do
     topic_1, topic_2 = create(:topic), create(:topic)
     Topic.stubs(:with_published_documents).returns([topic_1, topic_2])
-    TopicsController::FeaturedTopicChooser.stubs(:choose_topic)
+    PolicyAreasController::FeaturedTopicChooser.stubs(:choose_topic)
 
     get :index
 
@@ -133,7 +133,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   test "should not display an empty list of topics" do
     Topic.stubs(:with_published_documents).returns([])
-    TopicsController::FeaturedTopicChooser.stubs(:choose_topic)
+    PolicyAreasController::FeaturedTopicChooser.stubs(:choose_topic)
 
     get :index
 
@@ -142,7 +142,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   test "shows a featured topic if one exists" do
     topic = create(:topic)
-    TopicsController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
+    PolicyAreasController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
 
     get :index
 
@@ -154,7 +154,7 @@ class TopicsControllerTest < ActionController::TestCase
   test "shows featured topic policies" do
     policy = create(:published_policy)
     topic = create(:topic, documents: [policy])
-    TopicsController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
+    PolicyAreasController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
 
     get :index
 
@@ -164,7 +164,7 @@ class TopicsControllerTest < ActionController::TestCase
   test "shows a maximum of 2 featured topic policies" do
     policies = [create(:published_policy), create(:published_policy), create(:published_policy)]
     topic = create(:topic, documents: policies)
-    TopicsController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
+    PolicyAreasController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
 
     get :index
 
@@ -174,7 +174,7 @@ class TopicsControllerTest < ActionController::TestCase
   test "shows featured topic news articles" do
     article = create(:published_news_article)
     topic = create(:topic, documents: [article])
-    TopicsController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
+    PolicyAreasController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
 
     get :index
 
@@ -184,7 +184,7 @@ class TopicsControllerTest < ActionController::TestCase
   test "shows a maximum of 2 featured news articles" do
     news_articles = [create(:published_news_article), create(:published_news_article), create(:published_news_article)]
     topic = create(:topic, documents: news_articles)
-    TopicsController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
+    PolicyAreasController::FeaturedTopicChooser.stubs(:choose_topic).returns(topic)
 
     get :index
 
@@ -193,22 +193,22 @@ class TopicsControllerTest < ActionController::TestCase
 
   class FeaturedTopicChooserTest < ActiveSupport::TestCase
     test "chooses random featured topic if one exists" do
-      TopicsController::FeaturedTopicChooser.stubs(:choose_random_featured_topic).returns(:random_featured_topic)
-      TopicsController::FeaturedTopicChooser.expects(:choose_random_topic).never
-      assert_equal :random_featured_topic, TopicsController::FeaturedTopicChooser.choose_topic
+      PolicyAreasController::FeaturedTopicChooser.stubs(:choose_random_featured_topic).returns(:random_featured_topic)
+      PolicyAreasController::FeaturedTopicChooser.expects(:choose_random_topic).never
+      assert_equal :random_featured_topic, PolicyAreasController::FeaturedTopicChooser.choose_topic
     end
 
     test "chooses random topic if no featured topics found" do
-      TopicsController::FeaturedTopicChooser.stubs(:choose_random_featured_topic).returns(nil)
-      TopicsController::FeaturedTopicChooser.expects(:choose_random_topic).returns(:random_topic)
-      assert_equal :random_topic, TopicsController::FeaturedTopicChooser.choose_topic
+      PolicyAreasController::FeaturedTopicChooser.stubs(:choose_random_featured_topic).returns(nil)
+      PolicyAreasController::FeaturedTopicChooser.expects(:choose_random_topic).returns(:random_topic)
+      assert_equal :random_topic, PolicyAreasController::FeaturedTopicChooser.choose_topic
     end
 
     test "chooses a featured topic at random" do
       available_featured_topics = Array.new(2) { create(:featured_topic) }
       repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time = 10
       randomly_chosen_featured_topics = (0..repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time).collect do
-        TopicsController::FeaturedTopicChooser.choose_random_featured_topic
+        PolicyAreasController::FeaturedTopicChooser.choose_random_featured_topic
       end
       assert_equal available_featured_topics.uniq.sort, randomly_chosen_featured_topics.uniq.sort
     end
@@ -217,7 +217,7 @@ class TopicsControllerTest < ActionController::TestCase
       non_featured_topic = create(:topic)
       repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time = 10
       (0..repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time).collect do
-        assert_nil TopicsController::FeaturedTopicChooser.choose_random_featured_topic
+        assert_nil PolicyAreasController::FeaturedTopicChooser.choose_random_featured_topic
       end
     end
 
@@ -225,7 +225,7 @@ class TopicsControllerTest < ActionController::TestCase
       available_topics = Array.new(2) { create(:topic, documents: [create(:published_document)]) }
       repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time = 10
       randomly_chosen_topics = (0..repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time).collect do
-        TopicsController::FeaturedTopicChooser.choose_random_topic
+        PolicyAreasController::FeaturedTopicChooser.choose_random_topic
       end
       assert_equal available_topics.uniq.sort, randomly_chosen_topics.uniq.sort
     end
@@ -234,7 +234,7 @@ class TopicsControllerTest < ActionController::TestCase
       topic_without_published_document = create(:topic)
       repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time = 10
       (0..repetitions_to_reduce_the_chance_of_getting_the_same_topic_each_time).collect do
-        assert_nil TopicsController::FeaturedTopicChooser.choose_random_topic
+        assert_nil PolicyAreasController::FeaturedTopicChooser.choose_random_topic
       end
     end
   end

@@ -15,7 +15,7 @@ Whitehall::Application.routes.draw do
     resources :consultations, only: [:index, :show]
     resources :speeches, only: [:index, :show]
 
-    resources :policy_areas, as: :topics, controller: :topics, only: [:index, :show]
+    resources :policy_areas, as: :topics, controller: :policy_areas, only: [:index, :show]
     resources :organisations, only: [:index, :show] do
       member do
         get :about

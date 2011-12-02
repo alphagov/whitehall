@@ -1,4 +1,4 @@
-class TopicsController < ApplicationController
+class PolicyAreasController < ApplicationController
   def index
     @topics = Topic.with_published_documents
     @featured_topic = FeaturedTopicChooser.choose_topic

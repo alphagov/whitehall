@@ -29,7 +29,7 @@
     <section class="container">
       <h1>Policy Areas</h1>
       <% if @document.topics.any? %>
-        <%= render partial: "topics/list", locals: {topics: @document.topics} %>
+        <%= render partial: "policy_areas/list", locals: {topics: @document.topics} %>
       <% else %>
         <p>This document isn't assigned to any policy areas.</p>
       <% end %>
