@@ -4,7 +4,7 @@ Whitehall::Application.routes.draw do
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
-    root to: redirect('/policy_areas')
+    root to: redirect('/policy-areas')
 
     resources :announcements, only: [:index], path: 'news-and-speeches'
     resources :policies, only: [:index, :show] do
@@ -15,7 +15,7 @@ Whitehall::Application.routes.draw do
     resources :consultations, only: [:index, :show]
     resources :speeches, only: [:index, :show]
 
-    resources :policy_areas, only: [:index, :show]
+    resources "policy-areas", as: :policy_areas, controller: :policy_areas, only: [:index, :show]
     resources :organisations, only: [:index, :show] do
       member do
         get :about
@@ -29,7 +29,7 @@ Whitehall::Application.routes.draw do
 
       resource :user, only: [:show, :edit, :update]
       resources :organisations, only: [:index, :new, :create, :edit, :update]
-      resources :policy_areas, only: [:index, :new, :create, :edit, :update, :destroy] do
+      resources "policy-areas", as: :policy_areas, controller: :policy_areas, only: [:index, :new, :create, :edit, :update, :destroy] do
         member do
           post :feature
           post :unfeature
