@@ -21,11 +21,11 @@
     <% end %>
   </section>
 
-  <% if document.can_be_associated_with_topics? %>
+  <% if document.can_be_associated_with_policy_areas? %>
     <section class="container">
       <h1>Policy Areas</h1>
-      <% if document.topics.any? %>
-        <%= render partial: "policy_areas/list", locals: {topics: document.topics} %>
+      <% if document.policy_areas.any? %>
+        <%= render partial: "policy_areas/list", locals: {policy_areas: document.policy_areas} %>
       <% else %>
         <p>This document isn't assigned to any policy areas.</p>
       <% end %>

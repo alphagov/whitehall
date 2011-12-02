@@ -1,4 +1,0 @@
-<fieldset>
-  <%= form.label :topic_ids, 'Policy Areas' %>
-  <%= form.select :topic_ids, options_from_collection_for_select(Topic.all, 'id', 'name', document.topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose policy areas..."} %>
-</fieldset>

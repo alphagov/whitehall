@@ -13,10 +13,10 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
   And %{I submit the policy for the second set of eyes}
 end
 
-Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" policy areas$/ do |policy_title, topic_1, topic_2|
+Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" policy areas$/ do |policy_title, policy_area_1, policy_area_2|
   document = create(:published_policy, title: policy_title)
-  create(:topic, name: topic_1, documents: [document])
-  create(:topic, name: topic_2, documents: [document])
+  create(:policy_area, name: policy_area_1, documents: [document])
+  create(:policy_area, name: policy_area_2, documents: [document])
 end
 
 Given /^a published policy "([^"]*)" that does not apply to the nations:$/ do |policy_title, nation_names|
@@ -144,10 +144,10 @@ When /^I write a policy "([^"]*)" with body "([^"]*)"$/ do |title, body|
   fill_in 'Body', with: body
 end
 
-When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" policy areas$/ do |title, first_topic, second_topic|
+When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" policy areas$/ do |title, first_policy_area, second_policy_area|
   begin_drafting_document type: "Policy", title: title
-  select first_topic, from: "Policy Areas"
-  select second_topic, from: "Policy Areas"
+  select first_policy_area, from: "Policy Areas"
+  select second_policy_area, from: "Policy Areas"
   click_button "Save"
 end
 
@@ -180,9 +180,9 @@ When /^I edit the policy "([^"]*)" changing the title to "([^"]*)"$/ do |origina
   click_button "Save"
 end
 
-When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" policy area$/ do |title, topic_name|
+When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" policy area$/ do |title, policy_area_name|
   begin_editing_document title
-  select topic_name, from: "Policy Areas"
+  select policy_area_name, from: "Policy Areas"
   click_button "Save"
 end
 

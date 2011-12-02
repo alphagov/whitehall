@@ -1,10 +1,10 @@
-class DocumentTopic < ActiveRecord::Base
+class DocumentPolicyArea < ActiveRecord::Base
   belongs_to :document
-  belongs_to :topic
+  belongs_to :policy_area
 
-  validates :document, :topic, presence: true
+  validates :document, :policy_area, presence: true
 
-  default_scope order("document_topics.ordering ASC")
+  default_scope order("document_policy_areas.ordering ASC")
 
   class << self
     def published

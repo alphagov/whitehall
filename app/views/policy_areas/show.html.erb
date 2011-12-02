@@ -1,8 +1,8 @@
 <div class="g2">
-  <section class="topic">
-    <%= content_tag_for :article, @topic do %>
-      <h1 class="page_title name"><%= @topic.name %></h1>
-      <p class="description"><%= @topic.description %></p>
+  <section class="policy_area">
+    <%= content_tag_for :article, @policy_area do %>
+      <h1 class="page_title name"><%= @policy_area.name %></h1>
+      <p class="description"><%= @policy_area.description %></p>
     <% end %>
   </section>
   <% if @featured_policies.any? %>

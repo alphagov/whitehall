@@ -1,11 +1,11 @@
-module Admin::TopicsHelper
-  def topic_css_classes(topic)
+module Admin::PolicyAreasHelper
+  def policy_area_css_classes(policy_area)
     result = ''
-    result << ' featured' if topic.featured?
+    result << ' featured' if policy_area.featured?
   end
 
-  def documents_preventing_destruction(topic)
-    topic.documents.map do |d|
+  def documents_preventing_destruction(policy_area)
+    policy_area.documents.map do |d|
       [link_to(d.title, admin_document_path(d)),
        content_tag(:span,
                    %{(#{d.state} #{d.class.name.underscore.humanize.downcase})},

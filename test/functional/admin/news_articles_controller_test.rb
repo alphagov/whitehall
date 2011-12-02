@@ -172,7 +172,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   should_allow_organisations_for :news_article
 
-  should_allow_topics_for :news_article
+  should_allow_policy_areas_for :news_article
 
   should_be_rejectable :news_article
   should_be_force_publishable :news_article

@@ -10,14 +10,14 @@ Given /^a published (publication|policy|news article|consultation|speech) "([^"]
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
-Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" policy area$/ do |document_type, title, topic_name|
-  topic = Topic.find_by_name!(topic_name)
-  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
+Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" policy area$/ do |document_type, title, policy_area_name|
+  policy_area = PolicyArea.find_by_name!(policy_area_name)
+  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, policy_areas: [policy_area])
 end
 
-Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" policy area$/ do |document_type, title, topic_name|
-  topic = Topic.find_by_name!(topic_name)
-  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
+Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" policy area$/ do |document_type, title, policy_area_name|
+  policy_area = PolicyArea.find_by_name!(policy_area_name)
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, policy_areas: [policy_area])
 end
 
 Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
@@ -139,10 +139,10 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
   assert page.has_css?(record_css_selector(document), text: document.title)
 end
 
-Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" policy areas$/ do |title, first_topic, second_topic|
+Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" policy areas$/ do |title, first_policy_area, second_policy_area|
   visit_document_preview title
-  assert has_css?(".topic", text: first_topic)
-  assert has_css?(".topic", text: second_topic)
+  assert has_css?(".policy_area", text: first_policy_area)
+  assert has_css?(".policy_area", text: second_policy_area)
 end
 
 Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|

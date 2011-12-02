@@ -17,8 +17,8 @@ module CssSelectors
     "#organisations"
   end
 
-  def topics_selector
-    "#topics"
+  def policy_areas_selector
+    "#policy_areas"
   end
 
   def ministers_responsible_selector

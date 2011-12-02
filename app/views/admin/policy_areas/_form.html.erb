@@ -1,25 +1,25 @@
-<%= form_for [:admin, topic] do |topic_form| %>
-  <%= topic_form.errors %>
+<%= form_for [:admin, policy_area] do |policy_area_form| %>
+  <%= policy_area_form.errors %>
 
   <fieldset>
-    <%= topic_form.text_field :name %>
-    <%= topic_form.text_area :description %>
+    <%= policy_area_form.text_field :name %>
+    <%= policy_area_form.text_area :description %>
   </fieldset>
 
   <fieldset id="policy_order" class="named sortable">
     <legend>Policy ordering</legend>
-    <%= topic_form.fields_for :document_topics, topic.document_topics.for_type(Policy).published do |document_topic_form| %>
-      <% document = document_topic_form.object.document %>
+    <%= policy_area_form.fields_for :document_policy_areas, policy_area.document_policy_areas.for_type(Policy).published do |document_policy_area_form| %>
+      <% document = document_policy_area_form.object.document %>
       <div id="<%= dom_id(document) %>">
-        <%= document_topic_form.text_field :ordering, label_text: link_to(document.title, admin_document_path(document)), class: "ordering" %>
+        <%= document_policy_area_form.text_field :ordering, label_text: link_to(document.title, admin_document_path(document)), class: "ordering" %>
         <p>
           <%= [pluralize(Publication.published.related_to(document).count, "publication"),
                pluralize(NewsArticle.published.related_to(document).count, "news article")].to_sentence %>
         </p>
-        <%= document_topic_form.check_box :featured, label_text: "Featured?" %>
+        <%= document_policy_area_form.check_box :featured, label_text: "Featured?" %>
       </div>
     <% end %>
   </fieldset>
 
-  <%= topic_form.save_or_cancel cancel: admin_topics_path %>
+  <%= policy_area_form.save_or_cancel cancel: admin_policy_areas_path %>
 <% end %>

@@ -25,7 +25,7 @@ class Document < ActiveRecord::Base
     end
   end
 
-  def can_be_associated_with_topics?
+  def can_be_associated_with_policy_areas?
     false
   end
 

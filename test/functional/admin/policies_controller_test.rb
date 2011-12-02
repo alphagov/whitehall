@@ -134,7 +134,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test 'updating a stale policy should render edit page with conflicting policy' do
-    policy = create(:draft_policy, topics: [build(:topic)], organisations: [build(:organisation)], ministerial_roles: [build(:ministerial_role)])
+    policy = create(:draft_policy, policy_areas: [build(:policy_area)], organisations: [build(:organisation)], ministerial_roles: [build(:ministerial_role)])
     lock_version = policy.lock_version
     policy.touch
 
@@ -231,7 +231,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select ".supporting_pages .supporting_document"
   end
 
-  should_allow_topics_for :policy
+  should_allow_policy_areas_for :policy
   should_allow_organisations_for :policy
 
   should_be_rejectable :policy

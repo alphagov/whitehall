@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111202102048) do
+ActiveRecord::Schema.define(:version => 20111202181120) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -71,20 +71,20 @@ ActiveRecord::Schema.define(:version => 20111202102048) do
     t.datetime "updated_at"
   end
 
+  create_table "document_policy_areas", :force => true do |t|
+    t.integer  "policy_area_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "document_id"
+    t.integer  "ordering"
+    t.boolean  "featured",       :default => false
+  end
+
   create_table "document_relations", :force => true do |t|
     t.integer  "document_id",         :null => false
     t.integer  "related_document_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "document_topics", :force => true do |t|
-    t.integer  "topic_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "document_id"
-    t.integer  "ordering"
-    t.boolean  "featured",    :default => false
   end
 
   create_table "documents", :force => true do |t|
@@ -197,6 +197,17 @@ ActiveRecord::Schema.define(:version => 20111202102048) do
     t.string  "description"
   end
 
+  create_table "policy_areas", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "description"
+    t.string   "slug"
+    t.boolean  "featured",    :default => false
+  end
+
+  add_index "policy_areas", ["slug"], :name => "index_policy_areas_on_slug"
+
   create_table "publication_metadata", :force => true do |t|
     t.integer  "publication_id"
     t.date     "publication_date"
@@ -239,17 +250,6 @@ ActiveRecord::Schema.define(:version => 20111202102048) do
   end
 
   add_index "supporting_documents", ["slug"], :name => "index_supporting_documents_on_slug"
-
-  create_table "topics", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "description"
-    t.string   "slug"
-    t.boolean  "featured",    :default => false
-  end
-
-  add_index "topics", ["slug"], :name => "index_topics_on_slug"
 
   create_table "users", :force => true do |t|
     t.string   "name"

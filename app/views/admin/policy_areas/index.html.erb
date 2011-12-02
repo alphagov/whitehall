@@ -2,12 +2,12 @@
   <div class="collection">
 
     <nav class="actions">
-      <%= link_to "Create Policy Area", new_admin_topic_path, class: "button new_resource", title: "Create a Policy Area" %>
+      <%= link_to "Create Policy Area", new_admin_policy_area_path, class: "button new_resource", title: "Create a Policy Area" %>
     </nav>
 
     <h1>Policy Areas</h1>
 
-    <table class="topics">
+    <table class="policy_areas">
       <thead>
         <tr>
           <th>Name</th>
@@ -17,20 +17,20 @@
         </tr>
       </thead>
       <tbody>
-        <% @topics.each do |topic| %>
-          <%= content_tag_for(:tr, topic, class: topic_css_classes(topic)) do %>
-            <td class="name"><%= link_to topic.name, edit_admin_topic_path(topic), title: "Edit policy area #{topic.name}" %></td>
-            <td class="description"><%= topic.description %></td>
+        <% @policy_areas.each do |policy_area| %>
+          <%= content_tag_for(:tr, policy_area, class: policy_area_css_classes(policy_area)) do %>
+            <td class="name"><%= link_to policy_area.name, edit_admin_policy_area_path(policy_area), title: "Edit policy area #{policy_area.name}" %></td>
+            <td class="description"><%= policy_area.description %></td>
             <td class="details">
-              <%= topic.document_breakdown.map { |key, count|
+              <%= policy_area.document_breakdown.map { |key, count|
                 pluralize count, key
                }.to_sentence %>
             </td>
             <td class="actions">
-              <% if topic.featured? %>
-                <%= button_to 'No Longer Feature', unfeature_admin_topic_path(topic), method: :post %>
+              <% if policy_area.featured? %>
+                <%= button_to 'No Longer Feature', unfeature_admin_policy_area_path(policy_area), method: :post %>
               <% else %>
-                <%= button_to 'Feature Policy Area', feature_admin_topic_path(topic), method: :post %>
+                <%= button_to 'Feature Policy Area', feature_admin_policy_area_path(policy_area), method: :post %>
               <% end %>
             </td>
           <% end %>

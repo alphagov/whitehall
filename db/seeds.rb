@@ -20,9 +20,9 @@ def countries(*names)
   end
 end
 
-def topics(*names)
+def policy_areas(*names)
   names.each do |name|
-    Topic.create!(name: name, description: "A description of the #{name} topic goes here.")
+    PolicyArea.create!(name: name, description: "A description of the #{name} policy_area goes here.")
   end
 end
 
@@ -402,7 +402,7 @@ other_civil_servants(
   "Rachel Sandby-Thomas" => {"The Solicitor and Director General Legal, People and Communications" => "Department for Business, Innovation and Skills"},
   "Sir Adrian Smith" => {"Director General (Knowledge and Innovation)" => "Department for Business, Innovation and Skills"})
 
-topics(
+policy_areas(
   "Regulation reform",
   "International trade",
   "European Union",

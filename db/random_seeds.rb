@@ -1,5 +1,5 @@
 def create_document(type, attributes)
-  attributes[:topics] = Topic.where(name: (attributes[:topics] || [])) if type.new.respond_to?(:topics=)
+  attributes[:policy_areas] = PolicyArea.where(name: (attributes[:policy_areas] || [])) if type.new.respond_to?(:policy_areas=)
   attributes[:organisations] = Organisation.where(name: (attributes[:organisations] || []))
   attributes[:creator] ||= User.create(name: Faker::Name.name)
   attributes[:ministerial_roles] = Array.new(rand(2) + 1) { MinisterialRole.order("RAND()").first } unless type == Speech
@@ -40,18 +40,18 @@ def random_policy_text(number_of_paragraphs=3)
 end
 alias :random_publication_text :random_policy_text
 
-Topic.all.each do |topic|
-  topic.update_attributes!(description: Faker::Lorem.sentence)
+PolicyArea.all.each do |policy_area|
+  policy_area.update_attributes!(description: Faker::Lorem.sentence)
 end
 
-create_draft(Policy, title: "Free cats for pensioners", topics: ["Higher Education"], organisations: ["Attorney General's Office", "Cabinet Office"])
-create_draft(Policy, title: "Decriminalise beards", topics: ["Higher Education", "Consular Services"], organisations: ["Public sector innovation"])
+create_draft(Policy, title: "Free cats for pensioners", policy_areas: ["Higher Education"], organisations: ["Attorney General's Office", "Cabinet Office"])
+create_draft(Policy, title: "Decriminalise beards", policy_areas: ["Higher Education", "Consular Services"], organisations: ["Public sector innovation"])
 
-create_submitted(Policy, title: "Less gravity on Sundays", topics: ["Local Government", "International trade"], organisations: ["Department for Environment, Food and Rural Affairs", "Home Office"])
-create_submitted(Policy, title: "Ducks pulling chariots of fire", topics: ["Economic Growth", "Prosperity"], organisations: ["Her Majesty's Treasury"])
+create_submitted(Policy, title: "Less gravity on Sundays", policy_areas: ["Local Government", "International trade"], organisations: ["Department for Environment, Food and Rural Affairs", "Home Office"])
+create_submitted(Policy, title: "Ducks pulling chariots of fire", policy_areas: ["Economic Growth", "Prosperity"], organisations: ["Her Majesty's Treasury"])
 
-create_published(Policy, title: "No more supernanny", topics: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
-published_laser_eyes_policy = create_published(Policy, title: "Laser eyes for millionaires", topics: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
+create_published(Policy, title: "No more supernanny", policy_areas: ["Water and Sanitisation"], organisations: ["Foreign and Commonwealth Office"])
+published_laser_eyes_policy = create_published(Policy, title: "Laser eyes for millionaires", policy_areas: ["Constitutional Reform"], organisations: ["Northern Ireland Office"])
 
 create_published(Publication, title: "Cat Extermination White Paper", organisations: ["Foreign and Commonwealth Office"])
 create_published(Publication, title: "Dog Erradicated Green Paper", organisations: ["Northern Ireland Office"])

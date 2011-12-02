@@ -1,64 +1,64 @@
 class Admin::PolicyAreasController < Admin::BaseController
   def index
-    @topics = PolicyAreasPresenter.new
+    @policy_areas = PolicyAreasPresenter.new
   end
 
   def new
-    @topic = Topic.new
+    @policy_area = PolicyArea.new
   end
 
   def create
-    @topic = Topic.new(params[:topic])
-    if @topic.save
-      redirect_to admin_topics_path, notice: "Policy area created"
+    @policy_area = PolicyArea.new(params[:policy_area])
+    if @policy_area.save
+      redirect_to admin_policy_areas_path, notice: "Policy area created"
     else
       render action: "new"
     end
   end
 
   def edit
-    @topic = Topic.find(params[:id])
+    @policy_area = PolicyArea.find(params[:id])
   end
 
   def update
-    @topic = Topic.find(params[:id])
-    if @topic.update_attributes(params[:topic])
-      redirect_to admin_topics_path, notice: "Policy area updated"
+    @policy_area = PolicyArea.find(params[:id])
+    if @policy_area.update_attributes(params[:policy_area])
+      redirect_to admin_policy_areas_path, notice: "Policy area updated"
     else
       render action: "edit"
     end
   end
 
   def feature
-    @topic = Topic.find(params[:id])
-    @topic.update_attributes(featured: true)
-    redirect_to admin_topics_path, notice: "The policy area #{@topic.name} is now featured"
+    @policy_area = PolicyArea.find(params[:id])
+    @policy_area.update_attributes(featured: true)
+    redirect_to admin_policy_areas_path, notice: "The policy area #{@policy_area.name} is now featured"
   end
 
   def unfeature
-    @topic = Topic.find(params[:id])
-    @topic.update_attributes(featured: false)
-    redirect_to admin_topics_path, notice: "The policy area #{@topic.name} is no longer featured"
+    @policy_area = PolicyArea.find(params[:id])
+    @policy_area.update_attributes(featured: false)
+    redirect_to admin_policy_areas_path, notice: "The policy area #{@policy_area.name} is no longer featured"
   end
 
   def destroy
-    @topic = Topic.find(params[:id])
-    if @topic.destroy
-      redirect_to admin_topics_path, notice: "Policy area destroyed"
+    @policy_area = PolicyArea.find(params[:id])
+    if @policy_area.destroy
+      redirect_to admin_policy_areas_path, notice: "Policy area destroyed"
     else
-      redirect_to admin_topics_path, alert: "Cannot destroy policy area with associated content"
+      redirect_to admin_policy_areas_path, alert: "Cannot destroy policy area with associated content"
     end
   end
 
   class PolicyAreasPresenter < Whitehall::Presenters::Collection
     def initialize
-      super(Topic.all)
+      super(PolicyArea.all)
     end
 
     present_object_with do
       def document_breakdown
         {
-          "featured policy" => @record.document_topics.where(featured: true).count,
+          "featured policy" => @record.document_policy_areas.where(featured: true).count,
           "published policy" => @record.policies.published.count,
           "published document" => @record.published_documents.count
         }

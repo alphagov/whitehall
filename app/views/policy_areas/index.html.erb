@@ -1,24 +1,24 @@
 <div class="g3">
   <h1 class="page_title">Policy Areas</h1>
 
-  <% if @featured_topic %>
+  <% if @featured_policy_area %>
     <section class="featured">
       <div class="g2 first">
-        <%= content_tag_for :article, @featured_topic do %>
-          <h1 class="name"><%= link_to @featured_topic.name, topic_path(@featured_topic) %></h1>
-          <p class="description"><%= @featured_topic.description %></p>
+        <%= content_tag_for :article, @featured_policy_area do %>
+          <h1 class="name"><%= link_to @featured_policy_area.name, policy_area_path(@featured_policy_area) %></h1>
+          <p class="description"><%= @featured_policy_area.description %></p>
         <% end %>
       </div>
 
       <div class="g1 related">
-        <%= render partial: "documents/policies", object: @featured_topic.policies.published.limit(2) %>
-        <%= render partial: "documents/news_articles", object: @featured_topic.news_articles.published.limit(2) %>
+        <%= render partial: "documents/policies", object: @featured_policy_area.policies.published.limit(2) %>
+        <%= render partial: "documents/news_articles", object: @featured_policy_area.news_articles.published.limit(2) %>
       </div>
     </section>
   <% end %>
 
-  <% if @topics.any? %>
-    <%= render partial: "grouped_list", locals: {topics: @topics} %>
+  <% if @policy_areas.any? %>
+    <%= render partial: "grouped_list", locals: {policy_areas: @policy_areas} %>
   <% else %>
     <p>We don't have any policy areas with published documents at present.</p>
   <% end %>
