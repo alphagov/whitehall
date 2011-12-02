@@ -6,7 +6,7 @@ Whitehall::Application.routes.draw do
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: redirect('/policy_areas')
 
-    resources :announcements, only: [:index]
+    resources :announcements, only: [:index], path: 'news-and-speeches'
     resources :policies, only: [:index, :show] do
       resources :supporting_documents, only: [:index, :show]
     end
