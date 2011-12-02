@@ -37,5 +37,5 @@
     <%= organisation_form.text_area :about_us, class: "previewable govspeak", :help => true %>
   </fieldset>
 
-  <%= organisation_form.save_or_cancel %>
+  <%= organisation_form.save_or_cancel cancel: admin_organisations_path %>
 <% end %>

@@ -98,6 +98,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "#{parent_organisations_list_selector} option[value='#{organisation.id}']", false
   end
 
+  test "editing should display a cancel link back to the list of organisations" do
+    organisation = create(:organisation)
+    get :edit, id: organisation.to_param
+    assert_select ".or_cancel a[href='#{admin_organisations_path}']"
+  end
+
   test "updating should modify the organisation" do
     organisation = create(:organisation, name: "Ministry of Sound")
     organisation_attributes = {
