@@ -1,0 +1,11 @@
+<div class="g2">
+  <section class="organisation">
+    <h1 class="page_title"><%= @organisation.name %></h1>
+    <div class="body">
+      <%= govspeak_to_html @organisation.about_us %>
+    </div>
+    <span class="back">
+      back to <%= link_to @organisation.name, organisation_path(@organisation), title: "Back to #{@organisation.name}" %>
+    </span>
+  </section>
+</div>

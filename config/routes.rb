@@ -16,7 +16,11 @@ Whitehall::Application.routes.draw do
     resources :speeches, only: [:index, :show]
 
     resources :topics, only: [:index, :show]
-    resources :organisations, only: [:index, :show]
+    resources :organisations, only: [:index, :show] do
+      member do
+        get :about
+      end
+    end
     resources :ministers, only: [:index, :show], as: :ministerial_roles, controller: :ministerial_roles
     resources :countries, only: [:index, :show]
 

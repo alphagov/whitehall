@@ -219,6 +219,43 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "img[src*=blank-person.jpg]"
   end
 
+  test "should display a link to the about-us page" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    assert_select ".about a[href='#{about_organisation_path(organisation)}']"
+  end
+
+  test "should display an about-us page for the organisation" do
+    organisation = create(:organisation,
+      name: "organisation-name",
+      about_us: "organisation-about-us"
+    )
+
+    get :about, id: organisation
+
+    assert_select ".page_title", text: "organisation-name"
+    assert_select ".body", text: "organisation-about-us"
+  end
+
+  test "should render the about-us content using govspeak markup" do
+    organisation = create(:organisation,
+      name: "organisation-name",
+      about_us: "body-in-govspeak"
+    )
+
+    Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
+
+    get :about, id: organisation
+
+    assert_select ".body", text: "body-in-html"
+  end
+
+  test "should display a link back to the organisation page" do
+    organisation = create(:organisation)
+    get :about, id: organisation
+    assert_select ".back a[href='#{organisation_path(organisation)}']"
+  end
+
   test "should display a list of organisations" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
