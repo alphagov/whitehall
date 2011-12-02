@@ -17,13 +17,18 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     get :new
     assert_template "organisations/new"
     assert_select "textarea[name='organisation[description]']"
+    assert_select "textarea[name='organisation[about_us]'].previewable.govspeak"
+    assert_select "#govspeak_help"
     assert_select parent_organisations_list_selector
     assert_select organisation_type_list_selector
   end
 
   test "creating should create a new Organisation" do
     organisation_type = create(:organisation_type)
-    attributes = attributes_for(:organisation, description: "organisation-description")
+    attributes = attributes_for(:organisation,
+      description: "organisation-description",
+      about_us: "organisation-about-us"
+    )
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
       phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
@@ -32,6 +37,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert organisation = Organisation.last
     assert_equal attributes[:name], organisation.name
     assert_equal attributes[:description], organisation.description
+    assert_equal attributes[:about_us], organisation.about_us
     assert_equal 1, organisation.phone_numbers.count
     assert_equal "Fax", organisation.phone_numbers.first.description
   end
@@ -96,7 +102,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, name: "Ministry of Sound")
     organisation_attributes = {
       name: "Ministry of Noise",
-      description: "organisation-description"
+      description: "organisation-description",
+      about_us: "organisation-about-us"
     }
 
     put :update, id: organisation.to_param, organisation: organisation_attributes
@@ -104,6 +111,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation.reload
     assert_equal "Ministry of Noise", organisation.name
     assert_equal "organisation-description", organisation.description
+    assert_equal "organisation-about-us", organisation.about_us
   end
 
   test "updating without a name should reshow the edit form" do

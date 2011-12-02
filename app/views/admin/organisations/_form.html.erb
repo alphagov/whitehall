@@ -32,6 +32,10 @@
       <%= phone_numbers_form.text_field :number %>
     <% end %>
   </fieldset>
+  <%= render partial: "admin/documents/govspeak_help" %>
+  <fieldset>
+    <%= organisation_form.text_area :about_us, class: "previewable govspeak", :help => true %>
+  </fieldset>
 
   <%= organisation_form.save_or_cancel %>
 <% end %>
