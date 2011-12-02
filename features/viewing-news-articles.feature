@@ -5,7 +5,7 @@ Scenario: Viewing a published news article with related policies
   When I visit the news article "News 1"
   Then I can see links to the related published policies "Policy 1" and "Policy 2"
 
-Scenario: Viewing a published news article with editorial guidance
-  Given a published news article "News 1" with editorial guidance "Editorial guidance"
+Scenario: Viewing a published news article with notes to editors
+  Given a published news article "News 1" with notes to editors "Notes to editors"
   When I visit the news article "News 1"
-  Then I should see the editorial guidance "Editorial guidance" for the news article
+  Then I should see the notes to editors "Notes to editors" for the news article

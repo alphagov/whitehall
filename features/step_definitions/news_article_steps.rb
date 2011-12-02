@@ -9,8 +9,8 @@ Given /^a published news article "([^"]*)" exists relating to the country "([^"]
   create(:published_news_article, title: title, countries: [country])
 end
 
-Given /^a published news article "([^"]*)" with editorial guidance "([^"]*)"$/ do |title, editorial_guidance|
-  create(:published_news_article, title: title, editorial_guidance: editorial_guidance)
+Given /^a published news article "([^"]*)" with notes to editors "([^"]*)"$/ do |title, notes_to_editors|
+  create(:published_news_article, title: title, notes_to_editors: notes_to_editors)
 end
 
 When /^I draft a new news article "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
@@ -25,6 +25,6 @@ Then /^I can see links to the related published news articles "([^"]*)" and "([^
   assert has_css?("#{related_news_articles_selector} .news_article a", text: news_article_title_2)
 end
 
-Then /^I should see the editorial guidance "([^"]*)" for the news article$/ do |editorial_guidance|
-  assert has_css?(".editorial_guidance", text: editorial_guidance)
+Then /^I should see the notes to editors "([^"]*)" for the news article$/ do |notes_to_editors|
+  assert has_css?(".notes_to_editors", text: notes_to_editors)
 end
