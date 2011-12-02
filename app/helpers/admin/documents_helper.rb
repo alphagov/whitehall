@@ -9,7 +9,7 @@ module Admin::DocumentsHelper
     admin_header_link "Documents", admin_documents_path, /^\/admin\/(documents|publications|policies|news_articles|consultations|speeches)/
   end
 
-  def admin_topics_header_link
+  def admin_policy_areas_header_link
     admin_header_link "Policy Areas", admin_topics_path
   end
 
