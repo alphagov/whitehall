@@ -8,7 +8,7 @@
     <% if @topic.destroyable? %>
       <%= button_to 'Delete', admin_topic_path(@topic), method: :delete, confirm: 'Are you sure you want to delete this topic?' %>
     <% else %>
-      <span>This topic can't be deleted as it has associated news articles or policies</span>
+      <span class="documents_preventing_destruction">This topic can't be deleted as it has associated news articles or policies: <%= documents_preventing_destruction(@topic) %></span>
     <% end %>
   </section>
 </div>

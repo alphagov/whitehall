@@ -77,6 +77,16 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_equal "Topic destroyed", flash[:notice]
   end
 
+  test "should indicate that a document is not destroyable when editing" do
+    topic_with_published_policy = create(:topic, documents: [build(:published_policy, title: "thingies")])
+
+    get :edit, id: topic_with_published_policy.id
+    assert_select ".documents_preventing_destruction" do
+      assert_select "a", "thingies"
+      assert_select ".document_state", "(published policy)"
+    end
+  end
+
   test "destroying a topic which has associated content" do
     topic_with_published_policy = create(:topic, documents: [build(:published_policy)])
 
