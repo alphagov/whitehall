@@ -6,7 +6,7 @@
         <% @publications.each_with_index do |publication, index| %>
           <%= content_tag_for(:li, publication) do %>
             <div class="cover">
-              <img src="/images/pub-cover.png" />
+              <img src="/assets/pub-cover.png" />
             </div>
             <div class="description">
               <h2 class="title"><%= link_to truncate(publication.title, { length: 40 }), public_document_path(publication), title: "View #{publication.title}" %></h2>
