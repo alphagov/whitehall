@@ -8,7 +8,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     fact_check_request = create(:fact_check_request, document: document, comments: "comment")
     Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
 
-    get :show, id: fact_check_request.to_param
+    get :show, id: fact_check_request
 
     assert_select ".body", text: "body-in-html"
   end
@@ -18,7 +18,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     fact_check_request = create(:fact_check_request, document: document)
     document.delete!
 
-    get :show, id: fact_check_request.to_param
+    get :show, id: fact_check_request
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
     refute_select ".title", text: "deleted-policy-title"
@@ -28,7 +28,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   test "users with a valid.to_param should be able to access the policy" do
     fact_check_request = create(:fact_check_request)
 
-    get :edit, id: fact_check_request.to_param
+    get :edit, id: fact_check_request
 
     assert_response :success
     assert_template "admin/fact_check_requests/edit"
@@ -45,7 +45,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     fact_check_request = create(:fact_check_request, document: document)
     document.delete!
 
-    get :edit, id: fact_check_request.to_param
+    get :edit, id: fact_check_request
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
     refute_select "document_view .title", text: "deleted-policy-title"
@@ -57,7 +57,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     fact_check_request = create(:fact_check_request, document: document)
     Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
 
-    get :edit, id: fact_check_request.to_param
+    get :edit, id: fact_check_request
 
     assert_select ".body", text: "body-in-html"
   end
@@ -66,7 +66,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     policy = create(:policy)
     fact_check_request = create(:fact_check_request, document: policy)
 
-    get :edit, id: fact_check_request.to_param
+    get :edit, id: fact_check_request
 
     assert_response :success
   end
@@ -75,7 +75,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     publication = create(:publication)
     fact_check_request = create(:fact_check_request, document: publication)
 
-    get :edit, id: fact_check_request.to_param
+    get :edit, id: fact_check_request
 
     assert_response :success
   end
@@ -83,7 +83,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   test "should display any additional instructions to the fact checker" do
     fact_check_request = create(:fact_check_request, instructions: "Please concentrate on the content")
 
-    get :edit, id: fact_check_request.to_param
+    get :edit, id: fact_check_request
 
     assert_select "#fact_check_request_instructions", text: /Please concentrate on the content/
   end
@@ -91,7 +91,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   test "should not display the extra instructions section" do
     fact_check_request = create(:fact_check_request, instructions: "")
 
-    get :edit, id: fact_check_request.to_param
+    get :edit, id: fact_check_request
 
     refute_select "#fact_check_request_instructions"
   end
@@ -100,7 +100,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     policy = create(:policy, supporting_documents: [])
     fact_check_request = create(:fact_check_request, document: policy)
 
-    get :edit, id: fact_check_request.to_param
+    get :edit, id: fact_check_request
 
     refute_select supporting_documents_selector
   end
@@ -109,7 +109,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     policy = create(:policy, supporting_documents: [create(:supporting_document, title: "Blah!")])
     fact_check_request = create(:fact_check_request, document: policy)
 
-    get :edit, id: fact_check_request.to_param
+    get :edit, id: fact_check_request
 
     assert_select "#{supporting_documents_selector} .title", "Blah!"
   end

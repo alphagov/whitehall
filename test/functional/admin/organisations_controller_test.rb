@@ -88,19 +88,19 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "editing should load the requested organisation" do
     organisation = create(:organisation)
-    get :edit, id: organisation.to_param
+    get :edit, id: organisation
     assert_equal organisation, assigns(:organisation)
   end
 
   test "editing shouldn't show the current organisation in the list of parent organisations" do
     organisation = create(:organisation)
-    get :edit, id: organisation.to_param
+    get :edit, id: organisation
     refute_select "#{parent_organisations_list_selector} option[value='#{organisation.id}']"
   end
 
   test "editing should display a cancel link back to the list of organisations" do
     organisation = create(:organisation)
-    get :edit, id: organisation.to_param
+    get :edit, id: organisation
     assert_select ".or_cancel a[href='#{admin_organisations_path}']"
   end
 
@@ -112,7 +112,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       about_us: "organisation-about-us"
     }
 
-    put :update, id: organisation.to_param, organisation: organisation_attributes
+    put :update, id: organisation, organisation: organisation_attributes
 
     organisation.reload
     assert_equal "Ministry of Noise", organisation.name
@@ -123,7 +123,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "updating without a name should reshow the edit form" do
     organisation = create(:organisation, name: "Ministry of Sound")
 
-    put :update, id: organisation.to_param, organisation: {name: ""}
+    put :update, id: organisation, organisation: {name: ""}
 
     assert_template "organisations/edit"
   end
@@ -135,7 +135,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       phone_numbers_attributes: [{description: "", number: ""}]
     }
 
-    put :update, id: organisation.to_param, organisation: organisation_attributes
+    put :update, id: organisation, organisation: organisation_attributes
 
     assert_equal 0, organisation.phone_numbers.count
   end
