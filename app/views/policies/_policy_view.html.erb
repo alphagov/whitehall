@@ -15,13 +15,14 @@
   <div class="group offering">
     <div class="g1r">
       <nav class="policy_parts">
-        <h3>At a glance</h3>
+        <h3>On this page</h3>
         <%= link_to_with_current policy.title, public_document_path(policy, anchor: 'policy_view') %>
         <ol id="policy_sections">
         <% govspeak_headers(policy.body).each do |header| %>
         <li><%= link_to header.text, public_document_path(policy, anchor: header.id) %></li>
         <% end %>
         </ol>
+        <h3>Supporting detail</h3>
         <% policy.supporting_documents.each do |supporting_document| %>
           <%= link_to_with_current supporting_document.title, policy_supporting_document_path(policy.document_identity, supporting_document) %>
         <% end %>
