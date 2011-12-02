@@ -73,9 +73,9 @@ Given /^a published policy "([^"]*)" with related draft publication "([^"]*)"$/ 
   create(:published_policy, title: policy_title, documents_related_with: [create(:draft_publication, title: publication_title)])
 end
 
-Given /^"([^"]*)" has received an email requesting they fact check a draft policy "([^"]*)" with supporting document "([^"]*)"$/ do |email, title, supporting_document_title|
+Given /^"([^"]*)" has received an email requesting they fact check a draft policy "([^"]*)" with supporting page "([^"]*)"$/ do |email, title, supporting_page_title|
   policy = create(:draft_policy, title: title)
-  supporting_document = create(:supporting_document, document: policy, title: supporting_document_title)
+  supporting_document = create(:supporting_document, document: policy, title: supporting_page_title)
   fact_check_request = create(:fact_check_request, document: policy, email_address: email)
   Notifications.fact_check_request(fact_check_request, host: "example.com").deliver
 end
@@ -263,7 +263,7 @@ Then /^they should see the draft policy "([^"]*)"$/ do |title|
   assert page.has_css?('.document_view .body', text: policy.body)
 end
 
-Then /^they should see the supporting document "([^"]*)"$/ do |title|
+Then /^they should see the supporting page "([^"]*)"$/ do |title|
   supporting_document = SupportingDocument.find_by_title!(title)
   assert page.has_css?("#{supporting_documents_selector} .document_view .title", text: supporting_document.title)
   assert page.has_css?("#{supporting_documents_selector} .document_view .body", text: supporting_document.body)

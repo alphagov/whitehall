@@ -34,16 +34,16 @@ Scenario: Creating a new draft policy that applies to multiple nations
   Then I should see in the preview that "Outlaw Moustaches" does not apply to the nations:
     | Scotland | Wales |
 
-Scenario: Adding a supporting document to a draft policy
+Scenario: Adding a supporting page to a draft policy
   Given a draft policy "Outlaw Moustaches" exists
-  When I add a supporting document "Handlebar Waxing" to the "Outlaw Moustaches" policy
-  Then I should see in the preview that "Outlaw Moustaches" includes the "Handlebar Waxing" supporting document
-  And I should see in the list of draft documents that "Outlaw Moustaches" has supporting document "Handlebar Waxing"
+  When I add a supporting page "Handlebar Waxing" to the "Outlaw Moustaches" policy
+  Then I should see in the preview that "Outlaw Moustaches" includes the "Handlebar Waxing" supporting page
+  And I should see in the list of draft documents that "Outlaw Moustaches" has supporting page "Handlebar Waxing"
 
-Scenario: Removing a supporting document from a draft policy
-  Given a draft policy "Bigger Brass" with supporting documents "Massive Trumpets" and "Giant Cornets"
-  When I remove the supporting document "Massive Trumpets" from "Bigger Brass"
-  Then I should see in the preview that the only supporting document for "Bigger Brass" is "Giant Cornets"
+Scenario: Removing a supporting page from a draft policy
+  Given a draft policy "Bigger Brass" with supporting pages "Massive Trumpets" and "Giant Cornets"
+  When I remove the supporting page "Massive Trumpets" from "Bigger Brass"
+  Then I should see in the preview that the only supporting page for "Bigger Brass" is "Giant Cornets"
 
 Scenario: Editing an existing draft policy
   Given a draft policy "Outlaw Moustaches" exists
@@ -56,10 +56,10 @@ Scenario: Editing an existing draft policy assigning multiple policy areas
   When I edit the policy "Outlaw Moustaches" adding it to the "Hirsuteness" policy area
   Then I should see in the preview that "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" policy areas
 
-Scenario: Editing an existing supporting document
-  Given a supporting document "Handlebar Waxing" exists on a draft policy "Outlaw Moustaches"
-  When I edit the supporting document "Handlebar Waxing" changing the title to "Waxing Dangers"
-  Then I should see in the preview that "Outlaw Moustaches" includes the "Waxing Dangers" supporting document
+Scenario: Editing an existing supporting page
+  Given a supporting page "Handlebar Waxing" exists on a draft policy "Outlaw Moustaches"
+  When I edit the supporting page "Handlebar Waxing" changing the title to "Waxing Dangers"
+  Then I should see in the preview that "Outlaw Moustaches" includes the "Waxing Dangers" supporting page
 
 Scenario: Trying to save a policy that has been changed by another user
   Given a draft policy "Outlaw Moustaches" exists
@@ -70,14 +70,14 @@ Scenario: Trying to save a policy that has been changed by another user
   When I edit the policy changing the title to "Ban Moustaches and Beards"
   Then I should see the policy "Ban Moustaches and Beards" in the list of draft documents
 
-Scenario: Trying to save a supporting document that has been changed by another user
-  Given a supporting document "Handlebar Waxing" exists on a draft policy "Outlaw Moustaches"
-  And I start editing the supporting document "Handlebar Waxing" changing the title to "Waxing Dangers"
-  And another user edits the supporting document "Handlebar Waxing" changing the title to "Something Else"
-  When I save my changes to the supporting document
-  Then I should see the conflict between the supporting document titles "Waxing Dangers" and "Something Else"
-  When I edit the supporting document changing the title to "Waxing Dangers and Something Else"
-  Then I should see in the preview that "Outlaw Moustaches" includes the "Waxing Dangers and Something Else" supporting document
+Scenario: Trying to save a supporting page that has been changed by another user
+  Given a supporting page "Handlebar Waxing" exists on a draft policy "Outlaw Moustaches"
+  And I start editing the supporting page "Handlebar Waxing" changing the title to "Waxing Dangers"
+  And another user edits the supporting page "Handlebar Waxing" changing the title to "Something Else"
+  When I save my changes to the supporting page
+  Then I should see the conflict between the supporting page titles "Waxing Dangers" and "Something Else"
+  When I edit the supporting page changing the title to "Waxing Dangers and Something Else"
+  Then I should see in the preview that "Outlaw Moustaches" includes the "Waxing Dangers and Something Else" supporting page
 
 Scenario: Submitting a draft policy to a second pair of eyes
   Given a draft policy "Outlaw Moustaches" exists
