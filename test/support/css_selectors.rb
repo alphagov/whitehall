@@ -49,10 +49,14 @@ module CssSelectors
     "#inapplicable_nations"
   end
 
+  def notes_to_editors_selector
+    "#notes_to_editors"
+  end
+
   def parent_organisations_list_selector
     "select[name='organisation[parent_organisation_ids][]']"
   end
-  
+
   def organisation_type_list_selector
     "select[name='organisation[organisation_type_id]']"
   end

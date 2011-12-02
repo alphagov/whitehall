@@ -159,6 +159,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   test "should render the content using govspeak markup" do
     draft_news_article = create(:draft_news_article, body: "body-in-govspeak")
+    Govspeak::Document.stubs(:to_html)
     Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
 
     get :show, id: draft_news_article

@@ -26,5 +26,5 @@ Then /^I can see links to the related published news articles "([^"]*)" and "([^
 end
 
 Then /^I should see the notes to editors "([^"]*)" for the news article$/ do |notes_to_editors|
-  assert has_css?(".notes_to_editors", text: notes_to_editors)
+  assert has_css?("#{notes_to_editors_selector}", text: notes_to_editors)
 end
