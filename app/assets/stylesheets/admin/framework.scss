@@ -34,16 +34,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-body.dev {
-  background: url('/images/24px_grid_bg.gif');
-}
-
-@media only screen and (min-width: 1800px) {
-  body.dev {
-    background: url('/images/28px_grid_bg.gif');
-  }
-}
-
 /* TABLES */
 table {
   border-collapse: collapse;
