@@ -7,3 +7,4 @@
 //= require mark_linked_anchor_test
 //= require sortable_test
 //= require maps_test
+//= require add_toggle_link_test
