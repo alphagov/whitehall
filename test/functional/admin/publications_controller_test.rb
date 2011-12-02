@@ -70,7 +70,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test 'updating should save modified document attributes' do
     publication = create(:publication)
 
-    put :update, id: publication.id, document: publication.attributes.merge(
+    put :update, id: publication, document: publication.attributes.merge(
       title: "new-title",
       body: "new-body",
       publication_date: Date.parse("1815-06-18"),
@@ -104,7 +104,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test 'updating should take the writer to the publication page' do
     publication = create(:publication)
-    put :update, id: publication.id, document: publication.attributes.merge(
+    put :update, id: publication, document: publication.attributes.merge(
       title: 'new-title',
       body: 'new-body'
     )
@@ -116,7 +116,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test 'updating with invalid data should not save the publication' do
     attributes = attributes_for(:publication)
     publication = create(:publication, attributes)
-    put :update, id: publication.id, document: attributes.merge(title: '')
+    put :update, id: publication, document: attributes.merge(title: '')
 
     assert_equal attributes[:title], publication.reload.title
     assert_template "documents/edit"
