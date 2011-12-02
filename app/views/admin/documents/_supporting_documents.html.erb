@@ -1,6 +1,6 @@
 <% if document.allows_supporting_documents? %>
   <section class="supporting_documents">
-    <h1>Supporting documents</h1>
+    <h1>Supporting pages</h1>
     <ul class="group">
       <% document.supporting_documents.each do |supporting_document| %>
         <%= content_tag_for :li, supporting_document do %>
@@ -12,7 +12,7 @@
       <% end %>
 
       <% if document.editable? %>
-        <li class="add_supporting_document"><%= link_to 'Add', new_admin_document_supporting_document_path(document), title: "Add supporting document to #{document.title}", :class => "button" %></li>
+        <li class="add_supporting_document"><%= link_to 'Add', new_admin_document_supporting_document_path(document), title: "Add supporting page to #{document.title}", :class => "button" %></li>
       <% end %>
     </ul>
   </section>

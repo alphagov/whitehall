@@ -53,7 +53,7 @@
               <h2><%= link_to document.title, admin_document_path(document), title: "View document #{document.title}" %></h2>
               <% if document.has_supporting_documents? %>
                 <div class="supporting_documents additional_information">
-                  <h3>Supporting Documents</h3>
+                  <h3>Supporting Pages</h3>
                   <ul>
                     <% document.supporting_documents.each do |supporting_document| %>
                     <li><%= link_to supporting_document.title, admin_supporting_document_path(supporting_document) %></li>

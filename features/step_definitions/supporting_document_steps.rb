@@ -43,7 +43,7 @@ end
 When /^I add a supporting document "([^"]*)" to the "([^"]*)" policy$/ do |supporting_title, policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit admin_document_path(policy)
-  click_link "Add supporting document"
+  click_link "Add supporting page"
   fill_in "Title", with: supporting_title
   fill_in "Body", with: "Some supporting information"
   click_button "Save"

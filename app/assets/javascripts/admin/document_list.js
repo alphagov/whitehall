@@ -6,7 +6,7 @@
       $(this).find('td.title').each(function () {
         var supporting_documents;
         if ((supporting_documents = $(this).find(supportingDocSel)).length > 0) {
-          var toggle_link_str = supporting_documents.find('li').length + ' supporting documents';
+          var toggle_link_str = supporting_documents.find('li').length + ' supporting pages';
           var grp = $.div('', {'class': 'toggle_group group'});
           var toggle_link = $.a(toggle_link_str, { 'class':'toggle', 'href': "#"+document.attr('id') });
           toggle_link.click(function () {
