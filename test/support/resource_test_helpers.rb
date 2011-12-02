@@ -19,7 +19,7 @@ module ResourceTestHelpers
       test "index excludes unpublished #{plural}" do
         thing = create(:"draft_#{type}")
         get :index
-        assert_select_object thing, count: 0
+        refute_select_object thing
       end
 
       test "index lists newest #{plural} first" do
@@ -31,7 +31,7 @@ module ResourceTestHelpers
 
       test "index doesn't display an empty list if there aren't any #{plural}" do
         get :index
-        assert_select "##{plural} ul", count: 0
+        refute_select "##{plural} ul"
       end
     end
   end

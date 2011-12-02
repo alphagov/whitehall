@@ -95,7 +95,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "editing shouldn't show the current organisation in the list of parent organisations" do
     organisation = create(:organisation)
     get :edit, id: organisation.to_param
-    assert_select "#{parent_organisations_list_selector} option[value='#{organisation.id}']", false
+    refute_select "#{parent_organisations_list_selector} option[value='#{organisation.id}']"
   end
 
   test "editing should display a cancel link back to the list of organisations" do

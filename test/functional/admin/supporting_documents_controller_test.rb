@@ -89,7 +89,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :show, document_id: document, id: supporting_document
 
-    assert_select "a[href='#{edit_admin_supporting_document_path(supporting_document)}']", count: 0
+    refute_select "a[href='#{edit_admin_supporting_document_path(supporting_document)}']"
   end
 
   test "edit form has title and body inputs" do

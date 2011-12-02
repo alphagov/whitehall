@@ -41,7 +41,7 @@ module DocumentControllerTestHelpers
 
         assert_select_object(attachment) do
           assert_select ".type", "CSV"
-          assert_select ".number_of_pages", count: 0
+          refute_select ".number_of_pages"
           assert_select ".size", "121 Bytes"
         end
       end

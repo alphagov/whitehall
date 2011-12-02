@@ -126,7 +126,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     get :draft, filter: 'policy'
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
-    assert_select ".type", text: "Publication", count: 0
+    refute_select ".type", text: "Publication"
   end
 
   test "should be able to filter by publications when viewing list of documents" do
@@ -135,7 +135,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     get :draft, filter: 'publication'
 
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
-    assert_select ".type", text: "Policy", count: 0
+    refute_select ".type", text: "Policy"
   end
 
   test "should be able to filter by speeches when viewing list of documents" do
@@ -155,7 +155,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
       assert_select_object(speech) { assert_select ".type", text: speech.type.titleize }
     end
 
-    assert_select ".type", text: "Policy", count: 0
+    refute_select ".type", text: "Policy"
   end
 
   test "should be able to filter by news articles when viewing list of documents" do
@@ -164,7 +164,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     get :draft, filter: 'news_article'
 
     assert_select_object(news) { assert_select ".type", text: "News Article" }
-    assert_select ".type", text: "Policy", count: 0
+    refute_select ".type", text: "Policy"
   end
 
   test "should be able to filter by consultations when viewing list of documents" do
@@ -173,7 +173,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     get :draft, filter: 'consultation'
 
     assert_select_object(consultation) { assert_select ".type", text: "Consultation" }
-    assert_select ".type", text: "Policy", count: 0
+    refute_select ".type", text: "Policy"
   end
 
   test "should be able to show only documents authored by user when viewing list of documents" do
@@ -184,7 +184,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     get :draft, author: user
 
     assert_select_object authored_policy
-    assert_select_object other_policy, count: 0
+    refute_select_object other_policy
   end
 
   test "should be able to show only documents related to an organisation" do
@@ -197,7 +197,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     get :draft, organisation: organisation
 
     assert_select_object policy_in_organisation
-    assert_select_object other_policy, count: 0
+    refute_select_object other_policy
   end
 
   test "should remember standard filter options" do

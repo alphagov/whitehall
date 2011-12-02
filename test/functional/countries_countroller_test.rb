@@ -22,7 +22,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     assert_select "#news_articles" do
       assert_select_object(published_document)
-      assert_select_object(draft_document, count: 0)
+      refute_select_object(draft_document)
     end
   end
 
@@ -35,7 +35,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     assert_select "#news_articles" do
       assert_select_object(published_document)
-      assert_select_object(another_published_document, count: 0)
+      refute_select_object(another_published_document)
     end
   end
 
@@ -54,7 +54,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     get :show, id: country
 
-    assert_select "#news_articles", count: 0
+    refute_select "#news_articles"
   end
 
   test "shows only published policies" do
@@ -66,7 +66,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     assert_select "#policies" do
       assert_select_object(published_document)
-      assert_select_object(draft_document, count: 0)
+      refute_select_object(draft_document)
     end
   end
 
@@ -79,7 +79,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     assert_select "#policies" do
       assert_select_object(published_document)
-      assert_select_object(another_published_document, count: 0)
+      refute_select_object(another_published_document)
     end
   end
 
@@ -98,7 +98,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     get :show, id: country
 
-    assert_select "#policies", count: 0
+    refute_select "#policies"
   end
 
   test "shows only published speeches" do
@@ -110,7 +110,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     assert_select "#speeches" do
       assert_select_object(published_document)
-      assert_select_object(draft_document, count: 0)
+      refute_select_object(draft_document)
     end
   end
 
@@ -123,7 +123,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     assert_select "#speeches" do
       assert_select_object(published_document)
-      assert_select_object(another_published_document, count: 0)
+      refute_select_object(another_published_document)
     end
   end
 
@@ -142,6 +142,6 @@ class CountriesControllerTest < ActionController::TestCase
 
     get :show, id: country
 
-    assert_select "#speeches", count: 0
+    refute_select "#speeches"
   end
 end

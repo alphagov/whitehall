@@ -15,7 +15,7 @@ class PoliciesControllerTest < ActionController::TestCase
       assert_select_object northern_ireland_inapplicability do
         assert_select "a[href='http://northern-ireland.com/']"
       end
-      assert_select_object scotland_inapplicability, count: 0
+      refute_select_object scotland_inapplicability
     end
   end
 
@@ -96,7 +96,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select related_publications_selector, count: 0
+    refute_select related_publications_selector
   end
 
   test "show displays related published consultations" do
@@ -116,7 +116,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select related_consultations_selector, count: 0
+    refute_select related_consultations_selector
   end
 
   test "show displays related news articles" do
@@ -136,7 +136,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy.document_identity
 
-    assert_select related_news_articles_selector, count: 0
+    refute_select related_news_articles_selector
   end
 
   test "show lists supporting documents when there are some" do
@@ -157,7 +157,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_document.document_identity
 
-    assert_select supporting_documents_selector, count: 0
+    refute_select supporting_documents_selector
   end
 
   test "should render the content using govspeak markup" do

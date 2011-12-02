@@ -7,7 +7,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role, documents: [published_document, draft_document])
     get :show, id: ministerial_role
     assert_select_object(published_document)
-    assert_select_object(draft_document, count: 0)
+    refute_select_object(draft_document)
   end
 
   test "shows only published publications associated with ministerial role" do
@@ -16,7 +16,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role, documents: [published_document, draft_document])
     get :show, id: ministerial_role
     assert_select_object(published_document)
-    assert_select_object(draft_document, count: 0)
+    refute_select_object(draft_document)
   end
 
   test "shows only published news articles associated with ministerial role" do
@@ -25,7 +25,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role, documents: [published_document, draft_document])
     get :show, id: ministerial_role
     assert_select_object(published_document)
-    assert_select_object(draft_document, count: 0)
+    refute_select_object(draft_document)
   end
 
   test "shows only published speeches associated with ministerial role" do
@@ -35,7 +35,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     draft_document = create(:draft_speech, role_appointment: role_appointment)
     get :show, id: ministerial_role
     assert_select_object(published_document)
-    assert_select_object(draft_document, count: 0)
+    refute_select_object(draft_document)
   end
 
   test "shows minister's picture if available" do

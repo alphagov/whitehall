@@ -55,7 +55,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, documents: [published_document, draft_document])
     get :show, id: organisation
     assert_select_object(published_document)
-    assert_select_object(draft_document, count: 0)
+    refute_select_object(draft_document)
   end
 
   test "shows only published publications associated with organisation" do
@@ -64,7 +64,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, documents: [published_document, draft_document])
     get :show, id: organisation
     assert_select_object(published_document)
-    assert_select_object(draft_document, count: 0)
+    refute_select_object(draft_document)
   end
 
   test "shows only published news articles associated with organisation" do
@@ -73,25 +73,25 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, documents: [published_document, draft_document])
     get :show, id: organisation
     assert_select_object(published_document)
-    assert_select_object(draft_document, count: 0)
+    refute_select_object(draft_document)
   end
 
   test "should not display an empty published policies section" do
     organisation = create(:organisation)
     get :show, id: organisation
-    assert_select "#policies", count: 0
+    refute_select "#policies"
   end
 
   test "should not display an empty published publications section" do
     organisation = create(:organisation)
     get :show, id: organisation
-    assert_select "#publications", count: 0
+    refute_select "#publications"
   end
 
   test "should not display an empty published news articles section" do
     organisation = create(:organisation)
     get :show, id: organisation
-    assert_select "#news_articles", count: 0
+    refute_select "#news_articles"
   end
 
   test "shows names and roles of those ministers associated with organisation" do
@@ -114,7 +114,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select ".current_appointee", "Bob"
       assert_select "a[href=#{ministerial_role_path(ministerial_role_2)}]", text: "Minister of State"
     end
-    assert_select_object(minister_in_another_organisation, count: 0)
+    refute_select_object(minister_in_another_organisation)
   end
 
   test "shows minister role even if it is not currently fulfilled by any person" do
@@ -129,7 +129,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should not display an empty ministers section" do
     organisation = create(:organisation)
     get :show, id: organisation
-    assert_select "#ministers", count: 0
+    refute_select "#ministers"
   end
 
   test "shows leading board members associated with organisation" do
@@ -149,7 +149,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select permanent_secretary_board_members_selector, count: 0
+    refute_select permanent_secretary_board_members_selector
   end
 
   test "shows board members associated with organisation" do
@@ -166,7 +166,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should not display an empty board members section" do
     organisation = create(:organisation)
     get :show, id: organisation
-    assert_select "#other_board_members", count: 0
+    refute_select "#other_board_members"
   end
 
   test "should link to the child organisations" do
@@ -179,7 +179,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should not display the child organisations section" do
     organisation = create(:organisation)
     get :show, id: organisation
-    assert_select "#child_organisations", false
+    refute_select "#child_organisations"
   end
 
   test "should link to the parent organisations" do
@@ -192,7 +192,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should not display the parent organisations section" do
     organisation = create(:organisation)
     get :show, id: organisation
-    assert_select "#parent_organisations", false
+    refute_select "#parent_organisations"
   end
 
   test "should link to a google map" do

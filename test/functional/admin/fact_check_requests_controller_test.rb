@@ -21,8 +21,8 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     get :show, id: fact_check_request.to_param
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
-    assert_select ".title", text: "deleted-policy-title", count: 0
-    assert_select ".body", text: "deleted-policy-body", count: 0
+    refute_select ".title", text: "deleted-policy-title"
+    refute_select ".body", text: "deleted-policy-body"
   end
 
   test "users with a valid.to_param should be able to access the policy" do
@@ -48,8 +48,8 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     get :edit, id: fact_check_request.to_param
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
-    assert_select "document_view .title", text: "deleted-policy-title", count: 0
-    assert_select "document_view .body", text: "deleted-policy-body", count: 0
+    refute_select "document_view .title", text: "deleted-policy-title"
+    refute_select "document_view .body", text: "deleted-policy-body"
   end
 
   test "turn govspeak into nice markup when editing" do
@@ -93,7 +93,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     get :edit, id: fact_check_request.to_param
 
-    assert_select "#fact_check_request_instructions", count: 0
+    refute_select "#fact_check_request_instructions"
   end
 
   test "should not display the supporting documents section" do
@@ -102,7 +102,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     get :edit, id: fact_check_request.to_param
 
-    assert_select supporting_documents_selector, count: 0
+    refute_select supporting_documents_selector
   end
 
   test "should display the supporting documents section" do

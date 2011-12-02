@@ -25,13 +25,13 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select_object(draft_policy, count: 0)
+    refute_select_object(draft_policy)
   end
 
   test "should not display an empty published policies section" do
     topic = create(:topic)
     get :show, id: topic
-    assert_select "#policies", count: 0
+    refute_select "#policies"
   end
 
   test "shows published news articles associated with topic" do
@@ -51,13 +51,13 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select_object(draft_article, count: 0)
+    refute_select_object(draft_article)
   end
 
   test "should not display an empty news articles section" do
     topic = create(:topic)
     get :show, id: topic
-    assert_select "#news_articles", count: 0
+    refute_select "#news_articles"
   end
 
   test "show displays recently changed documents relating to policies in the topic" do
@@ -137,7 +137,7 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select ".topics", count: 0
+    refute_select ".topics"
   end
 
   test "shows a featured topic if one exists" do

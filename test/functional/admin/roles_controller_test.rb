@@ -141,7 +141,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       end
     end
     assert_select_object indestructable_role do
-      assert_select ".delete form[action='#{admin_role_path(indestructable_role)}']", count: 0
+      refute_select ".delete form[action='#{admin_role_path(indestructable_role)}']"
     end
   end
 
@@ -169,7 +169,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#role_new" do
-      assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 0
+      refute_select "select[name*='role[role_appointments_attributes][0][ended_at']"
     end
   end
 
@@ -177,7 +177,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#role_new" do
-      assert_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']", count: 0
+      refute_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']"
     end
   end
 
@@ -223,7 +223,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       { person: nil, started_at: nil }
     ))
 
-    assert_select ".form-errors", count: 0
+    refute_select ".form-errors"
     assert role = MinisterialRole.last
     assert_equal 0, role.role_appointments.length
   end
@@ -327,7 +327,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     get :edit, id: role
 
     assert_select "form#role_edit" do
-      assert_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']", count: 0
+      refute_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']"
     end
   end
 
@@ -364,7 +364,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     get :edit, id: role
 
     assert_select "form#role_edit" do
-      assert_select "select[name*='role[role_appointments_attributes][0][ended_at']", count: 0
+      refute_select "select[name*='role[role_appointments_attributes][0][ended_at']"
     end
   end
 
@@ -374,7 +374,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     get :edit, id: role
 
     assert_select "form#role_edit" do
-      assert_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']", count: 0
+      refute_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']"
     end
   end
 
@@ -454,7 +454,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       { person: nil, started_at: nil }
     ))
 
-    assert_select ".form-errors", count: 0
+    refute_select ".form-errors"
     role.reload
     assert_equal 0, role.role_appointments.length
   end

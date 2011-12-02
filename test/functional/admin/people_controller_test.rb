@@ -92,7 +92,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
       end
     end
     assert_select_object indestructable_person do
-      assert_select ".delete form[action='#{admin_person_path(indestructable_person)}']", count: 0
+      refute_select ".delete form[action='#{admin_person_path(indestructable_person)}']"
     end
   end
 end

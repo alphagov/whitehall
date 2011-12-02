@@ -138,7 +138,7 @@ module TestsForNationalApplicability
         assert_select ".alternative_url a[href='http://scotland.com/']"
       end
       assert_select_object wales_inapplicability, text: /Wales/ do
-        assert_select ".alternative_url a", count: 0
+        refute_select ".alternative_url a"
       end
     end
   end

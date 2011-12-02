@@ -29,7 +29,7 @@ module NationApplicabilityAssertions
     if attributes[:checked]
       assert_select "input[name='#{name_fragment}[_destroy]'][type='checkbox'][checked='checked']"
     else
-      assert_select "input[name='#{name_fragment}[_destroy]'][type='checkbox'][checked='checked']", count: 0
+      refute_select "input[name='#{name_fragment}[_destroy]'][type='checkbox'][checked='checked']"
       assert_select "input[name='#{name_fragment}[_destroy]'][type='checkbox']"
     end
     if attributes[:alternative_url]

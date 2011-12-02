@@ -26,14 +26,14 @@ class Admin::TopicsControllerTest < ActionController::TestCase
       assert_select "form[action='#{unfeature_admin_topic_path(featured_topic)}']" do
         assert_select "input[type='submit'][value='No Longer Feature']"
       end
-      assert_select "form[action='#{feature_admin_topic_path(featured_topic)}']", count: 0
+      refute_select "form[action='#{feature_admin_topic_path(featured_topic)}']"
     end
 
     assert_select_object unfeatured_topic do
       assert_select "form[action='#{feature_admin_topic_path(unfeatured_topic)}']" do
         assert_select "input[type='submit'][value='Feature Topic']"
       end
-      assert_select "form[action='#{unfeature_admin_topic_path(unfeatured_topic)}']", count: 0
+      refute_select "form[action='#{unfeature_admin_topic_path(unfeatured_topic)}']"
     end
   end
 
@@ -54,7 +54,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     get :edit, id: topic.id
 
     assert_select "#policy_order input[type=hidden][value=#{published_association.id}]"
-    assert_select "#policy_order input[type=hidden][value=#{draft_association.id}]", false
+    refute_select "#policy_order input[type=hidden][value=#{draft_association.id}]"
   end
 
   test "allows updating of document ordering" do

@@ -42,6 +42,14 @@ class ActionController::TestCase
   def assert_select_object(object, *args, &block)
     assert_select record_css_selector(object), *args, &block
   end
+
+  def refute_select(selector, options = {})
+    assert_select selector, options.merge(count: 0)
+  end
+
+  def refute_select_object(object)
+    assert_select_object object, count: 0
+  end
 end
 
 class ActionMailer::TestCase

@@ -18,13 +18,13 @@ class SupportingDocumentsControllerTest < ActionController::TestCase
     policy = create(:published_policy)
     other_supporting_document = create(:supporting_document)
     get :index, policy_id: policy.document_identity
-    assert_select_object other_supporting_document, false
+    refute_select_object other_supporting_document
   end
 
   test "index doesn't display an empty list if there aren't any supporting documents" do
     policy = create(:published_policy)
     get :index, policy_id: policy.document_identity
-    assert_select "#{supporting_documents_selector} ul", count: 0
+    refute_select "#{supporting_documents_selector} ul"
   end
 
   test "shows link to policy overview" do
@@ -94,7 +94,7 @@ That's all
       assert_select_object northern_ireland_inapplicability do
         assert_select "a[href='http://northern-ireland.com/']"
       end
-      assert_select_object scotland_inapplicability, count: 0
+      refute_select_object scotland_inapplicability
     end
   end
 
@@ -128,7 +128,7 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_document
 
-    assert_select related_publications_selector, count: 0
+    refute_select related_publications_selector
   end
 
   test "show displays related published consultations" do
@@ -150,7 +150,7 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_document
 
-    assert_select related_consultations_selector, count: 0
+    refute_select related_consultations_selector
   end
 
   test "show displays related news articles" do
@@ -172,7 +172,7 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_document
 
-    assert_select related_news_articles_selector, count: 0
+    refute_select related_news_articles_selector
   end
 
   test "show lists supporting documents when there are some" do

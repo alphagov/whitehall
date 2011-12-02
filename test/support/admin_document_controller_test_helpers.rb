@@ -82,7 +82,7 @@ module AdminDocumentControllerTestHelpers
 
         post :create, document: attributes.merge(title: '')
 
-        assert_select "p.attachment", count: 0
+        refute_select "p.attachment"
       end
 
       test 'edit displays document attachment fields' do
@@ -194,7 +194,7 @@ module AdminDocumentControllerTestHelpers
           }
         )
 
-        assert_select ".errors", count: 0
+        refute_select ".errors"
         document.reload
         assert_equal [attachment_2], document.attachments
       end
@@ -226,7 +226,7 @@ module AdminDocumentControllerTestHelpers
         assert_select_object(attachment) do
           assert_select "a", text: document.attachments.first.filename
           assert_select ".type", "CSV"
-          assert_select ".number_of_pages", count: 0
+          refute_select ".number_of_pages"
           assert_select ".size", "121 Bytes"
         end
       end
@@ -260,7 +260,7 @@ module AdminDocumentControllerTestHelpers
         get :show, id: published_document
 
         destroy_path = send("admin_#{document_type}_path", published_document)
-        assert_select "input[type='submit'][value='Delete']", count: 0
+        refute_select "input[type='submit'][value='Delete']"
       end
 
       test "show does not display the delete button for archived documents" do
@@ -269,7 +269,7 @@ module AdminDocumentControllerTestHelpers
         get :show, id: archived_document
 
         destroy_path = send("admin_#{document_type}_path", archived_document)
-        assert_select "input[type='submit'][value='Delete']", count: 0
+        refute_select "input[type='submit'][value='Delete']"
       end
 
       test "destroy marks the document as deleted" do
@@ -310,7 +310,7 @@ module AdminDocumentControllerTestHelpers
       test "should not link to public version when not published" do
         draft_document = create("draft_#{document_type}")
         get :show, id: draft_document
-        assert_select link_to_public_version_selector, count: 0
+        refute_select link_to_public_version_selector
       end
     end
 
@@ -330,7 +330,7 @@ module AdminDocumentControllerTestHelpers
         document.stubs(:rejectable_by?).returns(false)
         document_type_class.stubs(:find).with(document.to_param).returns(document)
         get :show, id: document
-        assert_select reject_button_selector(document), count: 0
+        refute_select reject_button_selector(document)
       end
 
       test "should show who rejected the document and link to the comments" do
@@ -344,7 +344,7 @@ module AdminDocumentControllerTestHelpers
       test "should not show the editorial remarks section" do
         document = create("submitted_#{document_type}")
         get :show, id: document
-        assert_select "#editorial_remarks", count: 0
+        refute_select "#editorial_remarks"
       end
 
       test "should show the list of editorial remarks" do
@@ -377,7 +377,7 @@ module AdminDocumentControllerTestHelpers
         document.stubs(:force_publishable_by?).returns(false)
         document_class.stubs(:find).with(document.to_param).returns(document)
         get :show, id: document
-        assert_select force_publish_button_selector(document), count: 0
+        refute_select force_publish_button_selector(document)
       end
     end
 

@@ -191,7 +191,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy
 
-    assert_select "a[href='#{new_admin_document_supporting_document_path(published_policy)}']", count: 0
+    refute_select "a[href='#{new_admin_document_supporting_document_path(published_policy)}']"
   end
 
   test "should render the content using govspeak markup" do
@@ -240,7 +240,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: draft_policy
 
-    assert_select ".supporting_documents .supporting_document", count: 0
+    refute_select ".supporting_documents .supporting_document"
   end
 
   should_allow_topics_for :policy

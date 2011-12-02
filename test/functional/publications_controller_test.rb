@@ -10,8 +10,8 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object(published_publication)
-    assert_select_object(archived_publication, count: 0)
-    assert_select_object(draft_publication, count: 0)
+    refute_select_object(archived_publication)
+    refute_select_object(draft_publication)
   end
 
   test 'show displays published publications' do
@@ -31,7 +31,7 @@ class PublicationsControllerTest < ActionController::TestCase
     draft_policy = create(:draft_policy)
     publication = create(:published_publication, documents_related_to: [draft_policy])
     get :show, id: publication.document_identity
-    assert_select_object draft_policy, count: 0
+    refute_select_object draft_policy
   end
 
   test "should show inapplicable nations" do
@@ -46,7 +46,7 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select_object northern_ireland_inapplicability do
         assert_select "a[href='http://northern-ireland.com/']"
       end
-      assert_select_object scotland_inapplicability, count: 0
+      refute_select_object scotland_inapplicability
     end
   end
 
@@ -88,7 +88,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :show, id: publication.document_identity
 
     assert_select ".document_view" do
-      assert_select "a.order_url", count: 0
+      refute_select "a.order_url"
     end
   end
 end

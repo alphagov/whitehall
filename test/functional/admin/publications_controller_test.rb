@@ -205,7 +205,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     get :show, id: publication
 
     assert_select ".document_view" do
-      assert_select "a.order_url", count: 0
+      refute_select "a.order_url"
     end
   end
 

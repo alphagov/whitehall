@@ -34,7 +34,7 @@ class ConsultationsControllerTest < ActionController::TestCase
     draft_policy = create(:draft_policy)
     consultation = create(:published_consultation, documents_related_to: [draft_policy])
     get :show, id: consultation.document_identity
-    assert_select_object draft_policy, count: 0
+    refute_select_object draft_policy
   end
 
   test "should show inapplicable nations" do
@@ -49,7 +49,7 @@ class ConsultationsControllerTest < ActionController::TestCase
       assert_select_object northern_ireland_inapplicability do
         assert_select "a[href='http://northern-ireland.com/']"
       end
-      assert_select_object scotland_inapplicability, count: 0
+      refute_select_object scotland_inapplicability
     end
   end
 
