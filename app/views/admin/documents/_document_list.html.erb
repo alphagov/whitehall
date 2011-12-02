@@ -51,12 +51,12 @@
             <td class="type"><%= document.type.titleize %></td>
             <td class="title">
               <h2><%= link_to document.title, admin_document_path(document), title: "View document #{document.title}" %></h2>
-              <% if document.has_supporting_documents? %>
-                <div class="supporting_documents additional_information">
+              <% if document.has_supporting_pages? %>
+                <div class="supporting_pages additional_information">
                   <h3>Supporting Pages</h3>
                   <ul>
-                    <% document.supporting_documents.each do |supporting_document| %>
-                    <li><%= link_to supporting_document.title, admin_supporting_document_path(supporting_document) %></li>
+                    <% document.supporting_pages.each do |supporting_page| %>
+                    <li><%= link_to supporting_page.title, admin_supporting_document_path(supporting_page) %></li>
                     <% end %>
                   </ul>
                 </div>

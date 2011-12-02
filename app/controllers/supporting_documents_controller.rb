@@ -1,13 +1,13 @@
 class SupportingDocumentsController < ApplicationController
   before_filter :find_policy
-  before_filter :find_supporting_document, only: [:show]
+  before_filter :find_supporting_page, only: [:show]
 
   def index
-    @supporting_documents = @policy.supporting_documents
+    @supporting_pages = @policy.supporting_pages
   end
 
   def show
-    @document = @supporting_document
+    @document = @supporting_page
     @related_publications = Publication.published.related_to(@policy)
     @related_consultations = Consultation.published.related_to(@policy)
     @related_news_articles = NewsArticle.published.related_to(@policy)
@@ -24,7 +24,7 @@ class SupportingDocumentsController < ApplicationController
     end
   end
 
-  def find_supporting_document
-    @supporting_document = @policy.supporting_documents.find(params[:id])
+  def find_supporting_page
+    @supporting_page = @policy.supporting_pages.find(params[:id])
   end
 end

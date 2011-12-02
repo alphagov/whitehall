@@ -1,17 +1,17 @@
 class Admin::SupportingDocumentsController < Admin::BaseController
   before_filter :find_document, only: [:new, :create]
-  before_filter :find_supporting_document, only: [:show, :edit, :update, :destroy]
+  before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
 
   def new
-    @supporting_document = @document.supporting_documents.build(params[:supporting_document])
+    @supporting_page = @document.supporting_pages.build(params[:supporting_document])
   end
 
   def create
-    @supporting_document = @document.supporting_documents.build(params[:supporting_document])
-    if @supporting_document.save
-      redirect_to admin_document_path(@document), notice: "The supporting document was added successfully"
+    @supporting_page = @document.supporting_pages.build(params[:supporting_document])
+    if @supporting_page.save
+      redirect_to admin_document_path(@document), notice: "The supporting page was added successfully"
     else
-      flash[:alert] = "There was a problem: #{@supporting_document.errors.full_messages.to_sentence}"
+      flash[:alert] = "There was a problem: #{@supporting_page.errors.full_messages.to_sentence}"
       render :new
     end
   end
@@ -23,27 +23,27 @@ class Admin::SupportingDocumentsController < Admin::BaseController
   end
 
   def update
-    if @supporting_document.update_attributes(params[:supporting_document])
-      redirect_to admin_supporting_document_path(@supporting_document), notice: "The supporting document was updated successfully"
+    if @supporting_page.update_attributes(params[:supporting_document])
+      redirect_to admin_supporting_document_path(@supporting_page), notice: "The supporting page was updated successfully"
     else
-      flash[:alert] = "There was a problem: #{@supporting_document.errors.full_messages.to_sentence}"
+      flash[:alert] = "There was a problem: #{@supporting_page.errors.full_messages.to_sentence}"
       render :edit
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = %{This document has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}
-    @conflicting_supporting_document = SupportingDocument.find(params[:id])
-    @supporting_document.lock_version = @conflicting_supporting_document.lock_version
+    @conflicting_supporting_page = SupportingDocument.find(params[:id])
+    @supporting_page.lock_version = @conflicting_supporting_page.lock_version
     render action: "edit"
   end
 
   def destroy
-    if @supporting_document.destroyable?
-      @supporting_document.destroy
-      flash[:notice] = %{"#{@supporting_document.title}" destroyed.}
+    if @supporting_page.destroyable?
+      @supporting_page.destroy
+      flash[:notice] = %{"#{@supporting_page.title}" destroyed.}
     else
-      flash[:alert] = "Cannot destroy a supporting document that has been published"
+      flash[:alert] = "Cannot destroy a supporting page that has been published"
     end
-    redirect_to admin_document_path(@supporting_document.document)
+    redirect_to admin_document_path(@supporting_page.document)
   end
 
   private
@@ -52,7 +52,7 @@ class Admin::SupportingDocumentsController < Admin::BaseController
     @document = Document.find(params[:document_id])
   end
 
-  def find_supporting_document
-    @supporting_document = SupportingDocument.find(params[:id])
+  def find_supporting_page
+    @supporting_page = SupportingDocument.find(params[:id])
   end
 end

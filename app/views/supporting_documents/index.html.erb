@@ -2,10 +2,10 @@
   <nav class="actions">
     <%= link_to "Back to '#{@policy.title}'", public_document_path(@policy), title: "Back to #{@policy.title}" %>
   </nav>
-  <% if @supporting_documents.empty? %>
-    <h1 class="page_title">Supporting documents</h1>
-    <p>This policy doesn't have any supporting documents at present.</p>
+  <% if @supporting_pages.empty? %>
+    <h1 class="page_title">Supporting pages</h1>
+    <p>This policy doesn't have any supporting pages at present.</p>
   <% else %>
-    <%= render partial: "policies/supporting_documents", locals: {document: @policy} %>
+    <%= render partial: "policies/supporting_pages", locals: {document: @policy} %>
   <% end %>
 </div>

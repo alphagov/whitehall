@@ -96,22 +96,22 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     refute_select "#fact_check_request_instructions"
   end
 
-  test "should not display the supporting documents section" do
-    policy = create(:policy, supporting_documents: [])
+  test "should not display the supporting pages section" do
+    policy = create(:policy, supporting_pages: [])
     fact_check_request = create(:fact_check_request, document: policy)
 
     get :edit, id: fact_check_request
 
-    refute_select supporting_documents_selector
+    refute_select supporting_pages_selector
   end
 
-  test "should display the supporting documents section" do
-    policy = create(:policy, supporting_documents: [create(:supporting_document, title: "Blah!")])
+  test "should display the supporting pages section" do
+    policy = create(:policy, supporting_pages: [create(:supporting_document, title: "Blah!")])
     fact_check_request = create(:fact_check_request, document: policy)
 
     get :edit, id: fact_check_request
 
-    assert_select "#{supporting_documents_selector} .title", "Blah!"
+    assert_select "#{supporting_pages_selector} .title", "Blah!"
   end
 
   test "save the fact checkers comment" do

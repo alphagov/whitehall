@@ -5,7 +5,7 @@ module GovspeakHelper
     doc = Nokogiri::HTML.fragment(html)
     doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(anchor['href'])
-      document, supporting_document = find_documents_from_uri(anchor['href'])
+      document, supporting_page = find_documents_from_uri(anchor['href'])
       if document.nil? || document.deleted?
         inner_text = "<del>#{anchor.inner_text}</del>"
         explanation = state = "deleted"
@@ -13,7 +13,7 @@ module GovspeakHelper
         inner_text = anchor
         state = document.state
         if document.published?
-          public_uri = rewritten_href_for_documents(document, supporting_document)
+          public_uri = rewritten_href_for_documents(document, supporting_page)
           explanation = %{<a class="public_link" href="#{public_uri}">public link</a>}
         else
           explanation = state
@@ -30,9 +30,9 @@ module GovspeakHelper
     doc = Nokogiri::HTML.fragment(html)
     doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(anchor['href'])
-      document, supporting_document = find_documents_from_uri(anchor['href'])
+      document, supporting_page = find_documents_from_uri(anchor['href'])
       if document && document.published?
-        anchor['href'] = rewritten_href_for_documents(document, supporting_document)
+        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
       else
         anchor.replace anchor.inner_text
       end
@@ -60,12 +60,12 @@ module GovspeakHelper
     id = uri[/\/([^\/]+)$/, 1]
     if uri =~ /\/supporting_documents\//
       begin
-        supporting_document = SupportingDocument.find(id)
+        supporting_page = SupportingDocument.find(id)
       rescue ActiveRecord::RecordNotFound
-        supporting_document = nil
+        supporting_page = nil
       end
-      if supporting_document
-        document = supporting_document.document
+      if supporting_page
+        document = supporting_page.document
       else
         document = nil
       end
@@ -77,14 +77,14 @@ module GovspeakHelper
           nil
         end
       end
-      supporting_document = nil
+      supporting_page = nil
     end
-    [document, supporting_document]
+    [document, supporting_page]
   end
 
-  def rewritten_href_for_documents(document, supporting_document)
-    if supporting_document
-      policy_supporting_document_path(document, supporting_document)
+  def rewritten_href_for_documents(document, supporting_page)
+    if supporting_page
+      policy_supporting_document_path(document, supporting_page)
     else
       case document
       when Speech

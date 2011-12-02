@@ -16,15 +16,15 @@ Given /^a draft policy "([^"]*)" with supporting pages "([^"]*)" and "([^"]*)"$/
 end
 
 Given /^I start editing the supporting page "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
-  supporting_document = SupportingDocument.find_by_title!(original_title)
-  visit admin_supporting_document_path(supporting_document)
+  supporting_page = SupportingDocument.find_by_title!(original_title)
+  visit admin_supporting_document_path(supporting_page)
   click_link "Edit"
   fill_in "Title", with: new_title
 end
 
 Given /^another user edits the supporting page "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
-  supporting_document = SupportingDocument.find_by_title!(original_title)
-  supporting_document.update_attributes!(title: new_title)
+  supporting_page = SupportingDocument.find_by_title!(original_title)
+  supporting_page.update_attributes!(title: new_title)
 end
 
 When /^I save my changes to the supporting page$/ do
@@ -32,8 +32,8 @@ When /^I save my changes to the supporting page$/ do
 end
 
 When /^I edit the supporting page "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
-  supporting_document = SupportingDocument.find_by_title!(original_title)
-  visit admin_document_path(supporting_document.document)
+  supporting_page = SupportingDocument.find_by_title!(original_title)
+  visit admin_document_path(supporting_page.document)
   click_link original_title
   click_link "Edit"
   fill_in "Title", with: new_title
@@ -77,8 +77,8 @@ Then /^I can visit the supporting page "([^"]*)" from the "([^"]*)" policy$/ do 
   visit public_document_path(policy)
   assert has_css?(".policy_view nav a", text: supporting_title)
   click_link supporting_title
-  supporting_document = policy.supporting_documents.find_by_title!(supporting_title)
-  assert has_css?(".document .body", text: supporting_document.body)
+  supporting_page = policy.supporting_pages.find_by_title!(supporting_title)
+  assert has_css?(".document .body", text: supporting_page.body)
 end
 
 Then /^I should see in the list of draft documents that "([^"]*)" has supporting page "([^"]*)"$/ do |title, supporting_page_title|
@@ -86,12 +86,12 @@ Then /^I should see in the list of draft documents that "([^"]*)" has supporting
   click_link "by everyone"
   document = Document.find_by_title!(title)
   within(record_css_selector(document)) do
-    assert has_css?(".supporting_documents", text: /#{supporting_page_title}/)
+    assert has_css?(".supporting_pages", text: /#{supporting_page_title}/)
   end
 end
 
 Then /^I should see in the preview that the only supporting page for "([^"]*)" is "([^"]*)"$/ do |title, supporting_page_title|
   visit_document_preview title
-  assert has_css?(".supporting_documents .supporting_document", count: 1)
-  assert has_css?(".supporting_documents", text: /#{supporting_page_title}/)
+  assert has_css?(".supporting_pages .supporting_document", count: 1)
+  assert has_css?(".supporting_pages", text: /#{supporting_page_title}/)
 end

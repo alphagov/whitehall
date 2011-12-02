@@ -15,14 +15,14 @@
   <p class="written_by">Written by <span class="authors"><%= @document.author_names.to_sentence %></span></p>
 </div>
 
-<% if @document.has_supporting_documents? %>
-  <section id="supporting_documents">
+<% if @document.has_supporting_pages? %>
+  <section id="supporting_pages">
     <h1>Supporting documents</h1>
-    <% @document.supporting_documents.each do |supporting_document| %>
+    <% @document.supporting_pages.each do |supporting_page| %>
       <div class="document_view">
-        <h1 class="title"><%= supporting_document.title %></h1>
+        <h1 class="title"><%= supporting_page.title %></h1>
         <div class="body">
-          <%= govspeak_to_admin_html supporting_document.body %>
+          <%= govspeak_to_admin_html supporting_page.body %>
         </div>
       </div>
     <% end %>
@@ -30,8 +30,8 @@
 <% end %>
 
 <div>
-  <% if @document.has_supporting_documents? %>
-    <p>Please indicate whether your comments refer to the main document or supporting document.</p>
+  <% if @document.has_supporting_pages? %>
+    <p>Please indicate whether your comments refer to the main document or supporting page.</p>
   <% end %>
 
   <%= form_for([:admin, @fact_check_request]) do |fact_check_form| %>

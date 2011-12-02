@@ -4,6 +4,6 @@ class Policy < Document
   include Document::Ministers
   include Document::FactCheckable
   include Document::RelatedDocuments
-  include Document::SupportingDocuments
+  include Document::SupportingPages
   include Document::Countries
 end

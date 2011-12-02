@@ -23,8 +23,8 @@
         <% end %>
         </ol>
         <h3>Supporting detail</h3>
-        <% policy.supporting_documents.each do |supporting_document| %>
-          <%= link_to_with_current supporting_document.title, policy_supporting_document_path(policy.document_identity, supporting_document) %>
+        <% policy.supporting_pages.each do |supporting_page| %>
+          <%= link_to_with_current supporting_page.title, policy_supporting_document_path(policy.document_identity, supporting_page) %>
         <% end %>
       </nav>
     </div>

@@ -193,17 +193,17 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   test "show lists supporting documents when there are some" do
     draft_policy = create(:draft_policy)
-    first_supporting_document = create(:supporting_document, document: draft_policy)
-    second_supporting_document = create(:supporting_document, document: draft_policy)
+    first_supporting_page = create(:supporting_document, document: draft_policy)
+    second_supporting_page = create(:supporting_document, document: draft_policy)
 
     get :show, id: draft_policy
 
-    assert_select ".supporting_documents" do
-      assert_select_object(first_supporting_document) do
-        assert_select "a[href='#{admin_supporting_document_path(first_supporting_document)}'] span.title", text: first_supporting_document.title
+    assert_select ".supporting_pages" do
+      assert_select_object(first_supporting_page) do
+        assert_select "a[href='#{admin_supporting_document_path(first_supporting_page)}'] span.title", text: first_supporting_page.title
       end
-      assert_select_object(second_supporting_document) do
-        assert_select "a[href='#{admin_supporting_document_path(second_supporting_document)}'] span.title", text: second_supporting_document.title
+      assert_select_object(second_supporting_page) do
+        assert_select "a[href='#{admin_supporting_document_path(second_supporting_page)}'] span.title", text: second_supporting_page.title
       end
     end
   end
@@ -228,7 +228,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: draft_policy
 
-    refute_select ".supporting_documents .supporting_document"
+    refute_select ".supporting_pages .supporting_document"
   end
 
   should_allow_topics_for :policy

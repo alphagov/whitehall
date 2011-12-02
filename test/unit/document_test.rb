@@ -358,17 +358,17 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [ministerial_role], draft_policy.ministerial_roles
   end
 
-  test "should build a draft copy with copies of supporting documents" do
+  test "should build a draft copy with copies of supporting pages" do
     published_policy = create(:published_policy)
-    supporting_document = create(:supporting_document, document: published_policy)
+    supporting_page = create(:supporting_document, document: published_policy)
     draft_policy = published_policy.create_draft(create(:policy_writer))
 
     assert draft_policy.valid?
 
-    assert new_supporting_document = draft_policy.supporting_documents.last
-    refute_equal supporting_document, new_supporting_document
-    assert_equal supporting_document.title, new_supporting_document.title
-    assert_equal supporting_document.body, new_supporting_document.body
+    assert new_supporting_page = draft_policy.supporting_pages.last
+    refute_equal supporting_page, new_supporting_page
+    assert_equal supporting_page.title, new_supporting_page.title
+    assert_equal supporting_page.body, new_supporting_page.body
   end
 
   test "should build a draft copy with references to related documents" do

@@ -141,14 +141,14 @@ class PoliciesControllerTest < ActionController::TestCase
 
   test "show lists supporting documents when there are some" do
     published_document = create(:published_policy)
-    first_supporting_document = create(:supporting_document, document: published_document)
-    second_supporting_document = create(:supporting_document, document: published_document)
+    first_supporting_page = create(:supporting_document, document: published_document)
+    second_supporting_page = create(:supporting_document, document: published_document)
 
     get :show, id: published_document.document_identity
 
     assert_select ".policy_view nav" do
-      assert_select "a[href='#{policy_supporting_document_path(published_document.document_identity, first_supporting_document)}']", text: first_supporting_document.title
-      assert_select "a[href='#{policy_supporting_document_path(published_document.document_identity, second_supporting_document)}']", text: second_supporting_document.title
+      assert_select "a[href='#{policy_supporting_document_path(published_document.document_identity, first_supporting_page)}']", text: first_supporting_page.title
+      assert_select "a[href='#{policy_supporting_document_path(published_document.document_identity, second_supporting_page)}']", text: second_supporting_page.title
     end
   end
 
@@ -157,7 +157,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_document.document_identity
 
-    refute_select supporting_documents_selector
+    refute_select supporting_pages_selector
   end
 
   test "should render the content using govspeak markup" do

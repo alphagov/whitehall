@@ -31,7 +31,7 @@ def create_published(type, attributes = {})
 end
 
 def create_supporting(document, attributes={})
-  document.supporting_documents.create!(attributes)
+  document.supporting_pages.create!(attributes)
 end
 
 def random_policy_text(number_of_paragraphs=3)

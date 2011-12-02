@@ -53,11 +53,11 @@ class Document < ActiveRecord::Base
     false
   end
 
-  def allows_supporting_documents?
+  def allows_supporting_pages?
     false
   end
 
-  def has_supporting_documents?
+  def has_supporting_pages?
     false
   end
 
