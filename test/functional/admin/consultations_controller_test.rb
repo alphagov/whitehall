@@ -16,21 +16,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
-      assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "input[type='submit']"
     end
   end
 
   test 'creating creates a new consultation' do
-    first_org = create(:organisation)
-    second_org = create(:organisation)
     first_minister = create(:ministerial_role)
     second_minister = create(:ministerial_role)
     attributes = attributes_for(:consultation)
 
     post :create, document: attributes.merge(
-      organisation_ids: [first_org.id, second_org.id],
       ministerial_role_ids: [first_minister.id, second_minister.id]
     )
 
@@ -39,7 +35,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal attributes[:body], consultation.body
     assert_equal attributes[:opening_on].to_date, consultation.opening_on
     assert_equal attributes[:closing_on].to_date, consultation.closing_on
-    assert_equal [first_org, second_org], consultation.organisations
     assert_equal [first_minister, second_minister], consultation.ministerial_roles
   end
 
@@ -94,26 +89,22 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
-      assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "input[type='submit']"
     end
   end
 
   test 'updating should save modified policy attributes' do
-    first_org = create(:organisation)
-    second_org = create(:organisation)
     first_minister = create(:ministerial_role)
     second_minister = create(:ministerial_role)
 
-    consultation = create(:consultation, organisations: [first_org], ministerial_roles: [first_minister])
+    consultation = create(:consultation, ministerial_roles: [first_minister])
 
     put :update, id: consultation, document: {
       title: "new-title",
       body: "new-body",
       opening_on: 1.day.ago,
       closing_on: 50.days.from_now,
-      organisation_ids: [second_org.id],
       ministerial_role_ids: [second_minister.id]
     }
 
@@ -122,20 +113,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal "new-body", consultation.body
     assert_equal 1.day.ago.to_date, consultation.opening_on
     assert_equal 50.days.from_now.to_date, consultation.closing_on
-    assert_equal [second_org], consultation.organisations
     assert_equal [second_minister], consultation.ministerial_roles
   end
 
-  test 'updating should remove all organisation and ministerial roles if none in params' do
-    org = create(:organisation)
+  test 'updating should remove all ministerial roles if none in params' do
     minister = create(:ministerial_role)
 
-    consultation = create(:consultation, organisations: [org], ministerial_roles: [minister])
+    consultation = create(:consultation, ministerial_roles: [minister])
 
     put :update, id: consultation, document: {}
 
     consultation.reload
-    assert_equal [], consultation.organisations
     assert_equal [], consultation.ministerial_roles
   end
 
@@ -154,6 +142,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal conflicting_consultation.lock_version, assigns[:document].lock_version
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
   end
+
+  should_allow_organisations_for :consultation
 
   should_allow_attachments_for :consultation
   should_display_attachments_for :consultation

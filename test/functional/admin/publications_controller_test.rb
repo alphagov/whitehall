@@ -20,8 +20,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'creating should create a new publication' do
-    first_org = create(:organisation)
-    second_org = create(:organisation)
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
     attributes = attributes_for(:publication,
@@ -33,14 +31,12 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     )
 
     post :create, document: attributes.merge(
-      organisation_ids: [first_org.id, second_org.id],
       documents_related_to_ids: [first_policy.id, second_policy.id]
     )
 
     created_publication = Publication.last
     assert_equal attributes[:title], created_publication.title
     assert_equal attributes[:body], created_publication.body
-    assert_equal [first_org, second_org], created_publication.organisations
     assert_equal [first_policy, second_policy], created_publication.documents_related_to
     assert_equal Date.parse("1805-10-21"), created_publication.publication_date
     assert_equal "unique-reference", created_publication.unique_reference
@@ -94,16 +90,14 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal "https://example.com/new-order-path", saved_publication.order_url
   end
 
-  test 'updating should remove all organisations, related documents and ministerial roles if none in params' do
-    org = create(:organisation)
+  test 'updating should remove all related documents and ministerial roles if none in params' do
     policy = create(:policy)
     minister = create(:ministerial_role)
-    publication = create(:publication, organisations: [org], documents_related_to: [policy], ministerial_roles: [minister])
+    publication = create(:publication, documents_related_to: [policy], ministerial_roles: [minister])
 
     put :update, id: publication, document: {}
 
     publication.reload
-    assert_equal [], publication.organisations
     assert_equal [], publication.documents_related_to
     assert_equal [], publication.ministerial_roles
   end
@@ -208,6 +202,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       refute_select "a.order_url"
     end
   end
+
+  should_allow_organisations_for :publication
 
   should_allow_attachments_for :publication
   should_display_attachments_for :publication

@@ -14,7 +14,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[documents_related_to_ids]']"
-      assert_select "select[name*='document[organisation_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "textarea[name='document[notes_to_editors]']"
       assert_select "input[type='submit']"
@@ -22,15 +21,12 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   end
 
   test 'creating should create a new news article' do
-    first_org = create(:organisation)
-    second_org = create(:organisation)
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
     attributes = attributes_for(:news_article)
 
     post :create, document: attributes.merge(
       notes_to_editors: "notes-to-editors",
-      organisation_ids: [first_org.id, second_org.id],
       documents_related_to_ids: [first_policy.id, second_policy.id]
     )
 
@@ -38,7 +34,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal attributes[:title], created_news_article.title
     assert_equal attributes[:body], created_news_article.body
     assert_equal "notes-to-editors", created_news_article.notes_to_editors
-    assert_equal [first_org, second_org], created_news_article.organisations
     assert_equal [first_policy, second_policy], created_news_article.documents_related_to
   end
 
@@ -174,6 +169,8 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: news_article
     refute_select "#{notes_to_editors_selector}"
   end
+
+  should_allow_organisations_for :news_article
 
   should_allow_topics_for :news_article
 

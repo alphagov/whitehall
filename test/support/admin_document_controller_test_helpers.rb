@@ -441,6 +441,66 @@ module AdminDocumentControllerTestHelpers
       end
     end
 
+    def should_allow_organisations_for(document_type)
+      document_class = document_class(document_type)
+
+      test "new should display document organisations field" do
+        get :new
+
+        assert_select "form#document_new" do
+          assert_select "select[name*='document[organisation_ids]']"
+        end
+      end
+
+      test "create should associate organisations with document" do
+        first_organisation = create(:organisation)
+        second_organisation = create(:organisation)
+        attributes = attributes_for(document_type)
+
+        post :create, document: attributes.merge(
+          organisation_ids: [first_organisation.id, second_organisation.id]
+        )
+
+        document = document_class.last
+        assert_equal [first_organisation, second_organisation], document.organisations
+      end
+
+      test "edit should display document organisations field" do
+        document = create(document_type)
+
+        get :edit, id: document
+
+        assert_select "form#document_edit" do
+          assert_select "select[name*='document[organisation_ids]']"
+        end
+      end
+
+      test "update should associate organisations with documents" do
+        first_organisation = create(:organisation)
+        second_organisation = create(:organisation)
+
+        document = create(document_type, organisations: [first_organisation])
+
+        put :update, id: document, document: {
+          organisation_ids: [second_organisation.id]
+        }
+
+        document.reload
+        assert_equal [second_organisation], document.organisations
+      end
+
+      test "update should remove all organisations if none specified" do
+        organisation = create(:organisation)
+
+        document = create(document_type, organisations: [organisation])
+
+        put :update, id: document, document: {}
+
+        document.reload
+        assert_equal [], document.organisations
+      end
+    end
+
     private
 
     def document_class(document_type)
