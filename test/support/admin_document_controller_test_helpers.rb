@@ -381,6 +381,66 @@ module AdminDocumentControllerTestHelpers
       end
     end
 
+    def should_allow_topics_for(document_type)
+      document_class = document_class(document_type)
+
+      test "new should display document topics field" do
+        get :new
+
+        assert_select "form#document_new" do
+          assert_select "select[name*='document[topic_ids]']"
+        end
+      end
+
+      test "create should associate topics with document" do
+        first_topic = create(:topic)
+        second_topic = create(:topic)
+        attributes = attributes_for(document_type)
+
+        post :create, document: attributes.merge(
+          topic_ids: [first_topic.id, second_topic.id]
+        )
+
+        document = document_class.last
+        assert_equal [first_topic, second_topic], document.topics
+      end
+
+      test "edit should display document topics field" do
+        document = create(document_type)
+
+        get :edit, id: document
+
+        assert_select "form#document_edit" do
+          assert_select "select[name*='document[topic_ids]']"
+        end
+      end
+
+      test "update should associate topics with documents" do
+        first_topic = create(:topic)
+        second_topic = create(:topic)
+
+        document = create(document_type, topics: [first_topic])
+
+        put :update, id: document, document: {
+          topic_ids: [second_topic.id]
+        }
+
+        document.reload
+        assert_equal [second_topic], document.topics
+      end
+
+      test "update should remove all topics if none specified" do
+        topic = create(:topic)
+
+        document = create(document_type, topics: [topic])
+
+        put :update, id: document, document: {}
+
+        document.reload
+        assert_equal [], document.topics
+      end
+    end
+
     private
 
     def document_class(document_type)

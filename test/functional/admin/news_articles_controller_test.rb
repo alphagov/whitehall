@@ -15,7 +15,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[documents_related_to_ids]']"
       assert_select "select[name*='document[organisation_ids]']"
-      assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "textarea[name='document[notes_to_editors]']"
       assert_select "input[type='submit']"
@@ -23,8 +22,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   end
 
   test 'creating should create a new news article' do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
     first_org = create(:organisation)
     second_org = create(:organisation)
     first_policy = create(:published_policy)
@@ -33,7 +30,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     post :create, document: attributes.merge(
       notes_to_editors: "notes-to-editors",
-      topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id],
       documents_related_to_ids: [first_policy.id, second_policy.id]
     )
@@ -42,7 +38,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal attributes[:title], created_news_article.title
     assert_equal attributes[:body], created_news_article.body
     assert_equal "notes-to-editors", created_news_article.notes_to_editors
-    assert_equal [first_topic, second_topic], created_news_article.topics
     assert_equal [first_org, second_org], created_news_article.organisations
     assert_equal [first_policy, second_policy], created_news_article.documents_related_to
   end
@@ -70,36 +65,30 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   end
 
   test 'updating should save modified document attributes' do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
-    news_article = create(:news_article, topics: [first_topic], documents_related_to: [first_policy])
+    news_article = create(:news_article, documents_related_to: [first_policy])
 
     put :update, id: news_article.id, document: {
       title: "new-title",
       body: "new-body",
-      topic_ids: [second_topic.id],
       documents_related_to_ids: [second_policy.id]
     }
 
     saved_news_article = news_article.reload
     assert_equal "new-title", saved_news_article.title
     assert_equal "new-body", saved_news_article.body
-    assert_equal [second_topic], saved_news_article.topics
     assert_equal [second_policy], saved_news_article.documents_related_to
   end
 
-  test 'updating should remove all topics and related documents if none in params' do
-    topic = create(:topic)
+  test 'updating should remove all related documents if none in params' do
     policy = create(:published_policy)
 
-    news_article = create(:news_article, topics: [topic], documents_related_to: [policy])
+    news_article = create(:news_article, documents_related_to: [policy])
 
     put :update, id: news_article, document: {}
 
     news_article.reload
-    assert_equal [], news_article.topics
     assert_equal [], news_article.documents_related_to
   end
 
@@ -185,6 +174,8 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: news_article
     assert_select "#{notes_to_editors_selector}", count: 0
   end
+
+  should_allow_topics_for :news_article
 
   should_be_rejectable :news_article
   should_be_force_publishable :news_article

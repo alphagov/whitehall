@@ -15,7 +15,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[organisation_ids]']"
-      assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "input[type='submit']"
     end
@@ -27,8 +26,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test 'creating should create a new policy' do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
     first_org = create(:organisation)
     second_org = create(:organisation)
     first_minister = create(:ministerial_role)
@@ -36,7 +33,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     attributes = attributes_for(:policy)
 
     post :create, document: attributes.merge(
-      topic_ids: [first_topic.id, second_topic.id],
       organisation_ids: [first_org.id, second_org.id],
       ministerial_role_ids: [first_minister.id, second_minister.id]
     )
@@ -44,7 +40,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     policy = Policy.last
     assert_equal attributes[:title], policy.title
     assert_equal attributes[:body], policy.body
-    assert_equal [first_topic, second_topic], policy.topics
     assert_equal [first_org, second_org], policy.organisations
     assert_equal [first_minister, second_minister], policy.ministerial_roles
   end
@@ -80,7 +75,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[organisation_ids]']"
-      assert_select "select[name*='document[topic_ids]']"
       assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "input[type='submit']"
     end
@@ -93,19 +87,16 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test 'updating should save modified policy attributes' do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
     first_org = create(:organisation)
     second_org = create(:organisation)
     first_minister = create(:ministerial_role)
     second_minister = create(:ministerial_role)
 
-    policy = create(:policy, topics: [first_topic], organisations: [first_org], ministerial_roles: [first_minister])
+    policy = create(:policy, organisations: [first_org], ministerial_roles: [first_minister])
 
     put :update, id: policy, document: {
       title: "new-title",
       body: "new-body",
-      topic_ids: [second_topic.id],
       organisation_ids: [second_org.id],
       ministerial_role_ids: [second_minister.id]
     }
@@ -113,22 +104,19 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     policy.reload
     assert_equal "new-title", policy.title
     assert_equal "new-body", policy.body
-    assert_equal [second_topic], policy.topics
     assert_equal [second_org], policy.organisations
     assert_equal [second_minister], policy.ministerial_roles
   end
 
-  test 'updating should remove all topics, organisations and ministerial roles if none in params' do
-    topic = create(:topic)
+  test 'updating should remove all organisations and ministerial roles if none in params' do
     org = create(:organisation)
     minister = create(:ministerial_role)
 
-    policy = create(:policy, topics: [topic], organisations: [org], ministerial_roles: [minister])
+    policy = create(:policy, organisations: [org], ministerial_roles: [minister])
 
     put :update, id: policy, document: {}
 
     policy.reload
-    assert_equal [], policy.topics
     assert_equal [], policy.organisations
     assert_equal [], policy.ministerial_roles
   end
@@ -254,6 +242,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     assert_select ".supporting_documents .supporting_document", count: 0
   end
+
+  should_allow_topics_for :policy
 
   should_be_rejectable :policy
   should_be_force_publishable :policy
