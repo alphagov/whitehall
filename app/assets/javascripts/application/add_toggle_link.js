@@ -4,7 +4,7 @@
     var content = $(contentSelector, section);
 
     content.hide();
-    var toggleLink = $.a("show", {class: "toggle", href: "#"});
+    var toggleLink = $.a("show", {"class": "toggle", href: "#"});
     $("h1", section).append(toggleLink);
     toggleLink.click(function() {
       var currentLinkText = $(this).text();
