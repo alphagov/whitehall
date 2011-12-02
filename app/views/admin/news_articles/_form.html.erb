@@ -8,5 +8,9 @@
   <%= render partial: 'minister_fields', locals: { form: form, document: document } %>
   <%= render partial: 'country_fields', locals: { form: form, document: document } %>
 
+  <fieldset>
+    <%= form.text_area :notes_to_editors %>
+  </fieldset>
+
   <%= form.save_or_cancel %>
 <% end %>
