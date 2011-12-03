@@ -10,7 +10,7 @@ module Admin::DocumentsHelper
   end
 
   def admin_policy_areas_header_link
-    admin_header_link "Policy Areas", admin_policy_areas_path
+    admin_header_link "Policy areas", admin_policy_areas_path
   end
 
   def admin_organisations_header_link

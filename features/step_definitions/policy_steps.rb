@@ -146,8 +146,8 @@ end
 
 When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" policy areas$/ do |title, first_policy_area, second_policy_area|
   begin_drafting_document type: "Policy", title: title
-  select first_policy_area, from: "Policy Areas"
-  select second_policy_area, from: "Policy Areas"
+  select first_policy_area, from: "Policy areas"
+  select second_policy_area, from: "Policy areas"
   click_button "Save"
 end
 
@@ -182,7 +182,7 @@ end
 
 When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" policy area$/ do |title, policy_area_name|
   begin_editing_document title
-  select policy_area_name, from: "Policy Areas"
+  select policy_area_name, from: "Policy areas"
   click_button "Save"
 end
 

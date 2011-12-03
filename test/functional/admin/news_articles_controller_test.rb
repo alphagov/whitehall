@@ -120,7 +120,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     assert_select ".document.conflict" do
       assert_select "h1", "Organisations"
-      assert_select "h1", "Policy Areas"
+      assert_select "h1", "Policy areas"
       assert_select "h1", "Ministers"
     end
   end

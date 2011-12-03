@@ -4,7 +4,7 @@ end
 
 When /^I create a new policy area "([^"]*)" with description "([^"]*)"$/ do |name, description|
   visit admin_root_path
-  click_link "Policy Areas"
+  click_link "Policy areas"
   click_link "Create Policy Area"
   fill_in "Name", with: name
   fill_in "Description", with: description
@@ -13,7 +13,7 @@ end
 
 When /^I edit the policy area "([^"]*)" to have description "([^"]*)"$/ do |name, description|
   visit admin_root_path
-  click_link "Policy Areas"
+  click_link "Policy areas"
   click_link name
   fill_in "Description", with: description
   click_button "Save"
