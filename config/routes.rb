@@ -69,6 +69,7 @@ Whitehall::Application.routes.draw do
     match 'logout' => 'sessions#destroy', via: :post
     match 'styleguide' => 'styleguide#index'
     match 'site/sha' => 'site#sha'
+    match '/topics' => redirect("/policy-areas")
   end
 
   mount TestTrack::Engine => "test" if Rails.env.test?
