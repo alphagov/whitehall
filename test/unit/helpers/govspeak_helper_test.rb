@@ -64,7 +64,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html.strip
   end
 
-  test "should highlight links to destroyed supporting documents in admin preview" do
+  test "should highlight links to destroyed supporting pages in admin preview" do
     html = govspeak_to_admin_html("this and [that](#{admin_supporting_document_url("missing-id")})")
     assert_equal %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html.strip
   end
@@ -107,16 +107,16 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal %{<p>this and <a href="#{public_path}">that</a> yeah?</p>}, html.strip
   end
 
-  test "should rewrite absolute links to admin previews of SupportingDocuments as their public document identity" do
+  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_document, document: policy)
+    supporting_page = create(:supporting_page, document: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_document_url(supporting_page)}) yeah?")
     assert_equal %{<p>this and <a href="#{policy_supporting_document_path(policy, supporting_page)}">that</a> yeah?</p>}, html.strip
   end
 
-  test "should not link to SupportingDocuments whose documents are not published" do
+  test "should not link to SupportingPages whose documents are not published" do
     policy = create(:draft_policy)
-    supporting_page = create(:supporting_document, document: policy)
+    supporting_page = create(:supporting_page, document: policy)
     html = govspeak_to_html("this and [that](http://test.host#{admin_supporting_document_path(supporting_page)}) yeah?")
     assert_equal %{<p>this and that yeah?</p>}, html.strip
   end

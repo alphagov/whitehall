@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111202181120) do
+ActiveRecord::Schema.define(:version => 20111204190006) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -131,6 +131,13 @@ ActiveRecord::Schema.define(:version => 20111202181120) do
 
   add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
 
+  create_table "nation_applicabilities", :force => true do |t|
+    t.integer  "nation_id"
+    t.integer  "policy_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "nation_inapplicabilities", :force => true do |t|
     t.integer  "nation_id"
     t.integer  "document_id"
@@ -239,7 +246,7 @@ ActiveRecord::Schema.define(:version => 20111202181120) do
 
   add_index "roles", ["slug"], :name => "index_roles_on_slug"
 
-  create_table "supporting_documents", :force => true do |t|
+  create_table "supporting_pages", :force => true do |t|
     t.integer  "document_id"
     t.string   "title"
     t.text     "body"
@@ -249,7 +256,7 @@ ActiveRecord::Schema.define(:version => 20111202181120) do
     t.string   "slug"
   end
 
-  add_index "supporting_documents", ["slug"], :name => "index_supporting_documents_on_slug"
+  add_index "supporting_pages", ["slug"], :name => "index_supporting_documents_on_slug"
 
   create_table "users", :force => true do |t|
     t.string   "name"

@@ -1,4 +1,4 @@
-class SupportingDocument < ActiveRecord::Base
+class SupportingPage < ActiveRecord::Base
   belongs_to :document
 
   validates :title, :body, :document, presence: true

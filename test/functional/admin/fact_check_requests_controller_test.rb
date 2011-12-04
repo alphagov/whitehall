@@ -106,7 +106,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "should display the supporting pages section" do
-    policy = create(:policy, supporting_pages: [create(:supporting_document, title: "Blah!")])
+    policy = create(:policy, supporting_pages: [create(:supporting_page, title: "Blah!")])
     fact_check_request = create(:fact_check_request, document: policy)
 
     get :edit, id: fact_check_request

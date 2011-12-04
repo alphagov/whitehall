@@ -10,7 +10,7 @@ module Document::SupportingPages
   end
 
   included do
-    has_many :supporting_pages, foreign_key: :document_id, class_name: "SupportingDocument"
+    has_many :supporting_pages, foreign_key: :document_id
 
     add_trait Trait
   end

@@ -39,4 +39,12 @@ module AdminDocumentRoutesHelper
       polymorphic_path([:edit, :admin, document], *args)
     end
   end
+
+  def admin_supporting_page_path(*args)
+    admin_supporting_document_path(*args)
+  end
+
+  def admin_policy_supporting_pages_path(*args)
+    admin_policy_supporting_documents_path(*args)
+  end
 end

@@ -139,10 +139,10 @@ class PoliciesControllerTest < ActionController::TestCase
     refute_select related_news_articles_selector
   end
 
-  test "show lists supporting documents when there are some" do
+  test "show lists supporting pages when there are some" do
     published_document = create(:published_policy)
-    first_supporting_page = create(:supporting_document, document: published_document)
-    second_supporting_page = create(:supporting_document, document: published_document)
+    first_supporting_page = create(:supporting_page, document: published_document)
+    second_supporting_page = create(:supporting_page, document: published_document)
 
     get :show, id: published_document.document_identity
 
@@ -152,7 +152,7 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "doesn't show supporting documents list when empty" do
+  test "doesn't show supporting pages list when empty" do
     published_document = create(:published_policy)
 
     get :show, id: published_document.document_identity

@@ -166,7 +166,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_template 'edit'
   end
 
-  test "show the 'add supporting document' button for an unpublished document" do
+  test "show the 'add supporting page' button for an unpublished document" do
     draft_policy = create(:draft_policy)
 
     get :show, id: draft_policy
@@ -174,7 +174,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_select "a[href='#{new_admin_document_supporting_document_path(draft_policy)}']"
   end
 
-  test "don't show the 'add supporting document' button for a published policy" do
+  test "don't show the 'add supporting page' button for a published policy" do
     published_policy = create(:published_policy)
 
     get :show, id: published_policy
@@ -191,10 +191,10 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "show lists supporting documents when there are some" do
+  test "show lists supporting pages when there are some" do
     draft_policy = create(:draft_policy)
-    first_supporting_page = create(:supporting_document, document: draft_policy)
-    second_supporting_page = create(:supporting_document, document: draft_policy)
+    first_supporting_page = create(:supporting_page, document: draft_policy)
+    second_supporting_page = create(:supporting_page, document: draft_policy)
 
     get :show, id: draft_policy
 
@@ -223,12 +223,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_select ".authors", text: "Tom, Dick, and Harry"
   end
 
-  test "doesn't show supporting documents list when empty" do
+  test "doesn't show supporting pages list when empty" do
     draft_policy = create(:draft_policy)
 
     get :show, id: draft_policy
 
-    refute_select ".supporting_pages .supporting_document"
+    refute_select ".supporting_pages .supporting_page"
   end
 
   should_allow_policy_areas_for :policy

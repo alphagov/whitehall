@@ -34,7 +34,7 @@ module AdminDocumentActionsHelper
         concat(form.hidden_field :lock_version)
         submit_options = {title: "Publish #{document.title}"}
         if document.has_supporting_pages?
-          submit_options[:confirm] = "Are you sure you want to force publish this document? Have you checked the #{document.supporting_pages.count} supporting documents?"
+          submit_options[:confirm] = "Are you sure you want to force publish this document? Have you checked the #{document.supporting_pages.count} supporting pages?"
         else
           submit_options[:confirm] = "Are you sure you want to force publish this document?"
         end

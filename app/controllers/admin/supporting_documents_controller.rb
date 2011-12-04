@@ -3,11 +3,11 @@ class Admin::SupportingDocumentsController < Admin::BaseController
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
 
   def new
-    @supporting_page = @document.supporting_pages.build(params[:supporting_document])
+    @supporting_page = @document.supporting_pages.build(params[:supporting_page])
   end
 
   def create
-    @supporting_page = @document.supporting_pages.build(params[:supporting_document])
+    @supporting_page = @document.supporting_pages.build(params[:supporting_page])
     if @supporting_page.save
       redirect_to admin_document_path(@document), notice: "The supporting page was added successfully"
     else
@@ -23,15 +23,15 @@ class Admin::SupportingDocumentsController < Admin::BaseController
   end
 
   def update
-    if @supporting_page.update_attributes(params[:supporting_document])
+    if @supporting_page.update_attributes(params[:supporting_page])
       redirect_to admin_supporting_document_path(@supporting_page), notice: "The supporting page was updated successfully"
     else
       flash[:alert] = "There was a problem: #{@supporting_page.errors.full_messages.to_sentence}"
       render :edit
     end
   rescue ActiveRecord::StaleObjectError
-    flash.now[:alert] = %{This document has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}
-    @conflicting_supporting_page = SupportingDocument.find(params[:id])
+    flash.now[:alert] = %{This page has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}
+    @conflicting_supporting_page = SupportingPage.find(params[:id])
     @supporting_page.lock_version = @conflicting_supporting_page.lock_version
     render action: "edit"
   end
@@ -53,6 +53,6 @@ class Admin::SupportingDocumentsController < Admin::BaseController
   end
 
   def find_supporting_page
-    @supporting_page = SupportingDocument.find(params[:id])
+    @supporting_page = SupportingPage.find(params[:id])
   end
 end
