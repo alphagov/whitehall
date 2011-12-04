@@ -1,11 +1,11 @@
 require "test_helper"
 
-class SupportingDocumentsControllerTest < ActionController::TestCase
+class SupportingPagesControllerTest < ActionController::TestCase
   test "index links to supporting pages" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, title: "supporting-page-title", document: policy)
     get :index, policy_id: policy.document_identity
-    path = policy_supporting_document_path(policy.document_identity, supporting_page)
+    path = policy_supporting_page_path(policy.document_identity, supporting_page)
     assert_select supporting_pages_selector do
       assert_select_object supporting_page do
         assert_select "a[href=#{path}]"
@@ -184,8 +184,8 @@ That's all
     get :show, policy_id: policy.document_identity, id: supporting_page
 
     assert_select ".policy_view nav" do
-      assert_select "a[href='#{policy_supporting_document_path(policy.document_identity, first_supporting_page)}']", text: first_supporting_page.title
-      assert_select "a[href='#{policy_supporting_document_path(policy.document_identity, second_supporting_page)}']", text: second_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(policy.document_identity, first_supporting_page)}']", text: first_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(policy.document_identity, second_supporting_page)}']", text: second_supporting_page.title
     end
   end
 

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
+class Admin::SupportingPagesControllerTest < ActionController::TestCase
   setup do
     @user = login_as :policy_writer
   end
@@ -12,7 +12,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :new, document_id: document
 
-    assert_select "form[action='#{admin_document_supporting_documents_path(document)}']" do
+    assert_select "form[action='#{admin_document_supporting_pages_path(document)}']" do
       assert_select "input[name='supporting_page[title]'][type='text']"
       assert_select "textarea[name='supporting_page[body]']"
       assert_select "input[type='submit']"
@@ -80,7 +80,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :show, document_id: document, id: supporting_page
 
-    assert_select "a[href='#{edit_admin_supporting_document_path(supporting_page)}']", text: 'Edit'
+    assert_select "a[href='#{edit_admin_supporting_page_path(supporting_page)}']", text: 'Edit'
   end
 
   test "doesn't show edit link if parent document is published" do
@@ -89,7 +89,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :show, document_id: document, id: supporting_page
 
-    refute_select "a[href='#{edit_admin_supporting_document_path(supporting_page)}']"
+    refute_select "a[href='#{edit_admin_supporting_page_path(supporting_page)}']"
   end
 
   test "edit form has title and body inputs" do
@@ -98,7 +98,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :edit, document_id: document, id: supporting_page
 
-    assert_select "form[action='#{admin_supporting_document_path(supporting_page)}']" do
+    assert_select "form[action='#{admin_supporting_page_path(supporting_page)}']" do
       assert_select "input[name='supporting_page[title]'][type='text'][value='#{supporting_page.title}']"
       assert_select "textarea[name='supporting_page[body]']", text: supporting_page.body
       assert_select "input[type='submit']"
@@ -120,7 +120,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
 
     get :edit, document_id: document, id: supporting_page
 
-    assert_select "form[action='#{admin_supporting_document_path(supporting_page)}']" do
+    assert_select "form[action='#{admin_supporting_page_path(supporting_page)}']" do
       assert_select "input[name='supporting_page[lock_version]'][type='hidden'][value='#{supporting_page.lock_version}']"
     end
   end
@@ -142,7 +142,7 @@ class Admin::SupportingDocumentsControllerTest < ActionController::TestCase
     attributes = { title: "new-title", body: "new-body" }
     put :update, id: supporting_page, supporting_page: attributes
 
-    assert_redirected_to admin_supporting_document_path(supporting_page)
+    assert_redirected_to admin_supporting_page_path(supporting_page)
     assert_equal flash[:notice], "The supporting page was updated successfully"
   end
 

@@ -56,7 +56,7 @@
                   <h3>Supporting Pages</h3>
                   <ul>
                     <% document.supporting_pages.each do |supporting_page| %>
-                    <li><%= link_to supporting_page.title, admin_supporting_document_path(supporting_page) %></li>
+                    <li><%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %></li>
                     <% end %>
                   </ul>
                 </div>

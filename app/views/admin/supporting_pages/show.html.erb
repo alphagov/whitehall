@@ -1,10 +1,10 @@
 <div class="g2 first">
   <nav class="actions">
     <% if @supporting_page.document.editable? %>
-        <%= link_to 'Edit', edit_admin_supporting_document_path(@supporting_page), title: "Edit #{@supporting_page.title}", :class => "button" %>
+        <%= link_to 'Edit', edit_admin_supporting_page_path(@supporting_page), title: "Edit #{@supporting_page.title}", :class => "button" %>
     <% end %>
     <% if @supporting_page.destroyable? %>
-        <%= button_to 'Remove', admin_supporting_document_path(@supporting_page), method: :delete, title: "Remove #{@supporting_page.title}" %>
+        <%= button_to 'Remove', admin_supporting_page_path(@supporting_page), method: :delete, title: "Remove #{@supporting_page.title}" %>
     <% end %>
     <%= link_to "Back to '#{@supporting_page.document.title}'", admin_document_path(@supporting_page.document), title: "Back to #{@supporting_page.document.title}", class: "back" %>
   </nav>

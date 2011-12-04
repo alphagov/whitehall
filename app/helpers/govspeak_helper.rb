@@ -84,7 +84,7 @@ module GovspeakHelper
 
   def rewritten_href_for_documents(document, supporting_page)
     if supporting_page
-      policy_supporting_document_path(document, supporting_page)
+      policy_supporting_page_path(document, supporting_page)
     else
       case document
       when Speech

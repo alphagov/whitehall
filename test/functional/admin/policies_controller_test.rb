@@ -171,7 +171,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: draft_policy
 
-    assert_select "a[href='#{new_admin_document_supporting_document_path(draft_policy)}']"
+    assert_select "a[href='#{new_admin_document_supporting_page_path(draft_policy)}']"
   end
 
   test "don't show the 'add supporting page' button for a published policy" do
@@ -179,7 +179,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy
 
-    refute_select "a[href='#{new_admin_document_supporting_document_path(published_policy)}']"
+    refute_select "a[href='#{new_admin_document_supporting_page_path(published_policy)}']"
   end
 
   test "should render the content using govspeak markup" do
@@ -200,10 +200,10 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     assert_select ".supporting_pages" do
       assert_select_object(first_supporting_page) do
-        assert_select "a[href='#{admin_supporting_document_path(first_supporting_page)}'] span.title", text: first_supporting_page.title
+        assert_select "a[href='#{admin_supporting_page_path(first_supporting_page)}'] span.title", text: first_supporting_page.title
       end
       assert_select_object(second_supporting_page) do
-        assert_select "a[href='#{admin_supporting_document_path(second_supporting_page)}'] span.title", text: second_supporting_page.title
+        assert_select "a[href='#{admin_supporting_page_path(second_supporting_page)}'] span.title", text: second_supporting_page.title
       end
     end
   end

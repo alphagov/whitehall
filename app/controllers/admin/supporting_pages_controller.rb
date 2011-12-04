@@ -1,4 +1,4 @@
-class Admin::SupportingDocumentsController < Admin::BaseController
+class Admin::SupportingPagesController < Admin::BaseController
   before_filter :find_document, only: [:new, :create]
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
 
@@ -24,7 +24,7 @@ class Admin::SupportingDocumentsController < Admin::BaseController
 
   def update
     if @supporting_page.update_attributes(params[:supporting_page])
-      redirect_to admin_supporting_document_path(@supporting_page), notice: "The supporting page was updated successfully"
+      redirect_to admin_supporting_page_path(@supporting_page), notice: "The supporting page was updated successfully"
     else
       flash[:alert] = "There was a problem: #{@supporting_page.errors.full_messages.to_sentence}"
       render :edit

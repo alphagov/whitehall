@@ -147,8 +147,8 @@ class PoliciesControllerTest < ActionController::TestCase
     get :show, id: published_document.document_identity
 
     assert_select ".policy_view nav" do
-      assert_select "a[href='#{policy_supporting_document_path(published_document.document_identity, first_supporting_page)}']", text: first_supporting_page.title
-      assert_select "a[href='#{policy_supporting_document_path(published_document.document_identity, second_supporting_page)}']", text: second_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(published_document.document_identity, first_supporting_page)}']", text: first_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(published_document.document_identity, second_supporting_page)}']", text: second_supporting_page.title
     end
   end
 

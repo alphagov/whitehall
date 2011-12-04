@@ -24,7 +24,7 @@
         </ol>
         <h3>Supporting detail</h3>
         <% policy.supporting_pages.each do |supporting_page| %>
-          <%= link_to_with_current supporting_page.title, policy_supporting_document_path(policy.document_identity, supporting_page) %>
+          <%= link_to_with_current supporting_page.title, policy_supporting_page_path(policy.document_identity, supporting_page) %>
         <% end %>
       </nav>
     </div>

@@ -13,7 +13,7 @@ module AdminDocumentRoutesHelper
   end
 
   document_instance_route :admin_document_fact_check_requests_path
-  document_instance_route :admin_document_supporting_documents_path
+  document_instance_route :admin_document_supporting_pages_path
   document_instance_route :admin_document_editorial_remarks_path
 
   def admin_document_path(document, *args)
@@ -38,13 +38,5 @@ module AdminDocumentRoutesHelper
     else
       polymorphic_path([:edit, :admin, document], *args)
     end
-  end
-
-  def admin_supporting_page_path(*args)
-    admin_supporting_document_path(*args)
-  end
-
-  def admin_policy_supporting_pages_path(*args)
-    admin_policy_supporting_documents_path(*args)
   end
 end

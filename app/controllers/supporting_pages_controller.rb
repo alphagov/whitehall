@@ -1,4 +1,4 @@
-class SupportingDocumentsController < ApplicationController
+class SupportingPagesController < ApplicationController
   before_filter :find_policy
   before_filter :find_supporting_page, only: [:show]
 
