@@ -17,7 +17,7 @@
 
 <% if @document.has_supporting_pages? %>
   <section id="supporting_pages">
-    <h1>Supporting documents</h1>
+    <h1>Supporting pages</h1>
     <% @document.supporting_pages.each do |supporting_page| %>
       <div class="document_view">
         <h1 class="title"><%= supporting_page.title %></h1>

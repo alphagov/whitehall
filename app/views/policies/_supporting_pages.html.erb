@@ -1,6 +1,6 @@
 <% if document.supporting_pages.any? %>
   <section id="supporting_pages">
-    <h1>Supporting documents</h1>
+    <h1>Supporting pages</h1>
     <ul>
       <% document.supporting_pages.each do |supporting_page| %>
         <%= content_tag_for :li, supporting_page do %>
