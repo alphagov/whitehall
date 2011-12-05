@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class PolicyAreaTest < ActiveSupport::TestCase
+  test "should default to the 'current' state" do
+    policy_area = PolicyArea.new
+    assert policy_area.current?
+  end
+
   test 'should be valid when built from the factory' do
     policy_area = build(:policy_area)
     assert policy_area.valid?
@@ -8,6 +13,16 @@ class PolicyAreaTest < ActiveSupport::TestCase
 
   test 'should be invalid without a name' do
     policy_area = build(:policy_area, name: nil)
+    refute policy_area.valid?
+  end
+
+  test "should be invalid without a state" do
+    policy_area = build(:policy_area, state: nil)
+    refute policy_area.valid?
+  end
+
+  test "should be invalid with an unsupported state" do
+    policy_area = build(:policy_area, state: "foobar")
     refute policy_area.valid?
   end
 
@@ -141,6 +156,24 @@ class PolicyAreaTest < ActiveSupport::TestCase
     policy_area = create(:policy_area, documents: [draft_policy])
 
     assert_equal [], policy_area.published_related_documents
+  end
+
+  test "should order by name by default" do
+    policy_area_1 = create(:policy_area, name: "zzz")
+    policy_area_2 = create(:policy_area, name: "aaa")
+    assert_equal [policy_area_2, policy_area_1], PolicyArea.all
+  end
+
+  test "should exclude deleted policy areas by default" do
+    current_policy_area = create(:policy_area)
+    deleted_policy_area = create(:policy_area, state: "deleted")
+    assert_equal [current_policy_area], PolicyArea.all
+  end
+
+  test "should transition to the deleted state" do
+    policy_area = create(:policy_area)
+    policy_area.delete!
+    assert policy_area.deleted?
   end
 
 end

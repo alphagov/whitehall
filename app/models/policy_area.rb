@@ -1,4 +1,15 @@
 class PolicyArea < ActiveRecord::Base
+  include ActiveRecord::Transitions
+
+  state_machine do
+    state :current
+    state :deleted
+
+    event :delete do
+      transitions from: [:current], to: :deleted
+    end
+  end
+
   has_many :document_policy_areas
   has_many :documents, through: :document_policy_areas
   has_many :policies, through: :document_policy_areas, class_name: "Policy", source: :document
@@ -14,7 +25,7 @@ class PolicyArea < ActiveRecord::Base
 
   accepts_nested_attributes_for :document_policy_areas
 
-  default_scope order(:name)
+  default_scope where('policy_areas.state != "deleted"').order(:name)
 
   extend FriendlyId
   friendly_id :name, use: :slugged

@@ -5,7 +5,7 @@ module Document::Workflow
     include ::Transitions
     include ActiveRecord::Transitions
 
-    default_scope where(%{state <> "deleted"})
+    default_scope where(%{documents.state <> "deleted"})
     scope :draft, where(state: "draft")
     scope :submitted, where(state: "submitted")
     scope :rejected, where(state: "rejected")
