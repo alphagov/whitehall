@@ -63,7 +63,7 @@
       <section id="board_members">
       <% if @organisation.permanent_secretary_board_member_roles.any? %>
         <section id="permanent_secretary_board_members">
-          <h1>Permanent Secretaries</h1>
+          <h1>Permanent secretaries</h1>
           <%= render_list_of_roles(@organisation.permanent_secretary_board_member_roles, "permanent_secretary_board_member_roles") do |board_member_role| %>
             <h3><%= board_member_role.name %></h3>
             <p class="current_appointee"><%= board_member_role.current_person_name %></p>
