@@ -1,3 +1,8 @@
+## Copy ##
+
+- Titles and navigation links should only capitalise first letter, not every word.
+- URLs should use hyphens, not underscores.
+
 ## Code ##
 
 - Don't commit additional whitespace
