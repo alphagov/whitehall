@@ -90,16 +90,14 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal "https://example.com/new-order-path", saved_publication.order_url
   end
 
-  test 'updating should remove all related documents and ministerial roles if none in params' do
+  test 'updating should remove all related documents if none in params' do
     policy = create(:policy)
-    minister = create(:ministerial_role)
-    publication = create(:publication, documents_related_to: [policy], ministerial_roles: [minister])
+    publication = create(:publication, documents_related_to: [policy])
 
     put :update, id: publication, document: {}
 
     publication.reload
     assert_equal [], publication.documents_related_to
-    assert_equal [], publication.ministerial_roles
   end
 
   test 'updating should take the writer to the publication page' do
@@ -204,6 +202,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   should_allow_organisations_for :publication
+  should_allow_ministerial_roles_for :publication
 
   should_allow_attachments_for :publication
   should_display_attachments_for :publication

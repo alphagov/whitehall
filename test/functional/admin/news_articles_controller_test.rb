@@ -14,7 +14,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[documents_related_to_ids]']"
-      assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "textarea[name='document[notes_to_editors]']"
       assert_select "input[type='submit']"
     end
@@ -171,6 +170,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   end
 
   should_allow_organisations_for :news_article
+  should_allow_ministerial_roles_for :news_article
 
   should_allow_policy_areas_for :news_article
 

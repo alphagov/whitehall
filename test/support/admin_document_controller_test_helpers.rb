@@ -501,6 +501,66 @@ module AdminDocumentControllerTestHelpers
       end
     end
 
+    def should_allow_ministerial_roles_for(document_type)
+      document_class = document_class(document_type)
+
+      test "new should display document ministerial roles field" do
+        get :new
+
+        assert_select "form#document_new" do
+          assert_select "select[name*='document[ministerial_role_ids]']"
+        end
+      end
+
+      test "create should associate ministerial roles with document" do
+        first_minister = create(:ministerial_role)
+        second_minister = create(:ministerial_role)
+        attributes = attributes_for(document_type)
+
+        post :create, document: attributes.merge(
+          ministerial_role_ids: [first_minister.id, second_minister.id]
+        )
+
+        document = document_class.last
+        assert_equal [first_minister, second_minister], document.ministerial_roles
+      end
+
+      test "edit should display document ministerial roles field" do
+        document = create(document_type)
+
+        get :edit, id: document
+
+        assert_select "form#document_edit" do
+          assert_select "select[name*='document[ministerial_role_ids]']"
+        end
+      end
+
+      test "update should associate ministerial roles with documents" do
+        first_minister = create(:ministerial_role)
+        second_minister = create(:ministerial_role)
+
+        document = create(document_type, ministerial_roles: [first_minister])
+
+        put :update, id: document, document: {
+          ministerial_role_ids: [second_minister.id]
+        }
+
+        document.reload
+        assert_equal [second_minister], document.ministerial_roles
+      end
+
+      test "update should remove all ministerial roles if none specified" do
+        minister = create(:ministerial_role)
+
+        document = create(document_type, ministerial_roles: [minister])
+
+        put :update, id: document, document: {}
+
+        document.reload
+        assert_equal [], document.ministerial_roles
+      end
+    end
+
     private
 
     def document_class(document_type)

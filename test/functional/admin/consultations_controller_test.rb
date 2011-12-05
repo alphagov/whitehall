@@ -16,26 +16,20 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
-      assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "input[type='submit']"
     end
   end
 
   test 'creating creates a new consultation' do
-    first_minister = create(:ministerial_role)
-    second_minister = create(:ministerial_role)
     attributes = attributes_for(:consultation)
 
-    post :create, document: attributes.merge(
-      ministerial_role_ids: [first_minister.id, second_minister.id]
-    )
+    post :create, document: attributes
 
     consultation = Consultation.last
     assert_equal attributes[:title], consultation.title
     assert_equal attributes[:body], consultation.body
     assert_equal attributes[:opening_on].to_date, consultation.opening_on
     assert_equal attributes[:closing_on].to_date, consultation.closing_on
-    assert_equal [first_minister, second_minister], consultation.ministerial_roles
   end
 
   test 'creating takes the writer to the consultation page' do
@@ -89,23 +83,18 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
-      assert_select "select[name*='document[ministerial_role_ids]']"
       assert_select "input[type='submit']"
     end
   end
 
   test 'updating should save modified policy attributes' do
-    first_minister = create(:ministerial_role)
-    second_minister = create(:ministerial_role)
-
-    consultation = create(:consultation, ministerial_roles: [first_minister])
+    consultation = create(:consultation)
 
     put :update, id: consultation, document: {
       title: "new-title",
       body: "new-body",
       opening_on: 1.day.ago,
-      closing_on: 50.days.from_now,
-      ministerial_role_ids: [second_minister.id]
+      closing_on: 50.days.from_now
     }
 
     consultation.reload
@@ -113,18 +102,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal "new-body", consultation.body
     assert_equal 1.day.ago.to_date, consultation.opening_on
     assert_equal 50.days.from_now.to_date, consultation.closing_on
-    assert_equal [second_minister], consultation.ministerial_roles
-  end
-
-  test 'updating should remove all ministerial roles if none in params' do
-    minister = create(:ministerial_role)
-
-    consultation = create(:consultation, ministerial_roles: [minister])
-
-    put :update, id: consultation, document: {}
-
-    consultation.reload
-    assert_equal [], consultation.ministerial_roles
   end
 
   test 'updating a stale consultation should render edit page with conflicting consultation' do
@@ -144,6 +121,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   should_allow_organisations_for :consultation
+  should_allow_ministerial_roles_for :consultation
 
   should_allow_attachments_for :consultation
   should_display_attachments_for :consultation
