@@ -7,14 +7,17 @@
       var helpLink = $(label.children("a.govspeak_help")[0]);
 
       helpContent.hide();
-      label.after(helpContent)
+      var localHelpContent = helpContent.clone();
+      localHelpContent.attr("id", null);
+      localHelpContent.addClass("govspeak_help");
+      label.after(localHelpContent);
 
       helpLink.click(function() {
-        helpContent.slideToggle();
+        localHelpContent.slideToggle();
         return false;
       })
     })
-  }
+  };
 
   $.fn.extend({
     enableGovspeakHelp: _enableGovspeakHelp
