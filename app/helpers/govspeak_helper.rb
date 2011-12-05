@@ -58,7 +58,7 @@ module GovspeakHelper
 
   def find_documents_from_uri(uri)
     id = uri[/\/([^\/]+)$/, 1]
-    if uri =~ /\/supporting_documents\//
+    if uri =~ /\/supporting\-pages\//
       begin
         supporting_page = SupportingPage.find(id)
       rescue ActiveRecord::RecordNotFound
