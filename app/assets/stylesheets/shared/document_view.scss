@@ -25,16 +25,8 @@
     p, ul, ol {
       @include type-14;
     }
-    ul {
-      list-style-type: disc;
-    }
-    ol {
-      list-style-type: decimal;
-    }
     ul, ol {
-      margin-left: 30px;
       ul, ol {
-        font-size: 100%;
         margin-top: #{$baseline_in_px / 14}em;
       }
     }
@@ -44,8 +36,6 @@
       @include scaled_margin_bottom(24);
 
       p {
-        font-size: 100%;
-        line-height: 100%;
         margin-bottom: 0;
       }
     }

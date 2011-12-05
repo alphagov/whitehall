@@ -1,6 +1,7 @@
 @import "../shared/utils";
 @import "../shared/grid";
 @import "../shared/document_view";
+@import "../shared/govspeak";
 @import "../shared/typography";
 
 #wrapper {
@@ -106,6 +107,10 @@
 
   .document_view {
     @include document_view;
+  }
+
+  .govspeak {
+    @include govspeak;
   }
 }
 

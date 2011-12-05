@@ -1,8 +1,7 @@
 module GovspeakHelper
 
   def govspeak_to_admin_html(text)
-    html = Govspeak::Document.to_html(text)
-    doc = Nokogiri::HTML.fragment(html)
+    doc = markup_to_nokogiri_doc(text)
     doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(anchor['href'])
       document, supporting_page = find_documents_from_uri(anchor['href'])
@@ -26,8 +25,7 @@ module GovspeakHelper
   end
 
   def govspeak_to_html(text)
-    html = Govspeak::Document.to_html(text)
-    doc = Nokogiri::HTML.fragment(html)
+    doc = markup_to_nokogiri_doc(text)
     doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(anchor['href'])
       document, supporting_page = find_documents_from_uri(anchor['href'])
@@ -47,6 +45,12 @@ module GovspeakHelper
   end
 
   private
+
+  def markup_to_nokogiri_doc(text)
+    govspeak = Govspeak::Document.to_html(text)
+    html = '<div class="govspeak">' + govspeak + '</div>'
+    Nokogiri::HTML.fragment(html)
+  end
 
   def is_internal_admin_link?(href)
     uri = URI.parse(href)

@@ -20,7 +20,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
   test "renders the news article notes to editors using govspeak" do
     news_article = create(:published_news_article, notes_to_editors: "notes-to-editors-in-govspeak")
-    Govspeak::Document.stubs(:to_html)
+    Govspeak::Document.stubs(:to_html).returns("\n")
     Govspeak::Document.stubs(:to_html).with("notes-to-editors-in-govspeak").returns("notes-to-editors-in-html")
 
     get :show, id: news_article.document_identity

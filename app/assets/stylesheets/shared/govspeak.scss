@@ -1,0 +1,20 @@
+@import "utils";
+
+@mixin govspeak {
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  ul, ol {
+    margin-left: 30px !important;
+    ul, ol {
+      font-size: 100%;
+    }
+  }
+  p {
+    font-size: 100%;
+    line-height: 100%;
+  }
+}
