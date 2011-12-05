@@ -14,7 +14,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
       assert_select "select[name*='document[documents_related_to_ids]']"
-      assert_select "textarea[name='document[notes_to_editors]']"
+      assert_select "textarea.previewable.govspeak[name='document[notes_to_editors]']"
       assert_select "input[type='submit']"
     end
   end
