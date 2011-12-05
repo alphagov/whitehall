@@ -119,7 +119,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     assert_select ".document.conflict" do
       assert_select "h1", "Organisations"
-      assert_select "h1", "Policy areas"
       assert_select "h1", "Ministers"
     end
   end
@@ -171,8 +170,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   should_allow_organisations_for :news_article
   should_allow_ministerial_roles_for :news_article
-
-  should_allow_policy_areas_for :news_article
 
   should_be_rejectable :news_article
   should_be_force_publishable :news_article
