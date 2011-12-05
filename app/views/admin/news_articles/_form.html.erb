@@ -9,7 +9,7 @@
   <%= render partial: 'country_fields', locals: { form: form, document: document } %>
 
   <fieldset>
-    <%= form.text_area :notes_to_editors, "class" => "previewable govspeak", help: true %>
+    <%= form.text_area :notes_to_editors, "class" => "previewable", help: true %>
   </fieldset>
 
   <%= form.save_or_cancel %>

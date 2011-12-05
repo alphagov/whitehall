@@ -31,9 +31,11 @@ module Whitehall
 
     def text_area(method, *args)
       options = (args.last || {})
-      label_text = options.delete(:label_text)
-      if options.delete(:help)
+      options.stringify_keys!
+      label_text = options.delete("label_text")
+      if options.delete("help")
         help_link = @template.link_to("formatting help", "#govspeak_help", "class" => "govspeak_help")
+        options["class"] = [options["class"], "govspeak"].compact.join(" ")
       else
         help_link = ""
       end

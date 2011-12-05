@@ -34,7 +34,7 @@
   </fieldset>
   <%= render partial: "admin/documents/govspeak_help" %>
   <fieldset>
-    <%= organisation_form.text_area :about_us, class: "previewable govspeak", :help => true %>
+    <%= organisation_form.text_area :about_us, class: "previewable", :help => true %>
   </fieldset>
 
   <%= organisation_form.save_or_cancel cancel: admin_organisations_path %>
