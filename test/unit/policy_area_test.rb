@@ -80,12 +80,6 @@ class PolicyAreaTest < ActiveSupport::TestCase
     assert_equal 1, second_association.reload.ordering
   end
 
-  test "should not be destroyable when it has associated content" do
-    policy_area_with_published_policy = create(:policy_area, documents: [build(:published_policy)])
-    refute policy_area_with_published_policy.destroyable?
-    assert_equal false, policy_area_with_published_policy.destroy
-  end
-
   test ".featured includes all featured policy areas" do
     policy_area = create(:policy_area, featured: true)
     assert PolicyArea.featured.include?(policy_area)
@@ -185,4 +179,11 @@ class PolicyAreaTest < ActiveSupport::TestCase
     assert_equal [policy_area], policy_area_1.related_policy_areas
     assert_equal [policy_area], policy_area_2.related_policy_areas
   end
+
+  test "should prevent transition to the deleted state if there are associated documents" do
+    policy_area = create(:policy_area, documents: [create(:document)])
+    policy_area.delete!
+    refute policy_area.deleted?
+  end
+
 end

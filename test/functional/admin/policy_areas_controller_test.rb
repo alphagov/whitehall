@@ -75,6 +75,7 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_equal "Policy area destroyed", flash[:notice]
+    assert policy_area.reload.deleted?
   end
 
   test "should indicate that a document is not destroyable when editing" do

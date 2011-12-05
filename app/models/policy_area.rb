@@ -6,7 +6,7 @@ class PolicyArea < ActiveRecord::Base
     state :deleted
 
     event :delete do
-      transitions from: [:current], to: :deleted
+      transitions from: [:current], to: :deleted, guard: :destroyable?
     end
   end
 
@@ -23,8 +23,6 @@ class PolicyArea < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
-
-  before_destroy :prevent_destruction_if_associated
 
   accepts_nested_attributes_for :document_policy_areas
 
@@ -58,10 +56,6 @@ class PolicyArea < ActiveRecord::Base
   end
 
   private
-
-  def prevent_destruction_if_associated
-    return false unless destroyable?
-  end
 
   class << self
     def randomized

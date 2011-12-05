@@ -43,7 +43,8 @@ class Admin::PolicyAreasController < Admin::BaseController
 
   def destroy
     @policy_area = PolicyArea.find(params[:id])
-    if @policy_area.destroy
+    @policy_area.delete!
+    if @policy_area.deleted?
       redirect_to admin_policy_areas_path, notice: "Policy area destroyed"
     else
       redirect_to admin_policy_areas_path, alert: "Cannot destroy policy area with associated content"
