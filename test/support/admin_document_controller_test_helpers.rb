@@ -381,66 +381,6 @@ module AdminDocumentControllerTestHelpers
       end
     end
 
-    def should_allow_policy_areas_for(document_type)
-      document_class = document_class(document_type)
-
-      test "new should display document policy areas field" do
-        get :new
-
-        assert_select "form#document_new" do
-          assert_select "select[name*='document[policy_area_ids]']"
-        end
-      end
-
-      test "create should associate policy areas with document" do
-        first_policy_area = create(:policy_area)
-        second_policy_area = create(:policy_area)
-        attributes = attributes_for(document_type)
-
-        post :create, document: attributes.merge(
-          policy_area_ids: [first_policy_area.id, second_policy_area.id]
-        )
-
-        document = document_class.last
-        assert_equal [first_policy_area, second_policy_area], document.policy_areas
-      end
-
-      test "edit should display document policy areas field" do
-        document = create(document_type)
-
-        get :edit, id: document
-
-        assert_select "form#document_edit" do
-          assert_select "select[name*='document[policy_area_ids]']"
-        end
-      end
-
-      test "update should associate policy areas with documents" do
-        first_policy_area = create(:policy_area)
-        second_policy_area = create(:policy_area)
-
-        document = create(document_type, policy_areas: [first_policy_area])
-
-        put :update, id: document, document: {
-          policy_area_ids: [second_policy_area.id]
-        }
-
-        document.reload
-        assert_equal [second_policy_area], document.policy_areas
-      end
-
-      test "update should remove all policy areas if none specified" do
-        policy_area = create(:policy_area)
-
-        document = create(document_type, policy_areas: [policy_area])
-
-        put :update, id: document, document: {}
-
-        document.reload
-        assert_equal [], document.policy_areas
-      end
-    end
-
     def should_allow_organisations_for(document_type)
       document_class = document_class(document_type)
 

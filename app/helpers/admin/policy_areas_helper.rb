@@ -5,7 +5,7 @@ module Admin::PolicyAreasHelper
   end
 
   def documents_preventing_destruction(policy_area)
-    policy_area.documents.map do |d|
+    policy_area.policies.map do |d|
       [link_to(d.title, admin_document_path(d)),
        content_tag(:span,
                    %{(#{d.state} #{d.class.name.underscore.humanize.downcase})},

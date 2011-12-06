@@ -14,12 +14,12 @@
   <fieldset id="policy_order" class="named sortable">
     <legend>Policy ordering</legend>
     <%= policy_area_form.fields_for :document_policy_areas, policy_area.document_policy_areas.for_type(Policy).published do |document_policy_area_form| %>
-      <% document = document_policy_area_form.object.document %>
-      <div id="<%= dom_id(document) %>">
-        <%= document_policy_area_form.text_field :ordering, label_text: link_to(document.title, admin_document_path(document)), class: "ordering" %>
+      <% policy = document_policy_area_form.object.policy %>
+      <div id="<%= dom_id(policy) %>">
+        <%= document_policy_area_form.text_field :ordering, label_text: link_to(policy.title, admin_document_path(policy)), class: "ordering" %>
         <p>
-          <%= [pluralize(Publication.published.related_to(document).count, "publication"),
-               pluralize(NewsArticle.published.related_to(document).count, "news article")].to_sentence %>
+          <%= [pluralize(Publication.published.related_to(policy).count, "publication"),
+               pluralize(NewsArticle.published.related_to(policy).count, "news article")].to_sentence %>
         </p>
         <%= document_policy_area_form.check_box :featured, label_text: "Featured?" %>
       </div>

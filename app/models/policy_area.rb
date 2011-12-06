@@ -11,15 +11,14 @@ class PolicyArea < ActiveRecord::Base
   end
 
   has_many :document_policy_areas
-  has_many :documents, through: :document_policy_areas
-  has_many :policies, through: :document_policy_areas, class_name: "Policy", source: :document
-  has_many :featured_policies, through: :document_policy_areas, class_name: "Policy", source: :document, conditions: { "document_policy_areas.featured" => true }
+  has_many :policies, through: :document_policy_areas
+  has_many :featured_policies, through: :document_policy_areas, class_name: "Policy", conditions: { "document_policy_areas.featured" => true }, source: :policy
 
   has_many :organisation_policy_areas
   has_many :organisations, through: :organisation_policy_areas
 
-  has_many :published_documents, through: :document_policy_areas, class_name: "Document", conditions: { state: "published" }, source: :document
-  has_many :archived_documents, through: :document_policy_areas, class_name: "Document", conditions: { state: "archived" }, source: :document
+  has_many :published_policies, through: :document_policy_areas, class_name: "Policy", conditions: { state: "published" }, source: :policy
+  has_many :archived_policies, through: :document_policy_areas, class_name: "Policy", conditions: { state: "archived" }, source: :policy
 
   has_many :policy_area_relations
   has_many :related_policy_areas, through: :policy_area_relations
@@ -43,8 +42,8 @@ class PolicyArea < ActiveRecord::Base
     super value
   end
 
-  def self.with_published_documents
-    joins(:published_documents).group(:policy_area_id)
+  def self.with_published_policies
+    joins(:published_policies).group(:policy_area_id)
   end
 
   def published_related_documents
@@ -55,8 +54,8 @@ class PolicyArea < ActiveRecord::Base
   end
 
   def destroyable?
-    non_archived_documents = documents - archived_documents
-    non_archived_documents.blank?
+    non_archived_policies = policies - archived_policies
+    non_archived_policies.blank?
   end
 
   private

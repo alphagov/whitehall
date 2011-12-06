@@ -63,8 +63,7 @@ class Admin::PolicyAreasController < Admin::BaseController
       def document_breakdown
         {
           "featured policy" => @record.document_policy_areas.where(featured: true).count,
-          "published policy" => @record.policies.published.count,
-          "published document" => @record.published_documents.count
+          "published policy" => @record.policies.published.count
         }
       end
     end

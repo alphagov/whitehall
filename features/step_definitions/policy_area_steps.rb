@@ -45,8 +45,8 @@ Then /^I should be able to delete the policy area "([^"]*)"$/ do |name|
 end
 
 Given /^the policy area "([^"]*)" contains some policies$/ do |name|
-  documents = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
-  create(:policy_area, name: name, documents: documents)
+  policies = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
+  create(:policy_area, name: name, policies: policies)
 end
 
 Given /^two policy areas "([^"]*)" and "([^"]*)" exist$/ do |first_policy_area, second_policy_area|
@@ -55,8 +55,8 @@ Given /^two policy areas "([^"]*)" and "([^"]*)" exist$/ do |first_policy_area, 
 end
 
 Given /^other policy areas also have policies$/ do
-  create(:policy_area, documents: [build(:published_policy)])
-  create(:policy_area, documents: [build(:published_policy)])
+  create(:policy_area, policies: [build(:published_policy)])
+  create(:policy_area, policies: [build(:published_policy)])
 end
 
 Given /^the policy area "([^"]*)" is related to the policy area "([^"]*)"$/ do |name, related_name|

@@ -13,4 +13,11 @@ class PolicyTest < ActiveSupport::TestCase
 
     assert_equal published_policy.inapplicable_nations, draft_policy.inapplicable_nations
   end
+
+  test "can belong to multiple policy areas" do
+    policy_area_1 = create(:policy_area)
+    policy_area_2 = create(:policy_area)
+    policy = create(:policy, policy_areas: [policy_area_1, policy_area_2])
+    assert_equal [policy_area_1, policy_area_2], policy.policy_areas.reload
+  end
 end

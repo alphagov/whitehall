@@ -6,8 +6,8 @@ class DocumentPolicyAreaTest < ActiveSupport::TestCase
     assert document_policy_area.valid?
   end
 
-  test "should not be valid without document" do
-    document_policy_area = build(:document_policy_area, document: nil)
+  test "should not be valid without policy" do
+    document_policy_area = build(:document_policy_area, policy: nil)
     refute document_policy_area.valid?
   end
 

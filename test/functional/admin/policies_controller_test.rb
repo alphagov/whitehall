@@ -208,7 +208,62 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select ".supporting_pages .supporting_page"
   end
 
-  should_allow_policy_areas_for :policy
+  test "new should display policy areas field" do
+    get :new
+
+    assert_select "form#document_new" do
+      assert_select "select[name*='document[policy_area_ids]']"
+    end
+  end
+
+  test "create should associate policy areas with policy" do
+    first_policy_area = create(:policy_area)
+    second_policy_area = create(:policy_area)
+    attributes = attributes_for(:policy)
+
+    post :create, document: attributes.merge(
+      policy_area_ids: [first_policy_area.id, second_policy_area.id]
+    )
+
+    assert policy = Policy.last
+    assert_equal [first_policy_area, second_policy_area], policy.policy_areas
+  end
+
+  test "edit should display policy areas field" do
+    policy = create(:policy)
+
+    get :edit, id: policy
+
+    assert_select "form#document_edit" do
+      assert_select "select[name*='document[policy_area_ids]']"
+    end
+  end
+
+  test "update should associate policy areas with policy" do
+    first_policy_area = create(:policy_area)
+    second_policy_area = create(:policy_area)
+
+    policy = create(:policy, policy_areas: [first_policy_area])
+
+    put :update, id: policy, document: {
+      policy_area_ids: [second_policy_area.id]
+    }
+
+    policy.reload
+    assert_equal [second_policy_area], policy.policy_areas
+  end
+
+  test "update should remove all policy areas if none specified" do
+    policy_area = create(:policy_area)
+
+    policy = create(:policy, policy_areas: [policy_area])
+
+    put :update, id: policy, document: {}
+
+    policy.reload
+    assert_equal [], policy.policy_areas
+  end
+  
   should_allow_organisations_for :policy
   should_allow_ministerial_roles_for :policy
 

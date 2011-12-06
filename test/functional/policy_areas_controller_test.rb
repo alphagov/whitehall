@@ -10,7 +10,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
   test "shows published policies associated with policy area" do
     published_policy = create(:published_policy)
-    policy_area = create(:policy_area, documents: [published_policy])
+    policy_area = create(:policy_area, policies: [published_policy])
 
     get :show, id: policy_area
 
@@ -20,8 +20,8 @@ class PolicyAreasControllerTest < ActionController::TestCase
   end
 
   test "doesn't show unpublished policies" do
-    draft_policy = create(:draft_news_article)
-    policy_area = create(:policy_area, documents: [draft_policy])
+    draft_policy = create(:draft_policy)
+    policy_area = create(:policy_area, policies: [draft_policy])
 
     get :show, id: policy_area
 
@@ -72,7 +72,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
     publication_2 = create(:published_publication, documents_related_to: [policy_2])
     speech = create(:published_speech, documents_related_to: [policy_2])
 
-    policy_area = create(:policy_area, documents: [policy_1, policy_2])
+    policy_area = create(:policy_area, policies: [policy_1, policy_2])
 
     get :show, id: policy_area
 
@@ -93,7 +93,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
       documents_related_with: [speech]
     )
 
-    policy_area = create(:policy_area, documents: [policy])
+    policy_area = create(:policy_area, policies: [policy])
 
     get :show, id: policy_area
 
@@ -114,7 +114,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
     news_article_2 = create(:published_news_article, published_at: 3.weeks.ago, documents_related_to: [policy_2])
     publication_2 = create(:published_publication, published_at: 2.weeks.ago, documents_related_to: [policy_2])
 
-    policy_area = create(:policy_area, documents: [policy_1, policy_2])
+    policy_area = create(:policy_area, policies: [policy_1, policy_2])
 
     get :show, id: policy_area
 
@@ -142,7 +142,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
   test "should show list of policy areas with published documents" do
     policy_area_1, policy_area_2 = create(:policy_area), create(:policy_area)
-    PolicyArea.stubs(:with_published_documents).returns([policy_area_1, policy_area_2])
+    PolicyArea.stubs(:with_published_policies).returns([policy_area_1, policy_area_2])
     PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area)
 
     get :index
@@ -152,7 +152,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
   end
 
   test "should not display an empty list of policy areas" do
-    PolicyArea.stubs(:with_published_documents).returns([])
+    PolicyArea.stubs(:with_published_policies).returns([])
     PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area)
 
     get :index
@@ -173,7 +173,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
   test "shows featured policy area policies" do
     policy = create(:published_policy)
-    policy_area = create(:policy_area, documents: [policy])
+    policy_area = create(:policy_area, policies: [policy])
     PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area).returns(policy_area)
 
     get :index
@@ -183,7 +183,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
   test "shows a maximum of 2 featured policy area policies" do
     policies = [create(:published_policy), create(:published_policy), create(:published_policy)]
-    policy_area = create(:policy_area, documents: policies)
+    policy_area = create(:policy_area, policies: policies)
     PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area).returns(policy_area)
 
     get :index
@@ -221,8 +221,8 @@ class PolicyAreasControllerTest < ActionController::TestCase
       end
     end
 
-    test "chooses a policy area with published documents at random" do
-      available_policy_areas = Array.new(2) { create(:policy_area, documents: [create(:published_document)]) }
+    test "chooses a policy area with published policies at random" do
+      available_policy_areas = Array.new(2) { create(:policy_area, policies: [create(:published_policy)]) }
       repetitions_to_reduce_the_chance_of_getting_the_same_policy_area_each_time = 10
       randomly_chosen_policy_areas = (0..repetitions_to_reduce_the_chance_of_getting_the_same_policy_area_each_time).collect do
         PolicyAreasController::FeaturedPolicyAreaChooser.choose_random_policy_area

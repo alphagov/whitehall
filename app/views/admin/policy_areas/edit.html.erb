@@ -8,7 +8,7 @@
     <% if @policy_area.destroyable? %>
       <%= button_to 'Delete', admin_policy_area_path(@policy_area), method: :delete, confirm: 'Are you sure you want to delete this policy area?' %>
     <% else %>
-      <span class="documents_preventing_destruction">This policy area can't be deleted as it has associated news articles or policies: <%= documents_preventing_destruction(@policy_area) %></span>
+      <span class="documents_preventing_destruction">This policy area can't be deleted as it has associated policies: <%= documents_preventing_destruction(@policy_area) %></span>
     <% end %>
   </section>
 </div>

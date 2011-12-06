@@ -14,9 +14,9 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
 end
 
 Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" policy areas$/ do |policy_title, policy_area_1, policy_area_2|
-  document = create(:published_policy, title: policy_title)
-  create(:policy_area, name: policy_area_1, documents: [document])
-  create(:policy_area, name: policy_area_2, documents: [document])
+  policy = create(:published_policy, title: policy_title)
+  create(:policy_area, name: policy_area_1, policies: [policy])
+  create(:policy_area, name: policy_area_2, policies: [policy])
 end
 
 Given /^a published policy "([^"]*)" that does not apply to the nations:$/ do |policy_title, nation_names|

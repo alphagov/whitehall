@@ -222,7 +222,7 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
   end
 
   test "should indicate that a document is not destroyable when editing" do
-    policy_area_with_published_policy = create(:policy_area, documents: [build(:published_policy, title: "thingies")])
+    policy_area_with_published_policy = create(:policy_area, policies: [build(:published_policy, title: "thingies")])
 
     get :edit, id: policy_area_with_published_policy.id
     assert_select ".documents_preventing_destruction" do
@@ -232,7 +232,7 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
   end
 
   test "destroying a policy area which has associated content" do
-    policy_area_with_published_policy = create(:policy_area, documents: [build(:published_policy)])
+    policy_area_with_published_policy = create(:policy_area, policies: [build(:published_policy)])
 
     delete :destroy, id: policy_area_with_published_policy.id
     assert_equal "Cannot destroy policy area with associated content", flash[:alert]

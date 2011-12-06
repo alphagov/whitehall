@@ -1,6 +1,6 @@
 class PolicyAreasController < ApplicationController
   def index
-    @policy_areas = PolicyArea.with_published_documents
+    @policy_areas = PolicyArea.with_published_policies
     @featured_policy_area = FeaturedPolicyAreaChooser.choose_policy_area
   end
 
@@ -23,7 +23,7 @@ class PolicyAreasController < ApplicationController
       end
 
       def choose_random_policy_area
-        PolicyArea.unscoped.with_published_documents.randomized.first
+        PolicyArea.unscoped.with_published_policies.randomized.first
       end
     end
   end

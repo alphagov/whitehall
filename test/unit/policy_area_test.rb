@@ -37,15 +37,12 @@ class PolicyAreaTest < ActiveSupport::TestCase
     refute policy_area.valid?
   end
 
-  test "should return a list of policy areas with published documents" do
-    policy_area_with_published_policy = create(:policy_area, documents: [build(:published_policy)])
-    policy_area_with_published_publication = create(:policy_area, documents: [build(:published_publication)])
-    policy_area_with_published_policy_and_publication = create(:policy_area, documents: [build(:published_policy), build(:published_publication)])
-    create(:policy_area, documents: [build(:draft_policy)])
-    create(:policy_area, documents: [build(:draft_publication)])
+  test "should return a list of policy areas with published policies" do
+    policy_area_with_published_policy = create(:policy_area, policies: [build(:published_policy)])
+    create(:policy_area, policies: [build(:draft_policy)])
 
-    expected = [policy_area_with_published_policy, policy_area_with_published_publication, policy_area_with_published_policy_and_publication]
-    assert_equal expected, PolicyArea.with_published_documents
+    expected = [policy_area_with_published_policy]
+    assert_equal expected, PolicyArea.with_published_policies
   end
 
   test "should set a slug from the policy area name" do
@@ -64,7 +61,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', policy_area.slug
   end
 
-  test "should allow setting ordering of associated documents" do
+  test "should allow setting ordering of policies" do
     policy_area = create(:policy_area)
     first_policy = create(:policy, policy_areas: [policy_area])
     second_policy = create(:policy, policy_areas: [policy_area])
@@ -90,12 +87,10 @@ class PolicyAreaTest < ActiveSupport::TestCase
     refute PolicyArea.featured.include?(policy_area)
   end
 
-  test "return published documents relating to only *policies* in the policy area" do
+  test "return published documents relating to policies in the policy area" do
     policy = create(:published_policy)
-    news_article = create(:published_news_article)
     publication_1 = create(:published_publication, documents_related_to: [policy])
-    publication_2 = create(:published_publication, documents_related_to: [news_article])
-    policy_area = create(:policy_area, documents: [policy, news_article])
+    policy_area = create(:policy_area, policies: [policy])
 
     assert_equal [publication_1], policy_area.published_related_documents
   end
@@ -105,7 +100,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
     policy_2 = create(:published_policy)
     publication_1 = create(:published_publication, documents_related_to: [policy_1])
     publication_2 = create(:published_publication, documents_related_to: [policy_1, policy_2])
-    policy_area = create(:policy_area, documents: [policy_1, policy_2])
+    policy_area = create(:policy_area, policies: [policy_1, policy_2])
 
     assert_equal [publication_1, publication_2], policy_area.published_related_documents
   end
@@ -113,7 +108,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
   test "return only *published* documents relating to policies in the policy area" do
     published_policy = create(:published_policy)
     create(:draft_publication, documents_related_to: [published_policy])
-    policy_area = create(:policy_area, documents: [published_policy])
+    policy_area = create(:policy_area, policies: [published_policy])
 
     assert_equal [], policy_area.published_related_documents
   end
@@ -121,7 +116,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
   test "return documents relating to only *published* policies in the policy area" do
     draft_policy = create(:draft_policy)
     create(:published_publication, documents_related_to: [draft_policy])
-    policy_area = create(:policy_area, documents: [draft_policy])
+    policy_area = create(:policy_area, policies: [draft_policy])
 
     assert_equal [], policy_area.published_related_documents
   end
@@ -131,7 +126,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
     publication_2 = create(:published_publication)
     policy_1 = create(:published_policy, documents_related_to: [publication_1])
     policy_2 = create(:published_policy, documents_related_to: [publication_1, publication_2])
-    policy_area = create(:policy_area, documents: [policy_1, policy_2])
+    policy_area = create(:policy_area, policies: [policy_1, policy_2])
 
     assert_equal [publication_1, publication_2], policy_area.published_related_documents
   end
@@ -139,7 +134,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
   test "return only *published* documents relating from policies in the policy area" do
     draft_publication = create(:draft_publication)
     published_policy = create(:published_policy, documents_related_to: [draft_publication])
-    policy_area = create(:policy_area, documents: [published_policy])
+    policy_area = create(:policy_area, policies: [published_policy])
 
     assert_equal [], policy_area.published_related_documents
   end
@@ -147,7 +142,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
   test "return documents relating from only *published* policies in the policy area" do
     published_publication = create(:published_publication)
     draft_policy = create(:draft_policy, documents_related_to: [published_publication])
-    policy_area = create(:policy_area, documents: [draft_policy])
+    policy_area = create(:policy_area, policies: [draft_policy])
 
     assert_equal [], policy_area.published_related_documents
   end
@@ -171,26 +166,26 @@ class PolicyAreaTest < ActiveSupport::TestCase
     assert policy_area.deleted?
   end
 
-  test "should be deletable if all the associated documents are archived" do
-    policy_area = create(:policy_area, documents: [create(:archived_document)])
+  test "should be deletable if all the associated policies are archived" do
+    policy_area = create(:policy_area, policies: [create(:archived_policy)])
     assert policy_area.destroyable?
     policy_area.delete!
     assert policy_area.deleted?
   end
 
-  test "should not be deletable if there are non-archived associated documents" do
-    policy_area = create(:policy_area, documents: [create(:document)])
+  test "should not be deletable if there are non-archived associated policies" do
+    policy_area = create(:policy_area, policies: [create(:policy)])
     refute policy_area.destroyable?
     policy_area.delete!
     refute policy_area.deleted?
   end
 
-  test "should return the list of archived documents" do
-    draft_document = create(:draft_document)
-    published_document = create(:published_document)
-    archived_document = create(:archived_document)
-    policy_area = create(:policy_area, documents: [draft_document, published_document, archived_document])
-    assert_equal [archived_document], policy_area.archived_documents
+  test "should return the list of archived policies" do
+    draft_policy = create(:draft_policy)
+    published_policy = create(:published_policy)
+    archived_policy = create(:archived_policy)
+    policy_area = create(:policy_area, policies: [draft_policy, published_policy, archived_policy])
+    assert_equal [archived_policy], policy_area.archived_policies
   end
 
   test "return policy areas bi-directionally related to specific policy area" do
