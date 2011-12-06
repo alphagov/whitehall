@@ -140,6 +140,20 @@ class PolicyAreasControllerTest < ActionController::TestCase
     assert_select "#organisations", count: 0
   end
 
+  test "should not show archived policies that were featured" do
+    policy_1 = create(:published_policy, title: "some-policy")
+    policy_area = create(:policy_area)
+    policy_area.update_attributes(policy_area_memberships_attributes: [
+      {policy_area_id: policy_area.id, featured: true, document_id: policy_1.id}
+    ])
+    policy_1.publish_as(create(:user))
+    policy_1.create_draft(create(:user))
+
+    get :show, id: policy_area
+
+    assert_select ".featured_policy a", text: "some-policy", count: 1
+  end
+
   test "should show list of policy areas with published documents" do
     policy_area_1, policy_area_2 = create(:policy_area), create(:policy_area)
     PolicyArea.stubs(:with_published_policies).returns([policy_area_1, policy_area_2])

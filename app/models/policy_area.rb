@@ -12,7 +12,7 @@ class PolicyArea < ActiveRecord::Base
 
   has_many :policy_area_memberships
   has_many :policies, through: :policy_area_memberships
-  has_many :featured_policies, through: :policy_area_memberships, class_name: "Policy", conditions: { "policy_area_memberships.featured" => true }, source: :policy
+  has_many :featured_policies, through: :policy_area_memberships, class_name: "Policy", conditions: { "policy_area_memberships.featured" => true, "documents.state" => "published" }, source: :policy
 
   has_many :organisation_policy_areas
   has_many :organisations, through: :organisation_policy_areas
