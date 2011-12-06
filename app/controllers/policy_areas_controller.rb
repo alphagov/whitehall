@@ -7,6 +7,7 @@ class PolicyAreasController < ApplicationController
   def show
     @policy_area = PolicyArea.find(params[:id])
     @policies = @policy_area.policies.published
+    @related_policy_areas = @policy_area.related_policy_areas
     @recently_changed_documents = @policy_area.published_related_documents.sort_by(&:published_at).reverse
     @featured_policies = FeaturedPolicyPresenter.new(@policy_area)
   end

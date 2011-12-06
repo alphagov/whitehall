@@ -34,6 +34,33 @@ class PolicyAreasControllerTest < ActionController::TestCase
     refute_select "#policies"
   end
 
+  test "show displays links to related policy areas" do
+    related_policy_area_1 = create(:policy_area)
+    related_policy_area_2 = create(:policy_area)
+    unrelated_policy_area = create(:policy_area)
+    policy_area = create(:policy_area, related_policy_areas: [related_policy_area_1, related_policy_area_2])
+
+    get :show, id: policy_area
+
+    assert_select "#related_policy_areas" do
+      assert_select_object related_policy_area_1 do
+        assert_select "a[href='#{policy_area_path(related_policy_area_1)}']"
+      end
+      assert_select_object related_policy_area_2 do
+        assert_select "a[href='#{policy_area_path(related_policy_area_2)}']"
+      end
+      assert_select_object unrelated_policy_area, count: 0
+    end
+  end
+
+  test "show does not display empty related policy areas section" do
+    policy_area = create(:policy_area, related_policy_areas: [])
+
+    get :show, id: policy_area
+
+    assert_select "#related_policy_areas", count: 0
+  end
+
   test "show displays recently changed documents relating to policies in the policy area" do
     policy_1 = create(:published_policy)
     publication_1 = create(:published_publication, documents_related_to: [policy_1])

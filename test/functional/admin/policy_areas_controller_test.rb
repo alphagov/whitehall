@@ -38,13 +38,13 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
   test "create should associate policy areas with policy area" do
     first_policy_area = create(:policy_area)
     second_policy_area = create(:policy_area)
-    attributes = attributes_for(:policy_area)
+    attributes = attributes_for(:policy_area, name: "new-policy-area")
 
     post :create, policy_area: attributes.merge(
       related_policy_area_ids: [first_policy_area.id, second_policy_area.id]
     )
 
-    assert policy_area = PolicyArea.last
+    assert policy_area = PolicyArea.find_by_name("new-policy-area")
     assert_equal [first_policy_area, second_policy_area], policy_area.related_policy_areas
   end
 

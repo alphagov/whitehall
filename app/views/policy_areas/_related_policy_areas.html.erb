@@ -1,0 +1,12 @@
+<% if related_policy_areas.any? %>
+  <section id="related_policy_areas">
+    <h1>Related policy areas</h1>
+    <ul>
+      <% related_policy_areas.each do |related_policy_area| %>
+        <%= content_tag_for :li, related_policy_area do %>
+          <%= link_to related_policy_area.name, policy_area_path(related_policy_area), title: "View #{related_policy_area.name}" %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

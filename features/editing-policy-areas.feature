@@ -9,6 +9,10 @@ Scenario: Adding a new policy area
   When I create a new policy area "Flying monkeys" with description "Fly my pretties!"
   Then I should see in the admin the "Flying monkeys" policy area description is "Fly my pretties!"
 
+Scenario: Adding a new policy area related to another policy area
+  When I create a new policy area "Flying monkeys" related to policy area "No more beards"
+  Then I should see in the admin the "Flying monkeys" policy area is related to policy area "No more beards"
+
 Scenario: Editing the description
   Given a policy area called "No more beards" with description "No more hairy-faced men"
   When I edit the policy area "No more beards" to have description "No more hairy-faced people"

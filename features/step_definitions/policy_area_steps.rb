@@ -1,14 +1,14 @@
 Given /^a policy area called "([^"]*)" with description "([^"]*)"$/ do |name, description|
-  create(:policy_area, name: name, description: description)
+  create_policy_area(name: name, description: description)
 end
 
 When /^I create a new policy area "([^"]*)" with description "([^"]*)"$/ do |name, description|
-  visit admin_root_path
-  click_link "Policy areas"
-  click_link "Create Policy Area"
-  fill_in "Name", with: name
-  fill_in "Description", with: description
-  click_button "Save"
+  create_policy_area(name: name, description: description)
+end
+
+When /^I create a new policy area "([^"]*)" related to policy area "([^"]*)"$/ do |name, related_name|
+  create_policy_area(name: related_name)
+  create_policy_area(name: name, related_policy_areas: [related_name])
 end
 
 When /^I edit the policy area "([^"]*)" to have description "([^"]*)"$/ do |name, description|
@@ -31,6 +31,13 @@ Then /^I should see in the admin the "([^"]*)" policy area description is "([^"]
   assert page.has_css?(".description", text: description)
 end
 
+Then /^I should see in the admin the "([^"]*)" policy area is related to policy area "([^"]*)"$/ do |name, related_name|
+  visit admin_policy_areas_path
+  policy_area = PolicyArea.find_by_name(name)
+  related_policy_area = PolicyArea.find_by_name(related_name)
+  assert page.has_css?("#{record_css_selector(policy_area)} .related #{record_css_selector(related_policy_area)}")
+end
+
 Then /^I should be able to delete the policy area "([^"]*)"$/ do |name|
   visit admin_policy_areas_path
   click_link name
@@ -50,6 +57,12 @@ end
 Given /^other policy areas also have policies$/ do
   create(:policy_area, documents: [build(:published_policy)])
   create(:policy_area, documents: [build(:published_policy)])
+end
+
+Given /^the policy area "([^"]*)" is related to the policy area "([^"]*)"$/ do |name, related_name|
+  related_policy_area = create(:policy_area, name: related_name)
+  policy_area = PolicyArea.find_by_name(name)
+  policy_area.update_attributes!(related_policy_areas: [related_policy_area])
 end
 
 When /^I visit the list of policy areas$/ do
@@ -116,4 +129,21 @@ Then /^I should see links to the "([^"]*)" and "([^"]*)" policy areas$/ do |poli
   policy_area_2 = PolicyArea.find_by_name!(policy_area_2_name)
   assert page.has_css?("a[href='#{policy_area_path(policy_area_1)}']", text: policy_area_1_name)
   assert page.has_css?("a[href='#{policy_area_path(policy_area_2)}']", text: policy_area_2_name)
+end
+
+Then /^I should see a link to the related policy area "([^"]*)"$/ do |related_name|
+  related_policy_area = PolicyArea.find_by_name(related_name)
+  assert page.has_css?("#related_policy_areas a[href='#{policy_area_path(related_policy_area)}']", text: related_name)
+end
+
+def create_policy_area(options = {})
+  visit admin_root_path
+  click_link "Policy areas"
+  click_link "Create Policy Area"
+  fill_in "Name", with: options[:name] || "policy-area-name"
+  fill_in "Description", with: options[:description] || "policy-area-description"
+  (options[:related_policy_areas] || []).each do |related_name|
+    select related_name, from: "Related policy areas"
+  end
+  click_button "Save"
 end
