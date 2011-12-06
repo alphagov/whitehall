@@ -1,0 +1,135 @@
+@import "../shared/utils";
+@import "colours";
+
+#wrapper #content {
+
+  .policy_area_view {
+
+    .policy_area_overview {
+      background: #fff;
+      border: 1px solid #eee;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1em;
+      margin-top: 0.1em;
+      margin-bottom: 2.35em;
+
+      section.policy_area {
+        h1.page_title {
+          @include type-24;
+
+          background: #353500;
+          border-bottom: 4px solid $collation-green;
+          color: #ffffdf;
+
+          padding: 0.5em 1em;
+          text-shadow: none;
+          margin-bottom: 0.7em;
+        }
+
+        p {
+          @include type-14;
+          margin-left: 1.75em;
+          margin-right: 1.75em;
+          width: 60%;
+          float: left;
+        }
+      }
+
+      #recently-changed {
+        width: 30%;
+        margin-right: 2.3%;
+        float: right;
+        margin-top: -2.45em;
+        border-bottom: 1px solid #ddd;
+
+        h1 {
+          border-top: 1px solid #222;
+          background: #242400;
+          @include type-18;
+          margin-bottom: 0;
+          padding: 0.5em;
+          color: #ffffdf;
+          border-left: 1px solid #242400;
+        }
+
+        ul {
+          background: #fffff0;
+          margin-bottom: 0;
+          padding-top: 0.85em;
+          padding-bottom: 0.5em;
+          border-left: 1px solid #eee;
+          border-right: 1px solid #eee;
+          border-top: 1px solid #ffffce;
+
+          li {
+            margin-bottom: 0.75em;
+            padding: 0 1em;
+
+            div {
+              @include type-12;
+              line-height: 1.5em;
+              margin: 0;
+
+              a {
+                text-decoration: none;
+              }
+
+              &.metadata {
+                font-size: 0.7em;
+                line-height: 1em;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .priority_policies {
+      ul {
+        @include image-list;
+      }
+    }
+
+    .collection section {
+      background: #ffffce;
+      border-bottom: 1px solid #ddd;
+      h1 {
+        @include type-18;
+        margin-bottom: 0;
+        padding: 0.5em;
+        border-bottom: 2px solid $collation-green;
+        color: #353500;
+      }
+
+      ul {
+        background: #fffff0;
+        margin-bottom: 0;
+        padding-top: 0.85em;
+        padding-bottom: 0.5em;
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+        border-top: 1px solid #ffffce;
+
+        li {
+          margin-bottom: 0.75em;
+          padding: 0 1em;
+
+          div {
+            @include type-12;
+            line-height: 1.5em;
+            margin: 0;
+
+            a {
+              text-decoration: none;
+            }
+
+            &.metadata, &.small {
+              font-size: 0.7em;
+              line-height: 1em;
+            }
+          }
+        }
+      }
+    }
+  }
+}

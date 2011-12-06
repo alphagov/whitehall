@@ -4,12 +4,12 @@
     <ul>
       <% news_articles.each do |news_article| %>
         <%= content_tag_for(:li, news_article) do %>
-          <%= link_to news_article.title, public_document_path(news_article), class: "title" %>
-          <p class="small">
+          <div><%= link_to news_article.title, public_document_path(news_article), class: "title" %></div>
+          <div class="small">
             <%= render_datetime_microformat(news_article, :published_at) do %>
               <%= time_ago_in_words(news_article.published_at) %> ago
             <% end %>
-          </p>
+          </div>
         <% end %>
       <% end %>
     </ul>
