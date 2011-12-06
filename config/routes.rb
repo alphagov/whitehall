@@ -13,7 +13,14 @@ Whitehall::Application.routes.draw do
     end
     resources :news, as: :news_articles, controller: :news_articles, only: [:show, :index]
     resources :publications, only: [:index, :show]
-    resources :consultations, only: [:index, :show]
+    resources :consultations, only: [:index, :show] do
+      collection do
+        get :open
+        get :closed
+        get :upcoming
+      end
+    end
+
     resources :speeches, only: [:index, :show]
 
     resources "policy-areas", as: :policy_areas, controller: :policy_areas, only: [:index, :show]

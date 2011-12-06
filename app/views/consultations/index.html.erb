@@ -1,7 +1,13 @@
 <div class="g3">
+  <nav class="author_scope group">
+    <%= link_to_filter('open', action: 'open') %>
+    <%= link_to_filter('closed', action: 'closed') %>
+    <%= link_to_filter('upcoming', action: 'upcoming') %>
+  </nav>
+
   <h1 class="page_title">Consultations</h1>
   <% if @consultations.empty? %>
-    <p>We don't have any published consultations at present.</p>
+    <p>There are no <%= params[:action] %> consultations at present.</p>
   <% else %>
     <%= render partial: "consultations", object: @consultations %>
   <% end %>
