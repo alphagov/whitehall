@@ -94,6 +94,25 @@ class PolicyAreasControllerTest < ActionController::TestCase
     assert_equal [news_article_1, publication_2, news_article_2, publication_1], assigns[:recently_changed_documents]
   end
 
+  test "show should list organisation's working in the policy area" do
+    first_organisation = create(:organisation)
+    second_organisation = create(:organisation)
+    policy_area = create(:policy_area, organisations: [first_organisation, second_organisation])
+
+    get :show, id: policy_area
+
+    assert_select "#organisations" do
+      assert_select_object first_organisation
+      assert_select_object second_organisation
+    end
+  end
+
+  test "should not display an empty organisation section" do
+    policy_area = create(:policy_area)
+    get :show, id: policy_area
+    assert_select "#organisations", count: 0
+  end
+
   test "should show list of policy areas with published documents" do
     policy_area_1, policy_area_2 = create(:policy_area), create(:policy_area)
     PolicyArea.stubs(:with_published_documents).returns([policy_area_1, policy_area_2])
