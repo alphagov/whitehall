@@ -191,8 +191,8 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
     policy_area = create(:policy_area)
     policy = create(:published_policy, policy_areas: [policy_area])
     draft_policy = create(:draft_policy, policy_areas: [policy_area])
-    published_association = policy_area.policy_area_memberships.where(document_id: policy.id).first
-    draft_association = policy_area.policy_area_memberships.where(document_id: draft_policy.id).first
+    published_association = policy_area.policy_area_memberships.where(policy_id: policy.id).first
+    draft_association = policy_area.policy_area_memberships.where(policy_id: draft_policy.id).first
 
     get :edit, id: policy_area.id
 

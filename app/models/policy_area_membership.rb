@@ -1,5 +1,5 @@
 class PolicyAreaMembership < ActiveRecord::Base
-  belongs_to :policy, foreign_key: :document_id
+  belongs_to :policy
   belongs_to :policy_area
 
   validates :policy, :policy_area, presence: true
