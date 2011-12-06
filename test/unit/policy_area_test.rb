@@ -164,10 +164,33 @@ class PolicyAreaTest < ActiveSupport::TestCase
     assert_equal [current_policy_area], PolicyArea.all
   end
 
-  test "should transition to the deleted state" do
+  test "should be deletable when there are no associated documents" do
     policy_area = create(:policy_area)
+    assert policy_area.destroyable?
     policy_area.delete!
     assert policy_area.deleted?
+  end
+
+  test "should be deletable if all the associated documents are archived" do
+    policy_area = create(:policy_area, documents: [create(:archived_document)])
+    assert policy_area.destroyable?
+    policy_area.delete!
+    assert policy_area.deleted?
+  end
+
+  test "should not be deletable if there are non-archived associated documents" do
+    policy_area = create(:policy_area, documents: [create(:document)])
+    refute policy_area.destroyable?
+    policy_area.delete!
+    refute policy_area.deleted?
+  end
+
+  test "should return the list of archived documents" do
+    draft_document = create(:draft_document)
+    published_document = create(:published_document)
+    archived_document = create(:archived_document)
+    policy_area = create(:policy_area, documents: [draft_document, published_document, archived_document])
+    assert_equal [archived_document], policy_area.archived_documents
   end
 
   test "return policy areas bi-directionally related to specific policy area" do
@@ -178,12 +201,6 @@ class PolicyAreaTest < ActiveSupport::TestCase
     assert_equal [policy_area_1, policy_area_2], policy_area.related_policy_areas
     assert_equal [policy_area], policy_area_1.related_policy_areas
     assert_equal [policy_area], policy_area_2.related_policy_areas
-  end
-
-  test "should prevent transition to the deleted state if there are associated documents" do
-    policy_area = create(:policy_area, documents: [create(:document)])
-    policy_area.delete!
-    refute policy_area.deleted?
   end
 
 end

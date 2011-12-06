@@ -17,6 +17,7 @@ class PolicyArea < ActiveRecord::Base
   has_many :news_articles, through: :document_policy_areas, class_name: "NewsArticle", source: :document
 
   has_many :published_documents, through: :document_policy_areas, class_name: "Document", conditions: { state: "published" }, source: :document
+  has_many :archived_documents, through: :document_policy_areas, class_name: "Document", conditions: { state: "archived" }, source: :document
 
   has_many :policy_area_relations
   has_many :related_policy_areas, through: :policy_area_relations
@@ -52,7 +53,8 @@ class PolicyArea < ActiveRecord::Base
   end
 
   def destroyable?
-    documents.blank?
+    non_archived_documents = documents - archived_documents
+    non_archived_documents.blank?
   end
 
   private
