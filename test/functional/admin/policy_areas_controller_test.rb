@@ -45,7 +45,7 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
     )
 
     assert policy_area = PolicyArea.find_by_name("new-policy-area")
-    assert_equal [first_policy_area, second_policy_area], policy_area.related_policy_areas
+    assert_equal [first_policy_area, second_policy_area].to_set, policy_area.related_policy_areas.to_set
   end
 
   test "creating a policy area without a name shows errors" do
