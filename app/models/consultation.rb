@@ -9,6 +9,14 @@ class Consultation < Document
   validates :closing_on, presence: true
   validate :closing_on_must_be_after_opening_on
 
+  def open?
+    !closed? && opening_on <= Date.today
+  end
+
+  def closed?
+    closing_on < Date.today
+  end
+
   private
 
   def closing_on_must_be_after_opening_on

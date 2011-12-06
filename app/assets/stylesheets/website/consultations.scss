@@ -1,0 +1,15 @@
+@import "../shared/utils";
+
+#consultations {
+  li.consultation {
+    .details {
+      @include type-14;
+      span:after {
+        content: ';'
+      }
+      span:last-child:after {
+        content: '';
+      }
+    }
+  }
+}
