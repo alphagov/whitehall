@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111206171454) do
+ActiveRecord::Schema.define(:version => 20111206172940) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -223,17 +223,6 @@ ActiveRecord::Schema.define(:version => 20111206171454) do
   end
 
   add_index "policy_areas", ["slug"], :name => "index_policy_areas_on_slug"
-
-  create_table "publication_metadata", :force => true do |t|
-    t.integer  "publication_id"
-    t.date     "publication_date"
-    t.string   "unique_reference"
-    t.string   "isbn"
-    t.boolean  "research",         :default => false
-    t.string   "order_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "role_appointments", :force => true do |t|
     t.integer  "role_id"
