@@ -42,6 +42,11 @@ module NavigationHelpers
       end
     end
   end
+
+  def visit_organisation(name)
+    organisation = Organisation.find_by_name!(name)
+    visit organisation_path(organisation)
+  end
 end
 
 World(NavigationHelpers)

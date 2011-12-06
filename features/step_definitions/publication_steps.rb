@@ -19,6 +19,14 @@ When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/
   click_button "Save"
 end
 
+When /^I draft a new corporate publication "([^"]*)" about the "([^"]*)"$/ do |title, organisation|
+  begin_drafting_document type: 'publication', title: title
+  fill_in_publication_fields
+  select organisation, from: "Producing Organisations"
+  check "Corporate publication?"
+  click_button "Save"
+end
+
 Given /^a draft publication "([^"]*)" with a PDF attachment "([^"]*)"$/ do |title, attachment_title|
   attachment = Attachment.new(file: pdf_attachment(attachment_title))
   create(:draft_publication, title: title, attachments: [attachment])
@@ -90,6 +98,11 @@ Then /^I can see links to the related published publications "([^"]*)" and "([^"
   publication_2 = Publication.published.find_by_title!(publication_title_2)
   assert has_css?("#{related_publications_selector} .publication a", text: publication_title_1)
   assert has_css?("#{related_publications_selector} .publication a", text: publication_title_2)
+end
+
+Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |title, organisation|
+  visit_organisation organisation
+  assert has_css?("#{corporate_publications_selector}, .publication a", text: title)
 end
 
 def pdf_attachment(filename=nil)

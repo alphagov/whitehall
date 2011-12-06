@@ -8,6 +8,10 @@ Given /^other organisations also have policies$/ do
   create(:organisation, documents: [build(:published_policy)])
 end
 
+Given /^the organisation "([^"]*)" exists$/ do |name|
+  create(:organisation, name: name)
+end
+
 Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation, second_organisation|
   create(:organisation, name: first_organisation)
   create(:organisation, name: second_organisation)
@@ -36,8 +40,7 @@ Given /^that "([^"]*)" is the responsibility of "([^"]*)" and "([^"]*)"$/ do |ch
 end
 
 When /^I visit the "([^"]*)" organisation$/ do |name|
-  organisation = Organisation.find_by_name!(name)
-  visit organisation_path(organisation)
+  visit_organisation name
 end
 
 Then /^I should only see published policies belonging to the "([^"]*)" organisation$/ do |name|

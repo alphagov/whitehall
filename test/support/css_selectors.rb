@@ -45,6 +45,10 @@ module CssSelectors
     "#related-publications"
   end
 
+  def corporate_publications_selector
+    "#corporate-publications"
+  end
+
   def inapplicable_nations_selector
     "#inapplicable_nations"
   end
