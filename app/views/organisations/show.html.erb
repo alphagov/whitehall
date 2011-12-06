@@ -21,6 +21,7 @@
 </div>
 
 <div class="g1 secondary">
+  <%= render partial: "documents/policy_areas", object: @organisation.policy_areas %>
   <%= render partial: "documents/policies", object: @policies %>
   <%= render partial: "documents/publications", object: @publications %>
   <%= render partial: "corporate_publications", object: @corporate_publications %>

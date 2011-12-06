@@ -65,6 +65,10 @@ module CssSelectors
     "select[name='organisation[organisation_type_id]']"
   end
 
+  def organisation_policy_areas_list_selector
+    "select[name='organisation[policy_area_ids][]']"
+  end
+
   def permanent_secretary_board_members_selector
     "#permanent_secretary_board_members"
   end

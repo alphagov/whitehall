@@ -21,16 +21,21 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "#govspeak_help"
     assert_select parent_organisations_list_selector
     assert_select organisation_type_list_selector
+    assert_select organisation_policy_areas_list_selector
   end
 
   test "creating should create a new Organisation" do
-    organisation_type = create(:organisation_type)
     attributes = attributes_for(:organisation,
       description: "organisation-description",
       about_us: "organisation-about-us"
     )
+
+    organisation_type = create(:organisation_type)
+    policy_area = create(:policy_area)
+
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
+      policy_area_ids: [policy_area.id],
       phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
     )
 
@@ -40,6 +45,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal attributes[:about_us], organisation.about_us
     assert_equal 1, organisation.phone_numbers.count
     assert_equal "Fax", organisation.phone_numbers.first.description
+    assert_equal policy_area, organisation.policy_areas.first
   end
 
   test "creating should redirect back to the index" do

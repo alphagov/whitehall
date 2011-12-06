@@ -20,6 +20,9 @@ class Organisation < ActiveRecord::Base
 
   has_many :people, through: :roles
 
+  has_many :organisation_policy_areas
+  has_many :policy_areas, through: :organisation_policy_areas
+
   has_many :phone_numbers
   accepts_nested_attributes_for :phone_numbers, reject_if: :all_blank
 
