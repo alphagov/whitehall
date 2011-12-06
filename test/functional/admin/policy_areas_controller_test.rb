@@ -191,8 +191,8 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
     policy_area = create(:policy_area)
     policy = create(:published_policy, policy_areas: [policy_area])
     draft_policy = create(:draft_policy, policy_areas: [policy_area])
-    published_association = policy_area.document_policy_areas.where(document_id: policy.id).first
-    draft_association = policy_area.document_policy_areas.where(document_id: draft_policy.id).first
+    published_association = policy_area.policy_area_memberships.where(document_id: policy.id).first
+    draft_association = policy_area.policy_area_memberships.where(document_id: draft_policy.id).first
 
     get :edit, id: policy_area.id
 
@@ -203,9 +203,9 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
   test "allows updating of document ordering" do
     policy_area = create(:policy_area)
     policy = create(:policy, policy_areas: [policy_area])
-    association = policy_area.document_policy_areas.first
+    association = policy_area.policy_area_memberships.first
 
-    put :update, id: policy_area.id, policy_area: {name: "Blah", description: "Blah", document_policy_areas_attributes: {
+    put :update, id: policy_area.id, policy_area: {name: "Blah", description: "Blah", policy_area_memberships_attributes: {
       "0" => {id: association.id, ordering: "4"}
     }}
 

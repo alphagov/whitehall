@@ -10,15 +10,15 @@ class PolicyArea < ActiveRecord::Base
     end
   end
 
-  has_many :document_policy_areas
-  has_many :policies, through: :document_policy_areas
-  has_many :featured_policies, through: :document_policy_areas, class_name: "Policy", conditions: { "document_policy_areas.featured" => true }, source: :policy
+  has_many :policy_area_memberships
+  has_many :policies, through: :policy_area_memberships
+  has_many :featured_policies, through: :policy_area_memberships, class_name: "Policy", conditions: { "policy_area_memberships.featured" => true }, source: :policy
 
   has_many :organisation_policy_areas
   has_many :organisations, through: :organisation_policy_areas
 
-  has_many :published_policies, through: :document_policy_areas, class_name: "Policy", conditions: { state: "published" }, source: :policy
-  has_many :archived_policies, through: :document_policy_areas, class_name: "Policy", conditions: { state: "archived" }, source: :policy
+  has_many :published_policies, through: :policy_area_memberships, class_name: "Policy", conditions: { state: "published" }, source: :policy
+  has_many :archived_policies, through: :policy_area_memberships, class_name: "Policy", conditions: { state: "archived" }, source: :policy
 
   has_many :policy_area_relations
   has_many :related_policy_areas, through: :policy_area_relations
@@ -26,7 +26,7 @@ class PolicyArea < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 
-  accepts_nested_attributes_for :document_policy_areas
+  accepts_nested_attributes_for :policy_area_memberships
 
   default_scope where('policy_areas.state != "deleted"').order(:name)
 

@@ -65,10 +65,10 @@ class PolicyAreaTest < ActiveSupport::TestCase
     policy_area = create(:policy_area)
     first_policy = create(:policy, policy_areas: [policy_area])
     second_policy = create(:policy, policy_areas: [policy_area])
-    first_association = policy_area.document_policy_areas.find_by_document_id(first_policy.id)
-    second_association = policy_area.document_policy_areas.find_by_document_id(second_policy.id)
+    first_association = policy_area.policy_area_memberships.find_by_document_id(first_policy.id)
+    second_association = policy_area.policy_area_memberships.find_by_document_id(second_policy.id)
 
-    policy_area.update_attributes(document_policy_areas_attributes: {
+    policy_area.update_attributes(policy_area_memberships_attributes: {
       first_association.id => {id: first_association.id, document_id: first_policy.id, ordering: "2"},
       second_association.id => {id: second_association.id, document_id: second_policy.id, ordering: "1"}
     })

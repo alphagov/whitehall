@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :document_policy_area do
+  factory :policy_area_membership do
     policy
     policy_area
   end

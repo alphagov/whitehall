@@ -3,15 +3,15 @@ module Document::PolicyAreas
 
   class Trait < Document::Traits::Trait
     def process_associations_before_save(document)
-      document.document_policy_areas = @document.document_policy_areas.map do |dt|
-        DocumentPolicyArea.new(dt.attributes.except(:id))
+      document.policy_area_memberships = @document.policy_area_memberships.map do |dt|
+        PolicyAreaMembership.new(dt.attributes.except(:id))
       end
     end
   end
 
   included do
-    has_many :document_policy_areas, foreign_key: :document_id
-    has_many :policy_areas, through: :document_policy_areas
+    has_many :policy_area_memberships, foreign_key: :document_id
+    has_many :policy_areas, through: :policy_area_memberships
 
     add_trait Trait
   end

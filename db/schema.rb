@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111206113946) do
+ActiveRecord::Schema.define(:version => 20111206161102) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -69,15 +69,6 @@ ActiveRecord::Schema.define(:version => 20111206113946) do
     t.integer  "organisation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "document_policy_areas", :force => true do |t|
-    t.integer  "policy_area_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "document_id"
-    t.integer  "ordering"
-    t.boolean  "featured",       :default => false
   end
 
   create_table "document_relations", :force => true do |t|
@@ -203,6 +194,15 @@ ActiveRecord::Schema.define(:version => 20111206113946) do
     t.integer "organisation_id"
     t.string  "number"
     t.string  "description"
+  end
+
+  create_table "policy_area_memberships", :force => true do |t|
+    t.integer  "policy_area_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "document_id"
+    t.integer  "ordering"
+    t.boolean  "featured",       :default => false
   end
 
   create_table "policy_area_relations", :force => true do |t|

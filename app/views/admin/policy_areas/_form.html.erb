@@ -13,15 +13,15 @@
 
   <fieldset id="policy_order" class="named sortable">
     <legend>Policy ordering</legend>
-    <%= policy_area_form.fields_for :document_policy_areas, policy_area.document_policy_areas.for_type(Policy).published do |document_policy_area_form| %>
-      <% policy = document_policy_area_form.object.policy %>
+    <%= policy_area_form.fields_for :policy_area_memberships, policy_area.policy_area_memberships.for_type(Policy).published do |policy_area_membership_form| %>
+      <% policy = policy_area_membership_form.object.policy %>
       <div id="<%= dom_id(policy) %>">
-        <%= document_policy_area_form.text_field :ordering, label_text: link_to(policy.title, admin_document_path(policy)), class: "ordering" %>
+        <%= policy_area_membership_form.text_field :ordering, label_text: link_to(policy.title, admin_document_path(policy)), class: "ordering" %>
         <p>
           <%= [pluralize(Publication.published.related_to(policy).count, "publication"),
                pluralize(NewsArticle.published.related_to(policy).count, "news article")].to_sentence %>
         </p>
-        <%= document_policy_area_form.check_box :featured, label_text: "Featured?" %>
+        <%= policy_area_membership_form.check_box :featured, label_text: "Featured?" %>
       </div>
     <% end %>
   </fieldset>

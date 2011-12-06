@@ -1,10 +1,10 @@
-class DocumentPolicyArea < ActiveRecord::Base
+class PolicyAreaMembership < ActiveRecord::Base
   belongs_to :policy, foreign_key: :document_id
   belongs_to :policy_area
 
   validates :policy, :policy_area, presence: true
 
-  default_scope order("document_policy_areas.ordering ASC")
+  default_scope order("policy_area_memberships.ordering ASC")
 
   class << self
     def published
