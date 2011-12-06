@@ -16,4 +16,18 @@ class Consultation < Document
       errors.add :closing_on,  "must be after the opening on date"
     end
   end
+
+  class << self
+    def closed
+      where 'closing_on <= :now', now: Time.zone.now
+    end
+
+    def open
+      where 'closing_on > :now AND opening_on <= :now', now: Time.zone.now
+    end
+
+    def upcoming
+      where 'opening_on > :now', now: Time.zone.now
+    end
+  end
 end
