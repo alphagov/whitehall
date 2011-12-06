@@ -326,10 +326,6 @@ section.resource_list {
         line-height: 20px;
       }
 
-      td.details {
-        width: 20%;
-      }
-
       tr {
         td.delete {
           span {
@@ -337,6 +333,17 @@ section.resource_list {
             @include transition(opacity);
           }
         }
+
+        td.details, td.related {
+          width: 20%;
+        }
+
+        td.related {
+          ul,li {
+            margin-bottom: 0;
+          }
+        }
+
         &:hover {
           td.delete {
             span {

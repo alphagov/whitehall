@@ -1,4 +1,7 @@
 class Admin::PolicyAreasController < Admin::BaseController
+
+  before_filter :default_arrays_of_ids_to_empty, only: [:update]
+
   def index
     @policy_areas = PolicyAreasPresenter.new
   end
@@ -65,5 +68,11 @@ class Admin::PolicyAreasController < Admin::BaseController
         }
       end
     end
+  end
+
+  private
+
+  def default_arrays_of_ids_to_empty
+    params[:policy_area][:related_policy_area_ids] ||= []
   end
 end

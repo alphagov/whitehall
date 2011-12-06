@@ -6,6 +6,11 @@
     <%= policy_area_form.text_area :description %>
   </fieldset>
 
+  <fieldset>
+    <%= policy_area_form.label :related_policy_area_ids, "Related policy areas" %>
+    <%= policy_area_form.select :related_policy_area_ids, options_from_collection_for_select(PolicyArea.all - [policy_area], 'id', 'name', policy_area.related_policy_area_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related policy areas..."} %>
+  </fieldset>
+
   <fieldset id="policy_order" class="named sortable">
     <legend>Policy ordering</legend>
     <%= policy_area_form.fields_for :document_policy_areas, policy_area.document_policy_areas.for_type(Policy).published do |document_policy_area_form| %>
