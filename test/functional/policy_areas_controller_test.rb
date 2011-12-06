@@ -144,7 +144,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
     policy_1 = create(:published_policy, title: "some-policy")
     policy_area = create(:policy_area)
     policy_area.update_attributes(policy_area_memberships_attributes: [
-      {policy_area_id: policy_area.id, featured: true, document_id: policy_1.id}
+      {policy_area_id: policy_area.id, featured: true, policy_id: policy_1.id}
     ])
     policy_1.publish_as(create(:user))
     policy_1.create_draft(create(:user))
