@@ -176,4 +176,13 @@ class PolicyAreaTest < ActiveSupport::TestCase
     assert policy_area.deleted?
   end
 
+  test "return policy areas bi-directionally related to specific policy area" do
+    policy_area_1 = create(:policy_area)
+    policy_area_2 = create(:policy_area)
+    policy_area = create(:policy_area, related_policy_areas: [policy_area_1, policy_area_2])
+
+    assert_equal [policy_area_1, policy_area_2], policy_area.related_policy_areas
+    assert_equal [policy_area], policy_area_1.related_policy_areas
+    assert_equal [policy_area], policy_area_2.related_policy_areas
+  end
 end

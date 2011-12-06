@@ -197,6 +197,13 @@ ActiveRecord::Schema.define(:version => 20111205155259) do
     t.string  "description"
   end
 
+  create_table "policy_area_relations", :force => true do |t|
+    t.integer  "policy_area_id",         :null => false
+    t.integer  "related_policy_area_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "policy_areas", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"

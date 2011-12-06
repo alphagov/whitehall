@@ -18,6 +18,9 @@ class PolicyArea < ActiveRecord::Base
 
   has_many :published_documents, through: :document_policy_areas, class_name: "Document", conditions: { state: "published" }, source: :document
 
+  has_many :policy_area_relations
+  has_many :related_policy_areas, through: :policy_area_relations
+
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 
