@@ -12,7 +12,6 @@
 
       <div class="g1 related">
         <%= render partial: "documents/policies", object: @featured_policy_area.policies.published.limit(2) %>
-        <%= render partial: "documents/news_articles", object: @featured_policy_area.news_articles.published.limit(2) %>
       </div>
     </section>
   <% end %>

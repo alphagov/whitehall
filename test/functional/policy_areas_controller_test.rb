@@ -34,32 +34,6 @@ class PolicyAreasControllerTest < ActionController::TestCase
     refute_select "#policies"
   end
 
-  test "shows published news articles associated with policy area" do
-    published_article = create(:published_news_article)
-    policy_area = create(:policy_area, documents: [published_article])
-
-    get :show, id: policy_area
-
-    assert_select "#news_articles" do
-      assert_select_object(published_article, count: 1)
-    end
-  end
-
-  test "doesn't show unpublished news articles" do
-    draft_article = create(:draft_news_article)
-    policy_area = create(:policy_area, documents: [draft_article])
-
-    get :show, id: policy_area
-
-    refute_select_object(draft_article)
-  end
-
-  test "should not display an empty news articles section" do
-    policy_area = create(:policy_area)
-    get :show, id: policy_area
-    refute_select "#news_articles"
-  end
-
   test "show displays recently changed documents relating to policies in the policy area" do
     policy_1 = create(:published_policy)
     publication_1 = create(:published_publication, documents_related_to: [policy_1])
@@ -169,26 +143,6 @@ class PolicyAreasControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".featured .policy", count: 2
-  end
-
-  test "shows featured policy area news articles" do
-    article = create(:published_news_article)
-    policy_area = create(:policy_area, documents: [article])
-    PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area).returns(policy_area)
-
-    get :index
-
-    assert_select_object article
-  end
-
-  test "shows a maximum of 2 featured news articles" do
-    news_articles = [create(:published_news_article), create(:published_news_article), create(:published_news_article)]
-    policy_area = create(:policy_area, documents: news_articles)
-    PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area).returns(policy_area)
-
-    get :index
-
-    assert_select ".featured .news_article", count: 2
   end
 
   class FeaturedPolicyAreaChooserTest < ActiveSupport::TestCase

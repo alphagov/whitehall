@@ -14,7 +14,6 @@ class PolicyArea < ActiveRecord::Base
   has_many :documents, through: :document_policy_areas
   has_many :policies, through: :document_policy_areas, class_name: "Policy", source: :document
   has_many :featured_policies, through: :document_policy_areas, class_name: "Policy", source: :document, conditions: { "document_policy_areas.featured" => true }
-  has_many :news_articles, through: :document_policy_areas, class_name: "NewsArticle", source: :document
 
   has_many :published_documents, through: :document_policy_areas, class_name: "Document", conditions: { state: "published" }, source: :document
   has_many :archived_documents, through: :document_policy_areas, class_name: "Document", conditions: { state: "archived" }, source: :document
