@@ -19,22 +19,30 @@ class PolicyAreaRelation < ActiveRecord::Base
   after_create :create_inverse_relation
   after_destroy :destroy_inverse_relation
 
-  scope :inverse_relations_for, -> relation {
+  scope :relations_for, -> policy_area, related_policy_area {
     where(
-      policy_area_id: relation.related_policy_area_id,
-      related_policy_area_id: relation.policy_area_id
+      policy_area_id: policy_area.id,
+      related_policy_area_id: related_policy_area.id
     )
   }
 
+  class << self
+    def relation_for(policy_area, related_policy_area)
+      relations_for(policy_area, related_policy_area).first
+    end
+
+    def inverse_relation_for(policy_area, related_policy_area)
+      relations_for(related_policy_area, policy_area).first
+    end
+  end
+
   def inverse_relation
-    self.class.inverse_relations_for(self).first
+    self.class.inverse_relation_for(policy_area, related_policy_area)
   end
 
   def readonly?
     !new_record?
   end
-
-  private
 
   def create_inverse_relation
     unless inverse_relation.present?

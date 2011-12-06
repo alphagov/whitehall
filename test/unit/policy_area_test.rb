@@ -198,4 +198,27 @@ class PolicyAreaTest < ActiveSupport::TestCase
     assert_equal [policy_area], policy_area_2.related_policy_areas
   end
 
+  test "should add related policy areas bi-directionally" do
+    policy_area_1 = create(:policy_area)
+    policy_area_2 = create(:policy_area)
+    policy_area = create(:policy_area, related_policy_areas: [])
+
+    policy_area.update_attributes!(related_policy_area_ids: [policy_area_1.id, policy_area_2.id])
+
+    assert_equal [policy_area_1, policy_area_2], policy_area.related_policy_areas
+    assert_equal [policy_area], policy_area_1.related_policy_areas
+    assert_equal [policy_area], policy_area_2.related_policy_areas
+  end
+
+  test "should remove related policy areas bi-directionally" do
+    policy_area_1 = create(:policy_area)
+    policy_area_2 = create(:policy_area)
+    policy_area = create(:policy_area, related_policy_areas: [policy_area_1, policy_area_2])
+
+    policy_area.update_attributes!(related_policy_area_ids: [])
+
+    assert_equal [], policy_area.related_policy_areas
+    assert_equal [], policy_area_1.related_policy_areas
+    assert_equal [], policy_area_2.related_policy_areas
+  end
 end

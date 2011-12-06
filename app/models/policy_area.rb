@@ -21,7 +21,9 @@ class PolicyArea < ActiveRecord::Base
   has_many :archived_policies, through: :policy_area_memberships, class_name: "Policy", conditions: { state: "archived" }, source: :policy
 
   has_many :policy_area_relations
-  has_many :related_policy_areas, through: :policy_area_relations
+  has_many :related_policy_areas, through: :policy_area_relations, before_remove: -> pa, rpa {
+    PolicyAreaRelation.relation_for(pa, rpa).destroy_inverse_relation
+  }
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
