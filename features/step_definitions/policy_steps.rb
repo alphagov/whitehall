@@ -151,7 +151,7 @@ When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" policy area
   click_button "Save"
 end
 
-When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
+When /^I draft a new policy "([^"]*)" produced by the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
   begin_drafting_document type: "Policy", title: title
   select first_org, from: "Organisations"
   select second_org, from: "Organisations"

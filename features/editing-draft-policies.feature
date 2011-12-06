@@ -17,8 +17,8 @@ Scenario: Creating a new draft policy in multiple policy areas
 
 Scenario: Creating a new draft policy in multiple organisations
   Given two organisations "Department of Paperclips" and "Stationery Standards Authority" exist
-  When I draft a new policy "Ban Tinfoil Paperclips" in the "Department of Paperclips" and "Stationery Standards Authority" organisations
-  Then I should see in the preview that "Ban Tinfoil Paperclips" should be in the "Department of Paperclips" and "Stationery Standards Authority" organisations
+  When I draft a new policy "Ban Tinfoil Paperclips" produced by the "Department of Paperclips" and "Stationery Standards Authority" organisations
+  Then I should see in the preview that "Ban Tinfoil Paperclips" was produced by the "Department of Paperclips" and "Stationery Standards Authority" organisations
 
 Scenario: Creating a new draft policy that's the responsibility of multiple ministers
   Given ministers exist:

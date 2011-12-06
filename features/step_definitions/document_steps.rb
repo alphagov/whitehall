@@ -20,7 +20,7 @@ Given /^a published (publication|policy|news article|consultation) "([^"]*)" exi
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, policy_areas: [policy_area])
 end
 
-Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
+Given /^a draft (publication|policy|news article|consultation) "([^"]*)" was produced by the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
 end
@@ -145,7 +145,7 @@ Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and
   assert has_css?(".policy_area", text: second_policy_area)
 end
 
-Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
+Then /^I should see in the preview that "([^"]*)" was produced by the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
   visit_document_preview title
   assert has_css?(".organisation", text: first_org)
   assert has_css?(".organisation", text: second_org)

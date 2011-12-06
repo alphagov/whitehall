@@ -24,8 +24,8 @@ Scenario: Viewing only publications written by me
 Scenario: Viewing only documents related to my department
   Given two organisations "Department of Thumbtacks" and "Ministry of Post-it Notes" exist
   And I am a writer in the organisation "Department of Thumbtacks"
-  And a draft publication "Thumbtack Publication" exists in the "Department of Thumbtacks" organisation
-  And a draft publication "Another Publication" exists in the "Ministry of Post-it Notes" organisation
+  And a draft publication "Thumbtack Publication" was produced by the "Department of Thumbtacks" organisation
+  And a draft publication "Another Publication" was produced by the "Ministry of Post-it Notes" organisation
   And I visit the list of draft documents
 
   When I select the "by my department" filter
