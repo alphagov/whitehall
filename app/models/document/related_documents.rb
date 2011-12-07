@@ -7,7 +7,7 @@ module Document::RelatedDocuments
     end
   end
 
-  DESTROY_INVERSE_RELATION = -> d, rd { DocumentRelation.relation_for(d, rd).destroy_inverse_relation }
+  DESTROY_INVERSE_RELATION = -> d, rd { DocumentRelation.relation_for(d.id, rd.id).destroy_inverse_relation }
 
   included do
     has_many :document_relations, class_name: "DocumentRelation", foreign_key: "document_id"
