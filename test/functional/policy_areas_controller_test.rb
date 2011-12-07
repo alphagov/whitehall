@@ -63,13 +63,10 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
   test "show displays recently changed documents relating to policies in the policy area" do
     policy_1 = create(:published_policy)
-    publication_1 = create(:published_publication, related_documents: [policy_1])
-    news_article_1 = create(:published_news_article, related_documents: [policy_1])
-    consultation = create(:published_consultation, related_documents: [policy_1])
+    publication = create(:published_publication, related_documents: [policy_1])
+    news_article = create(:published_news_article, related_documents: [policy_1])
 
     policy_2 = create(:published_policy)
-    news_article_2 = create(:published_news_article, related_documents: [policy_2])
-    publication_2 = create(:published_publication, related_documents: [policy_2])
     speech = create(:published_speech, related_documents: [policy_2])
 
     policy_area = create(:policy_area, policies: [policy_1, policy_2])
@@ -77,13 +74,22 @@ class PolicyAreasControllerTest < ActionController::TestCase
     get :show, id: policy_area
 
     assert_select "#recently-changed" do
-      assert_select_object news_article_1
-      assert_select_object news_article_2
-      assert_select_object publication_1
-      assert_select_object publication_2
-      assert_select_object consultation
+      assert_select_object policy_1
+      assert_select_object policy_2
+      assert_select_object news_article
+      assert_select_object publication
       assert_select_object speech
     end
+  end
+
+  test "show displays a maximum of 5 recently changed documents" do
+    policy = create(:published_policy)
+    6.times { create(:published_news_article, related_documents: [policy]) }
+    policy_area = create(:policy_area, policies: [policy])
+
+    get :show, id: policy_area
+
+    assert_select "#recently-changed li", count: 5
   end
 
   test "show displays metadata about the recently changed documents" do
