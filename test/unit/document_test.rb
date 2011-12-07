@@ -131,31 +131,38 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [published_in_second_ministerial_role], Policy.in_ministerial_role(ministerial_role_2)
   end
 
-  test "should return a list of documents related to specific document" do
-    published_publication_1 = create(:published_publication)
-    published_publication_2 = create(:published_publication)
-    published_policy = create(:published_policy, documents_related_with: [published_publication_1, published_publication_2])
+  test "return documents bi-directionally related to specific document" do
+    document_1 = create(:publication)
+    document_2 = create(:publication)
+    document = create(:policy, related_documents: [document_1, document_2])
 
-    assert_equal [published_publication_1, published_publication_2], published_policy.documents_related_with.reload
+    assert_equal [document_1, document_2], document.related_documents
+    assert_equal [document], document_1.related_documents
+    assert_equal [document], document_2.related_documents
   end
 
-  test "should return a list of documents the specific document is related to" do
-    published_policy = create(:published_policy)
-    published_publication_1 = create(:published_publication, documents_related_with: [published_policy])
-    published_publication_2 = create(:published_publication, documents_related_with: [published_policy])
+  test "should add related documents bi-directionally" do
+    document_1 = create(:publication)
+    document_2 = create(:publication)
+    document = create(:policy, related_documents: [])
 
-    assert_equal [published_publication_1, published_publication_2], published_policy.documents_related_to.reload
+    document.update_attributes!(related_document_ids: [document_1.id, document_2.id])
+
+    assert_equal [document_1, document_2], document.related_documents
+    assert_equal [document], document_1.related_documents
+    assert_equal [document], document_2.related_documents
   end
 
-  test "should return a list of documents related to and from" do
-    publication_1 = create(:published_publication)
-    publication_2 = create(:published_publication)
-    published_policy = create(:published_policy, documents_related_with: [publication_1, publication_2])
-    other_policy = create(:published_policy, documents_related_with: [published_policy])
+  test "should remove related documents bi-directionally" do
+    document_1 = create(:publication)
+    document_2 = create(:publication)
+    document = create(:policy, related_documents: [document_1, document_2])
 
-    assert_equal [other_policy], published_policy.documents_related_to
-    assert_equal [publication_1, publication_2], published_policy.documents_related_with
-    assert_equal [other_policy, publication_1, publication_2], published_policy.related_documents
+    document.update_attributes!(related_document_ids: [])
+
+    assert_equal [], document.related_documents
+    assert_equal [], document_1.related_documents
+    assert_equal [], document_2.related_documents
   end
 
   test "#creator= builds a document_creator with the given creator for new records" do
@@ -243,28 +250,15 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.save_as(create(:user))
   end
 
-  test ".related_to includes documents_related_to document" do
+  test ".related_to includes documents related to document" do
     publication = create(:publication)
-    policy = create(:policy, documents_related_to: [publication])
+    policy = create(:policy, related_documents: [publication])
     assert Document.related_to(policy).include?(publication)
-  end
-
-  test ".related_to includes documents_related_with document" do
-    publication = create(:publication)
-    policy = create(:policy, documents_related_with: [publication])
-    assert Document.related_to(policy).include?(publication)
-  end
-
-  test ".related_to includes documents a single time if in both documents_related_with and documents_related_to" do
-    publication = create(:publication)
-    policy = create(:policy, documents_related_with: [publication], documents_related_to: [publication])
-    assert Document.related_to(policy).include?(publication)
-    assert_equal 1, Document.related_to(policy).count
   end
 
   test ".related_to respects chained scopes" do
     publication = create(:publication)
-    policy = create(:policy, documents_related_with: [publication], documents_related_to: [publication])
+    policy = create(:policy, related_documents: [publication])
     assert Publication.related_to(policy).include?(publication)
     refute Policy.related_to(policy).include?(publication)
   end
@@ -374,14 +368,13 @@ class DocumentTest < ActiveSupport::TestCase
   test "should build a draft copy with references to related documents" do
     publication = create(:published_publication)
     policy = create(:published_policy)
-    published_policy = create(:published_policy, documents_related_with: [publication], documents_related_to: [policy])
+    published_policy = create(:published_policy, related_documents: [publication, policy])
 
     draft_policy = published_policy.create_draft(create(:policy_writer))
     assert draft_policy.valid?
 
-    assert_equal [policy], draft_policy.documents_related_to
-    assert_equal [publication], draft_policy.documents_related_with
-    assert_equal [policy, publication], draft_policy.related_documents
+    assert draft_policy.related_documents.include?(policy)
+    assert draft_policy.related_documents.include?(publication)
   end
 
   test "should build a draft copy preserving ordering with policy area" do

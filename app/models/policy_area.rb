@@ -50,8 +50,7 @@ class PolicyArea < ActiveRecord::Base
 
   def published_related_documents
     policies.published.includes(
-      :published_documents_related_to,
-      :published_documents_related_with
+      :published_related_documents
     ).map(&:published_related_documents).flatten.uniq
   end
 

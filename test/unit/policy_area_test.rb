@@ -89,7 +89,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
 
   test "return published documents relating to policies in the policy area" do
     policy = create(:published_policy)
-    publication_1 = create(:published_publication, documents_related_to: [policy])
+    publication_1 = create(:published_publication, related_documents: [policy])
     policy_area = create(:policy_area, policies: [policy])
 
     assert_equal [publication_1], policy_area.published_related_documents
@@ -98,8 +98,8 @@ class PolicyAreaTest < ActiveSupport::TestCase
   test "return published documents relating to policies in the policy area without duplicates" do
     policy_1 = create(:published_policy)
     policy_2 = create(:published_policy)
-    publication_1 = create(:published_publication, documents_related_to: [policy_1])
-    publication_2 = create(:published_publication, documents_related_to: [policy_1, policy_2])
+    publication_1 = create(:published_publication, related_documents: [policy_1])
+    publication_2 = create(:published_publication, related_documents: [policy_1, policy_2])
     policy_area = create(:policy_area, policies: [policy_1, policy_2])
 
     assert_equal [publication_1, publication_2], policy_area.published_related_documents
@@ -107,7 +107,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
 
   test "return only *published* documents relating to policies in the policy area" do
     published_policy = create(:published_policy)
-    create(:draft_publication, documents_related_to: [published_policy])
+    create(:draft_publication, related_documents: [published_policy])
     policy_area = create(:policy_area, policies: [published_policy])
 
     assert_equal [], policy_area.published_related_documents
@@ -115,7 +115,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
 
   test "return documents relating to only *published* policies in the policy area" do
     draft_policy = create(:draft_policy)
-    create(:published_publication, documents_related_to: [draft_policy])
+    create(:published_publication, related_documents: [draft_policy])
     policy_area = create(:policy_area, policies: [draft_policy])
 
     assert_equal [], policy_area.published_related_documents
@@ -124,8 +124,8 @@ class PolicyAreaTest < ActiveSupport::TestCase
   test "return published documents relating from policies in the policy area without duplicates" do
     publication_1 = create(:published_publication)
     publication_2 = create(:published_publication)
-    policy_1 = create(:published_policy, documents_related_to: [publication_1])
-    policy_2 = create(:published_policy, documents_related_to: [publication_1, publication_2])
+    policy_1 = create(:published_policy, related_documents: [publication_1])
+    policy_2 = create(:published_policy, related_documents: [publication_1, publication_2])
     policy_area = create(:policy_area, policies: [policy_1, policy_2])
 
     assert_equal [publication_1, publication_2], policy_area.published_related_documents
@@ -133,7 +133,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
 
   test "return only *published* documents relating from policies in the policy area" do
     draft_publication = create(:draft_publication)
-    published_policy = create(:published_policy, documents_related_to: [draft_publication])
+    published_policy = create(:published_policy, related_documents: [draft_publication])
     policy_area = create(:policy_area, policies: [published_policy])
 
     assert_equal [], policy_area.published_related_documents
@@ -141,7 +141,7 @@ class PolicyAreaTest < ActiveSupport::TestCase
 
   test "return documents relating from only *published* policies in the policy area" do
     published_publication = create(:published_publication)
-    draft_policy = create(:draft_policy, documents_related_to: [published_publication])
+    draft_policy = create(:draft_policy, related_documents: [published_publication])
     policy_area = create(:policy_area, policies: [draft_policy])
 
     assert_equal [], policy_area.published_related_documents

@@ -3,33 +3,33 @@ module Document::RelatedDocuments
 
   class Trait < Document::Traits::Trait
     def process_associations_after_save(document)
-      document.documents_related_with = @document.documents_related_with
-      document.documents_related_to = @document.documents_related_to
+      document.related_documents = @document.related_documents
     end
   end
 
   included do
-    has_many :document_relations_to, class_name: "DocumentRelation", foreign_key: "document_id"
-    has_many :document_relations_from, class_name: "DocumentRelation", foreign_key: "related_document_id"
+    has_many :document_relations, class_name: "DocumentRelation", foreign_key: "document_id"
+    has_many :related_documents, through: :document_relations, before_remove: -> d, rd {
+      DocumentRelation.relation_for(d, rd).destroy_inverse_relation
+    }
+    has_many :published_related_documents, through: :document_relations, source: :related_document, conditions: { "documents.state" => "published" }
 
-    has_many :documents_related_with, through: :document_relations_to, source: :related_document
-    has_many :documents_related_to, through: :document_relations_from, source: :document
+    alias :documents_related_to :related_documents
+    alias :documents_related_with :related_documents
 
-    has_many :published_documents_related_with, through: :document_relations_to, source: :related_document, conditions: { "documents.state" => "published" }
-    has_many :published_documents_related_to, through: :document_relations_from, source: :document, conditions: { "documents.state" => "published" }
+    alias :documents_related_to= :related_documents=
+    alias :documents_related_with= :related_documents=
+
+    alias :documents_related_to_ids :related_document_ids
+    alias :documents_related_with_ids :related_document_ids
+
+    alias :documents_related_to_ids= :related_document_ids=
+    alias :documents_related_with_ids= :related_document_ids=
 
     add_trait Trait
   end
 
   def can_be_related_to_other_documents?
     true
-  end
-
-  def related_documents
-    [*documents_related_to, *documents_related_with].uniq
-  end
-
-  def published_related_documents
-    [*published_documents_related_to, *published_documents_related_with].uniq
   end
 end
