@@ -25,15 +25,6 @@ class PolicyAreaRelationTest < ActiveSupport::TestCase
     refute relation.valid?
   end
 
-  test "should be invalid if more than one inverse relation exists from one policy area to another" do
-    existing_relation = create(:policy_area_relation)
-    relation = build(:policy_area_relation,
-      policy_area: existing_relation.related_policy_area,
-      related_policy_area: existing_relation.policy_area
-    )
-    refute relation.valid?
-  end
-
   test "should be valid if one policy area is related to two others" do
     policy_area = create(:policy_area)
     existing_relation = create(:policy_area_relation, policy_area: policy_area)
