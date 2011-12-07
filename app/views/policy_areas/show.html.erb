@@ -13,7 +13,12 @@
         <li>
           <%= content_tag_for :article, policy, class: "featured_policy" do %>
             <h2><%= link_to policy.title, public_document_path(policy) %></h2>
-            <p>Updated <%= time_ago_in_words policy.updated_at %> ago</p>
+            <p class="metadata">
+              Updated
+              <%= render_datetime_microformat(policy, :updated_at) do %>
+                <%= time_ago_in_words(policy.updated_at) %> ago
+              <% end %>
+            </p>
             <% if document = policy.most_recently_updated_related_document %>
               <p><%= link_to document.title, public_document_path(document) %></p>
             <% end %>
