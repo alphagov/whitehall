@@ -2,16 +2,34 @@
 @import "colours";
 
 #wrapper #content {
+  a {
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  h1.section_title {
+    color: #333;
+    @include type-18;
+    margin-bottom: 1em;
+  }
+
+  .related_content {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-top: none;
+    padding-top: 1em;
+  }
 
   .policy_area_view {
 
     .policy_area_overview {
       background: #fff;
-      border: 1px solid #eee;
-      border-bottom: 1px solid #ddd;
+      border: 1px solid #ddd;
+      border-bottom: 1px solid #ccc;
       padding-bottom: 1em;
       margin-top: 0.1em;
-      margin-bottom: 2.35em;
+      margin-bottom: 0;
+      position: relative;
 
       section.policy_area {
         h1.page_title {
@@ -27,20 +45,20 @@
         }
 
         p {
-          @include type-14;
+          @include type-16;
           margin-left: 1.75em;
           margin-right: 1.75em;
-          width: 60%;
-          float: left;
+          padding-right: 40%;
         }
       }
 
       #recently-changed {
-        width: 30%;
-        margin-right: 2.3%;
-        float: right;
-        margin-top: -2.45em;
-        border-bottom: 1px solid #ddd;
+        position: absolute;
+        top: 0.5em;
+        right: 1em;
+        border-bottom: 1px solid #bbb;
+        @include box-shadow(0, 0, 4px, rgba(150,150,150,0.4));
+        z-index: 10;
 
         h1 {
           border-top: 1px solid #222;
@@ -49,7 +67,8 @@
           margin-bottom: 0;
           padding: 0.5em;
           color: #ffffdf;
-          border-left: 1px solid #242400;
+          border-bottom: 4px solid $collation-green;
+
         }
 
         ul {
@@ -57,8 +76,8 @@
           margin-bottom: 0;
           padding-top: 0.85em;
           padding-bottom: 0.5em;
-          border-left: 1px solid #eee;
-          border-right: 1px solid #eee;
+          border-left: 1px solid #ddd;
+          border-right: 1px solid #ddd;
           border-top: 1px solid #ffffce;
 
           li {
@@ -69,10 +88,6 @@
               @include type-12;
               line-height: 1.5em;
               margin: 0;
-
-              a {
-                text-decoration: none;
-              }
 
               &.metadata {
                 font-size: 0.7em;
@@ -85,51 +100,88 @@
     }
 
     .priority_policies {
-      ul {
-        @include image-list;
-      }
-    }
-
-    .collection section {
-      background: #ffffce;
       border-bottom: 1px solid #ddd;
-      h1 {
-        @include type-18;
-        margin-bottom: 0;
-        padding: 0.5em;
-        border-bottom: 2px solid $collation-green;
-        color: #353500;
-      }
+      section {
+        ul {
+          @include clearfix;
 
-      ul {
-        background: #fffff0;
-        margin-bottom: 0;
-        padding-top: 0.85em;
-        padding-bottom: 0.5em;
-        border-left: 1px solid #eee;
-        border-right: 1px solid #eee;
-        border-top: 1px solid #ffffce;
+          li {
+            @include type-14;
+            @include span_one_column;
 
-        li {
-          margin-bottom: 0.75em;
-          padding: 0 1em;
-
-          div {
-            @include type-12;
-            line-height: 1.5em;
-            margin: 0;
-
-            a {
-              text-decoration: none;
+            div.inner {
+              padding: 1em 1em 0.5em 1em;
+              margin: 0;
+              background: #fefefe;
+              border: 1px solid #ddd;
+              position: relative;
+              div.img {
+                border: 4px solid #fff;
+                @include box-shadow(0, 0, 2px, #ddd);
+                height: 100px;
+                overflow: hidden;
+                margin-bottom: 0.5em;
+              }
             }
+          }
 
-            &.metadata, &.small {
-              font-size: 0.7em;
-              line-height: 1em;
+          &.half_columns {
+            li {
+              @include span_half_a_column;
             }
           }
         }
       }
+
+    }
+
+
+    .all_policies {
+      section#policies {
+        background: #fff;
+        padding: 1em;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+      }
+    }
+
+    .collection section {
+      margin-right: 0;
+      padding: 1em 0;
+      h1 {
+        @extend .section_title;
+        margin-bottom: 0.5em;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        li {
+          @include type-13;
+          margin-bottom: 0;
+          border-bottom: 1px solid #ddd;
+          padding: 0.5em 0 0.5em 0;
+          div {
+            line-height: 1.5em;
+            margin: 0;
+
+            &.metadata, &.small {
+              font-size: 0.85em;
+              line-height: 1em;
+              margin-bottom: 1em;
+              color: #777;
+            }
+          }
+
+          &:last-child {
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .news section {
+      padding-left: 0.5em;
     }
   }
 }

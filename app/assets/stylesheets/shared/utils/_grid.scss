@@ -40,3 +40,16 @@
 @mixin span_three_columns($float_direction: left) {
   @include grid_column($float_direction);
 }
+
+@mixin span_half_a_column($float_direction: left) {
+  @include grid_column($float_direction);
+  width: 48.0%;
+
+  @media only screen and (min-width: 768px) {
+    width: 24.0%;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    width: 16%
+  }
+}

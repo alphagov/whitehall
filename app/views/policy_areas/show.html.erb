@@ -5,35 +5,36 @@
     <section class="policy_area">
       <%= content_tag_for :article, @policy_area do %>
         <h1 class="page_title name"><%= @policy_area.name %></h1>
-        <p class="description"><%= @policy_area.description %></p>
+        <div class="description"><%= govspeak_to_html @policy_area.description %></div>
       <% end %>
     </section>
 
     <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5] %>
   </div>
 
-  <% if @featured_policies.any? %>
-    <div class="g3">
-      <section class="priority_policies">
-        <h1>Government priorities</h1>
-        <ul class="featured policies">
-          <% @featured_policies.each do |policy| %>
-            <%= content_tag_for :li, policy, class: "featured_policy" do %>
-              <div class="cover">
-                <%= image_tag "pub-cover.png" %>
-              </div>
-              <div class="description">
-                <h2 class="title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}" %></h2>
-              </div>
-            <% end %>
-          <% end %>
-        </ul>
-      </section>
-    </div>
-  <% end %>
 
-  <div class="g2">
-    <%= render partial: "documents/policies", object: @policies, locals: {title: "All Policies"} %>
+  <div class="g3 related_content group">
+    <% if @featured_policies.any? %>
+      <div class="g3 priority_policies">
+        <section>
+          <h1 class="section_title">Current priorities</h1>
+          <ul class="featured policies <%= "half_columns" if @featured_policies.count > 3 %>">
+            <% @featured_policies.each do |policy| %>
+              <%= content_tag_for :li, policy, class: "featured_policy" do %>
+                <div class="inner">
+                  <div class="img"><img src="/images/evil_placeholder.png" alt="Image for #{policy.title}" /></div>
+                  <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}" %>
+                </div>
+              <% end %>
+            <% end %>
+          </ul>
+        </section>
+      </div>
+    <% end %>
+
+    <div class="g2 all_policies collection">
+      <%= render partial: "documents/policies", object: @policies, locals: {title: "All policies"} %>
+    </div>
   </div>
 
   <div class="g1 collection">

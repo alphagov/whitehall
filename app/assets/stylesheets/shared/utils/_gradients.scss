@@ -8,3 +8,12 @@
   background-image: linear-gradient(top, $from_hex, $to_hex);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$from_hex}', EndColorStr='#{$to_hex}');
 }
+
+@mixin horizontal_gradient($from_hex, $to_hex, $degrees: 0deg, $start: 0, $end: 100%) {
+	background-color: #20BEFF;
+	background-image: -o-linear-gradient($degrees , $from_hex $start, $to_hex $end);
+	background-image: -moz-linear-gradient($degrees , $from_hex $start, $to_hex $end);
+	background-image: -webkit-linear-gradient($degrees , $from_hex $start, $to_hex $end);
+	background-image: -ms-linear-gradient($degrees , $from_hex $start, $to_hex $end);
+	background-image: linear-gradient($degrees , $from_hex $start, $to_hex $end);
+}

@@ -11,7 +11,7 @@
   min-height: 37em;
   background: #f5f5f5;
   max-width: 100%;
-  @include vertical_gradient(#fff, #f5f5f5);
+  @include vertical_gradient(#f5f5f5, #eee);
 
   @media only screen and (min-width:670px) {
     padding-top: 7.9em;
@@ -45,19 +45,24 @@
 
   #content {
     margin: 0 auto;
-
-    padding-top: 0;
-    padding-bottom: 3em;
+    background: #fff;
+    border: 1px solid #d5d5d5;
+    border-top: 1px solid #ddd;
+    border-bottom: 0;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    @include box-shadow(0, 2px, 2px, #e5e5e5);
+    @include rounded_top();
 
     @media only screen and (min-width: 600px) {
       width: 81%;
     }
 
     h1.page_title {
-      @include type-36;
+      @include type-24;
       text-shadow: #fff 0px 1px 0;
-      border-bottom: 2px solid #ddd;
-      color: #999;
+      color: #353500;
+      margin-left: 1%;
     }
 
     .secondary {
