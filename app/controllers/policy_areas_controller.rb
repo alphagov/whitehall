@@ -8,7 +8,7 @@ class PolicyAreasController < ApplicationController
     @policy_area = PolicyArea.find(params[:id])
     @policies = @policy_area.policies.published
     @related_policy_areas = @policy_area.related_policy_areas
-    @recently_changed_documents = @policy_area.published_related_documents.sort_by(&:published_at).reverse
+    @recently_changed_documents = recently_changed_documents
     @featured_policies = FeaturedPolicyPresenter.new(@policy_area)
   end
 
@@ -38,5 +38,13 @@ class PolicyAreasController < ApplicationController
         Document.published.related_to(@record).by_publication_date.first
       end
     end
+  end
+
+  private
+
+  def recently_changed_documents
+    (@policy_area.published_related_documents + @policies).sort_by { |d|
+      d.is_a?(Policy) ? d.updated_at : d.published_at
+    }.reverse
   end
 end

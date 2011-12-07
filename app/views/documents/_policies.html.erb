@@ -5,12 +5,6 @@
       <% policies.each do |policy| %>
         <%= content_tag_for(:li, policy) do %>
           <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %>
-          <p class="metadata">
-            Updated
-            <%= render_datetime_microformat(policy, :updated_at) do %>
-              <%= time_ago_in_words(policy.updated_at) %> ago
-            <% end %>
-          </p>
         <% end %>
       <% end %>
     </ul>
