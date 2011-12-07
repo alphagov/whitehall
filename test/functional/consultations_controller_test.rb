@@ -121,14 +121,14 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test 'show displays related published policies' do
     published_policy = create(:published_policy)
-    consultation = create(:published_consultation, documents_related_to: [published_policy])
+    consultation = create(:published_consultation, related_documents: [published_policy])
     get :show, id: consultation.document_identity
     assert_select_object published_policy
   end
 
   test 'show doesn\'t display related unpublished policies' do
     draft_policy = create(:draft_policy)
-    consultation = create(:published_consultation, documents_related_to: [draft_policy])
+    consultation = create(:published_consultation, related_documents: [draft_policy])
     get :show, id: consultation.document_identity
     refute_select_object draft_policy
   end

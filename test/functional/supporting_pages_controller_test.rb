@@ -111,7 +111,7 @@ That's all
 
   test "show displays related published publications" do
     related_publication = create(:published_publication, title: "Voting Patterns")
-    policy = create(:published_policy, documents_related_with: [related_publication])
+    policy = create(:published_policy, related_documents: [related_publication])
     supporting_page = create(:supporting_page, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_page
@@ -123,7 +123,7 @@ That's all
 
   test "show excludes related unpublished publications" do
     related_publication = create(:draft_publication, title: "Voting Patterns")
-    policy = create(:published_policy, documents_related_with: [related_publication])
+    policy = create(:published_policy, related_documents: [related_publication])
     supporting_page = create(:supporting_page, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_page
@@ -133,7 +133,7 @@ That's all
 
   test "show displays related published consultations" do
     related_consultation = create(:published_consultation, title: "Consultation on Voting Patterns")
-    policy = create(:published_policy, documents_related_with: [related_consultation])
+    policy = create(:published_policy, related_documents: [related_consultation])
     supporting_page = create(:supporting_page, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_page
@@ -145,7 +145,7 @@ That's all
 
   test "show excludes related unpublished consultations" do
     related_consultation = create(:draft_consultation, title: "Consultation on Voting Patterns")
-    policy = create(:published_policy, documents_related_with: [related_consultation])
+    policy = create(:published_policy, related_documents: [related_consultation])
     supporting_page = create(:supporting_page, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_page
@@ -155,7 +155,7 @@ That's all
 
   test "show displays related news articles" do
     related_news_article = create(:published_news_article, title: "News about Voting Patterns")
-    policy = create(:published_policy, documents_related_with: [related_news_article])
+    policy = create(:published_policy, related_documents: [related_news_article])
     supporting_page = create(:supporting_page, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_page
@@ -167,7 +167,7 @@ That's all
 
   test "show excludes related unpublished news articles" do
     related_news_article = create(:draft_news_article, title: "News about Voting Patterns")
-    policy = create(:published_policy, documents_related_with: [related_news_article])
+    policy = create(:published_policy, related_documents: [related_news_article])
     supporting_page = create(:supporting_page, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_page
@@ -251,7 +251,7 @@ That's all
     news_article = create(:published_news_article)
     speech = create(:published_speech)
     policy = create(:published_policy,
-      documents_related_with: [publication, consultation, news_article, speech]
+      related_documents: [publication, consultation, news_article, speech]
     )
     supporting_page = create(:supporting_page, document: policy)
 
@@ -271,7 +271,7 @@ That's all
     news_article = create(:published_news_article, published_at: 3.weeks.ago)
     speech = create(:published_speech, published_at: 2.weeks.ago)
     policy = create(:published_policy,
-      documents_related_with: [publication, consultation, news_article, speech]
+      related_documents: [publication, consultation, news_article, speech]
     )
     supporting_page = create(:supporting_page, document: policy)
 

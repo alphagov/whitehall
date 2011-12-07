@@ -14,12 +14,6 @@ module Document::RelatedDocuments
     }
     has_many :published_related_documents, through: :document_relations, source: :related_document, conditions: { "documents.state" => "published" }
 
-    alias :documents_related_to :related_documents
-    alias :documents_related_with :related_documents
-
-    alias :documents_related_to= :related_documents=
-    alias :documents_related_with= :related_documents=
-
     add_trait Trait
   end
 

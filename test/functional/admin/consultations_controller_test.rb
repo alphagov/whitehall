@@ -68,7 +68,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   test 'show displays related policies' do
     policy = create(:policy)
-    consultation = create(:consultation, documents_related_to: [policy])
+    consultation = create(:consultation, related_documents: [policy])
     get :show, id: consultation
     assert_select_object policy
   end

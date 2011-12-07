@@ -47,21 +47,21 @@ Given /^a published policy "([^"]*)" with related published publications "([^"]*
   publication_1 = create(:published_publication, title: publication_title_1)
   publication_2 = create(:published_publication, title: publication_title_2)
 
-  policy = create(:published_policy, title: policy_title, documents_related_with: [publication_1, publication_2])
+  policy = create(:published_policy, title: policy_title, related_documents: [publication_1, publication_2])
 end
 
 Given /^a published policy "([^"]*)" with related published consultations "([^"]*)" and "([^"]*)"$/ do |policy_title, consultation_title_1, consultation_title_2|
   consultation_1 = create(:published_consultation, title: consultation_title_1)
   consultation_2 = create(:published_consultation, title: consultation_title_2)
 
-  policy = create(:published_policy, title: policy_title, documents_related_with: [consultation_1, consultation_2])
+  policy = create(:published_policy, title: policy_title, related_documents: [consultation_1, consultation_2])
 end
 
 Given /^a published policy "([^"]*)" with related published news articles "([^"]*)" and "([^"]*)"$/ do |policy_title, news_article_title_1, news_article_title_2|
   news_article_1 = create(:published_news_article, title: news_article_title_1)
   news_article_2 = create(:published_news_article, title: news_article_title_2)
 
-  policy = create(:published_policy, title: policy_title, documents_related_with: [news_article_1, news_article_2])
+  policy = create(:published_policy, title: policy_title, related_documents: [news_article_1, news_article_2])
 end
 
 Given /^two published policies "([^"]*)" and "([^"]*)" exist$/ do |policy_title_1, policy_title_2|
@@ -70,7 +70,7 @@ Given /^two published policies "([^"]*)" and "([^"]*)" exist$/ do |policy_title_
 end
 
 Given /^a published policy "([^"]*)" with related draft publication "([^"]*)"$/ do |policy_title, publication_title|
-  create(:published_policy, title: policy_title, documents_related_with: [create(:draft_publication, title: publication_title)])
+  create(:published_policy, title: policy_title, related_documents: [create(:draft_publication, title: publication_title)])
 end
 
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy "([^"]*)" with supporting page "([^"]*)"$/ do |email, title, supporting_page_title|
@@ -94,7 +94,7 @@ end
 Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the policy "([^"]*)"$/ do |document_type, document_title, policy_title|
   document = create("published_#{document_class(document_type).name.underscore}".to_sym, title: document_title)
   policy = Policy.find_by_title!(policy_title)
-  policy.documents_related_to << document
+  policy.related_documents << document
 end
 
 When /^I reject the policy titled "([^"]*)"$/ do |policy_title|

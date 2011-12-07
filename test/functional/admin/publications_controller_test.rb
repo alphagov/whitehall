@@ -37,7 +37,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     created_publication = Publication.last
     assert_equal attributes[:title], created_publication.title
     assert_equal attributes[:body], created_publication.body
-    assert_equal [first_policy, second_policy], created_publication.documents_related_to
+    assert_equal [first_policy, second_policy], created_publication.related_documents
     assert_equal Date.parse("1805-10-21"), created_publication.publication_date
     assert_equal "unique-reference", created_publication.unique_reference
     assert_equal "0140621431", created_publication.isbn
@@ -92,12 +92,12 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test 'updating should remove all related documents if none in params' do
     policy = create(:policy)
-    publication = create(:publication, documents_related_to: [policy])
+    publication = create(:publication, related_documents: [policy])
 
     put :update, id: publication, document: {}
 
     publication.reload
-    assert_equal [], publication.documents_related_to
+    assert_equal [], publication.related_documents
   end
 
   test 'updating should take the writer to the publication page' do

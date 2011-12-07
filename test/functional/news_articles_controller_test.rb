@@ -46,14 +46,14 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
   test "should not display related policies unless they are published" do
     draft_policy = create(:draft_policy)
-    news_article = create(:published_news_article, documents_related_to: [draft_policy])
+    news_article = create(:published_news_article, related_documents: [draft_policy])
     get :show, id: news_article.document_identity
     refute_select_object draft_policy
   end
 
   test "should not display policies unless they are related to the news article" do
     unrelated_policy = create(:published_policy)
-    news_article = create(:published_news_article, documents_related_to: [])
+    news_article = create(:published_news_article, related_documents: [])
     get :show, id: news_article.document_identity
     refute_select_object unrelated_policy
   end

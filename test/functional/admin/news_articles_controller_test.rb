@@ -33,7 +33,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal attributes[:title], created_news_article.title
     assert_equal attributes[:body], created_news_article.body
     assert_equal "notes-to-editors", created_news_article.notes_to_editors
-    assert_equal [first_policy, second_policy], created_news_article.documents_related_to
+    assert_equal [first_policy, second_policy], created_news_article.related_documents
   end
 
   test 'creating should take the writer to the news article page' do
@@ -61,7 +61,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   test 'updating should save modified document attributes' do
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
-    news_article = create(:news_article, documents_related_to: [first_policy])
+    news_article = create(:news_article, related_documents: [first_policy])
 
     put :update, id: news_article.id, document: {
       title: "new-title",
@@ -72,18 +72,18 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     saved_news_article = news_article.reload
     assert_equal "new-title", saved_news_article.title
     assert_equal "new-body", saved_news_article.body
-    assert_equal [second_policy], saved_news_article.documents_related_to
+    assert_equal [second_policy], saved_news_article.related_documents
   end
 
   test 'updating should remove all related documents if none in params' do
     policy = create(:published_policy)
 
-    news_article = create(:news_article, documents_related_to: [policy])
+    news_article = create(:news_article, related_documents: [policy])
 
     put :update, id: news_article, document: {}
 
     news_article.reload
-    assert_equal [], news_article.documents_related_to
+    assert_equal [], news_article.related_documents
   end
 
   test 'updating should take the writer to the news article page' do
