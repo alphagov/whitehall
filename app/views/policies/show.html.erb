@@ -17,23 +17,37 @@
       <div class="g1r">
         <nav class="policy_parts">
           <h3>On this page</h3>
-          <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'policy_view') %>
-          <ol id="policy_sections">
-          <% govspeak_headers(@policy.body).each do |header| %>
-          <li><%= link_to header.text, public_document_path(@policy, anchor: header.id) %></li>
+          <section>
+            <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'policy_view') %>
+
+            <% if (headers = govspeak_headers(@policy.body)).any? %>
+              <ol id="policy_sections">
+              <% headers.each do |header| %>
+              <li><%= link_to header.text, public_document_path(@policy, anchor: header.id) %></li>
+              <% end %>
+              </ol>
+            <% end %>
+          </section>
+
+          <% if (supporting_pages = @policy.supporting_pages).any? %>
+            <section>
+              <h3>Supporting detail</h3>
+              <% supporting_pages.each do |supporting_page| %>
+                <%= link_to_with_current supporting_page.title, policy_supporting_page_path(@policy.document_identity, supporting_page) %>
+              <% end %>
+            </section>
           <% end %>
-          </ol>
-          <h3>Supporting detail</h3>
-          <% @policy.supporting_pages.each do |supporting_page| %>
-            <%= link_to_with_current supporting_page.title, policy_supporting_page_path(@policy.document_identity, supporting_page) %>
+
+          <% if @related_publications.any? || @related_consultations.any? ||
+                @related_speeches.any? || @related_news_articles.any? %>
+            <section>
+              <h3>Related documents</h3>
+              <% if @related_publications.any? %><%= link_to "Publications", "#related-publications" %><% end %>
+              <% if @related_consultations.any? %><%= link_to "Consultations", "#related-consultations" %><% end %>
+              <% if @related_news_articles.any? %><%= link_to "News Articles", "#related-news-articles" %><% end %>
+              <% if @related_speeches.any? %><%= link_to "Speeches", "#related-speeches" %><% end %>
+            </section>
           <% end %>
-          <% if @related_publications.any? || @related_consultations.any? || @related_speeches.any? || @related_news_articles.any? %>
-          <h3>Related documents</h3>
-          <% end %>
-          <% if @related_publications.any? %><%= link_to "Publications", "#related-publications" %><% end %>
-          <% if @related_consultations.any? %><%= link_to "Consultations", "#related-consultations" %><% end %>
-          <% if @related_news_articles.any? %><%= link_to "News Articles", "#related-news-articles" %><% end %>
-          <% if @related_speeches.any? %><%= link_to "Speeches", "#related-speeches" %><% end %>
         </nav>
       </div>
 
