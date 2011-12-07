@@ -1,7 +1,111 @@
 <div class="g3">
-  <%= render partial: "policies/policy_view", locals: { policy: @policy, document: @document } %>
+  <section class="policy_view">
+    <h1 class="title"><%= @policy.title %></h1>
+    <nav class="meta">
+      <% @policy.policy_areas.each do |policy_area| %>
+        <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area" %>
+      <% end %>
+      <% @policy.organisations.each do |organisation| %>
+        <%= link_to organisation.name, organisation_path(organisation), class: "organisation" %>
+      <% end %>
+      <% @policy.ministerial_roles.each do |ministerial_role| %>
+        <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
+      <% end %>
+    </nav>
+
+    <div class="group offering">
+      <div class="g1r">
+        <nav class="policy_parts">
+          <h3>On this page</h3>
+          <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'policy_view') %>
+          <ol id="policy_sections">
+          <% govspeak_headers(@policy.body).each do |header| %>
+          <li><%= link_to header.text, public_document_path(@policy, anchor: header.id) %></li>
+          <% end %>
+          </ol>
+          <h3>Supporting detail</h3>
+          <% @policy.supporting_pages.each do |supporting_page| %>
+            <%= link_to_with_current supporting_page.title, policy_supporting_page_path(@policy.document_identity, supporting_page) %>
+          <% end %>
+          <% if @related_publications.any? || @related_consultations.any? || @related_speeches.any? || @related_news_articles.any? %>
+          <h3>Related documents</h3>
+          <% end %>
+          <% if @related_publications.any? %><%= link_to "Publications", "#related-publications" %><% end %>
+          <% if @related_consultations.any? %><%= link_to "Consultations", "#related-consultations" %><% end %>
+          <% if @related_news_articles.any? %><%= link_to "News Articles", "#related-news-articles" %><% end %>
+          <% if @related_speeches.any? %><%= link_to "Speeches", "#related-speeches" %><% end %>
+        </nav>
+      </div>
+
+      <div class="g2 first">
+        <%= render partial: 'documents/inapplicable_nations', locals: { document: @policy } %>
+
+        <article class="document">
+          <div class="body">
+            <%= govspeak_to_html @document.body %>
+          </div>
+
+          <% if @related_publications.any? %>
+            <section id="related-publications">
+              <h1>Related publications</h1>
+              <ul>
+                <% @related_publications.each do |related_document| %>
+                  <%= content_tag_for :li, related_document do %>
+                    <%= link_to related_document.title, public_document_path(related_document) %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </section>
+          <% end %>
+
+          <% if @related_consultations.any? %>
+            <section id="related-consultations">
+              <h1>Related consultations</h1>
+              <ul>
+                <% @related_consultations.each do |related_document| %>
+                  <%= content_tag_for :li, related_document do %>
+                    <%= link_to related_document.title, public_document_path(related_document) %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </section>
+          <% end %>
+
+          <% if @related_news_articles.any? %>
+            <section id="related-news-articles">
+              <h1>Related news</h1>
+              <ul>
+                <% @related_news_articles.each do |related_document| %>
+                  <%= content_tag_for :li, related_document do %>
+                    <%= link_to related_document.title, public_document_path(related_document) %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </section>
+          <% end %>
+
+          <% if @related_speeches.any? %>
+            <section id="related-speeches">
+              <h1>Related speeches</h1>
+              <ul>
+                <% @related_speeches.each do |speech| %>
+                  <%= content_tag_for :li, speech do %>
+                    <%= link_to speech.title, public_document_path(speech) %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </section>
+          <% end %>
+        </article>
+      </div>
+    </div>
+  </section>
 </div>
 
 <div class="secondary">
-  <%= render partial: "policies/policy_relationships", locals: { policy: @policy } %>
+  <% if @recently_changed_documents.any? %>
+  <div class="g1">
+    <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents %>
+  </div>
+  <% end %>
 </div>
