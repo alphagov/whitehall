@@ -20,12 +20,6 @@ module Document::RelatedDocuments
     alias :documents_related_to= :related_documents=
     alias :documents_related_with= :related_documents=
 
-    alias :documents_related_to_ids :related_document_ids
-    alias :documents_related_with_ids :related_document_ids
-
-    alias :documents_related_to_ids= :related_document_ids=
-    alias :documents_related_with_ids= :related_document_ids=
-
     add_trait Trait
   end
 
