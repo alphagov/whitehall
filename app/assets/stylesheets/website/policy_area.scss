@@ -136,22 +136,15 @@
 
     }
 
-
-    .all_policies {
-      section#policies {
-        background: #fff;
-        padding: 1em;
-        border-left: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-      }
-    }
-
     .collection section {
-      margin-right: 0;
-      padding: 1em 0;
+      border-bottom: 1px solid #ccc;
+      margin-left: 0;
+      padding: 0.5em 0;
+      margin-bottom: 0.5em;
       h1 {
         @extend .section_title;
-        margin-bottom: 0.5em;
+        @include type-16;
+        margin-bottom: 0;
       }
 
       ul {
@@ -181,8 +174,20 @@
       }
     }
 
-    .orgs section {
-      padding-left: 0.5em;
+    .all_policies {
+      section#policies {
+        background: #fff;
+        padding: 1em;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+
+        h1 {
+          @extend .section_title;
+          margin-bottom: 0.5em;
+
+        }
+      }
     }
+
   }
 }
