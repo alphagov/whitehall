@@ -165,6 +165,40 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [], document_2.related_documents
   end
 
+  test "return published documents bi-directionally related to specific document" do
+    document_1 = create(:published_publication)
+    document_2 = create(:published_publication)
+    document = create(:published_policy, related_documents: [document_1, document_2])
+
+    assert_equal [document_1, document_2], document.published_related_documents
+    assert_equal [document], document_1.published_related_documents
+    assert_equal [document], document_2.published_related_documents
+  end
+
+  test "should add published related documents bi-directionally" do
+    document_1 = create(:published_publication)
+    document_2 = create(:published_publication)
+    document = create(:published_policy, related_documents: [])
+
+    document.update_attributes!(published_related_document_ids: [document_1.id, document_2.id])
+
+    assert_equal [document_1, document_2], document.published_related_documents
+    assert_equal [document], document_1.published_related_documents
+    assert_equal [document], document_2.published_related_documents
+  end
+
+  test "should remove published related documents bi-directionally" do
+    document_1 = create(:published_publication)
+    document_2 = create(:published_publication)
+    document = create(:published_policy, related_documents: [document_1, document_2])
+
+    document.update_attributes!(published_related_document_ids: [])
+
+    assert_equal [], document.published_related_documents
+    assert_equal [], document_1.published_related_documents
+    assert_equal [], document_2.published_related_documents
+  end
+
   test "#creator= builds a document_creator with the given creator for new records" do
     creator = create(:user)
     document = build(:document, creator: creator)
