@@ -59,6 +59,7 @@
         border-bottom: 1px solid #bbb;
         @include box-shadow(0, 0, 4px, rgba(150,150,150,0.4));
         z-index: 10;
+        width: 40%;
 
         h1 {
           border-top: 1px solid #222;
@@ -180,7 +181,7 @@
       }
     }
 
-    .news section {
+    .orgs section {
       padding-left: 0.5em;
     }
   }

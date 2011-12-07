@@ -35,13 +35,14 @@
     <div class="g2 all_policies collection">
       <%= render partial: "documents/policies", object: @policies, locals: {title: "All policies"} %>
     </div>
-  </div>
 
-  <div class="g1 collection">
-    <%= render partial: "related_policy_areas", object: @related_policy_areas %>
-  </div>
+    <div class="g1 orgs collection">
+      <%= render partial: "documents/organisations", object: @policy_area.organisations %>
+    </div>
 
-  <div class="g1 collection">
-    <%= render partial: "documents/organisations", object: @policy_area.organisations %>
+    <div class="g1 collection">
+      <%= render partial: "related_policy_areas", object: @related_policy_areas %>
+    </div>
+
   </div>
 </div>
