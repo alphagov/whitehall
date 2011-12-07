@@ -22,7 +22,7 @@ class PolicyArea < ActiveRecord::Base
 
   has_many :policy_area_relations
   has_many :related_policy_areas, through: :policy_area_relations, before_remove: -> pa, rpa {
-    PolicyAreaRelation.relation_for(pa, rpa).destroy_inverse_relation
+    PolicyAreaRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
   }
 
   validates :name, presence: true, uniqueness: true
