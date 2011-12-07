@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PolicyAreaRelationsTest < ActiveSupport::TestCase
+class PolicyAreaRelationTest < ActiveSupport::TestCase
   test "should be valid when built from the factory" do
     policy_area_relation = build(:policy_area_relation)
     assert policy_area_relation.valid?
