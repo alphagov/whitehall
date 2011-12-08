@@ -35,7 +35,7 @@ class PolicyAreasController < ApplicationController
 
     present_object_with do
       def most_recently_updated_related_document
-        Document.published.related_to(@record).by_publication_date.first
+        Document.published.related_to(@record).by_published_at.first
       end
     end
   end

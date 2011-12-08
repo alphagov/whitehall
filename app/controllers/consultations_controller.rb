@@ -18,7 +18,7 @@ class ConsultationsController < DocumentsController
   private
 
   def load_consultations_from_scope(scope)
-    @consultations = scope.published.by_publication_date
+    @consultations = scope.published.by_published_at
   end
 
   def document_class

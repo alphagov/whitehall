@@ -6,7 +6,7 @@ module Document::Publishing
   end
 
   module ClassMethods
-    def by_publication_date
+    def by_published_at
       order(arel_table[:published_at].desc)
     end
   end

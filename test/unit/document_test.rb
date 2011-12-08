@@ -336,11 +336,11 @@ class DocumentTest < ActiveSupport::TestCase
     refute Policy.authored_by(publication.creator).include?(publication)
   end
 
-  test ".by_publication_date orders by publication date descending" do
+  test ".by_published_at orders by published_at descending" do
     policy = create(:policy, published_at: 2.hours.ago)
     publication = create(:publication, published_at: 4.hours.ago)
     article = create(:news_article, published_at: 1.hour.ago)
-    assert_equal [article, policy, publication], Document.by_publication_date
+    assert_equal [article, policy, publication], Document.by_published_at
   end
 
   test "should only return the submitted documents" do
