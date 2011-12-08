@@ -5,6 +5,8 @@ class Consultation < Document
   include Document::RelatedDocuments
   include Document::Attachable
 
+  scope :featured, where(featured: true)
+
   validates :opening_on, presence: true
   validates :closing_on, presence: true
   validate :closing_on_must_be_after_opening_on

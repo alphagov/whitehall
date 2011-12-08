@@ -76,4 +76,8 @@ module CssSelectors
   def featured_news_articles_selector
     "#featured-news-articles"
   end
+
+  def featured_consultations_selector
+    "#featured-consultations"
+  end
 end

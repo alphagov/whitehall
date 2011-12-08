@@ -3,15 +3,18 @@ class ConsultationsController < DocumentsController
 
   def index
     load_consultations_from_scope(Consultation)
+    @featured_consultations = Consultation.published.featured.by_published_at.limit(3)
   end
 
   def open
     load_consultations_from_scope(Consultation.open)
+    @featured_consultations = []
     render :index
   end
 
   def closed
     load_consultations_from_scope(Consultation.closed)
+    @featured_consultations = []
     render :index
   end
 
