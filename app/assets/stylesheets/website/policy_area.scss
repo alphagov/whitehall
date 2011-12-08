@@ -9,7 +9,15 @@
       background: #fff;
       border: 1px solid #ddd;
       border-bottom: 1px solid #ccc;
-      padding-bottom: 1em;
+      @media only screen and (min-width: 960px) {
+        padding-bottom: 1em;
+        min-height: 18.5em;
+      }
+
+      @media only screen and (min-width: 1200px) {
+        min-height: 17.5em;
+      }
+
       margin-top: 0.1em;
       margin-bottom: 0;
       position: relative;
@@ -31,18 +39,22 @@
           @include type-16;
           margin-left: 1.75em;
           margin-right: 1.75em;
-          padding-right: 40%;
+          @media only screen and (min-width: 960px) {
+            padding-right: 40%;
+          }
         }
       }
 
       #recently-changed {
-        position: absolute;
-        top: 0.5em;
-        right: 1em;
-        border-bottom: 1px solid #bbb;
-        @include box-shadow(0, 0, 4px, rgba(150,150,150,0.4));
-        z-index: 10;
-        width: 40%;
+        @media only screen and (min-width: 960px) {
+          position: absolute;
+          top: 2.5em;
+          right: 1em;
+          border-bottom: 1px solid #bbb;
+          @include box-shadow(0, 0, 4px, rgba(150,150,150,0.4));
+          z-index: 10;
+          width: 37%;
+        }
 
         h1 {
           border-top: 1px solid #222;
@@ -52,7 +64,6 @@
           padding: 0.5em;
           color: #ffffdf;
           border-bottom: 4px solid $collation-green;
-
         }
 
         ul {
@@ -60,8 +71,11 @@
           margin-bottom: 0;
           padding-top: 0.85em;
           padding-bottom: 0.5em;
-          border-left: 1px solid #ddd;
-          border-right: 1px solid #ddd;
+
+          @media only screen and (min-width: 960px) {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+          }
           border-top: 1px solid #ffffce;
 
           li {
@@ -85,6 +99,15 @@
 
     .priority_policies {
       border-bottom: 1px solid #ddd;
+
+      h1 {
+        text-align: center;
+        @media only screen and (min-width: 600px) {
+          text-align: left;
+          margin-left: 1%;
+        }
+      }
+
       section {
         ul {
           @include clearfix;
@@ -134,20 +157,30 @@
       }
     }
 
+    #related_policy_areas {
+      border-bottom: 0;
+    }
+
     .all_policies {
-      margin-bottom: 1.5em;
+      @media only screen and (min-width: 600px) {
+        margin-bottom: 1.5em;
+      }
 
       section#policies {
         margin-left: 0;
 
-        background: #fff;
-        padding-left: 1.5em;
-        padding-right: 0.5em;
-        border-left: 1px solid #ddd;
-        border-right: 1px solid #ddd;
+        @media only screen and (min-width: 600px) {
+          background: #fff;
+          border-left: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+          padding-left: 1.5em;
+          padding-right: 1.5em;
+        }
 
         ul {
-          margin-bottom: 1.5em;
+          @media only screen and (min-width: 600px) {
+            margin-bottom: 1.5em;
+          }
           border-bottom: 0;
         }
       }

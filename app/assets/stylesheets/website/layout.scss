@@ -51,11 +51,12 @@
     border-bottom: 0;
     padding-top: 1em;
     padding-bottom: 1em;
-    @include box-shadow(0, 2px, 2px, #e5e5e5);
-    @include rounded_top();
+
 
     @media only screen and (min-width: 600px) {
       width: 81%;
+      @include box-shadow(0, 2px, 2px, #e5e5e5);
+      @include rounded_top();
     }
 
     h1.page_title {
