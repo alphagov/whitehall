@@ -1,6 +1,8 @@
 class ConsultationsController < DocumentsController
+  helper_method :scope_description
+
   def index
-    redirect_to open_consultations_path
+    load_consultations_from_scope(Consultation)
   end
 
   def open
@@ -13,11 +15,6 @@ class ConsultationsController < DocumentsController
     render :index
   end
 
-  def upcoming
-    load_consultations_from_scope(Consultation.upcoming)
-    render :index
-  end
-
   private
 
   def load_consultations_from_scope(scope)
@@ -26,5 +23,9 @@ class ConsultationsController < DocumentsController
 
   def document_class
     Consultation
+  end
+
+  def scope_description
+    params[:action] == 'index' ? '' : ' ' + params[:action]
   end
 end
