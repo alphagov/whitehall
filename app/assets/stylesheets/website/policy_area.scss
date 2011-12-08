@@ -31,7 +31,13 @@
           color: #ffffdf;
           padding: 0.5em 1em;
           text-shadow: none;
-          margin-bottom: 0.95em;
+          margin-bottom: 0;
+        }
+
+        nav.meta {
+          background: #FFFFFa;
+          padding: 0.2em 1.5em;
+          border-bottom: 1px solid #ddd;
         }
 
         p {
@@ -154,10 +160,10 @@
           margin-bottom: 0.9em;
         }
       }
-    }
 
-    #related_policy_areas {
-      border-bottom: 0;
+      p {
+        @include type-12;
+      }
     }
 
     .all_policies {
@@ -185,6 +191,16 @@
       }
     }
 
+    .collection.last section {
+      border-bottom: 0;
+    }
+
+
+    .no_featured {
+      .collection {
+        border-top: 1px solid #ddd;
+      }
+    }
   }
 }
 

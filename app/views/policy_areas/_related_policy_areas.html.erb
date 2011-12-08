@@ -1,6 +1,6 @@
-<% if related_policy_areas.any? %>
-  <section id="related_policy_areas">
-    <h1>Related policy areas</h1>
+<section id="related_policy_areas">
+  <h1>Related policy areas</h1>
+  <% if related_policy_areas.any? %>
     <ul>
       <% related_policy_areas.each do |related_policy_area| %>
         <%= content_tag_for :li, related_policy_area do %>
@@ -8,5 +8,7 @@
         <% end %>
       <% end %>
     </ul>
-  </section>
-<% end %>
+  <% else %>
+    <p>No related policy areas</p>
+  <% end %>
+</section>

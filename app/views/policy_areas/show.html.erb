@@ -5,6 +5,11 @@
     <section class="policy_area">
       <%= content_tag_for :article, @policy_area do %>
         <h1 class="page_title name"><%= @policy_area.name %></h1>
+        <nav class="meta">
+          <% @policy_area.organisations.each do |organisation| %>
+            <%= link_to organisation.name, organisation_path(organisation), class: "organisation" %>
+          <% end %>
+        </nav>
         <div class="description"><%= govspeak_to_html @policy_area.description %></div>
       <% end %>
     </section>
@@ -13,12 +18,12 @@
   </div>
 
 
-  <div class="g3 related_content group">
+  <div class="g3 related_content group<%= @featured_policies.any? ? "" : " no_featured" %>">
     <% if @featured_policies.any? %>
       <div class="g3 priority_policies">
         <section>
           <h1 class="section_title">Current priorities</h1>
-          <ul class="featured policies <%= "half_columns" if @featured_policies.count > 3 %>">
+          <ul class="featured policies<%= @featured_policies.count > 6 ? " half_columns" : "" %>">
             <% @featured_policies.each do |policy| %>
               <%= content_tag_for :li, policy, class: "featured_policy" do %>
                 <div class="inner">
@@ -36,11 +41,7 @@
       <%= render partial: "documents/policies", object: @policies, locals: {title: "All policies"} %>
     </div>
 
-    <div class="g1 orgs collection">
-      <%= render partial: "documents/organisations", object: @policy_area.organisations %>
-    </div>
-
-    <div class="g1 collection">
+    <div class="g1 collection last">
       <%= render partial: "related_policy_areas", object: @related_policy_areas %>
     </div>
 
