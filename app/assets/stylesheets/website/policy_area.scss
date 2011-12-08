@@ -48,7 +48,7 @@
       #recently-changed {
         @media only screen and (min-width: 960px) {
           position: absolute;
-          top: 2.5em;
+          top: 1.25em;
           right: 1em;
           border-bottom: 1px solid #bbb;
           @include box-shadow(0, 0, 4px, rgba(150,150,150,0.4));
