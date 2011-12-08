@@ -1,4 +1,9 @@
 <h1 class="title"><%= document.title %></h1>
+<% unless document.summary.blank? %>
+    <section class="summary">
+    <%= document.summary %>
+  </section>
+<% end %>
 <div class="body">
   <%= govspeak_to_admin_html document.body %>
 </div>

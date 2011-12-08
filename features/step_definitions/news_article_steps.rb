@@ -25,9 +25,9 @@ When /^I visit the news and speeches page$/ do
   visit announcements_path
 end
 
-
 When /^I draft a new news article "([^"]*)"$/ do |title|
-  begin_drafting_document type: 'news_article', title: title
+  begin_drafting_document type: "news_article", title: title
+  fill_in "Summary", with: "here's a simple summary"
   click_button "Save"
 end
 

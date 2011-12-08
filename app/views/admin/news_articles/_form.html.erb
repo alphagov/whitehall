@@ -1,6 +1,11 @@
 <%= form_for [:admin, document], as: :document do |form| %>
   <%= form.errors %>
-  <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
+  <fieldset>
+    <%= form.hidden_field :lock_version %>
+    <%= form.text_field :title %>
+    <%= form.text_field :summary %>
+    <%= form.text_area :body, "class" => "previewable", :help => true %>
+  </fieldset>
 
   <%= render partial: 'related_policy_fields', locals: { form: form, document: document } %>
   <%= render partial: 'organisation_fields', locals: { form: form, document: document } %>

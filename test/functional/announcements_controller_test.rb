@@ -16,4 +16,14 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select ".published_at", text: "4 days ago"
     end
   end
+
+  test "index shows the summary for each news article" do
+    news_article = create(:published_news_article, published_at: 4.days.ago, summary: 'a-simple-summary')
+
+    get :index
+
+    assert_select_object news_article do
+      assert_select ".summary", text: "a-simple-summary"
+    end
+  end
 end

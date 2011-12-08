@@ -10,6 +10,12 @@
   .title {
     @include type-36;
   }
+
+  .summary {
+    @include type-14;
+    font-style: italic;
+  }
+
   .body {
 
     h2 {

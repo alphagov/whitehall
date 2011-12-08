@@ -32,6 +32,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     created_news_article = NewsArticle.last
     assert_equal attributes[:title], created_news_article.title
     assert_equal attributes[:body], created_news_article.body
+    assert_equal attributes[:summary], created_news_article.summary
     assert_equal "notes-to-editors", created_news_article.notes_to_editors
     assert_equal [first_policy, second_policy], created_news_article.related_documents
   end
@@ -140,6 +141,14 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     put :update, id: submitted_news_article, document: attributes.merge(title: '')
 
     assert_template 'edit'
+  end
+
+  test "should render the summary" do
+    draft_news_article = create(:draft_news_article, summary: "a-simple-summary")
+
+    get :show, id: draft_news_article
+
+    assert_select ".summary", text: "a-simple-summary"
   end
 
   test "should render the content using govspeak markup" do
