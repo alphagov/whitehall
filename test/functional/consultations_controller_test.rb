@@ -34,47 +34,7 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_select 'p', text: 'There are no consultations at present.'
   end
 
-  test "should ignore unpublished featured consultations" do
-    draft_featured_consultation = create(:draft_consultation, featured: true)
-    get :index
-    refute assigns[:featured_consultations].include?(draft_featured_consultation)
-  end
 
-  test "should ignore published non-featured consultations" do
-    published_consultation = create(:published_consultation, featured: false)
-    get :index
-    refute assigns[:featured_consultations].include?(published_consultation)
-  end
-
-  test "should order published featured consultations by publication date" do
-    old_consultation = create(:published_consultation, featured: true, published_at: 1.month.ago)
-    new_consultation = create(:published_consultation, featured: true, published_at: 1.day.ago)
-    get :index
-    assert_equal [new_consultation, old_consultation], assigns[:featured_consultations]
-  end
-
-  test "should not display the featured consultation list if there aren't featured consultations" do
-    create(:published_consultation)
-    get :index
-    refute_select featured_consultations_selector
-  end
-
-  test "should display a link to the featured consultation" do
-    consultation = create(:published_consultation, featured: true)
-    get :index
-    assert_select featured_consultations_selector do
-      assert_select "#{record_css_selector(consultation)} a[href=#{consultation_path(consultation.document_identity)}]"
-    end
-  end
-
-  test "should display the date the featured consultation was published" do
-    published_at = Time.zone.now
-    consultation = create(:published_consultation, featured: true, published_at: published_at)
-    get :index
-    assert_select featured_consultations_selector do
-      assert_select "#{record_css_selector(consultation)} .published_at[title=#{published_at.iso8601}]"
-    end
-  end
 
   test 'open lists published open consultations' do
     published_open_consultation = create(:published_consultation, opening_on: 1.day.ago, closing_on: 1.day.from_now)
@@ -197,4 +157,5 @@ class ConsultationsControllerTest < ActionController::TestCase
   end
 
   should_display_attachments_for :consultation
+  should_show_featured_documents_for :consultation
 end
