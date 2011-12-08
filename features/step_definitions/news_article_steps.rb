@@ -25,6 +25,12 @@ When /^I visit the news and speeches page$/ do
   visit announcements_path
 end
 
+When /^I draft a new featured news article "([^"]*)"$/ do |title|
+  begin_drafting_document type: "News Article", title: title
+  check "Featured?"
+  click_button "Save"
+end
+
 When /^I draft a new news article "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_document type: "News Article", title: title
   select first_policy, from: "Related Policies"
