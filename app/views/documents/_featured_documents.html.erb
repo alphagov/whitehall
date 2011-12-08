@@ -1,0 +1,14 @@
+<% if featured_documents.any? %>
+  <ul id="<%= list_id %>">
+    <% featured_documents.each do |document| %>
+      <%= content_tag_for(:li, document) do %>
+        <%= link_to document.title, public_document_path(document), class: "title" %>
+        <p class="small">
+          <%= render_datetime_microformat(document, :published_at) do %>
+            <%= time_ago_in_words(document.published_at) %> ago
+          <% end %>
+        </p>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

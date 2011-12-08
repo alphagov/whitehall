@@ -9,21 +9,7 @@
   <% if @consultations.empty? %>
     <p>There are no<%= scope_description %> consultations at present.</p>
   <% else %>
-    <% if @featured_consultations.any? %>
-      <ul id="featured-consultations">
-        <% @featured_consultations.each do |consultation| %>
-          <%= content_tag_for(:li, consultation) do %>
-            <%= link_to consultation.title, public_document_path(consultation), class: "title" %>
-            <p class="small">
-              <%= render_datetime_microformat(consultation, :published_at) do %>
-                <%= time_ago_in_words(consultation.published_at) %> ago
-              <% end %>
-            </p>
-          <% end %>
-        <% end %>
-      </ul>
-    <% end %>
-
+    <%= render partial: "featured_documents", object: @featured_consultations, locals: {list_id: "featured-consultations"} %>
     <%= render partial: "consultations", object: @consultations %>
   <% end %>
 </div>

@@ -1,19 +1,7 @@
 <div class="g3">
   <h1 class="page_title group"><%= "News & speeches" %></h1>
-  <% if @featured_news_articles.any? %>
-    <ul id="featured-news-articles">
-      <% @featured_news_articles.each do |news_article| %>
-        <%= content_tag_for(:li, news_article) do %>
-          <%= link_to news_article.title, public_document_path(news_article), class: "title" %>
-          <p class="small">
-            <%= render_datetime_microformat(news_article, :published_at) do %>
-              <%= time_ago_in_words(news_article.published_at) %> ago
-            <% end %>
-          </p>
-        <% end %>
-      <% end %>
-    </ul>
-  <% end %>
+  <%= render partial: "documents/featured_documents", object: @featured_news_articles, locals: {list_id: "featured-news-articles"} %>
+  
   <div class="g1">
     <%= render partial: "documents/news_articles", locals: {news_articles: @news_articles} %>
   </div>
