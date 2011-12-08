@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111206172940) do
+ActiveRecord::Schema.define(:version => 20111207161017) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -71,6 +71,15 @@ ActiveRecord::Schema.define(:version => 20111206172940) do
     t.datetime "updated_at"
   end
 
+  create_table "document_policy_areas", :force => true do |t|
+    t.integer  "policy_area_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "document_id"
+    t.integer  "ordering"
+    t.boolean  "featured",       :default => false
+  end
+
   create_table "document_relations", :force => true do |t|
     t.integer  "document_id",         :null => false
     t.integer  "related_document_id", :null => false
@@ -100,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20111206172940) do
     t.string   "order_url"
     t.text     "notes_to_editors"
     t.boolean  "corporate_publication", :default => false
+    t.boolean  "featured",              :default => false
   end
 
   create_table "editorial_remarks", :force => true do |t|
@@ -223,6 +233,17 @@ ActiveRecord::Schema.define(:version => 20111206172940) do
   end
 
   add_index "policy_areas", ["slug"], :name => "index_policy_areas_on_slug"
+
+  create_table "publication_metadata", :force => true do |t|
+    t.integer  "publication_id"
+    t.date     "publication_date"
+    t.string   "unique_reference"
+    t.string   "isbn"
+    t.boolean  "research",         :default => false
+    t.string   "order_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "role_appointments", :force => true do |t|
     t.integer  "role_id"

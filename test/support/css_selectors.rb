@@ -72,4 +72,8 @@ module CssSelectors
   def permanent_secretary_board_members_selector
     "#permanent_secretary_board_members"
   end
+
+  def featured_news_articles_selector
+    "#featured-news-articles"
+  end
 end
