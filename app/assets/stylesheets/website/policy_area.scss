@@ -9,6 +9,7 @@
       background: #fff;
       border: 1px solid #ddd;
       border-bottom: 1px solid #ccc;
+
       @media only screen and (min-width: 960px) {
         padding-bottom: 1em;
         min-height: 17.5em;
@@ -25,11 +26,9 @@
       section.policy_area {
         h1.page_title {
           @include type-24;
-
           background: #353500;
           border-bottom: 4px solid $collation-green;
           color: #ffffdf;
-
           padding: 0.5em 1em;
           text-shadow: none;
           margin-bottom: 0.95em;
@@ -67,7 +66,7 @@
         }
 
         ul {
-          background: #fffff0;
+          background: #FFFFFA;
           margin-bottom: 0;
           padding-top: 0.85em;
           padding-bottom: 0.5em;
