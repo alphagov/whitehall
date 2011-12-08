@@ -188,3 +188,53 @@
 
   }
 }
+
+.lte-ie8 {
+  #wrapper #content {
+    .policy_area_view {
+      .policy_area_overview {
+        padding-bottom: 1em;
+        min-height: 18.5em;
+
+        section.policy_area p {
+          padding-right: 40%;
+        }
+
+        #recently-changed {
+          position: absolute;
+          top: 2.5em;
+          right: 1em;
+          border-bottom: 1px solid #bbb;
+          @include box-shadow(0, 0, 4px, rgba(150,150,150,0.4));
+          z-index: 10;
+          width: 37%;
+          ul {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+          }
+        }
+      }
+
+      .priority_policies {
+        h1 {
+          text-align: left;
+          margin-left: 1%;
+        }
+      }
+
+      .all_policies {
+        margin-bottom: 1.5em;
+        section#policies {
+          background: #fff;
+          border-left: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+          padding-left: 1.5em;
+          padding-right: 1.5em;
+          ul {
+            margin-bottom: 1.5em;
+          }
+        }
+      }
+    }
+  }
+}
