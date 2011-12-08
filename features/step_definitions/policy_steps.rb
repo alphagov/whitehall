@@ -144,6 +144,11 @@ When /^I write a policy "([^"]*)" with body "([^"]*)"$/ do |title, body|
   fill_in 'Body', with: body
 end
 
+When /^I draft a new policy "([^"]*)"$/ do |title|
+  begin_drafting_document type: 'policy', title: title
+  click_button "Save"
+end
+
 When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" policy areas$/ do |title, first_policy_area, second_policy_area|
   begin_drafting_document type: "Policy", title: title
   select first_policy_area, from: "Policy areas"

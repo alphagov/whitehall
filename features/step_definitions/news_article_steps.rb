@@ -25,6 +25,12 @@ When /^I visit the news and speeches page$/ do
   visit announcements_path
 end
 
+
+When /^I draft a new news article "([^"]*)"$/ do |title|
+  begin_drafting_document type: 'news_article', title: title
+  click_button "Save"
+end
+
 When /^I draft a new featured news article "([^"]*)"$/ do |title|
   begin_drafting_document type: "News Article", title: title
   check "Featured?"

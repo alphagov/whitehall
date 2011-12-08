@@ -65,11 +65,6 @@ When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do
   visit public_document_path(document)
 end
 
-When /^I draft a new (policy|news article) "([^"]*)"$/ do |document_type, title|
-  begin_drafting_document type: document_type, title: title
-  click_button "Save"
-end
-
 When /^I submit (#{THE_DOCUMENT})$/ do |document|
   visit_document_preview document.title
   click_button "Submit to 2nd pair of eyes"
