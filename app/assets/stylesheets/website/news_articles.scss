@@ -1,3 +1,5 @@
+@import "../shared/utils";
+
 #content {
   #notes_to_editors {
     h1 {
@@ -5,6 +7,12 @@
         font-size: 0.5em;
         margin-left: 1em;
       }
+    }
+  }
+
+  #featured-news-articles {
+    a.title {
+      @include type-18;
     }
   }
 }
