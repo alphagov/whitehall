@@ -25,4 +25,8 @@ class RoutingTest < ActionDispatch::IntegrationTest
     get "/"
     assert_redirected_to "#{Whitehall.router_prefix}/"
   end
+
+  test "visiting unknown route should raise routing error" do
+    assert_raises(ActionController::RoutingError) { get "/government/path-unknown-to-application" }
+  end
 end
