@@ -63,6 +63,7 @@
       text-shadow: #fff 0px 1px 0;
       color: #353500;
       margin-left: 1%;
+      margin-top: 0.65em;
     }
 
     .secondary {
@@ -116,6 +117,24 @@
 
   .govspeak {
     @include govspeak;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  h1.section_title {
+    color: #333;
+    @include type-18;
+    margin-bottom: 1em;
+  }
+
+  .related_content {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-top: none;
+    padding-top: 1em;
   }
 }
 
