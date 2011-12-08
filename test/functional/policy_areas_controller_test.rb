@@ -58,7 +58,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
     get :show, id: policy_area
 
-    assert_select "#related_policy_areas", count: 0
+    assert_select "#related_policy_areas ul", count: 0
   end
 
   test "show displays recently changed documents relating to policies in the policy area" do
@@ -135,7 +135,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
     get :show, id: policy_area
 
-    assert_select "#organisations" do
+    assert_select "nav.meta" do
       assert_select_object first_organisation
       assert_select_object second_organisation
     end
