@@ -6,8 +6,12 @@
       <%= content_tag_for :article, @policy_area do %>
         <h1 class="page_title name"><%= @policy_area.name %></h1>
         <nav class="meta">
-          <% @policy_area.organisations.each do |organisation| %>
-            <%= link_to organisation.name, organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
+          <% if @policy_area.organisations.any? %>
+            <% @policy_area.organisations.each do |organisation| %>
+              <%= link_to organisation.name, organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
+            <% end %>
+          <% else %>
+            <span>No organisations associated</span>
           <% end %>
         </nav>
         <div class="description"><%= govspeak_to_html @policy_area.description %></div>
