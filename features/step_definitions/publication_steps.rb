@@ -42,11 +42,6 @@ Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
   create(:published_publication, title: title, attachments: [attachment])
 end
 
-Given /^a published publication "([^"]*)" with a PDF attachment "([^"]*)"$/ do |title, attachment_title|
-  attachment = Attachment.new(file: pdf_attachment(attachment_title))
-  create(:published_publication, title: title, attachments: [attachment])
-end
-
 Given /^I attempt to create an invalid publication with an attachment$/ do
   begin_drafting_document type: "Publication", title: ""
   select_date "Publication date", with: "2010-01-01"
@@ -88,11 +83,6 @@ Then /^I should see a link to the PDF attachment$/ do
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "attachment.pdf")
 end
 
-Then /^I should see a link to the PDF attachment "([^"]*)"$/ do |name|
-  assert page.has_css?(".attachment a[href*='#{name}']", text: name)
-  assert page.has_css?(".attachment .type", text: "PDF")
-end
-
 Then /^I should see a thumbnail of the first page of the PDF$/ do
   assert page.has_css?(".attachment img[src*='attachment.pdf.png']")
 end
@@ -109,15 +99,8 @@ Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |
   assert has_css?("#{corporate_publications_selector}, .publication a", text: title)
 end
 
-def pdf_attachment(filename=nil)
-  fixture_path = Rails.root.join("features/fixtures/attachment.pdf")
-  if filename
-    path = File.join(Dir.tmpdir, filename)
-    File.open(path, "w") { |f| f.write filename }
-    File.open(path)
-  else
-    File.open(fixture_path)
-  end
+def pdf_attachment
+  File.open(Rails.root.join("features/fixtures/attachment.pdf"))
 end
 
 def fill_in_publication_fields
