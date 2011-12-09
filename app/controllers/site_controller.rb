@@ -4,5 +4,6 @@ class SiteController < ApplicationController
   end
 
   def headers
+    @headers = request.headers.select {|k,v| k.starts_with?("HTTP_") }
   end
 end

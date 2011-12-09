@@ -5,7 +5,7 @@
 </p>
 
 <p>
-<% request.headers.each do |name, value| %>
+<% @headers.each do |name, value| %>
 <%= name %>: <%= value %><br/>
 <% end %>
 </p>
