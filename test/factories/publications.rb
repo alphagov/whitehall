@@ -3,6 +3,8 @@ FactoryGirl.define do
     title "publication-title"
     body  "publication-body"
     publication_date { 10.days.ago }
+
+    trait(:corporate) { corporate_publication true }
   end
 
   factory :draft_publication, parent: :publication, traits: [:draft]
@@ -11,4 +13,8 @@ FactoryGirl.define do
   factory :published_publication, parent: :publication, traits: [:published]
   factory :deleted_publication, parent: :publication, traits: [:deleted]
   factory :archived_publication, parent: :publication, traits: [:archived]
+
+  factory :draft_corporate_publication, parent: :publication, traits: [:draft, :corporate]
+  factory :submitted_corporate_publication, parent: :publication, traits: [:submitted, :corporate]
+  factory :published_corporate_publication, parent: :publication, traits: [:published, :corporate]
 end

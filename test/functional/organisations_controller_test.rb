@@ -67,6 +67,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select_object(draft_document)
   end
 
+  test "shows only published corporate publications associated with organisation" do
+    published_corporate_publication = create(:published_corporate_publication)
+    draft_corporate_publication = create(:draft_corporate_publication)
+    organisation = create(:organisation, documents: [
+      published_corporate_publication,
+      draft_corporate_publication
+    ])
+    get :show, id: organisation
+    assert_select_object(published_corporate_publication)
+    refute_select_object(draft_corporate_publication)
+  end
+
   test "shows only published news articles associated with organisation" do
     published_document = create(:published_news_article)
     draft_document = create(:draft_news_article)

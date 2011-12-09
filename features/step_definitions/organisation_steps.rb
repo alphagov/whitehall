@@ -39,6 +39,11 @@ Given /^that "([^"]*)" is the responsibility of "([^"]*)" and "([^"]*)"$/ do |ch
   create(:organisation, name: child_org_name, parent_organisations: [parent_org_1, parent_org_2])
 end
 
+Given /^a submitted corporate publication "([^"]*)" about the "([^"]*)"$/ do |publication_title, organisation_name|
+  organisation = Organisation.find_by_name(organisation_name)
+  create(:submitted_corporate_publication, title: publication_title, organisations: [organisation])
+end
+
 When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
 end
