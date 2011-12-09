@@ -15,14 +15,14 @@
       @include type-18;
     }
   }
-}
 
-#news_articles {
-  li {
-    .summary {
-      @include type-14;
-      font-style: italic;
-      margin: 0
+  #news_articles {
+    li {
+      .summary {
+        @include type-14;
+        font-style: italic;
+        margin: 0
+      }
     }
   }
 }

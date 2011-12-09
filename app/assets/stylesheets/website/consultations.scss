@@ -1,63 +1,65 @@
 @import "../shared/utils";
 
-#consultations {
-  li.consultation {
-    .details {
-      @include type-14;
-      span:after {
-        content: ';'
-      }
-      span:last-child:after {
-        content: '';
+#content {
+  #consultations {
+    li.consultation {
+      .details {
+        @include type-14;
+        span:after {
+          content: ';'
+        }
+        span:last-child:after {
+          content: '';
+        }
       }
     }
   }
-}
 
-nav.consultations_scope {
-  display: inline-block;
-  margin: 0 1em 0.5em 1em;
-  @include rounded();
-
-  a {
-    @include filter_link;
-    @include vertical_gradient(#ffffff, #efefef);
-    border-bottom: 1px solid #bbb;
-    border-top: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    padding: 0.35em 1em 0.5em 1em;
+  nav.consultations_scope {
     display: inline-block;
-    margin-left: -4px;
-    margin-bottom: 0;
-    text-decoration: none;
+    margin: 0 1em 0.5em 1em;
+    @include rounded();
 
-    &:first-child {
+    a {
+      @include filter_link;
+      @include vertical_gradient(#ffffff, #efefef);
+      border-bottom: 1px solid #bbb;
+      border-top: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+      padding: 0.35em 1em 0.5em 1em;
+      display: inline-block;
+      margin-left: -4px;
+      margin-bottom: 0;
+      text-decoration: none;
+
+      &:first-child {
+        margin-left: 0;
+        @include rounded_left();
+        border-left: 1px solid #ddd;
+      }
+
+      &:last-child {
+        @include rounded_right();
+        border-right: 1px solid #ccc;
+      }
+
+      &:hover {
+        @include vertical_gradient(#fafdff, #d8d8d8);
+      }
+
+      &.current {
+        color: #444;
+        @include vertical_gradient(#fafdff, #ccc);
+      }
+    }
+
+    @media only screen and (min-width: 1035px) {
+      float: right;
+    }
+
+    @media only screen and (min-width: 720px) {
       margin-left: 0;
-      @include rounded_left();
-      border-left: 1px solid #ddd;
+      margin-right: 0;
     }
-
-    &:last-child {
-      @include rounded_right();
-      border-right: 1px solid #ccc;
-    }
-
-    &:hover {
-      @include vertical_gradient(#fafdff, #d8d8d8);
-    }
-
-    &.current {
-      color: #444;
-      @include vertical_gradient(#fafdff, #ccc);
-    }
-  }
-
-  @media only screen and (min-width: 1035px) {
-    float: right;
-  }
-
-  @media only screen and (min-width: 720px) {
-    margin-left: 0;
-    margin-right: 0;
   }
 }
