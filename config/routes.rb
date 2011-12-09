@@ -86,8 +86,10 @@ Whitehall::Application.routes.draw do
     end
 
     match 'styleguide' => 'styleguide#index'
-    match 'site/sha' => 'site#sha'
     match '/topics' => redirect("/policy-areas")
+
+    match 'site/sha' => 'site#sha'
+    match 'site/headers' => 'site#headers'
   end
 
   mount TestTrack::Engine => "test" if Rails.env.test?

@@ -1,0 +1,12 @@
+<p>
+  request.host: <%= request.host %><br/>
+  request.port: <%= request.port %><br/>
+  request.scheme: <%= request.scheme %><br/>
+</p>
+
+<p>
+<% request.headers.each do |name, value| %>
+<%= name %>: <%= value %><br/>
+<% end %>
+</p>
+  
