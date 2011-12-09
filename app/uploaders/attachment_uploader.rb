@@ -9,10 +9,10 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   after :retrieve_from_cache, :set_content_type
 
   version :thumbnail do
-    def filename
+    def full_filename(for_file)
       super + ".png"
     end
-    # process :generate_thumbnail, :if => :pdf?
+    process :generate_thumbnail, :if => :pdf?
   end
 
   def store_dir

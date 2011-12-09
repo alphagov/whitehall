@@ -93,6 +93,10 @@ Then /^I should see a link to the PDF attachment "([^"]*)"$/ do |name|
   assert page.has_css?(".attachment .type", text: "PDF")
 end
 
+Then /^I should see a thumbnail of the first page of the PDF$/ do
+  assert page.has_css?(".attachment img[src*='attachment.pdf.png']")
+end
+
 Then /^I can see links to the related published publications "([^"]*)" and "([^"]*)"$/ do |publication_title_1, publication_title_2|
   publication_1 = Publication.published.find_by_title!(publication_title_1)
   publication_2 = Publication.published.find_by_title!(publication_title_2)

@@ -116,4 +116,11 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment.reload
     refute attachment.pdf?
   end
+
+  test "should return the url to a PNG for PDF thumbnails" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+    attachment = create(:attachment, file: greenpaper_pdf)
+    attachment.reload
+    assert attachment.url(:thumbnail).ends_with?("thumbnail_greenpaper.pdf.png"), "unexpected url ending: #{attachment.url(:thumbnail)}"
+  end
 end
