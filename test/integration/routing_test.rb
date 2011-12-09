@@ -51,9 +51,33 @@ class RoutingTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
 
-    test "should allow access to admin from non-single-domain host: #{host}" do
+    test "should allow access to admin URLs from non-single-domain host: #{host}" do
       host! host
       get_via_redirect "/government/admin"
+      assert_response :success
+    end
+
+    test "should allow access to login path from non-single-domain host: #{host}" do
+      host! host
+      get_via_redirect login_path
+      assert_response :success
+    end
+
+    test "should allow access to logout path from non-single-domain host: #{host}" do
+      host! host
+      post_via_redirect logout_path
+      assert_response :success
+    end
+
+    test "should allow access to create session path from non-single-domain host: #{host}" do
+      host! host
+      post_via_redirect session_path
+      assert_response :success
+    end
+
+    test "should allow access to destroy session path from non-single-domain host: #{host}" do
+      host! host
+      delete_via_redirect session_path
       assert_response :success
     end
   end
@@ -65,9 +89,33 @@ class RoutingTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
 
-    test "should not allow access to admin from single-domain host: #{host}" do
+    test "should not allow access to admin URLs from single-domain host: #{host}" do
       host! host
       get_via_redirect "/government/admin"
+      assert_response :not_found
+    end
+
+    test "should not allow access to login path from non-single-domain host: #{host}" do
+      host! host
+      get_via_redirect login_path
+      assert_response :not_found
+    end
+
+    test "should not allow access to logout path from non-single-domain host: #{host}" do
+      host! host
+      post_via_redirect logout_path
+      assert_response :not_found
+    end
+
+    test "should not allow access to create session path from non-single-domain host: #{host}" do
+      host! host
+      post_via_redirect session_path
+      assert_response :not_found
+    end
+
+    test "should not allow access to destroy session path from non-single-domain host: #{host}" do
+      host! host
+      delete_via_redirect session_path
       assert_response :not_found
     end
   end

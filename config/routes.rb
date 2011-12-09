@@ -79,11 +79,12 @@ Whitehall::Application.routes.draw do
 
         match "preview" => "preview#preview", via: :post
       end
+
+      resource :session, only: [:create, :destroy]
+      match 'login' => 'sessions#new', via: :get
+      match 'logout' => 'sessions#destroy', via: :post
     end
 
-    resource :session, only: [:create, :destroy]
-    match 'login' => 'sessions#new', via: :get
-    match 'logout' => 'sessions#destroy', via: :post
     match 'styleguide' => 'styleguide#index'
     match 'site/sha' => 'site#sha'
     match '/topics' => redirect("/policy-areas")
