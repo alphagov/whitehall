@@ -34,7 +34,18 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_select 'p', text: 'There are no consultations at present.'
   end
 
+  test "should indicate that the list of consultations is limited to only those that are open" do
+    get :open
+    assert_select "h1", text: "Open consultations"
+  end
 
+  test "should show the featured consultations when filtering by just those that are open" do
+    featured_consultation = create(:published_consultation, featured: true)
+    get :open
+    assert_select featured_consultations_selector do
+      assert_select_object featured_consultation
+    end
+  end
 
   test 'open lists published open consultations' do
     published_open_consultation = create(:published_consultation, opening_on: 1.day.ago, closing_on: 1.day.from_now)
@@ -65,6 +76,19 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     refute_select '#consultations'
     assert_select 'p', text: 'There are no open consultations at present.'
+  end
+
+  test "should indicate that the list of consultations is limited to only those that are closed" do
+    get :closed
+    assert_select "h1", text: "Closed consultations"
+  end
+
+  test "should show the featured consultations when filtering by just those that are closed" do
+    featured_consultation = create(:published_consultation, featured: true)
+    get :closed
+    assert_select featured_consultations_selector do
+      assert_select_object featured_consultation
+    end
   end
 
   test 'closed lists published closed consultations' do
