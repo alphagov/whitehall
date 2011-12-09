@@ -27,8 +27,8 @@ When /^I draft a new corporate publication "([^"]*)" about the "([^"]*)"$/ do |t
   click_button "Save"
 end
 
-Given /^a draft publication "([^"]*)" with a PDF attachment "([^"]*)"$/ do |title, attachment_title|
-  attachment = Attachment.new(file: pdf_attachment(attachment_title))
+Given /^a draft publication "([^"]*)" with a PDF attachment$/ do |title|
+  attachment = Attachment.new(file: pdf_attachment)
   create(:draft_publication, title: title, attachments: [attachment])
 end
 
@@ -47,10 +47,10 @@ Given /^a published publication "([^"]*)" with a PDF attachment "([^"]*)"$/ do |
   create(:published_publication, title: title, attachments: [attachment])
 end
 
-Given /^I attempt to create an invalid publication with a attachment "([^"]*)"$/ do |filename|
+Given /^I attempt to create an invalid publication with an attachment$/ do
   begin_drafting_document type: "Publication", title: ""
   select_date "Publication date", with: "2010-01-01"
-  file = pdf_attachment(filename)
+  file = pdf_attachment
   attach_file "Attachment", file.path
   click_button "Save"
 end
@@ -63,13 +63,13 @@ When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)
   click_button "Save"
 end
 
-When /^I remove the attachment "([^"]*)" from the publication "([^"]*)"$/ do |attachment, title|
+When /^I remove the attachment from the publication "([^"]*)"$/ do |title|
   begin_editing_document title
   uncheck "document_document_attachments_attributes_0__destroy"
   click_button "Save"
 end
 
-When /^I remove the attachment "([^"]*)" from a new draft of the publication "([^"]*)"$/ do |attachment, title|
+When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ do |title|
   begin_new_draft_document title
   uncheck "document_document_attachments_attributes_0__destroy"
   click_button "Save"
@@ -80,8 +80,8 @@ When /^I set the publication title to "([^"]*)" and save$/ do |title|
   click_button "Save"
 end
 
-Then /^I should not see a link to the PDF attachment "([^"]*)"$/ do |name|
-  assert page.has_no_css?(".attachment a[href*='#{name}']", text: name)
+Then /^I should not see a link to the PDF attachment$/ do
+  assert page.has_no_css?(".attachment a[href*='attachment.pdf']", text: "attachment.pdf")
 end
 
 Then /^I should see a link to the PDF attachment$/ do
