@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PoliciesControllerTest < ActionController::TestCase
+  include PolicyViewAssertions
+  
   should_render_a_list_of :policies
 
   test "should show inapplicable nations" do
@@ -217,5 +219,84 @@ class PoliciesControllerTest < ActionController::TestCase
     get :show, id: document.document_identity
 
     assert_select "#{metadata_nav_selector} a.minister", text: "minister-name"
+  end
+
+  test "shows link to policy overview" do
+    policy = create(:published_policy)
+    get :show, id: policy.document_identity
+    assert_select "a[href='#{policy_path(policy.document_identity)}#policy_view']", text: policy.title
+  end
+
+  test "shows link to each policy section in the markdown" do
+    policy = create(:published_policy, body: %{
+## First Section
+
+Some content
+
+## Another Bit
+
+More content
+
+## Final Part
+
+That's all
+})
+
+    get :show, id: policy.document_identity
+    assert_select_policy_section_link policy, 'First Section', 'first-section'
+    assert_select_policy_section_link policy, 'Another Bit', 'another-bit'
+    assert_select_policy_section_link policy, 'Final Part', 'final-part'
+  end
+
+  test "show links to related news articles on policy if any" do
+    related_news_article = create(:published_news_article, title: "News about Voting Patterns")
+    policy = create(:published_policy, related_documents: [related_news_article])
+    get :show, id: policy.document_identity
+    assert_select_policy_section_link policy, 'Related news', 'related-news-articles'
+  end
+
+  test "show doesn't link to related news articles on policy if none exist" do
+    policy = create(:published_policy)
+    get :show, id: policy.document_identity
+    refute_select_policy_section_link policy, 'Related news', 'related-news-articles'
+  end
+
+  test "show links to related speeches on policy if any" do
+    related_speech = create(:published_speech, title: "Speech about Voting Patterns")
+    policy = create(:published_policy, related_documents: [related_speech])
+    get :show, id: policy.document_identity
+    assert_select_policy_section_link policy, 'Related speeches', 'related-speeches'
+  end
+
+  test "show doesn't link to related speeches on policy if none exist" do
+    policy = create(:published_policy)
+    get :show, id: policy.document_identity
+    refute_select_policy_section_link policy, 'Related speeches', 'related-speeches'
+  end
+
+  test "show links to related consultations on policy if any" do
+    related_consultation = create(:published_consultation, title: "Consultation about Voting Patterns")
+    policy = create(:published_policy, related_documents: [related_consultation])
+    get :show, id: policy.document_identity
+    assert_select_policy_section_link policy, 'Related consultations', 'related-consultations'
+  end
+
+  test "show doesn't link to related consultations on policy if none exist" do
+    policy = create(:published_policy)
+    get :show, id: policy.document_identity
+    refute_select_policy_section_link policy, 'Related consultations', 'related-consultations'
+  end
+
+  test "show links to related publications on policy if any" do
+    related_publication = create(:published_publication, title: "Consultation about Voting Patterns")
+    policy = create(:published_policy, related_documents: [related_publication])
+    get :show, id: policy.document_identity
+    assert_select_policy_section_link policy, 'Related publications', 'related-publications'
+  end
+
+  test "show doesn't link to related publications on policy if none exist" do
+    policy = create(:published_policy)
+    get :show, id: policy.document_identity
+    refute_select_policy_section_link policy, 'Related publications', 'related-publications'
   end
 end
