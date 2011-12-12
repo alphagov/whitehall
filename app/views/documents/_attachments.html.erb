@@ -1,7 +1,7 @@
 <% document.attachments.each do |attachment| %>
   <%= content_tag_for(:p, attachment, class: css_class_for_attachment(attachment)) do %>
     <% if attachment.pdf? %>
-      <%= image_tag attachment.url(:thumbnail) %>
+      <%= link_to(image_tag(attachment.url(:thumbnail)), attachment.url) %>
     <% end %>
 
     <%= link_to_attachment(attachment) %>
