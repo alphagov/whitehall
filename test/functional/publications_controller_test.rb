@@ -20,28 +20,6 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'show displays related published policies' do
-    published_policy = create(:published_policy)
-    publication = create(:published_publication, related_documents: [published_policy])
-    get :show, id: publication.document_identity
-    assert_select_object published_policy
-  end
-
-  test 'show doesn\'t display related unpublished policies' do
-    draft_policy = create(:draft_policy)
-    publication = create(:published_publication, related_documents: [draft_policy])
-    get :show, id: publication.document_identity
-    refute_select_object draft_policy
-  end
-
-  test 'show infers policy areas from published policies' do
-    policy_area = create(:policy_area)
-    published_policy = create(:published_policy, policy_areas: [policy_area])
-    consultation = create(:published_publication, related_documents: [published_policy])
-    get :show, id: consultation.document_identity
-    assert_select_object policy_area
-  end
-
   test "should show inapplicable nations" do
     published_publication = create(:published_publication)
     northern_ireland_inapplicability = published_publication.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
@@ -99,4 +77,6 @@ class PublicationsControllerTest < ActionController::TestCase
       refute_select "a.order_url"
     end
   end
+
+  should_show_related_policies_and_policy_areas_for :publication
 end

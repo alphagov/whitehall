@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class NewsArticlesControllerTest < ActionController::TestCase
+  include DocumentControllerTestHelpers
+
   should_render_a_list_of :news_articles
+  should_show_related_policies_and_policy_areas_for :news_article
 
   test "shows published news article" do
     news_article = create(:published_news_article)
@@ -42,41 +45,6 @@ class NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".document_view .metadata" do
       assert_select ".published_at", text: "10 days ago"
     end
-  end
-
-  test 'show displays related published policies' do
-    published_policy = create(:published_policy)
-    news_article = create(:published_news_article, related_documents: [published_policy])
-    get :show, id: news_article.document_identity
-    assert_select_object published_policy
-  end
-
-  test 'show doesn\'t display related unpublished policies' do
-    draft_policy = create(:draft_policy)
-    news_article = create(:published_news_article, related_documents: [draft_policy])
-    get :show, id: news_article.document_identity
-    refute_select_object draft_policy
-  end
-
-  test 'show infers policy areas from published policies' do
-    policy_area = create(:policy_area)
-    published_policy = create(:published_policy, policy_areas: [policy_area])
-    news_article = create(:published_news_article, related_documents: [published_policy])
-    get :show, id: news_article.document_identity
-    assert_select_object policy_area
-  end
-
-  test "should not display policies unless they are related to the news article" do
-    unrelated_policy = create(:published_policy)
-    news_article = create(:published_news_article, related_documents: [])
-    get :show, id: news_article.document_identity
-    refute_select_object unrelated_policy
-  end
-
-  test "should not display an empty list of related policies" do
-    news_article = create(:published_news_article)
-    get :show, id: news_article.document_identity
-    refute_select "#related-policies"
   end
 
   test "should display countries to which this news article relates" do

@@ -140,28 +140,6 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_select '.closing_on', text: 'Closed on January 1st, 2011'
   end
 
-  test 'show displays related published policies' do
-    published_policy = create(:published_policy)
-    consultation = create(:published_consultation, related_documents: [published_policy])
-    get :show, id: consultation.document_identity
-    assert_select_object published_policy
-  end
-
-  test 'show doesn\'t display related unpublished policies' do
-    draft_policy = create(:draft_policy)
-    consultation = create(:published_consultation, related_documents: [draft_policy])
-    get :show, id: consultation.document_identity
-    refute_select_object draft_policy
-  end
-
-  test 'show infers policy areas from published policies' do
-    policy_area = create(:policy_area)
-    published_policy = create(:published_policy, policy_areas: [policy_area])
-    consultation = create(:published_consultation, related_documents: [published_policy])
-    get :show, id: consultation.document_identity
-    assert_select_object policy_area
-  end
-
   test "should show inapplicable nations" do
     published_consultation = create(:published_consultation)
     northern_ireland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
@@ -190,4 +168,5 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   should_display_attachments_for :consultation
   should_show_featured_documents_for :consultation
+  should_show_related_policies_and_policy_areas_for :consultation
 end
