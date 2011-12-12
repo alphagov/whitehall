@@ -213,4 +213,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   should_link_to_public_version_when_published :publication
   should_not_link_to_public_version_when_not_published :publication
+
+  should_prevent_modification_of_unmodifiable :publication
 end

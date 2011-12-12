@@ -132,4 +132,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   should_link_to_public_version_when_published :consultation
   should_not_link_to_public_version_when_not_published :consultation
+
+  should_prevent_modification_of_unmodifiable :consultation
 end

@@ -1,5 +1,6 @@
 class Admin::DocumentsController < Admin::BaseController
   before_filter :find_document, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check, :destroy]
+  before_filter :prevent_modification_of_unmodifiable_document, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_document, only: [:new]
   before_filter :remember_filters, only: [:draft, :submitted, :published]
@@ -98,6 +99,13 @@ class Admin::DocumentsController < Admin::BaseController
 
   def find_document
     @document = document_class.find(params[:id])
+  end
+
+  def prevent_modification_of_unmodifiable_document
+    if @document.unmodifiable?
+      notice = "You cannot modify a #{@document.state} #{@document.type.titleize}"
+      redirect_to admin_document_path(@document), notice: notice
+    end
   end
 
   def default_arrays_of_ids_to_empty

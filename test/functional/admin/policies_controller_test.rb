@@ -263,7 +263,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     policy.reload
     assert_equal [], policy.policy_areas
   end
-  
+
   should_allow_organisations_for :policy
   should_allow_ministerial_roles_for :policy
 
@@ -273,4 +273,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   should_link_to_public_version_when_published :policy
   should_not_link_to_public_version_when_not_published :policy
+
+  should_prevent_modification_of_unmodifiable :policy
 end

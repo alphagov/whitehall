@@ -12,6 +12,28 @@ class Document < ActiveRecord::Base
 
   validates :title, :body, :creator, presence: true
 
+  class UnmodifiableOncePublishedValidator < ActiveModel::Validator
+    def validate(record)
+      if record.unmodifiable?
+        record.significant_changed_attributes.each do |attribute|
+          record.errors.add(attribute, "cannot be modified when document is in the #{record.state} state")
+        end
+      end
+    end
+  end
+
+  validates_with UnmodifiableOncePublishedValidator
+
+  UNMODIFIABLE_STATES = %w(published archived deleted).freeze
+
+  def unmodifiable?
+    persisted? && UNMODIFIABLE_STATES.include?(state_was)
+  end
+
+  def significant_changed_attributes
+    changed - %w(state updated_at)
+  end
+
   def creator
     document_authors.first && document_authors.first.user
   end

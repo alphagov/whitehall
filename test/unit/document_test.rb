@@ -634,4 +634,24 @@ class DocumentTest < ActiveSupport::TestCase
     deleted_document = create(:deleted_document)
     assert_nil Document.find_by_id(deleted_document.id)
   end
+
+  [:draft, :submitted, :rejected].each do |state|
+    test "should be editable when #{state}" do
+      document = create("#{state}_document")
+      document.title = "new-title"
+      document.body = "new-body"
+      assert document.valid?
+    end
+  end
+
+  [:published, :archived, :deleted].each do |state|
+    test "should not be editable when #{state}" do
+      document = create("#{state}_document")
+      document.title = "new-title"
+      document.body = "new-body"
+      refute document.valid?
+      assert_equal ["cannot be modified when document is in the #{state} state"], document.errors[:title]
+      assert_equal ["cannot be modified when document is in the #{state} state"], document.errors[:body]
+    end
+  end
 end

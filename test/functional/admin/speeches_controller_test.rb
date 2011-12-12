@@ -207,4 +207,6 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   should_link_to_public_version_when_published :speech
   should_not_link_to_public_version_when_not_published :speech
+
+  should_prevent_modification_of_unmodifiable :speech
 end

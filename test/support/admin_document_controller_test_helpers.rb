@@ -501,6 +501,26 @@ module AdminDocumentControllerTestHelpers
       end
     end
 
+    def should_prevent_modification_of_unmodifiable(document_type)
+      (Document::UNMODIFIABLE_STATES - %w(deleted)).each do |state|
+        test "edit not allowed for #{state} #{document_type}" do
+          document = create("#{state}_#{document_type}")
+
+          get :edit, id: document
+
+          assert_redirected_to send("admin_#{document_type}_path", document)
+        end
+
+        test "update not allowed for #{state} #{document_type}" do
+          document = create("#{state}_#{document_type}")
+
+          put :update, id: document, document: {title: 'new-title'}
+
+          assert_redirected_to send("admin_#{document_type}_path", document)
+        end
+      end
+    end
+
     private
 
     def document_class(document_type)
