@@ -1,6 +1,18 @@
 require "test_helper"
 
 class SupportingPagesControllerTest < ActionController::TestCase
+  def assert_select_policy_section_link(policy, text, anchor)
+    assert_select "ol#policy_sections" do
+      assert_select "li a[href='#{policy_path(policy.document_identity, anchor: anchor)}']", text: text
+    end
+  end
+
+  def refute_select_policy_section_link(policy, text, anchor)
+    assert_select "ol#policy_sections" do
+      assert_select "li a[href='#{policy_path(policy.document_identity, anchor: anchor)}']", text: text, count: 0
+    end
+  end
+
   test "index links to supporting pages" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, title: "supporting-page-title", document: policy)
@@ -55,11 +67,85 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    assert_select "ol#policy_sections" do
-      assert_select "li a[href='#{policy_path(policy.document_identity, anchor: 'first-section')}']", text: 'First Section'
-      assert_select "li a[href='#{policy_path(policy.document_identity, anchor: 'another-bit')}']", text: 'Another Bit'
-      assert_select "li a[href='#{policy_path(policy.document_identity, anchor: 'final-part')}']", text: 'Final Part'
-    end
+    assert_select_policy_section_link policy, 'First Section', 'first-section'
+    assert_select_policy_section_link policy, 'Another Bit', 'another-bit'
+    assert_select_policy_section_link policy, 'Final Part', 'final-part'
+  end
+
+  test "show links to related news articles on parent policy if any" do
+    related_news_article = create(:published_news_article, title: "News about Voting Patterns")
+    policy = create(:published_policy, related_documents: [related_news_article])
+    supporting_page = create(:supporting_page, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_page
+
+    assert_select_policy_section_link policy, 'Related news', 'related-news-articles'
+  end
+
+  test "show doesn't link to related news articles on parent policy if none exist" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_page
+
+    refute_select_policy_section_link policy, 'Related news', 'related-news-articles'
+  end
+
+  test "show links to related speeches on parent policy if any" do
+    related_speech = create(:published_speech, title: "Speech about Voting Patterns")
+    policy = create(:published_policy, related_documents: [related_speech])
+    supporting_page = create(:supporting_page, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_page
+
+    assert_select_policy_section_link policy, 'Related speeches', 'related-speeches'
+  end
+
+  test "show doesn't link to related speeches on parent policy if none exist" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_page
+
+    refute_select_policy_section_link policy, 'Related speeches', 'related-speeches'
+  end
+
+  test "show links to related consultations on parent policy if any" do
+    related_consultation = create(:published_consultation, title: "Consultation about Voting Patterns")
+    policy = create(:published_policy, related_documents: [related_consultation])
+    supporting_page = create(:supporting_page, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_page
+
+    assert_select_policy_section_link policy, 'Related consultations', 'related-consultations'
+  end
+
+  test "show doesn't link to related consultations on parent policy if none exist" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_page
+
+    refute_select_policy_section_link policy, 'Related consultations', 'related-consultations'
+  end
+
+  test "show links to related publications on parent policy if any" do
+    related_publication = create(:published_publication, title: "Consultation about Voting Patterns")
+    policy = create(:published_policy, related_documents: [related_publication])
+    supporting_page = create(:supporting_page, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_page
+
+    assert_select_policy_section_link policy, 'Related publications', 'related-publications'
+  end
+
+  test "show doesn't link to related publications on parent policy if none exist" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, document: policy)
+
+    get :show, policy_id: policy.document_identity, id: supporting_page
+
+    refute_select_policy_section_link policy, 'Related publications', 'related-publications'
   end
 
   test "shows the body using govspeak markup" do
@@ -107,72 +193,6 @@ That's all
     assert_select inapplicable_nations_selector do
       assert_select "p", "This policy applies to the whole of the UK."
     end
-  end
-
-  test "show displays related published publications" do
-    related_publication = create(:published_publication, title: "Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_publication])
-    supporting_page = create(:supporting_page, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_page
-
-    assert_select related_publications_selector do
-      assert_select_object related_publication
-    end
-  end
-
-  test "show excludes related unpublished publications" do
-    related_publication = create(:draft_publication, title: "Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_publication])
-    supporting_page = create(:supporting_page, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_page
-
-    refute_select related_publications_selector
-  end
-
-  test "show displays related published consultations" do
-    related_consultation = create(:published_consultation, title: "Consultation on Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_consultation])
-    supporting_page = create(:supporting_page, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_page
-
-    assert_select related_consultations_selector do
-      assert_select_object related_consultation
-    end
-  end
-
-  test "show excludes related unpublished consultations" do
-    related_consultation = create(:draft_consultation, title: "Consultation on Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_consultation])
-    supporting_page = create(:supporting_page, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_page
-
-    refute_select related_consultations_selector
-  end
-
-  test "show displays related news articles" do
-    related_news_article = create(:published_news_article, title: "News about Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_news_article])
-    supporting_page = create(:supporting_page, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_page
-
-    assert_select related_news_articles_selector do
-      assert_select_object related_news_article
-    end
-  end
-
-  test "show excludes related unpublished news articles" do
-    related_news_article = create(:draft_news_article, title: "News about Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_news_article])
-    supporting_page = create(:supporting_page, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_page
-
-    refute_select related_news_articles_selector
   end
 
   test "show lists supporting pages when there are some" do
@@ -235,49 +255,4 @@ That's all
 
     assert_select "#{metadata_nav_selector} a.minister", text: "minister-name"
   end
-
-  test "should be compatible with and render the policies/show template" do
-    policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
-    get :show, policy_id: policy.document_identity, id: supporting_page
-    assert_equal policy, assigns(:policy)
-    assert_equal supporting_page, assigns(:document)
-    assert_template "policies/show"
-  end
-
-  test "show displays recently changed documents related to the policy" do
-    publication = create(:published_publication)
-    consultation = create(:published_consultation)
-    news_article = create(:published_news_article)
-    speech = create(:published_speech)
-    policy = create(:published_policy,
-      related_documents: [publication, consultation, news_article, speech]
-    )
-    supporting_page = create(:supporting_page, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_page
-
-    assert_select "#recently-changed" do
-      assert_select_object publication
-      assert_select_object consultation
-      assert_select_object news_article
-      assert_select_object speech
-    end
-  end
-
-  test "show orders recently changed documents related to the policy most recent first" do
-    publication = create(:published_publication, published_at: 4.weeks.ago)
-    consultation = create(:published_consultation, published_at: 1.weeks.ago)
-    news_article = create(:published_news_article, published_at: 3.weeks.ago)
-    speech = create(:published_speech, published_at: 2.weeks.ago)
-    policy = create(:published_policy,
-      related_documents: [publication, consultation, news_article, speech]
-    )
-    supporting_page = create(:supporting_page, document: policy)
-
-    get :show, policy_id: policy.document_identity, id: supporting_page
-
-    assert_equal [consultation, speech, news_article, publication], assigns[:recently_changed_documents]
-  end
-
 end
