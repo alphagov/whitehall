@@ -12,6 +12,9 @@
             <%= render_datetime_microformat(news_article, :published_at) do %>
               <%= time_ago_in_words(news_article.published_at) %> ago
             <% end %>
+            <% unless news_article.policy_areas.length.zero? %>
+              <span class="news_articles">in <%= news_article.policy_areas.map { |pa| link_to pa.name, policy_area_path(pa) }.to_sentence.html_safe %></span>
+            <% end %>
           </div>
         <% end %>
       <% end %>

@@ -4,5 +4,12 @@ class NewsArticle < Document
   include Document::RelatedDocuments
   include Document::Countries
 
-  scope :featured, where(featured: true)
+  has_many :related_published_policies, class_name: 'Policy', conditions: {state: :published}, through: :document_relations, source: :related_document
+  has_many :policy_areas, through: :related_published_policies, group: 'policy_areas.id'
+
+  class << self
+    def featured
+      where featured: true
+    end
+  end
 end
