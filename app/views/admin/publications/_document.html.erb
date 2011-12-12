@@ -8,7 +8,7 @@
   <p>Corporate Publication? <span class="corporate_publication"><%= yes_or_no(document.corporate_publication?) %></span></p>
   <p>Order URL: <%= order_link(document) %></p>
 
-  <%= render partial: "attachments", locals: { document: document }  %>
+  <%= render partial: "documents/attachments", locals: { document: document }  %>
 
   <%= render partial: "authors", locals: { document: document } %>
 </article>

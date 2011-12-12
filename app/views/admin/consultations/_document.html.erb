@@ -1,7 +1,7 @@
 <article class="document_view">
   <%= render partial: "standard_elements", locals: { document: document } %>
 
-  <%= render partial: "attachments", locals: { document: document }  %>
+  <%= render partial: "documents/attachments", locals: { document: document }  %>
 
   <p class="opening_on"><%= consultation_opening_phrase(document) %></p>
   <p class="closing_on"><%= consultation_closing_phrase(document) %></p>
