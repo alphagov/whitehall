@@ -1,0 +1,17 @@
+#wrapper .attachment.pdf {
+  clear: both;
+  overflow: auto;
+  margin-bottom: 1em;
+
+  img {
+    max-width: 105px;
+    margin-bottom: 0;
+    border: 1px solid #DDD;
+    border-bottom: 3px solid #CCC;
+    float: left;
+    margin-right: 1em;
+  }
+  .type, .number_of_pages, .size {
+    display: block;
+  }
+}
