@@ -58,11 +58,12 @@
     position: relative;
     overflow: hidden;
     margin-bottom: 1.5em;
+    padding-top: 1.5em;
+    border-bottom: 1px solid #ddd;
 
-    img.bg {
-      position: absolute;
-      top: 0;
-      left: 0;
+    @media only screen and (min-width: 768px) {
+      padding-top: 0;
+      background: url(/images/consultations-index.jpg);
     }
 
     ul {
@@ -73,35 +74,52 @@
         margin-bottom: 0;
         div.inner {
           margin: 0;
-          padding: 0;
+          padding: 0 2% 0 2%;
           position: relative;
+          @media only screen and (min-width: 768px) {
+            padding: 0;
+          }
 
           .title {
             @include type-18;
-            padding: 1.5em 1.25em 0.5em 1.25em;
-            margin-bottom: 0;
             position: relative;
             display: block;
-            height: 7.25em;
-            border-right: 1px solid #ddd;
+            padding: 0;
+            margin-bottom: 0.55em;
 
-            &:hover {
-              background: #fefefe;
-              background: rgba(255,255,245,0.5);
-            };
+            @media only screen and (min-width: 768px) {
+              margin-bottom: 0;
+              padding: 0 7% 0 7%;
+              padding-top: 1.45em;
+              padding-bottom: 1.25em;
+              border-right: 1px solid #ddd;
+              height: 6.45em;
+
+              &:hover {
+                background: #fefefe;
+                background: rgba(255,255,245,0.5);
+              };
+            }
+
+            @media only screen and (min-width: 1024px) {
+                height: 10.6em;
+            }
           }
 
           .metadata {
             font-size: 0.8em;
             line-height: 1em;
             position: relative;
-            margin-bottom: 0;
-            background: #242400;
-            background-color: rgba(36,36,0, 0.8);
+            margin-bottom: 2.1em;
 
-            padding: 1em 1.75em;
-            color: #eee;
-            border-right: 1px solid #333;
+            @media only screen and (min-width: 768px) {
+              margin-bottom: 0;
+              padding: 1em 7%;
+              border-right: 1px solid #333;
+              background: #242400;
+              background-color: rgba(36,36,0, 0.8);
+              color: #eee;
+            }
           }
 
         }

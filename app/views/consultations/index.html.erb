@@ -4,7 +4,6 @@
 
   <% if @featured_consultations.any? %>
     <section class="featured_consultations">
-      <img src="/images/consultations-index.jpg" class="bg" />
       <ul id="featured-consultations">
         <% @featured_consultations.each do |consultation| %>
           <%= content_tag_for(:li, consultation) do %>
