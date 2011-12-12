@@ -20,7 +20,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   def generate_thumbnail
-    get_first_page_as_png(210,280)
+    get_first_page_as_png(105,140)
   end
 
   def pdf?(file)

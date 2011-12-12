@@ -41,6 +41,6 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
     path, type, geometry, rest = identify_details.split
     width, height = geometry.split("x")
 
-    assert (width == "210" || height == "280"), "geometry should be proportional scaled, but was #{geometry}"
+    assert (width == "105" || height == "140"), "geometry should be proportional scaled, but was #{geometry}"
   end
 end
