@@ -40,4 +40,13 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select "a[href='#{policy_area_path(second_policy_area)}']", text: second_policy_area.name
     end
   end
+
+  test "should display the date the featured news article was published" do
+    published_at = Time.zone.now
+    news_article = create(:published_news_article, featured: true, published_at: published_at)
+    get :index
+    assert_select send("featured_news_articles_selector") do
+      assert_select "#{record_css_selector(news_article)} .published_at[title=#{published_at.iso8601}]"
+    end
+  end
 end

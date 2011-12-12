@@ -1,11 +1,11 @@
 /* GRID HELPERS */
 
-@mixin grid_column($float_direction: left) {
+@mixin grid_column($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%) {
   display: block;
   position: relative;
-  margin-left: 1%;
-  margin-right: 1%;
-  width: 98.0%;
+  margin-left: $ml;
+  margin-right: $mr;
+  width: $w;
 
   @media only screen and (min-width: 768px) {
     display: inline;
@@ -50,6 +50,38 @@
   }
 
   @media only screen and (min-width: 1024px) {
-    width: 16%
+    width: 15.6665%
   }
+}
+
+@mixin flood_column($float_direction: left) {
+  @include grid_column($float_direction, 100%, 0, 0);
+}
+
+@mixin flood_one_column($float_direction: left) {
+  @include flood_column($float_direction);
+
+  @media only screen and (min-width: 768px) {
+    width: 50.0%;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    width: 33.3333333%
+  }
+}
+
+@mixin flood_two_columns($float_direction: left) {
+  @include flood_column($float_direction);
+
+  @media only screen and (min-width: 768px) {
+    width: 50%;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    width: 66.6666666%;
+  }
+}
+
+@mixin flood_three_columns($float_direction: left) {
+  @include flood_column($float_direction);
 }

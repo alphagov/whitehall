@@ -1,22 +1,33 @@
-<div class="g3">
-  <nav class="consultations_scope group">
-    <%= link_to_filter('all', action: 'index') %>
-    <%= link_to_filter('open', action: 'open') %>
-    <%= link_to_filter('closed', action: 'closed') %>
-  </nav>
+<div class="g3f">
 
   <h1 class="page_title">Consultations</h1>
-  
+
+  <% if @featured_consultations.any? %>
+    <section class="featured_consultations">
+      <img src="/images/consultations-index.jpg" class="bg" />
+      <ul id="featured-consultations">
+        <% @featured_consultations.each do |consultation| %>
+          <%= content_tag_for(:li, consultation) do %>
+            <div class="inner">
+              <%= link_to consultation.title, public_document_path(consultation), class: "title" %>
+              <p class="metadata">
+                <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
+              </p>
+            </div>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
   <div class="g3">
-    <% if @featured_consultations.any? %>
-      <section>
-        <h1>Featured consultations</h1>
-        <%= render partial: "featured_documents", object: @featured_consultations, locals: {list_id: "featured-consultations"} %>
-      </section>
-    <% end %>
-  
     <section>
-      <h1><%= "#{scope_description} consultations".strip.capitalize %></h1>
+      <nav class="consultations_scope group">
+        <%= link_to_filter('all', action: 'index') %>
+        <%= link_to_filter('open', action: 'open') %>
+        <%= link_to_filter('closed', action: 'closed') %>
+      </nav>
+      <h1>Browse <%= "#{scope_description} consultations".strip %></h1>
       <% if @consultations.empty? %>
         <p>There are no<%= scope_description %> consultations at present.</p>
       <% else %>

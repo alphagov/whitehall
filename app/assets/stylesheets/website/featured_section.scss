@@ -1,51 +1,122 @@
 @import "../shared/utils";
 
-#content {
-  section.featured {
-    @include clearfix;
-    @include featured_box;
+@mixin featured_items {
+  @include clearfix;
+  @include featured_box;
+  padding-top: 1em;
 
-    padding-top: 1em;
+  article.policy_area {
+    h1 {
+      padding-left: 1em;
+      padding-bottom: 0em;
+      @include type-21;
+      margin-bottom: 0.5em;
+    }
 
-    article.policy_area {
+    .description {
+      padding: 0 1.5em;
+      @include type-14;
+      color: #555;
+    }
+  }
+
+  .related {
+    background: #fefefe;
+    section {
+      background: none;
+      border: none;
+      margin-bottom: 0;
+      padding: 0;
+
       h1 {
-        padding-left: 1em;
-        padding-bottom: 0em;
         @include type-21;
         margin-bottom: 0.5em;
       }
 
-      .description {
-        padding: 0 1.5em;
-        @include type-14;
-        color: #555;
-      }
-    }
-
-    .related {
-      background: #fefefe;
-      section {
-        background: none;
-        border: none;
-        margin-bottom: 0;
+      ul {
         padding: 0;
-
-        h1 {
-          @include type-21;
-          margin-bottom: 0.5em;
-        }
-
-        ul {
-          padding: 0;
-          li  {
-            margin-bottom: 0.857em;
-            a {
-              padding: 0;
-            }
+        li  {
+          margin-bottom: 0.857em;
+          a {
+            padding: 0;
           }
         }
       }
     }
+  }
 
+}
+
+#content {
+  section.featured {
+    @include featured_items;
+  }
+
+  section.featured_consultations {
+    background: #f7f8d9;
+    border-top: 1px solid #bbb;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5em;
+
+    img.bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    ul {
+      @include clearfix;
+      margin-bottom: 0;
+      li {
+        @include flood_one_column;
+        margin-bottom: 0;
+        div.inner {
+          margin: 0;
+          padding: 0;
+          position: relative;
+
+          .title {
+            @include type-18;
+            padding: 1.5em 1.25em 0.5em 1.25em;
+            margin-bottom: 0;
+            position: relative;
+            display: block;
+            height: 7.25em;
+            border-right: 1px solid #ddd;
+
+            &:hover {
+              background: #fefefe;
+              background: rgba(255,255,245,0.5);
+            };
+          }
+
+          .metadata {
+            font-size: 0.8em;
+            line-height: 1em;
+            position: relative;
+            margin-bottom: 0;
+            background: #242400;
+            background-color: rgba(36,36,0, 0.8);
+
+            padding: 1em 1.75em;
+            color: #eee;
+            border-right: 1px solid #333;
+          }
+
+        }
+      }
+
+      li:nth-child(n+3) {
+        @media only screen and (min-width: 1024px) {
+        }
+      }
+
+      &.half_columns {
+        li {
+          @include span_half_a_column;
+        }
+      }
+    }
   }
 }

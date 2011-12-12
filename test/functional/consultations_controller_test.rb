@@ -36,7 +36,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test "should indicate that the list of consultations is limited to only those that are open" do
     get :open
-    assert_select "h1", text: "Open consultations"
+    assert_select "h1", text: "Browse open consultations"
   end
 
   test "should show the featured consultations when filtering by just those that are open" do
@@ -80,7 +80,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test "should indicate that the list of consultations is limited to only those that are closed" do
     get :closed
-    assert_select "h1", text: "Closed consultations"
+    assert_select "h1", text: "Browse closed consultations"
   end
 
   test "should show the featured consultations when filtering by just those that are closed" do
@@ -163,6 +163,15 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     assert_select inapplicable_nations_selector do
       assert_select "p", "This consultation applies to the whole of the UK."
+    end
+  end
+
+  test "should display the closing date of the featured consultation" do
+    closing_date = 1.month.from_now
+    consultation = create(:published_consultation, featured: true, closing_on: closing_date)
+    get :index
+    assert_select send("featured_consultations_selector") do
+      assert_select "#{record_css_selector(consultation)} .time_remaining", text: "Closes in 30 days"
     end
   end
 

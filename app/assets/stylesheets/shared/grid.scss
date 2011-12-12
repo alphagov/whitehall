@@ -9,6 +9,10 @@
     @include span_one_column(right);
   }
 
+  .g1f {
+    @include flood_one_column;
+  }
+
   .g2 {
     @include span_two_columns;
   }
@@ -17,12 +21,20 @@
     @include span_two_columns(right);
   }
 
+  .g2f {
+    @include flood_two_columns;
+  }
+
   .g3 {
     @include span_three_columns;
   }
 
   .g3r {
     @include span_three_columns(right);
+  }
+
+  .g3f {
+    @include flood_three_columns;
   }
 
   .g-half {
