@@ -10,12 +10,6 @@
     }
   }
 
-  #featured-news-articles {
-    a.title {
-      @include type-18;
-    }
-  }
-
   #news_articles {
     li {
       .summary {

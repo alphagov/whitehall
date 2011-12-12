@@ -1,9 +1,8 @@
-<div class="g3f">
-
+<div class="g3f consulations">
   <h1 class="page_title">Consultations</h1>
 
   <% if @featured_consultations.any? %>
-    <section class="featured_consultations">
+    <section class="featured_items">
       <ul id="featured-consultations">
         <% @featured_consultations.each do |consultation| %>
           <%= content_tag_for(:li, consultation) do %>
