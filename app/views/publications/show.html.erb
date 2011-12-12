@@ -9,16 +9,5 @@
 
   <%= render partial: 'inapplicable_nations', locals: { document: @document } %>
 
-  <% if @document.related_documents.published.any? %>
-    <section id="related-documents">
-      <h1>Related policies</h1>
-      <ul>
-        <% @document.related_documents.published.each do |related_document| %>
-          <%= content_tag_for :li, related_document do %>
-            <%= link_to related_document.title, public_document_path(related_document) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
+  <%= render partial: 'related_policies', object: @related_policies %>
 </div>

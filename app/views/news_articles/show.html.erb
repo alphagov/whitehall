@@ -7,16 +7,5 @@
   <%= render partial: 'ministerial_roles', locals: { ministerial_roles: @document.ministerial_roles } %>
   <%= render partial: 'countries', locals: { countries: @document.countries } %>
 
-  <% if @related_policies.any? %>
-    <section id="related-policies">
-      <h1>Related policies</h1>
-      <ul>
-        <% @related_policies.each do |policy| %>
-          <%= content_tag_for :li, policy do %>
-            <%= link_to policy.title, public_document_path(policy) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
+  <%= render partial: 'related_policies', object: @related_policies %>
 </div>

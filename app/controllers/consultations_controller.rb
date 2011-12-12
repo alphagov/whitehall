@@ -17,6 +17,10 @@ class ConsultationsController < DocumentsController
     render :index
   end
 
+  def show
+    @related_policies = Policy.published.related_to(@document)
+  end
+
   private
 
   def load_consultations_from_scope(scope)

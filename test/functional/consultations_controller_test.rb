@@ -154,6 +154,14 @@ class ConsultationsControllerTest < ActionController::TestCase
     refute_select_object draft_policy
   end
 
+  test 'show infers policy areas from published policies' do
+    policy_area = create(:policy_area)
+    published_policy = create(:published_policy, policy_areas: [policy_area])
+    consultation = create(:published_consultation, related_documents: [published_policy])
+    get :show, id: consultation.document_identity
+    assert_select_object policy_area
+  end
+
   test "should show inapplicable nations" do
     published_consultation = create(:published_consultation)
     northern_ireland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")

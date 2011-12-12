@@ -1,0 +1,23 @@
+<% if related_policies.any? %>
+  <section id="related-policies">
+    <h1>Related policies</h1>
+    <ul>
+      <% related_policies.each do |related_policy| %>
+        <%= content_tag_for :li, related_policy do %>
+          <%= link_to related_policy.title, public_document_path(related_policy) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+
+  <section>
+    <h1>Policy Areas</h1>
+    <ul>
+      <% related_policies.map { |d| d.policy_areas }.flatten.each do |policy_area| %>
+        <%= content_tag_for :li, policy_area do %>
+          <%= link_to policy_area.name, policy_area_path(policy_area) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

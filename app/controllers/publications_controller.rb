@@ -3,6 +3,10 @@ class PublicationsController < DocumentsController
     @publications = Publication.published
   end
 
+  def show
+    @related_policies = Policy.published.related_to(@document)
+  end
+
   private
 
   def document_class

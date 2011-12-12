@@ -44,11 +44,26 @@ class NewsArticlesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not display related policies unless they are published" do
+  test 'show displays related published policies' do
+    published_policy = create(:published_policy)
+    news_article = create(:published_news_article, related_documents: [published_policy])
+    get :show, id: news_article.document_identity
+    assert_select_object published_policy
+  end
+
+  test 'show doesn\'t display related unpublished policies' do
     draft_policy = create(:draft_policy)
     news_article = create(:published_news_article, related_documents: [draft_policy])
     get :show, id: news_article.document_identity
     refute_select_object draft_policy
+  end
+
+  test 'show infers policy areas from published policies' do
+    policy_area = create(:policy_area)
+    published_policy = create(:published_policy, policy_areas: [policy_area])
+    news_article = create(:published_news_article, related_documents: [published_policy])
+    get :show, id: news_article.document_identity
+    assert_select_object policy_area
   end
 
   test "should not display policies unless they are related to the news article" do
