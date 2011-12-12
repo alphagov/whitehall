@@ -6,7 +6,7 @@ module Admin::DocumentsHelper
   end
 
   def admin_documents_header_link
-    admin_header_link "Documents", admin_documents_path, /^\/admin\/(documents|publications|policies|news_articles|consultations|speeches)/
+    admin_header_link "Documents", admin_documents_path, /^#{Whitehall.router_prefix}\/admin\/(documents|publications|policies|news_articles|consultations|speeches)/
   end
 
   def admin_policy_areas_header_link
