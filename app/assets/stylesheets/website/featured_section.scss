@@ -52,7 +52,15 @@
     @include featured_items;
   }
 
-  section.featured_consultations {
+  .consulations {
+    section.featured_items {
+      @media only screen and (min-width: 768px) {
+        background: url(/images/consultations-index.jpg);
+      }
+    }
+  }
+
+  section.featured_items {
     background: #f7f8d9;
     border-top: 1px solid #bbb;
     position: relative;
@@ -63,7 +71,6 @@
 
     @media only screen and (min-width: 768px) {
       padding-top: 0;
-      background: url(/images/consultations-index.jpg);
     }
 
     ul {
@@ -125,8 +132,25 @@
         }
       }
 
-      li:nth-child(n+3) {
-        @media only screen and (min-width: 1024px) {
+      @media only screen and (min-width: 768px) {
+        li:nth-child(2) {
+          div.inner a {
+            border-right: 0;
+          }
+        }
+      }
+
+      @media only screen and (min-width: 1024px) {
+        li:nth-child(2) {
+          div.inner a {
+            border-right: 1px solid #ddd;
+          }
+        }
+
+        li:nth-child(3) {
+          div.inner a {
+            border-right: 0;
+          }
         }
       }
 
