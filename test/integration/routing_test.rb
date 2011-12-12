@@ -1,19 +1,6 @@
 require 'test_helper'
 
 class RoutingTest < ActionDispatch::IntegrationTest
-
-  SINGLE_DOMAIN_HOSTS = [
-    "www.preview.alphagov.co.uk",
-    "preview.alphagov.co.uk",
-    "www.production.alphagov.co.uk",
-    "production.alphagov.co.uk"
-  ]
-
-  NON_SINGLE_DOMAIN_HOSTS = [
-    "whitehall.preview.alphagov.co.uk",
-    "whitehall.production.alphagov.co.uk"
-  ]
-
   test "visiting #{Whitehall.router_prefix}/admin redirects to /admin/documents" do
     get "#{Whitehall.router_prefix}/admin"
     assert_redirected_to "#{Whitehall.router_prefix}/admin/documents"
@@ -44,79 +31,58 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  NON_SINGLE_DOMAIN_HOSTS.each do |host|
-    test "should allow access to non-admin URLs from non-single-domain host: #{host}" do
-      host! host
-      get_via_redirect "/government"
-      assert_response :success
-    end
-
-    test "should allow access to admin URLs from non-single-domain host: #{host}" do
-      host! host
-      get_via_redirect "/government/admin"
-      assert_response :success
-    end
-
-    test "should allow access to login path from non-single-domain host: #{host}" do
-      host! host
-      get_via_redirect login_path
-      assert_response :success
-    end
-
-    test "should allow access to logout path from non-single-domain host: #{host}" do
-      host! host
-      post_via_redirect logout_path
-      assert_response :success
-    end
-
-    test "should allow access to create session path from non-single-domain host: #{host}" do
-      host! host
-      post_via_redirect session_path
-      assert_response :success
-    end
-
-    test "should allow access to destroy session path from non-single-domain host: #{host}" do
-      host! host
-      delete_via_redirect session_path
-      assert_response :success
-    end
+  test "should allow access to admin URLs for non-single-domain requests" do
+    get_via_redirect "/government/admin"
+    assert_response :success
   end
 
-  SINGLE_DOMAIN_HOSTS.each do |host|
-    test "should allow access to non-admin URLs from single-domain host: #{host}" do
-      host! host
-      get_via_redirect "/government"
-      assert_response :success
-    end
+  test "should allow access to login path from non-single-domain requests" do
+    get_via_redirect login_path
+    assert_response :success
+  end
 
-    test "should not allow access to admin URLs from single-domain host: #{host}" do
-      host! host
-      get_via_redirect "/government/admin"
-      assert_response :not_found
-    end
+  test "should allow access to logout path from non-single-domain requests" do
+    post_via_redirect logout_path
+    assert_response :success
+  end
 
-    test "should not allow access to login path from non-single-domain host: #{host}" do
-      host! host
-      get_via_redirect login_path
-      assert_response :not_found
-    end
+  test "should allow access to create session path from non-single-domain requests" do
+    post_via_redirect session_path
+    assert_response :success
+  end
 
-    test "should not allow access to logout path from non-single-domain host: #{host}" do
-      host! host
-      post_via_redirect logout_path
-      assert_response :not_found
-    end
+  test "should allow access to destroy session path from non-single-domain requests" do
+    delete_via_redirect session_path
+    assert_response :success
+  end
 
-    test "should not allow access to create session path from non-single-domain host: #{host}" do
-      host! host
-      post_via_redirect session_path
-      assert_response :not_found
-    end
+  test "should allow access to non-admin URLs for requests through the single domain router" do
+    get_via_redirect "/government", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    assert_response :success
+  end
 
-    test "should not allow access to destroy session path from non-single-domain host: #{host}" do
-      host! host
-      delete_via_redirect session_path
-      assert_response :not_found
-    end
+  test "should block access to admin URLs for requests through the single domain router" do
+    get_via_redirect "/government/admin", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    assert_response :not_found
+  end
+
+  test "should block access to login path for requests through the single domain router" do
+    get_via_redirect login_path, {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    assert_response :not_found
+  end
+
+  test "should block access to logout path for requests through the single domain router" do
+    post_via_redirect logout_path, {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    assert_response :not_found
+  end
+
+  test "should block access to create session path for requests through the single domain router" do
+    post_via_redirect session_path, {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    assert_response :not_found
+  end
+
+  test "should block access to destroy session path for requests through the single domain router" do
+    delete_via_redirect session_path, {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    assert_response :not_found
   end
 end

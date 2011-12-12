@@ -7,20 +7,13 @@ module Whitehall
   autoload :RedirectToRouterPrefix, 'whitehall/redirect_to_router_prefix'
   autoload :RouterPrefixEngine, 'whitehall/router_prefix_engine'
 
-  GOVERNMENT_SINGLE_DOMAIN_HOSTS = [
-    "preview.alphagov.co.uk",
-    "www.preview.alphagov.co.uk",
-    "production.alphagov.co.uk",
-    "www.production.alphagov.co.uk"
-  ].freeze
-
   class << self
     def router_prefix
       "/government"
     end
 
     def government_single_domain?(request)
-      GOVERNMENT_SINGLE_DOMAIN_HOSTS.include?(request.host)
+      request.headers["HTTP_X_GOVUK_ROUTER_REQUEST"].present?
     end
 
     def platform
