@@ -33,6 +33,12 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal published_consultation.inapplicable_nations, draft_consultation.inapplicable_nations
   end
 
+  test "should build a draft copy of the existing consultation with the featured flag retained" do
+    consultation = create(:published_consultation, featured: true)
+    draft_consultation = consultation.create_draft(create(:policy_writer))
+    assert draft_consultation.featured?
+  end
+
   test ".closed includes consultations closing in the past" do
     closed_consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
 
