@@ -8,13 +8,24 @@
     list-style-type: decimal;
   }
   ul, ol {
-    margin-left: 30px !important;
+    margin-left: 1.5em;
+    margin-bottom: 1.5em;
+
+    li {
+      @include type-13;
+      margin-bottom: 0;
+
+      p {
+        font-size: 100%;
+        margin-bottom: 0.923em;
+      }
+    }
+
     ul, ol {
       font-size: 100%;
     }
   }
   p {
-    font-size: 100%;
-    line-height: 100%;
+    @include type-13;
   }
 }
