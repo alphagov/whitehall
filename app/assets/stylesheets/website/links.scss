@@ -1,0 +1,22 @@
+#global-header .header-context.government nav, #content {
+ a {
+   color: #787900;
+   text-decoration: none;
+
+   &:hover {
+     color: #464600;
+   };
+
+   &:visited {
+
+   };
+
+   &:active {
+     color: #bcbd00;
+   };
+
+   &.current {
+     color: #242400;
+   }
+ }
+}
