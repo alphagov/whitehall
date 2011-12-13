@@ -70,6 +70,10 @@ class Document < ActiveRecord::Base
   def can_apply_to_subset_of_nations?
     false
   end
+  
+  def featurable?
+    false
+  end
 
   def allows_attachments?
     false

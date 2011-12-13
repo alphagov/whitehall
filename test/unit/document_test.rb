@@ -654,4 +654,8 @@ class DocumentTest < ActiveSupport::TestCase
       assert_equal ["cannot be modified when document is in the #{state} state"], document.errors[:body]
     end
   end
+
+  test "should not be featurable" do
+    refute Document.new.featurable?
+  end
 end

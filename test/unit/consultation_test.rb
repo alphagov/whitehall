@@ -78,4 +78,14 @@ class ConsultationTest < ActiveSupport::TestCase
 
     assert_equal 0, Consultation.upcoming.count
   end
+
+  (Document.state_machine.states.map(&:name) - [:published]).each do |state|
+    test "should be not featurable when #{state}" do
+      refute build("#{state}_consultation").featurable?
+    end
+  end
+
+  test "should be featurable when published" do
+    assert build(:published_consultation).featurable?
+  end
 end

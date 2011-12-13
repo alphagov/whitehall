@@ -43,6 +43,9 @@
           <th>Title</th>
           <th>Creator</th>
           <th>Updated</th>
+          <% if params[:filter] && documents.any?(&:featurable?) %>
+            <th>Featured</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -64,6 +67,15 @@
             </td>
             <td class="author"><%= document.creator.name %></td>
             <td class="updated"><%= time_ago_in_words document.updated_at %> ago</td>
+            <% if params[:filter] && document.featurable? %>
+              <td class="featured">
+                <% if document.featured? %>
+                  <%= button_to "No longer feature", unfeature_admin_consultation_path(document) %>
+                <% else %>
+                  <%= button_to "Feature", feature_admin_consultation_path(document) %>
+                <% end %>
+              </td>
+            <% end %>
           <% end %>
         <% end %>
         <% if documents.blank? %>

@@ -72,7 +72,12 @@ Whitehall::Application.routes.draw do
         resources :publications, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :policies, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :news, as: :news_articles, controller: :news_articles, only: [:new, :create, :edit, :update, :show, :destroy]
-        resources :consultations, only: [:new, :create, :edit, :update, :show, :destroy]
+        resources :consultations, only: [:new, :create, :edit, :update, :show, :destroy] do
+          member do
+            post :feature
+            post :unfeature
+          end
+        end
         resources :speeches, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :people, only: [:index, :new, :create, :edit, :update, :destroy]
         resources :roles, only: [:index, :new, :create, :edit, :update, :destroy]

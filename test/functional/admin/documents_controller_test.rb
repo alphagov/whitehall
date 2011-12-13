@@ -246,4 +246,38 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to draft_admin_documents_path
   end
+
+  test "should show the feature button for those featurable and currently unfeatured documents" do
+    login_as :policy_writer
+    consultation = create(:published_consultation, featured: false)
+    assert consultation.featurable?
+    get :published, filter: "consultation"
+    assert_select "td.featured form[action=#{feature_admin_consultation_path(consultation)}]"
+  end
+
+  test "should show the unfeature button for those featurable and currently featured documents" do
+    login_as :policy_writer
+    consultation = create(:published_consultation, featured: true)
+    assert consultation.featurable?
+    get :published, filter: "consultation"
+    assert_select "td.featured form[action=#{unfeature_admin_consultation_path(consultation)}]"
+  end
+
+  test "should not display the featured column on the 'all document' page" do
+    login_as :policy_writer
+    policy = create(:draft_policy)
+    refute policy.featurable?
+    get :draft
+    refute_select "th", text: "Featured"
+    refute_select "td.featured"
+  end
+
+  test "should not display the featured column on a filtered document page where that document isn't featureable" do
+    login_as :policy_writer
+    policy = create(:draft_policy)
+    refute policy.featurable?
+    get :draft, filter: "policy"
+    refute_select "th", text: "Featured"
+    refute_select "td.featured"
+  end
 end

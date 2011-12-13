@@ -19,6 +19,10 @@ class Consultation < Document
     closing_on < Date.today
   end
 
+  def featurable?
+    published?
+  end
+
   private
 
   def closing_on_must_be_after_opening_on
