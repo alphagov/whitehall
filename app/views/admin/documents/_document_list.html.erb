@@ -70,9 +70,9 @@
             <% if params[:filter] && document.featurable? %>
               <td class="featured">
                 <% if document.featured? %>
-                  <%= button_to "No longer feature", unfeature_admin_consultation_path(document) %>
+                  <%= button_to "No longer feature", polymorphic_path([:admin, document], action: "unfeature") %>
                 <% else %>
-                  <%= button_to "Feature", feature_admin_consultation_path(document) %>
+                  <%= button_to "Feature", polymorphic_path([:admin, document], action: "feature") %>
                 <% end %>
               </td>
             <% end %>

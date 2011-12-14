@@ -247,20 +247,24 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_redirected_to draft_admin_documents_path
   end
 
-  test "should show the feature button for those featurable and currently unfeatured documents" do
-    login_as :policy_writer
-    consultation = create(:published_consultation, featured: false)
-    assert consultation.featurable?
-    get :published, filter: "consultation"
-    assert_select "td.featured form[action=#{feature_admin_consultation_path(consultation)}]"
-  end
+  [:consultation, :news_article].each do |document_type|
+    test "should show the feature button for those featurable and currently unfeatured #{document_type.to_s.pluralize}" do
+      login_as :policy_writer
+      document = create("published_#{document_type}", featured: false)
+      assert document.featurable?
+      get :published, filter: document_type
+      expected_url = send("feature_admin_#{document_type}_path", document)
+      assert_select "td.featured form[action=#{expected_url}]"
+    end
 
-  test "should show the unfeature button for those featurable and currently featured documents" do
-    login_as :policy_writer
-    consultation = create(:published_consultation, featured: true)
-    assert consultation.featurable?
-    get :published, filter: "consultation"
-    assert_select "td.featured form[action=#{unfeature_admin_consultation_path(consultation)}]"
+    test "should show the unfeature button for those featurable and currently featured #{document_type.to_s.pluralize}" do
+      login_as :policy_writer
+      document = create("published_#{document_type}", featured: true)
+      assert document.featurable?
+      get :published, filter: document_type
+      expected_url = send("unfeature_admin_#{document_type}_path", document)
+      assert_select "td.featured form[action=#{expected_url}]"
+    end
   end
 
   test "should not display the featured column on the 'all document' page" do
