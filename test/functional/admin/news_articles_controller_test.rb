@@ -177,6 +177,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     refute_select "#{notes_to_editors_selector}"
   end
 
+  should_allow_featuring_of :news_article
   should_allow_organisations_for :news_article
   should_allow_ministerial_roles_for :news_article
 

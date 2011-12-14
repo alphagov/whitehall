@@ -5,12 +5,12 @@ class Admin::ConsultationsController < Admin::DocumentsController
   before_filter :build_document_attachment, only: [:new, :edit]
 
   def feature
-    Consultation.find(params[:id]).update_attribute(:featured, true)
+    document_class.find(params[:id]).update_attribute(:featured, true)
     redirect_to :back
   end
 
   def unfeature
-    Consultation.find(params[:id]).update_attribute(:featured, false)
+    document_class.find(params[:id]).update_attribute(:featured, false)
     redirect_to :back
   end
 

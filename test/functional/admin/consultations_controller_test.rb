@@ -120,34 +120,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
   end
 
-  test "featuring a published consultation sets the featured flag" do
-    request.env["HTTP_REFERER"] = "http://example.com"
-    consultation = create(:consultation)
-    post :feature, id: consultation
-    assert consultation.reload.featured?
-  end
-
-  test "featuring a consultation redirects the user back to where they came from" do
-    request.env["HTTP_REFERER"] = "http://example.com"
-    consultation = create(:consultation)
-    post :feature, id: consultation
-    assert_redirected_to "http://example.com"
-  end
-
-  test "unfeaturing a consultation removes the featured flag" do
-    request.env["HTTP_REFERER"] = "http://example.com"
-    consultation = create(:consultation, featured: true)
-    post :unfeature, id: consultation
-    refute consultation.reload.featured?
-  end
-
-  test "unfeaturing a consultation redirects the user back to where they came from" do
-    request.env["HTTP_REFERER"] = "http://example.com"
-    consultation = create(:consultation, featured: true)
-    post :unfeature, id: consultation
-    assert_redirected_to "http://example.com"
-  end
-
+  should_allow_featuring_of :consultation
   should_allow_organisations_for :consultation
   should_allow_ministerial_roles_for :consultation
 

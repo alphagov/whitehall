@@ -31,4 +31,14 @@ class NewsArticleTest < ActiveSupport::TestCase
     news_article = create(:news_article, related_documents: [first_related_policy, second_related_policy])
     assert_equal [policy_area], news_article.policy_areas
   end
+
+  (Document.state_machine.states.map(&:name) - [:published]).each do |state|
+    test "should be not featurable when #{state}" do
+      refute build("#{state}_news_article").featurable?
+    end
+  end
+
+  test "should be featurable when published" do
+    assert build(:published_news_article).featurable?
+  end
 end
