@@ -16,19 +16,6 @@ Scenario: Logged-in users should be able to logout
   And I logout
   And I should see that I am not logged in
 
-Scenario: Logged in writers should see their role
-  Given I am a writer
-  Then I should see that I am logged in as a "Policy Writer"
-
-Scenario: Logged in editors should see their role
-  Given I am an editor
-  Then I should see that I am logged in as a "Departmental Editor"
-
-Scenario: Logged in users should be able to set their email address
-  Given I am a writer called "John Smith"
-  When I set the email address for "John Smith" to "writer@example.com"
-  Then I should see my email address is "writer@example.com"
-
 Scenario: Users who are not logged in should be taken to their original destination once they have logged in
   Given I try to access a page that requires authentication
   Then I should be asked to login

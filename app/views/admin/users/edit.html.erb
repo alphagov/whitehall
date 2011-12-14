@@ -2,7 +2,12 @@
   <h1>Edit Settings</h1>
   <%= form_for @user, as: :user, url: admin_user_path, html: { method: :put } do |form| %>
     <%= form.errors %>
+
     <%= form.text_field :email %>
+
+    <%= form.label :organisation_id, 'Organisation' %>
+    <%= form.select :organisation_id, options_from_collection_for_select(Organisation.all, 'id', 'name', form.object.organisation_id), {}, class: 'chzn-select', data: { placeholder: "Choose your organisation" } %>
+
     <%= form.save_or_cancel cancel: admin_user_path %>
   <% end %>
 </section>
