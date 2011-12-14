@@ -45,6 +45,13 @@
     }
   }
 
+  .g-half-flood {
+    @include flood_column;
+    @media only screen and (min-width: 768px) {
+      width: 50%;
+    }
+  }
+
   .g1,.g2,.g3 {
     &.first {
       margin-left: 0;

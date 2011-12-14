@@ -1,0 +1,20 @@
+<%= content_tag_for(:article, speech, class: "speech") do %>
+  <% if display == "expanded" %>
+    <div class="img"><%= link_to public_document_path(speech.becomes(Speech)) do %><img src="/images/evil_placeholder.png" /><% end %></div>
+  <% end %>
+  <div class="text">
+    <h2><%= link_to speech.title, public_document_path(speech.becomes(Speech)), class: "title", title: "View #{speech.title}" %></h2>
+    <% if display != "compact" %>
+      <p class="summary">
+        <%= speech.summary %>
+      </p>
+    <% end %>
+    <div class="metadata">
+      <span class="published_at">delivered <%= render_datetime_microformat(speech, :published_at) do %>
+          <%= time_ago_in_words(speech.published_at) %> ago
+        <% end %>
+      </span>
+      <span class="ministerial_role"><%= link_to speech.role_appointment.person.name, speech.role_appointment.role %></span>
+    </div>
+  </div>
+<% end %>

@@ -1,5 +1,5 @@
-<div class="g3f">
-  <h1 class="page_title"><%= "News & speeches" %></h1>
+<div class="g3f group">
+  <h1 class="page_title"><%= "Featured articles" %></h1>
   <% if @featured_news_articles.any? %>
     <section class="featured_items" id="featured-news-articles">
       <% @featured_news_articles.each do |news_article| %>
@@ -11,6 +11,9 @@
               <%= render_datetime_microformat(news_article, :published_at) do %>
                 <%= time_ago_in_words(news_article.published_at) %> ago
               <% end %>
+              <% unless news_article.policy_areas.length.zero? %>
+                <span class="policy_area"><%= news_article.policy_areas.map { |pa| link_to pa.name, policy_area_path(pa) }.to_sentence.html_safe %></span>
+              <% end %>
             </p>
           </div>
         <% end %>
@@ -18,10 +21,10 @@
     </section>
   <% end %>
 
-  <div class="g1">
-    <%= render partial: "documents/news_articles", locals: {news_articles: @news_articles} %>
-  </div>
-  <div class="g1">
-    <%= render partial: "documents/speeches", locals: {speeches: @speeches} %>
-  </div>
+  <section class="group" id="recent_announcements">
+    <h1>Recent News &amp; Speeches</h1>
+    <%= announcement_group(@announcements.take(6), groups_of: 3, class: "most_recent", partial: "expanded") %>
+    <%= announcement_group(@announcements.from(6).take(12), groups_of: 2, class: "less_recent", partial: "default") %>
+    <%= announcement_group(@announcements.from(18), groups_of: 3, class: "remaining", partial: "compact") %>
+  </section>
 </div>
