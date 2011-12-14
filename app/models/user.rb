@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include GDS::SSO::User
+
   belongs_to :organisation
   has_many :documents, foreign_key: 'author_id'
 

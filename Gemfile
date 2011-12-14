@@ -18,6 +18,7 @@ gem 'plek'
 gem 'fog'
 gem 'pdf-reader'
 gem 'isbn_validation'
+gem 'gds-sso', git: 'git://github.com/alphagov/gds-sso.git'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'

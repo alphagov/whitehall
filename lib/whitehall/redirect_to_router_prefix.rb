@@ -5,7 +5,9 @@ module Whitehall
     end
 
     def call(env)
-      if path_is_under_prefix(env) || path_is_for_javascript_tests(env)
+      if path_is_under_prefix(env) ||
+         path_is_for_javascript_tests(env) ||
+         path_is_for_sign_on(env)
         @app.call(env)
       else
         [301, {"Location" => (Whitehall.router_prefix + env["PATH_INFO"])}, []]
@@ -15,11 +17,15 @@ module Whitehall
     private
 
     def path_is_under_prefix(env)
-      env["PATH_INFO"].index(Whitehall.router_prefix) == 0
+      env["PATH_INFO"].starts_with?(Whitehall.router_prefix)
     end
 
     def path_is_for_javascript_tests(env)
-      env["PATH_INFO"].index("/test") == 0
+      env["PATH_INFO"].starts_with?("/test")
+    end
+
+    def path_is_for_sign_on(env)
+      env["PATH_INFO"].starts_with?("/auth")
     end
   end
 end

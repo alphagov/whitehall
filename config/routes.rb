@@ -89,10 +89,6 @@ Whitehall::Application.routes.draw do
 
         match "preview" => "preview#preview", via: :post
       end
-
-      resource :session, only: [:create, :destroy]
-      match 'login' => 'sessions#new', via: :get
-      match 'logout' => 'sessions#destroy', via: :post
     end
 
     match 'styleguide' => 'styleguide#index'

@@ -1,23 +1,23 @@
 Given /^I am (?:a|an) (writer|editor|admin)(?: called "([^"]*)")?$/ do |role, name|
-  visit login_path
-  if role == "writer"
-    fill_in "name", with: name || "Wally Writer"
-  else
-    fill_in "name", with: name || "Eddie Editor"
-    check "I am a departmental editor"
+  user = case role
+  when "writer"
+    create(:policy_writer, name: (name || "Wally Writer"))
+  when "editor"
+    create(:departmental_editor, name: (name || "Eddie Editor"))
+  when "admin"
+    create(:user)
   end
-  click_button "Login"
+  login_as user
 end
 
 Given /^I am a writer in the organisation "([^"]*)"$/ do |organisation|
-  visit login_path
-  fill_in "name", with: "Wally Writer"
-  select organisation, from: "Organisation"
-  click_button "Login"
+  organisation = Organisation.find_or_create_by_name(organisation)
+  user = create(:policy_writer, organisation: organisation)
+  login_as user
 end
 
 Given /^I logout$/ do
-  click_button "Logout"
+  log_out
 end
 
 Given /^I try to access a page that requires authentication$/ do
@@ -27,8 +27,7 @@ Given /^I try to access a page that requires authentication$/ do
 end
 
 When /^I login as a writer$/ do
-  fill_in "name", with: "Wally Writer"
-  click_button "Login"
+  login_as create(:policy_writer)
 end
 
 Then /^I should be given the opportunity to login$/ do

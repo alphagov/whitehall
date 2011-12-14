@@ -3,6 +3,10 @@ require "test_helper"
 class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   test_controller_is_a Admin::BaseController
 
+  setup do
+    login_as_admin
+  end
+
   test "should render the content using govspeak markup" do
     document = create(:document, body: "body-in-govspeak")
     fact_check_request = create(:fact_check_request, document: document, comments: "comment")

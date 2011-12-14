@@ -32,27 +32,8 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "should allow access to admin URLs for non-single-domain requests" do
+    login_as_admin
     get_via_redirect "/government/admin"
-    assert_response :success
-  end
-
-  test "should allow access to login path from non-single-domain requests" do
-    get_via_redirect login_path
-    assert_response :success
-  end
-
-  test "should allow access to logout path from non-single-domain requests" do
-    post_via_redirect logout_path
-    assert_response :success
-  end
-
-  test "should allow access to create session path from non-single-domain requests" do
-    post_via_redirect session_path
-    assert_response :success
-  end
-
-  test "should allow access to destroy session path from non-single-domain requests" do
-    delete_via_redirect session_path
     assert_response :success
   end
 
@@ -63,26 +44,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test "should block access to admin URLs for requests through the single domain router" do
     get_via_redirect "/government/admin", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
-    assert_response :not_found
-  end
-
-  test "should block access to login path for requests through the single domain router" do
-    get_via_redirect login_path, {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
-    assert_response :not_found
-  end
-
-  test "should block access to logout path for requests through the single domain router" do
-    post_via_redirect logout_path, {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
-    assert_response :not_found
-  end
-
-  test "should block access to create session path for requests through the single domain router" do
-    post_via_redirect session_path, {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
-    assert_response :not_found
-  end
-
-  test "should block access to destroy session path for requests through the single domain router" do
-    delete_via_redirect session_path, {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
     assert_response :not_found
   end
 end

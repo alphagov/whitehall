@@ -32,8 +32,12 @@ class ActionController::TestCase
 
   def login_as(role_or_user)
     user = role_or_user.is_a?(Symbol) ? create(role_or_user) : role_or_user
-    session[:user_id] = user.id
+    request.env['warden'] = stub(authenticate!: true, authenticated?: true, user: user)
     user
+  end
+
+  def login_as_admin
+    login_as(create(:user, name: "user-name", email: "user@example.com"))
   end
 
   def assert_login_required
@@ -50,6 +54,20 @@ class ActionController::TestCase
 
   def refute_select_object(object)
     assert_select_object object, count: 0
+  end
+end
+
+class ActionDispatch::IntegrationTest
+  def login_as(user)
+    GDS::SSO.test_user = user
+  end
+
+  def login_as_admin
+    login_as(create(:user, name: "user-name", email: "user@example.com"))
+  end
+
+  teardown do
+    GDS::SSO.test_user = nil
   end
 end
 

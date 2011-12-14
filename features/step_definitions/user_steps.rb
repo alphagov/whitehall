@@ -16,6 +16,7 @@ Then /^I should see my organisation is "([^"]*)"$/ do |organisation|
 end
 
 Then /^I should see that I am logged in as a "([^"]*)"$/ do |role|
+  visit admin_user_path
   within "#session" do
     click_link "#user_settings"
   end
@@ -23,6 +24,7 @@ Then /^I should see that I am logged in as a "([^"]*)"$/ do |role|
 end
 
 Then /^I should see that I am logged in as "([^"]*)"$/ do |name|
+  visit admin_user_path
   assert page.has_css?("#session .current_user_name", text: name)
 end
 

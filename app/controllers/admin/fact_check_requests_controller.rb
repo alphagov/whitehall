@@ -1,7 +1,7 @@
 class Admin::FactCheckRequestsController < Admin::BaseController
   before_filter :load_fact_check_request, only: [:show, :edit, :update]
   before_filter :check_document_availability, only: [:show, :edit]
-  skip_before_filter :authenticate!, except: [:create]
+  skip_before_filter :authenticate_user!, except: [:create]
 
   def show
   end
