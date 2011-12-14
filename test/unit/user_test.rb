@@ -12,12 +12,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'should be invalid with an invalid email address' do
-    user = build(:user, email_address: "invalid-email-address")
+    user = build(:user, email: "invalid-email-address")
     refute user.valid?
   end
 
   test 'should be valid without an email address' do
-    user = build(:user, email_address: nil)
+    user = build(:user, email: nil)
     assert user.valid?
   end
 end

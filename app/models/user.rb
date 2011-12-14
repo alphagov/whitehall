@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :documents, foreign_key: 'author_id'
 
   validates :name, presence: true
-  validates :email_address, email_format: { allow_blank: true }
+  validates :email, email_format: { allow_blank: true }
 
   def role
     departmental_editor? ? "Departmental Editor" : "Policy Writer"

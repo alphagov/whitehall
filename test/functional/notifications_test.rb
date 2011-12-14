@@ -65,7 +65,7 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     @policy = create(:policy, title: "<policy-title>")
     @requestor = create(:fact_check_requestor,
       name: "<requestor-name>",
-      email_address: "fact-check-requestor@example.com"
+      email: "fact-check-requestor@example.com"
     )
     @request = create(:fact_check_request,
       email_address: 'fact-checker@example.com',

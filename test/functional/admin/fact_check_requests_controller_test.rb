@@ -125,7 +125,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "notify a requestor with an email address that the fact checker has added a comment" do
-    requestor = create(:fact_check_requestor, email_address: "fact-check-requestor@example.com")
+    requestor = create(:fact_check_requestor, email: "fact-check-requestor@example.com")
     fact_check_request = create(:fact_check_request, requestor: requestor)
     attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
     ActionMailer::Base.deliveries.clear
@@ -136,7 +136,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "do not notify a requestor without an email address that the fact checker has added a comment" do
-    requestor = create(:fact_check_requestor, email_address: nil)
+    requestor = create(:fact_check_requestor, email: nil)
     fact_check_request = create(:fact_check_request, requestor: requestor)
     attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
     ActionMailer::Base.deliveries.clear

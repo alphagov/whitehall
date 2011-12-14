@@ -30,7 +30,7 @@ When /^I set the email address for "([^"]*)" to "([^"]*)"$/ do |name, email_addr
   visit admin_root_path
   click_link name
   click_link "Edit"
-  fill_in "Email address", with: email_address
+  fill_in "Email", with: email_address
   click_button "Save"
 end
 
@@ -60,7 +60,7 @@ end
 
 Then /^I should see my email address is "([^"]*)"$/ do |email_address|
   visit admin_user_path
-  assert page.has_css?(".user .email_address", text: email_address)
+  assert page.has_css?(".user .email", text: email_address)
 end
 
 Then /^I should be asked to login$/ do

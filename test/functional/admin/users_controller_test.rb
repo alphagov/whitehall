@@ -3,7 +3,7 @@ require "test_helper"
 class Admin::UsersControllerTest < ActionController::TestCase
 
   setup do
-    @user = create(:user, name: "user-name", email_address: "user@example.com")
+    @user = create(:user, name: "user-name", email: "user@example.com")
     login_as(@user)
   end
 
@@ -14,7 +14,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     assert_select ".user .settings" do
       assert_select ".name", "user-name"
-      assert_select ".email_address", "user@example.com"
+      assert_select ".email", "user@example.com"
     end
   end
 
@@ -30,7 +30,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     get :edit
 
     assert_select "form[action='#{admin_user_path}']" do
-      assert_select "input[name='user[email_address]'][type='text'][value='user@example.com']"
+      assert_select "input[name='user[email]'][type='text'][value='user@example.com']"
       assert_select "input[type='submit'][value='Save']"
     end
   end
@@ -42,36 +42,36 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test "update saves changes" do
-    put :update, user: { email_address: "new-user@example.com" }
+    put :update, user: { email: "new-user@example.com" }
 
     @user.reload
-    assert_equal "new-user@example.com", @user.email_address
+    assert_equal "new-user@example.com", @user.email
   end
 
   test "update redirects to user page on success" do
-    put :update, user: { email_address: "new-user@example.com" }
+    put :update, user: { email: "new-user@example.com" }
 
     assert_redirected_to admin_user_path
   end
 
   test "update displays notice on success" do
-    put :update, user: { email_address: "new-user@example.com" }
+    put :update, user: { email: "new-user@example.com" }
 
     assert_equal "Your settings have been saved", flash[:notice]
   end
 
   test "update redisplays form on failure" do
-    put :update, user: { email_address: "invalid-email-address" }
+    put :update, user: { email: "invalid-email-address" }
 
     assert_template :edit
     assert_select "form" do
-      assert_select "input[name='user[email_address]'][value='invalid-email-address']"
+      assert_select "input[name='user[email]'][value='invalid-email-address']"
     end
   end
 
   test "update displays error message on failure" do
-    put :update, user: { email_address: "invalid-email-address" }
+    put :update, user: { email: "invalid-email-address" }
 
-    assert_select ".errors li", text: "Email address does not appear to be valid"
+    assert_select ".errors li", text: "Email does not appear to be valid"
   end
 end

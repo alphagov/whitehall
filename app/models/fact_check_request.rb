@@ -12,6 +12,6 @@ class FactCheckRequest < ActiveRecord::Base
   scope :pending, where('comments IS NULL')
 
   def requestor_contactable?
-    requestor.email_address.present?
+    requestor.email.present?
   end
 end

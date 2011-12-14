@@ -2,7 +2,7 @@
   <h1>Edit Settings</h1>
   <%= form_for @user, as: :user, url: admin_user_path, html: { method: :put } do |form| %>
     <%= form.errors %>
-    <%= form.text_field :email_address %>
+    <%= form.text_field :email %>
     <%= form.save_or_cancel cancel: admin_user_path %>
   <% end %>
 </section>

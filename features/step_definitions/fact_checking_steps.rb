@@ -28,7 +28,7 @@ Then /^they provide feedback "([^"]*)"$/ do |comments|
 end
 
 Given /^"([^"]*)" has asked "([^"]*)" for feedback on the draft policy "([^"]*)"$/ do |requestor_email, fact_checker_email, title|
-  requestor = create(:user, email_address: requestor_email)
+  requestor = create(:user, email: requestor_email)
   document = create(:draft_policy, title: title)
   create(:fact_check_request, requestor: requestor, document: document, email_address: fact_checker_email)
 end

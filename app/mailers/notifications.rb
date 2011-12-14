@@ -20,7 +20,7 @@ class Notifications < ActionMailer::Base
     @comment_url = admin_document_url(request.document, url_options.merge(anchor: dom_id(request)))
 
     from_address = "fact-checking@#{url_options[:host]}"
-    to_address = request.requestor.email_address
+    to_address = request.requestor.email
     subject = "Fact check comment added by #{request.email_address}: #{request.document.title}"
 
     mail(from: from_address, to: to_address, subject: subject)
