@@ -5,7 +5,7 @@ class HackableUrlTest < ActiveSupport::TestCase
     route_requirements = Rails.application.routes.routes.map { |r| r.requirements }
     hash_with_default_empty_array = Hash.new { |h,k| h[k] = [] }
     controller_actions = route_requirements.inject(hash_with_default_empty_array) do |hash,req|
-      hash[req[:controller]] << req[:action] unless req[:controller] =~ /^admin\//
+      hash[req[:controller]] << req[:action] unless req[:controller] =~ /^admin\// || req[:controller] == "searches"
       hash
     end
     naughty_controllers = controller_actions.select do |controller,actions|

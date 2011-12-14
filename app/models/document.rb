@@ -127,5 +127,9 @@ class Document < ActiveRecord::Base
     def related_to(document)
       where(id: document.related_documents.collect(&:id))
     end
+
+    def search(query)
+      published.where("title LIKE :query", query: "%#{query}%")
+    end
   end
 end
