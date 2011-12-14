@@ -1,6 +1,10 @@
 require "test_helper"
 
 class ConsultationTest < ActiveSupport::TestCase
+  include DocumentBehaviour
+
+  should_be_featurable :consultation
+
   test "should be valid when built from the factory" do
     consultation = build(:consultation)
     assert consultation.valid?
@@ -83,15 +87,5 @@ class ConsultationTest < ActiveSupport::TestCase
     closed_consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
 
     assert_equal 0, Consultation.upcoming.count
-  end
-
-  (Document.state_machine.states.map(&:name) - [:published]).each do |state|
-    test "should be not featurable when #{state}" do
-      refute build("#{state}_consultation").featurable?
-    end
-  end
-
-  test "should be featurable when published" do
-    assert build(:published_consultation).featurable?
   end
 end

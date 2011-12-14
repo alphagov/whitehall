@@ -4,8 +4,7 @@ class Consultation < Document
   include Document::FactCheckable
   include Document::RelatedDocuments
   include Document::Attachable
-
-  scope :featured, where(featured: true)
+  include Document::Featurable
 
   validates :opening_on, presence: true
   validates :closing_on, presence: true
@@ -17,10 +16,6 @@ class Consultation < Document
 
   def closed?
     closing_on < Date.today
-  end
-
-  def featurable?
-    published?
   end
 
   private

@@ -1,6 +1,10 @@
 require "test_helper"
 
 class NewsArticleTest < ActiveSupport::TestCase
+  include DocumentBehaviour
+
+  should_be_featurable :news_article
+
   test "should be valid when built from the factory" do
     article = build(:news_article)
     assert article.valid?
@@ -30,15 +34,5 @@ class NewsArticleTest < ActiveSupport::TestCase
     second_related_policy = create(:published_policy, policy_areas: [policy_area])
     news_article = create(:news_article, related_documents: [first_related_policy, second_related_policy])
     assert_equal [policy_area], news_article.policy_areas
-  end
-
-  (Document.state_machine.states.map(&:name) - [:published]).each do |state|
-    test "should be not featurable when #{state}" do
-      refute build("#{state}_news_article").featurable?
-    end
-  end
-
-  test "should be featurable when published" do
-    assert build(:published_news_article).featurable?
   end
 end
