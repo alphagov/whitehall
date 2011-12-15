@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :publication, class: Publication, parent: :document do
     title "publication-title"
     body  "publication-body"
+    summary "publication-summary"
     publication_date { 10.days.ago }
 
     trait(:corporate) { corporate_publication true }

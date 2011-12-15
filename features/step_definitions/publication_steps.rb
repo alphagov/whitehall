@@ -50,6 +50,11 @@ Given /^I attempt to create an invalid publication with an attachment$/ do
   click_button "Save"
 end
 
+When /^I visit the list of publications$/ do
+  visit "/"
+  click_link "Publications"
+end
+
 When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_document type: "Publication", title: title
   fill_in_publication_fields
@@ -92,6 +97,11 @@ Then /^I can see links to the related published publications "([^"]*)" and "([^"
   publication_2 = Publication.published.find_by_title!(publication_title_2)
   assert has_css?("#{related_publications_selector} .publication a", text: publication_title_1)
   assert has_css?("#{related_publications_selector} .publication a", text: publication_title_2)
+end
+
+Then /^I should see the summary of the publication "([^"]*)"$/ do |publication_title|
+  publication = Publication.published.find_by_title!(publication_title)
+  assert has_css?("#{record_css_selector(publication)} .summary", publication.summary)
 end
 
 Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |title, organisation|

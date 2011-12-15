@@ -176,7 +176,7 @@
         }
       }
 
-      p.body {
+      p.body, p.summary {
         @include type-12;
         text-shadow: #fefefe 0px 1px 0;
 

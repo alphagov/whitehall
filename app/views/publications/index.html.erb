@@ -10,7 +10,7 @@
             </div>
             <div class="description">
               <h2 class="title"><%= link_to truncate(publication.title, { length: 40 }), public_document_path(publication), title: "View #{publication.title}" %></h2>
-              <p class="body"><%= truncate(publication.body, { length: 200 }) %></p>
+              <p class="summary"><%= publication_summary(publication) %></p>
             </div>
             <% if index.zero? %>
               <div class="cta">

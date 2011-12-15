@@ -26,6 +26,14 @@ module ApplicationHelper
     link_to attachment.filename, attachment.url
   end
 
+  def publication_summary(publication)
+    if publication.summary.present?
+      publication.summary
+    else
+      truncate(publication.body, { length: 200 })
+    end
+  end
+
   def empty_documents_list_verb(document_state)
     if document_state.downcase == "draft"
       "drafted"
