@@ -8,6 +8,9 @@
           <%= content_tag_for(:li, consultation) do %>
             <div class="inner">
               <%= link_to consultation.title, public_document_path(consultation), class: "title" %>
+              <p class="summary">
+                <%= consultation.summary %>
+              </p>
               <p class="metadata">
                 <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
               </p>

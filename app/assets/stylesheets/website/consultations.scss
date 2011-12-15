@@ -12,6 +12,11 @@
           content: '';
         }
       }
+      .summary {
+        @include type-14;
+        font-style: italic;
+        margin: 0
+      }
     }
   }
 

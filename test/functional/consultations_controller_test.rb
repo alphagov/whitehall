@@ -34,16 +34,28 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_select 'p', text: 'There are no consultations at present.'
   end
 
+  test "index shows the summary for each consultation" do
+    consultation = create(:published_consultation, summary: 'a-simple-summary')
+
+    get :index
+
+    assert_select_object consultation do
+      assert_select ".summary", text: "a-simple-summary"
+    end
+  end
+
   test "should indicate that the list of consultations is limited to only those that are open" do
     get :open
     assert_select "h1", text: "Browse open consultations"
   end
 
   test "should show the featured consultations when filtering by just those that are open" do
-    featured_consultation = create(:published_consultation, featured: true)
+    featured_consultation = create(:published_consultation, featured: true, summary: "consultation-summary")
     get :open
     assert_select featured_consultations_selector do
-      assert_select_object featured_consultation
+      assert_select_object featured_consultation do
+        assert_select ".summary", text: "consultation-summary"
+      end
     end
   end
 
@@ -84,10 +96,12 @@ class ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "should show the featured consultations when filtering by just those that are closed" do
-    featured_consultation = create(:published_consultation, featured: true)
+    featured_consultation = create(:published_consultation, featured: true, summary: "consultation-summary")
     get :closed
     assert_select featured_consultations_selector do
-      assert_select_object featured_consultation
+      assert_select_object featured_consultation do
+        assert_select ".summary", text: "consultation-summary"
+      end
     end
   end
 
