@@ -109,4 +109,5 @@ def fill_in_publication_fields
   fill_in "ISBN", with: "0099532816"
   check "Research?"
   fill_in "Order URL", with: "http://example.com/order-url"
+  fill_in "Summary", with: "Some summary of the content"
 end
