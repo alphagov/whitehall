@@ -14,6 +14,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_consultations_path}']" do
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
+      assert_select "input[name='document[summary]'][type='text']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
       assert_select "input[type='submit']"
@@ -28,6 +29,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     consultation = Consultation.last
     assert_equal attributes[:title], consultation.title
     assert_equal attributes[:body], consultation.body
+    assert_equal attributes[:summary], consultation.summary
     assert_equal attributes[:opening_on].to_date, consultation.opening_on
     assert_equal attributes[:closing_on].to_date, consultation.closing_on
   end
@@ -37,6 +39,12 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_consultation_path(Consultation.last)
     assert_equal 'The document has been saved', flash[:notice]
+  end
+
+  test "should render the summary" do
+    draft_consultation = create(:draft_consultation, summary: "a-simple-summary")
+    get :show, id: draft_consultation
+    assert_select ".summary", text: "a-simple-summary"
   end
 
   test 'show displays consultation opening date' do
@@ -81,6 +89,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_consultation_path(consultation)}']" do
       assert_select "input[name='document[title]'][type='text']"
       assert_select "textarea[name='document[body]']"
+      assert_select "input[name='document[summary]'][type='text']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
       assert_select "input[type='submit']"
@@ -93,6 +102,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     put :update, id: consultation, document: {
       title: "new-title",
       body: "new-body",
+      summary: "new-summary",
       opening_on: 1.day.ago,
       closing_on: 50.days.from_now
     }
@@ -100,6 +110,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     consultation.reload
     assert_equal "new-title", consultation.title
     assert_equal "new-body", consultation.body
+    assert_equal "new-summary", consultation.summary
     assert_equal 1.day.ago.to_date, consultation.opening_on
     assert_equal 50.days.from_now.to_date, consultation.closing_on
   end
