@@ -73,90 +73,38 @@
       padding-top: 0;
     }
 
-    ul {
-      @include clearfix;
-      margin-bottom: 0;
-      li {
-        @include flood_one_column;
+    article {
+      @include flood_one_column;
+      .inner {
+        padding: 0 2% 0 2%;
         margin-bottom: 0;
-        div.inner {
-          margin: 0;
-          padding: 0 2% 0 2%;
-          position: relative;
-          @media only screen and (min-width: 768px) {
-            padding: 0;
-          }
 
-          .title {
-            @include type-18;
-            position: relative;
-            display: block;
-            padding: 0;
-            margin-bottom: 0.55em;
+        h2 {
+          @include type-16;
+          margin: 0 6% 0.5715em 6%;
+        }
 
-            @media only screen and (min-width: 768px) {
-              margin-bottom: 0;
-              padding: 0 7% 0 7%;
-              padding-top: 1.45em;
-              padding-bottom: 1.25em;
-              border-right: 1px solid #ddd;
-              height: 6.45em;
+        .summary {
+          @include type-12;
+          margin-left: 6%;
+          margin-right: 6%;
+          margin-bottom: 0;
+        }
 
-              &:hover {
-                background: #fefefe;
-                background: rgba(255,255,245,0.5);
-              };
-            }
+        .metadata {
+          @include type-11;
+          margin-left: 6%;
+          margin-right: 6%;
+        }
 
-            @media only screen and (min-width: 1024px) {
-                height: 10.6em;
-            }
-          }
+        @media only screen and (min-width: 768px) {
+          padding: 1em 0;
+          padding-top: 1.45em;
+          padding-bottom: 1.25em;
 
           .metadata {
-            font-size: 0.8em;
-            line-height: 1em;
-            position: relative;
-            margin-bottom: 2.1em;
-
-            @media only screen and (min-width: 768px) {
-              margin-bottom: 0;
-              padding: 1em 7%;
-              border-right: 1px solid #333;
-              background: #242400;
-              background-color: rgba(36,36,0, 0.8);
-              color: #eee;
-            }
+            margin-bottom: 0;
           }
-
-        }
-      }
-
-      @media only screen and (min-width: 768px) {
-        li:nth-child(2) {
-          div.inner a {
-            border-right: 0;
-          }
-        }
-      }
-
-      @media only screen and (min-width: 1024px) {
-        li:nth-child(2) {
-          div.inner a {
-            border-right: 1px solid #ddd;
-          }
-        }
-
-        li:nth-child(3) {
-          div.inner a {
-            border-right: 0;
-          }
-        }
-      }
-
-      &.half_columns {
-        li {
-          @include span_half_a_column;
         }
       }
     }
