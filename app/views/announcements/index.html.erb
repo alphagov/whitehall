@@ -2,20 +2,19 @@
   <h1 class="page_title"><%= "News & speeches" %></h1>
   <% if @featured_news_articles.any? %>
     <section class="featured_items">
-      <ul id="featured-news-articles">
-        <% @featured_news_articles.each do |news_article| %>
-          <%= content_tag_for(:li, news_article) do %>
-            <div class="inner">
-              <%= link_to news_article.title, public_document_path(news_article), class: "title" %>
-              <p class="metadata">
-                <%= render_datetime_microformat(news_article, :published_at) do %>
-                  <%= time_ago_in_words(news_article.published_at) %> ago
-                <% end %>
-              </p>
-            </div>
-          <% end %>
+      <% @featured_news_articles.each do |news_article| %>
+        <%= content_tag_for(:article, news_article) do %>
+          <div class="inner">
+            <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
+            <p class="summary"><%= news_article.summary %></p>
+            <p class="metadata">
+              <%= render_datetime_microformat(news_article, :published_at) do %>
+                <%= time_ago_in_words(news_article.published_at) %> ago
+              <% end %>
+            </p>
+          </div>
         <% end %>
-      </ul>
+      <% end %>
     </section>
   <% end %>
 

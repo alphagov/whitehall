@@ -3,21 +3,19 @@
 
   <% if @featured_consultations.any? %>
     <section class="featured_items">
-      <ul id="featured-consultations">
-        <% @featured_consultations.each do |consultation| %>
-          <%= content_tag_for(:li, consultation) do %>
-            <div class="inner">
-              <%= link_to consultation.title, public_document_path(consultation), class: "title" %>
-              <p class="summary">
-                <%= consultation.summary %>
-              </p>
-              <p class="metadata">
-                <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
-              </p>
-            </div>
-          <% end %>
+      <% @featured_consultations.each do |consultation| %>
+        <%= content_tag_for(:article, consultation) do %>
+          <div class="inner">
+            <h2><%= link_to consultation.title, public_document_path(consultation), class: "title" %></h2>
+            <p class="summary">
+              <%= consultation.summary %>
+            </p>
+            <p class="metadata">
+              <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
+            </p>
+          </div>
         <% end %>
-      </ul>
+      <% end %>
     </section>
   <% end %>
 
