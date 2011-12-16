@@ -7,6 +7,17 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test_controller_is_a Admin::BaseController
 
+  should_allow_organisations_for :publication
+  should_allow_ministerial_roles_for :publication
+  should_allow_attachments_for :publication
+  should_display_attachments_for :publication
+  should_be_rejectable :publication
+  should_be_force_publishable :publication
+  should_be_able_to_delete_a_document :publication
+  should_link_to_public_version_when_published :publication
+  should_not_link_to_public_version_when_not_published :publication
+  should_prevent_modification_of_unmodifiable :publication
+
   test "new displays publication fields" do
     get :new
 
@@ -200,19 +211,4 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       refute_select "a.order_url"
     end
   end
-
-  should_allow_organisations_for :publication
-  should_allow_ministerial_roles_for :publication
-
-  should_allow_attachments_for :publication
-  should_display_attachments_for :publication
-
-  should_be_rejectable :publication
-  should_be_force_publishable :publication
-  should_be_able_to_delete_a_document :publication
-
-  should_link_to_public_version_when_published :publication
-  should_not_link_to_public_version_when_not_published :publication
-
-  should_prevent_modification_of_unmodifiable :publication
 end

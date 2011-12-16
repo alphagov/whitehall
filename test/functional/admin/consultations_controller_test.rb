@@ -8,6 +8,18 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   test_controller_is_a Admin::BaseController
 
+  should_allow_featuring_of :consultation
+  should_allow_organisations_for :consultation
+  should_allow_ministerial_roles_for :consultation
+  should_allow_attachments_for :consultation
+  should_display_attachments_for :consultation
+  should_be_rejectable :consultation
+  should_be_force_publishable :consultation
+  should_be_able_to_delete_a_document :consultation
+  should_link_to_public_version_when_published :consultation
+  should_not_link_to_public_version_when_not_published :consultation
+  should_prevent_modification_of_unmodifiable :consultation
+
   test 'new displays consultation form' do
     get :new
 
@@ -130,20 +142,4 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal conflicting_consultation.lock_version, assigns[:document].lock_version
     assert_equal %{This document has been saved since you opened it}, flash[:alert]
   end
-
-  should_allow_featuring_of :consultation
-  should_allow_organisations_for :consultation
-  should_allow_ministerial_roles_for :consultation
-
-  should_allow_attachments_for :consultation
-  should_display_attachments_for :consultation
-
-  should_be_rejectable :consultation
-  should_be_force_publishable :consultation
-  should_be_able_to_delete_a_document :consultation
-
-  should_link_to_public_version_when_published :consultation
-  should_not_link_to_public_version_when_not_published :consultation
-
-  should_prevent_modification_of_unmodifiable :consultation
 end

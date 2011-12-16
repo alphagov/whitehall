@@ -3,6 +3,9 @@ require "test_helper"
 class PublicationsControllerTest < ActionController::TestCase
   include DocumentControllerTestHelpers
 
+  should_display_attachments_for :publication
+  should_show_related_policies_and_policy_areas_for :publication
+
   test "should only display published publications" do
     archived_publication = create(:archived_publication)
     published_publication = create(:published_publication)
@@ -46,8 +49,6 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  should_display_attachments_for :publication
-
   test "should display publication metadata" do
     publication = create(:published_publication,
       publication_date: Date.parse("1916-05-31"),
@@ -77,6 +78,4 @@ class PublicationsControllerTest < ActionController::TestCase
       refute_select "a.order_url"
     end
   end
-
-  should_show_related_policies_and_policy_areas_for :publication
 end

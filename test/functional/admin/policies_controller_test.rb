@@ -8,6 +8,15 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   test_controller_is_a Admin::BaseController
 
+  should_allow_organisations_for :policy
+  should_allow_ministerial_roles_for :policy
+  should_be_rejectable :policy
+  should_be_force_publishable :policy
+  should_be_able_to_delete_a_document :policy
+  should_link_to_public_version_when_published :policy
+  should_not_link_to_public_version_when_not_published :policy
+  should_prevent_modification_of_unmodifiable :policy
+
   test "new displays policy form" do
     get :new
 
@@ -263,16 +272,4 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     policy.reload
     assert_equal [], policy.policy_areas
   end
-
-  should_allow_organisations_for :policy
-  should_allow_ministerial_roles_for :policy
-
-  should_be_rejectable :policy
-  should_be_force_publishable :policy
-  should_be_able_to_delete_a_document :policy
-
-  should_link_to_public_version_when_published :policy
-  should_not_link_to_public_version_when_not_published :policy
-
-  should_prevent_modification_of_unmodifiable :policy
 end

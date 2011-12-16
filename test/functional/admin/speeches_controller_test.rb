@@ -7,6 +7,13 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   test_controller_is_a Admin::BaseController
 
+  should_be_rejectable :speech
+  should_be_force_publishable :speech
+  should_be_able_to_delete_a_document :speech
+  should_link_to_public_version_when_published :speech
+  should_not_link_to_public_version_when_not_published :speech
+  should_prevent_modification_of_unmodifiable :speech
+
   test "new displays speech form" do
     get :new
 
@@ -49,7 +56,6 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_redirected_to admin_speech_path(Speech.last)
     assert_equal 'The document has been saved', flash[:notice]
   end
-
 
   test 'creating with invalid data should leave the writer in the speech editor' do
     role_appointment = create(:role_appointment)
@@ -200,13 +206,4 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     get :show, id: speech
     assert_select_object policy
   end
-
-  should_be_rejectable :speech
-  should_be_force_publishable :speech
-  should_be_able_to_delete_a_document :speech
-
-  should_link_to_public_version_when_published :speech
-  should_not_link_to_public_version_when_not_published :speech
-
-  should_prevent_modification_of_unmodifiable :speech
 end

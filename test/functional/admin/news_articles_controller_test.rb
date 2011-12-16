@@ -7,6 +7,16 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   test_controller_is_a Admin::BaseController
 
+  should_allow_featuring_of :news_article
+  should_allow_organisations_for :news_article
+  should_allow_ministerial_roles_for :news_article
+  should_be_rejectable :news_article
+  should_be_force_publishable :news_article
+  should_be_able_to_delete_a_document :news_article
+  should_link_to_public_version_when_published :news_article
+  should_not_link_to_public_version_when_not_published :news_article
+  should_prevent_modification_of_unmodifiable :news_article
+
   test 'new displays news articles form' do
     get :new
 
@@ -176,17 +186,4 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: news_article
     refute_select "#{notes_to_editors_selector}"
   end
-
-  should_allow_featuring_of :news_article
-  should_allow_organisations_for :news_article
-  should_allow_ministerial_roles_for :news_article
-
-  should_be_rejectable :news_article
-  should_be_force_publishable :news_article
-  should_be_able_to_delete_a_document :news_article
-
-  should_link_to_public_version_when_published :news_article
-  should_not_link_to_public_version_when_not_published :news_article
-
-  should_prevent_modification_of_unmodifiable :news_article
 end

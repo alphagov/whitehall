@@ -3,6 +3,10 @@ require "test_helper"
 class ConsultationsControllerTest < ActionController::TestCase
   include DocumentControllerTestHelpers
 
+  should_display_attachments_for :consultation
+  should_show_featured_documents_for :consultation
+  should_show_related_policies_and_policy_areas_for :consultation
+
   test 'index lists all published consultations' do
     published_open_consultation = create(:published_consultation, opening_on: 1.day.ago, closing_on: 1.day.from_now)
     published_closed_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
@@ -188,8 +192,4 @@ class ConsultationsControllerTest < ActionController::TestCase
       assert_select "#{record_css_selector(consultation)} .time_remaining", text: "Closes in 30 days"
     end
   end
-
-  should_display_attachments_for :consultation
-  should_show_featured_documents_for :consultation
-  should_show_related_policies_and_policy_areas_for :consultation
 end
