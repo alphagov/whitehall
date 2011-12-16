@@ -3,6 +3,29 @@ Given /^a published publication "([^"]*)" exists that is about "([^"]*)"$/ do |p
   create(:published_publication, title: publication_title, countries: [country])
 end
 
+Given /^a draft publication "([^"]*)" with a PDF attachment$/ do |title|
+  attachment = Attachment.new(file: pdf_attachment)
+  create(:draft_publication, title: title, attachments: [attachment])
+end
+
+Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
+  attachment = Attachment.new(file: pdf_attachment)
+  create(:submitted_publication, title: title, attachments: [attachment])
+end
+
+Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
+  attachment = Attachment.new(file: pdf_attachment)
+  create(:published_publication, title: title, attachments: [attachment])
+end
+
+Given /^I attempt to create an invalid publication with an attachment$/ do
+  begin_drafting_document type: "Publication", title: ""
+  select_date "Publication date", with: "2010-01-01"
+  file = pdf_attachment
+  attach_file "Attachment", file.path
+  click_button "Save"
+end
+
 When /^I draft a new publication "([^"]*)"$/ do |title|
   policy = create(:policy)
   begin_drafting_document type: 'publication', title: title
@@ -29,29 +52,6 @@ When /^I draft a new corporate publication "([^"]*)" about the "([^"]*)"$/ do |t
   fill_in_publication_fields
   select organisation, from: "Producing Organisations"
   check "Corporate publication?"
-  click_button "Save"
-end
-
-Given /^a draft publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(file: pdf_attachment)
-  create(:draft_publication, title: title, attachments: [attachment])
-end
-
-Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(file: pdf_attachment)
-  create(:submitted_publication, title: title, attachments: [attachment])
-end
-
-Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(file: pdf_attachment)
-  create(:published_publication, title: title, attachments: [attachment])
-end
-
-Given /^I attempt to create an invalid publication with an attachment$/ do
-  begin_drafting_document type: "Publication", title: ""
-  select_date "Publication date", with: "2010-01-01"
-  file = pdf_attachment
-  attach_file "Attachment", file.path
   click_button "Save"
 end
 

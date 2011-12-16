@@ -2,48 +2,6 @@ Given /^a policy area called "([^"]*)" with description "([^"]*)"$/ do |name, de
   create_policy_area(name: name, description: description)
 end
 
-When /^I create a new policy area "([^"]*)" with description "([^"]*)"$/ do |name, description|
-  create_policy_area(name: name, description: description)
-end
-
-When /^I create a new policy area "([^"]*)" related to policy area "([^"]*)"$/ do |name, related_name|
-  create_policy_area(name: related_name)
-  create_policy_area(name: name, related_policy_areas: [related_name])
-end
-
-When /^I edit the policy area "([^"]*)" to have description "([^"]*)"$/ do |name, description|
-  visit admin_root_path
-  click_link "Policy areas"
-  click_link name
-  fill_in "Description", with: description
-  click_button "Save"
-end
-
-Then /^I should see the "([^"]*)" policy area description is "([^"]*)"$/ do |name, description|
-  visit policy_areas_path
-  click_link name
-  assert page.has_css?(".description", text: description)
-end
-
-Then /^I should see in the admin the "([^"]*)" policy area description is "([^"]*)"$/ do |name, description|
-  visit admin_policy_areas_path
-  assert page.has_css?(".name", text: name)
-  assert page.has_css?(".description", text: description)
-end
-
-Then /^I should see in the admin the "([^"]*)" policy area is related to policy area "([^"]*)"$/ do |name, related_name|
-  visit admin_policy_areas_path
-  policy_area = PolicyArea.find_by_name(name)
-  related_policy_area = PolicyArea.find_by_name(related_name)
-  assert page.has_css?("#{record_css_selector(policy_area)} .related #{record_css_selector(related_policy_area)}")
-end
-
-Then /^I should be able to delete the policy area "([^"]*)"$/ do |name|
-  visit admin_policy_areas_path
-  click_link name
-  click_button 'Delete'
-end
-
 Given /^the policy area "([^"]*)" contains some policies$/ do |name|
   policies = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
   create(:policy_area, name: name, policies: policies)
@@ -63,6 +21,23 @@ Given /^the policy area "([^"]*)" is related to the policy area "([^"]*)"$/ do |
   related_policy_area = create(:policy_area, name: related_name)
   policy_area = PolicyArea.find_by_name(name)
   policy_area.update_attributes!(related_policy_areas: [related_policy_area])
+end
+
+When /^I create a new policy area "([^"]*)" with description "([^"]*)"$/ do |name, description|
+  create_policy_area(name: name, description: description)
+end
+
+When /^I create a new policy area "([^"]*)" related to policy area "([^"]*)"$/ do |name, related_name|
+  create_policy_area(name: related_name)
+  create_policy_area(name: name, related_policy_areas: [related_name])
+end
+
+When /^I edit the policy area "([^"]*)" to have description "([^"]*)"$/ do |name, description|
+  visit admin_root_path
+  click_link "Policy areas"
+  click_link name
+  fill_in "Description", with: description
+  click_button "Save"
 end
 
 When /^I visit the list of policy areas$/ do
@@ -93,6 +68,31 @@ When /^I set the featured policies in the "([^"]*)" policy area to:$/ do |name, 
     end
   end
   click_button "Save"
+end
+
+Then /^I should see the "([^"]*)" policy area description is "([^"]*)"$/ do |name, description|
+  visit policy_areas_path
+  click_link name
+  assert page.has_css?(".description", text: description)
+end
+
+Then /^I should see in the admin the "([^"]*)" policy area description is "([^"]*)"$/ do |name, description|
+  visit admin_policy_areas_path
+  assert page.has_css?(".name", text: name)
+  assert page.has_css?(".description", text: description)
+end
+
+Then /^I should see in the admin the "([^"]*)" policy area is related to policy area "([^"]*)"$/ do |name, related_name|
+  visit admin_policy_areas_path
+  policy_area = PolicyArea.find_by_name(name)
+  related_policy_area = PolicyArea.find_by_name(related_name)
+  assert page.has_css?("#{record_css_selector(policy_area)} .related #{record_css_selector(related_policy_area)}")
+end
+
+Then /^I should be able to delete the policy area "([^"]*)"$/ do |name|
+  visit admin_policy_areas_path
+  click_link name
+  click_button 'Delete'
 end
 
 Then /^I should see the featured policies in the "([^"]*)" policy area are:$/ do |name, expected_table|

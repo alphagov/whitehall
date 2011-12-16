@@ -89,6 +89,13 @@ When /^I draft a new speech "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ d
   click_button "Save"
 end
 
+When /^I draft a new speech "([^"]*)" related to countries "([^"]*)" and "([^"]*)"$/ do |title, first_country, second_country|
+  begin_drafting_speech title: title
+  select first_country, from: "Countries"
+  select second_country, from: "Countries"
+  click_button "Save"
+end
+
 Then /^I should see that the speech is written by "([^"]*)"$/ do |name|
   assert page.has_css?(".document_view .authors", text: name)
 end
@@ -106,13 +113,6 @@ end
 Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |delivered_on, location|
   assert page.has_css?('.document_view .details .delivered_on', text: delivered_on)
   assert page.has_css?('.document_view .details .location', text: location)
-end
-
-When /^I draft a new speech "([^"]*)" related to countries "([^"]*)" and "([^"]*)"$/ do |title, first_country, second_country|
-  begin_drafting_speech title: title
-  select first_country, from: "Countries"
-  select second_country, from: "Countries"
-  click_button "Save"
 end
 
 Then /^I should see in the preview that "([^"]*)" is related to countries "([^"]*)" and "([^"]*)"$/ do |title, first_country, second_country|
