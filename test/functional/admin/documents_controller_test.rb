@@ -5,7 +5,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     @user = login_as :policy_writer
   end
 
-  test_controller_is_a Admin::BaseController
+  should_be_an_admin_controller
 
   test 'should distinguish between document types when viewing the list of draft documents' do
     policy = create(:draft_policy)

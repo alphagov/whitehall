@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
-  test_controller_is_a Admin::BaseController
+  should_be_an_admin_controller
 
   setup do
     login_as_admin

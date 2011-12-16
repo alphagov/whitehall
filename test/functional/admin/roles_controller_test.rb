@@ -5,7 +5,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     @user = login_as :policy_writer
   end
 
-  test_controller_is_a Admin::BaseController
+  should_be_an_admin_controller
 
   test "index should display a list of roles" do
     org_one = create(:organisation, name: "org-one")

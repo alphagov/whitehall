@@ -5,7 +5,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     @logged_in_user = login_as :departmental_editor
   end
 
-  test_controller_is_a Admin::BaseController
+  should_be_an_admin_controller
 
   test "should render the document title and body to give context to the person rejecting" do
     document = create(:submitted_document, title: "document-title", body: "document-body")

@@ -5,7 +5,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     @user = login_as :policy_writer
   end
 
-  test_controller_is_a Admin::BaseController
+  should_be_an_admin_controller
 
   should_be_rejectable :speech
   should_be_force_publishable :speech

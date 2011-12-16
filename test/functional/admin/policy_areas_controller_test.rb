@@ -5,7 +5,7 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
     @user = login_as :policy_writer
   end
 
-  test_controller_is_a Admin::BaseController
+  should_be_an_admin_controller
 
   test "new displays policy area form" do
     get :new

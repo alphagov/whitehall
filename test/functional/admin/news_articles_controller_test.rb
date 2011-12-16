@@ -5,7 +5,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     @user = login_as :policy_writer
   end
 
-  test_controller_is_a Admin::BaseController
+  should_be_an_admin_controller
 
   should_allow_featuring_of :news_article
   should_allow_organisations_for :news_article

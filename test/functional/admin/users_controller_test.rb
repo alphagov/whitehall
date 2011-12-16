@@ -7,7 +7,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     login_as(@user)
   end
 
-  test_controller_is_a Admin::BaseController
+  should_be_an_admin_controller
 
   test "show displays user name and email address" do
     get :show
