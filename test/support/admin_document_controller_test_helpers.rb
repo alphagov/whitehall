@@ -1,18 +1,6 @@
 module AdminDocumentControllerTestHelpers
   extend ActiveSupport::Concern
 
-  def force_publish_button_selector(document)
-    "form[action=#{admin_document_publishing_path(document, force: true)}]"
-  end
-
-  def reject_button_selector(document)
-    "a[href=#{new_admin_document_editorial_remark_path(document)}]"
-  end
-
-  def link_to_public_version_selector
-    ".actions .public_version"
-  end
-
   module ClassMethods
     def should_allow_featuring_of(document_type)
       test "featuring a published #{document_type} sets the featured flag" do

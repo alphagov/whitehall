@@ -80,4 +80,16 @@ module CssSelectors
   def featured_consultations_selector
     "#featured-consultations"
   end
+
+  def force_publish_button_selector(document)
+    "form[action=#{admin_document_publishing_path(document, force: true)}]"
+  end
+
+  def reject_button_selector(document)
+    "a[href=#{new_admin_document_editorial_remark_path(document)}]"
+  end
+
+  def link_to_public_version_selector
+    ".actions .public_version"
+  end
 end
