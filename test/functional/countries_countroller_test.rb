@@ -144,4 +144,48 @@ class CountriesControllerTest < ActionController::TestCase
 
     refute_select "#speeches"
   end
+
+  test "shows only published publications" do
+    published_document = create(:published_publication)
+    draft_document = create(:draft_publication)
+    country = create(:country, documents: [published_document, draft_document])
+
+    get :show, id: country
+
+    assert_select "#publications" do
+      assert_select_object(published_document)
+      refute_select_object(draft_document)
+    end
+  end
+
+  test "shows only publications associated with country" do
+    published_document = create(:published_publication)
+    another_published_document = create(:published_publication)
+    country = create(:country, documents: [published_document])
+
+    get :show, id: country
+
+    assert_select "#publications" do
+      assert_select_object(published_document)
+      refute_select_object(another_published_document)
+    end
+  end
+
+  test "shows most recent publications at the top" do
+    later_document = create(:published_publication, published_at: 1.hour.ago)
+    earlier_document = create(:published_publication, published_at: 2.hours.ago)
+    country = create(:country, documents: [earlier_document, later_document])
+
+    get :show, id: country
+
+    assert_equal [later_document, earlier_document], assigns[:publications]
+  end
+
+  test "should not display an empty published publications section" do
+    country = create(:country, documents: [])
+
+    get :show, id: country
+
+    refute_select "#publications"
+  end
 end

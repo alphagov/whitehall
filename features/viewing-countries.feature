@@ -18,3 +18,9 @@ Scenario: View policies relating to a country
   And a published policy "Icebergs of the World, Unite!" exists relating to the country "British Antarctic Territory"
   When I view the country "British Antarctic Territory"
   Then I should see the policy "Icebergs of the World, Unite!"
+
+Scenario: Publications about a country
+  Given a country "British Antarctic Territory" exists
+  And a published publication "Penguins have rights too" exists that is about "British Antarctic Territory"
+  When I view the country "British Antarctic Territory"
+  Then I should see the publication "Penguins have rights too"

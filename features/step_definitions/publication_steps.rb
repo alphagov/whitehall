@@ -1,3 +1,8 @@
+Given /^a published publication "([^"]*)" exists that is about "([^"]*)"$/ do |publication_title, country_name|
+  country = Country.find_by_name!(country_name)
+  create(:published_publication, title: publication_title, countries: [country])
+end
+
 When /^I draft a new publication "([^"]*)"$/ do |title|
   policy = create(:policy)
   begin_drafting_document type: 'publication', title: title
