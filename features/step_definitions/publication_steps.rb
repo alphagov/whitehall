@@ -114,6 +114,11 @@ Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |
   assert has_css?("#{corporate_publications_selector}, .publication a", text: title)
 end
 
+Then /^I should see that the publication is about "([^"]*)"$/ do |country_name|
+  country = Country.find_by_name!(country_name)
+  assert has_css?("#countries #{record_css_selector(country)}")
+end
+
 def pdf_attachment
   File.open(Rails.root.join("features/fixtures/attachment.pdf"))
 end
