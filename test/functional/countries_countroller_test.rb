@@ -188,4 +188,48 @@ class CountriesControllerTest < ActionController::TestCase
 
     refute_select "#publications"
   end
+
+  test "shows only published international priorities" do
+    published_document = create(:published_international_priority)
+    draft_document = create(:draft_international_priority)
+    country = create(:country, documents: [published_document, draft_document])
+
+    get :show, id: country
+
+    assert_select "#international_priorities" do
+      assert_select_object(published_document)
+      refute_select_object(draft_document)
+    end
+  end
+
+  test "shows only international priorities associated with country" do
+    published_document = create(:published_international_priority)
+    another_published_document = create(:published_international_priority)
+    country = create(:country, documents: [published_document])
+
+    get :show, id: country
+
+    assert_select "#international_priorities" do
+      assert_select_object(published_document)
+      refute_select_object(another_published_document)
+    end
+  end
+
+  test "shows most recent international priorities at the top" do
+    later_document = create(:published_international_priority, published_at: 1.hour.ago)
+    earlier_document = create(:published_international_priority, published_at: 2.hours.ago)
+    country = create(:country, documents: [earlier_document, later_document])
+
+    get :show, id: country
+
+    assert_equal [later_document, earlier_document], assigns[:international_priorities]
+  end
+
+  test "should not display an empty published international priorities section" do
+    country = create(:country, documents: [])
+
+    get :show, id: country
+
+    refute_select "#international_priorities"
+  end
 end

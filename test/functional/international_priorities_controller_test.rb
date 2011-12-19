@@ -1,20 +1,16 @@
 require "test_helper"
 
 class InternationalPrioritiesControllerTest < ActionController::TestCase
-  test "index displays list of published international priorities" do
-    priority_1 = create(:published_international_priority)
-    priority_2 = create(:published_international_priority)
+  include DocumentControllerTestHelpers
 
-    get :index
+  should_render_a_list_of :international_priorities
+  should_show_the_countries_associated_with :international_priority
 
-    assert_select ".international_priorities" do
-      assert_select_object priority_1
-      assert_select_object priority_2
-    end
-  end
-
-  test "show displays published international priority details" do
-    priority = create(:published_international_priority, title: "priority-title", body: "priority-body")
+  test "show displays international priority details" do
+    priority = create(:published_international_priority,
+      title: "priority-title",
+      body: "priority-body",
+    )
 
     get :show, id: priority.document_identity
 

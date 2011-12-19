@@ -1,0 +1,12 @@
+<% if international_priorities.any? %>
+  <section id="international_priorities">
+    <h1>International Priorities</h1>
+    <ul class="international_priorities">
+      <% international_priorities.each do |international_priority| %>
+        <%= content_tag_for(:li, international_priority) do %>
+          <%= link_to international_priority.title, public_document_path(international_priority), title: "View #{international_priority.title}" %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

@@ -24,3 +24,9 @@ Scenario: The publication is about a country
   And a published publication "Penguins have rights too" exists that is about "British Antarctic Territory"
   When I view the country "British Antarctic Territory"
   Then I should see the publication "Penguins have rights too"
+
+Scenario: View priorities for a country
+  Given a country "British Antarctic Territory" exists
+  And a published international priority "Oil field exploitation" exists relating to the country "British Antarctic Territory"
+  When I view the country "British Antarctic Territory"
+  Then I should see the international priority "Oil field exploitation"
