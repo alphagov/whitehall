@@ -107,6 +107,19 @@
               </ul>
             </section>
           <% end %>
+
+          <% if @countries.any? %>
+            <section id="countries">
+              <h1>Related countries</h1>
+              <ul>
+                <% @countries.each do |country| %>
+                  <%= content_tag_for :li, country do %>
+                    <%= link_to country.name, country_path(country) %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </section>
+          <% end %>
         </article>
       </div>
     </div>
