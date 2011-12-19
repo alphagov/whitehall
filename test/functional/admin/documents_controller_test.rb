@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::DocumentsControllerTest < ActionController::TestCase
   setup do
-    @user = login_as :policy_writer
+    login_as :policy_writer
   end
 
   should_be_an_admin_controller
@@ -75,7 +75,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     published_document = create(:published_policy)
     Document.stubs(:find).returns(published_document)
     draft_document = create(:draft_policy)
-    published_document.expects(:create_draft).with(@user).returns(draft_document)
+    published_document.expects(:create_draft).with(current_user).returns(draft_document)
     draft_document.expects(:valid?).returns(true)
 
     post :revise, id: published_document
@@ -206,8 +206,8 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   end
 
   test "should remember author filter options" do
-    get :draft, author: @user
-    assert_equal @user.to_param, session[:document_filters][:author]
+    get :draft, author: current_user
+    assert_equal current_user.to_param, session[:document_filters][:author]
   end
 
   test "should remember organisation filter options" do
@@ -223,9 +223,9 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test "index should redirect to remembered filtered options if available" do
     organisation = create(:organisation)
-    session[:document_filters] = { action: :submitted, author: @user.to_param, organisation: organisation.to_param }
+    session[:document_filters] = { action: :submitted, author: current_user.to_param, organisation: organisation.to_param }
     get :index
-    assert_redirected_to submitted_admin_documents_path(author: @user, organisation: organisation)
+    assert_redirected_to submitted_admin_documents_path(author: current_user, organisation: organisation)
   end
 
   test "index should redirect to submitted in my department if logged an editor has no remembered filters" do

@@ -30,10 +30,12 @@ class ActionController::TestCase
   include ControllerTestHelpers
   include ResourceTestHelpers
 
+  attr_reader :current_user
+
   def login_as(role_or_user)
-    user = role_or_user.is_a?(Symbol) ? create(role_or_user) : role_or_user
-    request.env['warden'] = stub(authenticate!: true, authenticated?: true, user: user)
-    user
+    @current_user = role_or_user.is_a?(Symbol) ? create(role_or_user) : role_or_user
+    request.env['warden'] = stub(authenticate!: true, authenticated?: true, user: @current_user)
+    @current_user
   end
 
   def login_as_admin

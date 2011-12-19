@@ -3,7 +3,7 @@ require 'test_helper'
 class Admin::PoliciesControllerTest < ActionController::TestCase
 
   setup do
-    @user = login_as :policy_writer
+    login_as :policy_writer
   end
 
   should_be_an_admin_controller

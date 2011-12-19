@@ -148,7 +148,7 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: {title: 'new-title', body: 'new-body'}
 
-        assert_equal @user, document.document_authors(true).last.user
+        assert_equal current_user, document.document_authors(true).last.user
       end
 
       test "update with invalid data should not save the document" do
@@ -528,9 +528,9 @@ module AdminDocumentControllerTestHelpers
 
       test "should show who rejected the document and link to the comments" do
         document = create("rejected_#{document_type}")
-        document.editorial_remarks.create!(body: "editorial-remark-body", author: @user)
+        document.editorial_remarks.create!(body: "editorial-remark-body", author: current_user)
         get :show, id: document
-        assert_select ".rejected_by", text: @user.name
+        assert_select ".rejected_by", text: current_user.name
         assert_select "a[href=#editorial_remarks]"
       end
 
@@ -542,11 +542,11 @@ module AdminDocumentControllerTestHelpers
 
       test "should show the list of editorial remarks" do
         document = create("rejected_#{document_type}")
-        remark = document.editorial_remarks.create!(body: "editorial-remark-body", author: @user)
+        remark = document.editorial_remarks.create!(body: "editorial-remark-body", author: current_user)
         get :show, id: document
         assert_select "#editorial_remarks .editorial_remark" do
           assert_select ".body", text: "editorial-remark-body"
-          assert_select ".author", text: @user.name
+          assert_select ".author", text: current_user.name
           assert_select "abbr.created_at[title=#{remark.created_at.iso8601}]"
         end
       end
