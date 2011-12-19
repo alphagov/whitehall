@@ -28,6 +28,15 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     refute_select_object(draft_document)
   end
 
+  test "shows only published consultations associated with ministerial role" do
+    published_document = create(:published_consultation)
+    draft_document = create(:draft_consultation)
+    ministerial_role = create(:ministerial_role, documents: [published_document, draft_document])
+    get :show, id: ministerial_role
+    assert_select_object(published_document)
+    refute_select_object(draft_document)
+  end
+
   test "shows only published speeches associated with ministerial role" do
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
