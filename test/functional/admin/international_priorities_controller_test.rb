@@ -11,6 +11,7 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   should_allow_showing_of :international_priority
   should_allow_creating_of :international_priority
   should_allow_editing_of :international_priority
+  should_allow_association_between_countries_and :international_priority
   should_be_rejectable :international_priority
   should_be_force_publishable :international_priority
   should_be_able_to_delete_a_document :international_priority
