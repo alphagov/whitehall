@@ -1,14 +1,6 @@
 module TestsForCountries
   extend ActiveSupport::Testing::Declarative
 
-  test "new displays document form with countries field" do
-    get :new
-
-    assert_select "form#document_new" do
-      assert_select "select[name*='document[country_ids]']"
-    end
-  end
-
   test "creating should create a new document with countries" do
     first_country = create(:country)
     second_country = create(:country)

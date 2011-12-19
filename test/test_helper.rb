@@ -27,6 +27,7 @@ end
 class ActionController::TestCase
   include CssSelectors
   include AdminDocumentControllerTestHelpers
+  include AdminDocumentCountriesBehaviour
   include DocumentControllerTestHelpers
   include ControllerTestHelpers
   include ResourceTestHelpers
