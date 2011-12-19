@@ -17,12 +17,6 @@ Scenario: Creating a speech related to multiple policies
   When I draft a new speech "Fishy Business" relating it to "Against All Cods" and "O For Tuna"
   Then I should see in the preview that "Fishy Business" should related to "Against All Cods" and "O For Tuna" policies
 
-Scenario: Creating a speech related to different countries
-  Given a country "England" exists
-  And a country "Iceland" exists
-  When I draft a new speech "For the love of cod" related to countries "England" and "Iceland"
-  Then I should see in the preview that "For the love of cod" is related to countries "England" and "Iceland"
-
 Scenario: Trying to save a speech that has been changed by another user
   Given a draft speech "Outlaw Moustaches" exists
   And I start editing the speech "Outlaw Moustaches" changing the title to "Ban Moustaches"
