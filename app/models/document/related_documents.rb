@@ -17,7 +17,7 @@ module Document::RelatedDocuments
     add_trait Trait
   end
 
-  def can_be_related_to_other_documents?
+  def can_be_related_to_policies?
     true
   end
 end

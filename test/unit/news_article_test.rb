@@ -12,7 +12,7 @@ class NewsArticleTest < ActiveSupport::TestCase
 
   test "should be able to relate to other documents" do
     article = build(:news_article)
-    assert article.can_be_related_to_other_documents?
+    assert article.can_be_related_to_policies?
   end
 
   test "#policy_areas includes policy areas associated with related published policies" do

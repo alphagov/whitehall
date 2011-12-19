@@ -63,7 +63,7 @@ class Document < ActiveRecord::Base
     false
   end
 
-  def can_be_related_to_other_documents?
+  def can_be_related_to_policies?
     false
   end
 

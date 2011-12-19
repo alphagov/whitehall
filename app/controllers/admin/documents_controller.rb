@@ -116,7 +116,7 @@ class Admin::DocumentsController < Admin::BaseController
     if @document.can_be_associated_with_ministers?
       params[:document][:ministerial_role_ids] ||= []
     end
-    if @document.can_be_related_to_other_documents?
+    if @document.can_be_related_to_policies?
       params[:document][:related_document_ids] ||= []
     end
     if @document.can_be_associated_with_countries?

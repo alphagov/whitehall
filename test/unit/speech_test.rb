@@ -8,7 +8,7 @@ class SpeechTest < ActiveSupport::TestCase
 
   test "should be able to relate to other documents" do
     article = build(:news_article)
-    assert article.can_be_related_to_other_documents?
+    assert article.can_be_related_to_policies?
   end
 
   test "should be invalid without a role_appointment" do
