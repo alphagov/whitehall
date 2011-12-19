@@ -1,7 +1,6 @@
 require "test_helper"
 
 class AnnouncementsControllerTest < ActionController::TestCase
-  include DocumentControllerTestHelpers
   include ActionView::Helpers::DateHelper
 
   def announcement_path(announcement)

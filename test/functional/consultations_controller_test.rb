@@ -1,8 +1,6 @@
 require "test_helper"
 
 class ConsultationsControllerTest < ActionController::TestCase
-  include DocumentControllerTestHelpers
-
   should_display_attachments_for :consultation
   should_show_featured_documents_for :consultation
   should_show_related_policies_and_policy_areas_for :consultation

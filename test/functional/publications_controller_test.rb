@@ -1,8 +1,6 @@
 require "test_helper"
 
 class PublicationsControllerTest < ActionController::TestCase
-  include DocumentControllerTestHelpers
-
   should_display_attachments_for :publication
   should_show_related_policies_and_policy_areas_for :publication
   should_show_the_countries_associated_with :publication
