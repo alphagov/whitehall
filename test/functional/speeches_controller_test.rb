@@ -5,6 +5,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
   should_render_a_list_of :speeches
   should_show_related_policies_and_policy_areas_for :speech
+  should_show_the_countries_associated_with :speech
 
   test "should display details about the speech" do
     home_office = create(:organisation, name: "Home Office")
@@ -19,14 +20,5 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
     assert_select ".details .delivered_on", "June 1st, 2011"
     assert_select ".details .location", "The Guidhall"
-  end
-
-  test 'should display countries related to the speech' do
-    mauritius = create(:country, name: 'Mauritius')
-    published_speech = create(:published_speech, countries: [mauritius])
-
-    get :show, id: published_speech.document_identity
-
-    assert_select_object mauritius
   end
 end

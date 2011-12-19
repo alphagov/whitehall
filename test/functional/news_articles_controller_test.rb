@@ -5,6 +5,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
   should_render_a_list_of :news_articles
   should_show_related_policies_and_policy_areas_for :news_article
+  should_show_the_countries_associated_with :news_article
 
   test "shows published news article" do
     news_article = create(:published_news_article)
@@ -45,26 +46,5 @@ class NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".document_view .metadata" do
       assert_select ".published_at", text: "10 days ago"
     end
-  end
-
-  test "should display countries to which this news article relates" do
-    first_country = create(:country)
-    second_country = create(:country)
-    news_article = create(:published_news_article, countries: [first_country, second_country])
-
-    get :show, id: news_article.document_identity
-
-    assert_select "#countries" do
-      assert_select_object(first_country)
-      assert_select_object(second_country)
-    end
-  end
-
-  test "should not display an empty list of countries" do
-    news_article = create(:published_news_article, countries: [])
-
-    get :show, id: news_article.document_identity
-
-    refute_select "#countries"
   end
 end

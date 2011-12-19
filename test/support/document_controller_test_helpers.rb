@@ -120,5 +120,30 @@ module DocumentControllerTestHelpers
         refute_select "#related-policies"
       end
     end
+
+    def should_show_the_countries_associated_with(document_type)
+      test "should display the countries associated with this #{document_type}" do
+        first_country = create(:country)
+        second_country = create(:country)
+        third_country = create(:country)
+        document = create("published_#{document_type}", countries: [first_country, second_country])
+
+        get :show, id: document.document_identity
+
+        assert_select "#countries" do
+          assert_select_object first_country
+          assert_select_object second_country
+          refute_select_object third_country
+        end
+      end
+
+      test "should not display an empty list of countries" do
+        document = create("published_#{document_type}", countries: [])
+
+        get :show, id: document.document_identity
+
+        refute_select "#countries"
+      end
+    end
   end
 end
