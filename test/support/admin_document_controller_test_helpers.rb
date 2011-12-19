@@ -2,6 +2,179 @@ module AdminDocumentControllerTestHelpers
   extend ActiveSupport::Concern
 
   module ClassMethods
+    def should_allow_showing_of(document_type)
+      test "should render the content using govspeak markup" do
+        draft_document = create("draft_#{document_type}", body: "body-in-govspeak")
+        Govspeak::Document.stubs(:to_html).returns("\n")
+        Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
+
+        get :show, id: draft_document
+
+        assert_select ".body", text: "body-in-html"
+      end
+
+      test "show lists each document author once" do
+        tom = create(:user, name: "Tom")
+        dick = create(:user, name: "Dick")
+        harry = create(:user, name: "Harry")
+
+        draft_document = create("draft_#{document_type}", creator: tom)
+        draft_document.edit_as(dick)
+        draft_document.edit_as(harry)
+        draft_document.edit_as(dick)
+
+        get :show, id: draft_document
+
+        assert_select ".authors", text: "Tom, Dick, and Harry"
+      end
+    end
+
+    def should_allow_creating_of(document_type)
+      document_class = document_class(document_type)
+
+      test "new displays document form" do
+        get :new
+
+        admin_documents_path = send("admin_#{document_type.to_s.tableize}_path")
+        assert_select "form#document_new[action='#{admin_documents_path}']" do
+          assert_select "input[name='document[title]'][type='text']"
+          assert_select "textarea[name='document[body]']"
+          assert_select "input[type='submit']"
+        end
+      end
+
+      test "new form has previewable body" do
+        get :new
+        assert_select "textarea[name='document[body]'].previewable"
+      end
+
+      test "new form has cancel link which takes the user to the list of drafts" do
+        get :new
+        assert_select "a[href=#{admin_documents_path}]", text: /cancel/i
+      end
+
+      test "create should create a new document" do
+        attributes = attributes_for(document_type)
+
+        post :create, document: attributes
+
+        document = document_class.last
+        assert_equal attributes[:title], document.title
+        assert_equal attributes[:body], document.body
+      end
+
+      test "create should take the writer to the document page" do
+        post :create, document: attributes_for(document_type)
+
+        admin_document_path = send("admin_#{document_type}_path", document_class.last)
+        assert_redirected_to admin_document_path
+        assert_equal 'The document has been saved', flash[:notice]
+      end
+
+      test "create with invalid data should leave the writer in the policy editor" do
+        attributes = attributes_for(document_type)
+        post :create, document: attributes.merge(title: '')
+
+        assert_equal attributes[:body], assigns(:document).body, "the valid data should not have been lost"
+        assert_template "documents/new"
+      end
+
+      test "create with invalid data should set an alert in the flash" do
+        attributes = attributes_for(document_type)
+        post :create, document: attributes.merge(title: '')
+
+        assert_equal 'There are some problems with the document', flash.now[:alert]
+      end
+    end
+
+    def should_allow_editing_of(document_type)
+      test "edit displays document form" do
+        document = create(document_type)
+
+        get :edit, id: document
+
+        admin_document_path = send("admin_#{document_type}_path", document)
+        assert_select "form#document_edit[action='#{admin_document_path}']" do
+          assert_select "input[name='document[title]'][type='text']"
+          assert_select "textarea[name='document[body]']"
+          assert_select "input[type='submit']"
+        end
+      end
+
+      test "edit form has previewable body" do
+        document = create(document_type)
+
+        get :edit, id: document
+
+        assert_select "textarea[name='document[body]'].previewable"
+      end
+
+      test "edit form has cancel link which takes the user back to document" do
+        draft_document = create("draft_#{document_type}")
+
+        get :edit, id: draft_document
+
+        admin_document_path = send("admin_#{document_type}_path", draft_document)
+        assert_select "a[href=#{admin_document_path}]", text: /cancel/i
+      end
+
+      test "update should save modified document attributes" do
+        document = create(document_type)
+
+        put :update, id: document, document: {
+          title: "new-title",
+          body: "new-body"
+        }
+
+        document.reload
+        assert_equal "new-title", document.title
+        assert_equal "new-body", document.body
+      end
+
+      test "update should take the writer to the document page" do
+        document = create(document_type)
+
+        put :update, id: document, document: {title: 'new-title', body: 'new-body'}
+
+        admin_document_path = send("admin_#{document_type}_path", document)
+        assert_redirected_to admin_document_path
+        assert_equal 'The document has been saved', flash[:notice]
+      end
+
+      test "update records the user who changed the document" do
+        document = create(document_type)
+
+        put :update, id: document, document: {title: 'new-title', body: 'new-body'}
+
+        assert_equal @user, document.document_authors(true).last.user
+      end
+
+      test "update with invalid data should not save the document" do
+        attributes = attributes_for(document_type)
+        document = create(document_type, attributes)
+
+        put :update, id: document, document: attributes.merge(title: '')
+
+        assert_equal attributes[:title], document.reload.title
+        assert_template "documents/edit"
+        assert_equal 'There are some problems with the document', flash.now[:alert]
+      end
+
+      test "update with a stale document should render edit page with conflicting document" do
+        document = create("draft_#{document_type}")
+        lock_version = document.lock_version
+        document.touch
+
+        put :update, id: document, document: { lock_version: lock_version }
+
+        assert_template 'edit'
+        conflicting_document = document.reload
+        assert_equal conflicting_document, assigns[:conflicting_document]
+        assert_equal conflicting_document.lock_version, assigns[:document].lock_version
+        assert_equal %{This document has been saved since you opened it}, flash[:alert]
+      end
+    end
+
     def should_allow_featuring_of(document_type)
       test "featuring a published #{document_type} sets the featured flag" do
         request.env["HTTP_REFERER"] = "http://example.com"
