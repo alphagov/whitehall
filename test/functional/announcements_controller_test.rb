@@ -3,44 +3,6 @@ require "test_helper"
 class AnnouncementsControllerTest < ActionController::TestCase
   include ActionView::Helpers::DateHelper
 
-  def announcement_path(announcement)
-    if announcement.is_a?(NewsArticle)
-      news_article_path(announcement.document_identity)
-    else
-      speech_path(announcement.document_identity)
-    end
-  end
-
-  def assert_select_announcement_title(announcement)
-    assert_select "h2 a[href='#{announcement_path(announcement)}']", text: announcement.title
-  end
-
-  def assert_select_announcement_summary(announcement)
-    assert_select "p.summary", text: announcement.summary
-  end
-
-  def assert_select_announcement_metadata(announcement)
-    if announcement.is_a?(Speech)
-      assert_select_speech_metadata(announcement)
-    else
-      assert_select_news_article_metadata(announcement)
-    end
-  end
-
-  def assert_select_speech_metadata(speech)
-    assert_select ".metadata" do
-      time_ago = time_ago_in_words(speech.published_at)
-      assert_select ".published_at", text: /delivered (?:[\s]*) #{time_ago} ago/
-      appointment = speech.role_appointment
-      assert_select ".ministerial_role a[href='#{ministerial_role_path(appointment.role)}']", text: appointment.person.name
-    end
-  end
-
-  def assert_select_news_article_metadata(news_article)
-    time_ago = time_ago_in_words(news_article.published_at)
-    assert_select ".metadata .published_at", text: /posted (?:[\s]*) #{time_ago} ago/ 
-  end
-
   should_show_featured_documents_for :news_article
 
   test "index highlights three featured news articles" do
@@ -138,5 +100,45 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select ".metadata a[href='#{policy_area_path(first_policy_area)}']", text: first_policy_area.name
       assert_select ".metadata a[href='#{policy_area_path(second_policy_area)}']", text: second_policy_area.name
     end
+  end
+
+  private
+
+  def announcement_path(announcement)
+    if announcement.is_a?(NewsArticle)
+      news_article_path(announcement.document_identity)
+    else
+      speech_path(announcement.document_identity)
+    end
+  end
+
+  def assert_select_announcement_title(announcement)
+    assert_select "h2 a[href='#{announcement_path(announcement)}']", text: announcement.title
+  end
+
+  def assert_select_announcement_summary(announcement)
+    assert_select "p.summary", text: announcement.summary
+  end
+
+  def assert_select_announcement_metadata(announcement)
+    if announcement.is_a?(Speech)
+      assert_select_speech_metadata(announcement)
+    else
+      assert_select_news_article_metadata(announcement)
+    end
+  end
+
+  def assert_select_speech_metadata(speech)
+    assert_select ".metadata" do
+      time_ago = time_ago_in_words(speech.published_at)
+      assert_select ".published_at", text: /delivered (?:[\s]*) #{time_ago} ago/
+      appointment = speech.role_appointment
+      assert_select ".ministerial_role a[href='#{ministerial_role_path(appointment.role)}']", text: appointment.person.name
+    end
+  end
+
+  def assert_select_news_article_metadata(news_article)
+    time_ago = time_ago_in_words(news_article.published_at)
+    assert_select ".metadata .published_at", text: /posted (?:[\s]*) #{time_ago} ago/
   end
 end
