@@ -1,7 +1,7 @@
 module TestsForCountries
   extend ActiveSupport::Testing::Declarative
 
-  test 'new displays document form with countries field' do
+  test "new displays document form with countries field" do
     get :new
 
     assert_select "form#document_new" do
@@ -9,7 +9,7 @@ module TestsForCountries
     end
   end
 
-  test 'creating should create a new news article with countries' do
+  test "creating should create a new document with countries" do
     first_country = create(:country)
     second_country = create(:country)
     attributes = attributes_for_document
@@ -22,7 +22,7 @@ module TestsForCountries
     assert_equal [first_country, second_country], document.countries
   end
 
-  test 'updating should save modified document attributes with countries' do
+  test "updating should save modified document attributes with countries" do
     first_country = create(:country)
     second_country = create(:country)
     document = create_document(countries: [first_country])
@@ -35,7 +35,7 @@ module TestsForCountries
     assert_equal [second_country], document.countries
   end
 
-  test 'updating should remove all countries if none in params' do
+  test "updating should remove all countries if none in params" do
     country = create(:country)
 
     document = create_document(countries: [country])
@@ -46,7 +46,7 @@ module TestsForCountries
     assert_equal [], document.countries
   end
 
-  test 'updating a stale document should render edit page with conflicting document and its countries' do
+  test "updating a stale document should render edit page with conflicting document and its countries" do
     document = create_document
     lock_version = document.lock_version
     document.touch
