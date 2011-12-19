@@ -54,7 +54,7 @@ module AdminDocumentControllerTestHelpers
       end
 
       test "create should create a new document" do
-        attributes = attributes_for(document_type)
+        attributes = controller_attributes_for(document_type)
 
         post :create, document: attributes
 
@@ -64,7 +64,7 @@ module AdminDocumentControllerTestHelpers
       end
 
       test "create should take the writer to the document page" do
-        post :create, document: attributes_for(document_type)
+        post :create, document: controller_attributes_for(document_type)
 
         admin_document_path = send("admin_#{document_type}_path", document_class.last)
         assert_redirected_to admin_document_path
@@ -72,17 +72,19 @@ module AdminDocumentControllerTestHelpers
       end
 
       test "create with invalid data should leave the writer in the document editor" do
-        attributes = attributes_for(document_type)
+        attributes = controller_attributes_for(document_type)
         post :create, document: attributes.merge(title: '')
 
         assert_equal attributes[:body], assigns(:document).body, "the valid data should not have been lost"
         assert_template "documents/new"
       end
 
-      test "create with invalid data should set an alert in the flash" do
-        attributes = attributes_for(document_type)
+      test "create with invalid data should indicate there was an error" do
+        attributes = controller_attributes_for(document_type)
         post :create, document: attributes.merge(title: '')
 
+        assert_select ".field_with_errors input[name='document[title]']"
+        assert_equal attributes[:body], assigns(:document).body, "the valid data should not have been lost"
         assert_equal 'There are some problems with the document', flash.now[:alert]
       end
     end
@@ -150,7 +152,7 @@ module AdminDocumentControllerTestHelpers
       end
 
       test "update with invalid data should not save the document" do
-        attributes = attributes_for(document_type)
+        attributes = controller_attributes_for(document_type)
         document = create(document_type, attributes)
 
         put :update, id: document, document: attributes.merge(title: '')
@@ -218,7 +220,7 @@ module AdminDocumentControllerTestHelpers
 
       test 'creating a document should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-        attributes = attributes_for(document_type)
+        attributes = controller_attributes_for(document_type)
         attributes[:attachments_attributes] = { "0" => { file: greenpaper_pdf } }
 
         post :create, document: attributes
@@ -232,7 +234,7 @@ module AdminDocumentControllerTestHelpers
       end
 
       test "creating a document with invalid data should still allow attachment to be selected for upload" do
-        post :create, document: attributes_for(document_type, title: "")
+        post :create, document: controller_attributes_for(document_type, title: "")
 
         assert_select "form#document_new" do
           assert_select "input[name='document[attachments_attributes][0][file]'][type='file']"
@@ -242,7 +244,7 @@ module AdminDocumentControllerTestHelpers
       test "creating a document with invalid data should only allow a single attachment to be selected for upload" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        post :create, document: attributes_for(document_type,
+        post :create, document: controller_attributes_for(document_type,
           title: "",
           attachments_attributes: { "0" => { file: greenpaper_pdf } }
         )
@@ -255,7 +257,7 @@ module AdminDocumentControllerTestHelpers
       test "creating a document with invalid data and an attachment should remember the uploaded file" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        post :create, document: attributes_for(document_type,
+        post :create, document: controller_attributes_for(document_type,
           title: "",
           attachments_attributes: { "0" => { file: greenpaper_pdf } }
         )
@@ -267,7 +269,7 @@ module AdminDocumentControllerTestHelpers
       end
 
       test 'creating a document with invalid data should not show any attachment info' do
-        attributes = attributes_for(document_type)
+        attributes = controller_attributes_for(document_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
         attributes[:attachments_attributes] = { "0" => { file: greenpaper_pdf } }
 
@@ -315,7 +317,7 @@ module AdminDocumentControllerTestHelpers
         document = create(document_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        put :update, id: document, document: attributes_for(document_type,
+        put :update, id: document, document: controller_attributes_for(document_type,
           title: "",
           attachments_attributes: { "0" => { file: greenpaper_pdf } }
         )
@@ -329,7 +331,7 @@ module AdminDocumentControllerTestHelpers
         document = create(document_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        put :update, id: document, document: attributes_for(document_type,
+        put :update, id: document, document: controller_attributes_for(document_type,
           title: "",
           attachments_attributes: { "0" => { file: greenpaper_pdf } }
         )
@@ -586,7 +588,7 @@ module AdminDocumentControllerTestHelpers
       test "create should associate organisations with document" do
         first_organisation = create(:organisation)
         second_organisation = create(:organisation)
-        attributes = attributes_for(document_type)
+        attributes = controller_attributes_for(document_type)
 
         post :create, document: attributes.merge(
           organisation_ids: [first_organisation.id, second_organisation.id]
@@ -646,7 +648,7 @@ module AdminDocumentControllerTestHelpers
       test "create should associate ministerial roles with document" do
         first_minister = create(:ministerial_role)
         second_minister = create(:ministerial_role)
-        attributes = attributes_for(document_type)
+        attributes = controller_attributes_for(document_type)
 
         post :create, document: attributes.merge(
           ministerial_role_ids: [first_minister.id, second_minister.id]
@@ -717,5 +719,9 @@ module AdminDocumentControllerTestHelpers
     def document_class(document_type)
       document_type.to_s.classify.constantize
     end
+  end
+
+  def controller_attributes_for(document_type, attributes = {})
+    attributes_for(document_type, attributes)
   end
 end
