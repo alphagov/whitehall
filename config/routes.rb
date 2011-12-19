@@ -19,6 +19,7 @@ Whitehall::Application.routes.draw do
     end
     resources :news, as: :news_articles, controller: :news_articles, only: [:show, :index]
     resources :publications, only: [:index, :show]
+    resources "international-priorities", controller: :international_priorities, as: :international_priorities, only: [:index, :show]
     resources :consultations, only: [:index, :show] do
       collection do
         get :open
@@ -71,6 +72,7 @@ Whitehall::Application.routes.draw do
 
         resources :publications, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :policies, only: [:new, :create, :edit, :update, :show, :destroy]
+        resources "international-priorities", controller: :international_priorities, as: :international_priorities, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :news, as: :news_articles, controller: :news_articles, only: [:new, :create, :edit, :update, :show, :destroy] do
           member do
             post :feature

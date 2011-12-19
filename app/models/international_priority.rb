@@ -1,0 +1,2 @@
+class InternationalPriority < Document
+end

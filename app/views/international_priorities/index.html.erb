@@ -1,0 +1,16 @@
+<div class="g3">
+  <section id="international_priorities">
+    <h1 class="page_title">International Priorities</h1>
+    <% if @international_priorities.any? %>
+      <ul class="international_priorities">
+        <% @international_priorities.each do |international_priority| %>
+          <%= content_tag_for(:li, international_priority) do %>
+            <%= link_to international_priority.title, public_document_path(international_priority), title: "View #{international_priority.title}", class: "title" %>
+          <% end %>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>We don't have any published international priorities at present.</p>
+    <% end %>
+  </section>
+</div>

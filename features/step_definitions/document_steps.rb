@@ -1,4 +1,4 @@
-THE_DOCUMENT = Transform(/the (publication|policy|news article|consultation|speech) "([^"]*)"/) do |document_type, title|
+THE_DOCUMENT = Transform(/the (publication|policy|news article|consultation|speech|international priority) "([^"]*)"/) do |document_type, title|
   document = document_class(document_type).find_by_title!(title)
 end
 
@@ -25,7 +25,7 @@ Given /^a draft (publication|policy|news article|consultation) "([^"]*)" was pro
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
 end
 
-Given /^a submitted (publication|policy|news article|consultation|speech) "([^"]*)" exists$/ do |document_type, title|
+Given /^a submitted (publication|policy|news article|consultation|speech|international priority) "([^"]*)" exists$/ do |document_type, title|
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
@@ -128,6 +128,8 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
     click_link "Consultations"
   when Policy
     visit policies_path
+  when InternationalPriority
+    visit international_priorities_path
   else
     raise "Don't know what to click on for #{document.class.name}s"
   end

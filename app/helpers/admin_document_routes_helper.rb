@@ -1,5 +1,5 @@
 module AdminDocumentRoutesHelper
-  DOCUMENT_TYPES = [Policy, Publication, NewsArticle, Consultation, Speech]
+  DOCUMENT_TYPES = [Policy, Publication, NewsArticle, Consultation, Speech, InternationalPriority]
 
   def self.document_instance_route(name)
     DOCUMENT_TYPES.each do |type|
