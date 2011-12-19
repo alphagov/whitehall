@@ -26,7 +26,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#document_new" do
-      assert_select "select[name*='document[related_document_ids]']"
+      assert_select "select[name*='document[related_policy_ids]']"
       assert_select "textarea.previewable.govspeak[name='document[notes_to_editors]']"
     end
   end
@@ -39,41 +39,41 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     post :create, document: attributes.merge(
       summary: "news-article-summary",
       notes_to_editors: "notes-to-editors",
-      related_document_ids: [first_policy.id, second_policy.id]
+      related_policy_ids: [first_policy.id, second_policy.id]
     )
 
     created_news_article = NewsArticle.last
     assert_equal "news-article-summary", created_news_article.summary
     assert_equal "notes-to-editors", created_news_article.notes_to_editors
-    assert_equal [first_policy, second_policy], created_news_article.related_documents
+    assert_equal [first_policy, second_policy], created_news_article.related_policies
   end
 
   test "update should save modified news article attributes" do
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
-    news_article = create(:news_article, related_documents: [first_policy])
+    news_article = create(:news_article, related_policies: [first_policy])
 
     put :update, id: news_article, document: {
       summary: "new-news-article-summary",
       notes_to_editors: "new-notes-to-editors",
-      related_document_ids: [second_policy.id]
+      related_policy_ids: [second_policy.id]
     }
 
     saved_news_article = news_article.reload
     assert_equal "new-news-article-summary", saved_news_article.summary
     assert_equal "new-notes-to-editors", saved_news_article.notes_to_editors
-    assert_equal [second_policy], saved_news_article.related_documents
+    assert_equal [second_policy], saved_news_article.related_policies
   end
 
   test "update should remove all related documents if none in params" do
     policy = create(:published_policy)
 
-    news_article = create(:news_article, related_documents: [policy])
+    news_article = create(:news_article, related_policies: [policy])
 
     put :update, id: news_article, document: {}
 
     news_article.reload
-    assert_equal [], news_article.related_documents
+    assert_equal [], news_article.related_policies
   end
 
   test "show renders the summary" do

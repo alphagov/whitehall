@@ -14,6 +14,18 @@ class PolicyTest < ActiveSupport::TestCase
     assert_equal published_policy.inapplicable_nations, draft_policy.inapplicable_nations
   end
 
+  test "should build a draft copy with references to related documents" do
+    published_policy = create(:published_policy)
+    publication = create(:published_publication, related_policies: [published_policy])
+    speech = create(:published_speech, related_policies: [published_policy])
+
+    draft_policy = published_policy.create_draft(create(:policy_writer))
+    assert draft_policy.valid?
+
+    assert draft_policy.related_documents.include?(speech)
+    assert draft_policy.related_documents.include?(publication)
+  end
+
   test "can belong to multiple policy areas" do
     policy_area_1 = create(:policy_area)
     policy_area_2 = create(:policy_area)

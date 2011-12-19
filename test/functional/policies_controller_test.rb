@@ -33,13 +33,11 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show displays recently changed documents relating to the policy" do
-    publication = create(:published_publication)
-    consultation = create(:published_consultation)
-    news_article = create(:published_news_article)
-    speech = create(:published_speech)
-    policy = create(:published_policy,
-      related_documents: [publication, consultation, news_article, speech]
-    )
+    policy = create(:published_policy)
+    publication = create(:published_publication, related_policies: [policy])
+    consultation = create(:published_consultation, related_policies: [policy])
+    news_article = create(:published_news_article, related_policies: [policy])
+    speech = create(:published_speech, related_policies: [policy])
 
     get :show, id: policy.document_identity
 
@@ -53,10 +51,8 @@ class PoliciesControllerTest < ActionController::TestCase
 
   test "show displays metadata about the recently changed documents" do
     published_at = Time.zone.now
-    speech = create(:published_speech_transcript, published_at: published_at)
-    policy = create(:published_policy,
-      related_documents: [speech]
-    )
+    policy = create(:published_policy)
+    speech = create(:published_speech_transcript, published_at: published_at, related_policies: [policy])
 
     get :show, id: policy.document_identity
 
@@ -69,13 +65,11 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show orders recently changed documents relating to the policy most recent first" do
-    publication = create(:published_publication, published_at: 4.weeks.ago)
-    consultation = create(:published_consultation, published_at: 1.weeks.ago)
-    news_article = create(:published_news_article, published_at: 3.weeks.ago)
-    speech = create(:published_speech, published_at: 2.weeks.ago)
-    policy = create(:published_policy,
-      related_documents: [publication, consultation, news_article, speech]
-    )
+    policy = create(:published_policy)
+    publication = create(:published_publication, published_at: 4.weeks.ago, related_policies: [policy])
+    consultation = create(:published_consultation, published_at: 1.weeks.ago, related_policies: [policy])
+    news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
 
     get :show, id: policy.document_identity
 
@@ -83,8 +77,8 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show displays related published publications" do
-    related_publication = create(:published_publication, title: "Voting Patterns")
-    published_policy = create(:published_policy, related_documents: [related_publication])
+    published_policy = create(:published_policy)
+    related_publication = create(:published_publication, title: "Voting Patterns", related_policies: [published_policy])
 
     get :show, id: published_policy.document_identity
 
@@ -94,8 +88,8 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show excludes related unpublished publications" do
-    related_publication = create(:draft_publication, title: "Voting Patterns")
-    published_policy = create(:published_policy, related_documents: [related_publication])
+    published_policy = create(:published_policy)
+    related_publication = create(:draft_publication, title: "Voting Patterns", related_policies: [published_policy])
 
     get :show, id: published_policy.document_identity
 
@@ -103,8 +97,9 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show displays related published consultations" do
-    related_consultation = create(:published_consultation, title: "Consultation on Voting Patterns")
-    published_policy = create(:published_policy, related_documents: [related_consultation])
+    published_policy = create(:published_policy)
+    related_consultation = create(:published_consultation, title: "Consultation on Voting Patterns", 
+                                  related_policies: [published_policy])
 
     get :show, id: published_policy.document_identity
 
@@ -114,8 +109,9 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show excludes related unpublished consultations" do
-    related_consultation = create(:draft_consultation, title: "Consultation on Voting Patterns")
-    published_policy = create(:published_policy, related_documents: [related_consultation])
+    published_policy = create(:published_policy)
+    related_consultation = create(:draft_consultation, title: "Consultation on Voting Patterns",
+                                  related_policies: [published_policy])
 
     get :show, id: published_policy.document_identity
 
@@ -123,8 +119,9 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show displays related news articles" do
-    related_news_article = create(:published_news_article, title: "News about Voting Patterns")
-    published_policy = create(:published_policy, related_documents: [related_news_article])
+    published_policy = create(:published_policy)
+    related_news_article = create(:published_news_article, title: "News about Voting Patterns",
+                                  related_policies: [published_policy])
 
     get :show, id: published_policy.document_identity
 
@@ -134,8 +131,9 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show excludes related unpublished news articles" do
-    related_news_article = create(:draft_news_article, title: "News about Voting Patterns")
-    published_policy = create(:published_policy, related_documents: [related_news_article])
+    published_policy = create(:published_policy)
+    related_news_article = create(:draft_news_article, title: "News about Voting Patterns",
+                                  related_policies: [published_policy])
 
     get :show, id: published_policy.document_identity
 
@@ -250,8 +248,9 @@ That's all
   end
 
   test "show links to related news articles on policy if any" do
-    related_news_article = create(:published_news_article, title: "News about Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_news_article])
+    policy = create(:published_policy)
+    related_news_article = create(:published_news_article, title: "News about Voting Patterns",
+                                  related_policies: [policy])
     get :show, id: policy.document_identity
     assert_select_policy_section_link policy, 'Related news', 'related-news-articles'
   end
@@ -263,8 +262,9 @@ That's all
   end
 
   test "show links to related speeches on policy if any" do
-    related_speech = create(:published_speech, title: "Speech about Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_speech])
+    policy = create(:published_policy)
+    related_speech = create(:published_speech, title: "Speech about Voting Patterns",
+                            related_policies: [policy])
     get :show, id: policy.document_identity
     assert_select_policy_section_link policy, 'Related speeches', 'related-speeches'
   end
@@ -276,8 +276,9 @@ That's all
   end
 
   test "show links to related consultations on policy if any" do
-    related_consultation = create(:published_consultation, title: "Consultation about Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_consultation])
+    policy = create(:published_policy)
+    related_consultation = create(:published_consultation, title: "Consultation about Voting Patterns",
+                                  related_policies: [policy])
     get :show, id: policy.document_identity
     assert_select_policy_section_link policy, 'Related consultations', 'related-consultations'
   end
@@ -289,8 +290,9 @@ That's all
   end
 
   test "show links to related publications on policy if any" do
-    related_publication = create(:published_publication, title: "Consultation about Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_publication])
+    policy = create(:published_policy)
+    related_publication = create(:published_publication, title: "Consultation about Voting Patterns",
+                                 related_policies: [policy])
     get :show, id: policy.document_identity
     assert_select_policy_section_link policy, 'Related publications', 'related-publications'
   end

@@ -125,7 +125,12 @@ class Document < ActiveRecord::Base
     end
 
     def related_to(document)
-      where(id: document.related_documents.collect(&:id))
+      case document
+      when Policy
+        where(id: document.related_documents.collect(&:id))
+      else
+        where(id: document.related_policies.collect(&:id))
+      end
     end
 
     def search(query)

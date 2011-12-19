@@ -46,11 +46,11 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     )
 
     post :create, document: attributes.merge(
-      related_document_ids: [first_policy.id, second_policy.id]
+      related_policy_ids: [first_policy.id, second_policy.id]
     )
 
     created_publication = Publication.last
-    assert_equal [first_policy, second_policy], created_publication.related_documents
+    assert_equal [first_policy, second_policy], created_publication.related_policies
     assert_equal Date.parse("1805-10-21"), created_publication.publication_date
     assert_equal "unique-reference", created_publication.unique_reference
     assert_equal "0140621431", created_publication.isbn
@@ -93,12 +93,12 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test "update should remove all related documents if none in params" do
     policy = create(:policy)
-    publication = create(:publication, related_documents: [policy])
+    publication = create(:publication, related_policies: [policy])
 
     put :update, id: publication, document: {}
 
     publication.reload
-    assert_equal [], publication.related_documents
+    assert_equal [], publication.related_policies
   end
 
   test "should display publication attributes" do

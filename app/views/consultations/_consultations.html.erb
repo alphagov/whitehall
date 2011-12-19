@@ -14,8 +14,8 @@
             <% if consultation.organisations.any? %>
               <span class="organisations">Published by <%= consultation.organisations.map { |o| link_to o.name, o }.to_sentence.html_safe %></span>
             <% end %>
-            <% if consultation.published_related_documents.any? %>
-              <span class="related_documents">Related to <%= consultation.published_related_documents.map { |d| link_to d.title, d }.to_sentence.html_safe %></span>
+            <% if consultation.published_related_policies.any? %>
+              <span class="related_documents">Related to <%= consultation.published_related_policies.map { |d| link_to d.title, d }.to_sentence.html_safe %></span>
             <% end %>
             <% if consultation.ministerial_roles.any? %>
               <span class="ministerial_roles">Ministers involved include <%= consultation.ministerial_roles.map { |m| link_to m, m }.to_sentence.html_safe %></span>

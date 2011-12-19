@@ -77,7 +77,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   test 'show displays related policies' do
     policy = create(:policy)
-    speech = create(:speech, related_documents: [policy])
+    speech = create(:speech, related_policies: [policy])
     get :show, id: speech
     assert_select_object policy
   end

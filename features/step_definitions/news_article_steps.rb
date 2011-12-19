@@ -1,7 +1,7 @@
 Given /^a published news article "([^"]*)" with related published policies "([^"]*)" and "([^"]*)"$/ do |news_article_title, policy_title_1, policy_title_2|
   policy_1 = create(:published_policy, title: policy_title_1)
   policy_2 = create(:published_policy, title: policy_title_2)
-  create(:published_news_article, title: news_article_title, related_documents: [policy_1, policy_2])
+  create(:published_news_article, title: news_article_title, related_policies: [policy_1, policy_2])
 end
 
 Given /^a published news article "([^"]*)" exists relating to the country "([^"]*)"$/ do |title, country_name|

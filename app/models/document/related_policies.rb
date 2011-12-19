@@ -3,16 +3,14 @@ module Document::RelatedPolicies
 
   class Trait < Document::Traits::Trait
     def process_associations_after_save(document)
-      document.related_documents = @document.related_documents
+      document.related_policies = @document.related_policies
     end
   end
 
-  DESTROY_INVERSE_RELATION = -> d, rd { DocumentRelation.relation_for(d.id, rd.id).destroy_inverse_relation }
-
   included do
-    has_many :document_relations, class_name: "DocumentRelation", foreign_key: "document_id"
-    has_many :related_documents, through: :document_relations, before_remove: DESTROY_INVERSE_RELATION
-    has_many :published_related_documents, through: :document_relations, source: :related_document, conditions: { "documents.state" => "published" }, before_remove: DESTROY_INVERSE_RELATION
+    has_many :document_relations, foreign_key: :document_id
+    has_many :related_policies, through: :document_relations, source: :policy
+    has_many :published_related_policies, through: :document_relations, source: :policy, conditions: { "documents.state" => "published" }
 
     add_trait Trait
   end

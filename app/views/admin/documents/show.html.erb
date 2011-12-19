@@ -71,9 +71,9 @@
 
   <% if @document.can_be_related_to_policies? %>
     <section class="container">
-      <h1>Related Documents</h1>
-      <% if @document.related_documents.any? %>
-        <%= render partial: "admin/documents/related", locals: {related_documents: @document.related_documents} %>
+      <h1>Related Policies</h1>
+      <% if @document.related_policies.any? %>
+        <%= render partial: "admin/documents/related", locals: {related_documents: @document.related_policies} %>
       <% else %>
         <p>This document doesn't have any related documents.</p>
       <% end %>

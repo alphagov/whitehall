@@ -11,8 +11,8 @@ class DocumentRelationTest < ActiveSupport::TestCase
     refute document_relation.valid?
   end
 
-  test "should be invalid without a related document id" do
-    document_relation = build(:document_relation, related_document_id: nil)
+  test "should be invalid without a policy id" do
+    document_relation = build(:document_relation, policy_id: nil)
     refute document_relation.valid?
   end
 
@@ -20,7 +20,7 @@ class DocumentRelationTest < ActiveSupport::TestCase
     existing_relation = create(:document_relation)
     relation = build(:document_relation,
       document: existing_relation.document,
-      related_document: existing_relation.related_document
+      policy: existing_relation.policy
     )
     refute relation.valid?
   end
@@ -33,28 +33,10 @@ class DocumentRelationTest < ActiveSupport::TestCase
   end
 
   test "should be valid if one document is related from two others" do
-    document = create(:document)
-    existing_relation = create(:document_relation, related_document: document)
-    relation = build(:document_relation, related_document: document)
+    policy = create(:policy)
+    existing_relation = create(:document_relation, policy: policy)
+    relation = build(:document_relation, policy: policy)
     assert relation.valid?
-  end
-
-  test "should return relation with the opposite direction" do
-    relation = create(:document_relation)
-    inverse_relation = relation.inverse_relation
-    assert_equal relation.document, inverse_relation.related_document
-    assert_equal relation.related_document, inverse_relation.document
-  end
-
-  test "should create inverse relation on create" do
-    relation = create(:document_relation)
-    refute_nil relation.inverse_relation
-  end
-
-  test "should destroy inverse relation on destroy" do
-    relation = create(:document_relation)
-    relation.destroy
-    assert_nil relation.inverse_relation
   end
 
   test "should allow creation" do

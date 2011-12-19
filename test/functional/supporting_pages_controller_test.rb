@@ -63,8 +63,9 @@ That's all
   end
 
   test "show links to related news articles on parent policy if any" do
-    related_news_article = create(:published_news_article, title: "News about Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_news_article])
+    policy = create(:published_policy)
+    related_news_article = create(:published_news_article, title: "News about Voting Patterns",
+                                  related_policies: [policy])
     supporting_page = create(:supporting_page, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_page
@@ -82,9 +83,10 @@ That's all
   end
 
   test "show links to related speeches on parent policy if any" do
-    related_speech = create(:published_speech, title: "Speech about Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_speech])
+    policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
+    related_speech = create(:published_speech, title: "Speech about Voting Patterns",
+                            related_policies: [policy])
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
@@ -101,9 +103,10 @@ That's all
   end
 
   test "show links to related consultations on parent policy if any" do
-    related_consultation = create(:published_consultation, title: "Consultation about Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_consultation])
+    policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
+    related_consultation = create(:published_consultation, title: "Consultation about Voting Patterns",
+                                  related_policies: [policy])
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
@@ -120,9 +123,10 @@ That's all
   end
 
   test "show links to related publications on parent policy if any" do
-    related_publication = create(:published_publication, title: "Consultation about Voting Patterns")
-    policy = create(:published_policy, related_documents: [related_publication])
+    policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
+    related_publication = create(:published_publication, title: "Consultation about Voting Patterns",
+                                 related_policies: [policy])
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 

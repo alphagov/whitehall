@@ -92,7 +92,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     first_policy_area = create(:policy_area, name: 'first-area')
     second_policy_area = create(:policy_area, name: 'second-area')
     policy = create(:published_policy, policy_areas: [first_policy_area, second_policy_area])
-    news_article = create(:published_news_article, published_at: 4.days.ago, related_documents: [policy])
+    news_article = create(:published_news_article, published_at: 4.days.ago, related_policies: [policy])
 
     get :index
 

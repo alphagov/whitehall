@@ -63,11 +63,11 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
   test "show displays recently changed documents relating to policies in the policy area" do
     policy_1 = create(:published_policy)
-    publication = create(:published_publication, related_documents: [policy_1])
-    news_article = create(:published_news_article, related_documents: [policy_1])
+    publication = create(:published_publication, related_policies: [policy_1])
+    news_article = create(:published_news_article, related_policies: [policy_1])
 
     policy_2 = create(:published_policy)
-    speech = create(:published_speech, related_documents: [policy_2])
+    speech = create(:published_speech, related_policies: [policy_2])
 
     policy_area = create(:policy_area, policies: [policy_1, policy_2])
 
@@ -84,7 +84,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
   test "show displays a maximum of 5 recently changed documents" do
     policy = create(:published_policy)
-    6.times { create(:published_news_article, related_documents: [policy]) }
+    6.times { create(:published_news_article, related_policies: [policy]) }
     policy_area = create(:policy_area, policies: [policy])
 
     get :show, id: policy_area
@@ -94,10 +94,8 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
   test "show displays metadata about the recently changed documents" do
     published_at = Time.zone.now
-    speech = create(:published_speech_transcript, published_at: published_at)
-    policy = create(:published_policy,
-      related_documents: [speech]
-    )
+    policy = create(:published_policy)
+    speech = create(:published_speech_transcript, published_at: published_at, related_policies: [policy])
 
     policy_area = create(:policy_area, policies: [policy])
 
@@ -113,12 +111,12 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
   test "show displays recently changed documents including the policy in order of publication date with most recent first" do
     policy_1 = create(:published_policy, updated_at: 2.weeks.ago)
-    publication_1 = create(:published_publication, published_at: 6.weeks.ago, related_documents: [policy_1])
-    news_article_1 = create(:published_news_article, published_at: 1.week.ago, related_documents: [policy_1])
+    publication_1 = create(:published_publication, published_at: 6.weeks.ago, related_policies: [policy_1])
+    news_article_1 = create(:published_news_article, published_at: 1.week.ago, related_policies: [policy_1])
 
     policy_2 = create(:published_policy, updated_at: 5.weeks.ago)
-    news_article_2 = create(:published_news_article, published_at: 4.weeks.ago, related_documents: [policy_2])
-    publication_2 = create(:published_publication, published_at: 3.weeks.ago, related_documents: [policy_2])
+    news_article_2 = create(:published_news_article, published_at: 4.weeks.ago, related_policies: [policy_2])
+    publication_2 = create(:published_publication, published_at: 3.weeks.ago, related_policies: [policy_2])
 
     policy_area = create(:policy_area, policies: [policy_1, policy_2])
 
