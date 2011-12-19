@@ -1,8 +1,6 @@
 require "test_helper"
 
 class InternationalPrioritiesControllerTest < ActionController::TestCase
-  include DocumentControllerTestHelpers
-
   should_render_a_list_of :international_priorities
   should_show_the_countries_associated_with :international_priority
 
