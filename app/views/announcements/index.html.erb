@@ -1,5 +1,5 @@
 <div class="g3f group">
-  <h1 class="page_title"><%= "Featured articles" %></h1>
+  <h1 class="page_title">News &amp; Speeches</h1>
   <% if @featured_news_articles.any? %>
     <section class="featured_items" id="featured-news-articles">
       <% @featured_news_articles.each do |news_article| %>
@@ -22,7 +22,7 @@
   <% end %>
 
   <section class="group" id="recent_announcements">
-    <h1>Recent News &amp; Speeches</h1>
+    <h1>Latest from the Government</h1>
     <%= announcement_group(@announcements.take(6), groups_of: 3, class: "most_recent", partial: "expanded") %>
     <%= announcement_group(@announcements.from(6).take(12), groups_of: 2, class: "less_recent", partial: "default") %>
     <%= announcement_group(@announcements.from(18), groups_of: 3, class: "remaining", partial: "compact") %>
