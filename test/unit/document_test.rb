@@ -368,18 +368,20 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal published_document.body, draft_document.body
   end
 
-  test "should build a draft copy with references to policy areas, organisations & ministerial roles" do
+  test "should build a draft copy with references to policy areas, organisations, ministerial roles & countries" do
     policy_area = create(:policy_area)
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role)
+    country = create(:country)
 
-    published_policy = create(:published_policy, policy_areas: [policy_area], organisations: [organisation], ministerial_roles: [ministerial_role])
+    published_policy = create(:published_policy, policy_areas: [policy_area], organisations: [organisation], ministerial_roles: [ministerial_role], countries: [country])
 
     draft_policy = published_policy.create_draft(create(:policy_writer))
 
     assert_equal [policy_area], draft_policy.policy_areas
     assert_equal [organisation], draft_policy.organisations
     assert_equal [ministerial_role], draft_policy.ministerial_roles
+    assert_equal [country], draft_policy.countries
   end
 
   test "should build a draft copy with copies of supporting pages" do
