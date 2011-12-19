@@ -117,4 +117,15 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     policy.reload
     assert_equal [], policy.policy_areas
   end
+
+  test "updating should retain associations to related documents" do
+    policy = create(:draft_policy)
+    publication = create(:draft_publication, related_documents: [policy])
+    assert policy.related_documents.include?(publication), "policy and publication should be related"
+
+    put :update, id: policy, document: {title: "another title"}
+
+    policy.reload
+    assert policy.related_documents.include?(publication), "polcy and publication should still be related"
+  end
 end

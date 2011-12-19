@@ -154,15 +154,13 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should remove related documents bi-directionally" do
-    document_1 = create(:publication)
-    document_2 = create(:publication)
-    document = create(:policy, related_documents: [document_1, document_2])
+    policy = create(:policy)
+    publication = create(:publication, related_documents: [policy])
 
-    document.update_attributes!(related_document_ids: [])
+    publication.update_attributes!(related_document_ids: [])
 
-    assert_equal [], document.related_documents
-    assert_equal [], document_1.related_documents
-    assert_equal [], document_2.related_documents
+    assert_equal [], publication.related_documents
+    assert_equal [], policy.related_documents
   end
 
   test "return published documents bi-directionally related to specific document" do
@@ -188,15 +186,13 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should remove published related documents bi-directionally" do
-    document_1 = create(:published_publication)
-    document_2 = create(:published_publication)
-    document = create(:published_policy, related_documents: [document_1, document_2])
+    policy = create(:published_policy)
+    publication = create(:published_publication, related_documents: [policy])
 
-    document.update_attributes!(published_related_document_ids: [])
+    publication.update_attributes!(published_related_document_ids: [])
 
-    assert_equal [], document.published_related_documents
-    assert_equal [], document_1.published_related_documents
-    assert_equal [], document_2.published_related_documents
+    assert_equal [], publication.published_related_documents
+    assert_equal [], policy.published_related_documents
   end
 
   test "#creator= builds a document_creator with the given creator for new records" do
@@ -401,13 +397,13 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should build a draft copy with references to related documents" do
     publication = create(:published_publication)
-    policy = create(:published_policy)
-    published_policy = create(:published_policy, related_documents: [publication, policy])
+    speech = create(:published_speech)
+    published_policy = create(:published_policy, related_documents: [publication, speech])
 
     draft_policy = published_policy.create_draft(create(:policy_writer))
     assert draft_policy.valid?
 
-    assert draft_policy.related_documents.include?(policy)
+    assert draft_policy.related_documents.include?(speech)
     assert draft_policy.related_documents.include?(publication)
   end
 
