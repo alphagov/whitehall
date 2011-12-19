@@ -16,7 +16,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_organisations_for :consultation
   should_allow_ministerial_roles_for :consultation
   should_allow_attachments_for :consultation
-  should_display_attachments_for :consultation
   should_be_rejectable :consultation
   should_be_force_publishable :consultation
   should_be_able_to_delete_a_document :consultation

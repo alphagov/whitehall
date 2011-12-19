@@ -391,9 +391,7 @@ module AdminDocumentControllerTestHelpers
         document.reload
         assert_equal [attachment_2], document.attachments
       end
-    end
 
-    def should_display_attachments_for(document_type)
       test "should display PDF attachment metadata" do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
         attachment = create(:attachment, file: two_page_pdf)

@@ -14,7 +14,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_organisations_for :publication
   should_allow_ministerial_roles_for :publication
   should_allow_attachments_for :publication
-  should_display_attachments_for :publication
   should_be_rejectable :publication
   should_be_force_publishable :publication
   should_be_able_to_delete_a_document :publication
