@@ -30,7 +30,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_creating_of(document_type)
-      document_class = document_class(document_type)
+      document_class = document_class_for(document_type)
 
       test "new displays document form" do
         get :new
@@ -208,7 +208,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_attachments_for(document_type)
-      document_class = document_class(document_type)
+      document_class = document_class_for(document_type)
 
       test "new displays document attachment fields" do
         get :new
@@ -551,7 +551,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_be_force_publishable(document_type)
-      document_class = document_class(document_type)
+      document_class = document_class_for(document_type)
 
       test "should display the 'Force Publish' button" do
         document = create(document_type)
@@ -573,7 +573,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_organisations_for(document_type)
-      document_class = document_class(document_type)
+      document_class = document_class_for(document_type)
 
       test "new should display document organisations field" do
         get :new
@@ -633,7 +633,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_ministerial_roles_for(document_type)
-      document_class = document_class(document_type)
+      document_class = document_class_for(document_type)
 
       test "new should display document ministerial roles field" do
         get :new
@@ -710,12 +710,6 @@ module AdminDocumentControllerTestHelpers
           assert_redirected_to send("admin_#{document_type}_path", document)
         end
       end
-    end
-
-    private
-
-    def document_class(document_type)
-      document_type.to_s.classify.constantize
     end
   end
 

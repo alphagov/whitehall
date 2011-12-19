@@ -22,6 +22,12 @@ class ActiveSupport::TestCase
   def assert_same_elements(array1, array2)
     assert_equal array1.sort, array2.sort, "Different elements in #{array1.inspect} and #{array2}.inspect"
   end
+
+  class << self
+    def document_class_for(document_type)
+      document_type.to_s.classify.constantize
+    end
+  end
 end
 
 class ActionController::TestCase
