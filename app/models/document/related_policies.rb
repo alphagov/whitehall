@@ -1,4 +1,4 @@
-module Document::RelatedDocuments
+module Document::RelatedPolicies
   extend ActiveSupport::Concern
 
   class Trait < Document::Traits::Trait

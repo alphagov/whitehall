@@ -1,7 +1,7 @@
 class NewsArticle < Document
   include Document::Ministers
   include Document::FactCheckable
-  include Document::RelatedDocuments
+  include Document::RelatedPolicies
   include Document::Countries
   include Document::Featurable
 

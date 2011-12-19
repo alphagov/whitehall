@@ -2,7 +2,7 @@ class Consultation < Document
   include Document::NationalApplicability
   include Document::Ministers
   include Document::FactCheckable
-  include Document::RelatedDocuments
+  include Document::RelatedPolicies
   include Document::Attachable
   include Document::Featurable
 
