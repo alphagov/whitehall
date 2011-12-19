@@ -71,7 +71,7 @@ module AdminDocumentControllerTestHelpers
         assert_equal 'The document has been saved', flash[:notice]
       end
 
-      test "create with invalid data should leave the writer in the policy editor" do
+      test "create with invalid data should leave the writer in the document editor" do
         attributes = attributes_for(document_type)
         post :create, document: attributes.merge(title: '')
 
