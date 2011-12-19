@@ -16,7 +16,7 @@ module AdminDocumentCountriesBehaviour
       test "creating should create a new document with countries" do
         first_country = create(:country)
         second_country = create(:country)
-        attributes = attributes_for(document_type)
+        attributes = controller_attributes_for(document_type)
 
         post :create, document: attributes.merge(
           country_ids: [first_country.id, second_country.id]
