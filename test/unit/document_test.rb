@@ -672,4 +672,23 @@ class DocumentTest < ActiveSupport::TestCase
     create(:draft_document, title: "Ban beards")
     assert_equal [], Document.search("beard")
   end
+
+  test "should return search index suitable for Rummageable" do
+    policy = create(:published_policy, title: "policy-title")
+    slug = policy.document_identity.slug
+
+    assert_equal "policy-title", policy.search_index["title"]
+    assert_equal "/government/policies/#{slug}", policy.search_index["link"]
+  end
+
+  test "should return search index data for all published documents" do
+    create(:published_policy, title: "policy-title")
+    create(:published_publication, title: "publication-title")
+
+    results = Document.search_index_published
+
+    assert_equal 2, results.length
+    assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title"}, results[0])
+    assert_equal({"title"=>"publication-title", "link"=>"/government/publications/publication-title"}, results[1])
+  end
 end

@@ -4,6 +4,8 @@ module Document::Workflow
   included do
     include ::Transitions
     include ActiveRecord::Transitions
+    include Rails.application.routes.url_helpers
+    include PublicDocumentRoutesHelper
 
     default_scope where(%{documents.state <> "deleted"})
     scope :draft, where(state: "draft")
@@ -31,11 +33,11 @@ module Document::Workflow
         transitions from: :submitted, to: :rejected
       end
 
-      event :publish, success: :archive_previous_documents do
+      event :publish, success: :on_publish_success do
         transitions from: [:draft, :submitted], to: :published
       end
 
-      event :archive do
+      event :archive, success: :on_archive_success do
         transitions from: :published, to: :archived
       end
     end
@@ -44,9 +46,34 @@ module Document::Workflow
     validates_with DocumentHasNoOtherPublishedDocumentsValidator, on: :create
   end
 
+  def on_publish_success
+    archive_previous_documents
+  end
+
+  def on_archive_success
+  end
+
   def archive_previous_documents
     document_identity.documents.published.each do |document|
       document.archive! unless document == self
+    end
+  end
+
+  def update_in_search_index
+    Rummageable.index(search_index)
+  end
+
+  def remove_from_search_index
+    Rummageable.delete(public_document_path(self))
+  end
+
+  def search_index
+    { "title" => title, "link" => public_document_path(self) }
+  end
+
+  module ClassMethods
+    def search_index_published
+      published.map(&:search_index)
     end
   end
 
