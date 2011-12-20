@@ -29,6 +29,7 @@ module DocumentHelper
     select "Colonel Mustard (Attorney General)", from: "Delivered by"
     select_date "Delivered on", with: 1.day.ago.to_s
     fill_in "Location", with: "The Drawing Room"
+    fill_in "Summary", with: "Some summary of the content"
   end
 
   def pdf_attachment
