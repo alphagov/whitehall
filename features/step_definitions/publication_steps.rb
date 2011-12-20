@@ -118,16 +118,3 @@ Then /^I should see that the publication is about "([^"]*)"$/ do |country_name|
   country = Country.find_by_name!(country_name)
   assert has_css?("#countries #{record_css_selector(country)}")
 end
-
-def pdf_attachment
-  File.open(Rails.root.join("features/fixtures/attachment.pdf"))
-end
-
-def fill_in_publication_fields
-  select_date "Publication date", with: "2010-01-01"
-  fill_in "Unique reference", with: "ABC-123"
-  fill_in "ISBN", with: "0099532816"
-  check "Research?"
-  fill_in "Order URL", with: "http://example.com/order-url"
-  fill_in "Summary", with: "Some summary of the content"
-end
