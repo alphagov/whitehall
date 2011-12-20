@@ -4,10 +4,9 @@
   .alphabetical_group {
     @include clearfix;
     border-bottom: 2px solid #ddd;
-    margin-left: 0;
-    margin-bottom: 2.7em;
     padding-left: 4em;
     position: relative;
+    margin: 0 1% 2.7em 1%;
 
     h2 {
       @include type-24;
