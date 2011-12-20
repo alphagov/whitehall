@@ -91,7 +91,7 @@ end
 
 Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the policy "([^"]*)"$/ do |document_type, document_title, policy_title|
   policy = Policy.find_by_title!(policy_title)
-  document = create("published_#{document_class(document_type).name.underscore}".to_sym, 
+  document = create("published_#{document_class(document_type).name.underscore}".to_sym,
                     title: document_title, related_policies: [policy])
 end
 
@@ -230,7 +230,7 @@ end
 Then /^the published policy "([^"]*)" should remain unchanged$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit public_document_path(policy)
-  assert page.has_css?('.policy_view .title', text: policy.title)
+  assert page.has_css?('.page_title', text: policy.title)
   assert page.has_css?('.policy_view .document .body', text: policy.body)
 end
 

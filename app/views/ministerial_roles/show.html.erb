@@ -1,20 +1,40 @@
-<div class="g2">
-  <h1 class="page_title ministerial_role"><%= @ministerial_role.name %></h1>
-  <div class="person">
-    <%= image_tag @ministerial_role.current_person_image_url || 'blank-person.jpg' %>
-    <h2 class="name"><%= @ministerial_role.current_person_name %></h2>
-  </div>
-</div>
-
-<div class="g1 secondary">
-  <%= render partial: "documents/policies", object: @policies %>
-  <%= render partial: "documents/publications", object: @publications %>
-  <%= render partial: "documents/news_articles", object: @news_articles %>
-  <%= render partial: "documents/speeches", object: @speeches %>
-  <%= render partial: "documents/consultations", object: @consultations %>
-
-  <section id="organisations">
-    <h1>Organisations</h1>
-    <%= render partial: "organisations/list", locals: {organisations: @ministerial_role.organisations} %>
+<div class="g3f">
+  <section class="ministerial_role">
+    <h1 class="page_title ministerial_role has_meta"><%= @ministerial_role.name %></h1>
+    <nav class="meta">
+      <% @ministerial_role.organisations.each do |organisation| %>
+        <%= link_to organisation.name, organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
+      <% end %>
+    </nav>
   </section>
+
+  <section class="current_person">
+    <div class="img"><%= image_tag @ministerial_role.current_person_image_url || 'blank-person.jpg' %></div>
+    <h2 class="name"><%= @ministerial_role.current_person_name %></h2>
+    <div class="biography">
+    </div>
+  </section>
+
+  <% if @announcements.any? %>
+    <div class="g2">
+      <section class="news_and_speeches">
+        <h1>News &amp; speeches</h1>
+        <%= announcement_group(@announcements, groups_of: 3, class: "", partial: "default") %>
+      </section>
+    </div>
+  <% end %>
+
+  <div class="g1">
+    <%= render partial: "documents/policies", object: @policies %>
+  </div>
+
+  <div class="g1">
+    <%= render partial: "documents/publications", object: @publications %>
+  </div>
+
+  <div class="g1">
+    <%= render partial: "documents/consultations", object: @consultations %>
+  </div>
+
 </div>
+

@@ -3,15 +3,42 @@
 #content {
   .ministerial_role {
     @include clearfix;
-    
-    .image_holder {
-      float: left;
-      margin-right: 1em;
-      margin-bottom: 1em;
-      width: 50px;
-      height: 50px;
+  }
+
+  .current_person {
+    @include clearfix;
+    background: #eee;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 1.5em 0;
+    margin-bottom: 1.5em;
+
+    h2 {
+      @include type-18;
+      margin-bottom: 0.66665em;
+    }
+
+    h2.name, .biography {
+      @include span_two_columns;
+      margin-left: 2%;
+    }
+
+    .biography p {
+      @include type-14;
+      margin-bottom: 0.857em;
+    }
+
+    div.img {
+      @include span_half_a_column;
       overflow: hidden;
-      border: 1px solid #bbb;
+      margin-bottom: 0.5em;
+      margin-left: 2%;
+      background: #fff;
+      padding: 5px 5px 0 5px;
+      @include box-shadow(0, 0, 2px, #ddd);
+      img {
+        margin: 0;
+      }
     }
   }
 }

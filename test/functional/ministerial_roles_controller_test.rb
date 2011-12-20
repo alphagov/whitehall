@@ -4,45 +4,55 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
   should_show_published_documents_associated_with :ministerial_role, :policies
   should_show_published_documents_associated_with :ministerial_role, :publications
-  should_show_published_documents_associated_with :ministerial_role, :news_articles
   should_show_published_documents_associated_with :ministerial_role, :consultations
 
-  test "shows only published speeches associated with ministerial role" do
+  test "shows only published news and speeches associated with ministerial role" do
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
     published_speech = create(:published_speech, role_appointment: role_appointment)
     draft_speech = create(:draft_speech, role_appointment: role_appointment)
+    published_news_article = create(:published_news_article, ministerial_roles: [ministerial_role])
+    draft_news_article = create(:draft_news_article, ministerial_roles: [ministerial_role])
 
     get :show, id: ministerial_role
 
     assert_select_object(published_speech)
     refute_select_object(draft_speech)
+    assert_select_object(published_news_article)
+    refute_select_object(draft_news_article)
   end
 
-  test "shows only speeches associated with ministerial role" do
+  test "shows only news and speeches associated with ministerial role" do
     ministerial_role = create(:ministerial_role)
+    another_ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
-    another_role_appointment = create(:role_appointment)
+    another_role_appointment = create(:role_appointment, role: another_ministerial_role)
     published_speech = create(:published_speech, role_appointment: role_appointment)
     another_published_speech = create(:published_speech, role_appointment: another_role_appointment)
+    published_news_article = create(:published_news_article, ministerial_roles: [ministerial_role])
+    another_published_news_article = create(:published_news_article, ministerial_roles: [another_ministerial_role])
 
     get :show, id: ministerial_role
 
-    assert_select "#speeches" do
+    assert_select ".news_and_speeches" do
       assert_select_object(published_speech)
       refute_select_object(another_published_speech)
+      assert_select_object(published_news_article)
+      refute_select_object(another_published_news_article)
     end
   end
 
-  test "shows most recent speeches at the top" do
+  test "shows most recent news and speeches at the top" do
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
-    earlier_document = create(:published_speech, role_appointment: role_appointment, published_at: 2.hours.ago)
-    later_document = create(:published_speech, role_appointment: role_appointment, published_at: 1.hour.ago)
+    newer_speech = create(:published_speech, role_appointment: role_appointment, published_at: 1.hour.ago)
+    older_speech = create(:published_speech, role_appointment: role_appointment, published_at: 4.hours.ago)
+    newer_news_article = create(:published_news_article, ministerial_roles: [ministerial_role], published_at: 2.hours.ago)
+    older_news_article = create(:published_news_article, ministerial_roles: [ministerial_role], published_at: 3.hours.ago)
 
     get :show, id: ministerial_role
 
-    assert_equal [later_document, earlier_document], assigns[:speeches]
+    assert_equal [newer_speech, newer_news_article, older_news_article, older_speech], assigns[:announcements]
   end
 
   test "should not display an empty published speeches section" do
@@ -50,7 +60,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :show, id: ministerial_role
 
-    refute_select "#speeches"
+    refute_select ".news_and_speeches"
   end
 
   test "shows minister's picture if available" do

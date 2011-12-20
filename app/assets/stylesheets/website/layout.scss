@@ -113,6 +113,12 @@
     border-top: none;
     padding-top: 1em;
   }
+
+  section ul, ol {
+    li {
+      @include type-14;
+    }
+  }
 }
 
 .lte-ie8 {

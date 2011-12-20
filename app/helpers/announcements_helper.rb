@@ -5,9 +5,9 @@ module AnnouncementsHelper
         row = content_tag(:div, class: "group row #{options[:class]} row_#{announcement_row_number}") do
           announcement_group.each do |announcement|
             if announcement.is_a?(NewsArticle)
-              concat(render partial: "news_article", locals: { news_article: announcement, display: options[:partial] })
+              concat(render partial: "announcements/news_article", locals: { news_article: announcement, display: options[:partial] })
             else
-              concat(render partial: "speech", locals: { speech: announcement, display: options[:partial] })
+              concat(render partial: "announcements/speech", locals: { speech: announcement, display: options[:partial] })
             end
           end
         end
