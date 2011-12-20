@@ -44,6 +44,12 @@ Given /^a submitted corporate publication "([^"]*)" about the "([^"]*)"$/ do |pu
   create(:submitted_corporate_publication, title: publication_title, organisations: [organisation])
 end
 
+Given /^the organisation "([^"]*)" is associated with consultations "([^"]*)" and "([^"]*)"$/ do |name, consultation_1, consultation_2|
+  organisation = create(:organisation, name: name)
+  create(:published_consultation, title: consultation_1, organisations: [organisation])
+  create(:published_consultation, title: consultation_2, organisations: [organisation])
+end
+
 When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
 end

@@ -38,3 +38,8 @@ end
 Then /^I should only see the most recent (\d+) in the list of featured consultations$/ do |number|
   assert has_css?("#{featured_consultations_selector} .consultation", count: number.to_i)
 end
+
+Then /^I can see links to the consultations "([^"]*)" and "([^"]*)"$/ do |title_1, title_2|
+  assert has_css?(".consultation a", text: title_1)
+  assert has_css?(".consultation a", text: title_2)
+end
