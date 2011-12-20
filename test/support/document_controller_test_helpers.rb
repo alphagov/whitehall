@@ -130,7 +130,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: document.document_identity
 
-        assert_select "#countries" do
+        assert_select countries_selector do
           assert_select_object first_country
           assert_select_object second_country
           refute_select_object third_country
@@ -142,7 +142,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: document.document_identity
 
-        refute_select "#countries"
+        refute_select countries_selector
       end
     end
 

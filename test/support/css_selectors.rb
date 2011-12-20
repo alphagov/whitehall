@@ -81,6 +81,10 @@ module CssSelectors
     "#featured-consultations"
   end
 
+  def countries_selector
+    "#countries"
+  end
+
   def force_publish_button_selector(document)
     "form[action=#{admin_document_publishing_path(document, force: true)}]"
   end

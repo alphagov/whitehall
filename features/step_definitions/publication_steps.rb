@@ -116,5 +116,5 @@ end
 
 Then /^I should see that the publication is about "([^"]*)"$/ do |country_name|
   country = Country.find_by_name!(country_name)
-  assert has_css?("#countries #{record_css_selector(country)}")
+  assert has_css?("#{countries_selector} #{record_css_selector(country)}")
 end
