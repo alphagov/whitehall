@@ -6,4 +6,8 @@ class NewsArticle < Document
   include Document::Featurable
 
   has_many :policy_areas, through: :published_related_policies, group: 'policy_areas.id'
+
+  def has_summary?
+    true
+  end
 end

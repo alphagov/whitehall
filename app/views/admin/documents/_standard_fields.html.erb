@@ -1,5 +1,8 @@
 <fieldset>
   <%= form.hidden_field :lock_version %>
   <%= form.text_field :title %>
+  <% if form.object.has_summary? %>
+    <%= form.text_area :summary, rows: 2 %>
+  <% end %>
   <%= form.text_area :body, "class" => "previewable", :help => true %>
 </fieldset>

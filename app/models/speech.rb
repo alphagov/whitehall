@@ -15,6 +15,10 @@ class Speech < Document
 
   before_save :populate_organisations_based_on_role_appointment
 
+  def has_summary?
+    true
+  end
+
   private
 
   def populate_organisations_based_on_role_appointment

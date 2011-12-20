@@ -18,6 +18,10 @@ class Consultation < Document
     closing_on < Date.today
   end
 
+  def has_summary?
+    true
+  end
+
   private
 
   def closing_on_must_be_after_opening_on

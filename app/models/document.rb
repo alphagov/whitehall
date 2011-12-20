@@ -87,6 +87,10 @@ class Document < ActiveRecord::Base
     false
   end
 
+  def has_summary?
+    false
+  end
+
   def create_draft(user)
     self.class.new(attributes.merge(state: "draft", creator: user)).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }

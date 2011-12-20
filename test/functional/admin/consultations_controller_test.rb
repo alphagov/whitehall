@@ -27,7 +27,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#document_new" do
-      assert_select "input[name='document[summary]'][type='text']"
+      assert_select "textarea[name='document[summary]']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
     end
@@ -75,7 +75,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     get :edit, id: consultation
 
     assert_select "form#document_edit" do
-      assert_select "input[name='document[summary]'][type='text']"
+      assert_select "textarea[name='document[summary]']"
       assert_select "select[name*='document[opening_on']", count: 3
       assert_select "select[name*='document[closing_on']", count: 3
     end

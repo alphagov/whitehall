@@ -1,7 +1,6 @@
 <%= form_for [:admin, document.becomes(Speech)], as: :document do |form| %>
   <%= form.errors %>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
-  <%= form.text_area :summary, rows: 2 %>
 
   <fieldset>
     <%= form.label :type %>
