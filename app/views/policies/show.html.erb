@@ -1,31 +1,33 @@
 <div class="g3">
-  <section class="policy_view">
-    <h1 class="title"><%= @policy.title %></h1>
-    <nav class="meta">
-      <span class="metadata">
-        Updated
-        <%= render_datetime_microformat(@policy, :updated_at) do %>
-          <%= time_ago_in_words(@policy.updated_at) %> ago
-        <% end %>
-      </span>
-      <% @policy.policy_areas.each do |policy_area| %>
-        <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area" %>
+  <h1 class="page_title has_meta"><%= @policy.title %></h1>
+  <nav class="meta">
+    <span class="metadata">
+      Updated
+      <%= render_datetime_microformat(@policy, :updated_at) do %>
+        <%= time_ago_in_words(@policy.updated_at) %> ago
       <% end %>
-      <% @policy.organisations.each do |organisation| %>
-        <%= link_to organisation.name, organisation_path(organisation), class: "organisation" %>
-      <% end %>
-      <% @policy.ministerial_roles.each do |ministerial_role| %>
-        <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
-      <% end %>
-    </nav>
+    </span>
+    <% @policy.policy_areas.each do |policy_area| %>
+      <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area" %>
+    <% end %>
+    <% @policy.organisations.each do |organisation| %>
+      <%= link_to organisation.name, organisation_path(organisation), class: "organisation" %>
+    <% end %>
+    <% @policy.ministerial_roles.each do |ministerial_role| %>
+      <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
+    <% end %>
+  </nav>
 
+</div>
+<div class="g3">
+
+  <section class="policy_view">
     <div class="group offering">
       <div class="g1r">
-        <nav class="policy_parts">
-          <h3>Policy definition</h3>
-          <section>
+        <section class="policy_parts">
+          <h1>Policy definition</h1>
+          <nav class="policy_parts">
             <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'policy_view') %>
-
             <ol id="policy_sections">
               <% govspeak_headers(@policy.body).each do |header| %>
                 <li><%= link_to header.text, public_document_path(@policy, anchor: header.id) %></li>
@@ -35,20 +37,19 @@
               <% if @related_publications.any? %><li><%= link_to "Related publications", public_document_path(@policy, anchor: "related-publications") %></li><% end %>
               <% if @related_consultations.any? %><li><%= link_to "Related consultations", public_document_path(@policy, anchor: "related-consultations") %></li><% end %>
             </ol>
-          </section>
-
+          </nav>
           <% if (supporting_pages = @policy.supporting_pages).any? %>
-            <section>
-              <h3>Supporting detail</h3>
+            <h2>Supporting detail</h2>
+            <nav class="supporting_pages">
               <% supporting_pages.each do |supporting_page| %>
                 <%= link_to_with_current supporting_page.title, policy_supporting_page_path(@policy.document_identity, supporting_page) %>
               <% end %>
-            </section>
+            </nav>
           <% end %>
-        </nav>
+        </section>
       </div>
 
-      <div class="g2 first">
+      <div class="g2">
         <%= render partial: 'documents/inapplicable_nations', locals: { document: @policy } %>
 
         <article class="document">

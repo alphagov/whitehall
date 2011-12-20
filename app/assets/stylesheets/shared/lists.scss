@@ -4,7 +4,7 @@
   /* #Lists
    ================================================== */
    ul, ol {
-     margin-bottom: 1em;
+     margin-bottom: 1.5em;
      padding: 0;
    }
    ul {
@@ -14,7 +14,7 @@
      list-style: decimal;
    }
    ol, ul.square, ul.circle, ul.disc {
-     margin-left: 30px;
+     margin-left: 1.25em;
    }
    ul.square {
      list-style: square outside;
@@ -27,12 +27,12 @@
    }
    ul ul, ul ol,
    ol ol, ol ul {
-     margin: 4px 0 5px 30px;
-     font-size: 90%;
+     margin: 4px 0 5px 1.25em;
+     font-size: 1em;
    }
    ul ul li, ul ol li,
    ol ol li, ol ul li {
-     margin-bottom: 6px;
+     margin-bottom: 0.5em;
    }
    li {
      @include type-16;

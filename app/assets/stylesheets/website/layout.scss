@@ -67,12 +67,94 @@
       margin-top: 0.65em;
     }
 
+    h1.page_title.has_meta {
+      margin-bottom: 0.25em;
+    }
+
     .g3f {
       .page_title {
         margin-left: 2%;
       }
     }
 
+    nav.meta {
+      @include span_two_columns;
+      margin-bottom: 1.5em;
+      a, span {
+        @include type-12;
+        margin-right: 1em;
+      }
+    }
+
+  }
+
+  .document_view {
+    @include document_view;
+  }
+
+  .govspeak {
+    @include govspeak;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  h1.section_title {
+    color: #333;
+    @include type-18;
+    margin-bottom: 1em;
+  }
+
+  .related_content {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-top: none;
+    padding-top: 1em;
+  }
+}
+
+.lte-ie8 {
+  #wrapper {
+    padding-top: 6em;
+    max-width: 100%;
+    min-width: 761px;
+    width: auto;
+  }
+}
+
+#grid-helper {
+  @extend #content;
+  height: 3000px;
+  width: 100%;
+
+  @media only screen and (min-width: 600px) {
+    width: 81%;
+  }
+
+  .g3 {
+    z-index: 99999;
+    background: green url('/images/24px_grid_bg.png');
+    height: 100%;
+    opacity: 0.5;
+    @media only screen and (min-width: 1800px) {
+      background-image: url('/images/28px_grid_bg.png');
+    }
+  }
+
+  .g1 {
+    background: red;
+    height: 100%;
+    opacity: 0.5;
+  }
+}
+
+
+// Stuff to remove ..
+
+#wrapper {
+  #content {
     .secondary {
       > section, div > section {
         border: 1px solid #ddd;
@@ -116,74 +198,5 @@
         }
       }
     }
-  }
-
-  .document_view {
-    @include document_view;
-  }
-
-  .govspeak {
-    @include govspeak;
-  }
-
-  a {
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  h1.section_title {
-    color: #333;
-    @include type-18;
-    margin-bottom: 1em;
-  }
-
-  .related_content {
-    background: #f5f5f5;
-    border: 1px solid #ddd;
-    border-top: none;
-    padding-top: 1em;
-  }
-
-  nav.meta {
-    margin-bottom: 1.5em;
-    a, span {
-      @include type-12;
-      margin-right: 1em;
-    }
-  }
-}
-
-.lte-ie8 {
-  #wrapper {
-    padding-top: 6em;
-    max-width: 100%;
-    min-width: 761px;
-    width: auto;
-  }
-}
-
-#grid-helper {
-  @extend #content;
-  height: 3000px;
-  width: 100%;
-
-  @media only screen and (min-width: 600px) {
-    width: 81%;
-  }
-
-  .g3 {
-    z-index: 99999;
-    background: green url('/images/24px_grid_bg.png');
-    height: 100%;
-    opacity: 0.5;
-    @media only screen and (min-width: 1800px) {
-      background-image: url('/images/28px_grid_bg.png');
-    }
-  }
-
-  .g1 {
-    background: red;
-    height: 100%;
-    opacity: 0.5;
   }
 }

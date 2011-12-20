@@ -4,12 +4,7 @@
 #content {
   .policy_view {
     @include clearfix;
-    padding: 1em;
     margin-bottom: 1.5em;
-
-    h1.title {
-      margin-bottom: 0;
-    }
 
     .offering {
       @extend .document_view;
@@ -18,19 +13,25 @@
       border: none;
     }
 
-    nav.policy_parts {
+    section.policy_parts {
       background: #eee;
-      padding: 1em;
+      padding: 1em 1em;
       margin-right: 1em;
       margin-bottom: 1.5em;
+      border: 1px solid #ccc;
 
-      section {
-        margin-bottom: 1em;
+      h1 {
+        @include type-18;
+        margin-bottom: 0.5em;
       }
 
-      h3 {
+      h2 {
         @include type-16;
         margin-bottom: 0.5em;
+      }
+
+      nav {
+        margin-left: 1em;
       }
 
       a {
@@ -40,11 +41,11 @@
       }
 
       ol {
-        list-style-type:circle
-      }
-
-      li {
-        margin: 0
+        list-style-type:circle;
+        li {
+          margin: 0;
+          line-height: 1em;
+        }
       }
     }
 
