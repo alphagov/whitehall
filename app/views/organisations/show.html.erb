@@ -1,46 +1,55 @@
-<div class="g2 first">
+<div class="g3">
   <%= content_tag_for :section, @organisation, :class => "hcard" do %>
     <h1 class="page_title fn org name"><%= @organisation.name %></h1>
-    <% if @organisation.organisation_type %>
-      <h2 class="category"><%= @organisation.organisation_type.name %></h2>
-    <% end %>
-    <p class="description"><%= format_with_html_line_breaks(@organisation.description) %></p>
-    <p class="about">
-      <%= link_to "further information", about_organisation_path(@organisation), title: "Further information about #{@organisation.name}" %>
-    </p>
-    <div class="adr">
-      <p class="street-address"><%= format_with_html_line_breaks(@organisation.address) %></p>
-      <p class="postal-code"><%= @organisation.postcode %></p>
-      <p><%= link_to_google_map(@organisation) %></p>
+
+    <div class="g1">
+      <% if @organisation.organisation_type %>
+        <h2 class="category"><%= @organisation.organisation_type.name %></h2>
+      <% end %>
+      <p class="description"><%= format_with_html_line_breaks(@organisation.description) %></p>
+      <p class="about">
+        <%= link_to "further information", about_organisation_path(@organisation), title: "Further information about #{@organisation.name}" %>
+      </p>
+      <div class="adr">
+        <p class="street-address"><%= format_with_html_line_breaks(@organisation.address) %></p>
+        <p class="postal-code"><%= @organisation.postcode %></p>
+        <p><%= link_to_google_map(@organisation) %></p>
+      </div>
+      <p><%= mail_to @organisation.email, @organisation.email, :class => "email" %></p>
+      <% @organisation.phone_numbers.each do |phone_number| %>
+        <p class="tel"><span class="type"><%= phone_number.description %></span> <%= phone_number.number %></p>
+      <% end %>
     </div>
-    <p><%= mail_to @organisation.email, @organisation.email, :class => "email" %></p>
-    <% @organisation.phone_numbers.each do |phone_number| %>
-      <p class="tel"><span class="type"><%= phone_number.description %></span> <%= phone_number.number %></p>
-    <% end %>
+
   <% end %>
 </div>
 
-<div class="g1 secondary">
-  <%= render partial: "documents/policy_areas", object: @organisation.policy_areas %>
-  <%= render partial: "documents/policies", object: @policies %>
-  <%= render partial: "documents/publications", object: @publications %>
-  <%= render partial: "corporate_publications", object: @corporate_publications %>
-  <%= render partial: "documents/news_articles", object: @news_articles %>
-  <%= render partial: "documents/speeches", object: @speeches %>
-  <%= render partial: "documents/consultations", object: @consultations %>
+<div class="g3">
+
+  <div class="g1 secondary"><%= render partial: "documents/policy_areas", object: @organisation.policy_areas %></div>
+  <div class="g1 secondary"><%= render partial: "documents/policies", object: @policies %></div>
+  <div class="g1 secondary"><%= render partial: "documents/publications", object: @publications %></div>
+  <div class="g1 secondary"><%= render partial: "corporate_publications", object: @corporate_publications %></div>
+  <div class="g1 secondary"><%= render partial: "documents/news_articles", object: @news_articles %></div>
+  <div class="g1 secondary"><%= render partial: "documents/speeches", object: @speeches %></div>
+  <div class="g1 secondary"><%= render partial: "documents/consultations", object: @consultations %></div>
 
   <% if @organisation.child_organisations.any? %>
-    <section id="child_organisations">
-      <h1>Child organisations</h1>
-      <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
-    </section>
+    <div class="g1 secondary">
+      <section id="child_organisations">
+        <h1>Child organisations</h1>
+        <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
+      </section>
+    </div>
   <% end %>
 
   <% if @organisation.parent_organisations.any? %>
-    <section id="parent_organisations">
+    <div class="g1 secondary">
+      <section id="parent_organisations">
       <h1>Parent organisations</h1>
       <%= render partial: "organisations/list", locals: {organisations: @organisation.parent_organisations} %>
-    </section>
+      </section>
+    </div>
   <% end %>
 </div>
 
