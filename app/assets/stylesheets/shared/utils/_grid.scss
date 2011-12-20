@@ -25,20 +25,20 @@
   }
 }
 
-@mixin span_two_columns($float_direction: left) {
-  @include grid_column($float_direction);
+@mixin span_two_columns($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%) {
+  @include grid_column($float_direction, $w, $ml, $mr);
 
   @media only screen and (min-width: 768px) {
-    width: 48.0%;
+    width: (50.0% - ($ml + $mr));
   }
 
   @media only screen and (min-width: 1024px) {
-    width: 64.667%;
+    width: ((100.00%/3) * 2) - ($ml + $mr);
   }
 }
 
-@mixin span_three_columns($float_direction: left) {
-  @include grid_column($float_direction);
+@mixin span_three_columns($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%) {
+  @include grid_column($float_direction, $w, $ml, $mr);
 }
 
 @mixin span_half_a_column($float_direction: left) {
