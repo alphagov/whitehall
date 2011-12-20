@@ -5,38 +5,15 @@ end
 
 Given /^"([^"]*)" submitted a speech "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
   Given %{I am a writer called "#{author}"}
-  And %{I visit the new speech page}
-  And %{I write and save a speech "#{title}" with body "#{body}"}
-  And %{I submit the speech for the second set of eyes}
+  visit new_admin_speech_path
+  begin_drafting_speech title: title, body: body
+  click_button 'Save'
+  click_button 'Submit to 2nd pair of eyes'
 end
 
 Given /^a published speech "([^"]*)" by "([^"]*)" on "([^"]*)" at "([^"]*)"$/ do |title, ministerial_role, delivered_on, location|
   role_appointment = MinisterialRole.all.detect { |mr| mr.name == ministerial_role }.current_role_appointment
   create(:published_speech, title: title, role_appointment: role_appointment, delivered_on: Date.parse(delivered_on), location: location)
-end
-
-Given /^I visit the new speech page$/ do
-  visit new_admin_speech_path
-end
-
-Given /^I write and save a speech "([^"]*)" with body "([^"]*)"$/ do |title, body|
-  When %{I write a speech "#{title}" with body "#{body}"}
-  click_button 'Save'
-end
-
-Given /^I write a speech "([^"]*)" with body "([^"]*)"$/ do |title, body|
-  person = create(:person, name: "Colonel Mustard")
-  role = create(:ministerial_role, name: "Attorney General")
-  role_appointment = create(:role_appointment, person: person, role: role)
-  begin_drafting_document type: 'speech', title: title, body: body
-  select "Speaking Notes", from: "Type"
-  select "Colonel Mustard (Attorney General)", from: "Delivered by"
-  select_date "Delivered on", with: 1.day.ago.to_s
-  fill_in "Location", with: "The Drawing Room"
-end
-
-Given /^I submit the speech for the second set of eyes$/ do
-  click_button 'Submit to 2nd pair of eyes'
 end
 
 Given /^a published speech exists$/ do
