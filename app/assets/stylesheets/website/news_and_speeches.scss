@@ -1,6 +1,29 @@
 @import "../shared/utils";
 
 #wrapper {
+
+  .row {
+    .news_article, .speech {
+      margin-bottom: 0;
+      padding-bottom: 0.75em;
+      h2 {
+        @include type-14;
+        margin-bottom: 0.5em;
+      }
+      p {
+        @include type-12;
+        margin-bottom: 0.857em;
+      }
+      .metadata {
+        @include type-11;
+        margin: 0;
+        span {
+          margin-right: 1em;
+        }
+      }
+    }
+  }
+
   #recent_announcements {
     h1 {
       padding-bottom: 1em;
@@ -16,25 +39,8 @@
     }
 
     .row {
-      .news_article, .speech {
-        margin-bottom: 0;
-        padding-bottom: 0.75em;
-        h2 {
-          @include type-14;
-          text-align: left;
-          margin-bottom: 0.5em;
-        }
-        p {
-          @include type-12;
-          margin-bottom: 0.857em;
-        }
-        .metadata {
-          @include type-11;
-          margin: 0;
-          span {
-            margin-right: 1em;
-          }
-        }
+      h2 {
+        text-align: left;
       }
     }
 
@@ -116,6 +122,17 @@
     .row_2 {
       @media only screen and (min-width: 768px) {
         margin-bottom: 3em;
+      }
+    }
+  }
+}
+
+#content {
+  #notes_to_editors {
+    h1 {
+      .toggle {
+        font-size: 0.5em;
+        margin-left: 1em;
       }
     }
   }
