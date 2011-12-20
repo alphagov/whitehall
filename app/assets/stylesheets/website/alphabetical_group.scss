@@ -1,20 +1,21 @@
 @import "../shared/utils";
 
 #content {
+
+  .alphabetical_row {
+    @include flood_three_columns;
+    border-top: 1px solid #ddd;
+    padding-bottom: 1.5em;
+    margin: 0;
+  }
+
   .alphabetical_group {
-    @include clearfix;
-    border-bottom: 2px solid #ddd;
-    padding-left: 4em;
-    position: relative;
-    margin: 0 1% 2.7em 1%;
+    @include span_one_column;
 
     h2 {
       @include type-24;
       color: #fff;
-      left: 0;
-      position: absolute;
       text-align: center;
-      top: 0.2em;
       width: 2em;
       padding-top: 0.5em;
       padding-bottom: 0.5em;
@@ -26,31 +27,24 @@
       margin-bottom: 0;
 
       li {
-        float: left;
-        margin-bottom: 0;
-        padding-top: 0.75em;
-        padding-bottom: 0.9em;
-        @include span_one_column;
+        margin-bottom: 0.857em;
 
         h3, p {
           margin-bottom: 0;
         }
 
         p {
-          @include type-12;
+          @include type-14;
           margin-bottom: 0;
         }
 
         a {
-          @include type-16;
           font-weight: bold;
-          margin-bottom: 0;
         }
       }
     }
 
     .ministerial_role {
-      min-height: 4.5em;
 
       h3 {
         @include type-16;

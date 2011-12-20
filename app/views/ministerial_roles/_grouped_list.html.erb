@@ -1,9 +1,15 @@
-<% ministerial_roles.group_by {|r| r.current_person_name("-").first.upcase }.sort.each do |letter, ministerial_roles_group| %>
-  <div class="alphabetical_group" id="ministerial_roles_<%= letter.downcase %>">
-    <h2><%= letter %></h2>
-    <%= render_list_of_ministerial_roles ministerial_roles_group do |ministerial_role| %>
-      <h3><%= link_to ministerial_role.current_person_name, ministerial_role %></h3>
-      <p><%= ministerial_role.name %></p>
-    <% end %>
-  </div>
-<% end %>
+<section class="alphabetical_list g3">
+  <% ministerial_roles.group_by {|r| r.current_person_name("-").first.upcase }.sort.in_groups_of(3, false) do |row| %>
+    <div class="group alphabetical_row">
+      <% row.each do |letter, ministerial_roles_group| %>
+        <div class="alphabetical_group" id="ministerial_roles_<%= letter.downcase %>">
+          <h2><%= letter %></h2>
+          <%= render_list_of_ministerial_roles ministerial_roles_group do |ministerial_role| %>
+            <h3><%= link_to ministerial_role.current_person_name, ministerial_role %></h3>
+            <p><%= ministerial_role.name %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</section>

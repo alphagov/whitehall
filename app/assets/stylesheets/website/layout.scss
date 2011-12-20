@@ -119,6 +119,14 @@
       @include type-14;
     }
   }
+
+  h2 {
+
+  }
+
+  h3 {
+    @include type-16;
+  }
 }
 
 .lte-ie8 {

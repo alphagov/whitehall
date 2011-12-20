@@ -1,6 +1,12 @@
-<% organisations.group_by {|o| o.name.first.upcase }.sort.each do |letter, organisations_group| %>
-  <div class="alphabetical_group" id="organisations_<%= letter %>">
-    <h2><%= letter %></h2>
-    <%= render partial: "list", locals: { organisations: organisations_group } %>
-  </div>
-<% end %>
+<section class="alphabetical_list g3">
+  <% organisations.group_by {|o| o.name.first.upcase }.sort.in_groups_of(3, false) do |row| %>
+    <div class="group alphabetical_row">
+      <% row.each do |letter, organisations_group| %>
+        <div class="alphabetical_group" id="organisations_<%= letter %>">
+          <h2><%= letter %></h2>
+          <%= render partial: "list", locals: { organisations: organisations_group } %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</section>
