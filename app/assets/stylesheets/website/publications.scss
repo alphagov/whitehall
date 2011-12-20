@@ -3,6 +3,8 @@
 #content {
   #publication_index ul.publications {
     @include image-list;
+    margin-left: 1%;
+    margin-right: 1%;
 
     li {
       @media only screen and (min-width: 900px) {
@@ -13,6 +15,9 @@
       &:first-child {
         @include span_three_columns;
         @include featured_box;
+
+        margin-left: 0;
+        margin-right: 0;
 
         position: relative;
         height: auto;
