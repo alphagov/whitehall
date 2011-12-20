@@ -9,14 +9,4 @@
       }
     }
   }
-
-  #news_articles {
-    li {
-      .summary {
-        @include type-14;
-        font-style: italic;
-        margin: 0
-      }
-    }
-  }
 }
