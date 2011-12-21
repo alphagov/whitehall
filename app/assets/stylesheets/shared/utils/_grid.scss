@@ -13,15 +13,15 @@
   }
 }
 
-@mixin span_one_column($float_direction: left) {
-  @include grid_column($float_direction);
+@mixin span_one_column($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%) {
+  @include grid_column($float_direction, $w, $ml, $mr);
 
   @media only screen and (min-width: 768px) {
-    width: 48.0%;
+    width: (50.0% - ($ml + $mr));
   }
 
   @media only screen and (min-width: 1024px) {
-    width: 31.333%
+    width: ((100.00%/3)) - ($ml + $mr);
   }
 }
 

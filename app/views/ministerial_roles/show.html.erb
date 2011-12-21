@@ -9,14 +9,14 @@
   </section>
 
   <section class="current_person">
-    <div class="img"><%= image_tag @ministerial_role.current_person_image_url || 'blank-person.jpg' %></div>
+    <div class="img"><%= image_tag @ministerial_role.current_person_image_url || 'blank-person.png' %></div>
     <h2 class="name"><%= @ministerial_role.current_person_name %></h2>
     <div class="biography">
     </div>
   </section>
 
   <% if @announcements.any? %>
-    <div class="g2">
+    <div class="g2 related_documents">
       <section class="news_and_speeches">
         <h1>News &amp; speeches</h1>
         <%= announcement_group(@announcements, groups_of: 3, class: "", partial: "default") %>
@@ -24,17 +24,27 @@
     </div>
   <% end %>
 
-  <div class="g1">
-    <%= render partial: "documents/policies", object: @policies %>
-  </div>
+  <% if @policies.any? %>
+    <div class="g1 related_documents">
+      <%= render partial: "documents/policies", object: @policies %>
+    </div>
+  <% end %>
 
-  <div class="g1">
-    <%= render partial: "documents/publications", object: @publications %>
-  </div>
+  <% if @publications.any? %>
+    <div class="g1 related_documents">
+      <%= render partial: "documents/publications", object: @publications %>
+    </div>
+  <% end %>
 
-  <div class="g1">
-    <%= render partial: "documents/consultations", object: @consultations %>
-  </div>
+  <% if @consultations.any? %>
+    <div class="g1 related_documents">
+      <%= render partial: "documents/consultations", object: @consultations %>
+    </div>
+  <% end %>
+
+  <% unless @announcements.any? || @policies.any? || @publications.any? || @consultations.any? %>
+    <p class="nothing_related">At present we do not have any related content.</p>
+  <% end %>
 
 </div>
 

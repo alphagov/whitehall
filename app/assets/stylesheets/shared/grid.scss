@@ -36,12 +36,16 @@
   .g3f {
     @include flood_three_columns;
 
-    .g3 {
-      @include span_three_columns(left, 96%, 2%, 2%);
+    .g1 {
+      @include span_one_column(left, 96%, 2%, 2%);
     }
 
     .g2 {
       @include span_two_columns(left, 96%, 2%, 2%);
+    }
+
+    .g3 {
+      @include span_three_columns(left, 96%, 2%, 2%);
     }
   }
 

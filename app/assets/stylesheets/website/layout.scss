@@ -48,7 +48,7 @@
     background: #fff;
     border: 1px solid #d5d5d5;
     border-top: 1px solid #ddd;
-    border-bottom: 0;
+    border-bottom: 1px solid #ccc;
     padding-top: 1em;
     padding-bottom: 1em;
 
@@ -120,6 +120,40 @@
     }
   }
 
+  .related_documents {
+    section {
+      padding-bottom: 0.75em;
+      margin-bottom: 0.75em;
+      h1 {
+        @include type-16;
+        margin-bottom: 0.375em;
+        border-bottom: 1px solid #ddd;
+
+      }
+
+      ul {
+        margin-bottom: 0;
+      }
+
+      li {
+        @include type-12;
+        margin-bottom: 0;
+      }
+    }
+
+    &:first-child {
+      section {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  p.nothing_related {
+    @include type-14;
+    margin-bottom: 0.875em;
+    margin-left: 2%;
+
+  }
 }
 
 .lte-ie8 {
