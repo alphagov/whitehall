@@ -2,15 +2,27 @@ require "test_helper"
 
 class HackableUrlTest < ActiveSupport::TestCase
   test "should always provide an index for resources that have a show action" do
-    route_requirements = Rails.application.routes.routes.map { |r| r.requirements }
-    hash_with_default_empty_array = Hash.new { |h,k| h[k] = [] }
-    controller_actions = route_requirements.inject(hash_with_default_empty_array) do |hash,req|
-      hash[req[:controller]] << req[:action] unless req[:controller] =~ /^admin\// || req[:controller] == "searches"
-      hash
+    all_routes = Rails.application.routes.routes
+
+    resource_routes = Rails.application.routes.routes.select do |route|
+      show_public_resource_route?(route) && !singleton_resource_route?(route)
     end
-    naughty_controllers = controller_actions.select do |controller,actions|
-      actions.include?("show") && !actions.include?("index")
-    end.keys
-    assert naughty_controllers.empty?, "Controllers which show something should also have an index action, but some don't: #{naughty_controllers.inspect}"
+
+    resource_routes.each do |resource_route|
+      index_route = all_routes.detect {|r| matching_index_route?(r, resource_route)}
+      assert index_route, "#{resource_route.path} should have an index action equivalent"
+    end
+  end
+
+  def show_public_resource_route?(route)
+    route.requirements[:action] == 'show' && !route.path.match(/\/admin\//)
+  end
+
+  def singleton_resource_route?(route)
+    !route.segment_keys.include?(:id)
+  end
+
+  def matching_index_route?(candidate, resource_route)
+    candidate.requirements[:action] == 'index' && candidate.requirements[:controller] == resource_route.requirements[:controller]
   end
 end
