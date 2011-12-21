@@ -2,6 +2,12 @@
 
 #content {
 
+  .alphabetical_list {
+    h1 {
+      @include type-21;
+    }
+  }
+
   .alphabetical_row {
     @include flood_three_columns;
     border-top: 1px solid #ddd;
@@ -27,6 +33,7 @@
       margin-bottom: 0;
 
       li {
+        @include type-14;
         margin-bottom: 0.857em;
 
         h3, p {
