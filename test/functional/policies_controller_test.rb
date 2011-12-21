@@ -98,7 +98,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
   test "show displays related published consultations" do
     published_policy = create(:published_policy)
-    related_consultation = create(:published_consultation, title: "Consultation on Voting Patterns", 
+    related_consultation = create(:published_consultation, title: "Consultation on Voting Patterns",
                                   related_policies: [published_policy])
 
     get :show, id: published_policy.document_identity
@@ -258,7 +258,7 @@ That's all
   test "show doesn't link to related news articles on policy if none exist" do
     policy = create(:published_policy)
     get :show, id: policy.document_identity
-    refute_select_policy_section_link policy, 'Related news', 'related-news-articles'
+    refute_select_policy_section_list
   end
 
   test "show links to related speeches on policy if any" do
@@ -272,7 +272,7 @@ That's all
   test "show doesn't link to related speeches on policy if none exist" do
     policy = create(:published_policy)
     get :show, id: policy.document_identity
-    refute_select_policy_section_link policy, 'Related speeches', 'related-speeches'
+    refute_select_policy_section_list
   end
 
   test "show links to related consultations on policy if any" do
@@ -286,7 +286,7 @@ That's all
   test "show doesn't link to related consultations on policy if none exist" do
     policy = create(:published_policy)
     get :show, id: policy.document_identity
-    refute_select_policy_section_link policy, 'Related consultations', 'related-consultations'
+    refute_select_policy_section_list
   end
 
   test "show links to related publications on policy if any" do
@@ -300,6 +300,6 @@ That's all
   test "show doesn't link to related publications on policy if none exist" do
     policy = create(:published_policy)
     get :show, id: policy.document_identity
-    refute_select_policy_section_link policy, 'Related publications', 'related-publications'
+    refute_select_policy_section_list
   end
 end

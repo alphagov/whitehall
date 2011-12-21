@@ -10,4 +10,8 @@ module PolicyViewAssertions
       assert_select "li a[href='#{policy_path(policy.document_identity, anchor: anchor)}']", text: text, count: 0
     end
   end
+
+  def refute_select_policy_section_list
+    assert_select "ol#policy_sections", count: 0
+  end
 end

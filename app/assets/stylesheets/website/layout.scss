@@ -72,8 +72,9 @@
     }
 
     nav.meta {
-      @include span_two_columns;
       margin-bottom: 1.5em;
+      margin-left: 1%;
+
       a, span {
         @include type-12;
         margin-right: 1em;
@@ -124,6 +125,8 @@
     section {
       padding-bottom: 0.75em;
       margin-bottom: 0.75em;
+      margin-left: 2%;
+
       h1 {
         @include type-16;
         margin-bottom: 0.375em;

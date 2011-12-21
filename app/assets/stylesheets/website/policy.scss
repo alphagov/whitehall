@@ -6,17 +6,15 @@
     @include clearfix;
     margin-bottom: 1.5em;
 
-    .offering {
-      @extend .document_view;
-      padding: 0;
-      background-color: transparent;
-      border: none;
-    }
+    background: #eee;
+    padding: 1.5em 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 
     section.policy_parts {
-      background: #eee;
-      padding: 1em 1em;
-      margin-right: 1em;
+      background: #fff;
+      padding: 1em 1em 1em 1em;
+      margin-right: 2%;
       margin-bottom: 1.5em;
       border: 1px solid #ccc;
 
@@ -26,12 +24,13 @@
       }
 
       h2 {
-        @include type-16;
+        @include type-14;
         margin-bottom: 0.5em;
+        margin-top: 1.25em;
       }
 
       nav {
-        margin-left: 1em;
+        margin-left: 2%;
       }
 
       a {
@@ -49,35 +48,47 @@
       }
     }
 
-    article.document {
+    .notice {
+      border: 1px solid #d1d31b;
+      background: #f7f7c3;
+      padding: 0.75em 1.5em 0.75em 1.5em;
+
+      p {
+        font-weight: bold;
+        @include type-14;
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin-bottom: 0;
+
+        li {
+           @include type-12;
+           margin-bottom: 0;
+        }
+      }
+    }
+
+    .document {
+      @extend .document_view;
+      padding: 1em 1.5em;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-top: 0;
+      @include rounded(2px);
+
       .body {
         h2 {
-          margin-top: 0;
+          @include type-21;
+        }
+
+        h3 {
+          @include type-18;
         }
 
         p {
           max-width: 50em;
         }
-      }
-    }
-
-    .notice {
-      border: 1px solid #d1d31b;
-      background: #f7f7c3;
-      padding: 0.75em 1.5em 0 1.5em;
-      margin-bottom: 1.5em;
-
-      p {
-        font-weight: bold;
-      }
-
-      p, li {
-         @include type-12;
-         margin-bottom: 0.75em;
-      }
-
-      ul {
-        margin-bottom: 0;
       }
     }
   }
