@@ -688,4 +688,22 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title"}, results[0])
     assert_equal({"title"=>"publication-title", "link"=>"/government/publications/publication-title"}, results[1])
   end
+
+  test "should add document to search index on publishing" do
+    policy = create(:submitted_policy)
+
+    Rummageable.expects(:index).with(policy.search_index)
+
+    policy.publish_as(create(:departmental_editor))
+  end
+
+  test "should remove document from search index on archiving" do
+    policy = create(:published_policy)
+    slug = policy.document_identity.slug
+
+    Rummageable.expects(:delete).with("/government/policies/#{slug}")
+
+    new_edition = policy.create_draft(create(:policy_writer))
+    new_edition.publish_as(create(:departmental_editor), force: true)
+  end
 end

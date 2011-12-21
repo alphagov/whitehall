@@ -13,6 +13,8 @@ class ActiveSupport::TestCase
 
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
+    Rummageable.stubs(:index)
+    Rummageable.stubs(:delete)
   end
 
   teardown do
