@@ -60,6 +60,4 @@ Whitehall::Application.configure do
 
   # Prevent `OpenSSL::SSL::SSLError (hostname was not match with the server certificate)`
   config.action_mailer.smtp_settings = {enable_starttls_auto: false}
-
-  config.middleware.use Slimmer::App
 end

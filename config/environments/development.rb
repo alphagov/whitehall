@@ -28,8 +28,7 @@ Whitehall::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  asset_host = ENV["STATIC_DEV"] || Plek.new("preview").find("assets")
-  config.middleware.use Slimmer::App, asset_host: asset_host
+  config.slimmer.asset_host = ENV["STATIC_DEV"] || Plek.new("preview").find("assets")
 
   config.middleware.swap Rails::Rack::Logger, Whitehall::QuietAssetLogger
 end
