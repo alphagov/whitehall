@@ -2,7 +2,7 @@ class Admin::DocumentsController < Admin::BaseController
   before_filter :find_document, only: [:show, :edit, :update, :submit, :publish, :revise, :fact_check, :destroy]
   before_filter :prevent_modification_of_unmodifiable_document, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
-  before_filter :build_document, only: [:new]
+  before_filter :build_document, only: [:new, :create]
   before_filter :remember_filters, only: [:draft, :submitted, :published]
 
   def index
@@ -38,7 +38,6 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def create
-    @document = document_class.new(params[:document].merge(creator: current_user))
     if @document.save
       redirect_to admin_document_path(@document), notice: "The document has been saved"
     else
@@ -93,8 +92,12 @@ class Admin::DocumentsController < Admin::BaseController
     Document
   end
 
+  def document_params
+    (params[:document] || {}).merge(creator: current_user)
+  end
+
   def build_document
-    @document = document_class.new
+    @document = document_class.new(document_params)
   end
 
   def find_document
