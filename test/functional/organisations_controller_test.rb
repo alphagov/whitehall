@@ -35,9 +35,11 @@ class OrganisationsControllerTest < ActionController::TestCase
         assert_select ".postal-code", "LO1 8DN"
       end
       assert_select ".tel", /02079460000$/ do
-        assert_select ".type", "Helpline"
+        assert_select ".type", "Helpline:"
       end
-      assert_select ".email", organisation.email
+      assert_select ".email", /#{organisation.email}/ do
+        assert_select ".type", "Email:"
+      end
     end
   end
 

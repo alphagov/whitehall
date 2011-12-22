@@ -116,6 +116,15 @@
     }
   }
 
+  .page_detail {
+    @include clearfix;
+    background: #eee;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 1.5em 0;
+    margin-bottom: 1.5em;
+  }
+
   .related_documents {
     section {
       padding-bottom: 0.75em;
