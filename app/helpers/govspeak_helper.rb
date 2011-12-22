@@ -90,12 +90,7 @@ module GovspeakHelper
     if supporting_page
       policy_supporting_page_path(document, supporting_page)
     else
-      case document
-      when Speech
-        public_document_path(document.becomes(Speech))
-      else
-        public_document_path(document)
-      end
+      public_document_path(document)
     end
   end
 end

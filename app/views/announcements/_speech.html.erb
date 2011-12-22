@@ -1,9 +1,9 @@
 <%= content_tag_for(:article, speech, class: "speech") do %>
   <% if display == "expanded" %>
-    <div class="img"><%= link_to image_tag("evil_placeholder.png"), public_document_path(speech.becomes(Speech)) %></div>
+    <div class="img"><%= link_to image_tag("evil_placeholder.png"), public_document_path(speech) %></div>
   <% end %>
   <div class="text">
-    <h2><%= link_to speech.title, public_document_path(speech.becomes(Speech)), class: "title", title: "View #{speech.title}" %></h2>
+    <h2><%= link_to speech.title, public_document_path(speech), class: "title", title: "View #{speech.title}" %></h2>
     <% if display != "compact" %>
       <p class="summary">
         <%= speech.summary %>

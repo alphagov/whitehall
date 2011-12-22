@@ -114,7 +114,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should rewrite absolute links to admin previews of Speeches as their public document identity" do
     speech = create(:published_speech)
-    public_path = public_document_path(speech.becomes(Speech))
+    public_path = public_document_path(speech)
     html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
     assert_govspeak %{<p>this and <a href="#{public_path}">that</a> yeah?</p>}, html
   end
