@@ -92,7 +92,8 @@ class Document < ActiveRecord::Base
   end
 
   def create_draft(user)
-    self.class.new(attributes.merge(state: "draft", creator: user)).tap do |draft|
+    draft_attributes = attributes.except('state', 'created_at', 'updated_at')
+    self.class.new(draft_attributes.merge('state' => 'draft', 'creator' => user)).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }
       if draft.save
         traits.each { |t| t.process_associations_after_save(draft) }

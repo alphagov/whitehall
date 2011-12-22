@@ -368,6 +368,15 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal published_document.body, draft_document.body
   end
 
+  test "should not copy create and update time when creating draft" do
+    published_document = create(:published_document)
+    Timecop.travel 1.minute.from_now
+    draft_document = published_document.create_draft(create(:policy_writer))
+
+    refute_equal published_document.created_at, draft_document.created_at
+    refute_equal published_document.updated_at, draft_document.updated_at
+  end
+
   test "should build a draft copy with references to policy areas, organisations, ministerial roles & countries" do
     policy_area = create(:policy_area)
     organisation = create(:organisation)
