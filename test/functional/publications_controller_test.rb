@@ -16,6 +16,15 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object(draft_publication)
   end
 
+  test "should avoid n+1 queries" do
+    publications = []
+    published_publications = mock("published_publications")
+    published_publications.expects(:includes).with(:document_identity).returns(publications)
+    Publication.expects(:published).returns(published_publications)
+
+    get :index
+  end
+
   test 'show displays published publications' do
     published_publication = create(:published_publication)
     get :show, id: published_publication.document_identity

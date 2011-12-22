@@ -1,6 +1,6 @@
 class PublicationsController < DocumentsController
   def index
-    @publications = Publication.published
+    @publications = Publication.published.includes(:document_identity)
   end
 
   def show
