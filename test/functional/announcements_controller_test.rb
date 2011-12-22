@@ -102,6 +102,28 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should avoid n+1 queries when displaying speeches" do
+    speeches = []
+    ordered_published_speeches = mock("ordered_published_speeches")
+    ordered_published_speeches.expects(:includes).with(:document_identity, role_appointment: [:person, :role]).returns(speeches)
+    published_speeches = mock("published_speeches")
+    published_speeches.expects(:by_published_at).returns(ordered_published_speeches)
+    Speech.expects(:published).returns(published_speeches)
+
+    get :index
+  end
+
+  test "should avoid n+1 queries when displaying news articles" do
+    news_articles = []
+    ordered_published_news_articles = mock("ordered_published_news_articles")
+    ordered_published_news_articles.expects(:includes).with(:document_identity, :document_relations, :policy_areas).returns(news_articles)
+    ordered_news_articles = mock("ordered_news_articles")
+    ordered_news_articles.expects(:by_published_at).returns(ordered_published_news_articles)
+    NewsArticle.expects(:published).returns(ordered_news_articles)
+
+    get :index
+  end
+
   private
 
   def announcement_path(announcement)
