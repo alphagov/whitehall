@@ -1,17 +1,29 @@
-#wrapper .attachment.pdf {
-  clear: both;
-  overflow: auto;
-  margin-bottom: 1em;
+@import "../shared/utils";
 
-  img {
-    max-width: 105px;
-    margin-bottom: 0;
-    border: 1px solid #DDD;
-    border-bottom: 3px solid #CCC;
-    float: left;
-    margin-right: 1em;
+#wrapper .attachment {
+  @include span_one_column;
+
+  div.img {
+    @include box-shadow(0, 0, 2px, #ddd);
+    background: #fff;
+    margin-bottom: 0.4285em;
+    margin-bottom: 0.5em;
+    overflow: hidden;
+    padding: 5px 5px 0 5px;
+    a img {
+      margin: 0;
+    }
   }
-  .type, .number_of_pages, .size {
-    display: block;
+
+  div.download_url {
+    @include type-14;
+    margin-bottom: 0.4285em;
+  }
+
+  ul.attachment_meta {
+    li {
+      @include type-12;
+      margin: 0;
+    }
   }
 }

@@ -1,14 +1,18 @@
 <% document.attachments.each do |attachment| %>
   <%= content_tag_for(:div, attachment, class: css_class_for_attachment(attachment)) do %>
     <% if attachment.pdf? %>
-      <%= link_to(image_tag(attachment.url(:thumbnail)), attachment.url) %>
+      <div class="img"><%= link_to(image_tag(attachment.url(:thumbnail)), attachment.url) %></div>
     <% end %>
 
-    <%= link_to_attachment(attachment) %>
-    <span class="type"><%= humanized_content_type(attachment.content_type) %></span>
-    <% if attachment.number_of_pages.present? %>
-      <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
-    <% end %>
-    <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
+    <div class="download_url"><%= link_to "Download attachment", attachment.url %></div>
+
+    <ul class="attachment_meta">
+      <li><strong>Name:</strong> <span class="filename"><%= attachment.filename %></span></li>
+      <li><strong>Type:</strong> <span class="type"><%= humanized_content_type(attachment.content_type) %></span></li>
+      <% if attachment.number_of_pages.present? %>
+        <li><strong>No. of pages:</strong> <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span></li>
+      <% end %>
+      <li><strong>File size:</strong> <span class="size"><%= number_to_human_size(attachment.file_size) %></span></li>
+    </ul>
   <% end %>
 <% end %>

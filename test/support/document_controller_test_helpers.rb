@@ -11,10 +11,10 @@ module DocumentControllerTestHelpers
         get :show, id: document.document_identity
 
         assert_select_object(attachment_1) do
-          assert_select '.attachment a', text: attachment_1.filename
+          assert_select '.attachment .filename', text: attachment_1.filename
         end
         assert_select_object(attachment_2) do
-          assert_select '.attachment a', text: attachment_2.filename
+          assert_select '.attachment .filename', text: attachment_2.filename
         end
       end
 
