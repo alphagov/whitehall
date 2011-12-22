@@ -6,6 +6,11 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   should_show_published_documents_associated_with :ministerial_role, :publications
   should_show_published_documents_associated_with :ministerial_role, :consultations
 
+  test "should avoid n+1 queries" do
+    MinisterialRole.expects(:includes).with(:current_people).returns([])
+    get :index
+  end
+
   test "shows only published news and speeches associated with ministerial role" do
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)

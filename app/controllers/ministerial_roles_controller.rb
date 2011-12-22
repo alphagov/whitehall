@@ -1,6 +1,6 @@
 class MinisterialRolesController < ApplicationController
   def index
-    @ministerial_roles = MinisterialRole.all
+    @ministerial_roles = MinisterialRole.includes(:current_people)
   end
 
   def show
