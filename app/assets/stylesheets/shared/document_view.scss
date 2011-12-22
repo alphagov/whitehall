@@ -62,12 +62,4 @@
   pre.body {
     @include type-14;
   }
-
-  .written_by {
-    font-style: italic;
-    .author {
-      font-style: normal;
-      font-weight: bold;
-    }
-  }
 }
