@@ -1,10 +1,6 @@
 @import "utils";
 
-@mixin document_view {
-  border: 1px solid #ddd;
-  border-bottom: 3px solid #ccc;
-  background: #fcfcfc;
-  padding: 3em 10% 1em 10%;
+#content .document {
   margin-bottom: 2em;
   overflow: auto;
 
@@ -30,8 +26,10 @@
     }
 
     p, ul, ol {
-      @include type-14;
+      font-size: 0.875em;
+      line-height: 1.714em;
     }
+
     ul, ol {
       ul, ol {
         margin-top: #{$baseline_in_px / 14}em;

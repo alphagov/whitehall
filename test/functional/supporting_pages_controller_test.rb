@@ -79,7 +79,7 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    refute_select_policy_section_link policy, 'Related news', 'related-news-articles'
+    refute_select_policy_section_list
   end
 
   test "show links to related speeches on parent policy if any" do
@@ -99,7 +99,7 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    refute_select_policy_section_link policy, 'Related speeches', 'related-speeches'
+    refute_select_policy_section_list
   end
 
   test "show links to related consultations on parent policy if any" do
@@ -119,7 +119,7 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    refute_select_policy_section_link policy, 'Related consultations', 'related-consultations'
+    refute_select_policy_section_list
   end
 
   test "show links to related publications on parent policy if any" do
@@ -139,7 +139,7 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    refute_select_policy_section_link policy, 'Related publications', 'related-publications'
+    refute_select_policy_section_list
   end
 
   test "shows the body using govspeak markup" do
@@ -197,7 +197,7 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    assert_select ".policy_view nav" do
+    assert_select ".contextual_info nav.supporting_pages" do
       assert_select "a[href='#{policy_supporting_page_path(policy.document_identity, first_supporting_page)}']", text: first_supporting_page.title
       assert_select "a[href='#{policy_supporting_page_path(policy.document_identity, second_supporting_page)}']", text: second_supporting_page.title
     end

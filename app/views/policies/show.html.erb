@@ -17,13 +17,11 @@
       <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
     <% end %>
   </p>
-
 </div>
 
-<div class="g3f policy_view">
-
+<div class="g3f document_page">
   <div class="g1r">
-    <section class="policy_parts">
+    <section class="contextual_info">
       <h1>Policy definition</h1>
       <nav class="policy_parts">
         <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'policy_view') %>

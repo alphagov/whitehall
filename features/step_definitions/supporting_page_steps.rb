@@ -75,7 +75,7 @@ end
 Then /^I can visit the supporting page "([^"]*)" from the "([^"]*)" policy$/ do |supporting_title, policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit public_document_path(policy)
-  assert has_css?(".policy_view nav a", text: supporting_title)
+  assert has_css?(".contextual_info nav.supporting_pages a", text: supporting_title)
   click_link supporting_title
   supporting_page = policy.supporting_pages.find_by_title!(supporting_title)
   assert has_css?(".document .body", text: supporting_page.body)

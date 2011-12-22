@@ -1,11 +1,38 @@
-<div class="g2">
-  <%= render partial: 'document', locals: { document: @document } %>
+<div class="g3">
+  <h1 class="page_title title has_meta"><%= @document.title %></h1>
+  <p class="meta">
+    <span class="metadata">Last updated
+    <%= render_datetime_microformat(@document, :published_at) do %>
+      <%= time_ago_in_words(@document.published_at) %> ago
+    <% end %></span>
+  </p>
 </div>
 
-<div class="g1 secondary">
+<div class="g3f document_page">
+  <div class="g2">
+    <article class="document">
+      <div class="body">
+        <%= govspeak_to_html @document.body %>
+      </div>
+      <% if @document.notes_to_editors.present? %>
+        <section id="notes_to_editors">
+          <h1>Notes to editors</h1>
+          <div class="notes_to_editors">
+            <%= govspeak_to_html @document.notes_to_editors %>
+          </div>
+        </section>
+      <% end %>
+    </article>
+  </div>
+</div>
+
+<div class="g1 related_documents">
   <%= render partial: 'organisations', locals: { organisations: @document.organisations } %>
-  <%= render partial: 'ministerial_roles', locals: { ministerial_roles: @document.ministerial_roles } %>
-  <%= render partial: 'countries', locals: { countries: @document.countries } %>
-
-  <%= render partial: 'related_policies', object: @related_policies %>
 </div>
+<div class="g1 related_documents">
+  <%= render partial: 'ministerial_roles', locals: { ministerial_roles: @document.ministerial_roles } %>
+</div>
+<div class="g1 related_documents">
+  <%= render partial: 'countries', locals: { countries: @document.countries } %>
+</div>
+<%= render partial: 'related_policies', object: @related_policies %>

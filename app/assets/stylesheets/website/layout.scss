@@ -52,7 +52,6 @@
     padding-top: 1em;
     padding-bottom: 1em;
 
-
     @media only screen and (min-width: 600px) {
       width: 81%;
       @include box-shadow(0, 2px, 2px, #e5e5e5);
@@ -87,10 +86,6 @@
       }
     }
 
-  }
-
-  .document_view {
-    @include document_view;
   }
 
   .govspeak {
@@ -155,7 +150,6 @@
     @include type-14;
     margin-bottom: 0.875em;
     margin-left: 2%;
-
   }
 }
 

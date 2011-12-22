@@ -1,8 +1,7 @@
 @import "../shared/utils";
-@import "../shared/document_view";
 
 #content {
-  .policy_view {
+  .document_page {
     @include clearfix;
     margin-bottom: 1.5em;
 
@@ -11,7 +10,58 @@
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 
-    section.policy_parts {
+    .notice {
+      border: 1px solid #d1d31b;
+      background: #f7f7c3;
+      padding: 0.75em 1.5em 0.75em 1.5em;
+
+      p {
+        font-weight: bold;
+        @include type-14;
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin-bottom: 0;
+
+        li {
+           @include type-12;
+           margin-bottom: 0;
+        }
+      }
+    }
+
+    .document {
+      padding: 1em 1.5em;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      @include rounded(2px);
+
+      .body {
+        h2 {
+          @include type-21;
+        }
+
+        h3 {
+          @include type-18;
+        }
+
+        p {
+          max-width: 50em;
+        }
+      }
+
+      section {
+        h1 {
+          @include type-21;
+          margin-bottom: 0.5715em;
+          padding-bottom: 0.28575em;
+          border-bottom: 1px solid #ddd;
+        }
+      }
+    }
+
+    section.contextual_info {
       background: #fff;
       padding: 1em 1em 1em 1em;
       margin-right: 2%;
@@ -44,59 +94,6 @@
         li {
           margin: 0;
           line-height: 1em;
-        }
-      }
-    }
-
-    .notice {
-      border: 1px solid #d1d31b;
-      background: #f7f7c3;
-      padding: 0.75em 1.5em 0.75em 1.5em;
-
-      p {
-        font-weight: bold;
-        @include type-14;
-        margin-bottom: 0;
-      }
-
-      ul {
-        margin-bottom: 0;
-
-        li {
-           @include type-12;
-           margin-bottom: 0;
-        }
-      }
-    }
-
-    .document {
-      @extend .document_view;
-      padding: 1em 1.5em;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-top: 0;
-      @include rounded(2px);
-
-      .body {
-        h2 {
-          @include type-21;
-        }
-
-        h3 {
-          @include type-18;
-        }
-
-        p {
-          max-width: 50em;
-        }
-      }
-
-      section {
-        h1 {
-          @include type-21;
-          margin-bottom: 0.5715em;
-          padding-bottom: 0.28575em;
-          border-bottom: 1px solid #ddd;
         }
       }
     }
