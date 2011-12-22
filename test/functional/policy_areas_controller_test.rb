@@ -95,7 +95,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
   test "show displays metadata about the recently changed documents" do
     published_at = Time.zone.now
     policy = create(:published_policy)
-    speech = create(:published_speech_transcript, published_at: published_at, related_policies: [policy])
+    speech = create(:published_speech, published_at: published_at, related_policies: [policy])
 
     policy_area = create(:policy_area, policies: [policy])
 

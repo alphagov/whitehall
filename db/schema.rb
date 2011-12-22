@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111219151159) do
+ActiveRecord::Schema.define(:version => 20111222103050) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20111219151159) do
     t.boolean  "corporate_publication", :default => false
     t.boolean  "featured",              :default => false
     t.text     "summary"
+    t.integer  "speech_type_id"
   end
 
   create_table "editorial_remarks", :force => true do |t|
@@ -245,6 +246,12 @@ ActiveRecord::Schema.define(:version => 20111219151159) do
   end
 
   add_index "roles", ["slug"], :name => "index_roles_on_slug"
+
+  create_table "speech_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "supporting_pages", :force => true do |t|
     t.integer  "document_id"

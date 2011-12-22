@@ -84,10 +84,5 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Policy", main_document_type(build(:policy))
     assert_equal "Publication", main_document_type(build(:publication))
     assert_equal "Speech", main_document_type(build(:speech))
-    assert_equal "Speech", main_document_type(build(:speech_transcript))
-    assert_equal "Speech", main_document_type(build(:speech_draft_text))
-    assert_equal "Speech", main_document_type(build(:speech_speaking_notes))
-    assert_equal "Speech", main_document_type(build(:speech_written_statement))
-    assert_equal "Speech", main_document_type(build(:speech_oral_statement))
   end
 end

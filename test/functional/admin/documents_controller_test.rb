@@ -140,21 +140,10 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test "should be able to filter by speeches when viewing list of documents" do
     policy = create(:draft_policy)
-    speech_types = [
-      :speech_transcript,
-      :speech_draft_text,
-      :speech_speaking_notes,
-      :speech_written_statement,
-      :speech_oral_statement
-    ]
-    instances_of_each_speech_type = speech_types.map {|t| create(t) }
-
+    speech = create(:speech)
     get :draft, filter: 'speech'
 
-    instances_of_each_speech_type.each do |speech|
-      assert_select_object(speech) { assert_select ".type", text: speech.type.titleize }
-    end
-
+    assert_select_object(speech) { assert_select ".type", text: "Speech" }
     refute_select ".type", text: "Policy"
   end
 

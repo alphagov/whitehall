@@ -11,6 +11,11 @@ class SpeechTest < ActiveSupport::TestCase
     assert article.can_be_related_to_policies?
   end
 
+  test "should be invalid without a speech type" do
+    speech = build(:speech, speech_type: nil)
+    refute speech.valid?
+  end
+
   test "should be invalid without a role_appointment" do
     speech = build(:speech, role_appointment: nil)
     refute speech.valid?
@@ -43,16 +48,5 @@ class SpeechTest < ActiveSupport::TestCase
     speech.update_attributes!(role_appointment: role_appointment)
 
     assert_equal [organisation], speech.organisations
-  end
-
-  test "should know about all its subclasses" do
-    speech_types = [
-      Speech::Transcript,
-      Speech::DraftText,
-      Speech::SpeakingNotes,
-      Speech::WrittenStatement,
-      Speech::OralStatement
-    ]
-    assert_equal speech_types, Speech.subclasses
   end
 end

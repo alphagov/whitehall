@@ -23,7 +23,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#document_new" do
-      assert_select "select[name='document[type]']"
+      assert_select "select[name='document[speech_type_id]']"
       assert_select "select[name='document[role_appointment_id]']"
       assert_select "select[name*='document[delivered_on']", count: 3
       assert_select "input[name='document[location]'][type='text']"
@@ -32,11 +32,13 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   test "create should create a new speech" do
     role_appointment = create(:role_appointment)
-    attributes = controller_attributes_for(:speech, type: "Speech::Transcript", role_appointment: role_appointment)
+    speech_type = create(:speech_type)
+    attributes = controller_attributes_for(:speech, speech_type: speech_type, role_appointment: role_appointment)
 
     post :create, document: attributes
 
-    assert speech = Speech::Transcript.last
+    assert speech = Speech.last
+    assert_equal speech_type, speech.speech_type
     assert_equal role_appointment, speech.role_appointment
     assert_equal attributes[:delivered_on], speech.delivered_on
     assert_equal attributes[:location], speech.location
@@ -46,15 +48,17 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     speech = create(:speech)
     new_role_appointment = create(:role_appointment)
     new_delivered_on = speech.delivered_on + 1
+    new_speech_type = create(:speech_type)
 
     put :update, id: speech.id, document: {
       role_appointment_id: new_role_appointment.id,
+      speech_type_id: new_speech_type.id,
       delivered_on: new_delivered_on,
-      location: "new-location",
-      type: "Speech::WrittenStatement"
+      location: "new-location"
     }
 
-    speech = Speech::WrittenStatement.last
+    speech = Speech.last
+    assert_equal new_speech_type, speech.speech_type
     assert_equal new_role_appointment, speech.role_appointment
     assert_equal new_delivered_on, speech.delivered_on
     assert_equal "new-location", speech.location
@@ -65,7 +69,8 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     theresa_may = create(:person, name: "Theresa May")
     theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may)
-    draft_speech = create(:draft_speech_transcript, role_appointment: theresa_may_appointment, delivered_on: Date.parse("2011-06-01"), location: "The Guidhall")
+    speech_type = create(:speech_type, name: "Transcript")
+    draft_speech = create(:draft_speech, speech_type: speech_type, role_appointment: theresa_may_appointment, delivered_on: Date.parse("2011-06-01"), location: "The Guidhall")
 
     get :show, id: draft_speech
 
@@ -86,9 +91,10 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   def controller_attributes_for(document_type, attributes = {})
     role_appointment = attributes.delete(:role_appointment) || create(:role_appointment)
+    speech_type = attributes.delete(:speech_type) || create(:speech_type)
     attributes_for(document_type, attributes.merge(
       role_appointment_id: role_appointment.id,
-      type: attributes[:type] || "Speech::Transcript"
+      speech_type_id: speech_type.id
     ))
   end
 end

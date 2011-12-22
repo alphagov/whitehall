@@ -1,17 +1,11 @@
 class Speech < Document
-
-  class Transcript < Speech; end
-  class DraftText < Speech; end
-  class SpeakingNotes < Speech; end
-  class WrittenStatement < Speech; end
-  class OralStatement < Speech; end
-
   include Document::RelatedPolicies
   include Document::Countries
 
   belongs_to :role_appointment
+  belongs_to :speech_type
 
-  validates :role_appointment, :delivered_on, :location, presence: true
+  validates :role_appointment, :speech_type, :delivered_on, :location, presence: true
 
   before_save :populate_organisations_based_on_role_appointment
 

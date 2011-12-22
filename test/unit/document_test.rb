@@ -481,18 +481,6 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [consultation], Document.by_type('Consultation')
   end
 
-  test "should include all speech subtypes when filtering by speech" do
-    types = [
-      :speech_transcript,
-      :speech_draft_text,
-      :speech_speaking_notes,
-      :speech_written_statement,
-      :speech_oral_statement
-    ]
-
-    assert_equal types.map {|t| create(t) }, Document.by_type('Speech')
-  end
-
   [:draft, :submitted, :rejected].each do |state|
     test "should be editable if #{state}" do
       document = create("#{state}_document")

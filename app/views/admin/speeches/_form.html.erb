@@ -3,8 +3,8 @@
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
 
   <fieldset>
-    <%= form.label :type %>
-    <%= form.select :type, options_from_collection_for_select(Speech.subclasses.map { |s| [s.name, s.name.demodulize.titleize] }, :first, :last, document.class.name) %>
+    <%= form.label :speech_type_id, "Type" %>
+    <%= form.select :speech_type_id, options_from_collection_for_select(SpeechType.all, :id, :name, document.speech_type_id) %>
   </fieldset>
 
   <fieldset>
