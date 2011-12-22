@@ -51,12 +51,10 @@
 
   <div class="g2">
     <%= render partial: 'documents/inapplicable_nations', locals: { document: @policy } %>
-
-    <article class="document">
+    <article class="document has_notice">
       <div class="body">
         <%= govspeak_to_html @supporting_page.body %>
       </div>
     </article>
-
   </div>
 </div>

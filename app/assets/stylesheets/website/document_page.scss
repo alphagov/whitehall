@@ -59,6 +59,10 @@
           border-bottom: 1px solid #ddd;
         }
       }
+
+      &.has_notice {
+        border-top: 0;
+      }
     }
 
     section.contextual_info {

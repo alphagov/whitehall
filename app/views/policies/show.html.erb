@@ -49,10 +49,10 @@
     </section>
   </div>
 
-  <div class="g2">
+  <div class="g2 document_view">
     <%= render partial: 'documents/inapplicable_nations', locals: { document: @policy } %>
 
-    <article class="document">
+    <article class="document has_notice">
       <div class="body">
         <%= govspeak_to_html @document.body %>
       </div>
