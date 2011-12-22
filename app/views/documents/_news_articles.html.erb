@@ -1,23 +1,6 @@
 <% if news_articles.any? %>
   <section id="news_articles">
     <h1>News</h1>
-    <ul>
-      <% news_articles.each do |news_article| %>
-        <%= content_tag_for(:li, news_article) do %>
-          <div><%= link_to news_article.title, public_document_path(news_article), class: "title" %></div>
-          <p class="summary">
-            <%= news_article.summary %>
-          </p>
-          <div class="small">
-            <%= render_datetime_microformat(news_article, :published_at) do %>
-              <%= time_ago_in_words(news_article.published_at) %> ago
-            <% end %>
-            <% unless news_article.policy_areas.length.zero? %>
-              <span class="news_articles">in <%= news_article.policy_areas.map { |pa| link_to pa.name, policy_area_path(pa) }.to_sentence.html_safe %></span>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    </ul>
+    <%= announcement_group(news_articles, groups_of: 3, class: "", partial: "default") %>
   </section>
 <% end %>

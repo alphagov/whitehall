@@ -83,6 +83,11 @@
         margin-left: 2%;
       }
 
+      p {
+        @include type-12;
+        margin-bottom: 1em;
+      }
+
       a {
         display: block;
         @include type-12;

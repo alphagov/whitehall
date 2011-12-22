@@ -1,15 +1,37 @@
-<section class="document_view">
-  <%= render partial: "standard_elements", locals: { document: document } %>
+<div class="g3">
+  <h1 class="page_title title has_meta"><%= document.title %></h1>
+  <p class="meta">
+    <span class="metadata">Last updated
+    <%= render_datetime_microformat(document, :published_at) do %>
+      <%= time_ago_in_words(document.published_at) %> ago
+    <% end %></span>
+  </p>
+</div>
 
-  <p>Publication date: <span class="publication_date"><%= document.publication_date.to_s(:long_ordinal) %></span></p>
-  <p>Unique reference: <span class="unique_reference"><%= document.unique_reference %></span></p>
-  <p>ISBN: <span class="isbn"><%= document.isbn %></span></p>
-  <% if document.research? %>
-    <p class="research">This is a research paper.</p>
-  <% end %>
-  <% if document.order_url.present? %>
-    <p><%= link_to "Order a copy", document.order_url, class: "order_url button", title: "Order a copy of the publication" %></p>
-  <% end %>
+<div class="g3f document_page">
+  <div class="g1r">
+    <section class="contextual_info">
+      <h1>About this publication</h1>
+      <p>Publication date: <span class="publication_date"><%= document.publication_date.to_s(:long_ordinal) %></span></p>
+      <p>Unique reference: <span class="unique_reference"><%= document.unique_reference %></span></p>
+      <p>ISBN: <span class="isbn"><%= document.isbn %></span></p>
+      <% if document.research? %>
+        <p class="research">This is a research paper.</p>
+      <% end %>
+      <% if document.order_url.present? %>
+        <p><%= link_to "Order a copy", document.order_url, class: "order_url button", title: "Order a copy of the publication" %></p>
+      <% end %>
+    </section>
+  </div>
 
-  <%= render partial: "attachments", locals: { document: document } %>
-</section>
+  <div class="g2 document_view">
+    <%= render partial: 'inapplicable_nations', locals: { document: document } %>
+
+    <article class="document">
+      <div class="body">
+        <%= govspeak_to_html document.body %>
+      </div>
+      <%= render partial: "attachments", locals: { document: document } %>
+    </article>
+  </div>
+</div>

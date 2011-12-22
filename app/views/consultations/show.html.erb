@@ -1,13 +1,12 @@
-<div class="g2">
-  <%= render partial: 'document', locals: { document: @document } %>
-</div>
+<%= render partial: 'document', locals: { document: @document } %>
 
-<div class="g1 secondary">
+
+<div class="g1 related_documents">
   <%= render partial: 'organisations', locals: { organisations: @document.organisations } %>
-
-  <%= render partial: 'ministerial_roles', locals: { ministerial_roles: @document.ministerial_roles } %>
-
-  <%= render partial: 'inapplicable_nations', locals: { document: @document } %>
-
-  <%= render partial: 'related_policies', object: @related_policies %>
 </div>
+
+<div class="g1 related_documents">
+  <%= render partial: 'ministerial_roles', locals: { ministerial_roles: @document.ministerial_roles } %>
+</div>
+
+<%= render partial: 'related_policies', object: @related_policies %>

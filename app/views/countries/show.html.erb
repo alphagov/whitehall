@@ -1,11 +1,19 @@
-<div class="g2">
+<div class="g3">
   <h1 class="country page_title"><%= @country.name %></h1>
 </div>
 
-<div class="g1 secondary">
+<div class="g1 related_documents">
   <%= render partial: "documents/international_priorities", object: @international_priorities %>
+</div>
+<div class="g1 related_documents">
   <%= render partial: "documents/news_articles", object: @news_articles %>
+</div>
+<div class="g1 related_documents">
   <%= render partial: "documents/speeches", object: @speeches %>
+</div>
+<div class="g1 related_documents">
   <%= render partial: "documents/policies", object: @policies %>
+</div>
+<div class="g1 related_documents">
   <%= render partial: "documents/publications", object: @publications %>
 </div>
