@@ -1,17 +1,36 @@
-<div class="g2">
-  <section class="document_view">
-    <h1 class="title"><%= @document.title %></h1>
-    <div class="body">
-      <%= govspeak_to_html @document.body %>
-    </div>
-    <p class="details">
-      <span class="type"><%= @document.speech_type.name %></span> for speech delivered by <span class="ministerial_role"><%= link_to @document.role_appointment.role, @document.role_appointment.role %></span> on <span class="delivered_on"><%= @document.delivered_on.to_s(:long_ordinal) %></span> at <span class="location"><%= @document.location %></span>
-    </p>
-  </section>
+<div class="g3">
+  <h1 class="page_title title has_meta"><%= @document.title %></h1>
+  <p class="meta">
+    <span class="metadata">Last updated
+    <%= render_datetime_microformat(@document, :published_at) do %>
+      <%= time_ago_in_words(@document.published_at) %> ago
+    <% end %></span>
+  </p>
 </div>
 
-<div class="g1 secondary">
-  <%= render partial: 'related_policies', object: @related_policies %>
+<div class="g3f document_page">
+  <div class="g1r">
+    <section class="contextual_info">
+      <h1>Notable dates</h1>
+      <p class="details">
+        <span class="type"><%= @document.speech_type.name %></span> for speech delivered by
+        <span class="ministerial_role"><%= link_to @document.role_appointment.role, @document.role_appointment.role %></span> on
+        <span class="delivered_on"><%= @document.delivered_on.to_s(:long_ordinal) %></span> at
+        <span class="location"><%= @document.location %></span>
+      </p>
+    </section>
+  </div>
+  <div class="g2">
+    <article class="document">
+      <div class="body">
+        <%= govspeak_to_html @document.body %>
+      </div>
+    </article>
+  </div>
+</div>
 
-  <%= render partial: 'countries', locals: { countries: @document.countries } %>
+<%= render partial: 'related_policies', object: @related_policies %>
+
+<div class="g1 related_documents">
+    <%= render partial: 'countries', locals: { countries: @document.countries } %>
 </div>
