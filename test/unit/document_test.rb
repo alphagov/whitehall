@@ -94,6 +94,18 @@ class DocumentTest < ActiveSupport::TestCase
     assert_nil Document.published_as('unknown')
   end
 
+  test ".latest_edition includes first edition of any document" do
+    document = create(:published_document)
+    assert Document.latest_edition.include?(document)
+  end
+
+  test ".latest_edition includes only latest edition of a document" do
+    original_edition = create(:published_document)
+    new_draft = original_edition.create_draft(create(:policy_writer))
+    refute Document.latest_edition.include?(original_edition)
+    assert Document.latest_edition.include?(new_draft)
+  end
+
   test "should return a list of documents in a policy area" do
     policy_area_1 = create(:policy_area)
     policy_area_2 = create(:policy_area)

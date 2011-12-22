@@ -70,7 +70,7 @@ class Document < ActiveRecord::Base
   def can_apply_to_subset_of_nations?
     false
   end
-  
+
   def featurable?
     false
   end
@@ -136,6 +136,14 @@ class Document < ActiveRecord::Base
       else
         where(id: document.related_policies.collect(&:id))
       end
+    end
+
+    def latest_edition
+      where('NOT EXISTS (SELECT 1 from documents d2 where d2.document_identity_id = documents.document_identity_id AND d2.id > documents.id)')
+    end
+
+    def search(query)
+      published.where("title LIKE :query", query: "%#{query}%")
     end
   end
 end
