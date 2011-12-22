@@ -86,11 +86,13 @@ When /^I set the publication title to "([^"]*)" and save$/ do |title|
 end
 
 Then /^I should not see a link to the PDF attachment$/ do
-  assert page.has_no_css?(".attachment a[href*='attachment.pdf']", text: "attachment.pdf")
+  assert page.has_no_css?(".attachment .filename", text: "attachment.pdf")
+  assert page.has_no_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
 end
 
 Then /^I should see a link to the PDF attachment$/ do
-  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "attachment.pdf")
+  assert page.has_css?(".attachment .filename", text: "attachment.pdf")
+  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
 end
 
 Then /^I should see a thumbnail of the first page of the PDF$/ do

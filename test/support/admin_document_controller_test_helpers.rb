@@ -400,7 +400,8 @@ module AdminDocumentControllerTestHelpers
         get :show, id: document
 
         assert_select_object(attachment) do
-          assert_select "a", text: document.attachments.first.filename
+          assert_select "a", text: "Download attachment"
+          assert_select ".filename", text: document.attachments.first.filename
           assert_select ".type", "PDF"
           assert_select ".number_of_pages", "2 pages"
           assert_select ".size", "1.41 KB"
@@ -415,7 +416,8 @@ module AdminDocumentControllerTestHelpers
         get :show, id: document
 
         assert_select_object(attachment) do
-          assert_select "a", text: document.attachments.first.filename
+          assert_select "a", text: "Download attachment"
+          assert_select ".filename", text: document.attachments.first.filename
           assert_select ".type", "CSV"
           refute_select ".number_of_pages"
           assert_select ".size", "121 Bytes"
