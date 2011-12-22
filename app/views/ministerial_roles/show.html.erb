@@ -1,11 +1,11 @@
 <div class="g3f">
   <section class="ministerial_role">
     <h1 class="page_title ministerial_role has_meta"><%= @ministerial_role.name %></h1>
-    <nav class="meta">
+    <p class="meta">
       <% @ministerial_role.organisations.each do |organisation| %>
         <%= link_to organisation.name, organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
       <% end %>
-    </nav>
+    </p>
   </section>
 
   <section class="current_person">

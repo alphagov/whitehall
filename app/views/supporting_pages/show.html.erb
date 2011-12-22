@@ -1,7 +1,7 @@
 <div class="g3">
   <section class="policy_view">
     <h1 class="title"><%= @supporting_page.title %></h1>
-    <nav class="meta">
+    <p class="meta">
       <span class="metadata">
         Updated
         <%= render_datetime_microformat(@policy, :updated_at) do %>
@@ -17,7 +17,7 @@
       <% @policy.ministerial_roles.each do |ministerial_role| %>
         <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
       <% end %>
-    </nav>
+    </p>
 
     <div class="group offering">
       <div class="g1r">

@@ -90,6 +90,15 @@
           max-width: 50em;
         }
       }
+
+      section {
+        h1 {
+          @include type-21;
+          margin-bottom: 0.5715em;
+          padding-bottom: 0.28575em;
+          border-bottom: 1px solid #ddd;
+        }
+      }
     }
   }
 }

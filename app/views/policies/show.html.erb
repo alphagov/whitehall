@@ -1,6 +1,6 @@
 <div class="g3">
   <h1 class="page_title has_meta"><%= @policy.title %></h1>
-  <nav class="meta">
+  <p class="meta">
     <span class="metadata">
       Updated
       <%= render_datetime_microformat(@policy, :updated_at) do %>
@@ -16,7 +16,7 @@
     <% @policy.ministerial_roles.each do |ministerial_role| %>
       <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
     <% end %>
-  </nav>
+  </p>
 
 </div>
 
@@ -58,92 +58,81 @@
       <div class="body">
         <%= govspeak_to_html @document.body %>
       </div>
+
+      <% if @related_news_articles.any? %>
+        <section id="related-news-articles">
+          <h1>Related news</h1>
+          <ul>
+            <% @related_news_articles.each do |related_document| %>
+              <%= content_tag_for :li, related_document do %>
+                <%= link_to related_document.title, public_document_path(related_document) %>
+              <% end %>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+
+      <% if @related_speeches.any? %>
+        <section id="related-speeches">
+          <h1>Related speeches</h1>
+          <ul>
+            <% @related_speeches.each do |speech| %>
+              <%= content_tag_for :li, speech do %>
+                <%= link_to speech.title, public_document_path(speech) %>
+              <% end %>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+
+      <% if @related_publications.any? %>
+        <section id="related-publications">
+          <h1>Related publications</h1>
+          <ul>
+            <% @related_publications.each do |related_document| %>
+              <%= content_tag_for :li, related_document do %>
+                <%= link_to related_document.title, public_document_path(related_document) %>
+              <% end %>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+
+      <% if @related_consultations.any? %>
+        <section id="related-consultations">
+          <h1>Related consultations</h1>
+          <ul>
+            <% @related_consultations.each do |related_document| %>
+              <%= content_tag_for :li, related_document do %>
+                <%= link_to related_document.title, public_document_path(related_document) %>
+              <% end %>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+
+      <% if @countries.any? %>
+        <section id="countries">
+          <h1>Related countries</h1>
+          <ul>
+            <% @countries.each do |country| %>
+              <%= content_tag_for :li, country do %>
+                <%= link_to country.name, country_path(country) %>
+              <% end %>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+
     </article>
   </div>
 
 </div>
 
-<% if @related_news_articles.any? %>
-  <div class="g1 related_documents">
-    <section id="related-news-articles">
-      <h1>Related news</h1>
-      <ul>
-        <% @related_news_articles.each do |related_document| %>
-          <%= content_tag_for :li, related_document do %>
-            <%= link_to related_document.title, public_document_path(related_document) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  </div>
-<% end %>
-
-<% if @related_speeches.any? %>
-  <div class="g1 related_documents">
-    <section id="related-speeches">
-      <h1>Related speeches</h1>
-      <ul>
-        <% @related_speeches.each do |speech| %>
-          <%= content_tag_for :li, speech do %>
-            <%= link_to speech.title, public_document_path(speech) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  </div>
-<% end %>
-
-<% if @related_publications.any? %>
-  <div class="g1 related_documents">
-    <section id="related-publications">
-      <h1>Related publications</h1>
-      <ul>
-        <% @related_publications.each do |related_document| %>
-          <%= content_tag_for :li, related_document do %>
-            <%= link_to related_document.title, public_document_path(related_document) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  </div>
-<% end %>
-
-<% if @related_consultations.any? %>
-  <div class="g1 related_documents">
-    <section id="related-consultations">
-      <h1>Related consultations</h1>
-      <ul>
-        <% @related_consultations.each do |related_document| %>
-          <%= content_tag_for :li, related_document do %>
-            <%= link_to related_document.title, public_document_path(related_document) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  </div>
-<% end %>
-
-<% if @countries.any? %>
-  <div class="g1 related_documents">
-    <section id="countries">
-      <h1>Related countries</h1>
-      <ul>
-        <% @countries.each do |country| %>
-          <%= content_tag_for :li, country do %>
-            <%= link_to country.name, country_path(country) %>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
-  </div>
-<% end %>
-
 <% if @recently_changed_documents.any? %>
   <div class="g1 related_documents">
     <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents %>
   </div>
-<% end %>
-
-<% unless @related_news_articles.any? || @related_speeches.any? || @related_publications.any? || @related_consultations.any? || @recently_changed_documents.any? %>
-  <p class="nothing_related">This policy does not have any related content.</p>
+<% else %>
+  <p class="nothing_related">This policy has not had any recent changes.</p>
 <% end %>
