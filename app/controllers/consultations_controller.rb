@@ -24,7 +24,7 @@ class ConsultationsController < DocumentsController
   private
 
   def load_consultations_from_scope(scope)
-    @consultations = scope.published.by_published_at
+    @consultations = scope.published.by_published_at.includes(:document_identity, :organisations, :published_related_policies, ministerial_roles: [:current_people, :organisations])
   end
 
   def document_class
@@ -36,6 +36,6 @@ class ConsultationsController < DocumentsController
   end
 
   def load_featured_consultations
-    @featured_consultations = Consultation.published.featured.by_published_at.limit(3)
+    @featured_consultations = Consultation.published.featured.by_published_at.includes(:document_identity).limit(3)
   end
 end
