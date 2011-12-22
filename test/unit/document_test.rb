@@ -654,22 +654,6 @@ class DocumentTest < ActiveSupport::TestCase
     refute Document.new.featurable?
   end
 
-  test "should find multiple published documents with title containing search term" do
-    document_1 = create(:published_document, title: "ban beards")
-    document_2 = create(:published_document, title: "beards for everyone")
-    assert_equal [document_1, document_2].to_set, Document.search("beard").to_set
-  end
-
-  test "should find published document with title containing search term without regard to case" do
-    document = create(:published_document, title: "Ban beards")
-    assert_equal [document], Document.search("ban")
-  end
-
-  test "should not find unpublished document with title containing search term" do
-    create(:draft_document, title: "Ban beards")
-    assert_equal [], Document.search("beard")
-  end
-
   test "should return search index suitable for Rummageable" do
     policy = create(:published_policy, title: "policy-title")
     slug = policy.document_identity.slug

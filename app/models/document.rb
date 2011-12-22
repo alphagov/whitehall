@@ -137,9 +137,5 @@ class Document < ActiveRecord::Base
         where(id: document.related_policies.collect(&:id))
       end
     end
-
-    def search(query)
-      published.where("title LIKE :query", query: "%#{query}%")
-    end
   end
 end
