@@ -79,10 +79,10 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "should return the main type of the document" do
-    assert_equal "Consultation", main_document_type(build(:consultation))
-    assert_equal "News article", main_document_type(build(:news_article))
-    assert_equal "Policy", main_document_type(build(:policy))
-    assert_equal "Publication", main_document_type(build(:publication))
-    assert_equal "Speech", main_document_type(build(:speech))
+    assert_equal "Consultation", human_friendly_document_type(build(:consultation))
+    assert_equal "News article", human_friendly_document_type(build(:news_article))
+    assert_equal "Policy", human_friendly_document_type(build(:policy))
+    assert_equal "Publication", human_friendly_document_type(build(:publication))
+    assert_equal "Speech", human_friendly_document_type(build(:speech))
   end
 end

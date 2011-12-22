@@ -1,4 +1,4 @@
 <fieldset>
-  <%= form.label :country_ids, "Select the international locations this #{main_document_type(document).downcase} is about" %>
+  <%= form.label :country_ids, "Select the international locations this #{human_friendly_document_type(document).downcase} is about" %>
   <%= form.select :country_ids, options_from_collection_for_select(Country.all, 'id', 'name', document.country_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "International locations..."} %>
 </fieldset>

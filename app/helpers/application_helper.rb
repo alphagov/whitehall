@@ -82,8 +82,8 @@ module ApplicationHelper
     request.path =~ path_matcher ? 'current' : ''
   end
 
-  def main_document_type(document)
-    document.type.tableize.split("/").first.singularize.humanize
+  def human_friendly_document_type(document)
+    document.type.tableize.singularize.humanize
   end
 
   def yes_or_no(boolean)
