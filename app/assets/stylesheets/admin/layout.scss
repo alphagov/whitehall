@@ -212,9 +212,17 @@ section {
       }
     }
 
+    ul {
+      list-style: disc;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
     li {
       @include type-16;
-      @include scaled_margin_bottom(24);
+      margin-bottom: 0.75em;
 
       p {
         margin-bottom: 0;
