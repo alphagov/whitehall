@@ -33,7 +33,7 @@
     }
 
     h2 {
-      @include type-18;
+      @include type-16;
       text-align: center;
       color: #444;
     }
@@ -48,6 +48,10 @@
       border-top: 1px solid #ddd;
       padding-top: 1.5em;
       margin: 0 4%;
+
+      h2 {
+        margin-bottom: 0.375em;
+      }
 
       @media only screen and (min-width: 768px) {
         margin: 0 10%;
