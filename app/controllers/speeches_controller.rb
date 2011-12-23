@@ -4,7 +4,7 @@ class SpeechesController < DocumentsController
   end
 
   def show
-    @related_policies = Policy.published.related_to(@document)
+    @related_policies = @document.published_related_policies
   end
 
   private
