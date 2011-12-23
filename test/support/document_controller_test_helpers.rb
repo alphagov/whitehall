@@ -85,21 +85,21 @@ module DocumentControllerTestHelpers
     end
 
     def should_show_related_policies_and_policy_areas_for(document_type)
-      test 'show displays related published policies' do
+      test "show displays related published policies" do
         published_policy = create(:published_policy)
         document = create("published_#{document_type}", related_policies: [published_policy])
         get :show, id: document.document_identity
         assert_select_object published_policy
       end
 
-      test 'show doesn\'t display related unpublished policies' do
+      test "show doesn't display related unpublished policies" do
         draft_policy = create(:draft_policy)
         document = create("published_#{document_type}", related_policies: [draft_policy])
         get :show, id: document.document_identity
         refute_select_object draft_policy
       end
 
-      test 'show infers policy areas from published policies' do
+      test "show infers policy areas from published policies" do
         policy_area = create(:policy_area)
         published_policy = create(:published_policy, policy_areas: [policy_area])
         document = create("published_#{document_type}", related_policies: [published_policy])
