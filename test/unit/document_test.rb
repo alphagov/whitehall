@@ -654,22 +654,6 @@ class DocumentTest < ActiveSupport::TestCase
     refute Document.new.featurable?
   end
 
-  test "should find multiple published documents with title containing search term" do
-    document_1 = create(:published_document, title: "ban beards")
-    document_2 = create(:published_document, title: "beards for everyone")
-    assert_equal [document_1, document_2].to_set, Document.search("beard").to_set
-  end
-
-  test "should find published document with title containing search term without regard to case" do
-    document = create(:published_document, title: "Ban beards")
-    assert_equal [document], Document.search("ban")
-  end
-
-  test "should not find unpublished document with title containing search term" do
-    create(:draft_document, title: "Ban beards")
-    assert_equal [], Document.search("beard")
-  end
-
   test "should return search index suitable for Rummageable" do
     policy = create(:published_policy, title: "policy-title")
     slug = policy.document_identity.slug
@@ -687,5 +671,23 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal 2, results.length
     assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title"}, results[0])
     assert_equal({"title"=>"publication-title", "link"=>"/government/publications/publication-title"}, results[1])
+  end
+
+  test "should add document to search index on publishing" do
+    policy = create(:submitted_policy)
+
+    Rummageable.expects(:index).with(policy.search_index)
+
+    policy.publish_as(create(:departmental_editor))
+  end
+
+  test "should remove document from search index on archiving" do
+    policy = create(:published_policy)
+    slug = policy.document_identity.slug
+
+    Rummageable.expects(:delete).with("/government/policies/#{slug}")
+
+    new_edition = policy.create_draft(create(:policy_writer))
+    new_edition.publish_as(create(:departmental_editor), force: true)
   end
 end

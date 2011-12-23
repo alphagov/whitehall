@@ -21,6 +21,16 @@
   </head>
   <body class="website">
     <div class="header-context government group">
+      <div class="search-help">
+        <form id="search" class="site-search" action="<%= Whitehall.router_prefix %>/search" method="get" role="search">
+          <fieldset><legend class="visuallyhidden">Site search for www.gov.uk</legend>
+          <label for="site-search-text" class="visuallyhidden">
+            <span>Search</span>
+          </label>
+          <input type="search" name="q" id="site-search-text" title="Search" placeholder="type your search here" />
+          <input type="submit" value="Search" /></fieldset>
+        </form>
+      </div>
       <nav class="group" role="navigation">
         <%= link_to "Home", root_path, class: "home" %>
         <%= link_to "News & speeches", announcements_path %>
