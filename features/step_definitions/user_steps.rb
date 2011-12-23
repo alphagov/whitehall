@@ -10,6 +10,12 @@ When /^I set the organisation for "([^"]*)" to "([^"]*)"$/ do |name, organisatio
   click_button "Save"
 end
 
+When /^I set the role for "([^"]*)" to departmental editor$/ do |name|
+  begin_editing_user_details(name)
+  check "Departmental editor"
+  click_button "Save"
+end
+
 Then /^I should see my organisation is "([^"]*)"$/ do |organisation|
   visit admin_user_path
   assert page.has_css?(".user .organisation", text: organisation)
@@ -31,4 +37,9 @@ end
 Then /^I should see my email address is "([^"]*)"$/ do |email_address|
   visit admin_user_path
   assert page.has_css?(".user .email", text: email_address)
+end
+
+Then /^I should see that I am a departmental editor$/ do
+  visit admin_user_path
+  assert page.has_css?(".role", "Departmental Editor")
 end

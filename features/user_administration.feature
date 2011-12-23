@@ -16,8 +16,13 @@ Scenario: Logged in users should be able to set their email address
   When I set the email address for "John Smith" to "writer@example.com"
   Then I should see my email address is "writer@example.com"
 
-Scenario: Logged in users should be able to set their email address
+Scenario: Logged in users should be able to set their organisation
   Given I am a writer called "John Smith"
   And the organisation "Department of Beards" exists
   When I set the organisation for "John Smith" to "Department of Beards"
   Then I should see my organisation is "Department of Beards"
+
+Scenario: Logged in users should be able to set their role
+  Given I am a writer called "John Smith"
+  When I set the role for "John Smith" to departmental editor
+  Then I should see that I am a departmental editor

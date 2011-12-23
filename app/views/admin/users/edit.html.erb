@@ -8,6 +8,9 @@
     <%= form.label :organisation_id, 'Organisation' %>
     <%= form.select :organisation_id, options_from_collection_for_select(Organisation.all, 'id', 'name', form.object.organisation_id), {}, class: 'chzn-select', data: { placeholder: "Choose your organisation" } %>
 
+    <%= form.label :departmental_editor %>
+    <%= form.check_box :departmental_editor %>
+
     <%= form.save_or_cancel cancel: admin_user_path %>
   <% end %>
 </section>
