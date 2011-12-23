@@ -107,6 +107,15 @@ module DocumentControllerTestHelpers
         assert_select_object policy_area
       end
 
+      test "show doesn't display duplicate inferred policy areas" do
+        policy_area = create(:policy_area)
+        published_policy_1 = create(:published_policy, policy_areas: [policy_area])
+        published_policy_2 = create(:published_policy, policy_areas: [policy_area])
+        document = create("published_#{document_type}", related_policies: [published_policy_1, published_policy_2])
+        get :show, id: document.document_identity
+        assert_select_object policy_area, count: 1
+      end
+
       test "should not display policies unless they are related" do
         unrelated_policy = create(:published_policy)
         document = create("published_#{document_type}", related_policies: [])
