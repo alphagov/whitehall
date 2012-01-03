@@ -1,2 +1,2 @@
-Rummageable.host = Plek.current.find("search").gsub(/search/, "whitehall-search").gsub(/https/, "http")
+Rummageable.host = Plek.current.find("whitehall-search")
 Rummageable.path_prefix = Whitehall.router_prefix
