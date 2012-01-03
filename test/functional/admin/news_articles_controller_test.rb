@@ -26,7 +26,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#document_new" do
-      assert_select "select[name*='document[related_policy_ids]']"
+      assert_select "select[name*='document[related_document_identity_ids]']"
       assert_select "textarea.previewable.govspeak[name='document[notes_to_editors]']"
     end
   end
@@ -39,7 +39,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     post :create, document: attributes.merge(
       summary: "news-article-summary",
       notes_to_editors: "notes-to-editors",
-      related_policy_ids: [first_policy.id, second_policy.id]
+      related_document_identity_ids: [first_policy.document_identity.id, second_policy.document_identity.id]
     )
 
     created_news_article = NewsArticle.last
@@ -56,7 +56,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     put :update, id: news_article, document: {
       summary: "new-news-article-summary",
       notes_to_editors: "new-notes-to-editors",
-      related_policy_ids: [second_policy.id]
+      related_document_identity_ids: [second_policy.document_identity.id]
     }
 
     saved_news_article = news_article.reload

@@ -218,6 +218,15 @@ When /^I resubmit the policy titled "([^"]*)"$/ do |policy_title|
   click_button "Submit to 2nd pair of eyes"
 end
 
+When /^I publish a new edition of the policy "([^"]*)" with the new title "([^"]*)"$/ do |policy_title, new_title|
+  policy = Policy.find_by_title!(policy_title)
+  visit admin_document_path(policy)
+  click_button "Create new edition"
+  fill_in "Title", with: new_title
+  click_button "Save"
+  click_button "Force Publish"
+end
+
 Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
   assert page.has_css?(".fact_check_request .comments", text: comments)
 end

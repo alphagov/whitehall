@@ -153,28 +153,6 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [policy], publication_2.related_policies
   end
 
-  test "should add related documents bi-directionally" do
-    policy_1 = create(:policy)
-    policy_2 = create(:policy)
-    publication = create(:publication, related_policies: [])
-
-    publication.update_attributes!(related_policy_ids: [policy_1.id, policy_2.id])
-
-    assert_equal [policy_1, policy_2], publication.related_policies
-    assert_equal [publication], policy_1.related_documents
-    assert_equal [publication], policy_2.related_documents
-  end
-
-  test "should remove related policies bi-directionally" do
-    policy = create(:policy)
-    publication = create(:publication, related_policies: [policy])
-
-    publication.update_attributes!(related_policy_ids: [])
-
-    assert_equal [], publication.related_policies
-    assert_equal [], policy.related_documents
-  end
-
   test "return published documents bi-directionally related to specific policy" do
     policy = create(:published_policy)
     document_1 = create(:published_publication, related_policies: [policy])
@@ -183,28 +161,6 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [document_1, document_2], policy.published_related_documents
     assert_equal [policy], document_1.published_related_policies
     assert_equal [policy], document_2.published_related_policies
-  end
-
-  test "should add published related documents bi-directionally" do
-    policy_1 = create(:published_policy)
-    policy_2 = create(:published_policy)
-    document = create(:published_publication)
-
-    document.update_attributes!(published_related_policy_ids: [policy_1.id, policy_2.id])
-
-    assert_equal [policy_1, policy_2], document.published_related_policies
-    assert_equal [document], policy_1.published_related_documents
-    assert_equal [document], policy_2.published_related_documents
-  end
-
-  test "should remove published related documents bi-directionally" do
-    policy = create(:published_policy)
-    publication = create(:published_publication, related_policies: [policy])
-
-    publication.update_attributes!(published_related_policy_ids: [])
-
-    assert_equal [], publication.published_related_policies
-    assert_equal [], policy.published_related_documents
   end
 
   test "#creator= builds a document_creator with the given creator for new records" do
