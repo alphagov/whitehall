@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/alphagov/gds-sso.git
-  revision: 450e01bbf67df4aa4c6dacc7d0710092f8b2afbb
+  revision: 9262d94221a46ad9329a5a4040cb71cbe5fdc1f7
   specs:
     gds-sso (0.2.0)
       oa-core (= 0.2.6)
