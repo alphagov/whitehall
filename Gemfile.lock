@@ -26,9 +26,9 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/rummageable.git
-  revision: fbe8927c17f47a3cd0bdedb10527f452108f633e
+  revision: d72856a1f63490ae421e7aad5bed8170d6e91fc0
   specs:
-    rummageable (0.1.0)
+    rummageable (0.1.1)
       json
       plek
       rest-client
@@ -177,7 +177,7 @@ GEM
     object_regex (1.0.1)
     pdf-reader (0.10.1)
       Ascii85 (~> 1.0.0)
-    plek (0.1.17)
+    plek (0.1.18)
       builder
     polyglot (0.3.3)
     rack (1.3.5)
