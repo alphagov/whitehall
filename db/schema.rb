@@ -84,9 +84,9 @@ ActiveRecord::Schema.define(:version => 20120105220325) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "lock_version",          :default => 0
+    t.integer  "lock_version",                      :default => 0
     t.integer  "document_identity_id"
-    t.string   "state",                 :default => "draft", :null => false
+    t.string   "state",                             :default => "draft", :null => false
     t.string   "type"
     t.integer  "role_appointment_id"
     t.string   "location"
@@ -97,13 +97,14 @@ ActiveRecord::Schema.define(:version => 20120105220325) do
     t.date     "publication_date"
     t.string   "unique_reference"
     t.string   "isbn"
-    t.boolean  "research",              :default => false
+    t.boolean  "research",                          :default => false
     t.string   "order_url"
     t.text     "notes_to_editors"
-    t.boolean  "corporate_publication", :default => false
-    t.boolean  "featured",              :default => false
+    t.boolean  "corporate_publication",             :default => false
+    t.boolean  "featured",                          :default => false
     t.text     "summary"
     t.integer  "speech_type_id"
+    t.integer  "consultation_document_identity_id"
     t.string   "carrierwave_image"
   end
 

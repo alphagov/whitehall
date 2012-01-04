@@ -43,6 +43,30 @@ class ConsultationTest < ActiveSupport::TestCase
     assert draft_consultation.featured?
   end
 
+  test "#published_consultation_response provides access to the published response" do
+    consultation = create(:published_consultation)
+    consultation_response = create(:published_consultation_response, consultation: consultation)
+    assert_equal consultation_response, consultation.published_consultation_response
+  end
+
+  test "#published_consultation_response excludes draft responses" do
+    consultation = create(:published_consultation)
+    consultation_response = create(:draft_consultation_response, consultation: consultation)
+    assert_nil consultation.published_consultation_response
+  end
+
+  test "#latest_consultation_response provides access to the latest consultation response" do
+    consultation = create(:published_consultation)
+    consultation_response = create(:published_consultation_response, consultation: consultation)
+    assert_equal consultation_response, consultation.latest_consultation_response
+  end
+
+  test "#latest_consultation_response includes draft responses" do
+    consultation = create(:published_consultation)
+    consultation_response = create(:draft_consultation_response, consultation: consultation)
+    assert_equal consultation_response, consultation.latest_consultation_response
+  end
+
   test ".closed includes consultations closing in the past" do
     closed_consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
 
