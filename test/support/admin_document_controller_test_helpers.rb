@@ -278,6 +278,29 @@ module AdminDocumentControllerTestHelpers
         refute_select "p.attachment"
       end
 
+      test "creating a document with multiple attachments should attach all files" do
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+        csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
+        attributes = controller_attributes_for(document_type)
+        attributes[:attachments_attributes] = {
+          "0" => { file: greenpaper_pdf },
+          "1" => { file: csv_file }
+        }
+
+        post :create, document: attributes
+
+        assert document = document_class.last
+        assert_equal 2, document.attachments.length
+        attachment_1 = document.attachments.first
+        assert_equal "greenpaper.pdf", attachment_1.carrierwave_file
+        assert_equal "application/pdf", attachment_1.content_type
+        assert_equal greenpaper_pdf.size, attachment_1.file_size
+        attachment_2 = document.attachments.last
+        assert_equal "sample-from-excel.csv", attachment_2.carrierwave_file
+        assert_equal "text/csv", attachment_2.content_type
+        assert_equal csv_file.size, attachment_2.file_size
+      end
+
       test 'edit displays document attachment fields' do
         document = create(document_type)
 
@@ -302,6 +325,27 @@ module AdminDocumentControllerTestHelpers
         assert_equal "greenpaper.pdf", attachment.carrierwave_file
         assert_equal "application/pdf", attachment.content_type
         assert_equal greenpaper_pdf.size, attachment.file_size
+      end
+
+      test 'updating a document should attach multiple files' do
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+        csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
+        document = create(document_type)
+
+        put :update, id: document, document: document.attributes.merge(
+          attachments_attributes: { "0" => { file: greenpaper_pdf }, "1" => { file: csv_file } }
+        )
+
+        document.reload
+        assert_equal 2, document.attachments.length
+        attachment_1 = document.attachments.first
+        assert_equal "greenpaper.pdf", attachment_1.carrierwave_file
+        assert_equal "application/pdf", attachment_1.content_type
+        assert_equal greenpaper_pdf.size, attachment_1.file_size
+        attachment_2 = document.attachments.last
+        assert_equal "sample-from-excel.csv", attachment_2.carrierwave_file
+        assert_equal "text/csv", attachment_2.content_type
+        assert_equal csv_file.size, attachment_2.file_size
       end
 
       test "updating a document with invalid data should still allow attachment to be selected for upload" do
