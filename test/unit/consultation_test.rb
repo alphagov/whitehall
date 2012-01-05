@@ -80,8 +80,21 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal 0, Consultation.closed.count
   end
 
+  test ".closed excludes consultations closing today" do
+    open_consultation = create(:consultation, opening_on: 2.days.ago, closing_on: Date.today)
+
+    assert_equal 0, Consultation.closed.count
+  end
+
   test ".open includes consultations closing in the future and opening in the past" do
     open_consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.from_now)
+
+    assert_equal 1, Consultation.open.count
+    assert_equal open_consultation, Consultation.open.first
+  end
+
+  test ".open includes consultations closing today and opening in the past" do
+    open_consultation = create(:consultation, opening_on: 2.days.ago, closing_on: Date.today)
 
     assert_equal 1, Consultation.open.count
     assert_equal open_consultation, Consultation.open.first

@@ -35,15 +35,15 @@ class Consultation < Document
 
   class << self
     def closed
-      where 'closing_on <= :now', now: Time.zone.now
+      where 'closing_on < :today', today: Date.today
     end
 
     def open
-      where 'closing_on > :now AND opening_on <= :now', now: Time.zone.now
+      where 'closing_on >= :today AND opening_on <= :today', today: Date.today
     end
 
     def upcoming
-      where 'opening_on > :now', now: Time.zone.now
+      where 'opening_on > :today', today: Date.today
     end
   end
 end
