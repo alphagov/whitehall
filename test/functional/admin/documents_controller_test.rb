@@ -165,6 +165,15 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     refute_select ".type", text: "Policy"
   end
 
+  test "should be able to filter by consultation responses when viewing list of documents" do
+    policy = create(:draft_policy)
+    consultation_response = create(:consultation_response)
+    get :draft, filter: 'consultation_response'
+
+    assert_select_object(consultation_response) { assert_select ".type", text: "Consultation Response" }
+    refute_select ".type", text: "Policy"
+  end
+
   test "should be able to show only documents authored by user when viewing list of documents" do
     user = create(:policy_writer)
     authored_policy = create(:draft_policy, creator: user)

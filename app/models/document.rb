@@ -126,7 +126,7 @@ class Document < ActiveRecord::Base
     end
 
     def by_type(type)
-      where(Document.arel_table[:type].matches("%#{type}%"))
+      where(type: type)
     end
 
     def related_to(document)

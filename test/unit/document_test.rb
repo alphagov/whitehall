@@ -449,13 +449,15 @@ class DocumentTest < ActiveSupport::TestCase
     publication = create(:publication)
     news = create(:news_article)
     speech = create(:speech)
-    consultation = create(:consultation)
+    consultation_response = create(:consultation_response)
+    consultation = consultation_response.consultation
 
     assert_equal [policy], Document.by_type('Policy')
     assert_equal [publication], Document.by_type('Publication')
     assert_equal [news], Document.by_type('NewsArticle')
     assert_equal [speech], Document.by_type('Speech')
     assert_equal [consultation], Document.by_type('Consultation')
+    assert_equal [consultation_response], Document.by_type('ConsultationResponse')
   end
 
   [:draft, :submitted, :rejected].each do |state|
