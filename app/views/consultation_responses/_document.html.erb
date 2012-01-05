@@ -1,0 +1,27 @@
+<div class="g3">
+  <h1 class="page_title title has_meta"><%= document.title %></h1>
+  <p class="meta">
+    <span class="metadata">Last updated
+    <%= render_datetime_microformat(document, :published_at) do %>
+      <%= time_ago_in_words(document.published_at) %> ago
+    <% end %></span>
+  </p>
+</div>
+
+<div class="g3f document_page">
+  <div class="g1r">
+    <section class="contextual_info">
+      <h1>Original consultation</h1>
+      <%= link_to @consultation.title, public_document_path(@consultation) %>
+    </section>
+  </div>
+
+  <div class="g2">
+    <article class="document has_notice">
+      <div class="body">
+        <%= govspeak_to_html document.body %>
+      </div>
+      <%= render partial: "attachments", locals: { document: document } %>
+    </article>
+  </div>
+</div>
