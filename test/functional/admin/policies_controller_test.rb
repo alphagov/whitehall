@@ -129,4 +129,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     policy.reload
     assert policy.related_documents.include?(publication), "polcy and publication should still be related"
   end
+
+  test "show does not display image for document types that do not allow one" do
+    policy = create(:policy)
+
+    get :show, id: policy
+
+    refute_select ".image img"
+  end
 end

@@ -28,6 +28,7 @@ end
 When /^I draft a new news article "([^"]*)"$/ do |title|
   begin_drafting_document type: "news_article", title: title
   fill_in "Summary", with: "here's a simple summary"
+  attach_file "Image", Rails.root.join("features/fixtures/portas-review.jpg")
   click_button "Save"
 end
 

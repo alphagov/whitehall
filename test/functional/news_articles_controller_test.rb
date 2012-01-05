@@ -45,4 +45,25 @@ class NewsArticlesControllerTest < ActionController::TestCase
       assert_select ".published_at", text: "10 days ago"
     end
   end
+
+  test "show displays the image for the news article" do
+    portas_review_jpg = fixture_file_upload('portas-review.jpg')
+    news_article = create(:published_news_article, image: portas_review_jpg)
+
+    get :show, id: news_article.document_identity
+
+    assert_select ".document_view" do
+      assert_select ".image img[src='#{news_article.image_url}']"
+    end
+  end
+
+  test "show only displays image if there is one" do
+    news_article = create(:published_news_article, image: nil)
+
+    get :show, id: news_article.document_identity
+
+    assert_select ".document_view" do
+      refute_select ".image img"
+    end
+  end
 end

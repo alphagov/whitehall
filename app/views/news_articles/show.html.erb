@@ -26,6 +26,11 @@
       <div class="body">
         <%= govspeak_to_html @document.body %>
       </div>
+      <% if @document.image.present? %>
+        <div class="image">
+          <%= image_tag(@document.image_url) %>
+        </div>
+      <% end %>
       <% if @document.notes_to_editors.present? %>
         <section id="notes_to_editors">
           <h1>Notes to editors</h1>

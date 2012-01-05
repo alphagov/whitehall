@@ -7,3 +7,8 @@
 <div class="body">
   <%= govspeak_to_admin_html document.body %>
 </div>
+<% if document.respond_to?(:image) && document.image.present? %>
+  <div class="image">
+    <%= image_tag(document.image_url) %>
+  </div>
+<% end %>

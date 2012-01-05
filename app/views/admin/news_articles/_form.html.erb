@@ -2,6 +2,18 @@
   <%= form.errors %>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
 
+  <fieldset class="image">
+    <%= form.label :image, "Image" %>
+    <%= form.file_field :image %>
+    <% if document.image_cache.present? %>
+      <span class="already_uploaded"><%= File.basename(document.image_cache) %> already uploaded</span>
+    <% end %>
+    <%= form.hidden_field :image_cache %>
+    <% if document.persisted? %>
+      <%= image_tag document.image_url %>
+    <% end %>
+  </fieldset>
+
   <%= render partial: 'related_policy_fields', locals: { form: form, document: document } %>
   <%= render partial: 'organisation_fields', locals: { form: form, document: document } %>
   <%= render partial: 'minister_fields', locals: { form: form, document: document } %>
