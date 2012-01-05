@@ -1,12 +1,43 @@
-<%= render partial: 'document', locals: { document: @document } %>
+<div class="g3">
+  <h1 class="page_title title has_meta"><%= @document.title %></h1>
+  <p class="meta">
+    <span class="metadata">Last updated
+    <%= render_datetime_microformat(@document, :published_at) do %>
+      <%= time_ago_in_words(@document.published_at) %> ago
+    <% end %></span>
 
+    <% @related_policies.map { |d| d.policy_areas }.flatten.uniq.each do |policy_area| %>
+      <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area" %>
+    <% end %>
 
-<div class="g1 related_documents">
-  <%= render partial: 'organisations', locals: { organisations: @document.organisations } %>
+    <% @document.organisations.each do |organisation| %>
+      <%= link_to organisation.name, organisation_path(organisation), class: "organisation" %>
+    <% end %>
+
+    <% @document.ministerial_roles.each do |ministerial_role| %>
+      <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
+    <% end %>
+  </p>
 </div>
 
-<div class="g1 related_documents">
-  <%= render partial: 'ministerial_roles', locals: { ministerial_roles: @document.ministerial_roles } %>
+<div class="g3f document_page">
+  <div class="g1r">
+    <section class="contextual_info">
+      <h1>Notable dates</h1>
+      <p class="opening_on"><%= consultation_opening_phrase(@document) %></p>
+      <p class="closing_on"><%= consultation_closing_phrase(@document) %></p>
+    </section>
+  </div>
+
+  <div class="g2">
+    <%= render partial: 'inapplicable_nations', locals: { document: @document } %>
+    <article class="document has_notice">
+      <div class="body">
+        <%= govspeak_to_html @document.body %>
+      </div>
+      <%= render partial: "attachments", locals: { document: @document } %>
+    </article>
+  </div>
 </div>
 
 <%= render partial: 'related_policies', object: @related_policies %>
