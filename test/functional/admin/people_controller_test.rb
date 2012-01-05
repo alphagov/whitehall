@@ -28,7 +28,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   end
 
   test "editing shows existing image" do
-    person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
+    person = create(:person, image: fixture_file_upload('minister-of-funk.jpg'))
     get :edit, id: person
 
     assert_select "img[src='#{person.image_url}']"
