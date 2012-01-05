@@ -4,7 +4,6 @@
     <% if @organisation.organisation_type %>
       <h2 class="category"><%= @organisation.organisation_type.name %></h2>
     <% end %>
-
     <div class="page_detail">
       <div class="g2">
         <p class="description"><%= format_with_html_line_breaks(@organisation.description) %></p>
@@ -29,8 +28,6 @@
 
         <h3>Office location:</h3>
         <p><%= link_to_google_map(@organisation) %></p>
-
-
 
       </div>
     </div>

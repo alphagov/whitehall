@@ -139,7 +139,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: document.document_identity
 
-        assert_select countries_selector do
+        assert_select metadata_nav_selector do
           assert_select_object first_country
           assert_select_object second_country
           refute_select_object third_country
@@ -151,7 +151,9 @@ module DocumentControllerTestHelpers
 
         get :show, id: document.document_identity
 
-        refute_select countries_selector
+        assert_select metadata_nav_selector do
+          refute_select '.country'
+        end
       end
     end
 

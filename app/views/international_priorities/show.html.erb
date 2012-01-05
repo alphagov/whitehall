@@ -1,8 +1,27 @@
-<div class="g2">
-  <%= render partial: 'document', locals: { document: @document } %>
+<div class="g3">
+  <h1 class="page_title title has_meta"><%= @document.title %></h1>
+  <p class="meta">
+    <span class="metadata">Last updated
+    <%= render_datetime_microformat(@document, :published_at) do %>
+      <%= time_ago_in_words(@document.published_at) %> ago
+    <% end %></span>
+    <% @document.organisations.each do |organisation| %>
+      <%= link_to organisation.name, organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
+    <% end %>
+    <% @document.countries.each do |country| %>
+      <%= link_to country.name, country_path(country), class: "country", id: dom_id(country) %>
+    <% end %>
+  </p>
 </div>
 
-<div class="g1 secondary">
-  <%= render partial: 'countries', locals: { countries: @document.countries } %>
-  <%= render partial: 'organisations', locals: { organisations: @document.organisations } %>
+<div class="g3f document_page">
+  <div class="g1r">
+  </div>
+  <div class="g2 document_view">
+    <article class="document">
+      <div class="body">
+        <%= govspeak_to_html @document.body %>
+      </div>
+    </article>
+  </div>
 </div>

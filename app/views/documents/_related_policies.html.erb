@@ -11,16 +11,4 @@
     </ul>
   </section>
 </div>
-<div class="g1 related_documents">
-  <section>
-    <h1>Policy Areas</h1>
-    <ul>
-      <% related_policies.map { |d| d.policy_areas }.flatten.uniq.each do |policy_area| %>
-        <%= content_tag_for :li, policy_area do %>
-          <%= link_to policy_area.name, policy_area_path(policy_area) %>
-        <% end %>
-      <% end %>
-    </ul>
-  </section>
-</div>
 <% end %>
