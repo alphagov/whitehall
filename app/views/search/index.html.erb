@@ -1,0 +1,13 @@
+<div class="g3 search_results">
+  <h1 class="page_title">Found <%= pluralize(@results.length, "result") %> for "<%= @search_term %>"</h1>
+
+  <% if @results.any? %>
+    <ul>
+      <% @results.each do |result| %>
+        <li><%= link_to result["title"], result["link"] %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>We can't find any results for "<%= @search_term %>".</p>
+  <% end %>
+</div>

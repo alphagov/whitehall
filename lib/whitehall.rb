@@ -6,6 +6,7 @@ module Whitehall
   autoload :Presenters, 'whitehall/presenters'
   autoload :RedirectToRouterPrefix, 'whitehall/redirect_to_router_prefix'
   autoload :RouterPrefixEngine, 'whitehall/router_prefix_engine'
+  autoload :SearchClient, 'whitehall/search_client'
 
   class << self
     def router_prefix
@@ -30,6 +31,18 @@ module Whitehall
 
     def aws_secret_access_key
       secrets["aws_secret_access_key"]
+    end
+
+    def rummager_uri
+      secrets["rummager_uri"]
+    end
+
+    def rummager_http_auth_username
+      secrets["rummager_http_auth_username"]
+    end
+
+    def rummager_http_auth_password
+      secrets["rummager_http_auth_password"]
     end
 
     def use_s3?

@@ -1,0 +1,18 @@
+@import "../shared/utils";
+
+#content {
+  .search_results {
+    p, ul {
+      @include span_three_columns;
+    }
+
+    ul {
+      li {
+        padding-left: 1%;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 0.75em;
+        margin-bottom: 0.75em;
+      }
+    }
+  }
+}

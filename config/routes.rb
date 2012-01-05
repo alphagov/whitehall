@@ -39,6 +39,8 @@ Whitehall::Application.routes.draw do
     resources :ministers, only: [:index, :show], as: :ministerial_roles, controller: :ministerial_roles
     resources :countries, only: [:index, :show]
 
+    match "/search" => "search#index"
+
     constraints(AdminRequest) do
       namespace :admin do
         root to: redirect('/admin/documents')

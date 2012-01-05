@@ -4,6 +4,7 @@ require 'rails/test_help'
 require 'mocha'
 require 'slimmer/test'
 require 'factories'
+require 'webmock/test_unit'
 Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
 Mocha::Configuration.prevent(:stubbing_non_existent_method)

@@ -43,6 +43,7 @@ group :test do
   gem 'test_track'
   gem 'timecop'
   gem 'versionomy'
+  gem 'webmock'
 end
 
 group :router do
