@@ -1,0 +1,26 @@
+<div class="g2 first">
+  <section class="document">
+    <%= render partial: 'navigation', locals: { document: @document } %>
+    <%= render partial: "rejected_by", locals: { document: @document } %>
+    <%= render partial: 'document', locals: { document: @document } %>
+    <% if @document.notes_to_editors.present? %>
+      <section id="notes_to_editors">
+        <h1>Notes to editors</h1>
+        <%= govspeak_to_html @document.notes_to_editors %>
+      </section>
+    <% end %>
+  </section>
+</div>
+
+<div class="g1">
+  <section class="container">
+    <h1>Consultation</h1>
+    <%= content_tag_for :p, @document.consultation do %>
+      This is a response to the consultation 
+      <%= link_to @document.consultation.title, admin_consultation_path(@document.consultation) %>
+    <% end %>
+  </section>
+</div>
+
+<div class="group">&nbsp;</div>
+<%= render partial: 'fact_check_responses', locals: {document: @document} %>

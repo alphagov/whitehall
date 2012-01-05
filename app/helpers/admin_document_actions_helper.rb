@@ -46,4 +46,20 @@ module AdminDocumentActionsHelper
   def delete_document_button(document)
     button_to 'Delete', admin_document_path(document), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?"
   end
+
+  def show_or_add_consultation_response_button(consultation)
+    if consultation.latest_consultation_response
+      show_consultation_response_button(consultation)
+    else
+      add_consultation_response_button(consultation)
+    end
+  end
+
+  def add_consultation_response_button(consultation)
+    link_to 'Add response', new_admin_consultation_response_path(document: {consultation_id: consultation}), title: "Add response", class: "button"
+  end
+
+  def show_consultation_response_button(consultation)
+    link_to 'Show response', admin_consultation_response_path(consultation.latest_consultation_response), title: "Show response", class: "button"
+  end
 end

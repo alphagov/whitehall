@@ -30,4 +30,9 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     consultation = create(:consultation)
     assert_equal consultation_path(consultation.document_identity), public_document_path(consultation)
   end
+
+  test 'returns the singleton consultation_response_path for ConsultationResponse instances' do
+    consultation_response = create(:consultation_response)
+    assert_equal consultation_response_path(consultation_response.consultation.document_identity), public_document_path(consultation_response)
+  end
 end

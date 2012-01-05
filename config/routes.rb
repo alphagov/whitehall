@@ -26,6 +26,8 @@ Whitehall::Application.routes.draw do
         get :closed
         get :upcoming
       end
+
+      resource :response, only: [:show], controller: :consultation_responses
     end
 
     resources :speeches, only: [:index, :show]
@@ -88,6 +90,7 @@ Whitehall::Application.routes.draw do
             post :unfeature
           end
         end
+        resources :responses, as: :consultation_responses, controller: :consultation_responses, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :speeches, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :people, only: [:index, :new, :create, :edit, :update, :destroy]
         resources :roles, only: [:index, :new, :create, :edit, :update, :destroy]
