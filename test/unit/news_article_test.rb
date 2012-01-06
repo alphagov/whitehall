@@ -2,6 +2,7 @@ require "test_helper"
 
 class NewsArticleTest < ActiveSupport::TestCase
   include DocumentBehaviour
+  include ActionDispatch::TestProcess
 
   should_be_featurable :news_article
 
@@ -34,5 +35,13 @@ class NewsArticleTest < ActiveSupport::TestCase
     second_related_policy = create(:published_policy, policy_areas: [policy_area])
     news_article = create(:news_article, related_policies: [first_related_policy, second_related_policy])
     assert_equal [policy_area], news_article.policy_areas
+  end
+
+  test "should build a draft copy retaining any associated image with responds to present" do
+    news_article = create(:published_news_article, image: fixture_file_upload('portas-review.jpg'))
+    assert news_article.image.present?, "original image should be present for this test to be valid"
+
+    draft_article = news_article.create_draft(create(:policy_writer))
+    assert draft_article.image.present?
   end
 end

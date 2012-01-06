@@ -7,6 +7,12 @@ class NewsArticle < Document
 
   mount_uploader :image, DocumentImageUploader, mount_on: :carrierwave_image
 
+  add_trait do
+    def process_associations_before_save(document)
+      document.image = @document.image.file if @document.image.present?
+    end
+  end
+
   has_many :policy_areas, through: :published_related_policies, group: 'policy_areas.id'
 
   def has_summary?
