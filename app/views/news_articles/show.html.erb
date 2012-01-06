@@ -20,17 +20,17 @@
   </p>
 </div>
 
-<div class="g3f document_page">
+<div id="news_page" class="g3f document_page">
   <div class="g2 document_view">
     <article class="document">
       <div class="body">
+        <% if @document.image.present? %>
+          <div class="img">
+            <%= image_tag(@document.image_url) %>
+          </div>
+        <% end %>
         <%= govspeak_to_html @document.body %>
       </div>
-      <% if @document.image.present? %>
-        <div class="image">
-          <%= image_tag(@document.image_url) %>
-        </div>
-      <% end %>
       <% if @document.notes_to_editors.present? %>
         <section id="notes_to_editors">
           <h1>Notes to editors</h1>
@@ -41,6 +41,19 @@
       <% end %>
     </article>
   </div>
-</div>
 
-<%= render partial: 'related_policies', object: @related_policies %>
+  <% if @related_policies.any? %>
+    <div class="g1f related_documents">
+      <section id="related-policies">
+        <h1>Related policies</h1>
+        <ul>
+          <% @related_policies.each do |related_policy| %>
+            <%= content_tag_for :li, related_policy do %>
+              <%= link_to related_policy.title, public_document_path(related_policy) %>
+            <% end %>
+          <% end %>
+        </ul>
+      </section>
+    </div>
+  <% end %>
+</div>

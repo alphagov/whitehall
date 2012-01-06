@@ -53,7 +53,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: news_article.document_identity
 
     assert_select ".document_view" do
-      assert_select ".image img[src='#{news_article.image_url}']"
+      assert_select ".img img[src='#{news_article.image_url}']"
     end
   end
 
@@ -63,7 +63,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: news_article.document_identity
 
     assert_select ".document_view" do
-      refute_select ".image img"
+      refute_select ".img img"
     end
   end
 end
