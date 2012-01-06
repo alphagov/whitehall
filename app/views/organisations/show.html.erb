@@ -36,10 +36,26 @@
 
 <div class="g3">
   <% if @featured_news_articles.any? %>
-    <div class="g3 featured_news_articles">
-      <section class="featured_items">
-        <h1>Featured News</h1>
-        <%= render partial: "announcements/news_article", collection: @featured_news_articles %>
+    <div class="g3">
+      <section class="featured_items" id="featured-news-articles">
+      <% @featured_news_articles.each do |news_article| %>
+        <%= content_tag_for(:article, news_article) do %>
+          <div class="inner">
+            <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
+            <p class="summary"><%= news_article.summary %></p>
+            <p class="meta">
+              <span class="published_at">Posted <%= render_datetime_microformat(news_article, :published_at) do %>
+                  <%= time_ago_in_words(news_article.published_at) %> ago
+                <% end %>
+              </span>
+              <% news_article.policy_areas.uniq.each do |pa| %>
+                <%= link_to pa.name, policy_area_path(pa), class: "policy_area" %>
+              <% end %>
+            </p>
+          </div>
+        <% end %>
+      <% end %>
+      <%#= render partial: "announcements/news_article", collection: @featured_news_articles %>
       </section>
     </div>
   <% end %>
