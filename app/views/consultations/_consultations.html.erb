@@ -7,6 +7,13 @@
           <p class="summary">
             <%= consultation.summary %>
           </p>
+          <% if consultation.published_consultation_response %>
+            <div class="response">  
+              Response
+              '<%= link_to consultation.published_consultation_response.title, consultation_response_path(consultation.document_identity) %>' published 
+              <%= time_ago_in_words(consultation.published_consultation_response.published_at) %> ago
+            </div>
+          <% end %>
           <div class="details small">
             <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
             <span class="opening_on"><%= consultation_opening_phrase(consultation) %></span>

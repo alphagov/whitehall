@@ -58,6 +58,15 @@ class ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index shows response if one has been published" do
+    consultation_response = create(:published_consultation_response, title: 'response')
+    consultation = consultation_response.consultation
+
+    get :index
+
+    assert_select "a[href='#{consultation_response_path(consultation.document_identity)}']", text: consultation_response.title
+  end
+
   test "should indicate that the list of consultations is limited to only those that are open" do
     get :open
     assert_select "h1", text: "Browse open consultations"
