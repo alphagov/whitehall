@@ -1,0 +1,20 @@
+<div class="g3">
+  <section>
+    <h1>Recently updated</h1>
+    <ul>
+      <% @recently_updated.each do |document| %>
+        <%= content_tag_for :li, document do %>
+          <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
+          <p><%= document.summary %></p>
+          <div class="metadata">
+            <span class="document_type"><%= human_friendly_document_type(document) %></span>
+            published
+            <%= render_datetime_microformat(document, :published_at) do %>
+              <%= time_ago_in_words(document.published_at) %> ago
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+</div>
