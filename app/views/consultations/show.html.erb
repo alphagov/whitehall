@@ -35,7 +35,7 @@
       <%= render partial: "attachments", locals: { document: @document } %>
     </article>
     <% if @document.published_consultation_response %>
-    Response: <%= link_to "#{@document.published_consultation_response.title}", consultation_response_path(@document) %>
+    Response: <%= link_to "#{@document.published_consultation_response.title}", consultation_response_path(@document.document_identity) %>
     <% end %>
   </div>
 </div>
