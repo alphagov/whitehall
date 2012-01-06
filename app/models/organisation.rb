@@ -10,6 +10,7 @@ class Organisation < ActiveRecord::Base
   has_many :documents, through: :document_organisations
   has_many :published_documents, through: :document_organisations, class_name: "Document", conditions: { state: "published" }, source: :document
   has_many :corporate_publications, through: :document_organisations, class_name: "Publication", conditions: {"documents.corporate_publication" => true}, source: :document
+  has_many :featured_news_articles, through: :document_organisations, class_name: "NewsArticle", conditions: { "document_organisations.featured" => true, "documents.state" => "published" }, source: :document
 
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles

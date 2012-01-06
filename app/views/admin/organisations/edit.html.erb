@@ -1,6 +1,31 @@
 <div class="g2 first">
   <section>
     <h1>Edit organisation</h1>
-    <%= render partial: "form", locals: {organisation: @organisation} %>
+    <%= render partial: "form", locals: {organisation: @organisation} %>    
   </section>
+
+  <% if @news_articles.any? %>
+    <section>
+      <h2>News Articles</h2>
+      <table>
+        <% @news_articles.each do |news_article| %>
+          <%= content_tag_for(:tr, news_article) do %>
+            <td><%= link_to news_article.title, admin_document_path(news_article) %></td>
+            <td>
+              <% association = news_article.document_organisations.where(organisation_id: @organisation).first %>
+              <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
+                <% if association.featured? %>
+                  <%= f.hidden_field :featured, value: false %>
+                  <%= f.submit "No longer feature" %>
+                <% else %>
+                  <%= f.hidden_field :featured, value: true %>
+                  <%= f.submit "Feature" %>
+                <% end %>
+              <% end %>
+            </td>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
 </div>

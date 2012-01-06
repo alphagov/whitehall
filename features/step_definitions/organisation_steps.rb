@@ -54,6 +54,24 @@ When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
 end
 
+When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |name, table|
+  organisation = Organisation.find_by_name!(name)
+  visit edit_admin_organisation_path(organisation)
+  table.rows.each do |title|
+    news_article = NewsArticle.find_by_title(title)
+    within record_css_selector(news_article) do
+      click_button "Feature"
+    end
+  end
+end
+
+Then /^I should see the featured news articles in the "([^"]*)" organisation are:$/ do |name, expected_table|
+  visit_organisation name
+  rows = find(".featured_news_articles").all('.news_article')
+  table = rows.map { |r| r.all('a.title').map { |c| c.text.strip } }
+  expected_table.diff!(table)
+end
+
 Then /^I should only see published policies belonging to the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)
   documents = records_from_elements(Document, page.all(".document"))

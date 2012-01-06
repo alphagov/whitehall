@@ -35,6 +35,14 @@
 </div>
 
 <div class="g3">
+  <% if @featured_news_articles.any? %>
+    <div class="g3 featured_news_articles">
+      <section>
+        <h1>Featured News</h1>
+        <%= render partial: "announcements/news_article", collection: @featured_news_articles %>
+      </section>
+    </div>
+  <% end %>
   <div class="g2 related_documents"><%= render partial: "documents/news_articles", object: @news_articles %></div>
 
   <div class="g1 related_documents"><%= render partial: "documents/policy_areas", object: @organisation.policy_areas %></div>

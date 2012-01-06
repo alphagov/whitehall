@@ -10,6 +10,7 @@ class OrganisationsController < ApplicationController
     load_published_documents_in_scope { |scope| scope.in_organisation(@organisation) }
     @speeches = @organisation.ministerial_roles.map { |mr| mr.speeches.published }.flatten.uniq
     @corporate_publications = @organisation.corporate_publications.published
+    @featured_news_articles = @organisation.featured_news_articles
   end
 
   def about
