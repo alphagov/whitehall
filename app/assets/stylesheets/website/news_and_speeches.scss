@@ -1,7 +1,6 @@
 @import "../shared/utils";
 
-#wrapper {
-
+#content {
   .row {
     .news_article, .speech {
       margin-bottom: 0;
@@ -14,8 +13,7 @@
         @include type-12;
         margin-bottom: 0.857em;
       }
-      .metadata {
-        @include type-11;
+      .meta {
         margin: 0;
         span {
           margin-right: 1em;
@@ -38,15 +36,15 @@
       color: #444;
     }
 
-    .row {
-      h2 {
-        text-align: left;
+    .most_recent {
+      @media only screen and (min-width: 768px) {
+        margin-bottom: 0.75em;
       }
     }
 
     .less_recent {
       border-top: 1px solid #ddd;
-      padding-top: 1.5em;
+      padding-top: 1.25em;
       margin: 0 4%;
 
       h2 {
@@ -54,12 +52,12 @@
       }
 
       @media only screen and (min-width: 768px) {
-        margin: 0 10%;
+        margin: 0 10% 0.75em 10%;
       }
 
       .news_article, .speech {
         @include grid_column;
-        margin-bottom: 1.5em;
+        margin-bottom: 0.75em;
 
         @media only screen and (min-width: 768px) {
           width: 46%;
@@ -69,29 +67,15 @@
       }
     }
 
-    .remaining {
-      border-top: 1px solid #ddd;
-      padding: 0.5em 1em;
-      .news_article, .speech {
-        @include span_one_column;
-        background: #fefefe;
-        padding-top: 0.5em;
-
-        h2 {
-          @include type-12;
-          margin-bottom: 0;
-        }
+    .row {
+      h2 {
+        text-align: left;
       }
-    }
-
-    .row_1, .row_3 {
-      border-top: none;
     }
 
     .row_1, .row_2 {
       @include flood_three_columns;
       border-right: none;
-      background: #fffff0;
       border-bottom: 1px solid #ddd;
       padding-top: 1em;
       padding-bottom: 1em;
@@ -101,7 +85,7 @@
         border: none;
         padding-bottom: 0;
         position: relative;
-        margin-bottom: 1.5em;
+        margin-bottom: 0.75em;
 
         div.text {
           padding: 0 1em;
@@ -123,15 +107,24 @@
       }
     }
 
-    .row_2 {
-      @media only screen and (min-width: 768px) {
-        margin-bottom: 3em;
-      }
+    .row_1, .row_3 {
+      border-top: none;
     }
   }
-}
 
-#content {
+  .further_articles {
+    border-top: 1px solid #ddd;
+    @include type-14;
+    margin-bottom: 0;
+    padding: 0.75em 1.5em;
+    background: #eee;
+
+    @media only screen and (min-width: 768px) {
+      padding-left: 11%;
+      padding-right: 11%;
+    }
+  }
+
   #notes_to_editors {
     h1 {
       .toggle {

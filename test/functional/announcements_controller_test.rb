@@ -71,23 +71,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows limited details for remaining announcements" do
-    announcements = 10.times.map do |n|
-      [create(:published_news_article, published_at: (n * 2).days.ago), create(:published_speech, published_at: (n * 2 + 1).days.ago)]
-    end.flatten
-
-    get :index
-
-    assert_select '.remaining' do
-      announcements.from(18).each do |announcement|
-        assert_select_object announcement do
-          assert_select_announcement_title announcement
-          assert_select_announcement_metadata announcement
-        end
-      end
-    end
-  end
-
   test "index shows unique related policy areas for each news article" do
     first_policy_area = create(:policy_area, name: 'first-area')
     second_policy_area = create(:policy_area, name: 'second-area')
@@ -98,8 +81,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object news_article do
-      assert_select ".metadata a[href='#{policy_area_path(first_policy_area)}']", text: first_policy_area.name, count: 1
-      assert_select ".metadata a[href='#{policy_area_path(second_policy_area)}']", text: second_policy_area.name, count: 1
+      assert_select ".meta a[href='#{policy_area_path(first_policy_area)}']", text: first_policy_area.name, count: 1
+      assert_select ".meta a[href='#{policy_area_path(second_policy_area)}']", text: second_policy_area.name, count: 1
     end
   end
 
@@ -152,16 +135,16 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   def assert_select_speech_metadata(speech)
-    assert_select ".metadata" do
+    assert_select ".meta" do
       time_ago = time_ago_in_words(speech.published_at)
-      assert_select ".published_at", text: /delivered (?:[\s]*) #{time_ago} ago/
+      assert_select ".published_at", text: /delivered (?:[\s]*) #{time_ago} ago/i
       appointment = speech.role_appointment
-      assert_select ".ministerial_role a[href='#{ministerial_role_path(appointment.role)}']", text: appointment.person.name
+      assert_select "a.ministerial_role[href='#{ministerial_role_path(appointment.role)}']", text: appointment.person.name
     end
   end
 
   def assert_select_news_article_metadata(news_article)
     time_ago = time_ago_in_words(news_article.published_at)
-    assert_select ".metadata .published_at", text: /posted (?:[\s]*) #{time_ago} ago/
+    assert_select ".meta .published_at", text: /posted (?:[\s]*) #{time_ago} ago/i
   end
 end

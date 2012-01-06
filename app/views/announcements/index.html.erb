@@ -7,12 +7,13 @@
           <div class="inner">
             <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
             <p class="summary"><%= news_article.summary %></p>
-            <p class="metadata">
-              <%= render_datetime_microformat(news_article, :published_at) do %>
-                <%= time_ago_in_words(news_article.published_at) %> ago
-              <% end %>
-              <% unless news_article.policy_areas.length.zero? %>
-                <span class="policy_area"><%= news_article.policy_areas.map { |pa| link_to pa.name, policy_area_path(pa) }.to_sentence.html_safe %></span>
+            <p class="meta">
+              <span class="published_at">Posted <%= render_datetime_microformat(news_article, :published_at) do %>
+                  <%= time_ago_in_words(news_article.published_at) %> ago
+                <% end %>
+              </span>
+              <% news_article.policy_areas.uniq.each do |pa| %>
+                <%= link_to pa.name, policy_area_path(pa), class: "policy_area" %>
               <% end %>
             </p>
           </div>
@@ -23,8 +24,11 @@
 
   <section class="group" id="recent_announcements">
     <h1>Latest from across government</h1>
-    <%= announcement_group(@announcements.take(6), groups_of: 3, class: "most_recent", partial: "expanded") %>
-    <%= announcement_group(@announcements.from(6).take(12), groups_of: 2, class: "less_recent", partial: "default") %>
-    <%= announcement_group(@announcements.from(18), groups_of: 3, class: "remaining", partial: "compact") %>
+    <div class="most_recent group">
+      <%= announcement_group(@announcements.take(6), groups_of: 3, partial: "expanded") %>
+    </div>
+    <%= announcement_group(@announcements.from(6).take(12), groups_of: 2, class: "group less_recent", partial: "default") %>
   </section>
+
+  <p class="further_articles">View all <%= link_to "news", news_articles_path %> or <%= link_to "speeches", speeches_path %></p>
 </div>

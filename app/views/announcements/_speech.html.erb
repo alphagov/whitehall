@@ -9,12 +9,12 @@
         <%= speech.summary %>
       </p>
     <% end %>
-    <div class="metadata">
-      <span class="published_at">delivered <%= render_datetime_microformat(speech, :published_at) do %>
+    <div class="meta">
+      <span class="published_at">Delivered <%= render_datetime_microformat(speech, :published_at) do %>
           <%= time_ago_in_words(speech.published_at) %> ago
         <% end %>
       </span>
-      <span class="ministerial_role"><%= link_to speech.role_appointment.person.name, speech.role_appointment.role %></span>
+      <%= link_to speech.role_appointment.person.name, speech.role_appointment.role, class: "ministerial_role" %>
     </div>
   </div>
 <% end %>

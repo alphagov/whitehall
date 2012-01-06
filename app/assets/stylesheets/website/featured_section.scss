@@ -92,8 +92,7 @@
           margin-bottom: 0;
         }
 
-        .metadata {
-          @include type-11;
+        p.meta {
           margin-left: 6%;
           margin-right: 6%;
         }
@@ -103,7 +102,7 @@
           padding-top: 1.45em;
           padding-bottom: 1.25em;
 
-          .metadata {
+          .meta {
             margin-bottom: 0;
           }
         }

@@ -2,7 +2,7 @@ module AnnouncementsHelper
   def announcement_group(annoucements, options = {})
     capture do
       annoucements.in_groups_of(options[:groups_of], false) do |announcement_group|
-        row = content_tag(:div, class: "group row #{options[:class]} row_#{announcement_row_number}") do
+        row = content_tag(:div, class: ["row", "row_#{announcement_row_number}", options[:class]].compact.join(" ")) do
           announcement_group.each do |announcement|
             if announcement.is_a?(NewsArticle)
               concat(render partial: "announcements/news_article", locals: { news_article: announcement, display: options[:partial] })

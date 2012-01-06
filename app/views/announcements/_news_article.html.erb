@@ -9,13 +9,13 @@
         <%= news_article.summary %>
       </p>
     <% end %>
-    <div class="metadata">
-      <span class="published_at">posted <%= render_datetime_microformat(news_article, :published_at) do %>
+    <div class="meta">
+      <span class="published_at">Posted <%= render_datetime_microformat(news_article, :published_at) do %>
           <%= time_ago_in_words(news_article.published_at) %> ago
         <% end %>
       </span>
-      <% unless news_article.policy_areas.length.zero? %>
-        <span class="policy_area"><%= news_article.policy_areas.uniq.map { |pa| link_to pa.name, policy_area_path(pa) }.to_sentence.html_safe %></span>
+      <% news_article.policy_areas.uniq.each do |pa| %>
+        <%= link_to pa.name, policy_area_path(pa), class: "policy_area" %>
       <% end %>
     </div>
   </div>
