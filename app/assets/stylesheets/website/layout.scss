@@ -65,7 +65,7 @@
       text-shadow: #fff 0px 1px 0;
       color: #353500;
       margin-left: 1%;
-      margin-top: 0.65em;
+      margin-top: 0.2em;
     }
 
     h1.page_title.has_meta {
@@ -73,12 +73,23 @@
     }
 
     p.meta {
-      margin-bottom: 1.5em;
+      margin-bottom: 1em;
       margin-left: 1%;
 
       a, span {
         @include type-12;
+      }
+
+      span {
         margin-right: 1em;
+      }
+
+      a {
+        background: #eee;
+        padding: 0.2em 0.5em;
+        margin-right: 0.5em;
+        border: 1px solid #ddd;
+        @include rounded;
       }
     }
 
