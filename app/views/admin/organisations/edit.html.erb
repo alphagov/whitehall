@@ -3,29 +3,40 @@
     <h1>Edit organisation</h1>
     <%= render partial: "form", locals: {organisation: @organisation} %>    
   </section>
-
-  <% if @news_articles.any? %>
+</div>
+<% if @news_articles.any? %>
+  <div class="g3 first">
     <section>
       <h2>News Articles</h2>
       <table>
-        <% @news_articles.each do |news_article| %>
-          <%= content_tag_for(:tr, news_article) do %>
-            <td><%= link_to news_article.title, admin_document_path(news_article) %></td>
-            <td>
-              <% association = news_article.document_organisations.where(organisation_id: @organisation).first %>
-              <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
-                <% if association.featured? %>
-                  <%= f.hidden_field :featured, value: false %>
-                  <%= f.submit "No longer feature" %>
-                <% else %>
-                  <%= f.hidden_field :featured, value: true %>
-                  <%= f.submit "Feature" %>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Published</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @news_articles.each do |news_article| %>
+            <%= content_tag_for(:tr, news_article) do %>
+              <td><%= link_to news_article.title, admin_document_path(news_article) %></td>
+              <td><%= time_ago_in_words news_article.updated_at %> ago</td>
+              <td>
+                <% association = news_article.document_organisations.where(organisation_id: @organisation).first %>
+                <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
+                  <% if association.featured? %>
+                    <%= f.hidden_field :featured, value: false %>
+                    <%= f.submit "No longer feature" %>
+                  <% else %>
+                    <%= f.hidden_field :featured, value: true %>
+                    <%= f.submit "Feature" %>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </td>
+              </td>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
+        </tbody>
+      </table>
     </section>
-  <% end %>
-</div>
+  </div>
+<% end %>
