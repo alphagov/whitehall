@@ -9,7 +9,7 @@
       <span class="already_uploaded"><%= File.basename(document.image_cache) %> already uploaded</span>
     <% end %>
     <%= form.hidden_field :image_cache %>
-    <% if document.persisted? %>
+    <% if document.persisted? && document.image.present? %>
       <%= image_tag document.image_url %>
     <% end %>
   </fieldset>

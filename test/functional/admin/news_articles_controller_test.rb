@@ -162,6 +162,16 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     end
   end
 
+  test "editing news article without an image doesn't display image" do
+    news_article = create(:news_article)
+
+    get :edit, id: news_article
+
+    assert_select "form#document_edit" do
+      assert_select ".image img[src='#{news_article.image_url}']", count: 0
+    end
+  end
+
   test "updating a news article should store image" do
     portas_review_jpg = fixture_file_upload('portas-review.jpg')
     news_article = create(:news_article)
