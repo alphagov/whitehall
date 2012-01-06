@@ -37,7 +37,7 @@
 <div class="g3">
   <% if @featured_news_articles.any? %>
     <div class="g3 featured_news_articles">
-      <section>
+      <section class="featured_items">
         <h1>Featured News</h1>
         <%= render partial: "announcements/news_article", collection: @featured_news_articles %>
       </section>
