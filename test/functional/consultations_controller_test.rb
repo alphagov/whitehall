@@ -204,11 +204,11 @@ class ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "should display the closing date of the featured consultation" do
-    closing_date = 1.month.from_now
+    closing_date = 20.days.from_now
     consultation = create(:published_consultation, featured: true, closing_on: closing_date)
     get :index
     assert_select send("featured_consultations_selector") do
-      assert_select "#{record_css_selector(consultation)} .time_remaining", text: "Closes in 30 days"
+      assert_select "#{record_css_selector(consultation)} .time_remaining", text: "Closes in 21 days"
     end
   end
 end

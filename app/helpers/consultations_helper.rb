@@ -1,6 +1,6 @@
 module ConsultationsHelper
   def consultation_time_remaining_phrase(consultation)
-    interval = time_ago_in_words(consultation.closing_on)
+    interval = time_ago_in_words(consultation.closing_on + 1.day)
     if consultation.closed?
       "Closed #{interval} ago"
     elsif consultation.open?
