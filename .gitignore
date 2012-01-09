@@ -7,3 +7,4 @@
 /public/uploads/
 /bin
 /config/whitehall_secrets.yml
+.powrc
