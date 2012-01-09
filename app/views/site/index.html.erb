@@ -5,7 +5,9 @@
       <% @recently_updated.each do |document| %>
         <%= content_tag_for :li, document do %>
           <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
-          <p><%= document.summary %></p>
+          <% if document.summary.present? %>
+            <p class="summary"><%= document.summary %></p>
+          <% end %>
           <div class="metadata">
             <span class="document_type"><%= human_friendly_document_type(document) %></span>
             published

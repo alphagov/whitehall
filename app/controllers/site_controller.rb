@@ -1,6 +1,6 @@
 class SiteController < ApplicationController
   def index
-    @recently_updated = Document.published.by_published_at.limit(20)
+    @recently_updated = Document.published.by_published_at.limit(10)
   end
 
   def sha
