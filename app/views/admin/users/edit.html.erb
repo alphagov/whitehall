@@ -1,3 +1,4 @@
+<% page_title "Edit " + @user.name, "Users" %>
 <section class="user">
   <h1>Edit Settings</h1>
   <%= form_for @user, as: :user, url: admin_user_path, html: { method: :put } do |form| %>

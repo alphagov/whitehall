@@ -1,4 +1,15 @@
 module ApplicationHelper
+  def page_title(*title_parts)
+    if title_parts.any?
+      title_parts.push("Admin") if params[:controller] =~ /^admin\//
+      title_parts.push("Inside Government")
+      title_parts.push("GOV.UK")
+      @page_title = title_parts.join(" | ")
+    else
+      @page_title
+    end
+  end
+
   def show_session_controls?
     params[:controller].split("/").first == "admin" ||
     params[:controller] == "sessions"
