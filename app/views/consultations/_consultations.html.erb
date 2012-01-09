@@ -11,7 +11,7 @@
             <div class="response">  
               Response
               '<%= link_to consultation.published_consultation_response.title, consultation_response_path(consultation.document_identity) %>' published 
-              <%= time_ago_in_words(consultation.published_consultation_response.published_at) %> ago
+              <%= time_ago(consultation.published_consultation_response.published_at, class: 'response_published_at') %>
             </div>
           <% end %>
           <div class="details small">
