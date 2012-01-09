@@ -1,5 +1,6 @@
 class ConsultationResponsesController < DocumentsController
   def show
+    @related_policies = @consultation.published_related_policies
   end
 
   private
