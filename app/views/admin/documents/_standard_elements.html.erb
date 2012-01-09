@@ -1,14 +1,14 @@
 <h1 class="title"><%= document.title %></h1>
 <% unless document.summary.blank? %>
-    <section class="summary">
+  <div class="summary">
     <%= document.summary %>
-  </section>
-<% end %>
-<div class="body">
-  <%= govspeak_to_admin_html document.body %>
-</div>
-<% if document.respond_to?(:image) && document.image.present? %>
-  <div class="image">
-    <%= image_tag(document.image_url) %>
   </div>
 <% end %>
+<div class="body">
+  <% if document.respond_to?(:image) && document.image.present? %>
+    <div class="img">
+      <%= image_tag(document.image_url) %>
+    </div>
+  <% end %>
+  <%= govspeak_to_admin_html document.body %>
+</div>

@@ -138,7 +138,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     post :create, document: attributes.merge(title: '')
 
-    refute_select ".image img"
+    refute_select ".img img"
   end
 
   test "editing displays news article image field" do
@@ -158,7 +158,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :edit, id: news_article
 
     assert_select "form#document_edit" do
-      assert_select ".image img[src='#{news_article.image_url}']"
+      assert_select ".img img[src='#{news_article.image_url}']"
     end
   end
 
@@ -168,7 +168,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :edit, id: news_article
 
     assert_select "form#document_edit" do
-      assert_select ".image img[src='#{news_article.image_url}']", count: 0
+      assert_select ".img img[src='#{news_article.image_url}']", count: 0
     end
   end
 
@@ -206,7 +206,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     get :show, id: news_article
 
-    assert_select ".image img[src='#{news_article.image_url}']"
+    assert_select ".img img[src='#{news_article.image_url}']"
   end
 
   test "show only displays image if there is one" do
@@ -214,6 +214,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     get :show, id: news_article
 
-    refute_select ".image img"
+    refute_select ".img img"
   end
 end
