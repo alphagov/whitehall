@@ -93,4 +93,10 @@ module ApplicationHelper
   def render_datetime_microformat(object, method, &block)
     content_tag(:abbr, class: method, title: object.send(method).iso8601, &block)
   end
+
+  def time_ago(time, options = {})
+    css_class = (options[:class] || "") + " datetime time_ago"
+    text = time_ago_in_words(time) + " ago"
+    content_tag(:abbr, text, class: css_class, title: time.iso8601)
+  end
 end

@@ -11,9 +11,7 @@
           <div class="metadata">
             <span class="document_type"><%= human_friendly_document_type(document) %></span>
             published
-            <%= render_datetime_microformat(document, :published_at) do %>
-              <%= time_ago_in_words(document.published_at) %> ago
-            <% end %>
+            <%= time_ago(document.published_at, class: 'published_at') %>
           </div>
         <% end %>
       <% end %>

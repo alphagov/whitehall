@@ -5,10 +5,7 @@
       <% document.editorial_remarks.each do |editorial_remark| %>
         <li class="editorial_remark">
           <span class="author"><%= editorial_remark.author.name %></span>
-          wrote
-          <%= render_datetime_microformat(editorial_remark, :created_at) do %>
-            <%= time_ago_in_words(editorial_remark.created_at) %> ago:
-          <% end %>
+          wrote <%= time_ago(editorial_remark.created_at, class: 'created_at') %>:
           <div class="body"><%= editorial_remark.body %></div>
         </li>
       <% end %>

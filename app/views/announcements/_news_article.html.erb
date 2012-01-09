@@ -10,10 +10,7 @@
       </p>
     <% end %>
     <div class="meta">
-      <span class="published_at">Posted <%= render_datetime_microformat(news_article, :published_at) do %>
-          <%= time_ago_in_words(news_article.published_at) %> ago
-        <% end %>
-      </span>
+      <span class="published_at">Posted <%= time_ago(news_article.published_at, class: 'published_at') %></span>
       <% news_article.policy_areas.uniq.each do |pa| %>
         <%= link_to pa.name, policy_area_path(pa), class: "policy_area" %>
       <% end %>

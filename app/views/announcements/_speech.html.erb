@@ -10,10 +10,7 @@
       </p>
     <% end %>
     <div class="meta">
-      <span class="published_at">Delivered <%= render_datetime_microformat(speech, :published_at) do %>
-          <%= time_ago_in_words(speech.published_at) %> ago
-        <% end %>
-      </span>
+      <span class="published_at">Delivered <%= time_ago(speech.published_at, class: 'published_at') %></span>
       <%= link_to speech.role_appointment.person.name, speech.role_appointment.role, class: "ministerial_role" %>
     </div>
   </div>
