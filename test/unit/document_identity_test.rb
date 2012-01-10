@@ -21,6 +21,6 @@ class DocumentIdentityTest < ActiveSupport::TestCase
     published_policy = draft_policy
     new_draft_policy = published_policy.create_draft(user)
 
-    assert_equal published_policy, document_identity.published_document
+    assert_equal published_policy, document_identity.reload.published_document
   end
 end

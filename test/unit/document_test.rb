@@ -242,6 +242,33 @@ class DocumentTest < ActiveSupport::TestCase
     assert document.save_as(create(:user))
   end
 
+  test "#save_as updates the identity slug if this is the first draft" do
+    document = create(:submitted_document, title: "First Title")
+    document.save_as(user = create(:user))
+
+    document.title = "Second Title"
+    document.save_as(user)
+    document.publish_as(create(:departmental_editor))
+
+    assert_nil Document.published_as("first-title")
+    assert_equal document, Document.published_as("second-title")
+  end
+
+  test "#save_as does not alter the slug if this document has previously been published" do
+    document = create(:submitted_document, title: "First Title")
+    document.save_as(user = create(:user))
+    document.publish_as(editor = create(:departmental_editor))
+
+    new_draft = document.create_draft(user)
+    new_draft.title = "Second Title"
+    new_draft.save_as(user)
+    new_draft.submit!
+    new_draft.publish_as(editor)
+
+    assert_equal new_draft, Document.published_as("first-title")
+    assert_nil Document.published_as("second-title")
+  end
+
   test "#edit_as returns false if save fails" do
     document = create(:policy)
     document.expects(:save).returns(false)

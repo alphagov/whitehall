@@ -23,6 +23,13 @@ class DocumentIdentity < ActiveRecord::Base
     documents.where("state IN (:draft_states)", draft_states: [:draft, :submitted, :rejected]).first
   end
 
+  def update_slug_if_possible(new_title)
+    unless published_document.present?
+      self.sluggable_string = new_title
+      save
+    end
+  end
+
   class << self
     def published
       joins(:published_document)
