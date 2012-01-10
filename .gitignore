@@ -5,6 +5,7 @@
 /.sass-cache/
 /public/system/
 /public/uploads/
+/public/government/
 /bin
 /config/whitehall_secrets.yml
 .powrc
