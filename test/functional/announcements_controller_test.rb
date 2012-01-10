@@ -136,15 +136,15 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   def assert_select_speech_metadata(speech)
     assert_select ".meta" do
-      time_ago = time_ago_in_words(speech.published_at)
-      assert_select ".published_at", text: /delivered (?:[\s]*)#{time_ago} ago/i
+      time_string = speech.published_at.to_s(:long_ordinal)
+      assert_select "abbr.published_at[title='#{speech.published_at.iso8601}']", text: /#{time_string}/i
       appointment = speech.role_appointment
       assert_select "a.ministerial_role[href='#{ministerial_role_path(appointment.role)}']", text: appointment.person.name
     end
   end
 
   def assert_select_news_article_metadata(news_article)
-    time_ago = time_ago_in_words(news_article.published_at)
-    assert_select ".meta .published_at", text: /posted (?:[\s]*)#{time_ago} ago/i
+    time_string = news_article.published_at.to_s(:long_ordinal)
+    assert_select ".meta abbr.published_at[title='#{news_article.published_at.iso8601}']", text: /#{time_string}/i
   end
 end

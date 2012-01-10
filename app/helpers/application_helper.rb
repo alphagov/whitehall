@@ -107,7 +107,7 @@ module ApplicationHelper
 
   def time_ago(time, options = {})
     css_class = (options[:class] || "") + " datetime time_ago"
-    text = time_ago_in_words(time) + " ago"
+    text = time.to_s(:long_ordinal)
     content_tag(:abbr, text, class: css_class, title: time.iso8601)
   end
 end
