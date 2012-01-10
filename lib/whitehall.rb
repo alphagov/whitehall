@@ -4,7 +4,6 @@ module Whitehall
   autoload :FormBuilder, 'whitehall/form_builder'
   autoload :QuietAssetLogger, 'whitehall/quiet_asset_logger'
   autoload :Presenters, 'whitehall/presenters'
-  autoload :RouterPrefixEngine, 'whitehall/router_prefix_engine'
   autoload :SearchClient, 'whitehall/search_client'
 
   class << self
