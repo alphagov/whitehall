@@ -1,6 +1,6 @@
 class DocumentIdentity < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :sluggable_string, use: :slugged
+  friendly_id :sluggable_string, use: :scoped, scope: :document_type
 
   has_many :documents
   has_many :document_relations
@@ -28,6 +28,10 @@ class DocumentIdentity < ActiveRecord::Base
       self.sluggable_string = new_title
       save
     end
+  end
+
+  def set_document_type(document_type)
+    self.document_type = document_type
   end
 
   class << self

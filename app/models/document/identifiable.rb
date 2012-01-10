@@ -6,6 +6,7 @@ module Document::Identifiable
     validates :document_identity, presence: true
     before_validation :set_document_identity, on: :create
     before_validation :update_document_identity_slug, on: :update
+    before_validation :set_document_type_on_document_identity
   end
 
   def set_document_identity
@@ -14,6 +15,10 @@ module Document::Identifiable
 
   def update_document_identity_slug
     self.document_identity.update_slug_if_possible(self.title)
+  end
+
+  def set_document_type_on_document_identity
+    self.document_identity.set_document_type(type) if document_identity.present?
   end
 
   module ClassMethods

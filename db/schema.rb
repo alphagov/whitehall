@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120105220325) do
+ActiveRecord::Schema.define(:version => 20120110121221) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -53,9 +53,10 @@ ActiveRecord::Schema.define(:version => 20120105220325) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
+    t.string   "document_type"
   end
 
-  add_index "document_identities", ["slug"], :name => "index_document_identities_on_slug", :unique => true
+  add_index "document_identities", ["slug", "document_type"], :name => "index_document_identities_on_slug_and_document_type", :unique => true
 
   create_table "document_ministerial_roles", :force => true do |t|
     t.integer  "document_id"
