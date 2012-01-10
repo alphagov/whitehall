@@ -145,4 +145,28 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     assert_equal 0, organisation.phone_numbers.count
   end
+
+  test "update should remove all related policy areas if none specified" do
+    organisation_attributes = {name: "Ministry of Sound"}
+    organisation = create(:organisation,
+      organisation_attributes.merge(policy_area_ids: [create(:policy_area).id])
+    )
+
+    put :update, id: organisation, organisation: organisation_attributes
+
+    organisation.reload
+    assert_equal [], organisation.policy_areas
+  end
+
+  test "update should remove all parent organisations if none specified" do
+    organisation_attributes = {name: "Ministry of Sound"}
+    organisation = create(:organisation,
+      organisation_attributes.merge(parent_organisation_ids: [create(:organisation).id])
+    )
+
+    put :update, id: organisation, organisation: organisation_attributes
+
+    organisation.reload
+    assert_equal [], organisation.parent_organisations
+  end
 end

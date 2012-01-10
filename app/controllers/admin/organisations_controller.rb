@@ -1,6 +1,7 @@
 class Admin::OrganisationsController < Admin::BaseController
   before_filter :load_organisation, only: [:edit, :update]
   before_filter :load_news_articles, only: [:edit, :update]
+  before_filter :default_arrays_of_ids_to_empty, only: [:update]
 
   def index
     @organisations = Organisation.all
@@ -38,5 +39,12 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def load_news_articles
     @news_articles = NewsArticle.published.in_organisation(@organisation).by_published_at
+  end
+
+  private
+
+  def default_arrays_of_ids_to_empty
+    params[:organisation][:policy_area_ids] ||= []
+    params[:organisation][:parent_organisation_ids] ||= []
   end
 end
