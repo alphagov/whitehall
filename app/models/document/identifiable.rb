@@ -24,7 +24,7 @@ module Document::Identifiable
   module ClassMethods
     def published_as(id)
       begin
-        identity = DocumentIdentity.find(id)
+        identity = DocumentIdentity.where(document_type: sti_name).find(id)
         identity && identity.published_document
       rescue ActiveRecord::RecordNotFound
         nil

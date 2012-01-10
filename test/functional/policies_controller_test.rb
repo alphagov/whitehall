@@ -178,10 +178,10 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "should display the published document" do
-    document_identity = create(:document_identity)
-    create(:archived_policy)
-    published_document = create(:published_policy, document_identity: document_identity)
-    create(:draft_policy, document_identity: document_identity)
+    published_document = create(:published_policy)
+    draft = published_document.create_draft(create(:user))
+    document_identity = draft.document_identity
+
     get :show, id: document_identity
 
     assert_response :success

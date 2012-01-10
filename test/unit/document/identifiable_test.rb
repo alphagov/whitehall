@@ -28,4 +28,13 @@ class Document::IdentifiableTest < ActiveSupport::TestCase
 
     assert_equal policy.document_identity.slug, publication.document_identity.slug
   end
+
+  test "should return the document of the correct type when matching slugs for other types exist" do
+    same_title = "same-title"
+    policy = create(:published_policy, title: same_title)
+    publication = create(:published_publication, title: same_title)
+
+    assert_equal policy, Policy.published_as(same_title)
+    assert_equal publication, Publication.published_as(same_title)
+  end
 end

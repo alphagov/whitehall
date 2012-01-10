@@ -75,14 +75,14 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test ".published_as returns document if document is published" do
-    document = create(:published_document)
-    assert_equal document, Document.published_as(document.document_identity.to_param)
+    document = create(:published_policy)
+    assert_equal document, Policy.published_as(document.document_identity.to_param)
   end
 
   test ".published_as returns latest published document if several documents share identity" do
-    document = create(:published_document)
-    new_draft = create(:draft_document, document_identity: document.document_identity)
-    assert_equal document, Document.published_as(document.document_identity.to_param)
+    document = create(:published_policy)
+    new_draft = create(:draft_policy, document_identity: document.document_identity)
+    assert_equal document, Policy.published_as(document.document_identity.to_param)
   end
 
   test ".published_as returns nil if document is not published" do
@@ -243,19 +243,19 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "#save_as updates the identity slug if this is the first draft" do
-    document = create(:submitted_document, title: "First Title")
+    document = create(:submitted_policy, title: "First Title")
     document.save_as(user = create(:user))
 
     document.title = "Second Title"
     document.save_as(user)
     document.publish_as(create(:departmental_editor))
 
-    assert_nil Document.published_as("first-title")
-    assert_equal document, Document.published_as("second-title")
+    assert_nil Policy.published_as("first-title")
+    assert_equal document, Policy.published_as("second-title")
   end
 
   test "#save_as does not alter the slug if this document has previously been published" do
-    document = create(:submitted_document, title: "First Title")
+    document = create(:submitted_policy, title: "First Title")
     document.save_as(user = create(:user))
     document.publish_as(editor = create(:departmental_editor))
 
@@ -265,8 +265,8 @@ class DocumentTest < ActiveSupport::TestCase
     new_draft.submit!
     new_draft.publish_as(editor)
 
-    assert_equal new_draft, Document.published_as("first-title")
-    assert_nil Document.published_as("second-title")
+    assert_equal new_draft, Policy.published_as("first-title")
+    assert_nil Policy.published_as("second-title")
   end
 
   test "#edit_as returns false if save fails" do

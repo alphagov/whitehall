@@ -204,11 +204,12 @@ That's all
   end
 
   test "should display the published document" do
-    document_identity = create(:document_identity)
-    create(:archived_policy, document_identity: document_identity)
-    policy = create(:published_policy, document_identity: document_identity)
-    create(:draft_policy, document_identity: document_identity)
+    policy = create(:published_policy)
+    draft = policy.create_draft(create(:user))
+    document_identity = draft.document_identity
+
     supporting_page = create(:supporting_page, document: policy)
+
     get :show, policy_id: document_identity, id: supporting_page
 
     assert_response :success
