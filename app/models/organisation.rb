@@ -39,6 +39,14 @@ class Organisation < ActiveRecord::Base
     new_record?
   end
 
+  def self.ordered_by_name_ignoring_prefix
+    all.sort_by { |o| o.name_without_prefix }
+  end
+
+  def name_without_prefix
+    name.gsub(/^Ministry of/, "").gsub(/^Department (of|for)/, "").gsub(/^Office of the/, "").strip
+  end
+
   def normalize_friendly_id(value)
     value = value.gsub(/'/, '') if value
     super value

@@ -16,7 +16,16 @@ class OrganisationTest < ActiveSupport::TestCase
     new_organisation = build(:organisation, name: existing_organisation.name)
     refute new_organisation.valid?
   end
-  
+
+  test "should be orderable ignoring common prefixes" do
+    culture = create(:organisation, name: "Department for Culture and Sports")
+    education = create(:organisation, name: "Department of Education")
+    hmrc = create(:organisation, name: "HMRC")
+    defence = create(:organisation, name: "Ministry of Defence")
+
+    assert_equal [culture, defence, education, hmrc], Organisation.ordered_by_name_ignoring_prefix
+  end
+
   test "#child_organisations should return the parent's children organisations" do
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)

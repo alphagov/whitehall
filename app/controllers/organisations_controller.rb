@@ -3,7 +3,7 @@ class OrganisationsController < ApplicationController
   before_filter :load_organisation, only: [:show, :about]
 
   def index
-    @organisations = Organisation.all
+    @organisations = Organisation.ordered_by_name_ignoring_prefix
   end
 
   def show
