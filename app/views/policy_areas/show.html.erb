@@ -7,9 +7,6 @@
       <%= content_tag_for :article, @policy_area do %>
         <h1 class="page_title name"><%= @policy_area.name %></h1>
         <p class="meta">
-          <% @related_policy_areas.each do |policy_area| %>
-            <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area", id: dom_id(policy_area) %>
-          <% end %>
           <% @policy_area.organisations.each do |organisation| %>
             <%= link_to organisation.name, organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
           <% end %>
