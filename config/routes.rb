@@ -9,6 +9,8 @@ Whitehall::Application.routes.draw do
     super(Whitehall.router_prefix + path)
   end
 
+  root to: redirect("/")
+
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "site#index"
 
