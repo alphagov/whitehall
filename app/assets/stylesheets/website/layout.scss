@@ -31,6 +31,8 @@
   border-bottom: 1px solid #ccc;
   padding-top: 1em;
 
+  @include type_styles;
+
   @media only screen and (min-width: 600px) {
     width: 81%;
     @include box-shadow(0, 2px, 2px, #e5e5e5);
@@ -74,6 +76,7 @@
   .meta {
     margin-bottom: 1em;
     margin-left: 1%;
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
     a, span {
       @include type-12;
@@ -85,11 +88,16 @@
     }
 
     a {
-      background: #eee;
-      padding: 0.2em 0.5em;
+      @include rounded();
+      background: #fff;
+      @include vertical_gradient(#fff, #eee);
+      border: 1px solid #ccc;
+      border-bottom: 1px solid #aaa;
+      border-top: 1px solid #ddd;
       margin-right: 0.5em;
-      border: 1px solid #ddd;
-      @include rounded;
+      padding: 0.2em 0.5em;
+      text-align: center;
+      @include box_shadow(0, 0px, 1px, rgba(30,30,30,0.1));
     }
   }
 

@@ -5,11 +5,9 @@
     <section class="featured_items" id="featured-news-articles">
       <% @featured_news_articles.each do |news_article| %>
         <%= content_tag_for(:article, news_article) do %>
-          <% if news_article.image.present? %>
-            <div class="img">
-              <%= image_tag(news_article.image_url) %>
-            </div>
-          <% end %>
+          <div class="img">
+            <%= image_tag('feature_bg.png') %>
+          </div>
           <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
           <p class="summary"><%= news_article.summary %></p>
           <p class="meta">

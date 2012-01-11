@@ -68,6 +68,7 @@
       background: url(/assets/feature_bg.png) no-repeat;
       padding-top: 2em;
       padding-bottom: 2em;
+      min-height: 17em;
 
       h2 {
         @include rounded_top;
@@ -100,26 +101,31 @@
 
       p {
         position: relative;
-        padding: 1.5em 3%;
         background: #eee;
-        @include rounded_bottom;
-        border-top: 1px solid #9A9B00;
-        border-bottom: 1px solid #9A9B00;
       }
 
       .summary {
         @include type-14;
         margin-bottom: 0;
         margin-left: 2%;
+        background: #fefefe;
+        border-top: 1px solid #9A9B00;
+        padding: 1em 3% 1.25em 3%;
       }
 
       p.meta {
-        margin: 0;
-        display: none;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #9A9B00;
+        @include rounded_bottom;
+        padding: 0.25em 3% 0.5em 3%;
 
         span.published_at {
-          display: block;
           margin-bottom: 0;
+        }
+
+        a {
+          background: #fff;
+          @include vertical_gradient(#fff, #eee);
         }
       }
 
@@ -183,6 +189,11 @@
             @include box_shadow(0, 0, 2px, #ffffac);
           }
         }
+      }
+
+      article {
+        overflow: hidden;
+        height: 100%;
       }
     }
   }
