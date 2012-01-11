@@ -43,14 +43,14 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "admin links to open website points to router website in preview" do
-    host! 'whitehall.preview.alphagov.co.uk'
+    Whitehall.stubs(:platform).returns("preview")
     login_as_admin
     get_via_redirect admin_root_path
     assert_select "a.open_website[href=?]", "http://www.preview.alphagov.co.uk/government"
   end
 
   test "admin links to open website points to router website in production" do
-    host! 'whitehall.production.alphagov.co.uk'
+    Whitehall.stubs(:platform).returns("production")
     login_as_admin
     get_via_redirect admin_root_path
     assert_select "a.open_website[href=?]", "http://www.gov.uk/government"

@@ -19,6 +19,11 @@ module Whitehall
       ENV["FACTER_govuk_platform"] || Rails.env
     end
 
+    def public_host
+      {"preview" => "www.preview.alphagov.co.uk",
+       "production" => "www.gov.uk"}[platform]
+    end
+
     def secrets
       @secrets ||= load_secrets
     end
