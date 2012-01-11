@@ -35,7 +35,7 @@ class SiteControllerTest < ActionController::TestCase
 
   test "index responds with 200 if previous request is now stale" do
     last_modified_from_previous_request = 1.day.ago
-    create(:published_policy, published_at: Time.now)
+    create(:published_policy, published_at: Time.zone.now)
     request.env["HTTP_IF_MODIFIED_SINCE"] = last_modified_from_previous_request.utc.httpdate
 
     get :index

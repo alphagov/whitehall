@@ -346,6 +346,10 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal publication.published_at, Document.latest_published_at
   end
 
+  test ".latest_published_at returns nil if no published documents exist" do
+    assert_nil Document.latest_published_at
+  end
+
   test "should only return the submitted documents" do
     draft_document = create(:draft_document)
     submitted_document = create(:submitted_document)

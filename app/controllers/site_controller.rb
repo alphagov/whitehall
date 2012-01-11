@@ -1,6 +1,6 @@
 class SiteController < ApplicationController
   def index
-    last_modified = Document.latest_published_at.utc
+    last_modified = Document.latest_published_at
 
     if stale?(last_modified: last_modified, public: true)
       @recently_updated = Document.published.by_published_at.limit(10)
