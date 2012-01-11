@@ -20,25 +20,6 @@ class SearchClientTest < ActiveSupport::TestCase
     assert_equal search_results, results
   end
 
-  test "should authenticate to the search service if username and password are specified" do
-    username, password = "username", "password"
-    Whitehall::SearchClient.http_auth_username = username
-    Whitehall::SearchClient.http_auth_password = password
-
-    Whitehall::SearchClient.new.search ""
-
-    assert_requested :get, /#{username}:#{password}@.*/
-  end
-
-  test "should not authenticate with empty credentials" do
-    Whitehall::SearchClient.http_auth_username = nil
-    Whitehall::SearchClient.http_auth_password = nil
-
-    Whitehall::SearchClient.new.search ""
-
-    assert_not_requested :get, /http:\/\/.*:.*@/
-  end
-
   test "should request the search results in JSON format" do
     Whitehall::SearchClient.new.search ""
 
