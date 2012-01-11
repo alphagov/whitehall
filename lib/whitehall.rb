@@ -31,10 +31,6 @@ module Whitehall
       secrets["aws_secret_access_key"]
     end
 
-    def rummager_uri
-      secrets["rummager_uri"]
-    end
-
     def use_s3?
       !Rails.env.test? && aws_access_key_id && aws_secret_access_key
     end
