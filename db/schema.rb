@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120110121221) do
+ActiveRecord::Schema.define(:version => 20120111011636) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -253,6 +253,13 @@ ActiveRecord::Schema.define(:version => 20120110121221) do
 
   create_table "speech_types", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "supporting_page_attachments", :force => true do |t|
+    t.integer  "supporting_page_id"
+    t.integer  "attachment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

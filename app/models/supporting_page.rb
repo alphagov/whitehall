@@ -1,6 +1,12 @@
 class SupportingPage < ActiveRecord::Base
   belongs_to :document
 
+  has_many :supporting_page_attachments
+  has_many :attachments, through: :supporting_page_attachments
+
+  accepts_nested_attributes_for :supporting_page_attachments, allow_destroy: true
+  accepts_nested_attributes_for :attachments, reject_if: :all_blank
+
   validates :title, :body, :document, presence: true
 
   extend FriendlyId

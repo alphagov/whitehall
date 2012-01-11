@@ -49,6 +49,17 @@ When /^I add a supporting page "([^"]*)" to the "([^"]*)" policy$/ do |supportin
   click_button "Save"
 end
 
+When /^I add a supporting page "([^"]*)" with an attachment to the "([^"]*)" policy$/ do |title, policy_title|
+  policy = Policy.find_by_title!(policy_title)
+  visit admin_document_path(policy)
+  click_link "Add supporting page"
+  fill_in "Title", with: title
+  fill_in "Body", with: "Some supporting information"
+  attach_file "Attachment", Rails.root.join("features/fixtures/attachment.pdf")
+  click_button "Save"
+end
+
+
 When /^I edit the supporting page changing the title to "([^"]*)"$/ do |new_title|
   fill_in "Title", with: new_title
   click_button "Save"
@@ -70,6 +81,13 @@ Then /^I should see in the preview that "([^"]*)" includes the "([^"]*)" support
   assert has_css?(".supporting_page", text: supporting_title)
   click_link supporting_title
   assert has_css?(".title", text: supporting_title)
+end
+
+Then /^I should see that the "([^"]*)" policy's "([^"]*)" supporting page has an attachment$/ do |title, supporting_title|
+  visit_document_preview title
+  click_link supporting_title
+  assert page.has_css?(".attachment .filename", text: "attachment.pdf")
+  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
 end
 
 Then /^I can visit the supporting page "([^"]*)" from the "([^"]*)" policy$/ do |supporting_title, policy_title|

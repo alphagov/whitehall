@@ -40,6 +40,11 @@ Scenario: Adding a supporting page to a draft policy
   Then I should see in the preview that "Outlaw Moustaches" includes the "Handlebar Waxing" supporting page
   And I should see in the list of draft documents that "Outlaw Moustaches" has supporting page "Handlebar Waxing"
 
+Scenario: Adding a supporting page with an attachment to a draft policy
+  Given a draft policy "Outlaw Moustaches" exists
+  When I add a supporting page "Handlebar Waxing" with an attachment to the "Outlaw Moustaches" policy
+  And I should see that the "Outlaw Moustaches" policy's "Handlebar Waxing" supporting page has an attachment
+
 Scenario: Removing a supporting page from a draft policy
   Given a draft policy "Bigger Brass" with supporting pages "Massive Trumpets" and "Giant Cornets"
   When I remove the supporting page "Massive Trumpets" from "Bigger Brass"

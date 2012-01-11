@@ -14,5 +14,7 @@
     <div class="body">
       <%= govspeak_to_admin_html @supporting_page.body %>
     </div>
+    <h3>Attachments:</h3>
+    <%= render partial: "documents/attachments", locals: { document: @supporting_page }  %>
   </section>
 </div>

@@ -4,6 +4,7 @@ class Admin::SupportingPagesController < Admin::BaseController
 
   def new
     @supporting_page = @document.supporting_pages.build(params[:supporting_page])
+    build_attachment
   end
 
   def create
@@ -20,6 +21,7 @@ class Admin::SupportingPagesController < Admin::BaseController
   end
 
   def edit
+    build_attachment
   end
 
   def update
@@ -54,5 +56,12 @@ class Admin::SupportingPagesController < Admin::BaseController
 
   def find_supporting_page
     @supporting_page = SupportingPage.find(params[:id])
+  end
+
+
+  def build_attachment
+    unless @supporting_page.attachments.any?(&:new_record?)
+      @supporting_page.attachments.build
+    end
   end
 end
