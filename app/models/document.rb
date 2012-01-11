@@ -149,5 +149,9 @@ class Document < ActiveRecord::Base
     def search(query)
       published.where("title LIKE :query", query: "%#{query}%")
     end
+
+    def latest_published_at
+      published.by_published_at.first.published_at
+    end
   end
 end

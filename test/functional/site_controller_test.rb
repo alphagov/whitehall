@@ -23,4 +23,22 @@ class SiteControllerTest < ActionController::TestCase
     older_documents.each { |d| refute_select_object(d) }
     draft_documents.each { |d| refute_select_object(d) }
   end
+
+  test "index responds with 304 if previous request is still fresh" do
+    last_modified_from_previous_request = 1.day.ago
+    create(:published_policy, published_at: last_modified_from_previous_request)
+    request.env["HTTP_IF_MODIFIED_SINCE"] = last_modified_from_previous_request.utc.httpdate
+
+    get :index
+    assert_equal 304, response.status
+  end
+
+  test "index responds with 200 if previous request is now stale" do
+    last_modified_from_previous_request = 1.day.ago
+    create(:published_policy, published_at: Time.now)
+    request.env["HTTP_IF_MODIFIED_SINCE"] = last_modified_from_previous_request.utc.httpdate
+
+    get :index
+    assert_equal 200, response.status
+  end
 end

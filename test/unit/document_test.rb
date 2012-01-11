@@ -334,6 +334,18 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [article, policy, publication], Document.by_published_at
   end
 
+  test ".latest_published_at returns the most recent published_at from published documents" do
+    policy = create(:published_policy, published_at: 2.hours.ago)
+    publication = create(:published_publication, published_at: 4.hours.ago)
+    assert_equal policy.published_at, Document.latest_published_at
+  end
+
+  test ".latest_published_at ignores unpublished documents" do
+    policy = create(:draft_policy, published_at: 2.hours.ago)
+    publication = create(:published_publication, published_at: 4.hours.ago)
+    assert_equal publication.published_at, Document.latest_published_at
+  end
+
   test "should only return the submitted documents" do
     draft_document = create(:draft_document)
     submitted_document = create(:submitted_document)
