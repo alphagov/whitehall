@@ -41,4 +41,18 @@ class RoutingTest < ActionDispatch::IntegrationTest
     get_via_redirect "/government/admin", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
     assert_response :not_found
   end
+
+  test "admin links to open website points to router website in preview" do
+    host! 'whitehall.preview.alphagov.co.uk'
+    login_as_admin
+    get_via_redirect admin_root_path
+    assert_select "a.open_website[href=?]", "http://www.preview.alphagov.co.uk/government"
+  end
+
+  test "admin links to open website points to router website in production" do
+    host! 'whitehall.production.alphagov.co.uk'
+    login_as_admin
+    get_via_redirect admin_root_path
+    assert_select "a.open_website[href=?]", "http://www.gov.uk/government"
+  end
 end
