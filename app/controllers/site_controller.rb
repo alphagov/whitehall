@@ -1,10 +1,6 @@
 class SiteController < PublicFacingController
   def index
-    last_modified = Document.latest_published_at
-
-    if stale?(last_modified: last_modified, public: true)
-      @recently_updated = Document.published.by_published_at.limit(10)
-    end
+    @recently_updated = Document.published.by_published_at.limit(10)
   end
 
   def sha
