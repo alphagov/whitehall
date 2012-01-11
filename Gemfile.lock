@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/rummageable.git
-  revision: d24df7b520d31fa1ff930ce5e6c1c0c47d7629da
+  revision: 9cf1caec2f481ba67a0175a040eefe87e16f90ad
   specs:
     rummageable (0.1.1)
       json
