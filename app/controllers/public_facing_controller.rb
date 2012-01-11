@@ -4,6 +4,6 @@ class PublicFacingController < ApplicationController
   private
 
   def set_cache_control_headers
-    expires_in 30.seconds, public: true
+    expires_in 2.minutes, public: true
   end
 end
