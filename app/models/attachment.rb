@@ -1,7 +1,5 @@
 class Attachment < ActiveRecord::Base
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
-  has_many :document_attachments
-  has_many :documents, through: :document_attachments
 
   delegate :url, to: :file
 
@@ -11,10 +9,6 @@ class Attachment < ActiveRecord::Base
 
   def filename
     url && File.basename(url)
-  end
-
-  def destroy_if_unassociated
-    self.destroy if document_attachments.empty?
   end
 
   def pdf?

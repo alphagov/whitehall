@@ -19,20 +19,6 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_equal attachment.filename, Attachment.find(attachment.id).filename
   end
 
-  test "does not destroy self when destroy_if_unassociated is called if more documents are associated" do
-    attachment = create(:attachment)
-    create(:document_attachment, attachment: attachment)
-
-    attachment.expects(:destroy).never
-    attachment.destroy_if_unassociated
-  end
-
-  test "destroys self when destroy_if_unassociated is called if no documents are associated" do
-    attachment = create(:attachment)
-    attachment.expects(:destroy)
-    attachment.destroy_if_unassociated
-  end
-
   test "should save content type and file size on create" do
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     attachment = create(:attachment, file: greenpaper_pdf)
