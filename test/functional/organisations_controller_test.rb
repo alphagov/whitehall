@@ -1,6 +1,8 @@
 require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
+  should_be_a_public_facing_controller
+
   test "shows organisation title and description" do
     organisation = create(:organisation,
       name: "organisation-name",

@@ -1,6 +1,8 @@
 require "test_helper"
 
 class SearchControllerTest < ActionController::TestCase
+  should_be_a_public_facing_controller
+
   test "should inform the user that we didn't find any documents matching the search term" do
     client = stub("search", search: [])
     Whitehall::SearchClient.stubs(:new).returns(client)

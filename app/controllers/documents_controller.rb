@@ -1,4 +1,4 @@
-class DocumentsController < ApplicationController
+class DocumentsController < PublicFacingController
   before_filter :find_document, only: [:show]
 
   private

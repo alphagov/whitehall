@@ -3,6 +3,7 @@ require "test_helper"
 class AnnouncementsControllerTest < ActionController::TestCase
   include ActionView::Helpers::DateHelper
 
+  should_be_a_public_facing_controller
   should_show_featured_documents_for :news_article
 
   test "index highlights three featured news articles" do

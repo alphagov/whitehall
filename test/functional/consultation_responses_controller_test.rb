@@ -1,6 +1,8 @@
 require "test_helper"
 
 class ConsultationResponsesControllerTest < ActionController::TestCase
+  should_be_a_public_facing_controller
+
   test 'show displays published consultations' do
     published_consultation_response = create(:published_consultation_response)
     consultation = published_consultation_response.consultation

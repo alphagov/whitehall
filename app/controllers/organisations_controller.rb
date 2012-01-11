@@ -1,4 +1,4 @@
-class OrganisationsController < ApplicationController
+class OrganisationsController < PublicFacingController
 
   before_filter :load_organisation, only: [:show, :about]
 

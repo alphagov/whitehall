@@ -1,6 +1,8 @@
 require "test_helper"
 
 class SiteControllerTest < ActionController::TestCase
+  should_be_a_public_facing_controller
+
   test "index shows a list of recently published documents" do
     5.downto(1) do |x|
       create(:published_policy, published_at: x.days.ago)

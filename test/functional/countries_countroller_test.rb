@@ -1,7 +1,7 @@
 require "test_helper"
 
 class CountriesControllerTest < ActionController::TestCase
-
+  should_be_a_public_facing_controller
   should_show_published_documents_associated_with :country, :news_articles
   should_show_published_documents_associated_with :country, :policies
   should_show_published_documents_associated_with :country, :speeches

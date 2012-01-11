@@ -1,4 +1,4 @@
-class MinisterialRolesController < ApplicationController
+class MinisterialRolesController < PublicFacingController
   def index
     @ministerial_roles = MinisterialRole.includes(:current_people)
   end

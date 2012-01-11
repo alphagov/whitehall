@@ -3,6 +3,8 @@ require "test_helper"
 class SupportingPagesControllerTest < ActionController::TestCase
   include PolicyViewAssertions
 
+  should_be_a_public_facing_controller
+
   test "index links to supporting pages" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, title: "supporting-page-title", document: policy)

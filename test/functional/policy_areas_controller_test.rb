@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PolicyAreasControllerTest < ActionController::TestCase
+  should_be_a_public_facing_controller
+
   test "shows policy area title and description" do
     policy_area = create(:policy_area)
     get :show, id: policy_area

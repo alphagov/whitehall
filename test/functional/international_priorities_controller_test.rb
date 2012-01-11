@@ -1,6 +1,7 @@
 require "test_helper"
 
 class InternationalPrioritiesControllerTest < ActionController::TestCase
+  should_be_a_public_facing_controller
   should_render_a_list_of :international_priorities
   should_show_the_countries_associated_with :international_priority
 

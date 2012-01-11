@@ -1,7 +1,7 @@
 require "test_helper"
 
 class MinisterialRolesControllerTest < ActionController::TestCase
-
+  should_be_a_public_facing_controller
   should_show_published_documents_associated_with :ministerial_role, :policies
   should_show_published_documents_associated_with :ministerial_role, :publications
   should_show_published_documents_associated_with :ministerial_role, :consultations

@@ -1,4 +1,4 @@
-class PolicyAreasController < ApplicationController
+class PolicyAreasController < PublicFacingController
   def index
     @policy_areas = PolicyArea.with_published_policies
     @featured_policy_area = FeaturedPolicyAreaChooser.choose_policy_area
