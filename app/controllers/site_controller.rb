@@ -1,4 +1,4 @@
-class SiteController < ApplicationController
+class SiteController < PublicFacingController
   def index
     last_modified = Document.latest_published_at
 
