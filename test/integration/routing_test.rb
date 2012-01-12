@@ -22,8 +22,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "visiting unknown route should respond with 404 not found" do
-    get "/government/path-unknown-to-application"
-    assert_response :not_found
+    assert_raises(ActionController::RoutingError) do
+      get "/government/path-unknown-to-application"
+    end
   end
 
   test "should allow access to admin URLs for non-single-domain requests" do
@@ -38,8 +39,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "should block access to admin URLs for requests through the single domain router" do
-    get_via_redirect "/government/admin", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
-    assert_response :not_found
+    assert_raises(ActionController::RoutingError) do
+      get_via_redirect "/government/admin", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    end
   end
 
   test "admin links to open website points to router website in preview" do
