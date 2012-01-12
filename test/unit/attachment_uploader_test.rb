@@ -6,6 +6,11 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     assert_equal %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx), uploader.extension_white_list
   end
 
+  test "should return nil extension when file is nil" do
+    uploader = AttachmentUploader.new
+    assert_nil uploader.extension
+  end
+
   test "should store uploads in a directory that persists across deploys" do
     model = stub("AR Model", id: 1)
     uploader = AttachmentUploader.new(model, "mounted-as")
@@ -42,5 +47,9 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
     width, height = geometry.split("x")
 
     assert (width == "105" || height == "140"), "geometry should be proportional scaled, but was #{geometry}"
+  end
+
+  test "should return file extension when file is present" do
+    assert_equal "pdf", @uploader.extension
   end
 end

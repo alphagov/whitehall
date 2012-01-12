@@ -109,4 +109,16 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment.reload
     assert attachment.url(:thumbnail).ends_with?("thumbnail_greenpaper.pdf.png"), "unexpected url ending: #{attachment.url(:thumbnail)}"
   end
+
+  test "should return nil file extension if no file present" do
+    attachment = build(:attachment)
+    attachment.stubs(file: nil)
+    assert_nil attachment.file_extension
+  end
+
+  test "should return file extension if file present" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+    attachment = build(:attachment, file: greenpaper_pdf)
+    assert_equal "pdf", attachment.file_extension
+  end
 end

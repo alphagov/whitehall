@@ -44,8 +44,27 @@ module Admin::DocumentsHelper
     'current' if current
   end
 
-  def humanized_content_type(content_type)
-    content_type.present? && content_type.split("/").last.upcase
+
+  MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document"
+  MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE = "MS Excel Spreadsheet"
+  MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE = "MS Powerpoint Presentation"
+
+  FILE_EXTENSION_VS_HUMANIZED_CONTENT_TYPE = {
+    "pdf" => "PDF Document",
+    "csv" => "CSV Document",
+    "rtf" => "RTF Document",
+    "png" => "PNG Image",
+    "jpg" => "JPEG Document",
+    "doc" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
+    "docx" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
+    "xls" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
+    "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
+    "ppt" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
+    "pptx" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE
+  }
+
+  def humanized_content_type(file_extension)
+    FILE_EXTENSION_VS_HUMANIZED_CONTENT_TYPE[file_extension]
   end
 
   def order_link(document)

@@ -11,6 +11,10 @@ class Attachment < ActiveRecord::Base
     url && File.basename(url)
   end
 
+  def file_extension
+    file.extension if file.present?
+  end
+
   def pdf?
     content_type == "application/pdf"
   end
