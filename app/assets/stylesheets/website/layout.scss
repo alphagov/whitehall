@@ -14,13 +14,18 @@
   @include vertical_gradient(#f5f5f5, #eee);
 
   @media only screen and (min-width:670px) {
+    padding-top: 1.7em;
+  }
+}
+
+.js-enabled #wrapper {
+  @media only screen and (min-width:670px) {
     padding-top: 7.9em;
   }
 
   @media only screen and (min-width: 863px) {
     padding-top: 6.4em;
   }
-
 }
 
 #content {
