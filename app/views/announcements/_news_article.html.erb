@@ -1,6 +1,12 @@
 <%= content_tag_for(:article, news_article) do %>
   <% if display == "expanded" %>
-    <div class="img"><%= link_to image_tag("evil_placeholder.png"), public_document_path(news_article) %></div>
+    <div class="img">
+      <% if news_article.image.present? %>
+        <%= link_to image_tag(news_article.image_url), public_document_path(news_article) %>
+      <% else %>
+        <%= link_to image_tag('evil_placeholder.png'), public_document_path(news_article) %>
+      <% end %>
+    </div>
   <% end %>
   <div class="text">
     <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>

@@ -54,6 +54,22 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test "most recent news articles should show article image or placeholder if it isn't present" do
+    news_with_image = create(:published_news_article, published_at: 2.hours.ago, image: fixture_file_upload('portas-review.jpg'))
+    news_without_image = create(:published_news_article, published_at: 3.hours.ago)
+
+    get :index
+
+    assert_select '.most_recent' do
+      assert_select_object news_with_image do
+        assert_select ".img img[src='#{news_with_image.image_url}']"
+      end
+      assert_select_object news_without_image do
+        assert_select ".img img[src*='evil_placeholder.png']"
+      end
+    end
+  end
+
   test "index shows partial details for next 12 most recent announcements" do
     announcements = 10.times.map do |n|
       [create(:published_news_article, published_at: (n * 2).days.ago), create(:published_speech, published_at: (n * 2 + 1).days.ago)]
