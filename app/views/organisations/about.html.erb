@@ -1,7 +1,11 @@
 <% page_title "About " + @organisation.name %>
 <div class="g2 first">
   <section class="organisation">
-    <h1 class="page_title"><%= @organisation.name %></h1>
+    <h1 class="page_title"><%= @organisation.name %>
+      <% if @organisation.acronym.present? %>
+        (<%= @organisation.acronym %>)
+      <% end %>
+    </h1>
     <div class="body">
       <%= govspeak_to_html @organisation.about_us %>
     </div>

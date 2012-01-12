@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111164937) do
+ActiveRecord::Schema.define(:version => 20120112223546) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(:version => 20120111164937) do
     t.integer  "organisation_type_id"
     t.text     "description"
     t.text     "about_us"
+    t.string   "acronym"
   end
 
   add_index "organisations", ["slug"], :name => "index_organisations_on_slug"

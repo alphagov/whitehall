@@ -47,6 +47,10 @@ class Organisation < ActiveRecord::Base
     name.gsub(/^Ministry of/, "").gsub(/^Department (of|for)/, "").gsub(/^Office of the/, "").strip
   end
 
+  def display_name
+    acronym || name
+  end
+
   def normalize_friendly_id(value)
     value = value.gsub(/'/, '') if value
     super value
