@@ -87,7 +87,7 @@ module GovspeakHelper
   end
 
   def rewritten_href_for_documents(document, supporting_page)
-    if host = Whitehall.public_host
+    if host = Whitehall.public_host_for(request.host)
       if supporting_page
         policy_supporting_page_url(document, supporting_page, host: host)
       else

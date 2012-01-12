@@ -7,6 +7,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   setup do
     @request  = ActionController::TestRequest.new
+    ActionController::Base.default_url_options = {}
   end
   attr_reader :request
 
@@ -127,7 +128,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should rewrite absolute links to admin previews of Speeches as their public document identity on preview" do
-    Whitehall.stubs(:platform).returns("preview")
+    request.host = ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     speech = create(:published_speech)
     public_url = public_document_url(speech)
     html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
@@ -135,7 +136,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on preview" do
-    Whitehall.stubs(:platform).returns("preview")
+    request.host = ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
@@ -143,7 +144,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should rewrite absolute links to admin previews of Speeches as their public document identity on production" do
-    Whitehall.stubs(:platform).returns("production")
+    request.host = ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     speech = create(:published_speech)
     public_url = public_document_url(speech)
     html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
@@ -151,7 +152,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on production" do
-    Whitehall.stubs(:platform).returns("production")
+    request.host = ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")

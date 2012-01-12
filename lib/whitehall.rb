@@ -19,9 +19,9 @@ module Whitehall
       ENV["FACTER_govuk_platform"] || Rails.env
     end
 
-    def public_host
-      {"preview" => "www.preview.alphagov.co.uk",
-       "production" => "www.gov.uk"}[platform]
+    def public_host_for(request_host)
+      {"whitehall.preview.alphagov.co.uk" => "www.preview.alphagov.co.uk",
+       "whitehall.production.alphagov.co.uk" => "www.gov.uk"}[request_host]
     end
 
     def secrets
