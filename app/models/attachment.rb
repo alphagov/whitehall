@@ -12,7 +12,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def file_extension
-    file.extension if file.present?
+    File.extname(url).gsub(/\./, "") if file.present? && url.present?
   end
 
   def pdf?

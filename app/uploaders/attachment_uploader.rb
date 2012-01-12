@@ -27,10 +27,6 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     file.content_type == "application/pdf"
   end
 
-  def extension
-    file.extension if file.present?
-  end
-
   def get_first_page_as_png(width, height)
     thumbnail_path = current_path + ".png"
     cmd = %{convert -resize #{width}x#{height} "#{path}[0]" "#{thumbnail_path}"}
