@@ -38,6 +38,7 @@ Whitehall::Application.routes.draw do
     resources :organisations, only: [:index, :show] do
       member do
         get :about
+        get :news
       end
     end
     resources :ministers, only: [:index, :show], as: :ministerial_roles, controller: :ministerial_roles

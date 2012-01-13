@@ -83,15 +83,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select_object(draft_corporate_publication)
   end
 
-  test "shows only published news articles associated with organisation" do
-    published_document = create(:published_news_article)
-    draft_document = create(:draft_news_article)
-    organisation = create(:organisation, documents: [published_document, draft_document])
-    get :show, id: organisation
-    assert_select_object(published_document)
-    refute_select_object(draft_document)
-  end
-
   test "should not display an empty published policies section" do
     organisation = create(:organisation)
     get :show, id: organisation
@@ -102,12 +93,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#publications"
-  end
-
-  test "should not display an empty published news articles section" do
-    organisation = create(:organisation)
-    get :show, id: organisation
-    refute_select "#news_articles"
   end
 
   test "shows names and roles of those ministers associated with organisation" do
@@ -235,7 +220,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "img[src*=blank-person.jpg]"
   end
 
-  test "should display a link to the about-us page" do
+  test "should display a link to the about-us page for the organisation" do
     organisation = create(:organisation)
     get :show, id: organisation
     assert_select ".about a[href='#{about_organisation_path(organisation)}']"
@@ -256,6 +241,35 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :show, id: organisation
     assert_select "#policy_areas", count: 0
+  end
+
+  test "should display a link to the news page for the organisation" do
+    organisation = create(:organisation)
+
+    get :show, id: organisation
+
+    assert_select ".all_news a[href='#{news_organisation_path(organisation)}']"
+  end
+
+  test "should show only published news articles associated with organisation" do
+    published_news_article = create(:published_news_article)
+    draft_news_article = create(:draft_news_article)
+    another_published_news_article = create(:published_news_article)
+    organisation = create(:organisation, documents: [published_news_article, draft_news_article])
+
+    get :news, id: organisation
+
+    assert_select_object(published_news_article)
+    refute_select_object(draft_news_article)
+    refute_select_object(another_published_news_article)
+  end
+
+  test "should show explanatory text if there are no news articles for the organisation" do
+    organisation = create(:organisation, name: "Cabinet Office")
+
+    get :news, id: organisation
+
+    assert_select "p", "There are no Cabinet Office news articles at present."
   end
 
   test "should display an about-us page for the organisation" do
@@ -308,5 +322,4 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_equal [organisation_a, organisation_b, organisation_c], assigns[:organisations]
   end
-
 end

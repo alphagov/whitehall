@@ -1,0 +1,13 @@
+<% page_title "#{@organisation.name} News" %>
+<div class="g3">
+  <section id="news_articles">
+    <h1 class="page_title"><%= @organisation.name %> News</h1>
+    <% if @news_articles.any? %>
+      <% @news_articles.each do |news_article| %>
+        <%= render partial: "announcements/news_article", locals: { news_article: news_article, display: "default" } %>
+      <% end %>
+    <% else %>
+      <p>There are no <%= @organisation.name %> news articles at present.</p>
+    <% end %>
+  </section>
+</div>

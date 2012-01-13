@@ -1,6 +1,6 @@
 class OrganisationsController < PublicFacingController
 
-  before_filter :load_organisation, only: [:show, :about]
+  before_filter :load_organisation, only: [:show, :about, :news]
 
   def index
     @organisations = Organisation.ordered_by_name_ignoring_prefix
@@ -14,6 +14,10 @@ class OrganisationsController < PublicFacingController
   end
 
   def about
+  end
+
+  def news
+    @news_articles = NewsArticle.in_organisation(@organisation).published
   end
 
   private
