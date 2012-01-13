@@ -1,7 +1,7 @@
 class AnnouncementsController < PublicFacingController
 
   def index
-    @featured_news_articles = NewsArticle.published.by_published_at.where(featured: true).includes(:document_identity, :document_relations, :policy_areas)
+    @featured_news_articles = NewsArticle.published.by_published_at.where(featured: true).limit(3).includes(:document_identity, :document_relations, :policy_areas)
     @announced_in_last_7_days = announced_in_last_7_days
     @announced_today = announced_today
   end

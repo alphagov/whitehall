@@ -23,7 +23,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index shows news and speeches from the last 24 hours" do
     older_announcements = [create(:published_news_article, published_at: 25.hours.ago), create(:published_speech, published_at: 26.hours.ago)]
-    announced_today = [create(:published_news_article, published_at: Time.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
 
     get :index
 
@@ -38,12 +38,12 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "featured stories should not appear in the last 24 hours or last 7 days lists of announcements" do
     featured = [
-      create(:published_news_article, featured: true, published_at: Time.now),
+      create(:published_news_article, featured: true, published_at: Time.zone.now),
       create(:published_news_article, featured: true, published_at: 24.hours.ago),
       create(:published_news_article, featured: true, published_at: 2.days.ago)
     ]
 
-    announced_today = [create(:published_news_article, published_at: Time.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
 
     announced_in_last_7_days = [
       create(:published_news_article, published_at: 24.hours.ago),
@@ -59,7 +59,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index highlights first three announcements that have been published in the last 24 hours" do
     announced_today = [
-      create(:published_news_article, published_at: Time.now),
+      create(:published_news_article, published_at: Time.zone.now),
       create(:published_speech, published_at: 1.hour.ago),
       create(:published_speech, published_at: 2.hours.ago),
       create(:published_news_article, published_at: 3.hours.ago)
@@ -100,7 +100,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index shows news and speeches from the last 7 days excluding those within the last 24 hours" do
     older_announcements = [create(:published_news_article, published_at: 8.days.ago), create(:published_speech, published_at: 8.days.ago)]
-    announced_today = [create(:published_news_article, published_at: Time.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
 
     announced_in_last_7_days = [
       create(:published_news_article, published_at: 24.hours.ago),
@@ -113,7 +113,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "should display list of correctly formatted announcements for the last 7 days" do
-    announced_today = [create(:published_news_article, published_at: Time.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
 
     announced_in_last_7_days = [
       create(:published_news_article, published_at: 1.day.ago),
