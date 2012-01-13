@@ -17,7 +17,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def news
-    @news_articles = NewsArticle.in_organisation(@organisation).published
+    @news_articles = NewsArticle.in_organisation(@organisation).published.by_published_at
   end
 
   private

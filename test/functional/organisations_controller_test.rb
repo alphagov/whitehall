@@ -272,6 +272,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "p", "There are no Cabinet Office news articles at present."
   end
 
+  test "should order news articles in order of publication date with most recent first" do
+    earlier_news_article = create(:published_news_article, published_at: 2.days.ago)
+    later_news_article = create(:published_news_article, published_at: 1.days.ago)
+    organisation = create(:organisation, documents: [earlier_news_article, later_news_article])
+
+    get :news, id: organisation
+
+    assert_equal [later_news_article, earlier_news_article], assigns(:news_articles)
+  end
+
   test "should display an about-us page for the organisation" do
     organisation = create(:organisation,
       name: "organisation-name",
