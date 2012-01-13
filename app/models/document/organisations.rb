@@ -3,9 +3,11 @@ module Document::Organisations
 
   class Trait < Document::Traits::Trait
     def process_associations_before_save(document)
-      @document.document_organisations.each do |assoc|
+      @document.document_organisations.each do |association|
         document.document_organisations.build(
-          { organisation: assoc.organisation, featured: assoc.featured? }, without_protection: true)
+          organisation: association.organisation,
+          featured: association.featured?
+        )
       end
     end
   end
