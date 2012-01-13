@@ -1,84 +1,28 @@
 @import "../shared/utils";
 
 #content {
-  .row {
-    .news_article, .speech {
-      margin-bottom: 0;
-      padding-bottom: 0.75em;
-      h2 {
-        @include type-14;
-        margin-bottom: 0.5em;
-      }
-      p {
-        @include type-12;
-        margin-bottom: 0.857em;
-      }
-      .meta {
-        margin: 0;
-        span {
-          margin-right: 1em;
-        }
-      }
-    }
-  }
+  .announcements {
 
-  #recent_announcements {
+    padding-top: 1em;
+
     h1 {
-      padding-bottom: 1em;
-      margin: 0;
+      margin-bottom: 0;
+      margin-top: 0.2em;
+      padding-bottom: 0.75em;
       padding-left: 2%;
       border-bottom: 1px solid #ddd;
     }
 
-    h2 {
-      @include type-16;
-      text-align: center;
-      color: #444;
-    }
+    .expanded {
 
-    .most_recent {
-      @media only screen and (min-width: 768px) {
-        margin-bottom: 0.75em;
-      }
-    }
-
-    .less_recent {
-      border-top: 1px solid #ddd;
-      padding-top: 1.25em;
-      margin: 0 4%;
-
-      h2 {
-        margin-bottom: 0.375em;
-      }
-
-      @media only screen and (min-width: 768px) {
-        margin: 0 10% 0.75em 10%;
-      }
-
-      .news_article, .speech {
-        @include grid_column;
-        margin-bottom: 0.75em;
-
-        @media only screen and (min-width: 768px) {
-          width: 46%;
-          margin-left: 2%;
-          margin-right: 2%;
-        }
-      }
     }
 
     .row {
-      h2 {
-        text-align: left;
-      }
-    }
-
-    .row_1, .row_2 {
       @include flood_three_columns;
       border-right: none;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #eee;
       padding-top: 1em;
-      padding-bottom: 1em;
+      padding-bottom: 0;
 
       .news_article, .speech {
         @include span_one_column;
@@ -93,36 +37,42 @@
             @include type-16;
             margin-bottom: 0.75em;
           }
+
+          .summary {
+            margin-bottom: 0;
+          }
         }
 
         div.img {
-          margin-left: 0.5em;
-
+          margin-left: 4%;
           border: 4px solid #fff;
           @include box-shadow(0, 0, 2px, #ddd);
           height: 10em;
           overflow: hidden;
           margin-bottom: 0.5em;
         }
+
+        .meta {
+          margin-bottom: 0.5em;
+          margin-left: 0;
+        }
       }
     }
+  }
 
-    .row_1, .row_3 {
-      border-top: none;
+  #last_7_days {
+    .row:last-child {
+      border-bottom: 0;
     }
   }
 
   .further_articles {
-    border-top: 1px solid #ddd;
     @include type-14;
     margin-bottom: 0;
+    margin-top: 1em;
     padding: 0.75em 1.5em;
     background: #eee;
-
-    @media only screen and (min-width: 768px) {
-      padding-left: 11%;
-      padding-right: 11%;
-    }
+    border-top: 1px solid #ddd;
   }
 
   #notes_to_editors {
