@@ -24,13 +24,29 @@
     </section>
   <% end %>
 
-  <section class="group" id="recent_announcements">
-    <h1>Latest from across government</h1>
-    <div class="most_recent group">
-      <%= announcement_group(@announcements.take(6), groups_of: 3, partial: "expanded") %>
-    </div>
-    <%= announcement_group(@announcements.from(6).take(12), groups_of: 2, class: "group less_recent", partial: "default") %>
-  </section>
+  <% if @announced_today.any? %>
+    <section class="group" id="last_24_hours">
+      <h1>In the last 24 hours</h1>
+      <div class="expanded group">
+        <%= announcement_group(@announced_today.take(3), groups_of: 3, partial: "expanded") %>
+      </div>
+      <%= announcement_group(@announced_today.from(3), groups_of: 2, class: "group", partial: "default") %>
+    </section>
+  <% end %>
+
+  <% if @announced_in_last_7_days.any? %>
+    <section class="group" id="last_7_days">
+      <h1>In the last 7 days</h1>
+      <% if @announced_today.any? %>
+        <%= announcement_group(@announced_in_last_7_days, groups_of: 2, class: "group", partial: "default") %>
+      <% else %>
+        <div class="expanded group">
+          <%= announcement_group(@announced_in_last_7_days.take(3), groups_of: 3, partial: "expanded") %>
+        </div>
+        <%= announcement_group(@announced_in_last_7_days.from(3), groups_of: 2, class: "group", partial: "default") %>
+      <% end %>
+    </section>
+  <% end %>
 
   <p class="further_articles">View all <%= link_to "news", news_articles_path %> or <%= link_to "speeches", speeches_path %></p>
 </div>

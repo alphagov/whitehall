@@ -21,31 +21,117 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows other news articles and speeches" do
-    3.times.map do |n|
-      create(:published_news_article, featured: true, published_at: n.days.ago)
-    end
-
-    announcements = 5.times.map do |n|
-      [create(:published_news_article, published_at: (n * 2).days.ago), create(:published_speech, published_at: (n * 2 + 1).days.ago)]
-    end.flatten
+  test "index shows news and speeches from the last 24 hours" do
+    older_announcements = [create(:published_news_article, published_at: 25.hours.ago), create(:published_speech, published_at: 26.hours.ago)]
+    announced_today = [create(:published_news_article, published_at: Time.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
 
     get :index
 
-    assert_equal announcements, assigns[:announcements]
+    assert_equal announced_today, assigns[:announced_today]
+
+    assert_select '#last_24_hours' do
+      announced_today.each do |announcement|
+        assert_select_object announcement
+      end
+    end
   end
 
-  test "index shows full details for 6 most recent announcements" do
-    announcements = 10.times.map do |n|
-      [create(:published_news_article, published_at: (n * 2).days.ago), create(:published_speech, published_at: (n * 2 + 1).days.ago)]
-    end.flatten
+  test "featured stories should not appear in the last 24 hours or last 7 days lists of announcements" do
+    featured = [
+      create(:published_news_article, featured: true, published_at: Time.now),
+      create(:published_news_article, featured: true, published_at: 24.hours.ago),
+      create(:published_news_article, featured: true, published_at: 2.days.ago)
+    ]
+
+    announced_today = [create(:published_news_article, published_at: Time.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+
+    announced_in_last_7_days = [
+      create(:published_news_article, published_at: 24.hours.ago),
+      create(:published_speech, published_at: 6.days.ago),
+    ]
 
     get :index
 
-    assert_select '.most_recent' do
-      announcements.take(6).each do |announcement|
+    assert_equal featured, assigns[:featured_news_articles]
+    assert_equal announced_today, assigns[:announced_today]
+    assert_equal announced_in_last_7_days, assigns[:announced_in_last_7_days]
+  end
+
+  test "index highlights first three announcements that have been published in the last 24 hours" do
+    announced_today = [
+      create(:published_news_article, published_at: Time.now),
+      create(:published_speech, published_at: 1.hour.ago),
+      create(:published_speech, published_at: 2.hours.ago),
+      create(:published_news_article, published_at: 3.hours.ago)
+    ]
+
+    get :index
+
+    assert_select '#last_24_hours' do
+      assert_select 'article', count: 4
+
+      assert_select '.expanded' do
+        assert_select 'article', count: 3
+        announced_today.take(3).each do |announcement|
+          assert_select_object announcement do
+            assert_select "a[href='#{announcement_path(announcement)}'] img"
+            assert_select_announcement_title announcement
+            assert_select_announcement_summary announcement
+            assert_select_announcement_metadata announcement
+          end
+        end
+      end
+
+      announced_today.from(4).each do |announcement|
         assert_select_object announcement do
-          assert_select "a[href='#{announcement_path(announcement)}'] img"
+          refute_select "img"
+          assert_select_announcement_title announcement
+          assert_select_announcement_summary announcement
+          assert_select_announcement_metadata announcement
+        end
+      end
+    end
+  end
+
+  test "should not display #last_24_hours section if there aren't any announcements within that period" do
+    get :index
+    refute_select '#last_24_hours'
+  end
+
+  test "index shows news and speeches from the last 7 days excluding those within the last 24 hours" do
+    older_announcements = [create(:published_news_article, published_at: 8.days.ago), create(:published_speech, published_at: 8.days.ago)]
+    announced_today = [create(:published_news_article, published_at: Time.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+
+    announced_in_last_7_days = [
+      create(:published_news_article, published_at: 24.hours.ago),
+      create(:published_speech, published_at: 6.days.ago),
+    ]
+
+    get :index
+
+    assert_equal announced_in_last_7_days.to_set, assigns[:announced_in_last_7_days].to_set
+  end
+
+  test "should display list of correctly formatted announcements for the last 7 days" do
+    announced_in_last_7_days = [
+      create(:published_news_article, published_at: 1.day.ago),
+      create(:published_speech, published_at: 2.days.ago),
+      create(:published_news_article, published_at: 3.days.ago),
+      create(:published_news_article, published_at: 4.days.ago),
+      create(:published_news_article, published_at: 5.days.ago),
+      create(:published_speech, published_at: 5.days.ago),
+      create(:published_speech, published_at: 6.days.ago),
+    ]
+
+    get :index
+
+    assert_select '#last_7_days' do
+      assert_select 'article', count: 7
+      assert_select '.expanded', count: 0
+
+      announced_in_last_7_days.each do |announcement|
+        assert_select_object announcement do
+          refute_select "img"
           assert_select_announcement_title announcement
           assert_select_announcement_summary announcement
           assert_select_announcement_metadata announcement
@@ -60,7 +146,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select '.most_recent' do
+    assert_select '#last_24_hours .expanded' do
       assert_select_object news_with_image do
         assert_select ".img img[src='#{news_with_image.image_url}']"
       end
@@ -70,20 +156,22 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows partial details for next 12 most recent announcements" do
-    announcements = 10.times.map do |n|
-      [create(:published_news_article, published_at: (n * 2).days.ago), create(:published_speech, published_at: (n * 2 + 1).days.ago)]
-    end.flatten
+  test "announcements in the last 7 days should show expanded view if there are no stories in the last 24 hours" do
+    announced_in_last_7_days = [
+      create(:published_news_article, published_at: 1.day.ago),
+      create(:published_speech, published_at: 2.days.ago),
+      create(:published_news_article, published_at: 3.days.ago),
+      create(:published_news_article, published_at: 4.days.ago)
+    ]
 
     get :index
 
-    assert_select '.less_recent' do
-      announcements.from(6).take(12).each do |announcement|
-        assert_select_object announcement do
-          assert_select_announcement_title announcement
-          assert_select_announcement_summary announcement
-          assert_select_announcement_metadata announcement
-        end
+    refute_select '#last_24_hours'
+
+    assert_select '#last_7_days' do
+      assert_select 'article', count: 4
+      assert_select '.expanded' do
+        assert_select 'article', count: 3
       end
     end
   end
