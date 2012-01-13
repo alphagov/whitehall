@@ -113,6 +113,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "should display list of correctly formatted announcements for the last 7 days" do
+    announced_today = [create(:published_news_article, published_at: Time.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+
     announced_in_last_7_days = [
       create(:published_news_article, published_at: 1.day.ago),
       create(:published_speech, published_at: 2.days.ago),
@@ -189,28 +191,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select ".meta a[href='#{policy_area_path(first_policy_area)}']", text: first_policy_area.name, count: 1
       assert_select ".meta a[href='#{policy_area_path(second_policy_area)}']", text: second_policy_area.name, count: 1
     end
-  end
-
-  test "should avoid n+1 queries when displaying speeches" do
-    speeches = []
-    ordered_published_speeches = mock("ordered_published_speeches")
-    ordered_published_speeches.expects(:includes).with(:document_identity, role_appointment: [:person, :role]).returns(speeches)
-    published_speeches = mock("published_speeches")
-    published_speeches.expects(:by_published_at).returns(ordered_published_speeches)
-    Speech.expects(:published).returns(published_speeches)
-
-    get :index
-  end
-
-  test "should avoid n+1 queries when displaying news articles" do
-    news_articles = []
-    ordered_published_news_articles = mock("ordered_published_news_articles")
-    ordered_published_news_articles.expects(:includes).with(:document_identity, :document_relations, :policy_areas).returns(news_articles)
-    ordered_news_articles = mock("ordered_news_articles")
-    ordered_news_articles.expects(:by_published_at).returns(ordered_published_news_articles)
-    NewsArticle.expects(:published).returns(ordered_news_articles)
-
-    get :index
   end
 
   private
