@@ -155,12 +155,8 @@ test("should be able to view an item by clicking on the relevant nav link", func
   ok(nav.find('a[href=#news_3]').hasClass('selected'), "news 3 should be selected nav element");
 });
 
-test("should size the wrapper element to the size of the first article", 1, function () {
-  $('#news_1').css({height: '400px'});
+test("should size the wrapper element to the size of the largest article", 1, function () {
+  $('#news_2').css({height: '400px'});
   this.container.featuredSectionCarousel();
-
-  var item_holder = $(this.container).find('.carousel-items');
-  var first_item = item_holder.find('#news_1');
-
   equals(this.container.height(), 400);
 });

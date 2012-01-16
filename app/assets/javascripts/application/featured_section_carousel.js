@@ -1,4 +1,5 @@
 (function($) {
+
   var _featuredSectionCarousel = function(options) {
     var _this = $(this);
     var _wrapper;
@@ -89,6 +90,15 @@
       });
     };
 
+    var _setMinHeightToLargestItem = function () {
+      var max = 0;
+      $(_items).each(function() {
+        max = Math.max( max, $(this).height() );
+      });
+      $(_items).css({'min-height': max + 'px'});
+      _resizeFeature(_currItem);
+    }
+
     var _resizingWait = false;
     var _afterResize = function () {
       _wrapper.css({top: -$(_items[_currItem]).position().top});
@@ -111,7 +121,7 @@
       if (_items.length > 1) {
         _wrapper.css({position: 'relative', top: 0});
         _createNavigation();
-        _resizeFeature(_currItem, false);
+        _setMinHeightToLargestItem();
         _timeout = setTimeout(_transition, settings.delay);
         _wrapper.hover(function () {
             clearTimeout(_timeout);
