@@ -3,6 +3,16 @@
 
 body {
   @include form_styles;
+
+  form {
+    .chzn-container {
+      @include scaled_margin_bottom(16, 24);
+
+      input[type=text] {
+        max-width: inherit;
+      }
+    }
+  }
 }
 
 fieldset.excluded_nations {
@@ -11,10 +21,6 @@ fieldset.excluded_nations {
       width: 25%;
     }
   }
-}
-
-.chzn-container {
-  @include scaled_margin_bottom(16, 24);
 }
 
 fieldset#policy_order {
