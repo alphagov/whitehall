@@ -12,10 +12,9 @@
           <% end %>
         </p>
         <div class="description"><%= govspeak_to_html @policy_area.description %></div>
+        <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5] %>
       <% end %>
     </section>
-
-    <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5] %>
   </div>
 
   <div class="g3 related_content group<%= @featured_policies.any? ? "" : " no_featured" %>">
