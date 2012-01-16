@@ -17,13 +17,6 @@ class SearchControllerTest < ActionController::TestCase
     get :index, q: "search-term"
   end
 
-  test "should display the search term in the search box" do
-    client = stub("search", search: [])
-    Whitehall::SearchClient.stubs(:new).returns(client)
-    get :index, q: "search-term"
-    assert_select "form#search input[name='q'][value='search-term']"
-  end
-
   test "should include the term we search for in the page header" do
     client = stub("search", search: [])
     Whitehall::SearchClient.stubs(:new).returns(client)
