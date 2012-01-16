@@ -44,12 +44,16 @@
         }
 
         div.img {
-          margin-left: 4%;
           border: 4px solid #fff;
           @include box-shadow(0, 0, 2px, #ddd);
           height: 10em;
           overflow: hidden;
-          margin-bottom: 0.5em;
+          margin: 0 3% 0.5em 3%;
+
+          @media only screen and (min-width: 768px) {
+            margin-left: 4%;
+            margin-right: 4%;
+          }
         }
 
         .meta {
