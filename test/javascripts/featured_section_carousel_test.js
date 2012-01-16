@@ -7,7 +7,6 @@ module("Featured news section", {
 
     $(this.container).css({
       width: '200px',
-      height: '100px',
       border: '1px solid #000',
       position: 'relative'
     });
@@ -25,7 +24,7 @@ module("Featured news section", {
     // $(this.container).find('#news_1').css({background: "red"});
     // $(this.container).find('#news_2').css({background: "blue"});
     // $(this.container).find('#news_3').css({background: "yellow"});
-
+    //
     // $("#qunit-fixture").css({
     //   position: 'relative',
     //   top: 'auto',
@@ -134,8 +133,6 @@ test("should pause transitions upon hovering over container", function () {
 });
 
 test("should be able to view an item by clicking on the relevant nav link", function () {
-  // stop();
-
   this.container.featuredSectionCarousel({
     delay: 500
   });
@@ -156,4 +153,14 @@ test("should be able to view an item by clicking on the relevant nav link", func
   equals(item_holder.position().top, -item_holder.find('#news_3').position().top, "should now be showing news 3");
   equals(nav.find('a.selected').length, 1, "should only have single selected nav element");
   ok(nav.find('a[href=#news_3]').hasClass('selected'), "news 3 should be selected nav element");
+});
+
+test("should size the wrapper element to the size of the first article", 1, function () {
+  $('#news_1').css({height: '400px'});
+  this.container.featuredSectionCarousel();
+
+  var item_holder = $(this.container).find('.carousel-items');
+  var first_item = item_holder.find('#news_1');
+
+  equals(this.container.height(), 400);
 });

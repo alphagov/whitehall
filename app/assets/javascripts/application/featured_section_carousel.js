@@ -93,7 +93,7 @@
       if (_items.length > 1) {
         _wrapper.css({position: 'relative', top: 0});
         _createNavigation();
-        // _resizeFeature(_currItem);
+        _resizeFeature(_currItem);
         _timeout = setTimeout(_transition, settings.delay);
         _wrapper.hover(function () {
             clearTimeout(_timeout);
