@@ -149,6 +149,10 @@
     font-weight: bold;
   }
 
+  abbr[title] {
+    border: none;
+  }
+
   h1.section_title {
     color: #333;
     @include type-18;
