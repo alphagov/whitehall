@@ -35,10 +35,14 @@
       _navEl.find('a[href=#' + $(_items[_currItem]).attr('id') + ']').addClass('selected');
     };
 
-    var _resizeFeature = function (index) {
+    var _resizeFeature = function (index, animate) {
       var h = $(_items[index]).outerHeight();
       if (h != null) {
-        _this.animate({height: h});
+        if (animate) {
+          _this.animate({height: h});
+        } else {
+          _this.css({height: h});
+        }
       }
     };
 
@@ -69,7 +73,7 @@
         _currItem += 1;
         _highlightNavigation();
         _animate(_nextTop);
-        _resizeFeature(_currItem);
+        _resizeFeature(_currItem, true);
       }
     };
 
@@ -80,10 +84,24 @@
           _currItem = index;
           _highlightNavigation();
           _animate(-$(this).position().top);
-          _resizeFeature(_currItem);
+          _resizeFeature(_currItem, true);
         };
       });
     };
+
+    var _resizingWait = false;
+    var _afterResize = function () {
+      _wrapper.css({top: -$(_items[_currItem]).position().top});
+      _resizeFeature(_currItem, false);
+    }
+
+    var resize_window = function () {
+      if(_resizingWait !== false)
+          clearTimeout(_resizingWait);
+       _resizingWait = setTimeout(_afterResize, 200);
+    };
+
+    $(window).resize(resize_window);
 
     return function () {
       _this.addClass('carousel-enabled');
@@ -93,7 +111,7 @@
       if (_items.length > 1) {
         _wrapper.css({position: 'relative', top: 0});
         _createNavigation();
-        _resizeFeature(_currItem);
+        _resizeFeature(_currItem, false);
         _timeout = setTimeout(_transition, settings.delay);
         _wrapper.hover(function () {
             clearTimeout(_timeout);
