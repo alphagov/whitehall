@@ -80,6 +80,14 @@ When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ d
   click_button "Save"
 end
 
+When /^I feature the publication "([^"]*)"$/ do |publication_title|
+  publication = Publication.find_by_title!(publication_title)
+  visit published_admin_documents_path(filter: 'publication')
+  within record_css_selector(publication) do
+    click_button "Feature"
+  end
+end
+
 When /^I set the publication title to "([^"]*)" and save$/ do |title|
   fill_in "Title", with: title
   click_button "Save"
@@ -119,4 +127,12 @@ end
 Then /^I should see that the publication is about "([^"]*)"$/ do |country_name|
   country = Country.find_by_name!(country_name)
   assert has_css?("#{metadata_nav_selector} #{record_css_selector(country)}")
+end
+
+Then /^the publication "([^"]*)" should be featured on the public publications page$/ do |publication_title|
+  visit publications_path
+  publication = Publication.published.find_by_title!(publication_title)
+
+  publication_is_featured = has_css?("#featured-publications #{record_css_selector(publication)}")
+  assert publication_is_featured
 end
