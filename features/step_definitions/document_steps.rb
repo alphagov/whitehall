@@ -10,6 +10,17 @@ Given /^a published (publication|policy|news article|consultation|speech) "([^"]
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
+Given /^a published document "([^"]*)" exists$/ do |title|
+  create(:published_policy, title: title)
+end
+
+Given /^a published document "([^"]*)" exists which links to the "([^"]*)" document$/ do |source_title, target_title|
+  target_document = Document.find_by_title!(target_title)
+  target_url = admin_document_url(target_document)
+  body = "[#{target_title}](#{target_url})"
+  create(:published_policy, title: source_title, body: body)
+end
+
 Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" policy area$/ do |document_type, title, policy_area_name|
   policy_area = PolicyArea.find_by_name!(policy_area_name)
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, policy_areas: [policy_area])
@@ -92,6 +103,14 @@ end
 When /^I edit the (publication|policy|news article|consultation) changing the title to "([^"]*)"$/ do |document_type, new_title|
   fill_in "Title", with: new_title
   click_button "Save"
+end
+
+When /^I publish a new edition of the published document "([^"]*)"$/ do |title|
+  visit published_admin_documents_path
+  click_link title
+  click_button 'Create new edition'
+  click_button 'Save'
+  click_button 'Force Publish'
 end
 
 Then /^I should see (#{THE_DOCUMENT})$/ do |document|
@@ -180,4 +199,12 @@ end
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|
   document = Document.find_by_title!(title)
   assert !document.published?
+end
+
+Then /^the published document "([^"]*)" should still link to the "([^"]*)" document$/ do |source_title, target_title|
+  source_document = Document.find_by_title!(source_title)
+  target_document = Document.find_by_title!(target_title)
+  visit policy_path(source_document.document_identity)
+  target_path = policy_path(target_document.document_identity)
+  assert has_link?(target_title, href: target_path)
 end

@@ -29,7 +29,7 @@ module GovspeakHelper
     doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(anchor['href'])
       document, supporting_page = find_documents_from_uri(anchor['href'])
-      if document && document.published?
+      if document && document.document_identity.published_document.present?
         anchor['href'] = rewritten_href_for_documents(document, supporting_page)
       else
         anchor.replace anchor.inner_text
