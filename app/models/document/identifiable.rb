@@ -21,6 +21,10 @@ module Document::Identifiable
     self.document_identity.set_document_type(type) if document_identity.present?
   end
 
+  def linkable?
+    document_identity.published?
+  end
+
   module ClassMethods
     def published_as(id)
       begin

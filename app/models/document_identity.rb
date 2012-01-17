@@ -24,7 +24,7 @@ class DocumentIdentity < ActiveRecord::Base
   end
 
   def update_slug_if_possible(new_title)
-    unless published_document.present?
+    unless published?
       self.sluggable_string = new_title
       save
     end
@@ -32,6 +32,10 @@ class DocumentIdentity < ActiveRecord::Base
 
   def set_document_type(document_type)
     self.document_type = document_type
+  end
+
+  def published?
+    published_document.present?
   end
 
   class << self

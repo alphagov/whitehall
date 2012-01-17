@@ -23,4 +23,14 @@ class DocumentIdentityTest < ActiveSupport::TestCase
 
     assert_equal published_policy, document_identity.reload.published_document
   end
+
+  test "should be published if a published edition exists" do
+    published_policy = create(:published_policy)
+    assert published_policy.document_identity.published?
+  end
+
+  test "should not be published if no published edition exists" do
+    draft_policy = create(:draft_policy)
+    refute draft_policy.document_identity.published?
+  end
 end

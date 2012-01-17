@@ -37,4 +37,22 @@ class Document::IdentifiableTest < ActiveSupport::TestCase
     assert_equal policy, Policy.published_as(same_title)
     assert_equal publication, Publication.published_as(same_title)
   end
+
+  test "should be linkable when draft if document identity is published" do
+    policy = create(:published_policy)
+    new_edition = policy.create_draft(create(:policy_writer))
+    assert new_edition.linkable?
+  end
+
+  test "should not be linkable if document identity is not published" do
+    policy = create(:draft_policy)
+    refute policy.linkable?
+  end
+
+  test "should be linkable when archived if document identity is published" do
+    policy = create(:published_policy)
+    new_edition = policy.create_draft(create(:policy_writer))
+    new_edition.publish_as(create(:departmental_editor), force: true)
+    assert policy.linkable?
+  end
 end
