@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class PublicDocumentRoutesHelperTest < ActionView::TestCase
+  setup do
+    @request  = ActionController::TestRequest.new
+    ActionController::Base.default_url_options = {}
+  end
+  attr_reader :request
+
   test 'uses the document identity to generate the route' do
     policy = create(:policy)
     assert_equal policy_path(policy.document_identity), public_document_path(policy)
@@ -34,5 +40,31 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   test 'returns the singleton consultation_response_path for ConsultationResponse instances' do
     consultation_response = create(:consultation_response)
     assert_equal consultation_response_path(consultation_response.consultation.document_identity), public_document_path(consultation_response)
+  end
+
+  test 'returns public document URL including host in production environment' do
+    request.host = "whitehall.production.alphagov.co.uk"
+    document = create(:published_policy)
+    assert_equal "www.gov.uk", URI.parse(public_document_url(document)).host
+  end
+
+  test 'returns public supporting page URL including host in production environment' do
+    request.host = "whitehall.production.alphagov.co.uk"
+    document = create(:published_policy)
+    supporting_page = create(:supporting_page, document: document)
+    assert_equal "www.gov.uk", URI.parse(public_supporting_page_url(document, supporting_page)).host
+  end
+
+  test 'returns public document URL including host in preview environment' do
+    request.host = "whitehall.preview.alphagov.co.uk"
+    document = create(:published_policy)
+    assert_equal "www.preview.alphagov.co.uk", URI.parse(public_document_url(document)).host
+  end
+
+  test 'returns public supporting page URL including host in preview environment' do
+    request.host = "whitehall.preview.alphagov.co.uk"
+    document = create(:published_policy)
+    supporting_page = create(:supporting_page, document: document)
+    assert_equal "www.preview.alphagov.co.uk", URI.parse(public_supporting_page_url(document, supporting_page)).host
   end
 end
