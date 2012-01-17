@@ -78,7 +78,11 @@
     }
 
     &:first-child {
-      margin-left: 1%;
+      margin-left: 12px;
+
+      &:active {
+        margin-left: 11px;
+      };
     }
 
     &:last-child {
