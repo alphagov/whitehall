@@ -33,4 +33,18 @@ class DocumentIdentityTest < ActiveSupport::TestCase
     draft_policy = create(:draft_policy)
     refute draft_policy.document_identity.published?
   end
+
+  test "should ignore deleted editions when finding latest edition" do
+    original_edition = create(:published_document)
+    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft.delete!
+    assert_equal original_edition, original_edition.document_identity.latest_edition
+  end
+
+  test "should ignore deleted editions when finding latest consultation response" do
+    original_edition = create(:published_consultation_response)
+    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft.delete!
+    assert_equal original_edition, original_edition.consultation_document_identity.latest_consultation_response
+  end
 end

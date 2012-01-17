@@ -106,6 +106,22 @@ class DocumentTest < ActiveSupport::TestCase
     assert Document.latest_edition.include?(new_draft)
   end
 
+  test ".latest_edition ignores deleted editions" do
+    original_edition = create(:published_document)
+    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft.delete!
+    assert Document.latest_edition.include?(original_edition)
+    refute Document.latest_edition.include?(new_draft)
+  end
+
+  test ".latest_published_edition" do
+    original_edition = create(:published_document)
+    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft.delete!
+    assert Document.latest_published_edition.include?(original_edition)
+    refute Document.latest_published_edition.include?(new_draft)
+  end
+
   test "should return a list of documents in a policy area" do
     policy_area_1 = create(:policy_area)
     policy_area_2 = create(:policy_area)
