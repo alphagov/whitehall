@@ -41,38 +41,66 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>no <a href="mailto:dave@example.com">change</a></p>}, html
   end
 
-  test "should highlight links to draft documents in admin preview" do
+  test "should rewrite link to draft document in admin preview" do
     publication = create(:draft_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
-    assert_govspeak %{<p>this and <span class="draft_link"><a href="#{admin_publication_url(publication)}">that</a> <sup class="explanation">(draft)</sup></span></p>}, html
+    assert_govspeak %{<p>this and <span class="draft_link">that <sup class="explanation">(<a href="#{admin_publication_path(publication)}">draft</a>)</sup></span></p>}, html
   end
 
   test "should not alter unicode when replacing links" do
-    publication = create(:draft_publication)
+    publication = create(:published_publication)
     html = govspeak_to_admin_html("the [☃](#{admin_publication_url(publication)})")
-    assert_govspeak %{<p>the <span class="draft_link"><a href="#{admin_publication_url(publication)}">☃</a> <sup class="explanation">(draft)</sup></span></p>}, html
+    assert_govspeak %{<p>the <span class="published_link"><a href="#{public_document_path(publication)}">☃</a> <sup class="explanation">(<a href="#{admin_publication_path(publication)}">published</a>)</sup></span></p>}, html
   end
 
-  test "should highlight links to deleted documents in admin preview" do
+  test "should rewrite link to deleted document in admin preview" do
     publication = create(:deleted_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_govspeak %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html
   end
 
-  test "should highlight links to missing documents in admin preview" do
+  test "should rewrite link to missing document in admin preview" do
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url('missing-id')})")
     assert_govspeak %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html
   end
 
-  test "should highlight links to destroyed supporting pages in admin preview" do
+  test "should rewrite link to destroyed supporting page in admin preview" do
     html = govspeak_to_admin_html("this and [that](#{admin_supporting_page_url("missing-id")})")
     assert_govspeak %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html
   end
 
-  test "should highlight links to published documents in admin preview" do
+  test "should rewrite link to published document in admin preview" do
     publication = create(:published_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
-    assert_govspeak %{<p>this and <span class="published_link"><a href="#{admin_publication_url(publication)}">that</a> <sup class="explanation">(<a class="public_link" href="#{public_document_path(publication)}">public link</a>)</sup></span></p>}, html
+    assert_govspeak %{<p>this and <span class="published_link"><a href="#{public_document_path(publication)}">that</a> <sup class="explanation">(<a href="#{admin_publication_path(publication)}">published</a>)</sup></span></p>}, html
+  end
+
+  test "should rewrite link to published document with a newer draft in admin preview" do
+    publication = create(:published_publication)
+    new_draft = publication.create_draft(create(:policy_writer))
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    assert_govspeak %{<p>this and <span class="draft_link"><a href="#{public_document_path(publication)}">that</a> <sup class="explanation">(<a href="#{admin_publication_path(new_draft)}">draft</a>)</sup></span></p>}, html
+  end
+
+  test "should rewrite link to archived document with a newer published edition in admin preview" do
+    publication = create(:published_publication)
+    writer = create(:policy_writer)
+    editor = create(:departmental_editor)
+    new_edition = publication.create_draft(writer)
+    new_edition.save_as(writer)
+    new_edition.submit!
+    new_edition.publish_as(editor)
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    assert_govspeak %{<p>this and <span class="published_link"><a href="#{public_document_path(publication)}">that</a> <sup class="explanation">(<a href="#{admin_publication_path(new_edition)}">published</a>)</sup></span></p>}, html
+  end
+
+  test "should rewrite link to deleted document with an older published edition in admin preview" do
+    publication = create(:published_publication)
+    new_draft = publication.create_draft(create(:policy_writer))
+    new_draft.delete!
+    deleted_edition = new_draft
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(deleted_edition)})")
+    assert_govspeak %{<p>this and <span class="published_link"><a href="#{public_document_path(publication)}">that</a> <sup class="explanation">(<a href="#{admin_publication_path(publication)}">published</a>)</sup></span></p>}, html
   end
 
   # public govspeak helper tests

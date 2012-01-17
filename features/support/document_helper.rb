@@ -46,8 +46,8 @@ module DocumentHelper
     fill_in "Summary", with: "Some summary of the content"
   end
 
-  def visit_document_preview(title)
-    document = Document.find_by_title(title)
+  def visit_document_preview(title, scope = :scoped)
+    document = Document.send(scope).find_by_title(title)
     visit admin_document_path(document)
   end
 end

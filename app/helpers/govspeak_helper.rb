@@ -4,20 +4,24 @@ module GovspeakHelper
     doc = markup_to_nokogiri_doc(text)
     doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(anchor['href'])
+
       document, supporting_page = find_documents_from_uri(anchor['href'])
-      if document.nil? || document.deleted?
-        inner_text = "<del>#{anchor.inner_text}</del>"
+      if document && document.linkable?
+        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
+        inner_text = anchor
+      else
+        inner_text = anchor.inner_text
+      end
+
+      latest_edition = document && document.document_identity.latest_edition
+      if latest_edition.nil?
+        inner_text = "<del>#{inner_text}</del>"
         explanation = state = "deleted"
       else
-        inner_text = anchor
-        state = document.state
-        if document.published?
-          public_uri = rewritten_href_for_documents(document, supporting_page)
-          explanation = %{<a class="public_link" href="#{public_uri}">public link</a>}
-        else
-          explanation = state
-        end
+        state = latest_edition.state
+        explanation = %{<a href="#{admin_document_path(latest_edition)}">#{state}</a>}
       end
+
       html_fragment = %{<span class="#{state}_link">#{inner_text} <sup class="explanation">(#{explanation})</sup></span>}
       anchor.replace Nokogiri::HTML.fragment(html_fragment)
     end

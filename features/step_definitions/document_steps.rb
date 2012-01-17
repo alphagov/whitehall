@@ -1,8 +1,9 @@
-THE_DOCUMENT = Transform(/the (publication|policy|news article|consultation|consultation response|speech|international priority) "([^"]*)"/) do |document_type, title|
+THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|international priority) "([^"]*)"/) do |document_type, title|
   document = document_class(document_type).find_by_title!(title)
 end
 
-Given /^a draft (publication|policy|news article|consultation|speech) "([^"]*)" exists$/ do |document_type, title|
+Given /^a draft (document|publication|policy|news article|consultation|speech) "([^"]*)" exists$/ do |document_type, title|
+  document_type = 'policy' if document_type == 'document'
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
@@ -14,11 +15,11 @@ Given /^a published document "([^"]*)" exists$/ do |title|
   create(:published_policy, title: title)
 end
 
-Given /^a published document "([^"]*)" exists which links to the "([^"]*)" document$/ do |source_title, target_title|
+Given /^a (draft|published) document "([^"]*)" exists which links to the "([^"]*)" document$/ do |state, source_title, target_title|
   target_document = Document.find_by_title!(target_title)
   target_url = admin_document_url(target_document)
   body = "[#{target_title}](#{target_url})"
-  create(:published_policy, title: source_title, body: body)
+  create("#{state}_policy", title: source_title, body: body)
 end
 
 Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" policy area$/ do |document_type, title, policy_area_name|
@@ -92,7 +93,7 @@ When /^I publish (#{THE_DOCUMENT})$/ do |document|
 end
 
 When /^I force publish (#{THE_DOCUMENT})$/ do |document|
-  visit_document_preview document.title
+  visit_document_preview document.title, :draft
   click_button "Force Publish"
 end
 
@@ -103,6 +104,12 @@ end
 When /^I edit the (publication|policy|news article|consultation) changing the title to "([^"]*)"$/ do |document_type, new_title|
   fill_in "Title", with: new_title
   click_button "Save"
+end
+
+When /^I create a new edition of the published document "([^"]*)"$/ do |title|
+  visit published_admin_documents_path
+  click_link title
+  click_button 'Create new edition'
 end
 
 When /^I publish a new edition of the published document "([^"]*)"$/ do |title|
@@ -189,6 +196,25 @@ Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" an
   visit_document_preview title
   assert has_css?("#related-documents .policy", text: related_policy_1)
   assert has_css?("#related-documents .policy", text: related_policy_2)
+end
+
+Then /^I should see in the preview that "([^"]*)" does (not )?have a public link to "([^"]*)"/ do |source_title, should_not_have_link, target_title|
+  visit_document_preview source_title
+  target_document = Document.find_by_title!(target_title)
+  target_path = policy_path(target_document.document_identity)
+
+  has_link = has_link?(target_title, href: target_path)
+  if should_not_have_link
+    refute has_link
+  else
+    assert has_link
+  end
+end
+
+Then /^I should see in the preview that "([^"]*)" does have an admin link to the (draft|published) edition of "([^"]*)"$/ do |source_title, state, target_title|
+  visit_document_preview source_title
+  target_document = Document.send(state).find_by_title!(target_title)
+  assert has_link?(state, href: admin_document_path(target_document))
 end
 
 Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
