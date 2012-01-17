@@ -35,6 +35,7 @@
         }
 
         p.meta {
+          height: 1.65em;
           margin-left: 0;
           margin-right: 0;
           background: #FFFFFa;
@@ -46,21 +47,24 @@
           @include type-16;
           margin-left: 1.75em;
           margin-right: 1.75em;
-          @media only screen and (min-width: 960px) {
-            padding-right: 40%;
-          }
+        }
+      }
+
+      .description {
+        @media only screen and (min-width: 960px) {
+          width: 63%;
+          float: left;
         }
       }
 
       #recently-changed {
         @media only screen and (min-width: 960px) {
-          float: right;
-          margin-top: -13.1em;
-          margin-right: 1em;
+          float: left;
+          margin-top: -5.75em;
           border-bottom: 1px solid #bbb;
           @include box-shadow(0, 0, 4px, rgba(150,150,150,0.4));
           z-index: 10;
-          width: 37%;
+          width: 35.5%;
         }
 
         h1 {
