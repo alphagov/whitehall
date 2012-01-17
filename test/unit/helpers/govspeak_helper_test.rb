@@ -47,16 +47,10 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <span class="draft_link"><a href="#{admin_publication_url(publication)}">that</a> <sup class="explanation">(draft)</sup></span></p>}, html
   end
 
-  test "should replace links using Nokogiri::HTML.fragment to protect unicode" do
+  test "should not alter unicode when replacing links" do
     publication = create(:draft_publication)
-    govspeak_processed_text = %{<p>this and <a href=\'#{admin_publication_url(publication)}\'>that&rsquo; nice</a></p>\n}
-    fragment_to_be_returned = Nokogiri::HTML.fragment(govspeak_processed_text)
-    Nokogiri::HTML.stubs(:fragment).with(anything).returns(fragment_to_be_returned)
-
-    expected_html = %{<span class="draft_link"><a href="#{admin_publication_url(publication)}">that’ nice</a> <sup class="explanation">(draft)</sup></span>}
-    Nokogiri::HTML.expects(:fragment).with(expected_html).returns("anything")
-
-    govspeak_to_admin_html("this and [that' nice](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("the [☃](#{admin_publication_url(publication)})")
+    assert_govspeak %{<p>the <span class="draft_link"><a href="#{admin_publication_url(publication)}">☃</a> <sup class="explanation">(draft)</sup></span></p>}, html
   end
 
   test "should highlight links to deleted documents in admin preview" do
@@ -91,6 +85,11 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should mark the govspeak output as html safe" do
     html = govspeak_to_html("govspeak-text")
     assert html.html_safe?
+  end
+
+  test "should produce UTF-8 for HTML entities" do
+    html = govspeak_to_html("a ['funny'](/url) thing")
+    assert_govspeak %{<p>a <a href="/url">‘funny’</a> thing</p>}, html
   end
 
   test "should not link to draft documents with no published edition" do

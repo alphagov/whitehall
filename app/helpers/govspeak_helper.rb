@@ -49,7 +49,9 @@ module GovspeakHelper
   def markup_to_nokogiri_doc(text)
     govspeak = Govspeak::Document.to_html(text)
     html = '<div class="govspeak">' + govspeak + '</div>'
-    Nokogiri::HTML.fragment(html)
+    doc = Nokogiri::HTML::Document.new
+    doc.encoding = "UTF-8"
+    doc.fragment(html)
   end
 
   def is_internal_admin_link?(href)
