@@ -30,9 +30,11 @@
 
 #global-nav {
   margin: 0 auto;
-  background: #fdfdfd;
-  padding: 0.5em 0;
+  background: #333;
   border: 1px solid #d5d5d5;
+
+  background-color: #485C29;
+  @include vertical_gradient(#444, #333);
 
   @media only screen and (min-width: 600px) {
     width: 81%;
@@ -41,14 +43,46 @@
   }
 
   a {
-    margin-left: 2%;
+    @include type-14;
+    margin: 0;
     text-decoration: none;
     white-space: nowrap;
-    color: #777;
+    color: #fdfdfd;
+    padding: 0.5em 12px;
+    display: block;
+    float: left;
+    border-bottom: 1px solid #333;
+    border-top: 1px solid #333;
 
     &:hover {
-      color: #9a9b00;
+      background: #dedf00;
+      border-top: 1px solid #eff000;
+      border-bottom: 1px solid #898a00;
+      color: #333;
     };
+
+    &.current, &:active {
+      background: #cdce00;
+      border-top: 1px solid #eff000;
+      border-bottom: 1px solid #898a00;
+      border-left: 1px solid #464600;
+      border-right: 1px solid #464600;
+
+      color: #333;
+      text-shadow: 0 1px rgba(255, 255, 200, .75);
+    }
+
+    &:active {
+      margin-left: -1px;
+      margin-right: -1px;
+    }
+
+    &:first-child {
+      margin-left: 1%;
+    }
+
+    &:last-child {
+    }
   }
 }
 
