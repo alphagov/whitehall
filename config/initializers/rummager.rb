@@ -4,6 +4,6 @@ Rummageable.rummager_host = ENV["RUMMAGER_HOST"] if ENV["RUMMAGER_HOST"]
 
 Whitehall::SearchClient.search_uri = Rummageable.rummager_host + Whitehall.router_prefix + "/search"
 
-unless Rails.env.production?
+unless Rails.env.production? || ENV["RUMMAGER_HOST"]
   Rummageable.implementation = Rummageable::Fake.new
 end
