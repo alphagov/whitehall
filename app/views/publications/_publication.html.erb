@@ -6,7 +6,7 @@
     <h2 class="title"><%= link_to truncate(publication.title, { length: 40 }), public_document_path(publication), title: "View #{publication.title}" %></h2>
     <p class="summary"><%= publication_summary(publication) %></p>
   </div>
-  <% if publication_counter.zero? %>
+  <% if publication.featured? %>
     <div class="cta">
       <%= link_to "Read Publication", public_document_path(publication), title: "View #{publication.title}", class: "button" %>
     </div>
