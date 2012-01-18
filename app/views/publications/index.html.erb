@@ -3,9 +3,19 @@
   <section id="publication_index">
     <h1 class="page_title">Publications</h1>
     <% if @publications.any? %>
-      <ul class="publications">
-        <%= render @publications %>
-      </ul>
+      <% featured_publications, other_publications = @publications.partition(&:featured?) %>
+      <% if featured_publications.any? %>
+        <section id="featured-publications">
+          <ul class="publications">
+            <%= render featured_publications %>
+          </ul>
+        </section>
+      <% end %>
+      <% if other_publications.any? %>
+        <ul class="publications">
+          <%= render other_publications %>
+        </ul>
+      <% end %>
     <% else %>
       <p>We don't have any published publications at present.</p>
     <% end %>
