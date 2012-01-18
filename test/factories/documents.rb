@@ -13,6 +13,7 @@ FactoryGirl.define do
     end
     trait(:deleted) { state "deleted" }
     trait(:archived) { state "archived" }
+    trait(:featured) { featured true }
   end
 
   factory :draft_document, parent: :document, traits: [:draft]
