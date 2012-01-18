@@ -692,14 +692,14 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should return search index data for all published documents" do
-    create(:published_policy, title: "policy-title")
-    create(:published_publication, title: "publication-title")
+    create(:published_policy, title: "policy-title", body: "this and that")
+    create(:published_publication, title: "publication-title", body: "stuff and things")
 
     results = Document.search_index_published
 
     assert_equal 2, results.length
-    assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title"}, results[0])
-    assert_equal({"title"=>"publication-title", "link"=>"/government/publications/publication-title"}, results[1])
+    assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title", "indexable_content"=>"this and that"}, results[0])
+    assert_equal({"title"=>"publication-title", "link"=>"/government/publications/publication-title", "indexable_content"=>"stuff and things"}, results[1])
   end
 
   test "should add document to search index on publishing" do

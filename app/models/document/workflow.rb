@@ -70,7 +70,7 @@ module Document::Workflow
   end
 
   def search_index
-    { "title" => title, "link" => public_document_path(self) }
+    { "title" => title, "link" => public_document_path(self), "indexable_content" => body }
   end
 
   module ClassMethods
