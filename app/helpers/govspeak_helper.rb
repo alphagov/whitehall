@@ -4,14 +4,17 @@ module GovspeakHelper
     markup_to_html_with_replaced_admin_links(text) do |replacement_html, document|
       latest_edition = document && document.document_identity.latest_edition
       if latest_edition.nil?
-        replacement_html = "<del>#{replacement_html}</del>"
+        replacement_html = content_tag(:del, replacement_html)
         explanation = state = "deleted"
       else
         state = latest_edition.state
-        explanation = %{<a href="#{admin_document_path(latest_edition)}">#{state}</a>}
+        explanation = link_to(state, admin_document_path(latest_edition))
       end
 
-      %{<span class="#{state}_link">#{replacement_html} <sup class="explanation">(#{explanation})</sup></span>}
+      content_tag :span, :class => "#{state}_link" do
+        annotation = content_tag(:sup, safe_join(['(', explanation, ')']), :class => 'explanation')
+        safe_join [replacement_html, annotation], ' '
+      end
     end
   end
 
@@ -49,15 +52,15 @@ module GovspeakHelper
     if document.present? && document.linkable?
       anchor.dup.tap do |anchor|
         anchor['href'] = rewritten_href_for_documents(document, supporting_page)
-      end.to_html
+      end.to_html.html_safe
     else
       anchor.inner_text
     end
   end
 
   def markup_to_nokogiri_doc(text)
-    govspeak = Govspeak::Document.to_html(text)
-    html = '<div class="govspeak">' + govspeak + '</div>'
+    govspeak = Govspeak::Document.to_html(text).html_safe # TODO Govspeak should return a SafeBuffer
+    html = content_tag(:div, govspeak, :class => 'govspeak')
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(html)
