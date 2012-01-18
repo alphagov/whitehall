@@ -4,22 +4,7 @@
     <h1 class="page_title">Publications</h1>
     <% if @publications.any? %>
       <ul class="publications">
-        <% @publications.each_with_index do |publication, index| %>
-          <%= content_tag_for(:li, publication) do %>
-            <div class="cover">
-              <%= image_tag "pub-cover.png" %>
-            </div>
-            <div class="description">
-              <h2 class="title"><%= link_to truncate(publication.title, { length: 40 }), public_document_path(publication), title: "View #{publication.title}" %></h2>
-              <p class="summary"><%= publication_summary(publication) %></p>
-            </div>
-            <% if index.zero? %>
-              <div class="cta">
-                <%= link_to "Read Publication", public_document_path(publication), title: "View #{publication.title}", class: "button" %>
-              </div>
-            <% end %>
-          <% end %>
-        <% end %>
+        <%= render @publications %>
       </ul>
     <% else %>
       <p>We don't have any published publications at present.</p>
