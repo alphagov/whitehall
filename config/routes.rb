@@ -78,7 +78,13 @@ Whitehall::Application.routes.draw do
           resources :editorial_remarks, only: [:new, :create], shallow: true
         end
 
-        resources :publications, only: [:new, :create, :edit, :update, :show, :destroy]
+        resources :publications, only: [:new, :create, :edit, :update, :show, :destroy] do
+          member do
+            post :feature
+            post :unfeature
+          end
+        end
+
         resources :policies, only: [:new, :create, :edit, :update, :show, :destroy]
         resources "international-priorities", controller: :international_priorities, as: :international_priorities, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :news, as: :news_articles, controller: :news_articles, only: [:new, :create, :edit, :update, :show, :destroy] do

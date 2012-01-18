@@ -15,6 +15,8 @@ FactoryGirl.define do
   factory :deleted_publication, parent: :publication, traits: [:deleted]
   factory :archived_publication, parent: :publication, traits: [:archived]
 
+  factory :featured_publication, parent: :publication, traits: [:published, :featured]
+
   factory :draft_corporate_publication, parent: :publication, traits: [:draft, :corporate]
   factory :submitted_corporate_publication, parent: :publication, traits: [:submitted, :corporate]
   factory :published_corporate_publication, parent: :publication, traits: [:published, :corporate]

@@ -18,6 +18,10 @@ Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
   create(:published_publication, title: title, attachments: [attachment])
 end
 
+Given /^a featured publication "([^"]*)" exists$/ do |title|
+  create(:featured_publication, title: title)
+end
+
 Given /^I attempt to create an invalid publication with an attachment$/ do
   begin_drafting_document type: "Publication", title: ""
   select_date "Publication date", with: "2010-01-01"
@@ -80,6 +84,22 @@ When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ d
   click_button "Save"
 end
 
+When /^I feature the publication "([^"]*)"$/ do |publication_title|
+  publication = Publication.find_by_title!(publication_title)
+  visit published_admin_documents_path(filter: 'publication')
+  within record_css_selector(publication) do
+    click_button "Feature"
+  end
+end
+
+When /^I unfeature the publication "([^"]*)"$/ do |publication_title|
+  publication = Publication.find_by_title!(publication_title)
+  visit published_admin_documents_path(filter: 'publication')
+  within record_css_selector(publication) do
+    click_button "No longer feature"
+  end
+end
+
 When /^I set the publication title to "([^"]*)" and save$/ do |title|
   fill_in "Title", with: title
   click_button "Save"
@@ -119,4 +139,16 @@ end
 Then /^I should see that the publication is about "([^"]*)"$/ do |country_name|
   country = Country.find_by_name!(country_name)
   assert has_css?("#{metadata_nav_selector} #{record_css_selector(country)}")
+end
+
+Then /^the publication "([^"]*)" should (not )?be featured on the public publications page$/ do |publication_title, should_not_be_featured|
+  visit publications_path
+  publication = Publication.published.find_by_title!(publication_title)
+
+  publication_is_featured = has_css?("#featured-publications #{record_css_selector(publication)}")
+  if should_not_be_featured
+    refute publication_is_featured
+  else
+    assert publication_is_featured
+  end
 end

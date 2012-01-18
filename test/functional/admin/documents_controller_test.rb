@@ -245,7 +245,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_redirected_to draft_admin_documents_path
   end
 
-  [:consultation, :news_article].each do |document_type|
+  [:publication, :consultation, :news_article].each do |document_type|
     test "should show the feature button for those featurable and currently unfeatured #{document_type.to_s.pluralize}" do
       login_as :policy_writer
       document = create("published_#{document_type}", featured: false)
