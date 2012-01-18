@@ -11,8 +11,8 @@ module GovspeakHelper
         explanation = link_to(state, admin_document_path(latest_edition))
       end
 
-      content_tag :span, :class => "#{state}_link" do
-        annotation = content_tag(:sup, safe_join(['(', explanation, ')']), :class => 'explanation')
+      content_tag :span, class: "#{state}_link" do
+        annotation = content_tag(:sup, safe_join(['(', explanation, ')']), class: 'explanation')
         safe_join [replacement_html, annotation], ' '
       end
     end
@@ -60,7 +60,7 @@ module GovspeakHelper
 
   def markup_to_nokogiri_doc(text)
     govspeak = Govspeak::Document.to_html(text).html_safe # TODO Govspeak should return a SafeBuffer
-    html = content_tag(:div, govspeak, :class => 'govspeak')
+    html = content_tag(:div, govspeak, class: 'govspeak')
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(html)
