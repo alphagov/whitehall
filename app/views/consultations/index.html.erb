@@ -6,21 +6,19 @@
     <section class="featured_items" id="featured-consultations">
       <% @featured_consultations.each do |consultation| %>
         <%= content_tag_for(:article, consultation) do %>
-          <div class="inner">
-            <h2><%= link_to consultation.title, public_document_path(consultation), class: "title" %></h2>
-            <p class="summary">
-              <%= consultation.summary %>
-            </p>
-            <p class="meta">
-              <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
-            </p>
-          </div>
+          <h2><%= link_to consultation.title, public_document_path(consultation), class: "title" %></h2>
+          <p class="summary">
+            <%= consultation.summary %>
+          </p>
+          <p class="meta">
+            <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
+          </p>
         <% end %>
       <% end %>
     </section>
   <% end %>
 
-  <div class="g3">
+  <div class="g3 vg">
     <section>
       <nav class="consultations_scope group">
         <%= link_to_filter('all', action: 'index') %>
