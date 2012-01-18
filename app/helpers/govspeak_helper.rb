@@ -38,14 +38,20 @@ module GovspeakHelper
       next unless is_internal_admin_link?(uri = anchor['href'])
 
       document, supporting_page = find_documents_from_uri(uri)
-      if document.present? && document.linkable?
-        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
-        replacement_html = anchor.to_html
-      else
-        replacement_html = anchor.inner_text
-      end
+      replacement_html = replacement_html_for(anchor, document, supporting_page)
+      replacement_html = yield(replacement_html, document) if block_given?
 
       anchor.replace Nokogiri::HTML.fragment(replacement_html)
+    end
+  end
+
+  def replacement_html_for(anchor, document, supporting_page)
+    if document.present? && document.linkable?
+      anchor.dup.tap do |anchor|
+        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
+      end.to_html
+    else
+      anchor.inner_text
     end
   end
 
