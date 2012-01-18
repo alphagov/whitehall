@@ -2,43 +2,26 @@ module GovspeakHelper
 
   def govspeak_to_admin_html(text)
     doc = markup_to_nokogiri_doc(text)
-    doc.search('a').each do |anchor|
-      next unless is_internal_admin_link?(anchor['href'])
 
-      document, supporting_page = find_documents_from_uri(anchor['href'])
-      if document && document.linkable?
-        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
-        inner_text = anchor
-      else
-        inner_text = anchor.inner_text
-      end
-
+    replace_internal_admin_links_in(doc) do |replacement_html, document|
       latest_edition = document && document.document_identity.latest_edition
       if latest_edition.nil?
-        inner_text = "<del>#{inner_text}</del>"
+        replacement_html = "<del>#{replacement_html}</del>"
         explanation = state = "deleted"
       else
         state = latest_edition.state
         explanation = %{<a href="#{admin_document_path(latest_edition)}">#{state}</a>}
       end
 
-      html_fragment = %{<span class="#{state}_link">#{inner_text} <sup class="explanation">(#{explanation})</sup></span>}
-      anchor.replace Nokogiri::HTML.fragment(html_fragment)
+      %{<span class="#{state}_link">#{replacement_html} <sup class="explanation">(#{explanation})</sup></span>}
     end
+
     doc.to_html.html_safe
   end
 
   def govspeak_to_html(text)
     doc = markup_to_nokogiri_doc(text)
-    doc.search('a').each do |anchor|
-      next unless is_internal_admin_link?(anchor['href'])
-      document, supporting_page = find_documents_from_uri(anchor['href'])
-      if document && document.linkable?
-        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
-      else
-        anchor.replace anchor.inner_text
-      end
-    end
+    replace_internal_admin_links_in doc
     doc.to_html.html_safe
   end
 
@@ -49,6 +32,22 @@ module GovspeakHelper
   end
 
   private
+
+  def replace_internal_admin_links_in(nokogiri_doc)
+    nokogiri_doc.search('a').each do |anchor|
+      next unless is_internal_admin_link?(uri = anchor['href'])
+
+      document, supporting_page = find_documents_from_uri(uri)
+      if document.present? && document.linkable?
+        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
+        replacement_html = anchor.to_html
+      else
+        replacement_html = anchor.inner_text
+      end
+
+      anchor.replace Nokogiri::HTML.fragment(replacement_html)
+    end
+  end
 
   def markup_to_nokogiri_doc(text)
     govspeak = Govspeak::Document.to_html(text)
