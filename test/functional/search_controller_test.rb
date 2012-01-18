@@ -37,4 +37,13 @@ class SearchControllerTest < ActionController::TestCase
     get :index
     assert_select "a[href='/document-slug']", text: "document-title"
   end
+
+  test "should display the highlighted text from the search result" do
+    client = stub("search", search: [{"title" => "title", "link" => "/slug", "highlight" => "the HIGHLIGHT_STARTmatchHIGHLIGHT_END for"}])
+    Whitehall::SearchClient.stubs(:new).returns(client)
+    get :index
+    assert_select ".highlight", text: "&hellip;the match for&hellip;" do
+      assert_select "strong", text: "match"
+    end
+  end
 end

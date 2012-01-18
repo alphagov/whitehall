@@ -5,7 +5,12 @@
   <% if @results.any? %>
     <ul>
       <% @results.each do |result| %>
-        <li><%= link_to result["title"], result["link"] %></li>
+        <li>
+          <h2><%= link_to result["title"], result["link"] %></h2>
+          <% if result["highlight"] %>
+            <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
+          <% end %>
+        </li>
       <% end %>
     </ul>
   <% else %>

@@ -2,15 +2,19 @@
 
 #content {
   .search_results {
-    p, ul {
+    ul {
       @include span_three_columns;
+    }
+
+    h2 {
+      @include type-18;
+      margin-bottom: 0.333em;
     }
 
     ul {
       li {
         padding-left: 1%;
         border-bottom: 1px solid #ddd;
-        padding-bottom: 0.75em;
         margin-bottom: 0.75em;
       }
     }
