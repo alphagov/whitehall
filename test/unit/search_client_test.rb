@@ -3,7 +3,8 @@ require "test_helper"
 class SearchClientTest < ActiveSupport::TestCase
   setup do
     Whitehall::SearchClient.search_uri = "http://example.com"
-    stub_request(:get, /example.com/).to_return(body: "[]")
+    stub_request(:get, /example.com\/search/).to_return(body: "[]")
+    stub_request(:get, /example.com\/autocomplete/).to_return(body: "[]")
   end
 
   test "should raise an exception if the search service uri is not set" do
@@ -14,7 +15,7 @@ class SearchClientTest < ActiveSupport::TestCase
 
   test "should return the search results as a hash" do
     search_results = {"title" => "document-title"}
-    stub_request(:get, /example.com/).to_return(body: search_results.to_json)
+    stub_request(:get, /example.com\/search/).to_return(body: search_results.to_json)
     results = Whitehall::SearchClient.new.search("")
 
     assert_equal search_results, results
@@ -30,5 +31,13 @@ class SearchClientTest < ActiveSupport::TestCase
     Whitehall::SearchClient.new.search "search-term"
 
     assert_requested :get, /\?q=search-term/
+  end
+
+  test "should pass autocomplete responses back as-is" do
+    search_results_json = {"title" => "document-title"}.to_json
+    stub_request(:get, /example.com\/autocomplete/).to_return(body: search_results_json)
+    results = Whitehall::SearchClient.new.autocomplete("")
+
+    assert_equal search_results_json, results
   end
 end

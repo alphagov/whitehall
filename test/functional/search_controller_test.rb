@@ -46,4 +46,13 @@ class SearchControllerTest < ActionController::TestCase
       assert_select "strong", text: "match"
     end
   end
+
+  test "should return the response from autocomplete as a string" do
+    client = stub("search")
+    Whitehall::SearchClient.stubs(:new).returns(client)
+    raw_rummager_response = "rummager-response-body-json"
+    client.expects(:autocomplete).with("search-term").returns(raw_rummager_response)
+    get :autocomplete, q: "search-term"
+    assert_equal raw_rummager_response, @response.body
+  end
 end

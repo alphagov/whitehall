@@ -1,7 +1,20 @@
 class SearchController < PublicFacingController
   def index
-    client = Whitehall::SearchClient.new
-    @search_term = params[:q]
+    @search_term = search_term
     @results = client.search(@search_term)
+  end
+
+  def autocomplete
+    render text: client.autocomplete(search_term)
+  end
+
+  private
+
+  def client
+    Whitehall::SearchClient.new
+  end
+
+  def search_term
+    params[:q]
   end
 end

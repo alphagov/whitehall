@@ -45,6 +45,7 @@ Whitehall::Application.routes.draw do
     resources :countries, only: [:index, :show]
 
     match "/search" => "search#index"
+    match "/autocomplete" => "search#autocomplete"
 
     constraints(AdminRequest) do
       namespace :admin do
