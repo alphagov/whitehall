@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
+
+  setup do
+    @params = {}
+  end
+  attr_reader :params
+
   test "should supply options with IDs and descriptions for the current ministerial appointments" do
     home_office = create(:organisation, name: "Home Office")
     ministry_of_defence = create(:organisation, name: "Ministry of Defence")
@@ -84,5 +90,82 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Policy", human_friendly_document_type(build(:policy))
     assert_equal "Publication", human_friendly_document_type(build(:publication))
     assert_equal "Speech", human_friendly_document_type(build(:speech))
+  end
+
+  test "news-related & speech-related pages should be related to news & speeches main navigation" do
+    assert_equal announcements_path, current_main_navigation_path(controller: "announcements", action: "index")
+    assert_equal announcements_path, current_main_navigation_path(controller: "news_articles", action: "index")
+    assert_equal announcements_path, current_main_navigation_path(controller: "news_articles", action: "show")
+    assert_equal announcements_path, current_main_navigation_path(controller: "speeches", action: "index")
+    assert_equal announcements_path, current_main_navigation_path(controller: "speeches", action: "show")
+  end
+
+  test "policy-related pages should be related to policy areas main navigation" do
+    assert_equal policy_areas_path, current_main_navigation_path(controller: "policy_areas", action: "index")
+    assert_equal policy_areas_path, current_main_navigation_path(controller: "policy_areas", action: "show")
+    assert_equal policy_areas_path, current_main_navigation_path(controller: "policies", action: "index")
+    assert_equal policy_areas_path, current_main_navigation_path(controller: "policies", action: "show")
+    assert_equal policy_areas_path, current_main_navigation_path(controller: "supporting_pages", action: "index")
+    assert_equal policy_areas_path, current_main_navigation_path(controller: "supporting_pages", action: "show")
+  end
+
+  test "publication-related pages should be related to publications main navigation" do
+    assert_equal publications_path, current_main_navigation_path(controller: "publications", action: "index")
+    assert_equal publications_path, current_main_navigation_path(controller: "publications", action: "show")
+  end
+
+  test "consultation-related pages should be related to consulatations main navigation" do
+    assert_equal open_consultations_path, current_main_navigation_path(controller: "consultations", action: "index")
+    assert_equal open_consultations_path, current_main_navigation_path(controller: "consultations", action: "open")
+    assert_equal open_consultations_path, current_main_navigation_path(controller: "consultations", action: "closed")
+    assert_equal open_consultations_path, current_main_navigation_path(controller: "consultations", action: "show")
+    assert_equal open_consultations_path, current_main_navigation_path(controller: "consultation_responses", action: "show")
+  end
+
+  test "minister-related pages should be related to ministers main navigation" do
+    assert_equal ministerial_roles_path, current_main_navigation_path(controller: "ministerial_roles", action: "index")
+    assert_equal ministerial_roles_path, current_main_navigation_path(controller: "ministerial_roles", action: "show")
+  end
+
+  test "organisation-related pages should be related to organisations main navigation" do
+    assert_equal organisations_path, current_main_navigation_path(controller: "organisations", action: "index")
+    assert_equal organisations_path, current_main_navigation_path(controller: "organisations", action: "show")
+    assert_equal organisations_path, current_main_navigation_path(controller: "organisations", action: "about")
+    assert_equal organisations_path, current_main_navigation_path(controller: "organisations", action: "news")
+  end
+
+  test "country-related pages should be related to uk in the world main navigation" do
+    assert_equal countries_path, current_main_navigation_path(controller: "countries", action: "index")
+    assert_equal countries_path, current_main_navigation_path(controller: "countries", action: "show")
+    assert_equal countries_path, current_main_navigation_path(controller: "international_priorities", action: "index")
+    assert_equal countries_path, current_main_navigation_path(controller: "international_priorities", action: "show")
+  end
+
+  test "miscellaneous pages should be related to home main navigation" do
+    assert_equal root_path, current_main_navigation_path(controller: "search", action: "index")
+  end
+
+  test "should add current class to link if current page is related to link" do
+    stubs(:current_main_navigation_path).returns("/some/path")
+    html = main_navigation_link_to("Inner Text", "/some/path", class: "class-1 class-2")
+    anchor = Nokogiri::HTML.fragment(html)/"a"
+    assert_equal "Inner Text", anchor.inner_text
+    assert_equal "/some/path", anchor.attr("href").value
+    classes = anchor.attr("class").value.split
+    assert classes.include?("current")
+    assert classes.include?("class-1")
+    assert classes.include?("class-2")
+  end
+
+  test "should not add current class to link if current page is not related to link" do
+    stubs(:current_main_navigation_path).returns("/some/other/path")
+    html = main_navigation_link_to("Inner Text", "/some/path", class: "class-1 class-2")
+    anchor = Nokogiri::HTML.fragment(html)/"a"
+    assert_equal "Inner Text", anchor.inner_text
+    assert_equal "/some/path", anchor.attr("href").value
+    classes = anchor.attr("class").value.split
+    refute classes.include?("current")
+    assert classes.include?("class-1")
+    assert classes.include?("class-2")
   end
 end

@@ -110,4 +110,33 @@ module ApplicationHelper
     text = time.to_s(:long_ordinal)
     content_tag(:abbr, text, class: css_class, title: time.iso8601)
   end
+
+  def main_navigation_link_to(name, path, html_options = {}, &block)
+    classes = (html_options[:class] || "").split
+    if current_main_navigation_path(params) == path
+      classes << "current"
+    end
+    link_to(name, path, html_options.merge(class: classes.join(" ")), &block)
+  end
+
+  def current_main_navigation_path(parameters)
+    case parameters[:controller]
+    when "announcements", "news_articles", "speeches"
+      announcements_path
+    when "policy_areas", "policies", "supporting_pages"
+      policy_areas_path
+    when "publications"
+      publications_path
+    when "consultations", "consultation_responses"
+      open_consultations_path
+    when "ministerial_roles"
+      ministerial_roles_path
+    when "organisations"
+      organisations_path
+    when "countries", "international_priorities"
+      countries_path
+    else
+      root_path
+    end
+  end
 end
