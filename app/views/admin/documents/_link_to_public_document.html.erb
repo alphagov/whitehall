@@ -1,5 +1,5 @@
 <% if document.published? %>
   <div class="public_version">
-    <p>View <%= link_to document.title, public_document_path(document) %> on public website</p>
+    <p>View <%= link_to document.title, public_document_url(document) %> on public website</p>
   </div>
 <% end %>
