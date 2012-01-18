@@ -6,7 +6,6 @@ module Document::Workflow
     include ActiveRecord::Transitions
     include Rails.application.routes.url_helpers
     include PublicDocumentRoutesHelper
-    include ActionView::Helpers::SanitizeHelper
 
     default_scope where(%{documents.state <> "deleted"})
     scope :draft, where(state: "draft")
@@ -75,7 +74,7 @@ module Document::Workflow
   end
 
   def body_without_markup
-    sanitize(Govspeak::Document.new(body).to_html, tags: []).strip
+    Govspeak::Document.new(body).to_text
   end
 
   module ClassMethods
