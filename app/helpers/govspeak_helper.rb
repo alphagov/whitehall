@@ -1,9 +1,7 @@
 module GovspeakHelper
 
   def govspeak_to_admin_html(text)
-    doc = markup_to_nokogiri_doc(text)
-
-    replace_internal_admin_links_in(doc) do |replacement_html, document|
+    markup_to_html_with_replaced_admin_links(text) do |replacement_html, document|
       latest_edition = document && document.document_identity.latest_edition
       if latest_edition.nil?
         replacement_html = "<del>#{replacement_html}</del>"
@@ -15,14 +13,10 @@ module GovspeakHelper
 
       %{<span class="#{state}_link">#{replacement_html} <sup class="explanation">(#{explanation})</sup></span>}
     end
-
-    doc.to_html.html_safe
   end
 
   def govspeak_to_html(text)
-    doc = markup_to_nokogiri_doc(text)
-    replace_internal_admin_links_in doc
-    doc.to_html.html_safe
+    markup_to_html_with_replaced_admin_links(text)
   end
 
   def govspeak_headers(text, level = 2)
@@ -32,6 +26,12 @@ module GovspeakHelper
   end
 
   private
+
+  def markup_to_html_with_replaced_admin_links(text, &block)
+    markup_to_nokogiri_doc(text).tap do |nokogiri_doc|
+      replace_internal_admin_links_in nokogiri_doc, &block
+    end.to_html.html_safe
+  end
 
   def replace_internal_admin_links_in(nokogiri_doc)
     nokogiri_doc.search('a').each do |anchor|
