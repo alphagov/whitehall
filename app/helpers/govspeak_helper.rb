@@ -1,45 +1,25 @@
 module GovspeakHelper
 
   def govspeak_to_admin_html(text)
-    doc = markup_to_nokogiri_doc(text)
-    doc.search('a').each do |anchor|
-      next unless is_internal_admin_link?(anchor['href'])
-
-      document, supporting_page = find_documents_from_uri(anchor['href'])
-      if document && document.linkable?
-        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
-        inner_text = anchor
-      else
-        inner_text = anchor.inner_text
-      end
-
+    markup_to_html_with_replaced_admin_links(text) do |replacement_html, document|
       latest_edition = document && document.document_identity.latest_edition
       if latest_edition.nil?
-        inner_text = "<del>#{inner_text}</del>"
+        replacement_html = content_tag(:del, replacement_html)
         explanation = state = "deleted"
       else
         state = latest_edition.state
-        explanation = %{<a href="#{admin_document_path(latest_edition)}">#{state}</a>}
+        explanation = link_to(state, admin_document_path(latest_edition))
       end
 
-      html_fragment = %{<span class="#{state}_link">#{inner_text} <sup class="explanation">(#{explanation})</sup></span>}
-      anchor.replace Nokogiri::HTML.fragment(html_fragment)
+      content_tag :span, :class => "#{state}_link" do
+        annotation = content_tag(:sup, safe_join(['(', explanation, ')']), :class => 'explanation')
+        safe_join [replacement_html, annotation], ' '
+      end
     end
-    doc.to_html.html_safe
   end
 
   def govspeak_to_html(text)
-    doc = markup_to_nokogiri_doc(text)
-    doc.search('a').each do |anchor|
-      next unless is_internal_admin_link?(anchor['href'])
-      document, supporting_page = find_documents_from_uri(anchor['href'])
-      if document && document.linkable?
-        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
-      else
-        anchor.replace anchor.inner_text
-      end
-    end
-    doc.to_html.html_safe
+    markup_to_html_with_replaced_admin_links(text)
   end
 
   def govspeak_headers(text, level = 2)
@@ -50,9 +30,37 @@ module GovspeakHelper
 
   private
 
+  def markup_to_html_with_replaced_admin_links(text, &block)
+    markup_to_nokogiri_doc(text).tap do |nokogiri_doc|
+      replace_internal_admin_links_in nokogiri_doc, &block
+    end.to_html.html_safe
+  end
+
+  def replace_internal_admin_links_in(nokogiri_doc)
+    nokogiri_doc.search('a').each do |anchor|
+      next unless is_internal_admin_link?(uri = anchor['href'])
+
+      document, supporting_page = find_documents_from_uri(uri)
+      replacement_html = replacement_html_for(anchor, document, supporting_page)
+      replacement_html = yield(replacement_html, document) if block_given?
+
+      anchor.replace Nokogiri::HTML.fragment(replacement_html)
+    end
+  end
+
+  def replacement_html_for(anchor, document, supporting_page)
+    if document.present? && document.linkable?
+      anchor.dup.tap do |anchor|
+        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
+      end.to_html.html_safe
+    else
+      anchor.inner_text
+    end
+  end
+
   def markup_to_nokogiri_doc(text)
-    govspeak = Govspeak::Document.to_html(text)
-    html = '<div class="govspeak">' + govspeak + '</div>'
+    govspeak = Govspeak::Document.to_html(text).html_safe # TODO Govspeak should return a SafeBuffer
+    html = content_tag(:div, govspeak, :class => 'govspeak')
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(html)
