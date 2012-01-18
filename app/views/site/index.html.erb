@@ -1,32 +1,36 @@
 <% page_title "Home" %>
-<div class="g3">
-  <section>
-    <h1>Inside government</h1>
+<div class="g3f">
+  <h1 class="page_title">Inside government</h1>
 
-    <h2>Information about the work, and inner workings, of the UK government.</h2>
+  <div class="g2">
+    <section>
+      <h1>Information about the work, and inner workings, of the UK government.</h1>
 
-    <p>This site provides policy, news, speeches, publications consultations and related information from the whole of government in one place.</p>
+      <p>This site provides policy, news, speeches, publications consultations and related information from the whole of government in one place.</p>
 
-    <p>It explains how the UK government is structured, what its organisations and ministers do, and how you can get involved.</p>
+      <p>It explains how the UK government is structured, what its organisations and ministers do, and how you can get involved.</p>
 
-    <p>This is a beta test, and is not complete. Over time this site will replace many of the websites which are currently run by government organisations at separate web addresses.</p>
-  </section>
-  <section>
-    <h1>Recently updated</h1>
-    <ul>
-      <% @recently_updated.each do |document| %>
-        <%= content_tag_for :li, document do %>
-          <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
-          <% if document.summary.present? %>
-            <p class="summary"><%= document.summary %></p>
+      <p>This is a beta test, and is not complete. Over time this site will replace many of the websites which are currently run by government organisations at separate web addresses.</p>
+    </section>
+  </div>
+  <div class="g1">
+    <section>
+      <h1>Recently updated</h1>
+      <ul>
+        <% @recently_updated.each do |document| %>
+          <%= content_tag_for :li, document do %>
+            <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
+            <% if document.summary.present? %>
+              <p class="summary"><%= document.summary %></p>
+            <% end %>
+            <div class="metadata">
+              <span class="document_type"><%= human_friendly_document_type(document) %></span>
+              published
+              <%= time_ago(document.published_at, class: 'published_at') %>
+            </div>
           <% end %>
-          <div class="metadata">
-            <span class="document_type"><%= human_friendly_document_type(document) %></span>
-            published
-            <%= time_ago(document.published_at, class: 'published_at') %>
-          </div>
         <% end %>
-      <% end %>
-    </ul>
-  </section>
+      </ul>
+    </section>
+  </div>
 </div>
