@@ -52,3 +52,4 @@ Scenario: Navigating between pages for an organisation
   And I should see the organisation navigation
   When I navigate to the organisation's news page
   Then I should see the "Cabinet Office" organisation's news page
+  And I should see the organisation navigation
