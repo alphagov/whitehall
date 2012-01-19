@@ -1,12 +1,6 @@
 require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
-
-  setup do
-    @params = {}
-  end
-  attr_reader :params
-
   test "should supply options with IDs and descriptions for the current ministerial appointments" do
     home_office = create(:organisation, name: "Home Office")
     ministry_of_defence = create(:organisation, name: "Ministry of Defence")
