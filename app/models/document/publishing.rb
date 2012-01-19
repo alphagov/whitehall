@@ -11,8 +11,7 @@ module Document::Publishing
     end
 
     def latest_published_at
-      latest_published_document = published.by_published_at.first
-      latest_published_document && latest_published_document.published_at
+      published.maximum(:published_at)
     end
   end
 
