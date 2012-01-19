@@ -135,8 +135,6 @@ module ApplicationHelper
       organisations_path
     when "countries", "international_priorities"
       countries_path
-    else
-      root_path
     end
   end
 end

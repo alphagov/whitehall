@@ -141,8 +141,8 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal countries_path, current_main_navigation_path(controller: "international_priorities", action: "show")
   end
 
-  test "miscellaneous pages should be related to home main navigation" do
-    assert_equal root_path, current_main_navigation_path(controller: "search", action: "index")
+  test "search result pages should not be related to main navigation" do
+    assert_nil current_main_navigation_path(controller: "search", action: "index")
   end
 
   test "should add current class to link if current page is related to link" do
