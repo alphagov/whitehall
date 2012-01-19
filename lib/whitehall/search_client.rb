@@ -6,25 +6,20 @@ module Whitehall
 
     def search(query)
       raise SearchUriNotSpecified unless search_uri
-
-      uri = URI("#{search_uri}/search?q=#{query}")
-      JSON.parse(search_response(uri).body)
+      JSON.parse(search_response(:search, query).body)
     end
 
     def autocomplete(query)
-      uri = URI("#{search_uri}/autocomplete?q=#{query}")
-      search_response(uri).body
+      raise SearchUriNotSpecified unless search_uri
+      search_response(:autocomplete, query).body
     end
 
     private
 
-    def search_response(uri)
-      request = Net::HTTP::Get.new(uri.request_uri)
-       request["Accept"] = "application/json"
-
-       Net::HTTP.start(uri.host, uri.port) {|http|
-         http.request(request)
-       }
+    def search_response(type, query)
+      uri = URI("#{search_uri}/#{type}?q=#{CGI.escape(query)}")
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.get(uri.request_uri, {"Accept" => "application/json"})
     end
   end
 end

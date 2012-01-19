@@ -33,6 +33,13 @@ class SearchClientTest < ActiveSupport::TestCase
     assert_requested :get, /\?q=search-term/
   end
 
+  test "should escape characters that would otherwise be invalid in a URI" do
+    Whitehall::SearchClient.new.search "search term with spaces"
+
+    # FYI: the actual request is "?q=search+term+with+spaces", but Webmock appears to be re-escaping.
+    assert_requested :get, /\?q=search%20term%20with%20spaces/
+  end
+
   test "should pass autocomplete responses back as-is" do
     search_results_json = {"title" => "document-title"}.to_json
     stub_request(:get, /example.com\/autocomplete/).to_return(body: search_results_json)
