@@ -65,6 +65,12 @@ When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |
   end
 end
 
+When /^I navigate to the organisation's about page$/ do
+  within('.organisation nav') do
+    click_link 'About'
+  end
+end
+
 Then /^I should see the featured news articles in the "([^"]*)" organisation are:$/ do |name, expected_table|
   visit_organisation name
   rows = find("#featured-news-articles").all('.news_article')
@@ -103,4 +109,8 @@ end
 
 Then /^I should see the organisation navigation$/ do
   assert page.has_css?('.organisation nav')
+end
+
+Then /^I should see the "([^"]*)" organisation's about page$/ do |name|
+  assert page.has_css?('title', text: "About #{name}")
 end

@@ -2,6 +2,9 @@
 <div class="g3f">
   <%= content_tag_for :section, @organisation, class: "hcard" do %>
     <nav>
+      <ul>
+        <li><%= link_to 'About', about_organisation_path(@organisation) %></li>
+      </ul>
     </nav>
     <h1 class="page_title"><%= @organisation.name %>
       <% if @organisation.acronym.present? %>

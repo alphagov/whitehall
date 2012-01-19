@@ -47,3 +47,5 @@ Scenario: Navigating between pages for an organisation
   Given the organisation "Cabinet Office" exists
   When I visit the "Cabinet Office" organisation
   Then I should see the organisation navigation
+  When I navigate to the organisation's about page
+  Then I should see the "Cabinet Office" organisation's about page
