@@ -1,19 +1,13 @@
 <% page_title "Search" %>
-<div class="g3 search_results">
-  <h1 class="page_title">Found <%= pluralize(@results.length, "result") %> for "<%= @search_term %>"</h1>
-
-  <% if @results.any? %>
-    <ul>
-      <% @results.each do |result| %>
-        <li>
-          <h2><%= link_to result["title"], result["link"] %></h2>
-          <% if result["highlight"] %>
-            <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>We can't find any results for "<%= @search_term %>".</p>
-  <% end %>
+<div class="g3">
+    <h1>Search</h1>
+    <p>Enter a few words to start searching</p>
+    <form class="site-search" action="<%= search_path %>" method="get" role="search">
+      <fieldset>
+        <legend class="visuallyhidden">Search the beta.gov.uk site</legend>
+        <label for="main_searchbox" class="visuallyhidden">Search</label>
+        <input type="text" id="main_searchbox" name="q" value="" placeholder="type your search here">
+        <input type="submit" value="Search" class="button">
+      </fieldset>
+    </form>
 </div>
