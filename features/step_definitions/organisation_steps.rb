@@ -100,3 +100,7 @@ Then /^I should see the following speeches are associated with the "([^"]*)" org
     assert page.has_css?("#speeches .speech .title", row["Title"])
   end
 end
+
+Then /^I should see the organisation navigation$/ do
+  assert page.has_css?('.organisation nav')
+end

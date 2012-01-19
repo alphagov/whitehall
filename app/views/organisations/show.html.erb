@@ -1,6 +1,8 @@
 <% page_title @organisation.name %>
 <div class="g3f">
   <%= content_tag_for :section, @organisation, class: "hcard" do %>
+    <nav>
+    </nav>
     <h1 class="page_title"><%= @organisation.name %>
       <% if @organisation.acronym.present? %>
         (<%= @organisation.acronym %>)
