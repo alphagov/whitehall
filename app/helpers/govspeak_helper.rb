@@ -72,6 +72,8 @@ module GovspeakHelper
     truncated_link_uri = [uri.host, uri.path.split("/")[1,2]].join("/")
     truncated_host_uri = [request.host + Whitehall.router_prefix, "admin"].join("/")
     truncated_link_uri == truncated_host_uri
+  rescue URI::InvalidURIError
+    return false
   end
 
   def find_documents_from_uri(uri)
