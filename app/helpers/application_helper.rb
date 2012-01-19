@@ -121,6 +121,8 @@ module ApplicationHelper
 
   def current_main_navigation_path(parameters)
     case parameters[:controller]
+    when "site"
+      root_path
     when "announcements", "news_articles", "speeches"
       announcements_path
     when "policy_areas", "policies", "supporting_pages"

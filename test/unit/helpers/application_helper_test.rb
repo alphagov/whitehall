@@ -92,6 +92,10 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Speech", human_friendly_document_type(build(:speech))
   end
 
+  test "home page should be related to home main navigation" do
+    assert_equal root_path, current_main_navigation_path(controller: "site", action: "index")
+  end
+
   test "news-related & speech-related pages should be related to news & speeches main navigation" do
     assert_equal announcements_path, current_main_navigation_path(controller: "announcements", action: "index")
     assert_equal announcements_path, current_main_navigation_path(controller: "news_articles", action: "index")
