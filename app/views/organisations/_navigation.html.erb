@@ -1,10 +1,10 @@
 <nav>
   <ul>
     <li>
-      <%= link_to organisation.name, organisation_path(organisation) %>
+      <%= organisation_navigation_link_to organisation.name, organisation_path(organisation) %>
       <ul>
-        <li><%= link_to 'About', about_organisation_path(organisation) %></li>
-        <li><%= link_to 'News', news_organisation_path(organisation) %></li>
+        <li><%= organisation_navigation_link_to 'About', about_organisation_path(organisation) %></li>
+        <li><%= organisation_navigation_link_to 'News', news_organisation_path(organisation) %></li>
       </ul>
     </li>
   </ul>
