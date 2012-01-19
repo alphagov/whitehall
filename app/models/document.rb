@@ -149,10 +149,5 @@ class Document < ActiveRecord::Base
     def search(query)
       published.where("title LIKE :query", query: "%#{query}%")
     end
-
-    def latest_published_at
-      latest_published_document = published.by_published_at.first
-      latest_published_document && latest_published_document.published_at
-    end
   end
 end

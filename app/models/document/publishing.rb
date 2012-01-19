@@ -9,6 +9,11 @@ module Document::Publishing
     def by_published_at
       order(arel_table[:published_at].desc)
     end
+
+    def latest_published_at
+      latest_published_document = published.by_published_at.first
+      latest_published_document && latest_published_document.published_at
+    end
   end
 
   def publishable_by?(user)
