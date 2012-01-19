@@ -1,6 +1,7 @@
 <% page_title "#{@organisation.name} News" %>
 <div class="g3">
-  <section id="news_articles">
+  <section class="organisation" id="news_articles">
+    <%= render 'navigation', organisation: @organisation %>
     <h1 class="page_title"><%= @organisation.name %> News</h1>
     <% if @news_articles.any? %>
       <% @news_articles.each do |news_article| %>
