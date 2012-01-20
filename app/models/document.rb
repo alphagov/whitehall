@@ -31,7 +31,7 @@ class Document < ActiveRecord::Base
   end
 
   def significant_changed_attributes
-    changed - %w(state updated_at)
+    changed - %w(state updated_at featured)
   end
 
   def creator

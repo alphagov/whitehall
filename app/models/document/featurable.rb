@@ -6,11 +6,11 @@ module Document::Featurable
   end
 
   def feature
-    update_attribute(:featured, true)
+    update_attributes(featured: true)
   end
 
   def unfeature
-    update_attribute(:featured, false)
+    update_attributes(featured: false)
   end
 
   module ClassMethods

@@ -180,28 +180,28 @@ module AdminDocumentControllerTestHelpers
     def should_allow_featuring_of(document_type)
       test "featuring a published #{document_type} sets the featured flag" do
         request.env["HTTP_REFERER"] = "http://example.com"
-        document = create(document_type)
+        document = create("published_#{document_type}")
         post :feature, id: document
         assert document.reload.featured?
       end
 
       test "featuring a #{document_type} redirects the user back to where they came from" do
         request.env["HTTP_REFERER"] = "http://example.com"
-        document = create(document_type)
+        document = create("published_#{document_type}")
         post :feature, id: document
         assert_redirected_to "http://example.com"
       end
 
       test "unfeaturing a #{document_type} removes the featured flag" do
         request.env["HTTP_REFERER"] = "http://example.com"
-        document = create(document_type, featured: true)
+        document = create("published_#{document_type}", featured: true)
         post :unfeature, id: document
         refute document.reload.featured?
       end
 
       test "unfeaturing a #{document_type} redirects the user back to where they came from" do
         request.env["HTTP_REFERER"] = "http://example.com"
-        document = create(document_type, featured: true)
+        document = create("published_#{document_type}", featured: true)
         post :unfeature, id: document
         assert_redirected_to "http://example.com"
       end
