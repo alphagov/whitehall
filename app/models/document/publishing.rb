@@ -13,6 +13,10 @@ module Document::Publishing
       order(arel_table[:published_at].desc)
     end
 
+    def by_first_published_at
+      order(arel_table[:first_published_at].desc)
+    end
+
     def latest_published_at
       published.maximum(:published_at)
     end

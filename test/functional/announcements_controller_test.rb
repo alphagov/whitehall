@@ -21,6 +21,20 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index highlights three featured news articles in order of first publication" do
+    articles = 3.times.map do |n|
+      create(:featured_news_article, published_at: n.days.ago)
+    end
+
+    editor = create(:departmental_editor)
+    articles.push(updated_article = articles.pop.create_draft(editor))
+    updated_article.publish_as(editor, force: true)
+
+    get :index
+
+    assert_equal articles.take(3), assigns[:featured_news_articles]
+  end
+
   test "index should display an image for a featured news article if it has one" do
     featuring_image = fixture_file_upload('portas-review.jpg')
     document = create(:featured_news_article, featuring_image: featuring_image)
@@ -55,6 +69,18 @@ class AnnouncementsControllerTest < ActionController::TestCase
         assert_select_object announcement
       end
     end
+  end
+
+  test "index shows news and speeches from the last 24 hours in order of first publication" do
+    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+
+    editor = create(:departmental_editor)
+    announced_today.push(updated_announcement = announced_today.pop.create_draft(editor))
+    updated_announcement.publish_as(editor, force: true)
+
+    get :index
+
+    assert_equal announced_today, assigns[:announced_today]
   end
 
   test "index does not show recently-updated old news and speeches as happening in the last 24 hours" do
@@ -152,6 +178,21 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index
 
     assert_equal announced_in_last_7_days.to_set, assigns[:announced_in_last_7_days].to_set
+  end
+
+  test "index shows news and speeches from the last 7 days in order of first publication" do
+    announced_in_last_7_days = [
+      create(:published_news_article, published_at: 24.hours.ago),
+      create(:published_speech, published_at: 6.days.ago),
+    ]
+
+    editor = create(:departmental_editor)
+    announced_in_last_7_days.push(updated_announcement = announced_in_last_7_days.pop.create_draft(editor))
+    updated_announcement.publish_as(editor, force: true)
+
+    get :index
+
+    assert_equal announced_in_last_7_days, assigns[:announced_in_last_7_days]
   end
 
   test "index does not show old news and speeches updated in the last 7 days as happening in the last 7 days" do
