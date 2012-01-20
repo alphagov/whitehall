@@ -4,8 +4,8 @@ module Document::Publishing
   included do
     validates :published_at, :first_published_at, presence: true, if: -> document { document.published? }
 
-    scope :published_since, -> time { where(arel_table[:published_at].gt(time)) }
-    scope :published_during, -> period { where(published_at: period) }
+    scope :first_published_since, -> time { where(arel_table[:first_published_at].gt(time)) }
+    scope :first_published_during, -> period { where(first_published_at: period) }
   end
 
   module ClassMethods
