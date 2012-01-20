@@ -34,13 +34,13 @@ class Admin::PolicyAreasController < Admin::BaseController
 
   def feature
     @policy_area = PolicyArea.find(params[:id])
-    @policy_area.update_attributes(featured: true)
+    @policy_area.feature
     redirect_to admin_policy_areas_path, notice: "The policy area #{@policy_area.name} is now featured"
   end
 
   def unfeature
     @policy_area = PolicyArea.find(params[:id])
-    @policy_area.update_attributes(featured: false)
+    @policy_area.unfeature
     redirect_to admin_policy_areas_path, notice: "The policy area #{@policy_area.name} is no longer featured"
   end
 

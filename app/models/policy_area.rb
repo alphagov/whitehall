@@ -59,6 +59,14 @@ class PolicyArea < ActiveRecord::Base
     non_archived_policies.blank?
   end
 
+  def feature
+    update_attributes(featured: true)
+  end
+
+  def unfeature
+    update_attributes(featured: false)
+  end
+
   private
 
   class << self
