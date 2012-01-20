@@ -18,10 +18,6 @@ Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
   create(:published_publication, title: title, attachments: [attachment])
 end
 
-Given /^a featured publication "([^"]*)" exists$/ do |title|
-  create(:featured_publication, title: title)
-end
-
 Given /^I attempt to create an invalid publication with an attachment$/ do
   begin_drafting_document type: "Publication", title: ""
   select_date "Publication date", with: "2010-01-01"

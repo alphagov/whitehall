@@ -61,6 +61,10 @@ Given /^a published (publication|policy|news article|consultation|speech) "([^"]
   end
 end
 
+Given /^a featured (publication|news article) "([^"]*)" exists$/ do |document_type, title|
+  create("featured_#{document_class(document_type).name.underscore}", title: title)
+end
+
 When /^I view the (publication|policy|news article|consultation|speech) "([^"]*)"$/ do |document_type, title|
   click_link title
 end

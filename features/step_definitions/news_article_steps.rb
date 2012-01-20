@@ -39,6 +39,22 @@ When /^I draft a new news article "([^"]*)" relating it to "([^"]*)" and "([^"]*
   click_button "Save"
 end
 
+When /^I feature the news article "([^"]*)"$/ do |title|
+  news_article = NewsArticle.find_by_title!(title)
+  visit published_admin_documents_path(filter: 'news_article')
+  within record_css_selector(news_article) do
+    click_button "Feature"
+  end
+end
+
+When /^I unfeature the news article "([^"]*)"$/ do |title|
+  news_article = NewsArticle.find_by_title!(title)
+  visit published_admin_documents_path(filter: 'news_article')
+  within record_css_selector(news_article) do
+    click_button "No longer feature"
+  end
+end
+
 Then /^I can see links to the related published news articles "([^"]*)" and "([^"]*)"$/ do |news_article_title_1, news_article_title_2|
   assert has_css?("#{related_news_articles_selector} .news_article a", text: news_article_title_1)
   assert has_css?("#{related_news_articles_selector} .news_article a", text: news_article_title_2)
@@ -54,4 +70,16 @@ end
 
 Then /^I should only see the most recent (\d+) in the list of featured news articles$/ do |number|
   assert has_css?("#{featured_news_articles_selector} .news_article", count: number.to_i)
+end
+
+Then /^the news article "([^"]*)" should (not )?be featured on the public news and speeches page$/ do |title, should_not_be_featured|
+  visit announcements_path
+  news_article = NewsArticle.published.find_by_title!(title)
+
+  news_article_is_featured = has_css?("#featured-news-articles #{record_css_selector(news_article)}")
+  if should_not_be_featured
+    refute news_article_is_featured
+  else
+    assert news_article_is_featured
+  end
 end
