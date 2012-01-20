@@ -6,6 +6,9 @@
       <% @featured_news_articles.each do |news_article| %>
         <%= content_tag_for(:article, news_article) do %>
           <div class="img">
+            <% if news_article.featured_document_image.present? %>
+              <%= image_tag(news_article.featured_document_image.image_url) %>
+            <% end %>
           </div>
           <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
           <p class="summary"><%= news_article.summary %></p>

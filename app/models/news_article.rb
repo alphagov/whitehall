@@ -14,6 +14,7 @@ class NewsArticle < Document
   end
 
   has_many :policy_areas, through: :published_related_policies, group: 'policy_areas.id'
+  belongs_to :featured_document_image
 
   def has_summary?
     true
