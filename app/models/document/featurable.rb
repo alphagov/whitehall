@@ -17,5 +17,9 @@ module Document::Featurable
     def featured
       where featured: true
     end
+
+    def not_featured
+      where featured: false
+    end
   end
 end
