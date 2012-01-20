@@ -5,6 +5,14 @@ module Document::Featurable
     published?
   end
 
+  def feature
+    update_attribute(:featured, true)
+  end
+
+  def unfeature
+    update_attribute(:featured, false)
+  end
+
   module ClassMethods
     def featured
       where featured: true
