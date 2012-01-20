@@ -83,6 +83,19 @@ class Document::PublishingTest < ActiveSupport::TestCase
     assert_equal Time.zone.now, document.reload.published_at
   end
 
+  test "publication records time of first publication if none is provided" do
+    document = create(:submitted_document)
+    document.publish_as(create(:departmental_editor))
+    assert_equal Time.zone.now, document.reload.first_published_at
+  end
+
+  test "publication preserves time of first publication if provided" do
+    first_published_at = 1.week.ago
+    document = create(:submitted_document, first_published_at: first_published_at)
+    document.publish_as(create(:departmental_editor))
+    assert_equal first_published_at, document.reload.first_published_at
+  end
+
   test "publication archives previous published versions" do
     published_document = create(:published_document)
     document = create(:submitted_document, document_identity: published_document.document_identity)

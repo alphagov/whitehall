@@ -2,7 +2,7 @@ module Document::Publishing
   extend ActiveSupport::Concern
 
   included do
-    validates :published_at, presence: true, if: -> document { document.published? }
+    validates :published_at, :first_published_at, presence: true, if: -> document { document.published? }
 
     scope :published_since, -> time { where(arel_table[:published_at].gt(time)) }
     scope :published_during, -> period { where(published_at: period) }
@@ -48,6 +48,7 @@ module Document::Publishing
     if options[:force] && force_publishable_by?(user) || publishable_by?(user)
       self.lock_version = lock_version
       self.published_at = Time.zone.now
+      self.first_published_at ||= published_at
       publish!
       true
     else

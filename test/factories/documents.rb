@@ -10,6 +10,7 @@ FactoryGirl.define do
     trait(:published) do
       state "published"
       published_at { 1.day.ago }
+      first_published_at { published_at }
     end
     trait(:deleted) { state "deleted" }
     trait(:archived) { state "archived" }

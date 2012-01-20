@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20120123112118) do
     t.date     "opening_on"
     t.date     "closing_on"
     t.datetime "published_at"
+    t.datetime "first_published_at"
     t.date     "publication_date"
     t.string   "unique_reference"
     t.string   "isbn"

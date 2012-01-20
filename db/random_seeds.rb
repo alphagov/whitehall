@@ -27,7 +27,8 @@ def create_submitted(type, attributes = {})
 end
 
 def create_published(type, attributes = {})
-  create_document(type, attributes.merge(state: "published", published_at: rand(365).days.ago))
+  published_at = rand(365).days.ago
+  create_document(type, attributes.merge(state: "published", published_at: published_at, first_published_at: published_at))
 end
 
 def create_supporting(document, attributes={})
