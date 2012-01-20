@@ -21,6 +21,27 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index should display an image for a featured news article if it has one" do
+    image = create(:featured_document_image, image: fixture_file_upload('portas-review.jpg'))
+    document = create(:published_news_article, featured: true, featured_document_image: image)
+    get :index
+    assert_select featured_news_articles_selector do
+      assert_select_object document do
+        assert_select ".img img[src$='portas-review.jpg']"
+      end
+    end
+  end
+
+  test "index should not display an image for a featured news article if it does not have one" do
+    document = create(:published_news_article, featured: true, featured_document_image: nil)
+    get :index
+    assert_select featured_news_articles_selector do
+      assert_select_object document do
+        refute_select ".img img"
+      end
+    end
+  end
+
   test "index shows news and speeches from the last 24 hours" do
     older_announcements = [create(:published_news_article, published_at: 25.hours.ago), create(:published_speech, published_at: 26.hours.ago)]
     announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
