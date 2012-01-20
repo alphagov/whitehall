@@ -4,7 +4,7 @@ module Document::Publishing
   included do
     validates :published_at, presence: true, if: -> document { document.published? }
 
-    scope :published_since, -> time { where('published_at > :time', time: time) }
+    scope :published_since, -> time { where(arel_table[:published_at].gt(time)) }
     scope :published_during, -> period { where(published_at: period) }
   end
 
