@@ -50,13 +50,15 @@ module DocumentControllerTestHelpers
     def should_show_featured_documents_for(document_type)
       document_types = document_type.to_s.pluralize
       test "should ignore unpublished featured #{document_types}" do
-        draft_featured_document = create("draft_#{document_type}", featured: true)
+        draft_featured_document = create("draft_#{document_type}") do |document|
+          document.feature
+        end
         get :index
         refute assigns["featured_#{document_types}"].include?(draft_featured_document)
       end
 
       test "should ignore published non-featured #{document_types}" do
-        published_document = create("published_#{document_type}", featured: false)
+        published_document = create("published_#{document_type}")
         get :index
         refute assigns["featured_#{document_types}"].include?(published_document)
       end

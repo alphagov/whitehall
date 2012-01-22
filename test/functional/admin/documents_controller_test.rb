@@ -248,7 +248,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   [:publication, :consultation, :news_article].each do |document_type|
     test "should show the feature button for those featurable and currently unfeatured #{document_type.to_s.pluralize}" do
       login_as :policy_writer
-      document = create("published_#{document_type}", featured: false)
+      document = create("published_#{document_type}")
       assert document.featurable?
       get :published, filter: document_type
       expected_url = send("feature_admin_#{document_type}_path", document)

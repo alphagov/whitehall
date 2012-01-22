@@ -5,21 +5,31 @@ module Document::Featurable
     published?
   end
 
+  def featured?
+    featuring_id.present?
+  end
+
   def feature
-    update_attributes(featured: true)
+    create_featuring!
+    save!
   end
 
   def unfeature
-    update_attributes(featured: false)
+    featuring.destroy
+    update_attributes!(featuring: nil)
+  end
+
+  included do
+    belongs_to :featuring
   end
 
   module ClassMethods
     def featured
-      where featured: true
+      where "featuring_id IS NOT NULL"
     end
 
     def not_featured
-      where featured: false
+      where "featuring_id IS NULL"
     end
   end
 end
