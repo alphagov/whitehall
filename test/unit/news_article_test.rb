@@ -46,11 +46,11 @@ class NewsArticleTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy retaining any associated feature image with responds to present" do
-    image = create(:featured_document_image, image: fixture_file_upload('portas-review.jpg'))
-    news_article = create(:published_news_article, featured_document_image: image)
-    assert news_article.featured_document_image.image.present?, "original feature image should be present for this test to be valid"
+    featuring = create(:featuring, image: fixture_file_upload('portas-review.jpg'))
+    news_article = create(:published_news_article, featuring: featuring)
+    assert news_article.featuring.image.present?, "original feature image should be present for this test to be valid"
 
     draft_article = news_article.create_draft(create(:policy_writer))
-    assert draft_article.featured_document_image.image.present?
+    assert draft_article.featuring.image.present?
   end
 end

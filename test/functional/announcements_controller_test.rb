@@ -22,8 +22,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index should display an image for a featured news article if it has one" do
-    image = create(:featured_document_image, image: fixture_file_upload('portas-review.jpg'))
-    document = create(:published_news_article, featured: true, featured_document_image: image)
+    featuring = create(:featuring, image: fixture_file_upload('portas-review.jpg'))
+    document = create(:published_news_article, featured: true, featuring: featuring)
     get :index
     assert_select featured_news_articles_selector do
       assert_select_object document do
@@ -33,7 +33,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index should not display an image for a featured news article if it does not have one" do
-    document = create(:published_news_article, featured: true, featured_document_image: nil)
+    document = create(:published_news_article, featured: true, featuring: nil)
     get :index
     assert_select featured_news_articles_selector do
       assert_select_object document do
