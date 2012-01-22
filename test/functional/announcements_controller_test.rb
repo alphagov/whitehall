@@ -33,7 +33,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index should not display an image for a featured news article if it does not have one" do
-    document = create(:published_news_article, featured: true, featuring: nil)
+    featuring = create(:featuring, image: nil)
+    document = create(:published_news_article, featured: true, featuring: featuring)
     get :index
     assert_select featured_news_articles_selector do
       assert_select_object document do
