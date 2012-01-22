@@ -16,8 +16,8 @@ module DocumentBehaviour
       end
 
       test "should return the featured #{document_type.to_s.pluralize}" do
-        unfeatured = create(document_type, featured: false)
-        featured = create(document_type, featured: true)
+        unfeatured = create(document_type)
+        featured = create("featured_#{document_type}")
         assert_equal [featured], document_class.featured
       end
     end

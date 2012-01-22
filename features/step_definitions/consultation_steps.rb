@@ -1,9 +1,9 @@
 Given /^a published featured consultation "([^"]*)"$/ do |title|
-  create(:published_consultation, title: title, featured: true)
+  create(:featured_consultation, title: title)
 end
 
 Given /^(\d+) published featured consultations$/ do |number|
-  number.to_i.times { create(:published_consultation, featured: true) }
+  number.to_i.times { create(:featured_consultation) }
 end
 
 When /^I draft a new consultation "([^"]*)"$/ do |title|

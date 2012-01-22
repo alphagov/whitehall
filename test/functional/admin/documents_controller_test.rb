@@ -257,7 +257,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
     test "should show the unfeature button for those featurable and currently featured #{document_type.to_s.pluralize}" do
       login_as :policy_writer
-      document = create("published_#{document_type}", featured: true)
+      document = create("featured_#{document_type}")
       assert document.featurable?
       get :published, filter: document_type
       expected_url = send("unfeature_admin_#{document_type}_path", document)

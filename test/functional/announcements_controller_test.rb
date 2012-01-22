@@ -8,7 +8,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index highlights three featured news articles" do
     articles = 3.times.map do |n|
-      create(:published_news_article, featured: true, published_at: n.days.ago)
+      create(:featured_news_article, published_at: n.days.ago)
     end
 
     get :index
@@ -23,7 +23,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index should display an image for a featured news article if it has one" do
     featuring = create(:featuring, image: fixture_file_upload('portas-review.jpg'))
-    document = create(:published_news_article, featured: true, featuring: featuring)
+    document = create(:featured_news_article, featuring: featuring)
     get :index
     assert_select featured_news_articles_selector do
       assert_select_object document do
@@ -34,7 +34,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index should not display an image for a featured news article if it does not have one" do
     featuring = create(:featuring, image: nil)
-    document = create(:published_news_article, featured: true, featuring: featuring)
+    document = create(:featured_news_article, featuring: featuring)
     get :index
     assert_select featured_news_articles_selector do
       assert_select_object document do
@@ -60,9 +60,9 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "featured stories should not appear in the last 24 hours or last 7 days lists of announcements" do
     featured = [
-      create(:published_news_article, featured: true, published_at: Time.zone.now),
-      create(:published_news_article, featured: true, published_at: 24.hours.ago),
-      create(:published_news_article, featured: true, published_at: 2.days.ago)
+      create(:featured_news_article, published_at: Time.zone.now),
+      create(:featured_news_article, published_at: 24.hours.ago),
+      create(:featured_news_article, published_at: 2.days.ago)
     ]
 
     announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]

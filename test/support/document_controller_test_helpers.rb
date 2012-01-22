@@ -62,8 +62,8 @@ module DocumentControllerTestHelpers
       end
 
       test "should order published featured #{document_types} by published_at" do
-        old_document = create("published_#{document_type}", featured: true, published_at: 1.month.ago)
-        new_document = create("published_#{document_type}", featured: true, published_at: 1.day.ago)
+        old_document = create("featured_#{document_type}", published_at: 1.month.ago)
+        new_document = create("featured_#{document_type}", published_at: 1.day.ago)
         get :index
         assert_equal [new_document, old_document], assigns["featured_#{document_types}"]
       end
@@ -75,7 +75,7 @@ module DocumentControllerTestHelpers
       end
 
       test "should display a link to the featured #{document_type}" do
-        document = create("published_#{document_type}", featured: true)
+        document = create("featured_#{document_type}")
         get :index
         assert_select send("featured_#{document_types}_selector") do
           expected_path = send("#{document_type}_path", document.document_identity)

@@ -38,7 +38,7 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the existing consultation with the featured flag retained" do
-    consultation = create(:published_consultation, featured: true)
+    consultation = create(:featured_consultation)
     draft_consultation = consultation.create_draft(create(:policy_writer))
     assert draft_consultation.featured?
   end

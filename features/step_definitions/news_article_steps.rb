@@ -14,11 +14,11 @@ Given /^a published news article "([^"]*)" with notes to editors "([^"]*)"$/ do 
 end
 
 Given /^a published featured news article "([^"]*)"$/ do |title|
-  create(:published_news_article, title: title, featured: true)
+  create(:featured_news_article, title: title)
 end
 
 Given /^(\d+) published featured news articles$/ do |number|
-  number.to_i.times { create(:published_news_article, featured: true) }
+  number.to_i.times { create(:featured_news_article) }
 end
 
 When /^I visit the news and speeches page$/ do

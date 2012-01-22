@@ -194,14 +194,14 @@ module AdminDocumentControllerTestHelpers
 
       test "unfeaturing a #{document_type} removes the featured flag" do
         request.env["HTTP_REFERER"] = "http://example.com"
-        document = create("published_#{document_type}", featured: true)
+        document = create("featured_#{document_type}")
         post :unfeature, id: document
         refute document.reload.featured?
       end
 
       test "unfeaturing a #{document_type} redirects the user back to where they came from" do
         request.env["HTTP_REFERER"] = "http://example.com"
-        document = create("published_#{document_type}", featured: true)
+        document = create("featured_#{document_type}")
         post :unfeature, id: document
         assert_redirected_to "http://example.com"
       end

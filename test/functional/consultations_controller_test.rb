@@ -74,7 +74,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "should show the featured consultations when filtering by just those that are open" do
-    featured_consultation = create(:published_consultation, featured: true, summary: "consultation-summary")
+    featured_consultation = create(:featured_consultation, summary: "consultation-summary")
     get :open
     assert_select featured_consultations_selector do
       assert_select_object featured_consultation do
@@ -120,7 +120,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "should show the featured consultations when filtering by just those that are closed" do
-    featured_consultation = create(:published_consultation, featured: true, summary: "consultation-summary")
+    featured_consultation = create(:featured_consultation, summary: "consultation-summary")
     get :closed
     assert_select featured_consultations_selector do
       assert_select_object featured_consultation do
@@ -206,7 +206,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test "should display the closing date of the featured consultation" do
     closing_date = 20.days.from_now
-    consultation = create(:published_consultation, featured: true, closing_on: closing_date)
+    consultation = create(:featured_consultation, closing_on: closing_date)
     get :index
     assert_select send("featured_consultations_selector") do
       assert_select "#{record_css_selector(consultation)} .time_remaining", text: "Closes in 21 days"
