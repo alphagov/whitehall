@@ -1,6 +1,9 @@
 require "test_helper"
 
 class PublicationTest < ActiveSupport::TestCase
+  include DocumentBehaviour
+
+  should_be_featurable :publication
 
   test "should be valid when built from the factory" do
     publication = build(:publication)
