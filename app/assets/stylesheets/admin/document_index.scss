@@ -356,6 +356,21 @@ section.resource_list .collection {
         }
       }
     }
+
+    td.featured {
+      img {
+        height: 3.5em;
+        margin-bottom: 0;
+      }
+
+      form {
+        margin-bottom: 0;
+
+        input {
+          margin-bottom: 1em;
+        }
+      }
+    }
   }
 }
 

@@ -37,6 +37,10 @@ module DocumentHelper
     File.open(Rails.root.join("features/fixtures/attachment.pdf"))
   end
 
+  def jpg_image
+    File.open(Rails.root.join("features/fixtures/portas-review.jpg"))
+  end
+
   def fill_in_publication_fields
     select_date "Publication date", with: "2010-01-01"
     fill_in "Unique reference", with: "ABC-123"

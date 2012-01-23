@@ -53,4 +53,9 @@ class NewsArticleTest < ActiveSupport::TestCase
     draft_article = news_article.create_draft(create(:policy_writer))
     assert draft_article.featuring_image.present?
   end
+
+  test "should allow featuring image" do
+    news_article = build(:news_article)
+    assert news_article.allows_featuring_image?
+  end
 end

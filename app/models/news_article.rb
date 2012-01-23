@@ -20,4 +20,8 @@ class NewsArticle < Document
   def has_summary?
     true
   end
+
+  def allows_featuring_image?
+    true
+  end
 end

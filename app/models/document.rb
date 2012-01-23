@@ -91,6 +91,10 @@ class Document < ActiveRecord::Base
     false
   end
 
+  def allows_featuring_image?
+    false
+  end
+
   def create_draft(user)
     draft_attributes = attributes.except('state', 'created_at', 'updated_at')
     self.class.new(draft_attributes.merge('state' => 'draft', 'creator' => user)).tap do |draft|

@@ -43,6 +43,8 @@ When /^I feature the news article "([^"]*)"$/ do |title|
   news_article = NewsArticle.find_by_title!(title)
   visit published_admin_documents_path(filter: 'news_article')
   within record_css_selector(news_article) do
+    image = jpg_image
+    attach_file "Featuring image", image.path
     click_button "Feature"
   end
 end

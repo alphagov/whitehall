@@ -696,6 +696,10 @@ class DocumentTest < ActiveSupport::TestCase
     refute Document.new.featurable?
   end
 
+  test "should not allow featuring image" do
+    refute Document.new.allows_featuring_image?
+  end
+
   test "should return search index suitable for Rummageable" do
     policy = create(:published_policy, title: "policy-title")
     slug = policy.document_identity.slug

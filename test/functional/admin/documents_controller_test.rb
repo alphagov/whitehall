@@ -245,30 +245,87 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_redirected_to draft_admin_documents_path
   end
 
-  [:publication, :consultation, :news_article].each do |document_type|
-    test "should show the feature button for those featurable and currently unfeatured #{document_type.to_s.pluralize}" do
-      login_as :policy_writer
+  [:publication, :consultation].each do |document_type|
+    test "should display a form for featuring an unfeatured #{document_type} without a featuring image" do
       document = create("published_#{document_type}")
-      assert document.featurable?
       get :published, filter: document_type
       expected_url = send("admin_document_featuring_path", document)
-      assert_select "td.featured form[action=#{expected_url}]"
+      assert_select ".featured form.feature[action=#{expected_url}]" do
+        refute_select "input[name=_method]"
+        refute_select "input[name='document[featuring_image]']"
+        assert_select "input[type=submit][value='Feature']"
+      end
     end
 
-    test "should show the unfeature button for those featurable and currently featured #{document_type.to_s.pluralize}" do
-      login_as :policy_writer
+    test "should display a form for unfeaturing a featured #{document_type} without a featuring image" do
       document = create("featured_#{document_type}")
-      assert document.featurable?
       get :published, filter: document_type
       expected_url = send("admin_document_featuring_path", document)
-      assert_select "td.featured form[action=#{expected_url}]" do
-        assert_select "input[name='_method'][type=hidden]"
+      assert_select ".featured form.unfeature[action=#{expected_url}]" do
+        assert_select "input[name=_method][value=delete]"
+        refute_select "input[name='document[featuring_image]']"
+      end
+    end
+
+    test "should not show featuring image on a featured #{document_type} because they do not allow a featuring image" do
+      document = create("featured_#{document_type}")
+      get :published, filter: document_type
+      assert_select ".featured" do
+        refute_select "img"
       end
     end
   end
 
+  test "should display a form for featuring an unfeatured news article with a featuring image" do
+    news_article = create(:published_news_article)
+    get :published, filter: :news_article
+    expected_url = send("admin_document_featuring_path", news_article)
+    assert_select ".featured form.feature[action=#{expected_url}]" do
+      refute_select "input[name=_method]"
+      assert_select "input[name='document[featuring_image]'][type=file]"
+      assert_select "input[type=submit][value='Feature']"
+    end
+  end
+
+  test "should display a form for unfeaturing a featured news article with a featuring image" do
+    news_article = create(:featured_news_article)
+    get :published, filter: :news_article
+    expected_url = send("admin_document_featuring_path", news_article)
+    assert_select ".featured form.unfeature[action=#{expected_url}]" do
+      assert_select "input[name=_method][value=delete]"
+      assert_select "input[type=submit][value='No longer feature']"
+    end
+  end
+
+  test "should display a form for updating featuring image on a news article" do
+    news_article = create(:featured_news_article)
+    get :published, filter: :news_article
+    expected_url = send("admin_document_featuring_path", news_article)
+    assert_select ".featured form.update_image[action=#{expected_url}]" do
+      assert_select "input[name=_method][value=put]"
+      assert_select "input[name='document[featuring_image]'][type=file]"
+      assert_select "input[type=submit][value='Update image']"
+    end
+  end
+
+  test "should show featuring image on featured news article if it has one" do
+    featuring_image = fixture_file_upload('portas-review.jpg')
+    news_article = create(:featured_news_article, featuring_image: featuring_image)
+    get :published, filter: :news_article
+    assert_select ".featured" do
+      assert_select "img[src$='portas-review.jpg']"
+    end
+  end
+
+  test "should not show featuring image on featured news article if it does not have one" do
+    news_article = create(:featured_news_article, featuring_image: nil)
+    get :published, filter: :news_article
+    assert_select ".featured" do
+      refute_select "img[src$='portas-review.jpg']"
+    end
+  end
+
   test "should not display the featured column on the 'all document' page" do
-    login_as :policy_writer
     policy = create(:draft_policy)
     refute policy.featurable?
     get :draft
@@ -277,7 +334,6 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   end
 
   test "should not display the featured column on a filtered document page where that document isn't featureable" do
-    login_as :policy_writer
     policy = create(:draft_policy)
     refute policy.featurable?
     get :draft, filter: "policy"
