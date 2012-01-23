@@ -21,9 +21,9 @@ module AnnouncementsHelper
     @announcement_row_number += 1
   end
 
-  def announcement_metadata(announcement, first_published_verb)
+  def announcement_metadata(announcement)
     content_tag :span, class: 'metadata' do
-      first_published_at = safe_join([first_published_verb, time_ago(announcement.first_published_at, class: 'first_published_at')], ' ')
+      first_published_at = safe_join(['Posted', time_ago(announcement.first_published_at, class: 'first_published_at')], ' ')
       if announcement.published_at != announcement.first_published_at
         published_at = safe_join(['updated', time_ago(announcement.published_at, class: 'published_at')], ' ')
       end
