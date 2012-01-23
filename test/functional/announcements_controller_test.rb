@@ -21,6 +21,20 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index highlights three featured news articles in order of first publication" do
+    articles = 3.times.map do |n|
+      create(:featured_news_article, published_at: n.days.ago)
+    end
+
+    editor = create(:departmental_editor)
+    articles.push(updated_article = articles.pop.create_draft(editor))
+    updated_article.publish_as(editor, force: true)
+
+    get :index
+
+    assert_equal articles.take(3), assigns[:featured_news_articles]
+  end
+
   test "index should display an image for a featured news article if it has one" do
     featuring_image = fixture_file_upload('portas-review.jpg')
     document = create(:featured_news_article, featuring_image: featuring_image)
@@ -53,6 +67,39 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_select '#last_24_hours' do
       announced_today.each do |announcement|
         assert_select_object announcement
+      end
+    end
+  end
+
+  test "index shows news and speeches from the last 24 hours in order of first publication" do
+    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+
+    editor = create(:departmental_editor)
+    announced_today.push(updated_announcement = announced_today.pop.create_draft(editor))
+    updated_announcement.publish_as(editor, force: true)
+
+    get :index
+
+    assert_equal announced_today, assigns[:announced_today]
+  end
+
+  test "index does not show recently-updated old news and speeches as happening in the last 24 hours" do
+    older_announcements = [create(:published_news_article, published_at: 25.hours.ago), create(:published_speech, published_at: 26.hours.ago)]
+    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+
+    editor = create(:departmental_editor)
+    updated_older_announcements = older_announcements.map do |older_announcement|
+      older_announcement.create_draft(editor).tap do |updated_older_announcement|
+        updated_older_announcement.publish_as(editor, force: true)
+      end
+    end
+
+    get :index
+
+    assert_equal announced_today, assigns[:announced_today]
+    assert_select '#last_24_hours' do
+      updated_older_announcements.each do |updated_older_announcement|
+        refute_select_object updated_older_announcement
       end
     end
   end
@@ -127,6 +174,42 @@ class AnnouncementsControllerTest < ActionController::TestCase
       create(:published_news_article, published_at: 24.hours.ago),
       create(:published_speech, published_at: 6.days.ago),
     ]
+
+    get :index
+
+    assert_equal announced_in_last_7_days.to_set, assigns[:announced_in_last_7_days].to_set
+  end
+
+  test "index shows news and speeches from the last 7 days in order of first publication" do
+    announced_in_last_7_days = [
+      create(:published_news_article, published_at: 24.hours.ago),
+      create(:published_speech, published_at: 6.days.ago),
+    ]
+
+    editor = create(:departmental_editor)
+    announced_in_last_7_days.push(updated_announcement = announced_in_last_7_days.pop.create_draft(editor))
+    updated_announcement.publish_as(editor, force: true)
+
+    get :index
+
+    assert_equal announced_in_last_7_days, assigns[:announced_in_last_7_days]
+  end
+
+  test "index does not show old news and speeches updated in the last 7 days as happening in the last 7 days" do
+    older_announcements = [create(:published_news_article, published_at: 8.days.ago), create(:published_speech, published_at: 8.days.ago)]
+    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+
+    announced_in_last_7_days = [
+      create(:published_news_article, published_at: 24.hours.ago),
+      create(:published_speech, published_at: 6.days.ago),
+    ]
+
+    Timecop.travel(3.days.ago) do
+      editor = create(:departmental_editor)
+      older_announcements.each do |older_announcement|
+        older_announcement.create_draft(editor).publish_as(editor, force: true)
+      end
+    end
 
     get :index
 
@@ -242,15 +325,15 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   def assert_select_speech_metadata(speech)
     assert_select ".meta" do
-      time_string = speech.published_at.to_s(:long_ordinal)
-      assert_select "abbr.published_at[title='#{speech.published_at.iso8601}']", text: /#{time_string}/i
+      time_string = speech.first_published_at.to_s(:long_ordinal)
+      assert_select "abbr.first_published_at[title='#{speech.first_published_at.iso8601}']", text: /#{time_string}/i
       appointment = speech.role_appointment
       assert_select "a.ministerial_role[href='#{ministerial_role_path(appointment.role)}']", text: appointment.person.name
     end
   end
 
   def assert_select_news_article_metadata(news_article)
-    time_string = news_article.published_at.to_s(:long_ordinal)
-    assert_select ".meta abbr.published_at[title='#{news_article.published_at.iso8601}']", text: /#{time_string}/i
+    time_string = news_article.first_published_at.to_s(:long_ordinal)
+    assert_select ".meta abbr.first_published_at[title='#{news_article.first_published_at.iso8601}']", text: /#{time_string}/i
   end
 end

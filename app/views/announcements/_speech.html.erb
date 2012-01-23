@@ -10,7 +10,7 @@
       </p>
     <% end %>
     <div class="meta">
-      <span class="published_at">Delivered <%= time_ago(speech.published_at, class: 'published_at') %></span>
+      <span class="published_at">Delivered <%= time_ago(speech.first_published_at, class: 'first_published_at') %></span>
       <%= link_to speech.role_appointment.person.name, speech.role_appointment.role, class: "ministerial_role" %>
     </div>
   </div>

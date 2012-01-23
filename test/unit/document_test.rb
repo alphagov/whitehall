@@ -37,6 +37,11 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.valid?
   end
 
+  test "should be invalid when published without first_published_at" do
+    document = build(:published_document, first_published_at: nil)
+    refute document.valid?
+  end
+
   test "should be invalid if document identity has existing draft documents" do
     draft_document = create(:draft_document)
     document = build(:document, document_identity: draft_document.document_identity)
@@ -404,6 +409,14 @@ class DocumentTest < ActiveSupport::TestCase
     refute_equal published_document.updated_at, draft_document.updated_at
   end
 
+  test "should copy time of first publication when creating draft" do
+    published_document = create(:published_document, first_published_at: 1.week.ago)
+    Timecop.travel 1.hour.from_now
+    draft_document = published_document.create_draft(create(:policy_writer))
+
+    assert_equal published_document.first_published_at, draft_document.first_published_at
+  end
+
   test "should build a draft copy with references to policy areas, organisations, ministerial roles & countries" do
     policy_area = create(:policy_area)
     organisation = create(:organisation)
@@ -626,7 +639,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:draft, :submitted].each do |state|
     test "publishing a #{state} document transitions it into the published state" do
-      document = create("#{state}_document", published_at: 1.day.ago)
+      document = create("#{state}_document", published_at: 1.day.ago, first_published_at: 1.day.ago)
       document.publish!
       assert document.published?
     end
@@ -634,7 +647,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:rejected, :archived, :deleted].each do |state|
     test "should prevent a #{state} document being published" do
-      document = create("#{state}_document", published_at: 1.day.ago)
+      document = create("#{state}_document", published_at: 1.day.ago, first_published_at: 1.day.ago)
       document.publish! rescue nil
       refute document.published?
     end
