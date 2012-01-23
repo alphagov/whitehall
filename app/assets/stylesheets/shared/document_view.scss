@@ -59,6 +59,10 @@
     }
 
     figure {
+      float: right;
+      max-width: 50%;
+      margin-left: 1em;
+
       div.img {
         @include box-shadow(0, 0, 2px, #d5d5d5);
         background: #fff;
@@ -75,12 +79,10 @@
       figcaption {
         @include type-12;
         color: #555;
+        margin-bottom: 1em;
       }
 
       div.img, figcaption {
-        float: right;
-        max-width: 50%;
-        margin-left: 1em;
         padding: 5px 5px 0 5px;
       }
     }
