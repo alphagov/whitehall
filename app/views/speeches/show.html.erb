@@ -2,7 +2,7 @@
 <div class="g3">
   <h1 class="page_title title has_meta"><%= @document.title %></h1>
   <p class="meta">
-    <span class="metadata">Delivered <%= time_ago(@document.first_published_at, class: 'first_published_at') %></span>
+    <%= announcement_metadata(@document, 'Delivered') %>
     <% @related_policies.map { |d| d.policy_areas }.flatten.uniq.each do |policy_area| %>
       <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area", id: dom_id(policy_area) %>
     <% end %>
