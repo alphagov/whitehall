@@ -106,7 +106,8 @@ ActiveRecord::Schema.define(:version => 20120123112118) do
     t.integer  "speech_type_id"
     t.integer  "consultation_document_identity_id"
     t.string   "carrierwave_image"
-    t.integer  "featuring_id"
+    t.boolean  "featured",                          :default => false
+    t.string   "carrierwave_featuring_image"
   end
 
   create_table "editorial_remarks", :force => true do |t|
@@ -129,12 +130,6 @@ ActiveRecord::Schema.define(:version => 20120123112118) do
   end
 
   add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
-
-  create_table "featurings", :force => true do |t|
-    t.string   "carrierwave_image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "nation_inapplicabilities", :force => true do |t|
     t.integer  "nation_id"

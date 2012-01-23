@@ -6,10 +6,12 @@ class NewsArticle < Document
   include Document::Featurable
 
   mount_uploader :image, DocumentImageUploader, mount_on: :carrierwave_image
+  mount_uploader :featuring_image, FeaturingImageUploader, mount_on: :carrierwave_featuring_image
 
   add_trait do
     def process_associations_before_save(document)
       document.image = @document.image.file if @document.image.present?
+      document.featuring_image = @document.featuring_image.file if @document.featuring_image.present?
     end
   end
 
