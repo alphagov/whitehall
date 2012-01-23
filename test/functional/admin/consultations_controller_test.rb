@@ -12,7 +12,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_creating_of :consultation
   should_allow_editing_of :consultation
 
-  should_allow_featuring_of :consultation
   should_allow_organisations_for :consultation
   should_allow_ministerial_roles_for :consultation
   should_allow_attachments_for :consultation

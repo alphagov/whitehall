@@ -251,7 +251,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
       document = create("published_#{document_type}")
       assert document.featurable?
       get :published, filter: document_type
-      expected_url = send("feature_admin_#{document_type}_path", document)
+      expected_url = send("admin_document_featuring_path", document)
       assert_select "td.featured form[action=#{expected_url}]"
     end
 
@@ -260,8 +260,10 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
       document = create("featured_#{document_type}")
       assert document.featurable?
       get :published, filter: document_type
-      expected_url = send("unfeature_admin_#{document_type}_path", document)
-      assert_select "td.featured form[action=#{expected_url}]"
+      expected_url = send("admin_document_featuring_path", document)
+      assert_select "td.featured form[action=#{expected_url}]" do
+        assert_select "input[name='_method'][type=hidden]"
+      end
     end
   end
 

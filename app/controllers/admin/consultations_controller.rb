@@ -1,6 +1,5 @@
 class Admin::ConsultationsController < Admin::DocumentsController
   include Admin::DocumentsController::NationalApplicability
-  include Admin::DocumentsController::Featurable
 
   before_filter :build_document_attachment, only: [:new, :edit]
 

@@ -73,33 +73,19 @@ Whitehall::Application.routes.draw do
             post :revise
           end
           resource :publishing, controller: :document_publishing, only: [:create]
+          resource :featuring, only: [:create, :destroy]
           resources "supporting-pages", controller: :supporting_pages, as: :supporting_pages,
                     only: [:new, :create, :show, :edit, :update, :destroy], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
           resources :editorial_remarks, only: [:new, :create], shallow: true
         end
 
-        resources :publications, only: [:new, :create, :edit, :update, :show, :destroy] do
-          member do
-            post :feature
-            post :unfeature
-          end
-        end
+        resources :publications, only: [:new, :create, :edit, :update, :show, :destroy]
 
         resources :policies, only: [:new, :create, :edit, :update, :show, :destroy]
         resources "international-priorities", controller: :international_priorities, as: :international_priorities, only: [:new, :create, :edit, :update, :show, :destroy]
-        resources :news, as: :news_articles, controller: :news_articles, only: [:new, :create, :edit, :update, :show, :destroy] do
-          member do
-            post :feature
-            post :unfeature
-          end
-        end
-        resources :consultations, only: [:new, :create, :edit, :update, :show, :destroy] do
-          member do
-            post :feature
-            post :unfeature
-          end
-        end
+        resources :news, as: :news_articles, controller: :news_articles, only: [:new, :create, :edit, :update, :show, :destroy]
+        resources :consultations, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :responses, as: :consultation_responses, controller: :consultation_responses, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :speeches, only: [:new, :create, :edit, :update, :show, :destroy]
         resources :people, only: [:index, :new, :create, :edit, :update, :destroy]

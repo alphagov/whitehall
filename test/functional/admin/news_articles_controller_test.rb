@@ -11,7 +11,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_creating_of :news_article
   should_allow_editing_of :news_article
 
-  should_allow_featuring_of :news_article
   should_allow_organisations_for :news_article
   should_allow_ministerial_roles_for :news_article
   should_allow_association_between_countries_and :news_article
