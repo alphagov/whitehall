@@ -128,7 +128,7 @@ nav.author_scope {
 
     &.current {
       color: #444;
-      @include vertical_gradient(#fafdff, #ccc);
+      @include vertical_gradient(lighten($collation-green, 5%), $collation-green);
     }
   }
 

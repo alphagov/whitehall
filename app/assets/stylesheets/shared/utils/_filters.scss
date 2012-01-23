@@ -83,8 +83,9 @@
       padding: 0 9px;
       border: 1px solid #b5b5b5;
       border-bottom: 1px solid #c5c5c5;
-      background: #d5d5d5;
-      @include box-shadow(0, -1px, 0, #aaa);
+      color: #444;
+      @include vertical_gradient(lighten($collation-green, 2%), lighten($collation-green, 6%));
+      @include box-shadow(0, -1px, 0, $collation-green);
       @include rounded(12px);
     };
   }
