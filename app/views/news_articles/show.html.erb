@@ -23,9 +23,12 @@
     <article class="document">
       <div class="body">
         <% if @document.image.present? %>
-          <div class="img">
-            <%= image_tag(@document.image_url) %>
-          </div>
+          <figure class="image">
+            <div class="img"><%= image_tag(@document.image_url) %></div>
+            <% if @document.image_caption.present? %>
+              <figcaption><%= @document.image_caption %></figcaption>
+            <% end %>
+          </figure>
         <% end %>
         <%= govspeak_to_html @document.body %>
       </div>

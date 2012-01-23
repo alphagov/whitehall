@@ -68,7 +68,18 @@ class NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: news_article.document_identity
 
     assert_select ".document_view" do
-      assert_select ".img img[src='#{news_article.image_url}']"
+      assert_select "figure.image img[src='#{news_article.image_url}']"
+    end
+  end
+
+  test "show displays the image caption for the news article" do
+    portas_review_jpg = fixture_file_upload('portas-review.jpg')
+    news_article = create(:published_news_article, image: portas_review_jpg, image_caption: "image caption")
+
+    get :show, id: news_article.document_identity
+
+    assert_select ".document_view" do
+      assert_select "figure.image figcaption", "image caption"
     end
   end
 

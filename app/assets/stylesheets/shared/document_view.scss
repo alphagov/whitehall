@@ -58,20 +58,30 @@
       }
     }
 
-    div.img {
-      @include box-shadow(0, 0, 2px, #d5d5d5);
-      background: #fff;
-      border: 1px solid #ddd;
-      float: right;
-      margin-bottom: 0.4285em;
-      margin-bottom: 0.25em;
-      margin-left: 1em;
-      overflow: hidden;
-      padding: 5px 5px 0 5px;
-      max-width: 50%;
+    figure {
+      div.img {
+        @include box-shadow(0, 0, 2px, #d5d5d5);
+        background: #fff;
+        border: 1px solid #ddd;
+        margin-bottom: 0.4285em;
+        margin-bottom: 0.25em;
+        overflow: hidden;
 
-      img, a img {
-        margin: 0;
+        img, a img {
+          margin: 0;
+        }
+      }
+
+      figcaption {
+        @include type-12;
+        color: #555;
+      }
+
+      div.img, figcaption {
+        float: right;
+        max-width: 50%;
+        margin-left: 1em;
+        padding: 5px 5px 0 5px;
       }
     }
   }

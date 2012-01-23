@@ -100,6 +100,16 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     refute_select "#{notes_to_editors_selector}"
   end
 
+  test "show displays the image caption for the news article" do
+    portas_review_jpg = fixture_file_upload('portas-review.jpg')
+    news_article = create(:published_news_article, image: portas_review_jpg, image_caption: "image caption")
+
+    get :show, id: news_article
+
+    assert_select "figure.image figcaption", "image caption"
+  end
+
+
   test "new displays news article image field" do
     get :new
 
@@ -148,7 +158,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     post :create, document: attributes.merge(title: '')
 
-    refute_select ".img img"
+    refute_select "figure.image img"
   end
 
   test "editing displays news article image field" do
@@ -178,7 +188,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :edit, id: news_article
 
     assert_select "form#document_edit" do
-      assert_select ".img img[src='#{news_article.image_url}']", count: 0
+      assert_select "figure.image", count: 0
     end
   end
 
@@ -216,7 +226,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     get :show, id: news_article
 
-    assert_select ".img img[src='#{news_article.image_url}']"
+    assert_select "figure.image img[src='#{news_article.image_url}']"
   end
 
   test "show only displays image if there is one" do
@@ -224,6 +234,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     get :show, id: news_article
 
-    refute_select ".img img"
+    refute_select "figure.image img"
   end
 end
