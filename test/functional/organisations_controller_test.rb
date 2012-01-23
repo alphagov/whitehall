@@ -96,8 +96,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows names and roles of those ministers associated with organisation" do
-    person_1 = create(:person, name: "Fred")
-    person_2 = create(:person, name: "Bob")
+    person_1 = create(:person, forename: "Fred")
+    person_2 = create(:person, forename: "Bob")
     ministerial_role_1 = create(:ministerial_role, name: "Secretary of State")
     ministerial_role_2 = create(:ministerial_role, name: "Minister of State")
     create(:role_appointment, person: person_1, role: ministerial_role_1)

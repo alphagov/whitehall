@@ -30,6 +30,10 @@ class Person < ActiveRecord::Base
     image_url && File.basename(image_url)
   end
 
+  def name
+    [title, forename, surname, letters].compact.join(' ')
+  end
+
   private
 
   def prevent_destruction_if_appointed

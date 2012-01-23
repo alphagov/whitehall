@@ -2,7 +2,10 @@
   <%= person_form.errors %>
 
   <fieldset>
-    <%= person_form.text_field :name %>
+    <%= person_form.text_field :title %>
+    <%= person_form.text_field :forename %>
+    <%= person_form.text_field :surname %>
+    <%= person_form.text_field :letters %>
   </fieldset>
   <fieldset class="image">
     <%= person_form.label :image, 'Image' %>

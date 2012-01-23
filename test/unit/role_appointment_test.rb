@@ -57,8 +57,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   test "should link a MinisterialRole to the Person who currently holds the role" do
     role = create(:ministerial_role)
-    alice = create(:person, name: "Alice")
-    bob = create(:person, name: "Bob")
+    alice = create(:person, forename: "Alice")
+    bob = create(:person, forename: "Bob")
     create(:role_appointment, role: role, person: alice, started_at: 3.days.ago, ended_at: 1.day.ago)
     create(:role_appointment, role: role, person: bob, started_at: 1.day.ago)
 
@@ -66,7 +66,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   test "should link the Person to the MinisterialRoles they currently hold" do
-    alice = create(:person, name: "Alice")
+    alice = create(:person, forename: "Alice")
     old_role = create(:ministerial_role)
     new_role = create(:ministerial_role)
     other_new_role = create(:ministerial_role)
@@ -79,8 +79,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   test "should make appointments historical when a new Person is appointed to a MinisterialRole" do
-    alice = create(:person, name: "Alice")
-    bob = create(:person, name: "Bob")
+    alice = create(:person, forename: "Alice")
+    bob = create(:person, forename: "Bob")
 
     role = create(:ministerial_role)
 

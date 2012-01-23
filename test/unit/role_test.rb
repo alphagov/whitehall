@@ -12,7 +12,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the person, role and all organisation names" do
-    frank = create(:person, name: "Frank")
+    frank = create(:person, forename: "Frank")
     role = create(:role, name: "Treasury secretary",
                    organisations: [
                     create(:organisation, name: "Department of Health"),
@@ -22,7 +22,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the person, role and organisation names" do
-    frank = create(:person, name: "Frank")
+    frank = create(:person, forename: "Frank")
     role = create(:role, name: "Treasury secretary",
                    organisations: [create(:organisation, name: "Department of Health")])
     create(:role_appointment, role: role, person: frank)
@@ -30,7 +30,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the person and role names when there are no organisations" do
-    frank = create(:person, name: "Frank")
+    frank = create(:person, forename: "Frank")
     role = create(:role, name: "Treasury secretary",
                    organisations: [])
     create(:role_appointment, role: role, person: frank)
@@ -57,7 +57,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the person's name" do
-    bob = create(:person, name: "Bob")
+    bob = create(:person, forename: "Bob")
     role = create(:role)
     create(:role_appointment, role: role, person: bob)
     assert_equal "Bob", role.current_person_name
@@ -69,9 +69,9 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "can return the set of current appointees in alphabetical order" do
-    charlie_parker = create(:person, name: "Charlie Parker")
-    alphonse_ziller = create(:person, name: "Alphonse Ziller")
-    boris_swingler = create(:person, name: "Boris Swingler")
+    charlie_parker = create(:person, forename: "Charlie", surname: "Parker")
+    alphonse_ziller = create(:person, forename: "Alphonse", surname: "Ziller")
+    boris_swingler = create(:person, forename: "Boris", surname: "Swingler")
 
     charlie = create(:role)
     alphonse = create(:role)

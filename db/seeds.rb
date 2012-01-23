@@ -26,11 +26,36 @@ def policy_areas(*names)
   end
 end
 
+NAME_PATTERN = /^
+  (
+    .*                                                            # title prefix (e.g. "The")
+    \b(?:Baroness|Dame|Dr|Earl|General|Hon|Lord|Professor|Sir)\b  # title
+  )?
+  \s*
+  (.+?)                                                           # personal name
+  \s*
+  ((?:(?:[[:upper:]]+|Bt)\s*)*)                                   # letters ("Bt" means "Baronet")
+$/x
+
+def split_person_name(name)
+  if match = NAME_PATTERN.match(name)
+    title, personal_name, letters = match.captures
+
+    personal_names = personal_name.split(/\s+/)
+    forename = personal_names.shift unless personal_names.one? || personal_names.second == 'of'
+    surname = personal_names.join(' ')
+
+    { title: title, forename: forename, surname: surname, letters: letters }
+  else
+    raise "couldn't split \"#{name}\""
+  end
+end
+
 def politicians(person_to_role_to_organisation)
   person_to_role_to_organisation.each do |person_name, role_to_organisation|
-    privy = person_name.starts_with?("The Rt Hon ")
-    person_name = person_name.from(11) if privy
-    person = Person.create!(name: person_name, privy_councillor: privy)
+    name_parts = split_person_name(person_name)
+    privy = name_parts[:title] == "The Rt Hon"
+    person = Person.create!(name_parts.merge(privy_councillor: privy))
     role_to_organisation.each do |role_name, organisation_name|
       if organisation_name
         organisation = Organisation.find_by_name!(organisation_name)
@@ -45,9 +70,9 @@ end
 
 def civil_servants(person_to_role_to_organisation, permanent_secretary = false)
   person_to_role_to_organisation.each do |person_name, role_to_organisation|
-    privy = person_name.starts_with?("The Rt Hon ")
-    person_name = person_name.from(11) if privy
-    person = Person.create!(name: person_name, privy_councillor: privy)
+    name_parts = split_person_name(person_name)
+    privy = name_parts[:title] == "The Rt Hon"
+    person = Person.create!(name_parts.merge(privy_councillor: privy))
     role_to_organisation.each do |role_name, organisation_name|
       if organisation_name
         organisation = Organisation.find_by_name!(organisation_name)

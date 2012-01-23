@@ -8,7 +8,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test "creating without a name shows errors" do
-    post :create, person: {name: ""}
+    post :create, person: {title: "", forename: "", surname: "", letters: ""}
 
     assert_select ".form-errors"
   end
@@ -37,7 +37,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   test "updating without a name shows errors" do
     person = create(:person)
 
-    put :update, id: person.id, person: {name: ""}
+    put :update, id: person.id, person: {title: "", forename: "", surname: "", letters: ""}
 
     assert_select ".form-errors"
   end
@@ -51,7 +51,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   end
 
   test "should be able to destroy a destroyable person" do
-    person = create(:person, name: "Dave")
+    person = create(:person, forename: "Dave")
     delete :destroy, id: person.id
 
     assert_response :redirect
@@ -67,9 +67,9 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   end
 
   test "lists people by ordered name" do
-    person_b = create(:person, name: "B")
-    person_a = create(:person, name: "A")
-    person_c = create(:person, name: "C")
+    person_b = create(:person, forename: "B")
+    person_a = create(:person, forename: "A")
+    person_c = create(:person, forename: "C")
 
     get :index
 
