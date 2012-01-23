@@ -727,6 +727,48 @@ module AdminDocumentControllerTestHelpers
         end
       end
     end
+
+    def should_allow_overriding_of_first_published_at_for(document_type)
+      document_class = document_class_for(document_type)
+
+      test "new should display first_published_at fields" do
+        get :new
+
+        admin_documents_path = send("admin_#{document_type.to_s.tableize}_path")
+        assert_select "form#document_new[action='#{admin_documents_path}']" do
+          assert_select "select[name*='document[first_published_at']", count: 5
+        end
+      end
+
+      test "edit should display first_published_at fields" do
+        document = create(document_type)
+
+        get :edit, id: document
+
+        admin_document_path = send("admin_#{document_type}_path", document)
+        assert_select "form#document_edit[action='#{admin_document_path}']" do
+          assert_select "select[name*='document[first_published_at']", count: 5
+        end
+      end
+
+      test "create should save overridden first_published_at attribute" do
+        first_published_at = 3.months.ago
+        post :create, document: controller_attributes_for(document_type).merge(first_published_at: 3.months.ago)
+
+        document = document_class.last
+        assert_equal first_published_at, document.first_published_at
+      end
+
+      test "update should save overridden first_published_at attribute" do
+        document = create(document_type)
+        first_published_at = 3.months.ago
+
+        put :update, id: document, document: { first_published_at: first_published_at }
+
+        document.reload
+        assert_equal first_published_at, document.first_published_at
+      end
+    end
   end
 
   def controller_attributes_for(document_type, attributes = {})

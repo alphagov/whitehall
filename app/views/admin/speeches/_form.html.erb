@@ -23,5 +23,7 @@
 
   <%= render partial: "country_fields", locals: { form: form, document: document } %>
 
+  <%= render partial: 'first_published_at', locals: { form: form, document: document } %>
+
   <%= form.save_or_cancel %>
 <% end %>

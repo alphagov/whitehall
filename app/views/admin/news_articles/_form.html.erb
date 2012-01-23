@@ -25,5 +25,7 @@
     <%= form.text_area :notes_to_editors, "class" => "previewable", help: true %>
   </fieldset>
 
+  <%= render partial: 'first_published_at', locals: { form: form, document: document } %>
+
   <%= form.save_or_cancel %>
 <% end %>

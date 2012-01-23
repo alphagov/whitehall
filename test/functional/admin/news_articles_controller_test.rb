@@ -20,6 +20,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_link_to_public_version_when_published :news_article
   should_not_link_to_public_version_when_not_published :news_article
   should_prevent_modification_of_unmodifiable :news_article
+  should_allow_overriding_of_first_published_at_for :news_article
 
   test "new displays news article fields" do
     get :new
