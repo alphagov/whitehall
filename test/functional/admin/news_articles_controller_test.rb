@@ -118,6 +118,16 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal "portas-review.jpg", news_article.carrierwave_image
   end
 
+  test "creating a news article should store image caption" do
+    portas_review_jpg = fixture_file_upload('portas-review.jpg')
+    attributes = attributes_for(:news_article, image: portas_review_jpg, image_caption: "image caption")
+
+    post :create, document: attributes
+
+    assert news_article = NewsArticle.last
+    assert_equal "image caption", news_article.image_caption
+  end
+
   test "creating a news article with invalid data and an image should remember the uploaded image" do
     portas_review_jpg = fixture_file_upload('portas-review.jpg')
 

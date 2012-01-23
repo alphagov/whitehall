@@ -12,6 +12,8 @@
     <% if document.persisted? && document.image.present? %>
       <%= image_tag document.image_url %>
     <% end %>
+
+    <%= form.text_area :image_caption, rows: 2 %>
   </fieldset>
 
   <%= render partial: 'related_policy_fields', locals: { form: form, document: document } %>
