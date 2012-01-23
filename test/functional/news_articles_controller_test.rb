@@ -47,6 +47,20 @@ class NewsArticlesControllerTest < ActionController::TestCase
     end
   end
 
+  test "shows when updated news article was last updated" do
+    news_article = create(:published_news_article, published_at: 10.days.ago)
+
+    editor = create(:departmental_editor)
+    updated_news_article = news_article.create_draft(editor)
+    updated_news_article.publish_as(editor, force: true)
+
+    get :show, id: updated_news_article.document_identity
+
+    assert_select "p.meta .metadata" do
+      assert_select ".published_at[title='#{updated_news_article.published_at.iso8601}']"
+    end
+  end
+
   test "show displays the image for the news article" do
     portas_review_jpg = fixture_file_upload('portas-review.jpg')
     news_article = create(:published_news_article, image: portas_review_jpg)
