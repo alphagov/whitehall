@@ -20,6 +20,6 @@
   <% if @policy_areas.any? %>
     <%= render partial: "grouped_list", locals: {policy_areas: @policy_areas} %>
   <% else %>
-    <p>We don't have any policy areas with published documents at present.</p>
+    <div class="g3"><p>We don't have any policy areas with published documents at present.</p></div>
   <% end %>
 </div>
