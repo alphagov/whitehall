@@ -1,3 +1,4 @@
+@import "../colours";
 
 @mixin filter_link {
   @include type-13;
@@ -45,9 +46,9 @@
 
     &.current {
       color: #444;
-      @include vertical_gradient(#eee, #ccc);
-      border-bottom: 1px solid #aaa;
-      border-top: 1px solid #ddd;
+      @include vertical_gradient(lighten($collation-green, 5%), $collation-green);
+      border-bottom: 1px solid $collation-green;
+      border-top: 1px solid $collation-green;
     }
   }
 }
