@@ -79,14 +79,6 @@
       @include image-list;
       margin-left: 1%;
       margin-right: 1%;
-
-      li {
-        @media only screen and (min-width: 900px) {
-          &:nth-child(3n+1) {
-            margin-right: 0;
-          };
-        }
-      }
     }
   }
 }
