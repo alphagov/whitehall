@@ -1,11 +1,10 @@
 <% page_title "Policies" %>
-<div class="g3">
-  <section id="policies">
+<div class="g3f">
+  <section class="page_header policy">
     <h1 class="page_title">Policies</h1>
-    <% if @policies.any? %>
-      <%= render partial: "grouped_list", locals: {policies: @policies} %>
-    <% else %>
-      <p>We don't have any published policies at present.</p>
-    <% end %>
   </section>
+</div>
+
+<div class="g3" id="policies">
+  <%= render partial: "grouped_list", locals: {policies: @policies} %>
 </div>
