@@ -9,5 +9,7 @@
 
   <%= render partial: 'nation_fields', locals: { form: form, document: document } %>
 
+  <%= form.check_box :stub, label_text: "Stub?" %>
+
   <%= form.save_or_cancel %>
 <% end %>
