@@ -1,8 +1,28 @@
 @import "../shared/utils";
 
 #content {
+  #cabinet li {
+    @include span_one_column;
+
+    h3 {
+      @include type-14;
+      margin-bottom: 0;
+    }
+
+    p {
+      @include type-12;
+      margin-bottom: 0;
+    }
+  }
+
   .ministerial_role {
     @include clearfix;
+
+    h3 {
+      a {
+        font-size: 100%;
+      }
+    }
   }
 
   .current_person {

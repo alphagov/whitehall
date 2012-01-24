@@ -7,9 +7,14 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   should_show_published_documents_associated_with :ministerial_role, :consultations
 
   test "should avoid n+1 queries" do
+    cabinet = stub('cabinet')
+    MinisterialRole.stubs(:cabinet).returns(cabinet)
+    cabinet.expects(:includes).with(:current_people).returns([])
+
     scope = stub('scope')
     MinisterialRole.stubs(:alphabetical_by_person).returns(scope)
     scope.expects(:includes).with(:current_people).returns([])
+
     get :index
   end
 
