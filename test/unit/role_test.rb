@@ -75,20 +75,20 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal "No one is assigned to this role", role.current_person_name
   end
 
-  test "can return the set of current appointees in alphabetical order" do
+  test "can return the set of current appointees in alphabetical order by surname" do
     charlie_parker = create(:person, forename: "Charlie", surname: "Parker")
     alphonse_ziller = create(:person, forename: "Alphonse", surname: "Ziller")
     boris_swingler = create(:person, forename: "Boris", surname: "Swingler")
 
-    charlie = create(:role)
-    alphonse = create(:role)
-    boris = create(:role)
+    parker = create(:role)
+    ziller = create(:role)
+    swingler = create(:role)
 
-    create(:role_appointment, role: charlie, person: charlie_parker)
-    create(:role_appointment, role: alphonse, person: alphonse_ziller)
-    create(:role_appointment, role: boris, person: boris_swingler)
+    create(:role_appointment, role: parker, person: charlie_parker)
+    create(:role_appointment, role: ziller, person: alphonse_ziller)
+    create(:role_appointment, role: swingler, person: boris_swingler)
 
-    assert_equal [alphonse, boris, charlie], Role.alphabetical_by_person
+    assert_equal [parker, swingler, ziller], Role.alphabetical_by_person
   end
 
   test "should concatenate words containing apostrophes" do

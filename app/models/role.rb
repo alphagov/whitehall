@@ -8,7 +8,7 @@ class Role < ActiveRecord::Base
   has_many :organisation_roles
   has_many :organisations, through: :organisation_roles
 
-  scope :alphabetical_by_person, includes(:current_people, :organisations).order("CONCAT_WS(' ', people.title, people.forename, people.surname, people.letters)")
+  scope :alphabetical_by_person, includes(:current_people, :organisations).order('people.surname', 'people.forename')
 
   validates :name, presence: true
 
