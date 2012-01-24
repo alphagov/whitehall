@@ -7,7 +7,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test "should be invalid without a name" do
-    person = build(:person, name: nil)
+    person = build(:person, title: nil, forename: nil, surname: nil, letters: nil)
     refute person.valid?
   end
 

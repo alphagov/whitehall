@@ -8,7 +8,7 @@ class Role < ActiveRecord::Base
   has_many :organisation_roles
   has_many :organisations, through: :organisation_roles
 
-  scope :alphabetical_by_person, includes(:current_people, :organisations).order("people.name ASC")
+  scope :alphabetical_by_person, includes(:current_people, :organisations).order('people.surname', 'people.forename')
 
   validates :name, presence: true
 
@@ -49,6 +49,8 @@ class Role < ActiveRecord::Base
   def current_person_name(default="No one is assigned to this role")
     current_person ? current_person.name : default
   end
+
+  delegate :surname, to: :current_person, prefix: true, allow_nil: true
 
   def current_person_image_url
     current_person && current_person.image_url

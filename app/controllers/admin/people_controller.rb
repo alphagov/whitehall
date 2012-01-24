@@ -1,6 +1,6 @@
 class Admin::PeopleController < Admin::BaseController
   def index
-    @people = Person.order(:name)
+    @people = Person.order(:surname, :forename)
   end
 
   def new

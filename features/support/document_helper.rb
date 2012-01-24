@@ -21,7 +21,7 @@ module DocumentHelper
   end
 
   def begin_drafting_speech(options)
-    person = create(:person, name: "Colonel Mustard")
+    person = create_person("Colonel Mustard")
     role = create(:ministerial_role, name: "Attorney General")
     role_appointment = create(:role_appointment, person: person, role: role)
     speech_type = create(:speech_type)

@@ -6,8 +6,8 @@ class ApplicationHelperTest < ActionView::TestCase
     ministry_of_defence = create(:organisation, name: "Ministry of Defence")
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     defence_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [ministry_of_defence])
-    theresa_may = create(:person, name: "Theresa May")
-    philip_hammond = create(:person, name: "Philip Hammond")
+    theresa_may = create(:person, forename: "Theresa", surname: "May")
+    philip_hammond = create(:person, forename: "Philip", surname: "Hammond")
     theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may)
     philip_hammond_appointment = create(:role_appointment, role: defence_secretary, person: philip_hammond)
 

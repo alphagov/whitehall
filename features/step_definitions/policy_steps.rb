@@ -245,7 +245,7 @@ end
 
 Then /^I should see that those responsible for the policy are:$/ do |table|
   table.hashes.each do |row|
-    person = Person.find_by_name!(row["Person"])
+    person = find_person(row["Person"])
     assert page.has_css?(".minister", text: person.name)
   end
 end

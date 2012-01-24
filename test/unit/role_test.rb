@@ -12,7 +12,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the person, role and all organisation names" do
-    frank = create(:person, name: "Frank")
+    frank = create(:person, forename: "Frank")
     role = create(:role, name: "Treasury secretary",
                    organisations: [
                     create(:organisation, name: "Department of Health"),
@@ -22,7 +22,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the person, role and organisation names" do
-    frank = create(:person, name: "Frank")
+    frank = create(:person, forename: "Frank")
     role = create(:role, name: "Treasury secretary",
                    organisations: [create(:organisation, name: "Department of Health")])
     create(:role_appointment, role: role, person: frank)
@@ -30,7 +30,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the person and role names when there are no organisations" do
-    frank = create(:person, name: "Frank")
+    frank = create(:person, forename: "Frank")
     role = create(:role, name: "Treasury secretary",
                    organisations: [])
     create(:role_appointment, role: role, person: frank)
@@ -57,10 +57,17 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the person's name" do
-    bob = create(:person, name: "Bob")
+    bob = create(:person, forename: "Bob")
     role = create(:role)
     create(:role_appointment, role: role, person: bob)
     assert_equal "Bob", role.current_person_name
+  end
+
+  test "should return the person's surname" do
+    bob = create(:person, forename: "Bob", surname: "Smith")
+    role = create(:role)
+    create(:role_appointment, role: role, person: bob)
+    assert_equal "Smith", role.current_person_surname
   end
 
   test "should indicate that the role is vacant" do
@@ -68,20 +75,20 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal "No one is assigned to this role", role.current_person_name
   end
 
-  test "can return the set of current appointees in alphabetical order" do
-    charlie_parker = create(:person, name: "Charlie Parker")
-    alphonse_ziller = create(:person, name: "Alphonse Ziller")
-    boris_swingler = create(:person, name: "Boris Swingler")
+  test "can return the set of current appointees in alphabetical order by surname" do
+    charlie_parker = create(:person, forename: "Charlie", surname: "Parker")
+    alphonse_ziller = create(:person, forename: "Alphonse", surname: "Ziller")
+    boris_swingler = create(:person, forename: "Boris", surname: "Swingler")
 
-    charlie = create(:role)
-    alphonse = create(:role)
-    boris = create(:role)
+    parker = create(:role)
+    ziller = create(:role)
+    swingler = create(:role)
 
-    create(:role_appointment, role: charlie, person: charlie_parker)
-    create(:role_appointment, role: alphonse, person: alphonse_ziller)
-    create(:role_appointment, role: boris, person: boris_swingler)
+    create(:role_appointment, role: parker, person: charlie_parker)
+    create(:role_appointment, role: ziller, person: alphonse_ziller)
+    create(:role_appointment, role: swingler, person: boris_swingler)
 
-    assert_equal [alphonse, boris, charlie], Role.alphabetical_by_person
+    assert_equal [parker, swingler, ziller], Role.alphabetical_by_person
   end
 
   test "should concatenate words containing apostrophes" do

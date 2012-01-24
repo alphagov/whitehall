@@ -197,7 +197,10 @@ ActiveRecord::Schema.define(:version => 20120124105450) do
   add_index "organisations", ["slug"], :name => "index_organisations_on_slug"
 
   create_table "people", :force => true do |t|
-    t.string   "name"
+    t.string   "title"
+    t.string   "forename"
+    t.string   "surname"
+    t.string   "letters"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "privy_councillor",  :default => false

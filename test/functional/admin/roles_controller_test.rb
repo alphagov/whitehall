@@ -10,7 +10,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "index should display a list of roles" do
     org_one = create(:organisation, name: "org-one")
     org_two = create(:organisation, name: "org-two")
-    person = create(:person, name: "person-name")
+    person = create(:person, forename: "person-name")
     role_one = create(:ministerial_role, name: "role-one", organisations: [org_one, org_two])
     create(:role_appointment, role: role_one, person: person)
     role_two = create(:board_member_role, name: "role-two", permanent_secretary: true, organisations: [org_one])
@@ -247,7 +247,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test 'create with invalid role data should not lose or duplicate the appointment fields or values' do
-    person = create(:person, name: "person-name")
+    person = create(:person, forename: "person-name")
 
     post :create, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
       { person: person, started_at: "2010-06-15" }
@@ -298,7 +298,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "edit should display fields for updating an existing appointment" do
-    person = create(:person, name: "person-name")
+    person = create(:person, forename: "person-name")
     role = create(:ministerial_role)
     create(:role_appointment, role: role, person: person)
 
@@ -332,8 +332,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "edit should display existing appointments in the order in which they started" do
-    person_one = create(:person, name: "person-one")
-    person_two = create(:person, name: "person-two")
+    person_one = create(:person, forename: "person-one")
+    person_two = create(:person, forename: "person-two")
     role = create(:ministerial_role)
     create(:role_appointment, role: role, person: person_one, started_at: 1.year.ago, ended_at: 1.day.ago)
     create(:role_appointment, role: role, person: person_two, started_at: 2.years.ago, ended_at: 1.year.ago)
@@ -408,7 +408,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "update should modify existing appointment" do
     role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: role)
-    another_person = create(:person, name: "another-person")
+    another_person = create(:person, forename: "another-person")
 
     put :update, id: role, role: role_appointments_attributes_for(
       { role_appointment: role_appointment, person: another_person, started_at: "2010-06-15", ended_at: "2011-07-23" }
@@ -496,7 +496,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test 'update with invalid role data and blank new appointment should not lose or duplicate the appointment fields or values' do
     role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: role)
-    another_person = create(:person, name: "another-person")
+    another_person = create(:person, forename: "another-person")
 
     put :update, id: role, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
       { role_appointment: role_appointment, person: another_person, started_at: "2010-06-15", ended_at: "2011-07-23" },
@@ -512,7 +512,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test 'update with invalid role data and populated new appointment should not lose or duplicate the appointment fields or values' do
     role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: role)
-    another_person = create(:person, name: "another-person")
+    another_person = create(:person, forename: "another-person")
 
     put :update, id: role, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
       { role_appointment: role_appointment, person: another_person, started_at: "2010-06-15", ended_at: "2011-07-23" },
@@ -544,7 +544,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test 'update with invalid appointment data and populated new appointment should not lose or duplicate the appointment fields or values' do
     role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: role)
-    person = create(:person, name: "person-name")
+    person = create(:person, forename: "person-name")
 
     put :update, id: role, role: attributes_for(:role, role_appointments_attributes_for(
       { role_appointment: role_appointment, person: nil, started_at: "2010-06-15", ended_at: "2011-07-23" },
