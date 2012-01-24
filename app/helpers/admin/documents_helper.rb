@@ -25,6 +25,10 @@ module Admin::DocumentsHelper
     admin_header_link "People", admin_people_path
   end
 
+  def admin_countries_header_link
+    admin_header_link "Countries", admin_countries_path
+  end
+
   def admin_header_link(name, path, path_matcher = nil)
     path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
     if user_signed_in?

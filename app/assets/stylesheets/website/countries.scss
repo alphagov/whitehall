@@ -1,0 +1,14 @@
+@import "../shared/utils";
+
+#content {
+  .country {
+    .embassy_contact_details {
+      margin-bottom: 1em;
+
+      p {
+        @include type-14;
+        margin: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<% page_title "Edit " + @country.name %>
+<div class="g2 first">
+  <section>
+    <h1>Edit country</h1>
+    <%= form_for([:admin, @country]) do |form| %>
+
+      <fieldset>
+        <legend>Embassy contact details</legend>
+        <%= form.text_area :embassy_address, rows: 4 %>
+        <%= form.text_field :embassy_telephone %>
+        <%= form.text_field :embassy_email %>
+      </fieldset>
+
+      <%= form.submit "Save" %>
+    <% end %>
+  </section>
+</div>
