@@ -10,11 +10,11 @@ module Document::Identifiable
   end
 
   def set_document_identity
-    self.document_identity ||= DocumentIdentity.new(sluggable_string: self.title)
+    self.document_identity ||= DocumentIdentity.new(sluggable_string: self.sluggable_title)
   end
 
   def update_document_identity_slug
-    self.document_identity.update_slug_if_possible(self.title)
+    self.document_identity.update_slug_if_possible(self.sluggable_title)
   end
 
   def set_document_type_on_document_identity

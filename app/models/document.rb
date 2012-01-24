@@ -124,6 +124,10 @@ class Document < ActiveRecord::Base
     "#{title} (#{state})"
   end
 
+  def sluggable_title
+    title
+  end
+
   class << self
     def authored_by(user)
       joins(:document_authors).where(document_authors: {user_id: user}).group(:document_id)

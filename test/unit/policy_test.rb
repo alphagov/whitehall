@@ -33,7 +33,11 @@ class PolicyTest < ActiveSupport::TestCase
     assert_equal [policy_area_1, policy_area_2], policy.policy_areas.reload
   end
 
-  test "should prepend stub signifier to stub policy titles" do
+  test "prepends stub signifier to stub policy titles" do
     assert_equal "[Sample] stub title", build(:policy, title: "stub title", stub: true).title
+  end
+
+  test "stub status doesn't affect slug generation" do
+    assert_equal "stub-title", create(:policy, title: "stub title", stub: true).document_identity.slug
   end
 end

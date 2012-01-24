@@ -20,8 +20,16 @@ class Policy < Document
 
   scope :stub, where(stub: true)
 
-  def title
-    original_title = super
+  define_attribute_methods
+
+  def title_with_stub
+    original_title = title_without_stub
     stub? ? "[Sample] #{original_title}" : original_title
   end
+  alias_method_chain :title, :stub
+
+  def sluggable_title
+    title_without_stub
+  end
+
 end
