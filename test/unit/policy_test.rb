@@ -32,4 +32,8 @@ class PolicyTest < ActiveSupport::TestCase
     policy = create(:policy, policy_areas: [policy_area_1, policy_area_2])
     assert_equal [policy_area_1, policy_area_2], policy.policy_areas.reload
   end
+
+  test "should prepend stub signifier to stub policy titles" do
+    assert_equal "[SAMPLE] stub title", build(:policy, title: "stub title", stub: true).title
+  end
 end

@@ -17,4 +17,11 @@ class Policy < Document
   end
 
   add_trait Trait
+
+  scope :stub, where(stub: true)
+
+  def title
+    original_title = super
+    stub? ? "[SAMPLE] #{original_title}" : original_title
+  end
 end
