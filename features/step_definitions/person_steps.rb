@@ -2,10 +2,16 @@ Given /^a person called "([^"]*)"$/ do |name|
   create_person(name)
 end
 
+Given /^the person "([^"]*)" has a biography "([^"]*)"$/ do |name, biography|
+  person = find_person(name)
+  person.update_attributes!(biography: biography)
+end
+
 When /^I add a new person called "([^"]*)"$/ do |name|
   visit_people_admin
   click_link "Create Person"
   fill_in_person_name name
+  fill_in "Biography", with: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
   attach_file "Image", Rails.root.join("features/fixtures/minister-of-soul.jpg")
   click_button "Save"
 end
@@ -14,6 +20,7 @@ When /^I update the person called "([^"]*)" to have the name "([^"]*)"$/ do |old
   visit_people_admin
   click_link old_name
   fill_in_person_name new_name
+  fill_in "Biography", with: "Vivamus fringilla libero et augue fermentum eget molestie felis accumsan."
   click_button "Save"
 end
 

@@ -84,4 +84,13 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     assert_select "img[src$='blank-person.png']"
   end
+
+  test "shows minister biography formatted in paragraphs" do
+    person = create(:person, biography: "biography-paragraph-1\n\nbiography-paragraph-2")
+    role_appointment = create(:ministerial_role_appointment, person: person)
+    get :show, id: role_appointment.role.id
+
+    assert_select ".biography p", text: "biography-paragraph-1"
+    assert_select ".biography p", text: "biography-paragraph-2"
+  end
 end

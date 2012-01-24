@@ -12,6 +12,9 @@
     <%= image_tag person.image_url || 'blank-person.png' %>
     <%= person_form.file_field :image %>
   </fieldset>
+  <fieldset>
+    <%= person_form.text_area :biography %>
+  </fieldset>
 
   <%= person_form.save_or_cancel cancel: admin_people_path %>
 <% end %>

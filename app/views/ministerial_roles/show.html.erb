@@ -13,6 +13,7 @@
     <div class="img"><%= image_tag @ministerial_role.current_person_image_url || 'blank-person.png' %></div>
     <h2 class="name"><%= @ministerial_role.current_person_name %></h2>
     <div class="biography">
+      <%= format_in_paragraphs(@ministerial_role.current_person_biography) %>
     </div>
   </section>
 

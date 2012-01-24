@@ -19,3 +19,9 @@ Scenario: The minister belongs to departments
   Given "Johnny Macaroon" is the "Minister of Crazy" for the "Department of Woah"
   When I visit the minister page for "Johnny Macaroon"
   Then I should see that the minister is associated with the "Department of Woah"
+
+Scenario: The minister has a life history
+  Given "Johnny Macaroon" is the "Minister of Crazy" for the "Department of Woah"
+  And the person "Johnny Macaroon" has a biography "Once upon a time little Johnny went to school."
+  When I visit the minister page for "Johnny Macaroon"
+  Then I should see that the minister has a biography "Once upon a time little Johnny went to school."

@@ -12,6 +12,7 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Biography</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -19,6 +20,7 @@
         <% @people.each do |person| %>
           <%= content_tag_for(:tr, person) do %>
             <td class="name"><%= link_to person.name, edit_admin_person_path(person), title: "Edit person #{person.name}" %></td>
+            <td class="biography"><%= truncate(person.biography, length: 50) %></td>
             <td class="delete">
               <% if person.destroyable? %>
                 <%= button_to 'delete', admin_person_path(person), method: :delete %>

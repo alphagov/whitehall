@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120124105450) do
+ActiveRecord::Schema.define(:version => 20120124121932) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(:version => 20120124105450) do
     t.datetime "updated_at"
     t.boolean  "privy_councillor",  :default => false
     t.string   "carrierwave_image"
+    t.text     "biography"
   end
 
   create_table "phone_numbers", :force => true do |t|
