@@ -3,7 +3,7 @@
 <div class="g3f">
   <section class="page_header policy">
     <h1 class="page_title has_meta"><%= @policy.title %></h1>
-    <p class="meta">
+    <div class="meta">
       <span class="metadata">
         Updated <%= time_ago(@policy.updated_at, class: 'updated_at') %></span>
       <% @policy.policy_areas.each do |policy_area| %>
@@ -18,7 +18,7 @@
       <% @policy.countries.each do |country| %>
         <%= link_to country.name, country_path(country), class: "country", id: dom_id(country) %>
       <% end %>
-    </p>
+    </div>
   </section>
 </div>
 

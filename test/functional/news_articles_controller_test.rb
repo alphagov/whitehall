@@ -42,7 +42,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
     get :show, id: news_article.document_identity
 
-    assert_select "p.meta .metadata" do
+    assert_select ".meta .metadata" do
       assert_select ".first_published_at[title='#{news_article.first_published_at.iso8601}']"
     end
   end
@@ -56,7 +56,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
     get :show, id: updated_news_article.document_identity
 
-    assert_select "p.meta .metadata" do
+    assert_select ".meta .metadata" do
       assert_select ".published_at[title='#{updated_news_article.published_at.iso8601}']"
     end
   end

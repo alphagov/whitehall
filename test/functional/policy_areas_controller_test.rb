@@ -135,7 +135,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
     get :show, id: policy_area
 
-    assert_select "p.meta" do
+    assert_select ".meta" do
       assert_select_object first_organisation
       assert_select_object second_organisation
     end

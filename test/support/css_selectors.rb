@@ -30,7 +30,7 @@ module CssSelectors
   end
 
   def metadata_nav_selector
-    "p.meta"
+    ".meta"
   end
 
   def related_news_articles_selector

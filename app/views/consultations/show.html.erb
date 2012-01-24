@@ -3,7 +3,7 @@
 <div class="g3f">
   <section class="page_header consultation">
     <h1 class="page_title title has_meta"><%= @document.title %></h1>
-    <p class="meta">
+    <div class="meta">
       <span class="metadata">Last updated <%= time_ago(@document.published_at, class: 'published_at') %></span>
       <% @related_policies.map { |d| d.policy_areas }.flatten.uniq.each do |policy_area| %>
         <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area", id: dom_id(policy_area) %>
@@ -14,7 +14,7 @@
       <% @document.ministerial_roles.each do |ministerial_role| %>
         <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
       <% end %>
-    </p>
+    </div>
   </section>
 </div>
 

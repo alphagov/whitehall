@@ -3,11 +3,11 @@
 <div class="g3f">
   <section class="page_header policyarea">
     <h1 class="page_title has_meta"><%= @policy_area.name %></h1>
-    <p class="meta">
+    <div class="meta">
       <% @policy_area.organisations.each do |organisation| %>
         <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
       <% end %>
-    </p>
+    </div>
   </section>
 </div>
 
