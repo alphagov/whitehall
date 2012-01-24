@@ -7,12 +7,19 @@
   <section class="page_detail">
     <div class="g3">
       <% if @country.embassy_address.present? %>
-        <section class="embassy_contact_details">
-          <h1>Embassy</h1>
-          <p class="embassy_address"><%= safe_join(@country.embassy_address.split("\n"), "<br/>".html_safe) %></p>
-          <p class="embassy_telephone"><%= @country.embassy_telephone %></p>
-          <p class="embassy_email"><%= mail_to @country.embassy_email %></p>
-        </section>
+        <div class="embassy_contact_details ">
+          <section class="vcard">
+            <h1 class="fn org name">UK Embassy in <%= @country.name %></h1>
+            <div class="adr">
+              <p class="embassy_address street-address"><%= safe_join(@country.embassy_address.split("\n"), "<br/>".html_safe) %></p>
+            </div>
+            <p class="embassy_telephone tel">
+              <span class="type">Telephone</span>:
+              <span class="value"><%= @country.embassy_telephone %></span>
+            </p>
+            <p class="embassy_email email"><%= mail_to @country.embassy_email %></p>
+          </section>
+        </div>
       <% end %>
     </div>
   </section>
