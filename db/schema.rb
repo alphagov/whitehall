@@ -136,12 +136,6 @@ ActiveRecord::Schema.define(:version => 20120124105450) do
 
   add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
 
-  create_table "featurings", :force => true do |t|
-    t.string   "carrierwave_image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "nation_inapplicabilities", :force => true do |t|
     t.integer  "nation_id"
     t.integer  "document_id"
