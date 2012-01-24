@@ -4,14 +4,18 @@
   <section class="page_header countries">
     <h1 class="country page_title"><%= @country.name %></h1>
   </section>
-  <% if @country.embassy_address.present? %>
-    <section class="embassy_contact_details">
-      <h1>Embassy</h1>
-      <p class="embassy_address"><%= safe_join(@country.embassy_address.split("\n"), "<br/>".html_safe) %></p>
-      <p class="embassy_telephone"><%= @country.embassy_telephone %></p>
-      <p class="embassy_email"><%= mail_to @country.embassy_email %></p>
-    </section>
-  <% end %>
+  <section class="page_detail">
+    <div class="g3">
+      <% if @country.embassy_address.present? %>
+        <section class="embassy_contact_details">
+          <h1>Embassy</h1>
+          <p class="embassy_address"><%= safe_join(@country.embassy_address.split("\n"), "<br/>".html_safe) %></p>
+          <p class="embassy_telephone"><%= @country.embassy_telephone %></p>
+          <p class="embassy_email"><%= mail_to @country.embassy_email %></p>
+        </section>
+      <% end %>
+    </div>
+  </section>
 </div>
 
 <div class="g1 related_documents">
