@@ -34,7 +34,7 @@ For accurate, reliable and up to date information on this policy, visit the #{le
   policy.publish_as(creator, force: true)
 end
 
-stubs = CSV.read(Rails.root + "db/policy_stubs.csv", headers: true)
+stubs = CSV.parse(File.open(Rails.root + "db/policy_stubs.csv", "r:UTF-8"), headers: true)
 stubs.each do |stub|
   begin
     import_stub(stub)
