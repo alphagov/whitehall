@@ -63,19 +63,19 @@
 
   section {
     h1 {
-      @include type-24;
-    }
-
-    h2 {
       @include type-21;
     }
 
-    h3 {
+    h2 {
       @include type-18;
     }
 
+    h3 {
+      @include type-16;
+    }
+
     h4,h5,h6 {
-      @include type-16
+      @include type-14;
     }
   }
 

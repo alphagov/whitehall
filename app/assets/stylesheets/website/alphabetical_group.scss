@@ -6,11 +6,12 @@
     h1 {
       @include type-21;
     }
+
+    padding-top: 1em;
   }
 
   .alphabetical_row {
     @include flood_three_columns;
-    border-top: 1px solid #ddd;
     padding-bottom: 1.5em;
     margin: 0;
   }
@@ -22,10 +23,11 @@
       @include type-24;
       color: #fff;
       text-align: center;
-      width: 2em;
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
-      background: #CDCE00;
+      width: 1.5em;
+      padding-top: 0.25em;
+      padding-bottom: 0.25em;
+      background: #ddd;
+      border: 1px solid #ccc;
     }
 
     ul {

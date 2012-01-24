@@ -1,7 +1,12 @@
 <% page_title "Consultations" %>
-<div class="g3f consulations">
-  <h1 class="page_title">Consultations</h1>
 
+<div class="g3f">
+  <section class="page_header consultation">
+    <h1 class="page_title">Consultations</h1>
+  </section>
+</div>
+
+<div class="g3f consulations">
   <% if @featured_consultations.any? %>
     <section class="featured_items" id="featured-consultations">
       <% @featured_consultations.each do |consultation| %>

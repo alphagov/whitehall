@@ -1,4 +1,13 @@
 <% page_title "News" %>
+
+<div class="g3f">
+  <section class="page_header news">
+    <h1 class="page_title">News</h1>
+  </section>
+</div>
+
 <div class="g3">
-  <%= render partial: "documents/news_articles", locals: {news_articles: @news_articles} %>
+  <section id="news_articles" class="announcements group">
+    <%= announcement_group(@news_articles, groups_of: 3, class: "", partial: "default") %>
+  </section>
 </div>

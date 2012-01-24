@@ -1,9 +1,13 @@
 <% page_title "Speeches" %>
-<div class="g3">
-  <% if @speeches.empty? %>
+
+<div class="g3f">
+  <section class="page_header speech">
     <h1 class="page_title">Speeches</h1>
-    <p>We don't have any published speeches at present.</p>
-  <% else %>
-    <%= render partial: "speeches", object: @speeches %>
-  <% end %>
+  </section>
+</div>
+
+<div class="g3">
+  <section id="speeches" class="announcements group">
+    <%= announcement_group(@speeches, groups_of: 3, class: "", partial: "default") %>
+  </section>
 </div>

@@ -1,8 +1,14 @@
 <% page_title "#{@organisation.name} News" %>
-<div class="g3">
-  <section class="organisation" id="news_articles">
-    <%= render 'navigation', organisation: @organisation %>
+<div class="g3f organisation">
+  <section class="page_header organisation" id="news_articles">
     <h1 class="page_title"><%= @organisation.name %> News</h1>
+    <% if @organisation.organisation_type %>
+      <h2 class="category"><%= @organisation.organisation_type.name %></h2>
+    <% end %>
+  </section>
+  <%= render 'navigation', organisation: @organisation %>
+
+  <div class="g3" style="margin-top: 1.5em">
     <% if @news_articles.any? %>
       <% @news_articles.each do |news_article| %>
         <%= render partial: "announcements/news_article", locals: { news_article: news_article, display: "default" } %>
@@ -10,5 +16,5 @@
     <% else %>
       <p>There are no <%= @organisation.name %> news articles at present.</p>
     <% end %>
-  </section>
+  </div>
 </div>

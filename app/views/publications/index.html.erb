@@ -1,7 +1,13 @@
 <% page_title "Publications" %>
+
+<div class="g3f">
+  <section class="page_header publication">
+    <h1 class="page_title">Publications</h1>
+  </section>
+</div>
+
 <div class="g3">
   <section id="publication_index">
-    <h1 class="page_title">Publications</h1>
     <% if @publications.any? %>
       <% featured_publications, other_publications = @publications.partition(&:featured?) %>
       <% if featured_publications.any? %>

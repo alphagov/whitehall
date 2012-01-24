@@ -307,12 +307,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "should display a link back to the organisation page" do
-    organisation = create(:organisation)
-    get :about, id: organisation
-    assert_select ".back a[href='#{organisation_path(organisation)}']"
-  end
-
   test "should display a list of organisations" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)

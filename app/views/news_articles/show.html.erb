@@ -1,21 +1,24 @@
 <% page_title @document.title, "News" %>
-<div class="g3">
-  <h1 class="page_title title has_meta"><%= @document.title %></h1>
-  <p class="meta">
-    <%= announcement_metadata(@document) %>
-    <% @related_policies.map { |d| d.policy_areas }.flatten.uniq.each do |policy_area| %>
-      <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area", id: dom_id(policy_area) %>
-    <% end %>
-    <% @document.organisations.each do |organisation| %>
-      <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation" %>
-    <% end %>
-    <% @document.ministerial_roles.each do |ministerial_role| %>
-      <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
-    <% end %>
-    <% @document.countries.each do |country| %>
-      <%= link_to country.name, country_path(country), class: "country", id: dom_id(country) %>
-    <% end %>
-  </p>
+
+<div class="g3f">
+  <section class="page_header news">
+    <h1 class="page_title title has_meta"><%= @document.title %></h1>
+    <p class="meta">
+      <%= announcement_metadata(@document) %>
+      <% @related_policies.map { |d| d.policy_areas }.flatten.uniq.each do |policy_area| %>
+        <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area", id: dom_id(policy_area) %>
+      <% end %>
+      <% @document.organisations.each do |organisation| %>
+        <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation" %>
+      <% end %>
+      <% @document.ministerial_roles.each do |ministerial_role| %>
+        <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
+      <% end %>
+      <% @document.countries.each do |country| %>
+        <%= link_to country.name, country_path(country), class: "country", id: dom_id(country) %>
+      <% end %>
+    </p>
+  </section>
 </div>
 
 <div id="news_page" class="g3f document_page">

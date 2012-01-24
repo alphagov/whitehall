@@ -71,7 +71,7 @@ When /^I navigate to the "([^"]*)" organisation's (about|news|home) page$/ do |o
       case page_name
       when 'about'  then 'About'
       when 'news'   then 'News'
-      when 'home'   then organisation_name
+      when 'home'   then 'Home'
       end
   end
 end

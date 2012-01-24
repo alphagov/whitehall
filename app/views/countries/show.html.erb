@@ -1,6 +1,9 @@
 <% page_title @country.name, "UK in the world" %>
-<div class="g3 country">
-  <h1 class="page_title"><%= @country.name %></h1>
+
+<div class="g3f country">
+  <section class="page_header countries">
+    <h1 class="country page_title"><%= @country.name %></h1>
+  </section>
   <% if @country.embassy_address.present? %>
     <section class="embassy_contact_details">
       <h1>Embassy</h1>

@@ -1,19 +1,31 @@
 @import "../shared/utils";
 
-#wrapper #content {
-  section.organisation {
+#content {
+  .organisation {
     nav {
-      margin-right: 2%;
-      float: right;
+      padding-left: 2%;
+      padding-bottom: 0.5em;
+      padding-top: 0.5em;
+      border-bottom: 1px solid #bbb;
+      background: #eee;
+      a {
+        float: left;
+        @include type-14;
+        margin-bottom: 0;
+        margin-right: 2%;
+      }
     }
 
-    h1.page_title {
-      margin-bottom: 0.5em;
+    .page_header {
+      h1.page_title {
+        padding-top: 0;
+      }
     }
 
     h2.category {
       @include type-16;
-      margin-left: 2%;
+      margin-left: 1%;
+      margin-bottom: 0;
     }
 
     p {
@@ -25,7 +37,12 @@
       margin-bottom: 0.75em;
     }
 
-    .page_detail .hcard .adr {
+    .page_detail {
+      background: #fff;
+      border-top: 0;
+    }
+
+    .page_detail .adr {
       margin-bottom: 1.5em;
       p {
         margin-bottom: 0;
@@ -51,6 +68,7 @@
     border-top: 0;
     background: #fdfdfd;
     border-bottom: 1px solid #bbb;
+    border-top: 1px solid #ddd;
     margin-bottom: 1.5em;
   }
 

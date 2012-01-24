@@ -127,25 +127,76 @@
     width: 100%;
   }
 
-  h1.page_title {
-    @include type-24;
-    text-shadow: #fff 0px 1px 0;
-    color: #353500;
-    margin-left: 1%;
-    margin-top: 0.2em;
-  }
+  section.page_header {
+    padding-left: 72px;
+    background-repeat: no-repeat;
+    background-position: 2% 0;
+    min-height: 48px;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #bbb;
 
-  h1.page_title.has_meta {
-    margin-bottom: 0.25em;
-  }
+    &.consultation {
+      background-image: url(/government/assets/icons/consultation.png);
+    }
 
-  h1 {
-    font-family: "Gill Sans", sans-serif;
-    font-weight: normal;
+    &.countries {
+      background-image: url(/government/assets/icons/countries.png);
+    }
+
+    &.minister {
+      background-image: url(/government/assets/icons/minister.png);
+    }
+
+    &.news {
+      background-image: url(/government/assets/icons/news.png);
+    }
+
+    &.organisation {
+      background-image: url(/government/assets/icons/organisation.png);
+    }
+
+    &.policy {
+      background-image: url(/government/assets/icons/policy.png);
+    }
+
+    &.policyarea {
+      background-image: url(/government/assets/icons/policyarea.png);
+    }
+
+    &.publication {
+      background-image: url(/government/assets/icons/publication.png);
+    }
+
+    &.speech {
+      background-image: url(/government/assets/icons/speech.png);
+    }
+
+    &.news-speech {
+      background-image: url(/government/assets/icons/news-speech.png);
+    }
+
+    h1.page_title {
+      @include type-24;
+      margin-bottom: 0;
+      text-shadow: #fff 0px 1px 0;
+      color: #353500;
+      margin-left: 1%;
+      padding-top: 0.45em;
+      font-family: "Gill Sans", sans-serif;
+      font-weight: normal;
+    }
+
+    h1.page_title.has_meta {
+      padding-top: 0;
+      margin-bottom: 0.25em;
+    }
+
+    .meta {
+      margin-bottom: 0;
+    }
   }
 
   .meta {
-    margin-bottom: 1em;
     margin-left: 1%;
     font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -173,7 +224,7 @@
   }
 
   .g3f {
-    .page_title, p.meta {
+    .page_title {
       margin-left: 2%;
     }
   }
@@ -205,6 +256,10 @@
     margin-bottom: 1em;
   }
 
+  .g3f > .related_content {
+    border: none;
+  }
+
   section ul, ol {
     li {
       @include type-14;
@@ -221,6 +276,7 @@
   }
 
   .related_documents {
+    padding-top: 1em;
     section {
       padding-bottom: 0.75em;
       margin-bottom: 0.75em;

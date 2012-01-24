@@ -1,17 +1,25 @@
 <% page_title "About " + @organisation.name %>
-<div class="g2 first">
-  <section class="organisation">
-    <%= render 'navigation', organisation: @organisation %>
+
+<div class="g3f organisation">
+  <section class="page_header organisation">
     <h1 class="page_title"><%= @organisation.name %>
       <% if @organisation.acronym.present? %>
         (<%= @organisation.acronym %>)
       <% end %>
     </h1>
-    <div class="body">
-      <%= govspeak_to_html @organisation.about_us %>
-    </div>
-    <span class="back">
-      back to <%= link_to @organisation.name, organisation_path(@organisation), title: "Back to #{@organisation.name}" %>
-    </span>
+    <% if @organisation.organisation_type %>
+      <h2 class="category"><%= @organisation.organisation_type.name %></h2>
+    <% end %>
   </section>
+  <%= render 'navigation', organisation: @organisation %>
+
+  <div class="g3f document_page">
+    <div class="g2 document_view">
+      <article class="document">
+        <div class="body">
+          <%= govspeak_to_html @organisation.about_us %>
+        </div>
+      </article>
+    </div>
+  </div>
 </div>

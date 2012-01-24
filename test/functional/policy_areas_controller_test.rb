@@ -6,8 +6,8 @@ class PolicyAreasControllerTest < ActionController::TestCase
   test "shows policy area title and description" do
     policy_area = create(:policy_area)
     get :show, id: policy_area
-    assert_select ".policy_area .name", text: policy_area.name
-    assert_select ".policy_area .description", text: policy_area.description
+    assert_select ".page_title", text: policy_area.name
+    assert_select ".policy_area_view .description", text: policy_area.description
   end
 
   test "shows published policies associated with policy area" do

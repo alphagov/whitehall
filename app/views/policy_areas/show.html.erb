@@ -1,23 +1,21 @@
 <% page_title @policy_area.name, "Policy areas" %>
-<div class="g3 policy_area_view">
-  <h1 class="page_title">Policy area</h1>
 
-  <div class="g3 policy_area_overview group">
-    <section class="policy_area">
-      <%= content_tag_for :article, @policy_area do %>
-        <h1 class="page_title name"><%= @policy_area.name %></h1>
-        <p class="meta">
-          <% @policy_area.organisations.each do |organisation| %>
-            <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
-          <% end %>
-        </p>
-        <div class="description"><%= govspeak_to_html @policy_area.description %></div>
-        <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5] %>
+<div class="g3f">
+  <section class="page_header policyarea">
+    <h1 class="page_title has_meta"><%= @policy_area.name %></h1>
+    <p class="meta">
+      <% @policy_area.organisations.each do |organisation| %>
+        <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
       <% end %>
-    </section>
-  </div>
+    </p>
+  </section>
+</div>
 
-  <div class="g3 related_content group<%= @featured_policies.any? ? "" : " no_featured" %>">
+<div class="g3f policy_area_view">
+  <div class="g2 description"><%= govspeak_to_html @policy_area.description %></div>
+  <div class="g1"><%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5] %></div>
+
+  <div class="g3f related_content group<%= @featured_policies.any? ? "" : " no_featured" %>">
     <% if @featured_policies.any? %>
       <div class="g3 priority_policies">
         <section>

@@ -3,11 +3,8 @@
 #content {
   .document_page {
     @include clearfix;
-    margin-bottom: 1.5em;
-
     background: #eee;
     padding: 1.5em 0;
-    border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 
     .notice {

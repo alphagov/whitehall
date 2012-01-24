@@ -1,47 +1,49 @@
 <% page_title @organisation.name %>
-<div class="g3f">
-  <%= content_tag_for :section, @organisation, class: "hcard" do %>
-    <%= render 'navigation', organisation: @organisation %>
-    <h1 class="page_title"><%= @organisation.name %>
-      <% if @organisation.acronym.present? %>
-        (<%= @organisation.acronym %>)
+
+<%= content_tag_for :div, @organisation, class: "hcard" do %>
+  <div class="g3f">
+    <section class="page_header organisation">
+      <h1 class="page_title"><%= @organisation.name %>
+        <% if @organisation.acronym.present? %>
+          (<%= @organisation.acronym %>)
+        <% end %>
+      </h1>
+      <% if @organisation.organisation_type %>
+        <h2 class="category"><%= @organisation.organisation_type.name %></h2>
       <% end %>
-    </h1>
-    <% if @organisation.organisation_type %>
-      <h2 class="category"><%= @organisation.organisation_type.name %></h2>
-    <% end %>
-    <div class="page_detail">
-      <div class="g2">
-        <p class="description"><%= format_with_html_line_breaks(@organisation.description) %></p>
-        <p class="about">
-          <%= link_to "Read more about #{@organisation.name}", about_organisation_path(@organisation), title: "Further information about #{@organisation.name}" %>
-        </p>
-      </div>
+    </section>
+  <%= render 'navigation', organisation: @organisation %>
+  </div>
 
-      <div class="g1">
-        <h3>Office address:</h3>
-
-        <div class="adr">
-          <p class="fn org name"><%= @organisation.name %></p>
-          <% if @organisation.acronym.present? %>
-            <p class="nickname"><%= @organisation.acronym %></p>
-          <% end %>
-          <p class="street-address"><%= format_with_html_line_breaks(@organisation.address) %></p>
-          <p class="postal-code"><%= @organisation.postcode %></p>
-
-          <p class="email"><span class="type">Email:</span> <%= mail_to @organisation.email, @organisation.email, :class => "email" %></p>
-          <% @organisation.phone_numbers.each do |phone_number| %>
-            <p class="tel"><span class="type"><%= phone_number.description %>:</span> <%= phone_number.number %></p>
-          <% end %>
-        </div>
-
-        <h3>Office location:</h3>
-        <p><%= link_to_google_map(@organisation) %></p>
-
-      </div>
+  <div class="g3f page_detail">
+    <div class="g2">
+      <p class="description"><%= format_with_html_line_breaks(@organisation.description) %></p>
+      <p class="about">
+        <%= link_to "Read more about #{@organisation.name}", about_organisation_path(@organisation), title: "Further information about #{@organisation.name}" %>
+      </p>
     </div>
-  <% end %>
-</div>
+
+    <div class="g1">
+      <h3>Office address:</h3>
+      <div class="adr">
+        <p class="fn org name"><%= @organisation.name %></p>
+        <% if @organisation.acronym.present? %>
+          <p class="nickname"><%= @organisation.acronym %></p>
+        <% end %>
+        <p class="street-address"><%= format_with_html_line_breaks(@organisation.address) %></p>
+        <p class="postal-code"><%= @organisation.postcode %></p>
+
+        <p class="email"><span class="type">Email:</span> <%= mail_to @organisation.email, @organisation.email, :class => "email" %></p>
+        <% @organisation.phone_numbers.each do |phone_number| %>
+          <p class="tel"><span class="type"><%= phone_number.description %>:</span> <%= phone_number.number %></p>
+        <% end %>
+      </div>
+
+      <h3>Office location:</h3>
+      <p><%= link_to_google_map(@organisation) %></p>
+    </div>
+  </div>
+<% end %>
 
 <div class="g3f">
   <section class="org_news">
