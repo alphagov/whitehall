@@ -54,7 +54,7 @@ end
 Given /^a published (publication|policy|news article|consultation|speech) "([^"]*)" that's the responsibility of:$/ do |document_type, title, table|
   document = create(:"published_#{document_type}", title: title)
   table.hashes.each do |row|
-    person = Person.find_or_create_by_name(row["Person"])
+    person = find_or_create_person(row["Person"])
     ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
     create(:role_appointment, role: ministerial_role, person: person)
     document.ministerial_roles << ministerial_role

@@ -1,13 +1,13 @@
 Given /^ministers exist:$/ do |table|
   table.hashes.each do |row|
-    person = Person.find_or_create_by_name(row["Person"])
+    person = find_or_create_person(row["Person"])
     ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
     create(:role_appointment, role: ministerial_role, person: person)
   end
 end
 
-Given /^"([^"]*)" is the "([^"]*)" for the "([^"]*)"$/ do |person, ministerial_role, organisation_name|
-  person = Person.find_or_create_by_name(person)
+Given /^"([^"]*)" is the "([^"]*)" for the "([^"]*)"$/ do |person_name, ministerial_role, organisation_name|
+  person = find_or_create_person(person_name)
   organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
   role = MinisterialRole.create!(name: ministerial_role)
   organisation.ministerial_roles << role
