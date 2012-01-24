@@ -31,6 +31,7 @@ For accurate, reliable and up to date information on this policy, visit the #{le
 
   puts "importing #{title.inspect}"
   policy = Policy.stub.create!(attributes)
+  policy.publish_as(creator, force: true)
 end
 
 stubs = CSV.read(Rails.root + "db/policy_stubs.csv", headers: true)
