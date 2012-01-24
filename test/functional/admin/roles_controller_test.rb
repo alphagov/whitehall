@@ -11,7 +11,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     org_one = create(:organisation, name: "org-one")
     org_two = create(:organisation, name: "org-two")
     person = create(:person, forename: "person-name")
-    role_one = create(:ministerial_role, name: "role-one", organisations: [org_one, org_two])
+    role_one = create(:ministerial_role, name: "role-one", cabinet_member: true, organisations: [org_one, org_two])
     create(:role_appointment, role: role_one, person: person)
     role_two = create(:board_member_role, name: "role-two", permanent_secretary: true, organisations: [org_one])
 
@@ -21,6 +21,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select_object role_one do
         assert_select ".name", "role-one"
         assert_select ".type", "Ministerial"
+        assert_select ".cabinet_member", "Yes"
         assert_select ".permanent_secretary", "No"
         assert_select ".organisations", "org-one and org-two"
         assert_select ".person", "person-name"
@@ -28,6 +29,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select_object role_two do
         assert_select ".name", "role-two"
         assert_select ".type", "Board member"
+        assert_select ".cabinet_member", "No"
         assert_select ".permanent_secretary", "Yes"
         assert_select ".organisations", "org-one"
         assert_select ".person", "No one is assigned to this role"
@@ -151,6 +153,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_roles_path}']" do
       assert_select "input[name='role[name]'][type='text']"
       assert_select "select[name='role[type]']"
+      assert_select "input[name='role[cabinet_member]'][type='checkbox']"
       assert_select "input[name='role[permanent_secretary]'][type='checkbox']"
       assert_select "select[name*='role[organisation_ids]']"
       assert_select "input[type='submit']"
@@ -280,7 +283,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "edit should display form for updating an existing role" do
     org = create(:organisation, name: "org-name")
-    role = create(:ministerial_role, name: "role-name", permanent_secretary: false, organisations: [org])
+    role = create(:ministerial_role, name: "role-name", cabinet_member: true, permanent_secretary: false, organisations: [org])
 
     get :edit, id: role
 
@@ -289,6 +292,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select "select[name='role[type]']" do
         assert_select "option[selected='selected'][value='MinisterialRole']"
       end
+      assert_select "input[name='role[cabinet_member]'][value='1']"
       assert_select "input[name='role[permanent_secretary]'][value='0']"
       assert_select "select[name*='role[organisation_ids]']" do
         assert_select "option[selected='selected']", text: "org-name"
@@ -380,7 +384,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "update should modify existing role" do
     org_one, org_two = create(:organisation), create(:organisation)
-    role = create(:ministerial_role, name: "role-name", permanent_secretary: false, organisations: [org_one])
+    role = create(:ministerial_role, name: "role-name", cabinet_member: false, permanent_secretary: false, organisations: [org_one])
 
     put :update, id: role, role: {
       name: "new-name",

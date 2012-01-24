@@ -14,6 +14,7 @@
           <th>Name</th>
           <th>Organisations</th>
           <th>Type</th>
+          <th>Cabinet member</th>
           <th>Permanent secretary</th>
           <th>Currently appointed</th>
           <th>Actions</th>
@@ -25,6 +26,7 @@
             <td class="name"><%= link_to role.name, edit_admin_role_path(role), title: "Edit role #{role.name}" %></td>
             <td class="organisations"><%= role.organisation_names %></td>
             <td class="type"><%= role.humanized_type %></td>
+            <td class="cabinet_member"><%= yes_or_no(role.cabinet_member?) %></td>
             <td class="permanent_secretary"><%= yes_or_no(role.permanent_secretary?) %></td>
             <td class="person"><%= role.current_person_name %></td>
             <td class="delete">
