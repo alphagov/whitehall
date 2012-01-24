@@ -17,7 +17,11 @@ def import_stub(stub)
   raise "Couldn't find lead org #{lead_org_name.inspect}" unless lead_org.present?
   orgs = Organisation.where("name IN (?)", other_org_names)
 
-  body = %{This policy originates from the #{lead_org.name} business plan.\n\nMore details can be found at [#{url}](#{url}).}
+  body = %{## Sample content
+
+This policy definition is a sample only, to give a flavour of what GOV.UK might look like if it contained a full list of government policies from all central departments. The title has been adapted from the text of the #{lead_org.name} business plan, published May 2011, and may therefore be out of date.
+
+For accurate, reliable and up to date information on this policy, visit the #{lead_org.name} website at [#{url}](#{url})}
 
   attributes = {
     title: title, policy_areas: policy_areas, organisations: [lead_org, *orgs], 

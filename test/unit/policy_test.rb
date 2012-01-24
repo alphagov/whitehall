@@ -34,6 +34,6 @@ class PolicyTest < ActiveSupport::TestCase
   end
 
   test "should prepend stub signifier to stub policy titles" do
-    assert_equal "[SAMPLE] stub title", build(:policy, title: "stub title", stub: true).title
+    assert_equal "[Sample] stub title", build(:policy, title: "stub title", stub: true).title
   end
 end

@@ -22,6 +22,6 @@ class Policy < Document
 
   def title
     original_title = super
-    stub? ? "[SAMPLE] #{original_title}" : original_title
+    stub? ? "[Sample] #{original_title}" : original_title
   end
 end
