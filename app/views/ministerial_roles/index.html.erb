@@ -7,5 +7,18 @@
 </div>
 
 <div class="g3">
+  <h2>Cabinet ministers</h2>
+  <ul>
+    <% @cabinet_ministerial_roles.each do |role| %>
+      <li>
+        <h3><%= link_to role.current_person_name, role %></h3>
+        <p><%= role.name %></p>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="g3">
+  <h2>Other ministers</h2>
   <%= render partial: "grouped_list", locals: {ministerial_roles: @ministerial_roles} %>
 </div>

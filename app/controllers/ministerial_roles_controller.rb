@@ -1,6 +1,7 @@
 class MinisterialRolesController < PublicFacingController
   def index
-    @ministerial_roles = MinisterialRole.alphabetical_by_person.includes(:current_people)
+    @cabinet_ministerial_roles = MinisterialRole.cabinet.includes(:current_people)
+    @ministerial_roles = MinisterialRole.alphabetical_by_person.includes(:current_people) - @cabinet_ministerial_roles
   end
 
   def show
