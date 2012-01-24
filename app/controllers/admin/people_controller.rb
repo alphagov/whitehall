@@ -1,6 +1,6 @@
 class Admin::PeopleController < Admin::BaseController
   def index
-    @people = Person.order("CONCAT_WS(' ', title, forename, surname, letters)")
+    @people = Person.order(:surname, :forename)
   end
 
   def new
