@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(:version => 20120124141117) do
     t.string   "name"
     t.string   "type",                :default => "MinisterialRole", :null => false
     t.boolean  "permanent_secretary", :default => false
+    t.boolean  "cabinet_member",      :default => false,             :null => false
     t.string   "slug"
   end
 
