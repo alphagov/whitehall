@@ -363,11 +363,15 @@ section.resource_list .collection {
         margin-bottom: 0;
       }
 
+      a.edit_update_image, a.hide_update_image {
+        font-size: 11px;
+      }
+
       form {
         margin-bottom: 0;
 
         input {
-          margin-bottom: 1em;
+          margin-bottom: 0.5em;
         }
       }
     }
