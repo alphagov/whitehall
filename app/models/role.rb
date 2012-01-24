@@ -50,6 +50,8 @@ class Role < ActiveRecord::Base
     current_person ? current_person.name : default
   end
 
+  delegate :surname, to: :current_person, prefix: true, allow_nil: true
+
   def current_person_image_url
     current_person && current_person.image_url
   end

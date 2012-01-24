@@ -63,6 +63,13 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal "Bob", role.current_person_name
   end
 
+  test "should return the person's surname" do
+    bob = create(:person, forename: "Bob", surname: "Smith")
+    role = create(:role)
+    create(:role_appointment, role: role, person: bob)
+    assert_equal "Smith", role.current_person_surname
+  end
+
   test "should indicate that the role is vacant" do
     role = create(:role, people: [])
     assert_equal "No one is assigned to this role", role.current_person_name
