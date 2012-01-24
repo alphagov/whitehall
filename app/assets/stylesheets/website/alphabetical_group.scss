@@ -35,15 +35,19 @@
       margin-bottom: 0;
 
       li {
-        @include type-14;
         margin-bottom: 0.857em;
 
         h3, p {
           margin-bottom: 0;
         }
 
-        p {
+        h3 {
           @include type-14;
+          margin-bottom: 0;
+        }
+
+        p {
+          @include type-12;
           margin-bottom: 0;
         }
 
@@ -53,16 +57,5 @@
       }
     }
 
-    .ministerial_role {
-
-      h3 {
-        @include type-16;
-        margin-bottom: 0;
-        a {
-          font-size: 100%;
-        }
-      }
-
-    }
   }
 }
