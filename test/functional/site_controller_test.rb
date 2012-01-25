@@ -22,6 +22,11 @@ class SiteControllerTest < ActionController::TestCase
     draft_documents.each { |d| refute_select_object(d) }
   end
 
+  test 'index has Atom feed autodiscovery link' do
+    get :index
+    assert_select 'head > link[rel=?][type=?][href=?]', 'alternate', 'application/atom+xml', atom_feed_url
+  end
+
   test 'Atom feed has the right elements' do
     create_published_documents
 
