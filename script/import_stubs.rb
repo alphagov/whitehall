@@ -10,12 +10,15 @@ def import_stub(stub)
   lead_org_name = stub["Lead org"].strip
   other_org_names = stub["Other orgs"] ? stub["Other orgs"].split(";").map(&:strip) : []
   url = stub["URL for info on current policies"].strip
-  # ignore ministers as they are people's names, not roles
+  people_names = stub["Ministers"] ? stub["Ministers"].split(";").map(&:strip) : []
 
   policy_areas = PolicyArea.where("name IN (?)", policy_area_names)
   lead_org = Organisation.find_by_name(lead_org_name) || Organisation.find_by_acronym(lead_org_name)
   raise "Couldn't find lead org #{lead_org_name.inspect}" unless lead_org.present?
   orgs = Organisation.where("name IN (?)", other_org_names)
+  people = Person.where("CONCAT_WS(' ', forename, surname) IN (:names) OR CONCAT_WS(' ', title, surname) IN (:names)", names: people_names)
+  raise "Couldn't find all people in #{people_names.inspect} (found: #{people.map(&:name).inspect})" unless people.length == people_names.length
+  ministerial_roles = people.map(&:ministerial_roles).flatten
 
   body = %{## Sample content
 
@@ -25,7 +28,7 @@ For accurate, reliable and up to date information on this policy, visit the #{le
 
   attributes = {
     title: title, policy_areas: policy_areas, organisations: [lead_org, *orgs], 
-    ministerial_roles: lead_org.ministerial_roles, body: body,
+    ministerial_roles: ministerial_roles, body: body,
     creator: creator
   }
 
