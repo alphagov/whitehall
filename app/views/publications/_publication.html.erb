@@ -1,6 +1,6 @@
 <%= content_tag_for(:li, publication) do %>
   <div class="cover">
-    <%= image_tag "pub-cover.png" %>
+    <%= image_tag publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png' %>
   </div>
   <div class="description">
     <h2 class="title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>

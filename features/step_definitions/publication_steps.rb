@@ -112,7 +112,7 @@ Then /^I should see a link to the PDF attachment$/ do
 end
 
 Then /^I should see a thumbnail of the first page of the PDF$/ do
-  assert page.has_css?(".attachment img[src*='attachment.pdf.png']")
+  assert page.has_css?(".attachment img[src*='attachment.pdf.png']") || page.has_css?(".cover img[src*='attachment.pdf.png']")
 end
 
 Then /^I can see links to the related published publications "([^"]*)" and "([^"]*)"$/ do |publication_title_1, publication_title_2|

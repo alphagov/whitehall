@@ -5,6 +5,8 @@ require 'carrierwave/processing/mime_types'
 class AttachmentUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
 
+  PDF_CONTENT_TYPE = 'application/pdf'
+
   process :set_content_type
   after :retrieve_from_cache, :set_content_type
 
@@ -24,7 +26,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   def pdf?(file)
-    file.content_type == "application/pdf"
+    file.content_type == PDF_CONTENT_TYPE
   end
 
   def get_first_page_as_png(width, height)

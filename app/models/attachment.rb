@@ -7,6 +7,8 @@ class Attachment < ActiveRecord::Base
 
   before_save :update_file_attributes
 
+  scope :pdf, where(content_type: AttachmentUploader::PDF_CONTENT_TYPE)
+
   def filename
     url && File.basename(url)
   end
@@ -16,7 +18,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def pdf?
-    content_type == "application/pdf"
+    content_type == AttachmentUploader::PDF_CONTENT_TYPE
   end
 
   private

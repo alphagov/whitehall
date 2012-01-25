@@ -132,6 +132,7 @@
       margin-right: 1em;
       @include box-shadow(0px, 1px, 1px, rgba(10,10,10,0.2));
       opacity: 0.8;
+      background: #fff;
 
       &:hover {
         opacity: 1;
