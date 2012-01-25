@@ -22,4 +22,17 @@ module Document::Attachable
   def allows_attachments?
     true
   end
+
+  def has_thumbnail?
+    thumbnailable_attachments.any?
+  end
+
+  def thumbnail_url
+    thumbnailable_attachments.first.url(:thumbnail)
+  end
+
+  private
+    def thumbnailable_attachments
+      attachments.pdf
+    end
 end
