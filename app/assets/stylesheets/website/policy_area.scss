@@ -31,11 +31,11 @@
         border-right: 1px solid #ddd;
         border-top: 1px solid #ffffce;
 
+        padding-left: 0.75em;
+
         li {
           margin-bottom: 0.75em;
-          padding: 0 1em 0 48px;
-          background-repeat: no-repeat;
-          background-position: 12px 6px;
+          padding-right: 1em;
 
           div {
             a {
@@ -46,26 +46,6 @@
               font-size: 0.85em;
               line-height: 1em;
             }
-          }
-
-          &.policy {
-            background-image: url(/government/assets/icons/24/policy.png);
-          }
-
-          &.consultation {
-            background-image: url(/government/assets/icons/24/consultation.png);
-          }
-
-          &.speech {
-            background-image: url(/government/assets/icons/24/speech.png);
-          }
-
-          &.news_article {
-            background-image: url(/government/assets/icons/24/news.png);
-          }
-
-          &.publication {
-            background-image: url(/government/assets/icons/24/publication.png);
           }
         }
       }
