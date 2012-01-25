@@ -191,7 +191,9 @@ module AdminDocumentControllerTestHelpers
       test 'creating a document should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(document_type)
-        attributes[:attachments_attributes] = { "0" => { file: greenpaper_pdf } }
+        attributes[:attachments_attributes] = {
+          "0" => attributes_for(:attachment, file: greenpaper_pdf)
+        }
 
         post :create, document: attributes
 
@@ -216,7 +218,9 @@ module AdminDocumentControllerTestHelpers
 
         post :create, document: controller_attributes_for(document_type,
           title: "",
-          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+          attachments_attributes: {
+            "0" => attributes_for(:attachment, file: greenpaper_pdf)
+          }
         )
 
         assert_select "form#document_new" do
@@ -229,7 +233,9 @@ module AdminDocumentControllerTestHelpers
 
         post :create, document: controller_attributes_for(document_type,
           title: "",
-          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+          attachments_attributes: {
+            "0" => attributes_for(:attachment, file: greenpaper_pdf)
+          }
         )
 
         assert_select "form#document_new" do
@@ -241,7 +247,9 @@ module AdminDocumentControllerTestHelpers
       test 'creating a document with invalid data should not show any attachment info' do
         attributes = controller_attributes_for(document_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-        attributes[:attachments_attributes] = { "0" => { file: greenpaper_pdf } }
+        attributes[:attachments_attributes] = {
+          "0" => attributes_for(:attachment, file: greenpaper_pdf)
+        }
 
         post :create, document: attributes.merge(title: '')
 
@@ -253,8 +261,8 @@ module AdminDocumentControllerTestHelpers
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attributes = controller_attributes_for(document_type)
         attributes[:attachments_attributes] = {
-          "0" => { file: greenpaper_pdf },
-          "1" => { file: csv_file }
+          "0" => attributes_for(:attachment, file: greenpaper_pdf),
+          "1" => attributes_for(:attachment, file: csv_file)
         }
 
         post :create, document: attributes
@@ -286,7 +294,9 @@ module AdminDocumentControllerTestHelpers
         document = create(document_type)
 
         put :update, id: document, document: document.attributes.merge(
-          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+          attachments_attributes: {
+            "0" => attributes_for(:attachment, file: greenpaper_pdf)
+          }
         )
 
         document.reload
@@ -303,7 +313,10 @@ module AdminDocumentControllerTestHelpers
         document = create(document_type)
 
         put :update, id: document, document: document.attributes.merge(
-          attachments_attributes: { "0" => { file: greenpaper_pdf }, "1" => { file: csv_file } }
+          attachments_attributes: {
+            "0" => attributes_for(:attachment, file: greenpaper_pdf),
+            "1" => attributes_for(:attachment, file: csv_file)
+          }
         )
 
         document.reload
@@ -333,7 +346,9 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: controller_attributes_for(document_type,
           title: "",
-          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+          attachments_attributes: {
+            "0" => attributes_for(:attachment, file: greenpaper_pdf)
+          }
         )
 
         assert_select "form#document_edit" do
@@ -347,7 +362,9 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: controller_attributes_for(document_type,
           title: "",
-          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+          attachments_attributes: {
+            "0" => attributes_for(:attachment, file: greenpaper_pdf)
+          }
         )
 
         assert_select "form#document_edit" do
@@ -376,7 +393,9 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: document.attributes.merge(
           lock_version: lock_version,
-          attachments_attributes: { "0" => { file: greenpaper_pdf } }
+          attachments_attributes: {
+            "0" => attributes_for(:attachment, file: greenpaper_pdf)
+          }
         )
 
         assert_select "form#document_edit" do

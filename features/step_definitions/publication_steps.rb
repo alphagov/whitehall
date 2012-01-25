@@ -4,17 +4,17 @@ Given /^a published publication "([^"]*)" exists that is about "([^"]*)"$/ do |p
 end
 
 Given /^a draft publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(file: pdf_attachment)
+  attachment = build(:attachment, file: pdf_attachment)
   create(:draft_publication, title: title, attachments: [attachment])
 end
 
 Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(file: pdf_attachment)
+  attachment = build(:attachment, file: pdf_attachment)
   create(:submitted_publication, title: title, attachments: [attachment])
 end
 
 Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = Attachment.new(file: pdf_attachment)
+  attachment = build(:attachment, file: pdf_attachment)
   create(:published_publication, title: title, attachments: [attachment])
 end
 
