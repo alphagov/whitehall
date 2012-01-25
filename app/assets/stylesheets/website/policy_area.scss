@@ -146,7 +146,13 @@
 
     .collection section {
       border-bottom: 1px solid #ccc;
-      padding: 1em 2% 0 2%;
+      padding: 1em 4% 0 4%;
+
+      @media only screen and (min-width: 768px) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
       h1 {
         @extend .section_title;
         @include type-16;
