@@ -13,7 +13,7 @@ module Document::Organisations
   end
 
   included do
-    has_many :document_organisations, foreign_key: :document_id
+    has_many :document_organisations, foreign_key: :document_id, dependent: :destroy
     has_many :organisations, through: :document_organisations
 
     add_trait Trait

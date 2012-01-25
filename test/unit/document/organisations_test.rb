@@ -24,4 +24,12 @@ class Document::OrganisationsTest < ActiveSupport::TestCase
     document_organisation = new_edition.document_organisations.first
     refute document_organisation.featured?
   end
+
+  test "#destroy removes relationship with organisation" do
+    document = create(:draft_policy)
+    organisation = create(:organisation)
+    relation = create(:document_organisation, document: document, organisation: organisation)
+    document.destroy
+    assert_equal nil, DocumentOrganisation.find_by_id(relation.id)
+  end
 end

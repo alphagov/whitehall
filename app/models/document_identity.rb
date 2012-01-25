@@ -2,8 +2,8 @@ class DocumentIdentity < ActiveRecord::Base
   extend FriendlyId
   friendly_id :sluggable_string, use: :scoped, scope: :document_type
 
-  has_many :documents
-  has_many :document_relations
+  has_many :documents, dependent: :destroy
+  has_many :document_relations, dependent: :destroy
   has_one :published_document, class_name: 'Document', conditions: { state: 'published' }
   has_one :unpublished_document, class_name: 'Document', conditions: { state: ['draft', 'submitted', 'rejected'] }
 

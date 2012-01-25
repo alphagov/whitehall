@@ -10,7 +10,7 @@ module Document::PolicyAreas
   end
 
   included do
-    has_many :policy_area_memberships
+    has_many :policy_area_memberships, dependent: :destroy
     has_many :policy_areas, through: :policy_area_memberships
 
     add_trait Trait

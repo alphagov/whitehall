@@ -18,6 +18,8 @@ class Policy < Document
 
   add_trait Trait
 
+  after_destroy :remove_document_relations
+
   scope :stub, where(stub: true)
 
   define_attribute_methods
@@ -32,4 +34,9 @@ class Policy < Document
     title_without_stub
   end
 
+  private
+
+  def remove_document_relations
+    document_relations.each(&:destroy)
+  end
 end

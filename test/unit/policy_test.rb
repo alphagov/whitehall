@@ -40,4 +40,11 @@ class PolicyTest < ActiveSupport::TestCase
   test "stub status doesn't affect slug generation" do
     assert_equal "stub-title", create(:policy, title: "stub title", stub: true).document_identity.slug
   end
+
+  test "#destroy should remove document relations to other documents" do
+    document = create(:draft_policy)
+    relationship = create(:document_relation, document_identity: document.document_identity)
+    document.destroy
+    assert_equal nil, DocumentRelation.find_by_id(relationship.id)
+  end
 end

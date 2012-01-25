@@ -19,7 +19,7 @@ class NewsArticleTest < ActiveSupport::TestCase
   test "#policy_areas includes policy areas associated with related published policies" do
     related_policy = create(:published_policy, policy_areas: [create(:policy_area), create(:policy_area)])
     news_article = create(:news_article, related_policies: [related_policy])
-    assert_equal related_policy.policy_areas, news_article.policy_areas
+    assert_equal related_policy.policy_areas.sort, news_article.policy_areas.sort
   end
 
   test "#policy_areas excludes policy areas associated with related unpublished policies" do
