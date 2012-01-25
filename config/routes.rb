@@ -36,6 +36,9 @@ Whitehall::Application.routes.draw do
 
     resources "policy-areas", as: :policy_areas, controller: :policy_areas, only: [:index, :show]
     resources :organisations, only: [:index, :show] do
+      collection do
+        get :alphabetical
+      end
       member do
         get :about
         get :news

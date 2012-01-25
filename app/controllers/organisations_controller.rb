@@ -3,6 +3,10 @@ class OrganisationsController < PublicFacingController
   before_filter :load_organisation, only: [:show, :about, :news]
 
   def index
+    @organisations_by_type = Organisation.in_listing_order.group_by(&:organisation_type)
+  end
+
+  def alphabetical
     @organisations = Organisation.ordered_by_name_ignoring_prefix
   end
 

@@ -322,7 +322,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation_a = create(:organisation, name: 'A')
     organisation_b = create(:organisation, name: 'B')
 
-    get :index
+    get :alphabetical
 
     assert_equal [organisation_a, organisation_b, organisation_c], assigns[:organisations]
   end

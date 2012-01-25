@@ -4,8 +4,21 @@
   <section class="page_header organisation">
     <h1 class="page_title">Organisations</h1>
   </section>
+  <section class="page_detail">
+    <div class="g3">
+      <ul class="organisations_type_links">
+        <% @organisations_by_type.each do |type, _| %>
+          <li><%= link_to type.name.pluralize, anchor: type.name.pluralize.downcase.gsub(/\s/, "_") %></li>
+        <% end %>
+        <li><%= link_to "Alphabetical", alphabetical_organisations_path %></li>
+      </ul>
+    </div>
+  </section>
 </div>
 
-<div class="g3">
-  <%= render partial: "grouped_list", locals: {organisations: @organisations} %>
+<div class="g3 organisations_by_type">
+  <% @organisations_by_type.each do |type, organisations| %>
+    <%= content_tag(:h2, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_")) %>
+    <%= render partial: "grouped_list", locals: {organisations: organisations} %>
+  <% end %>
 </div>

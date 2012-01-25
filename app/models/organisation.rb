@@ -43,6 +43,10 @@ class Organisation < ActiveRecord::Base
     all.sort_by { |o| o.name_without_prefix }
   end
 
+  def self.in_listing_order
+    joins(:organisation_type).all.sort_by { |o| o.organisation_type.listing_order }
+  end
+
   def name_without_prefix
     name.gsub(/^Ministry of/, "").gsub(/^Department (of|for)/, "").gsub(/^Office of the/, "").strip
   end

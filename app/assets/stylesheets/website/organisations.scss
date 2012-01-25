@@ -98,4 +98,19 @@
     }
   }
 
+  ul.organisations_type_links {
+    margin-bottom: 0;
+
+    li {
+      display: inline;
+      margin-right: 2em;
+    }
+  }
+
+  .organisations_by_type {
+    h2 {
+      margin-bottom: 0;
+      clear: both;
+    }
+  }
 }

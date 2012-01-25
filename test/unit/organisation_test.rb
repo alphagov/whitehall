@@ -108,4 +108,24 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation, name: "Bob's bike")
     assert_equal 'bobs-bike', organisation.slug
   end
+
+  test "should be returnable in an ordering suitable for organisational listing" do
+    type_names = [
+      "Ministerial department",
+      "Non-ministerial department",
+      "Executive agency",
+      "Executive non-departmental public body",
+      "Advisory non-departmental public body",
+      "Tribunal non-departmental public body",
+      "Public corporation",
+      "Independent monitoring body",
+      "Ad-hoc advisory group",
+      "Other"
+    ]
+    types = type_names.shuffle.map { |t| create(:organisation_type, name: t) }
+    organisations = types.shuffle.each { |t| create(:organisation, organisation_type: t) }
+
+    orgs_in_order = Organisation.in_listing_order
+    assert_equal type_names, orgs_in_order.map(&:organisation_type).map(&:name)
+  end
 end
