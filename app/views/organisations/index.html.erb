@@ -6,12 +6,14 @@
   </section>
   <section class="page_detail">
     <div class="g3">
-      <ul class="organisations_type_links">
-        <% @organisations_by_type.each do |type, _| %>
-          <li><%= link_to type.name.pluralize, anchor: type.name.pluralize.downcase.gsub(/\s/, "_") %></li>
-        <% end %>
-        <li><%= link_to "Alphabetical", alphabetical_organisations_path %></li>
-      </ul>
+      <nav>
+        <ul class="organisations_type_links">
+          <% @organisations_by_type.each do |type, _| %>
+            <li><%= link_to type.name.pluralize, organisations_path(anchor: type.name.pluralize.downcase.gsub(/\s/, "_")) %></li>
+          <% end %>
+          <li><%= link_to "Alphabetical", alphabetical_organisations_path %></li>
+        </ul>
+      </nav>
     </div>
   </section>
 </div>
