@@ -16,7 +16,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def pdf?
-    content_type == "application/pdf"
+    content_type == AttachmentUploader::PDF_CONTENT_TYPE
   end
 
   private
