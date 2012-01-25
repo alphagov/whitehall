@@ -26,15 +26,19 @@ This policy definition is a sample only, to give a flavour of what GOV.UK might 
 
 For accurate, reliable and up to date information on this policy, visit the #{lead_org.name} website at [#{url}](#{url})}
 
+  backdate = 3.months.ago
+
   attributes = {
     title: title, policy_areas: policy_areas, organisations: [lead_org, *orgs], 
     ministerial_roles: ministerial_roles, body: body,
-    creator: creator
+    creator: creator,
+    created_at: backdate, updated_at: backdate
   }
 
   puts "importing #{title.inspect}"
   policy = Policy.stub.create!(attributes)
   policy.publish_as(creator, force: true)
+  policy.update_attribute(:published_at, backdate)
 end
 
 stubs = CSV.parse(File.open(Rails.root + "db/policy_stubs.csv", "r:UTF-8"), headers: true)
