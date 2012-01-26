@@ -1,11 +1,16 @@
 <% page_title "Search" %>
-<div class="g3 search_results">
-  <h1 class="page_title">Found <%= pluralize(@results.length, "result") %> for "<%= @search_term %>"</h1>
 
+<div class="g3f">
+  <section class="page_header search">
+    <h1 class="page_title title">Found <%= pluralize(@results.length, "result") %> for "<%= @search_term %>"</h1>
+  </section>
+</div>
+
+<div class="g3f search_results">
   <% if @results.any? %>
     <ul>
       <% @results.each do |result| %>
-        <li>
+        <li class="search">
           <h2><%= link_to result["title"], result["link"] %></h2>
           <% if result["highlight"] %>
             <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
@@ -14,6 +19,6 @@
       <% end %>
     </ul>
   <% else %>
-    <p>We can't find any results for "<%= @search_term %>".</p>
+    <p class="notfound">We can't find any results for "<%= @search_term %>".</p>
   <% end %>
 </div>

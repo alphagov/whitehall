@@ -1,9 +1,31 @@
 @import "../shared/utils";
 
 #content {
+
+  #search_home {
+    margin: 1.5em 2%;
+
+    form {
+      legend {
+        @include type-18;
+      }
+
+      input[type=text], #main_searchbox {
+        width: 60%;
+        @include type-16;
+        margin-bottom: 0;
+        float: left;
+        margin-right: 0.5em;
+        line-height: 1.7em;
+      }
+    }
+  }
+
   .search_results {
+    padding-top: 0.75em;
     ul {
-      @include span_three_columns;
+      @include flood_three_columns;
+      margin-bottom: 0;
     }
 
     h2 {
@@ -13,10 +35,20 @@
 
     ul {
       li {
-        padding-left: 1%;
         border-bottom: 1px solid #ddd;
         margin-bottom: 0.75em;
+        padding-top: 0.25em;
+
+        &:last-child {
+          border-bottom: 0;
+          margin-bottom: 0;
+        }
       }
+    }
+
+    p.notfound {
+      padding-top: 0.5em;
+      margin-left: 2%;
     }
   }
 }

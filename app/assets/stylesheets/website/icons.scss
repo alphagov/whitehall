@@ -1,49 +1,58 @@
+@mixin icons_48 {
+  background-repeat: no-repeat;
+
+  &.consultation {
+    background-image: url(/government/assets/icons/48/consultation.png);
+  }
+
+  &.countries {
+    background-image: url(/government/assets/icons/48/countries.png);
+  }
+
+  &.minister {
+    background-image: url(/government/assets/icons/48/minister.png);
+  }
+
+  &.news {
+    background-image: url(/government/assets/icons/48/news.png);
+  }
+
+  &.organisation {
+    background-image: url(/government/assets/icons/48/organisation.png);
+  }
+
+  &.policy {
+    background-image: url(/government/assets/icons/48/policy.png);
+  }
+
+  &.policyarea {
+    background-image: url(/government/assets/icons/48/policyarea.png);
+  }
+
+  &.publication {
+    background-image: url(/government/assets/icons/48/publication.png);
+  }
+
+  &.speech {
+    background-image: url(/government/assets/icons/48/speech.png);
+  }
+
+  &.news-speech {
+    background-image: url(/government/assets/icons/48/news-speech.png);
+  }
+
+  &.search {
+    background-image: url(/government/assets/icons/48/search.png);
+  }
+}
+
 #content {
   section.page_header {
     padding-left: 72px;
-    background-repeat: no-repeat;
     background-position: 2% 0;
     min-height: 48px;
 
-    &.consultation {
-      background-image: url(/government/assets/icons/48/consultation.png);
-    }
-
-    &.countries {
-      background-image: url(/government/assets/icons/48/countries.png);
-    }
-
-    &.minister {
-      background-image: url(/government/assets/icons/48/minister.png);
-    }
-
-    &.news {
-      background-image: url(/government/assets/icons/48/news.png);
-    }
-
-    &.organisation {
-      background-image: url(/government/assets/icons/48/organisation.png);
-    }
-
-    &.policy {
-      background-image: url(/government/assets/icons/48/policy.png);
-    }
-
-    &.policyarea {
-      background-image: url(/government/assets/icons/48/policyarea.png);
-    }
-
-    &.publication {
-      background-image: url(/government/assets/icons/48/publication.png);
-    }
-
-    &.speech {
-      background-image: url(/government/assets/icons/48/speech.png);
-    }
-
-    &.news-speech {
-      background-image: url(/government/assets/icons/48/news-speech.png);
-    }
+    @include icons_48;
   }
 
   ul.content_icons {
@@ -99,6 +108,16 @@
       div.text {
         background-image: url(/government/assets/icons/24/speech.png);
       }
+    }
+  }
+
+  .search_results {
+    ul li {
+      padding-left: 84px;
+      background-position: 2% 8px;
+      min-height: 72px;
+
+      @include icons_48;
     }
   }
 }

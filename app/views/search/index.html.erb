@@ -1,9 +1,16 @@
 <% page_title "Search" %>
+
+
+<div class="g3f">
+  <section class="page_header search">
+    <h1 class="page_title">Search</h1>
+  </section>
+</div>
+
 <div class="g3">
   <section id="search_home">
-    <h1>Search</h1>
-    <p>Enter a few words to start searching</p>
-    <form class="site-search" action="<%= search_path %>" method="get" role="search">
+    <h1>Enter a few words to start searching</h1>
+    <form class="site-search group" action="<%= search_path %>" method="get" role="search">
       <fieldset>
         <legend class="visuallyhidden">Search the beta.gov.uk site</legend>
         <label for="main_searchbox" class="visuallyhidden">Search</label>
