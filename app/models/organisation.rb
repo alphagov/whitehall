@@ -83,4 +83,8 @@ class Organisation < ActiveRecord::Base
   def remove_from_search_index
     Rummageable.delete(organisation_path(self))
   end
+
+  def self.search_index
+    all.map(&:search_index)
+  end
 end
