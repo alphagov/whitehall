@@ -16,7 +16,7 @@
   <div class="g1">
     <section>
       <h1>Recently updated</h1>
-      <ul>
+      <ul class="content_icons">
         <% @recently_updated.each do |document| %>
           <%= content_tag_for :li, document do %>
             <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
