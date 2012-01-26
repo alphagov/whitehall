@@ -37,6 +37,9 @@ class Organisation < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  after_save :update_in_search_index
+  after_destroy :remove_from_search_index
+
   def should_generate_new_friendly_id?
     new_record?
   end
@@ -69,5 +72,15 @@ class Organisation < ActiveRecord::Base
     link = organisation_path(slug)
 
     { 'title' => name, 'link' => link, 'indexable_content' => description, 'format' => 'organisation' }
+  end
+
+  private
+
+  def update_in_search_index
+    Rummageable.index(search_index)
+  end
+
+  def remove_from_search_index
+    Rummageable.delete(organisation_path(self))
   end
 end

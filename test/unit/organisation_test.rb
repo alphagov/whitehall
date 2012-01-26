@@ -137,4 +137,31 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal organisation.description, organisation.search_index['indexable_content']
     assert_equal 'organisation', organisation.search_index['format']
   end
+
+  test 'should add organisation to search index on creating' do
+    organisation = build(:organisation)
+
+    search_index_data = stub('search index data')
+    organisation.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data)
+
+    organisation.save
+  end
+
+  test 'should add organisation to search index on updating' do
+    organisation = create(:organisation)
+
+    search_index_data = stub('search index data')
+    organisation.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data)
+
+    organisation.name = 'Ministry of Junk'
+    organisation.save
+  end
+
+  test 'should remove organisation from search index on destroying' do
+    organisation = create(:organisation)
+    Rummageable.expects(:delete).with("/government/organisations/#{organisation.slug}")
+    organisation.destroy
+  end
 end
