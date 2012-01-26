@@ -717,8 +717,10 @@ class DocumentTest < ActiveSupport::TestCase
     results = Document.search_index_published
 
     assert_equal 2, results.length
-    assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title", "indexable_content"=>"this and that"}, results[0])
-    assert_equal({"title"=>"publication-title", "link"=>"/government/publications/publication-title", "indexable_content"=>"stuff and things"}, results[1])
+    assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title",
+                  "indexable_content"=>"this and that", "format" => "policy"}, results[0])
+    assert_equal({"title"=>"publication-title", "link"=>"/government/publications/publication-title",
+                  "indexable_content"=>"stuff and things", "format" => "publication"}, results[1])
   end
 
   test "should add document to search index on publishing" do
