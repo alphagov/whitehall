@@ -128,4 +128,13 @@ class OrganisationTest < ActiveSupport::TestCase
     orgs_in_order = Organisation.in_listing_order
     assert_equal type_names, orgs_in_order.map(&:organisation_type).map(&:name)
   end
+
+  test 'should return search index data suitable for Rummageable' do
+    organisation = create(:organisation, name: 'Ministry of Funk')
+
+    assert_equal 'Ministry of Funk', organisation.search_index['title']
+    assert_equal "/government/organisations/#{organisation.slug}", organisation.search_index['link']
+    assert_equal organisation.description, organisation.search_index['indexable_content']
+    assert_equal 'organisation', organisation.search_index['format']
+  end
 end
