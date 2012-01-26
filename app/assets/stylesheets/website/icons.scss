@@ -78,4 +78,27 @@
       }
     }
   }
+
+  .announcements .row {
+    article.news_article, article.speech {
+      div.text {
+        margin-left: 4%;
+        background-position: 0 6px;
+        background-repeat: no-repeat;
+        padding-left: 36px;
+      }
+    }
+
+    article.news_article {
+      div.text {
+        background-image: url(/government/assets/icons/24/news.png);
+      }
+    }
+
+    article.speech {
+      div.text {
+        background-image: url(/government/assets/icons/24/speech.png);
+      }
+    }
+  }
 }

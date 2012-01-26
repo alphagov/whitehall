@@ -18,7 +18,7 @@
           </div>
           <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
           <p class="summary"><%= news_article.summary %></p>
-          <p class="meta">
+          <div class="meta">
             <span class="published_at">Posted <%= render_datetime_microformat(news_article, :first_published_at) do %>
                 <%= time_ago_in_words(news_article.first_published_at) %> ago
               <% end %>
@@ -26,7 +26,7 @@
             <% news_article.policy_areas.uniq.each do |pa| %>
               <%= link_to pa.name, policy_area_path(pa), class: "policy_area" %>
             <% end %>
-          </p>
+          </div>
         <% end %>
       <% end %>
     </section>

@@ -100,7 +100,7 @@
         width: 100%;
       }
 
-      p {
+      p, div.meta {
         position: relative;
         background: #eee;
       }
@@ -113,7 +113,7 @@
         padding: 1em 3% 1.25em 3%;
       }
 
-      p.meta {
+      div.meta {
         margin: 0 2%;
         border-top: 1px solid #ddd;
         border-bottom: 1px solid #9A9B00;
@@ -136,18 +136,18 @@
         padding-top: 1.25em;
         padding-bottom: 1.25em;
 
-        h2, p {
+        h2, p, div.meta {
           min-width: 40%;
           max-width: 65%;
         }
 
-        p.meta {
+        div.meta {
           margin-bottom: 0;
         }
       }
 
       @media only screen and (min-width: 1035px) {
-        h2, p {
+        h2, p, div.meta {
           min-width: 45%;
           max-width: 45%;
         }

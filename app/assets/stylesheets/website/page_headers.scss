@@ -29,29 +29,24 @@
 
   .meta {
     margin-left: 1%;
-    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-    a {
+    span {
       @include type-12;
-      white-space: nowrap;
-    }
-
-    span.metadata {
-      margin-right: 1em;
-      @include type-12;
+      margin-right: 0.5em;
     }
 
     a {
+      @include type-12;
+      @include box_shadow(0, 0px, 1px, rgba(30,30,30,0.1));
       @include rounded();
-      background: #fff;
       @include vertical_gradient(#fff, #eee);
+      background: #fff;
       border: 1px solid #ccc;
       border-bottom: 1px solid #aaa;
       border-top: 1px solid #ddd;
       margin-right: 0.5em;
       padding: 0.2em 0.5em;
       text-align: center;
-      @include box_shadow(0, 0px, 1px, rgba(30,30,30,0.1));
+      white-space: nowrap;
     }
   }
 
