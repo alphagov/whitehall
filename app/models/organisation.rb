@@ -1,4 +1,6 @@
 class Organisation < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+
   belongs_to :organisation_type
 
   has_many :child_organisational_relationships, foreign_key: :parent_organisation_id, class_name: "OrganisationalRelationship"
@@ -35,6 +37,9 @@ class Organisation < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  after_save :update_in_search_index
+  after_destroy :remove_from_search_index
+
   def should_generate_new_friendly_id?
     new_record?
   end
@@ -58,5 +63,28 @@ class Organisation < ActiveRecord::Base
   def normalize_friendly_id(value)
     value = value.gsub(/'/, '') if value
     super value
+  end
+
+  def search_index
+    # This should be organisation_path(self), but we can't use that because friendly_id's #to_param returns
+    # the old value of the slug (e.g. nil for a new record) if the record is dirty, and apparently the record
+    # is still marked as dirty during after_save callbacks.
+    link = organisation_path(slug)
+
+    { 'title' => name, 'link' => link, 'indexable_content' => description, 'format' => 'organisation' }
+  end
+
+  private
+
+  def update_in_search_index
+    Rummageable.index(search_index)
+  end
+
+  def remove_from_search_index
+    Rummageable.delete(organisation_path(self))
+  end
+
+  def self.search_index
+    all.map(&:search_index)
   end
 end

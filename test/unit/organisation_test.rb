@@ -128,4 +128,55 @@ class OrganisationTest < ActiveSupport::TestCase
     orgs_in_order = Organisation.in_listing_order
     assert_equal type_names, orgs_in_order.map(&:organisation_type).map(&:name)
   end
+
+  test 'should return search index data suitable for Rummageable' do
+    organisation = create(:organisation, name: 'Ministry of Funk')
+
+    assert_equal 'Ministry of Funk', organisation.search_index['title']
+    assert_equal "/government/organisations/#{organisation.slug}", organisation.search_index['link']
+    assert_equal organisation.description, organisation.search_index['indexable_content']
+    assert_equal 'organisation', organisation.search_index['format']
+  end
+
+  test 'should add organisation to search index on creating' do
+    organisation = build(:organisation)
+
+    search_index_data = stub('search index data')
+    organisation.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data)
+
+    organisation.save
+  end
+
+  test 'should add organisation to search index on updating' do
+    organisation = create(:organisation)
+
+    search_index_data = stub('search index data')
+    organisation.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data)
+
+    organisation.name = 'Ministry of Junk'
+    organisation.save
+  end
+
+  test 'should remove organisation from search index on destroying' do
+    organisation = create(:organisation)
+    Rummageable.expects(:delete).with("/government/organisations/#{organisation.slug}")
+    organisation.destroy
+  end
+
+  test 'should return search index data for all organisations' do
+    create(:organisation, name: 'Department for Culture and Sports', description: 'Sporty.')
+    create(:organisation, name: 'Department of Education', description: 'Bookish.')
+    create(:organisation, name: 'HMRC', description: 'Taxing.')
+    create(:organisation, name: 'Ministry of Defence', description: 'Defensive.')
+
+    results = Organisation.search_index
+
+    assert_equal 4, results.length
+    assert_equal({ 'title' => 'Department for Culture and Sports', 'link' => '/government/organisations/department-for-culture-and-sports', 'indexable_content' => 'Sporty.', 'format' => 'organisation' }, results[0])
+    assert_equal({ 'title' => 'Department of Education', 'link' => '/government/organisations/department-of-education', 'indexable_content' => 'Bookish.', 'format' => 'organisation' }, results[1])
+    assert_equal({ 'title' => 'HMRC', 'link' => '/government/organisations/hmrc', 'indexable_content' => 'Taxing.', 'format' => 'organisation' }, results[2])
+    assert_equal({ 'title' => 'Ministry of Defence', 'link' => '/government/organisations/ministry-of-defence', 'indexable_content' => 'Defensive.', 'format' => 'organisation' }, results[3])
+  end
 end
