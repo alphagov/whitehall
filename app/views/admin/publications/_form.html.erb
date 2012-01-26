@@ -4,7 +4,7 @@
 
   <fieldset>
     <%= form.label :publication_date %>
-    <%= form.date_select :publication_date, {}, { :class => "date" } %>
+    <%= form.date_select :publication_date, { start_year: 1997 }, { :class => "date" } %>
     <%= form.text_field :unique_reference %>
     <%= form.text_field :isbn, label_text: "ISBN" %>
     <%= form.check_box :research?, label_text: "Research?" %>
