@@ -6,22 +6,27 @@
   </section>
   <section class="page_detail">
     <div class="g3">
-      <nav>
-        <p class="organisations_type_links">
-          View organisations by kind &mdash;
+      <nav class="organisations_type_links">
+        <p>
+          View organisations by
           <%= @organisations_by_type.map do |type, _|
                link_to type.name.pluralize, organisations_path(anchor: type.name.pluralize.downcase.gsub(/\s/, "_"))
-            end.to_sentence.html_safe %> &mdash; or
-          <%= link_to "alphabetically instead", alphabetical_organisations_path %>.
+            end.to_sentence.html_safe %>.
+        </p><p>You can also
+          <%= link_to "view alphabetically", alphabetical_organisations_path %>.
         </p>
       </nav>
     </div>
   </section>
 </div>
 
-<div class="g3 organisations_by_type">
+<div id="organisation_types">
   <% @organisations_by_type.each do |type, organisations| %>
-    <%= content_tag(:h2, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_")) %>
-    <%= render partial: "grouped_list", locals: {organisations: organisations} %>
+    <div class="g3f organisation_type">
+      <section>
+        <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_")) %>
+        <%= render partial: "grouped_list", locals: {organisations: organisations} %>
+      </section>
+    </div>
   <% end %>
 </div>

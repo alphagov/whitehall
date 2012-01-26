@@ -99,13 +99,24 @@
   }
 
   .organisations_type_links {
-    margin-bottom: 0;
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 
-  .organisations_by_type {
-    h2 {
-      margin-bottom: 0;
-      clear: both;
+  .organisation_type:first-child {
+    border-top: 0px;
+
+    h1 {
+      margin-top: 0;
+    }
+  }
+
+  .organisation_type {
+    border-top: 1px solid #bbb;
+
+    h1 {
+      margin: 1em 2% 0em 2%;
     }
   }
 }
