@@ -180,15 +180,13 @@ That's all
     end
   end
 
-  test "should explain that policy applies to the whole of the UK" do
+  test "should not explicitly say that policy applies to the whole of the UK" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    assert_select inapplicable_nations_selector do
-      assert_select "p", "This policy applies to the whole of the UK."
-    end
+    refute_select inapplicable_nations_selector
   end
 
   test "show lists supporting pages when there are some" do

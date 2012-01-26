@@ -1,5 +1,5 @@
-<section id="inapplicable_nations" class="notice">
-  <% if document.nation_inapplicabilities.any? %>
+<% if document.nation_inapplicabilities.any? %>
+  <section id="inapplicable_nations" class="notice">
     <p>This <%= document.class.name.downcase %> does not apply to <%= document.inapplicable_nations.map(&:name).sort.to_sentence %>.</p>
     <% if document.nation_inapplicabilities.collect(&:alternative_url).any? %>
       <ul class="nation_inapplicabilities">
@@ -13,7 +13,5 @@
         <% end %>
       </ul>
     <% end %>
-  <% else %>
-    <p>This <%= document.class.name.downcase %> applies to the whole of the UK.</p>
-  <% end %>
-</section>
+  </section>
+<% end %>

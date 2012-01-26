@@ -53,6 +53,6 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     published_consultation_response = create(:published_consultation_response)
     consultation = published_consultation_response.consultation
     get :show, consultation_id: consultation.document_identity
-    assert_select "#inapplicable_nations", text: /applies to the whole of the uk/i
+    refute_select "#inapplicable_nations"
   end
 end

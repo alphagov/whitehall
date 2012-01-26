@@ -23,14 +23,12 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should explain that policy applies to the whole of the UK" do
+  test "should not explicitly say that policy applies to the whole of the UK" do
     published_policy = create(:published_policy)
 
     get :show, id: published_policy.document_identity
 
-    assert_select inapplicable_nations_selector do
-      assert_select "p", "This policy applies to the whole of the UK."
-    end
+    refute_select inapplicable_nations_selector
   end
 
   test "show displays recently changed documents relating to the policy" do
