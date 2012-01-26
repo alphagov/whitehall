@@ -7,7 +7,7 @@ class SearchControllerTest < ActionController::TestCase
     client = stub("search", search: [])
     Whitehall::SearchClient.stubs(:new).returns(client)
     get :index, q: ""
-    assert_select "p", %{Enter a few words to start searching}
+    assert_select "h1", %{Enter a few words to start searching}
     assert_select "form[action=?]", search_path do
       assert_select "input[name=q]"
     end
