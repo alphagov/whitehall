@@ -706,6 +706,8 @@ class DocumentTest < ActiveSupport::TestCase
 
     assert_equal "policy-title", policy.search_index["title"]
     assert_equal "/government/policies/#{slug}", policy.search_index["link"]
+    assert_equal policy.body, policy.search_index["indexable_content"]
+    assert_equal "policy", policy.search_index["format"]
   end
 
   test "should return search index data for all published documents" do

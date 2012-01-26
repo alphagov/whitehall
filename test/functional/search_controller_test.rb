@@ -57,6 +57,13 @@ class SearchControllerTest < ActionController::TestCase
     end
   end
 
+  test "should set the class of the result according to the format" do
+    client = stub("search", search: [{"title" => "title", "link" => "/slug", "highlight" => "", "format" => "publication"}])
+    Whitehall::SearchClient.stubs(:new).returns(client)
+    get :index, q: "search-term"
+    assert_select ".search_results .publication"
+  end
+
   test "should return the response from autocomplete as a string" do
     client = stub("search")
     Whitehall::SearchClient.stubs(:new).returns(client)

@@ -70,7 +70,8 @@ module Document::Workflow
   end
 
   def search_index
-    { "title" => title, "link" => public_document_path(self), "indexable_content" => body_without_markup }
+    { "title" => title, "link" => public_document_path(self),
+      "indexable_content" => body_without_markup, "format" => type.underscore }
   end
 
   def body_without_markup

@@ -10,7 +10,7 @@
   <% if @results.any? %>
     <ul>
       <% @results.each do |result| %>
-        <li class="search">
+        <li class="<%= result["format"] %>">
           <h2><%= link_to result["title"], result["link"] %></h2>
           <% if result["highlight"] %>
             <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
