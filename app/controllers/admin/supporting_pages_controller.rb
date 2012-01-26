@@ -58,10 +58,10 @@ class Admin::SupportingPagesController < Admin::BaseController
     @supporting_page = SupportingPage.find(params[:id])
   end
 
-
   def build_attachment
-    unless @supporting_page.attachments.any?(&:new_record?)
-      @supporting_page.attachments.build
+    unless @supporting_page.supporting_page_attachments.any?(&:new_record?)
+      supporting_page_attachment = @supporting_page.supporting_page_attachments.build
+      supporting_page_attachment.build_attachment
     end
   end
 end

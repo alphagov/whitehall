@@ -13,8 +13,7 @@ module Document::Attachable
     has_many :document_attachments, foreign_key: "document_id"
     has_many :attachments, through: :document_attachments
 
-    accepts_nested_attributes_for :document_attachments, allow_destroy: true
-    accepts_nested_attributes_for :attachments, reject_if: :all_blank
+    accepts_nested_attributes_for :document_attachments, reject_if: -> da { da.fetch(:attachment_attributes, {}).values.all?(&:blank?) }, allow_destroy: true
 
     add_trait Trait
   end

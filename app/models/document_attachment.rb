@@ -4,6 +4,8 @@ class DocumentAttachment < ActiveRecord::Base
 
   after_destroy :destroy_attachment_if_required
 
+  accepts_nested_attributes_for :attachment, reject_if: :all_blank
+
   private
 
   def destroy_attachment_if_required

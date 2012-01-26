@@ -8,8 +8,9 @@ class Admin::ConsultationResponsesController < Admin::DocumentsController
   end
 
   def build_document_attachment
-    unless @document.attachments.any?(&:new_record?)
-      @document.attachments.build
+    unless @document.document_attachments.any?(&:new_record?)
+      document_attachment = @document.document_attachments.build
+      document_attachment.build_attachment
     end
   end
 end
