@@ -111,12 +111,12 @@ class PolicyAreasControllerTest < ActionController::TestCase
     end
   end
 
-  test "show displays recently changed documents including the policy in order of publication date with most recent first" do
-    policy_1 = create(:published_policy, updated_at: 2.weeks.ago)
+  test "show displays recently changed documents including the policy in order of the edition's publication date with most recent first" do
+    policy_1 = create(:published_policy, published_at: 2.weeks.ago)
     publication_1 = create(:published_publication, published_at: 6.weeks.ago, related_policies: [policy_1])
     news_article_1 = create(:published_news_article, published_at: 1.week.ago, related_policies: [policy_1])
 
-    policy_2 = create(:published_policy, updated_at: 5.weeks.ago)
+    policy_2 = create(:published_policy, published_at: 5.weeks.ago)
     news_article_2 = create(:published_news_article, published_at: 4.weeks.ago, related_policies: [policy_2])
     publication_2 = create(:published_publication, published_at: 3.weeks.ago, related_policies: [policy_2])
 
@@ -124,8 +124,9 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
     get :show, id: policy_area
 
-    assert_equal [news_article_1, policy_1, publication_2, news_article_2, policy_2, publication_1],
-                 assigns[:recently_changed_documents]
+    expected = [news_article_1, policy_1, publication_2, news_article_2, policy_2, publication_1]
+    actual = assigns[:recently_changed_documents]
+    assert_equal expected, actual
   end
 
   test "show should list organisation's working in the policy area" do

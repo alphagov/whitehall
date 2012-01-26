@@ -37,8 +37,6 @@ class PolicyAreasController < PublicFacingController
   private
 
   def recently_changed_documents
-    (@policy_area.published_related_documents + @policies).sort_by { |d|
-      d.is_a?(Policy) ? d.updated_at : d.published_at
-    }.reverse
+    (@policy_area.published_related_documents + @policies).sort_by(&:published_at).reverse
   end
 end
