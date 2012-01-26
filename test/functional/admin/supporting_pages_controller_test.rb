@@ -109,7 +109,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     document = create(:draft_policy)
     supporting_page = create(:supporting_page, document: document)
 
-    get :new, document_id: document, id: supporting_page
+    get :edit, document_id: document, id: supporting_page
 
     assert_select "textarea[name='supporting_page[body]'].previewable"
   end
