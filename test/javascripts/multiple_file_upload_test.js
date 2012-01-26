@@ -55,3 +55,18 @@ test("should increment the ID and name of the hidden cache inputs for each new i
   equal(latest_input.id, "document_attachments_attributes_2_file_cache");
   equal(latest_input.name, "document[attachments_attributes][2][file_cache]");
 });
+
+test("should set the value of the hidden cache inputs to blank for each new input added", function() {
+  $("input[type=hidden]:last").val("not-blank");
+  this.fieldset.find("input[type=file]:last").change();
+  var latest_input = this.fieldset.find("input[type=hidden]:last");
+  equal(latest_input.val(), "");
+});
+
+test("should set the text of the already_uploaded element to blank for each new input added", function() {
+  already_uploaded = $('<span class="already_uploaded">some-file.pdf already uploaded</span>');
+  $("input[type=file]:last").after(already_uploaded);
+  this.fieldset.find("input[type=file]:last").change();
+  equal(this.fieldset.find(".already_uploaded").length, 2);
+  equal(this.fieldset.find(".already_uploaded:last").text(), "");
+});
