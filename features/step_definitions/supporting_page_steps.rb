@@ -55,7 +55,7 @@ When /^I add a supporting page "([^"]*)" with an attachment to the "([^"]*)" pol
   click_link "Add supporting page"
   fill_in "Title", with: title
   fill_in "Body", with: "Some supporting information"
-  attach_file "Attachment", Rails.root.join("features/fixtures/attachment.pdf")
+  attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
   click_button "Save"
 end
 

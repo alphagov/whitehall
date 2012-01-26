@@ -2,9 +2,13 @@
   var _enableMultipleFileUploads = function() {
     $(this).delegate("input[type=file]:last", "change", function() {
       var clone = $(this).parent().clone();
+      var referenceInput = clone.children("input:first")[0];
+      var id = parseInt($(referenceInput).attr("id").match(/_(\d)_/)[1]);
+      var newId = id + 1;
+      clone.children("label").each(function(i, el) {
+        $(el).attr("for", $(el).attr("for").replace("_"+id+"_", "_"+newId+"_"));
+      });
       clone.children("input").each(function(i, el) {
-        var id = parseInt($(el).attr("id").match(/_(\d)_/)[1]);
-        var newId = id + 1;
         $(el).attr("id", $(el).attr("id").replace("_"+id+"_", "_"+newId+"_"));
         $(el).attr("name", $(el).attr("name").replace("["+id+"]", "["+newId+"]"));
       });

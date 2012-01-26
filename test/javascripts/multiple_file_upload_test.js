@@ -4,6 +4,7 @@ module("Uploading multiple files", {
     var file_upload = $('<div class="file_upload"></div>');
     this.first_input = $('<input id="document_document_attachments_attributes_0_attachment_attributes_file" name="document[document_attachments_attributes][0][attachment_attributes][file]" type="file" />');
 
+    file_upload.append('<label for="document_document_attachments_attributes_0_attachment_attributes_file">File</label>');
     file_upload.append(this.first_input);
     file_upload.append('<input id="document_document_attachments_attributes_0_attachment_attributes_file_cache" name="document[document_attachments_attributes][0][attachment_attributes][file_cache]" type="hidden" />');
 
@@ -31,6 +32,16 @@ test("should continue adding new inputs as new files are selected", function() {
 
   this.fieldset.find("input[type=file]:last").change();
   equal(this.fieldset.children(".file_upload").length, 4);
+});
+
+test("should increment the referenced ID of the file label for each set of new inputs added", function() {
+  this.fieldset.find("input[type=file]:last").change();
+  var latest_input = this.fieldset.find("label:contains('File'):last");
+  equal(latest_input.attr('for'), "document_document_attachments_attributes_1_attachment_attributes_file");
+
+  this.fieldset.find("input[type=file]:last").change();
+  latest_input = this.fieldset.find("label:contains('File'):last");
+  equal(latest_input.attr('for'), "document_document_attachments_attributes_2_attachment_attributes_file");
 });
 
 test("should increment the ID and name of the file input for each set of new inputs added", function() {
