@@ -7,6 +7,9 @@ class Document < ActiveRecord::Base
   include Document::Organisations
   include Document::Publishing
 
+  include Rails.application.routes.url_helpers
+  include PublicDocumentRoutesHelper
+
   has_many :editorial_remarks, dependent: :destroy
   has_many :document_authors, dependent: :destroy
 
@@ -23,6 +26,9 @@ class Document < ActiveRecord::Base
   end
 
   validates_with UnmodifiableOncePublishedValidator
+
+  after_publish :update_in_search_index
+  after_archive :remove_from_search_index
 
   UNMODIFIABLE_STATES = %w(published archived deleted).freeze
 
@@ -128,6 +134,25 @@ class Document < ActiveRecord::Base
     title
   end
 
+  def search_index
+    { "title" => title, "link" => public_document_path(self),
+      "indexable_content" => body_without_markup, "format" => type.underscore }
+  end
+
+  private
+
+  def update_in_search_index
+    Rummageable.index(search_index)
+  end
+
+  def remove_from_search_index
+    Rummageable.delete(public_document_path(self))
+  end
+
+  def body_without_markup
+    Govspeak::Document.new(body).to_text
+  end
+
   class << self
     def authored_by(user)
       joins(:document_authors).where(document_authors: {user_id: user}).group(:document_id)
@@ -156,6 +181,10 @@ class Document < ActiveRecord::Base
 
     def search(query)
       published.where("title LIKE :query", query: "%#{query}%")
+    end
+
+    def search_index_published
+      published.map(&:search_index)
     end
   end
 end
