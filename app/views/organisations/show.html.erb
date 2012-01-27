@@ -25,26 +25,30 @@
 
     <div class="g1 hcard">
       <% @organisation.contacts.each do |contact| %>
-        <div class="adr">
-          <h3><%= contact.description %></h3>
+        <div class="organisation_contact">
           <% if contact.address.present? %>
-            <p class="fn org name"><%= @organisation.name %></p>
-            <% if @organisation.acronym.present? %>
-              <p class="nickname"><%= @organisation.acronym %></p>
-            <% end %>
-            <p class="street-address"><%= format_with_html_line_breaks(contact.address) %></p>
-            <p class="postal-code"><%= contact.postcode %></p>
+            <div class="adr">
+              <h3><%= contact.description %></h3>
+              <p class="fn org name"><%= @organisation.name %></p>
+              <% if @organisation.acronym.present? %>
+                <p class="nickname"><%= @organisation.acronym %></p>
+              <% end %>
+              <p class="street-address"><%= format_with_html_line_breaks(contact.address) %></p>
+              <p class="postal-code"><%= contact.postcode %></p>
+            </div>
+          <% else %>
+            <h3><%= contact.description %></h3>
+          <% end %>
+          <% if contact.email.present? %>
+            <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
+          <% end %>
+          <% if contact.number.present? %>
+            <p class="tel"><span class="type"><%= contact.description %></span><%= contact.number %></p>
+          <% end %>
+          <% if contact.mappable? %>
+            <p><%= link_to_google_map(contact) %></p>
           <% end %>
         </div>
-        <% if contact.email.present? %>
-          <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
-        <% end %>
-        <% if contact.number.present? %>
-          <p class="tel"><span class="type"><%= contact.description %></span><%= contact.number %></p>
-        <% end %>
-        <% if contact.mappable? %>
-          <p><%= link_to_google_map(contact) %></p>
-        <% end %>
       <% end %>
     </div>
   </div>

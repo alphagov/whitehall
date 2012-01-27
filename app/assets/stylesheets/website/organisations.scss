@@ -43,7 +43,6 @@
     }
 
     .page_detail .adr {
-      margin-bottom: 1.5em;
       p {
         margin-bottom: 0;
       }
@@ -51,10 +50,18 @@
       p.postal-code {
         margin-bottom: 0.857em;
       }
+    }
+
+    .organisation_contact {
+      margin-bottom: 1em;
+
+      h3 {
+        margin-bottom: 0.25em;
+      }
 
       p.email, p.tel {
         @include type-12;
-        margin-bottom: 0;
+        margin-bottom: 0.25em;
 
         span.type {
           display: none;
