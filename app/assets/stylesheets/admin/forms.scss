@@ -35,3 +35,42 @@ fieldset.image img {
   float: left;
   padding-right: 8px;
 }
+
+fieldset.contacts {
+  margin-bottom: 1em;
+
+  fieldset.contact {
+    position: relative;
+    padding: 0.75em 1.5em 0 1.5em;
+    margin-bottom: 1em;
+    background: #fdfdfd;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #dadada;
+
+    .address {
+      width: 60%;
+    }
+
+    .reveal_links {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: #eaeaea;
+      padding: 0.25em 0.75em;
+      border-left: 1px solid #ddd;
+      border-bottom: 1px solid #ccc;
+
+      li.add {
+        margin-bottom: 0;
+        font-weight: bold;
+        text-align: left;
+      }
+
+      li {
+        margin-bottom: 0.1em;
+      }
+    }
+  }
+}

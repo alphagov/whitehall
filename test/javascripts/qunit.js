@@ -10,3 +10,4 @@
 //= require add_toggle_link_test
 //= require multiple_file_upload_test
 //= require featured_section_carousel_test
+//= require organisation_contact_form_test

@@ -17,14 +17,16 @@
     <%= organisation_form.label :policy_area_ids, 'Policy areas' %>
     <%= organisation_form.select :policy_area_ids, options_from_collection_for_select(PolicyArea.all, 'id', 'name', organisation.policy_area_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose policy areas..."} %>
   </fieldset>
-  <fieldset class="named">
+  <fieldset class="named contacts">
     <legend>Contacts</legend>
     <%= organisation_form.fields_for :contacts do |contacts_form| %>
       <%= render partial: "contacts_form", object: contacts_form %>
     <% end %>
-    <%= organisation_form.fields_for :contacts, Contact.new do |contacts_form| %>
-      <%= render partial: "contacts_form", object: contacts_form %>
-    <% end %>
+    <div class="empty_fields">
+      <%= organisation_form.fields_for :contacts, Contact.new do |contacts_form| %>
+        <%= render partial: "contacts_form", object: contacts_form %>
+      <% end %>
+    </div>
   </fieldset>
   <%= render partial: "admin/documents/govspeak_help" %>
   <fieldset>
