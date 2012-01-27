@@ -48,11 +48,11 @@ module Document::Workflow
 
   def on_publish_success
     archive_previous_documents
-    update_in_search_index unless instance_of?(Document)
+    update_in_search_index
   end
 
   def on_archive_success
-    remove_from_search_index unless instance_of?(Document)
+    remove_from_search_index
   end
 
   def archive_previous_documents
