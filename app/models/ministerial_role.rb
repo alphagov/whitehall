@@ -5,6 +5,9 @@ class MinisterialRole < Role
   has_many :documents, through: :document_ministerial_roles
   has_many :speeches, through: :current_role_appointments
 
+  after_save :update_in_search_index
+  after_destroy :remove_from_search_index
+
   def self.cabinet
     name = arel_table[:name]
     where(cabinet_member: true).order(name.not_eq('Prime Minister'), name.not_eq('Deputy Prime Minister')).alphabetical_by_person
@@ -28,5 +31,15 @@ class MinisterialRole < Role
     link = ministerial_role_path(slug)
 
     { 'title' => to_s, 'link' => link, 'indexable_content' => current_person_biography, 'format' => 'minister' }
+  end
+
+  private
+
+  def update_in_search_index
+    Rummageable.index(search_index)
+  end
+
+  def remove_from_search_index
+    Rummageable.delete(ministerial_role_path(self))
   end
 end

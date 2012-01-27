@@ -72,4 +72,31 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     assert_equal 'David Cameron became Prime Minister in May 2010.', ministerial_role.search_index['indexable_content']
     assert_equal 'minister', ministerial_role.search_index['format']
   end
+
+  test 'should add ministerial role to search index on creating' do
+    ministerial_role = build(:ministerial_role)
+
+    search_index_data = stub('search index data')
+    ministerial_role.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data)
+
+    ministerial_role.save
+  end
+
+  test 'should add ministerial role to search index on updating' do
+    ministerial_role = create(:ministerial_role)
+
+    search_index_data = stub('search index data')
+    ministerial_role.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data)
+
+    ministerial_role.name = 'Ministry of Junk'
+    ministerial_role.save
+  end
+
+  test 'should remove ministerial role from search index on destroying' do
+    ministerial_role = create(:ministerial_role)
+    Rummageable.expects(:delete).with("/government/ministers/#{ministerial_role.slug}")
+    ministerial_role.destroy
+  end
 end
