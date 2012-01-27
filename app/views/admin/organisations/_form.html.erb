@@ -3,6 +3,7 @@
   <fieldset>
     <%= organisation_form.text_field :name %>
     <%= organisation_form.text_field :acronym %>
+    <%= organisation_form.text_area :description %>
   </fieldset>
   <fieldset>
     <%= organisation_form.label :organisation_type_id, "Organisation type" %>
@@ -16,25 +17,13 @@
     <%= organisation_form.label :policy_area_ids, 'Policy areas' %>
     <%= organisation_form.select :policy_area_ids, options_from_collection_for_select(PolicyArea.all, 'id', 'name', organisation.policy_area_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose policy areas..."} %>
   </fieldset>
-  <fieldset>
-    <%= organisation_form.text_area :description %>
-    <%= organisation_form.text_area :address %>
-    <%= organisation_form.text_field :postcode %>
-    <%= organisation_form.text_field :latitude %>
-    <%= organisation_form.text_field :longitude %>
-  </fieldset>
-  <fieldset>
-    <%= organisation_form.text_field :email %>
-  </fieldset>
   <fieldset class="named">
-    <legend>Phone numbers</legend>
+    <legend>Contacts</legend>
     <%= organisation_form.fields_for :contacts do |contacts_form| %>
-      <%= contacts_form.text_field :description %>
-      <%= contacts_form.text_field :number %>
+      <%= render partial: "contacts_form", object: contacts_form %>
     <% end %>
     <%= organisation_form.fields_for :contacts, Contact.new do |contacts_form| %>
-      <%= contacts_form.text_field :description %>
-      <%= contacts_form.text_field :number %>
+      <%= render partial: "contacts_form", object: contacts_form %>
     <% end %>
   </fieldset>
   <%= render partial: "admin/documents/govspeak_help" %>

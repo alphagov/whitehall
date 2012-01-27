@@ -72,25 +72,26 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should be creatable with contact data' do
     params = {
-      email: "someone@gov.uk", address: "Aviation House, London",
-      postcode: "WC2A 1BE", latitude: -0.112311, longitude: 51.215125,
       contacts_attributes: [
+        {description: "Office address",
+         email: "someone@gov.uk", address: "Aviation House, London",
+         postcode: "WC2A 1BE", latitude: -0.112311, longitude: 51.215125},
         {description: "Helpline", number: "020712345678"},
         {description: "Fax", number: "020712345679"}
       ]
     }
     organisation = create(:organisation, params)
 
-    assert_equal "someone@gov.uk", organisation.email
-    assert_equal "Aviation House, London", organisation.address
-    assert_equal "WC2A 1BE", organisation.postcode
-    assert_equal -0.112311, organisation.latitude
-    assert_equal 51.215125, organisation.longitude
-    assert_equal 2, organisation.contacts.count
-    assert_equal "Helpline", organisation.contacts[0].description
-    assert_equal "020712345678", organisation.contacts[0].number
-    assert_equal "Fax", organisation.contacts[1].description
-    assert_equal "020712345679", organisation.contacts[1].number
+    assert_equal 3, organisation.contacts.count
+    assert_equal "someone@gov.uk", organisation.contacts[0].email
+    assert_equal "Aviation House, London", organisation.contacts[0].address
+    assert_equal "WC2A 1BE", organisation.contacts[0].postcode
+    assert_equal -0.112311, organisation.contacts[0].latitude
+    assert_equal 51.215125, organisation.contacts[0].longitude
+    assert_equal "Helpline", organisation.contacts[1].description
+    assert_equal "020712345678", organisation.contacts[1].number
+    assert_equal "Fax", organisation.contacts[2].description
+    assert_equal "020712345679", organisation.contacts[2].number
   end
 
   test "should set a slug from the organisation name" do

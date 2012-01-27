@@ -3,7 +3,7 @@
 <%= content_tag_for :div, @organisation, class: "hcard" do %>
   <div class="g3f">
     <section class="page_header organisation">
-      <h1 class="page_title"><%= @organisation.name %>
+      <h1 class="page_title name"><%= @organisation.name %>
         <% if @organisation.acronym.present? %>
           (<%= @organisation.acronym %>)
         <% end %>
@@ -12,7 +12,7 @@
         <h2 class="category"><%= @organisation.organisation_type.name %></h2>
       <% end %>
     </section>
-  <%= render 'navigation', organisation: @organisation %>
+    <%= render 'navigation', organisation: @organisation %>
   </div>
 
   <div class="g3f page_detail">
@@ -23,24 +23,29 @@
       </p>
     </div>
 
-    <div class="g1">
-      <h3>Office address:</h3>
-      <div class="adr">
-        <p class="fn org name"><%= @organisation.name %></p>
-        <% if @organisation.acronym.present? %>
-          <p class="nickname"><%= @organisation.acronym %></p>
+    <div class="g1 hcard">
+      <% @organisation.contacts.each do |contact| %>
+        <div class="adr">
+          <h3><%= contact.description %></h3>
+          <% if contact.address.present? %>
+            <p class="fn org name"><%= @organisation.name %></p>
+            <% if @organisation.acronym.present? %>
+              <p class="nickname"><%= @organisation.acronym %></p>
+            <% end %>
+            <p class="street-address"><%= format_with_html_line_breaks(contact.address) %></p>
+            <p class="postal-code"><%= contact.postcode %></p>
+          <% end %>
+        </div>
+        <% if contact.email.present? %>
+          <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
         <% end %>
-        <p class="street-address"><%= format_with_html_line_breaks(@organisation.address) %></p>
-        <p class="postal-code"><%= @organisation.postcode %></p>
-
-        <p class="email"><span class="type">Email:</span> <%= mail_to @organisation.email, @organisation.email, :class => "email" %></p>
-        <% @organisation.contacts.each do |contact| %>
-          <p class="tel"><span class="type"><%= contact.description %>:</span> <%= contact.number %></p>
+        <% if contact.number.present? %>
+          <p class="tel"><span class="type"><%= contact.description %></span><%= contact.number %></p>
         <% end %>
-      </div>
-
-      <h3>Office location:</h3>
-      <p><%= link_to_google_map(@organisation) %></p>
+        <% if contact.mappable? %>
+          <p><%= link_to_google_map(contact) %></p>
+        <% end %>
+      <% end %>
     </div>
   </div>
 <% end %>

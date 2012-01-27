@@ -9,20 +9,16 @@ class OrganisationsControllerTest < ActionController::TestCase
       description: "organisation-description"
     )
     get :show, id: organisation
-    assert_select ".organisation" do
-      assert_select ".name", text: "organisation-name"
-      assert_select ".description", text: "organisation-description"
-    end
+    assert_select ".organisation .name", text: "organisation-name"
+    assert_select ".description", text: "organisation-description"
   end
 
   test "presents the contact details of the organisation using hcard" do
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
-    organisation = create(:organisation,
-      name: "Ministry of Pomp",
-      email: "pomp@gov.uk",
-      address: "1 Smashing Place, London", postcode: "LO1 8DN",
-      organisation_type: ministerial_department,
-      contacts_attributes: [
+    organisation = create(:organisation, organisation_type: ministerial_department,
+      name: "Ministry of Pomp", contacts_attributes: [
+        {email: "pomp@gov.uk",
+         address: "1 Smashing Place, London", postcode: "LO1 8DN"},
         {description: "Helpline", number: "02079460000"},
         {description: "Fax", number: "02079460001"}
       ]
@@ -37,16 +33,16 @@ class OrganisationsControllerTest < ActionController::TestCase
         assert_select ".postal-code", "LO1 8DN"
       end
       assert_select ".tel", /02079460000$/ do
-        assert_select ".type", "Helpline:"
+        assert_select ".type", "Helpline"
       end
-      assert_select ".email", /#{organisation.email}/ do
-        assert_select ".type", "Email:"
+      assert_select ".email", /pomp@gov\.uk/ do
+        assert_select ".type", "Email"
       end
     end
   end
 
   test "should use html line breaks when displaying the address" do
-    organisation = create(:organisation, address: "Line 1\nLine 2")
+    organisation = create(:organisation, contacts_attributes: [{address: "Line 1\nLine 2"}])
     get :show, id: organisation
     assert_select ".street-address", /Line 1/
     assert_select ".street-address", /Line 2/
@@ -197,7 +193,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should link to a google map" do
-    organisation = create(:organisation, latitude: 51.498772, longitude: -0.130974)
+    organisation = create(:organisation, contacts_attributes: [{latitude: 51.498772, longitude: -0.130974}])
     get :show, id: organisation
     assert_select "a[href='http://maps.google.co.uk/maps?q=51.498772,-0.130974']"
   end
