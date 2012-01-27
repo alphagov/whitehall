@@ -13,6 +13,10 @@ module Document::Workflow
     scope :rejected, where(state: "rejected")
     scope :published, where(state: "published")
 
+    define_model_callbacks :publish, :archive, only: :after
+    after_publish :archive_previous_documents, :update_in_search_index
+    after_archive :remove_from_search_index
+
     state_machine do
       state :draft
       state :submitted
@@ -33,26 +37,17 @@ module Document::Workflow
         transitions from: :submitted, to: :rejected
       end
 
-      event :publish, success: :on_publish_success do
+      event :publish, success: -> document { document.run_callbacks(:publish) } do
         transitions from: [:draft, :submitted], to: :published
       end
 
-      event :archive, success: :on_archive_success do
+      event :archive, success: -> document { document.run_callbacks(:archive) } do
         transitions from: :published, to: :archived
       end
     end
 
     validates_with DocumentHasNoUnpublishedDocumentsValidator, on: :create
     validates_with DocumentHasNoOtherPublishedDocumentsValidator, on: :create
-  end
-
-  def on_publish_success
-    archive_previous_documents
-    update_in_search_index
-  end
-
-  def on_archive_success
-    remove_from_search_index
   end
 
   def archive_previous_documents
