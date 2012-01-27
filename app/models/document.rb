@@ -9,6 +9,7 @@ class Document < ActiveRecord::Base
 
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
+  include Searchable
 
   has_many :editorial_remarks, dependent: :destroy
   has_many :document_authors, dependent: :destroy
@@ -27,9 +28,6 @@ class Document < ActiveRecord::Base
 
   validates_with UnmodifiableOncePublishedValidator
 
-  after_publish :update_in_search_index
-  after_archive :remove_from_search_index
-
   UNMODIFIABLE_STATES = %w(published archived deleted).freeze
 
   def unmodifiable?
@@ -39,6 +37,9 @@ class Document < ActiveRecord::Base
   def significant_changed_attributes
     changed - %w(state updated_at featured carrierwave_featuring_image)
   end
+
+  searchable title: :title, link: -> d { d.public_document_path(d) }, content: :body_without_markup, format: -> d { d.type.underscore },
+    only: :published, index_after: :publish, unindex_after: :archive
 
   def creator
     document_authors.first && document_authors.first.user
@@ -134,21 +135,6 @@ class Document < ActiveRecord::Base
     title
   end
 
-  def search_index
-    { "title" => title, "link" => public_document_path(self),
-      "indexable_content" => body_without_markup, "format" => type.underscore }
-  end
-
-  private
-
-  def update_in_search_index
-    Rummageable.index(search_index)
-  end
-
-  def remove_from_search_index
-    Rummageable.delete(public_document_path(self))
-  end
-
   def body_without_markup
     Govspeak::Document.new(body).to_text
   end
@@ -181,10 +167,6 @@ class Document < ActiveRecord::Base
 
     def search(query)
       published.where("title LIKE :query", query: "%#{query}%")
-    end
-
-    def search_index
-      published.map(&:search_index)
     end
   end
 end
