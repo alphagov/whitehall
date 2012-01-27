@@ -38,7 +38,8 @@
     };
 
     var addLinkToCloneEmptyFields = function() {
-      var link = $.a('Add new contact', {class: 'button add_new'}).click(function () {
+      var link = $.a('Add new contact', {'class': 'button add_new'});
+      link.click(function () {
         addNewContact(); return false;
       })
       self.after(link);
