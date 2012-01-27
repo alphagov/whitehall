@@ -1,5 +1,17 @@
+GenericDocument = Class.new(Document)
+
+Rails.application.routes.url_helpers.module_eval do
+  def generic_document_path(id)
+    "/government/generic-documents/#{id}"
+  end
+
+  def admin_generic_document_editorial_remarks_path(*args)
+    admin_document_editorial_remarks_path(*args)
+  end
+end
+
 FactoryGirl.define do
-  factory :document do
+  factory :document, class: GenericDocument do
     creator
     title "document-title"
     body "document-body"
