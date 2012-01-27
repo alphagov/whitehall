@@ -55,6 +55,11 @@
     @include icons_48;
   }
 
+  .feed_icon img {
+    width: auto;
+    float: right;
+  }
+
   ul.content_icons {
     li {
       display: block;
