@@ -12,7 +12,10 @@ When /^I draft a new consultation "([^"]*)"$/ do |title|
   fill_in "Summary", with: "consultation-summary"
   select_date "Opening Date", with: 1.day.ago.to_s
   select_date "Closing Date", with: 6.days.from_now.to_s
-  attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
+  within ".attachments" do
+    fill_in "Title", with: "Home of the blizzard"
+    attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
+  end
   check "Wales"
   fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
   check "Scotland"

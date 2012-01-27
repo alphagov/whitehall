@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120124141117) do
+ActiveRecord::Schema.define(:version => 20120126121308) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20120124141117) do
     t.string   "content_type"
     t.integer  "file_size"
     t.integer  "number_of_pages"
+    t.string   "title"
   end
 
   create_table "countries", :force => true do |t|

@@ -7,6 +7,7 @@
     <div class="download_url"><%= link_to "Download attachment", attachment.url %></div>
 
     <ul class="attachment_meta">
+      <li><strong>Title:</strong> <span class="attachment_title"><%= attachment.title %></span></li>
       <li><strong>Name:</strong> <span class="filename"><%= attachment.filename %></span></li>
       <li><strong>Type:</strong> <span class="type"><%= humanized_content_type(attachment.file_extension) %></span></li>
       <% if attachment.number_of_pages.present? %>

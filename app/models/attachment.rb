@@ -3,7 +3,7 @@ class Attachment < ActiveRecord::Base
 
   delegate :url, to: :file
 
-  validates :file, presence: true
+  validates :title, :file, presence: true
 
   before_save :update_file_attributes
 

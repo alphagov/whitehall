@@ -8,6 +8,11 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.valid?
   end
 
+  test 'should be invalid without a title' do
+    attachment = build(:attachment, title: nil)
+    refute attachment.valid?
+  end
+
   test 'should be invalid without a file' do
     attachment = build(:attachment, file: nil)
     refute attachment.valid?

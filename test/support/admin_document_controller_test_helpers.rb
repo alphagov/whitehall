@@ -184,6 +184,7 @@ module AdminDocumentControllerTestHelpers
         get :new
 
         assert_select "form#document_new" do
+          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][type='text']"
           assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
@@ -192,7 +193,7 @@ module AdminDocumentControllerTestHelpers
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(document_type)
         attributes[:document_attachments_attributes] = {
-          "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
+          "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
         }
 
         post :create, document: attributes
@@ -200,15 +201,17 @@ module AdminDocumentControllerTestHelpers
         assert document = document_class.last
         assert_equal 1, document.attachments.length
         attachment = document.attachments.first
+        assert_equal "attachment-title", attachment.title
         assert_equal "greenpaper.pdf", attachment.carrierwave_file
         assert_equal "application/pdf", attachment.content_type
         assert_equal greenpaper_pdf.size, attachment.file_size
       end
 
-      test "creating a document with invalid data should still allow attachment to be selected for upload" do
+      test "creating a document with invalid data should still show attachment fields" do
         post :create, document: controller_attributes_for(document_type, title: "")
 
         assert_select "form#document_new" do
+          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][type='text']"
           assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
@@ -228,23 +231,24 @@ module AdminDocumentControllerTestHelpers
         end
       end
 
-      test "creating a document with invalid data and an attachment should remember the uploaded file" do
+      test "creating a document with invalid data but valid attachment data should still display the attachment data" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
         post :create, document: controller_attributes_for(document_type,
           title: "",
           document_attachments_attributes: {
-            "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
+            "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
 
         assert_select "form#document_new" do
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file_cache]'][type='hidden'][value$='greenpaper.pdf']"
+          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
+          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
           assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
 
-      test 'creating a document with invalid data should not show any attachment info' do
+      test 'creating a document with invalid data should not show any existing attachment info' do
         attributes = controller_attributes_for(document_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
         attributes[:document_attachments_attributes] = {
@@ -261,8 +265,8 @@ module AdminDocumentControllerTestHelpers
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attributes = controller_attributes_for(document_type)
         attributes[:document_attachments_attributes] = {
-          "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) },
-          "1" => { attachment_attributes: attributes_for(:attachment, file: csv_file) }
+          "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
+          "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
         }
 
         post :create, document: attributes
@@ -270,22 +274,31 @@ module AdminDocumentControllerTestHelpers
         assert document = document_class.last
         assert_equal 2, document.attachments.length
         attachment_1 = document.attachments.first
+        assert_equal "attachment-1-title", attachment_1.title
         assert_equal "greenpaper.pdf", attachment_1.carrierwave_file
         assert_equal "application/pdf", attachment_1.content_type
         assert_equal greenpaper_pdf.size, attachment_1.file_size
         attachment_2 = document.attachments.last
+        assert_equal "attachment-2-title", attachment_2.title
         assert_equal "sample-from-excel.csv", attachment_2.carrierwave_file
         assert_equal "text/csv", attachment_2.content_type
         assert_equal csv_file.size, attachment_2.file_size
       end
 
       test 'edit displays document attachment fields' do
-        document = create(document_type)
+        two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
+        attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
+        document = create(document_type, attachments: [attachment])
 
         get :edit, id: document
 
         assert_select "form#document_edit" do
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][type='text'][value='attachment-title']"
+          assert_select ".attachment" do
+            assert_select "a", text: %r{two-pages.pdf$}
+          end
+          assert_select "input[name='document[document_attachments_attributes][1][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='document[document_attachments_attributes][1][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -295,13 +308,14 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: document.attributes.merge(
           document_attachments_attributes: {
-            "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
+            "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
 
         document.reload
         assert_equal 1, document.attachments.length
         attachment = document.attachments.first
+        assert_equal "attachment-title", attachment.title
         assert_equal "greenpaper.pdf", attachment.carrierwave_file
         assert_equal "application/pdf", attachment.content_type
         assert_equal greenpaper_pdf.size, attachment.file_size
@@ -314,18 +328,20 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: document.attributes.merge(
           document_attachments_attributes: {
-            "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) },
-            "1" => { attachment_attributes: attributes_for(:attachment, file: csv_file) }
+            "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
+            "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
           }
         )
 
         document.reload
         assert_equal 2, document.attachments.length
         attachment_1 = document.attachments.first
+        assert_equal "attachment-1-title", attachment_1.title
         assert_equal "greenpaper.pdf", attachment_1.carrierwave_file
         assert_equal "application/pdf", attachment_1.content_type
         assert_equal greenpaper_pdf.size, attachment_1.file_size
         attachment_2 = document.attachments.last
+        assert_equal "attachment-2-title", attachment_2.title
         assert_equal "sample-from-excel.csv", attachment_2.carrierwave_file
         assert_equal "text/csv", attachment_2.content_type
         assert_equal csv_file.size, attachment_2.file_size
@@ -356,24 +372,25 @@ module AdminDocumentControllerTestHelpers
         end
       end
 
-      test "updating a document with invalid data and an attachment should remember the uploaded file" do
+      test "updating a document with invalid data and valid attachment data should display the attachment data" do
         document = create(document_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
         put :update, id: document, document: controller_attributes_for(document_type,
           title: "",
           document_attachments_attributes: {
-            "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
+            "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
 
         assert_select "form#document_edit" do
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file_cache]'][type='hidden'][value$='greenpaper.pdf']"
+          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
+          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
           assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
 
-      test "updating a stale document should still allow attachment to be selected for upload" do
+      test "updating a stale document should still display attachment fields" do
         document = create("draft_#{document_type}")
         lock_version = document.lock_version
         document.touch
@@ -381,6 +398,7 @@ module AdminDocumentControllerTestHelpers
         put :update, id: document, document: document.attributes.merge(lock_version: lock_version)
 
         assert_select "form#document_edit" do
+          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][type='text']"
           assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
@@ -425,14 +443,14 @@ module AdminDocumentControllerTestHelpers
 
       test "should display PDF attachment metadata" do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
-        attachment = create(:attachment, file: two_page_pdf)
+        attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
         document = create(document_type, attachments: [attachment])
 
         get :show, id: document
 
         assert_select_object(attachment) do
           assert_select "a", text: "Download attachment"
-          assert_select ".filename", text: document.attachments.first.filename
+          assert_select ".attachment_title", text: "attachment-title"
           assert_select ".type", /PDF/
           assert_select ".number_of_pages", "2 pages"
           assert_select ".size", "1.41 KB"
@@ -441,14 +459,14 @@ module AdminDocumentControllerTestHelpers
 
       test "should display CSV attachment metadata" do
         csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
-        attachment = create(:attachment, file: csv)
+        attachment = create(:attachment, title: "attachment-title", file: csv)
         document = create(document_type, attachments: [attachment])
 
         get :show, id: document
 
         assert_select_object(attachment) do
           assert_select "a", text: "Download attachment"
-          assert_select ".filename", text: document.attachments.first.filename
+          assert_select ".attachment_title", text: "attachment-title"
           assert_select ".type", /CSV/
           refute_select ".number_of_pages"
           assert_select ".size", "121 Bytes"

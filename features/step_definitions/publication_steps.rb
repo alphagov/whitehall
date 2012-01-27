@@ -22,7 +22,10 @@ Given /^I attempt to create an invalid publication with an attachment$/ do
   begin_drafting_document type: "Publication", title: ""
   select_date "Publication date", with: "2010-01-01"
   file = pdf_attachment
-  attach_file "File", file.path
+  within ".attachments" do
+    fill_in "Title", with: "There and back again"
+    attach_file "File", file.path
+  end
   click_button "Save"
 end
 
@@ -30,7 +33,10 @@ When /^I draft a new publication "([^"]*)"$/ do |title|
   policy = create(:policy)
   begin_drafting_document type: 'publication', title: title
   fill_in_publication_fields
-  attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
+  within ".attachments" do
+    fill_in "Title", with: "The worst journey in the world"
+    attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
+  end
   check "Wales"
   fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
   select policy.title, from: "Related Policies"
