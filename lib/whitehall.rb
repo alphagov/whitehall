@@ -40,6 +40,10 @@ module Whitehall
       !Rails.env.test? && aws_access_key_id && aws_secret_access_key
     end
 
+    def search_index
+      Document.search_index_published + Organisation.search_index
+    end
+
     private
 
     def load_secrets
