@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120126121308) do
+ActiveRecord::Schema.define(:version => 20120127113850) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -21,6 +21,12 @@ ActiveRecord::Schema.define(:version => 20120126121308) do
     t.integer  "file_size"
     t.integer  "number_of_pages"
     t.string   "title"
+  end
+
+  create_table "contacts", :force => true do |t|
+    t.integer "organisation_id"
+    t.string  "number"
+    t.string  "description"
   end
 
   create_table "countries", :force => true do |t|
@@ -208,12 +214,6 @@ ActiveRecord::Schema.define(:version => 20120126121308) do
     t.boolean  "privy_councillor",  :default => false
     t.string   "carrierwave_image"
     t.text     "biography"
-  end
-
-  create_table "phone_numbers", :force => true do |t|
-    t.integer "organisation_id"
-    t.string  "number"
-    t.string  "description"
   end
 
   create_table "policy_area_memberships", :force => true do |t|

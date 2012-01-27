@@ -74,7 +74,7 @@ class OrganisationTest < ActiveSupport::TestCase
     params = {
       email: "someone@gov.uk", address: "Aviation House, London",
       postcode: "WC2A 1BE", latitude: -0.112311, longitude: 51.215125,
-      phone_numbers_attributes: [
+      contacts_attributes: [
         {description: "Helpline", number: "020712345678"},
         {description: "Fax", number: "020712345679"}
       ]
@@ -86,11 +86,11 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "WC2A 1BE", organisation.postcode
     assert_equal -0.112311, organisation.latitude
     assert_equal 51.215125, organisation.longitude
-    assert_equal 2, organisation.phone_numbers.count
-    assert_equal "Helpline", organisation.phone_numbers[0].description
-    assert_equal "020712345678", organisation.phone_numbers[0].number
-    assert_equal "Fax", organisation.phone_numbers[1].description
-    assert_equal "020712345679", organisation.phone_numbers[1].number
+    assert_equal 2, organisation.contacts.count
+    assert_equal "Helpline", organisation.contacts[0].description
+    assert_equal "020712345678", organisation.contacts[0].number
+    assert_equal "Fax", organisation.contacts[1].description
+    assert_equal "020712345679", organisation.contacts[1].number
   end
 
   test "should set a slug from the organisation name" do

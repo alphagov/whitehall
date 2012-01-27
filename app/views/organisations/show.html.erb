@@ -34,8 +34,8 @@
         <p class="postal-code"><%= @organisation.postcode %></p>
 
         <p class="email"><span class="type">Email:</span> <%= mail_to @organisation.email, @organisation.email, :class => "email" %></p>
-        <% @organisation.phone_numbers.each do |phone_number| %>
-          <p class="tel"><span class="type"><%= phone_number.description %>:</span> <%= phone_number.number %></p>
+        <% @organisation.contacts.each do |contact| %>
+          <p class="tel"><span class="type"><%= contact.description %>:</span> <%= contact.number %></p>
         <% end %>
       </div>
 

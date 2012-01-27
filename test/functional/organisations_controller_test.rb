@@ -22,7 +22,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       email: "pomp@gov.uk",
       address: "1 Smashing Place, London", postcode: "LO1 8DN",
       organisation_type: ministerial_department,
-      phone_numbers_attributes: [
+      contacts_attributes: [
         {description: "Helpline", number: "02079460000"},
         {description: "Fax", number: "02079460001"}
       ]

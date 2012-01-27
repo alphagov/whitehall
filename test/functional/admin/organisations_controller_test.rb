@@ -36,15 +36,15 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
       policy_area_ids: [policy_area.id],
-      phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
+      contacts_attributes: [{description: "Fax", number: "020712435678"}]
     )
 
     assert organisation = Organisation.last
     assert_equal attributes[:name], organisation.name
     assert_equal attributes[:description], organisation.description
     assert_equal attributes[:about_us], organisation.about_us
-    assert_equal 1, organisation.phone_numbers.count
-    assert_equal "Fax", organisation.phone_numbers.first.description
+    assert_equal 1, organisation.contacts.count
+    assert_equal "Fax", organisation.contacts.first.description
     assert_equal policy_area, organisation.policy_areas.first
   end
 
@@ -53,7 +53,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     attributes = attributes_for(:organisation)
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
-      phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
+      contacts_attributes: [{description: "Fax", number: "020712435678"}]
     )
 
     assert_redirected_to admin_organisations_path
@@ -63,7 +63,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     attributes = attributes_for(:organisation)
     post :create, organisation: attributes.merge(
       name: '',
-      phone_numbers_attributes: [{description: "Fax", number: "020712435678"}]
+      contacts_attributes: [{description: "Fax", number: "020712435678"}]
     )
 
     assert_template "organisations/new"
@@ -138,12 +138,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, name: "Ministry of Sound")
     organisation_attributes = {
       name: "Ministry of Sound",
-      phone_numbers_attributes: [{description: "", number: ""}]
+      contacts_attributes: [{description: "", number: ""}]
     }
 
     put :update, id: organisation, organisation: organisation_attributes
 
-    assert_equal 0, organisation.phone_numbers.count
+    assert_equal 0, organisation.contacts.count
   end
 
   test "update should remove all related policy areas if none specified" do
