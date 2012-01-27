@@ -61,4 +61,15 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
     assert_equal [prime_minister, deputy_prime_minister, defence_minister, culture_minister], MinisterialRole.cabinet
   end
+
+  test 'should return search index data suitable for Rummageable' do
+    person = create(:person, forename: 'David', surname: 'Cameron', biography: 'David Cameron became Prime Minister in May 2010.')
+    ministerial_role = create(:ministerial_role, name: 'Prime Minister')
+    create(:ministerial_role_appointment, role: ministerial_role, person: person)
+
+    assert_equal 'David Cameron (Prime Minister)', ministerial_role.search_index['title']
+    assert_equal "/government/ministers/#{ministerial_role.slug}", ministerial_role.search_index['link']
+    assert_equal 'David Cameron became Prime Minister in May 2010.', ministerial_role.search_index['indexable_content']
+    assert_equal 'minister', ministerial_role.search_index['format']
+  end
 end
