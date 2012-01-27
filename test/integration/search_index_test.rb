@@ -10,4 +10,9 @@ class SearchIndexTest < ActiveSupport::TestCase
     Organisation.stubs(:search_index).returns([:organisations])
     assert Whitehall.search_index.include?(:organisations)
   end
+
+  test "Whitehall.search_index includes ministerial roles" do
+    MinisterialRole.stubs(:search_index).returns([:ministerial_roles])
+    assert Whitehall.search_index.include?(:ministerial_roles)
+  end
 end

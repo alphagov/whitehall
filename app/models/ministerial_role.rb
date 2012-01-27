@@ -33,6 +33,10 @@ class MinisterialRole < Role
     { 'title' => to_s, 'link' => link, 'indexable_content' => current_person_biography, 'format' => 'minister' }
   end
 
+  def self.search_index
+    all.map(&:search_index)
+  end
+
   private
 
   def update_in_search_index

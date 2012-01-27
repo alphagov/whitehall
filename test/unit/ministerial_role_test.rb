@@ -99,4 +99,29 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     Rummageable.expects(:delete).with("/government/ministers/#{ministerial_role.slug}")
     ministerial_role.destroy
   end
+
+  test 'should return search index data for all ministerial roles' do
+    nick_clegg = create(:person, forename: 'Nick', surname: 'Clegg', biography: 'Cleggy.')
+    jeremy_hunt = create(:person, forename: 'Jeremy', surname: 'Hunt', biography: 'Hunty.')
+    edward_garnier = create(:person, forename: 'Edward', surname: 'Garnier', biography: 'Garnerian.')
+    david_cameron = create(:person, forename: 'David', surname: 'Cameron', biography: 'Cameronian.')
+
+    deputy_prime_minister = create(:ministerial_role, name: 'Deputy Prime Minister', cabinet_member: true)
+    culture_minister = create(:ministerial_role, name: 'Secretary of State for Culture', cabinet_member: true)
+    solicitor_general = create(:ministerial_role, name: 'Solicitor General', cabinet_member: false)
+    prime_minister = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true)
+
+    create(:ministerial_role_appointment, role: deputy_prime_minister, person: nick_clegg)
+    create(:ministerial_role_appointment, role: culture_minister, person: jeremy_hunt)
+    create(:ministerial_role_appointment, role: solicitor_general, person: edward_garnier)
+    create(:ministerial_role_appointment, role: prime_minister, person: david_cameron)
+
+    results = MinisterialRole.search_index
+
+    assert_equal 4, results.length
+    assert_equal({ 'title' => 'Nick Clegg (Deputy Prime Minister)', 'link' => '/government/ministers/deputy-prime-minister', 'indexable_content' => 'Cleggy.', 'format' => 'minister' }, results[0])
+    assert_equal({ 'title' => 'Jeremy Hunt (Secretary of State for Culture)', 'link' => '/government/ministers/secretary-of-state-for-culture', 'indexable_content' => 'Hunty.', 'format' => 'minister' }, results[1])
+    assert_equal({ 'title' => 'Edward Garnier (Solicitor General)', 'link' => '/government/ministers/solicitor-general', 'indexable_content' => 'Garnerian.', 'format' => 'minister' }, results[2])
+    assert_equal({ 'title' => 'David Cameron (Prime Minister)', 'link' => '/government/ministers/prime-minister', 'indexable_content' => 'Cameronian.', 'format' => 'minister' }, results[3])
+  end
 end
