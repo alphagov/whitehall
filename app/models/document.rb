@@ -7,6 +7,10 @@ class Document < ActiveRecord::Base
   include Document::Organisations
   include Document::Publishing
 
+  include Rails.application.routes.url_helpers
+  include PublicDocumentRoutesHelper
+  include Searchable
+
   has_many :editorial_remarks, dependent: :destroy
   has_many :document_authors, dependent: :destroy
 
@@ -33,6 +37,9 @@ class Document < ActiveRecord::Base
   def significant_changed_attributes
     changed - %w(state updated_at featured carrierwave_featuring_image)
   end
+
+  searchable title: :title, link: -> d { d.public_document_path(d) }, content: :body_without_markup, format: -> d { d.type.underscore },
+    only: :published, index_after: :publish, unindex_after: :archive
 
   def creator
     document_authors.first && document_authors.first.user
@@ -126,6 +133,10 @@ class Document < ActiveRecord::Base
 
   def sluggable_title
     title
+  end
+
+  def body_without_markup
+    Govspeak::Document.new(body).to_text
   end
 
   class << self

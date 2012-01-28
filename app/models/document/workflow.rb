@@ -4,14 +4,15 @@ module Document::Workflow
   included do
     include ::Transitions
     include ActiveRecord::Transitions
-    include Rails.application.routes.url_helpers
-    include PublicDocumentRoutesHelper
 
     default_scope where(%{documents.state <> "deleted"})
     scope :draft, where(state: "draft")
     scope :submitted, where(state: "submitted")
     scope :rejected, where(state: "rejected")
     scope :published, where(state: "published")
+
+    define_model_callbacks :publish, :archive, only: :after
+    after_publish :archive_previous_documents
 
     state_machine do
       state :draft
@@ -33,11 +34,11 @@ module Document::Workflow
         transitions from: :submitted, to: :rejected
       end
 
-      event :publish, success: :on_publish_success do
+      event :publish, success: -> document { document.run_callbacks(:publish) } do
         transitions from: [:draft, :submitted], to: :published
       end
 
-      event :archive, success: :on_archive_success do
+      event :archive, success: -> document { document.run_callbacks(:archive) } do
         transitions from: :published, to: :archived
       end
     end
@@ -46,41 +47,9 @@ module Document::Workflow
     validates_with DocumentHasNoOtherPublishedDocumentsValidator, on: :create
   end
 
-  def on_publish_success
-    archive_previous_documents
-    update_in_search_index
-  end
-
-  def on_archive_success
-    remove_from_search_index
-  end
-
   def archive_previous_documents
     document_identity.documents.published.each do |document|
       document.archive! unless document == self
-    end
-  end
-
-  def update_in_search_index
-    Rummageable.index(search_index)
-  end
-
-  def remove_from_search_index
-    Rummageable.delete(public_document_path(self))
-  end
-
-  def search_index
-    { "title" => title, "link" => public_document_path(self),
-      "indexable_content" => body_without_markup, "format" => type.underscore }
-  end
-
-  def body_without_markup
-    Govspeak::Document.new(body).to_text
-  end
-
-  module ClassMethods
-    def search_index_published
-      published.map(&:search_index)
     end
   end
 
