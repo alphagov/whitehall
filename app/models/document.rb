@@ -183,7 +183,7 @@ class Document < ActiveRecord::Base
       published.where("title LIKE :query", query: "%#{query}%")
     end
 
-    def search_index_published
+    def search_index
       published.map(&:search_index)
     end
   end

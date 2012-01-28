@@ -714,7 +714,7 @@ class DocumentTest < ActiveSupport::TestCase
     create(:published_policy, title: "policy-title", body: "this and that")
     create(:published_publication, title: "publication-title", body: "stuff and things")
 
-    results = Document.search_index_published
+    results = Document.search_index
 
     assert_equal 2, results.length
     assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title",
