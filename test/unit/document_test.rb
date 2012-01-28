@@ -713,6 +713,7 @@ class DocumentTest < ActiveSupport::TestCase
   test "should return search index data for all published documents" do
     create(:published_policy, title: "policy-title", body: "this and that")
     create(:published_publication, title: "publication-title", body: "stuff and things")
+    create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
     results = Document.search_index
 
