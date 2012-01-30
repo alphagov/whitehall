@@ -1,9 +1,9 @@
 <% page_title @document.title, "Consultation Response" %>
 <div class="g3">
   <div class="g2 first">
-    <section class="document">
-      <%= render partial: 'navigation', locals: { document: @document } %>
-      <%= render partial: "rejected_by", locals: { document: @document } %>
+    <%= render partial: 'navigation', locals: { document: @document } %>
+    <%= render partial: "rejected_by", locals: { document: @document } %>
+    <section class="document_view">
       <%= render partial: 'document', locals: { document: @document } %>
       <% if @document.notes_to_editors.present? %>
         <section id="notes_to_editors">
