@@ -17,12 +17,11 @@ Whitehall::Application.routes.draw do
 
     resources :announcements, only: [:index], path: 'news-and-speeches'
     resources :policies, only: [:index, :show] do
-      resources "supporting-pages", controller: :supporting_pages, as: :supporting_pages,
-                only: [:index, :show]
+      resources :supporting_pages, path: "supporting-pages", only: [:index, :show]
     end
-    resources :news, as: :news_articles, controller: :news_articles, only: [:show, :index]
+    resources :news_articles, path: 'news', only: [:show, :index]
     resources :publications, only: [:index, :show]
-    resources "international-priorities", controller: :international_priorities, as: :international_priorities, only: [:index, :show]
+    resources :international_priorities, path: "international-priorities", only: [:index, :show]
     resources :consultations, only: [:index, :show] do
       collection do
         get :open
@@ -35,7 +34,7 @@ Whitehall::Application.routes.draw do
 
     resources :speeches, only: [:index, :show]
 
-    resources "policy-areas", as: :policy_areas, controller: :policy_areas, only: [:index, :show]
+    resources :policy_areas, path: "policy-areas", only: [:index, :show]
     resources :organisations, only: [:index, :show] do
       collection do
         get :alphabetical
@@ -45,7 +44,7 @@ Whitehall::Application.routes.draw do
         get :news
       end
     end
-    resources :ministers, only: [:index, :show], as: :ministerial_roles, controller: :ministerial_roles
+    resources :ministerial_roles, path: 'ministers', only: [:index, :show]
     resources :countries, path: 'world', only: [:index, :show]
 
     match "/search" => "search#index"
@@ -56,9 +55,9 @@ Whitehall::Application.routes.draw do
         root to: redirect('/admin/documents')
 
         resource :user, only: [:show, :edit, :update]
-        resources :organisations, only: [:index, :new, :create, :edit, :update]
+        resources :organisations, except: [:show, :destroy]
         resources :document_organisations, only: [:update]
-        resources "policy-areas", as: :policy_areas, controller: :policy_areas, only: [:index, :new, :create, :edit, :update, :destroy] do
+        resources :policy_areas, path: "policy-areas", except: [:show] do
           member do
             post :feature
             post :unfeature
@@ -78,22 +77,21 @@ Whitehall::Application.routes.draw do
           end
           resource :publishing, controller: :document_publishing, only: [:create]
           resource :featuring, only: [:create, :update, :destroy]
-          resources "supporting-pages", controller: :supporting_pages, as: :supporting_pages,
-                    only: [:new, :create, :show, :edit, :update, :destroy], shallow: true
+          resources :supporting_pages, path: "supporting-pages", except: [:index], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
           resources :editorial_remarks, only: [:new, :create], shallow: true
         end
 
-        resources :publications, only: [:new, :create, :edit, :update, :show, :destroy]
+        resources :publications, except: [:index]
 
-        resources :policies, only: [:new, :create, :edit, :update, :show, :destroy]
-        resources "international-priorities", controller: :international_priorities, as: :international_priorities, only: [:new, :create, :edit, :update, :show, :destroy]
-        resources :news, as: :news_articles, controller: :news_articles, only: [:new, :create, :edit, :update, :show, :destroy]
-        resources :consultations, only: [:new, :create, :edit, :update, :show, :destroy]
-        resources :responses, as: :consultation_responses, controller: :consultation_responses, only: [:new, :create, :edit, :update, :show, :destroy]
-        resources :speeches, only: [:new, :create, :edit, :update, :show, :destroy]
-        resources :people, only: [:index, :new, :create, :edit, :update, :destroy]
-        resources :roles, only: [:index, :new, :create, :edit, :update, :destroy]
+        resources :policies, except: [:index]
+        resources :international_priorities, path: "international-priorities", except: [:index]
+        resources :news_articles, path: 'news', except: [:index]
+        resources :consultations, except: [:index]
+        resources :consultation_responses, path: 'responses', except: [:index]
+        resources :speeches, except: [:index]
+        resources :people, except: [:show]
+        resources :roles, except: [:show]
         resources :countries, only: [:index, :edit, :update]
 
         match "preview" => "preview#preview", via: :post
