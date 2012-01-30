@@ -13,6 +13,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   should_allow_association_between_countries_and :speech
   should_be_rejectable :speech
+  should_be_publishable :speech
   should_be_force_publishable :speech
   should_be_able_to_delete_a_document :speech
   should_link_to_public_version_when_published :speech

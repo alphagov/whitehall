@@ -15,6 +15,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_ministerial_roles_for :news_article
   should_allow_association_between_countries_and :news_article
   should_be_rejectable :news_article
+  should_be_publishable :news_article
   should_be_force_publishable :news_article
   should_be_able_to_delete_a_document :news_article
   should_link_to_public_version_when_published :news_article

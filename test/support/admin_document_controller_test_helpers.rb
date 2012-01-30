@@ -601,25 +601,54 @@ module AdminDocumentControllerTestHelpers
       end
     end
 
+    def should_be_publishable(document_type)
+      document_class = document_class_for(document_type)
+
+      test "should display the publish form if document is publishable" do
+        document = create(document_type)
+        document.stubs(:publishable_by?).returns(true)
+        document_class.stubs(:find).with(document.to_param).returns(document)
+        get :show, id: document
+        assert_select publish_form_selector(document), count: 1
+      end
+
+      test "should not display the publish form if document is not publishable" do
+        document = create(document_type)
+        document.stubs(:publishable_by?).returns(false)
+        document_class.stubs(:find).with(document.to_param).returns(document)
+        get :show, id: document
+        refute_select publish_form_selector(document)
+      end
+    end
+
     def should_be_force_publishable(document_type)
       document_class = document_class_for(document_type)
 
-      test "should display the 'Force Publish' button" do
+      test "should not display the force-publish form if document is publishable" do
+        document = create(document_type)
+        document.stubs(:publishable_by?).returns(true)
+        document.stubs(:force_publishable_by?).returns(true)
+        document_class.stubs(:find).with(document.to_param).returns(document)
+        get :show, id: document
+        refute_select force_publish_form_selector(document)
+      end
+
+      test "should display the force-publish form if document is not publishable but is force-publishable" do
         document = create(document_type)
         document.stubs(:publishable_by?).returns(false)
         document.stubs(:force_publishable_by?).returns(true)
         document_class.stubs(:find).with(document.to_param).returns(document)
         get :show, id: document
-        assert_select force_publish_button_selector(document), count: 1
+        assert_select force_publish_form_selector(document), count: 1
       end
 
-      test "shouldn't display the 'Force Publish' button" do
+      test "should not display the force-publish button if document is neither publishable nor force-publishable" do
         document = create(document_type)
         document.stubs(:publishable_by?).returns(false)
         document.stubs(:force_publishable_by?).returns(false)
         document_class.stubs(:find).with(document.to_param).returns(document)
         get :show, id: document
-        refute_select force_publish_button_selector(document)
+        refute_select force_publish_form_selector(document)
       end
     end
 
