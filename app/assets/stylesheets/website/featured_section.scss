@@ -86,6 +86,24 @@
       }
     }
 
+    div.g3f {
+      @media only screen and (min-width: 768px) {
+        h2 {
+          &:before, &:after {
+          	left: 20%;
+          }
+        }
+
+        p.summary {
+          width: 50%;
+        }
+
+        h2 a, .meta {
+          border-right: 0;
+        }
+      }
+    }
+
     div.g1f:nth-child(2) {
       @media only screen and (min-width: 768px) {
         p.summary {
