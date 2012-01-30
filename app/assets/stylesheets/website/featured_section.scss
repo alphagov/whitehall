@@ -112,6 +112,12 @@
       }
     }
 
+    div.g-half-flood:nth-child(2) {
+      p.summary {
+        border-right: none;
+      }
+    }
+
     div.g1f:last-child {
       .meta {
         border-bottom: none;
@@ -125,7 +131,23 @@
           border-right: 1px solid #ccc;
         }
       }
+    }
 
+    div.g-half-flood {
+      &:last-child {
+        .meta {
+          border-bottom: none;
+        }
+      }
+
+      @media only screen and (min-width: 768px) {
+        .meta {
+          border-bottom: none;
+        }
+      }
+    }
+
+    div:last-child {
       @media only screen and (min-width: 1024px) {
         h2, h2 a, p.summary, .meta {
           border-right: none;

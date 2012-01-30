@@ -145,7 +145,7 @@ module ApplicationHelper
     when 1
       "g3f"
     when 2
-      "g-half"
+      "g-half-flood"
     when 3
       "g1f"
     end
