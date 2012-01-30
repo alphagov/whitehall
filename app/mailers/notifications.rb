@@ -1,6 +1,6 @@
 class Notifications < ActionMailer::Base
   include ActionController::RecordIdentifier
-  include AdminDocumentRoutesHelper
+  include Admin::DocumentRoutesHelper
 
   def fact_check_request(request, url_options)
     @fact_check_request = request

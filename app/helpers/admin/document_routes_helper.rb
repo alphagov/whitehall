@@ -1,4 +1,4 @@
-module AdminDocumentRoutesHelper
+module Admin::DocumentRoutesHelper
   DOCUMENT_TYPES = [Policy, Publication, NewsArticle, Consultation, Speech, InternationalPriority]
 
   def self.document_instance_route(name)

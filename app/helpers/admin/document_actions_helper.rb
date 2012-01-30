@@ -1,4 +1,4 @@
-module AdminDocumentActionsHelper
+module Admin::DocumentActionsHelper
   def edit_document_button(document)
     link_to 'Edit', edit_admin_document_path(document), title: "Edit #{document.title}", class: "button"
   end
