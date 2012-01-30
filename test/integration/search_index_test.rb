@@ -15,4 +15,9 @@ class SearchIndexTest < ActiveSupport::TestCase
     MinisterialRole.stubs(:search_index).returns([:ministerial_roles])
     assert Whitehall.search_index.include?(:ministerial_roles)
   end
+
+  test "Whitehall.search_index includes supporting pages" do
+    MinisterialRole.stubs(:search_index).returns([:supporting_pages])
+    assert Whitehall.search_index.include?(:supporting_pages)
+  end
 end
