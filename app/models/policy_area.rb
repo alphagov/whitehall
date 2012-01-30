@@ -30,7 +30,7 @@ class PolicyArea < ActiveRecord::Base
 
   accepts_nested_attributes_for :policy_area_memberships
 
-  default_scope where('policy_areas.state != "deleted"').order(:name)
+  default_scope where('policy_areas.state != "deleted"')
 
   extend FriendlyId
   friendly_id :name, use: :slugged

@@ -147,12 +147,6 @@ class PolicyAreaTest < ActiveSupport::TestCase
     assert_equal [], policy_area.published_related_documents
   end
 
-  test "should order by name by default" do
-    policy_area_1 = create(:policy_area, name: "zzz")
-    policy_area_2 = create(:policy_area, name: "aaa")
-    assert_equal [policy_area_2, policy_area_1], PolicyArea.all
-  end
-
   test "should exclude deleted policy areas by default" do
     current_policy_area = create(:policy_area)
     deleted_policy_area = create(:policy_area, state: "deleted")
