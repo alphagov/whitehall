@@ -7,18 +7,20 @@
 </div>
 
 <div class="g3">
-  <% if @featured_policy_area %>
+  <% if @featured_policy_areas.any? %>
     <section class="featured">
-      <div class="g2 first">
-        <%= content_tag_for :article, @featured_policy_area do %>
-          <h1 class="name"><%= link_to @featured_policy_area.name, policy_area_path(@featured_policy_area) %></h1>
-          <p class="description"><%= @featured_policy_area.description %></p>
-        <% end %>
-      </div>
+      <% @featured_policy_areas.each do |featured_policy_area| %>
+        <div class="g2 first">
+          <%= content_tag_for :article, featured_policy_area do %>
+            <h1 class="name"><%= link_to featured_policy_area.name, policy_area_path(featured_policy_area) %></h1>
+            <p class="description"><%= featured_policy_area.description %></p>
+          <% end %>
+        </div>
 
-      <div class="g1 related">
-        <%= render partial: "documents/policies", object: @featured_policy_area.policies.published.limit(2) %>
-      </div>
+        <div class="g1 related">
+          <%= render partial: "documents/policies", object: featured_policy_area.policies.published.limit(2) %>
+        </div>
+      <% end %>
     </section>
   <% end %>
 

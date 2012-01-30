@@ -239,16 +239,24 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
   end
 
   test "featuring sets policy area featured flag" do
-    policy_area = create(:policy_area, featured: false)
+    policy_area = create(:policy_area, featured: false, policies: [build(:published_policy)])
     post :feature, id: policy_area
     assert policy_area.reload.featured?
   end
 
   test "featuring redirects to index and informs user the policy area is now featured" do
-    policy_area = create(:policy_area, featured: false)
+    policy_area = create(:policy_area, featured: false, policies: [build(:published_policy)])
     post :feature, id: policy_area
     assert_redirected_to admin_policy_areas_path
     assert_equal flash[:notice], "The policy area #{policy_area.name} is now featured"
+  end
+
+  test "featuring is prohibited when a policy area has no published policies" do
+    policy_area = create(:policy_area, featured: false, policies: [])
+    post :feature, id: policy_area
+    assert_redirected_to admin_policy_areas_path
+    assert_equal "The policy area #{policy_area.name} cannot be featured because it has no published policies", flash[:alert]
+    refute policy_area.reload.featured?
   end
 
   test "unfeaturing unsets policy area featured flag" do

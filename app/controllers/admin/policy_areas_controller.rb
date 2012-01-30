@@ -34,8 +34,12 @@ class Admin::PolicyAreasController < Admin::BaseController
 
   def feature
     @policy_area = PolicyArea.find(params[:id])
-    @policy_area.feature
-    redirect_to admin_policy_areas_path, notice: "The policy area #{@policy_area.name} is now featured"
+    if @policy_area.published_policies.any?
+      @policy_area.feature
+      redirect_to admin_policy_areas_path, notice: "The policy area #{@policy_area.name} is now featured"
+    else
+      redirect_to admin_policy_areas_path, alert: "The policy area #{@policy_area.name} cannot be featured because it has no published policies"
+    end
   end
 
   def unfeature

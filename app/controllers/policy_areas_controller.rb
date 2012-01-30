@@ -1,7 +1,7 @@
 class PolicyAreasController < PublicFacingController
   def index
     @policy_areas = PolicyArea.with_published_policies
-    @featured_policy_area = FeaturedPolicyAreaChooser.choose_policy_area
+    @featured_policy_areas = PolicyArea.featured.order("updated_at DESC").limit(3)
   end
 
   def show
@@ -10,22 +10,6 @@ class PolicyAreasController < PublicFacingController
     @related_policy_areas = @policy_area.related_policy_areas
     @recently_changed_documents = recently_changed_documents
     @featured_policies = FeaturedPolicyPresenter.new(@policy_area)
-  end
-
-  class FeaturedPolicyAreaChooser
-    class << self
-      def choose_policy_area
-        choose_random_featured_policy_area || choose_random_policy_area
-      end
-
-      def choose_random_featured_policy_area
-        PolicyArea.unscoped.featured.randomized.first
-      end
-
-      def choose_random_policy_area
-        PolicyArea.unscoped.with_published_policies.randomized.first
-      end
-    end
   end
 
   class FeaturedPolicyPresenter < Whitehall::Presenters::Collection

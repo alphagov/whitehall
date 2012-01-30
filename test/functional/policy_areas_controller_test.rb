@@ -165,7 +165,6 @@ class PolicyAreasControllerTest < ActionController::TestCase
   test "should show list of policy areas with published documents" do
     policy_area_1, policy_area_2 = create(:policy_area), create(:policy_area)
     PolicyArea.stubs(:with_published_policies).returns([policy_area_1, policy_area_2])
-    PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area)
 
     get :index
 
@@ -175,7 +174,6 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
   test "should not display an empty list of policy areas" do
     PolicyArea.stubs(:with_published_policies).returns([])
-    PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area)
 
     get :index
 
@@ -183,8 +181,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
   end
 
   test "shows a featured policy area if one exists" do
-    policy_area = create(:policy_area)
-    PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area).returns(policy_area)
+    policy_area = create(:featured_policy_area)
 
     get :index
 
@@ -193,71 +190,29 @@ class PolicyAreasControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows featured policy area policies" do
-    policy = create(:published_policy)
-    policy_area = create(:policy_area, policies: [policy])
-    PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area).returns(policy_area)
+  test "shows maximum of three featured policy areas by most recently updated" do
+    older = create(:featured_policy_area, updated_at: 3.day.ago)
+    newest = create(:featured_policy_area, updated_at: 1.day.ago)
+    oldest = create(:featured_policy_area, updated_at: 4.day.ago)
+    newer = create(:featured_policy_area, updated_at: 2.day.ago)
 
     get :index
 
-    assert_select_object policy
+    assert_select ".featured .policy_area", count: 3
+    assert_select ".featured" do
+      assert_select_object newest
+      assert_select_object newer
+      assert_select_object older
+      refute_select_object oldest
+    end
   end
 
   test "shows a maximum of 2 featured policy area policies" do
     policies = [create(:published_policy), create(:published_policy), create(:published_policy)]
-    policy_area = create(:policy_area, policies: policies)
-    PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_policy_area).returns(policy_area)
+    policy_area = create(:featured_policy_area, policies: policies)
 
     get :index
 
     assert_select ".featured .policy", count: 2
-  end
-
-  class FeaturedPolicyAreaChooserTest < ActiveSupport::TestCase
-    test "chooses random featured policy area if one exists" do
-      PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_random_featured_policy_area).returns(:random_featured_policy_area)
-      PolicyAreasController::FeaturedPolicyAreaChooser.expects(:choose_random_policy_area).never
-      assert_equal :random_featured_policy_area, PolicyAreasController::FeaturedPolicyAreaChooser.choose_policy_area
-    end
-
-    test "chooses random policy area if no featured policy areas found" do
-      PolicyAreasController::FeaturedPolicyAreaChooser.stubs(:choose_random_featured_policy_area).returns(nil)
-      PolicyAreasController::FeaturedPolicyAreaChooser.expects(:choose_random_policy_area).returns(:random_policy_area)
-      assert_equal :random_policy_area, PolicyAreasController::FeaturedPolicyAreaChooser.choose_policy_area
-    end
-
-    test "chooses a featured policy area at random" do
-      available_featured_policy_areas = Array.new(2) { create(:featured_policy_area) }
-      repetitions_to_reduce_the_chance_of_getting_the_same_policy_area_each_time = 10
-      randomly_chosen_featured_policy_areas = (0..repetitions_to_reduce_the_chance_of_getting_the_same_policy_area_each_time).collect do
-        PolicyAreasController::FeaturedPolicyAreaChooser.choose_random_featured_policy_area
-      end
-      assert_equal available_featured_policy_areas.uniq.sort, randomly_chosen_featured_policy_areas.uniq.sort
-    end
-
-    test "never chooses a non-featured policy area" do
-      non_featured_policy_area = create(:policy_area)
-      repetitions_to_reduce_the_chance_of_getting_the_same_policy_area_each_time = 10
-      (0..repetitions_to_reduce_the_chance_of_getting_the_same_policy_area_each_time).collect do
-        assert_nil PolicyAreasController::FeaturedPolicyAreaChooser.choose_random_featured_policy_area
-      end
-    end
-
-    test "chooses a policy area with published policies at random" do
-      available_policy_areas = Array.new(2) { create(:policy_area, policies: [create(:published_policy)]) }
-      repetitions_to_reduce_the_chance_of_getting_the_same_policy_area_each_time = 10
-      randomly_chosen_policy_areas = (0..repetitions_to_reduce_the_chance_of_getting_the_same_policy_area_each_time).collect do
-        PolicyAreasController::FeaturedPolicyAreaChooser.choose_random_policy_area
-      end
-      assert_equal available_policy_areas.uniq.sort, randomly_chosen_policy_areas.uniq.sort
-    end
-
-    test "never chooses a policy area without published documents" do
-      policy_area_without_published_document = create(:policy_area)
-      repetitions_to_reduce_the_chance_of_getting_the_same_policy_area_each_time = 10
-      (0..repetitions_to_reduce_the_chance_of_getting_the_same_policy_area_each_time).collect do
-        assert_nil PolicyAreasController::FeaturedPolicyAreaChooser.choose_random_policy_area
-      end
-    end
   end
 end
