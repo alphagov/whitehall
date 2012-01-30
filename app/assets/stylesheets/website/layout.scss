@@ -210,29 +210,3 @@
     width: auto;
   }
 }
-
-#grid-helper {
-  margin: 0 auto;
-  height: 3000px;
-  width: 100%;
-
-  @media only screen and (min-width: 600px) {
-    width: 81%;
-  }
-
-  .g3 {
-    z-index: 99999;
-    background: green url('/images/24px_grid_bg.png');
-    height: 100%;
-    opacity: 0.5;
-    @media only screen and (min-width: 1800px) {
-      background-image: url('/images/28px_grid_bg.png');
-    }
-  }
-
-  .g1 {
-    background: red;
-    height: 100%;
-    opacity: 0.5;
-  }
-}
