@@ -1,4 +1,6 @@
 # encoding: utf-8
+ActiveRecord::Base.observers.disable :ministerial_role_search_index_observer
+
 ["England", "Scotland", "Wales", "Northern Ireland"].each do |nation_name|
   Nation.find_or_create_by_name(nation_name)
 end
@@ -472,3 +474,5 @@ policy_areas(
 if Rails.env.development? || Rails.env.test?
   require Rails.root.join("db/random_seeds.rb")
 end
+
+ActiveRecord::Base.observers.enable :ministerial_role_search_index_observer
