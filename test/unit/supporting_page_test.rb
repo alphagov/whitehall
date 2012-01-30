@@ -111,13 +111,15 @@ class SupportingPageTest < ActiveSupport::TestCase
     supporting_page.destroy
   end
 
-  test 'should return search index data for all supporting pages' do
+  test 'should return search index data for all supporting pages on published documents' do
     policy = create(:published_policy)
+    draft_policy = create(:draft_policy)
     policy_slug = policy.document_identity.slug
     create(:supporting_page, document: policy, title: 'Love all the people', body: 'Thoughts on love and smoking.')
     create(:supporting_page, document: policy, title: 'Dangerous', body: 'I love my job.')
     create(:supporting_page, document: policy, title: 'Relentless', body: 'Rockers against drugs suck.')
     create(:supporting_page, document: policy, title: 'Arizona Bay', body: 'Marketing and advertising.')
+    create(:supporting_page, document: draft_policy, title: 'Rant in E-Minor', body: 'I\'m talking to the women here.')
 
     results = SupportingPage.search_index
 

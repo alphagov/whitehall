@@ -12,7 +12,10 @@ class SupportingPage < ActiveRecord::Base
 
   validates :title, :body, :document, presence: true
 
-  searchable title: :title, link: :search_link, content: :body_without_markup, format: -> p { p.document.type.underscore }
+  scope :published, joins(:document).merge(Document.published)
+
+  searchable title: :title, link: :search_link, content: :body_without_markup, format: -> p { p.document.type.underscore },
+    only: :published
 
   extend FriendlyId
   friendly_id :title, use: :slugged
