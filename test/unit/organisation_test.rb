@@ -144,6 +144,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     organisation.stubs(:search_index).returns(search_index_data)
+    Rummageable.stubs(:index) # ignore the update to the ministerial role index
     Rummageable.expects(:index).with(search_index_data)
 
     organisation.save
@@ -154,6 +155,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     organisation.stubs(:search_index).returns(search_index_data)
+    Rummageable.stubs(:index) # ignore the update to the ministerial role index
     Rummageable.expects(:index).with(search_index_data)
 
     organisation.name = 'Ministry of Junk'
