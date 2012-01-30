@@ -91,11 +91,8 @@
     };
 
     var _setMinHeightToLargestItem = function () {
-      var max = 0;
-      $(_items).each(function() {
-        max = Math.max( max, $(this).height() );
-      });
-      $(_items).css({'min-height': max + 'px'});
+      // see utils.js
+      utils.setMinHeightToLargestItem(_items);
       _resizeFeature(_currItem);
     }
 
@@ -106,9 +103,12 @@
     }
 
     var resize_window = function () {
-      if(_resizingWait !== false)
+      if (_wrapper) {
+        if (_resizingWait !== false) {
           clearTimeout(_resizingWait);
-       _resizingWait = setTimeout(_afterResize, 200);
+          _resizingWait = setTimeout(_afterResize, 200);
+        }
+      };
     };
 
     $(window).resize(resize_window);

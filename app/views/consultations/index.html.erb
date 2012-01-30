@@ -8,17 +8,19 @@
 
 <div class="g3f consulations">
   <% if @featured_consultations.any? %>
-    <section class="featured_items" id="featured-consultations">
+    <section class="featured_items group" id="featured-consultations">
       <% @featured_consultations.each do |consultation| %>
-        <%= content_tag_for(:article, consultation) do %>
-          <h2><%= link_to consultation.title, public_document_path(consultation), class: "title" %></h2>
-          <p class="summary">
-            <%= consultation.summary %>
-          </p>
-          <div class="meta">
-            <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
-          </div>
-        <% end %>
+        <div class="<%= featured_grid_class(@featured_consultations.length) %>">
+          <%= content_tag_for(:article, consultation) do %>
+            <h2><%= link_to consultation.title, public_document_path(consultation), class: "title" %></h2>
+            <p class="summary">
+              <%= consultation.summary %>
+            </p>
+            <div class="meta">
+              <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
+            </div>
+          <% end %>
+        </div>
       <% end %>
     </section>
   <% end %>
