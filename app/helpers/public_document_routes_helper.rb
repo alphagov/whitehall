@@ -13,11 +13,17 @@ module PublicDocumentRoutesHelper
     end
   end
 
-  def public_supporting_page_url(document, supporting_document, options={})
+  def public_supporting_page_path(document, supporting_page, options = {})
+    options.merge!(model_name(document).foreign_key => document.document_identity)
+    polymorphic_path([model_name(document), supporting_page], options)
+  end
+
+  def public_supporting_page_url(document, supporting_page, options={})
+    options.merge!(model_name(document).foreign_key => document.document_identity)
     if host = Whitehall.public_host_for(request.host)
-      policy_supporting_page_url(document, supporting_document, options.merge(host: host))
+      polymorphic_url([model_name(document), supporting_page], options.merge(host: host))
     else
-      policy_supporting_page_path(document, supporting_document, options)
+      public_supporting_page_path(document, supporting_page, options)
     end
   end
 

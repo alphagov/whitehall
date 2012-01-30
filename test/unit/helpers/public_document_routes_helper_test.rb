@@ -42,6 +42,12 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal consultation_response_path(consultation_response.consultation.document_identity), public_document_path(consultation_response)
   end
 
+  test 'uses the document identity to generate the supporting page route' do
+    policy = create(:policy)
+    supporting_page = create(:supporting_page, document: policy)
+    assert_equal policy_supporting_page_path(policy.document_identity, supporting_page), public_supporting_page_path(policy, supporting_page)
+  end
+
   test 'returns public document URL including host in production environment' do
     request.host = "whitehall.production.alphagov.co.uk"
     document = create(:published_policy)

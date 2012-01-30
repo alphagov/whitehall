@@ -156,7 +156,7 @@ class GovspeakHelperTest < ActionView::TestCase
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
-    assert_govspeak %{<p>this and <a href="#{policy_supporting_page_path(policy, supporting_page)}">that</a> yeah?</p>}, html
+    assert_govspeak %{<p>this and <a href="#{public_supporting_page_path(policy, supporting_page)}">that</a> yeah?</p>}, html
   end
 
   test 'should rewrite admin link to an archived document with a published edition' do
@@ -195,7 +195,7 @@ class GovspeakHelperTest < ActionView::TestCase
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
-    assert_govspeak %{<p>this and <a href="#{policy_supporting_page_url(policy, supporting_page, host: "www.preview.alphagov.co.uk")}">that</a> yeah?</p>}, html
+    assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.preview.alphagov.co.uk")}">that</a> yeah?</p>}, html
   end
 
   test "should rewrite absolute links to admin previews of Speeches as their public document identity on production" do
@@ -211,7 +211,7 @@ class GovspeakHelperTest < ActionView::TestCase
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
-    assert_govspeak %{<p>this and <a href="#{policy_supporting_page_url(policy, supporting_page, host: "www.gov.uk")}">that</a> yeah?</p>}, html
+    assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.gov.uk")}">that</a> yeah?</p>}, html
   end
 
   test "should not link to SupportingPages whose documents are not published" do
