@@ -102,7 +102,7 @@
       _resizeFeature(_currItem, false);
     }
 
-    var resize_window = function () {
+    var _resize_handler = function () {
       if (_wrapper) {
         if (_resizingWait !== false) {
           clearTimeout(_resizingWait);
@@ -111,7 +111,7 @@
       };
     };
 
-    $(window).resize(resize_window);
+    $(window).resize(_resize_handler);
 
     return function () {
       _this.addClass('carousel-enabled');
