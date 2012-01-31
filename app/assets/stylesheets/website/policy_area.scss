@@ -111,26 +111,41 @@
       }
 
       section {
+
         ul {
           @include clearfix;
           margin-bottom: 0;
           li {
             @include type-14;
             @include span_one_column;
+
             div.inner {
-              padding: 1em 1em 0.5em 1em;
+              padding: 1em;
               margin: 0;
               background: #fefefe;
               border: 1px solid #ddd;
               position: relative;
-              div.img {
-                border: 4px solid #fff;
-                @include box-shadow(0, 0, 2px, #ddd);
-                height: 96px;
-                overflow: hidden;
-                margin-bottom: 0.5em;
+
+              &:before, &:after {
+                content: " ";
+                width: 0;
+                height: 0;
+                border-left: 10px solid transparent;
+              	border-right: 10px solid transparent;
+              	border-top: 10px solid #fff;
+              	display: block;
+              	position: absolute;
+              	bottom: -10px;
+              	right: 45%;
+              };
+
+              &:before {
+                border-top: 10px solid #ddd;
+              	right: 44.9%;
+              	bottom: -11px;
               }
             }
+
             &:first-child {
               margin-left: 0;
             }

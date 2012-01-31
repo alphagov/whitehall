@@ -24,7 +24,6 @@
             <% @featured_policies.each do |policy| %>
               <%= content_tag_for :li, policy, class: "featured_policy" do %>
                 <div class="inner">
-                  <div class="img"><%= image_tag "evil_placeholder.png", alt:"Image for #{policy.title}" %></div>
                   <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}" %>
                 </div>
               <% end %>
