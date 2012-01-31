@@ -81,33 +81,33 @@ class SupportingPageTest < ActiveSupport::TestCase
     assert_equal 'policy', supporting_page.search_index['format']
   end
 
-  test 'should add supporting page to search index on creating' do
+  test 'should not add supporting page to search index on creating' do
     supporting_page = build(:supporting_page)
 
     search_index_data = stub('search index data')
     supporting_page.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data).never
 
     supporting_page.save
   end
 
-  test 'should add supporting page to search index on updating' do
+  test 'should not add supporting page to search index on updating' do
     supporting_page = create(:supporting_page)
 
     search_index_data = stub('search index data')
     supporting_page.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data).never
 
     supporting_page.title = 'Love all the people'
     supporting_page.save
   end
 
-  test 'should remove supporting_page from search index on destroying' do
+  test 'should not remove supporting page from search index on destroying' do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
     policy_slug = policy.document_identity.slug
 
-    Rummageable.expects(:delete).with("/government/policies/#{policy_slug}/supporting-pages/#{supporting_page.slug}")
+    Rummageable.expects(:delete).with("/government/policies/#{policy_slug}/supporting-pages/#{supporting_page.slug}").never
     supporting_page.destroy
   end
 
