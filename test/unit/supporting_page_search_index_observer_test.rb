@@ -24,6 +24,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
 
     new_edition = policy.create_draft(create(:policy_writer))
     new_edition.reload # because each supporting page touches the new document as it's copied over
+    new_edition.change_note = "change-note"
     new_edition.publish_as(create(:departmental_editor), force: true)
   end
 end

@@ -611,13 +611,13 @@ module AdminDocumentControllerTestHelpers
         end
       end
 
-      test "should display the publish form without change note if document is publishable and change note is required" do
+      test "should display the publish form with change note if document is publishable and change note is required" do
         login_as :departmental_editor
         published_document = create("published_#{document_type}")
         document = create("submitted_#{document_type}", document_identity: published_document.document_identity)
         get :show, id: document
         assert_select publish_form_selector(document), count: 1 do
-          refute_select "textarea[name='document[change_note]']"
+          assert_select "textarea[name='document[change_note]']"
         end
       end
 
@@ -645,13 +645,13 @@ module AdminDocumentControllerTestHelpers
         end
       end
 
-      test "should display the force publish form without change note if document is not publishable but is force-publishable and change note is required" do
+      test "should display the force publish form with change note if document is not publishable but is force-publishable and change note is required" do
         login_as :departmental_editor
         published_document = create("published_#{document_type}")
         document = create("draft_#{document_type}", document_identity: published_document.document_identity)
         get :show, id: document
         assert_select force_publish_form_selector(document), count: 1 do
-          refute_select "textarea[name='document[change_note]']"
+          assert_select "textarea[name='document[change_note]']"
         end
       end
 

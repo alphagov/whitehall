@@ -28,6 +28,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     editor = create(:departmental_editor)
     articles.push(updated_article = articles.pop.create_draft(editor))
+    updated_article.change_note = "change-note"
     updated_article.publish_as(editor, force: true)
 
     get :index
@@ -76,6 +77,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     editor = create(:departmental_editor)
     announced_today.push(updated_announcement = announced_today.pop.create_draft(editor))
+    updated_announcement.change_note = "change-note"
     updated_announcement.publish_as(editor, force: true)
 
     get :index
@@ -188,6 +190,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     editor = create(:departmental_editor)
     announced_in_last_7_days.push(updated_announcement = announced_in_last_7_days.pop.create_draft(editor))
+    updated_announcement.change_note = "change-note"
     updated_announcement.publish_as(editor, force: true)
 
     get :index

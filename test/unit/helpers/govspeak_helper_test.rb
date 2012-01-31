@@ -102,6 +102,7 @@ class GovspeakHelperTest < ActionView::TestCase
     writer = create(:policy_writer)
     editor = create(:departmental_editor)
     new_edition = publication.create_draft(writer)
+    new_edition.change_note = "change-note"
     new_edition.save_as(writer)
     new_edition.submit!
     new_edition.publish_as(editor)

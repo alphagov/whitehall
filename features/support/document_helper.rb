@@ -54,6 +54,24 @@ module DocumentHelper
     document = Document.send(scope).find_by_title(title)
     visit admin_document_path(document)
   end
+
+  def publishing_requires_change_note?
+    has_css?("textarea[name='document[change_note]']")
+  end
+
+  def refute_flash_alerts_exist
+    refute has_css?(".flash.alert")
+  end
+
+  def publish(options = {})
+    if publishing_requires_change_note? && !options[:without_change_note]
+      fill_in "Change note", with: "Fixed some grammatical errors."
+    end
+    click_button options[:force] ? "Force Publish" : "Publish"
+    unless options[:ignore_errors]
+      refute_flash_alerts_exist
+    end
+  end
 end
 
 World(DocumentHelper)

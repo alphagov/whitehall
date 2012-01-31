@@ -193,7 +193,13 @@ When /^I publish the policy "([^"]*)" but another user edits it while I am viewi
   document = Policy.find_by_title!(title)
   visit_document_preview title
   document.update_attributes!(body: 'A new body')
-  click_button "Publish"
+  publish(ignore_errors: true)
+end
+
+When /^I publish the policy "([^"]*)" without a change note$/ do |title|
+  document = Policy.find_by_title!(title)
+  visit_document_preview title
+  publish(without_change_note: true)
 end
 
 When /^I visit the published policy "([^"]*)"$/ do |title|
@@ -224,7 +230,24 @@ When /^I publish a new edition of the policy "([^"]*)" with the new title "([^"]
   click_button "Create new edition"
   fill_in "Title", with: new_title
   click_button "Save"
-  click_button "Force Publish"
+  publish(force: true)
+end
+
+When /^I publish a new edition of the policy "([^"]*)" without a change note$/ do |policy_title|
+  policy = Policy.find_by_title!(policy_title)
+  visit admin_document_path(policy)
+  click_button "Create new edition"
+  click_button "Save"
+  publish(force: true, without_change_note: true, ignore_errors: true)
+end
+
+When /^I publish a new edition of the policy "([^"]*)" with a change note "([^"]*)"$/ do |policy_title, change_note|
+  policy = Policy.find_by_title!(policy_title)
+  visit admin_document_path(policy)
+  click_button "Create new edition"
+  click_button "Save"
+  fill_in "Change note", with: change_note
+  publish(force: true, without_change_note: true)
 end
 
 Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|

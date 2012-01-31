@@ -1,5 +1,5 @@
 THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|international priority) "([^"]*)"/) do |document_type, title|
-  document = document_class(document_type).find_by_title!(title)
+  document = document_class(document_type).latest_edition.find_by_title!(title)
 end
 
 Given /^a draft (document|publication|policy|news article|consultation|speech) "([^"]*)" exists$/ do |document_type, title|
@@ -93,12 +93,12 @@ end
 
 When /^I publish (#{THE_DOCUMENT})$/ do |document|
   visit_document_preview document.title
-  click_button "Publish"
+  publish
 end
 
 When /^I force publish (#{THE_DOCUMENT})$/ do |document|
   visit_document_preview document.title, :draft
-  click_button "Force Publish"
+  publish(force: true)
 end
 
 When /^I save my changes to the (publication|policy|news article|consultation|speech)$/ do |document_type|
@@ -121,7 +121,7 @@ When /^I publish a new edition of the published document "([^"]*)"$/ do |title|
   click_link title
   click_button 'Create new edition'
   click_button 'Save'
-  click_button 'Force Publish'
+  publish(force: true)
 end
 
 Then /^I should see (#{THE_DOCUMENT})$/ do |document|
@@ -227,8 +227,13 @@ Then /^I should see the conflict between the (publication|policy|news article|co
 end
 
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|
-  document = Document.find_by_title!(title)
+  document = Document.latest_edition.find_by_title!(title)
   assert !document.published?
+end
+
+Then /^my attempt to publish "([^"]*)" should succeed$/ do |title|
+  document = Document.latest_edition.find_by_title!(title)
+  assert document.published?
 end
 
 Then /^the published document "([^"]*)" should still link to the "([^"]*)" document$/ do |source_title, target_title|

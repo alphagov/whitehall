@@ -9,7 +9,8 @@ Background:
 Scenario: Publishing a submitted publication
   Given a submitted policy "Ban Beards" exists
   When I publish the policy "Ban Beards"
-  Then I should see the policy "Ban Beards" in the list of published documents
+  Then my attempt to publish "Ban Beards" should succeed
+  And I should see the policy "Ban Beards" in the list of published documents
   And the policy "Ban Beards" should be visible to the public
 
 Scenario: Trying to publish a policy that has been changed by another user
@@ -22,3 +23,22 @@ Scenario: Maintain existing relationships
   When I publish a new edition of the policy "Ban Beards" with the new title "Ban Facial Hair"
   And I visit the news article "Government to reduce hirsuteness"
   Then I can see links to the related published policies "Ban Facial Hair" and "Unimportant"
+
+Scenario: Publishing a first edition without a change note
+  Given a submitted policy "Ban Beards" exists
+  When I publish the policy "Ban Beards" without a change note
+  Then my attempt to publish "Ban Beards" should succeed
+  And I should see the policy "Ban Beards" in the list of published documents
+  And the policy "Ban Beards" should be visible to the public
+
+Scenario: Publishing a subsequent edition without a change note
+  Given a published policy "Ban Beards" exists
+  When I publish a new edition of the policy "Ban Beards" without a change note
+  Then my attempt to publish "Ban Beards" should fail
+
+Scenario: Publishing a subsequent edition with a change note
+  Given a published policy "Ban Beards" exists
+  When I publish a new edition of the policy "Ban Beards" with a change note "Exempted Santa Claus"
+  Then my attempt to publish "Ban Beards" should succeed
+  And I should see the policy "Ban Beards" in the list of published documents
+  And the policy "Ban Beards" should be visible to the public

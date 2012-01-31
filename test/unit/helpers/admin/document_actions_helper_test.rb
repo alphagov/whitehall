@@ -24,7 +24,7 @@ class Admin::DocumentActionsHelperTest < ActionView::TestCase
     document = create(:submitted_document, document_identity: published_document.document_identity)
     html = publish_document_form(document)
     fragment = Nokogiri::HTML.fragment(html)
-    assert_nil (fragment/"textarea[name='document[change_note]']").first
+    refute_nil (fragment/"textarea[name='document[change_note]']").first
   end
 
   test "should generate publish form for document without change note field if not required" do
@@ -57,7 +57,7 @@ class Admin::DocumentActionsHelperTest < ActionView::TestCase
     document = create(:submitted_document, document_identity: published_document.document_identity)
     html = publish_document_form(document)
     fragment = Nokogiri::HTML.fragment(html)
-    assert_nil (fragment/"textarea[name='document[change_note]']").first
+    refute_nil (fragment/"textarea[name='document[change_note]']").first
   end
 
   test "should generate force-publish form for document without change note field if not required" do

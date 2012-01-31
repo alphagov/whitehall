@@ -282,6 +282,7 @@ class DocumentTest < ActiveSupport::TestCase
 
     new_draft = document.create_draft(user)
     new_draft.title = "Second Title"
+    new_draft.change_note = "change-note"
     new_draft.save_as(user)
     new_draft.submit!
     new_draft.publish_as(editor)
@@ -746,6 +747,7 @@ class DocumentTest < ActiveSupport::TestCase
     Rummageable.expects(:delete).with("/government/policies/#{slug}")
 
     new_edition = policy.create_draft(create(:policy_writer))
+    new_edition.change_note = "change-note"
     new_edition.publish_as(create(:departmental_editor), force: true)
   end
 end
