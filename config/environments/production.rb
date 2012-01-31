@@ -60,4 +60,9 @@ Whitehall::Application.configure do
 
   # Prevent `OpenSSL::SSL::SSLError (hostname was not match with the server certificate)`
   config.action_mailer.smtp_settings = {enable_starttls_auto: false}
+
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[Whitehall exception] ",
+    :sender_address => %{"Winston Smith-Churchill" <winston@alphagov.co.uk>},
+    :exception_recipients => %w{chris.roos@gofreerange.com}
 end

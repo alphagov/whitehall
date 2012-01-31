@@ -21,6 +21,7 @@ gem 'isbn_validation'
 gem 'gds-sso', git: 'git://github.com/alphagov/gds-sso.git'
 gem 'rummageable', git: 'git://github.com/alphagov/rummageable.git'
 gem 'addressable'
+gem 'exception_notification', require: 'exception_notifier'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'
