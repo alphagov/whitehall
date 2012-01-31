@@ -134,7 +134,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_template "organisations/edit"
   end
 
-  test "updating with an empty phone number shouldn't create that phone number" do
+  test "updating with an empty contact shouldn't create that contact" do
     organisation = create(:organisation, name: "Ministry of Sound")
     organisation_attributes = {
       name: "Ministry of Sound",
