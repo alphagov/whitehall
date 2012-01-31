@@ -64,5 +64,5 @@ Whitehall::Application.configure do
   config.middleware.use ExceptionNotifier,
     email_prefix: "[Whitehall exception] ",
     sender_address: %{"Winston Smith-Churchill" <winston@alphagov.co.uk>},
-    exception_recipients: %w{chris.roos@gofreerange.com}
+    exception_recipients: %w{govuk-dev@digital.cabinet-office.gov.uk}
 end
