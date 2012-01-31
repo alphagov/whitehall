@@ -200,8 +200,26 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
   end
 
+  test "should rewrite absolute links to admin previews of Speeches as their public document identity on public preview" do
+    request.host = "www.preview.alphagov.co.uk"
+    ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
+    speech = create(:published_speech)
+    public_url = public_document_url(speech)
+    html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
+    assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
+  end
+
   test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on preview" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, document: policy)
+    html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
+    assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.preview.alphagov.co.uk")}">that</a> yeah?</p>}, html
+  end
+
+  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on public preview" do
+    request.host ="www.preview.alphagov.co.uk"
+    ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
@@ -216,8 +234,26 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
   end
 
+  test "should rewrite absolute links to admin previews of Speeches as their public document identity on public production" do
+    request.host = "www.gov.uk"
+    ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
+    speech = create(:published_speech)
+    public_url = public_document_url(speech)
+    html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
+    assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
+  end
+
   test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on production" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, document: policy)
+    html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
+    assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.gov.uk")}">that</a> yeah?</p>}, html
+  end
+
+  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on public production" do
+    request.host = "www.gov.uk"
+    ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")

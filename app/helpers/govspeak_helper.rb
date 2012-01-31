@@ -74,8 +74,8 @@ module GovspeakHelper
     end
 
     return false unless %w(http https).include?(uri.scheme)
-    truncated_link_uri = [uri.host, uri.path.split("/")[1,2]].join("/")
-    truncated_host_uri = [request.host + Whitehall.router_prefix, "admin"].join("/")
+    truncated_link_uri = [normalise_host(uri.host), uri.path.split("/")[1,2]].join("/")
+    truncated_host_uri = [normalise_host(request.host) + Whitehall.router_prefix, "admin"].join("/")
     truncated_link_uri == truncated_host_uri
   end
 
@@ -111,5 +111,9 @@ module GovspeakHelper
     else
       public_document_url(document)
     end
+  end
+
+  def normalise_host(host)
+    Whitehall.public_host_for(host) || host
   end
 end
