@@ -7,6 +7,11 @@ module Whitehall
   autoload :SearchClient, 'whitehall/search_client'
 
   class << self
+    PUBLIC_HOSTS = {
+      'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',
+      'whitehall.production.alphagov.co.uk' => 'www.gov.uk'
+    }
+
     def router_prefix
       "/government"
     end
@@ -20,8 +25,11 @@ module Whitehall
     end
 
     def public_host_for(request_host)
-      {"whitehall.preview.alphagov.co.uk" => "www.preview.alphagov.co.uk",
-       "whitehall.production.alphagov.co.uk" => "www.gov.uk"}[request_host]
+      if PUBLIC_HOSTS.values.include?(request_host)
+        request_host
+      else
+        PUBLIC_HOSTS[request_host]
+      end
     end
 
     def secrets
