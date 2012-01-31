@@ -12,6 +12,13 @@ module Document::Workflow
     scope :published, where(state: "published")
 
     define_model_callbacks :publish, :archive, only: :after
+    set_callback :publish, :after do
+      notify_observers :after_publish
+    end
+    set_callback :archive, :after do
+      notify_observers :after_archive
+    end
+
     after_publish :archive_previous_documents
 
     state_machine do
