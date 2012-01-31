@@ -15,30 +15,15 @@ module Admin::DocumentActionsHelper
     end
   end
 
-  def publish_document_button(document)
+  def publish_document_form(document, options = {})
+    url = admin_document_publishing_path(document, options.slice(:force))
+    button_text = options[:force] ? "Force Publish" : "Publish"
+    button_title = "Publish #{document.title}"
+    confirm = publish_document_alerts(document, options[:force])
     capture do
-      form_for [:admin, document], {as: :document, url: admin_document_publishing_path(document), method: :post} do |form|
+      form_for [:admin, document], {as: :document, url: url, method: :post} do |form|
         concat(form.hidden_field :lock_version)
-        submit_options = {title: "Publish #{document.title}"}
-        if document.has_supporting_pages?
-          submit_options[:confirm] = "Have you checked the #{document.supporting_pages.count} supporting pages?"
-        end
-        concat(form.submit "Publish", submit_options)
-      end
-    end
-  end
-
-  def force_publish_document_button(document)
-    capture do
-      form_for [:admin, document], {as: :document, url: admin_document_publishing_path(document, force: true), method: :post} do |form|
-        concat(form.hidden_field :lock_version)
-        submit_options = {title: "Publish #{document.title}"}
-        if document.has_supporting_pages?
-          submit_options[:confirm] = "Are you sure you want to force publish this document? Have you checked the #{document.supporting_pages.count} supporting pages?"
-        else
-          submit_options[:confirm] = "Are you sure you want to force publish this document?"
-        end
-        concat(form.submit "Force Publish", submit_options)
+        concat(form.submit button_text, title: button_title, confirm: confirm)
       end
     end
   end
@@ -61,5 +46,16 @@ module Admin::DocumentActionsHelper
 
   def show_consultation_response_button(consultation)
     link_to 'Show response', admin_consultation_response_path(consultation.latest_consultation_response), title: "Show response", class: "button"
+  end
+
+  private
+
+  def publish_document_alerts(document, force)
+    alerts = []
+    alerts << "Are you sure you want to force publish this document?" if force
+    if document.has_supporting_pages?
+      alerts << "Have you checked the #{document.supporting_pages.count} supporting pages?"
+    end
+    alerts.join(" ")
   end
 end
