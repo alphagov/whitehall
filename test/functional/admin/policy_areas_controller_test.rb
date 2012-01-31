@@ -58,6 +58,16 @@ class Admin::PolicyAreasControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
+  test "index lists policy areas in alphabetical order" do
+    policy_area_c = create(:policy_area, name: "Policy Area C")
+    policy_area_a = create(:policy_area, name: "Policy Area A")
+    policy_area_b = create(:policy_area, name: "Policy Area B")
+
+    get :index
+
+    assert_select "#{record_css_selector(policy_area_a)} + #{record_css_selector(policy_area_b)} + #{record_css_selector(policy_area_c)}"
+  end
+
   test "index should show related policy areas" do
     policy_area_1 = create(:policy_area)
     policy_area_2 = create(:policy_area)

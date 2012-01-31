@@ -60,7 +60,7 @@ class Admin::PolicyAreasController < Admin::BaseController
 
   class PolicyAreasPresenter < Whitehall::Presenters::Collection
     def initialize
-      super(PolicyArea.all)
+      super(PolicyArea.order(:name))
     end
 
     present_object_with do
