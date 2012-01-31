@@ -26,6 +26,10 @@ module Document::Publishing
     reason_to_prevent_publication_by(user, options).nil?
   end
 
+  def change_note_required?
+    false
+  end
+
   def reason_to_prevent_publication_by(user, options = {})
     if published?
       "This edition has already been published"
@@ -41,6 +45,8 @@ module Document::Publishing
       "You are not the second set of eyes"
     elsif !user.departmental_editor?
       "Only departmental editors can publish"
+    elsif change_note_required? && change_note.blank? && !options[:assuming_presence_of_change_note]
+      "Change note can't be blank"
     end
   end
 

@@ -55,4 +55,15 @@ class Admin::DocumentPublishingControllerTest < ActionController::TestCase
     assert_redirected_to published_admin_documents_path
     assert_equal "The document #{submitted_document.title} has been published", flash[:notice]
   end
+
+  test 'should set change note on document if one is provided' do
+    document = create(:submitted_policy)
+    login_as :departmental_editor
+    post :create, document_id: document, document: {
+      change_note: "change-note",
+      lock_version: document.lock_version
+    }
+
+    assert_equal "change-note", document.reload.change_note
+  end
 end

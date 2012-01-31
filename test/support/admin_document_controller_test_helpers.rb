@@ -602,51 +602,61 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_be_publishable(document_type)
-      document_class = document_class_for(document_type)
-
-      test "should display the publish form if document is publishable" do
-        document = create(document_type)
-        document.stubs(:publishable_by?).returns(true)
-        document_class.stubs(:find).with(document.to_param).returns(document)
+      test "should display the publish form without change note if document is publishable and change note is not required" do
+        login_as :departmental_editor
+        document = create("submitted_#{document_type}")
         get :show, id: document
-        assert_select publish_form_selector(document), count: 1
+        assert_select publish_form_selector(document), count: 1 do
+          refute_select "textarea[name='document[change_note]']"
+        end
+      end
+
+      test "should display the publish form without change note if document is publishable and change note is required" do
+        login_as :departmental_editor
+        published_document = create("published_#{document_type}")
+        document = create("submitted_#{document_type}", document_identity: published_document.document_identity)
+        get :show, id: document
+        assert_select publish_form_selector(document), count: 1 do
+          refute_select "textarea[name='document[change_note]']"
+        end
       end
 
       test "should not display the publish form if document is not publishable" do
-        document = create(document_type)
-        document.stubs(:publishable_by?).returns(false)
-        document_class.stubs(:find).with(document.to_param).returns(document)
+        document = create("draft_#{document_type}")
         get :show, id: document
         refute_select publish_form_selector(document)
       end
     end
 
     def should_be_force_publishable(document_type)
-      document_class = document_class_for(document_type)
-
-      test "should not display the force-publish form if document is publishable" do
-        document = create(document_type)
-        document.stubs(:publishable_by?).returns(true)
-        document.stubs(:publishable_by?).with(anything, has_entry(force: true)).returns(true)
-        document_class.stubs(:find).with(document.to_param).returns(document)
+      test "should not display the force publish form if document is publishable" do
+        login_as :departmental_editor
+        document = create("submitted_#{document_type}")
         get :show, id: document
         refute_select force_publish_form_selector(document)
       end
 
-      test "should display the force-publish form if document is not publishable but is force-publishable" do
-        document = create(document_type)
-        document.stubs(:publishable_by?).returns(false)
-        document.stubs(:publishable_by?).with(anything, has_entry(force: true)).returns(true)
-        document_class.stubs(:find).with(document.to_param).returns(document)
+      test "should display the force publish form without change note if document is not publishable but is force-publishable and change note is not required" do
+        login_as :departmental_editor
+        document = create("draft_#{document_type}")
         get :show, id: document
-        assert_select force_publish_form_selector(document), count: 1
+        assert_select force_publish_form_selector(document), count: 1 do
+          refute_select "textarea[name='document[change_note]']"
+        end
       end
 
-      test "should not display the force-publish button if document is neither publishable nor force-publishable" do
-        document = create(document_type)
-        document.stubs(:publishable_by?).returns(false)
-        document.stubs(:publishable_by?).with(anything, has_entry(force: true)).returns(false)
-        document_class.stubs(:find).with(document.to_param).returns(document)
+      test "should display the force publish form without change note if document is not publishable but is force-publishable and change note is required" do
+        login_as :departmental_editor
+        published_document = create("published_#{document_type}")
+        document = create("draft_#{document_type}", document_identity: published_document.document_identity)
+        get :show, id: document
+        assert_select force_publish_form_selector(document), count: 1 do
+          refute_select "textarea[name='document[change_note]']"
+        end
+      end
+
+      test "should not display the force publish form if document is neither publishable nor force-publishable" do
+        document = create("draft_#{document_type}")
         get :show, id: document
         refute_select force_publish_form_selector(document)
       end

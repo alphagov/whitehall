@@ -15,6 +15,7 @@ class DocumentIdentityTest < ActiveSupport::TestCase
     original_policy = create(:draft_policy, document_identity: document_identity)
     original_policy.publish_as(user, force: true)
     draft_policy = original_policy.create_draft(user)
+    draft_policy.change_note = "change-note"
     draft_policy.publish_as(user, force: true)
 
     archived_policy = original_policy

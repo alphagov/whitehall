@@ -1,6 +1,7 @@
 class Admin::DocumentPublishingController < Admin::BaseController
   before_filter :find_document
   before_filter :lock_document
+  before_filter :set_change_note
 
   def create
     if @document.publish_as(current_user, force: params[:force].present?)
@@ -21,6 +22,12 @@ class Admin::DocumentPublishingController < Admin::BaseController
   def lock_document
     if params[:document] && params[:document][:lock_version]
       @document.lock_version = params[:document][:lock_version]
+    end
+  end
+
+  def set_change_note
+    if params[:document] && params[:document][:change_note]
+      @document.change_note = params[:document][:change_note]
     end
   end
 end

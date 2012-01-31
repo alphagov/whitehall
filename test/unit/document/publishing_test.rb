@@ -71,6 +71,56 @@ class Document::PublishingTest < ActiveSupport::TestCase
     assert_equal "This edition has been deleted", document.reason_to_prevent_publication_by(editor)
   end
 
+  test "does not require change note on publication of new edition if published edition already exists" do
+    published_document = create(:published_document)
+    document = create(:submitted_document, document_identity: published_document.document_identity)
+    refute document.change_note_required?
+  end
+
+  test "does not require change note on publication of new edition if no published edition already exists" do
+    document = create(:submitted_document)
+    refute document.change_note_required?
+  end
+
+  test "is publishable without change note when no previous published edition exists" do
+    editor = create(:departmental_editor)
+    document = create(:submitted_document, change_note: nil)
+    assert document.publishable_by?(editor, force: true)
+    assert document.publishable_by?(editor)
+  end
+
+  test "is publishable without change note when previous published edition exists" do
+    editor = create(:departmental_editor)
+    published_document = create(:published_document)
+    document = create(:submitted_document, change_note: nil, document_identity: published_document.document_identity)
+    assert document.publishable_by?(editor, force: true)
+    assert document.publishable_by?(editor)
+  end
+
+  test "is publishable with change note when previous published edition exists" do
+    editor = create(:departmental_editor)
+    published_document = create(:published_document)
+    document = create(:submitted_document, change_note: "change-note", document_identity: published_document.document_identity)
+    assert document.publishable_by?(editor, force: true)
+    assert document.publishable_by?(editor)
+  end
+
+  test "is publishable without change note when previous published edition exists if presence of change note is assumed" do
+    editor = create(:departmental_editor)
+    published_document = create(:published_document)
+    document = create(:submitted_document, change_note: nil, document_identity: published_document.document_identity)
+    assert document.publishable_by?(editor, force: true, assuming_presence_of_change_note: true)
+    assert document.publishable_by?(editor, assuming_presence_of_change_note: true)
+  end
+
+  test "is publishable without change note when previous published edition exists if presence of change note is not assumed" do
+    editor = create(:departmental_editor)
+    published_document = create(:published_document)
+    document = create(:submitted_document, change_note: nil, document_identity: published_document.document_identity)
+    assert document.publishable_by?(editor, force: true, assuming_presence_of_change_note: false)
+    assert document.publishable_by?(editor, assuming_presence_of_change_note: false)
+  end
+
   test "publication marks document as published" do
     document = create(:submitted_document)
     document.publish_as(create(:departmental_editor))

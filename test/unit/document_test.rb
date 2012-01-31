@@ -409,6 +409,13 @@ class DocumentTest < ActiveSupport::TestCase
     refute_equal published_document.updated_at, draft_document.updated_at
   end
 
+  test "should not copy change note when creating draft" do
+    published_document = create(:published_document, change_note: "change-note")
+    draft_document = published_document.create_draft(create(:policy_writer))
+
+    refute_equal published_document.change_note, draft_document.change_note
+  end
+
   test "should copy time of first publication when creating draft" do
     published_document = create(:published_document, first_published_at: 1.week.ago)
     Timecop.travel 1.hour.from_now

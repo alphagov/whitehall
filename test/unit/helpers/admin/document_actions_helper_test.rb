@@ -19,6 +19,21 @@ class Admin::DocumentActionsHelperTest < ActionView::TestCase
     assert_equal "Have you checked the 1 supporting pages?", (fragment/"input[type=submit]").first["data-confirm"]
   end
 
+  test "should generate publish form for document with change note field if required" do
+    published_document = create(:published_document)
+    document = create(:submitted_document, document_identity: published_document.document_identity)
+    html = publish_document_form(document)
+    fragment = Nokogiri::HTML.fragment(html)
+    assert_nil (fragment/"textarea[name='document[change_note]']").first
+  end
+
+  test "should generate publish form for document without change note field if not required" do
+    document = create(:submitted_document)
+    html = publish_document_form(document)
+    fragment = Nokogiri::HTML.fragment(html)
+    assert_nil (fragment/"textarea[name='document[change_note]']").first
+  end
+
   test "should generate force-publish form" do
     document = create(:submitted_document, title: "document-title")
     html = publish_document_form(document, force: true)
@@ -35,5 +50,20 @@ class Admin::DocumentActionsHelperTest < ActionView::TestCase
     html = publish_document_form(document, force: true)
     fragment = Nokogiri::HTML.fragment(html)
     assert_equal "Are you sure you want to force publish this document? Have you checked the 1 supporting pages?", (fragment/"input[type=submit]").first["data-confirm"]
+  end
+
+  test "should generate force-publish form for document with change note field if required" do
+    published_document = create(:published_document)
+    document = create(:submitted_document, document_identity: published_document.document_identity)
+    html = publish_document_form(document)
+    fragment = Nokogiri::HTML.fragment(html)
+    assert_nil (fragment/"textarea[name='document[change_note]']").first
+  end
+
+  test "should generate force-publish form for document without change note field if not required" do
+    document = create(:submitted_document)
+    html = publish_document_form(document)
+    fragment = Nokogiri::HTML.fragment(html)
+    assert_nil (fragment/"textarea[name='document[change_note]']").first
   end
 end
