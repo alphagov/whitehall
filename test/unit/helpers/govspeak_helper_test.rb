@@ -46,6 +46,16 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>no <a href="not%20a%20valid%20url">change</a></p>}, html
   end
 
+  test "should not alter partial urls in the admin preview" do
+    html = govspeak_to_admin_html("no [change](http://)")
+    assert_govspeak %{<p>no <a href="http://">change</a></p>}, html
+  end
+
+  test "should not alter partial urls" do
+    html = govspeak_to_html("no [change](http://)")
+    assert_govspeak %{<p>no <a href="http://">change</a></p>}, html
+  end
+
   test "should rewrite link to draft document in admin preview" do
     publication = create(:draft_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")

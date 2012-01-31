@@ -67,7 +67,12 @@ module GovspeakHelper
   end
 
   def is_internal_admin_link?(href)
-    uri = Addressable::URI.parse(href)
+    begin
+      uri = Addressable::URI.parse(href)
+    rescue Addressable::URI::InvalidURIError
+      return false
+    end
+
     return false unless %w(http https).include?(uri.scheme)
     truncated_link_uri = [uri.host, uri.path.split("/")[1,2]].join("/")
     truncated_host_uri = [request.host + Whitehall.router_prefix, "admin"].join("/")
