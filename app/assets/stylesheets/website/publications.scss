@@ -2,6 +2,7 @@
 
 #content {
   #publication_index {
+    margin-top: 1.5em;
     #featured-publications ul.publications li {
       @include span_three_columns;
       @include featured_box;

@@ -12,22 +12,20 @@ module("Featured section with 3 items", {
 
     this.container.css({ width: "100%", background: "red"});
 
-    // set the width of the container so the largest h2 will wrap
-    $("#qunit-fixture").width('200px');
-
     // $("#qunit-fixture").css({
     //   position: 'relative',
     //   top: 'auto',
     //   left: 'auto'
     // });
-
-    sinon.config.useFakeTimers = false;
   }
 });
 
 test("should resize supplied elements to equal the element with the largest height", function() {
-  notEqual(this.container.find('#item_2 h2').css('min-height'), this.container.find('#item_1 h2').css('height'));
-  ok(this.container.find('#item_2 h2').css('height') < this.container.find('#item_1 h2').css('height'));
+  // set the width of the container so the largest h2 will wrap
+  $("#qunit-fixture").width('200px');
+
+  notEqual(this.container.find('#item_2 h2').css('min-height'), this.container.find('#item_1 h2').css('height'), "#item_2 h2 should not be the same size as #item_1 h2");
+  ok(this.container.find('#item_2 h2').height() < this.container.find('#item_1 h2').height());
 
   // apply the plugin
   this.container.featuredSection({selectorsToResize: ['h2'], breakpointSelector: '#qunit-fixture', breakpointWidth: 100});

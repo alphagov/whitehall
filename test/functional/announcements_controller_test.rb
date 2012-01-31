@@ -14,7 +14,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index
 
     assert_equal articles.take(3), assigns[:featured_news_articles]
-    assert_select '.featured_items' do
+    assert_select '#featured-news-articles' do
       articles.take(3).each do |article|
         assert_select_object article
       end
