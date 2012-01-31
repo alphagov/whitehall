@@ -12,3 +12,4 @@
 //= require featured_section_carousel_test
 //= require organisation_contact_form_test
 //= require featured_section_helper_test
+//= require document_publishing_test
