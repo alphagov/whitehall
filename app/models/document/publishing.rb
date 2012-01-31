@@ -22,12 +22,8 @@ module Document::Publishing
     end
   end
 
-  def publishable_by?(user)
-    reason_to_prevent_publication_by(user).nil?
-  end
-
-  def force_publishable_by?(user)
-    reason_to_prevent_publication_by(user, force: true).nil?
+  def publishable_by?(user, options = {})
+    reason_to_prevent_publication_by(user, options).nil?
   end
 
   def reason_to_prevent_publication_by(user, options = {})
@@ -49,7 +45,7 @@ module Document::Publishing
   end
 
   def publish_as(user, options = {})
-    if options[:force] && force_publishable_by?(user) || publishable_by?(user)
+    if publishable_by?(user, options)
       self.lock_version = lock_version
       self.published_at = Time.zone.now
       self.first_published_at ||= published_at
