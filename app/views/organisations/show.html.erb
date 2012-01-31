@@ -57,28 +57,24 @@
 <div class="g3f">
   <section class="org_news">
     <h1>Organisation news</h1>
-
-  <% if @featured_news_articles.any? %>
-
-    <section class="featured_items" id="featured-news-articles">
-    <% @featured_news_articles.each do |news_article| %>
-      <%= content_tag_for(:article, news_article) do %>
-        <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
-        <p class="summary"><%= news_article.summary %></p>
-        <div class="meta">
-          <span class="published_at">Posted <%= time_ago(news_article.published_at, class: 'published_at') %> ago</span>
-          <% news_article.policy_areas.uniq.each do |pa| %>
-            <%= link_to pa.name, policy_area_path(pa), class: "policy_area" %>
+    <% if @featured_news_articles.any? %>
+      <section class="featured_carousel" id="featured-news-articles">
+        <% @featured_news_articles.each do |news_article| %>
+          <%= content_tag_for(:article, news_article) do %>
+            <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
+            <p class="summary"><%= news_article.summary %></p>
+            <div class="meta">
+              <span class="published_at">Posted <%= time_ago(news_article.published_at, class: 'published_at') %> ago</span>
+              <% news_article.policy_areas.uniq.each do |pa| %>
+                <%= link_to pa.name, policy_area_path(pa), class: "policy_area" %>
+              <% end %>
+            </div>
           <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </section>
     <% end %>
-    </section>
-  <% end %>
-
-  <p class="further_articles all_news">View all <%= @organisation.name %> <%= link_to "news", news_organisation_path(@organisation), title: "View all #{@organisation.name} news" %></p>
+    <p class="further_articles all_news">View all <%= @organisation.name %> <%= link_to "news", news_organisation_path(@organisation), title: "View all #{@organisation.name} news" %></p>
   </section>
-
 
   <div class="g1 related_documents"><%= render partial: "documents/policy_areas", object: @organisation.policy_areas %></div>
   <div class="g1 related_documents"><%= render partial: "documents/policies", object: @policies %></div>
