@@ -26,8 +26,8 @@ module Searchable
           end
       end
 
-      set_callback searchable_options[:index_after], :after, :update_in_search_index
-      set_callback searchable_options[:unindex_after], :after, :remove_from_search_index
+      set_callback searchable_options[:index_after], :after, :update_in_search_index if searchable_options[:index_after]
+      set_callback searchable_options[:unindex_after], :after, :remove_from_search_index if searchable_options[:unindex_after]
     end
   end
 

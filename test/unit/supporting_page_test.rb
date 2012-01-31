@@ -69,4 +69,64 @@ class SupportingPageTest < ActiveSupport::TestCase
     assert supporting_page.destroy
     assert_raises(ActiveRecord::RecordNotFound) { supporting_page.reload }
   end
+
+  test 'should return search index data suitable for Rummageable' do
+    policy = create(:published_policy)
+    policy_slug = policy.document_identity.slug
+    supporting_page = create(:supporting_page, title: 'Love all the people', document: policy)
+
+    assert_equal 'Love all the people', supporting_page.search_index["title"]
+    assert_equal "/government/policies/#{policy_slug}/supporting-pages/#{supporting_page.slug}", supporting_page.search_index['link']
+    assert_equal supporting_page.body, supporting_page.search_index['indexable_content']
+    assert_equal 'policy', supporting_page.search_index['format']
+  end
+
+  test 'should not add supporting page to search index on creating' do
+    supporting_page = build(:supporting_page)
+
+    search_index_data = stub('search index data')
+    supporting_page.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data).never
+
+    supporting_page.save
+  end
+
+  test 'should not add supporting page to search index on updating' do
+    supporting_page = create(:supporting_page)
+
+    search_index_data = stub('search index data')
+    supporting_page.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data).never
+
+    supporting_page.title = 'Love all the people'
+    supporting_page.save
+  end
+
+  test 'should not remove supporting page from search index on destroying' do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, document: policy)
+    policy_slug = policy.document_identity.slug
+
+    Rummageable.expects(:delete).with("/government/policies/#{policy_slug}/supporting-pages/#{supporting_page.slug}").never
+    supporting_page.destroy
+  end
+
+  test 'should return search index data for all supporting pages on published documents' do
+    policy = create(:published_policy)
+    draft_policy = create(:draft_policy)
+    policy_slug = policy.document_identity.slug
+    create(:supporting_page, document: policy, title: 'Love all the people', body: 'Thoughts on love and smoking.')
+    create(:supporting_page, document: policy, title: 'Dangerous', body: 'I love my job.')
+    create(:supporting_page, document: policy, title: 'Relentless', body: 'Rockers against drugs suck.')
+    create(:supporting_page, document: policy, title: 'Arizona Bay', body: 'Marketing and advertising.')
+    create(:supporting_page, document: draft_policy, title: 'Rant in E-Minor', body: 'I\'m talking to the women here.')
+
+    results = SupportingPage.search_index
+
+    assert_equal 4, results.length
+    assert_equal({ 'title' => 'Love all the people', 'link' => "/government/policies/#{policy_slug}/supporting-pages/love-all-the-people", 'indexable_content' => 'Thoughts on love and smoking.', 'format' => 'policy' }, results[0])
+    assert_equal({ 'title' => 'Dangerous', 'link' => "/government/policies/#{policy_slug}/supporting-pages/dangerous", 'indexable_content' => 'I love my job.', 'format' => 'policy' }, results[1])
+    assert_equal({ 'title' => 'Relentless', 'link' => "/government/policies/#{policy_slug}/supporting-pages/relentless", 'indexable_content' => 'Rockers against drugs suck.', 'format' => 'policy' }, results[2])
+    assert_equal({ 'title' => 'Arizona Bay', 'link' => "/government/policies/#{policy_slug}/supporting-pages/arizona-bay", 'indexable_content' => 'Marketing and advertising.', 'format' => 'policy' }, results[3])
+  end
 end

@@ -1,4 +1,8 @@
 class SupportingPage < ActiveRecord::Base
+  include Searchable
+  include Rails.application.routes.url_helpers
+  include PublicDocumentRoutesHelper
+
   belongs_to :document
 
   has_many :supporting_page_attachments
@@ -7,6 +11,11 @@ class SupportingPage < ActiveRecord::Base
   accepts_nested_attributes_for :supporting_page_attachments, reject_if: -> da { da.fetch(:attachment_attributes, {}).values.all?(&:blank?) }, allow_destroy: true
 
   validates :title, :body, :document, presence: true
+
+  scope :published, joins(:document).merge(Document.published)
+
+  searchable title: :title, link: :search_link, content: :body_without_markup, format: -> p { p.document.type.underscore },
+    only: :published, index_after: false, unindex_after: false
 
   extend FriendlyId
   friendly_id :title, use: :slugged
@@ -31,6 +40,17 @@ class SupportingPage < ActiveRecord::Base
 
   def destroyable?
     !document.published?
+  end
+
+  def search_link
+    # This should be public_supporting_page_path(document, self), but we can't use that because friendly_id's
+    # #to_param returns the old value of the slug (e.g. nil for a new record) if the record is dirty, and
+    # apparently the record is still marked as dirty during after_save callbacks.
+    public_supporting_page_path(document, slug)
+  end
+
+  def body_without_markup
+    Govspeak::Document.new(body).to_text
   end
 
   private
