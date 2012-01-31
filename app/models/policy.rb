@@ -20,15 +20,17 @@ class Policy < Document
 
   after_destroy :remove_document_relations
 
-  scope :stub, where(stub: true)
-
-  define_attribute_methods
-
-  def title_with_stub
-    original_title = title_without_stub
-    stub? ? "[Sample] #{original_title}" : original_title
+  def self.stub
+    where(stub: true)
   end
-  alias_method_chain :title, :stub
+
+  def title_without_stub
+    read_attribute(:title)
+  end
+
+  def title
+    stub? ? "[Sample] #{title_without_stub}" : title_without_stub
+  end
 
   def sluggable_title
     title_without_stub
