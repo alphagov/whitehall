@@ -342,3 +342,8 @@ Then /^I can see links to the recently changed document "([^"]*)"$/ do |title|
   document = Document.find_by_title!(title)
   assert page.has_css?("#recently-changed #{record_css_selector(document)} a", text: document.title), "#{document.title} not found"
 end
+
+Then /^the change note "([^"]*)" should appear in the history for the policy "([^"]*)"$/ do |change_note, title|
+  click_link title
+  assert page.has_css?(".metadata .changes", text: Regexp.new(change_note))
+end

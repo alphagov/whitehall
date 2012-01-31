@@ -42,3 +42,13 @@ Scenario: Publishing a subsequent edition with a change note
   Then my attempt to publish "Ban Beards" should succeed
   And I should see the policy "Ban Beards" in the list of published documents
   And the policy "Ban Beards" should be visible to the public
+  And the change note "Exempted Santa Claus" should appear in the history for the policy "Ban Beards"
+
+Scenario: Viewing policy publishing history
+  Given a published policy "Ban Beards" exists
+  When I publish a new edition of the policy "Ban Beards" with a change note "Exempted Santa Claus"
+  And I publish a new edition of the policy "Ban Beards" with a change note "Exempted Gimli son of Gloin"
+  Then the policy "Ban Beards" should be visible to the public
+  And the change note "Exempted Santa Claus" should appear in the history for the policy "Ban Beards"
+  And the change note "Exempted Gimli son of Gloin" should appear in the history for the policy "Ban Beards"
+

@@ -25,6 +25,10 @@ module Document::Identifiable
     document_identity.published?
   end
 
+  def editions_ever_published
+    document_identity.editions_ever_published
+  end
+
   module ClassMethods
     def published_as(id)
       begin

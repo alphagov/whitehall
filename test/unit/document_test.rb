@@ -750,4 +750,15 @@ class DocumentTest < ActiveSupport::TestCase
     new_edition.change_note = "change-note"
     new_edition.publish_as(create(:departmental_editor), force: true)
   end
+
+  test "should provide a list of all editions ever published in reverse chronological order by first publication date" do
+    original_edition = create(:archived_document, first_published_at: 3.days.ago)
+    document_identity = original_edition.document_identity
+    new_edition_1 = create(:archived_document, document_identity: document_identity, first_published_at: 2.days.ago)
+    new_edition_2 = create(:published_document, document_identity: document_identity, first_published_at: 1.day.ago)
+    draft_edition = create(:draft_document, document_identity: document_identity)
+
+    assert_equal [new_edition_2, new_edition_1, original_edition], new_edition_2.editions_ever_published
+    refute new_edition_2.editions_ever_published.include?(draft_edition)
+  end
 end
