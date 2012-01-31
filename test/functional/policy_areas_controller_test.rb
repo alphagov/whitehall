@@ -185,7 +185,7 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select ".featured" do
+    assert_select "#featured-policyareas" do
       assert_select_object(policy_area)
     end
   end
@@ -198,21 +198,12 @@ class PolicyAreasControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select ".featured .policy_area", count: 3
-    assert_select ".featured" do
+    assert_select "#featured-policyareas .policy_area", count: 3
+    assert_select "#featured-policyareas" do
       assert_select_object newest
       assert_select_object newer
       assert_select_object older
       refute_select_object oldest
     end
-  end
-
-  test "shows a maximum of 2 featured policy area policies" do
-    policies = [create(:published_policy), create(:published_policy), create(:published_policy)]
-    policy_area = create(:featured_policy_area, policies: policies)
-
-    get :index
-
-    assert_select ".featured .policy", count: 2
   end
 end

@@ -4,26 +4,25 @@
   <section class="page_header policyarea">
     <h1 class="page_title">Policy areas</h1>
   </section>
-</div>
 
-<div class="g3">
   <% if @featured_policy_areas.any? %>
-    <section class="featured">
+    <section class="featured_items group" id="featured-policyareas">
       <% @featured_policy_areas.each do |featured_policy_area| %>
-        <div class="g2 first">
-          <%= content_tag_for :article, featured_policy_area do %>
-            <h1 class="name"><%= link_to featured_policy_area.name, policy_area_path(featured_policy_area) %></h1>
-            <p class="description"><%= featured_policy_area.description %></p>
+        <div class="<%= featured_grid_class(@featured_policy_areas.length) %>">
+          <%= content_tag_for(:article, featured_policy_area) do %>
+            <h2><%= link_to featured_policy_area.name, policy_area_path(featured_policy_area), class: "name" %></h2>
+            <p class="summary description">
+              <%= featured_policy_area.description %>
+            </p>
           <% end %>
-        </div>
-
-        <div class="g1 related">
-          <%= render partial: "documents/policies", object: featured_policy_area.policies.published.limit(2) %>
         </div>
       <% end %>
     </section>
   <% end %>
 
+</div>
+
+<div class="g3">
   <% if @policy_areas.any? %>
     <%= render partial: "grouped_list", locals: {policy_areas: @policy_areas} %>
   <% else %>
