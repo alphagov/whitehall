@@ -183,7 +183,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     parent_organisation = create(:organisation)
     child_organisation = create(:organisation, parent_organisations: [parent_organisation])
     get :show, id: child_organisation
-    assert_select "#parent_organisations a[href='#{organisation_path(parent_organisation)}']"
+    assert_select ".meta a[href='#{organisation_path(parent_organisation)}']"
   end
 
   test "should not display the parent organisations section" do

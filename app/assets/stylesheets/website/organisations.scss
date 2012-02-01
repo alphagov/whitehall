@@ -24,7 +24,8 @@
 
     h2.category {
       @include type-16;
-      margin-left: 1%;
+      display: inline;
+      margin-right: 0.5em;
       margin-bottom: 0;
     }
 
