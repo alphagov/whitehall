@@ -200,6 +200,20 @@
     margin-bottom: 0.875em;
     margin-left: 2%;
   }
+
+  nav {
+    padding-left: 2%;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+    border-bottom: 1px solid #bbb;
+    background: #eee;
+    a {
+      float: left;
+      @include type-14;
+      margin-bottom: 0;
+      margin-right: 2%;
+    }
+  }
 }
 
 .lte-ie8 {

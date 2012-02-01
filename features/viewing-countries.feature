@@ -30,3 +30,13 @@ Scenario: View priorities for a country
   And a published international priority "Oil field exploitation" exists relating to the country "British Antarctic Territory"
   When I view the country "British Antarctic Territory"
   Then I should see the international priority "Oil field exploitation"
+
+Scenario: Navigating between pages for a country
+Given a country "British Antarctic Territory" exists
+  When I view the country "British Antarctic Territory"
+  Then I should see the country navigation
+  When I navigate to the "British Antarctic Territory" country's about page
+  Then I should see the "British Antarctic Territory" country's about page
+  And I should see the country navigation
+  When I navigate to the "British Antarctic Territory" country's home page
+  Then I should see the "British Antarctic Territory" country's home page

@@ -4,6 +4,9 @@
   <section class="page_header countries">
     <h1 class="country page_title"><%= @country.name %></h1>
   </section>
+
+  <%= render 'navigation', country: @country %>
+
   <section class="page_detail">
     <div class="g3">
       <% if @country.embassy_address.present? %>

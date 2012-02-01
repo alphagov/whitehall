@@ -22,6 +22,16 @@ When /^I add contact details for the embassy in "([^"]*)"$/ do |name|
   click_button "Save"
 end
 
+When /^I navigate to the "([^"]*)" country's (about|home) page$/ do |country_name, page_name|
+  within('.country nav') do
+    click_link \
+      case page_name
+      when 'about'  then 'About'
+      when 'home'   then 'Home'
+      end
+  end
+end
+
 Then /^I should see the country "([^"]*)"$/ do |name|
   country = Country.find_by_name!(name)
   assert page.has_css?(record_css_selector(country))
@@ -33,4 +43,18 @@ Then /^I should see contact details for the embassy in "([^"]*)"$/ do |name|
   assert page.has_css?(".embassy_address", country.embassy_address)
   assert page.has_css?(".embassy_telephone", country.embassy_telephone)
   assert page.has_css?(".embassy_email", country.embassy_email)
+end
+
+Then /^I should see the country navigation$/ do
+  assert page.has_css?('.country nav')
+end
+
+Then /^I should see the "([^"]*)" country's (about|home) page$/ do |country_name, page_name|
+  title =
+    case page_name
+    when 'about'  then "About #{country_name}"
+    when 'home'   then country_name
+    end
+
+  assert page.has_css?('title', text: title)
 end
