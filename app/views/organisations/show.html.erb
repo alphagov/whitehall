@@ -91,7 +91,7 @@
   <% if @organisation.child_organisations.any? %>
     <div class="g1 related_documents">
       <section id="child_organisations">
-        <h1>Child organisations</h1>
+        <h1>Associated organisations</h1>
         <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
       </section>
     </div>
