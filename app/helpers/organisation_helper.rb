@@ -1,6 +1,6 @@
 module OrganisationHelper
   def organisation_display_name(organisation)
-    if organisation.acronym
+    if organisation.acronym.present?
       content_tag(:abbr, organisation.acronym, title: organisation.name)
     else
       organisation.name
