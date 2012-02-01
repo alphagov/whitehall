@@ -1,12 +1,6 @@
 <% page_title "#{@organisation.name} News" %>
 <div class="g3f organisation">
-  <section class="page_header organisation" id="news_articles">
-    <h1 class="page_title"><%= @organisation.name %> News</h1>
-    <% if @organisation.organisation_type %>
-      <h2 class="category"><%= @organisation.organisation_type.name %></h2>
-    <% end %>
-  </section>
-  <%= render 'navigation', organisation: @organisation %>
+  <%= render 'header', organisation: @organisation, title: "#{@organisation.name} News" %>
 
   <div class="g3" style="margin-top: 1.5em">
     <% if @news_articles.any? %>

@@ -2,22 +2,7 @@
 
 <%= content_tag_for :div, @organisation, class: "hcard" do %>
   <div class="g3f">
-    <section class="page_header organisation">
-      <h1 class="page_title name has_meta"><%= @organisation.name %>
-        <% if @organisation.acronym.present? %>
-          (<%= @organisation.acronym %>)
-        <% end %>
-      </h1>
-      <div class="meta">
-        <% if @organisation.organisation_type %>
-          <h2 class="category"><%= @organisation.organisation_type.name %></h2>
-        <% end %>
-        <% @organisation.parent_organisations.each do |organisation| %>
-          <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation" %>
-        <% end %>
-      </div>
-    </section>
-    <%= render 'navigation', organisation: @organisation %>
+    <%= render 'header', organisation: @organisation %>
   </div>
 
   <div class="g3f page_detail">
