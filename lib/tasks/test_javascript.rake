@@ -4,13 +4,11 @@ namespace :test do
 
   desc "Run javascript tests"
   task :javascript => :environment do
-    require 'versionomy'
-
-    minimum_supported_version = Versionomy.parse("1.3.0")
-    phantomjs_version = Versionomy.parse(`phantomjs --version`.strip) rescue nil
-    unless phantomjs_version && (phantomjs_version >= minimum_supported_version)
+    phantomjs_requirement = Gem::Requirement.new(">= 1.3.0")
+    phantomjs_version = Gem::Version.new(`phantomjs --version`.strip) rescue Gem::Version.new("0.0.0")
+    unless phantomjs_requirement.satisfied_by?(phantomjs_version)
       STDERR.puts "Your version of phantomjs (v#{phantomjs_version}) is not compatible with the current phantom-driver.js."
-      STDERR.puts "Please upgrade your version of phantomjs to at least #{minimum_supported_version} and re-run this task."
+      STDERR.puts "Please upgrade your version of phantomjs to #{phantomjs_requirement} and re-run this task."
       exit 1
     end
 

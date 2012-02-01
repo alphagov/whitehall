@@ -44,7 +44,6 @@ group :test do
   gem 'mocha', :require => false
   gem 'test_track'
   gem 'timecop'
-  gem 'versionomy'
   gem 'webmock'
 end
 

@@ -69,7 +69,6 @@ GEM
       multi_json (~> 1.0)
     addressable (2.2.6)
     arel (2.2.1)
-    blockenspiel (0.4.3)
     boomerang-rails (0.0.2)
       rails (~> 3.0)
     builder (3.0.0)
@@ -253,8 +252,6 @@ GEM
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     validates_email_format_of (1.5.3)
-    versionomy (0.4.1)
-      blockenspiel (>= 0.4.1)
     warden (1.1.0)
       rack (>= 1.0)
     webmock (1.7.8)
@@ -303,5 +300,4 @@ DEPENDENCIES
   transitions
   uglifier
   validates_email_format_of
-  versionomy
   webmock
