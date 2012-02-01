@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class AttachmentUploaderTest < ActiveSupport::TestCase
+  include ActionDispatch::TestProcess
+
   test 'should only allow PDF, CSV, RTF, PNG, JPG, DOC, DOCX, XLS, XLSX, PPT, PPTX attachments' do
     uploader = AttachmentUploader.new
     assert_equal %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx), uploader.extension_white_list
@@ -10,6 +12,18 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     model = stub("AR Model", id: 1)
     uploader = AttachmentUploader.new(model, "mounted-as")
     assert_match /^system/, uploader.store_dir
+  end
+
+  test "should not generate thumbnail versions of non pdf files" do
+    AttachmentUploader.enable_processing = true
+
+    model = stub("AR Model", id: 1)
+    uploader = AttachmentUploader.new(model, "mounted-as")
+    uploader.store!(fixture_file_upload('portas-review.jpg'))
+
+    assert_nil uploader.thumbnail.path
+
+    AttachmentUploader.enable_processing = false
   end
 end
 
