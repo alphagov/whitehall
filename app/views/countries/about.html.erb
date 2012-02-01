@@ -1,0 +1,17 @@
+<% page_title "About #{@country.name}" %>
+
+<div class="g3f country">
+  <section class="page_header countries">
+    <h1 class="country page_title"><%= @country.name %></h1>
+  </section>
+
+  <div class="g3f document_page">
+    <div class="g2 document_view">
+      <article class="document">
+        <div class="body">
+          <%= govspeak_to_html @country.about %>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
