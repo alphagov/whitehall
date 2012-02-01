@@ -213,7 +213,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:role_appointment, person: person, role: ministerial_role)
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
     get :show, id: organisation
-    assert_select "img[src*=blank-person.jpg]"
+    assert_select "img[src*=blank-person.png]"
   end
 
   test "should display a link to the about-us page for the organisation" do
