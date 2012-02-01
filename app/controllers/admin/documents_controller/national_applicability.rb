@@ -2,6 +2,8 @@ module Admin::DocumentsController::NationalApplicability
   extend ActiveSupport::Concern
 
   included do
+    before_filter :build_document, only: [:new]
+
     before_filter :build_nation_inapplicabilities, only: [:new, :edit]
   end
 

@@ -207,6 +207,18 @@ module AdminDocumentControllerTestHelpers
         assert_equal greenpaper_pdf.size, attachment.file_size
       end
 
+      test "creating a document should result in a single instance of the uploaded file being cached" do
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+        attributes = controller_attributes_for(document_type)
+        attributes[:document_attachments_attributes] = {
+          "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
+        }
+
+        Attachment.any_instance.expects(:file=).once
+
+        post :create, document: attributes
+      end
+
       test "creating a document with invalid data should still show attachment fields" do
         post :create, document: controller_attributes_for(document_type, title: "")
 
