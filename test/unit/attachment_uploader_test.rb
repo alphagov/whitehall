@@ -46,8 +46,13 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
     assert_respond_to @uploader, :thumbnail
   end
 
-  test "should store the thumbnail as a PNG" do
+  test "should store the thumbnail with the PNG extension" do
     assert @uploader.thumbnail.path.ends_with?(".png"), "should be a png"
+  end
+
+  test "should store an actual PNG" do
+    type = `file -b --mime-type "#{@uploader.thumbnail.path}"`
+    assert_equal "image/png", type.strip
   end
 
   test "should scale the thumbnail down proportionally to A4" do

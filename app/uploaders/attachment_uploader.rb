@@ -14,6 +14,9 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     def full_filename(for_file)
       super + ".png"
     end
+    def full_original_filename
+      super + ".png"
+    end
     process :generate_thumbnail
   end
 
@@ -30,10 +33,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   def get_first_page_as_png(width, height)
-    thumbnail_path = current_path + ".png"
-    cmd = %{convert -resize #{width}x#{height} "#{path}[0]" "#{thumbnail_path}"}
-    `#{cmd}`
-    @file = CarrierWave::SanitizedFile.new(thumbnail_path)
+    `convert -resize #{width}x#{height} "#{path}[0]" "#{path}"`
   end
 
   def extension_white_list

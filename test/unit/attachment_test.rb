@@ -115,6 +115,16 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.url(:thumbnail).ends_with?("thumbnail_greenpaper.pdf.png"), "unexpected url ending: #{attachment.url(:thumbnail)}"
   end
 
+  test "should successfully create PNG thumbnail from the file_cache after a validation failure" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+    attachment = build(:attachment, title: nil, file: greenpaper_pdf)
+    refute attachment.valid?
+    second_attempt_attachment = build(:attachment, title: "title", file: nil, file_cache: attachment.file_cache)
+    assert second_attempt_attachment.save
+    type = `file -b --mime-type "#{second_attempt_attachment.file.thumbnail.path}"`
+    assert_equal "image/png", type.strip
+  end
+
   test "should return nil file extension when no uploader present" do
     attachment = build(:attachment)
     attachment.stubs(file: nil)
