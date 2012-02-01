@@ -25,6 +25,12 @@
   </section>
 </div>
 
+<div class="g2">
+  <p class="about">
+    <%= link_to "Read more about #{@country.name}", about_country_path(@country), title: "Further information about #{@country.name}" %>
+  </p>
+</div>
+
 <div class="g1 related_documents">
   <%= render partial: "documents/international_priorities", object: @international_priorities %>
 </div>

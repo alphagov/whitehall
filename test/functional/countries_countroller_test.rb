@@ -19,4 +19,10 @@ class CountriesControllerTest < ActionController::TestCase
       assert_select_object png
     end
   end
+
+  test "should display a link to the about page for the country" do
+    country = create(:country)
+    get :show, id: country
+    assert_select ".about a[href='#{about_country_path(country)}']"
+  end
 end
