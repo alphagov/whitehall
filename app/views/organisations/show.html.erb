@@ -3,14 +3,19 @@
 <%= content_tag_for :div, @organisation, class: "hcard" do %>
   <div class="g3f">
     <section class="page_header organisation">
-      <h1 class="page_title name"><%= @organisation.name %>
+      <h1 class="page_title name has_meta"><%= @organisation.name %>
         <% if @organisation.acronym.present? %>
           (<%= @organisation.acronym %>)
         <% end %>
       </h1>
-      <% if @organisation.organisation_type %>
-        <h2 class="category"><%= @organisation.organisation_type.name %></h2>
-      <% end %>
+      <div class="meta">
+        <% if @organisation.organisation_type %>
+          <h2 class="category"><%= @organisation.organisation_type.name %></h2>
+        <% end %>
+        <% @organisation.parent_organisations.each do |organisation| %>
+          <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation" %>
+        <% end %>
+      </div>
     </section>
     <%= render 'navigation', organisation: @organisation %>
   </div>
@@ -86,17 +91,8 @@
   <% if @organisation.child_organisations.any? %>
     <div class="g1 related_documents">
       <section id="child_organisations">
-        <h1>Child organisations</h1>
+        <h1>Associated organisations</h1>
         <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
-      </section>
-    </div>
-  <% end %>
-
-  <% if @organisation.parent_organisations.any? %>
-    <div class="g1 related_documents">
-      <section id="parent_organisations">
-      <h1>Parent organisations</h1>
-      <%= render partial: "organisations/list", locals: {organisations: @organisation.parent_organisations} %>
       </section>
     </div>
   <% end %>
