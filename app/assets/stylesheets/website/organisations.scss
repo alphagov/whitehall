@@ -63,9 +63,9 @@
       p.email, p.tel {
         @include type-12;
         margin-bottom: 0.25em;
-
-        span.type {
-          display: none;
+        font-weight: bold;
+        .type {
+          font-weight: normal;
         }
       }
     }

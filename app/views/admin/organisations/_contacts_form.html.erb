@@ -2,8 +2,14 @@
   <%= contacts_form.text_field :description %>
   <%= contacts_form.text_area :address, rows: 3, class: "address" %>
   <%= contacts_form.text_field :postcode %>
-  <%= contacts_form.text_field :latitude %>
-  <%= contacts_form.text_field :longitude %>
   <%= contacts_form.text_field :email %>
-  <%= contacts_form.text_field :number %>
+  <fieldset class="contact_numbers">
+    <legend>Phone numbers</legend>
+    <%= contacts_form.fields_for :contact_numbers, contacts_form.object.contact_numbers + [ContactNumber.new] do |contact_number_form| %>
+    <fieldset class="contact_number inline">
+      <%= contact_number_form.text_field :label %>
+      <%= contact_number_form.text_field :number %>
+    </fieldset>
+    <% end %>
+  </fieldset>
 </fieldset>

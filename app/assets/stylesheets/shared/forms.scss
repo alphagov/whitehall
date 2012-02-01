@@ -26,6 +26,32 @@
       padding-top: 0.5em;
     }
 
+    fieldset.inline {
+      @include clearfix;
+      border-bottom: 1px solid #eee;
+      padding: 1em 0;
+      margin-bottom: 0.4em;
+
+      label, input {
+        float: left;
+      }
+
+      label {
+        margin-right: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      input {
+        margin-right: 1.5em;
+        margin-bottom: 0;
+      }
+
+      a.button {
+        font-size: 0.8em;
+        margin: 0;
+      }
+    }
+
     legend {
       padding: 0;
       @include type-14;
@@ -34,6 +60,12 @@
       margin-bottom: 0.5em;
       border-bottom: 1px solid #ddd;
       color: #777;
+
+      a.button {
+        font-size: 0.9em;
+        margin-left: 1em;
+        margin-bottom: 0.1em;
+      }
     }
 
     input[type="text"],

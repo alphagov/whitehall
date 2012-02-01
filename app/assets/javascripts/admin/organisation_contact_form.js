@@ -3,12 +3,12 @@
     var self = $(this);
     var emptyFieldSet = self.children(".empty_fields");
 
-    var updateId = function(el, attr, id, newId) {
+    var updateId = function(el, name, attr, id, newId) {
       switch(attr) {
         case "name":
-          $(el).attr(attr, $(el).attr(attr).replace("["+id+"]", "["+newId+"]"));
+          $(el).attr(attr, $(el).attr(attr).replace(name + "]["+id+"]", name + "]["+newId+"]"));
         default:
-          $(el).attr(attr, $(el).attr(attr).replace("_"+id+"_", "_"+newId+"_"));
+          $(el).attr(attr, $(el).attr(attr).replace(name + "_"+id+"_", name + "_"+newId+"_"));
       }
     };
 
@@ -18,21 +18,20 @@
       var id = parseInt($(referenceInput).attr("id").match(/_(\d)_/)[1]);
       var newId = id + 1;
       fieldset.children("label").each(function(i, el) {
-        updateId(el, "for", id, newId);
+        updateId(el, "contacts_attributes", "for", id, newId);
       });
       fieldset.children("input").each(function(i, el) {
-        updateId(el, "id", id, newId);
-        updateId(el, "name", id, newId);
+        updateId(el, "contacts_attributes", "id", id, newId);
+        updateId(el, "contacts_attributes", "name", id, newId);
       });
       fieldset.children("textarea").each(function(i, el) {
-        updateId(el, "id", id, newId);
-        updateId(el, "name", id, newId);
+        updateId(el, "contacts_attributes", "id", id, newId);
+        updateId(el, "contacts_attributes", "name", id, newId);
       });
     };
 
     var addNewContact = function() {
       var clone = emptyFieldSet.children("fieldset").clone();
-      hideEmptyInputs(clone);
       self.append(clone);
       updateIdsOnEmptyFields();
     };
@@ -45,42 +44,46 @@
       self.after(link);
     };
 
-    var addRevealLink = function(label) {
-      var revealLinks = $(label).parent().find(".reveal_links");
-      if (revealLinks.length == 0) {
-        revealLinks = $.ul($.li('Add:', '.add'), '.reveal_links');
-        $(label).parent().append(revealLinks);
+    var handleRemoveNumber = function() {
+      if ($(this).parent().parent().find('.contact_number').filter(':visible').size() > 1) {
+        $(this).parent().hide();
       }
-      var link = $.a($.trim($(label).text()));
+      $(this).parent().find('input').val('');
+    }
+
+    var addLinkToAddNewNumber = function() {
+      legend = $(this)
+      var link = $.a('Add number', {'class': 'button add_new'});
       link.click(function() {
-        $(label).show();
-        $("#" + $(label).attr("for")).show();
-        link.hide();
-        if (revealLinks.find('a:visible').length == 0) {
-          revealLinks.hide();
-        }
+        fieldset = $(this).parent().parent();
+        newId = fieldset.find('.contact_number').size();
+        var clone = fieldset.find('fieldset.contact_number').filter(':visible').first().clone();
+        $(clone).find('input').val('')
+        $(clone).children("label").each(function(i, el) {
+          updateId(el, "contact_numbers_attributes", "for", 0, newId);
+        });
+        $(clone).children("input").each(function(i, el) {
+          updateId(el, "contact_numbers_attributes", "id", 0, newId);
+          updateId(el, "contact_numbers_attributes", "name", 0, newId);
+        });
+        fieldset.append(clone);
+        $(clone).find('a').click(handleRemoveNumber);
         return false;
       })
-      revealLinks.append($.li(link));
+      legend.append(link);
     };
 
-    var hideEmptyInputs = function(fieldset) {
-      $.each(fieldset.find("label"), function(i, label) {
-        if ($(label).text() == "Description") return;
-        var input = fieldset.find("#" + $(label).attr("for"));
-        if (input.val() == "") {
-          input.hide();
-          $(label).hide();
-          addRevealLink(label);
-        }
-      });
-    };
+    var addRemoveNumberLink = function() {
+      number = $(this);
+      var link = $.a('remove', {'class': 'button remove'});
+      number.append(link);
+      link.click(handleRemoveNumber);
+    }
 
     addLinkToCloneEmptyFields();
+    $('.contact_numbers legend').each(addLinkToAddNewNumber);
+    $('.contact_numbers .contact_number').each(addRemoveNumberLink);
     emptyFieldSet.hide();
-    $.each(self.children(".contact:visible"), function(i, fieldset) {
-      hideEmptyInputs($(fieldset));
-    });
   }
 
   $.fn.extend({

@@ -32,8 +32,8 @@
           <% if contact.email.present? %>
             <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
           <% end %>
-          <% if contact.number.present? %>
-            <p class="tel"><span class="type"><%= contact.description %></span><%= contact.number %></p>
+          <% contact.contact_numbers.each do |number| %>
+            <p class="tel"><%= number.number %><span class="type"> <%= number.label %> </span></p>
           <% end %>
           <% if contact.mappable? %>
             <p><%= link_to_google_map(contact) %></p>

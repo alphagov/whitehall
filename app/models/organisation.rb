@@ -28,8 +28,7 @@ class Organisation < ActiveRecord::Base
   has_many :policy_areas, through: :organisation_policy_areas
 
   has_many :contacts
-  accepts_nested_attributes_for :contacts, reject_if: :all_blank
-
+  accepts_nested_attributes_for :contacts, reject_if: :contact_and_contact_numbers_are_blank
   validates :name, presence: true, uniqueness: true
   validates :organisation_type_id, presence: true
 
@@ -70,5 +69,22 @@ class Organisation < ActiveRecord::Base
     # the old value of the slug (e.g. nil for a new record) if the record is dirty, and apparently the record
     # is still marked as dirty during after_save callbacks.
     organisation_path(slug)
+  end
+
+  private
+
+  def contact_and_contact_numbers_are_blank(attributes)
+    attributes.all? { |key, value|
+      key == '_destroy' ||
+      value.blank? || (
+        (key == "contact_numbers_attributes") &&
+        value.all? { |contact_number_attributes|
+          contact_number_attributes.all? { |contact_number_key, contact_number_value|
+            contact_number_key == '_destroy' ||
+            contact_number_value.blank?
+          }
+        }
+      )
+    }
   end
 end

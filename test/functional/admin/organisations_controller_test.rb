@@ -22,6 +22,25 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select parent_organisations_list_selector
     assert_select organisation_type_list_selector
     assert_select organisation_policy_areas_list_selector
+    assert_select "input[type=text][name='organisation[contacts_attributes][0][description]']"
+    assert_select "textarea[name='organisation[contacts_attributes][0][address]']"
+    assert_select "input[type=text][name='organisation[contacts_attributes][0][postcode]']"
+    assert_select "input[type=text][name='organisation[contacts_attributes][0][contact_numbers_attributes][0][label]']"
+    assert_select "input[type=text][name='organisation[contacts_attributes][0][contact_numbers_attributes][0][number]']"
+  end
+
+  test "should allow creation of an organisation without any contact details" do
+    organisation_type = create(:organisation_type)
+
+    post :create, organisation: {
+      name: "Anything",
+      organisation_type_id: organisation_type.id,
+      contacts_attributes: [{description: "", contact_numbers_attributes: [{label: "", number: ""}]}]
+    }
+
+    organisation = Organisation.last
+    assert_kind_of Organisation, organisation
+    assert_equal "Anything", organisation.name
   end
 
   test "creating should create a new Organisation" do
@@ -36,7 +55,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
       policy_area_ids: [policy_area.id],
-      contacts_attributes: [{description: "Fax", number: "020712435678"}]
+      contacts_attributes: [{description: "Enquiries", contact_numbers_attributes: [{label: "Fax", number: "020712435678"}]}]
     )
 
     assert organisation = Organisation.last
@@ -44,7 +63,10 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal attributes[:description], organisation.description
     assert_equal attributes[:about_us], organisation.about_us
     assert_equal 1, organisation.contacts.count
-    assert_equal "Fax", organisation.contacts.first.description
+    assert_equal "Enquiries", organisation.contacts[0].description
+    assert_equal 1, organisation.contacts[0].contact_numbers.count
+    assert_equal "Fax", organisation.contacts[0].contact_numbers[0].label
+    assert_equal "020712435678", organisation.contacts[0].contact_numbers[0].number
     assert_equal policy_area, organisation.policy_areas.first
   end
 
@@ -52,8 +74,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_type = create(:organisation_type)
     attributes = attributes_for(:organisation)
     post :create, organisation: attributes.merge(
-      organisation_type_id: organisation_type.id,
-      contacts_attributes: [{description: "Fax", number: "020712435678"}]
+      organisation_type_id: organisation_type.id
     )
 
     assert_redirected_to admin_organisations_path
@@ -61,10 +82,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "creating without a name should reshow the edit form" do
     attributes = attributes_for(:organisation)
-    post :create, organisation: attributes.merge(
-      name: '',
-      contacts_attributes: [{description: "Fax", number: "020712435678"}]
-    )
+    post :create, organisation: attributes.merge(name: '')
 
     assert_template "organisations/new"
   end
@@ -90,6 +108,32 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     )
     created_organisation = Organisation.last
     assert_equal organisation_type, created_organisation.organisation_type
+  end
+
+  test "creating with blank numbers ignores blank numbers" do
+    attributes = attributes_for(:organisation,
+      description: "organisation-description",
+      about_us: "organisation-about-us"
+    )
+
+    organisation_type = create(:organisation_type)
+    policy_area = create(:policy_area)
+
+    post :create, organisation: attributes.merge(
+      organisation_type_id: organisation_type.id,
+      policy_area_ids: [policy_area.id],
+      contacts_attributes: {"0" => {
+        description: "Enquiries",
+        contact_numbers_attributes: {
+          "0" => { label: " ", number: " " },
+          "1" => { label: " ", number: " " }
+        }
+      }}
+    )
+
+    created_organisation = Organisation.last
+    assert_not_nil created_organisation
+    assert_equal 0, created_organisation.contacts.first.contact_numbers.size
   end
 
   test "editing should load the requested organisation" do
@@ -168,5 +212,21 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     organisation.reload
     assert_equal [], organisation.parent_organisations
+  end
+
+  test "updating with blank numbers destroys those blank numbers" do
+    organisation = create(:organisation)
+    contact = create(:contact, organisation: organisation)
+    contact_number = create(:contact_number, contact: contact)
+
+    put :update, id: organisation, organisation: { contacts_attributes: { 0 => {
+      id: contact,
+      contact_numbers_attributes: {
+        0 => { label: " ", number: " ", id: contact_number }
+      }
+    }}}
+
+    contact.reload
+    assert_equal 0, contact.contact_numbers.count
   end
 end

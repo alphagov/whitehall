@@ -2,6 +2,7 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :load_organisation, only: [:edit, :update]
   before_filter :load_news_articles, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
+  before_filter :destroy_blank_phone_numbers, only: [:create, :update]
 
   def index
     @organisations = Organisation.all
@@ -46,5 +47,19 @@ class Admin::OrganisationsController < Admin::BaseController
   def default_arrays_of_ids_to_empty
     params[:organisation][:policy_area_ids] ||= []
     params[:organisation][:parent_organisation_ids] ||= []
+  end
+
+  def destroy_blank_phone_numbers
+    if params[:organisation][:contacts_attributes]
+      params[:organisation][:contacts_attributes].each do |index, contact|
+        if contact && contact[:contact_numbers_attributes]
+          contact[:contact_numbers_attributes].each do |key, number|
+            if number[:label].blank? && number[:number].blank?
+              number[:_destroy] = "1"
+            end
+          end
+        end
+      end
+    end
   end
 end

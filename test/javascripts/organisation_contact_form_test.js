@@ -1,6 +1,6 @@
 module("Enhancing the organisation contact form", {
   setup: function() {
-    this. form = $('<form class="organisation_edit"></form>');
+    this.form = $('<form class="organisation_edit"></form>');
     this.fieldset = $('<fieldset class="contacts"></fieldset>');
     this.form.append(this.fieldset);
 
@@ -35,7 +35,6 @@ test("should display a new contact form when add link is clicked", function() {
   equal(this.fieldset.children(".contact:visible").length, 2);
 });
 
-
 test("should continue adding new inputs as new files are selected", function() {
   addContact(this.form);
   addContact(this.form);
@@ -67,14 +66,51 @@ test("should increment the ID and name of the text input for each set of new inp
   equal(latest_input.name, "organisation[contacts_attributes][2][postcode]");
 });
 
-test("should hide empty inputs by default", function() {
-  var visibleContact = $(this.fieldset.children("fieldset.contact")[0]);
-  equal(visibleContact.find("input:visible").length, 1)
-  notEqual(visibleContact.find("input:visible")[0].name, "organisation[contacts_attributes][0][postcode]")
+module("Add and removing contact phone numbers", {
+  setup: function() {
+    this.form = $('<form class="organisation_edit"></form>');
+    this.fieldset = $('<fieldset class="contacts"></fieldset>');
+    this.form.append(this.fieldset);
+
+    this.contactFieldset = $('<fieldset class="contact"></fieldset>');
+    this.contactNumbersFieldset = $('<fieldset class="contact_numbers"></fieldset>')
+    var fieldsetContents = function(id) {
+      id_prefix = 'organisation_contacts_attributes_0_contact_numbers_attributes_' + id
+      name_prefix = 'organisation[contacts_attributes][0][contact_numbers_attributes][' + id + ']'
+
+      return '<fieldset class="contact_number">' +
+             '<label for="' + id_prefix + '_label">Label</label>' +
+             '<input id="' + id_prefix + '_label" name="' + name_prefix + '[label]" size="30" type="text" value="Enquiries" />' +
+             '<label for="' + id_prefix + '_number">Address </label>' +
+             '<input id="' + id_prefix + '_number" name="' + name_prefix + '[number]" size="30" type="text" value="12345678" />' +
+             '</fieldset>';
+    }
+
+    this.contactNumbersFieldset.append(fieldsetContents(0));
+    this.contactNumbersFieldset.append(fieldsetContents(1));
+    this.contactFieldset.append(this.contactNumbersFieldset);
+    this.fieldset.append(this.contactFieldset);
+
+    $('#qunit-fixture').append(this.form);
+    this.fieldset.setupContactsForm();
+  }
 });
 
-test("should provide links to show inputs", function() {
-  var visibleContact = $(this.fieldset.children("fieldset.contact")[0]);
-  $(visibleContact.find(".reveal_links a")[0]).click()
-  equal(visibleContact.find("input:visible").length, 2)
-});
+test("adds remove links to contact", function() {
+  equal(this.contactNumbersFieldset.find('a.remove').length, 2)
+})
+
+test("remove hides and blanks number when other numbers are visible", function() {
+  target = $('.contact_number').first()
+  target.find('a.remove').click();
+  equal(target.is(':visible'), false)
+  equal(target.find('input[value!=""]').length, 0)
+})
+
+test("remove only blanks number when it's the last visible", function() {
+  $('.contact_number').first().find('a.remove').click();
+  target = $('.contact_number').last()
+  target.find('a.remove').click();
+  equal(target.is(':visible'), true)
+  equal(target.find('input[value!=""]').length, 0)
+})
