@@ -357,6 +357,19 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#other_board_members"
   end
 
+  test "shows only published policies associated with organisation on policies page" do
+    published_policy = create(:published_policy)
+    draft_policy = create(:draft_policy)
+    unrelated_policy = create(:published_policy)
+    organisation = create(:organisation, documents: [published_policy, draft_policy])
+
+    get :policies, id: organisation
+
+    assert_select_object(published_policy)
+    refute_select_object(draft_policy)
+    refute_select_object(unrelated_policy)
+  end
+
   test "should display a list of organisations" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)

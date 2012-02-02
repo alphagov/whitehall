@@ -1,6 +1,6 @@
 class OrganisationsController < PublicFacingController
   before_filter :load_organisation, only: [:show, :about, :contact_details, :news, :consultations,
-                                           :ministers, :board_members]
+                                           :ministers, :board_members, :policies]
 
   def index
     @organisations_by_type = Organisation.in_listing_order.group_by(&:organisation_type)
@@ -38,6 +38,10 @@ class OrganisationsController < PublicFacingController
   end
 
   def board_members
+  end
+
+  def policies
+    @policies = Policy.published.in_organisation(@organisation)
   end
 
   private
