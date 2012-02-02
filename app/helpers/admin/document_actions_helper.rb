@@ -23,7 +23,7 @@ module Admin::DocumentActionsHelper
     capture do
       form_for [:admin, document], {as: :document, url: url, method: :post, html: {id: "document_publishing"}} do |form|
         concat(form.hidden_field :lock_version)
-        concat(form.text_area :change_note, rows: 4) if document.change_note_required?
+        concat(form.text_area :change_note, label_text: "Change note (will appear on public site)", rows: 4) if document.change_note_required?
         concat(form.submit button_text, title: button_title, confirm: confirm)
       end
     end
