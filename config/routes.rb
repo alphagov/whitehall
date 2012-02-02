@@ -42,6 +42,7 @@ Whitehall::Application.routes.draw do
       member do
         get :about
         get :news
+        get :consultations
         get :contact_details, path: 'contact-details'
         get :ministers
       end

@@ -1,0 +1,14 @@
+<% page_title "#{@organisation.name} Consultations" %>
+<div class="g3f organisation">
+  <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Consultations" %>
+
+  <div class="g3" style="margin-top: 1.5em">
+    <% if @consultations.any? %>
+      <% @consultations.each do |consultation| %>
+        <%= render partial: "consultations/consultation", locals: { consultation: consultation, display: "default" } %>
+      <% end %>
+    <% else %>
+      <p>There are no <%= @organisation.name %> consultations at present.</p>
+    <% end %>
+  </div>
+</div>

@@ -23,6 +23,10 @@ class ConsultationsController < DocumentsController
 
   private
 
+  def base_scope
+    Consultation
+  end
+
   def load_consultations_from_scope(scope)
     @consultations = scope.published.by_published_at.includes(:document_identity, :organisations, :published_related_policies, ministerial_roles: [:current_people, :organisations])
   end

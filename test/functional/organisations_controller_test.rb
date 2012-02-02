@@ -43,6 +43,28 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select_object(draft_corporate_publication)
   end
 
+  test "shows only published consultations associated with organisation" do
+    published_document = create(:published_consultation)
+    draft_document = create(:draft_consultation)
+    organisation = create(:organisation, documents: [published_document, draft_document])
+    get :show, id: organisation
+    assert_select '#consultations' do
+      assert_select_object(published_document)
+      refute_select_object(draft_document)
+    end
+  end
+
+  test "shows only 3 most recent consultations when more exist" do
+    consultations = 5.times.map do |n|
+      create(:published_consultation, published_at: n.days.ago)
+    end
+
+    organisation = create(:organisation, documents: consultations)
+    get :show, id: organisation
+    assert_equal 3, assigns[:consultations].size
+    assert_equal consultations.take(3), assigns[:consultations]
+  end
+
   test "should not display an empty published policies section" do
     organisation = create(:organisation)
     get :show, id: organisation
@@ -53,6 +75,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#publications"
+  end
+
+  test "should not display an empty consultations section" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    refute_select "#consultations"
   end
 
   test "shows leading board members associated with organisation" do
@@ -223,6 +251,35 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :news, id: organisation
 
     assert_equal [later_news_article, earlier_news_article], assigns(:news_articles)
+  end
+
+  test "should show published consultations associated with the organisation" do
+    published_consultation = create(:published_consultation)
+    draft_consultation = create(:draft_consultation)
+    organisation = create(:organisation, documents: [published_consultation, draft_consultation])
+
+    get :consultations, id: organisation
+
+    assert_select_object(published_consultation)
+    refute_select_object(draft_consultation)
+  end
+
+  test "should show explanatory text if the organisation has no consultations" do
+    organisation = create(:organisation, name: "Cabinet Office")
+
+    get :consultations, id: organisation
+
+    assert_select "p", "There are no Cabinet Office consultations at present."
+  end
+
+  test "should show consultations in order of publication date" do
+    earlier_consultation = create(:published_consultation, published_at: 2.days.ago)
+    later_consultation = create(:published_consultation, published_at: 1.days.ago)
+    organisation = create(:organisation, documents: [earlier_consultation, later_consultation])
+
+    get :consultations, id: organisation
+
+    assert_equal [later_consultation, earlier_consultation], assigns(:consultations)
   end
 
   test "should display an about-us page for the organisation" do
