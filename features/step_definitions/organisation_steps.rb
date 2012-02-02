@@ -81,7 +81,7 @@ end
 
 Then /^I should see the top minister for the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)
-  assert page.has_css?(".minister", organisation.top_ministerial_role)
+  assert page.has_css?(record_css_selector(organisation.top_ministerial_role))
 end
 
 Then /^I should be able to view all ministers for the "([^"]*)" organisation on a separate page$/ do |name|
