@@ -26,7 +26,7 @@
               <% end %>
             </span>
             <% news_article.policy_areas.uniq.each do |pa| %>
-              <%= link_to pa.name, policy_area_path(pa), class: "policy_area" %>
+              <%= link_to pa.name, policy_area_path(pa), class: "policy_area tag" %>
             <% end %>
           </div>
         <% end %>

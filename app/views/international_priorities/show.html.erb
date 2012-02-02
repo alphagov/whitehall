@@ -6,10 +6,10 @@
     <div class="meta">
       <span class="metadata">Last updated <%= time_ago(@document.published_at, class: 'published_at') %></span>
       <% @document.organisations.each do |organisation| %>
-        <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
+        <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag", id: dom_id(organisation) %>
       <% end %>
       <% @document.countries.each do |country| %>
-        <%= link_to country.name, country_path(country), class: "country", id: dom_id(country) %>
+        <%= link_to country.name, country_path(country), class: "country tag", id: dom_id(country) %>
       <% end %>
     </div>
   </section>

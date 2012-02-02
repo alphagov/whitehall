@@ -5,13 +5,13 @@
     <span class="metadata">
       Updated <%= time_ago(@policy.updated_at, class: 'updated_at') %></span>
     <% @policy.policy_areas.each do |policy_area| %>
-      <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area", id: dom_id(policy_area) %>
+      <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area tag", id: dom_id(policy_area) %>
     <% end %>
     <% @policy.organisations.each do |organisation| %>
-      <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation" %>
+      <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag" %>
     <% end %>
     <% @policy.ministerial_roles.each do |ministerial_role| %>
-      <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister" %>
+      <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister tag" %>
     <% end %>
   </div>
 </div>

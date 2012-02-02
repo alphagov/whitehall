@@ -4,7 +4,7 @@
     <h1 class="page_title ministerial_role has_meta"><%= @ministerial_role.name %></h1>
     <div class="meta">
       <% @ministerial_role.organisations.each do |organisation| %>
-        <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
+        <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag", id: dom_id(organisation) %>
       <% end %>
     </div>
   </section>

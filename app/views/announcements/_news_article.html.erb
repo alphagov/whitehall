@@ -18,7 +18,7 @@
     <div class="meta">
       <span class="published_at">Posted <%= time_ago(news_article.first_published_at, class: 'first_published_at') %></span>
       <% news_article.policy_areas.uniq.each do |pa| %>
-        <%= link_to pa.name, policy_area_path(pa), class: "policy_area" %>
+        <%= link_to pa.name, policy_area_path(pa), class: "policy_area tag" %>
       <% end %>
     </div>
   </div>

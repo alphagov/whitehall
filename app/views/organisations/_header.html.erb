@@ -14,7 +14,7 @@
       <h2 class="category"><%= organisation.organisation_type.name %></h2>
     <% end %>
     <% organisation.parent_organisations.each do |organisation| %>
-      <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation" %>
+      <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag" %>
     <% end %>
   </div>
 </section>

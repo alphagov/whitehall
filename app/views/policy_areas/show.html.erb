@@ -5,7 +5,7 @@
     <h1 class="page_title has_meta"><%= @policy_area.name %></h1>
     <div class="meta">
       <% @policy_area.organisations.each do |organisation| %>
-        <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation", id: dom_id(organisation) %>
+        <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag", id: dom_id(organisation) %>
       <% end %>
     </div>
   </section>
