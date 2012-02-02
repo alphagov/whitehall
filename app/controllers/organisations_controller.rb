@@ -11,7 +11,10 @@ class OrganisationsController < PublicFacingController
   end
 
   def show
-    load_published_documents_in_scope { |scope| scope.in_organisation(@organisation) }
+    @policies = Policy.published.in_organisation(@organisation)
+    @publications = Publication.published.in_organisation(@organisation)
+    @news_articles = NewsArticle.published.in_organisation(@organisation)
+    @consultations = Consultation.published.in_organisation(@organisation)
     @speeches = @organisation.ministerial_roles.map { |mr| mr.speeches.published }.flatten.uniq
     @corporate_publications = @organisation.corporate_publications.published
     @featured_news_articles = @organisation.featured_news_articles
