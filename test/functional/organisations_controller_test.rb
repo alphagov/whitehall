@@ -13,45 +13,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".description", text: "organisation-description"
   end
 
-  test "presents the contact details of the organisation using hcard" do
-    ministerial_department = create(:organisation_type, name: "Ministerial Department")
-    organisation = create(:organisation, organisation_type: ministerial_department,
-      name: "Ministry of Pomp", contacts_attributes: [{
-        description: "Main",
-        email: "pomp@gov.uk",
-        address: "1 Smashing Place, London", postcode: "LO1 8DN",
-        contact_numbers_attributes: [
-          { label: "Helpline", number: "02079460000" },
-          { label: "Fax", number: "02079460001" }
-        ]
-      }]
-    )
-    get :show, id: organisation
-
-    assert_select ".organisation.hcard" do
-      assert_select ".fn.org", "Ministry of Pomp"
-      assert_select ".category", "Ministerial Department"
-      assert_select ".adr" do
-        assert_select ".street-address", "1 Smashing Place, London"
-        assert_select ".postal-code", "LO1 8DN"
-      end
-      assert_select ".tel", /02079460000/ do
-        assert_select ".type", "Helpline"
-      end
-      assert_select ".email", /pomp@gov\.uk/ do
-        assert_select ".type", "Email"
-      end
-    end
-  end
-
-  test "should use html line breaks when displaying the address" do
-    organisation = create(:organisation, contacts_attributes: [{description: "Main", address: "Line 1\nLine 2"}])
-    get :show, id: organisation
-    assert_select ".street-address", /Line 1/
-    assert_select ".street-address", /Line 2/
-    assert_select ".street-address br", count: 1
-  end
-
   test "shows only published policies associated with organisation" do
     published_document = create(:published_policy)
     draft_document = create(:draft_policy)
@@ -195,12 +156,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#parent_organisations"
   end
 
-  test "should link to a google map" do
-    organisation = create(:organisation, contacts_attributes: [{description: "Main", latitude: 51.498772, longitude: -0.130974}])
-    get :show, id: organisation
-    assert_select "a[href='http://maps.google.co.uk/maps?q=51.498772,-0.130974']"
-  end
-
   test "should display the minister's picture if available" do
     ministerial_role = create(:ministerial_role)
     person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
@@ -248,6 +203,51 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select ".all_news a[href='#{news_organisation_path(organisation)}']"
+  end
+
+  test "presents the contact details of the organisation using hcard" do
+    ministerial_department = create(:organisation_type, name: "Ministerial Department")
+    organisation = create(:organisation, organisation_type: ministerial_department,
+      name: "Ministry of Pomp", contacts_attributes: [{
+        description: "Main",
+        email: "pomp@gov.uk",
+        address: "1 Smashing Place, London", postcode: "LO1 8DN",
+        contact_numbers_attributes: [
+          { label: "Helpline", number: "02079460000" },
+          { label: "Fax", number: "02079460001" }
+        ]
+      }]
+    )
+    get :contact_details, id: organisation
+
+    assert_select ".organisation.hcard" do
+      assert_select ".fn.org", "Ministry of Pomp"
+      assert_select ".category", "Ministerial Department"
+      assert_select ".adr" do
+        assert_select ".street-address", "1 Smashing Place, London"
+        assert_select ".postal-code", "LO1 8DN"
+      end
+      assert_select ".tel", /02079460000/ do
+        assert_select ".type", "Helpline"
+      end
+      assert_select ".email", /pomp@gov\.uk/ do
+        assert_select ".type", "Email"
+      end
+    end
+  end
+
+  test "should use html line breaks when displaying the address" do
+    organisation = create(:organisation, contacts_attributes: [{description: "Main", address: "Line 1\nLine 2"}])
+    get :contact_details, id: organisation
+    assert_select ".street-address", /Line 1/
+    assert_select ".street-address", /Line 2/
+    assert_select ".street-address br", count: 1
+  end
+
+  test "should link to a google map" do
+    organisation = create(:organisation, contacts_attributes: [{description: "Main", latitude: 51.498772, longitude: -0.130974}])
+    get :contact_details, id: organisation
+    assert_select "a[href='http://maps.google.co.uk/maps?q=51.498772,-0.130974']"
   end
 
   test "should show only published news articles associated with organisation" do

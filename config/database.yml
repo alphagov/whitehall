@@ -13,7 +13,6 @@ test: &test
   username: whitehall
   password: whitehall
 
-
 production:
   adapter: mysql2
   database: whitehall_production

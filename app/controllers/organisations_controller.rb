@@ -1,6 +1,6 @@
 class OrganisationsController < PublicFacingController
 
-  before_filter :load_organisation, only: [:show, :about, :news]
+  before_filter :load_organisation, only: [:show, :about, :contact_details, :news]
 
   def index
     @organisations_by_type = Organisation.in_listing_order.group_by(&:organisation_type)
@@ -18,6 +18,9 @@ class OrganisationsController < PublicFacingController
   end
 
   def about
+  end
+
+  def contact_details
   end
 
   def news
