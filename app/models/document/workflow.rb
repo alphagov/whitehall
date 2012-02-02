@@ -5,7 +5,7 @@ module Document::Workflow
     include ::Transitions
     include ActiveRecord::Transitions
 
-    default_scope where(%{documents.state <> "deleted"})
+    default_scope where(arel_table[:state].not_eq('deleted'))
 
     define_model_callbacks :publish, :archive, only: :after
     set_callback :publish, :after do
