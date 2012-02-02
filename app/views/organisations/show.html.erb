@@ -58,11 +58,11 @@
   </section>
 
   <div class="g1 related_documents"><%= render partial: "documents/policy_areas", object: @organisation.policy_areas %></div>
-  <div class="g1 related_documents"><%= render partial: "documents/policies", object: @policies, locals: { more: safe_join(['View all', @organisation.name, link_to('policies', policies_organisation_path(@organisation))], ' ') } %></div>
+  <div class="g1 related_documents"><%= render partial: "documents/policies", object: @policies, locals: { more: organisation_view_all_tag(@organisation, :policies) } %></div>
   <div class="g1 related_documents"><%= render partial: "documents/publications", object: @publications %></div>
   <div class="g1 related_documents"><%= render partial: "corporate_publications", object: @corporate_publications %></div>
   <div class="g1 related_documents"><%= render partial: "documents/speeches", object: @speeches %></div>
-  <div class="g1 related_documents"><%= render partial: "documents/consultations", object: @consultations, locals: { more: safe_join(['View all', @organisation.name, link_to('consultations', consultations_organisation_path(@organisation))], ' ') } %></div>
+  <div class="g1 related_documents"><%= render partial: "documents/consultations", object: @consultations, locals: { more: organisation_view_all_tag(@organisation, :consultations) } %></div>
 
   <% if @organisation.child_organisations.any? %>
     <div class="g1 related_documents">

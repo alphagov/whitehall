@@ -14,4 +14,9 @@ module OrganisationHelper
   def current_organisation_navigation_path(params)
     url_for params.slice(:controller, :action, :id).merge(only_path: true)
   end
+
+  def organisation_view_all_tag(organisation, kind)
+    path = send(:"#{kind}_organisation_path", @organisation)
+    safe_join(['View all', @organisation.name, link_to(kind, path)], ' ')
+  end
 end
