@@ -52,6 +52,28 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select_object(draft_corporate_publication)
   end
 
+  test "should only display the 3 most recent non-corporate publications ordered by publication date" do
+    organisation = create(:organisation)
+    older_publication = create(:published_publication, title: "older", publication_date: 3.days.ago, organisations: [organisation])
+    newest_publication = create(:published_publication, title: "newest", publication_date: 1.day.ago, organisations: [organisation])
+    oldest_publication = create(:published_publication, title: "oldest", publication_date: 4.days.ago, organisations: [organisation])
+    newer_publication = create(:published_publication, title: "newer", publication_date: 2.days.ago, organisations: [organisation])
+
+    get :show, id: organisation
+
+    assert_select "#publications .publication", count: 3
+    assert_select "#publications #{record_css_selector(newest_publication)} + #{record_css_selector(newer_publication)} + #{record_css_selector(older_publication)}"
+  end
+
+  test "should link to the organisation's publications page" do
+    organisation = create(:organisation)
+    publication = create(:published_publication, organisations: [organisation])
+
+    get :show, id: organisation
+
+    assert_select "#publications a[href=#{publications_organisation_path(organisation)}]"
+  end
+
   test "shows only published consultations associated with organisation" do
     published_document = create(:published_consultation)
     draft_document = create(:draft_consultation)
@@ -252,6 +274,28 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :consultations, id: organisation
 
     assert_equal [later_consultation, earlier_consultation], assigns(:consultations)
+  end
+
+  test "should display all published corporate and non-corporate publications for the organisation" do
+    organisation = create(:organisation)
+    published_publication = create(:published_publication, organisations: [organisation])
+    draft_publication = create(:draft_publication, organisations: [organisation])
+    published_corporate_publication = create(:published_corporate_publication, organisations: [organisation])
+
+    get :publications, id: organisation
+
+    assert_equal [published_publication, published_corporate_publication].to_set, assigns(:publications).to_set
+  end
+
+  test "should order publications by publication date" do
+    organisation = create(:organisation)
+    older_publication = create(:published_publication, title: "older", publication_date: 3.days.ago, organisations: [organisation])
+    newest_publication = create(:published_publication, title: "newest", publication_date: 1.day.ago, organisations: [organisation])
+    oldest_publication = create(:published_publication, title: "oldest", publication_date: 4.days.ago, organisations: [organisation])
+
+    get :publications, id: organisation
+
+    assert_select "#{record_css_selector(newest_publication)} + #{record_css_selector(older_publication)} + #{record_css_selector(oldest_publication)}"
   end
 
   test "should display an about-us page for the organisation" do

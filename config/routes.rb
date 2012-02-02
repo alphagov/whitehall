@@ -47,6 +47,7 @@ Whitehall::Application.routes.draw do
         get :ministers
         get :board_members, path: 'board-members'
         get :policies
+        get :publications
       end
     end
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]

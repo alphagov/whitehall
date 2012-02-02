@@ -1,0 +1,8 @@
+<% page_title "#{@organisation.name} Publications" %>
+<div class="g3f organisation">
+  <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Publications" %>
+
+  <div class="g3 page_detail">
+    <%= render partial: "documents/publications", object: @publications %>
+  </div>
+</div>

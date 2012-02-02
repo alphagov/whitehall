@@ -59,7 +59,7 @@
 
   <div class="g1 related_documents"><%= render partial: "documents/policy_areas", object: @organisation.policy_areas %></div>
   <div class="g1 related_documents"><%= render partial: "documents/policies", object: @policies, locals: { more: organisation_view_all_tag(@organisation, :policies) } %></div>
-  <div class="g1 related_documents"><%= render partial: "documents/publications", object: @publications %></div>
+  <div class="g1 related_documents"><%= render partial: "documents/publications", object: @publications, locals: { more: organisation_view_all_tag(@organisation, :publications) } %></div>
   <div class="g1 related_documents"><%= render partial: "corporate_publications", object: @corporate_publications %></div>
   <div class="g1 related_documents"><%= render partial: "documents/speeches", object: @speeches %></div>
   <div class="g1 related_documents"><%= render partial: "documents/consultations", object: @consultations, locals: { more: organisation_view_all_tag(@organisation, :consultations) } %></div>
