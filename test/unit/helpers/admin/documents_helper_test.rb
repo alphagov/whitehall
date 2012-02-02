@@ -7,6 +7,7 @@ class Admin::DocumentsHelperTest < ActionView::TestCase
 
   test "should return PDF Document for humanized content type" do
     assert_equal "PDF Document", humanized_content_type("pdf")
+    assert_equal "PDF Document", humanized_content_type("PDF")
   end
 
   test "should return CSV Document for humanized content type" do

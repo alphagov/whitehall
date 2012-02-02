@@ -41,7 +41,7 @@ module Admin::DocumentsHelper
   }
 
   def humanized_content_type(file_extension)
-    FILE_EXTENSION_VS_HUMANIZED_CONTENT_TYPE[file_extension]
+    FILE_EXTENSION_VS_HUMANIZED_CONTENT_TYPE[file_extension.downcase] if file_extension.present?
   end
 
   def order_link(document)
