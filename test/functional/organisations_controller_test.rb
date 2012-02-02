@@ -25,6 +25,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select_object(draft_policy)
   end
 
+  test "links to dedicated policies page" do
+    organisation = create(:organisation, documents: [create(:published_policy)])
+    get :show, id: organisation
+    assert_select '#policies a[href=?]', policies_organisation_path(organisation)
+  end
+
   test "shows only published publications associated with organisation" do
     published_document = create(:published_publication)
     draft_document = create(:draft_publication)
