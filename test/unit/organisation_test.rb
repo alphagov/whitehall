@@ -58,9 +58,16 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [], organisation.ministerial_roles
   end
 
-  test "#top_ministerial_role returns a ministerial role" do
+  test "#top_ministerial_role returns a ministerial role which attends cabinet" do
     minister = create(:ministerial_role)
-    other_minister = create(:ministerial_role)
+    other_minister = create(:ministerial_role, cabinet_member: true)
+    organisation = create(:organisation, roles:  [minister, other_minister])
+    assert_equal other_minister, organisation.top_ministerial_role
+  end
+
+  test "#top_ministerial_role returns first ministerial role if none attends cabinet" do
+    minister = create(:ministerial_role, cabinet_member: false)
+    other_minister = create(:ministerial_role, cabinet_member: false)
     organisation = create(:organisation, roles:  [minister, other_minister])
     assert_equal minister, organisation.top_ministerial_role
   end
