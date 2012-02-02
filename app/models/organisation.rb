@@ -75,6 +75,10 @@ class Organisation < ActiveRecord::Base
     ministerial_roles.order(MinisterialRole.arel_table[:cabinet_member].desc).first
   end
 
+  def top_civil_servant
+    roles.order(Role.arel_table[:permanent_secretary].desc).first
+  end
+
   private
 
   def contact_and_contact_numbers_are_blank(attributes)
