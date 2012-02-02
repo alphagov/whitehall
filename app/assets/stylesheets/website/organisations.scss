@@ -93,16 +93,8 @@
   }
 
   nav.organisations_type_links {
-    border: none;
-
     p:last-child {
       margin-bottom: 0;
-    }
-
-    a {
-      float: none;
-      margin-right: 0;
-      @include type-16;
     }
   }
 
