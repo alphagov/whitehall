@@ -20,6 +20,14 @@ class Admin::DocumentPublishingControllerTest < ActionController::TestCase
     refute Document.submitted.include?(document_to_publish)
   end
 
+  test 'publishing should not mark the document as force published' do
+    document_to_publish = create(:submitted_policy)
+    login_as :departmental_editor
+    post :create, document_id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
+
+    refute document_to_publish.reload.force_published?
+  end
+
   test 'failing to publish an document should set a flash' do
     document_to_publish = create(:submitted_policy)
     login_as :policy_writer
@@ -54,6 +62,14 @@ class Admin::DocumentPublishingControllerTest < ActionController::TestCase
 
     assert_redirected_to published_admin_documents_path
     assert_equal "The document #{submitted_document.title} has been published", flash[:notice]
+  end
+
+  test 'force publishing should mark the document as force published' do
+    submitted_document = create(:draft_policy)
+    login_as :departmental_editor
+    post :create, document_id: submitted_document, document: {lock_version: submitted_document.lock_version}, force: true
+
+    assert submitted_document.reload.force_published?
   end
 
   test 'should set change note on document if one is provided' do
