@@ -6,10 +6,6 @@ module Document::Workflow
     include ActiveRecord::Transitions
 
     default_scope where(%{documents.state <> "deleted"})
-    scope :draft, where(state: "draft")
-    scope :submitted, where(state: "submitted")
-    scope :rejected, where(state: "rejected")
-    scope :published, where(state: "published")
 
     define_model_callbacks :publish, :archive, only: :after
     set_callback :publish, :after do
@@ -21,7 +17,7 @@ module Document::Workflow
 
     after_publish :archive_previous_documents
 
-    state_machine do
+    state_machine auto_scopes: true do
       state :draft
       state :submitted
       state :rejected
