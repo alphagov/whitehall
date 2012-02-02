@@ -13,15 +13,17 @@
       </p>
     </div>
     <div class="g1">
-      <section id="ministers">
-        <%= render_list_of_ministerial_roles([@organisation.top_ministerial_role]) do |ministerial_role| %>
-          <div class="image_holder">
-            <%= image_for_ministerial_role(ministerial_role) %>
-          </div>
-          <h3><%= link_to ministerial_role.name, ministerial_role %></h3>
-          <p class="current_appointee"><%= ministerial_role.current_person_name %></p>
-        <% end %>
-      </section>
+      <% if @organisation.ministerial_roles.any? %>
+        <section id="ministers">
+          <%= render_list_of_ministerial_roles([@organisation.top_ministerial_role]) do |ministerial_role| %>
+            <div class="image_holder">
+              <%= image_for_ministerial_role(ministerial_role) %>
+            </div>
+            <h3><%= link_to ministerial_role.name, ministerial_role %></h3>
+            <p class="current_appointee"><%= ministerial_role.current_person_name %></p>
+          <% end %>
+        </section>
+      <% end %>
     </div>
   </div>
 <% end %>
