@@ -83,43 +83,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#consultations"
   end
 
-  test "shows leading board members associated with organisation" do
-    permanent_secretary = create(:board_member_role, permanent_secretary: true)
-    organisation = create(:organisation, board_member_roles: [permanent_secretary])
-
-    get :show, id: organisation
-
-    assert_select permanent_secretary_board_members_selector do
-      assert_select_object(permanent_secretary)
-    end
-  end
-
-  test "should not display an empty leading board members section" do
-    junior = create(:board_member_role)
-    organisation = create(:organisation, board_member_roles: [junior])
-
-    get :show, id: organisation
-
-    refute_select permanent_secretary_board_members_selector
-  end
-
-  test "shows board members associated with organisation" do
-    permanent_secretary = create(:board_member_role)
-    organisation = create(:organisation, board_member_roles: [permanent_secretary])
-
-    get :show, id: organisation
-
-    assert_select "#other_board_members" do
-      assert_select_object(permanent_secretary)
-    end
-  end
-
-  test "should not display an empty board members section" do
-    organisation = create(:organisation)
-    get :show, id: organisation
-    refute_select "#other_board_members"
-  end
-
   test "should link to the child organisations" do
     parent_organisation = create(:organisation)
     child_organisation = create(:organisation, parent_organisations: [parent_organisation])
@@ -355,6 +318,43 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
     get :ministers, id: organisation
     assert_select "img[src*=blank-person.png]"
+  end
+
+  test "shows board members associated with organisation" do
+    permanent_secretary = create(:board_member_role)
+    organisation = create(:organisation, board_member_roles: [permanent_secretary])
+
+    get :board_members, id: organisation
+
+    assert_select "#other_board_members" do
+      assert_select_object(permanent_secretary)
+    end
+  end
+
+  test "shows leading board members associated with organisation" do
+    permanent_secretary = create(:board_member_role, permanent_secretary: true)
+    organisation = create(:organisation, board_member_roles: [permanent_secretary])
+
+    get :board_members, id: organisation
+
+    assert_select permanent_secretary_board_members_selector do
+      assert_select_object(permanent_secretary)
+    end
+  end
+
+  test "should not display an empty leading board members section" do
+    junior = create(:board_member_role)
+    organisation = create(:organisation, board_member_roles: [junior])
+
+    get :board_members, id: organisation
+
+    refute_select permanent_secretary_board_members_selector
+  end
+
+  test "should not display an empty board members section" do
+    organisation = create(:organisation)
+    get :board_members, id: organisation
+    refute_select "#other_board_members"
   end
 
   test "should display a list of organisations" do

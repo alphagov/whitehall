@@ -1,0 +1,29 @@
+<% page_title "#{@organisation.name} Board Members" %>
+<div class="g3f organisation">
+  <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Board Members" %>
+
+  <div class="g3 page_detail">
+    <% if @organisation.board_member_roles.any? %>
+      <section id="board_members">
+      <% if @organisation.permanent_secretary_board_member_roles.any? %>
+        <section id="permanent_secretary_board_members">
+          <h1>Permanent secretaries</h1>
+          <%= render_list_of_roles(@organisation.permanent_secretary_board_member_roles, "permanent_secretary_board_member_roles") do |board_member_role| %>
+            <h3><%= board_member_role.name %></h3>
+            <p class="current_appointee"><%= board_member_role.current_person_name %></p>
+          <% end %>
+        </section>
+      <% end %>
+      <% if @organisation.other_board_member_roles.any? %>
+        <section id="other_board_members">
+          <h1>Other Board Members</h1>
+          <%= render_list_of_roles(@organisation.other_board_member_roles, "other_board_member_roles") do |board_member_role| %>
+            <h3><%= board_member_role.name %></h3>
+            <p class="current_appointee"><%= board_member_role.current_person_name %></p>
+          <% end %>
+        </section>
+      <% end %>
+      </section>
+    <% end %>
+  </div>
+</div>
