@@ -7,6 +7,9 @@
           <%= link_to speech.title, public_document_path(speech), class: "title", title: "View #{speech.title}" %>
         <% end %>
       <% end %>
+      <% if local_assigns.has_key?(:more) %>
+        <li><%= more %></li>
+      <% end %>
     </ul>
   </section>
 <% end %>

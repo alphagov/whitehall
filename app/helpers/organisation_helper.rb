@@ -17,6 +17,7 @@ module OrganisationHelper
 
   def organisation_view_all_tag(organisation, kind)
     path = send(:"#{kind}_organisation_path", @organisation)
-    content_tag(:span, safe_join(['View all', @organisation.name, link_to(kind, path)], ' '), class: "view_all")
+    text = (kind == :announcements) ? "news & speeches" : kind
+    content_tag(:span, safe_join(['View all', @organisation.name, link_to(text, path)], ' '), class: "view_all")
   end
 end

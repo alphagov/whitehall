@@ -96,6 +96,31 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal consultations.take(3), assigns[:consultations]
   end
 
+  test "shows only 3 speeches with latest first_published_at when more exist" do
+    organisation = create(:organisation)
+    role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:ministerial_role_appointment, role: role)
+    speeches = 5.times.map do |n|
+      create(:published_speech, role_appointment: role_appointment, first_published_at: (5-n).days.ago, published_at: n.days.ago)
+    end
+
+    get :show, id: organisation
+
+    assert_equal 3, assigns[:speeches].size
+    assert_equal speeches.reverse.take(3), assigns[:speeches]
+  end
+
+  test "should link to the organisation's news and speeches page" do
+    organisation = create(:organisation)
+    role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:ministerial_role_appointment, role: role)
+    speech = create(:published_speech, role_appointment: role_appointment)
+
+    get :show, id: organisation
+
+    assert_select "#speeches a[href=#{announcements_organisation_path(organisation)}]"
+  end
+
   test "should not display an empty published policies section" do
     organisation = create(:organisation)
     get :show, id: organisation
