@@ -3,12 +3,12 @@
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} News" %>
 
   <div class="g3 page_detail">
-    <% if @news_articles.any? %>
-      <% @news_articles.each do |news_article| %>
-        <%= render partial: "announcements/news_article", locals: { news_article: news_article, display: "default" } %>
+    <section id="news_articles" class="announcements group">
+      <% if @news_articles.any? %>
+        <%= announcement_group(@news_articles, groups_of: 3, class: "", partial: "default") %>
+      <% else %>
+        <p>There are no <%= @organisation.name %> news articles at present.</p>
       <% end %>
-    <% else %>
-      <p>There are no <%= @organisation.name %> news articles at present.</p>
-    <% end %>
+    </section>
   </div>
 </div>
