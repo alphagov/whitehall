@@ -1,0 +1,18 @@
+<% page_title "#{@organisation.name} Policies" %>
+<div class="g3f organisation">
+  <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Policies" %>
+
+  <div class="g3 page_detail">
+    <% if @policies.any? %>
+      <section id="policies">
+        <ul>
+          <% @policies.each do |policy| %>
+            <%= content_tag_for :li, policy do %>
+              <h3><%= link_to policy.title, policy %></h3>
+            <% end %>
+          <% end %>
+        </ul>
+      </section>
+    <% end %>
+  </div>
+</div>

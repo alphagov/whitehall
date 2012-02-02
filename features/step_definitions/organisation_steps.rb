@@ -81,7 +81,7 @@ When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |
   end
 end
 
-When /^I navigate to the "([^"]*)" organisation's (about|news|home) page$/ do |organisation_name, page_name|
+When /^I navigate to the "([^"]*)" organisation's (.*) page$/ do |organisation_name, page_name|
   navigate_to_organisation(page_name)
 end
 
@@ -143,12 +143,13 @@ Then /^I should see the organisation navigation$/ do
   assert page.has_css?('.organisation nav')
 end
 
-Then /^I should see the "([^"]*)" organisation's (about|news|home) page$/ do |organisation_name, page_name|
+Then /^I should see the "([^"]*)" organisation's (.*) page$/ do |organisation_name, page_name|
   title =
     case page_name
-    when 'about'  then "About #{organisation_name}"
-    when 'news'   then "#{organisation_name} News"
-    when 'home'   then organisation_name
+    when 'about'    then "About #{organisation_name}"
+    when 'news'     then "#{organisation_name} News"
+    when 'home'     then organisation_name
+    when 'policies' then  "#{organisation_name} Policies"
     end
 
   assert page.has_css?('title', text: title)

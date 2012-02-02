@@ -51,5 +51,8 @@ Scenario: Navigating between pages for an organisation
   When I navigate to the "Cabinet Office" organisation's news page
   Then I should see the "Cabinet Office" organisation's news page
   And I should see the organisation navigation
+  When I navigate to the "Cabinet Office" organisation's policies page
+  Then I should see the "Cabinet Office" organisation's policies page
+  And I should see the organisation navigation
   When I navigate to the "Cabinet Office" organisation's home page
   Then I should see the "Cabinet Office" organisation's home page

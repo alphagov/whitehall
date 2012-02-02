@@ -13,13 +13,22 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".description", text: "organisation-description"
   end
 
-  test "shows only published policies associated with organisation" do
-    published_document = create(:published_policy)
-    draft_document = create(:draft_policy)
-    organisation = create(:organisation, documents: [published_document, draft_document])
+  test "shows 3 most recent published policies associated with organisation" do
+    policies = (0..3).map { |n| create(:published_policy, published_at: n.days.ago) }
+    draft_policy = create(:draft_policy)
+    organisation = create(:organisation, documents: policies)
     get :show, id: organisation
-    assert_select_object(published_document)
-    refute_select_object(draft_document)
+    policies[0..2].each do |policy|
+      assert_select_object(policy)
+    end
+    refute_select_object(policies[3])
+    refute_select_object(draft_policy)
+  end
+
+  test "links to dedicated policies page" do
+    organisation = create(:organisation, documents: [create(:published_policy)])
+    get :show, id: organisation
+    assert_select '#policies a[href=?]', policies_organisation_path(organisation)
   end
 
   test "shows only published publications associated with organisation" do
@@ -355,6 +364,19 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :board_members, id: organisation
     refute_select "#other_board_members"
+  end
+
+  test "shows only published policies associated with organisation on policies page" do
+    published_policy = create(:published_policy)
+    draft_policy = create(:draft_policy)
+    unrelated_policy = create(:published_policy)
+    organisation = create(:organisation, documents: [published_policy, draft_policy])
+
+    get :policies, id: organisation
+
+    assert_select_object(published_policy)
+    refute_select_object(draft_policy)
+    refute_select_object(unrelated_policy)
   end
 
   test "should display a list of organisations" do
