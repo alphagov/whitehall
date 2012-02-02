@@ -2,7 +2,7 @@
 <div class="g3f organisation">
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Consultations" %>
 
-  <div class="g3" style="margin-top: 1.5em">
+  <div class="g3 page_detail">
     <% if @consultations.any? %>
       <% @consultations.each do |consultation| %>
         <%= render partial: "consultations/consultation", locals: { consultation: consultation, display: "default" } %>
