@@ -1,7 +1,7 @@
 class Attachment < ActiveRecord::Base
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 
-  delegate :url, to: :file
+  delegate :url, to: :file, allow_nil: true
 
   validates :title, :file, presence: true
 
@@ -14,7 +14,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def file_extension
-    File.extname(url).gsub(/\./, "") if file.present? && url.present?
+    File.extname(url).gsub(/\./, "") if url.present?
   end
 
   def pdf?

@@ -137,6 +137,12 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_nil attachment.file_extension
   end
 
+  test "should return file extension if URL present but file empty" do
+    attachment = build(:attachment)
+    attachment.stubs(file: stub("uploader", empty?: true, url: "greenpaper.pdf"))
+    assert_equal "pdf", attachment.file_extension
+  end
+
   test "should return file extension if file present" do
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     attachment = build(:attachment, file: greenpaper_pdf)
