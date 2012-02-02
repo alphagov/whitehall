@@ -1,7 +1,7 @@
 @mixin icons_48 {
   background-repeat: no-repeat;
 
-  &.consultation {
+  &.consultation, &.consultation_response {
     background-image: url(/government/assets/icons/48/consultation.png);
   }
 
