@@ -26,9 +26,9 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_equal about_organisation_path(organisation), current_organisation_navigation_path(controller: 'organisations', action: 'about', id: organisation.slug)
   end
 
-  test 'organisation news page should be related to news page in organisation navigation' do
+  test 'organisation announcements page should be related to announcements page in organisation navigation' do
     organisation = create(:organisation, name: 'Cabinet Office')
-    assert_equal news_organisation_path(organisation), current_organisation_navigation_path(controller: 'organisations', action: 'news', id: organisation.slug)
+    assert_equal announcements_organisation_path(organisation), current_organisation_navigation_path(controller: 'organisations', action: 'announcements', id: organisation.slug)
   end
 
   test 'should add current class to link if current page is related to link' do

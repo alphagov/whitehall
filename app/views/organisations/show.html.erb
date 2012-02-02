@@ -54,7 +54,7 @@
         <% end %>
       </section>
     <% end %>
-    <p class="further_articles all_news">View all <%= @organisation.name %> <%= link_to "news", news_organisation_path(@organisation), title: "View all #{@organisation.name} news" %></p>
+    <p class="further_articles all_announcements">View all <%= @organisation.name %> <%= link_to "news & speeches", announcements_organisation_path(@organisation), title: "View all #{@organisation.name} news & speeches" %></p>
   </section>
 
   <div class="g1 related_documents"><%= render partial: "documents/policy_areas", object: @organisation.policy_areas %></div>

@@ -1,5 +1,5 @@
 class OrganisationsController < PublicFacingController
-  before_filter :load_organisation, only: [:show, :about, :contact_details, :news, :consultations,
+  before_filter :load_organisation, only: [:show, :about, :contact_details, :announcements, :consultations,
                                            :ministers, :board_members, :policies, :publications]
 
   def index
@@ -15,7 +15,7 @@ class OrganisationsController < PublicFacingController
     @publications = Publication.published.in_organisation(@organisation).order("publication_date DESC").limit(3)
     @news_articles = NewsArticle.published.in_organisation(@organisation)
     @consultations = Consultation.published.by_published_at.in_organisation(@organisation).limit(3)
-    @speeches = @organisation.ministerial_roles.map { |mr| mr.speeches.published }.flatten.uniq
+    @speeches = @organisation.published_speeches
     @corporate_publications = @organisation.corporate_publications.published
     @featured_news_articles = @organisation.featured_news_articles
   end
@@ -26,8 +26,8 @@ class OrganisationsController < PublicFacingController
   def contact_details
   end
 
-  def news
-    @news_articles = NewsArticle.in_organisation(@organisation).published.by_published_at
+  def announcements
+    @announcements = (NewsArticle.in_organisation(@organisation).published + @organisation.published_speeches).sort_by!{|a| a.first_published_at }.reverse
   end
 
   def consultations

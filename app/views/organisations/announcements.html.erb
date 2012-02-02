@@ -1,0 +1,14 @@
+<% page_title "#{@organisation.name} News" %>
+<div class="g3f organisation">
+  <%= render 'header', organisation: @organisation, title: "#{@organisation.name} News" %>
+
+  <div class="g3 page_detail">
+    <section id="announcements" class="announcements group">
+      <% if @announcements.any? %>
+        <%= announcement_group(@announcements, groups_of: 3, class: "", partial: "default") %>
+      <% else %>
+        <p>There are no <%= @organisation.name %> news articles or speeches at present.</p>
+      <% end %>
+    </section>
+  </div>
+</div>

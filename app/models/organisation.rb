@@ -79,6 +79,10 @@ class Organisation < ActiveRecord::Base
     roles.order(Role.arel_table[:permanent_secretary].desc).first
   end
 
+  def published_speeches
+    ministerial_roles.map { |mr| mr.speeches.published }.flatten.uniq
+  end
+
   private
 
   def contact_and_contact_numbers_are_blank(attributes)

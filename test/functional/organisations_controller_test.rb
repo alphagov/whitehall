@@ -163,12 +163,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "#policy_areas", count: 0
   end
 
-  test "should display a link to the news page for the organisation" do
+  test "should display a link to the announcements page for the organisation" do
     organisation = create(:organisation)
 
     get :show, id: organisation
 
-    assert_select ".all_news a[href='#{news_organisation_path(organisation)}']"
+    assert_select ".all_announcements a[href='#{announcements_organisation_path(organisation)}']"
   end
 
   test "presents the contact details of the organisation using hcard" do
@@ -222,29 +222,46 @@ class OrganisationsControllerTest < ActionController::TestCase
     another_published_news_article = create(:published_news_article)
     organisation = create(:organisation, documents: [published_news_article, draft_news_article])
 
-    get :news, id: organisation
+    get :announcements, id: organisation
 
     assert_select_object(published_news_article)
     refute_select_object(draft_news_article)
     refute_select_object(another_published_news_article)
   end
 
-  test "should show explanatory text if there are no news articles for the organisation" do
-    organisation = create(:organisation, name: "Cabinet Office")
+  test "should show only published speeches associated with organisation" do
+    organisation = create(:organisation)
+    role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:ministerial_role_appointment, role: role)
+    published_speech = create(:published_speech, role_appointment: role_appointment)
+    draft_speech = create(:draft_speech, role_appointment: role_appointment)
+    another_published_speech = create(:published_speech)
 
-    get :news, id: organisation
+    get :announcements, id: organisation
 
-    assert_select "p", "There are no Cabinet Office news articles at present."
+    assert_select_object(published_speech)
+    refute_select_object(draft_speech)
+    refute_select_object(another_published_speech)
   end
 
-  test "should order news articles in order of publication date with most recent first" do
-    earlier_news_article = create(:published_news_article, published_at: 2.days.ago)
-    later_news_article = create(:published_news_article, published_at: 1.days.ago)
-    organisation = create(:organisation, documents: [earlier_news_article, later_news_article])
+  test "should show explanatory text if there are no news articles or speeches for the organisation" do
+    organisation = create(:organisation, name: "Cabinet Office")
 
-    get :news, id: organisation
+    get :announcements, id: organisation
 
-    assert_equal [later_news_article, earlier_news_article], assigns(:news_articles)
+    assert_select "p", "There are no Cabinet Office news articles or speeches at present."
+  end
+
+  test "should order news articles and speeches in order of first publication date with most recent first" do
+    organisation = create(:organisation)
+    role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:ministerial_role_appointment, role: role)
+    earlier_news_article = create(:published_news_article, first_published_at: 4.days.ago, published_at: 1.days.ago, organisations: [organisation])
+    later_speech = create(:published_speech, first_published_at: 3.days.ago, published_at: 2.days.ago, role_appointment: role_appointment)
+
+    get :announcements, id: organisation
+
+    assert_equal [later_speech, earlier_news_article], assigns(:announcements)
   end
 
   test "should show published consultations associated with the organisation" do
