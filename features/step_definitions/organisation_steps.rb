@@ -27,13 +27,19 @@ Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
   end
 end
 
-Given /^the "([^"]*)" organisation is associated with several ministers$/ do |organisation_name|
+Given /^the "([^"]*)" organisation is associated with several ministers and civil servants$/ do |organisation_name|
   organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
-  3.times do
+  3.times do |x|
     person = create(:person)
-    ministerial_role = create(:ministerial_role)
+    ministerial_role = create(:ministerial_role, cabinet_member: (x == 1))
     organisation.ministerial_roles << ministerial_role
     create(:role_appointment, role: ministerial_role, person: person)
+  end
+  3.times do |x|
+    person = create(:person)
+    role = create(:role, permanent_secretary: (x == 1))
+    organisation.roles << role
+    create(:role_appointment, role: role, person: person)
   end
 end
 
@@ -82,6 +88,11 @@ end
 Then /^I should see the top minister for the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)
   assert page.has_css?(record_css_selector(organisation.top_ministerial_role))
+end
+
+Then /^I should see the top civil servant for the "([^"]*)" organisation$/ do |name|
+  organisation = Organisation.find_by_name!(name)
+  assert page.has_css?(record_css_selector(organisation.top_civil_servant))
 end
 
 Then /^I should be able to view all ministers for the "([^"]*)" organisation on a separate page$/ do |name|

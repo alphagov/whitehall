@@ -13,14 +13,21 @@
       </p>
     </div>
     <div class="g1">
+      <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
       <% if @organisation.ministerial_roles.any? %>
         <section id="ministers">
-          <%= render_list_of_ministerial_roles([@organisation.top_ministerial_role]) do |ministerial_role| %>
+          <%= render_list_of_ministerial_roles(roles) do |role| %>
             <div class="image_holder">
-              <%= image_for_ministerial_role(ministerial_role) %>
+              <%= image_for_ministerial_role(role) %>
             </div>
-            <h3><%= link_to ministerial_role.name, ministerial_role %></h3>
-            <p class="current_appointee"><%= ministerial_role.current_person_name %></p>
+            <h3>
+              <% if role.is_a?(MinisterialRole) %>
+                <%= link_to role.name, role %>
+              <% else %>
+                <%= role.name %>
+              <% end %>
+            </h3>
+            <p class="current_appointee"><%= role.current_person_name %></p>
           <% end %>
         </section>
       <% end %>
