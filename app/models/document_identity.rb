@@ -24,7 +24,7 @@ class DocumentIdentity < ActiveRecord::Base
   end
 
   def editions_ever_published
-    documents.where(state: [:published, :archived]).by_first_published_at
+    documents.where(state: [:published, :archived]).by_published_at
   end
 
   def update_slug_if_possible(new_title)

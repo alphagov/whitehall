@@ -13,7 +13,7 @@
         <ul>
           <% @policy.editions_ever_published.each do |edition| %>
             <li class="group">
-              <%= time_ago(edition.first_published_at, class: 'first_published_at') %>
+              <%= time_ago(edition.published_at, class: 'published_at') %>
               <p><%= edition.change_note %></p>
             </li>
           <% end %>
