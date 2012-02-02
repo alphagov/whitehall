@@ -55,44 +55,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#publications"
   end
 
-  test "shows names and roles of those ministers associated with organisation" do
-    person_1 = create(:person, forename: "Fred")
-    person_2 = create(:person, forename: "Bob")
-    ministerial_role_1 = create(:ministerial_role, name: "Secretary of State")
-    ministerial_role_2 = create(:ministerial_role, name: "Minister of State")
-    create(:role_appointment, person: person_1, role: ministerial_role_1)
-    create(:role_appointment, person: person_2, role: ministerial_role_2)
-    organisation = create(:organisation, ministerial_roles: [ministerial_role_1, ministerial_role_2])
-    minister_in_another_organisation = create(:ministerial_role)
-
-    get :show, id: organisation
-
-    assert_select_object(ministerial_role_1) do
-      assert_select ".current_appointee", "Fred"
-      assert_select "a[href=#{ministerial_role_path(ministerial_role_1)}]", text: "Secretary of State"
-    end
-    assert_select_object(ministerial_role_2) do
-      assert_select ".current_appointee", "Bob"
-      assert_select "a[href=#{ministerial_role_path(ministerial_role_2)}]", text: "Minister of State"
-    end
-    refute_select_object(minister_in_another_organisation)
-  end
-
-  test "shows minister role even if it is not currently fulfilled by any person" do
-    minister = create(:ministerial_role, people: [])
-    organisation = create(:organisation, ministerial_roles: [minister])
-
-    get :show, id: organisation
-
-    assert_select_object(minister)
-  end
-
-  test "should not display an empty ministers section" do
-    organisation = create(:organisation)
-    get :show, id: organisation
-    refute_select "#ministers"
-  end
-
   test "shows leading board members associated with organisation" do
     permanent_secretary = create(:board_member_role, permanent_secretary: true)
     organisation = create(:organisation, board_member_roles: [permanent_secretary])
@@ -154,24 +116,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#parent_organisations"
-  end
-
-  test "should display the minister's picture if available" do
-    ministerial_role = create(:ministerial_role)
-    person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
-    create(:role_appointment, person: person, role: ministerial_role)
-    organisation = create(:organisation, ministerial_roles: [ministerial_role])
-    get :show, id: organisation
-    assert_select "img[src*=minister-of-funk.jpg]"
-  end
-
-  test "should display a generic image if the minister doesn't have their own picture" do
-    ministerial_role = create(:ministerial_role)
-    person = create(:person)
-    create(:role_appointment, person: person, role: ministerial_role)
-    organisation = create(:organisation, ministerial_roles: [ministerial_role])
-    get :show, id: organisation
-    assert_select "img[src*=blank-person.png]"
   end
 
   test "should display a link to the about-us page for the organisation" do
@@ -304,6 +248,56 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :about, id: organisation
 
     assert_select ".body", text: "body-in-html"
+  end
+
+  test "shows names and roles of those ministers associated with organisation" do
+    person_1 = create(:person, forename: "Fred")
+    person_2 = create(:person, forename: "Bob")
+    ministerial_role_1 = create(:ministerial_role, name: "Secretary of State")
+    ministerial_role_2 = create(:ministerial_role, name: "Minister of State")
+    create(:role_appointment, person: person_1, role: ministerial_role_1)
+    create(:role_appointment, person: person_2, role: ministerial_role_2)
+    organisation = create(:organisation, ministerial_roles: [ministerial_role_1, ministerial_role_2])
+    minister_in_another_organisation = create(:ministerial_role)
+
+    get :ministers, id: organisation
+
+    assert_select_object(ministerial_role_1) do
+      assert_select ".current_appointee", "Fred"
+      assert_select "a[href=#{ministerial_role_path(ministerial_role_1)}]", text: "Secretary of State"
+    end
+    assert_select_object(ministerial_role_2) do
+      assert_select ".current_appointee", "Bob"
+      assert_select "a[href=#{ministerial_role_path(ministerial_role_2)}]", text: "Minister of State"
+    end
+    refute_select_object(minister_in_another_organisation)
+  end
+
+  test "shows minister role even if it is not currently fulfilled by any person" do
+    minister = create(:ministerial_role, people: [])
+    organisation = create(:organisation, ministerial_roles: [minister])
+
+    get :ministers, id: organisation
+
+    assert_select_object(minister)
+  end
+
+  test "should display the minister's picture if available" do
+    ministerial_role = create(:ministerial_role)
+    person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
+    create(:role_appointment, person: person, role: ministerial_role)
+    organisation = create(:organisation, ministerial_roles: [ministerial_role])
+    get :ministers, id: organisation
+    assert_select "img[src*=minister-of-funk.jpg]"
+  end
+
+  test "should display a generic image if the minister doesn't have their own picture" do
+    ministerial_role = create(:ministerial_role)
+    person = create(:person)
+    create(:role_appointment, person: person, role: ministerial_role)
+    organisation = create(:organisation, ministerial_roles: [ministerial_role])
+    get :ministers, id: organisation
+    assert_select "img[src*=blank-person.png]"
   end
 
   test "should display a list of organisations" do

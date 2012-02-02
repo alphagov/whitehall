@@ -11,14 +11,11 @@ Scenario: Organisation page should show consultations
   When I visit the "Attorney General's Office" organisation
   Then I can see links to the consultations "More tea vicar?" and "Cake or biscuit?"
 
-Scenario: Organisation page should show ministers
-  Given the "Attorney General's Office" organisation contains:
-    | Ministerial Role  | Person          |
-    | Attorney General  | Colonel Mustard |
-    | Solicitor General | Professor Plum  |
+Scenario: Organisation page should show the top minister
+  Given the "Attorney General's Office" organisation is associated with several ministers
   When I visit the "Attorney General's Office" organisation
-  Then I should see "Colonel Mustard" has the "Attorney General" ministerial role
-  And I should see "Professor Plum" has the "Solicitor General" ministerial role
+  Then I should see the top minister for the "Attorney General's Office" organisation
+  And I should be able to view all ministers for the "Attorney General's Office" organisation on a separate page
 
 Scenario: A department is responsible for multiple agencies
   Given that "BIS" is responsible for "Companies House" and "UKTI"

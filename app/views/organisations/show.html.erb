@@ -12,6 +12,9 @@
         <%= link_to "Read more about #{@organisation.name}", about_organisation_path(@organisation), title: "Further information about #{@organisation.name}" %>
       </p>
     </div>
+    <div class="g1">
+      <p class="minister"><%= link_to @organisation.top_ministerial_role, ministerial_role_path(@organisation.top_ministerial_role) %></p>
+    </div>
   </div>
 <% end %>
 
@@ -55,21 +58,6 @@
 </div>
 
 <div class="g3">
-  <div class="g1 related_documents">
-    <% if @organisation.ministerial_roles.any? %>
-    <section id="ministers">
-      <h1>Ministers</h1>
-      <%= render_list_of_ministerial_roles(@organisation.ministerial_roles) do |ministerial_role| %>
-        <div class="image_holder">
-          <%= image_for_ministerial_role(ministerial_role) %>
-        </div>
-        <h3><%= link_to ministerial_role.name, ministerial_role %></h3>
-        <p class="current_appointee"><%= ministerial_role.current_person_name %></p>
-      <% end %>
-    </section>
-    <% end %>
-  </div>
-
   <div class="g1 related_documents">
     <% if @organisation.board_member_roles.any? %>
       <section id="board_members">

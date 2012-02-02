@@ -27,6 +27,16 @@ Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
   end
 end
 
+Given /^the "([^"]*)" organisation is associated with several ministers$/ do |organisation_name|
+  organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
+  3.times do
+    person = create(:person)
+    ministerial_role = create(:ministerial_role)
+    organisation.ministerial_roles << ministerial_role
+    create(:role_appointment, role: ministerial_role, person: person)
+  end
+end
+
 Given /^that "([^"]*)" is responsible for "([^"]*)" and "([^"]*)"$/ do |parent_org_name, child_org_1_name, child_org_2_name|
   child_org_1 = create(:organisation, name: child_org_1_name)
   child_org_2 = create(:organisation, name: child_org_2_name)
@@ -66,13 +76,19 @@ When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |
 end
 
 When /^I navigate to the "([^"]*)" organisation's (about|news|home) page$/ do |organisation_name, page_name|
-  within('.organisation nav') do
-    click_link \
-      case page_name
-      when 'about'  then 'About'
-      when 'news'   then 'News'
-      when 'home'   then 'Home'
-      end
+  navigate_to_organisation(page_name)
+end
+
+Then /^I should see the top minister for the "([^"]*)" organisation$/ do |name|
+  organisation = Organisation.find_by_name!(name)
+  assert page.has_css?(".minister", organisation.top_ministerial_role)
+end
+
+Then /^I should be able to view all ministers for the "([^"]*)" organisation on a separate page$/ do |name|
+  organisation = Organisation.find_by_name!(name)
+  navigate_to_organisation('ministers')
+  organisation.ministerial_roles.each do |role|
+    assert page.has_css?(record_css_selector(role))
   end
 end
 
@@ -125,4 +141,10 @@ Then /^I should see the "([^"]*)" organisation's (about|news|home) page$/ do |or
     end
 
   assert page.has_css?('title', text: title)
+end
+
+def navigate_to_organisation(page_name)
+  within('.organisation nav') do
+    click_link page_name.capitalize
+  end
 end

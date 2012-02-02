@@ -71,6 +71,10 @@ class Organisation < ActiveRecord::Base
     organisation_path(slug)
   end
 
+  def top_ministerial_role
+    ministerial_roles.first
+  end
+
   private
 
   def contact_and_contact_numbers_are_blank(attributes)
