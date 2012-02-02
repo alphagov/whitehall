@@ -45,7 +45,11 @@ Whitehall::Application.routes.draw do
       end
     end
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
-    resources :countries, path: 'world', only: [:index, :show]
+    resources :countries, path: 'world', only: [:index, :show] do
+      member do
+        get :about
+      end
+    end
 
     match "/search" => "search#index"
     match "/autocomplete" => "search#autocomplete"
