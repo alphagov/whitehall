@@ -11,7 +11,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def show
-    @policies = Policy.published.in_organisation(@organisation)
+    @policies = Policy.published.in_organisation(@organisation).by_published_at.limit(3)
     @publications = Publication.published.in_organisation(@organisation)
     @news_articles = NewsArticle.published.in_organisation(@organisation)
     @consultations = Consultation.published.by_published_at.in_organisation(@organisation).limit(3)
