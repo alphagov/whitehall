@@ -1,0 +1,27 @@
+<%= content_tag_for(:li, consultation) do %>
+  <%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}", class: "title" %>
+  <p class="summary">
+    <%= consultation.summary %>
+  </p>
+  <% if consultation.published_consultation_response %>
+    <div class="response">  
+      Response
+      '<%= link_to consultation.published_consultation_response.title, consultation_response_path(consultation.document_identity) %>' published 
+      <%= time_ago(consultation.published_consultation_response.published_at, class: 'response_published_at') %>
+    </div>
+  <% end %>
+  <div class="details small">
+    <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
+    <span class="opening_on"><%= consultation_opening_phrase(consultation) %></span>
+    <span class="closing_on"><%= consultation_closing_phrase(consultation) %></span>
+    <% if consultation.organisations.any? %>
+      <span class="organisations">Published by <%= consultation.organisations.map { |o| link_to o.name, o }.to_sentence.html_safe %></span>
+    <% end %>
+    <% if consultation.published_related_policies.any? %>
+      <span class="related_documents">Related to <%= consultation.published_related_policies.map { |d| link_to d.title, d }.to_sentence.html_safe %></span>
+    <% end %>
+    <% if consultation.ministerial_roles.any? %>
+      <span class="ministerial_roles">Ministers involved include <%= consultation.ministerial_roles.map { |m| link_to m, m }.to_sentence.html_safe %></span>
+    <% end %>
+  </div>
+<% end %>
