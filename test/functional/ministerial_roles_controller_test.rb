@@ -57,10 +57,10 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   test "shows most recent news and speeches at the top" do
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
-    newer_speech = create(:published_speech, role_appointment: role_appointment, published_at: 1.hour.ago)
-    older_speech = create(:published_speech, role_appointment: role_appointment, published_at: 4.hours.ago)
-    newer_news_article = create(:published_news_article, ministerial_roles: [ministerial_role], published_at: 2.hours.ago)
-    older_news_article = create(:published_news_article, ministerial_roles: [ministerial_role], published_at: 3.hours.ago)
+    newer_speech = create(:published_speech, role_appointment: role_appointment, first_published_at: 1.hour.ago, published_at: 4.hour.ago)
+    older_speech = create(:published_speech, role_appointment: role_appointment, first_published_at: 4.hours.ago, published_at: 3.hours.ago)
+    newer_news_article = create(:published_news_article, ministerial_roles: [ministerial_role], first_published_at: 2.hours.ago, published_at: 2.hours.ago)
+    older_news_article = create(:published_news_article, ministerial_roles: [ministerial_role], first_published_at: 3.hours.ago, published_at: 1.hours.ago)
 
     get :show, id: ministerial_role
 

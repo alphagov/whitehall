@@ -15,7 +15,7 @@ class OrganisationsController < PublicFacingController
     @publications = Publication.published.in_organisation(@organisation).order("publication_date DESC").limit(3)
     @news_articles = NewsArticle.published.in_organisation(@organisation)
     @consultations = Consultation.published.by_published_at.in_organisation(@organisation).limit(3)
-    @speeches = @organisation.published_speeches.sort_by(&:first_published_at).reverse.take(3)
+    @speeches = Announcement.by_first_published_at(@organisation.published_speeches).take(3)
     @corporate_publications = @organisation.corporate_publications.published
     @featured_news_articles = @organisation.featured_news_articles
   end
@@ -27,7 +27,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def announcements
-    @announcements = (NewsArticle.in_organisation(@organisation).published + @organisation.published_speeches).sort_by!{|a| a.first_published_at }.reverse
+    @announcements = Announcement.by_first_published_at(NewsArticle.in_organisation(@organisation).published + @organisation.published_speeches)
   end
 
   def consultations

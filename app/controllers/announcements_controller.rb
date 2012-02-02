@@ -17,7 +17,7 @@ class AnnouncementsController < PublicFacingController
     speeches_today = Speech.published.first_published_since(today).
       by_first_published_at.includes(:document_identity, role_appointment: [:person, :role])
 
-    (news_today + speeches_today).sort_by!{|a| a.first_published_at }.reverse
+    Announcement.by_first_published_at(news_today + speeches_today)
   end
 
   def announced_in_last_7_days
@@ -27,6 +27,6 @@ class AnnouncementsController < PublicFacingController
     speeches_this_week = Speech.published.first_published_during(this_week).
       by_first_published_at.includes(:document_identity, role_appointment: [:person, :role])
 
-    (news_this_week + speeches_this_week).sort_by!{|a| a.first_published_at }.reverse
+    Announcement.by_first_published_at(news_this_week + speeches_this_week)
   end
 end
