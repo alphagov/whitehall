@@ -62,7 +62,7 @@
   <div class="g1 related_documents"><%= render partial: "documents/publications", object: @publications %></div>
   <div class="g1 related_documents"><%= render partial: "corporate_publications", object: @corporate_publications %></div>
   <div class="g1 related_documents"><%= render partial: "documents/speeches", object: @speeches %></div>
-  <div class="g1 related_documents"><%= render partial: "documents/consultations", object: @consultations %></div>
+  <div class="g1 related_documents"><%= render partial: "documents/consultations", object: @consultations, locals: { more: safe_join(['View all', @organisation.name, link_to('consultations', consultations_organisation_path(@organisation))], ' ') } %></div>
 
   <% if @organisation.child_organisations.any? %>
     <div class="g1 related_documents">

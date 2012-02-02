@@ -7,6 +7,9 @@
           <%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %>
         <% end %>
       <% end %>
+      <% if local_assigns.has_key?(:more) %>
+        <li><%= more %></li>
+      <% end %>
     </ul>
   </section>
 <% end %>
