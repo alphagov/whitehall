@@ -56,9 +56,11 @@
       background: #fff;
       border: 1px solid #ccc;
       @include box_shadow(0, 1px, 4px, rgba(50, 50, 50, 0.5));
-      width: 50%;
       z-index: 9999;
       top: 2em;
+      left: -4em;
+      width: 115%;
+      max-width: 30em;
 
       h1 {
         @include type-16;
@@ -76,12 +78,12 @@
         	display: block;
         	position: absolute;
         	top: -18px;
-        	left: 0;
+        	left: 62px;
         };
 
         &:before {
           border-bottom: 12px solid #ddd;
-          left: -2px;
+          left: 60px;
           top: -20px;
           border-left-width: 12px;
           border-right-width: 12px;
@@ -101,7 +103,11 @@
           @include type-14;
           margin-bottom: 0;
           float: left;
-          width: 85%;
+          width: 70%;
+
+          @media only screen and (min-width: 720px) {
+            width: 80%;
+          }
         }
 
         abbr {
@@ -110,9 +116,13 @@
           display: block;
           color: #bbb;
           margin-bottom: 0;
-          width: 12%;
+          width: 27%;
           padding-left: 3%;
           text-align: right;
+
+          @media only screen and (min-width: 720px) {
+            width: 17%;
+          }
         }
       }
 
