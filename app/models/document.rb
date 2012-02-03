@@ -106,8 +106,10 @@ class Document < ActiveRecord::Base
     draft_attributes = attributes.except('state', 'created_at', 'updated_at', 'change_note')
     self.class.new(draft_attributes.merge('state' => 'draft', 'creator' => user)).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }
-      if draft.save
-        traits.each { |t| t.process_associations_after_save(draft) }
+      if draft.valid? || !draft.errors.keys.include?(:base)
+        if draft.save(validate: false)
+          traits.each { |t| t.process_associations_after_save(draft) }
+        end
       end
     end
   end

@@ -478,6 +478,14 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal 31, new_association.ordering
   end
 
+  test "should build a draft copy even if parent is invalid" do
+    published_policy = create(:published_policy)
+    published_policy.update_attribute(:title, nil)
+    refute published_policy.valid?
+    draft_policy = published_policy.create_draft(create(:policy_writer))
+    assert draft_policy.persisted?
+  end
+
   test "when initially created" do
     document = create(:document)
     assert document.draft?

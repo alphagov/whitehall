@@ -76,7 +76,6 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     Document.stubs(:find).returns(published_document)
     draft_document = create(:draft_policy)
     published_document.expects(:create_draft).with(current_user).returns(draft_document)
-    draft_document.expects(:valid?).returns(true)
 
     post :revise, id: published_document
   end

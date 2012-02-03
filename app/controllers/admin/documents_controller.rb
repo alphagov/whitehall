@@ -72,7 +72,7 @@ class Admin::DocumentsController < Admin::BaseController
 
   def revise
     document = @document.create_draft(current_user)
-    if document.valid?
+    if document.persisted?
       redirect_to edit_admin_document_path(document)
     else
       redirect_to edit_admin_document_path(@document.document_identity.unpublished_edition),
