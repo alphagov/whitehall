@@ -76,6 +76,26 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should not mention the unique reference if there isn't one" do
+    publication = create(:published_publication, unique_reference: '')
+
+    get :show, id: publication.document_identity
+
+    assert_select ".contextual_info" do
+      refute_select ".unique_reference"
+    end
+  end
+
+  test "should not mention the ISBN if there isn't one" do
+    publication = create(:published_publication, isbn: '')
+
+    get :show, id: publication.document_identity
+
+    assert_select ".contextual_info" do
+      refute_select ".isbn"
+    end
+  end
+
   test "should not display an order link if no order url exists" do
     publication = create(:published_publication, order_url: nil)
 
