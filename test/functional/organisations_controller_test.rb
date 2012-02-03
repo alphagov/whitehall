@@ -452,6 +452,17 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#other_board_members"
   end
 
+  test "should link to the organisation's ministers page" do
+    organisation = create(:organisation)
+    role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:ministerial_role_appointment, role: role)
+    speech = create(:published_speech, role_appointment: role_appointment)
+
+    get :show, id: organisation
+
+    assert_select '#ministers a[href=?]', ministers_organisation_path(organisation)
+  end
+
   test "shows only published policies associated with organisation on policies page" do
     published_policy = create(:published_policy)
     draft_policy = create(:draft_policy)

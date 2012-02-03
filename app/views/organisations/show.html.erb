@@ -29,6 +29,7 @@
             </h3>
             <p class="current_appointee"><%= role.current_person_name %></p>
           <% end %>
+          <p>View all <%= @organisation.name %> <%= link_to 'ministers', ministers_organisation_path(@organisation) %></p>
         </section>
       <% end %>
     </div>
