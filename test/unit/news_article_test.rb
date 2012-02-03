@@ -11,17 +11,29 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert article.valid?
   end
 
-  test "should be invalid if has image but no image description" do
+  test "should be invalid if has image but no alt text" do
     article = build(:news_article, image: fixture_file_upload('portas-review.jpg'))
     article.image_alt_text = nil
     refute article.valid?
   end
 
-  test "should still be valid if has not image and no image description" do
+  test "should still be valid if has no image and no alt text" do
     article = build(:news_article)
     article.image = nil
     article.image_alt_text = nil
     assert article.valid?
+  end
+
+  test "should still be archivable if alt text validation would normally fail" do
+    article = create(:published_news_article, image: fixture_file_upload('portas-review.jpg'), image_alt_text: 'candid-photo')
+    article.update_attribute(:image_alt_text, nil)
+    NewsArticle.find(article.id).archive!
+  end
+
+  test "should still be deleteable if alt text validation would normally fail" do
+    article = create(:submitted_news_article, image: fixture_file_upload('portas-review.jpg'), image_alt_text: 'candid-photo')
+    article.update_attribute(:image_alt_text, nil)
+    NewsArticle.find(article.id).delete!
   end
 
   test "should be able to relate to other documents" do

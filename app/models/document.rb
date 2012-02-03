@@ -29,6 +29,11 @@ class Document < ActiveRecord::Base
   validates_with UnmodifiableOncePublishedValidator
 
   UNMODIFIABLE_STATES = %w(published archived deleted).freeze
+  FROZEN_STATES = %w(archived deleted).freeze
+
+  def skip_main_validation?
+    FROZEN_STATES.include?(state)
+  end
 
   def unmodifiable?
     persisted? && UNMODIFIABLE_STATES.include?(state_was)

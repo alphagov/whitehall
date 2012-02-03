@@ -8,7 +8,7 @@ class NewsArticle < Document
   mount_uploader :image, DocumentImageUploader, mount_on: :carrierwave_image
   mount_uploader :featuring_image, FeaturingImageUploader, mount_on: :carrierwave_featuring_image
 
-  validate :image_must_have_a_description
+  validate :image_must_have_a_description, unless: :skip_main_validation?
 
   add_trait do
     def process_associations_before_save(document)

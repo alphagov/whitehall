@@ -71,5 +71,4 @@ module Document::Workflow
       end
     end
   end
-
 end
