@@ -31,7 +31,9 @@ module Document::Publishing
   end
 
   def reason_to_prevent_publication_by(user, options = {})
-    if published?
+    if !valid?
+      "This edition is invalid. Edit the edition to fix validation problems"
+    elsif published?
       "This edition has already been published"
     elsif archived?
       "This edition has been archived"

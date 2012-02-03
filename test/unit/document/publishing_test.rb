@@ -47,6 +47,14 @@ class Document::PublishingTest < ActiveSupport::TestCase
     assert document.publishable_by?(editor, force: true)
   end
 
+  test "is never publishable when invalid" do
+    editor = create(:departmental_editor)
+    document = create(:submitted_document, creator: editor)
+    document.update_attribute(:title, nil)
+    refute document.publishable_by?(editor, force: true)
+    assert_equal "This edition is invalid. Edit the edition to fix validation problems", document.reason_to_prevent_publication_by(editor)
+  end
+
   test "is never publishable when rejected" do
     editor = create(:departmental_editor)
     document = create(:rejected_document)
