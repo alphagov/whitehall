@@ -37,7 +37,7 @@ Given /^the "([^"]*)" organisation is associated with several ministers and civi
   end
   3.times do |x|
     person = create(:person)
-    role = create(:role, permanent_secretary: (x == 1))
+    role = create(:board_member_role, permanent_secretary: (x == 1))
     organisation.roles << role
     create(:role_appointment, role: role, person: person)
   end
