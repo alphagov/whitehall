@@ -21,7 +21,7 @@ class NewsArticle < Document
 
   def image_must_have_a_description
     if image.present? && image_alt_text.blank?
-      errors.add :image_alt_text, 'All images must have a description'
+      errors.add :image_alt_text, 'must be provided'
     end
   end
 
