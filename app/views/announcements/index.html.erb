@@ -34,27 +34,27 @@
     </section>
   <% end %>
 
-  <% if @announced_today.any? %>
+  <% if @announced.today.any? %>
     <section class="announcements group" id="last_24_hours">
       <h1>In the last 24 hours</h1>
       <div class="expanded group">
-        <%= announcement_group(@announced_today_featured, groups_of: 3, partial: "expanded") %>
+        <%= announcement_group(@announced.today.featured, groups_of: 3, partial: "expanded") %>
       </div>
-      <%= announcement_group(@announced_today_not_featured, groups_of: 3, class: "group", partial: "default") %>
+      <%= announcement_group(@announced.today.unfeatured, groups_of: 3, class: "group", partial: "default") %>
     </section>
   <% end %>
 
-  <% if @announced_in_last_7_days.any? %>
+  <% if @announced.in_last_7_days.any? %>
     <section class="announcements group" id="last_7_days">
       <h1>In the last 7 days</h1>
-      <% if @announced_today.any? %>
-        <%= announcement_group(@announced_in_last_7_days, groups_of: 3, class: "group", partial: "default") %>
+      <% if @announced.today.any? %>
+        <%= announcement_group(@announced.in_last_7_days, groups_of: 3, class: "group", partial: "default") %>
       <% else %>
         <div class="expanded group">
-          <%= announcement_group(@announced_in_last_7_days.take(3), groups_of: 3, partial: "expanded") %>
+          <%= announcement_group(@announced.in_last_7_days.featured, groups_of: 3, partial: "expanded") %>
         </div>
         <div class="articles">
-          <%= announcement_group(@announced_in_last_7_days.from(3), groups_of: 3, class: "group", partial: "default") %>
+          <%= announcement_group(@announced.in_last_7_days.unfeatured, groups_of: 3, class: "group", partial: "default") %>
         </div>
       <% end %>
     </section>

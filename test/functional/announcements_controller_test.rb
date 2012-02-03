@@ -58,12 +58,10 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index shows news and speeches from the last 24 hours" do
-    older_announcements = [create(:published_news_article, published_at: 25.hours.ago), create(:published_speech, published_at: 26.hours.ago)]
-    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+    announced_today = [create(:published_news_article), create(:published_speech)]
+    AnnouncementPresenter.any_instance.stubs(:today).returns(AnnouncementPresenter::Set.new(announced_today))
 
     get :index
-
-    assert_equal announced_today, assigns[:announced_today]
 
     assert_select '#last_24_hours' do
       announced_today.each do |announcement|
@@ -72,74 +70,13 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows news and speeches from the last 24 hours in order of first publication" do
-    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
-
-    editor = create(:departmental_editor)
-    announced_today.push(updated_announcement = announced_today.pop.create_draft(editor))
-    updated_announcement.change_note = "change-note"
-    updated_announcement.publish_as(editor, force: true)
-
-    get :index
-
-    assert_equal announced_today, assigns[:announced_today]
-  end
-
-  test "index does not show recently-updated old news and speeches as happening in the last 24 hours" do
-    older_announcements = [create(:published_news_article, published_at: 25.hours.ago), create(:published_speech, published_at: 26.hours.ago)]
-    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
-
-    editor = create(:departmental_editor)
-    updated_older_announcements = older_announcements.map do |older_announcement|
-      older_announcement.create_draft(editor).tap do |updated_older_announcement|
-        updated_older_announcement.publish_as(editor, force: true)
-      end
-    end
-
-    get :index
-
-    assert_equal announced_today, assigns[:announced_today]
-    assert_select '#last_24_hours' do
-      updated_older_announcements.each do |updated_older_announcement|
-        refute_select_object updated_older_announcement
-      end
-    end
-  end
-
-  test "featured stories should not appear in the last 24 hours or last 7 days lists of announcements" do
-    featured = [
-      create(:featured_news_article, published_at: Time.zone.now),
-      create(:featured_news_article, published_at: 24.hours.ago),
-      create(:featured_news_article, published_at: 2.days.ago)
-    ]
-
-    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
-
-    announced_in_last_7_days = [
-      create(:published_news_article, published_at: 24.hours.ago),
-      create(:published_speech, published_at: 6.days.ago),
-    ]
-
-    get :index
-
-    assert_equal featured, assigns[:featured_news_articles]
-    assert_equal announced_today, assigns[:announced_today]
-    assert_equal announced_in_last_7_days, assigns[:announced_in_last_7_days]
-  end
-
   test "index highlights first three announcements with images that have been published in the last 24 hours" do
-    image = fixture_file_upload('portas-review.jpg')
-    latest_news_with_image = create(:published_news_article, image: image, published_at: Time.zone.now)
-    latest_news_without_image = create(:published_news_article, published_at: Time.zone.now)
-    earlier_speech_without_image = create(:published_speech, published_at: 1.hour.ago)
-    even_earlier_speech_without_image = create(:published_speech, published_at: 2.hours.ago)
-    early_news_with_image = create(:published_news_article, image: image, published_at: 3.hours.ago)
-    early_news_without_image = create(:published_news_article, published_at: 3.hours.ago)
-    earliest_news_with_image = create(:published_news_article, image: image, published_at: 5.hours.ago)
+    featured = [create(:published_news_article), create(:published_speech), create(:published_news_article)]
+    unfeatured = [create(:published_news_article), create(:published_speech), create(:published_news_article),
+                  create(:published_news_article)]
 
-    featured = [latest_news_with_image, early_news_with_image, earliest_news_with_image]
-    non_featured = [latest_news_without_image, early_news_without_image,
-                    even_earlier_speech_without_image, early_news_without_image]
+    today = stub("today", featured: featured, unfeatured: unfeatured, any?: true)
+    AnnouncementPresenter.any_instance.stubs(:today).returns(today)
 
     get :index
 
@@ -158,7 +95,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
         end
       end
 
-      non_featured.each do |announcement|
+      unfeatured.each do |announcement|
         assert_select_object announcement do
           refute_select "img"
           assert_select_announcement_title announcement
@@ -174,75 +111,18 @@ class AnnouncementsControllerTest < ActionController::TestCase
     refute_select '#last_24_hours'
   end
 
-  test "index shows news and speeches from the last 7 days excluding those within the last 24 hours" do
-    older_announcements = [create(:published_news_article, published_at: 8.days.ago), create(:published_speech, published_at: 8.days.ago)]
-    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
-
-    announced_in_last_7_days = [
-      create(:published_news_article, published_at: 24.hours.ago),
-      create(:published_speech, published_at: 6.days.ago),
-    ]
-
-    get :index
-
-    assert_equal announced_in_last_7_days.to_set, assigns[:announced_in_last_7_days].to_set
-  end
-
-  test "index shows news and speeches from the last 7 days in order of first publication" do
-    announced_in_last_7_days = [
-      create(:published_news_article, published_at: 24.hours.ago),
-      create(:published_speech, published_at: 6.days.ago),
-    ]
-
-    editor = create(:departmental_editor)
-    announced_in_last_7_days.push(updated_announcement = announced_in_last_7_days.pop.create_draft(editor))
-    updated_announcement.change_note = "change-note"
-    updated_announcement.publish_as(editor, force: true)
-
-    get :index
-
-    assert_equal announced_in_last_7_days, assigns[:announced_in_last_7_days]
-  end
-
-  test "index does not show old news and speeches updated in the last 7 days as happening in the last 7 days" do
-    older_announcements = [create(:published_news_article, published_at: 8.days.ago), create(:published_speech, published_at: 8.days.ago)]
-    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
-
-    announced_in_last_7_days = [
-      create(:published_news_article, published_at: 24.hours.ago),
-      create(:published_speech, published_at: 6.days.ago),
-    ]
-
-    Timecop.travel(3.days.ago) do
-      editor = create(:departmental_editor)
-      older_announcements.each do |older_announcement|
-        older_announcement.create_draft(editor).publish_as(editor, force: true)
-      end
-    end
-
-    get :index
-
-    assert_equal announced_in_last_7_days.to_set, assigns[:announced_in_last_7_days].to_set
-  end
-
   test "should display list of correctly formatted announcements for the last 7 days" do
-    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
-
     announced_in_last_7_days = [
-      create(:published_news_article, published_at: 1.day.ago),
-      create(:published_speech, published_at: 2.days.ago),
-      create(:published_news_article, published_at: 3.days.ago),
-      create(:published_news_article, published_at: 4.days.ago),
-      create(:published_news_article, published_at: 5.days.ago),
-      create(:published_speech, published_at: 5.days.ago),
-      create(:published_speech, published_at: 6.days.ago),
+      create(:published_news_article),
+      create(:published_speech),
+      create(:published_news_article)
     ]
+    AnnouncementPresenter.any_instance.stubs(:in_last_7_days).returns(AnnouncementPresenter::Set.new(announced_in_last_7_days))
 
     get :index
 
     assert_select '#last_7_days' do
-      assert_select 'article', count: 7
-      assert_select '.expanded', count: 0
+      assert_select 'article', count: 3
 
       announced_in_last_7_days.each do |announcement|
         assert_select_object announcement do
@@ -255,22 +135,47 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "announcements in the last 7 days should show expanded view if there are no stories in the last 24 hours" do
+  test "should not show images for any announcements in last 7 days if some exist in the last 24 hours" do
+    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
+
     announced_in_last_7_days = [
-      create(:published_news_article, published_at: 1.day.ago),
-      create(:published_speech, published_at: 2.days.ago),
-      create(:published_news_article, published_at: 3.days.ago),
-      create(:published_news_article, published_at: 4.days.ago)
+      create(:published_news_article),
+      create(:published_speech),
+      create(:published_news_article)
     ]
+    AnnouncementPresenter.any_instance.stubs(:today).returns(AnnouncementPresenter::Set.new(announced_today))
+    AnnouncementPresenter.any_instance.stubs(:in_last_7_days).returns(AnnouncementPresenter::Set.new(announced_in_last_7_days))
+
+    get :index
+
+    assert_select '#last_7_days' do
+      assert_select '.expanded', count: 0
+
+      announced_in_last_7_days.each do |announcement|
+        assert_select_object announcement do
+          refute_select "img"
+        end
+      end
+    end
+  end
+
+  test "announcements in the last 7 days should show expanded view if there are no stories in the last 24 hours" do
+    unfeatured = [create(:published_news_article), create(:published_speech)]
+    featured = [create(:published_news_article)]
+
+    announced_in_last_7_days = stub("last_7_days", featured: featured, unfeatured: unfeatured, any?: true)
+
+    AnnouncementPresenter.any_instance.stubs(:today).returns(AnnouncementPresenter::Set.new([]))
+    AnnouncementPresenter.any_instance.stubs(:in_last_7_days).returns(announced_in_last_7_days)
 
     get :index
 
     refute_select '#last_24_hours'
 
     assert_select '#last_7_days' do
-      assert_select 'article', count: 4
+      assert_select 'article', count: 3
       assert_select '.expanded' do
-        assert_select 'article', count: 3
+        assert_select 'article', count: 1
       end
     end
   end
