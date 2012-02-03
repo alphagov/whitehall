@@ -42,3 +42,9 @@ test("Passing an anchor in the link selector should override on click event and 
   $('a.an_anchor').click();
   ok($('.changes').is(':visible'));
 });
+
+test("If policy change notes aren't present on the page then the link shouldn't be attached", function () {
+  $('.element-that-wont-exist').policyUpdateNotes({link: 'span.updated_at'});
+  equals($('a span.updated_at').length, 0);
+});
+
