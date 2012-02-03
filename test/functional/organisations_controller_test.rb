@@ -101,7 +101,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
     speeches = 5.times.map do |n|
-      create(:published_speech, role_appointment: role_appointment, first_published_at: (5-n).days.ago, published_at: n.days.ago)
+      create(:published_speech, role_appointment: role_appointment, first_published_at: (5-n).days.ago)
     end
 
     get :show, id: organisation
@@ -281,8 +281,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
-    earlier_news_article = create(:published_news_article, first_published_at: 4.days.ago, published_at: 1.days.ago, organisations: [organisation])
-    later_speech = create(:published_speech, first_published_at: 3.days.ago, published_at: 2.days.ago, role_appointment: role_appointment)
+    earlier_news_article = create(:published_news_article, first_published_at: 4.days.ago, organisations: [organisation])
+    later_speech = create(:published_speech, first_published_at: 3.days.ago, role_appointment: role_appointment)
 
     get :announcements, id: organisation
 

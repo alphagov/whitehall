@@ -161,7 +161,6 @@ module DocumentControllerTestHelpers
 
     def should_show_published_documents_associated_with(model_name, has_many_association, timestamp_key = :published_at)
       singular = has_many_association.to_s.singularize
-      other_timestamp_key = (timestamp_key == :published_at) ? :first_published_at : :published_at
       test "shows only published #{has_many_association.to_s.humanize.downcase}" do
         published_document = create("published_#{singular}")
         draft_document = create("draft_#{singular}")
@@ -189,8 +188,8 @@ module DocumentControllerTestHelpers
       end
 
       test "shows most recent #{has_many_association.to_s.humanize.downcase} at the top" do
-        later_document = create("published_#{singular}", timestamp_key => 1.hour.ago, other_timestamp_key => 2.hours.ago)
-        earlier_document = create("published_#{singular}", timestamp_key => 2.hours.ago, other_timestamp_key => 1.hours.ago)
+        later_document = create("published_#{singular}", timestamp_key => 1.hour.ago)
+        earlier_document = create("published_#{singular}", timestamp_key => 2.hours.ago)
         model = create(model_name, documents: [earlier_document, later_document])
 
         get :show, id: model
