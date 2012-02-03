@@ -497,6 +497,16 @@ class DocumentTest < ActiveSupport::TestCase
     document.publish_as(create(:departmental_editor))
     refute document.draft?
     assert document.published?
+    refute document.force_published?
+  end
+
+  test "when force published" do
+    editor = create(:departmental_editor)
+    document = create(:draft_document, creator: editor)
+    document.publish_as(editor, force: true)
+    refute document.draft?
+    assert document.published?
+    assert document.force_published?
   end
 
   test "generate title for a draft document" do

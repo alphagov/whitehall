@@ -340,4 +340,20 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     refute_select "th", text: "Featured"
     refute_select "td.featured"
   end
+
+  test "should not show published documents as force published" do
+    policy = create(:published_policy)
+    get :published, filter: :policy
+
+    assert_select_object(policy)
+    refute_select "tr.force_published"
+  end
+
+  test "should show force published documents as force published" do
+    policy = create(:published_policy, force_published: true)
+    get :published, filter: :policy
+
+    assert_select_object(policy)
+    assert_select "tr.force_published"
+  end
 end

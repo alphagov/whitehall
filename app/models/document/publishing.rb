@@ -55,6 +55,7 @@ module Document::Publishing
       self.lock_version = lock_version
       self.published_at = Time.zone.now
       self.first_published_at ||= published_at
+      self.force_published = options[:force]
       publish!
       true
     else
