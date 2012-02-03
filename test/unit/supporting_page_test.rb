@@ -78,7 +78,7 @@ class SupportingPageTest < ActiveSupport::TestCase
     assert_equal 'Love all the people', supporting_page.search_index["title"]
     assert_equal "/government/policies/#{policy_slug}/supporting-pages/#{supporting_page.slug}", supporting_page.search_index['link']
     assert_equal supporting_page.body, supporting_page.search_index['indexable_content']
-    assert_equal 'policy', supporting_page.search_index['format']
+    assert_equal 'supporting_page', supporting_page.search_index['format']
   end
 
   test 'should not add supporting page to search index on creating' do
@@ -124,9 +124,9 @@ class SupportingPageTest < ActiveSupport::TestCase
     results = SupportingPage.search_index
 
     assert_equal 4, results.length
-    assert_equal({ 'title' => 'Love all the people', 'link' => "/government/policies/#{policy_slug}/supporting-pages/love-all-the-people", 'indexable_content' => 'Thoughts on love and smoking.', 'format' => 'policy' }, results[0])
-    assert_equal({ 'title' => 'Dangerous', 'link' => "/government/policies/#{policy_slug}/supporting-pages/dangerous", 'indexable_content' => 'I love my job.', 'format' => 'policy' }, results[1])
-    assert_equal({ 'title' => 'Relentless', 'link' => "/government/policies/#{policy_slug}/supporting-pages/relentless", 'indexable_content' => 'Rockers against drugs suck.', 'format' => 'policy' }, results[2])
-    assert_equal({ 'title' => 'Arizona Bay', 'link' => "/government/policies/#{policy_slug}/supporting-pages/arizona-bay", 'indexable_content' => 'Marketing and advertising.', 'format' => 'policy' }, results[3])
+    assert_equal({ 'title' => 'Love all the people', 'link' => "/government/policies/#{policy_slug}/supporting-pages/love-all-the-people", 'indexable_content' => 'Thoughts on love and smoking.', 'format' => 'supporting_page' }, results[0])
+    assert_equal({ 'title' => 'Dangerous', 'link' => "/government/policies/#{policy_slug}/supporting-pages/dangerous", 'indexable_content' => 'I love my job.', 'format' => 'supporting_page' }, results[1])
+    assert_equal({ 'title' => 'Relentless', 'link' => "/government/policies/#{policy_slug}/supporting-pages/relentless", 'indexable_content' => 'Rockers against drugs suck.', 'format' => 'supporting_page' }, results[2])
+    assert_equal({ 'title' => 'Arizona Bay', 'link' => "/government/policies/#{policy_slug}/supporting-pages/arizona-bay", 'indexable_content' => 'Marketing and advertising.', 'format' => 'supporting_page' }, results[3])
   end
 end

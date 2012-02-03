@@ -14,7 +14,7 @@ class SupportingPage < ActiveRecord::Base
 
   scope :published, joins(:document).merge(Document.published)
 
-  searchable title: :title, link: :search_link, content: :body_without_markup, format: -> p { p.document.type.underscore },
+  searchable title: :title, link: :search_link, content: :body_without_markup, format: 'supporting_page',
     only: :published, index_after: false, unindex_after: false
 
   extend FriendlyId
