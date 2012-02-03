@@ -13,6 +13,7 @@ class Admin::CountriesControllerTest < ActionController::TestCase
     get :edit, id: country
 
     assert_template 'countries/edit'
+    assert_select "textarea[name='country[description]']"
     assert_select "textarea[name='country[about]'].previewable.govspeak"
     assert_select '#govspeak_help'
   end
@@ -20,9 +21,10 @@ class Admin::CountriesControllerTest < ActionController::TestCase
   test 'updating should modify the country' do
     country = create(:country)
 
-    put :update, id: country, country: { about: 'country-about' }
+    put :update, id: country, country: { description: 'country-description', about: 'country-about' }
 
     country.reload
+    assert_equal 'country-description', country.description
     assert_equal 'country-about', country.about
   end
 end
