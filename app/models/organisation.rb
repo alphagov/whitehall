@@ -34,7 +34,7 @@ class Organisation < ActiveRecord::Base
 
   default_scope order(:name)
 
-  searchable title: :name, link: :search_link, content: :description, format: 'organisation'
+  searchable title: :name, link: :search_link, content: :description
 
   extend FriendlyId
   friendly_id :name, use: :slugged

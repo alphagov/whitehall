@@ -9,7 +9,11 @@ module Searchable
     def searchable(options)
       include Searchable::Mixin
 
-      self.searchable_options = options.reverse_merge(index_after: :save, unindex_after: :destroy, only: :scoped)
+      self.searchable_options = options.reverse_merge \
+        format:         -> o { o.class.model_name.element },
+        index_after:    :save,
+        unindex_after:  :destroy,
+        only:           :scoped
 
       [:title, :link, :content, :format, :only].each do |name|
         value = searchable_options[name]

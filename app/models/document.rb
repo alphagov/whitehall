@@ -38,7 +38,7 @@ class Document < ActiveRecord::Base
     changed - %w(state updated_at featured carrierwave_featuring_image)
   end
 
-  searchable title: :title, link: -> d { d.public_document_path(d) }, content: :body_without_markup, format: -> d { d.type.underscore },
+  searchable title: :title, link: -> d { d.public_document_path(d) }, content: :body_without_markup,
     only: :published, index_after: :publish, unindex_after: :archive
 
   def creator
