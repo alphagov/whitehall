@@ -2,7 +2,7 @@
 
 <div class="g3f country">
   <section class="page_header countries">
-    <h1 class="country page_title"><%= @country.name %></h1>
+    <h1 class="country name page_title"><%= @country.name %></h1>
   </section>
 
   <%= render 'navigation', country: @country %>
@@ -29,6 +29,7 @@
 </div>
 
 <div class="g2">
+  <p class="description"><%= format_with_html_line_breaks(@country.description) %></p>
   <p class="about">
     <%= link_to "Read more about #{@country.name}", about_country_path(@country), title: "Further information about #{@country.name}" %>
   </p>
