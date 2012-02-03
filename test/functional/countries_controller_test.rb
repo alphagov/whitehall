@@ -20,6 +20,24 @@ class CountriesControllerTest < ActionController::TestCase
     end
   end
 
+  test "should display country name and description" do
+    country = create(:country,
+      name: "country-name",
+      description: "country-description"
+    )
+    get :show, id: country
+    assert_select ".country .name", text: "country-name"
+    assert_select ".description", text: "country-description"
+  end
+
+  test "should use html line breaks when displaying the description" do
+    country = create(:country, description: "Line 1\nLine 2")
+    get :show, id: country
+    assert_select ".description", /Line 1/
+    assert_select ".description", /Line 2/
+    assert_select ".description br", count: 1
+  end
+
   test "should display a link to the about page for the country" do
     country = create(:country)
     get :show, id: country

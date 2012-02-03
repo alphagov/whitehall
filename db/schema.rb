@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120202170003) do
+ActiveRecord::Schema.define(:version => 20120203103330) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20120202170003) do
     t.string   "embassy_telephone"
     t.string   "embassy_email"
     t.string   "slug"
+    t.text     "description"
     t.text     "about"
   end
 

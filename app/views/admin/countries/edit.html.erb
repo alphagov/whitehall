@@ -3,6 +3,8 @@
   <section>
     <h1>Edit country</h1>
     <%= form_for([:admin, @country]) do |form| %>
+      <%= form.text_area :description %>
+
       <%= render partial: 'admin/documents/govspeak_help' %>
       <fieldset>
         <%= form.text_area :about, class: 'previewable', help: true %>
