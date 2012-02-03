@@ -5,37 +5,115 @@
     <%= render 'header', organisation: @organisation %>
   </div>
 
-  <div class="g3f page_detail">
-    <div class="g2">
-      <p class="description"><%= format_with_html_line_breaks(@organisation.description) %></p>
-      <p class="about">
-        <%= link_to "Read more about #{@organisation.name}", about_organisation_path(@organisation), title: "Further information about #{@organisation.name}" %>
-      </p>
+  <div class="g3f">
+    <div class="g2f">
+      <% if @featured_news_articles.any? %>
+        <section class="org_news">
+          <h1>News from our office</h1>
+          <section class="featured_carousel" id="featured-news-articles">
+            <% @featured_news_articles.each do |news_article| %>
+              <%= content_tag_for(:article, news_article) do %>
+                <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
+                <p class="summary"><%= news_article.summary %></p>
+                <div class="meta">
+                  <span class="published_at">Posted <%= time_ago(news_article.published_at, class: 'published_at') %> ago</span>
+                  <% news_article.policy_areas.uniq.each do |pa| %>
+                    <%= link_to pa.name, policy_area_path(pa), class: "policy_area tag" %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </section>
+          <p class="readmore"><%= organisation_view_all_tag(@organisation, :announcements) %></p>
+        </section>
+      <% end %>
+
+      <% if @policies.any? %>
+      <div class="g3f">
+        <%= article_section("Our policies", @policies, {id: 'policies', more: organisation_view_all_tag(@organisation, :policies)}) do |policy| %>
+          <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= time_ago(policy.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      </div>
+      <% end %>
+
+      <% if @publications.any? %>
+      <div class="g3f">
+        <%= article_section("Publications", @publications, {id: 'publications', more: organisation_view_all_tag(@organisation, :publications)}) do |publication| %>
+          <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+          <span class="metadata">
+            Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      </div>
+      <% end %>
+
+      <% if @consultations.any? %>
+      <div class="g3f">
+        <%= article_section("Consultations", @consultations, {id: 'consultations', more: organisation_view_all_tag(@organisation, :consultations)}) do |consultation| %>
+          <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
+          <span class="metadata">
+            Updated <%= time_ago(consultation.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      </div>
+      <% end %>
+
+      <% if @speeches.any? %>
+      <div class="g3f">
+        <%= article_section("Speeches", @speeches, {id: 'speeches', more: organisation_view_all_tag(@organisation, :announcements)}) do |speech| %>
+          <h2 class="article_title"><%= link_to speech.title, public_document_path(speech), title: "View #{speech.title}", class: 'title' %></h2>
+          <span class="metadata">
+            Updated <%= time_ago(speech.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      </div>
+      <% end %>
+
     </div>
-    <div class="g1">
+
+    <div class="g1f sidebar">
+      <section id="about_us" class="info">
+        <h1>About us</h1>
+        <p class="about">
+          <span class="description"><%= format_with_html_line_breaks(@organisation.description) %></span>
+          <a href="<%= about_organisation_path(@organisation) %>" title='<%= "Further information about #{@organisation.name}" %>'>Read more<span class="visuallyhidden"> about <%= @organisation.name %></span>.</a>
+        </p>
+      </section>
+
       <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
-      <% if @organisation.ministerial_roles.any? %>
-        <section id="ministers">
-          <%= render_list_of_ministerial_roles(roles) do |role| %>
-            <div class="image_holder">
-              <%= image_for_ministerial_role(role) %>
-            </div>
-            <h3>
-              <% if role.is_a?(MinisterialRole) %>
-                <%= link_to role.name, role %>
-              <% else %>
-                <%= role.name %>
-              <% end %>
-            </h3>
-            <p class="current_appointee"><%= role.current_person_name %></p>
-            <p class="view_all">
-              <% if role.is_a?(MinisterialRole) %>
-                View all <%= @organisation.name %> <%= link_to 'ministers', ministers_organisation_path(@organisation) %>
-              <% else %>
-                View <%= @organisation.name %> <%= link_to 'management team', management_team_organisation_path(@organisation) %>
-              <% end %>
-            </p>
-          <% end %>
+      <% if roles.any? %>
+          <section id="ministers" class="info">
+            <h1>Our people</h1>
+            <%= render_list_of_ministerial_roles(roles) do |role| %>
+              <div class="image_holder">
+                <%= image_for_ministerial_role(role) %>
+              </div>
+              <h3>
+                <% if role.is_a?(MinisterialRole) %>
+                  <%= link_to role.name, role %>
+                <% else %>
+                  <%= role.name %>
+                <% end %>
+              </h3>
+              <p class="current_appointee"><%= role.current_person_name %></p>
+              <p class="view_all">
+                <% if role.is_a?(MinisterialRole) %>
+                  View all <span class="visuallyhidden"><%= @organisation.name %></span> <%= link_to 'ministers', ministers_organisation_path(@organisation) %>
+                <% else %>
+                  View <span class="visuallyhidden"><%= @organisation.name %></span> <%= link_to 'management team', management_team_organisation_path(@organisation) %>
+                <% end %>
+              </p>
+            <% end %>
+          </section>
+      <% end %>
+
+      <% if @organisation.child_organisations.any? %>
+        <section id="child_organisations" class="info">
+          <h1>Associated organisations</h1>
+          <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
         </section>
       <% end %>
     </div>
@@ -43,40 +121,5 @@
 <% end %>
 
 <div class="g3f">
-  <section class="org_news">
-    <h1>Organisation news</h1>
-    <% if @featured_news_articles.any? %>
-      <section class="featured_carousel" id="featured-news-articles">
-        <% @featured_news_articles.each do |news_article| %>
-          <%= content_tag_for(:article, news_article) do %>
-            <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
-            <p class="summary"><%= news_article.summary %></p>
-            <div class="meta">
-              <span class="published_at">Posted <%= time_ago(news_article.published_at, class: 'published_at') %> ago</span>
-              <% news_article.policy_areas.uniq.each do |pa| %>
-                <%= link_to pa.name, policy_area_path(pa), class: "policy_area tag" %>
-              <% end %>
-            </div>
-          <% end %>
-        <% end %>
-      </section>
-    <% end %>
-    <p class="further_articles all_announcements">View all <%= @organisation.name %> <%= link_to "news & speeches", announcements_organisation_path(@organisation), title: "View all #{@organisation.name} news & speeches" %></p>
-  </section>
-
-  <div class="g1 related_documents"><%= render partial: "documents/policy_areas", object: @organisation.policy_areas %></div>
-  <div class="g1 related_documents"><%= render partial: "documents/policies", object: @policies, locals: { more: organisation_view_all_tag(@organisation, :policies) } %></div>
-  <div class="g1 related_documents"><%= render partial: "documents/publications", object: @publications, locals: { more: organisation_view_all_tag(@organisation, :publications) } %></div>
-  <div class="g1 related_documents"><%= render partial: "corporate_publications", object: @corporate_publications %></div>
-  <div class="g1 related_documents"><%= render partial: "documents/speeches", object: @speeches, locals: { more: organisation_view_all_tag(@organisation, :announcements) } %></div>
-  <div class="g1 related_documents"><%= render partial: "documents/consultations", object: @consultations, locals: { more: organisation_view_all_tag(@organisation, :consultations) } %></div>
-
-  <% if @organisation.child_organisations.any? %>
-    <div class="g1 related_documents">
-      <section id="child_organisations">
-        <h1>Associated organisations</h1>
-        <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
-      </section>
-    </div>
-  <% end %>
+  <div class="g1 related_documents"><%= render partial: "documents/policy_areas", object: @organisation.policy_areas, title: "Our policy areas" %></div>
 </div>

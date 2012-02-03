@@ -1,5 +1,5 @@
 (function($) {
-  $.fn.featuredSection = function (options) {
+  $.fn.equalHeightHelper = function (options) {
     var _this = $(this);
 
     var settings = $.extend({

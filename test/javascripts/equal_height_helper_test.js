@@ -1,4 +1,4 @@
-module("Featured section with 3 items", {
+module("Equal Height Helper", {
   setup: function() {
     this.container = $('<section class="featured_items"></section>');
     this.container.append($('<article id="item_1"></article>'));
@@ -28,7 +28,7 @@ test("should resize supplied elements to equal the element with the largest heig
   ok(this.container.find('#item_2 h2').height() < this.container.find('#item_1 h2').height());
 
   // apply the plugin
-  this.container.featuredSection({selectorsToResize: ['h2'], breakpointSelector: '#qunit-fixture', breakpointWidth: 100});
+  this.container.equalHeightHelper({selectorsToResize: ['h2'], breakpointSelector: '#qunit-fixture', breakpointWidth: 100});
 
   equal(this.container.find('#item_2 h2').css('min-height'), this.container.find('#item_1 h2').css('height'));
   equal(this.container.find('#item_2 h2').css('height'), this.container.find('#item_1 h2').css('height'));
@@ -40,7 +40,7 @@ test("should resize supplied elements to equal the element with the largest heig
 test("if the the specified breakpoint element width is below specified breakpoint there should be no min-height restriction", function () {
   $("#qunit-fixture").width('200px');
   // apply the plugin setting the breakpoint to wider than the breakpointSelector element width
-  this.container.featuredSection({selectorsToResize: ['h2'], breakpointSelector: '#qunit-fixture', breakpointWidth: 300});
+  this.container.equalHeightHelper({selectorsToResize: ['h2'], breakpointSelector: '#qunit-fixture', breakpointWidth: 300});
 
   equal(this.container.find('#item_2 h2').css('min-height'), "0px");
   equal(this.container.find('#item_3 h2').css('min-height'), "0px");

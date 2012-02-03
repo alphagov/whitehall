@@ -1,0 +1,52 @@
+@import "../shared/utils";
+
+#content {
+  section.article_section {
+    padding-top: 1.5em;
+
+    h1 {
+      margin: 0 0 0.65em 0;
+      padding-bottom: 0.25em;
+      border-bottom: 1px solid #ddd;
+      padding-left: 3%;
+    }
+
+    div.articles {
+      padding-left: 1%;
+    }
+
+    article {
+      padding: 0em 1% 1em 2%;
+
+      h2.article_title {
+        @include type-14;
+        margin-bottom: 0;
+      }
+
+      span.metadata {
+        display: block;
+        @include type-12;
+        margin-bottom: 0;
+        color: #777;
+      }
+
+      @media screen and (min-width: 1024px) {
+        width: 29%;
+        float: left;
+      }
+    }
+
+    article.last {
+      border-right: none;
+    }
+  }
+
+  p.readmore {
+    @include type-14;
+    margin-bottom: 0;
+    background: #fdfdfd;
+    border-bottom: 1px solid #d5d5d5;
+    border-top: 1px solid #ddd;
+    padding: 0.5em 1.5em 0.5em 1.5em;
+  }
+}

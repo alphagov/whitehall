@@ -150,4 +150,20 @@ module ApplicationHelper
       "g1f"
     end
   end
+
+  def article_section(title, collection, options = {}, &block)
+    content_tag(:section, id: options[:id], class: "article_section") do
+      concat content_tag(:h1, title)
+      div = content_tag(:div, class: "group articles") do
+        collection.each do |item|
+          article = content_tag_for(:article, item) do
+            block.call(item).html_safe
+          end.html_safe
+          concat article
+        end
+      end
+      concat div
+      concat content_tag(:p, options[:more], class: "readmore") if options[:more]
+    end
+  end
 end

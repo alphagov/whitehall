@@ -190,10 +190,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display a link to the announcements page for the organisation" do
     organisation = create(:organisation)
-
     get :show, id: organisation
-
-    assert_select ".all_announcements a[href='#{announcements_organisation_path(organisation)}']"
+    assert_select "nav a[href='#{announcements_organisation_path(organisation)}']"
   end
 
   test "presents the contact details of the organisation using hcard" do

@@ -155,6 +155,12 @@
     margin-left: 1%;
   }
 
+  .g3f, .g2f {
+    section h1 {
+      margin-left: 2%;
+    }
+  }
+
   .page_detail {
     @include clearfix;
     background: #eee;
