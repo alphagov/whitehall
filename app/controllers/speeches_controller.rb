@@ -1,6 +1,6 @@
 class SpeechesController < DocumentsController
   def index
-    @speeches = Speech.published.by_published_at
+    @speeches = Speech.published.by_first_published_at
   end
 
   def show

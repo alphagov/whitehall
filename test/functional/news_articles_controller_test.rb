@@ -2,7 +2,7 @@ require 'test_helper'
 
 class NewsArticlesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
-  should_render_a_list_of :news_articles
+  should_render_a_list_of :news_articles, :first_published_at
   should_show_related_policies_and_policy_areas_for :news_article
   should_show_the_countries_associated_with :news_article
 

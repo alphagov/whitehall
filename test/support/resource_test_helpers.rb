@@ -2,7 +2,7 @@ module ResourceTestHelpers
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def should_render_a_list_of(plural)
+    def should_render_a_list_of(plural, timestamp_key = :published_at)
       type = plural.to_s.singularize
       test "index links to published #{plural}" do
         thing = create(:"published_#{type}", title: "#{type}-title")
@@ -23,8 +23,8 @@ module ResourceTestHelpers
       end
 
       test "index lists newest #{plural} first" do
-        oldest_thing = create(:"published_#{type}", title: 'oldest', published_at: 4.hours.ago)
-        newest_thing = create(:"published_#{type}", title: 'newest', published_at: 2.hours.ago)
+        oldest_thing = create(:"published_#{type}", title: 'oldest', timestamp_key => 4.hours.ago)
+        newest_thing = create(:"published_#{type}", title: 'newest', timestamp_key => 2.hours.ago)
         get :index
         assert_equal [newest_thing, oldest_thing], assigns[plural.to_sym]
       end

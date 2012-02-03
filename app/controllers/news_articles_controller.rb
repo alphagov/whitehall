@@ -1,6 +1,6 @@
 class NewsArticlesController < DocumentsController
   def index
-    @news_articles = NewsArticle.published.by_published_at
+    @news_articles = NewsArticle.published.by_first_published_at
   end
 
   def show

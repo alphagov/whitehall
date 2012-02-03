@@ -154,6 +154,29 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select ".or_cancel a[href='#{admin_organisations_path}']"
   end
 
+  test "editing should display published news articles related to the organisation" do
+    published_news_article = create(:published_news_article)
+    draft_news_article = create(:draft_news_article)
+    another_news_article = create(:published_news_article)
+    organisation = create(:organisation, documents: [published_news_article, draft_news_article])
+
+    get :edit, id: organisation
+
+    assert_select_object(published_news_article)
+    refute_select_object(draft_news_article)
+    refute_select_object(another_news_article)
+  end
+
+  test "editing should display news articles most recently published first" do
+    earlier_news_article = create(:published_news_article, first_published_at: 2.days.ago)
+    later_news_article = create(:published_news_article, first_published_at: 1.days.ago)
+    organisation = create(:organisation, documents: [earlier_news_article, later_news_article])
+
+    get :edit, id: organisation
+
+    assert_equal [later_news_article, earlier_news_article], assigns[:news_articles]
+  end
+
   test "updating should modify the organisation" do
     organisation = create(:organisation, name: "Ministry of Sound")
     organisation_attributes = {

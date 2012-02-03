@@ -39,7 +39,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def load_news_articles
-    @news_articles = NewsArticle.published.in_organisation(@organisation).by_published_at
+    @news_articles = NewsArticle.published.in_organisation(@organisation).by_first_published_at
   end
 
   private
