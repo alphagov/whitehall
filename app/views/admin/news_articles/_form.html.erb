@@ -12,7 +12,7 @@
     <% if document.persisted? && document.image.present? %>
       <%= image_tag document.image_url %>
     <% end %>
-
+    <%= form.text_field :image_alt_text, label_text: 'Alt text' %>
     <%= form.text_area :image_caption, rows: 2 %>
   </fieldset>
 

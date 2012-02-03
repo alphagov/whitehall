@@ -250,7 +250,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "most recent news articles should show article image or placeholder if it isn't present" do
-    news_with_image = create(:published_news_article, published_at: 2.hours.ago, image: fixture_file_upload('portas-review.jpg'))
+    news_with_image = create(:published_news_article, published_at: 2.hours.ago, image: fixture_file_upload('portas-review.jpg'), image_alt_text: 'candid-photo')
     news_without_image = create(:published_news_article, published_at: 3.hours.ago)
 
     get :index

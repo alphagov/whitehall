@@ -103,7 +103,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   test "show displays the image caption for the news article" do
     portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    news_article = create(:published_news_article, image: portas_review_jpg, image_caption: "image caption")
+    news_article = create(:published_news_article, image: portas_review_jpg, image_alt_text: 'candid-photo', image_caption: "image caption")
 
     get :show, id: news_article
 
@@ -121,7 +121,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   test "creating a news article should store image" do
     portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    attributes = attributes_for(:news_article, image: portas_review_jpg)
+    attributes = attributes_for(:news_article, image: portas_review_jpg, image_alt_text: 'candid-photo')
 
     post :create, document: attributes
 
@@ -132,7 +132,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   test "creating a news article should store image caption" do
     portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    attributes = attributes_for(:news_article, image: portas_review_jpg, image_caption: "image caption")
+    attributes = attributes_for(:news_article, image: portas_review_jpg, image_alt_text: 'candid-photo', image_caption: "image caption")
 
     post :create, document: attributes
 
@@ -174,7 +174,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   test "editing news article with existing image displays image" do
     portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    news_article = create(:news_article, image: portas_review_jpg)
+    news_article = create(:news_article, image: portas_review_jpg, image_alt_text: 'candid-photo')
 
     get :edit, id: news_article
 
@@ -198,7 +198,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     news_article = create(:news_article)
 
     put :update, id: news_article, document: news_article.attributes.merge(
-      image: portas_review_jpg
+      image: portas_review_jpg, image_alt_text: 'candid-photo'
     )
 
     news_article.reload
@@ -223,11 +223,11 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   test "show displays the stored image" do
     portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    news_article = create(:news_article, image: portas_review_jpg)
+    news_article = create(:news_article, image: portas_review_jpg, image_alt_text: 'candid-photo')
 
     get :show, id: news_article
 
-    assert_select "figure.image img[src='#{news_article.image_url}']"
+    assert_select "figure.image img[src='#{news_article.image_url}'][alt='#{news_article.image_alt_text}']"
   end
 
   test "show only displays image if there is one" do

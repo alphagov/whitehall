@@ -11,6 +11,19 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert article.valid?
   end
 
+  test "should be invalid if has image but no image description" do
+    article = build(:news_article, image: fixture_file_upload('portas-review.jpg'))
+    article.image_alt_text = nil
+    refute article.valid?
+  end
+
+  test "should still be valid if has not image and no image description" do
+    article = build(:news_article)
+    article.image = nil
+    article.image_alt_text = nil
+    assert article.valid?
+  end
+
   test "should be able to relate to other documents" do
     article = build(:news_article)
     assert article.can_be_related_to_policies?
@@ -38,7 +51,7 @@ class NewsArticleTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy retaining any associated image with responds to present" do
-    news_article = create(:published_news_article, image: fixture_file_upload('portas-review.jpg'))
+    news_article = create(:published_news_article, image: fixture_file_upload('portas-review.jpg'), image_alt_text: 'an-image')
     assert news_article.image.present?, "original image should be present for this test to be valid"
 
     draft_article = news_article.create_draft(create(:policy_writer))
