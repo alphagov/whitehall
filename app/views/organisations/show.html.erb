@@ -28,8 +28,14 @@
               <% end %>
             </h3>
             <p class="current_appointee"><%= role.current_person_name %></p>
+            <p class="view_all">
+              <% if role.is_a?(MinisterialRole) %>
+                View all <%= @organisation.name %> <%= link_to 'ministers', ministers_organisation_path(@organisation) %>
+              <% else %>
+                View <%= @organisation.name %> <%= link_to 'management team', management_team_organisation_path(@organisation) %>
+              <% end %>
+            </p>
           <% end %>
-          <p>View all <%= @organisation.name %> <%= link_to 'ministers', ministers_organisation_path(@organisation) %></p>
         </section>
       <% end %>
     </div>
