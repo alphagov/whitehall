@@ -75,6 +75,8 @@
 
         img, a img {
           margin: 0;
+          width: inherit;
+          max-width: 100%;
         }
       }
 
