@@ -76,7 +76,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def top_civil_servant
-    roles.order(Role.arel_table[:permanent_secretary].desc).first
+    board_member_roles.order(Role.arel_table[:permanent_secretary].desc).first
   end
 
   def published_speeches
