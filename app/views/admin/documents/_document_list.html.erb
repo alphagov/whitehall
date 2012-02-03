@@ -53,7 +53,7 @@
       </thead>
       <tbody>
         <% documents.each do |document| %>
-          <%= content_tag_for(:tr, document) do %>
+          <%= content_tag_for(:tr, document, class: ('force_published' if document.force_published?)) do %>
             <td class="type"><%= document.type.titleize %></td>
             <td class="title">
               <h2><%= link_to document.title, admin_document_path(document), title: "View document #{document.title}" %></h2>

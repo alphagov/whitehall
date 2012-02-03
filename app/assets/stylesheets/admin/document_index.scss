@@ -280,6 +280,10 @@ section.resource_list .collection {
       text-align: center;
     }
 
+    tr.force_published {
+      background: #fcc;
+    }
+
     td.type {
       color: #777;
       font-weight: bold;
