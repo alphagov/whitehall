@@ -4,7 +4,11 @@ class AnnouncementsController < PublicFacingController
     @featured_news_articles = featured_news_articles
     @announced_in_last_7_days = announced_in_last_7_days
     @announced_today = announced_today
+    @announced_today_featured = @announced_today.select { |a| a.respond_to?(:image) && a.image.present? }.take(3)
+    @announced_today_not_featured = @announced_today - @announced_today_featured
   end
+
+  private
 
   def featured_news_articles
     NewsArticle.published.featured.by_first_published_at.limit(3).includes(:document_identity, :document_relations, :policy_areas)

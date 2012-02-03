@@ -127,22 +127,28 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_equal announced_in_last_7_days, assigns[:announced_in_last_7_days]
   end
 
-  test "index highlights first three announcements that have been published in the last 24 hours" do
-    announced_today = [
-      create(:published_news_article, published_at: Time.zone.now),
-      create(:published_speech, published_at: 1.hour.ago),
-      create(:published_speech, published_at: 2.hours.ago),
-      create(:published_news_article, published_at: 3.hours.ago)
-    ]
+  test "index highlights first three announcements with images that have been published in the last 24 hours" do
+    image = fixture_file_upload('portas-review.jpg')
+    latest_news_with_image = create(:published_news_article, image: image, published_at: Time.zone.now)
+    latest_news_without_image = create(:published_news_article, published_at: Time.zone.now)
+    earlier_speech_without_image = create(:published_speech, published_at: 1.hour.ago)
+    even_earlier_speech_without_image = create(:published_speech, published_at: 2.hours.ago)
+    early_news_with_image = create(:published_news_article, image: image, published_at: 3.hours.ago)
+    early_news_without_image = create(:published_news_article, published_at: 3.hours.ago)
+    earliest_news_with_image = create(:published_news_article, image: image, published_at: 5.hours.ago)
+
+    featured = [latest_news_with_image, early_news_with_image, earliest_news_with_image]
+    non_featured = [latest_news_without_image, early_news_without_image,
+                    even_earlier_speech_without_image, early_news_without_image]
 
     get :index
 
     assert_select '#last_24_hours' do
-      assert_select 'article', count: 4
+      assert_select 'article', count: 7
 
       assert_select '.expanded' do
         assert_select 'article', count: 3
-        announced_today.take(3).each do |announcement|
+        featured.each do |announcement|
           assert_select_object announcement do
             assert_select "a[href='#{announcement_path(announcement)}'] img"
             assert_select_announcement_title announcement
@@ -152,7 +158,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
         end
       end
 
-      announced_today.from(4).each do |announcement|
+      non_featured.each do |announcement|
         assert_select_object announcement do
           refute_select "img"
           assert_select_announcement_title announcement
@@ -245,22 +251,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
           assert_select_announcement_summary announcement
           assert_select_announcement_metadata announcement
         end
-      end
-    end
-  end
-
-  test "most recent news articles should show article image or placeholder if it isn't present" do
-    news_with_image = create(:published_news_article, published_at: 2.hours.ago, image: fixture_file_upload('portas-review.jpg'), image_alt_text: 'candid-photo')
-    news_without_image = create(:published_news_article, published_at: 3.hours.ago)
-
-    get :index
-
-    assert_select '#last_24_hours .expanded' do
-      assert_select_object news_with_image do
-        assert_select ".img img[src='#{news_with_image.image_url}']"
-      end
-      assert_select_object news_without_image do
-        assert_select ".img img[src*='evil_placeholder.png']"
       end
     end
   end

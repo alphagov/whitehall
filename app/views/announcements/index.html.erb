@@ -38,9 +38,9 @@
     <section class="announcements group" id="last_24_hours">
       <h1>In the last 24 hours</h1>
       <div class="expanded group">
-        <%= announcement_group(@announced_today.take(3), groups_of: 3, partial: "expanded") %>
+        <%= announcement_group(@announced_today_featured, groups_of: 3, partial: "expanded") %>
       </div>
-      <%= announcement_group(@announced_today.from(3), groups_of: 3, class: "group", partial: "default") %>
+      <%= announcement_group(@announced_today_not_featured, groups_of: 3, class: "group", partial: "default") %>
     </section>
   <% end %>
 
