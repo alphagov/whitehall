@@ -4,17 +4,17 @@ Given /^a published publication "([^"]*)" exists that is about "([^"]*)"$/ do |p
 end
 
 Given /^a draft publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = build(:attachment, file: pdf_attachment)
+  attachment = build(:attachment, file: pdf_attachment, title: "Attachment Title")
   create(:draft_publication, title: title, attachments: [attachment])
 end
 
 Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = build(:attachment, file: pdf_attachment)
+  attachment = build(:attachment, file: pdf_attachment, title: "Attachment Title")
   create(:submitted_publication, title: title, attachments: [attachment])
 end
 
 Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = build(:attachment, file: pdf_attachment)
+  attachment = build(:attachment, file: pdf_attachment, title: "Attachment Title")
   create(:published_publication, title: title, attachments: [attachment])
 end
 
@@ -23,7 +23,7 @@ Given /^I attempt to create an invalid publication with an attachment$/ do
   select_date "Publication date", with: "2010-01-01"
   file = pdf_attachment
   within ".attachments" do
-    fill_in "Title", with: "There and back again"
+    fill_in "Title", with: "Attachment Title"
     attach_file "File", file.path
   end
   click_button "Save"
@@ -34,7 +34,7 @@ When /^I draft a new publication "([^"]*)"$/ do |title|
   begin_drafting_document type: 'publication', title: title
   fill_in_publication_fields
   within ".attachments" do
-    fill_in "Title", with: "The worst journey in the world"
+    fill_in "Title", with: "Attachment Title"
     attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
   end
   check "Wales"
@@ -108,12 +108,12 @@ When /^I set the publication title to "([^"]*)" and save$/ do |title|
 end
 
 Then /^I should not see a link to the PDF attachment$/ do
-  assert page.has_no_css?(".attachment .filename", text: "attachment.pdf")
+  assert page.has_no_css?(".attachment .attachment_title", text: "Attachment Title")
   assert page.has_no_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
 end
 
 Then /^I should see a link to the PDF attachment$/ do
-  assert page.has_css?(".attachment .filename", text: "attachment.pdf")
+  assert page.has_css?(".attachment .attachment_title", text: "Attachment Title")
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
 end
 

@@ -13,7 +13,7 @@ When /^I draft a new consultation "([^"]*)"$/ do |title|
   select_date "Opening Date", with: 1.day.ago.to_s
   select_date "Closing Date", with: 6.days.from_now.to_s
   within ".attachments" do
-    fill_in "Title", with: "Home of the blizzard"
+    fill_in "Title", with: "Attachment Title"
     attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
   end
   check "Wales"

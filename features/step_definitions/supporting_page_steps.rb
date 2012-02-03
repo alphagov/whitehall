@@ -56,7 +56,7 @@ When /^I add a supporting page "([^"]*)" with an attachment to the "([^"]*)" pol
   fill_in "Title", with: title
   fill_in "Body", with: "Some supporting information"
   within ".attachments" do
-    fill_in "Title", with: "Much ado about nothing"
+    fill_in "Title", with: "Attachment Title"
     attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
   end
   click_button "Save"
@@ -89,7 +89,7 @@ end
 Then /^I should see that the "([^"]*)" policy's "([^"]*)" supporting page has an attachment$/ do |title, supporting_title|
   visit_document_preview title
   click_link supporting_title
-  assert page.has_css?(".attachment .filename", text: "attachment.pdf")
+  assert page.has_css?(".attachment .attachment_title", text: "Attachment Title")
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
 end
 
