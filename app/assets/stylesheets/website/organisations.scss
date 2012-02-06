@@ -22,7 +22,7 @@
     h1 {
       margin: 0;
       margin-left: 0;
-      padding-bottom: 0.25em;
+      padding-bottom: 0.5em;
       border-bottom: 1px solid #bbb;
       padding-left: 3%;
     }
@@ -126,6 +126,12 @@
       .type {
         font-weight: normal;
       }
+    }
+  }
+
+  .organisation_about {
+    .document {
+      margin-top: 1.5em;
     }
   }
 }

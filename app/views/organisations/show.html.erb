@@ -72,6 +72,14 @@
       </div>
       <% end %>
 
+      <% if [@featured_news_articles, @speeches, @consultations, @publications, @policies].select(&:any?).blank? %>
+        <div class="g3f">
+          <section class="no_content article_section">
+            <h1>Content needed</h1>
+            <p>At present there isn't any content to fill this page.</p>
+          </section>
+        </div>
+      <% end %>
     </div>
 
     <div class="g1f sidebar">

@@ -6,7 +6,7 @@
 
     h1 {
       margin: 0 0 0.65em 0;
-      padding-bottom: 0.25em;
+      padding-bottom: 0.5em;
       border-bottom: 1px solid #ddd;
       padding-left: 3%;
     }
@@ -48,5 +48,11 @@
     border-bottom: 1px solid #d5d5d5;
     border-top: 1px solid #ddd;
     padding: 0.5em 1.5em 0.5em 1.5em;
+  }
+
+  .no_content {
+    p {
+      text-align: center;
+    }
   }
 }
