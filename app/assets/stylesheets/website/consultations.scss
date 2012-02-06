@@ -23,7 +23,10 @@
   nav.consultations_scope {
     display: inline-block;
     margin: 0 1em 0.5em 1em;
-    @include rounded();
+    padding: 0;
+    width: 10em;
+    border: none;
+    background: none;
 
     a {
       @include filter_link;
