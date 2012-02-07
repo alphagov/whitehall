@@ -124,15 +124,4 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     assert_equal({ 'title' => 'Edward Garnier (Solicitor General)', 'link' => '/government/ministers/solicitor-general', 'indexable_content' => 'Garnerian.', 'format' => 'minister' }, results[2])
     assert_equal({ 'title' => 'David Cameron (Prime Minister)', 'link' => '/government/ministers/prime-minister', 'indexable_content' => 'Cameronian.', 'format' => 'minister' }, results[3])
   end
-
-  test "should order by rank position first and role name second" do
-    role_1 = create(:ministerial_role, name: "role-without-rank-B")
-    role_2 = create(:ministerial_role, name: "role-without-rank-A")
-    role_3 = create(:ministerial_role, rank: create(:rank, position: 2), name: "role-with-rank-2")
-    role_4 = create(:ministerial_role, rank: create(:rank, position: 3), name: "role-with-rank-3-A")
-    role_5 = create(:ministerial_role, rank: create(:rank, position: 3), name: "role-with-rank-3-B")
-    role_6 = create(:ministerial_role, rank: create(:rank, position: 1), name: "role-with-rank-1")
-
-    assert_equal [role_6, role_3, role_4, role_5, role_2, role_1], MinisterialRole.ordered_by_rank
-  end
 end

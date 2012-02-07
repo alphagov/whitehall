@@ -351,17 +351,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "shows ministers ordered by the rank of their role" do
-    organisation = create(:organisation)
-    role_1 = create(:ministerial_role, rank: create(:rank, position: 2), organisations: [organisation])
-    role_2 = create(:ministerial_role, rank: create(:rank, position: 3), organisations: [organisation])
-    role_3 = create(:ministerial_role, rank: create(:rank, position: 1), organisations: [organisation])
-
-    get :ministers, id: organisation
-
-    assert_equal [role_3, role_1, role_2], assigns(:ministerial_roles)
-  end
-
   test "shows names and roles of those ministers associated with organisation" do
     person_1 = create(:person, forename: "Fred")
     person_2 = create(:person, forename: "Bob")
