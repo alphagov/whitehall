@@ -401,6 +401,20 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal published_document.body, draft_document.body
   end
 
+  test "should raise an exception when attempting to build a draft copy of an draft edition" do
+    draft_document = create(:draft_document)
+    new_creator = create(:policy_writer)
+    e = assert_raises(RuntimeError) { draft_document.create_draft(new_creator) }
+    assert_equal "Cannot create new edition based on edition in the draft state", e.message
+  end
+
+  test "should raise an exception when attempting to build a draft copy of an archived edition" do
+    archived_document = create(:archived_document)
+    new_creator = create(:policy_writer)
+    e = assert_raises(RuntimeError) { archived_document.create_draft(new_creator) }
+    assert_equal "Cannot create new edition based on edition in the archived state", e.message
+  end
+
   test "should not copy create and update time when creating draft" do
     published_document = create(:published_document)
     Timecop.travel 1.minute.from_now

@@ -50,7 +50,7 @@ class DocumentIdentityTest < ActiveSupport::TestCase
   end
 
   test "#destroy also destroys all documents" do
-    original_edition = create(:draft_policy)
+    original_edition = create(:published_policy)
     new_draft = original_edition.create_draft(create(:policy_writer))
     original_edition.document_identity.destroy
     assert_equal nil, Document.find_by_id(original_edition.id)
