@@ -5,12 +5,17 @@ class MinisterialRole < Role
   has_many :document_ministerial_roles
   has_many :documents, through: :document_ministerial_roles
   has_many :speeches, through: :current_role_appointments
+  belongs_to :rank
 
   searchable title: :to_s, link: :search_link, content: :current_person_biography, format: 'minister'
 
   def self.cabinet
     name = arel_table[:name]
     where(cabinet_member: true).order(name.not_eq('Prime Minister'), name.not_eq('Deputy Prime Minister')).alphabetical_by_person
+  end
+  
+  def self.ordered_by_rank
+    joins("LEFT OUTER JOIN ranks ON roles.rank_id = ranks.id").order("COALESCE(ranks.position, 999), roles.name")
   end
 
   def permanent_secretary
