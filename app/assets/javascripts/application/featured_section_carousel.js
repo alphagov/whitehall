@@ -104,10 +104,9 @@
 
     var _resize_handler = function () {
       if (_wrapper) {
-        if (_resizingWait !== false) {
+        if (_resizingWait !== false)
           clearTimeout(_resizingWait);
-          _resizingWait = setTimeout(_afterResize, 200);
-        }
+        _resizingWait = setTimeout(_afterResize, 200);
       };
     };
 
