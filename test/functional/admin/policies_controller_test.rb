@@ -11,6 +11,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   should_allow_showing_of :policy
   should_allow_creating_of :policy
   should_allow_editing_of :policy
+  should_allow_revision_of :policy
 
   should_allow_organisations_for :policy
   should_allow_ministerial_roles_for :policy

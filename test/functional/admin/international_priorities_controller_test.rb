@@ -11,6 +11,7 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   should_allow_showing_of :international_priority
   should_allow_creating_of :international_priority
   should_allow_editing_of :international_priority
+  should_allow_revision_of :international_priority
 
   should_allow_association_between_countries_and :international_priority
   should_allow_organisations_for :international_priority

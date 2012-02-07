@@ -10,6 +10,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_allow_showing_of :speech
   should_allow_creating_of :speech
   should_allow_editing_of :speech
+  should_allow_revision_of :speech
 
   should_allow_association_between_countries_and :speech
   should_be_rejectable :speech

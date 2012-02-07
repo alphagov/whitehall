@@ -2,7 +2,7 @@
   <%= render partial: "link_to_public_document", locals: {document: document} %>
   <% if document.editable? %>
     <%= edit_document_button(document) %>
-  <% else document.published? %>
+  <% elsif document.published? %>
     <%= redraft_document_button(document) %>
   <% end %>
 

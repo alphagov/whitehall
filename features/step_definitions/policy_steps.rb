@@ -234,7 +234,7 @@ When /^I publish a new edition of the policy "([^"]*)" with the new title "([^"]
 end
 
 When /^I publish a new edition of the policy "([^"]*)" without a change note$/ do |policy_title|
-  policy = Policy.find_by_title!(policy_title)
+  policy = Policy.latest_edition.find_by_title!(policy_title)
   visit admin_document_path(policy)
   click_button "Create new edition"
   click_button "Save"
@@ -242,7 +242,7 @@ When /^I publish a new edition of the policy "([^"]*)" without a change note$/ d
 end
 
 When /^I publish a new edition of the policy "([^"]*)" with a change note "([^"]*)"$/ do |policy_title, change_note|
-  policy = Policy.find_by_title!(policy_title)
+  policy = Policy.latest_edition.find_by_title!(policy_title)
   visit admin_document_path(policy)
   click_button "Create new edition"
   click_button "Save"

@@ -177,6 +177,32 @@ module AdminDocumentControllerTestHelpers
       end
     end
 
+    def should_allow_revision_of(document_type)
+      test "should be possible to revise a published document" do
+        published_document = create("published_#{document_type}")
+
+        get :show, id: published_document
+
+        assert_select "form[action='#{revise_admin_document_path(published_document)}']"
+      end
+
+      test "should not be possible to revise a draft document" do
+        draft_document = create("draft_#{document_type}")
+
+        get :show, id: draft_document
+
+        refute_select "form[action='#{revise_admin_document_path(draft_document)}']"
+      end
+
+      test "should not be possible to revise an archived document" do
+        archived_document = create("archived_#{document_type}")
+
+        get :show, id: archived_document
+
+        refute_select "form[action='#{revise_admin_document_path(archived_document)}']"
+      end
+    end
+
     def should_allow_attachments_for(document_type)
       document_class = document_class_for(document_type)
 
