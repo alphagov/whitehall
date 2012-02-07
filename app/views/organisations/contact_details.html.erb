@@ -5,9 +5,12 @@
     <%= render 'header', organisation: @organisation %>
   </div>
 
-  <div class="g3f">
-    <div class="g1 hcard">
-      <% @organisation.contacts.each do |contact| %>
+  <div class="g3f contact_page">
+    <% addresses = @organisation.contacts.select { |c| c.address.present? } %>
+    <% others = @organisation.contacts - addresses %>
+
+    <div class="g2">
+      <% addresses.each do |contact| %>
         <div class="organisation_contact">
           <% if contact.address.present? %>
             <div class="adr">
@@ -34,5 +37,23 @@
         </div>
       <% end %>
     </div>
+
+    <div class="g1">
+      <% others.each do |contact| %>
+        <div class="organisation_contact">
+          <h3><%= contact.description %></h3>
+          <% if contact.email.present? %>
+            <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
+          <% end %>
+          <% contact.contact_numbers.each do |number| %>
+            <p class="tel"><%= number.number %><span class="type"> <%= number.label %> </span></p>
+          <% end %>
+          <% if contact.mappable? %>
+            <p><%= link_to_google_map(contact) %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
   </div>
 <% end %>
