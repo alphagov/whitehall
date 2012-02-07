@@ -8,7 +8,7 @@
 
 <div class="g3f group">
   <% if @featured_news_articles.any? %>
-    <section class="featured_carousel" id="featured-news-articles">
+    <section class="featured_carousel widescreen" id="featured-news-articles">
       <% @featured_news_articles.each do |news_article| %>
         <%= content_tag_for(:article, news_article) do %>
           <div class="img">
