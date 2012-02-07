@@ -137,21 +137,26 @@
   .article_section {
     article.ministerial_role {
       position: relative;
+      min-height: 72px;
 
-      h2.article_title, p {
-        margin-left: 100px;
+      h2.article_title {
+        margin-left: 96px;
+        margin-bottom: 0;
       }
 
       .current_appointee {
+        @include type-14;
+        margin-left: 96px;
         margin-bottom: 0;
       }
 
       .image_holder {
         margin-bottom: 0;
-        width: 70px;
+        width: 72px;
+        height: 72px;
         position: absolute;
         top: 0;
-        left: 4%;
+        left: 0;
         border: 1px solid #bbb;
       }
     }
