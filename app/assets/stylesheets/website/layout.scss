@@ -1,8 +1,7 @@
 @import "../shared/utils";
 @import "../shared/grid";
-@import "../shared/document_view";
-@import "../shared/govspeak";
 @import "../shared/typography";
+@import "../shared/document_view";
 
 #wrapper {
   background: #f5f5f5;
@@ -110,10 +109,6 @@
 
   img {
     width: 100%;
-  }
-
-  .govspeak {
-    @include govspeak;
   }
 
   a {
