@@ -13,30 +13,6 @@ module AdminDocumentControllerTestHelpers
         assert_select ".body", text: "body-in-html"
       end
 
-      test "show redirects to the latest edition if an earlier archived edition is requested" do
-        archived_document = create("archived_#{document_type}")
-        document_identity = archived_document.document_identity
-        published_document = create("published_#{document_type}", document_identity: document_identity)
-
-        get :show, id: archived_document
-
-        expected_path = send("admin_#{document_type}_path", published_document)
-        assert_equal flash[:notice], "You requested an earlier edition, but this one is more up-to-date."
-      end
-
-      test "show redirects to the latest edition if an earlier published edition is requested" do
-        archived_document = create("archived_#{document_type}")
-        document_identity = archived_document.document_identity
-        published_document = create("published_#{document_type}", document_identity: document_identity)
-        draft_document = create("draft_#{document_type}", document_identity: document_identity)
-
-        get :show, id: published_document
-
-        expected_path = send("admin_#{document_type}_path", draft_document)
-        assert_redirected_to expected_path
-        assert_equal flash[:notice], "You requested an earlier edition, but this one is more up-to-date."
-      end
-
       test "show lists each document author once" do
         tom = create(:user, name: "Tom")
         dick = create(:user, name: "Dick")
@@ -127,19 +103,6 @@ module AdminDocumentControllerTestHelpers
         end
       end
 
-      test "edit redirects to the latest edition if an earlier published edition is requested" do
-        archived_document = create("archived_#{document_type}")
-        document_identity = archived_document.document_identity
-        published_document = create("published_#{document_type}", document_identity: document_identity)
-        draft_document = create("draft_#{document_type}", document_identity: document_identity)
-
-        get :edit, id: published_document
-
-        expected_path = send("edit_admin_#{document_type}_path", draft_document)
-        assert_redirected_to expected_path
-        assert_equal flash[:notice], "You requested an earlier edition, but this one is more up-to-date."
-      end
-
       test "edit form has previewable body" do
         document = create(document_type)
 
@@ -211,19 +174,6 @@ module AdminDocumentControllerTestHelpers
         assert_equal conflicting_document, assigns[:conflicting_document]
         assert_equal conflicting_document.lock_version, assigns[:document].lock_version
         assert_equal %{This document has been saved since you opened it}, flash[:alert]
-      end
-
-      test "update redirects to the latest edition edit page if an earlier published edition is requested" do
-        archived_document = create("archived_#{document_type}")
-        document_identity = archived_document.document_identity
-        published_document = create("published_#{document_type}", document_identity: document_identity)
-        draft_document = create("draft_#{document_type}", document_identity: document_identity)
-
-        put :update, id: published_document
-
-        expected_path = send("edit_admin_#{document_type}_path", draft_document)
-        assert_redirected_to expected_path
-        assert_equal "Your attempt to update an earlier edition failed. This one is more up-to-date.", flash[:alert]
       end
     end
 

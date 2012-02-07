@@ -1,6 +1,5 @@
 class Admin::DocumentsController < Admin::BaseController
   before_filter :find_document, only: [:show, :edit, :update, :submit, :revise, :destroy]
-  before_filter :redirect_to_latest_edition, only: [:show, :edit, :update]
   before_filter :prevent_modification_of_unmodifiable_document, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_document, only: [:new, :create]
@@ -103,19 +102,6 @@ class Admin::DocumentsController < Admin::BaseController
 
   def find_document
     @document = document_class.find(params[:id])
-  end
-
-  def redirect_to_latest_edition
-    unless @document.latest_edition?
-      case params[:action]
-        when "show"
-          redirect_to admin_document_path(@document.latest_edition), notice: "You requested an earlier edition, but this one is more up-to-date."
-        when "edit"
-          redirect_to edit_admin_document_path(@document.latest_edition), notice: "You requested an earlier edition, but this one is more up-to-date."
-        when "update"
-          redirect_to edit_admin_document_path(@document.latest_edition), alert: "Your attempt to update an earlier edition failed. This one is more up-to-date."
-      end
-    end
   end
 
   def prevent_modification_of_unmodifiable_document

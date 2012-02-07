@@ -29,14 +29,6 @@ module Document::Identifiable
     document_identity.editions_ever_published
   end
 
-  def latest_edition
-    document_identity.latest_edition
-  end
-
-  def latest_edition?
-    self == latest_edition
-  end
-
   module ClassMethods
     def published_as(id)
       begin
