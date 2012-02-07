@@ -99,11 +99,35 @@
     #child_organisations {
       ul {
         margin-bottom: 0;
-        padding-bottom: 1.5em;
 
         li {
           margin-bottom: 0.4285em;
         }
+      }
+    }
+
+    #policy_areas {
+      padding-top: 1.5em;
+      margin-bottom: 1.5em;
+      padding-left: 2%;
+
+      h1 {
+        margin-left: 3%;
+        margin-right: 3%;
+        margin-bottom: 0.5715em;
+      }
+
+      ul {
+        margin: 0 3% 1.5em 3%;
+      }
+
+      li {
+        float: left;
+        margin-bottom: 0;
+        background: #fccec3;
+        margin-right: 2%;
+        margin-bottom: 1%;
+        padding: 0.25em 0.5em;
       }
     }
   }

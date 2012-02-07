@@ -116,10 +116,9 @@
           <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
         </section>
       <% end %>
+
+      <%= render partial: "documents/policy_areas", object: @organisation.policy_areas, title: "Our policy areas" %>
     </div>
   </div>
 <% end %>
 
-<div class="g3f">
-  <div class="g1 related_documents"><%= render partial: "documents/policy_areas", object: @organisation.policy_areas, title: "Our policy areas" %></div>
-</div>
