@@ -1,5 +1,5 @@
 class Admin::DocumentsController < Admin::BaseController
-  before_filter :find_document, only: [:show, :edit, :update, :submit, :revise, :fact_check, :destroy]
+  before_filter :find_document, only: [:show, :edit, :update, :submit, :revise, :destroy]
   before_filter :redirect_to_latest_edition, only: [:show, :edit, :update]
   before_filter :prevent_modification_of_unmodifiable_document, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
