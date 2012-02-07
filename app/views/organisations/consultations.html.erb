@@ -2,13 +2,14 @@
 <div class="g3f organisation">
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Consultations" %>
 
-  <div class="g3 page_detail">
-    <% if @consultations.any? %>
-      <% @consultations.each do |consultation| %>
-        <%= render partial: "consultations/consultation", locals: { consultation: consultation, display: "default" } %>
+  <% if @consultations.any? %>
+    <div class="g3f">
+      <%= article_section("Consultations", @consultations, {id: 'consultations'}) do |consultation| %>
+        <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
+        <span class="metadata">
+          Updated <%= time_ago(consultation.updated_at, class: 'updated_at') %>
+        </span>
       <% end %>
-    <% else %>
-      <p>There are no <%= @organisation.name %> consultations at present.</p>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

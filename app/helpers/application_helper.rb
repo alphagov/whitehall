@@ -154,16 +154,28 @@ module ApplicationHelper
   def article_section(title, collection, options = {}, &block)
     content_tag(:section, id: options[:id], class: "article_section") do
       concat content_tag(:h1, title)
-      div = content_tag(:div, class: "group articles") do
-        collection.each do |item|
-          article = content_tag_for(:article, item) do
-            block.call(item).html_safe
-          end.html_safe
-          concat article
+      article_group(collection, groups_of: 3, class: "row", &block)
+      concat content_tag(:p, options[:more], class: "readmore") if options[:more]
+    end
+  end
+
+  def article_group(items, options = {}, &block)
+    article_groups = items.in_groups_of(options[:groups_of], false)
+    article_groups.each_with_index do |article_group, index|
+      row_class = ["group", options[:class]]
+      row_class << "last" if index == article_groups.length-1
+      row = content_tag(:div, class: row_class.compact.join(" ")) do
+        article_group.each do |item|
+          div = content_tag(:div, class: "g1") do
+            article = content_tag_for(:article, item) do
+              block.call(item).html_safe
+            end.html_safe
+            concat article
+          end
+          concat div
         end
       end
-      concat div
-      concat content_tag(:p, options[:more], class: "readmore") if options[:more]
+      concat row
     end
   end
 end

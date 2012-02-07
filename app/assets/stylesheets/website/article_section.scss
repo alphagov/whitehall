@@ -5,22 +5,33 @@
     padding-top: 1.5em;
 
     h1 {
-      margin: 0 0 0.65em 0;
-      padding-bottom: 0.5em;
-      border-bottom: 1px solid #ddd;
-      padding-left: 3%;
+      margin-left: 0;
+      margin-bottom: 0.5715em;
+      padding: 0 3%;
     }
 
-    div.articles {
-      padding-left: 1%;
+    .row {
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 1.5em;
+      padding: 0 1%;
+
+      &.last {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
     }
 
     article {
-      padding: 0em 1% 1em 2%;
+      margin-bottom: 1.5em;
 
       h2.article_title {
+        @include type-16;
+        margin-bottom: 0.75em;
+      }
+
+      p.summary {
         @include type-14;
-        margin-bottom: 0;
+        margin-bottom: 0.75em;
       }
 
       span.metadata {
@@ -28,11 +39,6 @@
         @include type-12;
         margin-bottom: 0;
         color: #777;
-      }
-
-      @media screen and (min-width: 1024px) {
-        width: 29%;
-        float: left;
       }
     }
 

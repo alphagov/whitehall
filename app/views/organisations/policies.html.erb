@@ -2,17 +2,14 @@
 <div class="g3f organisation">
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Policies" %>
 
-  <div class="g3 page_detail">
-    <% if @policies.any? %>
-      <section id="policies">
-        <ul>
-          <% @policies.each do |policy| %>
-            <%= content_tag_for :li, policy do %>
-              <h3><%= link_to policy.title, public_document_path(policy) %></h3>
-            <% end %>
-          <% end %>
-        </ul>
-      </section>
-    <% end %>
-  </div>
+  <% if @policies.any? %>
+    <div class="g3f">
+      <%= article_section("Our policies", @policies, {id: 'policies'}) do |policy| %>
+        <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
+        <span class="metadata">
+          Updated <%= time_ago(policy.updated_at, class: 'updated_at') %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
 </div>

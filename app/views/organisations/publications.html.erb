@@ -2,7 +2,15 @@
 <div class="g3f organisation">
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Publications" %>
 
-  <div class="g3 page_detail">
-    <%= render partial: "documents/publications", object: @publications %>
-  </div>
+  <% if @publications.any? %>
+    <div class="g3f">
+      <%= article_section("Publications", @publications, {id: 'publications'}) do |publication| %>
+        <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+        <span class="metadata">
+          Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
+
 </div>

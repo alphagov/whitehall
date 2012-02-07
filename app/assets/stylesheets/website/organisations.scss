@@ -22,7 +22,7 @@
     h1 {
       margin: 0;
       margin-left: 0;
-      padding-bottom: 0.5em;
+      padding-bottom: 0.5715em;
       border-bottom: 1px solid #bbb;
       padding-left: 3%;
     }
@@ -67,7 +67,6 @@
       ul {
         margin-bottom: 0;
         border-top: 1px solid #ddd;
-
       }
 
       li {
@@ -132,6 +131,29 @@
   .organisation_about {
     .document {
       margin-top: 1.5em;
+    }
+  }
+
+  .article_section {
+    article.ministerial_role {
+      position: relative;
+
+      h2.article_title, p {
+        margin-left: 100px;
+      }
+
+      .current_appointee {
+        margin-bottom: 0;
+      }
+
+      .image_holder {
+        margin-bottom: 0;
+        width: 70px;
+        position: absolute;
+        top: 0;
+        left: 4%;
+        border: 1px solid #bbb;
+      }
     }
   }
 }

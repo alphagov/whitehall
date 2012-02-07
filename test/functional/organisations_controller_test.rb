@@ -62,7 +62,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select "#publications .publication", count: 3
-    assert_select "#publications #{record_css_selector(newest_publication)} + #{record_css_selector(newer_publication)} + #{record_css_selector(older_publication)}"
+    assert_select "#publications #{record_css_selector(newest_publication)}, #publications #{record_css_selector(newer_publication)}, #publications #{record_css_selector(older_publication)}"
   end
 
   test "should link to the organisation's publications page" do
@@ -267,14 +267,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select_object(another_published_speech)
   end
 
-  test "should show explanatory text if there are no news articles or speeches for the organisation" do
-    organisation = create(:organisation, name: "Cabinet Office")
-
-    get :announcements, id: organisation
-
-    assert_select "p", "There are no Cabinet Office news articles or speeches at present."
-  end
-
   test "should order news articles and speeches in order of first publication date with most recent first" do
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
@@ -296,14 +288,6 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select_object(published_consultation)
     refute_select_object(draft_consultation)
-  end
-
-  test "should show explanatory text if the organisation has no consultations" do
-    organisation = create(:organisation, name: "Cabinet Office")
-
-    get :consultations, id: organisation
-
-    assert_select "p", "There are no Cabinet Office consultations at present."
   end
 
   test "should show consultations in order of publication date" do
@@ -335,7 +319,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :publications, id: organisation
 
-    assert_select "#{record_css_selector(newest_publication)} + #{record_css_selector(older_publication)} + #{record_css_selector(oldest_publication)}"
+    assert_select "#publications .row" do
+      assert_select "div:nth-child(1) #{record_css_selector(newest_publication)}"
+      assert_select "div:nth-child(2) #{record_css_selector(older_publication)}"
+      assert_select "div:nth-child(3) #{record_css_selector(oldest_publication)}"
+    end
   end
 
   test "should display an about-us page for the organisation" do
