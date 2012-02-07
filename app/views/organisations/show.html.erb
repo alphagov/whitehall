@@ -29,47 +29,39 @@
       <% end %>
 
       <% if @policies.any? %>
-      <div class="g3f">
         <%= article_section("Our policies", @policies, {id: 'policies', more: organisation_view_all_tag(@organisation, :policies)}) do |policy| %>
           <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
           <span class="metadata">
             Updated <%= time_ago(policy.updated_at, class: 'updated_at') %>
           </span>
         <% end %>
-      </div>
       <% end %>
 
       <% if @publications.any? %>
-      <div class="g3f">
         <%= article_section("Publications", @publications, {id: 'publications', more: organisation_view_all_tag(@organisation, :publications)}) do |publication| %>
           <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
           <span class="metadata">
             Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
           </span>
         <% end %>
-      </div>
       <% end %>
 
       <% if @consultations.any? %>
-      <div class="g3f">
         <%= article_section("Consultations", @consultations, {id: 'consultations', more: organisation_view_all_tag(@organisation, :consultations)}) do |consultation| %>
           <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
           <span class="metadata">
             Updated <%= time_ago(consultation.updated_at, class: 'updated_at') %>
           </span>
         <% end %>
-      </div>
       <% end %>
 
       <% if @speeches.any? %>
-      <div class="g3f">
         <%= article_section("Speeches", @speeches, {id: 'speeches', more: organisation_view_all_tag(@organisation, :announcements)}) do |speech| %>
           <h2 class="article_title"><%= link_to speech.title, public_document_path(speech), title: "View #{speech.title}", class: 'title' %></h2>
           <span class="metadata">
             Updated <%= time_ago(speech.updated_at, class: 'updated_at') %>
           </span>
         <% end %>
-      </div>
       <% end %>
 
       <% if [@featured_news_articles, @speeches, @consultations, @publications, @policies].select(&:any?).blank? %>
