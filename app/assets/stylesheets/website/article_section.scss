@@ -1,4 +1,4 @@
-@import "../shared/utils";
+@import "../shared/utils/type_sizing";
 
 #content {
   section.article_section {
@@ -25,7 +25,7 @@
 
       h2.article_title {
         @include type-16;
-        margin-bottom: 0.75em;
+        margin-bottom: 0;
       }
 
       p.summary {
@@ -39,9 +39,22 @@
         margin-bottom: 0;
         color: #777;
       }
+
+      &.has_img {
+        padding-left: 108px;
+        min-height: 96px;
+        div.img {
+          width: 96px;
+          height: 72px;
+          overflow: hidden;
+          position: absolute;
+          top: 0.4em;
+          left: 0;
+        }
+      }
     }
 
-    article.last {
+    &.last {
       border-right: none;
     }
   }

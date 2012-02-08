@@ -1,4 +1,8 @@
-@import "../shared/utils";
+@import "../shared/utils/type_sizing";
+@import "../shared/utils/filters";
+@import "../shared/utils/transitions";
+@import "../shared/utils/gradients";
+@import "../shared/utils/rounded_corners";
 
 #content {
   #consultations {
@@ -22,7 +26,7 @@
 
   nav.consultations_scope {
     display: inline-block;
-    margin: 0 1em 0.5em 1em;
+    margin: 1.5em 1em 0.5em 1em;
     padding: 0;
     width: 10em;
     border: none;
@@ -62,12 +66,9 @@
     }
 
     @media only screen and (min-width: 1035px) {
-      float: right;
-    }
-
-    @media only screen and (min-width: 720px) {
-      margin-left: 0;
-      margin-right: 0;
+      top: 0;
+      right: 0;
+      position: absolute;
     }
   }
 }

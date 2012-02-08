@@ -1,5 +1,8 @@
-@import "../shared/utils";
 @import "../shared/colours";
+@import "../shared/utils/type_sizing";
+@import "../shared/utils/shadows";
+@import "../shared/utils/rounded_corners";
+@import "../shared/utils/gradients";
 
 #content {
   section.featured_items {

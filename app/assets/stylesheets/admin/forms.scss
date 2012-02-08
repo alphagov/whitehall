@@ -1,5 +1,9 @@
-@import "../shared/utils";
-@import "../shared/forms";
+@import "../shared/utils/type_sizing";
+@import "../shared/utils/clearfix";
+@import "../shared/utils/rounded_corners";
+@import "../shared/utils/gradients";
+@import "../shared/utils/transitions";
+@import "form_styles";
 
 body {
   @include form_styles;

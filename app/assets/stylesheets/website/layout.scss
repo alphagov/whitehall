@@ -1,4 +1,4 @@
-@import "../shared/utils";
+@import "../shared/utils/clearfix";
 @import "../shared/grid";
 @import "../shared/typography";
 @import "../shared/document_view";
@@ -10,7 +10,6 @@
   padding-bottom: 1.5em;
   @include grid_styles;
   @include type_styles;
-  @include vertical_gradient(#f5f5f5, #eee);
 
   @media only screen and (min-width:670px) {
     padding-top: 1.7em;
@@ -33,12 +32,10 @@
   border: 1px solid #d5d5d5;
 
   background-color: #485C29;
-  @include vertical_gradient(#444, #333);
 
   @media only screen and (min-width: 600px) {
     width: 81%;
     @include box-shadow(0, 2px, 2px, #e5e5e5);
-    @include rounded_top();
   }
 
   a {

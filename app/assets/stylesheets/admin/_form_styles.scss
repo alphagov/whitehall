@@ -1,5 +1,3 @@
-@import "utils";
-
 @mixin form_styles {
   /* #Forms
   ================================================== */
@@ -237,7 +235,17 @@
     text-decoration: underline;
     text-shadow: none;
     -webkit-appearance: none;
-    @include link_color;
+
+    color: #2200C1;
+
+    &:hover {
+      color: #1D97FF;
+    }
+
+    &:active {
+      color: #c11;
+    }
+
     @include type-14;
   }
 

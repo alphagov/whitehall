@@ -1,4 +1,6 @@
-@import "../shared/utils";
+@import "../shared/utils/grid";
+@import "../shared/utils/type_sizing";
+@import "../shared/utils/shadows";
 
 #wrapper .attachment {
   @include span_one_column;

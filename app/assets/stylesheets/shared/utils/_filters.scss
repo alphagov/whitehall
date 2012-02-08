@@ -41,14 +41,13 @@
     }
 
     &:active {
-      color: $link-color-active;
+      color: #c11;
     }
 
     &.current {
       color: #444;
-      @include vertical_gradient(lighten($collation-green, 5%), $collation-green);
-      border-bottom: 1px solid $collation-green;
-      border-top: 1px solid $collation-green;
+      background: #9fd6f5;
+
     }
   }
 }
@@ -84,9 +83,9 @@
       border: 1px solid #b5b5b5;
       border-bottom: 1px solid #c5c5c5;
       color: #444;
-      @include vertical_gradient(lighten($collation-green, 2%), lighten($collation-green, 6%));
-      @include box-shadow(0, -1px, 0, $collation-green);
+      @include box-shadow(0, -1px, 0, #eee);
       @include rounded(12px);
+      background: #9fd6f5;
     };
   }
 }
