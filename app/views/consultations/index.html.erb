@@ -14,9 +14,12 @@
         <div class="<%= featured_grid_class(@featured_consultations.length) %>">
           <%= content_tag_for(:article, consultation) do %>
             <h2><%= link_to consultation.title, public_document_path(consultation), class: "title" %></h2>
-            <p class="summary">
-              <%= consultation.summary %>
-            </p>
+            <div class="image_summary group">
+              <div class="img"><%= link_to image_tag(consultation.has_thumbnail? ? consultation.thumbnail_url : 'pub-cover.png'), public_document_path(consultation) %></div>
+              <p class="summary">
+                <%= consultation.summary %>
+              </p>
+            </div>
             <div class="meta">
               <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
             </div>
@@ -25,20 +28,33 @@
       <% end %>
     </section>
   <% end %>
+</div>
 
-  <div class="g3 vg">
-    <section>
-      <nav class="consultations_scope group">
-        <%= link_to_filter('all', action: 'index') %>
-        <%= link_to_filter('open', action: 'open') %>
-        <%= link_to_filter('closed', action: 'closed') %>
-      </nav>
-      <h1>Browse <%= "#{scope_description} consultations".strip %></h1>
-      <% if @consultations.empty? %>
+<div class="g3f">
+  <nav class="consultations_scope group">
+    <%= link_to_filter('all', action: 'index') %>
+    <%= link_to_filter('open', action: 'open') %>
+    <%= link_to_filter('closed', action: 'closed') %>
+  </nav>
+
+  <% scoped_title = scope_description.present? ? scope_description.titlecase : 'All' %>
+  <% if @consultations.any? %>
+    <%= article_section("#{scoped_title} consultations".strip, @consultations, {id: 'consultations', article_class: "has_img group"}) do |consultation| %>
+      <div class="img">
+        <%= link_to image_tag(consultation.has_thumbnail? ? consultation.thumbnail_url : 'pub-cover.png'), public_document_path(consultation) %>
+      </div>
+      <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
+      <% if consultation.summary.present? %><p class="summary"><%= consultation.summary %></p><% end %>
+      <span class="metadata">
+        Updated <%= time_ago(consultation.updated_at, class: 'updated_at') %>
+      </span>
+    <% end %>
+  <% else %>
+    <div class="g3">
+      <section class="no_content">
+        <h1><%= "#{scoped_title} consultations" %></h1>
         <p>There are no<%= scope_description %> consultations at present.</p>
-      <% else %>
-        <%= render partial: "consultations", object: @consultations %>
-      <% end %>
-    </section>
-  </div>
+      </section>
+    </div>
+  <% end %>
 </div>

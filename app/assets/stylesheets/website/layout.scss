@@ -153,6 +153,15 @@
     }
   }
 
+  section.no_content {
+    padding-top: 1.5em;
+
+    h1 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
   .page_detail {
     @include clearfix;
     background: #eee;

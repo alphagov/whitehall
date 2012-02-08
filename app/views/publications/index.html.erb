@@ -16,7 +16,6 @@
               <div class="img"><%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %></div>
               <p class="summary">
                 <%= publication_summary(publication) %>
-                <%= link_to "Read publication", public_document_path(publication), title: "View #{publication.title}", class: "read" %>
               </p>
             </div>
           <% end %>
@@ -27,21 +26,16 @@
 </div>
 
 <% if other_publications.any? %>
-  <div class="g3">
-    <section id="publication_index">
-      <ul class="publications">
-        <% other_publications.each do |publication| %>
-          <%= content_tag_for(:li, publication) do %>
-            <div class="cover">
-              <%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %>
-            </div>
-            <div class="description">
-              <h2 class="title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-              <p class="summary"><%= publication_summary(publication) %></p>
-            </div>
-          <% end %>
-        <% end %>
-      </ul>
-    </section>
+  <div class="g3f">
+    <%= article_section("Publications", other_publications, {id: 'publications', article_class: "has_img group"}) do |publication| %>
+      <div class="img">
+        <%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %>
+      </div>
+      <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+      <% if publication.summary.present? %><p class="summary"><%= publication_summary(publication) %></p><% end %>
+      <span class="metadata">
+        Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
+      </span>
+    <% end %>
   </div>
 <% end %>

@@ -44,12 +44,13 @@
         padding-left: 108px;
         min-height: 96px;
         div.img {
-          width: 96px;
-          height: 72px;
+          width: 94px;
+          height: 70px;
           overflow: hidden;
           position: absolute;
           top: 0.4em;
           left: 0;
+          border: 1px solid #555;
         }
       }
     }
@@ -57,20 +58,21 @@
     &.last {
       border-right: none;
     }
-  }
 
-  p.readmore {
-    @include type-14;
-    margin-bottom: 0;
-    background: #fdfdfd;
-    border-bottom: 1px solid #d5d5d5;
-    border-top: 1px solid #ddd;
-    padding: 0.5em 1.5em 0.5em 1.5em;
-  }
+    p.readmore {
+      @include type-14;
+      margin-bottom: 0;
+      background: #fdfdfd;
+      border-bottom: 1px solid #d5d5d5;
+      border-top: 1px solid #ddd;
+      padding: 0.5em 1.5em 0.5em 1.5em;
+    }
 
-  .no_content {
-    p {
-      text-align: center;
+    .no_content {
+      p {
+        text-align: center;
+      }
     }
   }
+
 }

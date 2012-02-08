@@ -154,7 +154,7 @@ module ApplicationHelper
   def article_section(title, collection, options = {}, &block)
     content_tag(:section, id: options[:id], class: "article_section") do
       concat content_tag(:h1, title)
-      article_group(collection, groups_of: 3, class: "row", &block)
+      article_group(collection, groups_of: 3, class: "row", article_class: options[:article_class], &block)
       concat content_tag(:p, options[:more], class: "readmore") if options[:more]
     end
   end
@@ -167,7 +167,7 @@ module ApplicationHelper
       row = content_tag(:div, class: row_class.compact.join(" ")) do
         article_group.each do |item|
           div = content_tag(:div, class: "g1") do
-            article = content_tag_for(:article, item) do
+            article = content_tag_for(:article, item, class: options[:article_class]) do
               block.call(item).html_safe
             end.html_safe
             concat article

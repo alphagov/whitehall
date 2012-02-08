@@ -6,7 +6,7 @@
     <div class="g3f">
       <%= article_section("News & Speeches", @announcements, {id: 'announcements'}) do |announcement| %>
         <h2 class="article_title"><%= link_to announcement.title, public_document_path(announcement), title: "View #{announcement.title}", class: "title" %></h2>
-        <p class="summary"><%= announcement.summary %></p>
+        <% if announcement.summary.present? %><p class="summary"><%= announcement.summary %></p><% end %>
         <span class="metadata">
           Updated <%= time_ago(announcement.updated_at, class: 'updated_at') %>
         </span>
