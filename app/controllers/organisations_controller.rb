@@ -35,6 +35,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def ministers
+    @ministerial_roles = @organisation.ministerial_roles.order("organisation_roles.ordering")
   end
 
   def publications
