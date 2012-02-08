@@ -1,4 +1,6 @@
 class Admin::SupportingPagesController < Admin::BaseController
+  include PublicDocumentRoutesHelper
+
   before_filter :find_document, only: [:new, :create]
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
 

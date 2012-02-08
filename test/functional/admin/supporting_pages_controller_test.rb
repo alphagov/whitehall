@@ -1,6 +1,8 @@
 require "test_helper"
 
 class Admin::SupportingPagesControllerTest < ActionController::TestCase
+  include PublicDocumentRoutesHelper
+
   setup do
     login_as :policy_writer
   end
@@ -59,7 +61,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     document = create(:draft_policy)
     supporting_page = create(:supporting_page, document: document)
 
-    get :show, id: supporting_page
+    get :show, document_id: document, id: supporting_page
 
     assert_select ".title", supporting_page.title
     assert_select "a[href='#{admin_policy_path(document)}']", text: "Back to '#{document.title}'"
@@ -69,7 +71,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page = create(:supporting_page, body: "body-in-govspeak")
     Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
 
-    get :show, id: supporting_page
+    get :show, document_id: supporting_page.document, id: supporting_page
 
     assert_select ".body", text: "body-in-html"
   end
@@ -129,7 +131,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page = create(:supporting_page)
 
     attributes = { title: "new-title", body: "new-body" }
-    put :update, id: supporting_page, supporting_page: attributes
+    put :update, document_id: supporting_page.document, id: supporting_page, supporting_page: attributes
 
     supporting_page.reload
     assert_equal attributes[:title], supporting_page.title
@@ -140,7 +142,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page = create(:supporting_page)
 
     attributes = { title: "new-title", body: "new-body" }
-    put :update, id: supporting_page, supporting_page: attributes
+    put :update, document_id: supporting_page.document, id: supporting_page, supporting_page: attributes
 
     assert_redirected_to admin_supporting_page_path(supporting_page)
     assert_equal flash[:notice], "The supporting page was updated successfully"
@@ -150,7 +152,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page = create(:supporting_page)
 
     attributes = { title: nil, body: "new-body" }
-    put :update, id: supporting_page, supporting_page: attributes
+    put :update, document_id: supporting_page.document, id: supporting_page, supporting_page: attributes
 
     assert_template "edit"
     assert_equal "There was a problem: Title can't be blank", flash[:alert]
@@ -162,7 +164,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page.touch
 
     attributes = { title: "new-title", body: "new-body" }
-    put :update, id: supporting_page, supporting_page: attributes.merge(lock_version: lock_version)
+    put :update, document_id: supporting_page.document, id: supporting_page, supporting_page: attributes.merge(lock_version: lock_version)
 
     assert_template 'edit'
     conflicting_supporting_page = supporting_page.reload
@@ -175,7 +177,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     document = create(:draft_policy)
     supporting_page = create(:supporting_page, document: document, title: "Blah blah")
 
-    delete :destroy, id: supporting_page.id
+    delete :destroy, document_id: document, id: supporting_page.id
 
     assert_redirected_to admin_policy_path(document)
     refute SupportingPage.find_by_id(supporting_page.id)
@@ -186,7 +188,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     document = create(:published_policy)
     supporting_page = create(:supporting_page, document: document, title: "Blah blah")
 
-    delete :destroy, id: supporting_page.id
+    delete :destroy, document_id: document, id: supporting_page.id
 
     assert_redirected_to admin_policy_path(document)
     assert SupportingPage.find_by_id(supporting_page.id)

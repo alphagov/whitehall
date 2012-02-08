@@ -18,7 +18,7 @@ class SupportingPage < ActiveRecord::Base
     only: :published, index_after: false, unindex_after: false
 
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :title, use: :scoped, scope: :document
 
   def should_generate_new_friendly_id?
     new_record?

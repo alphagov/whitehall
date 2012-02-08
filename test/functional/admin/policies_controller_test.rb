@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class Admin::PoliciesControllerTest < ActionController::TestCase
+  include PublicDocumentRoutesHelper
 
   setup do
     login_as :policy_writer

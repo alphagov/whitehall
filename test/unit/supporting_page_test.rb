@@ -129,4 +129,14 @@ class SupportingPageTest < ActiveSupport::TestCase
     assert_equal({ 'title' => 'Relentless', 'link' => "/government/policies/#{policy_slug}/supporting-pages/relentless", 'indexable_content' => 'Rockers against drugs suck.', 'format' => 'supporting_page' }, results[2])
     assert_equal({ 'title' => 'Arizona Bay', 'link' => "/government/policies/#{policy_slug}/supporting-pages/arizona-bay", 'indexable_content' => 'Marketing and advertising.', 'format' => 'supporting_page' }, results[3])
   end
+
+  test "should not change its slug when the parent policy is updated" do
+    user = create(:user)
+    document = create(:published_policy, title: "Ban beards")
+    supporting_page = create(:supporting_page, document: document, title: "Proscribed facial hair styles")
+    slug = supporting_page.slug
+    new_document = document.create_draft(user)
+    new_document.reload.submit!
+    assert_equal slug, new_document.supporting_pages.first.slug
+  end
 end
