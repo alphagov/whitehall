@@ -10,6 +10,7 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def new
     @organisation = Organisation.new
+    @ministerial_organisation_roles = []
   end
 
   def create
@@ -17,17 +18,20 @@ class Admin::OrganisationsController < Admin::BaseController
     if @organisation.save
       redirect_to admin_organisations_path
     else
+      @ministerial_organisation_roles = []
       render action: "new"
     end
   end
 
   def edit
+    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).where("roles.type = 'MinisterialRole'").order(:ordering)
   end
 
   def update
     if @organisation.update_attributes(params[:organisation])
       redirect_to admin_organisations_path
     else
+      @ministerial_organisation_roles = []
       render action: "edit"
     end
   end

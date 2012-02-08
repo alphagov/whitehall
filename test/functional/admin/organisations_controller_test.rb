@@ -177,6 +177,55 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [later_news_article, earlier_news_article], assigns[:news_articles]
   end
 
+  test "editing only shows ministerial roles for ordering" do
+    ministerial_role = create(:ministerial_role)
+    board_member_role = create(:board_member_role)
+    organisation = create(:organisation)
+    organisation_ministerial_role = create(:organisation_role, organisation: organisation, role: ministerial_role)
+    organisation_board_member_role = create(:organisation_role, organisation: organisation, role: board_member_role)
+
+    get :edit, id: organisation
+
+    assert_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
+    refute_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
+  end
+
+  test "editing shows ministerial roles in their currently specified order" do
+    junior_ministerial_role = create(:ministerial_role)
+    senior_ministerial_role = create(:ministerial_role)
+    organisation = create(:organisation)
+    organisation_junior_ministerial_role = create(:organisation_role, organisation: organisation, role: junior_ministerial_role, ordering: 2)
+    organisation_senior_ministerial_role = create(:organisation_role, organisation: organisation, role: senior_ministerial_role, ordering: 1)
+
+    get :edit, id: organisation
+
+    assert_equal [organisation_senior_ministerial_role, organisation_junior_ministerial_role], assigns(:ministerial_organisation_roles)
+  end
+  
+  test "editing doesn't display an empty ministerial roles section" do
+    organisation = create(:organisation)
+    get :edit, id: organisation
+    refute_select "#minister_ordering"
+  end
+
+  test "editing contains the relevant dom classes to facilitate the javascript ordering functionality" do
+    organisation = create(:organisation, roles: [create(:ministerial_role)])
+    get :edit, id: organisation
+    assert_select "fieldset#minister_ordering.sortable input.ordering[name^='organisation[organisation_roles_attributes]']"
+  end
+
+  test "allows updating of organisation role ordering" do
+    organisation = create(:organisation)
+    ministerial_role = create(:ministerial_role)
+    organisation_role = create(:organisation_role, organisation: organisation, role: ministerial_role, ordering: 1)
+
+    put :update, id: organisation.id, organisation: {organisation_roles_attributes: {
+      "0" => {id: organisation_role.id, ordering: "2"}
+    }}
+
+    assert_equal 2, organisation_role.reload.ordering
+  end
+
   test "updating should modify the organisation" do
     organisation = create(:organisation, name: "Ministry of Sound")
     organisation_attributes = {

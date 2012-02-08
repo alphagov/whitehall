@@ -33,5 +33,16 @@
     <%= organisation_form.text_area :about_us, class: "previewable", :help => true %>
   </fieldset>
 
+  <% if @ministerial_organisation_roles.any? %>
+    <fieldset id="minister_ordering" class="sortable">
+      <legend>Minister ordering</legend>
+      <%= organisation_form.fields_for :organisation_roles, @ministerial_organisation_roles do |organisation_role_form| %>
+        <div>
+          <%= organisation_role_form.text_field :ordering, label_text: organisation_role_form.object.role.name, class: "ordering" %>
+        </div>
+      <% end %>
+    </fieldset>
+  <% end %>
+
   <%= organisation_form.save_or_cancel cancel: admin_organisations_path %>
 <% end %>
