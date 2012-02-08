@@ -190,6 +190,17 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     refute_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
   end
 
+  test "editing shows ministerial role and current person's name" do
+    person = create(:person, forename: "John", surname: "Doe")
+    ministerial_role = create(:ministerial_role, name: "Prime Minister")
+    create(:role_appointment, person: person, role: ministerial_role, started_at: 1.day.ago)
+    organisation = create(:organisation, roles: [ministerial_role])
+
+    get :edit, id: organisation
+
+    assert_select "#minister_ordering label", text: /Prime Minister, John Doe/i
+  end
+
   test "editing shows ministerial roles in their currently specified order" do
     junior_ministerial_role = create(:ministerial_role)
     senior_ministerial_role = create(:ministerial_role)
@@ -201,7 +212,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     assert_equal [organisation_senior_ministerial_role, organisation_junior_ministerial_role], assigns(:ministerial_organisation_roles)
   end
-  
+
   test "editing doesn't display an empty ministerial roles section" do
     organisation = create(:organisation)
     get :edit, id: organisation
@@ -224,6 +235,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     }}
 
     assert_equal 2, organisation_role.reload.ordering
+  end
+
+  test "failing to update an organisation should render the list of ministerial roles" do
+    ministerial_role = create(:ministerial_role)
+    organisation = create(:organisation)
+    organisation_ministerial_role = create(:organisation_role, organisation: organisation, role: ministerial_role)
+
+    put :update, id: organisation, organisation: {name: ""}
+
+    assert_equal [organisation_ministerial_role], assigns(:ministerial_organisation_roles)
   end
 
   test "updating should modify the organisation" do

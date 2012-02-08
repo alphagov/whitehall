@@ -38,7 +38,7 @@
       <legend>Minister ordering</legend>
       <%= organisation_form.fields_for :organisation_roles, @ministerial_organisation_roles do |organisation_role_form| %>
         <div>
-          <%= organisation_role_form.text_field :ordering, label_text: organisation_role_form.object.role.name, class: "ordering" %>
+          <%= organisation_role_form.text_field :ordering, label_text: "#{organisation_role_form.object.role.name}, #{organisation_role_form.object.role.current_person_name}", class: "ordering" %>
         </div>
       <% end %>
     </fieldset>

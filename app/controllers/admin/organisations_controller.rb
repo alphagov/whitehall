@@ -24,14 +24,14 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def edit
-    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).where("roles.type = 'MinisterialRole'").order(:ordering)
+    load_organisation_ministerial_roles
   end
 
   def update
     if @organisation.update_attributes(params[:organisation])
       redirect_to admin_organisations_path
     else
-      @ministerial_organisation_roles = []
+      load_organisation_ministerial_roles
       render action: "edit"
     end
   end
@@ -44,6 +44,10 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def load_news_articles
     @news_articles = NewsArticle.published.in_organisation(@organisation).by_first_published_at
+  end
+
+  def load_organisation_ministerial_roles
+    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).where("roles.type = 'MinisterialRole'").order(:ordering)
   end
 
   private
