@@ -3,7 +3,10 @@ module Document::NationalApplicability
 
   class Trait < Document::Traits::Trait
     def process_associations_before_save(document)
-      document.inapplicable_nations = @document.inapplicable_nations
+      na_attributes = @document.nation_inapplicabilities.map do |na|
+        na.attributes.except("id")
+      end
+      document.nation_inapplicabilities_attributes = na_attributes
     end
   end
 

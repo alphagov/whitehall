@@ -30,11 +30,16 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the existing consultation with inapplicable nations" do
-    published_consultation = create(:published_consultation, inapplicable_nations: [Nation.wales, Nation.scotland])
+    published_consultation = create(:published_consultation, nation_inapplicabilities_attributes: [
+      {nation: Nation.wales, alternative_url: "http://wales.gov.uk"}, 
+      {nation: Nation.scotland, alternative_url: "http://scot.gov.uk"}]
+    )
 
     draft_consultation = published_consultation.create_draft(create(:policy_writer))
 
     assert_equal published_consultation.inapplicable_nations, draft_consultation.inapplicable_nations
+    assert_equal "http://wales.gov.uk", draft_consultation.nation_inapplicabilities.find_by_nation_id(Nation.wales.id).alternative_url
+    assert_equal "http://scot.gov.uk", draft_consultation.nation_inapplicabilities.find_by_nation_id(Nation.scotland.id).alternative_url
   end
 
   test "should build a draft copy of the existing consultation with the featured flag retained" do
