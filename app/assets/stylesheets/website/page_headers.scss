@@ -11,10 +11,16 @@
       margin-bottom: 0;
       text-shadow: #fff 0px 1px 0;
       color: #353500;
-      margin-left: 1%;
-      padding-top: 0.45em;
       font-family: "Gill Sans", sans-serif;
       font-weight: normal;
+    }
+
+    .explanation {
+      margin-bottom: 0;
+    }
+
+    h1.page_title, .explanation {
+      margin-left: 1%;
     }
 
     h1.page_title.has_meta {
