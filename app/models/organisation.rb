@@ -74,7 +74,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def top_ministerial_role
-    ministerial_roles.order(MinisterialRole.arel_table[:cabinet_member].desc).first
+    ministerial_roles.order(:ordering).first
   end
 
   def top_civil_servant
