@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(:version => 20120208150806) do
     t.text     "description"
     t.text     "about_us"
     t.string   "acronym"
+    t.string   "url"
   end
 
   add_index "organisations", ["slug"], :name => "index_organisations_on_slug"
