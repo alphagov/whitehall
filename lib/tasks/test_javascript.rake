@@ -42,12 +42,6 @@ namespace :test do
 
     command = "phantomjs #{phantom_driver} #{runner}"
 
-    # linux needs to run phantom through windowing server
-    # apt-get install xvfb
-    if RUBY_PLATFORM =~ /linux/
-      command = "xvfb-run " + command
-    end
-
     IO.popen(command) do |test|
       puts test.read
     end
