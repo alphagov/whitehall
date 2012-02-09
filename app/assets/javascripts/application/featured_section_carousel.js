@@ -103,11 +103,15 @@
     }
 
     var _resize_handler = function () {
-      if (_wrapper) {
-        if (_resizingWait !== false)
-          clearTimeout(_resizingWait);
-        _resizingWait = setTimeout(_afterResize, 200);
-      };
+      try {
+        if (_wrapper) {
+          if(_resizingWait !== false)
+            clearTimeout(_resizingWait);
+          _resizingWait = setTimeout(_afterResize, 200);
+        }
+      } catch(err) {
+        // do nothing
+      }
     };
 
     $(window).resize(_resize_handler);

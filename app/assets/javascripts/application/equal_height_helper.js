@@ -25,12 +25,15 @@
 
     var _resizingWait;
     var _resize_handler = function () {
-      if (_this) {
-        if(_resizingWait !== false) {
-          clearTimeout(_resizingWait);
+      try {
+        if (_this) {
+          if(_resizingWait !== false)
+            clearTimeout(_resizingWait);
           _resizingWait = setTimeout(_afterResize, 200);
         }
-      };
+      } catch(err) {
+        //do nothing
+      }
     };
 
     $(settings.breakpointSelector).resize(_resize_handler);
