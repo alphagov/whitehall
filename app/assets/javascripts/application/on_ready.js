@@ -5,4 +5,5 @@ jQuery(function($) {
   $('section.featured_items').equalHeightHelper({selectorsToResize: ['h2 a', 'p.summary', 'div.image_summary']});
   $('section.article_group').equalHeightHelper({selectorsToResize: ['article']});
   $('.change_notes').policyUpdateNotes({link:'.metadata'});
+  $('#global-nav').navHelper({ breakpointWidth: 1024 });
 });
