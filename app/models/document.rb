@@ -6,6 +6,7 @@ class Document < ActiveRecord::Base
   include Document::Workflow
   include Document::Organisations
   include Document::Publishing
+  include Document::Images
 
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
