@@ -1,0 +1,42 @@
+@import "../shared/utils/type_sizing";
+
+#global-nav {
+  margin: 0 auto;
+  background: #333;
+  background-color: #485C29;
+
+  @media only screen and (min-width: 1024px) {
+    width: 81%;
+    border: 1px solid #d5d5d5;
+  }
+
+  a {
+    @include type-14;
+    margin: 0;
+    text-decoration: none;
+    white-space: nowrap;
+    color: #fdfdfd;
+    padding: 0.5em 12px;
+    display: block;
+    border-bottom: 1px solid #333;
+    border-top: 1px solid #666;
+
+    @media only screen and (min-width: 1024px) {
+      float: left;
+    }
+
+    &:hover {
+      background: #dedf00;
+      border-top: 1px solid #eff000;
+      border-bottom: 1px solid #898a00;
+      color: #333;
+    };
+
+    &.current, &:active {
+      background: #cdce00;
+      border-top: 1px solid #eff000;
+      border-bottom: 1px solid #898a00;
+      color: #333;
+    }
+  }
+}

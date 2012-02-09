@@ -11,63 +11,22 @@
   @include grid_styles;
   @include type_styles;
 
-  @media only screen and (min-width:670px) {
+  @media only screen and (min-width:764px) {
     padding-top: 1.7em;
   }
 }
 
 .js-enabled #wrapper {
   @media only screen and (min-width:670px) {
-    padding-top: 3em;
+    padding-top: 4.6em;
   }
 
-  @media only screen and (min-width: 863px) {
+  @media only screen and (min-width:764px) {
+    padding-top: 2.66em;
+  }
+
+  @media only screen and (min-width: 1024px) {
     padding-top: 3.9em;
-  }
-}
-
-#global-nav {
-  margin: 0 auto;
-  background: #333;
-  border: 1px solid #d5d5d5;
-
-  background-color: #485C29;
-
-  @media only screen and (min-width: 600px) {
-    width: 81%;
-    @include box-shadow(0, 2px, 2px, #e5e5e5);
-  }
-
-  a {
-    @include type-14;
-    margin: 0;
-    text-decoration: none;
-    white-space: nowrap;
-    color: #fdfdfd;
-    padding: 0.5em 12px;
-    display: block;
-    float: left;
-    border-bottom: 1px solid #333;
-    border-top: 1px solid #333;
-
-    &:hover {
-      background: #dedf00;
-      border-top: 1px solid #eff000;
-      border-bottom: 1px solid #898a00;
-      color: #333;
-    };
-
-    &.current, &:active {
-      background: #cdce00;
-      border-top: 1px solid #eff000;
-      border-bottom: 1px solid #898a00;
-      color: #333;
-      text-shadow: 0 1px rgba(255, 255, 200, .75);
-    }
-
-    &:first-child {
-      margin-left: 12px;
-    }
   }
 }
 
@@ -81,7 +40,7 @@
 
   @include type_styles;
 
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 1024px) {
     width: 81%;
     @include box-shadow(0, 2px, 2px, #e5e5e5);
   }
@@ -206,20 +165,6 @@
     @include type-14;
     margin-bottom: 0.875em;
     margin-left: 2%;
-  }
-
-  nav.group {
-    padding-left: 2%;
-    padding-bottom: 0.5em;
-    padding-top: 0.5em;
-    border-bottom: 1px solid #bbb;
-    background: #eee;
-    a {
-      float: left;
-      @include type-14;
-      margin-bottom: 0;
-      margin-right: 2%;
-    }
   }
 }
 
