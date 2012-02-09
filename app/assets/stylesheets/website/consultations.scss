@@ -26,9 +26,9 @@
 
   nav.consultations_scope {
     display: inline-block;
-    margin: 1.5em 1em 0.5em 1em;
+    margin: 1.25em 1em 0 1em;
     padding: 0;
-    width: 10em;
+    width: 11.85em;
     border: none;
     background: none;
 
@@ -69,6 +69,8 @@
       top: 0;
       right: 0;
       position: absolute;
+      text-align: right;
+      margin-right: 0;
     }
   }
 }
