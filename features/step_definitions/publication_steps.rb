@@ -114,7 +114,7 @@ end
 
 Then /^I should see a link to the PDF attachment$/ do
   assert page.has_css?(".attachment .attachment_title", text: "Attachment Title")
-  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
+  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Attachment Title")
 end
 
 Then /^I should see a thumbnail of the first page of the PDF$/ do

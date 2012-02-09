@@ -90,7 +90,7 @@ Then /^I should see that the "([^"]*)" policy's "([^"]*)" supporting page has an
   visit_document_preview title
   click_link supporting_title
   assert page.has_css?(".attachment .attachment_title", text: "Attachment Title")
-  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
+  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Attachment Title")
 end
 
 Then /^I can visit the supporting page "([^"]*)" from the "([^"]*)" policy$/ do |supporting_title, policy_title|

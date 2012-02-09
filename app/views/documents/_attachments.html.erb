@@ -4,10 +4,9 @@
       <div class="img"><%= link_to(image_tag(attachment.url(:thumbnail)), attachment.url) %></div>
     <% end %>
 
-    <div class="download_url"><%= link_to "Download attachment", attachment.url %></div>
+    <div class="download_url attachment_title"><%= link_to attachment.title, attachment.url %></div>
 
     <ul class="attachment_meta">
-      <li><strong>Title:</strong> <span class="attachment_title"><%= attachment.title %></span></li>
       <li><strong>Type:</strong> <span class="type"><%= humanized_content_type(attachment.file_extension) %></span></li>
       <% if attachment.number_of_pages.present? %>
         <li><strong>No. of pages:</strong> <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span></li>
