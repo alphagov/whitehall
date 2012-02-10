@@ -8,6 +8,10 @@ class Image < ActiveRecord::Base
 
   accepts_nested_attributes_for :image_data, reject_if: :all_blank
 
+  def url
+    image_data.file_url
+  end
+
   private
 
   def destroy_image_data_if_required

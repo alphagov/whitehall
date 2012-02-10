@@ -43,7 +43,7 @@
     <section class="images">
       <h1>Images</h1>
       <% @document.images.each do |image| %>
-        <%= image_tag image.image_data.file_url, id: dom_id(image) %>
+        <%= image_tag image.url, id: dom_id(image) %>
       <% end %>
     </section>
   <% end %>

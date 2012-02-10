@@ -11,6 +11,13 @@ class ImageTest < ActiveSupport::TestCase
     refute image.valid?
   end
 
+  test "#url returns the url from the image data" do
+    image = create(:image)
+    image_data = image.image_data
+    image_data.stubs(:file_url).returns("http://example.com/file.jpg")
+    assert_equal "http://example.com/file.jpg", image.url
+  end
+
   test "does not destroy image data when if more documents are associated" do
     image = create(:image)
     image_data = image.image_data

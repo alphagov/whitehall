@@ -17,7 +17,7 @@
     <% else %>
       <p class="image">
         <% checkbox_args = nested_attribute_destroy_checkbox_options(images_fields) %>
-        <% label_text = image_tag(images_fields.object.image_data.file_url) + " (uncheck to remove)" %>
+        <% label_text = image_tag(images_fields.object.url) + " (uncheck to remove)" %>
         <% checkbox_args[0].merge!(label_text: label_text) %>
         <%= images_fields.check_box :_destroy, *checkbox_args  %>
       </p>
