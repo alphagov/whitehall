@@ -2,7 +2,7 @@
   <%= form.errors %>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
 
-  <fieldset class="img">
+  <fieldset id="news_image" class="img">
     <legend>News Image</legend>
     <%= form.label :image, "Image" %>
     <%= form.file_field :image %>
