@@ -510,6 +510,286 @@ module AdminDocumentControllerTestHelpers
       end
     end
 
+    def should_allow_attached_images_for(document_type)
+      document_class = document_class_for(document_type)
+
+      test "new displays document image fields" do
+        get :new
+
+        assert_select "form#document_new" do
+          assert_select "input[name='document[images_attributes][0][alt_text]'][type='text']"
+          assert_select "textarea[name='document[images_attributes][0][caption]']"
+          assert_select "input[name='document[images_attributes][0][image_data_attributes][file]'][type='file']"
+        end
+      end
+
+      test 'creating a document should attach image' do
+        image = fixture_file_upload('portas-review.jpg')
+        attributes = controller_attributes_for(document_type)
+        attributes[:images_attributes] = {
+          "0" => { alt_text: "some-alt-text", caption: "longer-caption-for-image",
+                  image_data_attributes: attributes_for(:image_data, file: image) }
+        }
+
+        post :create, document: attributes
+
+        assert document = document_class.last
+        assert_equal 1, document.images.length
+        image = document.images.first
+        assert_equal "some-alt-text", image.alt_text
+        assert_equal "longer-caption-for-image", image.caption
+      end
+
+      test "creating a document should result in a single instance of the uploaded image file being cached" do
+        image = fixture_file_upload('portas-review.jpg')
+        attributes = controller_attributes_for(document_type)
+        attributes[:images_attributes] = {
+          "0" => { alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) }
+        }
+
+        ImageData.any_instance.expects(:file=).once
+
+        post :create, document: attributes
+      end
+
+      test "creating a document with invalid data should still show image fields" do
+        post :create, document: controller_attributes_for(document_type, title: "")
+
+        assert_select "form#document_new" do
+          assert_select "input[name='document[images_attributes][0][alt_text]'][type='text']"
+          assert_select "textarea[name='document[images_attributes][0][caption]']"
+          assert_select "input[name='document[images_attributes][0][image_data_attributes][file]'][type='file']"
+        end
+      end
+
+      test "creating a document with invalid data should only allow a single image to be selected for upload" do
+        image = fixture_file_upload('portas-review.jpg')
+        attributes = controller_attributes_for(document_type, title: "")
+        attributes[:images_attributes] = {
+          "0" => { alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) }
+        }
+
+        post :create, document: attributes
+
+        assert_select "form#document_new" do
+          assert_select "input[name*='document[images_attributes]'][type='file']", count: 1
+        end
+      end
+
+      test "creating a document with invalid data but valid image data should still display the image data" do
+        image = fixture_file_upload('portas-review.jpg')
+        attributes = controller_attributes_for(document_type, title: "")
+        attributes[:images_attributes] = {
+          "0" => { alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) }
+        }
+
+        post :create, document: attributes
+
+        assert_select "form#document_new" do
+          assert_select "input[name='document[images_attributes][0][alt_text]'][type='text'][value='some-alt-text']"
+          assert_select "input[name='document[images_attributes][0][image_data_attributes][file_cache]'][value$='portas-review.jpg']"
+          assert_select ".already_uploaded", text: "portas-review.jpg already uploaded"
+        end
+      end
+
+      test 'creating a document with invalid data should not show any existing image info' do
+        image = fixture_file_upload('portas-review.jpg')
+        attributes = controller_attributes_for(document_type, title: "")
+        attributes[:images_attributes] = {
+          "0" => { alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) }
+        }
+
+        post :create, document: attributes
+
+        refute_select "p.image"
+      end
+
+      test "creating a document with multiple images should attach all files" do
+        image = fixture_file_upload('portas-review.jpg')
+        attributes = controller_attributes_for(document_type)
+        attributes[:images_attributes] = {
+          "0" => {alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image)},
+          "1" => {alt_text: "more-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image)}
+        }
+
+        post :create, document: attributes
+
+        assert document = document_class.last
+        assert_equal 2, document.images.length
+        image_1 = document.images.first
+        assert_equal "some-alt-text", image_1.alt_text
+        image_2 = document.images.last
+        assert_equal "more-alt-text", image_2.alt_text
+      end
+
+      test 'edit displays document image fields' do
+        image = fixture_file_upload('portas-review.jpg')
+        document = create(document_type)
+        image = create(:image, alt_text: "blah", document: document,
+                       image_data_attributes: attributes_for(:image_data, file: image))
+
+        get :edit, id: document
+
+        assert_select "form#document_edit" do
+          assert_select "input[name='document[images_attributes][0][alt_text]'][type='text'][value='blah']"
+          assert_select ".image" do
+            assert_select "img[src$='portas-review.jpg']"
+          end
+          assert_select "input[name='document[images_attributes][1][alt_text]'][type='text']"
+          assert_select "textarea[name='document[images_attributes][1][caption]']"
+          assert_select "input[name='document[images_attributes][1][image_data_attributes][file]'][type='file']"
+        end
+      end
+
+      test 'updating a document should attach an image' do
+        image = fixture_file_upload('portas-review.jpg')
+        document = create(document_type)
+
+        put :update, id: document, document: document.attributes.merge(
+          images_attributes: {
+            "0" => { alt_text: "alt-text", image_data_attributes: attributes_for(:image_data, file: image) }
+          }
+        )
+
+        document.reload
+        assert_equal 1, document.images.length
+        image = document.images.first
+        assert_equal "alt-text", image.alt_text
+      end
+
+      test 'updating a document should attach multiple images' do
+        document = create(document_type)
+        image = fixture_file_upload('portas-review.jpg')
+        attributes = document.attributes
+        attributes[:images_attributes] = {
+          "0" => {alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image)},
+          "1" => {alt_text: "more-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image)}
+        }
+
+        put :update, id: document, document: attributes
+
+        document.reload
+        assert_equal 2, document.images.length
+        image_1 = document.images.first
+        assert_equal "some-alt-text", image_1.alt_text
+        image_2 = document.images.last
+        assert_equal "more-alt-text", image_2.alt_text
+      end
+
+      test "updating a document with invalid data should still allow image to be selected for upload" do
+        document = create(document_type)
+        put :update, id: document, document: document.attributes.merge(title: "")
+
+        assert_select "form#document_edit" do
+          assert_select "input[name='document[images_attributes][0][image_data_attributes][file]'][type='file']"
+        end
+      end
+
+      test "updating a document with invalid data should only allow a single image to be selected for upload" do
+        document = create(document_type)
+        image = fixture_file_upload('portas-review.jpg')
+        attributes = document.attributes.merge(title: "")
+        attributes[:images_attributes] = {
+          "0" => { alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) }
+        }
+
+        put :update, id: document, document: attributes
+
+        assert_select "form#document_edit" do
+          assert_select "input[name*='document[images_attributes]'][type='file']", count: 1
+        end
+      end
+
+      test "updating a document with invalid data and valid image data should display the image data" do
+        document = create(document_type)
+        image = fixture_file_upload('portas-review.jpg')
+        attributes = document.attributes.merge(title: "")
+        attributes[:images_attributes] = {
+          "0" => { alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) }
+        }
+
+        put :update, id: document, document: attributes
+
+        assert_select "form#document_edit" do
+          assert_select "input[name='document[images_attributes][0][alt_text]'][value='some-alt-text']"
+          assert_select "input[name='document[images_attributes][0][image_data_attributes][file_cache]'][value$='portas-review.jpg']"
+          assert_select ".already_uploaded", text: "portas-review.jpg already uploaded"
+        end
+      end
+
+      test "updating a stale document should still display image fields" do
+        document = create("draft_#{document_type}")
+        lock_version = document.lock_version
+        document.touch
+
+        put :update, id: document, document: document.attributes.merge(lock_version: lock_version)
+
+        assert_select "form#document_edit" do
+          assert_select "input[name='document[images_attributes][0][alt_text]'][type='text']"
+          assert_select "textarea[name='document[images_attributes][0][caption]']"
+          assert_select "input[name='document[images_attributes][0][image_data_attributes][file]'][type='file']"
+        end
+      end
+
+      test "updating a stale document should only allow a single image to be selected for upload" do
+        document = create(document_type)
+        image = fixture_file_upload('portas-review.jpg')
+        lock_version = document.lock_version
+        document.touch
+        attributes = document.attributes.merge(title: "", lock_version: lock_version)
+        attributes[:images_attributes] = {
+          "0" => { alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) }
+        }
+
+        put :update, id: document, document: attributes
+
+        assert_select "form#document_edit" do
+          assert_select "input[name*='document[images_attributes]'][type='file']", count: 1
+        end
+      end
+
+      test 'updating should allow removal of images' do
+        document = create(document_type)
+        image_1 = create(:image, document: document, alt_text: "the first image")
+        image_2 = create(:image, document: document, alt_text: "the second image")
+
+        attributes = document.attributes.merge(
+          images_attributes: {
+            "0" => { id: image_1.id.to_s, _destroy: "1" },
+            "1" => { id: image_2.id.to_s, _destroy: "0" },
+            "2" => { image_data_attributes: { file_cache: "" } }
+          }
+        )
+        put :update, id: document, document: attributes
+
+        refute_select ".errors"
+        document.reload
+        assert_equal [image_2], document.images
+      end
+
+      test "shows the image" do
+        document = create(document_type)
+        image = create(:image, document: document)
+
+        get :show, id: document
+
+        assert_select_object(image) do
+          assert_select "img[src=?]", %r{#{image.image_data.file}}
+        end
+      end
+    end
+
     def should_be_able_to_delete_a_document(document_type)
       test "show displays the delete button for draft documents" do
         draft_document = create("draft_#{document_type}")

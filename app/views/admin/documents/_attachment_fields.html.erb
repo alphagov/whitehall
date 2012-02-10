@@ -2,8 +2,8 @@
   <legend>Attachments</legend>
   <%= form.fields_for "#{parent_type}_attachments" do |document_attachments_fields| %>
     <% if document_attachments_fields.object.new_record? %>
-      <%= document_attachments_fields.fields_for :attachment do |attachment_fields| %>
-        <div class="file_upload">
+      <div class="file_upload">
+        <%= document_attachments_fields.fields_for :attachment do |attachment_fields| %>
           <%= attachment_fields.text_field :title %>
           <%= attachment_fields.label :file %>
           <%= attachment_fields.file_field :file %>
@@ -11,8 +11,8 @@
             <span class="already_uploaded"><%= File.basename(attachment_fields.object.file_cache) %> already uploaded</span>
           <% end %>
           <%= attachment_fields.hidden_field :file_cache %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     <% else %>
       <%= document_attachments_fields.fields_for :attachment do |attachment_fields| %>
         <%= attachment_fields.text_field :title %>

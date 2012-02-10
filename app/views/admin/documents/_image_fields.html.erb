@@ -1,0 +1,28 @@
+<fieldset class="images multiple_file_uploads">
+  <legend>Images</legend>
+  <%= form.fields_for :images do |images_fields| %>
+    <% if images_fields.object.new_record? %>
+      <div class="file_upload">
+        <%= images_fields.fields_for :image_data do |image_data_fields| %>
+          <%= image_data_fields.label :file %>
+          <%= image_data_fields.file_field :file %>
+          <% if image_data_fields.object.file_cache.present? %>
+            <span class="already_uploaded"><%= File.basename(image_data_fields.object.file_cache) %> already uploaded</span>
+          <% end %>
+          <%= image_data_fields.hidden_field :file_cache %>
+        <% end %>
+        <%= images_fields.text_field :alt_text, label_text: 'Alt text' %>
+        <%= images_fields.text_area :caption, rows: 2 %>
+      </div>
+    <% else %>
+      <p class="image">
+        <% checkbox_args = nested_attribute_destroy_checkbox_options(images_fields) %>
+        <% label_text = image_tag(images_fields.object.image_data.file_url) + " (uncheck to remove)" %>
+        <% checkbox_args[0].merge!(label_text: label_text) %>
+        <%= images_fields.check_box :_destroy, *checkbox_args  %>
+      </p>
+      <%= images_fields.text_field :alt_text, label_text: 'Alt text' %>
+      <%= images_fields.text_area :caption, rows: 2 %>
+    <% end %>
+  <% end %>
+</fieldset>

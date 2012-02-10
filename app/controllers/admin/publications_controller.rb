@@ -2,6 +2,7 @@ class Admin::PublicationsController < Admin::DocumentsController
   include Admin::DocumentsController::NationalApplicability
 
   before_filter :build_document_attachment, only: [:new, :edit]
+  before_filter :build_image, only: [:new, :edit]
 
   private
 

@@ -42,6 +42,7 @@ class Admin::DocumentsController < Admin::BaseController
       redirect_to admin_document_path(@document), notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
+      build_image
       render action: "new"
     end
   end
@@ -55,12 +56,14 @@ class Admin::DocumentsController < Admin::BaseController
         notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
+      build_image
       render action: "edit"
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
     @conflicting_document = Document.find(params[:id])
     @document.lock_version = @conflicting_document.lock_version
+    build_image
     render action: "edit"
   end
 
@@ -124,6 +127,13 @@ class Admin::DocumentsController < Admin::BaseController
     end
     if @document.can_be_associated_with_countries?
       params[:document][:country_ids] ||= []
+    end
+  end
+
+  def build_image
+    unless @document.images.any?(&:new_record?)
+      image = @document.images.build
+      image.build_image_data
     end
   end
 

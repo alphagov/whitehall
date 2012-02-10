@@ -15,6 +15,7 @@ module Admin::DocumentsController::NationalApplicability
     else
       flash.now[:alert] = "There are some problems with the document"
       build_document_attachment
+      build_image
       process_nation_inapplicabilities
       render action: "new"
     end
@@ -28,12 +29,14 @@ module Admin::DocumentsController::NationalApplicability
     else
       flash.now[:alert] = "There are some problems with the document"
       build_document_attachment
+      build_image
       process_nation_inapplicabilities
       render action: "edit"
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
     build_document_attachment
+    build_image
     @conflicting_document = Document.find(params[:id])
     @document.lock_version = @conflicting_document.lock_version
     process_nation_inapplicabilities

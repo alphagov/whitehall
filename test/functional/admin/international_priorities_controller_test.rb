@@ -14,6 +14,7 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   should_allow_revision_of :international_priority
 
   should_allow_association_between_countries_and :international_priority
+  should_allow_attached_images_for :international_priority
   should_allow_organisations_for :international_priority
 
   should_be_rejectable :international_priority

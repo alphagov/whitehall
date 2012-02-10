@@ -1,5 +1,6 @@
 class Admin::SpeechesController < Admin::DocumentsController
   before_filter :set_type, only: [:update]
+  before_filter :build_image, only: [:new, :edit]
 
   private
 
