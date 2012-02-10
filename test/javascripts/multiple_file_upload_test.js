@@ -6,6 +6,8 @@ module("Uploading multiple files", {
 
     file_upload.append('<label for="document_document_attachments_attributes_0_attachment_attributes_title">Title</label>');
     file_upload.append('<input id="document_document_attachments_attributes_0_attachment_attributes_title" name="document[document_attachments_attributes][0][attachment_attributes][title]" size="30" type="text" />');
+    file_upload.append('<label for="document_document_attachments_attributes_0_attachment_attributes_caption">Caption</label>');
+    file_upload.append('<textarea id="document_document_attachments_attributes_0_attachment_attributes_caption" name="document[document_attachments_attributes][0][attachment_attributes][caption]"></textarea>');
     file_upload.append('<label for="document_document_attachments_attributes_0_attachment_attributes_file">File</label>');
     file_upload.append(this.first_input);
     file_upload.append('<input id="document_document_attachments_attributes_0_attachment_attributes_file_cache" name="document[document_attachments_attributes][0][attachment_attributes][file_cache]" type="hidden" />');
@@ -60,6 +62,18 @@ test("should increment the ID and name of the text input for each set of new inp
   latest_input = this.fieldset.find("input[type=text]:last")[0];
   equal(latest_input.id, "document_document_attachments_attributes_2_attachment_attributes_title");
   equal(latest_input.name, "document[document_attachments_attributes][2][attachment_attributes][title]");
+});
+
+test("should increment the ID and name of the textareas for each set of new inputs added", function() {
+  fireChangeEventOnLastFileInputOf(this.fieldset);
+  var latest_input = this.fieldset.find("textarea:last")[0];
+  equal(latest_input.id, "document_document_attachments_attributes_1_attachment_attributes_caption");
+  equal(latest_input.name, "document[document_attachments_attributes][1][attachment_attributes][caption]");
+
+  fireChangeEventOnLastFileInputOf(this.fieldset);
+  latest_input = this.fieldset.find("textarea:last")[0];
+  equal(latest_input.id, "document_document_attachments_attributes_2_attachment_attributes_caption");
+  equal(latest_input.name, "document[document_attachments_attributes][2][attachment_attributes][caption]");
 });
 
 test("should increment the referenced ID of the file label for each set of new inputs added", function() {
