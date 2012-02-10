@@ -3,6 +3,7 @@
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
 
   <fieldset class="img">
+    <legend>News Image</legend>
     <%= form.label :image, "Image" %>
     <%= form.file_field :image %>
     <% if document.image_cache.present? %>
