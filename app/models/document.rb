@@ -150,6 +150,10 @@ class Document < ActiveRecord::Base
     Govspeak::Document.new(body).to_text
   end
 
+  def only_edition?
+    document_identity.documents.count == 1
+  end
+
   class << self
     def authored_by(user)
       joins(:document_authors).where(document_authors: {user_id: user}).group(:document_id)

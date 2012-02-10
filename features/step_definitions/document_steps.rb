@@ -96,6 +96,11 @@ When /^I publish (#{THE_DOCUMENT})$/ do |document|
   publish
 end
 
+When /^I delete (#{THE_DOCUMENT})$/ do |document|
+  visit_document_preview document.title
+  click_button "Delete"
+end
+
 When /^I force publish (#{THE_DOCUMENT})$/ do |document|
   visit_document_preview document.title, :draft
   publish(force: true)
@@ -242,4 +247,8 @@ Then /^the published document "([^"]*)" should still link to the "([^"]*)" docum
   visit policy_path(source_document.document_identity)
   target_path = policy_path(target_document.document_identity)
   assert has_link?(target_title, href: target_path)
+end
+
+Then /^there should not be a document called "([^"]*)"$/ do |title|
+  refute Document.find_by_title(title)
 end

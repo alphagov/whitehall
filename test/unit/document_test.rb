@@ -686,19 +686,55 @@ class DocumentTest < ActiveSupport::TestCase
     end
   end
 
-  [:published, :archived, :deleted].each do |state|
-    test "should not be deletable if #{state}" do
-      document = create("#{state}_document")
-      refute document.deletable?
-    end
+  test "should not be deletable if deleted" do
+    document = create(:deleted_document)
+    refute document.deletable?
   end
 
   [:published, :archived].each do |state|
-    test "should prevent a #{state} document being deleted" do
+    test "should be deletable if #{state} and there is only one edition" do
       document = create("#{state}_document")
-      document.delete! rescue nil
-      refute document.deleted?
+      assert document.deletable?
     end
+  end
+
+  test "should not be deletable if published and there are previous editions" do
+    first_edition = create(:published_document)
+    user = create(:user)
+    second_edition = first_edition.create_draft(user)
+    second_edition.publish!
+    refute second_edition.reload.deletable?
+  end
+
+  test "should delete a single published edition" do
+    document = create(:published_document)
+    document.delete!
+    assert document.reload.deleted?
+  end
+
+  test "should delete a single archived edition" do
+    document = create(:archived_document)
+    document.delete!
+    assert document.reload.deleted?
+  end
+
+  test "should prevent a published edition with previous editions from being deleted" do
+    first_edition = create(:published_document)
+    user = create(:user)
+    second_edition = first_edition.create_draft(user)
+    second_edition.publish!
+    second_edition.delete!
+    refute second_edition.deleted?
+  end
+
+  test "should prevent an archived edition with previous editions from being deleted" do
+    first_edition = create(:published_document)
+    user = create(:user)
+    second_edition = first_edition.create_draft(user)
+    second_edition.publish!
+    second_edition.archive!
+    second_edition.delete!
+    refute second_edition.deleted?
   end
 
   [:draft, :submitted].each do |state|
@@ -715,12 +751,6 @@ class DocumentTest < ActiveSupport::TestCase
       document.publish! rescue nil
       refute document.published?
     end
-  end
-
-  test "archiving a published document transitions it into the archived state" do
-    document = create(:published_document)
-    document.archive!
-    assert document.archived?
   end
 
   [:draft, :submitted, :rejected, :deleted].each do |state|

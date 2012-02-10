@@ -26,7 +26,8 @@ module Document::Workflow
       state :deleted
 
       event :delete do
-        transitions from: [:draft, :submitted, :rejected], to: :deleted
+        transitions from: [:draft, :submitted, :rejected, :published, :archived], to: :deleted,
+          guard: lambda { |d| d.draft? || d.submitted? || d.rejected? || d.only_edition? }
       end
 
       event :submit do

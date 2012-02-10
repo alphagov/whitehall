@@ -812,8 +812,20 @@ module AdminDocumentControllerTestHelpers
         assert_select "input[type='submit'][value='Delete']"
       end
 
-      test "show does not display the delete button for published documents" do
+      test "show displays the delete button for published documents with no previous editions" do
         published_document = create("published_#{document_type}")
+
+        get :show, id: published_document
+
+        destroy_path = send("admin_#{document_type}_path", published_document)
+        assert_select "input[type='submit'][value='Delete']"
+      end
+
+      test "show does not display the delete button for published documents with previous editions" do
+        user = create(:user)
+        previous_edition = create("published_#{document_type}")
+        published_document = previous_edition.create_draft(user)
+        published_document.publish!
 
         get :show, id: published_document
 
@@ -821,8 +833,21 @@ module AdminDocumentControllerTestHelpers
         refute_select "input[type='submit'][value='Delete']"
       end
 
-      test "show does not display the delete button for archived documents" do
+      test "show displays the delete button for archived documents with no previous editions" do
         archived_document = create("archived_#{document_type}")
+
+        get :show, id: archived_document
+
+        destroy_path = send("admin_#{document_type}_path", archived_document)
+        assert_select "input[type='submit'][value='Delete']"
+      end
+
+      test "show does not display the delete button for archived documents with previous editions" do
+        user = create(:user)
+        previous_edition = create("published_#{document_type}")
+        archived_document = previous_edition.create_draft(user)
+        archived_document.publish!
+        archived_document.archive!
 
         get :show, id: archived_document
 
