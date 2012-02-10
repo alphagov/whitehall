@@ -57,6 +57,17 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     assert_equal "There was a problem: Title can't be blank", flash[:alert]
   end
 
+  test "shows version of supporting page linked to given document" do
+    previous_document = create(:published_policy)
+    previous_supporting_page = create(:supporting_page, document: previous_document)
+    document = previous_document.create_draft(create(:policy_writer))
+    supporting_page = document.supporting_pages.first
+
+    get :show, document_id: document, id: supporting_page
+
+    assert_equal supporting_page, assigns[:supporting_page]
+  end
+
   test "shows the title and a link back to the parent" do
     document = create(:draft_policy)
     supporting_page = create(:supporting_page, document: document)
