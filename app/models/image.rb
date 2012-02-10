@@ -2,7 +2,7 @@ class Image < ActiveRecord::Base
   belongs_to :image_data
   belongs_to :document
 
-  validates :alt_text, presence: true
+  validates :alt_text, presence: true, unless: :skip_main_validation?
 
   after_destroy :destroy_image_data_if_required
 
@@ -18,5 +18,9 @@ class Image < ActiveRecord::Base
     unless Image.where(image_data_id: image_data.id).any?
       image_data.destroy
     end
+  end
+
+  def skip_main_validation?
+    document && document.skip_main_validation?
   end
 end

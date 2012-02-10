@@ -1,22 +1,6 @@
 <%= form_for [:admin, document], as: :document do |form| %>
   <%= form.errors %>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
-
-  <fieldset id="news_image" class="img">
-    <legend>News Image</legend>
-    <%= form.label :image, "Image" %>
-    <%= form.file_field :image %>
-    <% if document.image_cache.present? %>
-      <span class="already_uploaded"><%= File.basename(document.image_cache) %> already uploaded</span>
-    <% end %>
-    <%= form.hidden_field :image_cache %>
-    <% if document.persisted? && document.image.present? %>
-      <%= image_tag document.image_url %>
-    <% end %>
-    <%= form.text_field :image_alt_text, label_text: 'Alt text' %>
-    <%= form.text_area :image_caption, rows: 2 %>
-  </fieldset>
-
   <%= render partial: 'related_policy_fields', locals: { form: form, document: document } %>
   <%= render partial: 'organisation_fields', locals: { form: form, document: document } %>
   <%= render partial: 'minister_fields', locals: { form: form, document: document } %>

@@ -11,7 +11,7 @@ class AnnouncementPresenter
     end
 
     def featured
-      @all.select { |a| a.respond_to?(:image) && a.image.present? }.take(@number_to_feature)
+      @all.select { |a| a.images.any? }.take(@number_to_feature)
     end
 
     def unfeatured

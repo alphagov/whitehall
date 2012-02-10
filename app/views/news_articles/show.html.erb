@@ -25,11 +25,12 @@
   <div class="g2 document_view">
     <article class="document">
       <div class="body">
-        <% if @document.image.present? %>
+        <% if @document.images.any? %>
           <figure class="image">
-            <div class="img"><%= image_tag(@document.image_url, alt: @document.image_alt_text) %></div>
-            <% if @document.image_caption.present? %>
-              <figcaption><%= @document.image_caption %></figcaption>
+            <% image = @document.images.first %>
+            <div class="img"><%= image_tag(image.url, alt: image.alt_text) %></div>
+            <% if image.caption.present? %>
+              <figcaption><%= image.caption %></figcaption>
             <% end %>
           </figure>
         <% end %>

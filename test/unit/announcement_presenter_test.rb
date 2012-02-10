@@ -48,26 +48,23 @@ class AnnouncementPresenterTest < ActiveSupport::TestCase
   end
 
   test "#featured only returns documents with images" do
-    image = fixture_file_upload('portas-review.jpg')
-    latest_news_with_image = create(:published_news_article, image: image, image_alt_text: "blah", published_at: Time.zone.now)
+    latest_news_with_image = create(:published_news_article, images: [build(:image)], published_at: Time.zone.now)
     latest_news_without_image = create(:published_news_article, published_at: Time.zone.now)
 
     assert_equal [latest_news_with_image], AnnouncementPresenter.new.today.featured
   end
 
   test "#featured only returns 3 documents by default" do
-    image = fixture_file_upload('portas-review.jpg')
-    a = create(:published_news_article, image: image, image_alt_text: "blah", published_at: Time.zone.now)
-    b = create(:published_news_article, image: image, image_alt_text: "blah", published_at: 1.minute.ago)
-    c = create(:published_news_article, image: image, image_alt_text: "blah", published_at: 2.minutes.ago)
-    d = create(:published_news_article, image: image, image_alt_text: "blah", published_at: 3.minutes.ago)
+    a = create(:published_news_article, images: [build(:image)], published_at: Time.zone.now)
+    b = create(:published_news_article, images: [build(:image)], published_at: 1.minute.ago)
+    c = create(:published_news_article, images: [build(:image)], published_at: 2.minutes.ago)
+    d = create(:published_news_article, images: [build(:image)], published_at: 3.minutes.ago)
 
     assert_equal [a, b, c], AnnouncementPresenter.new.today.featured
   end
 
   test "#unfeatured returns any documents not present in featured" do
-    image = fixture_file_upload('portas-review.jpg')
-    latest_news_with_image = create(:published_news_article, image: image, image_alt_text: "blah", published_at: Time.zone.now)
+    latest_news_with_image = create(:published_news_article, images: [build(:image)], published_at: Time.zone.now)
     latest_news_without_image = create(:published_news_article, published_at: Time.zone.now)
     speech = create(:published_speech, published_at: 2.minutes.ago)
 

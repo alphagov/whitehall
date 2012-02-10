@@ -5,11 +5,12 @@
   </div>
 <% end %>
 <div class="body">
-  <% if document.respond_to?(:image) && document.image.present? %>
+  <% if document.images.any? %>
+    <% image = document.images.first %>
     <figure class="image">
-      <div class="img"><%= image_tag(document.image_url, alt: document.image_alt_text) %></div>
-      <% if document.image_caption.present? %>
-        <figcaption><%= document.image_caption %></figcaption>
+      <div class="img"><%= image_tag(image.url, alt: image.alt_text) %></div>
+      <% if image.caption.present? %>
+        <figcaption><%= image.caption %></figcaption>
       <% end %>
     </figure>
   <% end %>

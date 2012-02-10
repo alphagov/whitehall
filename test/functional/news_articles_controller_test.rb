@@ -63,18 +63,17 @@ class NewsArticlesControllerTest < ActionController::TestCase
   end
 
   test "show displays the image for the news article" do
-    portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    news_article = create(:published_news_article, image: portas_review_jpg, image_alt_text: 'candid photo')
+    news_article = create(:published_news_article, images: [build(:image)])
     get :show, id: news_article.document_identity
 
     assert_select ".document_view" do
-      assert_select "figure.image img[src='#{news_article.image_url}'][alt='#{news_article.image_alt_text}']"
+      assert_select "figure.image img[src='#{news_article.images.first.url}'][alt='#{news_article.images.first.alt_text}']"
     end
   end
 
   test "show displays the image caption for the news article" do
     portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    news_article = create(:published_news_article, image: portas_review_jpg, image_alt_text: 'candid photo', image_caption: "image caption")
+    news_article = create(:published_news_article, images: [build(:image, caption: "image caption")])
 
     get :show, id: news_article.document_identity
 
@@ -84,7 +83,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
   end
 
   test "show only displays image if there is one" do
-    news_article = create(:published_news_article, image: nil)
+    news_article = create(:published_news_article, images: [])
 
     get :show, id: news_article.document_identity
 

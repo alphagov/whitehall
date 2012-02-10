@@ -1,6 +1,8 @@
 require "test_helper"
 
 class DocumentTest < ActiveSupport::TestCase
+  include ActionDispatch::TestProcess
+
   test "should be valid when built from the factory" do
     document = build(:document)
     assert document.valid?
@@ -498,6 +500,28 @@ class DocumentTest < ActiveSupport::TestCase
     refute published_policy.valid?
     draft_policy = published_policy.create_draft(create(:policy_writer))
     assert draft_policy.persisted?
+  end
+
+  test "should be invalid if has image but no alt text" do
+    article = build(:news_article, images: [build(:image, alt_text: nil)])
+    refute article.valid?
+  end
+
+  test "should still be valid if has no image and no alt text" do
+    article = build(:news_article, images: [])
+    assert article.valid?
+  end
+
+  test "should still be archivable if alt text validation would normally fail" do
+    article = create(:published_news_article, images: [build(:image)])
+    article.images.first.update_attribute(:alt_text, nil)
+    NewsArticle.find(article.id).archive!
+  end
+
+  test "should still be deleteable if alt text validation would normally fail" do
+    article = create(:submitted_news_article, images: [build(:image)])
+    article.images.first.update_attribute(:alt_text, nil)
+    NewsArticle.find(article.id).delete!
   end
 
   test "when initially created" do

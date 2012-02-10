@@ -103,136 +103,15 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   end
 
   test "show displays the image caption for the news article" do
-    portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    news_article = create(:published_news_article, image: portas_review_jpg, image_alt_text: 'candid-photo', image_caption: "image caption")
+    news_article = create(:published_news_article, images: [build(:image, caption: "image caption")])
 
     get :show, id: news_article
 
     assert_select "figure.image figcaption", "image caption"
   end
 
-
-  test "new displays news article image field" do
-    get :new
-
-    assert_select "form#document_new" do
-      assert_select "input[name='document[image]'][type='file']"
-    end
-  end
-
-  test "creating a news article should store image" do
-    portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    attributes = attributes_for(:news_article, image: portas_review_jpg, image_alt_text: 'candid-photo')
-
-    post :create, document: attributes
-
-    assert news_article = NewsArticle.last
-    refute_nil news_article.image
-    assert_equal "portas-review.jpg", news_article.carrierwave_image
-  end
-
-  test "creating a news article should store image caption" do
-    portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    attributes = attributes_for(:news_article, image: portas_review_jpg, image_alt_text: 'candid-photo', image_caption: "image caption")
-
-    post :create, document: attributes
-
-    assert news_article = NewsArticle.last
-    assert_equal "image caption", news_article.image_caption
-  end
-
-  test "creating a news article with invalid data and an image should remember the uploaded image" do
-    portas_review_jpg = fixture_file_upload('portas-review.jpg')
-
-    post :create, document: attributes_for(:news_article,
-      title: "",
-      image: portas_review_jpg
-    )
-
-    assert_select "form#document_new" do
-      assert_select "input[name='document[image_cache]'][type='hidden'][value$='portas-review.jpg']"
-      assert_select ".already_uploaded", text: "portas-review.jpg already uploaded"
-    end
-  end
-
-  test "creating a news article with invalid data should not show any existing image" do
-    attributes = attributes_for(:news_article, image: fixture_file_upload('portas-review.jpg'))
-
-    post :create, document: attributes.merge(title: '')
-
-    refute_select "figure.image img"
-  end
-
-  test "editing displays news article image field" do
-    news_article = create(:news_article)
-
-    get :edit, id: news_article
-
-    assert_select "form#document_edit" do
-      assert_select "input[name='document[image]'][type='file']"
-    end
-  end
-
-  test "editing news article with existing image displays image" do
-    portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    news_article = create(:news_article, image: portas_review_jpg, image_alt_text: 'candid-photo')
-
-    get :edit, id: news_article
-
-    assert_select "form#document_edit" do
-      assert_select ".img img[src='#{news_article.image_url}']"
-    end
-  end
-
-  test "editing news article without an image doesn't display image" do
-    news_article = create(:news_article)
-
-    get :edit, id: news_article
-
-    assert_select "form#document_edit" do
-      assert_select "figure.image", count: 0
-    end
-  end
-
-  test "updating a news article should store image" do
-    portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    news_article = create(:news_article)
-
-    put :update, id: news_article, document: news_article.attributes.merge(
-      image: portas_review_jpg, image_alt_text: 'candid-photo'
-    )
-
-    news_article.reload
-    refute_nil news_article.image
-    assert_equal "portas-review.jpg", news_article.carrierwave_image
-  end
-
-  test "updating a news article with invalid data and an image should remember the uploaded image" do
-    news_article = create(:news_article)
-    portas_review_jpg = fixture_file_upload('portas-review.jpg')
-
-    put :update, id: news_article, document: attributes_for(:news_article,
-      title: "",
-      image: portas_review_jpg
-    )
-
-    assert_select "form#document_edit" do
-      assert_select "input[name='document[image_cache]'][type='hidden'][value$='portas-review.jpg']"
-      assert_select ".already_uploaded", text: "portas-review.jpg already uploaded"
-    end
-  end
-
-  test "show displays the stored image" do
-    portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    news_article = create(:news_article, image: portas_review_jpg, image_alt_text: 'candid-photo')
-
-    get :show, id: news_article
-
-    assert_select "figure.image img[src='#{news_article.image_url}'][alt='#{news_article.image_alt_text}']"
-  end
-
   test "show only displays image if there is one" do
-    news_article = create(:news_article, image: nil)
+    news_article = create(:news_article, images: [])
 
     get :show, id: news_article
 
