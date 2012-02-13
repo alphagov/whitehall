@@ -1,10 +1,9 @@
 body.government #global-header .header-context nav, #content {
  a {
-   color: #787900;
    text-decoration: none;
 
    &:hover {
-     color: #464600;
+     text-decoration: underline;
    };
 
    &:visited {
