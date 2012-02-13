@@ -12,6 +12,13 @@ class NewsArticlesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "renders the news article summary from plain text" do
+    news_article = create(:published_news_article, summary: 'plain text & so on')
+    get :show, id: news_article.document_identity
+
+    assert_select ".summary", text: "plain text &amp; so on"
+  end
+  
   test "renders the news article body using govspeak" do
     news_article = create(:published_news_article, body: "body-in-govspeak")
     Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")

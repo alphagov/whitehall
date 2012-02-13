@@ -24,6 +24,10 @@
 <div id="news_page" class="g3f document_page">
   <div class="g2 document_view">
     <article class="document">
+      <div class="summary">
+        <%= @document.summary %>
+      </div>
+
       <div class="body">
         <% if @document.images.any? %>
           <figure class="image">
