@@ -98,8 +98,11 @@
 
     var _resizingWait = false;
     var _afterResize = function () {
-      _wrapper.css({top: -$(_items[_currItem]).position().top});
-      _resizeFeature(_currItem, false);
+      var pos = $(_items[_currItem]).position();
+      if (pos != null) {
+        _wrapper.css({top: -pos.top});
+        _resizeFeature(_currItem, false);
+      };
     }
 
     var _resize_handler = function () {
