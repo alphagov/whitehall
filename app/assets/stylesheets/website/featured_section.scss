@@ -300,17 +300,13 @@
     position: relative;
     overflow: hidden;
     padding-top: 0;
-    border-bottom: 1px solid #ccc;
-    background: #ddd;
 
     article {
       width: 100%;
-      border-right: 1px solid #ddd;
       padding-top: 0.5em;
       padding-bottom: 0.5em;
 
       h2 {
-        @include rounded_top;
         @include scaled_type(24,32);
         padding: 1em 3% 1em 3%;
         margin: 0 2%;
@@ -320,9 +316,6 @@
         color: #fff;
         display: block;
         position: relative;
-        text-shadow: 0 1px 0 #000;
-        border-bottom: 4px solid #CDCE00;
-        border-top: 1px solid #444;
 
         a {
           color: #f3f3f3;
@@ -365,15 +358,11 @@
         @include type-14;
         margin: 0 2%;
         background: #fefefe;
-        border-top: 1px solid #9A9B00;
         padding: 1em 3% 1.25em 3%;
       }
 
       div.meta {
         margin: 0 2%;
-        border-top: 1px solid #ddd;
-        border-bottom: 1px solid #bbb;
-        @include rounded_bottom;
         padding: 0.25em 3% 0.5em 3%;
 
         span {
