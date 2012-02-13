@@ -6,14 +6,11 @@
 #content {
   section.page_header {
     padding-bottom: 1em;
-    border-bottom: 1px solid #bbb;
     // + icons.scss
 
     h1.page_title {
-      @include type-24;
+      @include type-44;
       margin-bottom: 0;
-      text-shadow: #fff 0px 1px 0;
-      color: #353500;
       font-family: "Gill Sans", sans-serif;
       font-weight: normal;
     }
