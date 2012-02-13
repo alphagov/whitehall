@@ -11,7 +11,7 @@
 
     var _navElSel = 'a:not(.' + settings.sectionToggleClass + ')';
 
-    _this.prepend($.a(settings.collapsedLabel, {class: settings.sectionToggleClass}));
+    _this.prepend($.a(settings.collapsedLabel, {'class': settings.sectionToggleClass}));
 
     _this.find(_navElSel).addClass('nav_link');
 
@@ -34,4 +34,4 @@
 
     return $(this);
   }
-})(jQuery)
+})(jQuery);
