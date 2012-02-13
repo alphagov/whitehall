@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120209112355) do
+ActiveRecord::Schema.define(:version => 20120213174850) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -293,6 +293,7 @@ ActiveRecord::Schema.define(:version => 20120209112355) do
     t.boolean  "permanent_secretary", :default => false
     t.boolean  "cabinet_member",      :default => false,             :null => false
     t.string   "slug"
+    t.text     "responsibilities"
   end
 
   add_index "roles", ["slug"], :name => "index_roles_on_slug"

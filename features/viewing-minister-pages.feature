@@ -25,3 +25,9 @@ Scenario: The minister has a life history
   And the person "Johnny Macaroon" has a biography "Once upon a time little Johnny went to school."
   When I visit the minister page for "Johnny Macaroon"
   Then I should see that the minister has a biography "Once upon a time little Johnny went to school."
+
+Scenario: The minister has responsibilities through their role
+  Given "Marty McFly" is the "Minister of Anachronisms" for the "Department of Temporal Affairs"
+  And the role "Minister of Anachronisms" has the responsibilities "Chronometric stability"
+  When I visit the minister page for "Marty McFly"
+  Then I should see that the minister has responsibilities "Chronometric stability"
