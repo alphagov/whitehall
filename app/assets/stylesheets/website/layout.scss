@@ -33,16 +33,12 @@
 #content {
   margin: 0 auto;
   background: #fff;
-  border: 1px solid #d5d5d5;
-  border-top: none;
-  border-bottom: 1px solid #ccc;
   padding-top: 1em;
 
   @include type_styles;
 
   @media only screen and (min-width: 1024px) {
     width: 81%;
-    @include box-shadow(0, 2px, 2px, #e5e5e5);
   }
 
   section {
