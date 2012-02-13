@@ -64,6 +64,13 @@
         </nav>
       <% end %>
     </section>
+
+    <% if @recently_changed_documents.any? %>
+      <div class="related_documents">
+        <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents %>
+      </div>
+    <% end %>
+
   </div>
 
   <div class="g2 document_view">
@@ -130,11 +137,3 @@
   </div>
 
 </div>
-
-<% if @recently_changed_documents.any? %>
-  <div class="g1 related_documents">
-    <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents %>
-  </div>
-<% else %>
-  <p class="nothing_related">This policy has not had any recent changes.</p>
-<% end %>

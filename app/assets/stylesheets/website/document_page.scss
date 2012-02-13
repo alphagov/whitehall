@@ -87,13 +87,9 @@
         margin-top: 1.25em;
       }
 
-      nav {
-        margin-left: 2%;
-      }
-
       a {
         display: block;
-        @include type-12;
+        @include type-16;
         margin-bottom: 0;
       }
 
