@@ -2,7 +2,7 @@
 
 #content {
 
-  .organisation {
+  .organisation, .country {
     h2.category {
       @include type-16;
       display: inline;

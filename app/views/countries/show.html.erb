@@ -7,46 +7,74 @@
 
   <%= render 'navigation', country: @country %>
 
-  <section class="page_detail">
-    <div class="g3">
-      <% if @country.embassy_address.present? %>
-        <div class="embassy_contact_details ">
-          <section class="vcard">
-            <h1 class="fn org name">UK Embassy in <%= @country.name %></h1>
-            <div class="adr">
-              <p class="embassy_address street-address"><%= safe_join(@country.embassy_address.split("\n"), "<br/>".html_safe) %></p>
-            </div>
-            <p class="embassy_telephone tel">
-              <span class="type">Telephone</span>:
-              <span class="value"><%= @country.embassy_telephone %></span>
-            </p>
-            <p class="embassy_email email"><%= mail_to @country.embassy_email %></p>
-          </section>
-        </div>
+  <div class="g3f">
+    <div class="g2f">
+      <% if @international_priorities.any? %>
+        <%= article_section("International Priorities", @international_priorities, {id: 'international_priorities'}) do |international_priorities| %>
+          <h2 class="article_title"><%= link_to international_priorities.title, public_document_path(international_priorities), title: "View #{international_priorities.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= time_ago(international_priorities.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if @news_articles.any? %>
+        <%= article_section("News Articles", @news_articles, {id: 'news_articles'}) do |news_article| %>
+          <h2 class="article_title"><%= link_to news_article.title, public_document_path(news_article), title: "View #{news_article.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= time_ago(news_article.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if @speeches.any? %>
+        <%= article_section("Speeches", @speeches, {id: 'speeches'}) do |speech| %>
+          <h2 class="article_title"><%= link_to speech.title, public_document_path(speech), title: "View #{speech.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= time_ago(speech.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if @policies.any? %>
+        <%= article_section("Policies", @policies, {id: 'policies'}) do |policy| %>
+          <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= time_ago(policy.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if @publications.any? %>
+        <%= article_section("Publications", @publications, {id: 'publications'}) do |publication| %>
+          <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
       <% end %>
     </div>
-  </section>
-</div>
-
-<div class="g2">
-  <p class="description"><%= format_with_html_line_breaks(@country.description) %></p>
-  <p class="about">
-    <%= link_to "Read more about #{@country.name}", about_country_path(@country), title: "Further information about #{@country.name}" %>
-  </p>
-</div>
-
-<div class="g1 related_documents">
-  <%= render partial: "documents/international_priorities", object: @international_priorities %>
-</div>
-<div class="g1 related_documents">
-  <%= render partial: "documents/news_articles", object: @news_articles %>
-</div>
-<div class="g1 related_documents">
-  <%= render partial: "documents/speeches", object: @speeches %>
-</div>
-<div class="g1 related_documents">
-  <%= render partial: "documents/policies", object: @policies %>
-</div>
-<div class="g1 related_documents">
-  <%= render partial: "documents/publications", object: @publications %>
+    <div class="g1f sidebar">
+      <section id="about_us" class="info">
+        <h1>About us</h1>
+        <p class="about">
+          <span class="description"><%= format_with_html_line_breaks(@country.description) %></span>
+          <a href="<%= about_country_path(@country) %>" title='<%= "Further information about #{@country.name}" %>'>Read more<span class="visuallyhidden"> about <%= @country.name %></span>.</a>
+        </p>
+      </section>
+      <% if @country.embassy_address.present? %>
+        <section class="vcard info embassy_contact_details">
+          <h1 class="fn org name">UK Embassy in <%= @country.name %></h1>
+          <div class="adr">
+            <p class="embassy_address street-address"><%= safe_join(@country.embassy_address.split("\n"), "<br/>".html_safe) %></p>
+          </div>
+          <p class="embassy_telephone tel">
+            <span class="type">Telephone</span>:
+            <span class="value"><%= @country.embassy_telephone %></span>
+          </p>
+          <p class="embassy_email email"><%= mail_to @country.embassy_email %></p>
+        </section>
+      <% end %>
+    </div>
+  </div>
 </div>
