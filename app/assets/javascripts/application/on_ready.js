@@ -5,5 +5,10 @@ jQuery(function($) {
   $('section.featured_items').equalHeightHelper({selectorsToResize: ['h2 a', 'p.summary', 'div.image_summary']});
   $('section.article_group').equalHeightHelper({selectorsToResize: ['article']});
   $('.change_notes').policyUpdateNotes({link:'.metadata'});
-  $('#global-nav').navHelper({ breakpointWidth: 1024 });
+  $('#global-nav').navHelper({
+    breakpoints: [
+      { width: 540, label: 'All sections', exclude: '.home, .current' },
+      { width: 850, label: 'More sections', exclude: '.home, .current, .primary' }
+    ]
+  });
 });

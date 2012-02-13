@@ -20,10 +20,7 @@
     display: block;
     border-bottom: 1px solid #333;
     border-top: 1px solid #666;
-
-    @media only screen and (min-width: 1024px) {
-      float: left;
-    }
+    float: left;
 
     &:hover {
       background: #dedf00;
@@ -43,6 +40,12 @@
       background: #333;
       color: #fff;
       border-top: 1px solid #666;
+    }
+  }
+
+  &.expanded {
+    a {
+      float: none;
     }
   }
 }
