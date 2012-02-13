@@ -35,7 +35,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert_equal [child_org_1, child_org_2], parent_org_1.child_organisations
   end
-  
+
   test "#parent_organisations should return the child's parent organisations" do
     child_org_1 = create(:organisation)
     child_org_2 = create(:organisation)
@@ -222,5 +222,56 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal({ 'title' => 'Department of Education', 'link' => '/government/organisations/department-of-education', 'indexable_content' => 'Bookish.', 'format' => 'organisation' }, results[1])
     assert_equal({ 'title' => 'HMRC', 'link' => '/government/organisations/hmrc', 'indexable_content' => 'Taxing.', 'format' => 'organisation' }, results[2])
     assert_equal({ 'title' => 'Ministry of Defence', 'link' => '/government/organisations/ministry-of-defence', 'indexable_content' => 'Defensive.', 'format' => 'organisation' }, results[3])
+  end
+
+  test '#destroy removes parent relationships' do
+    child = create(:organisation)
+    parent = create(:organisation, child_organisations: [child])
+    child.destroy
+    assert_equal 0, OrganisationalRelationship.count
+    assert parent.reload.child_organisations.empty?
+  end
+
+  test '#destroy removes child relationships' do
+    child = create(:organisation)
+    parent = create(:organisation, child_organisations: [child])
+    parent.destroy
+    assert_equal 0, OrganisationalRelationship.count
+    assert child.reload.parent_organisations.empty?
+  end
+
+  test 'destroy deletes related contacts' do
+    organisation = create(:organisation)
+    contact = create(:contact, organisation: organisation)
+    organisation.destroy
+    assert_nil Contact.find_by_id(contact.id)
+  end
+
+  test 'destroy removes document relationships' do
+    organisation = create(:organisation)
+    document = create(:published_document, organisations: [organisation])
+    organisation.destroy
+    assert_equal 0, DocumentOrganisation.count
+  end
+
+  test 'destroy removes policy area relationships' do
+    organisation = create(:organisation)
+    policy_area = create(:policy_area, organisations: [organisation])
+    organisation.destroy
+    assert_equal 0, OrganisationPolicyArea.count
+  end
+
+  test 'destroy removes role relationships' do
+    organisation = create(:organisation)
+    role = create(:role, organisations: [organisation])
+    organisation.destroy
+    assert_equal 0, OrganisationRole.count
+  end
+
+  test 'destroy unsets user organisation' do
+    organisation = create(:organisation)
+    user = create(:policy_writer, organisation: organisation)
+    organisation.destroy
+    assert_nil user.reload.organisation_id
   end
 end
