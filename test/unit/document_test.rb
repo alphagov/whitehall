@@ -186,6 +186,16 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [policy], document_2.published_related_policies
   end
 
+  test "#first_edition? is true if published and first_published_at equals published_at" do
+    policy = create(:published_policy)
+    assert policy.first_edition?
+  end
+
+  test "#first_edition? is false if published and first_published_at doesn't equal published_at" do
+    policy = create(:published_policy, first_published_at: 1.minute.ago)
+    refute policy.first_edition?
+  end
+
   test "#creator= builds a document_creator with the given creator for new records" do
     creator = create(:user)
     document = build(:document, creator: creator)

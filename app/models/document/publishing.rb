@@ -26,6 +26,10 @@ module Document::Publishing
     reason_to_prevent_publication_by(user, options).nil?
   end
 
+  def first_edition?
+    first_published_at && first_published_at == published_at
+  end
+
   def change_note_required?
     document_identity.published_document.present?
   end
