@@ -5,12 +5,13 @@
     var settings = $.extend({
       'sectionToggleClass' : 'section_toggle',
       'breakpointSelector' : window,
-      'breakpointWidth'    : 768
+      'breakpointWidth'    : 768,
+      'collapsedLabel'     : 'All Sections'
     }, options);
 
     var _navElSel = 'a:not(.' + settings.sectionToggleClass + ')';
 
-    _this.prepend($.a('Sections', {class: settings.sectionToggleClass}));
+    _this.prepend($.a(settings.collapsedLabel, {class: settings.sectionToggleClass}));
 
     _this.find(_navElSel).addClass('nav_link');
 

@@ -43,3 +43,8 @@ test("if enclosing width is greater than breakpoint it should not initialise", f
   ok($('nav.global_nav a.nav_link').is(':visible'));
   ok($('nav.global_nav a.section_toggle').is(':hidden'));
 });
+
+test("should take label for the collapsed navigation", function () {
+  $('.global_nav').navHelper({ breakpointSelector: "#qunit-fixture", collapsedLabel: 'Some Label' });
+  equals('Some Label', $('nav.global_nav a.section_toggle').text());
+});
