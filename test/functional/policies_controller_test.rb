@@ -63,6 +63,23 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
+  test "show distinguishes between published and updated documents" do
+    policy = create(:published_policy)
+
+    first_edition = create(:published_news_article, related_policies: [policy])
+    updated_edition = create(:published_news_article, related_policies: [policy], published_at: Time.zone.now, first_published_at: 1.day.ago)
+
+    get :show, id: policy.document_identity
+
+    assert_select_object first_edition do
+      assert_select '.metadata', text: /News article(\s*)published/
+    end
+
+    assert_select_object updated_edition do
+      assert_select '.metadata', text: /News article(\s*)updated/
+    end
+  end
+
   test "show orders recently changed documents relating to the policy most recent first" do
     policy = create(:published_policy)
     publication = create(:published_publication, published_at: 4.weeks.ago, related_policies: [policy])

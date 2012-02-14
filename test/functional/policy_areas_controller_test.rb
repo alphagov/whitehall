@@ -129,6 +129,23 @@ class PolicyAreasControllerTest < ActionController::TestCase
     assert_equal expected, actual
   end
 
+  test "show distinguishes between published and updated documents" do
+    first_edition = create(:published_policy)
+    updated_edition = create(:published_policy, published_at: Time.zone.now, first_published_at: 1.day.ago)
+
+    policy_area = create(:policy_area, policies: [first_edition, updated_edition])
+
+    get :show, id: policy_area
+
+    assert_select_object first_edition do
+      assert_select '.metadata', text: /Policy(\s*)published/
+    end
+
+    assert_select_object updated_edition do
+      assert_select '.metadata', text: /Policy(\s*)updated/
+    end
+  end
+
   test "show should list organisation's working in the policy area" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
