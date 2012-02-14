@@ -23,6 +23,6 @@ class OrganisationType < ActiveRecord::Base
   end
 
   def department?
-    name =~ /department/i
+    name =~ /\bdepartment\b/i
   end
 end

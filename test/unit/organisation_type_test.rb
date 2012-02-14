@@ -35,4 +35,21 @@ class OrganisationTypeTest < ActiveSupport::TestCase
     types_in_order = OrganisationType.in_listing_order
     assert_equal type_names, types_in_order.map(&:name)
   end
+
+  test "should be a department if it contains 'department' in the name" do
+    organisation_type = build(:organisation_type, name: "Ministerial department")
+    assert organisation_type.department?
+  end
+
+  test "should not be a department if it is non-departmental" do
+    organisation_type = build(:organisation_type,
+                              name: "Executive non-departmental public body")
+    refute organisation_type.department?
+  end
+
+  test "should not be a department if it doesn't mention departments" do
+    organisation_type = build(:organisation_type,
+                              name: "Ad-hoc advisory group")
+    refute organisation_type.department?
+  end
 end

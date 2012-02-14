@@ -275,14 +275,9 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_nil user.reload.organisation_id
   end
 
-  test 'should be active if it is a ministerial department' do
+  test 'should be active if it is a department' do
     type = create(:organisation_type, name: "Ministerial department")
-    organisation = create(:organisation, organisation_type: type)
-    assert organisation.calculate_active?
-  end
-
-  test 'should be active if it is a non-ministerial department' do
-    type = create(:organisation_type, name: "Non-ministerial department")
+    assert type.department?
     organisation = create(:organisation, organisation_type: type)
     assert organisation.calculate_active?
   end
