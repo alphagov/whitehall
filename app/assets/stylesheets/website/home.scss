@@ -1,0 +1,154 @@
+#content ul.grid {
+  width: 100%;
+
+  @media only screen and (min-width: 1035px) {
+    height: 500px;
+    position: relative;
+  }
+
+  li {
+    @media only screen and (min-width: 1035px) {
+      position: absolute;
+    }
+    margin: 0;
+    display: block;
+    background: rgb(100, 100, 100);
+    color: white;
+    overflow: hidden;
+    font-size: 0.6em;
+
+    h1 {
+      color: white;
+    }
+
+    .meta {
+      position: absolute;
+      bottom: 0px;
+      .type {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+
+    .headline-box {
+      position: relative;
+      padding: 4px;
+      display: table;
+      padding: 4px;
+      border-top: 1px solid white;
+      border-bottom: 1px solid white;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  @media only screen and (min-width: 1035px) {
+    .headline-box {
+      border: 1px solid white;
+    }
+
+    .col-1, .e {
+      left: 10%;
+    }
+
+    .col-2 {
+      left: 20%;
+    }
+
+    .col-3, .b, .f, .k {
+      left: 30%;
+    }
+
+    .col-4, .l {
+      left: 40%;
+    }
+
+    .col-5, .d {
+      left: 50%;
+    }
+
+    .col-6, .h, .m, .o {
+      left: 60%;
+    }
+
+    .col-7, .c, .j {
+      left: 70%;
+    }
+
+    .col-8, .g, .i {
+      left: 80%;
+    }
+
+    .col-9 {
+      left: 90%;
+    }
+
+    .row-1, .c, .k, .l {
+      top: 20%;
+    }
+
+    .row-2, .b, .m {
+      top: 40%;
+    }
+
+    .row-3, .e, .n, .o {
+      top: 60%;
+    }
+
+    .row-4, .h, .i, .p {
+      top: 80%;
+    }
+
+    .three-by-three, .a, .b, .c {
+      width: 30%;
+      height: 60%;
+      font-size: 0.6em;
+    }
+
+    .two-by-two, .d, .e {
+      width: 20%;
+      height: 40%;
+      font-size: 0.3em;
+    }
+
+    .two-by-one, .f, .g, .h, .i {
+      width: 20%;
+      height: 20%;
+      font-size: 0.25em;
+    }
+
+    .one-by-one, .j, .k, .l, .m, .n, .o, .p {
+      width: 10%;
+      height: 20%;
+      font-size: 0.2em;
+
+      .meta {
+        display: none;
+      }
+    }
+  }
+
+  .org-cabinet-office {
+    background: rgb(0, 118, 192);
+  }
+
+  .org-department-for-international-development {
+    background: rgb(115, 157, 210);
+  }
+
+  .org-foreign-and-commonwealth-office {
+    background: rgb(0, 84, 164);
+  }
+
+  .org-department-for-business-innovation-and-skills {
+    background: rgb(59, 110, 143);
+  }
+
+  .org-department-for-communities-and-local-government {
+    background: rgb(73, 47, 146);
+  }
+
+  .org-department-for-energy-and-climate-change {
+    background: rgb(122, 193, 67);
+  }
+}
