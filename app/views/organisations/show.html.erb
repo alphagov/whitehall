@@ -1,15 +1,15 @@
 <% page_title @organisation.name %>
 
 <%= content_tag_for :div, @organisation, class: "hcard group" do %>
-  <div class="g3f">
+  <div class="g3">
     <%= render 'header', organisation: @organisation %>
   </div>
 
-  <div class="g3f">
-    <div class="g2f">
+  <div class="g3">
+    <div class="g2">
       <% if @featured_news_articles.any? %>
         <section class="org_news">
-          <h1>News from our office</h1>
+          <h1>Top stories</h1>
           <section class="featured_carousel" id="featured-news-articles">
             <% @featured_news_articles.each do |news_article| %>
               <%= content_tag_for(:article, news_article) do %>
@@ -24,10 +24,52 @@
               <% end %>
             <% end %>
           </section>
-          <p class="readmore"><%= organisation_view_all_tag(@organisation, :announcements) %></p>
         </section>
       <% end %>
-
+      
+      <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
+      
+      <% if ministerial_role = @organisation.top_ministerial_role %>
+        <section id="ministers" class="g-half info">
+          <h1><%= link_to 'Ministers', ministers_organisation_path(@organisation) %></h1>
+          <%= content_tag_for(:article, ministerial_role) do %>
+            <div class="image_holder">
+              <%= image_for_ministerial_role(ministerial_role) %>
+            </div>
+            <h3><%= link_to ministerial_role.name, ministerial_role %></h3>
+            <p class="current_appointee"><%= ministerial_role.current_person_name %></p>
+          <% end %>
+        </section>
+      <% end %>
+      <% if management_role = @organisation.top_civil_servant %>
+        <section id="management" class="g-half info">
+          <h1><%= link_to 'Management', management_team_organisation_path(@organisation) %></h1>
+          <%= content_tag_for(:article, management_role) do %>
+            <div class="image_holder">
+              <%= image_for_ministerial_role(management_role) %>
+            </div>
+            <h3><%= management_role.name %></h3>
+            <p class="current_appointee"><%= management_role.current_person_name %></p>
+          <% end %>
+        </section>
+      <% end %>
+      
+      <div class="g2">
+        <%= render partial: "documents/policy_areas", object: @organisation.policy_areas, title: "Our policy areas" %>
+      </div>
+    </div>
+    <div class="g1f sidebar">
+      <section id="about_us" class="info">
+        <p class="about">
+          <span class="description"><%= format_with_html_line_breaks(@organisation.description) %></span>
+          <a href="<%= about_organisation_path(@organisation) %>" title='<%= "Further information about #{@organisation.name}" %>'>Read more<span class="visuallyhidden"> about <%= @organisation.name %></span>.</a>
+        </p>
+      </section>
+    </div>
+  </div>
+    
+  <div class="g3">
+    <div class="g2f">
       <% if @policies.any? %>
         <%= article_section("Our policies", @policies, {id: 'policies', more: organisation_view_all_tag(@organisation, :policies)}) do |policy| %>
           <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
@@ -78,52 +120,15 @@
       <% end %>
     </div>
 
-    <div class="g1f sidebar">
-      <section id="about_us" class="info">
-        <p class="about">
-          <span class="description"><%= format_with_html_line_breaks(@organisation.description) %></span>
-          <a href="<%= about_organisation_path(@organisation) %>" title='<%= "Further information about #{@organisation.name}" %>'>Read more<span class="visuallyhidden"> about <%= @organisation.name %></span>.</a>
-        </p>
-      </section>
-
-      <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
-      <% if roles.any? %>
-          <section id="ministers" class="info">
-            <% roles.each do |role| %>
-              <%= content_tag_for(:article, role) do %>
-                <div class="image_holder">
-                  <%= image_for_ministerial_role(role) %>
-                </div>
-                <h3>
-                  <% if role.is_a?(MinisterialRole) %>
-                    <%= link_to role.name, role %>
-                  <% else %>
-                    <%= role.name %>
-                  <% end %>
-                </h3>
-                <p class="current_appointee"><%= role.current_person_name %></p>
-              <% end %>
-              <p class="readmore">
-                <% if role.is_a?(MinisterialRole) %>
-                  View all <span class="visuallyhidden"><%= @organisation.name %></span> <%= link_to 'ministers', ministers_organisation_path(@organisation) %>
-                <% else %>
-                  View <span class="visuallyhidden"><%= @organisation.name %></span> <%= link_to 'management team', management_team_organisation_path(@organisation) %>
-                <% end %>
-              </p>
-            <% end %>
-
-          </section>
-      <% end %>
-
+    <div class="g3f">
       <% if @organisation.child_organisations.any? %>
         <section id="child_organisations" class="info">
           <h1>Associated organisations</h1>
           <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
         </section>
       <% end %>
-
-      <%= render partial: "documents/policy_areas", object: @organisation.policy_areas, title: "Our policy areas" %>
     </div>
+
   </div>
 <% end %>
 
