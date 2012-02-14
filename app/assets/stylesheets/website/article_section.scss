@@ -10,12 +10,10 @@
     }
 
     .row {
-      border-bottom: 1px solid #ddd;
       margin-bottom: 0.75em;
       padding: 0 1%;
 
       &.last {
-        border-bottom: none;
         margin-bottom: 0;
       }
     }
@@ -50,13 +48,11 @@
           position: absolute;
           top: 0.4em;
           left: 0;
-          border: 1px solid #555;
         }
       }
     }
 
     &.last {
-      border-right: none;
     }
 
     .no_content {
@@ -69,9 +65,6 @@
   p.readmore {
     @include type-14;
     margin-bottom: 0;
-    background: #fdfdfd;
-    border-bottom: 1px solid #d5d5d5;
-    border-top: 1px solid #ddd;
     padding: 0.5em 1.5em 0.5em 1.5em;
   }
 
