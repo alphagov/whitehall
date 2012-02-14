@@ -67,68 +67,103 @@
       </section>
     </div>
   </div>
-    
-  <div class="g3">
-    <div class="g2f">
-      <% if @policies.any? %>
-        <%= article_section("Our policies", @policies, {id: 'policies', more: organisation_view_all_tag(@organisation, :policies)}) do |policy| %>
-          <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
-          <span class="metadata">
-            Updated <%= time_ago(policy.updated_at, class: 'updated_at') %>
-          </span>
-        <% end %>
-      <% end %>
-
-      <% if @publications.any? %>
-        <%= article_section("Publications", @publications, {id: 'publications', more: organisation_view_all_tag(@organisation, :publications)}) do |publication| %>
-          <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-          <span class="metadata">
-            Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
-          </span>
-        <% end %>
-      <% end %>
-
-      <% if @consultations.any? %>
-        <%= article_section("Consultations", @consultations, {id: 'consultations', more: organisation_view_all_tag(@organisation, :consultations)}) do |consultation| %>
-          <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
-          <span class="metadata">
-            Updated <%= time_ago(consultation.updated_at, class: 'updated_at') %>
-          </span>
-        <% end %>
-      <% end %>
-
-      <% if @speeches.any? %>
-        <%= article_section("Speeches", @speeches, {id: 'speeches', more: organisation_view_all_tag(@organisation, :announcements)}) do |speech| %>
-          <h2 class="article_title"><%= link_to speech.title, public_document_path(speech), title: "View #{speech.title}", class: 'title' %></h2>
-          <span class="metadata">
-            Updated <%= time_ago(speech.updated_at, class: 'updated_at') %>
-          </span>
-        <% end %>
-      <% end %>
-
-      <% if [@featured_news_articles, @speeches, @consultations, @publications, @policies].select(&:any?).blank? %>
-        <div class="g3f">
-          <section class="no_content article_section">
-            <h1>Content needed</h1>
-            <p>At present there isn't any content to fill this page.
-            <% if @organisation.url.present? %>
-            Please visit <%= link_to @organisation.url, @organisation.url %> instead.
-            <% end %>
-            </p>
-          </section>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="g3f">
-      <% if @organisation.child_organisations.any? %>
-        <section id="child_organisations" class="info">
-          <h1>Associated organisations</h1>
-          <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
+  
+  <div class="g4">
+    <% if @policies.any? %>
+      <div class="g1">
+        <section id="policies">
+          <h1><%= link_to 'Policies', policies_organisation_path(@organisation) %></h1>
+          <ul>
+          <% @policies.each do |policy| %>
+            <%= content_tag_for(:li, policy) do %>
+            <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
+            <p class="metadata">
+              <%= time_ago(policy.updated_at, class: 'updated_at') %>
+            </p>            
+          <% end %>
+          <% end %>
+          </ul>
         </section>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
+    
+    <% if @publications.any? %>
+      <div class="g1">
+        <section id="publications">
+          <h1><%= link_to 'Publications', publications_organisation_path(@organisation) %></h1>
+          <ul>
+          <% @publications.each do |publication| %>
+            <%= content_tag_for(:li, publication) do %>
+            <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+            <p class="metadata">
+              <%= time_ago(publication.updated_at, class: 'updated_at') %>
+            </p>        
+          <% end %>
+          <% end %>
+          </ul>
+        </section>
+      </div>
+    <% end %>
+    
+    <% if @consultations.any? %>
+      <div class="g1">
+        <section id="consultations">
+          <h1><%= link_to 'Consultations', consultations_organisation_path(@organisation) %></h1>
+          <ul>
+          <% @consultations.each do |consultation| %>
+            <%= content_tag_for(:li, consultation) do %>
+            <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
+            <p class="metadata">
+              <%= time_ago(consultation.updated_at, class: 'updated_at') %>
+            </p>      
+          <% end %>
+          <% end %>
+          </ul>
+        </section>
+      </div>
+    <% end %>
+
+    <% if @speeches.any? %>
+      <div class="g1">
+        <section id="speeches">
+          <h1><%= link_to 'Speeches', announcements_organisation_path(@organisation) %></h1>
+          <ul>
+          <% @speeches.each do |speech| %>
+            <%= content_tag_for(:li, speech) do %>
+            <h2 class="article_title"><%= link_to speech.title, public_document_path(speech), title: "View #{speech.title}", class: 'title' %></h2>
+            <p class="metadata">
+              <%= time_ago(speech.updated_at, class: 'updated_at') %>
+            </p>    
+          <% end %>
+          <% end %>
+          </ul>
+        </section>
+      </div>
+    <% end %>
+
+    <% if [@featured_news_articles, @speeches, @consultations, @publications, @policies].select(&:any?).blank? %>
+      <div class="g3f">
+        <section class="no_content article_section">
+          <h1>Content needed</h1>
+          <p>At present there isn't any content to fill this page.
+          <% if @organisation.url.present? %>
+          Please visit <%= link_to @organisation.url, @organisation.url %> instead.
+          <% end %>
+          </p>
+        </section>
+      </div>
+    <% end %>
 
   </div>
+  
+  <div class="g3f">
+    <% if @organisation.child_organisations.any? %>
+      <section id="child_organisations" class="info">
+        <h1>Associated organisations</h1>
+        <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
+      </section>
+    <% end %>
+  </div>
+  
 <% end %>
 
