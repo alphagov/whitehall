@@ -1,7 +1,5 @@
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/shadows";
-@import "../shared/utils/rounded_corners";
-@import "../shared/utils/gradients";
 
 #content {
   section.page_header {
@@ -15,7 +13,7 @@
       font-weight: normal;
     }
 
-    .explanation {      
+    .explanation {
       margin-bottom: 0;
       margin-top: 0.25em;
     }
@@ -31,7 +29,6 @@
   }
 
   .meta {
-/*    margin-left: 1%;*/
     position: relative;
     span {
       @include type-12;
@@ -124,8 +121,5 @@
       }
 
     }
-  }
-
-  .g3f {
   }
 }

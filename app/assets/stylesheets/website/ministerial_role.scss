@@ -1,7 +1,6 @@
 @import "../shared/utils/grid";
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/clearfix";
-@import "../shared/utils/shadows";
 
 #content {
   #cabinet li {
@@ -51,7 +50,6 @@
       margin-left: 2%;
       background: #fff;
       padding: 5px 5px 0 5px;
-      @include box-shadow(0, 0, 2px, #ddd);
       img {
         margin: 0;
       }
