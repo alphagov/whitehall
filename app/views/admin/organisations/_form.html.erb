@@ -5,6 +5,8 @@
     <%= organisation_form.text_field :acronym %>
     <%= organisation_form.text_area :description %>
     <%= organisation_form.text_field :url %>
+    <%= organisation_form.check_box :active,
+          label_text: "Active (can visitors click through from the organisation list?)" %>
   </fieldset>
   <fieldset>
     <%= organisation_form.label :organisation_type_id, "Organisation type" %>

@@ -274,4 +274,47 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.destroy
     assert_nil user.reload.organisation_id
   end
+
+  test 'should be inactive if there are no documents, roles, or content' do
+    organisation = create(:organisation)
+    refute organisation.calculate_active?
+  end
+
+  test 'should be active if there are documents' do
+    organisation = create(:organisation)
+    document = create(:published_document, organisations: [organisation])
+    assert organisation.calculate_active?
+  end
+
+  test 'should be active if there are roles' do
+    minister = create(:ministerial_role)
+    organisation = create(:organisation, roles:  [minister])
+    assert organisation.calculate_active?
+  end
+
+  test 'should be active if there are contact details' do
+    organisation = create(:organisation)
+    contact = create(:contact, organisation: organisation)
+    assert organisation.calculate_active?
+  end
+
+  test 'should be active if there is about us information' do
+    organisation = create(:organisation, about_us: "Blah")
+    assert organisation.calculate_active?
+  end
+
+  test 'should be active if there is a description' do
+    organisation = create(:organisation, description: "Blah")
+    assert organisation.calculate_active?
+  end
+
+  test 'should update cached active state' do
+    organisation = create(:organisation)
+    organisation.update_cached_active_state!
+    refute organisation.reload.active?
+
+    contact = create(:contact, organisation: organisation)
+    organisation.update_cached_active_state!
+    assert organisation.reload.active?
+  end
 end

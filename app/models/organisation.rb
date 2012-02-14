@@ -87,6 +87,17 @@ class Organisation < ActiveRecord::Base
     ministerial_roles.map { |mr| mr.speeches.published }.flatten.uniq
   end
 
+  def calculate_active?
+    [about_us, description, documents, roles, contacts].any?(&:present?)
+  end
+
+  def update_cached_active_state!
+    new_active_state = calculate_active?
+    if new_active_state != active?
+      update_column :active, calculate_active?
+    end
+  end
+
   private
 
   def contact_and_contact_numbers_are_blank(attributes)
