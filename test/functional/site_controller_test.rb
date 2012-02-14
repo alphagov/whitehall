@@ -22,6 +22,21 @@ class SiteControllerTest < ActionController::TestCase
     draft_documents.each { |d| refute_select_object(d) }
   end
 
+  test "index distinguishes between published and updated documents" do
+    first_edition = create(:published_policy)
+    updated_edition = create(:published_policy, published_at: Time.zone.now, first_published_at: 1.day.ago)
+
+    get :index
+
+    assert_select_object first_edition do
+      assert_select '.metadata', text: /Policy(\s*)published/
+    end
+
+    assert_select_object updated_edition do
+      assert_select '.metadata', text: /Policy(\s*)updated/
+    end
+  end
+
   test 'index has Atom feed autodiscovery link' do
     get :index
     assert_select 'head > link[rel=?][type=?][href=?]', 'alternate', 'application/atom+xml', atom_feed_url

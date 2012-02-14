@@ -1,4 +1,8 @@
 module DocumentHelper
+  def published_or_updated(document)
+    document.first_edition? ? 'published' : 'updated'
+  end
+
   def change_history(document)
     history = document.editions_ever_published.map do |e|
       {published_at: e.published_at, change_note: e.change_note}

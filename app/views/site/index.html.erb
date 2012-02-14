@@ -22,7 +22,7 @@
             <% end %>
             <div class="metadata">
               <span class="document_type"><%= human_friendly_document_type(document) %></span>
-              published
+              <%= published_or_updated(document) %>
               <%= time_ago(document.published_at, class: 'published_at') %>
             </div>
           <% end %>
