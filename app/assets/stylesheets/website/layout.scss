@@ -116,8 +116,6 @@
   .page_detail {
     @include clearfix;
     background: #eee;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
     padding: 1.5em 0;
     margin-bottom: 1.5em;
   }
@@ -132,8 +130,6 @@
       h1 {
         @include type-16;
         margin-bottom: 0.375em;
-        border-bottom: 1px solid #ddd;
-
       }
 
       ul {
