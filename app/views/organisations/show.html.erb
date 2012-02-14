@@ -2,10 +2,10 @@
 
 <%= content_tag_for :div, @organisation, class: "hcard group" do %>
   <div class="g3">
-    <%= render 'header', organisation: @organisation %>
-  </div>
-
-  <div class="g3">
+    <div class="g1">
+      <%= render 'header', organisation: @organisation %>
+    </div>
+    
     <div class="g2">
       <% if @featured_news_articles.any? %>
         <section class="org_news">
@@ -57,14 +57,6 @@
       <div class="g2">
         <%= render partial: "documents/policy_areas", object: @organisation.policy_areas, title: "Our policy areas" %>
       </div>
-    </div>
-    <div class="g1f sidebar">
-      <section id="about_us" class="info">
-        <p class="about">
-          <span class="description"><%= format_with_html_line_breaks(@organisation.description) %></span>
-          <a href="<%= about_organisation_path(@organisation) %>" title='<%= "Further information about #{@organisation.name}" %>'>Read more<span class="visuallyhidden"> about <%= @organisation.name %></span>.</a>
-        </p>
-      </section>
     </div>
   </div>
   
