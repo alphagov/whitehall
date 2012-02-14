@@ -176,7 +176,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should display a link to the about-us page for the organisation" do
     organisation = create(:organisation)
     get :show, id: organisation
-    assert_select ".about a[href='#{about_organisation_path(organisation)}']"
+    assert_select ".sub_navigation a[href='#{about_organisation_path(organisation)}']"
   end
 
   test "should display the organisation's policy areas" do
