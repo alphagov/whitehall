@@ -275,37 +275,22 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_nil user.reload.organisation_id
   end
 
-  test 'should be inactive if there are no documents, roles, or content' do
-    organisation = create(:organisation)
+  test 'should be active if it is a ministerial department' do
+    type = create(:organisation_type, name: "Ministerial department")
+    organisation = create(:organisation, organisation_type: type)
+    assert organisation.calculate_active?
+  end
+
+  test 'should be active if it is a non-ministerial department' do
+    type = create(:organisation_type, name: "Non-ministerial department")
+    organisation = create(:organisation, organisation_type: type)
+    assert organisation.calculate_active?
+  end
+
+  test 'should be inactive if it is not a department' do
+    type = create(:organisation_type, name: "Executive agency")
+    organisation = create(:organisation, organisation_type: type)
     refute organisation.calculate_active?
-  end
-
-  test 'should be active if there are documents' do
-    organisation = create(:organisation)
-    document = create(:published_document, organisations: [organisation])
-    assert organisation.calculate_active?
-  end
-
-  test 'should be active if there are roles' do
-    minister = create(:ministerial_role)
-    organisation = create(:organisation, roles:  [minister])
-    assert organisation.calculate_active?
-  end
-
-  test 'should be active if there are contact details' do
-    organisation = create(:organisation)
-    contact = create(:contact, organisation: organisation)
-    assert organisation.calculate_active?
-  end
-
-  test 'should be active if there is about us information' do
-    organisation = create(:organisation, about_us: "Blah")
-    assert organisation.calculate_active?
-  end
-
-  test 'should be active if there is a description' do
-    organisation = create(:organisation, description: "Blah")
-    assert organisation.calculate_active?
   end
 
   test 'should update cached active state' do
@@ -313,7 +298,8 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.update_cached_active_state!
     refute organisation.reload.active?
 
-    contact = create(:contact, organisation: organisation)
+    type = create(:organisation_type, name: "Ministerial department")
+    organisation.organisation_type = type
     organisation.update_cached_active_state!
     assert organisation.reload.active?
   end

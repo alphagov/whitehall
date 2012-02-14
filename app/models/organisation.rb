@@ -88,7 +88,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def calculate_active?
-    [about_us, description, documents, roles, contacts].any?(&:present?)
+    !!(organisation_type && organisation_type.department?)
   end
 
   def update_cached_active_state!

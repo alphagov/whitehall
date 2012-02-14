@@ -21,4 +21,8 @@ class OrganisationType < ActiveRecord::Base
   def listing_order
     LISTING_ORDER.index(name)
   end
+
+  def department?
+    name =~ /department/i
+  end
 end
