@@ -15,12 +15,8 @@
       font-weight: normal;
     }
 
-    .explanation {
+    .explanation {      
       margin-bottom: 0;
-    }
-
-    h1.page_title, .explanation {
-      margin-left: 1%;
     }
 
     h1.page_title.has_meta {
@@ -34,7 +30,7 @@
   }
 
   .meta {
-    margin-left: 1%;
+/*    margin-left: 1%;*/
     position: relative;
     span {
       @include type-12;
@@ -136,8 +132,5 @@
   }
 
   .g3f {
-    .page_title {
-      margin-left: 2%;
-    }
   }
 }
