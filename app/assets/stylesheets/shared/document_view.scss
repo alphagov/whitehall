@@ -111,15 +111,11 @@
   }
 
   .related_documents {
-    padding: 1.45em 0;
+    padding: 0.5em 0;
     background: #eee;
-    border-top: 1px solid #ddd;
     margin-bottom: 0;
 
     @media only screen and (min-width: 768px) {
-      border-left: 1px solid #ccc;
-      border-bottom: 1px solid #ddd;
-      border-top: 0;
     }
 
     section {
