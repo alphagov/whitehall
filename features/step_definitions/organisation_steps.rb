@@ -12,6 +12,11 @@ Given /^the organisation "([^"]*)" exists$/ do |name|
   create(:organisation, name: name)
 end
 
+Given /^the organisation "([^"]*)" is inactive/ do |name|
+  organisation = Organisation.find_by_name(name) || create(:organisation, name: name)
+  organisation.update_column(:active, false)
+end
+
 Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation, second_organisation|
   create(:organisation, name: first_organisation)
   create(:organisation, name: second_organisation)
@@ -68,6 +73,10 @@ end
 
 When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
+end
+
+When /^I visit the organisations page$/ do
+  visit organisations_path
 end
 
 When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |name, table|
@@ -154,6 +163,14 @@ Then /^I should see the "([^"]*)" organisation's (.*) page$/ do |organisation_na
     end
 
   assert page.has_css?('title', text: title)
+end
+
+Then /^I should see an organisation called "([^"]*)"$/ do |name|
+  assert page.has_css?(".organisation", text: name)
+end
+
+Then /^I should not see a link to the organisation called "([^"]*)"$/ do |text|
+  refute page.has_css?(".organisation a", text: text)
 end
 
 def navigate_to_organisation(page_name)

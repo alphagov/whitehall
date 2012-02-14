@@ -1,7 +1,11 @@
 <ul class="organisations">
   <% organisations.each do |organisation| %>
     <%= content_tag_for(:li, organisation) do %>
-      <%= link_to organisation.name, organisation_path(organisation) %>
+      <%= if organisation.active?
+            link_to organisation.name, organisation_path(organisation)
+          else
+            organisation.name
+          end %>
     <% end %>
   <% end %>
 </ul>

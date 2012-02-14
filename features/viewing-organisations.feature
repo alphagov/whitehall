@@ -59,3 +59,9 @@ Scenario: Navigating between pages for an organisation
   And I should see the organisation navigation
   When I navigate to the "Cabinet Office" organisation's home page
   Then I should see the "Cabinet Office" organisation's home page
+
+Scenario: Inactive organisations are listed but not linked
+  Given the organisation "Ministry of Facial Topiary" is inactive
+  When I visit the organisations page
+  Then I should see an organisation called "Ministry of Facial Topiary"
+  But I should not see a link to the organisation called "Ministry of Facial Topiary"
