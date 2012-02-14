@@ -80,7 +80,6 @@
 
     <div class="g1f sidebar">
       <section id="about_us" class="info">
-        <h1>About us</h1>
         <p class="about">
           <span class="description"><%= format_with_html_line_breaks(@organisation.description) %></span>
           <a href="<%= about_organisation_path(@organisation) %>" title='<%= "Further information about #{@organisation.name}" %>'>Read more<span class="visuallyhidden"> about <%= @organisation.name %></span>.</a>
@@ -90,7 +89,6 @@
       <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
       <% if roles.any? %>
           <section id="ministers" class="info">
-            <h1>Our people</h1>
             <% roles.each do |role| %>
               <%= content_tag_for(:article, role) do %>
                 <div class="image_holder">
