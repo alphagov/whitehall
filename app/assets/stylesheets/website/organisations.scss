@@ -44,89 +44,34 @@
     }
   }
 
-  .sidebar {
-
-    section.info {
-      padding: 1.5em 4% 0 4%;
+  .info {
+    padding: 1.5em 4% 0 4%;
 
       h1 {
-        margin-bottom: 0.525em;
-        margin-left: 0;
-      }
+      margin: 0 4%;
     }
 
-    #about_us {
-      p.about {
+    article {
+      position: relative;
+      margin: 1em 4% 0 4%;
+      min-height: 6em;
+
+      h3 {
+        margin-bottom: 0.375em;
+        padding-left: 96px;
+      }
+
+      p {
         @include type-14;
         margin-bottom: 0;
-      }
-    }
-
-    #ministers {
-      padding-left: 0;
-      padding-right: 0;
-
-      h1 {
-        margin: 0 4%;
+        padding-left: 96px;
       }
 
-      article {
-        position: relative;
-        margin: 1em 4% 0 4%;
-        min-height: 6em;
-
-        h3 {
-          margin-bottom: 0.375em;
-          padding-left: 96px;
-        }
-
-        p {
-          @include type-14;
-          margin-bottom: 0;
-          padding-left: 96px;
-        }
-
-        img {
-          width: 70px;
-          position: absolute;
-          top: 0.25em;
-          left: 0;
-        }
-      }
-    }
-
-    #child_organisations {
-      ul {
-        margin-bottom: 0;
-
-        li {
-          margin-bottom: 0.4285em;
-        }
-      }
-    }
-
-    #policy_areas {
-      padding-top: 1.5em;
-      margin-bottom: 1.5em;
-      padding-left: 2%;
-
-      h1 {
-        margin-left: 3%;
-        margin-right: 3%;
-        margin-bottom: 0.5715em;
-      }
-
-      ul {
-        margin: 0 3% 1.5em 3%;
-      }
-
-      li {
-        float: left;
-        margin-bottom: 0;
-        background: #fccec3;
-        margin-right: 2%;
-        margin-bottom: 1%;
-        padding: 0.25em 0.5em;
+      img {
+        width: 70px;
+        position: absolute;
+        top: 0.25em;
+        left: 0;
       }
     }
   }
