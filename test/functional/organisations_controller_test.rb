@@ -139,11 +139,19 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#consultations"
   end
 
-  test "should link to the child organisations" do
+  test "should link to the active child organisations" do
     parent_organisation = create(:organisation)
-    child_organisation = create(:organisation, parent_organisations: [parent_organisation])
+    child_organisation = create(:organisation, parent_organisations: [parent_organisation], active: true)
     get :show, id: parent_organisation
     assert_select "#child_organisations a[href='#{organisation_path(child_organisation)}']"
+  end
+
+  test "should just list but not link to inactive child organisations" do
+    parent_organisation = create(:organisation)
+    child_organisation = create(:organisation, parent_organisations: [parent_organisation], active: false)
+    get :show, id: parent_organisation
+    refute_select "#child_organisations a[href='#{organisation_path(child_organisation)}']"
+    assert_select "#child_organisations li", text: child_organisation.name
   end
 
   test "should not display the child organisations section" do
