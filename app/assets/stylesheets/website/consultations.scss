@@ -1,29 +1,6 @@
 @import "../shared/utils/type_sizing";
-@import "../shared/utils/filters";
-@import "../shared/utils/transitions";
-@import "../shared/utils/gradients";
-@import "../shared/utils/rounded_corners";
 
 #content {
-  #consultations {
-    li.consultation {
-      .details {
-        @include type-14;
-        span:after {
-          content: ';'
-        }
-        span:last-child:after {
-          content: '';
-        }
-      }
-      .summary {
-        @include type-14;
-        font-style: italic;
-        margin: 0
-      }
-    }
-  }
-
   nav.consultations_scope {
     display: inline-block;
     margin: 1.25em 1em 0 1em;
@@ -33,8 +10,9 @@
     background: none;
 
     a {
-      @include filter_link;
-      @include vertical_gradient(#ffffff, #efefef);
+      @include type-13;
+      color: #777;
+      font-weight: bold;
       border-bottom: 1px solid #bbb;
       border-top: 1px solid #ddd;
       border-right: 1px solid #ddd;
@@ -46,28 +24,27 @@
 
       &:first-child {
         margin-left: 0;
-        @include rounded_left();
         border-left: 1px solid #ddd;
       }
 
       &:last-child {
-        @include rounded_right();
         border-right: 1px solid #ccc;
       }
 
       &:hover {
-        @include vertical_gradient(#fafdff, #d8d8d8);
-      }
+        text-decoration: none;
+        color: #666;
+        background: #ddd;
+      };
 
       &.current {
         color: #444;
-        @include vertical_gradient(#fafdff, #ccc);
       }
     }
 
     @media only screen and (min-width: 1035px) {
       top: 0;
-      right: 0;
+      right: 1.5em;
       position: absolute;
       text-align: right;
       margin-right: 0;
