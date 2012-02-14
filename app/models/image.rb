@@ -6,7 +6,7 @@ class Image < ActiveRecord::Base
 
   after_destroy :destroy_image_data_if_required
 
-  accepts_nested_attributes_for :image_data, reject_if: :all_blank
+  accepts_nested_attributes_for :image_data
 
   def url
     image_data.file_url

@@ -12,8 +12,14 @@ module Document::Images
   included do
     has_many :images, foreign_key: "document_id", dependent: :destroy
 
-    accepts_nested_attributes_for :images, reject_if: -> da { da.fetch(:image_data_attributes, {}).values.all?(&:blank?) }, allow_destroy: true
-
+    accepts_nested_attributes_for :images, reject_if: :no_substantive_attributes?, allow_destroy: true
+    
+    def no_substantive_attributes?(attrs)
+      attrs.except(:image_data_attributes, :_destroy).values.all?(&:blank?) &&
+        (attrs[:image_data_attributes] || {}).values.all?(&:blank?)
+    end
+    private :no_substantive_attributes?
+    
     add_trait Trait
   end
 end

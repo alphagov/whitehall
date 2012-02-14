@@ -663,6 +663,38 @@ module AdminDocumentControllerTestHelpers
         assert_equal "alt-text", image.alt_text
       end
 
+      test 'updating a document with image alt text but no file attachment should show a validation error' do
+        document = create(document_type)
+
+        put :update, id: document, document: document.attributes.merge(
+          images_attributes: {
+            "0" => { alt_text: "alt-text", image_data_attributes: { file_cache: "" } }
+          }
+        )
+        
+        assert_select ".errors", text: "Images image data file can't be blank"
+        
+        document.reload
+        assert_equal 0, document.images.length
+      end
+      
+      test 'updating a document with an existing image allows image attributes to be changed' do
+        document = create(document_type)
+        image = document.images.create!(alt_text: "old-alt-text", caption: 'old-caption')
+        
+        put :update, id: document, document: document.attributes.merge(
+          images_attributes: {
+            "0" => { id: image.id, alt_text: "new-alt-text", caption: 'new-caption' }
+          }
+        )
+
+        document.reload
+        assert_equal 1, document.images.length
+        image = document.images.first
+        assert_equal "new-alt-text", image.alt_text
+        assert_equal "new-caption", image.caption
+      end
+      
       test 'updating a document should attach multiple images' do
         document = create(document_type)
         image = fixture_file_upload('portas-review.jpg')
