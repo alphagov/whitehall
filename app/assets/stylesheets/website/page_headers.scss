@@ -5,7 +5,7 @@
 
 #content {
   section.page_header {
-    padding-bottom: 1em;
+    padding-bottom: 1.5em;
     // + icons.scss
 
     h1.page_title {
@@ -17,6 +17,7 @@
 
     .explanation {      
       margin-bottom: 0;
+      margin-top: 0.25em;
     }
 
     h1.page_title.has_meta {
@@ -39,13 +40,7 @@
 
     a.tag {
       @include type-12;
-      @include box_shadow(0, 0px, 1px, rgba(30,30,30,0.1));
-      @include rounded();
-      @include vertical_gradient(#fff, #eee);
-      background: #fff;
-      border: 1px solid #ccc;
-      border-bottom: 1px solid #aaa;
-      border-top: 1px solid #ddd;
+      background: #eee;
       margin-right: 0.5em;
       padding: 0.2em 0.5em;
       text-align: center;
