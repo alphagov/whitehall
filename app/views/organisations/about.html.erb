@@ -19,4 +19,13 @@
       </nav>
     </div>
   </div>
+
+  <% if @corporate_publications.any? %>
+    <%= article_section("Corporate publications", @corporate_publications, {id: 'publications'}) do |publication| %>
+      <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+      <span class="metadata">
+        Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
+      </span>
+    <% end %>
+  <% end %>
 </div>

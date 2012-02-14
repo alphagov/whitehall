@@ -359,6 +359,15 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
+  test "should display corporate publications on about-us page" do
+    published_corporate_publication = create(:published_corporate_publication)
+    organisation = create(:organisation, documents: [
+      published_corporate_publication,
+    ])
+    get :about, id: organisation
+    assert_select_object(published_corporate_publication)
+  end
+
   test "shows ministerial roles in the specified order" do
     junior_role = create(:ministerial_role)
     senior_role = create(:ministerial_role)

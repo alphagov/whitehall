@@ -16,11 +16,11 @@ class OrganisationsController < PublicFacingController
     @news_articles = NewsArticle.published.in_organisation(@organisation)
     @consultations = Consultation.published.by_published_at.in_organisation(@organisation).limit(3)
     @speeches = Announcement.by_first_published_at(@organisation.published_speeches).take(3)
-    @corporate_publications = @organisation.corporate_publications.published
     @featured_news_articles = @organisation.featured_news_articles
   end
 
   def about
+    @corporate_publications = @organisation.corporate_publications.published
   end
 
   def contact_details
