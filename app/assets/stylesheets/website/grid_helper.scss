@@ -23,3 +23,22 @@
     opacity: 0.5;
   }
 }
+
+.grid_outline {
+  .g1, .g2, .g3, .g1f, .g2f, .g3f, .g4, .g4f {
+    background: rgba(255,0,0, 0.5);
+  }
+
+  .space {
+    margin-top: 1.5em;
+  }
+}
+
+.grid_content_holder {
+  height: 5em;
+  border: 1px solid #444;
+  border-top: 0;
+  border-bottom: 0;
+  background: rgba(255,0,0, 0.5);
+  padding: 0.5em 1.5em;
+}

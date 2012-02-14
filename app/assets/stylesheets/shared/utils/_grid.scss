@@ -13,7 +13,7 @@
   }
 }
 
-@mixin span_one_column($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%) {
+@mixin span_one_column($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%, $cols: 3) {
   @include grid_column($float_direction, $w, $ml, $mr);
 
   @media only screen and (min-width: 768px) {
@@ -21,11 +21,11 @@
   }
 
   @media only screen and (min-width: 1024px) {
-    width: ((100.00%/3)) - ($ml + $mr);
+    width: ((100.00%/$cols)) - ($ml + $mr);
   }
 }
 
-@mixin span_two_columns($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%) {
+@mixin span_two_columns($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%, $cols: 3) {
   @include grid_column($float_direction, $w, $ml, $mr);
 
   @media only screen and (min-width: 768px) {
@@ -33,11 +33,19 @@
   }
 
   @media only screen and (min-width: 1024px) {
-    width: ((100.00%/3) * 2) - ($ml + $mr);
+    width: ((100.00%/$cols) * 2) - ($ml + $mr);
   }
 }
 
-@mixin span_three_columns($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%) {
+@mixin span_three_columns($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%, $cols: 3) {
+  @include grid_column($float_direction, $w, $ml, $mr);
+
+  @media only screen and (min-width: 1024px) {
+    width: ((100.00%/$cols) * 3) - ($ml + $mr);
+  }
+}
+
+@mixin span_four_columns($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%) {
   @include grid_column($float_direction, $w, $ml, $mr);
 }
 
@@ -58,30 +66,18 @@
   @include grid_column($float_direction, 100%, 0, 0);
 }
 
-@mixin flood_one_column($float_direction: left) {
-  @include flood_column($float_direction);
-
-  @media only screen and (min-width: 768px) {
-    width: 50.0%;
-  }
-
-  @media only screen and (min-width: 1024px) {
-    width: 33.3333333%
-  }
+@mixin flood_one_column($float_direction: left, $cols: 3) {
+  @include span_one_column($float_direction, 100%, 0, 0, $cols);
 }
 
-@mixin flood_two_columns($float_direction: left) {
-  @include flood_column($float_direction);
-
-  @media only screen and (min-width: 768px) {
-    width: 50%;
-  }
-
-  @media only screen and (min-width: 1024px) {
-    width: 66.6666666%;
-  }
+@mixin flood_two_columns($float_direction: left, $cols: 3) {
+  @include span_two_columns($float_direction, 100%, 0, 0, $cols);
 }
 
-@mixin flood_three_columns($float_direction: left) {
-  @include flood_column($float_direction);
+@mixin flood_three_columns($float_direction: left, $cols: 3) {
+  @include span_three_columns($float_direction, 100%, 0, 0, $cols);
+}
+
+@mixin flood_four_columns($float_direction: left) {
+  @include span_four_columns($float_direction, 100%, 0, 0);
 }

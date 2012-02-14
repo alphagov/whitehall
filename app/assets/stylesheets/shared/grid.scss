@@ -49,6 +49,64 @@
     }
   }
 
+  .g4 {
+    @include span_four_columns;
+
+    .g1 {
+      @include span_one_column(left, 98%, 1%, 1%, 4);
+    }
+
+    .g2 {
+      @include span_two_columns(left, 98%, 1%, 1%, 4);
+    }
+
+    .g3 {
+      @include span_three_columns(left, 98%, 1%, 1%, 4);
+    }
+
+    .g1f {
+      @include flood_one_column(left, 4);
+    }
+
+    .g2f {
+      @include flood_two_columns(left, 4);
+    }
+
+    .g3f {
+      @include flood_three_columns(left, 4);
+    }
+  }
+
+  .g4f {
+    @include flood_four_columns;
+
+    .g1 {
+      @include span_one_column(left, 96%, 2%, 2%, 4);
+    }
+
+    .g2 {
+      @include span_two_columns(left, 96%, 2%, 2%, 4);
+    }
+
+    .g3 {
+      @include span_three_columns(left, 96%, 2%, 2%, 4);
+    }
+
+    .g1f {
+      @include flood_one_column(left, 4);
+    }
+
+    .g2f {
+      @include flood_two_columns(left, 4);
+    }
+
+    .g3f {
+      @include flood_three_columns(left, 4);
+    }
+
+  }
+
+
   .g-half {
     @include grid_column;
 
@@ -64,13 +122,9 @@
     }
   }
 
-  .g1,.g2,.g3 {
+  .g1,.g2,.g3,.g4 {
     &.first {
       margin-left: 0;
     };
-  }
-
-  .vg {
-    margin-top: 1.5em;
   }
 }

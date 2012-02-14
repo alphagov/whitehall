@@ -112,6 +112,7 @@ Whitehall::Application.routes.draw do
 
     match 'site/sha' => 'site#sha'
     match 'site/headers' => 'site#headers'
+    match 'site/grid' => 'site#grid'
   end
 
   mount TestTrack::Engine => "test" if Rails.env.test?
