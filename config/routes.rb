@@ -108,7 +108,6 @@ Whitehall::Application.routes.draw do
       end
     end
 
-    match 'styleguide' => 'styleguide#index'
     match '/topics' => redirect("/policy-areas")
 
     match 'site/sha' => 'site#sha'
