@@ -278,21 +278,22 @@
 
     article {
       width: 100%;
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
+/*      padding-top: 0.5em;*/
+/*      padding-bottom: 0.5em;*/
 
       h2 {
         @include scaled_type(24,32);
         background: #fff;
-        padding: 1em 3% 1em 3%;
-        margin: 0 2%;
+        padding: 0.5em 3%;
+/*        margin: 0 2%;*/
+        margin: 0;
         display: block;
         position: relative;
       }
 
       .img {
         display: none;
-        height: 300px;
+        height: 525px;
         left: 0;
         margin: 0;
         position: absolute;
@@ -306,7 +307,7 @@
             left: 50%;
             margin-left: -600px;
             width: 1200px;
-            height: 300px;
+            height: 525px;
           }
         }
       }
@@ -318,13 +319,12 @@
       .summary {
         @include type-14;
         background: #fff;
-        margin: 0 2%;
+        margin: 0;
         padding: 0 3% 1.25em 3%;
       }
 
       div.meta {
         background: #fff;
-        margin: 0 2%;
         padding: 0.25em 3% 0.5em 3%;
 
         span {
