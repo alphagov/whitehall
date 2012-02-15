@@ -22,6 +22,7 @@
     }
 
     .meta {
+      color: white;
       position: absolute;
       bottom: 0px;
       .type {
@@ -39,6 +40,12 @@
       border-bottom: 1px solid white;
       height: 100%;
       width: 100%;
+    }
+
+    .headline-box:hover {
+      background: black;
+      text-decoration: none;
+      color: white;
     }
   }
 
