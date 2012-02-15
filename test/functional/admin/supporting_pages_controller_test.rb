@@ -80,9 +80,9 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "shows the body using govspeak markup" do
     supporting_page = create(:supporting_page, body: "body-in-govspeak")
-    Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
-
-    get :show, document_id: supporting_page.document, id: supporting_page
+    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
+      get :show, document_id: supporting_page.document, id: supporting_page
+    end
 
     assert_select ".body", text: "body-in-html"
   end

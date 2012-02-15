@@ -5,10 +5,9 @@ module AdminDocumentControllerTestHelpers
     def should_allow_showing_of(document_type)
       test "should render the content using govspeak markup" do
         draft_document = create("draft_#{document_type}", body: "body-in-govspeak")
-        Govspeak::Document.stubs(:to_html).returns("\n")
-        Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
-
-        get :show, id: draft_document
+        govspeak_transformation_fixture default: "\n", "body-in-govspeak" => "body-in-html" do
+          get :show, id: draft_document
+        end
 
         assert_select ".body", text: "body-in-html"
       end

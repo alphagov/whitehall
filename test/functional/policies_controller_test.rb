@@ -179,9 +179,9 @@ class PoliciesControllerTest < ActionController::TestCase
 
   test "should render the content using govspeak markup" do
     published_policy = create(:published_policy, body: "body-in-govspeak")
-    Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
-
-    get :show, id: published_policy.document_identity
+    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
+      get :show, id: published_policy.document_identity
+    end
 
     assert_select ".body", text: "body-in-html"
   end

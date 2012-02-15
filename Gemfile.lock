@@ -10,14 +10,6 @@ GIT
       warden
 
 GIT
-  remote: git://github.com/alphagov/govspeak.git
-  revision: efea9b8aaf1dca5cb8e8a201cb6a446fe4529b61
-  specs:
-    govspeak (0.8.8)
-      htmlentities (~> 4)
-      kramdown (~> 0.13.3)
-
-GIT
   remote: git://github.com/alphagov/router-client.git
   revision: 8ea03352d507c315770a88a034406fdfb6b62b4b
   specs:
@@ -137,6 +129,9 @@ GEM
     friendly_id (4.0.0.beta14)
     gherkin (2.4.21)
       json (>= 1.4.6)
+    govspeak (0.8.10)
+      htmlentities (~> 4)
+      kramdown (~> 0.13.3)
     hash_syntax (1.0.0)
       object_regex (~> 1.0.1)
       trollop (~> 1.16.2)
@@ -283,7 +278,7 @@ DEPENDENCIES
   fog
   friendly_id (= 4.0.0.beta14)
   gds-sso!
-  govspeak!
+  govspeak (~> 0.8.10)
   hash_syntax
   isbn_validation
   jquery-rails

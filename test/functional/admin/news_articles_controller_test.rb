@@ -88,10 +88,9 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   test "should render the notes to editors using govspeak markup" do
     news_article = create(:news_article, notes_to_editors: "notes-to-editors-in-govspeak")
-    Govspeak::Document.stubs(:to_html).returns("\n")
-    Govspeak::Document.stubs(:to_html).with("notes-to-editors-in-govspeak").returns("notes-to-editors-in-html")
-
-    get :show, id: news_article
+    govspeak_transformation_fixture default: "\n", "notes-to-editors-in-govspeak" => "notes-to-editors-in-html" do
+      get :show, id: news_article
+    end
 
     assert_select "#{notes_to_editors_selector}", text: /notes-to-editors-in-html/
   end

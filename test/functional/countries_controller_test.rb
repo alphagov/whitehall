@@ -62,9 +62,9 @@ class CountriesControllerTest < ActionController::TestCase
       about: "body-in-govspeak"
     )
 
-    Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
-
-    get :about, id: country
+    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
+      get :about, id: country
+    end
 
     assert_select ".body", text: "body-in-html"
   end

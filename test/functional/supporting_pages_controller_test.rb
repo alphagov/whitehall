@@ -147,9 +147,9 @@ That's all
   test "shows the body using govspeak markup" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy, body: "body-in-govspeak")
-    Govspeak::Document.stubs(:to_html).with("body-in-govspeak").returns("body-in-html")
-
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
+      get :show, policy_id: policy.document_identity, id: supporting_page
+    end
 
     assert_select ".body", text: "body-in-html"
   end

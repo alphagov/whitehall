@@ -1,7 +1,7 @@
 module GovspeakHelper
 
-  def govspeak_to_admin_html(text)
-    markup_to_html_with_replaced_admin_links(text) do |replacement_html, document|
+  def govspeak_to_admin_html(text, images = [])
+    markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, document|
       latest_edition = document && document.document_identity.latest_edition
       if latest_edition.nil?
         replacement_html = content_tag(:del, replacement_html)
@@ -18,8 +18,8 @@ module GovspeakHelper
     end
   end
 
-  def govspeak_to_html(text)
-    markup_to_html_with_replaced_admin_links(text)
+  def govspeak_to_html(text, images = [])
+    markup_to_html_with_replaced_admin_links(text, images)
   end
 
   def govspeak_headers(text, level = 2)
@@ -30,8 +30,8 @@ module GovspeakHelper
 
   private
 
-  def markup_to_html_with_replaced_admin_links(text, &block)
-    markup_to_nokogiri_doc(text).tap do |nokogiri_doc|
+  def markup_to_html_with_replaced_admin_links(text, images = [], &block)
+    markup_to_nokogiri_doc(text, images).tap do |nokogiri_doc|
       replace_internal_admin_links_in nokogiri_doc, &block
     end.to_html.html_safe
   end
@@ -58,9 +58,9 @@ module GovspeakHelper
     end
   end
 
-  def markup_to_nokogiri_doc(text)
-    govspeak = Govspeak::Document.to_html(text).html_safe # TODO Govspeak should return a SafeBuffer
-    html = content_tag(:div, govspeak, class: 'govspeak')
+  def markup_to_nokogiri_doc(text, images = [])
+    govspeak = Govspeak::Document.new(text).tap { |g| g.images = images }
+    html = content_tag(:div, govspeak.to_html.html_safe, class: 'govspeak')
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(html)

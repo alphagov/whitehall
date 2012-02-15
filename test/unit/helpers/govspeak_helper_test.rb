@@ -118,6 +118,12 @@ class GovspeakHelperTest < ActionView::TestCase
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(deleted_edition)})")
     assert_govspeak %{<p>this and <span class="published_link"><a href="#{public_document_path(publication)}">that</a> <sup class="explanation">(<a href="#{admin_publication_path(publication)}">published</a>)</sup></span></p>}, html
   end
+  
+  test "should allow attached images to be embedded in admin html" do
+    images = [OpenStruct.new(alt_text: "My Alt", url: "http://example.com/image.jpg")]
+    html = govspeak_to_admin_html("!!1", images)
+    assert_govspeak_by_css_selector '.govspeak figure.image.embedded img', html
+  end
 
   # public govspeak helper tests
 
@@ -268,9 +274,28 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and that yeah?</p>}, html
   end
 
+  test "should allow attached images to be embedded in public html" do
+    images = [OpenStruct.new(alt_text: "My Alt", url: "http://example.com/image.jpg")]
+    html = govspeak_to_html("!!1", images)
+    assert_govspeak_by_css_selector '.govspeak figure.image.embedded img', html
+  end
+
   private
 
   def assert_govspeak(expected, actual)
     assert_equal %{<div class="govspeak">\n#{expected}\n</div>}, actual.strip
   end
+  
+  def assert_govspeak_by_css_selector(css_selector, actual, &block)
+    doc = Nokogiri::HTML::Document.new
+    doc.encoding = "UTF-8"
+    fragment = doc.fragment(actual.strip)
+    found = fragment.css(css_selector)
+    if found.size > 0
+      found.instance_eval(&block) if block_given?
+    else
+      fail "Expected to find '#{css_selector}', but not found in '#{actual}'"
+    end
+  end
+  
 end
