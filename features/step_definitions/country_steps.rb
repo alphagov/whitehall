@@ -2,6 +2,11 @@ Given /^a country "([^"]*)" exists$/ do |name|
   create(:country, name: name)
 end
 
+Given /^the country "([^"]*)" is inactive/ do |name|
+  country = Country.find_by_name(name) || create(:country, name: name)
+  country.update_column(:active, false)
+end
+
 When /^I view the list of countries$/ do
   visit root_path
   click_link "UK in the world"
@@ -32,6 +37,10 @@ When /^I navigate to the "([^"]*)" country's (about|home) page$/ do |country_nam
   end
 end
 
+When /^I visit the countries page$/ do
+  visit countries_path
+end
+
 Then /^I should see the country "([^"]*)"$/ do |name|
   country = Country.find_by_name!(name)
   assert page.has_css?(record_css_selector(country))
@@ -57,4 +66,12 @@ Then /^I should see the "([^"]*)" country's (about|home) page$/ do |country_name
     end
 
   assert page.has_css?('title', text: title)
+end
+
+Then /^I should see a country called "([^"]*)"$/ do |name|
+  assert page.has_css?(".country", text: name)
+end
+
+Then /^I should not see a link to the country called "([^"]*)"$/ do |text|
+  refute page.has_css?(".country a", text: text)
 end

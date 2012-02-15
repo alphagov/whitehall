@@ -40,3 +40,9 @@ Given a country "British Antarctic Territory" exists
   And I should see the country navigation
   When I navigate to the "British Antarctic Territory" country's home page
   Then I should see the "British Antarctic Territory" country's home page
+
+Scenario: Inactive countries are listed but not linked
+  Given the country "Democratic People's Republic of South London" is inactive
+  When I visit the countries page
+  Then I should see a country called "Democratic People's Republic of South London"
+  But I should not see a link to the country called "Democratic People's Republic of South London"
