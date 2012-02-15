@@ -6,13 +6,6 @@
   /* Font-size percentage is based on 16px browser default size */  /* IE7 and older can't resize px based text */
   font: 100%/1.5 "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; *font-size: 1em;
   color: #333;
-
-  /* WIDESCREEN */
-  /* Increased body size for legibility */
-  @media only screen and (min-width: 1800px) {
-    /* 18.5px / 28px */
-    font-size: 116.5%;
-  }
 }
 
 @mixin type_styles {
