@@ -21,4 +21,15 @@ class CountryTest < ActiveSupport::TestCase
     country.update_attributes(name: 'Australia')
     assert_equal 'new-holland', country.slug
   end
+
+  test 'should not be featured' do
+    country = create(:country, name: 'Cascadia')
+    refute country.featured?
+  end
+
+  test 'should be featured if name matches hard-coded list' do
+    %w[ Spain USA Uganda ].each do |name|
+      assert create(:country, name: name).featured?
+    end
+  end
 end
