@@ -57,4 +57,9 @@ class OrganisationHelperTest < ActionView::TestCase
     div = Nokogiri::HTML.fragment(html)/'div'
     assert_match /organisation-slug-yeah/, div.attr('class').value
   end
+  
+  test 'should convert organisation type into a suitable css class name' do
+    organisation_type = build(:organisation_type, name: "Ministerial department")
+    assert_equal 'ministerial-department', organisation_type_class(organisation_type)
+  end
 end

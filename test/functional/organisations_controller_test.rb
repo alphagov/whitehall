@@ -512,11 +512,12 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should place organisation specific css class on every organisation sub page" do
-    organisation = create(:organisation)
+    ministerial_department = create(:organisation_type, name: "Ministerial Department")
+    organisation = create(:organisation, organisation_type: ministerial_department)
 
     [:show, :about, :consultations, :contact_details, :management_team, :ministers, :policies, :publications].each do |page|
       get page, id: organisation
-      assert_select "##{dom_id(organisation)}.#{organisation.slug}"
+      assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
     end
-  end
+  end  
 end
