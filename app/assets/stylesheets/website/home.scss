@@ -128,20 +128,40 @@
     }
   }
 
+  .org-treasury {
+    background: rgb(191, 49, 26)
+  }
+
   .org-cabinet-office {
     background: rgb(0, 118, 192);
   }
 
-  .org-department-for-international-development {
-    background: rgb(115, 157, 210);
+  .org-department-for-education {
+    background: rgb(245, 132, 38);
+  }
+
+  .org-department-of-transport {
+    background: rgb(0, 113, 97);
+  }
+
+  .org-department-of-health {
+    background: rgb(0, 174, 158);
+  }
+
+  .org-home-office {
+    background: rgb(127, 63, 152);
+  }
+
+  .org-ministry-of-justice {
+    background: rgb(35, 31, 32);
+  }
+
+  .org-ministry-of-defence {
+    background: rgb(92, 41, 70);
   }
 
   .org-foreign-and-commonwealth-office {
     background: rgb(0, 84, 164);
-  }
-
-  .org-department-for-business-innovation-and-skills {
-    background: rgb(59, 110, 143);
   }
 
   .org-department-for-communities-and-local-government {
@@ -150,5 +170,25 @@
 
   .org-department-for-energy-and-climate-change {
     background: rgb(122, 193, 67);
+  }
+
+  .org-department-for-culture-media-and-sport {
+    background: rgb(236, 9, 141);
+  }
+
+  .org-department-for-environment-food-and-rural-affairs {
+    background: rgb(138, 141, 9);
+  }
+
+  .org-department-for-work-and-pensions {
+    background: rgb(34, 188, 185);
+  }
+
+  .org-department-for-business-innovation-and-skills {
+    background: rgb(59, 110, 143);
+  }
+
+  .org-department-for-international-development {
+    background: rgb(115, 157, 210);
   }
 }
