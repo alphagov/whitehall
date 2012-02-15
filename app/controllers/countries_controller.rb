@@ -3,6 +3,7 @@ class CountriesController < PublicFacingController
 
   def index
     @countries = Country.all
+    @featured_countries = Country.featured
   end
 
   def show

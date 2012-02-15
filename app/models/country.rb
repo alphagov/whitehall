@@ -16,4 +16,8 @@ class Country < ActiveRecord::Base
   def featured?
     FEATURED_COUNTRY_NAMES.include?(name)
   end
+
+  def self.featured
+    where(name: FEATURED_COUNTRY_NAMES)
+  end
 end

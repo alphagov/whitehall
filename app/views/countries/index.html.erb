@@ -5,6 +5,22 @@
     <h1 class="page_title">UK in the world</h1>
     <p class="explanation">The UK government&rsquo;s priorities and interests overseas</p>
   </section>
+
+  <% if @featured_countries.any? %>
+    <section class="featured_items group" id="featured-countries">
+      <% @featured_countries.each do |featured_country| %>
+        <div class="<%= featured_grid_class(@featured_countries.length) %>">
+          <%= content_tag_for(:article, featured_country) do %>
+            <h2><%= link_to featured_country.name, country_path(featured_country), class: "name" %></h2>
+            <p class="summary description">
+              <%= featured_country.description %>
+            </p>
+          <% end %>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+
 </div>
 
 <div class="g3">

@@ -75,3 +75,8 @@ end
 Then /^I should not see a link to the country called "([^"]*)"$/ do |text|
   refute page.has_css?(".country a", text: text)
 end
+
+Then /^the country called "([^"]*)" should be featured$/ do |name|
+  country = Country.find_by_name(name)
+  assert has_css?("#featured-countries #{record_css_selector(country)}")
+end

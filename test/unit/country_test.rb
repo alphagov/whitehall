@@ -32,4 +32,11 @@ class CountryTest < ActiveSupport::TestCase
       assert create(:country, name: name).featured?
     end
   end
+
+  test 'should return featured countries' do
+    %w[ Spain USA Uganda Cascadia Virginia ].each do |name|
+      create(:country, name: name)
+    end
+    assert_equal 3, Country.featured.length
+  end
 end
