@@ -105,8 +105,7 @@
     }
 
   }
-
-
+  
   .g-half {
     @include grid_column;
 
@@ -126,5 +125,17 @@
     &.first {
       margin-left: 0;
     };
+  }
+  
+  .gutter {
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+  
+  .g1f, .g2f, .g3f, .g4f {
+    .gutter {
+      margin-left: 4%;
+      margin-right: 4%;
+    }
   }
 }

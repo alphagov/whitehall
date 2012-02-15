@@ -1,6 +1,8 @@
 @import "../shared/utils/type_sizing";
+@import "organisation_brands";
 
 #content {
+  @include branded_page_headers;
 
   .organisation, .country {
     h2.category {

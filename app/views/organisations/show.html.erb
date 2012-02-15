@@ -1,7 +1,7 @@
 <% page_title @organisation.name %>
 <%= organisation_wrapper(@organisation, class: "hcard group") do %>
-  <div class="g3">
-    <div class="g1">
+  <div class="g3f">
+    <div class="g1f">
       <%= render 'header', organisation: @organisation %>
     </div>
 
@@ -144,11 +144,25 @@
 
   </div>
 
-  <div class="g3f">
+  <div class="g4">
     <% if @organisation.child_organisations.any? %>
       <section id="child_organisations" class="info">
         <h1>Associated organisations</h1>
-        <%= render partial: "organisations/list", locals: {organisations: @organisation.child_organisations} %>
+        <% four_columns(@organisation.child_organisations) do |organisation_group| %>
+          <div class="g1">
+            <% organisation_group.each do |organisation| %>
+              <ul>
+                <%= content_tag_for(:li, organisation) do %>
+                  <%= if organisation.active?
+                        link_to organisation.name, organisation_path(organisation)
+                      else
+                        organisation.name
+                      end %>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>    
+        <% end %>        
       </section>
     <% end %>
   </div>

@@ -177,4 +177,11 @@ module ApplicationHelper
       concat row
     end
   end
+  
+  def four_columns(collection, &block)
+    group_length = (@organisation.child_organisations.count.to_f / 4).ceil
+    collection.in_groups_of(group_length, false) do |group|
+      block.call group
+    end
+  end
 end

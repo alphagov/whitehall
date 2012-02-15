@@ -1,0 +1,32 @@
+@mixin add_colours_for($klass, $colour) {
+  &.#{$klass} {
+    .page_header {
+      h1 {
+        border-color: $colour;
+      }
+    }
+  }
+}
+
+@mixin add_logo_for($type, $image_url) {
+  &.#{$type} {
+    .page_header {
+      h1 {
+        background-image: url($image_url);
+      }
+    }
+  }
+}
+
+@mixin branded_page_headers {
+  .organisation {
+    .page_header {
+      h1 {
+        border-left: 4px solid #000;
+        padding-left: 2%;
+      }
+    }
+    @include add_colours_for('department-for-business-innovation-and-skills', #f5fe43);
+    //@include add_logo_for('ministerial-department', "images/blahblah.png");
+  }
+}
