@@ -11,6 +11,11 @@ class OrganisationTest < ActiveSupport::TestCase
     refute organisation.valid?
   end
 
+  test 'should be invalid without a logo formatted name' do
+    organisation = build(:organisation, logo_formatted_name: nil)
+    refute organisation.valid?
+  end
+
   test 'should be invalid with a duplicate name' do
     existing_organisation = create(:organisation)
     new_organisation = build(:organisation, name: existing_organisation.name)

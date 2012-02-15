@@ -34,6 +34,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     post :create, organisation: {
       name: "Anything",
+      logo_formatted_name: "Anything",
       organisation_type_id: organisation_type.id,
       contacts_attributes: [{description: "", contact_numbers_attributes: [{label: "", number: ""}]}]
     }

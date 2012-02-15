@@ -3,13 +3,13 @@ require "test_helper"
 class OrganisationsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
-  test "shows organisation title and description" do
+  test "shows organisation logo formatted name and description" do
     organisation = create(:organisation,
-      name: "organisation-name",
+      logo_formatted_name: "organisation\nname is\nformatted",
       description: "organisation-description"
     )
     get :show, id: organisation
-    assert_select ".organisation .name", text: "organisation-name"
+    assert_select ".organisation .name", html: "organisation<br />name is<br />formatted"
     assert_select ".description", text: "organisation-description"
   end
 
@@ -336,13 +336,13 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display an about-us page for the organisation" do
     organisation = create(:organisation,
-      name: "organisation-name",
+      logo_formatted_name: "organisation\nlogo name\nis formatted",
       about_us: "organisation-about-us"
     )
 
     get :about, id: organisation
 
-    assert_select ".page_title", text: "organisation-name"
+    assert_select ".page_title", html: "organisation<br />logo name<br />is formatted"
     assert_select ".body", text: "organisation-about-us"
   end
 
@@ -510,4 +510,5 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_equal [organisation_a, organisation_b, organisation_c], assigns[:organisations]
   end
+
 end
