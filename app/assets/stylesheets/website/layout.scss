@@ -1,7 +1,6 @@
 @import "../shared/utils/clearfix";
 @import "../shared/grid";
 @import "../shared/typography";
-@import "../shared/document_view";
 
 #wrapper {
   background: #f5f5f5;
@@ -9,7 +8,6 @@
   min-height: 37em;
   padding-bottom: 1.5em;
   @include grid_styles;
-  @include type_styles;
 
   @media only screen and (min-width:764px) {
     padding-top: 1.7em;
@@ -22,10 +20,6 @@
   }
 
   @media only screen and (min-width:764px) {
-    padding-top: 2.66em;
-  }
-
-  @media only screen and (min-width: 1024px) {
     padding-top: 2.66em;
   }
 }
@@ -46,11 +40,9 @@
     width: auto;
   }
 
+  // ovwerride core
   article {
     background: transparent;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
     float: none;
     margin-right: 0;
     min-height: inherit;
@@ -77,88 +69,16 @@
     margin-bottom: 1em;
   }
 
-  .related_content {
-    padding-top: 1em;
-    margin-bottom: 1em;
-  }
-
-  .g3f > .related_content {
-    border: none;
-  }
-
   section ul, ol {
     li {
       @include type-14;
     }
   }
-
-  .g3 h2 {
-    @include type-21;
-    margin-top: 1em;
-    margin-left: 1%;
-  }
-
-  .g3f, .g2f {
-    section h1 {
-      margin-left: 2%;
-    }
-  }
-
-  section.no_content {
-    padding-top: 1.5em;
-
-    h1 {
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-
-  .page_detail {
-    @include clearfix;
-    background: #eee;
-    padding: 1.5em 0;
-    margin-bottom: 1.5em;
-  }
-
-  .related_documents {
-    padding-top: 1em;
-    section {
-      padding-bottom: 0.75em;
-      margin-bottom: 0.75em;
-      margin-left: 2%;
-
-      h1 {
-        @include type-16;
-        margin-bottom: 0.375em;
-      }
-
-      ul {
-        margin-bottom: 0;
-      }
-
-      li {
-        @include type-12;
-        margin-bottom: 0;
-      }
-    }
-
-    &:first-child {
-      section {
-        border-bottom: 0;
-      }
-    }
-  }
-
-  p.nothing_related {
-    @include type-14;
-    margin-bottom: 0.875em;
-    margin-left: 2%;
-  }
 }
 
 .lte-ie8 {
   #wrapper {
-    padding-top: 6em;
+    padding-top: 2.66em;
     max-width: 100%;
     min-width: 761px;
     width: auto;

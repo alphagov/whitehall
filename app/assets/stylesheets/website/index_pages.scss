@@ -1,8 +1,24 @@
 @import "../shared/utils/type_sizing";
-@import "../shared/utils/grid";
 @import "../shared/utils/clearfix";
 
 #content {
+  //List where all the elements
+  //are given grid classes to
+  //float them across the columns
+
+  ul.floated_list li {
+    h3 {
+      @include type-14;
+      margin-bottom: 0;
+    }
+
+    p {
+      @include type-12;
+      margin-bottom: 0;
+    }
+  }
+
+  // A-Z Listings
 
   .alphabetical_list {
     h1 {
@@ -13,14 +29,11 @@
   }
 
   .alphabetical_row {
-    @include flood_three_columns;
     padding-bottom: 1.5em;
     margin: 0;
   }
 
   .alphabetical_group {
-    @include span_one_column;
-
     h2 {
       @include type-24;
       color: #fff;
@@ -60,3 +73,4 @@
     }
   }
 }
+

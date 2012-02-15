@@ -1,0 +1,84 @@
+// most of this stuff should go ..
+// it is legacy stuff that has
+// accumulated though the build
+// once the new layout is in place
+// we shouldn't be relying on it's
+// dusty scaffolding ...
+
+@import "../shared/utils/type_sizing";
+@import "../shared/utils/clearfix";
+
+#content {
+  .related_content {
+    padding-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .g3f > .related_content {
+    border: none;
+  }
+
+  .g3 h2 {
+    @include type-21;
+    margin-top: 1em;
+    margin-left: 1%;
+  }
+
+  .g3f, .g2f {
+    section h1 {
+      margin-left: 2%;
+    }
+  }
+
+  section.no_content {
+    padding-top: 1.5em;
+
+    h1 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  .page_detail {
+    @include clearfix;
+    background: #eee;
+    padding: 1.5em 0;
+    margin-bottom: 1.5em;
+  }
+
+  .related_documents {
+    padding-top: 1em;
+    section {
+      padding-bottom: 0.75em;
+      margin-bottom: 0.75em;
+      margin-left: 2%;
+
+      h1 {
+        @include type-16;
+        margin-bottom: 0.375em;
+      }
+
+      ul {
+        margin-bottom: 0;
+      }
+
+      li {
+        @include type-12;
+        margin-bottom: 0;
+      }
+    }
+
+    &:first-child {
+      section {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  p.nothing_related {
+    @include type-14;
+    margin-bottom: 0.875em;
+    margin-left: 2%;
+  }
+
+}

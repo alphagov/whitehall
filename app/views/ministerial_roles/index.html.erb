@@ -9,9 +9,9 @@
 
 <div class="g3">
   <h2>Cabinet ministers</h2>
-  <ul id="cabinet" class="group">
+  <ul id="cabinet" class="floated_list group">
     <% @cabinet_ministerial_roles.each do |role| %>
-      <li class="ministerial_role">
+      <li class="ministerial_role g1">
         <h3><%= link_to role.current_person_name, role %></h3>
         <p><%= role.name %></p>
       </li>

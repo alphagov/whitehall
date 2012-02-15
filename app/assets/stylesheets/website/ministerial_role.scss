@@ -3,39 +3,11 @@
 @import "../shared/utils/clearfix";
 
 #content {
-  #cabinet li {
-    @include span_one_column;
-
-    h3 {
-      @include type-14;
-      margin-bottom: 0;
-    }
-
-    p {
-      @include type-12;
-      margin-bottom: 0;
-    }
-  }
-
-  .ministerial_role {
-    @include clearfix;
-
-    h3 {
-      a {
-        font-size: 100%;
-      }
-    }
-  }
 
   .current_person {
     h2 {
       @include type-18;
       margin-bottom: 0.66665em;
-    }
-
-    h2.name, .biography {
-      @include span_two_columns;
-      margin-left: 2%;
     }
 
     .biography p {
@@ -44,10 +16,10 @@
     }
 
     div.img {
-      @include span_half_a_column;
+      width: 50%;
+      max-width: 135px;
       overflow: hidden;
       margin-bottom: 0.5em;
-      margin-left: 2%;
       background: #fff;
       padding: 5px 5px 0 5px;
       img {
