@@ -10,13 +10,17 @@
   </section>
 
   <section class="current_person page_detail">
-    <div class="img"><%= image_for_ministerial_role @ministerial_role %></div>
-    <h2 class="name"><%= @ministerial_role.current_person_name %></h2>
-    <div class="responsibilities">
-      <%= govspeak_to_html @ministerial_role.responsibilities %>
+    <div class="g1">
+      <div class="img"><%= image_for_ministerial_role @ministerial_role %></div>
+      <h2 class="name"><%= @ministerial_role.current_person_name %></h2>
     </div>
-    <div class="biography">
-      <%= format_in_paragraphs(@ministerial_role.current_person_biography) %>
+    <div class="g2">
+      <div class="responsibilities">
+        <%= govspeak_to_html @ministerial_role.responsibilities %>
+      </div>
+      <div class="biography">
+        <%= format_in_paragraphs(@ministerial_role.current_person_biography) %>
+      </div>
     </div>
   </section>
 
