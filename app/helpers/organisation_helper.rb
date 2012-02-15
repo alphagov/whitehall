@@ -27,4 +27,10 @@ module OrganisationHelper
     text = (kind == :announcements) ? "news & speeches" : kind
     content_tag(:span, safe_join(['View all', content_tag(:span, @organisation.name, class: "visuallyhidden"), link_to(text, path)], ' '), class: "view_all")
   end
+
+  def organisation_wrapper(organisation, options = {}, &block)
+    content_tag_for :div, organisation, class: [organisation.slug, options[:class]].join(" ") do
+      block.call
+    end
+  end
 end

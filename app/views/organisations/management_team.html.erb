@@ -1,7 +1,6 @@
 <% page_title "#{@organisation.name} Management Team" %>
-<div class="g3f organisation">
+<%= organisation_wrapper(@organisation, class: "g3f") do %>
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Management Team" %>
-
   <div class="g3 page_detail">
     <% if @organisation.board_member_roles.any? %>
       <section id="board_members">
@@ -26,4 +25,4 @@
       </section>
     <% end %>
   </div>
-</div>
+<% end %>

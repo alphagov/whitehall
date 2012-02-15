@@ -61,8 +61,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select "#publications .publication", count: 3
-    assert_select "#publications #{record_css_selector(newest_publication)}, #publications #{record_css_selector(newer_publication)}, #publications #{record_css_selector(older_publication)}"
+    assert_select "#publications li.publication", count: 3
+    assert_select "#publications li#{record_css_selector(newest_publication)}, #publications li#{record_css_selector(newer_publication)}, li#publications #{record_css_selector(older_publication)}"
   end
 
   test "should link to the organisation's publications page" do
@@ -511,4 +511,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [organisation_a, organisation_b, organisation_c], assigns[:organisations]
   end
 
+  test "should place organisation specific css class on every organisation sub page" do
+    organisation = create(:organisation)
+
+    [:show, :about, :consultations, :contact_details, :management_team, :ministers, :policies, :publications].each do |page|
+      get page, id: organisation
+      assert_select "##{dom_id(organisation)}.#{organisation.slug}"
+    end
+  end
 end

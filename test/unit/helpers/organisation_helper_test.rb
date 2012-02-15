@@ -50,4 +50,11 @@ class OrganisationHelperTest < ActionView::TestCase
     classes = (anchor.attr('class').try(:value) || '').split
     refute classes.include?('current')
   end
+
+  test 'organisation header helper should place org specific class onto the div' do
+    organisation = build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene")
+    html = organisation_wrapper(organisation) {  }
+    div = Nokogiri::HTML.fragment(html)/'div'
+    assert_match /organisation-slug-yeah/, div.attr('class').value
+  end
 end

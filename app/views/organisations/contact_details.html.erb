@@ -1,6 +1,6 @@
 <% page_title @organisation.name %>
 
-<%= content_tag_for :div, @organisation, class: "hcard" do %>
+<%= organisation_wrapper(@organisation, class: "hcard") do %>
   <div class="g3f">
     <%= render 'header', organisation: @organisation %>
   </div>

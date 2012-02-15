@@ -1,5 +1,5 @@
 <% page_title "#{@organisation.name} Consultations" %>
-<div class="g3f organisation">
+<%= organisation_wrapper(@organisation, class: "g3f") do %>
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Consultations" %>
 
   <% if @consultations.any? %>
@@ -12,4 +12,4 @@
       <% end %>
     </div>
   <% end %>
-</div>
+<% end %>

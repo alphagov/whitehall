@@ -1,7 +1,6 @@
 <% page_title "#{@organisation.name} Publications" %>
-<div class="g3f organisation">
+<%= organisation_wrapper(@organisation, class: "g3f hcard group") do %>
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Publications" %>
-
   <% if @publications.any? %>
     <div class="g3f">
       <%= article_section("Publications", @publications, {id: 'publications'}) do |publication| %>
@@ -12,5 +11,4 @@
       <% end %>
     </div>
   <% end %>
-
-</div>
+<% end %>

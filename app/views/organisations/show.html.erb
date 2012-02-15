@@ -1,11 +1,10 @@
 <% page_title @organisation.name %>
-
-<%= content_tag_for :div, @organisation, class: "hcard group" do %>
+<%= organisation_wrapper(@organisation, class: "hcard group") do %>
   <div class="g3">
     <div class="g1">
       <%= render 'header', organisation: @organisation %>
     </div>
-    
+
     <div class="g2">
       <% if @featured_news_articles.any? %>
         <section class="org_news">
@@ -26,9 +25,9 @@
           </section>
         </section>
       <% end %>
-      
+
       <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
-      
+
       <% if ministerial_role = @organisation.top_ministerial_role %>
         <section id="ministers" class="g-half info">
           <h1><%= link_to 'Ministers', ministers_organisation_path(@organisation) %></h1>
@@ -53,13 +52,13 @@
           <% end %>
         </section>
       <% end %>
-      
+
       <div class="g2">
         <%= render partial: "documents/policy_areas", object: @organisation.policy_areas, title: "Our policy areas" %>
       </div>
     </div>
   </div>
-  
+
   <div class="g4">
     <% if @policies.any? %>
       <div class="g1">
@@ -71,14 +70,14 @@
             <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
             <p class="metadata">
               <%= time_ago(policy.updated_at, class: 'updated_at') %>
-            </p>            
+            </p>
           <% end %>
           <% end %>
           </ul>
         </section>
       </div>
     <% end %>
-    
+
     <% if @publications.any? %>
       <div class="g1">
         <section id="publications">
@@ -89,14 +88,14 @@
             <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
             <p class="metadata">
               <%= time_ago(publication.updated_at, class: 'updated_at') %>
-            </p>        
+            </p>
           <% end %>
           <% end %>
           </ul>
         </section>
       </div>
     <% end %>
-    
+
     <% if @consultations.any? %>
       <div class="g1">
         <section id="consultations">
@@ -107,7 +106,7 @@
             <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
             <p class="metadata">
               <%= time_ago(consultation.updated_at, class: 'updated_at') %>
-            </p>      
+            </p>
           <% end %>
           <% end %>
           </ul>
@@ -125,7 +124,7 @@
             <h2 class="article_title"><%= link_to speech.title, public_document_path(speech), title: "View #{speech.title}", class: 'title' %></h2>
             <p class="metadata">
               <%= time_ago(speech.updated_at, class: 'updated_at') %>
-            </p>    
+            </p>
           <% end %>
           <% end %>
           </ul>
@@ -147,7 +146,7 @@
     <% end %>
 
   </div>
-  
+
   <div class="g3f">
     <% if @organisation.child_organisations.any? %>
       <section id="child_organisations" class="info">
@@ -156,6 +155,6 @@
       </section>
     <% end %>
   </div>
-  
+
 <% end %>
 

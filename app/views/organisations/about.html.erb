@@ -1,6 +1,6 @@
 <% page_title "About " + @organisation.name %>
 
-<div class="g3f organisation">
+<%= organisation_wrapper(@organisation, class: "g3f") do %>
   <%= render 'header', organisation: @organisation %>
 
   <div class="g3f about_page">
@@ -28,4 +28,4 @@
       </span>
     <% end %>
   <% end %>
-</div>
+<% end %>

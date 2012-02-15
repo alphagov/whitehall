@@ -1,7 +1,6 @@
 <% page_title "#{@organisation.name} Ministers" %>
-<div class="g3f organisation">
+<%= organisation_wrapper(@organisation, class: "g3f") do %>
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Ministers" %>
-
   <% if @ministerial_roles.any? %>
     <div class="g3f">
       <%= article_section("Our people", @ministerial_roles, {id: 'ministers'}) do |ministerial_role| %>
@@ -13,5 +12,4 @@
       <% end %>
     </div>
   <% end %>
-
-</div>
+<% end %>
