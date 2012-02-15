@@ -5,6 +5,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   should_display_attachments_for :consultation
   should_show_featured_documents_for :consultation
   should_show_related_policies_and_policy_areas_for :consultation
+  should_display_inline_images_for :consultation
 
   test "should avoid n+1 queries" do
     featured_consultations = Consultation.featured

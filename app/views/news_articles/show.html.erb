@@ -38,7 +38,7 @@
             <% end %>
           </figure>
         <% end %>
-        <%= govspeak_to_html @document.body %>
+        <%= govspeak_to_html @document.body, @document.images %>
       </div>
       <% if @document.notes_to_editors.present? %>
         <section id="notes_to_editors">

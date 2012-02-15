@@ -5,6 +5,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_display_attachments_for :publication
   should_show_related_policies_and_policy_areas_for :publication
   should_show_the_countries_associated_with :publication
+  should_display_inline_images_for :publication
 
   test "should only display published publications" do
     archived_publication = create(:archived_publication)

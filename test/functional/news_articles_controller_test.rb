@@ -5,6 +5,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
   should_render_a_list_of :news_articles, :first_published_at
   should_show_related_policies_and_policy_areas_for :news_article
   should_show_the_countries_associated_with :news_article
+  should_display_inline_images_for :news_article
 
   test "shows published news article" do
     news_article = create(:published_news_article)

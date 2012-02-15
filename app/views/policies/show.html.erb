@@ -78,7 +78,7 @@
 
     <article class="document has_notice">
       <div class="body">
-        <%= govspeak_to_html @document.body %>
+        <%= govspeak_to_html @document.body, @document.images %>
       </div>
 
       <% if @related_news_articles.any? %>

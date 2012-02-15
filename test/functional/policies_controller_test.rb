@@ -6,6 +6,7 @@ class PoliciesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_render_a_list_of :policies
   should_show_the_countries_associated_with :policy
+  should_display_inline_images_for :policy
 
   test "should show inapplicable nations" do
     published_policy = create(:published_policy)

@@ -47,6 +47,17 @@ module DocumentControllerTestHelpers
       end
     end
 
+    def should_display_inline_images_for(document_type) 
+      test "show displays document with inline images" do
+        images = [create(:image)]
+        document = create("published_#{document_type}", body: "!!1", images: images)
+
+        get :show, id: document.document_identity
+
+        assert_select 'article .body figure.image.embedded img'
+      end
+    end
+    
     def should_show_featured_documents_for(document_type)
       document_types = document_type.to_s.pluralize
       test "should ignore unpublished featured #{document_types}" do
