@@ -132,10 +132,10 @@
     <% if [@featured_news_articles, @speeches, @consultations, @publications, @policies].select(&:any?).blank? %>
       <div class="g3f">
         <section class="no_content article_section">
-          <h1>Content needed</h1>
-          <p>At present there isn't any content to fill this page.
+          <h1>BETA</h1>
+          <p>This is a test website.
           <% if @organisation.url.present? %>
-          Please visit <%= link_to @organisation.url, @organisation.url %> instead.
+          The official website remains <%= link_to @organisation.url, @organisation.url %>.
           <% end %>
           </p>
         </section>
