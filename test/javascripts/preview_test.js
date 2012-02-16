@@ -2,8 +2,13 @@ module("Previewing contents of a textarea", {
   setup: function() {
     var textarea = $('<textarea id="blah"># preview this</textarea>');
     var label = $('<label for="blah"></label>');
+    var image_inputs = $('<fieldset class="images">' +
+      '<input name="document[images_attributes][0][id]" type="hidden" value="1">' + 
+      '<input name="document[images_attributes][1][id]" type="hidden" value="2">' +
+      '</fieldset>');
     $('#qunit-fixture').append(textarea);
     $('#qunit-fixture').append(label);
+    $('#qunit-fixture').append(image_inputs);
     textarea.enablePreview();
 
     this.stubbingPreviewAjax = function(callback, preventResponse) {
@@ -42,6 +47,15 @@ test("should include the authenticity token in the posted data", function() {
   var callParams = jQuery.ajax.getCall(0).args[0];
   equals(callParams.data.authenticity_token, $("meta[name-csrf-token]").val());
 })
+
+test("should include ids of any persisted images", function() {
+  this.stubbingPreviewAjax(function() {
+    $("a.show-preview").click();
+  })
+
+  var callParams = jQuery.ajax.getCall(0).args[0];
+  same(callParams.data.image_ids, ["1", "2"]);
+});
 
 test("should indicate that the preview is loading", function() {
   this.stubbingPreviewAjax(function() {

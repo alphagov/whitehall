@@ -11,4 +11,13 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     post :preview, body: "# gov speak"
     assert_select "section.document_view .body h1", "gov speak"
   end
+  
+  test "renders attached images if a document id is passed" do
+    document = create(:policy, body: '!!1')
+    image = create(:image, document: document)
+    
+    post :preview, body: document.body, image_ids: document.images.map(&:id)
+    assert_select "section.document_view .body figure.image.embedded img[src=?]", %r{#{image.url}}
+  end
+  
 end

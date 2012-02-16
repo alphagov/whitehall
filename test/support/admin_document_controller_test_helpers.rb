@@ -819,6 +819,15 @@ module AdminDocumentControllerTestHelpers
           assert_select "img[src=?]", %r{#{image.image_data.file}}
         end
       end
+      
+      test "can embed image inline and see it in preview" do
+        document = create(document_type, body: "!!1")
+        image = create(:image, document: document)
+
+        get :show, id: document
+
+        assert_select 'article .body figure.image.embedded img[src=?]', %r{#{image.url}}
+      end
     end
 
     def should_be_able_to_delete_a_document(document_type)

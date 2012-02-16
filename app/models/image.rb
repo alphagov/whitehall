@@ -8,6 +8,8 @@ class Image < ActiveRecord::Base
 
   accepts_nested_attributes_for :image_data
 
+  default_scope order(:id)
+
   def url
     image_data.file_url
   end

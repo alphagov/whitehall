@@ -29,13 +29,21 @@
         preview.show();
         edit_link.show();
       }
+      
+      var imageIds = function() {
+        var image_nodes = $("fieldset.images input[type=hidden][name^='document[images_attributes]'][name$='[id]']");
+        return $.map(image_nodes, function(node) {
+          return $(node).val();
+        });
+      }
 
       showEditor();
 
       preview_link.click(function() {
         params = {
           body: textarea.val(),
-          authenticity_token: $("meta[name=csrf-token]").attr('content')
+          authenticity_token: $("meta[name=csrf-token]").attr('content'),
+          image_ids: imageIds()
         }
         loading_indicator.show();
         preview_link.hide();
