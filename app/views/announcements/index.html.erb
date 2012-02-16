@@ -26,8 +26,8 @@
                 <%= time_ago_in_words(news_article.first_published_at) %> ago
               <% end %>
             </span>
-            <% news_article.policy_areas.uniq.each do |pa| %>
-              <%= link_to pa.name, policy_area_path(pa), class: "policy_area tag" %>
+            <% news_article.policy_topics.uniq.each do |pa| %>
+              <%= link_to pa.name, policy_topic_path(pa), class: "policy_topic tag" %>
             <% end %>
           </div>
         <% end %>

@@ -8,6 +8,6 @@ class AnnouncementsController < PublicFacingController
   private
 
   def featured_news_articles
-    NewsArticle.published.featured.by_first_published_at.limit(3).includes(:document_identity, :document_relations, :policy_areas)
+    NewsArticle.published.featured.by_first_published_at.limit(3).includes(:document_identity, :document_relations, :policy_topics)
   end
 end

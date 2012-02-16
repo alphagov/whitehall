@@ -124,8 +124,8 @@ module ApplicationHelper
       root_path
     when "announcements", "news_articles", "speeches"
       announcements_path
-    when "policy_areas", "policies", "supporting_pages"
-      policy_areas_path
+    when "policy_topics", "policies", "supporting_pages"
+      policy_topics_path
     when "publications"
       publications_path
     when "consultations", "consultation_responses"

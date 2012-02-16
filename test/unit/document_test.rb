@@ -129,16 +129,16 @@ class DocumentTest < ActiveSupport::TestCase
     refute Document.latest_published_edition.include?(new_draft)
   end
 
-  test "should return a list of documents in a policy area" do
-    policy_area_1 = create(:policy_area)
-    policy_area_2 = create(:policy_area)
-    draft_policy = create(:draft_policy, policy_areas: [policy_area_1])
-    published_policy = create(:published_policy, policy_areas: [policy_area_1])
-    published_in_second_policy_area = create(:published_policy, policy_areas: [policy_area_2])
+  test "should return a list of documents in a policy topic" do
+    policy_topic_1 = create(:policy_topic)
+    policy_topic_2 = create(:policy_topic)
+    draft_policy = create(:draft_policy, policy_topics: [policy_topic_1])
+    published_policy = create(:published_policy, policy_topics: [policy_topic_1])
+    published_in_second_policy_topic = create(:published_policy, policy_topics: [policy_topic_2])
 
-    assert_equal [draft_policy, published_policy], Policy.in_policy_area(policy_area_1)
-    assert_equal [published_policy], Policy.published.in_policy_area(policy_area_1)
-    assert_equal [published_in_second_policy_area], Policy.in_policy_area(policy_area_2)
+    assert_equal [draft_policy, published_policy], Policy.in_policy_topic(policy_topic_1)
+    assert_equal [published_policy], Policy.published.in_policy_topic(policy_topic_1)
+    assert_equal [published_in_second_policy_topic], Policy.in_policy_topic(policy_topic_2)
   end
 
   test "should return a list of documents in an organisation" do
@@ -451,17 +451,17 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal published_document.first_published_at, draft_document.first_published_at
   end
 
-  test "should build a draft copy with references to policy areas, organisations, ministerial roles & countries" do
-    policy_area = create(:policy_area)
+  test "should build a draft copy with references to policy topics, organisations, ministerial roles & countries" do
+    policy_topic = create(:policy_topic)
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role)
     country = create(:country)
 
-    published_policy = create(:published_policy, policy_areas: [policy_area], organisations: [organisation], ministerial_roles: [ministerial_role], countries: [country])
+    published_policy = create(:published_policy, policy_topics: [policy_topic], organisations: [organisation], ministerial_roles: [ministerial_role], countries: [country])
 
     draft_policy = published_policy.create_draft(create(:policy_writer))
 
-    assert_equal [policy_area], draft_policy.policy_areas
+    assert_equal [policy_topic], draft_policy.policy_topics
     assert_equal [organisation], draft_policy.organisations
     assert_equal [ministerial_role], draft_policy.ministerial_roles
     assert_equal [country], draft_policy.countries
@@ -492,15 +492,15 @@ class DocumentTest < ActiveSupport::TestCase
     assert draft.related_policies.include?(policy_2)
   end
 
-  test "should build a draft copy preserving ordering with policy area" do
-    policy_area = create(:policy_area)
-    published_policy = create(:published_policy, policy_areas: [policy_area])
-    association = policy_area.policy_area_memberships.where(policy_id: published_policy.id).first
+  test "should build a draft copy preserving ordering with policy topic" do
+    policy_topic = create(:policy_topic)
+    published_policy = create(:published_policy, policy_topics: [policy_topic])
+    association = policy_topic.policy_topic_memberships.where(policy_id: published_policy.id).first
     association.update_attributes(ordering: 31)
 
     draft_policy = published_policy.create_draft(create(:policy_writer))
 
-    new_association = policy_area.policy_area_memberships.where(policy_id: draft_policy.id).first
+    new_association = policy_topic.policy_topic_memberships.where(policy_id: draft_policy.id).first
     assert_equal 31, new_association.ordering
   end
 

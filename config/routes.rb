@@ -34,7 +34,7 @@ Whitehall::Application.routes.draw do
 
     resources :speeches, only: [:index, :show]
 
-    resources :policy_areas, path: "policy-areas", only: [:index, :show]
+    resources :policy_topics, path: "policy-topics", only: [:index, :show]
     resources :organisations, only: [:index, :show] do
       collection do
         get :alphabetical
@@ -67,7 +67,7 @@ Whitehall::Application.routes.draw do
         resource :user, only: [:show, :edit, :update]
         resources :organisations, except: [:show, :destroy]
         resources :document_organisations, only: [:update]
-        resources :policy_areas, path: "policy-areas", except: [:show] do
+        resources :policy_topics, path: "policy-topics", except: [:show] do
           member do
             post :feature
             post :unfeature
@@ -108,7 +108,7 @@ Whitehall::Application.routes.draw do
       end
     end
 
-    match '/topics' => redirect("/policy-areas")
+    match '/topics' => redirect("/policy-topics")
 
     match 'site/sha' => 'site#sha'
     match 'site/headers' => 'site#headers'

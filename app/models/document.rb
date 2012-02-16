@@ -60,7 +60,7 @@ class Document < ActiveRecord::Base
     end
   end
 
-  def can_be_associated_with_policy_areas?
+  def can_be_associated_with_policy_topics?
     false
   end
 

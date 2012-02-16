@@ -180,18 +180,18 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows unique related policy areas for each news article" do
-    first_policy_area = create(:policy_area, name: 'first-area')
-    second_policy_area = create(:policy_area, name: 'second-area')
-    policy_1 = create(:published_policy, policy_areas: [first_policy_area, second_policy_area])
-    policy_2 = create(:published_policy, policy_areas: [first_policy_area])
+  test "index shows unique related policy topics for each news article" do
+    first_policy_topic = create(:policy_topic, name: 'first-area')
+    second_policy_topic = create(:policy_topic, name: 'second-area')
+    policy_1 = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
+    policy_2 = create(:published_policy, policy_topics: [first_policy_topic])
     news_article = create(:published_news_article, published_at: 4.days.ago, related_policies: [policy_1, policy_2])
 
     get :index
 
     assert_select_object news_article do
-      assert_select ".meta a[href='#{policy_area_path(first_policy_area)}']", text: first_policy_area.name, count: 1
-      assert_select ".meta a[href='#{policy_area_path(second_policy_area)}']", text: second_policy_area.name, count: 1
+      assert_select ".meta a[href='#{policy_topic_path(first_policy_topic)}']", text: first_policy_topic.name, count: 1
+      assert_select ".meta a[href='#{policy_topic_path(second_policy_topic)}']", text: second_policy_topic.name, count: 1
     end
   end
 

@@ -31,11 +31,11 @@ class PolicyTest < ActiveSupport::TestCase
     assert draft_policy.related_documents.include?(publication)
   end
 
-  test "can belong to multiple policy areas" do
-    policy_area_1 = create(:policy_area)
-    policy_area_2 = create(:policy_area)
-    policy = create(:policy, policy_areas: [policy_area_1, policy_area_2])
-    assert_equal [policy_area_1, policy_area_2], policy.policy_areas.reload
+  test "can belong to multiple policy topics" do
+    policy_topic_1 = create(:policy_topic)
+    policy_topic_2 = create(:policy_topic)
+    policy = create(:policy, policy_topics: [policy_topic_1, policy_topic_2])
+    assert_equal [policy_topic_1, policy_topic_2], policy.policy_topics.reload
   end
 
   test "prepends stub signifier to stub policy titles" do

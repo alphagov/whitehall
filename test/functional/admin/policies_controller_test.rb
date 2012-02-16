@@ -67,60 +67,60 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select ".supporting_pages .supporting_page"
   end
 
-  test "new should display policy areas field" do
+  test "new should display policy topics field" do
     get :new
 
     assert_select "form#document_new" do
-      assert_select "select[name*='document[policy_area_ids]']"
+      assert_select "select[name*='document[policy_topic_ids]']"
     end
   end
 
-  test "create should associate policy areas with policy" do
-    first_policy_area = create(:policy_area)
-    second_policy_area = create(:policy_area)
+  test "create should associate policy topics with policy" do
+    first_policy_topic = create(:policy_topic)
+    second_policy_topic = create(:policy_topic)
     attributes = attributes_for(:policy)
 
     post :create, document: attributes.merge(
-      policy_area_ids: [first_policy_area.id, second_policy_area.id]
+      policy_topic_ids: [first_policy_topic.id, second_policy_topic.id]
     )
 
     assert policy = Policy.last
-    assert_equal [first_policy_area, second_policy_area], policy.policy_areas
+    assert_equal [first_policy_topic, second_policy_topic], policy.policy_topics
   end
 
-  test "edit should display policy areas field" do
+  test "edit should display policy topics field" do
     policy = create(:policy)
 
     get :edit, id: policy
 
     assert_select "form#document_edit" do
-      assert_select "select[name*='document[policy_area_ids]']"
+      assert_select "select[name*='document[policy_topic_ids]']"
     end
   end
 
-  test "update should associate policy areas with policy" do
-    first_policy_area = create(:policy_area)
-    second_policy_area = create(:policy_area)
+  test "update should associate policy topics with policy" do
+    first_policy_topic = create(:policy_topic)
+    second_policy_topic = create(:policy_topic)
 
-    policy = create(:policy, policy_areas: [first_policy_area])
+    policy = create(:policy, policy_topics: [first_policy_topic])
 
     put :update, id: policy, document: {
-      policy_area_ids: [second_policy_area.id]
+      policy_topic_ids: [second_policy_topic.id]
     }
 
     policy.reload
-    assert_equal [second_policy_area], policy.policy_areas
+    assert_equal [second_policy_topic], policy.policy_topics
   end
 
-  test "update should remove all policy areas if none specified" do
-    policy_area = create(:policy_area)
+  test "update should remove all policy topics if none specified" do
+    policy_topic = create(:policy_topic)
 
-    policy = create(:policy, policy_areas: [policy_area])
+    policy = create(:policy, policy_topics: [policy_topic])
 
     put :update, id: policy, document: {}
 
     policy.reload
-    assert_equal [], policy.policy_areas
+    assert_equal [], policy.policy_topics
   end
 
   test "updating should retain associations to related documents" do

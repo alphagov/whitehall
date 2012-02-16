@@ -3,10 +3,10 @@ In order to obtain useful information about government
 A member of the public
 Should be able to view policies
 
-Scenario: Viewing a policy that appears in multiple policy areas
-  Given a published policy "Policy" that appears in the "Education" and "Work and pensions" policy areas
+Scenario: Viewing a policy that appears in multiple policy topics
+  Given a published policy "Policy" that appears in the "Education" and "Work and pensions" policy topics
   When I visit the policy "Policy"
-  Then I should see links to the "Education" and "Work and pensions" policy areas
+  Then I should see links to the "Education" and "Work and pensions" policy topics
 
 Scenario: Viewing a policy that has supporting pages
   Given a published policy "Outlaw Moustaches" with supporting pages "Waxing Dangers" and "Hair Lip"

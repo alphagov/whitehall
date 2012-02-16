@@ -1,0 +1,32 @@
+<% page_title "Policy topics" %>
+
+<div class="g3f">
+  <section class="page_header policytopic">
+    <h1 class="page_title">Policy topics</h1>
+    <p class="explanation">Current government policies, related news and publications</p>
+  </section>
+
+  <% if @featured_policy_topics.any? %>
+    <section class="featured_items group" id="featured-policytopics">
+      <% @featured_policy_topics.each do |featured_policy_topic| %>
+        <div class="<%= featured_grid_class(@featured_policy_topics.length) %>">
+          <%= content_tag_for(:article, featured_policy_topic) do %>
+            <h2><%= link_to featured_policy_topic.name, policy_topic_path(featured_policy_topic), class: "name" %></h2>
+            <p class="summary description">
+              <%= featured_policy_topic.description %>
+            </p>
+          <% end %>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+
+</div>
+
+<div class="g3">
+  <% if @policy_topics.any? %>
+    <%= render partial: "grouped_list", locals: {policy_topics: @policy_topics} %>
+  <% else %>
+    <div class="g3"><p>We don't have any policy topics with published documents at present.</p></div>
+  <% end %>
+</div>

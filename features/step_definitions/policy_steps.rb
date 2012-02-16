@@ -13,10 +13,10 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
   And %{I submit the policy for the second set of eyes}
 end
 
-Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" policy areas$/ do |policy_title, policy_area_1, policy_area_2|
+Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" policy topics$/ do |policy_title, policy_topic_1, policy_topic_2|
   policy = create(:published_policy, title: policy_title)
-  create(:policy_area, name: policy_area_1, policies: [policy])
-  create(:policy_area, name: policy_area_2, policies: [policy])
+  create(:policy_topic, name: policy_topic_1, policies: [policy])
+  create(:policy_topic, name: policy_topic_2, policies: [policy])
 end
 
 Given /^a published policy "([^"]*)" that does not apply to the nations:$/ do |policy_title, nation_names|
@@ -147,10 +147,10 @@ When /^I draft a new policy "([^"]*)"$/ do |title|
   click_button "Save"
 end
 
-When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" policy areas$/ do |title, first_policy_area, second_policy_area|
+When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" policy topics$/ do |title, first_policy_topic, second_policy_topic|
   begin_drafting_document type: "Policy", title: title
-  select first_policy_area, from: "Policy areas"
-  select second_policy_area, from: "Policy areas"
+  select first_policy_topic, from: "Policy topics"
+  select second_policy_topic, from: "Policy topics"
   click_button "Save"
 end
 
@@ -183,9 +183,9 @@ When /^I edit the policy "([^"]*)" changing the title to "([^"]*)"$/ do |origina
   click_button "Save"
 end
 
-When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" policy area$/ do |title, policy_area_name|
+When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" policy topic$/ do |title, policy_topic_name|
   begin_editing_document title
-  select policy_area_name, from: "Policy areas"
+  select policy_topic_name, from: "Policy topics"
   click_button "Save"
 end
 

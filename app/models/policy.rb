@@ -1,6 +1,6 @@
 class Policy < Document
   include Document::NationalApplicability
-  include Document::PolicyAreas
+  include Document::PolicyTopics
   include Document::Ministers
   include Document::FactCheckable
   include Document::SupportingPages

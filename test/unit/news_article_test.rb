@@ -16,25 +16,25 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert article.can_be_related_to_policies?
   end
 
-  test "#policy_areas includes policy areas associated with related published policies" do
-    related_policy = create(:published_policy, policy_areas: [create(:policy_area), create(:policy_area)])
+  test "#policy_topics includes policy topics associated with related published policies" do
+    related_policy = create(:published_policy, policy_topics: [create(:policy_topic), create(:policy_topic)])
     news_article = create(:news_article, related_policies: [related_policy])
-    assert_equal related_policy.policy_areas.sort, news_article.policy_areas.sort
+    assert_equal related_policy.policy_topics.sort, news_article.policy_topics.sort
   end
 
-  test "#policy_areas excludes policy areas associated with related unpublished policies" do
-    related_policy = create(:draft_policy, policy_areas: [create(:policy_area), create(:policy_area)])
+  test "#policy_topics excludes policy topics associated with related unpublished policies" do
+    related_policy = create(:draft_policy, policy_topics: [create(:policy_topic), create(:policy_topic)])
 
     news_article = create(:news_article, related_policies: [related_policy])
-    assert_equal [], news_article.policy_areas
+    assert_equal [], news_article.policy_topics
   end
 
-  test "#policy_areas includes each related policy area only once, even if associated multiple times" do
-    policy_area = create(:policy_area)
-    first_related_policy = create(:published_policy, policy_areas: [policy_area])
-    second_related_policy = create(:published_policy, policy_areas: [policy_area])
+  test "#policy_topics includes each related policy topic only once, even if associated multiple times" do
+    policy_topic = create(:policy_topic)
+    first_related_policy = create(:published_policy, policy_topics: [policy_topic])
+    second_related_policy = create(:published_policy, policy_topics: [policy_topic])
     news_article = create(:news_article, related_policies: [first_related_policy, second_related_policy])
-    assert_equal [policy_area], news_article.policy_areas
+    assert_equal [policy_topic], news_article.policy_topics
   end
 
   test "should build a draft copy retaining any associated feature image with responds to present" do

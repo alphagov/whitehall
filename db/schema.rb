@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120215114920) do
+ActiveRecord::Schema.define(:version => 20120216132726) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -192,9 +192,9 @@ ActiveRecord::Schema.define(:version => 20120215114920) do
     t.string "name"
   end
 
-  create_table "organisation_policy_areas", :force => true do |t|
+  create_table "organisation_policy_topics", :force => true do |t|
     t.integer  "organisation_id", :null => false
-    t.integer  "policy_area_id",  :null => false
+    t.integer  "policy_topic_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -251,23 +251,23 @@ ActiveRecord::Schema.define(:version => 20120215114920) do
     t.text     "biography"
   end
 
-  create_table "policy_area_memberships", :force => true do |t|
-    t.integer  "policy_area_id"
+  create_table "policy_topic_memberships", :force => true do |t|
+    t.integer  "policy_topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "policy_id"
     t.integer  "ordering"
-    t.boolean  "featured",       :default => false
+    t.boolean  "featured",        :default => false
   end
 
-  create_table "policy_area_relations", :force => true do |t|
-    t.integer  "policy_area_id",         :null => false
-    t.integer  "related_policy_area_id", :null => false
+  create_table "policy_topic_relations", :force => true do |t|
+    t.integer  "policy_topic_id",         :null => false
+    t.integer  "related_policy_topic_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "policy_areas", :force => true do |t|
+  create_table "policy_topics", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -277,7 +277,7 @@ ActiveRecord::Schema.define(:version => 20120215114920) do
     t.string   "state"
   end
 
-  add_index "policy_areas", ["slug"], :name => "index_policy_areas_on_slug"
+  add_index "policy_topics", ["slug"], :name => "index_policy_areas_on_slug"
 
   create_table "role_appointments", :force => true do |t|
     t.integer  "role_id"

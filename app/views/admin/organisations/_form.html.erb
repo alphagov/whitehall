@@ -18,8 +18,8 @@
     <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.all - [organisation_form.object], 'id', 'name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose associated departments..." } %>
   </fieldset>
   <fieldset>
-    <%= organisation_form.label :policy_area_ids, 'Policy areas' %>
-    <%= organisation_form.select :policy_area_ids, options_from_collection_for_select(PolicyArea.all, 'id', 'name', organisation.policy_area_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose policy areas..."} %>
+    <%= organisation_form.label :policy_topic_ids, 'Policy topics' %>
+    <%= organisation_form.select :policy_topic_ids, options_from_collection_for_select(PolicyTopic.all, 'id', 'name', organisation.policy_topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose policy topics..."} %>
   </fieldset>
   <fieldset class="named contacts">
     <legend>Contacts</legend>

@@ -116,8 +116,8 @@ class Admin::DocumentsController < Admin::BaseController
 
   def default_arrays_of_ids_to_empty
     params[:document][:organisation_ids] ||= []
-    if @document.can_be_associated_with_policy_areas?
-      params[:document][:policy_area_ids] ||= []
+    if @document.can_be_associated_with_policy_topics?
+      params[:document][:policy_topic_ids] ||= []
     end
     if @document.can_be_associated_with_ministers?
       params[:document][:ministerial_role_ids] ||= []

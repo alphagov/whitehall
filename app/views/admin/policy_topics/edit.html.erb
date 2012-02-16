@@ -1,0 +1,15 @@
+<% page_title "Edit " + @policy_topic.name %>
+<div class="g2 first">
+  <section>
+    <h1>Edit policy topic</h1>
+    <%= render partial: "form", locals: {policy_topic: @policy_topic} %>
+  </section>
+  <section>
+    <h1>Delete policy topic</h1>
+    <% if @policy_topic.destroyable? %>
+      <%= button_to 'Delete', admin_policy_topic_path(@policy_topic), method: :delete, confirm: 'Are you sure you want to delete this policy topic?' %>
+    <% else %>
+      <span class="documents_preventing_destruction">This policy topic can't be deleted as it has associated policies: <%= documents_preventing_destruction(@policy_topic) %></span>
+    <% end %>
+  </section>
+</div>

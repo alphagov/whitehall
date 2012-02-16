@@ -13,7 +13,7 @@ class NewsArticle < Document
     end
   end
 
-  has_many :policy_areas, through: :published_related_policies, group: 'policy_areas.id'
+  has_many :policy_topics, through: :published_related_policies, group: 'policy_topics.id'
 
   def has_summary?
     true

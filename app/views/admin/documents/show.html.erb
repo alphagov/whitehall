@@ -28,13 +28,13 @@
       <% end %>
     </section>
 
-    <% if @document.can_be_associated_with_policy_areas? %>
+    <% if @document.can_be_associated_with_policy_topics? %>
       <section class="container">
-        <h1>Policy areas</h1>
-        <% if @document.policy_areas.any? %>
-          <%= render partial: "policy_areas/list", locals: {policy_areas: @document.policy_areas} %>
+        <h1>Policy topics</h1>
+        <% if @document.policy_topics.any? %>
+          <%= render partial: "policy_topics/list", locals: {policy_topics: @document.policy_topics} %>
         <% else %>
-          <p>This document isn't assigned to any policy areas.</p>
+          <p>This document isn't assigned to any policy topics.</p>
         <% end %>
       </section>
     <% end %>

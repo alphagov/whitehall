@@ -1,0 +1,6 @@
+<% if policy_topics.any? %>
+  <section id="policy_topics">
+    <h1>Policy topics</h1>
+    <%= render partial: "policy_topics/list", locals: {policy_topics: policy_topics} %>
+  </section>
+<% end %>

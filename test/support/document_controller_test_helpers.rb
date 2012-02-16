@@ -97,7 +97,7 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_show_related_policies_and_policy_areas_for(document_type)
+    def should_show_related_policies_and_policy_topics_for(document_type)
       test "show displays related published policies" do
         published_policy = create(:published_policy)
         document = create("published_#{document_type}", related_policies: [published_policy])
@@ -112,21 +112,21 @@ module DocumentControllerTestHelpers
         refute_select_object draft_policy
       end
 
-      test "show infers policy areas from published policies" do
-        policy_area = create(:policy_area)
-        published_policy = create(:published_policy, policy_areas: [policy_area])
+      test "show infers policy topics from published policies" do
+        policy_topic = create(:policy_topic)
+        published_policy = create(:published_policy, policy_topics: [policy_topic])
         document = create("published_#{document_type}", related_policies: [published_policy])
         get :show, id: document.document_identity
-        assert_select_object policy_area
+        assert_select_object policy_topic
       end
 
-      test "show doesn't display duplicate inferred policy areas" do
-        policy_area = create(:policy_area)
-        published_policy_1 = create(:published_policy, policy_areas: [policy_area])
-        published_policy_2 = create(:published_policy, policy_areas: [policy_area])
+      test "show doesn't display duplicate inferred policy topics" do
+        policy_topic = create(:policy_topic)
+        published_policy_1 = create(:published_policy, policy_topics: [policy_topic])
+        published_policy_2 = create(:published_policy, policy_topics: [policy_topic])
         document = create("published_#{document_type}", related_policies: [published_policy_1, published_policy_2])
         get :show, id: document.document_identity
-        assert_select_object policy_area, count: 1
+        assert_select_object policy_topic, count: 1
       end
 
       test "should not display policies unless they are related" do

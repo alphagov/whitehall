@@ -21,7 +21,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "#govspeak_help"
     assert_select parent_organisations_list_selector
     assert_select organisation_type_list_selector
-    assert_select organisation_policy_areas_list_selector
+    assert_select organisation_policy_topics_list_selector
     assert_select "input[type=text][name='organisation[contacts_attributes][0][description]']"
     assert_select "textarea[name='organisation[contacts_attributes][0][address]']"
     assert_select "input[type=text][name='organisation[contacts_attributes][0][postcode]']"
@@ -51,11 +51,11 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     )
 
     organisation_type = create(:organisation_type)
-    policy_area = create(:policy_area)
+    policy_topic = create(:policy_topic)
 
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
-      policy_area_ids: [policy_area.id],
+      policy_topic_ids: [policy_topic.id],
       contacts_attributes: [{description: "Enquiries", contact_numbers_attributes: [{label: "Fax", number: "020712435678"}]}]
     )
 
@@ -68,7 +68,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal 1, organisation.contacts[0].contact_numbers.count
     assert_equal "Fax", organisation.contacts[0].contact_numbers[0].label
     assert_equal "020712435678", organisation.contacts[0].contact_numbers[0].number
-    assert_equal policy_area, organisation.policy_areas.first
+    assert_equal policy_topic, organisation.policy_topics.first
   end
 
   test "creating should redirect back to the index" do
@@ -118,11 +118,11 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     )
 
     organisation_type = create(:organisation_type)
-    policy_area = create(:policy_area)
+    policy_topic = create(:policy_topic)
 
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
-      policy_area_ids: [policy_area.id],
+      policy_topic_ids: [policy_topic.id],
       contacts_attributes: {"0" => {
         description: "Enquiries",
         contact_numbers_attributes: {
@@ -284,16 +284,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal 0, organisation.contacts.count
   end
 
-  test "update should remove all related policy areas if none specified" do
+  test "update should remove all related policy topics if none specified" do
     organisation_attributes = {name: "Ministry of Sound"}
     organisation = create(:organisation,
-      organisation_attributes.merge(policy_area_ids: [create(:policy_area).id])
+      organisation_attributes.merge(policy_topic_ids: [create(:policy_topic).id])
     )
 
     put :update, id: organisation, organisation: organisation_attributes
 
     organisation.reload
-    assert_equal [], organisation.policy_areas
+    assert_equal [], organisation.policy_topics
   end
 
   test "update should remove all parent organisations if none specified" do

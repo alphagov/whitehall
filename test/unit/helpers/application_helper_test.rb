@@ -98,13 +98,13 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal announcements_path, current_main_navigation_path(controller: "speeches", action: "show")
   end
 
-  test "policy-related pages should be related to policy areas main navigation" do
-    assert_equal policy_areas_path, current_main_navigation_path(controller: "policy_areas", action: "index")
-    assert_equal policy_areas_path, current_main_navigation_path(controller: "policy_areas", action: "show")
-    assert_equal policy_areas_path, current_main_navigation_path(controller: "policies", action: "index")
-    assert_equal policy_areas_path, current_main_navigation_path(controller: "policies", action: "show")
-    assert_equal policy_areas_path, current_main_navigation_path(controller: "supporting_pages", action: "index")
-    assert_equal policy_areas_path, current_main_navigation_path(controller: "supporting_pages", action: "show")
+  test "policy-related pages should be related to policy topics main navigation" do
+    assert_equal policy_topics_path, current_main_navigation_path(controller: "policy_topics", action: "index")
+    assert_equal policy_topics_path, current_main_navigation_path(controller: "policy_topics", action: "show")
+    assert_equal policy_topics_path, current_main_navigation_path(controller: "policies", action: "index")
+    assert_equal policy_topics_path, current_main_navigation_path(controller: "policies", action: "show")
+    assert_equal policy_topics_path, current_main_navigation_path(controller: "supporting_pages", action: "index")
+    assert_equal policy_topics_path, current_main_navigation_path(controller: "supporting_pages", action: "show")
   end
 
   test "publication-related pages should be related to publications main navigation" do

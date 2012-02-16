@@ -42,7 +42,7 @@ class AnnouncementPresenter
   private
 
   def candidate_news
-    NewsArticle.published.not_featured.by_first_published_at.includes(:document_identity, :document_relations, :policy_areas)
+    NewsArticle.published.not_featured.by_first_published_at.includes(:document_identity, :document_relations, :policy_topics)
   end
 
   def candidate_speeches

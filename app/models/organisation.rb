@@ -24,8 +24,8 @@ class Organisation < ActiveRecord::Base
 
   has_many :people, through: :roles
 
-  has_many :organisation_policy_areas, dependent: :destroy
-  has_many :policy_areas, through: :organisation_policy_areas
+  has_many :organisation_policy_topics, dependent: :destroy
+  has_many :policy_topics, through: :organisation_policy_topics
 
   has_many :users, dependent: :nullify
 

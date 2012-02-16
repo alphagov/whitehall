@@ -5,8 +5,8 @@
     <div class="meta">
       <span class="metadata">Last updated <%= time_ago(@document.published_at, class: 'published_at') %></span>
 
-      <% @related_policies.map { |d| d.policy_areas }.flatten.uniq.each do |policy_area| %>
-        <%= link_to policy_area.name, policy_area_path(policy_area), class: "policy_area tag", id: dom_id(policy_area) %>
+      <% @related_policies.map { |d| d.policy_topics }.flatten.uniq.each do |policy_topic| %>
+        <%= link_to policy_topic.name, policy_topic_path(policy_topic), class: "policy_topic tag", id: dom_id(policy_topic) %>
       <% end %>
       <% @document.organisations.each do |organisation| %>
         <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag" %>
