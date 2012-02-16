@@ -13,7 +13,7 @@
     <% @cabinet_ministerial_roles.each do |role| %>
       <li class="ministerial_role g1">
         <div class="image_holder">
-          <%= image_for_ministerial_role(role) %>
+          <%= link_to image_for_ministerial_role(role), role %>
         </div>
         <h3 class="current_appointee"><%= link_to role.current_person_name, role %></h3>
         <p class="role"><%= role.name %></p>

@@ -26,7 +26,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".ministerial_role" do
-      assert_select ".image_holder img[src='#{person.image_url}']"
+      assert_minister_photo_links_to_their_role(ministerial_role)
       assert_select ".current_appointee", text: "John Doe"
       assert_select ".role", text: "Prime Minister"
     end
@@ -40,7 +40,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".ministerial_role" do
-      assert_select ".image_holder img[src='#{person.image_url}']"
+      assert_minister_photo_links_to_their_role(ministerial_role)
       assert_select ".current_appointee", text: "John Doe"
       assert_select ".role", text: "Prime Minister"
     end
@@ -125,5 +125,11 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     assert_select ".biography p", text: "biography-paragraph-1"
     assert_select ".biography p", text: "biography-paragraph-2"
+  end
+
+  private
+
+  def assert_minister_photo_links_to_their_role(role)
+    assert_select ".image_holder a[href='#{ministerial_role_path(role)}'] img[src='#{role.current_person_image_url}']"
   end
 end
