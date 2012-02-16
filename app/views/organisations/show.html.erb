@@ -148,7 +148,7 @@
     <% if @organisation.child_organisations.any? %>
       <section id="child_organisations" class="info">
         <h1>Associated organisations</h1>
-        <% four_columns(@organisation.child_organisations) do |organisation_group| %>
+        <% in_columns(@organisation.child_organisations, 4) do |organisation_group| %>
           <div class="g1">
             <% organisation_group.each do |organisation| %>
               <ul>
@@ -161,8 +161,8 @@
                 <% end %>
               </ul>
             <% end %>
-          </div>    
-        <% end %>        
+          </div>
+        <% end %>
       </section>
     <% end %>
   </div>

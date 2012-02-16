@@ -166,4 +166,34 @@ class ApplicationHelperTest < ActionView::TestCase
     assert classes.include?("class-1")
     assert classes.include?("class-2")
   end
+
+  test "should group items into four columns in order" do
+    items = %w[ a b c d e f g h i j k l ]
+    expected = [%w[ a b c ], %w[ d e f ], %w[ g h i ], %w[ j k l ]]
+    actual = []
+    in_columns(items, 4) do |group|
+      actual << group
+    end
+    assert_equal expected, actual
+  end
+
+  test "should group items into four columns for a range of collection sizes" do
+    {
+      1 => [1, 0, 0, 0],
+      2 => [1, 1, 0, 0],
+      3 => [1, 1, 1, 0],
+      4 => [1, 1, 1, 1],
+      5 => [2, 1, 1, 1],
+      6 => [2, 2, 1, 1],
+      7 => [2, 2, 2, 1],
+      8 => [2, 2, 2, 2],
+      9 => [3, 2, 2, 2],
+    }.each do |num_items, expected|
+      actual = []
+      in_columns(["x"] * num_items, 4) do |group|
+        actual << group.length
+      end
+      assert_equal expected, actual, "For #{num_items} items"
+    end
+  end
 end
