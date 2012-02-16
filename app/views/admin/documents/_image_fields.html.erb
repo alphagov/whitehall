@@ -1,5 +1,6 @@
 <fieldset class="images multiple_file_uploads">
   <legend>Images</legend>
+  <% i = 0 %>
   <%= form.fields_for :images do |images_fields| %>
     <% if images_fields.object.new_record? %>
       <div class="file_upload">
@@ -15,14 +16,21 @@
         <%= images_fields.text_area :caption, rows: 2 %>
       </div>
     <% else %>
-      <p class="image">
-        <% checkbox_args = nested_attribute_destroy_checkbox_options(images_fields) %>
-        <% label_text = image_tag(images_fields.object.url) + " (uncheck to remove)" %>
-        <% checkbox_args[0].merge!(label_text: label_text) %>
-        <%= images_fields.check_box :_destroy, *checkbox_args  %>
-      </p>
-      <%= images_fields.text_field :alt_text, label_text: 'Alt text' %>
-      <%= images_fields.text_area :caption, rows: 2 %>
+      <div class="image">
+        <div class="image-container">
+          <%= image_tag(images_fields.object.url) %>
+        </div>
+        <div class="fields-container">
+          <%= images_fields.text_field :alt_text, label_text: 'Alt text' %>
+          <%= images_fields.text_area :caption, rows: 2 %>
+          <% checkbox_args = nested_attribute_destroy_checkbox_options(images_fields) %>
+          <% checkbox_args[0].merge!(label_text: "(uncheck to remove)") %>
+          <%= images_fields.check_box :_destroy, *checkbox_args  %>
+        </div>
+        <p>Markdown to use:
+          <input type="text" readonly="readonly" value="!!<%= i+=1 %>" />
+        </p>
+      </div>
     <% end %>
   <% end %>
 </fieldset>

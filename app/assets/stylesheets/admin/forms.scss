@@ -78,3 +78,30 @@ fieldset.contacts {
     }
   }
 }
+
+form.document_edit fieldset.images .image {
+  @include clearfix;
+  
+  border-top: 1px solid #ccc;
+  padding-top: 0.5em;
+  
+  .image-container {
+    width: 150px;
+    height: 150px;
+    float: left;
+    padding-right: 1em;
+  }
+  .fields-container {
+    float: left;
+  }
+  p {
+    font-size: 90%;
+    clear: left;
+    padding: 0.2em 0;
+    margin: 0;
+    input {
+      width: 5em;
+      display: inline;
+    }
+  }
+}
