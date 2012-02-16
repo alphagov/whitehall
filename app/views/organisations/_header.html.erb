@@ -14,9 +14,10 @@
   </p>
   <% if organisation.organisation_type %>
     <p>
-      <%= organisation.name %>
       <% if organisation.acronym.present? %>
-        (<%= organisation.acronym %>)
+        <%= organisation.acronym %>
+        <% else %>
+        <%= organisation.name %>
       <% end %>
       is a <span class="category"><%= organisation.organisation_type.name %></span>.
     </p>
