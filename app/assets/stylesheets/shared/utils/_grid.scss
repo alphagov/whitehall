@@ -13,7 +13,7 @@
   }
 }
 
-@mixin span_one_column($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%, $cols: 3) {
+@mixin span_one_column($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
   @include grid_column($float_direction, $w, $ml, $mr);
 
   @media only screen and (min-width: 768px) {
@@ -25,7 +25,7 @@
   }
 }
 
-@mixin span_two_columns($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%, $cols: 3) {
+@mixin span_two_columns($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
   @include grid_column($float_direction, $w, $ml, $mr);
 
   @media only screen and (min-width: 768px) {
@@ -37,7 +37,7 @@
   }
 }
 
-@mixin span_three_columns($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%, $cols: 3) {
+@mixin span_three_columns($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
   @include grid_column($float_direction, $w, $ml, $mr);
 
   @media only screen and (min-width: 1024px) {
@@ -45,7 +45,7 @@
   }
 }
 
-@mixin span_four_columns($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%) {
+@mixin span_four_columns($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%) {
   @include grid_column($float_direction, $w, $ml, $mr);
 }
 

@@ -37,15 +37,15 @@
     @include flood_three_columns;
 
     .g1 {
-      @include span_one_column(left, 96%, 2%, 2%);
+      @include span_one_column(left, 97%, 1.5%, 1.5%);
     }
 
     .g2 {
-      @include span_two_columns(left, 96%, 2%, 2%);
+      @include span_two_columns(left, 97%, 1.5%, 1.5%);
     }
 
     .g3 {
-      @include span_three_columns(left, 96%, 2%, 2%);
+      @include span_three_columns(left, 97%, 1.5%, 1.5%);
     }
   }
 
@@ -53,15 +53,15 @@
     @include span_four_columns;
 
     .g1 {
-      @include span_one_column(left, 98%, 1%, 1%, 4);
+      @include span_one_column(left, 97%, 1.5%, 1.5%, 4);
     }
 
     .g2 {
-      @include span_two_columns(left, 98%, 1%, 1%, 4);
+      @include span_two_columns(left, 97%, 1.5%, 1.5%, 4);
     }
 
     .g3 {
-      @include span_three_columns(left, 98%, 1%, 1%, 4);
+      @include span_three_columns(left, 97%, 1.5%, 1.5%, 4);
     }
 
     .g1f {
@@ -81,15 +81,15 @@
     @include flood_four_columns;
 
     .g1 {
-      @include span_one_column(left, 96%, 2%, 2%, 4);
+      @include span_one_column(left, 97%, 1.5%, 1.5%, 4);
     }
 
     .g2 {
-      @include span_two_columns(left, 96%, 2%, 2%, 4);
+      @include span_two_columns(left, 97%, 1.5%, 1.5%, 4);
     }
 
     .g3 {
-      @include span_three_columns(left, 96%, 2%, 2%, 4);
+      @include span_three_columns(left, 97%, 1.5%, 1.5%, 4);
     }
 
     .g1f {
@@ -110,7 +110,9 @@
     @include grid_column;
 
     @media only screen and (min-width: 768px) {
-      width: 48%;
+      margin-left: 2.5%;
+      margin-right: 2.5%;
+      width: 45%;
     }
   }
 
@@ -128,21 +130,21 @@
   }
   
   .gutter {
-    margin-left: 1%;
-    margin-right: 1%;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
   }
   
   .g1f, .g2f, .g3f, .g4f {
     .gutter {
-      margin-left: 4%;
-      margin-right: 4%;
+      margin-left: 2.5%;
+      margin-right: 2.5%;
     }
   }
   
   .g2 {
     .gutter {
-      margin-left: 1%;
-      margin-right: 1%;
+      margin-left: 1.5%;
+      margin-right: 1.5%;
     }
   }
 }

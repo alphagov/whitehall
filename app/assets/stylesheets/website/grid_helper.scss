@@ -4,14 +4,18 @@
   width: 100%;
 
   @media only screen and (min-width: 600px) {
-    width: 81%;
+    width: 100%;
   }
 
   .g3 {
     z-index: 99999;
     background: green url('/images/24px_grid_bg.png');
+    display: block;
+    float: none;
     height: 100%;
     opacity: 0.5;
+    margin: 0 auto;
+    width: 92%;
     @media only screen and (min-width: 1800px) {
       background-image: url('/images/28px_grid_bg.png');
     }
