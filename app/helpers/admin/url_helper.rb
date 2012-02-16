@@ -4,7 +4,7 @@ module Admin::UrlHelper
   end
 
   def admin_organisations_header_link
-    admin_header_link "Organisations", admin_organisations_path
+    admin_header_link "Departments & agencies", admin_organisations_path
   end
 
   def admin_roles_header_link

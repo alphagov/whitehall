@@ -1,15 +1,15 @@
-<% page_title "Organisations" %>
+<% page_title "Departments & agencies" %>
 
 <div class="g3f">
   <section class="page_header organisation">
-    <h1 class="page_title">Organisations</h1>
+    <h1 class="page_title">Departments & agencies</h1>
     <p class="explanation">Information about all government departments, agencies and other public bodies</p>
   </section>
   <section class="page_detail">
     <div class="g3">
       <nav class="organisations_type_links">
         <p>
-          View organisations by
+          View departments &amp; agencies by
           <%= @organisations_by_type.map do |type, _|
                link_to type.name.pluralize, organisations_path(anchor: type.name.pluralize.downcase.gsub(/\s/, "_"))
             end.to_sentence.html_safe %>.
