@@ -74,7 +74,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
     get :show, id: news_article.document_identity
 
     assert_select ".document_view" do
-      assert_select "figure.image img[src='#{news_article.images.first.url}'][alt='#{news_article.images.first.alt_text}']"
+      assert_select "figure.image img[src='#{news_article.image.url}'][alt='#{news_article.image.alt_text}']"
     end
   end
 

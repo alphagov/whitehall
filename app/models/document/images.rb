@@ -22,4 +22,8 @@ module Document::Images
 
     add_trait Trait
   end
+
+  def image
+    images.first
+  end
 end

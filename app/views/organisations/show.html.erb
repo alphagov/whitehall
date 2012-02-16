@@ -22,8 +22,8 @@
             <% @featured_news_articles.each do |news_article| %>
               <%= content_tag_for(:article, news_article) do %>
                 <div class="img">
-                  <% if news_article.images.any? %>
-                    <%= image_tag(news_article.images.first.url, alt: news_article.images.first.alt_text) %>
+                  <% if news_article.image.present? %>
+                    <%= image_tag(news_article.image.url, alt: news_article.image.alt_text) %>
                   <% end %>
                 </div>
                 <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
