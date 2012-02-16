@@ -33,7 +33,7 @@
   }
 
   h3 {
-    @include type-36;
+    @include type-32;
   }
 
   h4 {
@@ -57,15 +57,16 @@
 
   section {
     h1 {
-      @include type-21;
+      @include type-32;
+      /* add Gill here */
     }
 
     h2 {
-      @include type-18;
+      @include type-16;
     }
 
     h3 {
-      @include type-16;
+      @include type-13;
     }
 
     h4,h5,h6 {
