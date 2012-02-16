@@ -28,7 +28,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_select ".ministerial_role" do
       assert_minister_photo_links_to_their_role(ministerial_role)
       assert_select ".current_appointee", text: "John Doe"
-      assert_select ".role", text: "Prime Minister"
+      assert_minister_role_links_to_their_role(ministerial_role)
     end
   end
 
@@ -42,7 +42,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_select ".ministerial_role" do
       assert_minister_photo_links_to_their_role(ministerial_role)
       assert_select ".current_appointee", text: "John Doe"
-      assert_select ".role", text: "Prime Minister"
+      assert_minister_role_links_to_their_role(ministerial_role)
     end
   end
 
@@ -131,5 +131,9 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
   def assert_minister_photo_links_to_their_role(role)
     assert_select ".image_holder a[href='#{ministerial_role_path(role)}'] img[src='#{role.current_person_image_url}']"
+  end
+
+  def assert_minister_role_links_to_their_role(role)
+    assert_select ".role a[href='#{ministerial_role_path(role)}']", text: role.name
   end
 end
