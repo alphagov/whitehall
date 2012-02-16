@@ -5,7 +5,12 @@
   .organisation {
     nav.sub_navigation,
     #about_us {
-      margin-left: 6%;
+      @media only screen and (min-width:670px) {
+
+      }
+      @media only screen and (min-width:764px) {
+        margin-left: 6%;
+      }
     }
   }
 }
