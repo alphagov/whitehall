@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-  if (document.URL.match('whitehall.dev')) {
+  if (document.URL.match('whitehall.dev') || document.URL.match('localhost')) {
     // This is useful for toggling CSS helpers
     // whilst developing.. alt+G
     var altKey = '18'
