@@ -1,3 +1,7 @@
+Given /^a policy topic called "([^"]*)"$/ do |name|
+  create(:policy_topic, name: name)
+end
+
 Given /^a policy topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
   create_policy_topic(name: name, description: description)
 end
@@ -134,6 +138,11 @@ end
 Then /^I should see a link to the related policy topic "([^"]*)"$/ do |related_name|
   related_policy_topic = PolicyTopic.find_by_name(related_name)
   assert page.has_css?("#related_policy_topics a[href='#{policy_topic_path(related_policy_topic)}']", text: related_name)
+end
+
+Then /^I should see a link to the policy topic "([^"]*)"$/ do |name|
+  policy_topic = PolicyTopic.find_by_name(name)
+  assert page.has_css?("a[href='#{policy_topic_path(policy_topic)}']", text: name)
 end
 
 def create_policy_topic(options = {})

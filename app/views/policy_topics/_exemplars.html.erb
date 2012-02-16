@@ -1,0 +1,11 @@
+<p>
+  This is a test website and we haven’t produced content for this area yet. For
+  examples of the kind of material that will go here please have a look at one
+  of these areas:
+</p>
+
+<ul>
+  <% @exemplary_policy_topics.each do |policy_topic| %>
+    <li><%= link_to(policy_topic.name, policy_topic_path(policy_topic)) %></li>
+  <% end %>
+</ul>

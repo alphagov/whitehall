@@ -33,9 +33,15 @@
       </div>
     <% end %>
 
-    <div class="g2 all_policies collection">
-      <%= render partial: "documents/policies", object: @policies, locals: {title: "What we're doing"} %>
-    </div>
+    <% if @policies.any? %>
+      <div class="g2 all_policies collection">
+        <%= render partial: "documents/policies", object: @policies, locals: {title: "What we're doing"} %>
+      </div>
+    <% else %>
+      <div class="g2">
+        <%= render partial: "exemplars" %>
+      </div>
+    <% end %>
 
     <div class="g1f collection last">
       <%= render partial: "related_policy_topics", object: @related_policy_topics %>

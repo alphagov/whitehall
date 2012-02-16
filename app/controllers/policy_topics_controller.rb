@@ -6,6 +6,7 @@ class PolicyTopicsController < PublicFacingController
 
   def show
     @policy_topic = PolicyTopic.find(params[:id])
+    @exemplary_policy_topics = PolicyTopic.exemplars
     @policies = @policy_topic.policies.published
     @related_policy_topics = @policy_topic.related_policy_topics
     @recently_changed_documents = recently_changed_documents

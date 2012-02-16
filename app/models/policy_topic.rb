@@ -35,6 +35,17 @@ class PolicyTopic < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  EXEMPLAR_NAMES = [
+    "Regulation reform",
+    "Higher education",
+    "Housing",
+    "Local government",
+  ]
+
+  def self.exemplars
+    where(name: EXEMPLAR_NAMES)
+  end
+
   def should_generate_new_friendly_id?
     new_record?
   end

@@ -13,3 +13,11 @@ Scenario: Visiting a policy topic page
   When I visit the "Higher Education" policy topic
   Then I should only see published policies belonging to the "Higher Education" policy topic
   And I should see a link to the related policy topic "Scientific Research"
+
+Scenario: Exemplary content for empty policy areas
+  Given a policy topic called "Caprid welfare"
+  And a policy topic called "Regulation reform"
+  And a policy topic called "Higher education"
+  When I visit the "Caprid welfare" policy topic
+  Then I should see a link to the policy topic "Regulation reform"
+  And I should see a link to the policy topic "Higher education"
