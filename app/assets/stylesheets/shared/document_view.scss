@@ -10,7 +10,7 @@
   }
 
   .summary {
-    @include type-14;
+    @include type-13;
     font-style: italic;
   }
 
@@ -52,7 +52,7 @@
 
         td {
           padding: 0;
-          @include type-14;
+          @include type-13;
           border: 1px solid #ddd;
           padding: 0 0.75em;
         }
@@ -92,7 +92,7 @@
   }
 
   pre.body {
-    @include type-14;
+    @include type-13;
   }
 }
 

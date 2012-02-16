@@ -63,13 +63,13 @@ $baseline_in_px: 24 !default;
 }
 
 @mixin type-14 {
-  /* 14px / 24px */
-  @include scaled_type(14);
+  /* 14px / 18px */
+  @include scaled_type(14, 18);
 }
 
 @mixin type-13 {
-  /* 13px / 24px */
-  @include scaled_type(13);
+  /* 13px / 18px */
+  @include scaled_type(13, 18);
 }
 
 @mixin type-12 {
