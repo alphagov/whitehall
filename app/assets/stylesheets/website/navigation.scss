@@ -2,7 +2,7 @@
 
 #global-nav {
   margin: 0 auto;
-  background: #999;
+  background: #333;
 
   @media only screen and (min-width: 1024px) {
     width: 92%;
@@ -19,12 +19,12 @@
     float: left;
 
     &:hover {
-      background: #dedf00;
+      background: #fff;
       color: #333;
     };
 
     &.current, &:active {
-      background: #cdce00;
+      background: #EEE;
       color: #333;
     }
 
