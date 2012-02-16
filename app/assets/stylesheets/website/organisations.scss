@@ -1,6 +1,15 @@
 @import "../shared/utils/type_sizing";
 @import "organisation_brands";
 
+#wrapper {
+  .organisation {
+    nav.sub_navigation,
+    #about_us {
+      margin-left: 7%;
+    }
+  }
+}
+
 #content {
   @include branded_page_headers;
 
@@ -17,7 +26,25 @@
   }
 
   nav.sub_navigation {
+
+    ul {
+      
+      li {
+        border-bottom: dotted 1px #000;
+        margin-bottom: 0.25em;
+        padding-bottom: 0.25em;
+      
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }    
+  }
+  #about_us {
     
+    .category {
+      text-transform: lowercase;
+    }
   }
 
 
