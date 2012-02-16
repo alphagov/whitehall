@@ -37,16 +37,29 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select_object(draft_policy)
   end
 
-  test "shows organisation's featured news articles with featuring images" do
-    featuring_image = fixture_file_upload('portas-review.jpg')
-    news_article = create(:published_news_article, featuring_image: featuring_image)
+  test "shows organisation's featured news article with image" do
+    image_data = create(:image_data, file: fixture_file_upload('portas-review.jpg'))
+    image = create(:image, image_data: image_data, alt_text: "alternative-text")
+    news_article = create(:published_news_article, images: [image])
     organisation = create(:organisation, documents: [news_article])
     create(:document_organisation, document: news_article, organisation: organisation, featured: true)
 
     get :show, id: organisation
 
     assert_select_object news_article do
-      assert_select ".img img[src$='portas-review.jpg']"
+      assert_select ".img img[src$='portas-review.jpg'][alt='alternative-text']"
+    end
+  end
+
+  test "shows organisation's featured news article without image" do
+    news_article = create(:published_news_article)
+    organisation = create(:organisation, documents: [news_article])
+    create(:document_organisation, document: news_article, organisation: organisation, featured: true)
+
+    get :show, id: organisation
+
+    assert_select_object news_article do
+      refute_select ".img img"
     end
   end
 
