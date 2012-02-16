@@ -27,4 +27,20 @@
       }
     }
   }
+
+  .ministerial_role {
+    min-height: 72px;
+
+    .current_appointee, .role {
+      margin-left: 96px;
+      margin-bottom: 0;
+    }
+    .image_holder {
+      @include clearfix;
+      margin-bottom: 0;
+      width: 72px;
+      height: 72px;
+      float: left;
+    }
+  }
 }

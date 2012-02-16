@@ -18,6 +18,34 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
   end
 
+  test "shows the cabinet minister's photo, name and role" do
+    person = create(:person, forename: "John", surname: "Doe", image: File.open(Rails.root.join("test/fixtures/minister-of-funk.jpg")))
+    ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
+    create(:role_appointment, person: person, role: ministerial_role)
+
+    get :index
+
+    assert_select ".ministerial_role" do
+      assert_select ".image_holder img[src='#{person.image_url}']"
+      assert_select ".current_appointee", text: "John Doe"
+      assert_select ".role", text: "Prime Minister"
+    end
+  end
+
+  test "shows the non-cabinet minister's photo, name and role" do
+    person = create(:person, forename: "John", surname: "Doe", image: File.open(Rails.root.join("test/fixtures/minister-of-funk.jpg")))
+    ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: false)
+    create(:role_appointment, person: person, role: ministerial_role)
+
+    get :index
+
+    assert_select ".ministerial_role" do
+      assert_select ".image_holder img[src='#{person.image_url}']"
+      assert_select ".current_appointee", text: "John Doe"
+      assert_select ".role", text: "Prime Minister"
+    end
+  end
+
   test "shows only published news and speeches associated with ministerial role" do
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
