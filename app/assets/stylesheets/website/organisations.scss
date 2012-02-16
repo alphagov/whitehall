@@ -5,7 +5,7 @@
   .organisation {
     nav.sub_navigation,
     #about_us {
-      margin-left: 7%;
+      margin-left: 6%;
     }
   }
 }
@@ -116,8 +116,11 @@
     li {
       display: inline;
         a {
-          display: inline-block;
-          padding: 0.25em;
+          background: #eee;
+          display: block;
+          float: left;
+          padding: 0.125em 0.5em;
+          margin: 0 0.5em 0.5em 0;
         }
     }
   }
