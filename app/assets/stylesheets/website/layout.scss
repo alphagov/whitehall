@@ -6,7 +6,6 @@
   background: #f5f5f5;
   max-width: 100%;
   min-height: 37em;
-  padding-bottom: 1.5em;
   @include grid_styles;
 
   @media only screen and (min-width:764px) {
@@ -28,6 +27,7 @@
   margin: 0 auto;
   background: #fff;
   padding-top: 1em;
+  padding-bottom: 1.5em;
 
   @include type_styles;
 
