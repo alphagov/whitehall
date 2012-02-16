@@ -1,6 +1,6 @@
 class PolicyAreasController < PublicFacingController
   def index
-    @policy_areas = PolicyArea.with_published_policies
+    @policy_areas = PolicyArea.all
     @featured_policy_areas = PolicyArea.featured.order("updated_at DESC").limit(3)
   end
 
