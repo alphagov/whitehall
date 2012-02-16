@@ -3,6 +3,18 @@ require "test_helper"
 class OrganisationsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
+  test "should display the disclaimer on active organisations" do
+    organisation = create(:organisation, active: true, url: "url-of-main-website-for-organisation")
+    get :show, id: organisation
+    assert_disclaimer_present(organisation)
+  end
+
+  test "should display the disclaimer on inactive organisations" do
+    organisation = create(:organisation, active: false, url: "url-of-main-website-for-organisation")
+    get :show, id: organisation
+    assert_disclaimer_present(organisation)
+  end
+
   test "shows organisation logo formatted name and description" do
     organisation = create(:organisation,
       logo_formatted_name: "organisation\nname is\nformatted",
@@ -532,5 +544,13 @@ class OrganisationsControllerTest < ActionController::TestCase
       get page, id: organisation
       assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
     end
-  end  
+  end
+
+  private
+
+  def assert_disclaimer_present(organisation)
+    assert_select "#organisation_disclaimer" do
+      assert_select "a[href='#{organisation.url}']"
+    end
+  end
 end

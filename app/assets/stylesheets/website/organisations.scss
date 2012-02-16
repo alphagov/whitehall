@@ -18,6 +18,17 @@
 #content {
   @include branded_page_headers;
 
+  #organisation_disclaimer {
+    background-color: #FCA430;
+    margin-top: -1em;
+    margin-bottom: 1em;
+
+    h1, p {
+      margin-left: 0.5em;
+      display: inline;
+    }
+  }
+
   .organisation, .country {
     h2.category {
       @include type-16;
@@ -33,20 +44,20 @@
   nav.sub_navigation {
 
     ul {
-      
+
       li {
         border-bottom: dotted 1px #000;
         margin-bottom: 0.25em;
         padding-bottom: 0.25em;
-      
+
         &:last-child {
           border-bottom: none;
         }
       }
-    }    
+    }
   }
   #about_us {
-    
+
     .category {
       text-transform: lowercase;
     }
@@ -65,7 +76,7 @@
 
     section.featured_carousel {
       margin-bottom: 1em;
-      
+
       h2 {
 /*        background-color: ; DEPT COLOUR */
       }
@@ -75,7 +86,7 @@
       div.meta {
 /*        background-color: ; DEPT COLOUR */
       }
-      
+
     }
 
     p.readmore {
@@ -116,7 +127,7 @@
     height: 300px;
     border: 1px solid #000;
   }
-  
+
   ul.policy_topics {
     li {
       display: inline;
