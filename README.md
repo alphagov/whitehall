@@ -1,5 +1,32 @@
 # Whitehall App
 
+## Getting set-up locally
+
+### Pre-requisites
+
+* Ruby 1.9
+* Rubygems and Bundler
+* Mysql
+* Imagemagick and Ghostscript (for generating thumbnails of uploaded PDFs)
+* PhantomJS (for running the Javascript tests)
+
+### Creating the mysql user
+
+The database.yml for this project is checked into source control so you'll need a local user with credentials that match those in database.yml.
+
+    mysql> grant all on `whitehall\_%`.* to whitehall@localhost identified by 'whitehall';
+
+### Preparing the app
+
+    $ cd /path/to/whitehall
+    $ bundle install
+    $ bundle exec rake db:create:all
+    $ bundle exec rake db:schema:load
+
+### Running the server locally
+
+    $ script/rails s
+
 ## Creating new users in Production
 
 New users will need a sign-on-o-tron account before they can access whitehall in production.  You can create new sign-on-o-tron accounts with the capistrano task in alphagov-deployment/sign-on-o-tron.  This will email the new user and prompt them to create their account.
