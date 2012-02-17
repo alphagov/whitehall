@@ -10,14 +10,32 @@ class PolicyTopicsControllerTest < ActionController::TestCase
     assert_select ".policy_topic_view .description", text: policy_topic.description
   end
 
-  test "shows published policies associated with policy topic" do
-    published_policy = create(:published_policy)
+  test "shows published policies and their summaries" do
+    published_policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     policy_topic = create(:policy_topic, policies: [published_policy])
 
     get :show, id: policy_topic
 
     assert_select "#policies" do
-      assert_select_object(published_policy, count: 1)
+      assert_select_object(published_policy) do
+        assert_select ".title", text: "policy-title"
+        assert_select ".summary", text: "policy-summary"
+      end
+    end
+  end
+
+  test "shows featured policies and their summaries" do
+    policy_topic = create(:policy_topic)
+    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
+    create(:policy_topic_membership, policy_topic: policy_topic, policy: policy, featured: true)
+
+    get :show, id: policy_topic
+
+    assert_select ".featured.policies" do
+      assert_select_object(policy) do
+        assert_select ".title", text: "policy-title"
+        assert_select ".summary", text: "policy-summary"
+      end
     end
   end
 

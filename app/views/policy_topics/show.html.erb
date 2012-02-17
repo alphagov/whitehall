@@ -24,7 +24,8 @@
             <% @featured_policies.each do |policy| %>
               <%= content_tag_for :li, policy, class: "featured_policy" do %>
                 <div class="inner">
-                  <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}" %>
+                  <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %>
+                  <p class="summary"><%= policy.summary %></p>
                 </div>
               <% end %>
             <% end %>
