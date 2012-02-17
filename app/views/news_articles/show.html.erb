@@ -29,15 +29,7 @@
       </div>
 
       <div class="body">
-        <% if @document.images.any? %>
-          <figure class="image">
-            <% image = @document.images.first %>
-            <div class="img"><%= image_tag(image.url, alt: image.alt_text) %></div>
-            <% if image.caption.present? %>
-              <figcaption><%= image.caption %></figcaption>
-            <% end %>
-          </figure>
-        <% end %>
+        <%= render partial: 'shared/lead_image', locals: { image: @document.images.first } %>
         <%= govspeak_to_html @document.body, @document.images %>
       </div>
       <% if @document.notes_to_editors.present? %>

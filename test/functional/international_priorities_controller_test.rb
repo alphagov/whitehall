@@ -5,6 +5,7 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
   should_render_a_list_of :international_priorities
   should_show_the_countries_associated_with :international_priority
   should_display_inline_images_for :international_priority
+  should_not_display_lead_image_for :international_priority
 
   test "show displays international priority details" do
     priority = create(:published_international_priority,

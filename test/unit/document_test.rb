@@ -803,6 +803,11 @@ class DocumentTest < ActiveSupport::TestCase
   test "should not allow featuring image" do
     refute Document.new.allows_featuring_image?
   end
+  
+  test "should have no lead image even if an associated image exists" do
+    article = build(:document, images: [build(:image)])
+    assert_nil article.lead_image
+  end
 
   test "should return search index suitable for Rummageable" do
     policy = create(:published_policy, title: "policy-title")

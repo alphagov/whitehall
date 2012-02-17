@@ -1,5 +1,8 @@
 <section class="document_view">
-  <div class="body">
-    <%= govspeak_to_admin_html params[:body], @images %>
-  </div>
+  <article class="document">
+    <div class="body">
+      <%= render partial: 'shared/lead_image', locals: {image: @lead_image} %>
+      <%= govspeak_to_admin_html params[:body], @images %>
+    </div>
+  </article>
 </section>

@@ -29,12 +29,20 @@
         preview.show();
         edit_link.show();
       }
+
+      var imageNodes = function() {
+        return $("fieldset.images input[type=hidden][name^='document[images_attributes]'][name$='[id]']");
+      }
       
       var imageIds = function() {
-        var image_nodes = $("fieldset.images input[type=hidden][name^='document[images_attributes]'][name$='[id]']");
-        return $.map(image_nodes, function(node) {
+        return $.map(imageNodes(), function(node) {
           return $(node).val();
         });
+      }
+
+      var leadImageId = function() {
+        var lead_image = imageNodes().filter(function() { return $(this).closest('.lead').length > 0;}).first();
+        return lead_image.val();
       }
 
       showEditor();
@@ -43,7 +51,8 @@
         params = {
           body: textarea.val(),
           authenticity_token: $("meta[name=csrf-token]").attr('content'),
-          image_ids: imageIds()
+          image_ids: imageIds(),
+          lead_image_id: leadImageId()
         }
         loading_indicator.show();
         preview_link.hide();

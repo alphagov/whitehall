@@ -22,4 +22,8 @@ class NewsArticle < Document
   def allows_featuring_image?
     true
   end
+  
+  def lead_image
+    images.first
+  end
 end

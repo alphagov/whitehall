@@ -57,6 +57,50 @@ module DocumentControllerTestHelpers
         assert_select 'article .body figure.image.embedded img'
       end
     end
+
+    def should_display_lead_image_for(document_type)
+      test "show displays the image for the #{document_type}" do
+        news_article = create("published_#{document_type}", images: [build(:image)])
+        get :show, id: news_article.document_identity
+
+        assert_select ".document_view" do
+          assert_select "figure.image.lead img[src='#{news_article.images.first.url}'][alt='#{news_article.images.first.alt_text}']"
+        end
+      end
+
+      test "show displays the image caption for the #{document_type}" do
+        portas_review_jpg = fixture_file_upload('portas-review.jpg')
+        document = create("published_#{document_type}", images: [build(:image, caption: "image caption")])
+
+        get :show, id: document.document_identity
+
+        assert_select ".document_view" do
+          assert_select "figure.image.lead figcaption", "image caption"
+        end
+      end
+
+      test "show only displays image if there is one" do
+        document = create("published_#{document_type}", images: [])
+
+        get :show, id: document.document_identity
+
+        assert_select ".document_view" do
+          refute_select "figure.image.lead"
+        end
+      end
+    end
+    
+    def should_not_display_lead_image_for(document_type)
+      test "show not show lead image, even if there are associated images" do
+        document = create("published_#{document_type}", images: [build(:image)])
+
+        get :show, id: document.document_identity
+        
+        assert_select ".document_view" do
+          refute_select "figure.image.lead"
+        end
+      end
+    end
     
     def should_show_featured_documents_for(document_type)
       document_types = document_type.to_s.pluralize

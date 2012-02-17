@@ -107,6 +107,10 @@ class Document < ActiveRecord::Base
   def allows_featuring_image?
     false
   end
+  
+  def lead_image
+    nil
+  end
 
   def create_draft(user)
     unless published?

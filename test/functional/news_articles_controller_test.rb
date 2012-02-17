@@ -6,7 +6,8 @@ class NewsArticlesControllerTest < ActionController::TestCase
   should_show_related_policies_and_policy_topics_for :news_article
   should_show_the_countries_associated_with :news_article
   should_display_inline_images_for :news_article
-
+  should_display_lead_image_for :news_article
+  
   test "shows published news article" do
     news_article = create(:published_news_article)
     get :show, id: news_article.document_identity
@@ -66,36 +67,6 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
     assert_select ".meta .metadata" do
       assert_select ".published_at[title='#{updated_news_article.published_at.iso8601}']"
-    end
-  end
-
-  test "show displays the image for the news article" do
-    news_article = create(:published_news_article, images: [build(:image)])
-    get :show, id: news_article.document_identity
-
-    assert_select ".document_view" do
-      assert_select "figure.image img[src='#{news_article.image.url}'][alt='#{news_article.image.alt_text}']"
-    end
-  end
-
-  test "show displays the image caption for the news article" do
-    portas_review_jpg = fixture_file_upload('portas-review.jpg')
-    news_article = create(:published_news_article, images: [build(:image, caption: "image caption")])
-
-    get :show, id: news_article.document_identity
-
-    assert_select ".document_view" do
-      assert_select "figure.image figcaption", "image caption"
-    end
-  end
-
-  test "show only displays image if there is one" do
-    news_article = create(:published_news_article, images: [])
-
-    get :show, id: news_article.document_identity
-
-    assert_select ".document_view" do
-      refute_select ".img img"
     end
   end
 end

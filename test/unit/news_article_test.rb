@@ -50,4 +50,11 @@ class NewsArticleTest < ActiveSupport::TestCase
     news_article = build(:news_article)
     assert news_article.allows_featuring_image?
   end
+
+  test "uses first image as lead image" do
+    news_article = build(:news_article)
+    image = create(:image, document: news_article)
+    assert_equal image, news_article.lead_image
+  end
+
 end

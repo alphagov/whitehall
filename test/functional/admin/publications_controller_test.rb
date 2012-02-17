@@ -16,6 +16,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_ministerial_roles_for :publication
   should_allow_attachments_for :publication
   should_allow_attached_images_for :publication
+  should_not_use_lead_image_for :publication
   should_allow_association_between_countries_and :publication
   should_be_rejectable :publication
   should_be_publishable :publication
