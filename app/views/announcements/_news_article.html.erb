@@ -1,8 +1,8 @@
 <%= content_tag_for(:article, news_article) do %>
   <% if display == "expanded" %>
     <div class="img">
-      <% if news_article.image.present? %>
-        <%= link_to image_tag(news_article.image.url), public_document_path(news_article) %>
+      <% if news_article.lead_image.present? %>
+        <%= link_to image_tag(news_article.lead_image.url, alt: news_article.lead_image.alt_text), public_document_path(news_article) %>
       <% else %>
         <%= link_to image_tag('evil_placeholder.png'), public_document_path(news_article) %>
       <% end %>

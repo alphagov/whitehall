@@ -23,7 +23,7 @@ module Document::Images
     add_trait Trait
   end
 
-  def image
-    images.first
+  def lead_image
+    nil
   end
 end
