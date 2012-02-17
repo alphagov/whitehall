@@ -25,6 +25,10 @@ class Consultation < Document
     true
   end
 
+  def last_significantly_changed_on
+    ((published_consultation_response && published_consultation_response.first_published_at) || (closed? && closing_on) || (open? && opening_on) || first_published_at).to_date
+  end
+
   private
 
   def closing_on_must_be_after_opening_on

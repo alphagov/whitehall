@@ -7,12 +7,11 @@ class ConsultationsControllerTest < ActionController::TestCase
   should_show_related_policies_and_policy_topics_for :consultation
   should_display_inline_images_for :consultation
 
-  test "should avoid n+1 queries" do
+  test "should avoid N plus 1 queries" do
     featured_consultations = Consultation.featured
-    ordered_published_consultations = mock("ordered_published_consultations")
-    ordered_published_consultations.expects(:includes).with(:document_identity, :organisations, :published_related_policies, ministerial_roles: [:current_people, :organisations]).returns([])
     published_consultations = mock("published_consultations")
-    published_consultations.expects(:by_published_at).returns(ordered_published_consultations)
+    published_consultations = mock("ordered_published_consultations")
+    published_consultations.expects(:includes).with(:document_identity, :organisations, :published_related_policies, :published_consultation_response, ministerial_roles: [:current_people, :organisations]).returns([])
     published_consultations.stubs(:featured).returns(featured_consultations) # To avoid the 'featured consultation' query failing
     Consultation.stubs(:published).returns(published_consultations)
 
@@ -34,13 +33,28 @@ class ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index lists newest consultations first' do
-    oldest_consultation = create(:published_consultation, opening_on: 1.day.from_now, closing_on: 2.days.from_now, published_at: 4.hours.ago)
-    newest_consultation = create(:published_consultation, opening_on: 1.day.from_now, closing_on: 2.days.from_now, published_at: 2.hours.ago)
+  test 'index lists consultations with most recent significant change first' do
+    consultation_1 = create(:published_consultation, first_published_at: 7.days.ago, opening_on: 6.days.ago, closing_on: 5.days.ago)
+    create(:published_consultation_response, consultation: consultation_1, first_published_at: 4.days.ago)
+    consultation_2 = create(:published_consultation, first_published_at: 5.days.ago, opening_on: 4.days.ago, closing_on: 3.days.ago)
+    consultation_3 = create(:published_consultation, first_published_at: 3.days.ago, opening_on: 2.days.ago, closing_on: 1.day.from_now)
+    consultation_4 = create(:published_consultation, first_published_at: 1.day.ago, opening_on: 1.day.from_now, closing_on: 2.days.from_now)
 
     get :index
 
-    assert_equal [newest_consultation, oldest_consultation], assigns[:consultations]
+    assert_equal [consultation_4, consultation_3, consultation_2, consultation_1], assigns[:consultations]
+  end
+
+  test 'index lists consultations with most recently published first if most recent significant change is same' do
+    consultation_1 = create(:published_consultation, first_published_at: 1.day.ago, opening_on: 1.day.from_now, closing_on: 2.days.from_now)
+    consultation_2 = create(:published_consultation, first_published_at: 2.days.ago, opening_on: 1.day.ago, closing_on: 1.day.from_now)
+    consultation_3 = create(:published_consultation, first_published_at: 3.days.ago, opening_on: 2.days.ago, closing_on: 1.day.ago)
+    consultation_4 = create(:published_consultation, first_published_at: 4.days.ago, opening_on: 3.days.ago, closing_on: 2.day.ago)
+    create(:published_consultation_response, consultation: consultation_4, first_published_at: 1.day.ago)
+
+    get :index
+
+    assert_equal [consultation_1, consultation_2, consultation_3, consultation_4], assigns[:consultations]
   end
 
   test 'index shows no list if no published consultations exist' do
@@ -90,13 +104,22 @@ class ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'open lists newest consultations first' do
-    oldest_consultation = create(:published_consultation, opening_on: 1.day.ago, closing_on: 1.day.from_now, published_at: 4.hours.ago)
-    newest_consultation = create(:published_consultation, opening_on: 1.day.ago, closing_on: 1.day.from_now, published_at: 2.hours.ago)
+  test 'open lists consultations with most recently opened first' do
+    less_recently_opened = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.from_now)
+    more_recently_opened = create(:published_consultation, opening_on: 1.days.ago, closing_on: 2.days.from_now)
 
     get :open
 
-    assert_equal [newest_consultation, oldest_consultation], assigns[:consultations]
+    assert_equal [more_recently_opened, less_recently_opened], assigns[:consultations]
+  end
+
+  test 'open lists consultations with most recently published first if opened on same date' do
+    less_recently_published = create(:published_consultation, first_published_at: 2.days.ago, opening_on: 1.day.ago, closing_on: 1.day.from_now)
+    more_recently_published = create(:published_consultation, first_published_at: 1.day.ago, opening_on: 1.day.ago, closing_on: 1.day.from_now)
+
+    get :open
+
+    assert_equal [more_recently_published, less_recently_published], assigns[:consultations]
   end
 
   test 'open shows no list if no open consultations exist' do
@@ -136,13 +159,56 @@ class ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'closed lists newest consultations first' do
-    oldest_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago, published_at: 4.hours.ago)
-    newest_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago, published_at: 2.hours.ago)
+  test 'closed lists most recently closed consultations first' do
+    opening_on = 3.days.ago
+    less_recently_closed_consultation = create(:published_consultation, opening_on: opening_on, closing_on: 2.days.ago)
+    more_recently_closed_consultation = create(:published_consultation, opening_on: opening_on, closing_on: 1.day.ago)
 
     get :closed
 
-    assert_equal [newest_consultation, oldest_consultation], assigns[:consultations]
+    assert_equal [more_recently_closed_consultation, less_recently_closed_consultation], assigns[:consultations]
+  end
+
+  test 'closed lists consultations with most recent response first' do
+    opening_on, closing_on = 4.days.ago, 3.days.ago
+    consultation_with_less_recent_response = create(:published_consultation, opening_on: opening_on, closing_on: closing_on)
+    create(:published_consultation_response, consultation: consultation_with_less_recent_response, published_at: 2.days.ago)
+    consultation_with_more_recent_response = create(:published_consultation, opening_on: opening_on, closing_on: closing_on)
+    create(:published_consultation_response, consultation: consultation_with_more_recent_response, published_at: 1.days.ago)
+
+    get :closed
+
+    assert_equal [consultation_with_more_recent_response, consultation_with_less_recent_response], assigns[:consultations]
+  end
+
+  test 'closed lists consultations with most recent response appearing before most recently closed' do
+    consultation_with_response = create(:published_consultation, opening_on: 4.days.ago, closing_on: 3.days.ago)
+    create(:published_consultation_response, consultation: consultation_with_response, published_at: 1.day.ago)
+    consultation_without_response = create(:published_consultation, opening_on: 3.days.ago, closing_on: 2.days.ago)
+
+    get :closed
+
+    assert_equal [consultation_with_response, consultation_without_response], assigns[:consultations]
+  end
+
+  test 'closed lists consultations with most recently published first if closed on same date' do
+    less_recently_published = create(:published_consultation, first_published_at: 3.days.ago, opening_on: 2.day.ago, closing_on: 1.day.ago)
+    more_recently_published = create(:published_consultation, first_published_at: 2.days.ago, opening_on: 2.days.ago, closing_on: 1.day.ago)
+
+    get :closed
+
+    assert_equal [more_recently_published, less_recently_published], assigns[:consultations]
+  end
+
+  test 'closed lists consultations with most recently published first if response on same date' do
+    less_recently_published = create(:published_consultation, first_published_at: 5.days.ago, opening_on: 3.day.ago, closing_on: 2.days.ago)
+    create(:published_consultation_response, consultation: less_recently_published, first_published_at: 1.day.ago)
+    more_recently_published = create(:published_consultation, first_published_at: 4.days.ago, opening_on: 3.days.ago, closing_on: 2.days.ago)
+    create(:published_consultation_response, consultation: more_recently_published, first_published_at: 1.day.ago)
+
+    get :closed
+
+    assert_equal [more_recently_published, less_recently_published], assigns[:consultations]
   end
 
   test 'closed shows no list if no closed consultations exist' do
