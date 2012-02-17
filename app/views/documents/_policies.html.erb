@@ -7,9 +7,6 @@
           <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %>
         <% end %>
       <% end %>
-      <% if local_assigns.has_key?(:more) %>
-        <li><%= more %></li>
-      <% end %>
     </ul>
   </section>
 <% end %>
