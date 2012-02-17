@@ -1,6 +1,6 @@
 class PublicationsController < DocumentsController
   def index
-    @publications = Publication.published.includes(:document_identity)
+    @publications = Publication.published_in_reverse_chronological_order.includes(:document_identity)
   end
 
   def show

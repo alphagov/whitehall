@@ -14,4 +14,8 @@ class Publication < Document
   def has_summary?
     true
   end
+
+  def self.published_in_reverse_chronological_order
+    published.order(arel_table[:publication_date].desc)
+  end
 end

@@ -22,6 +22,7 @@ class PublicationsControllerTest < ActionController::TestCase
     publications = []
     published_publications = mock("published_publications")
     published_publications.expects(:includes).with(:document_identity).returns(publications)
+    published_publications.expects(:order).returns(published_publications)
     Publication.expects(:published).returns(published_publications)
 
     get :index
