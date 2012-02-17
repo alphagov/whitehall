@@ -25,8 +25,16 @@ class Consultation < Document
     true
   end
 
+  def response_published?
+    closed? && published_consultation_response.present?
+  end
+
+  def response_published_on
+    published_consultation_response.first_published_at.to_date
+  end
+
   def last_significantly_changed_on
-    ((published_consultation_response && published_consultation_response.first_published_at) || (closed? && closing_on) || (open? && opening_on) || first_published_at).to_date
+    ((response_published? && response_published_on) || (closed? && closing_on) || (open? && opening_on) || first_published_at).to_date
   end
 
   private

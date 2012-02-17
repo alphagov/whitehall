@@ -46,7 +46,7 @@
       <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
       <% if consultation.summary.present? %><p class="summary"><%= consultation.summary %></p><% end %>
       <span class="metadata">
-        Updated <%= time_ago(consultation.updated_at, class: 'updated_at') %>
+        <%= consultation_time_remaining_phrase(consultation) %>
       </span>
     <% end %>
   <% else %>
