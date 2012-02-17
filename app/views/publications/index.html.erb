@@ -34,7 +34,9 @@
       <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
       <% if publication.summary.present? %><p class="summary"><%= publication_summary(publication) %></p><% end %>
       <span class="metadata">
-        Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
+        Published on <%= render_datetime_microformat(publication, :publication_date) {
+                           publication.publication_date.to_s(:long_ordinal)
+                         }%>
       </span>
     <% end %>
   </div>
