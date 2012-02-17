@@ -6,7 +6,7 @@ Scenario: Viewing speeches made by a minister
   When I visit the minister page for "Prime Minister"
   Then I should see the speech "Abolish Fig Rolls"
   When I visit the speech "Abolish Fig Rolls"
-  Then I should see the speech was delivered on "June 23rd, 2010" at "The Mansion House"
+  Then I should see the speech was delivered on "23 June 2010" at "The Mansion House"
 
 Scenario: Viewing a published speech with related policies
   Given a published speech "Things I Have Thought" with related published policies "Policy 1" and "Policy 2"

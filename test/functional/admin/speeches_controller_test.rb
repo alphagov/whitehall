@@ -81,7 +81,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
     assert_select ".details .type", "Transcript"
     assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
-    assert_select ".details .delivered_on", "June 1st, 2011"
+    assert_select ".details .delivered_on", "1 June 2011"
     assert_select ".details .location", "The Guidhall"
   end
 

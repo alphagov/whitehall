@@ -15,7 +15,7 @@ class ConsultationsHelperTest < ActionView::TestCase
 
   test "#consultation_opening_phrase includes long form date" do
     consultation = build(:consultation, opening_on: Date.new(2011, 10, 9))
-    assert_match Regexp.new(Regexp.escape("October 9th, 2011")), consultation_opening_phrase(consultation)
+    assert_match Regexp.new(Regexp.escape("9 October 2011")), consultation_opening_phrase(consultation)
   end
 
   test "#consultation_closing_phrase uses future tense if not yet closed" do
@@ -30,6 +30,6 @@ class ConsultationsHelperTest < ActionView::TestCase
 
   test "#consultation_closing_phrase includes long form date" do
     consultation = build(:consultation, opening_on: Date.new(2010, 1, 1), closing_on: Date.new(2011, 10, 9))
-    assert_match Regexp.new(Regexp.escape("October 9th, 2011")), consultation_closing_phrase(consultation)
+    assert_match Regexp.new(Regexp.escape("9 October 2011")), consultation_closing_phrase(consultation)
   end
 end
