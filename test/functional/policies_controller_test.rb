@@ -7,7 +7,8 @@ class PoliciesControllerTest < ActionController::TestCase
   should_render_a_list_of :policies
   should_show_the_countries_associated_with :policy
   should_display_inline_images_for :policy
-
+  should_not_display_lead_image_for :policy
+  
   test "should show inapplicable nations" do
     published_policy = create(:published_policy)
     northern_ireland_inapplicability = published_policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
