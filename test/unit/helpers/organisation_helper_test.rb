@@ -50,7 +50,7 @@ class OrganisationHelperTest < ActionView::TestCase
     classes = (anchor.attr('class').try(:value) || '').split
     refute classes.include?('current')
   end
-
+  
   test 'organisation header helper should place org specific class onto the div' do
     organisation = build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene")
     html = organisation_wrapper(organisation) {  }
@@ -61,5 +61,12 @@ class OrganisationHelperTest < ActionView::TestCase
   test 'should convert organisation type into a suitable css class name' do
     organisation_type = build(:organisation_type, name: "Ministerial department")
     assert_equal 'ministerial-department', organisation_type_class(organisation_type)
+  end
+  
+  test 'given an organisation should return suitable org-identifying class names' do
+    organisation_type = build(:organisation_type, name: "Ministerial department")
+    organisation =  build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene", organisation_type: organisation_type)
+    
+    assert_equal 'organisation-slug-yeah ministerial-department', organisation_logo_classes(organisation)
   end
 end

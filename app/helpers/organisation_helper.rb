@@ -29,12 +29,20 @@ module OrganisationHelper
   end
 
   def organisation_wrapper(organisation, options = {}, &block)
-    content_tag_for :div, organisation, class: [organisation.slug, organisation_type_class(organisation.organisation_type), options[:class]].join(" ") do
+    content_tag_for :div, organisation, class: organisation_logo_classes(organisation, options) do
       block.call
     end
   end
   
   def organisation_type_class(organisation_type)
     organisation_type.name.downcase.gsub(/\s/, '-') if organisation_type && organisation_type.name.present?
+  end
+  
+  def organisation_logo_classes(organisation, options={})
+    [ 
+      organisation.slug,  
+      organisation_type_class(organisation.organisation_type),
+      options[:class]
+    ].join(" ").strip
   end
 end
