@@ -17,13 +17,14 @@
 <div class="g3f document_page">
   <div class="g1r">
     <section class="contextual_info">
-      <h1>Notable dates</h1>
+      <h1>More information</h1>
       <p class="details">
         <span class="type"><%= @document.speech_type.name %></span> for speech delivered by
         <span class="ministerial_role"><%= link_to @document.role_appointment.role, @document.role_appointment.role %></span> on
         <span class="delivered_on"><%= @document.delivered_on.to_s(:long_ordinal) %></span> at
         <span class="location"><%= @document.location %></span>
       </p>
+      <div class="img"><%= image_for_person @document.person %></div>
     </section>
   </div>
   <div class="g2 document_view">

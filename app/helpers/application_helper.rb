@@ -64,6 +64,11 @@ module ApplicationHelper
     image_tag url
   end
 
+  def image_for_person(person)
+    url = person.image_url || 'blank-person.png'
+    image_tag url
+  end
+
   def render_list_of_roles(roles, class_name = "ministerial_roles", &block)
     raise ArgumentError, "please supply the content of the list item" unless block_given?
     content_tag(:ul, class: class_name) do

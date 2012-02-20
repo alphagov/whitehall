@@ -11,13 +11,14 @@ class SpeechesControllerTest < ActionController::TestCase
   test "should display details about the speech" do
     home_office = create(:organisation, name: "Home Office")
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
-    theresa_may = create(:person, forename: "Theresa", surname: "May")
+    theresa_may = create(:person, forename: "Theresa", surname: "May", image: fixture_file_upload('minister-of-funk.jpg'))
     theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may)
     speech_type = create(:speech_type, name: "Transcript")
     published_speech = create(:published_speech, speech_type: speech_type, role_appointment: theresa_may_appointment, delivered_on: Date.parse("2011-06-01"), location: "The Guidhall")
 
     get :show, id: published_speech.document_identity
 
+    assert_select ".img img[src=?]", theresa_may.image_url
     assert_select ".details .type", "Transcript"
     assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
     assert_select ".details .delivered_on", "1 June 2011"
