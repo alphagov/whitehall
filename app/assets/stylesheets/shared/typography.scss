@@ -12,7 +12,7 @@
   @include default_font_settings;
 
   p, blockquote, q, pre, address, hr, code, samp, dl, ol, ul, form, table, fieldset, menu, img {
-    margin: 0 0 1.5em;
+    margin-bottom: 0.75em;
     padding: 0
   }
 
@@ -50,6 +50,7 @@
 
   p, ul, blockquote, pre, td, th, label {
     @include type-16;
+    margin-bottom: 0.75em;
   }
   small, p.small {
     @include type-13;
