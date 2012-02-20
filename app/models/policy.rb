@@ -10,6 +10,8 @@ class Policy < Document
   has_many :related_documents, through: :document_relations, source: :document
   has_many :published_related_documents, through: :document_relations, source: :document, conditions: {documents: {state: 'published'}}
 
+  validates :summary, presence: true
+
   class Trait < Document::Traits::Trait
     def process_associations_after_save(document)
       document.related_documents = @document.related_documents

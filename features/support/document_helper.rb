@@ -10,6 +10,11 @@ module DocumentHelper
     fill_in "Body", with: options[:body] || "Any old iron"
   end
 
+  def begin_drafting_policy(options)
+    begin_drafting_document(options.merge(type: "policy"))
+    fill_in "Summary", with: options[:summary] || "Policy summary"
+  end
+
   def begin_editing_document(title)
     visit_document_preview title
     click_link "Edit"
