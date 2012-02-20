@@ -13,7 +13,7 @@
     <%= person_form.file_field :image %>
   </fieldset>
   <fieldset>
-    <%= person_form.text_area :biography %>
+    <%= person_form.text_area :biography, class: "previewable", help: true %>
   </fieldset>
 
   <%= person_form.save_or_cancel cancel: admin_people_path %>
