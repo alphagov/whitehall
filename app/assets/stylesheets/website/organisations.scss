@@ -23,7 +23,6 @@
     background-color: #F17921;
     margin-top: -1em;
     margin-bottom: 1em;
-    padding: 0 1.5%;
 
     h1, p {
       display: inline;
@@ -31,6 +30,7 @@
     
     h1 {
       @include type-16;
+      margin-left: 1.5%;
     }
     
     p {
