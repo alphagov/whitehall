@@ -1,6 +1,8 @@
 <nav class="actions">
   <%= render partial: "link_to_public_document", locals: {document: document} %>
-  <% if document.editable? %>
+  <% if !document.is_latest_edition? %>
+    <%= most_recent_edition_button(document) %>
+  <% elsif document.editable? %>
     <%= edit_document_button(document) %>
   <% elsif document.published? %>
     <%= redraft_document_button(document) %>

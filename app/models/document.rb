@@ -154,6 +154,14 @@ class Document < ActiveRecord::Base
     document_identity.documents.count == 1
   end
 
+  def latest_edition
+    document_identity.documents.latest_edition.first
+  end
+
+  def is_latest_edition?
+    latest_edition == self
+  end
+
   class << self
     def authored_by(user)
       joins(:document_authors).where(document_authors: {user_id: user}).group(:document_id)
