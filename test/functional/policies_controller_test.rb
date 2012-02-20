@@ -206,36 +206,36 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_equal published_document, assigns[:document]
   end
 
-  test "should link to policy topics from within the metadata navigation" do
+  test "should link to policy topics related to the policy" do
     first_policy_topic = create(:policy_topic)
     second_policy_topic = create(:policy_topic)
     document = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
 
     get :show, id: document.document_identity
 
-    assert_select "#{metadata_nav_selector} a.policy_topic", text: first_policy_topic.name
-    assert_select "#{metadata_nav_selector} a.policy_topic", text: second_policy_topic.name
+    assert_select "#document_topics a.policy_topic", text: first_policy_topic.name
+    assert_select "#document_topics a.policy_topic", text: second_policy_topic.name
   end
 
-  test "should link to organisations from within the metadata navigation" do
+  test "should link to organisations related to the policy" do
     first_org = create(:organisation)
     second_org = create(:organisation)
     document = create(:published_policy, organisations: [first_org, second_org])
 
     get :show, id: document.document_identity
 
-    assert_select "#{metadata_nav_selector} a.organisation", text: first_org.name
-    assert_select "#{metadata_nav_selector} a.organisation", text: second_org.name
+    assert_select "#document_organisations li.organisation a", text: first_org.name
+    assert_select "#document_organisations li.organisation a", text: second_org.name
   end
 
-  test "should link to ministers from within the metadata navigation" do
+  test "should link to ministers related to the policy" do
     role = create(:ministerial_role)
     appointment = create(:role_appointment, person: create(:person, forename: "minister-name"), role: role)
     document = create(:published_policy, ministerial_roles: [appointment.role])
 
     get :show, id: document.document_identity
 
-    assert_select "#{metadata_nav_selector} a.minister", text: "minister-name"
+    assert_select "#document_ministers a.minister", text: "minister-name"
   end
 
   test "shows link to policy overview" do

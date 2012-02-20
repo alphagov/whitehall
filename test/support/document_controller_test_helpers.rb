@@ -196,7 +196,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: document.document_identity
 
-        assert_select metadata_nav_selector do
+        assert_select '#document_countries' do
           assert_select_object first_country
           assert_select_object second_country
           refute_select_object third_country

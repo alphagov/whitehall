@@ -13,7 +13,9 @@
 
 <div class="g3f policy_topic_view">
   <div class="g2 description"><%= govspeak_to_html @policy_topic.description %></div>
-  <div class="g1"><%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5] %></div>
+  <div class="g1">
+    <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5], locals: { title: "Latest in this topic" } %>
+  </div>
 
   <div class="g3f related_content group<%= @featured_policies.any? ? "" : " no_featured" %>">
     <% if @featured_policies.any? %>
