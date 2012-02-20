@@ -1,9 +1,9 @@
 <section class="page_header organisation">
-  <h1 class="page_title name has_meta">
+  <h1 class="page_title name">
     <% if local_assigns.has_key?(:title) %>
-      <%=h title %>
+      <%= title %>
     <% else %>
-      <%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %>
+      <span><%= organisation.name %></span>
     <% end %>
   </h1>
 </section>

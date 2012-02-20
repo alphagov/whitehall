@@ -17,7 +17,7 @@
     <div class="g2f">
       <% if @featured_news_articles.any? %>
         <section class="org_news gutter">
-          <h1>Top stories</h1>
+          <h1 class="visuallyhidden">Top stories</h1>
           <section class="featured_carousel" id="featured-news-articles">
             <% @featured_news_articles.each do |news_article| %>
               <%= content_tag_for(:article, news_article) do %>
