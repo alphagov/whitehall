@@ -36,6 +36,10 @@ class Policy < Document
     title_without_stub
   end
 
+  def has_summary?
+    true
+  end
+
   private
 
   def remove_document_relations

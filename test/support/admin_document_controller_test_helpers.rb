@@ -37,6 +37,7 @@ module AdminDocumentControllerTestHelpers
         admin_documents_path = send("admin_#{document_type.to_s.tableize}_path")
         assert_select "form#document_new[action='#{admin_documents_path}']" do
           assert_select "input[name='document[title]'][type='text']"
+          assert_select "textarea[name='document[summary]']" if document_class.new.has_summary?
           assert_select "textarea[name='document[body]']"
           assert_select "input[type='submit']"
         end
