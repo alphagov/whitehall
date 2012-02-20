@@ -14,9 +14,11 @@
       <% @document.ministerial_roles.each do |ministerial_role| %>
         <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister tag" %>
       <% end %>
-      <% @document.countries.each do |country| %>
-        <%= link_to country.name, country_path(country), class: "country tag", id: dom_id(country) %>
-      <% end %>
+      <div id="document_countries">      
+        <% @document.countries.each do |country| %>
+          <%= link_to country.name, country_path(country), class: "country tag", id: dom_id(country) %>
+        <% end %>
+      </div>
     </div>
   </section>
 </div>

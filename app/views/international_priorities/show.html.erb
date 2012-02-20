@@ -8,9 +8,11 @@
       <% @document.organisations.each do |organisation| %>
         <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag", id: dom_id(organisation) %>
       <% end %>
-      <% @document.countries.each do |country| %>
-        <%= link_to country.name, country_path(country), class: "country tag", id: dom_id(country) %>
-      <% end %>
+      <div id="document_countries">
+        <% @document.countries.each do |country| %>
+          <%= link_to country.name, country_path(country), class: "country tag", id: dom_id(country) %>
+        <% end %>        
+      </div>
     </div>
   </section>
 </div>

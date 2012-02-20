@@ -18,7 +18,6 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document_identity
 
-    assert_select ".img img[src=?]", theresa_may.image_url
     assert_select ".details .type", "Transcript"
     assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
     assert_select ".details .delivered_on", "1 June 2011"
