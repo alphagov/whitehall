@@ -58,7 +58,7 @@
   section {
     h1 {
       @include type-32;
-      /* add Gill here */
+      font-family: 'Gill Sans W01 Medium', "Gill Sans", "Gill Sans MT", "Helvetica Neue", Arial, Helvetica, sans-serif;
     }
 
     h2 {
@@ -97,5 +97,10 @@
     line-height: 0;
     position: relative;
     vertical-align: baseline
+  }
+  
+  /* Label style inherited from citizen format 'label' in page titles */
+  .label {
+    
   }
 }
