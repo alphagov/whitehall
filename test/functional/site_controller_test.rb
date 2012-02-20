@@ -6,6 +6,7 @@ class SiteControllerTest < ActionController::TestCase
   default_url_options[:host] = 'test.host'
 
   should_be_a_public_facing_controller
+  should_show_three_featured_news_articles
 
   test "index shows a list of recently published documents" do
     create_published_documents

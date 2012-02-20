@@ -140,6 +140,60 @@ module DocumentControllerTestHelpers
         end
       end
     end
+    
+    def should_show_three_featured_news_articles
+      should_show_featured_documents_for :news_article
+      test "index highlights three featured news articles" do
+        articles = 3.times.map do |n|
+          create(:featured_news_article, published_at: n.days.ago)
+        end
+
+        get :index
+
+        assert_equal articles.take(3), assigns[:featured_news_articles]
+        assert_select '#featured-news-articles' do
+          articles.take(3).each do |article|
+            assert_select_object article
+          end
+        end
+      end
+
+      test "index highlights three featured news articles in order of first publication" do
+        articles = 3.times.map do |n|
+          create(:featured_news_article, published_at: n.days.ago)
+        end
+
+        editor = create(:departmental_editor)
+        articles.push(updated_article = articles.pop.create_draft(editor))
+        updated_article.change_note = "change-note"
+        updated_article.publish_as(editor, force: true)
+
+        get :index
+
+        assert_equal articles.take(3), assigns[:featured_news_articles]
+      end
+
+      test "index should display an image for a featured news article if it has one" do
+        featuring_image = fixture_file_upload('portas-review.jpg')
+        document = create(:featured_news_article, featuring_image: featuring_image)
+        get :index
+        assert_select featured_news_articles_selector do
+          assert_select_object document do
+            assert_select ".img img[src$='portas-review.jpg']"
+          end
+        end
+      end
+
+      test "index should not display an image for a featured news article if it does not have one" do
+        document = create(:featured_news_article, featuring_image: nil)
+        get :index
+        assert_select featured_news_articles_selector do
+          assert_select_object document do
+            refute_select ".img img"
+          end
+        end
+      end
+    end
 
     def should_show_related_policies_and_policy_topics_for(document_type)
       test "show displays related published policies" do
