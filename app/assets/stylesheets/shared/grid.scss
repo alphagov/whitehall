@@ -36,15 +36,15 @@
   .g3f {
     @include flood_three_columns;
 
-    .g1 {
+    > .g1 {
       @include span_one_column(left, 97%, 1.5%, 1.5%);
     }
 
-    .g2 {
+    > .g2 {
       @include span_two_columns(left, 97%, 1.5%, 1.5%);
     }
 
-    .g3 {
+    > .g3 {
       @include span_three_columns(left, 97%, 1.5%, 1.5%);
     }
   }
@@ -52,27 +52,27 @@
   .g4 {
     @include span_four_columns;
 
-    .g1 {
+    > .g1 {
       @include span_one_column(left, 97%, 1.5%, 1.5%, 4);
     }
 
-    .g2 {
+    > .g2 {
       @include span_two_columns(left, 97%, 1.5%, 1.5%, 4);
     }
 
-    .g3 {
+    > .g3 {
       @include span_three_columns(left, 97%, 1.5%, 1.5%, 4);
     }
 
-    .g1f {
+    > .g1f {
       @include flood_one_column(left, 4);
     }
 
-    .g2f {
+    > .g2f {
       @include flood_two_columns(left, 4);
     }
 
-    .g3f {
+    > .g3f {
       @include flood_three_columns(left, 4);
     }
   }
@@ -80,27 +80,27 @@
   .g4f {
     @include flood_four_columns;
 
-    .g1 {
+    > .g1 {
       @include span_one_column(left, 97%, 1.5%, 1.5%, 4);
     }
 
-    .g2 {
+    > .g2 {
       @include span_two_columns(left, 97%, 1.5%, 1.5%, 4);
     }
 
-    .g3 {
+    > .g3 {
       @include span_three_columns(left, 97%, 1.5%, 1.5%, 4);
     }
 
-    .g1f {
+    > .g1f {
       @include flood_one_column(left, 4);
     }
 
-    .g2f {
+    > .g2f {
       @include flood_two_columns(left, 4);
     }
 
-    .g3f {
+    > .g3f {
       @include flood_three_columns(left, 4);
     }
 
