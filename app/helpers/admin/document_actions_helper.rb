@@ -7,6 +7,11 @@ module Admin::DocumentActionsHelper
     button_to 'Create new edition', revise_admin_document_path(document), title: "Create new edition"
   end
 
+  def most_recent_edition_button(document)
+    link_to "Go to most recent edition", admin_document_path(document.latest_edition),
+            title: "Go to most recent edition of #{document.title}", class: "button"
+  end
+
   def submit_document_button(document)
     capture do
       form_for [:admin, document], {url: submit_admin_document_path(document), method: :post} do |submit_form|

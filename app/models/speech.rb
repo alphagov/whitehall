@@ -13,6 +13,10 @@ class Speech < Document
     true
   end
 
+  def person
+    role_appointment.person
+  end
+
   private
 
   def populate_organisations_based_on_role_appointment

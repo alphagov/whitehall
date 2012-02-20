@@ -8,9 +8,11 @@ end
 
 Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
   Given %{I am a writer called "#{author}"}
-  And %{I visit the new policy page}
-  And %{I write and save a policy "#{title}" with body "#{body}"}
-  And %{I submit the policy for the second set of eyes}
+
+  begin_drafting_policy title: title, body: body
+  click_button 'Save'
+
+  click_button 'Submit to 2nd pair of eyes'
 end
 
 Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" policy topics$/ do |policy_title, policy_topic_1, policy_topic_2|
@@ -32,10 +34,6 @@ end
 
 Given /^I click on the policy "([^"]*)"$/ do |policy_title|
   click_link policy_title
-end
-
-Given /^I submit the policy for the second set of eyes$/ do
-  click_button 'Submit to 2nd pair of eyes'
 end
 
 Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
@@ -132,44 +130,34 @@ When /^I request that "([^"]*)" fact checks the policy "([^"]*)" with instructio
   end
 end
 
-When /^I write and save a policy "([^"]*)" with body "([^"]*)"$/ do |title, body|
-  When %{I write a policy "#{title}" with body "#{body}"}
-  click_button 'Save'
-end
-
-When /^I write a policy "([^"]*)" with body "([^"]*)"$/ do |title, body|
-  fill_in 'Title', with: title
-  fill_in 'Body', with: body
-end
-
 When /^I draft a new policy "([^"]*)"$/ do |title|
-  begin_drafting_document type: 'policy', title: title
+  begin_drafting_policy title: title
   click_button "Save"
 end
 
 When /^I draft a new policy "([^"]*)" in the "([^"]*)" and "([^"]*)" policy topics$/ do |title, first_policy_topic, second_policy_topic|
-  begin_drafting_document type: "Policy", title: title
+  begin_drafting_policy title: title
   select first_policy_topic, from: "Policy topics"
   select second_policy_topic, from: "Policy topics"
   click_button "Save"
 end
 
 When /^I draft a new policy "([^"]*)" produced by the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
-  begin_drafting_document type: "Policy", title: title
+  begin_drafting_policy title: title
   select first_org, from: "Organisations"
   select second_org, from: "Organisations"
   click_button "Save"
 end
 
 When /^I draft a new policy "([^"]*)" associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
-  begin_drafting_document type: "Policy", title: title
+  begin_drafting_policy title: title
   select minister_1, from: "Ministers"
   select minister_2, from: "Ministers"
   click_button "Save"
 end
 
 When /^I draft a new policy "([^"]*)" that does not apply to the nations:$/ do |title, nations|
-  begin_drafting_document type: "Policy", title: title
+  begin_drafting_policy title: title
   nations.raw.flatten.each do |nation_name|
     check nation_name
     fill_in "Alternative url", with: "http://www.#{nation_name}.com/"

@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :policy, class: Policy, parent: :document do
-    title "policy-title"
-    body  "policy-body"
+    title   "policy-title"
+    body    "policy-body"
+    summary "policy-summary"
   end
 
   factory :draft_policy, parent: :policy, traits: [:draft]

@@ -13,6 +13,10 @@ class Consultation < Document
   has_one :published_consultation_response, through: :document_identity
   has_one :latest_consultation_response, through: :document_identity
 
+  def not_yet_open?
+    opening_on > Date.today
+  end
+
   def open?
     !closed? && opening_on <= Date.today
   end

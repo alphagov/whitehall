@@ -25,8 +25,17 @@
     margin-bottom: 1em;
 
     h1, p {
-      margin-left: 0.5em;
       display: inline;
+    }
+    
+    h1 {
+      @include type-16;
+      margin-left: 1.5%;
+    }
+    
+    p {
+      @include type-14;
+      margin-left: 0.5em;
     }
   }
 

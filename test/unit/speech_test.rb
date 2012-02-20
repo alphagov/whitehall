@@ -49,4 +49,25 @@ class SpeechTest < ActiveSupport::TestCase
 
     assert_equal [organisation], speech.organisations
   end
+
+  test "#person should return the person who gave the speech" do
+    organisation = create(:organisation)
+    ministerial_role = create(:ministerial_role, organisations: [organisation])
+    person = create(:person)
+    role_appointment = create(:role_appointment, role: ministerial_role, person: person)
+    speech = create(:speech, role_appointment: role_appointment)
+
+    assert_equal person, speech.person
+  end
+
+  test "#person should return the person who gave the speech even if they are no longer in the same role" do
+    organisation = create(:organisation)
+    ministerial_role = create(:ministerial_role, organisations: [organisation])
+    person = create(:person)
+    role_appointment = create(:role_appointment, role: ministerial_role, person: person)
+    speech = create(:speech, role_appointment: role_appointment)
+    subsequent_role_appointment = create(:role_appointment, role: ministerial_role)
+
+    assert_equal person, speech.person
+  end
 end

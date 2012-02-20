@@ -6,6 +6,10 @@ class PolicyTest < ActiveSupport::TestCase
     refute build(:policy).allows_attachments?
   end
 
+  test "should not be valid without a summary" do
+    refute build(:policy, summary: nil).valid?
+  end
+
   test "should build a draft copy of the existing policy with inapplicable nations" do
     published_policy = create(:published_policy, nation_inapplicabilities_attributes: [
       {nation: Nation.wales, alternative_url: "http://wales.gov.uk"}, 

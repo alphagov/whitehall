@@ -17,7 +17,7 @@ module Whitehall
     end
 
     def government_single_domain?(request)
-      request.headers["HTTP_X_GOVUK_ROUTER_REQUEST"].present?
+      PUBLIC_HOSTS.values.include?(request.host) || request.headers["HTTP_X_GOVUK_ROUTER_REQUEST"].present?
     end
 
     def platform

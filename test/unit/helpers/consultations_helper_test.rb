@@ -45,13 +45,35 @@ class ConsultationsHelperTest < ActionView::TestCase
 
   test "#consultation_time_remaining_phrase when closed" do
     consultation = build(:consultation, opening_on: Date.new(2011, 7, 1), closing_on: Date.new(2011, 9, 1))
-    assert_equal "Closed 2 months ago", consultation_time_remaining_phrase(consultation)
+    assert_equal "", consultation_time_remaining_phrase(consultation)
   end
 
   test "#consultation_time_remaining_phrase when response published" do
     consultation = build(:consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
-    response = build(:consultation_response, consultation: consultation, first_published_at: Date.new(2011, 9, 1))
+    response = build(:consultation_response, consultation: consultation, first_published_at: Date.new(2011, 10, 10))
     consultation.stubs(:published_consultation_response).returns(response)
-    assert_equal "Response published 2 months ago", consultation_time_remaining_phrase(consultation)
+    assert_equal "", consultation_time_remaining_phrase(consultation)
+  end
+
+  test "#consultation_last_significant_change when not yet open" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 11, 25), closing_on: Date.new(2012, 2, 1))
+    assert_equal "", consultation_last_significant_change(consultation)
+  end
+
+  test "#consultation_last_significant_change when open" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 11, 1), closing_on: Date.new(2011, 12, 1))
+    assert_equal "Opened on 1 November 2011", consultation_last_significant_change(consultation)
+  end
+
+  test "#consultation_last_significant_change when closed" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 7, 1), closing_on: Date.new(2011, 9, 1))
+    assert_equal "Closed on 1 September 2011", consultation_last_significant_change(consultation)
+  end
+
+  test "#consultation_last_significant_change when response published" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
+    response = build(:consultation_response, consultation: consultation, first_published_at: Date.new(2011, 10, 10))
+    consultation.stubs(:published_consultation_response).returns(response)
+    assert_equal "Response published on 10 October 2011", consultation_last_significant_change(consultation)
   end
 end

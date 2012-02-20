@@ -3,8 +3,8 @@ module ApplicationHelper
     if title_parts.any?
       title_parts.push("Admin") if params[:controller] =~ /^admin\//
       title_parts.push("Inside Government")
-      title_parts.push("GOV.UK")
-      @page_title = title_parts.join(" | ")
+      title_parts.push("GOV.UK Beta (Test)")
+      @page_title = title_parts.reject { |p| p.blank? }.join(" | ")
     else
       @page_title
     end
@@ -61,6 +61,11 @@ module ApplicationHelper
 
   def image_for_ministerial_role(ministerial_role)
     url = ministerial_role.current_person_image_url || 'blank-person.png'
+    image_tag url
+  end
+
+  def image_for_person(person)
+    url = person.image_url || 'blank-person.png'
     image_tag url
   end
 
