@@ -12,10 +12,10 @@ Scenario: Viewing a published news article with notes to editors
 
 Scenario: Viewing a featured news article
   Given a published featured news article "Amazing News"
-  When I visit the news and speeches page
+  When I visit the homepage
   Then I should see "Amazing News" in the list of featured news articles
 
 Scenario: Limiting the number of featured news articles
   Given 4 published featured news articles
-  When I visit the news and speeches page
+  When I visit the homepage
   Then I should only see the most recent 3 in the list of featured news articles

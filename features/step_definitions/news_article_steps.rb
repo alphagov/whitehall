@@ -25,6 +25,10 @@ When /^I visit the news and speeches page$/ do
   visit announcements_path
 end
 
+When /^I visit the homepage$/ do
+  visit root_path
+end
+
 When /^I draft a new news article "([^"]*)"$/ do |title|
   begin_drafting_document type: "news_article", title: title
   fill_in "Summary", with: "here's a simple summary"
@@ -77,8 +81,8 @@ Then /^I should only see the most recent (\d+) in the list of featured news arti
   assert has_css?("#{featured_news_articles_selector} .news_article", count: number.to_i)
 end
 
-Then /^the news article "([^"]*)" should (not )?be featured on the public news and speeches page$/ do |title, should_not_be_featured|
-  visit announcements_path
+Then /^the news article "([^"]*)" should (not )?be featured on the homepage$/ do |title, should_not_be_featured|
+  visit root_path
   news_article = NewsArticle.published.find_by_title!(title)
 
   news_article_is_featured = has_css?("#featured-news-articles #{record_css_selector(news_article)}")
