@@ -1,33 +1,31 @@
 <% page_title "Departments & agencies" %>
 
-<div class="g3f">
+<div class="g3">
   <section class="page_header organisation">
     <h1 class="page_title">Departments &amp; agencies</h1>
-    <p class="explanation">Information about all government departments, agencies and other public bodies</p>
   </section>
   <section class="page_detail">
-    <div class="g3">
-      <nav class="organisations_type_links">
-        <p>
-          View departments &amp; agencies by
-          <%= @organisations_by_type.map do |type, _|
-               link_to type.name.pluralize, organisations_path(anchor: type.name.pluralize.downcase.gsub(/\s/, "_"))
-            end.to_sentence.html_safe %>.
-        </p><p>You can also
-          <%= link_to "view alphabetically", alphabetical_organisations_path %>.
-        </p>
-      </nav>
-    </div>
+    <p class="explanation">Information about all government departments, agencies and other public bodies</p>
+    <nav class="organisations_type_links">
+      <p>
+        View departments &amp; agencies by
+        <%= @organisations_by_type.map do |type, _|
+             link_to type.name.pluralize, organisations_path(anchor: type.name.pluralize.downcase.gsub(/\s/, "_"))
+          end.to_sentence.html_safe %>.
+      </p><p>You can also
+        <%= link_to "view alphabetically", alphabetical_organisations_path %>.
+      </p>
+    </nav>
   </section>
-</div>
 
-<div id="organisation_types">
-  <% @organisations_by_type.each do |type, organisations| %>
-    <div class="g3f organisation_type">
-      <section>
-        <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_")) %>
-        <%= render partial: "grouped_list", locals: {organisations: organisations} %>
-      </section>
-    </div>
-  <% end %>
+  <div id="organisation_types">
+    <% @organisations_by_type.each do |type, organisations| %>
+      <div class="organisation_type">
+        <section>
+          <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_")) %>
+          <%= render partial: "grouped_list", locals: {organisations: organisations} %>
+        </section>
+      </div>
+    <% end %>
+  </div>
 </div>
