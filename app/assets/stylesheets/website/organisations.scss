@@ -23,10 +23,19 @@
     background-color: #F17921;
     margin-top: -1em;
     margin-bottom: 1em;
+    padding: 0 1.5%;
 
     h1, p {
-      margin-left: 0.5em;
       display: inline;
+    }
+    
+    h1 {
+      @include type-16;
+    }
+    
+    p {
+      @include type-14;
+      margin-left: 0.5em;
     }
   }
 
