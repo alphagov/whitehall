@@ -11,11 +11,8 @@ class OrganisationsController < PublicFacingController
   end
 
   def show
-    @policies = Policy.published.in_organisation(@organisation).by_published_at.limit(3)
-    @publications = Publication.published.in_organisation(@organisation).order("publication_date DESC").limit(3)
+    @recently_updated = @organisation.published_documents.by_published_at.limit(10)
     @news_articles = NewsArticle.published.in_organisation(@organisation)
-    @consultations = Consultation.published.by_published_at.in_organisation(@organisation).limit(3)
-    @speeches = Announcement.by_first_published_at(@organisation.published_speeches).take(3)
     @featured_news_articles = @organisation.featured_news_articles
   end
 

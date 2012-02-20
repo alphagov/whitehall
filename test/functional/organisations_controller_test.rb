@@ -37,18 +37,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows 3 most recent published policies associated with organisation" do
-    policies = (0..3).map { |n| create(:published_policy, published_at: n.days.ago) }
-    draft_policy = create(:draft_policy)
-    organisation = create(:organisation, documents: policies)
-    get :show, id: organisation
-    policies[0..2].each do |policy|
-      assert_select_object(policy)
-    end
-    refute_select_object(policies[3])
-    refute_select_object(draft_policy)
-  end
-
   test "shows organisation's featured news article with image" do
     image_data = create(:image_data, file: fixture_file_upload('portas-review.jpg'))
     image = create(:image, image_data: image_data, alt_text: "alternative-text")
@@ -73,102 +61,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_object news_article do
       refute_select ".img img"
     end
-  end
-
-  test "links to dedicated policies page" do
-    organisation = create(:organisation, documents: [create(:published_policy)])
-    get :show, id: organisation
-    assert_select '#policies a[href=?]', policies_organisation_path(organisation)
-  end
-
-  test "shows only published publications associated with organisation" do
-    published_document = create(:published_publication)
-    draft_document = create(:draft_publication)
-    organisation = create(:organisation, documents: [published_document, draft_document])
-    get :show, id: organisation
-    assert_select_object(published_document)
-    refute_select_object(draft_document)
-  end
-
-  test "shows only published corporate publications associated with organisation" do
-    published_corporate_publication = create(:published_corporate_publication)
-    draft_corporate_publication = create(:draft_corporate_publication)
-    organisation = create(:organisation, documents: [
-      published_corporate_publication,
-      draft_corporate_publication
-    ])
-    get :show, id: organisation
-    assert_select_object(published_corporate_publication)
-    refute_select_object(draft_corporate_publication)
-  end
-
-  test "should only display the 3 most recent non-corporate publications ordered by publication date" do
-    organisation = create(:organisation)
-    older_publication = create(:published_publication, title: "older", publication_date: 3.days.ago, organisations: [organisation])
-    newest_publication = create(:published_publication, title: "newest", publication_date: 1.day.ago, organisations: [organisation])
-    oldest_publication = create(:published_publication, title: "oldest", publication_date: 4.days.ago, organisations: [organisation])
-    newer_publication = create(:published_publication, title: "newer", publication_date: 2.days.ago, organisations: [organisation])
-
-    get :show, id: organisation
-
-    assert_select "#publications li.publication", count: 3
-    assert_select "#publications li#{record_css_selector(newest_publication)}, #publications li#{record_css_selector(newer_publication)}, li#publications #{record_css_selector(older_publication)}"
-  end
-
-  test "should link to the organisation's publications page" do
-    organisation = create(:organisation)
-    publication = create(:published_publication, organisations: [organisation])
-
-    get :show, id: organisation
-
-    assert_select "#publications a[href=#{publications_organisation_path(organisation)}]"
-  end
-
-  test "shows only published consultations associated with organisation" do
-    published_document = create(:published_consultation)
-    draft_document = create(:draft_consultation)
-    organisation = create(:organisation, documents: [published_document, draft_document])
-    get :show, id: organisation
-    assert_select '#consultations' do
-      assert_select_object(published_document)
-      refute_select_object(draft_document)
-    end
-  end
-
-  test "shows only 3 most recent consultations when more exist" do
-    consultations = 5.times.map do |n|
-      create(:published_consultation, published_at: n.days.ago)
-    end
-
-    organisation = create(:organisation, documents: consultations)
-    get :show, id: organisation
-    assert_equal 3, assigns[:consultations].size
-    assert_equal consultations.take(3), assigns[:consultations]
-  end
-
-  test "shows only 3 speeches with latest first_published_at when more exist" do
-    organisation = create(:organisation)
-    role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:ministerial_role_appointment, role: role)
-    speeches = 5.times.map do |n|
-      create(:published_speech, role_appointment: role_appointment, first_published_at: (5-n).days.ago)
-    end
-
-    get :show, id: organisation
-
-    assert_equal 3, assigns[:speeches].size
-    assert_equal speeches.reverse.take(3), assigns[:speeches]
-  end
-
-  test "should link to the organisation's news and speeches page" do
-    organisation = create(:organisation)
-    role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:ministerial_role_appointment, role: role)
-    speech = create(:published_speech, role_appointment: role_appointment)
-
-    get :show, id: organisation
-
-    assert_select "#speeches a[href=#{announcements_organisation_path(organisation)}]"
   end
 
   test "should not display an empty published policies section" do
@@ -568,6 +460,23 @@ class OrganisationsControllerTest < ActionController::TestCase
     [:show, :about, :consultations, :contact_details, :management_team, :ministers, :policies, :publications].each do |page|
       get page, id: organisation
       assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
+    end
+  end
+
+  test "shows 10 most recently published documents associated with organisation" do
+    documents = 3.times.map { |n| create(:published_policy, published_at: n.days.ago) } +
+                3.times.map { |n| create(:published_publication, published_at: (3 + n).days.ago) } +
+                3.times.map { |n| create(:published_consultation, published_at: (6 + n).days.ago) } +
+                3.times.map { |n| create(:published_speech, published_at: (9 + n).days.ago) }
+
+    organisation = create(:organisation, documents: documents)
+    get :show, id: organisation
+
+    documents[0,10].each do |document|
+      assert_select_object document
+    end
+    documents[10,2].each do |document|
+      refute_select_object document
     end
   end
 
