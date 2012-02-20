@@ -19,7 +19,7 @@
         <%= govspeak_to_html @ministerial_role.responsibilities %>
       </div>
       <div class="biography">
-        <%= format_in_paragraphs(@ministerial_role.current_person_biography) %>
+        <%= govspeak_to_html(@ministerial_role.current_person_biography) %>
       </div>
     </div>
   </section>
