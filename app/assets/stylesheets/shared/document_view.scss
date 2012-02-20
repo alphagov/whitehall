@@ -37,6 +37,10 @@
       }
     }
 
+    ul {
+      list-style-type: disc;
+    }
+
     li {
       @include type-16;
       @include scaled_margin_bottom(24);
