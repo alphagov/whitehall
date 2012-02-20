@@ -1,16 +1,25 @@
 module ConsultationsHelper
   def consultation_time_remaining_phrase(consultation)
-    closing_interval = time_ago_in_words(consultation.closing_on + 1.day)
-    if consultation.response_published?
-      response_interval = time_ago_in_words(consultation.response_published_on)
-      "Response published #{response_interval} ago"
-    elsif consultation.closed?
-      "Closed #{closing_interval} ago"
-    elsif consultation.open?
+    if consultation.open?
+      closing_interval = time_ago_in_words(consultation.closing_on + 1.day)
       "Closes in #{closing_interval}"
-    else
+    elsif consultation.not_yet_open?
       opening_interval = time_ago_in_words(consultation.opening_on)
       "Opens in #{opening_interval}"
+    else
+      ""
+    end
+  end
+
+  def consultation_last_significant_change(consultation)
+    if consultation.response_published?
+      "Response published on #{consultation.response_published_on.to_s(:long_ordinal)}"
+    elsif consultation.closed?
+      "Closed on #{consultation.closing_on.to_s(:long_ordinal)}"
+    elsif consultation.open?
+      "Opened on #{consultation.opening_on.to_s(:long_ordinal)}"
+    else
+      ""
     end
   end
 

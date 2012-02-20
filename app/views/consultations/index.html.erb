@@ -22,6 +22,7 @@
             </div>
             <div class="meta">
               <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
+              <span class="last_significant_change"><%= consultation_last_significant_change(consultation) %></span>
             </div>
           <% end %>
         </div>
@@ -46,7 +47,8 @@
       <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
       <% if consultation.summary.present? %><p class="summary"><%= consultation.summary %></p><% end %>
       <span class="metadata">
-        <%= consultation_time_remaining_phrase(consultation) %>
+        <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
+        <span class="last_significant_change"><%= consultation_last_significant_change(consultation) %></span>
       </span>
     <% end %>
   <% else %>
