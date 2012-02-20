@@ -9,11 +9,11 @@
     </p>
   </section>
 
-  <div class="g3f">
-    <div class="g1f">
-      <%= render 'header', organisation: @organisation %>
-    </div>
+  <div class="g3">
+    <%= render 'header', organisation: @organisation %>
+  </div>
 
+  <div class="g3">
     <div class="g2f">
       <% if @featured_news_articles.any? %>
         <section class="org_news gutter">

@@ -6,8 +6,9 @@
           border-color: $colour;
         }
         @if $logo_image_url { 
-          background: url($logo_image_url) no-repeat 4% 0;
-          padding-top: 55px;
+          background: url($logo_image_url) no-repeat 10px 0;
+          line-height: 55px;
+          padding-left: 89px;
         }
       }
     }
