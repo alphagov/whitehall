@@ -1,0 +1,18 @@
+<% page_title @document.title, "Documents" %>
+<div class="g4 <%= @document.type.downcase %>">
+  <div class="g3">
+    <%= document_page_header(header_title, header_strapline) %>
+    <%= render partial: "document_metadata" %>
+    <div class="g1f">
+      <%= render partial: "document_contextual" %>
+    </div>
+
+    <div class="g2 document_view">
+      <%= render partial: "document_content" %>
+    </div>
+  </div>
+
+  <div class="g1">
+    <%= render partial: "document_related" %>
+  </div>
+</div>

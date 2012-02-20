@@ -1,0 +1,17 @@
+<article class="document">
+  <div class="summary">
+    <%= @document.summary %>
+  </div>
+  <div class="body">
+    <%= render partial: 'shared/lead_image', locals: { image: @document.images.first } %>
+    <%= govspeak_to_html @document.body, @document.images %>
+  </div>
+  <% if @document.notes_to_editors.present? %>
+    <section id="notes_to_editors">
+      <h1>Notes to editors</h1>
+      <div class="notes_to_editors">
+        <%= govspeak_to_html @document.notes_to_editors %>
+      </div>
+    </section>
+  <% end %>
+</article>

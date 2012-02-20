@@ -10,4 +10,11 @@ module DocumentHelper
     history.last[:change_note] ||= "First published." if history.last
     history.reject { |e| e[:change_note].blank? }
   end
+
+  def document_page_header(title, description)
+    content_tag(:section, class: "page_header") do
+      concat content_tag(:h1, title)
+      concat content_tag(:p, description)
+    end
+  end
 end

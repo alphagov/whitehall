@@ -1,0 +1,26 @@
+<section>
+  <h1 class="page_title has_meta"><%= @policy.title %></h1>
+  <div class="meta <% @policy.nation_inapplicabilities.any? ? 'g1f' : '' %>">
+    <span class="metadata link-to-change-notes">
+      Updated <%= time_ago(@policy.updated_at, class: 'updated_at') %>
+    </span>
+
+    <section class="change_notes">
+      <h1>Policy change notes</h1>
+      <ul>
+        <% change_history(@policy).each do |edition| %>
+          <li class="group">
+            <%= time_ago(edition[:published_at], class: 'published_at') %>
+            <p><%= edition[:change_note] %></p>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  </div>
+
+  <% if @policy.nation_inapplicabilities.any? %>
+    <div class="g2">
+      <%= render partial: 'documents/inapplicable_nations', locals: { document: @policy } %>
+    </div>
+  <% end %>
+</section>
