@@ -99,6 +99,10 @@ class Organisation < ActiveRecord::Base
     end
   end
 
+  def department?
+    organisation_type.department?
+  end
+
   private
 
   def contact_and_contact_numbers_are_blank(attributes)

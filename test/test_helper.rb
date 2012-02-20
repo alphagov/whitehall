@@ -59,8 +59,11 @@ class ActionController::TestCase
     assert_select record_css_selector(object), *args, &block
   end
 
-  def refute_select(selector, options = {})
-    assert_select selector, options.merge(count: 0)
+  def refute_select(selector, *args)
+    options = args.last.is_a?(Hash) ? args.pop : {}
+    options.merge!(count: 0)
+    args.push(options)
+    assert_select selector, *args
   end
 
   def refute_select_object(object)

@@ -1,6 +1,6 @@
 Given /^the organisation "([^"]*)" contains some policies$/ do |name|
   documents = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
-  create(:organisation, name: name, documents: documents)
+  create(:ministerial_department, name: name, documents: documents)
 end
 
 Given /^other organisations also have policies$/ do
@@ -9,11 +9,11 @@ Given /^other organisations also have policies$/ do
 end
 
 Given /^the organisation "([^"]*)" exists$/ do |name|
-  create(:organisation, name: name)
+  create(:ministerial_department, name: name)
 end
 
 Given /^the organisation "([^"]*)" is inactive/ do |name|
-  organisation = Organisation.find_by_name(name) || create(:organisation, name: name)
+  organisation = Organisation.find_by_name(name) || create(:ministerial_department, name: name)
   organisation.update_column(:active, false)
 end
 
@@ -23,7 +23,7 @@ Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation
 end
 
 Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
-  organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
+  organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
   table.hashes.each do |row|
     person = find_or_create_person(row["Person"])
     ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
@@ -33,7 +33,7 @@ Given /^the "([^"]*)" organisation contains:$/ do |organisation_name, table|
 end
 
 Given /^the "([^"]*)" organisation is associated with several ministers and civil servants$/ do |organisation_name|
-  organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
+  organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
   3.times do |x|
     person = create(:person)
     ministerial_role = create(:ministerial_role, cabinet_member: (x == 1))

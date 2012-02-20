@@ -25,6 +25,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".description", text: "organisation-description"
   end
 
+  test "#show doesn't present expanded navigation for non-department organisations" do
+    organisation = create(:organisation, organisation_type: create(:organisation_type, name: "Other"))
+    get :show, id: organisation
+    assert_select "nav" do
+      refute_select "a[href=?]", announcements_organisation_path(organisation)
+      refute_select "a[href=?]", policies_organisation_path(organisation)
+      refute_select "a[href=?]", publications_organisation_path(organisation)
+      refute_select "a[href=?]", consultations_organisation_path(organisation)
+      refute_select "a[href=?]", ministers_organisation_path(organisation)
+    end
+  end
+
   test "shows 3 most recent published policies associated with organisation" do
     policies = (0..3).map { |n| create(:published_policy, published_at: n.days.ago) }
     draft_policy = create(:draft_policy)
@@ -234,8 +246,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "#policy_topics", count: 0
   end
 
-  test "should display a link to the announcements page for the organisation" do
-    organisation = create(:organisation)
+  test "should display a link to the announcements page for department organisations" do
+    organisation = create(:ministerial_department)
     get :show, id: organisation
     assert_select "nav a[href='#{announcements_organisation_path(organisation)}']"
   end
