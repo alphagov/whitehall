@@ -45,7 +45,7 @@ class Document < ActiveRecord::Base
   end
 
   searchable title: :title, link: -> d { d.public_document_path(d) }, content: :body_without_markup,
-    only: :published, index_after: :publish, unindex_after: :archive
+    only: :published, index_after: :publish, unindex_after: [:archive, :delete]
 
   def creator
     document_authors.first && document_authors.first.user

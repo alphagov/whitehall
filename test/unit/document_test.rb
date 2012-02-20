@@ -852,6 +852,15 @@ class DocumentTest < ActiveSupport::TestCase
     new_edition.publish_as(create(:departmental_editor), force: true)
   end
 
+  test "should remove document from search index on deleting" do
+    policy = create(:published_policy)
+    slug = policy.document_identity.slug
+
+    Rummageable.expects(:delete).with("/government/policies/#{slug}")
+
+    policy.delete!
+  end
+
   test "should provide a list of all editions ever published in reverse chronological order by publication date" do
     original_edition = create(:archived_document, published_at: 3.days.ago)
     document_identity = original_edition.document_identity

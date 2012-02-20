@@ -7,12 +7,15 @@ module Document::Workflow
 
     default_scope where(arel_table[:state].not_eq('deleted'))
 
-    define_model_callbacks :publish, :archive, only: :after
+    define_model_callbacks :publish, :archive, :delete, only: :after
     set_callback :publish, :after do
       notify_observers :after_publish
     end
     set_callback :archive, :after do
       notify_observers :after_archive
+    end
+    set_callback :delete, :after do
+      notify_observers :after_delete
     end
 
     after_publish :archive_previous_documents
@@ -25,7 +28,7 @@ module Document::Workflow
       state :archived
       state :deleted
 
-      event :delete do
+      event :delete, success: -> document { document.run_callbacks(:delete) } do
         transitions from: [:draft, :submitted, :rejected, :published, :archived], to: :deleted,
           guard: lambda { |d| d.draft? || d.submitted? || d.rejected? || d.only_edition? }
       end

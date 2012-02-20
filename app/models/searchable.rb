@@ -15,6 +15,9 @@ module Searchable
         unindex_after:  :destroy,
         only:           :scoped
 
+      self.searchable_options[:index_after] = [self.searchable_options[:index_after]].flatten.select { |e| e }
+      self.searchable_options[:unindex_after] = [self.searchable_options[:unindex_after]].flatten.select { |e| e }
+
       [:title, :link, :content, :format, :only].each do |name|
         value = searchable_options[name]
         searchable_options[name] =
@@ -30,8 +33,12 @@ module Searchable
           end
       end
 
-      set_callback searchable_options[:index_after], :after, :update_in_search_index if searchable_options[:index_after]
-      set_callback searchable_options[:unindex_after], :after, :remove_from_search_index if searchable_options[:unindex_after]
+      searchable_options[:index_after].each do |event|
+        set_callback event, :after, :update_in_search_index
+      end
+      searchable_options[:unindex_after].each do |event|
+        set_callback event, :after, :remove_from_search_index
+      end
     end
   end
 
