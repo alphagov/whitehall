@@ -40,7 +40,14 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test "should block access to admin URLs for requests through the single domain router" do
     assert_raises(ActionController::RoutingError) do
-      get_via_redirect "/government/admin", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+      get "/government/admin", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    end
+  end
+
+  test "should block access to admin URLs for requests through the single domain host" do
+    assert_raises(ActionController::RoutingError) do
+      host! 'www.gov.uk'
+      get "/government/admin"
     end
   end
 
