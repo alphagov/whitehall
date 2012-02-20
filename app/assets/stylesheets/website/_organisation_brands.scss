@@ -1,32 +1,38 @@
-@mixin add_colours_for($klass, $colour) {
-  &.#{$klass} {
+@mixin add_styles_for_org($org_class, $colour, $logo_image_url) {
+  &.#{$org_class} {
     .page_header {
-      h1 {
-        border-color: $colour;
+      h1.name {
+        @if $colour {
+          border-color: $colour;
+        }
+        @if $logo_image_url { 
+          background: url($logo_image_url) no-repeat 4% 0;
+          padding-top: 55px;
+        }
       }
     }
+    
+    section h1 a {
+      @if $colour {
+        color: $colour;
+      }      
+    } 
   }
 }
 
-@mixin add_logo_for($type, $image_url) {
-  &.#{$type} {
-    .page_header {
-      h1 {
-        background-image: url($image_url);
-      }
-    }
-  }
-}
-
-@mixin branded_page_headers {
+@mixin branded_page_headers {  
   .organisation {
     .page_header {
-      h1 {
+      h1.name {
         border-left: 4px solid #000;
         padding-left: 4%;
       }
     }
-    @include add_colours_for('department-for-business-innovation-and-skills', #f5fe43);
-    @include add_logo_for('ministerial-department', "background-image: url(/government/assets/coa-default-55-var1.gif");
+    
+    // define styles for different organisation types
+    @include add_styles_for_org('ministerial-department', false, "/government/assets/coa-default-55-var1.gif");
+    
+    // define styles for individual organisations
+    @include add_styles_for_org('department-for-business-innovation-and-skills', #006517, false);
   }
 }
