@@ -15,14 +15,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_disclaimer_present(organisation)
   end
 
-  test "shows organisation name and description" do
+  test "shows organisation name" do
     organisation = create(:organisation,
-      name: "unformatted name",
-      description: "organisation-description"
+      name: "unformatted name"
     )
     get :show, id: organisation
     assert_select ".organisation .name", text: "unformatted name"
-    assert_select ".description", text: "organisation-description"
   end
 
   test "#show doesn't present expanded navigation for non-department organisations" do
@@ -80,33 +78,27 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
     refute_select "#consultations"
   end
-
-  test "should link to the active child organisations" do
-    parent_organisation = create(:organisation)
-    child_organisation = create(:organisation, parent_organisations: [parent_organisation], active: true)
-    get :show, id: parent_organisation
-    assert_select "#child_organisations a[href='#{organisation_path(child_organisation)}']"
-  end
-
-  test "should just list but not link to inactive child organisations" do
-    parent_organisation = create(:organisation)
-    child_organisation = create(:organisation, parent_organisations: [parent_organisation], active: false)
-    get :show, id: parent_organisation
-    refute_select "#child_organisations a[href='#{organisation_path(child_organisation)}']"
-    assert_select "#child_organisations li", text: child_organisation.name
-  end
+  
+  # TODO: this section is moving to a separate view
+  # test "should link to the active child organisations" do
+  #   parent_organisation = create(:organisation)
+  #   child_organisation = create(:organisation, parent_organisations: [parent_organisation], active: true)
+  #   get :show, id: parent_organisation
+  #   assert_select "#child_organisations a[href='#{organisation_path(child_organisation)}']"
+  # end
+  
+  # test "should just list but not link to inactive child organisations" do
+  #   parent_organisation = create(:organisation)
+  #   child_organisation = create(:organisation, parent_organisations: [parent_organisation], active: false)
+  #   get :show, id: parent_organisation
+  #   refute_select "#child_organisations a[href='#{organisation_path(child_organisation)}']"
+  #   assert_select "#child_organisations li", text: child_organisation.name
+  # end
 
   test "should not display the child organisations section" do
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#child_organisations"
-  end
-
-  test "should link to the parent organisations" do
-    parent_organisation = create(:organisation)
-    child_organisation = create(:organisation, parent_organisations: [parent_organisation])
-    get :show, id: child_organisation
-    assert_select ".meta a[href='#{organisation_path(parent_organisation)}']"
   end
 
   test "should not display the parent organisations section" do
@@ -161,7 +153,6 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select ".organisation.hcard" do
       assert_select ".fn.org", "Ministry of Pomp"
-      assert_select ".category", "Ministerial Department"
       assert_select ".adr" do
         assert_select ".street-address", "1 Smashing Place, London"
         assert_select ".postal-code", "LO1 8DN"

@@ -13,8 +13,7 @@
     <%= render 'header', organisation: @organisation %>
   </div>
 
-  <div class="g3">
-    <div class="g2f">
+  <div class="g4">
       <% if @featured_news_articles.any? %>
         <section class="org_news gutter">
           <h1 class="visuallyhidden">Top stories</h1>
@@ -39,65 +38,48 @@
           </section>
         </section>
       <% end %>
-
-      <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
-
-      <% if ministerial_role = @organisation.top_ministerial_role %>
-        <section id="ministers" class="g-half info">
-          <h1><%= link_to 'Ministers', ministers_organisation_path(@organisation) %></h1>
-          <%= content_tag_for(:article, ministerial_role) do %>
-            <div class="image_holder">
-              <%= image_for_ministerial_role(ministerial_role) %>
-            </div>
-            <h3><%= link_to ministerial_role.name, ministerial_role %></h3>
-            <p class="current_appointee"><%= ministerial_role.current_person_name %></p>
-          <% end %>
-        </section>
-      <% end %>
-      <% if management_role = @organisation.top_civil_servant %>
-        <section id="management" class="g-half info">
-          <h1><%= link_to 'Management', management_team_organisation_path(@organisation) %></h1>
-          <%= content_tag_for(:article, management_role) do %>
-            <div class="image_holder">
-              <%= image_for_ministerial_role(management_role) %>
-            </div>
-            <h3><%= management_role.name %></h3>
-            <p class="current_appointee"><%= management_role.current_person_name %></p>
-          <% end %>
-        </section>
-      <% end %>
-      <%= render partial: "documents/policy_topics", object: @organisation.policy_topics, title: "Our policy topics" %>
     </div>
-  </div>
-
-  <div class="g4f">
-    <%= render(partial: "shared/recently_updated",
-               locals: {recently_updated: @recently_updated}
-              ) if @recently_updated.present? %>
-  </div>
-
-  <div class="g4f">
-    <% if @organisation.child_organisations.any? %>
-      <section id="child_organisations" class="info">
-        <h1>Associated organisations</h1>
-        <% in_columns(@organisation.child_organisations, 4) do |organisation_group| %>
-          <div class="g1">
-            <% organisation_group.each do |organisation| %>
-              <ul>
-                <%= content_tag_for(:li, organisation) do %>
-                  <%= if organisation.active?
-                        link_to organisation.name, organisation_path(organisation)
-                      else
-                        organisation.name
-                      end %>
-                <% end %>
-              </ul>
+    
+    <div class="g4">
+      <div class="g1">
+        <%= render 'navigation', organisation: @organisation %>
+      </div>
+      <div class="g1">
+        <%= render(partial: "shared/recently_updated",
+         locals: {recently_updated: @recently_updated}
+        ) if @recently_updated.present? %>
+      </div>
+      <div class="g1">
+        <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
+        <% if ministerial_role = @organisation.top_ministerial_role %>
+          <section id="ministers">
+            <h1><%= link_to 'Ministers', ministers_organisation_path(@organisation) %></h1>
+            <%= content_tag_for(:article, ministerial_role) do %>
+              <div class="image_holder">
+                <%= image_for_ministerial_role(ministerial_role) %>
+              </div>
+              <h3><%= link_to ministerial_role.name, ministerial_role %></h3>
+              <p class="current_appointee"><%= ministerial_role.current_person_name %></p>
             <% end %>
-          </div>
+          </section>
         <% end %>
-      </section>
-    <% end %>
-  </div>
+        <% if management_role = @organisation.top_civil_servant %>
+          <section id="management">
+            <h1><%= link_to 'Management', management_team_organisation_path(@organisation) %></h1>
+            <%= content_tag_for(:article, management_role) do %>
+              <div class="image_holder">
+                <%= image_for_ministerial_role(management_role) %>
+              </div>
+              <h3><%= management_role.name %></h3>
+              <p class="current_appointee"><%= management_role.current_person_name %></p>
+            <% end %>
+          </section>
+        <% end %>
+      </div>
+      <div class="g1">
+        <%= render partial: "documents/policy_topics", object: @organisation.policy_topics, title: "Our policy topics" %>
+      </div>
+    </div>
 
 <% end %>
 
