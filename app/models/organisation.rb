@@ -103,6 +103,17 @@ class Organisation < ActiveRecord::Base
     organisation_type.department?
   end
 
+  def self.parent_organisations
+    where("not exists (" +
+      "select * from organisational_relationships " +
+      "where organisational_relationships.child_organisation_id=organisations.id)")
+  end
+
+  def root_organisation
+    parent = parent_organisations.first
+    parent ? parent.root_organisation : self
+  end
+
   private
 
   def contact_and_contact_numbers_are_blank(attributes)

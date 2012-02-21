@@ -51,6 +51,23 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [parent_org_1, parent_org_2], child_org_1.parent_organisations
   end
 
+  test 'can list all parent organisations' do
+    parent = create(:organisation, child_organisations: [create(:organisation)])
+
+    assert_equal [parent.id], Organisation.parent_organisations.map(&:id)
+  end
+
+  test 'the root organisation of a top level organsation is the organisation itself' do
+    parent = create(:organisation)
+    assert_equal parent, parent.root_organisation
+  end
+
+  test 'the root organisation of a child organsation is the parent' do
+    child = create(:organisation)
+    parent = create(:organisation, child_organisations: [child])
+    assert_equal parent, child.root_organisation
+  end
+
   test '#ministerial_roles includes all ministerial roles' do
     minister = create(:ministerial_role)
     organisation = create(:organisation, roles:  [minister])
