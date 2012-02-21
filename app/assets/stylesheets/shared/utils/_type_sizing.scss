@@ -11,12 +11,12 @@ $baseline_in_px: 24 !default;
 }
 
 @mixin scaled_margin_top($size_in_px, $line_height_in_px: 24) {
-  $vertical_rhythm: ($baseline_in_px / $size_in_px);
+  $vertical_rhythm: ($line_height_in_px / $size_in_px);
   margin-top: #{$vertical_rhythm}em;
 }
 
 @mixin scaled_margin_bottom($size_in_px, $line_height_in_px: 24) {
-  $vertical_rhythm: ($baseline_in_px / $size_in_px);
+  $vertical_rhythm: ($line_height_in_px / $size_in_px);
   margin-bottom: #{$vertical_rhythm}em;
 }
 
