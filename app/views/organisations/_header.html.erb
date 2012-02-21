@@ -8,25 +8,4 @@
   </h1>
 </section>
 
-<section id="about_us" class="info gutter">
-  <p class="description">
-    <%= format_with_html_line_breaks(organisation.description) %>
-  </p>
-  <% if organisation.organisation_type %>
-    <p>
-      <% if organisation.acronym.present? %>
-        <%= organisation.acronym %>
-        <% else %>
-        <%= organisation.name %>
-      <% end %>
-      is a <span class="category"><%= organisation.organisation_type.name %></span>.
-    </p>
-  <% end %>
-  <div class="meta">
-    <% organisation.parent_organisations.each do |organisation| %>
-      <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag" %>
-    <% end %>
-  </div>
-</section>
-
 <%= render 'navigation', organisation: organisation %>
