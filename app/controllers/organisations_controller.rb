@@ -11,7 +11,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def show
-    @recently_updated = @organisation.published_documents.by_published_at.limit(10)
+    @recently_updated = @organisation.published_documents.by_published_at.limit(4)
     @news_articles = NewsArticle.published.in_organisation(@organisation)
     @featured_news_articles = @organisation.featured_news_articles
   end
