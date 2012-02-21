@@ -15,7 +15,7 @@
 
   <div class="g4">
       <% if @featured_news_articles.any? %>
-        <section class="org_news gutter">
+        <section class="org_news">
           <h1 class="visuallyhidden">Top stories</h1>
           <section class="featured_carousel" id="featured-news-articles">
             <% @featured_news_articles.each do |news_article| %>
@@ -41,7 +41,7 @@
     </div>
     
     <div class="g4">
-      <div class="g1">
+      <div class="g1f">
         <%= render 'navigation', organisation: @organisation %>
       </div>
       <div class="g1">
