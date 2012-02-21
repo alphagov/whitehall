@@ -40,7 +40,25 @@
   <div class="g1">
     <section>
       <%= link_to image_tag('feed-icon.png'), atom_feed_path, class: 'feed_icon' %>
-      <%= render partial: "shared/recently_updated", locals: {recently_updated: @recently_updated}%>
+      <ul class='recently_updated'>
+        <% @recently_updated.each do |document| %>
+          <%= content_tag_for :li, document, class: document_organisation_class(document) do %>
+            <div class="metadata published_or_updated">
+              <%= published_or_updated(document) %>
+              <%= time_ago(document.published_at, class: 'published_at') %>
+            </div>
+            <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
+            <% if organisation = document.organisations.first %>
+            <%= content_tag_for :div, organisation do %>
+              <%= link_to organisation.name, organisation_path(organisation) %>
+            <% end %>
+            <% end %>
+            <div class="metadata">
+              <span class="document_type"><%= human_friendly_document_type(document) %></span>
+            </div>
+          <% end %>
+        <% end %>
+      </ul>
     </section>
   </div>
 </div>
