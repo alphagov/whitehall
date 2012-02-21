@@ -17,7 +17,9 @@ $organisation_brands:
   ('department-for-environment-food-and-rural-affairs', rgb(138, 141, 9))
   ('department-for-work-and-pensions', rgb(34, 188, 185))
   ('department-for-business-innovation-and-skills', rgb(59, 110, 143))
-  ('department-for-international-development', rgb(115, 157, 210));
+  ('department-for-international-development', rgb(115, 157, 210))
+  
+  ('unknown_organisation', rgb(100, 100, 100));
 
 @mixin add_styles_for_org($org_class, $colour, $logo_image_url) {
   &.#{$org_class} {

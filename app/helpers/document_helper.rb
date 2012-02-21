@@ -17,4 +17,12 @@ module DocumentHelper
       concat content_tag(:p, description)
     end
   end
+
+  def document_organisation_class(document)
+    if document.organisations.first
+      document.organisations.first.slug
+    else
+      'unknown_organisation'
+    end
+  end
 end

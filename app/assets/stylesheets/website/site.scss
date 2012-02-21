@@ -1,0 +1,13 @@
+@import "organisation_brands";
+
+.recently_updated {
+  @each $brand in $organisation_brands {
+    $name: nth($brand, 1);
+    $color: nth($brand, 2);
+
+    .#{$name} {
+      color: white;
+      background: $color;
+    }
+  }
+}
