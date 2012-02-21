@@ -1,6 +1,6 @@
 <section>
   <h1 class="page_title has_meta"><%= @policy.title %></h1>
-  <div class="meta <% @policy.nation_inapplicabilities.any? ? 'g1f' : '' %>">
+  <div class="meta <%= @policy.nation_inapplicabilities.any? ? 'g1f' : '' %>">
     <span class="metadata link-to-change-notes">
       Updated <%= time_ago(@policy.updated_at, class: 'updated_at') %>
     </span>
