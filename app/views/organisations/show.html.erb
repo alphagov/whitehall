@@ -89,28 +89,5 @@
       </div>
     </div>
 
-    <div class="g4f">
-      <% if @organisation.child_organisations.any? %>
-        <section id="child_organisations" class="info">
-          <h1>Associated organisations</h1>
-          <% in_columns(@organisation.child_organisations, 4) do |organisation_group| %>
-            <div class="g1">
-              <% organisation_group.each do |organisation| %>
-                <ul>
-                  <%= content_tag_for(:li, organisation) do %>
-                    <%= if organisation.active?
-                          link_to organisation.name, organisation_path(organisation)
-                        else
-                          organisation.name
-                        end %>
-                  <% end %>
-                </ul>
-              <% end %>
-            </div>
-          <% end %>
-        </section>
-      <% end %>
-    </div>
-
 <% end %>
 

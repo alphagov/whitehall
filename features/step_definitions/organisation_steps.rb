@@ -49,14 +49,17 @@ Given /^the "([^"]*)" organisation is associated with several ministers and civi
 end
 
 Given /^that "([^"]*)" is responsible for "([^"]*)" and "([^"]*)"$/ do |parent_org_name, child_org_1_name, child_org_2_name|
-  child_org_1 = create(:organisation, name: child_org_1_name)
-  child_org_2 = create(:organisation, name: child_org_2_name)
-  create(:organisation, name: parent_org_name, child_organisations: [child_org_1, child_org_2])
+  child_organisations = [
+    create(:organisation, name: child_org_1_name),
+    create(:organisation, name: child_org_2_name)
+  ]
+  create(:ministerial_department, name: parent_org_name, child_organisations: child_organisations)
 end
 
 Given /^that "([^"]*)" is the responsibility of "([^"]*)" and "([^"]*)"$/ do |child_org_name, parent_org_1_name, parent_org_2_name|
-  parent_org_1 = create(:organisation, name: parent_org_1_name)
-  parent_org_2 = create(:organisation, name: parent_org_2_name)
+  org_type = OrganisationType.find_or_create_by_name("Ministerial department")
+  parent_org_1 = create(:organisation, name: parent_org_1_name, organisation_type: org_type)
+  parent_org_2 = create(:organisation, name: parent_org_2_name, organisation_type: org_type)
   create(:organisation, name: child_org_name, parent_organisations: [parent_org_1, parent_org_2])
 end
 
@@ -106,7 +109,7 @@ end
 
 Then /^I should be able to view all ministers for the "([^"]*)" organisation on a separate page$/ do |name|
   organisation = Organisation.find_by_name!(name)
-  navigate_to_organisation('ministers')
+  navigate_to_organisation('Ministers')
   organisation.ministerial_roles.each do |role|
     assert page.has_css?(record_css_selector(role))
   end
@@ -174,7 +177,7 @@ Then /^I should not see a link to the organisation called "([^"]*)"$/ do |text|
 end
 
 def navigate_to_organisation(page_name)
-  within('.organisation nav') do
-    click_link page_name.capitalize
+  within('nav.sub_navigation') do
+    click_link page_name
   end
 end

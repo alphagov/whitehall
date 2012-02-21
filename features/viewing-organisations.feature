@@ -21,33 +21,31 @@ Scenario: Organisation page should show the top minister
 Scenario: A department is responsible for multiple agencies
   Given that "BIS" is responsible for "Companies House" and "UKTI"
   When I visit the "BIS" organisation
+  And I navigate to the "BIS" organisation's Agencies & partners page
   Then I should see that "BIS" is responsible for "Companies House"
   And I should see that "BIS" is responsible for "UKTI"
-
-Scenario: An agency if the responsibility of multiple departments
-  Given that "The stabilisation unit" is the responsibility of "DFID" and "FCO"
-  When I visit the "The stabilisation unit" organisation
-  Then I should see that "The stabilisation unit" is the responsibility of "DFID"
-  And I should see that "The stabilisation unit" is the responsibility of "FCO"
 
 Scenario: Navigating between pages for an organisation
   Given the organisation "Cabinet Office" exists
   When I visit the "Cabinet Office" organisation
   Then I should see the organisation navigation
-  When I navigate to the "Cabinet Office" organisation's about page
+  When I navigate to the "Cabinet Office" organisation's About page
   Then I should see the "Cabinet Office" organisation's about page
   And I should see the organisation navigation
-  When I navigate to the "Cabinet Office" organisation's news page
+  When I navigate to the "Cabinet Office" organisation's News page
   Then I should see the "Cabinet Office" organisation's news page
   And I should see the organisation navigation
-  When I navigate to the "Cabinet Office" organisation's policies page
+  When I navigate to the "Cabinet Office" organisation's Policies page
   Then I should see the "Cabinet Office" organisation's policies page
   And I should see the organisation navigation
-  When I navigate to the "Cabinet Office" organisation's publications page
+  When I navigate to the "Cabinet Office" organisation's Publications page
   Then I should see the "Cabinet Office" organisation's publications page
   And I should see the organisation navigation
-  When I navigate to the "Cabinet Office" organisation's home page
+  When I navigate to the "Cabinet Office" organisation's Home page
   Then I should see the "Cabinet Office" organisation's home page
+  When I navigate to the "Cabinet Office" organisation's Agencies & partners page
+  Then I should see the "Cabinet Office" organisation's Agencies & partners page
+  And I should see the organisation navigation
 
 Scenario: Inactive organisations are listed but not linked
   Given the organisation "Ministry of Facial Topiary" is inactive
