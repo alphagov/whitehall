@@ -55,6 +55,11 @@
   small, p.small {
     @include type-13;
   }
+  
+  div.metadata {
+    @include scaled_type(14, 24);
+    margin-bottom: 0;
+  }
 
   section {
     h1 {
@@ -73,6 +78,13 @@
     h4,h5,h6 {
       @include type-13;
     }
+    
+    .label {
+      @include type-14;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
   }
 
   /* CODE */
