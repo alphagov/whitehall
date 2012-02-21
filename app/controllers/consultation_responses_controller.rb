@@ -1,6 +1,7 @@
 class ConsultationResponsesController < DocumentsController
   def show
     @related_policies = @consultation.published_related_policies
+    @policy_topics = @related_policies.map { |d| d.policy_topics }.flatten.uniq
   end
 
   private

@@ -1,0 +1,6 @@
+<article class="document has_notice">
+  <div class="body">
+    <%= govspeak_to_html @document.body, @document.images %>
+  </div>
+  <%= render partial: "attachments", locals: { document: @document } %>
+</article>

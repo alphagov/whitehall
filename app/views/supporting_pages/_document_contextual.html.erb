@@ -1,0 +1,26 @@
+<section class="contextual_info">
+  <h1>Policy definition</h1>
+  <nav class="policy_parts">
+    <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'policy_view') %>
+    <% if govspeak_headers(@policy.body).any? || @related_news_articles.any? || @related_speeches.any? || @related_publications.any? || @related_consultations.any? %>
+      <ol id="policy_sections">
+        <% govspeak_headers(@policy.body).each do |header| %>
+          <li><%= link_to header.text, public_document_path(@policy, anchor: header.id) %></li>
+        <% end %>
+        <% if @related_news_articles.any? %><li><%= link_to "Related news", public_document_path(@policy, anchor: "related-news-articles") %></li><% end %>
+        <% if @related_speeches.any? %><li><%= link_to "Related speeches", public_document_path(@policy, anchor: "related-speeches") %></li><% end %>
+        <% if @related_publications.any? %><li><%= link_to "Related publications", public_document_path(@policy, anchor: "related-publications") %></li><% end %>
+        <% if @related_consultations.any? %><li><%= link_to "Related consultations", public_document_path(@policy, anchor: "related-consultations") %></li><% end %>
+      </ol>
+    <% end %>
+  </nav>
+
+  <% if (supporting_pages = @policy.supporting_pages).any? %>
+    <h2>Supporting detail</h2>
+    <nav class="supporting_pages">
+      <% supporting_pages.each do |supporting_page| %>
+        <%= link_to_with_current supporting_page.title, policy_supporting_page_path(@policy.document_identity, supporting_page) %>
+      <% end %>
+    </nav>
+  <% end %>
+</section>

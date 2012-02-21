@@ -1,0 +1,73 @@
+<% if @document.respond_to?(:organisations) && @document.organisations.any? %>
+  <section id="document_organisations">
+    <h1 class="visuallyhidden">Organisations</h1>
+    <ul class="organisations">
+    <% @document.organisations.each do |organisation| %>
+      <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
+        <%= link_to organisation.name, organisation_path(organisation), class: "organisation" %>
+      <% end %>
+    <% end %>
+    </ul>
+  </section>
+<% end %>
+
+<% if @document.respond_to?(:ministerial_roles) && @document.ministerial_roles.any? %>
+  <section id="document_ministers">
+    <ul class="ministers">
+      <h1 class="visuallyhidden">Ministers</h1>
+      <% @document.ministerial_roles.each do |role| %>
+        <li>
+          <h3 class="current_appointee"><%= link_to  role.current_person_name, role, class: "minister" %></h3>
+          <p class="role"><%= role.name %></p>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
+<% if @document.respond_to?(:policy_topics) && @document.policy_topics.any? %>
+  <section id="document_topics">
+    <h1>Topics</h1>
+    <ul class="topics">
+      <% @document.policy_topics.each do |policy_topic| %>
+        <li>
+          <%= link_to policy_topic.name, policy_topic_path(policy_topic), class: "policy_topic", id: dom_id(policy_topic) %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
+<% if @policy_topics && @policy_topics.any? %>
+  <section id="document_topics">
+    <h1>Topics</h1>
+    <ul class="topics">
+      <% @policy_topics.each do |policy_topic| %>
+        <li>
+          <%= link_to policy_topic.name, policy_topic_path(policy_topic), class: "policy_topic", id: dom_id(policy_topic) %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
+<% if @document.respond_to?(:countries) && @document.countries.any? %>
+  <section id="document_countries">
+    <h1>Countries this policy affects</h1>
+    <ul class="countries">
+    <% @document.countries.each do |country| %>
+      <li>
+        <%= link_to country.name, country_path(country), class: "country", id: dom_id(country) %>
+      </li>
+    <% end %>
+    </ul>
+  </section>
+<% end %>
+
+<% if @recently_changed_documents %>
+  <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents, locals: { title: "Latest on this policy" } %>
+<% end %>
+
+<% if @related_policies %>
+  <%= render partial: 'related_policies', object: @related_policies %>
+<% end %>

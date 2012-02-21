@@ -1,44 +1,4 @@
 <% page_title @document.title, "Consultations" %>
+<%= render template: 'documents/show', locals: { header_title: "Consultation", header_strapline: "Everything you need to know about this consultation" } %>
 
-<div class="g3f">
-  <section class="page_header consultation">
-    <h1 class="page_title title has_meta"><%= @document.title %></h1>
-    <div class="meta">
-      <span class="metadata">Last updated <%= time_ago(@document.published_at, class: 'published_at') %></span>
-      <% @related_policies.map { |d| d.policy_topics }.flatten.uniq.each do |policy_topic| %>
-        <%= link_to policy_topic.name, policy_topic_path(policy_topic), class: "policy_topic tag", id: dom_id(policy_topic) %>
-      <% end %>
-      <% @document.organisations.each do |organisation| %>
-        <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag" %>
-      <% end %>
-      <% @document.ministerial_roles.each do |ministerial_role| %>
-        <%= link_to ministerial_role.current_person_name, ministerial_role, class: "minister tag" %>
-      <% end %>
-    </div>
-  </section>
-</div>
 
-<div class="g3f document_page">
-  <div class="g1r">
-    <section class="contextual_info">
-      <h1>Notable dates</h1>
-      <p class="opening_on"><%= consultation_opening_phrase(@document) %></p>
-      <p class="closing_on"><%= consultation_closing_phrase(@document) %></p>
-    </section>
-  </div>
-
-  <div class="g2 document_view">
-    <%= render partial: 'inapplicable_nations', locals: { document: @document } %>
-    <article class="document has_notice">
-      <div class="body">
-        <%= govspeak_to_html @document.body, @document.images %>
-      </div>
-      <%= render partial: "attachments", locals: { document: @document } %>
-    </article>
-    <% if @document.published_consultation_response %>
-    Response: <%= link_to "#{@document.published_consultation_response.title}", consultation_response_path(@document.document_identity) %>
-    <% end %>
-  </div>
-</div>
-
-<%= render partial: 'related_policies', object: @related_policies %>

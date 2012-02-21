@@ -140,7 +140,7 @@ end
 
 Then /^I should see that the publication is about "([^"]*)"$/ do |country_name|
   country = Country.find_by_name!(country_name)
-  assert has_css?("#{metadata_nav_selector} #{record_css_selector(country)}")
+  assert has_css?("#document_countries #{record_css_selector(country)}")
 end
 
 Then /^the publication "([^"]*)" should (not )?be featured on the public publications page$/ do |publication_title, should_not_be_featured|

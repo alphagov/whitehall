@@ -27,7 +27,7 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
 
     get :show, id: document.document_identity
 
-    assert_select metadata_nav_selector do
+    assert_select '#document_organisations' do
       assert_select_object first_organisation
       assert_select_object second_organisation
       refute_select_object third_organisation

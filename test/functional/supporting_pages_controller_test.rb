@@ -224,8 +224,8 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    assert_select "#{metadata_nav_selector} a.policy_topic", text: first_policy_topic.name
-    assert_select "#{metadata_nav_selector} a.policy_topic", text: second_policy_topic.name
+    assert_select "#document_topics a.policy_topic", text: first_policy_topic.name
+    assert_select "#document_topics a.policy_topic", text: second_policy_topic.name
   end
 
   test "should link to organisations from within the metadata navigation" do
@@ -236,8 +236,8 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    assert_select "#{metadata_nav_selector} a.organisation", text: first_org.name
-    assert_select "#{metadata_nav_selector} a.organisation", text: second_org.name
+    assert_select "#document_organisations a.organisation", text: first_org.name
+    assert_select "#document_organisations a.organisation", text: second_org.name
   end
 
   test "should link to ministers from within the metadata navigation" do
@@ -248,6 +248,6 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    assert_select "#{metadata_nav_selector} a.minister", text: "minister-name"
+    assert_select "#document_ministers a.minister", text: "minister-name"
   end
 end

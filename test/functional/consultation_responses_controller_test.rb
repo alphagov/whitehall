@@ -28,7 +28,7 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     consultation = published_consultation_response.consultation
     consultation.related_document_identities << published_policy.document_identity
     get :show, consultation_id: consultation.document_identity
-    assert_select ".meta a[href='#{policy_topic_path(policy_topic)}']"
+    assert_select "#document_topics a[href='#{policy_topic_path(policy_topic)}']"
   end
 
   test "should display the organisations that the parent consultation is related to" do
@@ -37,7 +37,7 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     consultation = published_consultation_response.consultation
     consultation.organisations << organisation
     get :show, consultation_id: consultation.document_identity
-    assert_select ".meta a[href='#{organisation_path(organisation)}']"
+    assert_select "#document_organisations a[href='#{organisation_path(organisation)}']"
   end
 
   test "should display the ministers that the parent consultation is related to" do
@@ -46,7 +46,7 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     consultation.ministerial_roles << ministerial_role
     get :show, consultation_id: consultation.document_identity
-    assert_select ".meta a[href='#{ministerial_role_path(ministerial_role)}']"
+    assert_select "#document_ministers a[href='#{ministerial_role_path(ministerial_role)}']"
   end
 
   test "should display the national inapplicabilities that apply to the parent consultation" do

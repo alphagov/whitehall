@@ -1,0 +1,16 @@
+<section class="contextual_info">
+  <h1>About this publication</h1>
+  <p>Publication date: <span class="publication_date"><%= @document.publication_date.to_s(:long_ordinal) %></span></p>
+  <% if @document.unique_reference.present? %>
+    <p>Unique reference: <span class="unique_reference"><%= @document.unique_reference %></span></p>
+  <% end %>
+  <% if @document.isbn.present? %>
+    <p>ISBN: <span class="isbn"><%= @document.isbn %></span></p>
+  <% end %>
+  <% if @document.research? %>
+    <p class="research">This is a research paper.</p>
+  <% end %>
+  <% if @document.order_url.present? %>
+    <p><%= link_to "Order a copy", @document.order_url, class: "order_url button", title: "Order a copy of the publication" %></p>
+  <% end %>
+</section>
