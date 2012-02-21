@@ -217,16 +217,16 @@ class OrganisationTest < ActiveSupport::TestCase
   test 'should return search index data for all organisations' do
     create(:organisation, name: 'Department for Culture and Sports', description: 'Sporty.')
     create(:organisation, name: 'Department of Education', description: 'Bookish.')
-    create(:organisation, name: 'HMRC', description: 'Taxing.')
-    create(:organisation, name: 'Ministry of Defence', description: 'Defensive.')
+    create(:organisation, name: 'HMRC', description: 'Taxing.', acronym: 'hmrc')
+    create(:organisation, name: 'Ministry of Defence', description: 'Defensive.', acronym: 'mod')
 
     results = Organisation.search_index
 
     assert_equal 4, results.length
     assert_equal({ 'title' => 'Department for Culture and Sports', 'link' => '/government/organisations/department-for-culture-and-sports', 'indexable_content' => 'Sporty.', 'format' => 'organisation' }, results[0])
     assert_equal({ 'title' => 'Department of Education', 'link' => '/government/organisations/department-of-education', 'indexable_content' => 'Bookish.', 'format' => 'organisation' }, results[1])
-    assert_equal({ 'title' => 'HMRC', 'link' => '/government/organisations/hmrc', 'indexable_content' => 'Taxing.', 'format' => 'organisation' }, results[2])
-    assert_equal({ 'title' => 'Ministry of Defence', 'link' => '/government/organisations/ministry-of-defence', 'indexable_content' => 'Defensive.', 'format' => 'organisation' }, results[3])
+    assert_equal({ 'title' => 'HMRC', 'link' => '/government/organisations/hmrc', 'indexable_content' => 'Taxing.', 'format' => 'organisation', 'boost_phrases' => 'hmrc' }, results[2])
+    assert_equal({ 'title' => 'Ministry of Defence', 'link' => '/government/organisations/ministry-of-defence', 'indexable_content' => 'Defensive.', 'format' => 'organisation', 'boost_phrases' => 'mod' }, results[3])
   end
 
   test '#destroy removes parent relationships' do

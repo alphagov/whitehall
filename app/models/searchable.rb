@@ -18,7 +18,7 @@ module Searchable
       self.searchable_options[:index_after] = [self.searchable_options[:index_after]].flatten.select { |e| e }
       self.searchable_options[:unindex_after] = [self.searchable_options[:unindex_after]].flatten.select { |e| e }
 
-      [:title, :link, :content, :format, :only].each do |name|
+      [:title, :link, :content, :format, :only, :boost_phrases].each do |name|
         value = searchable_options[name]
         searchable_options[name] =
           if value.respond_to?(:call)
@@ -45,16 +45,17 @@ module Searchable
   module Mixin
     extend ActiveSupport::Concern
 
-    def search_index
-      title, link, content, format =
-        [:title, :link, :content, :format].map { |name| searchable_options[name].call(self) }
+    KEY_MAPPING = {
+      content: 'indexable_content'
+    }
 
-      {
-        'title'             => title,
-        'link'              => link,
-        'indexable_content' => content,
-        'format'            => format
-      }
+    def search_index
+      [:title, :link, :format, :content, :boost_phrases].inject({}) do |result, name| 
+        value = searchable_options[name].call(self)
+        key = KEY_MAPPING[name] || name.to_s
+        result[key] = value unless value.nil?
+        result
+      end
     end
 
     def update_in_search_index
