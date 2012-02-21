@@ -1,3 +1,24 @@
+// A list of organisation brand info, to be iterated over when declaring styles
+// The format is (slug, color)
+
+$organisation_brands:
+  ('treasury', rgb(191, 49, 26))
+  ('cabinet-office', rgb(0, 118, 192))
+  ('department-for-education', rgb(245, 132, 38))
+  ('department-of-transport', rgb(0, 113, 97))
+  ('department-of-health', rgb(0, 174, 158))
+  ('home-office', rgb(127, 63, 152))
+  ('ministry-of-justice', rgb(35, 31, 32))
+  ('ministry-of-defence', rgb(92, 41, 70))
+  ('foreign-and-commonwealth-office', rgb(0, 84, 164))
+  ('department-for-communities-and-local-government', rgb(73, 47, 146))
+  ('department-for-energy-and-climate-change', rgb(122, 193, 67))
+  ('department-for-culture-media-and-sport', rgb(236, 9, 141))
+  ('department-for-environment-food-and-rural-affairs', rgb(138, 141, 9))
+  ('department-for-work-and-pensions', rgb(34, 188, 185))
+  ('department-for-business-innovation-and-skills', rgb(59, 110, 143))
+  ('department-for-international-development', rgb(115, 157, 210));
+
 @mixin add_styles_for_org($org_class, $colour, $logo_image_url) {
   &.#{$org_class} {
     .page_header {
@@ -5,23 +26,23 @@
         @if $colour {
           border-color: $colour;
         }
-        @if $logo_image_url { 
+        @if $logo_image_url {
           background: url($logo_image_url) no-repeat 8px -1px;
           line-height: 48px;
           padding-left: 78px;
         }
       }
     }
-    
+
     section h1 a {
       @if $colour {
         color: $colour;
-      }      
-    } 
+      }
+    }
   }
 }
 
-@mixin branded_page_headers {  
+@mixin branded_page_headers {
   .organisation {
     .page_header {
       h1.name {
@@ -29,11 +50,17 @@
         padding-left: 4%;
       }
     }
-    
+
     // define styles for different organisation types
     @include add_styles_for_org('ministerial-department', false, "/government/assets/coa-default-48.gif");
-    
+
     // define styles for individual organisations
-    @include add_styles_for_org('department-for-business-innovation-and-skills', #006517, false);
+
+    @each $brand in $organisation_brands {
+      $name: nth($brand, 1);
+      $color: nth($brand, 2);
+
+      @include add_styles_for_org($name, $color, false);
+    }
   }
 }
