@@ -53,7 +53,7 @@
 
 <% if @document.respond_to?(:countries) && @document.countries.any? %>
   <section id="document_countries">
-    <h1>Countries this policy affects</h1>
+    <h1>Countries</h1>
     <ul class="countries">
     <% @document.countries.each do |country| %>
       <li>
