@@ -15,13 +15,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_disclaimer_present(organisation)
   end
 
-  test "shows organisation logo formatted name and description" do
+  test "shows organisation name and description" do
     organisation = create(:organisation,
-      logo_formatted_name: "organisation\nname is\nformatted",
+      name: "unformatted name",
       description: "organisation-description"
     )
     get :show, id: organisation
-    assert_select ".organisation .name", html: "organisation<br />name is<br />formatted"
+    assert_select ".organisation .name", text: "unformatted name"
     assert_select ".description", text: "organisation-description"
   end
 
@@ -278,13 +278,13 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display an about-us page for the organisation" do
     organisation = create(:organisation,
-      logo_formatted_name: "organisation\nlogo name\nis formatted",
+      name: "unformatted name",
       about_us: "organisation-about-us"
     )
 
     get :about, id: organisation
 
-    assert_select ".page_title", html: "organisation<br />logo name<br />is formatted"
+    assert_select ".page_title", text: "unformatted name"
     assert_select ".body", text: "organisation-about-us"
   end
 
