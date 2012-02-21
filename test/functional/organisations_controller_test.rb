@@ -463,8 +463,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, documents: documents)
     get :show, id: organisation
 
-    assert_select "h1", "Recently updated"
-    documents[0,10].each do |document|
+    assert_select "h1", "Latest"
+    documents[0,4].each do |document|
       assert_select_object document
     end
     documents[10,2].each do |document|

@@ -30,11 +30,11 @@ class SiteControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object first_edition do
-      assert_select '.metadata', text: /Policy(\s*)published/
+      assert_select '.published_or_updated', text: /published/
     end
 
     assert_select_object updated_edition do
-      assert_select '.metadata', text: /Policy(\s*)updated/
+      assert_select '.published_or_updated', text: /updated/
     end
   end
 
