@@ -58,8 +58,9 @@
 
       li {
         border-bottom: dotted 1px #000;
-        margin-bottom: 0.25em;
-        padding-bottom: 0.25em;
+        margin-bottom: 0.375em;
+        margin-top: -1px;
+        padding-bottom: 0.375em;
 
         &:last-child {
           border-bottom: none;
