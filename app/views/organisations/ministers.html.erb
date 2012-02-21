@@ -1,6 +1,10 @@
 <% page_title "#{@organisation.name} Ministers" %>
 <%= organisation_wrapper(@organisation, class: "g3f") do %>
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Ministers" %>
+  <div class="g1f">
+    <%= render 'navigation', organisation: @organisation %>
+  </div>
+
   <% if @ministerial_roles.any? %>
     <div class="g3f">
       <%= article_section("Our people", @ministerial_roles, {id: 'ministers'}) do |ministerial_role| %>

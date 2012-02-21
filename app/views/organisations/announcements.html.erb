@@ -1,6 +1,9 @@
 <% page_title "#{@organisation.name} News" %>
 <%= organisation_wrapper(@organisation, class: "g3f") do %>
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} News" %>
+  <div class="g1f">
+    <%= render 'navigation', organisation: @organisation %>
+  </div>
 
   <% if @announcements.any? %>
     <div class="g3f">

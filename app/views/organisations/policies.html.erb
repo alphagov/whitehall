@@ -1,6 +1,10 @@
 <% page_title "#{@organisation.name} Policies" %>
 <%= organisation_wrapper(@organisation, class: "g3f") do %>
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Policies" %>
+  <div class="g1f">
+    <%= render 'navigation', organisation: @organisation %>
+  </div>
+
   <% if @policies.any? %>
     <div class="g3f">
       <%= article_section("Our policies", @policies, {id: 'policies'}) do |policy| %>

@@ -139,7 +139,7 @@ end
 
 Then /^I should see that "([^"]*)" is the responsibility of "([^"]*)"$/ do |child_org_name, parent_org_name|
   parent_org = Organisation.find_by_name!(parent_org_name)
-  assert page.has_css?(".meta a[href='#{organisation_path(parent_org)}']")
+  assert page.has_css?(".parent_organisations a[href='#{organisation_path(parent_org)}']")
 end
 
 Then /^I should see the following speeches are associated with the "([^"]*)" organisation:$/ do |name, table|

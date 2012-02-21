@@ -1,6 +1,10 @@
 <% page_title "#{@organisation.name} Management Team" %>
 <%= organisation_wrapper(@organisation, class: "g3f") do %>
   <%= render 'header', organisation: @organisation, title: "#{@organisation.name} Management Team" %>
+  <div class="g1f">
+    <%= render 'navigation', organisation: @organisation %>
+  </div>
+
   <div class="g3 page_detail">
     <% if @organisation.board_member_roles.any? %>
       <section id="board_members">
