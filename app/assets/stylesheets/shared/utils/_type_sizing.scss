@@ -32,14 +32,9 @@ $baseline_in_px: 24 !default;
 }
 
 /* organisation 'logos' */
-@mixin type-38 {
-  /* 38px / 40px */
-  @include scaled_type(38, 40);
-}
-
 @mixin type-32 {
-  /* 32px / 32px */
-  @include scaled_type(32, 32);
+  /* 32px / 48px */
+  @include scaled_type(32, 48);
 }
 
 @mixin type-24 {
