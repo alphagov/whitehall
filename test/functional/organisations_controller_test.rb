@@ -472,12 +472,20 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, documents: documents)
     get :show, id: organisation
 
+    assert_select "h1", "Recently updated"
     documents[0,10].each do |document|
       assert_select_object document
     end
     documents[10,2].each do |document|
       refute_select_object document
     end
+  end
+
+  test "should not show most recently published documents when there are none" do
+    organisation = create(:organisation, documents: [])
+    get :show, id: organisation
+
+    refute_select "h1", text: "Recently updated"
   end
 
   private

@@ -71,7 +71,9 @@
   </div>
 
   <div class="g4f">
-    <%= render partial: "shared/recently_updated", locals: {recently_updated: @recently_updated}%>
+    <%= render(partial: "shared/recently_updated",
+               locals: {recently_updated: @recently_updated}
+              ) if @recently_updated.present? %>
   </div>
 
   <div class="g4f">
