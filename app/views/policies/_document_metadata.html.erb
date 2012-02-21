@@ -1,9 +1,10 @@
-<section>
-  <h1 class="page_title has_meta"><%= @policy.title %></h1>
-  <div class="meta <%= @policy.nation_inapplicabilities.any? ? 'g1f' : '' %>">
-    <span class="metadata link-to-change-notes">
+<section class="group">
+  <div class="meta">
+    <p class="metadata">
       Updated <%= time_ago(@policy.updated_at, class: 'updated_at') %>
-    </span>
+    </p>
+
+    <p class="link-to-change-notes">Change notes</p>
 
     <section class="change_notes">
       <h1>Policy change notes</h1>
@@ -17,10 +18,4 @@
       </ul>
     </section>
   </div>
-
-  <% if @policy.nation_inapplicabilities.any? %>
-    <div class="g2">
-      <%= render partial: 'documents/inapplicable_nations', locals: { document: @policy } %>
-    </div>
-  <% end %>
 </section>

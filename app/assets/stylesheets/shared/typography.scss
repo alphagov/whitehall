@@ -1,10 +1,11 @@
 @import "utils/type_sizing";
+@import "utils/type_stacks";
 
 @mixin default_font_settings {
   /* DEFAULT FONT SETTINGS */
   /* 16px base font size with 150% (24px) friendly, unitless line height and margin for vertical rhythm */
   /* Font-size percentage is based on 16px browser default size */  /* IE7 and older can't resize px based text */
-  font: 100%/1.5 "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; *font-size: 1em;
+  font: 100%/1.5 #{$helvetica}; *font-size: 1em;
   color: #333;
 }
 
@@ -19,7 +20,7 @@
   /* TYPOGRAPHY */
   /* Composed to a scale of 12px, 14px, 16px, 18px, 21px, 24px, 36px, 48px, 60px and 72px */
   h1, h2, h3, h4, h5, h6 {
-    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: $helvetica;
     font-weight: normal;
     color: #000;
   }
@@ -55,7 +56,7 @@
   small, p.small {
     @include type-13;
   }
-  
+
   div.metadata {
     @include scaled_type(14, 24);
     margin-bottom: 0;
@@ -64,7 +65,7 @@
   section {
     h1 {
       @include type-32;
-      font-family: 'Gill Sans W01 Medium', "Gill Sans", "Gill Sans MT", "Helvetica Neue", Arial, Helvetica, sans-serif;
+      font-family: $gill;
     }
 
     h2 {
@@ -78,7 +79,7 @@
     h4,h5,h6 {
       @include type-13;
     }
-    
+
     .label {
       @include scaled_type(14, 24);
       letter-spacing: 0.15em;
@@ -112,9 +113,9 @@
     position: relative;
     vertical-align: baseline
   }
-  
+
   /* Label style inherited from citizen format 'label' in page titles */
   .label {
-    
+
   }
 }

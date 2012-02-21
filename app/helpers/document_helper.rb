@@ -11,13 +11,6 @@ module DocumentHelper
     history.reject { |e| e[:change_note].blank? }
   end
 
-  def document_page_header(title, description)
-    content_tag(:section, class: "page_header") do
-      concat content_tag(:h1, title)
-      concat content_tag(:p, description)
-    end
-  end
-
   def document_organisation_class(document)
     if document.organisations.first
       document.organisations.first.slug

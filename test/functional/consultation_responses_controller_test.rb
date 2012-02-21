@@ -8,7 +8,7 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     consultation = published_consultation_response.consultation
     get :show, consultation_id: consultation.document_identity
     assert_response :success
-    assert_select ".title", text: published_consultation_response.title
+    assert_select ".page_title", text: published_consultation_response.title
     assert_select "a[href='#{consultation_path(consultation.document_identity)}']", text: consultation.title
   end
 
@@ -55,7 +55,7 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     get :show, consultation_id: consultation.document_identity
     refute_select "#inapplicable_nations"
   end
-  
+
   test "should display document with inline images" do
     images = [create(:image)]
     published_consultation_response = create(:published_consultation_response, body: "!!1", images: images)
@@ -64,5 +64,5 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
 
     assert_select 'article .body figure.image.embedded img'
   end
-  
+
 end

@@ -156,11 +156,11 @@ class PolicyTopicsControllerTest < ActionController::TestCase
     get :show, id: policy_topic
 
     assert_select_object first_edition do
-      assert_select '.metadata', text: /Policy(\s*)published/
+      assert_select '.metadata', text: /Published/
     end
 
     assert_select_object updated_edition do
-      assert_select '.metadata', text: /Policy(\s*)updated/
+      assert_select '.metadata', text: /Updated/
     end
   end
 

@@ -1,6 +1,6 @@
 <section class="contextual_info">
   <h1>Jump to section</h1>
-  <nav class="policy_parts">
+  <nav class="policy_parts" role="navigation">
     <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'policy_view') %>
     <% if govspeak_headers(@policy.body).any? || @related_news_articles.any? || @related_speeches.any? || @related_publications.any? || @related_consultations.any? %>
       <ol id="policy_sections">
@@ -17,7 +17,7 @@
 
   <% if (supporting_pages = @policy.supporting_pages).any? %>
     <h2>Supporting detail</h2>
-    <nav class="supporting_pages">
+    <nav class="supporting_pages" role="navigation">
       <% supporting_pages.each do |supporting_page| %>
         <%= link_to_with_current supporting_page.title, policy_supporting_page_path(@policy.document_identity, supporting_page) %>
       <% end %>

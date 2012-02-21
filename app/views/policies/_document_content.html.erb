@@ -1,3 +1,6 @@
+<% if @policy.nation_inapplicabilities.any? %>
+  <%= render partial: 'documents/inapplicable_nations', locals: { document: @policy } %>
+<% end %>
 <article class="document">
   <div class="body">
     <%= govspeak_to_html @document.body, @document.images %>
@@ -6,52 +9,56 @@
   <% if @related_news_articles.any? %>
     <section id="related-news-articles">
       <h1>Related news</h1>
-      <ul>
+      <ol>
         <% @related_news_articles.each do |related_document| %>
           <%= content_tag_for :li, related_document do %>
             <%= link_to related_document.title, public_document_path(related_document) %>
+            <span class="published_at"><%= published_or_updated(related_document) %> <%= time_ago(related_document.published_at, class: 'published_at') %></span>
           <% end %>
         <% end %>
-      </ul>
+      </ol>
     </section>
   <% end %>
 
   <% if @related_speeches.any? %>
     <section id="related-speeches">
       <h1>Related speeches</h1>
-      <ul>
+      <ol>
         <% @related_speeches.each do |speech| %>
           <%= content_tag_for :li, speech do %>
             <%= link_to speech.title, public_document_path(speech) %>
+            <span class="published_at"><%= published_or_updated(speech) %> <%= time_ago(speech.published_at, class: 'published_at') %></span>
           <% end %>
         <% end %>
-      </ul>
+      </ol>
     </section>
   <% end %>
 
   <% if @related_publications.any? %>
     <section id="related-publications">
       <h1>Related publications</h1>
-      <ul>
+      <ol>
         <% @related_publications.each do |related_document| %>
           <%= content_tag_for :li, related_document do %>
             <%= link_to related_document.title, public_document_path(related_document) %>
+            <span class="published_at"><%= published_or_updated(related_document) %> <%= time_ago(related_document.published_at, class: 'published_at') %></span>
           <% end %>
         <% end %>
-      </ul>
+      </ol>
     </section>
   <% end %>
 
   <% if @related_consultations.any? %>
     <section id="related-consultations">
       <h1>Related consultations</h1>
-      <ul>
+      <ol>
         <% @related_consultations.each do |related_document| %>
           <%= content_tag_for :li, related_document do %>
             <%= link_to related_document.title, public_document_path(related_document) %>
+            <span class="published_at"><%= published_or_updated(related_document) %> <%= time_ago(related_document.published_at, class: 'published_at') %></span>
           <% end %>
         <% end %>
-      </ul>
+      </ol>
     </section>
   <% end %>
 

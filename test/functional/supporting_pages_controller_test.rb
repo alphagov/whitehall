@@ -224,8 +224,8 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    assert_select "#document_topics a.policy_topic", text: first_policy_topic.name
-    assert_select "#document_topics a.policy_topic", text: second_policy_topic.name
+    assert_select "#document_topics li.policy_topic a", text: first_policy_topic.name
+    assert_select "#document_topics li.policy_topic a", text: second_policy_topic.name
   end
 
   test "should link to organisations from within the metadata navigation" do

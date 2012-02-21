@@ -1,13 +1,5 @@
 <section>
-  <h1 class="page_title has_meta"><%= @supporting_page.title %></h1>
-  <div class="meta <%= @document.nation_inapplicabilities.any? ? 'g1f' : '' %>">
-    <span class="metadata">
-      Updated <%= time_ago(@policy.updated_at, class: 'updated_at') %></span>
-    
+  <div class="meta">
+    <span class="metadata">Updated <%= time_ago(@policy.updated_at, class: 'updated_at') %></span>
   </div>
-  <% if @document.nation_inapplicabilities.any? %>
-    <div class="g2">
-      <%= render partial: 'documents/inapplicable_nations', locals: { document: @document } %>
-    </div>
-  <% end %>
 </section>

@@ -1,7 +1,7 @@
 <% if related_policies.any? %>
 <div class="related_documents">
   <section id="related-policies">
-    <h1>Policies</h1>
+    <h1 class="label">Policies</h1>
     <ul>
       <% related_policies.each do |related_policy| %>
         <%= content_tag_for :li, related_policy do %>

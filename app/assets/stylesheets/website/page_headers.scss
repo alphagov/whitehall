@@ -3,20 +3,21 @@
 
 #content {
   section.page_header {
-    padding-bottom: 1.5em;
-    // + icons.scss
+    padding-bottom: 0;
 
     h1.page_title {
       @include type-32;
-      font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: normal;
+      margin-top: 0.25em;
+    }
+
+    h2 {
+      margin-bottom: 0em;
+    }
+
+    p {
+      @include type-14;
       margin-bottom: 0;
-      
-      /*span {
-        bottom: -0.18em;
-        display: block;
-        position: relative;
-      }*/
     }
 
     .explanation {
@@ -52,7 +53,7 @@
       border: 1px solid #ccc;
       @include box_shadow(0, 1px, 4px, rgba(50, 50, 50, 0.5));
       z-index: 9999;
-      top: 2em;
+      top: 4em;
       left: -4em;
       width: 115%;
       max-width: 30em;

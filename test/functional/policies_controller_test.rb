@@ -8,7 +8,7 @@ class PoliciesControllerTest < ActionController::TestCase
   should_show_the_countries_associated_with :policy
   should_display_inline_images_for :policy
   should_not_display_lead_image_for :policy
-  
+
   test "should show inapplicable nations" do
     published_policy = create(:published_policy)
     northern_ireland_inapplicability = published_policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
@@ -74,11 +74,11 @@ class PoliciesControllerTest < ActionController::TestCase
     get :show, id: policy.document_identity
 
     assert_select_object first_edition do
-      assert_select '.metadata', text: /News article(\s*)published/
+      assert_select '.metadata', text: /Published/
     end
 
     assert_select_object updated_edition do
-      assert_select '.metadata', text: /News article(\s*)updated/
+      assert_select '.metadata', text: /Updated/
     end
   end
 
@@ -213,8 +213,8 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: document.document_identity
 
-    assert_select "#document_topics a.policy_topic", text: first_policy_topic.name
-    assert_select "#document_topics a.policy_topic", text: second_policy_topic.name
+    assert_select "#document_topics li.policy_topic a", text: first_policy_topic.name
+    assert_select "#document_topics li.policy_topic a", text: second_policy_topic.name
   end
 
   test "should link to organisations related to the policy" do

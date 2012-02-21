@@ -27,33 +27,21 @@
 
 <% if @document.respond_to?(:policy_topics) && @document.policy_topics.any? %>
   <section id="document_topics">
-    <h1>Topics</h1>
-    <ul class="topics">
-      <% @document.policy_topics.each do |policy_topic| %>
-        <li>
-          <%= link_to policy_topic.name, policy_topic_path(policy_topic), class: "policy_topic", id: dom_id(policy_topic) %>
-        </li>
-      <% end %>
-    </ul>
+    <h1 class="label">Policy Topics</h1>
+    <%= render partial: "policy_topics/list", locals: { policy_topics: @document.policy_topics }  %>
   </section>
 <% end %>
 
 <% if @policy_topics && @policy_topics.any? %>
   <section id="document_topics">
-    <h1>Topics</h1>
-    <ul class="topics">
-      <% @policy_topics.each do |policy_topic| %>
-        <li>
-          <%= link_to policy_topic.name, policy_topic_path(policy_topic), class: "policy_topic", id: dom_id(policy_topic) %>
-        </li>
-      <% end %>
-    </ul>
+    <h1 class="label">Policy Topics</h1>
+    <%= render partial: "policy_topics/list", locals: { policy_topics: @policy_topics }  %>
   </section>
 <% end %>
 
 <% if @document.respond_to?(:countries) && @document.countries.any? %>
   <section id="document_countries">
-    <h1>Countries</h1>
+    <h1 class="label">Countries</h1>
     <ul class="countries">
     <% @document.countries.each do |country| %>
       <li>
@@ -65,7 +53,7 @@
 <% end %>
 
 <% if @recently_changed_documents %>
-  <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents, locals: { title: "Latest on this policy" } %>
+  <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents, locals: { title: "Latest on this #{@document.type}" } %>
 <% end %>
 
 <% if @related_policies %>

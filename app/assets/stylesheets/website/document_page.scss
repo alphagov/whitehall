@@ -1,17 +1,26 @@
 @import "../shared/utils/type_sizing";
+@import "../shared/utils/type_stacks";
 @import "../shared/utils/clearfix";
 
 #content {
   .document_page {
     @include clearfix;
-    padding: 1.5em 0;
+
+
+    section.page_header {
+      padding-left: 84px;
+
+      h1.page_title {
+        line-height: 1.125em;
+      }
+    }
 
     .notice {
-      background: #f7f7c3;
-      padding: 0.75em 1.5em 0.75em 1.5em;
+      background: rgb(255,224,135);
+      padding: 0.25em;
+      margin-bottom: 1.5em;
 
       p {
-        font-weight: bold;
         @include type-13;
         margin-bottom: 0;
       }
@@ -26,20 +35,36 @@
       }
     }
 
+    .metadata {
+      @include type-18;
+      margin-bottom: 0.33325em;
+    }
+
+    .link-to-change-notes {
+      @include type-14;
+    }
+
     .document {
-      padding: 1em 1.5em;
+      padding: 0;
       background-color: #fff;
+
+      a {
+        text-decoration: underline;
+      }
 
       .body {
         h2 {
           @include type-21;
+          margin-bottom: 0.28575em;
         }
 
         h3 {
           @include type-18;
+          margin-bottom: 0;
         }
 
         p {
+          @include type-18;
           max-width: 50em;
         }
 
@@ -52,27 +77,28 @@
       section {
         h1 {
           @include type-21;
-          margin-bottom: 0.5715em;
-          padding-bottom: 0.28575em;
-          border-bottom: 1px solid #ddd;
+          @include helvetica;
+          margin-bottom: 0.28575em;
         }
-      }
 
-      &.has_notice {
-        border-top: 0;
+        ol {
+          li {
+            margin-bottom: 0.5em;
+            span.published_at {
+              display: block;
+            }
+          }
+        }
       }
     }
 
     section.contextual_info {
-      background: #fff;
-      padding: 1em 1em 1em 1em;
-      margin-right: 2%;
-      margin-bottom: 1.5em;
-      border: 1px solid #ccc;
 
       h1 {
         @include type-18;
-        margin-bottom: 0.5em;
+        @include helvetica;
+        font-weight: bold;
+        margin-bottom: 0em;
       }
 
       h2 {
@@ -97,11 +123,46 @@
         }
       }
 
+      nav {
+        a {
+          display: block;
+        }
+      }
+
       ol {
-        list-style-type:circle;
+        margin-top: 0.25em;
+        list-style-type:disc;
         li {
-          margin: 0;
-          line-height: 1em;
+          @include type-14;
+          margin-bottom: 0.25em;
+        }
+      }
+    }
+
+    section#document_topics {
+      margin-bottom: 3em;
+
+      h1 {
+        margin-bottom: 0.3215em;
+      }
+    }
+
+    section#document_ministers {
+      li {
+        margin-bottom: 1.125em;
+
+        h3.current_appointee {
+          @include type-16;
+          margin-bottom: 0;
+
+          a {
+            font-weight: bold;
+          }
+        }
+
+        p.role {
+          @include type-14;
+          margin-bottom: 0;
         }
       }
     }
