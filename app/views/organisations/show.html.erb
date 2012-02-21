@@ -45,7 +45,7 @@
         <%= render 'navigation', organisation: @organisation %>
       </div>
       <div class="g1">
-        <section id="recently_updated">
+        <section id="recently_updated" class="latest_documents">
           <h1 class="label">Latest</h1>
           <%= render(partial: "shared/recently_updated",
            locals: {recently_updated: @recently_updated}
