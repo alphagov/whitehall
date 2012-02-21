@@ -5,7 +5,7 @@ class Speech < Document
   belongs_to :role_appointment
   belongs_to :speech_type
 
-  validates :role_appointment, :speech_type, :delivered_on, :location, presence: true
+  validates :role_appointment, :speech_type, :delivered_on, presence: true
 
   before_save :populate_organisations_based_on_role_appointment
 

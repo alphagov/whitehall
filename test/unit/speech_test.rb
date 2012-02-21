@@ -26,9 +26,9 @@ class SpeechTest < ActiveSupport::TestCase
     refute speech.valid?
   end
 
-  test "should be invalid without a location" do
+  test "should be valid without a location" do
     speech = build(:speech, location: nil)
-    refute speech.valid?
+    assert speech.valid?
   end
 
   test "create should populate organisations based on the role_appointment that delivered the speech" do
