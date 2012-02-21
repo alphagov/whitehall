@@ -9,7 +9,7 @@
     </p>
   </section>
 
-  <div class="g3">
+  <div class="g4">
     <%= render 'header', organisation: @organisation %>
   </div>
 
@@ -39,14 +39,14 @@
         </section>
       <% end %>
     </div>
-
+    
     <div class="g4">
       <div class="g1f">
         <%= render 'navigation', organisation: @organisation %>
       </div>
       <div class="g1">
         <section id="recently_updated">
-          <h1>Latest</h1>
+          <h1 class="label">Latest</h1>
           <%= render(partial: "shared/recently_updated",
            locals: {recently_updated: @recently_updated}
           ) if @recently_updated.present? %>
@@ -54,7 +54,7 @@
       </div>
       <div class="g1">
         <section id="who">
-          <h1>Who</h1>
+          <h1 class="label">Who</h1>
           <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
           <% if ministerial_role = @organisation.top_ministerial_role %>
             <section id="ministers">
