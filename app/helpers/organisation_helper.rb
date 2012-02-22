@@ -7,16 +7,24 @@ module OrganisationHelper
     end
   end
 
+  def organisation_name_with_acronym(organisation)
+    if organisation.acronym.present?
+      "%s (%s)" % [organisation.name, organisation.acronym]
+    else
+      organisation.name
+    end
+  end
+
   def organisation_type_name(organisation)
     type_name = ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
     type_name == 'other' ? 'public body' : type_name
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
-    name = organisation_display_name(organisation)
+    name = organisation_name_with_acronym(organisation)
     relationship = add_indefinite_article(organisation_type_name(organisation))
     parent = organisation.parent_organisations.first
-    params = [name, ERB::Util.h(relationship)]
+    params = [ERB::Util.h(name), ERB::Util.h(relationship)]
     if parent
       "%s is %s of %s" % (params + [ERB::Util.h(ensure_definite_article_if_needed(parent.name))])
     else

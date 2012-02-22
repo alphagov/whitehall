@@ -74,18 +74,6 @@ end
 class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::TestCase
   include OrganisationHelper
 
- #   Ministerial departments, 
- # Non-ministerial departments, 
- # Executive agencies,
- # Executive non-departmental public bodies,
- #  Advisory non-departmental public bodies,
- #  Tribunal non-departmental public bodies, 
- #  Public corporations, 
- #  Independent monitoring bodies,
-
- #   and Others.
-     # [org short name/failing back to long name] is a/an [type] of (the) [parent org]
-
   def assert_relationship_type_is_described_as(type_name, expected_description)
     parent = create(:organisation)
     child = create(:organisation, parent_organisations: [parent], 
@@ -107,7 +95,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child = create(:organisation, acronym: "BLAH", 
       name: "Building Law and Hygiene", parent_organisations: [parent], 
       organisation_type: create(:organisation_type, name: "Executive agencies"))
-    expected = %{<abbr title="Building Law and Hygiene">BLAH</abbr> is an executive agency of the Department of Building Regulation}
+    expected = %{Building Law and Hygiene (BLAH) is an executive agency of the Department of Building Regulation}
     actual = organisation_display_name_and_parental_relationship(child)
     assert_equal expected, actual
   end
@@ -117,7 +105,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child = create(:organisation, acronym: "B&B", 
       name: "Banking & Business", parent_organisations: [parent], 
       organisation_type: create(:organisation_type, name: "Executive & important agencies"))
-    expected = %{<abbr title="Banking &amp; Business">B&amp;B</abbr> is an executive &amp; important agency of the Department of Economy &amp; Trade}
+    expected = %{Banking &amp; Business (B&amp;B) is an executive &amp; important agency of the Department of Economy &amp; Trade}
     actual = organisation_display_name_and_parental_relationship(child)
     assert_equal expected, actual
     assert actual.html_safe?
@@ -125,7 +113,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
   test 'description of parent organisations' do
     parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
-    expected = %{<abbr title="Department of Building Regulation">DBR</abbr> is a ministerial department}
+    expected = %{Department of Building Regulation (DBR) is a ministerial department}
     actual = organisation_display_name_and_parental_relationship(parent)
     assert_equal expected, actual
   end
