@@ -7,7 +7,7 @@
 
   <% if @policies.any? %>
     <div class="g3f">
-      <%= article_section("Our policies", @policies, {id: 'policies'}) do |policy| %>
+      <%= article_section("Policies", @policies, {id: 'policies'}) do |policy| %>
         <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
         <span class="metadata">
           Updated <%= time_ago(policy.updated_at, class: 'updated_at') %>
