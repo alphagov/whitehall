@@ -149,6 +149,15 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     refute_select "#{parent_organisations_list_selector} option[value='#{organisation.id}']"
   end
 
+  test "edit should show only departments in the list of parent organisations" do
+    org1 = create(:organisation)
+    org2 = create(:organisation)
+    dept = create(:ministerial_department)
+    get :edit, id: org1
+    refute_select "#{parent_organisations_list_selector} option[value='#{org2.id}']"
+    assert_select "#{parent_organisations_list_selector} option[value='#{dept.id}']"
+  end
+
   test "editing should display a cancel link back to the list of organisations" do
     organisation = create(:organisation)
     get :edit, id: organisation

@@ -25,4 +25,8 @@ class OrganisationType < ActiveRecord::Base
   def department?
     name =~ /\bdepartment\b/i
   end
+
+  def self.departmental_types
+    all.select { |t| t.department? }
+  end
 end
