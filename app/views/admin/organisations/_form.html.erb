@@ -32,6 +32,14 @@
       <% end %>
     </div>
   </fieldset>
+  <fieldset class="named social_media_accounts">
+    <legend>Social media accounts</legend>
+    <%= organisation_form.fields_for :social_media_accounts do |account_form| %>
+      <%= account_form.label :social_media_service_id, 'Service' %>
+      <%= account_form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, account_form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the social media service..." } %>
+      <%= account_form.text_field :url %>
+    <% end %>
+  </fieldset>
   <%= render partial: "admin/documents/govspeak_help" %>
   <fieldset>
     <%= organisation_form.text_area :about_us, class: "previewable", :help => true %>

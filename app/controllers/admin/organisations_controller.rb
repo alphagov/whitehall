@@ -1,6 +1,8 @@
 class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_organisation, only: [:new]
+  before_filter :build_ministerial_organisation_roles, only: [:new]
   before_filter :load_organisation, only: [:edit, :update]
+  before_filter :build_social_media_account, only: [:new, :edit]
   before_filter :load_news_articles, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :destroy_blank_phone_numbers, only: [:create, :update]
@@ -10,7 +12,6 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def new
-    @ministerial_organisation_roles = []
   end
 
   def create
@@ -18,7 +19,8 @@ class Admin::OrganisationsController < Admin::BaseController
     if @organisation.save
       redirect_to admin_organisations_path
     else
-      @ministerial_organisation_roles = []
+      build_ministerial_organisation_roles
+      build_social_media_account
       render action: "new"
     end
   end
@@ -32,6 +34,7 @@ class Admin::OrganisationsController < Admin::BaseController
       redirect_to admin_organisations_path
     else
       load_organisation_ministerial_roles
+      build_social_media_account
       render action: "edit"
     end
   end
@@ -42,8 +45,18 @@ class Admin::OrganisationsController < Admin::BaseController
     @organisation = Organisation.new
   end
 
+  def build_ministerial_organisation_roles
+    @ministerial_organisation_roles = []
+  end
+
   def load_organisation
     @organisation = Organisation.find(params[:id])
+  end
+
+  def build_social_media_account
+    unless @organisation.social_media_accounts.any?(&:new_record?)
+      @organisation.social_media_accounts.build
+    end
   end
 
   def load_news_articles

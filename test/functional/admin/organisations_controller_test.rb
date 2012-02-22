@@ -29,6 +29,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "input[type=text][name='organisation[contacts_attributes][0][contact_numbers_attributes][0][number]']"
   end
 
+  test "should display social media account fields for new organisation" do
+    get :new
+
+    assert_select "select[name='organisation[social_media_accounts_attributes][0][social_media_service_id]']" do
+      refute_select "option[selected='selected']"
+      assert_select "option", text: ""
+    end
+    assert_select "input[type=text][name='organisation[social_media_accounts_attributes][0][url]']"
+  end
+
   test "should allow creation of an organisation without any contact details" do
     organisation_type = create(:organisation_type)
 
@@ -56,7 +66,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
       policy_topic_ids: [policy_topic.id],
-      contacts_attributes: [{description: "Enquiries", contact_numbers_attributes: [{label: "Fax", number: "020712435678"}]}]
+      contacts_attributes: [{description: "Enquiries", contact_numbers_attributes: [{label: "Fax", number: "020712435678"}]}],
     )
 
     assert organisation = Organisation.last
@@ -71,6 +81,25 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal policy_topic, organisation.policy_topics.first
   end
 
+  test "creating should be able to create a new social media account for the organisation" do
+    attributes = attributes_for(:organisation)
+    organisation_type = create(:organisation_type)
+    social_media_service = create(:social_media_service)
+
+    post :create, organisation: attributes.merge(
+      organisation_type_id: organisation_type.id,
+      social_media_accounts_attributes: {"0" =>{
+        social_media_service_id: social_media_service.id,
+        url: "https://twitter.com/#!/bisgovuk"
+      }}
+    )
+
+    assert organisation = Organisation.last
+    assert social_media_account = organisation.social_media_accounts.last
+    assert_equal social_media_service, social_media_account.social_media_service
+    assert_equal "https://twitter.com/#!/bisgovuk", social_media_account.url
+  end
+
   test "creating should redirect back to the index" do
     organisation_type = create(:organisation_type)
     attributes = attributes_for(:organisation)
@@ -81,11 +110,22 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisations_path
   end
 
-  test "creating without a name should reshow the edit form" do
+  test "creating with invalid data should reshow the edit form" do
     attributes = attributes_for(:organisation)
     post :create, organisation: attributes.merge(name: '')
 
     assert_template "organisations/new"
+  end
+
+  test "creating with invalid data should display social media account fields" do
+    attributes = attributes_for(:organisation)
+    post :create, organisation: attributes.merge(name: '')
+
+    assert_select "select[name='organisation[social_media_accounts_attributes][0][social_media_service_id]']" do
+      refute_select "option[selected='selected']"
+      assert_select "option", text: ""
+    end
+    assert_select "input[type=text][name='organisation[social_media_accounts_attributes][0][url]']"
   end
 
   test "creating with multiple parent organisations" do
@@ -138,6 +178,19 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal 0, created_organisation.contacts.first.contact_numbers.size
   end
 
+  test "creating ignores blank social media accounts" do
+    attributes = attributes_for(:organisation)
+    organisation_type = create(:organisation_type)
+
+    post :create, organisation: attributes.merge(
+      organisation_type_id: organisation_type.id,
+      social_media_accounts_attributes: {"0" => {social_media_service_id: "", url: "" }}
+    )
+
+    assert created_organisation = Organisation.last
+    assert_equal 0, created_organisation.social_media_accounts.size
+  end
+
   test "editing should load the requested organisation" do
     organisation = create(:organisation)
     get :edit, id: organisation
@@ -163,6 +216,31 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :edit, id: organisation
     assert_select ".or_cancel a[href='#{admin_organisations_path}']"
+  end
+
+  test "editing should display existing social media accounts" do
+    twitter = create(:social_media_service, name: "Twitter")
+    account = create(:social_media_account, social_media_service: twitter, url: "http://twitter.com/foo")
+    organisation = create(:organisation, social_media_accounts: [account])
+
+    get :edit, id: organisation
+
+    assert_select "select[name='organisation[social_media_accounts_attributes][0][social_media_service_id]']" do
+      assert_select "option[value='#{twitter.id}'][selected='selected']", text: "Twitter"
+    end
+    assert_select "input[type=text][name='organisation[social_media_accounts_attributes][0][url]'][value='http://twitter.com/foo']"
+  end
+
+  test "editing should display new blank social media account" do
+    organisation = create(:organisation, social_media_accounts: [])
+
+    get :edit, id: organisation
+
+    assert_select "select[name='organisation[social_media_accounts_attributes][0][social_media_service_id]']" do
+      refute_select "option[selected='selected']"
+      assert_select "option", text: ""
+    end
+    assert_select "input[type=text][name='organisation[social_media_accounts_attributes][0][url]']"
   end
 
   test "editing should display published news articles related to the organisation" do
@@ -332,5 +410,46 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     contact.reload
     assert_equal 0, contact.contact_numbers.count
+  end
+
+  test "updating should create new social media account" do
+    organisation = create(:organisation)
+    social_media_service = create(:social_media_service)
+
+    put :update, id: organisation, organisation: organisation.attributes.merge(
+      social_media_accounts_attributes: {"0" => {
+        social_media_service_id: social_media_service.id,
+        url: "https://twitter.com/#!/bisgovuk"
+      }}
+    )
+
+    assert social_media_account = organisation.social_media_accounts.last
+    assert_equal social_media_service, social_media_account.social_media_service
+    assert_equal "https://twitter.com/#!/bisgovuk", social_media_account.url
+  end
+
+  test "updating with blank social media account fields should not create new account" do
+    organisation = create(:organisation)
+
+    put :update, id: organisation, organisation: organisation.attributes.merge(
+      social_media_accounts_attributes: {"0" => {
+        social_media_service_id: "",
+        url: ""
+      }}
+    )
+
+    assert organisation.social_media_accounts.empty?
+  end
+
+  test "updating with invalid data should still display blank social media account fields" do
+    organisation = create(:organisation)
+
+    put :update, id: organisation, organisation: organisation.attributes.merge(name: "")
+
+    assert_select "select[name='organisation[social_media_accounts_attributes][0][social_media_service_id]']" do
+      refute_select "option[selected='selected']"
+      assert_select "option", text: ""
+    end
+    assert_select "input[type=text][name='organisation[social_media_accounts_attributes][0][url]']"
   end
 end
