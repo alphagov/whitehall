@@ -6,7 +6,6 @@
     <%= render 'navigation', organisation: @organisation %>
   </div>
 
-
   <div class="g2f contact_page">
     <% addresses = @organisation.contacts.select { |c| c.address.present? } %>
     <% others = @organisation.contacts - addresses %>

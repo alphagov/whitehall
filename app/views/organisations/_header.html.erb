@@ -7,6 +7,8 @@
     <% end %>
   </h1>
   <div class="parent_organisations">
-    <%= organisation_display_name_and_parental_relationship(organisation) %>
+    <% organisation.parent_organisations.each do |organisation| %>
+      <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag" %>
+    <% end %>
   </div>
 </section>
