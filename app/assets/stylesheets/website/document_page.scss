@@ -5,7 +5,7 @@
 
 #content {
   .document_page {
-    @include branded_page_headers;
+
       .organisations .organisation span{
         @include type-16;
         padding:0.12em 0 0 0.575em;
