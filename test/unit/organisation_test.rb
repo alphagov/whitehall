@@ -57,15 +57,23 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [parent.id], Organisation.parent_organisations.map(&:id)
   end
 
-  test 'the root organisation of a top level organsation is the organisation itself' do
+  test '#root_organisation returns the organsation itself for a top level organisation' do
     parent = create(:organisation)
     assert_equal parent, parent.root_organisation
   end
 
-  test 'the root organisation of a child organsation is the parent' do
+  test '#root_organisation returns the parent of a child organsation' do
     child = create(:organisation)
     parent = create(:organisation, child_organisations: [child])
     assert_equal parent, child.root_organisation
+  end
+
+  test '#root_organisation returns the first org before the loop if there is a loop' do
+    org1 = create(:organisation)
+    org2 = create(:organisation, child_organisations: [org1])
+    org1.child_organisations << org2
+    org1.save!
+    assert_equal org2, org1.root_organisation
   end
 
   test '#ministerial_roles includes all ministerial roles' do
