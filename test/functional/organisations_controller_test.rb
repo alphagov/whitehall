@@ -57,6 +57,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select_object news_article do
       refute_select ".img img"
+      assert_select ".img.no-image"
     end
   end
 

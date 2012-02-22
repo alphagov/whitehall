@@ -218,14 +218,14 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "should link to organisations related to the policy" do
-    first_org = create(:organisation)
-    second_org = create(:organisation)
+    first_org = create(:organisation, logo_formatted_name: "first")
+    second_org = create(:organisation, logo_formatted_name: "second")
     document = create(:published_policy, organisations: [first_org, second_org])
 
     get :show, id: document.document_identity
 
-    assert_select "#document_organisations li.organisation a", text: first_org.name
-    assert_select "#document_organisations li.organisation a", text: second_org.name
+    assert_select "#document_organisations li.organisation a", text: first_org.logo_formatted_name
+    assert_select "#document_organisations li.organisation a", text: second_org.logo_formatted_name
   end
 
   test "should link to ministers related to the policy" do

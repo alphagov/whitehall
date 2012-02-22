@@ -20,11 +20,11 @@
           <section class="featured_carousel" id="featured-news-articles">
             <% @featured_news_articles.each do |news_article| %>
               <%= content_tag_for(:article, news_article) do %>
-                <% if news_article.featuring_image.present? %>
-                  <div class="img">
+                <div class="img<%= news_article.featuring_image.present? ? '' : ' no-image' %>">
+                  <% if news_article.featuring_image.present? %>
                     <%= image_tag(news_article.featuring_image.url) %>
-                  </div>
-                <% end %>
+                  <% end %>
+                </div>
                 <div class="news_body">
                   <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
                   <p class="summary"><%= news_article.summary %></p>

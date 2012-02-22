@@ -110,8 +110,13 @@ class Organisation < ActiveRecord::Base
   end
 
   def root_organisation
-    parent = parent_organisations.first
-    parent ? parent.root_organisation : self
+    path = []
+    current = self
+    while current && ! path.include?(current)
+      path << current
+      current = current.parent_organisations.first
+    end
+    path.last
   end
 
   private

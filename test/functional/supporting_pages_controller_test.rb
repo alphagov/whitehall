@@ -217,8 +217,8 @@ That's all
   end
 
   test "should link to policy topics from within the metadata navigation" do
-    first_policy_topic = create(:policy_topic, logo_formatted_name: "first")
-    second_policy_topic = create(:policy_topic, logo_formatted_name: "second")
+    first_policy_topic = create(:policy_topic)
+    second_policy_topic = create(:policy_topic)
     policy = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
     supporting_page = create(:supporting_page, document: policy)
 

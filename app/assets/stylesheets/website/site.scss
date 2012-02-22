@@ -1,6 +1,6 @@
 @import "organisation_brands";
 
-.recently_updated {
+.recently_updated, #content .featured_carousel {
   @each $brand in $organisation_brands {
     $name: nth($brand, 1);
     $color: nth($brand, 2);
