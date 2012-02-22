@@ -26,15 +26,12 @@ module OrganisationHelper
     parent = organisation.parent_organisations.first
     params = [ERB::Util.h(name), ERB::Util.h(relationship)]
     if parent
-      params << link_to(ensure_definite_article_if_needed(parent.name), organisation_path(parent))
+      prefix = needs_definite_article?(parent.name) ? "the " : ""
+      params << prefix + link_to(parent.name, organisation_path(parent))
       "%s is %s of %s" % params
     else
       "%s is %s" % params
     end.html_safe
-  end
-
-  def ensure_definite_article_if_needed(phrase)
-    needs_definite_article?(phrase) ? "the #{phrase}" : phrase
   end
 
   def needs_definite_article?(phrase)
