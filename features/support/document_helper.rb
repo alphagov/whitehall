@@ -29,7 +29,7 @@ module DocumentHelper
     person = create_person("Colonel Mustard")
     role = create(:ministerial_role, name: "Attorney General")
     role_appointment = create(:role_appointment, person: person, role: role)
-    speech_type = create(:speech_type)
+    speech_type = SpeechType::Transcript
     begin_drafting_document options.merge(type: 'speech')
     select speech_type.name, from: "Type"
     select "Colonel Mustard (Attorney General)", from: "Delivered by"

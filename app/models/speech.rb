@@ -3,11 +3,18 @@ class Speech < Document
   include Document::Countries
 
   belongs_to :role_appointment
-  belongs_to :speech_type
 
-  validates :role_appointment, :speech_type, :delivered_on, presence: true
+  validates :role_appointment, :speech_type_id, :delivered_on, presence: true
 
   before_save :populate_organisations_based_on_role_appointment
+
+  def speech_type
+    SpeechType.find_by_id(speech_type_id)
+  end
+
+  def speech_type=(speech_type)
+    self.speech_type_id = speech_type && speech_type.id
+  end
 
   def has_summary?
     true

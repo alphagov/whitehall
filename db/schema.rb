@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120220103056) do
+ActiveRecord::Schema.define(:version => 20120222172921) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -297,12 +297,6 @@ ActiveRecord::Schema.define(:version => 20120220103056) do
   end
 
   add_index "roles", ["slug"], :name => "index_roles_on_slug"
-
-  create_table "speech_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "supporting_page_attachments", :force => true do |t|
     t.integer  "supporting_page_id"

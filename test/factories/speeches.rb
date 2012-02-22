@@ -5,7 +5,7 @@ FactoryGirl.define do
     association :role_appointment, factory: :ministerial_role_appointment
     delivered_on { Date.today }
     location "speech-location"
-    speech_type
+    speech_type SpeechType::Transcript
   end
 
   factory :draft_speech, parent: :speech, traits: [:draft]

@@ -37,7 +37,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   test "create should create a new speech" do
     role_appointment = create(:role_appointment)
-    speech_type = create(:speech_type)
+    speech_type = SpeechType::Transcript
     attributes = controller_attributes_for(:speech, speech_type: speech_type, role_appointment: role_appointment)
 
     post :create, document: attributes
@@ -53,7 +53,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     speech = create(:speech)
     new_role_appointment = create(:role_appointment)
     new_delivered_on = speech.delivered_on + 1
-    new_speech_type = create(:speech_type)
+    new_speech_type = SpeechType::Transcript
 
     put :update, id: speech.id, document: {
       role_appointment_id: new_role_appointment.id,
@@ -74,7 +74,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     theresa_may = create(:person, forename: "Theresa", surname: "May")
     theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may)
-    speech_type = create(:speech_type, name: "Transcript")
+    speech_type = SpeechType::Transcript
     draft_speech = create(:draft_speech, speech_type: speech_type, role_appointment: theresa_may_appointment, delivered_on: Date.parse("2011-06-01"), location: "The Guidhall")
 
     get :show, id: draft_speech
@@ -96,7 +96,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   def controller_attributes_for(document_type, attributes = {})
     role_appointment = attributes.delete(:role_appointment) || create(:role_appointment)
-    speech_type = attributes.delete(:speech_type) || create(:speech_type)
+    speech_type = attributes.delete(:speech_type) || SpeechType::Transcript
     attributes_for(document_type, attributes.merge(
       role_appointment_id: role_appointment.id,
       speech_type_id: speech_type.id
