@@ -36,22 +36,16 @@ $organisation_brands:
       }
     }
 
-    section h1 a {
+    section h1.label {
       @if $colour {
         color: $colour;
       }
     }
-  }
-}
-
-@mixin add_styles_for_org($org_class, $colour, $logo_image_url, $logo_image_url_small) {
-  &.#{$org_class} {
-    @if $colour {
-      border-left:2px solid $colour;
-    }
-    @if $logo_image_url {
-      background: url($logo_image_url_small) no-repeat 8px -1px;
-      padding-left: 78px;
+    
+    .sub_navigation ul li {
+      @if $colour {
+        border-color: $colour;
+      }
     }
   }
 }
