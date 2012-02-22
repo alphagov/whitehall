@@ -1,41 +1,43 @@
-<% page_title "Latest" %>
-<div class="g4f">
-  <h1 class="page_title">Inside government</h1>
+<div class="inside_gov_home">
+  <% page_title "Latest" %>
+  <div class="g4f">
+    <h1 class="page_title">Inside government</h1>
 
-  <div class="g2">
-    <!--section>
-      <p>Information about all UK government organisations, including their policies, publications, speeches and the latest news.</p>
+    <div class="g2">
+      <!--section>
+        <p>Information about all UK government organisations, including their policies, publications, speeches and the latest news.</p>
 
-      <p>This is a beta test, and is not complete. Over time this site will replace many of the websites which are currently run by government organisations at separate web addresses.</p>
-    </section-->
+        <p>This is a beta test, and is not complete. Over time this site will replace many of the websites which are currently run by government organisations at separate web addresses.</p>
+      </section-->
 
-    <%= render partial: "hero_rotator", locals: {articles: @featured_news_articles} %>
-  </div>
+      <%= render partial: "hero_rotator", locals: {articles: @featured_news_articles} %>
+    </div>
 
-  <div class="g2">
-    <section>
+    <div class="g2">
+      <section>
       
-      <ul class='recently_updated'>
-        <% @recently_updated.each do |document| %>
-          <%= content_tag_for :li, document, class: document_organisation_class(document) do %>
-            
-            <div class="published_document"><%= link_to document.title, public_document_path(document), class: "title" %></div>
-            <% document.organisations.each do |organisation| %>
+        <ul class='recently_updated'>
+          <% @recently_updated.each do |document| %>
+            <%= content_tag_for :li, document, class: document_organisation_class(document) do %>
+          
+              <div class="published_document"><%= link_to document.title, public_document_path(document), class: "title" %></div>
+              <% if organisation = document.organisations.first %>
               <%= content_tag_for :div, organisation do %> by 
-                <%= link_to organisation_display_name(organisation), organisation_path(organisation) %>
+                <%= link_to organisation.name, organisation_path(organisation) %>
               <% end %>
+              <% end %>
+              <div class="metadata">
+                <span class="document_type"><%= human_friendly_document_type(document) %></span>
+              </div>
+              <div class="metadata published_or_updated">
+                <%= published_or_updated(document) %>
+                <%= time_ago(document.published_at, class: 'published_at') %>
+              </div>
             <% end %>
-            <div class="metadata">
-              <span class="document_type"><%= human_friendly_document_type(document) %></span>
-            </div>
-            <div class="metadata published_or_updated">
-              <%= published_or_updated(document) %>
-              <%= time_ago(document.published_at, class: 'published_at') %>
-            </div>
           <% end %>
-        <% end %>
-      </ul>
-      <%= link_to image_tag('feed-icon.png'), atom_feed_path, class: 'feed_icon' %>
-    </section>
+        </ul>
+        <%= link_to image_tag('feed-icon.png'), atom_feed_path, class: 'feed_icon' %>
+      </section>
+    </div>
   </div>
 </div>
