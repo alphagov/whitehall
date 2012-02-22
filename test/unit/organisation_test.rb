@@ -272,6 +272,13 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_nil Contact.find_by_id(contact.id)
   end
 
+  test 'destroy deletes related social media accounts' do
+    organisation = create(:organisation)
+    social_media_account = create(:social_media_account, organisation: organisation)
+    organisation.destroy
+    assert_nil SocialMediaAccount.find_by_id(social_media_account.id)
+  end
+
   test 'destroy removes document relationships' do
     organisation = create(:organisation)
     document = create(:published_document, organisations: [organisation])

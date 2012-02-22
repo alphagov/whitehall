@@ -298,6 +298,20 @@ ActiveRecord::Schema.define(:version => 20120222172921) do
 
   add_index "roles", ["slug"], :name => "index_roles_on_slug"
 
+  create_table "social_media_accounts", :force => true do |t|
+    t.integer  "organisation_id"
+    t.integer  "social_media_service_id"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "social_media_services", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "supporting_page_attachments", :force => true do |t|
     t.integer  "supporting_page_id"
     t.integer  "attachment_id"
