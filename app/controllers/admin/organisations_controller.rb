@@ -1,4 +1,5 @@
 class Admin::OrganisationsController < Admin::BaseController
+  before_filter :build_organisation, only: [:new]
   before_filter :load_organisation, only: [:edit, :update]
   before_filter :load_news_articles, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
@@ -9,7 +10,6 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def new
-    @organisation = Organisation.new
     @ministerial_organisation_roles = []
   end
 
@@ -37,6 +37,10 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   private
+
+  def build_organisation
+    @organisation = Organisation.new
+  end
 
   def load_organisation
     @organisation = Organisation.find(params[:id])
