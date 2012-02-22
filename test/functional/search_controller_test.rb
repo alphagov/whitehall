@@ -3,7 +3,7 @@ require "test_helper"
 class SearchControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
-  test "should as the user to enter a search term if none was given" do
+  test "should ask the user to enter a search term if none was given" do
     client = stub("search", search: [])
     Whitehall::SearchClient.stubs(:new).returns(client)
     get :index, q: ""
