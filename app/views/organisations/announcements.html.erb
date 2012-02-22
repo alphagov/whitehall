@@ -6,7 +6,7 @@
   </div>
 
   <% if @announcements.any? %>
-    <div class="g3f">
+    <div class="g2f">
       <%= article_section("News & Speeches", @announcements, {id: 'announcements'}) do |announcement| %>
         <h2 class="article_title"><%= link_to announcement.title, public_document_path(announcement), title: "View #{announcement.title}", class: "title" %></h2>
         <% if announcement.summary.present? %><p class="summary"><%= announcement.summary %></p><% end %>

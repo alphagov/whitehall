@@ -6,7 +6,7 @@
   </div>
 
   <% if @consultations.any? %>
-    <div class="g3f">
+    <div class="g2f">
       <%= article_section("Consultations", @consultations, {id: 'consultations'}) do |consultation| %>
         <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
         <span class="metadata">
