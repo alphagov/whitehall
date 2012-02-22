@@ -94,10 +94,11 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     parent_org_2 = create(:organisation)
     attributes = attributes_for(:organisation)
     post :create, organisation: attributes.merge(
+      name: "new-organisation",
       organisation_type_id: organisation_type.id,
       parent_organisation_ids: [parent_org_1.id, parent_org_2.id]
     )
-    created_organisation = Organisation.last
+    created_organisation = Organisation.find_by_name("new-organisation")
     assert_equal [parent_org_1, parent_org_2], created_organisation.parent_organisations
   end
 
