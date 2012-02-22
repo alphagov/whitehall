@@ -50,8 +50,6 @@ class Admin::OrganisationsController < Admin::BaseController
     @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).where("roles.type = 'MinisterialRole'").order(:ordering)
   end
 
-  private
-
   def default_arrays_of_ids_to_empty
     params[:organisation][:policy_topic_ids] ||= []
     params[:organisation][:parent_organisation_ids] ||= []
