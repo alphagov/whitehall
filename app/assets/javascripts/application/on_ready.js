@@ -20,7 +20,9 @@ jQuery(function($) {
       {
         slider: '.slider',
            slide: '.slide',
-           addNav: false,
+           nextSlide : '.next',
+           prevSlide : '.prev',
+           addNav: true,
            addPagination: true,
            speed: 300 // ms.
       }

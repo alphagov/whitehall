@@ -1,4 +1,5 @@
 @import "organisation_brands";
+@import "../shared/typography";
 
 .recently_updated, #content .featured_carousel {
   @each $brand in $organisation_brands {
@@ -10,4 +11,73 @@
       background: $color;
     }
   }
+}
+
+.recently_updated li{
+  background-color:#eee;
+}
+#content {
+  .recently_updated {
+    li {
+      padding:1em 0.5em;
+      margin:0;
+    }
+  }
+  .metadata, .published_document, .organisation{
+    display:inline  ;
+  }
+  h1.page_title{
+    font-family:$gill; 
+    padding:0.275em 0 0 0.275em;
+    margin: 0 0 0.275em;
+  }
+  .news_article{
+    .img{
+      background-color:#5D996C;
+      min-height:300px;
+    }
+    h2{
+      @include type-18;
+      padding:0.5em;
+      margin:0;
+    }
+    .summary, .meta{
+      margin:0;
+      padding:0.275em 0.5em;
+    }
+  }
+  .slider_wrap{
+    
+  }
+  .slidecontrols{
+    margin-top:25%;
+    position: absolute;
+    width:100%;
+    z-index: 3;
+    li{
+      float:right;
+      padding:0.5em;
+      background-image: url(/government/assets/right-arrow.png);
+      background-repeat:no-repeat;
+      background-position:29px 0;
+      margin: 0.5em;
+      padding: 0.75em;
+      /*a{
+        display: block;
+        padding: 1em;
+        text-indent: -9999px;
+      }
+      a:hover, a:focus, a:active{
+        outline:none;
+      }*/
+    }
+    li:last-child{
+      margin: 0.5em;
+      padding: 0.75em;
+      float:left;
+      background-image: url(/government/assets/left-arrow.png);
+      background-position:0 0;
+    }
+  }
+  
 }
