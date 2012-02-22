@@ -1,17 +1,15 @@
 class SpeechType
   include ActiveRecordLikeInterface
 
-  attr_reader :id, :name, :slug
+  attr_accessor :id, :name
 
-  def initialize(id, name)
-    @name = name
-    @slug = name.downcase.gsub(/ /, "_")
-    @id   = id
+  def slug
+    name.downcase.gsub(/[^a-z]+/, "_")
   end
 
-  Transcript       = create(1, "Transcript")
-  DraftText        = create(2, "Draft text")
-  SpeakingNotes    = create(3, "Speaking notes")
-  WrittenStatement = create(4, "Written statement")
-  OralStatement    = create(5, "Oral statement")
+  Transcript       = create(id: 1, name: "Transcript")
+  DraftText        = create(id: 2, name: "Draft text")
+  SpeakingNotes    = create(id: 3, name: "Speaking notes")
+  WrittenStatement = create(id: 4, name: "Written statement")
+  OralStatement    = create(id: 5, name: "Oral statement")
 end

@@ -21,8 +21,18 @@ module ActiveRecordLikeInterface
     end
   end
 
+  def initialize(options={})
+    options.each do |key, value|
+      self[key] = value
+    end
+  end
+
   def [](key)
     __send__(key)
+  end
+
+  def []=(key, value)
+    __send__("#{key}=", value)
   end
 
   def save
