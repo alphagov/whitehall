@@ -14,8 +14,8 @@
     <%= organisation_form.select :organisation_type_id, options_from_collection_for_select(OrganisationType.all, "id", "name", organisation.organisation_type_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the organisation type..." } %>
   </fieldset>
   <fieldset>
-    <%= organisation_form.label :parent_organisation_ids, 'Associated departments' %>
-    <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.all - [organisation_form.object], 'id', 'name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose associated departments..." } %>
+    <%= organisation_form.label :parent_organisation_ids, 'Sponsoring departments' %>
+    <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.departments - [organisation_form.object], 'id', 'name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose associated departments..." } %>
   </fieldset>
   <fieldset>
     <%= organisation_form.label :policy_topic_ids, 'Policy topics' %>

@@ -103,6 +103,10 @@ class Organisation < ActiveRecord::Base
     organisation_type.department?
   end
 
+  def self.departments
+    where(organisation_type_id: OrganisationType.departmental_types)
+  end
+
   def self.parent_organisations
     where("not exists (" +
       "select * from organisational_relationships " +

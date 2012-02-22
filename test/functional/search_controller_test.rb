@@ -3,7 +3,7 @@ require "test_helper"
 class SearchControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
-  test "should as the user to enter a search term if none was given" do
+  test "should ask the user to enter a search term if none was given" do
     client = stub("search", search: [])
     Whitehall::SearchClient.stubs(:new).returns(client)
     get :index, q: ""
@@ -71,5 +71,23 @@ class SearchControllerTest < ActionController::TestCase
     client.expects(:autocomplete).with("search-term").returns(raw_rummager_response)
     get :autocomplete, q: "search-term"
     assert_equal raw_rummager_response, @response.body
+  end
+
+  test "should display a link to search the citizen proposition" do
+    client = stub("search", search: [])
+    Whitehall::SearchClient.stubs(:new).returns(client)
+
+    get :index, q: "search-term"
+
+    assert_select "a[href='/search?q=search-term']"
+  end
+
+  test "should display a link to search the citizen proposition with search term requiring escaping" do
+    client = stub("search", search: [])
+    Whitehall::SearchClient.stubs(:new).returns(client)
+
+    get :index, q: "search+term"
+
+    assert_select "a[href='/search?q=search%2Bterm']"
   end
 end

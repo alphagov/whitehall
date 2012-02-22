@@ -18,7 +18,13 @@ class SiteControllerTest < ActionController::TestCase
     recent_documents = documents[0...10]
     older_documents = documents[10..-1]
 
-    recent_documents.each { |d| assert_select_object(d) }
+    recent_documents.each do |d| 
+      assert_select_object(d) do
+        d.organisations.each do |org|
+          assert_select_object(org)
+        end
+      end
+    end
     older_documents.each { |d| refute_select_object(d) }
     draft_documents.each { |d| refute_select_object(d) }
   end
