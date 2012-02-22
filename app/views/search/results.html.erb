@@ -3,6 +3,10 @@
 <div class="g3f">
   <section class="page_header search">
     <h1 class="page_title title">Found <%= pluralize(@results.length, "result") %> for "<%= @search_term %>"</h1>
+    <p>
+      These are the search results from Inside Government.
+      <%= citizen_search_link(%{Search for "#{@search_term}" in other sections of GOV.UK.}, @search_term, title: %{Search for "#{@search_term}" in other sections of GOV.UK.}) %>
+    </p>
   </section>
 </div>
 
