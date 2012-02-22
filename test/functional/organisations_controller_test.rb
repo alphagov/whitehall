@@ -36,16 +36,15 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows organisation's featured news article with image" do
-    image_data = create(:image_data, file: fixture_file_upload('portas-review.jpg'))
-    image = create(:image, image_data: image_data, alt_text: "alternative-text")
-    news_article = create(:published_news_article, images: [image])
+    featuring_image = fixture_file_upload('portas-review.jpg')
+    news_article = create(:featured_news_article, featuring_image: featuring_image)
     organisation = create(:organisation, documents: [news_article])
     create(:document_organisation, document: news_article, organisation: organisation, featured: true)
 
     get :show, id: organisation
 
     assert_select_object news_article do
-      assert_select ".img img[src$='portas-review.jpg'][alt='alternative-text']"
+      assert_select ".img img[src$='portas-review.jpg']"
     end
   end
 
@@ -78,7 +77,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
     refute_select "#consultations"
   end
-  
+
   # TODO: this section is moving to a separate view
   # test "should link to the active child organisations" do
   #   parent_organisation = create(:organisation)
@@ -86,7 +85,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   #   get :show, id: parent_organisation
   #   assert_select "#child_organisations a[href='#{organisation_path(child_organisation)}']"
   # end
-  
+
   # test "should just list but not link to inactive child organisations" do
   #   parent_organisation = create(:organisation)
   #   child_organisation = create(:organisation, parent_organisations: [parent_organisation], active: false)
