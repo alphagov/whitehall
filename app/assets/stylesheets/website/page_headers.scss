@@ -10,7 +10,8 @@
     h1.page_title {
       @include type-32;
       font-weight: normal;
-      margin-top: 0.25em;
+      margin-top: 0.375em;
+      padding: 0;
     }
 
     h2 {
