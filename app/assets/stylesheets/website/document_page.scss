@@ -1,9 +1,27 @@
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/type_stacks";
 @import "../shared/utils/clearfix";
+@import "organisation_brands";
 
 #content {
   .document_page {
+    @include branded_page_headers;
+      .organisations .organisation span{
+        @include type-16;
+        padding:0.12em 0 0 0.575em;
+        margin:0 0 -0.8em 0;
+        line-height:1.125em;
+        display:block;
+        bottom:0;
+      }
+      .organisations a{
+        text-decoration:none;
+      }
+      .organisation.ministerial-department{
+        padding-left:0;
+        padding-top:24px;
+      }
+    
     @include clearfix;
 
 
@@ -17,7 +35,7 @@
 
     .notice {
       background: rgb(255,224,135);
-      padding: 0.25em;
+      padding: 0.5em;
       margin-bottom: 1.5em;
 
       p {

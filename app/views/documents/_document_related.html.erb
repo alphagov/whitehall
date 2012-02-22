@@ -4,7 +4,7 @@
     <ul class="organisations">
     <% @document.organisations.each do |organisation| %>
       <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
-        <%= link_to organisation.name, organisation_path(organisation), class: "organisation" %>
+        <span><%= link_to format_with_html_line_breaks(h(organisation.logo_formatted_name)), organisation_path(organisation), class: "organisation" %></span>
       <% end %>
     <% end %>
     </ul>

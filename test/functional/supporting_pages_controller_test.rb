@@ -217,8 +217,8 @@ That's all
   end
 
   test "should link to policy topics from within the metadata navigation" do
-    first_policy_topic = create(:policy_topic)
-    second_policy_topic = create(:policy_topic)
+    first_policy_topic = create(:policy_topic, logo_formatted_name: "first")
+    second_policy_topic = create(:policy_topic, logo_formatted_name: "second")
     policy = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
     supporting_page = create(:supporting_page, document: policy)
 
@@ -229,15 +229,15 @@ That's all
   end
 
   test "should link to organisations from within the metadata navigation" do
-    first_org = create(:organisation)
-    second_org = create(:organisation)
+    first_org = create(:organisation, logo_formatted_name: "first")
+    second_org = create(:organisation, logo_formatted_name: "second")
     policy = create(:published_policy, organisations: [first_org, second_org])
     supporting_page = create(:supporting_page, document: policy)
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    assert_select "#document_organisations a.organisation", text: first_org.name
-    assert_select "#document_organisations a.organisation", text: second_org.name
+    assert_select "#document_organisations a.organisation", text: first_org.logo_formatted_name
+    assert_select "#document_organisations a.organisation", text: second_org.logo_formatted_name
   end
 
   test "should link to ministers from within the metadata navigation" do

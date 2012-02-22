@@ -21,7 +21,7 @@ $organisation_brands:
   
   ('unknown_organisation', rgb(100, 100, 100));
 
-@mixin add_styles_for_org($org_class, $colour, $logo_image_url) {
+@mixin add_styles_for_org($org_class, $colour, $logo_image_url, $logo_image_url_small) {
   &.#{$org_class} {
     .page_header {
       h1.name {
@@ -44,6 +44,18 @@ $organisation_brands:
   }
 }
 
+@mixin add_styles_for_org($org_class, $colour, $logo_image_url, $logo_image_url_small) {
+  &.#{$org_class} {
+    @if $colour {
+      border-left:2px solid $colour;
+    }
+    @if $logo_image_url {
+      background: url($logo_image_url_small) no-repeat 8px -1px;
+      padding-left: 78px;
+    }
+  }
+}
+
 @mixin branded_page_headers {
   .organisation {
     .page_header {
@@ -54,7 +66,7 @@ $organisation_brands:
     }
 
     // define styles for different organisation types
-    @include add_styles_for_org('ministerial-department', false, "/government/assets/coa-default-48.gif");
+    @include add_styles_for_org('ministerial-department', false, "/government/assets/coa-default-48.gif", "/government/assets/coa-default-24.gif");
 
     // define styles for individual organisations
 
@@ -62,7 +74,7 @@ $organisation_brands:
       $name: nth($brand, 1);
       $color: nth($brand, 2);
 
-      @include add_styles_for_org($name, $color, false);
+      @include add_styles_for_org($name, $color, false, false);
     }
   }
 }
