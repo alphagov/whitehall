@@ -70,3 +70,86 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_equal 'organisation-slug-yeah ministerial-department', organisation_logo_classes(organisation)
   end
 end
+
+class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::TestCase
+  include OrganisationHelper
+
+ #   Ministerial departments, 
+ # Non-ministerial departments, 
+ # Executive agencies,
+ # Executive non-departmental public bodies,
+ #  Advisory non-departmental public bodies,
+ #  Tribunal non-departmental public bodies, 
+ #  Public corporations, 
+ #  Independent monitoring bodies,
+
+ #   and Others.
+     # [org short name/failing back to long name] is a/an [type] of (the) [parent org]
+
+  def assert_relationship_type_is_described_as(type_name, expected_description)
+    parent = create(:organisation)
+    child = create(:organisation, parent_organisations: [parent], 
+      organisation_type: create(:organisation_type, name: type_name))
+    expected = %Q{#{child.name} is #{expected_description} of the #{parent.name}}
+    actual = organisation_display_name_and_parental_relationship(child)
+    assert_equal expected, actual
+  end
+
+  def assert_definite_article_skipped(parent_organisation_name)
+    parent = create(:organisation, name: parent_organisation_name)
+    child = create(:organisation, parent_organisations: [parent])
+    actual = organisation_display_name_and_parental_relationship(child)
+    assert_match /of #{parent.name}/, actual
+  end
+
+  test 'basic sentence construction' do
+    parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
+    child = create(:organisation, acronym: "BLAH", 
+      name: "Building Law and Hygiene", parent_organisations: [parent], 
+      organisation_type: create(:organisation_type, name: "Executive agencies"))
+    expected = %{<abbr title="Building Law and Hygiene">BLAH</abbr> is an executive agency of the Department of Building Regulation}
+    actual = organisation_display_name_and_parental_relationship(child)
+    assert_equal expected, actual
+  end
+
+  test 'string returned is html safe' do
+    parent = create(:ministerial_department, name: "Department of Economy & Trade")
+    child = create(:organisation, acronym: "B&B", 
+      name: "Banking & Business", parent_organisations: [parent], 
+      organisation_type: create(:organisation_type, name: "Executive & important agencies"))
+    expected = %{<abbr title="Banking &amp; Business">B&amp;B</abbr> is an executive &amp; important agency of the Department of Economy &amp; Trade}
+    actual = organisation_display_name_and_parental_relationship(child)
+    assert_equal expected, actual
+    assert actual.html_safe?
+  end
+
+  test 'description of parent organisations' do
+    parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
+    expected = %{<abbr title="Department of Building Regulation">DBR</abbr> is a ministerial department}
+    actual = organisation_display_name_and_parental_relationship(parent)
+    assert_equal expected, actual
+  end
+
+  test 'relationship types are described correctly' do
+    assert_relationship_type_is_described_as('Ministerial departments', 'a ministerial department')
+    assert_relationship_type_is_described_as('Non-ministerial departments', 'a non-ministerial department')
+    assert_relationship_type_is_described_as('Executive agencies', 'an executive agency')
+    assert_relationship_type_is_described_as('Executive non-departmental public bodies', 'an executive non-departmental public body')
+    assert_relationship_type_is_described_as('Advisory non-departmental public bodies', 'an advisory non-departmental public body')
+    assert_relationship_type_is_described_as('Tribunal non-departmental public bodies', 'a tribunal non-departmental public body')
+    assert_relationship_type_is_described_as('Public corporations', 'a public corporation')
+    assert_relationship_type_is_described_as('Independent monitoring bodies', 'an independent monitoring body')
+    assert_relationship_type_is_described_as('Others', 'a public body')
+  end
+
+  test 'definite article skipped for certain parent organisations' do
+    assert_definite_article_skipped 'HM Treasury'
+    assert_definite_article_skipped 'Ordnance Survey'
+  end
+
+  test 'definite article skipped if name starts with "The"' do
+    assert_definite_article_skipped 'The National Archives'
+  end
+
+
+end

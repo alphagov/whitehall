@@ -1,10 +1,49 @@
-module OrganisationHelper
+module OrganisationHelper  
   def organisation_display_name(organisation)
     if organisation.acronym.present?
       content_tag(:abbr, organisation.acronym, title: organisation.name)
     else
       organisation.name
     end
+  end
+
+  def organisation_type_name(organisation)
+    type_name = ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
+    type_name == 'other' ? 'public body' : type_name
+  end
+
+  def organisation_display_name_and_parental_relationship(organisation)
+    name = organisation_display_name(organisation)
+    relationship = add_indefinite_article(organisation_type_name(organisation))
+    parent = organisation.parent_organisations.first
+    params = [name, ERB::Util.h(relationship)]
+    if parent
+      "%s is %s of %s" % (params + [ERB::Util.h(ensure_definite_article_if_needed(parent.name))])
+    else
+      "%s is %s" % params
+    end.html_safe
+  end
+
+  def ensure_definite_article_if_needed(phrase)
+    needs_definite_article?(phrase) ? "the #{phrase}" : phrase
+  end
+
+  def needs_definite_article?(phrase)
+    exceptions = [/^hm/, /ordnance survey/]
+    !has_definite_article?(phrase) && !(exceptions.any? {|e| e =~ phrase.downcase})
+  end
+
+  def has_definite_article?(phrase)
+    phrase.downcase.strip[0..2] == 'the'
+  end
+
+  def add_indefinite_article(noun)
+    indefinite_article = starts_with_vowel?(noun) ? 'an' : 'a'
+    "#{indefinite_article} #{noun}"
+  end
+
+  def starts_with_vowel?(word_or_phrase)
+    'aeiou'.include?(word_or_phrase.downcase[0])
   end
 
   def organisation_navigation_link_to(body, path)
