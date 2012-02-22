@@ -26,7 +26,8 @@ module OrganisationHelper
     parent = organisation.parent_organisations.first
     params = [ERB::Util.h(name), ERB::Util.h(relationship)]
     if parent
-      "%s is %s of %s" % (params + [ERB::Util.h(ensure_definite_article_if_needed(parent.name))])
+      params << link_to(ensure_definite_article_if_needed(parent.name), organisation_path(parent))
+      "%s is %s of %s" % params
     else
       "%s is %s" % params
     end.html_safe

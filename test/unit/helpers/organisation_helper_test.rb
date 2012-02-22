@@ -74,20 +74,29 @@ end
 class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::TestCase
   include OrganisationHelper
 
+  def strip_html_tags(html)
+    html.gsub(/<[^>]*?>/, '')
+  end
+
   def assert_relationship_type_is_described_as(type_name, expected_description)
     parent = create(:organisation)
     child = create(:organisation, parent_organisations: [parent], 
       organisation_type: create(:organisation_type, name: type_name))
-    expected = %Q{#{child.name} is #{expected_description} of the #{parent.name}}
-    actual = organisation_display_name_and_parental_relationship(child)
-    assert_equal expected, actual
+    expected_text = %Q{#{child.name} is #{expected_description} of the #{parent.name}}
+    actual_html = organisation_display_name_and_parental_relationship(child)
+    assert_equal expected_text, strip_html_tags(actual_html)
   end
 
   def assert_definite_article_skipped(parent_organisation_name)
     parent = create(:organisation, name: parent_organisation_name)
     child = create(:organisation, parent_organisations: [parent])
-    actual = organisation_display_name_and_parental_relationship(child)
-    assert_match /of #{parent.name}/, actual
+    actual_html = organisation_display_name_and_parental_relationship(child)
+    assert_match /of #{parent.name}/, strip_html_tags(actual_html)
+  end
+
+  def assert_display_name_text(organisation, expected_text)
+    actual_html = organisation_display_name_and_parental_relationship(organisation)
+    assert_equal expected_text, strip_html_tags(actual_html)
   end
 
   test 'basic sentence construction' do
@@ -96,8 +105,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
       name: "Building Law and Hygiene", parent_organisations: [parent], 
       organisation_type: create(:organisation_type, name: "Executive agencies"))
     expected = %{Building Law and Hygiene (BLAH) is an executive agency of the Department of Building Regulation}
-    actual = organisation_display_name_and_parental_relationship(child)
-    assert_equal expected, actual
+    assert_display_name_text child, expected
   end
 
   test 'string returned is html safe' do
@@ -106,16 +114,20 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
       name: "Banking & Business", parent_organisations: [parent], 
       organisation_type: create(:organisation_type, name: "Executive & important agencies"))
     expected = %{Banking &amp; Business (B&amp;B) is an executive &amp; important agency of the Department of Economy &amp; Trade}
-    actual = organisation_display_name_and_parental_relationship(child)
-    assert_equal expected, actual
-    assert actual.html_safe?
+    assert_display_name_text child, expected
+    assert organisation_display_name_and_parental_relationship(child).html_safe?
   end
 
   test 'description of parent organisations' do
     parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
     expected = %{Department of Building Regulation (DBR) is a ministerial department}
-    actual = organisation_display_name_and_parental_relationship(parent)
-    assert_equal expected, actual
+    assert_display_name_text parent, expected
+  end
+
+  test 'links to parent organisation' do
+    parent = create(:organisation)
+    child = create(:organisation, parent_organisations: [parent])
+    assert_match %r{<a href="/government/organisations/#{parent.to_param}">the #{parent.name}</a>}, organisation_display_name_and_parental_relationship(child)
   end
 
   test 'relationship types are described correctly' do
