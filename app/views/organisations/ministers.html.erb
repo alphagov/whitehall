@@ -6,8 +6,8 @@
   </div>
 
   <% if @ministerial_roles.any? %>
-    <div class="g3f">
-      <%= article_section("Our people", @ministerial_roles, {id: 'ministers'}) do |ministerial_role| %>
+    <div class="g2f">
+      <%= article_section("Ministers", @ministerial_roles, {id: 'ministers'}) do |ministerial_role| %>
         <div class="image_holder">
           <%= image_for_ministerial_role(ministerial_role) %>
         </div>

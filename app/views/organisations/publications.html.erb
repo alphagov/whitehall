@@ -5,7 +5,7 @@
     <%= render 'navigation', organisation: @organisation %>
   </div>
   <% if @publications.any? %>
-    <div class="g3f">
+    <div class="g2f">
       <%= article_section("Publications", @publications, {id: 'publications'}) do |publication| %>
         <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
         <span class="metadata">
