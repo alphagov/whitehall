@@ -35,6 +35,9 @@
       margin-left: 96px;
       margin-bottom: 0;
     }
+    .current_appointee {
+      font-weight: bold;
+    }
     .image_holder {
       @include clearfix;
       margin-bottom: 0;

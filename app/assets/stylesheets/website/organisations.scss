@@ -1,5 +1,6 @@
 @import "../shared/utils/type_stacks";
 @import "../shared/utils/type_sizing";
+@import "../shared/utils/clearfix";
 @import "organisation_brands";
 
 #wrapper {
@@ -113,14 +114,15 @@
   }
 
   #who {
-
-    h1 {
-
+    
+    section {
+      margin-bottom: 1.5em;
     }
 
     article {
+      @include clearfix;
       position: relative;
-      min-height: 6em;
+      margin-bottom: 0.75em;
       
       .current_appointee {
         @include type-16;
@@ -138,11 +140,13 @@
       }
 
       img {
+        float: left;
         width: 70px;
-        position: absolute;
-        top: 0.25em;
-        left: 0;
       }
+    }
+    
+    .view_all {
+      @include type-14;
     }
   }
 
