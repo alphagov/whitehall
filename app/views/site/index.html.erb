@@ -23,10 +23,11 @@
               <%= time_ago(document.published_at, class: 'published_at') %>
             </div>
             <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
-            <% if organisation = document.organisations.first %>
-            <%= content_tag_for :div, organisation do %>
-              <%= link_to organisation.name, organisation_path(organisation) %>
-            <% end %>
+
+            <% document.organisations.uniq.each do |org| %>
+              <%= content_tag_for :span, org do %>
+                <%= link_to organisation_display_name(org), organisation_path(org), class: "organisation" %>
+              <% end %>
             <% end %>
             <div class="metadata">
               <span class="document_type"><%= human_friendly_document_type(document) %></span>
