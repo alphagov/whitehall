@@ -1,3 +1,4 @@
+@import "../shared/utils/type_stacks";
 @import "../shared/utils/type_sizing";
 @import "organisation_brands";
 
@@ -37,6 +38,12 @@
     p {
       @include type-14;
       margin-left: 0.5em;
+    }
+  }
+  
+  .organisation {
+    h1.page_title {
+      font-family: $helvetica;
     }
   }
 
@@ -102,6 +109,40 @@
     }
 
     p.readmore {
+    }
+  }
+
+  #who {
+
+    h1 {
+
+    }
+
+    article {
+      position: relative;
+      min-height: 6em;
+      
+      .current_appointee {
+        @include type-16;
+        font-weight: bold;
+      }
+      
+      .role {
+        @include type-14;
+        font-family: $helvetica;
+      }
+      
+      .current_appointee, .role {
+        margin-bottom: 0;
+        margin-left: 96px;
+      }
+
+      img {
+        width: 70px;
+        position: absolute;
+        top: 0.25em;
+        left: 0;
+      }
     }
   }
 
