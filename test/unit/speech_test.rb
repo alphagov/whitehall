@@ -1,11 +1,6 @@
 require "test_helper"
 
 class SpeechTest < ActiveSupport::TestCase
-  test "should be valid when built from the factory" do
-    speech = build(:speech)
-    assert speech.valid?
-  end
-
   test "should be able to relate to other documents" do
     article = build(:news_article)
     assert article.can_be_related_to_policies?

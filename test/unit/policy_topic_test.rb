@@ -6,11 +6,6 @@ class PolicyTopicTest < ActiveSupport::TestCase
     assert policy_topic.current?
   end
 
-  test 'should be valid when built from the factory' do
-    policy_topic = build(:policy_topic)
-    assert policy_topic.valid?
-  end
-
   test 'should be invalid without a name' do
     policy_topic = build(:policy_topic, name: nil)
     refute policy_topic.valid?

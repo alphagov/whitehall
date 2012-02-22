@@ -1,11 +1,6 @@
 require "test_helper"
 
 class OrganisationRoleTest < ActiveSupport::TestCase
-  test "should be valid when built from a factory" do
-    organisation_role = build(:organisation_role)
-    assert organisation_role.valid?
-  end
-
   test "should be invalid without an organisation" do
     organisation_role = build(:organisation_role, organisation_id: nil)
     refute organisation_role.valid?

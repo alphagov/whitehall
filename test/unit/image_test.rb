@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
-  test 'should be valid when built from the factory' do
-    image = build(:image)
-    assert image.valid?
-  end
-
   test 'should be invalid without alt-text for accessibility' do
     image = build(:image, alt_text: nil)
     refute image.valid?

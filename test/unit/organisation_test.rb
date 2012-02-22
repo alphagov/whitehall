@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class OrganisationTest < ActiveSupport::TestCase
-  test 'should be valid when built from the factory' do
-    organisation = build(:organisation)
-    assert organisation.valid?
-  end
-
   test 'should be invalid without a name' do
     organisation = build(:organisation, name: nil)
     refute organisation.valid?

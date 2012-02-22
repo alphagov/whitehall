@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class PersonTest < ActiveSupport::TestCase
-  test "should be valid when built from the factory" do
-    person = build(:person)
-    assert person.valid?
-  end
-
   test "should be invalid without a name" do
     person = build(:person, title: nil, forename: nil, surname: nil, letters: nil)
     refute person.valid?

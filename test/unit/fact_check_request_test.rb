@@ -1,12 +1,6 @@
 require "test_helper"
 
 class FactCheckRequestTest < ActiveSupport::TestCase
-
-  test "should be valid when built from the factory" do
-    fact_check_request = build(:fact_check_request)
-    assert fact_check_request.valid?
-  end
-
   test "should be invalid without a document" do
     fact_check_request = build(:fact_check_request, document: nil)
     refute fact_check_request.valid?

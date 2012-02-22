@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class PolicyTopicRelationTest < ActiveSupport::TestCase
-  test "should be valid when built from the factory" do
-    policy_topic_relation = build(:policy_topic_relation)
-    assert policy_topic_relation.valid?
-  end
-
   test "should be invalid without a policy topic id" do
     policy_topic_relation = build(:policy_topic_relation, policy_topic_id: nil)
     refute policy_topic_relation.valid?

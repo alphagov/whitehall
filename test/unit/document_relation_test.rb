@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class DocumentRelationTest < ActiveSupport::TestCase
-  test "should be valid when built from the factory" do
-    document_relation = build(:document_relation)
-    assert document_relation.valid?
-  end
-
   test "should be invalid without a document id" do
     document_relation = build(:document_relation, document_id: nil)
     refute document_relation.valid?

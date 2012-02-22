@@ -1,11 +1,6 @@
 require "test_helper"
 
 class SupportingPageTest < ActiveSupport::TestCase
-  test "should be valid when built from the factory" do
-    supporting_page = build(:supporting_page)
-    assert supporting_page.valid?
-  end
-
   test "should be invalid without a title" do
     supporting_page = build(:supporting_page, title: nil)
     refute supporting_page.valid?

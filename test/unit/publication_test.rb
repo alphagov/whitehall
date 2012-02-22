@@ -5,11 +5,6 @@ class PublicationTest < ActiveSupport::TestCase
 
   should_be_featurable :publication
 
-  test "should be valid when built from the factory" do
-    publication = build(:publication)
-    assert publication.valid?
-  end
-
   test 'should be invalid without a publication date' do
     publication = build(:publication, publication_date: nil)
     refute publication.valid?

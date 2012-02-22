@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class NationInapplicabilityTest < ActiveSupport::TestCase
-  test 'should be valid when built from the factory' do
-    inapplicability = build(:nation_inapplicability)
-    assert inapplicability.valid?
-  end
-
   test 'should be invalid with a malformed alternative url' do
     inapplicability = build(:nation_inapplicability, alternative_url: "invalid-url")
     refute inapplicability.valid?

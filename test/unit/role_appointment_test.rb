@@ -2,11 +2,6 @@ require "test_helper"
 
 class RoleAppointmentTest < ActiveSupport::TestCase
 
-  test "should be valid when built from the factory" do
-    role_appointment = build(:role_appointment)
-    assert role_appointment.valid?
-  end
-
   test "should be invalid with no started_at" do
     role_appointment = build(:role_appointment, started_at: nil)
     refute role_appointment.valid?

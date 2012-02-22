@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class ConsultationResponseTest < ActiveSupport::TestCase
-  test "should be valid when built from the factory" do
-    consultation_response = build(:consultation_response)
-    assert consultation_response.valid?
-  end
-
   test "should not be valid without an associated consultation" do
     consultation_response = build(:consultation_response, consultation: nil)
     refute consultation_response.valid?

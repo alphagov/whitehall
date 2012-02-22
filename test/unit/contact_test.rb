@@ -1,11 +1,6 @@
 require "test_helper"
 
 class ContactTest < ActiveSupport::TestCase
-  test "should be valid when built from the factory" do
-    contact = build(:contact)
-    assert contact.valid?
-  end
-
   test "should be invalid without a description" do
     contact = build(:contact, description: nil)
     refute contact.valid?

@@ -3,11 +3,6 @@ require "test_helper"
 class DocumentTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test "should be valid when built from the factory" do
-    document = build(:document)
-    assert document.valid?
-  end
-
   test "should be invalid without a title" do
     document = build(:document, title: nil)
     refute document.valid?
@@ -27,11 +22,6 @@ class DocumentTest < ActiveSupport::TestCase
     document = build(:document)
     document.stubs(:document_identity).returns(nil)
     refute document.valid?
-  end
-
-  test "should be valid from the factory when published" do
-    document = build(:published_document)
-    assert document.valid?
   end
 
   test "should be invalid when published without published_at" do
