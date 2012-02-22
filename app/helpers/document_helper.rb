@@ -13,7 +13,7 @@ module DocumentHelper
 
   def document_organisation_class(document)
     if document.organisations.first
-      document.organisations.first.slug
+      document.organisations.first.root_organisation.slug
     else
       'unknown_organisation'
     end
