@@ -1,15 +1,13 @@
 <% page_title @organisation.name %>
 
-<%= organisation_wrapper(@organisation, class: "hcard") do %>
-  <div class="g3f">
-    <%= render 'header', organisation: @organisation %>
-  </div>
+<%= organisation_wrapper(@organisation, class: "g3 hcard") do %>
+  <%= render 'header', organisation: @organisation %>
   <div class="g1f">
     <%= render 'navigation', organisation: @organisation %>
   </div>
 
 
-  <div class="g3f contact_page">
+  <div class="g2f contact_page">
     <% addresses = @organisation.contacts.select { |c| c.address.present? } %>
     <% others = @organisation.contacts - addresses %>
 
