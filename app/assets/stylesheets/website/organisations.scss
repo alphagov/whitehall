@@ -41,6 +41,9 @@
   }
   
   .organisation {
+    section.page_header {
+      margin-top: 0.75em;
+    }
     h1.page_title.name {
       font-family: $helvetica;
       margin-bottom: 0.375em;
