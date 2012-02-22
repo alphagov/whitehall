@@ -20,10 +20,10 @@
           <%= content_tag_for :li, document, class: document_organisation_class(document) do %>
             
             <div class="published_document"><%= link_to document.title, public_document_path(document), class: "title" %></div>
-            <% if organisation = document.organisations.first %>
-            <%= content_tag_for :div, organisation do %> by 
-              <%= link_to organisation.name, organisation_path(organisation) %>
-            <% end %>
+            <% document.organisations.each do |organisation| %>
+              <%= content_tag_for :div, organisation do %> by 
+                <%= link_to organisation_display_name(organisation), organisation_path(organisation) %>
+              <% end %>
             <% end %>
             <div class="metadata">
               <span class="document_type"><%= human_friendly_document_type(document) %></span>
