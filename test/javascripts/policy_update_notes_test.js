@@ -2,6 +2,7 @@ module("Policy update notes", {
   setup: function() {
     $('#qunit-fixture').append($('<span class="updated_at">updated 6 days ago</span>'));
     $('#qunit-fixture').append($('<div class="changes"></div>'));
+    $.fx.off = true;
   }
 });
 
