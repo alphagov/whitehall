@@ -55,6 +55,23 @@ $organisation_brands:
       }
     }
   }
+  
+  .organisations {
+    .organisation {
+      &.#{$org_class} {
+        span.organisation_logo_small {
+          @if $colour {
+            border-color: $colour;
+          }
+          @if $logo_image_url {
+            background: url($logo_image_url_small) no-repeat 8px -1px;
+            line-height: 48px;
+            padding-top: 24px;
+          }
+        }
+      }
+    }
+  }
 }
 
 @mixin branded_page_headers {
@@ -65,6 +82,16 @@ $organisation_brands:
         padding-left: 4%;
       }
     }
+  }
+  
+  .organisations {
+    .organisation {
+      span.organisation_logo_small {
+        border-left: 2px solid #000;
+        padding-left: 4%;
+      }
+    }
+  }
 
     // define styles for different organisation types
     @include add_styles_for_org('ministerial-department', false, "/government/assets/coa-default-48.gif", "/government/assets/coa-default-24.gif");
@@ -76,6 +103,5 @@ $organisation_brands:
       $color: nth($brand, 2);
 
       @include add_styles_for_org($name, $color, false, false);
-    }
   }
 }

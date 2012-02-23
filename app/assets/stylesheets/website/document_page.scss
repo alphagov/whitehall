@@ -4,23 +4,26 @@
 @import "organisation_brands";
 
 #content {
+  @include branded_page_headers;
+  
   .document_page {
-
-      .organisations .organisation span{
-        @include type-16;
-        padding:0.12em 0 0 0.575em;
-        margin:0 0 -0.8em 0;
-        line-height:1.125em;
-        display:block;
-        bottom:0;
+    #document_organisations {
+      .organisations {
+        .organisation {
+          span.organisation_logo_small {
+            @include type-16;
+            display:block;
+/*            padding:0.12em 0 0 0.575em;*/
+            line-height:1.125em;
+          }
+        }
       }
-      .organisations a{
+      a {
+        position: relative;
+        bottom: -0.2em;
         text-decoration:none;
       }
-      .organisation.ministerial-department{
-        padding-left:0;
-        padding-top:24px;
-      }
+    }
     
     @include clearfix;
 
