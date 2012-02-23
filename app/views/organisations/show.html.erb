@@ -14,90 +14,94 @@
   </div>
 
   <div class="g4">
-      <% if @featured_news_articles.any? %>
-        <section class="org_news">
-          <h1 class="visuallyhidden">Top stories</h1>
-          <section class="featured_carousel" id="featured-news-articles">
-            <% @featured_news_articles.each do |news_article| %>
-              <%= content_tag_for(:article, news_article) do %>
-                <div class="img<%= news_article.lead_image.present? ? '' : ' no-image' %>">
-                  <% if news_article.lead_image.present? %>
-                    <%= image_tag(news_article.lead_image.url) %>
-                  <% end %>
-                </div>
-                <div class="news_body">
-                  <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
-                  <p class="summary"><%= news_article.summary %></p>
-                  <div class="meta">
-                    <span class="published_at">Posted <%= time_ago(news_article.published_at, class: 'published_at') %> ago</span>
-                    <% news_article.policy_topics.uniq.each do |pa| %>
-                      <%= link_to pa.name, policy_topic_path(pa), class: "policy_topic tag" %>
-                    <% end %>
-                  </div>
-                </div>
+    <% if @featured_news_articles.any? %>
+      <section class="org_news">
+        <h1 class="visuallyhidden">Top stories</h1>
+        <section class="featured_carousel" id="featured-news-articles">
+          <% @featured_news_articles.each do |news_article| %>
+            <%= content_tag_for(:article, news_article) do %>
+            <div class="img<%= news_article.featuring_image.present? ? '' : ' no-image' %>">
+              <% if news_article.featuring_image.present? %>
+                <%= image_tag(news_article.featuring_image.url) %>
               <% end %>
+            </div>
+            <div class="news_body g4f">
+              <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
+              <p class="summary"><%= news_article.summary %></p>
+              <div class="meta">
+                <span class="published_at">Posted <%= time_ago(news_article.published_at, class: 'published_at') %> ago</span>
+                <% news_article.policy_topics.uniq.each do |pa| %>
+                  <%= link_to pa.name, policy_topic_path(pa), class: "policy_topic tag" %>
+                <% end %>
+              </div>
+            </div>
             <% end %>
-          </section>
+          <% end %>
         </section>
+      </section>
+    <% end %>
+  </div>
+
+  <div class="g4">
+    <div class="g1f">
+      <%= render 'navigation', organisation: @organisation %>
+      <% if @organisation.social_media_accounts.any? %>
+        <ul class="social_media_accounts">
+          <% @organisation.social_media_accounts.each do |account| %>
+            <%= content_tag_for(:li, account) do %>
+              <%= social_media_account_link(account) %>
+            <% end %>
+          <% end %>
+        </ul>
       <% end %>
     </div>
-
-    <div class="g4">
-      <div class="g1f">
-        <%= render 'navigation', organisation: @organisation %>
-        <% if @organisation.social_media_accounts.any? %>
-          <ul class="social_media_accounts">
-            <% @organisation.social_media_accounts.each do |account| %>
-              <%= content_tag_for(:li, account) do %>
-                <%= social_media_account_link(account) %>
-              <% end %>
-            <% end %>
-          </ul>
-        <% end %>
-      </div>
-      <div class="g1">
-        <section id="recently_updated" class="latest_documents">
-          <h1 class="label">Latest</h1>
-          <%= render(partial: "shared/recently_updated",
-           locals: {recently_updated: @recently_updated}
-          ) if @recently_updated.present? %>
-        </section>
-      </div>
-      <div class="g1">
-        <section id="who">
-          <h1 class="label">Our people</h1>
-          <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
-          <% if ministerial_role = @organisation.top_ministerial_role %>
-            <section id="ministers">
-              <h1 class="visuallyhidden">Minister</h1>
-              <%= content_tag_for(:article, ministerial_role) do %>
-                <div class="image_holder">
-                  <%= image_for_ministerial_role(ministerial_role) %>
-                </div>
-                <h3 class="current_appointee"><%= ministerial_role.current_person_name %></h3>
-                <p class="role"><%= link_to ministerial_role.name, ministerial_role %></p>
-              <% end %>
-              <p class="view_all"><%= link_to 'View all ministers', ministers_organisation_path(@organisation) %></p>
-            </section>
-          <% end %>
-          <% if management_role = @organisation.top_civil_servant %>
-            <section id="management">
-              <h1 class="visuallyhidden">Management</h1>
-              <%= content_tag_for(:article, management_role) do %>
-                <div class="image_holder">
-                  <%= image_for_ministerial_role(management_role) %>
-                </div>
-                <h3 class="current_appointee"><%= management_role.current_person_name %></h3>
-                <p class="role"><%= management_role.name %></p>
-              <% end %>
-              <p class="view_all"><%= link_to 'View management team', management_team_organisation_path(@organisation) %></p>
-            </section>
-          <% end %>
-        </section>
-      </div>
-      <div class="g1">
-        <%= render partial: "documents/policy_topics", object: @organisation.policy_topics, title: "Our policy topics" %>
-      </div>
+    <div class="g1">
+      <section id="recently_updated" class="latest_documents">
+        <h1 class="label">Latest</h1>
+        <%= render(partial: "shared/recently_updated",
+         locals: {recently_updated: @recently_updated}
+        ) if @recently_updated.present? %>
+      </section>
     </div>
+    <div class="g1">
+      <section id="who">
+        <h1 class="label">Our people</h1>
+        <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
+        <% if ministerial_role = @organisation.top_ministerial_role %>
+          <section id="ministers">
+            <h1 class="visuallyhidden">Minister</h1>
+            <%= content_tag_for(:article, ministerial_role) do %>
+              <div class="image_holder">
+                <%= image_for_ministerial_role(ministerial_role) %>
+              </div>
+              <h3 class="current_appointee"><%= ministerial_role.current_person_name %></h3>
+              <p class="role"><%= link_to ministerial_role.name, ministerial_role %></p>
+            <% end %>
+            <p class="view_all"><%= link_to 'View all ministers', ministers_organisation_path(@organisation) %></p>
+          </section>
+        <% end %>
+        <% if management_role = @organisation.top_civil_servant %>
+          <section id="management">
+            <h1 class="visuallyhidden">Management</h1>
+            <%= content_tag_for(:article, management_role) do %>
+              <div class="image_holder">
+                <%= image_for_ministerial_role(management_role) %>
+              </div>
+              <h3 class="current_appointee"><%= management_role.current_person_name %></h3>
+              <p class="role"><%= management_role.name %></p>
+            <% end %>
+            <p class="view_all"><%= link_to 'View management team', management_team_organisation_path(@organisation) %></p>
+          </section>
+        <% end %>
+      </section>
+    </div>
+<<<<<<< HEAD
+=======
+    <div class="g1">
+      <%= render partial: "documents/policy_topics", object: @organisation.policy_topics, title: "Our policy topics" %>
+    </div>
+  </div>
+
+>>>>>>> Featured carousel for orgs mostly styled
 <% end %>
 

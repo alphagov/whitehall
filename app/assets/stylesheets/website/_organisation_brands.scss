@@ -48,6 +48,12 @@ $organisation_brands:
         border-color: $colour;
       }
     }
+    
+    .featured_carousel .news_body {
+      @if $colour {
+        background-color: $colour;
+      }
+    }
   }
 }
 
