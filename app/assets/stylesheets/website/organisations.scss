@@ -62,6 +62,17 @@
     }
   }
 
+  div.sub_navigation_container {
+    @media only screen and (min-width:1024px) {
+      background-color: #fff;
+      margin-top: -200px;
+      padding-top: 8px;
+      position: relative;
+      z-index: 100;
+    }
+    
+  }
+
   nav.sub_navigation {
     
     ul {
