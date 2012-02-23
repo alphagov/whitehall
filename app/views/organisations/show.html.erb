@@ -43,7 +43,7 @@
   </div>
 
   <div class="g4f">
-    <div class="g1 sub_navigation_container">
+    <div class="g1 <% if @featured_news_articles.any? %>sub_navigation_container<% end %>">
       <%= render 'navigation', organisation: @organisation %>
       <% if @organisation.social_media_accounts.any? %>
         <ul class="social_media_accounts">
