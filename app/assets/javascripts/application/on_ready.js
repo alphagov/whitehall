@@ -12,6 +12,9 @@ jQuery(function($) {
   });
 
   $('section.featured_carousel').each(function () {
+	var articles = $.makeArray($(this).find('article'));
+	$(this).append(articles.reverse());
+
     $(this).addClass('slider');
     $(this).find('article').addClass('slide');
     $(this).wrap($.div('', '.slider_wrap'));
