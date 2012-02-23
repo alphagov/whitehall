@@ -1,49 +1,54 @@
 @import "../shared/utils/grid";
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/clearfix";
+@import "organisation_brands";
 
 #content {
+  .ministerial_role_page {
+    @each $brand in $organisation_brands {
+      $name: nth($brand, 1);
+      $color: nth($brand, 2);
 
-  .current_person {
-    h2 {
-      @include type-18;
-      margin-bottom: 0.66665em;
+      @include add_styles_for_org($name, $color, false, false);
     }
 
-    .biography p {
-      @include type-13;
-      margin-bottom: 0.857em;
+    .page_header {
+      h1 {
+        @include type-32;
+        margin-bottom: 0;
+      }
+
+      h2 {
+        @include type-24;
+      }
+
+      margin-bottom: 1em;
     }
 
-    div.img {
-      width: 50%;
-      max-width: 135px;
-      overflow: hidden;
-      margin-bottom: 0.5em;
-      background: #fff;
-      padding: 5px 5px 0 5px;
-      img {
-        margin: 0;
+    .responsibilities {
+      @include type-21;
+    }
+
+    #announcements {
+      h1 {
+        margin-left: 0;
       }
     }
-  }
 
-  .ministerial_role {
-    min-height: 72px;
+    .current_person {
+      .name {
+        @include type-18;
+      }
 
-    .current_appointee, .role {
-      margin-left: 96px;
-      margin-bottom: 0;
+      .biography {
+        @include type-18;
+      }
     }
-    .current_appointee {
-      font-weight: bold;
-    }
-    .image_holder {
-      @include clearfix;
-      margin-bottom: 0;
-      width: 72px;
-      height: 72px;
-      float: left;
+
+    .latest_documents {
+      .document_type {
+        display: none;
+      }
     }
   }
 }

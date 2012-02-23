@@ -19,8 +19,9 @@ $organisation_brands:
   ('department-for-work-and-pensions', rgb(34, 188, 185))
   ('department-for-business-innovation-and-skills', rgb(59, 110, 143))
   ('department-for-international-development', rgb(115, 157, 210))
-
-  ('unknown_organisation', rgb(100, 100, 100));
+  // fallback branding
+  ('unknown_organisation', rgb(100, 100, 100))
+  ('multiple_organisations', rgb(100, 100, 100));
 
 @mixin add_styles_for_org($org_class, $colour, $logo_image_url, $logo_image_url_small) {
   .ministerial-department.#{$org_class} {
@@ -48,14 +49,14 @@ $organisation_brands:
         border-color: $colour;
       }
     }
-    
+
     .featured_carousel .news_body {
       @if $colour {
         background-color: $colour;
       }
     }
   }
-  
+
   .document_page {
     #document_organisations {
       .ministerial-department {
@@ -83,7 +84,7 @@ $organisation_brands:
       }
     }
   }
-  
+
   .document_page {
     #document_organisations {
       .ministerial-department {

@@ -1,4 +1,5 @@
 class PublicFacingController < ApplicationController
+  helper :all
   before_filter :set_cache_control_headers
 
   private

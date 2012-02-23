@@ -20,7 +20,6 @@ $baseline_in_px: 24 !default;
   margin-bottom: #{$vertical_rhythm}em;
 }
 
-
 @mixin type-60 {
   /* 60px / 72px */
   @include scaled_type(60, 72);
