@@ -479,6 +479,29 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "h1", text: "Recently updated"
   end
 
+  test "should show list of links to social media accounts" do
+    twitter = create(:social_media_service, name: "Twitter")
+    flickr = create(:social_media_service, name: "Flickr")
+    twitter_account = create(:social_media_account, social_media_service: twitter, url: "https://twitter.com/#!/bisgovuk")
+    flickr_account = create(:social_media_account, social_media_service: flickr, url: "http://www.flickr.com/photos/bisgovuk")
+    organisation = create(:organisation, social_media_accounts: [twitter_account, flickr_account])
+
+    get :show, id: organisation
+
+    assert_select ".social_media_accounts" do
+      assert_select_object twitter_account
+      assert_select_object flickr_account
+    end
+  end
+
+  test "should not show list of links to social media accounts if there are none" do
+    organisation = create(:organisation, social_media_accounts: [])
+
+    get :show, id: organisation
+
+    refute_select ".social_media_accounts"
+  end
+
   private
 
   def assert_disclaimer_present(organisation)

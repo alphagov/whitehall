@@ -4,4 +4,8 @@ class SocialMediaAccount < ActiveRecord::Base
 
   validates :social_media_service_id, presence: true
   validates :url, presence: true, format: URI::regexp(%w(http https))
+
+  def service_name
+    social_media_service.name
+  end
 end
