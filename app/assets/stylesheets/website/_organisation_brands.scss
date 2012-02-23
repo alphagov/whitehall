@@ -2,7 +2,7 @@
 // The format is (slug, color)
 
 $organisation_brands:
-  ('treasury', rgb(191, 49, 26))
+  ('her-majestys-treasury', rgb(191, 49, 26))
   ('cabinet-office', rgb(0, 118, 192))
   ('department-for-education', rgb(245, 132, 38))
   ('department-of-transport', rgb(0, 113, 97))
@@ -18,7 +18,7 @@ $organisation_brands:
   ('department-for-work-and-pensions', rgb(34, 188, 185))
   ('department-for-business-innovation-and-skills', rgb(59, 110, 143))
   ('department-for-international-development', rgb(115, 157, 210))
-  
+
   ('unknown_organisation', rgb(100, 100, 100));
 
 @mixin add_styles_for_org($org_class, $colour, $logo_image_url, $logo_image_url_small) {
@@ -41,7 +41,7 @@ $organisation_brands:
         color: $colour;
       }
     }
-    
+
     .sub_navigation ul li {
       @if $colour {
         border-color: $colour;
