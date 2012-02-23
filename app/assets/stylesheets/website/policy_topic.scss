@@ -72,13 +72,6 @@
     }
 
     .priority_policies {
-      h1 {
-        text-align: center;
-        @media only screen and (min-width: 600px) {
-          text-align: left;
-        }
-      }
-
       section {
         ul {
           @include clearfix;
