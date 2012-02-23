@@ -280,6 +280,7 @@
     article {
       width: 100%;
       padding: 0;
+      min-height: 200px;
 
       .news_body {
         background: #333;
@@ -344,7 +345,7 @@
         }
 
         &.no-image {
-/*          min-height: 720px;*/
+          min-height: 200px;
           background: #eee;
         }
       }
@@ -357,23 +358,29 @@
 
     .carousel-tabs {
       list-style: none;
-      clear: both;
+      position: absolute;
+      bottom: 30px;
+      right: 48px;
+      z-index: 160;
+      width: 42px;
+      
       @media only screen and (min-width: 768px) {
-        position: absolute;
         bottom: 154px;
-        right: 11%;
-        width: 36px;
-        z-index: 160;
+        right: 10%;
+      }
+      
+      @media only screen and (min-width: 1024px) {
+        right: 10.5%;
       }
 
       li {
   		    display: inline-block;
   		    margin: 0;
-  		    padding: 0 2px;
+  		    padding: 0 7.5%;
   		}
 
   		a {
-  		    background: #ddd;
+  		    background: #fff;
   		    display: inline-block;
   		    height: 8px;
   		    text-indent: -9999px;

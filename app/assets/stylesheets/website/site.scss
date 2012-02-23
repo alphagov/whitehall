@@ -36,7 +36,7 @@
     }
   }
   
-  .news_article{
+/*  .news_article{
     .img{
       background-color:#5D996C;
       min-height:300px;
@@ -50,17 +50,24 @@
       margin:0;
       padding:0.275em 0.5em;
     }
-  }
+  }*/
   
   .slider_wrap {
   
     .slidecontrols{
       margin: 0;
       position: absolute;
-      bottom: 140px;
-      right: 5%;
-      width: 15%;
+      bottom: 16px;
+      right: 16px;
+/*      width: 15%;*/
+      width: 104px;
       z-index: 155;
+      
+      @media only screen and (min-width: 768px) {
+        width: 15%;
+        bottom: 140px;
+        right: 5%;
+      }
       li{
         float:right;
         background-image: url(/government/assets/carousel-arrows.png);
