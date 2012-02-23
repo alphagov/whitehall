@@ -2,7 +2,7 @@
 
 #global-nav {
   margin: 0 auto;
-  background: #333;
+  background: #BBB;
 
   @media only screen and (min-width: 1024px) {
     width: 88%;
@@ -18,19 +18,18 @@
     display: block;
     float: left;
 
+    &.home {
+      background: #000;
+    }
+
     &:hover {
-      background: #fff;
+      background: #EEE;
       color: #333;
     };
 
     &.current, &:active {
-      background: #EEE;
+      background: #FFF;
       color: #333;
-    }
-
-    &.section_toggle {
-      background: #333;
-      color: #fff;
     }
   }
 
