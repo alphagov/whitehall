@@ -23,7 +23,7 @@ $organisation_brands:
   ('unknown_organisation', rgb(100, 100, 100));
 
 @mixin add_styles_for_org($org_class, $colour, $logo_image_url, $logo_image_url_small) {
-  &.#{$org_class} {
+  .#{$org_class} {
     .page_header {
       h1.name {
         @if $colour {
@@ -56,16 +56,15 @@ $organisation_brands:
     }
   }
   
-  .organisations {
-    .organisation {
-      &.#{$org_class} {
+  .document_page {
+    #document_organisations {
+      .#{$org_class} {
         span.organisation_logo_small {
           @if $colour {
             border-color: $colour;
           }
-          @if $logo_image_url {
+          @if $logo_image_url_small {
             background: url($logo_image_url_small) no-repeat 8px -1px;
-            line-height: 48px;
             padding-top: 24px;
           }
         }
@@ -84,8 +83,8 @@ $organisation_brands:
     }
   }
   
-  .organisations {
-    .organisation {
+  .document_page {
+    #document_organisations {
       span.organisation_logo_small {
         border-left: 2px solid #000;
         padding-left: 4%;

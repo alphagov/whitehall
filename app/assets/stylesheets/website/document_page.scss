@@ -3,30 +3,10 @@
 @import "../shared/utils/clearfix";
 @import "organisation_brands";
 
-#content {
-  @include branded_page_headers;
+#content {    
+  @include clearfix;
   
   .document_page {
-    #document_organisations {
-      .organisations {
-        .organisation {
-          span.organisation_logo_small {
-            @include type-16;
-            display:block;
-/*            padding:0.12em 0 0 0.575em;*/
-            line-height:1.125em;
-          }
-        }
-      }
-      a {
-        position: relative;
-        bottom: -0.2em;
-        text-decoration:none;
-      }
-    }
-    
-    @include clearfix;
-
 
     section.page_header {
       padding-left: 84px;
@@ -156,6 +136,21 @@
         li {
           @include type-14;
           margin-bottom: 0.25em;
+        }
+      }
+    }
+
+    section#document_organisations .organisations .organisation {
+      span.organisation_logo_small {
+        @include type-16;
+        display:block;
+  /*            padding:0.12em 0 0 0.575em;*/
+        line-height:1.125em;
+      
+        a {
+          position: relative;
+          bottom: -0.2em;
+          text-decoration:none;
         }
       }
     }
