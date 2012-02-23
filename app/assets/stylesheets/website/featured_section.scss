@@ -358,9 +358,11 @@
     .carousel-tabs {
       list-style: none;
       clear: both;
-      position: absolute;
-      bottom: 0;
-      right: 0;
+      @media only screen and (min-width: 768px) {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
 
       li {
   		    display: inline-block;
