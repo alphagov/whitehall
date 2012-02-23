@@ -275,52 +275,23 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display a form for featuring an unfeatured news article with a featuring image" do
+  test "should display a form for featuring an unfeatured news article" do
     news_article = create(:published_news_article)
     get :published, filter: :news_article
     expected_url = send("admin_document_featuring_path", news_article)
     assert_select ".featured form.feature[action=#{expected_url}]" do
       refute_select "input[name=_method]"
-      assert_select "input[name='document[featuring_image]'][type=file]"
       assert_select "input[type=submit][value='Feature']"
     end
   end
 
-  test "should display a form for unfeaturing a featured news article with a featuring image" do
+  test "should display a form for unfeaturing a featured news article" do
     news_article = create(:featured_news_article)
     get :published, filter: :news_article
     expected_url = send("admin_document_featuring_path", news_article)
     assert_select ".featured form.unfeature[action=#{expected_url}]" do
       assert_select "input[name=_method][value=delete]"
       assert_select "input[type=submit][value='No longer feature']"
-    end
-  end
-
-  test "should display a form for updating featuring image on a news article" do
-    news_article = create(:featured_news_article)
-    get :published, filter: :news_article
-    expected_url = send("admin_document_featuring_path", news_article)
-    assert_select ".featured form.update_image[action=#{expected_url}]" do
-      assert_select "input[name=_method][value=put]"
-      assert_select "input[name='document[featuring_image]'][type=file]"
-      assert_select "input[type=submit][value='Update image']"
-    end
-  end
-
-  test "should show featuring image on featured news article if it has one" do
-    featuring_image = fixture_file_upload('portas-review.jpg')
-    news_article = create(:featured_news_article, featuring_image: featuring_image)
-    get :published, filter: :news_article
-    assert_select ".featured" do
-      assert_select "img[src$='portas-review.jpg']"
-    end
-  end
-
-  test "should not show featuring image on featured news article if it does not have one" do
-    news_article = create(:featured_news_article, featuring_image: nil)
-    get :published, filter: :news_article
-    assert_select ".featured" do
-      refute_select "img[src$='portas-review.jpg']"
     end
   end
 

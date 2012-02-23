@@ -671,17 +671,17 @@ module AdminDocumentControllerTestHelpers
             "0" => { alt_text: "alt-text", image_data_attributes: { file_cache: "" } }
           }
         )
-        
+
         assert_select ".errors", text: "Images image data file can't be blank"
-        
+
         document.reload
         assert_equal 0, document.images.length
       end
-      
+
       test 'updating a document with an existing image allows image attributes to be changed' do
         document = create(document_type)
         image = document.images.create!(alt_text: "old-alt-text", caption: 'old-caption')
-        
+
         put :update, id: document, document: document.attributes.merge(
           images_attributes: {
             "0" => { id: image.id, alt_text: "new-alt-text", caption: 'new-caption' }
@@ -694,7 +694,7 @@ module AdminDocumentControllerTestHelpers
         assert_equal "new-alt-text", image.alt_text
         assert_equal "new-caption", image.caption
       end
-      
+
       test 'updating a document should attach multiple images' do
         document = create(document_type)
         image = fixture_file_upload('portas-review.jpg')
@@ -820,7 +820,7 @@ module AdminDocumentControllerTestHelpers
           assert_select "img[src=?]", %r{#{image.image_data.file}}
         end
       end
-      
+
       test "can embed image inline and see it in preview" do
         document = create(document_type, body: "!!1")
         image = create(:image, document: document)
@@ -834,25 +834,25 @@ module AdminDocumentControllerTestHelpers
     def should_use_lead_image_for(document_type)
       test "showing should display the lead image" do
         draft_document = create("draft_#{document_type}", images: [build(:image)])
-        
+
         get :show, id: draft_document
 
         assert_select "article.document .body figure.image.lead"
       end
-      
+
       test 'edit indicates that first image is lead image' do
         draft_document = create("draft_#{document_type}", images: [build(:image)])
-        
+
         get :edit, id: draft_document
 
         message = "This will automatically be used as the lead image. No markdown required."
-        
+
         assert_select "fieldset.images .image p", text: message
       end
 
       test 'edit shows markdown hint for second image' do
         draft_document = create("draft_#{document_type}", images: [build(:image), build(:image)])
-        
+
         get :edit, id: draft_document
 
         assert_select "fieldset.images .image p" do |nodes|
@@ -860,19 +860,19 @@ module AdminDocumentControllerTestHelpers
         end
       end
     end
-    
+
     def should_not_use_lead_image_for(document_type)
-      test "showing should display the lead image" do
+      test "showing should not display the lead image" do
         draft_document = create("draft_#{document_type}", images: [build(:image)])
-        
+
         get :show, id: draft_document
 
         assert_select "article.document .body figure.image.lead", count: 0
       end
-      
+
       test 'edit shows markdown hint for first image' do
         draft_document = create("draft_#{document_type}", images: [build(:image)])
-        
+
         get :edit, id: draft_document
 
         assert_select "fieldset.images .image p", text: "Markdown to use:" do |nodes|
@@ -880,7 +880,7 @@ module AdminDocumentControllerTestHelpers
         end
       end
     end
-    
+
     def should_be_able_to_delete_a_document(document_type)
       test "show displays the delete button for draft documents" do
         draft_document = create("draft_#{document_type}")

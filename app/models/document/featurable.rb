@@ -5,10 +5,8 @@ module Document::Featurable
     published?
   end
 
-  def feature(featuring_image = nil)
-    attributes = {featured: true}
-    attributes.merge!(featuring_image: featuring_image) if featuring_image
-    update_attributes(attributes)
+  def feature
+    update_attributes(featured: true)
   end
 
   def unfeature

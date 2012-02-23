@@ -47,7 +47,7 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_display_inline_images_for(document_type) 
+    def should_display_inline_images_for(document_type)
       test "show displays document with inline images" do
         images = [create(:image)]
         document = create("published_#{document_type}", body: "!!1", images: images)
@@ -89,19 +89,19 @@ module DocumentControllerTestHelpers
         end
       end
     end
-    
+
     def should_not_display_lead_image_for(document_type)
       test "show not show lead image, even if there are associated images" do
         document = create("published_#{document_type}", images: [build(:image)])
 
         get :show, id: document.document_identity
-        
+
         assert_select ".document_view" do
           refute_select "figure.image.lead"
         end
       end
     end
-    
+
     def should_show_featured_documents_for(document_type)
       document_types = document_type.to_s.pluralize
       test "should ignore unpublished featured #{document_types}" do
@@ -140,7 +140,7 @@ module DocumentControllerTestHelpers
         end
       end
     end
-    
+
     def should_show_three_featured_news_articles
       should_show_featured_documents_for :news_article
       test "index highlights three featured news articles" do
@@ -174,18 +174,18 @@ module DocumentControllerTestHelpers
       end
 
       test "index should display an image for a featured news article if it has one" do
-        featuring_image = fixture_file_upload('portas-review.jpg')
-        document = create(:featured_news_article, featuring_image: featuring_image)
+        lead_image = create(:image)
+        document = create(:featured_news_article, images: [lead_image])
         get :index
         assert_select featured_news_articles_selector do
           assert_select_object document do
-            assert_select ".img img[src$='portas-review.jpg']"
+            assert_select ".img img[src='#{lead_image.url}']"
           end
         end
       end
 
       test "index should not display an image for a featured news article if it does not have one" do
-        document = create(:featured_news_article, featuring_image: nil)
+        document = create(:featured_news_article)
         get :index
         assert_select featured_news_articles_selector do
           assert_select_object document do

@@ -73,25 +73,9 @@
             <% if params[:filter] && document.featurable? %>
               <td class="featured">
                 <% if document.featured? %>
-                  <% if document.allows_featuring_image? %>
-                    <% if document.featuring_image.present? %>
-                      <%= image_tag(document.featuring_image_url) %>
-                    <% end %>
-                    <%= form_for(document, url: admin_document_featuring_path(document), as: :document, html: {class: "update_image"}) do |form| %>
-                      <% if document.allows_featuring_image? %>
-                        <%= form.label :featuring_image %>
-                        <%= form.file_field :featuring_image %>
-                        <%= form.submit "Update image" %>
-                      <% end %>
-                    <% end %>
-                  <% end %>
                   <%= button_to "No longer feature", admin_document_featuring_path(document), method: :delete, form_class: "unfeature" %>
                 <% else %>
                   <%= form_for(document, url: admin_document_featuring_path(document), as: :document, method: :post, html: {class: "feature"}) do |form| %>
-                    <% if document.allows_featuring_image? %>
-                      <%= form.label :featuring_image %>
-                      <%= form.file_field :featuring_image %>
-                    <% end %>
                     <%= form.submit "Feature" %>
                   <% end %>
                 <% end %>

@@ -3,8 +3,7 @@ class Admin::FeaturingsController < Admin::BaseController
   before_filter :ensure_document_is_featurable
 
   def create
-    featuring_image = (params[:document] || {})[:featuring_image]
-    unless @document.feature(featuring_image)
+    unless @document.feature
       flash[:alert] = @document.errors.full_messages.to_sentence
     end
     redirect_to :back

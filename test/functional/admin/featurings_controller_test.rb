@@ -42,25 +42,9 @@ class Admin::FeaturingsControllerTest < ActionController::TestCase
     end
   end
 
-  test "update should store featuring image" do
-    news_article = create(:featured_news_article)
-    featuring_image = fixture_file_upload('portas-review.jpg')
-    put :update, document_id: news_article, document: {featuring_image: featuring_image}
-    assert_match %r{portas-review.jpg$}, news_article.reload.featuring_image_url
-  end
-
   test "update should redirect the user back whence they came" do
     news_article = create(:featured_news_article)
-    featuring_image = fixture_file_upload('portas-review.jpg')
-    put :update, document_id: news_article, document: {featuring_image: featuring_image}
-    assert_redirected_to "http://example.com"
-  end
-
-  test "update should show an alert if image is not an allowed file type" do
-    news_article = create(:featured_news_article)
-    featuring_image = fixture_file_upload('greenpaper.pdf')
-    put :update, document_id: news_article, document: {featuring_image: featuring_image}
-    assert_equal "Featuring image is not an allowed file type", flash[:alert]
+    put :update, document_id: news_article
     assert_redirected_to "http://example.com"
   end
 end

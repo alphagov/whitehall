@@ -41,7 +41,7 @@ class Document < ActiveRecord::Base
   end
 
   def significant_changed_attributes
-    changed - %w(state updated_at featured carrierwave_featuring_image)
+    changed - %w(state updated_at featured)
   end
 
   searchable title: :title, link: -> d { d.public_document_path(d) }, content: :body_without_markup,
@@ -104,10 +104,6 @@ class Document < ActiveRecord::Base
     false
   end
 
-  def allows_featuring_image?
-    false
-  end
-  
   def create_draft(user)
     unless published?
       raise "Cannot create new edition based on edition in the #{state} state"

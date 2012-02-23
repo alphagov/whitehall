@@ -36,15 +36,15 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows organisation's featured news article with image" do
-    featuring_image = fixture_file_upload('portas-review.jpg')
-    news_article = create(:featured_news_article, featuring_image: featuring_image)
+    lead_image = create(:image)
+    news_article = create(:featured_news_article, images: [lead_image])
     organisation = create(:organisation, documents: [news_article])
     create(:document_organisation, document: news_article, organisation: organisation, featured: true)
 
     get :show, id: organisation
 
     assert_select_object news_article do
-      assert_select ".img img[src$='portas-review.jpg']"
+      assert_select ".img img[src$='#{lead_image.url}']"
     end
   end
 
