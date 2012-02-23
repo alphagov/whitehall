@@ -117,5 +117,9 @@ Whitehall::Application.routes.draw do
     match 'home' => 'home#show'
   end
 
+  VanityRedirector.new(Rails.root.join("app", "data", "vanity-redirects.csv")).each do |from, to|
+    match from, to: redirect(to)
+  end
+
   mount TestTrack::Engine => "test" if Rails.env.test?
 end
