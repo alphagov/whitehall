@@ -1,8 +1,8 @@
 <% page_title @ministerial_role.name %>
 <%= content_tag_for :div, @ministerial_role, class: 'g4f ministerial-department ministerial_role_page ' + ministerial_role_organisation_class(@ministerial_role) do %>
   <section class="g4 page_header ministerial_role minister">
-    <h1 class="current_person_name"><%= @ministerial_role.current_person_name %></h1>
-    <h2 class="role_name"><%= @ministerial_role.name %></h2>
+    <h1 class="role_name"><%= @ministerial_role.name %></h1>
+    <h2 class="current_person_name"><%= @ministerial_role.current_person_name %></h2>
     <div class="meta">
       <% @ministerial_role.organisations.each do |organisation| %>
         <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag", id: dom_id(organisation) %>
@@ -11,8 +11,8 @@
   </section>
 
   <% unless @ministerial_role.responsibilities.blank? %>
-  <section class="g4">
-    <div class="g3f responsibilities"><%= govspeak_to_html @ministerial_role.responsibilities %></div>
+  <section class="g4f responsibilities">
+    <div class="g4 content"><%= govspeak_to_html @ministerial_role.responsibilities %></div>
   </section>
   <% end %>
 
@@ -21,13 +21,14 @@
       <%= govspeak_to_html(@ministerial_role.current_person_biography) %>
     </div>
     <div class="g1 image">
-      <div class="img"><%= image_for_ministerial_role @ministerial_role %></div>
-    </div>
-    <div class="g1 name">
-      <%= @ministerial_role.current_person_name %>
+      <figure class="img">
+        <%= image_for_ministerial_role @ministerial_role %>
+        <figcaption class="name"><%= @ministerial_role.current_person_name %></figcaption>
+      </figure>
     </div>
   </section>
 
+  <section class="g4f documents">
   <% if @announcements.any? %>
     <div class="g2">
       <section id="announcements" class="latest_documents">
@@ -54,33 +55,33 @@
     </div>
   <% end %>
 
-  <% if @publications.any? %>
+  <% if @publications.any? || @consultations.any? %>
     <div class="g1">
-      <section id="publications" class="latest_documents">
-      <h1 class="label">Publications</h1>
-      <ul class="publications">
-        <% @publications.each do |publication| %>
-          <%= render partial: 'documents/document_li', locals: { document: publication } %>
-        <% end %>
-      </ul>
-      </section>
-    </div>
-  <% end %>
-
-  <% if @consultations.any? %>
-    <div class="g1">
-      <section id="consultations" class="latest_documents">
-      <h1 class="label">Consultations</h1>
-      <ul class="consultations">
-        <% @consultations.each do |consultation| %>
-          <%= render partial: 'documents/document_li', locals: { document: consultation } %>
-        <% end %>
-      </ul>
-      </section>
+      <% if @publications.any? %>
+        <section id="publications" class="latest_documents">
+        <h1 class="label">Publications</h1>
+        <ul class="publications">
+          <% @publications.each do |publication| %>
+            <%= render partial: 'documents/document_li', locals: { document: publication } %>
+          <% end %>
+        </ul>
+        </section>
+      <% end %>
+      <% if @consultations.any? %>
+        <section id="consultations" class="latest_documents">
+        <h1 class="label">Consultations</h1>
+        <ul class="consultations">
+          <% @consultations.each do |consultation| %>
+            <%= render partial: 'documents/document_li', locals: { document: consultation } %>
+          <% end %>
+        </ul>
+        </section>
+      <% end %>
     </div>
   <% end %>
 
   <% unless @announcements.any? || @policies.any? || @publications.any? || @consultations.any? %>
     <p class="nothing_related">At present we do not have any related content.</p>
   <% end %>
+  </section>
 <% end %>

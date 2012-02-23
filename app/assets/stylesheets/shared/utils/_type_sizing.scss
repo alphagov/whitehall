@@ -25,9 +25,9 @@ $baseline_in_px: 24 !default;
   @include scaled_type(60, 72);
 }
 
-@mixin type-48 {
-  /* 48px / 48px */
-  @include scaled_type(48, 48);
+@mixin type-46 {
+  /* 46px / 46px */
+  @include scaled_type(46, 46);
 }
 
 /* organisation 'logos' */

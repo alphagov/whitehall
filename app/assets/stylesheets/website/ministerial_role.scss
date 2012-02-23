@@ -14,25 +14,22 @@
 
     .page_header {
       h1 {
-        @include type-32;
+        @include type-46;
         margin-bottom: 0;
       }
 
       h2 {
-        @include type-24;
+        @include type-32;
+        margin-bottom: 0.3em;
       }
 
       margin-bottom: 1em;
     }
 
     .responsibilities {
+      padding-top: 1em;
+      background: #ddd;
       @include type-21;
-    }
-
-    #announcements {
-      h1 {
-        margin-left: 0;
-      }
     }
 
     .current_person {
@@ -43,6 +40,7 @@
       .biography {
         @include type-18;
       }
+      margin-bottom: 1em;
     }
 
     .latest_documents {
