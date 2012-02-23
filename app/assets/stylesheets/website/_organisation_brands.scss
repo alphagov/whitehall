@@ -23,7 +23,7 @@ $organisation_brands:
   ('unknown_organisation', rgb(100, 100, 100));
 
 @mixin add_styles_for_org($org_class, $colour, $logo_image_url, $logo_image_url_small) {
-  .#{$org_class} {
+  .ministerial-department.#{$org_class} {
     .page_header {
       h1.name {
         @if $colour {
@@ -58,14 +58,16 @@ $organisation_brands:
   
   .document_page {
     #document_organisations {
-      .#{$org_class} {
-        span.organisation_logo_small {
-          @if $colour {
-            border-color: $colour;
-          }
-          @if $logo_image_url_small {
-            background: url($logo_image_url_small) no-repeat 8px -1px;
-            padding-top: 24px;
+      .ministerial-department {
+        &.#{$org_class} {
+          span.organisation_logo_small {
+            @if $colour {
+              border-color: $colour;
+            }
+            @if $logo_image_url_small {
+              background: url($logo_image_url_small) no-repeat 8px -1px;
+              padding-top: 24px;
+            }
           }
         }
       }
@@ -78,16 +80,17 @@ $organisation_brands:
     .page_header {
       h1.name {
         border-left: 4px solid #000;
-        padding-left: 4%;
       }
     }
   }
   
   .document_page {
     #document_organisations {
-      span.organisation_logo_small {
-        border-left: 2px solid #000;
-        padding-left: 4%;
+      .ministerial-department {
+        span.organisation_logo_small {
+          border-left: 2px solid #000;
+          padding-left: 4%;
+        }
       }
     }
   }
