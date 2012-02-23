@@ -348,10 +348,14 @@
 
   .slider_wrap {
     position: relative;
+    margin-bottom: 1.125em;
 
     .carousel-tabs {
       list-style: none;
       clear: both;
+      position: absolute;
+      bottom: 0;
+      right: 0;
 
       li {
   		    display: inline-block;
