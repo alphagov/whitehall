@@ -330,4 +330,8 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.update_cached_active_state!
     assert organisation.reload.active?
   end
+
+  test 'should use full name as display_name if acronym is an empty string' do
+    assert_equal 'Blah blah', build(:organisation, acronym: '', name: 'Blah blah').display_name
+  end
 end

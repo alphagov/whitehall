@@ -64,7 +64,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def display_name
-    acronym || name
+    [acronym, name].find { |s| s.present? }
   end
 
   def normalize_friendly_id(value)
