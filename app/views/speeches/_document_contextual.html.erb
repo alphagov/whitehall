@@ -2,7 +2,7 @@
   <h1>More information</h1>
   <ul class="details">
     <li>
-      <span class="type"><%= @document.speech_type_genus %></span> delivered by
+      <span class="type"><%= @document.genus %></span> delivered by
       <span class="ministerial_role"><%= link_to @document.role, @document.role %></span>
     </li>
     <li class="delivered_on">
@@ -13,9 +13,9 @@
         <%= @document.location %>
       </li>
     <% end %>
-    <% if @document.speech_type_explanation %>
+    <% if @document.explanation %>
       <li class="explanation">
-        <%= @document.speech_type_explanation %>
+        <%= @document.explanation %>
       </li>
     <% end %>
   </ul>

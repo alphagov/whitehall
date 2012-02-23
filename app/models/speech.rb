@@ -9,9 +9,8 @@ class Speech < Document
 
   before_save :populate_organisations_based_on_role_appointment
 
-  def_delegator :speech_type, :genus, :speech_type_genus
-  def_delegator :speech_type, :explanation, :speech_type_explanation
-  def_delegator :role_appointment, :role, :role
+  def_delegators :speech_type, :genus, :explanation
+  def_delegators :role_appointment, :role
 
   def speech_type
     SpeechType.find_by_id(speech_type_id)
