@@ -33,7 +33,7 @@ class Organisation < ActiveRecord::Base
   has_many :social_media_accounts, dependent: :destroy
 
   accepts_nested_attributes_for :contacts, reject_if: :contact_and_contact_numbers_are_blank
-  accepts_nested_attributes_for :social_media_accounts, reject_if: :all_blank
+  accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
   accepts_nested_attributes_for :organisation_roles
 
   validates :name, presence: true, uniqueness: true

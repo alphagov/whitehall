@@ -428,6 +428,22 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal "https://twitter.com/#!/bisgovuk", social_media_account.url
   end
 
+  test "updating should destroy existing social media account if all its field are blank" do
+    attributes = attributes_for(:organisation)
+    organisation = create(:organisation, attributes)
+    account = create(:social_media_account, organisation: organisation)
+
+    put :update, id: organisation, organisation: attributes.merge(
+      social_media_accounts_attributes: {"0" => {
+        id: account.id,
+        social_media_service_id: "",
+        url: ""
+      }}
+    )
+
+    assert_equal 0, organisation.social_media_accounts.count
+  end
+
   test "updating with blank social media account fields should not create new account" do
     organisation = create(:organisation)
 

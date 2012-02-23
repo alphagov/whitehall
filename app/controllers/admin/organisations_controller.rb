@@ -6,6 +6,7 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :load_news_articles, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :destroy_blank_phone_numbers, only: [:create, :update]
+  before_filter :destroy_blank_social_media_accounts, only: [:create, :update]
 
   def index
     @organisations = Organisation.all
@@ -81,6 +82,16 @@ class Admin::OrganisationsController < Admin::BaseController
               number[:_destroy] = "1"
             end
           end
+        end
+      end
+    end
+  end
+
+  def destroy_blank_social_media_accounts
+    if params[:organisation][:social_media_accounts_attributes]
+      params[:organisation][:social_media_accounts_attributes].each do |index, account|
+        if account[:social_media_service_id].blank? && account[:url].blank?
+          account[:_destroy] = "1"
         end
       end
     end
