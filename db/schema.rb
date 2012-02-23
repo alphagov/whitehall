@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120222172921) do
+ActiveRecord::Schema.define(:version => 20120223122545) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -135,7 +135,6 @@ ActiveRecord::Schema.define(:version => 20120222172921) do
     t.integer  "speech_type_id"
     t.integer  "consultation_document_identity_id"
     t.boolean  "featured",                          :default => false
-    t.string   "carrierwave_featuring_image"
     t.boolean  "stub",                              :default => false
     t.text     "change_note"
     t.boolean  "force_published"
