@@ -158,11 +158,11 @@ end
 Then /^I should see the "([^"]*)" organisation's (.*) page$/ do |organisation_name, page_name|
   title =
     case page_name
-    when 'about'    then "About #{organisation_name}"
-    when 'news'     then "#{organisation_name} News"
+    when 'about'    then "About"
+    when 'news'     then "News"
     when 'home'     then organisation_name
-    when 'policies' then  "#{organisation_name} Policies"
-    when 'publications' then "#{organisation_name} Publications"
+    when 'policies' then  "Policies"
+    when 'publications' then "Publications"
     end
 
   assert page.has_css?('title', text: title)

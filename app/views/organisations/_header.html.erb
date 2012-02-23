@@ -1,10 +1,6 @@
 <section class="page_header">
   <h1 class="page_title name">
-    <% if local_assigns.has_key?(:title) %>
-      <%= title %>
-    <% else %>
-      <span><%= organisation.name %></span>
-    <% end %>
+    <span><%= organisation.name %></span>
   </h1>
   <div class="parent_organisations">
     <% organisation.parent_organisations.each do |organisation| %>
