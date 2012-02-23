@@ -20,11 +20,7 @@
       fieldset.children("label").each(function(i, el) {
         updateId(el, "contacts_attributes", "for", id, newId);
       });
-      fieldset.children("input").each(function(i, el) {
-        updateId(el, "contacts_attributes", "id", id, newId);
-        updateId(el, "contacts_attributes", "name", id, newId);
-      });
-      fieldset.children("textarea").each(function(i, el) {
+      fieldset.children("input,textarea").each(function(i, el) {
         updateId(el, "contacts_attributes", "id", id, newId);
         updateId(el, "contacts_attributes", "name", id, newId);
       });

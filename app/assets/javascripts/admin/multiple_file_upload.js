@@ -9,11 +9,7 @@
       clone.children("label").each(function(i, el) {
         $(el).attr("for", $(el).attr("for").replace("_"+id+"_", "_"+newId+"_"));
       });
-      clone.children("input").each(function(i, el) {
-        $(el).attr("id", $(el).attr("id").replace("_"+id+"_", "_"+newId+"_"));
-        $(el).attr("name", $(el).attr("name").replace("["+id+"]", "["+newId+"]"));
-      });
-      clone.children("textarea").each(function(i, el) {
+      clone.children("input,textarea").each(function(i, el) {
         $(el).attr("id", $(el).attr("id").replace("_"+id+"_", "_"+newId+"_"));
         $(el).attr("name", $(el).attr("name").replace("["+id+"]", "["+newId+"]"));
       });
