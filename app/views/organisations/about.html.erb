@@ -8,11 +8,14 @@
 
   <div class="g2f about_page">
     <div class="g2">
-      <article class="document">
-        <div class="body">
-          <%= govspeak_to_html @organisation.about_us %>
-        </div>
-      </article>
+      <section class="article_section">
+        <h1>About</h1>
+        <article class="document">
+          <div class="body">
+            <%= govspeak_to_html @organisation.about_us %>
+          </div>
+        </article>
+      </section>
     </div>
     <div class="g1">
       <nav role="navigation">
