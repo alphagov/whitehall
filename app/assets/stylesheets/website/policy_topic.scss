@@ -13,42 +13,11 @@
     #recently-changed {
       margin-top: 0.75em;
       margin-bottom: 1em;
-      h1 {
-        border-top: 1px solid #222;
-        background: #242400;
-        @include type-18;
-        margin-bottom: 0;
-        padding: 0.25em 0.75em;
-        color: #ffffdf;
-        border-bottom: 4px solid $collation-green;
-      }
-
       ul {
-        background: #f5f5f5;
         margin-bottom: 0;
-        padding-top: 0.25em;
-        padding-bottom: 0.5em;
-        border-bottom: 1px solid #bbb;
-        border-left: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-        border-top: 1px solid #ffffce;
-
-        padding-left: 0.75em;
 
         li {
-          margin-bottom: 0.75em;
-          padding-right: 1em;
-
-          div {
-            a {
-              @include type-16;
-            }
-
-            &.metadata {
-              font-size: 0.85em;
-              line-height: 1em;
-            }
-          }
+          @include type-13;
         }
       }
     }
@@ -95,16 +64,14 @@
           margin-bottom: 0.75em;
         }
       }
-}
+    }
 
     .related_content {
-      border-top: 1px solid #ddd;
       margin-bottom: 0;
       padding-bottom: 1em;
     }
 
     .priority_policies {
-      border-bottom: 1px solid #ddd;
       h1 {
         text-align: center;
         @media only screen and (min-width: 600px) {
@@ -119,33 +86,6 @@
           li {
             @include type-13;
             @include span_one_column;
-
-            div.inner {
-              padding: 1em;
-              margin: 0;
-              background: #fefefe;
-              border: 1px solid #ddd;
-              position: relative;
-
-              &:before, &:after {
-                content: " ";
-                width: 0;
-                height: 0;
-                border-left: 10px solid transparent;
-              	border-right: 10px solid transparent;
-              	border-top: 10px solid #fff;
-              	display: block;
-              	position: absolute;
-              	bottom: -10px;
-              	right: 45%;
-              };
-
-              &:before {
-                border-top: 10px solid #ddd;
-              	right: 44.9%;
-              	bottom: -11px;
-              }
-            }
 
             &:first-child {
               margin-left: 0;
@@ -169,11 +109,6 @@
         padding-right: 0;
       }
 
-      h1 {
-        @extend .section_title;
-        @include type-16;
-        margin-bottom: 0.75em;
-      }
       ul {
         margin: 0;
         padding: 0;
@@ -182,23 +117,11 @@
           margin-bottom: 0.9em;
         }
       }
-
-      p {
-        @include type-12;
-      }
     }
 
     .all_policies {
       section#policies {
         margin-left: 0;
-
-        @media only screen and (min-width: 600px) {
-          background: #fff;
-          border-left: 1px solid #ddd;
-          border-right: 1px solid #ddd;
-          padding-left: 1.5em;
-          padding-right: 1.5em;
-        }
 
         ul {
           @media only screen and (min-width: 600px) {

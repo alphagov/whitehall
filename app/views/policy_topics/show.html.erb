@@ -1,7 +1,7 @@
 <% page_title @policy_topic.name, "Policy topics" %>
 
-<div class="g3f">
-  <section class="page_header policytopic">
+<div class="g4 policytopic">
+  <section class="page_header icon">
     <h1 class="page_title has_meta"><%= @policy_topic.name %></h1>
     <div class="meta">
       <% @policy_topic.organisations.each do |organisation| %>
@@ -11,44 +11,50 @@
   </section>
 </div>
 
-<div class="g3f policy_topic_view">
-  <div class="g2 description"><%= govspeak_to_html @policy_topic.description %></div>
-  <div class="g1">
-    <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5], locals: { title: "Latest in this topic" } %>
-  </div>
+<div class="g4f policy_topic_view">
+  <div class="g3">
+    <div class="description">
+      <%= govspeak_to_html @policy_topic.description %>
+    </div>
 
-  <div class="g3f related_content group<%= @featured_policies.any? ? "" : " no_featured" %>">
-    <% if @featured_policies.any? %>
-      <div class="g3 priority_policies">
-        <section>
-          <h1 class="section_title">Current priorities</h1>
-          <ul class="featured policies<%= @featured_policies.count > 6 ? " half_columns" : "" %>">
-            <% @featured_policies.each do |policy| %>
-              <%= content_tag_for :li, policy, class: "featured_policy" do %>
-                <div class="inner">
+    <div class="related_content group<%= @featured_policies.any? ? "" : " no_featured" %>">
+      <% if @featured_policies.any? %>
+        <div class="g3f priority_policies">
+          <section>
+            <h1 class="label">Current priorities</h1>
+            <ul class="featured policies<%= @featured_policies.count > 6 ? " half_columns" : "" %>">
+              <% @featured_policies.each do |policy| %>
+                <%= content_tag_for :li, policy, class: "featured_policy" do %>
                   <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %>
                   <p class="summary"><%= policy.summary %>&hellip;</p>
-                </div>
+                <% end %>
               <% end %>
-            <% end %>
-          </ul>
-        </section>
-      </div>
-    <% end %>
+            </ul>
+          </section>
+        </div>
+      <% end %>
+    </div>
 
-    <% if @policies.any? %>
-      <div class="g2 all_policies collection">
-        <%= render partial: "documents/policies", object: @policies, locals: {title: "What we're doing"} %>
-      </div>
-    <% else %>
-      <div class="g2">
-        <%= render partial: "exemplars" %>
-      </div>
-    <% end %>
-
-    <div class="g1f collection last">
-      <%= render partial: "related_policy_topics", object: @related_policy_topics %>
+    <div class="g2f collection last">
+      <% if @policies.any? %>
+        <div class="all_policies collection">
+          <%= render partial: "documents/policies", object: @policies, locals: {title: "What we're doing"} %>
+        </div>
+      <% else %>
+        <div class="">
+          <%= render partial: "exemplars" %>
+        </div>
+      <% end %>
     </div>
 
   </div>
+
+  <div class="g1">
+    <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5], locals: { title: "Latest in this topic" } %>
+
+    <%= render partial: "related_policy_topics", object: @related_policy_topics %>
+  </div>
+
+
+
 </div>

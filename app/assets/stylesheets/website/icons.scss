@@ -1,47 +1,65 @@
-@mixin icons_48 {
+.icon {
   background-repeat: no-repeat;
+}
 
-  &.consultation, &.consultation_response {
+.consultation, .consultation_response {
+  .icon {
+    $width: 60px;
+    padding-left: $width + 16px;
     background-image: url(/government/assets/icons/48/consultation.png);
   }
+}
 
-  &.countries {
-    background-image: url(/government/assets/icons/48/countries.png);
-  }
+// .countries .icon {
+//   background-image: url(/government/assets/icons/48/countries.png);
+// }
 
-  &.minister {
-    background-image: url(/government/assets/icons/48/minister.png);
-  }
+// .minister .icon {
+//   background-image: url(/government/assets/icons/48/minister.png);
+// }
 
-  &.news, &.news_article {
+.news, .news_article {
+  .icon {
+    $width: 53px;
+    padding-left: $width + 16px;
     background-image: url(/government/assets/icons/48/news.png);
   }
+}
 
-  &.organisation {
-    background-image: url(/government/assets/icons/48/organisation.png);
-  }
+// .organisation .icon {
+//   background-image: url(/government/assets/icons/48/organisation.png);
+// }
 
-  &.policy, &.supporting_page {
+.policy, .supporting_page {
+  .icon {
+    $width: 35px;
+    padding-left: $width + 16px;
     background-image: url(/government/assets/icons/48/policy.png);
   }
+}
 
-  &.policytopic {
-    background-image: url(/government/assets/icons/48/policytopic.png);
-  }
+.policytopic .icon {
+  $width: 41px;
+  padding-left: $width + 16px;
+  background-image: url(/government/assets/icons/48/policytopic.png);
+}
 
-  &.publication {
-    background-image: url(/government/assets/icons/48/publication.png);
-  }
+.publication .icon {
+  $width: 46px;
+  padding-left: $width + 16px;
+  background-image: url(/government/assets/icons/48/publication.png);
+}
 
-  &.speech {
-    background-image: url(/government/assets/icons/48/speech.png);
-  }
+.speech .icon {
+  $width: 51px;
+  padding-left: $width + 16px;
+  background-image: url(/government/assets/icons/48/speech.png);
+}
 
-  &.news-speech {
-    background-image: url(/government/assets/icons/48/news-speech.png);
-  }
+.news-speech .icon {
+  background-image: url(/government/assets/icons/48/news-speech.png);
+}
 
-  &.search {
-    background-image: url(/government/assets/icons/48/search.png);
-  }
+.search .icon {
+  background-image: url(/government/assets/icons/48/search.png);
 }

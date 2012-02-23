@@ -1,6 +1,6 @@
 <% if policies.any? %>
   <section id="policies">
-    <h1><%= defined?(title) ? title : "Policies" %></h1>
+    <h1 class="label"><%= defined?(title) ? title : "Policies" %></h1>
     <ul class="policies">
       <% policies.each do |policy| %>
         <%= content_tag_for(:li, policy) do %>
