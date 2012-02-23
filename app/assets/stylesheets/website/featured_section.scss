@@ -282,15 +282,20 @@
       padding: 0;
 
       .news_body {
+        background: #333;
+        bottom: 0;
+        left: 0;
+        min-height: 200px;
+        position: absolute;
+        z-index: 100;
+        
         @media only screen and (min-width: 768px) {
-          background: #333;
-          bottom: 0;
-          left: 0;
-          min-height: 200px;
+          width: 75%;
+        }
+        
+        @media only screen and (min-width: 1024px) {
           padding-left: 25%;
-          position: absolute;
           width: 50%;
-          z-index: 100;
         }
 
         h2 {
