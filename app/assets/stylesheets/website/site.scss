@@ -55,32 +55,34 @@
   .slider_wrap {
   
     .slidecontrols{
-      margin-top:25%;
+      margin: 0;
       position: absolute;
-      width:100%;
-      z-index: 3;
+      bottom: 140px;
+      right: 5%;
+      width: 15%;
+      z-index: 155;
       li{
         float:right;
-        padding:0.5em;
-        background-image: url(/government/assets/right-arrow.png);
+        background-image: url(/government/assets/carousel-arrows.png);
         background-repeat:no-repeat;
-        background-position:29px 0;
-        margin: 0.5em;
-        padding: 0.75em;
-        /*a{
+        background-position:0 100%;
+        margin: 0;
+        height: 47px;
+        width: 29px;
+        a {
           display: block;
-          padding: 1em;
+          height: 47px;
+          width: 29px;
+          margin: 0;
           text-indent: -9999px;
         }
         a:hover, a:focus, a:active{
           outline:none;
-        }*/
+        }
       }
       li:last-child{
-        margin: 0.5em;
-        padding: 0.75em;
         float:left;
-        background-image: url(/government/assets/left-arrow.png);
+        background-image: url(/government/assets/carousel-arrows.png);
         background-position:0 0;
       }
     }

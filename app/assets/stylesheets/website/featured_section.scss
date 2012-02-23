@@ -360,21 +360,24 @@
       clear: both;
       @media only screen and (min-width: 768px) {
         position: absolute;
-        bottom: 0;
-        right: 0;
+        bottom: 154px;
+        right: 11%;
+        width: 36px;
+        z-index: 160;
       }
 
       li {
   		    display: inline-block;
+  		    margin: 0;
   		    padding: 0 2px;
   		}
 
   		a {
   		    background: #ddd;
   		    display: inline-block;
-  		    height: 10px;
+  		    height: 8px;
   		    text-indent: -9999px;
-  		    width: 10px;
+  		    width: 8px;
   		}
     }
 
@@ -383,7 +386,7 @@
 		.carousel-disabled,
 		.carousel-tabs {
 			padding: 0;
-			margin: 1em 0;
+			margin: 0;
 			clear: both;
 		}
 
