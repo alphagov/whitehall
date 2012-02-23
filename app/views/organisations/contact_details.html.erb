@@ -2,14 +2,12 @@
 
 <%= render "beta_warning", organisation: @organisation %>
 <%= organisation_wrapper(@organisation, class: "g3 hcard") do %>
-  <%= render 'header', organisation: @organisation %>
+  <%= render 'header', organisation: @organisation, title: "Contacts" %>
   <div class="g1f">
     <%= render 'navigation', organisation: @organisation %>
   </div>
 
   <div class="g2f contact_page">
-    <section class="article_section">
-    <h1>Contact</h1>
     <% addresses = @organisation.contacts.select { |c| c.address.present? } %>
     <% others = @organisation.contacts - addresses %>
 
@@ -58,6 +56,5 @@
         </div>
       <% end %>
     </div>
-    </section>
   </div>
 <% end %>

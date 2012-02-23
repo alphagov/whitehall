@@ -2,7 +2,7 @@
 
 <%= render "beta_warning", organisation: @organisation %>
 <%= organisation_wrapper(@organisation, class: "g3") do %>
-  <%= render 'header', organisation: @organisation %>
+  <%= render 'header', organisation: @organisation, title: "Agencies &amp; partners" %>
   <div class="g1f">
     <%= render 'navigation', organisation: @organisation %>
   </div>
@@ -10,7 +10,6 @@
   <div class="g2f">
     <% if @organisation.child_organisations.any? %>
       <section id="child_organisations" class="info">
-        <h1>Agencies &amp; Partners</h1>
         <% in_columns(@organisation.child_organisations, 3) do |organisation_group| %>
           <div class="g1">
             <% organisation_group.each do |organisation| %>

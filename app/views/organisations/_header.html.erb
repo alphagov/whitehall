@@ -1,6 +1,12 @@
 <section class="page_header">
   <h1 class="page_title name">
-    <span><%= organisation.name %></span>
+    <span>
+      <% if local_assigns.has_key?(:title) %>
+        <%= organisation_subpage_title(organisation, title) %>
+      <% else %>
+        <%= organisation.name %>
+      <% end %>
+    </span>
   </h1>
   <div class="parent_organisations">
     <% organisation.parent_organisations.each do |organisation| %>

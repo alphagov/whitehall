@@ -3,21 +3,18 @@
 <%= render "beta_warning", organisation: @organisation %>
 <%= organisation_wrapper(@organisation, class: "g3") do %>
 
-  <%= render 'header', organisation: @organisation %>
+  <%= render 'header', organisation: @organisation, title: "About" %>
   <div class="g1f">
     <%= render 'navigation', organisation: @organisation %>
   </div>
 
   <div class="g2f about_page">
     <div class="g2">
-      <section class="article_section">
-        <h1>About</h1>
-        <article class="document">
-          <div class="body">
-            <%= govspeak_to_html @organisation.about_us %>
-          </div>
-        </article>
-      </section>
+      <article class="document">
+        <div class="body">
+          <%= govspeak_to_html @organisation.about_us %>
+        </div>
+      </article>
     </div>
     <div class="g1">
       <nav role="navigation">

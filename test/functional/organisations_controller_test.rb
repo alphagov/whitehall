@@ -275,7 +275,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :about, id: organisation
 
-    assert_select ".page_title", text: "unformatted name"
+    assert_select ".page_title", text: "unformatted name &mdash; About"
     assert_select ".body", text: "organisation-about-us"
   end
 

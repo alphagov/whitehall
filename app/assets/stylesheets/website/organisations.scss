@@ -218,13 +218,11 @@
     }
   }
 
-  .about_page {
-    nav {
-      padding-top: 1.5em;
-    }
-  }
-
   .article_section {
+    h1 {
+      display: none;
+    }
+
     article.ministerial_role {
       position: relative;
       min-height: 72px;
