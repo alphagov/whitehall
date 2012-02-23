@@ -236,8 +236,8 @@ That's all
 
     get :show, policy_id: policy.document_identity, id: supporting_page
 
-    assert_select "#document_organisations a.organisation", text: first_org.logo_formatted_name
-    assert_select "#document_organisations a.organisation", text: second_org.logo_formatted_name
+    assert_select "#document_organisations a", text: first_org.logo_formatted_name
+    assert_select "#document_organisations a", text: second_org.logo_formatted_name
   end
 
   test "should link to ministers from within the metadata navigation" do
