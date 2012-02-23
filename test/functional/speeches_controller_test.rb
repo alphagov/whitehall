@@ -8,7 +8,7 @@ class SpeechesControllerTest < ActionController::TestCase
   should_display_inline_images_for :speech
   should_not_display_lead_image_for :speech
 
-  test "should display details about the speech" do
+  test "should display generic details about the speech" do
     home_office = create(:organisation, name: "Home Office")
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     theresa_may = create(:person, forename: "Theresa", surname: "May", image: fixture_file_upload('minister-of-funk.jpg'))
@@ -18,9 +18,75 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document_identity
 
-    assert_select ".details .type", "Transcript"
     assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
     assert_select ".details .delivered_on", "1 June 2011"
     assert_select ".details .location", "The Guidhall"
+  end
+
+  test "should display details about a transcript" do
+    speech_type = SpeechType::Transcript
+    published_speech = create(:published_speech, speech_type: speech_type)
+
+    get :show, id: published_speech.document_identity
+    assert_select ".details" do
+      assert_select ".type", "Speech"
+      assert_select ".explanation",
+        "This is a transcript of the speech, exactly as it was delivered."
+    end
+  end
+
+  test "should display details about a draft text" do
+    speech_type = SpeechType::DraftText
+    published_speech = create(:published_speech, speech_type: speech_type)
+
+    get :show, id: published_speech.document_identity
+    assert_select ".details" do
+      assert_select ".type", "Speech"
+      assert_select ".explanation",
+        "This is the text of the speech as drafted, which may differ slightly from the delivered version."
+    end
+  end
+
+  test "should display details about speaking notes" do
+    speech_type = SpeechType::SpeakingNotes
+    published_speech = create(:published_speech, speech_type: speech_type)
+
+    get :show, id: published_speech.document_identity
+    assert_select ".details" do
+      assert_select ".type", "Speech"
+      assert_select ".explanation",
+        "These are the speaker's notes, not a transcript of the speech as it was delivered."
+    end
+  end
+
+  test "should display details about a written statement" do
+    speech_type = SpeechType::WrittenStatement
+    published_speech = create(:published_speech, speech_type: speech_type)
+
+    get :show, id: published_speech.document_identity
+    assert_select ".details" do
+      assert_select ".type", "Written statement"
+      refute_select ".explanation"
+    end
+  end
+
+  test "should display details about an oral statement" do
+    speech_type = SpeechType::OralStatement
+    published_speech = create(:published_speech, speech_type: speech_type)
+
+    get :show, id: published_speech.document_identity
+    assert_select ".details" do
+      assert_select ".type", "Oral statement"
+      refute_select ".explanation"
+    end
+  end
+
+  test "should omit location if not given" do
+    published_speech = create(:published_speech, location: nil)
+
+    get :show, id: published_speech.document_identity
+    assert_select ".details" do
+      refute_select ".location"
+    end
   end
 end

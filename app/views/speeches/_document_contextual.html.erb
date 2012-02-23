@@ -1,10 +1,23 @@
 <section class="contextual_info">
   <h1>More information</h1>
-  <p class="details">
-    <span class="type"><%= @document.speech_type.name %></span> for speech delivered by
-    <span class="ministerial_role"><%= link_to @document.role_appointment.role, @document.role_appointment.role %></span> on
-    <span class="delivered_on"><%= @document.delivered_on.to_s(:long_ordinal) %></span> at
-    <span class="location"><%= @document.location %></span>
-  </p>
+  <ul class="details">
+    <li>
+      <span class="type"><%= @document.speech_type_genus %></span> delivered by
+      <span class="ministerial_role"><%= link_to @document.role, @document.role %></span>
+    </li>
+    <li class="delivered_on">
+      <%= @document.delivered_on.to_s(:long_ordinal) %>
+    </li>
+    <% if @document.location %>
+      <li class="location">
+        <%= @document.location %>
+      </li>
+    <% end %>
+    <% if @document.speech_type_explanation %>
+      <li class="explanation">
+        <%= @document.speech_type_explanation %>
+      </li>
+    <% end %>
+  </ul>
   <div class="img"><%= image_for_person @document.person %></div>
 </section>
