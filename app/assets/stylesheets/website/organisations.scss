@@ -244,6 +244,12 @@
       }
 
       .current_appointee {
+        @include type-16;
+        margin-left: 84px;
+        margin-bottom: 0;
+      }
+
+      .role {
         @include type-13;
         margin-left: 84px;
         margin-bottom: 0;

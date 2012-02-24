@@ -13,8 +13,8 @@
         <div class="image_holder">
           <%= image_for_ministerial_role(ministerial_role) %>
         </div>
-        <h2 class="article_title"><%= link_to ministerial_role.name, ministerial_role %></h2>
-        <p class="current_appointee"><%= ministerial_role.current_person_name %></p>
+        <h2 class="article_title current_appointee"><%= ministerial_role.current_person_name %></h2>
+        <p class="role"><%= link_to ministerial_role.name, ministerial_role %></p>
       <% end %>
     </div>
   <% end %>
