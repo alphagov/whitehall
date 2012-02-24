@@ -2,11 +2,11 @@
 <%= organisation_wrapper(@organisation, class: "hcard group") do %>
   <%= render "beta_warning", organisation: @organisation %>
 
-  <div class="g4">
+  <div class="g4f">
     <%= render 'header', organisation: @organisation %>
   </div>
 
-  <div class="g4">
+  <div class="g4f">
     <% if @featured_news_articles.any? %>
       <section class="org_news">
         <h1 class="visuallyhidden">Top stories</h1>

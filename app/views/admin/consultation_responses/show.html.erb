@@ -1,5 +1,5 @@
 <% page_title @document.title, "Consultation Response" %>
-<div class="g3">
+<div class="g3f">
   <div class="g2 first">
     <%= render partial: 'navigation', locals: { document: @document } %>
     <%= render partial: "rejected_by", locals: { document: @document } %>
@@ -27,6 +27,6 @@
   </div>
 </div>
 
-<div class="g3">
+<div class="g3f">
   <%= render partial: 'fact_check_responses', locals: {document: @document} %>
 </div>
