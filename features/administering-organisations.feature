@@ -8,8 +8,8 @@ Scenario: Featuring news on an organisation page
 
   When I set the featured news articles in the "Ministry of Pop" organisation to:
     |News Article|
-    |You must buy the X-Factor single, says Queen|
     |Bringing back the Charleston|
+    |You must buy the X-Factor single, says Queen|
   Then I should see the featured news articles in the "Ministry of Pop" organisation are:
-    |You must buy the X-Factor single, says Queen|
     |Bringing back the Charleston|
+    |You must buy the X-Factor single, says Queen|
