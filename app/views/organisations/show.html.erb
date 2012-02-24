@@ -39,13 +39,16 @@
     <div class="g1 <% if @featured_news_articles.any? %>sub_navigation_container<% end %>">
       <%= render 'navigation', organisation: @organisation %>
       <% if @organisation.social_media_accounts.any? %>
-        <ul class="social_media_accounts">
-          <% @organisation.social_media_accounts.each do |account| %>
-            <%= content_tag_for(:li, account) do %>
-              <%= social_media_account_link(account) %>
+        <section>
+          <h1 class="label">Connect with <%= @organisation.display_name %></h1>
+          <ul class="social_media_accounts">
+            <% @organisation.social_media_accounts.each do |account| %>
+              <%= content_tag_for(:li, account) do %>
+                <%= social_media_account_link(account) %>
+              <% end %>
             <% end %>
-          <% end %>
-        </ul>
+          </ul>
+        </section>
       <% end %>
     </div>
     <div class="g1">
