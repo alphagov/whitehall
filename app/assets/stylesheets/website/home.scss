@@ -10,6 +10,7 @@
     @include branded_news($name, $color, false, false);
   }
 #content .inside_gov_home{
+
   h1.page_title{
     font-family:$gill; 
     @include type-16;
@@ -21,7 +22,7 @@
     font-weight:normal;
   }
   section.featured_carousel{
-    background-color:none;
+    background: none repeat scroll 0 0 transparent;
   }
   .published_document{
     @include type-21;
