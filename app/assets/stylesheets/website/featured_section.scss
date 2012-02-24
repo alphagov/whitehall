@@ -277,7 +277,7 @@
         h2 {
           @include scaled_type(24,24);
           font-family: $gill;
-          padding: 0.5em 3%;
+          padding: 0.5em 1.5%;
           margin: 0;
           display: block;
           
@@ -296,11 +296,11 @@
           font-family: $helvetica;
           color: #fff;
           margin: 0;
-          padding: 0 3% 1.25em 3%;
+          padding: 0 1.5% 1.25em 1.5%;
         }
 
         div.meta {
-          padding: 0.25em 3% 0.5em 3%;
+          padding: 0.25em 1.5% 0.5em 1.5%;
 
           span {
             @include type-12;
