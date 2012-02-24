@@ -5,7 +5,8 @@
     var settings = $.extend({
       sectionToggleClass : 'section_toggle',
       breakpointSelector : window,
-      breakpoints: []
+      breakpoints: [],
+      appendTo: _this
     }, options);
 
     var _navElSel = 'a:not(.' + settings.sectionToggleClass + ')';
@@ -55,7 +56,7 @@
 
     $(settings.breakpointSelector).resize(_handleResize);
 
-    _this.append($.a(settings.collapsedLabel, {'class': settings.sectionToggleClass}));
+    $(settings.appendTo).append($.a(settings.collapsedLabel, {'class': settings.sectionToggleClass}));
 
     _this.find(_navElSel).addClass('nav_link');
 

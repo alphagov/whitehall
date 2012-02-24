@@ -137,3 +137,9 @@ test("should re-show items in the 'exclude' list if they have had been hidden at
   ok($('nav.global_nav #nav_2').is(':visible'));
   ok($('nav.global_nav #nav_3').is(':visible'));
 });
+
+test("should append section toggle link to supplied option", function () {
+  $('#qunit-fixture .global_nav').append('<div class="inner"></div>');
+  initNavHelper({ appendTo: '.inner' });
+  equal($('nav.global_nav .inner a.section_toggle').length, 1);
+});
