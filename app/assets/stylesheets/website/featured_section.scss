@@ -44,9 +44,6 @@
       a {
         display: block;
         padding: 0 1em;
-
-        @media only screen and (min-width: 1024px) {
-        }
       }
     }
 
@@ -54,9 +51,6 @@
       margin-bottom: 0;
       padding: 0 1.25em 0 1.25em;
       margin: 1em 0;
-
-      @media only screen and (min-width: 768px) {
-      }
 
       a.read {
         display: block;
@@ -102,11 +96,11 @@
         max-width: 82px; // 84px minus border
       }
 
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: 600px) {
         display: block; // only show in non-mobile layout
       }
 
-      @media only screen and (min-width: 1024px) {
+      @media only screen and (min-width: 768px) {
         max-width: 120px;
 
         a img {
@@ -120,7 +114,7 @@
       p.summary {
         border: none;
         margin-top: 0;
-        @media only screen and (min-width: 768px) {
+        @media only screen and (min-width: 600px) {
           float: left;
           width: 50%;
         }
@@ -130,7 +124,7 @@
     // single item
 
     div.g3f {
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: 600px) {
         h2 {
           &:before, &:after {
           	left: 20%;
@@ -166,31 +160,20 @@
         }
       }
 
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: 600px) {
         .meta {
           border-bottom: none;
         }
-
-        .image_summary {
-        }
       }
 
-      @media only screen and (max-width: 768px) {
-        .image_summary {
-        }
-      }
     }
 
     // three items
 
     div.g1f {
-      @media only screen and (max-width: 768px) {
-        .image_summary {
-        }
-      }
 
       &:first-child {
-        @media only screen and (min-width: 768px) {
+        @media only screen and (min-width: 600px) {
           width: 100%;
           div.image_summary {
             border-right: none;
@@ -201,7 +184,7 @@
           }
         }
 
-        @media only screen and (min-width: 1024px) {
+        @media only screen and (min-width: 768px) {
           width: 33.3333333%;
           border-bottom: none;
 
@@ -221,7 +204,7 @@
           border-right: none;
         }
 
-        @media only screen and (min-width: 768px) {
+        @media only screen and (min-width: 600px) {
           .meta {
             border-right: none;
           }
@@ -229,7 +212,7 @@
       }
 
       div.image_summary {
-        @media only screen and (min-width: 768px) {
+        @media only screen and (min-width: 600px) {
           div.img {
             max-width: 84px;
           }
@@ -239,7 +222,7 @@
         }
       }
 
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: 600px) {
         .meta {
           border-bottom: none;
         }
@@ -249,19 +232,19 @@
 
     div.g1f, div.g-half-flood {
       &:last-child {
-        @media only screen and (max-width: 768px) {
+        @media only screen and (max-width: 600px) {
           .meta, .image_summary {
             border-bottom: none;
           }
         }
 
-        @media only screen and (min-width: 768px) {
+        @media only screen and (min-width: 600px) {
           div.image_summary {
             border-right: none;
           }
         }
 
-        @media only screen and (min-width: 1024px) {
+        @media only screen and (min-width: 768px) {
           h2, h2 a, p.summary, .meta {
             border-right: none;
           }
@@ -290,11 +273,11 @@
         position: absolute;
         z-index: 100;
         
-        @media only screen and (min-width: 768px) {
+        @media only screen and (min-width: 600px) {
           width: 75%;
         }
         
-        @media only screen and (min-width: 1024px) {
+        @media only screen and (min-width: 768px) {
           padding-left: 25%;
           width: 50%;
         }
@@ -340,7 +323,7 @@
           padding: 0;
         }
 
-        @media only screen and (min-width: 768px) {
+        @media only screen and (min-width: 600px) {
           display: block;
         }
 
@@ -364,12 +347,12 @@
       z-index: 160;
       width: 42px;
       
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: 600px) {
         bottom: 154px;
         right: 10%;
       }
       
-      @media only screen and (min-width: 1024px) {
+      @media only screen and (min-width: 768px) {
         right: 10.5%;
       }
 

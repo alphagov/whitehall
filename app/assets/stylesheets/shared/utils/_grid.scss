@@ -7,7 +7,7 @@
   margin-right: $mr;
   width: $w;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 600px) {
     display: inline;
     float: $float_direction;
   }
@@ -16,11 +16,11 @@
 @mixin span_one_column($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
   @include grid_column($float_direction, $w, $ml, $mr);
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 600px) {
     width: (50.0% - ($ml + $mr));
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 768px) {
     width: ((100.00%/$cols)) - ($ml + $mr);
   }
 }
@@ -28,11 +28,11 @@
 @mixin span_two_columns($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
   @include grid_column($float_direction, $w, $ml, $mr);
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 600px) {
     width: (50.0% - ($ml + $mr));
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 768px) {
     width: ((100.00%/$cols) * 2) - ($ml + $mr);
   }
 }
@@ -40,7 +40,7 @@
 @mixin span_three_columns($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
   @include grid_column($float_direction, $w, $ml, $mr);
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 768px) {
     width: ((100.00%/$cols) * 3) - ($ml + $mr);
   }
 }
@@ -53,11 +53,11 @@
   @include grid_column($float_direction);
   width: 48.0%;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 600px) {
     width: 24.0%;
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 768px) {
     width: 14.6665%
   }
 }
