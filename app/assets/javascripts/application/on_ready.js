@@ -8,7 +8,8 @@ jQuery(function($) {
     breakpoints: [
       { width: 540, label: 'All sections', exclude: '.home, .current' },
       { width: 850, label: 'More sections', exclude: '.home, .current, .primary' }
-    ]
+    ],
+    appendTo: '#global-nav .inner'
   });
 
   $('section.featured_carousel').each(function () {
