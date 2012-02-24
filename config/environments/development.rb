@@ -30,5 +30,14 @@ Whitehall::Application.configure do
 
   config.slimmer.asset_host = ENV["STATIC_DEV"] || Plek.new("preview").find("assets")
 
+  orig_host = config.asset_host
+  config.asset_host = Proc.new do |source|
+    if source =~ %r{system/uploads}
+      "https://whitehall-frontend-production.s3.amazonaws.com"
+    else
+      orig_host
+    end
+  end
+
   config.middleware.swap Rails::Rack::Logger, Whitehall::QuietAssetLogger
 end
