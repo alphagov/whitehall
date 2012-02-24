@@ -25,6 +25,11 @@ $baseline_in_px: 24 !default;
   @include scaled_type(60, 72);
 }
 
+@mixin type-44 {
+  /* 44px / 48px */
+  @include scaled_type(44, 48);
+}
+
 @mixin type-46 {
   /* 46px / 46px */
   @include scaled_type(46, 46);
