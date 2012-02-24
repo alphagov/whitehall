@@ -22,8 +22,8 @@
           
               <div class="published_document"><%= link_to document.title, public_document_path(document), class: "title" %></div>
               <% document.organisations.each do |organisation| %>
-                <%= content_tag_for :div, organisation do %> 
-                  <%= link_to organisation_display_name(organisation), organisation_path(organisation) %>
+                <%= content_tag_for :div, organisation do %> by
+                  <%= link_to organisation.logo_formatted_name, organisation_path(organisation) %>
                 <% end %>
               <% end %>
               <div class="metadata">

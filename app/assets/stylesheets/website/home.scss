@@ -24,11 +24,22 @@
     section.featured_carousel{
       background-color:none;
     }
+    .published_document{
+     @include type-21;
+     line-height:1em;
+     margin:0;
+     padding:0; 
+    }
     .organisation{
+      font-family:$gill; 
       @include type-14;
       letter-spacing:0.15em;
       text-transform:uppercase;
+      padding-top:0.25em;
       margin:0;
+      a{
+        color:inherit;
+      }
     }
     h2{
       padding:0.5em 1em;
@@ -66,7 +77,7 @@
     }
   }
   section.featured_carousel article .img{
-    height:217px;
+    min-height:320px;
     background-color:#999876;
   }
   
