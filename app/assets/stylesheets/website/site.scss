@@ -1,57 +1,8 @@
-@import "organisation_brands";
-@import "../shared/typography";
+@import "../shared/utils/type_stacks";
+@import "../shared/utils/type_sizing";
+@import "../shared/utils/clearfix";
 
-#content {
-  
-  h1.page_title{
-    font-family:$gill; 
-    padding:0.275em 0 0 0.275em;
-    margin: 0 0 0.275em;
-  }
-  
-  .metadata,
-  .published_document, 
-  .organisation{
-    display:inline  ;
-  }
-  
-  .inside_gov_home {
-    .recently_updated,
-    #content .featured_carousel {
-      @each $brand in $organisation_brands {
-        $name: nth($brand, 1);
-        $color: nth($brand, 2);
-
-        .#{$name} {
-          color: white;
-          background: $color;
-        }
-      }
-    }
-    .recently_updated {
-      li {
-        padding:1em 0.5em;
-        margin:0;
-      }
-    }
-  }
-  
-/*  .news_article{
-    .img{
-      background-color:#5D996C;
-      min-height:300px;
-    }
-    h2{
-      @include type-18;
-      padding:0.5em;
-      margin:0;
-    }
-    .summary, .meta{
-      margin:0;
-      padding:0.275em 0.5em;
-    }
-  }*/
-  
+#content{
   .slider_wrap {
   
     .slidecontrols{
@@ -94,6 +45,4 @@
       }
     }
   }
-
 }
-

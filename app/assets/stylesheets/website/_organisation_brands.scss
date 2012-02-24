@@ -108,3 +108,23 @@ $organisation_brands:
       @include add_styles_for_org($name, $color, false, false);
   }
 }
+
+
+@mixin branded_news($org_class, $colour, $logo_image_url, $logo_image_url_small) {
+  .recently_updated{
+    .#{$org_class} {
+        @if $colour {
+          border-left: 6px solid $colour;
+        }
+        .organisation{
+          @if $colour {
+            color: $colour;
+          }
+          a{
+            color:inherit;
+          }
+        }
+      }
+    }
+}
+

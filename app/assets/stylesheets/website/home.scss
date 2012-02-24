@@ -1,3 +1,76 @@
+@import "../shared/utils/type_stacks";
+@import "../shared/utils/type_sizing";
+@import "../shared/utils/clearfix";
+@import "organisation_brands";
+
+  @each $brand in $organisation_brands {
+    $name: nth($brand, 1);
+    $color: nth($brand, 2);
+
+    @include branded_news($name, $color, false, false);
+  }
+#content{
+  h1.page_title{
+    font-family:$gill; 
+    @include type-16;
+    background-color:#666;
+    color:#fff;
+    padding:0.5em 0.75em;
+    margin: 0 0 1em 0;
+    text-transform:uppercase;    
+    font-weight:normal;
+  }
+  .inside_gov_home {
+    section.featured_carousel{
+      background-color:none;
+    }
+    .organisation{
+      @include type-14;
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      margin:0;
+    }
+    h2{
+      padding:0.5em 1em;
+      margin:0;
+    }
+    p{
+      padding:0.5em 1em;
+    }
+    .meta{
+      padding:0.5em 1em;
+    }
+    .metadata{
+      @include type-12;
+      display:inline;
+    }
+    .g4f{
+      background-color:#F8F7ED;
+    }
+    .slider_wrap {
+      .slidecontrols {
+        bottom:200px;
+        width:20%;
+      }
+      .carousel-tabs {
+        width:46px;
+        bottom:202px;
+      }
+    }
+    .recently_updated {
+      li {
+        padding:0.5em 0.5em;
+        margin:0 0 0.5em 0;
+        background-color:#fff;
+      }
+    }
+  }
+  section.featured_carousel article .img{
+    height:217px;
+    background-color:#999876;
+  }
+  
+}
 #content ul.grid {
   width: 100%;
 
@@ -133,69 +206,6 @@
         display: none;
       }
     }
-  }
-
-  .org-treasury {
-    background: rgb(191, 49, 26)
-  }
-
-  .org-cabinet-office {
-    background: rgb(0, 118, 192);
-  }
-
-  .org-department-for-education {
-    background: rgb(245, 132, 38);
-  }
-
-  .org-department-of-transport {
-    background: rgb(0, 113, 97);
-  }
-
-  .org-department-of-health {
-    background: rgb(0, 174, 158);
-  }
-
-  .org-home-office {
-    background: rgb(127, 63, 152);
-  }
-
-  .org-ministry-of-justice {
-    background: rgb(35, 31, 32);
-  }
-
-  .org-ministry-of-defence {
-    background: rgb(92, 41, 70);
-  }
-
-  .org-foreign-and-commonwealth-office {
-    background: rgb(0, 84, 164);
-  }
-
-  .org-department-for-communities-and-local-government {
-    background: rgb(73, 47, 146);
-  }
-
-  .org-department-for-energy-and-climate-change {
-    background: rgb(122, 193, 67);
-  }
-
-  .org-department-for-culture-media-and-sport {
-    background: rgb(236, 9, 141);
-  }
-
-  .org-department-for-environment-food-and-rural-affairs {
-    background: rgb(138, 141, 9);
-  }
-
-  .org-department-for-work-and-pensions {
-    background: rgb(34, 188, 185);
-  }
-
-  .org-department-for-business-innovation-and-skills {
-    background: rgb(59, 110, 143);
-  }
-
-  .org-department-for-international-development {
-    background: rgb(115, 157, 210);
-  }
+  } 
+ 
 }

@@ -1,7 +1,7 @@
 <div class="inside_gov_home">
   <% page_title "Latest" %>
   <div class="g4f">
-    <h1 class="page_title">Inside government</h1>
+    <h1 class="page_title">The very latest goings on from government</h1>
 
     <div class="g2">
       <!--section>
@@ -22,7 +22,7 @@
           
               <div class="published_document"><%= link_to document.title, public_document_path(document), class: "title" %></div>
               <% document.organisations.each do |organisation| %>
-                <%= content_tag_for :div, organisation do %> by 
+                <%= content_tag_for :div, organisation do %> 
                   <%= link_to organisation_display_name(organisation), organisation_path(organisation) %>
                 <% end %>
               <% end %>
