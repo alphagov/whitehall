@@ -299,7 +299,7 @@
         }
 
         .summary {
-          @include type-13;
+          @include type-14;
           font-family: $helvetica;
           color: #fff;
           margin: 0;
@@ -312,6 +312,7 @@
           span {
             @include type-12;
             color: #fff;
+            display: block;
             margin-bottom: 0;
             margin-right: 1em;
           }
