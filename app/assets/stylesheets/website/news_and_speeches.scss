@@ -32,7 +32,6 @@
         margin-bottom: 0.75em;
 
         div.text {
-          padding: 0 1em;
           h2 {
             @include type-16;
             margin-bottom: 0.75em;
@@ -46,12 +45,7 @@
         div.img {
           height: 10em;
           overflow: hidden;
-          margin: 0 3% 0.5em 3%;
-
-          @media only screen and (min-width: 768px) {
-            margin-left: 4%;
-            margin-right: 4%;
-          }
+          margin: 0 0 0.5em;
         }
 
         .meta {

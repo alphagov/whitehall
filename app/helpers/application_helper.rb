@@ -147,11 +147,11 @@ module ApplicationHelper
   def featured_grid_class(count=0)
     case count
     when 1
-      "g3f"
+      "g3"
     when 2
-      "g-half-flood"
+      "g-half"
     when 3
-      "g1f"
+      "g1"
     end
   end
 

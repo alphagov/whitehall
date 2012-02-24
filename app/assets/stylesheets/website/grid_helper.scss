@@ -1,3 +1,5 @@
+@import "../shared/globals";
+
 #grid-helper {
   margin: 0 auto;
   height: 3000px;
@@ -15,7 +17,7 @@
     height: 100%;
     opacity: 0.5;
     margin: 0 auto;
-    width: 84%;
+    width: $global_content_width;
     @media only screen and (min-width: 1800px) {
       background-image: url('/images/28px_grid_bg.png');
     }

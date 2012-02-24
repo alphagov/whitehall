@@ -1,6 +1,6 @@
 <% page_title "News & Speeches" %>
 
-<div class="g3f">
+<div class="g3">
   <section class="page_header news-speech">
     <h1 class="page_title">News &amp; speeches</h1>
     <p class="explanation">The latest stories from right across government</p>
@@ -9,8 +9,8 @@
 
 <div class="g3f group">
   <% if @announced.today.any? %>
-    <section class="announcements group" id="last_24_hours">
-      <h1>In the last 24 hours</h1>
+    <section class="g3f announcements group" id="last_24_hours">
+      <h1 class="g3">In the last 24 hours</h1>
       <div class="expanded group">
         <%= announcement_group(@announced.today.featured, groups_of: 3, partial: "expanded") %>
       </div>
@@ -19,8 +19,8 @@
   <% end %>
 
   <% if @announced.in_last_7_days.any? %>
-    <section class="announcements group" id="last_7_days">
-      <h1>In the last 7 days</h1>
+    <section class="g3f announcements group" id="last_7_days">
+      <h1 class="g3">In the last 7 days</h1>
       <% if @announced.today.any? %>
         <%= announcement_group(@announced.in_last_7_days, groups_of: 3, class: "group", partial: "default") %>
       <% else %>

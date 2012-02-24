@@ -18,25 +18,6 @@
     border: none;
   }
 
-  .g3f, .g2f {
-    section h1 {
-      margin-left: 0;
-    }
-    .g2, .g-half {
-      section h1 {
-        margin-left: 0;
-      }
-    }
-  }
-
-  .g4f {
-    .g1 {
-      section h1 {
-        margin-left: 0;
-      }
-    }
-  }
-
   .latest_documents {
     div.metadata {
       @include type-14;

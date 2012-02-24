@@ -9,13 +9,6 @@
   section.featured_items {
     article {
       position: relative;
-
-      &:hover {
-        p.summary,
-        .meta {
-          color: #333;
-        }
-      };
     }
 
     h2 {
@@ -43,13 +36,13 @@
 
       a {
         display: block;
-        padding: 0 1em;
+        padding: 0;
       }
     }
 
     p.summary {
       margin-bottom: 0;
-      padding: 0 1.25em 0 1.25em;
+      padding: 0;
       margin: 1em 0;
 
       a.read {

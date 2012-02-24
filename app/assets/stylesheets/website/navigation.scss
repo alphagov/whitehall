@@ -1,4 +1,5 @@
 @import "../shared/utils/type_sizing";
+@import "../shared/globals";
 
 #global-nav {
   margin: 0 auto;
@@ -14,8 +15,8 @@
     width: 100%;
 
     .inner {
-      width: 84%;
-      max-width: 1280px;
+      width: $global_content_width - 2.5%;
+      max-width: $global_max_width;
     }
   }
 
