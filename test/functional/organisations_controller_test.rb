@@ -1,6 +1,9 @@
 require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
+
+  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :announcements, :consultations, :contact_details, :management_team, :ministers, :policies, :publications]
+
   should_be_a_public_facing_controller
 
   test "should display the disclaimer on active organisations" do
@@ -15,12 +18,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_disclaimer_present(organisation)
   end
 
-  test "shows organisation name" do
+  test "shows organisation name and description" do
     organisation = create(:organisation,
-      name: "unformatted name"
+      name: "unformatted name",
+      description: "organisation-description"
     )
     get :show, id: organisation
     assert_select ".organisation .name", text: "unformatted name"
+    assert_select ".organisation .description", text: "organisation-description"
   end
 
   test "#show doesn't present expanded navigation for non-department organisations" do
@@ -303,12 +308,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "organisation-about-us"
   end
 
-  [:about, :agencies_and_partners, :announcements, :consultations, :contact_details, :management_team, :ministers, :policies, :publications].each do |action|
+  SUBPAGE_ACTIONS.each do |action|
     test "should show social media accounts on organisation #{action} subpage" do
       social_media_account = create(:social_media_account)
       organisation = create(:organisation, social_media_accounts: [social_media_account])
       get action, id: organisation
       assert_select ".social_media_accounts"
+    end
+
+    test "should show description on organisation #{action} subpage" do
+      organisation = create(:organisation, description: "organisation-description")
+      get action, id: organisation
+      assert_select ".description", text: "organisation-description"
     end
   end
 
