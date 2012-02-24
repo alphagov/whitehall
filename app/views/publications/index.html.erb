@@ -1,33 +1,17 @@
 <% page_title "Publications" %>
-<% featured_publications, other_publications = @publications.partition(&:featured?) %>
 
-<div class="g3f">
+<div class="g4f">
   <section class="page_header publication">
     <h1 class="page_title">Publications</h1>
     <p class="explanation">Recent and featured government publications and papers</p>
   </section>
-  <% if featured_publications.any? %>
-    <section class="featured_items group" id="featured-publications">
-      <% featured_publications.each do |publication| %>
-        <div class="<%= featured_grid_class(featured_publications.length) %>">
-          <%= content_tag_for(:article, publication) do %>
-            <h2><%= link_to publication.title, public_document_path(publication), class: "title" %></h2>
-            <div class="image_summary group">
-              <div class="img"><%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %></div>
-              <p class="summary">
-                <%= publication_summary(publication) %>
-              </p>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    </section>
-  <% end %>
 </div>
 
-<% if other_publications.any? %>
+<%= render partial: 'featured_publications', locals: {featured_publications: @featured_publications} %>
+
+<% if @other_publications.any? %>
   <div class="g3f">
-    <%= article_section("Publications", other_publications, {id: 'publications', article_class: "has_img group"}) do |publication| %>
+    <%= article_section("Publications", @other_publications, {id: 'publications', article_class: "has_img group"}) do |publication| %>
       <div class="img">
         <%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %>
       </div>

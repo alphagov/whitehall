@@ -108,4 +108,61 @@ class PublicationsControllerTest < ActionController::TestCase
       refute_select "a.order_url"
     end
   end
+
+  def assert_featured(docs)
+    docs.each do |doc|
+      assert_select '.featured_items' do 
+        assert_select_object doc
+      end
+    end
+  end
+
+  def refute_featured(docs)
+    docs.each do |doc|
+      assert_select '.featured_items' do 
+        refute_select_object doc
+      end
+    end
+  end
+
+  test "index with one featured shows one" do
+    featured = 1.times.map { |n| create(:featured_publication, published_at: n.days.ago) }
+    get :index
+
+    assert_featured featured
+  end
+
+  test "index with two featured shows two" do
+    featured = 2.times.map { |n| create(:featured_publication, published_at: n.days.ago) }
+    get :index
+
+    assert_featured featured
+  end
+
+  test "index with three featured shows only two" do
+    featured = 3.times.map { |n| create(:featured_publication, published_at: n.days.ago) }
+    get :index
+
+    assert_featured featured[0..1]
+    refute_featured featured[2..2]
+    assert_select_object featured[2]
+  end
+
+  test "index with four featured shows four" do
+    featured = 4.times.map { |n| create(:featured_publication, published_at: n.days.ago) }
+    get :index
+
+    assert_featured featured
+  end
+
+  test "index with five featured shows four" do
+    featured = 5.times.map { |n| create(:featured_publication, published_at: n.days.ago) }
+
+    get :index
+
+    assert_featured featured[0..3]
+    refute_featured featured[4..4]
+    assert_select_object featured[4]
+  end
+  
 end

@@ -1,0 +1,19 @@
+<% if featured_publications.any? %>
+  <section class="g4f featured_items group" id="featured-publications">
+    <% featured_publications.each_slice(2) do |pair| %>
+      <% pair.each do |publication| %>
+        <div class="g2">
+          <%= content_tag_for(:article, publication) do %>
+            <h2><%= link_to publication.title, public_document_path(publication), class: "title" %></h2>
+            <div class="image_summary group">
+              <div class="img"><%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %></div>
+              <p class="summary">
+                <%= publication_summary(publication) %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </section>
+<% end %>
