@@ -64,7 +64,7 @@
       </section>
       <% if @country.embassy_address.present? %>
         <section class="vcard info embassy_contact_details">
-          <h1 class="fn org name">UK Embassy in <%= @country.name %></h1>
+          <h1 class="fn org name">UK contacts in <%= @country.name %></h1>
           <div class="adr">
             <p class="embassy_address street-address"><%= safe_join(@country.embassy_address.split("\n"), "<br/>".html_safe) %></p>
           </div>
