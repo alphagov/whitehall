@@ -10,7 +10,7 @@
 <% if @announced.featured_news.any? %>
   <section class="announcements group" id="featured_news">
     <div class="g4">
-      <div class="g1"><h1>Featured</h1></div>
+      <div class="g1"><h1 class="label">Featured</h1></div>
       <div class="g3 expanded group">
         <%= announcement_group(@announced.featured_news, groups_of: 3, partial: "expanded") %>
       </div>
@@ -21,7 +21,7 @@
 <% if @announced.today.any? %>
   <section class="announcements group" id="last_24_hours">
     <div class="g4">
-      <div class="g1"><h1>In the last 24 hours</h1></div>
+      <div class="g1"><h1 class="label">In the last 24 hours</h1></div>
       <div class="g3">
         <div class="expanded group">
           <%= announcement_group(@announced.today.featured, groups_of: 3, partial: "expanded") %>
@@ -36,7 +36,7 @@
   <section class="announcements group" id="last_7_days">
     <div class="g4">
       <div class="g1">
-        <h1>In the last 7 days</h1>
+        <h1 class="label">In the last 7 days</h1>
       </div>
       <div class="g3">
         <% if @announced.today.any? %>
