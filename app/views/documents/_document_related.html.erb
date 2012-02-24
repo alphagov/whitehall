@@ -28,21 +28,21 @@
 <% end %>
 
 <% if @document.respond_to?(:policy_topics) && @document.policy_topics.any? %>
-  <section id="document_topics">
+  <section id="document_topics" class="gutter">
     <h1 class="label">Policy Topics</h1>
     <%= render partial: "policy_topics/list", locals: { policy_topics: @document.policy_topics }  %>
   </section>
 <% end %>
 
 <% if @policy_topics && @policy_topics.any? %>
-  <section id="document_topics">
+  <section id="document_topics" class="gutter">
     <h1 class="label">Policy Topics</h1>
     <%= render partial: "policy_topics/list", locals: { policy_topics: @policy_topics }  %>
   </section>
 <% end %>
 
 <% if @document.respond_to?(:countries) && @document.countries.any? %>
-  <section id="document_countries">
+  <section id="document_countries" class="gutter">
     <h1 class="label">Countries</h1>
     <ul class="countries">
     <% @document.countries.each do |country| %>
