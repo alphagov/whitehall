@@ -7,6 +7,17 @@
   </section>
 </div>
 
+<% if @announced.featured_news.any? %>
+  <section class="announcements group" id="featured_news">
+    <div class="g4">
+      <div class="g1"><h1>Featured</h1></div>
+      <div class="g3 expanded group">
+        <%= announcement_group(@announced.featured_news, groups_of: 3, partial: "expanded") %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
 <% if @announced.today.any? %>
   <section class="announcements group" id="last_24_hours">
     <div class="g4">

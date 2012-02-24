@@ -115,4 +115,14 @@ class AnnouncementPresenterTest < ActiveSupport::TestCase
 
     assert_equal announced_in_last_7_days, AnnouncementPresenter.new.in_last_7_days
   end
+
+  test "#featured_news should 3 latest featured news stories" do
+    a = create(:featured_news_article, published_at: 1.day.ago)
+    b = create(:featured_news_article, published_at: 2.days.ago)
+    c = create(:featured_news_article, published_at: 3.days.ago)
+    d = create(:featured_news_article, published_at: 4.days.ago)
+
+    refute AnnouncementPresenter.new.featured_news.include?(d)
+    assert_equal([a,b,c], AnnouncementPresenter.new.featured_news)
+  end
 end

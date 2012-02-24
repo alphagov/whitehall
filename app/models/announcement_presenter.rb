@@ -23,6 +23,10 @@ class AnnouncementPresenter
     @number_to_feature = number_to_feature
   end
 
+  def featured_news
+    @featured_news ||= NewsArticle.published.featured.by_first_published_at.limit(3).includes(:document_identity, :document_relations, :policy_topics)
+  end
+
   def today
     return @today if @today
     date = 1.day.ago

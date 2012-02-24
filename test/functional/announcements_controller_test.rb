@@ -143,6 +143,42 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index shows featured news articles" do
+    a = create(:featured_news_article, published_at: 1.day.ago)
+    b = create(:featured_news_article, published_at: 2.days.ago)
+    c = create(:featured_news_article, published_at: 3.days.ago)
+    d = create(:featured_news_article, published_at: 4.days.ago)
+
+    get :index
+
+    assert_select '#featured_news' do
+      assert_select_object a
+      assert_select_object b
+      assert_select_object c
+      refute_select_object d
+    end
+  end
+
+  test "featured news article should show images, title, summary and meta details" do
+    first_policy_topic = create(:policy_topic, name: 'first-area')
+    second_policy_topic = create(:policy_topic, name: 'second-area')
+    policy_1 = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
+    policy_2 = create(:published_policy, policy_topics: [first_policy_topic])
+    featured_news = create(:featured_news_article, published_at: 1.day.ago, related_policies: [policy_1, policy_2])
+    get :index
+
+    assert_select '#featured_news' do
+      assert_select_object featured_news do
+        assert_select "a[href='#{announcement_path(featured_news)}'] img"
+        assert_select_announcement_title featured_news
+        assert_select_announcement_summary featured_news
+        assert_select_announcement_metadata featured_news
+        assert_select ".meta a[href='#{policy_topic_path(first_policy_topic)}']", text: first_policy_topic.name, count: 1
+        assert_select ".meta a[href='#{policy_topic_path(second_policy_topic)}']", text: second_policy_topic.name, count: 1
+      end
+    end
+  end
+
   private
 
   def announcement_path(announcement)
