@@ -5,14 +5,20 @@
 
 #wrapper {
   .organisation {
-    nav.sub_navigation,
-    #about_us {
-      @media only screen and (min-width:670px) {
-
-      }
-      @media only screen and (min-width:764px) {
-        margin-left: 0;
-        margin-right: 9%;
+    .org_sidebar {
+      margin-left: 0;
+      margin-right: 3%;
+      
+      @media only screen and (min-width:768px) {
+        &.sub_navigation_container {
+          background-color: #fff;
+          margin-left: 1.5%;
+          margin-right: 1.5%;
+          margin-top: -200px;
+          padding-top: 8px;
+          position: relative;
+          z-index: 100;
+        }
       }
     }
   }
@@ -64,23 +70,10 @@
       margin-right: 0.5em;
       margin-bottom: 0;
     }
-
-    section.article_section {
-    }
-  }
-
-  div.sub_navigation_container {
-    @media only screen and (min-width:768px) {
-      background-color: #fff;
-      margin-top: -200px;
-      padding-top: 8px;
-      position: relative;
-      z-index: 100;
-    }
-    
   }
 
   nav.sub_navigation {
+    padding-right: 6%;
     
     ul {
 

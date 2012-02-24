@@ -11,7 +11,7 @@
   </div>
 
   <div class="g4f">
-    <div class="g1 <% if @featured_news_articles.any? %>sub_navigation_container<% end %>">
+    <div class="g1 org_sidebar<% if @featured_news_articles.any? %> sub_navigation_container<% end %>">
       <%= render 'sidebar', organisation: @organisation %>
     </div>
     <div class="g1">
