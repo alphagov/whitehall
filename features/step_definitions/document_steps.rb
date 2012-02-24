@@ -42,6 +42,11 @@ Given /^a published (publication|policy|news article|consultation) "([^"]*)" was
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
 end
 
+Given /^a published (publication|policy|news article|consultation) "([^"]*)" was produced by the "([^"]*)" organisation (\d+) days ago$/ do |document_type, title, organisation_name, days_ago|
+  organisation = Organisation.find_by_name!(organisation_name)
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, organisations: [organisation])
+end
+
 Given /^a submitted (publication|policy|news article|consultation|speech|international priority) "([^"]*)" exists$/ do |document_type, title|
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
