@@ -154,17 +154,18 @@
       margin-bottom: 0.75em;
       
       .current_appointee {
-        @include type-16;
+        @include scaled_type(16, 18);
         font-weight: bold;
+        margin-bottom: 0.375em;
       }
       
       .role {
         @include type-14;
         font-family: $helvetica;
+        margin-bottom: 0;
       }
       
       .current_appointee, .role {
-        margin-bottom: 0;
         margin-left: 84px;
       }
 
