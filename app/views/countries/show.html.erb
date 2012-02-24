@@ -10,7 +10,7 @@
   <div class="g3f">
     <div class="g2f">
       <% if @international_priorities.any? %>
-        <%= article_section("International Priorities", @international_priorities, {id: 'international_priorities'}) do |international_priorities| %>
+        <%= article_section("Priorities", @international_priorities, {id: 'international_priorities'}) do |international_priorities| %>
           <h2 class="article_title"><%= link_to international_priorities.title, public_document_path(international_priorities), title: "View #{international_priorities.title}", class: "title" %></h2>
           <span class="metadata">
             Updated <%= time_ago(international_priorities.updated_at, class: 'updated_at') %>
