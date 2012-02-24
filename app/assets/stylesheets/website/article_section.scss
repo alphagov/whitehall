@@ -1,4 +1,5 @@
 @import "../shared/utils/type_sizing";
+@import "../shared/utils/shadows";
 
 #content {
   section.article_section {
@@ -38,16 +39,25 @@
       }
 
       &.has_img {
-        padding-left: 108px;
+        $inner_padding: 5px;
+        $image_width: (210px / 2);
+        $image_height: (297px / 2);
+        padding-left: ($image_width + $inner_padding * 2 + 10px);
         min-height: 96px;
         div.img {
-          width: 94px;
-          height: 70px;
           overflow: hidden;
           position: absolute;
           top: 0.4em;
           left: 0;
+          @include box-shadow(0, 0, 2px, #ddd);
+          background: #fff;
+          padding: $inner_padding $inner_padding 0 $inner_padding;
+          a img {
+            margin: 0;
+          }
         }
+      
+
       }
     }
 

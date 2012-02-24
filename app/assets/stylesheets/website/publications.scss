@@ -1,0 +1,52 @@
+@import "../shared/utils/type_sizing";
+@import "../shared/utils/shadows";
+@import "organisation_brands";
+
+#content {
+  section.publications, section.featured_items {
+  	article.publication {
+      p {
+        font-family: inherit;
+      }
+
+      div.img {
+        @include box-shadow(0, 0, 2px, #ddd);
+        background: #fff;
+        padding: 5px 5px 0 5px;
+        a img {
+          margin: 0;
+        }
+      }
+
+      h2.article_title {
+        margin-bottom: 0.75em
+      }
+    }
+  }
+
+  section.publications {
+    article.publication {
+      &.has_img {
+        padding-left: 0;
+        min-height: 96px;
+      }
+
+
+      @each $brand in $organisation_brands {
+        $name: nth($brand, 1);
+        $color: nth($brand, 2);
+
+        &.#{$name} div.img {
+          border-left: 20px solid $color;
+        }
+      }
+
+      div.img {
+        height: 7.5em;
+        overflow: hidden;
+        position: static;
+        margin-bottom: 1.5em;
+      }
+  	}
+  }
+}

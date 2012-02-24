@@ -171,7 +171,8 @@ module ApplicationHelper
       row = content_tag(:div, class: row_class.compact.join(" ")) do
         article_group.each do |item|
           div = content_tag(:div, class: "g1") do
-            article = content_tag_for(:article, item, class: options[:article_class]) do
+            css_classes = (options[:article_class] || "") + " " + document_organisation_class(item)
+            article = content_tag_for(:article, item, class: css_classes) do
               block.call(item).html_safe
             end.html_safe
             concat article

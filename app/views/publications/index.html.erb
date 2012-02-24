@@ -10,18 +10,25 @@
 <%= render partial: 'featured_publications', locals: {featured_publications: @featured_publications} %>
 
 <% if @other_publications.any? %>
-  <div class="g3f">
-    <%= article_section("Publications", @other_publications, {id: 'publications', article_class: "has_img group"}) do |publication| %>
-      <div class="img">
-        <%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %>
+
+  <section class="publications group" id="last_24_hours">
+    <div class="g4">
+      <div class="g1"><h1 class="label">All Publications</h1></div>
+      <div class="g3">
+        <%= article_group(@other_publications, groups_of: 3, class: "has_img group") do |publication| %>
+          <div class="img">
+            <%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %>
+          </div>
+          <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+          <% if publication.summary.present? %><p class="summary"><%= publication_summary(publication) %></p><% end %>
+          <span class="metadata">
+            Published on <%= render_datetime_microformat(publication, :publication_date) {
+                               publication.publication_date.to_s(:long_ordinal)
+                             }%>
+          </span>
+        <% end %>
       </div>
-      <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-      <% if publication.summary.present? %><p class="summary"><%= publication_summary(publication) %></p><% end %>
-      <span class="metadata">
-        Published on <%= render_datetime_microformat(publication, :publication_date) {
-                           publication.publication_date.to_s(:long_ordinal)
-                         }%>
-      </span>
-    <% end %>
-  </div>
+    </div>
+  </section>
+
 <% end %>

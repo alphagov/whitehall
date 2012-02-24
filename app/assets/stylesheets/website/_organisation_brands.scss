@@ -96,16 +96,16 @@ $organisation_brands:
     }
   }
 
-    // define styles for different organisation types
-    @include add_styles_for_org('ministerial-department', false, "/government/assets/coa-default-48.gif", "/government/assets/coa-default-24.gif");
+  // define styles for different organisation types
+  @include add_styles_for_org('ministerial-department', false, "/government/assets/coa-default-48.gif", "/government/assets/coa-default-24.gif");
 
-    // define styles for individual organisations
+  // define styles for individual organisations
 
-    @each $brand in $organisation_brands {
-      $name: nth($brand, 1);
-      $color: nth($brand, 2);
+  @each $brand in $organisation_brands {
+    $name: nth($brand, 1);
+    $color: nth($brand, 2);
 
-      @include add_styles_for_org($name, $color, false, false);
+    @include add_styles_for_org($name, $color, false, false);
   }
 }
 
