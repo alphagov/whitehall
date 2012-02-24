@@ -54,7 +54,6 @@
 
       a.read {
         display: block;
-        font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
         @include type-13;
         margin-bottom: 0;
         margin-top: 0.875em;
@@ -283,11 +282,16 @@
         }
 
         h2 {
-          @include scaled_type(24,32);
+          @include scaled_type(24,24);
           font-family: $gill;
           padding: 0.5em 3%;
           margin: 0;
           display: block;
+          
+          @media only screen and (min-width: 768px) {
+            @include scaled_type(32,32);
+            margin: 0;
+          }
           
           a {
             color: #fff; 
@@ -296,6 +300,7 @@
 
         .summary {
           @include type-13;
+          font-family: $helvetica;
           color: #fff;
           margin: 0;
           padding: 0 3% 1.25em 3%;
