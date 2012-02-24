@@ -4,7 +4,7 @@
 <%= organisation_wrapper(@organisation, class: "g3") do %>
   <%= render 'header', organisation: @organisation, title: "Publications" %>
   <div class="g1f">
-    <%= render 'navigation', organisation: @organisation %>
+    <%= render 'sidebar', organisation: @organisation %>
   </div>
   <% if @publications.any? %>
     <div class="g2f">

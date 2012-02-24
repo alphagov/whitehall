@@ -303,6 +303,15 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "organisation-about-us"
   end
 
+  [:about, :agencies_and_partners, :announcements, :consultations, :contact_details, :management_team, :ministers, :policies, :publications].each do |action|
+    test "should show social media accounts on organisation #{action} subpage" do
+      social_media_account = create(:social_media_account)
+      organisation = create(:organisation, social_media_accounts: [social_media_account])
+      get action, id: organisation
+      assert_select ".social_media_accounts"
+    end
+  end
+
   test "should render the about-us content using govspeak markup" do
     organisation = create(:organisation,
       name: "organisation-name",

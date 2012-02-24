@@ -1,0 +1,12 @@
+<% if organisation.social_media_accounts.any? %>
+  <section>
+    <h1 class="label">Connect with <%= organisation.display_name %></h1>
+    <ul class="social_media_accounts">
+      <% organisation.social_media_accounts.each do |account| %>
+        <%= content_tag_for(:li, account) do %>
+          <%= social_media_account_link(account) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

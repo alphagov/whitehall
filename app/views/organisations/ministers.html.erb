@@ -4,7 +4,7 @@
 <%= organisation_wrapper(@organisation, class: "g3") do %>
   <%= render 'header', organisation: @organisation, title: "Ministers" %>
   <div class="g1f">
-    <%= render 'navigation', organisation: @organisation %>
+    <%= render 'sidebar', organisation: @organisation %>
   </div>
 
   <% if @ministerial_roles.any? %>
