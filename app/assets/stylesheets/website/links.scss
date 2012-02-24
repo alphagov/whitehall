@@ -1,21 +1,21 @@
 body.government #global-header .header-context nav, #content {
- a {
-   text-decoration: none;
+  a {
+    text-decoration: none;
 
-   &:hover {
+    &:hover {
      text-decoration: underline;
-   };
+    };
 
-   &:visited {
+    &:visited {
 
-   };
+    };
 
-   &:active {
+    &:active {
      color: #bcbd00;
-   };
+    };
 
-   &.current {
+    &.current {
      color: #242400;
-   }
- }
+    }
+  }
 }
