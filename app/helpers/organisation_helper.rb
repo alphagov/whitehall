@@ -98,7 +98,7 @@ module OrganisationHelper
   def social_media_account_link(account)
     title = "Connect with #{account.organisation.display_name} on #{account.service_name}"
     link_to account.url, title: title do
-      concat image_tag "handycons2/#{account.service_name.downcase}_16.png", alt: account.service_name
+      concat image_tag "icons/16/#{account.service_name.downcase}.png", alt: account.service_name
       concat account.service_name
     end
   end
