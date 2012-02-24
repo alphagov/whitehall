@@ -1,14 +1,14 @@
 <% page_title "About ", @organisation.name %>
 
 <%= render "beta_warning", organisation: @organisation %>
-<%= organisation_wrapper(@organisation, class: "g3") do %>
+<%= organisation_wrapper(@organisation, class: "g4") do %>
 
   <%= render 'header', organisation: @organisation, title: "About" %>
   <div class="g1f">
     <%= render 'sidebar', organisation: @organisation %>
   </div>
 
-  <div class="g2f about_page">
+  <div class="g3f about_page">
     <div class="g2">
       <article class="document">
         <div class="body">
@@ -23,14 +23,19 @@
         </ul>
       </nav>
     </div>
+    <% if @corporate_publications.any? %>
+      <div class="g1">
+      </div>
+      <div class="g3">
+        <%= article_section("Corporate publications", @corporate_publications, {id: 'publications'}) do |publication| %>
+          <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+          <span class="metadata">
+            Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+
   </div>
 
-  <% if @corporate_publications.any? %>
-    <%= article_section("Corporate publications", @corporate_publications, {id: 'publications'}) do |publication| %>
-      <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-      <span class="metadata">
-        Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
-      </span>
-    <% end %>
-  <% end %>
 <% end %>

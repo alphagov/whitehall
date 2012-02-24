@@ -1,14 +1,14 @@
 <% page_title "Policies", @organisation.name %>
 
 <%= render "beta_warning", organisation: @organisation %>
-<%= organisation_wrapper(@organisation, class: "g3") do %>
+<%= organisation_wrapper(@organisation, class: "g4") do %>
   <%= render 'header', organisation: @organisation, title: "Policies" %>
   <div class="g1f">
     <%= render 'sidebar', organisation: @organisation %>
   </div>
 
   <% if @policies.any? %>
-    <div class="g2f">
+    <div class="g3f">
       <%= article_section("Policies", @policies, {id: 'policies'}) do |policy| %>
         <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
         <span class="metadata">

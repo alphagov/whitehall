@@ -1,14 +1,14 @@
 <% page_title "Consultations", @organisation.name %>
 
 <%= render "beta_warning", organisation: @organisation %>
-<%= organisation_wrapper(@organisation, class: "g3") do %>
+<%= organisation_wrapper(@organisation, class: "g4") do %>
   <%= render 'header', organisation: @organisation, title: "Consultations" %>
   <div class="g1f">
     <%= render 'sidebar', organisation: @organisation %>
   </div>
 
   <% if @consultations.any? %>
-    <div class="g2f">
+    <div class="g3f">
       <%= article_section("Consultations", @consultations, {id: 'consultations'}) do |consultation| %>
         <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
         <span class="metadata">

@@ -1,13 +1,13 @@
 <% page_title "Agencies & Partners", @organisation.name %>
 
 <%= render "beta_warning", organisation: @organisation %>
-<%= organisation_wrapper(@organisation, class: "g3") do %>
+<%= organisation_wrapper(@organisation, class: "g4") do %>
   <%= render 'header', organisation: @organisation, title: "Agencies &amp; partners" %>
   <div class="g1f">
     <%= render 'sidebar', organisation: @organisation %>
   </div>
 
-  <div class="g2f">
+  <div class="g3f">
     <% if @organisation.child_organisations.any? %>
       <section id="child_organisations" class="info">
         <% in_columns(@organisation.child_organisations, 3) do |organisation_group| %>
