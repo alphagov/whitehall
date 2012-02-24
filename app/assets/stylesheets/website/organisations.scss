@@ -51,6 +51,10 @@
       margin-bottom: 0.375em;
       padding-left: 1.5%;
     }
+    .parent_organisations,
+    .description {
+      @include type-14;
+    }
   }
 
   .organisation, .country {
