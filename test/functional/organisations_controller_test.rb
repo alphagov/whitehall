@@ -37,8 +37,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "shows featured news articles in order of first publication date with most recent first" do
     organisation = create(:organisation)
-    less_recent_news_article = create(:featured_news_article, first_published_at: 2.days.ago)
-    more_recent_news_article = create(:featured_news_article, first_published_at: 1.day.ago)
+    less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
+    more_recent_news_article = create(:published_news_article, first_published_at: 1.day.ago)
     create(:document_organisation, document: less_recent_news_article, organisation: organisation, featured: true)
     create(:document_organisation, document: more_recent_news_article, organisation: organisation, featured: true)
 
@@ -50,7 +50,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "shows a maximum of 3 featured news articles" do
     organisation = create(:organisation)
     4.times do
-      news_article = create(:featured_news_article)
+      news_article = create(:published_news_article)
       create(:document_organisation, document: news_article, organisation: organisation, featured: true)
     end
 
@@ -61,7 +61,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "shows organisation's featured news article with image" do
     lead_image = create(:image)
-    news_article = create(:featured_news_article, images: [lead_image])
+    news_article = create(:published_news_article, images: [lead_image])
     organisation = create(:organisation, documents: [news_article])
     create(:document_organisation, document: news_article, organisation: organisation, featured: true)
 
