@@ -1,5 +1,6 @@
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/clearfix";
+@import "../shared/utils/grid";
 
 #content {
   //List where all the elements
@@ -24,24 +25,17 @@
     h1 {
       @include type-21;
     }
-
-    padding-top: 1em;
   }
 
   .alphabetical_row {
-    padding-bottom: 1.5em;
-    margin: 0;
-  }
+    margin-bottom: 1.5em;
 
-  .alphabetical_group {
     h2 {
-      @include type-24;
-      color: #fff;
-      text-align: center;
-      width: 1.5em;
-      padding-top: 0.25em;
-      padding-bottom: 0.25em;
-      background: #ddd;
+      @include scaled_type(14, 24);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0;
+      color: #333;
     }
 
     ul {
@@ -66,6 +60,12 @@
           margin-bottom: 0;
         }
       }
+    }
+  }
+
+  .alphabetical_list#ministerial_roles {
+    li.ministerial_role {
+      @include span_one_column;
     }
   }
 }

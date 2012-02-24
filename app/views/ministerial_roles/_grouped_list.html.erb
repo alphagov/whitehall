@@ -1,9 +1,9 @@
-<div class="alphabetical_list g3f">
+<div class="alphabetical_list group" id="ministerial_roles">
   <% ministerial_roles.group_by {|r| (r.current_person_surname || '-').first.upcase }.sort.in_groups_of(3, false) do |row| %>
-    <div class="group alphabetical_row g3f">
-      <% row.each do |letter, ministerial_roles_group| %>
-        <div class="alphabetical_group g1" id="ministerial_roles_<%= letter.downcase %>">
-          <h2><%= letter %></h2>
+    <% row.each do |letter, ministerial_roles_group| %>
+      <div class="alphabetical_row g4" id="ministerial_roles_<%= letter.downcase %>">
+        <div class="g1f"><h2 class="label"><%= letter %></h2></div>
+        <div class="g3f">
           <%= render_list_of_ministerial_roles ministerial_roles_group do |ministerial_role| %>
             <div class="image_holder">
               <%= link_to image_for_ministerial_role(ministerial_role), ministerial_role %>
@@ -12,7 +12,7 @@
             <p class="role"><%= link_to ministerial_role.name, ministerial_role %></p>
           <% end %>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

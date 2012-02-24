@@ -1,6 +1,6 @@
 <ul class="policies">
   <% policies.each do |policy| %>
-    <%= content_tag_for(:li, policy) do %>
+    <%= content_tag_for(:li, policy, class: "g1") do %>
       <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %>
     <% end %>
   <% end %>

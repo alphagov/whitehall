@@ -1,6 +1,6 @@
 <ul class="countries">
   <% countries.each do |country| %>
-    <%= content_tag_for(:li, country) do %>
+    <%= content_tag_for(:li, country, class: "g1") do %>
       <%= if country.active?
             link_to country.name, country_path(country)
           else
