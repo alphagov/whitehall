@@ -29,8 +29,8 @@
 
   @include type_styles;
 
-  @media only screen and (min-width: 1024px) {
-    width: 88%;
+  @media only screen and (min-width: 768px) {
+    width: 84%;
   }
 
   section {
