@@ -8,3 +8,8 @@ Scenario: Redirecting /bis
   Given the organisation "Department for Business, Innovation and Skills" exists
   When I visit "/bis"
   Then I should see the "Department for Business, Innovation and Skills" organisation's home page
+
+Scenario: Redirecting an upper case URL
+  Given the organisation "Department for Business, Innovation and Skills" exists
+  When I visit "/BIS"
+  Then I should see the "Department for Business, Innovation and Skills" organisation's home page

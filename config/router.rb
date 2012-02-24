@@ -6,6 +6,7 @@ begin
     app.ensure_prefix_route Whitehall.router_prefix
     VanityRedirector.new(Rails.root.join("app", "data", "vanity-redirects.csv")).each do |r, _|
       app.ensure_full_route r
+      app.ensure_full_route r.upcase
     end
   end
 rescue Router::Conflict => conflict_error

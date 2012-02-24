@@ -119,6 +119,7 @@ Whitehall::Application.routes.draw do
 
   VanityRedirector.new(Rails.root.join("app", "data", "vanity-redirects.csv")).each do |from, to|
     match from, to: redirect(to)
+    match from.upcase, to: redirect(to)
   end
 
   mount TestTrack::Engine => "test" if Rails.env.test?
