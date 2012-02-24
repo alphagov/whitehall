@@ -1,3 +1,4 @@
 <%= render 'navigation', organisation: organisation %>
+<p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(organisation) %></p>
 <p class="description"><%= organisation.description %></p>
 <%= render 'social_media_accounts', organisation: organisation %>

@@ -51,16 +51,6 @@
       margin-bottom: 0.375em;
       padding-left: 1.5%;
     }
-    .parent_organisations {
-      @include type-12;
-      margin-bottom: 0.75em;
-    }
-    &.ministerial-department {
-      .parent_organisations {
-        margin-top: -1.25em;
-        padding-left: 84px;
-      }
-    }
   }
 
   .organisation, .country {
