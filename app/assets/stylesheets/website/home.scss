@@ -9,7 +9,7 @@
 
     @include branded_news($name, $color, false, false);
   }
-#content{
+#content .inside_gov_home{
   h1.page_title{
     font-family:$gill; 
     @include type-16;
@@ -20,62 +20,61 @@
     text-transform:uppercase;    
     font-weight:normal;
   }
-  .inside_gov_home {
-    section.featured_carousel{
-      background-color:none;
-    }
-    .published_document{
-     @include type-21;
-     line-height:1em;
-     margin:0;
-     padding:0; 
-    }
-    .organisation{
-      font-family:$gill; 
-      @include type-14;
-      letter-spacing:0.15em;
-      text-transform:uppercase;
-      padding-top:0.25em;
-      margin:0;
-      a{
-        color:inherit;
-      }
-    }
-    h2{
-      padding:0.5em 1em;
-      margin:0;
-    }
-    p{
-      padding:0.5em 1em;
-    }
-    .meta{
-      padding:0.5em 1em;
-    }
-    .metadata{
-      @include type-12;
-      display:inline;
-    }
-    .g4f{
-      background-color:#F8F7ED;
-    }
-    .slider_wrap {
-      .slidecontrols {
-        bottom:200px;
-        width:20%;
-      }
-      .carousel-tabs {
-        width:46px;
-        bottom:202px;
-      }
-    }
-    .recently_updated {
-      li {
-        padding:0.5em 0.5em;
-        margin:0 0 0.5em 0;
-        background-color:#fff;
-      }
+  section.featured_carousel{
+    background-color:none;
+  }
+  .published_document{
+    @include type-21;
+    line-height:1em;
+    margin:0;
+    padding:0; 
+  }
+  .organisation{
+    font-family:$gill; 
+    @include type-14;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    padding-top:0.25em;
+    margin:0;
+    a{
+      color:inherit;
     }
   }
+  h2{
+    padding:0.5em 1em;
+    margin:0;
+  }
+  p{
+    padding:0.5em 1em;
+  }
+  .meta{
+    padding:0.5em 1em;
+  }
+  .metadata{
+    @include type-12;
+    display:inline;
+  }
+  .g4f{
+    background-color:#F8F7ED;
+  }
+  .slider_wrap {
+    .slidecontrols {
+      bottom:200px;
+      width:20%;
+    }
+    .carousel-tabs {
+      width:46px;
+      bottom:202px;
+    }
+  }
+  .recently_updated {
+    li {
+      padding:0.5em 0.5em;
+      margin:0 0 0.5em 0;
+      background-color:#fff;
+    }
+  }
+
   section.featured_carousel article .img{
     min-height:320px;
     background-color:#999876;

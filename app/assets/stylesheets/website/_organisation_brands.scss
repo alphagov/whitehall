@@ -111,20 +111,22 @@ $organisation_brands:
 
 
 @mixin branded_news($org_class, $colour, $logo_image_url, $logo_image_url_small) {
-  .recently_updated{
-    .#{$org_class} {
-        @if $colour {
-          border-left: 6px solid $colour;
-        }
-        .organisation{
+  .inside_gov_home{
+    .recently_updated{
+      .#{$org_class} {
           @if $colour {
-            color: $colour;
+            border-left: 6px solid $colour;
           }
-          a{
-            color:inherit;
+          .organisation{
+            @if $colour {
+              color: $colour;
+            }
+            a{
+              color:inherit;
+            }
           }
         }
       }
-    }
+  }
 }
 
