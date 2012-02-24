@@ -1,0 +1,33 @@
+<% if news_articles.any? %>
+  <section class="<%= featured_carousel_classes(options) %>" id="featured-news-articles">
+    <% news_articles.each do |news_article| %>
+      <%= content_tag_for(:article, news_article, nil, class: document_organisation_class(news_article)) do %>
+        <div class="img<%= news_article.lead_image.present? ? '' : ' no-image' %>">
+          <% if news_article.lead_image.present? %>
+            <%= image_tag(news_article.lead_image.url) %>
+          <% end %>
+        </div>
+        <div class="news_body">
+          <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
+          <% unless news_article.summary.blank? %>
+            <p class="summary"><%= news_article.summary %></p>
+          <% end %>
+          <div class="meta">
+            <span class="published_at">Posted <%= render_datetime_microformat(news_article, :first_published_at) do %>
+                <%= time_ago_in_words(news_article.first_published_at) %> ago
+              <% end %>
+            </span>
+            <% news_article.policy_topics.uniq.each do |pa| %>
+              <%= link_to pa.name, policy_topic_path(pa), class: "policy_topic tag" %>
+            <% end %>
+            <% unless options[:organisational_context] %>
+              <% news_article.organisations.uniq.each do |org| %>
+                <%= link_to organisation_display_name(org), organisation_path(org), class: "organisation tag" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </section>
+<% end %>

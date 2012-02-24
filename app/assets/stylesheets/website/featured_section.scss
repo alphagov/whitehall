@@ -4,6 +4,7 @@
 @import "../shared/utils/shadows";
 @import "../shared/utils/rounded_corners";
 @import "../shared/utils/gradients";
+@import "../shared/utils/grid";
 
 #content {
   section.featured_items {
@@ -256,61 +257,6 @@
       padding: 0;
       min-height: 200px;
 
-      .news_body {
-        background: #333;
-        bottom: 0;
-        left: 0;
-        min-height: 200px;
-        position: absolute;
-        z-index: 100;
-        
-        @media only screen and (min-width: 600px) {
-          width: 75%;
-        }
-        
-        @media only screen and (min-width: 768px) {
-          padding-left: 25%;
-          width: 50%;
-        }
-
-        h2 {
-          @include scaled_type(24,24);
-          font-family: $gill;
-          padding: 0.5em 1.5%;
-          margin: 0;
-          display: block;
-          
-          @media only screen and (min-width: 768px) {
-            @include scaled_type(32,32);
-            margin: 0;
-          }
-          
-          a {
-            color: #fff; 
-          }
-        }
-
-        .summary {
-          @include type-14;
-          font-family: $helvetica;
-          color: #fff;
-          margin: 0;
-          padding: 0 1.5% 1.25em 1.5%;
-        }
-
-        div.meta {
-          padding: 0.25em 1.5% 0.5em 1.5%;
-
-          span {
-            @include type-12;
-            color: #fff;
-            display: block;
-            margin-bottom: 0;
-            margin-right: 1em;
-          }
-        }
-      }
-
       .img {
         display: none;
         width: 100%;
@@ -384,6 +330,66 @@
 
   }
 
+}
+
+#content {
+  .organisation_news {
+    .news_body {
+      @include flood_four_columns;
+      background: #333;
+      bottom: 0;
+      left: 0;
+      min-height: 200px;
+      position: absolute;
+      z-index: 100;
+    
+      @media only screen and (min-width: 600px) {
+        width: 75%;
+      }
+    
+      @media only screen and (min-width: 768px) {
+        padding-left: 25%;
+        width: 50%;
+      }
+
+      h2 {
+        @include scaled_type(24,24);
+        font-family: $gill;
+        padding: 0.5em 1.5%;
+        margin: 0;
+        display: block;
+      
+        @media only screen and (min-width: 768px) {
+          @include scaled_type(32,32);
+          margin: 0;
+        }
+      
+        a {
+          color: #fff; 
+        }
+      }
+
+      .summary {
+        @include type-14;
+        font-family: $helvetica;
+        color: #fff;
+        margin: 0;
+        padding: 0 1.5% 1.25em 1.5%;
+      }
+
+      div.meta {
+        padding: 0.25em 1.5% 0.5em 1.5%;
+
+        span {
+          @include type-12;
+          color: #fff;
+          display: block;
+          margin-bottom: 0;
+          margin-right: 1em;
+        }
+      }
+    }
+  }
 }
 
 .lte-ie8 {

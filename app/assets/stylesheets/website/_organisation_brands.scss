@@ -50,7 +50,7 @@ $organisation_brands:
       }
     }
 
-    .featured_carousel .news_body {
+    .organisation_news .news_body {
       @if $colour {
         background-color: $colour;
       }

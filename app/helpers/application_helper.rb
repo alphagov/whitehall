@@ -193,4 +193,10 @@ module ApplicationHelper
       yield items.shift(a + (i < b ? 1 : 0))
     }
   end
+
+  def featured_carousel_classes(options = {})
+    classes = ["featured_carousel"]
+    classes << "organisation_news" if options[:organisational_context]
+    classes.join(" ")
+  end
 end
