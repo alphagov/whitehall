@@ -11,6 +11,7 @@
       margin-bottom: 0;
       margin-top: 0.2em;
       padding-bottom: 0.75em;
+      color:#2E8A99;
     }
 
     .expanded {
@@ -20,7 +21,7 @@
     .row {
       @include flood_three_columns;
       border-right: none;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #2E8A99;
       padding-top: 1em;
       padding-bottom: 0;
 

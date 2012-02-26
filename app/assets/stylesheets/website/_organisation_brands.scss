@@ -49,7 +49,11 @@ $organisation_brands:
         border-color: $colour;
       }
     }
-
+    .metadata {
+      @if $colour {
+        color: $colour;
+      }
+    }
     .organisation_news .news_body {
       @if $colour {
         background-color: $colour;
