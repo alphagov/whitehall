@@ -29,6 +29,17 @@ class SiteControllerTest < ActionController::TestCase
     draft_documents.each { |d| refute_select_object(d) }
   end
 
+  test "index shows only the lead (well, first) organisation responsible for each document" do
+    lead_org = create(:organisation, name: "Department of Fun")
+    other_org = create(:organisation, name: "Ministry of Unpleasantness")
+    docment = create(:published_policy, organisations: [lead_org, other_org])
+
+    get :index
+
+    assert_select_object lead_org
+    refute_select_object other_org
+  end
+
   test "index distinguishes between published and updated documents" do
     first_edition = create(:published_policy)
     updated_edition = create(:published_policy, published_at: Time.zone.now, first_published_at: 1.day.ago)
