@@ -3,12 +3,10 @@
   min-height: 1.5em * 3;
 }
 
-.consultation, .consultation_response {
-  .icon {
-    $width: 60px;
-    padding-left: $width + 16px;
-    background-image: url(/government/assets/icons/48/consultation.png);
-  }
+.consultation .icon, .consultation_response .icon, #wrapper.consultations-index .icon {
+  $width: 60px;
+  padding-left: $width + 16px;
+  background-image: url(/government/assets/icons/48/consultation.png);
 }
 
 // .countries .icon {
@@ -19,7 +17,7 @@
 //   background-image: url(/government/assets/icons/48/minister.png);
 // }
 
-.news .icon, .news_article .icon, #wrapper.announcements-index .icon {
+.news .icon, .news_article .icon, #wrapper.announcements-index .icon, #wrapper.news-index .icon {
   $width: 53px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/news.png);
@@ -37,19 +35,19 @@
   }
 }
 
-.policytopic .icon {
+.policytopic .icon, #wrapper.policy-topics-index .icon {
   $width: 41px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/policytopic.png);
 }
 
-.publications-index .icon, .publication .icon {
+#wrapper.publications-index .icon, .publication .icon {
   $width: 46px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/publication.png);
 }
 
-.speech .icon {
+.speech .icon, #wrapper.speeches-index .icon {
   $width: 51px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/speech.png);
