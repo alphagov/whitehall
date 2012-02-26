@@ -9,9 +9,14 @@
 
     h1.page_title {
       @include type-32;
-      font-family: $helvetica;
+      font-family: $gill;
       line-height: 1.1em;
       margin-bottom: 0.375em;
+    }
+
+    h1.page_title.name {
+      font-family: $helvetica;
+      line-height: 1.1em;
     }
 
     h2 {
