@@ -1,10 +1,27 @@
 <div class="img">
   <%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %>
+  <div class="attachments_meta">
+    <% if publication.attachments.size > 0 %>
+      <% attachment = publication.attachments.first %>
+      <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>
+      <% if attachment.number_of_pages.present? %>
+        <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
+      <% end %>
+      <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
+    <% end %>
+  </div>
 </div>
-<h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-<% if publication.summary.present? %><p class="summary"><%= publication_summary(publication) %></p><% end %>
-<span class="metadata">
-  Published on <%= render_datetime_microformat(publication, :publication_date) {
-                     publication.publication_date.to_s(:long_ordinal)
-                   }%>
-</span>
+
+<div class="text">
+  <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+  <% if publication.summary.present? %>
+    <p class="summary"><%= publication_summary(publication) %></p>
+  <% end %>
+  <div class="meta">
+    <span class="published_on">
+      Published on <%= render_datetime_microformat(publication, :publication_date) {
+                         publication.publication_date.to_s(:long_ordinal)
+                       }%>
+    </span>
+  </div>
+</div>

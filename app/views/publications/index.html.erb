@@ -11,21 +11,12 @@
 
 <% if @other_publications.any? %>
 
-  <section class="publications group" id="last_24_hours">
-    <div class="g4">
+  <section class="publications group four_column_list" id="all_publications">
+    <div class="g4f">
       <div class="g1"><h1 class="label">All Publications</h1></div>
-      <div class="g3">
-        <%= article_group(@other_publications, groups_of: 3, class: "has_img group") do |publication| %>
-          <div class="img">
-            <%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %>
-          </div>
-          <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-          <% if publication.summary.present? %><p class="summary"><%= publication_summary(publication) %></p><% end %>
-          <span class="metadata">
-            Published on <%= render_datetime_microformat(publication, :publication_date) {
-                               publication.publication_date.to_s(:long_ordinal)
-                             }%>
-          </span>
+      <div class="g3f">
+        <%= article_group(@other_publications, groups_of: 3, class: "has_img row") do |publication| %>
+          <%= render partial: "publication", locals: {publication: publication} %>
         <% end %>
       </div>
     </div>
