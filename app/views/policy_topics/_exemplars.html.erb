@@ -1,11 +1,14 @@
-<p>
-  This is a test website and we haven’t produced content for this area yet. For
-  examples of the kind of material that will go here please have a look at one
-  of these areas:
-</p>
+<section id="beta-content-warning" class="g4">
+<div class="beta-content-warning">
+  <h1>BETA</h1>
+  <div>
+    <p>This is a test website and we haven’t produced content for this area yet. For examples of the kind of material that will go here please have a look at one of these areas:</p>
 
-<ul>
-  <% @exemplary_policy_topics.each do |policy_topic| %>
-    <li><%= link_to(policy_topic.name, policy_topic_path(policy_topic)) %></li>
-  <% end %>
-</ul>
+    <ul class="further-areas">
+      <% @exemplary_policy_topics.each do |policy_topic| %>
+        <li><%= link_to(policy_topic.name, policy_topic_path(policy_topic)) %></li>
+      <% end %> 
+    </ul>
+  </div>
+</div>
+</section>
