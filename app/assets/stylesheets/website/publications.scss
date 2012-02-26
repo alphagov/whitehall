@@ -3,9 +3,19 @@
 @import "../shared/utils/grid";
 @import "organisation_brands";
 
+$publications_color: rgb(46, 49, 145);
+
 #content {
 
+  #featured-publications .row {
+      border-bottom: 1px solid $publications_color;
+  }
+
   section.publications.four_column_list {
+    .row {
+      border-bottom: none;
+    }
+    
     article {
       padding-left: 0;
       min-height: 96px;
