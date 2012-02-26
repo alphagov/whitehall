@@ -44,6 +44,7 @@
         $image_height: (297px / 2);
         padding-left: ($image_width + $inner_padding * 2 + 10px);
         min-height: 96px;
+
         div.img {
           overflow: hidden;
           position: absolute;
@@ -54,14 +55,11 @@
           padding: $inner_padding $inner_padding 0 $inner_padding;
           a img {
             margin: 0;
+            width: $image_width;
+
           }
         }
-
-
       }
-    }
-
-    &.last {
     }
 
     .no_content {

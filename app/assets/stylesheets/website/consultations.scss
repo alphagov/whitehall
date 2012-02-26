@@ -4,7 +4,7 @@
   // TODO: needs review
   nav.consultations_scope {
     display: inline-block;
-    margin: 1.25em 1em 0 1em;
+    margin: 1.5em 0;
     padding: 0;
     width: 11.85em;
     border: none;
@@ -41,14 +41,6 @@
       &.current {
         color: #444;
       }
-    }
-
-    @media only screen and (min-width: 1035px) {
-      top: 0;
-      right: 1.5em;
-      position: absolute;
-      text-align: right;
-      margin-right: 0;
     }
   }
 }

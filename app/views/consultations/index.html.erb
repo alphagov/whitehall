@@ -32,7 +32,7 @@
 </div>
 
 <div class="g3f">
-  <nav class="consultations_scope group" role="navigation">
+  <nav class="consultations_scope g3 group" role="navigation">
     <%= link_to_filter('all', action: 'index') %>
     <%= link_to_filter('open', action: 'open') %>
     <%= link_to_filter('closed', action: 'closed') %>
@@ -40,7 +40,7 @@
 
   <% scoped_title = scope_description.present? ? scope_description.titlecase : 'All' %>
   <% if @consultations.any? %>
-    <%= article_section("#{scoped_title} consultations".strip, @consultations, {id: 'consultations', article_class: "has_img group"}) do |consultation| %>
+    <%= article_section("#{scoped_title} consultations".strip, @consultations, {id: 'consultations', article_class: "has_img group", article_wrapper_class: "g1"}) do |consultation| %>
       <div class="img">
         <%= link_to image_tag(consultation.has_thumbnail? ? consultation.thumbnail_url : 'pub-cover.png'), public_document_path(consultation) %>
       </div>
