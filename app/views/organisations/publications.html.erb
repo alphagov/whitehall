@@ -3,12 +3,12 @@
 <%= render "beta_warning", organisation: @organisation %>
 <%= organisation_wrapper(@organisation, class: "g4") do %>
   <%= render 'header', organisation: @organisation, title: "Publications" %>
-  <div class="g1 sidebar">
+  <div class="g1f sidebar">
     <%= render 'sidebar', organisation: @organisation %>
   </div>
   <% if @publications.any? %>
     <div class="g3f">
-      <%= article_section("Publications", @publications, {id: 'publications'}) do |publication| %>
+      <%= article_section("Publications", @publications, {id: 'publications', article_wrapper_class: "g1"}) do |publication| %>
         <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
         <span class="metadata">
           Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>

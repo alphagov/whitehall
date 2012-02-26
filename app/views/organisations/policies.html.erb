@@ -3,13 +3,13 @@
 <%= render "beta_warning", organisation: @organisation %>
 <%= organisation_wrapper(@organisation, class: "g4") do %>
   <%= render 'header', organisation: @organisation, title: "Policies" %>
-  <div class="g1 sidebar">
+  <div class="g1f sidebar">
     <%= render 'sidebar', organisation: @organisation %>
   </div>
 
   <% if @policies.any? %>
     <div class="g3f">
-      <%= article_section("Policies", @policies, {id: 'policies'}) do |policy| %>
+      <%= article_section("Policies", @policies, {id: 'policies', article_wrapper_class: "g1"}) do |policy| %>
         <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
         <span class="metadata">
           Updated <%= time_ago(policy.updated_at, class: 'updated_at') %>

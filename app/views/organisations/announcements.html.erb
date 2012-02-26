@@ -3,13 +3,13 @@
 <%= render "beta_warning", organisation: @organisation %>
 <%= organisation_wrapper(@organisation, class: "g4") do %>
   <%= render 'header', organisation: @organisation %>
-  <div class="g1 sidebar">
+  <div class="g1f sidebar">
     <%= render 'sidebar', organisation: @organisation %>
   </div>
 
   <% if @announcements.any? %>
     <div class="g3f">
-      <%= article_section("News & Speeches", @announcements, {id: 'announcements'}) do |announcement| %>
+      <%= article_section("News & Speeches", @announcements, {id: 'announcements', article_wrapper_class: "g1"}) do |announcement| %>
         <h2 class="article_title"><%= link_to announcement.title, public_document_path(announcement), title: "View #{announcement.title}", class: "title" %></h2>
         <% if announcement.summary.present? %><p class="summary"><%= announcement.summary %></p><% end %>
         <span class="metadata">
