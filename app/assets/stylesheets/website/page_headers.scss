@@ -4,14 +4,14 @@
 
 #content {
   section.page_header {
-    margin-top: 1.125em;
+    margin-top: 0.75em;
     padding-bottom: 0;
 
     h1.page_title {
-      @include type-44;
-      font-weight: normal;
-      margin-top: 0.375em;
-      padding: 0;
+      @include type-32;
+      font-family: $helvetica;
+      line-height: 1.1em;
+      margin-bottom: 0.375em;
     }
 
     h2 {

@@ -88,6 +88,11 @@
       text-transform: uppercase;
     }
 
+    &.article_section {
+      h1 {
+        @extend .label;
+      }
+    }
   }
 
   /* CODE */

@@ -1,19 +1,34 @@
 <% page_title "About #{@country.name}" %>
 
-<div class="g3f country">
-  <section class="g3 page_header countries">
-    <h1 class="country page_title"><%= @country.name %></h1>
-  </section>
+<%= content_tag_for(:div, @country) do %>
+  <%= render "beta_warning", country: @country %>
 
-  <%= render 'navigation', country: @country %>
+  <div class="g4">
+    <section class="page_header countries">
+      <h1 class="country name page_title"><%= @country.name %></h1>
+    </section>
+  </div>
 
-  <div class="g3f document_page">
-    <div class="g2 document_view">
-      <article class="document">
-        <div class="body">
-          <%= govspeak_to_html @country.about %>
-        </div>
-      </article>
+  <div class="g4f">
+    <div class="g1 sidebar">
+      <%= render 'navigation', country: @country %>
+      <section id="about_us" class="info">
+        <h1 class="label">About us</h1>
+        <p class="about">
+          <span class="description"><%= format_with_html_line_breaks(@country.description) %></span>
+          <a href="<%= about_country_path(@country) %>" title='<%= "Further information about #{@country.name}" %>'>Read more<span class="visuallyhidden"> about <%= @country.name %></span>.</a>
+        </p>
+      </section>
+    </div>
+
+    <div class="g3f document_page">
+      <div class="g2 document_view">
+        <article class="document">
+          <div class="body">
+            <%= govspeak_to_html @country.about %>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

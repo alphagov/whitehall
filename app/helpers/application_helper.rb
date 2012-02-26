@@ -158,20 +158,22 @@ module ApplicationHelper
   def article_section(title, collection, options = {}, &block)
     content_tag(:section, id: options[:id], class: "article_section") do
       concat content_tag(:h1, title)
-      article_group(collection, groups_of: 3, class: "row", article_class: options[:article_class], &block)
+      article_group(collection, groups_of: 3, class: "row", article: { class: options[:article_class], wrapper_class: options[:article_wrapper_class] }, &block)
       concat content_tag(:p, options[:more], class: "readmore") if options[:more]
     end
   end
 
   def article_group(items, options = {}, &block)
+    options = options.reverse_merge({ article: { wrapper_class: "g1" }})
+
     article_groups = items.in_groups_of(options[:groups_of], false)
     article_groups.each_with_index do |article_group, index|
       row_class = ["group", options[:class]]
       row_class << "last" if index == article_groups.length-1
       row = content_tag(:div, class: row_class.compact.join(" ")) do
         article_group.each do |item|
-          div = content_tag(:div, class: "g1") do
-            css_classes = (options[:article_class] || "") + " " + document_organisation_class(item)
+          div = content_tag(:div, class: options[:article][:wrapper_class]) do
+            css_classes = (options[:article][:class] || "") + " " + document_organisation_class(item)
             article = content_tag_for(:article, item, class: css_classes) do
               block.call(item).html_safe
             end.html_safe
