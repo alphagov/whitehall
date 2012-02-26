@@ -4,7 +4,7 @@ module AnnouncementsHelper
       annoucements.in_groups_of(options[:groups_of], false) do |announcement_group|
         row = content_tag(:div, class: ["row", "row_#{announcement_row_number}", options[:class]].compact.join(" ")) do
           cells = announcement_group.map do |announcement|
-            content_tag(:div, class: 'g1') do
+            content_tag(:div) do
               if announcement.is_a?(NewsArticle)
                 render partial: "announcements/news_article", locals: { news_article: announcement, display: options[:partial] }
               else
