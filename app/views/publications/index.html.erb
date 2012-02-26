@@ -1,21 +1,33 @@
 <% page_title "Publications" %>
+<% page_class "publications-index" %>
 
 <div class="g4">
-  <section class="page_header publication">
+  <section class="page_header publication icon">
     <h1 class="page_title">Publications</h1>
     <p class="explanation">Recent and featured government publications and papers</p>
   </section>
 </div>
 
-<%= render partial: 'featured_publications', locals: {featured_publications: @featured_publications} %>
+<% if @featured_publications.any? %>
+  <section class="publications group four_column_list" id="featured-publications">
+    <div class="g4f">
+      <div class="g1"><h1 class="label">Featured publications</h1></div>
+      <div class="g3f">
+        <% article_group(@featured_publications[0..2], groups_of: 3, class: "has_img row") do |publication| %>
+          <%= render partial: "publication", locals: {publication: publication} %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
 
 <% if @other_publications.any? %>
 
   <section class="publications group four_column_list" id="all_publications">
     <div class="g4f">
-      <div class="g1"><h1 class="label">All Publications</h1></div>
+      <div class="g1"><h1 class="label">Other Publications</h1></div>
       <div class="g3f">
-        <% article_group(@other_publications[0..1], groups_of: 3, class: "has_img row") do |publication| %>
+        <% article_group(@other_publications, groups_of: 3, class: "has_img row") do |publication| %>
           <%= render partial: "publication", locals: {publication: publication} %>
         <% end %>
       </div>

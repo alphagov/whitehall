@@ -22,7 +22,7 @@
   </head>
   <body class="website government">
     <div class="header-context group"><!-- deliberately empty --></div>
-    <div id="wrapper">
+    <div id="wrapper" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
       <nav class="group" id="global-nav" role="navigation">
         <div class="inner">
           <ul>

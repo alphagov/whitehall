@@ -1,5 +1,6 @@
 .icon {
   background-repeat: no-repeat;
+  min-height: 1.5em * 3;
 }
 
 .consultation, .consultation_response {
@@ -18,12 +19,10 @@
 //   background-image: url(/government/assets/icons/48/minister.png);
 // }
 
-.news, .news_article {
-  .icon {
-    $width: 53px;
-    padding-left: $width + 16px;
-    background-image: url(/government/assets/icons/48/news.png);
-  }
+.news .icon, .news_article .icon, #wrapper.announcements-index .icon {
+  $width: 53px;
+  padding-left: $width + 16px;
+  background-image: url(/government/assets/icons/48/news.png);
 }
 
 // .organisation .icon {
@@ -44,7 +43,7 @@
   background-image: url(/government/assets/icons/48/policytopic.png);
 }
 
-.publication .icon {
+.publications-index .icon, .publication .icon {
   $width: 46px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/publication.png);
@@ -54,10 +53,6 @@
   $width: 51px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/speech.png);
-}
-
-.news-speech .icon {
-  background-image: url(/government/assets/icons/48/news-speech.png);
 }
 
 .search .icon {

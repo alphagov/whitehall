@@ -10,6 +10,10 @@ module ApplicationHelper
     end
   end
 
+  def page_class(css_class)
+    content_for(:page_class, css_class)
+  end
+
   def show_session_controls?
     params[:controller].split("/").first == "admin" ||
     params[:controller] == "sessions"
