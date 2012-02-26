@@ -26,7 +26,7 @@
       <div class="g1">
       </div>
       <div class="g3">
-        <%= article_section("Corporate publications", @corporate_publications, {id: 'publications'}) do |publication| %>
+        <%= article_section("Corporate publications", @corporate_publications, {id: 'publications',  article_wrapper_class: "g1"}) do |publication| %>
           <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
           <span class="metadata">
             Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
