@@ -1,7 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
 class CountryTest < ActiveSupport::TestCase
-  test "should be invalid without a name" do
+  test 'should be invalid without a name' do
     country = build(:country, name: nil)
     refute country.valid?
   end
@@ -33,5 +33,21 @@ class CountryTest < ActiveSupport::TestCase
       create(:country, name: name)
     end
     assert_equal 3, Country.featured.length
+  end
+
+  test 'should return hard-coded urls for featured countries' do
+    spain = create(:country, name: 'Spain')
+    assert_equal %w[ http://ukinspain.fco.gov.uk ], spain.urls
+
+    uganda = create(:country, name: 'Uganda')
+    assert_equal %w[ http://ukinuganda.fco.gov.uk http://www.dfid.gov.uk/Uganda ], uganda.urls
+
+    usa = create(:country, name: 'USA')
+    assert_equal %w[ http://ukinusa.fco.gov.uk ], usa.urls
+  end
+
+  test 'should return no urls for countries that are not featured.' do
+    country = create(:country)
+    assert_equal [], country.urls
   end
 end
