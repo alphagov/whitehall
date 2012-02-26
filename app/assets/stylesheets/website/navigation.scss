@@ -38,6 +38,10 @@
         a {
           background-color: #0C0C0C;
           background-color: rgba(0,0,0,0.8);
+          
+          &:hover {
+            color: #7F7F7F;
+          }
         }
       }
     }
