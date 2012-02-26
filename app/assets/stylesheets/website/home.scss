@@ -3,14 +3,13 @@
 @import "../shared/utils/clearfix";
 @import "organisation_brands";
 
-  @each $brand in $organisation_brands {
-    $name: nth($brand, 1);
-    $color: nth($brand, 2);
+@each $brand in $organisation_brands {
+  $name: nth($brand, 1);
+  $color: nth($brand, 2);
 
-    @include branded_news($name, $color, false, false);
-  }
+  @include branded_news($name, $color, false, false);
+}
 #content .inside_gov_home{
-
   h1.page_title{
     font-family:$gill; 
     @include type-16;
