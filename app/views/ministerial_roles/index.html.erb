@@ -11,11 +11,11 @@
   <ul id="cabinet" class="floated_list group g3">
     <% @cabinet_ministerial_roles.each do |role| %>
       <li class="ministerial_role g1">
-        <div class="image_holder">
+        <div class="group"><div class="image_holder">
           <%= link_to image_for_ministerial_role(role), role %>
         </div>
         <h3 class="current_appointee"><%= role.current_person_name %></h3>
-        <p class="role"><%= link_to role.name, role %></p>
+        <p class="role"><%= link_to role.name, role %></p></div>
       </li>
     <% end %>
   </ul>

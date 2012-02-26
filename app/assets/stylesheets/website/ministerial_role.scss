@@ -6,44 +6,59 @@
 
 #content {
   .cab_ministers{
-    .image_holder{
-    height: 72px;
-    width: 72px;
-    padding-right:0.5em;
-    float:left;
+    .ministerial_role {
+      position: relative;
+      padding-left: 84px;
+      min-height: 72px;
+
+      .image_holder{
+        height: 72px;
+        width: 72px;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
     }
+
     h2{
       @include type-14;
       font-family: $gill;
       text-transform: uppercase;
     }
+
     .current_appointee{
       @include type-14;
       margin:0;
       padding:0 0 0.275em 0;
-      padding-left:0.5em;
     }
+
     .role{
       @include type-12;
+      margin-bottom: 0;
       line-height:1em;
     }
   }
+
   .cab_ministers.other{
-    h2{
-      margin-bottom: -20px;
-    }
     border-top:1px solid #000;
     padding-top:1em;
+
     .alphabetical_row{
+
+      .g1f {
+        text-align: right;
+      }
+
       h2{
         font-size:2.3em;
         color:#fff;
         background-color:#bbb;
-        display:block;
+        display:inline-block;
         width:72px;
         padding:0.345em 0 0.345em 0.1em;
         text-align:center;
-        float:right;
       }
     }
   }
@@ -54,7 +69,7 @@
 
       @include add_styles_for_org($name, $color, false, false);
     }
-    
+
     .page_header {
       h1 {
         @include type-46;
