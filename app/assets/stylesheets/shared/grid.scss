@@ -58,10 +58,16 @@
 
     > .g2 {
       @include span_two_columns(left, 97%, 1.5%, 1.5%, 4);
+      .g1 {
+        @include span_one_column(left, 97%, 1.5%, 1.5%, 2);
+      }
     }
 
     > .g3 {
       @include span_three_columns(left, 97%, 1.5%, 1.5%, 4);
+      .g1 {
+        @include span_one_column(left, 97%, 1.5%, 1.5%, 3);
+      }
     }
 
     > .g1f {
@@ -70,10 +76,16 @@
 
     > .g2f {
       @include flood_two_columns(left, 4);
+      .g1 {
+        @include span_one_column(left, 97%, 1.5%, 1.5%, 2);
+      }
     }
 
     > .g3f {
       @include flood_three_columns(left, 4);
+      .g1 {
+        @include span_one_column(left, 97%, 1.5%, 1.5%, 3);
+      }
     }
   }
 
@@ -98,14 +110,21 @@
 
     > .g2f {
       @include flood_two_columns(left, 4);
+
+      .g1 {
+        @include span_one_column(left, 97%, 1.5%, 1.5%, 2);
+      }
     }
 
     > .g3f {
       @include flood_three_columns(left, 4);
+      .g1 {
+        @include span_one_column(left, 97%, 1.5%, 1.5%, 3);
+      }
     }
 
   }
-  
+
   .g-half {
     @include grid_column;
 
@@ -128,19 +147,19 @@
       margin-left: 0;
     };
   }
-  
+
   .gutter {
     margin-left: 1.5%;
     margin-right: 1.5%;
   }
-  
+
   .g1f, .g2f, .g3f, .g4f {
     .gutter {
       margin-left: 2.5%;
       margin-right: 2.5%;
     }
   }
-  
+
   .g2 {
     .gutter {
       margin-left: 1.5%;
