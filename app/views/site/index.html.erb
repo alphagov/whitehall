@@ -21,7 +21,7 @@
             <%= content_tag_for :li, document, class: document_organisation_class(document) do %>
           
               <div class="published_document"><%= link_to document.title, public_document_path(document), class: "title" %></div>
-              <% document.organisations.each do |organisation| %>
+              <% document.organisations[0,1].each do |organisation| %>
                 <%= content_tag_for :div, organisation do %> by
                   <%= link_to organisation.logo_formatted_name, organisation_path(organisation) %>
                 <% end %>

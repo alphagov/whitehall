@@ -3,49 +3,40 @@
 @import "organisation_brands";
 
 #content {
-  section.publications, section.featured_items {
-  	article.publication {
-      p {
-        font-family: inherit;
-      }
+
+  section.publications.four_column_list {
+    article {
+      padding-left: 0;
+      min-height: 96px;
 
       div.img {
-        @include box-shadow(0, 0, 2px, #ddd);
-        background: #fff;
-        padding: 5px 5px 0 5px;
-        a img {
-          margin: 0;
+        padding: 5px;
+        height: 7.5em;
+        position: static;
+        margin-bottom: 1.5em;
+
+        img {
+          float: left;
+          width: auto;
+          max-height: 100%;
+          max-width: 50%;
+        }
+        .attachments_meta {
+          @include type-11;
+          float: left;
+          margin-left: 1.5em;
+          width: 40%;
+          span { display: block; }
         }
       }
-
-      h2.article_title {
-        margin-bottom: 0.75em
-      }
-    }
-  }
-
-  section.publications {
-    article.publication {
-      &.has_img {
-        padding-left: 0;
-        min-height: 96px;
-      }
-
 
       @each $brand in $organisation_brands {
         $name: nth($brand, 1);
         $color: nth($brand, 2);
 
         &.#{$name} div.img {
-          border-left: 20px solid $color;
+          background-color: mix($color, #fff);
         }
-      }
-
-      div.img {
-        height: 7.5em;
-        overflow: hidden;
-        position: static;
-        margin-bottom: 1.5em;
       }
   	}
   }
