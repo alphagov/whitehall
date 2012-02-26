@@ -12,6 +12,10 @@ $publications_color: rgb(46, 49, 145);
   }
 
   section.publications.four_column_list {
+    .label {
+      color: $publications_color;
+    }
+    
     .row {
       border-bottom: none;
     }
