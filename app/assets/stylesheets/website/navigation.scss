@@ -1,4 +1,5 @@
 @import "../shared/utils/type_sizing";
+@import "../shared/utils/type_stacks";
 @import "../shared/globals";
 
 #global-nav {
@@ -9,6 +10,37 @@
     overflow: hidden;
     margin: 0 auto;
     padding: 0;
+    
+    ul {
+     list-style: none;
+     margin: 0;
+     padding: 0;
+     @media only screen and (min-width: 1024px) {
+       margin-left: 11.25em;
+     }
+     
+      li {
+        float: left;
+      }
+      
+      #inside_gov_link {
+        font-family: $gill;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      
+        @media only screen and (min-width: 1024px) {
+          position: fixed;
+          top: 2.65em;
+          left: 8.5%;
+          z-index: 1500;
+        }
+        
+        a {
+          background-color: #0C0C0C;
+          background-color: rgba(0,0,0,0.8);
+        }
+      }
+    }
   }
 
   @media only screen and (min-width: 1024px) {
