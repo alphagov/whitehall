@@ -24,7 +24,7 @@
     <div class="g2f">
       <% if @international_priorities.any? %>
         <div class="g1">
-          <%= article_section("Priorities", @international_priorities, {id: 'international_priorities', article_wrapper_class: ''}) do |international_priorities| %>
+          <%= article_section("Priorities", @international_priorities, {id: 'international_priorities', class: 'latest_documents', article_wrapper_class: ''}) do |international_priorities| %>
             <h2 class="article_title"><%= link_to international_priorities.title, public_document_path(international_priorities), title: "View #{international_priorities.title}", class: "title" %></h2>
             <span class="metadata">
               Updated <%= time_ago(international_priorities.updated_at, class: 'updated_at') %>
@@ -35,7 +35,7 @@
 
       <% if @news_articles.any? %>
         <div class="g1">
-          <%= article_section("News Articles", @news_articles, {id: 'news_articles'}) do |news_article| %>
+          <%= article_section("News", @news_articles, {id: 'news_articles', class: 'latest_documents'}) do |news_article| %>
             <h2 class="article_title"><%= link_to news_article.title, public_document_path(news_article), title: "View #{news_article.title}", class: "title" %></h2>
             <span class="metadata">
               Updated <%= time_ago(news_article.updated_at, class: 'updated_at') %>
@@ -46,7 +46,7 @@
 
       <% if @speeches.any? %>
         <div class="g1">
-          <%= article_section("Speeches", @speeches, {id: 'speeches'}) do |speech| %>
+          <%= article_section("Speeches", @speeches, {id: 'speeches', class: 'latest_documents'}) do |speech| %>
             <h2 class="article_title"><%= link_to speech.title, public_document_path(speech), title: "View #{speech.title}", class: "title" %></h2>
             <span class="metadata">
               Updated <%= time_ago(speech.updated_at, class: 'updated_at') %>
@@ -57,7 +57,7 @@
 
       <% if @policies.any? %>
         <div class="g1">
-          <%= article_section("Policies", @policies, {id: 'policies'}) do |policy| %>
+          <%= article_section("Policies", @policies, {id: 'policies', class: 'latest_documents'}) do |policy| %>
             <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
             <span class="metadata">
               Updated <%= time_ago(policy.updated_at, class: 'updated_at') %>
@@ -68,7 +68,7 @@
 
       <% if @publications.any? %>
         <div class="g1">
-          <%= article_section("Publications", @publications, {id: 'publications'}) do |publication| %>
+          <%= article_section("Publications", @publications, {id: 'publications', class: 'latest_documents'}) do |publication| %>
             <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}", class: "title" %></h2>
             <span class="metadata">
               Updated <%= time_ago(publication.updated_at, class: 'updated_at') %>
