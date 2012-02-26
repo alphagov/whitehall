@@ -156,7 +156,7 @@ module ApplicationHelper
   end
 
   def article_section(title, collection, options = {}, &block)
-    content_tag(:section, id: options[:id], class: "article_section") do
+    content_tag(:section, id: options[:id], class: ["article_section", options[:class]]) do
       concat content_tag(:h1, title)
       article_group(collection, groups_of: 3, class: "row", article: { class: options[:article_class], wrapper_class: options[:article_wrapper_class] }, &block)
       concat content_tag(:p, options[:more], class: "readmore") if options[:more]
