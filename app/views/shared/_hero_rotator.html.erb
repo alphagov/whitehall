@@ -16,7 +16,7 @@
           </div>
           <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
           <% unless news_article.summary.blank? %>
-            <p class="summary"><%= truncate(news_article.summary, length: 140) %></p>
+            <p class="summary"><%= truncate(news_article.summary, length: 150, separator: ' ') %></p>
           <% end %>
         </div>
       <% end %>
