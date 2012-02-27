@@ -22,18 +22,14 @@ jQuery(function($) {
     $(this).addClass('slider');
     $(this).find('article').addClass('slide');
     $(this).wrap($.div('', '.slider_wrap'));
-
-    $('.slider_wrap').carousel(
-      {
-        slider: '.slider',
-           slide: '.slide',
-           nextSlide : '.next',
-           prevSlide : '.prev',
-           addNav: true,
-           addPagination: true,
-           speed: 300 // ms.
-      }
-    );
+    $('.slider_wrap').carousel({
+      slider: '.slider',
+      slide: '.slide',
+      addNav: true,
+      addPagination: false,
+      namespace: 'carousel',
+      speed: 300 // ms.
+    });
   });
 
 });

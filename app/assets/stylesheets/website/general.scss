@@ -7,6 +7,7 @@
 
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/clearfix";
+@import "../shared/typography";
 
 #content {
 
@@ -44,17 +45,9 @@
       margin-bottom: 0.25em;
 
       &.published_or_updated {
-        @include scaled_type(11, 12);
-        font-weight: bold;
-        letter-spacing: 0.15em;
-        margin-bottom: 0.5455em;
-        text-transform: uppercase;
-
-        .published_at {
-          font-weight: normal;
-        }
+        @include upcase_datetime;
       }
-      
+
       .document_type {
         @include type-14;
       }
@@ -71,7 +64,7 @@
       line-height: 1.125em;
     }
   }
-  
+
   ul.policy_topics {
     li {
       display: inline;

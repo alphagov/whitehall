@@ -93,7 +93,7 @@
         @extend .label;
       }
     }
-    
+
     .article_title {
       margin-bottom: 0;
     }
@@ -127,5 +127,17 @@
   /* Label style inherited from citizen format 'label' in page titles */
   .label {
 
+  }
+}
+
+@mixin upcase_datetime {
+  @include scaled_type(11, 12);
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5455em;
+  text-transform: uppercase;
+
+  .published_at {
+    font-weight: normal;
   }
 }
