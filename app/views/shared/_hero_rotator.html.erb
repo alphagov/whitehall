@@ -2,9 +2,11 @@
   <section class="<%= featured_carousel_classes(options) %>" id="featured-news-articles">
     <% news_articles.each do |news_article| %>
       <%= content_tag_for(:article, news_article, nil, class: document_organisation_class(news_article)) do %>
-        <div class="img<%= news_article.lead_image.present? ? '' : ' no-image' %>">
+        <div class="img">
           <% if news_article.lead_image.present? %>
             <%= image_tag(news_article.lead_image.url) %>
+          <% else %>
+            <%= image_tag('blank.gif', height: "1") %>
           <% end %>
         </div>
         <div class="news_body">

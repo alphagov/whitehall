@@ -77,7 +77,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows organisation's featured news article without image" do
+  test "shows organisation's featured news article with a blank image where no image has been supplied" do
     news_article = create(:published_news_article)
     organisation = create(:organisation, documents: [news_article])
     create(:document_organisation, document: news_article, organisation: organisation, featured: true)
@@ -85,8 +85,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select_object news_article do
-      refute_select ".img img"
-      assert_select ".img.no-image"
+      assert_select ".img img[src$='blank.gif']"
     end
   end
 

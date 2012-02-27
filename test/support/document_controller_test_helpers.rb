@@ -184,12 +184,12 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "index should not display an image for a featured news article if it does not have one" do
+      test "index should display blank image which can be resizes when an image for a featured news article does not exist" do
         document = create(:featured_news_article)
         get :index
         assert_select featured_news_articles_selector do
           assert_select_object document do
-            refute_select ".img img"
+            assert_select ".img img[src$='blank.gif']"
           end
         end
       end

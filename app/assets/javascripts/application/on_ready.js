@@ -3,6 +3,7 @@ jQuery(function($) {
   $("abbr.time_ago").timeago();
   $('section.featured_items').equalHeightHelper({selectorsToResize: ['h2 a', 'p.summary', 'div.image_summary']});
   $('section.article_group').equalHeightHelper({selectorsToResize: ['article']});
+  $('#featured-news-articles').equalHeightHelper({selectorsToResize: ['.img img']});
   $('.change_notes').policyUpdateNotes({link:'.link-to-change-notes'});
   $('#global-nav').each(function () {
     $(this).find('.inner ul').append($.li('', '.st'));
