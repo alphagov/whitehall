@@ -1,5 +1,7 @@
-<div class="alphabetical_list group" id="policy_topics">
-  <h1 class="g3 label">A-Z Listing</h1>
+<div class="alphabetical_list group g4f" id="policy_topics">
+  <div class="g4">
+    <h1 class="label">A-Z Listing</h1>
+  </div>
 
   <% policy_topics.group_by {|t| t.name.first.upcase }.sort.in_groups_of(3, false) do |row| %>
     <% row.each do |letter, policy_topic_group| %>

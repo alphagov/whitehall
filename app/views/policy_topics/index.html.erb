@@ -6,8 +6,11 @@
     <h1 class="page_title">Policy topics</h1>
     <p class="explanation">Current government policies, related news and publications grouped by topic</p>
   </section>
+</div>
 
-  <% if @featured_policy_topics.any? %>
+
+<% if @featured_policy_topics.any? %>
+  <div class="g3f">
     <section class="featured_items group" id="featured-policytopics">
       <% @featured_policy_topics.each do |featured_policy_topic| %>
         <div class="<%= featured_grid_class(@featured_policy_topics.length) %>">
@@ -20,9 +23,8 @@
         </div>
       <% end %>
     </section>
-  <% end %>
-
-</div>
+  </div>
+<% end %>
 
 <div class="g3f">
   <% if @policy_topics.any? %>
