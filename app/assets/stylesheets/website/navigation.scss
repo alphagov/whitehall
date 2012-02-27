@@ -42,6 +42,9 @@
           &:hover {
             color: #7F7F7F;
           }
+          &.current {
+            color:#fff;
+          }
         }
       }
     }

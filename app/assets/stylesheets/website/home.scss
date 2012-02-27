@@ -9,10 +9,30 @@
 
   @include branded_news($name, $color, false, false);
 }
+#wrapper.inside_gov{
+  background-color:#eee;
+  background-image:url(/government/assets/uk-map.png);
+  background-position: 50% 0;
+  background-repeat:no-repeat;
+}
+#wrapper.inside_gov #content {
+  background: none repeat scroll 0 50% transparent;
+}
 #content .inside_gov_home{
+  .beta-site{
+    strong{
+      display:block;
+    }
+    background-color:#F17921;
+    padding:0.5em;
+  }
   .g1 {
     margin-left:12.5%;
     a{
+      font-weight:bold;
+    }
+    p span{
+      text-transform:uppercase;
       font-weight:bold;
     }
   }
@@ -20,8 +40,8 @@
     font-family:$gill;
     @include type-44;
     text-transform:none;
-    padding:0.5em 0.75em;
-    margin: 0 0 1em 0;
+    padding:0.75em 0.75em 0.5em;
+    margin: 0 9%;
     text-transform:none;
     font-weight:normal;
     span{
@@ -62,12 +82,7 @@
     @include type-12;
     display:inline;
   }
-  .g4f{
-    background-color:#eee;
-    background-image:url(/government/assets/uk-map.png);
-    background-position: -300px 0px;
-    background-repeat:no-repeat;
-  }
+
   
 
 
