@@ -1,6 +1,6 @@
 $collation-green: #CDCE00;
 
-$organisation_brand_labels:
+$section_brand_labels:
   ('policy', #F37920)
   ('newsarticle', #2E8ACA)
   ('speech', #859A3B)
@@ -10,7 +10,7 @@ $organisation_brand_labels:
 
   
 #content  {
-  @each $brand in $organisation_brand_labels {
+  @each $brand in $section_brand_labels {
     $name: nth($brand, 1);
     $color: nth($brand, 2);
 
