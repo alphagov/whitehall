@@ -3,6 +3,7 @@
 @import "../shared/utils/type_stacks";
 @import "../shared/utils/grid";
 @import "../shared/utils/transitions";
+@import "../shared/typography";
 
 #content {
   section.featured_items {
@@ -253,11 +254,12 @@
     article {
       width: 100%;
       padding: 0;
-      min-height: 200px;
+      min-height: 190px;
 
       .img {
         display: none;
         width: 100%;
+        max-height: 480px;
 
         img {
           display: block;
@@ -392,7 +394,7 @@
       background: #333;
       bottom: 0;
       left: 0;
-      min-height: 200px;
+      min-height: 190px;
       position: absolute;
       z-index: 100;
 
@@ -408,13 +410,14 @@
       h2 {
         @include scaled_type(24,24);
         font-family: $gill;
-        padding: 0.5em 1.5%;
-        margin: 0;
+        padding: 0 3.5%;
+        margin-bottom: 0.75em;
         display: block;
 
         @media only screen and (min-width: 768px) {
           @include scaled_type(32,32);
-          margin: 0;
+          padding: 0 1.5%;
+          margin-bottom: 0.25em;
         }
 
         a {
@@ -426,19 +429,21 @@
         @include type-14;
         font-family: $helvetica;
         color: #fff;
-        margin: 0;
-        padding: 0 1.5% 1.25em 1.5%;
+        padding: 0 72px 0 72px;
+        margin-bottom: 0.75em;
+
+        @media only screen and (min-width: 768px) {
+          padding-left: 1.5%;
+        }
       }
 
       div.meta {
-        padding: 0.25em 1.5% 0.5em 1.5%;
+        @include upcase_datetime;
+        padding: 1.091em 3.5% 0 3.5%;
+        color: #fff;
 
-        span {
-          @include type-12;
-          color: #fff;
-          display: block;
-          margin-bottom: 0;
-          margin-right: 1em;
+        @media only screen and (min-width: 768px) {
+          padding: 1.091em 1.5% 0 1.5%;
         }
       }
     }
