@@ -2,6 +2,8 @@ $collation-green: #CDCE00;
 
 $section_brand_labels:
   ('policy', #F37920)
+  ('priority_policies', #F37920)
+  ('all_policies', #F37920)
   ('newsarticle', #2E8ACA)
   ('speech', #859A3B)
   ('consultation', #D43783)
@@ -20,6 +22,12 @@ $section_brand_labels:
           color: $color;
         }
       }
+      .article_section h1{
+        @if $color {
+          color: $color;
+        }
+      } 
     }
+    
   }
 }
