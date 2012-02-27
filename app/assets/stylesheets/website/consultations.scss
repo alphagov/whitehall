@@ -4,7 +4,12 @@
 #content {
   .document_page {
     .notice.events {
-      background-color:#D33883;
+      background-color: #db43a1;
+
+      &.response {
+        background-color: #2e3485;
+      }
+
       color:#fff;
       padding:1.2em 1.5em 0.2em 1.5em;
 
@@ -37,7 +42,6 @@
     .notice.events+.notice.events {
       position: relative;
       margin-top: -1em;
-      opacity: 0.6666;
     }
   }
 

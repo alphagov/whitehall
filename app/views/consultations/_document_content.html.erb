@@ -3,7 +3,7 @@
 <% end %>
 
 <% if @document.response_published? %>
-<section class="notice events">
+<section class="notice events response">
   <p class="response_published_on">
     <%= link_to consultation_response_phrase(@document), consultation_response_path(@document.document_identity) %>
   </p>
