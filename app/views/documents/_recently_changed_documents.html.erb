@@ -1,10 +1,10 @@
 <% if recently_changed_documents.any? %>
-  <section id="recently-changed" class="latest_documents gutter">
+  <section id="recently-changed" class="latest_documents">
     <h1 class="label"><%= title %></h1>
-    <ul>
+    <ul class="">
       <% recently_changed_documents.each do |document| %>
         <%= content_tag_for :li, document do %>
-          <div class="metadata">
+          <div class="metadata published_or_updated">
             <%= published_or_updated(document).titleize %> <%= time_ago(document.published_at, class: 'published_at') %>
           </div>
           <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
