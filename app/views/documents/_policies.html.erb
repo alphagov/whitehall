@@ -1,5 +1,5 @@
 <% if policies.any? %>
-  <%= article_section("What we're doing", policies, {id: 'policies', article_wrapper_class: "g1"}) do |policy| %>
+  <%= article_section(title, policies, {id: 'policies', article_wrapper_class: "g1"}) do |policy| %>
     <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}"%></h2>
     <p class="summary"><%= policy.summary %>&hellip;</p>
   <% end %>
