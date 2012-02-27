@@ -8,9 +8,10 @@
   .cab_ministers{
     .ministerial_role {
       position: relative;
-      /*padding-left: 84px;*/
       min-height: 72px;
-
+      .current_appointee, h3{
+        padding-left: 84px;
+      }
       .image_holder{
         height: 72px;
         width: 72px;
@@ -19,7 +20,6 @@
         top: 0;
         left: 0;
       }
-
     }
 
     h2{
@@ -46,20 +46,24 @@
     padding-top:1em;
 
     .alphabetical_row{
-
       .g1f {
         text-align: right;
       }
-
       h2{
         font-size:2.3em;
         color:#fff;
         background-color:#bbb;
         display:inline-block;
-        width:72px;
+        width:100%;
         padding:0.345em 0 0.345em 0.1em;
         text-align:center;
       }
+      @media only screen and (min-width: 768px) {
+        h2{
+          width:72px;
+        }
+      }
+      
     }
   }
   .ministerial_role_page {
