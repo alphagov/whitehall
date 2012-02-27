@@ -24,7 +24,7 @@ $organisation_brands:
   ('multiple_organisations', rgb(100, 100, 100));
 
 @mixin add_styles_for_org($org_class, $colour, $logo_image_url, $logo_image_url_small) {
-  .ministerial-department.#{$org_class} {
+  .organisation.ministerial-department.#{$org_class} {
     .page_header {
       h1.name {
         @if $colour {
