@@ -11,13 +11,13 @@
 }
 #content .inside_gov_home{
   h1.page_title{
-    font-family:$gill; 
+    font-family:$gill;
     @include type-16;
     background-color:#666;
     color:#fff;
     padding:0.5em 0.75em;
     margin: 0 0 1em 0;
-    text-transform:uppercase;    
+    text-transform:uppercase;
     font-weight:normal;
   }
   section.featured_carousel{
@@ -27,10 +27,10 @@
     @include type-21;
     line-height:1em;
     margin:0;
-    padding:0; 
+    padding:0;
   }
   .organisation{
-    font-family:$helvetica; 
+    font-family:$helvetica;
     @include type-14;
     letter-spacing:0.05em;
     text-transform:uppercase;
@@ -61,7 +61,7 @@
     .slidecontrols, .carousel-tabs {
       display:none;
     }
-  
+
     @media only screen and (min-width: 600px) {
       .slidecontrols {
         display:block;
@@ -97,7 +97,7 @@
       }
     }
 
-    
+
   }
   .recently_updated {
     li {
@@ -111,23 +111,13 @@
     display:none;
     background-color:#999876;
   }
+
   @media only screen and (min-width: 600px) {
-    section.featured_carousel article .img{ 
+    section.featured_carousel article .img{
       display:block;
-    
     }
   }
-  @media only screen and (min-width: 768px) {
-    section.featured_carousel article .img{ 
-     
-    }
-  }
-  @media only screen and (min-width: 1024px) {
-    section.featured_carousel article .img{ 
-     
-    }
-  }
-  
+
 }
 
 
@@ -267,6 +257,6 @@
         display: none;
       }
     }
-  } 
- 
+  }
+
 }

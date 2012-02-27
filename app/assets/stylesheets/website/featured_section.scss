@@ -272,7 +272,6 @@
         }
 
         &.no-image {
-          min-height: 200px;
           background: #eee;
         }
       }
@@ -290,12 +289,12 @@
       right: 48px;
       z-index: 160;
       width: 42px;
-      
+
       @media only screen and (min-width: 600px) {
         bottom: 154px;
         right: 10%;
       }
-      
+
       @media only screen and (min-width: 768px) {
         right: 10.5%;
       }
@@ -328,12 +327,71 @@
 			background: #777;
 		}
 
-  }
+    .slidecontrols{
+      margin: 0;
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+  /*      width: 15%;*/
+      width: 104px;
+      z-index: 155;
 
+      @media only screen and (min-width: 600px) {
+        width: 15%;
+        bottom: 140px;
+        right: 5%;
+      }
+
+      li{
+        float:right;
+        margin: 0;
+        height: 47px;
+        width: 29px;
+
+        a {
+          display: block;
+          height: 47px;
+          width: 29px;
+          margin: 0;
+          text-indent: -9999px;
+          background-image: url(/government/assets/carousel-arrows.png);
+          background-repeat:no-repeat;
+          background-position:0 100%;
+
+
+          &.carousel-disabled {
+            display: none;
+          }
+        }
+
+        a:hover, a:focus, a:active{
+          outline:none;
+        }
+      }
+
+      li:last-child{
+        float:left;
+        a {
+          background-image: url(/government/assets/carousel-arrows.png);
+          background-position:0 0;
+        }
+      }
+    }
+  }
 }
 
 #content {
   .organisation_news {
+    article.news_article {
+      .img {
+        img {
+          @media only screen and (min-width: 768px) {
+            margin-top: -15%;
+          }
+        }
+      }
+    }
+
     .news_body {
       @include flood_four_columns;
       background: #333;
@@ -342,11 +400,11 @@
       min-height: 200px;
       position: absolute;
       z-index: 100;
-    
+
       @media only screen and (min-width: 600px) {
         width: 75%;
       }
-    
+
       @media only screen and (min-width: 768px) {
         padding-left: 25%;
         width: 50%;
@@ -358,14 +416,14 @@
         padding: 0.5em 1.5%;
         margin: 0;
         display: block;
-      
+
         @media only screen and (min-width: 768px) {
           @include scaled_type(32,32);
           margin: 0;
         }
-      
+
         a {
-          color: #fff; 
+          color: #fff;
         }
       }
 
