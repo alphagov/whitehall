@@ -4,7 +4,8 @@
 
 #content {
   section.page_header {
-    margin-top: 0.75em;
+    margin-top: 1.5em;
+    margin-bottom: 2em;
     padding-bottom: 0;
     
     // this might not be needed if .gutter's margins are incorrect globally
@@ -14,10 +15,10 @@
     }
 
     h1.page_title {
-      @include type-32;
+      @include type-44;
       font-family: $gill;
       line-height: 1.1em;
-      margin-bottom: 0.375em;
+      margin-bottom: 0;
     }
 
     h1.page_title.name {

@@ -17,9 +17,12 @@
 
     section.page_header {
       margin-top: 0.75em;
+      margin-bottom: 1em;
     }
 
     h1.page_title.name {
+      @include type-32;
+      margin-bottom: 0;
       padding-left: 1.5%;
     }
 
