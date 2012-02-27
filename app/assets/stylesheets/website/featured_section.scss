@@ -1,10 +1,8 @@
 @import "../shared/colours";
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/type_stacks";
-@import "../shared/utils/shadows";
-@import "../shared/utils/rounded_corners";
-@import "../shared/utils/gradients";
 @import "../shared/utils/grid";
+@import "../shared/utils/transitions";
 
 #content {
   section.featured_items {
@@ -326,50 +324,49 @@
     .slidecontrols{
       margin: 0;
       position: absolute;
-      bottom: 16px;
-      right: 16px;
-  /*      width: 15%;*/
-      width: 104px;
+      left: 0;
+      top: 100px;
+      width: 100%;
       z-index: 155;
 
-      @media only screen and (min-width: 600px) {
-        width: 15%;
-        bottom: 140px;
-        right: 5%;
-      }
-
-      li{
-        float:right;
+      li {
         margin: 0;
-        height: 47px;
-        width: 29px;
 
         a {
-          display: block;
-          height: 47px;
-          width: 29px;
-          margin: 0;
-          text-indent: -9999px;
+          background-color: #ddd;
           background-image: url(/government/assets/carousel-arrows.png);
-          background-repeat:no-repeat;
-          background-position:0 100%;
+          background-repeat: no-repeat;
+          display: block;
+          height: 62px;
+          margin: 0;
+          position: absolute;
+          text-indent: -9999px;
+          top: 0;
+          width: 48px;
 
+          @include transition("left, right");
 
-          &.carousel-disabled {
-            display: none;
+          &.carousel-prev {
+            left: 0;
+            background-position: 40% 6px;
+
+            &.carousel-disabled {
+              left: -48px;
+            }
+          }
+
+          &.carousel-next {
+            right: 0;
+            background-position: 50% -96px;
+
+            &.carousel-disabled {
+              right: -48px;
+            }
           }
         }
 
         a:hover, a:focus, a:active{
           outline:none;
-        }
-      }
-
-      li:last-child{
-        float:left;
-        a {
-          background-image: url(/government/assets/carousel-arrows.png);
-          background-position:0 0;
         }
       }
     }

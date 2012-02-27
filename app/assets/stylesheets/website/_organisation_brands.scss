@@ -59,6 +59,12 @@ $organisation_brands:
         background-color: $colour;
       }
     }
+
+    .slider_wrap .slidecontrols li a {
+      @if $colour {
+        background-color: rgba($colour, 0.5);
+      }
+    }
   }
 
   .document_page {
