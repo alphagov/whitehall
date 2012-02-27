@@ -1,7 +1,7 @@
 <% page_title "Policy topics" %>
 <% page_class "policy-topics-index" %>
 
-<div class="g3">
+<div class="g4">
   <section class="page_header policytopic icon">
     <h1 class="page_title">Policy</h1>
     <p class="explanation">Current government policies, related news and publications grouped by topic</p>
@@ -10,23 +10,23 @@
 
 
 <% if @featured_policy_topics.any? %>
-  <div class="g3f">
-    <section class="featured_items group" id="featured-policytopics">
-      <div class="g3">
-        <h1 class="label">Featured topics</h1>
+  <section class="featured_items g4f" id="featured-policytopics">
+    <div class="g1">
+      <h1 class="label">Featured</h1>
+    </div>
+    <div class="g3">
+    <% @featured_policy_topics.each do |featured_policy_topic| %>
+      <div class="<%= featured_grid_class(@featured_policy_topics.length) %>">
+        <%= content_tag_for(:article, featured_policy_topic) do %>
+          <h2><%= link_to featured_policy_topic.name, policy_topic_path(featured_policy_topic), class: "name" %></h2>
+          <p class="summary description">
+            <%= featured_policy_topic.description %>
+          </p>
+        <% end %>
       </div>
-      <% @featured_policy_topics.each do |featured_policy_topic| %>
-        <div class="<%= featured_grid_class(@featured_policy_topics.length) %>">
-          <%= content_tag_for(:article, featured_policy_topic) do %>
-            <h2><%= link_to featured_policy_topic.name, policy_topic_path(featured_policy_topic), class: "name" %></h2>
-            <p class="summary description">
-              <%= featured_policy_topic.description %>
-            </p>
-          <% end %>
-        </div>
-      <% end %>
-    </section>
-  </div>
+    <% end %>
+    </div>
+  </section>
 <% end %>
 
 <div class="g3f">
