@@ -18,7 +18,7 @@ class PolicyTopicsControllerTest < ActionController::TestCase
 
     assert_select "#policies" do
       assert_select_object(published_policy) do
-        assert_select ".title", text: "policy-title"
+        assert_select ".article_title", text: "policy-title"
         assert_select ".summary", text: /policy-summary/
       end
     end
