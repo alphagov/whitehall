@@ -15,7 +15,8 @@ jQuery(function($) {
     appendTo: '#global-nav .inner li.st'
   });
 
-  if(".inside_gov_home"){
+  var inside_gov = $(".inside_gov_home");
+  if(inside_gov.length != 0){
     $(".recently_updated").news_ticker();
   }
   $('section.featured_carousel').each(function () {
