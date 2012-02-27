@@ -207,8 +207,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   def assert_select_speech_metadata(speech)
     assert_select ".meta" do
-      time_string = speech.first_published_at.to_s(:long_ordinal)
-      assert_select "abbr.first_published_at[title='#{speech.first_published_at.iso8601}']", text: /#{time_string}/i
+      time_string = speech.delivered_on.to_s(:long_ordinal)
+      assert_select "abbr.delivered_on[title='#{speech.delivered_on.iso8601}']", text: /#{time_string}/i
       appointment = speech.role_appointment
       assert_select "a.ministerial_role[href='#{ministerial_role_path(appointment.role)}']", text: appointment.person.name
     end
