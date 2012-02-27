@@ -120,6 +120,14 @@ $organisation_brands:
 
     @include add_styles_for_org($name, $color, false, false);
   }
+  
+  .organisation.ministerial-department.ministry-of-defence {
+    .page_header {
+      h1.name {
+        padding-left: 54px;
+      }
+    }
+  }
 }
 
 
