@@ -416,7 +416,7 @@
 
         @media only screen and (min-width: 768px) {
           @include scaled_type(32,32);
-          padding: 0 1.5%;
+          padding: 0 2.5% 0 1.5%;
           margin-bottom: 0.25em;
         }
 
