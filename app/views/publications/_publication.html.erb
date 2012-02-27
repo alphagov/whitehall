@@ -1,4 +1,4 @@
-<div class="img">
+<div class="img coverpage-thumbnail">
   <%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %>
   <div class="attachments_meta">
     <% if publication.attachments.size > 0 %>

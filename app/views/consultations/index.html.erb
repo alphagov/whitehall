@@ -1,63 +1,44 @@
 <% page_title "Consultations" %>
 <% page_class "consultations-index" %>
 
-<div class="g3">
+<div class="g4">
   <section class="page_header consultation icon">
     <h1 class="page_title">Consultations</h1>
     <p class="explanation">Read and contribute to government thinking before it becomes policy</p>
   </section>
 </div>
 
-<div class="g3f consulations">
-  <% if @featured_consultations.any? %>
-    <section class="featured_items group" id="featured-consultations">
-      <% @featured_consultations.each do |consultation| %>
-        <div class="<%= featured_grid_class(@featured_consultations.length) %>">
-          <%= content_tag_for(:article, consultation) do %>
-            <h2><%= link_to consultation.title, public_document_path(consultation), class: "title" %></h2>
-            <div class="image_summary group">
-              <div class="img"><%= link_to image_tag(consultation.has_thumbnail? ? consultation.thumbnail_url : 'pub-cover.png'), public_document_path(consultation) %></div>
-              <p class="summary">
-                <%= consultation.summary %>
-              </p>
-            </div>
-            <div class="meta">
-              <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
-              <span class="last_significant_change"><%= consultation_last_significant_change(consultation) %></span>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    </section>
-  <% end %>
-</div>
-
-<div class="g3f">
-  <nav class="consultations_scope g3 group" role="navigation">
-    <%= link_to_filter('all', action: 'index') %>
-    <%= link_to_filter('open', action: 'open') %>
-    <%= link_to_filter('closed', action: 'closed') %>
-  </nav>
-
-  <% scoped_title = scope_description.present? ? scope_description.titlecase : 'All' %>
-  <% if @consultations.any? %>
-    <%= article_section("#{scoped_title} consultations".strip, @consultations, {id: 'consultations', article_class: "has_img group", article_wrapper_class: "g1"}) do |consultation| %>
-      <div class="img">
-        <%= link_to image_tag(consultation.has_thumbnail? ? consultation.thumbnail_url : 'pub-cover.png'), public_document_path(consultation) %>
+<% if @featured_consultations && @featured_consultations.any? %>
+  <section class="consultations group four_column_list" id="featured-consultations">
+    <div class="g4f">
+      <div class="g1"><h1 class="label">Featured consultations</h1></div>
+      <div class="g3f">
+        <% article_group(@featured_consultations, groups_of: 3, class: "has_img row") do |consultation| %>
+          <%= render partial: "consultation_index_item", locals: {consultation: consultation} %>
+        <% end %>
       </div>
-      <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
-      <% if consultation.summary.present? %><p class="summary"><%= consultation.summary %></p><% end %>
-      <span class="metadata">
-        <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
-        <span class="last_significant_change"><%= consultation_last_significant_change(consultation) %></span>
-      </span>
-    <% end %>
-  <% else %>
-    <div class="g3">
-      <section class="no_content">
-        <h1><%= "#{scoped_title} consultations" %></h1>
-        <p>There are no<%= scope_description %> consultations at present.</p>
-      </section>
     </div>
-  <% end %>
-</div>
+  </section>
+<% end %>
+
+<section class="consultations group four_column_list" id="<%= params[:action] %>-consultations">
+  <div class="g4f">
+    <div class="g1">
+      <h1 class="label"><%= scope_description.capitalize %> consultations</h1>
+      <nav class="consultations_scope g3 group" role="navigation">
+        <%= link_to_filter('all', action: 'index') %>
+        <%= link_to_filter('open', action: 'open') %>
+        <%= link_to_filter('closed', action: 'closed') %>
+      </nav>
+    </div>
+    <div class="g3f">
+      <% if @consultations && @consultations.any? %>
+        <% article_group(@consultations, groups_of: 3, class: "has_img row") do |consultation| %>
+          <%= render partial: "consultation_index_item", locals: {consultation: consultation} %>
+        <% end %>
+      <% else %>
+        <p class='no-content'>There are no <%= scope_description %> consultations at present.</p>
+      <% end %>
+    </div>
+  </div>
+</section>

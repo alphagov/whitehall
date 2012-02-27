@@ -12,7 +12,7 @@
     <div class="g4f">
       <div class="g1"><h1 class="label">Featured publications</h1></div>
       <div class="g3f">
-        <% article_group(@featured_publications[0..2], groups_of: 3, class: "has_img row") do |publication| %>
+        <% article_group(@featured_publications, groups_of: 3, class: "has_img row") do |publication| %>
           <%= render partial: "publication", locals: {publication: publication} %>
         <% end %>
       </div>

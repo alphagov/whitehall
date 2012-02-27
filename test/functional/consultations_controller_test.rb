@@ -26,7 +26,7 @@ class ConsultationsControllerTest < ActionController::TestCase
     index_consultation = create(:consultation, opening_on: 1.day.from_now, closing_on: 2.days.from_now)
     get :index
 
-    assert_select '#consultations' do
+    assert_select '#index-consultations' do
       assert_select_object published_upcoming_consultation
       assert_select_object published_open_consultation
       assert_select_object published_closed_consultation
@@ -61,8 +61,8 @@ class ConsultationsControllerTest < ActionController::TestCase
   test 'index shows no list if no published consultations exist' do
     get :index
 
-    refute_select '#consultations'
-    assert_select 'p', text: 'There are no consultations at present.'
+    refute_select '#index-consultations .consultation'
+    assert_select '#index-consultations p.no-content'
   end
 
   test "index shows the summary for each consultation" do
@@ -80,16 +80,6 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_select "h1", text: "Open consultations"
   end
 
-  test "should show the featured consultations when filtering by just those that are open" do
-    featured_consultation = create(:featured_consultation, summary: "consultation-summary")
-    get :open
-    assert_select featured_consultations_selector do
-      assert_select_object featured_consultation do
-        assert_select ".summary", text: "consultation-summary"
-      end
-    end
-  end
-
   test 'open lists published open consultations' do
     published_open_consultation = create(:published_consultation, opening_on: 1.day.ago, closing_on: 1.day.from_now)
     published_closed_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
@@ -97,7 +87,7 @@ class ConsultationsControllerTest < ActionController::TestCase
     open_consultation = create(:consultation, opening_on: 1.day.ago, closing_on: 1.day.from_now)
     get :open
 
-    assert_select '#consultations' do
+    assert_select '#open-consultations' do
       assert_select_object published_open_consultation
       refute_select_object published_closed_consultation
       refute_select_object published_index_consultation
@@ -126,23 +116,13 @@ class ConsultationsControllerTest < ActionController::TestCase
   test 'open shows no list if no open consultations exist' do
     get :open
 
-    refute_select '#consultations'
-    assert_select 'p', text: 'There are no open consultations at present.'
+    refute_select '#open-consultations .consultation'
+    assert_select '#open-consultations p.no-content'
   end
 
   test "should indicate that the list of consultations is limited to only those that are closed" do
     get :closed
-    assert_select "h1", text: "Closed consultations"
-  end
-
-  test "should show the featured consultations when filtering by just those that are closed" do
-    featured_consultation = create(:featured_consultation, summary: "consultation-summary")
-    get :closed
-    assert_select featured_consultations_selector do
-      assert_select_object featured_consultation do
-        assert_select ".summary", text: "consultation-summary"
-      end
-    end
+    assert_select '#closed-consultations h1', text: "Closed consultations"
   end
 
   test 'closed lists published closed consultations' do
@@ -152,7 +132,7 @@ class ConsultationsControllerTest < ActionController::TestCase
     closed_consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
     get :closed
 
-    assert_select '#consultations' do
+    assert_select '#closed-consultations' do
       assert_select_object published_closed_consultation
       refute_select_object published_open_consultation
       refute_select_object published_index_consultation
@@ -215,8 +195,8 @@ class ConsultationsControllerTest < ActionController::TestCase
   test 'closed shows no list if no closed consultations exist' do
     get :closed
 
-    refute_select '#consultations'
-    assert_select 'p', text: 'There are no closed consultations at present.'
+    refute_select '#closed-consultations .consultation'
+    assert_select 'p.no-content'
   end
 
   test 'show displays published consultations' do

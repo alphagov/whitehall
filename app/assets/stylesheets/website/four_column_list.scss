@@ -1,0 +1,94 @@
+@import "../shared/utils/type_sizing";
+@import "../shared/utils/clearfix";
+@import "../shared/utils/grid";
+@import "organisation_brands";
+
+#content {
+  // Four column list with leftmost column containing a title
+  .four_column_list {
+    padding-top: 1em;
+
+    h1 {
+      margin-bottom: 0;
+      margin-top: 0.2em;
+      padding-bottom: 0.75em;
+    }
+
+    .row {
+      @include flood_three_columns;
+      border-right: none;
+      border-bottom: 1px solid #eee;
+      padding-top: 1em;
+      padding-bottom: 0;
+
+      article {
+        border: none;
+        padding-bottom: 0;
+        position: relative;
+        margin-bottom: 0.75em;
+
+        div.text {
+          h2 {
+            @include type-16;
+            margin-bottom: 0.75em;
+          }
+
+          .summary {
+            margin-bottom: 0;
+          }
+        }
+
+        div.img {
+          height: 10em;
+          overflow: hidden;
+          margin: 0 0 0.5em;
+        }
+
+        .meta {
+          margin-bottom: 0.5em;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  // Images which are the thumbnail of a PDF or other document. They get a coloured background
+
+  .four_column_list {
+    article {
+      padding-left: 0;
+      min-height: 96px;
+
+      div.img.coverpage-thumbnail {
+        padding: 5px;
+        height: 7.5em;
+        position: static;
+        margin-bottom: 1.5em;
+
+        img {
+          width: auto;
+          max-height: 100%;
+          max-width: 40%;
+          padding-right: 0.75em;
+          float: left;
+        }
+        .meta, .attachments_meta {
+          @include type-11;
+          margin-left: 1.5em;
+
+          span { display: block; }
+        }
+
+      }
+
+      @each $brand in $organisation_brands {
+        $name: nth($brand, 1);
+        $color: nth($brand, 2);
+
+        &.#{$name} div.img {
+          background-color: mix($color, #fff);
+        }
+      }
+  	}
+  }
+}
