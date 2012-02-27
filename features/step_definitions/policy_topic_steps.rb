@@ -110,7 +110,7 @@ end
 Then /^I should see the order of the policies in the "([^"]*)" policy topic is:$/ do |name, expected_table|
   policy_topic = PolicyTopic.find_by_name!(name)
   visit policy_topic_path(policy_topic)
-  rows = find("#policies ul.policies").all('li')
+  rows = find("#policies").all('h2')
   table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
   expected_table.diff!(table)
 end
