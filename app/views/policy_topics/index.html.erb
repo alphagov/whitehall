@@ -3,7 +3,7 @@
 
 <div class="g3">
   <section class="page_header policytopic icon">
-    <h1 class="page_title">Policy topics</h1>
+    <h1 class="page_title">Policy</h1>
     <p class="explanation">Current government policies, related news and publications grouped by topic</p>
   </section>
 </div>
@@ -12,6 +12,9 @@
 <% if @featured_policy_topics.any? %>
   <div class="g3f">
     <section class="featured_items group" id="featured-policytopics">
+      <div class="g3">
+        <h1 class="label">Featured topics</h1>
+      </div>
       <% @featured_policy_topics.each do |featured_policy_topic| %>
         <div class="<%= featured_grid_class(@featured_policy_topics.length) %>">
           <%= content_tag_for(:article, featured_policy_topic) do %>
