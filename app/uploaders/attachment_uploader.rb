@@ -35,7 +35,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   def get_first_page_as_png(width, height)
     output = `convert -resize #{width}x#{height} "#{path}[0]" "#{path}" 2>&1`
     unless $?.success?
-      Rails.logger.error "Error thumbnailing PDF. Output: #{output}; Exit status: #{$?.exitstatus}"
+      raise "Error thumbnailing PDF. Output: #{output}; Exit status: #{$?.exitstatus}"
     end
   end
 
