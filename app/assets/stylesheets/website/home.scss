@@ -10,15 +10,23 @@
   @include branded_news($name, $color, false, false);
 }
 #content .inside_gov_home{
+  .g1 {
+    margin-left:12.5%;
+    a{
+      font-weight:bold;
+    }
+  }
   h1.page_title{
     font-family:$gill;
-    @include type-16;
-    background-color:#666;
-    color:#fff;
+    @include type-44;
+    text-transform:none;
     padding:0.5em 0.75em;
     margin: 0 0 1em 0;
-    text-transform:uppercase;
+    text-transform:none;
     font-weight:normal;
+    span{
+      text-transform:uppercase;
+    }
   }
   section.featured_carousel{
     background: none repeat scroll 0 0 transparent;
@@ -55,50 +63,14 @@
     display:inline;
   }
   .g4f{
-    background-color:#F8F7ED;
+    background-color:#eee;
+    background-image:url(/government/assets/uk-map.png);
+    background-position: -300px 0px;
+    background-repeat:no-repeat;
   }
-  .slider_wrap {
-    .slidecontrols, .carousel-tabs {
-      display:none;
-    }
-
-    @media only screen and (min-width: 600px) {
-      .slidecontrols {
-        display:block;
-        bottom:250px;
-        width:32%;
-      }
-      .carousel-tabs {
-        display:block;
-        width:55px;
-        bottom:253px;
-      }
-    }
-    @media only screen and (min-width: 768px) {
-      .slidecontrols {
-        display:block;
-        bottom:253px;
-        width:25%;
-      }
-      .carousel-tabs {
-        display:block;
-        width:49px;
-        bottom:256px;
-      }
-    }
-    @media only screen and (min-width: 1024px) {
-      .slidecontrols {
-        bottom:200px;
-        width:20%;
-      }
-      .carousel-tabs {
-        width:46px;
-        bottom:202px;
-      }
-    }
+  
 
 
-  }
   .recently_updated {
     li {
       padding:0.5em 0.5em;
@@ -112,11 +84,6 @@
     background-color:#999876;
   }
 
-  @media only screen and (min-width: 600px) {
-    section.featured_carousel article .img{
-      display:block;
-    }
-  }
 
 }
 
