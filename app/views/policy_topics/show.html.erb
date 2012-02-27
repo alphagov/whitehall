@@ -2,6 +2,7 @@
 
 <div class="g4f policytopic">
   <section class="page_header icon gutter">
+    <h2 class="label">Policy topic</h2>
     <h1 class="page_title has_meta"><%= @policy_topic.name %></h1>
     <div class="meta">
       <% @policy_topic.organisations.each do |organisation| %>
@@ -24,7 +25,7 @@
         <div class="related_content group<%= @featured_policies.any? ? "" : " no_featured" %>">
           <div class="priority_policies">
             <section>
-              <h1 class="label">Current priorities</h1>
+              <h1 class="label">Featured policies in this topic</h1>
               <ul class="featured policies<%= @featured_policies.count > 6 ? " half_columns" : "" %>">
                 <% @featured_policies.each do |policy| %>
                     <%= content_tag_for :li, policy, class: "featured_policy" do %>
@@ -41,7 +42,7 @@
       <div class="g3f collection last">
         <% if @policies.any? %>
           <div class="all_policies">
-            <%= render partial: "documents/policies", object: @policies, locals: {title: "What we're doing"} %>
+            <%= render partial: "documents/policies", object: @policies, locals: {title: "All policies in this topic"} %>
           </div>
         <% else %>
           <div class="g1">
