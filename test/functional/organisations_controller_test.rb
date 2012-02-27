@@ -85,7 +85,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select_object news_article do
-      assert_select ".img img[src$='blank.gif']"
+      assert_select ".img img[src$='generic_image.jpg']"
     end
   end
 

@@ -6,7 +6,7 @@
           <% if news_article.lead_image.present? %>
             <%= image_tag(news_article.lead_image.url) %>
           <% else %>
-            <%= image_tag('blank.gif', height: "1") %>
+            <%= image_tag('generic_image.jpg') %>
           <% end %>
         </div>
         <div class="news_body">
