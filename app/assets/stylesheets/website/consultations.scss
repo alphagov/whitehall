@@ -1,6 +1,46 @@
 @import "../shared/utils/type_sizing";
+@import "../shared/utils/type_stacks";
 
 #content {
+  .document_page {
+    .notice.events {
+      background-color:#D33883;
+      color:#fff;
+      padding:1.2em 1.5em 0.2em 1.5em;
+
+      margin-bottom:1em;
+
+      p {
+        font-family: $helvetica;
+        @include type-44;
+        font-size: 1.3em;
+
+        abbr {
+          border: none;
+          display: block;
+          font-weight: bold;
+          font-size: 1.3em;
+          letter-spacing: -0.05em;
+          padding-top: 0.25em;
+        }
+
+        a {
+          color: inherit;
+          font-weight: inherit;
+          abbr {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .notice.events+.notice.events {
+      position: relative;
+      margin-top: -1em;
+      opacity: 0.6666;
+    }
+  }
+
   nav.consultations_scope {
     display: inline-block;
     margin: 1.5em 0;

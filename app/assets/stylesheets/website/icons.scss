@@ -3,10 +3,22 @@
   min-height: 1.5em * 3;
 }
 
-.consultation .icon, .consultation_response .icon, #wrapper.consultations-index .icon {
+.consultation-open .icon, #wrapper.consultations-index .icon {
   $width: 60px;
   padding-left: $width + 16px;
-  background-image: url(/government/assets/icons/48/consultation.png);
+  background-image: url(/government/assets/icons/48/consultation-open.png);
+}
+
+.consultation-closed .icon {
+  $width: 60px;
+  padding-left: $width + 16px;
+  background-image: url(/government/assets/icons/48/consultation-closed.png);
+}
+
+.consultation-responded .icon, .consultation-response .icon {
+  $width: 60px;
+  padding-left: $width + 16px;
+  background-image: url(/government/assets/icons/48/consultation-responded.png);
 }
 
 // .countries .icon {

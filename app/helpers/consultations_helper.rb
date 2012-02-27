@@ -32,4 +32,23 @@ module ConsultationsHelper
     date = render_datetime_microformat(consultation, :closing_on) { consultation.closing_on.to_s(:long_ordinal) }
     (((consultation.closing_on < Date.today) ? "Closed on " : "Closes on ") + date).html_safe
   end
+
+  def consultation_response_phrase(consultation)
+    if consultation.response_published?
+      date = render_datetime_microformat(consultation, :response_published_on) { consultation.response_published_on.to_s(:long_ordinal) }
+      ("Response published on " + date).html_safe
+    else
+      "Response not yet published"
+    end
+  end
+
+  def consultation_css_class(consultation)
+    'consultation' + if consultation.response_published?
+      ' consultation-responded'
+    elsif consultation.closed?
+      ' consultation-closed'
+    elsif consultation.open?
+      ' consultation-open'
+    end
+  end
 end

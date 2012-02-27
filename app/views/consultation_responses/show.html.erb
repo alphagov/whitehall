@@ -1,7 +1,9 @@
 <% page_title @document.title + " (Response)", "Consultations"  %>
+<% page_class 'consultation-response'  %>
+
 <div class="g4f document_page <%= @document.type.downcase %>">
-  <div class="g3">
-    <section class="page_header">
+  <div class="g3f">
+    <section class="page_header icon">
       <h2 class="label">Consultation response</h2>
       <h1 class="page_title has_meta"><%= @document.title %></h1>
     </section>

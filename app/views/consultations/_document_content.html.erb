@@ -1,12 +1,26 @@
 <% if @document.nation_inapplicabilities.any? %>
   <%= render partial: 'documents/inapplicable_nations', locals: { document: @document } %>
 <% end %>
+
+<% if @document.response_published? %>
+<section class="notice events">
+  <p class="response_published_on">
+    <%= link_to consultation_response_phrase(@document), consultation_response_path(@document.document_identity) %>
+  </p>
+</section>
+<% end %>
+
+<section class="notice events">
+  <% if @document.not_yet_open? %>
+    <p class="opening_on"><%= consultation_opening_phrase(@document) %></p>
+  <% else %>
+    <p class="closing_on"><%= consultation_closing_phrase(@document) %></p>
+  <% end %>
+</section>
+
 <article class="document has_notice">
   <div class="body">
     <%= govspeak_to_html @document.body, @document.images %>
   </div>
   <%= render partial: "attachments", locals: { document: @document } %>
 </article>
-<% if @document.published_consultation_response %>
-Response: <%= link_to "#{@document.published_consultation_response.title}", consultation_response_path(@document.document_identity) %>
-<% end %>
