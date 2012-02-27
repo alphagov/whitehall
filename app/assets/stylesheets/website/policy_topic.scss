@@ -1,3 +1,4 @@
+@import "../shared/utils/type_stacks";
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/clearfix";
 @import "../shared/utils/grid";
@@ -19,6 +20,9 @@
       color:#F37920;
     }
     .description {
+      font-family: $georgia;
+      font-size: 1.5em;
+      line-height: 1.5em;
       margin-top: 1.5em;
     }
 
@@ -28,9 +32,6 @@
       ul {
         margin-bottom: 0;
 
-        li {
-          @include type-13;
-        }
       }
     }
 
@@ -84,16 +85,18 @@
     }
 
     .priority_policies {
+      h1 {
+        @include span_three_columns;
+      }
+      
       section {
         ul {
           @include clearfix;
           margin-bottom: 0;
           li {
-            @include type-13;
             @include span_one_column;
-
-            &:first-child {
-              margin-left: 0;
+            p {
+              @include type-13;
             }
           }
           &.half_columns {
@@ -126,8 +129,9 @@
 
     .all_policies {
       section#policies {
-        margin-left: 0;
-
+        h1 {
+        }
+        
         ul {
           @media only screen and (min-width: 600px) {
             margin-bottom: 1.5em;

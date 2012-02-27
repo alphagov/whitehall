@@ -68,6 +68,20 @@
       font-weight: bold;
     }
   }
+  
+  ul.policy_topics {
+    li {
+      display: inline;
+        a {
+          @include type-14;
+          background: #eee;
+          display: block;
+          float: left;
+          padding: 0.3215em 0.643em;
+          margin: 0.3215em 0.643em 0.3215em 0;
+        }
+    }
+  }
 
   section.no_content {
     padding-top: 1.5em;

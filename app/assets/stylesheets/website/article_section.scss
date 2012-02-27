@@ -1,3 +1,4 @@
+@import "../shared/utils/type_stacks";
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/shadows";
 
@@ -11,7 +12,6 @@
 
     .row {
       margin-bottom: 0.75em;
-      padding: 0 1%;
 
       &.last {
         margin-bottom: 0;
@@ -28,6 +28,7 @@
 
       p.summary {
         @include type-14;
+        font-family: $helvetica;
         margin-bottom: 0.75em;
       }
 

@@ -148,22 +148,7 @@
     border: 1px solid #000;
   }
 
-  ul.policy_topics {
-    li {
-      display: inline;
-        a {
-          @include type-14;
-          background: #eee;
-          display: block;
-          float: left;
-
-/*          line-height: 1.286em;*/
-
-          padding: 0.3215em 0.643em;
-          margin: 0.3215em 0.643em 0.3215em 0;
-        }
-    }
-  }
+  
 
   .contact_page {
 

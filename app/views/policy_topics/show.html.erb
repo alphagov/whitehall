@@ -1,7 +1,7 @@
 <% page_title @policy_topic.name, "Policy topics" %>
 
 <div class="g4f policytopic">
-  <section class="page_header icon">
+  <section class="page_header icon gutter">
     <h1 class="page_title has_meta"><%= @policy_topic.name %></h1>
     <div class="meta">
       <% @policy_topic.organisations.each do |organisation| %>
@@ -19,33 +19,32 @@
   </div>
 
   <div class="g4f">
-    <div class="g3">
-
-      <div class="related_content group<%= @featured_policies.any? ? "" : " no_featured" %>">
-        <% if @featured_policies.any? %>
-          <div class="g3f priority_policies">
+    <div class="g3f">
+      <% if @featured_policies.any? %>
+        <div class="related_content group<%= @featured_policies.any? ? "" : " no_featured" %>">
+          <div class="priority_policies">
             <section>
               <h1 class="label">Current priorities</h1>
               <ul class="featured policies<%= @featured_policies.count > 6 ? " half_columns" : "" %>">
                 <% @featured_policies.each do |policy| %>
                     <%= content_tag_for :li, policy, class: "featured_policy" do %>
-                    <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %>
+                    <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
                     <p class="summary"><%= policy.summary %>&hellip;</p>
                   <% end %>
                 <% end %>
               </ul>
             </section>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
 
-      <div class="g2f collection last">
+      <div class="g3f collection last">
         <% if @policies.any? %>
-          <div class="all_policies collection">
+          <div class="all_policies">
             <%= render partial: "documents/policies", object: @policies, locals: {title: "What we're doing"} %>
           </div>
         <% else %>
-          <div class="">
+          <div class="g1">
             <%= render partial: "exemplars" %>
           </div>
         <% end %>

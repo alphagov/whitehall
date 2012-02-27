@@ -1,13 +1,6 @@
 <% if policies.any? %>
-  <section id="policies">
-    <h1 class="label"><%= defined?(title) ? title : "Policies" %></h1>
-    <ul class="policies">
-      <% policies.each do |policy| %>
-        <%= content_tag_for(:li, policy) do %>
-          <%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %>
-          <p class="summary"><%= policy.summary %>&hellip;</p>
-        <% end %>
-      <% end %>
-    </ul>
-  </section>
+  <%= article_section("What we're doing", policies, {id: 'policies', article_wrapper_class: "g1"}) do |policy| %>
+    <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}"%></h2>
+    <p class="summary"><%= policy.summary %>&hellip;</p>
+  <% end %>
 <% end %>
