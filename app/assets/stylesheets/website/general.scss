@@ -54,6 +54,10 @@
           font-weight: normal;
         }
       }
+      
+      .document_type {
+        @include type-14;
+      }
     }
 
     li {
@@ -62,10 +66,9 @@
 
     a {
       @include type-16;
-      margin-bottom: 0.25em;
+      margin-bottom: 0.2em;
       display: block;
       line-height: 1.125em;
-      font-weight: bold;
     }
   }
   
