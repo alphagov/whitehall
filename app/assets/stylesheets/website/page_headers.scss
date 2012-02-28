@@ -45,11 +45,6 @@
   }
 
   .meta {
-    position: relative;
-    span {
-      @include type-14;
-      margin-right: 0.5em;
-    }
 
     a.tag {
       @include type-12;

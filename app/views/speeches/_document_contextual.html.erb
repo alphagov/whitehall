@@ -1,15 +1,16 @@
 <section class="contextual_info">
-  <h1>More information</h1>
   <ul class="details">
     <li>
-      <span class="type"><%= @document.genus %></span> delivered by
+      <span class="type"><%= @document.genus %></span> by
       <span class="ministerial_role"><%= link_to @document.role, @document.role %></span>
     </li>
     <li class="delivered_on">
+      <h1>When</h1>
       <%= @document.delivered_on.to_s(:long_ordinal) %>
     </li>
     <% if @document.location %>
       <li class="location">
+        <h1>Where</h1>
         <%= @document.location %>
       </li>
     <% end %>
