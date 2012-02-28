@@ -15,6 +15,7 @@
     <ul>
       <% @results.each do |result| %>
         <li class="<%= result["format"] %>">
+          <span class="document_format"><%= result["format"].humanize %></span>
           <h2><%= link_to result["title"], result["link"] %></h2>
           <% if result["highlight"] %>
             <p class="highlight"><%= search_highlight(result["highlight"]) %></p>

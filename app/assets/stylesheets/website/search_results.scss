@@ -31,15 +31,32 @@
 
     h2 {
       @include type-18;
-      margin-bottom: 0.333em;
+      margin-bottom: 0.25em;
+    }
+    
+    .highlight {
+      font-size: 0.85em;
     }
 
     ul {
       li {
+        position: relative;
+        clear: both;
         border-bottom: 1px solid #ddd;
         margin-bottom: 0.75em;
         padding-top: 0.25em;
 
+        .document_format {
+          @include type-12;
+          letter-spacing: 0.15em;
+          line-height: 1;
+          margin-bottom: 0.25em;
+          text-transform: uppercase;
+          position: relative;
+          display: block;
+          margin-top: -0.35em;
+        }
+        
         &:last-child {
           border-bottom: 0;
           margin-bottom: 0;
