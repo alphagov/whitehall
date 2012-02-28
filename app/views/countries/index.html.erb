@@ -1,4 +1,5 @@
 <% page_title "UK and the world" %>
+<% page_class "countries-index" %>
 
 <div class="g3f">
   <section class="g3 page_header countries">
@@ -8,19 +9,28 @@
 
   <% if @featured_countries.any? %>
     <section class="featured_items group" id="featured-countries">
-      <% @featured_countries.each do |featured_country| %>
-        <div class="<%= featured_grid_class(@featured_countries.length) %>">
-          <%= content_tag_for(:article, featured_country) do %>
-            <h2><%= link_to featured_country.name, country_path(featured_country), class: "name" %></h2>
-            <p class="summary description">
-              <%= featured_country.description %>
-            </p>
+      <div class="g4f">
+        <div class="g1">
+          <h1 class="label">Featured</h1>
+        </div>
+        <div class="g3">
+          <% @featured_countries.each do |featured_country| %>
+            <div class="<%= featured_grid_class(@featured_countries.length) %>">
+              <%= content_tag_for(:article, featured_country) do %>
+                <h2><%= link_to featured_country.name, country_path(featured_country), class: "name" %></h2>
+                <p class="summary description">
+                  <%= featured_country.description %>
+                </p>
+              <% end %>
+            </div>
           <% end %>
         </div>
-      <% end %>
+      </div>
     </section>
   <% end %>
 
 </div>
 
-<%= render partial: "grouped_list", locals: {countries: @countries} %>
+<div class="g3f">
+  <%= render partial: "grouped_list", locals: {countries: @countries} %>
+</div>

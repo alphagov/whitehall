@@ -1,4 +1,9 @@
-<div class="alphabetical_list group" id="countries">
+<section class="alphabetical_list group g4f" id="countries">
+  <div class="g1">
+    <h1 class="label">All countries, missions &amp; delegations</h1>
+  </div>
+  <div class="g3">
+  </div>
   <% countries.group_by {|c| c.name.first.upcase }.sort.in_groups_of(3, false) do |row| %>
       <% row.each do |letter, countries_group| %>
         <div class="alphabetical_row g4" id="countries_<%= letter.downcase %>">
@@ -9,4 +14,4 @@
         </div>
       <% end %>
   <% end %>
-</div>
+</section>
