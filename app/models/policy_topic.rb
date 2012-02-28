@@ -36,8 +36,10 @@ class PolicyTopic < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   EXEMPLAR_NAMES = [
-    "Regulation reform",
     "Higher education",
+    "International aid and development",
+    "Law and the justice system",
+    "Social care",
     "Housing",
     "Local government",
   ]

@@ -16,8 +16,8 @@ Scenario: Visiting a policy topic page
 
 Scenario: Exemplary content for empty policy areas
   Given a policy topic called "Caprid welfare"
-  And a policy topic called "Regulation reform"
+  And a policy topic called "Social care"
   And a policy topic called "Higher education"
   When I visit the "Caprid welfare" policy topic
-  Then I should see a link to the policy topic "Regulation reform"
+  Then I should see a link to the policy topic "Social care"
   And I should see a link to the policy topic "Higher education"
