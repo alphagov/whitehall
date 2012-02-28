@@ -40,10 +40,10 @@
       
         // again, just temporary for fake fill in effect
         var i = 3,
-          delay = 2000;
+          delay = 4000;
         
         while(i--){
-          delay = delay + 2000;
+          delay = delay + 2000 + Math.floor(Math.random()*6000);
           var item = $(items[i]);
           $(items[i]).remove();
           $(item).hide().prependTo(_this).delay(delay).slideDown("slow");

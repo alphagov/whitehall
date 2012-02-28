@@ -87,11 +87,9 @@
 
     a {
       @include type-13;
-      color: #777;
+      color: #fff;
       font-weight: bold;
-      border-bottom: 1px solid #bbb;
-      border-top: 1px solid #ddd;
-      border-right: 1px solid #ddd;
+      background-color:#DB43A1;
       padding: 0.35em 1em 0.5em 1em;
       display: inline-block;
       margin-left: -4px;
@@ -100,11 +98,13 @@
 
       &:first-child {
         margin-left: 0;
-        border-left: 1px solid #ddd;
+        background-color:#744260;
       }
 
       &:last-child {
-        border-right: 1px solid #ccc;
+        color:#fff;
+        background-color:#DB43A1;
+        opacity: 0.6666;
       }
 
       &:hover {
@@ -114,7 +114,7 @@
       };
 
       &.current {
-        color: #444;
+        color: #fff;
       }
     }
   }

@@ -35,6 +35,7 @@
     padding:0.5em;
   }
   .g1 {
+    @include type-14;
     margin-left:0;
     a{
       font-weight:bold;
