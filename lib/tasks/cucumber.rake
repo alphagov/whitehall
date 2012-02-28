@@ -17,18 +17,21 @@ begin
     Cucumber::Rake::Task.new({:ok => 'db:test:prepare'}, 'Run features that should pass') do |t|
       t.binary = vendored_cucumber_bin # If nil, the gem's binary is used.
       t.fork = true # You may get faster startup if you set this to false
+      t.cucumber_opts = %w{--format progress}
       t.profile = 'default'
     end
 
     Cucumber::Rake::Task.new({:wip => 'db:test:prepare'}, 'Run features that are being worked on') do |t|
       t.binary = vendored_cucumber_bin
       t.fork = true # You may get faster startup if you set this to false
+      t.cucumber_opts = %w{--format progress}
       t.profile = 'wip'
     end
 
     Cucumber::Rake::Task.new({:rerun => 'db:test:prepare'}, 'Record failing features and run only them if any exist') do |t|
       t.binary = vendored_cucumber_bin
       t.fork = true # You may get faster startup if you set this to false
+      t.cucumber_opts = %w{--format progress}
       t.profile = 'rerun'
     end
 
