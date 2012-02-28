@@ -114,26 +114,5 @@
         display: none;
       }
     }
-
-    section#document_organisations .organisations .organisation {
-      span.organisation_logo_small {
-        @include type-16;
-        display:block;
-  /*            padding:0.12em 0 0 0.575em;*/
-        line-height:1.125em;
-      }
-
-      &.ministerial-department {
-        span.organisation_logo_small {
-          margin-bottom: 0;
-
-          a {
-            position: relative;
-            bottom: -0.2em;
-            text-decoration:none;
-          }
-        }
-      }
-    }
   }
 }

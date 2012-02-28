@@ -67,19 +67,31 @@ $organisation_brands:
     }
   }
 
-  .document_page, .ministerial_role_page {
-    #document_organisations {
-      .ministerial-department {
-        &.#{$org_class} {
-          span.organisation_logo_small {
-            @if $colour {
-              border-color: $colour;
-            }
-            @if $logo_image_url_small {
-              background: url($logo_image_url_small) no-repeat 8px -1px;
-              padding-top: 24px;
-            }
-          }
+  .ministerial-department {
+    .organisation_logo_small {
+      @include type-16;
+      line-height:1.125em;
+      display:block;
+      border-left: 2px solid #000;
+      padding-left: 4%;
+      margin-bottom: 0;
+
+      a {
+        position: relative;
+        bottom: -0.2em;
+        text-decoration:none;
+      }
+    }
+
+    &.#{$org_class} {
+      .organisation_logo_small {
+        @if $colour {
+          border-color: $colour;
+        }
+
+        @if $logo_image_url_small {
+          background: url($logo_image_url_small) no-repeat 8px -1px;
+          padding-top: 24px;
         }
       }
     }
@@ -91,17 +103,6 @@ $organisation_brands:
     .page_header {
       h1.name {
         border-left: 4px solid #000;
-      }
-    }
-  }
-
-  .document_page, .ministerial_role_page {
-    #document_organisations {
-      .ministerial-department {
-        span.organisation_logo_small {
-          border-left: 2px solid #000;
-          padding-left: 4%;
-        }
       }
     }
   }
