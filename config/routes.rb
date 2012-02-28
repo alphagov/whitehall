@@ -14,6 +14,7 @@ Whitehall::Application.routes.draw do
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "site#index"
     match 'feed.atom' => 'site#index', format: false, defaults: { format: 'atom' }, as: :atom_feed
+    match '/tour' => 'site#tour'
 
     resources :announcements, only: [:index], path: 'news-and-speeches'
     resources :policies, only: [:index, :show] do

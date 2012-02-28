@@ -64,4 +64,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
     get_via_redirect admin_root_path
     assert_select "a.open_website[href=?]", "http://www.gov.uk/government"
   end
+
+  test "should link to whitehall tour from home page" do
+    get_via_redirect root_path
+    assert_select "a[href=?]", tour_path
+    get_via_redirect tour_path
+    assert_response :success
+  end
 end

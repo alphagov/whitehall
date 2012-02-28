@@ -110,6 +110,12 @@ class SiteControllerTest < ActionController::TestCase
     end
   end
 
+  test "should display a page describing a tour around the site" do
+    get :tour
+
+    assert_response :success
+  end
+
   private
 
   def assert_select_atom_feed(&block)
