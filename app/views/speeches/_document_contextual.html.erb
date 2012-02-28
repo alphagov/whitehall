@@ -1,7 +1,8 @@
 <section class="contextual_info">
   <ul class="details">
     <li>
-      <span class="type"><%= @document.genus %></span> by
+      <h1>Who</h1>
+      <div class="img"><%= image_for_person @document.person %></div>
       <span class="ministerial_role"><%= link_to @document.role, @document.role %></span>
     </li>
     <li class="delivered_on">
@@ -20,5 +21,4 @@
       </li>
     <% end %>
   </ul>
-  <div class="img"><%= image_for_person @document.person %></div>
 </section>
