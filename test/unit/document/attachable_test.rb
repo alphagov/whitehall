@@ -42,4 +42,11 @@ class Document::AttachableTest < ActiveSupport::TestCase
 
     assert_equal greenpaper_pdf.url(:thumbnail), document.thumbnail_url
   end
+
+  test "#destroy should also remove the relationship to any attachments" do
+    document = create(:draft_publication, attachments: [create(:attachment)])
+    relation = document.document_attachments.first
+    document.destroy
+    refute DocumentAttachment.find_by_id(relation.id)
+  end
 end

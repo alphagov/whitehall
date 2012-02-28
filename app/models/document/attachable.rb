@@ -10,7 +10,7 @@ module Document::Attachable
   end
 
   included do
-    has_many :document_attachments, foreign_key: "document_id"
+    has_many :document_attachments, foreign_key: "document_id", dependent: :destroy
     has_many :attachments, through: :document_attachments
 
     accepts_nested_attributes_for :document_attachments, reject_if: -> da { da.fetch(:attachment_attributes, {}).values.all?(&:blank?) }, allow_destroy: true

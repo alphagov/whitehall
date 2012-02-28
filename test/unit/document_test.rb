@@ -857,4 +857,11 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [new_edition_2, new_edition_1, original_edition], new_edition_2.editions_ever_published
     refute new_edition_2.editions_ever_published.include?(draft_edition)
   end
+
+  test "#destroy should also remove the relationship to any authors" do
+    document = create(:draft_document, creator: create(:policy_writer))
+    relation = document.document_authors.first
+    document.destroy
+    refute DocumentAuthor.find_by_id(relation.id)
+  end
 end
