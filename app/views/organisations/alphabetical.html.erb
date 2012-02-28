@@ -4,7 +4,7 @@
 
 <div class="g4f organisations_index_page">
   <section class="g4 page_header">
-    <h1 class="page_title">Departments, agencies & public bodies</h1>
+    <h1 class="page_title">Departments, agencies &amp; public bodies</h1>
   </section>
 
   <div class="g1">
@@ -27,7 +27,7 @@
       <div class="organisation_type">
         <section class="g3f">
           <%= content_tag(:h1, letter, id: letter, class: "g3 label") %>
-          <%= render partial: "list", locals: { organisations: organisations } %>
+          <%= render partial: "list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
         </section>
       </div>
     <% end %>

@@ -28,7 +28,7 @@
         <div class="organisation_type">
           <section class="g3f">
             <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "g3 label") %>
-            <%= render partial: "organisations_logo_list", locals: { organisations: organisations } %>
+            <%= render partial: "organisations_logo_list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
           </section>
         </div>
       <% end %>
