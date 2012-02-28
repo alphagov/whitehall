@@ -30,8 +30,7 @@ module Document::Attachable
     thumbnailable_attachments.first.url(:thumbnail)
   end
 
-  private
-    def thumbnailable_attachments
-      attachments.pdf
-    end
+  def thumbnailable_attachments
+    attachments.pdf
+  end
 end

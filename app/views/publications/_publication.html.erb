@@ -1,8 +1,12 @@
 <div class="img coverpage-thumbnail">
-  <%= link_to image_tag(publication.has_thumbnail? ? publication.thumbnail_url : 'pub-cover.png'), public_document_path(publication) %>
+  <% attachment_with_thumbnail = publication.thumbnailable_attachments.first %>
+  <% if attachment_with_thumbnail %>
+    <%= link_to image_tag(attachment_with_thumbnail.url(:thumbnail)), public_document_path(publication) %>
+  <% else %>
+    <%= link_to image_tag('pub-cover.png'), public_document_path(publication) %>
+  <% end %>
   <div class="attachments_meta">
-    <% if publication.attachments.size > 0 %>
-      <% attachment = publication.attachments.first %>
+    <% if attachment = attachment_with_thumbnail || publication.attachments.first %>
       <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>
       <% if attachment.number_of_pages.present? %>
         <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
