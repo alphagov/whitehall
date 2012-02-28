@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120223122545) do
+ActiveRecord::Schema.define(:version => 20120228171120) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "updated_at"
   end
 
+  add_index "contact_numbers", ["contact_id"], :name => "index_contact_numbers_on_contact_id"
+
   create_table "contacts", :force => true do |t|
     t.integer "organisation_id"
     t.string  "description"
@@ -40,6 +42,8 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.decimal "longitude",       :precision => 15, :scale => 10
     t.string  "email"
   end
+
+  add_index "contacts", ["organisation_id"], :name => "index_contacts_on_organisation_id"
 
   create_table "countries", :force => true do |t|
     t.string   "name"
@@ -63,6 +67,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "updated_at"
   end
 
+  add_index "document_attachments", ["attachment_id"], :name => "index_document_attachments_on_attachment_id"
+  add_index "document_attachments", ["document_id"], :name => "index_document_attachments_on_document_id"
+
   create_table "document_authors", :force => true do |t|
     t.integer  "document_id"
     t.integer  "user_id"
@@ -70,12 +77,18 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "updated_at"
   end
 
+  add_index "document_authors", ["document_id"], :name => "index_document_authors_on_document_id"
+  add_index "document_authors", ["user_id"], :name => "index_document_authors_on_user_id"
+
   create_table "document_countries", :force => true do |t|
     t.integer  "document_id"
     t.integer  "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "document_countries", ["country_id"], :name => "index_document_countries_on_country_id"
+  add_index "document_countries", ["document_id"], :name => "index_document_countries_on_document_id"
 
   create_table "document_identities", :force => true do |t|
     t.datetime "created_at"
@@ -93,6 +106,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "updated_at"
   end
 
+  add_index "document_ministerial_roles", ["document_id"], :name => "index_document_ministerial_roles_on_document_id"
+  add_index "document_ministerial_roles", ["ministerial_role_id"], :name => "index_document_ministerial_roles_on_ministerial_role_id"
+
   create_table "document_organisations", :force => true do |t|
     t.integer  "document_id"
     t.integer  "organisation_id"
@@ -101,12 +117,18 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.boolean  "featured",        :default => false
   end
 
+  add_index "document_organisations", ["document_id"], :name => "index_document_organisations_on_document_id"
+  add_index "document_organisations", ["organisation_id"], :name => "index_document_organisations_on_organisation_id"
+
   create_table "document_relations", :force => true do |t|
     t.integer  "document_id",          :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "document_identity_id"
   end
+
+  add_index "document_relations", ["document_id"], :name => "index_document_relations_on_document_id"
+  add_index "document_relations", ["document_identity_id"], :name => "index_document_relations_on_document_identity_id"
 
   create_table "documents", :force => true do |t|
     t.string   "title"
@@ -140,6 +162,11 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.boolean  "force_published"
   end
 
+  add_index "documents", ["consultation_document_identity_id"], :name => "index_documents_on_consultation_document_identity_id"
+  add_index "documents", ["document_identity_id"], :name => "index_documents_on_document_identity_id"
+  add_index "documents", ["role_appointment_id"], :name => "index_documents_on_role_appointment_id"
+  add_index "documents", ["speech_type_id"], :name => "index_documents_on_speech_type_id"
+
   create_table "editorial_remarks", :force => true do |t|
     t.text     "body"
     t.integer  "document_id"
@@ -147,6 +174,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "editorial_remarks", ["author_id"], :name => "index_editorial_remarks_on_author_id"
+  add_index "editorial_remarks", ["document_id"], :name => "index_editorial_remarks_on_document_id"
 
   create_table "fact_check_requests", :force => true do |t|
     t.integer  "document_id"
@@ -159,7 +189,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.integer  "requestor_id"
   end
 
+  add_index "fact_check_requests", ["document_id"], :name => "index_fact_check_requests_on_document_id"
   add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
+  add_index "fact_check_requests", ["requestor_id"], :name => "index_fact_check_requests_on_requestor_id"
 
   create_table "image_data", :force => true do |t|
     t.string   "carrierwave_image"
@@ -176,6 +208,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "updated_at"
   end
 
+  add_index "images", ["document_id"], :name => "index_images_on_document_id"
+  add_index "images", ["image_data_id"], :name => "index_images_on_image_data_id"
+
   create_table "nation_inapplicabilities", :force => true do |t|
     t.integer  "nation_id"
     t.integer  "document_id"
@@ -183,6 +218,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "updated_at"
     t.string   "alternative_url"
   end
+
+  add_index "nation_inapplicabilities", ["document_id"], :name => "index_nation_inapplicabilities_on_document_id"
+  add_index "nation_inapplicabilities", ["nation_id"], :name => "index_nation_inapplicabilities_on_nation_id"
 
   create_table "nations", :force => true do |t|
     t.string "name"
@@ -195,6 +233,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "updated_at"
   end
 
+  add_index "organisation_policy_topics", ["organisation_id"], :name => "index_organisation_policy_topics_on_organisation_id"
+  add_index "organisation_policy_topics", ["policy_topic_id"], :name => "index_organisation_policy_topics_on_policy_topic_id"
+
   create_table "organisation_roles", :force => true do |t|
     t.integer  "organisation_id"
     t.integer  "role_id"
@@ -202,6 +243,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "updated_at"
     t.integer  "ordering"
   end
+
+  add_index "organisation_roles", ["organisation_id"], :name => "index_organisation_roles_on_organisation_id"
+  add_index "organisation_roles", ["role_id"], :name => "index_organisation_roles_on_role_id"
 
   create_table "organisation_types", :force => true do |t|
     t.string   "name"
@@ -233,6 +277,7 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.text     "logo_formatted_name"
   end
 
+  add_index "organisations", ["organisation_type_id"], :name => "index_organisations_on_organisation_type_id"
   add_index "organisations", ["slug"], :name => "index_organisations_on_slug"
 
   create_table "people", :force => true do |t|
@@ -256,12 +301,18 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.boolean  "featured",        :default => false
   end
 
+  add_index "policy_topic_memberships", ["policy_id"], :name => "index_policy_topic_memberships_on_policy_id"
+  add_index "policy_topic_memberships", ["policy_topic_id"], :name => "index_policy_topic_memberships_on_policy_topic_id"
+
   create_table "policy_topic_relations", :force => true do |t|
     t.integer  "policy_topic_id",         :null => false
     t.integer  "related_policy_topic_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "policy_topic_relations", ["policy_topic_id"], :name => "index_policy_topic_relations_on_policy_topic_id"
+  add_index "policy_topic_relations", ["related_policy_topic_id"], :name => "index_policy_topic_relations_on_related_policy_topic_id"
 
   create_table "policy_topics", :force => true do |t|
     t.string   "name"
@@ -284,6 +335,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "ended_at"
   end
 
+  add_index "role_appointments", ["person_id"], :name => "index_role_appointments_on_person_id"
+  add_index "role_appointments", ["role_id"], :name => "index_role_appointments_on_role_id"
+
   create_table "roles", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -305,6 +359,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "updated_at"
   end
 
+  add_index "social_media_accounts", ["organisation_id"], :name => "index_social_media_accounts_on_organisation_id"
+  add_index "social_media_accounts", ["social_media_service_id"], :name => "index_social_media_accounts_on_social_media_service_id"
+
   create_table "social_media_services", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -318,6 +375,9 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.datetime "updated_at"
   end
 
+  add_index "supporting_page_attachments", ["attachment_id"], :name => "index_supporting_page_attachments_on_attachment_id"
+  add_index "supporting_page_attachments", ["supporting_page_id"], :name => "index_supporting_page_attachments_on_supporting_page_id"
+
   create_table "supporting_pages", :force => true do |t|
     t.integer  "document_id"
     t.string   "title"
@@ -328,6 +388,7 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.string   "slug"
   end
 
+  add_index "supporting_pages", ["document_id"], :name => "index_supporting_pages_on_document_id"
   add_index "supporting_pages", ["slug"], :name => "index_supporting_documents_on_slug"
 
   create_table "users", :force => true do |t|
@@ -340,5 +401,7 @@ ActiveRecord::Schema.define(:version => 20120223122545) do
     t.string   "uid"
     t.integer  "version"
   end
+
+  add_index "users", ["organisation_id"], :name => "index_users_on_organisation_id"
 
 end
