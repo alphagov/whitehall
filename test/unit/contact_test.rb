@@ -17,4 +17,10 @@ class ContactTest < ActiveSupport::TestCase
     contact = create(:contact, contact_numbers_attributes: [{label: "", number: ""}])
     assert_equal 0, contact.contact_numbers.count
   end
+
+  test "should destroy associated contact numbers on destruction" do
+    contact = create(:contact, contact_numbers: [create(:contact_number)])
+    contact.destroy
+    assert contact.contact_numbers.empty?
+  end
 end
