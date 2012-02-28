@@ -6,11 +6,57 @@
 #content {
   @include branded_page_headers;
 
+  .organisations_index_page {
+
+    .organisation_type {
+      clear: both;
+
+      h1 {
+        padding-top: 3em;
+      }
+    }
+
+    .organisation_type:first-child h1 {
+      padding-top: 0;
+    }
+
+    .organisations li {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+
+    .organisations li.inactive_organisation {
+      opacity: 0.5;
+    }
+
+    .organisations li:nth-child(3n+1) {
+      clear: both;
+    }
+  }
+
   .page_detail.management {
     @include clearfix;
     background: transparent none no-repeat 0 0;
     padding: 0 3%;
     margin-bottom: 1.5em;
+  }
+
+  .non_ministerial_departments {
+    padding-top: 2em;
+  }
+
+  .alphabetical_row h2 {
+    margin: 0.8em 0 0 0;
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    float: right;
+    font-size: 1.3em;
+    text-indent: 0.1em;
+    line-height: 48px;
+    background: #bbb;
+    color: #fff;
+    @include gill;
   }
 
   .organisation {

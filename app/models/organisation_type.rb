@@ -22,6 +22,10 @@ class OrganisationType < ActiveRecord::Base
     LISTING_ORDER.index(name)
   end
 
+  def ministerial_department?
+    name == "Ministerial department"
+  end
+
   def department?
     name =~ /\bdepartment\b/i
   end

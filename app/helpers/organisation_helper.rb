@@ -1,4 +1,4 @@
-module OrganisationHelper  
+module OrganisationHelper
   def organisation_display_name(organisation)
     if organisation.acronym.present?
       content_tag(:abbr, organisation.acronym, title: organisation.name)
@@ -78,7 +78,7 @@ module OrganisationHelper
       block.call
     end
   end
-  
+
   def organisation_subpage_title(organisation, title)
     "#{organisation.name} &mdash; #{title}".html_safe
   end
@@ -86,13 +86,15 @@ module OrganisationHelper
   def organisation_type_class(organisation_type)
     organisation_type.name.downcase.gsub(/\s/, '-') if organisation_type && organisation_type.name.present?
   end
-  
+
   def organisation_logo_classes(organisation, options={})
-    [ 
-      organisation.slug,  
+    classes = [
+      organisation.slug,
       organisation_type_class(organisation.organisation_type),
+      (organisation.active? ? 'active_organisation' : 'inactive_organisation'),
       options[:class]
-    ].join(" ").strip
+    ]
+    classes.compact.join(" ").strip
   end
 
   def social_media_account_link(account)

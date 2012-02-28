@@ -50,24 +50,31 @@ class OrganisationHelperTest < ActionView::TestCase
     classes = (anchor.attr('class').try(:value) || '').split
     refute classes.include?('current')
   end
-  
+
   test 'organisation header helper should place org specific class onto the div' do
     organisation = build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene")
     html = organisation_wrapper(organisation) {  }
     div = Nokogiri::HTML.fragment(html)/'div'
     assert_match /organisation-slug-yeah/, div.attr('class').value
   end
-  
+
   test 'should convert organisation type into a suitable css class name' do
     organisation_type = build(:organisation_type, name: "Ministerial department")
     assert_equal 'ministerial-department', organisation_type_class(organisation_type)
   end
-  
-  test 'given an organisation should return suitable org-identifying class names' do
+
+  test 'given an organisation should return suitable org-identifying class names for an inactive department' do
     organisation_type = build(:organisation_type, name: "Ministerial department")
     organisation =  build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene", organisation_type: organisation_type)
-    
-    assert_equal 'organisation-slug-yeah ministerial-department', organisation_logo_classes(organisation)
+
+    assert_equal 'organisation-slug-yeah ministerial-department inactive_organisation', organisation_logo_classes(organisation)
+  end
+
+  test 'given an organisation should return suitable org-identifying class names for an active department' do
+    organisation_type = build(:organisation_type, name: "Ministerial department")
+    organisation =  build(:organisation, active: true, slug: "organisation-slug-yeah", name: "Building Law and Hygiene", organisation_type: organisation_type)
+
+    assert_equal 'organisation-slug-yeah ministerial-department active_organisation', organisation_logo_classes(organisation)
   end
 end
 
@@ -80,7 +87,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
   def assert_relationship_type_is_described_as(type_name, expected_description)
     parent = create(:organisation)
-    child = create(:organisation, parent_organisations: [parent], 
+    child = create(:organisation, parent_organisations: [parent],
       organisation_type: create(:organisation_type, name: type_name))
     expected_text = %Q{#{child.name} is #{expected_description} of the #{parent.name}}
     actual_html = organisation_display_name_and_parental_relationship(child)
@@ -101,8 +108,8 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
   test 'basic sentence construction' do
     parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
-    child = create(:organisation, acronym: "BLAH", 
-      name: "Building Law and Hygiene", parent_organisations: [parent], 
+    child = create(:organisation, acronym: "BLAH",
+      name: "Building Law and Hygiene", parent_organisations: [parent],
       organisation_type: create(:organisation_type, name: "Executive agencies"))
     expected = %{Building Law and Hygiene (BLAH) is an executive agency of the Department of Building Regulation}
     assert_display_name_text child, expected
@@ -110,8 +117,8 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
   test 'string returned is html safe' do
     parent = create(:ministerial_department, name: "Department of Economy & Trade")
-    child = create(:organisation, acronym: "B&B", 
-      name: "Banking & Business", parent_organisations: [parent], 
+    child = create(:organisation, acronym: "B&B",
+      name: "Banking & Business", parent_organisations: [parent],
       organisation_type: create(:organisation_type, name: "Executive & important agencies"))
     expected = %{Banking &amp; Business (B&amp;B) is an executive &amp; important agency of the Department of Economy &amp; Trade}
     assert_display_name_text child, expected

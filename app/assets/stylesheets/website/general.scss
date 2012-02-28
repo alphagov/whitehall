@@ -5,6 +5,7 @@
 // we shouldn't be relying on it's
 // dusty scaffolding ...
 
+@import "../shared/utils/type_stacks";
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/clearfix";
 @import "../shared/typography";
@@ -50,6 +51,14 @@
 
       .document_type {
         @include type-14;
+        font-weight: bold;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.5455em;
+        text-transform: uppercase;
+
+        .published_at {
+          font-weight: normal;
+        }
       }
     }
 
@@ -63,7 +72,7 @@
       display: block;
       line-height: 1.125em;
       text-decoration: none;
-      
+
       &:hover {
         text-decoration: underline;
       }
@@ -81,7 +90,7 @@
           padding: 0.3215em 0.643em;
           margin: 0.3215em 0.643em 0.3215em 0;
           text-decoration: none;
-          
+
           &:hover {
             background-color: #E5E5E5;
           }
@@ -100,17 +109,9 @@
 
   .page_detail {
     @include clearfix;
-    background: #D5E8F4 url(/government/assets/summary-arrow.png) no-repeat 1.5% 1.5em;
-    padding: 0 3%;
     margin-bottom: 1.5em;
-
-    .explanation {
-      padding: 0 0 0 1.5em;
-    }
-
-    .organisations_type_links {
-      padding: 0 0 0 1.5em;
-    }
+    @include type-24;
+    @include georgia;
   }
 
   .related_documents {
@@ -150,5 +151,22 @@
   .feed_icon img {
     width: auto;
     float: right;
+  }
+
+  ul.jump_list {
+    padding-top: 0.2em;
+    padding-left: 1.2em;
+    text-indent: -1.2em;
+
+    li {
+      font-size: 0.85em;
+      margin-bottom: 0.25em;
+    }
+
+    li:before {
+      float: left;
+      width: 1.2em;
+      content: "⇣ ";
+    }
   }
 }
