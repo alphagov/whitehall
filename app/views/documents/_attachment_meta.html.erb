@@ -1,0 +1,8 @@
+<% if attachment %>
+  <div class="attachment_meta">
+    <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>,
+    <span class="size"><%= number_to_human_size(attachment.file_size) %></span><% if attachment.number_of_pages.present? %>, 
+      <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
+    <% end %>
+  </div>
+<% end %>

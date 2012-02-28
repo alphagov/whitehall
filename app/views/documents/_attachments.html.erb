@@ -6,12 +6,6 @@
 
     <div class="download_url attachment_title"><%= link_to attachment.title, attachment.url %></div>
 
-    <ul class="attachment_meta">
-      <li><strong>Type:</strong> <span class="type"><%= humanized_content_type(attachment.file_extension) %></span></li>
-      <% if attachment.number_of_pages.present? %>
-        <li><strong>No. of pages:</strong> <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span></li>
-      <% end %>
-      <li><strong>File size:</strong> <span class="size"><%= number_to_human_size(attachment.file_size) %></span></li>
-    </ul>
+    <%= render partial: 'documents/attachment_meta', locals: {attachment: attachment} %>
   <% end %>
 <% end %>

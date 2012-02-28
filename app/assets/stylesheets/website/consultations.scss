@@ -36,25 +36,36 @@
           padding-top: 0.25em;
         }
 
-        a.attachment {
-          display: block;
+        .attachment {
           margin: 1em 0 0.75em 0;
-          color: inherit;
-          font-weight: inherit;
-          text-decoration: underline;
           width: auto;
           float: none;
           overflow: hidden;
+          display: block;
 
-          &:hover {
-            text-decoration: none;
+          a {
+            display: inline;
+            color: inherit;
+            font-weight: inherit;
+            text-decoration: underline;
+            width: auto;
+            float: none;
+            overflow: hidden;
+
+            &:hover {
+              text-decoration: none;
+            }
+
+            img {
+              width: auto;
+              float: left;
+              padding: 0 0.75em 0 0;
+              margin: 0;
+            }
           }
 
-          img {
-            width: auto;
-            float: left;
-            padding: 0 0.75em 0 0;
-            margin: 0;
+          .attachment_meta {
+            font-size: (75% / 1.3);
           }
         }
       }
