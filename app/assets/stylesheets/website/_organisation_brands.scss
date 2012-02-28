@@ -109,7 +109,6 @@ $organisation_brands:
   // define styles for different organisation types
   @include add_styles_for_org('ministerial-department', false, "/government/assets/coa-default-48.gif", "/government/assets/coa-default-24.gif");
   @include add_styles_for_org('ministry-of-defence', false, "/government/assets/coa-ministry-of-defence-48.gif", "/government/assets/coa-ministry-of-defence-24.gif");
-  @include add_styles_for_org('foreign-and-commonwealth-office', false, "/government/assets/coa-foreign-and-commonwealth-office-48.gif", "/government/assets/coa-foreign-and-commonwealth-office-24.gif");
 
 
   // define styles for individual organisations
