@@ -42,12 +42,13 @@ class DocumentIdentityTest < ActiveSupport::TestCase
     assert_equal original_edition, original_edition.document_identity.latest_edition
   end
 
-  test "#destroy also destroys all documents" do
+  test "#destroy also destroys ALL documents including those marked as deleted" do
     original_edition = create(:published_policy)
     new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft.delete!
     original_edition.document_identity.destroy
-    assert_equal nil, Document.find_by_id(original_edition.id)
-    assert_equal nil, Document.find_by_id(new_draft.id)
+    assert_equal nil, Document.unscoped.find_by_id(original_edition.id)
+    assert_equal nil, Document.unscoped.find_by_id(new_draft.id)
   end
 
   test "#destroy also destroys relations to other documents" do

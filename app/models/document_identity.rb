@@ -2,7 +2,8 @@ class DocumentIdentity < ActiveRecord::Base
   extend FriendlyId
   friendly_id :sluggable_string, use: :scoped, scope: :document_type
 
-  has_many :documents, dependent: :destroy
+  after_destroy :destroy_all_documents
+  has_many :documents
   has_many :document_relations, dependent: :destroy
   has_one :published_document, class_name: 'Document', conditions: { state: 'published' }
   has_one :unpublished_document, class_name: 'Document', conditions: { state: ['draft', 'submitted', 'rejected'] }
@@ -45,5 +46,11 @@ class DocumentIdentity < ActiveRecord::Base
     def published
       joins(:published_document)
     end
+  end
+
+  private
+
+  def destroy_all_documents
+    Document.unscoped.destroy_all(document_identity_id: self.id)
   end
 end
