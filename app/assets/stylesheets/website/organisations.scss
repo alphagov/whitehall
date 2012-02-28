@@ -27,6 +27,8 @@
 
     .organisations li.inactive_organisation {
       opacity: 0.5;
+      -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; // first!
+      filter: alpha(opacity=50);          // second!
     }
 
     .organisations li:nth-child(3n+1) {
@@ -143,7 +145,7 @@
         a {
           font-weight: bold;
           text-decoration: none;
-          
+
           &:hover {
             text-decoration: underline;
           };
