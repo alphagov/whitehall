@@ -169,4 +169,8 @@
       content: "⇣ ";
     }
   }
+
+  article .summary p, article .summary h2 {
+    background-image: none;
+  }
 }
