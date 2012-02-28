@@ -7,29 +7,8 @@
 
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/clearfix";
-@import "../shared/typography";
 
 #content {
-
-  .beta_disclaimer {
-    background-color: #F17921;
-    min-height: 1.5em;
-
-    h1, p {
-      display: inline;
-    }
-
-    h1 {
-      @include type-16;
-      margin-left: 1.5%;
-    }
-
-    p {
-      @include type-14;
-      margin-left: 0.5em;
-    }
-  }
-
   .related_content {
     padding-top: 1em;
     margin-bottom: 1em;
@@ -43,13 +22,17 @@
     div.metadata {
       @include type-14;
       margin-bottom: 0.25em;
-
+      
       &.published_or_updated {
-        @include upcase_datetime;
-      }
-
-      .document_type {
-        @include type-14;
+        @include scaled_type(11, 12);
+        font-weight: bold;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.5455em;
+        text-transform: uppercase;
+        
+        .published_at {
+          font-weight: normal;
+        }
       }
     }
 
@@ -59,23 +42,10 @@
 
     a {
       @include type-16;
-      margin-bottom: 0.2em;
+      margin-bottom: 0.25em;
       display: block;
       line-height: 1.125em;
-    }
-  }
-
-  ul.policy_topics {
-    li {
-      display: inline;
-        a {
-          @include type-14;
-          background: #eee;
-          display: block;
-          float: left;
-          padding: 0.3215em 0.643em;
-          margin: 0.3215em 0.643em 0.3215em 0;
-        }
+      font-weight: bold;
     }
   }
 
@@ -142,4 +112,5 @@
     width: auto;
     float: right;
   }
+
 }
