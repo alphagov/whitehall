@@ -13,7 +13,7 @@ module Document::SupportingPages
   end
 
   included do
-    has_many :supporting_pages, foreign_key: :document_id, dependent: :destroy
+    has_many :supporting_pages, foreign_key: :document_id, dependent: :delete_all
 
     add_trait Trait
   end
