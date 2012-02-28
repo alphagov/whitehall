@@ -29,7 +29,7 @@
 //   background-image: url(/government/assets/icons/48/minister.png);
 // }
 
-.news .icon, .news_article .icon, #wrapper.announcements-index .icon, #wrapper.news-index .icon {
+.news .icon, .newsarticle .icon, #wrapper.announcements-index .icon, #wrapper.news-index .icon {
   $width: 53px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/news.png);

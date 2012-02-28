@@ -1,6 +1,6 @@
 <article class="document">
   <div class="summary">
-    <%= @document.summary %>
+    <p><%= @document.summary %></p>
   </div>
   <div class="body">
     <%= render partial: 'shared/lead_image', locals: { image: @document.images.first } %>

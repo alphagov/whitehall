@@ -4,14 +4,18 @@
 #content .document {
   margin-bottom: 2em;
   overflow: auto;
+  @media only screen and (min-width:1024px) {
+    margin-right: 2%;
+  }
 
   .title {
     @include type-32;
   }
 
   .summary {
-    @include type-13;
+    @include type-18;
     font-style: italic;
+    margin-bottom: 1.5em;
   }
 
   .body {
