@@ -57,14 +57,23 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "#latest_consultation_response provides access to the latest consultation response" do
     consultation = create(:published_consultation)
-    consultation_response = create(:published_consultation_response, consultation: consultation)
-    assert_equal consultation_response, consultation.latest_consultation_response
+    older_response = create(:published_consultation_response, consultation: consultation)
+    newer_response = older_response.create_draft(create(:policy_writer))
+    assert_equal newer_response, consultation.latest_consultation_response
   end
 
   test "#latest_consultation_response includes draft responses" do
     consultation = create(:published_consultation)
     consultation_response = create(:draft_consultation_response, consultation: consultation)
     assert_equal consultation_response, consultation.latest_consultation_response
+  end
+
+  test "#latest_consultation_response excludes deleted editions" do
+    consultation = create(:published_consultation)
+    original_edition = create(:published_consultation_response, consultation: consultation)
+    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft.delete!
+    assert_equal original_edition, consultation.latest_consultation_response
   end
 
   test ".closed includes consultations closing in the past" do

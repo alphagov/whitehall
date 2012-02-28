@@ -12,7 +12,7 @@ class ConsultationsControllerTest < ActionController::TestCase
     featured_consultations = Consultation.featured
     published_consultations = mock("published_consultations")
     published_consultations = mock("ordered_published_consultations")
-    published_consultations.expects(:includes).with(:document_identity, :organisations, :published_related_policies, :published_consultation_response, ministerial_roles: [:current_people, :organisations]).returns([])
+    published_consultations.expects(:includes).with(:document_identity, :organisations, :published_related_policies, ministerial_roles: [:current_people, :organisations]).returns([])
     published_consultations.stubs(:featured).returns(featured_consultations) # To avoid the 'featured consultation' query failing
     Consultation.stubs(:published).returns(published_consultations)
 

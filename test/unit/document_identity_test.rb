@@ -42,13 +42,6 @@ class DocumentIdentityTest < ActiveSupport::TestCase
     assert_equal original_edition, original_edition.document_identity.latest_edition
   end
 
-  test "should ignore deleted editions when finding latest consultation response" do
-    original_edition = create(:published_consultation_response)
-    new_draft = original_edition.create_draft(create(:policy_writer))
-    new_draft.delete!
-    assert_equal original_edition, original_edition.consultation_document_identity.latest_consultation_response
-  end
-
   test "#destroy also destroys all documents" do
     original_edition = create(:published_policy)
     new_draft = original_edition.create_draft(create(:policy_writer))
@@ -62,5 +55,13 @@ class DocumentIdentityTest < ActiveSupport::TestCase
     relationship = create(:document_relation, document_identity: identity)
     identity.destroy
     assert_equal nil, DocumentRelation.find_by_id(relationship.id)
+  end
+
+  test "#destroy also destroys related consultation responses" do
+    consultation = create(:published_consultation)
+    consultation_response = create(:published_consultation_response, consultation: consultation)
+    identity = consultation.document_identity
+    identity.destroy
+    refute ConsultationResponse.find_by_id(consultation_response.id)
   end
 end

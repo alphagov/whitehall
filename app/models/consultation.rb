@@ -10,8 +10,15 @@ class Consultation < Document
   validates :closing_on, presence: true
   validate :closing_on_must_be_after_opening_on
 
-  has_one :published_consultation_response, through: :document_identity
-  has_one :latest_consultation_response, through: :document_identity
+  has_many :consultation_responses, through: :document_identity
+
+  def published_consultation_response
+    consultation_responses.published.first
+  end
+
+  def latest_consultation_response
+    consultation_responses.order("id DESC").first
+  end
 
   def not_yet_open?
     opening_on > Date.today
