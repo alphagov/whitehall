@@ -54,7 +54,7 @@ class Document::ImagesTest < ActiveSupport::TestCase
     assert_equal "original-caption", document.images.first.caption
   end
 
-  test "#destroy should also remove the relationship" do
+  test "#destroy should also remove the image" do
     image = create(:image)
     document = create(:draft_policy, images: [image])
     document.destroy
