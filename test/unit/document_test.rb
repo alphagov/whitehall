@@ -864,4 +864,11 @@ class DocumentTest < ActiveSupport::TestCase
     document.destroy
     refute DocumentAuthor.find_by_id(relation.id)
   end
+
+  test "#destroy should also remove the relationship to any editorial remarks" do
+    document = create(:draft_document, editorial_remarks: [create(:editorial_remark)])
+    relation = document.editorial_remarks.first
+    document.destroy
+    refute EditorialRemark.find_by_id(relation.id)
+  end
 end
