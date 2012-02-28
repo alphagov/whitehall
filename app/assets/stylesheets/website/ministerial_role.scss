@@ -96,19 +96,31 @@
     .responsibilities .content {
       @include type-18;
       @include georgia;
+      border-bottom: solid 1px #7F7F7F;
+      padding-bottom: 1.5em;
+    
+      ul {
+        margin-bottom: 0.75em;
+        
+        li {
+          list-style: disc;
+        }
+      }
     
       li, p {
-        margin-bottom: 0.75em;
+        margin-bottom: 0.375em;
       }
     }
 
     .current_person {
+      border-bottom: solid 1px #7F7F7F;
+      padding-bottom: 0.75em;
+      
       .name {
         @include type-18;
       }
 
       .biography {
-        @include type-18;
       }
       margin-bottom: 1em;
     }
