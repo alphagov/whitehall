@@ -58,6 +58,11 @@
       padding: 0.2em 0.5em;
       text-align: center;
       white-space: nowrap;
+      text-decoration: none;
+      
+      &:hover {
+        background-color: #E5E5E5;
+      }
     }
 
     .change_notes {
