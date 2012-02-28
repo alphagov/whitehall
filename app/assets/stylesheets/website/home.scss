@@ -27,7 +27,7 @@
     padding:0.5em;
   }
   .g1 {
-    margin-left:12.5%;
+    margin-left:0;
     a{
       font-weight:bold;
     }
@@ -40,14 +40,24 @@
     font-family:$gill;
     @include type-44;
     text-transform:none;
-    padding:0.75em 0.75em 0.5em;
-    margin: 0 9%;
+    padding:0;
+    margin: 0;
     text-transform:none;
     font-weight:normal;
     span{
       text-transform:uppercase;
     }
   }
+  @media only screen and (min-width: 768px) {
+    .g1{
+      margin-left:12.5%;
+    }
+    h1.page_title{
+      padding:0.75em 0.75em 0.5em;
+      margin: 0 9%;
+    }
+  }
+  
   section.featured_carousel{
     background: none repeat scroll 0 0 transparent;
   }
