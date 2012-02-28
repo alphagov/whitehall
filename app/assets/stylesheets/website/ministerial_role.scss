@@ -89,21 +89,12 @@
     }
 
     .responsibilities {
-      h3 {
-        position: absolute;
-        left: -5000%;
-      }
       padding-top: 1em;
       @include type-24;
       @include georgia;
     }
 
     .current_person {
-      h3 {
-        position: absolute;
-        left: -5000%;
-      }
-
       .name {
         @include type-18;
       }

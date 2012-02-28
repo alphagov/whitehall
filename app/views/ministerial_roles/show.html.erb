@@ -12,14 +12,14 @@
 
   <% unless @ministerial_role.responsibilities.blank? %>
   <section class="g4f responsibilities">
-    <h3>Responsibilities</h3>
+    <h3 class="visuallyhidden">Responsibilities</h3>
     <div class="g3 content"><%= govspeak_to_html @ministerial_role.responsibilities %></div>
   </section>
   <% end %>
 
   <section class="g4 current_person">
     <div class="g2f biography">
-      <h3>Biography</h3>
+      <h3 class="visuallyhidden">Biography</h3>
       <%= govspeak_to_html(@ministerial_role.current_person_biography) %>
     </div>
     <div class="g1 image">
