@@ -68,7 +68,15 @@ class RoutingTest < ActionDispatch::IntegrationTest
   test "should link to whitehall tour from home page" do
     get_via_redirect root_path
     assert_select "a[href=?]", tour_path
+  end
+
+  test "should route to whitehall tour page" do
     get_via_redirect tour_path
     assert_response :success
+  end
+
+  test "whitehall tour page links to generic feedback link" do
+    get_via_redirect tour_path
+    assert_select "a[href=?]", "/feedback"
   end
 end
