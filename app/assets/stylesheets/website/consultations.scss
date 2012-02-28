@@ -3,6 +3,10 @@
 @import "../shared/utils/clearfix";
 
 #content {
+  .four_column_list div.row {
+    border-bottom:1px solid #D43783;
+  }
+    
   .document_page {
     .notice.events {
       background-color: #db43a1;
