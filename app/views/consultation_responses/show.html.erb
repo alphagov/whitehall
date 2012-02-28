@@ -2,7 +2,7 @@
 <% page_class 'consultation-response'  %>
 
 <div class="g4f document_page <%= @document.type.downcase %>">
-  <div class="g3f">
+  <div class="g4">
     <section class="page_header icon">
       <h2 class="label">Consultation response</h2>
       <h1 class="page_title has_meta"><%= @document.title %></h1>
@@ -16,13 +16,13 @@
     <div class="g2 document_view">
       <%= render partial: "document_content" %>
     </div>
-  </div>
 
-  <div class="g1">
-    <%= render partial: "document_related", locals: {
-        document: @document.consultation,
-        policy_topics: @policy_topics,
-        related_policies: @related_policies
-      } %>
+    <div class="g1">
+      <%= render partial: "document_related", locals: {
+          document: @document.consultation,
+          policy_topics: @policy_topics,
+          related_policies: @related_policies
+        } %>
+    </div>
   </div>
 </div>
