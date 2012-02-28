@@ -7,9 +7,8 @@
 #content {
   .policy_topic_view {
     .description {
-      font-family: $georgia;
-      font-size: 1.5em;
-      line-height: 1.5em;
+      @include type-24;
+      @include georgia;
     }
 
     #recently-changed {
@@ -74,7 +73,7 @@
       h1 {
         @include span_three_columns;
       }
-      
+
       section {
         ul {
           @include clearfix;
@@ -117,7 +116,7 @@
       section#policies {
         h1 {
         }
-        
+
         ul {
           @media only screen and (min-width: 600px) {
             margin-bottom: 1.5em;
