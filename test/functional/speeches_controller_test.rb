@@ -29,10 +29,10 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document_identity
     assert_select ".details" do
-      assert_select ".type", "Speech"
       assert_select ".explanation",
         "This is a transcript of the speech, exactly as it was delivered."
     end
+    assert_select ".page_header .label", "Speech"
   end
 
   test "should display details about a draft text" do
@@ -41,10 +41,10 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document_identity
     assert_select ".details" do
-      assert_select ".type", "Speech"
       assert_select ".explanation",
         "This is the text of the speech as drafted, which may differ slightly from the delivered version."
     end
+    assert_select ".page_header .label", "Speech"
   end
 
   test "should display details about speaking notes" do
@@ -53,10 +53,10 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document_identity
     assert_select ".details" do
-      assert_select ".type", "Speech"
       assert_select ".explanation",
         "These are the speaker's notes, not a transcript of the speech as it was delivered."
     end
+    assert_select ".page_header .label", "Speech"
   end
 
   test "should display details about a written statement" do
@@ -65,9 +65,9 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document_identity
     assert_select ".details" do
-      assert_select ".type", "Written statement"
       refute_select ".explanation"
     end
+    assert_select ".page_header .label", "Written statement"
   end
 
   test "should display details about an oral statement" do
@@ -76,9 +76,9 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document_identity
     assert_select ".details" do
-      assert_select ".type", "Oral statement"
       refute_select ".explanation"
     end
+    assert_select ".page_header .label", "Oral statement"
   end
 
   test "should omit location if not given" do
