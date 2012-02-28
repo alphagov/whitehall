@@ -19,8 +19,8 @@ class SpeechesControllerTest < ActionController::TestCase
     get :show, id: published_speech.document_identity
 
     assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
-    assert_select ".details .delivered_on", "1 June 2011"
-    assert_select ".details .location", "The Guidhall"
+    assert_select ".details .delivered_on", /1 June 2011/
+    assert_select ".details .location", /The Guidhall/
   end
 
   test "should display details about a transcript" do
