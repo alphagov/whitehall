@@ -39,11 +39,11 @@
     var _updateTicker = function(items){
       
         // again, just temporary for fake fill in effect
-        var i = 5,
-          delay = 1000;
+        var i = 3,
+          delay = 2000;
         
         while(i--){
-          delay = delay + 1000;
+          delay = delay + 2000;
           var item = $(items[i]);
           $(items[i]).remove();
           $(item).hide().prependTo(_this).delay(delay).slideDown("slow");
