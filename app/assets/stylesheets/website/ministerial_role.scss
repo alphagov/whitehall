@@ -94,8 +94,12 @@
     }
 
     .responsibilities .content {
-      @include type-24;
+      @include type-18;
       @include georgia;
+    
+      li, p {
+        margin-bottom: 0.75em;
+      }
     }
 
     .current_person {
