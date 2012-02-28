@@ -35,7 +35,7 @@ end
 
 Then /^I should see that the minister is associated with the "([^"]*)"$/ do |organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
-  assert page.has_css?(record_css_selector(organisation), text: organisation.name), "organisation was missing"
+  assert page.has_css?(record_css_selector(organisation)), "organisation was missing"
 end
 
 Then /^I should see that the minister has a biography "([^"]*)"$/ do |biography|

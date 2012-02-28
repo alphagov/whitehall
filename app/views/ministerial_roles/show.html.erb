@@ -3,32 +3,42 @@
   <section class="g4 page_header ministerial_role minister">
     <h1 class="role_name"><%= @ministerial_role.name %></h1>
     <h2 class="current_person_name"><%= @ministerial_role.current_person_name %></h2>
-    <div class="meta">
+  </section>
+
+  <div class="g4f">
+    <section class="g1" id="document_organisations">
+      <h1 class="visuallyhidden">Organisations</h1>
+      <ul class="organisations">
       <% @ministerial_role.organisations.each do |organisation| %>
-        <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag", id: dom_id(organisation) %>
+        <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
+          <span class="organisation_logo_small">
+            <%= link_to format_with_html_line_breaks(h(organisation.logo_formatted_name)), organisation_path(organisation) %>
+          </span>
+        <% end %>
       <% end %>
-    </div>
-  </section>
+      </ul>
+    </section>
 
-  <% unless @ministerial_role.responsibilities.blank? %>
-  <section class="g4f responsibilities">
-    <h3 class="visuallyhidden">Responsibilities</h3>
-    <div class="g3 content"><%= govspeak_to_html @ministerial_role.responsibilities %></div>
-  </section>
-  <% end %>
+    <% unless @ministerial_role.responsibilities.blank? %>
+    <section class="g3 responsibilities">
+      <h3 class="visuallyhidden">Responsibilities</h3>
+      <div class="content"><%= govspeak_to_html @ministerial_role.responsibilities %></div>
+    </section>
+    <% end %>
 
-  <section class="g4 current_person">
-    <div class="g2f biography">
-      <h3 class="visuallyhidden">Biography</h3>
-      <%= govspeak_to_html(@ministerial_role.current_person_biography) %>
-    </div>
-    <div class="g1 image">
-      <figure class="img">
-        <%= image_for_ministerial_role @ministerial_role %>
-        <figcaption class="name"><%= @ministerial_role.current_person_name %></figcaption>
-      </figure>
-    </div>
-  </section>
+    <section class="g3 current_person">
+      <div class="g2f biography">
+        <h3 class="visuallyhidden">Biography</h3>
+        <%= govspeak_to_html(@ministerial_role.current_person_biography) %>
+      </div>
+      <div class="g1 image">
+        <figure class="img">
+          <%= image_for_ministerial_role @ministerial_role %>
+          <figcaption class="name"><%= @ministerial_role.current_person_name %></figcaption>
+        </figure>
+      </div>
+    </section>
+  </div>
 
   <section class="g4f documents">
   <% if @announcements.any? %>

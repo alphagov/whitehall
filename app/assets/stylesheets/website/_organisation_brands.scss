@@ -67,7 +67,7 @@ $organisation_brands:
     }
   }
 
-  .document_page {
+  .document_page, .ministerial_role_page {
     #document_organisations {
       .ministerial-department {
         &.#{$org_class} {
@@ -95,7 +95,7 @@ $organisation_brands:
     }
   }
 
-  .document_page {
+  .document_page, .ministerial_role_page {
     #document_organisations {
       .ministerial-department {
         span.organisation_logo_small {
@@ -119,7 +119,7 @@ $organisation_brands:
 
     @include add_styles_for_org($name, $color, false, false);
   }
-  
+
   .organisation.ministerial-department.ministry-of-defence {
     .page_header {
       h1.name {
