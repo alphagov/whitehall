@@ -138,7 +138,7 @@ module ApplicationHelper
     when "publications"
       publications_path
     when "consultations", "consultation_responses"
-      open_consultations_path
+      consultations_path
     when "ministerial_roles"
       ministerial_roles_path
     when "organisations"

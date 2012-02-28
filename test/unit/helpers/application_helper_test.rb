@@ -113,11 +113,11 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "consultation-related pages should be related to consulatations main navigation" do
-    assert_equal open_consultations_path, current_main_navigation_path(controller: "consultations", action: "index")
-    assert_equal open_consultations_path, current_main_navigation_path(controller: "consultations", action: "open")
-    assert_equal open_consultations_path, current_main_navigation_path(controller: "consultations", action: "closed")
-    assert_equal open_consultations_path, current_main_navigation_path(controller: "consultations", action: "show")
-    assert_equal open_consultations_path, current_main_navigation_path(controller: "consultation_responses", action: "show")
+    assert_equal consultations_path, current_main_navigation_path(controller: "consultations", action: "index")
+    assert_equal consultations_path, current_main_navigation_path(controller: "consultations", action: "open")
+    assert_equal consultations_path, current_main_navigation_path(controller: "consultations", action: "closed")
+    assert_equal consultations_path, current_main_navigation_path(controller: "consultations", action: "show")
+    assert_equal consultations_path, current_main_navigation_path(controller: "consultation_responses", action: "show")
   end
 
   test "minister-related pages should be related to ministers main navigation" do
