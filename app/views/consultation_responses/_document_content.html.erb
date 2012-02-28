@@ -4,3 +4,13 @@
   </div>
   <%= render partial: "attachments", locals: { document: @document } %>
 </article>
+
+<section class="contextual_info">
+	<h1>Original consultation</h1>
+
+  <%= content_tag_for(:div, @document.consultation) do %>
+    <%= link_to @document.consultation.title, public_document_path(@document.consultation) %>
+    <div class="closing_on"><%= consultation_closing_phrase(@document.consultation) %></div>
+
+  <% end %>
+</section>

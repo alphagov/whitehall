@@ -75,6 +75,19 @@
       position: relative;
       margin-top: -1em;
     }
+
+    .contextual_info  {
+      h1 {
+        margin-bottom: 0.75em;
+      }
+
+      .consultation {
+        margin-top: 0.2em;
+        div {
+          @include type-11;
+        }
+      }
+    }
   }
 
   nav.consultations_scope {
