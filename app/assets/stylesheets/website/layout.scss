@@ -42,7 +42,7 @@
     width: auto;
   }
 
-  // ovwerride core
+  // override core
   article {
     background: transparent;
     float: none;
@@ -56,9 +56,9 @@
   img {
     width: 100%;
   }
-
-  a {
-    text-decoration: none;
+  
+  a:hover {
+    color: #7F7F7F;
   }
 
   abbr[title] {

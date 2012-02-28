@@ -75,6 +75,13 @@
     line-height:1em;
     margin:0;
     padding:0;
+    a {
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }; 
+    }
   }
   .organisation{
     font-family:$helvetica;
