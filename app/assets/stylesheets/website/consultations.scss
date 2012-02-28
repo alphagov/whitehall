@@ -1,13 +1,16 @@
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/type_stacks";
+@import "../shared/utils/clearfix";
 
 #content {
   .document_page {
     .notice.events {
       background-color: #db43a1;
 
+      @include clearfix;
+
       &.response {
-        background-color: #2e3485;
+        background-color: #744260;
       }
 
       color:#fff;
@@ -15,7 +18,7 @@
 
       margin-bottom:1em;
 
-      p {
+      .event {
         font-family: $helvetica;
         @include type-44;
         font-size: 1.3em;
@@ -29,11 +32,25 @@
           padding-top: 0.25em;
         }
 
-        a {
+        a.attachment {
+          display: block;
+          margin: 1em 0 0.75em 0;
           color: inherit;
           font-weight: inherit;
-          abbr {
-            text-decoration: underline;
+          text-decoration: underline;
+          width: auto;
+          float: none;
+          overflow: hidden;
+
+          &:hover {
+            text-decoration: none;
+          }
+
+          img {
+            width: auto;
+            float: left;
+            padding: 0 0.75em 0 0;
+            margin: 0;
           }
         }
       }

@@ -4,17 +4,27 @@
 
 <% if @document.response_published? %>
 <section class="notice events response">
-  <p class="response_published_on">
-    <%= link_to consultation_response_phrase(@document), consultation_response_path(@document.document_identity) %>
-  </p>
+  <div class="event response_published_on">
+    <%= consultation_response_phrase(@document) %>
+
+    <% response = @document.published_consultation_response %>
+    <% response_attachment = response.attachments.first %>
+    <% response_url = consultation_response_path(@document.document_identity) %>
+    <%= link_to response_url, class: 'attachment' do %>
+      <% if response_attachment && response_attachment.pdf? %>
+        <%= image_tag(response_attachment.url(:thumbnail), alt: response.title) %>
+      <% end %>
+      <%= response.title %>
+    <% end %>
+  </div>
 </section>
 <% end %>
 
 <section class="notice events">
   <% if @document.not_yet_open? %>
-    <p class="opening_on"><%= consultation_opening_phrase(@document) %></p>
+    <div class="event opening_on"><%= consultation_opening_phrase(@document) %></div>
   <% else %>
-    <p class="closing_on"><%= consultation_closing_phrase(@document) %></p>
+    <div class="event closing_on"><%= consultation_closing_phrase(@document) %></div>
   <% end %>
 </section>
 

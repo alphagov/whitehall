@@ -1,5 +1,6 @@
 <% page_title @document.title, "Consultations" %>
 <% page_class consultation_css_class(@document) %>
-<%= render template: 'documents/show', locals: { header_title: "Consultation" } %>
+
+<%= render template: 'documents/show', locals: { header_title: consultation_header_title(@document) } %>
 
 

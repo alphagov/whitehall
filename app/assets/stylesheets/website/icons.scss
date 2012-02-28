@@ -9,13 +9,13 @@
   background-image: url(/government/assets/icons/48/consultation-open.png);
 }
 
-.consultation-closed .icon {
+.consultation-closed .icon, .consultation-responded .icon {
   $width: 60px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/consultation-closed.png);
 }
 
-.consultation-responded .icon, .consultation-response .icon {
+.consultation-response .icon {
   $width: 60px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/consultation-responded.png);

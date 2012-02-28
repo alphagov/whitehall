@@ -51,4 +51,14 @@ module ConsultationsHelper
       ' consultation-open'
     end
   end
+
+  def consultation_header_title(consultation)
+    if @document.closed?
+      "Closed Consultation" 
+    elsif @document.open?
+      "Open Consultation"
+    else
+      "Consultation"
+    end
+  end
 end
