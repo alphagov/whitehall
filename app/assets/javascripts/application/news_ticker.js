@@ -43,7 +43,7 @@
           delay = 4000;
         
         while(i--){
-          delay = delay + 2000 + Math.floor(Math.random()*6000);
+          delay = delay + Math.floor(Math.random()*6000);
           var item = $(items[i]);
           $(items[i]).remove();
           $(item).hide().prependTo(_this).delay(delay).slideDown("slow");
