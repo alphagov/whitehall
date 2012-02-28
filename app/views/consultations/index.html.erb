@@ -11,7 +11,7 @@
 <% if @featured_consultations && @featured_consultations.any? %>
   <section class="consultations group four_column_list" id="featured-consultations">
     <div class="g4f">
-      <div class="g1"><h1 class="label">Featured consultations</h1></div>
+      <div class="g1"><h1 class="label">Featured</h1></div>
       <div class="g3f">
         <% article_group(@featured_consultations, groups_of: 3, class: "has_img row") do |consultation| %>
           <%= render partial: "consultation_index_item", locals: {consultation: consultation} %>
