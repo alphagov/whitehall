@@ -13,7 +13,12 @@
       <%= render partial: "document_content" %>
     </div>
     <div class="g1f">
-      <%= render partial: "documents/document_related" %>
+      <%= render partial: "documents/document_related", locals: {
+        document: @document,
+        recently_changed_documents: @recently_changed_documents,
+        policy_topics: @policy_topics,
+        related_policies: @related_policies
+      } %>
     </div>
   </div>
 </div>

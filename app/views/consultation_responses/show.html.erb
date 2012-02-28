@@ -19,6 +19,10 @@
   </div>
 
   <div class="g1">
-    <%= render partial: "document_related" %>
+    <%= render partial: "document_related", locals: {
+        document: @document.consultation,
+        policy_topics: @policy_topics,
+        related_policies: @related_policies
+      } %>
   </div>
 </div>

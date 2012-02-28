@@ -1,8 +1,14 @@
-<% if @document.respond_to?(:organisations) && @document.organisations.any? %>
+<% 
+policy_topics ||= nil
+recently_changed_documents ||= nil
+related_policies ||= nil
+%>
+
+<% if document.respond_to?(:organisations) && document.organisations.any? %>
   <section id="document_organisations">
     <h1 class="visuallyhidden">Organisations</h1>
     <ul class="organisations">
-    <% @document.organisations.each do |organisation| %>
+    <% document.organisations.each do |organisation| %>
       <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
         <span class="organisation_logo_small">
           <%= link_to format_with_html_line_breaks(h(organisation.logo_formatted_name)), organisation_path(organisation) %>
@@ -13,11 +19,11 @@
   </section>
 <% end %>
 
-<% if @document.respond_to?(:ministerial_roles) && @document.ministerial_roles.any? %>
+<% if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any? %>
   <section id="document_ministers">
     <ul class="ministers">
       <h1 class="visuallyhidden">Ministers</h1>
-      <% @document.ministerial_roles.each do |role| %>
+      <% document.ministerial_roles.each do |role| %>
         <li>
           <h3 class="current_appointee"><%= link_to  role.current_person_name, role, class: "minister" %></h3>
           <p class="role"><%= role.name %></p>
@@ -27,25 +33,25 @@
   </section>
 <% end %>
 
-<% if @document.respond_to?(:policy_topics) && @document.policy_topics.any? %>
+<% if document.respond_to?(:policy_topics) && document.policy_topics.any? %>
   <section id="document_topics" class="gutter">
     <h1 class="label">Policy Topics</h1>
-    <%= render partial: "policy_topics/list", locals: { policy_topics: @document.policy_topics }  %>
+    <%= render partial: "policy_topics/list", locals: { policy_topics: document.policy_topics }  %>
   </section>
 <% end %>
 
-<% if @policy_topics && @policy_topics.any? %>
+<% if policy_topics && policy_topics.any? %>
   <section id="document_topics" class="gutter">
     <h1 class="label">Policy Topics</h1>
-    <%= render partial: "policy_topics/list", locals: { policy_topics: @policy_topics }  %>
+    <%= render partial: "policy_topics/list", locals: { policy_topics: policy_topics }  %>
   </section>
 <% end %>
 
-<% if @document.respond_to?(:countries) && @document.countries.any? %>
+<% if document.respond_to?(:countries) && document.countries.any? %>
   <section id="document_countries" class="gutter">
     <h1 class="label">UK &amp; the world</h1>
     <ul class="countries">
-    <% @document.countries.each do |country| %>
+    <% document.countries.each do |country| %>
       <li>
         <%= link_to country.name, country_path(country), class: "country", id: dom_id(country) %>
       </li>
@@ -54,12 +60,12 @@
   </section>
 <% end %>
 
-<% if @recently_changed_documents %>
+<% if recently_changed_documents %>
   <div class="gutter">
-    <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents, locals: { title: "Latest on this #{@document.type}" } %>
+    <%= render partial: "documents/recently_changed_documents", object: recently_changed_documents, locals: { title: "Latest on this #{document.type}" } %>
 </div>
 <% end %>
 
-<% if @related_policies %>
-  <%= render partial: 'related_policies', object: @related_policies %>
+<% if related_policies %>
+  <%= render partial: 'related_policies', object: related_policies %>
 <% end %>
