@@ -69,10 +69,7 @@
       margin-left: 1em;
 
       div.img {
-        @include box-shadow(0, 0, 2px, #d5d5d5);
         background: #fff;
-        border: 1px solid #ddd;
-        margin-bottom: 0.4285em;
         margin-bottom: 0.25em;
         overflow: hidden;
 
