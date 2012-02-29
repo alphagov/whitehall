@@ -174,3 +174,11 @@
     background-image: none;
   }
 }
+
+.lte-ie8 {
+  #content {
+    article {
+      _height: 0;
+    }
+  }
+}
