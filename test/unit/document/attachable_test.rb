@@ -43,6 +43,14 @@ class Document::AttachableTest < ActiveSupport::TestCase
     assert_equal greenpaper_pdf.url(:thumbnail), document.thumbnail_url
   end
 
+  test 'should include attachment titles into #indexable_content' do
+    attachment = create(:attachment, title: "The title of the attachment")
+    document = create(:publication, body: "Document body.")
+    document.attachments << attachment
+
+    assert_equal "Document body. Attachment: The title of the attachment", document.indexable_content
+  end
+
   test "#destroy should also remove the relationship to any attachments" do
     document = create(:draft_publication, attachments: [create(:attachment)])
     relation = document.document_attachments.first

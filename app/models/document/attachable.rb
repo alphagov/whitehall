@@ -33,4 +33,14 @@ module Document::Attachable
   def thumbnailable_attachments
     attachments.pdf
   end
+
+  def indexable_content
+    (super + " " + indexable_attachment_content).strip
+  end
+
+  private
+
+  def indexable_attachment_content
+    attachments.all.map { |a| "Attachment: #{a.title}" }.join(". ")
+  end
 end

@@ -44,7 +44,7 @@ class Document < ActiveRecord::Base
     changed - %w(state updated_at featured)
   end
 
-  searchable title: :title, link: -> d { d.public_document_path(d) }, content: :body_without_markup,
+  searchable title: :title, link: -> d { d.public_document_path(d) }, content: :indexable_content,
     only: :published, index_after: :publish, unindex_after: [:archive, :delete]
 
   def creator
@@ -140,6 +140,10 @@ class Document < ActiveRecord::Base
 
   def sluggable_title
     title
+  end
+
+  def indexable_content
+    body_without_markup
   end
 
   def body_without_markup

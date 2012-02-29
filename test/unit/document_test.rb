@@ -805,6 +805,17 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal "policy", policy.search_index["format"]
   end
 
+  test "#indexable_content should return the body without markup by default" do
+    policy = create(:published_policy, body: "# header\n\nsome text")
+    assert_equal "header some text", policy.indexable_content
+  end
+
+  test "should use the result of #indexable_content for the content of #search_index" do
+    policy = create(:published_policy, title: "policy-title")
+    policy.stubs(:indexable_content).returns("some augmented searchable content")
+    assert_equal "some augmented searchable content", policy.search_index["indexable_content"]
+  end
+
   test "should return search index data for all published documents" do
     create(:published_policy, title: "policy-title", body: "this and that")
     create(:published_publication, title: "publication-title", body: "stuff and things")
