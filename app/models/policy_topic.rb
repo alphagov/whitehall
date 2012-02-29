@@ -1,11 +1,15 @@
 class PolicyTopic < ActiveRecord::Base
   include ActiveRecord::Transitions
+  include Searchable
+  include Rails.application.routes.url_helpers
+
+  searchable title: :name, link: :search_link, content: :description, format: 'policy-topic'
 
   state_machine do
     state :current
     state :deleted
 
-    event :delete do
+    event :delete, success: -> topic { topic.remove_from_search_index } do
       transitions from: [:current], to: :deleted, guard: :destroyable?
     end
   end
@@ -78,6 +82,10 @@ class PolicyTopic < ActiveRecord::Base
 
   def unfeature
     update_attributes(featured: false)
+  end
+
+  def search_link
+    policy_topic_path(slug)
   end
 
   private

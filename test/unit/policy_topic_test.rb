@@ -210,4 +210,58 @@ class PolicyTopicTest < ActiveSupport::TestCase
     assert_equal [], policy_topic_1.related_policy_topics
     assert_equal [], policy_topic_2.related_policy_topics
   end
+
+
+  test 'should return search index data suitable for Rummageable' do
+    policy_topic = create(:policy_topic, name: "policy topic name", description: "topic description")
+
+    assert_equal 'policy topic name', policy_topic.search_index['title']
+    assert_equal "/government/policy-topics/#{policy_topic.slug}", policy_topic.search_index['link']
+    assert_equal 'topic description', policy_topic.search_index['indexable_content']
+    assert_equal 'policy-topic', policy_topic.search_index['format']
+  end
+
+  test 'should add policy topic to search index on creating' do
+    topic = build(:policy_topic)
+
+    search_index_data = stub('search index data')
+    topic.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data)
+
+    topic.save
+  end
+
+  test 'should add policy topic to search index on updating' do
+    topic = create(:policy_topic)
+
+    search_index_data = stub('search index data')
+    topic.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data)
+
+    topic.name = 'different topic name'
+    topic.save
+  end
+
+  test 'should remove policy topic from search index on destroying' do
+    topic = create(:policy_topic)
+    Rummageable.expects(:delete).with("/government/policy-topics/#{topic.slug}")
+    topic.destroy
+  end
+
+  test 'should remove policy topic from search index on deleting' do
+    topic = create(:policy_topic)
+    Rummageable.expects(:delete).with("/government/policy-topics/#{topic.slug}")
+    topic.delete!
+  end
+
+  test 'should return search index data for all policy topics' do
+    create(:policy_topic)
+    create(:policy_topic)
+    create(:policy_topic)
+    create(:policy_topic)
+
+    results = PolicyTopic.search_index
+
+    assert_equal 4, results.length
+  end
 end
