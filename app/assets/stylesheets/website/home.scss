@@ -109,6 +109,13 @@
       margin:0 0 0.5em 0;
       background-color:#fff;
     }
+    a {
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      };
+    }
   }
 
   section.featured_carousel article .img{
