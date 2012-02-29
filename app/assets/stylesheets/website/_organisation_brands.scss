@@ -3,7 +3,6 @@
 
 $organisation_brands:
   ('her-majestys-treasury', rgb(191, 49, 26))
-  ('her-majestys-revenue-and-customs', rgb(191, 49, 26))
   ('cabinet-office', rgb(0, 118, 192))
   ('department-for-education', rgb(245, 132, 38))
   ('department-of-transport', rgb(0, 113, 97))
@@ -21,7 +20,8 @@ $organisation_brands:
   ('department-for-international-development', rgb(115, 157, 210))
   // fallback branding
   ('unknown_organisation', rgb(100, 100, 100))
-  ('multiple_organisations', rgb(100, 100, 100));
+  ('multiple_organisations', rgb(100, 100, 100))
+  ('her-majestys-revenue-and-customs', rgb(245, 132, 38));
 
 @mixin add_styles_for_org($org_class, $colour, $logo_image_url, $logo_image_url_small) {
   .organisation.ministerial-department.#{$org_class} {
@@ -37,7 +37,8 @@ $organisation_brands:
         }
       }
     }
-
+    
+    
     section h1.label {
       @if $colour {
         color: $colour;
@@ -128,6 +129,13 @@ $organisation_brands:
       }
     }
   }
+  .organisation.ministerial-department.ministry-of-defence {
+    .page_header {
+      h1.name {
+        padding-left: 54px;
+      }
+    }
+  }
 }
 
 
@@ -151,3 +159,63 @@ $organisation_brands:
   }
 }
 
+
+@mixin add_styles_for_dept($org_class, $colour, $logo_image_url, $logo_image_url_small) {
+  .organisation.non-ministerial-department.#{$org_class}{
+  .page_header {
+    h1.name {
+      @if $colour {
+        border-color: $colour;
+      }
+    }
+  }
+  
+  
+  section h1.label {
+    @if $colour {
+      color: $colour;
+    }
+  }
+
+  .sub_navigation ul li {
+    @if $colour {
+      border-color: $colour;
+    }
+  }
+  .metadata {
+    @if $colour {
+      color: $colour;
+    }
+  }
+  .organisation_news .news_body {
+    @if $colour {
+      background-color: $colour;
+    }
+  }
+
+  .slider_wrap .slidecontrols li a {
+    @if $colour {
+      background-color: rgba($colour, 0.5);
+    }
+  }
+}
+
+.ministerial-department {
+  .organisation_logo_small {
+    @include type-16;
+    line-height:1.125em;
+    display:block;
+    border-left: 2px solid #000;
+    padding-left: 4%;
+    margin-bottom: 0;
+
+    a, span {
+      position: relative;
+      bottom: -0.2em;
+      text-decoration:none;
+    }
+  }
+
+ 
+}
+}
