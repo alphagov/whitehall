@@ -55,6 +55,10 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
     assert_equal "image/png", type.strip
   end
 
+  test "should ensure the content type of the stored thumbnail is image/png" do
+    assert_equal "image/png", @uploader.thumbnail.file.content_type
+  end
+
   test "should scale the thumbnail down proportionally to A4" do
     identify_details = `identify "#{Rails.root.join("public", @uploader.thumbnail.path)}"`
     path, type, geometry, rest = identify_details.split

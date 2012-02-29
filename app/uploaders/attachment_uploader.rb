@@ -18,6 +18,10 @@ class AttachmentUploader < CarrierWave::Uploader::Base
       super + ".png"
     end
     process :generate_thumbnail
+    before :store, :set_correct_content_type
+    def set_correct_content_type(ignore_argument)
+      @file.content_type = "image/png"
+    end
   end
 
   def store_dir
