@@ -19,6 +19,7 @@
     }
 
     article {
+      min-height: 0;
       margin-bottom: 1.5em;
 
       h2.article_title {
@@ -83,4 +84,14 @@
     padding: 0.5em 1.5em 0.5em 1.5em;
   }
 
+}
+
+.lte-ie8 {
+  #content {
+    section.article_section {
+      article {
+        _height: 0;
+      }
+    }
+  }
 }
