@@ -45,7 +45,19 @@ class Document < ActiveRecord::Base
   end
 
   searchable title: :title, link: -> d { d.public_document_path(d) }, content: :indexable_content,
-    only: :published, index_after: :publish, unindex_after: [:archive, :delete]
+    only: :published, index_after: [], unindex_after: []
+
+  [:publish, :archive, :delete].each do |event|
+    set_callback(event, :after) { refresh_index_if_required }
+  end
+
+  def refresh_index_if_required
+    if document_identity.documents.published.any?
+      document_identity.documents.published.last.update_in_search_index
+    else
+      remove_from_search_index
+    end
+  end
 
   def creator
     document_authors.first && document_authors.first.user

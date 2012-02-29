@@ -838,24 +838,43 @@ class DocumentTest < ActiveSupport::TestCase
     policy.publish_as(create(:departmental_editor))
   end
 
-  test "should remove document from search index on archiving" do
+  test "should not remove document from search index when a new edition is published" do
     policy = create(:published_policy)
     slug = policy.document_identity.slug
 
-    Rummageable.expects(:delete).with("/government/policies/#{slug}")
+    Rummageable.expects(:delete).with("/government/policies/#{slug}").never
 
     new_edition = policy.create_draft(create(:policy_writer))
     new_edition.change_note = "change-note"
     new_edition.publish_as(create(:departmental_editor), force: true)
   end
 
-  test "should remove document from search index on deleting" do
+  test "should not remove document from search index when a new draft of a published document is deleted" do
+    policy = create(:published_policy)
+    new_draft_policy = policy.create_draft(create(:policy_writer))
+    slug = policy.document_identity.slug
+
+    Rummageable.expects(:delete).with("/government/policies/#{slug}").never
+
+    new_draft_policy.delete!
+  end
+
+  test "should remove published document from search index when it's deleted" do
     policy = create(:published_policy)
     slug = policy.document_identity.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{slug}")
 
     policy.delete!
+  end
+
+  test "should remove published document from search index when it's archived" do
+    policy = create(:published_policy)
+    slug = policy.document_identity.slug
+
+    Rummageable.expects(:delete).with("/government/policies/#{slug}")
+
+    policy.archive!
   end
 
   test "should provide a list of all editions ever published in reverse chronological order by publication date" do
