@@ -10,7 +10,7 @@ class MinisterialRole < Role
 
   def self.cabinet
     name = arel_table[:name]
-    where(cabinet_member: true).order(name.not_eq('Prime Minister'), name.not_eq('Deputy Prime Minister')).alphabetical_by_person
+    where(cabinet_member: true).order(name.not_eq('Prime Minister'), name.not_eq('Deputy Prime Minister'), name.not_eq('First Secretary of State')).alphabetical_by_person
   end
 
   def permanent_secretary
