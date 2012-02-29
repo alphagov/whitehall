@@ -187,9 +187,5 @@ class Document < ActiveRecord::Base
     def latest_published_edition
       published.where("NOT EXISTS (SELECT 1 FROM documents d2 WHERE d2.document_identity_id = documents.document_identity_id AND d2.id > documents.id AND d2.state = 'published')")
     end
-
-    def search(query)
-      published.where("title LIKE :query", query: "%#{query}%")
-    end
   end
 end
