@@ -9,3 +9,4 @@
 /bin
 /config/whitehall_secrets.yml
 .powrc
+.rbenv-version

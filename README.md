@@ -4,7 +4,7 @@
 
 ### Pre-requisites
 
-* Ruby 1.9
+* Ruby >= 1.9.2 (we have run it successfully against 1.9.2-p290 and 1.9.3-p0)
 * Rubygems and Bundler
 * Mysql
 * Imagemagick and Ghostscript (for generating thumbnails of uploaded PDFs)
