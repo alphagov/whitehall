@@ -1,0 +1,44 @@
+.images {
+  .featuring_mask_container {
+    img {
+      margin-bottom: 0;
+    }
+
+    margin-bottom: 1em;
+    position: relative;
+
+    .featuring_mask_top {
+      height: 5%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .featuring_mask_bottom {
+      height: 40%;
+      width: 60%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      
+      .explanation {
+        font-size: 12px;
+        width: 100%;
+        margin-top: 20%;
+        text-align: center;
+        color: #ddd;
+      }
+    }
+
+    .featuring_mask_bottom, .featuring_mask_top {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    &:hover {
+      .featuring_mask_top, .featuring_mask_bottom {
+        display: none;
+      }
+    }
+  }
+}

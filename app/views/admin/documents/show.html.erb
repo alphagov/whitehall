@@ -84,7 +84,7 @@
     <% end %>
 
     <% if @document.images.any? %>
-      <section class="images">
+      <section class="images image_feature_mask">
         <h1>Images</h1>
         <% @document.images.each do |image| %>
           <%= image_tag image.url, id: dom_id(image) %>
