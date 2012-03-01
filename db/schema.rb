@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120228171120) do
+ActiveRecord::Schema.define(:version => 20120301125820) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20120228171120) do
     t.integer  "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "featured",    :default => false
   end
 
   add_index "document_countries", ["country_id"], :name => "index_document_countries_on_country_id"

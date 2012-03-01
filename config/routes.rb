@@ -69,6 +69,7 @@ Whitehall::Application.routes.draw do
         resource :user, only: [:show, :edit, :update]
         resources :organisations, except: [:show, :destroy]
         resources :document_organisations, only: [:update]
+        resources :document_countries, only: [:update]
         resources :policy_topics, path: "policy-topics", except: [:show] do
           member do
             post :feature
