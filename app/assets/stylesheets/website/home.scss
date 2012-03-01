@@ -79,7 +79,7 @@
     font-family:$helvetica;
     @include type-14;
     letter-spacing:0.05em;
-    padding-top:0.25em;
+    padding-top:0.55em;
     margin:0;
     a{
       color:inherit;
@@ -104,7 +104,7 @@
   .recently_updated {
     li {
       padding:0.5em 0.5em;
-      margin:0 0 0.5em 0;
+      margin:0;
       background-color:#fff;
     }
     a {
@@ -120,8 +120,14 @@
     display:none;
     background-color:#999876;
   }
-
-
+  .g2{
+    h1{
+      background-color:#454545;
+      color:#fff;
+      margin:0;
+      padding:0.25em 1em;
+    }
+  }
 }
 
 
