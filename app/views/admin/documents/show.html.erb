@@ -54,7 +54,7 @@
       <section class="container">
         <h1>Countries</h1>
         <% if @document.countries.any? %>
-          <%= render partial: "countries/list", locals: {countries: @document.countries} %>
+          <%= render partial: "admin/countries/list", locals: {countries: @document.countries} %>
         <% else %>
           <p>This document isn't assigned to any countries.</p>
         <% end %>

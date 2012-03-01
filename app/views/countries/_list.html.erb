@@ -1,11 +1,3 @@
 <ul class="countries">
-  <% countries.each do |country| %>
-    <%= content_tag_for(:li, country, class: "g1") do %>
-      <%= if country.active?
-            link_to country.name, country_path(country)
-          else
-            country.name
-          end %>
-    <% end %>
-  <% end %>
+  <%= render partial: "countries/country", collection: countries, locals: {list_item_class: "g1"} %>
 </ul>
