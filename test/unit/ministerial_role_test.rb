@@ -35,31 +35,6 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     refute ministerial_role.permanent_secretary
   end
 
-  test "should return cabinet roles in correct order" do
-    nick_clegg = create(:person, forename: 'Nick', surname: 'Clegg')
-    jeremy_hunt = create(:person, forename: 'Jeremy', surname: 'Hunt')
-    edward_garnier = create(:person, forename: 'Edward', surname: 'Garnier')
-    david_cameron = create(:person, forename: 'David', surname: 'Cameron')
-    philip_hammond = create(:person, forename: 'Philip', surname: 'Hammond')
-    davey_jones = create(:person, forename: 'Davey', surname: 'Jones')
-
-    deputy_prime_minister = create(:ministerial_role, name: 'Deputy Prime Minister', cabinet_member: true)
-    culture_minister = create(:ministerial_role, name: 'Secretary of State for Culture', cabinet_member: true)
-    solicitor_general = create(:ministerial_role, name: 'Solicitor General', cabinet_member: false)
-    prime_minister = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true)
-    defence_minister = create(:ministerial_role, name: 'Secretary of State for Defence', cabinet_member: true)
-    first_sec_of_state = create(:ministerial_role, name: 'First Secretary of State', cabinet_member: true)
-
-    create(:ministerial_role_appointment, role: deputy_prime_minister, person: nick_clegg)
-    create(:ministerial_role_appointment, role: culture_minister, person: jeremy_hunt)
-    create(:ministerial_role_appointment, role: solicitor_general, person: edward_garnier)
-    create(:ministerial_role_appointment, role: prime_minister, person: david_cameron)
-    create(:ministerial_role_appointment, role: defence_minister, person: philip_hammond)
-    create(:ministerial_role_appointment, role: first_sec_of_state, person: davey_jones)
-
-    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], MinisterialRole.cabinet
-  end
-
   test 'should return search index data suitable for Rummageable' do
     person = create(:person, forename: 'David', surname: 'Cameron', biography: 'David Cameron became Prime Minister in May 2010.')
     ministerial_role = create(:ministerial_role, name: 'Prime Minister')
