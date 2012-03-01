@@ -13,8 +13,12 @@
       }
     }
     section.alphabetical_list {
-      padding-top: 0.75em;
-      
+      padding-top: 1.75em;
+      div.g3{
+        p{
+          padding-bottom:0.85em;
+        }
+      }
       .alphabetical_row {
         div.g1f {
           text-align: right;
