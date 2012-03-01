@@ -22,7 +22,7 @@
     <section class="container">
       <h1>Organisations</h1>
       <% if @document.organisations.any? %>
-        <%= render partial: "organisations/list", locals: {organisations: @document.organisations} %>
+        <%= render partial: "admin/organisations/list", locals: {organisations: @document.organisations} %>
       <% else %>
         <p>This document isn't assigned to any organisations.</p>
       <% end %>

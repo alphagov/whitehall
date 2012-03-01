@@ -1,11 +1,3 @@
 <ul class="organisations">
-  <% organisations.each do |organisation| %>
-    <%= content_tag_for(:li, organisation, class: "g1") do %>
-      <%= if organisation.active?
-            link_to organisation.name, organisation_path(organisation)
-          else
-            organisation.name
-          end %>
-    <% end %>
-  <% end %>
+  <%= render partial: "organisations/organisation", collection: organisations, locals: {list_item_class: "g1"} %>
 </ul>
