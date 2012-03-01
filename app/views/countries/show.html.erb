@@ -1,16 +1,21 @@
 <% page_title @country.name, "UK and the world" %>
-
 <%= content_tag_for(:div, @country) do %>
   <%= render "beta_warning", country: @country %>
 
   <div class="g4">
-    <section class="page_header countries">
+    <section class="page_header countries <% if @featured_news_articles.any? %>with_featured<% end %>">
       <h1 class="country name page_title"><%= @country.name %></h1>
     </section>
   </div>
 
+  <% if @featured_news_articles.any? %>
+  <div class="g4">
+    <%= render partial: "shared/hero_rotator", locals: {news_articles: @featured_news_articles, options: {country_context: true}} %>
+  </div>
+  <% end %>
+
   <div class="g4f">
-    <div class="g1 sidebar">
+    <div class="g1 sidebar <% if @featured_news_articles.any? %>sub_navigation_container<% end %>">
       <%= render 'navigation', country: @country %>
       <section id="about_us" class="info">
         <h1 class="label">About us</h1>

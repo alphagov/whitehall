@@ -68,4 +68,53 @@ class CountriesControllerTest < ActionController::TestCase
 
     assert_select ".body", text: "body-in-html"
   end
+
+  test "shows featured news articles in order of first publication date with most recent first" do
+    country = create(:country)
+    less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
+    more_recent_news_article = create(:published_news_article, first_published_at: 1.day.ago)
+    create(:document_country, document: less_recent_news_article, country: country, featured: true)
+    create(:document_country, document: more_recent_news_article, country: country, featured: true)
+
+    get :show, id: country
+
+    assert_equal [more_recent_news_article, less_recent_news_article], assigns[:featured_news_articles]
+  end
+
+  test "shows a maximum of 3 featured news articles" do
+    country = create(:country)
+    4.times do
+      news_article = create(:published_news_article)
+      create(:document_country, document: news_article, country: country, featured: true)
+    end
+
+    get :show, id: country
+
+    assert_equal 3, assigns[:featured_news_articles].length
+  end
+
+  test "shows country's featured news article with image" do
+    lead_image = create(:image)
+    news_article = create(:published_news_article, images: [lead_image])
+    country = create(:country)
+    create(:document_country, document: news_article, country: country, featured: true)
+
+    get :show, id: country
+
+    assert_select_object news_article do
+      assert_select ".img img[src$='#{lead_image.url}']"
+    end
+  end
+
+  test "shows country's featured news article with a blank image where no image has been supplied" do
+    news_article = create(:published_news_article)
+    country = create(:country)
+    create(:document_country, document: news_article, country: country, featured: true)
+
+    get :show, id: country
+
+    assert_select_object news_article do
+      assert_select ".img img[src$='generic_image.jpg']"
+    end
+  end
 end

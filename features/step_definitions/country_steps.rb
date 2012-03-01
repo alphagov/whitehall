@@ -41,6 +41,25 @@ When /^I visit the countries page$/ do
   visit countries_path
 end
 
+When /^I set the featured news articles of the country "([^"]*)" to:$/ do |name, table|
+  country = Country.find_by_name!(name)
+  visit edit_admin_country_path(country)
+  table.rows.each do |title|
+    news_article = NewsArticle.find_by_title(title)
+    within record_css_selector(news_article) do
+      click_button "Feature"
+    end
+  end
+end
+
+Then /^I should see the featured news articles of the country "([^"]*)" are:$/ do |name, expected_table|
+  country = Country.find_by_name!(name)
+  visit country_path(country)
+  rows = find("#featured-news-articles").all('.news_article')
+  table = rows.map { |r| r.all('a.title').map { |c| c.text.strip } }
+  expected_table.diff!(table)
+end
+
 Then /^I should see the country "([^"]*)"$/ do |name|
   country = Country.find_by_name!(name)
   assert page.has_css?(record_css_selector(country))

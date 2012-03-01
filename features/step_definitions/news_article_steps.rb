@@ -4,11 +4,6 @@ Given /^a published news article "([^"]*)" with related published policies "([^"
   create(:published_news_article, title: news_article_title, related_policies: [policy_1, policy_2])
 end
 
-Given /^a published news article "([^"]*)" exists relating to the country "([^"]*)"$/ do |title, country_name|
-  country = Country.find_by_name!(country_name)
-  create(:published_news_article, title: title, countries: [country])
-end
-
 Given /^a published news article "([^"]*)" with notes to editors "([^"]*)"$/ do |title, notes_to_editors|
   create(:published_news_article, title: title, notes_to_editors: notes_to_editors)
 end

@@ -82,11 +82,6 @@ Given /^an editor named "([^"]*)" has rejected the policy titled "([^"]*)" becau
   policy.editorial_remarks.create! author: editor, body: rejection_reason
 end
 
-Given /^a published policy "([^"]*)" exists relating to the country "([^"]*)"$/ do |title, country_name|
-  country = Country.find_by_name!(country_name)
-  create(:published_policy, title: title, countries: [country])
-end
-
 Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the policy "([^"]*)"$/ do |document_type, document_title, policy_title|
   policy = Policy.find_by_title!(policy_title)
   document = create("published_#{document_class(document_type).name.underscore}".to_sym,

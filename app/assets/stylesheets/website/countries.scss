@@ -54,3 +54,19 @@
     }
   }
 }
+
+#content {
+  .country {
+    section.page_header.with_featured {
+      margin-top: 0.75em;
+      margin-bottom: 1em;
+    }
+
+    .sub_navigation_container {
+      p.about {
+        @include type-14;
+        padding-right: 1em;
+      }
+    }
+  }
+}

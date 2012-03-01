@@ -9,6 +9,7 @@ class Country < ActiveRecord::Base
 
   has_many :document_countries
   has_many :documents, through: :document_countries
+  has_many :featured_news_articles, through: :document_countries, class_name: "NewsArticle", source: :document, conditions: { "document_countries.featured" => true, "documents.state" => "published" }
 
   validates :name, presence: true
 

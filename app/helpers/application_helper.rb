@@ -203,6 +203,7 @@ module ApplicationHelper
   def featured_carousel_classes(options = {})
     classes = ["featured_carousel"]
     classes << "organisation_news" if options[:organisational_context]
+    classes << "country_news" if options[:country_context]
     classes.join(" ")
   end
 end
