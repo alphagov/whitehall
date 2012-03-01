@@ -10,6 +10,20 @@
       .g3 {
         border-bottom: solid 1px #000;
         padding-bottom: 0.75em;
+        .g1 .country{
+          background-position: 0 0;
+          background-repeat:no-repeat;
+          padding-top:130px;
+        }
+          #country_129{
+            background-image:url(/government/assets/spain.png);
+          }
+          #country_145{
+            background-image:url(/government/assets/uganda.png);
+          }
+          #country_157{
+            background-image:url(/government/assets/usa.png);
+          }
       }
     }
     section.alphabetical_list {
