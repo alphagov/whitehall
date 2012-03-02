@@ -111,3 +111,56 @@ class PublicationTest < ActiveSupport::TestCase
     assert_equal [attachment_2], publication.attachments
   end
 end
+
+class PublicationsInPolicyTopicsTest < ActiveSupport::TestCase
+  def setup
+    @policy_1 = create(:published_policy)
+    @policy_topic_1 = create(:policy_topic, policies: [@policy_1])
+    @policy_2 = create(:published_policy)
+    @policy_topic_2 = create(:policy_topic, policies: [@policy_2])
+    @draft_policy = create(:draft_policy)
+    @policy_topic_with_draft_policy = create(:policy_topic, policies: [@draft_policy])
+  end
+
+  test "should be able to find a publication using the policy topic of an associated policy" do
+    published_publication = create(:published_publication, related_policies: @policy_topic_1.policies)
+
+    assert_equal [published_publication], Publication.in_policy_topic(@policy_topic_1).all
+  end
+
+  test "should return the publications with the given policy but not other policies" do
+    published_publication_1 = create(:published_publication, related_policies: @policy_topic_1.policies)
+    published_publication_2 = create(:published_publication, related_policies: @policy_topic_1.policies + @policy_topic_2.policies)
+
+    assert_equal [published_publication_1, published_publication_2], Publication.in_policy_topic(@policy_topic_1).all
+    assert_equal [published_publication_2], Publication.in_policy_topic(@policy_topic_2).all
+  end
+
+  test "should only find published publications, not draft ones" do
+    published_publication = create(:published_publication, related_policies: [@policy_1])
+    create(:draft_publication, related_policies: [@policy_1])
+
+    assert_equal [published_publication], Publication.in_policy_topic(@policy_topic_1).all
+  end
+
+  test "should only consider associations through published policies, not draft ones" do
+    published_publication = create(:published_publication, related_policies: [@policy_1, @draft_policy])
+
+    assert_equal [published_publication], Publication.in_policy_topic(@policy_topic_1).all
+    assert_equal [], Publication.in_policy_topic(@policy_topic_with_draft_policy).all
+  end
+
+  test "should consider the policy topics of the latest published edition of a policy" do
+    user = create(:departmental_editor)
+    policy_1_b = @policy_1.create_draft(user)
+    policy_topic_1_b = create(:policy_topic, policies: [policy_1_b])
+    published_publication = create(:published_publication, related_policies: [policy_1_b])
+
+    assert_equal [], Publication.in_policy_topic(policy_topic_1_b).all
+
+    policy_1_b.change_note = "test"
+    assert policy_1_b.publish_as(user, force: true), "Should be able to publish"
+    policy_topic_1_b.reload
+    assert_equal [published_publication], Publication.in_policy_topic(policy_topic_1_b).all
+  end
+end

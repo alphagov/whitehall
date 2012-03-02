@@ -23,4 +23,29 @@ module Document::RelatedPolicies
   def can_be_related_to_policies?
     true
   end
+
+  module ClassMethods
+    def in_policy_topic(policy_topic)
+      policy_topic_id = policy_topic.respond_to?(:id) ? policy_topic.id : policy_topic
+      latest_published_edition.where("
+        exists (
+          select 1
+          from document_relations dr 
+            join documents policy on 
+              dr.document_identity_id = policy.document_identity_id and 
+              policy.state='published' and
+              NOT EXISTS (
+                SELECT 1 FROM documents d3 
+                WHERE 
+                  d3.document_identity_id = policy.document_identity_id 
+                  AND d3.id > policy.id AND d3.state = 'published'
+              ) 
+            join policy_topic_memberships ptm on ptm.policy_id = policy.id
+          where 
+            dr.document_id=documents.id
+            and ptm.policy_topic_id=%d
+        )
+      ", policy_topic_id)
+    end
+  end
 end
