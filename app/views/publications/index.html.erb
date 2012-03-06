@@ -20,17 +20,4 @@
   </section>
 <% end %>
 
-<% if @other_publications.any? %>
-
-  <section class="publications group four_column_list" id="all_publications">
-    <div class="g4f">
-      <div class="g1"><h1 class="label">All Publications</h1></div>
-      <div class="g3f">
-        <% article_group(@other_publications, groups_of: 3, class: "has_img row") do |publication| %>
-          <%= render partial: "publication", locals: {publication: publication} %>
-        <% end %>
-      </div>
-    </div>
-  </section>
-
-<% end %>
+<%= render partial: "all_publications", locals: {all_publications: @all_publications} %>

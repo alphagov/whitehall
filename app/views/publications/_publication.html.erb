@@ -1,5 +1,6 @@
 <div class="img coverpage-thumbnail">
   <% attachment_with_thumbnail = publication.thumbnailable_attachments.first %>
+
   <% if attachment_with_thumbnail %>
     <%= link_to image_tag(attachment_with_thumbnail.url(:thumbnail)), public_document_path(publication) %>
   <% else %>

@@ -32,5 +32,10 @@ jQuery(function($) {
       speed: 300 // ms.
     });
   });
+  $('.filter-controls .toggle').click(function() {
+    var is_visible = $('.filter-controls li:not(.top,.selected)').first().is(':visible');
+    $('.filter-controls li:not(.top,.selected)').toggle(!is_visible);
+    $(this).hide();
+  });
 
 });

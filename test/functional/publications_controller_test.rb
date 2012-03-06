@@ -137,5 +137,32 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_featured featured
   end
+
+  def given_two_publications_in_two_policy_topics
+    @policy_1 = create(:published_policy)
+    @policy_topic_1 = create(:policy_topic, policies: [@policy_1])
+    @policy_2 = create(:published_policy)
+    @policy_topic_2 = create(:policy_topic, policies: [@policy_2])
+    @published_publication = create(:published_publication, related_policies: [@policy_1])
+    @published_in_second_policy_topic = create(:published_publication, related_policies: [@policy_2])
+  end
   
+  test "can filter by the policy topic of the associated policy" do
+    given_two_publications_in_two_policy_topics
+
+    get :by_policy_topic, policy_topics: @policy_topic_1.slug
+
+    assert_select_object @published_publication
+    refute_select_object @published_in_second_policy_topic
+  end
+
+  test "can filter by the union of multiple policy topics" do
+    given_two_publications_in_two_policy_topics
+
+    get :by_policy_topic, policy_topics: @policy_topic_1.slug + "+" + @policy_topic_2.slug
+
+    assert_select_object @published_publication
+    assert_select_object @published_in_second_policy_topic
+  end
+
 end
