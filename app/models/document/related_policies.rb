@@ -25,8 +25,10 @@ module Document::RelatedPolicies
   end
 
   module ClassMethods
-    def in_policy_topic(policy_topic)
-      policy_topic_id = policy_topic.respond_to?(:id) ? policy_topic.id : policy_topic
+    def in_policy_topic(policy_topics)
+      policy_topic_ids = policy_topics.map do |policy_topic|
+        policy_topic.respond_to?(:id) ? policy_topic.id.to_i : policy_topic.to_i
+      end
       latest_published_edition.where("
         exists (
           select 1
@@ -43,9 +45,9 @@ module Document::RelatedPolicies
             join policy_topic_memberships ptm on ptm.policy_id = policy.id
           where 
             dr.document_id=documents.id
-            and ptm.policy_topic_id=%d
+            and ptm.policy_topic_id in (?)
         )
-      ", policy_topic_id)
+      ", policy_topic_ids)
     end
   end
 end
