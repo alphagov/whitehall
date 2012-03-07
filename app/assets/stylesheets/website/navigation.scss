@@ -95,10 +95,15 @@
 }
 
 .lte-ie8 {
+
+  #global-nav .inner ul {
+    position: relative;
+  }
+
   #global-nav .inner ul li#inside_gov_link {
-    position: fixed;
-    top: 2.65em;
-    left: 9.25%;
+    position: absolute;
+    top: 0;
+    left: -11.75em;
     z-index: 1500;
     
     a.current {
