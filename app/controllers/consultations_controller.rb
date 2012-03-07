@@ -2,6 +2,7 @@ class ConsultationsController < DocumentsController
   helper_method :scope_description
 
   before_filter :load_featured_consultations, only: [:index]
+  respond_to :html, :json, :xml
 
   def index
     scope = Consultation

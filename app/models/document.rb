@@ -12,10 +12,14 @@ class Document < ActiveRecord::Base
   include PublicDocumentRoutesHelper
   include Searchable
 
+  extend Forwardable
+
   has_many :editorial_remarks, dependent: :destroy
   has_many :document_authors, dependent: :destroy
 
   validates :title, :body, :creator, presence: true
+
+  def_delegators :document_identity, :slug
 
   class UnmodifiableOncePublishedValidator < ActiveModel::Validator
     def validate(record)
