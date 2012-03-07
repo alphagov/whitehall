@@ -3,7 +3,8 @@
 
 #content .document {
   margin-bottom: 2em;
-  overflow: auto;
+  overflow:visible;
+  
   @media only screen and (min-width:1024px) {
     margin-right: 2%;
   }
@@ -34,6 +35,7 @@
     }
 
     p, ul, ol {
+       @include type-18;
     }
 
     ul, ol {
