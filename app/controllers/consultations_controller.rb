@@ -32,7 +32,12 @@ class ConsultationsController < DocumentsController
   private
 
   def load_consultations_from_scope(scope)
-    scope.published.includes(:document_identity, :organisations, :published_related_policies, ministerial_roles: [:current_people, :organisations]).sort_by { |c| [c.last_significantly_changed_on, c.first_published_at] }.reverse
+    scope.published.includes(
+      :document_identity, :organisations, :published_related_policies,
+      ministerial_roles: [:current_people, :organisations]
+    ).sort_by { |c|
+      [c.last_significantly_changed_on, c.first_published_at]
+    }.reverse
   end
 
   def document_class
@@ -44,6 +49,8 @@ class ConsultationsController < DocumentsController
   end
 
   def load_featured_consultations
-    @featured_consultations = Consultation.published.featured.by_published_at.includes(:document_identity).limit(3)
+    @featured_consultations = Consultation.published.featured.by_published_at.
+                                           includes(:document_identity).
+                                           limit(3)
   end
 end
