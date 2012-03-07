@@ -44,8 +44,7 @@
             color: #7F7F7F;
           }
           &.current {
-            // force IE7 to use black background
-            background-color: #0C0C0C;
+            // IE override below
             background-color: rgba(0,0,0,0.8);
             color:#fff;
           }
@@ -91,6 +90,19 @@
   &.expanded {
     a {
       float: none;
+    }
+  }
+}
+
+.lte-ie8 {
+  #global-nav .inner ul li#inside_gov_link {
+    position: fixed;
+    top: 2.65em;
+    left: 9.25%;
+    z-index: 1500;
+    
+    a.current {
+      background-color: #0C0C0C;
     }
   }
 }
