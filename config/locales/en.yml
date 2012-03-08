@@ -2,3 +2,6 @@ en:
   errors:
     messages:
       carrierwave_integrity_error: is not an allowed file type
+  support:
+    array:
+      last_word_connector: " and "

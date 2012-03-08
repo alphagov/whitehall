@@ -24,7 +24,7 @@ module AdminDocumentControllerTestHelpers
 
         get :show, id: draft_document
 
-        assert_select ".authors", text: "Tom, Dick, and Harry"
+        assert_select ".authors", text: "Tom, Dick and Harry"
       end
     end
 
