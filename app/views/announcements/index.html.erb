@@ -8,7 +8,7 @@
 </div>
 
 <% if @announced.featured_news.any? %>
-  <section class="announcements group four_column_list" id="featured_news">
+  <section class="announcements four_column_list" id="featured_news">
     <div class="g4f">
       <div class="g1"><h1 class="label">Featured</h1></div>
       <div class="g3f expanded group">
@@ -19,7 +19,7 @@
 <% end %>
 
 <% if @announced.today.any? %>
-  <section class="announcements group four_column_list" id="last_24_hours">
+  <section class="announcements four_column_list" id="last_24_hours">
     <div class="g4f">
       <div class="g1"><h1 class="label">In the last 24 hours</h1></div>
       <div class="g3f">
@@ -33,7 +33,7 @@
 <% end %>
 
 <% if @announced.in_last_7_days.any? %>
-  <section class="announcements group four_column_list" id="last_7_days">
+  <section class="announcements four_column_list" id="last_7_days">
     <div class="g4f">
       <div class="g1">
         <h1 class="label">In the last 7 days</h1>

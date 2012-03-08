@@ -9,7 +9,7 @@
 </div>
 
 <% if @featured_consultations && @featured_consultations.any? %>
-  <section class="consultations group four_column_list" id="featured-consultations">
+  <section class="consultations four_column_list" id="featured-consultations">
     <div class="g4f">
       <div class="g1"><h1 class="label">Featured</h1></div>
       <div class="g3f">
@@ -21,7 +21,7 @@
   </section>
 <% end %>
 
-<section class="consultations group four_column_list" id="<%= params[:action] %>-consultations">
+<section class="consultations four_column_list" id="<%= params[:action] %>-consultations">
   <div class="g4f">
     <div class="g1">
       <h1 class="label"><%= scope_description.capitalize %> consultations</h1>
