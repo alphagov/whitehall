@@ -26,6 +26,11 @@
         <li class="toggle">
           <a href="#"><span>+</span>View all topics</a>
         </li>
+        <% if @selected_policy_topics.any? %>
+          <li>
+            View <%= link_to "all publications", publications_path %>
+          </li>
+        <% end %>
       </ul>
     </div>
     <% if @all_publications.any? %>
