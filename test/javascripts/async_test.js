@@ -5,7 +5,7 @@ test("should hide the help content associated with the textarea when clicking th
   // var help = $('section.govspeak_help', this.fieldset);
   // var helpLink = $('a.govspeak_help', this.fieldset);
   // helpLink.click();
-  
+
   setTimeout(function() {
     console.log("in callback");
     // helpLink.click();

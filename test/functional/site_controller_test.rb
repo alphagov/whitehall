@@ -6,7 +6,7 @@ class SiteControllerTest < ActionController::TestCase
   default_url_options[:host] = 'test.host'
 
   should_be_a_public_facing_controller
-  
+
 
   test "index shows a list of recently published documents" do
     create_published_documents
@@ -18,7 +18,7 @@ class SiteControllerTest < ActionController::TestCase
     recent_documents = documents[0...10]
     older_documents = documents[10..-1]
 
-    recent_documents.each do |d| 
+    recent_documents.each do |d|
       assert_select_object(d) do
         d.organisations.each do |org|
           assert_select_object(org)

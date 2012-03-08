@@ -5,30 +5,30 @@
   *
   */
   $.fn.flashNotice = function (static) {
-  	$(this).fadeIn();
+    $(this).fadeIn();
 
-  	if (!static) {
-  	  var element = $(this);
-    	var timeout = setTimeout(function () { element.fadeOut(); }, 3000);
-  	}
+    if (!static) {
+      var element = $(this);
+      var timeout = setTimeout(function () { element.fadeOut(); }, 3000);
+    }
 
-  	$(this).click(function () {
-  	  if (timeout) {
-  	    clearTimeout(timeout);
-  	  }
+    $(this).click(function () {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
 
-  	  $(this).fadeOut();
-  	});
+      $(this).fadeOut();
+    });
   }
 
   $.fn.showNotice = function (message) {
-  	$(this).html("<p class='flash notice'>"+message+"</p>")
-  	$(".notice", this).flashNotice();
+    $(this).html("<p class='flash notice'>"+message+"</p>")
+    $(".notice", this).flashNotice();
   }
 
   $.fn.showAlert = function (message) {
-  	$(this).html("<p class='flash alert'>"+message+"</p>")
-  	$(".alert", this).flashNotice();
+    $(this).html("<p class='flash alert'>"+message+"</p>")
+    $(".alert", this).flashNotice();
   }
 
 })(jQuery);

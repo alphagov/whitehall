@@ -7,7 +7,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
   should_show_the_countries_associated_with :news_article
   should_display_inline_images_for :news_article
   should_display_lead_image_for :news_article
-  
+
   test "shows published news article" do
     news_article = create(:published_news_article)
     get :show, id: news_article.document_identity
@@ -20,7 +20,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
     assert_select ".summary", text: "plain text &amp; so on"
   end
-  
+
   test "renders the news article body using govspeak" do
     news_article = create(:published_news_article, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do

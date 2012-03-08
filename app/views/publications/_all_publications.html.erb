@@ -29,7 +29,7 @@
       </ul>
     </div>
     <div class="g3f">
-      <% article_group(@all_publications, groups_of: 3, class: "has_img row") do |publication| %>          
+      <% article_group(@all_publications, groups_of: 3, class: "has_img row") do |publication| %>
         <%= render partial: "publication", locals: {publication: publication} %>
       <% end %>
     </div>

@@ -27,4 +27,3 @@
     $(".resource_list table.documents tr").documentInList('td.title', '.supporting_pages', 'h2');
   });
 })(jQuery);
-

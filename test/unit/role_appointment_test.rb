@@ -141,5 +141,5 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, started_at: 1.year.ago, ended_at: 1.day.ago)
     assert_equal "previous", role_appointment.type
   end
-  
+
 end

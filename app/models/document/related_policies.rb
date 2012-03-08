@@ -32,18 +32,18 @@ module Document::RelatedPolicies
       latest_published_edition.where("
         exists (
           select 1
-          from document_relations dr 
-            join documents policy on 
-              dr.document_identity_id = policy.document_identity_id and 
+          from document_relations dr
+            join documents policy on
+              dr.document_identity_id = policy.document_identity_id and
               policy.state='published' and
               NOT EXISTS (
-                SELECT 1 FROM documents d3 
-                WHERE 
-                  d3.document_identity_id = policy.document_identity_id 
+                SELECT 1 FROM documents d3
+                WHERE
+                  d3.document_identity_id = policy.document_identity_id
                   AND d3.id > policy.id AND d3.state = 'published'
-              ) 
+              )
             join policy_topic_memberships ptm on ptm.policy_id = policy.id
-          where 
+          where
             dr.document_id=documents.id
             and ptm.policy_topic_id in (?)
         )

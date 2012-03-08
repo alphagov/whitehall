@@ -111,7 +111,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   def assert_featured(docs)
     docs.each do |doc|
-      assert_select '#featured-publications' do 
+      assert_select '#featured-publications' do
         assert_select_object doc
       end
     end
@@ -146,7 +146,7 @@ class PublicationsControllerTest < ActionController::TestCase
     @published_publication = create(:published_publication, related_policies: [@policy_1])
     @published_in_second_policy_topic = create(:published_publication, related_policies: [@policy_2])
   end
-  
+
   test "can filter by the policy topic of the associated policy" do
     given_two_publications_in_two_policy_topics
 

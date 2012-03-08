@@ -13,7 +13,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, id: fact_check_request
     end
-    
+
     assert_select ".body", text: "body-in-html"
   end
 
@@ -62,7 +62,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :edit, id: fact_check_request
     end
-    
+
     assert_select ".body", text: "body-in-html"
   end
 
@@ -296,4 +296,3 @@ class Admin::TemporaryProductionRedirectFactCheckRequestsControllerTest < Action
     assert_redirected_to admin_fact_check_request_url(id: 'not-on-preview-server', host: 'whitehall.production.alphagov.co.uk')
   end
 end
-

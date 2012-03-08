@@ -141,7 +141,7 @@ module DocumentControllerTestHelpers
       end
     end
 
-   
+
 
     def should_show_related_policies_and_policy_topics_for(document_type)
       test "show displays related published policies" do

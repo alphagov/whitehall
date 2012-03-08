@@ -13,7 +13,7 @@ module Document::Ministers
 
     add_trait Trait
   end
-  
+
   def can_be_associated_with_ministers?
     true
   end

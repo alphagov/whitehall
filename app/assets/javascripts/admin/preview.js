@@ -33,7 +33,7 @@
       var imageNodes = function() {
         return $("fieldset.images input[type=hidden][name^='document[images_attributes]'][name$='[id]']");
       }
-      
+
       var imageIds = function() {
         return $.map(imageNodes(), function(node) {
           return $(node).val();

@@ -11,4 +11,3 @@ var utils = {};
   }
 
 })(jQuery);
-

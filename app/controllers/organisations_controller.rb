@@ -1,5 +1,5 @@
 class OrganisationsController < PublicFacingController
-  before_filter :load_organisation, 
+  before_filter :load_organisation,
     only: [:show, :about, :contact_details, :announcements, :consultations,
            :ministers, :management_team, :policies, :publications,
            :agencies_and_partners]
@@ -24,7 +24,7 @@ class OrganisationsController < PublicFacingController
 
   def agencies_and_partners
   end
-  
+
   def contact_details
   end
 

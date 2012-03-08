@@ -50,7 +50,7 @@ module Searchable
     }
 
     def search_index
-      [:title, :link, :format, :content, :boost_phrases].inject({}) do |result, name| 
+      [:title, :link, :format, :content, :boost_phrases].inject({}) do |result, name|
         value = searchable_options[name].call(self)
         key = KEY_MAPPING[name] || name.to_s
         result[key] = value unless value.nil?

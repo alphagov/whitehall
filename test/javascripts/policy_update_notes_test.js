@@ -48,4 +48,3 @@ test("If policy change notes aren't present on the page then the link shouldn't 
   $('.element-that-wont-exist').policyUpdateNotes({link: 'span.updated_at'});
   equals($('a span.updated_at').length, 0);
 });
-

@@ -20,7 +20,7 @@
     <section class="container">
       <h1>Consultation</h1>
       <%= content_tag_for :p, @document.consultation do %>
-        This is a response to the consultation 
+        This is a response to the consultation
         <%= link_to @document.consultation.title, admin_consultation_path(@document.consultation) %>
       <% end %>
     </section>

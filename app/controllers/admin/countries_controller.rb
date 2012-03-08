@@ -16,13 +16,13 @@ class Admin::CountriesController < Admin::BaseController
       render action: :edit
     end
   end
-  
+
   private
-  
+
   def load_country
     @country = Country.find(params[:id])
   end
-  
+
   def load_news_articles
     @news_articles = NewsArticle.published.in_country(@country).by_first_published_at
   end
