@@ -247,3 +247,13 @@
     }
   }
 }
+
+.lte-ie8 {
+  #content {
+    .organisation {
+      #who article {
+        min-height: 0;
+      }
+    }
+  }
+}
