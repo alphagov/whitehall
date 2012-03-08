@@ -165,4 +165,11 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_object @published_in_second_policy_topic
   end
 
+  test "should show a helpful message if there are no matching publications" do
+    policy_topic = create(:policy_topic)
+    get :by_policy_topic, policy_topics: policy_topic.slug
+
+    assert_select "p", text: "There are no matching publications."
+  end
+
 end
