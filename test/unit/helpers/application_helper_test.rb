@@ -196,4 +196,30 @@ class ApplicationHelperTest < ActionView::TestCase
       assert_equal expected, actual, "For #{num_items} items"
     end
   end
+
+  test "should just return 'Publications' if there are no topics" do
+    assert_equal "Publications", publications_page_title([])
+  end
+
+  test "should generate publications page title for one topic" do
+    policy_topic = create(:policy_topic, name: "Farming")
+    assert_equal "Publications about farming",
+      publications_page_title([policy_topic])
+  end
+
+  test "should generate publications page title for two topics" do
+    policy_topics = [
+      "Farming", "Zombie preparedness"
+    ].map { |n| create(:policy_topic, name: n) }
+    assert_equal "Publications about farming and zombie preparedness",
+      publications_page_title(policy_topics)
+  end
+
+  test "should generate publications page title for three or more topics" do
+    policy_topics = [
+      "Farming", "Zombie preparedness", "Cats"
+    ].map { |n| create(:policy_topic, name: n) }
+    assert_equal "Publications about farming, zombie preparedness and cats",
+      publications_page_title(policy_topics)
+  end
 end

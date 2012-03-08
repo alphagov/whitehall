@@ -206,4 +206,13 @@ module ApplicationHelper
     classes << "country_news" if options[:country_context]
     classes.join(" ")
   end
+
+  def publications_page_title(policy_topics)
+    if policy_topics.any?
+      "Publications about #{
+        policy_topics.map { |t| t.name.downcase }.to_sentence }"
+    else
+      "Publications"
+    end
+  end
 end
