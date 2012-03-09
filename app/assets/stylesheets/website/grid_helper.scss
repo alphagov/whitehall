@@ -48,3 +48,11 @@
   background: rgba(255,0,0, 0.5);
   padding: 0.5em 1.5em;
 }
+
+.lte-ie8 {
+  .grid_outline {
+    .g1, .g2, .g3, .g1f, .g2f, .g3f, .g4, .g4f {
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#993333ff, endColorstr=#993333ff);
+    }
+  }
+}
