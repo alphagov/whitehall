@@ -379,12 +379,6 @@
     article.news_article {
       .img {
         overflow: hidden;
-
-        img {
-          @media only screen and (min-width: 768px) {
-            margin-top: -5%;
-          }
-        }
       }
     }
 
