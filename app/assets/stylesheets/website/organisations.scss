@@ -251,8 +251,15 @@
 .lte-ie8 {
   #content {
     .organisation {
-      #who article {
-        min-height: 0;
+      .sub_navigation_container {
+        width: 21.5%;
+      }
+      
+      #who {
+        
+        article {
+          min-height: 0;
+        }
       }
     }
   }
