@@ -1,5 +1,6 @@
 module Document::Identifiable
   extend ActiveSupport::Concern
+  extend Forwardable
 
   included do
     belongs_to :document_identity
@@ -8,6 +9,9 @@ module Document::Identifiable
     before_validation :update_document_identity_slug, on: :update
     before_validation :set_document_type_on_document_identity
   end
+
+  def_delegators :document_identity, :slug, :editions_ever_published
+  def_delegator :document_identity, :published?, :linkable?
 
   def set_document_identity
     self.document_identity ||= DocumentIdentity.new(sluggable_string: self.sluggable_title)
@@ -19,14 +23,6 @@ module Document::Identifiable
 
   def set_document_type_on_document_identity
     self.document_identity.set_document_type(type) if document_identity.present?
-  end
-
-  def linkable?
-    document_identity.published?
-  end
-
-  def editions_ever_published
-    document_identity.editions_ever_published
   end
 
   module ClassMethods
