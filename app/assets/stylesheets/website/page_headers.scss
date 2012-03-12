@@ -3,7 +3,8 @@
 @import "../shared/utils/shadows";
 
 #content {
-  section.page_header {
+  section.page_header,
+  header.page_header {
     margin-top: 1.5em;
     margin-bottom: 2em;
     padding-bottom: 0;
