@@ -32,7 +32,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select 'article', count: 7
 
 
-        assert_select 'article', count: 3
+        assert_select 'article', count: 7
         featured.each do |announcement|
           assert_select_object announcement do
             assert_select "a[href='#{announcement_path(announcement)}'] img"
