@@ -27,18 +27,13 @@ $publications_color: rgb(46, 49, 145);
       color: $publications_color;
       font-family: $gill;
       letter-spacing: 0.15em;
-      margin-bottom: 0.25em;
+      margin-bottom: 0.75em;
       text-transform: uppercase;
-      
-      strong {
-        @include scaled-type(20,24);
-        color: #000;
-        display: block;
-        font-family: $helvetica;
-        letter-spacing: 0;
-        margin-bottom: 0;
-        text-transform: none;
-      }
+    }
+    
+    h2 {
+      @include type-16;
+      margin-bottom: 0.75em;
     }
 
     li {
