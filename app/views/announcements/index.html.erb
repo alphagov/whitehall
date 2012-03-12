@@ -11,7 +11,7 @@
   <section class="announcements four_column_list" id="featured_news">
     <div class="g4f">
       <div class="g1"><h1 class="label">Featured</h1></div>
-      <div class="g3f expanded">
+      <div class="g3f">
         <%= announcement_group(@announced.featured_news, groups_of: 3, partial: "expanded") %>
       </div>
     </div>
@@ -23,9 +23,7 @@
     <div class="g4f">
       <div class="g1"><h1 class="label">In the last 24 hours</h1></div>
       <div class="g3f">
-        <div class="expanded">
-          <%= announcement_group(@announced.today.featured, groups_of: 3, partial: "expanded") %>
-        </div>
+        <%= announcement_group(@announced.today.featured, groups_of: 3, partial: "expanded") %>
         <%= announcement_group(@announced.today.unfeatured, groups_of: 3, partial: "default") %>
       </div>
     </div>
@@ -42,12 +40,8 @@
         <% if @announced.today.any? %>
           <%= announcement_group(@announced.in_last_7_days, groups_of: 3, partial: "default") %>
         <% else %>
-          <div class="expanded">
-            <%= announcement_group(@announced.in_last_7_days.featured, groups_of: 3, partial: "expanded") %>
-          </div>
-          <div class="articles">
-            <%= announcement_group(@announced.in_last_7_days.unfeatured, groups_of: 3, partial: "default") %>
-          </div>
+          <%= announcement_group(@announced.in_last_7_days.featured, groups_of: 3, partial: "expanded") %>
+          <%= announcement_group(@announced.in_last_7_days.unfeatured, groups_of: 3, partial: "default") %>
         <% end %>
       </div>
     </div>
