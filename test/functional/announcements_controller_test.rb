@@ -31,7 +31,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_select '#last_24_hours' do
       assert_select 'article', count: 7
 
-      assert_select '.expanded' do
+
         assert_select 'article', count: 3
         featured.each do |announcement|
           assert_select_object announcement do
@@ -41,7 +41,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
             assert_select_announcement_metadata announcement
           end
         end
-      end
+  
 
       unfeatured.each do |announcement|
         assert_select_object announcement do
