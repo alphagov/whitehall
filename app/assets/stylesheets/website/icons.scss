@@ -24,7 +24,7 @@
 }
 .countries-index .countries,
 .organisations_index_page .page_header,
-.minister{
+.page_header.minister{
   $width: 60px;
   min-height: 1.5em * 3;
   padding-left: $width + 16px;
@@ -38,7 +38,7 @@
   background-image: url(/government/assets/icons/48/departments.png);
 }
 
-.minister{
+.page_header.minister{
   background-image: url(/government/assets/icons/48/ministers.png);
 }
 
