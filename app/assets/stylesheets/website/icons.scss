@@ -3,13 +3,15 @@
   min-height: 1.5em * 3;
 }
 
-.consultation-open .icon, #wrapper.consultations-index .icon {
+.consultation-open .icon, 
+#wrapper.consultations-index .icon {
   $width: 60px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/consultation-open.png);
 }
 
-.consultation-closed .icon, .consultation-responded .icon {
+.consultation-closed .icon, 
+.consultation-responded .icon {
   $width: 60px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/consultation-closed.png);
@@ -20,16 +22,31 @@
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/consultation-responded.png);
 }
+.countries-index .countries,
+.organisations_index_page .page_header,
+.minister{
+  $width: 60px;
+  min-height: 1.5em * 3;
+  padding-left: $width + 16px;
+  background-repeat: no-repeat;
+}
+.countries-index .countries {
+  background-image: url(/government/assets/icons/48/uk_and_the_world.png);  
+}
 
-// .countries .icon {
-//   background-image: url(/government/assets/icons/48/countries.png);
-// }
+.organisations_index_page .page_header {
+  background-image: url(/government/assets/icons/48/departments.png);
+}
 
-// .minister .icon {
-//   background-image: url(/government/assets/icons/48/minister.png);
-// }
+.minister{
+  background-image: url(/government/assets/icons/48/ministers.png);
+}
 
-.news .icon, .newsarticle .icon, #wrapper.announcements-index .icon, #wrapper.news-index .icon {
+
+.news .icon, 
+.newsarticle .icon, 
+#wrapper.announcements-index .icon, 
+#wrapper.news-index .icon {
   $width: 53px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/news.png);
@@ -39,7 +56,8 @@
 //   background-image: url(/government/assets/icons/48/organisation.png);
 // }
 
-.policy, .supporting_page {
+.policy, 
+.supporting_page {
   .icon {
     $width: 35px;
     padding-left: $width + 16px;
@@ -47,19 +65,22 @@
   }
 }
 
-.policytopic .icon, #wrapper.policy-topics-index .icon {
+.policytopic .icon, 
+#wrapper.policy-topics-index .icon {
   $width: 41px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/policytopic.png);
 }
 
-#wrapper.publications-index .icon, .publication .icon {
+#wrapper.publications-index .icon, 
+.publication .icon {
   $width: 46px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/publication.png);
 }
 
-.speech .icon, #wrapper.speeches-index .icon {
+.speech .icon, 
+#wrapper.speeches-index .icon {
   $width: 51px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/speech.png);
