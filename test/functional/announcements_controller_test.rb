@@ -97,7 +97,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index
 
     assert_select '#last_7_days' do
-      assert_select '.expanded', count: 0
 
       announced_in_last_7_days.each do |announcement|
         assert_select_object announcement do
@@ -122,9 +121,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     assert_select '#last_7_days' do
       assert_select 'article', count: 3
-      assert_select '.expanded' do
-        assert_select 'article', count: 1
-      end
     end
   end
 
