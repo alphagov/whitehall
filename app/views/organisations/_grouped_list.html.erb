@@ -4,7 +4,9 @@
       <div class="alphabetical_row g4f" id="organisations_<%= letter.downcase %>">
         <div class="g1"><h2 class="label"><%= letter %></h2></div>
         <div class="g3f">
-          <%= render partial: "list", locals: { organisations: organisations_group } %>
+          <ul class="organisations">
+            <%= render partial: "organisations/organisation", collection: organisations, locals: {list_item_class: "g1"} %>
+          </ul>
         </div>
       </div>
     <% end %>
