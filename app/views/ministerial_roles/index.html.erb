@@ -7,8 +7,8 @@
   </header>
 </div>
 
-<section class="g4f cab_ministers">
-  <h2 class="g1 label">Cabinet ministers</h2>
+<section class="g4 cab_ministers">
+  <h2 class="g1f label">Cabinet ministers</h2>
   <ul id="cabinet" class="floated_list g3">
     <% @cabinet_ministerial_roles.each do |role| %>
       <li class="ministerial_role g1">
@@ -22,7 +22,7 @@
   </ul>
 </section>
 
-<section class="g4f cab_ministers other">
-  <h2 class="g4 label">Other ministers</h2>
+<section class="g4 cab_ministers other">
+  <h2 class="g1f label">Other ministers</h2>
   <%= render partial: "grouped_list", locals: {ministerial_roles: @ministerial_roles} %>
 </section>
