@@ -5,13 +5,13 @@
   <div class="g3">
   </div>
   <% countries.group_by {|c| c.name.first.upcase }.sort.in_groups_of(3, false) do |row| %>
-      <% row.each do |letter, countries_group| %>
-        <div class="alphabetical_row g4f" id="countries_<%= letter.downcase %>">
-          <div class="g1f"><h2 class="alphabetical_list_letter"><%= letter %></h2></div>
-          <div class="g3f">
-            <%= render partial: "list", locals: { countries: countries_group } %>
-          </div>
+    <% row.each do |letter, countries_group| %>
+      <div class="alphabetical_row g4f" id="countries_<%= letter.downcase %>">
+        <div class="g1"><h2 class="alphabetical_list_letter"><%= letter %></h2></div>
+        <div class="g3">
+          <%= render partial: "list", locals: { countries: countries_group } %>
         </div>
-      <% end %>
+      </div>
+    <% end %>
   <% end %>
 </section>
