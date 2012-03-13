@@ -3,7 +3,7 @@
     <% row.each do |letter, ministerial_roles_group| %>
       <div class="alphabetical_row g4f" id="ministerial_roles_<%= letter.downcase %>">
         <div class="g1"><h2 class="alphabetical_list_letter"><%= letter %></h2></div>
-        <div class="g3">
+        <div class="g3f">
           <%= render_list_of_ministerial_roles ministerial_roles_group do |ministerial_role| %>
             <div class="image_holder">
               <%= link_to image_for_ministerial_role(ministerial_role), ministerial_role %>

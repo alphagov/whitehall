@@ -3,7 +3,7 @@
     <% row.each do |letter, organisations_group| %>
       <div class="alphabetical_row g4f" id="organisations_<%= letter.downcase %>">
         <div class="g1"><h2 class="alphabetical_list_letter"><%= letter %></h2></div>
-        <div class="g3">
+        <div class="g3f">
           <ul class="organisations">
             <%= render partial: "organisations/organisation", collection: organisations, locals: {list_item_class: "g1"} %>
           </ul>
