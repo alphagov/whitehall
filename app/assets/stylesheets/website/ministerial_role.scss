@@ -5,7 +5,7 @@
 @import "organisation_brands";
 
 #content {
-  .cab_ministers{
+  .cab_ministers {
     .ministerial_role {
       position: relative;
       min-height: 88px;
@@ -22,16 +22,15 @@
       }
     }
 
-    .current_appointee{
-      @include type-14;
+    h3.current_appointee {
+      @include type-16;
       margin:0;
       padding:0 0 0.275em 0;
     }
 
-    .role{
-      @include type-12;
+    .role {
+      @include type-14;
       margin-bottom: 0;
-      line-height:1em;
     }
   }
 
