@@ -23,6 +23,18 @@ The database.yml for this project is checked into source control so you'll need 
     $ bundle exec rake db:create:all
     $ bundle exec rake db:schema:load
 
+### Getting a copy of live data
+
+There's a capistrano task which will download a dump of the mysql database and load it on your local machine:
+
+    cap db:import                # Import data from DEPLOY_TO environment to loca...
+  
+To use it, go to the whitehall directory in alphagov-deployment and then do:
+    
+    $ DEPLOY_TO=production bundle exec cap db:import
+
+this will load data from production into your local database.
+
 ### Running the server locally
 
     $ script/rails s
