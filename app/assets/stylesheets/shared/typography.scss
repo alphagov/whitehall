@@ -83,6 +83,7 @@
 
     .label {
       @include scaled_type(14, 24);
+      font-family: $gill;
       letter-spacing: 0.15em;
       margin-bottom: 0.857em;
       text-transform: uppercase;
