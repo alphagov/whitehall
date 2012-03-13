@@ -22,12 +22,6 @@
       }
     }
 
-    h2{
-      @include type-14;
-      font-family: $gill;
-      text-transform: uppercase;
-    }
-
     .current_appointee{
       @include type-14;
       margin:0;
@@ -44,29 +38,8 @@
   .cab_ministers.other{
     border-top:1px solid #000;
     padding-top:1em;
-
-    .alphabetical_row{
-      .g1f {
-        text-align: right;
-      }
-      h2{
-        font-size:2.3em;
-        color:#fff;
-        background-color:#bbb;
-        display:inline-block;
-        width:100%;
-        padding:0.345em 0 0.345em 0.1em;
-        text-align:center;
-        margin-top:0;
-      }
-      @media only screen and (min-width: 768px) {
-        h2{
-          width:72px;
-        }
-      }
-
-    }
   }
+  
   .ministerial_role_page {
     @each $brand in $organisation_brands {
       $name: nth($brand, 1);

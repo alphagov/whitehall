@@ -1,3 +1,4 @@
+@import "../shared/utils/type_stacks";
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/clearfix";
 @import "../shared/utils/grid";
@@ -19,53 +20,64 @@
     }
   }
 
-  // A-Z Listings
+  // Alphabetical Listings
 
-  .alphabetical_list {
-    h1 {
-/*      @include type-21;*/
-    }
-  }
+  section.alphabetical_list {
 
-  .alphabetical_row {
-    margin-bottom: 1.5em;
+    .alphabetical_row {
+      margin-bottom: 1.5em;
 
-    h2 {
-      @include scaled_type(14, 24);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 0;
-      color: #333;
-    }
+      h2 {
+        @include gill;
+        @include type-14;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 0;
+        color: #333;
 
-    ul {
-      @include clearfix;
-      margin-bottom: 0;
-      margin-right: 3%;
-
-      li {
-        margin-bottom: 0.857em;
-
-        h3, p {
-          margin-bottom: 0;
+        &.alphabetical_list_letter {
+          margin: 0;
+          width: 48px;
+          height: 48px;
+          text-align: center;
+          float: right;
+          font-size: 1.3em;
+          text-indent: 0.1em;
+          line-height: 48px;
+          background: #bbb;
+          color: #fff;
         }
+      }
 
-        h3 {
-          @include type-13;
-          margin-bottom: 0;
-        }
+      ul {
+        @include clearfix;
+        margin-bottom: 0;
+        margin-right: 3%;
 
-        p {
-          @include type-13;
-          margin-bottom: 0;
+        li {
+          margin-bottom: 0.857em;
+
+          h3, p {
+            margin-bottom: 0;
+          }
+
+          h3 {
+            @include type-13;
+            margin-bottom: 0;
+          }
+
+          p {
+            @include type-13;
+            margin-bottom: 0;
+          }
         }
       }
     }
-  }
 
-  .alphabetical_list#ministerial_roles {
-    li.ministerial_role {
-      @include span_one_column;
+    &#ministerial_roles {
+      li.ministerial_role {
+        @include span_one_column;
+      }
     }
   }
 }

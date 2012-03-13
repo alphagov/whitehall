@@ -26,32 +26,6 @@
           }
       }
     }
-    section.alphabetical_list {
-      padding-top: 0.75em;
-      
-      .alphabetical_row {
-        div.g1f {
-          text-align: right;
-        }
-        
-        h2.label {
-          font-family: $gill;
-          font-size:2.3em;
-          line-height: 1.286em;
-          color:#fff;
-          background-color:#bbb;
-          display:inline-block;
-          margin-right: 0.5em;
-          padding:0.345em 0 0.345em 0.1em;
-          text-align:center;
-          margin-top: 0;
-    
-          @media only screen and (min-width: 768px) {
-            width:72px;
-          }
-        }
-      }
-    }
   }
 }
 
