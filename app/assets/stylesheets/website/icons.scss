@@ -1,102 +1,67 @@
-.icon {
+.icon, .page_header {
   background-repeat: no-repeat;
   min-height: 1.5em * 3;
 }
 
-.consultation-open .icon, 
-#wrapper.consultations-index .icon {
-  $width: 60px;
-  padding-left: $width + 16px;
-  background-image: url(/government/assets/icons/48/consultation-open.png);
-}
-
-.consultation-closed .icon, 
-.consultation-responded .icon {
-  $width: 60px;
-  padding-left: $width + 16px;
-  background-image: url(/government/assets/icons/48/consultation-closed.png);
-}
-
-.consultation-response .icon {
-  $width: 60px;
-  padding-left: $width + 16px;
-  background-image: url(/government/assets/icons/48/consultation-responded.png);
-}
-.countries-index .page_header.countries,
+/* index headings */
+.countries-index .page_header,
 .organisations_index_page .page_header,
-.page_header.minister{
+.ministers-index .page_header,
+.announcements-index .page_header,
+.policy-topics-index .page_header,
+.publications-index .page_header,
+.consultations-index .page_header,
+.speeches-index .page_header,
+.search-index .page_header{
   $width: 60px;
-  min-height: 1.5em * 3;
   padding-left: $width + 16px;
-  background-repeat: no-repeat;
 }
-.countries-index .page_header.countries {
+.countries-index .page_header {
   background-image: url(/government/assets/icons/48/uk_and_the_world.png);  
 }
-
 .organisations_index_page .page_header {
   background-image: url(/government/assets/icons/48/departments.png);
 }
-
-.page_header.minister{
+.ministers-index .page_header{
   background-image: url(/government/assets/icons/48/ministers.png);
 }
-
-
+.announcements-index .page_header,
 .news .icon, 
-.newsarticle .icon, 
-#wrapper.announcements-index .icon, 
-#wrapper.news-index .icon {
+.newsarticle .icon{
   $width: 53px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/news.png);
 }
-
-// .organisation .icon {
-//   background-image: url(/government/assets/icons/48/organisation.png);
-// }
-
-.policy, 
-.supporting_page {
-  .icon {
-    $width: 35px;
-    padding-left: $width + 16px;
-    background-image: url(/government/assets/icons/48/policy.png);
-  }
-}
-
-.policytopic .icon, 
-#wrapper.policy-topics-index .icon {
+.policy-topics-index .page_header,
+.policytopic .icon{
   $width: 41px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/policytopic.png);
 }
-
-#wrapper.publications-index .icon, 
-.publication .icon {
+.publications-index .page_header,
+.publication .icon{
   $width: 46px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/publication.png);
 }
-
-.speech .icon, 
-#wrapper.speeches-index .icon {
+.consultations-index .page_header{
+  background-image: url(/government/assets/icons/48/consultation-open.png);
+}
+.speeches-index .page_header,
+.speech .icon{
   $width: 51px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/speech.png);
 }
-
-.search .icon {
+.search-index .page_header {
   background-image: url(/government/assets/icons/48/search.png);
 }
-
 .search_results {
   li {
     background-repeat: no-repeat;
     min-height: 24px;
     padding-left: 24px + 16px;
   }
-  
   .policy, .supporting_page { 
     background-image: url(/government/assets/icons/24/policy.png); 
   }
@@ -116,3 +81,39 @@
     background-image: url(/government/assets/icons/24/consultation-responded.png); 
   }
 }
+
+
+
+/* old stuff, to be cleaned up */
+
+.consultation-open .icon,
+.consultation-closed .icon, 
+.consultation-responded .icon{
+  $width: 60px;
+  padding-left: $width + 16px;
+}
+.consultation-open .icon{
+  background-image: url(/government/assets/icons/48/consultation-open.png);
+}
+.consultation-closed .icon, 
+.consultation-responded .icon {
+  background-image: url(/government/assets/icons/48/consultation-closed.png);
+}
+
+.consultation-response .icon {
+  background-image: url(/government/assets/icons/48/consultation-responded.png);
+}
+
+
+
+.policy, 
+.supporting_page {
+  .icon {
+    $width: 35px;
+    padding-left: $width + 16px;
+    background-image: url(/government/assets/icons/48/policy.png);
+  }
+}
+
+
+
