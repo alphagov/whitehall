@@ -24,6 +24,7 @@
     }
   }
 
+  /* used throughout, for lists of recently updated docs related to the current view */
   .latest_documents {
     div.metadata {
       @include type-14;
@@ -63,33 +64,7 @@
     }
   }
 
-  ul.policy_topics {
-    li {
-      display: inline;
-        a {
-          @include type-14;
-          background-color: #eee;
-          display: block;
-          float: left;
-          padding: 0.3215em 0.643em;
-          margin: 0.3215em 0.643em 0.3215em 0;
-          text-decoration: none;
 
-          &:hover {
-            background-color: #E5E5E5;
-          }
-        }
-    }
-  }
-
-  section.no_content {
-    padding-top: 1.5em;
-
-    h1 {
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
 
   .page_detail {
     @include clearfix;

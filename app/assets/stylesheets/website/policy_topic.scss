@@ -17,6 +17,25 @@
 
 
 #content {
+  /* relocated from general */
+  ul.policy_topics {
+    li {
+      display: inline;
+        a {
+          @include type-14;
+          background-color: #eee;
+          display: block;
+          float: left;
+          padding: 0.3215em 0.643em;
+          margin: 0.3215em 0.643em 0.3215em 0;
+          text-decoration: none;
+
+          &:hover {
+            background-color: #E5E5E5;
+          }
+        }
+    }
+  }
   .policy_topic_view {
     .description {
       @include type-24;
