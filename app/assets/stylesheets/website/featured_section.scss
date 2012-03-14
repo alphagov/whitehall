@@ -4,9 +4,13 @@
 @import "../shared/utils/grid";
 @import "../shared/utils/transitions";
 @import "../shared/typography";
+@import "../shared/utils/clearfix";
 
 #content {
   section.featured_items {
+    @include clearfix;
+    margin-bottom: 3em;
+
     article {
       position: relative;
     }
