@@ -18,7 +18,10 @@
       padding:0 0 0.275em 1em;
     }
   }
-
+  .feed_icon img {
+    width: auto;
+    float: right;
+  }
   div.beta-content-warning{
     background-color:#F27820;
     padding:2px;
