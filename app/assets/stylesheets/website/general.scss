@@ -66,13 +66,6 @@
 
 
 
-  .page_detail {
-    @include clearfix;
-    margin-bottom: 1.5em;
-    @include type-24;
-    @include georgia;
-  }
-
   .related_documents {
     padding-top: 1em;
     section {
