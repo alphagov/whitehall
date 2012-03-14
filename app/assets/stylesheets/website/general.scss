@@ -93,26 +93,6 @@
     }
   }
 
-
-  
-
-  ul.jump_list {
-    padding-top: 0.2em;
-    padding-left: 1.2em;
-    text-indent: -1.2em;
-
-    li {
-      font-size: 0.85em;
-      margin-bottom: 0.25em;
-    }
-
-    li:before {
-      float: left;
-      width: 1.2em;
-      content: "⇣ ";
-    }
-  }
-
   article .summary p, article .summary h2 {
     background-image: none;
   }
