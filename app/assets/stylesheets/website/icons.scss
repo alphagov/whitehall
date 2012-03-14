@@ -1,9 +1,8 @@
-.icon, .page_header {
+.page_header {
   background-repeat: no-repeat;
   min-height: 1.5em * 3;
 }
 
-/* index headings */
 .countries-index .page_header,
 .organisations_index_page .page_header,
 .ministers-index .page_header,
@@ -56,6 +55,33 @@
 .search-index .page_header {
   background-image: url(/government/assets/icons/48/search.png);
 }
+.consultation-open .page_header,
+.consultation-closed .page_header, 
+.consultation-responded .page_header{
+  $width: 60px;
+  padding-left: $width + 16px;
+}
+.consultation-open .page_header{
+  background-image: url(/government/assets/icons/48/consultation-open.png);
+}
+.consultation-closed .page_header, 
+.consultation-responded .page_header {
+  background-image: url(/government/assets/icons/48/consultation-closed.png);
+}
+
+.consultation-response .page_header {
+  background-image: url(/government/assets/icons/48/consultation-responded.png);
+}
+
+.policy, 
+.supporting_page {
+  .page_header {
+    $width: 35px;
+    padding-left: $width + 16px;
+    background-image: url(/government/assets/icons/48/policy.png);
+  }
+}
+
 .search_results {
   li {
     background-repeat: no-repeat;
@@ -83,37 +109,6 @@
 }
 
 
-
-/* old stuff, to be cleaned up */
-
-.consultation-open .icon,
-.consultation-closed .icon, 
-.consultation-responded .icon{
-  $width: 60px;
-  padding-left: $width + 16px;
-}
-.consultation-open .icon{
-  background-image: url(/government/assets/icons/48/consultation-open.png);
-}
-.consultation-closed .icon, 
-.consultation-responded .icon {
-  background-image: url(/government/assets/icons/48/consultation-closed.png);
-}
-
-.consultation-response .icon {
-  background-image: url(/government/assets/icons/48/consultation-responded.png);
-}
-
-
-
-.policy, 
-.supporting_page {
-  .icon {
-    $width: 35px;
-    padding-left: $width + 16px;
-    background-image: url(/government/assets/icons/48/policy.png);
-  }
-}
 
 
 

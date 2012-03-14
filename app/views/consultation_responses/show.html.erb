@@ -3,10 +3,12 @@
 
 <div class="g4f document_page <%= @document.type.downcase %>">
   <div class="g4">
-    <section class="page_header icon">
-      <h2 class="label">Consultation response</h2>
-      <h1 class="page_title has_meta"><%= @document.title %></h1>
-    </section>
+    <heading class="page_header icon">
+      <hgroup>
+        <h2 class="label">Consultation response</h2>
+        <h1 class="page_title has_meta"><%= @document.title %></h1>
+      </hgroup>
+    </heading>
 
     <div class="g1f">
       <%= render partial: "document_metadata" %>

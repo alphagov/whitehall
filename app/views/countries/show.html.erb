@@ -3,9 +3,9 @@
   <%= render "beta_warning", country: @country %>
 
   <div class="g4">
-    <section class="page_header countries <% if @featured_news_articles.any? %>with_featured<% end %>">
+    <header class="page_header countries <% if @featured_news_articles.any? %>with_featured<% end %>">
       <h1 class="country name page_title"><%= @country.name %></h1>
-    </section>
+    </header>
   </div>
 
   <% if @featured_news_articles.any? %>

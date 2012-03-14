@@ -1,9 +1,11 @@
 <% page_title @ministerial_role.name %>
 <%= content_tag_for :div, @ministerial_role, class: 'g4f ministerial-department ministerial_role_page ' + ministerial_role_organisation_class(@ministerial_role) do %>
-  <section class="g4 page_header ministerial_role minister">
-    <h1 class="role_name"><%= @ministerial_role.name %></h1>
-    <h2 class="current_person_name"><%= @ministerial_role.current_person_name %></h2>
-  </section>
+  <header class="g4 page_header ministerial_role minister">
+    <hgroup>
+      <h1 class="role_name"><%= @ministerial_role.name %></h1>
+      <h2 class="current_person_name"><%= @ministerial_role.current_person_name %></h2>
+    </hgroup>
+  </header>
 
   <div class="g4f">
     <section class="g1" id="document_organisations">
