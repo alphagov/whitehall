@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120301125820) do
+ActiveRecord::Schema.define(:version => 20120314115644) do
+
+  create_table "actions", :force => true do |t|
+    t.integer  "document_id", :null => false
+    t.string   "action"
+    t.integer  "actor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -227,6 +235,13 @@ ActiveRecord::Schema.define(:version => 20120301125820) do
     t.string "name"
   end
 
+  create_table "organisation_policy_areas", :force => true do |t|
+    t.integer  "organisation_id", :null => false
+    t.integer  "policy_area_id",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "organisation_policy_topics", :force => true do |t|
     t.integer  "organisation_id", :null => false
     t.integer  "policy_topic_id", :null => false
@@ -292,6 +307,40 @@ ActiveRecord::Schema.define(:version => 20120301125820) do
     t.string   "carrierwave_image"
     t.text     "biography"
   end
+
+  create_table "phone_numbers", :force => true do |t|
+    t.integer "organisation_id"
+    t.string  "number"
+    t.string  "description"
+  end
+
+  create_table "policy_area_memberships", :force => true do |t|
+    t.integer  "policy_area_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "policy_id"
+    t.integer  "ordering"
+    t.boolean  "featured",       :default => false
+  end
+
+  create_table "policy_area_relations", :force => true do |t|
+    t.integer  "policy_area_id",         :null => false
+    t.integer  "related_policy_area_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "policy_areas", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "description"
+    t.string   "slug"
+    t.boolean  "featured",    :default => false
+    t.string   "state"
+  end
+
+  add_index "policy_areas", ["slug"], :name => "index_policy_areas_on_slug"
 
   create_table "policy_topic_memberships", :force => true do |t|
     t.integer  "policy_topic_id"
@@ -404,5 +453,17 @@ ActiveRecord::Schema.define(:version => 20120301125820) do
   end
 
   add_index "users", ["organisation_id"], :name => "index_users_on_organisation_id"
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.text     "state"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end

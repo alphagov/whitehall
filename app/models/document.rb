@@ -17,6 +17,8 @@ class Document < ActiveRecord::Base
 
   validates :title, :body, :creator, presence: true
 
+  has_paper_trail meta: {state: :state}
+
   class UnmodifiableOncePublishedValidator < ActiveModel::Validator
     def validate(record)
       if record.unmodifiable?
