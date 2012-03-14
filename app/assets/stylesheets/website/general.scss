@@ -1,17 +1,10 @@
-// most of this stuff should go ..
-// it is legacy stuff that has
-// accumulated though the build
-// once the new layout is in place
-// we shouldn't be relying on it's
-// dusty scaffolding ...
-
 @import "../shared/utils/type_stacks";
 @import "../shared/utils/type_sizing";
 @import "../shared/utils/clearfix";
 @import "../shared/typography";
 
 #content {
-
+  /* beta stuff */
   .beta_disclaimer {
     background-color: #F17921;
     min-height: 1.5em;
@@ -29,15 +22,6 @@
       @include type-14;
       margin-left: 0.5em;
     }
-  }
-
-  .related_content {
-    padding-top: 1em;
-    margin-bottom: 1em;
-  }
-
-  .g3f > .related_content {
-    border: none;
   }
 
   .latest_documents {
