@@ -5,6 +5,11 @@
 @import "organisation_brands";
 
 #content {
+  p.nothing_related {
+    @include type-13;
+    margin-bottom: 0.875em;
+    margin-left: 2%;
+  }
   .cab_ministers {
     .ministerial_role {
       position: relative;

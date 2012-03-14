@@ -64,8 +64,6 @@
     }
   }
 
-
-
   .related_documents {
     padding-top: 1em;
     section {
@@ -94,11 +92,6 @@
     }
   }
 
-  p.nothing_related {
-    @include type-13;
-    margin-bottom: 0.875em;
-    margin-left: 2%;
-  }
 
   .feed_icon img {
     width: auto;
