@@ -25,20 +25,20 @@
   background-image: url(/government/assets/icons/48/ministers.png);
 }
 .announcements-index .page_header,
-.news .icon, 
-.newsarticle .icon{
+.news .page_header, 
+.newsarticle .page_header{
   $width: 53px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/news.png);
 }
 .policy-topics-index .page_header,
-.policytopic .icon{
+.policytopic .page_header{
   $width: 41px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/policytopic.png);
 }
 .publications-index .page_header,
-.publication .icon{
+.publication .page_header{
   $width: 46px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/publication.png);
@@ -47,7 +47,7 @@
   background-image: url(/government/assets/icons/48/consultation-open.png);
 }
 .speeches-index .page_header,
-.speech .icon{
+.speech .page_header{
   $width: 51px;
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/speech.png);
@@ -68,7 +68,6 @@
 .consultation-responded .page_header {
   background-image: url(/government/assets/icons/48/consultation-closed.png);
 }
-
 .consultation-response .page_header {
   background-image: url(/government/assets/icons/48/consultation-responded.png);
 }
