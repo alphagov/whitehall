@@ -15,7 +15,11 @@ module Admin::AuditTrailHelper
     end
     html << " ".html_safe
     html << content_tag(:span, class: "time") do
-      "#{time_ago_in_words entry.created_at} ago"
+      if entry.created_at < 1.day.ago
+        entry.created_at.to_s(:long_ordinal)
+      else
+        "#{time_ago_in_words entry.created_at} ago"
+      end
     end
     html
   end
