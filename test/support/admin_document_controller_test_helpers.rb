@@ -102,6 +102,8 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_editing_of(document_type)
+      should_report_editing_conflicts_of(document_type)
+      
       test "edit displays document form" do
         document = create(document_type)
 
@@ -1297,6 +1299,35 @@ module AdminDocumentControllerTestHelpers
 
         document.reload
         assert_equal first_published_at, document.first_published_at
+      end
+    end
+
+    def should_report_editing_conflicts_of(document_type)
+      test "editing an existing #{document_type} should record a RecentDocumentOpening" do
+        document = create(document_type)
+        get :edit, id: document
+
+        assert_equal [current_user], document.reload.recent_document_openings.map(&:editor)
+      end
+
+      test "should see a warning when editing a document that someone else has recently edited" do
+        document = create(document_type)
+        other_user = create(:author, name: "Joe Bloggs")
+        document.open_for_editing_as(other_user)
+        Timecop.travel 1.hour.from_now
+        get :edit, id: document
+
+        assert_select ".editing_conflict", /Joe Bloggs/
+        assert_select ".editing_conflict", /1 hour ago/
+      end
+
+      test "saving a #{document_type} should remove any RecentDocumentOpening records for the current user" do
+        document = create(document_type)
+        document.open_for_editing_as(@current_user)
+
+        assert_difference "document.reload.recent_document_openings.count", -1 do
+          put :update, id: document, document: {}
+        end
       end
     end
   end

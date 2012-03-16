@@ -901,4 +901,63 @@ class DocumentTest < ActiveSupport::TestCase
     document.destroy
     refute EditorialRemark.find_by_id(relation.id)
   end
+
+  test "can record editing intent" do
+    user = create(:policy_writer)
+    document = create(:document)
+    document.open_for_editing_as(user)
+    Timecop.travel 1.minute.from_now
+    assert_equal [user], document.recent_document_openings.map(&:editor)
+  end
+
+  test "recording editing intent for a user who's already editing just updates the timestamp" do
+    user = create(:policy_writer)
+    document = create(:document)
+    document.open_for_editing_as(user)
+    Timecop.travel 1.minute.from_now
+    assert_difference "document.recent_document_openings.count", 0 do
+      document.open_for_editing_as(user)
+    end
+    assert_equal user, document.recent_document_openings.first.editor
+    assert_equal Time.zone.now.to_s(:rfc822), document.recent_document_openings.first.created_at.in_time_zone.to_s(:rfc822)
+  end
+
+  test "can check exclude a given editor from the list of recent document openings" do
+    user = create(:policy_writer)
+    document = create(:document)
+    document.open_for_editing_as(user)
+    Timecop.travel 1.minute.from_now
+    user2 = create(:policy_writer)
+    document.open_for_editing_as(user2)
+    assert_equal [user], document.recent_document_openings.except_editor(user2).map(&:editor)
+  end
+
+  test "editors considered active for up to 2 hours" do
+    user = create(:policy_writer)
+    document = create(:document)
+    document.open_for_editing_as(user)
+    Timecop.travel 2.hours.from_now
+    assert_equal [user], document.active_document_openings.map(&:editor)
+    Timecop.travel 1.second.from_now
+    assert_equal [], document.active_document_openings
+  end
+
+  test "#save_as removes all RecentDocumentOpenings for the specified editor" do
+    user = create(:policy_writer)
+    document = create(:document)
+    document.open_for_editing_as(user)
+    assert_difference "document.recent_document_openings.count", -1 do
+      document.save_as(user)
+    end
+  end
+
+  test "RecentDocumentOpening#expunge! deletes entries more than 2 hours old" do
+    document = create(:document)
+    RecentDocumentOpening.create(editor: create(:author), document: document, created_at: 2.hours.ago + 1.second)
+    RecentDocumentOpening.create(editor: create(:author), document: document, created_at: 2.hours.ago)
+    RecentDocumentOpening.create(editor: create(:author), document: document, created_at: 2.hours.ago - 1.second)
+    assert_equal 3, RecentDocumentOpening.count
+    RecentDocumentOpening.expunge!
+    assert_equal 2, RecentDocumentOpening.count
+  end
 end

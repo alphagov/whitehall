@@ -4,6 +4,7 @@ class Admin::DocumentsController < Admin::BaseController
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_document, only: [:new, :create]
   before_filter :remember_filters, only: [:draft, :submitted, :published]
+  before_filter :detect_other_active_editors, only: [:edit]
 
   def index
     if session[:document_filters]
@@ -48,6 +49,7 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def edit
+    @document.open_for_editing_as(current_user)
   end
 
   def update
@@ -146,5 +148,10 @@ class Admin::DocumentsController < Admin::BaseController
 
   def remember_filters
     session[:document_filters] = params.slice('action', 'filter', 'author', 'organisation')
+  end
+
+  def detect_other_active_editors
+    RecentDocumentOpening.expunge! if rand(10) == 0
+    @recent_openings = @document.active_document_openings.except_editor(current_user)
   end
 end

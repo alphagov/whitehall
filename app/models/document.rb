@@ -8,6 +8,7 @@ class Document < ActiveRecord::Base
   include Document::Publishing
   include Document::Images
   include Document::AuditTrail
+  include Document::ActiveEditors
 
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
@@ -135,6 +136,7 @@ class Document < ActiveRecord::Base
   def save_as(user)
     if save
       document_authors.create!(user: user)
+      recent_document_openings.where(editor_id: user).delete_all
     end
   end
 
