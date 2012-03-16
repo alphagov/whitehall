@@ -103,7 +103,7 @@ module AdminDocumentControllerTestHelpers
 
     def should_allow_editing_of(document_type)
       should_report_editing_conflicts_of(document_type)
-      
+
       test "edit displays document form" do
         document = create(document_type)
 
@@ -1308,6 +1308,13 @@ module AdminDocumentControllerTestHelpers
         get :edit, id: document
 
         assert_equal [current_user], document.reload.recent_document_openings.map(&:editor)
+      end
+
+      test "should not see a warning when editing a document that nobody has recently edited" do
+        document = create(document_type)
+        get :edit, id: document
+
+        refute_select ".editing_conflict"
       end
 
       test "should see a warning when editing a document that someone else has recently edited" do
