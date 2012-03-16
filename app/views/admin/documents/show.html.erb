@@ -19,6 +19,13 @@
   </div>
 
   <div class="g1">
+    <section class="container audit-trail">
+      <h1>Activity</h1>
+      <ul>
+      <%= render :partial => "audit_trail_entry", :collection => @document.audit_trail.reverse %>
+      </ul>
+    </section>
+
     <section class="container">
       <h1>Organisations</h1>
       <% if @document.organisations.any? %>

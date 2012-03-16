@@ -12,6 +12,9 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_editing_of :publication
   should_allow_revision_of :publication
 
+  should_show_document_audit_trail_on :show
+  should_show_document_audit_trail_on :edit
+
   should_allow_organisations_for :publication
   should_allow_ministerial_roles_for :publication
   should_allow_attachments_for :publication

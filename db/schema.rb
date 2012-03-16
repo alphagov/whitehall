@@ -13,14 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20120314115644) do
 
-  create_table "actions", :force => true do |t|
-    t.integer  "document_id", :null => false
-    t.string   "action"
-    t.integer  "actor_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
     t.datetime "created_at"
@@ -235,13 +227,6 @@ ActiveRecord::Schema.define(:version => 20120314115644) do
     t.string "name"
   end
 
-  create_table "organisation_policy_areas", :force => true do |t|
-    t.integer  "organisation_id", :null => false
-    t.integer  "policy_area_id",  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "organisation_policy_topics", :force => true do |t|
     t.integer  "organisation_id", :null => false
     t.integer  "policy_topic_id", :null => false
@@ -307,40 +292,6 @@ ActiveRecord::Schema.define(:version => 20120314115644) do
     t.string   "carrierwave_image"
     t.text     "biography"
   end
-
-  create_table "phone_numbers", :force => true do |t|
-    t.integer "organisation_id"
-    t.string  "number"
-    t.string  "description"
-  end
-
-  create_table "policy_area_memberships", :force => true do |t|
-    t.integer  "policy_area_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "policy_id"
-    t.integer  "ordering"
-    t.boolean  "featured",       :default => false
-  end
-
-  create_table "policy_area_relations", :force => true do |t|
-    t.integer  "policy_area_id",         :null => false
-    t.integer  "related_policy_area_id", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "policy_areas", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "description"
-    t.string   "slug"
-    t.boolean  "featured",    :default => false
-    t.string   "state"
-  end
-
-  add_index "policy_areas", ["slug"], :name => "index_policy_areas_on_slug"
 
   create_table "policy_topic_memberships", :force => true do |t|
     t.integer  "policy_topic_id"

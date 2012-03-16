@@ -137,6 +137,25 @@ section {
       @include type-14;
       margin-bottom: 0.75em;
     }
+
+    &.audit-trail {
+      li {
+        overflow: hidden;
+        .time {
+          display: block;
+          @include type-12;
+          margin-bottom: 0;
+        }
+        .action, .editorial_remark {
+          color: #222;
+        }
+      }
+      .image {
+        float:left;
+        padding-right: 0.75em;
+        img { margin: 0}
+      }
+    }
   }
 }
 

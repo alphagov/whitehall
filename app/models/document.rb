@@ -7,6 +7,7 @@ class Document < ActiveRecord::Base
   include Document::Organisations
   include Document::Publishing
   include Document::Images
+  include Document::AuditTrail
 
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
@@ -16,8 +17,6 @@ class Document < ActiveRecord::Base
   has_many :document_authors, dependent: :destroy
 
   validates :title, :body, :creator, presence: true
-
-  has_paper_trail meta: {state: :state}
 
   class UnmodifiableOncePublishedValidator < ActiveModel::Validator
     def validate(record)

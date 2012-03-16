@@ -28,6 +28,18 @@ module AdminDocumentControllerTestHelpers
       end
     end
 
+    def should_show_document_audit_trail_on(action)
+      test "should show who created the document and when on #{action}" do
+        document_type = 'publication'
+        tom = login_as(create(:author, name: "Tom"))
+        draft_document = create("draft_#{document_type}")
+
+        get action, id: draft_document
+
+        assert_select ".audit-trail", text: /Created by Tom/
+      end
+    end
+
     def should_allow_creating_of(document_type)
       document_class = document_class_for(document_type)
 
@@ -149,6 +161,18 @@ module AdminDocumentControllerTestHelpers
         put :update, id: document, document: {title: 'new-title', body: 'new-body'}
 
         assert_equal current_user, document.document_authors(true).last.user
+      end
+
+      test "update records the previous version of the document in the document version history" do
+        document = create(document_type, title: 'old-title', body: 'old-body')
+
+        assert_difference "document.versions.size" do
+          put :update, id: document, document: {title: 'new-title', body: 'new-body'}
+        end
+
+        old_document = document.versions.last.reify
+        assert_equal 'old-title', old_document.title
+        assert_equal 'old-body', old_document.body
       end
 
       test "update with invalid data should not save the document" do

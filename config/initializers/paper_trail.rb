@@ -1,3 +1,1 @@
-class Version < ActiveRecord::Base
-  attr_accessible :state
-end
+require_relative '../../app/models/version.rb'

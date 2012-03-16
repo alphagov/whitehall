@@ -140,6 +140,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: policy
 
-    refute_select ".image img"
+    refute_select "article.document .image img"
   end
 end
