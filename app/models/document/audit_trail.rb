@@ -76,12 +76,7 @@ module Document::AuditTrail
     end
 
     def actor
-      user_id = if @version.event == 'create'
-        @version.whodunnit
-      else
-        @version.originator
-      end
-      user_id && User.find(user_id)
+      @version.whodunnit && User.find(@version.whodunnit)
     end
 
     private

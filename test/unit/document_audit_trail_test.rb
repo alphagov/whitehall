@@ -4,6 +4,7 @@ class DocumentAuditTrailTest < ActiveSupport::TestCase
   def setup
     @previous_whodunnit = PaperTrail.whodunnit
     @user = create(:user)
+    @user2 = create(:user)
     PaperTrail.whodunnit = @user
   end
 
@@ -41,18 +42,29 @@ class DocumentAuditTrailTest < ActiveSupport::TestCase
     assert_equal "submit", doc.audit_trail.last.event
   end
 
+  test "submitting for review records the person who submitted it" do
+    doc = create(:draft_document)
+    PaperTrail.whodunnit = @user2
+    doc.submit!
+    assert_equal @user2, doc.audit_trail.last.actor
+  end
+
   test "rejecting records a rejected event" do
     doc = create(:submitted_document)
+    PaperTrail.whodunnit = @user2
     doc.reject!
     assert_equal "reject", doc.audit_trail.last.event
+    assert_equal @user2, doc.audit_trail.last.actor
   end
 
   test "publishing records a published event" do
     doc = create(:submitted_document)
     doc.published_at = Time.zone.now
     doc.first_published_at = Time.zone.now
+    PaperTrail.whodunnit = @user2
     doc.publish!
     assert_equal "publish", doc.audit_trail.last.event
+    assert_equal @user2, doc.audit_trail.last.actor
   end
 
   test "creating a new draft of a published document records an edition event" do
