@@ -2,35 +2,35 @@
   <h1>Govspeak Help</h1>
   <div class="g1 first">
     <h2>Headers</h2>
-    <pre># This is an &lt;h1&gt; tag
-## This is an &lt;h2&gt; tag
-### This is an &lt;h3&gt; tag</pre>
-    <h2>Text Styles</h2>
-    <pre>*This text will be italic*
-_This will also be italic_
-**This text will be bold**
-__This will also be bold__
+<pre>## Top level heading
+### Second level heading
+#### Third level heading
 
-*You **can** combine them*</pre>
+Don't use a single #.
+</pre>
+    <h2>Text Styles</h2>
+    <pre>**This text will be bold**
+__This will also be bold__
+</pre>
     <h2>Blockquotes</h2>
     <pre>As the P.M. said:
 
 > Rule Britannia!
 > Britannia rule the waves!</pre>
     <h2>Acronyms</h2>
-    <pre>*[HMRC]: Her Majesty's Revenue &amp; Customs</pre>
+    <pre>*[HMRC]: Her Majesty's Revenue and Customs</pre>
   </div>
 
   <div class="g1">
     <h2>Unordered List</h2>
-    <pre>* Item 1
-* Item 2
+    <pre>* item 1
+* item 2
   * subitem
   * another subitem</pre>
     <h2>Ordered List</h2>
-    <pre>1. Item 1
-2. Item 2
-3. Item 3
+    <pre>1. item 1
+2. item 2
+3. item 3
    * subitem
    * another subitem</pre>
    <h2>Tables</h2>
@@ -38,18 +38,21 @@ __This will also be bold__
 |--------|-------|
 | apple | green |
 | banana | yellow |</pre>
-  </div>
 
-  <div class="g1">
-    <h2>Links</h2>
-    <pre>[Text](url)
-
-e.g. The [UK](http://gov.uk) is...</pre>
     <h2>Images</h2>
     <p>First upload your image(s), then:</p>
     <pre>!!<em>n</em></pre>
     <p>e.g. for the first image:</p>
     <pre>!!1</pre>
+  </div>
+
+  <div class="g1">
+    <h2>Internal links</h2>
+    <pre>[link text](/government/admin/policies/3373 "Hover text goes here")
+    </pre>
+    <h2>External links</h2>
+    <pre>[link text](http://www.UrlGoesHere.com "Hover text goes here"){:rel="external"}
+</pre>
 
     <h2>Footnotes</h2>
     <pre>This is a text with a footnote[^1].
