@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316052401) do
+ActiveRecord::Schema.define(:version => 20120321163030) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(:version => 20120316052401) do
     t.boolean  "stub",                              :default => false
     t.text     "change_note"
     t.boolean  "force_published"
+    t.boolean  "minor_change",                      :default => false
   end
 
   add_index "documents", ["consultation_document_identity_id"], :name => "index_documents_on_consultation_document_identity_id"

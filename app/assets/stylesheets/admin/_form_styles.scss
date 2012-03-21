@@ -108,6 +108,10 @@
       input[type="checkbox"] {
         margin-right: 0.5em;
       }
+
+      &[disabled] {
+        color: #ccc;
+      }
     }
 
     select {
@@ -134,6 +138,12 @@
       margin-bottom: 0.857em;
     }
 
+    .hint {
+      @include type-12;
+      color: #444;
+      margin: -1em 0 0.75em 1.5em;
+    }
+
     .field_with_errors {
       label {
         color: #d0160c;
@@ -146,6 +156,16 @@
       select {
         border: 1px solid #d0160c;
       }
+
+      &[disabled], [disabled] {
+        color: #ccc;
+        border-color: #ccc;
+      }
+    }
+
+    [disabled] {
+      color: #ccc;
+      border-color: #ccc;
     }
 
     span.or_cancel {

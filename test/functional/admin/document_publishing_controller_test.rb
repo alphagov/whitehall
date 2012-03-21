@@ -82,4 +82,16 @@ class Admin::DocumentPublishingControllerTest < ActionController::TestCase
 
     assert_equal "change-note", document.reload.change_note
   end
+
+  test 'should record minor change on a document' do
+    document = create(:submitted_policy)
+    login_as :departmental_editor
+    post :create, document_id: document, document: {
+      minor_change: true,
+      lock_version: document.lock_version
+    }
+
+    assert_equal true, document.reload.minor_change
+  end
+
 end

@@ -114,6 +114,14 @@ class Document::PublishingTest < ActiveSupport::TestCase
     assert document.publishable_by?(editor)
   end
 
+  test "is publishable as minor change when previous published edition exists" do
+    editor = create(:departmental_editor)
+    published_document = create(:published_document)
+    document = create(:submitted_document, change_note: nil, minor_change: true, document_identity: published_document.document_identity)
+    assert document.publishable_by?(editor, force: true)
+    assert document.publishable_by?(editor)
+  end
+
   test "is publishable without change note when previous published edition exists if presence of change note is assumed" do
     editor = create(:departmental_editor)
     published_document = create(:published_document)

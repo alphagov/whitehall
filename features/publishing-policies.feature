@@ -36,6 +36,11 @@ Scenario: Publishing a subsequent edition without a change note
   When I publish a new edition of the policy "Ban Beards" without a change note
   Then my attempt to publish "Ban Beards" should fail
 
+Scenario: Publishing a subsequent edition as a minor edit
+  Given a published policy "Ban Beards" exists
+  When I publish a new edition of the policy "Ban Beards" as a minor change
+  Then my attempt to publish "Ban Beards" should succeed
+
 Scenario: Publishing a subsequent edition with a change note
   Given a published policy "Ban Beards" exists
   When I publish a new edition of the policy "Ban Beards" with a change note "Exempted Santa Claus"

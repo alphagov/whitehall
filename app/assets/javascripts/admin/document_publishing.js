@@ -17,7 +17,12 @@
 
       form.hide();
       form.before(publishButtonLink);
+
+      form.find('input[type=checkbox][name="document[minor_change]"]').click(function(event) {
+        changeNoteElements.attr('disabled', $(this).prop('checked') ? 'disabled' : null);
+      });
     };
+
   }
 
   $.fn.extend({

@@ -51,7 +51,7 @@ module Document::Publishing
       "You are not the second set of eyes"
     elsif !user.departmental_editor?
       "Only departmental editors can publish"
-    elsif change_note_required? && change_note.blank? && !options[:assuming_presence_of_change_note]
+    elsif change_note_required? && change_note.blank? && !minor_change && !options[:assuming_presence_of_change_note]
       "Change note can't be blank"
     end
   end

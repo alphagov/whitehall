@@ -433,6 +433,13 @@ class DocumentTest < ActiveSupport::TestCase
     refute_equal published_document.change_note, draft_document.change_note
   end
 
+  test "should not copy minor change flag when creating draft" do
+    published_document = create(:published_document, minor_change: true)
+    draft_document = published_document.create_draft(create(:policy_writer))
+
+    assert_equal false, draft_document.minor_change
+  end
+
   test "should copy time of first publication when creating draft" do
     published_document = create(:published_document, first_published_at: 1.week.ago)
     Timecop.travel 1.hour.from_now

@@ -224,6 +224,14 @@ When /^I publish a new edition of the policy "([^"]*)" without a change note$/ d
   publish(force: true, without_change_note: true, ignore_errors: true)
 end
 
+When /^I publish a new edition of the policy "([^"]*)" as a minor change$/ do |policy_title|
+  policy = Policy.latest_edition.find_by_title!(policy_title)
+  visit admin_document_path(policy)
+  click_button "Create new edition"
+  click_button "Save"
+  publish(force: true, without_change_note: true, ignore_errors: true, minor_change: true)
+end
+
 When /^I publish a new edition of the policy "([^"]*)" with a change note "([^"]*)"$/ do |policy_title, change_note|
   policy = Policy.latest_edition.find_by_title!(policy_title)
   visit admin_document_path(policy)
