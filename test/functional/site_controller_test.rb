@@ -55,20 +55,6 @@ class SiteControllerTest < ActionController::TestCase
     end
   end
 
-  test "should include links to main pages within introductory text" do
-    get :index
-
-    assert_select ".introduction" do
-      assert_select "a[href=?]", announcements_path
-      assert_select "a[href=?]", policy_topics_path
-      assert_select "a[href=?]", publications_path
-      assert_select "a[href=?]", consultations_path
-      assert_select "a[href=?]", ministerial_roles_path
-      assert_select "a[href=?]", organisations_path
-      assert_select "a[href=?]", countries_path
-    end
-  end
-
   test 'index has Atom feed autodiscovery link' do
     get :index
     assert_select 'head > link[rel=?][type=?][href=?]', 'alternate', 'application/atom+xml', atom_feed_url
