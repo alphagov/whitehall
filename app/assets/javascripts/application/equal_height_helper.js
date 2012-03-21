@@ -17,8 +17,10 @@
     var _afterResize = function () {
       _resetHeight();
       if ($(settings.breakpointSelector).width() >= settings.breakpointWidth) {
-        $(settings.selectorsToResize).each(function (i, selector) {
-          utils.setMinHeightToLargestItem(_this.find(selector));
+        $.each(settings.selectorsToResize, function (i, selector) {
+          _this.each(function(i, container) {
+            utils.setMinHeightToLargestItem($(container).find(selector));
+          });
         });
       };
     }
