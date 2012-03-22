@@ -9,6 +9,8 @@ module("Equal Height Helper", {
     this.container2 = $(
       '<section id="container2" class="container">' +
         '<article id="item_4"><h2>Small title</h2></article>' +
+        '<article id="item_5"><h2>Small title</h2></article>' +
+        '<article id="item_6"><h2>Small title</h2></article>' +
       '</section>');
     $('#qunit-fixture').append(this.container1);
     $('#qunit-fixture').append(this.container2);
@@ -54,7 +56,8 @@ test("should calculate the largest height separately for each container", functi
   });
 
   this.container2.find('h2').each(function() {
-    ok($(this).css('height') < tallest_item_in_container1.css('height'), "item in container 2 should be smaller than items in container1");
+    ok($(this).height() < tallest_item_in_container1.height(), 
+      "item in container 2 should be smaller than items in container1");
   });
 });
 
