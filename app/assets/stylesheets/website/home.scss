@@ -10,10 +10,10 @@
   @include branded_news($name, $color, false, false);
 }
 #wrapper.inside_gov{
-  .introduction {
-    font-family: $georgia;
-    font-size: 1.5em;
-  }
+  background-color:#eee;
+  background-image:url(/government/assets/uk-map.png);
+  background-position: 9% 0;
+  background-repeat:no-repeat;
 }
 #wrapper.inside_gov #content {
   background: none repeat scroll 0 50% transparent;
@@ -47,19 +47,23 @@
   }
   h1.page_title{
     font-family:$gill;
-    @include type-18;
+    @include type-44;
     padding:0;
+    margin: 0;
     text-transform:none;
     font-weight:normal;
     span{
-      @include type-24;
-      display: block;
-      margin-bottom: 0;
       text-transform:uppercase;
     }
   }
   @media only screen and (min-width: 768px) {
-
+    .g1{
+      margin-left:12.5%;
+    }
+    h1.page_title{
+      padding:0.75em 0.75em 0.5em;
+      margin: 0 9%;
+    }
   }
   
   section.featured_carousel{
