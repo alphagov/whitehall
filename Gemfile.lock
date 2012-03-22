@@ -127,7 +127,7 @@ GEM
       plek
     gherkin (2.4.21)
       json (>= 1.4.6)
-    govspeak (0.8.10)
+    govspeak (0.8.11)
       htmlentities (~> 4)
       kramdown (~> 0.13.3)
     hash_syntax (1.0.0)
@@ -143,7 +143,7 @@ GEM
       thor (~> 0.14)
     json (1.6.5)
     json_pure (1.6.1)
-    kramdown (0.13.4)
+    kramdown (0.13.5)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     libv8 (3.3.10.2)
