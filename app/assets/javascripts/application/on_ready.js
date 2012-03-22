@@ -15,9 +15,27 @@ jQuery(function($) {
     appendTo: '#global-nav .inner li.st'
   });
 
+  var betaInfo = function(){
+    $("#toggle-section").live("click", function(e){
+      if($(".show-beta").length != 0){
+        $(".icon-key").removeClass("offset");
+        $(".beta-info").removeClass("offset");
+        $(this).removeClass("show-beta");
+      }
+      else{
+        $(this).addClass("show-beta");
+        $(".icon-key").addClass("offset")
+        $(".beta-info").addClass("offset")
+      }
+      e.preventDefault();
+    })
+  }
+
+
   var inside_gov = $(".inside_gov_home");
   if(inside_gov.length != 0){
     $(".recently_updated").news_ticker();
+    betaInfo();
   }
   $('section.featured_carousel').each(function () {
     $(this).addClass('slider');
@@ -32,6 +50,7 @@ jQuery(function($) {
       speed: 300 // ms.
     });
   });
+
   $('.filter-controls .toggle').click(function() {
     var is_visible = $('.filter-controls li:not(.top,.selected)').first().is(':visible');
     $('.filter-controls li:not(.top,.selected)').toggle(!is_visible);

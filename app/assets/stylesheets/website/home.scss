@@ -10,6 +10,21 @@
   @include branded_news($name, $color, false, false);
 }
 #wrapper.inside_gov{
+  .beta-info, .icon-key, .g4f{
+    background-color:#fff;
+  }
+  .icon-key.offset{
+    position: absolute;
+    left: 0px;
+  }
+  .beta-info{
+    position:fixed;
+    left:100%;
+  }
+  .beta-info.offset{
+    position:absolute;
+    left:22%;
+  }
   .introduction {
     font-family: $georgia;
     font-size: 1.5em;
