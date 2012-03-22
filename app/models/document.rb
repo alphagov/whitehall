@@ -173,6 +173,10 @@ class Document < ActiveRecord::Base
     document_identity.documents.latest_edition.first
   end
 
+  def latest_published_edition
+    document_identity.documents.latest_published_edition.first
+  end
+
   def is_latest_edition?
     latest_edition == self
   end

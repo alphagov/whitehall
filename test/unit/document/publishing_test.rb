@@ -156,6 +156,14 @@ class Document::PublishingTest < ActiveSupport::TestCase
     assert_equal Time.zone.now, document.reload.first_published_at
   end
 
+  test "publication does not update time of publication if minor change" do
+    published_document = create(:published_document)
+    document = create(:submitted_document, change_note: nil, minor_change: true, document_identity: published_document.document_identity)
+    Timecop.travel 1.day.from_now
+    document.publish_as(create(:departmental_editor))
+    assert_equal published_document.published_at, document.reload.published_at
+  end
+
   test "publication preserves time of first publication if provided" do
     first_published_at = 1.week.ago
     document = create(:submitted_document, first_published_at: first_published_at)
