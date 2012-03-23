@@ -24,6 +24,7 @@ gem 'addressable'
 gem 'exception_notification', require: 'exception_notifier'
 gem 'rabl'
 gem "paper_trail"
+gem 'aws-ses', require: 'aws/ses'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'

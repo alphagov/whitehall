@@ -58,9 +58,8 @@ Whitehall::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # Prevent `OpenSSL::SSL::SSLError (hostname was not match with the server certificate)`
-  config.action_mailer.smtp_settings = {enable_starttls_auto: false}
-
+  config.action_mailer.delivery_method = :ses
+  
   config.middleware.use ExceptionNotifier,
     email_prefix: "[Whitehall exception] ",
     sender_address: %{"Winston Smith-Churchill" <winston@alphagov.co.uk>},
