@@ -62,6 +62,11 @@
       }
     }
 
+    .change_notes_container {
+      margin-top: 1em;
+      position: relative;
+    }
+
     .change_notes {
       position: absolute;
       padding: 0.5em 0 0 0;
@@ -69,7 +74,7 @@
       border: 1px solid #ccc;
       @include box_shadow(0, 1px, 4px, rgba(50, 50, 50, 0.5));
       z-index: 9999;
-      top: 4em;
+      top: 2em;
       left: -4em;
       width: 115%;
       max-width: 30em;
@@ -112,29 +117,14 @@
         padding: 0.5em 1em 0 1em;
 
         p {
-          @include type-13;
+          @include type-14;
           margin-bottom: 0;
-          float: left;
-          width: 70%;
-
-          @media only screen and (min-width: 720px) {
-            width: 75%;
-          }
         }
 
         abbr {
-          float: right;
-          @include type-12;
+          @include type-14;
           display: block;
-          color: #bbb;
           margin-bottom: 0;
-          width: 27%;
-          padding-left: 3%;
-          text-align: right;
-
-          @media only screen and (min-width: 720px) {
-            width: 22%;
-          }
         }
       }
 

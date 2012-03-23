@@ -7,6 +7,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_show_the_countries_associated_with :publication
   should_display_inline_images_for :publication
   should_not_display_lead_image_for :publication
+  should_show_change_notes :publication
 
   test "should only display published publications" do
     archived_publication = create(:archived_publication)

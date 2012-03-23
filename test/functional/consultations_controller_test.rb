@@ -7,6 +7,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   should_show_related_policies_and_policy_topics_for :consultation
   should_display_inline_images_for :consultation
   should_not_display_lead_image_for :consultation
+  should_show_change_notes :consultation
 
   test "should avoid N plus 1 queries" do
     featured_consultations = Consultation.featured

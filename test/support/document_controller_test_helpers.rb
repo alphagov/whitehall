@@ -141,8 +141,6 @@ module DocumentControllerTestHelpers
       end
     end
 
-
-
     def should_show_related_policies_and_policy_topics_for(document_type)
       test "show displays related published policies" do
         published_policy = create(:published_policy)
@@ -260,6 +258,56 @@ module DocumentControllerTestHelpers
         get :show, id: model
 
         refute_select "##{has_many_association}"
+      end
+    end
+
+
+    def should_show_change_notes(document_type)
+      should_show_change_notes_on_action(document_type) do |document|
+        get :show, id: document.document_identity
+      end
+    end
+
+    def should_show_change_notes_on_action(document_type, &block)
+      test "show displays default change note for first edition" do
+        first_edition = create("published_#{document_type}", change_note: nil, published_at: 1.month.ago)
+
+        instance_exec(first_edition, &block)
+
+        assert_select ".change_notes li" do
+          assert_select ".published_at[title='#{first_edition.published_at.iso8601}']"
+          assert_select "p", text: "First published."
+        end
+      end
+
+      test "show does not display blank change notes in change history" do
+        second_edition = create("published_#{document_type}", change_note: nil, published_at: 1.months.ago)
+        document_identity = second_edition.document_identity
+        first_edition = create("archived_#{document_type}", change_note: "First effort.", document_identity: document_identity, published_at: 2.months.ago)
+
+        instance_exec(second_edition, &block)
+
+        assert_select ".change_notes li" do
+          refute_select ".published_at[title='#{second_edition.published_at.iso8601}']"
+          refute_select "p", text: ""
+        end
+      end
+
+      test "show displays change history in reverse chronological order" do
+        editions = []
+        editions << create("published_#{document_type}", change_note: "Third go.", published_at: 1.month.ago)
+        document_identity = editions.first.document_identity
+        editions << create("archived_#{document_type}", change_note: "Second attempt.", document_identity: document_identity, published_at: 2.months.ago)
+        editions << create("archived_#{document_type}", change_note: "First effort.", document_identity: document_identity, published_at: 3.months.ago)
+
+        instance_exec(editions.first, &block)
+
+        assert_select ".change_notes li" do |list_items|
+          list_items.each_with_index do |list_item, index|
+            assert_select list_item, ".published_at[title='#{editions[index].published_at.iso8601}']"
+            assert_select list_item, "p", text: editions[index].change_note
+          end
+        end
       end
     end
   end

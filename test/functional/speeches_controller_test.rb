@@ -7,6 +7,7 @@ class SpeechesControllerTest < ActionController::TestCase
   should_show_the_countries_associated_with :speech
   should_display_inline_images_for :speech
   should_not_display_lead_image_for :speech
+  should_show_change_notes :speech
 
   test "should display generic details about the speech" do
     home_office = create(:organisation, name: "Home Office")

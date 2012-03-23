@@ -8,6 +8,7 @@ class PoliciesControllerTest < ActionController::TestCase
   should_show_the_countries_associated_with :policy
   should_display_inline_images_for :policy
   should_not_display_lead_image_for :policy
+  should_show_change_notes :policy
 
   test "should show inapplicable nations" do
     published_policy = create(:published_policy)
@@ -321,44 +322,4 @@ That's all
     refute_select_policy_section_list
   end
 
-  test "show displays change history in reverse chronological order" do
-    editions = []
-    editions << create(:published_policy, change_note: "Third go.", published_at: 1.month.ago)
-    document_identity = editions.first.document_identity
-    editions << create(:archived_policy, change_note: "Second attempt.", document_identity: document_identity, published_at: 2.months.ago)
-    editions << create(:archived_policy, change_note: "First effort.", document_identity: document_identity, published_at: 3.months.ago)
-
-    get :show, id: document_identity
-
-    assert_select ".policy .change_notes li" do |list_items|
-      list_items.each_with_index do |list_item, index|
-        assert_select list_item, ".published_at[title='#{editions[index].published_at.iso8601}']"
-        assert_select list_item, "p", text: editions[index].change_note
-      end
-    end
-  end
-
-  test "show displays default change note for first edition" do
-    first_edition = create(:published_policy, change_note: nil, published_at: 1.month.ago)
-
-    get :show, id: first_edition.document_identity
-
-    assert_select ".policy .change_notes li" do
-      assert_select ".published_at[title='#{first_edition.published_at.iso8601}']"
-      assert_select "p", text: "First published."
-    end
-  end
-
-  test "show does not display blank change notes in change history" do
-    second_edition = create(:published_policy, change_note: nil, published_at: 1.months.ago)
-    document_identity = second_edition.document_identity
-    first_edition = create(:archived_policy, change_note: "First effort.", document_identity: document_identity, published_at: 2.months.ago)
-
-    get :show, id: document_identity
-
-    assert_select ".policy .change_notes li" do
-      refute_select ".published_at[title='#{second_edition.published_at.iso8601}']"
-      refute_select "p", text: ""
-    end
-  end
 end

@@ -7,6 +7,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
   should_show_the_countries_associated_with :news_article
   should_display_inline_images_for :news_article
   should_display_lead_image_for :news_article
+  should_show_change_notes :news_article
 
   test "shows published news article" do
     news_article = create(:published_news_article)
