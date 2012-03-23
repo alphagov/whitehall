@@ -13,7 +13,7 @@
       <div class="g1">
         <h1 class="label">Featured</h1>
       </div>
-      <div class="g3">
+      <div class="g3f">
         <% @featured_policy_topics.each do |featured_policy_topic| %>
           <div class="<%= featured_grid_class(@featured_policy_topics.length) %>">
             <%= content_tag_for(:article, featured_policy_topic) do %>

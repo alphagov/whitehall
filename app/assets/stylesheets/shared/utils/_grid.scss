@@ -1,5 +1,7 @@
 /* GRID HELPERS */
 
+$account-for-ie6-rounding-errors: 0.5%;
+
 @mixin grid_column($float_direction: left, $w: 98.0%, $ml: 1%, $mr: 1%) {
   display: block;
   position: relative;
@@ -11,6 +13,8 @@
     display: inline;
     float: $float_direction;
   }
+  _display: inline;
+  _float: $float_direction;
 }
 
 @mixin span_one_column($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
@@ -23,6 +27,9 @@
   @media only screen and (min-width: 768px) {
     width: ((100.00%/$cols)) - ($ml + $mr);
   }
+
+  // For ie6
+  _width: ((100.00%/$cols)) - ($ml + $mr) - $account-for-ie6-rounding-errors;
 }
 
 @mixin span_two_columns($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
@@ -35,6 +42,9 @@
   @media only screen and (min-width: 768px) {
     width: ((100.00%/$cols) * 2) - ($ml + $mr);
   }
+
+  // For ie6
+  _width: ((100.00%/$cols) * 2) - ($ml + $mr) - $account-for-ie6-rounding-errors;
 }
 
 @mixin span_three_columns($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
@@ -43,6 +53,9 @@
   @media only screen and (min-width: 768px) {
     width: ((100.00%/$cols) * 3) - ($ml + $mr);
   }
+
+  // For ie6
+  _width: ((100.00%/$cols) * 3) - ($ml + $mr) - $account-for-ie6-rounding-errors;
 }
 
 @mixin span_four_columns($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%) {

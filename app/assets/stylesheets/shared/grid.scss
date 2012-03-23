@@ -189,12 +189,15 @@
   }
   
   .g4, .g4f {
-    .g1f {
-      width: 24.95%;
-    }
-    
-    .g3f {
-      width: 74.5%;
+    .g1f { width: 24.6%; }
+    .g1 { width: 21.5%; }
+    .g2f { width: 50% }
+    .g2 { width: 46.2% }
+    .g3f { width: 74.5%; }
+    .g3 { width: 71%; }
+    .g3, .g3f {
+      .g1f { width: 100%/3; }
+      .g1 { width: 29%; }
     }
   }
   

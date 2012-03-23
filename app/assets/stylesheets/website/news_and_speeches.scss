@@ -16,6 +16,7 @@
 
     .row {
       @include flood_three_columns;
+      _width: 97%;
       border-right: none;
       border-bottom: 1px solid #2E8A99;
       padding-top: 1em;

@@ -81,9 +81,11 @@
 
 }
 
-.lte-ie8 {
+.lte-ie8,
+.lte-ie8 .js-enabled {
   #wrapper {
     padding-top: 2.66em;
+    _padding-top: 0;
     max-width: 100%;
     min-width: 761px;
     width: auto;

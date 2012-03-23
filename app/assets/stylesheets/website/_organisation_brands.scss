@@ -32,6 +32,7 @@ $organisation_brands:
         }
         @if $logo_image_url {
           background: url($logo_image_url) no-repeat 8px -1px;
+          _zoom: 1;
           line-height: 48px;
           padding-left: 78px;
         }

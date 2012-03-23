@@ -12,12 +12,12 @@
     padding: 0;
 
     ul {
-     list-style: none;
-     margin: 0;
-     padding: 0;
-     @media only screen and (min-width: 1024px) {
-       margin-left: 12em;
-     }
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      @media only screen and (min-width: 1024px) {
+        margin-left: 12em;
+      }
 
       li {
         float: left;
@@ -98,13 +98,21 @@
 
   #global-nav .inner ul {
     position: relative;
+    _zoom: 1;
+    @media only screen and (min-width: 1024px) {
+      margin-left: 12em;
+    }
+
   }
 
   #global-nav .inner ul li#inside_gov_link {
-    position: absolute;
-    top: 0;
-    left: -12em;
-    z-index: 1500;
+    @media only screen and (min-width: 1024px) {
+      position: absolute;
+      top: 0;
+      z-index: 1500;
+      left: 0;
+      left: -12em;
+    }
     
     a.current {
       background-color: #0C0C0C;
