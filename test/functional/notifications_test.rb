@@ -18,10 +18,6 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
     assert_equal ['fact-checker@example.com'], @mail.to
   end
 
-  test "email should be sent from a email address which discourages replying" do
-    assert_equal ["no-reply@example.com"], @mail.from
-  end
-
   test "email subject should include the name of the requestor and the document title" do
     assert_equal "Fact checking request from <requestor-name>: <policy-title>", @mail.subject
   end
