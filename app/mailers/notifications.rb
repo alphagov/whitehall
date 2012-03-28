@@ -30,6 +30,6 @@ class Notifications < ActionMailer::Base
   def no_reply_email_address(url_options)
     name = "DO NOT REPLY"
     name << " (#{Rails.env})" unless Rails.env.production?
-    "#{name} <no-reply@#{url_options[:host]}>"
+    "#{name} <inside-government@digital.cabinet-office.gov.uk>"
   end
 end
