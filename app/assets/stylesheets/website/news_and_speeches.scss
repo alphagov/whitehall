@@ -69,3 +69,10 @@
     }
   }
 }
+
+.lte-ie8 #wrapper #content .row {
+  .news_article, .speech {
+    float: left;
+    display: inline;
+  }
+}

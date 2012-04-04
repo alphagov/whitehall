@@ -18,6 +18,16 @@
 #wrapper.inside_gov #content {
   background: none repeat scroll 0 50% transparent;
 }
+@mixin homepage_heading {
+  .g1{
+    margin-left:12.5%;
+  }
+  h1.page_title{
+    padding:0.75em 0.75em 0.5em;
+    margin: 0 9%;
+  }
+}
+
 #content .inside_gov_home{
   .beta-site{
     color:#000;
@@ -54,15 +64,6 @@
     font-weight:normal;
     span{
       text-transform:uppercase;
-    }
-  }
-  @media only screen and (min-width: 768px) {
-    .g1{
-      margin-left:12.5%;
-    }
-    h1.page_title{
-      padding:0.75em 0.75em 0.5em;
-      margin: 0 9%;
     }
   }
   
@@ -130,7 +131,14 @@
   }
 }
 
-
+#content .inside_gov_home {
+  @media only screen and (min-width: 768px) {
+    @include homepage_heading;
+  }
+}
+.lte-ie8 #content .inside_gov_home {
+  @include homepage_heading;
+}
 
 #content ul.grid {
   width: 100%;
@@ -268,5 +276,4 @@
       }
     }
   }
-
 }

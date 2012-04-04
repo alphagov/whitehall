@@ -13,8 +13,10 @@ $account-for-ie6-rounding-errors: 0.5%;
     display: inline;
     float: $float_direction;
   }
-  _display: inline;
-  _float: $float_direction;
+
+  /* ie8 and below */
+  display: inline \9;
+  float: $float_direction \9;
 }
 
 @mixin span_one_column($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
@@ -28,8 +30,8 @@ $account-for-ie6-rounding-errors: 0.5%;
     width: ((100.00%/$cols)) - ($ml + $mr);
   }
 
-  // For ie6
-  _width: ((100.00%/$cols)) - ($ml + $mr) - $account-for-ie6-rounding-errors;
+  // For ie8 and below
+  width: ((100.00%/$cols)) - ($ml + $mr) - $account-for-ie6-rounding-errors \9;
 }
 
 @mixin span_two_columns($float_direction: left, $w: 97.0%, $ml: 1.5%, $mr: 1.5%, $cols: 3) {
