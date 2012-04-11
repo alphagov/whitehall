@@ -8,7 +8,7 @@ Given /^the country "([^"]*)" is inactive/ do |name|
 end
 
 When /^I view the list of countries$/ do
-  visit root_path
+  visit home_path
   click_link "UK & the world"
 end
 

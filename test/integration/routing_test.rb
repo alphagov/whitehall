@@ -55,18 +55,18 @@ class RoutingTest < ActionDispatch::IntegrationTest
     host! 'whitehall.preview.alphagov.co.uk'
     login_as_admin
     get_via_redirect admin_root_path
-    assert_select "a.open_website[href=?]", "http://www.preview.alphagov.co.uk/government"
+    assert_select "a.open_website[href=?]", "http://www.preview.alphagov.co.uk/government/home"
   end
 
   test "admin links to open website points to router website in production" do
     host! 'whitehall.production.alphagov.co.uk'
     login_as_admin
     get_via_redirect admin_root_path
-    assert_select "a.open_website[href=?]", "http://www.gov.uk/government"
+    assert_select "a.open_website[href=?]", "http://www.gov.uk/government/home"
   end
 
   test "should link to whitehall tour from home page" do
-    get_via_redirect root_path
+    get_via_redirect "/government/home"
     assert_select "a[href=?]", tour_path
   end
 

@@ -7,7 +7,7 @@ module NavigationHelpers
   #
 
   def homepage
-    root_path
+    home_path
   end
 
   def path_to(page_name)

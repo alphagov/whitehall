@@ -28,9 +28,9 @@ module Admin::UrlHelper
 
   def website_home_url
     if host = Whitehall.public_host_for(request.host)
-      "http://#{host}/government"
+      "http://#{host}/government/home"
     else
-      root_path
+      home_path
     end
   end
 end

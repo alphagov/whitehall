@@ -4,6 +4,9 @@ class SiteController < PublicFacingController
     @recently_updated = Document.published.by_published_at.limit(10)
   end
 
+  def sunset
+  end
+
   def tour
   end
 

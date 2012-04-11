@@ -12,7 +12,8 @@ Whitehall::Application.routes.draw do
   root to: redirect("/")
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
-    root to: "site#index"
+    root to: "site#sunset"
+    match '/home' => "site#index", as: :home
     match 'feed.atom' => 'site#index', format: false, defaults: { format: 'atom' }, as: :atom_feed
     match '/tour' => 'site#tour'
 
@@ -22,7 +23,7 @@ Whitehall::Application.routes.draw do
     end
     resources :news_articles, path: 'news', only: [:show, :index]
     resources :publications, only: [:index, :show] do
-      get '/by-policy-topic/:policy_topics', on: :collection, 
+      get '/by-policy-topic/:policy_topics', on: :collection,
         to: 'publications#by_policy_topic', as: :by_policy_topic
     end
 
@@ -120,7 +121,7 @@ Whitehall::Application.routes.draw do
     match 'site/sha' => 'site#sha'
     match 'site/headers' => 'site#headers'
     match 'site/grid' => 'site#grid'
-    match 'home' => 'home#show'
+    match '/home/grid' => 'home#show'
   end
 
   VanityRedirector.new(Rails.root.join("app", "data", "vanity-redirects.csv")).each do |from, to|

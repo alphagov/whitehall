@@ -87,7 +87,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "home page should be related to home main navigation" do
-    assert_equal root_path, current_main_navigation_path(controller: "site", action: "index")
+    assert_equal home_path, current_main_navigation_path(controller: "site", action: "index")
   end
 
   test "news-related & speech-related pages should be related to news & speeches main navigation" do
