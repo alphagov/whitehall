@@ -1,11 +1,11 @@
 module PublicDocumentRoutesHelper
   def public_document_path(document, options = {})
-    options.merge!(document_identity_url_options(document))
+    options.merge!(doc_identity_url_options(document))
     polymorphic_path(model_name(document), options)
   end
 
   def public_document_url(document, options={})
-    options.merge!(document_identity_url_options(document))
+    options.merge!(doc_identity_url_options(document))
     if host = Whitehall.public_host_for(request.host)
       polymorphic_url(model_name(document), options.merge(host: host))
     else
@@ -14,12 +14,12 @@ module PublicDocumentRoutesHelper
   end
 
   def public_supporting_page_path(document, supporting_page, options = {})
-    policy_supporting_page_path(document.document_identity, supporting_page, options)
+    policy_supporting_page_path(document.doc_identity, supporting_page, options)
   end
 
   def public_supporting_page_url(document, supporting_page, options={})
     if host = Whitehall.public_host_for(request.host)
-      policy_supporting_page_url(document.document_identity, supporting_page, options.merge(host: host))
+      policy_supporting_page_url(document.doc_identity, supporting_page, options.merge(host: host))
     else
       public_supporting_page_path(document, supporting_page, options)
     end
@@ -43,11 +43,11 @@ module PublicDocumentRoutesHelper
 
   private
 
-  def document_identity_url_options(document)
+  def doc_identity_url_options(document)
     if document.is_a?(ConsultationResponse)
-      {consultation_id: document.consultation.document_identity}
+      {consultation_id: document.consultation.doc_identity}
     else
-      {id: document.document_identity}
+      {id: document.doc_identity}
     end
   end
 

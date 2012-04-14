@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :document_relation do
     association :document
-    association :document_identity, factory: :document_identity
+    association :doc_identity, factory: :doc_identity
   end
 end

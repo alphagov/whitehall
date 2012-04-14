@@ -17,7 +17,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
   test 'should remove supporting page from search index when its document is archived' do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
-    policy_slug = policy.document_identity.slug
+    policy_slug = policy.doc_identity.slug
 
     Rummageable.stubs(:delete) # ignore the delete from the document index
     Rummageable.expects(:delete).with("/government/policies/#{policy_slug}/supporting-pages/#{supporting_page.slug}")

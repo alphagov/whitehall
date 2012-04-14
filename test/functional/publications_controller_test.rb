@@ -22,7 +22,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   test 'show displays published publications' do
     published_publication = create(:published_publication)
-    get :show, id: published_publication.document_identity
+    get :show, id: published_publication.doc_identity
     assert_response :success
   end
 
@@ -36,7 +36,7 @@ class PublicationsControllerTest < ActionController::TestCase
     northern_ireland_inapplicability = published_publication.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
     scotland_inapplicability = published_publication.nation_inapplicabilities.create!(nation: Nation.scotland)
 
-    get :show, id: published_publication.document_identity
+    get :show, id: published_publication.doc_identity
 
     assert_select inapplicable_nations_selector do
       assert_select "p", "This publication does not apply to Northern Ireland and Scotland."
@@ -50,7 +50,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "should not explicitly say that publication applies to the whole of the UK" do
     published_publication = create(:published_publication)
 
-    get :show, id: published_publication.document_identity
+    get :show, id: published_publication.doc_identity
 
     refute_select inapplicable_nations_selector
   end
@@ -64,7 +64,7 @@ class PublicationsControllerTest < ActionController::TestCase
       order_url: "http://example.com/order-path"
     )
 
-    get :show, id: publication.document_identity
+    get :show, id: publication.doc_identity
 
     assert_select ".contextual_info" do
       assert_select ".publication_date", text: "31 May 1916"
@@ -78,7 +78,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "should not mention the unique reference if there isn't one" do
     publication = create(:published_publication, unique_reference: '')
 
-    get :show, id: publication.document_identity
+    get :show, id: publication.doc_identity
 
     assert_select ".contextual_info" do
       refute_select ".unique_reference"
@@ -88,7 +88,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "should not mention the ISBN if there isn't one" do
     publication = create(:published_publication, isbn: '')
 
-    get :show, id: publication.document_identity
+    get :show, id: publication.doc_identity
 
     assert_select ".contextual_info" do
       refute_select ".isbn"
@@ -98,7 +98,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "should not display an order link if no order url exists" do
     publication = create(:published_publication, order_url: nil)
 
-    get :show, id: publication.document_identity
+    get :show, id: publication.doc_identity
 
     assert_select ".document_view" do
       refute_select "a.order_url"

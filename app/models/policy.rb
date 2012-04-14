@@ -6,7 +6,7 @@ class Policy < Document
   include Document::SupportingPages
   include Document::Countries
 
-  has_many :document_relations, through: :document_identity
+  has_many :document_relations, through: :doc_identity
   has_many :related_documents, through: :document_relations, source: :document
   has_many :published_related_documents, through: :document_relations, source: :document, conditions: {documents: {state: 'published'}}
 

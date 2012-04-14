@@ -31,7 +31,7 @@ module Document::Publishing
   end
 
   def change_note_required?
-    document_identity.published_document.present?
+    doc_identity.published_document.present?
   end
 
   def reason_to_prevent_publication_by(user, options = {})

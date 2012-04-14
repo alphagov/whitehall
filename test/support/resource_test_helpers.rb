@@ -7,7 +7,7 @@ module ResourceTestHelpers
       test "index links to published #{plural}" do
         thing = create(:"published_#{type}", title: "#{type}-title")
         get :index
-        thing_path = send("#{type}_path", thing.document_identity)
+        thing_path = send("#{type}_path", thing.doc_identity)
         assert_select "##{plural}" do
           assert_select_object thing do
             assert_select "a[href=#{thing_path}]"

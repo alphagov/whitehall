@@ -66,7 +66,7 @@ class Admin::DocumentsController < Admin::BaseController
     if document.persisted?
       redirect_to edit_admin_document_path(document)
     else
-      redirect_to edit_admin_document_path(@document.document_identity.unpublished_edition),
+      redirect_to edit_admin_document_path(@document.doc_identity.unpublished_edition),
         alert: document.errors.full_messages.to_sentence
     end
   end
@@ -111,7 +111,7 @@ class Admin::DocumentsController < Admin::BaseController
       params[:document][:ministerial_role_ids] ||= []
     end
     if @document.can_be_related_to_policies?
-      params[:document][:related_document_identity_ids] ||= []
+      params[:document][:related_doc_identity_ids] ||= []
     end
     if @document.can_be_associated_with_countries?
       params[:document][:country_ids] ||= []

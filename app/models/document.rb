@@ -55,8 +55,8 @@ class Document < ActiveRecord::Base
   end
 
   def refresh_index_if_required
-    if document_identity.documents.published.any?
-      document_identity.documents.published.last.update_in_search_index
+    if doc_identity.documents.published.any?
+      doc_identity.documents.published.last.update_in_search_index
     else
       remove_from_search_index
     end
@@ -167,15 +167,15 @@ class Document < ActiveRecord::Base
   end
 
   def only_edition?
-    document_identity.documents.count == 1
+    doc_identity.documents.count == 1
   end
 
   def latest_edition
-    document_identity.documents.latest_edition.first
+    doc_identity.documents.latest_edition.first
   end
 
   def latest_published_edition
-    document_identity.documents.latest_published_edition.first
+    doc_identity.documents.latest_published_edition.first
   end
 
   def is_latest_edition?
@@ -201,11 +201,11 @@ class Document < ActiveRecord::Base
     end
 
     def latest_edition
-      where("NOT EXISTS (SELECT 1 FROM documents d2 WHERE d2.document_identity_id = documents.document_identity_id AND d2.id > documents.id AND d2.state <> 'deleted')")
+      where("NOT EXISTS (SELECT 1 FROM documents d2 WHERE d2.doc_identity_id = documents.doc_identity_id AND d2.id > documents.id AND d2.state <> 'deleted')")
     end
 
     def latest_published_edition
-      published.where("NOT EXISTS (SELECT 1 FROM documents d2 WHERE d2.document_identity_id = documents.document_identity_id AND d2.id > documents.id AND d2.state = 'published')")
+      published.where("NOT EXISTS (SELECT 1 FROM documents d2 WHERE d2.doc_identity_id = documents.doc_identity_id AND d2.id > documents.id AND d2.state = 'published')")
     end
   end
 end

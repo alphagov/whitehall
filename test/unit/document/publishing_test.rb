@@ -81,7 +81,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
 
   test "requires change note on publication of new edition if published edition already exists" do
     published_document = create(:published_document)
-    document = create(:submitted_document, document_identity: published_document.document_identity)
+    document = create(:submitted_document, doc_identity: published_document.doc_identity)
     assert document.change_note_required?
   end
 
@@ -100,7 +100,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
   test "is not publishable without change note when previous published edition exists" do
     editor = create(:departmental_editor)
     published_document = create(:published_document)
-    document = create(:submitted_document, change_note: nil, document_identity: published_document.document_identity)
+    document = create(:submitted_document, change_note: nil, doc_identity: published_document.doc_identity)
     refute document.publishable_by?(editor, force: true)
     refute document.publishable_by?(editor)
     assert_equal "Change note can't be blank", document.reason_to_prevent_publication_by(editor)
@@ -109,7 +109,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
   test "is publishable with change note when previous published edition exists" do
     editor = create(:departmental_editor)
     published_document = create(:published_document)
-    document = create(:submitted_document, change_note: "change-note", document_identity: published_document.document_identity)
+    document = create(:submitted_document, change_note: "change-note", doc_identity: published_document.doc_identity)
     assert document.publishable_by?(editor, force: true)
     assert document.publishable_by?(editor)
   end
@@ -117,7 +117,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
   test "is publishable as minor change when previous published edition exists" do
     editor = create(:departmental_editor)
     published_document = create(:published_document)
-    document = create(:submitted_document, change_note: nil, minor_change: true, document_identity: published_document.document_identity)
+    document = create(:submitted_document, change_note: nil, minor_change: true, doc_identity: published_document.doc_identity)
     assert document.publishable_by?(editor, force: true)
     assert document.publishable_by?(editor)
   end
@@ -125,7 +125,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
   test "is publishable without change note when previous published edition exists if presence of change note is assumed" do
     editor = create(:departmental_editor)
     published_document = create(:published_document)
-    document = create(:submitted_document, change_note: nil, document_identity: published_document.document_identity)
+    document = create(:submitted_document, change_note: nil, doc_identity: published_document.doc_identity)
     assert document.publishable_by?(editor, force: true, assuming_presence_of_change_note: true)
     assert document.publishable_by?(editor, assuming_presence_of_change_note: true)
   end
@@ -133,7 +133,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
   test "is not publishable without change note when previous published edition exists if presence of change note is not assumed" do
     editor = create(:departmental_editor)
     published_document = create(:published_document)
-    document = create(:submitted_document, change_note: nil, document_identity: published_document.document_identity)
+    document = create(:submitted_document, change_note: nil, doc_identity: published_document.doc_identity)
     refute document.publishable_by?(editor, force: true, assuming_presence_of_change_note: false)
     refute document.publishable_by?(editor, assuming_presence_of_change_note: false)
   end
@@ -158,7 +158,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
 
   test "publication does not update time of publication if minor change" do
     published_document = create(:published_document)
-    document = create(:submitted_document, change_note: nil, minor_change: true, document_identity: published_document.document_identity)
+    document = create(:submitted_document, change_note: nil, minor_change: true, doc_identity: published_document.doc_identity)
     Timecop.travel 1.day.from_now
     document.publish_as(create(:departmental_editor))
     assert_equal published_document.published_at, document.reload.published_at
@@ -173,7 +173,7 @@ class Document::PublishingTest < ActiveSupport::TestCase
 
   test "publication archives previous published versions" do
     published_document = create(:published_document)
-    document = create(:submitted_document, change_note: "change-note", document_identity: published_document.document_identity)
+    document = create(:submitted_document, change_note: "change-note", doc_identity: published_document.doc_identity)
     document.publish_as(create(:departmental_editor))
     assert published_document.reload.archived?
   end

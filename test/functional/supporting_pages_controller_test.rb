@@ -8,8 +8,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
   test "index links to supporting pages" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, title: "supporting-page-title", document: policy)
-    get :index, policy_id: policy.document_identity
-    path = policy_supporting_page_path(policy.document_identity, supporting_page)
+    get :index, policy_id: policy.doc_identity
+    path = policy_supporting_page_path(policy.doc_identity, supporting_page)
     assert_select supporting_pages_selector do
       assert_select_object supporting_page do
         assert_select "a[href=#{path}]"
@@ -21,13 +21,13 @@ class SupportingPagesControllerTest < ActionController::TestCase
   test "index only shows supporting pages for the parent policy" do
     policy = create(:published_policy)
     other_supporting_page = create(:supporting_page)
-    get :index, policy_id: policy.document_identity
+    get :index, policy_id: policy.doc_identity
     refute_select_object other_supporting_page
   end
 
   test "index doesn't display an empty list if there aren't any supporting pages" do
     policy = create(:published_policy)
-    get :index, policy_id: policy.document_identity
+    get :index, policy_id: policy.doc_identity
     refute_select "#{supporting_pages_selector} ul"
   end
 
@@ -35,9 +35,9 @@ class SupportingPagesControllerTest < ActionController::TestCase
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
-    assert_select "a[href='#{policy_path(policy.document_identity)}#policy_view']", text: policy.title
+    assert_select "a[href='#{policy_path(policy.doc_identity)}#policy_view']", text: policy.title
   end
 
   test "shows link to each policy section in the markdown" do
@@ -57,7 +57,7 @@ That's all
 
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_select_policy_section_link policy, 'First Section', 'first-section'
     assert_select_policy_section_link policy, 'Another Bit', 'another-bit'
@@ -70,7 +70,7 @@ That's all
                                   related_policies: [policy])
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_select_policy_section_link policy, 'Related news', 'related-news-articles'
   end
@@ -79,7 +79,7 @@ That's all
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     refute_select_policy_section_list
   end
@@ -90,7 +90,7 @@ That's all
     related_speech = create(:published_speech, title: "Speech about Voting Patterns",
                             related_policies: [policy])
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_select_policy_section_link policy, 'Related speeches', 'related-speeches'
   end
@@ -99,7 +99,7 @@ That's all
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     refute_select_policy_section_list
   end
@@ -110,7 +110,7 @@ That's all
     related_consultation = create(:published_consultation, title: "Consultation about Voting Patterns",
                                   related_policies: [policy])
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_select_policy_section_link policy, 'Related consultations', 'related-consultations'
   end
@@ -119,7 +119,7 @@ That's all
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     refute_select_policy_section_list
   end
@@ -130,7 +130,7 @@ That's all
     related_publication = create(:published_publication, title: "Consultation about Voting Patterns",
                                  related_policies: [policy])
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_select_policy_section_link policy, 'Related publications', 'related-publications'
   end
@@ -139,7 +139,7 @@ That's all
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     refute_select_policy_section_list
   end
@@ -148,7 +148,7 @@ That's all
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :show, policy_id: policy.document_identity, id: supporting_page
+      get :show, policy_id: policy.doc_identity, id: supporting_page
     end
 
     assert_select ".body", text: "body-in-html"
@@ -158,7 +158,7 @@ That's all
     policy = create(:draft_policy)
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_response :not_found
   end
@@ -169,7 +169,7 @@ That's all
     scotland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.scotland)
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_select inapplicable_nations_selector do
       assert_select "p", "This policy does not apply to Northern Ireland and Scotland."
@@ -184,7 +184,7 @@ That's all
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     refute_select inapplicable_nations_selector
   end
@@ -195,22 +195,22 @@ That's all
     second_supporting_page = create(:supporting_page, document: policy)
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_select ".contextual_info nav.supporting_pages" do
-      assert_select "a[href='#{policy_supporting_page_path(policy.document_identity, first_supporting_page)}']", text: first_supporting_page.title
-      assert_select "a[href='#{policy_supporting_page_path(policy.document_identity, second_supporting_page)}']", text: second_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(policy.doc_identity, first_supporting_page)}']", text: first_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(policy.doc_identity, second_supporting_page)}']", text: second_supporting_page.title
     end
   end
 
   test "should display the published document" do
     policy = create(:published_policy)
     draft = policy.create_draft(create(:user))
-    document_identity = draft.document_identity
+    doc_identity = draft.doc_identity
 
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: document_identity, id: supporting_page
+    get :show, policy_id: doc_identity, id: supporting_page
 
     assert_response :success
     assert_equal policy, assigns[:policy]
@@ -222,7 +222,7 @@ That's all
     policy = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_select "#document_topics li.policy_topic a", text: first_policy_topic.name
     assert_select "#document_topics li.policy_topic a", text: second_policy_topic.name
@@ -234,7 +234,7 @@ That's all
     policy = create(:published_policy, organisations: [first_org, second_org])
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_select "#document_organisations a", text: first_org.logo_formatted_name
     assert_select "#document_organisations a", text: second_org.logo_formatted_name
@@ -246,7 +246,7 @@ That's all
     policy = create(:published_policy, ministerial_roles: [appointment.role])
     supporting_page = create(:supporting_page, document: policy)
 
-    get :show, policy_id: policy.document_identity, id: supporting_page
+    get :show, policy_id: policy.doc_identity, id: supporting_page
 
     assert_select "#document_ministers a.minister", text: "minister-name"
   end

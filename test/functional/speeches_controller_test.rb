@@ -17,7 +17,7 @@ class SpeechesControllerTest < ActionController::TestCase
     speech_type = SpeechType::Transcript
     published_speech = create(:published_speech, speech_type: speech_type, role_appointment: theresa_may_appointment, delivered_on: Date.parse("2011-06-01"), location: "The Guidhall")
 
-    get :show, id: published_speech.document_identity
+    get :show, id: published_speech.doc_identity
 
     assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
     assert_select ".details .delivered_on", /1 June 2011/
@@ -28,7 +28,7 @@ class SpeechesControllerTest < ActionController::TestCase
     speech_type = SpeechType::Transcript
     published_speech = create(:published_speech, speech_type: speech_type)
 
-    get :show, id: published_speech.document_identity
+    get :show, id: published_speech.doc_identity
     assert_select ".details" do
       assert_select ".explanation",
         "This is a transcript of the speech, exactly as it was delivered."
@@ -40,7 +40,7 @@ class SpeechesControllerTest < ActionController::TestCase
     speech_type = SpeechType::DraftText
     published_speech = create(:published_speech, speech_type: speech_type)
 
-    get :show, id: published_speech.document_identity
+    get :show, id: published_speech.doc_identity
     assert_select ".details" do
       assert_select ".explanation",
         "This is the text of the speech as drafted, which may differ slightly from the delivered version."
@@ -52,7 +52,7 @@ class SpeechesControllerTest < ActionController::TestCase
     speech_type = SpeechType::SpeakingNotes
     published_speech = create(:published_speech, speech_type: speech_type)
 
-    get :show, id: published_speech.document_identity
+    get :show, id: published_speech.doc_identity
     assert_select ".details" do
       assert_select ".explanation",
         "These are the speaker's notes, not a transcript of the speech as it was delivered."
@@ -64,7 +64,7 @@ class SpeechesControllerTest < ActionController::TestCase
     speech_type = SpeechType::WrittenStatement
     published_speech = create(:published_speech, speech_type: speech_type)
 
-    get :show, id: published_speech.document_identity
+    get :show, id: published_speech.doc_identity
     assert_select ".details" do
       refute_select ".explanation"
     end
@@ -75,7 +75,7 @@ class SpeechesControllerTest < ActionController::TestCase
     speech_type = SpeechType::OralStatement
     published_speech = create(:published_speech, speech_type: speech_type)
 
-    get :show, id: published_speech.document_identity
+    get :show, id: published_speech.doc_identity
     assert_select ".details" do
       refute_select ".explanation"
     end
@@ -85,7 +85,7 @@ class SpeechesControllerTest < ActionController::TestCase
   test "should omit location if not given" do
     published_speech = create(:published_speech, location: nil)
 
-    get :show, id: published_speech.document_identity
+    get :show, id: published_speech.doc_identity
     assert_select ".details" do
       refute_select ".location"
     end

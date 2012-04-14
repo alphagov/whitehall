@@ -6,8 +6,8 @@ class DocumentRelationTest < ActiveSupport::TestCase
     refute document_relation.valid?
   end
 
-  test "should be invalid without a document identity" do
-    document_relation = build(:document_relation, document_identity: nil)
+  test "should be invalid without a doc identity" do
+    document_relation = build(:document_relation, doc_identity: nil)
     refute document_relation.valid?
   end
 
@@ -15,7 +15,7 @@ class DocumentRelationTest < ActiveSupport::TestCase
     existing_relation = create(:document_relation)
     relation = build(:document_relation,
       document: existing_relation.document,
-      document_identity: existing_relation.document_identity
+      doc_identity: existing_relation.doc_identity
     )
     refute relation.valid?
   end
@@ -29,8 +29,8 @@ class DocumentRelationTest < ActiveSupport::TestCase
 
   test "should be valid if one document is related from two others" do
     policy = create(:policy)
-    existing_relation = create(:document_relation, document_identity: policy.document_identity)
-    relation = build(:document_relation, document_identity: policy.document_identity)
+    existing_relation = create(:document_relation, doc_identity: policy.doc_identity)
+    relation = build(:document_relation, doc_identity: policy.doc_identity)
     assert relation.valid?
   end
 

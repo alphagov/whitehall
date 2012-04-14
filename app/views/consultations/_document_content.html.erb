@@ -10,7 +10,7 @@
     <div class="attachment">
       <% response = @document.published_consultation_response %>
       <% response_attachment = response.attachments.first %>
-      <% response_url = consultation_response_path(@document.document_identity) %>
+      <% response_url = consultation_response_path(@document.doc_identity) %>
       <%= link_to response_url, class: 'attachment' do %>
         <% if response_attachment && response_attachment.pdf? %>
           <%= image_tag(response_attachment.url(:thumbnail), alt: response.title) %>

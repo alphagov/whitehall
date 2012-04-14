@@ -155,21 +155,21 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   [Policy, Publication, NewsArticle, Consultation].each do |document_class|
-    test "should rewrite absolute links to admin previews of published #{document_class.name} as their public document identity" do
+    test "should rewrite absolute links to admin previews of published #{document_class.name} as their public doc identity" do
       document = create(:"published_#{document_class.name.underscore}")
       html = govspeak_to_html("this and [that](http://test.host#{admin_document_path(document)}) yeah?")
       assert_govspeak %{<p>this and <a href="#{public_document_path(document)}">that</a> yeah?</p>}, html
     end
   end
 
-  test "should rewrite absolute links to admin previews of published Speeches as their public document identity" do
+  test "should rewrite absolute links to admin previews of published Speeches as their public doc identity" do
     speech = create(:published_speech)
     public_path = public_document_path(speech)
     html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
     assert_govspeak %{<p>this and <a href="#{public_path}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of published SupportingPages as their public document identity" do
+  test "should rewrite absolute links to admin previews of published SupportingPages as their public doc identity" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
@@ -199,7 +199,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_document_path(document)}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of Speeches as their public document identity on preview" do
+  test "should rewrite absolute links to admin previews of Speeches as their public doc identity on preview" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     speech = create(:published_speech)
     public_url = public_document_url(speech)
@@ -207,7 +207,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of Speeches as their public document identity on public preview" do
+  test "should rewrite absolute links to admin previews of Speeches as their public doc identity on public preview" do
     request.host = "www.preview.alphagov.co.uk"
     ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     speech = create(:published_speech)
@@ -216,7 +216,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on preview" do
+  test "should rewrite absolute links to admin previews of SupportingPages as their public doc identity on preview" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
@@ -224,7 +224,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.preview.alphagov.co.uk")}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on public preview" do
+  test "should rewrite absolute links to admin previews of SupportingPages as their public doc identity on public preview" do
     request.host ="www.preview.alphagov.co.uk"
     ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     policy = create(:published_policy)
@@ -233,7 +233,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.preview.alphagov.co.uk")}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of Speeches as their public document identity on production" do
+  test "should rewrite absolute links to admin previews of Speeches as their public doc identity on production" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     speech = create(:published_speech)
     public_url = public_document_url(speech)
@@ -241,7 +241,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of Speeches as their public document identity on public production" do
+  test "should rewrite absolute links to admin previews of Speeches as their public doc identity on public production" do
     request.host = "www.gov.uk"
     ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     speech = create(:published_speech)
@@ -250,7 +250,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on production" do
+  test "should rewrite absolute links to admin previews of SupportingPages as their public doc identity on production" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, document: policy)
@@ -258,7 +258,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.gov.uk")}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on public production" do
+  test "should rewrite absolute links to admin previews of SupportingPages as their public doc identity on public production" do
     request.host = "www.gov.uk"
     ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     policy = create(:published_policy)

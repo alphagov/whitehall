@@ -21,7 +21,7 @@ class Admin::DocumentActionsHelperTest < ActionView::TestCase
 
   test "should generate publish form for document with change note field if required" do
     published_document = create(:published_document)
-    document = create(:submitted_document, document_identity: published_document.document_identity)
+    document = create(:submitted_document, doc_identity: published_document.doc_identity)
     html = publish_document_form(document)
     fragment = Nokogiri::HTML.fragment(html)
     refute_nil (fragment/"textarea[name='document[change_note]']").first
@@ -54,7 +54,7 @@ class Admin::DocumentActionsHelperTest < ActionView::TestCase
 
   test "should generate force-publish form for document with change note field if required" do
     published_document = create(:published_document)
-    document = create(:submitted_document, document_identity: published_document.document_identity)
+    document = create(:submitted_document, doc_identity: published_document.doc_identity)
     html = publish_document_form(document)
     fragment = Nokogiri::HTML.fragment(html)
     refute_nil (fragment/"textarea[name='document[change_note]']").first

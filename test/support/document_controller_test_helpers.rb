@@ -8,7 +8,7 @@ module DocumentControllerTestHelpers
         attachment_2 = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
         document = create("published_#{document_type}", attachments: [attachment_1, attachment_2])
 
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
 
         assert_select_object(attachment_1) do
           assert_select '.attachment .attachment_title', text: attachment_1.title
@@ -25,7 +25,7 @@ module DocumentControllerTestHelpers
         attachment = create(:attachment, file: greenpaper_pdf)
         document = create("published_#{document_type}", attachments: [attachment])
 
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
 
         assert_select_object(attachment) do
           assert_select ".type", /PDF/
@@ -39,7 +39,7 @@ module DocumentControllerTestHelpers
         attachment = create(:attachment, file: csv)
         document = create("published_#{document_type}", attachments: [attachment])
 
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
 
         assert_select_object(attachment) do
           assert_select ".type", /CSV/
@@ -54,7 +54,7 @@ module DocumentControllerTestHelpers
         images = [create(:image)]
         document = create("published_#{document_type}", body: "!!1", images: images)
 
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
 
         assert_select 'article .body figure.image.embedded img'
       end
@@ -63,7 +63,7 @@ module DocumentControllerTestHelpers
     def should_display_lead_image_for(document_type)
       test "show displays the image for the #{document_type}" do
         news_article = create("published_#{document_type}", images: [build(:image)])
-        get :show, id: news_article.document_identity
+        get :show, id: news_article.doc_identity
 
         assert_select ".document_view" do
           assert_select "figure.image.lead img[src='#{news_article.images.first.url}'][alt='#{news_article.images.first.alt_text}']"
@@ -74,7 +74,7 @@ module DocumentControllerTestHelpers
         portas_review_jpg = fixture_file_upload('portas-review.jpg')
         document = create("published_#{document_type}", images: [build(:image, caption: "image caption")])
 
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
 
         assert_select ".document_view" do
           assert_select "figure.image.lead figcaption", "image caption"
@@ -84,7 +84,7 @@ module DocumentControllerTestHelpers
       test "show only displays image if there is one" do
         document = create("published_#{document_type}", images: [])
 
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
 
         assert_select ".document_view" do
           refute_select "figure.image.lead"
@@ -96,7 +96,7 @@ module DocumentControllerTestHelpers
       test "show not show lead image, even if there are associated images" do
         document = create("published_#{document_type}", images: [build(:image)])
 
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
 
         assert_select ".document_view" do
           refute_select "figure.image.lead"
@@ -137,7 +137,7 @@ module DocumentControllerTestHelpers
         document = create("featured_#{document_type}")
         get :index
         assert_select send("featured_#{document_types}_selector") do
-          expected_path = send("#{document_type}_path", document.document_identity)
+          expected_path = send("#{document_type}_path", document.doc_identity)
           assert_select "#{record_css_selector(document)} a[href=#{expected_path}]"
         end
       end
@@ -147,14 +147,14 @@ module DocumentControllerTestHelpers
       test "show displays related published policies" do
         published_policy = create(:published_policy)
         document = create("published_#{document_type}", related_policies: [published_policy])
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
         assert_select_object published_policy
       end
 
       test "show doesn't display related unpublished policies" do
         draft_policy = create(:draft_policy)
         document = create("published_#{document_type}", related_policies: [draft_policy])
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
         refute_select_object draft_policy
       end
 
@@ -162,7 +162,7 @@ module DocumentControllerTestHelpers
         policy_topic = create(:policy_topic)
         published_policy = create(:published_policy, policy_topics: [policy_topic])
         document = create("published_#{document_type}", related_policies: [published_policy])
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
         assert_select_object policy_topic
       end
 
@@ -171,20 +171,20 @@ module DocumentControllerTestHelpers
         published_policy_1 = create(:published_policy, policy_topics: [policy_topic])
         published_policy_2 = create(:published_policy, policy_topics: [policy_topic])
         document = create("published_#{document_type}", related_policies: [published_policy_1, published_policy_2])
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
         assert_select_object policy_topic, count: 1
       end
 
       test "should not display policies unless they are related" do
         unrelated_policy = create(:published_policy)
         document = create("published_#{document_type}", related_policies: [])
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
         refute_select_object unrelated_policy
       end
 
       test "should not display an empty list of related policies" do
         document = create("published_#{document_type}")
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
         refute_select "#related-policies"
       end
     end
@@ -196,7 +196,7 @@ module DocumentControllerTestHelpers
         third_country = create(:country)
         document = create("published_#{document_type}", countries: [first_country, second_country])
 
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
 
         assert_select '#document_countries' do
           assert_select_object first_country
@@ -208,7 +208,7 @@ module DocumentControllerTestHelpers
       test "should not display an empty list of countries" do
         document = create("published_#{document_type}", countries: [])
 
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
 
         assert_select metadata_nav_selector do
           refute_select '.country'
@@ -266,7 +266,7 @@ module DocumentControllerTestHelpers
 
     def should_show_change_notes(document_type)
       should_show_change_notes_on_action(document_type) do |document|
-        get :show, id: document.document_identity
+        get :show, id: document.doc_identity
       end
     end
 
@@ -284,8 +284,8 @@ module DocumentControllerTestHelpers
 
       test "show does not display blank change notes in change history" do
         second_edition = create("published_#{document_type}", change_note: nil, published_at: 1.months.ago)
-        document_identity = second_edition.document_identity
-        first_edition = create("archived_#{document_type}", change_note: "First effort.", document_identity: document_identity, published_at: 2.months.ago)
+        doc_identity = second_edition.doc_identity
+        first_edition = create("archived_#{document_type}", change_note: "First effort.", doc_identity: doc_identity, published_at: 2.months.ago)
 
         instance_exec(second_edition, &block)
 
@@ -298,9 +298,9 @@ module DocumentControllerTestHelpers
       test "show displays change history in reverse chronological order" do
         editions = []
         editions << create("published_#{document_type}", change_note: "Third go.", published_at: 1.month.ago)
-        document_identity = editions.first.document_identity
-        editions << create("archived_#{document_type}", change_note: "Second attempt.", document_identity: document_identity, published_at: 2.months.ago)
-        editions << create("archived_#{document_type}", change_note: "First effort.", document_identity: document_identity, published_at: 3.months.ago)
+        doc_identity = editions.first.doc_identity
+        editions << create("archived_#{document_type}", change_note: "Second attempt.", doc_identity: doc_identity, published_at: 2.months.ago)
+        editions << create("archived_#{document_type}", change_note: "First effort.", doc_identity: doc_identity, published_at: 3.months.ago)
 
         instance_exec(editions.first, &block)
 

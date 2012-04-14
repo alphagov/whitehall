@@ -18,9 +18,9 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.valid?
   end
 
-  test "should be invalid without a document identity" do
+  test "should be invalid without a doc identity" do
     document = build(:document)
-    document.stubs(:document_identity).returns(nil)
+    document.stubs(:doc_identity).returns(nil)
     refute document.valid?
   end
 
@@ -34,57 +34,57 @@ class DocumentTest < ActiveSupport::TestCase
     refute document.valid?
   end
 
-  test "should be invalid if document identity has existing draft documents" do
+  test "should be invalid if doc identity has existing draft documents" do
     draft_document = create(:draft_document)
-    document = build(:document, document_identity: draft_document.document_identity)
+    document = build(:document, doc_identity: draft_document.doc_identity)
     refute document.valid?
   end
 
-  test "should be invalid if document identity has existing submitted documents" do
+  test "should be invalid if doc identity has existing submitted documents" do
     submitted_document = create(:submitted_document)
-    document = build(:document, document_identity: submitted_document.document_identity)
+    document = build(:document, doc_identity: submitted_document.doc_identity)
     refute document.valid?
   end
 
-  test "should be invalid if document identity has existing documents that need work" do
+  test "should be invalid if doc identity has existing documents that need work" do
     rejected_document = create(:rejected_document)
-    document = build(:document, document_identity: rejected_document.document_identity)
+    document = build(:document, doc_identity: rejected_document.doc_identity)
     refute document.valid?
   end
 
-  test "should be invalid when published if document identity has existing published documents" do
+  test "should be invalid when published if doc identity has existing published documents" do
     published_document = create(:published_document)
-    document = build(:published_policy, document_identity: published_document.document_identity)
+    document = build(:published_policy, doc_identity: published_document.doc_identity)
     refute document.valid?
   end
 
-  test "adds a document identity before validation if none provided" do
+  test "adds a doc identity before validation if none provided" do
     document = Document.new
     document.valid?
-    assert_not_nil document.document_identity
-    assert_kind_of DocumentIdentity, document.document_identity
+    assert_not_nil document.doc_identity
+    assert_kind_of DocIdentity, document.doc_identity
   end
 
-  test "uses provided document identity if available" do
-    identity = build(:document_identity)
-    document = Document.new(document_identity: identity)
-    assert_equal identity, document.document_identity
+  test "uses provided doc identity if available" do
+    identity = build(:doc_identity)
+    document = Document.new(doc_identity: identity)
+    assert_equal identity, document.doc_identity
   end
 
   test ".published_as returns document if document is published" do
     document = create(:published_policy)
-    assert_equal document, Policy.published_as(document.document_identity.to_param)
+    assert_equal document, Policy.published_as(document.doc_identity.to_param)
   end
 
   test ".published_as returns latest published document if several documents share identity" do
     document = create(:published_policy)
-    new_draft = create(:draft_policy, document_identity: document.document_identity)
-    assert_equal document, Policy.published_as(document.document_identity.to_param)
+    new_draft = create(:draft_policy, doc_identity: document.doc_identity)
+    assert_equal document, Policy.published_as(document.doc_identity.to_param)
   end
 
   test ".published_as returns nil if document is not published" do
     document = create(:submitted_document)
-    assert_nil Document.published_as(document.document_identity.to_param)
+    assert_nil Document.published_as(document.doc_identity.to_param)
   end
 
   test ".published_as returns nil if identity is unknown" do
@@ -587,14 +587,14 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal "Dog Eyes (published)", published_document.reload.title_with_state
   end
 
-  test "should use the document title as the basis for the document identity's slug" do
+  test "should use the document title as the basis for the doc identity's slug" do
     document = create(:document, title: 'My Policy Title')
-    assert_equal 'my-policy-title', document.document_identity.slug
+    assert_equal 'my-policy-title', document.doc_identity.slug
   end
 
   test "should concatenate words containing apostrophes" do
     document = create(:document, title: "Bob's bike")
-    assert_equal 'bobs-bike', document.document_identity.slug
+    assert_equal 'bobs-bike', document.doc_identity.slug
   end
 
   test "is filterable by document type" do
@@ -814,7 +814,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should return search index suitable for Rummageable" do
     policy = create(:published_policy, title: "policy-title")
-    slug = policy.document_identity.slug
+    slug = policy.doc_identity.slug
 
     assert_equal "policy-title", policy.search_index["title"]
     assert_equal "/government/policies/#{slug}", policy.search_index["link"]
@@ -857,7 +857,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should not remove document from search index when a new edition is published" do
     policy = create(:published_policy)
-    slug = policy.document_identity.slug
+    slug = policy.doc_identity.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{slug}").never
 
@@ -869,7 +869,7 @@ class DocumentTest < ActiveSupport::TestCase
   test "should not remove document from search index when a new draft of a published document is deleted" do
     policy = create(:published_policy)
     new_draft_policy = policy.create_draft(create(:policy_writer))
-    slug = policy.document_identity.slug
+    slug = policy.doc_identity.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{slug}").never
 
@@ -878,7 +878,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should remove published document from search index when it's deleted" do
     policy = create(:published_policy)
-    slug = policy.document_identity.slug
+    slug = policy.doc_identity.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{slug}")
 
@@ -887,7 +887,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should remove published document from search index when it's archived" do
     policy = create(:published_policy)
-    slug = policy.document_identity.slug
+    slug = policy.doc_identity.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{slug}")
 
@@ -896,10 +896,10 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should provide a list of all editions ever published in reverse chronological order by publication date" do
     original_edition = create(:archived_document, published_at: 3.days.ago)
-    document_identity = original_edition.document_identity
-    new_edition_1 = create(:archived_document, document_identity: document_identity, published_at: 2.days.ago)
-    new_edition_2 = create(:published_document, document_identity: document_identity, published_at: 1.day.ago)
-    draft_edition = create(:draft_document, document_identity: document_identity)
+    doc_identity = original_edition.doc_identity
+    new_edition_1 = create(:archived_document, doc_identity: doc_identity, published_at: 2.days.ago)
+    new_edition_2 = create(:published_document, doc_identity: doc_identity, published_at: 1.day.ago)
+    draft_edition = create(:draft_document, doc_identity: doc_identity)
 
     assert_equal [new_edition_2, new_edition_1, original_edition], new_edition_2.editions_ever_published
     refute new_edition_2.editions_ever_published.include?(draft_edition)

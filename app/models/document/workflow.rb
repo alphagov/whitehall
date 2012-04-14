@@ -61,14 +61,14 @@ module Document::Workflow
   end
 
   def archive_previous_documents
-    document_identity.documents.published.each do |document|
+    doc_identity.documents.published.each do |document|
       document.archive! unless document == self
     end
   end
 
   class DocumentHasNoUnpublishedDocumentsValidator < ActiveModel::Validator
     def validate(record)
-      if record.document_identity && (existing_edition = record.document_identity.unpublished_edition)
+      if record.doc_identity && (existing_edition = record.doc_identity.unpublished_edition)
         record.errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
       end
     end
@@ -76,7 +76,7 @@ module Document::Workflow
 
   class DocumentHasNoOtherPublishedDocumentsValidator < ActiveModel::Validator
     def validate(record)
-      if record.published? && record.document_identity && record.document_identity.documents.published.any?
+      if record.published? && record.doc_identity && record.doc_identity.documents.published.any?
         record.errors.add(:base, "There is already a published edition for this document")
       end
     end
