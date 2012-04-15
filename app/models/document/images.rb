@@ -10,7 +10,7 @@ module Document::Images
   end
 
   included do
-    has_many :images, foreign_key: "document_id", dependent: :destroy
+    has_many :images, foreign_key: "edition_id", dependent: :destroy
 
     accepts_nested_attributes_for :images, reject_if: :no_substantive_attributes?, allow_destroy: true
 

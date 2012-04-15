@@ -3,7 +3,7 @@ class SupportingPage < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
 
-  belongs_to :document
+  belongs_to :document, foreign_key: :edition_id
 
   has_many :supporting_page_attachments
   has_many :attachments, through: :supporting_page_attachments

@@ -49,7 +49,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   def load_fact_check_request
     @fact_check_request = FactCheckRequest.from_param(params[:id])
     if @fact_check_request
-      @document = Document.unscoped.find(@fact_check_request.document_id)
+      @document = Document.unscoped.find(@fact_check_request.edition_id)
     elsif request.host == 'whitehall.preview.alphagov.co.uk'
       temporary_redirect_from_preview_to_production
     else

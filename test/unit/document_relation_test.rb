@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DocumentRelationTest < ActiveSupport::TestCase
   test "should be invalid without a document id" do
-    document_relation = build(:document_relation, document_id: nil)
+    document_relation = build(:document_relation, edition_id: nil)
     refute document_relation.valid?
   end
 

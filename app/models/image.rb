@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
   belongs_to :image_data
-  belongs_to :document
+  belongs_to :document, foreign_key: :edition_id
 
   validates :alt_text, presence: true, unless: :skip_main_validation?
 

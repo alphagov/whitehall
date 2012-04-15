@@ -2,7 +2,7 @@ module Document::ActiveEditors
   extend ActiveSupport::Concern
 
   included do
-    has_many :recent_document_openings, dependent: :destroy
+    has_many :recent_document_openings, foreign_key: :edition_id, dependent: :destroy
   end
 
   def active_document_openings

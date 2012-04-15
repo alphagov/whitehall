@@ -8,7 +8,7 @@ class Policy < Document
 
   has_many :document_relations, through: :doc_identity
   has_many :related_documents, through: :document_relations, source: :document
-  has_many :published_related_documents, through: :document_relations, source: :document, conditions: {documents: {state: 'published'}}
+  has_many :published_related_documents, through: :document_relations, source: :document, conditions: {editions: {state: 'published'}}
 
   validates :summary, presence: true
 

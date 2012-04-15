@@ -1,14 +1,20 @@
 class PopulateSummariesForPolicies < ActiveRecord::Migration
+  class DocumentTable < ActiveRecord::Base
+    set_table_name :documents
+  end
+  class PolicyTable < DocumentTable
+  end
+
   def up
     ActiveRecord::Base.record_timestamps = false
-    Policy.all.each do |p|
+    PolicyTable.all.each do |p|
       p.update_attribute(:summary, summary_from(p.body))
     end
     ActiveRecord::Base.record_timestamps = true
   end
 
   def down
-    Policy.all.each { |p| p.update_attribute(:summary, nil) }
+    PolicyTable.all.each { |p| p.update_attribute(:summary, nil) }
   end
 
   def summary_from(string)

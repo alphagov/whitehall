@@ -4,7 +4,7 @@ module Document::SupportingPages
   class Trait < Document::Traits::Trait
     def process_associations_after_save(document)
       @document.supporting_pages.each do |sd|
-        new_supporting_page = document.supporting_pages.create(sd.attributes.except("id", "document_id"))
+        new_supporting_page = document.supporting_pages.create(sd.attributes.except("id", "edition_id"))
         sd.attachments.each do |a|
           new_supporting_page.supporting_page_attachments.create(attachment_id: a.id)
         end
@@ -13,7 +13,7 @@ module Document::SupportingPages
   end
 
   included do
-    has_many :supporting_pages, foreign_key: :document_id, dependent: :delete_all
+    has_many :supporting_pages, foreign_key: :edition_id, dependent: :delete_all
 
     add_trait Trait
   end

@@ -8,11 +8,11 @@ class PolicyTopicMembership < ActiveRecord::Base
 
   class << self
     def published
-      joins(:policy).where("documents.state" => "published")
+      joins(:policy).where("editions.state" => "published")
     end
 
     def for_type(type)
-      joins(:policy).where("documents.type" => type)
+      joins(:policy).where("editions.type" => type)
     end
   end
 end

@@ -16,7 +16,7 @@ class PolicyTopic < ActiveRecord::Base
 
   has_many :policy_topic_memberships
   has_many :policies, through: :policy_topic_memberships
-  has_many :featured_policies, through: :policy_topic_memberships, class_name: "Policy", conditions: { "policy_topic_memberships.featured" => true, "documents.state" => "published" }, source: :policy
+  has_many :featured_policies, through: :policy_topic_memberships, class_name: "Policy", conditions: { "policy_topic_memberships.featured" => true, "editions.state" => "published" }, source: :policy
 
   has_many :organisation_policy_topics
   has_many :organisations, through: :organisation_policy_topics

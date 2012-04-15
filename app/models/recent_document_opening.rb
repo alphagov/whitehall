@@ -1,5 +1,5 @@
 class RecentDocumentOpening < ActiveRecord::Base
-  belongs_to :document
+  belongs_to :document, foreign_key: :edition_id
   belongs_to :editor, class_name: "User"
 
   def self.activity_threshold

@@ -1,6 +1,6 @@
 class DocumentAttachment < ActiveRecord::Base
   belongs_to :attachment
-  belongs_to :document
+  belongs_to :document, foreign_key: :edition_id
 
   after_destroy :destroy_attachment_if_required
 

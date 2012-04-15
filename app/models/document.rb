@@ -1,4 +1,6 @@
 class Document < ActiveRecord::Base
+  set_table_name :editions
+
   include Document::Traits
 
   include Document::Identifiable
@@ -14,8 +16,8 @@ class Document < ActiveRecord::Base
   include PublicDocumentRoutesHelper
   include Searchable
 
-  has_many :editorial_remarks, dependent: :destroy
-  has_many :document_authors, dependent: :destroy
+  has_many :editorial_remarks, foreign_key: :edition_id, dependent: :destroy
+  has_many :document_authors, foreign_key: :edition_id, dependent: :destroy
   has_many :authors, through: :document_authors, source: :user
 
   validates :title, :body, :creator, presence: true
@@ -184,7 +186,7 @@ class Document < ActiveRecord::Base
 
   class << self
     def authored_by(user)
-      joins(:document_authors).where(document_authors: {user_id: user}).group(:document_id)
+      joins(:document_authors).where(document_authors: {user_id: user}).group(:edition_id)
     end
 
     def by_type(type)
@@ -201,11 +203,11 @@ class Document < ActiveRecord::Base
     end
 
     def latest_edition
-      where("NOT EXISTS (SELECT 1 FROM documents d2 WHERE d2.doc_identity_id = documents.doc_identity_id AND d2.id > documents.id AND d2.state <> 'deleted')")
+      where("NOT EXISTS (SELECT 1 FROM editions e2 WHERE e2.doc_identity_id = editions.doc_identity_id AND e2.id > editions.id AND e2.state <> 'deleted')")
     end
 
     def latest_published_edition
-      published.where("NOT EXISTS (SELECT 1 FROM documents d2 WHERE d2.doc_identity_id = documents.doc_identity_id AND d2.id > documents.id AND d2.state = 'published')")
+      published.where("NOT EXISTS (SELECT 1 FROM editions e2 WHERE e2.doc_identity_id = editions.doc_identity_id AND e2.id > editions.id AND e2.state = 'published')")
     end
   end
 end

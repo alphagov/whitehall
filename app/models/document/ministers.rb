@@ -8,7 +8,7 @@ module Document::Ministers
   end
 
   included do
-    has_many :document_ministerial_roles, foreign_key: :document_id, dependent: :destroy
+    has_many :document_ministerial_roles, foreign_key: :edition_id, dependent: :destroy
     has_many :ministerial_roles, through: :document_ministerial_roles
 
     add_trait Trait

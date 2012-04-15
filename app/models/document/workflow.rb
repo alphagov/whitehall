@@ -26,7 +26,8 @@ module Document::Workflow
 
     after_publish :archive_previous_documents
 
-    state_machine auto_scopes: true do
+    auto_scopes = false
+    state_machine auto_scopes: auto_scopes do
       state :draft
       state :submitted
       state :rejected
@@ -53,6 +54,12 @@ module Document::Workflow
 
       event :archive, success: -> document { document.run_callbacks(:archive) } do
         transitions from: :published, to: :archived
+      end
+    end
+
+    unless auto_scopes
+      available_states.each do |state|
+        scope state, where(arel_table[:state].eq(state))
       end
     end
 
