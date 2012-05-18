@@ -29,7 +29,7 @@ gem 'aws-ses', require: 'aws/ses'
 group :assets do
   gem 'sass-rails', '~> 3.1.0'
   gem 'uglifier'
-  gem 'therubyracer', '~> 0.9.10'
+  gem 'therubyracer', '~> 0.10.1'
   gem 'libv8', '~> 3.3.10.2'
 end
 
@@ -52,5 +52,5 @@ group :test do
 end
 
 group :router do
-  gem 'router-client', git: "git://github.com/alphagov/router-client.git", require: "router"
+  gem 'router-client', git: "git://github.com/alphagov/router.git", require: "router"
 end
