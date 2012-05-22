@@ -970,9 +970,9 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "RecentDocumentOpening#expunge! deletes entries more than 2 hours old" do
     document = create(:document)
-    RecentDocumentOpening.create(editor: create(:author), document: document, created_at: 2.hours.ago + 1.second)
-    RecentDocumentOpening.create(editor: create(:author), document: document, created_at: 2.hours.ago)
-    RecentDocumentOpening.create(editor: create(:author), document: document, created_at: 2.hours.ago - 1.second)
+    create(:recent_document_opening, editor: create(:author), document: document, created_at: 2.hours.ago + 1.second)
+    create(:recent_document_opening, editor: create(:author), document: document, created_at: 2.hours.ago)
+    create(:recent_document_opening, editor: create(:author), document: document, created_at: 2.hours.ago - 1.second)
     assert_equal 3, RecentDocumentOpening.count
     RecentDocumentOpening.expunge!
     assert_equal 2, RecentDocumentOpening.count
