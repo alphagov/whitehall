@@ -59,7 +59,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "adds a doc identity before validation if none provided" do
-    document = Document.new
+    document = build(:document)
     document.valid?
     assert_not_nil document.doc_identity
     assert_kind_of DocIdentity, document.doc_identity
@@ -67,7 +67,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "uses provided doc identity if available" do
     identity = build(:doc_identity)
-    document = Document.new(doc_identity: identity)
+    document = build(:document, doc_identity: identity)
     assert_equal identity, document.doc_identity
   end
 
@@ -804,7 +804,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should not be featurable" do
-    refute Document.new.featurable?
+    refute build(:document).featurable?
   end
 
   test "should have no lead image even if an associated image exists" do
