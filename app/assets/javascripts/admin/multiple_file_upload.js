@@ -3,7 +3,7 @@
     $(this).delegate("input[type=file]:last", "change", function() {
       var clone = $(this).parents(".file_upload").clone();
       var referenceInput = clone.children("input:first")[0];
-      var id = parseInt($(referenceInput).attr("id").match(/_(\d)_/)[1]);
+      var id = parseInt($(referenceInput).attr("id").match(/_(\d+)_/)[1]);
       var newId = id + 1;
       clone.find(".field_with_errors label,input").unwrap();
       clone.children("label").each(function(i, el) {

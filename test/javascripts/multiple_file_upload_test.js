@@ -34,12 +34,13 @@ test("should not add a new file input when a selected file is changed", function
 });
 
 test("should continue adding new inputs as new files are selected", function() {
-  fireChangeEventOnLastFileInputOf(this.fieldset);
-  fireChangeEventOnLastFileInputOf(this.fieldset);
-  equal(this.fieldset.children(".file_upload").length, 3);
+  for(i = 0; i < 10; i++) {
+    fireChangeEventOnLastFileInputOf(this.fieldset);
+  }
+  equal(this.fieldset.children(".file_upload").length, 11);
 
   fireChangeEventOnLastFileInputOf(this.fieldset);
-  equal(this.fieldset.children(".file_upload").length, 4);
+  equal(this.fieldset.children(".file_upload").length, 12);
 });
 
 test("should increment the referenced ID of the title label for each new set of inputs added", function() {
