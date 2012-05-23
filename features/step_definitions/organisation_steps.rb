@@ -1,6 +1,6 @@
 Given /^the organisation "([^"]*)" contains some policies$/ do |name|
   documents = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
-  create(:ministerial_department, name: name, documents: documents)
+  create(:ministerial_department, name: name, editions: documents)
 end
 
 Given /^other organisations also have policies$/ do
