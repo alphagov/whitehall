@@ -22,8 +22,8 @@ class DocumentRelationTest < ActiveSupport::TestCase
 
   test "should be valid if one document is related to two others" do
     document = create(:document)
-    existing_relation = create(:document_relation, document: document)
-    relation = build(:document_relation, document: document)
+    existing_relation = create(:document_relation, edition: document)
+    relation = build(:document_relation, edition: document)
     assert relation.valid?
   end
 
