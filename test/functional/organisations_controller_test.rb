@@ -212,7 +212,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     published_news_article = create(:published_news_article)
     draft_news_article = create(:draft_news_article)
     another_published_news_article = create(:published_news_article)
-    organisation = create(:organisation, documents: [published_news_article, draft_news_article])
+    organisation = create(:organisation, editions: [published_news_article, draft_news_article])
 
     get :announcements, id: organisation
 
@@ -251,7 +251,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should show published consultations associated with the organisation" do
     published_consultation = create(:published_consultation)
     draft_consultation = create(:draft_consultation)
-    organisation = create(:organisation, documents: [published_consultation, draft_consultation])
+    organisation = create(:organisation, editions: [published_consultation, draft_consultation])
 
     get :consultations, id: organisation
 
@@ -262,7 +262,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should show consultations in order of publication date" do
     earlier_consultation = create(:published_consultation, published_at: 2.days.ago)
     later_consultation = create(:published_consultation, published_at: 1.days.ago)
-    organisation = create(:organisation, documents: [earlier_consultation, later_consultation])
+    organisation = create(:organisation, editions: [earlier_consultation, later_consultation])
 
     get :consultations, id: organisation
 
@@ -337,7 +337,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display corporate publications on about-us page" do
     published_corporate_publication = create(:published_corporate_publication)
-    organisation = create(:organisation, documents: [
+    organisation = create(:organisation, editions: [
       published_corporate_publication,
     ])
     get :about, id: organisation
@@ -458,7 +458,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     published_policy = create(:published_policy)
     draft_policy = create(:draft_policy)
     unrelated_policy = create(:published_policy)
-    organisation = create(:organisation, documents: [published_policy, draft_policy])
+    organisation = create(:organisation, editions: [published_policy, draft_policy])
 
     get :policies, id: organisation
 
@@ -503,7 +503,7 @@ class OrganisationsControllerTest < ActionController::TestCase
                 3.times.map { |n| create(:published_consultation, published_at: (6 + n).days.ago) } +
                 3.times.map { |n| create(:published_speech, published_at: (9 + n).days.ago) }
 
-    organisation = create(:organisation, documents: documents)
+    organisation = create(:organisation, editions: documents)
     get :show, id: organisation
 
     assert_select "h1", "Latest"
@@ -516,7 +516,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should not show most recently published documents when there are none" do
-    organisation = create(:organisation, documents: [])
+    organisation = create(:organisation, editions: [])
     get :show, id: organisation
 
     refute_select "h1", text: "Recently updated"

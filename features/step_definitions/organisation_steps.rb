@@ -4,8 +4,8 @@ Given /^the organisation "([^"]*)" contains some policies$/ do |name|
 end
 
 Given /^other organisations also have policies$/ do
-  create(:organisation, documents: [build(:published_policy)])
-  create(:organisation, documents: [build(:published_policy)])
+  create(:organisation, editions: [build(:published_policy)])
+  create(:organisation, editions: [build(:published_policy)])
 end
 
 Given /^the organisation "([^"]*)" exists$/ do |name|
