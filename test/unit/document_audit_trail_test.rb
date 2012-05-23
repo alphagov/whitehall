@@ -12,22 +12,22 @@ class DocumentAuditTrailTest < ActiveSupport::TestCase
     PaperTrail.whodunnit = @previous_whodunnit
     Timecop.return
   end
-  
+
   test "creation appears as a creation event" do
-    doc = create(:draft_document)
+    doc = create(:draft_edition)
     assert_equal 1, doc.audit_trail.size
     assert_equal "create", doc.audit_trail.first.event
     assert_equal @user, doc.audit_trail.first.actor
   end
 
   test "saving without any changes does not get recorded as an event" do
-    doc = create(:draft_document)
+    doc = create(:draft_edition)
     doc.save!
     assert_equal 1, doc.audit_trail.size
   end
 
   test "saving after changing an attribute records an update event" do
-    doc = create(:draft_document)
+    doc = create(:draft_edition)
     doc.title = "foo"
     doc.save!
     assert_equal 2, doc.audit_trail.size
@@ -36,21 +36,21 @@ class DocumentAuditTrailTest < ActiveSupport::TestCase
   end
 
   test "submitting for review records a submitted event" do
-    doc = create(:draft_document)
+    doc = create(:draft_edition)
     doc.submit!
     assert_equal 2, doc.audit_trail.size
     assert_equal "submit", doc.audit_trail.last.event
   end
 
   test "submitting for review records the person who submitted it" do
-    doc = create(:draft_document)
+    doc = create(:draft_edition)
     PaperTrail.whodunnit = @user2
     doc.submit!
     assert_equal @user2, doc.audit_trail.last.actor
   end
 
   test "rejecting records a rejected event" do
-    doc = create(:submitted_document)
+    doc = create(:submitted_edition)
     PaperTrail.whodunnit = @user2
     doc.reject!
     assert_equal "reject", doc.audit_trail.last.event
@@ -58,7 +58,7 @@ class DocumentAuditTrailTest < ActiveSupport::TestCase
   end
 
   test "publishing records a published event" do
-    doc = create(:submitted_document)
+    doc = create(:submitted_edition)
     doc.published_at = Time.zone.now
     doc.first_published_at = Time.zone.now
     PaperTrail.whodunnit = @user2
@@ -68,7 +68,7 @@ class DocumentAuditTrailTest < ActiveSupport::TestCase
   end
 
   test "creating a new draft of a published document records an edition event" do
-    doc = create(:published_document)
+    doc = create(:published_edition)
     policy_writer = create(:policy_writer)
     PaperTrail.whodunnit = policy_writer
     edition = doc.create_draft(policy_writer)
@@ -77,7 +77,7 @@ class DocumentAuditTrailTest < ActiveSupport::TestCase
   end
 
   test "after creating a new draft, audit events from previous editions still available" do
-    doc = create(:published_document)
+    doc = create(:published_edition)
     previous_events = doc.audit_trail
     edition = doc.create_draft(@user)
     assert_equal previous_events, doc.audit_trail[0..-2]
@@ -85,7 +85,7 @@ class DocumentAuditTrailTest < ActiveSupport::TestCase
 
   test "editorial remark appears as an audit event" do
     Timecop.freeze(Time.zone.now - 2.days)
-    doc = create(:draft_document)
+    doc = create(:draft_edition)
     policy_writer = create(:policy_writer)
     editorial_remark_body = "blah"
     Timecop.freeze(Time.zone.now + 1.day)

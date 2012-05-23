@@ -281,7 +281,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'destroy removes document relationships' do
     organisation = create(:organisation)
-    document = create(:published_document, organisations: [organisation])
+    document = create(:published_edition, organisations: [organisation])
     organisation.destroy
     assert_equal 0, DocumentOrganisation.count
   end

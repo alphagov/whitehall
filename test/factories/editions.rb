@@ -30,10 +30,10 @@ FactoryGirl.define do
     trait(:featured) { featured true }
   end
 
-  factory :draft_edition, parent: :edition, traits: [:draft], aliases: [:draft_document]
-  factory :submitted_edition, parent: :edition, traits: [:submitted], aliases: [:submitted_document]
-  factory :rejected_edition, parent: :edition, traits: [:rejected], aliases: [:rejected_document]
-  factory :published_edition, parent: :edition, traits: [:published], aliases: [:published_document]
-  factory :deleted_edition, parent: :edition, traits: [:deleted], aliases: [:deleted_document]
-  factory :archived_edition, parent: :edition, traits: [:archived], aliases: [:archived_document]
+  factory :draft_edition, parent: :edition, traits: [:draft]
+  factory :submitted_edition, parent: :edition, traits: [:submitted]
+  factory :rejected_edition, parent: :edition, traits: [:rejected]
+  factory :published_edition, parent: :edition, traits: [:published]
+  factory :deleted_edition, parent: :edition, traits: [:deleted]
+  factory :archived_edition, parent: :edition, traits: [:archived]
 end

@@ -36,7 +36,7 @@ class DocIdentityTest < ActiveSupport::TestCase
   end
 
   test "should ignore deleted editions when finding latest edition" do
-    original_edition = create(:published_document)
+    original_edition = create(:published_edition)
     new_draft = original_edition.create_draft(create(:policy_writer))
     new_draft.delete!
     assert_equal original_edition, original_edition.doc_identity.latest_edition

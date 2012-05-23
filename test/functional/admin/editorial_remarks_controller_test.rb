@@ -8,7 +8,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test "should render the document title and body to give context to the person rejecting" do
-    document = create(:submitted_document, title: "document-title", body: "document-body")
+    document = create(:submitted_edition, title: "document-title", body: "document-body")
     get :new, document_id: document
 
     assert_select "#{record_css_selector(document)} .title", text: "document-title"
@@ -16,13 +16,13 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   end
 
   test "should redirect to the list of documents that need work" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     post :create, document_id: document, editorial_remark: { body: "editorial-remark-body" }
     assert_redirected_to admin_documents_path(state: :submitted)
   end
 
   test "should reject the document and create an editorial remark" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     post :create, document_id: document, editorial_remark: { body: "editorial-remark-body" }
 
     document.reload
@@ -33,7 +33,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   end
 
   test "should explain why the editorial remark couldn't be saved" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     post :create, document_id: document, editorial_remark: { body: "" }
     assert_template "new"
     assert_select ".form-errors"

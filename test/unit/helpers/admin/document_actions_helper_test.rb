@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::DocumentActionsHelperTest < ActionView::TestCase
   test "should generate publish form for document" do
-    document = create(:submitted_document, title: "document-title")
+    document = create(:submitted_edition, title: "document-title")
     html = publish_document_form(document)
     fragment = Nokogiri::HTML.fragment(html)
     assert_equal admin_document_publishing_path(document), (fragment/"form").first["action"]
@@ -20,22 +20,22 @@ class Admin::DocumentActionsHelperTest < ActionView::TestCase
   end
 
   test "should generate publish form for document with change note field if required" do
-    published_document = create(:published_document)
-    document = create(:submitted_document, doc_identity: published_document.doc_identity)
+    published_document = create(:published_edition)
+    document = create(:submitted_edition, doc_identity: published_document.doc_identity)
     html = publish_document_form(document)
     fragment = Nokogiri::HTML.fragment(html)
     refute_nil (fragment/"textarea[name='document[change_note]']").first
   end
 
   test "should generate publish form for document without change note field if not required" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     html = publish_document_form(document)
     fragment = Nokogiri::HTML.fragment(html)
     assert_nil (fragment/"textarea[name='document[change_note]']").first
   end
 
   test "should generate force-publish form" do
-    document = create(:submitted_document, title: "document-title")
+    document = create(:submitted_edition, title: "document-title")
     html = publish_document_form(document, force: true)
     fragment = Nokogiri::HTML.fragment(html)
     assert_equal admin_document_publishing_path(document, force: true), (fragment/"form").first["action"]
@@ -53,15 +53,15 @@ class Admin::DocumentActionsHelperTest < ActionView::TestCase
   end
 
   test "should generate force-publish form for document with change note field if required" do
-    published_document = create(:published_document)
-    document = create(:submitted_document, doc_identity: published_document.doc_identity)
+    published_document = create(:published_edition)
+    document = create(:submitted_edition, doc_identity: published_document.doc_identity)
     html = publish_document_form(document)
     fragment = Nokogiri::HTML.fragment(html)
     refute_nil (fragment/"textarea[name='document[change_note]']").first
   end
 
   test "should generate force-publish form for document without change note field if not required" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     html = publish_document_form(document)
     fragment = Nokogiri::HTML.fragment(html)
     assert_nil (fragment/"textarea[name='document[change_note]']").first

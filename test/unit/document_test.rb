@@ -25,35 +25,35 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should be invalid when published without published_at" do
-    document = build(:published_document, published_at: nil)
+    document = build(:published_edition, published_at: nil)
     refute document.valid?
   end
 
   test "should be invalid when published without first_published_at" do
-    document = build(:published_document, first_published_at: nil)
+    document = build(:published_edition, first_published_at: nil)
     refute document.valid?
   end
 
   test "should be invalid if doc identity has existing draft documents" do
-    draft_document = create(:draft_document)
+    draft_document = create(:draft_edition)
     document = build(:document, doc_identity: draft_document.doc_identity)
     refute document.valid?
   end
 
   test "should be invalid if doc identity has existing submitted documents" do
-    submitted_document = create(:submitted_document)
+    submitted_document = create(:submitted_edition)
     document = build(:document, doc_identity: submitted_document.doc_identity)
     refute document.valid?
   end
 
   test "should be invalid if doc identity has existing documents that need work" do
-    rejected_document = create(:rejected_document)
+    rejected_document = create(:rejected_edition)
     document = build(:document, doc_identity: rejected_document.doc_identity)
     refute document.valid?
   end
 
   test "should be invalid when published if doc identity has existing published documents" do
-    published_document = create(:published_document)
+    published_document = create(:published_edition)
     document = build(:published_policy, doc_identity: published_document.doc_identity)
     refute document.valid?
   end
@@ -83,7 +83,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test ".published_as returns nil if document is not published" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     assert_nil Edition.published_as(document.doc_identity.to_param)
   end
 
@@ -92,19 +92,19 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test ".latest_edition includes first edition of any document" do
-    document = create(:published_document)
+    document = create(:published_edition)
     assert Edition.latest_edition.include?(document)
   end
 
   test ".latest_edition includes only latest edition of a document" do
-    original_edition = create(:published_document)
+    original_edition = create(:published_edition)
     new_draft = original_edition.create_draft(create(:policy_writer))
     refute Edition.latest_edition.include?(original_edition)
     assert Edition.latest_edition.include?(new_draft)
   end
 
   test ".latest_edition ignores deleted editions" do
-    original_edition = create(:published_document)
+    original_edition = create(:published_edition)
     new_draft = original_edition.create_draft(create(:policy_writer))
     new_draft.delete!
     assert Edition.latest_edition.include?(original_edition)
@@ -112,7 +112,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test ".latest_published_edition" do
-    original_edition = create(:published_document)
+    original_edition = create(:published_edition)
     new_draft = original_edition.create_draft(create(:policy_writer))
     new_draft.delete!
     assert Edition.latest_published_edition.include?(original_edition)
@@ -134,9 +134,9 @@ class DocumentTest < ActiveSupport::TestCase
   test "should return a list of documents in an organisation" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
-    draft_document = create(:draft_document, organisations: [organisation_1])
-    published_document = create(:published_document, organisations: [organisation_1])
-    published_in_second_organisation = create(:published_document, organisations: [organisation_2])
+    draft_document = create(:draft_edition, organisations: [organisation_1])
+    published_document = create(:published_edition, organisations: [organisation_1])
+    published_in_second_organisation = create(:published_edition, organisations: [organisation_2])
 
     assert_equal [draft_document, published_document], Edition.in_organisation(organisation_1)
     assert_equal [published_document], Edition.published.in_organisation(organisation_1)
@@ -375,34 +375,34 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should only return the submitted documents" do
-    draft_document = create(:draft_document)
-    submitted_document = create(:submitted_document)
+    draft_document = create(:draft_edition)
+    submitted_document = create(:submitted_edition)
     assert_equal [submitted_document], Edition.submitted
   end
 
   test "should return all documents excluding those that are archived or deleted" do
-    draft_document = create(:draft_document)
-    submitted_document = create(:submitted_document)
-    rejected_document = create(:rejected_document)
-    published_document = create(:published_document)
-    deleted_document = create(:deleted_document)
-    archived_document = create(:archived_document)
+    draft_document = create(:draft_edition)
+    submitted_document = create(:submitted_edition)
+    rejected_document = create(:rejected_edition)
+    published_document = create(:published_edition)
+    deleted_document = create(:deleted_edition)
+    archived_document = create(:archived_edition)
     assert_same_elements [draft_document, submitted_document, rejected_document, published_document], Edition.active
   end
 
   test "should not be publishable when not submitted" do
-    draft_document = create(:draft_document)
+    draft_document = create(:draft_edition)
     refute draft_document.publishable_by?(create(:departmental_editor))
   end
 
   test "should not return published documents in submitted" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     document.publish_as(create(:departmental_editor))
     refute Edition.submitted.include?(document)
   end
 
   test "should build a draft copy of the existing document with the supplied creator" do
-    published_document = create(:published_document)
+    published_document = create(:published_edition)
     new_creator = create(:policy_writer)
     draft_document = published_document.create_draft(new_creator)
 
@@ -414,21 +414,21 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should raise an exception when attempting to build a draft copy of an draft edition" do
-    draft_document = create(:draft_document)
+    draft_document = create(:draft_edition)
     new_creator = create(:policy_writer)
     e = assert_raises(RuntimeError) { draft_document.create_draft(new_creator) }
     assert_equal "Cannot create new edition based on edition in the draft state", e.message
   end
 
   test "should raise an exception when attempting to build a draft copy of an archived edition" do
-    archived_document = create(:archived_document)
+    archived_document = create(:archived_edition)
     new_creator = create(:policy_writer)
     e = assert_raises(RuntimeError) { archived_document.create_draft(new_creator) }
     assert_equal "Cannot create new edition based on edition in the archived state", e.message
   end
 
   test "should not copy create and update time when creating draft" do
-    published_document = create(:published_document)
+    published_document = create(:published_edition)
     Timecop.travel 1.minute.from_now
     draft_document = published_document.create_draft(create(:policy_writer))
 
@@ -437,21 +437,21 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should not copy change note when creating draft" do
-    published_document = create(:published_document, change_note: "change-note")
+    published_document = create(:published_edition, change_note: "change-note")
     draft_document = published_document.create_draft(create(:policy_writer))
 
     refute_equal published_document.change_note, draft_document.change_note
   end
 
   test "should not copy minor change flag when creating draft" do
-    published_document = create(:published_document, minor_change: true)
+    published_document = create(:published_edition, minor_change: true)
     draft_document = published_document.create_draft(create(:policy_writer))
 
     assert_equal false, draft_document.minor_change
   end
 
   test "should copy time of first publication when creating draft" do
-    published_document = create(:published_document, first_published_at: 1.week.ago)
+    published_document = create(:published_edition, first_published_at: 1.week.ago)
     Timecop.travel 1.hour.from_now
     draft_document = published_document.create_draft(create(:policy_writer))
 
@@ -549,14 +549,14 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "when submitted" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     refute document.draft?
     assert document.submitted?
     refute document.published?
   end
 
   test "when published" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     document.publish_as(create(:departmental_editor))
     refute document.draft?
     assert document.published?
@@ -565,7 +565,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "when force published" do
     editor = create(:departmental_editor)
-    document = create(:draft_document, creator: editor)
+    document = create(:draft_edition, creator: editor)
     document.publish_as(editor, force: true)
     refute document.draft?
     assert document.published?
@@ -573,17 +573,17 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "generate title for a draft document" do
-    draft_document = create(:draft_document, title: "Holding back")
+    draft_document = create(:draft_edition, title: "Holding back")
     assert_equal "Holding back (draft)", draft_document.title_with_state
   end
 
   test "generate title for a submitted document" do
-    submitted_document = create(:submitted_document, title: "Dog Eyes")
+    submitted_document = create(:submitted_edition, title: "Dog Eyes")
     assert_equal "Dog Eyes (submitted)", submitted_document.title_with_state
   end
 
   test "generate title for a published document" do
-    published_document = create(:published_document, title: "Dog Eyes")
+    published_document = create(:published_edition, title: "Dog Eyes")
     assert_equal "Dog Eyes (published)", published_document.reload.title_with_state
   end
 
@@ -615,44 +615,44 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:draft, :submitted, :rejected].each do |state|
     test "should be editable if #{state}" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       assert document.editable?
     end
   end
 
   [:published, :archived, :deleted].each do |state|
     test "should not be editable if #{state}" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       refute document.editable?
     end
   end
 
   test "should be rejectable by editors if submitted" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     assert document.rejectable_by?(build(:departmental_editor))
   end
 
   test "rejecting a submitted document transitions it into the rejected state" do
-    submitted_document = create(:submitted_document)
+    submitted_document = create(:submitted_edition)
     submitted_document.reject!
     assert submitted_document.rejected?
   end
 
   test "should not be rejectable by writers" do
-    document = create(:submitted_document)
+    document = create(:submitted_edition)
     refute document.rejectable_by?(build(:policy_writer))
   end
 
   [:draft, :rejected, :published, :archived, :deleted].each do |state|
     test "should not be rejectable if #{state}" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       refute document.rejectable_by?(build(:departmental_editor))
     end
   end
 
   [:draft, :published, :archived, :deleted].each do |state|
     test "should prevent a #{state} document being rejected" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       document.reject! rescue nil
       refute document.rejected?
     end
@@ -660,14 +660,14 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:draft, :rejected].each do |state|
     test "should be submittable if #{state}" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       assert document.submittable?
     end
   end
 
   [:draft, :rejected].each do |state|
     test "submitting a #{state} document transitions it into the submitted state" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       document.submit!
       assert document.submitted?
     end
@@ -675,14 +675,14 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:submitted, :published, :archived, :deleted].each do |state|
     test "should not be submittable if #{state}" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       refute document.submittable?
     end
   end
 
   [:published, :archived, :deleted].each do |state|
     test "should prevent a #{state} document being submitted" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       document.submit! rescue nil
       refute document.submitted?
     end
@@ -690,33 +690,33 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:draft, :submitted, :rejected].each do |state|
     test "should be deletable if #{state}" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       assert document.deletable?
     end
   end
 
   [:draft, :submitted, :rejected].each do |state|
     test "deleting a #{state} document transitions it into the deleted state" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       document.delete!
       assert document.deleted?
     end
   end
 
   test "should not be deletable if deleted" do
-    document = create(:deleted_document)
+    document = create(:deleted_edition)
     refute document.deletable?
   end
 
   [:published, :archived].each do |state|
     test "should be deletable if #{state} and there is only one edition" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       assert document.deletable?
     end
   end
 
   test "should not be deletable if published and there are previous editions" do
-    first_edition = create(:published_document)
+    first_edition = create(:published_edition)
     user = create(:user)
     second_edition = first_edition.create_draft(user)
     second_edition.publish!
@@ -724,19 +724,19 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should delete a single published edition" do
-    document = create(:published_document)
+    document = create(:published_edition)
     document.delete!
     assert document.reload.deleted?
   end
 
   test "should delete a single archived edition" do
-    document = create(:archived_document)
+    document = create(:archived_edition)
     document.delete!
     assert document.reload.deleted?
   end
 
   test "should prevent a published edition with previous editions from being deleted" do
-    first_edition = create(:published_document)
+    first_edition = create(:published_edition)
     user = create(:user)
     second_edition = first_edition.create_draft(user)
     second_edition.publish!
@@ -745,7 +745,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should prevent an archived edition with previous editions from being deleted" do
-    first_edition = create(:published_document)
+    first_edition = create(:published_edition)
     user = create(:user)
     second_edition = first_edition.create_draft(user)
     second_edition.publish!
@@ -756,7 +756,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:draft, :submitted].each do |state|
     test "publishing a #{state} document transitions it into the published state" do
-      document = create("#{state}_document", published_at: 1.day.ago, first_published_at: 1.day.ago)
+      document = create("#{state}_edition", published_at: 1.day.ago, first_published_at: 1.day.ago)
       document.publish!
       assert document.published?
     end
@@ -764,7 +764,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:rejected, :archived, :deleted].each do |state|
     test "should prevent a #{state} document being published" do
-      document = create("#{state}_document", published_at: 1.day.ago, first_published_at: 1.day.ago)
+      document = create("#{state}_edition", published_at: 1.day.ago, first_published_at: 1.day.ago)
       document.publish! rescue nil
       refute document.published?
     end
@@ -772,20 +772,20 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:draft, :submitted, :rejected, :deleted].each do |state|
     test "should prevent a #{state} document being archived" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       document.archive! rescue nil
       refute document.archived?
     end
   end
 
   test "should not find deleted documents by default" do
-    deleted_document = create(:deleted_document)
+    deleted_document = create(:deleted_edition)
     assert_nil Edition.find_by_id(deleted_document.id)
   end
 
   [:draft, :submitted, :rejected].each do |state|
     test "should be editable when #{state}" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       document.title = "new-title"
       document.body = "new-body"
       assert document.valid?
@@ -794,7 +794,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   [:published, :archived, :deleted].each do |state|
     test "should not be editable when #{state}" do
-      document = create("#{state}_document")
+      document = create("#{state}_edition")
       document.title = "new-title"
       document.body = "new-body"
       refute document.valid?
@@ -895,25 +895,25 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should provide a list of all editions ever published in reverse chronological order by publication date" do
-    original_edition = create(:archived_document, published_at: 3.days.ago)
+    original_edition = create(:archived_edition, published_at: 3.days.ago)
     doc_identity = original_edition.doc_identity
-    new_edition_1 = create(:archived_document, doc_identity: doc_identity, published_at: 2.days.ago)
-    new_edition_2 = create(:published_document, doc_identity: doc_identity, published_at: 1.day.ago)
-    draft_edition = create(:draft_document, doc_identity: doc_identity)
+    new_edition_1 = create(:archived_edition, doc_identity: doc_identity, published_at: 2.days.ago)
+    new_edition_2 = create(:published_edition, doc_identity: doc_identity, published_at: 1.day.ago)
+    draft_edition = create(:draft_edition, doc_identity: doc_identity)
 
     assert_equal [new_edition_2, new_edition_1, original_edition], new_edition_2.editions_ever_published
     refute new_edition_2.editions_ever_published.include?(draft_edition)
   end
 
   test "#destroy should also remove the relationship to any authors" do
-    document = create(:draft_document, creator: create(:policy_writer))
+    document = create(:draft_edition, creator: create(:policy_writer))
     relation = document.document_authors.first
     document.destroy
     refute DocumentAuthor.find_by_id(relation.id)
   end
 
   test "#destroy should also remove the relationship to any editorial remarks" do
-    document = create(:draft_document, editorial_remarks: [create(:editorial_remark)])
+    document = create(:draft_edition, editorial_remarks: [create(:editorial_remark)])
     relation = document.editorial_remarks.first
     document.destroy
     refute EditorialRemark.find_by_id(relation.id)
