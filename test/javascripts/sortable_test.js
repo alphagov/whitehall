@@ -1,3 +1,6 @@
+// jQuery UI comes from the static application
+$.fn.sortable = function() {}; // noop
+
 module("Sorting options", {
   setup: function() {
     this.container = $('<fieldset></fieldset>');
