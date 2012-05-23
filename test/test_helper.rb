@@ -9,10 +9,8 @@ Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
 Mocha::Configuration.prevent(:stubbing_non_existent_method)
 
-require "bodges"
-
 class ActiveSupport::TestCase
-  include FactoryGirlInterceptor
+  include Factory::Syntax::Methods
 
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
