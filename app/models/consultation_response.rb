@@ -1,5 +1,5 @@
 class ConsultationResponse < Edition
-  include Document::Attachable
+  include Edition::Attachable
 
   belongs_to :consultation_doc_identity, class_name: 'DocIdentity'
 

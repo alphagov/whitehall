@@ -1,10 +1,10 @@
 class Consultation < Edition
-  include Document::NationalApplicability
-  include Document::Ministers
-  include Document::FactCheckable
-  include Document::RelatedPolicies
-  include Document::Attachable
-  include Document::Featurable
+  include Edition::NationalApplicability
+  include Edition::Ministers
+  include Edition::FactCheckable
+  include Edition::RelatedPolicies
+  include Edition::Attachable
+  include Edition::Featurable
 
   validates :opening_on, presence: true
   validates :closing_on, presence: true

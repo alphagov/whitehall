@@ -1,9 +1,9 @@
 class NewsArticle < Edition
-  include Document::Ministers
-  include Document::FactCheckable
-  include Document::RelatedPolicies
-  include Document::Countries
-  include Document::Featurable
+  include Edition::Ministers
+  include Edition::FactCheckable
+  include Edition::RelatedPolicies
+  include Edition::Countries
+  include Edition::Featurable
 
   has_many :policy_topics, through: :published_related_policies, uniq: true
 

@@ -1,6 +1,6 @@
 class Speech < Edition
-  include Document::RelatedPolicies
-  include Document::Countries
+  include Edition::RelatedPolicies
+  include Edition::Countries
   extend Forwardable
 
   belongs_to :role_appointment

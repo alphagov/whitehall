@@ -1,10 +1,10 @@
 class Policy < Edition
-  include Document::NationalApplicability
-  include Document::PolicyTopics
-  include Document::Ministers
-  include Document::FactCheckable
-  include Document::SupportingPages
-  include Document::Countries
+  include Edition::NationalApplicability
+  include Edition::PolicyTopics
+  include Edition::Ministers
+  include Edition::FactCheckable
+  include Edition::SupportingPages
+  include Edition::Countries
 
   has_many :document_relations, through: :doc_identity
   has_many :related_documents, through: :document_relations, source: :edition
@@ -12,7 +12,7 @@ class Policy < Edition
 
   validates :summary, presence: true
 
-  class Trait < Document::Traits::Trait
+  class Trait < Edition::Traits::Trait
     def process_associations_after_save(document)
       document.related_documents = @document.related_documents
     end

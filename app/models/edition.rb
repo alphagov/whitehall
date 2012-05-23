@@ -1,14 +1,14 @@
 class Edition < ActiveRecord::Base
-  include Document::Traits
+  include Edition::Traits
 
-  include Document::Identifiable
-  include Document::AccessControl
-  include Document::Workflow
-  include Document::Organisations
-  include Document::Publishing
-  include Document::Images
-  include Document::AuditTrail
-  include Document::ActiveEditors
+  include Edition::Identifiable
+  include Edition::AccessControl
+  include Edition::Workflow
+  include Edition::Organisations
+  include Edition::Publishing
+  include Edition::Images
+  include Edition::AuditTrail
+  include Edition::ActiveEditors
 
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
