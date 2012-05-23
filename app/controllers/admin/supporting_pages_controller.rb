@@ -47,7 +47,7 @@ class Admin::SupportingPagesController < Admin::BaseController
     else
       flash[:alert] = "Cannot destroy a supporting page that has been published"
     end
-    redirect_to admin_document_path(@supporting_page.document)
+    redirect_to admin_document_path(@supporting_page.edition)
   end
 
   private

@@ -27,7 +27,7 @@ class SupportingPageTest < ActiveSupport::TestCase
 
   test "mark parent document as updated when supporting page is updated" do
     supporting_page = create(:supporting_page)
-    parent_document = supporting_page.document
+    parent_document = supporting_page.edition
     lock_version = parent_document.lock_version
 
     supporting_page.update_attributes!(title: 'New title')

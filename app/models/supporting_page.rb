@@ -53,6 +53,14 @@ class SupportingPage < ActiveRecord::Base
     Govspeak::Document.new(body).to_text
   end
 
+  def document_title
+    edition.title
+  end
+
+  def document_editable?
+    edition.editable?
+  end
+
   private
 
   def prevent_destruction_on_published_editions

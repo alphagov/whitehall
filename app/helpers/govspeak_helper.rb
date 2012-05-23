@@ -88,7 +88,7 @@ module GovspeakHelper
         supporting_page = nil
       end
       if supporting_page
-        document = supporting_page.document
+        document = supporting_page.edition
       else
         document = nil
       end

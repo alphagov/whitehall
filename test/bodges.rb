@@ -42,7 +42,3 @@ end
 class DocIdentity < ActiveRecord::Base
   alias_method :published_document, :published_edition
 end
-
-class SupportingPage < ActiveRecord::Base
-  alias_method :document, :edition
-end

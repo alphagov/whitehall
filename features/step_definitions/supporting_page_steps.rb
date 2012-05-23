@@ -33,7 +33,7 @@ end
 
 When /^I edit the supporting page "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   supporting_page = SupportingPage.find_by_title!(original_title)
-  visit admin_document_path(supporting_page.document)
+  visit admin_document_path(supporting_page.edition)
   click_link original_title
   click_link "Edit"
   fill_in "Title", with: new_title
