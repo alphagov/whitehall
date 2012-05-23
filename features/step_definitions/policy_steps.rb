@@ -72,7 +72,7 @@ end
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy "([^"]*)" with supporting page "([^"]*)"$/ do |email, title, supporting_page_title|
   policy = create(:draft_policy, title: title)
   supporting_page = create(:supporting_page, edition: policy, title: supporting_page_title)
-  fact_check_request = create(:fact_check_request, document: policy, email_address: email)
+  fact_check_request = create(:fact_check_request, edition: policy, email_address: email)
   Notifications.fact_check_request(fact_check_request, host: "example.com").deliver
 end
 

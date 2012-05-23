@@ -8,7 +8,7 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
     @requestor = create(:fact_check_requestor, name: "<requestor-name>")
     @request = create(:fact_check_request,
       email_address: 'fact-checker@example.com',
-      document: @policy,
+      edition: @policy,
       requestor: @requestor
     )
     @mail = Notifications.fact_check_request(@request, host: "example.com")
@@ -44,7 +44,7 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
 
   test "email body should contain unescaped document title" do
     policy = create(:policy, title: %{Use "double quotes" everywhere})
-    request = create(:fact_check_request, document: policy)
+    request = create(:fact_check_request, edition: policy)
     mail = Notifications.fact_check_request(request, host: "example.com")
 
     assert_match %r{Use "double quotes" everywhere}, mail.body.to_s
@@ -65,7 +65,7 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     )
     @request = create(:fact_check_request,
       email_address: 'fact-checker@example.com',
-      document: @policy,
+      edition: @policy,
       requestor: @requestor
     )
     @mail = Notifications.fact_check_response(@request, host: "example.com")
@@ -101,7 +101,7 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
 
   test "email body should contain unescaped document title" do
     policy = create(:policy, title: %{Use "double quotes" everywhere})
-    request = create(:fact_check_request, document: policy)
+    request = create(:fact_check_request, edition: policy)
     mail = Notifications.fact_check_request(request, host: "example.com")
 
     assert_match %r{Use "double quotes" everywhere}, mail.body.to_s
