@@ -29,7 +29,7 @@ module Document::Identifiable
     def published_as(id)
       begin
         identity = DocIdentity.where(document_type: sti_name).find(id)
-        identity && identity.published_document
+        identity && identity.published_edition
       rescue ActiveRecord::RecordNotFound
         nil
       end

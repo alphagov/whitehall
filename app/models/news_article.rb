@@ -1,4 +1,4 @@
-class NewsArticle < Document
+class NewsArticle < Edition
   include Document::Ministers
   include Document::FactCheckable
   include Document::RelatedPolicies

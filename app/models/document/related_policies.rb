@@ -11,7 +11,7 @@ module Document::RelatedPolicies
     has_many :document_relations, foreign_key: :edition_id, dependent: :destroy
     has_many :related_doc_identities, through: :document_relations, source: :doc_identity
     has_many :related_policies, through: :related_doc_identities, source: :latest_edition
-    has_many :published_related_policies, through: :related_doc_identities, source: :published_document, class_name: 'Policy'
+    has_many :published_related_policies, through: :related_doc_identities, source: :published_edition, class_name: 'Policy'
 
     define_method(:related_policies=) do |policies|
       self.related_doc_identities = policies.map(&:doc_identity)

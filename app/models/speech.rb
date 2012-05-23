@@ -1,4 +1,4 @@
-class Speech < Document
+class Speech < Edition
   include Document::RelatedPolicies
   include Document::Countries
   extend Forwardable

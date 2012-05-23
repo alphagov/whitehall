@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :consultation, class: Consultation, parent: :document do
+  factory :consultation, class: Consultation, parent: :edition do
     title "consultation-title"
     body  "consultation-body"
     opening_on { 1.day.ago }

@@ -2,10 +2,10 @@ class FactCheckRequest < ActiveRecord::Base
   include Whitehall::RandomKey
   self.random_key_length = 16
 
-  belongs_to :document, foreign_key: :edition_id
+  belongs_to :edition
   belongs_to :requestor, class_name: "User"
 
-  validates :document, :email_address, :requestor, presence: true
+  validates :edition, :email_address, :requestor, presence: true
   validates :email_address, email_format: {allow_blank: true}
 
   scope :completed, where('comments IS NOT NULL')

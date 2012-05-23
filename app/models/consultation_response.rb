@@ -1,4 +1,4 @@
-class ConsultationResponse < Document
+class ConsultationResponse < Edition
   include Document::Attachable
 
   belongs_to :consultation_doc_identity, class_name: 'DocIdentity'
@@ -6,7 +6,7 @@ class ConsultationResponse < Document
   validates_presence_of :consultation
 
   def consultation
-    consultation_doc_identity && consultation_doc_identity.published_document
+    consultation_doc_identity && consultation_doc_identity.published_edition
   end
 
   def consultation=(c)

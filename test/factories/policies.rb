@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :policy, class: Policy, parent: :document do
+  factory :policy, class: Policy, parent: :edition do
     title   "policy-title"
     body    "policy-body"
     summary "policy-summary"

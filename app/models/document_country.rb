@@ -1,4 +1,4 @@
 class DocumentCountry < ActiveRecord::Base
-  belongs_to :document, foreign_key: :edition_id
+  belongs_to :edition
   belongs_to :country
 end

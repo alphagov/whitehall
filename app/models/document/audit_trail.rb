@@ -6,12 +6,12 @@ module Document::AuditTrail
   end
 
   def audit_trail
-    doc_identity.documents.order("created_at asc").map.with_index do |document, i|
-      versions = document.versions.map { |v| 
-        VersionAuditEntry.new(i, document, v) 
+    doc_identity.editions.order("created_at asc").map.with_index do |edition, i|
+      versions = edition.versions.map { |v|
+        VersionAuditEntry.new(i, edition, v)
       }
-      editorial_remarks = document.editorial_remarks.map { |r| 
-        EditorialRemarkAuditEntry.new(i, document, r)
+      editorial_remarks = edition.editorial_remarks.map { |r|
+        EditorialRemarkAuditEntry.new(i, edition, r)
       }
       (versions + editorial_remarks).sort
     end.flatten
@@ -19,11 +19,11 @@ module Document::AuditTrail
 
   class AuditEntry
 
-    attr_reader :edition_serial_number, :document
+    attr_reader :edition_serial_number, :edition
 
-    def initialize(edition_serial_number, document)
+    def initialize(edition_serial_number, edition)
       @edition_serial_number = edition_serial_number
-      @document = document
+      @edition = edition
     end
 
     def <=>(other)
@@ -35,7 +35,7 @@ module Document::AuditTrail
     end
 
     def ==(other)
-      @edition_serial_number == other.edition_serial_number && @document == other.document
+      @edition_serial_number == other.edition_serial_number && @edition == other.edition
     end
 
     def first_edition?
@@ -52,8 +52,8 @@ module Document::AuditTrail
 
     def_delegators :@version, :created_at
 
-    def initialize(edition_serial_number, document, version)
-      super(edition_serial_number, document)
+    def initialize(edition_serial_number, edition, version)
+      super(edition_serial_number, edition)
       @version = version
     end
 
@@ -93,8 +93,8 @@ module Document::AuditTrail
 
     def_delegators :@editorial_remark, :created_at
 
-    def initialize(edition_serial_number, document, editorial_remark)
-      super(edition_serial_number, document)
+    def initialize(edition_serial_number, edition, editorial_remark)
+      super(edition_serial_number, edition)
       @editorial_remark = editorial_remark
     end
 

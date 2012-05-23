@@ -1,2 +1,3 @@
 require File.expand_path("../../../test/factories", __FILE__)
-World(Factory::Syntax::Methods)
+require File.expand_path("../../../test/bodges", __FILE__)
+World(FactoryGirlInterceptor)

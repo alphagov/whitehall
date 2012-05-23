@@ -1,4 +1,4 @@
-class Consultation < Document
+class Consultation < Edition
   include Document::NationalApplicability
   include Document::Ministers
   include Document::FactCheckable

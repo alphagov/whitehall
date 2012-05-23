@@ -1,4 +1,4 @@
-class Policy < Document
+class Policy < Edition
   include Document::NationalApplicability
   include Document::PolicyTopics
   include Document::Ministers
@@ -7,8 +7,8 @@ class Policy < Document
   include Document::Countries
 
   has_many :document_relations, through: :doc_identity
-  has_many :related_documents, through: :document_relations, source: :document
-  has_many :published_related_documents, through: :document_relations, source: :document, conditions: {editions: {state: 'published'}}
+  has_many :related_documents, through: :document_relations, source: :edition
+  has_many :published_related_documents, through: :document_relations, source: :edition, conditions: {editions: {state: 'published'}}
 
   validates :summary, presence: true
 

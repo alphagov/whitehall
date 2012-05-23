@@ -1,5 +1,5 @@
 class DocumentRelation < ActiveRecord::Base
-  belongs_to :document, foreign_key: :edition_id
+  belongs_to :edition
   belongs_to :doc_identity
 
   validates :edition_id, presence: true

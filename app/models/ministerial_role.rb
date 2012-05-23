@@ -3,7 +3,7 @@ class MinisterialRole < Role
   include Rails.application.routes.url_helpers
 
   has_many :document_ministerial_roles
-  has_many :documents, through: :document_ministerial_roles
+  has_many :editions, through: :document_ministerial_roles
   has_many :speeches, through: :current_role_appointments
 
   searchable title: :to_s, link: :search_link, content: :current_person_biography, format: 'minister'
@@ -21,7 +21,7 @@ class MinisterialRole < Role
   end
 
   def destroyable?
-    super && documents.empty?
+    super && editions.empty?
   end
 
   def search_link

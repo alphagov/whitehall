@@ -1241,7 +1241,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_prevent_modification_of_unmodifiable(document_type)
-      (Document::UNMODIFIABLE_STATES - %w(deleted)).each do |state|
+      (Edition::UNMODIFIABLE_STATES - %w(deleted)).each do |state|
         test "edit not allowed for #{state} #{document_type}" do
           document = create("#{state}_#{document_type}")
 

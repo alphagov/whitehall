@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :editorial_remark do
-    document
+    edition
     author
     body "editorial-remark-body"
   end

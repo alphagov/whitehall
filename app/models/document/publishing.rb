@@ -2,7 +2,7 @@ module Document::Publishing
   extend ActiveSupport::Concern
 
   included do
-    validates :published_at, :first_published_at, presence: true, if: -> document { document.published? }
+    validates :published_at, :first_published_at, presence: true, if: -> edition { edition.published? }
 
     scope :first_published_since, -> time { where(arel_table[:first_published_at].gt(time)) }
     scope :first_published_during, -> period { where(first_published_at: period) }
@@ -31,7 +31,7 @@ module Document::Publishing
   end
 
   def change_note_required?
-    doc_identity.published_document.present?
+    doc_identity.published_edition.present?
   end
 
   def reason_to_prevent_publication_by(user, options = {})

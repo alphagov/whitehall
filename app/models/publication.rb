@@ -1,4 +1,4 @@
-class Publication < Document
+class Publication < Edition
   include Document::NationalApplicability
   include Document::Ministers
   include Document::FactCheckable

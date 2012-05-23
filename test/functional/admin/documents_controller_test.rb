@@ -6,14 +6,14 @@ class Admin::DocumentsController
       policy = create(:consultation_response)
       another_document = create(:publication)
 
-      assert_equal [policy], DocumentFilter.new(Document, type: 'consultation_response').documents
+      assert_equal [policy], DocumentFilter.new(Edition, type: 'consultation_response').documents
     end
 
     test "should filter by document state" do
       draft_document = create(:draft_policy)
       document_in_other_state = create(:published_policy)
 
-      assert_equal [draft_document], DocumentFilter.new(Document, state: 'draft').documents
+      assert_equal [draft_document], DocumentFilter.new(Edition, state: 'draft').documents
     end
 
     test "should filter by document author" do
@@ -21,7 +21,7 @@ class Admin::DocumentsController
       document = create(:policy, authors: [author])
       document_by_another_author = create(:policy)
 
-      assert_equal [document], DocumentFilter.new(Document, author: author.to_param).documents
+      assert_equal [document], DocumentFilter.new(Edition, author: author.to_param).documents
     end
 
     test "should filter by organisation" do
@@ -30,7 +30,7 @@ class Admin::DocumentsController
       document_in_no_organisation = create(:policy)
       document_in_another_organisation = create(:publication, organisations: [create(:organisation)])
 
-      assert_equal [document], DocumentFilter.new(Document, organisation: organisation.to_param).documents
+      assert_equal [document], DocumentFilter.new(Edition, organisation: organisation.to_param).documents
     end
 
     test "should filter by document type, state and author" do
@@ -38,7 +38,7 @@ class Admin::DocumentsController
       policy = create(:draft_policy, authors: [author])
       another_document = create(:published_policy, authors: [author])
 
-      assert_equal [policy], DocumentFilter.new(Document, type: 'policy', state: 'draft', author: author.to_param).documents
+      assert_equal [policy], DocumentFilter.new(Edition, type: 'policy', state: 'draft', author: author.to_param).documents
     end
 
     test "should filter by document type, state and organisation" do
@@ -46,14 +46,14 @@ class Admin::DocumentsController
       policy = create(:draft_policy, organisations: [organisation])
       another_document = create(:published_policy, organisations: [organisation])
 
-      assert_equal [policy], DocumentFilter.new(Document, type: 'policy', state: 'draft', organisation: organisation.to_param).documents
+      assert_equal [policy], DocumentFilter.new(Edition, type: 'policy', state: 'draft', organisation: organisation.to_param).documents
     end
 
     test "should return the documents ordered by most recent first" do
       older_policy = create(:draft_policy, updated_at: 3.days.ago)
       newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
 
-      assert_equal [newer_policy, older_policy], DocumentFilter.new(Document, {}).documents
+      assert_equal [newer_policy, older_policy], DocumentFilter.new(Edition, {}).documents
     end
 
     test "should provide efficient access to document creators" do
@@ -63,7 +63,7 @@ class Admin::DocumentsController
       create(:consultation)
 
       query_count = count_queries do
-        documents = DocumentFilter.new(Document).documents
+        documents = DocumentFilter.new(Edition).documents
         documents.each { |d| d.creator.name }
       end
 
@@ -123,7 +123,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test "revising the published document should create a new draft document" do
     published_document = create(:published_policy)
-    Document.stubs(:find).returns(published_document)
+    Edition.stubs(:find).returns(published_document)
     draft_document = create(:draft_policy)
     published_document.expects(:create_draft).with(current_user).returns(draft_document)
 
@@ -135,7 +135,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
     post :revise, id: published_document
 
-    draft_document = Document.last
+    draft_document = Edition.last
     assert_redirected_to edit_admin_policy_path(draft_document.reload)
   end
 

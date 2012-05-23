@@ -24,10 +24,9 @@ module Document::Workflow
       notify_observers :after_delete
     end
 
-    after_publish :archive_previous_documents
+    after_publish :archive_previous_editions
 
-    auto_scopes = false
-    state_machine auto_scopes: auto_scopes do
+    state_machine auto_scopes: true do
       state :draft
       state :submitted
       state :rejected
@@ -35,7 +34,7 @@ module Document::Workflow
       state :archived
       state :deleted
 
-      event :delete, success: -> document { document.run_callbacks(:delete) } do
+      event :delete, success: -> edition { edition.run_callbacks(:delete) } do
         transitions from: [:draft, :submitted, :rejected, :published, :archived], to: :deleted,
           guard: lambda { |d| d.draft? || d.submitted? || d.rejected? || d.only_edition? }
       end
@@ -48,32 +47,26 @@ module Document::Workflow
         transitions from: :submitted, to: :rejected
       end
 
-      event :publish, success: -> document { document.run_callbacks(:publish) } do
+      event :publish, success: -> edition { edition.run_callbacks(:publish) } do
         transitions from: [:draft, :submitted], to: :published
       end
 
-      event :archive, success: -> document { document.run_callbacks(:archive) } do
+      event :archive, success: -> edition { edition.run_callbacks(:archive) } do
         transitions from: :published, to: :archived
       end
     end
 
-    unless auto_scopes
-      available_states.each do |state|
-        scope state, where(arel_table[:state].eq(state))
-      end
-    end
-
-    validates_with DocumentHasNoUnpublishedDocumentsValidator, on: :create
-    validates_with DocumentHasNoOtherPublishedDocumentsValidator, on: :create
+    validates_with EditionHasNoUnpublishedEditionsValidator, on: :create
+    validates_with EditionHasNoOtherPublishedEditionsValidator, on: :create
   end
 
-  def archive_previous_documents
-    doc_identity.documents.published.each do |document|
-      document.archive! unless document == self
+  def archive_previous_editions
+    doc_identity.editions.published.each do |edition|
+      edition.archive! unless edition == self
     end
   end
 
-  class DocumentHasNoUnpublishedDocumentsValidator < ActiveModel::Validator
+  class EditionHasNoUnpublishedEditionsValidator < ActiveModel::Validator
     def validate(record)
       if record.doc_identity && (existing_edition = record.doc_identity.unpublished_edition)
         record.errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
@@ -81,9 +74,9 @@ module Document::Workflow
     end
   end
 
-  class DocumentHasNoOtherPublishedDocumentsValidator < ActiveModel::Validator
+  class EditionHasNoOtherPublishedEditionsValidator < ActiveModel::Validator
     def validate(record)
-      if record.published? && record.doc_identity && record.doc_identity.documents.published.any?
+      if record.published? && record.doc_identity && record.doc_identity.editions.published.any?
         record.errors.add(:base, "There is already a published edition for this document")
       end
     end
