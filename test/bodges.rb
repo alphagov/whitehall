@@ -38,7 +38,3 @@ module FactoryGirlInterceptor
     [new_name, new_overrides]
   end
 end
-
-class DocIdentity < ActiveRecord::Base
-  alias_method :published_document, :published_edition
-end

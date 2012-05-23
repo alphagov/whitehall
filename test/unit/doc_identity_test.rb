@@ -22,7 +22,7 @@ class DocIdentityTest < ActiveSupport::TestCase
     published_policy = draft_policy
     new_draft_policy = published_policy.create_draft(user)
 
-    assert_equal published_policy, doc_identity.reload.published_document
+    assert_equal published_policy, doc_identity.reload.published_edition
   end
 
   test "should be published if a published edition exists" do
