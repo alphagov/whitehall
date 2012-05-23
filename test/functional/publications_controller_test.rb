@@ -20,20 +20,15 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object(draft_publication)
   end
 
-  test "should avoid n+1 queries" do
-    publications = []
-    published_publications = mock("published_publications")
-    published_publications.expects(:includes).with(:document_identity).returns(publications)
-    published_publications.expects(:order).returns(published_publications)
-    Publication.expects(:published).returns(published_publications)
-
-    get :index
-  end
-
   test 'show displays published publications' do
     published_publication = create(:published_publication)
     get :show, id: published_publication.document_identity
     assert_response :success
+  end
+
+  test 'should avoid n+1 selects when showing index' do
+    10.times { create(:published_publication) }
+    assert 10 > count_queries { get :index }
   end
 
   test "should show inapplicable nations" do
@@ -166,11 +161,17 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_object @published_in_second_policy_topic
   end
 
+  test 'should avoid n+1 selects when filtering by policy topics' do
+    policy = create(:published_policy)
+    policy_topic = create(:policy_topic, policies: [policy])
+    10.times { create(:published_publication, related_policies: [policy]) }
+    assert 10 > count_queries { get :by_policy_topic, policy_topics: policy_topic }
+  end
+
   test "should show a helpful message if there are no matching publications" do
     policy_topic = create(:policy_topic)
     get :by_policy_topic, policy_topics: policy_topic.slug
 
     assert_select "p", text: "There are no matching publications."
   end
-
 end

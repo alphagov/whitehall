@@ -15,6 +15,17 @@ module ControllerTestHelpers
     end
   end
 
+  def count_queries
+    count = 0
+    subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
+      count = count + 1
+    end
+    yield
+    count
+  ensure
+    ActiveSupport::Notifications.unsubscribe(subscriber)
+  end
+
   def govspeak_transformation_fixture(transformation, &block)
     methods_to_stub = %w{govspeak_to_html govspeak_to_admin_html}
     begin

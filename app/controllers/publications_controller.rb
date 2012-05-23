@@ -26,7 +26,7 @@ class PublicationsController < DocumentsController
   end
 
   def all_publications
-    Publication.published_in_reverse_chronological_order.includes(:document_identity)
+    Publication.published_in_reverse_chronological_order.includes(:document_identity, :organisations, :attachments)
   end
 
   def document_class

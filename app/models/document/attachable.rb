@@ -31,7 +31,7 @@ module Document::Attachable
   end
 
   def thumbnailable_attachments
-    attachments.pdf
+    attachments.select {|a| a.content_type == AttachmentUploader::PDF_CONTENT_TYPE}
   end
 
   def indexable_content

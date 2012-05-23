@@ -143,11 +143,4 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment = build(:attachment, file: greenpaper_pdf)
     assert_equal "pdf", attachment.file_extension
   end
-
-  test "should return PDF attachments" do
-    greenpaper_pdf = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
-    sample_csv = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
-    two_pages_pdf = create(:attachment, file: fixture_file_upload('two-pages.pdf'))
-    assert_equal [greenpaper_pdf, two_pages_pdf], Attachment.pdf
-  end
 end
