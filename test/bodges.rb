@@ -46,7 +46,3 @@ end
 class SupportingPage < ActiveRecord::Base
   alias_method :document, :edition
 end
-
-class DocumentRelation < ActiveRecord::Base
-  alias_method :document, :edition
-end

@@ -14,7 +14,7 @@ class DocumentRelationTest < ActiveSupport::TestCase
   test "should be invalid if more than one relation exists from one document to another" do
     existing_relation = create(:document_relation)
     relation = build(:document_relation,
-      document: existing_relation.document,
+      edition: existing_relation.edition,
       doc_identity: existing_relation.doc_identity
     )
     refute relation.valid?
