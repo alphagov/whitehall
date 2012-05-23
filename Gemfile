@@ -35,6 +35,8 @@ end
 
 group :development, :staging, :test do
   gem 'faker'
+  gem 'thin'
+  gem 'quiet_assets'
   gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
 end
 
