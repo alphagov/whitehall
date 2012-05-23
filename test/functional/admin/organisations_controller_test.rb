@@ -269,7 +269,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "editing should allow non-featured published news articles to be featured" do
     published_news_article = create(:published_news_article)
     organisation = create(:organisation)
-    document_organisation = create(:document_organisation, organisation: organisation, document: published_news_article)
+    document_organisation = create(:document_organisation, organisation: organisation, edition: published_news_article)
 
     get :edit, id: organisation
 
@@ -281,7 +281,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "editing should allow featured published news articles to be unfeatured" do
     published_news_article = create(:published_news_article)
     organisation = create(:organisation)
-    document_organisation = create(:document_organisation, organisation: organisation, document: published_news_article, featured: true)
+    document_organisation = create(:document_organisation, organisation: organisation, edition: published_news_article, featured: true)
 
     get :edit, id: organisation
 
