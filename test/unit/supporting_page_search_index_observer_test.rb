@@ -3,7 +3,7 @@ require 'test_helper'
 class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
   test 'should add supporting page to search index when its document is published' do
     policy = create(:submitted_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     search_index_data = stub('search index data')
     policy.stubs(:supporting_pages).returns([supporting_page])
@@ -16,7 +16,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
 
   test 'should remove supporting page from search index when its document is archived' do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     policy_slug = policy.doc_identity.slug
 
     Rummageable.stubs(:delete) # ignore the delete from the document index

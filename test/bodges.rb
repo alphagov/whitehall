@@ -17,7 +17,6 @@ module FactoryGirlInterceptor
   def adapt(name, overrides = {})
     new_name, new_overrides = name, overrides.dup
     if [
-         :supporting_page,
          :editorial_remark,
          :recent_document_opening,
          :image, :fact_check_request,

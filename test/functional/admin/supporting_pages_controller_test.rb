@@ -59,7 +59,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "shows version of supporting page linked to given document" do
     previous_document = create(:published_policy)
-    previous_supporting_page = create(:supporting_page, document: previous_document)
+    previous_supporting_page = create(:supporting_page, edition: previous_document)
     document = previous_document.create_draft(create(:policy_writer))
     supporting_page = document.supporting_pages.first
 
@@ -70,7 +70,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "shows the title and a link back to the parent" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :show, document_id: document, id: supporting_page
 
@@ -89,7 +89,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "shows edit link if parent document is not published" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :show, document_id: document, id: supporting_page
 
@@ -98,7 +98,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "doesn't show edit link if parent document is published" do
     document = create(:published_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :show, document_id: document, id: supporting_page
 
@@ -107,7 +107,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "edit form has title and body inputs" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :edit, document_id: document, id: supporting_page
 
@@ -120,7 +120,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "edit form has previewable body" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :edit, document_id: document, id: supporting_page
 
@@ -129,7 +129,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "edit form include lock version to prevent conflicting changes overwriting each other" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :edit, document_id: document, id: supporting_page
 
@@ -186,7 +186,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "should be able to destroy a destroyable supporting page" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document, title: "Blah blah")
+    supporting_page = create(:supporting_page, edition: document, title: "Blah blah")
 
     delete :destroy, document_id: document, id: supporting_page.id
 
@@ -197,7 +197,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "destroying an indestructible role" do
     document = create(:published_policy)
-    supporting_page = create(:supporting_page, document: document, title: "Blah blah")
+    supporting_page = create(:supporting_page, edition: document, title: "Blah blah")
 
     delete :destroy, document_id: document, id: supporting_page.id
 

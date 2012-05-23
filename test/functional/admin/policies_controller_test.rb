@@ -45,8 +45,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   test "show lists supporting pages when there are some" do
     draft_policy = create(:draft_policy)
-    first_supporting_page = create(:supporting_page, document: draft_policy)
-    second_supporting_page = create(:supporting_page, document: draft_policy)
+    first_supporting_page = create(:supporting_page, edition: draft_policy)
+    second_supporting_page = create(:supporting_page, edition: draft_policy)
 
     get :show, id: draft_policy
 

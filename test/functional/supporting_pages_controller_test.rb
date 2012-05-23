@@ -7,7 +7,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   test "index links to supporting pages" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, title: "supporting-page-title", document: policy)
+    supporting_page = create(:supporting_page, title: "supporting-page-title", edition: policy)
     get :index, policy_id: policy.doc_identity
     path = policy_supporting_page_path(policy.doc_identity, supporting_page)
     assert_select supporting_pages_selector do
@@ -33,7 +33,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   test "shows link to policy overview" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -55,7 +55,7 @@ More content
 That's all
 })
 
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -68,7 +68,7 @@ That's all
     policy = create(:published_policy)
     related_news_article = create(:published_news_article, title: "News about Voting Patterns",
                                   related_policies: [policy])
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -77,7 +77,7 @@ That's all
 
   test "show doesn't link to related news articles on parent policy if none exist" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -86,7 +86,7 @@ That's all
 
   test "show links to related speeches on parent policy if any" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     related_speech = create(:published_speech, title: "Speech about Voting Patterns",
                             related_policies: [policy])
 
@@ -97,7 +97,7 @@ That's all
 
   test "show doesn't link to related speeches on parent policy if none exist" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -106,7 +106,7 @@ That's all
 
   test "show links to related consultations on parent policy if any" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     related_consultation = create(:published_consultation, title: "Consultation about Voting Patterns",
                                   related_policies: [policy])
 
@@ -117,7 +117,7 @@ That's all
 
   test "show doesn't link to related consultations on parent policy if none exist" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -126,7 +126,7 @@ That's all
 
   test "show links to related publications on parent policy if any" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     related_publication = create(:published_publication, title: "Consultation about Voting Patterns",
                                  related_policies: [policy])
 
@@ -137,7 +137,7 @@ That's all
 
   test "show doesn't link to related publications on parent policy if none exist" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -146,7 +146,7 @@ That's all
 
   test "shows the body using govspeak markup" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy, body: "body-in-govspeak")
+    supporting_page = create(:supporting_page, edition: policy, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, policy_id: policy.doc_identity, id: supporting_page
     end
@@ -156,7 +156,7 @@ That's all
 
   test "doesn't show supporting page if parent isn't published" do
     policy = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -167,7 +167,7 @@ That's all
     policy = create(:published_policy)
     northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
     scotland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.scotland)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -182,7 +182,7 @@ That's all
 
   test "should not explicitly say that policy applies to the whole of the UK" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -191,9 +191,9 @@ That's all
 
   test "show lists supporting pages when there are some" do
     policy = create(:published_policy)
-    first_supporting_page = create(:supporting_page, document: policy)
-    second_supporting_page = create(:supporting_page, document: policy)
-    supporting_page = create(:supporting_page, document: policy)
+    first_supporting_page = create(:supporting_page, edition: policy)
+    second_supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -208,7 +208,7 @@ That's all
     draft = policy.create_draft(create(:user))
     doc_identity = draft.doc_identity
 
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: doc_identity, id: supporting_page
 
@@ -220,7 +220,7 @@ That's all
     first_policy_topic = create(:policy_topic)
     second_policy_topic = create(:policy_topic)
     policy = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -232,7 +232,7 @@ That's all
     first_org = create(:organisation, logo_formatted_name: "first")
     second_org = create(:organisation, logo_formatted_name: "second")
     policy = create(:published_policy, organisations: [first_org, second_org])
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 
@@ -244,7 +244,7 @@ That's all
     role = create(:ministerial_role)
     appointment = create(:role_appointment, person: create(:person, forename: "minister-name"), role: role)
     policy = create(:published_policy, ministerial_roles: [appointment.role])
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.doc_identity, id: supporting_page
 

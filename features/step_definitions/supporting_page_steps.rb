@@ -1,18 +1,18 @@
 Given /^a supporting page "([^"]*)" exists on a draft policy "([^"]*)"$/ do |supporting_title, document_title|
   document = create(:draft_policy, title: document_title)
-  create(:supporting_page, document: document, title: supporting_title)
+  create(:supporting_page, edition: document, title: supporting_title)
 end
 
 Given /^a published policy "([^"]*)" with supporting pages "([^"]*)" and "([^"]*)"$/ do |policy_title, first_supporting_title, second_supporting_title|
   document = create(:published_policy, title: policy_title)
-  create(:supporting_page, document: document, title: first_supporting_title)
-  create(:supporting_page, document: document, title: second_supporting_title)
+  create(:supporting_page, edition: document, title: first_supporting_title)
+  create(:supporting_page, edition: document, title: second_supporting_title)
 end
 
 Given /^a draft policy "([^"]*)" with supporting pages "([^"]*)" and "([^"]*)"$/ do |policy_title, first_supporting_title, second_supporting_title|
   document = create(:draft_policy, title: policy_title)
-  create(:supporting_page, document: document, title: first_supporting_title)
-  create(:supporting_page, document: document, title: second_supporting_title)
+  create(:supporting_page, edition: document, title: first_supporting_title)
+  create(:supporting_page, edition: document, title: second_supporting_title)
 end
 
 Given /^I start editing the supporting page "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|

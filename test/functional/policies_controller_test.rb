@@ -161,8 +161,8 @@ class PoliciesControllerTest < ActionController::TestCase
 
   test "show lists supporting pages when there are some" do
     published_document = create(:published_policy)
-    first_supporting_page = create(:supporting_page, document: published_document)
-    second_supporting_page = create(:supporting_page, document: published_document)
+    first_supporting_page = create(:supporting_page, edition: published_document)
+    second_supporting_page = create(:supporting_page, edition: published_document)
 
     get :show, id: published_document.doc_identity
 

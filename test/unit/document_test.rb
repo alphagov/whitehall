@@ -476,7 +476,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should build a draft copy with copies of supporting pages" do
     published_policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: published_policy)
+    supporting_page = create(:supporting_page, edition: published_policy)
     draft_policy = published_policy.create_draft(create(:policy_writer))
 
     assert draft_policy.valid?

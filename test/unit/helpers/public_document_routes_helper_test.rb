@@ -44,7 +44,7 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
 
   test 'uses the doc identity to generate the supporting page route' do
     policy = create(:policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     assert_equal policy_supporting_page_path(policy.doc_identity, supporting_page), public_supporting_page_path(policy, supporting_page)
   end
 
@@ -63,14 +63,14 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   test 'returns public supporting page URL including host in production environment' do
     request.host = "whitehall.production.alphagov.co.uk"
     document = create(:published_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
     assert_equal "www.gov.uk", URI.parse(public_supporting_page_url(document, supporting_page)).host
   end
 
   test 'returns public supporting page URL including host in public production environment' do
     request.host = "www.gov.uk"
     document = create(:published_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
     assert_equal "www.gov.uk", URI.parse(public_supporting_page_url(document, supporting_page)).host
   end
 
@@ -89,14 +89,14 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   test 'returns public supporting page URL including host in preview environment' do
     request.host = "whitehall.preview.alphagov.co.uk"
     document = create(:published_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
     assert_equal "www.preview.alphagov.co.uk", URI.parse(public_supporting_page_url(document, supporting_page)).host
   end
 
   test 'returns public supporting page URL including host in public preview environment' do
     request.host = "www.preview.alphagov.co.uk"
     document = create(:published_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
     assert_equal "www.preview.alphagov.co.uk", URI.parse(public_supporting_page_url(document, supporting_page)).host
   end
 end

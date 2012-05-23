@@ -12,7 +12,7 @@ class SupportingPageTest < ActiveSupport::TestCase
   end
 
   test "should be invalid without a document" do
-    supporting_page = build(:supporting_page, document: nil)
+    supporting_page = build(:supporting_page, edition: nil)
     refute supporting_page.valid?
   end
 
@@ -20,7 +20,7 @@ class SupportingPageTest < ActiveSupport::TestCase
     parent_document = create(:draft_policy)
     lock_version = parent_document.lock_version
 
-    supporting_page = create(:supporting_page, document: parent_document)
+    supporting_page = create(:supporting_page, edition: parent_document)
 
     refute_equal lock_version, parent_document.reload.lock_version
   end
@@ -52,14 +52,14 @@ class SupportingPageTest < ActiveSupport::TestCase
   end
 
   test "should not be destroyable if its document is published" do
-    supporting_page = create(:supporting_page, document: create(:published_policy))
+    supporting_page = create(:supporting_page, edition: create(:published_policy))
     refute supporting_page.destroyable?
     refute supporting_page.destroy
     assert_nothing_raised { supporting_page.reload }
   end
 
   test "should be destroyable if its document is not published" do
-    supporting_page = create(:supporting_page, document: create(:draft_policy))
+    supporting_page = create(:supporting_page, edition: create(:draft_policy))
     assert supporting_page.destroyable?
     assert supporting_page.destroy
     assert_raises(ActiveRecord::RecordNotFound) { supporting_page.reload }
@@ -68,7 +68,7 @@ class SupportingPageTest < ActiveSupport::TestCase
   test 'should return search index data suitable for Rummageable' do
     policy = create(:published_policy)
     policy_slug = policy.doc_identity.slug
-    supporting_page = create(:supporting_page, title: 'Love all the people', document: policy)
+    supporting_page = create(:supporting_page, title: 'Love all the people', edition: policy)
 
     assert_equal 'Love all the people', supporting_page.search_index["title"]
     assert_equal "/government/policies/#{policy_slug}/supporting-pages/#{supporting_page.slug}", supporting_page.search_index['link']
@@ -99,7 +99,7 @@ class SupportingPageTest < ActiveSupport::TestCase
 
   test 'should not remove supporting page from search index on destroying' do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     policy_slug = policy.doc_identity.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{policy_slug}/supporting-pages/#{supporting_page.slug}").never
@@ -110,11 +110,11 @@ class SupportingPageTest < ActiveSupport::TestCase
     policy = create(:published_policy)
     draft_policy = create(:draft_policy)
     policy_slug = policy.doc_identity.slug
-    create(:supporting_page, document: policy, title: 'Love all the people', body: 'Thoughts on love and smoking.')
-    create(:supporting_page, document: policy, title: 'Dangerous', body: 'I love my job.')
-    create(:supporting_page, document: policy, title: 'Relentless', body: 'Rockers against drugs suck.')
-    create(:supporting_page, document: policy, title: 'Arizona Bay', body: 'Marketing and advertising.')
-    create(:supporting_page, document: draft_policy, title: 'Rant in E-Minor', body: 'I\'m talking to the women here.')
+    create(:supporting_page, edition: policy, title: 'Love all the people', body: 'Thoughts on love and smoking.')
+    create(:supporting_page, edition: policy, title: 'Dangerous', body: 'I love my job.')
+    create(:supporting_page, edition: policy, title: 'Relentless', body: 'Rockers against drugs suck.')
+    create(:supporting_page, edition: policy, title: 'Arizona Bay', body: 'Marketing and advertising.')
+    create(:supporting_page, edition: draft_policy, title: 'Rant in E-Minor', body: 'I\'m talking to the women here.')
 
     results = SupportingPage.search_index
 
@@ -128,7 +128,7 @@ class SupportingPageTest < ActiveSupport::TestCase
   test "should not change its slug when the parent policy is updated" do
     user = create(:user)
     document = create(:published_policy, title: "Ban beards")
-    supporting_page = create(:supporting_page, document: document, title: "Proscribed facial hair styles")
+    supporting_page = create(:supporting_page, edition: document, title: "Proscribed facial hair styles")
     slug = supporting_page.slug
     new_document = document.create_draft(user)
     new_document.reload.submit!
