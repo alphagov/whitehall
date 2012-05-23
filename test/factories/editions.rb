@@ -11,7 +11,7 @@ Rails.application.routes.url_helpers.module_eval do
 end
 
 FactoryGirl.define do
-  factory :edition, class: GenericEdition, aliases: [:document] do
+  factory :edition, class: GenericEdition do
     creator
     title "edition-title"
     body "edition-body"

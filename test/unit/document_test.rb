@@ -4,22 +4,22 @@ class DocumentTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test "should be invalid without a title" do
-    document = build(:document, title: nil)
+    document = build(:edition, title: nil)
     refute document.valid?
   end
 
   test "should be invalid without a body" do
-    document = build(:document, body: nil)
+    document = build(:edition, body: nil)
     refute document.valid?
   end
 
   test "should be invalid without an creator" do
-    document = build(:document, creator: nil)
+    document = build(:edition, creator: nil)
     refute document.valid?
   end
 
   test "should be invalid without a doc identity" do
-    document = build(:document)
+    document = build(:edition)
     document.stubs(:doc_identity).returns(nil)
     refute document.valid?
   end
@@ -36,19 +36,19 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should be invalid if doc identity has existing draft documents" do
     draft_document = create(:draft_edition)
-    document = build(:document, doc_identity: draft_document.doc_identity)
+    document = build(:edition, doc_identity: draft_document.doc_identity)
     refute document.valid?
   end
 
   test "should be invalid if doc identity has existing submitted documents" do
     submitted_document = create(:submitted_edition)
-    document = build(:document, doc_identity: submitted_document.doc_identity)
+    document = build(:edition, doc_identity: submitted_document.doc_identity)
     refute document.valid?
   end
 
   test "should be invalid if doc identity has existing documents that need work" do
     rejected_document = create(:rejected_edition)
-    document = build(:document, doc_identity: rejected_document.doc_identity)
+    document = build(:edition, doc_identity: rejected_document.doc_identity)
     refute document.valid?
   end
 
@@ -59,7 +59,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "adds a doc identity before validation if none provided" do
-    document = build(:document)
+    document = build(:edition)
     document.valid?
     assert_not_nil document.doc_identity
     assert_kind_of DocIdentity, document.doc_identity
@@ -67,7 +67,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "uses provided doc identity if available" do
     identity = build(:doc_identity)
-    document = build(:document, doc_identity: identity)
+    document = build(:edition, doc_identity: identity)
     assert_equal identity, document.doc_identity
   end
 
@@ -188,12 +188,12 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#creator= builds a document_creator with the given creator for new records" do
     creator = create(:user)
-    document = build(:document, creator: creator)
+    document = build(:edition, creator: creator)
     assert_equal creator, document.document_authors.first.user
   end
 
   test "#creator= raises an exception if called for a persisted record" do
-    document = create(:document)
+    document = create(:edition)
     assert_raises RuntimeError do
       document.creator = create(:user)
     end
@@ -542,7 +542,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "when initially created" do
-    document = create(:document)
+    document = create(:edition)
     assert document.draft?
     refute document.submitted?
     refute document.published?
@@ -588,12 +588,12 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should use the document title as the basis for the doc identity's slug" do
-    document = create(:document, title: 'My Policy Title')
+    document = create(:edition, title: 'My Policy Title')
     assert_equal 'my-policy-title', document.doc_identity.slug
   end
 
   test "should concatenate words containing apostrophes" do
-    document = create(:document, title: "Bob's bike")
+    document = create(:edition, title: "Bob's bike")
     assert_equal 'bobs-bike', document.doc_identity.slug
   end
 
@@ -804,11 +804,11 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should not be featurable" do
-    refute build(:document).featurable?
+    refute build(:edition).featurable?
   end
 
   test "should have no lead image even if an associated image exists" do
-    article = build(:document, images: [build(:image)])
+    article = build(:edition, images: [build(:image)])
     assert_nil article.lead_image
   end
 
@@ -921,7 +921,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "can record editing intent" do
     user = create(:policy_writer)
-    document = create(:document)
+    document = create(:edition)
     document.open_for_editing_as(user)
     Timecop.travel 1.minute.from_now
     assert_equal [user], document.recent_document_openings.map(&:editor)
@@ -929,7 +929,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "recording editing intent for a user who's already editing just updates the timestamp" do
     user = create(:policy_writer)
-    document = create(:document)
+    document = create(:edition)
     document.open_for_editing_as(user)
     Timecop.travel 1.minute.from_now
     assert_difference "document.recent_document_openings.count", 0 do
@@ -941,7 +941,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "can check exclude a given editor from the list of recent document openings" do
     user = create(:policy_writer)
-    document = create(:document)
+    document = create(:edition)
     document.open_for_editing_as(user)
     Timecop.travel 1.minute.from_now
     user2 = create(:policy_writer)
@@ -951,7 +951,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "editors considered active for up to 2 hours" do
     user = create(:policy_writer)
-    document = create(:document)
+    document = create(:edition)
     document.open_for_editing_as(user)
     Timecop.travel 2.hours.from_now
     assert_equal [user], document.active_document_openings.map(&:editor)
@@ -961,7 +961,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#save_as removes all RecentDocumentOpenings for the specified editor" do
     user = create(:policy_writer)
-    document = create(:document)
+    document = create(:edition)
     document.open_for_editing_as(user)
     assert_difference "document.recent_document_openings.count", -1 do
       document.save_as(user)
@@ -969,7 +969,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "RecentDocumentOpening#expunge! deletes entries more than 2 hours old" do
-    document = create(:document)
+    document = create(:edition)
     create(:recent_document_opening, editor: create(:author), edition: document, created_at: 2.hours.ago + 1.second)
     create(:recent_document_opening, editor: create(:author), edition: document, created_at: 2.hours.ago)
     create(:recent_document_opening, editor: create(:author), edition: document, created_at: 2.hours.ago - 1.second)

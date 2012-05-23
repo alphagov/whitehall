@@ -8,7 +8,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "should render the content using govspeak markup" do
-    document = create(:document, body: "body-in-govspeak")
+    document = create(:edition, body: "body-in-govspeak")
     fact_check_request = create(:fact_check_request, edition: document, comments: "comment")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, id: fact_check_request
@@ -18,7 +18,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "should not display the document if it has been deleted" do
-    document = create(:document, title: "deleted-policy-title", body: "deleted-policy-body")
+    document = create(:edition, title: "deleted-policy-title", body: "deleted-policy-body")
     fact_check_request = create(:fact_check_request, edition: document)
     document.delete!
 
@@ -45,7 +45,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "it should not be possible to fact check a deleted document" do
-    document = create(:document, title: "deleted-policy-title", body: "deleted-policy-body")
+    document = create(:edition, title: "deleted-policy-title", body: "deleted-policy-body")
     fact_check_request = create(:fact_check_request, edition: document)
     document.delete!
 
@@ -57,7 +57,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "turn govspeak into nice markup when editing" do
-    document = create(:document, body: "body-in-govspeak")
+    document = create(:edition, body: "body-in-govspeak")
     fact_check_request = create(:fact_check_request, edition: document)
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :edit, id: fact_check_request
@@ -160,7 +160,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "display an apology if comments are submitted for a deleted document" do
-    document = create(:document)
+    document = create(:edition)
     fact_check_request = create(:fact_check_request, edition: document)
     document.delete!
     attributes = attributes_for(:fact_check_request, comments: "looks fine to me")

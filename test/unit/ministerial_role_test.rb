@@ -18,7 +18,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test "should not be destroyable when it is responsible for documents" do
-    ministerial_role = create(:ministerial_role, editions: [create(:document)])
+    ministerial_role = create(:ministerial_role, editions: [create(:edition)])
     refute ministerial_role.destroyable?
     assert_equal false, ministerial_role.destroy
   end
