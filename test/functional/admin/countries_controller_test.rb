@@ -54,7 +54,7 @@ class Admin::CountriesControllerTest < ActionController::TestCase
   test "editing should allow non-featured published news articles to be featured" do
     published_news_article = create(:published_news_article)
     country = create(:country)
-    document_country = create(:document_country, country: country, document: published_news_article)
+    document_country = create(:document_country, country: country, edition: published_news_article)
 
     get :edit, id: country
 
@@ -66,7 +66,7 @@ class Admin::CountriesControllerTest < ActionController::TestCase
   test "editing should allow featured published news articles to be unfeatured" do
     published_news_article = create(:published_news_article)
     country = create(:country)
-    document_country = create(:document_country, country: country, document: published_news_article, featured: true)
+    document_country = create(:document_country, country: country, edition: published_news_article, featured: true)
 
     get :edit, id: country
 
