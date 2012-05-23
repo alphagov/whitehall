@@ -489,8 +489,8 @@ module AdminDocumentControllerTestHelpers
         attachment_1 = create(:attachment)
         attachment_2 = create(:attachment)
         document = create(document_type)
-        document_attachment_1 = create(:document_attachment, document: document, attachment: attachment_1)
-        document_attachment_2 = create(:document_attachment, document: document, attachment: attachment_2)
+        document_attachment_1 = create(:document_attachment, edition: document, attachment: attachment_1)
+        document_attachment_2 = create(:document_attachment, edition: document, attachment: attachment_2)
 
         put :update, id: document, document: document.attributes.merge(
           document_attachments_attributes: {
