@@ -14,4 +14,12 @@ class FactCheckRequest < ActiveRecord::Base
   def requestor_contactable?
     requestor.email.present?
   end
+
+  def edition_title
+    edition.title
+  end
+
+  def edition_type
+    edition.type.downcase
+  end
 end

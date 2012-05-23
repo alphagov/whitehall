@@ -8,7 +8,7 @@ class Notifications < ActionMailer::Base
 
     from_address = no_reply_email_address(url_options)
     to_address = request.email_address
-    subject = "Fact checking request from #{request.requestor.name}: #{request.document.title}"
+    subject = "Fact checking request from #{request.requestor.name}: #{request.edition_title}"
 
     mail(from: from_address, to: to_address, subject: subject)
   end
@@ -16,11 +16,11 @@ class Notifications < ActionMailer::Base
   def fact_check_response(request, url_options)
     @fact_check_request = request
     @url_options = url_options
-    @comment_url = admin_document_url(request.document, url_options.merge(anchor: dom_id(request)))
+    @comment_url = admin_document_url(request.edition, url_options.merge(anchor: dom_id(request)))
 
     from_address = no_reply_email_address(url_options)
     to_address = request.requestor.email
-    subject = "Fact check comment added by #{request.email_address}: #{request.document.title}"
+    subject = "Fact check comment added by #{request.email_address}: #{request.edition_title}"
 
     mail(from: from_address, to: to_address, subject: subject)
   end

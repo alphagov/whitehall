@@ -80,7 +80,7 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   end
 
   test "email body should contain a link to the comment on the document page" do
-    url = admin_document_url(@request.document, anchor: dom_id(@request))
+    url = admin_document_url(@request.edition, anchor: dom_id(@request))
     assert_match Regexp.new(url), @mail.body.to_s
   end
 
