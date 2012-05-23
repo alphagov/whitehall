@@ -11,6 +11,11 @@ module DocumentHelper
     history.reject { |e| e[:change_note].blank? }
   end
 
+  def document_thumbnail_tag(document)
+    image_url = document.has_thumbnail? ? document.thumbnail_url : 'pub-cover.png'
+    link_to image_tag(image_url), public_document_path(document)
+  end
+
   def document_organisation_class(document)
     if organisation = document.organisations.first
       organisation.slug

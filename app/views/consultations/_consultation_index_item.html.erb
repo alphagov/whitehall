@@ -1,5 +1,5 @@
 <div class="img coverpage-thumbnail">
-  <%= link_to image_tag(consultation.has_thumbnail? ? consultation.thumbnail_url : 'pub-cover.png'), public_document_path(consultation) %>
+  <%= document_thumbnail_tag(consultation) %>
   <div class="attachments_meta">
     <span class="time_remaining"><%= consultation_time_remaining_phrase(consultation) %></span>
     <span class="last_significant_change"><%= consultation_last_significant_change(consultation) %></span>
