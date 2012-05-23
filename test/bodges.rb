@@ -50,7 +50,3 @@ end
 class DocumentRelation < ActiveRecord::Base
   alias_method :document, :edition
 end
-
-class Organisation < ActiveRecord::Base
-  alias_method :published_documents, :published_editions
-end
