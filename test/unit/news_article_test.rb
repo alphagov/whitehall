@@ -34,7 +34,7 @@ class NewsArticleTest < ActiveSupport::TestCase
 
   test "uses first image as lead image" do
     news_article = build(:news_article)
-    image = create(:image, document: news_article)
+    image = create(:image, edition: news_article)
     assert_equal image, news_article.lead_image
   end
 

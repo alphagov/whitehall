@@ -657,7 +657,7 @@ module AdminDocumentControllerTestHelpers
       test 'edit displays document image fields' do
         image = fixture_file_upload('portas-review.jpg')
         document = create(document_type)
-        image = create(:image, alt_text: "blah", document: document,
+        image = create(:image, alt_text: "blah", edition: document,
                        image_data_attributes: attributes_for(:image_data, file: image))
 
         get :edit, id: document
@@ -819,8 +819,8 @@ module AdminDocumentControllerTestHelpers
 
       test 'updating should allow removal of images' do
         document = create(document_type)
-        image_1 = create(:image, document: document, alt_text: "the first image")
-        image_2 = create(:image, document: document, alt_text: "the second image")
+        image_1 = create(:image, edition: document, alt_text: "the first image")
+        image_2 = create(:image, edition: document, alt_text: "the second image")
 
         attributes = document.attributes.merge(
           images_attributes: {
@@ -838,7 +838,7 @@ module AdminDocumentControllerTestHelpers
 
       test "shows the image" do
         document = create(document_type)
-        image = create(:image, document: document)
+        image = create(:image, edition: document)
 
         get :show, id: document
 
@@ -849,7 +849,7 @@ module AdminDocumentControllerTestHelpers
 
       test "can embed image inline and see it in preview" do
         document = create(document_type, body: "!!1")
-        image = create(:image, document: document)
+        image = create(:image, edition: document)
 
         get :show, id: document
 
