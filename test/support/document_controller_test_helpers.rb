@@ -221,7 +221,7 @@ module DocumentControllerTestHelpers
       test "shows only published #{has_many_association.to_s.humanize.downcase}" do
         published_document = create("published_#{singular}")
         draft_document = create("draft_#{singular}")
-        model = create(model_name, documents: [published_document, draft_document])
+        model = create(model_name, editions: [published_document, draft_document])
 
         get :show, id: model
 
@@ -234,7 +234,7 @@ module DocumentControllerTestHelpers
       test "shows only #{has_many_association.to_s.humanize.downcase} associated with #{model_name}" do
         published_document = create("published_#{singular}")
         another_published_document = create("published_#{singular}")
-        model = create(model_name, documents: [published_document])
+        model = create(model_name, editions: [published_document])
 
         get :show, id: model
 
@@ -247,7 +247,7 @@ module DocumentControllerTestHelpers
       test "shows most recent #{has_many_association.to_s.humanize.downcase} at the top" do
         later_document = create("published_#{singular}", timestamp_key => 1.hour.ago)
         earlier_document = create("published_#{singular}", timestamp_key => 2.hours.ago)
-        model = create(model_name, documents: [earlier_document, later_document])
+        model = create(model_name, editions: [earlier_document, later_document])
 
         get :show, id: model
 
@@ -255,7 +255,7 @@ module DocumentControllerTestHelpers
       end
 
       test "should not display an empty published #{has_many_association.to_s.humanize.downcase} section" do
-        model = create(model_name, documents: [])
+        model = create(model_name, editions: [])
 
         get :show, id: model
 

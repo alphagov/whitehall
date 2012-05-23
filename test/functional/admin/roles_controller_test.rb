@@ -132,7 +132,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "provides delete buttons for destroyable roles" do
     destroyable_role = create(:role)
     document = create(:document)
-    indestructable_role = create(:ministerial_role, documents: [document])
+    indestructable_role = create(:ministerial_role, editions: [document])
 
     get :index
 
