@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :document_author do
+  factory :edition_author do
     edition
     user
   end

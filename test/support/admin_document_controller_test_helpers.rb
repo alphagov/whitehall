@@ -162,7 +162,7 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: {title: 'new-title', body: 'new-body'}
 
-        assert_equal current_user, document.document_authors(true).last.user
+        assert_equal current_user, document.edition_authors(true).last.user
       end
 
       test "update records the previous version of the document in the document version history" do

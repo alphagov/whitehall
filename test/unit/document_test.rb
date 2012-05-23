@@ -189,7 +189,7 @@ class DocumentTest < ActiveSupport::TestCase
   test "#creator= builds a document_creator with the given creator for new records" do
     creator = create(:user)
     document = build(:edition, creator: creator)
-    assert_equal creator, document.document_authors.first.user
+    assert_equal creator, document.edition_authors.first.user
   end
 
   test "#creator= raises an exception if called for a persisted record" do
@@ -211,8 +211,8 @@ class DocumentTest < ActiveSupport::TestCase
     document.expects(:save).returns(true)
     user = create(:user)
     document.edit_as(user, {})
-    assert_equal 2, document.document_authors.count
-    assert_equal user, document.document_authors.last.user
+    assert_equal 2, document.edition_authors.count
+    assert_equal user, document.edition_authors.last.user
   end
 
   test "#edit_as returns true if edit succeeds" do
@@ -226,7 +226,7 @@ class DocumentTest < ActiveSupport::TestCase
     document.expects(:save).returns(false)
     user = create(:user)
     document.edit_as(user, {})
-    assert_equal 1, document.document_authors.count
+    assert_equal 1, document.edition_authors.count
   end
 
   test "#edit_as returns false if edit fails" do
@@ -246,8 +246,8 @@ class DocumentTest < ActiveSupport::TestCase
     document.expects(:save).returns(true)
     user = create(:user)
     document.save_as(user)
-    assert_equal 2, document.document_authors.count
-    assert_equal user, document.document_authors.last.user
+    assert_equal 2, document.edition_authors.count
+    assert_equal user, document.edition_authors.last.user
   end
 
   test "#save_as does not record new creator if save fails" do
@@ -255,8 +255,8 @@ class DocumentTest < ActiveSupport::TestCase
     document.expects(:save).returns(true)
     user = create(:user)
     document.save_as(user)
-    assert_equal 2, document.document_authors.count
-    assert_equal user, document.document_authors.last.user
+    assert_equal 2, document.edition_authors.count
+    assert_equal user, document.edition_authors.last.user
   end
 
   test "#save_as returns true if save succeeds" do
@@ -907,9 +907,9 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#destroy should also remove the relationship to any authors" do
     document = create(:draft_edition, creator: create(:policy_writer))
-    relation = document.document_authors.first
+    relation = document.edition_authors.first
     document.destroy
-    refute DocumentAuthor.find_by_id(relation.id)
+    refute EditionAuthor.find_by_id(relation.id)
   end
 
   test "#destroy should also remove the relationship to any editorial remarks" do

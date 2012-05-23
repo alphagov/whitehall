@@ -15,8 +15,8 @@ class Edition < ActiveRecord::Base
   include Searchable
 
   has_many :editorial_remarks, dependent: :destroy
-  has_many :document_authors, dependent: :destroy
-  has_many :authors, through: :document_authors, source: :user
+  has_many :edition_authors, dependent: :destroy
+  has_many :authors, through: :edition_authors, source: :user
 
   validates :title, :body, :creator, presence: true
 
@@ -63,13 +63,13 @@ class Edition < ActiveRecord::Base
   end
 
   def creator
-    document_authors.first && document_authors.first.user
+    edition_authors.first && edition_authors.first.user
   end
 
   def creator=(user)
     if new_record?
-      document_author = document_authors.first || document_authors.build
-      document_author.user = user
+      edition_author = edition_authors.first || edition_authors.build
+      edition_author.user = user
     else
       raise "author can only be set on new records"
     end
@@ -136,7 +136,7 @@ class Edition < ActiveRecord::Base
 
   def save_as(user)
     if save
-      document_authors.create!(user: user)
+      edition_authors.create!(user: user)
       recent_document_openings.where(editor_id: user).delete_all
     end
   end
@@ -147,7 +147,7 @@ class Edition < ActiveRecord::Base
   end
 
   def author_names
-    document_authors.map(&:user).map(&:name).uniq
+    edition_authors.map(&:user).map(&:name).uniq
   end
 
   def title_with_state
@@ -184,7 +184,7 @@ class Edition < ActiveRecord::Base
 
   class << self
     def authored_by(user)
-      joins(:document_authors).where(document_authors: {user_id: user}).group(:edition_id)
+      joins(:edition_authors).where(edition_authors: {user_id: user}).group(:edition_id)
     end
 
     def by_type(type)
