@@ -20,7 +20,6 @@ class Admin::DocumentsController < Admin::BaseController
 
   def draft
     @documents = filter_documents(document_class.draft)
-    render action: :index
   end
 
   def submitted
