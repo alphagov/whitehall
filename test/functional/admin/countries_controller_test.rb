@@ -32,7 +32,7 @@ class Admin::CountriesControllerTest < ActionController::TestCase
     published_news_article = create(:published_news_article)
     draft_news_article = create(:draft_news_article)
     another_news_article = create(:published_news_article)
-    country = create(:country, documents: [published_news_article, draft_news_article])
+    country = create(:country, editions: [published_news_article, draft_news_article])
 
     get :edit, id: country
 
@@ -44,7 +44,7 @@ class Admin::CountriesControllerTest < ActionController::TestCase
   test "editing should display news articles most recently published first" do
     earlier_news_article = create(:published_news_article, first_published_at: 2.days.ago)
     later_news_article = create(:published_news_article, first_published_at: 1.days.ago)
-    country = create(:country, documents: [earlier_news_article, later_news_article])
+    country = create(:country, editions: [earlier_news_article, later_news_article])
 
     get :edit, id: country
 

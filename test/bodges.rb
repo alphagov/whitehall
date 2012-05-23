@@ -28,7 +28,6 @@ module FactoryGirlInterceptor
         ].include?(name) && new_overrides.has_key?(:document)
       new_overrides[:edition] = new_overrides.delete(:document)
     elsif [
-        :country,
         :ministerial_department
       ].include?(name) && new_overrides.has_key?(:documents)
       new_overrides[:editions] = new_overrides.delete(:documents)
