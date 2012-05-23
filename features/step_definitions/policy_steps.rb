@@ -330,7 +330,7 @@ Then /^I should see the policy titled "([^"]*)" in the list of submitted documen
 end
 
 Then /^I can see links to the recently changed document "([^"]*)"$/ do |title|
-  document = Document.find_by_title!(title)
+  document = Edition.find_by_title!(title)
   assert page.has_css?("#recently-changed #{record_css_selector(document)} a", text: document.title), "#{document.title} not found"
 end
 

@@ -16,7 +16,7 @@ Given /^a published document "([^"]*)" exists$/ do |title|
 end
 
 Given /^a (draft|published) document "([^"]*)" exists which links to the "([^"]*)" document$/ do |state, source_title, target_title|
-  target_document = Document.find_by_title!(target_title)
+  target_document = Edition.find_by_title!(target_title)
   target_url = admin_document_url(target_document)
   body = "[#{target_title}](#{target_url})"
   create("#{state}_policy", title: source_title, body: body)
@@ -224,7 +224,7 @@ end
 
 Then /^I should see in the preview that "([^"]*)" does (not )?have a public link to "([^"]*)"/ do |source_title, should_not_have_link, target_title|
   visit_document_preview source_title
-  target_document = Document.find_by_title!(target_title)
+  target_document = Edition.find_by_title!(target_title)
   target_path = policy_path(target_document.doc_identity)
 
   has_link = has_link?(target_title, href: target_path)
@@ -237,7 +237,7 @@ end
 
 Then /^I should see in the preview that "([^"]*)" does have an admin link to the (draft|published) edition of "([^"]*)"$/ do |source_title, state, target_title|
   visit_document_preview source_title
-  target_document = Document.send(state).find_by_title!(target_title)
+  target_document = Edition.send(state).find_by_title!(target_title)
   assert has_link?(state, href: admin_document_path(target_document))
 end
 
@@ -247,23 +247,23 @@ Then /^I should see the conflict between the (publication|policy|news article|co
 end
 
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|
-  document = Document.latest_edition.find_by_title!(title)
+  document = Edition.latest_edition.find_by_title!(title)
   assert !document.published?
 end
 
 Then /^my attempt to publish "([^"]*)" should succeed$/ do |title|
-  document = Document.latest_edition.find_by_title!(title)
+  document = Edition.latest_edition.find_by_title!(title)
   assert document.published?
 end
 
 Then /^the published document "([^"]*)" should still link to the "([^"]*)" document$/ do |source_title, target_title|
-  source_document = Document.find_by_title!(source_title)
-  target_document = Document.find_by_title!(target_title)
+  source_document = Edition.find_by_title!(source_title)
+  target_document = Edition.find_by_title!(target_title)
   visit policy_path(source_document.doc_identity)
   target_path = policy_path(target_document.doc_identity)
   assert has_link?(target_title, href: target_path)
 end
 
 Then /^there should not be a document called "([^"]*)"$/ do |title|
-  refute Document.find_by_title(title)
+  refute Edition.find_by_title(title)
 end

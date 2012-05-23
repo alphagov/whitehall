@@ -47,8 +47,8 @@ class DocIdentityTest < ActiveSupport::TestCase
     new_draft = original_edition.create_draft(create(:policy_writer))
     new_draft.delete!
     original_edition.doc_identity.destroy
-    assert_equal nil, Document.unscoped.find_by_id(original_edition.id)
-    assert_equal nil, Document.unscoped.find_by_id(new_draft.id)
+    assert_equal nil, Edition.unscoped.find_by_id(original_edition.id)
+    assert_equal nil, Edition.unscoped.find_by_id(new_draft.id)
   end
 
   test "#destroy also destroys relations to other documents" do

@@ -17,7 +17,7 @@ class Admin::DocumentPublishingController < Admin::BaseController
   private
 
   def find_document
-    @document = Document.find(params[:document_id])
+    @document = Edition.find(params[:document_id])
   end
 
   def lock_document

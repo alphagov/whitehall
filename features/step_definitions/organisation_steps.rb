@@ -124,7 +124,7 @@ end
 
 Then /^I should only see published policies belonging to the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)
-  documents = records_from_elements(Document, page.all(".document"))
+  documents = records_from_elements(Edition, page.all(".document"))
   assert documents.all? { |document| organisation.documents.published.include?(document) }
 end
 

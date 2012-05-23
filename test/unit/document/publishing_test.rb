@@ -198,11 +198,11 @@ class Document::PublishingTest < ActiveSupport::TestCase
   test "publication raises StaleObjectError if lock version is not current" do
     document = create(:submitted_document, title: "old title")
 
-    Document.find(document.id).update_attributes(title: "new title")
+    Edition.find(document.id).update_attributes(title: "new title")
 
     assert_raises(ActiveRecord::StaleObjectError) do
       document.publish_as(create(:departmental_editor))
     end
-    refute Document.find(document.id).published?
+    refute Edition.find(document.id).published?
   end
 end

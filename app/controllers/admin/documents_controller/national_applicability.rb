@@ -37,7 +37,7 @@ module Admin::DocumentsController::NationalApplicability
     flash.now[:alert] = "This document has been saved since you opened it"
     build_document_attachment
     build_image
-    @conflicting_document = Document.find(params[:id])
+    @conflicting_document = Edition.find(params[:id])
     @document.lock_version = @conflicting_document.lock_version
     process_nation_inapplicabilities
     render action: "edit"

@@ -17,7 +17,7 @@ class Admin::DocumentPublishingControllerTest < ActionController::TestCase
     login_as :departmental_editor
     post :create, document_id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
 
-    refute Document.submitted.include?(document_to_publish)
+    refute Edition.submitted.include?(document_to_publish)
   end
 
   test 'publishing should not mark the document as force published' do

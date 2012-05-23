@@ -7,7 +7,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   def create
-    @document = Document.unscoped.find(params[:document_id])
+    @document = Edition.unscoped.find(params[:document_id])
     attributes = params[:fact_check_request].merge(requestor: current_user)
     fact_check_request = @document.fact_check_requests.build(attributes)
     if @document.deleted?
@@ -49,7 +49,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   def load_fact_check_request
     @fact_check_request = FactCheckRequest.from_param(params[:id])
     if @fact_check_request
-      @document = Document.unscoped.find(@fact_check_request.edition_id)
+      @document = Edition.unscoped.find(@fact_check_request.edition_id)
     elsif request.host == 'whitehall.preview.alphagov.co.uk'
       temporary_redirect_from_preview_to_production
     else

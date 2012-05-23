@@ -10,6 +10,6 @@ class DocumentsController < PublicFacingController
   end
 
   def document_class
-    Document
+    Edition
   end
 end

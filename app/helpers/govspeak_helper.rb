@@ -93,9 +93,9 @@ module GovspeakHelper
         document = nil
       end
     else
-      document = Document.send(:with_exclusive_scope) do
+      document = Edition.send(:with_exclusive_scope) do
         begin
-          Document.find(id)
+          Edition.find(id)
         rescue ActiveRecord::RecordNotFound
           nil
         end

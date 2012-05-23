@@ -84,39 +84,39 @@ class DocumentTest < ActiveSupport::TestCase
 
   test ".published_as returns nil if document is not published" do
     document = create(:submitted_document)
-    assert_nil Document.published_as(document.doc_identity.to_param)
+    assert_nil Edition.published_as(document.doc_identity.to_param)
   end
 
   test ".published_as returns nil if identity is unknown" do
-    assert_nil Document.published_as('unknown')
+    assert_nil Edition.published_as('unknown')
   end
 
   test ".latest_edition includes first edition of any document" do
     document = create(:published_document)
-    assert Document.latest_edition.include?(document)
+    assert Edition.latest_edition.include?(document)
   end
 
   test ".latest_edition includes only latest edition of a document" do
     original_edition = create(:published_document)
     new_draft = original_edition.create_draft(create(:policy_writer))
-    refute Document.latest_edition.include?(original_edition)
-    assert Document.latest_edition.include?(new_draft)
+    refute Edition.latest_edition.include?(original_edition)
+    assert Edition.latest_edition.include?(new_draft)
   end
 
   test ".latest_edition ignores deleted editions" do
     original_edition = create(:published_document)
     new_draft = original_edition.create_draft(create(:policy_writer))
     new_draft.delete!
-    assert Document.latest_edition.include?(original_edition)
-    refute Document.latest_edition.include?(new_draft)
+    assert Edition.latest_edition.include?(original_edition)
+    refute Edition.latest_edition.include?(new_draft)
   end
 
   test ".latest_published_edition" do
     original_edition = create(:published_document)
     new_draft = original_edition.create_draft(create(:policy_writer))
     new_draft.delete!
-    assert Document.latest_published_edition.include?(original_edition)
-    refute Document.latest_published_edition.include?(new_draft)
+    assert Edition.latest_published_edition.include?(original_edition)
+    refute Edition.latest_published_edition.include?(new_draft)
   end
 
   test "should return a list of documents in a policy topic" do
@@ -138,9 +138,9 @@ class DocumentTest < ActiveSupport::TestCase
     published_document = create(:published_document, organisations: [organisation_1])
     published_in_second_organisation = create(:published_document, organisations: [organisation_2])
 
-    assert_equal [draft_document, published_document], Document.in_organisation(organisation_1)
-    assert_equal [published_document], Document.published.in_organisation(organisation_1)
-    assert_equal [published_in_second_organisation], Document.in_organisation(organisation_2)
+    assert_equal [draft_document, published_document], Edition.in_organisation(organisation_1)
+    assert_equal [published_document], Edition.published.in_organisation(organisation_1)
+    assert_equal [published_in_second_organisation], Edition.in_organisation(organisation_2)
   end
 
   test "should return a list of documents in a ministerial role" do
@@ -302,7 +302,7 @@ class DocumentTest < ActiveSupport::TestCase
   test ".related_to includes documents related to document" do
     policy = create(:policy)
     publication = create(:publication, related_policies: [policy])
-    assert Document.related_to(policy).include?(publication)
+    assert Edition.related_to(policy).include?(publication)
   end
 
   test ".related_to respects chained scopes" do
@@ -315,19 +315,19 @@ class DocumentTest < ActiveSupport::TestCase
   test ".related_to excludes unrelated documents" do
     publication = create(:publication)
     policy = create(:policy)
-    refute Document.related_to(policy).include?(publication)
+    refute Edition.related_to(policy).include?(publication)
   end
 
   test ".authored_by includes documents created by the given user" do
     publication = create(:publication)
-    assert Document.authored_by(publication.creator).include?(publication)
+    assert Edition.authored_by(publication.creator).include?(publication)
   end
 
   test ".authored_by includes documents edited by given user" do
     publication = create(:publication)
     writer = create(:policy_writer)
     publication.edit_as(writer, {})
-    assert Document.authored_by(writer).include?(publication)
+    assert Edition.authored_by(writer).include?(publication)
   end
 
   test ".authored_by includes documents only once no matter how many edits a user has made" do
@@ -336,17 +336,17 @@ class DocumentTest < ActiveSupport::TestCase
     publication.edit_as(writer, {})
     publication.edit_as(writer, {})
     publication.edit_as(writer, {})
-    assert_equal 1, Document.authored_by(writer).all.size
+    assert_equal 1, Edition.authored_by(writer).all.size
   end
 
   test ".authored_by excludes documents creatored by another user" do
     publication = create(:publication)
-    refute Document.authored_by(create(:policy_writer)).include?(publication)
+    refute Edition.authored_by(create(:policy_writer)).include?(publication)
   end
 
   test ".authored_by respects chained scopes" do
     publication = create(:publication)
-    assert Document.authored_by(publication.creator).include?(publication)
+    assert Edition.authored_by(publication.creator).include?(publication)
     assert Publication.authored_by(publication.creator).include?(publication)
     refute Policy.authored_by(publication.creator).include?(publication)
   end
@@ -355,29 +355,29 @@ class DocumentTest < ActiveSupport::TestCase
     policy = create(:policy, published_at: 2.hours.ago)
     publication = create(:publication, published_at: 4.hours.ago)
     article = create(:news_article, published_at: 1.hour.ago)
-    assert_equal [article, policy, publication], Document.by_published_at
+    assert_equal [article, policy, publication], Edition.by_published_at
   end
 
   test ".latest_published_at returns the most recent published_at from published documents" do
     policy = create(:published_policy, published_at: 2.hours.ago)
     publication = create(:published_publication, published_at: 4.hours.ago)
-    assert_equal policy.published_at, Document.latest_published_at
+    assert_equal policy.published_at, Edition.latest_published_at
   end
 
   test ".latest_published_at ignores unpublished documents" do
     policy = create(:draft_policy, published_at: 2.hours.ago)
     publication = create(:published_publication, published_at: 4.hours.ago)
-    assert_equal publication.published_at, Document.latest_published_at
+    assert_equal publication.published_at, Edition.latest_published_at
   end
 
   test ".latest_published_at returns nil if no published documents exist" do
-    assert_nil Document.latest_published_at
+    assert_nil Edition.latest_published_at
   end
 
   test "should only return the submitted documents" do
     draft_document = create(:draft_document)
     submitted_document = create(:submitted_document)
-    assert_equal [submitted_document], Document.submitted
+    assert_equal [submitted_document], Edition.submitted
   end
 
   test "should return all documents excluding those that are archived or deleted" do
@@ -387,7 +387,7 @@ class DocumentTest < ActiveSupport::TestCase
     published_document = create(:published_document)
     deleted_document = create(:deleted_document)
     archived_document = create(:archived_document)
-    assert_same_elements [draft_document, submitted_document, rejected_document, published_document], Document.active
+    assert_same_elements [draft_document, submitted_document, rejected_document, published_document], Edition.active
   end
 
   test "should not be publishable when not submitted" do
@@ -398,7 +398,7 @@ class DocumentTest < ActiveSupport::TestCase
   test "should not return published documents in submitted" do
     document = create(:submitted_document)
     document.publish_as(create(:departmental_editor))
-    refute Document.submitted.include?(document)
+    refute Edition.submitted.include?(document)
   end
 
   test "should build a draft copy of the existing document with the supplied creator" do
@@ -605,12 +605,12 @@ class DocumentTest < ActiveSupport::TestCase
     consultation_response = create(:consultation_response)
     consultation = consultation_response.consultation
 
-    assert_equal [policy], Document.by_type('Policy')
-    assert_equal [publication], Document.by_type('Publication')
-    assert_equal [news], Document.by_type('NewsArticle')
-    assert_equal [speech], Document.by_type('Speech')
-    assert_equal [consultation], Document.by_type('Consultation')
-    assert_equal [consultation_response], Document.by_type('ConsultationResponse')
+    assert_equal [policy], Edition.by_type('Policy')
+    assert_equal [publication], Edition.by_type('Publication')
+    assert_equal [news], Edition.by_type('NewsArticle')
+    assert_equal [speech], Edition.by_type('Speech')
+    assert_equal [consultation], Edition.by_type('Consultation')
+    assert_equal [consultation_response], Edition.by_type('ConsultationResponse')
   end
 
   [:draft, :submitted, :rejected].each do |state|
@@ -780,7 +780,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should not find deleted documents by default" do
     deleted_document = create(:deleted_document)
-    assert_nil Document.find_by_id(deleted_document.id)
+    assert_nil Edition.find_by_id(deleted_document.id)
   end
 
   [:draft, :submitted, :rejected].each do |state|
@@ -838,7 +838,7 @@ class DocumentTest < ActiveSupport::TestCase
     create(:published_publication, title: "publication-title", body: "stuff and things")
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
-    results = Document.search_index
+    results = Edition.search_index
 
     assert_equal 2, results.length
     assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title",

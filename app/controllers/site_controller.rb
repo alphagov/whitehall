@@ -1,7 +1,7 @@
 class SiteController < PublicFacingController
   def index
     find_featured_news_articles
-    @recently_updated = Document.published.by_published_at.limit(10)
+    @recently_updated = Edition.published.by_published_at.limit(10)
   end
 
   def sunset

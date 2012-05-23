@@ -1,5 +1,6 @@
 module DocumentHelper
   def document_class(type)
+    type = 'edition' if type == 'document'
     type.gsub(" ", "_").classify.constantize
   end
 
@@ -56,7 +57,7 @@ module DocumentHelper
   end
 
   def visit_document_preview(title, scope = :scoped)
-    document = Document.send(scope).find_by_title(title)
+    document = Edition.send(scope).find_by_title(title)
     visit admin_document_path(document)
   end
 

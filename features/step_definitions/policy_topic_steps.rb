@@ -117,7 +117,7 @@ end
 
 Then /^I should only see published policies belonging to the "([^"]*)" policy topic$/ do |name|
   policy_topic = PolicyTopic.find_by_name!(name)
-  documents = records_from_elements(Document, page.all(".document"))
+  documents = records_from_elements(Edition, page.all(".document"))
   assert documents.all? { |document| policy_topic.documents.published.include?(document) }
 end
 
