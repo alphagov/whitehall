@@ -1,7 +1,7 @@
 <%= form_for [:admin, document], as: :document do |form| %>
   <%= form.errors %>
   <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
-  <%= render partial: 'attachment_fields', locals: { form: form, document: document, parent_type: :document }%>
+  <%= render partial: 'attachment_fields', locals: { form: form, document: document, parent_type: :edition }%>
   <%= form.hidden_field :consultation_id %>
   <%= form.save_or_cancel %>
 <% end %>

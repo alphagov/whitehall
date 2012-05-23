@@ -4,16 +4,16 @@ module Edition::Attachable
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(document)
       @document.attachments.each do |a|
-        document.document_attachments.create(attachment_id: a.id)
+        document.edition_attachments.create(attachment_id: a.id)
       end
     end
   end
 
   included do
-    has_many :document_attachments, foreign_key: "edition_id", dependent: :destroy
-    has_many :attachments, through: :document_attachments
+    has_many :edition_attachments, foreign_key: "edition_id", dependent: :destroy
+    has_many :attachments, through: :edition_attachments
 
-    accepts_nested_attributes_for :document_attachments, reject_if: -> da { da.fetch(:attachment_attributes, {}).values.all?(&:blank?) }, allow_destroy: true
+    accepts_nested_attributes_for :edition_attachments, reject_if: -> da { da.fetch(:attachment_attributes, {}).values.all?(&:blank?) }, allow_destroy: true
 
     add_trait Trait
   end

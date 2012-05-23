@@ -1,4 +1,4 @@
-class DocumentAttachment < ActiveRecord::Base
+class EditionAttachment < ActiveRecord::Base
   belongs_to :attachment
   belongs_to :edition
 
@@ -9,7 +9,7 @@ class DocumentAttachment < ActiveRecord::Base
   private
 
   def destroy_attachment_if_required
-    unless DocumentAttachment.where(attachment_id: attachment.id).any?
+    unless EditionAttachment.where(attachment_id: attachment.id).any?
       attachment.destroy
     end
   end

@@ -76,13 +76,13 @@ end
 
 When /^I remove the attachment from the publication "([^"]*)"$/ do |title|
   begin_editing_document title
-  uncheck "document_document_attachments_attributes_0__destroy"
+  uncheck "document_edition_attachments_attributes_0__destroy"
   click_button "Save"
 end
 
 When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ do |title|
   begin_new_draft_document title
-  uncheck "document_document_attachments_attributes_0__destroy"
+  uncheck "document_edition_attachments_attributes_0__destroy"
   click_button "Save"
 end
 

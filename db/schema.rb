@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525000200) do
+ActiveRecord::Schema.define(:version => 20120525000300) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -69,16 +69,6 @@ ActiveRecord::Schema.define(:version => 20120525000200) do
 
   add_index "doc_identities", ["slug", "document_type"], :name => "index_doc_identities_on_slug_and_document_type", :unique => true
 
-  create_table "document_attachments", :force => true do |t|
-    t.integer  "edition_id"
-    t.integer  "attachment_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "document_attachments", ["attachment_id"], :name => "index_document_attachments_on_attachment_id"
-  add_index "document_attachments", ["edition_id"], :name => "index_document_attachments_on_edition_id"
-
   create_table "document_authors", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "user_id"
@@ -130,6 +120,16 @@ ActiveRecord::Schema.define(:version => 20120525000200) do
 
   add_index "document_relations", ["doc_identity_id"], :name => "index_document_relations_on_doc_identity_id"
   add_index "document_relations", ["edition_id"], :name => "index_document_relations_on_edition_id"
+
+  create_table "edition_attachments", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "attachment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "edition_attachments", ["attachment_id"], :name => "index_edition_attachments_on_attachment_id"
+  add_index "edition_attachments", ["edition_id"], :name => "index_edition_attachments_on_edition_id"
 
   create_table "editions", :force => true do |t|
     t.string   "title"

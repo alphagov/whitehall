@@ -53,8 +53,8 @@ class Edition::AttachableTest < ActiveSupport::TestCase
 
   test "#destroy should also remove the relationship to any attachments" do
     document = create(:draft_publication, attachments: [create(:attachment)])
-    relation = document.document_attachments.first
+    relation = document.edition_attachments.first
     document.destroy
-    refute DocumentAttachment.find_by_id(relation.id)
+    refute EditionAttachment.find_by_id(relation.id)
   end
 end
