@@ -4,7 +4,7 @@ class DocIdentity < ActiveRecord::Base
 
   after_destroy :destroy_all_editions
   has_many :editions
-  has_many :document_relations, dependent: :destroy
+  has_many :edition_relations, dependent: :destroy
   has_one :published_edition, class_name: 'Edition', conditions: { state: 'published' }
   has_one :unpublished_edition, class_name: 'Edition', conditions: { state: ['draft', 'submitted', 'rejected'] }
 

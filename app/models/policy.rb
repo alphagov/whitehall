@@ -6,9 +6,9 @@ class Policy < Edition
   include Edition::SupportingPages
   include Edition::Countries
 
-  has_many :document_relations, through: :doc_identity
-  has_many :related_documents, through: :document_relations, source: :edition
-  has_many :published_related_documents, through: :document_relations, source: :edition, conditions: {editions: {state: 'published'}}
+  has_many :edition_relations, through: :doc_identity
+  has_many :related_documents, through: :edition_relations, source: :edition
+  has_many :published_related_documents, through: :edition_relations, source: :edition, conditions: {editions: {state: 'published'}}
 
   validates :summary, presence: true
 
@@ -20,7 +20,7 @@ class Policy < Edition
 
   add_trait Trait
 
-  after_destroy :remove_document_relations
+  after_destroy :remove_edition_relations
 
   def self.stub
     where(stub: true)
@@ -44,7 +44,7 @@ class Policy < Edition
 
   private
 
-  def remove_document_relations
-    document_relations.each(&:destroy)
+  def remove_edition_relations
+    edition_relations.each(&:destroy)
   end
 end

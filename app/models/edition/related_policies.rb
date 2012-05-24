@@ -8,8 +8,8 @@ module Edition::RelatedPolicies
   end
 
   included do
-    has_many :document_relations, foreign_key: :edition_id, dependent: :destroy
-    has_many :related_doc_identities, through: :document_relations, source: :doc_identity
+    has_many :edition_relations, foreign_key: :edition_id, dependent: :destroy
+    has_many :related_doc_identities, through: :edition_relations, source: :doc_identity
     has_many :related_policies, through: :related_doc_identities, source: :latest_edition
     has_many :published_related_policies, through: :related_doc_identities, source: :published_edition, class_name: 'Policy'
 
@@ -32,7 +32,7 @@ module Edition::RelatedPolicies
       latest_published_edition.where("
         exists (
           select 1
-          from document_relations dr
+          from edition_relations dr
             join editions policy on
               dr.doc_identity_id = policy.doc_identity_id and
               policy.state='published' and

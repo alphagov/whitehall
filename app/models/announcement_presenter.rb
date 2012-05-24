@@ -24,7 +24,7 @@ class AnnouncementPresenter
   end
 
   def featured_news
-    @featured_news ||= NewsArticle.published.featured.by_first_published_at.limit(3).includes(:doc_identity, :document_relations, :policy_topics)
+    @featured_news ||= NewsArticle.published.featured.by_first_published_at.limit(3).includes(:doc_identity, :edition_relations, :policy_topics)
   end
 
   def today
@@ -46,7 +46,7 @@ class AnnouncementPresenter
   private
 
   def candidate_news
-    NewsArticle.published.not_featured.by_first_published_at.includes(:doc_identity, :document_relations, :policy_topics)
+    NewsArticle.published.not_featured.by_first_published_at.includes(:doc_identity, :edition_relations, :policy_topics)
   end
 
   def candidate_speeches

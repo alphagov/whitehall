@@ -1,4 +1,4 @@
-class DocumentRelation < ActiveRecord::Base
+class EditionRelation < ActiveRecord::Base
   belongs_to :edition
   belongs_to :doc_identity
 

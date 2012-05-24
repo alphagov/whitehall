@@ -52,8 +52,8 @@ class PolicyTest < ActiveSupport::TestCase
 
   test "#destroy should remove document relations to other documents" do
     document = create(:draft_policy)
-    relationship = create(:document_relation, doc_identity: document.doc_identity)
+    relationship = create(:edition_relation, doc_identity: document.doc_identity)
     document.destroy
-    assert_equal nil, DocumentRelation.find_by_id(relationship.id)
+    assert_equal nil, EditionRelation.find_by_id(relationship.id)
   end
 end
