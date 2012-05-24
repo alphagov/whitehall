@@ -16,6 +16,7 @@ class Document < ActiveRecord::Base
 
   has_many :editorial_remarks, dependent: :destroy
   has_many :document_authors, dependent: :destroy
+  has_many :authors, through: :document_authors, source: :user
 
   validates :title, :body, :creator, presence: true
 

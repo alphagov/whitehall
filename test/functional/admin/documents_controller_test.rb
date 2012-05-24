@@ -1,5 +1,78 @@
 require 'test_helper'
 
+class Admin::DocumentsController
+  class DocumentFilterTest < ActiveSupport::TestCase
+    test "should filter by document type" do
+      policy = create(:consultation_response)
+      another_document = create(:publication)
+
+      assert_equal [policy], DocumentFilter.new(Document, type: 'consultation_response').documents
+    end
+
+    test "should filter by document state" do
+      draft_document = create(:draft_policy)
+      document_in_other_state = create(:published_policy)
+
+      assert_equal [draft_document], DocumentFilter.new(Document, state: 'draft').documents
+    end
+
+    test "should filter by document author" do
+      author = create(:user)
+      document = create(:policy, authors: [author])
+      document_by_another_author = create(:policy)
+
+      assert_equal [document], DocumentFilter.new(Document, author: author.to_param).documents
+    end
+
+    test "should filter by organisation" do
+      organisation = create(:organisation)
+      document = create(:policy, organisations: [organisation])
+      document_in_no_organisation = create(:policy)
+      document_in_another_organisation = create(:publication, organisations: [create(:organisation)])
+
+      assert_equal [document], DocumentFilter.new(Document, organisation: organisation.to_param).documents
+    end
+
+    test "should filter by document type, state and author" do
+      author = create(:user)
+      policy = create(:draft_policy, authors: [author])
+      another_document = create(:published_policy, authors: [author])
+
+      assert_equal [policy], DocumentFilter.new(Document, type: 'policy', state: 'draft', author: author.to_param).documents
+    end
+
+    test "should filter by document type, state and organisation" do
+      organisation = create(:organisation)
+      policy = create(:draft_policy, organisations: [organisation])
+      another_document = create(:published_policy, organisations: [organisation])
+
+      assert_equal [policy], DocumentFilter.new(Document, type: 'policy', state: 'draft', organisation: organisation.to_param).documents
+    end
+
+    test "should return the documents ordered by most recent first" do
+      older_policy = create(:draft_policy, updated_at: 3.days.ago)
+      newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
+
+      assert_equal [newer_policy, older_policy], DocumentFilter.new(Document, {}).documents
+    end
+
+    test "should provide efficient access to document creators" do
+      create(:policy)
+      create(:publication)
+      create(:speech)
+      create(:consultation)
+
+      query_count = count_queries do
+        documents = DocumentFilter.new(Document).documents
+        documents.each { |d| d.creator.name }
+      end
+
+      expected_queries = [:query_for_all_documents, :query_for_all_document_authors, :query_for_all_users]
+      assert_equal expected_queries.length, query_count
+    end
+  end
+end
+
 class Admin::DocumentsControllerTest < ActionController::TestCase
   setup do
     login_as :policy_writer

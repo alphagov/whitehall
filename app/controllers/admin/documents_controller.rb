@@ -8,7 +8,7 @@ class Admin::DocumentsController < Admin::BaseController
   def index
     if params_filters.any?
       state = params_filters[:state]
-      @documents = filter_documents(document_class.send(state))
+      @documents = DocumentFilter.new(document_class, params_filters).documents
       @document_state = (state == :active) ? 'all' : state.to_s
       @page_title = "#{@document_state.humanize} Documents"
       session[:document_filters] = params_filters
@@ -147,15 +147,25 @@ class Admin::DocumentsController < Admin::BaseController
     filters
   end
 
-  def filter_documents(documents)
-    documents = documents.by_type(params[:type].classify) if params[:type]
-    documents = documents.authored_by(User.find(params[:author])) if params[:author]
-    documents = documents.in_organisation(Organisation.find(params[:organisation])) if params[:organisation]
-    documents.includes(document_authors: :user).order("updated_at DESC")
-  end
-
   def detect_other_active_editors
     RecentDocumentOpening.expunge! if rand(10) == 0
     @recent_openings = @document.active_document_openings.except_editor(current_user)
+  end
+
+  class DocumentFilter
+    attr_reader :options
+
+    def initialize(document_source, options={})
+      @document_source, @options = document_source, options
+    end
+
+    def documents
+      documents = @document_source
+      documents = documents.by_type(options[:type].classify) if options[:type]
+      documents = documents.__send__(options[:state]) if options[:state]
+      documents = documents.authored_by(User.find(options[:author])) if options[:author]
+      documents = documents.in_organisation(Organisation.find(options[:organisation])) if options[:organisation]
+      documents.includes(:authors).order("updated_at DESC")
+    end
   end
 end
