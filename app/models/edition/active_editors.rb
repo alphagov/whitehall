@@ -5,7 +5,7 @@ module Edition::ActiveEditors
     has_many :recent_edition_openings, foreign_key: :edition_id, dependent: :destroy
   end
 
-  def active_document_openings
+  def active_edition_openings
     recent_edition_openings.active
   end
 

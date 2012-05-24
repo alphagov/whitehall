@@ -954,9 +954,9 @@ class DocumentTest < ActiveSupport::TestCase
     document = create(:edition)
     document.open_for_editing_as(user)
     Timecop.travel 2.hours.from_now
-    assert_equal [user], document.active_document_openings.map(&:editor)
+    assert_equal [user], document.active_edition_openings.map(&:editor)
     Timecop.travel 1.second.from_now
-    assert_equal [], document.active_document_openings
+    assert_equal [], document.active_edition_openings
   end
 
   test "#save_as removes all RecentEditionOpenings for the specified editor" do
