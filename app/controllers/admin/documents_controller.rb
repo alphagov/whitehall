@@ -20,22 +20,37 @@ class Admin::DocumentsController < Admin::BaseController
 
   def all
     @documents = filter_documents(document_class.active)
+    @page_title = "All Documents"
+    @document_state = ''
+    render :index
   end
 
   def draft
     @documents = filter_documents(document_class.draft)
+    @page_title = "Draft Documents"
+    @document_state = 'draft'
+    render :index
   end
 
   def submitted
     @documents = filter_documents(document_class.submitted)
+    @page_title = "Submitted Documents"
+    @document_state = 'submitted'
+    render :index
   end
 
   def published
     @documents = filter_documents(document_class.published)
+    @page_title = "Published Documents"
+    @document_state = 'published'
+    render :index
   end
 
   def rejected
     @documents = filter_documents(document_class.rejected)
+    @page_title = "Rejected Documents"
+    @document_state = 'rejected'
+    render :index
   end
 
   def new
