@@ -3,8 +3,8 @@ module Edition::Organisations
 
   class Trait < Edition::Traits::Trait
     def process_associations_before_save(document)
-      @document.document_organisations.each do |association|
-        document.document_organisations.build(
+      @document.edition_organisations.each do |association|
+        document.edition_organisations.build(
           organisation: association.organisation,
           featured: association.featured?
         )
@@ -13,8 +13,8 @@ module Edition::Organisations
   end
 
   included do
-    has_many :document_organisations, foreign_key: :edition_id, dependent: :destroy
-    has_many :organisations, through: :document_organisations
+    has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy
+    has_many :organisations, through: :edition_organisations
 
     add_trait Trait
   end

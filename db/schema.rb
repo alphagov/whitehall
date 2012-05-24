@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525000600) do
+ActiveRecord::Schema.define(:version => 20120525000700) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -69,17 +69,6 @@ ActiveRecord::Schema.define(:version => 20120525000600) do
 
   add_index "doc_identities", ["slug", "document_type"], :name => "index_doc_identities_on_slug_and_document_type", :unique => true
 
-  create_table "document_organisations", :force => true do |t|
-    t.integer  "edition_id"
-    t.integer  "organisation_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "featured",        :default => false
-  end
-
-  add_index "document_organisations", ["edition_id", "organisation_id"], :name => "index_document_organisations_on_edition_id_and_organisation_id", :unique => true
-  add_index "document_organisations", ["organisation_id"], :name => "index_document_organisations_on_organisation_id"
-
   create_table "document_relations", :force => true do |t|
     t.integer  "edition_id",      :null => false
     t.datetime "created_at"
@@ -130,6 +119,17 @@ ActiveRecord::Schema.define(:version => 20120525000600) do
 
   add_index "edition_ministerial_roles", ["edition_id"], :name => "index_edition_ministerial_roles_on_edition_id"
   add_index "edition_ministerial_roles", ["ministerial_role_id"], :name => "index_edition_ministerial_roles_on_ministerial_role_id"
+
+  create_table "edition_organisations", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "organisation_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "featured",        :default => false
+  end
+
+  add_index "edition_organisations", ["edition_id", "organisation_id"], :name => "index_edition_organisations_on_edition_id_and_organisation_id", :unique => true
+  add_index "edition_organisations", ["organisation_id"], :name => "index_edition_organisations_on_organisation_id"
 
   create_table "editions", :force => true do |t|
     t.string   "title"

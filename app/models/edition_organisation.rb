@@ -1,4 +1,4 @@
-class DocumentOrganisation < ActiveRecord::Base
+class EditionOrganisation < ActiveRecord::Base
   belongs_to :edition
   belongs_to :organisation
 end

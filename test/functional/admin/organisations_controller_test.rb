@@ -269,24 +269,24 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "editing should allow non-featured published news articles to be featured" do
     published_news_article = create(:published_news_article)
     organisation = create(:organisation)
-    document_organisation = create(:document_organisation, organisation: organisation, edition: published_news_article)
+    document_organisation = create(:edition_organisation, organisation: organisation, edition: published_news_article)
 
     get :edit, id: organisation
 
-    assert_select "form[action=#{admin_document_organisation_path(document_organisation)}]" do
-      assert_select "input[name='document_organisation[featured]'][value='true']"
+    assert_select "form[action=#{admin_edition_organisation_path(document_organisation)}]" do
+      assert_select "input[name='edition_organisation[featured]'][value='true']"
     end
   end
 
   test "editing should allow featured published news articles to be unfeatured" do
     published_news_article = create(:published_news_article)
     organisation = create(:organisation)
-    document_organisation = create(:document_organisation, organisation: organisation, edition: published_news_article, featured: true)
+    document_organisation = create(:edition_organisation, organisation: organisation, edition: published_news_article, featured: true)
 
     get :edit, id: organisation
 
-    assert_select "form[action=#{admin_document_organisation_path(document_organisation)}]" do
-      assert_select "input[name='document_organisation[featured]'][value='false']"
+    assert_select "form[action=#{admin_edition_organisation_path(document_organisation)}]" do
+      assert_select "input[name='edition_organisation[featured]'][value='false']"
     end
   end
 

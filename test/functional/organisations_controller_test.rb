@@ -44,8 +44,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
     more_recent_news_article = create(:published_news_article, first_published_at: 1.day.ago)
-    create(:document_organisation, edition: less_recent_news_article, organisation: organisation, featured: true)
-    create(:document_organisation, edition: more_recent_news_article, organisation: organisation, featured: true)
+    create(:edition_organisation, edition: less_recent_news_article, organisation: organisation, featured: true)
+    create(:edition_organisation, edition: more_recent_news_article, organisation: organisation, featured: true)
 
     get :show, id: organisation
 
@@ -56,7 +56,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     4.times do
       news_article = create(:published_news_article)
-      create(:document_organisation, edition: news_article, organisation: organisation, featured: true)
+      create(:edition_organisation, edition: news_article, organisation: organisation, featured: true)
     end
 
     get :show, id: organisation
@@ -68,7 +68,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     lead_image = create(:image)
     news_article = create(:published_news_article, images: [lead_image])
     organisation = create(:organisation)
-    create(:document_organisation, edition: news_article, organisation: organisation, featured: true)
+    create(:edition_organisation, edition: news_article, organisation: organisation, featured: true)
 
     get :show, id: organisation
 
@@ -80,7 +80,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "shows organisation's featured news article with a blank image where no image has been supplied" do
     news_article = create(:published_news_article)
     organisation = create(:organisation)
-    create(:document_organisation, edition: news_article, organisation: organisation, featured: true)
+    create(:edition_organisation, edition: news_article, organisation: organisation, featured: true)
 
     get :show, id: organisation
 

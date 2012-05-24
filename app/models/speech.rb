@@ -32,12 +32,12 @@ class Speech < Edition
 
   def populate_organisations_based_on_role_appointment
     organisation_associations = role_appointment.role.organisations.map do |organisation|
-      if existing = document_organisations.detect {|candidate| candidate.organisation_id = organisation.id }
+      if existing = edition_organisations.detect {|candidate| candidate.organisation_id = organisation.id }
         existing
       else
-        document_organisations.build organisation: organisation
+        edition_organisations.build organisation: organisation
       end
     end
-    self.document_organisations = organisation_associations
+    self.edition_organisations = organisation_associations
   end
 end
