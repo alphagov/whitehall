@@ -32,6 +32,7 @@
       </div>
 
       <div class="state group">
+        <%= link_to_filter 'all', action: :all %>
         <%= link_to_filter 'drafts', action: :draft %>
         <%= link_to_filter 'submitted', action: :submitted %>
         <%= link_to_filter 'rejected', action: :rejected %>
@@ -46,7 +47,10 @@
           <th>Title</th>
           <th>Creator</th>
           <th>Updated</th>
-          <% if params[:filter] && documents.any?(&:featurable?) %>
+          <% if viewing_all_active_documents? %>
+            <th>State</th>
+          <% end %>
+          <% if show_featuring_controls?(*documents) %>
             <th>Featured</th>
           <% end %>
         </tr>
@@ -70,7 +74,10 @@
             </td>
             <td class="author"><%= document.creator.name %></td>
             <td class="updated"><%= time_ago_in_words document.updated_at %> ago</td>
-            <% if params[:filter] && document.featurable? %>
+            <% if viewing_all_active_documents? %>
+              <td class="state"><%= document.state.humanize %></td>
+            <% end %>
+            <% if show_featuring_controls?(document) %>
               <td class="featured">
                 <% if document.featured? %>
                   <%= button_to "No longer feature", admin_document_featuring_path(document), method: :delete, form_class: "unfeature" %>

@@ -380,6 +380,16 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [submitted_document], Document.submitted
   end
 
+  test "should return all documents excluding those that are archived or deleted" do
+    draft_document = create(:draft_document)
+    submitted_document = create(:submitted_document)
+    rejected_document = create(:rejected_document)
+    published_document = create(:published_document)
+    deleted_document = create(:deleted_document)
+    archived_document = create(:archived_document)
+    assert_same_elements [draft_document, submitted_document, rejected_document, published_document], Document.active
+  end
+
   test "should not be publishable when not submitted" do
     draft_document = create(:draft_document)
     refute draft_document.publishable_by?(create(:departmental_editor))

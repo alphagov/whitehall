@@ -21,6 +21,13 @@ module Admin::DocumentsHelper
     'current' if current
   end
 
+  def viewing_all_active_documents?
+    params[:action] == 'all'
+  end
+
+  def show_featuring_controls?(*documents)
+    !viewing_all_active_documents? && params[:filter] && documents.any?(&:featurable?)
+  end
 
   MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document"
   MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE = "MS Excel Spreadsheet"

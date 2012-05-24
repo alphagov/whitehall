@@ -1,6 +1,12 @@
 module Document::Workflow
   extend ActiveSupport::Concern
 
+  module ClassMethods
+    def active
+      where(arel_table[:state].not_eq('archived'))
+    end
+  end
+
   included do
     include ::Transitions
     include ActiveRecord::Transitions

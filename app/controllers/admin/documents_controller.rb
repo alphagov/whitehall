@@ -18,6 +18,10 @@ class Admin::DocumentsController < Admin::BaseController
     redirect_to action: :draft
   end
 
+  def all
+    @documents = filter_documents(document_class.active)
+  end
+
   def draft
     @documents = filter_documents(document_class.draft)
   end

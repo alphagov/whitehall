@@ -326,4 +326,54 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_select_object(policy)
     assert_select "tr.force_published"
   end
+
+  test "should return all non-archived and non-deleted documents" do
+    draft_document = create(:draft_policy)
+    submitted_document = create(:submitted_policy)
+    rejected_document = create(:rejected_policy)
+    published_document = create(:published_policy)
+    deleted_document = create(:deleted_policy)
+    archived_document = create(:archived_policy)
+
+    get :all
+
+    assert_same_elements [draft_document, submitted_document, rejected_document, published_document].map(&:state), assigns(:documents).all.map(&:state)
+  end
+
+  test "should link to all active documents" do
+    get :draft
+
+    assert_select "a[href='#{all_admin_documents_path}']"
+  end
+
+  test "should not display the featured column when viewing all active documents" do
+    create(:published_news_article)
+
+    get :all, filter: 'news_article'
+
+    refute_select "th", text: "Featured"
+    refute_select "td.featured"
+  end
+
+  test "should display state information when viewing all active documents" do
+    draft_document = create(:draft_policy)
+    submitted_document = create(:submitted_publication)
+    rejected_document = create(:rejected_news_article)
+    published_document = create(:published_consultation)
+
+    get :all
+
+    assert_select_object(draft_document) { assert_select ".state", "Draft" }
+    assert_select_object(submitted_document) { assert_select ".state", "Submitted" }
+    assert_select_object(rejected_document) { assert_select ".state", "Rejected" }
+    assert_select_object(published_document) { assert_select ".state", "Published" }
+  end
+
+  test "should not display state information when viewing documents of a particular state" do
+    draft_document = create(:draft_policy)
+
+    get :draft
+
+    assert_select_object(draft_document) { refute_select ".state" }
+  end
 end
