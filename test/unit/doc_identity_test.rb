@@ -1,7 +1,7 @@
 require "test_helper"
 
 class DocIdentityTest < ActiveSupport::TestCase
-  test "should return documents that have published documents" do
+  test "should return documents that have published editions" do
     archived_policy = create(:archived_policy)
     published_policy = create(:published_policy)
     draft_policy = create(:draft_policy)
@@ -9,7 +9,7 @@ class DocIdentityTest < ActiveSupport::TestCase
     assert_equal [published_policy.doc_identity], DocIdentity.published
   end
 
-  test "should return the published document" do
+  test "should return the published edition" do
     user = create(:departmental_editor)
     doc_identity = create(:doc_identity)
     original_policy = create(:draft_policy, doc_identity: doc_identity)
@@ -42,7 +42,7 @@ class DocIdentityTest < ActiveSupport::TestCase
     assert_equal original_edition, original_edition.doc_identity.latest_edition
   end
 
-  test "#destroy also destroys ALL documents including those marked as deleted" do
+  test "#destroy also destroys ALL editions including those marked as deleted" do
     original_edition = create(:published_policy)
     new_draft = original_edition.create_draft(create(:policy_writer))
     new_draft.delete!
@@ -51,7 +51,7 @@ class DocIdentityTest < ActiveSupport::TestCase
     assert_equal nil, Edition.unscoped.find_by_id(new_draft.id)
   end
 
-  test "#destroy also destroys relations to other documents" do
+  test "#destroy also destroys relations to other editions" do
     identity = create(:doc_identity)
     relationship = create(:edition_relation, doc_identity: identity)
     identity.destroy

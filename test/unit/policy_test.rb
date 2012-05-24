@@ -23,7 +23,7 @@ class PolicyTest < ActiveSupport::TestCase
     assert_equal "http://scot.gov.uk", draft_policy.nation_inapplicabilities.find_by_nation_id(Nation.scotland.id).alternative_url
   end
 
-  test "should build a draft copy with references to related documents" do
+  test "should build a draft copy with references to related editions" do
     published_policy = create(:published_policy)
     publication = create(:published_publication, related_policies: [published_policy])
     speech = create(:published_speech, related_policies: [published_policy])
@@ -50,10 +50,10 @@ class PolicyTest < ActiveSupport::TestCase
     assert_equal "stub-title", create(:policy, title: "stub title", stub: true).doc_identity.slug
   end
 
-  test "#destroy should remove document relations to other documents" do
-    document = create(:draft_policy)
-    relationship = create(:edition_relation, doc_identity: document.doc_identity)
-    document.destroy
+  test "#destroy should remove edition relations to other editions" do
+    edition = create(:draft_policy)
+    relationship = create(:edition_relation, doc_identity: edition.doc_identity)
+    edition.destroy
     assert_equal nil, EditionRelation.find_by_id(relationship.id)
   end
 end

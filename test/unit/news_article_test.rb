@@ -6,7 +6,7 @@ class NewsArticleTest < ActiveSupport::TestCase
 
   should_be_featurable :news_article
 
-  test "should be able to relate to other documents" do
+  test "should be able to relate to other editions" do
     article = build(:news_article)
     assert article.can_be_related_to_policies?
   end

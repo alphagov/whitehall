@@ -11,28 +11,28 @@ class SupportingPageTest < ActiveSupport::TestCase
     refute supporting_page.valid?
   end
 
-  test "should be invalid without a document" do
+  test "should be invalid without a edition" do
     supporting_page = build(:supporting_page, edition: nil)
     refute supporting_page.valid?
   end
 
-  test "mark parent document as updated when supporting page is created" do
-    parent_document = create(:draft_policy)
-    lock_version = parent_document.lock_version
+  test "mark parent edition as updated when supporting page is created" do
+    parent_edition = create(:draft_policy)
+    lock_version = parent_edition.lock_version
 
-    supporting_page = create(:supporting_page, edition: parent_document)
+    supporting_page = create(:supporting_page, edition: parent_edition)
 
-    refute_equal lock_version, parent_document.reload.lock_version
+    refute_equal lock_version, parent_edition.reload.lock_version
   end
 
-  test "mark parent document as updated when supporting page is updated" do
+  test "mark parent edition as updated when supporting page is updated" do
     supporting_page = create(:supporting_page)
-    parent_document = supporting_page.edition
-    lock_version = parent_document.lock_version
+    parent_edition = supporting_page.edition
+    lock_version = parent_edition.lock_version
 
     supporting_page.update_attributes!(title: 'New title')
 
-    refute_equal lock_version, parent_document.reload.lock_version
+    refute_equal lock_version, parent_edition.reload.lock_version
   end
 
   test "should set a slug from the supporting page title" do
@@ -51,14 +51,14 @@ class SupportingPageTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', supporting_page.slug
   end
 
-  test "should not be destroyable if its document is published" do
+  test "should not be destroyable if its edition is published" do
     supporting_page = create(:supporting_page, edition: create(:published_policy))
     refute supporting_page.destroyable?
     refute supporting_page.destroy
     assert_nothing_raised { supporting_page.reload }
   end
 
-  test "should be destroyable if its document is not published" do
+  test "should be destroyable if its edition is not published" do
     supporting_page = create(:supporting_page, edition: create(:draft_policy))
     assert supporting_page.destroyable?
     assert supporting_page.destroy
@@ -106,7 +106,7 @@ class SupportingPageTest < ActiveSupport::TestCase
     supporting_page.destroy
   end
 
-  test 'should return search index data for all supporting pages on published documents' do
+  test 'should return search index data for all supporting pages on published editions' do
     policy = create(:published_policy)
     draft_policy = create(:draft_policy)
     policy_slug = policy.doc_identity.slug
@@ -127,11 +127,11 @@ class SupportingPageTest < ActiveSupport::TestCase
 
   test "should not change its slug when the parent policy is updated" do
     user = create(:user)
-    document = create(:published_policy, title: "Ban beards")
-    supporting_page = create(:supporting_page, edition: document, title: "Proscribed facial hair styles")
+    edition = create(:published_policy, title: "Ban beards")
+    supporting_page = create(:supporting_page, edition: edition, title: "Proscribed facial hair styles")
     slug = supporting_page.slug
-    new_document = document.create_draft(user)
-    new_document.reload.submit!
-    assert_equal slug, new_document.supporting_pages.first.slug
+    new_edition = edition.create_draft(user)
+    new_edition.reload.submit!
+    assert_equal slug, new_edition.supporting_pages.first.slug
   end
 end

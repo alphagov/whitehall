@@ -279,9 +279,9 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_nil SocialMediaAccount.find_by_id(social_media_account.id)
   end
 
-  test 'destroy removes document relationships' do
+  test 'destroy removes edition relationships' do
     organisation = create(:organisation)
-    document = create(:published_edition, organisations: [organisation])
+    edition = create(:published_edition, organisations: [organisation])
     organisation.destroy
     assert_equal 0, EditionOrganisation.count
   end

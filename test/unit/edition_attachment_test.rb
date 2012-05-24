@@ -1,20 +1,20 @@
 require 'test_helper'
 
 class DocumentAttachmentTest < ActiveSupport::TestCase
-  test "destroys attachment when no documents are associated" do
-    document_attachment = create(:edition_attachment)
-    attachment = document_attachment.attachment
-    other_document_attachment = create(:edition_attachment, attachment: attachment)
+  test "destroys attachment when no editions are associated" do
+    edition_attachment = create(:edition_attachment)
+    attachment = edition_attachment.attachment
+    other_edition_attachment = create(:edition_attachment, attachment: attachment)
 
     attachment.expects(:destroy).never
-    document_attachment.destroy
+    edition_attachment.destroy
   end
 
-  test "does not destroy attachment when if more documents are associated" do
-    document_attachment = create(:edition_attachment)
-    attachment = document_attachment.attachment
+  test "does not destroy attachment when if more editions are associated" do
+    edition_attachment = create(:edition_attachment)
+    attachment = edition_attachment.attachment
 
     attachment.expects(:destroy)
-    document_attachment.destroy
+    edition_attachment.destroy
   end
 end
