@@ -65,10 +65,10 @@ class PolicyTopic < ActiveRecord::Base
     joins(:published_policies).group(:policy_topic_id)
   end
 
-  def published_related_documents
+  def published_related_editions
     policies.published.includes(
-      :published_related_documents
-    ).map(&:published_related_documents).flatten.uniq
+      :published_related_editions
+    ).map(&:published_related_editions).flatten.uniq
   end
 
   def destroyable?

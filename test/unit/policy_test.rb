@@ -31,8 +31,8 @@ class PolicyTest < ActiveSupport::TestCase
     draft_policy = published_policy.create_draft(create(:policy_writer))
     assert draft_policy.valid?
 
-    assert draft_policy.related_documents.include?(speech)
-    assert draft_policy.related_documents.include?(publication)
+    assert draft_policy.related_editions.include?(speech)
+    assert draft_policy.related_editions.include?(publication)
   end
 
   test "can belong to multiple policy topics" do

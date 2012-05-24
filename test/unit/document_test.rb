@@ -161,7 +161,7 @@ class DocumentTest < ActiveSupport::TestCase
     publication_1 = create(:publication, related_policies: [policy])
     publication_2 = create(:publication, related_policies: [policy])
 
-    assert_equal [publication_1, publication_2], policy.related_documents
+    assert_equal [publication_1, publication_2], policy.related_editions
     assert_equal [policy], publication_1.related_policies
     assert_equal [policy], publication_2.related_policies
   end
@@ -171,7 +171,7 @@ class DocumentTest < ActiveSupport::TestCase
     document_1 = create(:published_publication, related_policies: [policy])
     document_2 = create(:published_publication, related_policies: [policy])
 
-    assert_equal [document_1, document_2], policy.published_related_documents
+    assert_equal [document_1, document_2], policy.published_related_editions
     assert_equal [policy], document_1.published_related_policies
     assert_equal [policy], document_2.published_related_policies
   end

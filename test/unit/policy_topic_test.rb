@@ -87,7 +87,7 @@ class PolicyTopicTest < ActiveSupport::TestCase
     publication_1 = create(:published_publication, related_policies: [policy])
     policy_topic = create(:policy_topic, policies: [policy])
 
-    assert_equal [publication_1], policy_topic.published_related_documents
+    assert_equal [publication_1], policy_topic.published_related_editions
   end
 
   test "return published documents relating to policies in the policy topic without duplicates" do
@@ -97,7 +97,7 @@ class PolicyTopicTest < ActiveSupport::TestCase
     publication_2 = create(:published_publication, related_policies: [policy_1, policy_2])
     policy_topic = create(:policy_topic, policies: [policy_1, policy_2])
 
-    assert_equal [publication_1, publication_2], policy_topic.published_related_documents
+    assert_equal [publication_1, publication_2], policy_topic.published_related_editions
   end
 
   test "return only *published* documents relating to policies in the policy topic" do
@@ -105,7 +105,7 @@ class PolicyTopicTest < ActiveSupport::TestCase
     create(:draft_publication, related_policies: [published_policy])
     policy_topic = create(:policy_topic, policies: [published_policy])
 
-    assert_equal [], policy_topic.published_related_documents
+    assert_equal [], policy_topic.published_related_editions
   end
 
   test "return documents relating to only *published* policies in the policy topic" do
@@ -113,7 +113,7 @@ class PolicyTopicTest < ActiveSupport::TestCase
     create(:published_publication, related_policies: [draft_policy])
     policy_topic = create(:policy_topic, policies: [draft_policy])
 
-    assert_equal [], policy_topic.published_related_documents
+    assert_equal [], policy_topic.published_related_editions
   end
 
   test "return published documents relating from policies in the policy topic without duplicates" do
@@ -123,7 +123,7 @@ class PolicyTopicTest < ActiveSupport::TestCase
     publication_2 = create(:published_publication, related_policies: [policy_1])
     policy_topic = create(:policy_topic, policies: [policy_1, policy_2])
 
-    assert_equal [publication_1, publication_2], policy_topic.published_related_documents
+    assert_equal [publication_1, publication_2], policy_topic.published_related_editions
   end
 
   test "return only *published* documents relating from policies in the policy topic" do
@@ -131,7 +131,7 @@ class PolicyTopicTest < ActiveSupport::TestCase
     draft_publication = create(:draft_publication, related_policies: [published_policy])
     policy_topic = create(:policy_topic, policies: [published_policy])
 
-    assert_equal [], policy_topic.published_related_documents
+    assert_equal [], policy_topic.published_related_editions
   end
 
   test "return documents relating from only *published* policies in the policy topic" do
@@ -139,7 +139,7 @@ class PolicyTopicTest < ActiveSupport::TestCase
     published_publication = create(:published_publication, related_policies: [draft_policy])
     policy_topic = create(:policy_topic, policies: [draft_policy])
 
-    assert_equal [], policy_topic.published_related_documents
+    assert_equal [], policy_topic.published_related_editions
   end
 
   test "should exclude deleted policy topics by default" do

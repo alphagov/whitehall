@@ -194,7 +194,7 @@ class Edition < ActiveRecord::Base
     def related_to(edition)
       case edition
       when Policy
-        where(id: edition.related_documents.collect(&:id))
+        where(id: edition.related_editions.collect(&:id))
       else
         where(id: edition.related_policies.collect(&:id))
       end

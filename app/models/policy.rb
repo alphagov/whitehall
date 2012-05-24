@@ -7,14 +7,14 @@ class Policy < Edition
   include Edition::Countries
 
   has_many :edition_relations, through: :doc_identity
-  has_many :related_documents, through: :edition_relations, source: :edition
-  has_many :published_related_documents, through: :edition_relations, source: :edition, conditions: {editions: {state: 'published'}}
+  has_many :related_editions, through: :edition_relations, source: :edition
+  has_many :published_related_editions, through: :edition_relations, source: :edition, conditions: {editions: {state: 'published'}}
 
   validates :summary, presence: true
 
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
-      edition.related_documents = @edition.related_documents
+      edition.related_editions = @edition.related_editions
     end
   end
 

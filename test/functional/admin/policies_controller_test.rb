@@ -127,12 +127,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   test "updating should retain associations to related documents" do
     policy = create(:draft_policy)
     publication = create(:draft_publication, related_policies: [policy])
-    assert policy.related_documents.include?(publication), "policy and publication should be related"
+    assert policy.related_editions.include?(publication), "policy and publication should be related"
 
     put :update, id: policy, document: {title: "another title"}
 
     policy.reload
-    assert policy.related_documents.include?(publication), "polcy and publication should still be related"
+    assert policy.related_editions.include?(publication), "polcy and publication should still be related"
   end
 
   test "show does not display image for document types that do not allow one" do

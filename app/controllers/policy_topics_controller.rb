@@ -22,6 +22,6 @@ class PolicyTopicsController < PublicFacingController
   private
 
   def recently_changed_documents
-    (@policy_topic.published_related_documents + @policies).sort_by(&:published_at).reverse
+    (@policy_topic.published_related_editions + @policies).sort_by(&:published_at).reverse
   end
 end
