@@ -8,8 +8,8 @@ module Edition::Countries
   end
 
   included do
-    has_many :document_countries, foreign_key: :edition_id, dependent: :destroy
-    has_many :countries, through: :document_countries
+    has_many :edition_countries, foreign_key: :edition_id, dependent: :destroy
+    has_many :countries, through: :edition_countries
 
     add_trait Trait
   end

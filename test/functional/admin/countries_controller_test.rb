@@ -54,24 +54,24 @@ class Admin::CountriesControllerTest < ActionController::TestCase
   test "editing should allow non-featured published news articles to be featured" do
     published_news_article = create(:published_news_article)
     country = create(:country)
-    document_country = create(:document_country, country: country, edition: published_news_article)
+    document_country = create(:edition_country, country: country, edition: published_news_article)
 
     get :edit, id: country
 
-    assert_select "form[action=#{admin_document_country_path(document_country)}]" do
-      assert_select "input[name='document_country[featured]'][value='true']"
+    assert_select "form[action=#{admin_edition_country_path(document_country)}]" do
+      assert_select "input[name='edition_country[featured]'][value='true']"
     end
   end
 
   test "editing should allow featured published news articles to be unfeatured" do
     published_news_article = create(:published_news_article)
     country = create(:country)
-    document_country = create(:document_country, country: country, edition: published_news_article, featured: true)
+    document_country = create(:edition_country, country: country, edition: published_news_article, featured: true)
 
     get :edit, id: country
 
-    assert_select "form[action=#{admin_document_country_path(document_country)}]" do
-      assert_select "input[name='document_country[featured]'][value='false']"
+    assert_select "form[action=#{admin_edition_country_path(document_country)}]" do
+      assert_select "input[name='edition_country[featured]'][value='false']"
     end
   end
 end

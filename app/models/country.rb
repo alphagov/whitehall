@@ -7,9 +7,9 @@ class Country < ActiveRecord::Base
     "USA"    => ["http://ukinusa.fco.gov.uk"],
   }
 
-  has_many :document_countries
-  has_many :editions, through: :document_countries
-  has_many :featured_news_articles, through: :document_countries, class_name: "NewsArticle", source: :edition, conditions: { "document_countries.featured" => true, "editions.state" => "published" }
+  has_many :edition_countries
+  has_many :editions, through: :edition_countries
+  has_many :featured_news_articles, through: :edition_countries, class_name: "NewsArticle", source: :edition, conditions: { "edition_countries.featured" => true, "editions.state" => "published" }
 
   validates :name, presence: true
 

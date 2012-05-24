@@ -1,4 +1,4 @@
 FactoryGirl.define do
-  factory :document_country do
+  factory :edition_country do
   end
 end
