@@ -10,7 +10,7 @@ module Admin::DocumentsHelper
   end
 
   def link_to_filter(link, options)
-    link_to link, url_for(params.slice('filter', 'author', 'organisation').merge(options)), class: filter_class(options)
+    link_to link, url_for(params.slice('type', 'author', 'organisation').merge(options)), class: filter_class(options)
   end
 
   def filter_class(options)
@@ -26,7 +26,7 @@ module Admin::DocumentsHelper
   end
 
   def show_featuring_controls?(*documents)
-    !viewing_all_active_documents? && params[:filter] && documents.any?(&:featurable?)
+    !viewing_all_active_documents? && params[:type] && documents.any?(&:featurable?)
   end
 
   MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document"

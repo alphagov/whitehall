@@ -122,7 +122,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by policies when viewing list of documents" do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    get :draft, filter: 'policy'
+    get :draft, type: 'policy'
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
     refute_select ".type", text: "Publication"
@@ -131,7 +131,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by publications when viewing list of documents" do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    get :draft, filter: 'publication'
+    get :draft, type: 'publication'
 
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
     refute_select ".type", text: "Policy"
@@ -140,7 +140,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by speeches when viewing list of documents" do
     policy = create(:draft_policy)
     speech = create(:speech)
-    get :draft, filter: 'speech'
+    get :draft, type: 'speech'
 
     assert_select_object(speech) { assert_select ".type", text: "Speech" }
     refute_select ".type", text: "Policy"
@@ -149,7 +149,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by news articles when viewing list of documents" do
     policy = create(:draft_policy)
     news = create(:news_article)
-    get :draft, filter: 'news_article'
+    get :draft, type: 'news_article'
 
     assert_select_object(news) { assert_select ".type", text: "News Article" }
     refute_select ".type", text: "Policy"
@@ -158,7 +158,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by consultations when viewing list of documents" do
     policy = create(:draft_policy)
     consultation = create(:consultation)
-    get :draft, filter: 'consultation'
+    get :draft, type: 'consultation'
 
     assert_select_object(consultation) { assert_select ".type", text: "Consultation" }
     refute_select ".type", text: "Policy"
@@ -167,7 +167,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by consultation responses when viewing list of documents" do
     policy = create(:draft_policy)
     consultation_response = create(:consultation_response)
-    get :draft, filter: 'consultation_response'
+    get :draft, type: 'consultation_response'
 
     assert_select_object(consultation_response) { assert_select ".type", text: "Consultation Response" }
     refute_select ".type", text: "Policy"
@@ -198,8 +198,8 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   end
 
   test "should remember standard filter options" do
-    get :draft, filter: 'consultation'
-    assert_equal 'consultation', session[:document_filters][:filter]
+    get :draft, type: 'consultation'
+    assert_equal 'consultation', session[:document_filters][:type]
   end
 
   test "should remember author filter options" do
@@ -247,7 +247,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   [:publication, :consultation].each do |document_type|
     test "should display a form for featuring an unfeatured #{document_type} without a featuring image" do
       document = create("published_#{document_type}")
-      get :published, filter: document_type
+      get :published, type: document_type
       expected_url = send("admin_document_featuring_path", document)
       assert_select ".featured form.feature[action=#{expected_url}]" do
         refute_select "input[name=_method]"
@@ -258,7 +258,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
     test "should display a form for unfeaturing a featured #{document_type} without a featuring image" do
       document = create("featured_#{document_type}")
-      get :published, filter: document_type
+      get :published, type: document_type
       expected_url = send("admin_document_featuring_path", document)
       assert_select ".featured form.unfeature[action=#{expected_url}]" do
         assert_select "input[name=_method][value=delete]"
@@ -268,7 +268,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
     test "should not show featuring image on a featured #{document_type} because they do not allow a featuring image" do
       document = create("featured_#{document_type}")
-      get :published, filter: document_type
+      get :published, type: document_type
       assert_select ".featured" do
         refute_select "img"
       end
@@ -277,7 +277,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test "should display a form for featuring an unfeatured news article" do
     news_article = create(:published_news_article)
-    get :published, filter: :news_article
+    get :published, type: :news_article
     expected_url = send("admin_document_featuring_path", news_article)
     assert_select ".featured form.feature[action=#{expected_url}]" do
       refute_select "input[name=_method]"
@@ -287,7 +287,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test "should display a form for unfeaturing a featured news article" do
     news_article = create(:featured_news_article)
-    get :published, filter: :news_article
+    get :published, type: :news_article
     expected_url = send("admin_document_featuring_path", news_article)
     assert_select ".featured form.unfeature[action=#{expected_url}]" do
       assert_select "input[name=_method][value=delete]"
@@ -306,14 +306,14 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should not display the featured column on a filtered document page where that document isn't featureable" do
     policy = create(:draft_policy)
     refute policy.featurable?
-    get :draft, filter: "policy"
+    get :draft, type: "policy"
     refute_select "th", text: "Featured"
     refute_select "td.featured"
   end
 
   test "should not show published documents as force published" do
     policy = create(:published_policy)
-    get :published, filter: :policy
+    get :published, type: :policy
 
     assert_select_object(policy)
     refute_select "tr.force_published"
@@ -321,7 +321,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test "should show force published documents as force published" do
     policy = create(:published_policy, force_published: true)
-    get :published, filter: :policy
+    get :published, type: :policy
 
     assert_select_object(policy)
     assert_select "tr.force_published"
@@ -349,7 +349,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should not display the featured column when viewing all active documents" do
     create(:published_news_article)
 
-    get :all, filter: 'news_article'
+    get :all, type: 'news_article'
 
     refute_select "th", text: "Featured"
     refute_select "td.featured"

@@ -43,7 +43,7 @@ end
 
 When /^I feature the news article "([^"]*)"$/ do |title|
   news_article = NewsArticle.find_by_title!(title)
-  visit published_admin_documents_path(filter: 'news_article')
+  visit published_admin_documents_path(type: 'news_article')
   within record_css_selector(news_article) do
     click_button "Feature"
   end
@@ -51,7 +51,7 @@ end
 
 When /^I unfeature the news article "([^"]*)"$/ do |title|
   news_article = NewsArticle.find_by_title!(title)
-  visit published_admin_documents_path(filter: 'news_article')
+  visit published_admin_documents_path(type: 'news_article')
   within record_css_selector(news_article) do
     click_button "No longer feature"
   end

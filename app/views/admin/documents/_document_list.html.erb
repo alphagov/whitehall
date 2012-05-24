@@ -21,14 +21,14 @@
 
     <nav class="filter group">
       <div class="type group">
-        <%= link_to_filter 'all', filter: nil %>
-        <%= link_to_filter 'policies', filter: 'policy' %>
-        <%= link_to_filter 'publications', filter: 'publication' %>
-        <%= link_to_filter 'news articles', filter: 'news_article' %>
-        <%= link_to_filter 'consultations', filter: 'consultation' %>
-        <%= link_to_filter 'responses', filter: 'consultation_response' %>
-        <%= link_to_filter 'speeches', filter: 'speech' %>
-        <%= link_to_filter 'international priorities', filter: 'international_priorities' %>
+        <%= link_to_filter 'all', type: nil %>
+        <%= link_to_filter 'policies', type: 'policy' %>
+        <%= link_to_filter 'publications', type: 'publication' %>
+        <%= link_to_filter 'news articles', type: 'news_article' %>
+        <%= link_to_filter 'consultations', type: 'consultation' %>
+        <%= link_to_filter 'responses', type: 'consultation_response' %>
+        <%= link_to_filter 'speeches', type: 'speech' %>
+        <%= link_to_filter 'international priorities', type: 'international_priorities' %>
       </div>
 
       <div class="state group">
@@ -92,7 +92,7 @@
         <% end %>
         <% if documents.blank? %>
           <tr>
-            <td colspan="4">No <%= document_state %> <%= (params[:filter].present? ? params[:filter].humanize.pluralize.downcase : 'documents') %> have been found.</td>
+            <td colspan="4">No <%= document_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
           </tr>
         <% end %>
       </tbody>

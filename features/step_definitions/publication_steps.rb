@@ -88,7 +88,7 @@ end
 
 When /^I feature the publication "([^"]*)"$/ do |publication_title|
   publication = Publication.find_by_title!(publication_title)
-  visit published_admin_documents_path(filter: 'publication')
+  visit published_admin_documents_path(type: 'publication')
   within record_css_selector(publication) do
     click_button "Feature"
   end
@@ -96,7 +96,7 @@ end
 
 When /^I unfeature the publication "([^"]*)"$/ do |publication_title|
   publication = Publication.find_by_title!(publication_title)
-  visit published_admin_documents_path(filter: 'publication')
+  visit published_admin_documents_path(type: 'publication')
   within record_css_selector(publication) do
     click_button "No longer feature"
   end

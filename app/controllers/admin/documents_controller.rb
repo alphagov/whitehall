@@ -154,14 +154,14 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def filter_documents(documents)
-    documents = documents.by_type(params[:filter].classify) if params[:filter]
+    documents = documents.by_type(params[:type].classify) if params[:type]
     documents = documents.authored_by(User.find(params[:author])) if params[:author]
     documents = documents.in_organisation(Organisation.find(params[:organisation])) if params[:organisation]
     documents.includes(document_authors: :user).order("updated_at DESC")
   end
 
   def remember_filters
-    session[:document_filters] = params.slice('action', 'filter', 'author', 'organisation')
+    session[:document_filters] = params.slice('action', 'type', 'author', 'organisation')
   end
 
   def detect_other_active_editors
