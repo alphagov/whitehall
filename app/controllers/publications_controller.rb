@@ -32,8 +32,4 @@ class PublicationsController < DocumentsController
   def document_class
     Publication
   end
-
-  def top_policy_topics
-    PolicyTopic.exemplars.order(:name)
-  end
 end
