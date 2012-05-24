@@ -45,6 +45,16 @@ class SpeechTest < ActiveSupport::TestCase
     assert_equal [organisation], speech.organisations
   end
 
+  test "creating a new draft should not associate speech with duplicate organisations" do
+    organisation = create(:organisation)
+    ministerial_role = create(:ministerial_role, organisations: [organisation])
+    person = create(:person)
+    role_appointment = create(:role_appointment, role: ministerial_role, person: person)
+    speech = create(:published_speech, role_appointment: role_appointment)
+    new_draft = speech.create_draft(create(:user))
+    assert_equal 1, new_draft.document_organisations.count
+  end
+
   test "#person should return the person who gave the speech" do
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])
