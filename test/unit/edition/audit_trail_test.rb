@@ -67,7 +67,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     assert_equal @user2, doc.audit_trail.last.actor
   end
 
-  test "creating a new draft of a published document records an edition event" do
+  test "creating a new draft of a published edition records an edition event" do
     doc = create(:published_edition)
     policy_writer = create(:policy_writer)
     PaperTrail.whodunnit = policy_writer

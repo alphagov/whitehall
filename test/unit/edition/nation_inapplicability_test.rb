@@ -2,9 +2,9 @@ require "test_helper"
 
 class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
   test "#destroy should also remove the relationship" do
-    document = create(:draft_policy, nation_inapplicabilities_attributes: [{nation: Nation.first}])
-    relation = document.nation_inapplicabilities.first
-    document.destroy
+    edition = create(:draft_policy, nation_inapplicabilities_attributes: [{nation: Nation.first}])
+    relation = edition.nation_inapplicabilities.first
+    edition.destroy
     refute NationInapplicability.find_by_id(relation.id)
   end
 end

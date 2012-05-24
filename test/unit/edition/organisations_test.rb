@@ -9,8 +9,8 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     new_edition = news_article.create_draft(create(:policy_writer))
     new_edition.publish_as(create(:departmental_editor), force: true)
 
-    document_organisation = new_edition.edition_organisations.first
-    assert document_organisation.featured?
+    edition_organisation = new_edition.edition_organisations.first
+    assert edition_organisation.featured?
   end
 
   test "new edition of document not featured in organisation should remain unfeatured in that organisation" do
@@ -21,14 +21,14 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     new_edition = news_article.create_draft(create(:policy_writer))
     new_edition.publish_as(create(:departmental_editor), force: true)
 
-    document_organisation = new_edition.edition_organisations.first
-    refute document_organisation.featured?
+    edition_organisation = new_edition.edition_organisations.first
+    refute edition_organisation.featured?
   end
 
   test "#destroy removes relationship with organisation" do
-    document = create(:draft_policy, organisations: [create(:organisation)])
-    relation = document.edition_organisations.first
-    document.destroy
+    edition = create(:draft_policy, organisations: [create(:organisation)])
+    relation = edition.edition_organisations.first
+    edition.destroy
     refute EditionOrganisation.find_by_id(relation.id)
   end
 end

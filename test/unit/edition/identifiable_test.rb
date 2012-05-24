@@ -29,7 +29,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert_equal policy.doc_identity.slug, publication.doc_identity.slug
   end
 
-  test "should return the document of the correct type when matching slugs for other types exist" do
+  test "should return the edition of the correct type when matching slugs for other types exist" do
     same_title = "same-title"
     policy = create(:published_policy, title: same_title)
     publication = create(:published_publication, title: same_title)

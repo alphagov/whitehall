@@ -3,8 +3,8 @@ require 'test_helper'
 class Edition::ImagesTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test "documents can be created with multiple images" do
-    document = create(:draft_policy, images_attributes: [
+  test "editions can be created with multiple images" do
+    edition = create(:draft_policy, images_attributes: [
       {alt_text: "Something about this image",
        caption: "Text to be visible along with the image",
        image_data_attributes: {file: fixture_file_upload('portas-review.jpg')}},
@@ -13,11 +13,11 @@ class Edition::ImagesTest < ActiveSupport::TestCase
        image_data_attributes: {file: fixture_file_upload('portas-review.jpg')}}
     ])
 
-    assert_equal 2, document.images.count
-    assert_equal "Something about this image", document.images[0].alt_text
-    assert_equal "Text to be visible along with the image", document.images[0].caption
-    assert_equal "alt-text-2", document.images[1].alt_text
-    assert_equal "caption-2", document.images[1].caption
+    assert_equal 2, edition.images.count
+    assert_equal "Something about this image", edition.images[0].alt_text
+    assert_equal "Text to be visible along with the image", edition.images[0].caption
+    assert_equal "alt-text-2", edition.images[1].alt_text
+    assert_equal "caption-2", edition.images[1].caption
   end
 
   test "#create_draft should include copies of image attributes" do
@@ -43,21 +43,21 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   end
 
   test "captions for images can be changed between versions" do
-    document = create(:published_policy, images_attributes: [
+    edition = create(:published_policy, images_attributes: [
       {alt_text: "alt-text",
        caption: "original-caption",
        image_data_attributes: {file: fixture_file_upload('portas-review.jpg')}}])
 
-    draft = document.create_draft(create(:policy_writer))
+    draft = edition.create_draft(create(:policy_writer))
     draft.images.first.update_attributes(caption: "new-caption")
 
-    assert_equal "original-caption", document.images.first.caption
+    assert_equal "original-caption", edition.images.first.caption
   end
 
   test "#destroy should also remove the image" do
     image = create(:image)
-    document = create(:draft_policy, images: [image])
-    document.destroy
+    edition = create(:draft_policy, images: [image])
+    edition.destroy
     refute Image.find_by_id(image.id)
   end
 end
