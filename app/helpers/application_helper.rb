@@ -49,14 +49,6 @@ module ApplicationHelper
     end
   end
 
-  def empty_documents_list_verb(document_state)
-    if document_state.downcase == "draft"
-      "drafted"
-    else
-      document_state.downcase
-    end
-  end
-
   def ministerial_appointment_options
     MinisterialRole.joins(:current_role_appointments).alphabetical_by_person.map do |role|
       [role.current_role_appointment.id, role.to_s]
