@@ -2,8 +2,8 @@ require "test_helper"
 
 class SearchIndexTest < ActiveSupport::TestCase
   test "Whitehall.search_index includes documents" do
-    Edition.stubs(:search_index).returns([:documents])
-    assert Whitehall.search_index.include?(:documents)
+    Edition.stubs(:search_index).returns([:editions])
+    assert Whitehall.search_index.include?(:editions)
   end
 
   test "Whitehall.search_index includes organisations" do
