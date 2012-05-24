@@ -2,9 +2,9 @@ module Edition::SupportingPages
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_after_save(document)
-      @document.supporting_pages.each do |sd|
-        new_supporting_page = document.supporting_pages.create(sd.attributes.except("id", "edition_id"))
+    def process_associations_after_save(edition)
+      @edition.supporting_pages.each do |sd|
+        new_supporting_page = edition.supporting_pages.create(sd.attributes.except("id", "edition_id"))
         sd.attachments.each do |a|
           new_supporting_page.supporting_page_attachments.create(attachment_id: a.id)
         end

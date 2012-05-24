@@ -2,9 +2,9 @@ module Edition::Images
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_after_save(document)
-      @document.images.each do |a|
-        document.images.create(a.attributes.except(:id))
+    def process_associations_after_save(edition)
+      @edition.images.each do |a|
+        edition.images.create(a.attributes.except(:id))
       end
     end
   end

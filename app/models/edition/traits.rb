@@ -2,12 +2,12 @@ module Edition::Traits
   extend ActiveSupport::Concern
 
   class Trait
-    def initialize(document)
-      @document = document
+    def initialize(edition)
+      @edition = edition
     end
 
-    def process_associations_before_save(document); end
-    def process_associations_after_save(document); end
+    def process_associations_before_save(edition); end
+    def process_associations_after_save(edition); end
   end
 
   included do

@@ -2,8 +2,8 @@ module Edition::PolicyTopics
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_before_save(document)
-      document.policy_topic_memberships = @document.policy_topic_memberships.map do |dt|
+    def process_associations_before_save(edition)
+      edition.policy_topic_memberships = @edition.policy_topic_memberships.map do |dt|
         PolicyTopicMembership.new(dt.attributes.except(:id))
       end
     end

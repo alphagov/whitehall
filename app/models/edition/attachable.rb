@@ -2,9 +2,9 @@ module Edition::Attachable
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_after_save(document)
-      @document.attachments.each do |a|
-        document.edition_attachments.create(attachment_id: a.id)
+    def process_associations_after_save(edition)
+      @edition.attachments.each do |a|
+        edition.edition_attachments.create(attachment_id: a.id)
       end
     end
   end

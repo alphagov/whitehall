@@ -13,8 +13,8 @@ class Policy < Edition
   validates :summary, presence: true
 
   class Trait < Edition::Traits::Trait
-    def process_associations_after_save(document)
-      document.related_documents = @document.related_documents
+    def process_associations_after_save(edition)
+      edition.related_documents = @edition.related_documents
     end
   end
 

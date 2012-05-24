@@ -2,11 +2,11 @@ module Edition::NationalApplicability
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_before_save(document)
-      na_attributes = @document.nation_inapplicabilities.map do |na|
+    def process_associations_before_save(edition)
+      na_attributes = @edition.nation_inapplicabilities.map do |na|
         na.attributes.except("id")
       end
-      document.nation_inapplicabilities_attributes = na_attributes
+      edition.nation_inapplicabilities_attributes = na_attributes
     end
   end
 

@@ -2,8 +2,8 @@ module Edition::Ministers
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_before_save(document)
-      document.ministerial_roles = @document.ministerial_roles
+    def process_associations_before_save(edition)
+      edition.ministerial_roles = @edition.ministerial_roles
     end
   end
 

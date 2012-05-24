@@ -2,9 +2,9 @@ module Edition::Organisations
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_before_save(document)
-      @document.edition_organisations.each do |association|
-        document.edition_organisations.build(
+    def process_associations_before_save(edition)
+      @edition.edition_organisations.each do |association|
+        edition.edition_organisations.build(
           organisation: association.organisation,
           featured: association.featured?
         )

@@ -2,8 +2,8 @@ module Edition::RelatedPolicies
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_after_save(document)
-      document.related_doc_identities = @document.related_doc_identities
+    def process_associations_after_save(edition)
+      edition.related_doc_identities = @edition.related_doc_identities
     end
   end
 
