@@ -67,7 +67,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "shows organisation's featured news article with image" do
     lead_image = create(:image)
     news_article = create(:published_news_article, images: [lead_image])
-    organisation = create(:organisation, documents: [news_article])
+    organisation = create(:organisation)
     create(:document_organisation, document: news_article, organisation: organisation, featured: true)
 
     get :show, id: organisation
@@ -79,7 +79,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "shows organisation's featured news article with a blank image where no image has been supplied" do
     news_article = create(:published_news_article)
-    organisation = create(:organisation, documents: [news_article])
+    organisation = create(:organisation)
     create(:document_organisation, document: news_article, organisation: organisation, featured: true)
 
     get :show, id: organisation

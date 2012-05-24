@@ -31,6 +31,13 @@ class Speech < Document
   private
 
   def populate_organisations_based_on_role_appointment
-    self.organisations = role_appointment.role.organisations
+    organisation_associations = role_appointment.role.organisations.map do |organisation|
+      if existing = document_organisations.detect {|candidate| candidate.organisation_id = organisation.id }
+        existing
+      else
+        document_organisations.build organisation: organisation
+      end
+    end
+    self.document_organisations = organisation_associations
   end
 end
