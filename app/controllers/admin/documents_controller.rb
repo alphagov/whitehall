@@ -19,37 +19,27 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def all
-    @documents = filter_documents(document_class.active)
-    @page_title = "All Documents"
-    @document_state = ''
+    load_filtered_documents(:active)
     render :index
   end
 
   def draft
-    @documents = filter_documents(document_class.draft)
-    @page_title = "Draft Documents"
-    @document_state = 'draft'
+    load_filtered_documents(:draft)
     render :index
   end
 
   def submitted
-    @documents = filter_documents(document_class.submitted)
-    @page_title = "Submitted Documents"
-    @document_state = 'submitted'
+    load_filtered_documents(:submitted)
     render :index
   end
 
   def published
-    @documents = filter_documents(document_class.published)
-    @page_title = "Published Documents"
-    @document_state = 'published'
+    load_filtered_documents(:published)
     render :index
   end
 
   def rejected
-    @documents = filter_documents(document_class.rejected)
-    @page_title = "Rejected Documents"
-    @document_state = 'rejected'
+    load_filtered_documents(:rejected)
     render :index
   end
 
@@ -155,6 +145,12 @@ class Admin::DocumentsController < Admin::BaseController
       image = @document.images.build
       image.build_image_data
     end
+  end
+
+  def load_filtered_documents(state)
+    @documents = filter_documents(document_class.send(state))
+    @document_state = (state == :active) ? 'all' : state.to_s
+    @page_title = "#{@document_state.humanize} Documents"
   end
 
   def filter_documents(documents)
