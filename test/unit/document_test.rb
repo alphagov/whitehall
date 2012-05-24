@@ -798,8 +798,8 @@ class DocumentTest < ActiveSupport::TestCase
       document.title = "new-title"
       document.body = "new-body"
       refute document.valid?
-      assert_equal ["cannot be modified when document is in the #{state} state"], document.errors[:title]
-      assert_equal ["cannot be modified when document is in the #{state} state"], document.errors[:body]
+      assert_equal ["cannot be modified when edition is in the #{state} state"], document.errors[:title]
+      assert_equal ["cannot be modified when edition is in the #{state} state"], document.errors[:body]
     end
   end
 

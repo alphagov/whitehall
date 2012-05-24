@@ -24,7 +24,7 @@ class Edition < ActiveRecord::Base
     def validate(record)
       if record.unmodifiable?
         record.significant_changed_attributes.each do |attribute|
-          record.errors.add(attribute, "cannot be modified when document is in the #{record.state} state")
+          record.errors.add(attribute, "cannot be modified when edition is in the #{record.state} state")
         end
       end
     end
