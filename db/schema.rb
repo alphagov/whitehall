@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525000500) do
+ActiveRecord::Schema.define(:version => 20120525000600) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -69,16 +69,6 @@ ActiveRecord::Schema.define(:version => 20120525000500) do
 
   add_index "doc_identities", ["slug", "document_type"], :name => "index_doc_identities_on_slug_and_document_type", :unique => true
 
-  create_table "document_ministerial_roles", :force => true do |t|
-    t.integer  "edition_id"
-    t.integer  "ministerial_role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "document_ministerial_roles", ["edition_id"], :name => "index_document_ministerial_roles_on_edition_id"
-  add_index "document_ministerial_roles", ["ministerial_role_id"], :name => "index_document_ministerial_roles_on_ministerial_role_id"
-
   create_table "document_organisations", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "organisation_id"
@@ -130,6 +120,16 @@ ActiveRecord::Schema.define(:version => 20120525000500) do
 
   add_index "edition_countries", ["country_id"], :name => "index_edition_countries_on_country_id"
   add_index "edition_countries", ["edition_id"], :name => "index_edition_countries_on_edition_id"
+
+  create_table "edition_ministerial_roles", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "ministerial_role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "edition_ministerial_roles", ["edition_id"], :name => "index_edition_ministerial_roles_on_edition_id"
+  add_index "edition_ministerial_roles", ["ministerial_role_id"], :name => "index_edition_ministerial_roles_on_ministerial_role_id"
 
   create_table "editions", :force => true do |t|
     t.string   "title"
