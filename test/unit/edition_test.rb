@@ -1,6 +1,6 @@
 require "test_helper"
 
-class DocumentTest < ActiveSupport::TestCase
+class EditionTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test "should be invalid without a title" do
