@@ -1,0 +1,5 @@
+<% page_title "Contact details for #{@user.name}" %>
+<div class="g2">
+  <h1>Contact details for <%= @user.name %></h1>
+  <p class="email"><%= mail_to @user.email %></p>
+</div>

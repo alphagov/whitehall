@@ -72,6 +72,7 @@ Whitehall::Application.routes.draw do
         root to: redirect('/admin/documents')
 
         resource :user, only: [:show, :edit, :update]
+        resources :authors, only: [:show]
         resources :organisations, except: [:show, :destroy]
         resources :document_organisations, only: [:update]
         resources :document_countries, only: [:update]

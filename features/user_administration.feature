@@ -26,3 +26,9 @@ Scenario: Logged in users should be able to set their role
   Given I am a writer called "John Smith"
   When I set the role for "John Smith" to departmental editor
   Then I should see that I am a departmental editor
+
+Scenario: Logged in users should be able to see other users' contact details
+  Given I am a writer
+  And there is a user called "John Smith" with email address "johnsmith@example.com"
+  When I visit the admin author page for "John Smith"
+  Then I should see an email address "johnsmith@example.com"
