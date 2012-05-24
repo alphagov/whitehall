@@ -17,11 +17,11 @@
   <span class="back">
     back to
     <% if document.submitted? %>
-      <%= link_to 'submitted documents', submitted_admin_documents_path %>
+      <%= link_to 'submitted documents', admin_documents_path(state: :submitted) %>
     <% elsif document.draft? %>
-      <%= link_to 'draft documents', draft_admin_documents_path %>
+      <%= link_to 'draft documents', admin_documents_path(state: :draft) %>
     <% elsif document.published? %>
-      <%= link_to 'published documents', published_admin_documents_path %>
+      <%= link_to 'published documents', admin_documents_path(state: :published) %>
     <% end %>
   </span>
 </nav>

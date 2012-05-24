@@ -3,44 +3,22 @@ class Admin::DocumentsController < Admin::BaseController
   before_filter :prevent_modification_of_unmodifiable_document, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_document, only: [:new, :create]
-  before_filter :remember_filters, only: [:draft, :submitted, :published]
   before_filter :detect_other_active_editors, only: [:edit]
 
   def index
-    if session[:document_filters]
-      redirect_to session[:document_filters]
-    elsif current_user.departmental_editor?
-      redirect_to action: :submitted, organisation: current_user.organisation
+    if params_filters.any?
+      state = params_filters[:state]
+      @documents = filter_documents(document_class.send(state))
+      @document_state = (state == :active) ? 'all' : state.to_s
+      @page_title = "#{@document_state.humanize} Documents"
+      session[:document_filters] = params_filters
+    elsif session_filters.any?
+       redirect_to session_filters
     else
-      redirect_to action: :draft, author: current_user
+       redirect_to default_filters
     end
-  rescue ActionController::RoutingError => e
-    redirect_to action: :draft
-  end
-
-  def all
-    load_filtered_documents(:active)
-    render :index
-  end
-
-  def draft
-    load_filtered_documents(:draft)
-    render :index
-  end
-
-  def submitted
-    load_filtered_documents(:submitted)
-    render :index
-  end
-
-  def published
-    load_filtered_documents(:published)
-    render :index
-  end
-
-  def rejected
-    load_filtered_documents(:rejected)
-    render :index
+  rescue ActionController::RoutingError
+    redirect_to state: :draft
   end
 
   def new
@@ -94,7 +72,7 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def destroy
-    redirect_path = @document.submitted? ? submitted_admin_documents_path : admin_documents_path
+    redirect_path = @document.submitted? ? admin_documents_path(state: :submitted) : admin_documents_path
     @document.delete!
     redirect_to redirect_path, notice: "The document '#{@document.title}' has been deleted"
   end
@@ -147,10 +125,26 @@ class Admin::DocumentsController < Admin::BaseController
     end
   end
 
-  def load_filtered_documents(state)
-    @documents = filter_documents(document_class.send(state))
-    @document_state = (state == :active) ? 'all' : state.to_s
-    @page_title = "#{@document_state.humanize} Documents"
+  def default_filters
+    if current_user.departmental_editor?
+      {organisation: current_user.organisation, state: :submitted}
+    else
+      {state: :draft, author: current_user}
+    end
+  end
+
+  def session_filters
+    sanitized_filters(session[:document_filters] || {})
+  end
+
+  def params_filters
+    sanitized_filters(params.slice(:type, :state, :organisation, :author))
+  end
+
+  def sanitized_filters(filters)
+    valid_states = [:active, :draft, :submitted, :rejected, :published]
+    filters.delete(:state) unless filters[:state].nil? || valid_states.include?(filters[:state].to_sym)
+    filters
   end
 
   def filter_documents(documents)
@@ -158,10 +152,6 @@ class Admin::DocumentsController < Admin::BaseController
     documents = documents.authored_by(User.find(params[:author])) if params[:author]
     documents = documents.in_organisation(Organisation.find(params[:organisation])) if params[:organisation]
     documents.includes(document_authors: :user).order("updated_at DESC")
-  end
-
-  def remember_filters
-    session[:document_filters] = params.slice('action', 'type', 'author', 'organisation')
   end
 
   def detect_other_active_editors

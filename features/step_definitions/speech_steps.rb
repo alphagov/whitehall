@@ -40,11 +40,11 @@ When /^I edit the speech changing the title to "([^"]*)"$/ do |new_title|
 end
 
 When /^I visit the list of speeches awaiting review$/ do
-  visit submitted_admin_documents_path
+  visit admin_documents_path(state: :submitted)
 end
 
 When /^I create a new edition of the published speech$/ do
-  visit published_admin_documents_path
+  visit admin_documents_path(state: :published)
   click_link Speech.published.last.title
   click_button 'Create new edition'
 end

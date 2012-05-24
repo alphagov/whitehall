@@ -29,7 +29,7 @@ Given /^a published policy "([^"]*)" that does not apply to the nations:$/ do |p
 end
 
 Given /^I visit the list of draft policies$/ do
-  visit draft_admin_documents_path
+  visit admin_documents_path(state: :draft)
 end
 
 Given /^I click on the policy "([^"]*)"$/ do |policy_title|
@@ -97,7 +97,7 @@ When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
 end
 
 When /^I create a new edition of the published policy "([^"]*)"$/ do |policy_title|
-  visit published_admin_documents_path
+  visit admin_documents_path(state: :published)
   click_link policy_title
   click_button 'Create new edition'
 end
@@ -114,7 +114,7 @@ end
 
 When /^I request that "([^"]*)" fact checks the policy "([^"]*)" with instructions "([^"]*)"$/ do |email, title, instructions|
   document = Policy.find_by_title!(title)
-  visit draft_admin_documents_path
+  visit admin_documents_path(state: :draft)
   within(record_css_selector(document)) do
     click_link title
   end
@@ -323,7 +323,7 @@ Then /^I should see that it was rejected by "([^"]*)" because "([^"]*)"$/ do |re
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of submitted documents$/ do |policy_title|
-  visit draft_admin_documents_path
+  visit admin_documents_path(state: :draft)
   click_link "submitted"
   policy = Policy.find_by_title!(policy_title)
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)

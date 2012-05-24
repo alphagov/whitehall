@@ -83,13 +83,6 @@ Whitehall::Application.routes.draw do
         end
 
         resources :documents, only: [:index] do
-          collection do
-            get :all
-            get :draft
-            get :submitted
-            get :rejected
-            get :published
-          end
           member do
             post :submit
             post :revise

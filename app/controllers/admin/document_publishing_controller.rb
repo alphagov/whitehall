@@ -6,7 +6,7 @@ class Admin::DocumentPublishingController < Admin::BaseController
 
   def create
     if @document.publish_as(current_user, force: params[:force].present?)
-      redirect_to published_admin_documents_path, notice: "The document #{@document.title} has been published"
+      redirect_to admin_documents_path(state: :published), notice: "The document #{@document.title} has been published"
     else
       redirect_to admin_document_path(@document), alert: @document.errors.full_messages.to_sentence
     end

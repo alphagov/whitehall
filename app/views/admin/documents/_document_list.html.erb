@@ -32,11 +32,11 @@
       </div>
 
       <div class="state group">
-        <%= link_to_filter 'all', action: :all %>
-        <%= link_to_filter 'drafts', action: :draft %>
-        <%= link_to_filter 'submitted', action: :submitted %>
-        <%= link_to_filter 'rejected', action: :rejected %>
-        <%= link_to_filter 'published', action: :published  %>
+        <%= link_to_filter 'all', state: :active %>
+        <%= link_to_filter 'drafts', state: :draft %>
+        <%= link_to_filter 'submitted', state: :submitted %>
+        <%= link_to_filter 'rejected', state: :rejected %>
+        <%= link_to_filter 'published', state: :published  %>
       </div>
     </nav>
 

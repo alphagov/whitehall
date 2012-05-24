@@ -103,7 +103,7 @@ Then /^I can visit the supporting page "([^"]*)" from the "([^"]*)" policy$/ do 
 end
 
 Then /^I should see in the list of draft documents that "([^"]*)" has supporting page "([^"]*)"$/ do |title, supporting_page_title|
-  visit draft_admin_documents_path
+  visit admin_documents_path(state: :draft)
   click_link "by everyone"
   document = Document.find_by_title!(title)
   within(record_css_selector(document)) do

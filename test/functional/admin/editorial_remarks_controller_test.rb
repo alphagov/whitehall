@@ -18,7 +18,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   test "should redirect to the list of documents that need work" do
     document = create(:submitted_document)
     post :create, document_id: document, editorial_remark: { body: "editorial-remark-body" }
-    assert_redirected_to submitted_admin_documents_path
+    assert_redirected_to admin_documents_path(state: :submitted)
   end
 
   test "should reject the document and create an editorial remark" do

@@ -8,7 +8,7 @@ class Admin::DocumentPublishingControllerTest < ActionController::TestCase
     login_as :departmental_editor
     post :create, document_id: submitted_document, document: {lock_version: submitted_document.lock_version}
 
-    assert_redirected_to published_admin_documents_path
+    assert_redirected_to admin_documents_path(state: :published)
     assert_equal "The document #{submitted_document.title} has been published", flash[:notice]
   end
 
@@ -60,7 +60,7 @@ class Admin::DocumentPublishingControllerTest < ActionController::TestCase
     login_as :departmental_editor
     post :create, document_id: submitted_document, document: {lock_version: submitted_document.lock_version}, force: true
 
-    assert_redirected_to published_admin_documents_path
+    assert_redirected_to admin_documents_path(state: :published)
     assert_equal "The document #{submitted_document.title} has been published", flash[:notice]
   end
 

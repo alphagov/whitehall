@@ -10,7 +10,7 @@ module Admin::DocumentsHelper
   end
 
   def link_to_filter(link, options)
-    link_to link, url_for(params.slice('type', 'author', 'organisation').merge(options)), class: filter_class(options)
+    link_to link, url_for(params.slice('state', 'type', 'author', 'organisation').merge(options)), class: filter_class(options)
   end
 
   def filter_class(options)
@@ -22,7 +22,7 @@ module Admin::DocumentsHelper
   end
 
   def viewing_all_active_documents?
-    params[:action] == 'all'
+    params[:state] == 'active'
   end
 
   def show_featuring_controls?(*documents)

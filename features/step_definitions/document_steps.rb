@@ -85,11 +85,11 @@ When /^I view the (publication|policy|news article|consultation|speech) "([^"]*)
 end
 
 When /^I visit the list of draft documents$/ do
-  visit draft_admin_documents_path
+  visit admin_documents_path(state: :draft)
 end
 
 When /^I visit the list of documents awaiting review$/ do
-  visit submitted_admin_documents_path
+  visit admin_documents_path(state: :submitted)
 end
 
 When /^I select the "([^"]*)" filter$/ do |filter|
@@ -131,13 +131,13 @@ When /^I edit the (publication|policy|news article|consultation) changing the ti
 end
 
 When /^I create a new edition of the published document "([^"]*)"$/ do |title|
-  visit published_admin_documents_path
+  visit admin_documents_path(state: :published)
   click_link title
   click_button 'Create new edition'
 end
 
 When /^I publish a new edition of the published document "([^"]*)"$/ do |title|
-  visit published_admin_documents_path
+  visit admin_documents_path(state: :published)
   click_link title
   click_button 'Create new edition'
   click_button 'Save'
@@ -158,12 +158,12 @@ Then /^I should see (#{THE_DOCUMENT}) in the list of draft documents$/ do |docum
 end
 
 Then /^I should see (#{THE_DOCUMENT}) in the list of submitted documents$/ do |document|
-  visit submitted_admin_documents_path
+  visit admin_documents_path(state: :submitted)
   assert has_css?(record_css_selector(document))
 end
 
 Then /^I should see (#{THE_DOCUMENT}) in the list of published documents$/ do |document|
-  visit published_admin_documents_path
+  visit admin_documents_path(state: :published)
   assert has_css?(record_css_selector(document))
 end
 

@@ -9,7 +9,7 @@ class Admin::EditorialRemarksController < Admin::BaseController
     @editorial_remark = @document.editorial_remarks.build(params[:editorial_remark].merge(author: current_user))
     if @editorial_remark.save
       @document.reject!
-      redirect_to submitted_admin_documents_path
+      redirect_to admin_documents_path(state: :submitted)
     else
       render "new"
     end

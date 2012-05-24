@@ -10,7 +10,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test 'should distinguish between document types when viewing the list of draft documents' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    get :draft
+    get :index, state: :draft
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
@@ -19,7 +19,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should order by most recently updated" do
     policy = create(:draft_policy, updated_at: 3.days.ago)
     newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
-    get :draft
+    get :index, state: :draft
 
     assert_equal [newer_policy, policy], assigns(:documents)
   end
@@ -27,7 +27,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test 'should distinguish between document types when viewing the list of submitted documents' do
     policy = create(:submitted_policy)
     publication = create(:submitted_publication)
-    get :submitted
+    get :index, state: :submitted
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
@@ -36,7 +36,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test 'should distinguish between document types when viewing the list of published documents' do
     policy = create(:published_policy)
     publication = create(:published_publication)
-    get :published
+    get :index, state: :published
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
@@ -44,14 +44,14 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test 'viewing the list of submitted policies should not show draft policies' do
     draft_document = create(:draft_policy)
-    get :submitted
+    get :index, state: :submitted
 
     refute assigns(:documents).include?(draft_document)
   end
 
   test 'viewing the list of published policies should only show published policies' do
     published_documents = [create(:published_policy)]
-    get :published
+    get :index, state: :published
 
     assert_equal published_documents, assigns(:documents)
   end
@@ -122,7 +122,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by policies when viewing list of documents" do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    get :draft, type: 'policy'
+    get :index, state: :draft, type: 'policy'
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
     refute_select ".type", text: "Publication"
@@ -131,7 +131,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by publications when viewing list of documents" do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    get :draft, type: 'publication'
+    get :index, state: :draft, type: 'publication'
 
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
     refute_select ".type", text: "Policy"
@@ -140,7 +140,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by speeches when viewing list of documents" do
     policy = create(:draft_policy)
     speech = create(:speech)
-    get :draft, type: 'speech'
+    get :index, state: :draft, type: 'speech'
 
     assert_select_object(speech) { assert_select ".type", text: "Speech" }
     refute_select ".type", text: "Policy"
@@ -149,7 +149,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by news articles when viewing list of documents" do
     policy = create(:draft_policy)
     news = create(:news_article)
-    get :draft, type: 'news_article'
+    get :index, state: :draft, type: 'news_article'
 
     assert_select_object(news) { assert_select ".type", text: "News Article" }
     refute_select ".type", text: "Policy"
@@ -158,7 +158,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by consultations when viewing list of documents" do
     policy = create(:draft_policy)
     consultation = create(:consultation)
-    get :draft, type: 'consultation'
+    get :index, state: :draft, type: 'consultation'
 
     assert_select_object(consultation) { assert_select ".type", text: "Consultation" }
     refute_select ".type", text: "Policy"
@@ -167,7 +167,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should be able to filter by consultation responses when viewing list of documents" do
     policy = create(:draft_policy)
     consultation_response = create(:consultation_response)
-    get :draft, type: 'consultation_response'
+    get :index, state: :draft, type: 'consultation_response'
 
     assert_select_object(consultation_response) { assert_select ".type", text: "Consultation Response" }
     refute_select ".type", text: "Policy"
@@ -178,7 +178,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     authored_policy = create(:draft_policy, creator: user)
     other_policy = create(:draft_policy)
 
-    get :draft, author: user
+    get :index, state: :draft, author: user
 
     assert_select_object authored_policy
     refute_select_object other_policy
@@ -191,63 +191,69 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     policy_in_organisation = create(:draft_policy, organisations: [organisation])
     other_policy = create(:draft_policy, organisations: [create(:organisation)])
 
-    get :draft, organisation: organisation
+    get :index, state: :draft, organisation: organisation
 
     assert_select_object policy_in_organisation
     refute_select_object other_policy
   end
 
   test "should remember standard filter options" do
-    get :draft, type: 'consultation'
+    get :index, state: :draft, type: 'consultation'
     assert_equal 'consultation', session[:document_filters][:type]
   end
 
   test "should remember author filter options" do
-    get :draft, author: current_user
+    get :index, state: :draft, author: current_user
     assert_equal current_user.to_param, session[:document_filters][:author]
   end
 
   test "should remember organisation filter options" do
     organisation = create(:organisation)
-    get :draft, organisation: organisation
+    get :index, state: :draft, organisation: organisation
     assert_equal organisation.to_param, session[:document_filters][:organisation]
   end
 
   test "should remember state filter options" do
-    get :draft
-    assert_equal 'draft', session[:document_filters][:action]
+    get :index, state: :draft
+    assert_equal 'draft', session[:document_filters][:state]
   end
 
   test "index should redirect to remembered filtered options if available" do
     organisation = create(:organisation)
-    session[:document_filters] = { action: :submitted, author: current_user.to_param, organisation: organisation.to_param }
+    session[:document_filters] = { state: :submitted, author: current_user.to_param, organisation: organisation.to_param }
     get :index
-    assert_redirected_to submitted_admin_documents_path(author: current_user, organisation: organisation)
+    assert_redirected_to admin_documents_path(state: :submitted, author: current_user, organisation: organisation)
   end
 
   test "index should redirect to submitted in my department if logged an editor has no remembered filters" do
     organisation = create(:organisation)
     editor = login_as create(:departmental_editor, organisation: organisation)
     get :index
-    assert_redirected_to submitted_admin_documents_path(organisation: organisation)
+    assert_redirected_to admin_documents_path(state: :submitted, organisation: organisation)
   end
 
-  test "index should redirect to drafts I have written if a writer has no remembered filters" do
+  test "index should render a list of drafts I have written if a writer has no remembered filters" do
     writer = login_as create(:policy_writer)
     get :index
-    assert_redirected_to draft_admin_documents_path(author: writer)
+    assert_redirected_to admin_documents_path(state: :draft, author: writer)
   end
 
-  test "index should redirect to drafts if filtered options don't form a route" do
+  test "index should redirect to drafts if stored filter options are not valid for route building" do
     session[:document_filters] = { action: :unknown }
     get :index
-    assert_redirected_to draft_admin_documents_path
+    assert_redirected_to admin_documents_path(state: :draft)
+  end
+
+  test "index should not allow arbitrary methods to be called on the document class" do
+    @controller.stubs(:document_class).returns(document_class = stub('document class'))
+    document_class.expects(:some_method).never
+    get :index, state: :some_method
   end
 
   [:publication, :consultation].each do |document_type|
     test "should display a form for featuring an unfeatured #{document_type} without a featuring image" do
       document = create("published_#{document_type}")
-      get :published, type: document_type
+      get :index, state: :published, type: document_type
       expected_url = send("admin_document_featuring_path", document)
       assert_select ".featured form.feature[action=#{expected_url}]" do
         refute_select "input[name=_method]"
@@ -258,7 +264,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
     test "should display a form for unfeaturing a featured #{document_type} without a featuring image" do
       document = create("featured_#{document_type}")
-      get :published, type: document_type
+      get :index, state: :published, type: document_type
       expected_url = send("admin_document_featuring_path", document)
       assert_select ".featured form.unfeature[action=#{expected_url}]" do
         assert_select "input[name=_method][value=delete]"
@@ -268,7 +274,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
     test "should not show featuring image on a featured #{document_type} because they do not allow a featuring image" do
       document = create("featured_#{document_type}")
-      get :published, type: document_type
+      get :index, state: :published, type: document_type
       assert_select ".featured" do
         refute_select "img"
       end
@@ -277,7 +283,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test "should display a form for featuring an unfeatured news article" do
     news_article = create(:published_news_article)
-    get :published, type: :news_article
+    get :index, state: :published, type: :news_article
     expected_url = send("admin_document_featuring_path", news_article)
     assert_select ".featured form.feature[action=#{expected_url}]" do
       refute_select "input[name=_method]"
@@ -287,7 +293,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test "should display a form for unfeaturing a featured news article" do
     news_article = create(:featured_news_article)
-    get :published, type: :news_article
+    get :index, state: :published, type: :news_article
     expected_url = send("admin_document_featuring_path", news_article)
     assert_select ".featured form.unfeature[action=#{expected_url}]" do
       assert_select "input[name=_method][value=delete]"
@@ -298,7 +304,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should not display the featured column on the 'all document' page" do
     policy = create(:draft_policy)
     refute policy.featurable?
-    get :draft
+    get :index, state: :draft
     refute_select "th", text: "Featured"
     refute_select "td.featured"
   end
@@ -306,14 +312,14 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should not display the featured column on a filtered document page where that document isn't featureable" do
     policy = create(:draft_policy)
     refute policy.featurable?
-    get :draft, type: "policy"
+    get :index, state: :draft, type: "policy"
     refute_select "th", text: "Featured"
     refute_select "td.featured"
   end
 
   test "should not show published documents as force published" do
     policy = create(:published_policy)
-    get :published, type: :policy
+    get :index, state: :published, type: :policy
 
     assert_select_object(policy)
     refute_select "tr.force_published"
@@ -321,7 +327,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test "should show force published documents as force published" do
     policy = create(:published_policy, force_published: true)
-    get :published, type: :policy
+    get :index, state: :published, type: :policy
 
     assert_select_object(policy)
     assert_select "tr.force_published"
@@ -335,21 +341,21 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     deleted_document = create(:deleted_policy)
     archived_document = create(:archived_policy)
 
-    get :all
+    get :index, state: :active
 
     assert_same_elements [draft_document, submitted_document, rejected_document, published_document].map(&:state), assigns(:documents).all.map(&:state)
   end
 
   test "should link to all active documents" do
-    get :draft
+    get :index, state: :draft
 
-    assert_select "a[href='#{all_admin_documents_path}']"
+    assert_select "a[href='#{admin_documents_path(state: :active)}']"
   end
 
   test "should not display the featured column when viewing all active documents" do
     create(:published_news_article)
 
-    get :all, type: 'news_article'
+    get :index, state: :active, type: 'news_article'
 
     refute_select "th", text: "Featured"
     refute_select "td.featured"
@@ -361,7 +367,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     rejected_document = create(:rejected_news_article)
     published_document = create(:published_consultation)
 
-    get :all
+    get :index, state: :active
 
     assert_select_object(draft_document) { assert_select ".state", "Draft" }
     assert_select_object(submitted_document) { assert_select ".state", "Submitted" }
@@ -372,7 +378,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   test "should not display state information when viewing documents of a particular state" do
     draft_document = create(:draft_policy)
 
-    get :draft
+    get :index, state: :draft
 
     assert_select_object(draft_document) { refute_select ".state" }
   end

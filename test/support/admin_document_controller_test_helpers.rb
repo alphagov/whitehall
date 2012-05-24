@@ -988,7 +988,7 @@ module AdminDocumentControllerTestHelpers
       test "destroying a submitted document redirects to the submitted documents page" do
         submitted_document = create("submitted_#{document_type}")
         delete :destroy, id: submitted_document
-        assert_redirected_to submitted_admin_documents_path
+        assert_redirected_to admin_documents_path(state: :submitted)
       end
 
       test "destroy displays a notice indicating the document has been deleted" do
