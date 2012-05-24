@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DocumentAuditTrailTest < ActiveSupport::TestCase
+class Edition::AuditTrailTest < ActiveSupport::TestCase
   def setup
     @previous_whodunnit = PaperTrail.whodunnit
     @user = create(:user)
