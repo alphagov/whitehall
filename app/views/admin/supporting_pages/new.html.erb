@@ -3,6 +3,6 @@
   <section>
     <h1>Add new supporting page to <%= link_to @document.title, admin_document_path(@document) %></h1>
     <%= render partial: "form", locals: {disabled: false, supporting_page: @supporting_page} %>
-    <%= render partial: "admin/documents/govspeak_help" %>
+    <%= render partial: "admin/editions/govspeak_help" %>
   </section>
 </div>

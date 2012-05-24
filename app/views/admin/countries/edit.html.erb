@@ -5,7 +5,7 @@
     <%= form_for([:admin, @country]) do |form| %>
       <%= form.text_area :description %>
 
-      <%= render partial: 'admin/documents/govspeak_help' %>
+      <%= render partial: 'admin/editions/govspeak_help' %>
       <fieldset>
         <%= form.text_area :about, class: 'previewable', help: true %>
       </fieldset>

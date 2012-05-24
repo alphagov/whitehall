@@ -1,4 +1,4 @@
-class Admin::ConsultationResponsesController < Admin::DocumentsController
+class Admin::ConsultationResponsesController < Admin::EditionsController
   before_filter :build_document_attachment, only: [:new, :edit]
 
   private

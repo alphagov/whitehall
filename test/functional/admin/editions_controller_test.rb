@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::DocumentsController
+class Admin::EditionsController
   class DocumentFilterTest < ActiveSupport::TestCase
     test "should filter by document type" do
       policy = create(:consultation_response)
@@ -73,7 +73,7 @@ class Admin::DocumentsController
   end
 end
 
-class Admin::DocumentsControllerTest < ActionController::TestCase
+class Admin::EditionsControllerTest < ActionController::TestCase
   setup do
     login_as :policy_writer
   end
@@ -82,14 +82,14 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   test 'should pass filter parameters to a document filter' do
     stub_filter = stub('document filter', documents: [])
-    Admin::DocumentsController::DocumentFilter.expects(:new).with(anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
+    Admin::EditionsController::DocumentFilter.expects(:new).with(anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
 
     get :index, state: :draft, type: :policy
   end
 
   test 'should strip out any invalid states passed as parameters' do
     stub_filter = stub('document filter', documents: [])
-    Admin::DocumentsController::DocumentFilter.expects(:new).with(anything, {"type" => "policy"}).returns(stub_filter)
+    Admin::EditionsController::DocumentFilter.expects(:new).with(anything, {"type" => "policy"}).returns(stub_filter)
 
     get :index, state: :haxxor_method, type: :policy
   end
@@ -98,7 +98,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     policy = create(:draft_policy)
     publication = create(:draft_publication)
     stub_filter = stub('document filter', documents: [policy, publication])
-    Admin::DocumentsController::DocumentFilter.stubs(:new).returns(stub_filter)
+    Admin::EditionsController::DocumentFilter.stubs(:new).returns(stub_filter)
 
     get :index, state: :draft
 

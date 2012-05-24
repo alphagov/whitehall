@@ -1,5 +1,5 @@
-class Admin::PublicationsController < Admin::DocumentsController
-  include Admin::DocumentsController::NationalApplicability
+class Admin::PublicationsController < Admin::EditionsController
+  include Admin::EditionsController::NationalApplicability
 
   before_filter :build_document_attachment, only: [:new, :edit]
   before_filter :build_image, only: [:new, :edit]

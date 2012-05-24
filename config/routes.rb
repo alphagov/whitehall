@@ -83,7 +83,7 @@ Whitehall::Application.routes.draw do
           end
         end
 
-        resources :documents, only: [:index] do
+        resources :documents, only: [:index], controller: :editions do
           member do
             post :submit
             post :revise

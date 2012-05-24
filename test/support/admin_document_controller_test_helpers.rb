@@ -88,7 +88,7 @@ module AdminDocumentControllerTestHelpers
         post :create, document: attributes.merge(title: '')
 
         assert_equal attributes[:body], assigns(:document).body, "the valid data should not have been lost"
-        assert_template "documents/new"
+        assert_template "editions/new"
       end
 
       test "create with invalid data should indicate there was an error" do
@@ -184,7 +184,7 @@ module AdminDocumentControllerTestHelpers
         put :update, id: document, document: attributes.merge(title: '')
 
         assert_equal attributes[:title], document.reload.title
-        assert_template "documents/edit"
+        assert_template "editions/edit"
         assert_equal 'There are some problems with the document', flash.now[:alert]
       end
 
