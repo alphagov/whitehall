@@ -1303,11 +1303,11 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_report_editing_conflicts_of(document_type)
-      test "editing an existing #{document_type} should record a RecentDocumentOpening" do
+      test "editing an existing #{document_type} should record a RecentEditionOpening" do
         document = create(document_type)
         get :edit, id: document
 
-        assert_equal [current_user], document.reload.recent_document_openings.map(&:editor)
+        assert_equal [current_user], document.reload.recent_edition_openings.map(&:editor)
       end
 
       test "should not see a warning when editing a document that nobody has recently edited" do
@@ -1328,11 +1328,11 @@ module AdminDocumentControllerTestHelpers
         assert_select ".editing_conflict", /1 hour ago/
       end
 
-      test "saving a #{document_type} should remove any RecentDocumentOpening records for the current user" do
+      test "saving a #{document_type} should remove any RecentEditionOpening records for the current user" do
         document = create(document_type)
         document.open_for_editing_as(@current_user)
 
-        assert_difference "document.reload.recent_document_openings.count", -1 do
+        assert_difference "document.reload.recent_edition_openings.count", -1 do
           put :update, id: document, document: {}
         end
       end

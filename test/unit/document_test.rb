@@ -924,7 +924,7 @@ class DocumentTest < ActiveSupport::TestCase
     document = create(:edition)
     document.open_for_editing_as(user)
     Timecop.travel 1.minute.from_now
-    assert_equal [user], document.recent_document_openings.map(&:editor)
+    assert_equal [user], document.recent_edition_openings.map(&:editor)
   end
 
   test "recording editing intent for a user who's already editing just updates the timestamp" do
@@ -932,11 +932,11 @@ class DocumentTest < ActiveSupport::TestCase
     document = create(:edition)
     document.open_for_editing_as(user)
     Timecop.travel 1.minute.from_now
-    assert_difference "document.recent_document_openings.count", 0 do
+    assert_difference "document.recent_edition_openings.count", 0 do
       document.open_for_editing_as(user)
     end
-    assert_equal user, document.recent_document_openings.first.editor
-    assert_equal Time.zone.now.to_s(:rfc822), document.recent_document_openings.first.created_at.in_time_zone.to_s(:rfc822)
+    assert_equal user, document.recent_edition_openings.first.editor
+    assert_equal Time.zone.now.to_s(:rfc822), document.recent_edition_openings.first.created_at.in_time_zone.to_s(:rfc822)
   end
 
   test "can check exclude a given editor from the list of recent document openings" do
@@ -946,7 +946,7 @@ class DocumentTest < ActiveSupport::TestCase
     Timecop.travel 1.minute.from_now
     user2 = create(:policy_writer)
     document.open_for_editing_as(user2)
-    assert_equal [user], document.recent_document_openings.except_editor(user2).map(&:editor)
+    assert_equal [user], document.recent_edition_openings.except_editor(user2).map(&:editor)
   end
 
   test "editors considered active for up to 2 hours" do
@@ -959,22 +959,22 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [], document.active_document_openings
   end
 
-  test "#save_as removes all RecentDocumentOpenings for the specified editor" do
+  test "#save_as removes all RecentEditionOpenings for the specified editor" do
     user = create(:policy_writer)
     document = create(:edition)
     document.open_for_editing_as(user)
-    assert_difference "document.recent_document_openings.count", -1 do
+    assert_difference "document.recent_edition_openings.count", -1 do
       document.save_as(user)
     end
   end
 
-  test "RecentDocumentOpening#expunge! deletes entries more than 2 hours old" do
+  test "RecentEditionOpening#expunge! deletes entries more than 2 hours old" do
     document = create(:edition)
-    create(:recent_document_opening, editor: create(:author), edition: document, created_at: 2.hours.ago + 1.second)
-    create(:recent_document_opening, editor: create(:author), edition: document, created_at: 2.hours.ago)
-    create(:recent_document_opening, editor: create(:author), edition: document, created_at: 2.hours.ago - 1.second)
-    assert_equal 3, RecentDocumentOpening.count
-    RecentDocumentOpening.expunge!
-    assert_equal 2, RecentDocumentOpening.count
+    create(:recent_edition_opening, editor: create(:author), edition: document, created_at: 2.hours.ago + 1.second)
+    create(:recent_edition_opening, editor: create(:author), edition: document, created_at: 2.hours.ago)
+    create(:recent_edition_opening, editor: create(:author), edition: document, created_at: 2.hours.ago - 1.second)
+    assert_equal 3, RecentEditionOpening.count
+    RecentEditionOpening.expunge!
+    assert_equal 2, RecentEditionOpening.count
   end
 end

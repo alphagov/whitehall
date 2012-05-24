@@ -137,7 +137,7 @@ class Edition < ActiveRecord::Base
   def save_as(user)
     if save
       edition_authors.create!(user: user)
-      recent_document_openings.where(editor_id: user).delete_all
+      recent_edition_openings.where(editor_id: user).delete_all
     end
   end
 

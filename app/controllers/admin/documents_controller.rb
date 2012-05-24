@@ -148,7 +148,7 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def detect_other_active_editors
-    RecentDocumentOpening.expunge! if rand(10) == 0
+    RecentEditionOpening.expunge! if rand(10) == 0
     @recent_openings = @document.active_document_openings.except_editor(current_user)
   end
 

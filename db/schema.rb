@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525000800) do
+ActiveRecord::Schema.define(:version => 20120525000900) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -328,13 +328,13 @@ ActiveRecord::Schema.define(:version => 20120525000800) do
 
   add_index "policy_topics", ["slug"], :name => "index_policy_areas_on_slug"
 
-  create_table "recent_document_openings", :force => true do |t|
+  create_table "recent_edition_openings", :force => true do |t|
     t.integer  "edition_id", :null => false
     t.integer  "editor_id",  :null => false
     t.datetime "created_at", :null => false
   end
 
-  add_index "recent_document_openings", ["edition_id", "editor_id"], :name => "index_recent_document_openings_on_edition_id_and_editor_id", :unique => true
+  add_index "recent_edition_openings", ["edition_id", "editor_id"], :name => "index_recent_edition_openings_on_edition_id_and_editor_id", :unique => true
 
   create_table "role_appointments", :force => true do |t|
     t.integer  "role_id"
