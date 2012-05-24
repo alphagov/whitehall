@@ -1,2 +1,102 @@
 <% page_title @page_title %>
-<%= render partial: 'document_list', locals: { document_state: @document_state, documents: @documents } %>
+<section class="resource_list">
+  <div class="group">
+    <nav class="actions create_buttons">
+      <span>Create new</span>
+      <%= link_to "Policy", new_admin_policy_path, class: "button new_resource", title: "Create Policy" %>
+      <%= link_to "Publication", new_admin_publication_path, class: "button new_resource", title: "Create Publication" %>
+      <%= link_to "News Article", new_admin_news_article_path, class: "button new_resource", title: "Create News Article" %>
+      <%= link_to "Consultation", new_admin_consultation_path, class: "button new_resource", title: "Create Consultation" %>
+      <%= link_to "Speech", new_admin_speech_path, class: "button new_resource", title: "Create Speech" %>
+      <%= link_to "International Priority", new_admin_international_priority_path, class: "button new_resource", title: "Create International Priority" %>
+    </nav>
+
+    <nav class="author_scope group">
+      <%= link_to_filter('by everyone', author: nil, organisation: nil) %>
+      <%= link_to_filter('by my department', author: nil, organisation: current_user.organisation) %>
+      <%= link_to_filter('by me', author: current_user, organisation: nil) %>
+    </nav>
+  </div>
+
+  <div class="collection">
+
+    <nav class="filter group">
+      <div class="type group">
+        <%= link_to_filter 'all', type: nil %>
+        <%= link_to_filter 'policies', type: 'policy' %>
+        <%= link_to_filter 'publications', type: 'publication' %>
+        <%= link_to_filter 'news articles', type: 'news_article' %>
+        <%= link_to_filter 'consultations', type: 'consultation' %>
+        <%= link_to_filter 'responses', type: 'consultation_response' %>
+        <%= link_to_filter 'speeches', type: 'speech' %>
+        <%= link_to_filter 'international priorities', type: 'international_priorities' %>
+      </div>
+
+      <div class="state group">
+        <%= link_to_filter 'all', state: :active %>
+        <%= link_to_filter 'drafts', state: :draft %>
+        <%= link_to_filter 'submitted', state: :submitted %>
+        <%= link_to_filter 'rejected', state: :rejected %>
+        <%= link_to_filter 'published', state: :published  %>
+      </div>
+    </nav>
+
+    <table class="documents">
+      <thead>
+        <tr>
+          <th class="type">Type</th>
+          <th>Title</th>
+          <th>Creator</th>
+          <th>Updated</th>
+          <% if viewing_all_active_documents? %>
+            <th>State</th>
+          <% end %>
+          <% if show_featuring_controls?(*@documents) %>
+            <th>Featured</th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @documents.each do |document| %>
+          <%= content_tag_for(:tr, document, class: ('force_published' if document.force_published?)) do %>
+            <td class="type"><%= document.type.titleize %></td>
+            <td class="title">
+              <h2><%= link_to document.title, admin_document_path(document), title: "View document #{document.title}" %></h2>
+              <% if document.has_supporting_pages? %>
+                <div class="supporting_pages additional_information">
+                  <h3>Supporting Pages</h3>
+                  <ul>
+                    <% document.supporting_pages.each do |supporting_page| %>
+                    <li><%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            </td>
+            <td class="author"><%= document.creator.name %></td>
+            <td class="updated"><%= time_ago_in_words document.updated_at %> ago</td>
+            <% if viewing_all_active_documents? %>
+              <td class="state"><%= document.state.humanize %></td>
+            <% end %>
+            <% if show_featuring_controls?(document) %>
+              <td class="featured">
+                <% if document.featured? %>
+                  <%= button_to "No longer feature", admin_document_featuring_path(document), method: :delete, form_class: "unfeature" %>
+                <% else %>
+                  <%= form_for(document, url: admin_document_featuring_path(document), as: :document, method: :post, html: {class: "feature"}) do |form| %>
+                    <%= form.submit "Feature" %>
+                  <% end %>
+                <% end %>
+              </td>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if @documents.blank? %>
+          <tr>
+            <td colspan="4">No <%= @document_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
