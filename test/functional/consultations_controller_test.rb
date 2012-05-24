@@ -9,14 +9,9 @@ class ConsultationsControllerTest < ActionController::TestCase
   should_not_display_lead_image_for :consultation
   should_show_change_notes :consultation
 
-  test "should avoid N plus 1 queries" do
-    featured_consultations = Consultation.featured
-    published_consultations = mock("published_consultations")
-    published_consultations = mock("ordered_published_consultations")
-    published_consultations.expects(:includes).with(:document_identity, :organisations, :published_related_policies, ministerial_roles: [:current_people, :organisations]).returns([])
-    published_consultations.stubs(:featured).returns(featured_consultations) # To avoid the 'featured consultation' query failing
-    Consultation.stubs(:published).returns(published_consultations)
-
+  test "should avoid n+1 queries" do
+    10.times { create(:published_consultation, featured: true) }
+    assert 10 > count_queries { get :index }
     get :index
   end
 

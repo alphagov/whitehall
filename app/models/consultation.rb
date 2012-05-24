@@ -11,10 +11,7 @@ class Consultation < Document
   validate :closing_on_must_be_after_opening_on
 
   has_many :consultation_responses, through: :document_identity
-
-  def published_consultation_response
-    consultation_responses.published.first
-  end
+  has_one :published_consultation_response, through: :document_identity
 
   def latest_consultation_response
     consultation_responses.order("id DESC").first

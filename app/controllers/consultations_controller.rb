@@ -1,12 +1,11 @@
 class ConsultationsController < DocumentsController
   helper_method :scope_description
-
-  before_filter :load_featured_consultations, only: [:index]
   respond_to :html, :json, :xml
 
   def index
     scope = Consultation
     @consultations = load_consultations_from_scope(scope)
+    @featured_consultations = @consultations.select(&:featured).sort_by {|c| c.published_at }.reverse.take(3)
   end
 
   def open
@@ -33,8 +32,7 @@ class ConsultationsController < DocumentsController
 
   def load_consultations_from_scope(scope)
     scope.published.includes(
-      :document_identity, :organisations, :published_related_policies,
-      ministerial_roles: [:current_people, :organisations]
+      :document_identity, :attachments, :published_consultation_response, :organisations
     ).sort_by { |c|
       [c.last_significantly_changed_on, c.first_published_at]
     }.reverse
@@ -46,11 +44,5 @@ class ConsultationsController < DocumentsController
 
   def scope_description
     params[:action] == 'index' ? 'All' : params[:action]
-  end
-
-  def load_featured_consultations
-    @featured_consultations = Consultation.published.featured.by_published_at.
-                                           includes(:document_identity).
-                                           limit(3)
   end
 end
