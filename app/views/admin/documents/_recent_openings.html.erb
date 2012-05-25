@@ -6,13 +6,8 @@
           <div class="image">
             <%= gravatar_image(opening.editor) %>
           </div>
-          <em>
-            <%= opening.editor.name %>
-            <% if opening.editor.email.present? %>
-              (<%= mail_to(opening.editor.email) %>)
-            <% end %>
-          </em> 
-          started editing this <%= document.class.to_s.humanize.downcase %>
+          <%= linked_author(opening.editor) %> started editing this
+          <%= document.class.to_s.humanize.downcase %>
           <%= time_ago_in_words opening.created_at %> ago and hasn't yet saved their work.
         </li>
       <% end %>
