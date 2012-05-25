@@ -1,5 +1,6 @@
 // Styles for Layouts view
 
+
 #global-nav {
 	position: relative;
 	margin: 0 $gutter*-0.5;
@@ -32,6 +33,7 @@
 		display: inline;
 
 		a {
+		  display: block;
 			padding: 8px 8px;
 			padding: 0.8rem 0.8rem;
 			text-decoration: none;
@@ -62,3 +64,4 @@
 		}
 	}
 }
+

@@ -1,35 +1,60 @@
-// Base stylesheet compiler
+// BASE STYLESHEET COMPILER
 
 
-// Dimension units
+
+
+// DIMENSION UNITS
+// Whitespace values and maximum site width. These values can be 
+// used in any file imported into this document.
+
 $gutter: 24px;
 $max-site-width: 960px;
 
 
 
-// Reset
-@import "reset/_govuk-overrides.scss";
-@import "reset/_reset.scss";
 
-// Styleguide
+// STYLEGUIDE
+// Mixins to be shared across gov.uk sites. Anything set in these
+// files can be used in the view files.
+
 @import "styleguide/_typography.scss";
+@import "styleguide/_colours.scss";
 
-// Views
-//@import "styleguide/_colours.scss";
 
+
+
+// RESET
+// Flatten exising styles
+
+@import "reset/_govuk-overrides.scss";
+// overrides to the gov.uk header and footer
+@import "reset/_reset.scss";
+// reset styles applied to #whitehall-wrapper & #whitehall-wrapper *
+// so as to override global styles being set by gov.uk chrome. When
+// gov.uk styles are scoped, will want to change these selectors to
+// body and *
+
+
+
+
+// VIEWS
+// Styles scoped to each template in /views
 #whitehall-wrapper {
-  position: relative;
-  @include sans-15;
-  padding-top: 0;
-  padding-bottom: 0;
-
-  @media (min-width: 768px) {
-    padding-top: 64px;
-  }
-
-	@import "views/_layouts.scss";
-	@import "views/_publications.scss";
-	@import "views/_featured.scss";
   @import "views/_browse.scss";
-  @import "styleguide/_colours.scss";
+  @import "views/_documents.scss";
+  @import "views/_featured.scss";
+  @import "views/_layouts.scss";
+  @import "views/_publications.scss";
 }
+
+
+
+
+
+
+// DEBUG
+//#whitehall-wrapper {
+//  background-position: top left;
+//  background-image: -webkit-linear-gradient(transparent 7px,#E4E4E4 1px);
+//  background-size: 100% 8px;
+//}
