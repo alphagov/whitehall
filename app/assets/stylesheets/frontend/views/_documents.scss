@@ -10,8 +10,8 @@
       }
 
       h2 {
-        @include brand-13;
         position: relative;
+        @include brand-13;
         margin-bottom: $gutter*-0.666666;
       }
     }
@@ -30,6 +30,7 @@
         position: absolute;
         top: 100%;
         left: 0;
+        width: 150%;
         z-index: 10;
         padding: $gutter*0.5 $gutter;
         color: #fff;
@@ -49,5 +50,84 @@
     .contextual_info p {
       @include sans-12;
     }
+    
+    .notice p {
+      @include sans-12;
+      padding: $gutter*0.333333;
+      margin-bottom: $gutter;
+      background: yellow;
+    }
+    
+    .document p {
+      @include sans-20;
+    }
+    
+    #document_organisations {
+      padding: $gutter*0.333333 $gutter*0.333333 $gutter;
+      background: #eee;
+      
+      ul {
+        list-style: none;
+      }
+    }
+    
+    #document_ministers {
+      padding: 0 $gutter*0.333333 $gutter*0.333333;
+      background: #eee;
+      
+      ul {
+        list-style: none;
+      }
+    }
 
+
+
+   	@media (min-width: 768px) {
+      // hacky layout styles, until get opportunity to fix markup
+      .page_header + .g1f {
+        width: 20%;
+        float: left;
+        display: inline;
+        
+        .group,
+        .contextual_info {
+          padding-right: $gutter;
+        } 
+      }
+      
+      .document_view {
+        width: 60%;
+        float: left;
+        display: inline;
+        
+        .notice,
+        .document {
+          padding: 0 $gutter;
+        }
+      }
+      
+      .document_view + .g1f {
+        width: 20%;
+        float: left;
+        display: inline;
+      }
+    }
+}
+
+.organisation_logo_small {
+  position: relative;
+  display: block;
+  overflow: visible;
+  padding: 28px 0 0 8px;
+  border-left: 2px solid #bbb;
+  font-size: 16px;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  background: url("/government/assets/coa-default-24.gif") no-repeat 8px -1px;
+  
+  a {
+    position: relative;
+    bottom: -3px;
+    text-decoration: none;
+  }
 }

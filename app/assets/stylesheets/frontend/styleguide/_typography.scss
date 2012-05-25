@@ -146,6 +146,19 @@ $font-sans:
     sans-serif;
 
 
+@mixin sans-20 {
+    font-family: $font-sans;
+    font-size: 20px;
+    font-size: 2rem;
+    line-height: 1.4; /*28px*/
+    font-weight: 400;
+    letter-spacing: 0;
+    padding-top: 10px;
+    padding-top: 1rem;
+    padding-bottom: 14px;
+    padding-bottom: 1.4rem;
+}
+
 @mixin sans-18 {
     font-family: $font-sans;
     font-size: 18px;
