@@ -58,10 +58,9 @@ module Document::Publishing
 
   def publish_as(user, options = {})
     if publishable_by?(user, options)
-      self.lock_version = lock_version
       self.published_at = if self.minor_change && latest_published_edition
         latest_published_edition.published_at
-      else 
+      else
         Time.zone.now
       end
       self.first_published_at ||= published_at
