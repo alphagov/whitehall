@@ -11,9 +11,7 @@ module Admin::AuditTrailHelper
     end
     html << " ".html_safe
     if actor
-      html << content_tag(:span, class: "actor") {
-        link_to actor.name, admin_author_path(actor)
-      }
+      html << content_tag(:span, class: "actor") { linked_author(actor) }
     end
     html << " ".html_safe
     html << content_tag(:span, class: "time") {

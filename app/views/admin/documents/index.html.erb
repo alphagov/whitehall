@@ -73,7 +73,7 @@
                 </div>
               <% end %>
             </td>
-            <td class="author"><%= link_to(document.creator.name, admin_author_path(document.creator)) %></td>
+            <td class="author"><%= linked_author(document.creator) %></td>
             <td class="updated"><%= time_ago_in_words document.updated_at %> ago</td>
             <% if viewing_all_active_documents? %>
               <td class="state"><%= document.state.humanize %></td>

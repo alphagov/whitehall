@@ -207,4 +207,8 @@ module ApplicationHelper
       "Publications"
     end
   end
+
+  def linked_author(author)
+    link_to(author.name, admin_author_path(author))
+  end
 end
