@@ -88,7 +88,7 @@ Whitehall::Application.routes.draw do
             post :submit
             post :revise
           end
-          resource :publishing, controller: :document_publishing, only: [:create]
+          resource :publishing, controller: :document_publishing, only: [:create], controller: :edition_publishing
           resource :featuring, only: [:create, :update, :destroy]
           resources :supporting_pages, path: "supporting-pages", except: [:index]
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true

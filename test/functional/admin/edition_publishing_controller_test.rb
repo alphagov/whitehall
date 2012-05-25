@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::DocumentPublishingControllerTest < ActionController::TestCase
+class Admin::EditionPublishingControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test 'publishing should redirect back to published documents' do
