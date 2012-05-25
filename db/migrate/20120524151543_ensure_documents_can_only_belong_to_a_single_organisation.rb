@@ -9,9 +9,11 @@ class EnsureDocumentsCanOnlyBelongToASingleOrganisation < ActiveRecord::Migratio
         AND duplicates.id < document_organisations.id)
     }).collect {|x| x["id"]}
 
-    execute %{
-      DELETE FROM document_organisations WHERE id IN (#{ids.join(", ")})
-    }
+    unless ids.empty?
+      execute %{
+        DELETE FROM document_organisations WHERE id IN (#{ids.join(", ")})
+      }
+    end
 
     # Prevent future duplicates
     remove_index :document_organisations, :document_id
