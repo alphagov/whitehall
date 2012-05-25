@@ -1,0 +1,35 @@
+// Base stylesheet compiler
+
+
+// Dimension units
+$gutter: 24px;
+$max-site-width: 960px;
+
+
+
+// Reset
+@import "reset/_govuk-overrides.scss";
+@import "reset/_reset.scss";
+
+// Styleguide
+@import "styleguide/_typography.scss";
+
+// Views
+//@import "styleguide/_colours.scss";
+
+#whitehall-wrapper {
+  position: relative;
+  @include sans-15;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  @media (min-width: 768px) {
+    padding-top: 64px;
+  }
+
+	@import "views/_layouts.scss";
+	@import "views/_publications.scss";
+	@import "views/_featured.scss";
+  @import "views/_browse.scss";
+  @import "styleguide/_colours.scss";
+}

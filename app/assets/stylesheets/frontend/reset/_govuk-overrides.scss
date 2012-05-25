@@ -1,0 +1,35 @@
+// override gov.uk page elements
+
+html {
+  background: white;
+}
+
+// this rule overrides the sticky global header
+.js-enabled #global-header {
+  position: relative;
+}
+
+#global-header .header-global,
+#footer .beta-notice p,
+#footer .inner,
+#whitehall-wrapper {
+  width: auto;
+  max-width: $max-site-width;
+  padding-left: $gutter*0.5;
+  padding-right: $gutter*0.5;
+
+  @media (min-width: 768px) {
+    padding-left: $gutter;
+    padding-right: $gutter;
+  }
+}
+
+#footer .beta-notice {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#footer .beta-notice p {
+  display: block;
+  margin: 0 auto;
+}
