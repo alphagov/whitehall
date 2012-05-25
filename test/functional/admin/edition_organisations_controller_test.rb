@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::DocumentOrganisationsControllerTest < ActionController::TestCase
+class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test "should allow featuring of the document organisation" do

@@ -1,4 +1,4 @@
-class Admin::DocumentOrganisationsController < Admin::BaseController
+class Admin::EditionOrganisationsController < Admin::BaseController
   def update
     document_organisation = EditionOrganisation.find(params[:id])
     document_organisation.update_attributes(params[:edition_organisation])
