@@ -80,53 +80,30 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test 'should distinguish between document types when viewing the list of draft documents' do
+  test 'should pass filter parameters to a document filter' do
+    stub_filter = stub('document filter', documents: [])
+    Admin::DocumentsController::DocumentFilter.expects(:new).with(anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
+
+    get :index, state: :draft, type: :policy
+  end
+
+  test 'should strip out any invalid states passed as parameters' do
+    stub_filter = stub('document filter', documents: [])
+    Admin::DocumentsController::DocumentFilter.expects(:new).with(anything, {"type" => "policy"}).returns(stub_filter)
+
+    get :index, state: :haxxor_method, type: :policy
+  end
+
+  test 'should distinguish between document types when viewing the list of documents' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
+    stub_filter = stub('document filter', documents: [policy, publication])
+    Admin::DocumentsController::DocumentFilter.stubs(:new).returns(stub_filter)
+
     get :index, state: :draft
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
-  end
-
-  test "should order by most recently updated" do
-    policy = create(:draft_policy, updated_at: 3.days.ago)
-    newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
-    get :index, state: :draft
-
-    assert_equal [newer_policy, policy], assigns(:documents)
-  end
-
-  test 'should distinguish between document types when viewing the list of submitted documents' do
-    policy = create(:submitted_policy)
-    publication = create(:submitted_publication)
-    get :index, state: :submitted
-
-    assert_select_object(policy) { assert_select ".type", text: "Policy" }
-    assert_select_object(publication) { assert_select ".type", text: "Publication" }
-  end
-
-  test 'should distinguish between document types when viewing the list of published documents' do
-    policy = create(:published_policy)
-    publication = create(:published_publication)
-    get :index, state: :published
-
-    assert_select_object(policy) { assert_select ".type", text: "Policy" }
-    assert_select_object(publication) { assert_select ".type", text: "Publication" }
-  end
-
-  test 'viewing the list of submitted policies should not show draft policies' do
-    draft_document = create(:draft_policy)
-    get :index, state: :submitted
-
-    refute assigns(:documents).include?(draft_document)
-  end
-
-  test 'viewing the list of published policies should only show published policies' do
-    published_documents = [create(:published_policy)]
-    get :index, state: :published
-
-    assert_equal published_documents, assigns(:documents)
   end
 
   test 'submitting should set submitted on the document' do
@@ -192,84 +169,6 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     assert_equal "There is already an active rejected edition for this document", flash[:alert]
   end
 
-  test "should be able to filter by policies when viewing list of documents" do
-    policy = create(:draft_policy)
-    publication = create(:draft_publication)
-    get :index, state: :draft, type: 'policy'
-
-    assert_select_object(policy) { assert_select ".type", text: "Policy" }
-    refute_select ".type", text: "Publication"
-  end
-
-  test "should be able to filter by publications when viewing list of documents" do
-    policy = create(:draft_policy)
-    publication = create(:draft_publication)
-    get :index, state: :draft, type: 'publication'
-
-    assert_select_object(publication) { assert_select ".type", text: "Publication" }
-    refute_select ".type", text: "Policy"
-  end
-
-  test "should be able to filter by speeches when viewing list of documents" do
-    policy = create(:draft_policy)
-    speech = create(:speech)
-    get :index, state: :draft, type: 'speech'
-
-    assert_select_object(speech) { assert_select ".type", text: "Speech" }
-    refute_select ".type", text: "Policy"
-  end
-
-  test "should be able to filter by news articles when viewing list of documents" do
-    policy = create(:draft_policy)
-    news = create(:news_article)
-    get :index, state: :draft, type: 'news_article'
-
-    assert_select_object(news) { assert_select ".type", text: "News Article" }
-    refute_select ".type", text: "Policy"
-  end
-
-  test "should be able to filter by consultations when viewing list of documents" do
-    policy = create(:draft_policy)
-    consultation = create(:consultation)
-    get :index, state: :draft, type: 'consultation'
-
-    assert_select_object(consultation) { assert_select ".type", text: "Consultation" }
-    refute_select ".type", text: "Policy"
-  end
-
-  test "should be able to filter by consultation responses when viewing list of documents" do
-    policy = create(:draft_policy)
-    consultation_response = create(:consultation_response)
-    get :index, state: :draft, type: 'consultation_response'
-
-    assert_select_object(consultation_response) { assert_select ".type", text: "Consultation Response" }
-    refute_select ".type", text: "Policy"
-  end
-
-  test "should be able to show only documents authored by user when viewing list of documents" do
-    user = create(:policy_writer)
-    authored_policy = create(:draft_policy, creator: user)
-    other_policy = create(:draft_policy)
-
-    get :index, state: :draft, author: user
-
-    assert_select_object authored_policy
-    refute_select_object other_policy
-  end
-
-  test "should be able to show only documents related to an organisation" do
-    organisation = create(:organisation)
-    user = create(:policy_writer, organisation: organisation)
-
-    policy_in_organisation = create(:draft_policy, organisations: [organisation])
-    other_policy = create(:draft_policy, organisations: [create(:organisation)])
-
-    get :index, state: :draft, organisation: organisation
-
-    assert_select_object policy_in_organisation
-    refute_select_object other_policy
-  end
-
   test "should remember standard filter options" do
     get :index, state: :draft, type: 'consultation'
     assert_equal 'consultation', session[:document_filters][:type]
@@ -315,12 +214,6 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
     session[:document_filters] = { action: :unknown }
     get :index
     assert_redirected_to admin_documents_path(state: :draft)
-  end
-
-  test "index should not allow arbitrary methods to be called on the document class" do
-    @controller.stubs(:document_class).returns(document_class = stub('document class'))
-    document_class.expects(:some_method).never
-    get :index, state: :some_method
   end
 
   [:publication, :consultation].each do |document_type|
@@ -404,19 +297,6 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
 
     assert_select_object(policy)
     assert_select "tr.force_published"
-  end
-
-  test "should return all non-archived and non-deleted documents" do
-    draft_document = create(:draft_policy)
-    submitted_document = create(:submitted_policy)
-    rejected_document = create(:rejected_policy)
-    published_document = create(:published_policy)
-    deleted_document = create(:deleted_policy)
-    archived_document = create(:archived_policy)
-
-    get :index, state: :active
-
-    assert_same_elements [draft_document, submitted_document, rejected_document, published_document].map(&:state), assigns(:documents).all.map(&:state)
   end
 
   test "should link to all active documents" do
