@@ -1,7 +1,7 @@
 require "test_helper"
 
 class SpeechTest < ActiveSupport::TestCase
-  test "should be able to relate to other documents" do
+  test "should be able to relate to other editions" do
     article = build(:news_article)
     assert article.can_be_related_to_policies?
   end
@@ -52,7 +52,7 @@ class SpeechTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, role: ministerial_role, person: person)
     speech = create(:published_speech, role_appointment: role_appointment)
     new_draft = speech.create_draft(create(:user))
-    assert_equal 1, new_draft.document_organisations.count
+    assert_equal 1, new_draft.edition_organisations.count
   end
 
   test "#person should return the person who gave the speech" do

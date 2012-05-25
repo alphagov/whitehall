@@ -1,4 +1,4 @@
-<% page_title "Edit #{@supporting_page.title}", "Supporting page for #{@supporting_page.document.title}" %>
+<% page_title "Edit #{@supporting_page.title}", "Supporting page for #{@supporting_page.document_title}" %>
 <div class="g2 first">
   <section>
     <h1>Edit supporting page <%= @supporting_page.title %></h1>
@@ -12,6 +12,6 @@
     <% else %>
       <%= render partial: "form", locals: {disabled: false, supporting_page: @supporting_page} %>
     <% end %>
-    <%= render partial: "admin/documents/govspeak_help" %>
+    <%= render partial: "admin/editions/govspeak_help" %>
   </section>
 </div>

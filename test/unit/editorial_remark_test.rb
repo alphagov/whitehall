@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class EditorialRemarkTest < ActiveSupport::TestCase
-  test "should not be valid without a document" do
-    editorial_remark = build(:editorial_remark, document: nil)
+  test "should not be valid without a edition" do
+    editorial_remark = build(:editorial_remark, edition: nil)
     refute editorial_remark.valid?
   end
 

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :international_priority, class: InternationalPriority, parent: :document do
+  factory :international_priority, class: InternationalPriority, parent: :edition do
     title "international-priority-title"
     body  "international-priority-body"
   end

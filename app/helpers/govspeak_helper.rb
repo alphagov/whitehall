@@ -2,7 +2,7 @@ module GovspeakHelper
 
   def govspeak_to_admin_html(text, images = [])
     markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, document|
-      latest_edition = document && document.document_identity.latest_edition
+      latest_edition = document && document.doc_identity.latest_edition
       if latest_edition.nil?
         replacement_html = content_tag(:del, replacement_html)
         explanation = state = "deleted"
@@ -88,14 +88,14 @@ module GovspeakHelper
         supporting_page = nil
       end
       if supporting_page
-        document = supporting_page.document
+        document = supporting_page.edition
       else
         document = nil
       end
     else
-      document = Document.send(:with_exclusive_scope) do
+      document = Edition.send(:with_exclusive_scope) do
         begin
-          Document.find(id)
+          Edition.find(id)
         rescue ActiveRecord::RecordNotFound
           nil
         end

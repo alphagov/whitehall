@@ -1,11 +1,11 @@
-class Publication < Document
-  include Document::NationalApplicability
-  include Document::Ministers
-  include Document::FactCheckable
-  include Document::RelatedPolicies
-  include Document::Attachable
-  include Document::Countries
-  include Document::Featurable
+class Publication < Edition
+  include Edition::NationalApplicability
+  include Edition::Ministers
+  include Edition::FactCheckable
+  include Edition::RelatedPolicies
+  include Edition::Attachable
+  include Edition::Countries
+  include Edition::Featurable
 
   validates :publication_date, presence: true
   validates :isbn, isbn_format: true, allow_blank: true

@@ -14,7 +14,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
 
   test "renders attached images if image_ids provided" do
     document = create(:policy, body: '!!1')
-    image = create(:image, document: document)
+    image = create(:image, edition: document)
 
     post :preview, body: document.body, image_ids: document.images.map(&:id)
     assert_select "section.document_view .body figure.image.embedded img[src=?]", %r{#{image.url}}

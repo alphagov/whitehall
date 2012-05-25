@@ -1,6 +1,6 @@
 class EditorialRemark < ActiveRecord::Base
-  belongs_to :document
+  belongs_to :edition
   belongs_to :author, class_name: "User"
 
-  validates :document, :body, :author, presence: true
+  validates :edition, :body, :author, presence: true
 end

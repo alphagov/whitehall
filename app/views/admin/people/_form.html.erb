@@ -12,7 +12,7 @@
     <%= image_tag person.image_url || 'blank-person.png' %>
     <%= person_form.file_field :image %>
   </fieldset>
-  <%= render partial: "admin/documents/govspeak_help" %>
+  <%= render partial: "admin/editions/govspeak_help" %>
   <fieldset>
     <%= person_form.text_area :biography, class: "previewable", help: true %>
   </fieldset>

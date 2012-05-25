@@ -56,7 +56,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>no <a href="http://">change</a></p>}, html
   end
 
-  test "should rewrite link to draft document in admin preview" do
+  test "should rewrite link to draft edition in admin preview" do
     publication = create(:draft_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_govspeak %{<p>this and <span class="draft_link">that <sup class="explanation">(<a href="#{admin_publication_path(publication)}">draft</a>)</sup></span></p>}, html
@@ -68,13 +68,13 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>the <span class="published_link"><a href="#{public_document_path(publication)}">☃</a> <sup class="explanation">(<a href="#{admin_publication_path(publication)}">published</a>)</sup></span></p>}, html
   end
 
-  test "should rewrite link to deleted document in admin preview" do
+  test "should rewrite link to deleted edition in admin preview" do
     publication = create(:deleted_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_govspeak %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html
   end
 
-  test "should rewrite link to missing document in admin preview" do
+  test "should rewrite link to missing edition in admin preview" do
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url('missing-id')})")
     assert_govspeak %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html
   end
@@ -84,20 +84,20 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <span class="deleted_link"><del>that</del> <sup class="explanation">(deleted)</sup></span></p>}, html
   end
 
-  test "should rewrite link to published document in admin preview" do
+  test "should rewrite link to published edition in admin preview" do
     publication = create(:published_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_govspeak %{<p>this and <span class="published_link"><a href="#{public_document_path(publication)}">that</a> <sup class="explanation">(<a href="#{admin_publication_path(publication)}">published</a>)</sup></span></p>}, html
   end
 
-  test "should rewrite link to published document with a newer draft in admin preview" do
+  test "should rewrite link to published edition with a newer draft in admin preview" do
     publication = create(:published_publication)
     new_draft = publication.create_draft(create(:policy_writer))
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_govspeak %{<p>this and <span class="draft_link"><a href="#{public_document_path(publication)}">that</a> <sup class="explanation">(<a href="#{admin_publication_path(new_draft)}">draft</a>)</sup></span></p>}, html
   end
 
-  test "should rewrite link to archived document with a newer published edition in admin preview" do
+  test "should rewrite link to archived edition with a newer published edition in admin preview" do
     publication = create(:published_publication)
     writer = create(:policy_writer)
     editor = create(:departmental_editor)
@@ -110,7 +110,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <span class="published_link"><a href="#{public_document_path(publication)}">that</a> <sup class="explanation">(<a href="#{admin_publication_path(new_edition)}">published</a>)</sup></span></p>}, html
   end
 
-  test "should rewrite link to deleted document with an older published edition in admin preview" do
+  test "should rewrite link to deleted edition with an older published edition in admin preview" do
     publication = create(:published_publication)
     new_draft = publication.create_draft(create(:policy_writer))
     new_draft.delete!
@@ -142,64 +142,64 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>a <a href="/url">‘funny’</a> thing</p>}, html
   end
 
-  test "should not link to draft documents with no published edition" do
+  test "should not link to draft editions with no published edition" do
     publication = create(:draft_publication)
     html = govspeak_to_html("this and [that](#{admin_publication_url(publication)})")
     assert_govspeak "<p>this and that</p>", html
   end
 
-  test "should not link to deleted documents with no published edition" do
+  test "should not link to deleted editions with no published edition" do
     publication = create(:deleted_publication)
     html = govspeak_to_html("this and [that](#{admin_publication_url(publication)})")
     assert_govspeak "<p>this and that</p>", html
   end
 
-  [Policy, Publication, NewsArticle, Consultation].each do |document_class|
-    test "should rewrite absolute links to admin previews of published #{document_class.name} as their public document identity" do
-      document = create(:"published_#{document_class.name.underscore}")
-      html = govspeak_to_html("this and [that](http://test.host#{admin_document_path(document)}) yeah?")
-      assert_govspeak %{<p>this and <a href="#{public_document_path(document)}">that</a> yeah?</p>}, html
+  [Policy, Publication, NewsArticle, Consultation].each do |edition_class|
+    test "should rewrite absolute links to admin previews of published #{edition_class.name} as their public doc identity" do
+      edition = create(:"published_#{edition_class.name.underscore}")
+      html = govspeak_to_html("this and [that](http://test.host#{admin_document_path(edition)}) yeah?")
+      assert_govspeak %{<p>this and <a href="#{public_document_path(edition)}">that</a> yeah?</p>}, html
     end
   end
 
-  test "should rewrite absolute links to admin previews of published Speeches as their public document identity" do
+  test "should rewrite absolute links to admin previews of published Speeches as their public doc identity" do
     speech = create(:published_speech)
     public_path = public_document_path(speech)
     html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
     assert_govspeak %{<p>this and <a href="#{public_path}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of published SupportingPages as their public document identity" do
+  test "should rewrite absolute links to admin previews of published SupportingPages as their public doc identity" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
     assert_govspeak %{<p>this and <a href="#{public_supporting_page_path(policy, supporting_page)}">that</a> yeah?</p>}, html
   end
 
-  test 'should rewrite admin link to an archived document with a published edition' do
-    document = create(:published_policy)
+  test 'should rewrite admin link to an archived edition with a published edition' do
+    edition = create(:published_policy)
     writer = create(:policy_writer)
     editor = create(:departmental_editor)
-    new_draft = document.create_draft(writer)
+    new_draft = edition.create_draft(writer)
     new_draft.save_as(writer)
     new_draft.submit!
     new_draft.publish_as(editor)
 
-    html = govspeak_to_html("this and [that](http://test.host#{admin_document_path(document)}) yeah?")
-    assert_govspeak %{<p>this and <a href="#{public_document_path(document)}">that</a> yeah?</p>}, html
+    html = govspeak_to_html("this and [that](http://test.host#{admin_document_path(edition)}) yeah?")
+    assert_govspeak %{<p>this and <a href="#{public_document_path(edition)}">that</a> yeah?</p>}, html
   end
 
-  test 'should rewrite admin link to a draft document with a published edition' do
-    document = create(:published_policy)
+  test 'should rewrite admin link to a draft edition with a published edition' do
+    edition = create(:published_policy)
     writer = create(:policy_writer)
-    new_draft = document.create_draft(writer)
+    new_draft = edition.create_draft(writer)
     new_draft.save_as(writer)
 
     html = govspeak_to_html("this and [that](http://test.host#{admin_document_path(new_draft)}) yeah?")
-    assert_govspeak %{<p>this and <a href="#{public_document_path(document)}">that</a> yeah?</p>}, html
+    assert_govspeak %{<p>this and <a href="#{public_document_path(edition)}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of Speeches as their public document identity on preview" do
+  test "should rewrite absolute links to admin previews of Speeches as their public doc identity on preview" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     speech = create(:published_speech)
     public_url = public_document_url(speech)
@@ -207,7 +207,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of Speeches as their public document identity on public preview" do
+  test "should rewrite absolute links to admin previews of Speeches as their public doc identity on public preview" do
     request.host = "www.preview.alphagov.co.uk"
     ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     speech = create(:published_speech)
@@ -216,24 +216,24 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on preview" do
+  test "should rewrite absolute links to admin previews of SupportingPages as their public doc identity on preview" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
     assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.preview.alphagov.co.uk")}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on public preview" do
+  test "should rewrite absolute links to admin previews of SupportingPages as their public doc identity on public preview" do
     request.host ="www.preview.alphagov.co.uk"
     ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
     assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.preview.alphagov.co.uk")}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of Speeches as their public document identity on production" do
+  test "should rewrite absolute links to admin previews of Speeches as their public doc identity on production" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     speech = create(:published_speech)
     public_url = public_document_url(speech)
@@ -241,7 +241,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of Speeches as their public document identity on public production" do
+  test "should rewrite absolute links to admin previews of Speeches as their public doc identity on public production" do
     request.host = "www.gov.uk"
     ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     speech = create(:published_speech)
@@ -250,26 +250,26 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_url}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on production" do
+  test "should rewrite absolute links to admin previews of SupportingPages as their public doc identity on production" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
     assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.gov.uk")}">that</a> yeah?</p>}, html
   end
 
-  test "should rewrite absolute links to admin previews of SupportingPages as their public document identity on public production" do
+  test "should rewrite absolute links to admin previews of SupportingPages as their public doc identity on public production" do
     request.host = "www.gov.uk"
     ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
     assert_govspeak %{<p>this and <a href="#{public_supporting_page_url(policy, supporting_page, host: "www.gov.uk")}">that</a> yeah?</p>}, html
   end
 
-  test "should not link to SupportingPages whose documents are not published" do
+  test "should not link to SupportingPages whose editions are not published" do
     policy = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: policy)
+    supporting_page = create(:supporting_page, edition: policy)
     html = govspeak_to_html("this and [that](http://test.host#{admin_supporting_page_path(supporting_page)}) yeah?")
     assert_govspeak %{<p>this and that yeah?</p>}, html
   end

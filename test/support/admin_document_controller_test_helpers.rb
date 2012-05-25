@@ -88,7 +88,7 @@ module AdminDocumentControllerTestHelpers
         post :create, document: attributes.merge(title: '')
 
         assert_equal attributes[:body], assigns(:document).body, "the valid data should not have been lost"
-        assert_template "documents/new"
+        assert_template "editions/new"
       end
 
       test "create with invalid data should indicate there was an error" do
@@ -162,7 +162,7 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: {title: 'new-title', body: 'new-body'}
 
-        assert_equal current_user, document.document_authors(true).last.user
+        assert_equal current_user, document.edition_authors(true).last.user
       end
 
       test "update records the previous version of the document in the document version history" do
@@ -184,7 +184,7 @@ module AdminDocumentControllerTestHelpers
         put :update, id: document, document: attributes.merge(title: '')
 
         assert_equal attributes[:title], document.reload.title
-        assert_template "documents/edit"
+        assert_template "editions/edit"
         assert_equal 'There are some problems with the document', flash.now[:alert]
       end
 
@@ -236,15 +236,15 @@ module AdminDocumentControllerTestHelpers
         get :new
 
         assert_select "form#document_new" do
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
 
       test 'creating a document should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(document_type)
-        attributes[:document_attachments_attributes] = {
+        attributes[:edition_attachments_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
         }
 
@@ -262,7 +262,7 @@ module AdminDocumentControllerTestHelpers
       test "creating a document should result in a single instance of the uploaded file being cached" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(document_type)
-        attributes[:document_attachments_attributes] = {
+        attributes[:edition_attachments_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
         }
 
@@ -275,8 +275,8 @@ module AdminDocumentControllerTestHelpers
         post :create, document: controller_attributes_for(document_type, title: "")
 
         assert_select "form#document_new" do
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -285,13 +285,13 @@ module AdminDocumentControllerTestHelpers
 
         post :create, document: controller_attributes_for(document_type,
           title: "",
-          document_attachments_attributes: {
+          edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
         )
 
         assert_select "form#document_new" do
-          assert_select "input[name*='document[document_attachments_attributes]'][type='file']", count: 1
+          assert_select "input[name*='document[edition_attachments_attributes]'][type='file']", count: 1
         end
       end
 
@@ -300,14 +300,14 @@ module AdminDocumentControllerTestHelpers
 
         post :create, document: controller_attributes_for(document_type,
           title: "",
-          document_attachments_attributes: {
+          edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
 
         assert_select "form#document_new" do
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
           assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
@@ -315,7 +315,7 @@ module AdminDocumentControllerTestHelpers
       test 'creating a document with invalid data should not show any existing attachment info' do
         attributes = controller_attributes_for(document_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-        attributes[:document_attachments_attributes] = {
+        attributes[:edition_attachments_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
         }
 
@@ -328,7 +328,7 @@ module AdminDocumentControllerTestHelpers
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attributes = controller_attributes_for(document_type)
-        attributes[:document_attachments_attributes] = {
+        attributes[:edition_attachments_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
           "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
         }
@@ -357,12 +357,12 @@ module AdminDocumentControllerTestHelpers
         get :edit, id: document
 
         assert_select "form#document_edit" do
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][type='text'][value='attachment-title']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][type='text'][value='attachment-title']"
           assert_select ".attachment" do
             assert_select "a", text: %r{two-pages.pdf$}
           end
-          assert_select "input[name='document[document_attachments_attributes][1][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='document[document_attachments_attributes][1][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='document[edition_attachments_attributes][1][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='document[edition_attachments_attributes][1][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -371,7 +371,7 @@ module AdminDocumentControllerTestHelpers
         document = create(document_type)
 
         put :update, id: document, document: document.attributes.merge(
-          document_attachments_attributes: {
+          edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
@@ -391,7 +391,7 @@ module AdminDocumentControllerTestHelpers
         document = create(document_type)
 
         put :update, id: document, document: document.attributes.merge(
-          document_attachments_attributes: {
+          edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
             "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
           }
@@ -416,7 +416,7 @@ module AdminDocumentControllerTestHelpers
         put :update, id: document, document: document.attributes.merge(title: "")
 
         assert_select "form#document_edit" do
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -426,13 +426,13 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: controller_attributes_for(document_type,
           title: "",
-          document_attachments_attributes: {
+          edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
         )
 
         assert_select "form#document_edit" do
-          assert_select "input[name*='document[document_attachments_attributes]'][type='file']", count: 1
+          assert_select "input[name*='document[edition_attachments_attributes]'][type='file']", count: 1
         end
       end
 
@@ -442,14 +442,14 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: controller_attributes_for(document_type,
           title: "",
-          document_attachments_attributes: {
+          edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
 
         assert_select "form#document_edit" do
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
           assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
@@ -462,8 +462,8 @@ module AdminDocumentControllerTestHelpers
         put :update, id: document, document: document.attributes.merge(lock_version: lock_version)
 
         assert_select "form#document_edit" do
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='document[document_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -475,13 +475,13 @@ module AdminDocumentControllerTestHelpers
 
         put :update, id: document, document: document.attributes.merge(
           lock_version: lock_version,
-          document_attachments_attributes: {
+          edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
         )
 
         assert_select "form#document_edit" do
-          assert_select "input[name*='document[document_attachments_attributes]'][type='file']", count: 1
+          assert_select "input[name*='document[edition_attachments_attributes]'][type='file']", count: 1
         end
       end
 
@@ -489,11 +489,11 @@ module AdminDocumentControllerTestHelpers
         attachment_1 = create(:attachment)
         attachment_2 = create(:attachment)
         document = create(document_type)
-        document_attachment_1 = create(:document_attachment, document: document, attachment: attachment_1)
-        document_attachment_2 = create(:document_attachment, document: document, attachment: attachment_2)
+        document_attachment_1 = create(:edition_attachment, edition: document, attachment: attachment_1)
+        document_attachment_2 = create(:edition_attachment, edition: document, attachment: attachment_2)
 
         put :update, id: document, document: document.attributes.merge(
-          document_attachments_attributes: {
+          edition_attachments_attributes: {
             "0" => { id: document_attachment_1.id.to_s, _destroy: "1" },
             "1" => { id: document_attachment_2.id.to_s, _destroy: "0" },
             "2" => { attachment_attributes: { file_cache: "" } }
@@ -657,7 +657,7 @@ module AdminDocumentControllerTestHelpers
       test 'edit displays document image fields' do
         image = fixture_file_upload('portas-review.jpg')
         document = create(document_type)
-        image = create(:image, alt_text: "blah", document: document,
+        image = create(:image, alt_text: "blah", edition: document,
                        image_data_attributes: attributes_for(:image_data, file: image))
 
         get :edit, id: document
@@ -819,8 +819,8 @@ module AdminDocumentControllerTestHelpers
 
       test 'updating should allow removal of images' do
         document = create(document_type)
-        image_1 = create(:image, document: document, alt_text: "the first image")
-        image_2 = create(:image, document: document, alt_text: "the second image")
+        image_1 = create(:image, edition: document, alt_text: "the first image")
+        image_2 = create(:image, edition: document, alt_text: "the second image")
 
         attributes = document.attributes.merge(
           images_attributes: {
@@ -838,7 +838,7 @@ module AdminDocumentControllerTestHelpers
 
       test "shows the image" do
         document = create(document_type)
-        image = create(:image, document: document)
+        image = create(:image, edition: document)
 
         get :show, id: document
 
@@ -849,7 +849,7 @@ module AdminDocumentControllerTestHelpers
 
       test "can embed image inline and see it in preview" do
         document = create(document_type, body: "!!1")
-        image = create(:image, document: document)
+        image = create(:image, edition: document)
 
         get :show, id: document
 
@@ -1072,7 +1072,7 @@ module AdminDocumentControllerTestHelpers
       test "should display the publish form with change note if document is publishable and change note is required" do
         login_as :departmental_editor
         published_document = create("published_#{document_type}")
-        document = create("submitted_#{document_type}", document_identity: published_document.document_identity)
+        document = create("submitted_#{document_type}", doc_identity: published_document.doc_identity)
         get :show, id: document
         assert_select publish_form_selector(document), count: 1 do
           assert_select "textarea[name='document[change_note]']"
@@ -1106,7 +1106,7 @@ module AdminDocumentControllerTestHelpers
       test "should display the force publish form with change note if document is not publishable but is force-publishable and change note is required" do
         login_as :departmental_editor
         published_document = create("published_#{document_type}")
-        document = create("draft_#{document_type}", document_identity: published_document.document_identity)
+        document = create("draft_#{document_type}", doc_identity: published_document.doc_identity)
         get :show, id: document
         assert_select force_publish_form_selector(document), count: 1 do
           assert_select "textarea[name='document[change_note]']"
@@ -1241,7 +1241,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_prevent_modification_of_unmodifiable(document_type)
-      (Document::UNMODIFIABLE_STATES - %w(deleted)).each do |state|
+      (Edition::UNMODIFIABLE_STATES - %w(deleted)).each do |state|
         test "edit not allowed for #{state} #{document_type}" do
           document = create("#{state}_#{document_type}")
 
@@ -1303,11 +1303,11 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_report_editing_conflicts_of(document_type)
-      test "editing an existing #{document_type} should record a RecentDocumentOpening" do
+      test "editing an existing #{document_type} should record a RecentEditionOpening" do
         document = create(document_type)
         get :edit, id: document
 
-        assert_equal [current_user], document.reload.recent_document_openings.map(&:editor)
+        assert_equal [current_user], document.reload.recent_edition_openings.map(&:editor)
       end
 
       test "should not see a warning when editing a document that nobody has recently edited" do
@@ -1328,11 +1328,11 @@ module AdminDocumentControllerTestHelpers
         assert_select ".editing_conflict", /1 hour ago/
       end
 
-      test "saving a #{document_type} should remove any RecentDocumentOpening records for the current user" do
+      test "saving a #{document_type} should remove any RecentEditionOpening records for the current user" do
         document = create(document_type)
         document.open_for_editing_as(@current_user)
 
-        assert_difference "document.reload.recent_document_openings.count", -1 do
+        assert_difference "document.reload.recent_edition_openings.count", -1 do
           put :update, id: document, document: {}
         end
       end

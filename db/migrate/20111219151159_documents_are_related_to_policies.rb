@@ -1,4 +1,9 @@
 class DocumentsAreRelatedToPolicies < ActiveRecord::Migration
+
+  class DocumentRelationTable < ActiveRecord::Base
+    set_table_name :document_relations
+  end
+
   def up
     rename_column :document_relations, :related_document_id, :policy_id
 
@@ -20,7 +25,7 @@ class DocumentsAreRelatedToPolicies < ActiveRecord::Migration
       end
     end
     # If we got to here, then the data is consistent and we can simply drop the invalid data
-    DocumentRelation.destroy(invalid.map { |x| x["id"] })
+    DocumentRelationTable.destroy(invalid.map { |x| x["id"] })
   end
 
   def down

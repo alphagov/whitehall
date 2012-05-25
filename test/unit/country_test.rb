@@ -59,9 +59,9 @@ class CountryTest < ActiveSupport::TestCase
     news_b = create(:published_news_article)
     news_c = create(:published_news_article)
 
-    create(:document_country, country: country, document: news_a, featured: true)
-    create(:document_country, country: country, document: news_b, featured: true)
-    create(:document_country, country: other_country, document: news_c, featured: true)
+    create(:edition_country, country: country, edition: news_a, featured: true)
+    create(:edition_country, country: country, edition: news_b, featured: true)
+    create(:edition_country, country: other_country, edition: news_c, featured: true)
 
     assert_equal [news_a, news_b], country.featured_news_articles
   end
@@ -72,8 +72,8 @@ class CountryTest < ActiveSupport::TestCase
     news_a = create(:published_news_article)
     news_b = create(:draft_news_article)
 
-    create(:document_country, country: country, document: news_a, featured: true)
-    create(:document_country, country: country, document: news_b, featured: true)
+    create(:edition_country, country: country, edition: news_a, featured: true)
+    create(:edition_country, country: country, edition: news_b, featured: true)
 
     assert_equal [news_a], country.featured_news_articles
   end
@@ -84,8 +84,8 @@ class CountryTest < ActiveSupport::TestCase
     news_a = create(:published_news_article)
     news_b = create(:published_news_article)
 
-    create(:document_country, country: country, document: news_a, featured: false)
-    create(:document_country, country: country, document: news_b, featured: true)
+    create(:edition_country, country: country, edition: news_a, featured: false)
+    create(:edition_country, country: country, edition: news_b, featured: true)
 
     assert_equal [news_b], country.featured_news_articles
   end

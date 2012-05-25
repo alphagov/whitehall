@@ -55,7 +55,7 @@ module Whitehall
 
     def cancel_path(path)
       return path if path
-      if object.is_a?(Document)
+      if object.is_a?(Edition)
         object.new_record? ? @template.admin_documents_path :
                              @template.admin_document_path(object)
       else

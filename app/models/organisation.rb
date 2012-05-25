@@ -9,11 +9,11 @@ class Organisation < ActiveRecord::Base
   has_many :child_organisations, through: :child_organisational_relationships
   has_many :parent_organisations, through: :parent_organisational_relationships
 
-  has_many :document_organisations, dependent: :destroy
-  has_many :documents, through: :document_organisations
-  has_many :published_documents, through: :document_organisations, class_name: "Document", conditions: { state: "published" }, source: :document
-  has_many :corporate_publications, through: :document_organisations, class_name: "Publication", conditions: {"documents.corporate_publication" => true}, source: :document
-  has_many :featured_news_articles, through: :document_organisations, class_name: "NewsArticle", conditions: { "document_organisations.featured" => true, "documents.state" => "published" }, source: :document
+  has_many :edition_organisations, dependent: :destroy
+  has_many :editions, through: :edition_organisations
+  has_many :published_editions, through: :edition_organisations, class_name: "Edition", conditions: { state: "published" }, source: :edition
+  has_many :corporate_publications, through: :edition_organisations, class_name: "Publication", conditions: {"editions.corporate_publication" => true}, source: :edition
+  has_many :featured_news_articles, through: :edition_organisations, class_name: "NewsArticle", conditions: { "edition_organisations.featured" => true, "editions.state" => "published" }, source: :edition
 
   has_many :organisation_roles, dependent: :destroy
   has_many :roles, through: :organisation_roles

@@ -59,7 +59,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "shows version of supporting page linked to given document" do
     previous_document = create(:published_policy)
-    previous_supporting_page = create(:supporting_page, document: previous_document)
+    previous_supporting_page = create(:supporting_page, edition: previous_document)
     document = previous_document.create_draft(create(:policy_writer))
     supporting_page = document.supporting_pages.first
 
@@ -70,7 +70,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "shows the title and a link back to the parent" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :show, document_id: document, id: supporting_page
 
@@ -81,7 +81,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   test "shows the body using govspeak markup" do
     supporting_page = create(:supporting_page, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :show, document_id: supporting_page.document, id: supporting_page
+      get :show, document_id: supporting_page.edition, id: supporting_page
     end
 
     assert_select ".body", text: "body-in-html"
@@ -89,7 +89,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "shows edit link if parent document is not published" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :show, document_id: document, id: supporting_page
 
@@ -98,7 +98,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "doesn't show edit link if parent document is published" do
     document = create(:published_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :show, document_id: document, id: supporting_page
 
@@ -107,7 +107,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "edit form has title and body inputs" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :edit, document_id: document, id: supporting_page
 
@@ -120,7 +120,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "edit form has previewable body" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :edit, document_id: document, id: supporting_page
 
@@ -129,7 +129,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "edit form include lock version to prevent conflicting changes overwriting each other" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document)
+    supporting_page = create(:supporting_page, edition: document)
 
     get :edit, document_id: document, id: supporting_page
 
@@ -142,7 +142,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page = create(:supporting_page)
 
     attributes = { title: "new-title", body: "new-body" }
-    put :update, document_id: supporting_page.document, id: supporting_page, supporting_page: attributes
+    put :update, document_id: supporting_page.edition, id: supporting_page, supporting_page: attributes
 
     supporting_page.reload
     assert_equal attributes[:title], supporting_page.title
@@ -153,7 +153,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page = create(:supporting_page)
 
     attributes = { title: "new-title", body: "new-body" }
-    put :update, document_id: supporting_page.document, id: supporting_page, supporting_page: attributes
+    put :update, document_id: supporting_page.edition, id: supporting_page, supporting_page: attributes
 
     assert_redirected_to admin_supporting_page_path(supporting_page)
     assert_equal flash[:notice], "The supporting page was updated successfully"
@@ -163,7 +163,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page = create(:supporting_page)
 
     attributes = { title: nil, body: "new-body" }
-    put :update, document_id: supporting_page.document, id: supporting_page, supporting_page: attributes
+    put :update, document_id: supporting_page.edition, id: supporting_page, supporting_page: attributes
 
     assert_template "edit"
     assert_equal "There was a problem: Title can't be blank", flash[:alert]
@@ -175,7 +175,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page.touch
 
     attributes = { title: "new-title", body: "new-body" }
-    put :update, document_id: supporting_page.document, id: supporting_page, supporting_page: attributes.merge(lock_version: lock_version)
+    put :update, document_id: supporting_page.edition, id: supporting_page, supporting_page: attributes.merge(lock_version: lock_version)
 
     assert_template 'edit'
     conflicting_supporting_page = supporting_page.reload
@@ -186,7 +186,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "should be able to destroy a destroyable supporting page" do
     document = create(:draft_policy)
-    supporting_page = create(:supporting_page, document: document, title: "Blah blah")
+    supporting_page = create(:supporting_page, edition: document, title: "Blah blah")
 
     delete :destroy, document_id: document, id: supporting_page.id
 
@@ -197,7 +197,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   test "destroying an indestructible role" do
     document = create(:published_policy)
-    supporting_page = create(:supporting_page, document: document, title: "Blah blah")
+    supporting_page = create(:supporting_page, edition: document, title: "Blah blah")
 
     delete :destroy, document_id: document, id: supporting_page.id
 

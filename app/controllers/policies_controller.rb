@@ -10,7 +10,7 @@ class PoliciesController < DocumentsController
     @related_news_articles = NewsArticle.published.related_to(@policy)
     @related_speeches = Speech.published.related_to(@policy)
     @countries = @policy.countries
-    @recently_changed_documents = Document.published.related_to(@policy).by_published_at
+    @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
   end
 
   private

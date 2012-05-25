@@ -1,5 +1,5 @@
-class Admin::PoliciesController < Admin::DocumentsController
-  include Admin::DocumentsController::NationalApplicability
+class Admin::PoliciesController < Admin::EditionsController
+  include Admin::EditionsController::NationalApplicability
   before_filter :build_image, only: [:new, :edit]
 
   private

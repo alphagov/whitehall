@@ -5,7 +5,7 @@ class HomeControllerTest < ActionController::TestCase
 
   test 'selects the 16 most recently updated documents to display' do
     documents = 20.times.map do |i|
-      create(:published_document, published_at: i.minutes.ago)
+      create(:published_edition, published_at: i.minutes.ago)
     end
 
     get :show
@@ -15,7 +15,7 @@ class HomeControllerTest < ActionController::TestCase
 
   test 'assigns each listed document a unique letter (used for box layout)' do
     documents = 20.times.map do |i|
-      create(:published_document, published_at: i.minutes.ago)
+      create(:published_edition, published_at: i.minutes.ago)
     end
 
     get :show

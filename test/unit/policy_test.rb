@@ -23,7 +23,7 @@ class PolicyTest < ActiveSupport::TestCase
     assert_equal "http://scot.gov.uk", draft_policy.nation_inapplicabilities.find_by_nation_id(Nation.scotland.id).alternative_url
   end
 
-  test "should build a draft copy with references to related documents" do
+  test "should build a draft copy with references to related editions" do
     published_policy = create(:published_policy)
     publication = create(:published_publication, related_policies: [published_policy])
     speech = create(:published_speech, related_policies: [published_policy])
@@ -31,8 +31,8 @@ class PolicyTest < ActiveSupport::TestCase
     draft_policy = published_policy.create_draft(create(:policy_writer))
     assert draft_policy.valid?
 
-    assert draft_policy.related_documents.include?(speech)
-    assert draft_policy.related_documents.include?(publication)
+    assert draft_policy.related_editions.include?(speech)
+    assert draft_policy.related_editions.include?(publication)
   end
 
   test "can belong to multiple policy topics" do
@@ -47,13 +47,13 @@ class PolicyTest < ActiveSupport::TestCase
   end
 
   test "stub status doesn't affect slug generation" do
-    assert_equal "stub-title", create(:policy, title: "stub title", stub: true).document_identity.slug
+    assert_equal "stub-title", create(:policy, title: "stub title", stub: true).doc_identity.slug
   end
 
-  test "#destroy should remove document relations to other documents" do
-    document = create(:draft_policy)
-    relationship = create(:document_relation, document_identity: document.document_identity)
-    document.destroy
-    assert_equal nil, DocumentRelation.find_by_id(relationship.id)
+  test "#destroy should remove edition relations to other editions" do
+    edition = create(:draft_policy)
+    relationship = create(:edition_relation, doc_identity: edition.doc_identity)
+    edition.destroy
+    assert_equal nil, EditionRelation.find_by_id(relationship.id)
   end
 end

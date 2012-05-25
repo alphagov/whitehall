@@ -5,7 +5,7 @@ module DocumentBehaviour
     def should_be_featurable(document_type)
       document_class = document_class_for(document_type)
 
-      (Document.state_machine.states.map(&:name) - [:published]).each do |state|
+      (Edition.state_machine.states.map(&:name) - [:published]).each do |state|
         test "should be not featurable when #{state}" do
           refute build("#{state}_#{document_type}").featurable?
         end

@@ -1,18 +1,18 @@
 Given /^a supporting page "([^"]*)" exists on a draft policy "([^"]*)"$/ do |supporting_title, document_title|
   document = create(:draft_policy, title: document_title)
-  create(:supporting_page, document: document, title: supporting_title)
+  create(:supporting_page, edition: document, title: supporting_title)
 end
 
 Given /^a published policy "([^"]*)" with supporting pages "([^"]*)" and "([^"]*)"$/ do |policy_title, first_supporting_title, second_supporting_title|
   document = create(:published_policy, title: policy_title)
-  create(:supporting_page, document: document, title: first_supporting_title)
-  create(:supporting_page, document: document, title: second_supporting_title)
+  create(:supporting_page, edition: document, title: first_supporting_title)
+  create(:supporting_page, edition: document, title: second_supporting_title)
 end
 
 Given /^a draft policy "([^"]*)" with supporting pages "([^"]*)" and "([^"]*)"$/ do |policy_title, first_supporting_title, second_supporting_title|
   document = create(:draft_policy, title: policy_title)
-  create(:supporting_page, document: document, title: first_supporting_title)
-  create(:supporting_page, document: document, title: second_supporting_title)
+  create(:supporting_page, edition: document, title: first_supporting_title)
+  create(:supporting_page, edition: document, title: second_supporting_title)
 end
 
 Given /^I start editing the supporting page "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
@@ -33,7 +33,7 @@ end
 
 When /^I edit the supporting page "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   supporting_page = SupportingPage.find_by_title!(original_title)
-  visit admin_document_path(supporting_page.document)
+  visit admin_document_path(supporting_page.edition)
   click_link original_title
   click_link "Edit"
   fill_in "Title", with: new_title
@@ -105,7 +105,7 @@ end
 Then /^I should see in the list of draft documents that "([^"]*)" has supporting page "([^"]*)"$/ do |title, supporting_page_title|
   visit admin_documents_path(state: :draft)
   click_link "by everyone"
-  document = Document.find_by_title!(title)
+  document = Edition.find_by_title!(title)
   within(record_css_selector(document)) do
     assert has_css?(".supporting_pages", text: /#{supporting_page_title}/)
   end

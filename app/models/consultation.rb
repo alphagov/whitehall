@@ -1,17 +1,17 @@
-class Consultation < Document
-  include Document::NationalApplicability
-  include Document::Ministers
-  include Document::FactCheckable
-  include Document::RelatedPolicies
-  include Document::Attachable
-  include Document::Featurable
+class Consultation < Edition
+  include Edition::NationalApplicability
+  include Edition::Ministers
+  include Edition::FactCheckable
+  include Edition::RelatedPolicies
+  include Edition::Attachable
+  include Edition::Featurable
 
   validates :opening_on, presence: true
   validates :closing_on, presence: true
   validate :closing_on_must_be_after_opening_on
 
-  has_many :consultation_responses, through: :document_identity
-  has_one :published_consultation_response, through: :document_identity
+  has_many :consultation_responses, through: :doc_identity
+  has_one :published_consultation_response, through: :doc_identity
 
   def latest_consultation_response
     consultation_responses.order("id DESC").first

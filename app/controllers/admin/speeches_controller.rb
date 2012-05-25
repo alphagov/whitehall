@@ -1,4 +1,4 @@
-class Admin::SpeechesController < Admin::DocumentsController
+class Admin::SpeechesController < Admin::EditionsController
   before_filter :set_type, only: [:update]
   before_filter :build_image, only: [:new, :edit]
 

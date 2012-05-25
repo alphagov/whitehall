@@ -16,7 +16,7 @@ class PolicyTopic < ActiveRecord::Base
 
   has_many :policy_topic_memberships
   has_many :policies, through: :policy_topic_memberships
-  has_many :featured_policies, through: :policy_topic_memberships, class_name: "Policy", conditions: { "policy_topic_memberships.featured" => true, "documents.state" => "published" }, source: :policy
+  has_many :featured_policies, through: :policy_topic_memberships, class_name: "Policy", conditions: { "policy_topic_memberships.featured" => true, "editions.state" => "published" }, source: :policy
 
   has_many :organisation_policy_topics
   has_many :organisations, through: :organisation_policy_topics
@@ -65,10 +65,10 @@ class PolicyTopic < ActiveRecord::Base
     joins(:published_policies).group(:policy_topic_id)
   end
 
-  def published_related_documents
+  def published_related_editions
     policies.published.includes(
-      :published_related_documents
-    ).map(&:published_related_documents).flatten.uniq
+      :published_related_editions
+    ).map(&:published_related_editions).flatten.uniq
   end
 
   def destroyable?

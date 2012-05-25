@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120524151543) do
+ActiveRecord::Schema.define(:version => 20120525000900) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -60,85 +60,85 @@ ActiveRecord::Schema.define(:version => 20120524151543) do
 
   add_index "countries", ["slug"], :name => "index_countries_on_slug"
 
-  create_table "document_attachments", :force => true do |t|
-    t.integer  "document_id"
-    t.integer  "attachment_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "document_attachments", ["attachment_id"], :name => "index_document_attachments_on_attachment_id"
-  add_index "document_attachments", ["document_id"], :name => "index_document_attachments_on_document_id"
-
-  create_table "document_authors", :force => true do |t|
-    t.integer  "document_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "document_authors", ["document_id"], :name => "index_document_authors_on_document_id"
-  add_index "document_authors", ["user_id"], :name => "index_document_authors_on_user_id"
-
-  create_table "document_countries", :force => true do |t|
-    t.integer  "document_id"
-    t.integer  "country_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "featured",    :default => false
-  end
-
-  add_index "document_countries", ["country_id"], :name => "index_document_countries_on_country_id"
-  add_index "document_countries", ["document_id"], :name => "index_document_countries_on_document_id"
-
-  create_table "document_identities", :force => true do |t|
+  create_table "doc_identities", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
     t.string   "document_type"
   end
 
-  add_index "document_identities", ["slug", "document_type"], :name => "index_document_identities_on_slug_and_document_type", :unique => true
+  add_index "doc_identities", ["slug", "document_type"], :name => "index_doc_identities_on_slug_and_document_type", :unique => true
 
-  create_table "document_ministerial_roles", :force => true do |t|
-    t.integer  "document_id"
+  create_table "edition_attachments", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "attachment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "edition_attachments", ["attachment_id"], :name => "index_edition_attachments_on_attachment_id"
+  add_index "edition_attachments", ["edition_id"], :name => "index_edition_attachments_on_edition_id"
+
+  create_table "edition_authors", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "edition_authors", ["edition_id"], :name => "index_edition_authors_on_edition_id"
+  add_index "edition_authors", ["user_id"], :name => "index_edition_authors_on_user_id"
+
+  create_table "edition_countries", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "country_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "featured",   :default => false
+  end
+
+  add_index "edition_countries", ["country_id"], :name => "index_edition_countries_on_country_id"
+  add_index "edition_countries", ["edition_id"], :name => "index_edition_countries_on_edition_id"
+
+  create_table "edition_ministerial_roles", :force => true do |t|
+    t.integer  "edition_id"
     t.integer  "ministerial_role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "document_ministerial_roles", ["document_id"], :name => "index_document_ministerial_roles_on_document_id"
-  add_index "document_ministerial_roles", ["ministerial_role_id"], :name => "index_document_ministerial_roles_on_ministerial_role_id"
+  add_index "edition_ministerial_roles", ["edition_id"], :name => "index_edition_ministerial_roles_on_edition_id"
+  add_index "edition_ministerial_roles", ["ministerial_role_id"], :name => "index_edition_ministerial_roles_on_ministerial_role_id"
 
-  create_table "document_organisations", :force => true do |t|
-    t.integer  "document_id"
+  create_table "edition_organisations", :force => true do |t|
+    t.integer  "edition_id"
     t.integer  "organisation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "featured",        :default => false
   end
 
-  add_index "document_organisations", ["document_id", "organisation_id"], :name => "index_document_organisations_on_document_id_and_organisation_id", :unique => true
-  add_index "document_organisations", ["organisation_id"], :name => "index_document_organisations_on_organisation_id"
+  add_index "edition_organisations", ["edition_id", "organisation_id"], :name => "index_edition_organisations_on_edition_id_and_organisation_id", :unique => true
+  add_index "edition_organisations", ["organisation_id"], :name => "index_edition_organisations_on_organisation_id"
 
-  create_table "document_relations", :force => true do |t|
-    t.integer  "document_id",          :null => false
+  create_table "edition_relations", :force => true do |t|
+    t.integer  "edition_id",      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "document_identity_id"
+    t.integer  "doc_identity_id"
   end
 
-  add_index "document_relations", ["document_id"], :name => "index_document_relations_on_document_id"
-  add_index "document_relations", ["document_identity_id"], :name => "index_document_relations_on_document_identity_id"
+  add_index "edition_relations", ["doc_identity_id"], :name => "index_edition_relations_on_doc_identity_id"
+  add_index "edition_relations", ["edition_id"], :name => "index_edition_relations_on_edition_id"
 
-  create_table "documents", :force => true do |t|
+  create_table "editions", :force => true do |t|
     t.string   "title"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "lock_version",                      :default => 0
-    t.integer  "document_identity_id"
-    t.string   "state",                             :default => "draft", :null => false
+    t.integer  "lock_version",                 :default => 0
+    t.integer  "doc_identity_id"
+    t.string   "state",                        :default => "draft", :null => false
     t.string   "type"
     t.integer  "role_appointment_id"
     t.string   "location"
@@ -150,38 +150,38 @@ ActiveRecord::Schema.define(:version => 20120524151543) do
     t.date     "publication_date"
     t.string   "unique_reference"
     t.string   "isbn"
-    t.boolean  "research",                          :default => false
+    t.boolean  "research",                     :default => false
     t.string   "order_url"
     t.text     "notes_to_editors"
-    t.boolean  "corporate_publication",             :default => false
+    t.boolean  "corporate_publication",        :default => false
     t.text     "summary"
     t.integer  "speech_type_id"
-    t.integer  "consultation_document_identity_id"
-    t.boolean  "featured",                          :default => false
-    t.boolean  "stub",                              :default => false
+    t.integer  "consultation_doc_identity_id"
+    t.boolean  "featured",                     :default => false
+    t.boolean  "stub",                         :default => false
     t.text     "change_note"
     t.boolean  "force_published"
-    t.boolean  "minor_change",                      :default => false
+    t.boolean  "minor_change",                 :default => false
   end
 
-  add_index "documents", ["consultation_document_identity_id"], :name => "index_documents_on_consultation_document_identity_id"
-  add_index "documents", ["document_identity_id"], :name => "index_documents_on_document_identity_id"
-  add_index "documents", ["role_appointment_id"], :name => "index_documents_on_role_appointment_id"
-  add_index "documents", ["speech_type_id"], :name => "index_documents_on_speech_type_id"
+  add_index "editions", ["consultation_doc_identity_id"], :name => "index_editions_on_consultation_doc_identity_id"
+  add_index "editions", ["doc_identity_id"], :name => "index_editions_on_doc_identity_id"
+  add_index "editions", ["role_appointment_id"], :name => "index_editions_on_role_appointment_id"
+  add_index "editions", ["speech_type_id"], :name => "index_editions_on_speech_type_id"
 
   create_table "editorial_remarks", :force => true do |t|
     t.text     "body"
-    t.integer  "document_id"
+    t.integer  "edition_id"
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "editorial_remarks", ["author_id"], :name => "index_editorial_remarks_on_author_id"
-  add_index "editorial_remarks", ["document_id"], :name => "index_editorial_remarks_on_document_id"
+  add_index "editorial_remarks", ["edition_id"], :name => "index_editorial_remarks_on_edition_id"
 
   create_table "fact_check_requests", :force => true do |t|
-    t.integer  "document_id"
+    t.integer  "edition_id"
     t.string   "key"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(:version => 20120524151543) do
     t.integer  "requestor_id"
   end
 
-  add_index "fact_check_requests", ["document_id"], :name => "index_fact_check_requests_on_document_id"
+  add_index "fact_check_requests", ["edition_id"], :name => "index_fact_check_requests_on_edition_id"
   add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
   add_index "fact_check_requests", ["requestor_id"], :name => "index_fact_check_requests_on_requestor_id"
 
@@ -203,25 +203,25 @@ ActiveRecord::Schema.define(:version => 20120524151543) do
 
   create_table "images", :force => true do |t|
     t.integer  "image_data_id"
-    t.integer  "document_id"
+    t.integer  "edition_id"
     t.string   "alt_text"
     t.text     "caption"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "images", ["document_id"], :name => "index_images_on_document_id"
+  add_index "images", ["edition_id"], :name => "index_images_on_edition_id"
   add_index "images", ["image_data_id"], :name => "index_images_on_image_data_id"
 
   create_table "nation_inapplicabilities", :force => true do |t|
     t.integer  "nation_id"
-    t.integer  "document_id"
+    t.integer  "edition_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "alternative_url"
   end
 
-  add_index "nation_inapplicabilities", ["document_id"], :name => "index_nation_inapplicabilities_on_document_id"
+  add_index "nation_inapplicabilities", ["edition_id"], :name => "index_nation_inapplicabilities_on_edition_id"
   add_index "nation_inapplicabilities", ["nation_id"], :name => "index_nation_inapplicabilities_on_nation_id"
 
   create_table "nations", :force => true do |t|
@@ -328,13 +328,13 @@ ActiveRecord::Schema.define(:version => 20120524151543) do
 
   add_index "policy_topics", ["slug"], :name => "index_policy_areas_on_slug"
 
-  create_table "recent_document_openings", :force => true do |t|
-    t.integer  "document_id", :null => false
-    t.integer  "editor_id",   :null => false
-    t.datetime "created_at",  :null => false
+  create_table "recent_edition_openings", :force => true do |t|
+    t.integer  "edition_id", :null => false
+    t.integer  "editor_id",  :null => false
+    t.datetime "created_at", :null => false
   end
 
-  add_index "recent_document_openings", ["document_id", "editor_id"], :name => "index_recent_document_openings_on_document_id_and_editor_id", :unique => true
+  add_index "recent_edition_openings", ["edition_id", "editor_id"], :name => "index_recent_edition_openings_on_edition_id_and_editor_id", :unique => true
 
   create_table "role_appointments", :force => true do |t|
     t.integer  "role_id"
@@ -389,7 +389,7 @@ ActiveRecord::Schema.define(:version => 20120524151543) do
   add_index "supporting_page_attachments", ["supporting_page_id"], :name => "index_supporting_page_attachments_on_supporting_page_id"
 
   create_table "supporting_pages", :force => true do |t|
-    t.integer  "document_id"
+    t.integer  "edition_id"
     t.string   "title"
     t.text     "body"
     t.datetime "created_at"
@@ -398,7 +398,7 @@ ActiveRecord::Schema.define(:version => 20120524151543) do
     t.string   "slug"
   end
 
-  add_index "supporting_pages", ["document_id"], :name => "index_supporting_pages_on_document_id"
+  add_index "supporting_pages", ["edition_id"], :name => "index_supporting_pages_on_edition_id"
   add_index "supporting_pages", ["slug"], :name => "index_supporting_documents_on_slug"
 
   create_table "users", :force => true do |t|

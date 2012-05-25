@@ -32,7 +32,7 @@ class Admin::CountriesControllerTest < ActionController::TestCase
     published_news_article = create(:published_news_article)
     draft_news_article = create(:draft_news_article)
     another_news_article = create(:published_news_article)
-    country = create(:country, documents: [published_news_article, draft_news_article])
+    country = create(:country, editions: [published_news_article, draft_news_article])
 
     get :edit, id: country
 
@@ -44,7 +44,7 @@ class Admin::CountriesControllerTest < ActionController::TestCase
   test "editing should display news articles most recently published first" do
     earlier_news_article = create(:published_news_article, first_published_at: 2.days.ago)
     later_news_article = create(:published_news_article, first_published_at: 1.days.ago)
-    country = create(:country, documents: [earlier_news_article, later_news_article])
+    country = create(:country, editions: [earlier_news_article, later_news_article])
 
     get :edit, id: country
 
@@ -54,24 +54,24 @@ class Admin::CountriesControllerTest < ActionController::TestCase
   test "editing should allow non-featured published news articles to be featured" do
     published_news_article = create(:published_news_article)
     country = create(:country)
-    document_country = create(:document_country, country: country, document: published_news_article)
+    document_country = create(:edition_country, country: country, edition: published_news_article)
 
     get :edit, id: country
 
-    assert_select "form[action=#{admin_document_country_path(document_country)}]" do
-      assert_select "input[name='document_country[featured]'][value='true']"
+    assert_select "form[action=#{admin_edition_country_path(document_country)}]" do
+      assert_select "input[name='edition_country[featured]'][value='true']"
     end
   end
 
   test "editing should allow featured published news articles to be unfeatured" do
     published_news_article = create(:published_news_article)
     country = create(:country)
-    document_country = create(:document_country, country: country, document: published_news_article, featured: true)
+    document_country = create(:edition_country, country: country, edition: published_news_article, featured: true)
 
     get :edit, id: country
 
-    assert_select "form[action=#{admin_document_country_path(document_country)}]" do
-      assert_select "input[name='document_country[featured]'][value='false']"
+    assert_select "form[action=#{admin_edition_country_path(document_country)}]" do
+      assert_select "input[name='edition_country[featured]'][value='false']"
     end
   end
 end

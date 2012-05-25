@@ -49,7 +49,7 @@ module Whitehall
     end
 
     def search_index
-      [Document, MinisterialRole, Organisation, SupportingPage, PolicyTopic].map(&:search_index).sum([])
+      [Edition, MinisterialRole, Organisation, SupportingPage, PolicyTopic].map(&:search_index).sum([])
     end
 
     private

@@ -12,7 +12,7 @@
     <%= form.text_field :order_url, label_text: "Order URL" %>
   </fieldset>
 
-  <%= render partial: 'attachment_fields', locals: { form: form, document: document, parent_type: :document } %>
+  <%= render partial: 'attachment_fields', locals: { form: form, document: document, parent_type: :edition } %>
 
   <%= render partial: 'related_policy_fields', locals: { form: form, document: document } %>
   <%= render partial: 'organisation_fields', locals: { form: form, document: document } %>

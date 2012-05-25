@@ -6,7 +6,7 @@ class NewsArticleTest < ActiveSupport::TestCase
 
   should_be_featurable :news_article
 
-  test "should be able to relate to other documents" do
+  test "should be able to relate to other editions" do
     article = build(:news_article)
     assert article.can_be_related_to_policies?
   end
@@ -34,7 +34,7 @@ class NewsArticleTest < ActiveSupport::TestCase
 
   test "uses first image as lead image" do
     news_article = build(:news_article)
-    image = create(:image, document: news_article)
+    image = create(:image, edition: news_article)
     assert_equal image, news_article.lead_image
   end
 

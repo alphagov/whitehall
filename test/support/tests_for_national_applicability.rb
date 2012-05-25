@@ -17,7 +17,7 @@ module TestsForNationalApplicability
 
     post :create, document: attributes.merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
 
-    assert document = Document.last
+    assert document = Edition.last
     assert scotland_inapplicability = document.nation_inapplicabilities.for_nation(Nation.scotland).first
     assert_equal "http://www.scotland.com/", scotland_inapplicability.alternative_url
   end
@@ -162,6 +162,6 @@ module TestsForNationalApplicability
   end
 
   def document_class
-    Document
+    Edition
   end
 end

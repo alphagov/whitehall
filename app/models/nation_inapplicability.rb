@@ -4,7 +4,7 @@ class NationInapplicability < ActiveRecord::Base
   def_delegators :nation, :name
 
   belongs_to :nation
-  belongs_to :document
+  belongs_to :edition
 
   scope :for_nation, -> nation {
     where(nation_id: nation.id)

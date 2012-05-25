@@ -1,8 +1,8 @@
 require "test_helper"
 
 class FactCheckRequestTest < ActiveSupport::TestCase
-  test "should be invalid without a document" do
-    fact_check_request = build(:fact_check_request, document: nil)
+  test "should be invalid without a edition" do
+    fact_check_request = build(:fact_check_request, edition: nil)
     refute fact_check_request.valid?
   end
 

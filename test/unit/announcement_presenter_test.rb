@@ -47,14 +47,14 @@ class AnnouncementPresenterTest < ActiveSupport::TestCase
     refute AnnouncementPresenter.new.in_last_7_days.include?(featured_news)
   end
 
-  test "#featured only returns documents with images" do
+  test "#featured only returns editions with images" do
     latest_news_with_image = create(:published_news_article, images: [build(:image)], published_at: Time.zone.now)
     latest_news_without_image = create(:published_news_article, published_at: Time.zone.now)
 
     assert_equal [latest_news_with_image], AnnouncementPresenter.new.today.featured
   end
 
-  test "#featured only returns 3 documents by default" do
+  test "#featured only returns 3 editions by default" do
     a = create(:published_news_article, images: [build(:image)], published_at: Time.zone.now)
     b = create(:published_news_article, images: [build(:image)], published_at: 1.minute.ago)
     c = create(:published_news_article, images: [build(:image)], published_at: 2.minutes.ago)
@@ -63,7 +63,7 @@ class AnnouncementPresenterTest < ActiveSupport::TestCase
     assert_equal [a, b, c], AnnouncementPresenter.new.today.featured
   end
 
-  test "#unfeatured returns any documents not present in featured" do
+  test "#unfeatured returns any editions not present in featured" do
     latest_news_with_image = create(:published_news_article, images: [build(:image)], published_at: Time.zone.now)
     latest_news_without_image = create(:published_news_article, published_at: Time.zone.now)
     speech = create(:published_speech, published_at: 2.minutes.ago)
@@ -83,7 +83,7 @@ class AnnouncementPresenterTest < ActiveSupport::TestCase
     assert_equal announced_in_last_7_days.to_set, AnnouncementPresenter.new.in_last_7_days.to_set
   end
 
-  test "#in_last_7_days returns documents in order of first publication" do
+  test "#in_last_7_days returns editions in order of first publication" do
     announced_in_last_7_days = [
       create(:published_news_article, published_at: 24.hours.ago),
       create(:published_speech, published_at: 6.days.ago),

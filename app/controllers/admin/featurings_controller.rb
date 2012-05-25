@@ -26,7 +26,7 @@ class Admin::FeaturingsController < Admin::BaseController
   private
 
   def load_document
-    @document = Document.find(params[:document_id])
+    @document = Edition.find(params[:document_id])
   end
 
   def ensure_document_is_featurable

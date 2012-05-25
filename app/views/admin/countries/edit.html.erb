@@ -5,7 +5,7 @@
     <%= form_for([:admin, @country]) do |form| %>
       <%= form.text_area :description %>
 
-      <%= render partial: 'admin/documents/govspeak_help' %>
+      <%= render partial: 'admin/editions/govspeak_help' %>
       <fieldset>
         <%= form.text_area :about, class: 'previewable', help: true %>
       </fieldset>
@@ -42,7 +42,7 @@
               <td><%= link_to news_article.title, admin_document_path(news_article) %></td>
               <td><%= time_ago_in_words news_article.updated_at %> ago</td>
               <td>
-                <% association = news_article.document_countries.where(country_id: @country).first %>
+                <% association = news_article.edition_countries.where(country_id: @country).first %>
                 <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
                   <% if association.featured? %>
                     <%= f.hidden_field :featured, value: false %>

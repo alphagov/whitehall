@@ -1,3 +1,3 @@
-class InternationalPriority < Document
-  include Document::Countries
+class InternationalPriority < Edition
+  include Edition::Countries
 end

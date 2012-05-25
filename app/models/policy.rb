@@ -1,26 +1,26 @@
-class Policy < Document
-  include Document::NationalApplicability
-  include Document::PolicyTopics
-  include Document::Ministers
-  include Document::FactCheckable
-  include Document::SupportingPages
-  include Document::Countries
+class Policy < Edition
+  include Edition::NationalApplicability
+  include Edition::PolicyTopics
+  include Edition::Ministers
+  include Edition::FactCheckable
+  include Edition::SupportingPages
+  include Edition::Countries
 
-  has_many :document_relations, through: :document_identity
-  has_many :related_documents, through: :document_relations, source: :document
-  has_many :published_related_documents, through: :document_relations, source: :document, conditions: {documents: {state: 'published'}}
+  has_many :edition_relations, through: :doc_identity
+  has_many :related_editions, through: :edition_relations, source: :edition
+  has_many :published_related_editions, through: :edition_relations, source: :edition, conditions: {editions: {state: 'published'}}
 
   validates :summary, presence: true
 
-  class Trait < Document::Traits::Trait
-    def process_associations_after_save(document)
-      document.related_documents = @document.related_documents
+  class Trait < Edition::Traits::Trait
+    def process_associations_after_save(edition)
+      edition.related_editions = @edition.related_editions
     end
   end
 
   add_trait Trait
 
-  after_destroy :remove_document_relations
+  after_destroy :remove_edition_relations
 
   def self.stub
     where(stub: true)
@@ -44,7 +44,7 @@ class Policy < Document
 
   private
 
-  def remove_document_relations
-    document_relations.each(&:destroy)
+  def remove_edition_relations
+    edition_relations.each(&:destroy)
   end
 end

@@ -47,17 +47,17 @@ class Admin::SupportingPagesController < Admin::BaseController
     else
       flash[:alert] = "Cannot destroy a supporting page that has been published"
     end
-    redirect_to admin_document_path(@supporting_page.document)
+    redirect_to admin_document_path(@supporting_page.edition)
   end
 
   private
 
   def find_document
-    @document = Document.find(params[:document_id])
+    @document = Edition.find(params[:document_id])
   end
 
   def find_supporting_page
-    @supporting_page = SupportingPage.where(document_id: params[:document_id]).find(params[:id])
+    @supporting_page = SupportingPage.where(edition_id: params[:document_id]).find(params[:id])
   end
 
   def build_attachment

@@ -101,11 +101,11 @@ class PublicationTest < ActiveSupport::TestCase
 
     publication = create(:publication, attachments: [attachment_1, attachment_2])
 
-    document_attachments_attributes = publication.document_attachments.inject({}) do |h, da|
+    edition_attachments_attributes = publication.edition_attachments.inject({}) do |h, da|
       h[da.id] = da.attributes.merge("_destroy" => (da.attachment == attachment_1 ? "1" : "0"))
       h
     end
-    publication.update_attributes(document_attachments_attributes: document_attachments_attributes)
+    publication.update_attributes(edition_attachments_attributes: edition_attachments_attributes)
     publication.reload
 
     assert_equal [attachment_2], publication.attachments

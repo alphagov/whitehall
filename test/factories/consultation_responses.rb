@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :consultation_response, class: ConsultationResponse, parent: :document do
+  factory :consultation_response, class: ConsultationResponse, parent: :edition do
     title "response-title"
     body  "response-body"
     association :consultation, factory: :published_consultation

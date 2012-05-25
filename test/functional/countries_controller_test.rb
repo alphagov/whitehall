@@ -73,8 +73,8 @@ class CountriesControllerTest < ActionController::TestCase
     country = create(:country)
     less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
     more_recent_news_article = create(:published_news_article, first_published_at: 1.day.ago)
-    create(:document_country, document: less_recent_news_article, country: country, featured: true)
-    create(:document_country, document: more_recent_news_article, country: country, featured: true)
+    create(:edition_country, edition: less_recent_news_article, country: country, featured: true)
+    create(:edition_country, edition: more_recent_news_article, country: country, featured: true)
 
     get :show, id: country
 
@@ -85,7 +85,7 @@ class CountriesControllerTest < ActionController::TestCase
     country = create(:country)
     4.times do
       news_article = create(:published_news_article)
-      create(:document_country, document: news_article, country: country, featured: true)
+      create(:edition_country, edition: news_article, country: country, featured: true)
     end
 
     get :show, id: country
@@ -97,7 +97,7 @@ class CountriesControllerTest < ActionController::TestCase
     lead_image = create(:image)
     news_article = create(:published_news_article, images: [lead_image])
     country = create(:country)
-    create(:document_country, document: news_article, country: country, featured: true)
+    create(:edition_country, edition: news_article, country: country, featured: true)
 
     get :show, id: country
 
@@ -109,7 +109,7 @@ class CountriesControllerTest < ActionController::TestCase
   test "shows country's featured news article with a blank image where no image has been supplied" do
     news_article = create(:published_news_article)
     country = create(:country)
-    create(:document_country, document: news_article, country: country, featured: true)
+    create(:edition_country, edition: news_article, country: country, featured: true)
 
     get :show, id: country
 

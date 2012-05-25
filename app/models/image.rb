@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
   belongs_to :image_data
-  belongs_to :document
+  belongs_to :edition
 
   validates :alt_text, presence: true, unless: :skip_main_validation?
 
@@ -23,6 +23,6 @@ class Image < ActiveRecord::Base
   end
 
   def skip_main_validation?
-    document && document.skip_main_validation?
+    edition && edition.skip_main_validation?
   end
 end

@@ -14,7 +14,7 @@ class SiteControllerTest < ActionController::TestCase
 
     get :index
 
-    documents = Document.published.by_published_at
+    documents = Edition.published.by_published_at
     recent_documents = documents[0...10]
     older_documents = documents[10..-1]
 
@@ -106,7 +106,7 @@ class SiteControllerTest < ActionController::TestCase
 
     get :index, format: :atom
 
-    documents = Document.published.by_published_at
+    documents = Edition.published.by_published_at
     recent_documents = documents[0...10]
     older_documents = documents[10..-1]
 

@@ -1,6 +1,6 @@
 Hi <%= @fact_check_request.requestor.name %>,
 
-You asked <%= raw @fact_check_request.email_address %> to check the following <%= @fact_check_request.document.type.downcase %> for factual accuracy: <%= raw @fact_check_request.document.title %>
+You asked <%= raw @fact_check_request.email_address %> to check the following <%= @fact_check_request.edition_type %> for factual accuracy: <%= raw @fact_check_request.edition_title %>
 
 <%- if @fact_check_request.instructions.present? -%>
 You provided the following instructions: <%= raw @fact_check_request.instructions %>

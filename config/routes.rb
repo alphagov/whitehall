@@ -74,8 +74,8 @@ Whitehall::Application.routes.draw do
         resource :user, only: [:show, :edit, :update]
         resources :authors, only: [:show]
         resources :organisations, except: [:show, :destroy]
-        resources :document_organisations, only: [:update]
-        resources :document_countries, only: [:update]
+        resources :document_organisations, only: [:update], as: :edition_organisations, controller: :edition_organisations
+        resources :document_countries, only: [:update], as: :edition_countries, controller: :edition_countries
         resources :policy_topics, path: "policy-topics", except: [:show] do
           member do
             post :feature
@@ -83,12 +83,12 @@ Whitehall::Application.routes.draw do
           end
         end
 
-        resources :documents, only: [:index] do
+        resources :documents, only: [:index], controller: :editions do
           member do
             post :submit
             post :revise
           end
-          resource :publishing, controller: :document_publishing, only: [:create]
+          resource :publishing, controller: :document_publishing, only: [:create], controller: :edition_publishing
           resource :featuring, only: [:create, :update, :destroy]
           resources :supporting_pages, path: "supporting-pages", except: [:index]
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
