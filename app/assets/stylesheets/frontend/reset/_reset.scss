@@ -1,0 +1,29 @@
+// flatten all browser defaults and styles inherited from gov.uk header
+
+#whitehall-wrapper {
+  background: transparent;
+  position: relative;
+  margin: 0 auto;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+}
+
+#whitehall-wrapper * {
+  //display: block;
+  background: transparent;
+  float: none;
+  margin-right: 0;
+  min-height: 0px;
+  position: auto;
+  width: auto;
+  z-index: auto;
+  border: none;
+
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}

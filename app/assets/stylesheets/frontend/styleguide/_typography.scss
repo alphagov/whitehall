@@ -1,0 +1,214 @@
+/*  GOV.UK typography palettes */
+
+
+//  ANATOMY OF A TYPE STYLE
+//  -----------------------
+//  These are a collection of graphic styles. They are deliberately 
+//  abstracted from semantic HTML context to enable flexible re-use.
+//  Although there is a lot of duplication within this file, as long
+//  as you GZIP your CSS it shouldn't cause any bloat.
+//
+//
+//  @mixin brand-45 {
+//  _ Style name refers to graphic style rather than semantic use
+//
+//      font-family:
+//          "Gill Sans W01 Book",
+//          "Gill Sans MT",
+//          "Gill Sans",
+//          "Helvetica Neue",
+//          Arial,
+//          Helvetica,
+//          sans-serif;
+//          _ Assume nothing about pre-exising CSS on the page, so  
+//            it's worth redeclairing the full font-stack each time
+//
+//      font-size: 45px;
+//      font-size: 4.5rem;
+//      _ Font-sizing in rems to avoid issues with relative sizing
+//        and DOM context. Font-size in pixels as fallback for 
+//        older browsers.
+//
+//      line-height: 1.1555555556;
+//      _ Unit-less, relative leading value.
+//        line-height (52px) ÷ font-size (45px) = relative line-height
+//
+//      font-weight: 300;
+//      letter-spacing: 0.01em;
+//      text-transform: none;
+//      _ Again, we can't assume anything about pre-exising CSS on the 
+//        page, so setting these values (even if just resetting them 
+//        to default values) will increase the robustness of the style.
+//
+//      padding-top: 7px;
+//      padding-top: 0.7rem;
+//      padding-bottom: 5px;
+//      padding-bottom: 0.5rem;
+//      _ Set top and bottom padding values to ensure an appropriate
+//        vertical measure before & after the text, ideally sitting it 
+//        on the 8px baseline grid. Rem sizing will allow the 
+//        whitespace to scale proportionally along with the text.
+//  }
+
+
+
+
+
+
+
+
+
+
+
+/* BRAND FONT: GILL SANS */
+
+$font-brand:
+    "Gill Sans W01 Book", 
+    "Gill Sans MT", 
+    "Gill Sans", 
+    "Helvetica Neue", 
+    Arial, 
+    Helvetica, 
+    sans-serif;
+
+
+@mixin brand-45 {
+    font-family: $font-brand;
+    font-size: 45px;
+    font-size: 4.5rem;
+    line-height: 1.1555555556; /*52px*/
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    padding-top: 7px;
+    padding-top: 0.7rem;
+    padding-bottom: 5px;
+    padding-bottom: 0.5rem;
+}
+
+@mixin brand-32 {
+    font-family: $font-brand;
+    font-size: 32px;
+    font-size: 3.2rem;
+    line-height: 1.25; /*40px*/
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    padding-top: 9px;
+    padding-top: 0.9rem;
+    padding-bottom: 7px;
+    padding-bottom: 0.7rem;
+}
+
+@mixin brand-18 {
+    font-family: $font-brand;
+    font-size: 18px;
+    font-size: 1.8rem;
+    line-height: 1.3333333333; /*24px*/
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    padding-top: 5px;
+    padding-top: 0.5rem;
+    padding-bottom: 11px;
+    padding-bottom: 1.1rem;
+}
+
+@mixin brand-13 {
+    font-family: $font-brand;
+    font-size: 13px;
+    font-size: 1.3rem;
+    line-height: 1.2307692308; /*16px*/
+    font-weight: 400;
+    letter-spacing: 0.125em;
+    text-transform: uppercase;
+    padding-top: 11px;
+    padding-top: 1.1rem;
+    padding-bottom: 13px;
+    padding-bottom: 1.3rem;
+}
+
+
+
+
+
+
+
+
+
+/* SANS: HELVETICA */
+
+$font-sans:
+    "Helvetica Neue", 
+    "HelveticaNeue",
+    Arial, 
+    Helvetica, 
+    sans-serif;
+
+
+@mixin sans-18 {
+    font-family: $font-sans;
+    font-size: 18px;
+    font-size: 1.8rem;
+    line-height: 1.3333333333; /*24px*/
+    font-weight: 700;
+    letter-spacing: 0;
+    padding-top: 4px;
+    padding-top: 0.4rem;
+    padding-bottom: 12px;
+    padding-bottom: 1.2rem;
+}
+
+@mixin sans-15 {
+    font-family: $font-sans;
+    font-size: 15px;
+    font-size: 1.5rem;
+    line-height: 1.6; /*24px*/
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    padding-top: 6px;
+    padding-top: 0.6rem;
+    padding-bottom: 10px;
+    padding-bottom: 1rem;
+}
+
+@mixin sans-12 { /* labels only */
+    font-family: $font-sans;
+    font-size: 12px;
+    font-size: 1.2rem;
+    line-height: 1.3333333333; /*16px*/
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    padding-top: 3px;
+    padding-top: 0.3rem;
+    padding-bottom: 5px;
+    padding-bottom: 0.5rem;
+}
+
+
+
+
+
+
+
+
+
+/* BODY: GEORGIA */
+
+$font-body:
+    Georgia, 
+    serif;
+
+
+@mixin body-16 {
+    font-family: $font-body;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 1.5; /*24px*/
+    font-weight: 400;
+    letter-spacing: 0;
+    padding-top: 6px;
+    padding-top: 0.6rem;
+    padding-bottom: 10px;
+    padding-bottom: 1rem;
+}
