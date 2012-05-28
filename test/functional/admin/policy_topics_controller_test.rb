@@ -197,7 +197,7 @@ class Admin::PolicyTopicsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
-  test "editing only shows published documents for ordering" do
+  test "editing only shows published editions for ordering" do
     policy_topic = create(:policy_topic)
     policy = create(:published_policy, policy_topics: [policy_topic])
     draft_policy = create(:draft_policy, policy_topics: [policy_topic])
@@ -210,7 +210,7 @@ class Admin::PolicyTopicsControllerTest < ActionController::TestCase
     refute_select "#policy_order input[type=hidden][value=#{draft_association.id}]"
   end
 
-  test "allows updating of document ordering" do
+  test "allows updating of edition ordering" do
     policy_topic = create(:policy_topic)
     policy = create(:policy, policy_topics: [policy_topic])
     association = policy_topic.policy_topic_memberships.first
@@ -231,7 +231,7 @@ class Admin::PolicyTopicsControllerTest < ActionController::TestCase
     assert policy_topic.reload.deleted?
   end
 
-  test "should indicate that a document is not destroyable when editing" do
+  test "should indicate that an edition is not destroyable when editing" do
     policy_topic_with_published_policy = create(:policy_topic, policies: [build(:published_policy, title: "thingies")])
 
     get :edit, id: policy_topic_with_published_policy.id
