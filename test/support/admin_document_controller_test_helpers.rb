@@ -979,16 +979,10 @@ module AdminDocumentControllerTestHelpers
         assert document.deleted?
       end
 
-      test "destroying a draft document redirects to the draft documents page" do
+      test "destroying a document redirects to the draft documents page" do
         draft_document = create("draft_#{document_type}")
         delete :destroy, id: draft_document
         assert_redirected_to admin_documents_path
-      end
-
-      test "destroying a submitted document redirects to the submitted documents page" do
-        submitted_document = create("submitted_#{document_type}")
-        delete :destroy, id: submitted_document
-        assert_redirected_to admin_documents_path(state: :submitted)
       end
 
       test "destroy displays a notice indicating the document has been deleted" do

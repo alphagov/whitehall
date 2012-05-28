@@ -78,9 +78,8 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def destroy
-    redirect_path = @edition.submitted? ? admin_documents_path(state: :submitted) : admin_documents_path
     @edition.delete!
-    redirect_to redirect_path, notice: "The document '#{@edition.title}' has been deleted"
+    redirect_to admin_documents_path, notice: "The document '#{@edition.title}' has been deleted"
   end
 
   private
