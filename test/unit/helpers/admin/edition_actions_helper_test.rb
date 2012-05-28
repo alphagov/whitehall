@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::DocumentActionsHelperTest < ActionView::TestCase
+class Admin::EditionActionsHelperTest < ActionView::TestCase
   test "should generate publish form for edition" do
     edition = create(:submitted_edition, title: "edition-title")
     html = publish_edition_form(edition)
