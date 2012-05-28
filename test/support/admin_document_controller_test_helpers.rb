@@ -1038,7 +1038,7 @@ module AdminDocumentControllerTestHelpers
       test "should not show the editorial remarks section" do
         edition = create("submitted_#{edition_type}")
         get :show, id: edition
-        refute_select "#editorial_remarks"
+        refute_select "#editorial_remarks .editorial_remark"
       end
 
       test "should show the list of editorial remarks" do
