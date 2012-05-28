@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class Admin::EditionPublishingControllerTest < ActionController::TestCase
+class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test 'publishing should redirect back to published documents' do
     submitted_document = create(:submitted_policy)
     login_as :departmental_editor
-    post :create, document_id: submitted_document, document: {lock_version: submitted_document.lock_version}
+    post :publish, id: submitted_document, document: {lock_version: submitted_document.lock_version}
 
     assert_redirected_to admin_documents_path(state: :published)
     assert_equal "The document #{submitted_document.title} has been published", flash[:notice]
@@ -15,7 +15,7 @@ class Admin::EditionPublishingControllerTest < ActionController::TestCase
   test 'publishing should remove it from the set of submitted policies' do
     document_to_publish = create(:submitted_policy)
     login_as :departmental_editor
-    post :create, document_id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
+    post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
 
     refute Edition.submitted.include?(document_to_publish)
   end
@@ -23,7 +23,7 @@ class Admin::EditionPublishingControllerTest < ActionController::TestCase
   test 'publishing should not mark the document as force published' do
     document_to_publish = create(:submitted_policy)
     login_as :departmental_editor
-    post :create, document_id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
+    post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
 
     refute document_to_publish.reload.force_published?
   end
@@ -31,7 +31,7 @@ class Admin::EditionPublishingControllerTest < ActionController::TestCase
   test 'failing to publish an document should set a flash' do
     document_to_publish = create(:submitted_policy)
     login_as :policy_writer
-    post :create, document_id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
+    post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
 
     assert_equal "Only departmental editors can publish", flash[:alert]
   end
@@ -39,7 +39,7 @@ class Admin::EditionPublishingControllerTest < ActionController::TestCase
   test 'failing to publish an document should redirect back to the document' do
     document_to_publish = create(:submitted_policy)
     login_as :policy_writer
-    post :create, document_id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
+    post :publish, id: document_to_publish, document: {lock_version: document_to_publish.lock_version}
 
     assert_redirected_to admin_policy_path(document_to_publish)
   end
@@ -49,7 +49,7 @@ class Admin::EditionPublishingControllerTest < ActionController::TestCase
     lock_version = policy_to_publish.lock_version
     policy_to_publish.update_attributes!(title: "new title")
     login_as :departmental_editor
-    post :create, document_id: policy_to_publish, document: {lock_version: lock_version}
+    post :publish, id: policy_to_publish, document: {lock_version: lock_version}
 
     assert_redirected_to admin_policy_path(policy_to_publish)
     assert_equal "This document has been edited since you viewed it; you are now viewing the latest version", flash[:alert]
@@ -58,7 +58,7 @@ class Admin::EditionPublishingControllerTest < ActionController::TestCase
   test 'force publishing should succeed where normal publishing would fail' do
     submitted_document = create(:draft_policy)
     login_as :departmental_editor
-    post :create, document_id: submitted_document, document: {lock_version: submitted_document.lock_version}, force: true
+    post :publish, id: submitted_document, document: {lock_version: submitted_document.lock_version}, force: true
 
     assert_redirected_to admin_documents_path(state: :published)
     assert_equal "The document #{submitted_document.title} has been published", flash[:notice]
@@ -67,7 +67,7 @@ class Admin::EditionPublishingControllerTest < ActionController::TestCase
   test 'force publishing should mark the document as force published' do
     submitted_document = create(:draft_policy)
     login_as :departmental_editor
-    post :create, document_id: submitted_document, document: {lock_version: submitted_document.lock_version}, force: true
+    post :publish, id: submitted_document, document: {lock_version: submitted_document.lock_version}, force: true
 
     assert submitted_document.reload.force_published?
   end
@@ -75,7 +75,7 @@ class Admin::EditionPublishingControllerTest < ActionController::TestCase
   test 'should set change note on document if one is provided' do
     document = create(:submitted_policy)
     login_as :departmental_editor
-    post :create, document_id: document, document: {
+    post :publish, id: document, document: {
       change_note: "change-note",
       lock_version: document.lock_version
     }
@@ -86,7 +86,7 @@ class Admin::EditionPublishingControllerTest < ActionController::TestCase
   test 'should record minor change on a document' do
     document = create(:submitted_policy)
     login_as :departmental_editor
-    post :create, document_id: document, document: {
+    post :publish, id: document, document: {
       minor_change: true,
       lock_version: document.lock_version
     }

@@ -86,11 +86,11 @@ module CssSelectors
   end
 
   def publish_form_selector(document)
-    "form[action=#{admin_document_publishing_path(document)}]"
+    "form[action=#{publish_admin_document_path(document)}]"
   end
 
   def force_publish_form_selector(document)
-    "form[action=#{admin_document_publishing_path(document, force: true)}]"
+    "form[action=#{publish_admin_document_path(document, force: true)}]"
   end
 
   def reject_button_selector(document)
