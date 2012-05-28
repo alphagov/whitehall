@@ -49,8 +49,8 @@ class Admin::EditionsController < Admin::BaseController
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
-    @conflicting_document = Edition.find(params[:id])
-    @edition.lock_version = @conflicting_document.lock_version
+    @conflicting_edition = Edition.find(params[:id])
+    @edition.lock_version = @conflicting_edition.lock_version
     build_image
     render action: "edit"
   end
