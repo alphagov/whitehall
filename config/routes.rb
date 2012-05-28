@@ -85,9 +85,9 @@ Whitehall::Application.routes.draw do
 
         resources :documents, only: [:index], controller: :editions do
           member do
-            post :submit
+            post :submit, to: 'edition_workflow#submit'
             post :revise
-            post :reject
+            post :reject, to: 'edition_workflow#reject'
             post :publish, to: 'edition_workflow#publish'
           end
           resource :featuring, only: [:create, :update, :destroy]

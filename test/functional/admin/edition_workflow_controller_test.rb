@@ -94,4 +94,41 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal true, edition.reload.minor_change
   end
 
+  test 'submitting should set submitted on the edition' do
+    login_as :policy_writer
+
+    draft_edition = create(:draft_policy)
+    post :submit, id: draft_edition
+
+    assert draft_edition.reload.submitted?
+  end
+
+  test 'submitting should redirect back to show page' do
+    login_as :policy_writer
+
+    draft_edition = create(:draft_policy)
+    post :submit, id: draft_edition
+
+    assert_redirected_to admin_policy_path(draft_edition)
+    assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
+  end
+
+  test "rejecting the document should mark it as rejected" do
+    login_as :departmental_editor
+
+    submitted_document = create(:submitted_policy)
+
+    post :reject, id: submitted_document
+
+    assert submitted_document.reload.rejected?
+  end
+
+  test "rejecting the document should redirect to create a new editorial remark to explain why" do
+    login_as :departmental_editor
+
+    submitted_document = create(:submitted_policy)
+
+    post :reject, id: submitted_document
+    assert_redirected_to new_admin_document_editorial_remark_path(submitted_document)
+  end
 end

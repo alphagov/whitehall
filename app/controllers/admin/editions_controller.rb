@@ -55,12 +55,6 @@ class Admin::EditionsController < Admin::BaseController
     render action: "edit"
   end
 
-  def submit
-    @edition.submit!
-    redirect_to admin_document_path(@edition),
-      notice: "Your document has been submitted for review by a second pair of eyes"
-  end
-
   def revise
     edition = @edition.create_draft(current_user)
     if edition.persisted?
@@ -69,12 +63,6 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to edit_admin_document_path(@edition.doc_identity.unpublished_edition),
         alert: edition.errors.full_messages.to_sentence
     end
-  end
-
-  def reject
-    @edition.reject!
-    redirect_to new_admin_document_editorial_remark_path(@edition),
-      notice: "Document rejected; please explain why in an editorial remark"
   end
 
   def destroy
