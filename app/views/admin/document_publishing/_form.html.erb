@@ -1,5 +1,5 @@
 <% if edition.publishable_by?(current_user, assuming_presence_of_change_note: true) %>
-  <%= publish_document_form(edition) %>
+  <%= publish_edition_form(edition) %>
 <% elsif edition.publishable_by?(current_user, force: true, assuming_presence_of_change_note: true) %>
-  <%= publish_document_form(edition, force: true) %>
+  <%= publish_edition_form(edition, force: true) %>
 <% end %>
