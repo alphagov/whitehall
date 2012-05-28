@@ -48,7 +48,7 @@ class Admin::CountriesControllerTest < ActionController::TestCase
 
     get :edit, id: country
 
-    assert_equal [later_news_article, earlier_news_article], assigns[:news_articles]
+    assert_equal [later_news_article, earlier_news_article], assigns(:news_articles)
   end
 
   test "editing should allow non-featured published news articles to be featured" do

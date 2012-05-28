@@ -143,7 +143,7 @@ class PolicyTopicsControllerTest < ActionController::TestCase
     get :show, id: policy_topic
 
     expected = [news_article_1, policy_1, publication_2, news_article_2, policy_2, publication_1]
-    actual = assigns[:recently_changed_documents]
+    actual = assigns(:recently_changed_documents)
     assert_equal expected, actual
   end
 

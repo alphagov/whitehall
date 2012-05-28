@@ -49,7 +49,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [more_recent_news_article, less_recent_news_article], assigns[:featured_news_articles]
+    assert_equal [more_recent_news_article, less_recent_news_article], assigns(:featured_news_articles)
   end
 
   test "shows a maximum of 3 featured news articles" do
@@ -61,7 +61,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal 3, assigns[:featured_news_articles].length
+    assert_equal 3, assigns(:featured_news_articles).length
   end
 
   test "shows organisation's featured news article with image" do
@@ -484,7 +484,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :alphabetical
 
-    assert_equal [organisation_a, organisation_b, organisation_c], assigns[:organisations]
+    assert_equal [organisation_a, organisation_b, organisation_c], assigns(:organisations)
   end
 
   test "should place organisation specific css class on every organisation sub page" do

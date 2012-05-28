@@ -78,7 +78,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     get :show, id: country
 
-    assert_equal [more_recent_news_article, less_recent_news_article], assigns[:featured_news_articles]
+    assert_equal [more_recent_news_article, less_recent_news_article], assigns(:featured_news_articles)
   end
 
   test "shows a maximum of 3 featured news articles" do
@@ -90,7 +90,7 @@ class CountriesControllerTest < ActionController::TestCase
 
     get :show, id: country
 
-    assert_equal 3, assigns[:featured_news_articles].length
+    assert_equal 3, assigns(:featured_news_articles).length
   end
 
   test "shows country's featured news article with image" do
