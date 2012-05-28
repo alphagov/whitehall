@@ -8,8 +8,8 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "should render the content using govspeak markup" do
-    document = create(:edition, body: "body-in-govspeak")
-    fact_check_request = create(:fact_check_request, edition: document, comments: "comment")
+    edition = create(:edition, body: "body-in-govspeak")
+    fact_check_request = create(:fact_check_request, edition: edition, comments: "comment")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, id: fact_check_request
     end
@@ -17,10 +17,10 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "should not display the document if it has been deleted" do
-    document = create(:edition, title: "deleted-policy-title", body: "deleted-policy-body")
-    fact_check_request = create(:fact_check_request, edition: document)
-    document.delete!
+  test "should not display the edition if it has been deleted" do
+    edition = create(:edition, title: "deleted-policy-title", body: "deleted-policy-body")
+    fact_check_request = create(:fact_check_request, edition: edition)
+    edition.delete!
 
     get :show, id: fact_check_request
 
@@ -44,10 +44,10 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test "it should not be possible to fact check a deleted document" do
-    document = create(:edition, title: "deleted-policy-title", body: "deleted-policy-body")
-    fact_check_request = create(:fact_check_request, edition: document)
-    document.delete!
+  test "it should not be possible to fact check a deleted edition" do
+    edition = create(:edition, title: "deleted-policy-title", body: "deleted-policy-body")
+    fact_check_request = create(:fact_check_request, edition: edition)
+    edition.delete!
 
     get :edit, id: fact_check_request
 
@@ -57,8 +57,8 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "turn govspeak into nice markup when editing" do
-    document = create(:edition, body: "body-in-govspeak")
-    fact_check_request = create(:fact_check_request, edition: document)
+    edition = create(:edition, body: "body-in-govspeak")
+    fact_check_request = create(:fact_check_request, edition: edition)
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :edit, id: fact_check_request
     end
@@ -159,10 +159,10 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_redirected_to admin_fact_check_request_path(fact_check_request)
   end
 
-  test "display an apology if comments are submitted for a deleted document" do
-    document = create(:edition)
-    fact_check_request = create(:fact_check_request, edition: document)
-    document.delete!
+  test "display an apology if comments are submitted for a deleted edition" do
+    edition = create(:edition)
+    fact_check_request = create(:fact_check_request, edition: edition)
+    edition.delete!
     attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
 
     put :update, id: fact_check_request, fact_check_request: attributes
@@ -176,7 +176,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   setup do
     @attributes = attributes_for(:fact_check_request)
-    @document = create(:draft_policy)
+    @edition = create(:draft_policy)
     @requestor = login_as(:policy_writer)
     ActionMailer::Base.deliveries.clear
   end
@@ -189,15 +189,15 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   test "should create a fact check request" do
     @attributes.merge!(email_address: "fact-checker@example.com")
 
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
-    assert fact_check_request = @document.fact_check_requests.last
+    assert fact_check_request = @edition.fact_check_requests.last
     assert_equal "fact-checker@example.com", fact_check_request.email_address
     assert_equal @requestor, fact_check_request.requestor
   end
 
   test "should send an email when a fact check has been requested" do
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
     assert_equal 1, ActionMailer::Base.deliveries.length
   end
@@ -205,7 +205,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   test "uses host from request in email urls" do
     request.host = "whitehall.example.com"
 
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
     assert_last_email_body_contains("http://whitehall.example.com/")
   end
@@ -214,7 +214,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     request.env["HTTPS"] = "on"
     request.host = "whitehall.example.com"
 
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
     assert_last_email_body_contains("https://whitehall.example.com/")
   end
@@ -222,27 +222,27 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   test "uses port from request in email urls" do
     request.host = "whitehall.example.com:8182"
 
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
     assert_last_email_body_contains("http://whitehall.example.com:8182/")
   end
 
   test "display an informational message when a fact check has been requested" do
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
     assert_equal "The policy has been sent to fact-checker@example.com", flash[:notice]
   end
 
-  test "redirect back to the document preview when a fact check has been requested" do
-    post :create, document_id: @document.id, fact_check_request: @attributes
+  test "redirect back to the edition preview when a fact check has been requested" do
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
-    assert_redirected_to admin_policy_path(@document)
+    assert_redirected_to admin_policy_path(@edition)
   end
 
   test "should not send an email if the fact checker's email address is missing" do
     @attributes.merge!(email_address: "")
 
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
     assert_equal 0, ActionMailer::Base.deliveries.length
   end
@@ -250,31 +250,31 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   test "should display a warning if the fact checker's email address is missing" do
     @attributes.merge!(email_address: "")
 
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
     assert_equal "There was a problem: Email address can't be blank", flash[:alert]
   end
 
-  test "redirect back to the document preview if the fact checker's email address is missing" do
+  test "redirect back to the edition preview if the fact checker's email address is missing" do
     @attributes.merge!(email_address: "")
 
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
-    assert_redirected_to admin_policy_path(@document)
+    assert_redirected_to admin_policy_path(@edition)
   end
 
   test "should reject invalid email addresses" do
     @attributes.merge!(email_address: "not-an-email")
 
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
     assert_equal "There was a problem: Email address does not appear to be valid", flash[:alert]
   end
 
-  test "should display an apology if requesting a fact check for a document that has been deleted" do
-    @document.delete!
+  test "should display an apology if requesting a fact check for an edition that has been deleted" do
+    @edition.delete!
 
-    post :create, document_id: @document.id, fact_check_request: @attributes
+    post :create, document_id: @edition.id, fact_check_request: @attributes
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
   end

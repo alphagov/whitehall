@@ -22,12 +22,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   should_be_rejectable :policy
   should_be_publishable :policy
   should_be_force_publishable :policy
-  should_be_able_to_delete_a_document :policy
+  should_be_able_to_delete_an_edition :policy
   should_link_to_public_version_when_published :policy
   should_not_link_to_public_version_when_not_published :policy
   should_prevent_modification_of_unmodifiable :policy
 
-  test "show the 'add supporting page' button for an unpublished document" do
+  test "show the 'add supporting page' button for an unpublished edition" do
     draft_policy = create(:draft_policy)
 
     get :show, id: draft_policy
@@ -124,7 +124,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal [], policy.policy_topics
   end
 
-  test "updating should retain associations to related documents" do
+  test "updating should retain associations to related editions" do
     policy = create(:draft_policy)
     publication = create(:draft_publication, related_policies: [policy])
     assert policy.related_editions.include?(publication), "policy and publication should be related"
@@ -135,7 +135,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert policy.related_editions.include?(publication), "polcy and publication should still be related"
   end
 
-  test "show does not display image for document types that do not allow one" do
+  test "show does not display image for edition types that do not allow one" do
     policy = create(:policy)
 
     get :show, id: policy

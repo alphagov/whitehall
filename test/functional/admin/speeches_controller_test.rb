@@ -18,7 +18,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_be_rejectable :speech
   should_be_publishable :speech
   should_be_force_publishable :speech
-  should_be_able_to_delete_a_document :speech
+  should_be_able_to_delete_an_edition :speech
   should_link_to_public_version_when_published :speech
   should_not_link_to_public_version_when_not_published :speech
   should_prevent_modification_of_unmodifiable :speech
@@ -94,10 +94,10 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   private
 
-  def controller_attributes_for(document_type, attributes = {})
+  def controller_attributes_for(edition_type, attributes = {})
     role_appointment = attributes.delete(:role_appointment) || create(:role_appointment)
     speech_type = attributes.delete(:speech_type) || SpeechType::Transcript
-    attributes_for(document_type, attributes.merge(
+    attributes_for(edition_type, attributes.merge(
       role_appointment_id: role_appointment.id,
       speech_type_id: speech_type.id
     ))

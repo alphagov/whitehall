@@ -19,7 +19,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_be_rejectable :news_article
   should_be_publishable :news_article
   should_be_force_publishable :news_article
-  should_be_able_to_delete_a_document :news_article
+  should_be_able_to_delete_an_edition :news_article
   should_link_to_public_version_when_published :news_article
   should_not_link_to_public_version_when_not_published :news_article
   should_prevent_modification_of_unmodifiable :news_article
@@ -68,7 +68,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal [second_policy], saved_news_article.related_policies
   end
 
-  test "update should remove all related documents if none in params" do
+  test "update should remove all related editions if none in params" do
     policy = create(:published_policy)
 
     news_article = create(:news_article, related_policies: [policy])
