@@ -7,7 +7,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     @edition = build(:submitted_policy)
     @edition.stubs(id: 1234, new_record?: false)
     @user = login_as(:departmental_editor)
-    Edition.stubs(:find).with(@edition.id.to_param).returns(@edition)
+    Edition.stubs(:find).with(@edition.to_param).returns(@edition)
   end
 
   test 'publish publishes the given edition on behalf of the current user' do
@@ -87,6 +87,22 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
   end
 
+  test 'submit sets lock version on edition before attempting to submit to guard against submitting stale objects' do
+    lock_before_submitting = sequence('lock-before-submitting')
+    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_submitting)
+    @edition.expects(:submit!).in_sequence(lock_before_submitting).returns(true)
+    post :submit, id: @edition, document: {
+      lock_version: 92
+    }
+  end
+
+  test 'submit redirects back to the edition with an error message if a stale object error is thrown' do
+    @edition.stubs(:submit!).raises(ActiveRecord::StaleObjectError)
+    post :submit, id: @edition
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
+  end
+
   test 'reject rejects the edition' do
     @edition.expects(:reject!)
     post :reject, id: @edition
@@ -97,5 +113,21 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :reject, id: @edition
 
     assert_redirected_to new_admin_document_editorial_remark_path(@edition)
+  end
+
+  test 'reject sets lock version on edition before attempting to reject to guard against rejecting stale objects' do
+    lock_before_rejecting = sequence('lock-before-rejecting')
+    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_rejecting)
+    @edition.expects(:reject!).in_sequence(lock_before_rejecting).returns(true)
+    post :reject, id: @edition, document: {
+      lock_version: 92
+    }
+  end
+
+  test 'reject redirects back to the edition with an error message if a stale object error is thrown' do
+    @edition.stubs(:reject!).raises(ActiveRecord::StaleObjectError)
+    post :reject, id: @edition
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 end

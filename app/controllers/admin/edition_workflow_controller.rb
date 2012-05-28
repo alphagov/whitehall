@@ -4,6 +4,10 @@ class Admin::EditionWorkflowController < Admin::BaseController
   before_filter :set_change_note
   before_filter :set_minor_change_flag
 
+  rescue_from ActiveRecord::StaleObjectError do
+    redirect_to admin_document_path(@edition), alert: "This document has been edited since you viewed it; you are now viewing the latest version"
+  end
+
   def submit
     @edition.submit!
     redirect_to admin_document_path(@edition),
@@ -23,8 +27,6 @@ class Admin::EditionWorkflowController < Admin::BaseController
     else
       redirect_to admin_document_path(@edition), alert: @edition.errors.full_messages.to_sentence
     end
-  rescue ActiveRecord::StaleObjectError
-    redirect_to admin_document_path(@edition), alert: "This document has been edited since you viewed it; you are now viewing the latest version"
   end
 
   private
