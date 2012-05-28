@@ -1,5 +1,5 @@
 <% page_title "Editing: " + @edition.title %>
-<% if @conflicting_document %>
+<% if @conflicting_edition %>
   <div class="first">
     <section>
       <h1>Edit <%= @edition.type.titleize %></h1>
@@ -16,7 +16,7 @@
 
       <div class="conflicting latest g-half">
         <h2>Current saved version</h2>
-        <%= render partial: "conflict", locals: {edition: @conflicting_document} %>
+        <%= render partial: "conflict", locals: {edition: @conflicting_edition} %>
       </div>
 
     </section>

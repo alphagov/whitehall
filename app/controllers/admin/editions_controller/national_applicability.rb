@@ -37,8 +37,8 @@ module Admin::EditionsController::NationalApplicability
     flash.now[:alert] = "This document has been saved since you opened it"
     build_edition_attachment
     build_image
-    @conflicting_document = Edition.find(params[:id])
-    @edition.lock_version = @conflicting_document.lock_version
+    @conflicting_edition = Edition.find(params[:id])
+    @edition.lock_version = @conflicting_edition.lock_version
     process_nation_inapplicabilities
     render action: "edit"
   end
