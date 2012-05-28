@@ -203,7 +203,7 @@ That's all
     end
   end
 
-  test "should display the published document" do
+  test "should display the published edition" do
     policy = create(:published_policy)
     draft = policy.create_draft(create(:user))
     doc_identity = draft.doc_identity
@@ -277,7 +277,7 @@ That's all
       count: 0
   end
 
-  test "should use supporting document title as page title" do
+  test "should use supporting page title as page title" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -286,7 +286,7 @@ That's all
     assert_select "title", text: Regexp.new(supporting_page.title)
   end
 
-  test "should use supporting document title as h1" do
+  test "should use supporting page title as h1" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
