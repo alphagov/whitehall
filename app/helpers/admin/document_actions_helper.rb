@@ -20,6 +20,10 @@ module Admin::DocumentActionsHelper
     end
   end
 
+  def reject_document_button(document)
+    link_to "Reject", new_admin_document_editorial_remark_path(document), class: "button"
+  end
+
   def publish_document_form(document, options = {})
     url = admin_document_publishing_path(document, options.slice(:force))
     button_text = options[:force] ? "Force Publish" : "Publish"

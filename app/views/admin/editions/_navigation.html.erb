@@ -9,7 +9,7 @@
   <% end %>
 
   <%= submit_document_button(document) if document.submittable? %>
-  <%= link_to "Reject", new_admin_document_editorial_remark_path(document), class: "button" if document.rejectable_by?(current_user) %>
+  <%= reject_document_button(document) if document.rejectable_by?(current_user) %>
   <%= delete_document_button(document) if document.deletable? %>
   <% if document.published? && document.is_a?(Consultation) %>
     <%= show_or_add_consultation_response_button(document) %>
