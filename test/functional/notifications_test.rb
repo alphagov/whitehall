@@ -18,7 +18,7 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
     assert_equal ['fact-checker@example.com'], @mail.to
   end
 
-  test "email subject should include the name of the requestor and the document title" do
+  test "email subject should include the name of the requestor and the edition title" do
     assert_equal "Fact checking request from <requestor-name>: <policy-title>", @mail.subject
   end
 
@@ -27,11 +27,11 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
     assert_match Regexp.new(url), @mail.body.to_s
   end
 
-  test "email body should contain the title of the document to be checked" do
+  test "email body should contain the title of the edition to be checked" do
     assert_match %r{<policy-title>}, @mail.body.to_s
   end
 
-  test "email body should contain the type of the document to be checked" do
+  test "email body should contain the type of the edition to be checked" do
     assert_match %r{policy}, @mail.body.to_s
   end
 
@@ -42,7 +42,7 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
     assert_match %r{Don't escape "this" text}, mail.body.to_s
   end
 
-  test "email body should contain unescaped document title" do
+  test "email body should contain unescaped edition title" do
     policy = create(:policy, title: %{Use "double quotes" everywhere})
     request = create(:fact_check_request, edition: policy)
     mail = Notifications.fact_check_request(request, host: "example.com")
@@ -75,20 +75,20 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     assert_equal ['fact-check-requestor@example.com'], @mail.to
   end
 
-  test "email subject should include the name of the requestor and the document title" do
+  test "email subject should include the name of the requestor and the edition title" do
     assert_equal "Fact check comment added by fact-checker@example.com: <policy-title>", @mail.subject
   end
 
-  test "email body should contain a link to the comment on the document page" do
+  test "email body should contain a link to the comment on the edition page" do
     url = admin_document_url(@request.edition, anchor: dom_id(@request))
     assert_match Regexp.new(url), @mail.body.to_s
   end
 
-  test "email body should contain the title of the document to be checked" do
+  test "email body should contain the title of the edition to be checked" do
     assert_match %r{<policy-title>}, @mail.body.to_s
   end
 
-  test "email body should contain the type of the document to be checked" do
+  test "email body should contain the type of the edition to be checked" do
     assert_match %r{policy}, @mail.body.to_s
   end
 
@@ -99,7 +99,7 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     assert_match %r{Don't escape "this" text}, mail.body.to_s
   end
 
-  test "email body should contain unescaped document title" do
+  test "email body should contain unescaped edition title" do
     policy = create(:policy, title: %{Use "double quotes" everywhere})
     request = create(:fact_check_request, edition: policy)
     mail = Notifications.fact_check_request(request, host: "example.com")

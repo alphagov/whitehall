@@ -160,30 +160,30 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show lists supporting pages when there are some" do
-    published_document = create(:published_policy)
-    first_supporting_page = create(:supporting_page, edition: published_document)
-    second_supporting_page = create(:supporting_page, edition: published_document)
+    published_edition = create(:published_policy)
+    first_supporting_page = create(:supporting_page, edition: published_edition)
+    second_supporting_page = create(:supporting_page, edition: published_edition)
 
-    get :show, id: published_document.doc_identity
+    get :show, id: published_edition.doc_identity
 
     assert_select ".contextual_info nav.supporting_pages" do
-      assert_select "a[href='#{policy_supporting_page_path(published_document.doc_identity, first_supporting_page)}']", text: first_supporting_page.title
-      assert_select "a[href='#{policy_supporting_page_path(published_document.doc_identity, second_supporting_page)}']", text: second_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(published_edition.doc_identity, first_supporting_page)}']", text: first_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(published_edition.doc_identity, second_supporting_page)}']", text: second_supporting_page.title
     end
   end
 
   test "should apply an active class to the policy page navigation heading" do
-    published_document = create(:published_policy)
-    get :show, id: published_document.doc_identity
+    published_edition = create(:published_policy)
+    get :show, id: published_edition.doc_identity
 
     assert_select "section.contextual_info a.active",
-      text: published_document.title
+      text: published_edition.title
   end
 
   test "doesn't show supporting pages list when empty" do
-    published_document = create(:published_policy)
+    published_edition = create(:published_policy)
 
-    get :show, id: published_document.doc_identity
+    get :show, id: published_edition.doc_identity
 
     refute_select supporting_pages_selector
   end
@@ -197,30 +197,30 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "should render 404 if the document doesn't have a published document" do
+  test "should render 404 if the document doesn't have a published edition" do
     doc_identity = create(:doc_identity)
     get :show, id: doc_identity
 
     assert_response :not_found
   end
 
-  test "should display the published document" do
-    published_document = create(:published_policy)
-    draft = published_document.create_draft(create(:user))
+  test "should display the published edition" do
+    published_edition = create(:published_policy)
+    draft = published_edition.create_draft(create(:user))
     doc_identity = draft.doc_identity
 
     get :show, id: doc_identity
 
     assert_response :success
-    assert_equal published_document, assigns(:document)
+    assert_equal published_edition, assigns(:document)
   end
 
   test "should link to policy topics related to the policy" do
     first_policy_topic = create(:policy_topic)
     second_policy_topic = create(:policy_topic)
-    document = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
+    edition = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
 
-    get :show, id: document.doc_identity
+    get :show, id: edition.doc_identity
 
     assert_select "#document_topics li.policy_topic a", text: first_policy_topic.name
     assert_select "#document_topics li.policy_topic a", text: second_policy_topic.name
@@ -229,9 +229,9 @@ class PoliciesControllerTest < ActionController::TestCase
   test "should link to organisations related to the policy" do
     first_org = create(:organisation, logo_formatted_name: "first")
     second_org = create(:organisation, logo_formatted_name: "second")
-    document = create(:published_policy, organisations: [first_org, second_org])
+    edition = create(:published_policy, organisations: [first_org, second_org])
 
-    get :show, id: document.doc_identity
+    get :show, id: edition.doc_identity
 
     assert_select "#document_organisations li.organisation a", text: first_org.logo_formatted_name
     assert_select "#document_organisations li.organisation a", text: second_org.logo_formatted_name
@@ -240,9 +240,9 @@ class PoliciesControllerTest < ActionController::TestCase
   test "should link to ministers related to the policy" do
     role = create(:ministerial_role)
     appointment = create(:role_appointment, person: create(:person, forename: "minister-name"), role: role)
-    document = create(:published_policy, ministerial_roles: [appointment.role])
+    edition = create(:published_policy, ministerial_roles: [appointment.role])
 
-    get :show, id: document.doc_identity
+    get :show, id: edition.doc_identity
 
     assert_select "#document_ministers a.minister", text: "minister-name"
   end

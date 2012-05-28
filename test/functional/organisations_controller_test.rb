@@ -497,25 +497,25 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows 10 most recently published documents associated with organisation" do
-    documents = 3.times.map { |n| create(:published_policy, published_at: n.days.ago) } +
+  test "shows 10 most recently published editions associated with organisation" do
+    editions = 3.times.map { |n| create(:published_policy, published_at: n.days.ago) } +
                 3.times.map { |n| create(:published_publication, published_at: (3 + n).days.ago) } +
                 3.times.map { |n| create(:published_consultation, published_at: (6 + n).days.ago) } +
                 3.times.map { |n| create(:published_speech, published_at: (9 + n).days.ago) }
 
-    organisation = create(:organisation, editions: documents)
+    organisation = create(:organisation, editions: editions)
     get :show, id: organisation
 
     assert_select "h1", "Latest"
-    documents[0,4].each do |document|
-      assert_select_object document
+    editions[0,4].each do |edition|
+      assert_select_object edition
     end
-    documents[10,2].each do |document|
-      refute_select_object document
+    editions[10,2].each do |edition|
+      refute_select_object edition
     end
   end
 
-  test "should not show most recently published documents when there are none" do
+  test "should not show most recently published editions when there are none" do
     organisation = create(:organisation, editions: [])
     get :show, id: organisation
 

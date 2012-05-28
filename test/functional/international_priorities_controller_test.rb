@@ -24,9 +24,9 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
     third_organisation = create(:organisation)
-    document = create(:published_international_priority, organisations: [first_organisation, second_organisation])
+    edition = create(:published_international_priority, organisations: [first_organisation, second_organisation])
 
-    get :show, id: document.doc_identity
+    get :show, id: edition.doc_identity
 
     assert_select '#document_organisations' do
       assert_select_object first_organisation
@@ -36,9 +36,9 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
   end
 
   test "should not display an empty list of organisations" do
-    document = create(:published_international_priority, organisations: [])
+    edition = create(:published_international_priority, organisations: [])
 
-    get :show, id: document.doc_identity
+    get :show, id: edition.doc_identity
 
     refute_select "#organisations"
   end
