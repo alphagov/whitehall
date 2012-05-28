@@ -1,8 +1,8 @@
 <% page_title "New Editorial Remark" %>
 <%= form_for [:admin, @edition, @editorial_remark] do |feedback_form| %>
   <%= feedback_form.errors %>
-  <%= feedback_form.text_area :body, label_text: "Reason for rejection (you can see the document at the bottom of the page)" %>
-  <%= feedback_form.submit "Confirm rejection" %>
+  <%= feedback_form.text_area :body, label_text: "Remark" %>
+  <%= feedback_form.submit "Submit remark" %>
 <% end %>
 
 <%= content_tag_for(:article, @edition) do %>

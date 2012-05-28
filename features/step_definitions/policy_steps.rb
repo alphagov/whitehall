@@ -92,9 +92,10 @@ end
 When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title(policy_title)
   visit admin_policy_path(policy)
+  PaperTrail.whodunnit = User.last # JUST FUCKING WORK
   click_button "Reject"
-  fill_in "Reason for rejection", with: "reason-for-rejection"
-  click_button "Confirm rejection"
+  fill_in "Remark", with: "reason-for-rejection"
+  click_button "Submit remark"
 end
 
 When /^I create a new edition of the published policy "([^"]*)"$/ do |policy_title|

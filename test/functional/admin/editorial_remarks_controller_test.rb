@@ -8,21 +8,21 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test "should render the edition title and body to give context to the person rejecting" do
-    edition = create(:submitted_edition, title: "edition-title", body: "edition-body")
+    edition = create(:submitted_policy, title: "edition-title", body: "edition-body")
     get :new, document_id: edition
 
     assert_select "#{record_css_selector(edition)} .title", text: "edition-title"
     assert_select "#{record_css_selector(edition)} .body", text: "edition-body"
   end
 
-  test "should redirect to the list of editions that need work" do
-    edition = create(:submitted_edition)
+  test "should redirect to the edition" do
+    edition = create(:submitted_speech)
     post :create, document_id: edition, editorial_remark: { body: "editorial-remark-body" }
-    assert_redirected_to admin_documents_path(state: :submitted)
+    assert_redirected_to admin_speech_path(edition)
   end
 
   test "should create an editorial remark" do
-    edition = create(:submitted_edition)
+    edition = create(:submitted_publication)
     post :create, document_id: edition, editorial_remark: { body: "editorial-remark-body" }
 
     edition.reload
@@ -32,7 +32,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   end
 
   test "should explain why the editorial remark couldn't be saved" do
-    edition = create(:submitted_edition)
+    edition = create(:submitted_consultation)
     post :create, document_id: edition, editorial_remark: { body: "" }
     assert_template "new"
     assert_select ".form-errors"
