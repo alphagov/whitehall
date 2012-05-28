@@ -68,7 +68,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_equal [second_policy], saved_news_article.related_policies
   end
 
-  test "update should remove all related documents if none in params" do
+  test "update should remove all related editions if none in params" do
     policy = create(:published_policy)
 
     news_article = create(:news_article, related_policies: [policy])
