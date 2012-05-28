@@ -93,7 +93,7 @@
         <% end %>
         <% if @editions.blank? %>
           <tr>
-            <td colspan="4">No <%= @document_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
+            <td colspan="4">No <%= @edition_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
           </tr>
         <% end %>
       </tbody>
