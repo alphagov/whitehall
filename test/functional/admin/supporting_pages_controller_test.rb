@@ -65,7 +65,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, document_id: document, id: supporting_page
 
-    assert_equal supporting_page, assigns[:supporting_page]
+    assert_equal supporting_page, assigns(:supporting_page)
   end
 
   test "shows the title and a link back to the parent" do
@@ -179,8 +179,8 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
     assert_template 'edit'
     conflicting_supporting_page = supporting_page.reload
-    assert_equal conflicting_supporting_page, assigns[:conflicting_supporting_page]
-    assert_equal conflicting_supporting_page.lock_version, assigns[:supporting_page].lock_version
+    assert_equal conflicting_supporting_page, assigns(:conflicting_supporting_page)
+    assert_equal conflicting_supporting_page.lock_version, assigns(:supporting_page).lock_version
     assert_equal %{This page has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}, flash[:alert]
   end
 

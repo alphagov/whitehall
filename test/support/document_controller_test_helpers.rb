@@ -111,20 +111,20 @@ module DocumentControllerTestHelpers
           document.feature
         end
         get :index
-        refute assigns["featured_#{document_types}"].include?(draft_featured_document)
+        refute assigns("featured_#{document_types}").include?(draft_featured_document)
       end
 
       test "should ignore published non-featured #{document_types}" do
         published_document = create("published_#{document_type}")
         get :index
-        refute assigns["featured_#{document_types}"].include?(published_document)
+        refute assigns("featured_#{document_types}").include?(published_document)
       end
 
       test "should order published featured #{document_types} by published_at" do
         old_document = create("featured_#{document_type}", published_at: 1.month.ago)
         new_document = create("featured_#{document_type}", published_at: 1.day.ago)
         get :index
-        assert_equal [new_document, old_document], assigns["featured_#{document_types}"]
+        assert_equal [new_document, old_document], assigns("featured_#{document_types}")
       end
 
       test "should not display the featured #{document_types} list if there aren't featured #{document_types}" do
@@ -251,7 +251,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: model
 
-        assert_equal [later_document, earlier_document], assigns[has_many_association]
+        assert_equal [later_document, earlier_document], assigns(has_many_association)
       end
 
       test "should not display an empty published #{has_many_association.to_s.humanize.downcase} section" do

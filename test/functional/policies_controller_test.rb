@@ -92,7 +92,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: policy.doc_identity
 
-    assert_equal [consultation, speech, news_article, publication], assigns[:recently_changed_documents]
+    assert_equal [consultation, speech, news_article, publication], assigns(:recently_changed_documents)
   end
 
   test "show displays related published publications" do
@@ -204,7 +204,7 @@ class PoliciesControllerTest < ActionController::TestCase
     get :show, id: doc_identity
 
     assert_response :success
-    assert_equal published_document, assigns[:document]
+    assert_equal published_document, assigns(:document)
   end
 
   test "should link to policy topics related to the policy" do

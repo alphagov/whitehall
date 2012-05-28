@@ -197,8 +197,8 @@ module AdminDocumentControllerTestHelpers
 
         assert_template 'edit'
         conflicting_document = document.reload
-        assert_equal conflicting_document, assigns[:conflicting_document]
-        assert_equal conflicting_document.lock_version, assigns[:edition].lock_version
+        assert_equal conflicting_document, assigns(:conflicting_document)
+        assert_equal conflicting_document.lock_version, assigns(:edition).lock_version
         assert_equal %{This document has been saved since you opened it}, flash[:alert]
       end
     end

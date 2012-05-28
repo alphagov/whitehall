@@ -26,7 +26,7 @@ module ResourceTestHelpers
         oldest_thing = create(:"published_#{type}", title: 'oldest', timestamp_key => 4.hours.ago)
         newest_thing = create(:"published_#{type}", title: 'newest', timestamp_key => 2.hours.ago)
         get :index
-        assert_equal [newest_thing, oldest_thing], assigns[plural.to_sym]
+        assert_equal [newest_thing, oldest_thing], assigns(plural.to_sym)
       end
 
       test "index doesn't display an empty list if there aren't any #{plural}" do

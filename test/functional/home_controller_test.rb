@@ -10,7 +10,7 @@ class HomeControllerTest < ActionController::TestCase
 
     get :show
 
-    assert_equal assigns[:documents], documents.take(16)
+    assert_equal assigns(:documents), documents.take(16)
   end
 
   test 'assigns each listed document a unique letter (used for box layout)' do

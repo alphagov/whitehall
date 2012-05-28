@@ -30,7 +30,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns[:cabinet_ministerial_roles]
+    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles)
   end
 
   test "should avoid n+1 queries" do
@@ -119,7 +119,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :show, id: ministerial_role
 
-    assert_equal [newer_speech, newer_news_article, older_news_article, older_speech], assigns[:announcements]
+    assert_equal [newer_speech, newer_news_article, older_news_article, older_speech], assigns(:announcements)
   end
 
   test "should not display an empty published speeches section" do

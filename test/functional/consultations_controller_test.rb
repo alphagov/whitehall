@@ -38,7 +38,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [consultation_4, consultation_3, consultation_2, consultation_1], assigns[:consultations]
+    assert_equal [consultation_4, consultation_3, consultation_2, consultation_1], assigns(:consultations)
   end
 
   test 'index lists consultations with most recently published first if most recent significant change is same' do
@@ -50,7 +50,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [consultation_1, consultation_2, consultation_3, consultation_4], assigns[:consultations]
+    assert_equal [consultation_1, consultation_2, consultation_3, consultation_4], assigns(:consultations)
   end
 
   test 'index shows no list if no published consultations exist' do
@@ -96,7 +96,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     get :open
 
-    assert_equal [more_recently_opened, less_recently_opened], assigns[:consultations]
+    assert_equal [more_recently_opened, less_recently_opened], assigns(:consultations)
   end
 
   test 'open lists consultations with most recently published first if opened on same date' do
@@ -105,7 +105,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     get :open
 
-    assert_equal [more_recently_published, less_recently_published], assigns[:consultations]
+    assert_equal [more_recently_published, less_recently_published], assigns(:consultations)
   end
 
   test 'open shows no list if no open consultations exist' do
@@ -142,7 +142,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     get :closed
 
-    assert_equal [more_recently_closed_consultation, less_recently_closed_consultation], assigns[:consultations]
+    assert_equal [more_recently_closed_consultation, less_recently_closed_consultation], assigns(:consultations)
   end
 
   test 'closed lists consultations with most recent response first' do
@@ -154,7 +154,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     get :closed
 
-    assert_equal [consultation_with_more_recent_response, consultation_with_less_recent_response], assigns[:consultations]
+    assert_equal [consultation_with_more_recent_response, consultation_with_less_recent_response], assigns(:consultations)
   end
 
   test 'closed lists consultations with most recent response appearing before most recently closed' do
@@ -164,7 +164,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     get :closed
 
-    assert_equal [consultation_with_response, consultation_without_response], assigns[:consultations]
+    assert_equal [consultation_with_response, consultation_without_response], assigns(:consultations)
   end
 
   test 'closed lists consultations with most recently published first if closed on same date' do
@@ -173,7 +173,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     get :closed
 
-    assert_equal [more_recently_published, less_recently_published], assigns[:consultations]
+    assert_equal [more_recently_published, less_recently_published], assigns(:consultations)
   end
 
   test 'closed lists consultations with most recently published first if response on same date' do
@@ -184,7 +184,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     get :closed
 
-    assert_equal [more_recently_published, less_recently_published], assigns[:consultations]
+    assert_equal [more_recently_published, less_recently_published], assigns(:consultations)
   end
 
   test 'closed shows no list if no closed consultations exist' do

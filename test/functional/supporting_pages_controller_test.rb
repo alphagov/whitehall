@@ -213,7 +213,7 @@ That's all
     get :show, policy_id: doc_identity, id: supporting_page
 
     assert_response :success
-    assert_equal policy, assigns[:policy]
+    assert_equal policy, assigns(:policy)
   end
 
   test "should link to policy topics from within the metadata navigation" do
