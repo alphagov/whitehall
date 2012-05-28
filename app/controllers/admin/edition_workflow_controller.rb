@@ -15,7 +15,6 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def reject
-    PaperTrail.whodunnit = current_user
     @edition.reject!
     redirect_to new_admin_document_editorial_remark_path(@edition),
       notice: "Document rejected; please explain why in an editorial remark"
