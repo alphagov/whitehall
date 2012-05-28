@@ -3,14 +3,14 @@
   <% if !edition.is_latest_edition? %>
     <%= most_recent_edition_button(edition) %>
   <% elsif edition.editable? %>
-    <%= edit_document_button(edition) %>
+    <%= edit_edition_button(edition) %>
   <% elsif edition.published? %>
-    <%= redraft_document_button(edition) %>
+    <%= redraft_edition_button(edition) %>
   <% end %>
 
-  <%= submit_document_button(edition) if edition.submittable? %>
-  <%= reject_document_button(edition) if edition.rejectable_by?(current_user) %>
-  <%= delete_document_button(edition) if edition.deletable? %>
+  <%= submit_edition_button(edition) if edition.submittable? %>
+  <%= reject_edition_button(edition) if edition.rejectable_by?(current_user) %>
+  <%= delete_edition_button(edition) if edition.deletable? %>
   <% if edition.published? && edition.is_a?(Consultation) %>
     <%= show_or_add_consultation_response_button(edition) %>
   <% end %>
