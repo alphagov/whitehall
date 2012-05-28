@@ -11,7 +11,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     attributes = params[:fact_check_request].merge(requestor: current_user)
     fact_check_request = @edition.fact_check_requests.build(attributes)
     if @edition.deleted?
-      render "document_unavailable"
+      render "edition_unavailable"
     elsif fact_check_request.save
       Notifications.fact_check_request(fact_check_request, mailer_url_options).deliver
       notice = "The policy has been sent to #{fact_check_request.email_address}"
@@ -33,7 +33,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
       notice = "Your feedback has been saved"
       redirect_to admin_fact_check_request_path(@fact_check_request), notice: notice
     else
-      render "document_unavailable"
+      render "edition_unavailable"
     end
   end
 
@@ -63,7 +63,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
 
   def check_edition_availability
     if @edition.deleted?
-      render "document_unavailable"
+      render "edition_unavailable"
     end
   end
 end
