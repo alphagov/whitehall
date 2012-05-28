@@ -72,8 +72,8 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def reject
-    @document.reject!
-    redirect_to new_admin_document_editorial_remark_path(@document),
+    @edition.reject!
+    redirect_to new_admin_document_editorial_remark_path(@edition),
       notice: "Document rejected; please explain why in an editorial remark"
   end
 
