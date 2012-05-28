@@ -9,8 +9,8 @@ class Admin::EditionsController < Admin::BaseController
     if params_filters.any?
       state = params_filters[:state]
       @editions = EditionFilter.new(document_class, params_filters).editions
-      @document_state = (state == :active) ? 'all' : state.to_s
-      @page_title = "#{@document_state.humanize} Documents"
+      @edition_state = (state == :active) ? 'all' : state.to_s
+      @page_title = "#{@edition_state.humanize} Documents"
       session[:document_filters] = params_filters
     elsif session_filters.any?
        redirect_to session_filters
