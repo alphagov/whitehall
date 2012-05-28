@@ -10,11 +10,11 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test "new form has title and body inputs" do
-    document = create(:draft_policy)
+    edition = create(:draft_policy)
 
-    get :new, document_id: document
+    get :new, document_id: edition
 
-    assert_select "form[action='#{admin_document_supporting_pages_path(document)}']" do
+    assert_select "form[action='#{admin_document_supporting_pages_path(edition)}']" do
       assert_select "input[name='supporting_page[title]'][type='text']"
       assert_select "textarea[name='supporting_page[body]']"
       assert_select "input[type='submit']"
@@ -22,24 +22,24 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   end
 
   test "new form has previewable body" do
-    document = create(:draft_policy)
+    edition = create(:draft_policy)
 
-    get :new, document_id: document
+    get :new, document_id: edition
 
     assert_select "textarea[name='supporting_page[body]'].previewable"
   end
 
   test "create adds supporting page" do
-    document = create(:draft_policy)
+    edition = create(:draft_policy)
     attributes = { title: "title", body: "body" }
-    post :create, document_id: document, supporting_page: attributes
+    post :create, document_id: edition, supporting_page: attributes
 
-    assert supporting_page = document.supporting_pages.last
+    assert supporting_page = edition.supporting_pages.last
     assert_equal attributes[:title], supporting_page.title
     assert_equal attributes[:body], supporting_page.body
   end
 
-  test "create should redirect to the document page" do
+  test "create should redirect to the edition page" do
     policy = create(:draft_policy)
     attributes = { title: "title", body: "body" }
     post :create, document_id: policy, supporting_page: attributes
@@ -49,33 +49,33 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   end
 
   test "create should render the form when attributes are invalid" do
-    document = create(:draft_policy)
+    edition = create(:draft_policy)
     invalid_attributes = { title: nil, body: "body" }
-    post :create, document_id: document, supporting_page: invalid_attributes
+    post :create, document_id: edition, supporting_page: invalid_attributes
 
     assert_template "new"
     assert_equal "There was a problem: Title can't be blank", flash[:alert]
   end
 
-  test "shows version of supporting page linked to given document" do
-    previous_document = create(:published_policy)
-    previous_supporting_page = create(:supporting_page, edition: previous_document)
-    document = previous_document.create_draft(create(:policy_writer))
-    supporting_page = document.supporting_pages.first
+  test "shows version of supporting page linked to given edition" do
+    previous_edition = create(:published_policy)
+    previous_supporting_page = create(:supporting_page, edition: previous_edition)
+    edition = previous_edition.create_draft(create(:policy_writer))
+    supporting_page = edition.supporting_pages.first
 
-    get :show, document_id: document, id: supporting_page
+    get :show, document_id: edition, id: supporting_page
 
     assert_equal supporting_page, assigns(:supporting_page)
   end
 
   test "shows the title and a link back to the parent" do
-    document = create(:draft_policy)
-    supporting_page = create(:supporting_page, edition: document)
+    edition = create(:draft_policy)
+    supporting_page = create(:supporting_page, edition: edition)
 
-    get :show, document_id: document, id: supporting_page
+    get :show, document_id: edition, id: supporting_page
 
     assert_select ".title", supporting_page.title
-    assert_select "a[href='#{admin_policy_path(document)}']", text: "Back to '#{document.title}'"
+    assert_select "a[href='#{admin_policy_path(edition)}']", text: "Back to '#{edition.title}'"
   end
 
   test "shows the body using govspeak markup" do
@@ -87,29 +87,29 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "shows edit link if parent document is not published" do
-    document = create(:draft_policy)
-    supporting_page = create(:supporting_page, edition: document)
+  test "shows edit link if parent edition is not published" do
+    edition = create(:draft_policy)
+    supporting_page = create(:supporting_page, edition: edition)
 
-    get :show, document_id: document, id: supporting_page
+    get :show, document_id: edition, id: supporting_page
 
     assert_select "a[href='#{edit_admin_supporting_page_path(supporting_page)}']", text: 'Edit'
   end
 
-  test "doesn't show edit link if parent document is published" do
-    document = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: document)
+  test "doesn't show edit link if parent edition is published" do
+    edition = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: edition)
 
-    get :show, document_id: document, id: supporting_page
+    get :show, document_id: edition, id: supporting_page
 
     refute_select "a[href='#{edit_admin_supporting_page_path(supporting_page)}']"
   end
 
   test "edit form has title and body inputs" do
-    document = create(:draft_policy)
-    supporting_page = create(:supporting_page, edition: document)
+    edition = create(:draft_policy)
+    supporting_page = create(:supporting_page, edition: edition)
 
-    get :edit, document_id: document, id: supporting_page
+    get :edit, document_id: edition, id: supporting_page
 
     assert_select "form[action='#{admin_supporting_page_path(supporting_page)}']" do
       assert_select "input[name='supporting_page[title]'][type='text'][value='#{supporting_page.title}']"
@@ -119,19 +119,19 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   end
 
   test "edit form has previewable body" do
-    document = create(:draft_policy)
-    supporting_page = create(:supporting_page, edition: document)
+    edition = create(:draft_policy)
+    supporting_page = create(:supporting_page, edition: edition)
 
-    get :edit, document_id: document, id: supporting_page
+    get :edit, document_id: edition, id: supporting_page
 
     assert_select "textarea[name='supporting_page[body]'].previewable"
   end
 
   test "edit form include lock version to prevent conflicting changes overwriting each other" do
-    document = create(:draft_policy)
-    supporting_page = create(:supporting_page, edition: document)
+    edition = create(:draft_policy)
+    supporting_page = create(:supporting_page, edition: edition)
 
-    get :edit, document_id: document, id: supporting_page
+    get :edit, document_id: edition, id: supporting_page
 
     assert_select "form[action='#{admin_supporting_page_path(supporting_page)}']" do
       assert_select "input[name='supporting_page[lock_version]'][type='hidden'][value='#{supporting_page.lock_version}']"
@@ -185,23 +185,23 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   end
 
   test "should be able to destroy a destroyable supporting page" do
-    document = create(:draft_policy)
-    supporting_page = create(:supporting_page, edition: document, title: "Blah blah")
+    edition = create(:draft_policy)
+    supporting_page = create(:supporting_page, edition: edition, title: "Blah blah")
 
-    delete :destroy, document_id: document, id: supporting_page.id
+    delete :destroy, document_id: edition, id: supporting_page.id
 
-    assert_redirected_to admin_policy_path(document)
+    assert_redirected_to admin_policy_path(edition)
     refute SupportingPage.find_by_id(supporting_page.id)
     assert_equal %{"Blah blah" destroyed.}, flash[:notice]
   end
 
   test "destroying an indestructible role" do
-    document = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: document, title: "Blah blah")
+    edition = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: edition, title: "Blah blah")
 
-    delete :destroy, document_id: document, id: supporting_page.id
+    delete :destroy, document_id: edition, id: supporting_page.id
 
-    assert_redirected_to admin_policy_path(document)
+    assert_redirected_to admin_policy_path(edition)
     assert SupportingPage.find_by_id(supporting_page.id)
     assert_equal "Cannot destroy a supporting page that has been published", flash[:alert]
   end
