@@ -106,21 +106,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
   end
 
-  test 'submitting should set submitted on the edition' do
-    draft_edition = create(:draft_policy)
-    post :submit, id: draft_edition
-
-    assert draft_edition.reload.submitted?
-  end
-
-  test 'submitting should redirect back to show page' do
-    draft_edition = create(:draft_policy)
-    post :submit, id: draft_edition
-
-    assert_redirected_to admin_policy_path(draft_edition)
-    assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
-  end
-
   test "revising the published edition should create a new draft edition" do
     published_edition = create(:published_policy)
     Edition.stubs(:find).returns(published_edition)
@@ -167,21 +152,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
     assert_redirected_to edit_admin_publication_path(existing_rejected)
     assert_equal "There is already an active rejected edition for this document", flash[:alert]
-  end
-
-  test "rejecting the document should mark it as rejected" do
-    submitted_document = create(:submitted_policy)
-
-    post :reject, id: submitted_document
-
-    assert submitted_document.reload.rejected?
-  end
-
-  test "rejecting the document should redirect to create a new editorial remark to explain why" do
-    submitted_document = create(:submitted_policy)
-
-    post :reject, id: submitted_document
-    assert_redirected_to new_admin_document_editorial_remark_path(submitted_document)
   end
 
   test "should remember standard filter options" do
