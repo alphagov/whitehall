@@ -1,6 +1,6 @@
 class Admin::FactCheckRequestsController < Admin::BaseController
   before_filter :load_fact_check_request, only: [:show, :edit, :update]
-  before_filter :check_document_availability, only: [:show, :edit]
+  before_filter :check_edition_availability, only: [:show, :edit]
   skip_before_filter :authenticate_user!, except: [:create]
 
   def show
@@ -61,7 +61,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     redirect_to admin_fact_check_request_url(id: params[:id], host: 'whitehall.production.alphagov.co.uk')
   end
 
-  def check_document_availability
+  def check_edition_availability
     if @document.deleted?
       render "document_unavailable"
     end

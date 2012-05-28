@@ -64,7 +64,7 @@ class Admin::PolicyTopicsController < Admin::BaseController
     end
 
     present_object_with do
-      def document_breakdown
+      def breakdown
         published_policy_ids = @record.policies.published.select("editions.id")
         {
           "featured policy" => @record.policy_topic_memberships.where(featured: true).where("policy_id IN (?)", published_policy_ids).count,

@@ -1,7 +1,7 @@
 class Admin::SupportingPagesController < Admin::BaseController
   include PublicDocumentRoutesHelper
 
-  before_filter :find_document, only: [:new, :create]
+  before_filter :find_edition, only: [:new, :create]
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -52,7 +52,7 @@ class Admin::SupportingPagesController < Admin::BaseController
 
   private
 
-  def find_document
+  def find_edition
     @document = Edition.find(params[:document_id])
   end
 

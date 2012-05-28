@@ -1,14 +1,14 @@
 class Admin::EditionsController < Admin::BaseController
-  before_filter :find_document, only: [:show, :edit, :update, :submit, :revise, :destroy]
-  before_filter :prevent_modification_of_unmodifiable_document, only: [:edit, :update]
+  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :destroy]
+  before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
-  before_filter :build_document, only: [:new, :create]
+  before_filter :build_edition, only: [:new, :create]
   before_filter :detect_other_active_editors, only: [:edit]
 
   def index
     if params_filters.any?
       state = params_filters[:state]
-      @documents = DocumentFilter.new(document_class, params_filters).documents
+      @editions = EditionFilter.new(document_class, params_filters).editions
       @document_state = (state == :active) ? 'all' : state.to_s
       @page_title = "#{@document_state.humanize} Documents"
       session[:document_filters] = params_filters
@@ -62,12 +62,12 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def revise
-    document = @document.create_draft(current_user)
-    if document.persisted?
-      redirect_to edit_admin_document_path(document)
+    edition = @document.create_draft(current_user)
+    if edition.persisted?
+      redirect_to edit_admin_document_path(edition)
     else
       redirect_to edit_admin_document_path(@document.doc_identity.unpublished_edition),
-        alert: document.errors.full_messages.to_sentence
+        alert: edition.errors.full_messages.to_sentence
     end
   end
 
@@ -87,15 +87,15 @@ class Admin::EditionsController < Admin::BaseController
     (params[:document] || {}).merge(creator: current_user)
   end
 
-  def build_document
+  def build_edition
     @document = document_class.new(document_params)
   end
 
-  def find_document
+  def find_edition
     @document = document_class.find(params[:id])
   end
 
-  def prevent_modification_of_unmodifiable_document
+  def prevent_modification_of_unmodifiable_edition
     if @document.unmodifiable?
       notice = "You cannot modify a #{@document.state} #{@document.type.titleize}"
       redirect_to admin_document_path(@document), notice: notice
@@ -152,20 +152,20 @@ class Admin::EditionsController < Admin::BaseController
     @recent_openings = @document.active_edition_openings.except_editor(current_user)
   end
 
-  class DocumentFilter
+  class EditionFilter
     attr_reader :options
 
-    def initialize(document_source, options={})
-      @document_source, @options = document_source, options
+    def initialize(source, options={})
+      @source, @options = source, options
     end
 
-    def documents
-      documents = @document_source
-      documents = documents.by_type(options[:type].classify) if options[:type]
-      documents = documents.__send__(options[:state]) if options[:state]
-      documents = documents.authored_by(User.find(options[:author])) if options[:author]
-      documents = documents.in_organisation(Organisation.find(options[:organisation])) if options[:organisation]
-      documents.includes(:authors).order("updated_at DESC")
+    def editions
+      editions = @source
+      editions = editions.by_type(options[:type].classify) if options[:type]
+      editions = editions.__send__(options[:state]) if options[:state]
+      editions = editions.authored_by(User.find(options[:author])) if options[:author]
+      editions = editions.in_organisation(Organisation.find(options[:organisation])) if options[:organisation]
+      editions.includes(:authors).order("updated_at DESC")
     end
   end
 end

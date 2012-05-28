@@ -51,13 +51,13 @@
           <% if viewing_all_active_documents? %>
             <th>State</th>
           <% end %>
-          <% if show_featuring_controls?(*@documents) %>
+          <% if show_featuring_controls?(*@editions) %>
             <th>Featured</th>
           <% end %>
         </tr>
       </thead>
       <tbody>
-        <% @documents.each do |document| %>
+        <% @editions.each do |document| %>
           <%= content_tag_for(:tr, document, class: ('force_published' if document.force_published?)) do %>
             <td class="type"><%= document.type.titleize %></td>
             <td class="title">
@@ -91,7 +91,7 @@
             <% end %>
           <% end %>
         <% end %>
-        <% if @documents.blank? %>
+        <% if @editions.blank? %>
           <tr>
             <td colspan="4">No <%= @document_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
           </tr>

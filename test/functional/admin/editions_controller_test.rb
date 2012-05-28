@@ -1,19 +1,19 @@
 require 'test_helper'
 
 class Admin::EditionsController
-  class DocumentFilterTest < ActiveSupport::TestCase
+  class EditionFilterTest < ActiveSupport::TestCase
     test "should filter by document type" do
       policy = create(:consultation_response)
       another_document = create(:publication)
 
-      assert_equal [policy], DocumentFilter.new(Edition, type: 'consultation_response').documents
+      assert_equal [policy], EditionFilter.new(Edition, type: 'consultation_response').editions
     end
 
     test "should filter by document state" do
       draft_document = create(:draft_policy)
       document_in_other_state = create(:published_policy)
 
-      assert_equal [draft_document], DocumentFilter.new(Edition, state: 'draft').documents
+      assert_equal [draft_document], EditionFilter.new(Edition, state: 'draft').editions
     end
 
     test "should filter by document author" do
@@ -21,7 +21,7 @@ class Admin::EditionsController
       document = create(:policy, authors: [author])
       document_by_another_author = create(:policy)
 
-      assert_equal [document], DocumentFilter.new(Edition, author: author.to_param).documents
+      assert_equal [document], EditionFilter.new(Edition, author: author.to_param).editions
     end
 
     test "should filter by organisation" do
@@ -30,7 +30,7 @@ class Admin::EditionsController
       document_in_no_organisation = create(:policy)
       document_in_another_organisation = create(:publication, organisations: [create(:organisation)])
 
-      assert_equal [document], DocumentFilter.new(Edition, organisation: organisation.to_param).documents
+      assert_equal [document], EditionFilter.new(Edition, organisation: organisation.to_param).editions
     end
 
     test "should filter by document type, state and author" do
@@ -38,7 +38,7 @@ class Admin::EditionsController
       policy = create(:draft_policy, authors: [author])
       another_document = create(:published_policy, authors: [author])
 
-      assert_equal [policy], DocumentFilter.new(Edition, type: 'policy', state: 'draft', author: author.to_param).documents
+      assert_equal [policy], EditionFilter.new(Edition, type: 'policy', state: 'draft', author: author.to_param).editions
     end
 
     test "should filter by document type, state and organisation" do
@@ -46,14 +46,14 @@ class Admin::EditionsController
       policy = create(:draft_policy, organisations: [organisation])
       another_document = create(:published_policy, organisations: [organisation])
 
-      assert_equal [policy], DocumentFilter.new(Edition, type: 'policy', state: 'draft', organisation: organisation.to_param).documents
+      assert_equal [policy], EditionFilter.new(Edition, type: 'policy', state: 'draft', organisation: organisation.to_param).editions
     end
 
     test "should return the documents ordered by most recent first" do
       older_policy = create(:draft_policy, updated_at: 3.days.ago)
       newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
 
-      assert_equal [newer_policy, older_policy], DocumentFilter.new(Edition, {}).documents
+      assert_equal [newer_policy, older_policy], EditionFilter.new(Edition, {}).editions
     end
 
     test "should provide efficient access to document creators" do
@@ -63,8 +63,8 @@ class Admin::EditionsController
       create(:consultation)
 
       query_count = count_queries do
-        documents = DocumentFilter.new(Edition).documents
-        documents.each { |d| d.creator.name }
+        editions = EditionFilter.new(Edition).editions
+        editions.each { |d| d.creator.name }
       end
 
       expected_queries = [:query_for_all_documents, :query_for_all_document_authors, :query_for_all_users]
@@ -81,15 +81,15 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test 'should pass filter parameters to a document filter' do
-    stub_filter = stub('document filter', documents: [])
-    Admin::EditionsController::DocumentFilter.expects(:new).with(anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
+    stub_filter = stub('document filter', editions: [])
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
 
     get :index, state: :draft, type: :policy
   end
 
   test 'should strip out any invalid states passed as parameters' do
-    stub_filter = stub('document filter', documents: [])
-    Admin::EditionsController::DocumentFilter.expects(:new).with(anything, {"type" => "policy"}).returns(stub_filter)
+    stub_filter = stub('document filter', editions: [])
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"type" => "policy"}).returns(stub_filter)
 
     get :index, state: :haxxor_method, type: :policy
   end
@@ -97,8 +97,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test 'should distinguish between document types when viewing the list of documents' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    stub_filter = stub('document filter', documents: [policy, publication])
-    Admin::EditionsController::DocumentFilter.stubs(:new).returns(stub_filter)
+    stub_filter = stub('document filter', editions: [policy, publication])
+    Admin::EditionsController::EditionFilter.stubs(:new).returns(stub_filter)
 
     get :index, state: :draft
 

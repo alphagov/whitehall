@@ -2,7 +2,7 @@ module Admin::EditionsController::NationalApplicability
   extend ActiveSupport::Concern
 
   included do
-    before_filter :build_document, only: [:new]
+    before_filter :build_edition, only: [:new]
 
     before_filter :build_nation_inapplicabilities, only: [:new, :edit]
   end
@@ -14,7 +14,7 @@ module Admin::EditionsController::NationalApplicability
       redirect_to admin_document_path(@document), notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
-      build_document_attachment
+      build_edition_attachment
       build_image
       process_nation_inapplicabilities
       render action: "new"
@@ -28,14 +28,14 @@ module Admin::EditionsController::NationalApplicability
         notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
-      build_document_attachment
+      build_edition_attachment
       build_image
       process_nation_inapplicabilities
       render action: "edit"
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
-    build_document_attachment
+    build_edition_attachment
     build_image
     @conflicting_document = Edition.find(params[:id])
     @document.lock_version = @conflicting_document.lock_version
@@ -58,6 +58,6 @@ module Admin::EditionsController::NationalApplicability
     @document.build_nation_applicabilities_for_all_nations
   end
 
-  def build_document_attachment
+  def build_edition_attachment
   end
 end
