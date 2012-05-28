@@ -1,14 +1,14 @@
 <article class="document">
-  <%= render partial: "standard_elements", locals: { document: document } %>
+  <%= render partial: "standard_elements", locals: { edition: edition } %>
 
-  <p>Publication date: <span class="publication_date"><%= document.publication_date.to_s(:long_ordinal) %></span></p>
-  <p>Unique reference: <span class="unique_reference"><%= document.unique_reference %></span></p>
-  <p>ISBN: <span class="isbn"><%= document.isbn %></span></p>
-  <p>Research? <span class="research"><%= yes_or_no(document.research?) %></span></p>
-  <p>Corporate Publication? <span class="corporate_publication"><%= yes_or_no(document.corporate_publication?) %></span></p>
-  <p>Order URL: <%= order_link(document) %></p>
-  <%= render partial: "authors", locals: { document: document } %>
+  <p>Publication date: <span class="publication_date"><%= edition.publication_date.to_s(:long_ordinal) %></span></p>
+  <p>Unique reference: <span class="unique_reference"><%= edition.unique_reference %></span></p>
+  <p>ISBN: <span class="isbn"><%= edition.isbn %></span></p>
+  <p>Research? <span class="research"><%= yes_or_no(edition.research?) %></span></p>
+  <p>Corporate Publication? <span class="corporate_publication"><%= yes_or_no(edition.corporate_publication?) %></span></p>
+  <p>Order URL: <%= order_link(edition) %></p>
+  <%= render partial: "authors", locals: { edition: edition } %>
 
   <h3>Attachments:</h3>
-  <%= render partial: "documents/attachments", locals: { document: document }  %>
+  <%= render partial: "documents/attachments", locals: { object_with_attachments: edition }  %>
 </article>

@@ -1,8 +1,8 @@
-<% if document.allows_supporting_pages? %>
+<% if edition.allows_supporting_pages? %>
   <section class="supporting_pages">
     <h1>Supporting pages</h1>
     <ul class="group">
-      <% document.supporting_pages.each do |supporting_page| %>
+      <% edition.supporting_pages.each do |supporting_page| %>
         <%= content_tag_for :li, supporting_page do %>
           <%= link_to admin_supporting_page_path(supporting_page) do %>
             <span class="title"><%= supporting_page.title %></span>
@@ -11,8 +11,8 @@
         <% end %>
       <% end %>
 
-      <% if document.editable? %>
-        <li class="add_supporting_page"><%= link_to 'Add', new_admin_document_supporting_page_path(document), title: "Add supporting page to #{document.title}", :class => "button" %></li>
+      <% if edition.editable? %>
+        <li class="add_supporting_page"><%= link_to 'Add', new_admin_document_supporting_page_path(edition), title: "Add supporting page to #{edition.title}", :class => "button" %></li>
       <% end %>
     </ul>
   </section>

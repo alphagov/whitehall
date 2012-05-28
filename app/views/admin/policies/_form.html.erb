@@ -1,13 +1,13 @@
-<%= form_for [:admin, document], as: :document do |form| %>
+<%= form_for [:admin, edition], as: :document do |form| %>
   <%= form.errors %>
-  <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
+  <%= render partial: 'standard_fields', locals: { form: form, edition: edition }%>
 
-  <%= render partial: 'organisation_fields', locals: { form: form, document: document } %>
-  <%= render partial: 'policy_topic_fields', locals: { form: form, document: document } %>
-  <%= render partial: 'minister_fields', locals: { form: form, document: document } %>
-  <%= render partial: 'country_fields', locals: { form: form, document: document } %>
+  <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'policy_topic_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'country_fields', locals: { form: form, edition: edition } %>
 
-  <%= render partial: 'nation_fields', locals: { form: form, document: document } %>
+  <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
 
   <%= form.check_box :stub, label_text: "Stub?" %>
 

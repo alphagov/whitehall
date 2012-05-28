@@ -1,4 +1,4 @@
-<% document.attachments.each do |attachment| %>
+<% object_with_attachments.attachments.each do |attachment| %>
   <%= content_tag_for(:div, attachment) do %>
     <div class="img"><% if attachment.pdf? %>
       <%= link_to(image_tag(attachment.url(:thumbnail)), attachment.url) %>

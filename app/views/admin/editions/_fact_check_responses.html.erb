@@ -1,12 +1,12 @@
-<% if document.can_be_fact_checked? %>
+<% if edition.can_be_fact_checked? %>
 <section class="fact_checking group">
   <h1>Fact checking</h1>
   <div class="g2 first">
     <section class="responses">
       <h1>Responses</h1>
-      <% if document.fact_check_requests.completed.any? %>
+      <% if edition.fact_check_requests.completed.any? %>
       <ul id="completed_fact_check_requests">
-        <% document.fact_check_requests.completed.each do |fact_check_request| %>
+        <% edition.fact_check_requests.completed.each do |fact_check_request| %>
           <%= content_tag_for(:li, fact_check_request) do %>
             <div class="details">
               <span class="from"><%= fact_check_request.email_address %></span>
@@ -26,17 +26,17 @@
   <div class="g1">
     <section class="request">
       <h1>Send Request</h1>
-      <%= form_for [:admin, document, FactCheckRequest.new] do |f| %>
+      <%= form_for [:admin, edition, FactCheckRequest.new] do |f| %>
         <%= f.text_field :email_address %>
         <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
         <%= f.submit 'Send request' %>
       <% end %>
     </section>
     <section class="pending">
-      <% if document.fact_check_requests.pending.any? %>
+      <% if edition.fact_check_requests.pending.any? %>
       <h1>Pending responses</h1>
       <ul id="pending_fact_check_requests">
-        <% document.fact_check_requests.pending.each do |fact_check_request| %>
+        <% edition.fact_check_requests.pending.each do |fact_check_request| %>
           <li class="fact_check_request pending">
             <div class="details">
               <span class="from"><%= fact_check_request.email_address %></span>

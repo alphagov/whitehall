@@ -1,10 +1,10 @@
 <article class="document">
-  <%= render partial: "standard_elements", locals: { document: document } %>
+  <%= render partial: "standard_elements", locals: { edition: edition } %>
 
-  <%= render partial: "documents/attachments", locals: { document: document }  %>
+  <%= render partial: "documents/attachments", locals: { object_with_attachments: edition }  %>
 
-  <p class="opening_on"><%= consultation_opening_phrase(document) %></p>
-  <p class="closing_on"><%= consultation_closing_phrase(document) %></p>
+  <p class="opening_on"><%= consultation_opening_phrase(edition) %></p>
+  <p class="closing_on"><%= consultation_closing_phrase(edition) %></p>
 
-  <%= render partial: "authors", locals: { document: document } %>
+  <%= render partial: "authors", locals: { edition: edition } %>
 </article>

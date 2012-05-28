@@ -17,7 +17,7 @@
       </div>
     <% else %>
       <% i += 1 %>
-      <% is_lead_image = (document.lead_image == images_fields.object) %>
+      <% is_lead_image = (edition.lead_image == images_fields.object) %>
       <div class="image <%= is_lead_image && 'lead' %>">
         <%= images_fields.hidden_field :id %>
         <div class="image-container">

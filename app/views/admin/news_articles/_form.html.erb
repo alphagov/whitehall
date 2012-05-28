@@ -1,16 +1,16 @@
-<%= form_for [:admin, document], as: :document do |form| %>
+<%= form_for [:admin, edition], as: :document do |form| %>
   <%= form.errors %>
-  <%= render partial: 'standard_fields', locals: { form: form, document: document }%>
-  <%= render partial: 'related_policy_fields', locals: { form: form, document: document } %>
-  <%= render partial: 'organisation_fields', locals: { form: form, document: document } %>
-  <%= render partial: 'minister_fields', locals: { form: form, document: document } %>
-  <%= render partial: 'country_fields', locals: { form: form, document: document } %>
+  <%= render partial: 'standard_fields', locals: { form: form, edition: edition }%>
+  <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'country_fields', locals: { form: form, edition: edition } %>
 
   <fieldset>
     <%= form.text_area :notes_to_editors, "class" => "previewable", help: true %>
   </fieldset>
 
-  <%= render partial: 'first_published_at', locals: { form: form, document: document } %>
+  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
 
   <%= form.save_or_cancel %>
 <% end %>

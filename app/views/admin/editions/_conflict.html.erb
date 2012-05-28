@@ -1,64 +1,64 @@
 <section class="document conflict">
   <article class="document_view">
-    <h1 class="title"><%= document.title %></h1>
+    <h1 class="title"><%= edition.title %></h1>
     <pre class="body">
-      <%= document.body %>
+      <%= edition.body %>
     </pre>
-    <% if document.allows_attachments? %>
-      <% document.attachments.each do |attachment| %>
+    <% if edition.allows_attachments? %>
+      <% edition.attachments.each do |attachment| %>
         <p class="attachment"><%= link_to_attachment(attachment) %></p>
       <% end %>
     <% end %>
-    <%= render partial: "authors", locals: { document: document } %>
+    <%= render partial: "authors", locals: { edition: edition } %>
   </article>
 
   <section class="container">
     <h1>Organisations</h1>
-    <% if document.organisations.any? %>
-      <%= render partial: "organisations/list", locals: {organisations: document.organisations} %>
+    <% if edition.organisations.any? %>
+      <%= render partial: "organisations/list", locals: {organisations: edition.organisations} %>
     <% else %>
       <p>This document isn't assigned to any organisations.</p>
     <% end %>
   </section>
 
-  <% if document.can_be_associated_with_policy_topics? %>
+  <% if edition.can_be_associated_with_policy_topics? %>
     <section class="container">
       <h1>Policy topics</h1>
-      <% if document.policy_topics.any? %>
-        <%= render partial: "policy_topics/list", locals: {policy_topics: document.policy_topics} %>
+      <% if edition.policy_topics.any? %>
+        <%= render partial: "policy_topics/list", locals: {policy_topics: edition.policy_topics} %>
       <% else %>
         <p>This document isn't assigned to any policy topics.</p>
       <% end %>
     </section>
   <% end %>
 
-  <% if document.can_be_associated_with_ministers? %>
+  <% if edition.can_be_associated_with_ministers? %>
     <section class="container">
       <h1>Ministers</h1>
-      <% if document.ministerial_roles.any? %>
-        <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: document.ministerial_roles} %>
+      <% if edition.ministerial_roles.any? %>
+        <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: edition.ministerial_roles} %>
       <% else %>
         <p>This document isn't assigned to any ministers.</p>
       <% end %>
     </section>
   <% end %>
 
-  <% if document.can_be_associated_with_countries? %>
+  <% if edition.can_be_associated_with_countries? %>
     <section class="container">
       <h1>Countries</h1>
-      <% if document.countries.any? %>
-        <%= render partial: "countries/list", locals: {countries: document.countries} %>
+      <% if edition.countries.any? %>
+        <%= render partial: "countries/list", locals: {countries: edition.countries} %>
       <% else %>
         <p>This document isn't assigned to any countries.</p>
       <% end %>
     </section>
   <% end %>
 
-  <% if document.can_apply_to_subset_of_nations? %>
+  <% if edition.can_apply_to_subset_of_nations? %>
     <section class="container">
       <h1>Excluded Nations</h1>
-      <% if document.nation_inapplicabilities.any? %>
-        <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: document.nation_inapplicabilities} %>
+      <% if edition.nation_inapplicabilities.any? %>
+        <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: edition.nation_inapplicabilities} %>
       <% else %>
         <p>This document is applicable to all nations.</p>
       <% end %>

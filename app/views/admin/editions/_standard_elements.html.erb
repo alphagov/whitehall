@@ -1,10 +1,10 @@
-<h1 class="title"><%= document.title %></h1>
-<% unless document.summary.blank? %>
+<h1 class="title"><%= edition.title %></h1>
+<% unless edition.summary.blank? %>
   <div class="summary">
-    <%= document.summary %>
+    <%= edition.summary %>
   </div>
 <% end %>
 <div class="body">
-  <%= render partial: 'shared/lead_image', locals: {image: document.lead_image} %>
-  <%= govspeak_to_admin_html document.body, document.images %>
+  <%= render partial: 'shared/lead_image', locals: {image: edition.lead_image} %>
+  <%= govspeak_to_admin_html edition.body, edition.images %>
 </div>

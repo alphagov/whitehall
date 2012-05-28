@@ -1,7 +1,7 @@
-<%= form_for [:admin, document], as: :document do |form| %>
+<%= form_for [:admin, edition], as: :document do |form| %>
   <%= form.errors %>
-  <%= render partial: 'standard_fields', locals: { form: form, document: document } %>
-  <%= render partial: 'attachment_fields', locals: { form: form, document: document, parent_type: :edition }%>
+  <%= render partial: 'standard_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition }%>
 
   <fieldset>
     <%= form.label :opening_on, 'Opening Date' %>
@@ -10,10 +10,10 @@
     <%= form.date_select :closing_on, { include_blank: true }, { :class => "date" } %>
   </fieldset>
 
-  <%= render partial: 'related_policy_fields', locals: { form: form, document: document } %>
-  <%= render partial: 'organisation_fields', locals: { form: form, document: document } %>
-  <%= render partial: 'minister_fields', locals: { form: form, document: document } %>
-  <%= render partial: 'nation_fields', locals: { form: form, document: document } %>
+  <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
 
   <%= form.save_or_cancel %>
 <% end %>

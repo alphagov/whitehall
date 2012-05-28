@@ -11,12 +11,12 @@
 
       <div class="conflicting new g-half first">
         <h2>Your version</h2>
-        <%= render partial: "form", locals: {document: @edition} %>
+        <%= render partial: "form", locals: {edition: @edition} %>
       </div>
 
       <div class="conflicting latest g-half">
         <h2>Current saved version</h2>
-        <%= render partial: "conflict", locals: {document: @conflicting_document} %>
+        <%= render partial: "conflict", locals: {edition: @conflicting_document} %>
       </div>
 
     </section>
@@ -27,8 +27,8 @@
       <section>
         <h1>Edit <%= @edition.type.titleize %></h1>
 
-        <%= render partial: "recent_openings", locals: {document: @edition, recent_openings: @recent_openings} %>
-        <%= render partial: "form", locals: {document: @edition} %>
+        <%= render partial: "recent_openings", locals: {edition: @edition, recent_openings: @recent_openings} %>
+        <%= render partial: "form", locals: {edition: @edition} %>
         <%= render partial: "govspeak_help" %>
       </section>
     </div>
@@ -44,6 +44,6 @@
   </div>
   
   <div class="g3">
-    <%= render partial: 'fact_check_responses', locals: {document: @edition}  %>
+    <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
   </div>
 <% end %>
