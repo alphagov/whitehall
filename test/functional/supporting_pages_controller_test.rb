@@ -250,4 +250,31 @@ That's all
 
     assert_select "#document_ministers a.minister", text: "minister-name"
   end
+
+  test "should not apply active class to the parent policy page navigation heading" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.doc_identity, id: supporting_page
+
+    assert_select "section.contextual_info a.active",
+      text: policy.title,
+      count: 0
+  end
+
+  test "should apply active class to the current supporting page navigation heading" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy, title: "This is the active one")
+    other_supporting_page = create(:supporting_page, edition: policy, title: "This is an inactive one")
+
+    get :show, policy_id: policy.doc_identity, id: supporting_page
+
+    assert_select "section.contextual_info a.active",
+      text: supporting_page.title,
+      count: 1
+    assert_select "section.contextual_info a.active",
+      text: other_supporting_page.title,
+      count: 0
+  end
+
 end

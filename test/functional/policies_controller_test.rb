@@ -172,6 +172,14 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
+  test "should apply an active class to the policy page navigation heading" do
+    published_document = create(:published_policy)
+    get :show, id: published_document.doc_identity
+
+    assert_select "section.contextual_info a.active",
+      text: published_document.title
+  end
+
   test "doesn't show supporting pages list when empty" do
     published_document = create(:published_policy)
 
