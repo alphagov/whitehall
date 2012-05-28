@@ -94,10 +94,10 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   private
 
-  def controller_attributes_for(document_type, attributes = {})
+  def controller_attributes_for(edition_type, attributes = {})
     role_appointment = attributes.delete(:role_appointment) || create(:role_appointment)
     speech_type = attributes.delete(:speech_type) || SpeechType::Transcript
-    attributes_for(document_type, attributes.merge(
+    attributes_for(edition_type, attributes.merge(
       role_appointment_id: role_appointment.id,
       speech_type_id: speech_type.id
     ))
