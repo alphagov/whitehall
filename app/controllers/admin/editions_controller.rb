@@ -1,8 +1,8 @@
 class Admin::EditionsController < Admin::BaseController
-  before_filter :find_document, only: [:show, :edit, :update, :submit, :revise, :destroy]
-  before_filter :prevent_modification_of_unmodifiable_document, only: [:edit, :update]
+  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :destroy]
+  before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
-  before_filter :build_document, only: [:new, :create]
+  before_filter :build_edition, only: [:new, :create]
   before_filter :detect_other_active_editors, only: [:edit]
 
   def index
@@ -62,12 +62,12 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def revise
-    document = @document.create_draft(current_user)
-    if document.persisted?
-      redirect_to edit_admin_document_path(document)
+    edition = @document.create_draft(current_user)
+    if edition.persisted?
+      redirect_to edit_admin_document_path(edition)
     else
       redirect_to edit_admin_document_path(@document.doc_identity.unpublished_edition),
-        alert: document.errors.full_messages.to_sentence
+        alert: edition.errors.full_messages.to_sentence
     end
   end
 
@@ -87,15 +87,15 @@ class Admin::EditionsController < Admin::BaseController
     (params[:document] || {}).merge(creator: current_user)
   end
 
-  def build_document
+  def build_edition
     @document = document_class.new(document_params)
   end
 
-  def find_document
+  def find_edition
     @document = document_class.find(params[:id])
   end
 
-  def prevent_modification_of_unmodifiable_document
+  def prevent_modification_of_unmodifiable_edition
     if @document.unmodifiable?
       notice = "You cannot modify a #{@document.state} #{@document.type.titleize}"
       redirect_to admin_document_path(@document), notice: notice

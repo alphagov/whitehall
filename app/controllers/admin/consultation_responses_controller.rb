@@ -1,5 +1,5 @@
 class Admin::ConsultationResponsesController < Admin::EditionsController
-  before_filter :build_document_attachment, only: [:new, :edit]
+  before_filter :build_edition_attachment, only: [:new, :edit]
 
   private
 
@@ -7,10 +7,10 @@ class Admin::ConsultationResponsesController < Admin::EditionsController
     ConsultationResponse
   end
 
-  def build_document_attachment
+  def build_edition_attachment
     unless @document.edition_attachments.any?(&:new_record?)
-      document_attachment = @document.edition_attachments.build
-      document_attachment.build_attachment
+      edition_attachment = @document.edition_attachments.build
+      edition_attachment.build_attachment
     end
   end
 end

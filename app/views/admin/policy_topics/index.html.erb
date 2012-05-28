@@ -24,7 +24,7 @@
             <td class="name"><%= link_to policy_topic.name, edit_admin_policy_topic_path(policy_topic), title: "Edit policy topic #{policy_topic.name}" %></td>
             <td class="description"><%= policy_topic.description %></td>
             <td class="details">
-              <%= policy_topic.document_breakdown.map { |key, count|
+              <%= policy_topic.breakdown.map { |key, count|
                 pluralize count, key
                }.to_sentence %>
             </td>

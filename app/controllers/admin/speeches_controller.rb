@@ -16,7 +16,7 @@ class Admin::SpeechesController < Admin::EditionsController
     end
   end
 
-  def find_document
+  def find_edition
     @document = Speech.find(params[:id])
   end
 end

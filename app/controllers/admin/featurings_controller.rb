@@ -1,6 +1,6 @@
 class Admin::FeaturingsController < Admin::BaseController
-  before_filter :load_document
-  before_filter :ensure_document_is_featurable
+  before_filter :load_edition
+  before_filter :ensure_edition_is_featurable
 
   def create
     unless @document.feature
@@ -25,11 +25,11 @@ class Admin::FeaturingsController < Admin::BaseController
 
   private
 
-  def load_document
+  def load_edition
     @document = Edition.find(params[:document_id])
   end
 
-  def ensure_document_is_featurable
+  def ensure_edition_is_featurable
     unless @document.featurable?
       redirect_to :back, alert: "#{@document.class.to_s.underscore.humanize.pluralize} cannot be featured"
     end
