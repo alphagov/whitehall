@@ -1,6 +1,6 @@
 Given /^a fact checker has commented "([^"]*)" on the draft policy "([^"]*)"$/ do |comment, title|
-  document = create(:draft_policy, title: title)
-  create(:fact_check_request, edition: document, comments: comment)
+  edition = create(:draft_policy, title: title)
+  create(:fact_check_request, edition: edition, comments: comment)
 end
 
 Given /^"([^"]*)" has received an email requesting they fact check a draft policy "([^"]*)"$/ do |email, title|
@@ -11,8 +11,8 @@ end
 
 Given /^"([^"]*)" has asked "([^"]*)" for feedback on the draft policy "([^"]*)"$/ do |requestor_email, fact_checker_email, title|
   requestor = create(:user, email: requestor_email)
-  document = create(:draft_policy, title: title)
-  create(:fact_check_request, requestor: requestor, edition: document, email_address: fact_checker_email)
+  edition = create(:draft_policy, title: title)
+  create(:fact_check_request, requestor: requestor, edition: edition, email_address: fact_checker_email)
 end
 
 When /^"([^"]*)" clicks the email link to the draft policy$/ do |email_address|

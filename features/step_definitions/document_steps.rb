@@ -1,5 +1,5 @@
 THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|international priority) "([^"]*)"/) do |document_type, title|
-  document = document_class(document_type).latest_edition.find_by_title!(title)
+  document_class(document_type).latest_edition.find_by_title!(title)
 end
 
 Given /^a draft (document|publication|policy|news article|consultation|speech) "([^"]*)" exists$/ do |document_type, title|
@@ -16,8 +16,8 @@ Given /^a published document "([^"]*)" exists$/ do |title|
 end
 
 Given /^a (draft|published) document "([^"]*)" exists which links to the "([^"]*)" document$/ do |state, source_title, target_title|
-  target_document = Edition.find_by_title!(target_title)
-  target_url = admin_document_url(target_document)
+  target_edition = Edition.find_by_title!(target_title)
+  target_url = admin_document_url(target_edition)
   body = "[#{target_title}](#{target_url})"
   create("#{state}_policy", title: source_title, body: body)
 end
@@ -62,17 +62,17 @@ Given /^a submitted (publication|policy|news article|consultation|speech|interna
 end
 
 Given /^another user edits the (publication|policy|news article|consultation|speech) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
-  document = document_class(document_type).find_by_title!(original_title)
-  document.update_attributes!(title: new_title)
+  edition = document_class(document_type).find_by_title!(original_title)
+  edition.update_attributes!(title: new_title)
 end
 
 Given /^a published (publication|policy|news article|consultation|speech) "([^"]*)" that's the responsibility of:$/ do |document_type, title, table|
-  document = create(:"published_#{document_type}", title: title)
+  edition = create(:"published_#{document_type}", title: title)
   table.hashes.each do |row|
     person = find_or_create_person(row["Person"])
     ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
     create(:role_appointment, role: ministerial_role, person: person)
-    document.ministerial_roles << ministerial_role
+    edition.ministerial_roles << ministerial_role
   end
 end
 
@@ -97,27 +97,27 @@ When /^I select the "([^"]*)" filter$/ do |filter|
 end
 
 When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
-  document = document_class(document_type).find_by_title!(title)
-  visit public_document_path(document)
+  edition = document_class(document_type).find_by_title!(title)
+  visit public_document_path(edition)
 end
 
-When /^I submit (#{THE_DOCUMENT})$/ do |document|
-  visit_document_preview document.title
+When /^I submit (#{THE_DOCUMENT})$/ do |edition|
+  visit_document_preview edition.title
   click_button "Submit to 2nd pair of eyes"
 end
 
-When /^I publish (#{THE_DOCUMENT})$/ do |document|
-  visit_document_preview document.title
+When /^I publish (#{THE_DOCUMENT})$/ do |edition|
+  visit_document_preview edition.title
   publish
 end
 
-When /^I delete (#{THE_DOCUMENT})$/ do |document|
-  visit_document_preview document.title
+When /^I delete (#{THE_DOCUMENT})$/ do |edition|
+  visit_document_preview edition.title
   click_button "Delete"
 end
 
-When /^I force publish (#{THE_DOCUMENT})$/ do |document|
-  visit_document_preview document.title, :draft
+When /^I force publish (#{THE_DOCUMENT})$/ do |edition|
+  visit_document_preview edition.title, :draft
   publish(force: true)
 end
 
@@ -144,27 +144,27 @@ When /^I publish a new edition of the published document "([^"]*)"$/ do |title|
   publish(force: true)
 end
 
-Then /^I should see (#{THE_DOCUMENT})$/ do |document|
-  assert has_css?(record_css_selector(document))
+Then /^I should see (#{THE_DOCUMENT})$/ do |edition|
+  assert has_css?(record_css_selector(edition))
 end
 
-Then /^I should not see (#{THE_DOCUMENT})$/ do |document|
-  refute has_css?(record_css_selector(document))
+Then /^I should not see (#{THE_DOCUMENT})$/ do |edition|
+  refute has_css?(record_css_selector(edition))
 end
 
-Then /^I should see (#{THE_DOCUMENT}) in the list of draft documents$/ do |document|
+Then /^I should see (#{THE_DOCUMENT}) in the list of draft documents$/ do |edition|
   visit admin_documents_path
-  assert has_css?(record_css_selector(document))
+  assert has_css?(record_css_selector(edition))
 end
 
-Then /^I should see (#{THE_DOCUMENT}) in the list of submitted documents$/ do |document|
+Then /^I should see (#{THE_DOCUMENT}) in the list of submitted documents$/ do |edition|
   visit admin_documents_path(state: :submitted)
-  assert has_css?(record_css_selector(document))
+  assert has_css?(record_css_selector(edition))
 end
 
-Then /^I should see (#{THE_DOCUMENT}) in the list of published documents$/ do |document|
+Then /^I should see (#{THE_DOCUMENT}) in the list of published documents$/ do |edition|
   visit admin_documents_path(state: :published)
-  assert has_css?(record_css_selector(document))
+  assert has_css?(record_css_selector(edition))
 end
 
 Then /^I should not see the policy "([^"]*)" in the list of draft documents$/ do |title|
@@ -172,9 +172,9 @@ Then /^I should not see the policy "([^"]*)" in the list of draft documents$/ do
   assert has_no_css?(".policy a", text: title)
 end
 
-Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
+Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   visit homepage
-  case document
+  case edition
   when Publication
     click_link "Publications"
   when NewsArticle, Speech
@@ -186,9 +186,9 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |document|
   when InternationalPriority
     visit international_priorities_path
   else
-    raise "Don't know what to click on for #{document.class.name}s"
+    raise "Don't know what to click on for #{edition.class.name}s"
   end
-  assert page.has_css?(record_css_selector(document), text: document.title)
+  assert page.has_css?(record_css_selector(edition), text: edition.title)
 end
 
 Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" policy topics$/ do |title, first_policy_topic, second_policy_topic|
@@ -224,8 +224,8 @@ end
 
 Then /^I should see in the preview that "([^"]*)" does (not )?have a public link to "([^"]*)"/ do |source_title, should_not_have_link, target_title|
   visit_document_preview source_title
-  target_document = Edition.find_by_title!(target_title)
-  target_path = policy_path(target_document.doc_identity)
+  target_edition = Edition.find_by_title!(target_title)
+  target_path = policy_path(target_edition.doc_identity)
 
   has_link = has_link?(target_title, href: target_path)
   if should_not_have_link
@@ -237,8 +237,8 @@ end
 
 Then /^I should see in the preview that "([^"]*)" does have an admin link to the (draft|published) edition of "([^"]*)"$/ do |source_title, state, target_title|
   visit_document_preview source_title
-  target_document = Edition.send(state).find_by_title!(target_title)
-  assert has_link?(state, href: admin_document_path(target_document))
+  target_edition = Edition.send(state).find_by_title!(target_title)
+  assert has_link?(state, href: admin_document_path(target_edition))
 end
 
 Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
@@ -247,20 +247,20 @@ Then /^I should see the conflict between the (publication|policy|news article|co
 end
 
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|
-  document = Edition.latest_edition.find_by_title!(title)
-  assert !document.published?
+  edition = Edition.latest_edition.find_by_title!(title)
+  assert !edition.published?
 end
 
 Then /^my attempt to publish "([^"]*)" should succeed$/ do |title|
-  document = Edition.latest_edition.find_by_title!(title)
-  assert document.published?
+  edition = Edition.latest_edition.find_by_title!(title)
+  assert edition.published?
 end
 
 Then /^the published document "([^"]*)" should still link to the "([^"]*)" document$/ do |source_title, target_title|
-  source_document = Edition.find_by_title!(source_title)
-  target_document = Edition.find_by_title!(target_title)
-  visit policy_path(source_document.doc_identity)
-  target_path = policy_path(target_document.doc_identity)
+  source_edition = Edition.find_by_title!(source_title)
+  target_edition = Edition.find_by_title!(target_title)
+  visit policy_path(source_edition.doc_identity)
+  target_path = policy_path(target_edition.doc_identity)
   assert has_link?(target_title, href: target_path)
 end
 

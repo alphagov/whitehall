@@ -1,6 +1,6 @@
 Given /^the organisation "([^"]*)" contains some policies$/ do |name|
-  documents = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
-  create(:ministerial_department, name: name, editions: documents)
+  editions = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
+  create(:ministerial_department, name: name, editions: editions)
 end
 
 Given /^other organisations also have policies$/ do
@@ -124,8 +124,8 @@ end
 
 Then /^I should only see published policies belonging to the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)
-  documents = records_from_elements(Edition, page.all(".document"))
-  assert documents.all? { |document| organisation.documents.published.include?(document) }
+  editions = records_from_elements(Edition, page.all(".document"))
+  assert editions.all? { |edition| organisation.editions.published.include?(edition) }
 end
 
 Then /^I should see "([^"]*)" has the "([^"]*)" ministerial role$/ do |person_name, role_name|

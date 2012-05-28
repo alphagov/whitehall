@@ -85,8 +85,8 @@ end
 
 Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the policy "([^"]*)"$/ do |document_type, document_title, policy_title|
   policy = Policy.find_by_title!(policy_title)
-  document = create("published_#{document_class(document_type).name.underscore}".to_sym,
-                    title: document_title, related_policies: [policy])
+  create("published_#{document_class(document_type).name.underscore}".to_sym,
+          title: document_title, related_policies: [policy])
 end
 
 When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
@@ -115,9 +115,9 @@ When /^I visit the new policy page$/ do
 end
 
 When /^I request that "([^"]*)" fact checks the policy "([^"]*)" with instructions "([^"]*)"$/ do |email, title, instructions|
-  document = Policy.find_by_title!(title)
+  policy = Policy.find_by_title!(title)
   visit admin_documents_path(state: :draft)
-  within(record_css_selector(document)) do
+  within(record_css_selector(policy)) do
     click_link title
   end
   within("#new_fact_check_request") do
@@ -175,14 +175,14 @@ When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" policy topic$/ do 
 end
 
 When /^I publish the policy "([^"]*)" but another user edits it while I am viewing it$/ do |title|
-  document = Policy.find_by_title!(title)
+  policy = Policy.find_by_title!(title)
   visit_document_preview title
-  document.update_attributes!(body: 'A new body')
+  policy.update_attributes!(body: 'A new body')
   publish(ignore_errors: true)
 end
 
 When /^I publish the policy "([^"]*)" without a change note$/ do |title|
-  document = Policy.find_by_title!(title)
+  policy = Policy.find_by_title!(title)
   visit_document_preview title
   publish(without_change_note: true)
 end
@@ -331,8 +331,8 @@ Then /^I should see the policy titled "([^"]*)" in the list of submitted documen
 end
 
 Then /^I can see links to the recently changed document "([^"]*)"$/ do |title|
-  document = Edition.find_by_title!(title)
-  assert page.has_css?("#recently-changed #{record_css_selector(document)} a", text: document.title), "#{document.title} not found"
+  edition = Edition.find_by_title!(title)
+  assert page.has_css?("#recently-changed #{record_css_selector(edition)} a", text: edition.title), "#{edition.title} not found"
 end
 
 Then /^the change note "([^"]*)" should appear in the history for the policy "([^"]*)"$/ do |change_note, title|
