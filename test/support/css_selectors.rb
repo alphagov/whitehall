@@ -86,15 +86,15 @@ module CssSelectors
   end
 
   def publish_form_selector(document)
-    "form[action=#{publish_admin_document_path(document)}]"
+    "form[action=#{CGI::escapeHTML(publish_admin_document_path(document, lock_version: document.lock_version))}]"
   end
 
   def force_publish_form_selector(document)
-    "form[action=#{publish_admin_document_path(document, force: true)}]"
+    "form[action=#{CGI::escapeHTML(publish_admin_document_path(document, force: true, lock_version: document.lock_version))}]"
   end
 
   def reject_button_selector(document)
-    "form[action=#{reject_admin_document_path(document)}] input[type=submit][value=Reject]"
+    "form[action=#{CGI::escapeHTML(reject_admin_document_path(document, lock_version: document.lock_version))}] input[type=submit][value=Reject]"
   end
 
   def link_to_public_version_selector
