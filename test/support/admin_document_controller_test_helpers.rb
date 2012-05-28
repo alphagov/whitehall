@@ -32,9 +32,9 @@ module AdminDocumentControllerTestHelpers
       test "should show who created the document and when on #{action}" do
         document_type = 'publication'
         tom = login_as(create(:author, name: "Tom"))
-        draft_document = create("draft_#{document_type}")
+        draft_edition = create("draft_#{document_type}")
 
-        get action, id: draft_document
+        get action, id: draft_edition
 
         assert_select ".audit-trail", text: /Created by Tom/
       end
