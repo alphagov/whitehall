@@ -1,2 +1,2 @@
-World(Admin::DocumentRoutesHelper)
+World(Admin::EditionRoutesHelper)
 World(PublicDocumentRoutesHelper)
