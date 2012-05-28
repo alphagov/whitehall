@@ -907,7 +907,7 @@ module AdminDocumentControllerTestHelpers
       end
     end
 
-    def should_be_able_to_delete_a_document(edition_type)
+    def should_be_able_to_delete_an_edition(edition_type)
       test "show displays the delete button for draft editions" do
         draft_edition = create("draft_#{edition_type}")
 

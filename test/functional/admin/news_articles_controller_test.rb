@@ -19,7 +19,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_be_rejectable :news_article
   should_be_publishable :news_article
   should_be_force_publishable :news_article
-  should_be_able_to_delete_a_document :news_article
+  should_be_able_to_delete_an_edition :news_article
   should_link_to_public_version_when_published :news_article
   should_not_link_to_public_version_when_not_published :news_article
   should_prevent_modification_of_unmodifiable :news_article

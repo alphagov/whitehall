@@ -22,7 +22,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   should_be_rejectable :policy
   should_be_publishable :policy
   should_be_force_publishable :policy
-  should_be_able_to_delete_a_document :policy
+  should_be_able_to_delete_an_edition :policy
   should_link_to_public_version_when_published :policy
   should_not_link_to_public_version_when_not_published :policy
   should_prevent_modification_of_unmodifiable :policy
