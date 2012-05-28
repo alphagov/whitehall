@@ -1,5 +1,5 @@
 class Admin::EditionsController < Admin::BaseController
-  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :destroy]
+  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_edition, only: [:new, :create]
@@ -69,6 +69,12 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to edit_admin_document_path(@document.doc_identity.unpublished_edition),
         alert: edition.errors.full_messages.to_sentence
     end
+  end
+
+  def reject
+    @document.reject!
+    redirect_to new_admin_document_editorial_remark_path(@document),
+      notice: "Document rejected; please explain why in an editorial remark"
   end
 
   def destroy

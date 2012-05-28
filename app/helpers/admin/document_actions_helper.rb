@@ -21,7 +21,11 @@ module Admin::DocumentActionsHelper
   end
 
   def reject_document_button(document)
-    link_to "Reject", new_admin_document_editorial_remark_path(document), class: "button"
+    capture do
+      form_for [:admin, document], {url: reject_admin_document_path(document), method: :post} do |reject_form|
+        concat(reject_form.submit "Reject")
+      end
+    end
   end
 
   def publish_document_form(document, options = {})
