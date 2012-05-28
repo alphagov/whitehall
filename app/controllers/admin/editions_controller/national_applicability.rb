@@ -9,9 +9,9 @@ module Admin::EditionsController::NationalApplicability
 
   def create
     params[:document][:nation_inapplicabilities_attributes] ||= {}
-    @document = document_class.new(params[:document].merge(creator: current_user))
-    if @document.save
-      redirect_to admin_document_path(@document), notice: "The document has been saved"
+    @edition = document_class.new(params[:document].merge(creator: current_user))
+    if @edition.save
+      redirect_to admin_document_path(@edition), notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
       build_edition_attachment
@@ -23,8 +23,8 @@ module Admin::EditionsController::NationalApplicability
 
   def update
     params[:document][:nation_inapplicabilities_attributes] ||= {}
-    if @document.edit_as(current_user, params[:document])
-      redirect_to admin_document_path(@document),
+    if @edition.edit_as(current_user, params[:document])
+      redirect_to admin_document_path(@edition),
         notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
@@ -38,7 +38,7 @@ module Admin::EditionsController::NationalApplicability
     build_edition_attachment
     build_image
     @conflicting_document = Edition.find(params[:id])
-    @document.lock_version = @conflicting_document.lock_version
+    @edition.lock_version = @conflicting_document.lock_version
     process_nation_inapplicabilities
     render action: "edit"
   end
@@ -51,11 +51,11 @@ module Admin::EditionsController::NationalApplicability
   end
 
   def set_nation_inapplicabilities_destroy_checkbox_state
-    @document.nation_inapplicabilities.each { |ni| ni[:_destroy] = ni._destroy ? "1" : "0" }
+    @edition.nation_inapplicabilities.each { |ni| ni[:_destroy] = ni._destroy ? "1" : "0" }
   end
 
   def build_nation_inapplicabilities
-    @document.build_nation_applicabilities_for_all_nations
+    @edition.build_nation_applicabilities_for_all_nations
   end
 
   def build_edition_attachment

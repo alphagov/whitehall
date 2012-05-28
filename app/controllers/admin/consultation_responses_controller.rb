@@ -8,8 +8,8 @@ class Admin::ConsultationResponsesController < Admin::EditionsController
   end
 
   def build_edition_attachment
-    unless @document.edition_attachments.any?(&:new_record?)
-      edition_attachment = @document.edition_attachments.build
+    unless @edition.edition_attachments.any?(&:new_record?)
+      edition_attachment = @edition.edition_attachments.build
       edition_attachment.build_attachment
     end
   end

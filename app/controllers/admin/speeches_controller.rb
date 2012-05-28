@@ -5,7 +5,7 @@ class Admin::SpeechesController < Admin::EditionsController
   private
 
   def set_type
-    @document.type = document_class.to_s
+    @edition.type = document_class.to_s
   end
 
   def document_class
@@ -17,6 +17,6 @@ class Admin::SpeechesController < Admin::EditionsController
   end
 
   def find_edition
-    @document = Speech.find(params[:id])
+    @edition = Speech.find(params[:id])
   end
 end

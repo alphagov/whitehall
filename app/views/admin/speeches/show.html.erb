@@ -1,30 +1,30 @@
-<% page_title @document.title %>
+<% page_title @edition.title %>
 <div class="g2 first">
   <section class="document">
-    <%= render partial: 'navigation', locals: { document: @document } %>
-    <%= render partial: "rejected_by", locals: { document: @document } %>
+    <%= render partial: 'navigation', locals: { document: @edition } %>
+    <%= render partial: "rejected_by", locals: { document: @edition } %>
 
     <article class="document_view">
-      <h1 class="title"><%= @document.title %></h1>
-      <p class="summary"><%= @document.summary %></p>
+      <h1 class="title"><%= @edition.title %></h1>
+      <p class="summary"><%= @edition.summary %></p>
       <div class="body">
-        <%= govspeak_to_admin_html @document.body, @document.images %>
+        <%= govspeak_to_admin_html @edition.body, @edition.images %>
       </div>
-      <p class="details"><span class="type"><%= @document.speech_type.name %></span> for speech delivered by <span class="ministerial_role"><%= link_to @document.role_appointment.role, @document.role_appointment.role %></span> on <span class="delivered_on"><%= @document.delivered_on.to_s(:long_ordinal) %></span> at <span class="location"><%= @document.location %></span></p>
-      <p class="written_by">Written by <span class="authors"><%= @document.author_names.to_sentence %></span></p>
+      <p class="details"><span class="type"><%= @edition.speech_type.name %></span> for speech delivered by <span class="ministerial_role"><%= link_to @edition.role_appointment.role, @edition.role_appointment.role %></span> on <span class="delivered_on"><%= @edition.delivered_on.to_s(:long_ordinal) %></span> at <span class="location"><%= @edition.location %></span></p>
+      <p class="written_by">Written by <span class="authors"><%= @edition.author_names.to_sentence %></span></p>
     </article>
 
   </section>
 
-  <%= render partial: "editorial_remarks", locals: { document: @document } %>
-  <%= render partial: "admin/document_publishing/form", locals: { document: @document } %>
+  <%= render partial: "editorial_remarks", locals: { document: @edition } %>
+  <%= render partial: "admin/document_publishing/form", locals: { document: @edition } %>
 </div>
 
 <div class="g1">
   <section class="container">
     <h1>Countries</h1>
-    <% if @document.countries.any? %>
-      <%= render partial: "countries/list", locals: {countries: @document.countries} %>
+    <% if @edition.countries.any? %>
+      <%= render partial: "countries/list", locals: {countries: @edition.countries} %>
     <% else %>
       <p>This document isn't assigned to any countries.</p>
     <% end %>
@@ -32,17 +32,17 @@
 
   <section class="container">
     <h1>Related Policies</h1>
-    <% if @document.related_policies.any? %>
-      <%= render partial: "admin/editions/related", locals: {related_documents: @document.related_policies} %>
+    <% if @edition.related_policies.any? %>
+      <%= render partial: "admin/editions/related", locals: {related_documents: @edition.related_policies} %>
     <% else %>
       <p>This document doesn't have any related policies.</p>
     <% end %>
   </section>
 
-  <% if @document.images.any? %>
+  <% if @edition.images.any? %>
     <section class="images">
       <h1>Images</h1>
-      <% @document.images.each do |image| %>
+      <% @edition.images.each do |image| %>
         <%= image_tag image.url, id: dom_id(image) %>
       <% end %>
     </section>

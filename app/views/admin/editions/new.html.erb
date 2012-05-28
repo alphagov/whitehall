@@ -1,8 +1,8 @@
-<% page_title "New " + @document.type.titleize %>
+<% page_title "New " + @edition.type.titleize %>
 <div class="g2 first">
   <section>
-    <h1>Create <%= @document.type.titleize %></h1>
-    <%= render partial: "form", locals: {document: @document} %>
+    <h1>Create <%= @edition.type.titleize %></h1>
+    <%= render partial: "form", locals: {document: @edition} %>
     <%= render partial: "govspeak_help" %>
   </section>
 </div>
