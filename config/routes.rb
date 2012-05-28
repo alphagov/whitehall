@@ -87,6 +87,7 @@ Whitehall::Application.routes.draw do
           member do
             post :submit
             post :revise
+            post :reject
           end
           resource :publishing, controller: :document_publishing, only: [:create], controller: :edition_publishing
           resource :featuring, only: [:create, :update, :destroy]

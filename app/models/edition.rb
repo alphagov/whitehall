@@ -150,6 +150,10 @@ class Edition < ActiveRecord::Base
     edition_authors.map(&:user).map(&:name).uniq
   end
 
+  def rejected_by
+    audit_trail.reverse.find { |at| at.version.state == "rejected" }.actor
+  end
+
   def title_with_state
     "#{title} (#{state})"
   end

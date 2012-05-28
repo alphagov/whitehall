@@ -20,6 +20,14 @@ module Admin::DocumentActionsHelper
     end
   end
 
+  def reject_document_button(document)
+    capture do
+      form_for [:admin, document], {url: reject_admin_document_path(document), method: :post} do |reject_form|
+        concat(reject_form.submit "Reject")
+      end
+    end
+  end
+
   def publish_document_form(document, options = {})
     url = admin_document_publishing_path(document, options.slice(:force))
     button_text = options[:force] ? "Force Publish" : "Publish"

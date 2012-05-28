@@ -169,6 +169,21 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal "There is already an active rejected edition for this document", flash[:alert]
   end
 
+  test "rejecting the document should mark it as rejected" do
+    submitted_document = create(:submitted_policy)
+
+    post :reject, id: submitted_document
+
+    assert submitted_document.reload.rejected?
+  end
+
+  test "rejecting the document should redirect to create a new editorial remark to explain why" do
+    submitted_document = create(:submitted_policy)
+
+    post :reject, id: submitted_document
+    assert_redirected_to new_admin_document_editorial_remark_path(submitted_document)
+  end
+
   test "should remember standard filter options" do
     get :index, state: :draft, type: 'consultation'
     assert_equal 'consultation', session[:document_filters][:type]

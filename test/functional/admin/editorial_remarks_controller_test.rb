@@ -21,12 +21,11 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     assert_redirected_to admin_documents_path(state: :submitted)
   end
 
-  test "should reject the document and create an editorial remark" do
+  test "should create an editorial remark" do
     document = create(:submitted_edition)
     post :create, document_id: document, editorial_remark: { body: "editorial-remark-body" }
 
     document.reload
-    assert document.rejected?
     assert_equal 1, document.editorial_remarks.length
     assert_equal @logged_in_user, document.editorial_remarks.first.author
     assert_equal "editorial-remark-body", document.editorial_remarks.first.body

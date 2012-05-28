@@ -94,7 +94,7 @@ module CssSelectors
   end
 
   def reject_button_selector(document)
-    "a[href=#{new_admin_document_editorial_remark_path(document)}]"
+    "form[action=#{reject_admin_document_path(document)}] input[type=submit][value=Reject]"
   end
 
   def link_to_public_version_selector

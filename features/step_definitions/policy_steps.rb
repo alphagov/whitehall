@@ -76,10 +76,11 @@ Given /^"([^"]*)" has received an email requesting they fact check a draft polic
   Notifications.fact_check_request(fact_check_request, host: "example.com").deliver
 end
 
-Given /^an editor named "([^"]*)" has rejected the policy titled "([^"]*)" because "([^"]*)"$/ do |editor_name, policy_title, rejection_reason|
+Given /^an editor named "([^"]*)" has rejected the policy titled "([^"]*)"$/ do |editor_name, policy_title|
   editor = create(:departmental_editor, name: editor_name)
-  policy = create(:rejected_policy, title: policy_title)
-  policy.editorial_remarks.create! author: editor, body: rejection_reason
+  policy = create(:submitted_policy, title: policy_title)
+  login_as editor
+  policy.reject!
 end
 
 Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the policy "([^"]*)"$/ do |document_type, document_title, policy_title|
@@ -91,7 +92,7 @@ end
 When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title(policy_title)
   visit admin_policy_path(policy)
-  click_link "Reject"
+  click_button "Reject"
   fill_in "Reason for rejection", with: "reason-for-rejection"
   click_button "Confirm rejection"
 end
@@ -317,9 +318,8 @@ Then /^I should see the policy titled "([^"]*)" in the list of documents that ne
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
 end
 
-Then /^I should see that it was rejected by "([^"]*)" because "([^"]*)"$/ do |rejected_by, editorial_remark|
+Then /^I should see that it was rejected by "([^"]*)"$/ do |rejected_by|
   assert page.has_css?('.rejected_by', text: rejected_by)
-  assert page.has_css?('.editorial_remark', text: editorial_remark)
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of submitted documents$/ do |policy_title|
