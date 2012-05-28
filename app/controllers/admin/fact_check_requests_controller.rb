@@ -7,18 +7,18 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   def create
-    @document = Edition.unscoped.find(params[:document_id])
+    @edition = Edition.unscoped.find(params[:document_id])
     attributes = params[:fact_check_request].merge(requestor: current_user)
-    fact_check_request = @document.fact_check_requests.build(attributes)
-    if @document.deleted?
+    fact_check_request = @edition.fact_check_requests.build(attributes)
+    if @edition.deleted?
       render "document_unavailable"
     elsif fact_check_request.save
       Notifications.fact_check_request(fact_check_request, mailer_url_options).deliver
       notice = "The policy has been sent to #{fact_check_request.email_address}"
-      redirect_to admin_document_path(@document), notice: notice
+      redirect_to admin_document_path(@edition), notice: notice
     else
       alert = "There was a problem: #{fact_check_request.errors.full_messages.to_sentence}"
-      redirect_to admin_document_path(@document), alert: alert
+      redirect_to admin_document_path(@edition), alert: alert
     end
   end
 
@@ -49,7 +49,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   def load_fact_check_request
     @fact_check_request = FactCheckRequest.from_param(params[:id])
     if @fact_check_request
-      @document = Edition.unscoped.find(@fact_check_request.edition_id)
+      @edition = Edition.unscoped.find(@fact_check_request.edition_id)
     elsif request.host == 'whitehall.preview.alphagov.co.uk'
       temporary_redirect_from_preview_to_production
     else
@@ -62,7 +62,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   def check_edition_availability
-    if @document.deleted?
+    if @edition.deleted?
       render "document_unavailable"
     end
   end

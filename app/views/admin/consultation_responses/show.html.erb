@@ -1,32 +1,32 @@
-<% page_title @document.title, "Consultation Response" %>
+<% page_title @edition.title, "Consultation Response" %>
 <div class="g3f">
   <div class="g2 first">
-    <%= render partial: 'navigation', locals: { document: @document } %>
-    <%= render partial: "rejected_by", locals: { document: @document } %>
+    <%= render partial: 'navigation', locals: { document: @edition } %>
+    <%= render partial: "rejected_by", locals: { document: @edition } %>
     <section class="document_view">
-      <%= render partial: 'document', locals: { document: @document } %>
-      <% if @document.notes_to_editors.present? %>
+      <%= render partial: 'document', locals: { document: @edition } %>
+      <% if @edition.notes_to_editors.present? %>
         <section id="notes_to_editors">
           <h1>Notes to editors</h1>
-          <%= govspeak_to_html @document.notes_to_editors %>
+          <%= govspeak_to_html @edition.notes_to_editors %>
         </section>
       <% end %>
     </section>
 
-    <%= render partial: "admin/document_publishing/form", locals: { document: @document } %>
+    <%= render partial: "admin/document_publishing/form", locals: { document: @edition } %>
   </div>
 
   <div class="g1">
     <section class="container">
       <h1>Consultation</h1>
-      <%= content_tag_for :p, @document.consultation do %>
+      <%= content_tag_for :p, @edition.consultation do %>
         This is a response to the consultation
-        <%= link_to @document.consultation.title, admin_consultation_path(@document.consultation) %>
+        <%= link_to @edition.consultation.title, admin_consultation_path(@edition.consultation) %>
       <% end %>
     </section>
   </div>
 </div>
 
 <div class="g3f">
-  <%= render partial: 'fact_check_responses', locals: {document: @document} %>
+  <%= render partial: 'fact_check_responses', locals: {document: @edition} %>
 </div>

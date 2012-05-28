@@ -1,4 +1,4 @@
-<% page_title "Fact Checking for " + @document.title %>
+<% page_title "Fact Checking for " + @edition.title %>
 <p>Please check this document for factual accuracy and comment in the form below.</p>
 
 <% if @fact_check_request.instructions.present? %>
@@ -9,17 +9,17 @@
 <% end %>
 
 <div class="document_view">
-  <h1 class="title"><%= @document.title %></h1>
+  <h1 class="title"><%= @edition.title %></h1>
   <div class="body">
-    <%= govspeak_to_admin_html @document.body, @document.images %>
+    <%= govspeak_to_admin_html @edition.body, @edition.images %>
   </div>
-  <p class="written_by">Written by <span class="authors"><%= @document.author_names.to_sentence %></span></p>
+  <p class="written_by">Written by <span class="authors"><%= @edition.author_names.to_sentence %></span></p>
 </div>
 
-<% if @document.has_supporting_pages? %>
+<% if @edition.has_supporting_pages? %>
   <section id="supporting_pages">
     <h1>Supporting pages</h1>
-    <% @document.supporting_pages.each do |supporting_page| %>
+    <% @edition.supporting_pages.each do |supporting_page| %>
       <div class="document_view">
         <h1 class="title"><%= supporting_page.title %></h1>
         <div class="body">
@@ -31,7 +31,7 @@
 <% end %>
 
 <div>
-  <% if @document.has_supporting_pages? %>
+  <% if @edition.has_supporting_pages? %>
     <p>Please indicate whether your comments refer to the main document or supporting page.</p>
   <% end %>
 

@@ -1,4 +1,4 @@
-<%= form_for [:admin, @document, supporting_page] do |form| %>
+<%= form_for [:admin, @edition, supporting_page] do |form| %>
   <%= form.hidden_field :lock_version %>
   <%= form.text_field :title, disabled: disabled %>
   <%= form.text_area :body, disabled: disabled, "class" => "previewable", :help => true %>
@@ -6,6 +6,6 @@
   <%= render partial: "admin/editions/attachment_fields", locals: { form: form, document: supporting_page, parent_type: :supporting_page } %>
 
   <% unless disabled %>
-    <%= form.save_or_cancel cancel: (supporting_page.new_record? ? admin_document_path(@document) : admin_supporting_page_path(supporting_page))%>
+    <%= form.save_or_cancel cancel: (supporting_page.new_record? ? admin_document_path(@edition) : admin_supporting_page_path(supporting_page))%>
   <% end %>
 <% end %>
