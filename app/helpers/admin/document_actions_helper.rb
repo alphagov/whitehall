@@ -29,7 +29,7 @@ module Admin::DocumentActionsHelper
   end
 
   def publish_document_form(document, options = {})
-    url = admin_document_publishing_path(document, options.slice(:force))
+    url = publish_admin_document_path(document, options.slice(:force))
     button_text = options[:force] ? "Force Publish" : "Publish"
     button_title = "Publish #{document.title}"
     confirm = publish_document_alerts(document, options[:force])

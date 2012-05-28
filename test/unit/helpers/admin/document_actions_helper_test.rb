@@ -5,7 +5,7 @@ class Admin::DocumentActionsHelperTest < ActionView::TestCase
     edition = create(:submitted_edition, title: "edition-title")
     html = publish_document_form(edition)
     fragment = Nokogiri::HTML.fragment(html)
-    assert_equal admin_document_publishing_path(edition), (fragment/"form").first["action"]
+    assert_equal publish_admin_document_path(edition), (fragment/"form").first["action"]
     refute_nil (fragment/"input[name='document[lock_version]'][type=hidden]").first
     assert_equal "Publish", (fragment/"input[type=submit]").first["value"]
     assert_equal "Publish edition-title", (fragment/"input[type=submit]").first["title"]
@@ -38,7 +38,7 @@ class Admin::DocumentActionsHelperTest < ActionView::TestCase
     edition = create(:submitted_edition, title: "edition-title")
     html = publish_document_form(edition, force: true)
     fragment = Nokogiri::HTML.fragment(html)
-    assert_equal admin_document_publishing_path(edition, force: true), (fragment/"form").first["action"]
+    assert_equal publish_admin_document_path(edition, force: true), (fragment/"form").first["action"]
     refute_nil (fragment/"input[name='document[lock_version]'][type=hidden]").first
     assert_equal "Force Publish", (fragment/"input[type=submit]").first["value"]
     assert_equal "Publish edition-title", (fragment/"input[type=submit]").first["title"]

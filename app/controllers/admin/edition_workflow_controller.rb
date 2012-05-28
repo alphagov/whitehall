@@ -1,10 +1,10 @@
-class Admin::EditionPublishingController < Admin::BaseController
+class Admin::EditionWorkflowController < Admin::BaseController
   before_filter :find_edition
   before_filter :lock_edition
   before_filter :set_change_note
   before_filter :set_minor_change_flag
 
-  def create
+  def publish
     if @edition.publish_as(current_user, force: params[:force].present?)
       redirect_to admin_documents_path(state: :published), notice: "The document #{@edition.title} has been published"
     else
@@ -17,7 +17,7 @@ class Admin::EditionPublishingController < Admin::BaseController
   private
 
   def find_edition
-    @edition = Edition.find(params[:document_id])
+    @edition = Edition.find(params[:id])
   end
 
   def lock_edition
