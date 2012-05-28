@@ -14,7 +14,7 @@ module Admin::EditionActionsHelper
 
   def submit_edition_button(edition)
     capture do
-      form_for [:admin, edition], {url: submit_admin_document_path(edition), method: :post} do |submit_form|
+      form_for [:admin, edition], {url: submit_admin_document_path(edition, lock_version: edition.lock_version), method: :post} do |submit_form|
         concat(submit_form.submit "Submit to 2nd pair of eyes")
       end
     end
@@ -22,14 +22,14 @@ module Admin::EditionActionsHelper
 
   def reject_edition_button(edition)
     capture do
-      form_for [:admin, edition], {url: reject_admin_document_path(edition), method: :post} do |reject_form|
+      form_for [:admin, edition], {url: reject_admin_document_path(edition, lock_version: edition.lock_version), method: :post} do |reject_form|
         concat(reject_form.submit "Reject")
       end
     end
   end
 
   def publish_edition_form(edition, options = {})
-    url = publish_admin_document_path(edition, options.slice(:force))
+    url = publish_admin_document_path(edition, options.slice(:force).merge(lock_version: edition.lock_version))
     button_text = options[:force] ? "Force Publish" : "Publish"
     button_title = "Publish #{edition.title}"
     confirm = publish_edition_alerts(edition, options[:force])

@@ -35,8 +35,10 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def lock_edition
-    if params[:document] && params[:document][:lock_version]
-      @edition.lock_version = params[:document][:lock_version]
+    if params[:lock_version]
+      @edition.lock_version = params[:lock_version]
+    else
+      render text: 'All workflow actions require a lock version', status: 422
     end
   end
 
