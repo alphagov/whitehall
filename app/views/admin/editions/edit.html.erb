@@ -1,8 +1,8 @@
-<% page_title "Editing: " + @document.title %>
+<% page_title "Editing: " + @edition.title %>
 <% if @conflicting_document %>
   <div class="first">
     <section>
-      <h1>Edit <%= @document.type.titleize %></h1>
+      <h1>Edit <%= @edition.type.titleize %></h1>
 
       <div class="alert">
         <p>This document has been updated by another user since you started editing it.</p>
@@ -11,7 +11,7 @@
 
       <div class="conflicting new g-half first">
         <h2>Your version</h2>
-        <%= render partial: "form", locals: {document: @document} %>
+        <%= render partial: "form", locals: {document: @edition} %>
       </div>
 
       <div class="conflicting latest g-half">
@@ -25,10 +25,10 @@
   <div class="g3">
     <div class="g2 first">
       <section>
-        <h1>Edit <%= @document.type.titleize %></h1>
+        <h1>Edit <%= @edition.type.titleize %></h1>
 
-        <%= render partial: "recent_openings", locals: {document: @document, recent_openings: @recent_openings} %>
-        <%= render partial: "form", locals: {document: @document} %>
+        <%= render partial: "recent_openings", locals: {document: @edition, recent_openings: @recent_openings} %>
+        <%= render partial: "form", locals: {document: @edition} %>
         <%= render partial: "govspeak_help" %>
       </section>
     </div>
@@ -37,13 +37,13 @@
       <section class="container audit-trail">
         <h1>Activity</h1>
         <ul>
-        <%= render :partial => "audit_trail_entry", :collection => @document.audit_trail.reverse %>
+        <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
         </ul>
       </section>
     </div>
   </div>
   
   <div class="g3">
-    <%= render partial: 'fact_check_responses', locals: {document: @document}  %>
+    <%= render partial: 'fact_check_responses', locals: {document: @edition}  %>
   </div>
 <% end %>

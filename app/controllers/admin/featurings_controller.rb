@@ -3,22 +3,22 @@ class Admin::FeaturingsController < Admin::BaseController
   before_filter :ensure_edition_is_featurable
 
   def create
-    unless @document.feature
-      flash[:alert] = @document.errors.full_messages.to_sentence
+    unless @edition.feature
+      flash[:alert] = @edition.errors.full_messages.to_sentence
     end
     redirect_to :back
   end
 
   def update
-    unless @document.update_attributes(params[:document])
-      flash[:alert] = @document.errors.full_messages.to_sentence
+    unless @edition.update_attributes(params[:document])
+      flash[:alert] = @edition.errors.full_messages.to_sentence
     end
     redirect_to :back
   end
 
   def destroy
-    unless @document.unfeature
-      flash[:alert] = @document.errors.full_messages.to_sentence
+    unless @edition.unfeature
+      flash[:alert] = @edition.errors.full_messages.to_sentence
     end
     redirect_to :back
   end
@@ -26,12 +26,12 @@ class Admin::FeaturingsController < Admin::BaseController
   private
 
   def load_edition
-    @document = Edition.find(params[:document_id])
+    @edition = Edition.find(params[:document_id])
   end
 
   def ensure_edition_is_featurable
-    unless @document.featurable?
-      redirect_to :back, alert: "#{@document.class.to_s.underscore.humanize.pluralize} cannot be featured"
+    unless @edition.featurable?
+      redirect_to :back, alert: "#{@edition.class.to_s.underscore.humanize.pluralize} cannot be featured"
     end
   end
 end

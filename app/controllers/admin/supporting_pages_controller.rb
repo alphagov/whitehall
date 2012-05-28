@@ -5,14 +5,14 @@ class Admin::SupportingPagesController < Admin::BaseController
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
 
   def new
-    @supporting_page = @document.supporting_pages.build(params[:supporting_page])
+    @supporting_page = @edition.supporting_pages.build(params[:supporting_page])
     build_attachment
   end
 
   def create
-    @supporting_page = @document.supporting_pages.build(params[:supporting_page])
+    @supporting_page = @edition.supporting_pages.build(params[:supporting_page])
     if @supporting_page.save
-      redirect_to admin_document_path(@document), notice: "The supporting page was added successfully"
+      redirect_to admin_document_path(@edition), notice: "The supporting page was added successfully"
     else
       flash[:alert] = "There was a problem: #{@supporting_page.errors.full_messages.to_sentence}"
       render :new
@@ -53,7 +53,7 @@ class Admin::SupportingPagesController < Admin::BaseController
   private
 
   def find_edition
-    @document = Edition.find(params[:document_id])
+    @edition = Edition.find(params[:document_id])
   end
 
   def find_supporting_page

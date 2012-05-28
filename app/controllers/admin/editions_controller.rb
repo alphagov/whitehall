@@ -25,8 +25,8 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def create
-    if @document.save
-      redirect_to admin_document_path(@document), notice: "The document has been saved"
+    if @edition.save
+      redirect_to admin_document_path(@edition), notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
       build_image
@@ -35,12 +35,12 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def edit
-    @document.open_for_editing_as(current_user)
+    @edition.open_for_editing_as(current_user)
   end
 
   def update
-    if @document.edit_as(current_user, params[:document])
-      redirect_to admin_document_path(@document),
+    if @edition.edit_as(current_user, params[:document])
+      redirect_to admin_document_path(@edition),
         notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
@@ -50,23 +50,23 @@ class Admin::EditionsController < Admin::BaseController
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
     @conflicting_document = Edition.find(params[:id])
-    @document.lock_version = @conflicting_document.lock_version
+    @edition.lock_version = @conflicting_document.lock_version
     build_image
     render action: "edit"
   end
 
   def submit
-    @document.submit!
-    redirect_to admin_document_path(@document),
+    @edition.submit!
+    redirect_to admin_document_path(@edition),
       notice: "Your document has been submitted for review by a second pair of eyes"
   end
 
   def revise
-    edition = @document.create_draft(current_user)
+    edition = @edition.create_draft(current_user)
     if edition.persisted?
       redirect_to edit_admin_document_path(edition)
     else
-      redirect_to edit_admin_document_path(@document.doc_identity.unpublished_edition),
+      redirect_to edit_admin_document_path(@edition.doc_identity.unpublished_edition),
         alert: edition.errors.full_messages.to_sentence
     end
   end
@@ -78,9 +78,9 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def destroy
-    redirect_path = @document.submitted? ? admin_documents_path(state: :submitted) : admin_documents_path
-    @document.delete!
-    redirect_to redirect_path, notice: "The document '#{@document.title}' has been deleted"
+    redirect_path = @edition.submitted? ? admin_documents_path(state: :submitted) : admin_documents_path
+    @edition.delete!
+    redirect_to redirect_path, notice: "The document '#{@edition.title}' has been deleted"
   end
 
   private
@@ -94,39 +94,39 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def build_edition
-    @document = document_class.new(document_params)
+    @edition = document_class.new(document_params)
   end
 
   def find_edition
-    @document = document_class.find(params[:id])
+    @edition = document_class.find(params[:id])
   end
 
   def prevent_modification_of_unmodifiable_edition
-    if @document.unmodifiable?
-      notice = "You cannot modify a #{@document.state} #{@document.type.titleize}"
-      redirect_to admin_document_path(@document), notice: notice
+    if @edition.unmodifiable?
+      notice = "You cannot modify a #{@edition.state} #{@edition.type.titleize}"
+      redirect_to admin_document_path(@edition), notice: notice
     end
   end
 
   def default_arrays_of_ids_to_empty
     params[:document][:organisation_ids] ||= []
-    if @document.can_be_associated_with_policy_topics?
+    if @edition.can_be_associated_with_policy_topics?
       params[:document][:policy_topic_ids] ||= []
     end
-    if @document.can_be_associated_with_ministers?
+    if @edition.can_be_associated_with_ministers?
       params[:document][:ministerial_role_ids] ||= []
     end
-    if @document.can_be_related_to_policies?
+    if @edition.can_be_related_to_policies?
       params[:document][:related_doc_identity_ids] ||= []
     end
-    if @document.can_be_associated_with_countries?
+    if @edition.can_be_associated_with_countries?
       params[:document][:country_ids] ||= []
     end
   end
 
   def build_image
-    unless @document.images.any?(&:new_record?)
-      image = @document.images.build
+    unless @edition.images.any?(&:new_record?)
+      image = @edition.images.build
       image.build_image_data
     end
   end
@@ -155,7 +155,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def detect_other_active_editors
     RecentEditionOpening.expunge! if rand(10) == 0
-    @recent_openings = @document.active_edition_openings.except_editor(current_user)
+    @recent_openings = @edition.active_edition_openings.except_editor(current_user)
   end
 
   class EditionFilter

@@ -87,7 +87,7 @@ module AdminDocumentControllerTestHelpers
         attributes = controller_attributes_for(document_type)
         post :create, document: attributes.merge(title: '')
 
-        assert_equal attributes[:body], assigns(:document).body, "the valid data should not have been lost"
+        assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
         assert_template "editions/new"
       end
 
@@ -96,7 +96,7 @@ module AdminDocumentControllerTestHelpers
         post :create, document: attributes.merge(title: '')
 
         assert_select ".field_with_errors input[name='document[title]']"
-        assert_equal attributes[:body], assigns(:document).body, "the valid data should not have been lost"
+        assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
         assert_equal 'There are some problems with the document', flash.now[:alert]
       end
     end
@@ -198,7 +198,7 @@ module AdminDocumentControllerTestHelpers
         assert_template 'edit'
         conflicting_document = document.reload
         assert_equal conflicting_document, assigns[:conflicting_document]
-        assert_equal conflicting_document.lock_version, assigns[:document].lock_version
+        assert_equal conflicting_document.lock_version, assigns[:edition].lock_version
         assert_equal %{This document has been saved since you opened it}, flash[:alert]
       end
     end
