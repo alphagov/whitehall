@@ -1,5 +1,5 @@
 class Admin::BaseController < ApplicationController
-  include Admin::DocumentRoutesHelper
+  include Admin::EditionRoutesHelper
 
   layout 'admin'
   before_filter :authenticate_user!

@@ -2,7 +2,7 @@
 require 'test_helper'
 
 class GovspeakHelperTest < ActionView::TestCase
-  include Admin::DocumentRoutesHelper
+  include Admin::EditionRoutesHelper
   include PublicDocumentRoutesHelper
 
   setup do

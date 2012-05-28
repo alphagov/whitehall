@@ -55,7 +55,7 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   enable_url_helpers
 
   include ActionController::RecordIdentifier
-  include Admin::DocumentRoutesHelper
+  include Admin::EditionRoutesHelper
 
   setup do
     @policy = create(:policy, title: "<policy-title>")

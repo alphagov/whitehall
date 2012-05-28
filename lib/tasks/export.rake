@@ -5,7 +5,7 @@ namespace :export do
   desc "Export list of documents (CREATED_SINCE timestamp optional)"
   task :document_list => :environment do
     include Rails.application.routes.url_helpers
-    include Admin::DocumentRoutesHelper
+    include Admin::EditionRoutesHelper
 
     created_since_text = ENV['CREATED_SINCE']
     created_since = created_since_text.present? ? Time.zone.parse(created_since_text) : Time.at(0)
