@@ -3,132 +3,99 @@ require 'test_helper'
 class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
-  test 'publishing should redirect back to published editions' do
-    submitted_edition = create(:submitted_policy)
-    login_as :departmental_editor
-    post :publish, id: submitted_edition, document: {lock_version: submitted_edition.lock_version}
+  setup do
+    @edition = build(:submitted_policy)
+    @edition.stubs(id: 1234, new_record?: false)
+    @user = login_as(:departmental_editor)
+    Edition.stubs(:find).with(@edition.id.to_param).returns(@edition)
+  end
 
+  test 'publish publishes the given edition on behalf of the current user' do
+    @edition.expects(:publish_as).with(@user, force: false).returns(true)
+    post :publish, id: @edition
+  end
+
+  test 'publish reports that the document has been published' do
+    @edition.stubs(:publish_as).returns(true)
+    post :publish, id: @edition
+    assert_equal "The document #{@edition.title} has been published", flash[:notice]
+  end
+
+  test 'publish redirects back to the published edition index' do
+    @edition.stubs(:publish_as).returns(true)
+    post :publish, id: @edition
     assert_redirected_to admin_documents_path(state: :published)
-    assert_equal "The document #{submitted_edition.title} has been published", flash[:notice]
   end
 
-  test 'publishing should remove it from the set of submitted policies' do
-    edition_to_publish = create(:submitted_policy)
-    login_as :departmental_editor
-    post :publish, id: edition_to_publish, document: {lock_version: edition_to_publish.lock_version}
-
-    refute Edition.submitted.include?(edition_to_publish)
+  test 'publish passes through the force flag' do
+    @edition.expects(:publish_as).with(@user, force: true).returns(true)
+    post :publish, id: @edition, force: true
   end
 
-  test 'publishing should not mark the edition as force published' do
-    edition_to_publish = create(:submitted_policy)
-    login_as :departmental_editor
-    post :publish, id: edition_to_publish, document: {lock_version: edition_to_publish.lock_version}
-
-    refute edition_to_publish.reload.force_published?
-  end
-
-  test 'failing to publish an edition should set a flash' do
-    edition_to_publish = create(:submitted_policy)
-    login_as :policy_writer
-    post :publish, id: edition_to_publish, document: {lock_version: edition_to_publish.lock_version}
-
-    assert_equal "Only departmental editors can publish", flash[:alert]
-  end
-
-  test 'failing to publish an edition should redirect back to the edition' do
-    edition_to_publish = create(:submitted_policy)
-    login_as :policy_writer
-    post :publish, id: edition_to_publish, document: {lock_version: edition_to_publish.lock_version}
-
-    assert_redirected_to admin_policy_path(edition_to_publish)
-  end
-
-  test 'failing to publish a stale edition should redirect back to the edition' do
-    policy_to_publish = create(:submitted_policy)
-    lock_version = policy_to_publish.lock_version
-    policy_to_publish.update_attributes!(title: "new title")
-    login_as :departmental_editor
-    post :publish, id: policy_to_publish, document: {lock_version: lock_version}
-
-    assert_redirected_to admin_policy_path(policy_to_publish)
-    assert_equal "This document has been edited since you viewed it; you are now viewing the latest version", flash[:alert]
-  end
-
-  test 'force publishing should succeed where normal publishing would fail' do
-    submitted_edition = create(:draft_policy)
-    login_as :departmental_editor
-    post :publish, id: submitted_edition, document: {lock_version: submitted_edition.lock_version}, force: true
-
-    assert_redirected_to admin_documents_path(state: :published)
-    assert_equal "The document #{submitted_edition.title} has been published", flash[:notice]
-  end
-
-  test 'force publishing should mark the edition as force published' do
-    submitted_edition = create(:draft_policy)
-    login_as :departmental_editor
-    post :publish, id: submitted_edition, document: {lock_version: submitted_edition.lock_version}, force: true
-
-    assert submitted_edition.reload.force_published?
-  end
-
-  test 'should set change note on edition if one is provided' do
-    edition = create(:submitted_policy)
-    login_as :departmental_editor
-    post :publish, id: edition, document: {
-      change_note: "change-note",
-      lock_version: edition.lock_version
+  test 'publish sets change note on edition' do
+    @edition.stubs(:publish_as).returns(true)
+    post :publish, id: @edition, document: {
+      change_note: "change-note"
     }
 
-    assert_equal "change-note", edition.reload.change_note
+    assert_equal "change-note", @edition.change_note
   end
 
-  test 'should record minor change on a edition' do
-    edition = create(:submitted_policy)
-    login_as :departmental_editor
-    post :publish, id: edition, document: {
-      minor_change: true,
-      lock_version: edition.lock_version
+  test 'publish sets minor change flag on edition' do
+    @edition.stubs(:publish_as).returns(true)
+    post :publish, id: @edition, document: {
+      minor_change: true
     }
 
-    assert_equal true, edition.reload.minor_change
+    assert_equal true, @edition.minor_change
   end
 
-  test 'submitting should set submitted on the edition' do
-    login_as :policy_writer
-
-    draft_edition = create(:draft_policy)
-    post :submit, id: draft_edition
-
-    assert draft_edition.reload.submitted?
+  test 'publish redirects back to the edition with an error message if publishing reports a failure' do
+    @edition.stubs(:publish_as).returns(false)
+    @edition.errors.add(:base, 'Edition could not be published')
+    post :publish, id: @edition
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'Edition could not be published', flash[:alert]
   end
 
-  test 'submitting should redirect back to show page' do
-    login_as :policy_writer
+  test 'publish sets lock version on edition before attempting to publish to guard against stale objects' do
+    lock_before_publishing = sequence('lock-before-publishing')
+    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_publishing)
+    @edition.expects(:publish_as).in_sequence(lock_before_publishing).returns(true)
+    post :publish, id: @edition, document: {
+      lock_version: 92
+    }
+  end
 
-    draft_edition = create(:draft_policy)
-    post :submit, id: draft_edition
+  test 'publish redirects back to the edition with an error message if a stale object error is thrown' do
+    @edition.stubs(:publish_as).raises(ActiveRecord::StaleObjectError)
+    post :publish, id: @edition
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
+  end
 
-    assert_redirected_to admin_policy_path(draft_edition)
+  test 'submit submits the edition' do
+    @edition.expects(:submit!)
+    post :submit, id: @edition
+  end
+
+  test 'submit redirects back to the edition with a message indicating it has been submitted' do
+    @edition.stubs(:submit!)
+    post :submit, id: @edition
+
+    assert_redirected_to admin_policy_path(@edition)
     assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
   end
 
-  test "rejecting the document should mark it as rejected" do
-    login_as :departmental_editor
-
-    submitted_document = create(:submitted_policy)
-
-    post :reject, id: submitted_document
-
-    assert submitted_document.reload.rejected?
+  test 'reject rejects the edition' do
+    @edition.expects(:reject!)
+    post :reject, id: @edition
   end
 
-  test "rejecting the document should redirect to create a new editorial remark to explain why" do
-    login_as :departmental_editor
+  test 'reject redirects to the new editorial remark page to explain why the edition has been rejected' do
+    @edition.stubs(:reject!)
+    post :reject, id: @edition
 
-    submitted_document = create(:submitted_policy)
-
-    post :reject, id: submitted_document
-    assert_redirected_to new_admin_document_editorial_remark_path(submitted_document)
+    assert_redirected_to new_admin_document_editorial_remark_path(@edition)
   end
 end
