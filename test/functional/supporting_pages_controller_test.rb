@@ -277,4 +277,21 @@ That's all
       count: 0
   end
 
+  test "should use supporting document title as page title" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.doc_identity, id: supporting_page
+
+    assert_select "title", text: Regexp.new(supporting_page.title)
+  end
+
+  test "should use supporting document title as h1" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.doc_identity, id: supporting_page
+
+    assert_select "h1", text: supporting_page.title
+  end
 end

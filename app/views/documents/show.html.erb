@@ -1,9 +1,9 @@
-<% page_title @document.title, "Documents" %>
+<%= render partial: "page_title" %>
 <div class="g4f document_page <%= @document.type.downcase %>">
   <div class="g4">
     <section class="page_header icon">
       <h2 class="label"><%= header_title %></h2>
-      <h1 class="page_title has_meta"><%= @document.title %></h1>
+      <%= render partial: "title" %>
     </section>
     <div class="g1f">
       <%= render partial: "document_metadata" %>
