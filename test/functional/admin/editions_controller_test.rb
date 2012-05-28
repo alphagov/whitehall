@@ -2,61 +2,61 @@ require 'test_helper'
 
 class Admin::EditionsController
   class EditionFilterTest < ActiveSupport::TestCase
-    test "should filter by document type" do
+    test "should filter by edition type" do
       policy = create(:consultation_response)
-      another_document = create(:publication)
+      another_edition = create(:publication)
 
       assert_equal [policy], EditionFilter.new(Edition, type: 'consultation_response').editions
     end
 
-    test "should filter by document state" do
-      draft_document = create(:draft_policy)
-      document_in_other_state = create(:published_policy)
+    test "should filter by edition state" do
+      draft_edition = create(:draft_policy)
+      edition_in_other_state = create(:published_policy)
 
-      assert_equal [draft_document], EditionFilter.new(Edition, state: 'draft').editions
+      assert_equal [draft_edition], EditionFilter.new(Edition, state: 'draft').editions
     end
 
-    test "should filter by document author" do
+    test "should filter by edition author" do
       author = create(:user)
-      document = create(:policy, authors: [author])
-      document_by_another_author = create(:policy)
+      edition = create(:policy, authors: [author])
+      edition_by_another_author = create(:policy)
 
-      assert_equal [document], EditionFilter.new(Edition, author: author.to_param).editions
+      assert_equal [edition], EditionFilter.new(Edition, author: author.to_param).editions
     end
 
     test "should filter by organisation" do
       organisation = create(:organisation)
-      document = create(:policy, organisations: [organisation])
-      document_in_no_organisation = create(:policy)
-      document_in_another_organisation = create(:publication, organisations: [create(:organisation)])
+      edition = create(:policy, organisations: [organisation])
+      edition_in_no_organisation = create(:policy)
+      edition_in_another_organisation = create(:publication, organisations: [create(:organisation)])
 
-      assert_equal [document], EditionFilter.new(Edition, organisation: organisation.to_param).editions
+      assert_equal [edition], EditionFilter.new(Edition, organisation: organisation.to_param).editions
     end
 
-    test "should filter by document type, state and author" do
+    test "should filter by edition type, state and author" do
       author = create(:user)
       policy = create(:draft_policy, authors: [author])
-      another_document = create(:published_policy, authors: [author])
+      another_edition = create(:published_policy, authors: [author])
 
       assert_equal [policy], EditionFilter.new(Edition, type: 'policy', state: 'draft', author: author.to_param).editions
     end
 
-    test "should filter by document type, state and organisation" do
+    test "should filter by edition type, state and organisation" do
       organisation = create(:organisation)
       policy = create(:draft_policy, organisations: [organisation])
-      another_document = create(:published_policy, organisations: [organisation])
+      another_edition = create(:published_policy, organisations: [organisation])
 
       assert_equal [policy], EditionFilter.new(Edition, type: 'policy', state: 'draft', organisation: organisation.to_param).editions
     end
 
-    test "should return the documents ordered by most recent first" do
+    test "should return the editions ordered by most recent first" do
       older_policy = create(:draft_policy, updated_at: 3.days.ago)
       newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
 
       assert_equal [newer_policy, older_policy], EditionFilter.new(Edition, {}).editions
     end
 
-    test "should provide efficient access to document creators" do
+    test "should provide efficient access to edition creators" do
       create(:policy)
       create(:publication)
       create(:speech)
@@ -67,7 +67,7 @@ class Admin::EditionsController
         editions.each { |d| d.creator.name }
       end
 
-      expected_queries = [:query_for_all_documents, :query_for_all_document_authors, :query_for_all_users]
+      expected_queries = [:query_for_all_editions, :query_for_all_edition_authors, :query_for_all_users]
       assert_equal expected_queries.length, query_count
     end
   end
@@ -94,7 +94,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, state: :haxxor_method, type: :policy
   end
 
-  test 'should distinguish between document types when viewing the list of documents' do
+  test 'should distinguish between edition types when viewing the list of editions' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
     stub_filter = stub('document filter', editions: [policy, publication])
@@ -106,64 +106,64 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
   end
 
-  test 'submitting should set submitted on the document' do
-    draft_document = create(:draft_policy)
-    post :submit, id: draft_document
+  test 'submitting should set submitted on the edition' do
+    draft_edition = create(:draft_policy)
+    post :submit, id: draft_edition
 
-    assert draft_document.reload.submitted?
+    assert draft_edition.reload.submitted?
   end
 
   test 'submitting should redirect back to show page' do
-    draft_document = create(:draft_policy)
-    post :submit, id: draft_document
+    draft_edition = create(:draft_policy)
+    post :submit, id: draft_edition
 
-    assert_redirected_to admin_policy_path(draft_document)
+    assert_redirected_to admin_policy_path(draft_edition)
     assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
   end
 
-  test "revising the published document should create a new draft document" do
-    published_document = create(:published_policy)
-    Edition.stubs(:find).returns(published_document)
-    draft_document = create(:draft_policy)
-    published_document.expects(:create_draft).with(current_user).returns(draft_document)
+  test "revising the published edition should create a new draft edition" do
+    published_edition = create(:published_policy)
+    Edition.stubs(:find).returns(published_edition)
+    draft_edition = create(:draft_policy)
+    published_edition.expects(:create_draft).with(current_user).returns(draft_edition)
 
-    post :revise, id: published_document
+    post :revise, id: published_edition
   end
 
-  test "revising a published document redirects to edit for the new draft" do
-    published_document = create(:published_policy)
+  test "revising a published edition redirects to edit for the new draft" do
+    published_edition = create(:published_policy)
 
-    post :revise, id: published_document
+    post :revise, id: published_edition
 
-    draft_document = Edition.last
-    assert_redirected_to edit_admin_policy_path(draft_document.reload)
+    draft_edition = Edition.last
+    assert_redirected_to edit_admin_policy_path(draft_edition.reload)
   end
 
-  test "failing to revise an document should redirect to the existing draft" do
-    published_document = create(:published_policy)
-    existing_draft = create(:draft_policy, doc_identity: published_document.doc_identity)
+  test "failing to revise an edition should redirect to the existing draft" do
+    published_edition = create(:published_policy)
+    existing_draft = create(:draft_policy, doc_identity: published_edition.doc_identity)
 
-    post :revise, id: published_document
+    post :revise, id: published_edition
 
     assert_redirected_to edit_admin_policy_path(existing_draft)
     assert_equal "There is already an active draft edition for this document", flash[:alert]
   end
 
-  test "failing to revise an document should redirect to the existing submitted document" do
-    published_document = create(:published_policy)
-    existing_submitted = create(:submitted_policy, doc_identity: published_document.doc_identity)
+  test "failing to revise an edition should redirect to the existing submitted edition" do
+    published_edition = create(:published_policy)
+    existing_submitted = create(:submitted_policy, doc_identity: published_edition.doc_identity)
 
-    post :revise, id: published_document
+    post :revise, id: published_edition
 
     assert_redirected_to edit_admin_policy_path(existing_submitted)
     assert_equal "There is already an active submitted edition for this document", flash[:alert]
   end
 
-  test "failing to revise an document should redirect to the existing rejected document" do
-    published_document = create(:published_publication)
-    existing_rejected = create(:rejected_publication, doc_identity: published_document.doc_identity)
+  test "failing to revise an edition should redirect to the existing rejected edition" do
+    published_edition = create(:published_publication)
+    existing_rejected = create(:rejected_publication, doc_identity: published_edition.doc_identity)
 
-    post :revise, id: published_document
+    post :revise, id: published_edition
 
     assert_redirected_to edit_admin_publication_path(existing_rejected)
     assert_equal "There is already an active rejected edition for this document", flash[:alert]
@@ -231,11 +231,11 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to admin_documents_path(state: :draft)
   end
 
-  [:publication, :consultation].each do |document_type|
-    test "should display a form for featuring an unfeatured #{document_type} without a featuring image" do
-      document = create("published_#{document_type}")
-      get :index, state: :published, type: document_type
-      expected_url = send("admin_document_featuring_path", document)
+  [:publication, :consultation].each do |edition_type|
+    test "should display a form for featuring an unfeatured #{edition_type} without a featuring image" do
+      edition = create("published_#{edition_type}")
+      get :index, state: :published, type: edition_type
+      expected_url = send("admin_document_featuring_path", edition)
       assert_select ".featured form.feature[action=#{expected_url}]" do
         refute_select "input[name=_method]"
         refute_select "input[name='document[featuring_image]']"
@@ -243,19 +243,19 @@ class Admin::EditionsControllerTest < ActionController::TestCase
       end
     end
 
-    test "should display a form for unfeaturing a featured #{document_type} without a featuring image" do
-      document = create("featured_#{document_type}")
-      get :index, state: :published, type: document_type
-      expected_url = send("admin_document_featuring_path", document)
+    test "should display a form for unfeaturing a featured #{edition_type} without a featuring image" do
+      edition = create("featured_#{edition_type}")
+      get :index, state: :published, type: edition_type
+      expected_url = send("admin_document_featuring_path", edition)
       assert_select ".featured form.unfeature[action=#{expected_url}]" do
         assert_select "input[name=_method][value=delete]"
         refute_select "input[name='document[featuring_image]']"
       end
     end
 
-    test "should not show featuring image on a featured #{document_type} because they do not allow a featuring image" do
-      document = create("featured_#{document_type}")
-      get :index, state: :published, type: document_type
+    test "should not show featuring image on a featured #{edition_type} because they do not allow a featuring image" do
+      edition = create("featured_#{edition_type}")
+      get :index, state: :published, type: edition_type
       assert_select ".featured" do
         refute_select "img"
       end
@@ -282,7 +282,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not display the featured column on the 'all document' page" do
+  test "should not display the featured column on the 'all edition' page" do
     policy = create(:draft_policy)
     refute policy.featurable?
     get :index, state: :draft
@@ -290,7 +290,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute_select "td.featured"
   end
 
-  test "should not display the featured column on a filtered document page where that document isn't featureable" do
+  test "should not display the featured column on a filtered edition page where that edition isn't featureable" do
     policy = create(:draft_policy)
     refute policy.featurable?
     get :index, state: :draft, type: "policy"
@@ -298,7 +298,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute_select "td.featured"
   end
 
-  test "should not show published documents as force published" do
+  test "should not show published editions as force published" do
     policy = create(:published_policy)
     get :index, state: :published, type: :policy
 
@@ -306,7 +306,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute_select "tr.force_published"
   end
 
-  test "should show force published documents as force published" do
+  test "should show force published editions as force published" do
     policy = create(:published_policy, force_published: true)
     get :index, state: :published, type: :policy
 
@@ -314,13 +314,13 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "tr.force_published"
   end
 
-  test "should link to all active documents" do
+  test "should link to all active editions" do
     get :index, state: :draft
 
     assert_select "a[href='#{admin_documents_path(state: :active)}']"
   end
 
-  test "should not display the featured column when viewing all active documents" do
+  test "should not display the featured column when viewing all active editions" do
     create(:published_news_article)
 
     get :index, state: :active, type: 'news_article'
@@ -329,25 +329,25 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute_select "td.featured"
   end
 
-  test "should display state information when viewing all active documents" do
-    draft_document = create(:draft_policy)
-    submitted_document = create(:submitted_publication)
-    rejected_document = create(:rejected_news_article)
-    published_document = create(:published_consultation)
+  test "should display state information when viewing all active editions" do
+    draft_edition = create(:draft_policy)
+    submitted_edition = create(:submitted_publication)
+    rejected_edition = create(:rejected_news_article)
+    published_edition = create(:published_consultation)
 
     get :index, state: :active
 
-    assert_select_object(draft_document) { assert_select ".state", "Draft" }
-    assert_select_object(submitted_document) { assert_select ".state", "Submitted" }
-    assert_select_object(rejected_document) { assert_select ".state", "Rejected" }
-    assert_select_object(published_document) { assert_select ".state", "Published" }
+    assert_select_object(draft_edition) { assert_select ".state", "Draft" }
+    assert_select_object(submitted_edition) { assert_select ".state", "Submitted" }
+    assert_select_object(rejected_edition) { assert_select ".state", "Rejected" }
+    assert_select_object(published_edition) { assert_select ".state", "Published" }
   end
 
-  test "should not display state information when viewing documents of a particular state" do
-    draft_document = create(:draft_policy)
+  test "should not display state information when viewing editions of a particular state" do
+    draft_edition = create(:draft_policy)
 
     get :index, state: :draft
 
-    assert_select_object(draft_document) { refute_select ".state" }
+    assert_select_object(draft_edition) { refute_select ".state" }
   end
 end
