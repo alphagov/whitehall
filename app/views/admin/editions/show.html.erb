@@ -1,10 +1,10 @@
 <% page_title @edition.title %>
 <div class="g3f">
   <div class="g2 first">
-    <%= render partial: 'navigation', locals: { document: @edition } %>
-    <%= render partial: "rejected_by", locals: { document: @edition } %>
+    <%= render partial: 'navigation', locals: { edition: @edition } %>
+    <%= render partial: "rejected_by", locals: { edition: @edition } %>
     <section class="document_view">
-      <%= render partial: 'document', locals: { document: @edition } %>
+      <%= render partial: 'document', locals: { edition: @edition } %>
       <% if @edition.notes_to_editors.present? %>
         <section id="notes_to_editors">
           <h1>Notes to editors</h1>
@@ -13,9 +13,9 @@
       <% end %>
     </section>
 
-    <%= render partial: 'supporting_pages', locals: { document: @edition } %>
-    <%= render partial: "editorial_remarks", locals: { document: @edition } %>
-    <%= render partial: "admin/document_publishing/form", locals: { document: @edition } %>
+    <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
+    <%= render partial: "editorial_remarks", locals: { edition: @edition } %>
+    <%= render partial: "admin/document_publishing/form", locals: { edition: @edition } %>
   </div>
 
   <div class="g1">
@@ -102,5 +102,5 @@
 </div>
 
 <div class="g3f">
-  <%= render partial: 'fact_check_responses', locals: {document: @edition}  %>
+  <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
 </div>

@@ -1,26 +1,26 @@
 <nav class="actions">
-  <%= render partial: "link_to_public_document", locals: {document: document} %>
-  <% if !document.is_latest_edition? %>
-    <%= most_recent_edition_button(document) %>
-  <% elsif document.editable? %>
-    <%= edit_document_button(document) %>
-  <% elsif document.published? %>
-    <%= redraft_document_button(document) %>
+  <%= render partial: "link_to_public_document", locals: {edition: edition} %>
+  <% if !edition.is_latest_edition? %>
+    <%= most_recent_edition_button(edition) %>
+  <% elsif edition.editable? %>
+    <%= edit_document_button(edition) %>
+  <% elsif edition.published? %>
+    <%= redraft_document_button(edition) %>
   <% end %>
 
-  <%= submit_document_button(document) if document.submittable? %>
-  <%= reject_document_button(document) if document.rejectable_by?(current_user) %>
-  <%= delete_document_button(document) if document.deletable? %>
-  <% if document.published? && document.is_a?(Consultation) %>
-    <%= show_or_add_consultation_response_button(document) %>
+  <%= submit_document_button(edition) if edition.submittable? %>
+  <%= reject_document_button(edition) if edition.rejectable_by?(current_user) %>
+  <%= delete_document_button(edition) if edition.deletable? %>
+  <% if edition.published? && edition.is_a?(Consultation) %>
+    <%= show_or_add_consultation_response_button(edition) %>
   <% end %>
   <span class="back">
     back to
-    <% if document.submitted? %>
+    <% if edition.submitted? %>
       <%= link_to 'submitted documents', admin_documents_path(state: :submitted) %>
-    <% elsif document.draft? %>
+    <% elsif edition.draft? %>
       <%= link_to 'draft documents', admin_documents_path(state: :draft) %>
-    <% elsif document.published? %>
+    <% elsif edition.published? %>
       <%= link_to 'published documents', admin_documents_path(state: :published) %>
     <% end %>
   </span>

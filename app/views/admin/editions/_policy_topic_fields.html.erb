@@ -1,4 +1,4 @@
 <fieldset>
   <%= form.label :policy_topic_ids, 'Policy topics' %>
-  <%= form.select :policy_topic_ids, options_from_collection_for_select(PolicyTopic.all, 'id', 'name', document.policy_topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose policy topics..."} %>
+  <%= form.select :policy_topic_ids, options_from_collection_for_select(PolicyTopic.all, 'id', 'name', edition.policy_topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose policy topics..."} %>
 </fieldset>

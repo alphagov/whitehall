@@ -7,7 +7,7 @@
             <%= gravatar_image(opening.editor) %>
           </div>
           <%= linked_author(opening.editor) %> started editing this
-          <%= document.class.to_s.humanize.downcase %>
+          <%= edition.class.to_s.humanize.downcase %>
           <%= time_ago_in_words opening.created_at %> ago and hasn't yet saved their work.
         </li>
       <% end %>

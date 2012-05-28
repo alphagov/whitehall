@@ -1,4 +1,4 @@
-<% if document.rejected? %>
-  Rejected by: <span class="rejected_by"><%= document.rejected_by.name %></span>
+<% if edition.rejected? %>
+  Rejected by: <span class="rejected_by"><%= edition.rejected_by.name %></span>
   (<%= link_to "View the comments", "#editorial_remarks" %>)
 <% end %>

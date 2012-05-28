@@ -2,7 +2,7 @@
   <div class="body">
     <%= govspeak_to_html @document.body, @document.images %>
   </div>
-  <%= render partial: "attachments", locals: { document: @document } %>
+  <%= render partial: "attachments", locals: { object_with_attachments: @document } %>
 </article>
 
 <section class="contextual_info">

@@ -5,5 +5,5 @@
     <%= form.text_area :summary, rows: 2 %>
   <% end %>
   <%= form.text_area :body, "class" => "previewable", :help => true %>
-  <%= render partial: "image_fields", locals: {form: form, document: form.object} %>
+  <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
 </fieldset>
