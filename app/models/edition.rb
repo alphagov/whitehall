@@ -151,7 +151,8 @@ class Edition < ActiveRecord::Base
   end
 
   def rejected_by
-    audit_trail.reverse.find { |at| at.version.state == "rejected" }.actor
+    rejected_event = audit_trail.reverse.find { |at| at.respond_to?(:version) && at.version.state == "rejected" }
+    rejected_event && rejected_event.actor
   end
 
   def title_with_state
