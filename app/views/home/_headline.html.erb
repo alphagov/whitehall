@@ -2,7 +2,7 @@
   <a href='<%= public_document_path(headline) %>' class='headline-box <%= 'org-' + headline.organisations.first.slug if headline.organisations.first %>'>
     <h1><%= headline.title %></h1>
     <div class="meta">
-      <span class="type"><%= human_friendly_document_type(headline) %></span>
+      <span class="type"><%= human_friendly_edition_type(headline) %></span>
       <%= published_or_updated(headline) %> <%= time_ago(headline.published_at) %>
     </div>
   </a>
