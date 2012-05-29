@@ -466,6 +466,13 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal false, draft_edition.minor_change
   end
 
+  test "should not copy force published flag when creating draft" do
+    published_edition = create(:published_edition, force_published: true)
+    draft_edition = published_edition.create_draft(create(:policy_writer))
+
+    assert_equal false, !!draft_edition.force_published
+  end
+
   test "should copy time of first publication when creating draft" do
     published_edition = create(:published_edition, first_published_at: 1.week.ago)
     Timecop.travel 1.hour.from_now
