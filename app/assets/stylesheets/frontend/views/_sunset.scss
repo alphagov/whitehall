@@ -1,8 +1,16 @@
 
 .inside_gov_sunset {
   
-  .block-2 p {
-    @include sans-20;
+  .block-2 {
+    h2 {
+      margin-top: $gutter;
+      @include sans-20;
+      font-weight: 700;
+    }
+    
+    p {
+      @include sans-20;
+    }
   }
   
   
