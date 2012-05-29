@@ -48,7 +48,7 @@
           <th>Title</th>
           <th>Creator</th>
           <th>Updated</th>
-          <% if viewing_all_active_documents? %>
+          <% if viewing_all_active_editions? %>
             <th>State</th>
           <% end %>
           <% if show_featuring_controls?(*@editions) %>
@@ -75,7 +75,7 @@
             </td>
             <td class="author"><%= linked_author(edition.creator) %></td>
             <td class="updated"><%= time_ago_in_words edition.updated_at %> ago</td>
-            <% if viewing_all_active_documents? %>
+            <% if viewing_all_active_editions? %>
               <td class="state"><%= edition.state.humanize %></td>
             <% end %>
             <% if show_featuring_controls?(edition) %>

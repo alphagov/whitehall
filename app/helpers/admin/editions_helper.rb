@@ -1,4 +1,4 @@
-module Admin::DocumentsHelper
+module Admin::EditionsHelper
   def nested_attribute_destroy_checkbox_options(form)
     checked_value, unchecked_value = '0', '1'
     checked = form.object[:_destroy].present? ? (form.object[:_destroy] == checked_value) : form.object.persisted?
@@ -21,12 +21,12 @@ module Admin::DocumentsHelper
     'current' if current
   end
 
-  def viewing_all_active_documents?
+  def viewing_all_active_editions?
     params[:state] == 'active'
   end
 
-  def show_featuring_controls?(*documents)
-    !viewing_all_active_documents? && params[:type] && documents.any?(&:featurable?)
+  def show_featuring_controls?(*editions)
+    !viewing_all_active_editions? && params[:type] && editions.any?(&:featurable?)
   end
 
   MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document"
@@ -51,8 +51,8 @@ module Admin::DocumentsHelper
     FILE_EXTENSION_VS_HUMANIZED_CONTENT_TYPE[file_extension.downcase] if file_extension.present?
   end
 
-  def order_link(document)
-    return "" unless document.order_url.present?
-    link_to document.order_url, document.order_url, class: "order_url"
+  def order_link(edition)
+    return "" unless edition.order_url.present?
+    link_to edition.order_url, edition.order_url, class: "order_url"
   end
 end
