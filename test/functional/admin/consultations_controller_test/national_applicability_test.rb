@@ -12,7 +12,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     private
 
-    def document_class
+    def edition_class
       Consultation
     end
   end

@@ -12,7 +12,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     private
 
-    def document_class
+    def edition_class
       Policy
     end
   end

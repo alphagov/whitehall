@@ -12,7 +12,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     private
 
-    def document_class
+    def edition_class
       Publication
     end
   end

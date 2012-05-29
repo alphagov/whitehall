@@ -3,7 +3,7 @@ class Admin::NewsArticlesController < Admin::EditionsController
 
   private
 
-  def document_class
+  def edition_class
     NewsArticle
   end
 end

@@ -6,7 +6,7 @@ class Admin::PublicationsController < Admin::EditionsController
 
   private
 
-  def document_class
+  def edition_class
     Publication
   end
 

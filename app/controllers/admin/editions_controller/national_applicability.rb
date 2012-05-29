@@ -9,7 +9,7 @@ module Admin::EditionsController::NationalApplicability
 
   def create
     params[:document][:nation_inapplicabilities_attributes] ||= {}
-    @edition = document_class.new(params[:document].merge(creator: current_user))
+    @edition = edition_class.new(params[:document].merge(creator: current_user))
     if @edition.save
       redirect_to admin_document_path(@edition), notice: "The document has been saved"
     else
