@@ -2,24 +2,106 @@
 <% page_class "publications-index" %>
 
 <div class="block-1">
-
-  <header class="page_header publication">
+  <div class="inner-block">
+    <header class="page_header publication">
       <h1 class="page_title"><%= publications_page_title(@selected_policy_topics) %></h1>
-  </header>
+    </header>
 
-  <% if @featured_publications.any? %>
-    <section class="featured-publications" id="featured-publications">
-      <div class="section-inner">
-        <h1>Featured</h1>
-        <div class="article-wrapper">
-          <% article_group(@featured_publications, groups_of: 3, class: "has_img row") do |publication| %>
-            <%= render partial: "publication", locals: {publication: publication} %>
+    <% if publication = @featured_publication %>
+      <div class="featured featured-publication" id="featured-publication">
+        <%= content_tag_for(:div, publication) do %>
+          <div class="thumbnail">
+            <%= edition_thumbnail_tag(publication) %>
+            <% if attachment = publication.thumbnailable_attachments.first || publication.attachments.first %>
+              <p>
+                <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>
+                <% if attachment.number_of_pages.present? %>
+                  <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
+                <% end %>
+                <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
+              </p>
+            <% end %>
+          </div>
+          <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+          <% if publication.summary.present? %>
+            <p class="summary"><%= publication_summary(publication) %></p>
           <% end %>
+          <p class="published_on">
+            Published on
+            <%= render_datetime_microformat(publication, :publication_date) {
+                  publication.publication_date.to_s(:long_ordinal)
+            }%>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @all_publications.any? %>
+      <div class="filter">
+        <div class="filter-controls">
+          <h1>All publications</h1>
+          <h2>Filter by policy topic</h2>
+          <ul>
+            <% @all_policy_topics.each do |policy_topic| %>
+              <% css_classes = [] %>
+              <% css_classes << "selected" if @selected_policy_topics.include?(policy_topic) %>
+              <% css_classes << "top" if @top_policy_topics.include?(policy_topic) %>
+              <% style = (css_classes & %w{top selected}).size > 0 ? nil : "display: none" %>
+              <%= content_tag_for(:li, policy_topic, class: css_classes.join(" "), style: style) do %>
+                <% if css_classes.include? "selected" %>
+                  <% title = "Remove '#{policy_topic.name}' from filter" %>
+                  <% topics = @selected_policy_topics - [policy_topic] %>
+                <% else %>
+                  <% title = "Add '#{policy_topic.name}' to filter" %>
+                  <% topics = @selected_policy_topics + [policy_topic] %>
+                <% end %>
+                <% url = topics.any? ? by_policy_topic_publications_path(topics.map(&:slug).sort.join("+")) : publications_path %>
+                <%= link_to url, title: title do %>
+                  <span></span>
+                  <%= policy_topic.name %>
+                <% end %>
+              <% end %>
+            <% end %>
+            <li class="toggle">
+              <a href="#"><span>+</span>View all topics</a>
+            </li>
+            <% if @selected_policy_topics.any? %>
+              <li>
+                View <%= link_to "all publications", publications_path %>
+              </li>
+            <% end %>
+          </ul>
         </div>
       </div>
-    </section>
-  <% end %>
-  
-  <%= render partial: "all_publications", locals: {all_publications: @all_publications} %>
 
+      <div class="table-sort">
+        <table border="0">
+          <thead>
+            <tr>
+              <th class="title">Title</th>
+              <th class="table-summary">Summary</th>
+              <th class="date">Publish date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @all_publications.each do |publication| %>
+              <%= content_tag_for(:tr, publication) do %>
+                <td class="title article_title">
+                  <%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %>
+                </td>
+                <td class="table-summary summary"><%= publication_summary(publication) %></td>
+                <td class="date published_on">
+                  <%= render_datetime_microformat(publication, :publication_date) {
+                        publication.publication_date.to_s(:long_ordinal)
+                  }%>
+                </td>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p>There are no matching publications.</p>
+    <% end %>
+  </div>
 </div>

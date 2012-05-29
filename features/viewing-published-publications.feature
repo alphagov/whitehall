@@ -5,7 +5,6 @@ Scenario: Viewing published publications
   When I visit the list of publications
   Then I should see the publication "Lamb chops on baker's faces"
   And I should see the summary of the publication "Lamb chops on baker's faces"
-  And I should see a thumbnail of the first page of the PDF
 
 Scenario: Publishing a publication that has a PDF attachment
   Given a published publication "Standard Beard Lengths" with a PDF attachment
