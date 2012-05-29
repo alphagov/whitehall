@@ -46,6 +46,6 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
   test 'show displays link to public view of published consultation response' do
     consultation_response = create(:published_consultation_response, consultation: @consultation)
     get :show, id: consultation_response
-    assert_select "a[href='#{consultation_response_path(@consultation.doc_identity)}']"
+    assert_select "a[href='#{consultation_response_url(@consultation.doc_identity)}']"
   end
 end

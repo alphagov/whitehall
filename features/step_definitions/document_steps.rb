@@ -225,9 +225,9 @@ end
 Then /^I should see in the preview that "([^"]*)" does (not )?have a public link to "([^"]*)"/ do |source_title, should_not_have_link, target_title|
   visit_document_preview source_title
   target_edition = Edition.find_by_title!(target_title)
-  target_path = policy_path(target_edition.doc_identity)
+  target_url = policy_url(target_edition.doc_identity)
 
-  has_link = has_link?(target_title, href: target_path)
+  has_link = has_link?(target_title, href: target_url)
   if should_not_have_link
     refute has_link
   else
@@ -260,8 +260,8 @@ Then /^the published document "([^"]*)" should still link to the "([^"]*)" docum
   source_edition = Edition.find_by_title!(source_title)
   target_edition = Edition.find_by_title!(target_title)
   visit policy_path(source_edition.doc_identity)
-  target_path = policy_path(target_edition.doc_identity)
-  assert has_link?(target_title, href: target_path)
+  target_url = policy_url(target_edition.doc_identity)
+  assert has_link?(target_title, href: target_url)
 end
 
 Then /^there should not be a document called "([^"]*)"$/ do |title|
