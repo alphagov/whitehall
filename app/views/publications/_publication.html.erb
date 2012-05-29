@@ -1,5 +1,5 @@
 <div class="img coverpage-thumbnail">
-  <%= document_thumbnail_tag(publication) %>
+  <%= edition_thumbnail_tag(publication) %>
   <div class="attachments_meta">
     <% if attachment = publication.thumbnailable_attachments.first || publication.attachments.first %>
       <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>

@@ -17,7 +17,7 @@
         <ul class='recently_updated'>
 
           <% @recently_updated.each do |document| %>
-            <%= content_tag_for :li, document, class: document_organisation_class(document) do %>
+            <%= content_tag_for :li, document, class: edition_organisation_class(document) do %>
 
               <div class="published_document"><%= link_to document.title, public_document_path(document), class: "title" %></div>
               <% document.organisations[0,1].each do |organisation| %>

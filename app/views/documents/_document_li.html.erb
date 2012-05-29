@@ -1,4 +1,4 @@
-<%= content_tag_for :li, document, class: document_organisation_class(document) do %>
+<%= content_tag_for :li, document, class: edition_organisation_class(document) do %>
   <div class="metadata published_or_updated">
     <%= published_or_updated(document) %>
     <%= time_ago(document.published_at, class: 'published_at') %>
