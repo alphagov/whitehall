@@ -351,6 +351,22 @@ class EditionTest < ActiveSupport::TestCase
     refute Policy.authored_by(publication.creator).include?(publication)
   end
 
+  test ".rejected_by uses information from the audit trail" do
+    publication = create(:submitted_publication)
+    user = create(:policy_writer)
+    PaperTrail.whodunnit = user
+    publication.reject!
+    assert_equal user, publication.rejected_by
+  end
+
+  test ".rejected_by should not be confused by editorial remarks" do
+    publication = create(:submitted_publication)
+    user = create(:policy_writer)
+    PaperTrail.whodunnit = user
+    create(:editorial_remark, edition: publication)
+    assert_nil publication.reload.rejected_by
+  end
+
   test ".by_published_at orders by published_at descending" do
     policy = create(:policy, published_at: 2.hours.ago)
     publication = create(:publication, published_at: 4.hours.ago)
