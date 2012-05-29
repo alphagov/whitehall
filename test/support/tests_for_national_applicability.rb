@@ -154,14 +154,14 @@ module TestsForNationalApplicability
   private
 
   def attributes_for_document(attributes = {})
-    attributes_for(document_class.name.underscore, attributes)
+    attributes_for(edition_class.name.underscore, attributes)
   end
 
   def create_document(attributes = {})
-    create(document_class.name.underscore, attributes)
+    create(edition_class.name.underscore, attributes)
   end
 
-  def document_class
+  def edition_class
     Edition
   end
 end

@@ -3,7 +3,7 @@ module AdminDocumentCountriesBehaviour
 
   module ClassMethods
     def should_allow_association_between_countries_and(document_type)
-      document_class = document_class_for(document_type)
+      edition_class = edition_class_for(document_type)
 
       test "new displays document form with countries field" do
         get :new
@@ -22,7 +22,7 @@ module AdminDocumentCountriesBehaviour
           country_ids: [first_country.id, second_country.id]
         )
 
-        assert document = document_class.last
+        assert document = edition_class.last
         assert_equal [first_country, second_country], document.countries
       end
 

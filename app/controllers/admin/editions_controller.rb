@@ -8,7 +8,7 @@ class Admin::EditionsController < Admin::BaseController
   def index
     if params_filters.any?
       state = params_filters[:state]
-      @editions = EditionFilter.new(document_class, params_filters).editions
+      @editions = EditionFilter.new(edition_class, params_filters).editions
       @edition_state = (state == :active) ? 'all' : state.to_s
       @page_title = "#{@edition_state.humanize} Documents"
       session[:document_filters] = params_filters
@@ -72,7 +72,7 @@ class Admin::EditionsController < Admin::BaseController
 
   private
 
-  def document_class
+  def edition_class
     Edition
   end
 
@@ -81,11 +81,11 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def build_edition
-    @edition = document_class.new(document_params)
+    @edition = edition_class.new(document_params)
   end
 
   def find_edition
-    @edition = document_class.find(params[:id])
+    @edition = edition_class.find(params[:id])
   end
 
   def prevent_modification_of_unmodifiable_edition

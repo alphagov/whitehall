@@ -5,10 +5,10 @@ class Admin::SpeechesController < Admin::EditionsController
   private
 
   def set_type
-    @edition.type = document_class.to_s
+    @edition.type = edition_class.to_s
   end
 
-  def document_class
+  def edition_class
     if params[:document].present? && params[:document][:type].present?
       params[:document][:type].constantize
     else

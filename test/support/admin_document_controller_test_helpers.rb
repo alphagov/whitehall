@@ -41,7 +41,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_creating_of(edition_type)
-      edition_class = document_class_for(edition_type)
+      edition_class = edition_class_for(edition_type)
 
       test "new displays edition form" do
         get :new
@@ -230,7 +230,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_attachments_for(edition_type)
-      edition_class = document_class_for(edition_type)
+      edition_class = edition_class_for(edition_type)
 
       test "new displays edition attachment fields" do
         get :new
@@ -537,7 +537,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_attached_images_for(edition_type)
-      edition_class = document_class_for(edition_type)
+      edition_class = edition_class_for(edition_type)
 
       test "new displays edition image fields" do
         get :new
@@ -1115,7 +1115,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_organisations_for(edition_type)
-      edition_class = document_class_for(edition_type)
+      edition_class = edition_class_for(edition_type)
 
       test "new should display edition organisations field" do
         get :new
@@ -1175,7 +1175,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_ministerial_roles_for(edition_type)
-      edition_class = document_class_for(edition_type)
+      edition_class = edition_class_for(edition_type)
 
       test "new should display edition ministerial roles field" do
         get :new
@@ -1255,7 +1255,7 @@ module AdminDocumentControllerTestHelpers
     end
 
     def should_allow_overriding_of_first_published_at_for(edition_type)
-      edition_class = document_class_for(edition_type)
+      edition_class = edition_class_for(edition_type)
 
       test "new should display first_published_at fields" do
         get :new
