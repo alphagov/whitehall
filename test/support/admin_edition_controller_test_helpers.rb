@@ -1,4 +1,4 @@
-module AdminDocumentControllerTestHelpers
+module AdminEditionControllerTestHelpers
   extend ActiveSupport::Concern
 
   module ClassMethods
