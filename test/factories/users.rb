@@ -3,8 +3,13 @@ FactoryGirl.define do
     "user-#{n}"
   end
 
+  sequence :email do |n|
+    "user-#{n}@example.com"
+  end
+
   factory :user do
     name
+    email
   end
 
   factory :policy_writer, parent: :user, aliases: [:author, :creator, :fact_check_requestor] do

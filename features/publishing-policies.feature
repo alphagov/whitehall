@@ -12,6 +12,7 @@ Scenario: Publishing a submitted publication
   Then my attempt to publish "Ban Beards" should succeed
   And I should see the policy "Ban Beards" in the list of published documents
   And the policy "Ban Beards" should be visible to the public
+  And the writers who worked on the policy titled "Ban Beards" should be emailed about the publication
 
 Scenario: Trying to publish a policy that has been changed by another user
   Given a submitted policy "Ban Beards" exists

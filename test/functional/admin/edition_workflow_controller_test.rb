@@ -4,7 +4,8 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   setup do
-    @edition = build(:submitted_policy)
+    @edition = build(:submitted_policy, doc_identity: build(:doc_identity))
+    @edition.doc_identity.stubs(:to_param).returns('policy-slug')
     @edition.stubs(id: 1234, new_record?: false)
     @user = login_as(:departmental_editor)
     Edition.stubs(:find).with(@edition.to_param).returns(@edition)
@@ -25,6 +26,23 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     @edition.stubs(:publish_as).returns(true)
     post :publish, id: @edition, lock_version: 1
     assert_redirected_to admin_documents_path(state: :published)
+  end
+
+  test 'publish notifies authors of publication via email' do
+    author = build(:user)
+    @edition.stubs(:publish_as).returns(true)
+    @edition.stubs(:authors).returns([author])
+    email = stub('email')
+    Notifications.expects(:edition_published).with(author, @edition, admin_policy_url(@edition), policy_url(@edition.doc_identity)).returns(email)
+    email.expects(:deliver)
+    post :publish, id: @edition, lock_version: 1
+  end
+
+  test 'publish doesn\'t notify authors if they instigated the rejection' do
+    @edition.stubs(:publish_as).returns(true)
+    @edition.stubs(:authors).returns([@user])
+    Notifications.expects(:edition_published).never
+    post :publish, id: @edition, lock_version: 1
   end
 
   test 'publish passes through the force flag' do
@@ -121,6 +139,23 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :reject, id: @edition, lock_version: 1
 
     assert_redirected_to new_admin_document_editorial_remark_path(@edition)
+  end
+
+  test 'reject notifies authors of rejection via email' do
+    author = build(:user)
+    @edition.stubs(:reject!)
+    @edition.stubs(:authors).returns([author])
+    email = stub('email')
+    Notifications.expects(:edition_rejected).with(author, @edition, admin_policy_url(@edition)).returns(email)
+    email.expects(:deliver)
+    post :reject, id: @edition, lock_version: 1
+  end
+
+  test 'reject doesn\'t notify authors if they instigated the rejection' do
+    @edition.stubs(:reject!)
+    @edition.stubs(:authors).returns([@user])
+    Notifications.expects(:edition_rejected).never
+    post :reject, id: @edition, lock_version: 1
   end
 
   test 'reject sets lock version on edition before attempting to reject to guard against rejecting stale objects' do
