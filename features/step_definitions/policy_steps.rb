@@ -318,6 +318,22 @@ Then /^I should see the policy titled "([^"]*)" in the list of documents that ne
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
 end
 
+Then /^the writers who worked on the policy titled "([^"]*)" should be emailed about the rejection$/ do |policy_title|
+  policy = Policy.find_by_title(policy_title)
+  policy.authors.each do |writer|
+    assert_equal 1, unread_emails_for(writer.email).size
+    assert_match /The policy #{policy_title} was rejected by/, unread_emails_for(writer.email).first.subject
+  end
+end
+
+Then /^the writers who worked on the policy titled "([^"]*)" should be emailed about the publication$/ do |policy_title|
+  policy = Policy.find_by_title(policy_title)
+  policy.authors.each do |writer|
+    assert_equal 1, unread_emails_for(writer.email).size
+    assert_match /The policy #{policy_title} has been published/, unread_emails_for(writer.email).first.subject
+  end
+end
+
 Then /^I should see that it was rejected by "([^"]*)"$/ do |rejected_by|
   assert page.has_css?('.rejected_by', text: rejected_by)
 end

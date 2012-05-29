@@ -1,4 +1,6 @@
 class Admin::EditionWorkflowController < Admin::BaseController
+  include PublicDocumentRoutesHelper
+
   before_filter :find_edition
   before_filter :lock_edition
   before_filter :set_change_note
@@ -16,12 +18,18 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def reject
     @edition.reject!
+    users_to_notify(@edition).each do |user|
+      Notifications.edition_rejected(user, @edition, admin_document_url(@edition)).deliver
+    end
     redirect_to new_admin_document_editorial_remark_path(@edition),
       notice: "Document rejected; please explain why in an editorial remark"
   end
 
   def publish
     if @edition.publish_as(current_user, force: params[:force].present?)
+      users_to_notify(@edition).each do |user|
+        Notifications.edition_published(user, @edition, admin_document_url(@edition), public_document_url(@edition)).deliver
+      end
       redirect_to admin_documents_path(state: :published), notice: "The document #{@edition.title} has been published"
     else
       redirect_to admin_document_path(@edition), alert: @edition.errors.full_messages.to_sentence
@@ -29,6 +37,10 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   private
+
+  def users_to_notify(edition)
+    edition.authors.select {|a| a.email && a != current_user }
+  end
 
   def find_edition
     @edition = Edition.find(params[:id])
