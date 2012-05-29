@@ -1,4 +1,4 @@
-module AdminDocumentCountriesBehaviour
+module AdminEditionCountriesBehaviour
   extend ActiveSupport::Concern
 
   module ClassMethods
