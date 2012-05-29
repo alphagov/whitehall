@@ -1,0 +1,16 @@
+
+.inside_gov_sunset {
+  
+  .block-2 p {
+    @include sans-20;
+  }
+  
+  
+  @media (min-width: 768px) {
+    .block-1, .block-2 {
+      margin: 0 auto;
+      max-width: 70%;
+    }
+  }
+  
+}
