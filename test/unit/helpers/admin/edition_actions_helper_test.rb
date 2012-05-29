@@ -18,21 +18,6 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     assert_equal "Have you checked the 1 supporting pages?", (fragment/"input[type=submit]").first["data-confirm"]
   end
 
-  test "should generate publish form for edition with change note field if required" do
-    published_edition = create(:published_edition)
-    edition = create(:submitted_edition, doc_identity: published_edition.doc_identity)
-    html = publish_edition_form(edition)
-    fragment = Nokogiri::HTML.fragment(html)
-    refute_nil (fragment/"textarea[name='edition[change_note]']").first
-  end
-
-  test "should generate publish form for edition without change note field if not required" do
-    edition = create(:submitted_edition)
-    html = publish_edition_form(edition)
-    fragment = Nokogiri::HTML.fragment(html)
-    assert_nil (fragment/"textarea[name='edition[change_note]']").first
-  end
-
   test "should generate force-publish form" do
     edition = create(:submitted_edition, title: "edition-title")
     html = publish_edition_form(edition, force: true)
@@ -48,20 +33,5 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     html = publish_edition_form(edition, force: true)
     fragment = Nokogiri::HTML.fragment(html)
     assert_equal "Are you sure you want to force publish this document? Have you checked the 1 supporting pages?", (fragment/"input[type=submit]").first["data-confirm"]
-  end
-
-  test "should generate force-publish form for edition with change note field if required" do
-    published_edition = create(:published_edition)
-    edition = create(:submitted_edition, doc_identity: published_edition.doc_identity)
-    html = publish_edition_form(edition)
-    fragment = Nokogiri::HTML.fragment(html)
-    refute_nil (fragment/"textarea[name='edition[change_note]']").first
-  end
-
-  test "should generate force-publish form for edition without change note field if not required" do
-    edition = create(:submitted_edition)
-    html = publish_edition_form(edition)
-    fragment = Nokogiri::HTML.fragment(html)
-    assert_nil (fragment/"textarea[name='edition[change_note]']").first
   end
 end

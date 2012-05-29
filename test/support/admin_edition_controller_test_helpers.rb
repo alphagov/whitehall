@@ -1054,23 +1054,11 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_be_publishable(edition_type)
-      test "should display the publish form without change note if edition is publishable and change note is not required" do
+      test "should display the publish form if edition is publishable" do
         login_as :departmental_editor
         edition = create("submitted_#{edition_type}")
         get :show, id: edition
-        assert_select publish_form_selector(edition), count: 1 do
-          refute_select "textarea[name='edition[change_note]']"
-        end
-      end
-
-      test "should display the publish form with change note if edition is publishable and change note is required" do
-        login_as :departmental_editor
-        published_edition = create("published_#{edition_type}")
-        edition = create("submitted_#{edition_type}", doc_identity: published_edition.doc_identity)
-        get :show, id: edition
-        assert_select publish_form_selector(edition), count: 1 do
-          assert_select "textarea[name='edition[change_note]']"
-        end
+        assert_select publish_form_selector(edition), count: 1
       end
 
       test "should not display the publish form if edition is not publishable" do
@@ -1088,23 +1076,11 @@ module AdminEditionControllerTestHelpers
         refute_select force_publish_form_selector(edition)
       end
 
-      test "should display the force publish form without change note if edition is not publishable but is force-publishable and change note is not required" do
+      test "should display the force publish form if edition is not publishable but is force-publishable" do
         login_as :departmental_editor
         edition = create("draft_#{edition_type}")
         get :show, id: edition
-        assert_select force_publish_form_selector(edition), count: 1 do
-          refute_select "textarea[name='edition[change_note]']"
-        end
-      end
-
-      test "should display the force publish form with change note if edition is not publishable but is force-publishable and change note is required" do
-        login_as :departmental_editor
-        published_edition = create("published_#{edition_type}")
-        edition = create("draft_#{edition_type}", doc_identity: published_edition.doc_identity)
-        get :show, id: edition
-        assert_select force_publish_form_selector(edition), count: 1 do
-          assert_select "textarea[name='edition[change_note]']"
-        end
+        assert_select force_publish_form_selector(edition), count: 1
       end
 
       test "should not display the force publish form if edition is neither publishable nor force-publishable" do

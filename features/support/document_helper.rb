@@ -61,8 +61,10 @@ module DocumentHelper
     visit admin_document_path(document)
   end
 
-  def publishing_requires_change_note?
-    has_css?("textarea[name='edition[change_note]']")
+  def fill_in_change_note_if_required
+    if has_css?("textarea[name='edition[change_note]']")
+      fill_in "Change note", with: "changes"
+    end
   end
 
   def refute_flash_alerts_exist
@@ -70,13 +72,6 @@ module DocumentHelper
   end
 
   def publish(options = {})
-    if publishing_requires_change_note?
-      if options[:minor_change]
-        check "Minor change?"
-      elsif !options[:without_change_note]
-        fill_in "Change note", with: "Fixed some grammatical errors."
-      end
-    end
     click_button options[:force] ? "Force Publish" : "Publish"
     unless options[:ignore_errors]
       refute_flash_alerts_exist

@@ -62,6 +62,12 @@ module Admin::EditionsHelper
       concat render(partial: "standard_fields",
                     locals: {form: form, edition: edition})
       yield(form)
+      if edition.change_note_required?
+        concat form.text_area(:change_note, rows: 4, label_text:
+                 "Change note (will appear on public site)")
+        concat form.check_box(:minor_change, label_text:
+                 "Minor change? (for typos and other minor corrections, nothing will appear on public site)")
+      end
       concat form.save_or_cancel
     end
   end

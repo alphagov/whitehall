@@ -164,12 +164,14 @@ end
 When /^I edit the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   begin_editing_document original_title
   fill_in "Title", with: new_title
+  fill_in_change_note_if_required
   click_button "Save"
 end
 
 When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" policy topic$/ do |title, policy_topic_name|
   begin_editing_document title
   select policy_topic_name, from: "Policy topics"
+  fill_in_change_note_if_required
   click_button "Save"
 end
 
@@ -213,6 +215,7 @@ When /^I publish a new edition of the policy "([^"]*)" with the new title "([^"]
   visit admin_document_path(policy)
   click_button "Create new edition"
   fill_in "Title", with: new_title
+  fill_in_change_note_if_required
   click_button "Save"
   publish(force: true)
 end
@@ -222,24 +225,25 @@ When /^I publish a new edition of the policy "([^"]*)" without a change note$/ d
   visit admin_document_path(policy)
   click_button "Create new edition"
   click_button "Save"
-  publish(force: true, without_change_note: true, ignore_errors: true)
+  publish(force: true, ignore_errors: true)
 end
 
 When /^I publish a new edition of the policy "([^"]*)" as a minor change$/ do |policy_title|
   policy = Policy.latest_edition.find_by_title!(policy_title)
   visit admin_document_path(policy)
   click_button "Create new edition"
+  check "Minor change"
   click_button "Save"
-  publish(force: true, without_change_note: true, ignore_errors: true, minor_change: true)
+  publish(force: true, ignore_errors: true)
 end
 
 When /^I publish a new edition of the policy "([^"]*)" with a change note "([^"]*)"$/ do |policy_title, change_note|
   policy = Policy.latest_edition.find_by_title!(policy_title)
   visit admin_document_path(policy)
   click_button "Create new edition"
-  click_button "Save"
   fill_in "Change note", with: change_note
-  publish(force: true, without_change_note: true)
+  click_button "Save"
+  publish(force: true)
 end
 
 Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|

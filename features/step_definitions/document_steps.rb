@@ -118,6 +118,9 @@ end
 
 When /^I force publish (#{THE_DOCUMENT})$/ do |edition|
   visit_document_preview edition.title, :draft
+  click_link "Edit"
+  fill_in_change_note_if_required
+  click_button "Save"
   publish(force: true)
 end
 
@@ -140,6 +143,7 @@ When /^I publish a new edition of the published document "([^"]*)"$/ do |title|
   visit admin_documents_path(state: :published)
   click_link title
   click_button 'Create new edition'
+  fill_in_change_note_if_required
   click_button 'Save'
   publish(force: true)
 end
