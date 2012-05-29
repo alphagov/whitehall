@@ -470,7 +470,7 @@ class EditionTest < ActiveSupport::TestCase
     published_edition = create(:published_edition, force_published: true)
     draft_edition = published_edition.create_draft(create(:policy_writer))
 
-    assert_equal false, !!draft_edition.force_published
+    assert !draft_edition.force_published
   end
 
   test "should copy time of first publication when creating draft" do
