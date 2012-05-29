@@ -4,7 +4,7 @@
     <%= render partial: 'navigation', locals: { edition: @edition } %>
     <%= render partial: "rejected_by", locals: { edition: @edition } %>
     <section class="document_view">
-      <%= render partial: 'document', locals: { edition: @edition } %>
+      <%= render partial: 'edition', locals: { edition: @edition } %>
       <% if @edition.notes_to_editors.present? %>
         <section id="notes_to_editors">
           <h1>Notes to editors</h1>
