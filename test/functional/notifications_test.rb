@@ -4,9 +4,9 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
   enable_url_helpers
 
   setup do
-    @policy = create(:policy, title: "<policy-title>")
-    @requestor = create(:fact_check_requestor, name: "<requestor-name>")
-    @request = create(:fact_check_request,
+    @policy = build(:policy, title: "<policy-title>")
+    @requestor = build(:fact_check_requestor, name: "<requestor-name>")
+    @request = build(:fact_check_request,
       email_address: 'fact-checker@example.com',
       edition: @policy,
       requestor: @requestor
@@ -36,15 +36,15 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
   end
 
   test "email body should contain unescaped instructions" do
-    request = create(:fact_check_request, instructions: %{Don't escape "this" text})
+    request = build(:fact_check_request, instructions: %{Don't escape "this" text})
     mail = Notifications.fact_check_request(request, host: "example.com")
 
     assert_match %r{Don't escape "this" text}, mail.body.to_s
   end
 
   test "email body should contain unescaped edition title" do
-    policy = create(:policy, title: %{Use "double quotes" everywhere})
-    request = create(:fact_check_request, edition: policy)
+    policy = build(:policy, title: %{Use "double quotes" everywhere})
+    request = build(:fact_check_request, edition: policy)
     mail = Notifications.fact_check_request(request, host: "example.com")
 
     assert_match %r{Use "double quotes" everywhere}, mail.body.to_s
@@ -58,12 +58,12 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   include Admin::EditionRoutesHelper
 
   setup do
-    @policy = create(:policy, title: "<policy-title>")
-    @requestor = create(:fact_check_requestor,
+    @policy = build(:policy, title: "<policy-title>")
+    @requestor = build(:fact_check_requestor,
       name: "<requestor-name>",
       email: "fact-check-requestor@example.com"
     )
-    @request = create(:fact_check_request,
+    @request = build(:fact_check_request,
       email_address: 'fact-checker@example.com',
       edition: @policy,
       requestor: @requestor
@@ -93,15 +93,15 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   end
 
   test "email body should contain unescaped instructions" do
-    request = create(:fact_check_request, instructions: %{Don't escape "this" text})
+    request = build(:fact_check_request, instructions: %{Don't escape "this" text})
     mail = Notifications.fact_check_response(request, host: "example.com")
 
     assert_match %r{Don't escape "this" text}, mail.body.to_s
   end
 
   test "email body should contain unescaped edition title" do
-    policy = create(:policy, title: %{Use "double quotes" everywhere})
-    request = create(:fact_check_request, edition: policy)
+    policy = build(:policy, title: %{Use "double quotes" everywhere})
+    request = build(:fact_check_request, edition: policy)
     mail = Notifications.fact_check_request(request, host: "example.com")
 
     assert_match %r{Use "double quotes" everywhere}, mail.body.to_s
