@@ -1,0 +1,40 @@
+
+.inside_gov_home {
+    
+  .block-2,
+  .block-3 {
+    padding-bottom: $gutter;
+  }
+
+  @media (min-width: 768px) {
+    .block-1 {
+      margin: 0 auto;
+      max-width: 80%;
+    }
+    
+    .block-2 {
+      margin-left: 10%;
+      width: 40%;
+      float: left;
+      display: inline;
+    }
+    
+    .block-3 {
+      width: 50%;
+      float: left;
+      display: inline;
+      padding-top: $gutter-one-third;
+    }
+  }
+  
+  .block-2 {
+    .introduction {
+      @include sans-20;
+    }
+    
+    .beta-site {
+      @include sans-15;
+    }
+  }
+  
+}

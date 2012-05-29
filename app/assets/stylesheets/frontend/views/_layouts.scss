@@ -41,14 +41,15 @@
 		}
 
 		.current {
-  		margin-top: 0.4rem;
-  		padding-top: 0.4rem;
+  		  margin-top: 0.4rem;
+  		  padding-top: 0.4rem;
 			background: #eee;
 		}
 	}
 
 	#inside_gov_link a {
 		@include brand-13;
+		margin-top: 0;
 		margin-right: 8px;
 		padding: 12px 8px;
 		padding: 1.2rem 0.8rem;
