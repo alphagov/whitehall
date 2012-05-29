@@ -1,36 +1,38 @@
 <% page_title "UK and the world" %>
 <% page_class "countries-index" %>
 
-<div class="g3f">
-  <header class="g3 page_header countries">
-    <h1 class="page_title">UK and the world</h1>
-    <p class="explanation">The UK government&rsquo;s priorities and interests overseas</p>
-  </header>
+  <div class="block-1">
+    <div class="inner-block">
+      <header class="g3 page_header countries">
+        <h1 class="page_title">UK and the world</h1>
+        <p class="explanation">The UK government&rsquo;s priorities and interests overseas</p>
+      </header>
+    </div>
+  </div>
 
   <% if @featured_countries.any? %>
-    <section class="featured_items" id="featured-countries">
-      <div class="g4f">
-        <div class="g1">
-          <h1 class="label">Featured</h1>
-        </div>
-        <div class="g3">
-          <% @featured_countries.each do |featured_country| %>
-            <div class="<%= featured_grid_class(@featured_countries.length) %>">
-              <%= content_tag_for(:article, featured_country) do %>
-                <h2><%= link_to featured_country.name, country_path(featured_country), class: "name" %></h2>
-                <p class="summary description">
-                  <%= featured_country.description %>
-                </p>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </section>
+  <div class="block-2">
+    <div class="inner-block">
+      <section class="featured_items" id="featured-countries">
+        <h1 class="label">Featured</h1>
+        <% @featured_countries.each do |featured_country| %>
+          <div>
+            <%= content_tag_for(:article, featured_country) do %>
+              <h2><%= link_to featured_country.name, country_path(featured_country), class: "name" %></h2>
+              <p class="summary description">
+                <%= featured_country.description %>
+              </p>
+            <% end %>
+          </div>
+        <% end %>
+      </section>
+    </div>
+  </div>
   <% end %>
 
-</div>
 
-<div class="g3f">
-  <%= render partial: "grouped_list", locals: {countries: @countries} %>
-</div>
+  <div class="block-3">
+    <div class="inner-block">
+      <%= render partial: "grouped_list", locals: {countries: @countries} %>
+    </div>
+  </div>

@@ -1,16 +1,10 @@
-<section class="alphabetical_list g4f" id="countries">
-  <div class="g1">
-    <h1 class="label">All countries, territories &amp; delegations</h1>
-  </div>
-  <div class="g3f">
-  </div>
+<section class="alphabetical_list" id="countries">
+  <h1 class="label">All countries, territories &amp; delegations</h1>
   <% countries.group_by {|c| c.name.first.upcase }.sort.in_groups_of(3, false) do |row| %>
     <% row.each do |letter, countries_group| %>
-      <div class="alphabetical_row g4f" id="countries_<%= letter.downcase %>">
-        <div class="g1"><h2 class="alphabetical_list_letter"><%= letter %></h2></div>
-        <div class="g3f">
-          <%= render partial: "list", locals: { countries: countries_group } %>
-        </div>
+      <div class="alphabetical_row" id="countries_<%= letter.downcase %>">
+        <h2 class="alphabetical_list_letter"><%= letter %></h2>
+        <%= render partial: "list", locals: { countries: countries_group } %>  
       </div>
     <% end %>
   <% end %>
