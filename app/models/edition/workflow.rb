@@ -66,6 +66,18 @@ module Edition::Workflow
     end
   end
 
+  def save_as(user)
+    if save
+      edition_authors.create!(user: user)
+      recent_edition_openings.where(editor_id: user).delete_all
+    end
+  end
+
+  def edit_as(user, attributes = {})
+    assign_attributes(attributes)
+    save_as(user)
+  end
+
   class EditionHasNoUnpublishedEditionsValidator < ActiveModel::Validator
     def validate(record)
       if record.doc_identity && (existing_edition = record.doc_identity.unpublished_edition)

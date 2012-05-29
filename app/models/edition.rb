@@ -134,18 +134,6 @@ class Edition < ActiveRecord::Base
     end
   end
 
-  def save_as(user)
-    if save
-      edition_authors.create!(user: user)
-      recent_edition_openings.where(editor_id: user).delete_all
-    end
-  end
-
-  def edit_as(user, attributes = {})
-    assign_attributes(attributes)
-    save_as(user)
-  end
-
   def author_names
     edition_authors.map(&:user).map(&:name).uniq
   end
