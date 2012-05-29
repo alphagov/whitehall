@@ -7,10 +7,9 @@ module PublicDocumentRoutesHelper
   def public_document_url(edition, options={})
     options.merge!(doc_identity_url_options(edition))
     if host = Whitehall.public_host_for(request.host)
-      polymorphic_url(model_name(edition), options.merge(host: host))
-    else
-      public_document_path(edition, options)
+      options.merge!(host: host)
     end
+    polymorphic_url(model_name(edition), options)
   end
 
   def public_supporting_page_path(edition, supporting_page, options = {})
