@@ -6,7 +6,7 @@
         <%= content_tag_for :li, document do %>
           <%= link_to document.title, public_document_path(document), class: "title" %>
           <div class="metadata">
-            <span class="document_type"><%= human_friendly_edition_type(document) %></span>, <%= published_or_updated(document).titleize %> <%= time_ago(document.published_at, class: 'published_at') %>
+            <span class="document_type"><%= human_friendly_edition_type(document) %></span>, <span class="published_or_updated"><%= published_or_updated(document).titleize %> <%= time_ago(document.published_at, class: 'published_at') %></span>
           </div>
         <% end %>
       <% end %>

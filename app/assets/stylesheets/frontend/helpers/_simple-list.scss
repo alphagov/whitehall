@@ -38,8 +38,17 @@
     display: inline-block;
     @include sans-15;
   }
+  
+  .published_document a {
+    padding-bottom: 0;
+  }
+  
+  .organisation a {
+    padding-top: 0;
+  }
       
-  a + .metadata {
+  a + .metadata,
+  .organisation + .metadata {
     position: relative;
     margin-top: $gutter-one-third*-1;
   }
