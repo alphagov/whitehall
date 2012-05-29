@@ -235,7 +235,7 @@ class Admin::PolicyTopicsControllerTest < ActionController::TestCase
     policy_topic_with_published_policy = create(:policy_topic, policies: [build(:published_policy, title: "thingies")])
 
     get :edit, id: policy_topic_with_published_policy.id
-    assert_select ".documents_preventing_destruction" do
+    assert_select ".policies_preventing_destruction" do
       assert_select "a", "thingies"
       assert_select ".document_state", "(published policy)"
     end

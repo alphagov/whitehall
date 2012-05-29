@@ -4,7 +4,7 @@ module Admin::PolicyTopicsHelper
     result << ' featured' if policy_topic.featured?
   end
 
-  def documents_preventing_destruction(policy_topic)
+  def policies_preventing_destruction(policy_topic)
     policy_topic.policies.map do |d|
       [link_to(d.title, admin_document_path(d)),
        content_tag(:span,
