@@ -19,14 +19,8 @@
   <% if edition.published? && edition.is_a?(Consultation) %>
     <%= show_or_add_consultation_response_button(edition) %>
   <% end %>
+
   <span class="back">
-    back to
-    <% if edition.submitted? %>
-      <%= link_to 'submitted documents', admin_documents_path(state: :submitted) %>
-    <% elsif edition.draft? %>
-      <%= link_to 'draft documents', admin_documents_path(state: :draft) %>
-    <% elsif edition.published? %>
-      <%= link_to 'published documents', admin_documents_path(state: :published) %>
-    <% end %>
+    back to <%= link_to 'document list', admin_documents_path %>
   </span>
 </nav>
