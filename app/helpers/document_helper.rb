@@ -1,23 +1,23 @@
 module DocumentHelper
-  def published_or_updated(document)
-    document.first_edition? ? 'published' : 'updated'
+  def published_or_updated(edition)
+    edition.first_edition? ? 'published' : 'updated'
   end
 
-  def change_history(document)
-    history = document.editions_ever_published.map do |e|
+  def change_history(doc_identity)
+    history = doc_identity.editions_ever_published.map do |e|
       {published_at: e.published_at, change_note: e.change_note}
     end
     history.last[:change_note] ||= "First published." if history.last
     history.reject { |e| e[:change_note].blank? }
   end
 
-  def document_thumbnail_tag(document)
-    image_url = document.has_thumbnail? ? document.thumbnail_url : 'pub-cover.png'
-    link_to image_tag(image_url), public_document_path(document)
+  def edition_thumbnail_tag(edition)
+    image_url = edition.has_thumbnail? ? edition.thumbnail_url : 'pub-cover.png'
+    link_to image_tag(image_url), public_document_path(edition)
   end
 
-  def document_organisation_class(document)
-    if organisation = document.organisations.first
+  def edition_organisation_class(edition)
+    if organisation = edition.organisations.first
       organisation.slug
     else
       'unknown_organisation'
