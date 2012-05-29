@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::DocumentsHelperTest < ActionView::TestCase
+class Admin::EditionsHelperTest < ActionView::TestCase
   test "should return nil for humanized content type when file extension is nil" do
     assert_nil humanized_content_type(nil)
   end
