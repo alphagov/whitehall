@@ -1,0 +1,58 @@
+    
+.document {
+  .body {
+    position: relative;
+    margin-top: $gutter-one-third*-1; 
+    
+    h2 {
+      @include sans-20;
+      margin-top: $gutter;
+      font-weight: 700;
+    }
+    
+    h2:first-child {
+      margin-top: 0;
+    }
+    
+    p {
+      @include sans-20;
+    }
+    
+    li {
+      width: 90%;
+      @include sans-20;
+    }
+    
+    figure {
+      width: 100%;
+      clear: both;
+      overflow: hidden;
+      padding: $gutter-one-third 0 0;
+      
+      img {
+        display: inline;
+        text-align: center;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+      }
+      
+      figcaption {
+        @include sans-12;
+      }
+    }
+  }
+    
+  section {
+    padding-top: $gutter-one-third;
+  
+    h1 {
+      @include sans-18;
+    }
+    
+    li {
+    @include sans-15;
+    }
+  }
+}
+

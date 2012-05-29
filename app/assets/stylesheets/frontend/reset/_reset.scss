@@ -6,13 +6,14 @@
   overflow: hidden;
   margin: 0 auto;
 	padding-top: 0;
-	padding-bottom: $gutter*4;
+	padding-bottom: $gutter;
   background: transparent;
   color: #444;
   -webkit-font-smoothing: antialiased;
 
    	@media (min-width: 768px) {
    		padding-top: 64px;
+   		padding-bottom: $gutter*4;
    	}
 
 }

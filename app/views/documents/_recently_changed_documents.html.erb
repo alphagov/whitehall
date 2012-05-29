@@ -1,15 +1,12 @@
 <% if recently_changed_documents.any? %>
-  <section id="recently-changed" class="latest_documents">
+  <section id="recently-changed" class="latest_documents simple_list">
     <h1 class="label"><%= title %></h1>
     <ul class="">
       <% recently_changed_documents.each do |document| %>
         <%= content_tag_for :li, document do %>
-          <div class="metadata published_or_updated">
-            <%= published_or_updated(document).titleize %> <%= time_ago(document.published_at, class: 'published_at') %>
-          </div>
-          <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
+          <%= link_to document.title, public_document_path(document), class: "title" %>
           <div class="metadata">
-            <span class="document_type"><%= human_friendly_document_type(document) %></span>
+            <span class="document_type"><%= human_friendly_document_type(document) %></span>, <%= published_or_updated(document).titleize %> <%= time_ago(document.published_at, class: 'published_at') %>
           </div>
         <% end %>
       <% end %>

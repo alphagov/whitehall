@@ -1,38 +1,57 @@
 // Styles for Documents view
 
 .document_page {
+    
+    .block-2,
+    .block-3,
+    .block-4 {
+      padding-bottom: $gutter;
+    }
 
-    .page_header {
-      padding-bottom: $gutter*2;
-
-      h1 {
-        @include brand-45;
+   	@media (min-width: 768px) {
+      .block-2 {
+        width: 20%;
+        float: left;
+        display: inline;
       }
-
-      h2 {
-        position: relative;
-        @include brand-13;
-        margin-bottom: $gutter*-0.666666;
+      
+      .block-3 {
+        width: 50%;
+        float: left;
+        display: inline;
+      }
+      
+      .block-4 {
+        width: 30%;
+        float: left;
+        display: inline;
       }
     }
     
     .metadata {
       @include sans-15;
       display: block;
+      margin-bottom: $gutter-two-thirds*-1;
     }
-    
+   	
+   	@media (min-width: 768px) {
+      .metadata {
+        margin-bottom: 0;
+      }
+    }
+        
     .change_notes_container {
       @include sans-15;
-      margin-bottom: $gutter*0.333333;
+      margin-bottom: $gutter-one-third*-1;
       position: relative;
       
       .change_notes {
         position: absolute;
         top: 100%;
         left: 0;
-        width: 150%;
+        width: 70%;
         z-index: 10;
-        padding: $gutter*0.5 $gutter;
+        padding: $gutter-half $gutter;
         color: #fff;
         background: #333;
         box-shadow: 0 1px 2px rgba(0,0,0,0.4);
@@ -46,9 +65,14 @@
         }
       }
     }
-    
-    .contextual_info p {
-      @include sans-12;
+         	
+    @media (min-width: 768px) {
+      .change_notes_container {
+        margin-bottom: $gutter-one-third;
+        .change_notes {
+          width: 150%;
+        }
+      }
     }
     
     .notice p {
@@ -58,61 +82,45 @@
       background: yellow;
     }
     
-    .document p {
-      @include sans-20;
-    }
-    
     #document_organisations {
-      padding: $gutter*0.333333 $gutter*0.333333 $gutter;
+      padding: $gutter-one-third $gutter-one-third $gutter;
       background: #eee;
       
       ul {
         list-style: none;
+      }
+      
+      li {
+        padding-bottom: 4px;
       }
     }
     
     #document_ministers {
-      padding: 0 $gutter*0.333333 $gutter*0.333333;
+      margin-bottom: $gutter;
+      padding: 0 $gutter-one-third;
       background: #eee;
       
       ul {
         list-style: none;
       }
-    }
-
-
-
-   	@media (min-width: 768px) {
-      // hacky layout styles, until get opportunity to fix markup
-      .page_header + .g1f {
-        width: 20%;
-        float: left;
-        display: inline;
-        
-        .group,
-        .contextual_info {
-          padding-right: $gutter;
-        } 
-      }
       
-      .document_view {
-        width: 60%;
-        float: left;
-        display: inline;
+      li {
         
-        .notice,
-        .document {
-          padding: 0 $gutter;
+        h3 {
+          @include sans-18;
+          margin-bottom: $gutter-two-thirds*-1;
         }
-      }
-      
-      .document_view + .g1f {
-        width: 20%;
-        float: left;
-        display: inline;
+        p {
+          @include sans-15;
+        }
       }
     }
 }
+
+
+
+
+
 
 .organisation_logo_small {
   position: relative;

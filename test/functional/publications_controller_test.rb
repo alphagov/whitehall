@@ -100,7 +100,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication.doc_identity
 
-    assert_select ".document_view" do
+    assert_select ".body" do
       refute_select "a.order_url"
     end
   end

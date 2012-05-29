@@ -7,8 +7,12 @@
 // Whitespace values and maximum site width. These values can be 
 // used in any file imported into this document.
 
-$gutter: 24px;
-$max-site-width: 1000px;
+$max-site-width: 1096px;
+
+$gutter:            24px;
+$gutter-two-thirds: $gutter*0.666666;
+$gutter-half:       $gutter*0.5;
+$gutter-one-third:  $gutter*0.333333;
 
 
 
@@ -37,15 +41,35 @@ $max-site-width: 1000px;
 
 
 
+// HELPERS
+// Styles for comment page elements
+
+#whitehall-wrapper {
+  @import "helpers/_contextual-info.scss";
+  @import "helpers/_document.scss";
+  @import "helpers/_page-header.scss";
+  @import "helpers/_simple-list.scss";
+}
+
+
+
+
 // VIEWS
 // Styles scoped to each template in /views
+
 #whitehall-wrapper {
   @import "views/_browse.scss";
-  @import "views/_documents.scss";
+  @import "views/_document-page.scss";
   @import "views/_featured.scss";
   @import "views/_layouts.scss";
   @import "views/_publications.scss";
 }
+
+
+
+
+
+
 
 
 
