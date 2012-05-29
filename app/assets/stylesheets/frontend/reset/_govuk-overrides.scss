@@ -11,17 +11,14 @@ html {
 
 #global-header .header-global,
 #footer .beta-notice p,
-#footer .inner,
-#whitehall-wrapper {
+#footer .inner {
   width: auto;
   max-width: $max-site-width;
-  padding-left: $gutter*0.5;
-  padding-right: $gutter*0.5;
+}
 
-  @media (min-width: 768px) {
-    padding-left: $gutter;
-    padding-right: $gutter;
-  }
+#whitehall-wrapper {
+  width: auto;
+  max-width: $max-site-width + $gutter*2;
 }
 
 #footer .beta-notice {

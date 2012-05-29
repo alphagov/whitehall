@@ -1,35 +1,84 @@
-// Base stylesheet compiler
-
-
-// Dimension units
-$gutter: 24px;
-$max-site-width: 960px;
+// BASE STYLESHEET COMPILER
 
 
 
-// Reset
-@import "reset/_govuk-overrides.scss";
-@import "reset/_reset.scss";
 
-// Styleguide
+// DIMENSION UNITS
+// Whitespace values and maximum site width. These values can be 
+// used in any file imported into this document.
+
+$max-site-width: 1096px;
+
+$gutter:            24px;
+$gutter-two-thirds: $gutter*0.666666;
+$gutter-half:       $gutter*0.5;
+$gutter-one-third:  $gutter*0.333333;
+
+
+
+
+// STYLEGUIDE
+// Mixins to be shared across gov.uk sites. Anything set in these
+// files can be used in the view files.
+
 @import "styleguide/_typography.scss";
+@import "styleguide/_colours.scss";
 
-// Views
-//@import "styleguide/_colours.scss";
+
+
+
+// RESET
+// Flatten exising styles
+
+@import "reset/_govuk-overrides.scss";
+// overrides to the gov.uk header and footer
+@import "reset/_reset.scss";
+// reset styles applied to #whitehall-wrapper & #whitehall-wrapper *
+// so as to override global styles being set by gov.uk chrome. When
+// gov.uk styles are scoped, will want to change these selectors to
+// body and *
+
+
+
+
+// HELPERS
+// Styles for comment page elements
 
 #whitehall-wrapper {
-  position: relative;
-  @include sans-15;
-  padding-top: 0;
-  padding-bottom: 0;
-
-  @media (min-width: 768px) {
-    padding-top: 64px;
-  }
-
-	@import "views/_layouts.scss";
-	@import "views/_publications.scss";
-	@import "views/_featured.scss";
-  @import "views/_browse.scss";
-  @import "styleguide/_colours.scss";
+  @import "helpers/_contextual-info.scss";
+  @import "helpers/_document.scss";
+  @import "helpers/_page-header.scss";
+  @import "helpers/_simple-list.scss";
 }
+
+
+
+
+// VIEWS
+// Styles scoped to each template in /views
+
+#whitehall-wrapper {
+  @import "views/_browse.scss";
+  @import "views/_document-page.scss";
+  @import "views/_featured.scss";
+  @import "views/_layouts.scss";
+  @import "views/_publications.scss";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// DEBUG
+//#whitehall-wrapper {
+//  background-position: top left;
+//  background-image: -webkit-linear-gradient(transparent 7px,#E4E4E4 1px);
+//  background-size: 100% 8px;
+//}

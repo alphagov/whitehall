@@ -5,6 +5,7 @@ class PageTitleTest < ActiveSupport::TestCase
   EXCLUDED_TEMPLATES = %w(
     admin/preview/preview.html.erb
     layouts/admin.html.erb
+    layouts/frontend.html.erb
     layouts/website.html.erb
   ).map do |f|
     File.expand_path(Rails.root + "app/views/" + f )

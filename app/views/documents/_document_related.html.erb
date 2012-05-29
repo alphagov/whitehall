@@ -34,21 +34,21 @@ related_policies ||= nil
 <% end %>
 
 <% if document.respond_to?(:policy_topics) && document.policy_topics.any? %>
-  <section id="document_topics" class="gutter">
+  <section id="document_topics" class="simple_list">
     <h1 class="label">Policy topics</h1>
     <%= render partial: "policy_topics/list", locals: { policy_topics: document.policy_topics }  %>
   </section>
 <% end %>
 
 <% if policy_topics && policy_topics.any? %>
-  <section id="document_topics" class="gutter">
+  <section id="document_topics" class="simple_list">
     <h1 class="label">Policy topics</h1>
     <%= render partial: "policy_topics/list", locals: { policy_topics: policy_topics }  %>
   </section>
 <% end %>
 
 <% if document.respond_to?(:countries) && document.countries.any? %>
-  <section id="document_countries" class="gutter">
+  <section id="document_countries" class="simple_list">
     <h1 class="label">UK &amp; the world</h1>
     <ul class="countries">
     <% document.countries.each do |country| %>
@@ -61,9 +61,7 @@ related_policies ||= nil
 <% end %>
 
 <% if recently_changed_documents %>
-  <div class="gutter">
-    <%= render partial: "documents/recently_changed_documents", object: recently_changed_documents, locals: { title: "Latest on this #{document.type}" } %>
-</div>
+  <%= render partial: "documents/recently_changed_documents", object: recently_changed_documents, locals: { title: "Latest on this #{document.type}" } %>
 <% end %>
 
 <% if related_policies %>
