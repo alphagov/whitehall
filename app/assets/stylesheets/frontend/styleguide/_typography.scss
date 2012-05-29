@@ -1,4 +1,4 @@
-/*  GOV.UK typography palettes */
+//  GOV.UK typography palettes
 
 
 //  ANATOMY OF A TYPE STYLE
@@ -60,7 +60,7 @@
 
 
 
-/* BRAND FONT: GILL SANS */
+// BRAND FONT: GILL SANS
 
 $font-brand:
     "Gill Sans W01 Book", 
@@ -80,10 +80,10 @@ $font-brand:
     font-weight: 300;
     letter-spacing: 0.01em;
     text-transform: none;
-    padding-top: 7px;
-    padding-top: 0.7rem;
-    padding-bottom: 5px;
-    padding-bottom: 0.5rem;
+    padding-top: 6px;
+    padding-top: 0.6rem;
+    padding-bottom: 6px;
+    padding-bottom: 0.6rem;
 }
 
 @mixin brand-32 {
@@ -126,6 +126,7 @@ $font-brand:
     padding-top: 1.1rem;
     padding-bottom: 13px;
     padding-bottom: 1.3rem;
+    -webkit-font-smoothing: subpixel-antialiased;
 }
 
 
@@ -136,7 +137,7 @@ $font-brand:
 
 
 
-/* SANS: HELVETICA */
+// SANS: HELVETICA
 
 $font-sans:
     "Helvetica Neue", 
@@ -145,6 +146,19 @@ $font-sans:
     Helvetica, 
     sans-serif;
 
+
+@mixin sans-20 {
+    font-family: $font-sans;
+    font-size: 20px;
+    font-size: 2rem;
+    line-height: 1.4; /*28px*/
+    font-weight: 400;
+    letter-spacing: 0;
+    padding-top: 10px;
+    padding-top: 1rem;
+    padding-bottom: 10px;
+    padding-bottom: 1rem;
+}
 
 @mixin sans-18 {
     font-family: $font-sans;
@@ -157,6 +171,11 @@ $font-sans:
     padding-top: 0.4rem;
     padding-bottom: 12px;
     padding-bottom: 1.2rem;
+    text-decoration: none;
+    
+    a {
+      text-decoration: none;
+    }
 }
 
 @mixin sans-15 {
@@ -193,7 +212,7 @@ $font-sans:
 
 
 
-/* BODY: GEORGIA */
+// BODY: GEORGIA
 
 $font-body:
     Georgia, 

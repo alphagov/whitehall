@@ -1,0 +1,46 @@
+    
+.simple_list {
+  position: relative;
+  clear: both;
+  padding-bottom: $gutter-two-thirds;
+  
+  h1 {
+    @include sans-18;
+  }
+  
+  ul, ol {
+    margin-top: $gutter-two-thirds*-1;
+    list-style: none;
+    
+    li {
+      padding-top: $gutter-one-third;
+      
+      .metadata {
+        position: relative;
+        display: block;
+        @include sans-12;
+        text-transform: lowercase;
+        
+        span {
+          text-transform: none;
+        }
+      }
+    }
+    
+    li + li {
+      margin-top: $gutter-one-third*-1;
+    }
+  }
+    
+        
+  a {
+    position: relative;
+    display: inline-block;
+    @include sans-15;
+  }
+      
+  a + .metadata {
+    position: relative;
+    margin-top: $gutter-one-third*-1;
+  }
+}
