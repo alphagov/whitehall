@@ -1,8 +1,8 @@
 module GovspeakHelper
 
   def govspeak_to_admin_html(text, images = [])
-    markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, document|
-      latest_edition = document && document.doc_identity.latest_edition
+    markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, edition|
+      latest_edition = edition && edition.doc_identity.latest_edition
       if latest_edition.nil?
         replacement_html = content_tag(:del, replacement_html)
         explanation = state = "deleted"
@@ -40,18 +40,18 @@ module GovspeakHelper
     nokogiri_doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(uri = anchor['href'])
 
-      document, supporting_page = find_documents_from_uri(uri)
-      replacement_html = replacement_html_for(anchor, document, supporting_page)
-      replacement_html = yield(replacement_html, document) if block_given?
+      edition, supporting_page = find_edition_and_supporting_page_from_uri(uri)
+      replacement_html = replacement_html_for(anchor, edition, supporting_page)
+      replacement_html = yield(replacement_html, edition) if block_given?
 
       anchor.replace Nokogiri::HTML.fragment(replacement_html)
     end
   end
 
-  def replacement_html_for(anchor, document, supporting_page)
-    if document.present? && document.linkable?
+  def replacement_html_for(anchor, edition, supporting_page)
+    if edition.present? && edition.linkable?
       anchor.dup.tap do |anchor|
-        anchor['href'] = rewritten_href_for_documents(document, supporting_page)
+        anchor['href'] = rewritten_href_for_edition(edition, supporting_page)
       end.to_html.html_safe
     else
       anchor.inner_text
@@ -79,7 +79,7 @@ module GovspeakHelper
     truncated_link_uri == truncated_host_uri
   end
 
-  def find_documents_from_uri(uri)
+  def find_edition_and_supporting_page_from_uri(uri)
     id = uri[/\/([^\/]+)$/, 1]
     if uri =~ /\/supporting\-pages\//
       begin
@@ -88,12 +88,12 @@ module GovspeakHelper
         supporting_page = nil
       end
       if supporting_page
-        document = supporting_page.edition
+        edition = supporting_page.edition
       else
-        document = nil
+        edition = nil
       end
     else
-      document = Edition.send(:with_exclusive_scope) do
+      edition = Edition.send(:with_exclusive_scope) do
         begin
           Edition.find(id)
         rescue ActiveRecord::RecordNotFound
@@ -102,14 +102,14 @@ module GovspeakHelper
       end
       supporting_page = nil
     end
-    [document, supporting_page]
+    [edition, supporting_page]
   end
 
-  def rewritten_href_for_documents(document, supporting_page)
+  def rewritten_href_for_edition(edition, supporting_page)
     if supporting_page
-      public_supporting_page_url(document, supporting_page)
+      public_supporting_page_url(edition, supporting_page)
     else
-      public_document_url(document)
+      public_document_url(edition)
     end
   end
 
