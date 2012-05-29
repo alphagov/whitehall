@@ -1,27 +1,27 @@
 module PublicDocumentRoutesHelper
-  def public_document_path(document, options = {})
-    options.merge!(doc_identity_url_options(document))
-    polymorphic_path(model_name(document), options)
+  def public_document_path(edition, options = {})
+    options.merge!(doc_identity_url_options(edition))
+    polymorphic_path(model_name(edition), options)
   end
 
-  def public_document_url(document, options={})
-    options.merge!(doc_identity_url_options(document))
+  def public_document_url(edition, options={})
+    options.merge!(doc_identity_url_options(edition))
     if host = Whitehall.public_host_for(request.host)
-      polymorphic_url(model_name(document), options.merge(host: host))
+      polymorphic_url(model_name(edition), options.merge(host: host))
     else
-      public_document_path(document, options)
+      public_document_path(edition, options)
     end
   end
 
-  def public_supporting_page_path(document, supporting_page, options = {})
-    policy_supporting_page_path(document.doc_identity, supporting_page, options)
+  def public_supporting_page_path(edition, supporting_page, options = {})
+    policy_supporting_page_path(edition.doc_identity, supporting_page, options)
   end
 
-  def public_supporting_page_url(document, supporting_page, options={})
+  def public_supporting_page_url(edition, supporting_page, options={})
     if host = Whitehall.public_host_for(request.host)
-      policy_supporting_page_url(document.doc_identity, supporting_page, options.merge(host: host))
+      policy_supporting_page_url(edition.doc_identity, supporting_page, options.merge(host: host))
     else
-      public_supporting_page_path(document, supporting_page, options)
+      public_supporting_page_path(edition, supporting_page, options)
     end
   end
 
@@ -43,15 +43,15 @@ module PublicDocumentRoutesHelper
 
   private
 
-  def doc_identity_url_options(document)
-    if document.is_a?(ConsultationResponse)
-      {consultation_id: document.consultation.doc_identity}
+  def doc_identity_url_options(edition)
+    if edition.is_a?(ConsultationResponse)
+      {consultation_id: edition.consultation.doc_identity}
     else
-      {id: document.doc_identity}
+      {id: edition.doc_identity}
     end
   end
 
-  def model_name(document)
-    document.class.name.split("::").first.underscore
+  def model_name(edition)
+    edition.class.name.split("::").first.underscore
   end
 end
