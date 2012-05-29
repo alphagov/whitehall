@@ -1,0 +1,147 @@
+.page_header {
+  margin-top: $gutter-half;
+  padding-bottom: $gutter-half;
+  background-repeat: no-repeat;
+  background-position: 0 8px;
+
+  h1 {
+    @include brand-32;
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      @include brand-45;
+    }
+  }
+  
+  h2 {
+    position: relative;
+    @include brand-13;
+    margin-bottom: $gutter-two-thirds*-1;
+  }
+  
+  .explanation {
+    margin-top: $gutter-two-thirds*-1;
+    @include sans-15;
+  }
+}
+
+@media (min-width: 768px) {
+  .page_header {
+    margin-top: $gutter;
+    padding-bottom: $gutter*2;
+  }
+}
+
+
+
+
+
+
+.announcements-index,
+.news, 
+.newsarticle {
+  .page_header {
+    $width: 53px;
+    padding-left: $width + $gutter-two-thirds;
+    background-image: url(/government/assets/icons/48/news.png);
+  }
+}
+
+.consultations-index {
+  .page_header {
+    $width: 60px;
+    padding-left: $width + $gutter-two-thirds;
+    background-image: url(/government/assets/icons/48/consultation-open.png);
+  }
+}
+
+.consultation-open {
+  .page_header {
+    $width: 60px;
+    background-image: url(/government/assets/icons/48/consultation-open.png);
+  }
+}
+
+.consultation-closed, 
+.consultation-responded {
+  .page_header {
+    $width: 60px;
+    background-image: url(/government/assets/icons/48/consultation-closed.png);
+  }
+}
+
+.consultation-response {
+  .page_header {
+    $width: 60px;
+    background-image: url(/government/assets/icons/48/consultation-responded.png);
+  }
+}
+
+.countries-index {  
+  .page_header {
+    $width: 60px;
+    padding-left: $width + $gutter-two-thirds;
+    background-image: url(/government/assets/icons/48/uk_and_the_world.png);
+  }
+}
+
+.ministers-index {
+  .page_header {
+    $width: 60px;
+    padding-left: $width + $gutter-two-thirds;
+    background-image: url(/government/assets/icons/48/ministers.png);
+  }
+}
+
+.organisations_index_page {
+  .page_header {
+    $width: 60px;
+    padding-left: $width + $gutter-two-thirds;
+    background-image: url(/government/assets/icons/48/departments.png);
+  }
+}
+
+.policy, 
+.supporting_page {
+  .page_header {
+    $width: 35px;
+    padding-left: $width + $gutter-two-thirds;
+    background-image: url(/government/assets/icons/48/policy.png);
+  }
+}
+
+.policy-topics-index,
+.policytopic {
+  .page_header {
+    $width: 41px;
+    padding-left: $width + $gutter-two-thirds;
+    background-image: url(/government/assets/icons/48/policytopic.png);
+  }
+}
+
+.publications-index,
+.publication {
+  .page_header {
+    $width: 46px;
+    padding-left: $width + $gutter-two-thirds;
+    background-image: url(/government/assets/icons/48/publication.png);
+  }
+}
+
+.search-index {
+  .page_header {
+    $width: 60px;
+    padding-left: $width + $gutter-two-thirds;
+    background-image: url(/government/assets/icons/48/search.png);
+  }
+}
+
+.speeches-index,
+.speech {
+  .page_header {
+    $width: 51px;
+    padding-left: $width + $gutter-two-thirds;
+    background-image: url(/government/assets/icons/48/speech.png);
+  }
+}

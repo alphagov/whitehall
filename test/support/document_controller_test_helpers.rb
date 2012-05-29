@@ -65,7 +65,7 @@ module DocumentControllerTestHelpers
         news_article = create("published_#{document_type}", images: [build(:image)])
         get :show, id: news_article.doc_identity
 
-        assert_select ".document_view" do
+        assert_select ".body" do
           assert_select "figure.image.lead img[src='#{news_article.images.first.url}'][alt='#{news_article.images.first.alt_text}']"
         end
       end
@@ -76,7 +76,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: document.doc_identity
 
-        assert_select ".document_view" do
+        assert_select ".body" do
           assert_select "figure.image.lead figcaption", "image caption"
         end
       end
@@ -86,7 +86,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: document.doc_identity
 
-        assert_select ".document_view" do
+        assert_select ".body" do
           refute_select "figure.image.lead"
         end
       end
@@ -98,7 +98,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: document.doc_identity
 
-        assert_select ".document_view" do
+        assert_select ".body" do
           refute_select "figure.image.lead"
         end
       end

@@ -1,18 +1,26 @@
 <%= render partial: "page_title" %>
-<div class="g4f document_page <%= @document.type.downcase %>">
-  <div class="g4">
-    <section class="page_header icon">
-      <h2 class="label"><%= header_title %></h2>
-      <%= render partial: "title" %>
-    </section>
-    <div class="g1f">
+<div class="document_page <%= @document.type.downcase %>">
+  <div class="block-1">
+    <div class="inner-block">
+      <section class="page_header icon">
+        <h2 class="label"><%= header_title %></h2>
+        <%= render partial: "title" %>
+      </section>
+    </div>
+  </div>
+  <div class="block-2">
+    <div class="inner-block">
       <%= render partial: "document_metadata" %>
       <%= render partial: "document_contextual" %>
     </div>
-    <div class="g2 document_view">
+  </div>
+  <div class="block-3">
+    <div class="inner-block">
       <%= render partial: "document_content" %>
     </div>
-    <div class="g1f">
+  </div>
+  <div class="block-4">
+    <div class="inner-block">
       <%= render partial: "documents/document_related", locals: {
         document: @document,
         recently_changed_documents: @recently_changed_documents,

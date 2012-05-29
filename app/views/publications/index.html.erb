@@ -1,23 +1,25 @@
 <% page_title "Publications" %>
 <% page_class "publications-index" %>
 
-<div class="g4">
-  <header class="page_header publication icon">
+<div class="block-1">
+
+  <header class="page_header publication">
       <h1 class="page_title"><%= publications_page_title(@selected_policy_topics) %></h1>
   </header>
-</div>
 
-<% if @featured_publications.any? %>
-  <section class="publications four_column_list" id="featured-publications">
-    <div class="g4f">
-      <div class="g1"><h1 class="label">Featured</h1></div>
-      <div class="g3f">
-        <% article_group(@featured_publications, groups_of: 3, class: "has_img row") do |publication| %>
-          <%= render partial: "publication", locals: {publication: publication} %>
-        <% end %>
+  <% if @featured_publications.any? %>
+    <section class="featured-publications" id="featured-publications">
+      <div class="section-inner">
+        <h1>Featured</h1>
+        <div class="article-wrapper">
+          <% article_group(@featured_publications, groups_of: 3, class: "has_img row") do |publication| %>
+            <%= render partial: "publication", locals: {publication: publication} %>
+          <% end %>
+        </div>
       </div>
-    </div>
-  </section>
-<% end %>
+    </section>
+  <% end %>
+  
+  <%= render partial: "all_publications", locals: {all_publications: @all_publications} %>
 
-<%= render partial: "all_publications", locals: {all_publications: @all_publications} %>
+</div>

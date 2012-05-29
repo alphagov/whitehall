@@ -1,13 +1,10 @@
 // Styles for Layouts view
 
+
 #global-nav {
 	position: relative;
-	margin: 0 $gutter*-0.5;
+	margin: 0;
 	overflow: hidden;
-
-	@media (min-width: 440px) {
-		margin: 0;
-	}
 
 	@media (min-width: 768px) {
 		position: fixed;
@@ -32,6 +29,7 @@
 		display: inline;
 
 		a {
+		  display: block;
 			padding: 8px 8px;
 			padding: 0.8rem 0.8rem;
 			text-decoration: none;
@@ -61,4 +59,8 @@
 			padding: 1.2rem 1.6rem;
 		}
 	}
+}
+
+.inner-block {
+  padding: 0 $gutter;
 }

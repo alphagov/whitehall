@@ -77,7 +77,7 @@ end
 Then /^the published speech should remain unchanged$/ do
   visit speech_path(@speech.doc_identity)
   assert page.has_css?('.page_title', text: @speech.title)
-  assert page.has_css?('.document_view .body', text: @speech.body)
+  assert page.has_css?('.body', text: @speech.body)
 end
 
 Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |delivered_on, location|

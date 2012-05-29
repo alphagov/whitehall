@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DocumentAttachmentTest < ActiveSupport::TestCase
+class EditionAttachmentTest < ActiveSupport::TestCase
   test "destroys attachment when no editions are associated" do
     edition_attachment = create(:edition_attachment)
     attachment = edition_attachment.attachment
