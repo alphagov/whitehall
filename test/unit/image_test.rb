@@ -13,7 +13,7 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal "http://example.com/file.jpg", image.url
   end
 
-  test "does not destroy image data when if more documents are associated" do
+  test "does not destroy image data when other images are associated with it" do
     image = create(:image)
     image_data = image.image_data
     other_image = create(:image, image_data: image_data)
@@ -22,7 +22,7 @@ class ImageTest < ActiveSupport::TestCase
     image.destroy
   end
 
-  test "destroys image data when no documents are associated" do
+  test "destroys image data when no images are associated" do
     image = create(:image)
     image_data = image.image_data
 
