@@ -79,11 +79,11 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "should return the main type of the document" do
-    assert_equal "Consultation", human_friendly_document_type(build(:consultation))
-    assert_equal "News article", human_friendly_document_type(build(:news_article))
-    assert_equal "Policy", human_friendly_document_type(build(:policy))
-    assert_equal "Publication", human_friendly_document_type(build(:publication))
-    assert_equal "Speech", human_friendly_document_type(build(:speech))
+    assert_equal "Consultation", human_friendly_edition_type(build(:consultation))
+    assert_equal "News article", human_friendly_edition_type(build(:news_article))
+    assert_equal "Policy", human_friendly_edition_type(build(:policy))
+    assert_equal "Publication", human_friendly_edition_type(build(:publication))
+    assert_equal "Speech", human_friendly_edition_type(build(:speech))
   end
 
   test "home page should be related to home main navigation" do
