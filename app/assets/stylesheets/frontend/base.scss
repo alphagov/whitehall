@@ -45,6 +45,7 @@ $gutter-one-third:  $gutter*0.333333;
 // Styles for comment page elements
 
 #whitehall-wrapper {
+  @import "helpers/_alphabetical-list.scss";
   @import "helpers/_contextual-info.scss";
   @import "helpers/_document.scss";
   @import "helpers/_page-header.scss";
@@ -58,10 +59,12 @@ $gutter-one-third:  $gutter*0.333333;
 // Styles scoped to each template in /views
 
 #whitehall-wrapper {
+  @import "views/_announcements.scss";
   @import "views/_browse.scss";
   @import "views/_document-page.scss";
   @import "views/_featured.scss";
   @import "views/_layouts.scss";
+  @import "views/_ministerial-roles.scss";
   @import "views/_publications.scss";
   @import "views/_site-index.scss";
   @import "views/_sunset.scss";

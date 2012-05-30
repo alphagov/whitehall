@@ -1,28 +1,42 @@
 <% page_title "Ministers" %>
 <% page_class "ministers-index" %>
 
-<div class="g4">
-  <header class="page_header minister">
-    <h1 class="page_title">Ministers</h1>
-  </header>
+<div class="block-1">
+  <div class="inner-block">
+    <header class="page_header minister">
+      <h1 class="page_title">Ministers</h1>
+    </header>
+  </div>
 </div>
 
-<section class="g4 cab_ministers">
-  <h2 class="g1f label">Cabinet ministers</h2>
-  <ul id="cabinet" class="floated_list g3">
-    <% @cabinet_ministerial_roles.each do |role| %>
-      <li class="ministerial_role g1">
-        <div class="group"><div class="image_holder">
-          <%= link_to image_for_ministerial_role(role), role %>
-        </div>
-        <h3 class="current_appointee"><%= role.current_person_name %></h3>
-        <p class="role"><%= link_to role.name, role %></p></div>
-      </li>
-    <% end %>
-  </ul>
-</section>
+<div class="block-2">
+  <div class="inner-block">
+    <section class="cab_ministers">
+      <h1 class="label">Cabinet ministers</h1>
+      <ul id="cabinet" class="cabinet_list">
+        <% @cabinet_ministerial_roles.each do |role| %>
+          <li class="ministerial_role">
+            <div class="inner">
+              <div class="image_holder">
+                <%= link_to image_for_ministerial_role(role), role %>
+              </div>
+              <h2 class="current_appointee"><%= role.current_person_name %></h2>
+              <p class="role"><%= link_to role.name, role %></p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  </div>
+</div>
 
-<section class="g4 cab_ministers other">
-  <h2 class="g1f label">Other ministers</h2>
-  <%= render partial: "grouped_list", locals: {ministerial_roles: @ministerial_roles} %>
-</section>
+
+
+<div class="block-3">
+  <div class="inner-block">
+    <section class="other">
+      <h1 class="label">Other ministers</h1>
+      <%= render partial: "grouped_list", locals: {ministerial_roles: @ministerial_roles} %>
+    </section>
+  </div>
+</div>
