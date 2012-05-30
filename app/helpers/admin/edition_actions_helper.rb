@@ -25,12 +25,26 @@ module Admin::EditionActionsHelper
     button_text = options[:force] ? "Force Publish" : "Publish"
     button_title = "Publish #{edition.title}"
     confirm = publish_edition_alerts(edition, options[:force])
-    capture do
-      form_for [:admin, edition], {as: :edition, url: url, method: :post, html: {id: "edition_publishing"}} do |form|
-        concat(form.hidden_field :lock_version)
-        concat(form.submit button_text, title: button_title, confirm: confirm)
+    capture {
+      if edition.change_note_required?
+        concat content_tag(:section, class: "container") {
+          concat content_tag(:h1, "Change note")
+          concat content_tag(:p) {
+            if edition.minor_change?
+              concat content_tag(:em, "This is a minor change")
+            elsif edition.change_note.blank?
+              concat content_tag(:em, "None")
+            else
+              edition.change_note
+            end
+          }
+        }
       end
-    end
+      concat form_for([:admin, edition], {as: :edition, url: url, method: :post, html: {id: "edition_publishing"}}) { |form|
+        concat form.hidden_field(:lock_version)
+        concat form.submit(button_text, title: button_title, confirm: confirm)
+      }
+    }
   end
 
   def delete_edition_button(edition)
