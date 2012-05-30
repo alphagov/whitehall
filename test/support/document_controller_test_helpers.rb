@@ -6,9 +6,9 @@ module DocumentControllerTestHelpers
       test "show displays document attachments" do
         attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
         attachment_2 = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
-        document = create("published_#{document_type}", attachments: [attachment_1, attachment_2])
+        edition = create("published_#{document_type}", attachments: [attachment_1, attachment_2])
 
-        get :show, id: document.doc_identity
+        get :show, id: edition.doc_identity
 
         assert_select_object(attachment_1) do
           assert_select '.attachment .attachment_title', text: attachment_1.title
@@ -23,9 +23,9 @@ module DocumentControllerTestHelpers
       test "show displays PDF attachment metadata" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attachment = create(:attachment, file: greenpaper_pdf)
-        document = create("published_#{document_type}", attachments: [attachment])
+        edition = create("published_#{document_type}", attachments: [attachment])
 
-        get :show, id: document.doc_identity
+        get :show, id: edition.doc_identity
 
         assert_select_object(attachment) do
           assert_select ".type", /PDF/
@@ -37,9 +37,9 @@ module DocumentControllerTestHelpers
       test "show displays non-PDF attachment metadata" do
         csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attachment = create(:attachment, file: csv)
-        document = create("published_#{document_type}", attachments: [attachment])
+        edition = create("published_#{document_type}", attachments: [attachment])
 
-        get :show, id: document.doc_identity
+        get :show, id: edition.doc_identity
 
         assert_select_object(attachment) do
           assert_select ".type", /CSV/
@@ -52,9 +52,9 @@ module DocumentControllerTestHelpers
     def should_display_inline_images_for(document_type)
       test "show displays document with inline images" do
         images = [create(:image)]
-        document = create("published_#{document_type}", body: "!!1", images: images)
+        edition = create("published_#{document_type}", body: "!!1", images: images)
 
-        get :show, id: document.doc_identity
+        get :show, id: edition.doc_identity
 
         assert_select 'article .body figure.image.embedded img'
       end
@@ -72,9 +72,9 @@ module DocumentControllerTestHelpers
 
       test "show displays the image caption for the #{document_type}" do
         portas_review_jpg = fixture_file_upload('portas-review.jpg')
-        document = create("published_#{document_type}", images: [build(:image, caption: "image caption")])
+        edition = create("published_#{document_type}", images: [build(:image, caption: "image caption")])
 
-        get :show, id: document.doc_identity
+        get :show, id: edition.doc_identity
 
         assert_select ".body" do
           assert_select "figure.image.lead figcaption", "image caption"
@@ -82,9 +82,9 @@ module DocumentControllerTestHelpers
       end
 
       test "show only displays image if there is one" do
-        document = create("published_#{document_type}", images: [])
+        edition = create("published_#{document_type}", images: [])
 
-        get :show, id: document.doc_identity
+        get :show, id: edition.doc_identity
 
         assert_select ".body" do
           refute_select "figure.image.lead"
@@ -94,9 +94,9 @@ module DocumentControllerTestHelpers
 
     def should_not_display_lead_image_for(document_type)
       test "show not show lead image, even if there are associated images" do
-        document = create("published_#{document_type}", images: [build(:image)])
+        edition = create("published_#{document_type}", images: [build(:image)])
 
-        get :show, id: document.doc_identity
+        get :show, id: edition.doc_identity
 
         assert_select ".body" do
           refute_select "figure.image.lead"
@@ -107,23 +107,23 @@ module DocumentControllerTestHelpers
     def should_show_related_policies_and_policy_topics_for(document_type)
       test "show displays related published policies" do
         published_policy = create(:published_policy)
-        document = create("published_#{document_type}", related_policies: [published_policy])
-        get :show, id: document.doc_identity
+        edition = create("published_#{document_type}", related_policies: [published_policy])
+        get :show, id: edition.doc_identity
         assert_select_object published_policy
       end
 
       test "show doesn't display related unpublished policies" do
         draft_policy = create(:draft_policy)
-        document = create("published_#{document_type}", related_policies: [draft_policy])
-        get :show, id: document.doc_identity
+        edition = create("published_#{document_type}", related_policies: [draft_policy])
+        get :show, id: edition.doc_identity
         refute_select_object draft_policy
       end
 
       test "show infers policy topics from published policies" do
         policy_topic = create(:policy_topic)
         published_policy = create(:published_policy, policy_topics: [policy_topic])
-        document = create("published_#{document_type}", related_policies: [published_policy])
-        get :show, id: document.doc_identity
+        edition = create("published_#{document_type}", related_policies: [published_policy])
+        get :show, id: edition.doc_identity
         assert_select_object policy_topic
       end
 
@@ -131,21 +131,21 @@ module DocumentControllerTestHelpers
         policy_topic = create(:policy_topic)
         published_policy_1 = create(:published_policy, policy_topics: [policy_topic])
         published_policy_2 = create(:published_policy, policy_topics: [policy_topic])
-        document = create("published_#{document_type}", related_policies: [published_policy_1, published_policy_2])
-        get :show, id: document.doc_identity
+        edition = create("published_#{document_type}", related_policies: [published_policy_1, published_policy_2])
+        get :show, id: edition.doc_identity
         assert_select_object policy_topic, count: 1
       end
 
       test "should not display policies unless they are related" do
         unrelated_policy = create(:published_policy)
-        document = create("published_#{document_type}", related_policies: [])
-        get :show, id: document.doc_identity
+        edition = create("published_#{document_type}", related_policies: [])
+        get :show, id: edition.doc_identity
         refute_select_object unrelated_policy
       end
 
       test "should not display an empty list of related policies" do
-        document = create("published_#{document_type}")
-        get :show, id: document.doc_identity
+        edition = create("published_#{document_type}")
+        get :show, id: edition.doc_identity
         refute_select "#related-policies"
       end
     end
@@ -155,9 +155,9 @@ module DocumentControllerTestHelpers
         first_country = create(:country)
         second_country = create(:country)
         third_country = create(:country)
-        document = create("published_#{document_type}", countries: [first_country, second_country])
+        edition = create("published_#{document_type}", countries: [first_country, second_country])
 
-        get :show, id: document.doc_identity
+        get :show, id: edition.doc_identity
 
         assert_select '#document_countries' do
           assert_select_object first_country
@@ -167,9 +167,9 @@ module DocumentControllerTestHelpers
       end
 
       test "should not display an empty list of countries" do
-        document = create("published_#{document_type}", countries: [])
+        edition = create("published_#{document_type}", countries: [])
 
-        get :show, id: document.doc_identity
+        get :show, id: edition.doc_identity
 
         assert_select metadata_nav_selector do
           refute_select '.country'
@@ -180,39 +180,39 @@ module DocumentControllerTestHelpers
     def should_show_published_documents_associated_with(model_name, has_many_association, timestamp_key = :published_at)
       singular = has_many_association.to_s.singularize
       test "shows only published #{has_many_association.to_s.humanize.downcase}" do
-        published_document = create("published_#{singular}")
-        draft_document = create("draft_#{singular}")
-        model = create(model_name, editions: [published_document, draft_document])
+        published_edition = create("published_#{singular}")
+        draft_edition = create("draft_#{singular}")
+        model = create(model_name, editions: [published_edition, draft_edition])
 
         get :show, id: model
 
         assert_select "##{has_many_association}" do
-          assert_select_object(published_document)
-          refute_select_object(draft_document)
+          assert_select_object(published_edition)
+          refute_select_object(draft_edition)
         end
       end
 
       test "shows only #{has_many_association.to_s.humanize.downcase} associated with #{model_name}" do
-        published_document = create("published_#{singular}")
-        another_published_document = create("published_#{singular}")
-        model = create(model_name, editions: [published_document])
+        published_edition = create("published_#{singular}")
+        another_published_edition = create("published_#{singular}")
+        model = create(model_name, editions: [published_edition])
 
         get :show, id: model
 
         assert_select "##{has_many_association}" do
-          assert_select_object(published_document)
-          refute_select_object(another_published_document)
+          assert_select_object(published_edition)
+          refute_select_object(another_published_edition)
         end
       end
 
       test "shows most recent #{has_many_association.to_s.humanize.downcase} at the top" do
-        later_document = create("published_#{singular}", timestamp_key => 1.hour.ago)
-        earlier_document = create("published_#{singular}", timestamp_key => 2.hours.ago)
-        model = create(model_name, editions: [earlier_document, later_document])
+        later_edition = create("published_#{singular}", timestamp_key => 1.hour.ago)
+        earlier_edition = create("published_#{singular}", timestamp_key => 2.hours.ago)
+        model = create(model_name, editions: [earlier_edition, later_edition])
 
         get :show, id: model
 
-        assert_equal [later_document, earlier_document], assigns(has_many_association)
+        assert_equal [later_edition, earlier_edition], assigns(has_many_association)
       end
 
       test "should not display an empty published #{has_many_association.to_s.humanize.downcase} section" do
@@ -226,8 +226,8 @@ module DocumentControllerTestHelpers
 
 
     def should_show_change_notes(document_type)
-      should_show_change_notes_on_action(document_type) do |document|
-        get :show, id: document.doc_identity
+      should_show_change_notes_on_action(document_type) do |edition|
+        get :show, id: edition.doc_identity
       end
     end
 
