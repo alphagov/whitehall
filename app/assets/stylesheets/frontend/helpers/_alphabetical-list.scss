@@ -1,0 +1,101 @@
+.alphabetical_list {
+  position: relative;
+  clear: both;
+  
+  h1 {
+    @include sans-15;
+  }
+  
+  .alphabetical_row {
+    position: relative;
+    clear: both;
+    overflow: hidden;
+    padding-top: $gutter-two-thirds;
+    
+    h2 {
+      @include brand-32;
+      text-indent: $gutter-two-thirds;
+      background: #eee;
+    }
+    
+    ul {
+      list-style: none;
+    }
+    
+    h3 {
+      position: relative;
+      @include sans-15;
+      padding-bottom: 0;
+      padding-right: $gutter;
+    }
+    
+    .role {
+      @include sans-15;
+      padding-top: 0;
+      padding-right: $gutter;
+    }
+    
+    li .inner {
+      position: relative;
+      overflow: hidden;
+      padding: $gutter-half 0 0 20%;
+    }
+    
+    .image_holder {
+      position: relative;
+      float: left;
+      display: inline;
+      width: 25%;
+      margin-left: -25%;
+      
+      a {
+        display: block;
+        padding-top: $gutter-one-third;
+        padding-right: $gutter-half;
+      }
+      
+      img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    @media (min-width: 768px) {
+    
+      h2 {
+        position: absolute;
+        top: $gutter+$gutter-half;
+        bottom: $gutter-one-third;
+        right: 66.66666%;
+        margin-right: $gutter;
+        width: $gutter*4;
+      }
+    
+      .ministerial_roles {
+        width: 66.66666%;
+        float: right;
+        display: inline;
+      }
+      
+      li {
+        width: 50%;
+        float: left;
+        display: inline;
+             
+        .inner {
+          padding-left: 33.33333%;
+        }
+        
+        .image_holder {
+          width: 50%;
+          margin-left: -50%;
+        }
+      }
+    }
+    
+  }
+}
+
+
+      
