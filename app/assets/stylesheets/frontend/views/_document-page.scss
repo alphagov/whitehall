@@ -83,7 +83,9 @@
     }
     
     #document_organisations {
-      padding: $gutter-one-third $gutter-one-third $gutter-half;
+      position: relative;
+      margin-bottom: $gutter;
+      padding: $gutter-one-third $gutter-one-third $gutter-one-third*0.5;
       background: #eee;
       
       ul {
@@ -96,6 +98,7 @@
     }
     
     #document_ministers {
+      position: relative;
       margin-bottom: $gutter;
       padding: 0 $gutter-one-third;
       background: #eee;
@@ -114,6 +117,11 @@
           @include sans-15;
         }
       }
+    }
+        
+    #document_organisations + #document_ministers {
+      margin-top: $gutter*-1;
+      padding-top: $gutter;
     }
 }
 
