@@ -84,7 +84,6 @@ Whitehall::Application.routes.draw do
         end
 
         resources :documents, only: [:index], controller: :editions do
-          resources :supporting_pages, path: "supporting-pages", except: [:index]
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
           resources :editorial_remarks, only: [:new, :create], shallow: true
         end
@@ -97,6 +96,7 @@ Whitehall::Application.routes.draw do
             post :publish, to: 'edition_workflow#publish'
           end
           resource :featuring, only: [:create, :update, :destroy]
+          resources :supporting_pages, path: "supporting-pages", except: [:index]
         end
 
         resources :publications, except: [:index]
