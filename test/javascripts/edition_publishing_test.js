@@ -30,7 +30,7 @@ test("should hide form", function() {
 });
 
 test("should insert a publish button link before the form", function() {
-  equal(this.publishingForm.prev("a.button[href='#document_publishing']").text(), "Publish");
+  equal(this.publishingForm.prev("a.button[href='#edition_publishing']").text(), "Publish");
 });
 
 test("should hide publish button when the publish button link is clicked", function() {
@@ -68,5 +68,5 @@ module("Change note label and field present with force publish button", {
 });
 
 test("should insert a force publish button link before the form", function() {
-  equal(this.publishingForm.prev("a.button[href='#document_publishing']").text(), "Force Publish");
+  equal(this.publishingForm.prev("a.button[href='#edition_publishing']").text(), "Force Publish");
 });
