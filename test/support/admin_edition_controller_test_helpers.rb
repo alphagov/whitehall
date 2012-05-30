@@ -209,7 +209,7 @@ module AdminEditionControllerTestHelpers
 
         get :show, id: published_edition
 
-        assert_select "form[action='#{revise_admin_document_path(published_edition)}']"
+        assert_select "form[action='#{revise_admin_edition_path(published_edition)}']"
       end
 
       test "should not be possible to revise a draft edition" do
@@ -217,7 +217,7 @@ module AdminEditionControllerTestHelpers
 
         get :show, id: draft_edition
 
-        refute_select "form[action='#{revise_admin_document_path(draft_edition)}']"
+        refute_select "form[action='#{revise_admin_edition_path(draft_edition)}']"
       end
 
       test "should not be possible to revise an archived edition" do
@@ -225,7 +225,7 @@ module AdminEditionControllerTestHelpers
 
         get :show, id: archived_edition
 
-        refute_select "form[action='#{revise_admin_document_path(archived_edition)}']"
+        refute_select "form[action='#{revise_admin_edition_path(archived_edition)}']"
       end
     end
 

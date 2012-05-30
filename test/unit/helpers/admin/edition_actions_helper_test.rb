@@ -5,7 +5,7 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     edition = create(:submitted_edition, title: "edition-title")
     html = publish_edition_form(edition)
     fragment = Nokogiri::HTML.fragment(html)
-    assert_equal publish_admin_document_path(edition, lock_version: edition.lock_version), (fragment/"form").first["action"]
+    assert_equal publish_admin_edition_path(edition, lock_version: edition.lock_version), (fragment/"form").first["action"]
     assert_equal "Publish", (fragment/"input[type=submit]").first["value"]
     assert_equal "Publish edition-title", (fragment/"input[type=submit]").first["title"]
     assert (fragment/"input[type=submit]").first["data-confirm"].blank?
@@ -37,7 +37,7 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     edition = create(:submitted_edition, title: "edition-title")
     html = publish_edition_form(edition, force: true)
     fragment = Nokogiri::HTML.fragment(html)
-    assert_equal publish_admin_document_path(edition, force: true, lock_version: edition.lock_version), (fragment/"form").first["action"]
+    assert_equal publish_admin_edition_path(edition, force: true, lock_version: edition.lock_version), (fragment/"form").first["action"]
     assert_equal "Force Publish", (fragment/"input[type=submit]").first["value"]
     assert_equal "Publish edition-title", (fragment/"input[type=submit]").first["title"]
     assert_equal "Are you sure you want to force publish this document?", (fragment/"input[type=submit]").first["data-confirm"]
