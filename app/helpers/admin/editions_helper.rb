@@ -55,4 +55,14 @@ module Admin::EditionsHelper
     return "" unless edition.order_url.present?
     link_to edition.order_url, edition.order_url, class: "order_url"
   end
+
+  def standard_edition_form(edition, &blk)
+    form_for [:admin, edition], as: :edition do |form|
+      concat form.errors
+      concat render(partial: "standard_fields",
+                    locals: {form: form, edition: edition})
+      yield(form)
+      concat form.save_or_cancel
+    end
+  end
 end
