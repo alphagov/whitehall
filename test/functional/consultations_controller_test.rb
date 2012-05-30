@@ -249,20 +249,20 @@ class ConsultationsControllerTest < ActionController::TestCase
       edition.feature
     end
     get :index
-    refute assigns("featured_consultations").include?(draft_featured_edition)
+    assert_nil assigns("featured_consultation")
   end
 
   test "should ignore published non-featured consultations" do
     published_edition = create("published_consultation")
     get :index
-    refute assigns("featured_consultations").include?(published_edition)
+    assert_nil assigns("featured_consultation")
   end
 
-  test "should show the featured consultations that was most recently published" do
+  test "should show the featured consultation that was most recently published" do
     old_edition = create("featured_consultation", published_at: 1.month.ago)
     new_edition = create("featured_consultation", published_at: 1.day.ago)
     get :index
-    assert_equal [new_edition], assigns("featured_consultations")
+    assert_equal new_edition, assigns("featured_consultation")
   end
 
   test "should not display the featured consultations list if there aren't featured consultations" do
