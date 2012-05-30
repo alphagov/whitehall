@@ -14,13 +14,7 @@ module Admin::AuditTrailHelper
       html << content_tag(:span, class: "actor") { linked_author(actor) }
     end
     html << " ".html_safe
-    html << content_tag(:span, class: "time") {
-      if entry.created_at < 1.day.ago
-        entry.created_at.to_s(:long_ordinal)
-      else
-        "#{time_ago_in_words entry.created_at} ago"
-      end
-    }
+    html << time_ago(entry.created_at, class: "time")
   end
 
   def make_past_tense(verb_in_present_tense)
