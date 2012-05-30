@@ -160,7 +160,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "#edit_as records new creator if edit succeeds" do
     edition = create(:policy)
-    edition.expects(:save).returns(true)
+    edition.stubs(:save).returns(true)
     user = create(:user)
     edition.edit_as(user, {})
     assert_equal 2, edition.edition_authors.count
@@ -169,13 +169,13 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "#edit_as returns true if edit succeeds" do
     edition = create(:policy)
-    edition.expects(:save).returns(true)
+    edition.stubs(:save).returns(true)
     assert edition.edit_as(create(:user), {})
   end
 
   test "#edit_as does not record new creator if edit fails" do
     edition = create(:policy)
-    edition.expects(:save).returns(false)
+    edition.stubs(:save).returns(false)
     user = create(:user)
     edition.edit_as(user, {})
     assert_equal 1, edition.edition_authors.count
@@ -183,7 +183,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "#edit_as returns false if edit fails" do
     edition = create(:policy)
-    edition.expects(:save).returns(false)
+    edition.stubs(:save).returns(false)
     refute edition.edit_as(create(:user), {})
   end
 
@@ -195,7 +195,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "#save_as records the new creator if save succeeds" do
     edition = create(:policy)
-    edition.expects(:save).returns(true)
+    edition.stubs(:save).returns(true)
     user = create(:user)
     edition.save_as(user)
     assert_equal 2, edition.edition_authors.count
@@ -204,7 +204,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "#save_as does not record new creator if save fails" do
     edition = create(:policy)
-    edition.expects(:save).returns(true)
+    edition.stubs(:save).returns(true)
     user = create(:user)
     edition.save_as(user)
     assert_equal 2, edition.edition_authors.count
@@ -213,7 +213,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "#save_as returns true if save succeeds" do
     edition = create(:policy)
-    edition.expects(:save).returns(true)
+    edition.stubs(:save).returns(true)
     assert edition.save_as(create(:user))
   end
 
@@ -247,7 +247,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "#save_as returns false if save fails" do
     edition = create(:policy)
-    edition.expects(:save).returns(false)
+    edition.stubs(:save).returns(false)
     refute edition.save_as(create(:user))
   end
 end
