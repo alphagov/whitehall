@@ -15,6 +15,8 @@
 
 ## Testing ##
 
+Write tests.
+
 ### Cucumber ###
 
 - Only test the "happy path" behaviour, not exceptional behaviour.
