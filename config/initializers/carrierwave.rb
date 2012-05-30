@@ -11,5 +11,6 @@ CarrierWave.configure do |config|
     config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}
   else
     config.storage :file
+    config.enable_processing = false if Rails.env.test?
   end
 end

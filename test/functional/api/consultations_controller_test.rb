@@ -8,6 +8,11 @@ module API
 
     setup do
       @controller = ConsultationsController.new
+      AttachmentUploader.enable_processing = true
+    end
+
+    teardown do
+      AttachmentUploader.enable_processing = false
     end
 
     test "json should list all published consultations" do

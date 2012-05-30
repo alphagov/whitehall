@@ -3,6 +3,14 @@ require 'test_helper'
 class AttachmentTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
+  setup do
+    AttachmentUploader.enable_processing = true
+  end
+
+  teardown do
+    AttachmentUploader.enable_processing = false
+  end
+
   test 'should be invalid without a title' do
     attachment = build(:attachment, title: nil)
     refute attachment.valid?
