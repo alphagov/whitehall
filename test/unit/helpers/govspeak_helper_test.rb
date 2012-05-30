@@ -176,6 +176,14 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak %{<p>this and <a href="#{public_supporting_page_path(policy, supporting_page)}">that</a> yeah?</p>}, html
   end
 
+  test "should rewrite absolute links to old-style admin previews of published SupportingPages as their doc identity" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+    old_style_supporting_page_url = admin_supporting_page_url(supporting_page).gsub(/editions/, "documents")
+    html = govspeak_to_html("this and [that](#{old_style_supporting_page_url}) yeah?")
+    assert_govspeak %{<p>this and <a href="#{public_supporting_page_path(policy, supporting_page)}">that</a> yeah?</p>}, html
+  end
+
   test 'should rewrite admin link to an archived edition with a published edition' do
     edition = create(:published_policy)
     writer = create(:policy_writer)
