@@ -105,33 +105,22 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  def assert_featured(docs)
-    docs.each do |doc|
-      assert_select '#featured-publications' do
-        assert_select_object doc
-      end
+  def assert_featured(doc)
+    assert_select '#featured-publications' do
+      assert_select_object doc
     end
   end
 
-  test "index with one featured shows one" do
-    featured = 1.times.map { |n| create(:featured_publication, published_at: n.days.ago) }
+  test "index displays the featured publication that was published most recently" do
+    older_featured_publication = create(:featured_publication, publication_date: 2.days.ago)
+    newer_featured_publication = create(:featured_publication, publication_date: 1.day.ago)
+
     get :index
 
-    assert_featured featured
-  end
-
-  test "index with two featured shows two" do
-    featured = 2.times.map { |n| create(:featured_publication, published_at: n.days.ago) }
-    get :index
-
-    assert_featured featured
-  end
-
-  test "index with three featured shows three" do
-    featured = 3.times.map { |n| create(:featured_publication, published_at: n.days.ago) }
-    get :index
-
-    assert_featured featured
+    assert_select '#featured-publication' do
+      assert_select_object newer_featured_publication
+      refute_select_object older_featured_publication
+    end
   end
 
   def given_two_publications_in_two_policy_topics

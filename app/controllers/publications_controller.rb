@@ -3,7 +3,7 @@ class PublicationsController < DocumentsController
 
   def index
     @all_publications = all_publications
-    @featured_publications = @all_publications.select(&:featured)[0..2]
+    @featured_publication = @all_publications.select(&:featured).first
   end
 
   def show

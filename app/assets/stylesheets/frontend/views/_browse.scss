@@ -1,56 +1,39 @@
-.browse-section-title, .browse-content {
-  background-color: #bbb;
-  color: #fff;
-  display: table-cell;
-  margin-bottom: 20px;
-  width: 150px;
+.table-sort {
+  float: left;
+  display: inline;
+  width: 74%
 }
-.browse-section-title {
-  border-right: 1px solid #fff;
-  padding: 1%;
+.table-sort table {
+  width: 100%;
 }
-#content .browse-section-title h2 {
-  color: #fff;
-  font-size: 1.3rem;
-  text-align: center;
-}
-.browse-content {
-  background-color: #fff;
-  margin-right: 0;
-  width: 85%;
-}
-.browse-content tr {
-  border-bottom: 1px solid #ccc;
-  height: 30px;
-}
-.browse-content tr:nth-child(even)  {
-  background-color: #ccc;
-}
-.browse-content th, .browse-content td {
+.table-sort th, .table-sort td {
   background-color: #333;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #fff;
   color: #fff;
   font-weight: normal;
-  padding: 0 10px;
+  padding: 5px 10px;
   text-align: left;
+  vertical-align: top;
 }
-.browse-content td, .browse-content th {
+
+.table-sort tr:nth-child(even) td  {
+  background-color: #eee;
+}
+.table-sort td, .table-sort th {
   display: table-cell;
 }
-.browse-content td {
+.table-sort td {
   background-color: #fff;
   color: #333;
 }
 
-.browse-content th:last-child, .browse-content td:last-child {
-  border-right: none;
+.title {
+  width: 45%;
 }
-/*.title {
-  width: 60%;
+.table-summary {
+  width: 40%;
 }
 .date {
-  width: 10%;
+  width: 15%;
 }
-.department {
-  width: 10%;
-}*/
+

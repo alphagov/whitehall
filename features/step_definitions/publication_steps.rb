@@ -147,7 +147,7 @@ Then /^the publication "([^"]*)" should (not )?be featured on the public publica
   visit publications_path
   publication = Publication.published.find_by_title!(publication_title)
 
-  publication_is_featured = has_css?("#featured-publications #{record_css_selector(publication)}")
+  publication_is_featured = has_css?("#featured-publication #{record_css_selector(publication)}")
   if should_not_be_featured
     refute publication_is_featured
   else
