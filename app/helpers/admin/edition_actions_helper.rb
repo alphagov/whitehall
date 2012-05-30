@@ -35,7 +35,7 @@ module Admin::EditionActionsHelper
             elsif edition.change_note.blank?
               concat content_tag(:em, "None")
             else
-              edition.change_note
+              concat edition.change_note
             end
           }
         }
