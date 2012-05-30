@@ -32,7 +32,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: draft_policy
 
-    assert_select "a[href='#{new_admin_document_supporting_page_path(draft_policy)}']"
+    assert_select "a[href='#{new_admin_edition_supporting_page_path(draft_policy)}']"
   end
 
   test "don't show the 'add supporting page' button for a published policy" do
@@ -40,7 +40,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: published_policy
 
-    refute_select "a[href='#{new_admin_document_supporting_page_path(published_policy)}']"
+    refute_select "a[href='#{new_admin_edition_supporting_page_path(published_policy)}']"
   end
 
   test "show lists supporting pages when there are some" do

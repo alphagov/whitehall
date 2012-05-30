@@ -12,9 +12,9 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   test "new form has title and body inputs" do
     edition = create(:draft_policy)
 
-    get :new, document_id: edition
+    get :new, edition_id: edition
 
-    assert_select "form[action='#{admin_document_supporting_pages_path(edition)}']" do
+    assert_select "form[action='#{admin_edition_supporting_pages_path(edition)}']" do
       assert_select "input[name='supporting_page[title]'][type='text']"
       assert_select "textarea[name='supporting_page[body]']"
       assert_select "input[type='submit']"
@@ -24,7 +24,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   test "new form has previewable body" do
     edition = create(:draft_policy)
 
-    get :new, document_id: edition
+    get :new, edition_id: edition
 
     assert_select "textarea[name='supporting_page[body]'].previewable"
   end
@@ -32,7 +32,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   test "create adds supporting page" do
     edition = create(:draft_policy)
     attributes = { title: "title", body: "body" }
-    post :create, document_id: edition, supporting_page: attributes
+    post :create, edition_id: edition, supporting_page: attributes
 
     assert supporting_page = edition.supporting_pages.last
     assert_equal attributes[:title], supporting_page.title
@@ -42,7 +42,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   test "create should redirect to the edition page" do
     policy = create(:draft_policy)
     attributes = { title: "title", body: "body" }
-    post :create, document_id: policy, supporting_page: attributes
+    post :create, edition_id: policy, supporting_page: attributes
 
     assert_redirected_to admin_policy_path(policy)
     assert_equal flash[:notice], "The supporting page was added successfully"
@@ -51,7 +51,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   test "create should render the form when attributes are invalid" do
     edition = create(:draft_policy)
     invalid_attributes = { title: nil, body: "body" }
-    post :create, document_id: edition, supporting_page: invalid_attributes
+    post :create, edition_id: edition, supporting_page: invalid_attributes
 
     assert_template "new"
     assert_equal "There was a problem: Title can't be blank", flash[:alert]
@@ -63,7 +63,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     edition = previous_edition.create_draft(create(:policy_writer))
     supporting_page = edition.supporting_pages.first
 
-    get :show, document_id: edition, id: supporting_page
+    get :show, edition_id: edition, id: supporting_page
 
     assert_equal supporting_page, assigns(:supporting_page)
   end
@@ -72,7 +72,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
-    get :show, document_id: edition, id: supporting_page
+    get :show, edition_id: edition, id: supporting_page
 
     assert_select ".title", supporting_page.title
     assert_select "a[href='#{admin_policy_path(edition)}']", text: "Back to '#{edition.title}'"
@@ -81,7 +81,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   test "shows the body using govspeak markup" do
     supporting_page = create(:supporting_page, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :show, document_id: supporting_page.edition, id: supporting_page
+      get :show, edition_id: supporting_page.edition, id: supporting_page
     end
 
     assert_select ".body", text: "body-in-html"
@@ -91,7 +91,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
-    get :show, document_id: edition, id: supporting_page
+    get :show, edition_id: edition, id: supporting_page
 
     assert_select "a[href='#{edit_admin_supporting_page_path(supporting_page)}']", text: 'Edit'
   end
@@ -100,7 +100,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     edition = create(:published_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
-    get :show, document_id: edition, id: supporting_page
+    get :show, edition_id: edition, id: supporting_page
 
     refute_select "a[href='#{edit_admin_supporting_page_path(supporting_page)}']"
   end
@@ -109,7 +109,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
-    get :edit, document_id: edition, id: supporting_page
+    get :edit, edition_id: edition, id: supporting_page
 
     assert_select "form[action='#{admin_supporting_page_path(supporting_page)}']" do
       assert_select "input[name='supporting_page[title]'][type='text'][value='#{supporting_page.title}']"
@@ -122,7 +122,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
-    get :edit, document_id: edition, id: supporting_page
+    get :edit, edition_id: edition, id: supporting_page
 
     assert_select "textarea[name='supporting_page[body]'].previewable"
   end
@@ -131,7 +131,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
-    get :edit, document_id: edition, id: supporting_page
+    get :edit, edition_id: edition, id: supporting_page
 
     assert_select "form[action='#{admin_supporting_page_path(supporting_page)}']" do
       assert_select "input[name='supporting_page[lock_version]'][type='hidden'][value='#{supporting_page.lock_version}']"
@@ -142,7 +142,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page = create(:supporting_page)
 
     attributes = { title: "new-title", body: "new-body" }
-    put :update, document_id: supporting_page.edition, id: supporting_page, supporting_page: attributes
+    put :update, edition_id: supporting_page.edition, id: supporting_page, supporting_page: attributes
 
     supporting_page.reload
     assert_equal attributes[:title], supporting_page.title
@@ -153,7 +153,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page = create(:supporting_page)
 
     attributes = { title: "new-title", body: "new-body" }
-    put :update, document_id: supporting_page.edition, id: supporting_page, supporting_page: attributes
+    put :update, edition_id: supporting_page.edition, id: supporting_page, supporting_page: attributes
 
     assert_redirected_to admin_supporting_page_path(supporting_page)
     assert_equal flash[:notice], "The supporting page was updated successfully"
@@ -163,7 +163,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page = create(:supporting_page)
 
     attributes = { title: nil, body: "new-body" }
-    put :update, document_id: supporting_page.edition, id: supporting_page, supporting_page: attributes
+    put :update, edition_id: supporting_page.edition, id: supporting_page, supporting_page: attributes
 
     assert_template "edit"
     assert_equal "There was a problem: Title can't be blank", flash[:alert]
@@ -175,7 +175,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     supporting_page.touch
 
     attributes = { title: "new-title", body: "new-body" }
-    put :update, document_id: supporting_page.edition, id: supporting_page, supporting_page: attributes.merge(lock_version: lock_version)
+    put :update, edition_id: supporting_page.edition, id: supporting_page, supporting_page: attributes.merge(lock_version: lock_version)
 
     assert_template 'edit'
     conflicting_supporting_page = supporting_page.reload
@@ -188,7 +188,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition, title: "Blah blah")
 
-    delete :destroy, document_id: edition, id: supporting_page.id
+    delete :destroy, edition_id: edition, id: supporting_page.id
 
     assert_redirected_to admin_policy_path(edition)
     refute SupportingPage.find_by_id(supporting_page.id)
@@ -199,7 +199,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     edition = create(:published_policy)
     supporting_page = create(:supporting_page, edition: edition, title: "Blah blah")
 
-    delete :destroy, document_id: edition, id: supporting_page.id
+    delete :destroy, edition_id: edition, id: supporting_page.id
 
     assert_redirected_to admin_policy_path(edition)
     assert SupportingPage.find_by_id(supporting_page.id)

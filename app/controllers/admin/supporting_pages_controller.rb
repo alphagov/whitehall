@@ -53,11 +53,11 @@ class Admin::SupportingPagesController < Admin::BaseController
   private
 
   def find_edition
-    @edition = Edition.find(params[:document_id])
+    @edition = Edition.find(params[:edition_id])
   end
 
   def find_supporting_page
-    @supporting_page = SupportingPage.where(edition_id: params[:document_id]).find(params[:id])
+    @supporting_page = SupportingPage.where(edition_id: params[:edition_id]).find(params[:id])
   end
 
   def build_attachment
