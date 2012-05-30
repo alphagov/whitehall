@@ -83,9 +83,7 @@ Whitehall::Application.routes.draw do
           end
         end
 
-        resources :documents, only: [:index], controller: :editions do
-          resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
-        end
+        resources :documents, only: [:index], controller: :editions
 
         resources :editions, only: [] do
           member do
@@ -97,6 +95,7 @@ Whitehall::Application.routes.draw do
           resource :featuring, only: [:create, :update, :destroy]
           resources :supporting_pages, path: "supporting-pages", except: [:index]
           resources :editorial_remarks, only: [:new, :create], shallow: true
+          resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
         end
 
         resources :publications, except: [:index]
