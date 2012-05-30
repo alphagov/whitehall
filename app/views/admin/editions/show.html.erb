@@ -1,10 +1,23 @@
-<% page_title @edition.title %>
+<% page_title @edition.title, @edition.class.name.humanize %>
 <div class="g3f">
   <div class="g2 first">
     <%= render partial: 'navigation', locals: { edition: @edition } %>
     <%= render partial: "rejected_by", locals: { edition: @edition } %>
     <section class="document_view">
       <%= render partial: 'edition', locals: { edition: @edition } %>
+      <% if @edition.is_a?(Speech) %>
+        <p class="details">
+          <span class="type"><%= @edition.speech_type.name %></span>
+          for speech delivered by
+          <span class="ministerial_role">
+            <%= link_to @edition.role_appointment.role, @edition.role_appointment.role %>
+          </span>
+          on
+          <span class="delivered_on"><%= @edition.delivered_on.to_s(:long_ordinal) %></span>
+          at
+          <span class="location"><%= @edition.location %></span>
+        </p>
+      <% end %>
       <% if @edition.notes_to_editors.present? %>
         <section id="notes_to_editors">
           <h1>Notes to editors</h1>
@@ -25,6 +38,16 @@
       <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
       </ul>
     </section>
+
+    <% if @edition.is_a?(ConsultationResponse) %>
+      <section class="container">
+        <h1>Consultation</h1>
+        <%= content_tag_for :p, @edition.consultation do %>
+          This is a response to the consultation
+          <%= link_to @edition.consultation.title, admin_consultation_path(@edition.consultation) %>
+        <% end %>
+      </section>
+    <% end %>
 
     <section class="container">
       <h1>Organisations</h1>
