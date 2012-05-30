@@ -117,7 +117,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test "should indicate that the list of consultations is limited to only those that are closed" do
     get :closed
-    assert_select '#closed-consultations h1', text: "Closed consultations"
+    assert_select 'h1', text: "Closed consultations"
   end
 
   test 'closed lists published closed consultations' do
