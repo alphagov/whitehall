@@ -1,8 +1,18 @@
 <% page_title "Policies" %>
-<div class="g3f">
-  <header class="page_header policy">
-    <h1 class="page_title">Policies</h1>
-  </header>
+<% page_class "policies-index" %>
+
+
+<div class="block-1">
+  <div class="inner-block">
+    <header class="page_header policy">
+      <h1 class="page_title">Policies</h1>
+    </header>
+  </div>
 </div>
 
-<%= render partial: "grouped_list", locals: {policies: @policies} %>
+
+<div class="block-2">
+  <div class="inner-block">
+    <%= render partial: "grouped_list", locals: {policies: @policies} %>
+  </div>
+</div>
