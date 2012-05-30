@@ -7,7 +7,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   def create
-    @edition = Edition.unscoped.find(params[:document_id])
+    @edition = Edition.unscoped.find(params[:edition_id])
     attributes = params[:fact_check_request].merge(requestor: current_user)
     fact_check_request = @edition.fact_check_requests.build(attributes)
     if @edition.deleted?

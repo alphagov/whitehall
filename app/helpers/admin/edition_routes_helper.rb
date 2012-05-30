@@ -2,12 +2,8 @@ module Admin::EditionRoutesHelper
   EDITION_TYPES = [Policy, Publication, NewsArticle, Consultation, Speech, InternationalPriority]
 
   def self.edition_instance_route(name)
-    document_instance_route(name, "admin_edition")
-  end
-
-  def self.document_instance_route(name, prefix = "admin_document")
     EDITION_TYPES.each do |type|
-      method_name = name.to_s.gsub(prefix, "admin_#{type.model_name.singular}")
+      method_name = name.to_s.gsub("admin_edition", "admin_#{type.model_name.singular}")
       class_eval %{
         def #{method_name}(*args)
           #{name}(*args)
@@ -18,8 +14,7 @@ module Admin::EditionRoutesHelper
 
   edition_instance_route :admin_edition_supporting_pages_path
   edition_instance_route :admin_edition_editorial_remarks_path
-
-  document_instance_route :admin_document_fact_check_requests_path
+  edition_instance_route :admin_edition_fact_check_requests_path
 
   def admin_document_path(edition, *args)
     if edition.is_a?(Speech)
