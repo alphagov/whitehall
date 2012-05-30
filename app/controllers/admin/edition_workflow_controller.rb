@@ -21,7 +21,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     users_to_notify(@edition).each do |user|
       Notifications.edition_rejected(user, @edition, admin_document_url(@edition)).deliver
     end
-    redirect_to new_admin_document_editorial_remark_path(@edition),
+    redirect_to new_admin_edition_editorial_remark_path(@edition),
       notice: "Document rejected; please explain why in an editorial remark"
   end
 

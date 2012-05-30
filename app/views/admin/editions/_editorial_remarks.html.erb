@@ -1,5 +1,5 @@
 <section id="editorial_remarks" class="container">
-  <h1>Editorial remarks (<%= link_to "Add new remark", new_admin_document_editorial_remark_path(edition) %>)</h1>
+  <h1>Editorial remarks (<%= link_to "Add new remark", new_admin_edition_editorial_remark_path(edition) %>)</h1>
   <% if edition.editorial_remarks.any? %>
     <ul>
       <% edition.editorial_remarks.each do |editorial_remark| %>
