@@ -104,45 +104,6 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_show_featured_documents_for(document_type)
-      document_types = document_type.to_s.pluralize
-      test "should ignore unpublished featured #{document_types}" do
-        draft_featured_document = create("draft_#{document_type}") do |document|
-          document.feature
-        end
-        get :index
-        refute assigns("featured_#{document_types}").include?(draft_featured_document)
-      end
-
-      test "should ignore published non-featured #{document_types}" do
-        published_document = create("published_#{document_type}")
-        get :index
-        refute assigns("featured_#{document_types}").include?(published_document)
-      end
-
-      test "should show the featured #{document_types} that was most recently published" do
-        old_document = create("featured_#{document_type}", published_at: 1.month.ago)
-        new_document = create("featured_#{document_type}", published_at: 1.day.ago)
-        get :index
-        assert_equal [new_document], assigns("featured_#{document_types}")
-      end
-
-      test "should not display the featured #{document_types} list if there aren't featured #{document_types}" do
-        create("published_#{document_type}")
-        get :index
-        refute_select send("featured_#{document_types}_selector")
-      end
-
-      test "should display a link to the featured #{document_type}" do
-        document = create("featured_#{document_type}")
-        get :index
-        assert_select send("featured_#{document_types}_selector") do
-          expected_path = send("#{document_type}_path", document.doc_identity)
-          assert_select "#{record_css_selector(document)} a[href=#{expected_path}]"
-        end
-      end
-    end
-
     def should_show_related_policies_and_policy_topics_for(document_type)
       test "show displays related published policies" do
         published_policy = create(:published_policy)

@@ -8,7 +8,7 @@
       <p class="explanation">Read and contribute to government thinking before it becomes policy</p>
     </header>
 
-    <% if @featured_consultations && consultation = @featured_consultations.first %>
+    <% if consultation = @featured_consultation %>
       <div class="featured featured-consultation" id="featured-consultations">
         <%= content_tag_for(:div, consultation) do %>
           <div class="thumbnail">
