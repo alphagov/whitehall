@@ -47,17 +47,17 @@ module AdminEditionControllerTestHelpers
         get :new
 
         admin_documents_path = send("admin_#{edition_type.to_s.tableize}_path")
-        assert_select "form#document_new[action='#{admin_documents_path}']" do
-          assert_select "input[name='document[title]'][type='text']"
-          assert_select "textarea[name='document[summary]']" if edition_class.new.has_summary?
-          assert_select "textarea[name='document[body]']"
+        assert_select "form#edition_new[action='#{admin_documents_path}']" do
+          assert_select "input[name='edition[title]'][type='text']"
+          assert_select "textarea[name='edition[summary]']" if edition_class.new.has_summary?
+          assert_select "textarea[name='edition[body]']"
           assert_select "input[type='submit']"
         end
       end
 
       test "new form has previewable body" do
         get :new
-        assert_select "textarea[name='document[body]'].previewable"
+        assert_select "textarea[name='edition[body]'].previewable"
       end
 
       test "new form has cancel link which takes the user to the list of drafts" do
@@ -68,7 +68,7 @@ module AdminEditionControllerTestHelpers
       test "create should create a new edition" do
         attributes = controller_attributes_for(edition_type)
 
-        post :create, document: attributes
+        post :create, edition: attributes
 
         edition = edition_class.last
         assert_equal attributes[:title], edition.title
@@ -76,7 +76,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "create should take the writer to the edition page" do
-        post :create, document: controller_attributes_for(edition_type)
+        post :create, edition: controller_attributes_for(edition_type)
 
         admin_document_path = send("admin_#{edition_type}_path", edition_class.last)
         assert_redirected_to admin_document_path
@@ -85,7 +85,7 @@ module AdminEditionControllerTestHelpers
 
       test "create with invalid data should leave the writer in the document editor" do
         attributes = controller_attributes_for(edition_type)
-        post :create, document: attributes.merge(title: '')
+        post :create, edition: attributes.merge(title: '')
 
         assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
         assert_template "editions/new"
@@ -93,9 +93,9 @@ module AdminEditionControllerTestHelpers
 
       test "create with invalid data should indicate there was an error" do
         attributes = controller_attributes_for(edition_type)
-        post :create, document: attributes.merge(title: '')
+        post :create, edition: attributes.merge(title: '')
 
-        assert_select ".field_with_errors input[name='document[title]']"
+        assert_select ".field_with_errors input[name='edition[title]']"
         assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
         assert_equal 'There are some problems with the document', flash.now[:alert]
       end
@@ -110,9 +110,9 @@ module AdminEditionControllerTestHelpers
         get :edit, id: edition
 
         admin_document_path = send("admin_#{edition_type}_path", edition)
-        assert_select "form#document_edit[action='#{admin_document_path}']" do
-          assert_select "input[name='document[title]'][type='text']"
-          assert_select "textarea[name='document[body]']"
+        assert_select "form#edition_edit[action='#{admin_document_path}']" do
+          assert_select "input[name='edition[title]'][type='text']"
+          assert_select "textarea[name='edition[body]']"
           assert_select "input[type='submit']"
         end
       end
@@ -122,7 +122,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "textarea[name='document[body]'].previewable"
+        assert_select "textarea[name='edition[body]'].previewable"
       end
 
       test "edit form has cancel link which takes the user back to edition" do
@@ -137,7 +137,7 @@ module AdminEditionControllerTestHelpers
       test "update should save modified edition attributes" do
         edition = create(edition_type)
 
-        put :update, id: edition, document: {
+        put :update, id: edition, edition: {
           title: "new-title",
           body: "new-body"
         }
@@ -150,7 +150,7 @@ module AdminEditionControllerTestHelpers
       test "update should take the writer to the edition page" do
         edition = create(edition_type)
 
-        put :update, id: edition, document: {title: 'new-title', body: 'new-body'}
+        put :update, id: edition, edition: {title: 'new-title', body: 'new-body'}
 
         admin_document_path = send("admin_#{edition_type}_path", edition)
         assert_redirected_to admin_document_path
@@ -160,7 +160,7 @@ module AdminEditionControllerTestHelpers
       test "update records the user who changed the edition" do
         edition = create(edition_type)
 
-        put :update, id: edition, document: {title: 'new-title', body: 'new-body'}
+        put :update, id: edition, edition: {title: 'new-title', body: 'new-body'}
 
         assert_equal current_user, edition.edition_authors(true).last.user
       end
@@ -169,7 +169,7 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type, title: 'old-title', body: 'old-body')
 
         assert_difference "edition.versions.size" do
-          put :update, id: edition, document: {title: 'new-title', body: 'new-body'}
+          put :update, id: edition, edition: {title: 'new-title', body: 'new-body'}
         end
 
         old_edition = edition.versions.last.reify
@@ -181,7 +181,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         edition = create(edition_type, attributes)
 
-        put :update, id: edition, document: attributes.merge(title: '')
+        put :update, id: edition, edition: attributes.merge(title: '')
 
         assert_equal attributes[:title], edition.reload.title
         assert_template "editions/edit"
@@ -193,7 +193,7 @@ module AdminEditionControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, id: edition, document: { lock_version: lock_version }
+        put :update, id: edition, edition: { lock_version: lock_version }
 
         assert_template 'edit'
         conflicting_edition = edition.reload
@@ -235,9 +235,9 @@ module AdminEditionControllerTestHelpers
       test "new displays edition attachment fields" do
         get :new
 
-        assert_select "form#document_new" do
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+        assert_select "form#edition_new" do
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -248,7 +248,7 @@ module AdminEditionControllerTestHelpers
           "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
         }
 
-        post :create, document: attributes
+        post :create, edition: attributes
 
         assert edition = edition_class.last
         assert_equal 1, edition.attachments.length
@@ -268,46 +268,46 @@ module AdminEditionControllerTestHelpers
 
         Attachment.any_instance.expects(:file=).once
 
-        post :create, document: attributes
+        post :create, edition: attributes
       end
 
       test "creating an edition with invalid data should still show attachment fields" do
-        post :create, document: controller_attributes_for(edition_type, title: "")
+        post :create, edition: controller_attributes_for(edition_type, title: "")
 
-        assert_select "form#document_new" do
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+        assert_select "form#edition_new" do
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
 
       test "creating an edition with invalid data should only allow a single attachment to be selected for upload" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        post :create, document: controller_attributes_for(edition_type,
+        post :create, edition: controller_attributes_for(edition_type,
           title: "",
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
         )
 
-        assert_select "form#document_new" do
-          assert_select "input[name*='document[edition_attachments_attributes]'][type='file']", count: 1
+        assert_select "form#edition_new" do
+          assert_select "input[name*='edition[edition_attachments_attributes]'][type='file']", count: 1
         end
       end
 
       test "creating an edition with invalid data but valid attachment data should still display the attachment data" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        post :create, document: controller_attributes_for(edition_type,
+        post :create, edition: controller_attributes_for(edition_type,
           title: "",
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
 
-        assert_select "form#document_new" do
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+        assert_select "form#edition_new" do
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
           assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
@@ -319,7 +319,7 @@ module AdminEditionControllerTestHelpers
           "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
         }
 
-        post :create, document: attributes.merge(title: '')
+        post :create, edition: attributes.merge(title: '')
 
         refute_select "p.attachment"
       end
@@ -333,7 +333,7 @@ module AdminEditionControllerTestHelpers
           "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
         }
 
-        post :create, document: attributes
+        post :create, edition: attributes
 
         assert edition = edition_class.last
         assert_equal 2, edition.attachments.length
@@ -356,13 +356,13 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#document_edit" do
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][type='text'][value='attachment-title']"
+        assert_select "form#edition_edit" do
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][type='text'][value='attachment-title']"
           assert_select ".attachment" do
             assert_select "a", text: %r{two-pages.pdf$}
           end
-          assert_select "input[name='document[edition_attachments_attributes][1][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='document[edition_attachments_attributes][1][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='edition[edition_attachments_attributes][1][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='edition[edition_attachments_attributes][1][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -370,7 +370,7 @@ module AdminEditionControllerTestHelpers
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         edition = create(edition_type)
 
-        put :update, id: edition, document: edition.attributes.merge(
+        put :update, id: edition, edition: edition.attributes.merge(
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
@@ -390,7 +390,7 @@ module AdminEditionControllerTestHelpers
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         edition = create(edition_type)
 
-        put :update, id: edition, document: edition.attributes.merge(
+        put :update, id: edition, edition: edition.attributes.merge(
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
             "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
@@ -413,10 +413,10 @@ module AdminEditionControllerTestHelpers
 
       test "updating an edition with invalid data should still allow attachment to be selected for upload" do
         edition = create(edition_type)
-        put :update, id: edition, document: edition.attributes.merge(title: "")
+        put :update, id: edition, edition: edition.attributes.merge(title: "")
 
-        assert_select "form#document_edit" do
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+        assert_select "form#edition_edit" do
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -424,15 +424,15 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        put :update, id: edition, document: controller_attributes_for(edition_type,
+        put :update, id: edition, edition: controller_attributes_for(edition_type,
           title: "",
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
         )
 
-        assert_select "form#document_edit" do
-          assert_select "input[name*='document[edition_attachments_attributes]'][type='file']", count: 1
+        assert_select "form#edition_edit" do
+          assert_select "input[name*='edition[edition_attachments_attributes]'][type='file']", count: 1
         end
       end
 
@@ -440,16 +440,16 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        put :update, id: edition, document: controller_attributes_for(edition_type,
+        put :update, id: edition, edition: controller_attributes_for(edition_type,
           title: "",
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
 
-        assert_select "form#document_edit" do
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+        assert_select "form#edition_edit" do
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
           assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
@@ -459,11 +459,11 @@ module AdminEditionControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, id: edition, document: edition.attributes.merge(lock_version: lock_version)
+        put :update, id: edition, edition: edition.attributes.merge(lock_version: lock_version)
 
-        assert_select "form#document_edit" do
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='document[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+        assert_select "form#edition_edit" do
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -473,15 +473,15 @@ module AdminEditionControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, id: edition, document: edition.attributes.merge(
+        put :update, id: edition, edition: edition.attributes.merge(
           lock_version: lock_version,
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
         )
 
-        assert_select "form#document_edit" do
-          assert_select "input[name*='document[edition_attachments_attributes]'][type='file']", count: 1
+        assert_select "form#edition_edit" do
+          assert_select "input[name*='edition[edition_attachments_attributes]'][type='file']", count: 1
         end
       end
 
@@ -492,7 +492,7 @@ module AdminEditionControllerTestHelpers
         edition_attachment_1 = create(:edition_attachment, edition: edition, attachment: attachment_1)
         edition_attachment_2 = create(:edition_attachment, edition: edition, attachment: attachment_2)
 
-        put :update, id: edition, document: edition.attributes.merge(
+        put :update, id: edition, edition: edition.attributes.merge(
           edition_attachments_attributes: {
             "0" => { id: edition_attachment_1.id.to_s, _destroy: "1" },
             "1" => { id: edition_attachment_2.id.to_s, _destroy: "0" },
@@ -542,10 +542,10 @@ module AdminEditionControllerTestHelpers
       test "new displays edition image fields" do
         get :new
 
-        assert_select "form#document_new" do
-          assert_select "input[name='document[images_attributes][0][alt_text]'][type='text']"
-          assert_select "textarea[name='document[images_attributes][0][caption]']"
-          assert_select "input[name='document[images_attributes][0][image_data_attributes][file]'][type='file']"
+        assert_select "form#edition_new" do
+          assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
+          assert_select "textarea[name='edition[images_attributes][0][caption]']"
+          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
         end
       end
 
@@ -557,7 +557,7 @@ module AdminEditionControllerTestHelpers
                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
-        post :create, document: attributes
+        post :create, edition: attributes
 
         assert edition = edition_class.last
         assert_equal 1, edition.images.length
@@ -576,16 +576,16 @@ module AdminEditionControllerTestHelpers
 
         ImageData.any_instance.expects(:file=).once
 
-        post :create, document: attributes
+        post :create, edition: attributes
       end
 
       test "creating an edition with invalid data should still show image fields" do
-        post :create, document: controller_attributes_for(edition_type, title: "")
+        post :create, edition: controller_attributes_for(edition_type, title: "")
 
-        assert_select "form#document_new" do
-          assert_select "input[name='document[images_attributes][0][alt_text]'][type='text']"
-          assert_select "textarea[name='document[images_attributes][0][caption]']"
-          assert_select "input[name='document[images_attributes][0][image_data_attributes][file]'][type='file']"
+        assert_select "form#edition_new" do
+          assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
+          assert_select "textarea[name='edition[images_attributes][0][caption]']"
+          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
         end
       end
 
@@ -597,10 +597,10 @@ module AdminEditionControllerTestHelpers
                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
-        post :create, document: attributes
+        post :create, edition: attributes
 
-        assert_select "form#document_new" do
-          assert_select "input[name*='document[images_attributes]'][type='file']", count: 1
+        assert_select "form#edition_new" do
+          assert_select "input[name*='edition[images_attributes]'][type='file']", count: 1
         end
       end
 
@@ -612,11 +612,11 @@ module AdminEditionControllerTestHelpers
                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
-        post :create, document: attributes
+        post :create, edition: attributes
 
-        assert_select "form#document_new" do
-          assert_select "input[name='document[images_attributes][0][alt_text]'][type='text'][value='some-alt-text']"
-          assert_select "input[name='document[images_attributes][0][image_data_attributes][file_cache]'][value$='portas-review.jpg']"
+        assert_select "form#edition_new" do
+          assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text'][value='some-alt-text']"
+          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='portas-review.jpg']"
           assert_select ".already_uploaded", text: "portas-review.jpg already uploaded"
         end
       end
@@ -629,7 +629,7 @@ module AdminEditionControllerTestHelpers
                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
-        post :create, document: attributes
+        post :create, edition: attributes
 
         refute_select "p.image"
       end
@@ -644,7 +644,7 @@ module AdminEditionControllerTestHelpers
                   image_data_attributes: attributes_for(:image_data, file: image)}
         }
 
-        post :create, document: attributes
+        post :create, edition: attributes
 
         assert edition = edition_class.last
         assert_equal 2, edition.images.length
@@ -662,14 +662,14 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#document_edit" do
-          assert_select "input[name='document[images_attributes][0][alt_text]'][type='text'][value='blah']"
+        assert_select "form#edition_edit" do
+          assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text'][value='blah']"
           assert_select ".image" do
             assert_select "img[src$='portas-review.jpg']"
           end
-          assert_select "input[name='document[images_attributes][1][alt_text]'][type='text']"
-          assert_select "textarea[name='document[images_attributes][1][caption]']"
-          assert_select "input[name='document[images_attributes][1][image_data_attributes][file]'][type='file']"
+          assert_select "input[name='edition[images_attributes][1][alt_text]'][type='text']"
+          assert_select "textarea[name='edition[images_attributes][1][caption]']"
+          assert_select "input[name='edition[images_attributes][1][image_data_attributes][file]'][type='file']"
         end
       end
 
@@ -677,7 +677,7 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('portas-review.jpg')
         edition = create(edition_type)
 
-        put :update, id: edition, document: edition.attributes.merge(
+        put :update, id: edition, edition: edition.attributes.merge(
           images_attributes: {
             "0" => { alt_text: "alt-text", image_data_attributes: attributes_for(:image_data, file: image) }
           }
@@ -692,7 +692,7 @@ module AdminEditionControllerTestHelpers
       test 'updating an edition with image alt text but no file attachment should show a validation error' do
         edition = create(edition_type)
 
-        put :update, id: edition, document: edition.attributes.merge(
+        put :update, id: edition, edition: edition.attributes.merge(
           images_attributes: {
             "0" => { alt_text: "alt-text", image_data_attributes: { file_cache: "" } }
           }
@@ -708,7 +708,7 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type)
         image = edition.images.create!(alt_text: "old-alt-text", caption: 'old-caption')
 
-        put :update, id: edition, document: edition.attributes.merge(
+        put :update, id: edition, edition: edition.attributes.merge(
           images_attributes: {
             "0" => { id: image.id, alt_text: "new-alt-text", caption: 'new-caption' }
           }
@@ -732,7 +732,7 @@ module AdminEditionControllerTestHelpers
                   image_data_attributes: attributes_for(:image_data, file: image)}
         }
 
-        put :update, id: edition, document: attributes
+        put :update, id: edition, edition: attributes
 
         edition.reload
         assert_equal 2, edition.images.length
@@ -744,10 +744,10 @@ module AdminEditionControllerTestHelpers
 
       test "updating an edition with invalid data should still allow image to be selected for upload" do
         edition = create(edition_type)
-        put :update, id: edition, document: edition.attributes.merge(title: "")
+        put :update, id: edition, edition: edition.attributes.merge(title: "")
 
-        assert_select "form#document_edit" do
-          assert_select "input[name='document[images_attributes][0][image_data_attributes][file]'][type='file']"
+        assert_select "form#edition_edit" do
+          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
         end
       end
 
@@ -760,10 +760,10 @@ module AdminEditionControllerTestHelpers
                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
-        put :update, id: edition, document: attributes
+        put :update, id: edition, edition: attributes
 
-        assert_select "form#document_edit" do
-          assert_select "input[name*='document[images_attributes]'][type='file']", count: 1
+        assert_select "form#edition_edit" do
+          assert_select "input[name*='edition[images_attributes]'][type='file']", count: 1
         end
       end
 
@@ -776,11 +776,11 @@ module AdminEditionControllerTestHelpers
                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
-        put :update, id: edition, document: attributes
+        put :update, id: edition, edition: attributes
 
-        assert_select "form#document_edit" do
-          assert_select "input[name='document[images_attributes][0][alt_text]'][value='some-alt-text']"
-          assert_select "input[name='document[images_attributes][0][image_data_attributes][file_cache]'][value$='portas-review.jpg']"
+        assert_select "form#edition_edit" do
+          assert_select "input[name='edition[images_attributes][0][alt_text]'][value='some-alt-text']"
+          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='portas-review.jpg']"
           assert_select ".already_uploaded", text: "portas-review.jpg already uploaded"
         end
       end
@@ -790,12 +790,12 @@ module AdminEditionControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, id: edition, document: edition.attributes.merge(lock_version: lock_version)
+        put :update, id: edition, edition: edition.attributes.merge(lock_version: lock_version)
 
-        assert_select "form#document_edit" do
-          assert_select "input[name='document[images_attributes][0][alt_text]'][type='text']"
-          assert_select "textarea[name='document[images_attributes][0][caption]']"
-          assert_select "input[name='document[images_attributes][0][image_data_attributes][file]'][type='file']"
+        assert_select "form#edition_edit" do
+          assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
+          assert_select "textarea[name='edition[images_attributes][0][caption]']"
+          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
         end
       end
 
@@ -810,10 +810,10 @@ module AdminEditionControllerTestHelpers
                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
-        put :update, id: edition, document: attributes
+        put :update, id: edition, edition: attributes
 
-        assert_select "form#document_edit" do
-          assert_select "input[name*='document[images_attributes]'][type='file']", count: 1
+        assert_select "form#edition_edit" do
+          assert_select "input[name*='edition[images_attributes]'][type='file']", count: 1
         end
       end
 
@@ -829,7 +829,7 @@ module AdminEditionControllerTestHelpers
             "2" => { image_data_attributes: { file_cache: "" } }
           }
         )
-        put :update, id: edition, document: attributes
+        put :update, id: edition, edition: attributes
 
         refute_select ".errors"
         edition.reload
@@ -1059,7 +1059,7 @@ module AdminEditionControllerTestHelpers
         edition = create("submitted_#{edition_type}")
         get :show, id: edition
         assert_select publish_form_selector(edition), count: 1 do
-          refute_select "textarea[name='document[change_note]']"
+          refute_select "textarea[name='edition[change_note]']"
         end
       end
 
@@ -1069,7 +1069,7 @@ module AdminEditionControllerTestHelpers
         edition = create("submitted_#{edition_type}", doc_identity: published_edition.doc_identity)
         get :show, id: edition
         assert_select publish_form_selector(edition), count: 1 do
-          assert_select "textarea[name='document[change_note]']"
+          assert_select "textarea[name='edition[change_note]']"
         end
       end
 
@@ -1093,7 +1093,7 @@ module AdminEditionControllerTestHelpers
         edition = create("draft_#{edition_type}")
         get :show, id: edition
         assert_select force_publish_form_selector(edition), count: 1 do
-          refute_select "textarea[name='document[change_note]']"
+          refute_select "textarea[name='edition[change_note]']"
         end
       end
 
@@ -1103,7 +1103,7 @@ module AdminEditionControllerTestHelpers
         edition = create("draft_#{edition_type}", doc_identity: published_edition.doc_identity)
         get :show, id: edition
         assert_select force_publish_form_selector(edition), count: 1 do
-          assert_select "textarea[name='document[change_note]']"
+          assert_select "textarea[name='edition[change_note]']"
         end
       end
 
@@ -1120,8 +1120,8 @@ module AdminEditionControllerTestHelpers
       test "new should display edition organisations field" do
         get :new
 
-        assert_select "form#document_new" do
-          assert_select "select[name*='document[organisation_ids]']"
+        assert_select "form#edition_new" do
+          assert_select "select[name*='edition[organisation_ids]']"
         end
       end
 
@@ -1130,7 +1130,7 @@ module AdminEditionControllerTestHelpers
         second_organisation = create(:organisation)
         attributes = controller_attributes_for(edition_type)
 
-        post :create, document: attributes.merge(
+        post :create, edition: attributes.merge(
           organisation_ids: [first_organisation.id, second_organisation.id]
         )
 
@@ -1143,8 +1143,8 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#document_edit" do
-          assert_select "select[name*='document[organisation_ids]']"
+        assert_select "form#edition_edit" do
+          assert_select "select[name*='edition[organisation_ids]']"
         end
       end
 
@@ -1154,7 +1154,7 @@ module AdminEditionControllerTestHelpers
 
         edition = create(edition_type, organisations: [first_organisation])
 
-        put :update, id: edition, document: {
+        put :update, id: edition, edition: {
           organisation_ids: [second_organisation.id]
         }
 
@@ -1167,7 +1167,7 @@ module AdminEditionControllerTestHelpers
 
         edition = create(edition_type, organisations: [organisation])
 
-        put :update, id: edition, document: {}
+        put :update, id: edition, edition: {}
 
         edition.reload
         assert_equal [], edition.organisations
@@ -1180,8 +1180,8 @@ module AdminEditionControllerTestHelpers
       test "new should display edition ministerial roles field" do
         get :new
 
-        assert_select "form#document_new" do
-          assert_select "select[name*='document[ministerial_role_ids]']"
+        assert_select "form#edition_new" do
+          assert_select "select[name*='edition[ministerial_role_ids]']"
         end
       end
 
@@ -1190,7 +1190,7 @@ module AdminEditionControllerTestHelpers
         second_minister = create(:ministerial_role)
         attributes = controller_attributes_for(edition_type)
 
-        post :create, document: attributes.merge(
+        post :create, edition: attributes.merge(
           ministerial_role_ids: [first_minister.id, second_minister.id]
         )
 
@@ -1203,8 +1203,8 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#document_edit" do
-          assert_select "select[name*='document[ministerial_role_ids]']"
+        assert_select "form#edition_edit" do
+          assert_select "select[name*='edition[ministerial_role_ids]']"
         end
       end
 
@@ -1214,7 +1214,7 @@ module AdminEditionControllerTestHelpers
 
         edition = create(edition_type, ministerial_roles: [first_minister])
 
-        put :update, id: edition, document: {
+        put :update, id: edition, edition: {
           ministerial_role_ids: [second_minister.id]
         }
 
@@ -1227,7 +1227,7 @@ module AdminEditionControllerTestHelpers
 
         edition = create(edition_type, ministerial_roles: [minister])
 
-        put :update, id: edition, document: {}
+        put :update, id: edition, edition: {}
 
         edition.reload
         assert_equal [], edition.ministerial_roles
@@ -1247,7 +1247,7 @@ module AdminEditionControllerTestHelpers
         test "update not allowed for #{state} #{edition_type}" do
           edition = create("#{state}_#{edition_type}")
 
-          put :update, id: edition, document: {title: 'new-title'}
+          put :update, id: edition, edition: {title: 'new-title'}
 
           assert_redirected_to send("admin_#{edition_type}_path", edition)
         end
@@ -1261,8 +1261,8 @@ module AdminEditionControllerTestHelpers
         get :new
 
         admin_documents_path = send("admin_#{edition_type.to_s.tableize}_path")
-        assert_select "form#document_new[action='#{admin_documents_path}']" do
-          assert_select "select[name*='document[first_published_at']", count: 5
+        assert_select "form#edition_new[action='#{admin_documents_path}']" do
+          assert_select "select[name*='edition[first_published_at']", count: 5
         end
       end
 
@@ -1272,14 +1272,14 @@ module AdminEditionControllerTestHelpers
         get :edit, id: edition
 
         admin_document_path = send("admin_#{edition_type}_path", edition)
-        assert_select "form#document_edit[action='#{admin_document_path}']" do
-          assert_select "select[name*='document[first_published_at']", count: 5
+        assert_select "form#edition_edit[action='#{admin_document_path}']" do
+          assert_select "select[name*='edition[first_published_at']", count: 5
         end
       end
 
       test "create should save overridden first_published_at attribute" do
         first_published_at = 3.months.ago
-        post :create, document: controller_attributes_for(edition_type).merge(first_published_at: 3.months.ago)
+        post :create, edition: controller_attributes_for(edition_type).merge(first_published_at: 3.months.ago)
 
         edition = edition_class.last
         assert_equal first_published_at, edition.first_published_at
@@ -1289,7 +1289,7 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type)
         first_published_at = 3.months.ago
 
-        put :update, id: edition, document: { first_published_at: first_published_at }
+        put :update, id: edition, edition: { first_published_at: first_published_at }
 
         edition.reload
         assert_equal first_published_at, edition.first_published_at
@@ -1327,7 +1327,7 @@ module AdminEditionControllerTestHelpers
         edition.open_for_editing_as(@current_user)
 
         assert_difference "edition.reload.recent_edition_openings.count", -1 do
-          put :update, id: edition, document: {}
+          put :update, id: edition, edition: {}
         end
       end
     end

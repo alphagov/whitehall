@@ -55,14 +55,14 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def set_change_note
-    if params[:document] && params[:document][:change_note]
-      @edition.change_note = params[:document][:change_note]
+    if params[:edition] && params[:edition][:change_note]
+      @edition.change_note = params[:edition][:change_note]
     end
   end
 
   def set_minor_change_flag
-    if params[:document] && params[:document][:minor_change]
-      @edition.minor_change = params[:document][:minor_change]
+    if params[:edition] && params[:edition][:minor_change]
+      @edition.minor_change = params[:edition][:minor_change]
     end
   end
 end

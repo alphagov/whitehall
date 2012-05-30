@@ -7,7 +7,7 @@ module TestsForNationalApplicability
   test "new displays document form with nation inapplicability fields" do
     get :new
 
-    assert_select "form#document_new" do
+    assert_select "form#edition_new" do
       assert_nation_inapplicability_fields_exist
     end
   end
@@ -15,7 +15,7 @@ module TestsForNationalApplicability
   test 'create should create a new document with nation inapplicabilities' do
     attributes = attributes_for_document
 
-    post :create, document: attributes.merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
+    post :create, edition: attributes.merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
 
     assert document = Edition.last
     assert scotland_inapplicability = document.nation_inapplicabilities.for_nation(Nation.scotland).first
@@ -24,7 +24,7 @@ module TestsForNationalApplicability
 
   test 'creating with invalid document data should not lose the nation inapplicability fields or values' do
     attributes = attributes_for_document
-    post :create, document: attributes.merge(
+    post :create, edition: attributes.merge(
       title: ''
     ).merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
 
@@ -36,7 +36,7 @@ module TestsForNationalApplicability
 
   test 'creating with invalid nation inapplicability data should not lose the nation inapplicability fields or values' do
     attributes = attributes_for_document
-    post :create, document: attributes.merge(
+    post :create, edition: attributes.merge(
       nation_inapplicabilities_attributes_for(Nation.scotland => "invalid-url")
     )
 
@@ -52,7 +52,7 @@ module TestsForNationalApplicability
 
     get :edit, id: document
 
-    assert_select "form#document_edit" do
+    assert_select "form#edition_edit" do
       assert_nation_inapplicability_fields_exist
       assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
       assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
@@ -65,7 +65,7 @@ module TestsForNationalApplicability
     document = create_document(attributes)
     northern_ireland_inapplicability = document.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
-    put :update, id: document, document: attributes.merge(
+    put :update, id: document, edition: attributes.merge(
       nation_inapplicabilities_attributes_for({Nation.scotland => "http://www.visitscotland.com/"}, northern_ireland_inapplicability)
     )
 
@@ -80,7 +80,7 @@ module TestsForNationalApplicability
     scotland_inapplicability = document.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
     wales_inapplicability = document.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
 
-    put :update, id: document, document: attributes.merge(
+    put :update, id: document, edition: attributes.merge(
       title: ''
     ).merge(nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability))
 
@@ -96,7 +96,7 @@ module TestsForNationalApplicability
     scotland_inapplicability = document.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
     wales_inapplicability = document.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
 
-    put :update, id: document, document: attributes.merge(
+    put :update, id: document, edition: attributes.merge(
       nation_inapplicabilities_attributes_for(
         {Nation.northern_ireland => "invalid-url"},
         scotland_inapplicability,
@@ -116,7 +116,7 @@ module TestsForNationalApplicability
     lock_version = document.lock_version
     document.update_attributes!(title: "new title")
 
-    put :update, id: document, document: document.attributes.merge(
+    put :update, id: document, edition: document.attributes.merge(
       lock_version: lock_version
     ).merge(nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability))
 

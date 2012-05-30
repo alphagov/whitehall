@@ -29,17 +29,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test 'new displays consultation fields' do
     get :new
 
-    assert_select "form#document_new" do
-      assert_select "textarea[name='document[summary]']"
-      assert_select "select[name*='document[opening_on']", count: 3
-      assert_select "select[name*='document[closing_on']", count: 3
+    assert_select "form#edition_new" do
+      assert_select "textarea[name='edition[summary]']"
+      assert_select "select[name*='edition[opening_on']", count: 3
+      assert_select "select[name*='edition[closing_on']", count: 3
     end
   end
 
   test "create should create a new consultation" do
     attributes = attributes_for(:consultation)
 
-    post :create, document: attributes
+    post :create, edition: attributes
 
     consultation = Consultation.last
     assert_equal attributes[:summary], consultation.summary
@@ -77,17 +77,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     get :edit, id: consultation
 
-    assert_select "form#document_edit" do
-      assert_select "textarea[name='document[summary]']"
-      assert_select "select[name*='document[opening_on']", count: 3
-      assert_select "select[name*='document[closing_on']", count: 3
+    assert_select "form#edition_edit" do
+      assert_select "textarea[name='edition[summary]']"
+      assert_select "select[name*='edition[opening_on']", count: 3
+      assert_select "select[name*='edition[closing_on']", count: 3
     end
   end
 
   test "update should save modified consultation attributes" do
     consultation = create(:consultation)
 
-    put :update, id: consultation, document: {
+    put :update, id: consultation, edition: {
       summary: "new-summary",
       opening_on: 1.day.ago,
       closing_on: 50.days.from_now

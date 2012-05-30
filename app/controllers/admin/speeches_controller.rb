@@ -9,8 +9,8 @@ class Admin::SpeechesController < Admin::EditionsController
   end
 
   def edition_class
-    if params[:document].present? && params[:document][:type].present?
-      params[:document][:type].constantize
+    if params[:edition].present? && params[:edition][:type].present?
+      params[:edition][:type].constantize
     else
       Speech
     end

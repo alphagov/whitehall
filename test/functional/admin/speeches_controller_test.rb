@@ -27,11 +27,11 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   test "new displays speech fields" do
     get :new
 
-    assert_select "form#document_new" do
-      assert_select "select[name='document[speech_type_id]']"
-      assert_select "select[name='document[role_appointment_id]']"
-      assert_select "select[name*='document[delivered_on']", count: 3
-      assert_select "input[name='document[location]'][type='text']"
+    assert_select "form#edition_new" do
+      assert_select "select[name='edition[speech_type_id]']"
+      assert_select "select[name='edition[role_appointment_id]']"
+      assert_select "select[name*='edition[delivered_on']", count: 3
+      assert_select "input[name='edition[location]'][type='text']"
     end
   end
 
@@ -40,7 +40,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     speech_type = SpeechType::Transcript
     attributes = controller_attributes_for(:speech, speech_type: speech_type, role_appointment: role_appointment)
 
-    post :create, document: attributes
+    post :create, edition: attributes
 
     assert speech = Speech.last
     assert_equal speech_type, speech.speech_type
@@ -55,7 +55,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     new_delivered_on = speech.delivered_on + 1
     new_speech_type = SpeechType::Transcript
 
-    put :update, id: speech.id, document: {
+    put :update, id: speech.id, edition: {
       role_appointment_id: new_role_appointment.id,
       speech_type_id: new_speech_type.id,
       delivered_on: new_delivered_on,

@@ -71,8 +71,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   test "new should display policy topics field" do
     get :new
 
-    assert_select "form#document_new" do
-      assert_select "select[name*='document[policy_topic_ids]']"
+    assert_select "form#edition_new" do
+      assert_select "select[name*='edition[policy_topic_ids]']"
     end
   end
 
@@ -81,7 +81,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     second_policy_topic = create(:policy_topic)
     attributes = attributes_for(:policy)
 
-    post :create, document: attributes.merge(
+    post :create, edition: attributes.merge(
       policy_topic_ids: [first_policy_topic.id, second_policy_topic.id]
     )
 
@@ -94,8 +94,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     get :edit, id: policy
 
-    assert_select "form#document_edit" do
-      assert_select "select[name*='document[policy_topic_ids]']"
+    assert_select "form#edition_edit" do
+      assert_select "select[name*='edition[policy_topic_ids]']"
     end
   end
 
@@ -105,7 +105,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     policy = create(:policy, policy_topics: [first_policy_topic])
 
-    put :update, id: policy, document: {
+    put :update, id: policy, edition: {
       policy_topic_ids: [second_policy_topic.id]
     }
 
@@ -118,7 +118,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     policy = create(:policy, policy_topics: [policy_topic])
 
-    put :update, id: policy, document: {}
+    put :update, id: policy, edition: {}
 
     policy.reload
     assert_equal [], policy.policy_topics
@@ -129,7 +129,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     publication = create(:draft_publication, related_policies: [policy])
     assert policy.related_editions.include?(publication), "policy and publication should be related"
 
-    put :update, id: policy, document: {title: "another title"}
+    put :update, id: policy, edition: {title: "another title"}
 
     policy.reload
     assert policy.related_editions.include?(publication), "polcy and publication should still be related"

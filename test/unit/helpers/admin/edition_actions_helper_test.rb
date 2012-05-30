@@ -23,14 +23,14 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     edition = create(:submitted_edition, doc_identity: published_edition.doc_identity)
     html = publish_edition_form(edition)
     fragment = Nokogiri::HTML.fragment(html)
-    refute_nil (fragment/"textarea[name='document[change_note]']").first
+    refute_nil (fragment/"textarea[name='edition[change_note]']").first
   end
 
   test "should generate publish form for edition without change note field if not required" do
     edition = create(:submitted_edition)
     html = publish_edition_form(edition)
     fragment = Nokogiri::HTML.fragment(html)
-    assert_nil (fragment/"textarea[name='document[change_note]']").first
+    assert_nil (fragment/"textarea[name='edition[change_note]']").first
   end
 
   test "should generate force-publish form" do
@@ -55,13 +55,13 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     edition = create(:submitted_edition, doc_identity: published_edition.doc_identity)
     html = publish_edition_form(edition)
     fragment = Nokogiri::HTML.fragment(html)
-    refute_nil (fragment/"textarea[name='document[change_note]']").first
+    refute_nil (fragment/"textarea[name='edition[change_note]']").first
   end
 
   test "should generate force-publish form for edition without change note field if not required" do
     edition = create(:submitted_edition)
     html = publish_edition_form(edition)
     fragment = Nokogiri::HTML.fragment(html)
-    assert_nil (fragment/"textarea[name='document[change_note]']").first
+    assert_nil (fragment/"textarea[name='edition[change_note]']").first
   end
 end

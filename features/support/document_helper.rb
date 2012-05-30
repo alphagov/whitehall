@@ -62,7 +62,7 @@ module DocumentHelper
   end
 
   def publishing_requires_change_note?
-    has_css?("textarea[name='document[change_note]']")
+    has_css?("textarea[name='edition[change_note]']")
   end
 
   def refute_flash_alerts_exist

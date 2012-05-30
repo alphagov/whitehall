@@ -10,7 +10,7 @@ class Admin::FeaturingsController < Admin::BaseController
   end
 
   def update
-    unless @edition.update_attributes(params[:document])
+    unless @edition.update_attributes(params[:edition])
       flash[:alert] = @edition.errors.full_messages.to_sentence
     end
     redirect_to :back

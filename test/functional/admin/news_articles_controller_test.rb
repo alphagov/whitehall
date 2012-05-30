@@ -28,9 +28,9 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   test "new displays news article fields" do
     get :new
 
-    assert_select "form#document_new" do
-      assert_select "select[name*='document[related_doc_identity_ids]']"
-      assert_select "textarea.previewable.govspeak[name='document[notes_to_editors]']"
+    assert_select "form#edition_new" do
+      assert_select "select[name*='edition[related_doc_identity_ids]']"
+      assert_select "textarea.previewable.govspeak[name='edition[notes_to_editors]']"
     end
   end
 
@@ -39,7 +39,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     second_policy = create(:published_policy)
     attributes = attributes_for(:news_article)
 
-    post :create, document: attributes.merge(
+    post :create, edition: attributes.merge(
       summary: "news-article-summary",
       notes_to_editors: "notes-to-editors",
       related_doc_identity_ids: [first_policy.doc_identity.id, second_policy.doc_identity.id]
@@ -56,7 +56,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     second_policy = create(:published_policy)
     news_article = create(:news_article, related_policies: [first_policy])
 
-    put :update, id: news_article, document: {
+    put :update, id: news_article, edition: {
       summary: "new-news-article-summary",
       notes_to_editors: "new-notes-to-editors",
       related_doc_identity_ids: [second_policy.doc_identity.id]
@@ -73,7 +73,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     news_article = create(:news_article, related_policies: [policy])
 
-    put :update, id: news_article, document: {}
+    put :update, id: news_article, edition: {}
 
     news_article.reload
     assert_equal [], news_article.related_policies

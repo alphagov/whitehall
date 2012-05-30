@@ -8,8 +8,8 @@ module AdminEditionCountriesBehaviour
       test "new displays document form with countries field" do
         get :new
 
-        assert_select "form#document_new" do
-          assert_select "select[name*='document[country_ids]']"
+        assert_select "form#edition_new" do
+          assert_select "select[name*='edition[country_ids]']"
         end
       end
 
@@ -18,7 +18,7 @@ module AdminEditionCountriesBehaviour
         second_country = create(:country)
         attributes = controller_attributes_for(document_type)
 
-        post :create, document: attributes.merge(
+        post :create, edition: attributes.merge(
           country_ids: [first_country.id, second_country.id]
         )
 
@@ -31,7 +31,7 @@ module AdminEditionCountriesBehaviour
         second_country = create(:country)
         document = create(document_type, countries: [first_country])
 
-        put :update, id: document, document: {
+        put :update, id: document, edition: {
           country_ids: [second_country.id]
         }
 
@@ -44,7 +44,7 @@ module AdminEditionCountriesBehaviour
 
         document = create(document_type, countries: [country])
 
-        put :update, id: document, document: {}
+        put :update, id: document, edition: {}
 
         document.reload
         assert_equal [], document.countries
@@ -55,7 +55,7 @@ module AdminEditionCountriesBehaviour
         lock_version = document.lock_version
         document.touch
 
-        put :update, id: document, document: document.attributes.merge(lock_version: lock_version)
+        put :update, id: document, edition: document.attributes.merge(lock_version: lock_version)
 
         assert_select ".document.conflict" do
           assert_select "h1", "Countries"
