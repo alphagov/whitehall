@@ -4,45 +4,45 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
 
   [:draft, :submitted, :rejected].each do |state|
     test "should be editable if #{state}" do
-      edition = create("#{state}_edition")
+      edition = build("#{state}_edition")
       assert edition.editable?
     end
   end
 
   [:published, :archived, :deleted].each do |state|
     test "should not be editable if #{state}" do
-      edition = create("#{state}_edition")
+      edition = build("#{state}_edition")
       refute edition.editable?
     end
   end
 
   test "should be rejectable by editors if submitted" do
-    edition = create(:submitted_edition)
+    edition = build(:submitted_edition)
     assert edition.rejectable_by?(build(:departmental_editor))
   end
 
   test "should not be rejectable by writers" do
-    edition = create(:submitted_edition)
+    edition = build(:submitted_edition)
     refute edition.rejectable_by?(build(:policy_writer))
   end
 
   [:draft, :rejected, :published, :archived, :deleted].each do |state|
     test "should not be rejectable if #{state}" do
-      edition = create("#{state}_edition")
+      edition = build("#{state}_edition")
       refute edition.rejectable_by?(build(:departmental_editor))
     end
   end
 
   [:draft, :rejected].each do |state|
     test "should be submittable if #{state}" do
-      edition = create("#{state}_edition")
+      edition = build("#{state}_edition")
       assert edition.submittable?
     end
   end
 
   [:submitted, :published, :archived, :deleted].each do |state|
     test "should not be submittable if #{state}" do
-      edition = create("#{state}_edition")
+      edition = build("#{state}_edition")
       refute edition.submittable?
     end
   end
