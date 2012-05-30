@@ -31,6 +31,7 @@ module Edition::Publishing
   end
 
   def change_note_required?
+    return false if new_record?
     doc_identity.published_edition.present?
   end
 

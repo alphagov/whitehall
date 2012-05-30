@@ -36,11 +36,6 @@ module Admin::EditionActionsHelper
     capture do
       form_for [:admin, edition], {as: :edition, url: url, method: :post, html: {id: "edition_publishing"}} do |form|
         concat(form.hidden_field :lock_version)
-        if edition.change_note_required?
-          concat(form.text_area :change_note, label_text: "Change note (will appear on public site)", rows: 4)
-          concat(form.check_box :minor_change, label_text: "Minor change?")
-          concat(content_tag :div, "(for typos and other minor corrections, nothing will appear on public site)", class: 'for_checkbox hint')
-        end
         concat(form.submit button_text, title: button_title, confirm: confirm)
       end
     end
