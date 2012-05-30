@@ -14,8 +14,8 @@ test("should not hide form", function() {
 module("Change note label and field present with publish button", {
   setup: function() {
     this.publishingForm = $("<form />");
-    this.changeNoteLabel = $("<label for='document_change_note' />")
-    this.changeNoteTextarea = $("<textarea id='document_change_note' />");
+    this.changeNoteLabel = $("<label for='edition_change_note' />")
+    this.changeNoteTextarea = $("<textarea id='edition_change_note' />");
     this.publishingForm.append(this.changeNoteLabel);
     this.publishingForm.append(this.changeNoteTextarea);
     this.publishingForm.append("<input type='submit' value='Publish'/>");
@@ -56,8 +56,8 @@ test("should show form when the publish button link is clicked", function() {
 module("Change note label and field present with force publish button", {
   setup: function() {
     this.publishingForm = $("<form />");
-    this.changeNoteLabel = $("<label for='document_change_note' />")
-    this.changeNoteTextarea = $("<textarea id='document_change_note' />");
+    this.changeNoteLabel = $("<label for='edition_change_note' />")
+    this.changeNoteTextarea = $("<textarea id='edition_change_note' />");
     this.publishingForm.append(this.changeNoteLabel);
     this.publishingForm.append(this.changeNoteTextarea);
     this.publishingForm.append("<input type='submit' value='Force Publish'/>");
