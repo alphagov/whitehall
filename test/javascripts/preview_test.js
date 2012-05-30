@@ -3,8 +3,8 @@ module("Previewing contents of a textarea", {
     var textarea = $('<textarea id="blah"># preview this</textarea>');
     var label = $('<label for="blah"></label>');
     var image_inputs = $('<fieldset class="images">' +
-      '<div class="image lead"><input name="document[images_attributes][0][id]" type="hidden" value="1"></div>' +
-      '<div class="image"><input name="document[images_attributes][1][id]" type="hidden" value="2"></div>' +
+      '<div class="image lead"><input name="edition[images_attributes][0][id]" type="hidden" value="1"></div>' +
+      '<div class="image"><input name="edition[images_attributes][1][id]" type="hidden" value="2"></div>' +
       '</fieldset>');
     $('#qunit-fixture').append(textarea);
     $('#qunit-fixture').append(label);

@@ -31,7 +31,7 @@
       }
 
       var imageNodes = function() {
-        return $("fieldset.images input[type=hidden][name^='document[images_attributes]'][name$='[id]']");
+        return $("fieldset.images input[type=hidden][name^='edition[images_attributes]'][name$='[id]']");
       }
 
       var imageIds = function() {

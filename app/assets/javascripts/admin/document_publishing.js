@@ -1,8 +1,8 @@
 (function ($) {
   var _enableChangeNoteHighlighting = function() {
     var form = $(this);
-    var changeNoteLabels = form.find("label[for=document_change_note]");
-    var changeNoteTextareas = form.find("textarea#document_change_note");
+    var changeNoteLabels = form.find("label[for=edition_change_note]");
+    var changeNoteTextareas = form.find("textarea#edition_change_note");
     var changeNoteElements = changeNoteLabels.add(changeNoteTextareas);
 
     if ((changeNoteLabels.length > 0) && (changeNoteTextareas.length > 0)) {
@@ -18,7 +18,7 @@
       form.hide();
       form.before(publishButtonLink);
 
-      form.find('input[type=checkbox][name="document[minor_change]"]').click(function(event) {
+      form.find('input[type=checkbox][name="edition[minor_change]"]').click(function(event) {
         changeNoteElements.attr('disabled', $(this).prop('checked') ? 'disabled' : null);
       });
     };
