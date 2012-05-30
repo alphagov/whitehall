@@ -35,6 +35,7 @@
     <% end %>
 
     <div class="filter-controls">
+      <h1><%= scope_description.capitalize %> consultations</h1>
       <nav class="consultations_scope group" role="navigation">
         <%= link_to_filter('all', action: 'index') %>
         <%= link_to_filter('open', action: 'open') %>
@@ -43,7 +44,6 @@
     </div>
 
     <section id="<%= params[:action] %>-consultations">
-      <h1><%= scope_description.capitalize %> consultations</h1>
       <% if @consultations.any? %>
         <div class="table-sort">
           <table border="0">
