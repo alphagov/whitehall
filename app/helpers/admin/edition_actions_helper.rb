@@ -34,7 +34,7 @@ module Admin::EditionActionsHelper
     button_title = "Publish #{edition.title}"
     confirm = publish_edition_alerts(edition, options[:force])
     capture do
-      form_for [:admin, edition], {as: :document, url: url, method: :post, html: {id: "document_publishing"}} do |form|
+      form_for [:admin, edition], {as: :edition, url: url, method: :post, html: {id: "document_publishing"}} do |form|
         concat(form.hidden_field :lock_version)
         if edition.change_note_required?
           concat(form.text_area :change_note, label_text: "Change note (will appear on public site)", rows: 4)
@@ -59,7 +59,7 @@ module Admin::EditionActionsHelper
   end
 
   def add_consultation_response_button(consultation)
-    link_to 'Add response', new_admin_consultation_response_path(document: {consultation_id: consultation}), title: "Add response", class: "button"
+    link_to 'Add response', new_admin_consultation_response_path(edition: {consultation_id: consultation}), title: "Add response", class: "button"
   end
 
   def show_consultation_response_button(consultation)

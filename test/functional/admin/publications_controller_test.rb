@@ -32,12 +32,12 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test "new displays publication fields" do
     get :new
 
-    assert_select "form#document_new" do
-      assert_select "select[name*='document[publication_date']", count: 3
-      assert_select "input[name='document[unique_reference]'][type='text']"
-      assert_select "input[name='document[isbn]'][type='text']"
-      assert_select "input[name='document[research]'][type='checkbox']"
-      assert_select "input[name='document[order_url]'][type='text']"
+    assert_select "form#edition_new" do
+      assert_select "select[name*='edition[publication_date']", count: 3
+      assert_select "input[name='edition[unique_reference]'][type='text']"
+      assert_select "input[name='edition[isbn]'][type='text']"
+      assert_select "input[name='edition[research]'][type='checkbox']"
+      assert_select "input[name='edition[order_url]'][type='text']"
     end
   end
 
@@ -52,7 +52,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       order_url: "http://example.com/order-path"
     )
 
-    post :create, document: attributes.merge(
+    post :create, edition: attributes.merge(
       related_doc_identity_ids: [first_policy.doc_identity.id, second_policy.doc_identity.id]
     )
 
@@ -70,19 +70,19 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :edit, id: publication
 
-    assert_select "form#document_edit" do
-      assert_select "select[name*='document[publication_date']", count: 3
-      assert_select "input[name='document[unique_reference]'][type='text']"
-      assert_select "input[name='document[isbn]'][type='text']"
-      assert_select "input[name='document[research]'][type='checkbox']"
-      assert_select "input[name='document[order_url]'][type='text']"
+    assert_select "form#edition_edit" do
+      assert_select "select[name*='edition[publication_date']", count: 3
+      assert_select "input[name='edition[unique_reference]'][type='text']"
+      assert_select "input[name='edition[isbn]'][type='text']"
+      assert_select "input[name='edition[research]'][type='checkbox']"
+      assert_select "input[name='edition[order_url]'][type='text']"
     end
   end
 
   test "update should save modified publication attributes" do
     publication = create(:publication)
 
-    put :update, id: publication, document: publication.attributes.merge(
+    put :update, id: publication, edition: publication.attributes.merge(
       publication_date: Date.parse("1815-06-18"),
       unique_reference: "new-reference",
       isbn: "0099532816",
@@ -102,7 +102,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     policy = create(:policy)
     publication = create(:publication, related_policies: [policy])
 
-    put :update, id: publication, document: {}
+    put :update, id: publication, edition: {}
 
     publication.reload
     assert_equal [], publication.related_policies

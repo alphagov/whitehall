@@ -9,11 +9,11 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test 'new displays consultation response form' do
-    get :new, document: {consultation_id: @consultation}
+    get :new, edition: {consultation_id: @consultation}
 
     assert_select "form[action='#{admin_consultation_responses_path}']" do
-      assert_select "input[name='document[title]'][type='text']"
-      assert_select "textarea[name='document[body]']"
+      assert_select "input[name='edition[title]'][type='text']"
+      assert_select "textarea[name='edition[body]']"
       assert_select "input[type='submit']"
     end
   end
@@ -21,7 +21,7 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
   test 'create creates response to given consultation' do
     attributes = attributes_for(:consultation_response).merge(consultation_id: @consultation.id)
 
-    post :create, consultation_id: @consultation, document: attributes
+    post :create, consultation_id: @consultation, edition: attributes
 
     consultation_response = ConsultationResponse.last
     assert_equal attributes[:title], consultation_response.title

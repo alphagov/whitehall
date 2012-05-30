@@ -39,7 +39,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update
-    if @edition.edit_as(current_user, params[:document])
+    if @edition.edit_as(current_user, params[:edition])
       redirect_to admin_document_path(@edition),
         notice: "The document has been saved"
     else
@@ -77,7 +77,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def document_params
-    (params[:document] || {}).merge(creator: current_user)
+    (params[:edition] || {}).merge(creator: current_user)
   end
 
   def build_edition
@@ -96,18 +96,18 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def default_arrays_of_ids_to_empty
-    params[:document][:organisation_ids] ||= []
+    params[:edition][:organisation_ids] ||= []
     if @edition.can_be_associated_with_policy_topics?
-      params[:document][:policy_topic_ids] ||= []
+      params[:edition][:policy_topic_ids] ||= []
     end
     if @edition.can_be_associated_with_ministers?
-      params[:document][:ministerial_role_ids] ||= []
+      params[:edition][:ministerial_role_ids] ||= []
     end
     if @edition.can_be_related_to_policies?
-      params[:document][:related_doc_identity_ids] ||= []
+      params[:edition][:related_doc_identity_ids] ||= []
     end
     if @edition.can_be_associated_with_countries?
-      params[:document][:country_ids] ||= []
+      params[:edition][:country_ids] ||= []
     end
   end
 

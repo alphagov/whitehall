@@ -3,8 +3,8 @@ module NationApplicabilityAssertions
 
   def assert_nation_inapplicability_fields_exist
     n = Nation.potentially_inapplicable.count
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='checkbox']", count: n
-    assert_select "input[name*='document[nation_inapplicabilities_attributes]'][type='text']", count: n
+    assert_select "input[name*='edition[nation_inapplicabilities_attributes]'][type='checkbox']", count: n
+    assert_select "input[name*='edition[nation_inapplicabilities_attributes]'][type='text']", count: n
   end
 
   def nation_inapplicabilities_attributes_for(nations_vs_urls, *existing_applicabilities)
@@ -25,7 +25,7 @@ module NationApplicabilityAssertions
   end
 
   def assert_nation_inapplicability_fields_set_as(attributes)
-    name_fragment = "document[nation_inapplicabilities_attributes][#{attributes[:index]}]"
+    name_fragment = "edition[nation_inapplicabilities_attributes][#{attributes[:index]}]"
     if attributes[:checked]
       assert_select "input[name='#{name_fragment}[_destroy]'][type='checkbox'][checked='checked']"
     else

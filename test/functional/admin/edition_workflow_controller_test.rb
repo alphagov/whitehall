@@ -52,7 +52,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'publish sets change note on edition' do
     @edition.stubs(:publish_as).returns(true)
-    post :publish, id: @edition, lock_version: 1, document: {
+    post :publish, id: @edition, lock_version: 1, edition: {
       change_note: "change-note"
     }
 
@@ -61,7 +61,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'publish sets minor change flag on edition' do
     @edition.stubs(:publish_as).returns(true)
-    post :publish, id: @edition, lock_version: 1, document: {
+    post :publish, id: @edition, lock_version: 1, edition: {
       minor_change: true
     }
 

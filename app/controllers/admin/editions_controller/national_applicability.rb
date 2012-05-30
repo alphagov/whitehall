@@ -8,8 +8,8 @@ module Admin::EditionsController::NationalApplicability
   end
 
   def create
-    params[:document][:nation_inapplicabilities_attributes] ||= {}
-    @edition = edition_class.new(params[:document].merge(creator: current_user))
+    params[:edition][:nation_inapplicabilities_attributes] ||= {}
+    @edition = edition_class.new(params[:edition].merge(creator: current_user))
     if @edition.save
       redirect_to admin_document_path(@edition), notice: "The document has been saved"
     else
@@ -22,8 +22,8 @@ module Admin::EditionsController::NationalApplicability
   end
 
   def update
-    params[:document][:nation_inapplicabilities_attributes] ||= {}
-    if @edition.edit_as(current_user, params[:document])
+    params[:edition][:nation_inapplicabilities_attributes] ||= {}
+    if @edition.edit_as(current_user, params[:edition])
       redirect_to admin_document_path(@edition),
         notice: "The document has been saved"
     else
