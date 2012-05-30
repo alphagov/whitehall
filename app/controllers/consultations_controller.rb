@@ -5,7 +5,7 @@ class ConsultationsController < DocumentsController
   def index
     scope = Consultation
     @consultations = load_consultations_from_scope(scope)
-    @featured_consultations = @consultations.select(&:featured).sort_by {|c| c.published_at }.reverse.take(3)
+    @featured_consultations = @consultations.select(&:featured).sort_by {|c| c.published_at }.reverse.take(1)
   end
 
   def open

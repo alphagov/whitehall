@@ -1,44 +1,78 @@
 <% page_title "Consultations" %>
 <% page_class "consultations-index" %>
 
-<div class="g4">
-  <header class="page_header consultation icon">
+<div class="block-1">
+  <div class="inner-block">
+    <header class="page_header consultation icon">
       <h1 class="page_title">Consultations</h1>
       <p class="explanation">Read and contribute to government thinking before it becomes policy</p>
-  </header>
-</div>
+    </header>
 
-<% if @featured_consultations && @featured_consultations.any? %>
-  <section class="consultations four_column_list" id="featured-consultations">
-    <div class="g4f">
-      <div class="g1"><h1 class="label">Featured</h1></div>
-      <div class="g3f">
-        <% article_group(@featured_consultations, groups_of: 3, class: "has_img row") do |consultation| %>
-          <%= render partial: "consultation_index_item", locals: {consultation: consultation} %>
+    <% if @featured_consultations && consultation = @featured_consultations.first %>
+      <div class="featured featured-consultation" id="featured-consultations">
+        <%= content_tag_for(:div, consultation) do %>
+          <div class="thumbnail">
+            <%= edition_thumbnail_tag(consultation) %>
+            <% if attachment = consultation.thumbnailable_attachments.first || consultation.attachments.first %>
+              <p>
+                <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>
+                <% if attachment.number_of_pages.present? %>
+                  <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
+                <% end %>
+                <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
+              </p>
+            <% end %>
+          </div>
+          <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
+          <% if consultation.summary.present? %>
+            <p class="summary"><%= consultation.summary %></p>
+          <% end %>
+          <p class="time_remaining">
+            <%= consultation_time_remaining_phrase(consultation) %>
+          </p>
         <% end %>
       </div>
-    </div>
-  </section>
-<% end %>
+    <% end %>
 
-<section class="consultations four_column_list" id="<%= params[:action] %>-consultations">
-  <div class="g4f">
-    <div class="g1">
-      <h1 class="label"><%= scope_description.capitalize %> consultations</h1>
-      <nav class="consultations_scope g3 group" role="navigation">
+    <div class="filter-controls">
+      <nav class="consultations_scope group" role="navigation">
         <%= link_to_filter('all', action: 'index') %>
         <%= link_to_filter('open', action: 'open') %>
         <%= link_to_filter('closed', action: 'closed') %>
       </nav>
     </div>
-    <div class="g3f">
-      <% if @consultations && @consultations.any? %>
-        <% article_group(@consultations, groups_of: 3, class: "has_img row") do |consultation| %>
-          <%= render partial: "consultation_index_item", locals: {consultation: consultation} %>
-        <% end %>
+
+    <section id="<%= params[:action] %>-consultations">
+      <h1><%= scope_description.capitalize %> consultations</h1>
+      <% if @consultations.any? %>
+        <div class="table-sort">
+          <table border="0">
+            <thead>
+              <tr>
+                <th class="title">Title</th>
+                <th class="table-summary ">Summary</th>
+                <th class="date">Close date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @consultations.each do |consultation| %>
+                <%= content_tag_for(:tr, consultation) do %>
+                  <td class="title article_title">
+                    <%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %>
+                  </td>
+                  <td class="table-summary summary"><%= consultation.summary %></td>
+                  <td class="date time_remaining">
+                    <%= consultation_time_remaining_phrase(consultation) %>
+                  </td>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       <% else %>
         <p class='no-content'>There are no <%= scope_description %> consultations at present.</p>
       <% end %>
-    </div>
+    </section>
+
   </div>
-</section>
+</div>
