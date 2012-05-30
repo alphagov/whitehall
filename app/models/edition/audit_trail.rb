@@ -18,12 +18,16 @@ module Edition::AuditTrail
   end
 
   class AuditEntry
+    extend Forwardable
 
-    attr_reader :edition_serial_number, :edition
+    def_delegators :@object, :created_at
 
-    def initialize(edition_serial_number, edition)
+    attr_reader :edition_serial_number, :edition, :object
+
+    def initialize(edition_serial_number, edition, object)
       @edition_serial_number = edition_serial_number
       @edition = edition
+      @object = object
     end
 
     def <=>(other)
@@ -35,7 +39,10 @@ module Edition::AuditTrail
     end
 
     def ==(other)
-      @edition_serial_number == other.edition_serial_number && @edition == other.edition
+      other.class == self.class &&
+      other.edition_serial_number == edition_serial_number && 
+      other.edition == edition &&
+      other.object == object
     end
 
     def first_edition?
@@ -46,37 +53,24 @@ module Edition::AuditTrail
   end
 
   class VersionAuditEntry < AuditEntry
-    extend Forwardable
-
-    attr_reader :version
-
-    def_delegators :@version, :created_at
-
-    def initialize(edition_serial_number, edition, version)
-      super(edition_serial_number, edition)
-      @version = version
-    end
+    alias_method :version, :object
 
     def sort_priority; 3; end
 
-    def ==(other)
-      other.class == self.class && super(other) && version == other.version
-    end
-
     def event
-      previous_state = @version.previous && @version.previous.state
-      case @version.event
+      previous_state = version.previous && version.previous.state
+      case version.event
       when "create"
         first_edition? ? "create" : "edition"
       when "delete"
-        @version.event
+        version.event
       else
-        previous_state != @version.state ? make_present_tense(@version.state) : "update"
+        previous_state != version.state ? make_present_tense(version.state) : "update"
       end
     end
 
     def actor
-      @version.whodunnit && User.find(@version.whodunnit)
+      version.whodunnit && User.find(version.whodunnit)
     end
 
     private
@@ -84,36 +78,23 @@ module Edition::AuditTrail
     def make_present_tense(event)
       event.gsub(/t?ted$/, 't').gsub(/ed$/, '')
     end
-
   end
 
   class EditorialRemarkAuditEntry < AuditEntry
-    extend Forwardable
-    attr_reader :editorial_remark
-
-    def_delegators :@editorial_remark, :created_at
-
-    def initialize(edition_serial_number, edition, editorial_remark)
-      super(edition_serial_number, edition)
-      @editorial_remark = editorial_remark
-    end
+    alias_method :editorial_remark, :object
 
     def event
       "editorial_remark"
     end
 
     def actor
-      @editorial_remark.author
+      editorial_remark.author
     end
 
     def message
-      @editorial_remark.body
+      editorial_remark.body
     end
 
     def sort_priority; 2; end
-
-    def ==(other)
-      other.class == self.class && super(other) && editorial_remark == other.editorial_remark
-    end
   end
 end
