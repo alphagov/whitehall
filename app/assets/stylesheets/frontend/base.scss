@@ -61,6 +61,8 @@ $gutter-one-third:  $gutter*0.333333;
 #whitehall-wrapper {
   @import "views/_announcements.scss";
   @import "views/_browse.scss";
+  @import "views/_countries.scss";
+  @import "views/_consultations.scss";
   @import "views/_document-page.scss";
   @import "views/_featured.scss";
   @import "views/_layouts.scss";

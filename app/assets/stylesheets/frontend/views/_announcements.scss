@@ -5,6 +5,10 @@
       overflow: hidden;
       padding-bottom: $gutter;
       
+      article {
+        padding-bottom: $gutter;
+      }
+      
       img {
         width: 100%;
         height: auto;
@@ -37,6 +41,11 @@
           width: 33.33333%;
           float: left;
           display: inline;
+        }
+        
+        .img,
+        .text {
+          padding-left: $gutter;
         }
       }
     }
