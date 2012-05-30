@@ -30,7 +30,7 @@ class Notifications < ActionMailer::Base
     @edition = edition
     @admin_url = admin_url
     @public_url = public_url
-    subject = "The #{edition.class.name.downcase} #{edition.title} has been published"
+    subject = "The #{edition.class.name.downcase} '#{edition.title}' has been published"
     mail from: no_reply_email_address, to: @author.email, subject: subject
   end
 
@@ -38,7 +38,7 @@ class Notifications < ActionMailer::Base
     @author = author
     @edition = edition
     @admin_url = admin_url
-    subject = "The #{edition.class.name.downcase} #{edition.title} was rejected by #{edition.rejected_by.name}"
+    subject = "The #{edition.class.name.downcase} '#{edition.title}' was rejected by #{edition.rejected_by.name}"
     mail from: no_reply_email_address, to: @author.email, subject: subject
   end
 

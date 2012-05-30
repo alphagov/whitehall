@@ -322,7 +322,7 @@ Then /^the writers who worked on the policy titled "([^"]*)" should be emailed a
   policy = Policy.find_by_title(policy_title)
   policy.authors.each do |writer|
     assert_equal 1, unread_emails_for(writer.email).size
-    assert_match /The policy #{policy_title} was rejected by/, unread_emails_for(writer.email).first.subject
+    assert_match /The policy '#{policy_title}' was rejected by/, unread_emails_for(writer.email).first.subject
   end
 end
 
@@ -330,7 +330,7 @@ Then /^the writers who worked on the policy titled "([^"]*)" should be emailed a
   policy = Policy.find_by_title(policy_title)
   policy.authors.each do |writer|
     assert_equal 1, unread_emails_for(writer.email).size
-    assert_match /The policy #{policy_title} has been published/, unread_emails_for(writer.email).first.subject
+    assert_match /The policy '#{policy_title}' has been published/, unread_emails_for(writer.email).first.subject
   end
 end
 
