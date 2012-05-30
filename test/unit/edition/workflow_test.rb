@@ -38,7 +38,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     submitted_edition.reject!
     assert submitted_edition.rejected?
   end
-  
+
   [:draft, :published, :archived, :deleted].each do |state|
     test "should prevent a #{state} edition being rejected" do
       edition = create("#{state}_edition")
@@ -245,7 +245,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert_nil Policy.published_as("second-title")
   end
 
-  test "#edit_as returns false if save fails" do
+  test "#save_as returns false if save fails" do
     edition = create(:policy)
     edition.expects(:save).returns(false)
     refute edition.save_as(create(:user))
