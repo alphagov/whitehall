@@ -9,25 +9,25 @@ class Admin::FeaturingsControllerTest < ActionController::TestCase
   [:publication, :consultation, :news_article].each do |edition_type|
     test "featuring a published #{edition_type} sets the featured flag" do
       edition = create("published_#{edition_type}")
-      post :create, document_id: edition, document: {}
+      post :create, edition_id: edition, edition: {}
       assert edition.reload.featured?
     end
 
     test "featuring a #{edition_type} redirects the user back to where they came from" do
       edition = create("published_#{edition_type}")
-      post :create, document_id: edition, document: {}
+      post :create, edition_id: edition, edition: {}
       assert_redirected_to "http://example.com"
     end
 
     test "unfeaturing a #{edition_type} removes the featured flag" do
       edition = create("featured_#{edition_type}")
-      delete :destroy, document_id: edition, document: {}
+      delete :destroy, edition_id: edition, edition: {}
       refute edition.reload.featured?
     end
 
     test "unfeaturing a #{edition_type} redirects the user back to where they came from" do
       edition = create("featured_#{edition_type}")
-      delete :destroy, document_id: edition, document: {}
+      delete :destroy, edition_id: edition, edition: {}
       assert_redirected_to "http://example.com"
     end
   end
@@ -36,7 +36,7 @@ class Admin::FeaturingsControllerTest < ActionController::TestCase
     test "should not allow featuring a #{edition_type}" do
       edition = create("published_#{edition_type}")
       refute edition.featurable?
-      post :create, document_id: edition, document: {}
+      post :create, edition_id: edition, edition: {}
       assert_redirected_to "http://example.com"
       assert_equal "#{edition_type.to_s.humanize.pluralize} cannot be featured", flash[:alert]
     end
@@ -44,7 +44,7 @@ class Admin::FeaturingsControllerTest < ActionController::TestCase
 
   test "update should redirect the user back whence they came" do
     news_article = create(:featured_news_article)
-    put :update, document_id: news_article
+    put :update, edition_id: news_article
     assert_redirected_to "http://example.com"
   end
 end

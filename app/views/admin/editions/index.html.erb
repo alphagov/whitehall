@@ -81,9 +81,9 @@
             <% if show_featuring_controls?(edition) %>
               <td class="featured">
                 <% if edition.featured? %>
-                  <%= button_to "No longer feature", admin_document_featuring_path(edition), method: :delete, form_class: "unfeature" %>
+                  <%= button_to "No longer feature", admin_edition_featuring_path(edition), method: :delete, form_class: "unfeature" %>
                 <% else %>
-                  <%= form_for(edition, url: admin_document_featuring_path(edition), as: :edition, method: :post, html: {class: "feature"}) do |form| %>
+                  <%= form_for(edition, url: admin_edition_featuring_path(edition), as: :edition, method: :post, html: {class: "feature"}) do |form| %>
                     <%= form.submit "Feature" %>
                   <% end %>
                 <% end %>
