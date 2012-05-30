@@ -1,6 +1,4 @@
-<%= form_for [:admin, edition], as: :edition do |form| %>
-  <%= form.errors %>
-  <%= render partial: 'standard_fields', locals: { form: form, edition: edition } %>
+<%= standard_edition_form(edition) do |form| %>
   <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition }%>
 
   <fieldset>
@@ -14,6 +12,4 @@
   <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
   <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
   <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
-
-  <%= form.save_or_cancel %>
 <% end %>
