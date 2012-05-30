@@ -17,9 +17,9 @@ module Admin::EditionRoutesHelper
   end
 
   edition_instance_route :admin_edition_supporting_pages_path
+  edition_instance_route :admin_edition_editorial_remarks_path
 
   document_instance_route :admin_document_fact_check_requests_path
-  document_instance_route :admin_document_editorial_remarks_path
 
   def admin_document_path(edition, *args)
     if edition.is_a?(Speech)

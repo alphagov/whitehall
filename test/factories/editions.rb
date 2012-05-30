@@ -6,7 +6,7 @@ Rails.application.routes.url_helpers.module_eval do
   end
 
   def admin_generic_edition_editorial_remarks_path(*args)
-    admin_document_editorial_remarks_path(*args)
+    admin_edition_editorial_remarks_path(*args)
   end
 end
 

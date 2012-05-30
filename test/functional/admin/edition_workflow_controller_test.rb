@@ -138,7 +138,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     @edition.stubs(:reject!)
     post :reject, id: @edition, lock_version: 1
 
-    assert_redirected_to new_admin_document_editorial_remark_path(@edition)
+    assert_redirected_to new_admin_edition_editorial_remark_path(@edition)
   end
 
   test 'reject notifies authors of rejection via email' do
