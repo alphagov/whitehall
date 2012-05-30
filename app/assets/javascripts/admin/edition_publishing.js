@@ -7,7 +7,7 @@
 
     if ((changeNoteLabels.length > 0) && (changeNoteTextareas.length > 0)) {
       var buttonValue = form.find("input[type=submit]")[0].value;
-      var publishButtonLink = $("<a/>").text(buttonValue).addClass("button").attr("href", "#document_publishing");
+      var publishButtonLink = $("<a/>").text(buttonValue).addClass("button").attr("href", "#edition_publishing");
 
       publishButtonLink.click(function() {
         publishButtonLink.hide();
@@ -31,5 +31,5 @@
 })(jQuery);
 
 jQuery(function($) {
-  $("#document_publishing").enableChangeNoteHighlighting();
+  $("#edition_publishing").enableChangeNoteHighlighting();
 })
