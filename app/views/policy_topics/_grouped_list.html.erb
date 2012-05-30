@@ -1,15 +1,11 @@
-<section class="alphabetical_list g4f" id="policy_topics">
-  <div class="g1">
+<section class="alphabetical_list" id="policy_topics">
     <h1 class="label">All topics</h1>
-  </div>
-  <div class="g3f">
     <p>You can also view <%= link_to "all policies as a list", policies_path %>.</p>
-  </div>
   <% policy_topics.group_by {|t| t.name.first.upcase }.sort.in_groups_of(3, false) do |row| %>
     <% row.each do |letter, policy_topic_group| %>
-      <div class="alphabetical_row g4f" id="policy_topics_<%= letter.downcase %>">
-        <div class="g1"><h2 class="alphabetical_list_letter"><%= letter %></h2></div>
-        <div class="g3f">
+      <div class="alphabetical_row" id="policy_topics_<%= letter.downcase %>">
+        <h2 class="alphabetical_list_letter"><%= letter %></h2>
+        <div class="inner">
           <%= render partial: "list", locals: { policy_topics: policy_topic_group } %>
         </div>
       </div>
