@@ -13,19 +13,11 @@ module Admin::EditionActionsHelper
   end
 
   def submit_edition_button(edition)
-    capture do
-      form_for [:admin, edition], {url: submit_admin_edition_path(edition, lock_version: edition.lock_version), method: :post} do |submit_form|
-        concat(submit_form.submit "Submit to 2nd pair of eyes")
-      end
-    end
+    button_to "Submit to 2nd pair of eyes", submit_admin_edition_path(edition, lock_version: edition.lock_version)
   end
 
   def reject_edition_button(edition)
-    capture do
-      form_for [:admin, edition], {url: reject_admin_edition_path(edition, lock_version: edition.lock_version), method: :post} do |reject_form|
-        concat(reject_form.submit "Reject")
-      end
-    end
+    button_to "Reject", reject_admin_edition_path(edition, lock_version: edition.lock_version)
   end
 
   def publish_edition_form(edition, options = {})
