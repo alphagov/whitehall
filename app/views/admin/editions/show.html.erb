@@ -28,7 +28,12 @@
 
     <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
     <%= render partial: "editorial_remarks", locals: { edition: @edition } %>
-    <%= render partial: "admin/edition_publishing/form", locals: { edition: @edition } %>
+
+    <% if @edition.publishable_by?(current_user, assuming_presence_of_change_note: true) %>
+      <%= publish_edition_form(@edition) %>
+    <% elsif @edition.publishable_by?(current_user, force: true, assuming_presence_of_change_note: true) %>
+      <%= publish_edition_form(@edition, force: true) %>
+    <% end %>
   </div>
 
   <div class="g1">
