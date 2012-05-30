@@ -3,7 +3,6 @@ require "test_helper"
 class ConsultationsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_attachments_for :consultation
-  should_show_featured_documents_for :consultation
   should_show_related_policies_and_policy_topics_for :consultation
   should_display_inline_images_for :consultation
   should_not_display_lead_image_for :consultation
@@ -242,6 +241,42 @@ class ConsultationsControllerTest < ActionController::TestCase
     get :index
     assert_select send("featured_consultations_selector") do
       assert_select "#{record_css_selector(consultation)} .time_remaining", text: "Closes in 21 days"
+    end
+  end
+
+  test "should ignore unpublished featured consultations" do
+    draft_featured_document = create("draft_consultation") do |document|
+      document.feature
+    end
+    get :index
+    refute assigns("featured_consultations").include?(draft_featured_document)
+  end
+
+  test "should ignore published non-featured consultations" do
+    published_document = create("published_consultation")
+    get :index
+    refute assigns("featured_consultations").include?(published_document)
+  end
+
+  test "should show the featured consultations that was most recently published" do
+    old_document = create("featured_consultation", published_at: 1.month.ago)
+    new_document = create("featured_consultation", published_at: 1.day.ago)
+    get :index
+    assert_equal [new_document], assigns("featured_consultations")
+  end
+
+  test "should not display the featured consultations list if there aren't featured consultations" do
+    create("published_consultation")
+    get :index
+    refute_select featured_consultations_selector
+  end
+
+  test "should display a link to the featured consultation" do
+    document = create("featured_consultation")
+    get :index
+    assert_select featured_consultations_selector do
+      expected_path = consultation_path(document.doc_identity)
+      assert_select "#{record_css_selector(document)} a[href=#{expected_path}]"
     end
   end
 end
