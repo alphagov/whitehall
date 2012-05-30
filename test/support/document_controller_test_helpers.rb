@@ -120,11 +120,11 @@ module DocumentControllerTestHelpers
         refute assigns("featured_#{document_types}").include?(published_document)
       end
 
-      test "should order published featured #{document_types} by published_at" do
+      test "should show the featured #{document_types} that was most recently published" do
         old_document = create("featured_#{document_type}", published_at: 1.month.ago)
         new_document = create("featured_#{document_type}", published_at: 1.day.ago)
         get :index
-        assert_equal [new_document, old_document], assigns("featured_#{document_types}")
+        assert_equal [new_document], assigns("featured_#{document_types}")
       end
 
       test "should not display the featured #{document_types} list if there aren't featured #{document_types}" do
