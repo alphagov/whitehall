@@ -1,52 +1,47 @@
 <% if edition.can_be_fact_checked? %>
 <section class="fact_checking group">
   <h1>Fact checking</h1>
-  <div class="g2 first">
-    <section class="responses">
-      <h1>Responses</h1>
-      <% if edition.all_completed_fact_check_requests.any? %>
-      <ul id="completed_fact_check_requests">
-        <% edition.all_completed_fact_check_requests.each do |fact_check_request| %>
-          <%= content_tag_for(:li, fact_check_request) do %>
-            <div class="details">
-              <span class="from"><%= fact_check_request.email_address %></span>
-              <span class="time"><%= distance_of_time_in_words_to_now(fact_check_request.updated_at) %> ago</span>
-            </div>
-            <div class="comments">
-              <%= format_in_paragraphs fact_check_request.comments %>
-            </div>
-          <% end %>
+  <section class="responses">
+    <% if edition.all_completed_fact_check_requests.any? %>
+    <ul id="completed_fact_check_requests">
+      <% edition.all_completed_fact_check_requests.each do |fact_check_request| %>
+        <%= content_tag_for(:li, fact_check_request) do %>
+          <div class="details">
+            <span class="from"><%= fact_check_request.email_address %></span>
+            <span class="time"><%= distance_of_time_in_words_to_now(fact_check_request.updated_at) %> ago</span>
+          </div>
+          <div class="comments">
+            <%= format_in_paragraphs fact_check_request.comments %>
+          </div>
         <% end %>
-      </ul>
-      <% else %>
-        <p>Document doesn&#x27;t have any fact checking responses yet.</p>
       <% end %>
-    </section>
-  </div>
-  <div class="g1">
-    <section class="request">
-      <h1>Send Request</h1>
-      <%= form_for [:admin, edition, FactCheckRequest.new] do |f| %>
-        <%= f.text_field :email_address %>
-        <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
-        <%= f.submit 'Send request' %>
+    </ul>
+    <% else %>
+      <p>Document doesn&#x27;t have any fact checking responses yet.</p>
+    <% end %>
+  </section>
+  <section class="request">
+    <h1>Send Request</h1>
+    <%= form_for [:admin, edition, FactCheckRequest.new] do |f| %>
+      <%= f.text_field :email_address %>
+      <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
+      <%= f.submit 'Send request', class: "btn" %>
+    <% end %>
+  </section>
+  <section class="pending">
+    <% if edition.fact_check_requests.pending.any? %>
+    <h1>Pending responses</h1>
+    <ul id="pending_fact_check_requests">
+      <% edition.fact_check_requests.pending.each do |fact_check_request| %>
+        <li class="fact_check_request pending">
+          <div class="details">
+            <span class="from"><%= fact_check_request.email_address %></span>
+            <span class="time">(<%= distance_of_time_in_words_to_now(fact_check_request.updated_at) %> ago)</span>
+          </div>
+        </li>
       <% end %>
-    </section>
-    <section class="pending">
-      <% if edition.fact_check_requests.pending.any? %>
-      <h1>Pending responses</h1>
-      <ul id="pending_fact_check_requests">
-        <% edition.fact_check_requests.pending.each do |fact_check_request| %>
-          <li class="fact_check_request pending">
-            <div class="details">
-              <span class="from"><%= fact_check_request.email_address %></span>
-              <span class="time">(<%= distance_of_time_in_words_to_now(fact_check_request.updated_at) %> ago)</span>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-      <% end %>
-    </section>
-  </div>
+    </ul>
+    <% end %>
+  </section>
 </section>
 <% end %>

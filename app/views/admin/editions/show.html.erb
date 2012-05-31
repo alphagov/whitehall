@@ -1,134 +1,162 @@
 <% page_title @edition.title, @edition.class.name.humanize %>
-<div class="g3f">
-  <div class="g2 first">
-    <%= render partial: 'navigation', locals: { edition: @edition } %>
-    <%= render partial: "rejected_by", locals: { edition: @edition } %>
-    <section class="document_view">
-      <%= render partial: 'edition', locals: { edition: @edition } %>
-      <% if @edition.is_a?(Speech) %>
-        <p class="details">
-          <span class="type"><%= @edition.speech_type.name %></span>
-          for speech delivered by
-          <span class="ministerial_role">
-            <%= link_to @edition.role_appointment.role, @edition.role_appointment.role %>
-          </span>
-          on
-          <span class="delivered_on"><%= @edition.delivered_on.to_s(:long_ordinal) %></span>
-          at
-          <span class="location"><%= @edition.location %></span>
-        </p>
-      <% end %>
-      <% if @edition.notes_to_editors.present? %>
-        <section id="notes_to_editors">
-          <h1>Notes to editors</h1>
-          <%= govspeak_to_html @edition.notes_to_editors %>
-        </section>
-      <% end %>
+
+<div class="span8">
+  <section class="document_view">
+    <%= render partial: 'edition', locals: { edition: @edition } %>
+  </section>
+
+  <% if @edition.notes_to_editors.present? %>
+    <section id="notes_to_editors">
+      <h1>Notes to editors</h1>
+      <%= govspeak_to_html @edition.notes_to_editors %>
     </section>
+  <% end %>
 
-    <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
-    <%= render partial: "editorial_remarks", locals: { edition: @edition } %>
-
-    <% if @edition.publishable_by?(current_user, assuming_presence_of_change_note: true) %>
-      <%= publish_edition_form(@edition) %>
-    <% elsif @edition.publishable_by?(current_user, force: true, assuming_presence_of_change_note: true) %>
-      <%= publish_edition_form(@edition, force: true) %>
-    <% end %>
-  </div>
-
-  <div class="g1">
-    <section class="container audit-trail">
-      <h1>Activity</h1>
-      <ul>
-      <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
-      </ul>
-    </section>
-
-    <% if @edition.is_a?(ConsultationResponse) %>
-      <section class="container">
-        <h1>Consultation</h1>
-        <%= content_tag_for :p, @edition.consultation do %>
-          This is a response to the consultation
-          <%= link_to @edition.consultation.title, admin_consultation_path(@edition.consultation) %>
-        <% end %>
-      </section>
-    <% end %>
-
-    <section class="container">
-      <h1>Organisations</h1>
-      <% if @edition.organisations.any? %>
-        <%= render partial: "admin/organisations/list", locals: {organisations: @edition.organisations} %>
-      <% else %>
-        <p>This document isn't assigned to any organisations.</p>
-      <% end %>
-    </section>
-
-    <% if @edition.can_be_associated_with_policy_topics? %>
-      <section class="container">
-        <h1>Policy topics</h1>
-        <% if @edition.policy_topics.any? %>
-          <%= render partial: "policy_topics/list", locals: {policy_topics: @edition.policy_topics} %>
-        <% else %>
-          <p>This document isn't assigned to any policy topics.</p>
-        <% end %>
-      </section>
-    <% end %>
-
-    <% if @edition.can_be_associated_with_ministers? %>
-      <section class="container">
-        <h1>Ministers</h1>
-        <% if @edition.ministerial_roles.any? %>
-          <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @edition.ministerial_roles} %>
-        <% else %>
-          <p>This document isn't assigned to any ministers.</p>
-        <% end %>
-      </section>
-    <% end %>
-
-    <% if @edition.can_be_associated_with_countries? %>
-      <section class="container">
-        <h1>Countries</h1>
-        <% if @edition.countries.any? %>
-          <%= render partial: "admin/countries/list", locals: {countries: @edition.countries} %>
-        <% else %>
-          <p>This document isn't assigned to any countries.</p>
-        <% end %>
-      </section>
-    <% end %>
-
-    <% if @edition.can_apply_to_subset_of_nations? %>
-      <section class="container">
-        <h1>Excluded Nations</h1>
-        <% if @edition.nation_inapplicabilities.any? %>
-          <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: @edition.nation_inapplicabilities} %>
-        <% else %>
-          <p>This document applies to the whole of the UK.</p>
-        <% end %>
-      </section>
-    <% end %>
-
-    <% if @edition.can_be_related_to_policies? %>
-      <section class="container">
-        <h1>Related Policies</h1>
-        <% if @edition.related_policies.any? %>
-          <%= render partial: "admin/editions/related", locals: {related_editions: @edition.related_policies} %>
-        <% else %>
-          <p>This document doesn't have any related documents.</p>
-        <% end %>
-      </section>
-    <% end %>
-
-    <% if @edition.images.any? %>
-      <section class="images image_feature_mask">
-        <h1>Images</h1>
-        <% @edition.images.each do |image| %>
-          <%= image_tag image.url, id: dom_id(image) %>
-        <% end %>
-      </section>
-    <% end %>
-  </div>
 </div>
 
-<div class="g3f">
-  <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+<div class="span4">
+
+  <span class="back">
+    back to <%= link_to 'document list', admin_editions_path %>
+  </span>
+
+  <%= render partial: "rejected_by", locals: { edition: @edition } %>
+  <%= render partial: 'navigation', locals: { edition: @edition } %>
+
+  <% if @edition.is_a?(ConsultationResponse) %>
+    <section>
+      <h1>Consultation</h1>
+      <%= content_tag_for :p, @edition.consultation do %>
+        This is a response to the consultation
+        <%= link_to @edition.consultation.title, admin_consultation_path(@edition.consultation) %>
+      <% end %>
+    </section>
+  <% elsif @edition.is_a?(Speech) %>
+    <p class="details">
+      <span class="type"><%= @edition.speech_type.name %></span>
+      for speech delivered by
+      <span class="ministerial_role">
+        <%= link_to @edition.role_appointment.role, @edition.role_appointment.role %>
+      </span>
+      on
+      <span class="delivered_on"><%= @edition.delivered_on.to_s(:long_ordinal) %></span>
+      at
+      <span class="location"><%= @edition.location %></span>
+    </p>
+  <% end %>
+
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#associations" data-toggle="tab">Associations</a></li>
+      <li>
+        <a href="#history" data-toggle="tab">
+          History & Notes
+          <span class="badge"><%= @edition.audit_trail.length %></span>
+        </a>
+      </li>
+      <% if @edition.can_be_fact_checked? %>
+        <li>
+          <a href="#fact-checking" data-toggle="tab">
+            Fact checking
+            <span class="badge badge-warning"><%= @edition.fact_check_requests.pending.count %></span>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="associations">
+
+        <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
+
+        <section>
+          <h1>Organisations</h1>
+          <% if @edition.organisations.any? %>
+            <%= render partial: "admin/organisations/list", locals: {organisations: @edition.organisations} %>
+          <% else %>
+            <p>This document isn't assigned to any organisations.</p>
+          <% end %>
+        </section>
+
+        <% if @edition.can_be_associated_with_policy_topics? %>
+          <section>
+            <h1>Policy topics</h1>
+            <% if @edition.policy_topics.any? %>
+              <%= render partial: "policy_topics/list", locals: {policy_topics: @edition.policy_topics} %>
+            <% else %>
+              <p>This document isn't assigned to any policy topics.</p>
+            <% end %>
+          </section>
+        <% end %>
+
+        <% if @edition.can_be_associated_with_ministers? %>
+          <section>
+            <h1>Ministers</h1>
+            <% if @edition.ministerial_roles.any? %>
+              <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @edition.ministerial_roles} %>
+            <% else %>
+              <p>This document isn't assigned to any ministers.</p>
+            <% end %>
+          </section>
+        <% end %>
+
+        <% if @edition.can_be_associated_with_countries? %>
+          <section>
+            <h1>Countries</h1>
+            <% if @edition.countries.any? %>
+              <%= render partial: "admin/countries/list", locals: {countries: @edition.countries} %>
+            <% else %>
+              <p>This document isn't assigned to any countries.</p>
+            <% end %>
+          </section>
+        <% end %>
+
+        <% if @edition.can_apply_to_subset_of_nations? %>
+          <section>
+            <h1>Excluded Nations</h1>
+            <% if @edition.nation_inapplicabilities.any? %>
+              <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: @edition.nation_inapplicabilities} %>
+            <% else %>
+              <p>This document applies to the whole of the UK.</p>
+            <% end %>
+          </section>
+        <% end %>
+
+        <% if @edition.can_be_related_to_policies? %>
+          <section>
+            <h1>Related Policies</h1>
+            <% if @edition.related_policies.any? %>
+              <%= render partial: "admin/editions/related", locals: {related_editions: @edition.related_policies} %>
+            <% else %>
+              <p>This document doesn't have any related documents.</p>
+            <% end %>
+          </section>
+        <% end %>
+
+        <% if @edition.images.any? %>
+          <section class="images image_feature_mask">
+            <h1>Images</h1>
+            <% @edition.images.each do |image| %>
+              <%= image_tag image.url, id: dom_id(image) %>
+            <% end %>
+          </section>
+        <% end %>
+      </div>
+
+      <div class="tab-pane" id="history">
+        <section class="audit-trail">
+          <h1>Activity</h1>
+          <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
+          <ul>
+          <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
+          </ul>
+        </section>
+      </div>
+
+      <% if @edition.can_be_fact_checked? %>
+        <div class="tab-pane" id="fact-checking">
+          <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

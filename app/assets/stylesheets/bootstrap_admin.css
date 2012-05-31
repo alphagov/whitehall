@@ -1,0 +1,42 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require bootstrap
+ *= require chosen
+ *= require shared/document_view
+ *= require admin/document_view
+ *= require admin/audit_trail
+*/
+
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+.sidebar-nav {
+  padding: 9px 0;
+}
+
+.back {
+  margin-bottom: 1em;
+  display: block;
+}
+
+nav.actions {
+  margin-bottom: 2em;
+}
+
+form.button_to {
+  margin-bottom: 0;
+  display: inline;
+}
+
+form.button_to div {
+  display: inline;
+}
+
+#associations section h1,
+#activity section h1 {
+  font-size: 20px;
+}

@@ -22,8 +22,12 @@ module Admin::UrlHelper
   def admin_header_link(name, path, path_matcher = nil)
     path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
     if user_signed_in?
-      link_to name, path, class: current_link_class(path_matcher)
+      content_tag(:li, link_to(name, path), class: active_link_class(path_matcher))
     end
+  end
+
+  def active_link_class(path_matcher)
+    request.path =~ path_matcher ? 'active' : ''
   end
 
   def website_home_url

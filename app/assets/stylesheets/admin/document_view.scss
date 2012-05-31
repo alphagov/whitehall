@@ -1,0 +1,87 @@
+@import "../shared/lists";
+@import "../shared/grid";
+@import "../shared/document_view";
+@import "../shared/typography";
+@import "flash_notices";
+
+.document_view {
+  border: 1px solid #ddd;
+  border-bottom: 3px solid #ccc;
+  background: #fcfcfc;
+  padding: 3em 10% 1em 10%;
+  margin-bottom: 2em;
+  overflow: auto;
+
+  .title {
+    @include type-32;
+  }
+
+  .summary {
+    @include type-14;
+    font-style: italic;
+  }
+
+  .body {
+
+    h2 {
+      @include scaled_type(24);
+      @include scaled_margin_top(16);
+    }
+
+    h3 {
+      @include type-18;
+      margin-bottom: 0;
+    }
+
+    p, ul, ol {
+      @include type-14;
+    }
+    ul, ol {
+      ul, ol {
+        margin-top: #{$baseline_in_px / 14}em;
+      }
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
+    li {
+      @include type-16;
+      margin-bottom: 0.75em;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+
+    table {
+      tr {
+        padding: 0;
+
+        td {
+          padding: 0;
+          @include type-14;
+          border: 1px solid #ddd;
+          padding: 0 0.75em;
+        }
+      }
+    }
+  }
+
+  pre.body {
+    @include type-14;
+  }
+
+  .written_by {
+    font-style: italic;
+    .author {
+      font-style: normal;
+      font-weight: bold;
+    }
+  }
+}
