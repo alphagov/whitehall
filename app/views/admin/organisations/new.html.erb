@@ -1,7 +1,11 @@
 <% page_title "New Organisation" %>
-<div class="g2 first">
+<div class="span8">
   <section>
     <h1>New organisation</h1>
     <%= render partial: "form", locals: {organisation: @organisation} %>
   </section>
+</div>
+
+<div class="span4">
+  <%= render partial: "sidebar" %>
 </div>

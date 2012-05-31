@@ -17,7 +17,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     get :new
     assert_template "organisations/new"
     assert_select "textarea[name='organisation[description]']"
-    assert_select "textarea[name='organisation[about_us]'].previewable.govspeak"
+    assert_select "textarea[name='organisation[about_us]'].previewable"
     assert_select "#govspeak_help"
     assert_select parent_organisations_list_selector
     assert_select organisation_type_list_selector

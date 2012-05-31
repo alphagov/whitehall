@@ -1,37 +1,32 @@
 <% page_title "Organisations" %>
-<section class="resource_list">
-  <div class="collection">
+<nav class="actions">
+  <%= link_to "Create Organisation", new_admin_organisation_path, class: "btn new_resource", title: "Create an Organisation" %>
+</nav>
 
-    <nav class="actions">
-      <%= link_to "Create Organisation", new_admin_organisation_path, class: "button new_resource", title: "Create an Organisation" %>
-    </nav>
+<h1>Organisation</h1>
 
-    <h1>Organisation</h1>
-
-    <table class="organisations">
-      <thead>
-        <tr>
-          <th>Acronym</th>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @organisations.each do |organisation| %>
-          <%= content_tag_for(:tr, organisation) do %>
-            <td class="acronym">
-              <% if organisation.acronym.present? %>
-                <%= link_to organisation.acronym, edit_admin_organisation_path(organisation), title: "Edit organisation #{organisation.acronym}" %>
-              <% end %>
-            </td>
-            <td class="name"><%= link_to organisation.name, edit_admin_organisation_path(organisation), title: "Edit organisation #{organisation.name}" %></td>
+<table class="organisations table table-striped">
+  <thead>
+    <tr>
+      <th>Acronym</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @organisations.each do |organisation| %>
+      <%= content_tag_for(:tr, organisation) do %>
+        <td class="acronym">
+          <% if organisation.acronym.present? %>
+            <%= link_to organisation.acronym, edit_admin_organisation_path(organisation), title: "Edit organisation #{organisation.acronym}" %>
           <% end %>
-        <% end %>
-        <% if @organisations.empty? %>
-          <tr>
-            <td colspan="3">No organisation have been created.</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</section>
+        </td>
+        <td class="name"><%= link_to organisation.name, edit_admin_organisation_path(organisation), title: "Edit organisation #{organisation.name}" %></td>
+      <% end %>
+    <% end %>
+    <% if @organisations.empty? %>
+      <tr>
+        <td colspan="3">No organisation have been created.</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
