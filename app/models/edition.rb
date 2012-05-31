@@ -44,7 +44,7 @@ class Edition < ActiveRecord::Base
   end
 
   def significant_changed_attributes
-    changed - %w(state updated_at featured)
+    changed - %w(state updated_at featured force_published)
   end
 
   searchable title: :title, link: -> d { d.public_document_path(d) }, content: :indexable_content,

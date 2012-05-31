@@ -329,5 +329,4 @@ That's all
     get :show, id: policy.doc_identity
     refute_select_policy_section_list
   end
-
 end

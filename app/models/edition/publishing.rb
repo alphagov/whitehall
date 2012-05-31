@@ -73,4 +73,14 @@ module Edition::Publishing
       false
     end
   end
+
+  def clear_force_published!(user)
+    if force_published_can_be_cleared_by?(user)
+      self.force_published = false
+      save!
+    else
+      errors.add(:base, reason_to_prevent_force_published_being_cleared_by(user))
+      false
+    end
+  end
 end

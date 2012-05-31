@@ -1088,6 +1088,29 @@ module AdminEditionControllerTestHelpers
         get :show, id: edition
         refute_select force_publish_form_selector(edition)
       end
+
+      test "show should indicate a force-published document" do
+        edition = create("published_#{edition_type}", force_published: true)
+        get :show, id: edition
+        assert_select ".force_published"
+      end
+
+      test "show should not display the clear_force_published form for the creator" do
+        creator = create(:departmental_editor, name: "Fred")
+        login_as(creator)
+        edition = create("published_#{edition_type}", force_published: true, creator: creator)
+        get :show, id: edition
+        refute_select ".force_published form input"
+      end
+
+      test "show should display the clear_force_published form for a departmental editor who wasn't the creator" do
+        creator = create(:departmental_editor, name: "Fred")
+        login_as(creator)
+        edition = create("published_#{edition_type}", force_published: true, creator: creator)
+        login_as(create(:departmental_editor, name: "Another Editor"))
+        get :show, id: edition
+        assert_select ".force_published form input"
+      end
     end
 
     def should_allow_organisations_for(edition_type)
