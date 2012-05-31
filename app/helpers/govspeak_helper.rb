@@ -8,7 +8,7 @@ module GovspeakHelper
         explanation = state = "deleted"
       else
         state = latest_edition.state
-        explanation = link_to(state, admin_document_path(latest_edition))
+        explanation = link_to(state, admin_edition_path(latest_edition))
       end
 
       content_tag :span, class: "#{state}_link" do

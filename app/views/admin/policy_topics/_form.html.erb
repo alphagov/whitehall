@@ -16,7 +16,7 @@
     <%= policy_topic_form.fields_for :policy_topic_memberships, policy_topic.policy_topic_memberships.for_type(Policy).published do |policy_topic_membership_form| %>
       <% policy = policy_topic_membership_form.object.policy %>
       <div id="<%= dom_id(policy) %>">
-        <%= policy_topic_membership_form.text_field :ordering, label_text: link_to(policy.title, admin_document_path(policy)), class: "ordering" %>
+        <%= policy_topic_membership_form.text_field :ordering, label_text: link_to(policy.title, admin_edition_path(policy)), class: "ordering" %>
         <p>
           <%= [pluralize(Publication.published.related_to(policy).count, "publication"),
                pluralize(NewsArticle.published.related_to(policy).count, "news article")].to_sentence %>

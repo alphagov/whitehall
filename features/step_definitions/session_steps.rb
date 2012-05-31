@@ -22,7 +22,7 @@ end
 
 Given /^I try to access a page that requires authentication$/ do
   draft_policy = create(:draft_policy)
-  @path_requiring_authentication = admin_document_path(draft_policy)
+  @path_requiring_authentication = admin_edition_path(draft_policy)
   visit @path_requiring_authentication
 end
 

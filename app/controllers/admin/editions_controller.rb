@@ -26,7 +26,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def create
     if @edition.save
-      redirect_to admin_document_path(@edition), notice: "The document has been saved"
+      redirect_to admin_edition_path(@edition), notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
       build_image
@@ -40,7 +40,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     if @edition.edit_as(current_user, params[:edition])
-      redirect_to admin_document_path(@edition),
+      redirect_to admin_edition_path(@edition),
         notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
@@ -91,7 +91,7 @@ class Admin::EditionsController < Admin::BaseController
   def prevent_modification_of_unmodifiable_edition
     if @edition.unmodifiable?
       notice = "You cannot modify a #{@edition.state} #{@edition.type.titleize}"
-      redirect_to admin_document_path(@edition), notice: notice
+      redirect_to admin_edition_path(@edition), notice: notice
     end
   end
 

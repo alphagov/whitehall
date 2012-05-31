@@ -242,7 +242,7 @@ end
 Then /^I should see in the preview that "([^"]*)" does have an admin link to the (draft|published) edition of "([^"]*)"$/ do |source_title, state, target_title|
   visit_document_preview source_title
   target_edition = Edition.send(state).find_by_title!(target_title)
-  assert has_link?(state, href: admin_document_path(target_edition))
+  assert has_link?(state, href: admin_edition_path(target_edition))
 end
 
 Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|

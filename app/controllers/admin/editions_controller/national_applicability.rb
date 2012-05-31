@@ -11,7 +11,7 @@ module Admin::EditionsController::NationalApplicability
     params[:edition][:nation_inapplicabilities_attributes] ||= {}
     @edition = edition_class.new(params[:edition].merge(creator: current_user))
     if @edition.save
-      redirect_to admin_document_path(@edition), notice: "The document has been saved"
+      redirect_to admin_edition_path(@edition), notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
       build_edition_attachment
@@ -24,7 +24,7 @@ module Admin::EditionsController::NationalApplicability
   def update
     params[:edition][:nation_inapplicabilities_attributes] ||= {}
     if @edition.edit_as(current_user, params[:edition])
-      redirect_to admin_document_path(@edition),
+      redirect_to admin_edition_path(@edition),
         notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"

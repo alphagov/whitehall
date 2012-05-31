@@ -28,7 +28,7 @@ end
 
 When /^I edit the speech "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   speech = Speech.find_by_title!(original_title)
-  visit admin_document_path(speech)
+  visit admin_edition_path(speech)
   click_link "Edit"
   fill_in "Title", with: new_title
   click_button "Save"

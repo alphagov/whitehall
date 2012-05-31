@@ -8,7 +8,7 @@ class Admin::EditorialRemarksController < Admin::BaseController
     @edition = Edition.find(params[:edition_id])
     @editorial_remark = @edition.editorial_remarks.build(params[:editorial_remark].merge(author: current_user))
     if @editorial_remark.save
-      redirect_to admin_document_path(@edition)
+      redirect_to admin_edition_path(@edition)
     else
       render "new"
     end
