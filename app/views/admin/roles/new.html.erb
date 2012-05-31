@@ -1,7 +1,11 @@
 <% page_title "New role" %>
-<div class="g2 first">
+<div class="span8">
   <section>
     <h1>New role</h1>
     <%= render partial: "form", locals: {role: @role} %>
   </section>
+</div>
+
+<div class="span4">
+  <%= render partial: "sidebar" %>
 </div>
