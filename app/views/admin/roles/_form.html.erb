@@ -12,7 +12,7 @@
   </fieldset>
 
   <fieldset>
-    <%= form.text_area :responsibilities, "class" => "previewable", help: true %>
+    <%= form.text_area :responsibilities, class: "previewable" %>
   </fieldset>
 
   <%= form.fields_for :role_appointments, role.role_appointments do |ra_form| %>
