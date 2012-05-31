@@ -78,7 +78,7 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_select_in_html(html, "abbr.created_at[title='#{created_at.iso8601}']", text: "human-friendly")
   end
 
-  test "should return the main type of the document" do
+  test "should return the main type of the edition" do
     assert_equal "Consultation", human_friendly_edition_type(build(:consultation))
     assert_equal "News article", human_friendly_edition_type(build(:news_article))
     assert_equal "Policy", human_friendly_edition_type(build(:policy))
