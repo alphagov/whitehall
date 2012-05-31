@@ -47,12 +47,12 @@ class PolicyTest < ActiveSupport::TestCase
   end
 
   test "stub status doesn't affect slug generation" do
-    assert_equal "stub-title", create(:policy, title: "stub title", stub: true).doc_identity.slug
+    assert_equal "stub-title", create(:policy, title: "stub title", stub: true).document.slug
   end
 
   test "#destroy should remove edition relations to other editions" do
     edition = create(:draft_policy)
-    relationship = create(:edition_relation, doc_identity: edition.doc_identity)
+    relationship = create(:edition_relation, document: edition.document)
     edition.destroy
     assert_equal nil, EditionRelation.find_by_id(relationship.id)
   end

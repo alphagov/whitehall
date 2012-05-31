@@ -32,7 +32,7 @@ module Edition::Publishing
 
   def change_note_required?
     return false if new_record?
-    doc_identity.published_edition.present?
+    document.published_edition.present?
   end
 
   def reason_to_prevent_publication_by(user, options = {})

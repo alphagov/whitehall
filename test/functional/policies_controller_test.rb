@@ -15,7 +15,7 @@ class PoliciesControllerTest < ActionController::TestCase
     northern_ireland_inapplicability = published_policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
     scotland_inapplicability = published_policy.nation_inapplicabilities.create!(nation: Nation.scotland)
 
-    get :show, id: published_policy.doc_identity
+    get :show, id: published_policy.document
 
     assert_select inapplicable_nations_selector do
       assert_select "p", "This policy does not apply to Northern Ireland and Scotland."
@@ -29,7 +29,7 @@ class PoliciesControllerTest < ActionController::TestCase
   test "should not explicitly say that policy applies to the whole of the UK" do
     published_policy = create(:published_policy)
 
-    get :show, id: published_policy.doc_identity
+    get :show, id: published_policy.document
 
     refute_select inapplicable_nations_selector
   end
@@ -41,7 +41,7 @@ class PoliciesControllerTest < ActionController::TestCase
     news_article = create(:published_news_article, related_policies: [policy])
     speech = create(:published_speech, related_policies: [policy])
 
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
 
     assert_select "#recently-changed" do
       assert_select_object publication
@@ -56,7 +56,7 @@ class PoliciesControllerTest < ActionController::TestCase
     policy = create(:published_policy)
     speech = create(:published_speech, published_at: published_at, related_policies: [policy])
 
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
 
     assert_select "#recently-changed" do
       assert_select_object speech do
@@ -72,7 +72,7 @@ class PoliciesControllerTest < ActionController::TestCase
     first_edition = create(:published_news_article, related_policies: [policy])
     updated_edition = create(:published_news_article, related_policies: [policy], published_at: Time.zone.now, first_published_at: 1.day.ago)
 
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
 
     assert_select_object first_edition do
       assert_select '.metadata', text: /Published/
@@ -90,7 +90,7 @@ class PoliciesControllerTest < ActionController::TestCase
     news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
     speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
 
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
 
     assert_equal [consultation, speech, news_article, publication], assigns(:recently_changed_documents)
   end
@@ -99,7 +99,7 @@ class PoliciesControllerTest < ActionController::TestCase
     published_policy = create(:published_policy)
     related_publication = create(:published_publication, title: "Voting Patterns", related_policies: [published_policy])
 
-    get :show, id: published_policy.doc_identity
+    get :show, id: published_policy.document
 
     assert_select related_publications_selector do
       assert_select_object related_publication
@@ -110,7 +110,7 @@ class PoliciesControllerTest < ActionController::TestCase
     published_policy = create(:published_policy)
     related_publication = create(:draft_publication, title: "Voting Patterns", related_policies: [published_policy])
 
-    get :show, id: published_policy.doc_identity
+    get :show, id: published_policy.document
 
     refute_select related_publications_selector
   end
@@ -120,7 +120,7 @@ class PoliciesControllerTest < ActionController::TestCase
     related_consultation = create(:published_consultation, title: "Consultation on Voting Patterns",
                                   related_policies: [published_policy])
 
-    get :show, id: published_policy.doc_identity
+    get :show, id: published_policy.document
 
     assert_select related_consultations_selector do
       assert_select_object related_consultation
@@ -132,7 +132,7 @@ class PoliciesControllerTest < ActionController::TestCase
     related_consultation = create(:draft_consultation, title: "Consultation on Voting Patterns",
                                   related_policies: [published_policy])
 
-    get :show, id: published_policy.doc_identity
+    get :show, id: published_policy.document
 
     refute_select related_consultations_selector
   end
@@ -142,7 +142,7 @@ class PoliciesControllerTest < ActionController::TestCase
     related_news_article = create(:published_news_article, title: "News about Voting Patterns",
                                   related_policies: [published_policy])
 
-    get :show, id: published_policy.doc_identity
+    get :show, id: published_policy.document
 
     assert_select related_news_articles_selector do
       assert_select_object related_news_article
@@ -154,7 +154,7 @@ class PoliciesControllerTest < ActionController::TestCase
     related_news_article = create(:draft_news_article, title: "News about Voting Patterns",
                                   related_policies: [published_policy])
 
-    get :show, id: published_policy.doc_identity
+    get :show, id: published_policy.document
 
     refute_select related_news_articles_selector
   end
@@ -164,17 +164,17 @@ class PoliciesControllerTest < ActionController::TestCase
     first_supporting_page = create(:supporting_page, edition: published_edition)
     second_supporting_page = create(:supporting_page, edition: published_edition)
 
-    get :show, id: published_edition.doc_identity
+    get :show, id: published_edition.document
 
     assert_select ".contextual_info nav.supporting_pages" do
-      assert_select "a[href='#{policy_supporting_page_path(published_edition.doc_identity, first_supporting_page)}']", text: first_supporting_page.title
-      assert_select "a[href='#{policy_supporting_page_path(published_edition.doc_identity, second_supporting_page)}']", text: second_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(published_edition.document, first_supporting_page)}']", text: first_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(published_edition.document, second_supporting_page)}']", text: second_supporting_page.title
     end
   end
 
   test "should apply an active class to the policy page navigation heading" do
     published_edition = create(:published_policy)
-    get :show, id: published_edition.doc_identity
+    get :show, id: published_edition.document
 
     assert_select "section.contextual_info a.active",
       text: published_edition.title
@@ -183,7 +183,7 @@ class PoliciesControllerTest < ActionController::TestCase
   test "doesn't show supporting pages list when empty" do
     published_edition = create(:published_policy)
 
-    get :show, id: published_edition.doc_identity
+    get :show, id: published_edition.document
 
     refute_select supporting_pages_selector
   end
@@ -191,15 +191,15 @@ class PoliciesControllerTest < ActionController::TestCase
   test "should render the content using govspeak markup" do
     published_policy = create(:published_policy, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :show, id: published_policy.doc_identity
+      get :show, id: published_policy.document
     end
 
     assert_select ".body", text: "body-in-html"
   end
 
   test "should render 404 if the document doesn't have a published edition" do
-    doc_identity = create(:doc_identity)
-    get :show, id: doc_identity
+    document = create(:document)
+    get :show, id: document
 
     assert_response :not_found
   end
@@ -207,9 +207,9 @@ class PoliciesControllerTest < ActionController::TestCase
   test "should display the published edition" do
     published_edition = create(:published_policy)
     draft = published_edition.create_draft(create(:user))
-    doc_identity = draft.doc_identity
+    document = draft.document
 
-    get :show, id: doc_identity
+    get :show, id: document
 
     assert_response :success
     assert_equal published_edition, assigns(:document)
@@ -220,7 +220,7 @@ class PoliciesControllerTest < ActionController::TestCase
     second_policy_topic = create(:policy_topic)
     edition = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
 
-    get :show, id: edition.doc_identity
+    get :show, id: edition.document
 
     assert_select "#document_topics li.policy_topic a", text: first_policy_topic.name
     assert_select "#document_topics li.policy_topic a", text: second_policy_topic.name
@@ -231,7 +231,7 @@ class PoliciesControllerTest < ActionController::TestCase
     second_org = create(:organisation, logo_formatted_name: "second")
     edition = create(:published_policy, organisations: [first_org, second_org])
 
-    get :show, id: edition.doc_identity
+    get :show, id: edition.document
 
     assert_select "#document_organisations li.organisation a", text: first_org.logo_formatted_name
     assert_select "#document_organisations li.organisation a", text: second_org.logo_formatted_name
@@ -242,15 +242,15 @@ class PoliciesControllerTest < ActionController::TestCase
     appointment = create(:role_appointment, person: create(:person, forename: "minister-name"), role: role)
     edition = create(:published_policy, ministerial_roles: [appointment.role])
 
-    get :show, id: edition.doc_identity
+    get :show, id: edition.document
 
     assert_select "#document_ministers a.minister", text: "minister-name"
   end
 
   test "shows link to policy overview" do
     policy = create(:published_policy)
-    get :show, id: policy.doc_identity
-    assert_select "a[href='#{policy_path(policy.doc_identity)}#policy_view']", text: policy.title
+    get :show, id: policy.document
+    assert_select "a[href='#{policy_path(policy.document)}#policy_view']", text: policy.title
   end
 
   test "shows link to each policy section in the markdown" do
@@ -268,7 +268,7 @@ More content
 That's all
 })
 
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
     assert_select_policy_section_link policy, 'First Section', 'first-section'
     assert_select_policy_section_link policy, 'Another Bit', 'another-bit'
     assert_select_policy_section_link policy, 'Final Part', 'final-part'
@@ -278,13 +278,13 @@ That's all
     policy = create(:published_policy)
     related_news_article = create(:published_news_article, title: "News about Voting Patterns",
                                   related_policies: [policy])
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
     assert_select_policy_section_link policy, 'Related news', 'related-news-articles'
   end
 
   test "show doesn't link to related news articles on policy if none exist" do
     policy = create(:published_policy)
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
     refute_select_policy_section_list
   end
 
@@ -292,13 +292,13 @@ That's all
     policy = create(:published_policy)
     related_speech = create(:published_speech, title: "Speech about Voting Patterns",
                             related_policies: [policy])
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
     assert_select_policy_section_link policy, 'Related speeches', 'related-speeches'
   end
 
   test "show doesn't link to related speeches on policy if none exist" do
     policy = create(:published_policy)
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
     refute_select_policy_section_list
   end
 
@@ -306,13 +306,13 @@ That's all
     policy = create(:published_policy)
     related_consultation = create(:published_consultation, title: "Consultation about Voting Patterns",
                                   related_policies: [policy])
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
     assert_select_policy_section_link policy, 'Related consultations', 'related-consultations'
   end
 
   test "show doesn't link to related consultations on policy if none exist" do
     policy = create(:published_policy)
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
     refute_select_policy_section_list
   end
 
@@ -320,13 +320,13 @@ That's all
     policy = create(:published_policy)
     related_publication = create(:published_publication, title: "Consultation about Voting Patterns",
                                  related_policies: [policy])
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
     assert_select_policy_section_link policy, 'Related publications', 'related-publications'
   end
 
   test "show doesn't link to related publications on policy if none exist" do
     policy = create(:published_policy)
-    get :show, id: policy.doc_identity
+    get :show, id: policy.document
     refute_select_policy_section_list
   end
 end

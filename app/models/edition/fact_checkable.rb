@@ -5,7 +5,7 @@ module Edition::FactCheckable
     has_many :fact_check_requests, foreign_key: :edition_id, dependent: :destroy
 
     def all_completed_fact_check_requests
-      FactCheckRequest.completed.for_editions(doc_identity.editions).order("updated_at DESC")
+      FactCheckRequest.completed.for_editions(document.editions).order("updated_at DESC")
     end
   end
 

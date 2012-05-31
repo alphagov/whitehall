@@ -7,7 +7,7 @@ class EditionRelationTest < ActiveSupport::TestCase
   end
 
   test "should be invalid without a doc identity" do
-    edition_relation = build(:edition_relation, doc_identity: nil)
+    edition_relation = build(:edition_relation, document: nil)
     refute edition_relation.valid?
   end
 
@@ -15,7 +15,7 @@ class EditionRelationTest < ActiveSupport::TestCase
     existing_relation = create(:edition_relation)
     relation = build(:edition_relation,
       edition: existing_relation.edition,
-      doc_identity: existing_relation.doc_identity
+      document: existing_relation.document
     )
     refute relation.valid?
   end
@@ -29,8 +29,8 @@ class EditionRelationTest < ActiveSupport::TestCase
 
   test "should be valid if one edition is related from two others" do
     policy = create(:policy)
-    existing_relation = create(:edition_relation, doc_identity: policy.doc_identity)
-    relation = build(:edition_relation, doc_identity: policy.doc_identity)
+    existing_relation = create(:edition_relation, document: policy.document)
+    relation = build(:edition_relation, document: policy.document)
     assert relation.valid?
   end
 

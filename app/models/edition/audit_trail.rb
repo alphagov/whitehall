@@ -6,7 +6,7 @@ module Edition::AuditTrail
   end
 
   def audit_trail
-    doc_identity.editions.order("created_at asc").map.with_index do |edition, i|
+    document.editions.order("created_at asc").map.with_index do |edition, i|
       versions = edition.versions.map { |v|
         VersionAuditEntry.new(i, edition, v)
       }

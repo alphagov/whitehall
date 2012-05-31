@@ -11,13 +11,13 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
   test "shows published news article" do
     news_article = create(:published_news_article)
-    get :show, id: news_article.doc_identity
+    get :show, id: news_article.document
     assert_response :success
   end
 
   test "renders the news article summary from plain text" do
     news_article = create(:published_news_article, summary: 'plain text & so on')
-    get :show, id: news_article.doc_identity
+    get :show, id: news_article.document
 
     assert_select ".summary", text: "plain text &amp; so on"
   end
@@ -25,7 +25,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
   test "renders the news article body using govspeak" do
     news_article = create(:published_news_article, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :show, id: news_article.doc_identity
+      get :show, id: news_article.document
     end
 
     assert_select ".body", text: "body-in-html"
@@ -34,7 +34,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
   test "renders the news article notes to editors using govspeak" do
     news_article = create(:published_news_article, notes_to_editors: "notes-to-editors-in-govspeak")
     govspeak_transformation_fixture default: "\n", "notes-to-editors-in-govspeak" => "notes-to-editors-in-html" do
-      get :show, id: news_article.doc_identity
+      get :show, id: news_article.document
     end
 
     assert_select "#{notes_to_editors_selector}", text: /notes-to-editors-in-html/
@@ -42,14 +42,14 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
   test "excludes the notes to editors section if they're empty" do
     news_article = create(:published_news_article, notes_to_editors: "")
-    get :show, id: news_article.doc_identity
+    get :show, id: news_article.document
     refute_select "#{notes_to_editors_selector}"
   end
 
   test "shows when news article was first published" do
     news_article = create(:published_news_article, published_at: 10.days.ago)
 
-    get :show, id: news_article.doc_identity
+    get :show, id: news_article.document
 
     assert_select ".meta .metadata" do
       assert_select ".first_published_at[title='#{news_article.first_published_at.iso8601}']"
@@ -64,7 +64,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
     updated_news_article.change_note = "change-note"
     updated_news_article.publish_as(editor, force: true)
 
-    get :show, id: updated_news_article.doc_identity
+    get :show, id: updated_news_article.document
 
     assert_select ".meta .metadata" do
       assert_select ".published_at[title='#{updated_news_article.published_at.iso8601}']"

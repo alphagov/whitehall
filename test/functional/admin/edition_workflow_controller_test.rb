@@ -4,8 +4,8 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   setup do
-    @edition = build(:submitted_policy, doc_identity: build(:doc_identity))
-    @edition.doc_identity.stubs(:to_param).returns('policy-slug')
+    @edition = build(:submitted_policy, document: build(:document))
+    @edition.document.stubs(:to_param).returns('policy-slug')
     @edition.stubs(id: 1234, new_record?: false)
     @user = login_as(:departmental_editor)
     Edition.stubs(:find).with(@edition.to_param).returns(@edition)
@@ -33,7 +33,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     @edition.stubs(:publish_as).returns(true)
     @edition.stubs(:authors).returns([author])
     email = stub('email')
-    Notifications.expects(:edition_published).with(author, @edition, admin_policy_url(@edition), policy_url(@edition.doc_identity)).returns(email)
+    Notifications.expects(:edition_published).with(author, @edition, admin_policy_url(@edition), policy_url(@edition.document)).returns(email)
     email.expects(:deliver)
     post :publish, id: @edition, lock_version: 1
   end

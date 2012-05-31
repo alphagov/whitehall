@@ -3,32 +3,32 @@ module Edition::Identifiable
   extend Forwardable
 
   included do
-    belongs_to :doc_identity, foreign_key: :document_id
-    validates :doc_identity, presence: true
-    before_validation :set_doc_identity, on: :create
-    before_validation :update_doc_identity_slug, on: :update
-    before_validation :set_document_type_on_doc_identity
+    belongs_to :document, foreign_key: :document_id
+    validates :document, presence: true
+    before_validation :set_document, on: :create
+    before_validation :update_document_slug, on: :update
+    before_validation :set_document_type_on_document
   end
 
-  def_delegators :doc_identity, :slug, :editions_ever_published
-  def_delegator :doc_identity, :published?, :linkable?
+  def_delegators :document, :slug, :editions_ever_published
+  def_delegator :document, :published?, :linkable?
 
-  def set_doc_identity
-    self.doc_identity ||= DocIdentity.new(sluggable_string: self.sluggable_title)
+  def set_document
+    self.document ||= Document.new(sluggable_string: self.sluggable_title)
   end
 
-  def update_doc_identity_slug
-    self.doc_identity.update_slug_if_possible(self.sluggable_title)
+  def update_document_slug
+    self.document.update_slug_if_possible(self.sluggable_title)
   end
 
-  def set_document_type_on_doc_identity
-    self.doc_identity.set_document_type(type) if doc_identity.present?
+  def set_document_type_on_document
+    self.document.set_document_type(type) if document.present?
   end
 
   module ClassMethods
     def published_as(id)
       begin
-        identity = DocIdentity.where(document_type: sti_name).find(id)
+        identity = Document.where(document_type: sti_name).find(id)
         identity && identity.published_edition
       rescue ActiveRecord::RecordNotFound
         nil

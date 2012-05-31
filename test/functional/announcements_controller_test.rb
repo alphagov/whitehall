@@ -179,9 +179,9 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   def announcement_path(announcement)
     if announcement.is_a?(NewsArticle)
-      news_article_path(announcement.doc_identity)
+      news_article_path(announcement.document)
     else
-      speech_path(announcement.doc_identity)
+      speech_path(announcement.document)
     end
   end
 

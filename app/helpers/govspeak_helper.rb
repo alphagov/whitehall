@@ -2,7 +2,7 @@ module GovspeakHelper
 
   def govspeak_to_admin_html(text, images = [])
     markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, edition|
-      latest_edition = edition && edition.doc_identity.latest_edition
+      latest_edition = edition && edition.document.latest_edition
       if latest_edition.nil?
         replacement_html = content_tag(:del, replacement_html)
         explanation = state = "deleted"

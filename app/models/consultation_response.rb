@@ -1,16 +1,16 @@
 class ConsultationResponse < Edition
   include Edition::Attachable
 
-  belongs_to :consultation_doc_identity, foreign_key: :consultation_document_id, class_name: 'DocIdentity'
+  belongs_to :consultation_document, foreign_key: :consultation_document_id, class_name: 'Document'
 
   validates_presence_of :consultation
 
   def consultation
-    consultation_doc_identity && consultation_doc_identity.published_edition
+    consultation_document && consultation_document.published_edition
   end
 
   def consultation=(c)
-    self.consultation_doc_identity = c && c.doc_identity
+    self.consultation_document = c && c.document
   end
 
   def consultation_id

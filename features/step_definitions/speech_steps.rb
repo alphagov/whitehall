@@ -56,7 +56,7 @@ end
 
 When /^I visit the speech "([^"]*)"$/ do |title|
   speech = Speech.find_by_title!(title)
-  visit speech_path(speech.doc_identity)
+  visit speech_path(speech.document)
 end
 
 When /^I draft a new speech "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
@@ -75,7 +75,7 @@ Then /^I should see that "([^"]*)" is the speech body$/ do |body|
 end
 
 Then /^the published speech should remain unchanged$/ do
-  visit speech_path(@speech.doc_identity)
+  visit speech_path(@speech.document)
   assert page.has_css?('.page_title', text: @speech.title)
   assert page.has_css?('.body', text: @speech.body)
 end

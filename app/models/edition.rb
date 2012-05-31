@@ -55,8 +55,8 @@ class Edition < ActiveRecord::Base
   end
 
   def refresh_index_if_required
-    if doc_identity.editions.published.any?
-      doc_identity.editions.published.last.update_in_search_index
+    if document.editions.published.any?
+      document.editions.published.last.update_in_search_index
     else
       remove_from_search_index
     end
@@ -160,15 +160,15 @@ class Edition < ActiveRecord::Base
   end
 
   def only_edition?
-    doc_identity.editions.count == 1
+    document.editions.count == 1
   end
 
   def latest_edition
-    doc_identity.editions.latest_edition.first
+    document.editions.latest_edition.first
   end
 
   def latest_published_edition
-    doc_identity.editions.latest_published_edition.first
+    document.editions.latest_published_edition.first
   end
 
   def is_latest_edition?

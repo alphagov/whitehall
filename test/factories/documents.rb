@@ -1,4 +1,4 @@
 FactoryGirl.define do
-  factory :doc_identity do
+  factory :document do
   end
 end

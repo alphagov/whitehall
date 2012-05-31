@@ -9,43 +9,43 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
 
   test 'uses the doc identity to generate the route' do
     policy = create(:policy)
-    assert_equal policy_path(policy.doc_identity), public_document_path(policy)
+    assert_equal policy_path(policy.document), public_document_path(policy)
   end
 
   test 'respects additional path options' do
     policy = create(:policy)
-    assert_equal policy_path(policy.doc_identity, anchor: 'additional'), public_document_path(policy, anchor: 'additional')
+    assert_equal policy_path(policy.document, anchor: 'additional'), public_document_path(policy, anchor: 'additional')
   end
 
   test 'returns the policy_path for Policy instances' do
     policy = create(:policy)
-    assert_equal policy_path(policy.doc_identity), public_document_path(policy)
+    assert_equal policy_path(policy.document), public_document_path(policy)
   end
 
   test 'returns the publication_path for Publication instances' do
     publication = create(:publication)
-    assert_equal publication_path(publication.doc_identity), public_document_path(publication)
+    assert_equal publication_path(publication.document), public_document_path(publication)
   end
 
   test 'returns the news_article_path for NewsArticle instances' do
     news_article = create(:news_article)
-    assert_equal news_article_path(news_article.doc_identity), public_document_path(news_article)
+    assert_equal news_article_path(news_article.document), public_document_path(news_article)
   end
 
   test 'returns the consultation_path for Consultation instances' do
     consultation = create(:consultation)
-    assert_equal consultation_path(consultation.doc_identity), public_document_path(consultation)
+    assert_equal consultation_path(consultation.document), public_document_path(consultation)
   end
 
   test 'returns the singleton consultation_response_path for ConsultationResponse instances' do
     consultation_response = create(:consultation_response)
-    assert_equal consultation_response_path(consultation_response.consultation.doc_identity), public_document_path(consultation_response)
+    assert_equal consultation_response_path(consultation_response.consultation.document), public_document_path(consultation_response)
   end
 
   test 'uses the doc identity to generate the supporting page route' do
     policy = create(:policy)
     supporting_page = create(:supporting_page, edition: policy)
-    assert_equal policy_supporting_page_path(policy.doc_identity, supporting_page), public_supporting_page_path(policy, supporting_page)
+    assert_equal policy_supporting_page_path(policy.document, supporting_page), public_supporting_page_path(policy, supporting_page)
   end
 
   test 'returns public document URL including host in production environment' do

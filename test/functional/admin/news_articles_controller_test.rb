@@ -42,7 +42,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     post :create, edition: attributes.merge(
       summary: "news-article-summary",
       notes_to_editors: "notes-to-editors",
-      related_document_ids: [first_policy.doc_identity.id, second_policy.doc_identity.id]
+      related_document_ids: [first_policy.document.id, second_policy.document.id]
     )
 
     created_news_article = NewsArticle.last
@@ -59,7 +59,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     put :update, id: news_article, edition: {
       summary: "new-news-article-summary",
       notes_to_editors: "new-notes-to-editors",
-      related_document_ids: [second_policy.doc_identity.id]
+      related_document_ids: [second_policy.document.id]
     }
 
     saved_news_article = news_article.reload
