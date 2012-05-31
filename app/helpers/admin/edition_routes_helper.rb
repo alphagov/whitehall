@@ -17,26 +17,14 @@ module Admin::EditionRoutesHelper
   edition_instance_route :admin_edition_fact_check_requests_path
 
   def admin_edition_path(edition, *args)
-    if edition.is_a?(Speech)
-      admin_speech_path(edition, *args)
-    else
-      polymorphic_path([:admin, edition], *args)
-    end
+    polymorphic_path([:admin, edition], *args)
   end
 
   def admin_edition_url(edition, *args)
-    if edition.is_a?(Speech)
-      admin_speech_url(edition, *args)
-    else
-      polymorphic_url([:admin, edition], *args)
-    end
+    polymorphic_url([:admin, edition], *args)
   end
 
   def edit_admin_edition_path(edition, *args)
-    if edition.is_a?(Speech)
-      edit_admin_speech_path(edition, *args)
-    else
-      polymorphic_path([:edit, :admin, edition], *args)
-    end
+    polymorphic_path([:edit, :admin, edition], *args)
   end
 end
