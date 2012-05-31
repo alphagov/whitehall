@@ -24,7 +24,7 @@ module Admin::EditionRoutesHelper
     end
   end
 
-  def admin_document_url(edition, *args)
+  def admin_edition_url(edition, *args)
     if edition.is_a?(Speech)
       admin_speech_url(edition, *args)
     else

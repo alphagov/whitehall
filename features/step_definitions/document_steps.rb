@@ -17,7 +17,7 @@ end
 
 Given /^a (draft|published) document "([^"]*)" exists which links to the "([^"]*)" document$/ do |state, source_title, target_title|
   target_edition = Edition.find_by_title!(target_title)
-  target_url = admin_document_url(target_edition)
+  target_url = admin_edition_url(target_edition)
   body = "[#{target_title}](#{target_url})"
   create("#{state}_policy", title: source_title, body: body)
 end

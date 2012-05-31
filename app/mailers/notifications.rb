@@ -16,7 +16,7 @@ class Notifications < ActionMailer::Base
   def fact_check_response(request, url_options)
     @fact_check_request = request
     @url_options = url_options
-    @comment_url = admin_document_url(request.edition, url_options.merge(anchor: dom_id(request)))
+    @comment_url = admin_edition_url(request.edition, url_options.merge(anchor: dom_id(request)))
 
     from_address = no_reply_email_address
     to_address = request.requestor.email
