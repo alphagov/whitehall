@@ -1,6 +1,6 @@
 class EditionRelation < ActiveRecord::Base
   belongs_to :edition
-  belongs_to :document, foreign_key: :document_id
+  belongs_to :document
 
   validates :edition_id, presence: true
   validates :document, presence: true
