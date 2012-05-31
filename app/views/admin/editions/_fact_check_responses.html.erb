@@ -2,7 +2,7 @@
 <section class="fact_checking group">
   <h1>Fact checking</h1>
   <section class="responses">
-    <% if edition.fact_check_requests.completed.any? %>
+    <% if edition.all_completed_fact_check_requests.any? %>
     <ul id="completed_fact_check_requests">
       <% edition.all_completed_fact_check_requests.each do |fact_check_request| %>
         <%= content_tag_for(:li, fact_check_request) do %>
