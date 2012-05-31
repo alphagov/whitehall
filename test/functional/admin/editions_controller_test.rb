@@ -208,7 +208,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
       expected_url = send("admin_edition_featuring_path", edition)
       assert_select ".featured form.feature[action=#{expected_url}]" do
         refute_select "input[name=_method]"
-        refute_select "input[name='document[featuring_image]']"
+        refute_select "input[name='edition[featuring_image]']"
         assert_select "input[type=submit][value='Feature']"
       end
     end
@@ -219,7 +219,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
       expected_url = send("admin_edition_featuring_path", edition)
       assert_select ".featured form.unfeature[action=#{expected_url}]" do
         assert_select "input[name=_method][value=delete]"
-        refute_select "input[name='document[featuring_image]']"
+        refute_select "input[name='edition[featuring_image]']"
       end
     end
 
