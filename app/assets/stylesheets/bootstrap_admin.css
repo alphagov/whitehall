@@ -8,6 +8,7 @@
  *= require shared/document_view
  *= require admin/document_view
  *= require admin/audit_trail
+ *= require admin/image_feature_mask
 */
 
 body {
@@ -27,6 +28,14 @@ nav.actions {
   margin-bottom: 2em;
 }
 
+#associations section h1,
+#activity section h1 {
+  font-size: 20px;
+}
+
+
+/* forms */
+
 form.button_to {
   margin-bottom: 0;
   display: inline;
@@ -36,7 +45,14 @@ form.button_to div {
   display: inline;
 }
 
-#associations section h1,
-#activity section h1 {
-  font-size: 20px;
+textarea, input {
+  width: 97%;
+}
+
+select.chzn-select {
+  width: 100%;
+}
+
+select.date {
+  width: auto; /*7em;*/
 }

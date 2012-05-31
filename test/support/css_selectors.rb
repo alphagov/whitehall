@@ -78,7 +78,7 @@ module CssSelectors
   end
 
   def featured_consultations_selector
-    "#featured-consultations"
+    ".consultation.featured"
   end
 
   def countries_selector

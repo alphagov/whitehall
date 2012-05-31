@@ -97,5 +97,5 @@ end
 
 Then /^the country called "([^"]*)" should be featured$/ do |name|
   country = Country.find_by_name(name)
-  assert has_css?("#featured-countries #{record_css_selector(country)}")
+  assert has_css?("#{record_css_selector(country)}.featured")
 end

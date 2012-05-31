@@ -22,28 +22,56 @@
     </section>
   </div>
 <% else %>
-  <div class="g3">
-    <div class="g2 first">
-      <section>
-        <h1>Edit <%= @edition.type.titleize %></h1>
+  <div class="span8">
+    <section>
+      <h1>Edit <%= @edition.type.titleize %></h1>
 
-        <%= render partial: "recent_openings", locals: {edition: @edition, recent_openings: @recent_openings} %>
-        <%= render partial: "form", locals: {edition: @edition} %>
-        <%= render partial: "govspeak_help" %>
-      </section>
-    </div>
-
-    <div class="g1">
-      <section class="container audit-trail">
-        <h1>Activity</h1>
-        <ul>
-        <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
-        </ul>
-      </section>
-    </div>
+      <%= render partial: "recent_openings", locals: {edition: @edition, recent_openings: @recent_openings} %>
+      <%= render partial: "form", locals: {edition: @edition} %>
+    </section>
   </div>
-  
-  <div class="g3">
-    <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+
+  <div class="span4">
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#govspeak" data-toggle="tab">Formatting Help</a></li>
+        <li>
+          <a href="#history" data-toggle="tab">
+            History & Notes
+            <span class="badge"><%= @edition.audit_trail.length %></span>
+          </a>
+        </li>
+        <% if @edition.can_be_fact_checked? %>
+          <li>
+            <a href="#fact-checking" data-toggle="tab">
+              Fact checking
+              <span class="badge badge-warning"><%= @edition.fact_check_requests.pending.count %></span>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="govspeak">
+          <section>
+            <%= render partial: "govspeak_help" %>
+          </section>
+        </div>
+        <div class="tab-pane" id="history">
+          <section class="container audit-trail">
+            <h1>Activity</h1>
+            <ul>
+            <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
+            </ul>
+          </section>
+        </div>
+        <% if @edition.can_be_fact_checked? %>
+          <div class="tab-pane" id="fact-checking">
+            <section>
+              <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+            </section>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 <% end %>

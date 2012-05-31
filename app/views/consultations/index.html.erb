@@ -9,29 +9,27 @@
     </header>
 
     <% if consultation = @featured_consultation %>
-      <div class="featured featured-consultation" id="featured-consultations">
-        <%= content_tag_for(:div, consultation) do %>
-          <div class="thumbnail">
-            <%= edition_thumbnail_tag(consultation) %>
-            <% if attachment = consultation.thumbnailable_attachments.first || consultation.attachments.first %>
-              <p>
-                <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>
-                <% if attachment.number_of_pages.present? %>
-                  <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
-                <% end %>
-                <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
-              </p>
-            <% end %>
-          </div>
-          <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
-          <% if consultation.summary.present? %>
-            <p class="summary"><%= consultation.summary %></p>
+      <%= content_tag_for(:div, consultation, class: 'featured') do %>
+        <div class="thumbnail">
+          <%= edition_thumbnail_tag(consultation) %>
+          <% if attachment = consultation.thumbnailable_attachments.first || consultation.attachments.first %>
+            <p>
+              <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>
+              <% if attachment.number_of_pages.present? %>
+                <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
+              <% end %>
+              <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
+            </p>
           <% end %>
-          <p class="time_remaining">
-            <%= consultation_time_remaining_phrase(consultation) %>
-          </p>
+        </div>
+        <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
+        <% if consultation.summary.present? %>
+          <p class="summary"><%= consultation.summary %></p>
         <% end %>
-      </div>
+        <p class="time_remaining">
+          <%= consultation_time_remaining_phrase(consultation) %>
+        </p>
+      <% end %>
     <% end %>
 
     <div class="filter-controls">

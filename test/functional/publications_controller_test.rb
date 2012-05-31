@@ -106,9 +106,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   def assert_featured(doc)
-    assert_select '#featured-publications' do
-      assert_select_object doc
-    end
+    assert_select "#{record_css_selector(doc)}.featured"
   end
 
   test "index displays the featured publication that was published most recently" do
@@ -117,10 +115,8 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select '#featured-publication' do
-      assert_select_object newer_featured_publication
-      refute_select_object older_featured_publication
-    end
+    assert_select "#{record_css_selector(newer_featured_publication)}.featured"
+    refute_select "#{record_css_selector(older_featured_publication)}.featured"
   end
 
   def given_two_publications_in_two_policy_topics
