@@ -52,17 +52,17 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "#destroy also destroys relations to other editions" do
-    identity = create(:document)
-    relationship = create(:edition_relation, document: identity)
-    identity.destroy
+    document = create(:document)
+    relationship = create(:edition_relation, document: document)
+    document.destroy
     assert_equal nil, EditionRelation.find_by_id(relationship.id)
   end
 
   test "#destroy also destroys related consultation responses" do
     consultation = create(:published_consultation)
     consultation_response = create(:published_consultation_response, consultation: consultation)
-    identity = consultation.document
-    identity.destroy
+    document = consultation.document
+    document.destroy
     refute ConsultationResponse.find_by_id(consultation_response.id)
   end
 end

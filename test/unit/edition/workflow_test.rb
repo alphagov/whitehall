@@ -217,7 +217,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert edition.save_as(create(:user))
   end
 
-  test "#save_as updates the identity slug if this is the first draft" do
+  test "#save_as updates the document slug if this is the first draft" do
     edition = create(:submitted_policy, title: "First Title")
     edition.save_as(user = create(:user))
 

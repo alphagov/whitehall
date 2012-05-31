@@ -6,7 +6,7 @@ class EditionRelationTest < ActiveSupport::TestCase
     refute edition_relation.valid?
   end
 
-  test "should be invalid without a doc identity" do
+  test "should be invalid without a document" do
     edition_relation = build(:edition_relation, document: nil)
     refute edition_relation.valid?
   end

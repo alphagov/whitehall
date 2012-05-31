@@ -7,7 +7,7 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   end
   attr_reader :request
 
-  test 'uses the doc identity to generate the route' do
+  test 'uses the document to generate the route' do
     policy = create(:policy)
     assert_equal policy_path(policy.document), public_document_path(policy)
   end
@@ -42,7 +42,7 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal consultation_response_path(consultation_response.consultation.document), public_document_path(consultation_response)
   end
 
-  test 'uses the doc identity to generate the supporting page route' do
+  test 'uses the document to generate the supporting page route' do
     policy = create(:policy)
     supporting_page = create(:supporting_page, edition: policy)
     assert_equal policy_supporting_page_path(policy.document, supporting_page), public_supporting_page_path(policy, supporting_page)

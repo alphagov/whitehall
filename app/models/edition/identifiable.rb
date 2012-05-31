@@ -28,8 +28,8 @@ module Edition::Identifiable
   module ClassMethods
     def published_as(id)
       begin
-        identity = Document.where(document_type: sti_name).find(id)
-        identity && identity.published_edition
+        document = Document.where(document_type: sti_name).find(id)
+        document && document.published_edition
       rescue ActiveRecord::RecordNotFound
         nil
       end

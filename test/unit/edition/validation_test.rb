@@ -18,7 +18,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test "should be invalid without a doc identity" do
+  test "should be invalid without a document" do
     edition = build(:edition)
     edition.stubs(:document).returns(nil)
     refute edition.valid?
@@ -34,25 +34,25 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test "should be invalid if doc identity has existing draft editions" do
+  test "should be invalid if document has existing draft editions" do
     draft_edition = create(:draft_edition)
     edition = build(:edition, document: draft_edition.document)
     refute edition.valid?
   end
 
-  test "should be invalid if doc identity has existing submitted editions" do
+  test "should be invalid if document has existing submitted editions" do
     submitted_edition = create(:submitted_edition)
     edition = build(:edition, document: submitted_edition.document)
     refute edition.valid?
   end
 
-  test "should be invalid if doc identity has existing editions that need work" do
+  test "should be invalid if document has existing editions that need work" do
     rejected_edition = create(:rejected_edition)
     edition = build(:edition, document: rejected_edition.document)
     refute edition.valid?
   end
 
-  test "should be invalid when published if doc identity has existing published editions" do
+  test "should be invalid when published if document has existing published editions" do
     published_edition = create(:published_edition)
     edition = build(:published_policy, document: published_edition.document)
     refute edition.valid?
