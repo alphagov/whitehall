@@ -241,14 +241,14 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [submitted_edition], Edition.submitted
   end
 
-  test "should return all documents excluding those that are archived or deleted" do
-    draft_document = create(:draft_edition)
-    submitted_document = create(:submitted_edition)
-    rejected_document = create(:rejected_edition)
-    published_document = create(:published_edition)
-    deleted_document = create(:deleted_edition)
-    archived_document = create(:archived_edition)
-    assert_same_elements [draft_document, submitted_document, rejected_document, published_document], Edition.active
+  test "should return all editions excluding those that are archived or deleted" do
+    draft_edition = create(:draft_edition)
+    submitted_edition = create(:submitted_edition)
+    rejected_edition = create(:rejected_edition)
+    published_edition = create(:published_edition)
+    deleted_edition = create(:deleted_edition)
+    archived_edition = create(:archived_edition)
+    assert_same_elements [draft_edition, submitted_edition, rejected_edition, published_edition], Edition.active
   end
 
   test "should not be publishable when not submitted" do
@@ -309,7 +309,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', edition.doc_identity.slug
   end
 
-  test "is filterable by document type" do
+  test "is filterable by edition type" do
     policy = create(:policy)
     publication = create(:publication)
     news = create(:news_article)
