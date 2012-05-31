@@ -6,30 +6,30 @@ class EditionTest < ActiveSupport::TestCase
   test "adds a doc identity before validation if none provided" do
     edition = build(:edition)
     edition.valid?
-    assert_not_nil edition.doc_identity
-    assert_kind_of DocIdentity, edition.doc_identity
+    assert_not_nil edition.document
+    assert_kind_of Document, edition.document
   end
 
   test "uses provided doc identity if available" do
-    identity = build(:doc_identity)
-    edition = build(:edition, doc_identity: identity)
-    assert_equal identity, edition.doc_identity
+    identity = build(:document)
+    edition = build(:edition, document: identity)
+    assert_equal identity, edition.document
   end
 
   test ".published_as returns edition if edition is published" do
     edition = create(:published_policy)
-    assert_equal edition, Policy.published_as(edition.doc_identity.to_param)
+    assert_equal edition, Policy.published_as(edition.document.to_param)
   end
 
   test ".published_as returns latest published edition if several editions share identity" do
     edition = create(:published_policy)
-    new_draft = create(:draft_policy, doc_identity: edition.doc_identity)
-    assert_equal edition, Policy.published_as(edition.doc_identity.to_param)
+    new_draft = create(:draft_policy, document: edition.document)
+    assert_equal edition, Policy.published_as(edition.document.to_param)
   end
 
   test ".published_as returns nil if edition is not published" do
     edition = create(:submitted_edition)
-    assert_nil Edition.published_as(edition.doc_identity.to_param)
+    assert_nil Edition.published_as(edition.document.to_param)
   end
 
   test ".published_as returns nil if identity is unknown" do
@@ -301,12 +301,12 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should use the edition title as the basis for the doc identity's slug" do
     edition = create(:edition, title: 'My Policy Title')
-    assert_equal 'my-policy-title', edition.doc_identity.slug
+    assert_equal 'my-policy-title', edition.document.slug
   end
 
   test "should concatenate words containing apostrophes" do
     edition = create(:edition, title: "Bob's bike")
-    assert_equal 'bobs-bike', edition.doc_identity.slug
+    assert_equal 'bobs-bike', edition.document.slug
   end
 
   test "is filterable by edition type" do
@@ -336,7 +336,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should return search index suitable for Rummageable" do
     policy = create(:published_policy, title: "policy-title")
-    slug = policy.doc_identity.slug
+    slug = policy.document.slug
 
     assert_equal "policy-title", policy.search_index["title"]
     assert_equal "/government/policies/#{slug}", policy.search_index["link"]
@@ -379,7 +379,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should not remove edition from search index when a new edition is published" do
     policy = create(:published_policy)
-    slug = policy.doc_identity.slug
+    slug = policy.document.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{slug}").never
 
@@ -391,7 +391,7 @@ class EditionTest < ActiveSupport::TestCase
   test "should not remove edition from search index when a new draft of a published edition is deleted" do
     policy = create(:published_policy)
     new_draft_policy = policy.create_draft(create(:policy_writer))
-    slug = policy.doc_identity.slug
+    slug = policy.document.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{slug}").never
 
@@ -400,7 +400,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should remove published edition from search index when it's deleted" do
     policy = create(:published_policy)
-    slug = policy.doc_identity.slug
+    slug = policy.document.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{slug}")
 
@@ -409,7 +409,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should remove published edition from search index when it's archived" do
     policy = create(:published_policy)
-    slug = policy.doc_identity.slug
+    slug = policy.document.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{slug}")
 
@@ -418,10 +418,10 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should provide a list of all editions ever published in reverse chronological order by publication date" do
     original_edition = create(:archived_edition, published_at: 3.days.ago)
-    doc_identity = original_edition.doc_identity
-    new_edition_1 = create(:archived_edition, doc_identity: doc_identity, published_at: 2.days.ago)
-    new_edition_2 = create(:published_edition, doc_identity: doc_identity, published_at: 1.day.ago)
-    draft_edition = create(:draft_edition, doc_identity: doc_identity)
+    document = original_edition.document
+    new_edition_1 = create(:archived_edition, document: document, published_at: 2.days.ago)
+    new_edition_2 = create(:published_edition, document: document, published_at: 1.day.ago)
+    draft_edition = create(:draft_edition, document: document)
 
     assert_equal [new_edition_2, new_edition_1, original_edition], new_edition_2.editions_ever_published
     refute new_edition_2.editions_ever_published.include?(draft_edition)

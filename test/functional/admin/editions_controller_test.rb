@@ -126,7 +126,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "failing to revise an edition should redirect to the existing draft" do
     published_edition = create(:published_policy)
-    existing_draft = create(:draft_policy, doc_identity: published_edition.doc_identity)
+    existing_draft = create(:draft_policy, document: published_edition.document)
 
     post :revise, id: published_edition
 
@@ -136,7 +136,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "failing to revise an edition should redirect to the existing submitted edition" do
     published_edition = create(:published_policy)
-    existing_submitted = create(:submitted_policy, doc_identity: published_edition.doc_identity)
+    existing_submitted = create(:submitted_policy, document: published_edition.document)
 
     post :revise, id: published_edition
 
@@ -146,7 +146,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "failing to revise an edition should redirect to the existing rejected edition" do
     published_edition = create(:published_publication)
-    existing_rejected = create(:rejected_publication, doc_identity: published_edition.doc_identity)
+    existing_rejected = create(:rejected_publication, document: published_edition.document)
 
     post :revise, id: published_edition
 

@@ -67,7 +67,7 @@ class SupportingPageTest < ActiveSupport::TestCase
 
   test 'should return search index data suitable for Rummageable' do
     policy = create(:published_policy)
-    policy_slug = policy.doc_identity.slug
+    policy_slug = policy.document.slug
     supporting_page = create(:supporting_page, title: 'Love all the people', edition: policy)
 
     assert_equal 'Love all the people', supporting_page.search_index["title"]
@@ -100,7 +100,7 @@ class SupportingPageTest < ActiveSupport::TestCase
   test 'should not remove supporting page from search index on destroying' do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    policy_slug = policy.doc_identity.slug
+    policy_slug = policy.document.slug
 
     Rummageable.expects(:delete).with("/government/policies/#{policy_slug}/supporting-pages/#{supporting_page.slug}").never
     supporting_page.destroy
@@ -109,7 +109,7 @@ class SupportingPageTest < ActiveSupport::TestCase
   test 'should return search index data for all supporting pages on published editions' do
     policy = create(:published_policy)
     draft_policy = create(:draft_policy)
-    policy_slug = policy.doc_identity.slug
+    policy_slug = policy.document.slug
     create(:supporting_page, edition: policy, title: 'Love all the people', body: 'Thoughts on love and smoking.')
     create(:supporting_page, edition: policy, title: 'Dangerous', body: 'I love my job.')
     create(:supporting_page, edition: policy, title: 'Relentless', body: 'Rockers against drugs suck.')

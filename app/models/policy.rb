@@ -6,7 +6,7 @@ class Policy < Edition
   include Edition::SupportingPages
   include Edition::Countries
 
-  has_many :edition_relations, through: :doc_identity
+  has_many :edition_relations, through: :document
   has_many :related_editions, through: :edition_relations, source: :edition
   has_many :published_related_editions, through: :edition_relations, source: :edition, conditions: {editions: {state: 'published'}}
 

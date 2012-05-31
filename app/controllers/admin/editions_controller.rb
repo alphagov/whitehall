@@ -65,7 +65,7 @@ class Admin::EditionsController < Admin::BaseController
     if edition.persisted?
       redirect_to edit_admin_edition_path(edition)
     else
-      redirect_to edit_admin_edition_path(@edition.doc_identity.unpublished_edition),
+      redirect_to edit_admin_edition_path(@edition.document.unpublished_edition),
         alert: edition.errors.full_messages.to_sentence
     end
   end

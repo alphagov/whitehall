@@ -9,12 +9,12 @@ module Edition::RelatedPolicies
 
   included do
     has_many :edition_relations, foreign_key: :edition_id, dependent: :destroy
-    has_many :related_documents, through: :edition_relations, source: :doc_identity
+    has_many :related_documents, through: :edition_relations, source: :document
     has_many :related_policies, through: :related_documents, source: :latest_edition
     has_many :published_related_policies, through: :related_documents, source: :published_edition, class_name: 'Policy'
 
     define_method(:related_policies=) do |policies|
-      self.related_documents = policies.map(&:doc_identity)
+      self.related_documents = policies.map(&:document)
     end
 
     add_trait Trait

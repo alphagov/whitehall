@@ -195,19 +195,19 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test 'show displays published consultations' do
     published_consultation = create(:published_consultation)
-    get :show, id: published_consultation.doc_identity
+    get :show, id: published_consultation.document
     assert_response :success
   end
 
   test 'show displays consultation opening date' do
     published_consultation = create(:published_consultation, opening_on: Date.new(2011, 10, 10))
-    get :show, id: published_consultation.doc_identity
+    get :show, id: published_consultation.document
     assert_select '.opening_on', text: 'Opened on 10 October 2011'
   end
 
   test 'show displays consultation closing date' do
     published_consultation = create(:published_consultation, opening_on: Date.new(2010, 1, 1), closing_on: Date.new(2011, 01, 01))
-    get :show, id: published_consultation.doc_identity
+    get :show, id: published_consultation.document
     assert_select '.closing_on', text: 'Closed on 1 January 2011'
   end
 
@@ -216,7 +216,7 @@ class ConsultationsControllerTest < ActionController::TestCase
     northern_ireland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
     scotland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.scotland)
 
-    get :show, id: published_consultation.doc_identity
+    get :show, id: published_consultation.document
 
     assert_select inapplicable_nations_selector do
       assert_select "p", "This consultation does not apply to Northern Ireland and Scotland."
@@ -230,7 +230,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   test "should not explicitly say that consultation applies to the whole of the UK" do
     published_consultation = create(:published_consultation)
 
-    get :show, id: published_consultation.doc_identity
+    get :show, id: published_consultation.document
 
     refute_select inapplicable_nations_selector
   end
@@ -275,7 +275,7 @@ class ConsultationsControllerTest < ActionController::TestCase
     edition = create("featured_consultation")
     get :index
     assert_select "#{featured_consultations_selector}#{record_css_selector(edition)}" do
-      expected_path = consultation_path(edition.doc_identity)
+      expected_path = consultation_path(edition.document)
       assert_select "a[href=#{expected_path}]"
     end
   end

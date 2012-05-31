@@ -1,4 +1,4 @@
-class DocIdentity < ActiveRecord::Base
+class Document < ActiveRecord::Base
   set_table_name :documents
 
   extend FriendlyId

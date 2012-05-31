@@ -6,7 +6,7 @@
   <% if consultation.published_consultation_response %>
     <div class="response">
       Response
-      '<%= link_to consultation.published_consultation_response.title, consultation_response_path(consultation.doc_identity) %>' published
+      '<%= link_to consultation.published_consultation_response.title, consultation_response_path(consultation.document) %>' published
       <%= time_ago(consultation.published_consultation_response.published_at, class: 'response_published_at') %>
     </div>
   <% end %>
