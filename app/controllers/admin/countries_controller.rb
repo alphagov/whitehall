@@ -1,4 +1,5 @@
 class Admin::CountriesController < Admin::BaseController
+  layout "bootstrap_admin"
   before_filter :load_country, only: [:edit, :update]
   before_filter :load_news_articles, only: [:edit, :update]
 

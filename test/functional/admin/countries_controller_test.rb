@@ -14,7 +14,7 @@ class Admin::CountriesControllerTest < ActionController::TestCase
 
     assert_template 'countries/edit'
     assert_select "textarea[name='country[description]']"
-    assert_select "textarea[name='country[about]'].previewable.govspeak"
+    assert_select "textarea[name='country[about]'].previewable"
     assert_select '#govspeak_help'
   end
 
