@@ -10,7 +10,7 @@ class Edition::FactCheckableTest < ActiveSupport::TestCase
 
   test "should list all completed fact check requests from all editions, newest first" do
     begin
-      t0 = Time.now
+      t0 = Time.zone.now
       user = create(:user)
       old_edition = create(:published_policy)
       Timecop.freeze t0
