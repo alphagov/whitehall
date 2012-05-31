@@ -23,27 +23,21 @@ class CountryTest < ActiveSupport::TestCase
   end
 
   test 'should be featured if name matches hard-coded list' do
-    %w[ Spain USA Uganda ].each do |name|
+    %w[ Spain ].each do |name|
       assert create(:country, name: name).featured?
     end
   end
 
   test 'should return featured countries' do
-    %w[ Spain USA Uganda Cascadia Virginia ].each do |name|
+    %w[ Spain Cascadia Virginia ].each do |name|
       create(:country, name: name)
     end
-    assert_equal 3, Country.featured.length
+    assert_equal 1, Country.featured.length
   end
 
   test 'should return hard-coded urls for featured countries' do
     spain = create(:country, name: 'Spain')
     assert_equal %w[ http://ukinspain.fco.gov.uk ], spain.urls
-
-    uganda = create(:country, name: 'Uganda')
-    assert_equal %w[ http://ukinuganda.fco.gov.uk http://www.dfid.gov.uk/Uganda ], uganda.urls
-
-    usa = create(:country, name: 'USA')
-    assert_equal %w[ http://ukinusa.fco.gov.uk ], usa.urls
   end
 
   test 'should return no urls for countries that are not featured.' do
