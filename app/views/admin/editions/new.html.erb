@@ -1,8 +1,22 @@
 <% page_title "New " + @edition.type.titleize %>
-<div class="g2 first">
+<div class="span8">
   <section>
     <h1>Create <%= @edition.type.titleize %></h1>
     <%= render partial: "form", locals: {edition: @edition} %>
-    <%= render partial: "govspeak_help" %>
   </section>
+</div>
+
+<div class="span4">
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#govspeak" data-toggle="tab">Formatting Help</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="govspeak">
+        <section>
+          <%= render partial: "admin/editions/govspeak_help" %>
+        </section>
+      </div>
+    </div>
+  </div>
 </div>

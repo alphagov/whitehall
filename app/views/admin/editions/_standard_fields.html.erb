@@ -4,6 +4,6 @@
   <% if form.object.has_summary? %>
     <%= form.text_area :summary, rows: 2 %>
   <% end %>
-  <%= form.text_area :body, "class" => "previewable", :help => true %>
+  <%= form.text_area :body, "class" => "previewable" %>
   <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
 </fieldset>

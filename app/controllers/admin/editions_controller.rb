@@ -1,4 +1,5 @@
 class Admin::EditionsController < Admin::BaseController
+  layout "bootstrap_admin"
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
@@ -12,6 +13,7 @@ class Admin::EditionsController < Admin::BaseController
       @edition_state = (state == :active) ? 'all' : state.to_s
       @page_title = "#{@edition_state.humanize} Documents"
       session[:document_filters] = params_filters
+      render :index, layout: "admin"
     elsif session_filters.any?
        redirect_to session_filters
     else
@@ -22,7 +24,6 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def show
-    render :show, layout: "bootstrap_admin"
   end
 
   def new
@@ -40,7 +41,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def edit
     @edition.open_for_editing_as(current_user)
-    render :edit, layout: "bootstrap_admin"
+    render :edit
   end
 
   def update
