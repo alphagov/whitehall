@@ -1,52 +1,47 @@
 <% page_title "Policy topics" %>
-<section class="resource_list">
-  <div class="collection">
+<nav class="actions">
+  <%= link_to "Create Policy Area", new_admin_policy_topic_path, class: "btn new_resource", title: "Create a Policy Area" %>
+</nav>
 
-    <nav class="actions">
-      <%= link_to "Create Policy Area", new_admin_policy_topic_path, class: "button new_resource", title: "Create a Policy Area" %>
-    </nav>
+<h1>Policy topics</h1>
 
-    <h1>Policy topics</h1>
-
-    <table class="policy_topics">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Details</th>
-          <th>Related</th>
-          <th>Featured</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @policy_topics.each do |policy_topic| %>
-          <%= content_tag_for(:tr, policy_topic, class: policy_topic_css_classes(policy_topic)) do %>
-            <td class="name"><%= link_to policy_topic.name, edit_admin_policy_topic_path(policy_topic), title: "Edit policy topic #{policy_topic.name}" %></td>
-            <td class="description"><%= policy_topic.description %></td>
-            <td class="details">
-              <%= policy_topic.breakdown.map { |key, count|
-                pluralize count, key
-               }.to_sentence %>
-            </td>
-            <td class="related">
-              <ul>
-                <% policy_topic.related_policy_topics.each do |pa| %>
-                  <%= content_tag_for(:li, pa) do %>
-                    <%= link_to pa.name, edit_admin_policy_topic_path(pa), title: "Edit policy topic #{pa.name}" %>
-                  <% end %>
-                <% end %>
-              </ul>
-            </td>
-            <td class="actions">
-              <% if policy_topic.featured? %>
-                <%= button_to 'No Longer Feature', unfeature_admin_policy_topic_path(policy_topic), method: :post %>
-              <% else %>
-                <%= button_to 'Feature Policy Area', feature_admin_policy_topic_path(policy_topic), method: :post %>
+<table class="policy_topics table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Details</th>
+      <th>Related</th>
+      <th>Featured</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @policy_topics.each do |policy_topic| %>
+      <%= content_tag_for(:tr, policy_topic, class: policy_topic_css_classes(policy_topic)) do %>
+        <td class="name"><%= link_to policy_topic.name, edit_admin_policy_topic_path(policy_topic), title: "Edit policy topic #{policy_topic.name}" %></td>
+        <td class="description"><%= policy_topic.description %></td>
+        <td class="details">
+          <%= policy_topic.breakdown.map { |key, count|
+            pluralize count, key
+           }.to_sentence %>
+        </td>
+        <td class="related">
+          <ul>
+            <% policy_topic.related_policy_topics.each do |pa| %>
+              <%= content_tag_for(:li, pa) do %>
+                <%= link_to pa.name, edit_admin_policy_topic_path(pa), title: "Edit policy topic #{pa.name}" %>
               <% end %>
-            </td>
+            <% end %>
+          </ul>
+        </td>
+        <td class="actions">
+          <% if policy_topic.featured? %>
+            <%= button_to 'No Longer Feature', unfeature_admin_policy_topic_path(policy_topic), method: :post, class: "btn" %>
+          <% else %>
+            <%= button_to 'Feature Policy Area', feature_admin_policy_topic_path(policy_topic), method: :post, class: "btn" %>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</section>
+        </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
