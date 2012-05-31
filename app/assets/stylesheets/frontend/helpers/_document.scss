@@ -8,9 +8,14 @@
     }
   }
 
-  .body {
+  .body,
+  .govspeak {
     position: relative;
-    margin-top: $gutter-one-third*-1; 
+    margin-top: $gutter-one-third*-1;
+    
+    .govspeak {
+      margin-top: 0;
+    }
     
     h2 {
       @include sans-20;

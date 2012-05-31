@@ -1,0 +1,55 @@
+.policy-topic {
+  
+  .block-2,
+  .block-3,
+  .block-4 {
+    padding-bottom: $gutter;
+  }
+  
+  .block-3,
+  .block-4 {
+    h1 {
+      @include sans-15;
+    }
+    
+    li {
+      list-style: none;
+    }
+    
+    article {
+      padding-bottom: $gutter;
+    }
+    
+    h2 {
+      @include sans-20;
+      padding-bottom: 0;
+    }
+    
+    .summary {
+      @include sans-20;
+      padding-top: 0;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .block-2 {
+      max-width: 70%;
+    }
+    
+    .block-3,
+    .block-4 {
+      clear: both;
+      float: left;
+      display: inline;
+      width: 70%;
+    }
+    
+    .block-5 {
+      float: left;
+      display: inline;
+      width: 30%;
+    }
+
+  }
+  
+}
