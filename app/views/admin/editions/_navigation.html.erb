@@ -13,14 +13,16 @@
     <%= redraft_edition_button(edition) %>
   <% end %>
 
+  <% if @edition.publishable_by?(current_user, assuming_presence_of_change_note: true) %>
+    <%= publish_edition_form(@edition) %>
+  <% elsif @edition.publishable_by?(current_user, force: true, assuming_presence_of_change_note: true) %>
+    <%= publish_edition_form(@edition, force: true) %>
+  <% end %>
+
   <%= submit_edition_button(edition) if edition.submittable? %>
   <%= reject_edition_button(edition) if edition.rejectable_by?(current_user) %>
   <%= delete_edition_button(edition) if edition.deletable? %>
   <% if edition.published? && edition.is_a?(Consultation) %>
     <%= show_or_add_consultation_response_button(edition) %>
   <% end %>
-
-  <span class="back">
-    back to <%= link_to 'document list', admin_editions_path %>
-  </span>
 </nav>

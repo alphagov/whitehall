@@ -57,7 +57,7 @@ class SupportingPage < ActiveRecord::Base
     edition.title
   end
 
-  def document_editable?
+  def editable?
     edition.editable?
   end
 
