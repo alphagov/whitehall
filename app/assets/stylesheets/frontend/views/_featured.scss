@@ -1,25 +1,27 @@
+.featured {
+	overflow: hidden;
+	width: 80%;
+	margin-bottom: 40px;
 
-	.featured {
-		overflow: hidden;
-		width: 80%;
-		margin-bottom: 40px;
-	}
-	.featured h2 {
+	h2 {
 		font-size: 2rem;
 	}
-	.thumbnail {
-		background-color: #ccc;
-		float: left;
-		margin-right: 2%;
-		padding: 15px;
-		width: 25%;
-	}
-	.thumbnail img {
+
+	img {
 		float: left;
 		margin-right: 15px;
 		max-width: 45%;
 	}
-	.thumbnail span {
-		display: block;
-	}
+}
+
+.thumbnail {
+	background-color: #ccc;
+	float: left;
+	margin-right: 2%;
+	padding: 15px;
+	width: 25%;
+}
+.thumbnail span {
+	display: block;
+}
 

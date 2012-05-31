@@ -76,12 +76,12 @@ class Admin::EditionsController < Admin::BaseController
     Edition
   end
 
-  def document_params
+  def edition_params
     (params[:edition] || {}).merge(creator: current_user)
   end
 
   def build_edition
-    @edition = edition_class.new(document_params)
+    @edition = edition_class.new(edition_params)
   end
 
   def find_edition

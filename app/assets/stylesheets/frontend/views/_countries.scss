@@ -1,12 +1,11 @@
 .countries-index {
     .alphabetical_list .alphabetical_row li {
       //width: 50%;
-      padding: 10px 0;
+      padding: 0 0 10px 0;
       float: none;
       display: block;
     }
-    #country_129 {
-    background: url(/government/assets/spain.png) top left no-repeat;
-    padding-left : 250px;
+    .alphabetical_list .alphabetical_row li:first-child {
+      padding-top: 20px;
     }
 }

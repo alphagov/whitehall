@@ -22,13 +22,49 @@
       margin-top: 0;
     }
     
+    h3 {
+      @include sans-20;
+      margin-top: $gutter;
+    }
+    
     p {
       @include sans-20;
+    }
+    
+    ol {
+      list-style: decimal;
+      list-style-position: outside;
+    }
+    
+    ul {
+      list-style: disc;
+      list-style-position: outside;
     }
     
     li {
       width: 90%;
       @include sans-20;
+      margin-left: $gutter*1.2;
+      
+      li {
+        margin-left: $gutter;
+      }
+      
+      @media (min-width: 768px) {
+        margin-left: 0;
+        
+        li {
+          margin-left: $gutter*2;
+        }
+      }
+    }
+    
+    strong, b {
+      font-weight: 700;
+    }
+    
+    em, i {
+      font-style: italic;
     }
     
     figure {
@@ -59,7 +95,7 @@
     }
     
     li {
-    @include sans-15;
+      @include sans-15;
     }
   }
 }

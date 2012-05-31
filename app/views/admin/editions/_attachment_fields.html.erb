@@ -1,9 +1,9 @@
 <fieldset class="attachments multiple_file_uploads">
   <legend>Attachments</legend>
-  <%= form.fields_for "#{parent_type}_attachments" do |document_attachments_fields| %>
-    <% if document_attachments_fields.object.new_record? %>
+  <%= form.fields_for "#{parent_type}_attachments" do |edition_attachments_fields| %>
+    <% if edition_attachments_fields.object.new_record? %>
       <div class="file_upload">
-        <%= document_attachments_fields.fields_for :attachment do |attachment_fields| %>
+        <%= edition_attachments_fields.fields_for :attachment do |attachment_fields| %>
           <%= attachment_fields.text_field :title %>
           <%= attachment_fields.label :file %>
           <%= attachment_fields.file_field :file %>
@@ -14,14 +14,14 @@
         <% end %>
       </div>
     <% else %>
-      <%= document_attachments_fields.fields_for :attachment do |attachment_fields| %>
+      <%= edition_attachments_fields.fields_for :attachment do |attachment_fields| %>
         <%= attachment_fields.text_field :title %>
       <% end %>
       <p class="attachment">
-        <% checkbox_args = nested_attribute_destroy_checkbox_options(document_attachments_fields) %>
-        <% label_text = link_to_attachment(document_attachments_fields.object.attachment) + " (uncheck to remove)" %>
+        <% checkbox_args = nested_attribute_destroy_checkbox_options(edition_attachments_fields) %>
+        <% label_text = link_to_attachment(edition_attachments_fields.object.attachment) + " (uncheck to remove)" %>
         <% checkbox_args[0].merge!(label_text: label_text) %>
-        <%= document_attachments_fields.check_box :_destroy, *checkbox_args  %>
+        <%= edition_attachments_fields.check_box :_destroy, *checkbox_args  %>
       </p>
     <% end %>
   <% end %>
