@@ -1,13 +1,13 @@
 <% page_title "Edit " + @country.name %>
-<div class="g2 first">
+
+<div class="span8">
   <section>
     <h1>Edit country</h1>
     <%= form_for([:admin, @country]) do |form| %>
       <%= form.text_area :description %>
 
-      <%= render partial: 'admin/editions/govspeak_help' %>
       <fieldset>
-        <%= form.text_area :about, class: 'previewable', help: true %>
+        <%= form.text_area :about, class: 'previewable' %>
       </fieldset>
 
       <%= form.check_box :active,
@@ -20,43 +20,61 @@
         <%= form.text_field :embassy_email %>
       </fieldset>
 
-      <%= form.submit "Save" %>
+      <%= form.submit "Save", class: "btn" %>
     <% end %>
   </section>
 </div>
-<% if @news_articles.any? %>
-  <div class="g3 first">
-    <section>
-      <h2>News Articles</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Published</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @news_articles.each do |news_article| %>
-            <%= content_tag_for(:tr, news_article) do %>
-              <td><%= link_to news_article.title, admin_edition_path(news_article) %></td>
-              <td><%= time_ago_in_words news_article.updated_at %> ago</td>
-              <td>
-                <% association = news_article.edition_countries.where(country_id: @country).first %>
-                <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
-                  <% if association.featured? %>
-                    <%= f.hidden_field :featured, value: false %>
-                    <%= f.submit "No longer feature" %>
-                  <% else %>
-                    <%= f.hidden_field :featured, value: true %>
-                    <%= f.submit "Feature" %>
+
+<div class="span4">
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#news-articles" data-toggle="tab">News Articles</a></li>
+      <li><a href="#govspeak" data-toggle="tab">Formatting Help</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="news-articles">
+        <% if @news_articles.any? %>
+          <section>
+            <h2>News Articles</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Published</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @news_articles.each do |news_article| %>
+                  <%= content_tag_for(:tr, news_article) do %>
+                    <td><%= link_to news_article.title, admin_edition_path(news_article) %></td>
+                    <td><%= time_ago_in_words news_article.updated_at %> ago</td>
+                    <td>
+                      <% association = news_article.edition_countries.where(country_id: @country).first %>
+                      <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
+                        <% if association.featured? %>
+                          <%= f.hidden_field :featured, value: false %>
+                          <%= f.submit "No longer feature", class: "btn btn-mini" %>
+                        <% else %>
+                          <%= f.hidden_field :featured, value: true %>
+                          <%= f.submit "Feature", class: "btn btn-mini" %>
+                        <% end %>
+                      <% end %>
+                    </td>
                   <% end %>
                 <% end %>
-              </td>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
-    </section>
+              </tbody>
+            </table>
+          </section>
+        <% else %>
+          <p>No published news articles.</p>
+        <% end %>
+      </div>
+      <div class="tab-pane" id="govspeak">
+        <section>
+          <%= render partial: "admin/editions/govspeak_help" %>
+        </section>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
