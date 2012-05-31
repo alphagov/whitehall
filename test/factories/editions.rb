@@ -2,7 +2,7 @@ GenericEdition = Class.new(Edition)
 
 Rails.application.routes.url_helpers.module_eval do
   def generic_edition_path(id)
-    "/government/generic-documents/#{id}"
+    "/government/generic-editions/#{id}"
   end
 
   def admin_generic_edition_editorial_remarks_path(*args)
