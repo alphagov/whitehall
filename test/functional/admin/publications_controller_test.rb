@@ -53,7 +53,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     )
 
     post :create, edition: attributes.merge(
-      related_doc_identity_ids: [first_policy.doc_identity.id, second_policy.doc_identity.id]
+      related_document_ids: [first_policy.doc_identity.id, second_policy.doc_identity.id]
     )
 
     created_publication = Publication.last

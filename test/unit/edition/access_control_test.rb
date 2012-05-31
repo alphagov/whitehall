@@ -74,4 +74,27 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     refute second_edition.reload.deletable?
   end
 
+  test "force_published can be cleared by another departmental_editor" do
+    edition = create(:published_edition, force_published: true)
+    other_editor = create(:departmental_editor)
+    assert edition.force_published_can_be_cleared_by?(other_editor)
+  end
+
+  test "force_published cannot be cleared by the same departmental_editor" do
+    editor = create(:departmental_editor)
+    edition = create(:published_edition, force_published: true, creator: editor)
+    refute edition.force_published_can_be_cleared_by?(editor)
+  end
+
+  test "force_published cannot be cleared by a policy writer" do
+    edition = create(:published_edition, force_published: true)
+    policy_writer = create(:policy_writer)
+    refute edition.force_published_can_be_cleared_by?(policy_writer)
+  end
+
+  test "force_published cannot be cleared if the document wasn't force-published" do
+    edition = create(:published_edition, force_published: false)
+    editor = create(:departmental_editor)
+    refute edition.force_published_can_be_cleared_by?(editor)
+  end
 end

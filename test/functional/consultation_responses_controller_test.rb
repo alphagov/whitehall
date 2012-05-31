@@ -19,7 +19,7 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     published_policy = create(:published_policy)
     published_consultation_response = create(:published_consultation_response)
     consultation = published_consultation_response.consultation
-    consultation.related_doc_identities << published_policy.doc_identity
+    consultation.related_documents << published_policy.doc_identity
     get :show, consultation_id: consultation.doc_identity
     assert_select "#related-policies a[href='#{policy_path(published_policy.doc_identity)}']"
   end
@@ -29,7 +29,7 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     published_policy = create(:published_policy, policy_topics: [policy_topic])
     published_consultation_response = create(:published_consultation_response)
     consultation = published_consultation_response.consultation
-    consultation.related_doc_identities << published_policy.doc_identity
+    consultation.related_documents << published_policy.doc_identity
     get :show, consultation_id: consultation.doc_identity
     assert_select "#document_topics a[href='#{policy_topic_path(policy_topic)}']"
   end
