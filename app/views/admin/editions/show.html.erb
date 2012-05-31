@@ -111,7 +111,7 @@
       <section class="container">
         <h1>Related Policies</h1>
         <% if @edition.related_policies.any? %>
-          <%= render partial: "admin/editions/related", locals: {related_documents: @edition.related_policies} %>
+          <%= render partial: "admin/editions/related", locals: {related_editions: @edition.related_policies} %>
         <% else %>
           <p>This document doesn't have any related documents.</p>
         <% end %>
