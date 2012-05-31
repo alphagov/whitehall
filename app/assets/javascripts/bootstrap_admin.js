@@ -1,10 +1,12 @@
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree ./common
 //= require admin/chosen.jquery
-//= require admin/on_ready
 //= require admin/multiple_file_upload
 //= require admin/image_feature_mask
 //= require admin/edition_publishing
 //= require admin/preview
+//= require admin/sortable
+//= require admin/on_ready
