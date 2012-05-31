@@ -7,3 +7,4 @@
 //= require admin/multiple_file_upload
 //= require admin/image_feature_mask
 //= require admin/edition_publishing
+//= require admin/preview

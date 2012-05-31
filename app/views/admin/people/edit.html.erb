@@ -1,7 +1,12 @@
 <% page_title "Edit " + @person.name %>
-<div class="g2 first">
+
+<div class="span8">
   <section>
     <h1>Edit person</h1>
     <%= render partial: "form", locals: {person: @person} %>
   </section>
+</div>
+
+<div class="span4">
+  <%= render partial: "sidebar" %>
 </div>
