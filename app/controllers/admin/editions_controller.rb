@@ -21,6 +21,10 @@ class Admin::EditionsController < Admin::BaseController
     redirect_to state: :draft
   end
 
+  def show
+    render :show, layout: "bootstrap_admin"
+  end
+
   def new
   end
 

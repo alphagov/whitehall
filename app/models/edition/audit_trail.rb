@@ -18,9 +18,10 @@ module Edition::AuditTrail
   end
 
   class AuditEntry
+    extend ActiveModel::Naming
     extend Forwardable
 
-    def_delegators :@object, :created_at
+    def_delegators :@object, :created_at, :to_key
 
     attr_reader :edition_serial_number, :edition, :object
 
@@ -46,13 +47,19 @@ module Edition::AuditTrail
     end
 
     def first_edition?
-      @edition_serial_number == 0
+      edition_serial_number == 0
     end
 
     def sort_priority; 0; end
   end
 
   class VersionAuditEntry < AuditEntry
+    class << self
+      def model_name
+        ActiveModel::Name.new(Version, nil)
+      end
+    end
+
     alias_method :version, :object
 
     def sort_priority; 3; end
@@ -81,6 +88,12 @@ module Edition::AuditTrail
   end
 
   class EditorialRemarkAuditEntry < AuditEntry
+    class << self
+      def model_name
+        ActiveModel::Name.new(EditorialRemark, nil)
+      end
+    end
+
     alias_method :editorial_remark, :object
 
     def event

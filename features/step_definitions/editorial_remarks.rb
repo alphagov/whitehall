@@ -18,5 +18,5 @@ Then /^my editorial remark should be visible with the document$/ do
   within(".author_scope") { click_link "by everyone" }
   within(".state") { click_link "all" }
   click_link @document_title
-  assert page.has_css? "#editorial_remarks .editorial_remark .body", text: @remark_text
+  assert page.has_css? ".editorial_remark .body", text: @remark_text
 end
