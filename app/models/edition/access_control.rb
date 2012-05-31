@@ -24,6 +24,8 @@ module Edition::AccessControl
   def reason_to_prevent_force_published_being_cleared_by(user)
     if !force_published?
       "This document has not been force-published"
+    elsif !user.departmental_editor?
+      "Only departmental editors can clear the force-published state"
     elsif user == creator
       "You are not allowed to clear the force-published state of this document, since you created it"
     end
