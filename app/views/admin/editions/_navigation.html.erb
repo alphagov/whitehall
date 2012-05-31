@@ -4,6 +4,16 @@
       <p>View <%= link_to edition.title, public_document_url(edition) %> on public website</p>
     </div>
   <% end %>
+  <% if edition.force_published? %>
+    <div class="force_published">
+      <p>This edition was force published, and has not yet been reviewed by a 
+      second pair of eyes. </p>
+
+      <% if edition.force_published_can_be_cleared_by?(current_user) %>
+        <%= clear_force_published_edition_button(edition) %>
+      <% end %>
+    </div>
+  <% end %>
 
   <% if !edition.is_latest_edition? %>
     <%= most_recent_edition_button(edition) %>

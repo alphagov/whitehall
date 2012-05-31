@@ -1,5 +1,6 @@
 
 @import "../shared/lists";
+@import "../shared/colours";
 @import "../shared/grid";
 @import "../shared/document_view";
 @import "../shared/typography";
@@ -161,6 +162,23 @@ section {
 
 .lte-ie8 section .container.audit-trail .image {
   width: 60px;
+}
+
+nav.actions .force_published {
+  background-color: $force-published-colour;
+  padding: 1em;
+  margin-bottom: 1em;
+
+  .clear_force_published_button {
+    p {
+      float: left;
+      margin-right: 0.8em;
+    }
+    form {
+      margin-top: -0.4em;
+    }
+  }
+
 }
 
 .document_view {

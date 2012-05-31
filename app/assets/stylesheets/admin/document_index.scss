@@ -287,7 +287,7 @@ section.resource_list .collection {
     }
 
     tr.force_published {
-      background: #fcc;
+      background: $force-published-colour;
     }
 
     td.type {
