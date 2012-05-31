@@ -3,33 +3,35 @@
   float: left;
   display: inline;
   margin-right: 1%;
-}
-.filter-controls li {
-  margin: 0;
-  font-size: 0.875em;
-  line-height: 1.286em;
-  margin-bottom: 1.286em;
-  list-style-type: none;
-  margin-bottom: 0.75em;
-  position: relative;
-  padding-left: 1.75em;
-}
-.filter-controls li a {
-  color: #444;
-}
-.filter-controls li a span {
-  background-color:  #CCC;
-  display: block;
-  height: 0.75em;
-  left: 0;
-  position: absolute;
-  top: 0.355em;
-  width: 0.75em;
-}
-.filter-controls li.selected a span, .filter-controls li:hover a span {
-  background-color:  #2E3191;
-}
-.filter-controls li.toggle a span {
-  background-color: inherit;
-  top: 0;
+
+  li {
+    margin: 0;
+    font-size: 0.875em;
+    line-height: 1.286em;
+    margin-bottom: 1.286em;
+    list-style-type: none;
+    margin-bottom: 0.75em;
+    position: relative;
+    padding-left: 1.75em;
+  }
+  li a {
+    color: #444;
+  }
+  li a span {
+    background-color:  #CCC;
+    display: block;
+    height: 0.75em;
+    left: 0;
+    position: absolute;
+    top: 0.355em;
+    width: 0.75em;
+  }
+  .filter-controls li.selected a span, .filter-controls li:hover a span {
+    background-color:  #2E3191;
+  }
+  li.toggle a span {
+    background-color: inherit;
+    top: 0;
+  }
+
 }

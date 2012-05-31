@@ -1,39 +1,42 @@
 .table-sort {
   float: left;
   display: inline;
-  width: 74%
-}
-.table-sort table {
-  width: 100%;
-}
-.table-sort th, .table-sort td {
-  background-color: #333;
-  border-right: 1px solid #fff;
-  color: #fff;
-  font-weight: normal;
-  padding: 5px 10px;
-  text-align: left;
-  vertical-align: top;
-}
+  width: 74%;
 
-.table-sort tr:nth-child(even) td  {
-  background-color: #eee;
-}
-.table-sort td, .table-sort th {
-  display: table-cell;
-}
-.table-sort td {
-  background-color: #fff;
-  color: #333;
-}
+  table {
+    width: 100%;
+  }
 
-.title {
-  width: 45%;
-}
-.table-summary {
-  width: 40%;
-}
-.date {
-  width: 15%;
-}
+  th, td {
+    background-color: #333;
+    border-right: 1px solid #fff;
+    color: #fff;
+    font-weight: normal;
+    padding: 5px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
 
+  tr:nth-child(even) td  {
+    background-color: #eee;
+  }
+
+  td, th {
+    display: table-cell;
+  }
+
+  td {
+    background-color: #fff;
+    color: #333;
+  }
+
+  .title {
+    width: 45%;
+  }
+  .table-summary {
+    width: 40%;
+  }
+  .date {
+    width: 15%;
+  }
+}
