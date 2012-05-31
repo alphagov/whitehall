@@ -15,7 +15,7 @@
     <div class="inner-block">
       <section class="featured_items" id="featured-countries">
         <%= content_tag_for(:div, @featured_country, class: 'featured') do %>
-          <img alt="Country image - Spain" src="/government/assets/spain.png" />
+          <%= image_tag 'spain.png', alt: 'Country image - Spain' %>
           <h2><%= link_to @featured_country.name, country_path(@featured_country), class: "name" %></h2>
           <p class="summary description">
             <%= @featured_country.description %>
