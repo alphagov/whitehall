@@ -1,17 +1,19 @@
 class DocIdentity < ActiveRecord::Base
+  set_table_name :documents
+
   extend FriendlyId
   friendly_id :sluggable_string, use: :scoped, scope: :document_type
 
   after_destroy :destroy_all_editions
-  has_many :editions
-  has_many :edition_relations, dependent: :destroy
-  has_one :published_edition, class_name: 'Edition', conditions: { state: 'published' }
-  has_one :unpublished_edition, class_name: 'Edition', conditions: { state: ['draft', 'submitted', 'rejected'] }
+  has_many :editions, foreign_key: :document_id
+  has_many :edition_relations, foreign_key: :document_id, dependent: :destroy
+  has_one :published_edition, foreign_key: :document_id, class_name: 'Edition', conditions: { state: 'published' }
+  has_one :unpublished_edition, foreign_key: :document_id, class_name: 'Edition', conditions: { state: ['draft', 'submitted', 'rejected'] }
 
-  has_many :consultation_responses, class_name: 'ConsultationResponse', foreign_key: :consultation_doc_identity_id, dependent: :destroy
-  has_one :published_consultation_response, class_name: 'ConsultationResponse', foreign_key: :consultation_doc_identity_id, conditions: { state: 'published' }
+  has_many :consultation_responses, class_name: 'ConsultationResponse', foreign_key: :consultation_document_id, dependent: :destroy
+  has_one :published_consultation_response, class_name: 'ConsultationResponse', foreign_key: :consultation_document_id, conditions: { state: 'published' }
 
-  has_one :latest_edition, class_name: 'Edition', conditions: "NOT EXISTS (SELECT 1 FROM editions e2 WHERE e2.doc_identity_id = editions.doc_identity_id AND e2.id > editions.id AND e2.state <> 'deleted')"
+  has_one :latest_edition, foreign_key: :document_id, class_name: 'Edition', conditions: "NOT EXISTS (SELECT 1 FROM editions e2 WHERE e2.document_id = editions.document_id AND e2.id > editions.id AND e2.state <> 'deleted')"
 
   attr_accessor :sluggable_string
 
@@ -52,6 +54,6 @@ class DocIdentity < ActiveRecord::Base
   private
 
   def destroy_all_editions
-    Edition.unscoped.destroy_all(doc_identity_id: self.id)
+    Edition.unscoped.destroy_all(document_id: self.id)
   end
 end

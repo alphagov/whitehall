@@ -3,7 +3,7 @@ module Edition::Identifiable
   extend Forwardable
 
   included do
-    belongs_to :doc_identity
+    belongs_to :doc_identity, foreign_key: :document_id
     validates :doc_identity, presence: true
     before_validation :set_doc_identity, on: :create
     before_validation :update_doc_identity_slug, on: :update

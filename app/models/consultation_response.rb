@@ -1,7 +1,7 @@
 class ConsultationResponse < Edition
   include Edition::Attachable
 
-  belongs_to :consultation_doc_identity, class_name: 'DocIdentity'
+  belongs_to :consultation_doc_identity, foreign_key: :consultation_document_id, class_name: 'DocIdentity'
 
   validates_presence_of :consultation
 
