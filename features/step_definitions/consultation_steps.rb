@@ -35,11 +35,11 @@ Then /^I can see links to the related published consultations "([^"]*)" and "([^
 end
 
 Then /^I should see "([^"]*)" in the list of featured consultations$/ do |title|
-  assert has_css?("#{featured_consultations_selector} .consultation a", text: title)
+  assert has_css?("#{featured_consultations_selector} a", text: title)
 end
 
 Then /^I should only see the most recent (\d+) in the list of featured consultations$/ do |number|
-  assert has_css?("#{featured_consultations_selector} .consultation", count: number.to_i)
+  assert has_css?(featured_consultations_selector, count: number.to_i)
 end
 
 Then /^I can see links to the consultations "([^"]*)" and "([^"]*)"$/ do |title_1, title_2|

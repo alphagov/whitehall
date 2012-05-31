@@ -239,8 +239,8 @@ class ConsultationsControllerTest < ActionController::TestCase
     closing_date = 20.days.from_now
     consultation = create(:featured_consultation, closing_on: closing_date)
     get :index
-    assert_select send("featured_consultations_selector") do
-      assert_select "#{record_css_selector(consultation)} .time_remaining", text: "Closes in 21 days"
+    assert_select "#{featured_consultations_selector}#{record_css_selector(consultation)}" do
+      assert_select ".time_remaining", text: "Closes in 21 days"
     end
   end
 
@@ -274,9 +274,9 @@ class ConsultationsControllerTest < ActionController::TestCase
   test "should display a link to the featured consultation" do
     edition = create("featured_consultation")
     get :index
-    assert_select featured_consultations_selector do
+    assert_select "#{featured_consultations_selector}#{record_css_selector(edition)}" do
       expected_path = consultation_path(edition.doc_identity)
-      assert_select "#{record_css_selector(edition)} a[href=#{expected_path}]"
+      assert_select "a[href=#{expected_path}]"
     end
   end
 end
