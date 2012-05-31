@@ -1,6 +1,6 @@
 module Admin::EditionActionsHelper
   def edit_edition_button(edition)
-    link_to 'Edit', edit_admin_document_path(edition), title: "Edit #{edition.title}", class: "button"
+    link_to 'Edit', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "button"
   end
 
   def redraft_edition_button(edition)

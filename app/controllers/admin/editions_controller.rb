@@ -58,9 +58,9 @@ class Admin::EditionsController < Admin::BaseController
   def revise
     edition = @edition.create_draft(current_user)
     if edition.persisted?
-      redirect_to edit_admin_document_path(edition)
+      redirect_to edit_admin_edition_path(edition)
     else
-      redirect_to edit_admin_document_path(@edition.doc_identity.unpublished_edition),
+      redirect_to edit_admin_edition_path(@edition.doc_identity.unpublished_edition),
         alert: edition.errors.full_messages.to_sentence
     end
   end

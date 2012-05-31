@@ -32,7 +32,7 @@ module Admin::EditionRoutesHelper
     end
   end
 
-  def edit_admin_document_path(edition, *args)
+  def edit_admin_edition_path(edition, *args)
     if edition.is_a?(Speech)
       edit_admin_speech_path(edition, *args)
     else
