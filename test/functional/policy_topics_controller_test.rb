@@ -7,7 +7,7 @@ class PolicyTopicsControllerTest < ActionController::TestCase
     policy_topic = create(:policy_topic)
     get :show, id: policy_topic
     assert_select ".page_title", text: policy_topic.name
-    assert_select ".policy_topic_view .description", text: policy_topic.description
+    assert_select ".policy-topic .document", text: policy_topic.description
   end
 
   test "shows published policies and their summaries" do
@@ -31,7 +31,7 @@ class PolicyTopicsControllerTest < ActionController::TestCase
 
     get :show, id: policy_topic
 
-    assert_select ".featured.policies" do
+    assert_select ".featured-policies" do
       assert_select_object(policy) do
         assert_select ".title", text: "policy-title"
         assert_select ".summary", text: /policy-summary/

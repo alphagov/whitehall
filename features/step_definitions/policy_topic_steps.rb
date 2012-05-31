@@ -102,7 +102,7 @@ end
 Then /^I should see the featured policies in the "([^"]*)" policy topic are:$/ do |name, expected_table|
   policy_topic = PolicyTopic.find_by_name!(name)
   visit policy_topic_path(policy_topic)
-  rows = find("ul.featured.policies").all('li')
+  rows = find("ul.featured-policies").all('li')
   table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
   expected_table.diff!(table)
 end
