@@ -39,7 +39,6 @@ class ActiveSupport::TestCase
     def edition_class_for(document_type)
       document_type.to_s.classify.constantize
     end
-    alias_method :document_class_for, :edition_class_for
   end
 end
 
