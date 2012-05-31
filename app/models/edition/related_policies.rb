@@ -34,12 +34,12 @@ module Edition::RelatedPolicies
           select 1
           from edition_relations dr
             join editions policy on
-              dr.doc_identity_id = policy.doc_identity_id and
+              dr.document_id = policy.document_id and
               policy.state='published' and
               NOT EXISTS (
                 SELECT 1 FROM editions e3
                 WHERE
-                  e3.doc_identity_id = policy.doc_identity_id
+                  e3.document_id = policy.document_id
                   AND e3.id > policy.id AND e3.state = 'published'
               )
             join policy_topic_memberships ptm on ptm.policy_id = policy.id

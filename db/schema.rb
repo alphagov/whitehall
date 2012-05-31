@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120531114009) do
+ActiveRecord::Schema.define(:version => 20120531142836) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -60,14 +60,14 @@ ActiveRecord::Schema.define(:version => 20120531114009) do
 
   add_index "countries", ["slug"], :name => "index_countries_on_slug"
 
-  create_table "doc_identities", :force => true do |t|
+  create_table "documents", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
     t.string   "document_type"
   end
 
-  add_index "doc_identities", ["slug", "document_type"], :name => "index_doc_identities_on_slug_and_document_type", :unique => true
+  add_index "documents", ["slug", "document_type"], :name => "index_documents_on_slug_and_document_type", :unique => true
 
   create_table "edition_attachments", :force => true do |t|
     t.integer  "edition_id"
@@ -122,13 +122,13 @@ ActiveRecord::Schema.define(:version => 20120531114009) do
   add_index "edition_organisations", ["organisation_id"], :name => "index_edition_organisations_on_organisation_id"
 
   create_table "edition_relations", :force => true do |t|
-    t.integer  "edition_id",      :null => false
+    t.integer  "edition_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "doc_identity_id"
+    t.integer  "document_id"
   end
 
-  add_index "edition_relations", ["doc_identity_id"], :name => "index_edition_relations_on_doc_identity_id"
+  add_index "edition_relations", ["document_id"], :name => "index_edition_relations_on_document_id"
   add_index "edition_relations", ["edition_id"], :name => "index_edition_relations_on_edition_id"
 
   create_table "editions", :force => true do |t|
@@ -136,9 +136,9 @@ ActiveRecord::Schema.define(:version => 20120531114009) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "lock_version",                 :default => 0
-    t.integer  "doc_identity_id"
-    t.string   "state",                        :default => "draft", :null => false
+    t.integer  "lock_version",             :default => 0
+    t.integer  "document_id"
+    t.string   "state",                    :default => "draft", :null => false
     t.string   "type"
     t.integer  "role_appointment_id"
     t.string   "location"
@@ -150,22 +150,22 @@ ActiveRecord::Schema.define(:version => 20120531114009) do
     t.date     "publication_date"
     t.string   "unique_reference"
     t.string   "isbn"
-    t.boolean  "research",                     :default => false
+    t.boolean  "research",                 :default => false
     t.string   "order_url"
     t.text     "notes_to_editors"
-    t.boolean  "corporate_publication",        :default => false
+    t.boolean  "corporate_publication",    :default => false
     t.text     "summary"
     t.integer  "speech_type_id"
-    t.integer  "consultation_doc_identity_id"
-    t.boolean  "featured",                     :default => false
-    t.boolean  "stub",                         :default => false
+    t.integer  "consultation_document_id"
+    t.boolean  "featured",                 :default => false
+    t.boolean  "stub",                     :default => false
     t.text     "change_note"
     t.boolean  "force_published"
-    t.boolean  "minor_change",                 :default => false
+    t.boolean  "minor_change",             :default => false
   end
 
-  add_index "editions", ["consultation_doc_identity_id"], :name => "index_editions_on_consultation_doc_identity_id"
-  add_index "editions", ["doc_identity_id"], :name => "index_editions_on_doc_identity_id"
+  add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"
+  add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
   add_index "editions", ["role_appointment_id"], :name => "index_editions_on_role_appointment_id"
   add_index "editions", ["speech_type_id"], :name => "index_editions_on_speech_type_id"
 
