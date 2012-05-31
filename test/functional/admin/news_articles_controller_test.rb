@@ -30,7 +30,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     assert_select "form#edition_new" do
       assert_select "select[name*='edition[related_document_ids]']"
-      assert_select "textarea.previewable.govspeak[name='edition[notes_to_editors]']"
+      assert_select "textarea.previewable[name='edition[notes_to_editors]']"
     end
   end
 

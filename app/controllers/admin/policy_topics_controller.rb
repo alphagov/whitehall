@@ -1,4 +1,5 @@
 class Admin::PolicyTopicsController < Admin::BaseController
+  layout "bootstrap_admin"
 
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
 
