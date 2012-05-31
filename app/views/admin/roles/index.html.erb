@@ -1,44 +1,40 @@
 <% page_title "Roles" %>
-<section class="resource_list">
-  <div class="collection">
 
-    <nav class="actions">
-      <%= link_to "Create Role", new_admin_role_path, class: "button new_resource", title: "Create a Role" %>
-    </nav>
+<nav class="actions">
+  <%= link_to "Create Role", new_admin_role_path, class: "button new_resource", title: "Create a Role" %>
+</nav>
 
-    <h1>Roles</h1>
+<h1>Roles</h1>
 
-    <table class="roles">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Organisations</th>
-          <th>Type</th>
-          <th>Cabinet member</th>
-          <th>Permanent secretary</th>
-          <th>Currently appointed</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @roles.each do |role| %>
-          <%= content_tag_for(:tr, role) do %>
-            <td class="name"><%= link_to role.name, edit_admin_role_path(role), title: "Edit role #{role.name}" %></td>
-            <td class="organisations"><%= role.organisation_names %></td>
-            <td class="type"><%= role.humanized_type %></td>
-            <td class="cabinet_member"><%= yes_or_no(role.cabinet_member?) %></td>
-            <td class="permanent_secretary"><%= yes_or_no(role.permanent_secretary?) %></td>
-            <td class="person"><%= role.current_person_name %></td>
-            <td class="delete">
-              <% if role.destroyable? %>
-                <%= button_to 'delete', admin_role_path(role), method: :delete %>
-              <% else %>
-                <span>Cannot delete</span>
-              <% end %>
-            </td>
+<table class="roles table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Organisations</th>
+      <th>Type</th>
+      <th>Cabinet member</th>
+      <th>Permanent secretary</th>
+      <th>Currently appointed</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @roles.each do |role| %>
+      <%= content_tag_for(:tr, role) do %>
+        <td class="name"><%= link_to role.name, edit_admin_role_path(role), title: "Edit role #{role.name}" %></td>
+        <td class="organisations"><%= role.organisation_names %></td>
+        <td class="type"><%= role.humanized_type %></td>
+        <td class="cabinet_member"><%= yes_or_no(role.cabinet_member?) %></td>
+        <td class="permanent_secretary"><%= yes_or_no(role.permanent_secretary?) %></td>
+        <td class="person"><%= role.current_person_name %></td>
+        <td class="delete">
+          <% if role.destroyable? %>
+            <%= button_to 'delete', admin_role_path(role), method: :delete, class: 'btn btn-danger', confirm: "Are you sure you wish to remove this role?" %>
+          <% else %>
+            <span>Cannot delete</span>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</section>
+        </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
