@@ -12,7 +12,7 @@ class Admin::SupportingPagesController < Admin::BaseController
   def create
     @supporting_page = @edition.supporting_pages.build(params[:supporting_page])
     if @supporting_page.save
-      redirect_to admin_document_path(@edition), notice: "The supporting page was added successfully"
+      redirect_to admin_edition_path(@edition), notice: "The supporting page was added successfully"
     else
       flash[:alert] = "There was a problem: #{@supporting_page.errors.full_messages.to_sentence}"
       render :new
@@ -47,7 +47,7 @@ class Admin::SupportingPagesController < Admin::BaseController
     else
       flash[:alert] = "Cannot destroy a supporting page that has been published"
     end
-    redirect_to admin_document_path(@supporting_page.edition)
+    redirect_to admin_edition_path(@supporting_page.edition)
   end
 
   private

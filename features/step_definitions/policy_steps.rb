@@ -195,24 +195,24 @@ end
 
 When /^I delete the draft policy "([^"]*)"$/ do |title|
   policy = Policy.draft.find_by_title!(title)
-  visit admin_document_path(policy)
+  visit admin_edition_path(policy)
   click_button "Delete"
 end
 
 When /^I view the policy titled "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
-  visit admin_document_path(policy)
+  visit admin_edition_path(policy)
 end
 
 When /^I resubmit the policy titled "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
-  visit admin_document_path(policy)
+  visit admin_edition_path(policy)
   click_button "Submit to 2nd pair of eyes"
 end
 
 When /^I publish a new edition of the policy "([^"]*)" with the new title "([^"]*)"$/ do |policy_title, new_title|
   policy = Policy.find_by_title!(policy_title)
-  visit admin_document_path(policy)
+  visit admin_edition_path(policy)
   click_button "Create new edition"
   fill_in "Title", with: new_title
   fill_in_change_note_if_required
@@ -222,7 +222,7 @@ end
 
 When /^I publish a new edition of the policy "([^"]*)" without a change note$/ do |policy_title|
   policy = Policy.latest_edition.find_by_title!(policy_title)
-  visit admin_document_path(policy)
+  visit admin_edition_path(policy)
   click_button "Create new edition"
   click_button "Save"
   publish(force: true, ignore_errors: true)
@@ -230,7 +230,7 @@ end
 
 When /^I publish a new edition of the policy "([^"]*)" as a minor change$/ do |policy_title|
   policy = Policy.latest_edition.find_by_title!(policy_title)
-  visit admin_document_path(policy)
+  visit admin_edition_path(policy)
   click_button "Create new edition"
   check "Minor change"
   click_button "Save"
@@ -239,7 +239,7 @@ end
 
 When /^I publish a new edition of the policy "([^"]*)" with a change note "([^"]*)"$/ do |policy_title, change_note|
   policy = Policy.latest_edition.find_by_title!(policy_title)
-  visit admin_document_path(policy)
+  visit admin_edition_path(policy)
   click_button "Create new edition"
   fill_in "Change note", with: change_note
   click_button "Save"
@@ -311,7 +311,7 @@ end
 
 Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |policy_title|
   policy = Policy.published.find_by_title!(policy_title)
-  visit admin_document_path(policy)
+  visit admin_edition_path(policy)
   assert has_css?(".actions .public_version a", href: public_document_path(policy)), "Link to public version of policy not found"
 end
 

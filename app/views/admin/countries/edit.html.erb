@@ -39,7 +39,7 @@
         <tbody>
           <% @news_articles.each do |news_article| %>
             <%= content_tag_for(:tr, news_article) do %>
-              <td><%= link_to news_article.title, admin_document_path(news_article) %></td>
+              <td><%= link_to news_article.title, admin_edition_path(news_article) %></td>
               <td><%= time_ago_in_words news_article.updated_at %> ago</td>
               <td>
                 <% association = news_article.edition_countries.where(country_id: @country).first %>

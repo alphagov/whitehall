@@ -33,7 +33,7 @@ end
 
 When /^I edit the supporting page "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   supporting_page = SupportingPage.find_by_title!(original_title)
-  visit admin_document_path(supporting_page.edition)
+  visit admin_edition_path(supporting_page.edition)
   click_link original_title
   click_link "Edit"
   fill_in "Title", with: new_title
@@ -42,7 +42,7 @@ end
 
 When /^I add a supporting page "([^"]*)" to the "([^"]*)" policy$/ do |supporting_title, policy_title|
   policy = Policy.find_by_title!(policy_title)
-  visit admin_document_path(policy)
+  visit admin_edition_path(policy)
   click_link "Add supporting page"
   fill_in "Title", with: supporting_title
   fill_in "Body", with: "Some supporting information"
@@ -51,7 +51,7 @@ end
 
 When /^I add a supporting page "([^"]*)" with an attachment to the "([^"]*)" policy$/ do |title, policy_title|
   policy = Policy.find_by_title!(policy_title)
-  visit admin_document_path(policy)
+  visit admin_edition_path(policy)
   click_link "Add supporting page"
   fill_in "Title", with: title
   fill_in "Body", with: "Some supporting information"

@@ -16,7 +16,7 @@ namespace :export do
       csv << ["Title", "Admin URL", "State", "Type", "Authors"]
       documents.each do |document|
         author_names = document.edition_authors.map(&:user).uniq.map(&:name)
-        admin_url = "https://whitehall.production.alphagov.co.uk" + admin_document_path(document)
+        admin_url = "https://whitehall.production.alphagov.co.uk" + admin_edition_path(document)
         csv << [document.title, admin_url, document.state, document.type, *author_names]
       end
     end

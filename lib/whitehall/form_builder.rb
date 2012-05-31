@@ -57,7 +57,7 @@ module Whitehall
       return path if path
       if object.is_a?(Edition)
         object.new_record? ? @template.admin_documents_path :
-                             @template.admin_document_path(object)
+                             @template.admin_edition_path(object)
       else
         object.new_record? ? @template.polymorphic_path([:admin, object.class]) :
                              @template.polymorphic_path([:admin, object])

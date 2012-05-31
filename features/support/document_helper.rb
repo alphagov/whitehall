@@ -58,7 +58,7 @@ module DocumentHelper
 
   def visit_document_preview(title, scope = :scoped)
     document = Edition.send(scope).find_by_title(title)
-    visit admin_document_path(document)
+    visit admin_edition_path(document)
   end
 
   def fill_in_change_note_if_required

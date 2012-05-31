@@ -1,6 +1,6 @@
 module Admin::EditionActionsHelper
   def edit_edition_button(edition)
-    link_to 'Edit', edit_admin_document_path(edition), title: "Edit #{edition.title}", class: "button"
+    link_to 'Edit', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "button"
   end
 
   def redraft_edition_button(edition)
@@ -8,7 +8,7 @@ module Admin::EditionActionsHelper
   end
 
   def most_recent_edition_button(edition)
-    link_to "Go to most recent edition", admin_document_path(edition.latest_edition),
+    link_to "Go to most recent edition", admin_edition_path(edition.latest_edition),
             title: "Go to most recent edition of #{edition.title}", class: "button"
   end
 
@@ -48,7 +48,7 @@ module Admin::EditionActionsHelper
   end
 
   def delete_edition_button(edition)
-    button_to 'Delete', admin_document_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?"
+    button_to 'Delete', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?"
   end
 
   def show_or_add_consultation_response_button(consultation)

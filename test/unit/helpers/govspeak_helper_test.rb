@@ -157,7 +157,7 @@ class GovspeakHelperTest < ActionView::TestCase
   [Policy, Publication, NewsArticle, Consultation].each do |edition_class|
     test "should rewrite absolute links to admin previews of published #{edition_class.name} as their public doc identity" do
       edition = create(:"published_#{edition_class.name.underscore}")
-      html = govspeak_to_html("this and [that](http://test.host#{admin_document_path(edition)}) yeah?")
+      html = govspeak_to_html("this and [that](http://test.host#{admin_edition_path(edition)}) yeah?")
       assert_govspeak %{<p>this and <a href="#{public_document_url(edition)}">that</a> yeah?</p>}, html
     end
   end
@@ -193,7 +193,7 @@ class GovspeakHelperTest < ActionView::TestCase
     new_draft.submit!
     new_draft.publish_as(editor)
 
-    html = govspeak_to_html("this and [that](http://test.host#{admin_document_path(edition)}) yeah?")
+    html = govspeak_to_html("this and [that](http://test.host#{admin_edition_path(edition)}) yeah?")
     assert_govspeak %{<p>this and <a href="#{public_document_url(edition)}">that</a> yeah?</p>}, html
   end
 
@@ -203,7 +203,7 @@ class GovspeakHelperTest < ActionView::TestCase
     new_draft = edition.create_draft(writer)
     new_draft.save_as(writer)
 
-    html = govspeak_to_html("this and [that](http://test.host#{admin_document_path(new_draft)}) yeah?")
+    html = govspeak_to_html("this and [that](http://test.host#{admin_edition_path(new_draft)}) yeah?")
     assert_govspeak %{<p>this and <a href="#{public_document_url(edition)}">that</a> yeah?</p>}, html
   end
 

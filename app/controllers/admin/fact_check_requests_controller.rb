@@ -15,10 +15,10 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     elsif fact_check_request.save
       Notifications.fact_check_request(fact_check_request, mailer_url_options).deliver
       notice = "The policy has been sent to #{fact_check_request.email_address}"
-      redirect_to admin_document_path(@edition), notice: notice
+      redirect_to admin_edition_path(@edition), notice: notice
     else
       alert = "There was a problem: #{fact_check_request.errors.full_messages.to_sentence}"
-      redirect_to admin_document_path(@edition), alert: alert
+      redirect_to admin_edition_path(@edition), alert: alert
     end
   end
 

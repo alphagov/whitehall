@@ -16,7 +16,7 @@ module Admin::EditionRoutesHelper
   edition_instance_route :admin_edition_editorial_remarks_path
   edition_instance_route :admin_edition_fact_check_requests_path
 
-  def admin_document_path(edition, *args)
+  def admin_edition_path(edition, *args)
     if edition.is_a?(Speech)
       admin_speech_path(edition, *args)
     else
@@ -24,7 +24,7 @@ module Admin::EditionRoutesHelper
     end
   end
 
-  def admin_document_url(edition, *args)
+  def admin_edition_url(edition, *args)
     if edition.is_a?(Speech)
       admin_speech_url(edition, *args)
     else
@@ -32,7 +32,7 @@ module Admin::EditionRoutesHelper
     end
   end
 
-  def edit_admin_document_path(edition, *args)
+  def edit_admin_edition_path(edition, *args)
     if edition.is_a?(Speech)
       edit_admin_speech_path(edition, *args)
     else

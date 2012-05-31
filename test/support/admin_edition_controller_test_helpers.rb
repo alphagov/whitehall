@@ -78,8 +78,8 @@ module AdminEditionControllerTestHelpers
       test "create should take the writer to the edition page" do
         post :create, edition: controller_attributes_for(edition_type)
 
-        admin_document_path = send("admin_#{edition_type}_path", edition_class.last)
-        assert_redirected_to admin_document_path
+        admin_edition_path = send("admin_#{edition_type}_path", edition_class.last)
+        assert_redirected_to admin_edition_path
         assert_equal 'The document has been saved', flash[:notice]
       end
 
@@ -109,8 +109,8 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        admin_document_path = send("admin_#{edition_type}_path", edition)
-        assert_select "form#edition_edit[action='#{admin_document_path}']" do
+        admin_edition_path = send("admin_#{edition_type}_path", edition)
+        assert_select "form#edition_edit[action='#{admin_edition_path}']" do
           assert_select "input[name='edition[title]'][type='text']"
           assert_select "textarea[name='edition[body]']"
           assert_select "input[type='submit']"
@@ -130,8 +130,8 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: draft_edition
 
-        admin_document_path = send("admin_#{edition_type}_path", draft_edition)
-        assert_select "a[href=#{admin_document_path}]", text: /cancel/i
+        admin_edition_path = send("admin_#{edition_type}_path", draft_edition)
+        assert_select "a[href=#{admin_edition_path}]", text: /cancel/i
       end
 
       test "update should save modified edition attributes" do
@@ -152,8 +152,8 @@ module AdminEditionControllerTestHelpers
 
         put :update, id: edition, edition: {title: 'new-title', body: 'new-body'}
 
-        admin_document_path = send("admin_#{edition_type}_path", edition)
-        assert_redirected_to admin_document_path
+        admin_edition_path = send("admin_#{edition_type}_path", edition)
+        assert_redirected_to admin_edition_path
         assert_equal 'The document has been saved', flash[:notice]
       end
 
@@ -1247,8 +1247,8 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        admin_document_path = send("admin_#{edition_type}_path", edition)
-        assert_select "form#edition_edit[action='#{admin_document_path}']" do
+        admin_edition_path = send("admin_#{edition_type}_path", edition)
+        assert_select "form#edition_edit[action='#{admin_edition_path}']" do
           assert_select "select[name*='edition[first_published_at']", count: 5
         end
       end

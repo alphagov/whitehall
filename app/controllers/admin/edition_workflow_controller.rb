@@ -7,19 +7,19 @@ class Admin::EditionWorkflowController < Admin::BaseController
   before_filter :set_minor_change_flag
 
   rescue_from ActiveRecord::StaleObjectError do
-    redirect_to admin_document_path(@edition), alert: "This document has been edited since you viewed it; you are now viewing the latest version"
+    redirect_to admin_edition_path(@edition), alert: "This document has been edited since you viewed it; you are now viewing the latest version"
   end
 
   def submit
     @edition.submit!
-    redirect_to admin_document_path(@edition),
+    redirect_to admin_edition_path(@edition),
       notice: "Your document has been submitted for review by a second pair of eyes"
   end
 
   def reject
     @edition.reject!
     users_to_notify(@edition).each do |user|
-      Notifications.edition_rejected(user, @edition, admin_document_url(@edition)).deliver
+      Notifications.edition_rejected(user, @edition, admin_edition_url(@edition)).deliver
     end
     redirect_to new_admin_edition_editorial_remark_path(@edition),
       notice: "Document rejected; please explain why in an editorial remark"
@@ -28,11 +28,11 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def publish
     if @edition.publish_as(current_user, force: params[:force].present?)
       users_to_notify(@edition).each do |user|
-        Notifications.edition_published(user, @edition, admin_document_url(@edition), public_document_url(@edition)).deliver
+        Notifications.edition_published(user, @edition, admin_edition_url(@edition), public_document_url(@edition)).deliver
       end
       redirect_to admin_documents_path(state: :published), notice: "The document #{@edition.title} has been published"
     else
-      redirect_to admin_document_path(@edition), alert: @edition.errors.full_messages.to_sentence
+      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
     end
   end
 
