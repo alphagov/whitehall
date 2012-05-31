@@ -18,6 +18,9 @@ class Person < ActiveRecord::Base
 
   validates :name, presence: true
 
+  extend FriendlyId
+  friendly_id :slug_name, use: :slugged
+
   delegate :url, to: :image, prefix: :image
 
   before_destroy :prevent_destruction_if_appointed
@@ -35,6 +38,11 @@ class Person < ActiveRecord::Base
   end
 
   private
+
+  def slug_name
+    prefix = forename.present? ? forename : title
+    [prefix, surname].join(' ')
+  end
 
   def prevent_destruction_if_appointed
     return false unless destroyable?
