@@ -40,3 +40,11 @@ Scenario: Departmental editor reviews fact checker comments
   When I visit the list of draft policies
   And I click on the policy "Check me"
   Then I should see the fact checking feedback "This looks good"
+
+Scenario: There are facts on a previous edition
+  Given a published policy called "Punish unacceptable facial topiary" with feedback "Too hirsutist" exists
+  And I am a writer
+  And I create a new edition of the published policy "Punish unacceptable facial topiary"
+  When I visit the list of draft policies
+  And I click on the policy "Punish unacceptable facial topiary"
+  Then I should see the fact checking feedback "Too hirsutist"

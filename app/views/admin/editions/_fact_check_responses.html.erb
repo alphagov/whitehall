@@ -4,9 +4,9 @@
   <div class="g2 first">
     <section class="responses">
       <h1>Responses</h1>
-      <% if edition.fact_check_requests.completed.any? %>
+      <% if edition.all_completed_fact_check_requests.any? %>
       <ul id="completed_fact_check_requests">
-        <% edition.fact_check_requests.completed.each do |fact_check_request| %>
+        <% edition.all_completed_fact_check_requests.each do |fact_check_request| %>
           <%= content_tag_for(:li, fact_check_request) do %>
             <div class="details">
               <span class="from"><%= fact_check_request.email_address %></span>

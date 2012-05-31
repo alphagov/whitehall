@@ -7,4 +7,16 @@ class Edition::FactCheckableTest < ActiveSupport::TestCase
     edition.destroy
     refute FactCheckRequest.find_by_id(fact_check_request.id)
   end
+
+  test "should list all completed fact check requests from all editions" do
+    user = create(:user)
+    old_edition = create(:published_policy)
+    old_complete_fcr = create(:fact_check_request, edition: old_edition, comments: "Stuff")
+    old_incomplete_fcr = create(:fact_check_request, edition: old_edition)
+    new_edition = old_edition.create_draft(user)
+    new_complete_fcr = create(:fact_check_request, edition: new_edition, comments: "Stuff")
+
+    expected = [old_complete_fcr, new_complete_fcr]
+    assert_equal expected, new_edition.all_completed_fact_check_requests
+  end
 end

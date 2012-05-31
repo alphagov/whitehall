@@ -11,6 +11,10 @@ class FactCheckRequest < ActiveRecord::Base
   scope :completed, where('comments IS NOT NULL')
   scope :pending, where('comments IS NULL')
 
+  def self.for_editions(editions)
+    FactCheckRequest.where(edition_id: editions)
+  end
+
   def requestor_contactable?
     requestor.email.present?
   end

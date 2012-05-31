@@ -15,6 +15,14 @@ Given /^"([^"]*)" has asked "([^"]*)" for feedback on the draft policy "([^"]*)"
   create(:fact_check_request, requestor: requestor, edition: edition, email_address: fact_checker_email)
 end
 
+Given /^a published policy called "([^"]*)" with feedback "([^"]*)" exists$/ do |title, comments|
+  policy = create(:published_policy, title: title)
+  fact_check_request = create(:fact_check_request,
+                              edition: policy,
+                              email_address: "user@example.com",
+                              comments: comments)
+end
+
 When /^"([^"]*)" clicks the email link to the draft policy$/ do |email_address|
   email = unread_emails_for(email_address).last
   links = URI.extract(email.body.to_s, ["http", "https"])
