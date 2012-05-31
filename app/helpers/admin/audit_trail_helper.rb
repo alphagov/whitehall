@@ -2,7 +2,7 @@ module Admin::AuditTrailHelper
   def describe_audit_trail_entry(entry)
     actor = entry.actor
     html = if entry.respond_to?(:message)
-      content_tag(:span, class: "editorial_remark") do
+      content_tag(:span, class: "body") do
         "&ldquo;".html_safe + entry.message + "&rdquo;".html_safe
       end
     else
@@ -14,7 +14,7 @@ module Admin::AuditTrailHelper
       html << content_tag(:span, class: "actor") { linked_author(actor) }
     end
     html << " ".html_safe
-    html << time_ago(entry.created_at, class: "time")
+    html << time_ago(entry.created_at, class: "created_at")
   end
 
   def make_past_tense(verb_in_present_tense)

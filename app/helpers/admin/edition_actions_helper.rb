@@ -1,23 +1,23 @@
 module Admin::EditionActionsHelper
   def edit_edition_button(edition)
-    link_to 'Edit', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "button"
+    link_to 'Edit', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "btn"
   end
 
   def redraft_edition_button(edition)
-    button_to 'Create new edition', revise_admin_edition_path(edition), title: "Create new edition"
+    button_to 'Create new edition', revise_admin_edition_path(edition), title: "Create new edition", class: "btn"
   end
 
   def most_recent_edition_button(edition)
     link_to "Go to most recent edition", admin_edition_path(edition.latest_edition),
-            title: "Go to most recent edition of #{edition.title}", class: "button"
+            title: "Go to most recent edition of #{edition.title}", class: "btn"
   end
 
   def submit_edition_button(edition)
-    button_to "Submit to 2nd pair of eyes", submit_admin_edition_path(edition, lock_version: edition.lock_version)
+    button_to "Submit to 2nd pair of eyes", submit_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn"
   end
 
   def reject_edition_button(edition)
-    button_to "Reject", reject_admin_edition_path(edition, lock_version: edition.lock_version)
+    button_to "Reject", reject_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn"
   end
 
   def publish_edition_form(edition, options = {})
@@ -40,15 +40,12 @@ module Admin::EditionActionsHelper
           }
         }
       end
-      concat form_for([:admin, edition], {as: :edition, url: url, method: :post, html: {id: "edition_publishing"}}) { |form|
-        concat form.hidden_field(:lock_version)
-        concat form.submit(button_text, title: button_title, confirm: confirm)
-      }
+      concat button_to button_text, url, confirm: confirm, title: button_title, class: "btn"
     }
   end
 
   def delete_edition_button(edition)
-    button_to 'Delete', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?"
+    button_to 'Delete', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?", class: "btn"
   end
 
   def show_or_add_consultation_response_button(consultation)
@@ -60,11 +57,11 @@ module Admin::EditionActionsHelper
   end
 
   def add_consultation_response_button(consultation)
-    link_to 'Add response', new_admin_consultation_response_path(edition: {consultation_id: consultation}), title: "Add response", class: "button"
+    link_to 'Add response', new_admin_consultation_response_path(edition: {consultation_id: consultation}), title: "Add response", class: "btn"
   end
 
   def show_consultation_response_button(consultation)
-    link_to 'Show response', admin_consultation_response_path(consultation.latest_consultation_response), title: "Show response", class: "button"
+    link_to 'Show response', admin_consultation_response_path(consultation.latest_consultation_response), title: "Show response", class: "btn"
   end
 
   private

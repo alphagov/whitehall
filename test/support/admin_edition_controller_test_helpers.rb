@@ -1045,9 +1045,9 @@ module AdminEditionControllerTestHelpers
         edition = create("rejected_#{edition_type}")
         remark = edition.editorial_remarks.create!(body: "editorial-remark-body", author: current_user)
         get :show, id: edition
-        assert_select "#editorial_remarks .editorial_remark" do
-          assert_select ".body", text: "editorial-remark-body"
-          assert_select ".author", text: current_user.name
+        assert_select ".editorial_remark" do
+          assert_select ".body", text: /editorial-remark-body/
+          assert_select ".actor", text: current_user.name
           assert_select "abbr.created_at[title=#{remark.created_at.iso8601}]"
         end
       end

@@ -22,7 +22,7 @@ body {
   nav {
     float: left;
     padding-right: 1em;
-    a {
+    li {
       @include type-14;
       font-weight: bold;
       padding-right: 1em;

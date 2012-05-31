@@ -1,0 +1,48 @@
+@import "../shared/typography";
+
+.audit-trail {
+  h1 {
+    display: none;
+  }
+
+  .add-remark {
+    margin-bottom: 1em;
+  }
+
+  ul {
+    margin-left: 0;
+
+    li {
+      overflow: hidden;
+      margin-bottom: 1em;
+
+      .action, .editorial_remark {
+        color: #222;
+      }
+
+      .time {
+        @include type-12;
+        margin-bottom: 0;
+      }
+
+      &.editorial_remark {
+        .body {
+          display: block;
+          font-weight: bold;
+        }
+      }
+
+      &.version {
+        .created_at {
+          display: block;
+        }
+      }
+    }
+
+    .image {
+      float:left;
+      padding-right: 0.75em;
+      img { margin: 0}
+    }
+  }
+}

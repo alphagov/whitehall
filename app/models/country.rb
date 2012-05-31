@@ -1,10 +1,8 @@
 class Country < ActiveRecord::Base
-  FEATURED_COUNTRY_NAMES = ["Spain", "USA", "Uganda"]
+  FEATURED_COUNTRY_NAMES = ["Spain"]
 
   FEATURED_COUNTRY_URLS = {
-    "Spain"  => ["http://ukinspain.fco.gov.uk"],
-    "Uganda" => ["http://ukinuganda.fco.gov.uk", "http://www.dfid.gov.uk/Uganda"],
-    "USA"    => ["http://ukinusa.fco.gov.uk"],
+    "Spain"  => ["http://ukinspain.fco.gov.uk"]
   }
 
   has_many :edition_countries

@@ -1,7 +1,7 @@
 <% page_title @supporting_page.title, "Supporting page for " + @supporting_page.document_title %>
 <div class="g2 first">
   <nav class="actions">
-    <% if @supporting_page.document_editable? %>
+    <% if @supporting_page.editable? %>
         <%= link_to 'Edit', edit_admin_supporting_page_path(@supporting_page), title: "Edit #{@supporting_page.title}", :class => "button" %>
     <% end %>
     <% if @supporting_page.destroyable? %>
