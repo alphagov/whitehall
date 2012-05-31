@@ -40,6 +40,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def edit
     @edition.open_for_editing_as(current_user)
+    render :edit, layout: "bootstrap_admin"
   end
 
   def update

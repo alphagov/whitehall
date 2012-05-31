@@ -1,13 +1,13 @@
 <fieldset class="excluded_nations named">
   <legend>Excluded Nations</legend>
   <%= form.fields_for :nation_inapplicabilities do |ni_form| %>
-    <div class="group">
-      <div class="col nation">
+    <div class="control-group">
+      <div class="control">
         <% checkbox_args = nested_attribute_destroy_checkbox_options(ni_form) %>
         <% checkbox_args[0].merge!(label_text: ni_form.object.nation.name) %>
         <%= ni_form.check_box :_destroy, *checkbox_args %>
       </div>
-      <div class="col">
+      <div class="control">
         <%= ni_form.text_field :alternative_url %>
         <%= ni_form.hidden_field :nation_id %>
       </div>
