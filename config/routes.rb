@@ -69,7 +69,7 @@ Whitehall::Application.routes.draw do
 
     constraints(AdminRequest) do
       namespace :admin do
-        root to: redirect('/admin/documents')
+        root to: redirect('/admin/editions')
 
         resource :user, only: [:show, :edit, :update]
         resources :authors, only: [:show]
@@ -83,9 +83,7 @@ Whitehall::Application.routes.draw do
           end
         end
 
-        resources :documents, only: [:index], controller: :editions
-
-        resources :editions, only: [] do
+        resources :editions, only: [:index] do
           member do
             post :submit, to: 'edition_workflow#submit'
             post :revise

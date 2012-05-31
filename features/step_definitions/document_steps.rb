@@ -85,11 +85,11 @@ When /^I view the (publication|policy|news article|consultation|speech) "([^"]*)
 end
 
 When /^I visit the list of draft documents$/ do
-  visit admin_documents_path(state: :draft)
+  visit admin_editions_path(state: :draft)
 end
 
 When /^I visit the list of documents awaiting review$/ do
-  visit admin_documents_path(state: :submitted)
+  visit admin_editions_path(state: :submitted)
 end
 
 When /^I select the "([^"]*)" filter$/ do |filter|
@@ -134,13 +134,13 @@ When /^I edit the (publication|policy|news article|consultation) changing the ti
 end
 
 When /^I create a new edition of the published document "([^"]*)"$/ do |title|
-  visit admin_documents_path(state: :published)
+  visit admin_editions_path(state: :published)
   click_link title
   click_button 'Create new edition'
 end
 
 When /^I publish a new edition of the published document "([^"]*)"$/ do |title|
-  visit admin_documents_path(state: :published)
+  visit admin_editions_path(state: :published)
   click_link title
   click_button 'Create new edition'
   fill_in_change_note_if_required
@@ -157,22 +157,22 @@ Then /^I should not see (#{THE_DOCUMENT})$/ do |edition|
 end
 
 Then /^I should see (#{THE_DOCUMENT}) in the list of draft documents$/ do |edition|
-  visit admin_documents_path
+  visit admin_editions_path
   assert has_css?(record_css_selector(edition))
 end
 
 Then /^I should see (#{THE_DOCUMENT}) in the list of submitted documents$/ do |edition|
-  visit admin_documents_path(state: :submitted)
+  visit admin_editions_path(state: :submitted)
   assert has_css?(record_css_selector(edition))
 end
 
 Then /^I should see (#{THE_DOCUMENT}) in the list of published documents$/ do |edition|
-  visit admin_documents_path(state: :published)
+  visit admin_editions_path(state: :published)
   assert has_css?(record_css_selector(edition))
 end
 
 Then /^I should not see the policy "([^"]*)" in the list of draft documents$/ do |title|
-  visit admin_documents_path
+  visit admin_editions_path
   assert has_no_css?(".policy a", text: title)
 end
 

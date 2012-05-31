@@ -30,7 +30,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       users_to_notify(@edition).each do |user|
         Notifications.edition_published(user, @edition, admin_edition_url(@edition), public_document_url(@edition)).deliver
       end
-      redirect_to admin_documents_path(state: :published), notice: "The document #{@edition.title} has been published"
+      redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
     else
       redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
     end

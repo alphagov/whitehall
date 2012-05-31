@@ -67,7 +67,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def destroy
     @edition.delete!
-    redirect_to admin_documents_path, notice: "The document '#{@edition.title}' has been deleted"
+    redirect_to admin_editions_path, notice: "The document '#{@edition.title}' has been deleted"
   end
 
   private

@@ -3,7 +3,7 @@ Given /^a submitted policy titled "([^"]*)"$/ do |policy_title|
 end
 
 Given /^I am on the policies admin page$/ do
-  visit admin_documents_path
+  visit admin_editions_path
 end
 
 Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
@@ -29,7 +29,7 @@ Given /^a published policy "([^"]*)" that does not apply to the nations:$/ do |p
 end
 
 Given /^I visit the list of draft policies$/ do
-  visit admin_documents_path(state: :draft)
+  visit admin_editions_path(state: :draft)
 end
 
 Given /^I click on the policy "([^"]*)"$/ do |policy_title|
@@ -98,7 +98,7 @@ When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
 end
 
 When /^I create a new edition of the published policy "([^"]*)"$/ do |policy_title|
-  visit admin_documents_path(state: :published)
+  visit admin_editions_path(state: :published)
   click_link policy_title
   click_button 'Create new edition'
 end
@@ -115,7 +115,7 @@ end
 
 When /^I request that "([^"]*)" fact checks the policy "([^"]*)" with instructions "([^"]*)"$/ do |email, title, instructions|
   policy = Policy.find_by_title!(title)
-  visit admin_documents_path(state: :draft)
+  visit admin_editions_path(state: :draft)
   within(record_css_selector(policy)) do
     click_link title
   end
@@ -316,7 +316,7 @@ Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |p
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of documents that need work$/ do |policy_title|
-  visit admin_documents_path
+  visit admin_editions_path
   click_link "rejected"
   policy = Policy.find_by_title(policy_title)
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
@@ -343,7 +343,7 @@ Then /^I should see that it was rejected by "([^"]*)"$/ do |rejected_by|
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of submitted documents$/ do |policy_title|
-  visit admin_documents_path(state: :draft)
+  visit admin_editions_path(state: :draft)
   click_link "submitted"
   policy = Policy.find_by_title!(policy_title)
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
