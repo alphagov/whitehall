@@ -95,6 +95,10 @@
       li {
         padding-bottom: 4px;
       }
+      
+      li + li {
+        padding-top: $gutter-half;
+      }
     }
     
     #document_ministers {
