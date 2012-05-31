@@ -44,4 +44,14 @@ class PersonTest < ActiveSupport::TestCase
     assert person.destroyable?
     assert person.destroy
   end
+
+  test 'uses only forename and surname as slug if person has forename' do
+    person = create(:person, title: 'Sir', forename: 'Hercule', surname: 'Poirot')
+    assert_equal 'hercule-poirot', person.slug
+  end
+
+  test 'uses title and surname for slug if person has empty forename' do
+    person = create(:person, title: 'Lord', forename: '', surname: 'Barry of Toxteth')
+    assert_equal 'lord-barry-of-toxteth', person.slug
+  end
 end
