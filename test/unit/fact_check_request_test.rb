@@ -25,17 +25,17 @@ class FactCheckRequestTest < ActiveSupport::TestCase
   end
 
   test "doesn't allow key to change via setter" do
-    identity = create(:fact_check_request)
-    original_key = identity.key
-    identity.key = "new-key"
-    assert_equal original_key, identity.key
+    request = create(:fact_check_request)
+    original_key = request.key
+    request.key = "new-key"
+    assert_equal original_key, request.key
   end
 
   test "doesn't allow key to change via updating attributes" do
-    identity = create(:fact_check_request)
-    original_key = identity.key
-    identity.update_attributes(key: "new-key")
-    assert_equal original_key, identity.key
+    request = create(:fact_check_request)
+    original_key = request.key
+    request.update_attributes(key: "new-key")
+    assert_equal original_key, request.key
   end
 
   test "ensures chosen key is unique" do

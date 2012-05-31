@@ -3,17 +3,17 @@ require "test_helper"
 class EditionTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test "adds a doc identity before validation if none provided" do
+  test "adds a document before validation if none provided" do
     edition = build(:edition)
     edition.valid?
     assert_not_nil edition.document
     assert_kind_of Document, edition.document
   end
 
-  test "uses provided doc identity if available" do
-    identity = build(:document)
-    edition = build(:edition, document: identity)
-    assert_equal identity, edition.document
+  test "uses provided document if available" do
+    document = build(:document)
+    edition = build(:edition, document: document)
+    assert_equal document, edition.document
   end
 
   test ".published_as returns edition if edition is published" do
@@ -21,7 +21,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal edition, Policy.published_as(edition.document.to_param)
   end
 
-  test ".published_as returns latest published edition if several editions share identity" do
+  test ".published_as returns latest published edition if several editions are part of the same document" do
     edition = create(:published_policy)
     new_draft = create(:draft_policy, document: edition.document)
     assert_equal edition, Policy.published_as(edition.document.to_param)
@@ -32,7 +32,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil Edition.published_as(edition.document.to_param)
   end
 
-  test ".published_as returns nil if identity is unknown" do
+  test ".published_as returns nil if document is unknown" do
     assert_nil Edition.published_as('unknown')
   end
 
@@ -299,7 +299,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "Dog Eyes (published)", published_edition.reload.title_with_state
   end
 
-  test "should use the edition title as the basis for the doc identity's slug" do
+  test "should use the edition title as the basis for the document's slug" do
     edition = create(:edition, title: 'My Policy Title')
     assert_equal 'my-policy-title', edition.document.slug
   end

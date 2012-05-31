@@ -1,13 +1,13 @@
 require "test_helper"
 
 class Edition::IdentifiableTest < ActiveSupport::TestCase
-  test "should set document type on doc identity before validation for use in slug duplicate detection" do
+  test "should set document type on document before validation for use in slug duplicate detection" do
     policy = build(:policy)
     policy.valid?
     assert_equal "Policy", policy.document.document_type
   end
 
-  test "should not attempt to set document type if doc identity is not present" do
+  test "should not attempt to set document type if document is not present" do
     policy = build(:policy)
     policy.stubs(:document).returns(nil)
     assert_nothing_raised(NoMethodError) { policy.valid? }
@@ -38,18 +38,18 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert_equal publication, Publication.published_as(same_title)
   end
 
-  test "should be linkable when draft if doc identity is published" do
+  test "should be linkable when draft if document is published" do
     policy = create(:published_policy)
     new_edition = policy.create_draft(create(:policy_writer))
     assert new_edition.linkable?
   end
 
-  test "should not be linkable if doc identity is not published" do
+  test "should not be linkable if document is not published" do
     policy = create(:draft_policy)
     refute policy.linkable?
   end
 
-  test "should be linkable when archived if doc identity is published" do
+  test "should be linkable when archived if document is published" do
     policy = create(:published_policy)
     new_edition = policy.create_draft(create(:policy_writer))
     new_edition.publish_as(create(:departmental_editor), force: true)
