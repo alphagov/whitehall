@@ -1,11 +1,19 @@
 <% page_title "New Editorial Remark" %>
-<%= form_for [:admin, @edition, @editorial_remark] do |feedback_form| %>
-  <%= feedback_form.errors %>
-  <%= feedback_form.text_area :body, label_text: "Remark" %>
-  <%= feedback_form.submit "Submit remark" %>
-<% end %>
 
-<%= content_tag_for(:article, @edition) do %>
-  <h1 class="title"><%= @edition.title %></h1>
-  <div class="body"><%= govspeak_to_admin_html @edition.body, @edition.images %></div>
-<% end %>
+<div class="span8">
+  <section class="document_view">
+    <%= render partial: 'admin/editions/edition', locals: { edition: @edition } %>
+  </section>
+</div>
+
+<div class="span4">
+  <span class="back">
+    back to <%= link_to 'document', admin_edition_path(@edition) %>
+  </span>
+
+  <%= form_for [:admin, @edition, @editorial_remark] do |feedback_form| %>
+    <%= feedback_form.errors %>
+    <%= feedback_form.text_area :body, label_text: "Remark" %>
+    <%= feedback_form.submit "Submit remark", class: "btn" %>
+  <% end %>
+</div>

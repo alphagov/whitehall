@@ -40,3 +40,7 @@ form.button_to div {
 #activity section h1 {
   font-size: 20px;
 }
+
+textarea {
+  width: 97%;
+}
