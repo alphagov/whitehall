@@ -3,12 +3,12 @@
   <div class="collection">
 
     <nav class="actions">
-      <%= link_to "Create Person", new_admin_person_path, class: "button new_resource", title: "Create a Person" %>
+      <%= link_to "Create Person", new_admin_person_path, class: "btn new_resource", title: "Create a Person" %>
     </nav>
 
     <h1>People</h1>
 
-    <table class="people">
+    <table class="people table table-striped">
       <thead>
         <tr>
           <th>Name</th>
@@ -23,7 +23,7 @@
             <td class="biography"><%= truncate(person.biography, length: 50) %></td>
             <td class="delete">
               <% if person.destroyable? %>
-                <%= button_to 'delete', admin_person_path(person), method: :delete %>
+                <%= button_to 'delete', admin_person_path(person), method: :delete, class: "btn" %>
               <% else %>
                 <span>Cannot delete</span>
               <% end %>
