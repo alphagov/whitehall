@@ -30,7 +30,9 @@ Whitehall::Application.configure do
   config.action_mailer.delivery_method = :test
 
   if ENV["DISABLE_LOGGING_IN_TEST"]
-    puts "\n*NOTE* Disabling logging in an attempt to speed up the tests.\n\n"
+    File.open(Rails.root.join("log", "test.log"), "a") do |file|
+      file.puts "\n*NOTE* Disabling logging in an attempt to speed up the tests.\n\n"
+    end
     config.logger = Logger.new(nil)
   end
 
