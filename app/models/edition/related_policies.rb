@@ -3,18 +3,18 @@ module Edition::RelatedPolicies
 
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
-      edition.related_doc_identities = @edition.related_doc_identities
+      edition.related_documents = @edition.related_documents
     end
   end
 
   included do
     has_many :edition_relations, foreign_key: :edition_id, dependent: :destroy
-    has_many :related_doc_identities, through: :edition_relations, source: :doc_identity
-    has_many :related_policies, through: :related_doc_identities, source: :latest_edition
-    has_many :published_related_policies, through: :related_doc_identities, source: :published_edition, class_name: 'Policy'
+    has_many :related_documents, through: :edition_relations, source: :doc_identity
+    has_many :related_policies, through: :related_documents, source: :latest_edition
+    has_many :published_related_policies, through: :related_documents, source: :published_edition, class_name: 'Policy'
 
     define_method(:related_policies=) do |policies|
-      self.related_doc_identities = policies.map(&:doc_identity)
+      self.related_documents = policies.map(&:doc_identity)
     end
 
     add_trait Trait

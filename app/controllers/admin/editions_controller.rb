@@ -109,7 +109,7 @@ class Admin::EditionsController < Admin::BaseController
       params[:edition][:ministerial_role_ids] ||= []
     end
     if @edition.can_be_related_to_policies?
-      params[:edition][:related_doc_identity_ids] ||= []
+      params[:edition][:related_document_ids] ||= []
     end
     if @edition.can_be_associated_with_countries?
       params[:edition][:country_ids] ||= []
