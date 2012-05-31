@@ -1,9 +1,9 @@
 require 'test_helper'
 
 class RoutingTest < ActionDispatch::IntegrationTest
-  test "visiting #{Whitehall.router_prefix}/admin redirects to /admin/documents" do
+  test "visiting #{Whitehall.router_prefix}/admin redirects to /admin/editions" do
     get "#{Whitehall.router_prefix}/admin"
-    assert_redirected_to "#{Whitehall.router_prefix}/admin/documents"
+    assert_redirected_to "#{Whitehall.router_prefix}/admin/editions"
   end
 
   test "visiting #{Whitehall.router_prefix}/topics redirects to #{Whitehall.router_prefix}/policy-topics" do

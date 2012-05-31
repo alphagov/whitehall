@@ -5,7 +5,7 @@ module DocumentHelper
   end
 
   def begin_drafting_document(options)
-    visit admin_documents_path
+    visit admin_editions_path
     click_link "Create #{options[:type].titleize}"
     fill_in "Title", with: options[:title]
     fill_in "Body", with: options[:body] || "Any old iron"

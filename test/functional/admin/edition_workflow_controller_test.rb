@@ -25,7 +25,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test 'publish redirects back to the published edition index' do
     @edition.stubs(:publish_as).returns(true)
     post :publish, id: @edition, lock_version: 1
-    assert_redirected_to admin_documents_path(state: :published)
+    assert_redirected_to admin_editions_path(state: :published)
   end
 
   test 'publish notifies authors of publication via email' do

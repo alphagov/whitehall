@@ -179,26 +179,26 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     session[:document_filters] = { state: :submitted, author: current_user.to_param, organisation: organisation.to_param }
     get :index
-    assert_redirected_to admin_documents_path(state: :submitted, author: current_user, organisation: organisation)
+    assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation: organisation)
   end
 
   test "index should redirect to submitted in my department if logged an editor has no remembered filters" do
     organisation = create(:organisation)
     editor = login_as create(:departmental_editor, organisation: organisation)
     get :index
-    assert_redirected_to admin_documents_path(state: :submitted, organisation: organisation)
+    assert_redirected_to admin_editions_path(state: :submitted, organisation: organisation)
   end
 
   test "index should render a list of drafts I have written if a writer has no remembered filters" do
     writer = login_as create(:policy_writer)
     get :index
-    assert_redirected_to admin_documents_path(state: :draft, author: writer)
+    assert_redirected_to admin_editions_path(state: :draft, author: writer)
   end
 
   test "index should redirect to drafts if stored filter options are not valid for route building" do
     session[:document_filters] = { action: :unknown }
     get :index
-    assert_redirected_to admin_documents_path(state: :draft)
+    assert_redirected_to admin_editions_path(state: :draft)
   end
 
   [:publication, :consultation].each do |edition_type|
@@ -287,7 +287,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test "should link to all active editions" do
     get :index, state: :draft
 
-    assert_select "a[href='#{admin_documents_path(state: :active)}']"
+    assert_select "a[href='#{admin_editions_path(state: :active)}']"
   end
 
   test "should not display the featured column when viewing all active editions" do

@@ -46,8 +46,8 @@ module AdminEditionControllerTestHelpers
       test "new displays edition form" do
         get :new
 
-        admin_documents_path = send("admin_#{edition_type.to_s.tableize}_path")
-        assert_select "form#edition_new[action='#{admin_documents_path}']" do
+        admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
+        assert_select "form#edition_new[action='#{admin_editions_path}']" do
           assert_select "input[name='edition[title]'][type='text']"
           assert_select "textarea[name='edition[summary]']" if edition_class.new.has_summary?
           assert_select "textarea[name='edition[body]']"
@@ -62,7 +62,7 @@ module AdminEditionControllerTestHelpers
 
       test "new form has cancel link which takes the user to the list of drafts" do
         get :new
-        assert_select "a[href=#{admin_documents_path}]", text: /cancel/i
+        assert_select "a[href=#{admin_editions_path}]", text: /cancel/i
       end
 
       test "create should create a new edition" do
@@ -982,7 +982,7 @@ module AdminEditionControllerTestHelpers
       test "destroying an edition redirects to the draft editions page" do
         draft_edition = create("draft_#{edition_type}")
         delete :destroy, id: draft_edition
-        assert_redirected_to admin_documents_path
+        assert_redirected_to admin_editions_path
       end
 
       test "destroy displays a notice indicating the edition has been deleted" do
@@ -1236,8 +1236,8 @@ module AdminEditionControllerTestHelpers
       test "new should display first_published_at fields" do
         get :new
 
-        admin_documents_path = send("admin_#{edition_type.to_s.tableize}_path")
-        assert_select "form#edition_new[action='#{admin_documents_path}']" do
+        admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
+        assert_select "form#edition_new[action='#{admin_editions_path}']" do
           assert_select "select[name*='edition[first_published_at']", count: 5
         end
       end

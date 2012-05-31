@@ -29,7 +29,7 @@ module NavigationHelpers
       new_admin_document_path(type: 'publication')
 
     when /^the policies admin page$/
-      admin_documents_path
+      admin_editions_path
 
     else
       begin
