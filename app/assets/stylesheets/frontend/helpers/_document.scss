@@ -67,6 +67,21 @@
       font-style: italic;
     }
     
+    blockquote p {
+      text-indent: -0.45em;
+      padding-left: $gutter;
+      
+      @media (min-width: 768px) {
+        padding-right: $gutter;
+      }
+    }
+    
+    hr {
+      margin-top: $gutter - 1px;
+      border-top: 1px solid #ccc;
+      margin-bottom: $gutter;
+    }
+    
     figure {
       width: 100%;
       clear: both;
