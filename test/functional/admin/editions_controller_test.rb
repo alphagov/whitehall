@@ -80,15 +80,15 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test 'should pass filter parameters to a document filter' do
-    stub_filter = stub('document filter', editions: [])
+  test 'should pass filter parameters to an edition filter' do
+    stub_filter = stub('edition filter', editions: [])
     Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
 
     get :index, state: :draft, type: :policy
   end
 
   test 'should strip out any invalid states passed as parameters' do
-    stub_filter = stub('document filter', editions: [])
+    stub_filter = stub('edition filter', editions: [])
     Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"type" => "policy"}).returns(stub_filter)
 
     get :index, state: :haxxor_method, type: :policy
@@ -97,7 +97,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test 'should distinguish between edition types when viewing the list of editions' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    stub_filter = stub('document filter', editions: [policy, publication])
+    stub_filter = stub('edition filter', editions: [policy, publication])
     Admin::EditionsController::EditionFilter.stubs(:new).returns(stub_filter)
 
     get :index, state: :draft
