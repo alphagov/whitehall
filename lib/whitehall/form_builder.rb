@@ -7,8 +7,8 @@ module Whitehall
            @template.concat @template.content_tag(:li, msg)
          end
        end
-       @template.content_tag(:div, "class" => "form-errors") do
-         @template.concat @template.content_tag(:p, "To save the #{object.class.name.downcase} please fix the following issues:")
+       @template.content_tag(:div, "class" => "alert alert-error form-errors") do
+         @template.concat @template.content_tag(:p, "To save the #{object.class.name.demodulize.underscore.humanize.downcase} please fix the following issues:")
          @template.concat error_list
        end
      end
