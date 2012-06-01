@@ -52,5 +52,5 @@ group :test do
 end
 
 group :router do
-  gem 'router-client', git: "git://github.com/alphagov/router.git", require: "router"
+  gem 'router-client', '~> 3.0.1', :require => 'router'
 end
