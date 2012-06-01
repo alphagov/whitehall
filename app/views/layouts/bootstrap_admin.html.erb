@@ -29,7 +29,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Whitehall Admin</a>
+          <%= link_to "Whitehall Admin", admin_root_path, class: "brand" %>
           <ul class="nav pull-right">
             <li><%= link_to "Open website", website_home_url, class: "open_website" %></li>
             <li><%= render partial: "shared/session" if show_session_controls? %></li>
