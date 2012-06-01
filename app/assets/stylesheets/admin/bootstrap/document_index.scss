@@ -11,27 +11,27 @@
     margin-top: 1em;
   }
 
-  .additional_information {
-    border-top: 1px solid #ccc;
-    padding: 0.25em 0 0 0;
-    margin-bottom: 0;
-    background: #eee;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
+  div.toggle_group {
+    a.toggle {
+      float: right;
+      margin-right: 2.5%;
+      margin-bottom: 0;
+      width: 12em;
+      text-align: right;
+    }
+  }
 
-    h3 {
-      border-left: 1px solid #eee;
-      padding: 0.5em 3.5% 0.5em 3.5%;
-      @include type-16;
-      margin: 0;
+  .additional_information {
+    padding: 0.4em 1em 0.2em 1em;
+    margin: 0.3em 0 0 0;
+
+    h4 {
+      margin: 0.2em 0 0.6em 0;
       color: #777;
-      text-shadow: 0 1px rgba(255, 255, 255, .75);
     }
 
     ul {
-      border-left: 1px solid #eee;
-      padding: 0 0 0.1em 0;
-      margin: 0 2%;
+      margin-left: 0;
 
       li {
         margin: 0;
@@ -40,8 +40,6 @@
         margin-bottom: 0.5em;
         border: 1px solid #eee;
         border-bottom: 1px solid #ddd;
-
-        @include rounded(3px);
 
         a {
           display: block;
