@@ -1,0 +1,37 @@
+<% page_title @person.name %>
+<%= content_tag_for :div, @person do %>
+  <header>
+    <hgroup>
+      <h1 class="name"><%= @person.name %></h1>
+    </hgroup>
+  </header>
+  <section class="biography">
+    <%= @person.biography %>
+  </section>
+
+  <% if @person.current_role_appointments.any? %>
+    <section class="current-roles">
+      <h1>Current Roles</h1>
+      <ul>
+        <% @person.current_role_appointments.each do |appointment| %>
+          <%= content_tag_for :li, appointment do %>
+            <%= link_to appointment.role.name, ministerial_role_url(appointment.role) %>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <% if @person.previous_role_appointments.any? %>
+    <section class="previous-roles">
+      <h1>Previous Roles</h1>
+      <ul>
+        <% @person.previous_role_appointments.each do |appointment| %>
+          <%= content_tag_for :li, appointment do %>
+            <%= link_to appointment.role.name, ministerial_role_url(appointment.role) %>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+<% end %>

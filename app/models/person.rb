@@ -37,6 +37,10 @@ class Person < ActiveRecord::Base
     [title, forename, surname, letters].compact.join(' ')
   end
 
+  def previous_role_appointments
+    role_appointments - current_role_appointments
+  end
+
   private
 
   def slug_name

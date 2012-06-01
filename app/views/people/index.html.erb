@@ -1,0 +1,8 @@
+<% page_title "People" %>
+<ul class="people">
+<% @people.each do |person| %>
+  <%= content_tag_for :li, person do %>
+    <%= link_to person.name, person_url(person) %>
+  <% end %>
+<% end %>
+</ul>
