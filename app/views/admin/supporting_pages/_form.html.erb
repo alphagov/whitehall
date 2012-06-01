@@ -1,7 +1,7 @@
 <%= form_for [:admin, @edition, supporting_page] do |form| %>
   <%= form.hidden_field :lock_version %>
   <%= form.text_field :title, disabled: disabled %>
-  <%= form.text_area :body, disabled: disabled, "class" => "previewable", :help => true %>
+  <%= form.text_area :body, disabled: disabled, "class" => "previewable" %>
 
   <%= render partial: "admin/editions/attachment_fields", locals: { form: form, edition: supporting_page, parent_type: :supporting_page } %>
 
