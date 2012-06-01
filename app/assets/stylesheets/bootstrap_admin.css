@@ -59,6 +59,16 @@ select.date {
   width: auto; /*7em;*/
 }
 
+form .field_with_errors label,
+form .field_with_errors input {
+  color: #B94A48;
+}
+
+form .field_with_errors input,
+form .field_with_errors textarea {
+  background-color: #F2DEDE;
+  border-color: #EED3D7;
+}
 
 /* fact checking */
 #fact_check_request_instructions p {
