@@ -6,7 +6,6 @@
  *= require bootstrap
  *= require chosen
  *= require admin/document_view
- *= require admin/document_show
  *= require admin/audit_trail
  *= require admin/image_feature_mask
  *= require admin/fact_check_requests
@@ -83,7 +82,8 @@ form .field_with_errors textarea {
 
 
 /* Alert bootstrap style tweak */
-.alert p:last-child {
+.alert p:last-child,
+.alert form:last-child {
   margin-bottom: 0;
 }
 
