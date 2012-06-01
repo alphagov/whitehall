@@ -33,6 +33,18 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [], person.current_board_member_roles
   end
 
+  test '#previous_role_appointments include appointments that have ended' do
+    person = create(:person)
+    role_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
+    assert_equal [role_appointment], person.previous_role_appointments
+  end
+
+  test '#previous_role_appointments excludes current appointments' do
+    person = create(:person)
+    role_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: nil)
+    assert_equal [], person.previous_role_appointments
+  end
+
   test "should not be destroyable when it has appointments" do
     person = create(:person, role_appointments: [create(:role_appointment)])
     refute person.destroyable?

@@ -7,6 +7,20 @@ Given /^the person "([^"]*)" has a biography "([^"]*)"$/ do |name, biography|
   person.update_attributes!(biography: biography)
 end
 
+Given /^"([^"]*)" is a minister with a history$/ do |name|
+  person = create_person(name)
+  role = create(:ministerial_role)
+  create(:organisation, ministerial_roles: [role])
+  create(:role_appointment, role: role, person: person, started_at: 2.years.ago, ended_at: 1.year.ago)
+  role = create(:ministerial_role)
+  create(:organisation, ministerial_roles: [role])
+  create(:role_appointment, role: role, person: person, started_at: 1.year.ago, ended_at: nil)
+end
+
+When /^I visit the person page for "([^"]*)"$/ do |name|
+  visit person_url(find_person(name))
+end
+
 When /^I add a new person called "([^"]*)"$/ do |name|
   visit_people_admin
   click_link "Create Person"
@@ -39,6 +53,12 @@ end
 
 Then /^I should not be able to see "([^"]*)" in the list of people$/ do |name|
   assert page.has_no_css?(".person .name", text: name)
+end
+
+Then /^I should see the biography and roles held by "([^"]*)"$/ do |name|
+  person = find_person(name)
+  assert page.has_css?(".name", text: person.name)
+  assert page.has_css?(".biography", text: person.biography)
 end
 
 def visit_people_admin
