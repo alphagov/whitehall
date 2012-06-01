@@ -21,6 +21,12 @@ body {
   padding: 9px 0;
 }
 
+header .open_website {
+  margin-right: 4em;
+}
+
+/* Form sidebar */
+
 .back {
   margin-bottom: 1em;
   display: block;
