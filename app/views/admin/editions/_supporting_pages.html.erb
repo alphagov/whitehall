@@ -1,7 +1,7 @@
 <% if edition.allows_supporting_pages? %>
   <section class="supporting_pages">
     <h1>Supporting pages</h1>
-    <ul class="group">
+    <ul>
       <% edition.supporting_pages.each do |supporting_page| %>
         <%= content_tag_for :li, supporting_page do %>
           <%= link_to admin_supporting_page_path(supporting_page) do %>

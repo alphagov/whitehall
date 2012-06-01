@@ -1,36 +1,33 @@
 <% page_title "People" %>
-<section class="resource_list">
-  <div class="collection">
+<section>
+  <nav class="actions">
+    <%= link_to "Create Person", new_admin_person_path, class: "btn new_resource", title: "Create a Person" %>
+  </nav>
 
-    <nav class="actions">
-      <%= link_to "Create Person", new_admin_person_path, class: "btn new_resource", title: "Create a Person" %>
-    </nav>
+  <h1>People</h1>
 
-    <h1>People</h1>
-
-    <table class="people table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Biography</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @people.each do |person| %>
-          <%= content_tag_for(:tr, person) do %>
-            <td class="name"><%= link_to person.name, edit_admin_person_path(person), title: "Edit person #{person.name}" %></td>
-            <td class="biography"><%= truncate(person.biography, length: 50) %></td>
-            <td class="delete">
-              <% if person.destroyable? %>
-                <%= button_to 'delete', admin_person_path(person), method: :delete, class: "btn" %>
-              <% else %>
-                <span>Cannot delete</span>
-              <% end %>
-            </td>
-          <% end %>
+  <table class="people table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Biography</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @people.each do |person| %>
+        <%= content_tag_for(:tr, person) do %>
+          <td class="name"><%= link_to person.name, edit_admin_person_path(person), title: "Edit person #{person.name}" %></td>
+          <td class="biography"><%= truncate(person.biography, length: 50) %></td>
+          <td class="delete">
+            <% if person.destroyable? %>
+              <%= button_to 'delete', admin_person_path(person), method: :delete, class: "btn" %>
+            <% else %>
+              <span>Cannot delete</span>
+            <% end %>
+          </td>
         <% end %>
-      </tbody>
-    </table>
-  </div>
+      <% end %>
+    </tbody>
+  </table>
 </section>

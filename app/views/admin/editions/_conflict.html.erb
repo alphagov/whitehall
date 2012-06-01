@@ -12,7 +12,7 @@
     <%= render partial: "authors", locals: { edition: edition } %>
   </article>
 
-  <section class="container">
+  <section>
     <h1>Organisations</h1>
     <% if edition.organisations.any? %>
       <%= render partial: "organisations/list", locals: {organisations: edition.organisations} %>
@@ -22,7 +22,7 @@
   </section>
 
   <% if edition.can_be_associated_with_policy_topics? %>
-    <section class="container">
+    <section>
       <h1>Policy topics</h1>
       <% if edition.policy_topics.any? %>
         <%= render partial: "policy_topics/list", locals: {policy_topics: edition.policy_topics} %>
@@ -33,7 +33,7 @@
   <% end %>
 
   <% if edition.can_be_associated_with_ministers? %>
-    <section class="container">
+    <section>
       <h1>Ministers</h1>
       <% if edition.ministerial_roles.any? %>
         <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: edition.ministerial_roles} %>
@@ -44,7 +44,7 @@
   <% end %>
 
   <% if edition.can_be_associated_with_countries? %>
-    <section class="container">
+    <section>
       <h1>Countries</h1>
       <% if edition.countries.any? %>
         <%= render partial: "countries/list", locals: {countries: edition.countries} %>
@@ -55,7 +55,7 @@
   <% end %>
 
   <% if edition.can_apply_to_subset_of_nations? %>
-    <section class="container">
+    <section>
       <h1>Excluded Nations</h1>
       <% if edition.nation_inapplicabilities.any? %>
         <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: edition.nation_inapplicabilities} %>
