@@ -9,8 +9,8 @@ module Admin::EditionsHelper
     admin_header_link "Documents", admin_editions_path, /^#{Whitehall.router_prefix}\/admin\/(documents|publications|policies|news_articles|consultations|speeches)/
   end
 
-  def link_to_filter(link, options)
-    link_to link, url_for(params.slice('state', 'type', 'author', 'organisation').merge(options)), class: filter_class(options)
+  def link_to_filter(link, options, html_options={})
+    content_tag(:li, link_to(link, url_for(params.slice('state', 'type', 'author', 'organisation').merge(options)), html_options), class: filter_class(options))
   end
 
   def filter_class(options)
@@ -18,7 +18,7 @@ module Admin::EditionsHelper
       options[key].to_param == params[key].to_param
     end
 
-    'current' if current
+    'active' if current
   end
 
   def viewing_all_active_editions?

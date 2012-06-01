@@ -13,7 +13,7 @@ class Admin::EditionsController < Admin::BaseController
       @edition_state = (state == :active) ? 'all' : state.to_s
       @page_title = "#{@edition_state.humanize} Documents"
       session[:document_filters] = params_filters
-      render :index, layout: "admin"
+      render :index
     elsif session_filters.any?
        redirect_to session_filters
     else

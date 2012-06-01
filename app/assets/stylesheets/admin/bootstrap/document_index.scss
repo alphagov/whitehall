@@ -1,0 +1,53 @@
+@import "../../shared/utils/type_sizing";
+@import "../../shared/utils/rounded_corners";
+@import "../../shared/utils/filters";
+@import "../../shared/utils/transitions";
+@import "../../shared/utils/gradients";
+@import "../../shared/utils/shadows";
+
+.documents {
+
+  nav {
+    margin-top: 1em;
+  }
+
+  .additional_information {
+    border-top: 1px solid #ccc;
+    padding: 0.25em 0 0 0;
+    margin-bottom: 0;
+    background: #eee;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+
+    h3 {
+      border-left: 1px solid #eee;
+      padding: 0.5em 3.5% 0.5em 3.5%;
+      @include type-16;
+      margin: 0;
+      color: #777;
+      text-shadow: 0 1px rgba(255, 255, 255, .75);
+    }
+
+    ul {
+      border-left: 1px solid #eee;
+      padding: 0 0 0.1em 0;
+      margin: 0 2%;
+
+      li {
+        margin: 0;
+        display: block;
+        background: #fff;
+        margin-bottom: 0.5em;
+        border: 1px solid #eee;
+        border-bottom: 1px solid #ddd;
+
+        @include rounded(3px);
+
+        a {
+          display: block;
+          padding: 0.5em 0.75em;
+        }
+      }
+    }
+  }
+}
