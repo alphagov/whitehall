@@ -12,6 +12,8 @@
   }
 
   div.toggle_group {
+    display: inline;
+
     a.toggle {
       float: right;
       margin-right: 2.5%;
@@ -19,6 +21,10 @@
       width: 12em;
       text-align: right;
     }
+  }
+
+  .label.force_published {
+    margin-left: 1em;
   }
 
   .additional_information {

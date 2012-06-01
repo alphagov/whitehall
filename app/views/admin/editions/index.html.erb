@@ -66,7 +66,10 @@
             <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
               <td class="type"><%= edition.type.titleize %></td>
               <td class="title">
-                <span><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
+                <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
+                <% if edition.force_published? %>
+                  <span class="force_published label label-important">force published</span>
+                <% end %>
                 <% if edition.has_supporting_pages? %>
                   <div class="supporting_pages additional_information well">
                     <h4>Supporting Pages</h4>
