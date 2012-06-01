@@ -70,3 +70,9 @@ select.date {
 .alert p:last-child {
   margin-bottom: 0;
 }
+
+
+/* Sorting */
+.ui-sortable, .ui-sortable label {
+  cursor: move;
+}
