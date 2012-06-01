@@ -1,26 +1,25 @@
 <% page_title "Editing: " + @edition.title %>
 <% if @conflicting_edition %>
-  <div class="first">
-    <section>
-      <h1>Edit <%= @edition.type.titleize %></h1>
+  <section>
+    <h1>Edit <%= @edition.type.titleize %></h1>
 
-      <div class="alert">
-        <p>This document has been updated by another user since you started editing it.</p>
-        <p>Please review conflicts between the two versions and incorporate any changes before pressing save again.</p>
-      </div>
+    <div class="alert alert-warning">
+      <p>This document has been updated by another user since you started editing it.</p>
+      <p>Please review conflicts between the two versions and incorporate any changes before pressing save again.</p>
+    </div>
 
-      <div class="conflicting new g-half first">
+    <div class="row-fluid">
+      <div class="conflicting new span6">
         <h2>Your version</h2>
         <%= render partial: "form", locals: {edition: @edition} %>
       </div>
 
-      <div class="conflicting latest g-half">
+      <div class="conflicting latest span6">
         <h2>Current saved version</h2>
         <%= render partial: "conflict", locals: {edition: @conflicting_edition} %>
       </div>
-
-    </section>
-  </div>
+    </div>
+  </section>
 <% else %>
   <div class="span8">
     <section>

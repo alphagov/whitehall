@@ -1,4 +1,5 @@
 class Admin::FactCheckRequestsController < Admin::BaseController
+  layout "bootstrap_admin"
   before_filter :load_fact_check_request, only: [:show, :edit, :update]
   before_filter :check_edition_availability, only: [:show, :edit]
   skip_before_filter :authenticate_user!, except: [:create]

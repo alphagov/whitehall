@@ -1,8 +1,15 @@
 <% page_title "New supporting page for " + @edition.title %>
-<div class="g2 first">
-  <section>
-    <h1>Add new supporting page to <%= link_to @edition.title, admin_edition_path(@edition) %></h1>
-    <%= render partial: "form", locals: {disabled: false, supporting_page: @supporting_page} %>
-    <%= render partial: "admin/editions/govspeak_help" %>
-  </section>
+
+<h1>Add new supporting page to <%= link_to @edition.title, admin_edition_path(@edition) %></h1>
+
+<div class="row-fluid">
+  <div class="span8">
+    <section>
+      <%= render partial: "form", locals: {disabled: false, supporting_page: @supporting_page} %>
+    </section>
+  </div>
+
+  <div class="span4">
+    <%= render partial: "sidebar" %>
+  </div>
 </div>

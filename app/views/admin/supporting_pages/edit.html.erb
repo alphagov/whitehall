@@ -1,17 +1,25 @@
 <% page_title "Edit #{@supporting_page.title}", "Supporting page for #{@supporting_page.document_title}" %>
-<div class="g2 first">
-  <section>
-    <h1>Edit supporting page <%= @supporting_page.title %></h1>
-    <% if @conflicting_supporting_page %>
-      <div class="conflicting new">
+<h1>Edit supporting page <%= @supporting_page.title %></h1>
+
+<div class="row-fluid">
+  <div class="span8">
+    <section>
+      <% if @conflicting_supporting_page %>
+        <div class="row-fluid">
+          <div class="conflicting new span6">
+            <%= render partial: "form", locals: {disabled: false, supporting_page: @supporting_page} %>
+          </div>
+          <div class="conflicting latest span6">
+            <%= render partial: "form", locals: {disabled: true, supporting_page: @conflicting_supporting_page} %>
+          </div>
+        </div>
+      <% else %>
         <%= render partial: "form", locals: {disabled: false, supporting_page: @supporting_page} %>
-      </div>
-      <div class="conflicting latest">
-        <%= render partial: "form", locals: {disabled: true, supporting_page: @conflicting_supporting_page} %>
-      </div>
-    <% else %>
-      <%= render partial: "form", locals: {disabled: false, supporting_page: @supporting_page} %>
-    <% end %>
-    <%= render partial: "admin/editions/govspeak_help" %>
-  </section>
+      <% end %>
+    </section>
+  </div>
+
+  <div class="span4">
+    <%= render partial: "sidebar" %>
+  </div>
 </div>

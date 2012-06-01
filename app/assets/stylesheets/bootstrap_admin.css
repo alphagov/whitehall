@@ -10,6 +10,7 @@
  *= require admin/document_show
  *= require admin/audit_trail
  *= require admin/image_feature_mask
+ *= require admin/fact_check_requests
 */
 
 body {
@@ -19,6 +20,12 @@ body {
 .sidebar-nav {
   padding: 9px 0;
 }
+
+header .open_website {
+  margin-right: 4em;
+}
+
+/* Form sidebar */
 
 .back {
   margin-bottom: 1em;
@@ -56,4 +63,32 @@ select.chzn-select {
 
 select.date {
   width: auto; /*7em;*/
+}
+
+form .field_with_errors label,
+form .field_with_errors input {
+  color: #B94A48;
+}
+
+form .field_with_errors input,
+form .field_with_errors textarea {
+  background-color: #F2DEDE;
+  border-color: #EED3D7;
+}
+
+/* fact checking */
+#fact_check_request_instructions p {
+  font-size: 16px;
+}
+
+
+/* Alert bootstrap style tweak */
+.alert p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* Sorting */
+.ui-sortable, .ui-sortable label {
+  cursor: move;
 }
