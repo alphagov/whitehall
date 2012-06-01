@@ -1,4 +1,5 @@
 class Admin::UsersController < Admin::BaseController
+  layout "bootstrap_admin"
   before_filter :load_user, only: [:show, :edit, :update]
 
   def show
