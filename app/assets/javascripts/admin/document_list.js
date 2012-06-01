@@ -24,6 +24,6 @@
     documentInList: _documentInList
   });
   $(function() {
-    $(".resource_list table.documents tr").documentInList('td.title', '.supporting_pages', 'h2');
+    $(".documents table tr").documentInList('td.title', '.supporting_pages', 'span');
   });
 })(jQuery);

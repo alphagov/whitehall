@@ -10,3 +10,4 @@
 //= require admin/preview
 //= require admin/sortable
 //= require admin/on_ready
+//= require admin/document_list
