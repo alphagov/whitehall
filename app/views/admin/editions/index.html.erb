@@ -33,7 +33,7 @@
           <%= link_to_filter 'Speeches', {type: 'speech'}, title: "Show only speeches" %>
           <%= link_to_filter 'International priorities', {type: 'international_priorities'}, title: "Show only international priorities" %>
           <li class="nav-header">Filter by state</li>
-          <%= document_type = (params[:type] || "document").pluralize %>
+          <% document_type = (params[:type] || "document").pluralize %>
           <%= link_to_filter 'All', {state: :active}, title: "Show #{document_type} in any workflow state" %>
           <%= link_to_filter 'Drafts', {state: :draft}, title: "Show only draft #{document_type}" %>
           <%= link_to_filter 'Submitted', {state: :submitted}, title: "Show only submitted #{document_type}" %>
