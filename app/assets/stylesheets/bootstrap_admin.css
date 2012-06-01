@@ -11,6 +11,7 @@
  *= require admin/audit_trail
  *= require admin/image_feature_mask
  *= require admin/fact_check_requests
+ *= require_tree ./admin/bootstrap
 */
 
 body {

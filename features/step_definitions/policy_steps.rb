@@ -317,7 +317,7 @@ end
 
 Then /^I should see the policy titled "([^"]*)" in the list of documents that need work$/ do |policy_title|
   visit admin_editions_path
-  click_link "rejected"
+  click_link "Show only rejected documents"
   policy = Policy.find_by_title(policy_title)
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
 end
@@ -344,7 +344,7 @@ end
 
 Then /^I should see the policy titled "([^"]*)" in the list of submitted documents$/ do |policy_title|
   visit admin_editions_path(state: :draft)
-  click_link "submitted"
+  click_link "Show only submitted documents"
   policy = Policy.find_by_title!(policy_title)
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
 end
