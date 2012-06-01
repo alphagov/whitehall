@@ -1,42 +1,43 @@
 <% page_title "Fact Checking for " + @edition.title %>
-<p>Please check this document for factual accuracy and comment in the form below.</p>
 
-<% if @fact_check_request.instructions.present? %>
-<section id="fact_check_request_instructions">
-  <h2>Extra instructions</h2>
-  <p><%= @fact_check_request.instructions %></p>
-</section>
-<% end %>
+<div class="span8">
+  <section class="document_view" id="<%= dom_id(@edition) %>">
+    <%= render partial: 'admin/editions/edition', locals: { edition: @edition } %>
+  </section>
 
-<div class="document_view">
-  <h1 class="title"><%= @edition.title %></h1>
-  <div class="body">
-    <%= govspeak_to_admin_html @edition.body, @edition.images %>
-  </div>
-  <p class="written_by">Written by <span class="authors"><%= @edition.author_names.to_sentence %></span></p>
+  <% if @edition.has_supporting_pages? %>
+    <section id="supporting_pages">
+      <h1>Supporting pages</h1>
+      <% @edition.supporting_pages.each do |supporting_page| %>
+        <div class="document_view">
+          <h1 class="title"><%= supporting_page.title %></h1>
+          <div class="body">
+            <%= govspeak_to_admin_html supporting_page.body %>
+          </div>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
 </div>
 
-<% if @edition.has_supporting_pages? %>
-  <section id="supporting_pages">
-    <h1>Supporting pages</h1>
-    <% @edition.supporting_pages.each do |supporting_page| %>
-      <div class="document_view">
-        <h1 class="title"><%= supporting_page.title %></h1>
-        <div class="body">
-          <%= govspeak_to_admin_html supporting_page.body %>
-        </div>
-      </div>
-    <% end %>
-  </section>
-<% end %>
+<div class="span4">
+  <div class="alert alert-info">
+    <p>Please check this document for factual accuracy and comment in the form below.</p>
 
-<div>
-  <% if @edition.has_supporting_pages? %>
-    <p>Please indicate whether your comments refer to the main document or supporting page.</p>
+    <% if @edition.has_supporting_pages? %>
+      <p>Please indicate whether your comments refer to the main document or supporting page.</p>
+    <% end %>
+  </div>
+
+  <% if @fact_check_request.instructions.present? %>
+  <section id="fact_check_request_instructions">
+    <h4 class="alert-heading">Extra instructions</h4>
+    <p class="well">&ldquo;<%= @fact_check_request.instructions %>&rdquo;</p>
+  </section>
   <% end %>
 
   <%= form_for([:admin, @fact_check_request]) do |fact_check_form| %>
     <%= fact_check_form.text_area :comments %>
-    <%= fact_check_form.submit "Submit" %>
+    <%= fact_check_form.submit "Submit", class: "btn" %>
   <% end %>
 </div>

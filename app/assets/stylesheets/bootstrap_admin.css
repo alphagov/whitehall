@@ -10,6 +10,7 @@
  *= require admin/document_show
  *= require admin/audit_trail
  *= require admin/image_feature_mask
+ *= require admin/fact_check_requests
 */
 
 body {
@@ -56,4 +57,16 @@ select.chzn-select {
 
 select.date {
   width: auto; /*7em;*/
+}
+
+
+/* fact checking */
+#fact_check_request_instructions p {
+  font-size: 16px;
+}
+
+
+/* Alert bootstrap style tweak */
+.alert p:last-child {
+  margin-bottom: 0;
 }
