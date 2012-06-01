@@ -38,6 +38,14 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :publish, id: @edition, lock_version: 1
   end
 
+  test 'publish only notifies authors with emails' do
+    author_with_email, author_without_email = build(:user), build(:user, email: '')
+    @edition.stubs(:publish_as).returns(true)
+    @edition.stubs(:authors).returns([author_with_email, author_without_email])
+    Notifications.expects(:edition_published).with(author_with_email, anything, anything, anything).returns(stub_everything('email'))
+    post :publish, id: @edition, lock_version: 1
+  end
+
   test 'publish doesn\'t notify authors if they instigated the rejection' do
     @edition.stubs(:publish_as).returns(true)
     @edition.stubs(:authors).returns([@user])
@@ -148,6 +156,14 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     email = stub('email')
     Notifications.expects(:edition_rejected).with(author, @edition, admin_policy_url(@edition)).returns(email)
     email.expects(:deliver)
+    post :reject, id: @edition, lock_version: 1
+  end
+
+  test 'reject only notifies authors with emails' do
+    author_with_email, author_without_email = build(:user), build(:user, email: '')
+    @edition.stubs(:reject!)
+    @edition.stubs(:authors).returns([author_with_email, author_without_email])
+    Notifications.expects(:edition_rejected).with(author_with_email, anything, anything, anything).returns(stub_everything('email'))
     post :reject, id: @edition, lock_version: 1
   end
 

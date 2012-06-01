@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   def organisation_name
     organisation ? organisation.name : nil
   end
+
+  def has_email?
+    email.present?
+  end
 end
