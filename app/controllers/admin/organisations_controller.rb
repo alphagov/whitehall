@@ -1,5 +1,4 @@
 class Admin::OrganisationsController < Admin::BaseController
-  layout "bootstrap_admin"
   before_filter :build_organisation, only: [:new]
   before_filter :build_ministerial_organisation_roles, only: [:new]
   before_filter :load_organisation, only: [:edit, :update]

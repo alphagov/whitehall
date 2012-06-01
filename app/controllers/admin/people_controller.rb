@@ -1,6 +1,4 @@
 class Admin::PeopleController < Admin::BaseController
-  layout "bootstrap_admin"
-
   def index
     @people = Person.order(:surname, :forename)
   end

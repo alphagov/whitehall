@@ -5,7 +5,6 @@ class PageTitleTest < ActiveSupport::TestCase
   EXCLUDED_TEMPLATES = %w(
     admin/preview/preview.html.erb
     layouts/admin.html.erb
-    layouts/bootstrap_admin.html.erb
     layouts/frontend.html.erb
     layouts/website.html.erb
   ).map do |f|
