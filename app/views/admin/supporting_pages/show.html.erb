@@ -1,15 +1,6 @@
 <% page_title @supporting_page.title, "Supporting page for " + @supporting_page.document_title %>
 <div class="span8">
-  <section class="document_view">
-    <article class="document">
-      <h1 class="title"><%= @supporting_page.title %></h1>
-      <div class="body">
-        <%= govspeak_to_admin_html @supporting_page.body %>
-      </div>
-    </article>
-    <h3>Attachments:</h3>
-    <%= render partial: "documents/attachments", locals: { object_with_attachments: @supporting_page }  %>
-  </section>
+  <%= render partial: "supporting_page", object: @supporting_page %>
 </div>
 
 <div class="span4">

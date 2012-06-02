@@ -1,5 +1,4 @@
 class Admin::EditionsController < Admin::BaseController
-  layout "bootstrap_admin"
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]

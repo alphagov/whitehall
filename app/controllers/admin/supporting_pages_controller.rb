@@ -1,7 +1,6 @@
 class Admin::SupportingPagesController < Admin::BaseController
   include PublicDocumentRoutesHelper
 
-  layout "bootstrap_admin"
   before_filter :find_edition, only: [:new, :create]
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
 

@@ -1,0 +1,107 @@
+@import "../../shared/utils/type_sizing";
+@import "../../shared/utils/shadows";
+
+.document {
+  margin-bottom: 2em;
+  overflow:visible;
+
+  @media only screen and (min-width:1024px) {
+    margin-right: 2%;
+  }
+
+  .title {
+    @include type-32;
+  }
+
+  .summary {
+    @include type-18;
+    font-style: italic;
+    margin-bottom: 1.5em;
+    p{
+      background-image:none;
+    }
+  }
+
+  .body {
+
+    h2 {
+      @include scaled_type(24);
+      @include scaled_margin_top(16);
+    }
+
+    h3 {
+      @include type-18;
+      margin-bottom: 0;
+    }
+
+    p, ul, ol {
+       @include type-18;
+    }
+
+    ul, ol {
+      /*padding-left: 2em;*/
+
+      ul, ol {
+        margin-top: #{$baseline_in_px / 14}em;
+      }
+    }
+
+    ul {
+      list-style-type: disc;
+    }
+
+    li {
+      @include type-16;
+      @include scaled_margin_bottom(24);
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+
+    table {
+      tr {
+        padding: 0;
+
+        td {
+          padding: 0;
+          @include type-13;
+          border: 1px solid #ddd;
+          padding: 0 0.75em;
+        }
+      }
+    }
+
+    figure {
+      float: right;
+      max-width: 50%;
+      margin-left: 1em;
+
+      div.img {
+        background: #fff;
+        margin-bottom: 0.25em;
+        overflow: hidden;
+
+        img, a img {
+          margin: 0;
+          width: inherit;
+          max-width: 100%;
+        }
+      }
+
+      figcaption {
+        @include type-12;
+        color: 444;
+        margin-bottom: 1em;
+      }
+
+      div.img, figcaption {
+        padding: 5px 5px 0 5px;
+      }
+    }
+  }
+
+  pre.body {
+    @include type-13;
+  }
+}

@@ -1,5 +1,4 @@
 class Admin::RolesController < Admin::BaseController
-  layout "bootstrap_admin"
   before_filter :load_role, only: [:edit, :update, :destroy]
 
   def index

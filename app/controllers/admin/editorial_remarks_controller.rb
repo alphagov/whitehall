@@ -1,6 +1,4 @@
 class Admin::EditorialRemarksController < Admin::BaseController
-  layout "bootstrap_admin"
-
   def new
     @edition = Edition.find(params[:edition_id])
     @editorial_remark = @edition.editorial_remarks.build

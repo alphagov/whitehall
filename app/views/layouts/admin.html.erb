@@ -11,7 +11,7 @@
     <meta content="width=device-width, target-densitydpi=160dpi, initial-scale=1" name="viewport">
 
     <title><%= page_title %></title>
-    <%= stylesheet_link_tag "admin" %>
+    <%= stylesheet_link_tag "bootstrap_admin" %>
     <%= csrf_meta_tags %>
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
@@ -20,27 +20,44 @@
     <![endif]-->
   </head>
 
-  <body class="admin" id="content">
-    <header class="group masthead">
-      <nav>
-        <%= admin_documents_header_link %>
-        <%= admin_policy_topics_header_link %>
-        <%= admin_organisations_header_link %>
-        <%= admin_roles_header_link %>
-        <%= admin_people_header_link %>
-        <%= admin_countries_header_link %>
-        <%= link_to "Open website", website_home_url, class: "open_website" %>
-      </nav>
-      <%= render partial: "shared/session" if show_session_controls? %>
+  <body>
+    <header class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <%= link_to "Whitehall Admin", admin_root_path, class: "brand" %>
+          <ul class="nav pull-right">
+            <li><%= link_to "Open website", website_home_url, class: "open_website" %></li>
+            <li><%= render partial: "shared/session" if show_session_controls? %></li>
+          </ul>
+          <nav class="nav-collapse">
+            <ul class="nav">
+              <%= admin_documents_header_link %>
+              <%= admin_policy_topics_header_link %>
+              <%= admin_organisations_header_link %>
+              <%= admin_roles_header_link %>
+              <%= admin_people_header_link %>
+              <%= admin_countries_header_link %>
+            </ul>
+          </nav><!--/.nav-collapse -->
+        </div>
+      </div>
+
+      <section class="notices">
+        <%= render partial: "shared/notices" %>
+      </section>
     </header>
 
-    <section class="notices">
-      <%= render partial: "shared/notices" %>
-    </section>
+    <div class="container-fluid">
+      <section class="row-fluid">
+        <%= yield %>
+      </section>
+    </div>
 
-    <section class="group wrapper">
-      <%= yield %>
-    </section>
-    <%= javascript_include_tag "admin" %>
+    <%= javascript_include_tag "bootstrap_admin" %>
   </body>
 </html>

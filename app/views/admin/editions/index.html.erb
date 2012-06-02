@@ -33,7 +33,7 @@
           <%= link_to_filter 'Speeches', {type: 'speech'}, title: "Show only speeches" %>
           <%= link_to_filter 'International priorities', {type: 'international_priorities'}, title: "Show only international priorities" %>
           <li class="nav-header">Filter by state</li>
-          <%= document_type = (params[:type] || "document").pluralize %>
+          <% document_type = (params[:type] || "document").pluralize %>
           <%= link_to_filter 'All', {state: :active}, title: "Show #{document_type} in any workflow state" %>
           <%= link_to_filter 'Drafts', {state: :draft}, title: "Show only draft #{document_type}" %>
           <%= link_to_filter 'Submitted', {state: :submitted}, title: "Show only submitted #{document_type}" %>
@@ -66,7 +66,10 @@
             <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
               <td class="type"><%= edition.type.titleize %></td>
               <td class="title">
-                <span><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
+                <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
+                <% if edition.force_published? %>
+                  <span class="force_published label label-important">force published</span>
+                <% end %>
                 <% if edition.has_supporting_pages? %>
                   <div class="supporting_pages additional_information well">
                     <h4>Supporting Pages</h4>
