@@ -82,6 +82,12 @@ GEM
     daemons (1.1.8)
     database_cleaner (0.5.2)
     diff-lcs (1.1.3)
+    draper (0.12.3)
+      actionpack (~> 3.1.3)
+      activesupport (>= 2.3.10)
+      activesupport (~> 3.1.3)
+      rake
+      rspec (~> 2.0)
     erubis (2.7.0)
     eventmachine (0.12.10)
     exception_notification (2.4.0)
@@ -221,6 +227,14 @@ GEM
       activesupport
       builder
       null_logger
+    rspec (2.10.0)
+      rspec-core (~> 2.10.0)
+      rspec-expectations (~> 2.10.0)
+      rspec-mocks (~> 2.10.0)
+    rspec-core (2.10.1)
+    rspec-expectations (2.10.0)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.10.1)
     ruby-hmac (0.4.0)
     rubyzip (0.9.4)
     sass (3.1.7)
@@ -284,6 +298,7 @@ DEPENDENCIES
   cucumber (~> 1.0.6)
   cucumber-rails (~> 1.0.5)
   database_cleaner (~> 0.5.2)
+  draper
   exception_notification
   factory_girl (~> 2.2.0)
   faker

@@ -3,7 +3,6 @@ module Whitehall
   autoload :RandomKey, 'whitehall/random_key'
   autoload :FormBuilder, 'whitehall/form_builder'
   autoload :QuietAssetLogger, 'whitehall/quiet_asset_logger'
-  autoload :Presenters, 'whitehall/presenters'
   autoload :SearchClient, 'whitehall/search_client'
 
   class << self

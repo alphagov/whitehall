@@ -10,13 +10,7 @@ class PolicyTopicsController < PublicFacingController
     @policies = @policy_topic.policies.published
     @related_policy_topics = @policy_topic.related_policy_topics
     @recently_changed_documents = recently_changed_documents
-    @featured_policies = FeaturedPolicyPresenter.new(@policy_topic)
-  end
-
-  class FeaturedPolicyPresenter < Whitehall::Presenters::Collection
-    def initialize(policy_topic)
-      super(policy_topic.featured_policies)
-    end
+    @featured_policies = @policy_topic.featured_policies
   end
 
   private
