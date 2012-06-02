@@ -16,8 +16,13 @@ class MinisterialRole < Role
   def permanent_secretary
     false
   end
+
   def permanent_secretary?
     permanent_secretary
+  end
+
+  def ministerial?
+    true
   end
 
   def destroyable?

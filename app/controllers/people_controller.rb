@@ -1,9 +1,9 @@
 class PeopleController < PublicFacingController
   def show
-    @person = Person.find(params[:id])
+    @person = PersonPresenter.decorate(Person.find(params[:id]))
   end
 
   def index
-    @people = Person.all
+    @people = PersonPresenter.decorate(Person.all)
   end
 end

@@ -11,6 +11,7 @@ Mocha::Configuration.prevent(:stubbing_non_existent_method)
 
 class ActiveSupport::TestCase
   include Factory::Syntax::Methods
+  include ModelStubbingHelpers
 
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
@@ -118,6 +119,16 @@ end
 
 class ActionView::TestCase
   def assert_select_in_html(text, *args, &block)
+    assert_select HTML::Document.new(text).root, *args, &block
+  end
+end
+
+class PresenterTestCase < ActionView::TestCase
+  setup do
+    Draper::ViewContext.current = @controller.view_context
+  end
+
+  def assert_select_from(text, *args, &block)
     assert_select HTML::Document.new(text).root, *args, &block
   end
 end
