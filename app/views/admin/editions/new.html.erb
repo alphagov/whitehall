@@ -7,14 +7,9 @@
 </div>
 
 <div class="span4">
-  <div class="sidebar tabbable">
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#govspeak_help" data-toggle="tab">Formatting Help</a></li>
-    </ul>
-    <div class="tab-content">
-      <section class="tab-pane active" id="govspeak_help">
-        <%= render partial: "admin/editions/govspeak_help" %>
-      </section>
-    </div>
-  </div>
+  <%= sidebar_tabs govspeak_help: "Formatting Help" do %>
+    <section class="tab-pane active" id="govspeak_help">
+      <%= render partial: "admin/editions/govspeak_help" %>
+    </section>
+  <% end %>
 </div>
