@@ -26,22 +26,23 @@ module Whitehall
 
     def text_field(method, options={})
       label_text = options.delete(:label_text)
-      label(method, label_text) + super(method, options)
+      horizontal = options.delete(:horizontal)
+      if horizontal
+        horizontal_group(label(method, label_text, class: "control-label"), super(method, options))
+      else
+        label(method, label_text) + super(method, options)
+      end
     end
 
     def text_area(method, *args)
       options = (args.last || {})
-      options.stringify_keys!
-      label_text = options.delete("label_text")
-      if options.delete("help")
-        help_link = @template.link_to("formatting help", "#govspeak_help", "class" => "govspeak_help")
-        options["class"] = [options["class"], "govspeak"].compact.join(" ")
+      label_text = options.delete(:label_text)
+      horizontal = options.delete(:horizontal)
+      if horizontal
+        horizontal_group(label(method, label_text, class: "control-label"), super)
       else
-        help_link = ""
+        label(method, label_text) + super
       end
-      label_tag = label(method, label_text)
-      label_tag.gsub!("</label>", " #{help_link}</label>")
-      label_tag.html_safe + super
     end
 
     def check_box(method, options = {}, *args)
@@ -52,6 +53,15 @@ module Whitehall
     end
 
     private
+
+    def horizontal_group(label_tag, content_tag)
+      @template.content_tag(:div, class: "control-group") do
+        label_tag +
+        @template.content_tag(:div, class: "controls") do
+          content_tag
+        end
+      end
+    end
 
     def cancel_path(path)
       return path if path
