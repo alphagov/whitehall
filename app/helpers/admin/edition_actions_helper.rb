@@ -15,7 +15,7 @@ module Admin::EditionActionsHelper
           form_for [:admin, edition], {
             url: clear_force_published_admin_edition_path(edition, lock_version: edition.lock_version),
             method: :post} do |form|
-            concat(form.submit "Looks good", confirm: confirmation_prompt, class: "btn")
+            concat(form.submit "Looks good", confirm: confirmation_prompt, class: "btn btn-success")
           end
       end
     end
@@ -27,11 +27,11 @@ module Admin::EditionActionsHelper
   end
 
   def submit_edition_button(edition)
-    button_to "Submit to 2nd pair of eyes", submit_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn"
+    button_to "Submit to 2nd pair of eyes", submit_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn btn-success"
   end
 
   def reject_edition_button(edition)
-    button_to "Reject", reject_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn"
+    button_to "Reject", reject_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn btn-warning"
   end
 
   def publish_edition_form(edition, options = {})
@@ -39,11 +39,13 @@ module Admin::EditionActionsHelper
     button_text = options[:force] ? "Force Publish" : "Publish"
     button_title = "Publish #{edition.title}"
     confirm = publish_edition_alerts(edition, options[:force])
-    button_to button_text, url, confirm: confirm, title: button_title, class: "btn"
+    css_classes = ["btn"]
+    css_classes << (options[:force] ? "btn-warning" : "btn-success")
+    button_to button_text, url, confirm: confirm, title: button_title, class: css_classes.join(" ")
   end
 
   def delete_edition_button(edition)
-    button_to 'Delete', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?", class: "btn"
+    button_to 'Delete', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?", class: "btn btn-danger"
   end
 
   def show_or_add_consultation_response_button(consultation)
