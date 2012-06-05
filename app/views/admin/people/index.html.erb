@@ -21,7 +21,7 @@
           <td class="biography"><%= truncate(person.biography, length: 50) %></td>
           <td class="delete">
             <% if person.destroyable? %>
-              <%= button_to 'delete', admin_person_path(person), method: :delete, class: "btn" %>
+              <%= button_to 'delete', admin_person_path(person), method: :delete, class: "btn btn-danger" %>
             <% else %>
               <span>Cannot delete</span>
             <% end %>
