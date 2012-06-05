@@ -20,7 +20,7 @@
         <%= form.text_field :embassy_email %>
       </fieldset>
 
-      <%= form.submit "Save", class: "btn btn-primary" %>
+      <%= form.save_or_cancel cancel: admin_countries_path %>
     <% end %>
   </section>
 </div>
