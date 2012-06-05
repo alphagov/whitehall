@@ -5,11 +5,7 @@
  *
  *= require bootstrap
  *= require chosen
- *= require admin/document_view
- *= require admin/audit_trail
- *= require admin/image_feature_mask
- *= require admin/fact_check_requests
- *= require_tree ./admin/bootstrap
+ *= require_tree ./admin
 */
 
 body {
@@ -52,6 +48,10 @@ form.button_to div {
   display: inline;
 }
 
+fieldset.named {
+  padding-top: 0.5em;
+}
+
 textarea, input {
   width: 97%;
 }
@@ -89,10 +89,4 @@ form .field_with_errors textarea {
 .alert p:last-child,
 .alert form:last-child {
   margin-bottom: 0;
-}
-
-
-/* Sorting */
-.ui-sortable, .ui-sortable label {
-  cursor: move;
 }
