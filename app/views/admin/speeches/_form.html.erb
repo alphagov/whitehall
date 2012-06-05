@@ -2,23 +2,18 @@
   <fieldset>
     <%= form.label :speech_type_id, "Type" %>
     <%= form.select :speech_type_id, options_from_collection_for_select(SpeechType.all, :id, :name, edition.speech_type_id) %>
-  </fieldset>
-
-  <fieldset>
     <%= form.label :role_appointment_id, 'Delivered by' %>
     <%= form.select :role_appointment_id, options_from_collection_for_select(ministerial_appointment_options, :first, :last, edition.role_appointment_id), {}, class: 'chzn-select', data: { placeholder: "Choose a minister..." } %>
-  </fieldset>
-
-  <fieldset>
     <%= form.label :delivered_on %>
     <%= form.date_select :delivered_on, { include_blank: true }, { :class => "date" } %>
-
     <%= form.text_field :location %>
   </fieldset>
 
-  <%= render partial: "related_policy_fields", locals: { form: form, edition: edition } %>
-
-  <%= render partial: "country_fields", locals: { form: form, edition: edition } %>
+  <fieldset>
+    <legend>Associations</legend>
+    <%= render partial: "related_policy_fields", locals: { form: form, edition: edition } %>
+    <%= render partial: "country_fields", locals: { form: form, edition: edition } %>
+  </fieldset>
 
   <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
 <% end %>

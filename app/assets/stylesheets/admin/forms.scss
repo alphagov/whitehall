@@ -8,6 +8,28 @@ form {
     }
   }
 
+  fieldset {
+    margin-top: 3em;
+
+    legend {
+      border-top: 1px solid #EEE;
+      border-bottom: none;
+
+      .add_new {
+        margin-left: 3em;
+      }
+    }
+
+    > fieldset {
+      margin-top: 0;
+
+      legend {
+        font-size: 130%;
+        line-height: 350%;
+      }
+    }
+  }
+
   fieldset.named {
     padding-top: 0.5em;
   }
@@ -37,5 +59,28 @@ form {
       background-color: #F2DEDE;
       border-color: #EED3D7;
     }
+  }
+}
+
+
+fieldset.contacts {
+  .control-group {
+    margin-bottom: 0.5em;
+  }
+}
+
+fieldset.contact_number {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #EEE;
+
+  &:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .btn {
+    margin-left: 160px;
   }
 }

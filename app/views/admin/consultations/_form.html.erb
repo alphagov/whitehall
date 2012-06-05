@@ -8,8 +8,11 @@
     <%= form.date_select :closing_on, { include_blank: true }, { :class => "date" } %>
   </fieldset>
 
-  <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+  <fieldset>
+    <legend>Associations</legend>
+    <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+  </fieldset>
 <% end %>

@@ -11,9 +11,13 @@
 
   <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition } %>
 
-  <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: "country_fields", locals: { form: form, edition: edition } %>
+  <fieldset>
+    <legend>Associations</legend>
+    <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: "country_fields", locals: { form: form, edition: edition } %>
+  </fieldset>
+
   <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
 <% end %>

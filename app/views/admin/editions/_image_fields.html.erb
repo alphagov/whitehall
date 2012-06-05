@@ -3,7 +3,8 @@
   <% i = 0 %>
   <%= form.fields_for :images do |images_fields| %>
     <% if images_fields.object.new_record? %>
-      <div class="file_upload">
+      <div class="file_upload well">
+        <h3>New image</h3>
         <%= images_fields.fields_for :image_data do |image_data_fields| %>
           <%= image_data_fields.label :file %>
           <%= image_data_fields.file_field :file %>

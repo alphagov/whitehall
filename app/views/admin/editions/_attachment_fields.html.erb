@@ -2,7 +2,8 @@
   <legend>Attachments</legend>
   <%= form.fields_for "#{parent_type}_attachments" do |edition_attachments_fields| %>
     <% if edition_attachments_fields.object.new_record? %>
-      <div class="file_upload">
+      <div class="file_upload well">
+        <h3>New attachment</h3>
         <%= edition_attachments_fields.fields_for :attachment do |attachment_fields| %>
           <%= attachment_fields.text_field :title %>
           <%= attachment_fields.label :file %>

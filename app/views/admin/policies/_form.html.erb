@@ -1,10 +1,15 @@
 <%= standard_edition_form(edition) do |form| %>
-  <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'policy_topic_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'country_fields', locals: { form: form, edition: edition } %>
+  <fieldset>
+    <legend>Associations</legend>
+    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'policy_topic_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'country_fields', locals: { form: form, edition: edition } %>
+  </fieldset>
 
   <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
 
-  <%= form.check_box :stub, label_text: "Stub?" %>
+  <fieldset>
+    <%= form.check_box :stub, label_text: "Stub?" %>
+  </fieldset>
 <% end %>

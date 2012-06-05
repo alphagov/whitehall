@@ -1,23 +1,20 @@
 <%= form_for [:admin, organisation], as: :organisation do |organisation_form| %>
   <%= organisation_form.errors %>
   <fieldset>
+    <%= organisation_form.check_box :active,
+          label_text: "Active (can visitors click through from the organisation list?)" %>
     <%= organisation_form.text_field :name %>
     <%= organisation_form.text_field :acronym %>
     <%= organisation_form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
     <%= organisation_form.text_area :description %>
     <%= organisation_form.text_field :url %>
-    <%= organisation_form.check_box :active,
-          label_text: "Active (can visitors click through from the organisation list?)" %>
-  </fieldset>
-  <fieldset>
     <%= organisation_form.label :organisation_type_id, "Organisation type" %>
     <%= organisation_form.select :organisation_type_id, options_from_collection_for_select(OrganisationType.all, "id", "name", organisation.organisation_type_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the organisation type..." } %>
   </fieldset>
   <fieldset>
+    <legend>Associations</legend>
     <%= organisation_form.label :parent_organisation_ids, 'Sponsoring departments' %>
     <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.departments - [organisation_form.object], 'id', 'name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose associated departments..." } %>
-  </fieldset>
-  <fieldset>
     <%= organisation_form.label :policy_topic_ids, 'Policy topics' %>
     <%= organisation_form.select :policy_topic_ids, options_from_collection_for_select(PolicyTopic.all, 'id', 'name', organisation.policy_topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose policy topics..."} %>
   </fieldset>
@@ -32,12 +29,16 @@
       <% end %>
     </div>
   </fieldset>
-  <fieldset class="named social_media_accounts">
+  <fieldset class="named social_media_accounts form-horizontal">
     <legend>Social media accounts</legend>
     <%= organisation_form.fields_for :social_media_accounts do |account_form| %>
-      <%= account_form.label :social_media_service_id, 'Service' %>
-      <%= account_form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, account_form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the social media service..." } %>
-      <%= account_form.text_field :url %>
+      <div class="control-group">
+        <%= account_form.label :social_media_service_id, 'Service', class: "control-label" %>
+        <div class="controls">
+          <%= account_form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, account_form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the social media service..." } %>
+        </div>
+      </div>
+      <%= account_form.text_field :url, horizontal: true %>
     <% end %>
   </fieldset>
   <fieldset>

@@ -33,7 +33,7 @@
     };
 
     var addLinkToCloneEmptyFields = function() {
-      var link = $.a('Add new contact', {'class': 'button add_new'});
+      var link = $.a('Add new contact', {'class': 'btn add_new'});
       link.click(function () {
         addNewContact(); return false;
       })
@@ -49,7 +49,7 @@
 
     var addLinkToAddNewNumber = function() {
       legend = $(this)
-      var link = $.a('Add number', {'class': 'button add_new'});
+      var link = $.a('Add number', {'class': 'btn add_new'});
       link.click(function() {
         fieldset = $(this).parent().parent();
         newId = fieldset.find('.contact_number').size();
@@ -71,7 +71,7 @@
 
     var addRemoveNumberLink = function() {
       number = $(this);
-      var link = $.a('remove', {'class': 'button remove'});
+      var link = $.a('remove', {'class': 'btn btn-danger remove'});
       number.append(link);
       link.click(handleRemoveNumber);
     }
