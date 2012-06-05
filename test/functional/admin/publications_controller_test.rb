@@ -119,7 +119,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication
 
-    assert_select ".document_view" do
+    assert_select ".document" do
       assert_select ".publication_date", text: "31 May 1916"
       assert_select ".unique_reference", text: "unique-reference"
       assert_select ".isbn", text: "0099532816"
@@ -133,7 +133,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication
 
-    assert_select ".document_view" do
+    assert_select ".document" do
       refute_select "a.order_url"
     end
   end

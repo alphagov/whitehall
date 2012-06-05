@@ -67,11 +67,11 @@ When /^I draft a new speech "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ d
 end
 
 Then /^I should see that the speech is written by "([^"]*)"$/ do |name|
-  assert page.has_css?(".document_view .authors", text: name)
+  assert page.has_css?(".document .authors", text: name)
 end
 
 Then /^I should see that "([^"]*)" is the speech body$/ do |body|
-  assert page.has_css?(".document_view .body", text: body)
+  assert page.has_css?(".document .body", text: body)
 end
 
 Then /^the published speech should remain unchanged$/ do

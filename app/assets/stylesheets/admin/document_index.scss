@@ -1,465 +1,50 @@
-@import "../shared/utils/type_sizing";
-@import "../shared/utils/rounded_corners";
-@import "../shared/utils/filters";
-@import "../shared/utils/transitions";
-@import "../shared/utils/gradients";
-@import "../shared/colours";
-@import "../shared/utils/shadows";
+.documents {
 
-/*
-Resource list.
-
-A group of related objects that are created
-in a usual CRUD style manner.
-They usually have links to the resource and perhaps
-links to edit and delete etc.
-================================================== */
-
-@mixin list-row {
-  margin: 0;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 20px;
-
-  @include transition(background-color);
-
-  &:last-child {
-    border-bottom: 1px solid #bbb;
+  nav {
+    margin-top: 1em;
   }
 
-  &:hover {
-    background: #f9f9f9;
-  }
-}
+  div.toggle_group {
+    display: inline;
 
-nav.actions {
-  overflow: auto;
-
-  a {
-    display: inline-block;
-    margin-bottom: 1em;
-  }
-
-  form {
-    display: inline-block;
-    margin-bottom: 1em;
-    input {
-      margin-top: 0;
+    a.toggle {
+      float: right;
+      margin-right: 2.5%;
       margin-bottom: 0;
+      width: 12em;
+      text-align: right;
     }
   }
 
-  span.back {
-    display: none;
+  .label.force_published {
+    margin-left: 1em;
   }
 
-  a.back {
-    float: right;
-    @include type-14;
-    margin-top: 0.5em;
-  }
+  .additional_information {
+    padding: 0.4em 1em 0.2em 1em;
+    margin: 0.3em 0 0 0;
 
-  .public_version {
-    margin-bottom: 1em;
-    padding: 0;
-    p {
-      @include type-14;
-      border: 1px solid #ddd;
-      padding: 0.5em 1em 0.5em 1em;
-      margin: 0;
-      background: #eee;
-      display: inline-block;
-
-      a {
-        margin-bottom: 0;
-      }
-    }
-  }
-}
-
-nav.create_buttons {
-  padding: 0em 1em;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 0.5em;
-
-  span {
-    margin-right: 0.5em;
-  }
-
-  a {
-    margin-right: 0.25em;
-    margin-bottom: 0.5em;
-  }
-
-  @media only screen and (min-width: 1035px) {
-    border: none;
-    float: left;
-  }
-
-  @media only screen and (min-width: 720px) {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-nav.author_scope {
-  display: inline-block;
-  margin: 0 1em 0.5em 1em;
-  @include rounded();
-
-  a {
-    @include filter_link;
-    @include vertical_gradient(#ffffff, #efefef);
-    border-bottom: 1px solid #bbb;
-    border-top: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    padding: 0.35em 1em 0.5em 1em;
-    display: inline-block;
-    margin-left: -4px;
-    margin-bottom: 0;
-
-    &:first-child {
-      margin-left: 0;
-      @include rounded_left();
-      border-left: 1px solid #ddd;
-    }
-
-    &:last-child {
-      @include rounded_right();
-      border-right: 1px solid #ccc;
-    }
-
-    &:hover {
-      @include vertical_gradient(#fafdff, #d8d8d8);
-    }
-
-    &.current {
-      color: #444;
-      background: #9fd6f5;
-    }
-  }
-
-  @media only screen and (min-width: 1035px) {
-    float: right;
-  }
-
-  @media only screen and (min-width: 720px) {
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
-
-section.resource_list {
-  .collection {
-    padding: 0 1em 1em 1em;
-
-    h1 {
-      font-size: 21px;
-      line-height: 30px;
-      margin-bottom: 0;
-      margin-top: 0;
-      border-bottom: 1px solid #ccc;
-      border-left: 1px solid #ddd;
-      border-right: 1px solid #ddd;
-      border-top: 1px solid #ddd;
-      background: #eee;
-      padding: 10px 20px 10px 20px;
-      @include rounded_top(3px);
-    }
-
-    nav.filter {
-      margin-bottom: 0;
-      margin-top: 0;
-      border-bottom: 1px solid #ccc;
-      border-left: 1px solid #ddd;
-      border-right: 1px solid #ddd;
-      border-top: 1px solid #ddd;
-      background: #eee;
-      @include rounded_specific(3px, 0, 0, 0);
-      @include vertical_gradient(#fff, #eee);
-
-      .type {
-        margin-bottom: 10px;
-        padding: 8px 10px 0px 10px;
-        background-color: #eee;
-        border-bottom: 1px solid #fff;
-        @include rounded_specific(3px, 0, 0, 0);
-        @include rounded_link;
-      }
-
-      .state {
-        margin-left: 10px;
-        margin-bottom: 10px;
-        @include state_link;
-      }
-
-      @media only screen and (min-width: 960px) {
-        .state {
-          float: right;
-          margin: 0.45em 0.45em 0 0;
-        }
-
-        .type {
-          background-color: transparent;
-          float: left;
-          margin: 0;
-          border-bottom: 0;
-        }
-      }
-    }
-
-    > ul, table {
-      margin: 0;
-      background: #fefefe;
-    }
-
-    > ul {
-      li {
-        @include list-row;
-      }
-    }
-
-    table {
-      width: 100%;
-
-      tr {
-        border-left: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-      }
-
-      thead tr {
-        border-bottom: 1px solid #ddd;
-        background: #fbfbfb;
-      }
-
-      tbody tr {
-        @include list-row;
-      }
-
-      th, td {
-        @include type-12;
-        text-align: left;
-        padding: 10px 2%;
-        line-height: 20px;
-      }
-
-      tr {
-        td.delete {
-          span {
-            opacity: 0;
-            @include transition(opacity);
-          }
-        }
-
-        td.details, td.related {
-          width: 20%;
-        }
-
-        td.related {
-          ul,li {
-            margin-bottom: 0;
-          }
-        }
-
-        &:hover {
-          td.delete {
-            span {
-              opacity: 1;
-            }
-          }
-        }
-      }
-    }
-
-    @media only screen and (min-width: 720px) {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-}
-
-section.resource_list .collection {
-  table.documents {
-
-    .type {
-      width: 8%;
-      padding: 0 2%;
-      text-align: center;
-    }
-
-    tr.force_published {
-      background: $force-published-colour;
-    }
-
-    td.type {
+    h4 {
+      margin: 0.2em 0 0.6em 0;
       color: #777;
-      font-weight: bold;
-      font-size: 11px;
     }
 
-    td.title {
-      padding: 0;
+    ul {
+      margin-left: 0;
 
-      h2 {
-        padding: 0.75em 3.5%;
-        @include type-18;
-        margin-bottom: 0;
-        border-left: 1px solid #eee;
-        border-right: 1px solid #eee;
-      }
+      li {
+        margin: 0;
+        display: block;
+        background: #fff;
+        margin-bottom: 0.5em;
+        border: 1px solid #eee;
+        border-bottom: 1px solid #ddd;
 
-      div.toggle_group {
-        border-right: 1px solid #eee;
-
-        h2 {
-          float: left;
-          border-right: none;
-        }
-
-        a.toggle {
-          float: right;
-          @include type-16;
-          margin-right: 2.5%;
-          margin-bottom: 0;
-          line-height: 3.3em;
-          width: 12em;
-          text-align: right;
-        }
-      }
-
-      div.additional_information {
-        border-top: 1px solid #ccc;
-        padding: 0.25em 0 0 0;
-        margin-bottom: 0;
-        background: #eee;
-        border-left: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-
-        h3 {
-          border-left: 1px solid #eee;
-          padding: 0.5em 3.5% 0.5em 3.5%;
-          @include type-16;
-          margin: 0;
-          color: #777;
-          text-shadow: 0 1px rgba(255, 255, 255, .75);
-        }
-
-        ul {
-          border-left: 1px solid #eee;
-          padding: 0 0 0.1em 0;
-          margin: 0 2%;
-
-          li {
-            margin: 0;
-            display: block;
-            background: #fff;
-            margin-bottom: 0.5em;
-            border: 1px solid #eee;
-            border-bottom: 1px solid #ddd;
-
-            @include rounded(3px);
-
-            a {
-              display: block;
-              padding: 0.5em 0.75em;
-            }
-          }
+        a {
+          display: block;
+          padding: 0.5em 0.75em;
         }
       }
     }
-
-    td.featured {
-      img {
-        height: 3.5em;
-        margin-bottom: 0;
-      }
-
-      a.edit_update_image, a.hide_update_image {
-        font-size: 11px;
-      }
-
-      form {
-        margin-bottom: 0;
-
-        input {
-          margin-bottom: 0.5em;
-        }
-      }
-    }
-  }
-}
-
-//
-// This is used by supporting pages
-// and publications etc
-// ----------------------------------------
-@mixin looks_like_a_document {
-  border: 1px solid #ddd;
-  border-bottom: 2px solid #ccc;
-  background: #fefefe;
-  padding: 0 0.5em;
-  display: block;
-  margin-bottom: 0;
-  padding: 1em 1em 2.5em 1em;
-  width: 6.5em;
-  min-height: 7em;
-  max-height: 7em;
-  overflow: hidden;
-  text-decoration: none;
-  @include transition(background-color);
-
-  span.title {
-    @include type-13;
-    line-height: 1.75em;
-    display: block;
-    margin-bottom: 0.5em;
-  }
-
-  span.body {
-    color: #888;
-    font-size: 60%;
-    line-height: 1.5em;
-    display: block;
-  }
-
-  &:hover {
-    background: #fcffd7;
-    border: 1px solid #bbb;
-    border-bottom: 2px solid #aaa;
-
-    span.title {
-      text-decoration: underline;
-    }
-  }
-}
-
-@mixin looks_like_a_floated_document {
-  float: left;
-  margin-right: 2%;
-  a {
-    @include looks_like_a_document;
-  }
-}
-
-.supporting_page {
-  @include looks_like_a_floated_document;
-}
-
-.add_supporting_page {
-  float: left;
-  background: #f5f5f5;
-  border: 1px dashed #ddd;
-  margin-right: 2%;
-  width: 6.5em;
-  padding: 1em 1em 2.5em 1em;
-  min-height: 7em;
-  max-height: 7em;
-  text-align: center;
-
-  a {
-    margin-top: 47%;
-  }
-
-  &:hover {
-    background: #fff;
   }
 }

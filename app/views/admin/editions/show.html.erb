@@ -1,7 +1,7 @@
 <% page_title @edition.title, @edition.class.name.humanize %>
 
 <div class="span8">
-  <section class="document_view">
+  <section class="document_page">
     <%= render partial: 'edition', locals: { edition: @edition } %>
   </section>
 
@@ -19,6 +19,19 @@
   <span class="back">
     back to <%= link_to 'document list', admin_editions_path %>
   </span>
+
+  <% if @edition.change_note_required? %>
+    <section id="change-note" class="well">
+      <h3>Change note</h3>
+      <p><% if @edition.minor_change? %>
+          This is a minor change
+      <% elsif @edition.change_note.blank? %>
+          None
+      <% else %>
+          <%= @edition.change_note %>
+      <% end %></p>
+    </section>
+  <% end %>
 
   <%= render partial: "rejected_by", locals: { edition: @edition } %>
   <%= render partial: 'navigation', locals: { edition: @edition } %>

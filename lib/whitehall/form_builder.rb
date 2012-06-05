@@ -46,7 +46,7 @@ module Whitehall
 
     def check_box(method, options = {}, *args)
       label_text = options.delete(:label_text)
-      label(method, label_text, class: "for_checkbox") do
+      label(method, label_text, class: "checkbox") do
         super + label_text
       end
     end

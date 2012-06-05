@@ -270,11 +270,11 @@ Then /^I should see that those responsible for the policy are:$/ do |table|
 end
 
 Then /^I should see that the policy is written by "([^"]*)"$/ do |name|
-  assert page.has_css?(".document_view .authors", text: name)
+  assert page.has_css?(".document .authors", text: name)
 end
 
 Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
-  assert page.has_css?(".document_view .body", text: policy_body)
+  assert page.has_css?(".document .body", text: policy_body)
 end
 
 Then /^I should see that the policy does not apply to:$/ do |nation_names|
@@ -290,14 +290,14 @@ end
 
 Then /^they should see the draft policy "([^"]*)"$/ do |title|
   policy = Policy.draft.find_by_title!(title)
-  assert page.has_css?('.document_view .title', text: policy.title)
-  assert page.has_css?('.document_view .body', text: policy.body)
+  assert page.has_css?('.document .title', text: policy.title)
+  assert page.has_css?('.document .body', text: policy.body)
 end
 
 Then /^they should see the supporting page "([^"]*)"$/ do |title|
   supporting_page = SupportingPage.find_by_title!(title)
-  assert page.has_css?("#{supporting_pages_selector} .document_view .title", text: supporting_page.title)
-  assert page.has_css?("#{supporting_pages_selector} .document_view .body", text: supporting_page.body)
+  assert page.has_css?("#{supporting_pages_selector} .document .title", text: supporting_page.title)
+  assert page.has_css?("#{supporting_pages_selector} .document .body", text: supporting_page.body)
 end
 
 Then /^I can see links to the related published policies "([^"]*)" and "([^"]*)"$/ do |policy_title_1, policy_title_2|
