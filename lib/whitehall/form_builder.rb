@@ -19,7 +19,7 @@ module Whitehall
         @template.concat @template.link_to 'cancel', cancel_path(options[:cancel])
       end
       @template.content_tag(:fieldset, "class" => "clear") do
-        @template.concat submit "Save", class: "btn"
+        @template.concat submit "Save", class: "btn btn-primary btn-large"
         @template.concat cancel
       end
     end

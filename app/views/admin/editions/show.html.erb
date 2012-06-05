@@ -58,7 +58,7 @@
     </p>
   <% end %>
 
-  <div class="tabbable">
+  <div class="sidebar tabbable">
     <ul class="nav nav-tabs">
       <li class="active"><a href="#associations" data-toggle="tab">Associations</a></li>
       <li>
@@ -77,9 +77,13 @@
       <% end %>
     </ul>
     <div class="tab-content">
-      <div class="tab-pane active" id="associations">
-
-        <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
+      <section class="tab-pane active" id="associations">
+        <h1>Associations</h1>
+        <% if @edition.allows_supporting_pages? %>
+          <section class="supporting_pages">
+            <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
+          </section>
+        <% end %>
 
         <section>
           <h1>Organisations</h1>
@@ -153,22 +157,21 @@
             <% end %>
           </section>
         <% end %>
-      </div>
+      </section>
 
-      <div class="tab-pane" id="history">
-        <section class="audit-trail">
-          <h1>Activity</h1>
-          <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
-          <ul>
-          <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
-          </ul>
-        </section>
-      </div>
+      <section class="tab-pane audit-trail" id="history">
+        <h1>Activity</h1>
+        <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
+        <ul>
+        <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
+        </ul>
+      </section>
 
       <% if @edition.can_be_fact_checked? %>
-        <div class="tab-pane" id="fact-checking">
+        <section class="tab-pane fact_checking" id="fact-checking">
+          <h1>Fact checking</h1>
           <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
-        </div>
+        </section>
       <% end %>
     </div>
   </div>

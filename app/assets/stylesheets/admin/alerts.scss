@@ -1,0 +1,50 @@
+@import "../shared/utils/type_sizing";
+
+$alert-color: #600a06;
+$alert-background: #fcd0ce;
+$alert-border-color: #d0160c;
+
+$notice-color: #1d5b25;
+$notice-background: #b1e7b9;
+$notice-border-color: #39b54a;
+
+.flash-alert {
+  color: $alert-color;
+  background: $alert-background;
+  border-bottom: 1px solid $alert-border-color;
+}
+
+.flash-notice {
+  color: $notice-color;
+  background: $notice-background;
+  border-bottom: 1px solid $notice-border-color;
+}
+
+.flash-box {
+  @include type-16;
+  margin-bottom: 0;
+  line-height: 3em;
+  text-align: center;
+  color: #444;
+}
+
+.notices {
+  .flash {
+    @extend .flash-box;
+  }
+  .alert {
+    @extend .flash-box;
+    @extend .flash-alert;
+  }
+  .notice {
+    @extend .flash-box;
+    @extend .flash-notice;
+  }
+}
+
+.alert {
+  p:last-child,
+  form:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -1,12 +1,10 @@
-<div class="tabbable">
+<div class="sidebar tabbable">
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#govspeak" data-toggle="tab">Formatting Help</a></li>
+    <li class="active"><a href="#govspeak_help" data-toggle="tab">Formatting Help</a></li>
   </ul>
   <div class="tab-content">
-    <div class="tab-pane active" id="govspeak">
-      <section>
-        <%= render partial: "admin/editions/govspeak_help" %>
-      </section>
-    </div>
+    <section class="tab-pane active" id="govspeak_help">
+      <%= render partial: "admin/editions/govspeak_help" %>
+    </section>
   </div>
 </div>

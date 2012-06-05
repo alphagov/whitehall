@@ -1,0 +1,26 @@
+@import "../shared/typography";
+
+.back {
+  margin-bottom: 1em;
+  display: block;
+}
+
+nav.actions {
+  margin-bottom: 2em;
+}
+
+.sidebar {
+  h1 {
+    display: none;
+  }
+
+  section {
+    > section {
+      h1 {
+        @include type-24;
+        display: block;
+      }
+    }
+  }
+
+}

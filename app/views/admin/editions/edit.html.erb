@@ -31,9 +31,9 @@
   </div>
 
   <div class="span4">
-    <div class="tabbable">
+    <div class="sidebar tabbable">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#govspeak" data-toggle="tab">Formatting Help</a></li>
+        <li class="active"><a href="#govspeak_help" data-toggle="tab">Formatting Help</a></li>
         <li>
           <a href="#history" data-toggle="tab">
             History & Notes
@@ -50,25 +50,21 @@
         <% end %>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane active" id="govspeak">
-          <section>
-            <%= render partial: "govspeak_help" %>
-          </section>
-        </div>
-        <div class="tab-pane" id="history">
-          <section class="container audit-trail">
-            <h1>Activity</h1>
-            <ul>
-            <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
-            </ul>
-          </section>
-        </div>
+        <section class="tab-pane active govspeak_help" id="govspeak_help">
+          <%= render partial: "govspeak_help" %>
+        </section>
+        <section class="audit-trail tab-pane" id="history">
+          <h1>Activity</h1>
+          <ul>
+          <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
+          </ul>
+        </section>
+
         <% if @edition.can_be_fact_checked? %>
-          <div class="tab-pane" id="fact-checking">
-            <section>
-              <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
-            </section>
-          </div>
+          <section class="tab-pane fact_checking" id="fact-checking">
+            <h1>Fact checking</h1>
+            <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+          </section>
         <% end %>
       </div>
     </div>
