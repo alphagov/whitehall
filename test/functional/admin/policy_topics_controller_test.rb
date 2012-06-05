@@ -231,7 +231,7 @@ class Admin::PolicyTopicsControllerTest < ActionController::TestCase
     assert policy_topic.reload.deleted?
   end
 
-  test "should indicate that an edition is not destroyable when editing" do
+  test "should indicate that a policy topic is not destroyable when editing" do
     policy_topic_with_published_policy = create(:policy_topic, policies: [build(:published_policy, title: "thingies")])
 
     get :edit, id: policy_topic_with_published_policy.id

@@ -1,15 +1,26 @@
 <% page_title "Edit " + @policy_topic.name %>
 
-<section>
-  <h1>Edit policy topic</h1>
-  <%= render partial: "form", locals: {policy_topic: @policy_topic} %>
-</section>
+<div class="span8">
+  <section>
+    <h1>Edit policy topic</h1>
+    <%= render partial: "form", locals: {policy_topic: @policy_topic} %>
+  </section>
+</div>
 
-<section>
-  <h1>Delete policy topic</h1>
-  <% if @policy_topic.destroyable? %>
-    <%= button_to 'Delete', admin_policy_topic_path(@policy_topic), method: :delete, confirm: 'Are you sure you want to delete this policy topic?', class: 'btn btn-danger' %>
-  <% else %>
-    <span class="policies_preventing_destruction">This policy topic can't be deleted as it has associated policies: <%= policies_preventing_destruction(@policy_topic) %></span>
-  <% end %>
-</section>
+<div class="sidebar span4">
+  <section class="display_heading">
+    <h1>Delete policy topic</h1>
+    <% if @policy_topic.destroyable? %>
+      <%= button_to 'Delete', admin_policy_topic_path(@policy_topic), method: :delete, confirm: 'Are you sure you want to delete this policy topic?', class: 'btn btn-danger' %>
+    <% else %>
+      <div class="policies_preventing_destruction">
+        <p>This policy topic can't be deleted as it has associated policies:</p>
+        <ul>
+          <% policies_preventing_destruction(@policy_topic).each do |policy| %>
+            <li><%= policy %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </section>
+</div>
