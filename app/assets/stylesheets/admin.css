@@ -3,8 +3,90 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *
- *= require admin/framework
- *= require_tree ./shared
- *= require_tree ./admin
+ *= require bootstrap
  *= require chosen
+ *= require_tree ./admin
 */
+
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+.sidebar-nav {
+  padding: 9px 0;
+}
+
+header .open_website {
+  margin-right: 4em;
+}
+
+/* Form sidebar */
+
+.back {
+  margin-bottom: 1em;
+  display: block;
+}
+
+nav.actions {
+  margin-bottom: 2em;
+}
+
+#associations section h1,
+#activity section h1 {
+  font-size: 20px;
+}
+
+
+/* forms */
+
+form.button_to {
+  margin-bottom: 0;
+  display: inline;
+}
+
+form.button_to div {
+  display: inline;
+}
+
+fieldset.named {
+  padding-top: 0.5em;
+}
+
+textarea, input {
+  width: 97%;
+}
+
+select.chzn-select {
+  width: 100%;
+}
+
+select.date {
+  width: auto; /*7em;*/
+}
+
+form .field_with_errors label,
+form .field_with_errors input {
+  color: #B94A48;
+}
+
+form .field_with_errors input,
+form .field_with_errors textarea {
+  background-color: #F2DEDE;
+  border-color: #EED3D7;
+}
+
+/* fact checking */
+#fact_check_request_instructions p {
+  font-size: 16px;
+}
+
+/* Change notes */
+#change-note {
+  margin-bottom: 1em;
+}
+
+/* Alert bootstrap style tweak */
+.alert p:last-child,
+.alert form:last-child {
+  margin-bottom: 0;
+}
