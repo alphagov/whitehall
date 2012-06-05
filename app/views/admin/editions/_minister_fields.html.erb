@@ -1,4 +1,2 @@
-<fieldset>
-  <%= form.label :ministerial_role_ids, 'Ministers' %>
-  <%= form.select :ministerial_role_ids, options_from_collection_for_select(MinisterialRole.alphabetical_by_person, 'id', 'to_s', edition.ministerial_role_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose ministers..."} %>
-</fieldset>
+<%= form.label :ministerial_role_ids, 'Ministers' %>
+<%= form.select :ministerial_role_ids, options_from_collection_for_select(MinisterialRole.alphabetical_by_person, 'id', 'to_s', edition.ministerial_role_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose ministers..."} %>
