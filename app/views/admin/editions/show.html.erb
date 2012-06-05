@@ -58,121 +58,102 @@
     </p>
   <% end %>
 
-  <div class="sidebar tabbable">
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#associations" data-toggle="tab">Associations</a></li>
-      <li>
-        <a href="#history" data-toggle="tab">
-          History & Notes
-          <span class="badge"><%= @edition.audit_trail.length %></span>
-        </a>
-      </li>
-      <% if @edition.can_be_fact_checked? %>
-        <li>
-          <a href="#fact-checking" data-toggle="tab">
-            Fact checking
-            <span class="badge badge-warning"><%= @edition.fact_check_requests.pending.count %></span>
-          </a>
-        </li>
+  <%= sidebar_tabs edition_tabs(@edition) do %>
+    <section class="tab-pane active" id="associations">
+      <h1>Associations</h1>
+      <% if @edition.allows_supporting_pages? %>
+        <section class="supporting_pages">
+          <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
+        </section>
       <% end %>
-    </ul>
-    <div class="tab-content">
-      <section class="tab-pane active" id="associations">
-        <h1>Associations</h1>
-        <% if @edition.allows_supporting_pages? %>
-          <section class="supporting_pages">
-            <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
-          </section>
-        <% end %>
 
+      <section>
+        <h1>Organisations</h1>
+        <% if @edition.organisations.any? %>
+          <%= render partial: "admin/organisations/list", locals: {organisations: @edition.organisations} %>
+        <% else %>
+          <p>This document isn't assigned to any organisations.</p>
+        <% end %>
+      </section>
+
+      <% if @edition.can_be_associated_with_policy_topics? %>
         <section>
-          <h1>Organisations</h1>
-          <% if @edition.organisations.any? %>
-            <%= render partial: "admin/organisations/list", locals: {organisations: @edition.organisations} %>
+          <h1>Policy topics</h1>
+          <% if @edition.policy_topics.any? %>
+            <%= render partial: "policy_topics/list", locals: {policy_topics: @edition.policy_topics} %>
           <% else %>
-            <p>This document isn't assigned to any organisations.</p>
+            <p>This document isn't assigned to any policy topics.</p>
           <% end %>
         </section>
+      <% end %>
 
-        <% if @edition.can_be_associated_with_policy_topics? %>
-          <section>
-            <h1>Policy topics</h1>
-            <% if @edition.policy_topics.any? %>
-              <%= render partial: "policy_topics/list", locals: {policy_topics: @edition.policy_topics} %>
-            <% else %>
-              <p>This document isn't assigned to any policy topics.</p>
-            <% end %>
-          </section>
-        <% end %>
-
-        <% if @edition.can_be_associated_with_ministers? %>
-          <section>
-            <h1>Ministers</h1>
-            <% if @edition.ministerial_roles.any? %>
-              <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @edition.ministerial_roles} %>
-            <% else %>
-              <p>This document isn't assigned to any ministers.</p>
-            <% end %>
-          </section>
-        <% end %>
-
-        <% if @edition.can_be_associated_with_countries? %>
-          <section>
-            <h1>Countries</h1>
-            <% if @edition.countries.any? %>
-              <%= render partial: "admin/countries/list", locals: {countries: @edition.countries} %>
-            <% else %>
-              <p>This document isn't assigned to any countries.</p>
-            <% end %>
-          </section>
-        <% end %>
-
-        <% if @edition.can_apply_to_subset_of_nations? %>
-          <section>
-            <h1>Excluded Nations</h1>
-            <% if @edition.nation_inapplicabilities.any? %>
-              <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: @edition.nation_inapplicabilities} %>
-            <% else %>
-              <p>This document applies to the whole of the UK.</p>
-            <% end %>
-          </section>
-        <% end %>
-
-        <% if @edition.can_be_related_to_policies? %>
-          <section>
-            <h1>Related Policies</h1>
-            <% if @edition.related_policies.any? %>
-              <%= render partial: "admin/editions/related", locals: {related_editions: @edition.related_policies} %>
-            <% else %>
-              <p>This document doesn't have any related documents.</p>
-            <% end %>
-          </section>
-        <% end %>
-
-        <% if @edition.images.any? %>
-          <section class="images image_feature_mask">
-            <h1>Images</h1>
-            <% @edition.images.each do |image| %>
-              <%= image_tag image.url, id: dom_id(image) %>
-            <% end %>
-          </section>
-        <% end %>
-      </section>
-
-      <section class="tab-pane audit-trail" id="history">
-        <h1>Activity</h1>
-        <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
-        <ul>
-        <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
-        </ul>
-      </section>
-
-      <% if @edition.can_be_fact_checked? %>
-        <section class="tab-pane fact_checking" id="fact-checking">
-          <h1>Fact checking</h1>
-          <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+      <% if @edition.can_be_associated_with_ministers? %>
+        <section>
+          <h1>Ministers</h1>
+          <% if @edition.ministerial_roles.any? %>
+            <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @edition.ministerial_roles} %>
+          <% else %>
+            <p>This document isn't assigned to any ministers.</p>
+          <% end %>
         </section>
       <% end %>
-    </div>
-  </div>
+
+      <% if @edition.can_be_associated_with_countries? %>
+        <section>
+          <h1>Countries</h1>
+          <% if @edition.countries.any? %>
+            <%= render partial: "admin/countries/list", locals: {countries: @edition.countries} %>
+          <% else %>
+            <p>This document isn't assigned to any countries.</p>
+          <% end %>
+        </section>
+      <% end %>
+
+      <% if @edition.can_apply_to_subset_of_nations? %>
+        <section>
+          <h1>Excluded Nations</h1>
+          <% if @edition.nation_inapplicabilities.any? %>
+            <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: @edition.nation_inapplicabilities} %>
+          <% else %>
+            <p>This document applies to the whole of the UK.</p>
+          <% end %>
+        </section>
+      <% end %>
+
+      <% if @edition.can_be_related_to_policies? %>
+        <section>
+          <h1>Related Policies</h1>
+          <% if @edition.related_policies.any? %>
+            <%= render partial: "admin/editions/related", locals: {related_editions: @edition.related_policies} %>
+          <% else %>
+            <p>This document doesn't have any related documents.</p>
+          <% end %>
+        </section>
+      <% end %>
+
+      <% if @edition.images.any? %>
+        <section class="images image_feature_mask">
+          <h1>Images</h1>
+          <% @edition.images.each do |image| %>
+            <%= image_tag image.url, id: dom_id(image) %>
+          <% end %>
+        </section>
+      <% end %>
+    </section>
+
+    <section class="tab-pane audit-trail" id="history">
+      <h1>Activity</h1>
+      <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
+      <ul>
+      <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
+      </ul>
+    </section>
+
+    <% if @edition.can_be_fact_checked? %>
+      <section class="tab-pane fact_checking" id="fact-checking">
+        <h1>Fact checking</h1>
+        <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+      </section>
+    <% end %>
+  <% end %>
 </div>
