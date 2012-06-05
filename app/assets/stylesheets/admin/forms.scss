@@ -1,0 +1,41 @@
+form {
+  &.button_to {
+    margin-bottom: 0;
+    display: inline;
+
+    div {
+      display: inline;
+    }
+  }
+
+  fieldset.named {
+    padding-top: 0.5em;
+  }
+
+  textarea, input {
+    width: 97%;
+  }
+
+  select {
+    &.chzn-select {
+      width: 100%;
+    }
+
+    &.date {
+      width: auto;
+    }
+  }
+
+  .field_with_errors {
+    label,
+    input {
+      color: #B94A48;
+    }
+
+    input,
+    textarea {
+      background-color: #F2DEDE;
+      border-color: #EED3D7;
+    }
+  }
+}
