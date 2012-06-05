@@ -80,6 +80,10 @@ form .field_with_errors textarea {
   font-size: 16px;
 }
 
+/* Change notes */
+#change-note {
+  margin-bottom: 1em;
+}
 
 /* Alert bootstrap style tweak */
 .alert p:last-child,
