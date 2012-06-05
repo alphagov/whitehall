@@ -1,4 +1,7 @@
 <% if edition.rejected? %>
-  Rejected by: <span class="rejected_by"><%= edition.rejected_by.name %></span>
-  (<%= link_to "View the comments", "#editorial_remarks" %>)
+  <p class="alert alert-danger">
+    Rejected by:
+    <%= link_to edition.rejected_by.name, admin_author_path(edition.rejected_by), class: "rejected_by" %>
+    (See <em>History & Notes</em>)
+  </p>
 <% end %>

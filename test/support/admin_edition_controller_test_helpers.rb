@@ -1027,12 +1027,11 @@ module AdminEditionControllerTestHelpers
         refute_select reject_button_selector(edition)
       end
 
-      test "should show who rejected the edition and link to the comments" do
+      test "should show who rejected the edition" do
         edition = create("rejected_#{edition_type}")
         edition.editorial_remarks.create!(body: "editorial-remark-body", author: current_user)
         get :show, id: edition
         assert_select ".rejected_by", text: current_user.name
-        assert_select "a[href=#editorial_remarks]"
       end
 
       test "should not show the editorial remarks section" do
