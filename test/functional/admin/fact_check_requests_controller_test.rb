@@ -52,8 +52,8 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     get :edit, id: fact_check_request
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
-    refute_select "document_view .title", text: "deleted-policy-title"
-    refute_select "document_view .body", text: "deleted-policy-body"
+    refute_select ".document .title", text: "deleted-policy-title"
+    refute_select ".document .body", text: "deleted-policy-body"
   end
 
   test "turn govspeak into nice markup when editing" do
