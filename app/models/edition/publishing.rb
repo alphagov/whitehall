@@ -74,7 +74,7 @@ module Edition::Publishing
     end
   end
 
-  def clear_force_published!(user)
+  def clear_force_published(user)
     if force_published_can_be_cleared_by?(user)
       self.force_published = false
       save!

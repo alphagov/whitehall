@@ -37,7 +37,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def clear_force_published
-    if @edition.clear_force_published!(current_user)
+    if @edition.clear_force_published(current_user)
       redirect_to admin_edition_path(@edition),
         notice: "Thanks for reviewing; this document is no longer marked as force-published"
     else

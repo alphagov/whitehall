@@ -195,12 +195,12 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'clear_force_published clears the force published flag' do
-    @edition.expects(:clear_force_published!)
+    @edition.expects(:clear_force_published)
     post :clear_force_published, id: @edition, lock_version: 1
   end
 
   test 'clear_force_published redirects back to the edition with a message' do
-    @edition.stubs(:clear_force_published!).returns(true)
+    @edition.stubs(:clear_force_published).returns(true)
     post :clear_force_published, id: @edition, lock_version: 1
 
     assert_redirected_to admin_policy_path(@edition)
@@ -208,7 +208,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'clear_force_published redirects back to the edition with an error message on validation error' do
-    @edition.stubs(:clear_force_published!).returns(false)
+    @edition.stubs(:clear_force_published).returns(false)
     @edition.errors.add(:base, 'Could not clear the force-published flag')
     post :clear_force_published, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
@@ -218,12 +218,12 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test 'clear_force_published sets lock version on edition before attempting to submit to guard against submitting stale objects' do
     lock_before_submitting = sequence('lock-before-submitting')
     @edition.expects(:lock_version=).with('92').in_sequence(lock_before_submitting)
-    @edition.expects(:clear_force_published!).in_sequence(lock_before_submitting).returns(true)
+    @edition.expects(:clear_force_published).in_sequence(lock_before_submitting).returns(true)
     post :clear_force_published, id: @edition, lock_version: 92
   end
 
   test 'clear_force_published redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:clear_force_published!).raises(ActiveRecord::StaleObjectError)
+    @edition.stubs(:clear_force_published).raises(ActiveRecord::StaleObjectError)
     post :clear_force_published, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
