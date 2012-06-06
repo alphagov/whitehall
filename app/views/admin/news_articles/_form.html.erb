@@ -1,8 +1,11 @@
 <%= standard_edition_form(edition) do |form| %>
-  <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
-  <%= render partial: 'country_fields', locals: { form: form, edition: edition } %>
+  <fieldset>
+    <legend>Associations</legend>
+    <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'country_fields', locals: { form: form, edition: edition } %>
+  </fieldset>
 
   <fieldset>
     <%= form.text_area :notes_to_editors, "class" => "previewable" %>
