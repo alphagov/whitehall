@@ -196,7 +196,7 @@ class EditionTest < ActiveSupport::TestCase
     refute Policy.authored_by(publication.creator).include?(publication)
   end
 
-  test ".rejected_by uses information from the audit trail" do
+  test "#rejected_by uses information from the audit trail" do
     publication = create(:submitted_publication)
     user = create(:policy_writer)
     PaperTrail.whodunnit = user
@@ -204,7 +204,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal user, publication.rejected_by
   end
 
-  test ".rejected_by should not be confused by editorial remarks" do
+  test "#rejected_by should not be confused by editorial remarks" do
     publication = create(:submitted_publication)
     user = create(:policy_writer)
     PaperTrail.whodunnit = user
