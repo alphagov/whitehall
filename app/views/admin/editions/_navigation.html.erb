@@ -9,7 +9,7 @@
       <p>This edition was force published, and has not yet been reviewed by a 
       second pair of eyes. </p>
 
-      <% if edition.force_published_can_be_cleared_by?(current_user) %>
+      <% if edition.approvable_retrospectively_by?(current_user) %>
         <%= approve_retrospectively_edition_button(edition) %>
       <% end %>
     </div>

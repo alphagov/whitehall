@@ -12,5 +12,5 @@ Scenario: Force-publishing a submitted publication
 Scenario: Retrospective second-pair of eyes
   Given I draft a new policy "Ban Beards"
   And I force publish the policy "Ban Beards"
-  When another editor says that the "Ban Beards" policy looks good
+  When another editor retrospectively approves the "Ban Beards" policy
   Then the "Ban Beards" policy should not be flagged as force-published any more

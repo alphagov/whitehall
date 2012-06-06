@@ -231,7 +231,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
     refute edition.approve_retrospectively_as(writer)
     assert edition.force_published?
-    assert edition.errors[:base].include?('Only departmental editors can clear the force-published state')
+    assert edition.errors[:base].include?('Only departmental editors can retrospectively approve a force-published document')
   end
 
   test "#approve_retrospectively_as should return false and set a validation error if attempted by the force-publisher" do
@@ -241,6 +241,6 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
     refute edition.approve_retrospectively_as(editor)
     assert edition.force_published?
-    assert edition.errors[:base].include?('You are not allowed to clear the force-published state of this document, since you force-published it')
+    assert edition.errors[:base].include?('You are not allowed to retrospectively approve this document, since you force-published it')
   end
 end

@@ -17,17 +17,17 @@ module Edition::AccessControl
     submitted? && user.departmental_editor?
   end
 
-  def force_published_can_be_cleared_by?(user)
-    !reason_to_prevent_force_published_being_cleared_by(user)
+  def approvable_retrospectively_by?(user)
+    !reason_to_prevent_retrospective_approval_by(user)
   end
 
-  def reason_to_prevent_force_published_being_cleared_by(user)
+  def reason_to_prevent_retrospective_approval_by(user)
     if !force_published?
       "This document has not been force-published"
     elsif !user.departmental_editor?
-      "Only departmental editors can clear the force-published state"
+      "Only departmental editors can retrospectively approve a force-published document"
     elsif user == published_by
-      "You are not allowed to clear the force-published state of this document, since you force-published it"
+      "You are not allowed to retrospectively approve this document, since you force-published it"
     end
   end
 end
