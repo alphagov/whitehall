@@ -26,8 +26,8 @@ module Edition::AccessControl
       "This document has not been force-published"
     elsif !user.departmental_editor?
       "Only departmental editors can clear the force-published state"
-    elsif user == creator
-      "You are not allowed to clear the force-published state of this document, since you created it"
+    elsif user == published_by
+      "You are not allowed to clear the force-published state of this document, since you force-published it"
     end
   end
 end

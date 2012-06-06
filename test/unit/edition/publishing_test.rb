@@ -207,17 +207,40 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   end
 
   test "#clear_force_published! should clear the force_published flag, and return true on success" do
-    other_editor = create(:departmental_editor)
-    edition = create(:published_policy, force_published: true)
+    editor, other_editor = create(:departmental_editor), create(:departmental_editor)
+    edition = create(:submitted_policy)
+    acting_as(editor) { edition.publish_as(editor, force: true) }
+
     assert edition.clear_force_published!(other_editor)
-    refute edition.force_published
+    refute edition.force_published?
   end
 
-  test "#clear_force_published! should return false and set a validation error if done by the creator" do
-    edition = create(:published_policy, force_published: true, creator: create(:departmental_editor))
-    refute edition.clear_force_published!(edition.creator)
-    assert edition.force_published
-    assert_equal ['You are not allowed to clear the force-published state of this document, since you created it'], edition.errors.full_messages
+  test "#clear_force_published! should return false and set a validation error if document was not force-published" do
+    editor, other_editor = create(:departmental_editor), create(:departmental_editor)
+    edition = create(:submitted_policy)
+    acting_as(editor) { edition.publish_as(editor, force: false) }
+
+    refute edition.clear_force_published!(other_editor)
+    assert_equal ['This document has not been force-published'], edition.errors.full_messages
   end
 
+  test "#clear_force_published! should return false and set a validation error if attempted by a writer" do
+    editor, writer = create(:departmental_editor), create(:policy_writer)
+    edition = create(:submitted_policy)
+    acting_as(editor) { edition.publish_as(editor, force: true) }
+
+    refute edition.clear_force_published!(writer)
+    assert edition.force_published?
+    assert_equal ['Only departmental editors can clear the force-published state'], edition.errors.full_messages
+  end
+
+  test "#clear_force_published! should return false and set a validation error if attempted by the force-publisher" do
+    editor = create(:departmental_editor)
+    edition = create(:submitted_policy)
+    acting_as(editor) { edition.publish_as(editor, force: true) }
+
+    refute edition.clear_force_published!(editor)
+    assert edition.force_published?
+    assert_equal ['You are not allowed to clear the force-published state of this document, since you force-published it'], edition.errors.full_messages
+  end
 end

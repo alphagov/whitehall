@@ -75,14 +75,16 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
   end
 
   test "force_published can be cleared by another departmental_editor" do
-    edition = create(:published_edition, force_published: true)
-    other_editor = create(:departmental_editor)
+    editor, other_editor = create(:departmental_editor), create(:departmental_editor)
+    edition = create(:submitted_policy)
+    acting_as(editor) { edition.publish_as(editor, force: true) }
     assert edition.force_published_can_be_cleared_by?(other_editor)
   end
 
   test "force_published cannot be cleared by the same departmental_editor" do
     editor = create(:departmental_editor)
-    edition = create(:published_edition, force_published: true, creator: editor)
+    edition = create(:submitted_policy)
+    acting_as(editor) { edition.publish_as(editor, force: true) }
     refute edition.force_published_can_be_cleared_by?(editor)
   end
 

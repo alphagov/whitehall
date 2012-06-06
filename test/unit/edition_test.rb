@@ -212,6 +212,13 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil publication.reload.rejected_by
   end
 
+  test "#published_by uses information from the audit trail" do
+    editor = create(:departmental_editor)
+    publication = create(:submitted_publication)
+    acting_as(editor) { publication.publish_as(editor, force: true) }
+    assert_equal editor, publication.published_by
+  end
+
   test ".by_published_at orders by published_at descending" do
     policy = create(:policy, published_at: 2.hours.ago)
     publication = create(:publication, published_at: 4.hours.ago)
