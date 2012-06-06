@@ -221,7 +221,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     acting_as(editor) { edition.publish_as(editor, force: false) }
 
     refute edition.clear_force_published!(other_editor)
-    assert_equal ['This document has not been force-published'], edition.errors.full_messages
+    assert edition.errors[:base].include?('This document has not been force-published')
   end
 
   test "#clear_force_published! should return false and set a validation error if attempted by a writer" do
@@ -231,7 +231,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
     refute edition.clear_force_published!(writer)
     assert edition.force_published?
-    assert_equal ['Only departmental editors can clear the force-published state'], edition.errors.full_messages
+    assert edition.errors[:base].include?('Only departmental editors can clear the force-published state')
   end
 
   test "#clear_force_published! should return false and set a validation error if attempted by the force-publisher" do
@@ -241,6 +241,6 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
     refute edition.clear_force_published!(editor)
     assert edition.force_published?
-    assert_equal ['You are not allowed to clear the force-published state of this document, since you force-published it'], edition.errors.full_messages
+    assert edition.errors[:base].include?('You are not allowed to clear the force-published state of this document, since you force-published it')
   end
 end
