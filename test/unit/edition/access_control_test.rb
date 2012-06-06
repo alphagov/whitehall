@@ -74,29 +74,29 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     refute second_edition.reload.deletable?
   end
 
-  test "force_published can be cleared by another departmental_editor" do
+  test "should allow another editor to retrospectively approve a force-published document" do
     editor, other_editor = create(:departmental_editor), create(:departmental_editor)
     edition = create(:submitted_policy)
     acting_as(editor) { edition.publish_as(editor, force: true) }
-    assert edition.force_published_can_be_cleared_by?(other_editor)
+    assert edition.approvable_retrospectively_by?(other_editor)
   end
 
-  test "force_published cannot be cleared by the same departmental_editor" do
+  test "should not allow the same editor to retrospectively approve a force-published document" do
     editor = create(:departmental_editor)
     edition = create(:submitted_policy)
     acting_as(editor) { edition.publish_as(editor, force: true) }
-    refute edition.force_published_can_be_cleared_by?(editor)
+    refute edition.approvable_retrospectively_by?(editor)
   end
 
-  test "force_published cannot be cleared by a policy writer" do
+  test "should not allow a writer to retrospectively approve a force-published document" do
     edition = create(:published_edition, force_published: true)
     policy_writer = create(:policy_writer)
-    refute edition.force_published_can_be_cleared_by?(policy_writer)
+    refute edition.approvable_retrospectively_by?(policy_writer)
   end
 
-  test "force_published cannot be cleared if the document wasn't force-published" do
+  test "should not allow a document that was not force-published to be retrospectively approved" do
     edition = create(:published_edition, force_published: false)
     editor = create(:departmental_editor)
-    refute edition.force_published_can_be_cleared_by?(editor)
+    refute edition.approvable_retrospectively_by?(editor)
   end
 end

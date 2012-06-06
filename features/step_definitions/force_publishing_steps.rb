@@ -1,4 +1,4 @@
-When /^another editor says that the "([^"]*)" policy looks good$/ do |policy_title|
+When /^another editor retrospectively approves the "([^"]*)" policy$/ do |policy_title|
   user = create(:departmental_editor, name: "Other editor")
   login_as user
   visit admin_editions_path(state: :published)

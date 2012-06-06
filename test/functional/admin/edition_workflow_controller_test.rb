@@ -194,43 +194,43 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
-  test 'clear_force_published clears the force published flag' do
-    @edition.expects(:clear_force_published!)
-    post :clear_force_published, id: @edition, lock_version: 1
+  test 'approve_retrospectively marks the document as having been approved retrospectively' do
+    @edition.expects(:approve_retrospectively_as)
+    post :approve_retrospectively, id: @edition, lock_version: 1
   end
 
-  test 'clear_force_published redirects back to the edition with a message' do
-    @edition.stubs(:clear_force_published!).returns(true)
-    post :clear_force_published, id: @edition, lock_version: 1
+  test 'approve_retrospectively redirects back to the edition with a message' do
+    @edition.stubs(:approve_retrospectively_as).returns(true)
+    post :approve_retrospectively, id: @edition, lock_version: 1
 
     assert_redirected_to admin_policy_path(@edition)
     assert_equal "Thanks for reviewing; this document is no longer marked as force-published", flash[:notice]
   end
 
-  test 'clear_force_published redirects back to the edition with an error message on validation error' do
-    @edition.stubs(:clear_force_published!).returns(false)
-    @edition.errors.add(:base, 'Could not clear the force-published flag')
-    post :clear_force_published, id: @edition, lock_version: 1
+  test 'approve_retrospectively redirects back to the edition with an error message on validation error' do
+    @edition.stubs(:approve_retrospectively_as).returns(false)
+    @edition.errors.add(:base, 'Could not approve retrospectively')
+    post :approve_retrospectively, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'Could not clear the force-published flag', flash[:alert]
+    assert_equal 'Could not approve retrospectively', flash[:alert]
   end
 
-  test 'clear_force_published sets lock version on edition before attempting to submit to guard against submitting stale objects' do
+  test 'approve_retrospectively sets lock version on edition before attempting to submit to guard against submitting stale objects' do
     lock_before_submitting = sequence('lock-before-submitting')
     @edition.expects(:lock_version=).with('92').in_sequence(lock_before_submitting)
-    @edition.expects(:clear_force_published!).in_sequence(lock_before_submitting).returns(true)
-    post :clear_force_published, id: @edition, lock_version: 92
+    @edition.expects(:approve_retrospectively_as).in_sequence(lock_before_submitting).returns(true)
+    post :approve_retrospectively, id: @edition, lock_version: 92
   end
 
-  test 'clear_force_published redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:clear_force_published!).raises(ActiveRecord::StaleObjectError)
-    post :clear_force_published, id: @edition, lock_version: 1
+  test 'approve_retrospectively redirects back to the edition with an error message if a stale object error is thrown' do
+    @edition.stubs(:approve_retrospectively_as).raises(ActiveRecord::StaleObjectError)
+    post :approve_retrospectively, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 
-  test 'clear_force_published responds with 422 if missing a lock version' do
-    post :clear_force_published, id: @edition
+  test 'approve_retrospectively responds with 422 if missing a lock version' do
+    post :approve_retrospectively, id: @edition
     assert_equal 422, response.status
     assert_equal 'All workflow actions require a lock version', response.body
   end

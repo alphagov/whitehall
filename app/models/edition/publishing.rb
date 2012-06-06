@@ -74,12 +74,12 @@ module Edition::Publishing
     end
   end
 
-  def clear_force_published!(user)
-    if force_published_can_be_cleared_by?(user)
+  def approve_retrospectively_as(user)
+    if approvable_retrospectively_by?(user)
       self.force_published = false
       save!
     else
-      errors.add(:base, reason_to_prevent_force_published_being_cleared_by(user))
+      errors.add(:base, reason_to_prevent_retrospective_approval_by(user))
       false
     end
   end
