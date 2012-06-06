@@ -143,6 +143,11 @@ class Edition < ActiveRecord::Base
     rejected_event && rejected_event.actor
   end
 
+  def published_by
+    published_event = audit_trail.reverse.find { |at| at.respond_to?(:version) && at.version.state == "published" }
+    published_event && published_event.actor
+  end
+
   def title_with_state
     "#{title} (#{state})"
   end

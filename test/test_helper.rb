@@ -20,6 +20,14 @@ class ActiveSupport::TestCase
     Timecop.return
   end
 
+  def acting_as(user)
+    original_user = PaperTrail.whodunnit
+    PaperTrail.whodunnit = user
+    yield
+  ensure
+    PaperTrail.whodunnit = original_user
+  end
+
   def assert_same_elements(array1, array2)
     assert_equal array1.sort, array2.sort, "Different elements in #{array1.inspect} and #{array2}.inspect"
   end
