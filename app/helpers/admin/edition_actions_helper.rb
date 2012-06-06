@@ -7,13 +7,13 @@ module Admin::EditionActionsHelper
     button_to 'Create new edition', revise_admin_edition_path(edition), title: "Create new edition", class: "btn"
   end
 
-  def clear_force_published_edition_button(edition)
+  def approve_retrospectively_edition_button(edition)
     confirmation_prompt = "Are you sure you want to clear the force published status of this document?"
-    content_tag(:div, class: "clear_force_published_button") do
+    content_tag(:div, class: "approve_retrospectively_button") do
       content_tag(:p, "Does it look ok?") +
         capture do
           form_for [:admin, edition], {
-            url: clear_force_published_admin_edition_path(edition, lock_version: edition.lock_version),
+            url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version),
             method: :post} do |form|
             concat(form.submit "Looks good", confirm: confirmation_prompt, class: "btn btn-success")
           end

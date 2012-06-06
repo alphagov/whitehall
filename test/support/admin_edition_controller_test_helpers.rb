@@ -1094,7 +1094,7 @@ module AdminEditionControllerTestHelpers
         assert_select ".force_published"
       end
 
-      test "show should not display the clear_force_published form for the creator" do
+      test "show should not display the approve_retrospectively form for the creator" do
         creator = create(:departmental_editor, name: "Fred")
         login_as(creator)
         edition = create("published_#{edition_type}", force_published: true, creator: creator)
@@ -1102,7 +1102,7 @@ module AdminEditionControllerTestHelpers
         refute_select ".force_published form input"
       end
 
-      test "show should display the clear_force_published form for a departmental editor who wasn't the creator" do
+      test "show should display the approve_retrospectively form for a departmental editor who wasn't the creator" do
         creator = create(:departmental_editor, name: "Fred")
         login_as(creator)
         edition = create("published_#{edition_type}", force_published: true, creator: creator)

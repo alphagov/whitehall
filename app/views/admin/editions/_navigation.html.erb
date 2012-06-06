@@ -10,7 +10,7 @@
       second pair of eyes. </p>
 
       <% if edition.force_published_can_be_cleared_by?(current_user) %>
-        <%= clear_force_published_edition_button(edition) %>
+        <%= approve_retrospectively_edition_button(edition) %>
       <% end %>
     </div>
   <% end %>
