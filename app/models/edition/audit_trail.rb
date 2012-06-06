@@ -17,6 +17,10 @@ module Edition::AuditTrail
     end.flatten
   end
 
+  def last_audit_trail_version_event(state)
+    audit_trail.reverse.find { |at| at.respond_to?(:version) && at.version.state == state }
+  end
+
   class AuditEntry
     extend ActiveModel::Naming
     extend Forwardable
