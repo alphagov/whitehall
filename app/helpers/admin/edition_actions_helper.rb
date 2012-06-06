@@ -8,7 +8,7 @@ module Admin::EditionActionsHelper
   end
 
   def approve_retrospectively_edition_button(edition)
-    confirmation_prompt = "Are you sure you want to clear the force published status of this document?"
+    confirmation_prompt = "Are you sure you want to retrospectively approve this document?"
     content_tag(:div, class: "approve_retrospectively_button") do
       content_tag(:p, "Does it look ok?") +
         capture do
