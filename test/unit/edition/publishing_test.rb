@@ -206,40 +206,40 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     refute Edition.find(edition.id).published?
   end
 
-  test "#clear_force_published should clear the force_published flag, and return true on success" do
+  test "#approve_retrospectively_as should clear the force_published flag, and return true on success" do
     editor, other_editor = create(:departmental_editor), create(:departmental_editor)
     edition = create(:submitted_policy)
     acting_as(editor) { edition.publish_as(editor, force: true) }
 
-    assert edition.clear_force_published(other_editor)
+    assert edition.approve_retrospectively_as(other_editor)
     refute edition.force_published?
   end
 
-  test "#clear_force_published should return false and set a validation error if document was not force-published" do
+  test "#approve_retrospectively_as should return false and set a validation error if document was not force-published" do
     editor, other_editor = create(:departmental_editor), create(:departmental_editor)
     edition = create(:submitted_policy)
     acting_as(editor) { edition.publish_as(editor, force: false) }
 
-    refute edition.clear_force_published(other_editor)
+    refute edition.approve_retrospectively_as(other_editor)
     assert edition.errors[:base].include?('This document has not been force-published')
   end
 
-  test "#clear_force_published should return false and set a validation error if attempted by a writer" do
+  test "#approve_retrospectively_as should return false and set a validation error if attempted by a writer" do
     editor, writer = create(:departmental_editor), create(:policy_writer)
     edition = create(:submitted_policy)
     acting_as(editor) { edition.publish_as(editor, force: true) }
 
-    refute edition.clear_force_published(writer)
+    refute edition.approve_retrospectively_as(writer)
     assert edition.force_published?
     assert edition.errors[:base].include?('Only departmental editors can clear the force-published state')
   end
 
-  test "#clear_force_published should return false and set a validation error if attempted by the force-publisher" do
+  test "#approve_retrospectively_as should return false and set a validation error if attempted by the force-publisher" do
     editor = create(:departmental_editor)
     edition = create(:submitted_policy)
     acting_as(editor) { edition.publish_as(editor, force: true) }
 
-    refute edition.clear_force_published(editor)
+    refute edition.approve_retrospectively_as(editor)
     assert edition.force_published?
     assert edition.errors[:base].include?('You are not allowed to clear the force-published state of this document, since you force-published it')
   end
