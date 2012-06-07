@@ -2,14 +2,16 @@
 
 <% alphabetical_organisations = @organisations.group_by {|o| o.name_without_prefix.first.upcase }.sort %>
 
-<div class="g4f organisations_index_page">
-  <header class="g4 page_header">
+<div class="organisations_index_page">
+  <div class="block-1">
+    <div class="inner-block">
+      <header class="page_header">
     <h1 class="page_title">Departments, agencies &amp; public bodies</h1>
   </header>
 
-  <div class="g1">
+  <div>
     <nav class="organisations_type_links" role="navigation">
-      <ul class="jump_list">
+      <ul class="jump_list inline">
       <% alphabetical_organisations.each do |letter, _| %>
         <li>
           <%= link_to "#{letter}", alphabetical_organisations_path(anchor: letter) %>
@@ -22,14 +24,18 @@
     </nav>
   </div>
 
-  <div class="g3f">
+  <div>
     <% alphabetical_organisations.each do |letter, organisations| %>
       <div class="organisation_type">
-        <section class="g3f">
-          <%= content_tag(:h1, letter, id: letter, class: "g3 label") %>
-          <%= render partial: "list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
+        <section class="alphabetical_list">
+          <div class="alphabetical_row">
+              <%= content_tag(:h2, letter, id: letter, class: "label") %>
+              <%= render partial: "list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
+          </div>
         </section>
       </div>
     <% end %>
+  </div>
+</div>
   </div>
 </div>

@@ -1,12 +1,16 @@
 <% page_title "Departments, agencies & public bodies" %>
 <% page_class "departments-index" %>
 
-<div class="g4f organisations_index_page">
-  <header class="g4 page_header">
-    <h1 class="page_title">Departments, agencies &amp; public bodies</h1>
-  </header>
 
-  <div class="g1">
+<div class="organisations_index_page">
+  <div class="block-1">
+    <div class="inner-block">
+      <header class="page_header">
+        <h1 class="page_title">Departments, agencies &amp; public bodies</h1>
+      </header>
+
+
+  <div class="quarter">
     <nav class="organisations_type_links" role="navigation">
       View departments &amp; agencies by:
       <ul class="jump_list">
@@ -23,12 +27,12 @@
 
   </div>
 
-  <div class="g3f">
+  <div class="three-quarters">
     <% @organisations_by_type.each do |type, organisations| %>
       <% if type.ministerial_department? %>
         <div class="organisation_type">
-          <section class="g3f">
-            <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "g3 label") %>
+          <section>
+            <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "label") %>
             <%= render partial: "organisations_logo_list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
           </section>
         </div>
@@ -36,21 +40,17 @@
     <% end %>
   </div>
 
-  <div class="g4f non_ministerial_departments">
+  <div class="non_ministerial_departments">
     <% @organisations_by_type.each do |type, organisations| %>
       <% if !type.ministerial_department? %>
         <div class="organisation_type">
-          <section class="g4f">
-            <div class="hack g1">
-              &nbsp;
-            </div>
-            <div class="g3f">
-            <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "g3 label") %>
-            </div>
+            <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "label") %>
             <%= render partial: "grouped_list", locals: { organisations: organisations } %>
-           </section>
         </div>
       <% end %>
     <% end %>
   </div>
 </div>
+
+  </div>
+    </div>

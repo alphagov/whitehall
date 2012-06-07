@@ -9,10 +9,10 @@
 
   th, td {
     background-color: #333;
-    border-right: 1px solid #fff;
-    color: #fff;
+    border-right: 1px solid $white;
+    color: $white;
     font-weight: normal;
-    padding: 5px 10px;
+    padding: $gutter-one-third $gutter-half;
     text-align: left;
     vertical-align: top;
   }
@@ -26,7 +26,7 @@
   }
 
   td {
-    background-color: #fff;
+    background-color: $white;
     color: #333;
   }
 
