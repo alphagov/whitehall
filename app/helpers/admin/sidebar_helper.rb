@@ -15,7 +15,7 @@ module Admin::SidebarHelper
     end
     tabs[:history] = ["History & Notes", @edition.audit_trail.length]
     if @edition.can_be_fact_checked?
-      tabs[:fact_checking] = ["Fact checking", @edition.fact_check_requests.pending.count, :warning]
+      tabs[:fact_checking] = ["Fact checking", @edition.all_completed_fact_check_requests.count, :warning]
     end
     tabs
   end
