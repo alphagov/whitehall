@@ -10,9 +10,9 @@
 $max-site-width: 1096px;
 
 $gutter:            24px;
-$gutter-two-thirds: $gutter*0.666666;
-$gutter-half:       $gutter*0.5;
-$gutter-one-third:  $gutter*0.333333;
+$gutter-two-thirds: $gutter*0.666666; // equivalent to 16px
+$gutter-half:       $gutter*0.5; // equivalent to 12px
+$gutter-one-third:  $gutter*0.333333; // equivalent to 8px
 
 
 
@@ -68,6 +68,7 @@ $gutter-one-third:  $gutter*0.333333;
   @import "views/_layouts.scss";
   @import "views/_ministerial-roles.scss";
   @import "views/_news.scss";
+  @import "views/_organisations.scss";
   @import "views/_policies.scss";
   @import "views/_policy-topic.scss";
   @import "views/_policy-topics.scss";

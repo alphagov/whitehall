@@ -1,7 +1,7 @@
 .featured {
 	overflow: hidden;
 	width: 80%;
-	margin-bottom: 40px;
+	margin-bottom: $gutter*2;
 
 	h2 {
 		font-size: 2rem;
@@ -9,7 +9,7 @@
 
 	img {
 		float: left;
-		margin-right: 15px;
+		margin-right: $gutter-two-thirds;
 		max-width: 45%;
 	}
 }
@@ -18,7 +18,7 @@
 	background-color: #ccc;
 	float: left;
 	margin-right: 2%;
-	padding: 15px;
+	padding: $gutter-two-thirds;
 	width: 25%;
 }
 .thumbnail span {

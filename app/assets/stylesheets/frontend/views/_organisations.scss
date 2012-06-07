@@ -1,0 +1,91 @@
+.organisations_index_page {
+    .alphabetical_list .alphabetical_row li {
+      @include single-col-li;
+    }
+    .alphabetical_list .alphabetical_row li:first-child {
+      padding-top: $gutter;
+    }
+    .three-quarters, .quarter {
+      float: left;
+      display: inline;
+      margin-right: $gutter;
+      width: 21%;
+    }
+    .three-quarters {
+      width: 75%;
+      margin-right: 0;
+    }
+    .three-quarters li, .quarter li {
+      list-style: none;
+    }
+    .three-quarters li {
+      float: left;
+      display: inline;
+      margin: 0 1% 40px 0;
+      width: 30%;
+    }
+    .inline {
+      overflow: hidden;    
+    }
+    .inline li:first-child {
+      padding-left: 0;
+    }
+    .inline li {
+      float: left;
+      display: inline;
+      padding: $gutter-one-third $gutter-half;
+    }
+
+    // organisation colours
+    .treasury span {
+      border-color: $treasury;
+    }
+    .cabinet-office span {
+      border-color: $cabinet-office;
+    }
+    .department-for-education span {
+      border-color: $department-for-education;
+    }
+    .department-of-transport span {
+      border-color: $department-of-transport
+    }
+    .home-office span {
+      border-color: $home-office;
+    }
+    .department-of-health span {
+      border-color: $department-of-health;
+    }
+    .ministry-of-justice span {
+      border-color: $ministry-of-justice;
+    }
+    .ministry-of-defence span {
+      border-color: $ministry-of-defence;
+    }
+    .foreign-and-commonwealth-office span {
+      border-color: $foreign-and-commonwealth-office;
+    }
+    .department-for-communities-and-local-government span {
+      border-color: $department-for-communities-and-local-government;
+    }
+    .department-for-energy-and-climate-change span {
+      border-color: $department-for-energy-and-climate-change;
+    }
+    .department-for-culture-media-and-sport span {
+      border-color: $department-for-culture-media-and-sport;
+    }
+    .department-for-environment-food-and-rural-affairs span {
+      border-color: $department-for-environment-food-and-rural-affairs;
+    }
+    .department-for-work-and-pensions span {
+      border-color: $department-for-work-and-pensions;
+    }
+    .department-for-business-innovation-and-skills span {
+      border-color: $department-for-business-innovation-and-skills;
+    }
+    .department-for-international-development span {
+      border-color: $department-for-international-development;
+    }
+    /*.inactive_organisation span {
+      border-color: lighten($department-for-culture-media-and-sport, 25%);
+    }*/
+}
