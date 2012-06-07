@@ -3,7 +3,7 @@
     <%= content_tag_for :li, document, class: edition_organisation_class(document) do %>
       <div class="metadata published_or_updated">
         <%= published_or_updated(document) %>
-        <%= time_ago(document.published_at, class: 'published_at') %>
+        <%= relative_time(document.published_at, class: 'published_at') %>
       </div>
       <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
       <div class="metadata">

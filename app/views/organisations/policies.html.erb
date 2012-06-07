@@ -12,7 +12,7 @@
       <%= article_section("Policies", @policies, {id: 'policies', article_wrapper_class: "g1"}) do |policy| %>
         <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
         <span class="metadata">
-          Updated <%= time_ago(policy.updated_at, class: 'updated_at') %>
+          Updated <%= relative_time(policy.updated_at, class: 'updated_at') %>
         </span>
       <% end %>
     </div>
