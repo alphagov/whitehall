@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120531142836) do
+ActiveRecord::Schema.define(:version => 20120606131446) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20120531142836) do
     t.text     "change_note"
     t.boolean  "force_published"
     t.boolean  "minor_change",             :default => false
+    t.string   "video_url"
   end
 
   add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"

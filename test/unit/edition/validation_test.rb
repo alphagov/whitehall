@@ -57,4 +57,29 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = build(:published_policy, document: published_edition.document)
     refute edition.valid?
   end
+
+  test "should be invalid if video URL is present but invalid" do
+    edition = build(:edition, video_url: "invalid-url")
+    refute edition.valid?
+  end
+
+  test "should be invalid if video URL is present but host is not www.youtube.com" do
+    edition = build(:edition, video_url: "http://vimeo.com/43096888")
+    refute edition.valid?
+  end
+
+  test "should be invalid if video URL is present but path is not /watch" do
+    edition = build(:edition, video_url: "http://www.youtube.com/video?w=OXHPWmnycno")
+    refute edition.valid?
+  end
+
+  test "should be invalid if video URL is present but query is not v=code" do
+    edition = build(:edition, video_url: "http://www.youtube.com/video?w=OXHPWmnycno")
+    refute edition.valid?
+  end
+
+  test "should be valid if video URL is present and a valid YouTube video URL" do
+    edition = build(:edition, video_url: "http://www.youtube.com/watch?v=OXHPWmnycno")
+    assert edition.valid?
+  end
 end
