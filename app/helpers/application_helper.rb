@@ -105,10 +105,16 @@ module ApplicationHelper
     content_tag(:abbr, class: method, title: object.send(method).iso8601, &block)
   end
 
-  def time_ago(time, options = {})
-    css_class = (options[:class] || "") + " datetime time_ago"
-    text = time.to_s(:long_ordinal)
-    content_tag(:abbr, text, class: css_class, title: time.iso8601)
+  def relative_time(time, options = {})
+    content_tag(:abbr, time.to_s(:long_ordinal),
+                class: [options[:class], "datetime", "time_ago"].compact.join(" "),
+                title: time.iso8601)
+  end
+
+  def absolute_time(time, options = {})
+    content_tag(:abbr, time.to_s(:long_ordinal),
+                class: [options[:class], "datetime"].compact.join(" "),
+                title: time.iso8601)
   end
 
   def main_navigation_link_to(name, path, html_options = {}, &block)

@@ -12,7 +12,7 @@
         <div class="news_body">
           <div class="meta">
             Posted
-            <%= time_ago(news_article.published_at, class: 'published_at') %>
+            <%= relative_time(news_article.published_at, class: 'published_at') %>
           </div>
           <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
           <% unless news_article.summary.blank? %>

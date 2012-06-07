@@ -13,7 +13,7 @@
         <% @related_news_articles.each do |related_edition| %>
           <%= content_tag_for :li, related_edition do %>
             <%= link_to related_edition.title, public_document_path(related_edition) %>
-            <span class="published_at"><%= published_or_updated(related_edition) %> <%= time_ago(related_edition.published_at, class: 'published_at') %></span>
+            <span class="published_at"><%= published_or_updated(related_edition) %> <%= relative_time(related_edition.published_at, class: 'published_at') %></span>
           <% end %>
         <% end %>
       </ol>
@@ -27,7 +27,7 @@
         <% @related_speeches.each do |speech| %>
           <%= content_tag_for :li, speech do %>
             <%= link_to speech.title, public_document_path(speech) %>
-            <span class="published_at"><%= published_or_updated(speech) %> <%= time_ago(speech.published_at, class: 'published_at') %></span>
+            <span class="published_at"><%= published_or_updated(speech) %> <%= relative_time(speech.published_at, class: 'published_at') %></span>
           <% end %>
         <% end %>
       </ol>
@@ -41,7 +41,7 @@
         <% @related_publications.each do |related_edition| %>
           <%= content_tag_for :li, related_edition do %>
             <%= link_to related_edition.title, public_document_path(related_edition) %>
-            <span class="published_at"><%= published_or_updated(related_edition) %> <%= time_ago(related_edition.published_at, class: 'published_at') %></span>
+            <span class="published_at"><%= published_or_updated(related_edition) %> <%= relative_time(related_edition.published_at, class: 'published_at') %></span>
           <% end %>
         <% end %>
       </ol>
@@ -55,7 +55,7 @@
         <% @related_consultations.each do |related_edition| %>
           <%= content_tag_for :li, related_edition do %>
             <%= link_to related_edition.title, public_document_path(related_edition) %>
-            <span class="published_at"><%= published_or_updated(related_edition) %> <%= time_ago(related_edition.published_at, class: 'published_at') %></span>
+            <span class="published_at"><%= published_or_updated(related_edition) %> <%= relative_time(related_edition.published_at, class: 'published_at') %></span>
           <% end %>
         <% end %>
       </ol>

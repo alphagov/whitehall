@@ -17,9 +17,9 @@
     <% end %>
     <div class="meta">
       <% if speech.delivered_on %>
-        <span class="published_at">Delivered <%= time_ago(speech.delivered_on, class: 'delivered_on') %></span>
+        <span class="published_at">Delivered <%= relative_time(speech.delivered_on, class: 'delivered_on') %></span>
       <% else %>
-        <span class="published_at">Posted <%= time_ago(speech.first_published_at, class: 'first_published_at') %></span>
+        <span class="published_at">Posted <%= relative_time(speech.first_published_at, class: 'first_published_at') %></span>
       <% end %>
       <%= link_to speech.role_appointment.person.name, speech.role_appointment.role, class: "ministerial_role tag" %>
     </div>
