@@ -150,7 +150,7 @@
     </section>
 
     <% if @edition.can_be_fact_checked? %>
-      <section class="tab-pane fact_checking" id="fact-checking">
+      <section class="tab-pane fact_checking" id="fact_checking">
         <h1>Fact checking</h1>
         <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
       </section>
