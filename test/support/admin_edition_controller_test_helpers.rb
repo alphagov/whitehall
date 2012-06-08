@@ -1127,41 +1127,41 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
 
         post :create, edition: attributes.merge(
-          video_url: "http://www.youtube.com/watch?v=OXHPWmnycno"
+          video_url: "https://www.youtube.com/watch?v=OXHPWmnycno"
         )
 
         edition = edition_class.last
-        assert_equal "http://www.youtube.com/watch?v=OXHPWmnycno", edition.video_url
+        assert_equal "https://www.youtube.com/watch?v=OXHPWmnycno", edition.video_url
       end
 
       test "edit should display edition video URL field" do
-        edition = create(edition_type, video_url: "http://www.youtube.com/watch?v=OXHPWmnycno")
+        edition = create(edition_type, video_url: "https://www.youtube.com/watch?v=OXHPWmnycno")
 
         get :edit, id: edition
 
         assert_select "form#edition_edit" do
-          assert_select "input[name='edition[video_url]'][value='http://www.youtube.com/watch?v=OXHPWmnycno']"
+          assert_select "input[name='edition[video_url]'][value='https://www.youtube.com/watch?v=OXHPWmnycno']"
         end
       end
 
       test "update should set video URL on edition" do
-        edition = create(edition_type, video_url: "http://www.youtube.com/watch?v=OXHPWmnycno")
+        edition = create(edition_type, video_url: "https://www.youtube.com/watch?v=OXHPWmnycno")
 
         put :update, id: edition, edition: {
-          video_url: "http://www.youtube.com/watch?v=o8Ka17LIIfU"
+          video_url: "https://www.youtube.com/watch?v=o8Ka17LIIfU"
         }
 
         edition.reload
-        assert_equal "http://www.youtube.com/watch?v=o8Ka17LIIfU", edition.video_url
+        assert_equal "https://www.youtube.com/watch?v=o8Ka17LIIfU", edition.video_url
       end
 
       test "shows the video" do
-        edition = create(edition_type, video_url: "http://www.youtube.com/watch?v=OXHPWmnycno")
+        edition = create(edition_type, video_url: "https://www.youtube.com/watch?v=OXHPWmnycno")
 
         get :show, id: edition
 
         assert_select ".video" do
-          assert_select "a[href=?]", "http://www.youtube.com/watch?v=OXHPWmnycno"
+          assert_select "a[href=?]", "https://www.youtube.com/watch?v=OXHPWmnycno"
         end
       end
     end

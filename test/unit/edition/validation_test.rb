@@ -78,8 +78,13 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test "should be valid if video URL is present and a valid YouTube video URL" do
+  test "should be invalid if video URL is present but scheme is not HTTPS" do
     edition = build(:edition, video_url: "http://www.youtube.com/watch?v=OXHPWmnycno")
+    refute edition.valid?
+  end
+
+  test "should be valid if video URL is present and a valid YouTube video URL" do
+    edition = build(:edition, video_url: "https://www.youtube.com/watch?v=OXHPWmnycno")
     assert edition.valid?
   end
 end
