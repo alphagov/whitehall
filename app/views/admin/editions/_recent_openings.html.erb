@@ -4,7 +4,7 @@
       <% recent_openings.each do |opening| %>
         <li>
           <div class="image">
-            <%= gravatar_image(opening.editor) %>
+            <%= gravatar_image(opening.editor, ssl: request.ssl?) %>
           </div>
           <%= linked_author(opening.editor) %> started editing this
           <%= edition.class.to_s.humanize.downcase %>

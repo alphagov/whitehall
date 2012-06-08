@@ -1,6 +1,6 @@
 <%= content_tag_for(:li, audit_trail_entry) do %>
   <div class="image">
-    <%= gravatar_image(audit_trail_entry.actor) %>
+    <%= gravatar_image(audit_trail_entry.actor, ssl: request.ssl?) %>
   </div>
   <%= describe_audit_trail_entry(audit_trail_entry) %>
 <% end %>

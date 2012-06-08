@@ -31,12 +31,15 @@ module AdminEditionControllerTestHelpers
     def should_show_document_audit_trail_on(action)
       test "should show who created the document and when on #{action}" do
         edition_type = 'publication'
-        tom = login_as(create(:author, name: "Tom"))
+        tom = login_as(create(:author, name: "Tom", email: "tom@example.com"))
         draft_edition = create("draft_#{edition_type}")
 
+        request.env['HTTPS'] = 'on'
         get action, id: draft_edition
 
-        assert_select ".audit-trail", text: /Created by Tom/
+        assert_select ".audit-trail", text: /Created by Tom/ do
+          assert_select "img[src^='https']"
+        end
       end
     end
 
@@ -1365,12 +1368,16 @@ module AdminEditionControllerTestHelpers
 
       test "should see a warning when editing an edition that someone else has recently edited" do
         edition = create(edition_type)
-        other_user = create(:author, name: "Joe Bloggs")
+        other_user = create(:author, name: "Joe Bloggs", email: "joe@example.com")
         edition.open_for_editing_as(other_user)
         Timecop.travel 1.hour.from_now
+
+        request.env['HTTPS'] = 'on'
         get :edit, id: edition
 
-        assert_select ".editing_conflict", /Joe Bloggs/
+        assert_select ".editing_conflict", /Joe Bloggs/ do
+          assert_select "img[src^='https']"
+        end
         assert_select ".editing_conflict", /1 hour ago/
       end
 
