@@ -16,6 +16,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_association_between_countries_and :news_article
   should_allow_attached_images_for :news_article
   should_use_lead_image_for :news_article
+  should_allow_video_for :news_article
   should_be_rejectable :news_article
   should_be_publishable :news_article
   should_be_force_publishable :news_article

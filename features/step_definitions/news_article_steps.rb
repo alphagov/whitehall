@@ -8,6 +8,10 @@ Given /^a published news article "([^"]*)" with notes to editors "([^"]*)"$/ do 
   create(:published_news_article, title: title, notes_to_editors: notes_to_editors)
 end
 
+Given /^a published news article "([^"]*)" with video URL "([^"]*)"$/ do |title, video_url|
+  create(:published_news_article, title: title, video_url: video_url)
+end
+
 Given /^a published featured news article "([^"]*)"$/ do |title|
   create(:featured_news_article, title: title)
 end
@@ -31,6 +35,7 @@ When /^I draft a new news article "([^"]*)"$/ do |title|
     attach_file "File", Rails.root.join("features/fixtures/portas-review.jpg")
     fill_in "Alt text", with: 'An alternative description'
   end
+  fill_in "Video URL", with: "http://www.youtube.com/watch?v=OXHPWmnycno"
   click_button "Save"
 end
 
@@ -84,4 +89,8 @@ Then /^the news article "([^"]*)" should (not )?be featured on the homepage$/ do
   else
     assert news_article_is_featured
   end
+end
+
+Then /^I should see the embedded video with URL "([^"]*)" for the news article$/ do |video_url|
+  assert has_css?(".video")
 end
