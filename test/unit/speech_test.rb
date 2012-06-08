@@ -69,9 +69,9 @@ class SpeechTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])
     person = create(:person)
-    role_appointment = create(:role_appointment, role: ministerial_role, person: person)
+    role_appointment = create(:role_appointment, role: ministerial_role, person: person, started_at: 10.days.ago, ended_at: 2.days.ago)
     speech = create(:speech, role_appointment: role_appointment)
-    subsequent_role_appointment = create(:role_appointment, role: ministerial_role)
+    subsequent_role_appointment = create(:role_appointment, role: ministerial_role, started_at: 1.day.ago)
 
     assert_equal person, speech.person
   end

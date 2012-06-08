@@ -12,5 +12,7 @@
     <% else %>
       <p>Cannot delete</p>
     <% end %>
+  <% else %>
+    <%= role_appointment_form.hidden_field :make_current, value: true %>
   <% end %>
 </fieldset>

@@ -451,6 +451,20 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_nil appointment.ended_at
   end
 
+  test "update should make a new appointment current if make_current is present" do
+    role = create(:ministerial_role)
+    person = create(:person)
+    create(:role_appointment, role: role, person: person, started_at: '2010-05-01')
+    new_person = create(:person)
+
+    put :update, id: role, role: role.attributes.merge(role_appointments_attributes_for(
+      { person: new_person, started_at: '2010-06-01', make_current: true }
+    ))
+
+    role.reload
+    assert_equal new_person, role.current_person
+  end
+
   test "update should not create a new appointment if all fields are blank" do
     role = create(:ministerial_role)
 
@@ -594,7 +608,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
         person_id: appointment[:person] ? appointment[:person].id : "",
         started_at: started_at,
         ended_at: ended_at,
-        _destroy: appointment[:_destroy]
+        _destroy: appointment[:_destroy],
+        make_current: appointment[:make_current]
       }
     end
     {role_appointments_attributes: result}
