@@ -135,7 +135,7 @@ var html5_methods = {
 		// Define the default config settings for the plugin
 		var defaults = {
 			id: 'media_player',	// The base string used for the player id.  Will end up with an integer appended to it e.g. 'ytplayer0', 'ytplayer1' etc
-			url: 'http://www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid=',
+			url: 'https://www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid=',
 			media: '8LiQ-bLJaM4',
 			repeat: false,	// loop the flash video true/false
             captions: null, // caption XML URL link for caption content 
