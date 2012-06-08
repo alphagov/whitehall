@@ -50,9 +50,9 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
   @import "helpers/_document.scss";
   @import "helpers/_page-header.scss";
   @import "helpers/_simple-list.scss";
-  @import "helpers/media-player/player-core.scss";
-  @import "helpers/media-player/player-theme.scss";
-  @import "helpers/media-player/player-fix.scss";
+  @import "../shared/media-player/player-core.scss";
+  @import "../shared/media-player/player-theme.scss";
+  @import "../shared/media-player/player-fix.scss";
 }
 
 
