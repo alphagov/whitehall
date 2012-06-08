@@ -4,23 +4,60 @@ class Organisation < ActiveRecord::Base
 
   belongs_to :organisation_type
 
-  has_many :child_organisational_relationships, foreign_key: :parent_organisation_id, class_name: "OrganisationalRelationship", dependent: :destroy
-  has_many :parent_organisational_relationships, foreign_key: :child_organisation_id, class_name: "OrganisationalRelationship", dependent: :destroy
-  has_many :child_organisations, through: :child_organisational_relationships
-  has_many :parent_organisations, through: :parent_organisational_relationships
+  has_many :child_organisational_relationships,
+            foreign_key: :parent_organisation_id,
+            class_name: "OrganisationalRelationship",
+            dependent: :destroy
+  has_many :parent_organisational_relationships,
+            foreign_key: :child_organisation_id,
+            class_name: "OrganisationalRelationship",
+            dependent: :destroy
+  has_many :child_organisations,
+            through: :child_organisational_relationships
+  has_many :parent_organisations,
+            through: :parent_organisational_relationships
 
-  has_many :edition_organisations, dependent: :destroy
-  has_many :editions, through: :edition_organisations
-  has_many :published_editions, through: :edition_organisations, class_name: "Edition", conditions: { state: "published" }, source: :edition
-  has_many :corporate_publications, through: :edition_organisations, class_name: "Publication", conditions: {"editions.corporate_publication" => true}, source: :edition
-  has_many :featured_news_articles, through: :edition_organisations, class_name: "NewsArticle", conditions: { "edition_organisations.featured" => true, "editions.state" => "published" }, source: :edition
+  has_many :edition_organisations,
+            dependent: :destroy
+  has_many :editions,
+            through: :edition_organisations
+  has_many :published_editions,
+            through: :edition_organisations,
+            class_name: "Edition",
+            conditions: { state: "published" },
+            source: :edition
+  has_many :corporate_publications,
+            through: :edition_organisations,
+            class_name: "Publication",
+            conditions: { "editions.corporate_publication" => true },
+            source: :edition
+  has_many :featured_news_articles,
+            through: :edition_organisations,
+            class_name: "NewsArticle",
+            conditions: { "edition_organisations.featured" => true,
+                          "editions.state" => "published" },
+            source: :edition
 
   has_many :organisation_roles, dependent: :destroy
   has_many :roles, through: :organisation_roles
-  has_many :ministerial_roles, class_name: 'MinisterialRole', through: :organisation_roles, source: :role
-  has_many :board_member_roles, class_name: 'BoardMemberRole', through: :organisation_roles, source: :role
-  has_many :permanent_secretary_board_member_roles, class_name: 'BoardMemberRole', through: :organisation_roles, source: :role, conditions: { permanent_secretary: true }
-  has_many :other_board_member_roles, class_name: 'BoardMemberRole', through: :organisation_roles, source: :role, conditions: { permanent_secretary: false }
+  has_many :ministerial_roles,
+            class_name: 'MinisterialRole',
+            through: :organisation_roles,
+            source: :role
+  has_many :board_member_roles,
+            class_name: 'BoardMemberRole',
+            through: :organisation_roles,
+            source: :role
+  has_many :permanent_secretary_board_member_roles,
+            class_name: 'BoardMemberRole',
+            through: :organisation_roles,
+            source: :role,
+            conditions: { permanent_secretary: true }
+  has_many :other_board_member_roles,
+            class_name: 'BoardMemberRole',
+            through: :organisation_roles,
+            source: :role,
+            conditions: { permanent_secretary: false }
 
   has_many :people, through: :roles
 
@@ -42,7 +79,10 @@ class Organisation < ActiveRecord::Base
 
   default_scope order(:name)
 
-  searchable title: :name, link: :search_link, content: :description, boost_phrases: :acronym
+  searchable title: :name,
+             link: :search_link,
+             content: :description,
+             boost_phrases: :acronym
 
   extend FriendlyId
   friendly_id :name, use: :slugged
