@@ -3,6 +3,11 @@
     <p><%= @document.summary %></p>
   </div>
   <div class="body">
+    <% if @document.video_url.present? %>
+      <figure class="video">
+        <a href="<%= @document.video_url %>">Watch video</a>
+      </figure>
+    <% end %>
     <%= render partial: 'shared/lead_image', locals: { image: @document.images.first } %>
     <%= govspeak_to_html @document.body, @document.images %>
   </div>

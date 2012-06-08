@@ -6,4 +6,5 @@
  *= require ./vendor/bootstrap
  *= require ./vendor/chosen
  *= require_tree ./admin
+ *= require_tree ./frontend/helpers/media-player
 */

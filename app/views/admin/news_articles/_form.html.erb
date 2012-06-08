@@ -1,5 +1,9 @@
 <%= standard_edition_form(edition) do |form| %>
   <fieldset>
+    <%= form.text_field :video_url, label_text: "Video URL" %>
+  </fieldset>
+
+  <fieldset>
     <legend>Associations</legend>
     <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>

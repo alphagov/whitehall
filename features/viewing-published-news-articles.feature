@@ -10,3 +10,7 @@ Scenario: Viewing a published news article with notes to editors
   When I visit the news article "News 1"
   Then I should see the notes to editors "Notes to editors" for the news article
 
+Scenario: Viewing a published news article with video content
+  Given a published news article "Video News" with video URL "http://www.youtube.com/watch?v=OXHPWmnycno"
+  When I visit the news article "Video News"
+  Then I should see the embedded video with URL "http://www.youtube.com/watch?v=OXHPWmnycno" for the news article

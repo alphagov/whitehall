@@ -5,6 +5,11 @@
   </div>
 <% end %>
 <div class="body">
+  <% if edition.video_url.present? %>
+    <figure class="video">
+      <a href="<%= edition.video_url %>">Watch video</a>
+    </figure>
+  <% end %>
   <%= render partial: 'shared/lead_image', locals: {image: edition.lead_image} %>
   <%= govspeak_to_admin_html edition.body, edition.images %>
 </div>
