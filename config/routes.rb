@@ -107,7 +107,9 @@ Whitehall::Application.routes.draw do
         resources :consultation_responses, path: 'responses', except: [:index]
         resources :speeches, except: [:index]
         resources :people, except: [:show]
-        resources :roles, except: [:show]
+        resources :roles, except: [:show] do
+          resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
+        end
         resources :countries, only: [:index, :edit, :update]
 
         match "preview" => "preview#preview", via: :post

@@ -160,30 +160,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "new should display fields for creating one new appointment" do
-    get :new
-
-    assert_select "form#role_new" do
-      assert_select_role_appointment(:new, index: 0, person: nil, started_at: nil)
-    end
-  end
-
-  test "new should not display ended_at select for new appointment" do
-    get :new
-
-    assert_select "form#role_new" do
-      refute_select "select[name*='role[role_appointments_attributes][0][ended_at']"
-    end
-  end
-
-  test "new should not display checkbox for deleting new appointment" do
-    get :new
-
-    assert_select "form#role_new" do
-      refute_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']"
-    end
-  end
-
   test "create should create a new ministerial role" do
     org_one, org_two = create(:organisation), create(:organisation)
 
@@ -206,31 +182,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert role = BoardMemberRole.last
   end
 
-  test "create should create a new appointment" do
-    person = create(:person)
-
-    post :create, role: attributes_for(:ministerial_role, role_appointments_attributes_for(
-      { person: person, started_at: "2010-06-15" }
-    ))
-
-    assert role = MinisterialRole.last
-    assert appointment = role.role_appointments.last
-    assert_equal person, appointment.person
-    assert_equal role, appointment.role
-    assert_equal Time.zone.parse("2010-06-15"), appointment.started_at
-    assert_nil appointment.ended_at
-  end
-
-  test "create should not create a new appointment if all fields are blank" do
-    post :create, role: attributes_for(:ministerial_role, role_appointments_attributes_for(
-      { person: nil, started_at: nil }
-    ))
-
-    refute_select ".form-errors"
-    assert role = MinisterialRole.last
-    assert_equal 0, role.role_appointments.length
-  end
-
   test "create redirects to the index on success" do
     post :create, role: attributes_for(:role)
 
@@ -247,38 +198,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
     post :create, role: attributes_for(:role, name: nil, role_appointments_attributes: {})
 
     assert_select ".form-errors"
-  end
-
-  test 'create with invalid role data should not lose or duplicate the appointment fields or values' do
-    person = create(:person, forename: "person-name")
-
-    post :create, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
-      { person: person, started_at: "2010-06-15" }
-    ))
-
-    assert_select "form#role_new" do
-      assert_select_role_appointment(:new, index: 0, person: person, started_at: [2010, 6, 15])
-    end
-  end
-
-  test 'create with invalid role data and blank new appointment should not lose or duplicate the appointment fields or values' do
-    post :create, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
-      { person: nil, started_at: nil }
-    ))
-
-    assert_select "form#role_new" do
-      assert_select_role_appointment(:new, index: 0, person: nil, started_at: nil)
-    end
-  end
-
-  test 'create with invalid appointment data should not lose or duplicate the appointment fields or values' do
-    post :create, role: attributes_for(:role, role_appointments_attributes_for(
-      { person: nil, started_at: "2010-06-15" }
-    ))
-
-    assert_select "form#role_edit" do
-      assert_select_role_appointment(:new, index: 0, person: nil, started_at: [2010, 6, 15])
-    end
   end
 
   test "edit should display form for updating an existing role" do
@@ -298,87 +217,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
         assert_select "option[selected='selected']", text: "org-name"
       end
       assert_select "input[type='submit']"
-    end
-  end
-
-  test "edit should display fields for updating an existing appointment" do
-    person = create(:person, forename: "person-name")
-    role = create(:ministerial_role)
-    create(:role_appointment, role: role, person: person)
-
-    get :edit, id: role
-
-    assert_select "form#role_edit" do
-      assert_select_role_appointment(:current, index: 0, person: person, started_at: nil, ended_at: nil)
-    end
-  end
-
-  test "edit should display checkbox for deleting existing appointment" do
-    role = create(:ministerial_role, name: "role-name")
-    create(:role_appointment, role: role)
-
-    get :edit, id: role
-
-    assert_select "form#role_edit" do
-      assert_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']"
-    end
-  end
-
-  test "edit should not display checkbox for deleting existing indestructible appointment" do
-    role = create(:ministerial_role)
-    create(:role_appointment, role: role, speeches: [create(:speech)])
-
-    get :edit, id: role
-
-    assert_select "form#role_edit" do
-      refute_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']"
-    end
-  end
-
-  test "edit should display existing appointments in the order in which they started" do
-    person_one = create(:person, forename: "person-one")
-    person_two = create(:person, forename: "person-two")
-    role = create(:ministerial_role)
-    create(:role_appointment, role: role, person: person_one, started_at: 1.year.ago, ended_at: 1.day.ago)
-    create(:role_appointment, role: role, person: person_two, started_at: 2.years.ago, ended_at: 1.year.ago)
-
-    get :edit, id: role
-
-    assert_select "form#role_edit" do
-      assert_select ".previous.appointment" do
-        assert_select_role_appointment_person(index: 0, person: person_two)
-        assert_select_role_appointment_person(index: 1, person: person_one)
-      end
-    end
-  end
-
-  test "edit should display fields for creating one new appointment" do
-    role = create(:ministerial_role)
-
-    get :edit, id: role
-
-    assert_select "form#role_edit" do
-      assert_select_role_appointment(:new, index: 0, person: nil, started_at: nil)
-    end
-  end
-
-  test "edit should not display ended_at select for new appointment" do
-    role = create(:ministerial_role)
-
-    get :edit, id: role
-
-    assert_select "form#role_edit" do
-      refute_select "select[name*='role[role_appointments_attributes][0][ended_at']"
-    end
-  end
-
-  test "edit should not display checkbox for deleting new appointment" do
-    role = create(:ministerial_role)
-
-    get :edit, id: role
-
-    assert_select "form#role_edit" do
-      refute_select "input[name='role[role_appointments_attributes][0][_destroy]'][type='checkbox']"
     end
   end
 
@@ -407,74 +245,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     role = Role.find(role.id)
     assert_equal BoardMemberRole, role.class
-  end
-
-  test "update should modify existing appointment" do
-    role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: role)
-    another_person = create(:person, forename: "another-person")
-
-    put :update, id: role, role: role_appointments_attributes_for(
-      { role_appointment: role_appointment, person: another_person, started_at: "2010-06-15", ended_at: "2011-07-23" }
-    )
-
-    role_appointment.reload
-    assert_equal another_person, role_appointment.person
-    assert_equal Time.zone.parse("2010-06-15"), role_appointment.started_at
-    assert_equal Time.zone.parse("2011-07-23"), role_appointment.ended_at
-  end
-
-  test "update should destroy existing appointment" do
-    role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: role)
-
-    put :update, id: role, role: role_appointments_attributes_for(
-      { role_appointment: role_appointment, _destroy: true }
-    )
-
-    refute role.role_appointments.find_by_id(role_appointment.id)
-  end
-
-  test "update should create a new appointment" do
-    role = create(:ministerial_role)
-    person = create(:person)
-
-    put :update, id: role, role: role.attributes.merge(role_appointments_attributes_for(
-      { person: person, started_at: "2010-06-15" }
-    ))
-
-    role.reload
-    assert appointment = role.role_appointments.last
-    assert_equal person, appointment.person
-    assert_equal role, appointment.role
-    assert_equal Time.zone.parse("2010-06-15"), appointment.started_at
-    assert_nil appointment.ended_at
-  end
-
-  test "update should make a new appointment current if make_current is present" do
-    role = create(:ministerial_role)
-    person = create(:person)
-    create(:role_appointment, role: role, person: person, started_at: '2010-05-01')
-    new_person = create(:person)
-
-    put :update, id: role, role: role.attributes.merge(role_appointments_attributes_for(
-      { person: new_person, started_at: '2010-06-01', make_current: true }
-    ))
-
-    role.reload
-    assert_equal new_person, role.current_person
-  end
-
-  test "update should not create a new appointment if all fields are blank" do
-    role = create(:ministerial_role)
-
-    put :update, id: role, role: role.attributes.merge(role_appointments_attributes_for(
-      { person: nil, started_at: nil }
-    ))
-
-    refute_select ".form-errors"
-    role.reload
-    assert_equal 0, role.role_appointments.length
   end
 
   test "update should allow removal of all organisations" do
@@ -511,70 +281,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
-  test 'update with invalid role data and blank new appointment should not lose or duplicate the appointment fields or values' do
-    role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: role)
-    another_person = create(:person, forename: "another-person")
-
-    put :update, id: role, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
-      { role_appointment: role_appointment, person: another_person, started_at: "2010-06-15", ended_at: "2011-07-23" },
-      { person: nil, started_at: nil }
-    ))
-
-    assert_select "form#role_edit" do
-      assert_select_role_appointment(:previous, index: 0, person: another_person, started_at: [2010, 6, 15], ended_at: [2011, 7, 23])
-      assert_select_role_appointment(:new, index: 1)
-    end
-  end
-
-  test 'update with invalid role data and populated new appointment should not lose or duplicate the appointment fields or values' do
-    role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: role)
-    another_person = create(:person, forename: "another-person")
-
-    put :update, id: role, role: attributes_for(:role, name: nil).merge(role_appointments_attributes_for(
-      { role_appointment: role_appointment, person: another_person, started_at: "2010-06-15", ended_at: "2011-07-23" },
-      { person: nil, started_at: "2011-07-23" }
-    ))
-
-    assert_select "form#role_edit" do
-      assert_select_role_appointment(:previous, index: 0, person: another_person, started_at: [2010, 6, 15], ended_at: [2011, 7, 23])
-      assert_select_role_appointment(:new, index: 1)
-      assert_select ".new.appointment", count: 1
-    end
-  end
-
-  test 'update with invalid appointment data and blank new appointment should not lose or duplicate the appointment fields or values' do
-    role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: role)
-
-    put :update, id: role, role: attributes_for(:role, role_appointments_attributes_for(
-      { role_appointment: role_appointment, person: nil, started_at: "2010-06-15", ended_at: "2011-07-23" },
-      { person: nil, started_at: nil }
-    ))
-
-    assert_select "form#role_edit" do
-      assert_select_role_appointment(:previous, index: 0, person: nil, started_at: [2010, 6, 15], ended_at: [2011, 7, 23])
-      assert_select_role_appointment(:new, index: 1)
-    end
-  end
-
-  test 'update with invalid appointment data and populated new appointment should not lose or duplicate the appointment fields or values' do
-    role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: role)
-    person = create(:person, forename: "person-name")
-
-    put :update, id: role, role: attributes_for(:role, role_appointments_attributes_for(
-      { role_appointment: role_appointment, person: nil, started_at: "2010-06-15", ended_at: "2011-07-23" },
-      { person: person, started_at: "2011-08-31" }
-    ))
-
-    assert_select "form#role_edit" do
-      assert_select_role_appointment(:previous, index: 0, person: nil, started_at: [2010, 6, 15], ended_at: [2011, 7, 23])
-      assert_select_role_appointment(:new, index: 1, person: person, started_at: [2011, 8, 31])
-    end
-  end
-
   test "should be able to destroy a destroyable role" do
     role = create(:role, name: "Prime Minister")
 
@@ -594,54 +300,5 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_redirected_to admin_roles_path
     assert Role.find_by_id(role.id)
     assert_equal "Cannot destroy a role with appointments, organisations, or documents", flash[:alert]
-  end
-
-  private
-
-  def role_appointments_attributes_for(*appointments)
-    result = {}
-    appointments.each_with_index do |appointment, index|
-      started_at = appointment[:started_at] ? Time.zone.parse(appointment[:started_at]) : nil
-      ended_at = appointment[:ended_at] ? Time.zone.parse(appointment[:ended_at]) : nil
-      result[index.to_s] = {
-        id: appointment[:role_appointment] ? appointment[:role_appointment].id : "",
-        person_id: appointment[:person] ? appointment[:person].id : "",
-        started_at: started_at,
-        ended_at: ended_at,
-        _destroy: appointment[:_destroy],
-        make_current: appointment[:make_current]
-      }
-    end
-    {role_appointments_attributes: result}
-  end
-
-  def assert_select_role_appointment(type, options = {})
-    assert_select ".#{type}.appointment", count: 1 do
-      if options.has_key?(:person)
-        assert_select_role_appointment_person(options.slice(:index, :person))
-      end
-      if options.has_key?(:started_at)
-        assert_select_role_appointment_date_select(options.slice(:index).merge(attribute: :started_at, date: options[:started_at]))
-      end
-      if options.has_key?(:ended_at)
-        assert_select_role_appointment_date_select(options.slice(:index).merge(attribute: :ended_at, date: options[:ended_at]))
-      end
-    end
-  end
-
-  def assert_select_role_appointment_date_select(options = {})
-    (0..2).each do |index|
-      assert_select "select[name='role[role_appointments_attributes][#{options[:index]}][#{options[:attribute]}(#{index + 1}i)]']" do
-        if options[:date].present? && options[:date][index].present?
-          assert_select "option[selected='selected'][value='#{options[:date][index]}']"
-        end
-      end
-    end
-  end
-
-  def assert_select_role_appointment_person(options = {})
-    assert_select "select[name='role[role_appointments_attributes][#{options[:index]}][person_id]']" do
-      assert_select "option[selected='selected']", text: options[:person].name if options[:person]
-    end
   end
 end

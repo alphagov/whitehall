@@ -1,0 +1,23 @@
+<% page_title "Edit appointment to #{@role_appointment.role.name}"  %>
+<h1>Edit appointment to position of <%= @role_appointment.role.name %> </h1>
+
+<%= form_for [:admin, @role_appointment] do |form| %>
+  <%= form.errors %>
+
+  <%= form.label :person_id, 'Person' %>
+  <%= form.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', form.object.person_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose person..." } %>
+  <%= form.label :started_at %>
+  <%= form.date_select :started_at, { include_blank: true }, { :class => "date" } %>
+  <% if form.object.persisted? %>
+    <%= form.label :ended_at %>
+    <%= form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
+  <% end %>
+
+  <%= form.save_or_cancel cancel: edit_admin_role_path(@role_appointment.role) %>
+<% end %>
+
+<% if @role_appointment.destroyable? %>
+  <%= button_to "Delete", admin_role_appointment_path(@role_appointment), method: :delete, class: "btn btn-danger" %>
+<% else %>
+  <p>Cannot delete</p>
+<% end %>
