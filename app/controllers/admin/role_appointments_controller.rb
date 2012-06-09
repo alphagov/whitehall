@@ -12,6 +12,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
     if @role_appointment.save
       redirect_to edit_admin_role_path(role), notice: "Appointment created"
     else
+      params[:make_current] = params[:role_appointment][:make_current]
       render :new
     end
   end

@@ -243,6 +243,50 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal [role], bob.current_roles, "bob should be the minister"
   end
 
+  existing, *positive_before_examples = %q{
+     *====*    This appointment exists in the database.
+
+    =*====     This and subsequent appointments are expected to be before it
+     *====
+    =*====...
+     *====...
+  }.split("\n").reject(&:blank?)
+
+  _, *negative_before_examples = %q{
+     *====*    This appointment exists in the database.
+
+      ====     This and subsequent appointments are expected to not be before it
+      ====*
+      ====*=
+      ====...
+      ====*...
+      ====*=...
+          *==
+           ===
+          *==...
+           ===...
+  }.split("\n").reject(&:blank?)
+
+  positive_before_examples.each do |example|
+    test "should detect that #{example} is before #{existing}" do
+      appointment = create_existing_appointment_and_build_example(existing, example)
+      assert appointment.before_any?
+    end
+  end
+
+  negative_before_examples.each do |example|
+    test "should detect that #{example} is not before #{existing}" do
+      appointment = create_existing_appointment_and_build_example(existing, example)
+      refute appointment.before_any?
+    end
+  end
+
+  test "setting make_current should only result in a valid appointment if started_at is greater than all others" do
+    role = create(:ministerial_role)
+    original_appointment = create(:role_appointment, role: role, started_at: 3.days.ago)
+    refute build(:role_appointment, role: role, started_at: 4.days.ago, make_current: true).valid?
+  end
+
   test "should not overwrite ended_at if ended_at already set" do
     role = create(:role)
     existing_appointment = create(:role_appointment, role: role, started_at: 20.days.ago, ended_at: 10.days.ago)

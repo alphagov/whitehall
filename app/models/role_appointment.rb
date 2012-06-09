@@ -8,7 +8,11 @@ class RoleAppointment < ActiveRecord::Base
 
   class Validator < ActiveModel::Validator
     def validate(record)
-      if !record.make_current && record.role && record.overlaps_any?
+      if record.make_current
+        if record.before_any?
+          record.errors[:started_at] << "should not be before any existing appointment"
+        end
+      elsif record.role && record.overlaps_any?
         record.errors[:base] << "should not overlap with any existing appointments"
       end
       if record.ended_at && (record.ended_at < record.started_at)
@@ -60,6 +64,10 @@ class RoleAppointment < ActiveRecord::Base
 
   def destroyable?
     persisted? && speeches.empty?
+  end
+
+  def before_any?
+    other_appointments_for_same_role.where("started_at >= ?", started_at).exists?
   end
 
   def overlaps_any?

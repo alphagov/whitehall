@@ -19,14 +19,7 @@
     <h3>Appointees</h3>
 
     <%= link_to "New appointment", new_admin_role_role_appointment_path(role, make_current: true), class: "btn" %>
-
-    <% role.role_appointments.each do |role_appointment| %>
-      <div>
-        <%= role_appointment.person.name %> (<%= role_appointment.started_at %> &ndash; <%= role_appointment.ended_at || 'present' %>) 
-        <%= link_to "edit", [:edit, :admin, role_appointment] %>
-      </div>
-    <% end %>
-
+    <%= render partial: "admin/role_appointments/list", locals: {role_appointments: role.role_appointments} %>
     <%= link_to "Add previous appointment", new_admin_role_role_appointment_path(role), class: "btn" %>
   <% end %>
 
