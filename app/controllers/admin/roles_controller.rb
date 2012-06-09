@@ -7,28 +7,20 @@ class Admin::RolesController < Admin::BaseController
 
   def new
     @role = Role.new
-    @role.role_appointments.build
   end
 
   def create
-    @role = Role.new(params[:role].except(:role_appointments_attributes, :type))
+    @role = Role.new(params[:role].except(:type))
     @role.type = params[:role].delete(:type) || MinisterialRole.name
     if @role.save
-      if @role.update_attributes(params[:role])
-        redirect_to admin_roles_path, notice: %{"#{@role.name}" created.}
-      else
-        render action: "edit"
-      end
+      redirect_to admin_roles_path, notice: %{"#{@role.name}" created.}
     else
-      @role.role_appointments_attributes = params[:role][:role_appointments_attributes]
-      @role.role_appointments.build if @role.role_appointments.all?(&:persisted?)
       render action: "new"
     end
   end
 
   def edit
     @role = Role.find(params[:id])
-    @role.role_appointments.build
   end
 
   def update
@@ -39,7 +31,6 @@ class Admin::RolesController < Admin::BaseController
     if @role.update_attributes(params[:role])
       redirect_to admin_roles_path, notice: %{"#{@role.name}" updated.}
     else
-      @role.role_appointments.build if @role.role_appointments.all?(&:persisted?)
       render action: "edit"
     end
   end
