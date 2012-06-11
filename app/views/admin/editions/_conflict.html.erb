@@ -21,13 +21,24 @@
     <% end %>
   </section>
 
-  <% if edition.can_be_associated_with_policy_topics? %>
+  <% if edition.can_be_related_to_policies? %>
     <section>
-      <h1>Policy topics</h1>
-      <% if edition.policy_topics.any? %>
+      <h1>Related policies</h1>
+      <% if edition.related_policies.any? %>
         <%= render partial: "policy_topics/list", locals: {policy_topics: edition.policy_topics} %>
       <% else %>
         <p>This document isn't assigned to any policy topics.</p>
+      <% end %>
+    </section>
+  <% end %>
+
+  <% if @edition.can_be_related_to_policies? %>
+    <section>
+      <h1>Related Policies</h1>
+      <% if edition.related_policies.any? %>
+        <%= render partial: "admin/editions/related", locals: {related_editions: edition.related_policies} %>
+      <% else %>
+        <p>This document doesn't have any related documents.</p>
       <% end %>
     </section>
   <% end %>
