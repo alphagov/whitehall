@@ -135,6 +135,19 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert policy.related_editions.include?(publication), "polcy and publication should still be related"
   end
 
+  test "updating a stale document should render edit page with conflicting document and its related policies" do
+    policy_topic = create(:policy_topic)
+    policy = create(:policy, policy_topics: [policy_topic])
+    lock_version = policy.lock_version
+    policy.touch
+
+    put :update, id: policy, edition: policy.attributes.merge(lock_version: lock_version)
+
+    assert_select ".document.conflict" do
+      assert_select "h1", "Policy topics"
+    end
+  end
+
   test "show does not display image for edition types that do not allow one" do
     policy = create(:policy)
 
