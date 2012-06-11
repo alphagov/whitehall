@@ -32,10 +32,10 @@
     </section>
   <% end %>
 
-  <% if @edition.can_be_related_to_policies? %>
+  <% if edition.can_be_associated_with_policy_topics? %>
     <section>
-      <h1>Related Policies</h1>
-      <% if edition.related_policies.any? %>
+      <h1>Policy topics</h1>
+      <% if edition.policy_topics.any? %>
         <%= render partial: "admin/editions/related", locals: {related_editions: edition.related_policies} %>
       <% else %>
         <p>This document doesn't have any related policies.</p>
@@ -67,7 +67,7 @@
 
   <% if edition.can_apply_to_subset_of_nations? %>
     <section>
-      <h1>Excluded Nations</h1>
+      <h1>Excluded nations</h1>
       <% if edition.nation_inapplicabilities.any? %>
         <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: edition.nation_inapplicabilities} %>
       <% else %>

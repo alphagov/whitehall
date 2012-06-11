@@ -22,7 +22,7 @@
   <% end %>
 </section>
 <section class="request">
-  <h1>Send Request</h1>
+  <h1>Send request</h1>
   <%= form_for [:admin, edition, FactCheckRequest.new] do |f| %>
     <%= f.text_field :email_address %>
     <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>

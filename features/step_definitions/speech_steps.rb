@@ -61,8 +61,8 @@ end
 
 When /^I draft a new speech "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_speech title: title
-  select first_policy, from: "Related Policies"
-  select second_policy, from: "Related Policies"
+  select first_policy, from: "Related policies"
+  select second_policy, from: "Related policies"
   click_button "Save"
 end
 

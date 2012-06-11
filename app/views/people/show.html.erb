@@ -11,7 +11,7 @@
 
   <% if @person.current_role_appointments.any? %>
     <section class="current-roles">
-      <h1>Current Roles</h1>
+      <h1>Current roles</h1>
       <ul>
         <% @person.current_role_appointments.each do |appointment| %>
           <%= content_tag_for :li, appointment do %>
@@ -24,7 +24,7 @@
 
   <% if @person.previous_role_appointments.any? %>
     <section class="previous-roles">
-      <h1>Previous Roles</h1>
+      <h1>Previous roles</h1>
       <ul>
         <% @person.previous_role_appointments.each do |appointment| %>
           <%= content_tag_for :li, appointment do %>
