@@ -32,6 +32,7 @@
           <%= link_to_filter 'Responses', {type: 'consultation_response'}, title: "Show only consultation responses" %>
           <%= link_to_filter 'Speeches', {type: 'speech'}, title: "Show only speeches" %>
           <%= link_to_filter 'International priorities', {type: 'international_priorities'}, title: "Show only international priorities" %>
+
           <li class="nav-header">Filter by state</li>
           <% document_type = (params[:type] || "document").pluralize %>
           <%= link_to_filter 'All', {state: :active}, title: "Show #{document_type} in any workflow state" %>
@@ -62,6 +63,11 @@
           </tr>
         </thead>
         <tbody>
+          <% if @editions.blank? %>
+            <tr>
+              <td colspan="5">No <%= @edition_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
+            </tr>
+          <% end %>
           <% @editions.each do |edition| %>
             <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
               <td class="type"><%= edition.type.titleize %></td>
@@ -98,11 +104,6 @@
                 </td>
               <% end %>
             <% end %>
-          <% end %>
-          <% if @editions.blank? %>
-            <tr>
-              <td colspan="4">No <%= @edition_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
-            </tr>
           <% end %>
         </tbody>
       </table>
