@@ -69,6 +69,7 @@
 // BRAND FONT: GILL SANS
 
 $font-brand:
+    "NTA",
     "Gill Sans W01 Book", 
     "Gill Sans MT", 
     "Gill Sans", 
@@ -90,6 +91,8 @@ $font-brand:
     padding-top: 0.6rem;
     padding-bottom: 6px;
     padding-bottom: 0.6rem;
+
+    font-weight: 400;
 }
 
 @mixin brand-32 {
@@ -104,6 +107,8 @@ $font-brand:
     padding-top: 0.9rem;
     padding-bottom: 7px;
     padding-bottom: 0.7rem;
+
+    font-weight: 400;
 }
 
 @mixin brand-18 {
@@ -118,6 +123,8 @@ $font-brand:
     padding-top: 0.5rem;
     padding-bottom: 11px;
     padding-bottom: 1.1rem;
+
+    font-weight: 400;
 }
 
 @mixin brand-13 {
@@ -133,6 +140,8 @@ $font-brand:
     padding-bottom: 13px;
     padding-bottom: 1.3rem;
     -webkit-font-smoothing: subpixel-antialiased;
+
+    font-weight: 400;
 }
 
 
@@ -146,8 +155,9 @@ $font-brand:
 // SANS: HELVETICA
 
 $font-sans:
-    "Helvetica Neue", 
-    "HelveticaNeue",
+    "NTA",
+    //"Helvetica Neue", 
+    //"HelveticaNeue",
     Arial, 
     Helvetica, 
     sans-serif;
@@ -164,6 +174,8 @@ $font-sans:
     padding-top: 1rem;
     padding-bottom: 10px;
     padding-bottom: 1rem;
+
+    font-weight: 300;
 }
 
 @mixin sans-18 {
@@ -195,6 +207,8 @@ $font-sans:
     padding-top: 0.6rem;
     padding-bottom: 10px;
     padding-bottom: 1rem;
+
+    font-weight: 300;
 }
 
 @mixin sans-12 { /* labels only */
@@ -208,6 +222,8 @@ $font-sans:
     padding-top: 0.3rem;
     padding-bottom: 5px;
     padding-bottom: 0.5rem;
+
+    font-weight: 300;
 }
 
 
