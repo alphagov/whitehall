@@ -10,7 +10,7 @@
         <% change_history(@document).each do |edition| %>
           <li class="group">
             <p><%= edition[:change_note] %></p>
-            <%= relative_time(edition[:published_at], class: 'published_at') %>
+            <%= absolute_time(edition[:published_at], class: 'published_at') %>
           </li>
         <% end %>
       </ul>
