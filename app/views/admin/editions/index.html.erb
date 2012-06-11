@@ -20,8 +20,7 @@
       <nav class="well" style="padding: 8px 0;">
         <ul class="nav nav-list">
           <li class="nav-header">Filter by Author</li>
-          <% filtered_user = params[:author] ? User.find(params[:author]) : current_user %>
-          <li class="author-filter <%= filter_class(author: filtered_user, organisation: nil) %>">
+          <li class="author-filter <%= filter_class(author: @filtered_user, organisation: nil) %>">
             <%= form_tag("", method: :get) do %>
               <%= select_tag :author, options_from_collection_for_select(User.all, 'id', 'name', params[:author]), class: 'chzn-select', data: { placeholder: "Filter by another author..." } %>
               <%= hidden_field_tag :organisation, params[:organisation_id] if params[:organisation_id] %>
@@ -30,7 +29,7 @@
               <%= submit_tag "Go", class: "btn" %>
             <% end %>
           </li>
-          <%= link_to_filter('My department', {author: nil, organisation: current_user.organisation}, title: "Show documents by my department") %>
+          <%= link_to_filter('My department', {author: nil, organisation: @filtered_organisation}, title: "Show documents by my department") %>
           <%= link_to_filter('Everyone', {author: nil, organisation: nil}, title: "Show documents by everyone") %>
 
           <li class="nav-header">Filter by Kind</li>

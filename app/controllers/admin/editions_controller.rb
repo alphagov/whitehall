@@ -10,7 +10,21 @@ class Admin::EditionsController < Admin::BaseController
       state = params_filters[:state]
       @editions = EditionFilter.new(edition_class, params_filters).editions
       @edition_state = (state == :active) ? 'all' : state.to_s
-      @page_title = "#{@edition_state.humanize} Documents"
+      @filtered_user = params[:author] ? User.find(params[:author]) : current_user
+      @filtered_organisation = current_user.organisation
+      author_string = if params[:author].present?
+        "by #{@filtered_user.name}"
+      elsif params[:organisation].present?
+        "by #{Organisation.find(params[:organisation]).name}"
+      else
+        "by anyone"
+      end
+      type_string = if params[:type].present?
+        params[:type].humanize.pluralize.downcase
+      else
+        'documents'
+      end
+      @page_title = "#{@edition_state.humanize} #{type_string} #{author_string}"
       session[:document_filters] = params_filters
       render :index
     elsif session_filters.any?
