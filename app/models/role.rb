@@ -62,11 +62,16 @@ class Role < ActiveRecord::Base
     organisations.map(&:name).join(' and ')
   end
 
+  def name_and_organisations
+    if organisations.any?
+      "#{name}, #{organisation_names}"
+    else
+      name
+    end
+  end
+
   def to_s
-    return "#{current_person.name} (#{name}, #{organisation_names})" if organisations.any? && current_person
-    return "#{name}, #{organisation_names}" if organisations.any?
-    return "#{current_person.name} (#{name})" if current_person
-    return name
+    current_person ? "#{current_person.name} (#{name_and_organisations})" : name_and_organisations
   end
 
   def destroyable?

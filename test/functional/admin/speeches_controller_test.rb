@@ -74,14 +74,14 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     home_office = create(:organisation, name: "Home Office")
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     theresa_may = create(:person, forename: "Theresa", surname: "May")
-    theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may)
+    theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may, started_at: Date.parse('2011-01-01'))
     speech_type = SpeechType::Transcript
     draft_speech = create(:draft_speech, speech_type: speech_type, role_appointment: theresa_may_appointment, delivered_on: Date.parse("2011-06-01"), location: "The Guidhall")
 
     get :show, id: draft_speech
 
     assert_select ".details .type", "Transcript"
-    assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
+    assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office, 2011-01-01 - present)"
     assert_select ".details .delivered_on", "1 June 2011"
     assert_select ".details .location", "The Guidhall"
   end

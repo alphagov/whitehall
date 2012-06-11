@@ -43,6 +43,10 @@ class RoleAppointment < ActiveRecord::Base
 
   scope :current, where(CURRENT_CONDITION)
 
+  scope :for_ministerial_roles, includes(role: :organisations).where("roles.type = ?", MinisterialRole.sti_name)
+
+  scope :alphabetical_by_person, includes(:person).order('people.surname', 'people.forename')
+
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
 
@@ -93,6 +97,11 @@ class RoleAppointment < ActiveRecord::Base
     else
       self.class.for_role(role)
     end
+  end
+
+  def to_s
+    ended = ended_at ? ended_at.to_date : 'present'
+    "#{person.name} (#{role.name_and_organisations}, #{started_at.to_date} - #{ended})"
   end
 
   private
