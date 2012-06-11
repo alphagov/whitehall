@@ -35,7 +35,7 @@ When /^I draft a new news article "([^"]*)"$/ do |title|
     attach_file "File", Rails.root.join("features/fixtures/portas-review.jpg")
     fill_in "Alt text", with: 'An alternative description'
   end
-  fill_in "Video URL", with: "https://www.youtube.com/watch?v=OXHPWmnycno"
+  fill_in "Video URL", with: "http://www.youtube.com/watch?v=OXHPWmnycno"
   click_button "Save"
 end
 
