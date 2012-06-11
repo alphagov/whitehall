@@ -195,7 +195,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "create with invalid data should display errors" do
-    post :create, role: attributes_for(:role, name: nil, role_appointments_attributes: {})
+    post :create, role: attributes_for(:role, name: nil)
 
     assert_select ".form-errors"
   end
