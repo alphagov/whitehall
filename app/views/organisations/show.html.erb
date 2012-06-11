@@ -1,28 +1,50 @@
-<% page_title @organisation.name %>
-<%= organisation_wrapper(@organisation, class: "hcard group") do %>
-  <%= render "beta_warning", organisation: @organisation %>
+<div class="<%= organisation_class(@organisation) %>">
 
-  <div class="g4">
-    <%= render 'header', organisation: @organisation %>
+<div class="block-1">
+  <div class="inner-block">
+    <% page_title @organisation.name %>
+    <%= organisation_wrapper(@organisation, class: "hcard group") do %>
+    <%= render "beta_warning", organisation: @organisation %>
+  </div>
+</div>
+
+  <div class="block-2">
+    <div class="inner-block">
+      <div>
+        <%= render 'header', organisation: @organisation %>
+      </div>
+    </div>
   </div>
 
-  <div class="g4">
-    <%= render partial: "shared/hero_rotator", locals: {news_articles: @featured_news_articles, options: {organisational_context: true}} %>
+<div class="block-3">
+  <div class="inner-block">
+    <div>
+      <%= render partial: "shared/hero_rotator", locals: {news_articles: @featured_news_articles, options: {organisational_context: true}} %>
+    </div>
   </div>
+</div>
 
-  <div class="g4f">
-    <div class="g1 sidebar<% if @featured_news_articles.any? %> sub_navigation_container<% end %>">
+<div class="block-4">
+  <div class="inner-block">
+    <div class="sidebar<% if @featured_news_articles.any? %> sub_navigation_container<% end %>">
       <%= render 'sidebar', organisation: @organisation %>
     </div>
-    <div class="g1">
+  </div>
+</div>
+
+<div class="block-5">
+  <div class="inner-block">
       <section id="recently_updated" class="latest_documents">
         <h1 class="label">Latest</h1>
         <%= render(partial: "shared/recently_updated",
          locals: {recently_updated: @recently_updated}
         ) if @recently_updated.present? %>
       </section>
-    </div>
-    <div class="g1">
+  </div>
+</div>
+
+<div class="block-6">
+  <div class="inner-block">
       <section id="who">
         <h1 class="label">People</h1>
         <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
@@ -53,9 +75,14 @@
           </section>
         <% end %>
       </section>
-    </div>
-    <div class="g1">
-      <%= render partial: "documents/policy_topics", object: @organisation.policy_topics, title: "Our policy topics" %>
-    </div>
   </div>
+</div>
+
+<div class="block-7">
+  <div class="inner-block">
+      <%= render partial: "documents/policy_topics", object: @organisation.policy_topics, title: "Our policy topics" %>
+  </div>
+</div>
 <% end %>
+
+</div>

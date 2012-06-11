@@ -87,6 +87,14 @@ module OrganisationHelper
     organisation_type.name.downcase.gsub(/\s/, '-') if organisation_type && organisation_type.name.present?
   end
 
+  def organisation_class(organisation, options={})
+    classes = [
+      organisation.slug,
+      options[:class]
+    ]
+    classes.compact.join(" ").strip
+  end
+
   def organisation_logo_classes(organisation, options={})
     classes = [
       organisation.slug,

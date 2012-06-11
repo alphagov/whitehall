@@ -1,0 +1,27 @@
+.slider_wrap {
+  position: relative;
+}
+.slidecontrols {
+  li {
+    list-style: none;
+    a {
+      background: url(/government/assets/carousel-arrows.png) center 6px no-repeat;
+      color: white;
+      display: block;
+      height: 60px;
+      position: absolute;
+      overflow: hidden;
+      text-indent: -9999px;
+      top: 25%;
+      width: 50px;
+      z-index: 10;
+    }
+    .carousel-next {
+      right: 0;
+      background: url(/government/assets/carousel-arrows.png) center -98px no-repeat;
+    }
+    .carousel-disabled {
+      display: none;
+    }
+  }
+}
