@@ -1236,7 +1236,7 @@ module AdminEditionControllerTestHelpers
         put :update, id: document, edition: document.attributes.merge(lock_version: lock_version)
 
         assert_select ".document.conflict" do
-          assert_select "h1", "Related Policies"
+          assert_select "h1", "Related policies"
         end
       end
 

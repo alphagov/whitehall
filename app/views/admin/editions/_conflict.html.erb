@@ -32,10 +32,10 @@
     </section>
   <% end %>
 
-  <% if @edition.can_be_related_to_policies? %>
+  <% if edition.can_be_associated_with_policy_topics? %>
     <section>
-      <h1>Related Policies</h1>
-      <% if edition.related_policies.any? %>
+      <h1>Policy topics</h1>
+      <% if edition.policy_topics.any? %>
         <%= render partial: "admin/editions/related", locals: {related_editions: edition.related_policies} %>
       <% else %>
         <p>This document doesn't have any related policies.</p>
