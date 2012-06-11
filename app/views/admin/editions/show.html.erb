@@ -111,7 +111,7 @@
 
       <% if @edition.can_apply_to_subset_of_nations? %>
         <section>
-          <h1>Excluded Nations</h1>
+          <h1>Excluded nations</h1>
           <% if @edition.nation_inapplicabilities.any? %>
             <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: @edition.nation_inapplicabilities} %>
           <% else %>
@@ -122,7 +122,7 @@
 
       <% if @edition.can_be_related_to_policies? %>
         <section>
-          <h1>Related Policies</h1>
+          <h1>Related policies</h1>
           <% if @edition.related_policies.any? %>
             <%= render partial: "admin/editions/related", locals: {related_editions: @edition.related_policies} %>
           <% else %>

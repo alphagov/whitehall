@@ -67,7 +67,7 @@
 
   <% if edition.can_apply_to_subset_of_nations? %>
     <section>
-      <h1>Excluded Nations</h1>
+      <h1>Excluded nations</h1>
       <% if edition.nation_inapplicabilities.any? %>
         <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: edition.nation_inapplicabilities} %>
       <% else %>
