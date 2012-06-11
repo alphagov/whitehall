@@ -1,26 +1,24 @@
 require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
-  test "should supply options with IDs and descriptions for the current ministerial appointments" do
+  test "should supply options with IDs and descriptions for the all ministerial appointments" do
     home_office = create(:organisation, name: "Home Office")
     ministry_of_defence = create(:organisation, name: "Ministry of Defence")
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     defence_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [ministry_of_defence])
     theresa_may = create(:person, forename: "Theresa", surname: "May")
     philip_hammond = create(:person, forename: "Philip", surname: "Hammond")
-    theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may)
-    philip_hammond_appointment = create(:role_appointment, role: defence_secretary, person: philip_hammond)
+    theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may, started_at: Date.parse('2011-01-01'))
+    philip_hammond_appointment = create(:role_appointment, role: defence_secretary, person: philip_hammond, started_at: Date.parse('2011-01-01'))
+    philip_hammond_home_secretary_appointment = 
+      create(:role_appointment, role: home_secretary, person: philip_hammond, started_at: Date.parse('2010-01-01'), ended_at: Date.parse('2011-01-01'))
 
     options = ministerial_appointment_options
 
-    assert_equal 2, options.length
-    assert_equal options.first, [philip_hammond_appointment.id, "Philip Hammond (Secretary of State, Ministry of Defence)"]
-    assert_equal options.last, [theresa_may_appointment.id, "Theresa May (Secretary of State, Home Office)"]
-  end
-
-  test "should not include non-current appointments" do
-    create(:ministerial_role_appointment, started_at: 2.weeks.ago, ended_at: 1.week.ago)
-    assert_equal [], ministerial_appointment_options
+    assert_equal 3, options.length
+    assert options.include? [philip_hammond_appointment.id, "Philip Hammond (Secretary of State, Ministry of Defence, 2011-01-01 - present)"]
+    assert options.include? [philip_hammond_home_secretary_appointment.id, "Philip Hammond (Secretary of State, Home Office, 2010-01-01 - 2011-01-01)"]
+    assert options.include? [theresa_may_appointment.id, "Theresa May (Secretary of State, Home Office, 2011-01-01 - present)"]
   end
 
   test "should not include non-ministerial appointments" do

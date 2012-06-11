@@ -80,6 +80,19 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     assert_select 'form[action=?]', admin_role_appointment_path(appointment)
   end
 
+  test "edit should show speeches associated with this appointment" do
+    appointment = create(:role_appointment)
+    appointment.speeches << create(:speech, title: "Some Speech")
+    get :edit, id: appointment.id
+    assert_select '.speeches', text: /Some Speech/
+  end
+
+  test "edit should not allow the person to be changed" do
+    appointment = create(:role_appointment)
+    get :edit, id: appointment.id
+    assert_select 'select#role_appointment_person_id[disabled=disabled]'
+  end
+
   test "update should update an existing role appointment" do
     appointment = create(:role_appointment, started_at: 3.days.ago, ended_at: 2.days.ago)
     put :update, id: appointment.id, role_appointment: {ended_at: 1.day.ago}

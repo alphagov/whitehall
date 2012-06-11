@@ -1,6 +1,6 @@
 <% role_appointments.each do |role_appointment| %>
   <div>
-    <%= role_appointment.person.name %> (<%= role_appointment.started_at %> &ndash; <%= role_appointment.ended_at || 'present' %>) 
+    <%= role_appointment.person.name %> (<%= l(role_appointment.started_at.to_date) %> &ndash; <%= role_appointment.ended_at ? l(role_appointment.ended_at.to_date) : 'present' %>) 
     <%= link_to "edit", [:edit, :admin, role_appointment] %>
   </div>
 <% end %>

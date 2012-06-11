@@ -7,13 +7,13 @@
     <%= form.errors %>
 
     <%= form.label :person_id, 'Person' %>
-    <%= form.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', form.object.person_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose person..." } %>
+    <%= form.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', form.object.person_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose person..." }, disabled: true %>
+    <p>Once an appointment has been created the person cannot be changed, to preserve this person's relationship to any associated speeches.</p>
+
     <%= form.label :started_at %>
     <%= form.date_select :started_at, { include_blank: true }, { :class => "date" } %>
-    <% if form.object.persisted? %>
-      <%= form.label :ended_at %>
-      <%= form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
-    <% end %>
+    <%= form.label :ended_at %>
+    <%= form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
 
     <%= form.save_or_cancel cancel: edit_admin_role_path(@role_appointment.role) %>
   <% end %>
@@ -26,6 +26,24 @@
 </div>
 
 <div class="span4">
-  <h2>Existing appointments</h2>
-  <%= render partial: "admin/role_appointments/list", locals: {role_appointments: @role_appointment.role.role_appointments} %>
+  <section class="speeches">
+    <h2>Speeches during this appointment</h2>
+
+    <% if @role_appointment.speeches.any? %>
+      <ul class="speeches">
+      <% @role_appointment.speeches.each do |speech| %>
+        <li><%= link_to speech.title, [:admin, speech] %></li>
+      <% end %>
+      </ul>
+    <% else %>
+      <p>None</p>
+    <% end %>
+  </section>
+
+  <h2>Other appointments to this role</h2>
+  <% if @role_appointment.other_appointments_for_same_role.any? %>
+    <%= render partial: "admin/role_appointments/list", locals: {role_appointments: @role_appointment.other_appointments_for_same_role }%>
+  <% else %>
+    <p>None</p>
+  <% end %>
 </div>

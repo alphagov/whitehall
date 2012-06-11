@@ -50,8 +50,8 @@ module ApplicationHelper
   end
 
   def ministerial_appointment_options
-    MinisterialRole.joins(:current_role_appointments).alphabetical_by_person.map do |role|
-      [role.current_role_appointment.id, role.to_s]
+    RoleAppointment.for_ministerial_roles.alphabetical_by_person.map do |appointment|
+      [appointment.id, appointment.to_s]
     end
   end
 

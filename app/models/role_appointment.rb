@@ -26,7 +26,7 @@ class RoleAppointment < ActiveRecord::Base
     end
   end
 
-  validates :role, :person_id, :started_at, presence: true
+  validates :role_id, :person_id, :started_at, presence: true
   validates_with Validator
 
   scope :for_role, -> role {
@@ -42,6 +42,10 @@ class RoleAppointment < ActiveRecord::Base
   }
 
   scope :current, where(CURRENT_CONDITION)
+
+  scope :for_ministerial_roles, includes(role: :organisations).where("roles.type = ?", MinisterialRole.sti_name)
+
+  scope :alphabetical_by_person, includes(:person).order('people.surname', 'people.forename')
 
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
@@ -87,8 +91,6 @@ class RoleAppointment < ActiveRecord::Base
     end
   end
 
-  private
-
   def other_appointments_for_same_role
     if persisted?
       self.class.for_role(role).excluding(self.id)
@@ -96,6 +98,13 @@ class RoleAppointment < ActiveRecord::Base
       self.class.for_role(role)
     end
   end
+
+  def to_s
+    ended = ended_at ? ended_at.to_date : 'present'
+    "#{person.name} (#{role.name_and_organisations}, #{started_at.to_date} - #{ended})"
+  end
+
+  private
 
   def make_other_current_appointments_non_current
     return unless make_current
