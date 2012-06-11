@@ -1,7 +1,7 @@
 class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_organisation, only: [:new]
   before_filter :build_ministerial_organisation_roles, only: [:new]
-  before_filter :load_organisation, only: [:edit, :update]
+  before_filter :load_organisation, only: [:edit, :update, :destroy]
   before_filter :build_social_media_account, only: [:new, :edit]
   before_filter :load_news_articles, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
@@ -38,6 +38,11 @@ class Admin::OrganisationsController < Admin::BaseController
       build_social_media_account
       render action: "edit"
     end
+  end
+
+  def destroy
+    @organisation.destroy
+    redirect_to admin_organisations_path
   end
 
   private

@@ -97,6 +97,16 @@ When /^I navigate to the "([^"]*)" organisation's (.*) page$/ do |organisation_n
   navigate_to_organisation(page_name)
 end
 
+When /^I delete the organisation "([^"]*)"$/ do |name|
+  organisation = Organisation.find_by_name!(name)
+  visit edit_admin_organisation_path(organisation)
+  click_button "delete"
+end
+
+Then /^there should not be an organisation called "([^"]*)"$/ do |name|
+  refute Organisation.find_by_name(name)
+end
+
 Then /^I should see the top minister for the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)
   assert page.has_css?(record_css_selector(organisation.top_ministerial_role))

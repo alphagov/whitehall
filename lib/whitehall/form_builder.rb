@@ -14,14 +14,13 @@ module Whitehall
      end
 
     def save_or_cancel(options={})
-      cancel = @template.content_tag(:span, "class" => "or_cancel") do
-        @template.concat %{ or }
-        @template.concat @template.link_to 'cancel', cancel_path(options[:cancel])
-      end
-      @template.content_tag(:div, "class" => "form-actions") do
-        @template.concat submit "Save", class: "btn btn-primary btn-large"
-        @template.concat cancel
-      end
+      @template.content_tag(:div, "class" => "form-actions") {
+        @template.concat submit("Save", class: "btn btn-primary btn-large")
+        @template.concat @template.content_tag(:span, "class" => "or_cancel") {
+          @template.concat %{ or }
+          @template.concat @template.link_to('cancel', cancel_path(options[:cancel]))
+        }
+      }
     end
 
     def text_field(method, options={})

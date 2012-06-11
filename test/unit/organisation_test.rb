@@ -257,14 +257,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert parent.reload.child_organisations.empty?
   end
 
-  test '#destroy removes child relationships' do
-    child = create(:organisation)
-    parent = create(:organisation, child_organisations: [child])
-    parent.destroy
-    assert_equal 0, OrganisationalRelationship.count
-    assert child.reload.parent_organisations.empty?
-  end
-
   test 'destroy deletes related contacts' do
     organisation = create(:organisation)
     contact = create(:contact, organisation: organisation)
@@ -291,13 +283,6 @@ class OrganisationTest < ActiveSupport::TestCase
     policy_topic = create(:policy_topic, organisations: [organisation])
     organisation.destroy
     assert_equal 0, OrganisationPolicyTopic.count
-  end
-
-  test 'destroy removes role relationships' do
-    organisation = create(:organisation)
-    role = create(:role, organisations: [organisation])
-    organisation.destroy
-    assert_equal 0, OrganisationRole.count
   end
 
   test 'destroy unsets user organisation' do
@@ -334,4 +319,28 @@ class OrganisationTest < ActiveSupport::TestCase
   test 'should use full name as display_name if acronym is an empty string' do
     assert_equal 'Blah blah', build(:organisation, acronym: '', name: 'Blah blah').display_name
   end
+
+  test "should be destroyable when there are no associated people/child orgs/roles" do
+    organisation = create(:organisation)
+    assert organisation.destroyable?
+  end
+
+  test "should not be destroyable if there are associated roles" do
+    organisation = create(:organisation)
+    role = create(:role)
+    organisation.roles << role
+    refute organisation.destroyable?
+    organisation.destroy
+    assert Organisation.find(organisation.id)
+  end
+
+  test "should not be destroyable if there are associated child orgs" do
+    organisation = create(:organisation)
+    child_org = create(:organisation)
+    organisation.child_organisations << child_org
+    refute organisation.destroyable?
+    organisation.destroy
+    assert Organisation.find(organisation.id)
+  end
+
 end

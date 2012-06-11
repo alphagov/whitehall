@@ -6,8 +6,7 @@ class Organisation < ActiveRecord::Base
 
   has_many :child_organisational_relationships,
             foreign_key: :parent_organisation_id,
-            class_name: "OrganisationalRelationship",
-            dependent: :destroy
+            class_name: "OrganisationalRelationship"
   has_many :parent_organisational_relationships,
             foreign_key: :child_organisation_id,
             class_name: "OrganisationalRelationship",
@@ -38,7 +37,7 @@ class Organisation < ActiveRecord::Base
                           "editions.state" => "published" },
             source: :edition
 
-  has_many :organisation_roles, dependent: :destroy
+  has_many :organisation_roles
   has_many :roles, through: :organisation_roles
   has_many :ministerial_roles,
             class_name: 'MinisterialRole',
@@ -86,6 +85,8 @@ class Organisation < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :name, use: :slugged
+
+  before_destroy { |r| r.destroyable? }
 
   def should_generate_new_friendly_id?
     new_record?
@@ -164,6 +165,10 @@ class Organisation < ActiveRecord::Base
       current = current.parent_organisations.first
     end
     path.last
+  end
+
+  def destroyable?
+    child_organisations.none? && organisation_roles.none? && !new_record?
   end
 
   private
