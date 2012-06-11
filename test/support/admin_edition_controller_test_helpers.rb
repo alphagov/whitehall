@@ -1219,13 +1219,25 @@ module AdminEditionControllerTestHelpers
 
       test "updating should remove all related policies if none in params" do
         policy = create(:policy)
-
         document = create(document_type, related_policies: [policy])
 
         put :update, id: document, edition: {}
 
         document.reload
         assert_equal [], document.related_policies
+      end
+
+      test "updating a stale document should render edit page with conflicting document and its related policies" do
+        policy = create(:policy)
+        document = create(document_type, related_policies: [policy])
+        lock_version = document.lock_version
+        document.touch
+
+        put :update, id: document, edition: document.attributes.merge(lock_version: lock_version)
+
+        assert_select ".document.conflict" do
+          assert_select "h1", "Related Policies"
+        end
       end
 
       test "show displays related policies" do
