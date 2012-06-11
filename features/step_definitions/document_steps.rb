@@ -98,6 +98,13 @@ When /^I select the "([^"]*)" filter$/ do |filter|
   click_link filter
 end
 
+When /^I filter by author "([^"]*)"$/ do |author_filter|
+  within ".author-filter" do
+    select author_filter
+    click_button "Go"
+  end
+end
+
 When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
   edition = document_class(document_type).find_by_title!(title)
   visit public_document_path(edition)
