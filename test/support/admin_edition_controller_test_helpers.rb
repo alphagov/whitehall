@@ -1173,10 +1173,24 @@ module AdminEditionControllerTestHelpers
       edition_class = edition_class_for(document_type)
 
       test "new displays document form with related policies field" do
+        draft_policy = create(:draft_policy)
+        submitted_policy = create(:submitted_policy)
+        rejected_policy = create(:rejected_policy)
+        published_policy = create(:published_policy)
+        archived_policy = create(:archived_policy)
+        deleted_policy = create(:deleted_policy)
+
         get :new
 
         assert_select "form#edition_new" do
-          assert_select "select[name*='edition[related_document_ids]']"
+          assert_select "select[name*='edition[related_document_ids]']" do
+            assert_select "option[value='#{draft_policy.document.id}']"
+            assert_select "option[value='#{submitted_policy.document.id}']"
+            assert_select "option[value='#{rejected_policy.document.id}']"
+            assert_select "option[value='#{published_policy.document.id}']"
+            refute_select "option[value='#{archived_policy.document.id}']"
+            refute_select "option[value='#{deleted_policy.document.id}']"
+          end
         end
       end
 
