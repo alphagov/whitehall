@@ -12,6 +12,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_allow_editing_of :speech
   should_allow_revision_of :speech
 
+  should_allow_related_policies_for :speech
   should_allow_association_between_countries_and :speech
   should_allow_attached_images_for :speech
   should_not_use_lead_image_for :speech
@@ -83,13 +84,6 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office)"
     assert_select ".details .delivered_on", "1 June 2011"
     assert_select ".details .location", "The Guidhall"
-  end
-
-  test 'show displays related policies' do
-    policy = create(:policy)
-    speech = create(:speech, related_policies: [policy])
-    get :show, id: speech
-    assert_select_object policy
   end
 
   private

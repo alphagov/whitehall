@@ -13,6 +13,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_editing_of :consultation
   should_allow_revision_of :consultation
 
+  should_allow_related_policies_for :consultation
   should_allow_organisations_for :consultation
   should_allow_ministerial_roles_for :consultation
   should_allow_attachments_for :consultation
@@ -63,13 +64,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     consultation = create(:consultation, opening_on: Date.new(2010, 01, 01), closing_on: Date.new(2011, 01, 01))
     get :show, id: consultation
     assert_select '.closing_on', text: 'Closed on 1 January 2011'
-  end
-
-  test "show displays related policies" do
-    policy = create(:policy)
-    consultation = create(:consultation, related_policies: [policy])
-    get :show, id: consultation
-    assert_select_object policy
   end
 
   test "edit displays consultation fields" do

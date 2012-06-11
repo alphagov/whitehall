@@ -11,6 +11,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_creating_of :news_article
   should_allow_editing_of :news_article
 
+  should_allow_related_policies_for :news_article
   should_allow_organisations_for :news_article
   should_allow_ministerial_roles_for :news_article
   should_allow_association_between_countries_and :news_article
@@ -30,7 +31,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#edition_new" do
-      assert_select "select[name*='edition[related_document_ids]']"
       assert_select "textarea.previewable[name='edition[notes_to_editors]']"
     end
   end
@@ -43,41 +43,26 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     post :create, edition: attributes.merge(
       summary: "news-article-summary",
       notes_to_editors: "notes-to-editors",
-      related_document_ids: [first_policy.document.id, second_policy.document.id]
     )
 
     created_news_article = NewsArticle.last
     assert_equal "news-article-summary", created_news_article.summary
     assert_equal "notes-to-editors", created_news_article.notes_to_editors
-    assert_equal [first_policy, second_policy], created_news_article.related_policies
   end
 
   test "update should save modified news article attributes" do
     first_policy = create(:published_policy)
     second_policy = create(:published_policy)
-    news_article = create(:news_article, related_policies: [first_policy])
+    news_article = create(:news_article)
 
     put :update, id: news_article, edition: {
       summary: "new-news-article-summary",
       notes_to_editors: "new-notes-to-editors",
-      related_document_ids: [second_policy.document.id]
     }
 
     saved_news_article = news_article.reload
     assert_equal "new-news-article-summary", saved_news_article.summary
     assert_equal "new-notes-to-editors", saved_news_article.notes_to_editors
-    assert_equal [second_policy], saved_news_article.related_policies
-  end
-
-  test "update should remove all related editions if none in params" do
-    policy = create(:published_policy)
-
-    news_article = create(:news_article, related_policies: [policy])
-
-    put :update, id: news_article, edition: {}
-
-    news_article.reload
-    assert_equal [], news_article.related_policies
   end
 
   test "show renders the summary" do

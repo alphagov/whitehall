@@ -15,6 +15,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_show_document_audit_trail_on :show
   should_show_document_audit_trail_on :edit
 
+  should_allow_related_policies_for :publication
   should_allow_organisations_for :publication
   should_allow_ministerial_roles_for :publication
   should_allow_attachments_for :publication
@@ -52,12 +53,9 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       order_url: "http://example.com/order-path"
     )
 
-    post :create, edition: attributes.merge(
-      related_document_ids: [first_policy.document.id, second_policy.document.id]
-    )
+    post :create, edition: attributes
 
     created_publication = Publication.last
-    assert_equal [first_policy, second_policy], created_publication.related_policies
     assert_equal Date.parse("1805-10-21"), created_publication.publication_date
     assert_equal "unique-reference", created_publication.unique_reference
     assert_equal "0140621431", created_publication.isbn
@@ -96,16 +94,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal "0099532816", saved_publication.isbn
     assert saved_publication.research?
     assert_equal "https://example.com/new-order-path", saved_publication.order_url
-  end
-
-  test "update should remove all related documents if none in params" do
-    policy = create(:policy)
-    publication = create(:publication, related_policies: [policy])
-
-    put :update, id: publication, edition: {}
-
-    publication.reload
-    assert_equal [], publication.related_policies
   end
 
   test "should display publication attributes" do

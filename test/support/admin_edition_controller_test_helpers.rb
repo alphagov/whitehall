@@ -1169,6 +1169,75 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_related_policies_for(document_type)
+      edition_class = edition_class_for(document_type)
+
+      test "new displays document form with related policies field" do
+        get :new
+
+        assert_select "form#edition_new" do
+          assert_select "select[name*='edition[related_document_ids]']"
+        end
+      end
+
+      test "creating should create a new document with related policies" do
+        first_policy = create(:policy)
+        second_policy = create(:policy)
+        attributes = controller_attributes_for(document_type)
+
+        post :create, edition: attributes.merge(
+          related_document_ids: [first_policy.document.id, second_policy.document.id]
+        )
+
+        assert document = edition_class.last
+        assert_equal [first_policy, second_policy], document.related_policies
+      end
+
+      test "edit displays document form with related policies field" do
+        policy = create(:policy)
+        document = create(document_type, related_policies: [policy])
+
+        get :edit, id: document
+
+        assert_select "form#edition_edit" do
+          assert_select "select[name*='edition[related_document_ids]']"
+        end
+      end
+
+      test "updating should save modified document attributes with related policies" do
+        first_policy = create(:policy)
+        second_policy = create(:policy)
+        document = create(document_type, related_policies: [first_policy])
+
+        put :update, id: document, edition: {
+          related_document_ids: [second_policy.document.id]
+        }
+
+        document = document.reload
+        assert_equal [second_policy], document.related_policies
+      end
+
+      test "updating should remove all related policies if none in params" do
+        policy = create(:policy)
+
+        document = create(document_type, related_policies: [policy])
+
+        put :update, id: document, edition: {}
+
+        document.reload
+        assert_equal [], document.related_policies
+      end
+
+      test "show displays related policies" do
+        policy = create(:policy)
+        document = create(document_type, related_policies: [policy])
+
+        get :show, id: document
+
+        assert_select_object policy
+      end
+    end
+
     def should_allow_organisations_for(edition_type)
       edition_class = edition_class_for(edition_type)
 
