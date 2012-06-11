@@ -5,7 +5,7 @@ module Edition::Video
     class VideoUrlValidator < ActiveModel::Validator
       def validate(record)
         return if record.video_url.blank?
-        matches = URI::regexp(%w(https)).match(record.video_url)
+        matches = URI::regexp(%w(http)).match(record.video_url)
         if matches.present?
           host, path, query = matches[4], matches[7], matches[8]
           unless (host == "www.youtube.com") && (path == "/watch") && query[%r{v=\w+}]
