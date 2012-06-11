@@ -7,13 +7,13 @@
     <%= form.errors %>
 
     <%= form.label :person_id, 'Person' %>
-    <%= form.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', form.object.person_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose person..." } %>
+    <%= form.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', form.object.person_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose person..." }, disabled: true %>
+    <p>Once an appointment has been created the person cannot be changed, to preserve this person's relationship to any associated speeches.</p>
+
     <%= form.label :started_at %>
     <%= form.date_select :started_at, { include_blank: true }, { :class => "date" } %>
-    <% if form.object.persisted? %>
-      <%= form.label :ended_at %>
-      <%= form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
-    <% end %>
+    <%= form.label :ended_at %>
+    <%= form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
 
     <%= form.save_or_cancel cancel: edit_admin_role_path(@role_appointment.role) %>
   <% end %>
