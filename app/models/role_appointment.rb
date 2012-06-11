@@ -87,8 +87,6 @@ class RoleAppointment < ActiveRecord::Base
     end
   end
 
-  private
-
   def other_appointments_for_same_role
     if persisted?
       self.class.for_role(role).excluding(self.id)
@@ -96,6 +94,8 @@ class RoleAppointment < ActiveRecord::Base
       self.class.for_role(role)
     end
   end
+
+  private
 
   def make_other_current_appointments_non_current
     return unless make_current

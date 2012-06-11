@@ -5,3 +5,6 @@ en:
   support:
     array:
       last_word_connector: " and "
+  date:
+    formats:
+      default: "%d %B %Y"
