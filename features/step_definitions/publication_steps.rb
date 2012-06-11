@@ -39,7 +39,7 @@ When /^I draft a new publication "([^"]*)"$/ do |title|
   end
   check "Wales"
   fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
-  select policy.title, from: "Related Policies"
+  select policy.title, from: "Related policies"
   click_button "Save"
 end
 
@@ -69,8 +69,8 @@ end
 When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_document type: "Publication", title: title
   fill_in_publication_fields
-  select first_policy, from: "Related Policies"
-  select second_policy, from: "Related Policies"
+  select first_policy, from: "Related policies"
+  select second_policy, from: "Related policies"
   click_button "Save"
 end
 

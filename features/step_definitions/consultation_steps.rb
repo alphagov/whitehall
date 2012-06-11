@@ -19,7 +19,7 @@ When /^I draft a new consultation "([^"]*)"$/ do |title|
   check "Wales"
   fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
   check "Scotland"
-  select policy.title, from: "Related Policies"
+  select policy.title, from: "Related policies"
   click_button "Save"
 end
 

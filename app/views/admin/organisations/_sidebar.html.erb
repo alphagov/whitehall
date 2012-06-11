@@ -1,12 +1,12 @@
 <% 
-  tabs = @organisation.persisted? ? {news_articles: "News Articles"} : {}
+  tabs = @organisation.persisted? ? {news_articles: "News articles"} : {}
   tabs[:govspeak_help] = "Formatting Help"
 %>
 <%= sidebar_tabs tabs do %>
   <% if @organisation.persisted? %>
     <section class="tab-pane active" id="news_articles">
       <% if @news_articles.any? %>
-        <h1>News Articles</h1>
+        <h1>News articles</h1>
         <table class="table table-condensed table-striped">
           <thead>
             <tr>
