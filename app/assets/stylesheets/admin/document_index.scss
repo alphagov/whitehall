@@ -4,6 +4,28 @@
     margin-top: 1em;
   }
 
+  .author-filter {
+    form {
+      margin: 0 -15px;
+      padding: 0 15px;
+    }
+
+    &.active {
+      form {
+        color: white;
+        background-color: #08C;
+
+        .chzn-drop {
+          color: black;
+        }
+
+        .chzn-container-single .chzn-single {
+          color: #08C;
+        }
+      }
+    }
+  }
+
   div.toggle_group {
     display: inline;
 

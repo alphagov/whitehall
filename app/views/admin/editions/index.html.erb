@@ -20,9 +20,19 @@
       <nav class="well" style="padding: 8px 0;">
         <ul class="nav nav-list">
           <li class="nav-header">Filter by Author</li>
-          <%= link_to_filter('Me', {author: current_user, organisation: nil}, title: "Show documents by me") %>
+          <% filtered_user = params[:author] ? User.find(params[:author]) : current_user %>
+          <li class="author-filter <%= filter_class(author: filtered_user, organisation: nil) %>">
+            <%= form_tag("", method: :get) do %>
+              <%= select_tag :author, options_from_collection_for_select(User.all, 'id', 'name', params[:author]), class: 'chzn-select', data: { placeholder: "Filter by another author..." } %>
+              <%= hidden_field_tag :organisation, params[:organisation_id] if params[:organisation_id] %>
+              <%= hidden_field_tag :type, params[:type] if params[:type] %>
+              <%= hidden_field_tag :state, params[:state] if params[:state] %>
+              <%= submit_tag "Go", class: "btn" %>
+            <% end %>
+          </li>
           <%= link_to_filter('My department', {author: nil, organisation: current_user.organisation}, title: "Show documents by my department") %>
           <%= link_to_filter('Everyone', {author: nil, organisation: nil}, title: "Show documents by everyone") %>
+
           <li class="nav-header">Filter by Kind</li>
           <%= link_to_filter 'All', {type: nil}, title: "Show all kinds of document" %>
           <%= link_to_filter 'Policies', {type: 'policy'}, title: "Show only policies" %>
@@ -32,6 +42,7 @@
           <%= link_to_filter 'Responses', {type: 'consultation_response'}, title: "Show only consultation responses" %>
           <%= link_to_filter 'Speeches', {type: 'speech'}, title: "Show only speeches" %>
           <%= link_to_filter 'International priorities', {type: 'international_priorities'}, title: "Show only international priorities" %>
+
           <li class="nav-header">Filter by state</li>
           <% document_type = (params[:type] || "document").pluralize %>
           <%= link_to_filter 'All', {state: :active}, title: "Show #{document_type} in any workflow state" %>
@@ -62,6 +73,11 @@
           </tr>
         </thead>
         <tbody>
+          <% if @editions.blank? %>
+            <tr>
+              <td colspan="5">No <%= @edition_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
+            </tr>
+          <% end %>
           <% @editions.each do |edition| %>
             <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
               <td class="type"><%= edition.type.titleize %></td>
@@ -98,11 +114,6 @@
                 </td>
               <% end %>
             <% end %>
-          <% end %>
-          <% if @editions.blank? %>
-            <tr>
-              <td colspan="4">No <%= @edition_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
-            </tr>
           <% end %>
         </tbody>
       </table>
