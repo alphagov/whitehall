@@ -71,3 +71,32 @@
     }
   }
 }
+
+// Styles for Ministerial role pages i.e. /government/ministers/prime-minister
+.ministerial_role {
+
+  
+  li.organisation {
+    list-style: none;
+  }
+
+  .govspeak {
+    width: 70%;
+  }
+
+  .image {
+    float: right;
+  }
+
+  .responsibilities, .current_person {
+    clear: both;
+    padding: $gutter 0;
+  }
+
+  .current_person {
+   border: 1px solid $light-blue-grey;
+   border-width: 1px 0;
+   margin-top: $gutter;
+  }
+
+}

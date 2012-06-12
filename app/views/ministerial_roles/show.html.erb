@@ -1,14 +1,15 @@
 <% page_title @ministerial_role.name %>
-<%= content_tag_for :div, @ministerial_role, class: 'g4f ministerial-department ministerial_role_page ' + ministerial_role_organisation_class(@ministerial_role) do %>
-  <header class="g4 page_header ministerial_role minister">
-    <hgroup>
-      <h1 class="role_name"><%= @ministerial_role.name %></h1>
-      <h2 class="current_person_name"><%= @ministerial_role.current_person_name %></h2>
-    </hgroup>
-  </header>
+<%= content_tag_for :div, @ministerial_role, class: 'ministerial-department ministerial_role_page ' + ministerial_role_organisation_class(@ministerial_role) do %>
 
-  <div class="g4f">
-    <section class="g1" id="document_organisations">
+  <div class="block-1">
+    <div class="inner-block">
+      <header class="page_header ministerial_role minister">
+      <hgroup>
+        <h1 class="role_name"><%= @ministerial_role.name %></h1>
+        <h2 class="current_person_name"><%= @ministerial_role.current_person_name %></h2>
+      </hgroup>
+      </header>
+    <section id="document_organisations">
       <h1 class="visuallyhidden">Organisations</h1>
       <ul class="organisations">
       <% @ministerial_role.organisations.each do |organisation| %>
@@ -20,31 +21,37 @@
       <% end %>
       </ul>
     </section>
+    </div>
+  </div>
+
+  <div class="block-2">
+    <div class="inner-block">
 
     <% unless @ministerial_role.responsibilities.blank? %>
-    <section class="g3 responsibilities">
+    <section class="responsibilities">
       <h3 class="visuallyhidden">Responsibilities</h3>
       <div class="content"><%= govspeak_to_html @ministerial_role.responsibilities %></div>
     </section>
     <% end %>
 
-    <section class="g3 current_person">
-      <div class="g2f biography">
-        <h1 class="label">Biography</h1>
-        <%= govspeak_to_html(@ministerial_role.current_person_biography) %>
-      </div>
-      <div class="g1 image">
+    <section class="current_person">
+      <div class="biography">
+      <div class="image">
         <figure class="img">
           <%= image_for_ministerial_role @ministerial_role %>
           <figcaption class="name"><%= @ministerial_role.current_person_name %></figcaption>
         </figure>
       </div>
+        <h1 class="label">Biography</h1>
+        <%= govspeak_to_html(@ministerial_role.current_person_biography) %>
+      </div>
     </section>
+    </div>
   </div>
 
-  <section class="g4f documents">
+  <section class="documents">
   <% if @announcements.any? %>
-    <div class="g2">
+    <div>
       <section id="announcements" class="latest_documents">
       <h1 class="label">News &amp; speeches</h1>
       <ul class="news_and_speeches">
@@ -57,7 +64,7 @@
   <% end %>
 
   <% if @policies.any? %>
-    <div class="g1">
+    <div>
       <section id="policies" class="latest_documents">
       <h1 class="label">Policies</h1>
       <ul class="policies">
@@ -70,7 +77,7 @@
   <% end %>
 
   <% if @publications.any? || @consultations.any? %>
-    <div class="g1">
+    <div>
       <% if @publications.any? %>
         <section id="publications" class="latest_documents">
         <h1 class="label">Publications</h1>
