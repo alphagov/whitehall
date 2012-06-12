@@ -39,14 +39,16 @@
 
 
 // Styles for Department homepages
-.page_title span {
-  background: url(/government/assets/coa-default-48.gif) 5px top no-repeat;
-  border-left-width: 5px;
-  border-left-style: solid;
-  padding-left: $gutter*3;
+.organisation {
+  .page_title span {
+    background: url(/government/assets/coa-default-48.gif) 5px top no-repeat;
+    border-left-width: 5px;
+    border-left-style: solid;
+    padding-left: $gutter*3;
+  }
 }
 
-#page {
+.organisation_homepage {
   .block-4, .block-5, .block-6, .block-7 {
     float: left;
     display: inline;
