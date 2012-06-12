@@ -7,10 +7,10 @@
     <section class="change_notes">
       <h1>Change notes</h1>
       <ul>
-        <% change_history(@document).each do |edition| %>
+        <% @document.change_history.each do |change| %>
           <li class="group">
-            <p><%= edition[:change_note] %></p>
-            <%= absolute_time(edition[:published_at], class: 'published_at') %>
+            <p><%= change.note %></p>
+            <%= absolute_time(change.published_at, class: 'published_at') %>
           </li>
         <% end %>
       </ul>

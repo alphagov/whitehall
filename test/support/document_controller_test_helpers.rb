@@ -244,7 +244,7 @@ module DocumentControllerTestHelpers
       end
 
       test "show does not display blank change notes in change history" do
-        second_edition = create("published_#{document_type}", change_note: nil, published_at: 1.months.ago)
+        second_edition = create("published_#{document_type}", change_note: nil, minor_change: true, published_at: 1.months.ago)
         document = second_edition.document
         first_edition = create("archived_#{document_type}", change_note: "First effort.", document: document, published_at: 2.months.ago)
 

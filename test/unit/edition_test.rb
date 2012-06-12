@@ -423,17 +423,6 @@ class EditionTest < ActiveSupport::TestCase
     policy.archive!
   end
 
-  test "should provide a list of all editions ever published in reverse chronological order by publication date" do
-    original_edition = create(:archived_edition, published_at: 3.days.ago)
-    document = original_edition.document
-    new_edition_1 = create(:archived_edition, document: document, published_at: 2.days.ago)
-    new_edition_2 = create(:published_edition, document: document, published_at: 1.day.ago)
-    draft_edition = create(:draft_edition, document: document)
-
-    assert_equal [new_edition_2, new_edition_1, original_edition], new_edition_2.editions_ever_published
-    refute new_edition_2.editions_ever_published.include?(draft_edition)
-  end
-
   test "#destroy should also remove the relationship to any authors" do
     edition = create(:draft_edition, creator: create(:policy_writer))
     relation = edition.edition_authors.first
