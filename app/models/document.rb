@@ -17,6 +17,12 @@ class Document < ActiveRecord::Base
 
   attr_accessor :sluggable_string
 
+  class Change < Struct.new(:published_at, :note)
+    def set_as_first_change
+      self.note = "First published." if note.blank?
+    end
+  end
+
   def normalize_friendly_id(value)
     value = value.gsub(/'/, '') if value
     super value
@@ -24,10 +30,6 @@ class Document < ActiveRecord::Base
 
   def unpublished_edition
     editions.where("state IN (:draft_states)", draft_states: [:draft, :submitted, :rejected]).first
-  end
-
-  def editions_ever_published
-    editions.where(state: [:published, :archived]).by_published_at
   end
 
   def update_slug_if_possible(new_title)
@@ -43,6 +45,15 @@ class Document < ActiveRecord::Base
 
   def published?
     published_edition.present?
+  end
+
+  def change_history
+    editions.
+      where(state: [:published, :archived]).
+      by_published_at.
+      reject(&:minor_change?).
+      map { |e| Change.new(e.published_at, e.change_note) }.
+      tap { |h| h.last.set_as_first_change if h.last }
   end
 
   class << self

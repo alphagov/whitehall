@@ -10,7 +10,7 @@ module Edition::Identifiable
     before_validation :set_document_type_on_document
   end
 
-  def_delegators :document, :slug, :editions_ever_published
+  def_delegators :document, :slug, :change_history
   def_delegator :document, :published?, :linkable?
 
   def set_document
