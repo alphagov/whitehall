@@ -1,4 +1,4 @@
-THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|international priority) "([^"]*)"/) do |document_type, title|
+THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|international priority|specialist guide) "([^"]*)"/) do |document_type, title|
   document_class(document_type).latest_edition.find_by_title!(title)
 end
 
@@ -57,7 +57,7 @@ Given /^a published (publication|policy|news article|consultation) "([^"]*)" exi
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, countries: [country])
 end
 
-Given /^a submitted (publication|policy|news article|consultation|speech|international priority) "([^"]*)" exists$/ do |document_type, title|
+Given /^a submitted (publication|policy|news article|consultation|speech|international priority|specialist guide) "([^"]*)" exists$/ do |document_type, title|
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
@@ -196,6 +196,8 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
     click_link "Consultations"
   when Policy
     visit policies_path
+  when SpecialistGuide
+    visit specialist_guides_path
   when InternationalPriority
     visit international_priorities_path
   else
