@@ -1,3 +1,7 @@
+Given /^there is a user called "([^"]*)"$/ do |name|
+  create(:policy_writer, name: name)
+end
+
 Given /^there is a user called "([^"]*)" with email address "([^"]*)"$/ do |name, email|
   @user = create(:policy_writer, name: name, email: email)
 end

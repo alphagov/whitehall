@@ -30,18 +30,18 @@ Given /^I attempt to create an invalid publication with an attachment$/ do
 end
 
 When /^I draft a new publication "([^"]*)"$/ do |title|
-  policy = create(:policy)
-  begin_drafting_document type: 'publication', title: title
-  fill_in_publication_fields
-  within ".attachments" do
-    fill_in "Title", with: "Attachment Title"
-    attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
-  end
-  check "Wales"
-  fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
-  select policy.title, from: "Related policies"
+  begin_drafting_publication(title)
   click_button "Save"
 end
+
+Given /^"([^"]*)" drafts a new publication "([^"]*)"$/ do |user_name, title|
+  user = User.find_by_name(user_name)
+  as_user(user) do
+    begin_drafting_publication(title)
+    click_button "Save"
+  end
+end
+
 
 When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
   begin_drafting_document type: 'publication', title: title
