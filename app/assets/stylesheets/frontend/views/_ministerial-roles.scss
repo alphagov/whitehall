@@ -75,6 +75,24 @@
 // Styles for Ministerial role pages i.e. /government/ministers/prime-minister
 .ministerial_role {
 
+  .block-3, .block-4, .block-5 {
+    float: left;
+    display: inline;
+    width: 25%;
+    .label, .published_or_updated {
+      text-transform: uppercase;
+    }
+    li {
+      list-style: none;
+    }
+    .metadata .document_type {
+      visibility: hidden;
+    }
+  }
+
+  .block-3 {
+    width: 50%;
+  }
   
   li.organisation {
     list-style: none;
@@ -96,7 +114,15 @@
   .current_person {
    border: 1px solid $light-blue-grey;
    border-width: 1px 0;
-   margin-top: $gutter;
+   margin: $gutter 0;
   }
-
+  
+    @media (max-width: 768px) {
+     .block-3, .block-4, .block-5, .image {
+      clear: both;
+      float: none;
+      display: block;
+      width: auto;
+     }
+    }
 }

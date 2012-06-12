@@ -26,7 +26,6 @@
 
   <div class="block-2">
     <div class="inner-block">
-
     <% unless @ministerial_role.responsibilities.blank? %>
     <section class="responsibilities">
       <h3 class="visuallyhidden">Responsibilities</h3>
@@ -49,8 +48,9 @@
     </div>
   </div>
 
-  <section class="documents">
   <% if @announcements.any? %>
+  <div class="block-3">
+    <div class="inner-block">
     <div>
       <section id="announcements" class="latest_documents">
       <h1 class="label">News &amp; speeches</h1>
@@ -61,23 +61,28 @@
       </ul>
       </section>
     </div>
+    </div>
+  </div>
   <% end %>
 
   <% if @policies.any? %>
-    <div>
-      <section id="policies" class="latest_documents">
-      <h1 class="label">Policies</h1>
-      <ul class="policies">
-        <% @policies.each do |policy| %>
-          <%= render partial: 'documents/document_li', locals: { document: policy } %>
-        <% end %>
-      </ul>
-      </section>
+  <div class="block-4">
+    <div class="inner-block">
+        <section id="policies" class="latest_documents">
+        <h1 class="label">Policies</h1>
+        <ul class="policies">
+          <% @policies.each do |policy| %>
+            <%= render partial: 'documents/document_li', locals: { document: policy } %>
+          <% end %>
+        </ul>
+        </section>
     </div>
+  </div>
   <% end %>
 
   <% if @publications.any? || @consultations.any? %>
-    <div>
+  <div class="block-5">
+    <div class="inner-block">
       <% if @publications.any? %>
         <section id="publications" class="latest_documents">
         <h1 class="label">Publications</h1>
@@ -99,10 +104,10 @@
         </section>
       <% end %>
     </div>
+  </div>
   <% end %>
 
   <% unless @announcements.any? || @policies.any? || @publications.any? || @consultations.any? %>
     <p class="nothing_related">At present we do not have any related content.</p>
   <% end %>
-  </section>
 <% end %>
