@@ -15,13 +15,5 @@
     <%= form.text_area :responsibilities, class: "previewable" %>
   </fieldset>
 
-  <% if role.persisted? %>
-    <h3>Appointees</h3>
-
-    <%= link_to "New appointment", new_admin_role_role_appointment_path(role, make_current: true), class: "btn" %>
-    <%= render partial: "admin/role_appointments/list", locals: {role_appointments: role.role_appointments} %>
-    <%= link_to "Add previous appointment", new_admin_role_role_appointment_path(role), class: "btn" %>
-  <% end %>
-
   <%= form.save_or_cancel cancel: admin_roles_path %>
 <% end %>
