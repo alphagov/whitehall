@@ -344,11 +344,4 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     assert_same_elements [first_pm_appt, deputy_pm_appt, second_pm_appt], RoleAppointment.for_ministerial_roles
   end
-
-  test "to_s should include the person, role and dates" do
-    role = build(:role, name: "Minister of Silly", organisations: [build(:organisation, name: "Ministry of Fun")])
-    person = build(:person, forename: "Jeremy", surname: "Chumfatty")
-    appt = build(:role_appointment, role: role, person: person, started_at: Date.parse("2012-05-23"))
-    assert_equal "Jeremy Chumfatty (Minister of Silly, Ministry of Fun, 2012-05-23 - present)", appt.to_s
-  end
 end

@@ -33,7 +33,7 @@ module DocumentHelper
     speech_type = SpeechType::Transcript
     begin_drafting_document options.merge(type: 'speech')
     select speech_type.name, from: "Type"
-    select "Colonel Mustard (Attorney General, 2010-01-01 - present)", from: "Delivered by"
+    select "Colonel Mustard, Attorney General", from: "Delivered by"
     select_date "Delivered on", with: 1.day.ago.to_s
     fill_in "Location", with: "The Drawing Room"
     fill_in "Summary", with: "Some summary of the content"

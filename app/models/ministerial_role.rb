@@ -6,7 +6,7 @@ class MinisterialRole < Role
   has_many :editions, through: :edition_ministerial_roles
   has_many :speeches, through: :current_role_appointments
 
-  searchable title: :to_s, link: :search_link, content: :current_person_biography, format: 'minister'
+  searchable title: :search_title, link: :search_link, content: :current_person_biography, format: 'minister'
 
   def self.cabinet
     name = arel_table[:name]
@@ -22,6 +22,10 @@ class MinisterialRole < Role
 
   def destroyable?
     super && editions.empty?
+  end
+
+  def search_title
+    current_person ? "#{current_person.name} (#{to_s})" : to_s
   end
 
   def search_link

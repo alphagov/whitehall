@@ -147,8 +147,8 @@ end
 
 When /^I draft a new policy "([^"]*)" associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
   begin_drafting_policy title: title
-  select minister_1, from: "Ministers"
-  select minister_2, from: "Ministers"
+  select minister_1, from: "Ministerial roles"
+  select minister_2, from: "Ministerial roles"
   click_button "Save"
 end
 
