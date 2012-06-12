@@ -30,12 +30,6 @@ module DocumentHelper
     policy = create(:policy)
     begin_drafting_document type: 'publication', title: title
     fill_in_publication_fields
-    within ".attachments" do
-      fill_in "Title", with: "Attachment Title"
-      attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
-    end
-    check "Wales"
-    fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
     select policy.title, from: "Related policies"
   end
 

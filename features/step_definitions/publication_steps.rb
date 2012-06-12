@@ -19,8 +19,7 @@ Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
 end
 
 Given /^I attempt to create an invalid publication with an attachment$/ do
-  begin_drafting_document type: "Publication", title: ""
-  select_date "Publication date", with: "2010-01-01"
+  begin_drafting_publication("")
   file = pdf_attachment
   within ".attachments" do
     fill_in "Title", with: "Attachment Title"
@@ -44,8 +43,7 @@ end
 
 
 When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
-  begin_drafting_document type: 'publication', title: title
-  fill_in_publication_fields
+  begin_drafting_publication(title)
   nations.raw.flatten.each do |nation_name|
     check nation_name
     fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
@@ -54,8 +52,7 @@ When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/
 end
 
 When /^I draft a new corporate publication "([^"]*)" about the "([^"]*)"$/ do |title, organisation|
-  begin_drafting_document type: 'publication', title: title
-  fill_in_publication_fields
+  begin_drafting_publication(title)
   select organisation, from: "Producing Organisations"
   check "Corporate publication?"
   click_button "Save"
@@ -67,8 +64,7 @@ When /^I visit the list of publications$/ do
 end
 
 When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
-  begin_drafting_document type: "Publication", title: title
-  fill_in_publication_fields
+  begin_drafting_publication(title)
   select first_policy, from: "Related policies"
   select second_policy, from: "Related policies"
   click_button "Save"
