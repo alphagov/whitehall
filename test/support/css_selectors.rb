@@ -73,6 +73,10 @@ module CssSelectors
     "#permanent_secretary_board_members"
   end
 
+  def other_board_members_selector
+    "#other_board_members"
+  end
+
   def featured_news_articles_selector
     "#featured-news-articles"
   end
