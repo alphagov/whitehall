@@ -406,18 +406,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "img[src*=blank-person.png]"
   end
 
-  test "shows management team associated with organisation" do
-    permanent_secretary = create(:board_member_role)
-    organisation = create(:organisation, board_member_roles: [permanent_secretary])
-
-    get :management_team, id: organisation
-
-    assert_select "#other_board_members" do
-      assert_select_object(permanent_secretary)
-    end
-  end
-
-  test "shows leading management team members associated with organisation" do
+  test "shows leading management team members" do
     permanent_secretary = create(:board_member_role, permanent_secretary: true)
     organisation = create(:organisation, board_member_roles: [permanent_secretary])
 
@@ -437,10 +426,23 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select permanent_secretary_board_members_selector
   end
 
-  test "should not display an empty management team section" do
-    organisation = create(:organisation)
+  test "shows non-leading management team members" do
+    junior = create(:board_member_role)
+    organisation = create(:organisation, board_member_roles: [junior])
+
     get :management_team, id: organisation
-    refute_select "#other_board_members"
+
+    assert_select other_board_members_selector do
+      assert_select_object(junior)
+    end
+  end
+
+  test "should not display an empty non-leading management team section" do
+    organisation = create(:organisation)
+
+    get :management_team, id: organisation
+
+    refute_select other_board_members_selector
   end
 
   test "should link to the organisation's ministers page" do
