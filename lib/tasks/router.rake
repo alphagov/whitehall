@@ -6,21 +6,21 @@ namespace :router do
     @logger = Logger.new STDOUT
     @logger.level = Logger::DEBUG
     @router = Router.new("http://router.cluster:8080/router", @logger)
-    @slug = "whitehall"
+    @application_name = "whitehall"
   end
 
   task :register_application => :router_environment do
     platform = ENV['FACTER_govuk_platform']
     url = "whitehall.#{platform}.alphagov.co.uk"
     @logger.info "Registering application..."
-    @router.update_application @slug, url
+    @router.update_application @application_name, url
   end
 
   task :register_routes => :router_environment do
-    @router.create_route @slug, "prefix", @slug
+    @router.create_route "whitehall", "prefix", @application_name
     VanityRedirector.new(Rails.root.join("app", "data", "vanity-redirects.csv")).each do |r, _|
-      @router.create_route(r, "full", @slug)
-      @router.create_route(r.upcase, "full", @slug)
+      @router.create_route(r, "full", @application_name)
+      @router.create_route(r.upcase, "full", @application_name)
     end
   end
 
