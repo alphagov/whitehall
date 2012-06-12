@@ -1,0 +1,22 @@
+<% page_title "Specialist guides" %>
+<% page_class "specialist-guides-index" %>
+
+<div class="block-1">
+  <div class="inner-block">
+    <header class="page_header specialist-guides icon">
+      <h1 class="page_title">Specialist Guides</h1>
+    </header>
+  </div>
+</div>
+
+<div class="block-2">
+  <div class="inner-block">
+    <section id="specialist_guides" class="announcements group">
+      <% @specialist_guides.each do |specialist_guide| %>
+        <%= content_tag_for(:article, specialist_guide, class: "specialist-guide") do %>
+          <h2><%= link_to specialist_guide.title, public_document_path(specialist_guide) %></h2>
+        <% end %>
+      <% end %>
+    </section>
+  </div>
+</div>

@@ -11,6 +11,10 @@ Whitehall::Application.routes.draw do
 
   root to: redirect("/")
 
+  scope "specialist" do
+    resources :specialist_guides, path: 'guides', only: [:show, :index]
+  end
+
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "site#sunset"
     match '/home' => "site#index", as: :home
@@ -106,6 +110,7 @@ Whitehall::Application.routes.draw do
         resources :consultations, except: [:index]
         resources :consultation_responses, path: 'responses', except: [:index]
         resources :speeches, except: [:index]
+        resources :specialist_guides, path: "specialist-guides", except: [:index]
         resources :people, except: [:show]
         resources :roles, except: [:show] do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
