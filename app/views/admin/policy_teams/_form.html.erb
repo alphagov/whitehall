@@ -1,0 +1,9 @@
+<%= form_for [:admin, policy_team] do |policy_team_form| %>
+  <%= policy_team_form.errors %>
+
+  <fieldset>
+    <%= policy_team_form.text_field :email %>
+  </fieldset>
+
+  <%= policy_team_form.save_or_cancel cancel: admin_policy_teams_path %>
+<% end %>

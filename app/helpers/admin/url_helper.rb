@@ -19,6 +19,10 @@ module Admin::UrlHelper
     admin_header_link "Countries", admin_countries_path
   end
 
+  def admin_policy_teams_header_link
+    admin_header_link "Policy teams", admin_policy_teams_path
+  end
+
   def admin_header_link(name, path, path_matcher = nil)
     path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
     if user_signed_in?
