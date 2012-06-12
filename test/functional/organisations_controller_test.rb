@@ -406,14 +406,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "img[src*=blank-person.png]"
   end
 
-  test "shows leading management team members" do
+  test "shows leading management team members with links to person pages" do
     permanent_secretary = create(:board_member_role, permanent_secretary: true)
+    person = create(:person)
+    create(:role_appointment, role: permanent_secretary, person: person)
     organisation = create(:organisation, board_member_roles: [permanent_secretary])
 
     get :management_team, id: organisation
 
     assert_select permanent_secretary_board_members_selector do
-      assert_select_object(permanent_secretary)
+      assert_select_object(permanent_secretary) do
+        assert_select "a[href='#{person_path(person)}']"
+      end
     end
   end
 
@@ -426,14 +430,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select permanent_secretary_board_members_selector
   end
 
-  test "shows non-leading management team members" do
+  test "shows non-leading management team members with links to person pages" do
     junior = create(:board_member_role)
+    person = create(:person)
+    create(:role_appointment, role: junior, person: person)
     organisation = create(:organisation, board_member_roles: [junior])
 
     get :management_team, id: organisation
 
     assert_select other_board_members_selector do
-      assert_select_object(junior)
+      assert_select_object(junior) do
+        assert_select "a[href='#{person_path(person)}']"
+      end
     end
   end
 
