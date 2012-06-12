@@ -1,24 +1,25 @@
 Feature: Filtering documents by author
 
 Scenario: Viewing only documents written by me
-  Given I am a writer called "Dave"
+  Given I am a writer
   And I draft a new publication "My Publication"
   And a draft publication "Another Publication" exists
   And I visit the list of draft documents
 
-  When I filter by author "Dave"
+  When I select the "Show documents by me" filter
   Then I should see the publication "My Publication"
   And I should not see the publication "Another Publication"
 
 Scenario: Viewing only publications written by me
-  Given I am a writer called "Janice"
-  And I draft a new publication "My Publication"
+  Given I am a writer
+  And there is a user called "Janice"
+  And "Janice" drafts a new publication "Janice's Publication"
   And I draft a new policy "My Policy"
   And I visit the list of draft documents
 
   When I filter by author "Janice"
   And I select the "publications" filter
-  Then I should see the publication "My Publication"
+  Then I should see the publication "Janice's Publication"
   And I should not see the policy "My Policy"
 
 Scenario: Viewing only documents related to my department

@@ -26,6 +26,13 @@ module DocumentHelper
     click_button "Create new edition"
   end
 
+  def begin_drafting_publication(title)
+    policy = create(:policy)
+    begin_drafting_document type: 'publication', title: title
+    fill_in_publication_fields
+    select policy.title, from: "Related policies"
+  end
+
   def begin_drafting_speech(options)
     person = create_person("Colonel Mustard")
     role = create(:ministerial_role, name: "Attorney General")
