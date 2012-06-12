@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120611092053) do
+ActiveRecord::Schema.define(:version => 20120612140240) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(:version => 20120611092053) do
     t.boolean  "force_published"
     t.boolean  "minor_change",             :default => false
     t.string   "video_url"
+    t.integer  "policy_team_id"
   end
 
   add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"
@@ -297,6 +298,12 @@ ActiveRecord::Schema.define(:version => 20120611092053) do
   end
 
   add_index "people", ["slug"], :name => "index_people_on_slug", :unique => true
+
+  create_table "policy_teams", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "policy_topic_memberships", :force => true do |t|
     t.integer  "policy_topic_id"

@@ -10,6 +10,8 @@ class Policy < Edition
   has_many :related_editions, through: :edition_relations, source: :edition
   has_many :published_related_editions, through: :edition_relations, source: :edition, conditions: {editions: {state: 'published'}}
 
+  belongs_to :policy_team
+
   validates :summary, presence: true
 
   class Trait < Edition::Traits::Trait
