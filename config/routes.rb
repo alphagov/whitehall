@@ -5,12 +5,13 @@ class AdminRequest
 end
 
 Whitehall::Application.routes.draw do
-  def redirect(path)
-    super(Whitehall.router_prefix + path)
+  def redirect(path, options = {prefix: Whitehall.router_prefix})
+    super(options[:prefix] + path)
   end
 
   root to: redirect("/")
 
+  match '/specialist' => redirect("/specialist/guides", prefix: "")
   scope "specialist" do
     resources :specialist_guides, path: 'guides', only: [:show, :index]
   end
