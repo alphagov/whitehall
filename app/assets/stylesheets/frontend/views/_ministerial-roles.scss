@@ -115,6 +115,7 @@
    border: 1px solid $light-blue-grey;
    border-width: 1px 0;
    margin: $gutter 0;
+   overflow: hidden;
   }
   
     @media (max-width: 768px) {
