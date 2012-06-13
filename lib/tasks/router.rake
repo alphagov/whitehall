@@ -17,7 +17,7 @@ namespace :router do
   end
 
   task :register_routes => :router_environment do
-    @router.create_route "whitehall", "prefix", @application_name
+    @router.create_route "government", "prefix", @application_name
     @router.create_route "specialist", "prefix", @application_name
     VanityRedirector.new(Rails.root.join("app", "data", "vanity-redirects.csv")).each do |r, _|
       @router.create_route(r, "full", @application_name)
