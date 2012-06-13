@@ -15,6 +15,9 @@ class Document < ActiveRecord::Base
   has_one  :unpublished_edition,
            class_name: 'Edition',
            conditions: { state: %w[ draft submitted rejected ] }
+  has_many :ever_published_editions,
+           class_name: 'Edition',
+           conditions: { state: %w[ published archived ] }
 
   has_many :consultation_responses,
            class_name: 'ConsultationResponse',
@@ -59,10 +62,7 @@ class Document < ActiveRecord::Base
   end
 
   def change_history
-    editions.
-      where(state: [:published, :archived]).
-      by_published_at.
-      reject(&:minor_change?).
+    ever_published_editions.significant_change.by_published_at.
       map { |e| Change.new(e.published_at, e.change_note) }.
       tap { |h| h.last.set_as_first_change if h.last }
   end
