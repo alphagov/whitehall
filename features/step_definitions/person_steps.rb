@@ -55,10 +55,11 @@ Then /^I should not be able to see "([^"]*)" in the list of people$/ do |name|
   assert page.has_no_css?(".person .name", text: name)
 end
 
-Then /^I should see the biography and roles held by "([^"]*)"$/ do |name|
+Then /^I should see information about the person "([^"]*)"$/ do |name|
   person = find_person(name)
   assert page.has_css?(".name", text: person.name)
   assert page.has_css?(".biography", text: person.biography)
+  assert page.has_css?(".biography figure.img")
 end
 
 def visit_people_admin

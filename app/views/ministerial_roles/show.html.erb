@@ -35,12 +35,12 @@
 
     <section class="current_person">
       <div class="biography">
-      <div class="image">
-        <figure class="img">
-          <%= image_for_ministerial_role @ministerial_role %>
-          <figcaption class="name"><%= @ministerial_role.current_person_name %></figcaption>
-        </figure>
-      </div>
+        <div class="image">
+          <figure class="img">
+            <%= image_for_ministerial_role @ministerial_role %>
+            <figcaption class="name"><%= @ministerial_role.current_person_name %></figcaption>
+          </figure>
+        </div>
         <h1 class="label">Biography</h1>
         <%= govspeak_to_html(@ministerial_role.current_person_biography) %>
       </div>

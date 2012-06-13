@@ -15,7 +15,15 @@ class PeopleControllerTest < ActionController::TestCase
     get :show, id: @person
 
     assert_select ".name", text: "Alan Clark MP"
-    assert_select ".biography", text: "Conservative diarist and philanderer"
+    assert_select ".biography", text: /Conservative diarist and philanderer/
+  end
+
+  test "show displays image of the person" do
+    @person.stubs(:image_url).returns("/path/to/person-image.png")
+
+    get :show, id: @person
+
+    assert_select "figure img[src='/path/to/person-image.png']"
   end
 
   test "show lists current roles held by person" do
