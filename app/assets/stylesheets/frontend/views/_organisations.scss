@@ -46,6 +46,12 @@
     border-left-style: solid;
     padding-left: $gutter*3;
   }
+  .img {
+    img {
+      height: 576px;
+      width: 100%;
+    }
+  }
 }
 
 .organisation_homepage {
@@ -67,14 +73,7 @@
   }
 }
 
-.organisation {
-  .img {
-    img {
-      height: 576px;
-      width: 100%;
-    }
-  }
-}
+
 
 .news_body {
   bottom: 7px;
