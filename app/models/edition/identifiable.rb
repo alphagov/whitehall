@@ -22,7 +22,7 @@ module Edition::Identifiable
   end
 
   def set_document_type_on_document
-    self.document.set_document_type(type) if document.present?
+    document.document_type = type if document.present?
   end
 
   module ClassMethods
