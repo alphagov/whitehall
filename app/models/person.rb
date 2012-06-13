@@ -29,10 +29,6 @@ class Person < ActiveRecord::Base
     role_appointments.empty?
   end
 
-  def image_filename
-    image_url && File.basename(image_url)
-  end
-
   def name
     [title, forename, surname, letters].compact.join(' ')
   end
