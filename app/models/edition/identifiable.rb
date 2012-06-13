@@ -26,11 +26,9 @@ module Edition::Identifiable
   end
 
   module ClassMethods
-    def published_as(id)
-      document = Document.where(document_type: sti_name).find(id)
+    def published_as(slug)
+      document = Document.where(document_type: sti_name, slug: slug).first
       document && document.published_edition
-    rescue ActiveRecord::RecordNotFound
-      nil
     end
   end
 end
