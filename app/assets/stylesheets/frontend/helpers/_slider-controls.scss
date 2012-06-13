@@ -5,7 +5,7 @@
   li {
     list-style: none;
     a {
-      background: url(/government/assets/carousel-arrows.png) center 6px no-repeat;
+      background: #666 url(/government/assets/carousel-arrows.png) center 6px no-repeat;
       color: white;
       display: block;
       height: 60px;
@@ -18,7 +18,7 @@
     }
     .carousel-next {
       right: 0;
-      background: url(/government/assets/carousel-arrows.png) center -98px no-repeat;
+      background: #666 url(/government/assets/carousel-arrows.png) center -98px no-repeat;
     }
     .carousel-disabled {
       display: none;
