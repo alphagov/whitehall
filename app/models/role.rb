@@ -70,6 +70,10 @@ class Role < ActiveRecord::Base
     end
   end
 
+  def ministerial?
+    false
+  end
+
   def to_s
     current_person ? "#{current_person.name} (#{name_and_organisations})" : name_and_organisations
   end

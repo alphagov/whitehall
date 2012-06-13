@@ -3,22 +3,9 @@ require 'test_helper'
 class PeopleControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
-  def stub_record(type, options = {})
-    result = build(type, options)
-    result.stubs(:id).returns(next_id)
-    result.stubs(:new_record?).returns(false)
-    result.stubs(:to_param).returns(result.id.to_s)
-    result
-  end
-
-  def next_id
-    @next_id ||= 0
-    @next_id += 1
-  end
-
   setup do
     @person = stub_record(:person)
-    Person.stubs(:find).returns(@person)
+    Person.stubs(:find).with(@person.to_param).returns(@person)
   end
 
   test "show displays name and biography" do
@@ -28,7 +15,15 @@ class PeopleControllerTest < ActionController::TestCase
     get :show, id: @person
 
     assert_select ".name", text: "Alan Clark MP"
-    assert_select ".biography", text: "Conservative diarist and philanderer"
+    assert_select ".biography", text: /Conservative diarist and philanderer/
+  end
+
+  test "show displays image of the person" do
+    @person.stubs(:image_url).returns("/path/to/person-image.png")
+
+    get :show, id: @person
+
+    assert_select "figure img[src='/path/to/person-image.png']"
   end
 
   test "show lists current roles held by person" do

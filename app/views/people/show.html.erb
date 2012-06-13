@@ -6,6 +6,10 @@
     </hgroup>
   </header>
   <section class="biography">
+    <div class="image">
+      <%= @person.image %>
+    </div>
+    <h1 class="label">Biography</h1>
     <%= @person.biography %>
   </section>
 
@@ -15,7 +19,7 @@
       <ul>
         <% @person.current_role_appointments.each do |appointment| %>
           <%= content_tag_for :li, appointment do %>
-            <%= link_to appointment.role.name, ministerial_role_url(appointment.role) %>
+            <%= appointment.link %>
           <% end %>
         <% end %>
       </ul>
@@ -28,7 +32,7 @@
       <ul>
         <% @person.previous_role_appointments.each do |appointment| %>
           <%= content_tag_for :li, appointment do %>
-            <%= link_to appointment.role.name, ministerial_role_url(appointment.role) %>
+            <%= appointment.link %>
           <% end %>
         <% end %>
       </ul>

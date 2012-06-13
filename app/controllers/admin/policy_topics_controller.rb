@@ -2,7 +2,7 @@ class Admin::PolicyTopicsController < Admin::BaseController
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
 
   def index
-    @policy_topics = PolicyTopicsPresenter.new
+    @policy_topics = PolicyTopicsPresenter.by_name
   end
 
   def new
@@ -57,19 +57,19 @@ class Admin::PolicyTopicsController < Admin::BaseController
     end
   end
 
-  class PolicyTopicsPresenter < Whitehall::Presenters::Collection
-    def initialize
-      super(PolicyTopic.order(:name))
+  class PolicyTopicsPresenter < Draper::Base
+    class << self
+      def by_name
+        decorate PolicyTopic.order(:name)
+      end
     end
 
-    present_object_with do
-      def breakdown
-        published_policy_ids = @record.policies.published.select("editions.id")
-        {
-          "featured policy" => @record.policy_topic_memberships.where(featured: true).where("policy_id IN (?)", published_policy_ids).count,
-          "published policy" => published_policy_ids.count
-        }
-      end
+    def breakdown
+      published_policy_ids = policies.published.select("editions.id")
+      {
+        "featured policy" => policy_topic_memberships.where(featured: true).where("policy_id IN (?)", published_policy_ids).count,
+        "published policy" => published_policy_ids.count
+      }
     end
   end
 
