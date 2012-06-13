@@ -6,6 +6,7 @@ module Edition::Publishing
 
     scope :first_published_since, -> time { where(arel_table[:first_published_at].gt(time)) }
     scope :first_published_during, -> period { where(first_published_at: period) }
+    scope :significant_change, where(minor_change: false)
   end
 
   module ClassMethods
