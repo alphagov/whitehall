@@ -18,11 +18,11 @@ module Edition::Identifiable
   end
 
   def update_document_slug
-    self.document.update_slug_if_possible(self.sluggable_title)
+    document.update_slug_if_possible(self.sluggable_title)
   end
 
   def set_document_type_on_document
-    self.document.set_document_type(type) if document.present?
+    document.document_type = type if document.present?
   end
 
   module ClassMethods

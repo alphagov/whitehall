@@ -54,10 +54,6 @@ class Document < ActiveRecord::Base
     end
   end
 
-  def set_document_type(document_type)
-    self.document_type = document_type
-  end
-
   def published?
     published_edition.present?
   end
