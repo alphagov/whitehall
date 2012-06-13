@@ -9,6 +9,10 @@ class PersonPresenter < Draper::Base
     RoleAppointmentPresenter.decorate model.previous_role_appointments
   end
 
+  def biography
+    h.govspeak_to_html model.biography
+  end
+
   def link
     h.link_to name, url
   end

@@ -28,4 +28,9 @@ class PersonPresenterTest < PresenterTestCase
   test 'image captions figure with name of person' do
     assert_select_from @presenter.image, 'figure.img figcaption', text: @person.name
   end
+
+  test 'biography generates html from the original govspeak' do
+    @person.stubs(:biography).returns("## Hello")
+    assert_select_from @presenter.biography, '.govspeak h2', text: 'Hello'
+  end
 end
