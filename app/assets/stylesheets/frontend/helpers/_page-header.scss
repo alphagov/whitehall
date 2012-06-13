@@ -74,6 +74,7 @@
 .consultation-response {
   .page_header {
     $width: 60px;
+    padding-left: $width + $gutter-two-thirds;
     background-image: url(/government/assets/icons/48/consultation-responded.png);
   }
 }

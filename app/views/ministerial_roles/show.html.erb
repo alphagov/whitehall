@@ -108,6 +108,10 @@
   <% end %>
 
   <% unless @announcements.any? || @policies.any? || @publications.any? || @consultations.any? %>
+  <div class="block-6">
+    <div class="inner-block">
     <p class="nothing_related">At present we do not have any related content.</p>
+    </div>
+  </div>
   <% end %>
 <% end %>
