@@ -51,10 +51,7 @@ class Document < ActiveRecord::Base
   end
 
   def update_slug_if_possible(new_title)
-    unless published?
-      self.sluggable_string = new_title
-      save
-    end
+    update_attributes(sluggable_string: new_title) unless published?
   end
 
   def published?
