@@ -47,10 +47,6 @@ class Document < ActiveRecord::Base
     super value
   end
 
-  def unpublished_edition
-    editions.where("state IN (:draft_states)", draft_states: [:draft, :submitted, :rejected]).first
-  end
-
   def update_slug_if_possible(new_title)
     unless published?
       self.sluggable_string = new_title

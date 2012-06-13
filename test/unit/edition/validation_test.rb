@@ -36,25 +36,25 @@ class Edition::ValidationTest < ActiveSupport::TestCase
 
   test "should be invalid if document has existing draft editions" do
     draft_edition = create(:draft_edition)
-    edition = build(:edition, document: draft_edition.document)
+    edition = build(:edition, document: draft_edition.document.reload)
     refute edition.valid?
   end
 
   test "should be invalid if document has existing submitted editions" do
     submitted_edition = create(:submitted_edition)
-    edition = build(:edition, document: submitted_edition.document)
+    edition = build(:edition, document: submitted_edition.document.reload)
     refute edition.valid?
   end
 
   test "should be invalid if document has existing editions that need work" do
     rejected_edition = create(:rejected_edition)
-    edition = build(:edition, document: rejected_edition.document)
+    edition = build(:edition, document: rejected_edition.document.reload)
     refute edition.valid?
   end
 
   test "should be invalid when published if document has existing published editions" do
     published_edition = create(:published_edition)
-    edition = build(:published_policy, document: published_edition.document)
+    edition = build(:published_policy, document: published_edition.document.reload)
     refute edition.valid?
   end
 

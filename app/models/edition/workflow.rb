@@ -80,7 +80,9 @@ module Edition::Workflow
 
   class EditionHasNoUnpublishedEditionsValidator < ActiveModel::Validator
     def validate(record)
-      if record.document && (existing_edition = record.document.unpublished_edition)
+      return unless record.document
+      existing_edition = record.document.unpublished_edition
+      if existing_edition
         record.errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
       end
     end
