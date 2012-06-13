@@ -1,3 +1,3 @@
 <%= render_list_of_ministerial_roles(ministerial_roles) do |ministerial_role| %>
-  <%= link_to ministerial_role, ministerial_role %>
+  <%= link_to ministerial_role.name, ministerial_role %> (<%= link_to ministerial_role.current_person_name, ministerial_role.current_person %>)
 <% end %>

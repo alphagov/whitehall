@@ -16,9 +16,9 @@ class ApplicationHelperTest < ActionView::TestCase
     options = ministerial_appointment_options
 
     assert_equal 3, options.length
-    assert options.include? [philip_hammond_appointment.id, "Philip Hammond (Secretary of State, Ministry of Defence, 2011-01-01 - present)"]
-    assert options.include? [philip_hammond_home_secretary_appointment.id, "Philip Hammond (Secretary of State, Home Office, 2010-01-01 - 2011-01-01)"]
-    assert options.include? [theresa_may_appointment.id, "Theresa May (Secretary of State, Home Office, 2011-01-01 - present)"]
+    assert options.include? [philip_hammond_appointment.id, "Philip Hammond, Secretary of State, in Ministry of Defence"]
+    assert options.include? [philip_hammond_home_secretary_appointment.id, "Philip Hammond, as Secretary of State (01 January 2010 to 01 January 2011), in Home Office"]
+    assert options.include? [theresa_may_appointment.id, "Theresa May, Secretary of State, in Home Office"]
   end
 
   test "should not include non-ministerial appointments" do

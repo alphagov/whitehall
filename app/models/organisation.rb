@@ -171,6 +171,10 @@ class Organisation < ActiveRecord::Base
     child_organisations.none? && organisation_roles.none? && !new_record?
   end
 
+  def to_s
+    name
+  end
+
   private
 
   def contact_and_contact_numbers_are_blank(attributes)

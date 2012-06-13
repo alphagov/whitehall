@@ -49,9 +49,25 @@ module ApplicationHelper
     end
   end
 
+  def role_appointment(appointment, link=false)
+    role_text = (link ? link_to(appointment.role.name, appointment.role) : appointment.role.name)
+    if appointment.current?
+      role_text.html_safe
+    else
+      ended = appointment.ended_at ? l(appointment.ended_at.to_date) : 'present'
+      "as #{role_text} (#{l(appointment.started_at.to_date)} to #{ended})".html_safe
+    end
+  end
+
   def ministerial_appointment_options
     RoleAppointment.for_ministerial_roles.alphabetical_by_person.map do |appointment|
-      [appointment.id, appointment.to_s]
+      [appointment.id, "#{appointment.person.name}, #{role_appointment(appointment)}, in #{appointment.role.organisations.to_sentence}"]
+    end
+  end
+
+  def ministerial_role_options
+    MinisterialRole.alphabetical_by_person.map do |role|
+      [role.id, "#{role.name}, in #{role.organisations.to_sentence} (#{role.current_person_name})"]
     end
   end
 

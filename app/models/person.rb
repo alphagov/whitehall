@@ -34,7 +34,11 @@ class Person < ActiveRecord::Base
   end
 
   def name
-    [title, forename, surname, letters].compact.join(' ')
+    [title, forename, surname, letters].reject(&:blank?).join(' ')
+  end
+
+  def to_s
+    name
   end
 
   def previous_role_appointments
