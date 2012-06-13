@@ -5,15 +5,34 @@ class Document < ActiveRecord::Base
   friendly_id :sluggable_string, use: :scoped, scope: :document_type
 
   after_destroy :destroy_all_editions
+
   has_many :editions
   has_many :edition_relations, dependent: :destroy
-  has_one :published_edition, class_name: 'Edition', conditions: { state: 'published' }
-  has_one :unpublished_edition, class_name: 'Edition', conditions: { state: ['draft', 'submitted', 'rejected'] }
 
-  has_many :consultation_responses, class_name: 'ConsultationResponse', foreign_key: :consultation_document_id, dependent: :destroy
-  has_one :published_consultation_response, class_name: 'ConsultationResponse', foreign_key: :consultation_document_id, conditions: { state: 'published' }
+  has_one  :published_edition,
+           class_name: 'Edition',
+           conditions: { state: 'published' }
+  has_one  :unpublished_edition,
+           class_name: 'Edition',
+           conditions: { state: %w[ draft submitted rejected ] }
 
-  has_one :latest_edition, class_name: 'Edition', conditions: "NOT EXISTS (SELECT 1 FROM editions e2 WHERE e2.document_id = editions.document_id AND e2.id > editions.id AND e2.state <> 'deleted')"
+  has_many :consultation_responses,
+           class_name: 'ConsultationResponse',
+           foreign_key: :consultation_document_id,
+           dependent: :destroy
+  has_one  :published_consultation_response,
+           class_name: 'ConsultationResponse',
+           foreign_key: :consultation_document_id,
+           conditions: { state: 'published' }
+
+  has_one  :latest_edition,
+           class_name: 'Edition',
+           conditions: %{
+             NOT EXISTS (
+               SELECT 1 FROM editions e2
+               WHERE e2.document_id = editions.document_id
+               AND e2.id > editions.id
+               AND e2.state <> 'deleted')}
 
   attr_accessor :sluggable_string
 
