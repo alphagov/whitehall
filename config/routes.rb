@@ -11,10 +11,7 @@ Whitehall::Application.routes.draw do
 
   root to: redirect("/")
 
-  match '/specialist' => redirect("/specialist/guides", prefix: "")
-  scope "specialist" do
-    resources :specialist_guides, path: 'guides', only: [:show, :index]
-  end
+  resources :specialist_guides, path: 'specialist', only: [:show, :index]
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "site#sunset"
