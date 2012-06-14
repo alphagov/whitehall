@@ -120,21 +120,21 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test 'should pass filter parameters to an edition filter' do
-    stub_filter = stub('edition filter', editions: [], page_title: '')
+    stub_filter = stub_edition_filter
     Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
 
     get :index, state: :draft, type: :policy
   end
 
   test "should not pass blank parameters to the edition filter" do
-    stub_filter = stub('edition filter', editions: [], page_title: '')
+    stub_filter = stub_edition_filter
     Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"state" => "draft"}).returns(stub_filter)
 
     get :index, state: :draft, author: ""
   end
 
   test 'should strip out any invalid states passed as parameters' do
-    stub_filter = stub('edition filter', editions: [], page_title: '')
+    stub_filter = stub_edition_filter
     Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"type" => "policy"}).returns(stub_filter)
 
     get :index, state: :haxxor_method, type: :policy
@@ -143,7 +143,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test 'should distinguish between edition types when viewing the list of editions' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    stub_filter = stub('edition filter', editions: [policy, publication], page_title: '')
+    stub_filter = stub_edition_filter(editions: [policy, publication])
     Admin::EditionsController::EditionFilter.stubs(:new).returns(stub_filter)
 
     get :index, state: :draft
@@ -365,5 +365,12 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, state: :draft
 
     assert_select_object(draft_edition) { refute_select ".state" }
+  end
+  
+  def stub_edition_filter(attributes = {})
+    default_attributes = {
+      editions: [], page_title: '', edition_state: ''
+    }
+    stub('edition filter', default_attributes.merge(attributes))
   end
 end
