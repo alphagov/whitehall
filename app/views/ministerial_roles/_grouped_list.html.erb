@@ -6,7 +6,7 @@
         <%= render_list_of_ministerial_roles ministerial_roles_group do |ministerial_role| %>
           <div class="inner">
             <div class="image_holder">
-              <%= link_to image_for_ministerial_role(ministerial_role), ministerial_role %>
+              <%= link_to ministerial_role.current_person_image, ministerial_role %>
             </div>
             <h3 class="current_appointee"><%= ministerial_role.current_person_name %></h3>
             <p class="role"><%= ministerial_role.link %></p>

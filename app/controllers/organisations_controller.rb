@@ -39,7 +39,9 @@ class OrganisationsController < PublicFacingController
   end
 
   def ministers
-    @ministerial_roles = @organisation.ministerial_roles.order("organisation_roles.ordering")
+    @ministerial_roles = @organisation.ministerial_roles.order("organisation_roles.ordering").map do |role|
+      RolePresenter.new(role)
+    end
   end
 
   def publications
