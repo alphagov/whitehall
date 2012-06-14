@@ -87,6 +87,13 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, state: :draft, type: :policy
   end
 
+  test "should not pass blank parameters to the edition filter" do
+    stub_filter = stub('edition filter', editions: [])
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"state" => "draft"}).returns(stub_filter)
+
+    get :index, state: :draft, author: ""
+  end
+
   test 'should strip out any invalid states passed as parameters' do
     stub_filter = stub('edition filter', editions: [])
     Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"type" => "policy"}).returns(stub_filter)
