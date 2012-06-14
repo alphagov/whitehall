@@ -27,4 +27,13 @@ class RolePresenterTest < PresenterTestCase
     @role.stubs(:name).returns('The Minister of Funk')
     assert_equal 'The Minister of Funk', @presenter.link
   end
+
+  test 'current_person returns a PersonPresenter for the current appointee' do
+    assert_equal @presenter.current_person, PersonPresenter.new(@role.current_person)
+  end
+
+  test 'current_person returns a UnassignedPersonPresenter if there is no current appointee' do
+    @role.stubs(:current_person).returns(nil)
+    assert_equal @presenter.current_person, RolePresenter::UnassignedPersonPresenter.new(nil)
+  end
 end

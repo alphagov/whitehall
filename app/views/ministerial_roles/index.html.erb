@@ -20,8 +20,8 @@
               <div class="image_holder">
                 <%= link_to image_for_ministerial_role(role), role %>
               </div>
-              <h2 class="current_appointee"><%= role.current_person_name %></h2>
-              <p class="role"><%= link_to role.name, role %></p>
+              <h2 class="current_appointee"><%= role.current_person_link %></h2>
+              <p class="role"><%= role.link %></p>
             </div>
           </li>
         <% end %>

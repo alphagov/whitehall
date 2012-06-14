@@ -2,11 +2,6 @@ Given /^a person called "([^"]*)"$/ do |name|
   create_person(name)
 end
 
-Given /^the person "([^"]*)" has a biography "([^"]*)"$/ do |name, biography|
-  person = find_person(name)
-  person.update_attributes!(biography: biography)
-end
-
 Given /^"([^"]*)" is a minister with a history$/ do |name|
   person = create_person(name)
   role = create(:ministerial_role)
