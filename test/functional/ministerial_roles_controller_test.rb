@@ -30,7 +30,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles)
+    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles).collect(&:model)
   end
 
   test "should avoid n+1 queries" do
@@ -130,30 +130,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     refute_select ".news_and_speeches"
   end
 
-  test "shows minister's picture if available" do
-    minister = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
-    role_appointment = create(:ministerial_role_appointment, person: minister)
-    get :show, id: role_appointment.role.id
-
-    assert_select "img[src='#{minister.image.url}']"
-  end
-
-  test "shows placeholder picture if minister has none" do
-    role_appointment = create(:ministerial_role_appointment)
-    get :show, id: role_appointment.role.id
-
-    assert_select "img[src$='blank-person.png']"
-  end
-
-  test "shows minister biography formatted in paragraphs" do
-    person = create(:person, biography: "biography-paragraph-1\n\nbiography-paragraph-2")
-    role_appointment = create(:ministerial_role_appointment, person: person)
-    get :show, id: role_appointment.role.id
-
-    assert_select ".biography p", text: "biography-paragraph-1"
-    assert_select ".biography p", text: "biography-paragraph-2"
-  end
-
   private
 
   def assert_minister_photo_links_to_their_role(role)
@@ -161,6 +137,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   end
 
   def assert_minister_role_links_to_their_role(role)
-    assert_select ".role a[href='#{ministerial_role_path(role)}']", text: role.name
+    assert_select ".role a[href='#{ministerial_role_url(role)}']", text: role.name
   end
 end

@@ -6,7 +6,7 @@
       <header class="page_header ministerial_role minister">
       <hgroup>
         <h1 class="role_name"><%= @ministerial_role.name %></h1>
-        <h2 class="current_person_name"><%= @ministerial_role.current_person_name %></h2>
+        <h2 class="current_person_name"><%= @ministerial_role.current_person_link %></h2>
       </hgroup>
       </header>
     <section id="document_organisations">
@@ -32,19 +32,6 @@
       <div class="content"><%= govspeak_to_html @ministerial_role.responsibilities %></div>
     </section>
     <% end %>
-
-    <section class="current_person">
-      <div class="biography">
-        <div class="image">
-          <figure class="img">
-            <%= image_for_ministerial_role @ministerial_role %>
-            <figcaption class="name"><%= @ministerial_role.current_person_name %></figcaption>
-          </figure>
-        </div>
-        <h1 class="label">Biography</h1>
-        <%= govspeak_to_html(@ministerial_role.current_person_biography) %>
-      </div>
-    </section>
     </div>
   </div>
 

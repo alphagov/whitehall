@@ -38,10 +38,6 @@ Then /^I should see that the minister is associated with the "([^"]*)"$/ do |org
   assert page.has_css?(record_css_selector(organisation)), "organisation was missing"
 end
 
-Then /^I should see that the minister has a biography "([^"]*)"$/ do |biography|
-  assert page.has_css?(".biography", text: biography)
-end
-
 Then /^I should see that the minister has responsibilities "([^"]*)"$/ do |responsibilities|
   assert page.has_css?(".responsibilities", text: responsibilities)
 end
