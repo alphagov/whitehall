@@ -47,29 +47,28 @@
     <div class="inner-block">
       <section id="who">
         <h1 class="label">People</h1>
-        <% roles = [@organisation.top_ministerial_role, @organisation.top_civil_servant].compact %>
-        <% if ministerial_role = @organisation.top_ministerial_role %>
+        <% if @top_ministerial_role %>
           <section id="ministers">
             <h1 class="visuallyhidden">Minister</h1>
-            <%= content_tag_for(:article, ministerial_role) do %>
+            <%= content_tag_for(:article, @top_ministerial_role) do %>
               <div class="image_holder">
-                <%= image_for_ministerial_role(ministerial_role) %>
+                <%= @top_ministerial_role.current_person_image %>
               </div>
-              <h3 class="current_appointee"><%= ministerial_role.current_person_name %></h3>
-              <p class="role"><%= link_to ministerial_role.name, ministerial_role %></p>
+              <h3 class="current_appointee"><%= @top_ministerial_role.current_person_name %></h3>
+              <p class="role"><%= @top_ministerial_role.link %></p>
             <% end %>
             <p class="view_all"><%= link_to 'View all ministers', ministers_organisation_path(@organisation) %></p>
           </section>
         <% end %>
-        <% if management_role = @organisation.top_civil_servant %>
+        <% if @top_civil_servant %>
           <section id="management">
             <h1 class="visuallyhidden">Management</h1>
-            <%= content_tag_for(:article, management_role) do %>
+            <%= content_tag_for(:article, @top_civil_servant) do %>
               <div class="image_holder">
-                <%= image_for_ministerial_role(management_role) %>
+                <%= @top_civil_servant.current_person_image %>
               </div>
-              <h3 class="current_appointee"><%= management_role.current_person_name %></h3>
-              <p class="role"><%= management_role.name %></p>
+              <h3 class="current_appointee"><%= @top_civil_servant.current_person_name %></h3>
+              <p class="role"><%= @top_civil_servant.link %></p>
             <% end %>
             <p class="view_all"><%= link_to 'View management team', management_team_organisation_path(@organisation) %></p>
           </section>

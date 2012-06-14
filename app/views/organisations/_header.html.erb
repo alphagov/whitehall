@@ -1,11 +1,7 @@
 <section class="page_header">
   <h1 class="page_title name">
     <span>
-      <% if local_assigns.has_key?(:title) %>
-        <%= organisation_subpage_title(organisation, title) %>
-      <% else %>
-        <%= organisation.name %>
-      <% end %>
+      <%= organisation.name %><% if local_assigns.has_key?(:title) %> &mdash; <%= title %><% end %>
     </span>
   </h1>
 </section>

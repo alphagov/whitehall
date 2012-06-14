@@ -15,18 +15,14 @@ class PersonPresenterTest < PresenterTestCase
     assert_select_from @presenter.link, 'a[href="http://example.com/person/a-person"]', text: @person.name
   end
 
-  test 'image wraps img of person with figure' do
+  test 'image returns an img tag' do
     @person.stubs(:image_url).returns('/link/to/image.jpg')
-    assert_select_from @presenter.image, 'figure.img img[src="/link/to/image.jpg"]'
+    assert_select_from @presenter.image, 'img[src="/link/to/image.jpg"]'
   end
 
   test 'image links to blank-person.png if person has no associated image' do
     @person.stubs(:image_url).returns(nil)
-    assert_select_from @presenter.image, 'figure.img img[src="/government/assets/blank-person.png"]'
-  end
-
-  test 'image captions figure with name of person' do
-    assert_select_from @presenter.image, 'figure.img figcaption', text: @person.name
+    assert_select_from @presenter.image, 'img[src="/government/assets/blank-person.png"]'
   end
 
   test 'biography generates html from the original govspeak' do

@@ -45,7 +45,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
   end
 
-  test "shows the cabinet minister's photo, name and role" do
+  test "shows the cabinet minister's name and role" do
     person = create(:person, forename: "John", surname: "Doe", image: File.open(Rails.root.join("test/fixtures/minister-of-funk.jpg")))
     ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
     create(:role_appointment, person: person, role: ministerial_role)
@@ -53,7 +53,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".ministerial_role" do
-      assert_minister_photo_links_to_their_role(ministerial_role)
       assert_select ".current_appointee", text: "John Doe"
       assert_minister_role_links_to_their_role(ministerial_role)
     end

@@ -79,10 +79,6 @@ module OrganisationHelper
     end
   end
 
-  def organisation_subpage_title(organisation, title)
-    "#{organisation.name} &mdash; #{title}".html_safe
-  end
-
   def organisation_type_class(organisation_type)
     organisation_type.name.downcase.gsub(/\s/, '-') if organisation_type && organisation_type.name.present?
   end
