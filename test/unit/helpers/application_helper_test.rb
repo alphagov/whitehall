@@ -10,15 +10,15 @@ class ApplicationHelperTest < ActionView::TestCase
     philip_hammond = create(:person, forename: "Philip", surname: "Hammond")
     theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may, started_at: Date.parse('2011-01-01'))
     philip_hammond_appointment = create(:role_appointment, role: defence_secretary, person: philip_hammond, started_at: Date.parse('2011-01-01'))
-    philip_hammond_home_secretary_appointment = 
+    philip_hammond_home_secretary_appointment =
       create(:role_appointment, role: home_secretary, person: philip_hammond, started_at: Date.parse('2010-01-01'), ended_at: Date.parse('2011-01-01'))
 
     options = ministerial_appointment_options
 
     assert_equal 3, options.length
-    assert options.include? [philip_hammond_appointment.id, "Philip Hammond (Secretary of State, Ministry of Defence, 2011-01-01 - present)"]
-    assert options.include? [philip_hammond_home_secretary_appointment.id, "Philip Hammond (Secretary of State, Home Office, 2010-01-01 - 2011-01-01)"]
-    assert options.include? [theresa_may_appointment.id, "Theresa May (Secretary of State, Home Office, 2011-01-01 - present)"]
+    assert options.include? [philip_hammond_appointment.id, "Philip Hammond, Secretary of State, in Ministry of Defence"]
+    assert options.include? [philip_hammond_home_secretary_appointment.id, "Philip Hammond, as Secretary of State (01 January 2010 to 01 January 2011), in Home Office"]
+    assert options.include? [theresa_may_appointment.id, "Theresa May, Secretary of State, in Home Office"]
   end
 
   test "should not include non-ministerial appointments" do
