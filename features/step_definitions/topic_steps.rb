@@ -148,7 +148,7 @@ end
 def create_topic(options = {})
   visit admin_root_path
   click_link "Topics"
-  click_link "Create Policy Area"
+  click_link "Create topic"
   fill_in "Name", with: options[:name] || "topic-name"
   fill_in "Description", with: options[:description] || "topic-description"
   (options[:related_topics] || []).each do |related_name|
