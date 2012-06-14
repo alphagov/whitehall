@@ -1,0 +1,14 @@
+<section id="related_topics" class="simple_list">
+  <h1 class="label">Related topics</h1>
+  <% if related_topics.any? %>
+    <ul class="topics">
+      <% related_topics.each do |related_topic| %>
+        <%= content_tag_for :li, related_topic do %>
+          <%= link_to related_topic.name, topic_path(related_topic), title: "View #{related_topic.name}" %>
+        <% end %>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No related topics</p>
+  <% end %>
+</section>

@@ -6,13 +6,13 @@ end
 
 def import_stub(stub)
   title = stub["What we're doing"].strip
-  policy_topic_names = stub["Policy topics"] ? stub["Policy topics"].split(";").map(&:strip) : []
+  topic_names = stub["Topics"] ? stub["Topics"].split(";").map(&:strip) : []
   lead_org_name = stub["Lead org"].strip
   other_org_names = stub["Other orgs"] ? stub["Other orgs"].split(";").map(&:strip) : []
   url = stub["URL for info on current policies"].strip
   people_names = stub["Ministers"] ? stub["Ministers"].split(";").map(&:strip) : []
 
-  policy_topics = PolicyTopic.where("name IN (?)", policy_topic_names)
+  topics = Topic.where("name IN (?)", topic_names)
   lead_org = Organisation.find_by_name(lead_org_name) || Organisation.find_by_acronym(lead_org_name)
   raise "Couldn't find lead org #{lead_org_name.inspect}" unless lead_org.present?
   orgs = Organisation.where("name IN (?)", other_org_names)
@@ -29,7 +29,7 @@ For accurate, reliable and up to date information on this policy, visit the #{le
   backdate = 3.months.ago
 
   attributes = {
-    title: title, policy_topics: policy_topics, organisations: [lead_org, *orgs], 
+    title: title, topics: topics, organisations: [lead_org, *orgs],
     ministerial_roles: ministerial_roles, body: body,
     creator: creator,
     created_at: backdate, updated_at: backdate

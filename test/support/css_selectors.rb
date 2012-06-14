@@ -17,8 +17,8 @@ module CssSelectors
     "#organisations"
   end
 
-  def policy_topics_selector
-    "#policy_topics"
+  def topics_selector
+    "#topics"
   end
 
   def ministers_responsible_selector
@@ -65,8 +65,8 @@ module CssSelectors
     "select[name='organisation[organisation_type_id]']"
   end
 
-  def organisation_policy_topics_list_selector
-    "select[name='organisation[policy_topic_ids][]']"
+  def organisation_topics_list_selector
+    "select[name='organisation[topic_ids][]']"
   end
 
   def permanent_secretary_board_members_selector

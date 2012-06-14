@@ -215,15 +215,15 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_equal published_edition, assigns(:document)
   end
 
-  test "should link to policy topics related to the policy" do
-    first_policy_topic = create(:policy_topic)
-    second_policy_topic = create(:policy_topic)
-    edition = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
+  test "should link to topics related to the policy" do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
+    edition = create(:published_policy, topics: [first_topic, second_topic])
 
     get :show, id: edition.document
 
-    assert_select "#document_topics li.policy_topic a", text: first_policy_topic.name
-    assert_select "#document_topics li.policy_topic a", text: second_policy_topic.name
+    assert_select "#document_topics li.topic a", text: first_topic.name
+    assert_select "#document_topics li.topic a", text: second_topic.name
   end
 
   test "should link to organisations related to the policy" do

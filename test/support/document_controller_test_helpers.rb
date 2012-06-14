@@ -104,7 +104,7 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_show_related_policies_and_policy_topics_for(document_type)
+    def should_show_related_policies_and_topics_for(document_type)
       test "show displays related published policies" do
         published_policy = create(:published_policy)
         edition = create("published_#{document_type}", related_policies: [published_policy])
@@ -119,21 +119,21 @@ module DocumentControllerTestHelpers
         refute_select_object draft_policy
       end
 
-      test "show infers policy topics from published policies" do
-        policy_topic = create(:policy_topic)
-        published_policy = create(:published_policy, policy_topics: [policy_topic])
+      test "show infers topics from published policies" do
+        topic = create(:topic)
+        published_policy = create(:published_policy, topics: [topic])
         edition = create("published_#{document_type}", related_policies: [published_policy])
         get :show, id: edition.document
-        assert_select_object policy_topic
+        assert_select_object topic
       end
 
-      test "show doesn't display duplicate inferred policy topics" do
-        policy_topic = create(:policy_topic)
-        published_policy_1 = create(:published_policy, policy_topics: [policy_topic])
-        published_policy_2 = create(:published_policy, policy_topics: [policy_topic])
+      test "show doesn't display duplicate inferred topics" do
+        topic = create(:topic)
+        published_policy_1 = create(:published_policy, topics: [topic])
+        published_policy_2 = create(:published_policy, topics: [topic])
         edition = create("published_#{document_type}", related_policies: [published_policy_1, published_policy_2])
         get :show, id: edition.document
-        assert_select_object policy_topic, count: 1
+        assert_select_object topic, count: 1
       end
 
       test "should not display policies unless they are related" do

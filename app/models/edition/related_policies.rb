@@ -25,9 +25,9 @@ module Edition::RelatedPolicies
   end
 
   module ClassMethods
-    def in_policy_topic(policy_topics)
-      policy_topic_ids = policy_topics.map do |policy_topic|
-        policy_topic.respond_to?(:id) ? policy_topic.id.to_i : policy_topic.to_i
+    def in_topic(topics)
+      topic_ids = topics.map do |topic|
+        topic.respond_to?(:id) ? topic.id.to_i : topic.to_i
       end
       latest_published_edition.where("
         exists (
@@ -42,12 +42,12 @@ module Edition::RelatedPolicies
                   e3.document_id = policy.document_id
                   AND e3.id > policy.id AND e3.state = 'published'
               )
-            join policy_topic_memberships ptm on ptm.policy_id = policy.id
+            join topic_memberships ptm on ptm.policy_id = policy.id
           where
             dr.edition_id=editions.id
-            and ptm.policy_topic_id in (?)
+            and ptm.topic_id in (?)
         )
-      ", policy_topic_ids)
+      ", topic_ids)
     end
   end
 end

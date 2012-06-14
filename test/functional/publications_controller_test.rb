@@ -3,7 +3,7 @@ require "test_helper"
 class PublicationsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_attachments_for :publication
-  should_show_related_policies_and_policy_topics_for :publication
+  should_show_related_policies_and_topics_for :publication
   should_show_the_countries_associated_with :publication
   should_display_inline_images_for :publication
   should_not_display_lead_image_for :publication
@@ -119,43 +119,43 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select "#{record_css_selector(older_featured_publication)}.featured"
   end
 
-  def given_two_publications_in_two_policy_topics
+  def given_two_publications_in_two_topics
     @policy_1 = create(:published_policy)
-    @policy_topic_1 = create(:policy_topic, policies: [@policy_1])
+    @topic_1 = create(:topic, policies: [@policy_1])
     @policy_2 = create(:published_policy)
-    @policy_topic_2 = create(:policy_topic, policies: [@policy_2])
+    @topic_2 = create(:topic, policies: [@policy_2])
     @published_publication = create(:published_publication, related_policies: [@policy_1])
-    @published_in_second_policy_topic = create(:published_publication, related_policies: [@policy_2])
+    @published_in_second_topic = create(:published_publication, related_policies: [@policy_2])
   end
 
-  test "can filter by the policy topic of the associated policy" do
-    given_two_publications_in_two_policy_topics
+  test "can filter by the topic of the associated policy" do
+    given_two_publications_in_two_topics
 
-    get :by_policy_topic, policy_topics: @policy_topic_1.slug
+    get :by_topic, topics: @topic_1.slug
 
     assert_select_object @published_publication
-    refute_select_object @published_in_second_policy_topic
+    refute_select_object @published_in_second_topic
   end
 
-  test "can filter by the union of multiple policy topics" do
-    given_two_publications_in_two_policy_topics
+  test "can filter by the union of multiple topics" do
+    given_two_publications_in_two_topics
 
-    get :by_policy_topic, policy_topics: @policy_topic_1.slug + "+" + @policy_topic_2.slug
+    get :by_topic, topics: @topic_1.slug + "+" + @topic_2.slug
 
     assert_select_object @published_publication
-    assert_select_object @published_in_second_policy_topic
+    assert_select_object @published_in_second_topic
   end
 
-  test 'should avoid n+1 selects when filtering by policy topics' do
+  test 'should avoid n+1 selects when filtering by topics' do
     policy = create(:published_policy)
-    policy_topic = create(:policy_topic, policies: [policy])
+    topic = create(:topic, policies: [policy])
     10.times { create(:published_publication, related_policies: [policy]) }
-    assert 10 > count_queries { get :by_policy_topic, policy_topics: policy_topic }
+    assert 10 > count_queries { get :by_topic, topics: topic }
   end
 
   test "should show a helpful message if there are no matching publications" do
-    policy_topic = create(:policy_topic)
-    get :by_policy_topic, policy_topics: policy_topic.slug
+    topic = create(:topic)
+    get :by_topic, topics: topic.slug
 
     assert_select "p", text: "There are no matching publications."
   end

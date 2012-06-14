@@ -126,8 +126,8 @@ module ApplicationHelper
       home_path
     when "announcements", "news_articles", "speeches"
       announcements_path
-    when "policy_topics", "policies", "supporting_pages"
-      policy_topics_path
+    when "topics", "policies", "supporting_pages"
+      topics_path
     when "publications"
       publications_path
     when "consultations", "consultation_responses"
@@ -200,10 +200,10 @@ module ApplicationHelper
     classes.join(" ")
   end
 
-  def publications_page_title(policy_topics)
-    if policy_topics.any?
+  def publications_page_title(topics)
+    if topics.any?
       "Publications about #{
-        policy_topics.map { |t| t.name.downcase }.to_sentence }"
+        topics.map { |t| t.name.downcase }.to_sentence }"
     else
       "Publications"
     end

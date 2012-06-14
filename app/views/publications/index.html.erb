@@ -4,7 +4,7 @@
 <div class="block-1">
   <div class="inner-block">
     <header class="page_header publication">
-      <h1 class="page_title"><%= publications_page_title(@selected_policy_topics) %></h1>
+      <h1 class="page_title"><%= publications_page_title(@selected_topics) %></h1>
     </header>
 
     <% if publication = @featured_publication %>
@@ -38,32 +38,32 @@
       <div class="filter">
         <div class="filter-controls">
           <h1>All publications</h1>
-          <h2>Filter by policy topic</h2>
+          <h2>Filter by topic</h2>
           <ul>
-            <% @all_policy_topics.each do |policy_topic| %>
+            <% @all_topics.each do |topic| %>
               <% css_classes = [] %>
-              <% css_classes << "selected" if @selected_policy_topics.include?(policy_topic) %>
-              <% css_classes << "top" if @top_policy_topics.include?(policy_topic) %>
+              <% css_classes << "selected" if @selected_topics.include?(topic) %>
+              <% css_classes << "top" if @top_topics.include?(topic) %>
               <% style = (css_classes & %w{top selected}).size > 0 ? nil : "display: none" %>
-              <%= content_tag_for(:li, policy_topic, class: css_classes.join(" "), style: style) do %>
+              <%= content_tag_for(:li, topic, class: css_classes.join(" "), style: style) do %>
                 <% if css_classes.include? "selected" %>
-                  <% title = "Remove '#{policy_topic.name}' from filter" %>
-                  <% topics = @selected_policy_topics - [policy_topic] %>
+                  <% title = "Remove '#{topic.name}' from filter" %>
+                  <% topics = @selected_topics - [topic] %>
                 <% else %>
-                  <% title = "Add '#{policy_topic.name}' to filter" %>
-                  <% topics = @selected_policy_topics + [policy_topic] %>
+                  <% title = "Add '#{topic.name}' to filter" %>
+                  <% topics = @selected_topics + [topic] %>
                 <% end %>
-                <% url = topics.any? ? by_policy_topic_publications_path(topics.map(&:slug).sort.join("+")) : publications_path %>
+                <% url = topics.any? ? by_topic_publications_path(topics.map(&:slug).sort.join("+")) : publications_path %>
                 <%= link_to url, title: title do %>
                   <span></span>
-                  <%= policy_topic.name %>
+                  <%= topic.name %>
                 <% end %>
               <% end %>
             <% end %>
             <li class="toggle">
               <a href="#"><span>+</span>View all topics</a>
             </li>
-            <% if @selected_policy_topics.any? %>
+            <% if @selected_topics.any? %>
               <li>
                 View <%= link_to "all publications", publications_path %>
               </li>

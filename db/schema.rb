@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120612140240) do
+ActiveRecord::Schema.define(:version => 20120614153246) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -230,16 +230,6 @@ ActiveRecord::Schema.define(:version => 20120612140240) do
     t.string "name"
   end
 
-  create_table "organisation_policy_topics", :force => true do |t|
-    t.integer  "organisation_id", :null => false
-    t.integer  "policy_topic_id", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "organisation_policy_topics", ["organisation_id"], :name => "index_organisation_policy_topics_on_organisation_id"
-  add_index "organisation_policy_topics", ["policy_topic_id"], :name => "index_organisation_policy_topics_on_policy_topic_id"
-
   create_table "organisation_roles", :force => true do |t|
     t.integer  "organisation_id"
     t.integer  "role_id"
@@ -250,6 +240,16 @@ ActiveRecord::Schema.define(:version => 20120612140240) do
 
   add_index "organisation_roles", ["organisation_id"], :name => "index_organisation_roles_on_organisation_id"
   add_index "organisation_roles", ["role_id"], :name => "index_organisation_roles_on_role_id"
+
+  create_table "organisation_topics", :force => true do |t|
+    t.integer  "organisation_id", :null => false
+    t.integer  "topic_id",        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "organisation_topics", ["organisation_id"], :name => "index_organisation_policy_topics_on_organisation_id"
+  add_index "organisation_topics", ["topic_id"], :name => "index_organisation_policy_topics_on_policy_topic_id"
 
   create_table "organisation_types", :force => true do |t|
     t.string   "name"
@@ -304,40 +304,6 @@ ActiveRecord::Schema.define(:version => 20120612140240) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "policy_topic_memberships", :force => true do |t|
-    t.integer  "policy_topic_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "policy_id"
-    t.integer  "ordering"
-    t.boolean  "featured",        :default => false
-  end
-
-  add_index "policy_topic_memberships", ["policy_id"], :name => "index_policy_topic_memberships_on_policy_id"
-  add_index "policy_topic_memberships", ["policy_topic_id"], :name => "index_policy_topic_memberships_on_policy_topic_id"
-
-  create_table "policy_topic_relations", :force => true do |t|
-    t.integer  "policy_topic_id",         :null => false
-    t.integer  "related_policy_topic_id", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "policy_topic_relations", ["policy_topic_id"], :name => "index_policy_topic_relations_on_policy_topic_id"
-  add_index "policy_topic_relations", ["related_policy_topic_id"], :name => "index_policy_topic_relations_on_related_policy_topic_id"
-
-  create_table "policy_topics", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "description"
-    t.string   "slug"
-    t.boolean  "featured",    :default => false
-    t.string   "state"
-  end
-
-  add_index "policy_topics", ["slug"], :name => "index_policy_areas_on_slug"
 
   create_table "recent_edition_openings", :force => true do |t|
     t.integer  "edition_id", :null => false
@@ -411,6 +377,40 @@ ActiveRecord::Schema.define(:version => 20120612140240) do
 
   add_index "supporting_pages", ["edition_id"], :name => "index_supporting_pages_on_edition_id"
   add_index "supporting_pages", ["slug"], :name => "index_supporting_documents_on_slug"
+
+  create_table "topic_memberships", :force => true do |t|
+    t.integer  "topic_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "policy_id"
+    t.integer  "ordering"
+    t.boolean  "featured",   :default => false
+  end
+
+  add_index "topic_memberships", ["policy_id"], :name => "index_policy_topic_memberships_on_policy_id"
+  add_index "topic_memberships", ["topic_id"], :name => "index_policy_topic_memberships_on_policy_topic_id"
+
+  create_table "topic_relations", :force => true do |t|
+    t.integer  "topic_id",         :null => false
+    t.integer  "related_topic_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "topic_relations", ["related_topic_id"], :name => "index_policy_topic_relations_on_related_policy_topic_id"
+  add_index "topic_relations", ["topic_id"], :name => "index_policy_topic_relations_on_policy_topic_id"
+
+  create_table "topics", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "description"
+    t.string   "slug"
+    t.boolean  "featured",    :default => false
+    t.string   "state"
+  end
+
+  add_index "topics", ["slug"], :name => "index_policy_areas_on_slug"
 
   create_table "users", :force => true do |t|
     t.string   "name"

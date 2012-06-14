@@ -1,5 +1,5 @@
 class PublicationsController < DocumentsController
-  before_filter :load_policy_topics, only: [:index, :by_policy_topic]
+  before_filter :load_topics, only: [:index, :by_topic]
 
   def index
     @all_publications = all_publications
@@ -8,21 +8,21 @@ class PublicationsController < DocumentsController
 
   def show
     @related_policies = @document.published_related_policies
-    @policy_topics = @related_policies.map { |d| d.policy_topics }.flatten.uniq
+    @topics = @related_policies.map { |d| d.topics }.flatten.uniq
   end
 
-  def by_policy_topic
-    @all_publications = all_publications.in_policy_topic(@selected_policy_topics)
+  def by_topic
+    @all_publications = all_publications.in_topic(@selected_topics)
     @featured_publications = []
     render :index
   end
 
   private
 
-  def load_policy_topics
-    @all_policy_topics = PolicyTopic.order(:name)
-    @top_policy_topics = @all_policy_topics.exemplars
-    @selected_policy_topics = PolicyTopic.where(slug: (params[:policy_topics] || "").split("+")).all
+  def load_topics
+    @all_topics = Topic.order(:name)
+    @top_topics = @all_topics.exemplars
+    @selected_topics = Topic.where(slug: (params[:topics] || "").split("+")).all
   end
 
   def all_publications

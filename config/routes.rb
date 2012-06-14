@@ -25,8 +25,8 @@ Whitehall::Application.routes.draw do
     end
     resources :news_articles, path: 'news', only: [:show, :index]
     resources :publications, only: [:index, :show] do
-      get '/by-policy-topic/:policy_topics', on: :collection,
-        to: 'publications#by_policy_topic', as: :by_policy_topic
+      get '/by-topic/:topics', on: :collection,
+        to: 'publications#by_topic', as: :by_topic
     end
 
     resources :international_priorities, path: "international-priorities", only: [:index, :show]
@@ -42,7 +42,7 @@ Whitehall::Application.routes.draw do
 
     resources :speeches, only: [:index, :show]
 
-    resources :policy_topics, path: "policy-topics", only: [:index, :show]
+    resources :topics, path: "topics", only: [:index, :show]
     resources :organisations, only: [:index, :show] do
       collection do
         get :alphabetical
@@ -80,7 +80,7 @@ Whitehall::Application.routes.draw do
         resources :policy_teams, except: [:show]
         resources :edition_organisations, only: [:update]
         resources :edition_countries, only: [:update]
-        resources :policy_topics, path: "policy-topics", except: [:show] do
+        resources :topics, path: "topics", except: [:show] do
           member do
             post :feature
             post :unfeature
@@ -120,7 +120,7 @@ Whitehall::Application.routes.draw do
       end
     end
 
-    match '/topics' => redirect("/policy-topics")
+    match '/policy-topics' => redirect("/topics")
 
     match 'site/sha' => 'site#sha'
     match 'site/headers' => 'site#headers'

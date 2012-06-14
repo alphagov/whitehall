@@ -1,0 +1,30 @@
+<%= form_for [:admin, topic] do |topic_form| %>
+  <%= topic_form.errors %>
+
+  <fieldset>
+    <%= topic_form.text_field :name %>
+    <%= topic_form.text_area :description %>
+  </fieldset>
+
+  <fieldset>
+    <%= topic_form.label :related_topic_ids, "Related topics" %>
+    <%= topic_form.select :related_topic_ids, options_from_collection_for_select(Topic.all - [topic], 'id', 'name', topic.related_topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related topics..."} %>
+  </fieldset>
+
+  <fieldset id="policy_order" class="named sortable">
+    <legend>Policy ordering</legend>
+    <%= topic_form.fields_for :topic_memberships, topic.topic_memberships.for_type(Policy).published do |topic_membership_form| %>
+      <% policy = topic_membership_form.object.policy %>
+      <div id="<%= dom_id(policy) %>" class="well">
+        <%= topic_membership_form.text_field :ordering, label_text: link_to(policy.title, admin_edition_path(policy)), class: "ordering" %>
+        <p>
+          <%= [pluralize(Publication.published.related_to(policy).count, "publication"),
+               pluralize(NewsArticle.published.related_to(policy).count, "news article")].to_sentence %>
+        </p>
+        <%= topic_membership_form.check_box :featured, label_text: "Featured?" %>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <%= topic_form.save_or_cancel cancel: admin_topics_path %>
+<% end %>

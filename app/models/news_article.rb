@@ -5,7 +5,7 @@ class NewsArticle < Edition
   include Edition::Countries
   include Edition::Featurable
 
-  has_many :policy_topics, through: :published_related_policies, uniq: true
+  has_many :topics, through: :published_related_policies, uniq: true
 
   def has_summary?
     true

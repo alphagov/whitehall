@@ -64,16 +64,16 @@ class EditionTest < ActiveSupport::TestCase
     refute Edition.latest_published_edition.include?(new_draft)
   end
 
-  test "should return a list of editions in a policy topic" do
-    policy_topic_1 = create(:policy_topic)
-    policy_topic_2 = create(:policy_topic)
-    draft_policy = create(:draft_policy, policy_topics: [policy_topic_1])
-    published_policy = create(:published_policy, policy_topics: [policy_topic_1])
-    published_in_second_policy_topic = create(:published_policy, policy_topics: [policy_topic_2])
+  test "should return a list of editions in a topic" do
+    topic_1 = create(:topic)
+    topic_2 = create(:topic)
+    draft_policy = create(:draft_policy, topics: [topic_1])
+    published_policy = create(:published_policy, topics: [topic_1])
+    published_in_second_topic = create(:published_policy, topics: [topic_2])
 
-    assert_equal [draft_policy, published_policy], Policy.in_policy_topic(policy_topic_1)
-    assert_equal [published_policy], Policy.published.in_policy_topic(policy_topic_1)
-    assert_equal [published_in_second_policy_topic], Policy.in_policy_topic(policy_topic_2)
+    assert_equal [draft_policy, published_policy], Policy.in_topic(topic_1)
+    assert_equal [published_policy], Policy.published.in_topic(topic_1)
+    assert_equal [published_in_second_topic], Policy.in_topic(topic_2)
   end
 
   test "should return a list of editions in an organisation" do

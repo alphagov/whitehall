@@ -101,8 +101,8 @@ class Admin::EditionsController < Admin::BaseController
 
   def default_arrays_of_ids_to_empty
     params[:edition][:organisation_ids] ||= []
-    if @edition.can_be_associated_with_policy_topics?
-      params[:edition][:policy_topic_ids] ||= []
+    if @edition.can_be_associated_with_topics?
+      params[:edition][:topic_ids] ||= []
     end
     if @edition.can_be_associated_with_ministers?
       params[:edition][:ministerial_role_ids] ||= []

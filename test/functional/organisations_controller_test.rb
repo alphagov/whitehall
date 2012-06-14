@@ -167,21 +167,21 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".sub_navigation a[href='#{about_organisation_path(organisation)}']"
   end
 
-  test "should display the organisation's policy topics" do
-    first_policy_topic = create(:policy_topic)
-    second_policy_topic = create(:policy_topic)
-    organisation = create(:organisation, policy_topics: [first_policy_topic, second_policy_topic])
+  test "should display the organisation's topics" do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
+    organisation = create(:organisation, topics: [first_topic, second_topic])
     get :show, id: organisation
-    assert_select "#policy_topics" do
-      assert_select_object first_policy_topic
-      assert_select_object second_policy_topic
+    assert_select "#topics" do
+      assert_select_object first_topic
+      assert_select_object second_topic
     end
   end
 
-  test "should not display an empty policy topics section" do
+  test "should not display an empty topics section" do
     organisation = create(:organisation)
     get :show, id: organisation
-    assert_select "#policy_topics", count: 0
+    assert_select "#topics", count: 0
   end
 
   test "should display a link to the announcements page for department organisations" do
