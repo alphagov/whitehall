@@ -5,7 +5,7 @@ namespace :test do
   desc "Run javascript tests"
   task :javascript => :environment do
     phantomjs_requirement = Gem::Requirement.new(">= 1.3.0")
-    phantomjs_version = Gem::Version.new(`phantomjs --version`.strip) rescue Gem::Version.new("0.0.0")
+    phantomjs_version = Gem::Version.new(`phantomjs --version`.match(/\d+\.\d+\.\d+/)[0]) rescue Gem::Version.new("0.0.0")
     unless phantomjs_requirement.satisfied_by?(phantomjs_version)
       STDERR.puts "Your version of phantomjs (v#{phantomjs_version}) is not compatible with the current phantom-driver.js."
       STDERR.puts "Please upgrade your version of phantomjs to #{phantomjs_requirement} and re-run this task."
