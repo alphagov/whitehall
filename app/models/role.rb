@@ -75,7 +75,11 @@ class Role < ActiveRecord::Base
   end
 
   def to_s
-    current_person ? "#{current_person.name} (#{name_and_organisations})" : name_and_organisations
+    if organisations.any?
+      "#{name}, #{organisation_names}"
+    else
+      name
+    end
   end
 
   def destroyable?

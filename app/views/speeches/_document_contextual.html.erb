@@ -3,7 +3,12 @@
     <li>
       <h1>Who</h1>
       <div class="img"><%= image_for_person @document.person %></div>
-      <span class="role_appointment"><%= link_to @document.role_appointment, @document.role %></span>
+      <span class="role_appointment">
+        <span class="person"><%= link_to_person @document.role_appointment.person %></span>
+        <span class="role"><%= role_appointment(@document.role_appointment, true) %></span>
+        in
+        <span class="organisations"><%= @document.role.organisations.map {|o| link_to(o.name, o)}.to_sentence %></span>
+      </span>
     </li>
     <li class="delivered_on">
       <h1>When</h1>
