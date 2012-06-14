@@ -9,10 +9,7 @@ class Admin::EditionsController < Admin::BaseController
   def index
     if params_filters.any?
       @filtered_organisation = current_user.organisation
-      filter = EditionFilter.new(edition_class, params_filters)
-      @editions = filter.editions
-      @page_title = filter.page_title
-      @edition_state = filter.edition_state
+      @filter = EditionFilter.new(edition_class, params_filters)
       session[:document_filters] = params_filters
       render :index
     elsif session_filters.any?
@@ -166,12 +163,14 @@ class Admin::EditionsController < Admin::BaseController
     end
 
     def editions
-      editions = @source
-      editions = editions.by_type(options[:type].classify) if options[:type]
-      editions = editions.__send__(options[:state]) if options[:state]
-      editions = editions.authored_by(author) if options[:author]
-      editions = editions.in_organisation(organisation) if options[:organisation]
-      editions.includes(:authors).order("updated_at DESC")
+      @editions ||= (
+        editions = @source
+        editions = editions.by_type(options[:type].classify) if options[:type]
+        editions = editions.__send__(options[:state]) if options[:state]
+        editions = editions.authored_by(author) if options[:author]
+        editions = editions.in_organisation(organisation) if options[:organisation]
+        editions.includes(:authors).order("updated_at DESC")
+      )
     end
 
     def page_title
