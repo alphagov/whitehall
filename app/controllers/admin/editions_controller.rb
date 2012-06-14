@@ -9,23 +9,11 @@ class Admin::EditionsController < Admin::BaseController
   def index
     if params_filters.any?
       state = params_filters[:state]
-      @editions = EditionFilter.new(edition_class, params_filters).editions
       @edition_state = (state == :active) ? 'all' : state.to_s
-      @filtered_user = params[:author] ? User.find(params[:author]) : current_user
       @filtered_organisation = current_user.organisation
-      author_string = if params[:author].present?
-        "by #{@filtered_user.name}"
-      elsif params[:organisation].present?
-        "by #{Organisation.find(params[:organisation]).name}"
-      else
-        "by anyone"
-      end
-      type_string = if params[:type].present?
-        params[:type].humanize.pluralize.downcase
-      else
-        'documents'
-      end
-      @page_title = "#{@edition_state.humanize} #{type_string} #{author_string}"
+      filter = EditionFilter.new(edition_class, params_filters)
+      @editions = filter.editions
+      @page_title = filter.page_title
       session[:document_filters] = params_filters
       render :index
     elsif session_filters.any?
@@ -182,9 +170,32 @@ class Admin::EditionsController < Admin::BaseController
       editions = @source
       editions = editions.by_type(options[:type].classify) if options[:type]
       editions = editions.__send__(options[:state]) if options[:state]
-      editions = editions.authored_by(User.find(options[:author])) if options[:author]
-      editions = editions.in_organisation(Organisation.find(options[:organisation])) if options[:organisation]
+      editions = editions.authored_by(author) if options[:author]
+      editions = editions.in_organisation(organisation) if options[:organisation]
       editions.includes(:authors).order("updated_at DESC")
+    end
+
+    def page_title
+      edition_state = (options[:state].nil? || options[:state] == :active) ? 'all' : options[:state]
+      document_type = options[:type].present? ? options[:type] : 'documents'
+      owner_filter  = if options[:author].present?
+        author.name
+      elsif options[:organisation].present?
+        organisation.name
+      else
+        "anyone"
+      end
+      "#{edition_state.humanize} #{document_type.humanize.pluralize.downcase} by #{owner_filter}"
+    end
+
+    private
+
+    def organisation
+      Organisation.find(options[:organisation]) if options[:organisation]
+    end
+
+    def author
+      User.find(options[:author]) if options[:author]
     end
   end
 end
