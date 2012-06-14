@@ -1,4 +1,5 @@
 class Admin::EditionsController < Admin::BaseController
+  before_filter :remove_blank_parameters
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
@@ -162,6 +163,12 @@ class Admin::EditionsController < Admin::BaseController
   def detect_other_active_editors
     RecentEditionOpening.expunge! if rand(10) == 0
     @recent_openings = @edition.active_edition_openings.except_editor(current_user)
+  end
+
+  def remove_blank_parameters
+    params.keys.each do |k|
+      params.delete(k) if params[k] == ""
+    end
   end
 
   class EditionFilter
