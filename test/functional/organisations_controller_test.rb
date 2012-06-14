@@ -395,11 +395,11 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :ministers, id: organisation
 
     assert_select_object(ministerial_role_1) do
-      assert_select ".current_appointee", "Fred"
+      assert_select ".current_appointee a[href=#{person_url(person_1)}]", "Fred"
       assert_select "a[href=#{ministerial_role_url(ministerial_role_1)}]", text: "Secretary of State"
     end
     assert_select_object(ministerial_role_2) do
-      assert_select ".current_appointee", "Bob"
+      assert_select ".current_appointee a[href=#{person_url(person_2)}]", "Bob"
       assert_select "a[href=#{ministerial_role_url(ministerial_role_2)}]", text: "Minister of State"
     end
     refute_select_object(minister_in_another_organisation)
@@ -442,7 +442,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select permanent_secretary_board_members_selector do
       assert_select_object(permanent_secretary) do
-        assert_select "a[href='#{person_path(person)}']"
+        assert_select "a[href='#{person_url(person)}']"
       end
     end
   end
@@ -466,7 +466,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select other_board_members_selector do
       assert_select_object(junior) do
-        assert_select "a[href='#{person_path(person)}']"
+        assert_select "a[href='#{person_url(person)}']", text: person.name
       end
     end
   end
