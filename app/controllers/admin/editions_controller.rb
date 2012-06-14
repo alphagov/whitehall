@@ -154,8 +154,8 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def sanitized_filters(filters)
-    valid_states = [:active, :draft, :submitted, :rejected, :published]
-    filters.delete(:state) unless filters[:state].nil? || valid_states.include?(filters[:state].to_sym)
+    valid_states = %w[ active draft submitted rejected published ]
+    filters.delete(:state) unless filters[:state].nil? || valid_states.include?(filters[:state].to_s)
     filters
   end
 
