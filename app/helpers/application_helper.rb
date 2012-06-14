@@ -55,11 +55,6 @@ module ApplicationHelper
     end
   end
 
-  def image_for_ministerial_role(ministerial_role)
-    url = ministerial_role.current_person_image_url || 'blank-person.png'
-    image_tag url
-  end
-
   def image_for_person(person)
     url = person.image_url || 'blank-person.png'
     image_tag url

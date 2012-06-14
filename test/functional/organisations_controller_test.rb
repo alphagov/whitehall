@@ -353,7 +353,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :ministers, id: organisation
 
-    assert_equal [senior_role, junior_role], assigns(:ministerial_roles)
+    assert_equal [senior_role, junior_role], assigns(:ministerial_roles).collect(&:model)
   end
 
   test "shows names and roles of those ministers associated with organisation" do
@@ -370,11 +370,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select_object(ministerial_role_1) do
       assert_select ".current_appointee", "Fred"
-      assert_select "a[href=#{ministerial_role_path(ministerial_role_1)}]", text: "Secretary of State"
+      assert_select "a[href=#{ministerial_role_url(ministerial_role_1)}]", text: "Secretary of State"
     end
     assert_select_object(ministerial_role_2) do
       assert_select ".current_appointee", "Bob"
-      assert_select "a[href=#{ministerial_role_path(ministerial_role_2)}]", text: "Minister of State"
+      assert_select "a[href=#{ministerial_role_url(ministerial_role_2)}]", text: "Minister of State"
     end
     refute_select_object(minister_in_another_organisation)
   end
