@@ -57,7 +57,7 @@
     </div>
 
     <div class="collection span10">
-      <h1>Documents</h1>
+      <h1><%= @filter.page_title %></h1>
 
       <table class="table table-striped">
         <thead>
@@ -77,7 +77,7 @@
         <tbody>
           <% if @filter.editions.blank? %>
             <tr>
-              <td colspan="5">No <%= @filter.edition_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
+              <td colspan="5">No documents have been found.</td>
             </tr>
           <% end %>
           <% @filter.editions.each do |edition| %>

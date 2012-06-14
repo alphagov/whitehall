@@ -174,6 +174,7 @@ class Admin::EditionsController < Admin::BaseController
     end
 
     def page_title
+      edition_state = (options[:state].nil? || options[:state] == :active) ? 'all' : options[:state]
       document_type = options[:type].present? ? options[:type] : 'documents'
       owner_filter  = if options[:author].present?
         author.name
@@ -183,10 +184,6 @@ class Admin::EditionsController < Admin::BaseController
         "anyone"
       end
       "#{edition_state.humanize} #{document_type.humanize.pluralize.downcase} by #{owner_filter}"
-    end
-
-    def edition_state
-      (options[:state].nil? || options[:state] == :active) ? 'all' : options[:state]
     end
 
     private
