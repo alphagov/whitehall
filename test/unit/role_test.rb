@@ -6,39 +6,13 @@ class RoleTest < ActiveSupport::TestCase
     refute role.valid?
   end
 
-  test "should return the person, role and all organisation names" do
-    frank = create(:person, forename: "Frank")
-    role = create(:role, name: "Treasury secretary",
-                   organisations: [
-                    create(:organisation, name: "Department of Health"),
-                    create(:organisation, name: "Department for Education")])
-    create(:role_appointment, role: role, person: frank)
-    assert_equal "Frank (Treasury secretary, Department of Health and Department for Education)", role.to_s
-  end
-
-  test "should return the person, role and organisation names" do
-    frank = create(:person, forename: "Frank")
-    role = create(:role, name: "Treasury secretary",
-                   organisations: [create(:organisation, name: "Department of Health")])
-    create(:role_appointment, role: role, person: frank)
-    assert_equal "Frank (Treasury secretary, Department of Health)", role.to_s
-  end
-
-  test "should return the person and role names when there are no organisations" do
-    frank = create(:person, forename: "Frank")
-    role = create(:role, name: "Treasury secretary",
-                   organisations: [])
-    create(:role_appointment, role: role, person: frank)
-    assert_equal "Frank (Treasury secretary)", role.to_s
-  end
-
-  test "should return the role and organisation names when person is missing" do
+  test "should return the role and organisation name" do
     role = create(:role, name: "Treasury secretary", people: [],
                    organisations: [create(:organisation, name: "Department of Health")])
     assert_equal "Treasury secretary, Department of Health", role.to_s
   end
 
-  test "should return the role and all organisation names when person is missing" do
+  test "should return the role and all organisation names" do
     role = create(:role, name: "Treasury secretary", people: [],
                    organisations: [
                      create(:organisation, name: "Department of Health"),
@@ -46,7 +20,7 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal "Treasury secretary, Department of Health and Department for Education", role.to_s
   end
 
-  test "should return the role name when person and organisations are missing" do
+  test "should return the role name when organisations are missing" do
     role = create(:role, name: "Treasury secretary", people: [], organisations: [])
     assert_equal "Treasury secretary", role.to_s
   end

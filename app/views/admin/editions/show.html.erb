@@ -48,8 +48,11 @@
     <p class="details">
       <span class="type"><%= @edition.speech_type.name %></span>
       for speech delivered by
-      <span class="ministerial_role">
-        <%= link_to @edition.role_appointment, @edition.role_appointment.role %>
+      <span class="role_appointment">
+        <span class="person"><%= link_to @edition.role_appointment.person.name, @edition.role_appointment.person %></span>
+        <span class="role"><%= role_appointment(@edition.role_appointment, true) %></span>
+        in
+        <span class="organisations"><%= @edition.role.organisations.map {|o| link_to(o.name, o)}.to_sentence %></span>
       </span>
       on
       <span class="delivered_on"><%= @edition.delivered_on.to_s(:long_ordinal) %></span>
