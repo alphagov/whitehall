@@ -297,13 +297,13 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display an about-us page for the organisation" do
     organisation = create(:organisation,
-      name: "unformatted name",
+      name: "unformatted & name",
       about_us: "organisation-about-us"
     )
 
     get :about, id: organisation
 
-    assert_select ".page_title", text: "unformatted name &mdash; About"
+    assert_select ".page_title", text: "unformatted &amp; name &mdash; About"
     assert_select ".body", text: "organisation-about-us"
   end
 
