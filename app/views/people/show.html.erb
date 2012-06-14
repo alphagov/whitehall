@@ -7,7 +7,10 @@
   </header>
   <section class="biography">
     <div class="image">
-      <%= @person.image %>
+      <figure class='img'>
+        <%= @person.image %>
+        <figcaption><%= @person.name %></figcaption>
+      </figure>
     </div>
     <h1 class="label">Biography</h1>
     <%= @person.biography %>
