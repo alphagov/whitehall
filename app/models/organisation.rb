@@ -60,8 +60,8 @@ class Organisation < ActiveRecord::Base
 
   has_many :people, through: :roles
 
-  has_many :organisation_policy_topics, dependent: :destroy
-  has_many :policy_topics, through: :organisation_policy_topics
+  has_many :organisation_topics, dependent: :destroy
+  has_many :topics, through: :organisation_topics
 
   has_many :users, dependent: :nullify
 

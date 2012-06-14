@@ -24,14 +24,14 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     assert_select "#related-policies a[href='#{policy_path(published_policy.document)}']"
   end
 
-  test "should display the policy topics that the parent consultation is related to" do
-    policy_topic = create(:policy_topic)
-    published_policy = create(:published_policy, policy_topics: [policy_topic])
+  test "should display the topics that the parent consultation is related to" do
+    topic = create(:topic)
+    published_policy = create(:published_policy, topics: [topic])
     published_consultation_response = create(:published_consultation_response)
     consultation = published_consultation_response.consultation
     consultation.related_documents << published_policy.document
     get :show, consultation_id: consultation.document
-    assert_select "#document_topics a[href='#{policy_topic_path(policy_topic)}']"
+    assert_select "#document_topics a[href='#{topic_path(topic)}']"
   end
 
   test "should display the organisations that the parent consultation is related to" do

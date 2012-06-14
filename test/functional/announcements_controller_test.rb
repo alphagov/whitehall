@@ -124,18 +124,18 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows unique related policy topics for each news article" do
-    first_policy_topic = create(:policy_topic, name: 'first-area')
-    second_policy_topic = create(:policy_topic, name: 'second-area')
-    policy_1 = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
-    policy_2 = create(:published_policy, policy_topics: [first_policy_topic])
+  test "index shows unique related topics for each news article" do
+    first_topic = create(:topic, name: 'first-area')
+    second_topic = create(:topic, name: 'second-area')
+    policy_1 = create(:published_policy, topics: [first_topic, second_topic])
+    policy_2 = create(:published_policy, topics: [first_topic])
     news_article = create(:published_news_article, published_at: 4.days.ago, related_policies: [policy_1, policy_2])
 
     get :index
 
     assert_select_object news_article do
-      assert_select ".meta a[href='#{policy_topic_path(first_policy_topic)}']", text: first_policy_topic.name, count: 1
-      assert_select ".meta a[href='#{policy_topic_path(second_policy_topic)}']", text: second_policy_topic.name, count: 1
+      assert_select ".meta a[href='#{topic_path(first_topic)}']", text: first_topic.name, count: 1
+      assert_select ".meta a[href='#{topic_path(second_topic)}']", text: second_topic.name, count: 1
     end
   end
 
@@ -156,10 +156,10 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "featured news article should show images, title, summary and meta details" do
-    first_policy_topic = create(:policy_topic, name: 'first-area')
-    second_policy_topic = create(:policy_topic, name: 'second-area')
-    policy_1 = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
-    policy_2 = create(:published_policy, policy_topics: [first_policy_topic])
+    first_topic = create(:topic, name: 'first-area')
+    second_topic = create(:topic, name: 'second-area')
+    policy_1 = create(:published_policy, topics: [first_topic, second_topic])
+    policy_2 = create(:published_policy, topics: [first_topic])
     featured_news = create(:featured_news_article, published_at: 1.day.ago, related_policies: [policy_1, policy_2])
     get :index
 
@@ -169,8 +169,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
         assert_select_announcement_title featured_news
         assert_select_announcement_summary featured_news
         assert_select_announcement_metadata featured_news
-        assert_select ".meta a[href='#{policy_topic_path(first_policy_topic)}']", text: first_policy_topic.name, count: 1
-        assert_select ".meta a[href='#{policy_topic_path(second_policy_topic)}']", text: second_policy_topic.name, count: 1
+        assert_select ".meta a[href='#{topic_path(first_topic)}']", text: first_topic.name, count: 1
+        assert_select ".meta a[href='#{topic_path(second_topic)}']", text: second_topic.name, count: 1
       end
     end
   end

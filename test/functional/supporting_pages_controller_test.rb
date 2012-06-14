@@ -216,16 +216,16 @@ That's all
     assert_equal policy, assigns(:policy)
   end
 
-  test "should link to policy topics from within the metadata navigation" do
-    first_policy_topic = create(:policy_topic)
-    second_policy_topic = create(:policy_topic)
-    policy = create(:published_policy, policy_topics: [first_policy_topic, second_policy_topic])
+  test "should link to topics from within the metadata navigation" do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
+    policy = create(:published_policy, topics: [first_topic, second_topic])
     supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "#document_topics li.policy_topic a", text: first_policy_topic.name
-    assert_select "#document_topics li.policy_topic a", text: second_policy_topic.name
+    assert_select "#document_topics li.topic a", text: first_topic.name
+    assert_select "#document_topics li.topic a", text: second_topic.name
   end
 
   test "should link to organisations from within the metadata navigation" do

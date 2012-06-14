@@ -1,0 +1,69 @@
+<% page_title @topic.name, "Topics" %>
+<% page_class "topic" %>
+
+<div class="block-1">
+  <div class="inner-block">
+    <section class="page_header icon gutter">
+      <h2 class="label">Topic</h2>
+      <h1 class="page_title has_meta"><%= @topic.name %></h1>
+      <div class="meta">
+        <% @topic.organisations.each do |organisation| %>
+          <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag", id: dom_id(organisation) %>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="block-2">
+  <div class="inner-block">
+    <div class="document">
+      <%= govspeak_to_html @topic.description %>
+    </div>
+  </div>
+</div>
+
+<% if @featured_policies.any? %>
+<div class="block-3">
+  <div class="inner-block">
+      <div class="group<%= @featured_policies.any? ? "" : " no_featured" %>">
+        <div class="priority_policies">
+          <section>
+            <h1 class="label">Featured policies in this topic</h1>
+            <ul class="featured-policies">
+              <% @featured_policies.each do |policy| %>
+                  <%= content_tag_for :li, policy, class: "featured_policy" do %>
+                  <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
+                  <p class="summary"><%= policy.summary %>&hellip;</p>
+                <% end %>
+              <% end %>
+            </ul>
+          </section>
+        </div>
+      </div>
+  </div>
+</div>
+<% end %>
+
+
+<div class="block-4">
+  <div class="inner-block">
+    <% if @policies.any? %>
+      <div class="all_policies">
+        <%= render partial: "documents/policies", object: @policies, locals: {title: "All policies in this topic"} %>
+      </div>
+    <% else %>
+      <div>
+        <%= render partial: "exemplars" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="block-5">
+  <div class="inner-block">
+    <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5], locals: { title: "Latest in this topic" } %>
+
+    <%= render partial: "related_topics", object: @related_topics %>
+  </div>
+</div>

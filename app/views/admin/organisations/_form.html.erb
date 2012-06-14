@@ -15,8 +15,8 @@
     <legend>Associations</legend>
     <%= organisation_form.label :parent_organisation_ids, 'Sponsoring departments' %>
     <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.departments - [organisation_form.object], 'id', 'name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose associated departments..." } %>
-    <%= organisation_form.label :policy_topic_ids, 'Policy topics' %>
-    <%= organisation_form.select :policy_topic_ids, options_from_collection_for_select(PolicyTopic.all, 'id', 'name', organisation.policy_topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose policy topics..."} %>
+    <%= organisation_form.label :topic_ids, 'Topics' %>
+    <%= organisation_form.select :topic_ids, options_from_collection_for_select(Topic.all, 'id', 'name', organisation.topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose topics..."} %>
   </fieldset>
   <fieldset class="named contacts">
     <legend>Contacts</legend>

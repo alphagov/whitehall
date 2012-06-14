@@ -7,7 +7,7 @@
 .organisations_index_page .page_header,
 .ministers-index .page_header,
 .announcements-index .page_header,
-.policy-topics-index .page_header,
+.topics-index .page_header,
 .publications-index .page_header,
 .consultations-index .page_header,
 .speeches-index .page_header,
@@ -31,11 +31,11 @@
   padding-left: $width + 16px;
   background-image: url(/government/assets/icons/48/news.png);
 }
-.policy-topics-index .page_header,
-.policytopic .page_header{
+.topics-index .page_header,
+.topic .page_header{
   $width: 41px;
   padding-left: $width + 16px;
-  background-image: url(/government/assets/icons/48/policytopic.png);
+  background-image: url(/government/assets/icons/48/topic.png);
 }
 .publications-index .page_header,
 .publication .page_header{
@@ -111,8 +111,8 @@
   .organisation {
     background-image: url(/government/assets/icons/24/departments.png);
   }
-  .policy-topic {
-    background-image: url(/government/assets/icons/24/policytopic.png);
+  .topic {
+    background-image: url(/government/assets/icons/24/topic.png);
   }
   .international_priority {
     background-image: url(/government/assets/icons/24/uk_and_the_world.png);

@@ -1,0 +1,267 @@
+require 'test_helper'
+
+class TopicTest < ActiveSupport::TestCase
+  test "should default to the 'current' state" do
+    topic = Topic.new
+    assert topic.current?
+  end
+
+  test 'should be invalid without a name' do
+    topic = build(:topic, name: nil)
+    refute topic.valid?
+  end
+
+  test "should be invalid without a state" do
+    topic = build(:topic, state: nil)
+    refute topic.valid?
+  end
+
+  test "should be invalid with an unsupported state" do
+    topic = build(:topic, state: "foobar")
+    refute topic.valid?
+  end
+
+  test 'should be invalid without a unique name' do
+    existing_topic = create(:topic)
+    new_topic = build(:topic, name: existing_topic.name)
+    refute new_topic.valid?
+  end
+
+  test 'should be invalid without a description' do
+    topic = build(:topic, description: nil)
+    refute topic.valid?
+  end
+
+  test "should return a list of topics with published policies" do
+    topic_with_published_policy = create(:topic, policies: [build(:published_policy)])
+    create(:topic, policies: [build(:draft_policy)])
+
+    expected = [topic_with_published_policy]
+    assert_equal expected, Topic.with_published_policies
+  end
+
+  test "should set a slug from the topic name" do
+    topic = create(:topic, name: 'Love all the people')
+    assert_equal 'love-all-the-people', topic.slug
+  end
+
+  test "should not change the slug when the name is changed" do
+    topic = create(:topic, name: 'Love all the people')
+    topic.update_attributes(name: 'Hold hands')
+    assert_equal 'love-all-the-people', topic.slug
+  end
+
+  test "should concatenate words containing apostrophes" do
+    topic = create(:topic, name: "Bob's bike")
+    assert_equal 'bobs-bike', topic.slug
+  end
+
+  test "should allow setting ordering of policies" do
+    topic = create(:topic)
+    first_policy = create(:policy, topics: [topic])
+    second_policy = create(:policy, topics: [topic])
+    first_association = topic.topic_memberships.find_by_policy_id(first_policy.id)
+    second_association = topic.topic_memberships.find_by_policy_id(second_policy.id)
+
+    topic.update_attributes(topic_memberships_attributes: {
+      first_association.id => {id: first_association.id, policy_id: first_policy.id, ordering: "2"},
+      second_association.id => {id: second_association.id, policy_id: second_policy.id, ordering: "1"}
+    })
+
+    assert_equal 2, first_association.reload.ordering
+    assert_equal 1, second_association.reload.ordering
+  end
+
+  test ".featured includes all featured topics" do
+    topic = create(:topic, featured: true)
+    assert Topic.featured.include?(topic)
+  end
+
+  test ".featured excludes unfeatured topics" do
+    topic = create(:topic, featured: false)
+    refute Topic.featured.include?(topic)
+  end
+
+  test "return published editions relating to policies in the topic" do
+    policy = create(:published_policy)
+    publication_1 = create(:published_publication, related_policies: [policy])
+    topic = create(:topic, policies: [policy])
+
+    assert_equal [publication_1], topic.published_related_editions
+  end
+
+  test "return published editions relating to policies in the topic without duplicates" do
+    policy_1 = create(:published_policy)
+    policy_2 = create(:published_policy)
+    publication_1 = create(:published_publication, related_policies: [policy_1])
+    publication_2 = create(:published_publication, related_policies: [policy_1, policy_2])
+    topic = create(:topic, policies: [policy_1, policy_2])
+
+    assert_equal [publication_1, publication_2], topic.published_related_editions
+  end
+
+  test "return only *published* editions relating to policies in the topic" do
+    published_policy = create(:published_policy)
+    create(:draft_publication, related_policies: [published_policy])
+    topic = create(:topic, policies: [published_policy])
+
+    assert_equal [], topic.published_related_editions
+  end
+
+  test "return editions relating to only *published* policies in the topic" do
+    draft_policy = create(:draft_policy)
+    create(:published_publication, related_policies: [draft_policy])
+    topic = create(:topic, policies: [draft_policy])
+
+    assert_equal [], topic.published_related_editions
+  end
+
+  test "return published editions relating from policies in the topic without duplicates" do
+    policy_1 = create(:published_policy)
+    policy_2 = create(:published_policy)
+    publication_1 = create(:published_publication, related_policies: [policy_1, policy_2])
+    publication_2 = create(:published_publication, related_policies: [policy_1])
+    topic = create(:topic, policies: [policy_1, policy_2])
+
+    assert_equal [publication_1, publication_2], topic.published_related_editions
+  end
+
+  test "return only *published* editions relating from policies in the topic" do
+    published_policy = create(:published_policy)
+    draft_publication = create(:draft_publication, related_policies: [published_policy])
+    topic = create(:topic, policies: [published_policy])
+
+    assert_equal [], topic.published_related_editions
+  end
+
+  test "return editions relating from only *published* policies in the topic" do
+    draft_policy = create(:draft_policy)
+    published_publication = create(:published_publication, related_policies: [draft_policy])
+    topic = create(:topic, policies: [draft_policy])
+
+    assert_equal [], topic.published_related_editions
+  end
+
+  test "should exclude deleted topics by default" do
+    current_topic = create(:topic)
+    deleted_topic = create(:topic, state: "deleted")
+    assert_equal [current_topic], Topic.all
+  end
+
+  test "should be deletable when there are no associated editions" do
+    topic = create(:topic)
+    assert topic.destroyable?
+    topic.delete!
+    assert topic.deleted?
+  end
+
+  test "should be deletable if all the associated policies are archived" do
+    topic = create(:topic, policies: [create(:archived_policy)])
+    assert topic.destroyable?
+    topic.delete!
+    assert topic.deleted?
+  end
+
+  test "should not be deletable if there are non-archived associated policies" do
+    topic = create(:topic, policies: [create(:policy)])
+    refute topic.destroyable?
+    topic.delete!
+    refute topic.deleted?
+  end
+
+  test "should return the list of archived policies" do
+    draft_policy = create(:draft_policy)
+    published_policy = create(:published_policy)
+    archived_policy = create(:archived_policy)
+    topic = create(:topic, policies: [draft_policy, published_policy, archived_policy])
+    assert_equal [archived_policy], topic.archived_policies
+  end
+
+  test "return topics bi-directionally related to specific topic" do
+    topic_1 = create(:topic)
+    topic_2 = create(:topic)
+    topic = create(:topic, related_topics: [topic_1, topic_2])
+
+    assert_equal [topic_1, topic_2], topic.related_topics
+    assert_equal [topic], topic_1.related_topics
+    assert_equal [topic], topic_2.related_topics
+  end
+
+  test "should add related topics bi-directionally" do
+    topic_1 = create(:topic)
+    topic_2 = create(:topic)
+    topic = create(:topic, related_topics: [])
+
+    topic.update_attributes!(related_topic_ids: [topic_1.id, topic_2.id])
+
+    assert_equal [topic_1, topic_2], topic.related_topics
+    assert_equal [topic], topic_1.related_topics
+    assert_equal [topic], topic_2.related_topics
+  end
+
+  test "should remove related topics bi-directionally" do
+    topic_1 = create(:topic)
+    topic_2 = create(:topic)
+    topic = create(:topic, related_topics: [topic_1, topic_2])
+
+    topic.update_attributes!(related_topic_ids: [])
+
+    assert_equal [], topic.related_topics
+    assert_equal [], topic_1.related_topics
+    assert_equal [], topic_2.related_topics
+  end
+
+
+  test 'should return search index data suitable for Rummageable' do
+    topic = create(:topic, name: "topic name", description: "topic description")
+
+    assert_equal 'topic name', topic.search_index['title']
+    assert_equal "/government/topics/#{topic.slug}", topic.search_index['link']
+    assert_equal 'topic description', topic.search_index['indexable_content']
+    assert_equal 'topic', topic.search_index['format']
+  end
+
+  test 'should add topic to search index on creating' do
+    topic = build(:topic)
+
+    search_index_data = stub('search index data')
+    topic.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data)
+
+    topic.save
+  end
+
+  test 'should add topic to search index on updating' do
+    topic = create(:topic)
+
+    search_index_data = stub('search index data')
+    topic.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data)
+
+    topic.name = 'different topic name'
+    topic.save
+  end
+
+  test 'should remove topic from search index on destroying' do
+    topic = create(:topic)
+    Rummageable.expects(:delete).with("/government/topics/#{topic.slug}")
+    topic.destroy
+  end
+
+  test 'should remove topic from search index on deleting' do
+    topic = create(:topic)
+    Rummageable.expects(:delete).with("/government/topics/#{topic.slug}")
+    topic.delete!
+  end
+
+  test 'should return search index data for all topics' do
+    create(:topic)
+    create(:topic)
+    create(:topic)
+    create(:topic)
+
+    results = Topic.search_index
+
+    assert_equal 4, results.length
+  end
+end

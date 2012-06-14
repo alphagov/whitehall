@@ -22,14 +22,14 @@ Given /^a (draft|published) document "([^"]*)" exists which links to the "([^"]*
   create("#{state}_policy", title: source_title, body: body)
 end
 
-Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" policy topic$/ do |document_type, title, policy_topic_name|
-  policy_topic = PolicyTopic.find_by_name!(policy_topic_name)
-  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, policy_topics: [policy_topic])
+Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
+  topic = Topic.find_by_name!(topic_name)
+  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
-Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" policy topic$/ do |document_type, title, policy_topic_name|
-  policy_topic = PolicyTopic.find_by_name!(policy_topic_name)
-  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, policy_topics: [policy_topic])
+Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
+  topic = Topic.find_by_name!(topic_name)
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
 Given /^a draft (publication|policy|news article|consultation) "([^"]*)" was produced by the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
@@ -206,10 +206,10 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   assert page.has_css?(record_css_selector(edition), text: edition.title)
 end
 
-Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" policy topics$/ do |title, first_policy_topic, second_policy_topic|
+Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
   visit_document_preview title
-  assert has_css?(".policy_topic", text: first_policy_topic)
-  assert has_css?(".policy_topic", text: second_policy_topic)
+  assert has_css?(".topic", text: first_topic)
+  assert has_css?(".topic", text: second_topic)
 end
 
 Then /^I should see in the preview that "([^"]*)" was produced by the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|

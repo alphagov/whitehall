@@ -68,60 +68,60 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select ".supporting_pages .supporting_page"
   end
 
-  test "new should display policy topics field" do
+  test "new should display topics field" do
     get :new
 
     assert_select "form#edition_new" do
-      assert_select "select[name*='edition[policy_topic_ids]']"
+      assert_select "select[name*='edition[topic_ids]']"
     end
   end
 
-  test "create should associate policy topics with policy" do
-    first_policy_topic = create(:policy_topic)
-    second_policy_topic = create(:policy_topic)
+  test "create should associate topics with policy" do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
     attributes = attributes_for(:policy)
 
     post :create, edition: attributes.merge(
-      policy_topic_ids: [first_policy_topic.id, second_policy_topic.id]
+      topic_ids: [first_topic.id, second_topic.id]
     )
 
     assert policy = Policy.last
-    assert_equal [first_policy_topic, second_policy_topic], policy.policy_topics
+    assert_equal [first_topic, second_topic], policy.topics
   end
 
-  test "edit should display policy topics field" do
+  test "edit should display topics field" do
     policy = create(:policy)
 
     get :edit, id: policy
 
     assert_select "form#edition_edit" do
-      assert_select "select[name*='edition[policy_topic_ids]']"
+      assert_select "select[name*='edition[topic_ids]']"
     end
   end
 
-  test "update should associate policy topics with policy" do
-    first_policy_topic = create(:policy_topic)
-    second_policy_topic = create(:policy_topic)
+  test "update should associate topics with policy" do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
 
-    policy = create(:policy, policy_topics: [first_policy_topic])
+    policy = create(:policy, topics: [first_topic])
 
     put :update, id: policy, edition: {
-      policy_topic_ids: [second_policy_topic.id]
+      topic_ids: [second_topic.id]
     }
 
     policy.reload
-    assert_equal [second_policy_topic], policy.policy_topics
+    assert_equal [second_topic], policy.topics
   end
 
-  test "update should remove all policy topics if none specified" do
-    policy_topic = create(:policy_topic)
+  test "update should remove all topics if none specified" do
+    topic = create(:topic)
 
-    policy = create(:policy, policy_topics: [policy_topic])
+    policy = create(:policy, topics: [topic])
 
     put :update, id: policy, edition: {}
 
     policy.reload
-    assert_equal [], policy.policy_topics
+    assert_equal [], policy.topics
   end
 
   test "updating should retain associations to related editions" do
@@ -136,15 +136,15 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test "updating a stale document should render edit page with conflicting document and its related policies" do
-    policy_topic = create(:policy_topic)
-    policy = create(:policy, policy_topics: [policy_topic])
+    topic = create(:topic)
+    policy = create(:policy, topics: [topic])
     lock_version = policy.lock_version
     policy.touch
 
     put :update, id: policy, edition: policy.attributes.merge(lock_version: lock_version)
 
     assert_select ".document.conflict" do
-      assert_select "h1", "Policy topics"
+      assert_select "h1", "Topics"
     end
   end
 

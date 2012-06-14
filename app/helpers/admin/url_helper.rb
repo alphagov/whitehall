@@ -1,6 +1,6 @@
 module Admin::UrlHelper
-  def admin_policy_topics_header_link
-    admin_header_link "Policy topics", admin_policy_topics_path
+  def admin_topics_header_link
+    admin_header_link "Topics", admin_topics_path
   end
 
   def admin_organisations_header_link

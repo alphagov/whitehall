@@ -70,6 +70,45 @@ class Admin::EditionsController
       expected_queries = [:query_for_all_editions, :query_for_all_edition_authors, :query_for_all_users]
       assert_equal expected_queries.length, query_count
     end
+
+    test "should generate page title when there are no filter options" do
+      filter = EditionFilter.new(Edition)
+      assert_equal "All documents by anyone", filter.page_title
+    end
+
+    test "should generate page title when filtering by document state" do
+      filter = EditionFilter.new(Edition, state: 'draft')
+      assert_equal "Draft documents by anyone", filter.page_title
+    end
+
+    test "should generate page title when filtering by document type" do
+      filter = EditionFilter.new(Edition, type: 'news_article')
+      assert_equal "All news articles by anyone", filter.page_title
+    end
+
+    test "should generate page title when filtering by organisation" do
+      organisation = create(:organisation, name: 'organisation-name')
+      filter = EditionFilter.new(Edition, organisation: organisation.to_param)
+      assert_equal "All documents by organisation-name", filter.page_title
+    end
+
+    test "should generate page title when filtering by author" do
+      user = create(:user, name: 'user-name')
+      filter = EditionFilter.new(Edition, author: user.to_param)
+      assert_equal "All documents by user-name", filter.page_title
+    end
+
+    test "should generate page title when filtering by document state, document type and organisation" do
+      organisation = create(:organisation, name: 'organisation-name')
+      filter = EditionFilter.new(Edition, state: 'published', type: 'consultation', organisation: organisation.to_param)
+      assert_equal "Published consultations by organisation-name", filter.page_title
+    end
+
+    test "should generate page title when filtering by document state, document type and author" do
+      user = create(:user, name: 'user-name')
+      filter = EditionFilter.new(Edition, state: 'filter-state', type: 'document-type', author: user.to_param)
+      assert_equal "Filter-state document-types by user-name", filter.page_title
+    end
   end
 end
 
@@ -81,21 +120,21 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test 'should pass filter parameters to an edition filter' do
-    stub_filter = stub('edition filter', editions: [])
+    stub_filter = stub_edition_filter
     Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
 
     get :index, state: :draft, type: :policy
   end
 
   test "should not pass blank parameters to the edition filter" do
-    stub_filter = stub('edition filter', editions: [])
+    stub_filter = stub_edition_filter
     Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"state" => "draft"}).returns(stub_filter)
 
     get :index, state: :draft, author: ""
   end
 
   test 'should strip out any invalid states passed as parameters' do
-    stub_filter = stub('edition filter', editions: [])
+    stub_filter = stub_edition_filter
     Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"type" => "policy"}).returns(stub_filter)
 
     get :index, state: :haxxor_method, type: :policy
@@ -104,7 +143,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test 'should distinguish between edition types when viewing the list of editions' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
-    stub_filter = stub('edition filter', editions: [policy, publication])
+    stub_filter = stub_edition_filter(editions: [policy, publication])
     Admin::EditionsController::EditionFilter.stubs(:new).returns(stub_filter)
 
     get :index, state: :draft
@@ -326,5 +365,12 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, state: :draft
 
     assert_select_object(draft_edition) { refute_select ".state" }
+  end
+  
+  def stub_edition_filter(attributes = {})
+    default_attributes = {
+      editions: [], page_title: '', edition_state: ''
+    }
+    stub('edition filter', default_attributes.merge(attributes))
   end
 end

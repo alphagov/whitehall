@@ -278,11 +278,11 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 0, EditionOrganisation.count
   end
 
-  test 'destroy removes policy topic relationships' do
+  test 'destroy removes topic relationships' do
     organisation = create(:organisation)
-    policy_topic = create(:policy_topic, organisations: [organisation])
+    topic = create(:topic, organisations: [organisation])
     organisation.destroy
-    assert_equal 0, OrganisationPolicyTopic.count
+    assert_equal 0, OrganisationTopic.count
   end
 
   test 'destroy unsets user organisation' do

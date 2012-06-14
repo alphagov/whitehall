@@ -7,5 +7,5 @@ Background:
   Given I am a writer
 
 Scenario: Viewing a published document
-  Given a published policy "Ban Beards" that appears in the "Beard Laws" and "Public Outcry" policy topics
+  Given a published policy "Ban Beards" that appears in the "Beard Laws" and "Public Outcry" topics
   Then I should see a link to the public version of the policy "Ban Beards"

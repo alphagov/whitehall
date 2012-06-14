@@ -74,7 +74,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def default_arrays_of_ids_to_empty
-    params[:organisation][:policy_topic_ids] ||= []
+    params[:organisation][:topic_ids] ||= []
     params[:organisation][:parent_organisation_ids] ||= []
   end
 

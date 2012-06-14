@@ -1,4 +1,4 @@
-<% page_title @page_title %>
+<% page_title @filter.page_title %>
 <section class="documents">
   <div class="row-fluid">
     <div class="span2">
@@ -57,7 +57,7 @@
     </div>
 
     <div class="collection span10">
-      <h1>Documents</h1>
+      <h1><%= @filter.page_title %></h1>
 
       <table class="table table-striped">
         <thead>
@@ -69,18 +69,18 @@
             <% if viewing_all_active_editions? %>
               <th>State</th>
             <% end %>
-            <% if show_featuring_controls?(*@editions) %>
+            <% if show_featuring_controls?(*@filter.editions) %>
               <th>Featured</th>
             <% end %>
           </tr>
         </thead>
         <tbody>
-          <% if @editions.blank? %>
+          <% if @filter.editions.blank? %>
             <tr>
-              <td colspan="5">No <%= @edition_state %> <%= (params[:type].present? ? params[:type].humanize.pluralize.downcase : 'documents') %> have been found.</td>
+              <td colspan="5">No documents have been found.</td>
             </tr>
           <% end %>
-          <% @editions.each do |edition| %>
+          <% @filter.editions.each do |edition| %>
             <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
               <td class="type"><%= edition.type.titleize %></td>
               <td class="title">

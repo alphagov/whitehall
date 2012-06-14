@@ -1,7 +1,0 @@
-<ul class="policy_topics group">
-  <% policy_topics.each do |policy_topic| %>
-    <%= content_tag_for(:li, policy_topic) do %>
-      <%= link_to policy_topic.name, policy_topic_path(policy_topic) %>
-    <% end %>
-  <% end %>
-</ul>

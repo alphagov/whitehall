@@ -60,7 +60,7 @@ class SiteControllerTest < ActionController::TestCase
 
     assert_select ".introduction" do
       assert_select "a[href=?]", announcements_path
-      assert_select "a[href=?]", policy_topics_path
+      assert_select "a[href=?]", topics_path
       assert_select "a[href=?]", publications_path
       assert_select "a[href=?]", consultations_path
       assert_select "a[href=?]", ministerial_roles_path

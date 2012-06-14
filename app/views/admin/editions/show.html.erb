@@ -76,13 +76,13 @@
         <% end %>
       </section>
 
-      <% if @edition.can_be_associated_with_policy_topics? %>
+      <% if @edition.can_be_associated_with_topics? %>
         <section>
-          <h1>Policy topics</h1>
-          <% if @edition.policy_topics.any? %>
-            <%= render partial: "policy_topics/list", locals: {policy_topics: @edition.policy_topics} %>
+          <h1>Topics</h1>
+          <% if @edition.topics.any? %>
+            <%= render partial: "topics/list", locals: {topics: @edition.topics} %>
           <% else %>
-            <p>This document isn't assigned to any policy topics.</p>
+            <p>This document isn't assigned to any topics.</p>
           <% end %>
         </section>
       <% end %>

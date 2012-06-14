@@ -1,6 +1,6 @@
 class Policy < Edition
   include Edition::NationalApplicability
-  include Edition::PolicyTopics
+  include Edition::Topics
   include Edition::Ministers
   include Edition::FactCheckable
   include Edition::SupportingPages

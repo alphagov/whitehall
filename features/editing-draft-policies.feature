@@ -10,10 +10,10 @@ Scenario: Creating a new draft policy
   When I draft a new policy "Outlaw Moustaches"
   Then I should see the policy "Outlaw Moustaches" in the list of draft documents
 
-Scenario: Creating a new draft policy in multiple policy topics
-  Given two policy topics "Facial Hair" and "Hirsuteness" exist
-  When I draft a new policy "Outlaw Moustaches" in the "Facial Hair" and "Hirsuteness" policy topics
-  Then I should see in the preview that "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" policy topics
+Scenario: Creating a new draft policy in multiple topics
+  Given two topics "Facial Hair" and "Hirsuteness" exist
+  When I draft a new policy "Outlaw Moustaches" in the "Facial Hair" and "Hirsuteness" topics
+  Then I should see in the preview that "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
 
 Scenario: Creating a new draft policy in multiple organisations
   Given two organisations "Department of Paperclips" and "Stationery Standards Authority" exist
@@ -55,11 +55,11 @@ Scenario: Editing an existing draft policy
   When I edit the policy "Outlaw Moustaches" changing the title to "Ban Moustaches"
   Then I should see the policy "Ban Moustaches" in the list of draft documents
 
-Scenario: Editing an existing draft policy assigning multiple policy topics
-  Given two policy topics "Facial Hair" and "Hirsuteness" exist
-  And a draft policy "Outlaw Moustaches" exists in the "Facial Hair" policy topic
-  When I edit the policy "Outlaw Moustaches" adding it to the "Hirsuteness" policy topic
-  Then I should see in the preview that "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" policy topics
+Scenario: Editing an existing draft policy assigning multiple topics
+  Given two topics "Facial Hair" and "Hirsuteness" exist
+  And a draft policy "Outlaw Moustaches" exists in the "Facial Hair" topic
+  When I edit the policy "Outlaw Moustaches" adding it to the "Hirsuteness" topic
+  Then I should see in the preview that "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
 
 Scenario: Editing an existing supporting page
   Given a supporting page "Handlebar Waxing" exists on a draft policy "Outlaw Moustaches"

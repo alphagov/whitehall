@@ -25,6 +25,6 @@ class SiteController < PublicFacingController
   private
 
   def find_featured_news_articles
-    @featured_news_articles = NewsArticle.published.featured.by_first_published_at.limit(3).includes(:document, :edition_relations, :policy_topics)
+    @featured_news_articles = NewsArticle.published.featured.by_first_published_at.limit(3).includes(:document, :edition_relations, :topics)
   end
 end
