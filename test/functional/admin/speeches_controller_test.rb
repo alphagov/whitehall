@@ -80,16 +80,10 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: draft_speech
 
-    assert_select ".details" do
-      assert_select ".type", "Transcript"
-      assert_select ".role_appointment" do
-        assert_select ".person", "Theresa May"
-        assert_select ".role", "Secretary of State"
-        assert_select ".organisations", "Home Office"
-      end
-      assert_select ".delivered_on", "1 June 2011"
-      assert_select ".location", "The Guidhall"
-    end
+    assert_select ".details .type", "Transcript"
+    assert_select ".details .ministerial_role", "Theresa May (Secretary of State, Home Office, 2011-01-01 - present)"
+    assert_select ".details .delivered_on", "1 June 2011"
+    assert_select ".details .location", "The Guidhall"
   end
 
   private

@@ -110,7 +110,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   # TEST FIXTURES FOR #overlaps_any? tests
   # ======================================
-  #
+  # 
   # '*'s have no significance other than a way of visually indicating when an example
   # starts, ends or includes the start or end date of the existing appointment.
   # Examples indicate appointments which have no end date using '...'
@@ -148,7 +148,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
           *====  (not expected to overlap, ended_at is not inclusive)
           *====...
-           ====
+           ====  
            ====...
   ===*
   ===
@@ -343,5 +343,12 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     second_pm_appt = create(:role_appointment, role: pm, started_at: 8.days.ago)
 
     assert_same_elements [first_pm_appt, deputy_pm_appt, second_pm_appt], RoleAppointment.for_ministerial_roles
+  end
+
+  test "to_s should include the person, role and dates" do
+    role = build(:role, name: "Minister of Silly", organisations: [build(:organisation, name: "Ministry of Fun")])
+    person = build(:person, forename: "Jeremy", surname: "Chumfatty")
+    appt = build(:role_appointment, role: role, person: person, started_at: Date.parse("2012-05-23"))
+    assert_equal "Jeremy Chumfatty (Minister of Silly, Ministry of Fun, 2012-05-23 - present)", appt.to_s
   end
 end

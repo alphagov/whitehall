@@ -99,6 +99,11 @@ class RoleAppointment < ActiveRecord::Base
     end
   end
 
+  def to_s
+    ended = ended_at ? ended_at.to_date : 'present'
+    "#{person.name} (#{role.name_and_organisations}, #{started_at.to_date} - #{ended})"
+  end
+
   private
 
   def make_other_current_appointments_non_current

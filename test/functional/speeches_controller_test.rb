@@ -19,7 +19,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
 
-    assert_select ".details .role_appointment .person", "Theresa May" # \s* as \s* Secretary of State \s* in \s* Home Office/
+    assert_select ".details .role_appointment", /Theresa May .+Secretary of State, Home Office/
     assert_select ".details .delivered_on", /1 June 2011/
     assert_select ".details .location", /The Guidhall/
   end
@@ -35,7 +35,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
 
-    assert_select ".details .role_appointment .person", "Theresa May"
+    assert_select ".details .role_appointment", /Theresa May .+Secretary of State, Home Office/
   end
 
   test "should display details about a transcript" do
