@@ -1,44 +1,51 @@
 <% page_title @person.name %>
 <%= content_tag_for :div, @person do %>
-  <header>
-    <hgroup>
-      <h1 class="name"><%= @person.name %></h1>
-    </hgroup>
-  </header>
-  <section class="biography">
-    <div class="image">
-      <figure class='img'>
-        <%= @person.image %>
-        <figcaption><%= @person.name %></figcaption>
-      </figure>
-    </div>
-    <h1 class="label">Biography</h1>
-    <%= @person.biography %>
-  </section>
-
-  <% if @person.current_role_appointments.any? %>
-    <section class="current-roles">
-      <h1>Current roles</h1>
-      <ul>
-        <% @person.current_role_appointments.each do |appointment| %>
-          <%= content_tag_for :li, appointment do %>
-            <%= appointment.link %>
+  <div class="block-1">
+    <div class="inner-block">
+      <header class="page_header person">
+      <hgroup>
+        <h1 class="name"><%= @person.name %></h1>
+        <% if @person.current_role_appointments.any? %>
+        <ul class="current-roles">
+          <% @person.current_role_appointments.each do |appointment| %>
+            <%= content_tag_for :li, appointment do %>
+              <%= appointment.link %>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
+        </ul>
+      <% end %>
+      </hgroup>
+      </header>
+    </div>
+  </div>
+
+  <div class="block-2">
+    <div class="inner-block">
+      <section class="biography">
+        <div class="image">
+          <figure class='img'>
+            <%= @person.image %>
+            <figcaption><%= @person.name %></figcaption>
+          </figure>
+        </div>
+        <h1 class="label">Biography</h1>
+        <%= @person.biography %>
+      </section>
+    </div>
+  </div>
 
   <% if @person.previous_role_appointments.any? %>
-    <section class="previous-roles">
-      <h1>Previous roles</h1>
-      <ul>
-        <% @person.previous_role_appointments.each do |appointment| %>
-          <%= content_tag_for :li, appointment do %>
-            <%= appointment.link %>
+    <div class="block-4">
+      <section class="previous-roles">
+        <h1>Previous roles</h1>
+        <ul>
+          <% @person.previous_role_appointments.each do |appointment| %>
+            <%= content_tag_for :li, appointment do %>
+              <%= appointment.link %>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
-    </section>
+        </ul>
+      </section>
+    </div>
   <% end %>
 <% end %>
