@@ -9,7 +9,6 @@ class MinisterialRole < Role
   searchable title: :to_s, link: :search_link, content: :current_person_biography, format: 'minister'
 
   def self.cabinet
-    name = arel_table[:name]
     where(cabinet_member: true).alphabetical_by_person
   end
 
