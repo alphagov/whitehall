@@ -29,6 +29,7 @@ class RolePresenterTest < PresenterTestCase
   end
 
   test 'current_person returns a PersonPresenter for the current appointee' do
+    @role.stubs(:current_person).returns(stub_record(:person))
     assert_equal @presenter.current_person, PersonPresenter.new(@role.current_person)
   end
 

@@ -1,10 +1,18 @@
 require 'test_helper'
 
 class PeopleControllerTest < ActionController::TestCase
+  disable_database_queries
+
   should_be_a_public_facing_controller
+
+  def stub_role_appointment(role_type)
+    stub_record(:role_appointment, role: stub_record(role_type), person: stub_record(:person))
+  end
 
   setup do
     @person = stub_record(:person)
+    @person.stubs(:current_role_appointments).returns([])
+    @person.stubs(:previous_role_appointments).returns([])
     Person.stubs(:find).with(@person.to_param).returns(@person)
   end
 
@@ -27,8 +35,8 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   test "show lists current roles held by person" do
-    first_appointment = stub_record(:role_appointment, role: stub_record(:ministerial_role))
-    second_appointment = stub_record(:role_appointment, role: stub_record(:ministerial_role))
+    first_appointment = stub_role_appointment(:ministerial_role)
+    second_appointment = stub_role_appointment(:ministerial_role)
     @person.stubs(:current_role_appointments).returns([first_appointment, second_appointment])
 
     get :show, id: @person
@@ -44,7 +52,7 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   test "show doesn't include current roles section if no roles currently held" do
-    @person.stubs(:current_roles).returns([])
+    @person.stubs(:current_role_appointments).returns([])
 
     get :show, id: @person
 
@@ -52,8 +60,8 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   test "show lists previous roles held by person" do
-    first_appointment = stub_record(:role_appointment, role: stub_record(:ministerial_role))
-    second_appointment = stub_record(:role_appointment, role: stub_record(:ministerial_role))
+    first_appointment = stub_role_appointment(:ministerial_role)
+    second_appointment = stub_role_appointment(:ministerial_role)
     @person.stubs(:previous_role_appointments).returns([first_appointment, second_appointment])
 
     get :show, id: @person

@@ -45,6 +45,13 @@ class ActiveSupport::TestCase
   end
 
   class << self
+    def disable_database_queries
+      self.use_transactional_fixtures = false
+      setup do
+        ActiveRecord::Base.connection.expects(:select).never
+      end
+    end
+
     def edition_class_for(document_type)
       document_type.to_s.classify.constantize
     end
@@ -124,6 +131,8 @@ class ActionView::TestCase
 end
 
 class PresenterTestCase < ActionView::TestCase
+  disable_database_queries
+
   setup do
     Draper::ViewContext.current = @controller.view_context
   end

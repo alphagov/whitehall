@@ -1,6 +1,5 @@
 module Edition::Identifiable
   extend ActiveSupport::Concern
-  extend Forwardable
 
   included do
     belongs_to :document
@@ -10,8 +9,11 @@ module Edition::Identifiable
     before_validation :propagate_type_to_document
   end
 
-  def_delegators :document, :slug, :change_history
-  def_delegator :document, :published?, :linkable?
+  delegate :slug, :change_history, to: :document
+
+  def linkable?
+    document.published?
+  end
 
   def ensure_presence_of_document
     self.document ||= Document.new(sluggable_string: self.sluggable_title)

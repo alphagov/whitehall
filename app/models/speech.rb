@@ -1,7 +1,6 @@
 class Speech < Edition
   include Edition::RelatedPolicies
   include Edition::Countries
-  extend Forwardable
 
   belongs_to :role_appointment
 
@@ -9,8 +8,8 @@ class Speech < Edition
 
   before_save :populate_organisations_based_on_role_appointment
 
-  def_delegators :speech_type, :genus, :explanation
-  def_delegators :role_appointment, :role
+  delegate :genus, :explanation, to: :speech_type
+  delegate :role, to: :role_appointment
 
   def speech_type
     SpeechType.find_by_id(speech_type_id)

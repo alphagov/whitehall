@@ -1,7 +1,5 @@
 class NationInapplicability < ActiveRecord::Base
-  extend Forwardable
-
-  def_delegators :nation, :name
+  delegate :name, to: :nation
 
   belongs_to :nation
   belongs_to :edition
