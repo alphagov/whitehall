@@ -28,7 +28,7 @@ Scenario: Ordering policies within a topic
   And a published policy "No more beards" exists in the "Facial Hair" topic
   And a published policy "Free monobrow treatment" exists in the "Facial Hair" topic
   When I set the order of the policies in the "Facial Hair" topic to:
-    |Policy Area|
+    |Topic|
     |No more beards|
     |Outlaw Moustaches|
     |Free monobrow treatment|
@@ -43,7 +43,7 @@ Scenario: Featuring policies in a topic
   And a published policy "No more beards" exists in the "Facial Hair" topic
   And a published policy "Free monobrow treatment" exists in the "Facial Hair" topic
   When I set the featured policies in the "Facial Hair" topic to:
-    |Policy Area|
+    |Topic|
     |No more beards|
     |Free monobrow treatment|
   Then I should see the featured policies in the "Facial Hair" topic are:
