@@ -30,22 +30,22 @@ module Edition::RelatedPolicies
         topic.respond_to?(:id) ? topic.id.to_i : topic.to_i
       end
       latest_published_edition.where("
-        exists (
-          select 1
-          from edition_relations dr
-            join editions policy on
-              dr.document_id = policy.document_id and
-              policy.state='published' and
+        EXISTS (
+          SELECT 1
+          FROM edition_relations er
+            JOIN editions policy ON
+              er.document_id = policy.document_id AND
+              policy.state = 'published' AND
               NOT EXISTS (
                 SELECT 1 FROM editions e3
                 WHERE
                   e3.document_id = policy.document_id
                   AND e3.id > policy.id AND e3.state = 'published'
               )
-            join topic_memberships ptm on ptm.policy_id = policy.id
-          where
-            dr.edition_id=editions.id
-            and ptm.topic_id in (?)
+            JOIN topic_memberships tm ON tm.policy_id = policy.id
+          WHERE
+            er.edition_id = editions.id
+            AND tm.topic_id in (?)
         )
       ", topic_ids)
     end
