@@ -23,9 +23,8 @@ module Edition::AuditTrail
 
   class AuditEntry
     extend ActiveModel::Naming
-    extend Forwardable
 
-    def_delegators :@object, :created_at, :to_key
+    delegate :created_at, :to_key, to: :@object
 
     attr_reader :edition_serial_number, :edition, :object
 
@@ -45,7 +44,7 @@ module Edition::AuditTrail
 
     def ==(other)
       other.class == self.class &&
-      other.edition_serial_number == edition_serial_number && 
+      other.edition_serial_number == edition_serial_number &&
       other.edition == edition &&
       other.object == object
     end

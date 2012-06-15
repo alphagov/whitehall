@@ -1,10 +1,9 @@
 require "csv"
 
 class VanityRedirector
-  extend Forwardable
   include Enumerable
 
-  def_delegators :@redirections, :each, :[]
+  delegate :each, :[], to: :@redirections
 
   def initialize(csv_path)
     data = CSV.read(csv_path, {headers: true, header_converters: :symbol})
