@@ -9,12 +9,14 @@
   <table class="policy_teams table table-striped">
     <thead>
       <tr>
+        <th>Name</th>
         <th>Email</th>
       </tr>
     </thead>
     <tbody>
       <% @policy_teams.each do |policy_team| %>
         <%= content_tag_for(:tr, policy_team) do %>
+          <td class="name"><%= policy_team.name %></td>
           <td class="email"><%= link_to policy_team.email, edit_admin_policy_team_path(policy_team), title: "Edit policy team #{policy_team.email}" %></td>
         <% end %>
       <% end %>

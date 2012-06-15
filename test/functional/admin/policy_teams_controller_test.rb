@@ -7,9 +7,9 @@ class Admin::PolicyTeamsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "index should list policy teams ordered alphabetically by email address" do
-    team_b = create(:policy_team, email: "team-b@example.com")
-    team_a = create(:policy_team, email: "team-a@example.com")
+  test "index should list policy teams ordered alphabetically by name" do
+    team_b = create(:policy_team, name: "team-b")
+    team_a = create(:policy_team, name: "team-a")
 
     get :index
 
@@ -17,7 +17,7 @@ class Admin::PolicyTeamsControllerTest < ActionController::TestCase
   end
 
   test "index should provide link to edit existing policy team" do
-    policy_team = create(:policy_team, email: "team@example.com")
+    policy_team = create(:policy_team)
 
     get :index
 
@@ -37,19 +37,21 @@ class Admin::PolicyTeamsControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form[action=#{admin_policy_teams_path}]" do
+      assert_select "input[name='policy_team[name]']"
       assert_select "input[name='policy_team[email]']"
     end
   end
 
   test "create should create a new policy team" do
-    post :create, policy_team: { email: "the-a-team@example.com" }
+    post :create, policy_team: { name: "the-a-team", email: "the-a-team@example.com" }
 
     refute_nil policy_team = PolicyTeam.last
+    assert_equal "the-a-team", policy_team.name
     assert_equal "the-a-team@example.com", policy_team.email
   end
 
   test "create should redirect to policy team list on success" do
-    post :create, policy_team: { email: "a-team@example.com" }
+    post :create, policy_team: { name: "a-team", email: "a-team@example.com" }
 
     assert_redirected_to admin_policy_teams_path
   end
@@ -64,21 +66,23 @@ class Admin::PolicyTeamsControllerTest < ActionController::TestCase
   end
 
   test "edit should display policy team form" do
-    policy_team = create(:policy_team, email: "a-team@example.com")
+    policy_team = create(:policy_team, name: "a-team", email: "a-team@example.com")
 
     get :edit, id: policy_team
 
     assert_select "form[action=#{admin_policy_team_path(policy_team)}]" do
+      assert_select "input[name='policy_team[name]'][value='a-team']"
       assert_select "input[name='policy_team[email]'][value='a-team@example.com']"
     end
   end
 
   test "udpate should modify policy team" do
-    policy_team = create(:policy_team, email: "original@example.com")
+    policy_team = create(:policy_team, name: "original", email: "original@example.com")
 
-    put :update, id: policy_team, policy_team: { email: "new@example.com" }
+    put :update, id: policy_team, policy_team: { name: "new", email: "new@example.com" }
 
     policy_team.reload
+    assert_equal "new", policy_team.name
     assert_equal "new@example.com", policy_team.email
   end
 end

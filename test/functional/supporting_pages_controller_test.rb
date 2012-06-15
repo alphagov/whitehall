@@ -294,4 +294,25 @@ That's all
 
     assert_select "h1", text: supporting_page.title
   end
+
+  test "show displays the policy team responsible for this policy" do
+    policy_team = create(:policy_team, email: 'policy-team@example.com')
+    policy = create(:published_policy, policy_team: policy_team)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.document, id: supporting_page
+
+    assert_select policy_team_selector do
+      assert_select "a[href='mailto:policy-team@example.com']", text: 'policy-team@example.com'
+    end
+  end
+
+  test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.document, id: supporting_page
+
+    refute_select policy_team_selector
+  end
 end
