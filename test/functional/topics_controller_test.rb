@@ -187,7 +187,7 @@ class TopicsControllerTest < ActionController::TestCase
     policy_1 = create(:published_policy, title: "some-policy")
     topic = create(:topic)
     topic.update_attributes(topic_memberships_attributes: [
-      {topic_id: topic.id, featured: true, policy_id: policy_1.id}
+      {topic_id: topic.id, featured: true, edition_id: policy_1.id}
     ])
     policy_1.publish_as(create(:user))
     policy_1.create_draft(create(:user))

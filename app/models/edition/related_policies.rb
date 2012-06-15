@@ -42,7 +42,7 @@ module Edition::RelatedPolicies
                   e3.document_id = policy.document_id
                   AND e3.id > policy.id AND e3.state = 'published'
               )
-            JOIN topic_memberships tm ON tm.policy_id = policy.id
+            JOIN topic_memberships tm ON tm.edition_id = policy.id
           WHERE
             er.edition_id = editions.id
             AND tm.topic_id in (?)

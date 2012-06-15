@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120614153246) do
+ActiveRecord::Schema.define(:version => 20120615135355) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -382,13 +382,13 @@ ActiveRecord::Schema.define(:version => 20120614153246) do
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "policy_id"
+    t.integer  "edition_id"
     t.integer  "ordering"
     t.boolean  "featured",   :default => false
   end
 
-  add_index "topic_memberships", ["policy_id"], :name => "index_policy_topic_memberships_on_policy_id"
-  add_index "topic_memberships", ["topic_id"], :name => "index_policy_topic_memberships_on_policy_topic_id"
+  add_index "topic_memberships", ["edition_id"], :name => "index_topic_memberships_on_edition_id"
+  add_index "topic_memberships", ["topic_id"], :name => "index_topic_memberships_on_topic_id"
 
   create_table "topic_relations", :force => true do |t|
     t.integer  "topic_id",         :null => false
