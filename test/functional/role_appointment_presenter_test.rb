@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RoleAppointmentPresenterTest < PresenterTestCase
   setup do
-    @appointment = stub_record(:role_appointment)
+    @appointment = stub_record(:role_appointment, role: stub_record(:role), person: stub_record(:person))
     @presenter = RoleAppointmentPresenter.decorate(@appointment)
   end
 

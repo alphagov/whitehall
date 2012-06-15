@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class PeopleControllerTest < ActionController::TestCase
+  disable_database_queries
+
   should_be_a_public_facing_controller
 
   def stub_role_appointment(role_type)
