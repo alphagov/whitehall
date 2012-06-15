@@ -1,6 +1,6 @@
 class Admin::PolicyTeamsController < Admin::BaseController
   def index
-    @policy_teams = PolicyTeam.order(:email)
+    @policy_teams = PolicyTeam.order(:name)
   end
 
   def new

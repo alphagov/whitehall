@@ -69,12 +69,15 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   end
 
   test "show displays the policy team responsible for this policy" do
-    policy_team = create(:policy_team, email: 'policy-team@example.com')
+    policy_team = create(:policy_team, name: 'policy-team', email: 'policy-team@example.com')
     draft_policy = create(:draft_policy, policy_team: policy_team)
 
     get :show, id: draft_policy
 
-    assert_select "#{policy_team_selector} a", 'policy-team@example.com'
+    assert_select policy_team_selector do
+      assert_select '.name', text: 'policy-team'
+      assert_select 'a', text: 'policy-team@example.com'
+    end
   end
 
   test "show doesn't display the policy team section if no policy team is associated with the policy" do

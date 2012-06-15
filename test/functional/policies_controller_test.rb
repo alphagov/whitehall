@@ -331,10 +331,11 @@ That's all
   end
 
   test "show displays the policy team responsible for this policy" do
-    policy_team = create(:policy_team, email: 'policy-team@example.com')
+    policy_team = create(:policy_team, name: 'policy-team', email: 'policy-team@example.com')
     policy = create(:published_policy, policy_team: policy_team)
     get :show, id: policy.document
     assert_select policy_team_selector do
+      assert_select '.name', text: 'policy-team'
       assert_select "a[href='mailto:policy-team@example.com']", text: 'policy-team@example.com'
     end
   end
