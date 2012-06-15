@@ -329,4 +329,19 @@ That's all
     get :show, id: policy.document
     refute_select_policy_section_list
   end
+
+  test "show displays the policy team responsible for this policy" do
+    policy_team = create(:policy_team, email: 'policy-team@example.com')
+    policy = create(:published_policy, policy_team: policy_team)
+    get :show, id: policy.document
+    assert_select policy_team_selector do
+      assert_select "a[href='mailto:policy-team@example.com']", text: 'policy-team@example.com'
+    end
+  end
+
+  test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
+    policy = create(:published_policy)
+    get :show, id: policy.document
+    refute_select policy_team_selector
+  end
 end

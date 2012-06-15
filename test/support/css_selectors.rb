@@ -104,4 +104,8 @@ module CssSelectors
   def link_to_public_version_selector
     ".actions .public_version"
   end
+
+  def policy_team_selector
+    "#policy_team"
+  end
 end

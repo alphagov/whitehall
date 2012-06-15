@@ -68,11 +68,36 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select ".supporting_pages .supporting_page"
   end
 
+  test "show displays the policy team responsible for this policy" do
+    policy_team = create(:policy_team, email: 'policy-team@example.com')
+    draft_policy = create(:draft_policy, policy_team: policy_team)
+
+    get :show, id: draft_policy
+
+    assert_select "#{policy_team_selector} a", 'policy-team@example.com'
+  end
+
+  test "show doesn't display the policy team section if no policy team is associated with the policy" do
+    draft_policy = create(:draft_policy)
+
+    get :show, id: draft_policy
+
+    refute_select policy_team_selector
+  end
+
   test "new should display topics field" do
     get :new
 
     assert_select "form#edition_new" do
       assert_select "select[name*='edition[topic_ids]']"
+    end
+  end
+
+  test "new should display policy team field" do
+    get :new
+
+    assert_select "form#edition_new" do
+      assert_select "select[name='edition[policy_team_id]']"
     end
   end
 
