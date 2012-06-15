@@ -1,3 +1,5 @@
+require 'addressable/uri'
+
 module GovspeakHelper
 
   def govspeak_to_admin_html(text, images = [])
