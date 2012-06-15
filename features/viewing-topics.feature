@@ -14,7 +14,7 @@ Scenario: Visiting a topic page
   Then I should only see published policies belonging to the "Higher Education" topic
   And I should see a link to the related topic "Scientific Research"
 
-Scenario: Exemplary content for empty policy areas
+Scenario: Exemplary content for empty topics
   Given a topic called "Caprid welfare"
   And a topic called "Social care"
   And a topic called "Higher education"

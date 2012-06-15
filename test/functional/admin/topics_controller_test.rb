@@ -59,9 +59,9 @@ class Admin::TopicsControllerTest < ActionController::TestCase
   end
 
   test "index lists topics in alphabetical order" do
-    topic_c = create(:topic, name: "Policy Area C")
-    topic_a = create(:topic, name: "Policy Area A")
-    topic_b = create(:topic, name: "Policy Area B")
+    topic_c = create(:topic, name: "Topic C")
+    topic_a = create(:topic, name: "Topic A")
+    topic_b = create(:topic, name: "Topic B")
 
     get :index
 
