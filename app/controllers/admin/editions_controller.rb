@@ -8,7 +8,6 @@ class Admin::EditionsController < Admin::BaseController
 
   def index
     if params_filters.any?
-      @filtered_organisation = current_user.organisation
       @filter = EditionFilter.new(edition_class, params_filters)
       session[:document_filters] = params_filters
       render :index

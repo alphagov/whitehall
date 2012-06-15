@@ -22,7 +22,7 @@
         <ul class="nav nav-list">
           <li class="nav-header">Filter by Author</li>
           <%= link_to_filter('Me', {author: current_user, organisation: nil}, title: "Show documents by me") %>
-          <%= link_to_filter('My department', {author: nil, organisation: @filtered_organisation}, title: "Show documents by my department") %>
+          <%= link_to_filter('My department', {author: nil, organisation: current_user.organisation}, title: "Show documents by my department") %>
           <%= link_to_filter('Everyone', {author: nil, organisation: nil}, title: "Show documents by everyone") %>
           <li class="author-filter <%= (params[:author] && params[:author] != current_user.id.to_s) ? 'active' : nil %>">
             <%= form_tag("", method: :get) do %>
