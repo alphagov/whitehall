@@ -173,20 +173,33 @@ class Admin::EditionsController < Admin::BaseController
       )
     end
 
-    def page_title
-      edition_state = (options[:state].nil? || options[:state] == :active) ? 'all' : options[:state]
-      document_type = options[:type].present? ? options[:type] : 'documents'
-      owner_filter  = if options[:author].present?
-        author.name
-      elsif options[:organisation].present?
-        organisation.name
-      else
-        "anyone"
-      end
-      "#{edition_state.humanize} #{document_type.humanize.pluralize.downcase} by #{owner_filter}"
+    def page_title(current_user)
+      "#{ownership(current_user)} #{edition_state} #{document_type.humanize.pluralize.downcase}".squeeze(' ')
     end
 
     private
+
+    def ownership(current_user)
+      if author && author == current_user
+        "My"
+      elsif author
+        "#{author.name}'s"
+      elsif organisation && organisation == current_user.organisation
+        "My department's"
+      elsif organisation
+        "#{organisation.name}'s"
+      else
+        "Everyone's"
+      end
+    end
+
+    def edition_state
+      options[:state] unless options[:state] == 'active'
+    end
+
+    def document_type
+      options[:type].present? ? options[:type] : 'document'
+    end
 
     def organisation
       Organisation.find(options[:organisation]) if options[:organisation]

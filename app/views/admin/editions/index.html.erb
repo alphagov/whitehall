@@ -1,4 +1,4 @@
-<% page_title @filter.page_title %>
+<% page_title @filter.page_title(current_user) %>
 <section class="documents">
   <div class="row-fluid">
     <div class="span2">
@@ -57,7 +57,7 @@
     </div>
 
     <div class="collection span10">
-      <h1><%= @filter.page_title %></h1>
+      <h1><%= @filter.page_title(current_user) %></h1>
 
       <table class="table table-striped">
         <thead>

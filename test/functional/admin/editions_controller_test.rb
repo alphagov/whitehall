@@ -73,41 +73,59 @@ class Admin::EditionsController
 
     test "should generate page title when there are no filter options" do
       filter = EditionFilter.new(Edition)
-      assert_equal "All documents by anyone", filter.page_title
+      assert_equal "Everyone's documents", filter.page_title(build(:user))
+    end
+
+    test "should generate page title when we're displaying active documents" do
+      filter = EditionFilter.new(Edition, state: 'active')
+      assert_equal "Everyone's documents", filter.page_title(build(:user))
     end
 
     test "should generate page title when filtering by document state" do
       filter = EditionFilter.new(Edition, state: 'draft')
-      assert_equal "Draft documents by anyone", filter.page_title
+      assert_equal "Everyone's draft documents", filter.page_title(build(:user))
     end
 
     test "should generate page title when filtering by document type" do
       filter = EditionFilter.new(Edition, type: 'news_article')
-      assert_equal "All news articles by anyone", filter.page_title
+      assert_equal "Everyone's news articles", filter.page_title(build(:user))
     end
 
-    test "should generate page title when filtering by organisation" do
-      organisation = create(:organisation, name: 'organisation-name')
+    test "should generate page title when filtering by any organisation" do
+      organisation = create(:organisation, name: "Cabinet Office")
       filter = EditionFilter.new(Edition, organisation: organisation.to_param)
-      assert_equal "All documents by organisation-name", filter.page_title
+      assert_equal "Cabinet Office's documents", filter.page_title(build(:user))
     end
 
-    test "should generate page title when filtering by author" do
-      user = create(:user, name: 'user-name')
+    test "should generate page title when filtering by my organisation" do
+      organisation = create(:organisation)
+      user = create(:user, organisation: organisation)
+      filter = EditionFilter.new(Edition, organisation: organisation.to_param)
+      assert_equal "My department's documents", filter.page_title(user)
+    end
+
+    test "should generate page title when filtering by any author" do
+      user = create(:user, name: 'John Doe')
       filter = EditionFilter.new(Edition, author: user.to_param)
-      assert_equal "All documents by user-name", filter.page_title
+      assert_equal "John Doe's documents", filter.page_title(build(:user))
+    end
+
+    test "should generate page title when filtering by my documents" do
+      user = create(:user)
+      filter = EditionFilter.new(Edition, author: user.to_param)
+      assert_equal "My documents", filter.page_title(user)
     end
 
     test "should generate page title when filtering by document state, document type and organisation" do
-      organisation = create(:organisation, name: 'organisation-name')
+      organisation = create(:organisation, name: 'Cabinet Office')
       filter = EditionFilter.new(Edition, state: 'published', type: 'consultation', organisation: organisation.to_param)
-      assert_equal "Published consultations by organisation-name", filter.page_title
+      assert_equal "Cabinet Office's published consultations", filter.page_title(build(:user))
     end
 
     test "should generate page title when filtering by document state, document type and author" do
-      user = create(:user, name: 'user-name')
-      filter = EditionFilter.new(Edition, state: 'filter-state', type: 'document-type', author: user.to_param)
-      assert_equal "Filter-state document-types by user-name", filter.page_title
+      user = create(:user, name: 'John Doe')
+      filter = EditionFilter.new(Edition, state: 'rejected', type: 'speech', author: user.to_param)
+      assert_equal "John Doe's rejected speeches", filter.page_title(build(:user))
     end
   end
 end
@@ -366,7 +384,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
     assert_select_object(draft_edition) { refute_select ".state" }
   end
-  
+
   def stub_edition_filter(attributes = {})
     default_attributes = {
       editions: [], page_title: '', edition_state: ''
