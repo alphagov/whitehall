@@ -10,7 +10,7 @@ module Edition::Topics
   end
 
   included do
-    has_many :topic_memberships, dependent: :destroy
+    has_many :topic_memberships, dependent: :destroy, foreign_key: :edition_id
     has_many :topics, through: :topic_memberships
 
     add_trait Trait

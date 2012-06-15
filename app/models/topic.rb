@@ -24,6 +24,8 @@ class Topic < ActiveRecord::Base
   has_many :published_policies, through: :topic_memberships, class_name: "Policy", conditions: { state: "published" }, source: :policy
   has_many :archived_policies, through: :topic_memberships, class_name: "Policy", conditions: { state: "archived" }, source: :policy
 
+  has_many :published_editions, through: :topic_memberships, conditions: { state: "published" }, source: :edition
+
   has_many :topic_relations
   has_many :related_topics, through: :topic_relations, before_remove: -> pa, rpa {
     TopicRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation

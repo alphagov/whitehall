@@ -60,12 +60,12 @@ class TopicTest < ActiveSupport::TestCase
     topic = create(:topic)
     first_policy = create(:policy, topics: [topic])
     second_policy = create(:policy, topics: [topic])
-    first_association = topic.topic_memberships.find_by_policy_id(first_policy.id)
-    second_association = topic.topic_memberships.find_by_policy_id(second_policy.id)
+    first_association = topic.topic_memberships.find_by_edition_id(first_policy.id)
+    second_association = topic.topic_memberships.find_by_edition_id(second_policy.id)
 
     topic.update_attributes(topic_memberships_attributes: {
-      first_association.id => {id: first_association.id, policy_id: first_policy.id, ordering: "2"},
-      second_association.id => {id: second_association.id, policy_id: second_policy.id, ordering: "1"}
+      first_association.id => {id: first_association.id, edition_id: first_policy.id, ordering: "2"},
+      second_association.id => {id: second_association.id, edition_id: second_policy.id, ordering: "1"}
     })
 
     assert_equal 2, first_association.reload.ordering

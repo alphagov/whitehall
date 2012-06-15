@@ -109,12 +109,12 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "should build a draft copy preserving ordering with topic" do
     topic = create(:topic)
     published_policy = create(:published_policy, topics: [topic])
-    association = topic.topic_memberships.where(policy_id: published_policy.id).first
+    association = topic.topic_memberships.where(edition_id: published_policy.id).first
     association.update_attributes(ordering: 31)
 
     draft_policy = published_policy.create_draft(create(:policy_writer))
 
-    new_association = topic.topic_memberships.where(policy_id: draft_policy.id).first
+    new_association = topic.topic_memberships.where(edition_id: draft_policy.id).first
     assert_equal 31, new_association.ordering
   end
 

@@ -201,8 +201,8 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     topic = create(:topic)
     policy = create(:published_policy, topics: [topic])
     draft_policy = create(:draft_policy, topics: [topic])
-    published_association = topic.topic_memberships.where(policy_id: policy.id).first
-    draft_association = topic.topic_memberships.where(policy_id: draft_policy.id).first
+    published_association = topic.topic_memberships.where(edition_id: policy.id).first
+    draft_association = topic.topic_memberships.where(edition_id: draft_policy.id).first
 
     get :edit, id: topic.id
 
