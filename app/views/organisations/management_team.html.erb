@@ -13,16 +13,16 @@
       <% if @organisation.permanent_secretary_board_member_roles.any? %>
         <section id="permanent_secretary_board_members">
           <%= render_list_of_roles(@organisation.permanent_secretary_board_member_roles, "permanent_secretary_board_member_roles") do |board_member_role| %>
-            <h3><%= board_member_role.name %></h3>
-            <p class="current_appointee"><%= link_to board_member_role.current_person_name, person_path(board_member_role.current_person) %></p>
+            <h3><%= board_member_role.link %></h3>
+            <p class="current_appointee"><%= board_member_role.current_person_link %></p>
           <% end %>
         </section>
       <% end %>
       <% if @organisation.other_board_member_roles.any? %>
         <section id="other_board_members">
           <%= render_list_of_roles(@organisation.other_board_member_roles, "other_board_member_roles") do |board_member_role| %>
-            <h3><%= board_member_role.name %></h3>
-            <p class="current_appointee"><%= link_to board_member_role.current_person_name, person_path(board_member_role.current_person) %></p>
+            <h3><%= board_member_role.link %></h3>
+            <p class="current_appointee"><%= board_member_role.current_person_link %></p>
           <% end %>
         </section>
       <% end %>
