@@ -36,7 +36,7 @@
         </td>
         <td class="actions">
           <% if topic.featured? %>
-            <%= button_to 'No Longer Feature', unfeature_admin_topic_path(topic), method: :post, class: "btn" %>
+            <%= button_to 'No Longer Feature', unfeature_admin_topic_path(topic), method: :post, class: "btn btn-danger" %>
           <% else %>
             <%= button_to 'Feature Topic', feature_admin_topic_path(topic), method: :post, class: "btn" %>
           <% end %>
