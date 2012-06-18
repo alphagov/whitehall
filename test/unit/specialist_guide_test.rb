@@ -5,4 +5,8 @@ class SpecialistGuideTest < ActiveSupport::TestCase
     article = build(:specialist_guide)
     assert article.can_be_associated_with_topics?
   end
+
+  test "should have a summary" do
+    assert build(:specialist_guide).has_summary?
+  end
 end
