@@ -1,5 +1,6 @@
 <% if specialist_guides.any? %>
   <%= article_section(title, specialist_guides, {id: 'specialist_guides', article_wrapper_class: "g1"}) do |specialist_guide| %>
     <h2 class="article_title"><%= link_to specialist_guide.title, public_document_path(specialist_guide), title: "View #{specialist_guide.title}"%></h2>
+    <p class="summary"><%= specialist_guide.summary %>&hellip;</p>
   <% end %>
 <% end %>
