@@ -21,14 +21,6 @@
     <p>Document doesn&#x27;t have any fact checking responses yet.</p>
   <% end %>
 </section>
-<section class="request">
-  <h1>Send request</h1>
-  <%= form_for [:admin, edition, FactCheckRequest.new] do |f| %>
-    <%= f.text_field :email_address %>
-    <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
-    <%= f.submit 'Send request', class: "btn" %>
-  <% end %>
-</section>
 <section class="pending">
   <% if edition.fact_check_requests.pending.any? %>
   <h1>Pending requests</h1>
