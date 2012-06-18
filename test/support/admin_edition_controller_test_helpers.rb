@@ -11,21 +11,6 @@ module AdminEditionControllerTestHelpers
 
         assert_select ".body", text: "body-in-html"
       end
-
-      test "show lists each edition author once" do
-        tom = create(:user, name: "Tom")
-        dick = create(:user, name: "Dick")
-        harry = create(:user, name: "Harry")
-
-        draft_edition = create("draft_#{edition_type}", creator: tom)
-        draft_edition.edit_as(dick)
-        draft_edition.edit_as(harry)
-        draft_edition.edit_as(dick)
-
-        get :show, id: draft_edition
-
-        assert_select ".authors", text: "Tom, Dick and Harry"
-      end
     end
 
     def should_show_document_audit_trail_on(action)

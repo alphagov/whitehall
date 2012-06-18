@@ -7,7 +7,6 @@
   <p>Research? <span class="research"><%= yes_or_no(edition.research?) %></span></p>
   <p>Corporate Publication? <span class="corporate_publication"><%= yes_or_no(edition.corporate_publication?) %></span></p>
   <p>Order URL: <%= order_link(edition) %></p>
-  <%= render partial: "authors", locals: { edition: edition } %>
 
   <h3>Attachments:</h3>
   <%= render partial: "documents/attachments", locals: { object_with_attachments: edition }  %>

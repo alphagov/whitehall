@@ -273,10 +273,6 @@ Then /^I should see that those responsible for the policy are:$/ do |table|
   end
 end
 
-Then /^I should see that the policy is written by "([^"]*)"$/ do |name|
-  assert page.has_css?(".document .authors", text: name)
-end
-
 Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
   assert page.has_css?(".document .body", text: policy_body)
 end
