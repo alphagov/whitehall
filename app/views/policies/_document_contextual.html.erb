@@ -3,7 +3,7 @@
   <nav class="policy_parts" role="navigation">
     <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'policy_view'), class: "active" %>
     <% if govspeak_headers(@policy.body).any? || @related_news_articles.any? || @related_speeches.any? || @related_publications.any? || @related_consultations.any? %>
-      <ol id="policy_sections">
+      <ol id="document_sections">
         <% govspeak_headers(@policy.body).each do |header| %>
           <li><%= link_to header.text, public_document_path(@policy, anchor: header.id) %></li>
         <% end %>
