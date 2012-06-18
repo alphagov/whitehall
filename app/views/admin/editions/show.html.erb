@@ -127,6 +127,14 @@
       <section class="tab-pane fact_checking" id="fact_checking">
         <h1>Fact checking</h1>
         <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+        <section class="request">
+          <h1>Send request</h1>
+          <%= form_for [:admin, @edition, FactCheckRequest.new] do |f| %>
+            <%= f.text_field :email_address %>
+            <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
+            <%= f.submit 'Send request', class: "btn" %>
+          <% end %>
+        </section>
       </section>
     <% end %>
   <% end %>
