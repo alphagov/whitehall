@@ -67,7 +67,7 @@
 
       <% if @edition.respond_to?(:policy_team) && @edition.policy_team %>
         <section id="policy_team">
-          <h1>Policy team</h1>
+          <h1>Who's working on this?</h1>
           <p class="name"><%= @edition.policy_team.name %></p>
           <p><%= mail_to @edition.policy_team.email, @edition.policy_team.email %></p>
         </section>
