@@ -56,4 +56,17 @@ class PolicyTest < ActiveSupport::TestCase
     edition.destroy
     assert_equal nil, EditionRelation.find_by_id(relationship.id)
   end
+
+  test "generates title without topics" do
+    policy = build(:policy, title: "Policy title", topics: [])
+    assert_equal "Policy title", policy.title_with_topics
+  end
+
+  test "generates title with topics" do
+    first_topic = build(:topic, name: "First topic")
+    second_topic = build(:topic, name: "Second topic")
+    third_topic = build(:topic, name: "Third topic")
+    policy = build(:policy, title: "Policy title", topics: [first_topic, second_topic, third_topic])
+    assert_equal "Policy title (First topic, Second topic and Third topic)", policy.title_with_topics
+  end
 end
