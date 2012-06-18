@@ -32,6 +32,20 @@ class TopicTest < ActiveSupport::TestCase
     refute topic.valid?
   end
 
+  test "should allow association with policies" do
+    policy = create(:draft_policy)
+    topic = create(:topic, policies: [policy])
+
+    assert_equal [topic], policy.topics
+  end
+
+  test "should allow association with specialist guides" do
+    specialist_guide = create(:draft_specialist_guide)
+    topic = create(:topic, specialist_guides: [specialist_guide])
+
+    assert_equal [topic], specialist_guide.topics
+  end
+
   test "should return a list of topics with published policies" do
     topic_with_published_policy = create(:topic, policies: [build(:published_policy)])
     create(:topic, policies: [build(:draft_policy)])

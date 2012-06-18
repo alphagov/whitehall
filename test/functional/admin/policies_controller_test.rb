@@ -17,6 +17,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   should_allow_organisations_for :policy
   should_allow_ministerial_roles_for :policy
   should_allow_association_between_countries_and :policy
+  should_allow_association_with_topics :policy
   should_allow_attached_images_for :policy
   should_not_use_lead_image_for :policy
   should_be_rejectable :policy
@@ -88,68 +89,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select policy_team_selector
   end
 
-  test "new should display topics field" do
-    get :new
-
-    assert_select "form#edition_new" do
-      assert_select "select[name*='edition[topic_ids]']"
-    end
-  end
-
   test "new should display policy team field" do
     get :new
 
     assert_select "form#edition_new" do
       assert_select "select[name='edition[policy_team_id]']"
     end
-  end
-
-  test "create should associate topics with policy" do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
-    attributes = attributes_for(:policy)
-
-    post :create, edition: attributes.merge(
-      topic_ids: [first_topic.id, second_topic.id]
-    )
-
-    assert policy = Policy.last
-    assert_equal [first_topic, second_topic], policy.topics
-  end
-
-  test "edit should display topics field" do
-    policy = create(:policy)
-
-    get :edit, id: policy
-
-    assert_select "form#edition_edit" do
-      assert_select "select[name*='edition[topic_ids]']"
-    end
-  end
-
-  test "update should associate topics with policy" do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
-
-    policy = create(:policy, topics: [first_topic])
-
-    put :update, id: policy, edition: {
-      topic_ids: [second_topic.id]
-    }
-
-    policy.reload
-    assert_equal [second_topic], policy.topics
-  end
-
-  test "update should remove all topics if none specified" do
-    topic = create(:topic)
-
-    policy = create(:policy, topics: [topic])
-
-    put :update, id: policy, edition: {}
-
-    policy.reload
-    assert_equal [], policy.topics
   end
 
   test "updating should retain associations to related editions" do

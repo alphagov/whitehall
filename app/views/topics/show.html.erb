@@ -67,3 +67,12 @@
     <%= render partial: "related_topics", object: @related_topics %>
   </div>
 </div>
+
+<div class="block-4">
+  <div class="inner-block">
+    <div class="all_specialist_guides">
+      <%= render partial: "documents/specialist_guides", object: @specialist_guides, locals: {title: "All specialist guides in this topic"} %>
+    </div>
+  </div>
+</div>
+

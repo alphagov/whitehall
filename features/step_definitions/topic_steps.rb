@@ -6,9 +6,14 @@ Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, descript
   create_topic(name: name, description: description)
 end
 
-Given /^the topic "([^"]*)" contains some policies$/ do |name|
+Given /^the topic "([^"]*)" contains some policies$/ do |topic_name|
   policies = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
-  create(:topic, name: name, policies: policies)
+  create(:topic, name: topic_name, policies: policies)
+end
+
+Given /^the topic "([^"]*)" contains a published and a draft specialist guide$/ do |topic_name|
+  specialist_guides = [build(:published_specialist_guide), build(:draft_specialist_guide)]
+  create(:topic, name: topic_name, specialist_guides: specialist_guides)
 end
 
 Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic|
@@ -117,8 +122,16 @@ end
 
 Then /^I should only see published policies belonging to the "([^"]*)" topic$/ do |name|
   topic = Topic.find_by_name!(name)
-  editions = records_from_elements(Edition, page.all(".policy"))
-  assert editions.all? { |edition| topic.policies.published.include?(edition) }
+  actual_editions = records_from_elements(Edition, page.all(".policy")).sort_by(&:id)
+  expected_editions = topic.policies.published.all.sort_by(&:id)
+  assert_equal expected_editions, actual_editions
+end
+
+Then /^I should only see published specialist guides belonging to the "([^"]*)" topic$/ do |name|
+  topic = Topic.find_by_name!(name)
+  actual_editions = records_from_elements(Edition, page.all(".specialist_guide")).sort_by(&:id)
+  expected_editions = topic.specialist_guides.published.all.sort_by(&:id)
+  assert_equal expected_editions, actual_editions
 end
 
 Then /^I should see the topics "([^"]*)" and "([^"]*)"$/ do |first_topic_name, second_topic_name|
