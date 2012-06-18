@@ -290,7 +290,7 @@ class EditionTest < ActiveSupport::TestCase
     article.images.first.update_attribute(:alt_text, nil)
     NewsArticle.find(article.id).delete!
   end
-  
+
   test "generate title for a draft edition" do
     draft_edition = create(:draft_edition, title: "Holding back")
     assert_equal "Holding back (draft)", draft_edition.title_with_state
