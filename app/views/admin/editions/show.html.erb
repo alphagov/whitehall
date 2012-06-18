@@ -71,47 +71,7 @@
         </section>
       <% end %>
 
-      <section>
-        <h1>Organisations</h1>
-        <% if @edition.organisations.any? %>
-          <%= render partial: "admin/organisations/list", locals: {organisations: @edition.organisations} %>
-        <% else %>
-          <p>This document isn't assigned to any organisations.</p>
-        <% end %>
-      </section>
-
-      <% if @edition.can_be_associated_with_topics? %>
-        <section>
-          <h1>Topics</h1>
-          <% if @edition.topics.any? %>
-            <%= render partial: "topics/list", locals: {topics: @edition.topics} %>
-          <% else %>
-            <p>This document isn't assigned to any topics.</p>
-          <% end %>
-        </section>
-      <% end %>
-
-      <% if @edition.can_be_associated_with_ministers? %>
-        <section>
-          <h1>Ministers</h1>
-          <% if @edition.ministerial_roles.any? %>
-            <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: @edition.ministerial_roles} %>
-          <% else %>
-            <p>This document isn't assigned to any ministers.</p>
-          <% end %>
-        </section>
-      <% end %>
-
-      <% if @edition.can_be_associated_with_countries? %>
-        <section>
-          <h1>Countries</h1>
-          <% if @edition.countries.any? %>
-            <%= render partial: "admin/countries/list", locals: {countries: @edition.countries} %>
-          <% else %>
-            <p>This document isn't assigned to any countries.</p>
-          <% end %>
-        </section>
-      <% end %>
+      <%= render partial: "outbound_links", locals: { edition: @edition } %>
 
       <% if @edition.respond_to?(:policy_team) && @edition.policy_team %>
         <section id="policy_team">
