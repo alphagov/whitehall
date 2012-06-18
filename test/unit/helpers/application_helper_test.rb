@@ -21,6 +21,23 @@ class ApplicationHelperTest < ActionView::TestCase
     assert options.include? [theresa_may_appointment.id, "Theresa May, Secretary of State, in Home Office"]
   end
 
+  test "should supply options with IDs and descriptions for all the ministerial roles" do
+    home_office = create(:organisation, name: "Home Office")
+    ministry_of_defence = create(:organisation, name: "Ministry of Defence")
+    home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
+    defence_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [ministry_of_defence])
+    theresa_may = create(:person, forename: "Theresa", surname: "May")
+    philip_hammond = create(:person, forename: "Philip", surname: "Hammond")
+    theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may, started_at: Date.parse('2011-01-01'))
+    philip_hammond_appointment = create(:role_appointment, role: defence_secretary, person: philip_hammond, started_at: Date.parse('2011-01-01'))
+
+    options = ministerial_role_options
+
+    assert_equal 2, options.length
+    assert options.include? [defence_secretary.id, "Secretary of State, in Ministry of Defence (Philip Hammond)"]
+    assert options.include? [home_secretary.id, "Secretary of State, in Home Office (Theresa May)"]
+  end
+
   test "should not include non-ministerial appointments" do
     create(:board_member_role_appointment)
     assert_equal [], ministerial_appointment_options
