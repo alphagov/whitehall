@@ -1,4 +1,4 @@
-Feature: viewing policies as an editor
+Feature: viewing inbound links to a policy as an editor
   As a writer, I want to see a list of PUBLISHED documents that are associated
   with the policy document I am currently viewing, so I can see the full set of
   related items that will appear on the published page.

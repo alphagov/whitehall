@@ -1,14 +1,13 @@
-<% if edition.respond_to?(:related_editions) %>
+<% if edition.respond_to?(:published_related_editions) %>
   <section>
     <h1>Links to this page</h1>
 
-    <% if edition.related_editions.published.any? %>
+    <% if edition.published_related_editions.any? %>
       <ul id="inbound-links">
-        <% edition.related_editions.published.each do |related_edition| %>
+        <% edition.published_related_editions.each do |related_edition| %>
           <li><%= link_to related_edition.title, admin_edition_path(related_edition) %></li>
         <% end %>
       </ul>
-      <p>Do something</p>
     <% else %>
       <p>No published documents link here.</p>
     <% end %>
