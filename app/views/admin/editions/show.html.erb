@@ -65,14 +65,6 @@
     <section class="tab-pane active" id="associations">
       <h1>Associations</h1>
 
-      <% if @edition.respond_to?(:policy_team) && @edition.policy_team %>
-        <section id="policy_team">
-          <h1>Policy team</h1>
-          <p class="name"><%= @edition.policy_team.name %></p>
-          <p><%= mail_to @edition.policy_team.email, @edition.policy_team.email %></p>
-        </section>
-      <% end %>
-
       <% if @edition.allows_supporting_pages? %>
         <section class="supporting_pages">
           <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
@@ -118,6 +110,14 @@
           <% else %>
             <p>This document isn't assigned to any countries.</p>
           <% end %>
+        </section>
+      <% end %>
+
+      <% if @edition.respond_to?(:policy_team) && @edition.policy_team %>
+        <section id="policy_team">
+          <h1>Who's working on this?</h1>
+          <p class="name"><%= @edition.policy_team.name %></p>
+          <p><%= mail_to @edition.policy_team.email, @edition.policy_team.email %></p>
         </section>
       <% end %>
 

@@ -1,12 +1,15 @@
 <%= standard_edition_form(edition) do |form| %>
   <fieldset>
     <legend>Associations</legend>
-    <%= form.label :policy_team_id %>
-    <%= form.select :policy_team_id, PolicyTeam.order(:name).all.map { |team| ["#{team.name} (#{team.email})", team.id] }, {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the policy team responsible for this policy..." } %>
     <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'country_fields', locals: { form: form, edition: edition } %>
+  </fieldset>
+
+  <fieldset>
+    <legend>Who's working on this?</legend>
+    <%= render partial: 'policy_team_fields', locals: { form: form } %>
   </fieldset>
 
   <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
