@@ -40,7 +40,7 @@
     <div class="inner-block">
     <div>
       <section id="announcements" class="latest_documents">
-      <h1 class="label">News &amp; speeches</h1>
+      <h1 class="label"><%= h "News & speeches" %></h1>
       <ul class="news_and_speeches">
         <% @announcements.each do |announcement| %>
           <%= render partial: 'documents/document_li', locals: { document: announcement } %>
