@@ -16,6 +16,7 @@ class Topic < ActiveRecord::Base
 
   has_many :topic_memberships
   has_many :policies, through: :topic_memberships
+  has_many :specialist_guides, through: :topic_memberships
   has_many :featured_policies, through: :topic_memberships, class_name: "Policy", conditions: { "topic_memberships.featured" => true, "editions.state" => "published" }, source: :policy
 
   has_many :organisation_topics

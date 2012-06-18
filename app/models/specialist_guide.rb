@@ -1,3 +1,3 @@
 class SpecialistGuide < Edition
-  include Edition::RelatedPolicies
+  include Edition::Topics
 end

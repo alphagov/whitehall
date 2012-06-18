@@ -17,10 +17,10 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
 
   # should_allow_related_policies_for :specialist_guide
   should_allow_organisations_for :specialist_guide
+  should_allow_association_with_topics :specialist_guide
   # should_allow_attachments_for :specialist_guide
   # should_allow_attached_images_for :specialist_guide
   # should_not_use_lead_image_for :specialist_guide
-  # should_allow_association_between_countries_and :specialist_guide
   should_be_rejectable :specialist_guide
   should_be_publishable :specialist_guide
   should_be_force_publishable :specialist_guide

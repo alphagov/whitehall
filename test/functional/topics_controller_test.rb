@@ -24,6 +24,19 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
+  test "shows published specialist guides" do
+    published_specialist_guide = create(:published_specialist_guide, title: "specialist-guide-title")
+    topic = create(:topic, specialist_guides: [published_specialist_guide])
+
+    get :show, id: topic
+
+    assert_select "#specialist_guides" do
+      assert_select_object(published_specialist_guide) do
+        assert_select ".article_title", text: "specialist-guide-title"
+      end
+    end
+  end
+
   test "shows featured policies and their summaries" do
     topic = create(:topic)
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
@@ -46,6 +59,15 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     refute_select_object(draft_policy)
+  end
+
+  test "doesn't show unpublished specialist guides" do
+    draft_specialist_guide = create(:draft_specialist_guide)
+    topic = create(:topic, specialist_guides: [draft_specialist_guide])
+
+    get :show, id: topic
+
+    refute_select_object(draft_specialist_guide)
   end
 
   test "should not display an empty published policies section" do

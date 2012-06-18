@@ -1324,6 +1324,66 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_association_with_topics(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "new should display topics field" do
+        get :new
+
+        assert_select "form#edition_new" do
+          assert_select "select[name*='edition[topic_ids]']"
+        end
+      end
+
+      test "create should associate topics with the edition" do
+        first_topic = create(:topic)
+        second_topic = create(:topic)
+        attributes = controller_attributes_for(edition_type)
+
+        post :create, edition: attributes.merge(
+          topic_ids: [first_topic.id, second_topic.id]
+        )
+
+        assert edition = edition_class.last
+        assert_equal [first_topic, second_topic], edition.topics
+      end
+
+      test "edit should display topics field" do
+        edition = create("draft_#{edition_type}")
+
+        get :edit, id: edition
+
+        assert_select "form#edition_edit" do
+          assert_select "select[name*='edition[topic_ids]']"
+        end
+      end
+
+      test "update should associate topics with the edition" do
+        first_topic = create(:topic)
+        second_topic = create(:topic)
+
+        edition = create("draft_#{edition_type}", topics: [first_topic])
+
+        put :update, id: edition, edition: {
+          topic_ids: [second_topic.id]
+        }
+
+        edition.reload
+        assert_equal [second_topic], edition.topics
+      end
+
+      test "update should remove all topics if none specified" do
+        topic = create(:topic)
+
+        edition = create("draft_#{edition_type}", topics: [topic])
+
+        put :update, id: edition, edition: {}
+
+        edition.reload
+        assert_equal [], edition.topics
+      end
+    end
+
     def should_allow_ministerial_roles_for(edition_type)
       edition_class = edition_class_for(edition_type)
 
