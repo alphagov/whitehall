@@ -73,6 +73,8 @@
 
       <%= render partial: "outbound_links", locals: { edition: @edition } %>
 
+      <%= render partial: "inbound_links", locals: { edition: @edition } %>
+
       <% if @edition.respond_to?(:policy_team) && @edition.policy_team %>
         <section id="policy_team">
           <h1>Who's working on this?</h1>

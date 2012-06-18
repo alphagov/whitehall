@@ -28,6 +28,10 @@ Given /^a published policy "([^"]*)" that does not apply to the nations:$/ do |p
   end
 end
 
+Given /^a published policy "([^"]*)"$/ do |title|
+  @policy = create(:published_policy, title: title)
+end
+
 Given /^I visit the list of draft policies$/ do
   visit admin_editions_path(state: :draft)
 end
@@ -357,4 +361,22 @@ end
 Then /^the change note "([^"]*)" should appear in the history for the policy "([^"]*)"$/ do |change_note, title|
   click_link title
   assert page.has_css?(".change_notes", text: Regexp.new(change_note))
+end
+
+Given /^a published publication "([^"]*)" associated with the policy$/ do |title|
+  create(:published_speech, title: title, related_policies: [@policy])
+end
+
+Given /^a draft publication "([^"]*)" associated with the policy$/ do |title|
+  create(:draft_speech, title: title, related_policies: [@policy])
+end
+
+Then /^I should see a link to "([^"]*)" in the list of related documents$/ do |title|
+  edition = Edition.find_by_title(title)
+  assert page.has_css?("#inbound-links a", text: title, href: admin_edition_path(edition)), "link to '#{title}' not found"
+end
+
+Then /^I should not see a link to "([^"]*)" in the list of related documents$/ do |title|
+  edition = Edition.find_by_title(title)
+  refute page.has_css?("#inbound-links a", text: title), "unexpected link to '#{title}' found"
 end
