@@ -1,0 +1,2 @@
+<%= form.label :policy_team_id %>
+<%= form.select :policy_team_id, PolicyTeam.order(:name).all.map { |team| ["#{team.name} (#{team.email})", team.id] }, {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the policy team responsible for this policy..." } %>
