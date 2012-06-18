@@ -67,7 +67,7 @@ module ApplicationHelper
 
   def ministerial_role_options
     MinisterialRole.alphabetical_by_person.map do |role|
-      [role.id, "#{role.name}, in #{role.organisations.to_sentence} (#{role.current_person_name})"]
+      [role.id, "#{role.name}, in #{role.organisations.collect(&:name).to_sentence} (#{role.current_person_name})"]
     end
   end
 
