@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-  $(".chzn-select").chosen({allow_single_deselect: true});
+  $(".chzn-select").chosen({allow_single_deselect: true, search_contains: true});
 
   $("#completed_fact_check_requests").markLinkedAnchor();
 
