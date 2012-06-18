@@ -2,16 +2,9 @@ require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
   test "should supply options with IDs and descriptions for the all ministerial appointments" do
-    home_office = create(:organisation, name: "Home Office")
-    ministry_of_defence = create(:organisation, name: "Ministry of Defence")
-    home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
-    defence_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [ministry_of_defence])
-    theresa_may = create(:person, forename: "Theresa", surname: "May")
-    philip_hammond = create(:person, forename: "Philip", surname: "Hammond")
-    theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may, started_at: Date.parse('2011-01-01'))
-    philip_hammond_appointment = create(:role_appointment, role: defence_secretary, person: philip_hammond, started_at: Date.parse('2011-01-01'))
-    philip_hammond_home_secretary_appointment =
-      create(:role_appointment, role: home_secretary, person: philip_hammond, started_at: Date.parse('2010-01-01'), ended_at: Date.parse('2011-01-01'))
+    theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
+    philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
+    philip_hammond_home_secretary_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2010-01-01'), ended_at: Date.parse('2011-01-01'))
 
     options = ministerial_appointment_options
 
@@ -22,14 +15,10 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "should supply options with IDs and descriptions for all the ministerial roles" do
-    home_office = create(:organisation, name: "Home Office")
-    ministry_of_defence = create(:organisation, name: "Ministry of Defence")
-    home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
-    defence_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [ministry_of_defence])
-    theresa_may = create(:person, forename: "Theresa", surname: "May")
-    philip_hammond = create(:person, forename: "Philip", surname: "Hammond")
-    theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may, started_at: Date.parse('2011-01-01'))
-    philip_hammond_appointment = create(:role_appointment, role: defence_secretary, person: philip_hammond, started_at: Date.parse('2011-01-01'))
+    theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
+    philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
+    home_secretary = theresa_may_appointment.role
+    defence_secretary = philip_hammond_appointment.role
 
     options = ministerial_role_options
 
@@ -237,4 +226,16 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Publications about farming, zombie preparedness and cats",
       publications_page_title(topics)
   end
+
+  private
+
+  def appoint_minister(attributes = {})
+    organisation_name = attributes.delete(:organisation)
+    organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
+    role_name = attributes.delete(:role)
+    role = organisation.ministerial_roles.find_by_name(role_name) || create(:ministerial_role, name: role_name, organisations: [organisation])
+    person = create(:person, forename: attributes.delete(:forename), surname: attributes.delete(:surname))
+    create(:role_appointment, attributes.merge(role: role, person: person))
+  end
+
 end
