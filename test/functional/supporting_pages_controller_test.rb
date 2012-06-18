@@ -1,7 +1,7 @@
 require "test_helper"
 
 class SupportingPagesControllerTest < ActionController::TestCase
-  include PolicyViewAssertions
+  include DocumentViewAssertions
 
   should_be_a_public_facing_controller
 
@@ -59,9 +59,9 @@ That's all
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select_policy_section_link policy, 'First Section', 'first-section'
-    assert_select_policy_section_link policy, 'Another Bit', 'another-bit'
-    assert_select_policy_section_link policy, 'Final Part', 'final-part'
+    assert_select_document_section_link policy, 'First Section', 'first-section'
+    assert_select_document_section_link policy, 'Another Bit', 'another-bit'
+    assert_select_document_section_link policy, 'Final Part', 'final-part'
   end
 
   test "show links to related news articles on parent policy if any" do
@@ -72,7 +72,7 @@ That's all
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select_policy_section_link policy, 'Related news', 'related-news-articles'
+    assert_select_document_section_link policy, 'Related news', 'related-news-articles'
   end
 
   test "show doesn't link to related news articles on parent policy if none exist" do
@@ -81,7 +81,7 @@ That's all
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    refute_select_policy_section_list
+    refute_select_document_section_list
   end
 
   test "show links to related speeches on parent policy if any" do
@@ -92,7 +92,7 @@ That's all
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select_policy_section_link policy, 'Related speeches', 'related-speeches'
+    assert_select_document_section_link policy, 'Related speeches', 'related-speeches'
   end
 
   test "show doesn't link to related speeches on parent policy if none exist" do
@@ -101,7 +101,7 @@ That's all
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    refute_select_policy_section_list
+    refute_select_document_section_list
   end
 
   test "show links to related consultations on parent policy if any" do
@@ -112,7 +112,7 @@ That's all
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select_policy_section_link policy, 'Related consultations', 'related-consultations'
+    assert_select_document_section_link policy, 'Related consultations', 'related-consultations'
   end
 
   test "show doesn't link to related consultations on parent policy if none exist" do
@@ -121,7 +121,7 @@ That's all
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    refute_select_policy_section_list
+    refute_select_document_section_list
   end
 
   test "show links to related publications on parent policy if any" do
@@ -132,7 +132,7 @@ That's all
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select_policy_section_link policy, 'Related publications', 'related-publications'
+    assert_select_document_section_link policy, 'Related publications', 'related-publications'
   end
 
   test "show doesn't link to related publications on parent policy if none exist" do
@@ -141,7 +141,7 @@ That's all
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    refute_select_policy_section_list
+    refute_select_document_section_list
   end
 
   test "shows the body using govspeak markup" do

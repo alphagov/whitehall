@@ -3,7 +3,7 @@
   <nav class="specialist_guide_parts" role="navigation">
     <%= link_to_with_current @document.title, public_document_path(@document, anchor: 'policy_view'), class: "active" %>
     <% if govspeak_headers(@document.body).any? %>
-      <ol id="specialist_guide_sections">
+      <ol id="document_sections">
         <% govspeak_headers(@document.body).each do |header| %>
           <li><%= link_to header.text, public_document_path(@document, anchor: header.id) %></li>
         <% end %>
