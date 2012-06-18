@@ -27,6 +27,10 @@ nav.actions {
         @include type-24;
         display: block;
       }
+      h2 {
+        @include type-21;
+        display: block;
+      }
     }
   }
 

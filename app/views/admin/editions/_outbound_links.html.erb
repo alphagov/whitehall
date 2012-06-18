@@ -1,0 +1,45 @@
+<section>
+  <h1>This page links to</h1>
+
+  <section>
+    <h2>Organisations</h2>
+    <% if edition.organisations.any? %>
+      <%= render partial: "admin/organisations/list", locals: {organisations: edition.organisations} %>
+    <% else %>
+      <p>This document isn't assigned to any organisations.</p>
+    <% end %>
+  </section>
+
+  <% if edition.can_be_associated_with_topics? %>
+    <section>
+      <h2>Topics</h2>
+      <% if edition.topics.any? %>
+        <%= render partial: "topics/list", locals: {topics: edition.topics} %>
+      <% else %>
+        <p>This document isn't assigned to any topics.</p>
+      <% end %>
+    </section>
+  <% end %>
+
+  <% if edition.can_be_associated_with_ministers? %>
+    <section>
+      <h2>Ministers</h2>
+      <% if edition.ministerial_roles.any? %>
+        <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: edition.ministerial_roles} %>
+      <% else %>
+        <p>This document isn't assigned to any ministers.</p>
+      <% end %>
+    </section>
+  <% end %>
+
+  <% if edition.can_be_associated_with_countries? %>
+    <section>
+      <h2>Countries</h2>
+      <% if edition.countries.any? %>
+        <%= render partial: "admin/countries/list", locals: {countries: edition.countries} %>
+      <% else %>
+        <p>This document isn't assigned to any countries.</p>
+      <% end %>
+    </section>
+  <% end %>
+</section>
