@@ -227,6 +227,21 @@ class ApplicationHelperTest < ActionView::TestCase
       publications_page_title(topics)
   end
 
+  test "generates related policy option as title without topics" do
+    policy = create(:policy, title: "Policy title", topics: [])
+    options = related_policy_options
+    assert_equal [[policy.document_id, "Policy title"]], related_policy_options
+  end
+
+  test "generates related policy option as title with topics" do
+    first_topic = build(:topic, name: "First topic")
+    second_topic = build(:topic, name: "Second topic")
+    third_topic = build(:topic, name: "Third topic")
+    policy = create(:policy, title: "Policy title", topics: [first_topic, second_topic, third_topic])
+    options = related_policy_options
+    assert_equal [[policy.document_id, "Policy title (First topic, Second topic and Third topic)"]], related_policy_options
+  end
+
   private
 
   def appoint_minister(attributes = {})

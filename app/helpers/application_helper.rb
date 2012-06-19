@@ -71,6 +71,14 @@ module ApplicationHelper
     end
   end
 
+  def related_policy_options
+    Policy.latest_edition.active.map do |policy|
+      parts = [policy.title]
+      parts << "(#{policy.topics.map(&:name).to_sentence})" if policy.topics.any?
+      [policy.document_id, parts.join(" ")]
+    end
+  end
+
   def link_to_person(person)
     PersonPresenter.new(person).link
   end
