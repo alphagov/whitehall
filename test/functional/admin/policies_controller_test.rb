@@ -53,10 +53,10 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     assert_select ".supporting_pages" do
       assert_select_object(first_supporting_page) do
-        assert_select "a[href='#{admin_supporting_page_path(first_supporting_page)}'] span.title", text: first_supporting_page.title
+        assert_select "a[href='#{admin_supporting_page_path(first_supporting_page)}']", text: first_supporting_page.title
       end
       assert_select_object(second_supporting_page) do
-        assert_select "a[href='#{admin_supporting_page_path(second_supporting_page)}'] span.title", text: second_supporting_page.title
+        assert_select "a[href='#{admin_supporting_page_path(second_supporting_page)}']", text: second_supporting_page.title
       end
     end
   end

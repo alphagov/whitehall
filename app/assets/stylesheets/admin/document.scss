@@ -19,6 +19,10 @@
     margin-bottom: 2em;
     overflow: auto;
     min-height: 20em;
+
+    &.document_page {
+      background: white;
+    }
   }
 
   h1 {
@@ -28,6 +32,12 @@
 
 .document_page {
   background: #fcfcfc;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 3px solid #ccc;
+  padding: 3em 10% 1em 10%;
+  margin-bottom: 2em;
+  overflow: auto;
 }
 
 .rejected_by {
