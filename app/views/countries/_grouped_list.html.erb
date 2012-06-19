@@ -4,7 +4,7 @@
     <% row.each do |letter, countries_group| %>
       <div class="alphabetical_row" id="countries_<%= letter.downcase %>">
         <h2 class="alphabetical_list_letter"><%= letter %></h2>
-        <%= render partial: "list", locals: { countries: countries_group } %>  
+        <%= render partial: "list", locals: { countries: countries_group } %>
       </div>
     <% end %>
   <% end %>

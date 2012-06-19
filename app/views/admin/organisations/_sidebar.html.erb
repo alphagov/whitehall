@@ -15,7 +15,7 @@
   </div>
 <% end %>
 
-<% 
+<%
   tabs = @organisation.persisted? ? {news_articles: "News articles"} : {}
   tabs[:govspeak_help] = "Formatting Help"
 %>
