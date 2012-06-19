@@ -11,7 +11,7 @@ module Admin::SidebarHelper
     if editing
       tabs = {govspeak_help: "Formatting Help"}
     else
-      tabs = {associations: "Associations"}
+      tabs = {}
     end
     tabs[:history] = ["History & Notes", @edition.audit_trail.length]
     if @edition.can_be_fact_checked?

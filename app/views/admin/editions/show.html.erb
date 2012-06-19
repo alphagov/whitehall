@@ -1,17 +1,93 @@
 <% page_title @edition.title, @edition.class.name.humanize %>
 
-<div class="span8">
-  <section class="document_page">
-    <%= render partial: 'edition', locals: { edition: @edition } %>
-  </section>
+<div class="span8 document-preview">
+  <div class="tabbable"> <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs">
+      <li><p class="guidance">Please review all content:</p></li>
+      <li class="active"><a href="#document" data-toggle="tab">Document</a></li>
+      <% if @edition.change_note_required? %>
+        <li><a href="#change-note" data-toggle="tab">Change note</a></li>
+      <% end %>
+      <% if @edition.notes_to_editors.present? %>
+        <li><a href="#notes_to_editors" data-toggle="tab">Notes to editors</a></li>
+      <% end %>
+      <li><a href="#associations" data-toggle="tab">Associations</a></li>
+    </ul>
+    <div class="tab-content">
+      <section class="document_page tab-pane active" id="document">
+        <%= render partial: 'edition', locals: { edition: @edition } %>
+      </section>
+      <% if @edition.change_note_required? %>
+        <section id="change-note" class="tab-pane">
+          <h1>Change note</h1>
+          <p><% if @edition.minor_change? %>
+              This is a minor change
+          <% elsif @edition.change_note.blank? %>
+              None
+          <% else %>
+              <%= @edition.change_note %>
+          <% end %></p>
+        </section>
+      <% end %>
+      <% if @edition.notes_to_editors.present? %>
+        <section class="tab-pane" id="notes_to_editors">
+          <h1>Notes to editors</h1>
+          <%= govspeak_to_html @edition.notes_to_editors %>
+        </section>
+      <% end %>
+      <section class="tab-pane" id="associations">
+        <h1>Associations</h1>
+        <% if @edition.allows_supporting_pages? %>
+          <section class="supporting_pages">
+            <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
+          </section>
+        <% end %>
 
-  <% if @edition.notes_to_editors.present? %>
-    <section id="notes_to_editors">
-      <h1>Notes to editors</h1>
-      <%= govspeak_to_html @edition.notes_to_editors %>
-    </section>
-  <% end %>
+        <%= render partial: "outbound_links", locals: { edition: @edition } %>
 
+        <%= render partial: "inbound_links", locals: { edition: @edition } %>
+
+        <% if @edition.respond_to?(:policy_team) && @edition.policy_team %>
+          <section id="policy_team">
+            <h1>Who's working on this?</h1>
+            <p class="name"><%= @edition.policy_team.name %></p>
+            <p><%= mail_to @edition.policy_team.email, @edition.policy_team.email %></p>
+          </section>
+        <% end %>
+
+        <% if @edition.can_apply_to_subset_of_nations? %>
+          <section>
+            <h1>Excluded nations</h1>
+            <% if @edition.nation_inapplicabilities.any? %>
+              <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: @edition.nation_inapplicabilities} %>
+            <% else %>
+              <p>This document applies to the whole of the UK.</p>
+            <% end %>
+          </section>
+        <% end %>
+
+        <% if @edition.can_be_related_to_policies? %>
+          <section>
+            <h1>Related policies</h1>
+            <% if @edition.related_policies.any? %>
+              <%= render partial: "admin/editions/related", locals: {related_editions: @edition.related_policies} %>
+            <% else %>
+              <p>This document doesn't have any related policies.</p>
+            <% end %>
+          </section>
+        <% end %>
+
+        <% if @edition.images.any? %>
+          <section class="images image_feature_mask">
+            <h1>Images</h1>
+            <% @edition.images.each do |image| %>
+              <%= image_tag image.url, id: dom_id(image) %>
+            <% end %>
+          </section>
+        <% end %>
+      </section>
+    </div>
+  </div>
 </div>
 
 <div class="span4">
@@ -19,19 +95,6 @@
   <span class="back">
     back to <%= link_to 'document list', admin_editions_path %>
   </span>
-
-  <% if @edition.change_note_required? %>
-    <section id="change-note" class="well">
-      <h3>Change note</h3>
-      <p><% if @edition.minor_change? %>
-          This is a minor change
-      <% elsif @edition.change_note.blank? %>
-          None
-      <% else %>
-          <%= @edition.change_note %>
-      <% end %></p>
-    </section>
-  <% end %>
 
   <%= render partial: "rejected_by", locals: { edition: @edition } %>
   <%= render partial: 'navigation', locals: { edition: @edition } %>
@@ -62,59 +125,6 @@
   <% end %>
 
   <%= sidebar_tabs edition_tabs(@edition) do %>
-    <section class="tab-pane active" id="associations">
-      <h1>Associations</h1>
-
-      <% if @edition.allows_supporting_pages? %>
-        <section class="supporting_pages">
-          <%= render partial: 'supporting_pages', locals: { edition: @edition } %>
-        </section>
-      <% end %>
-
-      <%= render partial: "outbound_links", locals: { edition: @edition } %>
-
-      <%= render partial: "inbound_links", locals: { edition: @edition } %>
-
-      <% if @edition.respond_to?(:policy_team) && @edition.policy_team %>
-        <section id="policy_team">
-          <h1>Who's working on this?</h1>
-          <p class="name"><%= @edition.policy_team.name %></p>
-          <p><%= mail_to @edition.policy_team.email, @edition.policy_team.email %></p>
-        </section>
-      <% end %>
-
-      <% if @edition.can_apply_to_subset_of_nations? %>
-        <section>
-          <h1>Excluded nations</h1>
-          <% if @edition.nation_inapplicabilities.any? %>
-            <%= render partial: "nation_inapplicabilities/list", locals: {nation_inapplicabilities: @edition.nation_inapplicabilities} %>
-          <% else %>
-            <p>This document applies to the whole of the UK.</p>
-          <% end %>
-        </section>
-      <% end %>
-
-      <% if @edition.can_be_related_to_policies? %>
-        <section>
-          <h1>Related policies</h1>
-          <% if @edition.related_policies.any? %>
-            <%= render partial: "admin/editions/related", locals: {related_editions: @edition.related_policies} %>
-          <% else %>
-            <p>This document doesn't have any related policies.</p>
-          <% end %>
-        </section>
-      <% end %>
-
-      <% if @edition.images.any? %>
-        <section class="images image_feature_mask">
-          <h1>Images</h1>
-          <% @edition.images.each do |image| %>
-            <%= image_tag image.url, id: dom_id(image) %>
-          <% end %>
-        </section>
-      <% end %>
-    </section>
-
     <section class="tab-pane audit-trail" id="history">
       <h1>Activity</h1>
       <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
