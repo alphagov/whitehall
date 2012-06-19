@@ -5,7 +5,10 @@
     <% if edition.published_related_editions.any? %>
       <ul id="inbound-links">
         <% edition.published_related_editions.each do |related_edition| %>
-          <li><%= link_to related_edition.title, admin_edition_path(related_edition) %></li>
+          <li>
+            <%= link_to related_edition.title, admin_edition_path(related_edition) %>
+            (<%= related_edition.type.underscore.humanize %>)
+          </li>
         <% end %>
       </ul>
     <% else %>
