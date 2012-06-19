@@ -250,7 +250,7 @@ class PoliciesControllerTest < ActionController::TestCase
   test "shows link to policy overview" do
     policy = create(:published_policy)
     get :show, id: policy.document
-    assert_select "a[href='#{policy_path(policy.document)}#policy_view']", text: policy.title
+    assert_select "a[href='#{policy_path(policy.document)}#top']", text: policy.title
   end
 
   test "shows link to each policy section in the markdown" do
