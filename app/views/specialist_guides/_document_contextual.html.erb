@@ -7,7 +7,7 @@
         <% govspeak_headers(@document.body).each do |header| %>
           <li><%= link_to header.text, public_document_path(@document, anchor: header.id) %></li>
         <% end %>
-	  </ol>
-	  <% end %>
-	</nav>
+    </ol>
+    <% end %>
+  </nav>
 </section>
