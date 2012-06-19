@@ -40,12 +40,6 @@ class Policy < Edition
     title_without_stub
   end
 
-  def title_with_topics
-    parts = [title]
-    parts << "(#{topics.map(&:name).to_sentence})" if topics.any?
-    parts.join(" ")
-  end
-
   def has_summary?
     true
   end
