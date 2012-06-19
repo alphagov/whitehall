@@ -153,8 +153,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_roles_path}']" do
       assert_select "input[name='role[name]'][type='text']"
       assert_select "select[name='role[type]']"
-      assert_select "input[name='role[cabinet_member]'][type='checkbox']"
-      assert_select "input[name='role[permanent_secretary]'][type='checkbox']"
       assert_select "select[name*='role[organisation_ids]']"
       assert_select "input[type='submit']"
     end
@@ -165,7 +163,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     post :create, role: attributes_for(:ministerial_role,
       name: "role-name",
-      type: MinisterialRole,
+      type: "other_minister",
       organisation_ids: [org_one.id, org_two.id]
     )
 
@@ -176,7 +174,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "create should create a new board member role" do
     post :create, role: attributes_for(:board_member_role,
-      type: BoardMemberRole,
+      type: "other_board_member",
     )
 
     assert role = BoardMemberRole.last
@@ -209,10 +207,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_role_path(role)}']" do
       assert_select "input[name='role[name]'][value='role-name']"
       assert_select "select[name='role[type]']" do
-        assert_select "option[selected='selected'][value='MinisterialRole']"
+        assert_select "option[selected='selected'][value='cabinet_minister']"
       end
-      assert_select "input[name='role[cabinet_member]'][value='1']"
-      assert_select "input[name='role[permanent_secretary]'][value='0']"
       assert_select "select[name*='role[organisation_ids]']" do
         assert_select "option[selected='selected']", text: "org-name"
       end
@@ -226,8 +222,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     put :update, id: role, role: {
       name: "new-name",
-      type: BoardMemberRole,
-      permanent_secretary: true,
+      type: "permanent_secretary",
       organisation_ids: [org_two.id]
     }
 
@@ -236,15 +231,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal "new-name", role.name
     assert role.permanent_secretary?
     assert_equal [org_two], role.organisations
-  end
-
-  test "update should not change type if no type supplied" do
-    role = create(:board_member_role)
-
-    put :update, id: role, role: { type: nil }
-
-    role = Role.find(role.id)
-    assert_equal BoardMemberRole, role.class
   end
 
   test "update should allow removal of all organisations" do

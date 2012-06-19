@@ -6,12 +6,13 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def new
-    @role = Role.new
+    @role = MinisterialRole.new(cabinet_member: true)
   end
 
   def create
-    @role = Role.new(params[:role].except(:type))
-    @role.type = params[:role].delete(:type) || MinisterialRole.name
+    attributes = RoleTypePresenter.role_attributes_from(params[:role])
+    @role = Role.new(attributes.except(:type))
+    @role.type = attributes.delete(:type) || MinisterialRole.name
     if @role.save
       redirect_to admin_roles_path, notice: %{"#{@role.name}" created.}
     else
@@ -25,10 +26,11 @@ class Admin::RolesController < Admin::BaseController
 
   def update
     params[:role][:organisation_ids] ||= []
-    if new_type = params[:role].delete(:type)
+    attributes = RoleTypePresenter.role_attributes_from(params[:role])
+    if new_type = attributes.delete(:type)
       @role.type = new_type
     end
-    if @role.update_attributes(params[:role])
+    if @role.update_attributes(attributes)
       redirect_to admin_roles_path, notice: %{"#{@role.name}" updated.}
     else
       render action: "edit"
@@ -49,4 +51,5 @@ class Admin::RolesController < Admin::BaseController
   def load_role
     @role = Role.find(params[:id])
   end
+
 end
