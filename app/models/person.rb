@@ -37,6 +37,10 @@ class Person < ActiveRecord::Base
     role_appointments - current_role_appointments
   end
 
+  def sort_key
+    [surname, forename].compact.join(' ').downcase
+  end
+
   private
 
   def slug_name

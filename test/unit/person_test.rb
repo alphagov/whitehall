@@ -66,4 +66,9 @@ class PersonTest < ActiveSupport::TestCase
     person = create(:person, title: 'Lord', forename: '', surname: 'Barry of Toxteth')
     assert_equal 'lord-barry-of-toxteth', person.slug
   end
+
+  test 'should generate sort key from surname and first name' do
+    person = Person.new(forename: 'Hercule', surname: 'Poirot')
+    assert_equal 'poirot hercule', person.sort_key
+  end
 end
