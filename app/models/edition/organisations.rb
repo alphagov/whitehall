@@ -24,4 +24,8 @@ module Edition::Organisations
       joins(:organisations).where('organisations.id' => organisation)
     end
   end
+
+  def association_with_organisation(organisation)
+    edition_organisations.where(organisation_id: organisation.id).first
+  end
 end

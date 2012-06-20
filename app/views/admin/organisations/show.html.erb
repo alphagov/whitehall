@@ -1,0 +1,124 @@
+<% page_title @organisation.name %>
+<div class="row-fluid organisation-header">
+  <div class="span8">
+    <h1><%= @organisation.name %></h1>
+  </div>
+  <div class="span4">
+    <%= link_to "Edit", edit_admin_organisation_path(@organisation), class: "btn btn-large btn-primary pull-right"%>
+    <%= link_to "View on website", organisation_path(@organisation) %>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span8 organisation-details">
+    <section>
+      <div class="tabbable">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+          <li><a href="#contacts" data-toggle="tab">Contacts</a></li>
+          <li><a href="#about-us" data-toggle="tab">About Us</a></li>
+          <li><a href="#people" data-toggle="tab">People</a></li>
+          <li><a href="#documents" data-toggle="tab">Documents</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="details">
+            <table class="table">
+              <tr><th>Type</th><td><%= @organisation.organisation_type.name %></td></tr>
+              <tr><th>Acronym</th><td><%= @organisation.acronym %></td></tr>
+              <tr><th>Active?</th><td><%= yes_or_no(@organisation.active?) %></td></tr>
+              <tr><th>URL</th><td><%= link_to @organisation.url, @organisation.url %></td></tr>
+              <tr><th>Description</th><td><%= govspeak_to_html @organisation.description %></td></tr>
+              <tr><th>Sponsoring departments</th><td>
+                <% if @organisation.parent_organisations.any? %>
+                  <%= @organisation.parent_organisations.map {|o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
+                <% else %>
+                  None
+                <% end %>
+                </td></tr>
+              <tr><th>Topics</th><td>
+                <% if @organisation.topics.any? %>
+                  <%= @organisation.topics.map {|t| link_to(t.name, [:edit, :admin, t]) }.to_sentence.html_safe %>
+                <% else %>
+                  None
+                <% end %>
+                </td></tr>
+              <% @organisation.social_media_accounts.each do |sma| %>
+                <tr><th><%= sma.social_media_service.name %></th><td><%= link_to sma.url, sma.url %></td></tr>
+              <% end %>
+            </table>
+          </div>
+          <div class="tab-pane" id="contacts">
+            <% @organisation.contacts.each do |contact| %>
+              <h3><%= contact.description %></h3>
+              <dl class="dl-horizontal">
+                <dt>Address</dt><dd><%= contact.address %></dd>
+                <dt>Postcode</dt><dd><%= contact.postcode %></dd>
+                <dt>Email</dt><dd><%= contact.email.present? ? mail_to(contact.email) : 'None' %></dd>
+                <% contact.contact_numbers.each do |cn| %>
+                  <dt><%= cn.label %></dt><dd><%= cn.number %></dd>
+                <% end %>
+              </dl>
+            <% end %>
+          </div>
+          <div class="tab-pane" id="about-us">
+            <%= govspeak_to_html @organisation.about_us %>
+          </div>
+          <div class="tab-pane" id="people">
+            <table class="table">
+              <% @organisation.roles.each do |role| %>
+                <tr><th><%= link_to role.name, [:edit, :admin, role.becomes(Role)] %></th><td><%= role.current_people.map { |p| link_to(p.name, [:edit, :admin, p]) }.to_sentence.html_safe %></td></tr>
+              <% end %>
+            </table>
+          </div>
+          <div class="tab-pane" id="documents">
+            <h2>Published documents (<%= link_to "View all", admin_editions_path(organisation: @organisation.slug, state: :active)%>)</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Title</th>
+                  <th>Published</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @editions.each do |edition| %>
+                  <%= content_tag_for :tr, edition do %>
+                    <td class="type"><%= edition.type.titleize %></td>
+                    <td><%= link_to edition.title, admin_edition_path(edition) %></td>
+                    <td><%=l edition.published_at.to_date %></td>
+                    <td>
+                      <% association = edition.association_with_organisation(@organisation) %>
+                      <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
+                        <% if association.featured? %>
+                          <%= f.hidden_field :featured, value: false %>
+                          <%= f.submit "No longer feature", class: "btn" %>
+                        <% else %>
+                          <%= f.hidden_field :featured, value: true %>
+                          <%= f.submit "Feature", class: "btn" %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="span4">
+    <section id="featured-news-articles">
+      <h1>Featured documents</h1>
+      <ul>
+        <% @organisation.featured_news_articles.each do |edition| %>
+          <%= content_tag_for :li, edition do %>
+            <%= link_to edition.title, admin_edition_path(edition) %>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
+  </div>
+</div>

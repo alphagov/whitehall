@@ -24,6 +24,7 @@ class Organisation < ActiveRecord::Base
             through: :edition_organisations,
             class_name: "Edition",
             conditions: { state: "published" },
+            order: "published_at DESC",
             source: :edition
   has_many :corporate_publications,
             through: :edition_organisations,

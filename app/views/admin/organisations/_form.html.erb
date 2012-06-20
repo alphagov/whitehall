@@ -56,5 +56,5 @@
     </fieldset>
   <% end %>
 
-  <%= organisation_form.save_or_cancel(cancel: admin_organisations_path) %>
+  <%= organisation_form.save_or_cancel(cancel: (@organisation.persisted? ? admin_organisation_path(@organisation) : admin_organisations_path)) %>
 <% end %>

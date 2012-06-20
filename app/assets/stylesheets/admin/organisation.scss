@@ -1,0 +1,13 @@
+.organisation-header {
+  margin-bottom: 2em;
+}
+
+.organisation-details {
+  table {
+    tr:first-child {
+      th, td {
+        border-top: none;
+      }
+    }
+  }
+}

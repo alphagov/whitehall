@@ -84,7 +84,7 @@ end
 
 When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |name, table|
   organisation = Organisation.find_by_name!(name)
-  visit edit_admin_organisation_path(organisation)
+  visit admin_organisation_path(organisation)
   table.rows.each do |title|
     news_article = NewsArticle.find_by_title(title)
     within record_css_selector(news_article) do

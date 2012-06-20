@@ -1,9 +1,8 @@
 class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_organisation, only: [:new]
   before_filter :build_ministerial_organisation_roles, only: [:new]
-  before_filter :load_organisation, only: [:edit, :update, :destroy]
+  before_filter :load_organisation, only: [:show, :edit, :update, :destroy]
   before_filter :build_social_media_account, only: [:new, :edit]
-  before_filter :load_news_articles, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :destroy_blank_phone_numbers, only: [:create, :update]
   before_filter :destroy_blank_social_media_accounts, only: [:create, :update]
@@ -24,6 +23,10 @@ class Admin::OrganisationsController < Admin::BaseController
       build_social_media_account
       render action: "new"
     end
+  end
+
+  def show
+    @editions = Edition.published.in_organisation(@organisation).by_first_published_at
   end
 
   def edit
@@ -63,10 +66,6 @@ class Admin::OrganisationsController < Admin::BaseController
     unless @organisation.social_media_accounts.any?(&:new_record?)
       @organisation.social_media_accounts.build
     end
-  end
-
-  def load_news_articles
-    @news_articles = NewsArticle.published.in_organisation(@organisation).by_first_published_at
   end
 
   def load_organisation_ministerial_roles

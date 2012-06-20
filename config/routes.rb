@@ -76,7 +76,7 @@ Whitehall::Application.routes.draw do
 
         resource :user, only: [:show, :edit, :update]
         resources :authors, only: [:show]
-        resources :organisations, except: [:show]
+        resources :organisations
         resources :policy_teams, except: [:show]
         resources :edition_organisations, only: [:update]
         resources :edition_countries, only: [:update]
