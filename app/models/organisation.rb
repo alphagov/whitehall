@@ -100,6 +100,10 @@ class Organisation < ActiveRecord::Base
     joins(:organisation_type).all.sort_by { |o| o.organisation_type.listing_order }
   end
 
+  def topics_with_content
+    topics.with_content
+  end
+
   def name_without_prefix
     name.gsub(/^Ministry of/, "").gsub(/^Department (of|for)/, "").gsub(/^Office of the/, "").strip
   end
