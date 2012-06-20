@@ -7,9 +7,9 @@
 </div>
 
 <div class="span4">
-  <%= sidebar_tabs govspeak_help: "Formatting Help" do %>
-    <section class="tab-pane active" id="govspeak_help">
+  <%= sidebar_tabs govspeak_help: "Formatting Help" do |tabs| %>
+    <%= tabs.pane id: "govspeak_help" do %>
       <%= render partial: "admin/editions/govspeak_help" %>
-    </section>
+    <% end %>
   <% end %>
 </div>

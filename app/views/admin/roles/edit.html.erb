@@ -7,15 +7,15 @@
 </div>
 
 <div class="span4">
-  <%= sidebar_tabs appointments: "Appointments", govspeak_help: "Formatting help" do %>
-    <section class="active tab-pane" id="appointments">
+  <%= sidebar_tabs appointments: "Appointments", govspeak_help: "Formatting help" do |tabs| %>
+    <%= tabs.pane id: "appointments" do %>
       <h1>Appointments</h1>
       <p><%= link_to "Add previous appointment", new_admin_role_role_appointment_path(@role), class: "btn" %></p>
       <%= render partial: "admin/role_appointments/list", locals: {role_appointments: @role.role_appointments} %>
       <p><%= link_to "New appointment", new_admin_role_role_appointment_path(@role, make_current: true), class: "btn" %></p>
-    </section>
-    <section class="tab-pane govspeak_help" id="govspeak_help">
+    <% end %>
+    <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
       <%= render partial: "admin/editions/govspeak_help" %>
-    </section>
+    <% end %>
   <% end %>
 </div>
