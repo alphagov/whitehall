@@ -167,14 +167,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".sub_navigation a[href='#{about_organisation_path(organisation)}']"
   end
 
-  test "should display the organisation's topics" do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
-    organisation = create(:organisation, topics: [first_topic, second_topic])
+  test "should display the organisation's topics with content" do
+    topics = [0, 1, 2].map { |n| create(:topic, published_edition_count: n) }
+    organisation = create(:organisation, topics: topics)
     get :show, id: organisation
     assert_select "#topics" do
-      assert_select_object first_topic
-      assert_select_object second_topic
+      assert_select_object topics[1]
+      assert_select_object topics[2]
+      refute_select_object topics[0]
     end
   end
 
