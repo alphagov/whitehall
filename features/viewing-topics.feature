@@ -14,14 +14,6 @@ Scenario: Visiting a topic page
   Then I should only see published policies belonging to the "Higher Education" topic
   And I should see a link to the related topic "Scientific Research"
 
-Scenario: Exemplary content for empty topics
-  Given a topic called "Caprid welfare"
-  And a topic called "Social care"
-  And a topic called "Higher education"
-  When I visit the "Caprid welfare" topic
-  Then I should see a link to the topic "Social care"
-  And I should see a link to the topic "Higher education"
-
 Scenario: Visiting a topic page
   Given the topic "Higher Education" contains a published and a draft specialist guide
   And the topic "Science and Innovation" contains a published and a draft specialist guide

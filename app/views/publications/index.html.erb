@@ -43,7 +43,6 @@
             <% @all_topics.each do |topic| %>
               <% css_classes = [] %>
               <% css_classes << "selected" if @selected_topics.include?(topic) %>
-              <% css_classes << "top" if @top_topics.include?(topic) %>
               <% style = (css_classes & %w{top selected}).size > 0 ? nil : "display: none" %>
               <%= content_tag_for(:li, topic, class: css_classes.join(" "), style: style) do %>
                 <% if css_classes.include? "selected" %>

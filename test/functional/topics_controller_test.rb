@@ -219,19 +219,17 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select ".featured_policy a", text: "some-policy", count: 1
   end
 
-  test "should show list of topics with published documents" do
-    topic_1, topic_2 = create(:topic), create(:topic)
-    Topic.stubs(:with_published_policies).returns([topic_1, topic_2])
+  test "should show list of topics with published content" do
+    topics = [0, 1, 2].map { |n| create(:topic, published_edition_count: n) }
 
     get :index
 
-    assert_select_object(topic_1)
-    assert_select_object(topic_2)
+    refute_select_object(topics[0])
+    assert_select_object(topics[1])
+    assert_select_object(topics[2])
   end
 
   test "should not display an empty list of topics" do
-    Topic.stubs(:with_published_policies).returns([])
-
     get :index
 
     refute_select ".topics"

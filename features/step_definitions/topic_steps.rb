@@ -7,8 +7,9 @@ Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, descript
 end
 
 Given /^the topic "([^"]*)" contains some policies$/ do |topic_name|
-  policies = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
-  create(:topic, name: topic_name, policies: policies)
+  topic = create(:topic, name: topic_name)
+  5.times do create(:published_policy, topics: [topic]); end
+  2.times do create(:draft_policy,     topics: [topic]); end
 end
 
 Given /^the topic "([^"]*)" contains a published and a draft specialist guide$/ do |topic_name|

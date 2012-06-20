@@ -36,22 +36,14 @@ class TopicTest < ActiveSupport::TestCase
     policy = create(:draft_policy)
     topic = create(:topic, policies: [policy])
 
-    assert_equal [topic], policy.topics
+    assert_equal [topic], policy.reload.topics
   end
 
   test "should allow association with specialist guides" do
     specialist_guide = create(:draft_specialist_guide)
     topic = create(:topic, specialist_guides: [specialist_guide])
 
-    assert_equal [topic], specialist_guide.topics
-  end
-
-  test "should return a list of topics with published policies" do
-    topic_with_published_policy = create(:topic, policies: [build(:published_policy)])
-    create(:topic, policies: [build(:draft_policy)])
-
-    expected = [topic_with_published_policy]
-    assert_equal expected, Topic.with_published_policies
+    assert_equal [topic], specialist_guide.reload.topics
   end
 
   test "should set a slug from the topic name" do
@@ -277,5 +269,19 @@ class TopicTest < ActiveSupport::TestCase
     results = Topic.search_index
 
     assert_equal 4, results.length
+  end
+
+  test 'should filter out topics without any published policies or documents' do
+    has_nothing = create(:topic)
+    create(:published_policy, topics: [has_published_policies = create(:topic)])
+    create(:draft_policy, topics: [has_draft_policies = create(:topic)])
+    create(:draft_specialist_guide, topics: [has_draft_specialist_guides = create(:topic)])
+    create(:published_specialist_guide, topics: [has_published_specialist_guides = create(:topic)])
+    topics = Topic.with_content.all
+    assert_includes topics, has_published_policies
+    assert_includes topics, has_published_specialist_guides
+    refute_includes topics, has_draft_policies
+    refute_includes topics, has_draft_specialist_guides
+    refute_includes topics, has_nothing
   end
 end

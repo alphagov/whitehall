@@ -1,12 +1,11 @@
 class TopicsController < PublicFacingController
   def index
-    @topics = Topic.all
+    @topics = Topic.with_content.all
     @featured_topics = Topic.featured.order("updated_at DESC").limit(3)
   end
 
   def show
     @topic = Topic.find(params[:id])
-    @exemplary_topics = Topic.exemplars
     @policies = @topic.policies.published
     @specialist_guides = @topic.specialist_guides.published
     @related_topics = @topic.related_topics

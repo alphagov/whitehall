@@ -21,7 +21,6 @@ class PublicationsController < DocumentsController
 
   def load_topics
     @all_topics = Topic.order(:name)
-    @top_topics = @all_topics.exemplars
     @selected_topics = Topic.where(slug: (params[:topics] || "").split("+")).all
   end
 
