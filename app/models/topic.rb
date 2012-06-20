@@ -44,19 +44,6 @@ class Topic < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  EXEMPLAR_NAMES = [
-    "Higher education",
-    "International aid and development",
-    "Law and the justice system",
-    "Social care",
-    "Housing",
-    "Local government",
-  ]
-
-  def self.exemplars
-    where(name: EXEMPLAR_NAMES)
-  end
-
   def update_counts
     update_attribute(:published_edition_count, published_editions.count)
   end
