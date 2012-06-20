@@ -20,15 +20,8 @@ class MinisterialRolesController < PublicFacingController
 
   def ordered_cabinet_ministerial_roles
     @ordered_cabinet_ministerial_roles ||= begin
-      roles = MinisterialRole.cabinet.includes(:current_people).to_a
-      prime_minister = roles.find { |f| f.name == "Prime Minister" }
-      deputy_prime_minister = roles.find { |f| f.name == "Deputy Prime Minister" }
-      first_secretary = roles.find { |f| f.name =~ /^First Secretary of State/ }
-      [first_secretary, deputy_prime_minister, prime_minister].compact.each do |role|
-        roles.delete(role)
-        roles.unshift(role)
-      end
-      roles
+      roles = MinisterialRole.cabinet.includes(:current_people)
+      roles.sort_by { |role| [role.seniority, role.current_person.sort_key] }
     end
   end
 end

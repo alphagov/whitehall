@@ -32,6 +32,19 @@ class MinisterialRole < Role
     super && editions.empty?
   end
 
+  def seniority
+    case name
+    when "Prime Minister"
+      1
+    when "Deputy Prime Minister"
+      2
+    when /^First Secretary of State/
+      3
+    else
+      4
+    end
+  end
+
   def search_link
     # This should be ministerial_role_path(self), but we can't use that because friendly_id's #to_param returns
     # the old value of the slug (e.g. nil for a new record) if the record is dirty, and apparently the record
