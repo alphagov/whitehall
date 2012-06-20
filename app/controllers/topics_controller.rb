@@ -1,6 +1,6 @@
 class TopicsController < PublicFacingController
   def index
-    @topics = Topic.all
+    @topics = Topic.with_content.all
     @featured_topics = Topic.featured.order("updated_at DESC").limit(3)
   end
 

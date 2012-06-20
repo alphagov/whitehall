@@ -46,14 +46,6 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal [topic], specialist_guide.reload.topics
   end
 
-  test "should return a list of topics with published policies" do
-    topic_with_published_policy = create(:topic, policies: [build(:published_policy)])
-    create(:topic, policies: [build(:draft_policy)])
-
-    expected = [topic_with_published_policy]
-    assert_equal expected, Topic.with_published_policies
-  end
-
   test "should set a slug from the topic name" do
     topic = create(:topic, name: 'Love all the people')
     assert_equal 'love-all-the-people', topic.slug

@@ -57,10 +57,6 @@ class Topic < ActiveRecord::Base
     super value
   end
 
-  def self.with_published_policies
-    joins(:published_policies).group(:topic_id)
-  end
-
   def published_related_editions
     policies.published.includes(
       :published_related_editions
