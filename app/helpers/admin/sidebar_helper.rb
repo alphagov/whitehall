@@ -8,16 +8,15 @@ module Admin::SidebarHelper
   end
 
   def edition_tabs(edition, editing=false)
-    if editing
-      tabs = {govspeak_help: "Formatting Help"}
-    else
-      tabs = {}
-    end
-    tabs[:history] = ["History & Notes", @edition.audit_trail.length]
-    if @edition.can_be_fact_checked?
-      tabs[:fact_checking] = ["Fact checking", @edition.all_completed_fact_check_requests.count]
-    end
-    tabs
+    {}.tap { |tabs|
+      if editing
+        tabs[:govspeak_help] = "Formatting Help"
+      end
+      tabs[:history] = ["History & Notes", @edition.audit_trail.length]
+      if @edition.can_be_fact_checked?
+        tabs[:fact_checking] = ["Fact checking", @edition.all_completed_fact_check_requests.count]
+      end
+    }
   end
 
   def sidebar_tabs(tabs, &block)
