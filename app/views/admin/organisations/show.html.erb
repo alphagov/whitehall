@@ -113,7 +113,7 @@
     <section id="featured-news-articles">
       <h1>Featured documents</h1>
       <ul>
-        <% @organisation.featured_news_articles.each do |edition| %>
+        <% @organisation.featured_editions.each do |edition| %>
           <%= content_tag_for :li, edition do %>
             <%= link_to edition.title, admin_edition_path(edition) %>
           <% end %>

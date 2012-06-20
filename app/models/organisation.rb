@@ -31,9 +31,8 @@ class Organisation < ActiveRecord::Base
             class_name: "Publication",
             conditions: { "editions.corporate_publication" => true },
             source: :edition
-  has_many :featured_news_articles,
+  has_many :featured_editions,
             through: :edition_organisations,
-            class_name: "NewsArticle",
             conditions: { "edition_organisations.featured" => true,
                           "editions.state" => "published" },
             source: :edition

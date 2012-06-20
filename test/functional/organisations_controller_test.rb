@@ -66,28 +66,28 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows featured news articles in order of first publication date with most recent first" do
+  test "shows featured editions in order of first publication date with most recent first" do
     organisation = create(:organisation)
     less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
-    more_recent_news_article = create(:published_news_article, first_published_at: 1.day.ago)
+    more_recent_policy = create(:published_policy, first_published_at: 1.day.ago)
     create(:edition_organisation, edition: less_recent_news_article, organisation: organisation, featured: true)
-    create(:edition_organisation, edition: more_recent_news_article, organisation: organisation, featured: true)
+    create(:edition_organisation, edition: more_recent_policy, organisation: organisation, featured: true)
 
     get :show, id: organisation
 
-    assert_equal [more_recent_news_article, less_recent_news_article], assigns(:featured_news_articles)
+    assert_equal [more_recent_policy, less_recent_news_article], assigns(:featured_editions)
   end
 
-  test "shows a maximum of 3 featured news articles" do
+  test "shows a maximum of 3 featured editions" do
     organisation = create(:organisation)
     4.times do
-      news_article = create(:published_news_article)
-      create(:edition_organisation, edition: news_article, organisation: organisation, featured: true)
+      edition = create(:published_edition)
+      create(:edition_organisation, edition: edition, organisation: organisation, featured: true)
     end
 
     get :show, id: organisation
 
-    assert_equal 3, assigns(:featured_news_articles).length
+    assert_equal 3, assigns(:featured_editions).length
   end
 
   test "shows organisation's featured news article with image" do

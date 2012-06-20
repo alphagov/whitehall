@@ -19,14 +19,14 @@
   <div class="block-3">
     <div class="inner-block">
       <div>
-        <%= render partial: "shared/hero_rotator", locals: {news_articles: @featured_news_articles, options: {organisational_context: true}} %>
+        <%= render partial: "shared/hero_rotator", locals: {news_articles: @featured_editions, options: {organisational_context: true}} %>
       </div>
     </div>
   </div>
 
   <div class="block-4">
     <div class="inner-block">
-      <div class="sidebar<% if @featured_news_articles.any? %> sub_navigation_container<% end %>">
+      <div class="sidebar<% if @featured_editions.any? %> sub_navigation_container<% end %>">
         <%= render 'sidebar', organisation: @organisation %>
       </div>
     </div>
