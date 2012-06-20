@@ -25,7 +25,7 @@ class Topic < ActiveRecord::Base
   has_many :published_policies, through: :topic_memberships, class_name: "Policy", conditions: { state: "published" }, source: :policy
   has_many :archived_policies, through: :topic_memberships, class_name: "Policy", conditions: { state: "archived" }, source: :policy
 
-  has_many :published_editions, through: :topic_memberships, conditions: { state: "published" }, source: :edition
+  has_many :published_editions, through: :topic_memberships, conditions: { "editions.state" => "published" }, source: :edition
 
   has_many :topic_relations
   has_many :related_topics, through: :topic_relations, before_remove: -> pa, rpa {
@@ -38,6 +38,8 @@ class Topic < ActiveRecord::Base
   accepts_nested_attributes_for :topic_memberships
 
   default_scope where('topics.state != "deleted"')
+
+  scope :with_content, where("published_edition_count <> 0")
 
   extend FriendlyId
   friendly_id :name, use: :slugged
@@ -53,6 +55,10 @@ class Topic < ActiveRecord::Base
 
   def self.exemplars
     where(name: EXEMPLAR_NAMES)
+  end
+
+  def update_counts
+    update_attribute(:published_edition_count, published_editions.count)
   end
 
   def should_generate_new_friendly_id?
