@@ -35,6 +35,12 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     refute ministerial_role.permanent_secretary
   end
 
+  test "can never be a chief of the defence staff" do
+    ministerial_role = build(:ministerial_role, chief_of_the_defence_staff: true)
+    refute ministerial_role.chief_of_the_defence_staff?
+    refute ministerial_role.chief_of_the_defence_staff
+  end
+
   test 'should return search index data suitable for Rummageable' do
     person = create(:person, forename: 'David', surname: 'Cameron', biography: 'David Cameron became Prime Minister in May 2010.')
     ministerial_role = create(:ministerial_role, name: 'Prime Minister')

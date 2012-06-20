@@ -1,0 +1,20 @@
+<% page_title "Chiefs of staff", @organisation.name %>
+
+<%= render "beta_warning", organisation: @organisation %>
+<%= organisation_wrapper(@organisation, class: "g3") do %>
+  <%= render 'header', organisation: @organisation, title: "Chiefs of staff" %>
+  <div class="g1f sidebar">
+    <%= render 'sidebar', organisation: @organisation %>
+  </div>
+
+  <div class="g1f page_detail management">
+    <% if @organisation.military_roles.any? %>
+      <section id="military_roles">
+        <%= render_list_of_roles(@organisation.military_roles, "military_roles") do |military_role| %>
+          <h3><%= military_role.link %></h3>
+          <p class="current_appointee"><%= military_role.current_person_link %></p>
+        <% end %>
+      </section>
+    <% end %>
+  </div>
+<% end %>

@@ -54,6 +54,19 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "#show links to the chief of the defence staff" do
+    chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)
+    person = create(:person)
+    create(:role_appointment, role: chief_of_the_defence_staff, person: person)
+    organisation = create(:organisation, roles: [chief_of_the_defence_staff])
+
+    get :show, id: organisation
+
+    assert_select_object chief_of_the_defence_staff do
+      assert_select "a[href=?]", person_url(person), text: person.name
+    end
+  end
+
   test "#show doesn't present expanded navigation for non-department organisations" do
     organisation = create(:organisation, organisation_type: create(:organisation_type, name: "Other"))
     get :show, id: organisation
@@ -491,6 +504,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select other_board_members_selector
   end
 
+  test "should display all chiefs of staff" do
+    chief_of_staff = create(:military_role)
+    chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)
+    organisation = create(:organisation, roles: [chief_of_staff, chief_of_the_defence_staff])
+
+    get :chiefs_of_staff, id: organisation
+
+    assert_select_object chief_of_staff
+  end
+
   test "should link to the organisation's ministers page" do
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
@@ -500,6 +523,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select '#ministers a[href=?]', ministers_organisation_path(organisation)
+  end
+
+  test "should link to the organisation's chiefs of staff page" do
+    organisation = create(:organisation)
+    role = create(:military_role, organisations: [organisation])
+    role_appointment = create(:role_appointment, role: role)
+
+    get :show, id: organisation
+
+    assert_select 'a[href=?]', chiefs_of_staff_organisation_path(organisation)
   end
 
   test "shows only published policies associated with organisation on policies page" do

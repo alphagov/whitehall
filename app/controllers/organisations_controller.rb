@@ -2,7 +2,7 @@ class OrganisationsController < PublicFacingController
   before_filter :load_organisation,
     only: [:show, :about, :contact_details, :announcements, :consultations,
            :ministers, :management_team, :policies, :publications,
-           :agencies_and_partners]
+           :agencies_and_partners, :chiefs_of_staff]
 
   def index
     @organisations_by_type = Organisation.in_listing_order.group_by(&:organisation_type)
@@ -19,6 +19,7 @@ class OrganisationsController < PublicFacingController
     @secondary_featured_editions = @organisation.featured_editions.limit(3).offset(3)
     @top_ministerial_role = @organisation.top_ministerial_role && RolePresenter.decorate(@organisation.top_ministerial_role)
     @top_civil_servant = @organisation.top_civil_servant && RolePresenter.decorate(@organisation.top_civil_servant)
+    @top_military_role = @organisation.top_military_role && RolePresenter.decorate(@organisation.top_military_role)
   end
 
   def about
@@ -50,6 +51,9 @@ class OrganisationsController < PublicFacingController
   end
 
   def management_team
+  end
+
+  def chiefs_of_staff
   end
 
   def policies
