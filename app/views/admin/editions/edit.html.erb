@@ -31,23 +31,23 @@
   </div>
 
   <div class="span4">
-    <%= sidebar_tabs edition_tabs(@edition, true) do %>
-      <section class="tab-pane active govspeak_help" id="govspeak_help">
+    <%= sidebar_tabs edition_tabs(@edition, true) do |tabs| %>
+      <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
         <%= render partial: "govspeak_help" %>
-      </section>
-      <section class="audit-trail tab-pane" id="history">
+      <% end %>
+      <%= tabs.pane class: "audit-trail", id: "history" do %>
         <h1>Activity</h1>
         <ul>
         <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
         </ul>
-      </section>
+      <% end %>
 
       <% if @edition.can_be_fact_checked? %>
-        <section class="tab-pane fact_checking" id="fact_checking">
+        <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
           <h1>Fact checking</h1>
           <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
           <p>To send a fact check request, save your changes.</p>
-        </section>
+        <% end %>
       <% end %>
     <% end %>
   </div>

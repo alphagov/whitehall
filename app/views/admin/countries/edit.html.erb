@@ -26,8 +26,8 @@
 </div>
 
 <div class="span4">
-  <%= sidebar_tabs news_articles: "News articles", govspeak_help: "Formatting Help" do %>
-    <section class="tab-pane active" id="news_articles">
+  <%= sidebar_tabs news_articles: "News articles", govspeak_help: "Formatting Help" do |tabs| %>
+    <%= tabs.pane id: "news_articles" do %>
       <% if @news_articles.any? %>
         <h1>News articles</h1>
         <table class="table table-striped table-condensed">
@@ -62,9 +62,9 @@
       <% else %>
         <p>No published news articles.</p>
       <% end %>
-    </section>
-    <section class="tab-pane active govspeak_help" id="govspeak_help">
+    <% end %>
+    <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
       <%= render partial: "admin/editions/govspeak_help" %>
-    </section>
+    <% end %>
   <% end %>
 </div>

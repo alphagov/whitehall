@@ -1,7 +1,7 @@
 module Admin::SidebarHelper
   def simple_formatting_sidebar
-    sidebar_tabs govspeak_help: "Formatting Help" do
-      content_tag :section, class: "tab-pane active", id: "govspeak_help" do
+    sidebar_tabs govspeak_help: "Formatting Help" do |tabs|
+      tabs.pane id: "govspeak_help" do
         render partial: "admin/editions/govspeak_help"
       end
     end
@@ -43,7 +43,7 @@ module Admin::SidebarHelper
         tab_tags.join.html_safe
       end +
       content_tag(:div, class: "tab-content") do
-        yield
+        yield TabPaneState.new(self)
       end
     end
   end

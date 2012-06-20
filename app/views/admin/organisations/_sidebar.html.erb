@@ -19,9 +19,9 @@
   tabs = @organisation.persisted? ? {news_articles: "News articles"} : {}
   tabs[:govspeak_help] = "Formatting Help"
 %>
-<%= sidebar_tabs tabs do %>
+<%= sidebar_tabs tabs do |t| %>
   <% if @organisation.persisted? %>
-    <section class="tab-pane active" id="news_articles">
+    <%= t.pane id: "news_articles" do %>
       <% if @news_articles.any? %>
         <h1>News articles</h1>
         <table class="table table-condensed table-striped">
@@ -56,11 +56,9 @@
       <% else %>
         <p>There are no news articles for this organisation.</p>
       <% end %>
-    </section>
-    <section class="tab-pane" id="govspeak_help">
-  <% else %>
-    <section class="tab-pane active" id="govspeak_help">
+    <% end %>
   <% end %>
+  <%= t.pane id: "govspeak_help" do %>
     <%= render partial: "admin/editions/govspeak_help" %>
-  </section>
+  <% end %>
 <% end %>

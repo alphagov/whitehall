@@ -140,17 +140,17 @@
     </p>
   <% end %>
 
-  <%= sidebar_tabs edition_tabs(@edition) do %>
-    <section class="tab-pane audit-trail" id="history">
+  <%= sidebar_tabs edition_tabs(@edition) do |tabs| %>
+    <%= tabs.pane class: "audit-trail", id: "history" do %>
       <h1>Activity</h1>
       <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
       <ul>
       <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
       </ul>
-    </section>
+    <% end %>
 
     <% if @edition.can_be_fact_checked? %>
-      <section class="tab-pane fact_checking" id="fact_checking">
+      <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
         <h1>Fact checking</h1>
         <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
         <section class="request">
@@ -161,7 +161,7 @@
             <%= f.submit 'Send request', class: "btn" %>
           <% end %>
         </section>
-      </section>
+      <% end %>
     <% end %>
   <% end %>
 </div>
