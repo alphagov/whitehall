@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 
   belongs_to :organisation
 
+  serialize :permissions, Hash
+
   validates :name, presence: true
   validates :email, email_format: { allow_blank: true }
 
