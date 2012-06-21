@@ -17,10 +17,10 @@
       <%= content_tag_for(:tr, organisation) do %>
         <td class="acronym">
           <% if organisation.acronym.present? %>
-            <%= link_to organisation.acronym, edit_admin_organisation_path(organisation), title: "Edit organisation #{organisation.acronym}" %>
+            <%= link_to organisation.acronym, admin_organisation_path(organisation), title: "View #{organisation.acronym}" %>
           <% end %>
         </td>
-        <td class="name"><%= link_to organisation.name, edit_admin_organisation_path(organisation), title: "Edit organisation #{organisation.name}" %></td>
+        <td class="name"><%= link_to organisation.name, admin_organisation_path(organisation), title: "View #{organisation.name}" %></td>
       <% end %>
     <% end %>
     <% if @organisations.empty? %>

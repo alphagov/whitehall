@@ -18,24 +18,29 @@ class Organisation < ActiveRecord::Base
 
   has_many :edition_organisations,
             dependent: :destroy
+  has_many :featured_edition_organisations,
+            class_name: "EditionOrganisation",
+            include: :edition,
+            conditions: { "edition_organisations.featured" => true,
+                          "editions.state" => "published" },
+            order: "edition_organisations.ordering ASC"
   has_many :editions,
             through: :edition_organisations
   has_many :published_editions,
             through: :edition_organisations,
             class_name: "Edition",
             conditions: { state: "published" },
+            order: "published_at DESC",
             source: :edition
   has_many :corporate_publications,
             through: :edition_organisations,
             class_name: "Publication",
             conditions: { "editions.corporate_publication" => true },
             source: :edition
-  has_many :featured_news_articles,
-            through: :edition_organisations,
-            class_name: "NewsArticle",
-            conditions: { "edition_organisations.featured" => true,
-                          "editions.state" => "published" },
-            source: :edition
+  has_many :featured_editions,
+            through: :featured_edition_organisations,
+            source: :edition,
+            order: "edition_organisations.ordering ASC"
 
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles
@@ -71,6 +76,7 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :contacts, reject_if: :contact_and_contact_numbers_are_blank
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
   accepts_nested_attributes_for :organisation_roles
+  accepts_nested_attributes_for :edition_organisations
 
   validates :name, presence: true, uniqueness: true
   validates :organisation_type_id, presence: true

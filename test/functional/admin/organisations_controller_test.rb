@@ -191,6 +191,61 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal 0, created_organisation.social_media_accounts.size
   end
 
+  test "showing should load the requested organisation" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    assert_equal organisation, assigns(:organisation)
+  end
+
+  test "showing should allow featured published news articles to be unfeatured" do
+    published_news_article = create(:published_news_article)
+    organisation = create(:organisation)
+    edition_organisation = create(:edition_organisation, organisation: organisation, edition: published_news_article, featured: true)
+
+    get :show, id: organisation
+
+    assert_select "form[action=#{admin_edition_organisation_path(edition_organisation)}]" do
+      assert_select "input[name='edition_organisation[featured]'][value='false']"
+    end
+  end
+
+  test "showing should display all editions most recently published first" do
+    earlier_news_article = create(:published_news_article, first_published_at: 2.days.ago)
+    later_policy = create(:published_policy, first_published_at: 1.days.ago)
+    organisation = create(:organisation, editions: [earlier_news_article, later_policy])
+
+    get :show, id: organisation
+
+    assert_equal [later_policy, earlier_news_article], assigns(:editions)
+  end
+
+  test "showing should display published editions related to the organisation" do
+    published_news_article = create(:published_news_article)
+    published_policy = create(:published_policy)
+    draft_news_article = create(:draft_news_article)
+    another_policy = create(:published_policy)
+    organisation = create(:organisation, editions: [published_news_article, published_policy, draft_news_article])
+
+    get :show, id: organisation
+
+    assert_select_object(published_news_article)
+    assert_select_object(published_policy)
+    refute_select_object(draft_news_article)
+    refute_select_object(another_policy)
+  end
+
+  test "editing should allow non-featured published news articles to be featured" do
+    published_news_article = create(:published_news_article)
+    organisation = create(:organisation)
+    edition_organisation = create(:edition_organisation, organisation: organisation, edition: published_news_article)
+
+    get :show, id: organisation
+
+    assert_select "form[action=#{admin_edition_organisation_path(edition_organisation)}]" do
+      assert_select "input[name='edition_organisation[featured]'][value='true']"
+    end
+  end
+
   test "editing should load the requested organisation" do
     organisation = create(:organisation)
     get :edit, id: organisation
@@ -215,7 +270,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "editing should display a cancel link back to the list of organisations" do
     organisation = create(:organisation)
     get :edit, id: organisation
-    assert_select ".or_cancel a[href='#{admin_organisations_path}']"
+    assert_select ".or_cancel a[href='#{admin_organisation_path(organisation)}']"
   end
 
   test "editing should display existing social media accounts" do
@@ -241,53 +296,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       assert_select "option", text: ""
     end
     assert_select "input[type=text][name='organisation[social_media_accounts_attributes][0][url]']"
-  end
-
-  test "editing should display published news articles related to the organisation" do
-    published_news_article = create(:published_news_article)
-    draft_news_article = create(:draft_news_article)
-    another_news_article = create(:published_news_article)
-    organisation = create(:organisation, editions: [published_news_article, draft_news_article])
-
-    get :edit, id: organisation
-
-    assert_select_object(published_news_article)
-    refute_select_object(draft_news_article)
-    refute_select_object(another_news_article)
-  end
-
-  test "editing should display news articles most recently published first" do
-    earlier_news_article = create(:published_news_article, first_published_at: 2.days.ago)
-    later_news_article = create(:published_news_article, first_published_at: 1.days.ago)
-    organisation = create(:organisation, editions: [earlier_news_article, later_news_article])
-
-    get :edit, id: organisation
-
-    assert_equal [later_news_article, earlier_news_article], assigns(:news_articles)
-  end
-
-  test "editing should allow non-featured published news articles to be featured" do
-    published_news_article = create(:published_news_article)
-    organisation = create(:organisation)
-    edition_organisation = create(:edition_organisation, organisation: organisation, edition: published_news_article)
-
-    get :edit, id: organisation
-
-    assert_select "form[action=#{admin_edition_organisation_path(edition_organisation)}]" do
-      assert_select "input[name='edition_organisation[featured]'][value='true']"
-    end
-  end
-
-  test "editing should allow featured published news articles to be unfeatured" do
-    published_news_article = create(:published_news_article)
-    organisation = create(:organisation)
-    edition_organisation = create(:edition_organisation, organisation: organisation, edition: published_news_article, featured: true)
-
-    get :edit, id: organisation
-
-    assert_select "form[action=#{admin_edition_organisation_path(edition_organisation)}]" do
-      assert_select "input[name='edition_organisation[featured]'][value='false']"
-    end
   end
 
   test "editing only shows ministerial roles for ordering" do
@@ -491,5 +499,24 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       assert_select "option", text: ""
     end
     assert_select "input[type=text][name='organisation[social_media_accounts_attributes][0][url]']"
+  end
+
+  test "updating should allow ordering of featured editions" do
+    organisation = create(:organisation)
+    edition_association_1 = create(:edition_organisation, organisation: organisation, featured: true)
+    edition_association_2 = create(:edition_organisation, organisation: organisation, featured: true)
+    edition_association_3 = create(:edition_organisation, organisation: organisation, featured: true)
+
+    put :update, id: organisation, organisation: {
+      edition_organisations_attributes: {
+        "0" => {"id" => edition_association_1.id, "ordering" => "3"},
+        "1" => {"id" => edition_association_2.id, "ordering" => "2"},
+        "2" => {"id" => edition_association_3.id, "ordering" => "1"}
+      }
+    }
+
+    assert_equal 3, edition_association_1.reload.ordering
+    assert_equal 2, edition_association_2.reload.ordering
+    assert_equal 1, edition_association_3.reload.ordering
   end
 end

@@ -249,6 +249,16 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal({ 'title' => 'Ministry of Defence', 'link' => '/government/organisations/ministry-of-defence', 'indexable_content' => 'Defensive.', 'format' => 'organisation', 'boost_phrases' => 'mod' }, results[3])
   end
 
+  test '#featured_editions returns featured editions by ordering' do
+    organisation = create(:organisation)
+    alpha = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Alpha"))
+    beta = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Beta"), featured: true, ordering: 1)
+    gamma = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Gamma"), featured: true, ordering: 0)
+    delta = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Delta"), featured: true, ordering: 2)
+
+    assert_equal [gamma.edition, beta.edition, delta.edition], organisation.featured_editions
+  end
+
   test '#destroy removes parent relationships' do
     child = create(:organisation)
     parent = create(:organisation, child_organisations: [child])

@@ -84,13 +84,22 @@ end
 
 When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |name, table|
   organisation = Organisation.find_by_name!(name)
-  visit edit_admin_organisation_path(organisation)
+  visit admin_organisation_path(organisation)
   table.rows.each do |title|
     news_article = NewsArticle.find_by_title(title)
     within record_css_selector(news_article) do
       click_button "Feature"
     end
   end
+end
+
+When /^I order the featured items in the "([^"]*)" organisation as:$/ do |name, table|
+  organisation = Organisation.find_by_name!(name)
+  visit admin_organisation_path(organisation)
+  table.rows.each_with_index do |(title), index|
+    fill_in title, with: index
+  end
+  click_button "Save"
 end
 
 When /^I navigate to the "([^"]*)" organisation's (.*) page$/ do |organisation_name, page_name|

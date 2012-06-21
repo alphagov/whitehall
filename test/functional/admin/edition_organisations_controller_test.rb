@@ -17,11 +17,11 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     refute edition_organisation.reload.featured?
   end
 
-  test "should redirect back to the organisation's admin edit page" do
+  test "should redirect back to the organisation's admin page" do
     organisation = create(:organisation)
     edition_organisation = create(:edition_organisation, organisation: organisation)
     login_as :departmental_editor
     post :update, id: edition_organisation, edition_organisation: {}
-    assert_redirected_to edit_admin_organisation_path(organisation)
+    assert_redirected_to admin_organisation_path(organisation)
   end
 end
