@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120620163501) do
+ActiveRecord::Schema.define(:version => 20120621104934) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -424,6 +424,7 @@ ActiveRecord::Schema.define(:version => 20120620163501) do
     t.integer  "organisation_id"
     t.string   "uid"
     t.integer  "version"
+    t.text     "permissions"
   end
 
   add_index "users", ["organisation_id"], :name => "index_users_on_organisation_id"
