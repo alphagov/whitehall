@@ -78,7 +78,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [policy, news_article], assigns(:primary_featured_editions)
   end
 
-  test "shows a maximum of 3 featured editions" do
+  test "shows a maximum of 3 primary featured editions" do
     organisation = create(:organisation)
     4.times do
       edition = create(:published_edition)
@@ -88,6 +88,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_equal 3, assigns(:primary_featured_editions).length
+  end
+
+  test "shows a maximum of 3 secondary featured editions" do
+    organisation = create(:organisation)
+    7.times do
+      edition = create(:published_edition)
+      create(:edition_organisation, edition: edition, organisation: organisation, featured: true)
+    end
+
+    get :show, id: organisation
+
+    assert_equal 3, assigns(:secondary_featured_editions).length
   end
 
   test "shows organisation's featured news article with image" do

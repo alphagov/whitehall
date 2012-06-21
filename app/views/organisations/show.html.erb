@@ -24,6 +24,23 @@
     </div>
   </div>
 
+  <div class="desperately-needs-design">
+    <ul class="secondary_featured">
+      <% @secondary_featured_editions.each do |document| %>
+        <%= content_tag_for :li, document, class: edition_organisation_class(document) do %>
+          <div class="metadata published_or_updated">
+            <%= published_or_updated(document) %>
+            <%= relative_time(document.published_at, class: 'published_at') %>
+          </div>
+          <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
+          <div class="metadata">
+            <span class="document_type"><%= human_friendly_edition_type(document) %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
   <div class="block-4">
     <div class="inner-block">
       <div class="sidebar<% if @primary_featured_editions.any? %> sub_navigation_container<% end %>">
