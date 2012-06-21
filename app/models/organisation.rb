@@ -39,7 +39,8 @@ class Organisation < ActiveRecord::Base
             source: :edition
   has_many :featured_editions,
             through: :featured_edition_organisations,
-            source: :edition
+            source: :edition,
+            order: "edition_organisations.ordering ASC"
 
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles

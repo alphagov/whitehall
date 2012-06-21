@@ -93,6 +93,15 @@ When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |
   end
 end
 
+When /^I order the featured items in the "([^"]*)" organisation as:$/ do |name, table|
+  organisation = Organisation.find_by_name!(name)
+  visit admin_organisation_path(organisation)
+  table.rows.each_with_index do |(title), index|
+    fill_in title, with: index
+  end
+  click_button "Save"
+end
+
 When /^I navigate to the "([^"]*)" organisation's (.*) page$/ do |organisation_name, page_name|
   navigate_to_organisation(page_name)
 end
