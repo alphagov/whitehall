@@ -35,7 +35,7 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def update
     if @organisation.update_attributes(params[:organisation])
-      redirect_to admin_organisations_path
+      redirect_to admin_organisation_path(@organisation)
     else
       load_organisation_ministerial_roles
       build_social_media_account

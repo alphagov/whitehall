@@ -500,4 +500,23 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     end
     assert_select "input[type=text][name='organisation[social_media_accounts_attributes][0][url]']"
   end
+
+  test "updating should allow ordering of featured editions" do
+    organisation = create(:organisation)
+    edition_association_1 = create(:edition_organisation, organisation: organisation, featured: true)
+    edition_association_2 = create(:edition_organisation, organisation: organisation, featured: true)
+    edition_association_3 = create(:edition_organisation, organisation: organisation, featured: true)
+
+    put :update, id: organisation, organisation: {
+      edition_organisations_attributes: {
+        "0" => {"id" => edition_association_1.id, "ordering" => "3"},
+        "1" => {"id" => edition_association_2.id, "ordering" => "2"},
+        "2" => {"id" => edition_association_3.id, "ordering" => "1"}
+      }
+    }
+
+    assert_equal 3, edition_association_1.reload.ordering
+    assert_equal 2, edition_association_2.reload.ordering
+    assert_equal 1, edition_association_3.reload.ordering
+  end
 end

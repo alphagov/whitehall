@@ -112,13 +112,16 @@
   <div class="span4">
     <section id="featured-news-articles">
       <h1>Featured documents</h1>
-      <ul>
-        <% @organisation.featured_editions.each do |edition| %>
-          <%= content_tag_for :li, edition do %>
-            <%= link_to edition.title, admin_edition_path(edition) %>
+      <%= form_for [:admin, @organisation], as: :organisation do |form| %>
+        <fieldset class="sortable">
+          <%= form.fields_for :edition_organisations, @organisation.featured_edition_organisations do |fe_form| %>
+            <div class="well">
+              <%= fe_form.text_field :ordering, label_text: link_to(fe_form.object.edition.title, admin_edition_path(fe_form.object.edition)), class: "ordering" %>
+            </div>
           <% end %>
-        <% end %>
-      </ul>
+        </fieldset>
+        <%= form.submit "Save", class: "btn" %>
+      <% end %>
     </section>
   </div>
 </div>
