@@ -10,14 +10,17 @@
     })
     fieldset.after(list);
     list.sortable({
-      delay: 250,
+      distance: 15,
+      opacity: 0.5,
       update: function(event, ui) {
         list.children(".sort_item").each(function(index, li) {
           var input_id = $(li).find("label").attr("for");
           var input = $("#" + input_id)
           input.val(index);
         })
-      }
+      },
+      placeholder: "well sortable-drop-target",
+      axis: "y"
     });
   }
 

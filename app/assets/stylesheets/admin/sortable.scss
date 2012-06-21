@@ -1,11 +1,31 @@
-.sort_item {
-  cursor: move;
+fieldset.sortable {
+  margin-top: 0;
+}
 
-  label, a {
-    cursor: inherit !important;
+.ui-sortable {
+  margin-top: 2em;
+
+  margin-left: 0;
+
+  li {
+    list-style: none;
   }
 
-  .state {
-    color: #bbb;
+  .sort_item {
+    cursor: move;
+
+    label, a {
+      cursor: inherit !important;
+    }
+
+    .state {
+      color: #bbb;
+    }
+  }
+
+
+  .well.sortable-drop-target {
+    border-style: dashed !important;
+    background-color: white !important;
   }
 }
