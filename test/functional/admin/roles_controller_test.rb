@@ -166,7 +166,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     post :create, role: attributes_for(:ministerial_role,
       name: "role-name",
-      type: "other_minister",
+      type: "minister",
       organisation_ids: [org_one.id, org_two.id]
     )
 
@@ -177,7 +177,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "create should create a new board member role" do
     post :create, role: attributes_for(:board_member_role,
-      type: "other_board_member",
+      type: "board_member",
     )
 
     assert role = BoardMemberRole.last

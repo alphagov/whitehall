@@ -11,9 +11,9 @@ class RoleTypePresenter
 
   NAMES_VS_TYPES = {
     "cabinet_minister" => RoleType.new(MinisterialRole.name, true, false, false),
-    "other_minister" => RoleType.new(MinisterialRole.name, false, false, false),
+    "minister" => RoleType.new(MinisterialRole.name, false, false, false),
     "permanent_secretary" => RoleType.new(BoardMemberRole.name, false, true, false),
-    "other_board_member" => RoleType.new(BoardMemberRole.name, false, false, false),
+    "board_member" => RoleType.new(BoardMemberRole.name, false, false, false),
     "chief_of_the_defence_staff" => RoleType.new(MilitaryRole.name, false, false, true),
     "chief_of_staff" => RoleType.new(MilitaryRole.name, false, false, false)
   }.freeze
