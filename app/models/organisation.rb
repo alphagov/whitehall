@@ -21,8 +21,8 @@ class Organisation < ActiveRecord::Base
   has_many :featured_edition_organisations,
             class_name: "EditionOrganisation",
             include: :edition,
-            conditions: { "edition_organisations.featured" => true,
-                          "editions.state" => "published" },
+            conditions: { "edition_organisations" => {"featured" => true},
+                          "editions" => {state: "published"}},
             order: "edition_organisations.ordering ASC"
   has_many :editions,
             through: :edition_organisations
