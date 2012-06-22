@@ -11,4 +11,4 @@ else
 fi
 echo
 bundle install
-bundle exec rails s thin -p 3015
+bundle exec rails s thin -p 3020
