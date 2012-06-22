@@ -8,49 +8,55 @@
       <header class="page_header">
         <h1 class="page_title">Departments, agencies &amp; public bodies</h1>
       </header>
-
-
-  <div class="quarter">
-    <nav class="organisations_type_links" role="navigation">
-      View departments &amp; agencies by:
-      <ul class="jump_list">
-      <% @organisations_by_type.each do |type, _| %>
-        <li>
-          <%= link_to "#{type.name.pluralize}", organisations_path(anchor: type.name.pluralize.downcase.gsub(/\s/, "_")) %>
-        </li>
-      <% end %>
-      </ul>
-      <p>You can also
-        <%= link_to "view alphabetically", alphabetical_organisations_path %>.
-      </p>
-    </nav>
-
-  </div>
-
-  <div class="three-quarters">
-    <% @organisations_by_type.each do |type, organisations| %>
-      <% if type.ministerial_department? %>
-        <div class="organisation_type">
-          <section>
-            <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "label") %>
-            <%= render partial: "organisations_logo_list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
-          </section>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="non_ministerial_departments">
-    <% @organisations_by_type.each do |type, organisations| %>
-      <% if !type.ministerial_department? %>
-        <div class="organisation_type">
-            <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "label") %>
-            <%= render partial: "grouped_list", locals: { organisations: organisations } %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-</div>
-
-  </div>
     </div>
+  </div>
+
+  <div class="block-2">
+    <div class="inner-block">
+        <nav class="organisations_type_links" role="navigation">
+          View departments &amp; agencies by:
+          <ul class="jump_list">
+          <% @organisations_by_type.each do |type, _| %>
+            <li>
+              <%= link_to "#{type.name.pluralize}", organisations_path(anchor: type.name.pluralize.downcase.gsub(/\s/, "_")) %>
+            </li>
+          <% end %>
+          </ul>
+          <p>You can also
+            <%= link_to "view alphabetically", alphabetical_organisations_path %>.
+          </p>
+        </nav>
+    </div>
+  </div>
+
+  <div class="block-3">
+    <div class="inner-block">
+        <% @organisations_by_type.each do |type, organisations| %>
+          <% if type.ministerial_department? %>
+            <div class="organisation_type">
+              <section>
+                <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "label") %>
+                <%= render partial: "organisations_logo_list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
+              </section>
+            </div>
+          <% end %>
+        <% end %>
+    </div>
+  </div>
+
+  <div class="block-4">
+    <div class="inner-block">
+      <div class="non_ministerial_departments">
+        <% @organisations_by_type.each do |type, organisations| %>
+          <% if !type.ministerial_department? %>
+            <div class="organisation_type">
+                <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "label") %>
+                <%= render partial: "grouped_list", locals: { organisations: organisations } %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>

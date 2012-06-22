@@ -12,6 +12,9 @@
     img {
       height: 576px;
       width: 100%;
+      @media (max-width: 768px) {
+        height: auto;
+      }
     }
   }
   .block-4, .block-5, .block-6, .block-7 {
@@ -29,6 +32,14 @@
     .label, .document_type, .published_or_updated {
       text-transform: uppercase;
     }
+  }
+  @media (max-width: 768px) {
+
+    .block-4, .block-5, .block-6, .block-7 {
+    float: none;
+    display: block;
+    width: auto;
+  }
   }
 }
 

@@ -1,21 +1,47 @@
 <% page_title "Ministers", @organisation.name %>
+<% page_class "organisation_subpages" %>
 
-<%= render "beta_warning", organisation: @organisation %>
-<%= organisation_wrapper(@organisation, class: "g4") do %>
-  <%= render 'header', organisation: @organisation, title: "Ministers" %>
-  <div class="g1f sidebar">
-    <%= render 'sidebar', organisation: @organisation %>
+  <div class="block-1">
+    <div class="inner-block">
+      <%= render "beta_warning", organisation: @organisation %>
+    </div>
   </div>
 
-  <% if @ministerial_roles.any? %>
-    <div class="g3f">
-      <%= article_section("Ministers", @ministerial_roles, {id: 'ministers', article_wrapper_class: "g1"}) do |ministerial_role| %>
-        <div class="image_holder">
-          <%= ministerial_role.current_person_image %>
+
+
+<%= organisation_wrapper(@organisation, class: "") do %>
+  <div class="block-2">
+    <div class="inner-block">
+      <%= render 'header', organisation: @organisation, title: "Ministers" %>
+    </div>
+  </div>
+
+  <div class="block-3">
+    <div class="inner-block">
+      <div class="sidebar sub_navigation_container">
+        <%= render 'sidebar', organisation: @organisation %>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-4">
+    <div class="inner-block">
+      <% if @ministerial_roles.any? %>
+        <div>
+          <h1>Ministers</h1>
+          <% @ministerial_roles.each do |ministerial_role| %>
+          <%#= article_section("Ministers", @ministerial_roles, {id: 'ministers', article_wrapper_class: ""}) do |ministerial_role| %>
+          <div class="ministerial_role">
+            <div class="image_holder">
+              <%= ministerial_role.current_person_image %>
+            </div>
+            <h2 class="article_title current_appointee"><%= ministerial_role.current_person_name %></h2>
+            <p class="role"><%= link_to ministerial_role.name, ministerial_role %></p>
+          </div>
+          <% end %>
         </div>
-        <h2 class="article_title current_appointee"><%= ministerial_role.current_person_link %></h2>
-        <p class="role"><%= ministerial_role.link %></p>
       <% end %>
     </div>
-  <% end %>
+  </div>
+
 <% end %>

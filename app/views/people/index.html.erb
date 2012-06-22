@@ -1,8 +1,21 @@
 <% page_title "People" %>
-<ul class="people">
-<% @people.each do |person| %>
-  <%= content_tag_for :li, person do %>
-    <%= person.link %>
-  <% end %>
-<% end %>
-</ul>
+<% page_class "people-list" %>
+
+<div class="block-1">
+  <div class="inner-block">
+    <section class="alphabetical_list" id="ministerial_roles">
+      <% @people.group_by {|p| (p.surname || '-').first.upcase }.sort.each do |letter, people_group| %>
+        <div class="alphabetical_row" id="people_<%= letter.downcase %>">
+          <h2 class="alphabetical_list_letter"><%= letter %></h2>
+          <ul>
+          <% people_group.each do |person| %>
+            <%= content_tag_for :li, person do %>
+              <%= person.link %>
+            <% end %>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </section>
+  </div>
+</div>

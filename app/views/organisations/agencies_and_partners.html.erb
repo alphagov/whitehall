@@ -1,32 +1,49 @@
-<% page_title "Agencies & partners", @organisation.name %>
+<% page_title "Agencies & Partners", @organisation.name %>
+<% page_class "organisation_subpages" %>
 
-<%= render "beta_warning", organisation: @organisation %>
-<%= organisation_wrapper(@organisation, class: "g4") do %>
-  <%= render 'header', organisation: @organisation, title: "Agencies & partners" %>
-  <div class="g1f sidebar">
-    <%= render 'sidebar', organisation: @organisation %>
+  <div class="block-1">
+    <div class="inner-block">
+      <%= render "beta_warning", organisation: @organisation %>
+    </div>
   </div>
 
-  <div class="g3f">
-    <% if @organisation.child_organisations.any? %>
-      <section id="child_organisations" class="info">
-        <% in_columns(@organisation.child_organisations, 3) do |organisation_group| %>
-          <div class="g1">
-            <% organisation_group.each do |organisation| %>
-              <ul>
-                <%= content_tag_for(:li, organisation) do %>
-                  <%= if organisation.active?
-                        link_to organisation.name, organisation_path(organisation)
-                      else
-                        organisation.name
-                      end %>
-                <% end %>
-              </ul>
-            <% end %>
-          </div>
-        <% end %>
-      </section>
-    <% end %>
+<%= organisation_wrapper(@organisation, class: "") do %>
+  <div class="block-2">
+    <div class="inner-block">
+      <%= render 'header', organisation: @organisation, title: "Agencies &amp; partners" %>
+    </div>
+  </div>
+
+  <div class="block-3">
+    <div class="inner-block">
+      <div class="sidebar sub_navigation_container">
+        <%= render 'sidebar', organisation: @organisation %>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-4">
+    <div class="inner-block">
+      <% if @organisation.child_organisations.any? %>
+        <section id="child_organisations" class="info">
+          <% in_columns(@organisation.child_organisations, 3) do |organisation_group| %>
+            <div>
+              <% organisation_group.each do |organisation| %>
+                <ul>
+                  <%= content_tag_for(:li, organisation) do %>
+                    <%= if organisation.active?
+                          link_to organisation.name, organisation_path(organisation)
+                        else
+                          organisation.name
+                        end %>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+          <% end %>
+        </section>
+      <% end %>
+    </div>
   </div>
 
 <% end %>

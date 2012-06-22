@@ -5,25 +5,6 @@
     .alphabetical_list .alphabetical_row li:first-child {
       padding-top: $gutter;
     }
-    .three-quarters, .quarter {
-      float: left;
-      display: inline;
-      margin-right: $gutter;
-      width: 21%;
-    }
-    .three-quarters {
-      width: 75%;
-      margin-right: 0;
-    }
-    .three-quarters li, .quarter li {
-      list-style: none;
-    }
-    .three-quarters li {
-      float: left;
-      display: inline;
-      margin: 0 1% 40px 0;
-      width: 30%;
-    }
     .inline {
       overflow: hidden;    
     }
@@ -34,6 +15,35 @@
       float: left;
       display: inline;
       padding: $gutter-one-third $gutter-half;
+    }
+
+}
+
+.departments-index {
+
+    .block-2, .block-3 {
+      float: left;
+      display: inline;
+      width: 25%;
+    }
+    .block-3 {
+      width: 75%;
+    }
+    .block-2 li, .block-3 li {
+      list-style: none;
+    }
+    .block-3 li {
+      float: left;
+      display: inline;
+      margin: 0 1% 40px 0;
+      width: 30%;
+    }
+    @media (max-width: 768px) {
+      .block-2, .block-3, .block-3 li {
+      float: none;
+      display: block;
+      width: 100%;
+      }
     }
 }
 
@@ -50,6 +60,9 @@
     img {
       height: 576px;
       width: 100%;
+    @media (max-width: 768px) {
+        height: auto;
+      }
     }
   }
 }
@@ -71,6 +84,96 @@
       text-transform: uppercase;
     }
   }
+
+    @media (max-width: 768px) {
+
+    .block-4, .block-5, .block-6, .block-7 {
+    float: none;
+    display: block;
+    width: auto;
+  }
+  }
+}
+
+.organisation_subpages {
+
+  .block-3, .block-4 {
+    float: left;
+    display: inline;
+    width: 25%;
+  }
+
+  .block-4 {
+    width: 75%;
+  }
+  
+  .sub_navigation_container {
+    top: 0;
+    margin-bottom: 0;
+    li {
+      list-style: none;
+    }
+  }
+
+  .ministerial_role {
+    float: left;
+    display: inline;
+    overflow: hidden;
+    padding-right: 3%;
+    margin-bottom: $gutter;
+    width: 30%;
+    .role {
+      margin-left: 72px;
+    }
+  }
+
+  .ministerial_role:nth-child(3n-1) {
+    clear: both;
+  }
+
+  .about_page {
+    nav {
+      position: absolute;
+      right: $gutter;
+      top: 200px;
+      li {
+        list-style: none;
+      }
+    }
+  }
+
+  .item, .board_member_role {
+    list-style: none;
+    margin: $gutter-half 0;
+    padding: $gutter-half $gutter-two-thirds;
+  }
+  .item:nth-child(odd), .board_member_role:nth-child(odd)  {
+    background-color: $light-warm-grey;
+  }
+
+  #permanent_secretary_board_members .board_member_role {
+    background-color: $white;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .organisation_contact {
+    margin-bottom: $gutter;
+  }
+      @media (max-width: 768px) {
+
+    .block-3, .block-4, .ministerial_role {
+      float: none;
+      display: block;
+      width: auto;
+    }
+
+    .about_page nav {
+      position: relative;
+      top: 0;
+      right: 0;
+    }
+}
 }
 
 
@@ -96,6 +199,13 @@
       font-weight: normal;
     }
   }
+
+    @media (max-width: 768px) {
+    height: auto;
+    padding: $gutter-one-third $gutter;
+    position: relative;
+    width: auto;
+}
 }
 
 .sub_navigation_container {
@@ -122,13 +232,19 @@
   li:last-child {
     border-bottom: none;
   }
+   @media (max-width: 768px) {
+    margin-bottom: 0;
+    top: 0;
+ }
+
 }
 
 .image_holder {
-  img {
     float: left;
-    margin: 0 $gutter-half $gutter*2 0;
+    margin: 0 $gutter-half 0 0;
     width: 25%;
+    img {
+    width: 100%;
   }
 }
 

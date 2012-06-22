@@ -6,7 +6,11 @@
     <header class="page_header publication">
       <h1 class="page_title"><%= publications_page_title(@selected_topics) %></h1>
     </header>
+  </div>
+</div>
 
+<div class="block-2">
+  <div class="inner-block">
     <% if publication = @featured_publication %>
       <%= content_tag_for(:div, publication, class: 'featured') do %>
         <div class="thumbnail">
@@ -33,7 +37,11 @@
         </p>
       <% end %>
     <% end %>
+  </div>
+</div>
 
+<div class="block-3">
+  <div class="inner-block">
     <% if @all_publications.any? %>
       <div class="filter">
         <div class="filter-controls">
@@ -70,7 +78,11 @@
           </ul>
         </div>
       </div>
+  </div>
+</div>
 
+<div class="block-4">
+  <div class="inner-block">
       <div class="table-sort">
         <table border="0">
           <thead>
