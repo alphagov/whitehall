@@ -33,16 +33,10 @@ class MinisterialRole < Role
   end
 
   def seniority
-    case name
-    when "Prime Minister"
-      1
-    when "Deputy Prime Minister"
-      2
-    when /^First Secretary of State/
-      3
-    else
-      4
-    end
+    [ /^Prime Minister/,
+      /^Deputy Prime Minister/,
+      /^First Secretary of State/,
+      // ].index { |re| name.match(re) } + 1
   end
 
   def search_link
