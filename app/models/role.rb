@@ -76,6 +76,10 @@ class Role < ActiveRecord::Base
     role_appointments.empty? && organisations.empty?
   end
 
+  def seniority
+    100
+  end
+
   private
 
   def prevent_destruction_unless_destroyable

@@ -30,18 +30,11 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles).collect(&:model)
+    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles).map { |person, role| role.first.model }
   end
 
   test "should avoid n+1 queries" do
-    cabinet = stub('cabinet')
-    MinisterialRole.stubs(:cabinet).returns(cabinet)
-    cabinet.expects(:includes).with(:current_people).returns([])
-
-    scope = stub('scope')
-    MinisterialRole.stubs(:alphabetical_by_person).returns(scope)
-    scope.expects(:includes).with(:current_people).returns([])
-
+    MinisterialRole.expects(:includes).with(:current_people).returns([])
     get :index
   end
 
@@ -66,8 +59,8 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".ministerial_role" do
-      assert_minister_photo_links_to_their_role(ministerial_role)
-      assert_select ".current_appointee a[href=?]", person_url(person), text: "John Doe"
+      assert_minister_photo_links_to_the_person(person)
+      assert_select ".current_appointee a[href=?]", person_path(person), text: "John Doe"
       assert_minister_role_links_to_their_role(ministerial_role)
     end
   end
@@ -131,11 +124,11 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
   private
 
-  def assert_minister_photo_links_to_their_role(role)
-    assert_select ".image_holder a[href='#{ministerial_role_path(role)}'] img[src='#{role.current_person_image_url}']"
+  def assert_minister_photo_links_to_the_person(person)
+    assert_select ".image_holder a[href='#{person_path(person)}'] img[src='#{person.image_url}']"
   end
 
   def assert_minister_role_links_to_their_role(role)
-    assert_select ".role a[href='#{ministerial_role_url(role)}']", text: role.name
+    assert_select ".role a[href='#{ministerial_role_path(role)}']", text: role.name
   end
 end

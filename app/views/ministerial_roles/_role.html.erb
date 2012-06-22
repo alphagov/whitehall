@@ -1,0 +1,11 @@
+<li class="ministerial_role">
+  <div class="inner">
+    <div class="image_holder">
+      <%= link_to person.image, person %>
+    </div>
+    <<%= hlevel %> class="current_appointee"><%= person.link %></<%= hlevel %>>
+    <p class="role">
+      <%= roles.map { |role| role.link }.join(", ").html_safe %>
+    </p>
+  </div>
+</li>
