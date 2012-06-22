@@ -11,27 +11,30 @@ class Admin::RolesControllerTest < ActionController::TestCase
     org_one = create(:organisation, name: "org-one")
     org_two = create(:organisation, name: "org-two")
     person = create(:person, forename: "person-name")
-    role_one = create(:ministerial_role, name: "role-one", cabinet_member: true, organisations: [org_one, org_two])
-    create(:role_appointment, role: role_one, person: person)
-    role_two = create(:board_member_role, name: "role-two", permanent_secretary: true, organisations: [org_one])
+    ministerial_role = create(:ministerial_role, name: "ministerial-role", cabinet_member: true, organisations: [org_one, org_two])
+    create(:role_appointment, role: ministerial_role, person: person)
+    management_role = create(:board_member_role, name: "management-role", permanent_secretary: true, organisations: [org_one])
+    military_role = create(:military_role, name: "military-role", organisations: [org_two])
 
     get :index
 
     assert_select ".roles" do
-      assert_select_object role_one do
-        assert_select ".name", "role-one"
-        assert_select ".type", "Ministerial"
-        assert_select ".cabinet_member", "Yes"
-        assert_select ".permanent_secretary", "No"
+      assert_select_object ministerial_role do
+        assert_select ".name", "ministerial-role"
+        assert_select ".role_type", "Cabinet minister"
         assert_select ".organisations", "org-one and org-two"
         assert_select ".person", "person-name"
       end
-      assert_select_object role_two do
-        assert_select ".name", "role-two"
-        assert_select ".type", "Board member"
-        assert_select ".cabinet_member", "No"
-        assert_select ".permanent_secretary", "Yes"
+      assert_select_object management_role do
+        assert_select ".name", "management-role"
+        assert_select ".role_type", "Permanent secretary"
         assert_select ".organisations", "org-one"
+        assert_select ".person", "No one is assigned to this role"
+      end
+      assert_select_object military_role do
+        assert_select ".name", "military-role"
+        assert_select ".role_type", "Chief of staff"
+        assert_select ".organisations", "org-two"
         assert_select ".person", "No one is assigned to this role"
       end
     end
