@@ -180,6 +180,14 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert role = BoardMemberRole.last
   end
 
+  test "create should create a new military role" do
+    post :create, role: attributes_for(:military_role,
+      type: "chief_of_staff",
+    )
+
+    assert role = MilitaryRole.last
+  end
+
   test "create redirects to the index on success" do
     post :create, role: attributes_for(:role)
 
