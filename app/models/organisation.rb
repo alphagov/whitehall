@@ -52,6 +52,10 @@ class Organisation < ActiveRecord::Base
             class_name: 'BoardMemberRole',
             through: :organisation_roles,
             source: :role
+  has_many :military_roles,
+            class_name: 'MilitaryRole',
+            through: :organisation_roles,
+            source: :role
   has_many :permanent_secretary_board_member_roles,
             class_name: 'BoardMemberRole',
             through: :organisation_roles,
@@ -136,6 +140,10 @@ class Organisation < ActiveRecord::Base
 
   def top_civil_servant
     board_member_roles.order(Role.arel_table[:permanent_secretary].desc).first
+  end
+
+  def top_military_role
+    military_roles.order(Role.arel_table[:chief_of_the_defence_staff].desc).first
   end
 
   def published_speeches

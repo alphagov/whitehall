@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120621104934) do
+ActiveRecord::Schema.define(:version => 20120622162500) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -331,11 +331,12 @@ ActiveRecord::Schema.define(:version => 20120621104934) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
-    t.string   "type",                :default => "MinisterialRole", :null => false
-    t.boolean  "permanent_secretary", :default => false
-    t.boolean  "cabinet_member",      :default => false,             :null => false
+    t.string   "type",                       :default => "MinisterialRole", :null => false
+    t.boolean  "permanent_secretary",        :default => false
+    t.boolean  "cabinet_member",             :default => false,             :null => false
     t.string   "slug"
     t.text     "responsibilities"
+    t.boolean  "chief_of_the_defence_staff"
   end
 
   add_index "roles", ["slug"], :name => "index_roles_on_slug"

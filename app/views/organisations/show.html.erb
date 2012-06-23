@@ -90,6 +90,19 @@
             <p class="view_all"><%= link_to 'View management team', management_team_organisation_path(@organisation) %></p>
           </section>
         <% end %>
+        <% if @top_military_role %>
+          <section id="military">
+            <h1 class="visuallyhidden">Military</h1>
+            <%= content_tag_for(:article, @top_military_role) do %>
+              <div class="image_holder">
+                <%= @top_military_role.current_person_image %>
+              </div>
+              <h3 class="current_appointee"><%= @top_military_role.current_person_link %></h3>
+              <p class="role"><%= @top_military_role.link %></p>
+            <% end %>
+            <p class="view_all"><%= link_to "View chiefs of staff", chiefs_of_staff_organisation_path(@organisation) %></p>
+          </section>
+        <% end %>
       </section>
     </div>
   </div>
