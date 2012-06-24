@@ -17,16 +17,6 @@ class Role < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  class << self
-    def humanized_type
-      name.gsub(/Role/, '').underscore.split("_").join(" ").humanize
-    end
-  end
-
-  def humanized_type
-    self.class.humanized_type
-  end
-
   def should_generate_new_friendly_id?
     new_record?
   end

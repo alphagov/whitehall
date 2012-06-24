@@ -12,11 +12,6 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     assert_equal 'prime-minister-cabinet-office', role.slug
   end
 
-  test "should generate user-friendly types" do
-    assert_equal "Ministerial", build(:ministerial_role).humanized_type
-    assert_equal "Ministerial", MinisterialRole.humanized_type
-  end
-
   test "should not be destroyable when it is responsible for editions" do
     ministerial_role = create(:ministerial_role, editions: [create(:edition)])
     refute ministerial_role.destroyable?
