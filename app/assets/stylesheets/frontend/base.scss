@@ -4,7 +4,7 @@
 
 
 // DIMENSION UNITS
-// Whitespace values and maximum site width. These values can be 
+// Whitespace values and maximum site width. These values can be
 // used in any file imported into this document.
 
 $max-site-width: 1096px;
@@ -83,6 +83,7 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
   @import "views/_speeches.scss";
   @import "views/_sunset.scss";
   @import "views/_filter.scss";
+  @import "views/_specialist_guides.scss";
 }
 
 
