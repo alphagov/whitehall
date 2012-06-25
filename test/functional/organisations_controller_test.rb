@@ -523,6 +523,15 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select '#ministers a[href=?]', ministers_organisation_path(organisation)
   end
 
+  test "should link to the organisation's management team page" do
+    organisation = create(:organisation)
+    create(:board_member_role, organisations: [organisation])
+
+    get :show, id: organisation
+
+    assert_select '#management a[href=?]', management_team_organisation_path(organisation)
+  end
+
   test "should link to the organisation's chiefs of staff page" do
     organisation = create(:organisation)
     role = create(:military_role, organisations: [organisation])

@@ -77,15 +77,17 @@
             <p class="view_all"><%= link_to 'View all ministers', ministers_organisation_path(@organisation) %></p>
           </section>
         <% end %>
-        <% if @top_civil_servant %>
+        <% if @organisation.board_member_roles.any? %>
           <section id="management">
             <h1 class="visuallyhidden">Management</h1>
-            <%= content_tag_for(:article, @top_civil_servant) do %>
-              <div class="image_holder">
-                <%= @top_civil_servant.current_person_image %>
-              </div>
-              <h3 class="current_appointee"><%= @top_civil_servant.current_person_link %></h3>
-              <p class="role"><%= @top_civil_servant.link %></p>
+            <% if @top_civil_servant %>
+              <%= content_tag_for(:article, @top_civil_servant) do %>
+                <div class="image_holder">
+                  <%= @top_civil_servant.current_person_image %>
+                </div>
+                <h3 class="current_appointee"><%= @top_civil_servant.current_person_link %></h3>
+                <p class="role"><%= @top_civil_servant.link %></p>
+              <% end %>
             <% end %>
             <p class="view_all"><%= link_to 'View management team', management_team_organisation_path(@organisation) %></p>
           </section>
