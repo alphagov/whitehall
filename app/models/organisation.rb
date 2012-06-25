@@ -143,7 +143,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def top_military_role
-    military_roles.order(Role.arel_table[:chief_of_the_defence_staff].desc).first
+    military_roles.where(chief_of_the_defence_staff: true).first
   end
 
   def published_speeches
