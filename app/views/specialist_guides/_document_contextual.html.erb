@@ -1,7 +1,7 @@
 <section class="contextual_info">
   <h1>Jump to section</h1>
   <nav class="specialist_guide_parts" role="navigation">
-    <%= link_to_with_current @document.title, public_document_path(@document, anchor: 'top'), class: "active" %>
+    <%= link_to_with_current @document.title, public_document_path(@document, anchor: 'top'), class: "active top" %>
     <% if govspeak_headers(@document.body).any? %>
       <ol id="document_sections">
         <% govspeak_headers(@document.body).each do |header| %>

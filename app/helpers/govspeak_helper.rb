@@ -25,7 +25,7 @@ module GovspeakHelper
   end
 
   def govspeak_headers(text, level = 2)
-    Govspeak::Document.new(text).headers.each do |header|
+    Govspeak::Document.new(text).headers.select do |header|
       header.level == level
     end
   end

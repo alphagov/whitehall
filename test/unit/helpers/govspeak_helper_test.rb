@@ -288,6 +288,12 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_govspeak_by_css_selector '.govspeak figure.image.embedded img', html
   end
 
+  test "should only extract level two headers by default" do
+    text = "# Heading 1\n\n## Heading 2\n\n### Heading 3"
+    headers = govspeak_headers(text)
+    assert_equal [Govspeak::Header.new("Heading 2", 2, "heading-2")], headers
+  end
+
   private
 
   def assert_govspeak(expected, actual)
