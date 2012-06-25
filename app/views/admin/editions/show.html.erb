@@ -12,7 +12,7 @@
         <li><a href="#notes_to_editors" data-toggle="tab">Notes to editors</a></li>
       <% end %>
       <% if @edition.allows_supporting_pages? %>
-        <li><a href="#supporting_pages" data-toggle="tab">Supporting pages</a></li>
+        <li><a href="#supporting_pages" data-toggle="tab">Supporting pages <span class="badge"><%= @edition.supporting_pages.count %></span></a></li>
       <% end %>
       <li><a href="#associations" data-toggle="tab">Associations</a></li>
     </ul>
