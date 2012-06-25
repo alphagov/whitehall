@@ -25,8 +25,8 @@ class RoleTypePresenter
       NAMES_VS_TYPES.keys.map { |type| [type, type.humanize] }
     end
 
-    def option_value_for(role)
-      role_type = RoleType.new(role.type, role.cabinet_member?, role.permanent_secretary?, role.chief_of_the_defence_staff?)
+    def option_value_for(role, role_type)
+      role_type = RoleType.new(role_type, role.cabinet_member?, role.permanent_secretary?, role.chief_of_the_defence_staff?)
       NAMES_VS_TYPES.invert[role_type] || DEFAULT_NAME
     end
 

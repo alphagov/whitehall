@@ -1,10 +1,11 @@
+<% role_type = role.type %>
 <%= form_for [:admin, role.becomes(Role)], as: :role do |form| %>
   <%= form.errors %>
 
   <fieldset>
     <%= form.text_field :name %>
     <%= form.label :type %>
-    <%= form.select :type, options_from_collection_for_select(role_type_options, :first, :last, role_type_option_value_for(role)) %>
+    <%= form.select :type, options_from_collection_for_select(role_type_options, :first, :last, role_type_option_value_for(role, role_type)) %>
     <%= form.label :organisation_ids, 'Organisations' %>
     <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', role.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
   </fieldset>
