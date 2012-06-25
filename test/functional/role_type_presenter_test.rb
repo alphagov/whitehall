@@ -1,14 +1,20 @@
 require 'test_helper'
 
 class RoleTypePresenterTest < ActiveSupport::TestCase
-  test "should generate options for select" do
+  test "should generate grouped options for select" do
     expected = [
-      ["cabinet_minister", "Cabinet minister"],
-      ["minister", "Minister"],
-      ["permanent_secretary", "Permanent secretary"],
-      ["board_member", "Board member"],
-      ["chief_of_the_defence_staff", "Chief of the defence staff"],
-      ["chief_of_staff", "Chief of staff"]
+      ["Ministerial", [
+        ["Cabinet minister", "cabinet_minister"],
+        ["Minister", "minister"]
+      ]],
+      ["Managerial", [
+        ["Permanent secretary", "permanent_secretary"],
+        ["Board member", "board_member"]
+      ]],
+      ["Military", [
+        ["Chief of the defence staff", "chief_of_the_defence_staff"],
+        ["Chief of staff", "chief_of_staff"]
+      ]]
     ]
     assert_equal expected, RoleTypePresenter.options
   end

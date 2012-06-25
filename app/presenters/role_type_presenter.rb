@@ -9,20 +9,30 @@ class RoleTypePresenter
     end
   end
 
-  NAMES_VS_TYPES = {
-    "cabinet_minister" => RoleType.new(MinisterialRole.name, true, false, false),
-    "minister" => RoleType.new(MinisterialRole.name, false, false, false),
-    "permanent_secretary" => RoleType.new(BoardMemberRole.name, false, true, false),
-    "board_member" => RoleType.new(BoardMemberRole.name, false, false, false),
-    "chief_of_the_defence_staff" => RoleType.new(MilitaryRole.name, false, false, true),
-    "chief_of_staff" => RoleType.new(MilitaryRole.name, false, false, false)
+  GROUPS_VS_NAMES_VS_TYPES = {
+    "Ministerial" => {
+      "cabinet_minister" => RoleType.new(MinisterialRole.name, true, false, false),
+      "minister" => RoleType.new(MinisterialRole.name, false, false, false)
+    },
+    "Managerial" => {
+      "permanent_secretary" => RoleType.new(BoardMemberRole.name, false, true, false),
+      "board_member" => RoleType.new(BoardMemberRole.name, false, false, false)
+    },
+    "Military" => {
+      "chief_of_the_defence_staff" => RoleType.new(MilitaryRole.name, false, false, true),
+      "chief_of_staff" => RoleType.new(MilitaryRole.name, false, false, false)
+    }
   }.freeze
+
+  NAMES_VS_TYPES = RoleTypePresenter::GROUPS_VS_NAMES_VS_TYPES.values.inject(:merge)
 
   DEFAULT_NAME, DEFAULT_TYPE = NAMES_VS_TYPES.first
 
   class << self
     def options
-      NAMES_VS_TYPES.keys.map { |type| [type, type.humanize] }
+      GROUPS_VS_NAMES_VS_TYPES.collect do |group, names_vs_types|
+        [group, names_vs_types.collect { |name, type| [name.humanize, name] }]
+      end
     end
 
     def option_value_for(role, role_type)
