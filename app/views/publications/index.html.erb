@@ -26,6 +26,7 @@
           <% end %>
         </div>
         <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+        <p class="organisations"><%= publication.organisations.map { |o| link_to(organisation_name_with_acronym(o), o) }.to_sentence.html_safe %></p>
         <% if publication.summary.present? %>
           <p class="summary"><%= publication_summary(publication) %></p>
         <% end %>
@@ -88,6 +89,7 @@
           <thead>
             <tr>
               <th class="title">Title</th>
+              <th class="organisations">By</th>
               <th class="table-summary">Summary</th>
               <th class="date">Publish date</th>
             </tr>
@@ -98,6 +100,7 @@
                 <td class="title article_title">
                   <%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %>
                 </td>
+                <td class="organisations"><%= publication.organisations.map { |o| link_to(organisation_display_name(o), o) }.to_sentence.html_safe %></td>
                 <td class="table-summary summary"><%= publication_summary(publication) %></td>
                 <td class="date published_on">
                   <%= render_datetime_microformat(publication, :publication_date) {
