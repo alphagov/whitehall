@@ -1,7 +1,12 @@
 class MinisterialRolesController < PublicFacingController
   def index
-    @cabinet_ministerial_roles = RolePresenter.decorate(ordered_cabinet_ministerial_roles)
-    @ministerial_roles = RolePresenter.decorate(other_ministerial_roles)
+    sorter = MinisterSorter.new
+    @cabinet_ministerial_roles = sorter.cabinet_ministers.map { |p, r|
+      [PersonPresenter.decorate(p), RolePresenter.decorate(r)]
+    }
+    @ministerial_roles = sorter.other_ministers.map { |p, r|
+      [PersonPresenter.decorate(p), RolePresenter.decorate(r)]
+    }
   end
 
   def show
@@ -10,18 +15,5 @@ class MinisterialRolesController < PublicFacingController
     speeches = @ministerial_role.speeches.published
 
     @announcements = Announcement.by_first_published_at(@news_articles + speeches)
-  end
-
-  private
-
-  def other_ministerial_roles
-    MinisterialRole.alphabetical_by_person.includes(:current_people) - ordered_cabinet_ministerial_roles
-  end
-
-  def ordered_cabinet_ministerial_roles
-    @ordered_cabinet_ministerial_roles ||= begin
-      roles = MinisterialRole.cabinet.includes(:current_people)
-      roles.sort_by { |role| [role.seniority, role.current_person.sort_key] }
-    end
   end
 end

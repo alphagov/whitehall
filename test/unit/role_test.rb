@@ -82,4 +82,9 @@ class RoleTest < ActiveSupport::TestCase
     assert role.destroyable?
     assert role.destroy
   end
+
+  test "should have seniority 100 to sort after cabinet roles" do
+    role = build(:role)
+    assert_equal 100, role.seniority
+  end
 end

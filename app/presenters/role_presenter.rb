@@ -9,15 +9,15 @@ class RolePresenter < Draper::Base
     end
   end
 
-  def url
+  def path
     if ministerial?
-      h.ministerial_role_url model
+      h.ministerial_role_path model
     end
   end
 
   def link
-    if url
-      h.link_to name, url
+    if path
+      h.link_to name, path
     else
       name
     end

@@ -14,29 +14,30 @@
     <section class="cab_ministers">
       <h1 class="label">Cabinet ministers</h1>
       <ul id="cabinet" class="cabinet_list">
-        <% @cabinet_ministerial_roles.each do |role| %>
-          <li class="ministerial_role">
-            <div class="inner">
-              <div class="image_holder">
-                <%= role.current_person_image %>
-              </div>
-              <h2 class="current_appointee"><%= role.current_person_link %></h2>
-              <p class="role"><%= role.link %></p>
-            </div>
-          </li>
+        <% @cabinet_ministerial_roles.each do |person, roles| %>
+          <%= render partial: "role", locals: {person: person, roles: roles, hlevel: "h2"} %>
         <% end %>
       </ul>
     </section>
   </div>
 </div>
 
-
-
 <div class="block-3">
   <div class="inner-block">
     <section class="other">
       <h1 class="label">Other ministers</h1>
-      <%= render partial: "grouped_list", locals: {ministerial_roles: @ministerial_roles} %>
+      <section class="alphabetical_list" id="ministerial_roles">
+        <% @ministerial_roles.group_by { |p,r| (p.surname || '-').first.upcase }.each do |letter, entries| %>
+          <div class="alphabetical_row" id="ministerial_roles_<%= letter.downcase %>">
+            <h2 class="alphabetical_list_letter"><%= letter %></h2>
+            <ul class="ministerial_roles">
+              <% entries.each do |person, roles| %>
+                <%= render partial: "role", locals: {person: person, roles: roles, hlevel: "h3"} %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </section>
     </section>
   </div>
 </div>

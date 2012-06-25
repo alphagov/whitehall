@@ -6,24 +6,24 @@ class RolePresenterTest < PresenterTestCase
     @presenter = RolePresenter.decorate(@role)
   end
 
-  test 'url is the ministerial_role_url if role is ministerial' do
+  test 'path is the ministerial_role_path if role is ministerial' do
     @role.stubs(:ministerial?).returns(true)
-    assert_equal ministerial_role_url(@role), @presenter.url
+    assert_equal ministerial_role_path(@role), @presenter.path
   end
 
-  test 'url is nil if appointed role is not ministerial' do
+  test 'path is nil if appointed role is not ministerial' do
     @role.stubs(:ministerial?).returns(false)
-    assert_nil @presenter.url
+    assert_nil @presenter.path
   end
 
-  test 'link links name to url if url available' do
-    @presenter.stubs(:url).returns('http://example.com/ministers/minister-of-funk')
+  test 'link links name to path if path available' do
+    @presenter.stubs(:path).returns('http://example.com/ministers/minister-of-funk')
     @role.stubs(:name).returns('The Minister of Funk')
     assert_select_from @presenter.link, 'a[href="http://example.com/ministers/minister-of-funk"]', text: 'The Minister of Funk'
   end
 
-  test 'link returns just name if url unavailable' do
-    @presenter.stubs(:url).returns(nil)
+  test 'link returns just name if path unavailable' do
+    @presenter.stubs(:path).returns(nil)
     @role.stubs(:name).returns('The Minister of Funk')
     assert_equal 'The Minister of Funk', @presenter.link
   end

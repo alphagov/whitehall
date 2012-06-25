@@ -6,12 +6,12 @@ class PersonPresenterTest < PresenterTestCase
     @presenter = PersonPresenter.decorate(@person)
   end
 
-  test 'url is generated using person_url' do
-    assert_equal person_url(@person), @presenter.url
+  test 'path is generated using person_path' do
+    assert_equal person_path(@person), @presenter.path
   end
 
-  test 'link links name to url' do
-    @presenter.stubs(:url).returns('http://example.com/person/a-person')
+  test 'link links name to path' do
+    @presenter.stubs(:path).returns('http://example.com/person/a-person')
     assert_select_from @presenter.link, 'a[href="http://example.com/person/a-person"]', text: @person.name
   end
 

@@ -14,11 +14,11 @@ class PersonPresenter < Draper::Base
   end
 
   def link
-    h.link_to name, url
+    h.link_to name, path
   end
 
-  def url
-    h.person_url model
+  def path
+    h.person_path model
   end
 
   def image
