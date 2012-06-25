@@ -84,6 +84,14 @@
       text-transform: uppercase;
     }
   }
+  .desperately-needs-design {
+    ul li:first-child:before {
+      content: "SECONDARY FEATURED";
+    }
+    ul li:last-child {
+      margin-bottom: $gutter;
+    }
+  }
 
     @media (max-width: 768px) {
 
