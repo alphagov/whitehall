@@ -1,51 +1,57 @@
 require 'test_helper'
 
 class RoleTypePresenterTest < ActiveSupport::TestCase
-  test "should generate options for select" do
+  test "should generate grouped options for select" do
     expected = [
-      ["cabinet_minister", "Cabinet minister"],
-      ["minister", "Minister"],
-      ["permanent_secretary", "Permanent secretary"],
-      ["board_member", "Board member"],
-      ["chief_of_the_defence_staff", "Chief of the defence staff"],
-      ["chief_of_staff", "Chief of staff"]
+      ["Ministerial", [
+        ["Cabinet minister", "cabinet_minister"],
+        ["Minister", "minister"]
+      ]],
+      ["Managerial", [
+        ["Permanent secretary", "permanent_secretary"],
+        ["Board member", "board_member"]
+      ]],
+      ["Military", [
+        ["Chief of the defence staff", "chief_of_the_defence_staff"],
+        ["Chief of staff", "chief_of_staff"]
+      ]]
     ]
     assert_equal expected, RoleTypePresenter.options
   end
 
   test "should select cabinet minister" do
-    role = build(:role, type: "MinisterialRole", cabinet_member: true)
-    assert_equal "cabinet_minister", RoleTypePresenter.option_value_for(role)
+    role = build(:role, cabinet_member: true)
+    assert_equal "cabinet_minister", RoleTypePresenter.option_value_for(role, "MinisterialRole")
   end
 
   test "should select minister" do
-    role = build(:role, type: "MinisterialRole", cabinet_member: false)
-    assert_equal "minister", RoleTypePresenter.option_value_for(role)
+    role = build(:role, cabinet_member: false)
+    assert_equal "minister", RoleTypePresenter.option_value_for(role, "MinisterialRole")
   end
 
   test "should select permanent secretary" do
-    role = build(:role, type: "BoardMemberRole", permanent_secretary: true)
-    assert_equal "permanent_secretary", RoleTypePresenter.option_value_for(role)
+    role = build(:role, permanent_secretary: true)
+    assert_equal "permanent_secretary", RoleTypePresenter.option_value_for(role, "BoardMemberRole")
   end
 
   test "should select board member" do
-    role = build(:role, type: "BoardMemberRole", permanent_secretary: false)
-    assert_equal "board_member", RoleTypePresenter.option_value_for(role)
+    role = build(:role, permanent_secretary: false)
+    assert_equal "board_member", RoleTypePresenter.option_value_for(role, "BoardMemberRole")
   end
 
   test "should select chief of the defence staff" do
-    role = build(:role, type: "MilitaryRole", chief_of_the_defence_staff: true)
-    assert_equal "chief_of_the_defence_staff", RoleTypePresenter.option_value_for(role)
+    role = build(:role, chief_of_the_defence_staff: true)
+    assert_equal "chief_of_the_defence_staff", RoleTypePresenter.option_value_for(role, "MilitaryRole")
   end
 
   test "should select chief of staff" do
-    role = build(:role, type: "MilitaryRole", chief_of_the_defence_staff: false)
-    assert_equal "chief_of_staff", RoleTypePresenter.option_value_for(role)
+    role = build(:role, chief_of_the_defence_staff: false)
+    assert_equal "chief_of_staff", RoleTypePresenter.option_value_for(role, "MilitaryRole")
   end
 
   test "should select cabinet minister by default" do
-    role = build(:role, type: nil)
-    assert_equal "cabinet_minister", RoleTypePresenter.option_value_for(role)
+    role = build(:role)
+    assert_equal "cabinet_minister", RoleTypePresenter.option_value_for(role, "Role")
   end
 
   test "should generate attributes for cabinet minister" do

@@ -21,7 +21,7 @@
       <%= content_tag_for(:tr, role) do %>
         <td class="name"><%= link_to role.name, edit_admin_role_path(role), title: "Edit role #{role.name}" %></td>
         <td class="organisations"><%= role.organisation_names %></td>
-        <td class="role_type"><%= RoleTypePresenter.option_value_for(role).humanize %></td>
+        <td class="role_type"><%= role_type_option_value_for(role, role.type).humanize %></td>
         <td class="person"><%= role.current_person_name %></td>
         <td class="delete">
           <% if role.destroyable? %>

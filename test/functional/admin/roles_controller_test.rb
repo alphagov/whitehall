@@ -211,14 +211,14 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "edit should display form for updating an existing role" do
     org = create(:organisation, name: "org-name")
-    role = create(:ministerial_role, name: "role-name", cabinet_member: true, permanent_secretary: false, organisations: [org])
+    role = create(:board_member_role, name: "role-name", permanent_secretary: true, organisations: [org])
 
     get :edit, id: role
 
     assert_select "form[action='#{admin_role_path(role)}']" do
       assert_select "input[name='role[name]'][value='role-name']"
       assert_select "select[name='role[type]']" do
-        assert_select "option[selected='selected'][value='cabinet_minister']"
+        assert_select "option[selected='selected'][value='permanent_secretary']"
       end
       assert_select "select[name*='role[organisation_ids]']" do
         assert_select "option[selected='selected']", text: "org-name"
