@@ -52,7 +52,9 @@
       }
     }
 
-    @media (min-width: 768px) {
+
+
+      @media (min-width: 768px) {
       
       li {
         width: 33.3333%;
@@ -71,6 +73,27 @@
     }
   }
 }
+
+.current-roles li {
+  list-style: none;
+}
+
+    .image .img {
+      float: right;
+      margin: 0 0 $gutter $gutter;
+      width: 25%;
+      img {
+        width: 100%;
+      }
+      @media (max-width: 768px) {
+      float: none;
+      margin: 0 0 $gutter 0;
+      width: 100%;
+        img {
+          width: 50%;
+        }
+      }
+    }
 
 // Styles for Ministerial role pages i.e. /government/ministers/prime-minister
 .ministerial_role {
@@ -102,9 +125,7 @@
     width: 70%;
   }
 
-  .image {
-    float: right;
-  }
+
 
   .responsibilities, .current_person {
     clear: both;

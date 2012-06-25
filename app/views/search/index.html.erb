@@ -1,22 +1,26 @@
 <% page_title "Search" %>
 <% page_class "search-index" %>
 
-<div class="g3f">
-  <header class="page_header search">
-    <h1 class="page_title">Search</h1>
-  </header>
+<div class="block-1">
+  <div class="inner-block">
+      <header class="page_header search">
+        <h1 class="page_title">Search</h1>
+      </header>
+  </div>
 </div>
 
-<div class="g3f">
-  <section id="search_home">
-    <h1>Enter a few words to start searching</h1>
-    <form class="site-search group" action="<%= search_path %>" method="get" role="search">
-      <fieldset>
-        <legend class="visuallyhidden">Search the beta.gov.uk site</legend>
-        <label for="main_searchbox" class="visuallyhidden">Search</label>
-        <input type="text" id="main_searchbox" name="q" value="" placeholder="type your search here">
-        <input type="submit" value="Search" class="button">
-      </fieldset>
-    </form>
-  </section>
+<div class="block-2">
+  <div class="inner-block">
+    <section id="search_home">
+      <h1>Enter a few words to start searching</h1>
+      <form class="site-search group" action="<%= search_path %>" method="get" role="search">
+        <fieldset>
+          <legend class="visuallyhidden">Search the beta.gov.uk site</legend>
+          <label for="main_searchbox" class="visuallyhidden">Search</label>
+          <input type="text" id="main_searchbox" name="q" value="" placeholder="type your search here">
+          <input type="submit" value="Search" class="button">
+        </fieldset>
+      </form>
+    </section>
+  </div>
 </div>

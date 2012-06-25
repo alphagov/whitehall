@@ -7,7 +7,11 @@
       <h1 class="page_title"><%= scope_description.capitalize %> consultations</h1>
       <p class="explanation">Read and contribute to government thinking before it becomes policy</p>
     </header>
+  </div>
+</div>
 
+<div class="block-2">
+  <div class="inner-block">
     <% if consultation = @featured_consultation %>
       <%= content_tag_for(:div, consultation, class: 'featured') do %>
         <div class="thumbnail">
@@ -31,7 +35,11 @@
         </p>
       <% end %>
     <% end %>
+  </div>
+</div>
 
+<div class="block-3">
+  <div class="inner-block">
     <div class="filter-controls">
       <nav class="consultations_scope group" role="navigation">
         <%= link_to_filter('all', action: 'index') %>
@@ -39,7 +47,11 @@
         <%= link_to_filter('closed', action: 'closed') %>
       </nav>
     </div>
+  </div>
+</div>
 
+<div class="block-4">
+  <div class="inner-block">
     <section id="<%= params[:action] %>-consultations">
       <% if @consultations.any? %>
         <div class="table-sort">
@@ -70,6 +82,6 @@
         <p class='no-content'>There are no <%= scope_description %> consultations at present.</p>
       <% end %>
     </section>
-
   </div>
 </div>
+

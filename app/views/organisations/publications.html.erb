@@ -1,19 +1,45 @@
 <% page_title "Publications", @organisation.name %>
+<% page_class "organisation_subpages" %>
 
-<%= render "beta_warning", organisation: @organisation %>
-<%= organisation_wrapper(@organisation, class: "g4") do %>
-  <%= render 'header', organisation: @organisation, title: "Publications" %>
-  <div class="g1f sidebar">
-    <%= render 'sidebar', organisation: @organisation %>
+  <div class="block-1">
+    <div class="inner-block">
+      <%= render "beta_warning", organisation: @organisation %>
+    </div>
   </div>
-  <% if @publications.any? %>
-    <div class="g3f">
-      <%= article_section("Publications", @publications, {id: 'publications', article_wrapper_class: "g1"}) do |publication| %>
-        <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-        <span class="metadata">
-          Updated <%= relative_time(publication.updated_at, class: 'updated_at') %>
-        </span>
+
+<%= organisation_wrapper(@organisation, class: "") do %>
+  <div class="block-2">
+    <div class="inner-block">
+      <%= render 'header', organisation: @organisation, title: "Publications" %>
+    </div>
+  </div>
+
+  <div class="block-3">
+    <div class="inner-block">
+      <div class="sidebar sub_navigation_container">
+        <%= render 'sidebar', organisation: @organisation %>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-4">
+    <div class="inner-block">
+      <% if @publications.any? %>
+        <div id="publications">
+          <h1>Publications</h1>
+          <% @publications.each do |publication| %>
+          <%#= article_section("Publications", @publications, {id: 'publications', article_wrapper_class: ""}) do |publication| %>
+
+            <%= content_tag_for :div, publication, class: 'item' do %>
+              <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+              <span class="metadata">
+                Updated <%= relative_time(publication.updated_at, class: 'updated_at') %>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
-  <% end %>
+  </div>
+
 <% end %>

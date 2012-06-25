@@ -1,8 +1,25 @@
-.table-sort {
-  float: left;
-  display: inline;
-  width: 74%;
+.consultations-index, .publications-index {
 
+  .block-3, .block-4 {
+    float: left;
+    display: inline;
+    width: 25%;
+  }
+  .block-4 {
+    width: 75%;
+  }
+   @media (max-width: 768px) {
+    .block-3, .block-4 {
+      float: none;
+      display: block;
+      width: auto;
+    }
+   }
+}
+
+
+
+.table-sort {
   table {
     width: 100%;
   }

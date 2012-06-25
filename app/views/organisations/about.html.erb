@@ -1,40 +1,63 @@
 <% page_title "About ", @organisation.name %>
+<% page_class "organisation_subpages" %>
 
-<%= render "beta_warning", organisation: @organisation %>
-<%= organisation_wrapper(@organisation, class: "g4") do %>
-  <%= render 'header', organisation: @organisation, title: "About" %>
-  <div class="g1f sidebar">
-    <%= render 'sidebar', organisation: @organisation %>
+  <div class="block-1">
+    <div class="inner-block">
+      <%= render "beta_warning", organisation: @organisation %>
+    </div>
   </div>
 
-  <div class="g3f about_page">
-    <div class="g2">
-      <article class="document">
-        <div class="body">
-          <%= govspeak_to_html @organisation.about_us %>
-        </div>
-      </article>
+<%= organisation_wrapper(@organisation, class: "") do %>
+  <div class="block-2">
+    <div class="inner-block">
+      <%= render 'header', organisation: @organisation, title: "About" %>
     </div>
-    <div class="g1">
-      <nav role="navigation">
-        <ul>
-          <li>View <%= link_to "management team", management_team_organisation_path(@organisation)%></li>
-        </ul>
-      </nav>
-    </div>
-    <% if @corporate_publications.any? %>
-      <div class="g1">
-      </div>
-      <div class="g3">
-        <%= article_section("Corporate publications", @corporate_publications, {id: 'publications',  article_wrapper_class: "g1"}) do |publication| %>
-          <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-          <span class="metadata">
-            Updated <%= relative_time(publication.updated_at, class: 'updated_at') %>
-          </span>
-        <% end %>
-      </div>
-    <% end %>
+  </div>
 
+  <div class="block-3">
+    <div class="inner-block">
+      <div class="sidebar sub_navigation_container">
+        <%= render 'sidebar', organisation: @organisation %>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-4">
+    <div class="inner-block">
+      <div class="about_page">
+        <div>
+          <article class="document">
+            <div class="body">
+              <%= govspeak_to_html @organisation.about_us %>
+            </div>
+          </article>
+        </div>
+        <div>
+          <nav role="navigation">
+            <ul>
+              <li>View <%= link_to "management team", management_team_organisation_path(@organisation)%></li>
+            </ul>
+          </nav>
+        </div>
+        <% if @corporate_publications.any? %>
+          <div>
+          </div>  
+          <div>
+          <h1>Corporate publications</h1>
+          <% @corporate_publications.each do |publication| %>
+            <%#= article_section("Corporate publications", @corporate_publications, {id: 'publications',  article_wrapper_class: ""}) do |publication| %>
+            <%= content_tag_for :div, publication, class: 'item' do %>
+              <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
+              <span class="metadata">
+                Updated <%= relative_time(publication.updated_at, class: 'updated_at') %>
+              </span>
+            <% end %>
+          <% end %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
   </div>
 
 <% end %>

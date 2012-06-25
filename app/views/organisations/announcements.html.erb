@@ -1,21 +1,45 @@
 <% page_title "News", @organisation.name %>
+<% page_class "organisation_subpages" %>
 
-<%= render "beta_warning", organisation: @organisation %>
-<%= organisation_wrapper(@organisation, class: "g4") do %>
-  <%= render 'header', organisation: @organisation, title: "News & speeches" %>
-  <div class="g1f sidebar">
-    <%= render 'sidebar', organisation: @organisation %>
+  <div class="block-1">
+    <div class="inner-block">
+      <%= render "beta_warning", organisation: @organisation %>
+    </div>
   </div>
 
-  <% if @announcements.any? %>
-    <div class="g3f">
-      <%= article_section("News & speeches", @announcements, {id: 'announcements', article_wrapper_class: "g1"}) do |announcement| %>
-        <h2 class="article_title"><%= link_to announcement.title, public_document_path(announcement), title: "View #{announcement.title}", class: "title" %></h2>
-        <% if announcement.summary.present? %><p class="summary"><%= announcement.summary %></p><% end %>
-        <span class="metadata">
-          Updated <%= relative_time(announcement.updated_at, class: 'updated_at') %>
-        </span>
+<%= organisation_wrapper(@organisation, class: "") do %>
+  <div class="block-2">
+    <div class="inner-block">
+      <%= render 'header', organisation: @organisation, title: "News &amp; Speeches" %>
+    </div>
+  </div>
+
+  <div class="block-3">
+    <div class="inner-block">
+      <div class="sidebar sub_navigation_container">
+        <%= render 'sidebar', organisation: @organisation %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="block-4">
+    <div class="inner-block">
+      <% if @announcements.any? %>
+        <div>
+          <h1>News &amp; Speeches</h1>
+          <% @announcements.each do |announcement| %>
+            <%= content_tag_for :div, announcement, class: 'item' do %>
+              <h2 class="article_title"><%= link_to announcement.title, public_document_path(announcement), title: "View #{announcement.title}", class: "title" %></h2>
+              <% if announcement.summary.present? %><p class="summary"><%= announcement.summary %></p><% end %>
+              <span class="metadata">
+                Updated <%= relative_time(announcement.updated_at, class: 'updated_at') %>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
-  <% end %>
+  </div>
+
 <% end %>

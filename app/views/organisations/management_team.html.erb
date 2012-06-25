@@ -1,32 +1,53 @@
 <% page_title "Management Team", @organisation.name %>
+<% page_class "organisation_subpages" %>
 
-<%= render "beta_warning", organisation: @organisation %>
-<%= organisation_wrapper(@organisation, class: "g3") do %>
-  <%= render 'header', organisation: @organisation, title: "Management Team" %>
-  <div class="g1f sidebar">
-    <%= render 'sidebar', organisation: @organisation %>
+  <div class="block-1">
+    <div class="inner-block">
+      <%= render "beta_warning", organisation: @organisation %>
+    </div>
   </div>
 
-  <div class="g1f page_detail management">
-    <% if @organisation.board_member_roles.any? %>
-      <section id="board_members">
-      <% if @organisation.permanent_secretary_board_member_roles.any? %>
-        <section id="permanent_secretary_board_members">
-          <%= render_list_of_roles(@organisation.permanent_secretary_board_member_roles, "permanent_secretary_board_member_roles") do |board_member_role| %>
-            <h3><%= board_member_role.link %></h3>
-            <p class="current_appointee"><%= board_member_role.current_person_link %></p>
-          <% end %>
-        </section>
-      <% end %>
-      <% if @organisation.other_board_member_roles.any? %>
-        <section id="other_board_members">
-          <%= render_list_of_roles(@organisation.other_board_member_roles, "other_board_member_roles") do |board_member_role| %>
-            <h3><%= board_member_role.link %></h3>
-            <p class="current_appointee"><%= board_member_role.current_person_link %></p>
-          <% end %>
-        </section>
-      <% end %>
-      </section>
-    <% end %>
+<%= organisation_wrapper(@organisation, class: "") do %>
+  <div class="block-2">
+    <div class="inner-block">
+      <%= render 'header', organisation: @organisation, title: "Management Team" %>
+    </div>
   </div>
+
+  <div class="block-3">
+    <div class="inner-block">
+      <div class="sidebar sub_navigation_container">
+        <%= render 'sidebar', organisation: @organisation %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="block-4">
+    <div class="inner-block">
+      <div class="page_detail management">
+        <% if @organisation.board_member_roles.any? %>
+          <section id="board_members">
+          <% if @organisation.permanent_secretary_board_member_roles.any? %>
+            <section id="permanent_secretary_board_members">
+              <%= render_list_of_roles(@organisation.permanent_secretary_board_member_roles, "permanent_secretary_board_member_roles") do |board_member_role| %>
+                <h3><%= board_member_role.name %></h3>
+                <p class="current_appointee"><%= board_member_role.current_person_link %></p>
+              <% end %>
+            </section>
+          <% end %>
+          <% if @organisation.other_board_member_roles.any? %>
+            <section id="other_board_members">
+              <%= render_list_of_roles(@organisation.other_board_member_roles, "other_board_member_roles") do |board_member_role| %>
+                <h3><%= board_member_role.name %></h3>
+                <p class="current_appointee"><%= board_member_role.current_person_link %></p>
+              <% end %>
+            </section>
+          <% end %>
+          </section>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
 <% end %>
