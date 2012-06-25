@@ -42,14 +42,6 @@ class PolicyTest < ActiveSupport::TestCase
     assert_equal [topic_1, topic_2], policy.topics.reload
   end
 
-  test "prepends stub signifier to stub policy titles" do
-    assert_equal "[Sample] stub title", build(:policy, title: "stub title", stub: true).title
-  end
-
-  test "stub status doesn't affect slug generation" do
-    assert_equal "stub-title", create(:policy, title: "stub title", stub: true).document.slug
-  end
-
   test "#destroy should remove edition relations to other editions" do
     edition = create(:draft_policy)
     relationship = create(:edition_relation, document: edition.document)

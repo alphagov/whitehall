@@ -24,20 +24,8 @@ class Policy < Edition
 
   after_destroy :remove_edition_relations
 
-  def self.stub
-    where(stub: true)
-  end
-
-  def title_without_stub
-    read_attribute(:title)
-  end
-
-  def title
-    stub? ? "[Sample] #{title_without_stub}" : title_without_stub
-  end
-
   def sluggable_title
-    title_without_stub
+    title
   end
 
   def has_summary?
