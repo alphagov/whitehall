@@ -29,13 +29,13 @@
         <div>
           <h1>News &amp; Speeches</h1>
           <% @announcements.each do |announcement| %>
-            <div class="item">
+            <%= content_tag_for :div, announcement, class: 'item' do %>
               <h2 class="article_title"><%= link_to announcement.title, public_document_path(announcement), title: "View #{announcement.title}", class: "title" %></h2>
               <% if announcement.summary.present? %><p class="summary"><%= announcement.summary %></p><% end %>
               <span class="metadata">
                 Updated <%= relative_time(announcement.updated_at, class: 'updated_at') %>
               </span>
-            </div>
+            <% end %>
           <% end %>
         </div>
       <% end %>

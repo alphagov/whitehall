@@ -29,12 +29,13 @@
           <h1>Polcies</h1>
           <% @policies.each do |policy| %>
           <%#= article_section("Policies", @policies, {id: 'policies', article_wrapper_class: ""}) do |policy| %>
-          <div class="item">
+          
+            <%= content_tag_for :div, policy, class: 'item' do %>
               <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
               <span class="metadata">
                 Updated <%= relative_time(policy.updated_at, class: 'updated_at') %>
               </span>
-          </div>
+            <% end %>
           <% end %>
         </div>
       <% end %>

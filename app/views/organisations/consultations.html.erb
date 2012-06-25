@@ -29,12 +29,12 @@
           <h1>Consultations</h1>
           <% @consultations.each do |consultation| %>
           <%#= article_section("Consultations", @consultations, {id: 'consultations', article_wrapper_class: ""}) do |consultation| %>
-            <div class="item">
+            <%= content_tag_for :div, consultation, class: 'item' do %>
               <h2 class="article_title"><%= link_to consultation.title, public_document_path(consultation), title: "View #{consultation.title}" %></h2>
               <span class="metadata">
                 Updated <%= relative_time(consultation.updated_at, class: 'updated_at') %>
               </span>
-            </div>
+            <% end %>
           <% end %>
         </div>
       <% end %>

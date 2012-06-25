@@ -339,10 +339,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :publications, id: organisation
 
-    assert_select "#publications .row" do
-      assert_select "div:nth-child(1) #{record_css_selector(newest_publication)}"
-      assert_select "div:nth-child(2) #{record_css_selector(older_publication)}"
-      assert_select "div:nth-child(3) #{record_css_selector(oldest_publication)}"
+    assert_select "#publications" do
+      assert_select "#{record_css_selector(newest_publication)}+#{record_css_selector(older_publication)}+#{record_css_selector(oldest_publication)}"
     end
   end
 

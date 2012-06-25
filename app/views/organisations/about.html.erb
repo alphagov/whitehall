@@ -46,13 +46,13 @@
           <h1>Corporate publications</h1>
           <% @corporate_publications.each do |publication| %>
             <%#= article_section("Corporate publications", @corporate_publications, {id: 'publications',  article_wrapper_class: ""}) do |publication| %>
-            <div class="item">
+            <%= content_tag_for :div, publication, class: 'item' do %>
               <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
               <span class="metadata">
                 Updated <%= relative_time(publication.updated_at, class: 'updated_at') %>
               </span>
-            </div>
             <% end %>
+          <% end %>
           </div>
         <% end %>
 

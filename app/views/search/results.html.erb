@@ -16,7 +16,7 @@
 <div class="block-2">
   <div class="inner-block">
     <% if @results.any? %>
-      <ul>
+      <ul class="search_results">
         <% @results.each do |result| %>
           <li class="<%= result["format"] %>">
             <span class="document_format"><%= result['format'] && result["format"].humanize %></span>

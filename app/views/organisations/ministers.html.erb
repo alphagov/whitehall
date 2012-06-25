@@ -31,13 +31,13 @@
           <h1>Ministers</h1>
           <% @ministerial_roles.each do |ministerial_role| %>
           <%#= article_section("Ministers", @ministerial_roles, {id: 'ministers', article_wrapper_class: ""}) do |ministerial_role| %>
-          <div class="ministerial_role">
+          <%= content_tag_for :div, ministerial_role do %>
             <div class="image_holder">
               <%= ministerial_role.current_person_image %>
             </div>
-            <h2 class="article_title current_appointee"><%= ministerial_role.current_person_name %></h2>
-            <p class="role"><%= link_to ministerial_role.name, ministerial_role %></p>
-          </div>
+            <h2 class="article_title current_appointee"><%= ministerial_role.current_person_link %></h2>
+            <p class="role"><%= ministerial_role.link %></p>
+          <% end %>
           <% end %>
         </div>
       <% end %>
