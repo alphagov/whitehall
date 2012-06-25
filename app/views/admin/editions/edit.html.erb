@@ -37,6 +37,7 @@
       <% end %>
       <%= tabs.pane class: "audit-trail", id: "history" do %>
         <h1>Activity</h1>
+        <p>To add a remark, save your changes.</p>
         <ul>
         <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
         </ul>
