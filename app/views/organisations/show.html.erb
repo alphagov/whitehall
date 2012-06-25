@@ -77,28 +77,32 @@
             <p class="view_all"><%= link_to 'View all ministers', ministers_organisation_path(@organisation) %></p>
           </section>
         <% end %>
-        <% if @top_civil_servant %>
+        <% if @organisation.board_member_roles.any? %>
           <section id="management">
             <h1 class="visuallyhidden">Management</h1>
-            <%= content_tag_for(:article, @top_civil_servant) do %>
-              <div class="image_holder">
-                <%= @top_civil_servant.current_person_image %>
-              </div>
-              <h3 class="current_appointee"><%= @top_civil_servant.current_person_link %></h3>
-              <p class="role"><%= @top_civil_servant.link %></p>
+            <% if @top_civil_servant %>
+              <%= content_tag_for(:article, @top_civil_servant) do %>
+                <div class="image_holder">
+                  <%= @top_civil_servant.current_person_image %>
+                </div>
+                <h3 class="current_appointee"><%= @top_civil_servant.current_person_link %></h3>
+                <p class="role"><%= @top_civil_servant.link %></p>
+              <% end %>
             <% end %>
             <p class="view_all"><%= link_to 'View management team', management_team_organisation_path(@organisation) %></p>
           </section>
         <% end %>
-        <% if @top_military_role %>
+        <% if @organisation.military_roles.any? %>
           <section id="military">
             <h1 class="visuallyhidden">Military</h1>
-            <%= content_tag_for(:article, @top_military_role) do %>
-              <div class="image_holder">
-                <%= @top_military_role.current_person_image %>
-              </div>
-              <h3 class="current_appointee"><%= @top_military_role.current_person_link %></h3>
-              <p class="role"><%= @top_military_role.link %></p>
+            <% if @top_military_role %>
+              <%= content_tag_for(:article, @top_military_role) do %>
+                <div class="image_holder">
+                  <%= @top_military_role.current_person_image %>
+                </div>
+                <h3 class="current_appointee"><%= @top_military_role.current_person_link %></h3>
+                <p class="role"><%= @top_military_role.link %></p>
+              <% end %>
             <% end %>
             <p class="view_all"><%= link_to "View chiefs of staff", chiefs_of_staff_organisation_path(@organisation) %></p>
           </section>
