@@ -4,6 +4,7 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
   include DocumentViewAssertions
 
   should_be_a_public_facing_controller
+  should_display_attachments_for :specialist_guide
 
   test "shows link to each section in the markdown" do
     guide = create(:published_specialist_guide, body: %{
