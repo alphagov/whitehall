@@ -1,0 +1,6 @@
+<article class="document">
+  <%= render partial: "admin/editions/standard_elements", locals: { edition: edition } %>
+
+  <h3>Attachments:</h3>
+  <%= render partial: "documents/attachments", locals: { object_with_attachments: edition }  %>
+</article>

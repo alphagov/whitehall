@@ -31,7 +31,7 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to admin_edition_path(@edition), notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
-      build_image
+      build_edition_dependencies
       render action: "new"
     end
   end
@@ -47,14 +47,14 @@ class Admin::EditionsController < Admin::BaseController
         notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
-      build_image
+      build_edition_dependencies
       render action: "edit"
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
-    build_image
+    build_edition_dependencies
     render action: "edit"
   end
 
@@ -112,6 +112,10 @@ class Admin::EditionsController < Admin::BaseController
     if @edition.can_be_associated_with_countries?
       params[:edition][:country_ids] ||= []
     end
+  end
+
+  def build_edition_dependencies
+    build_image
   end
 
   def build_image
