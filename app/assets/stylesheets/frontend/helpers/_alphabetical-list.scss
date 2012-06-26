@@ -93,6 +93,9 @@
           margin-left: -50%;
         }
       }
+      li:nth-child(2n+1) {
+        clear: both;
+      }
     }
     
   }
