@@ -49,7 +49,8 @@ group :test do
   gem 'mocha', :require => false
   gem 'test_track'
   gem 'timecop'
-  gem 'webmock'
+  gem 'webmock', require: false
+  gem 'capybara-webkit'
 end
 
 group :router do

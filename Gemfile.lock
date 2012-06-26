@@ -64,6 +64,9 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    capybara-webkit (0.12.1)
+      capybara (>= 1.0.0, < 1.2)
+      json
     carrierwave (0.5.7)
       activesupport (~> 3.0)
     childprocess (0.2.2)
@@ -290,6 +293,7 @@ DEPENDENCIES
   addressable
   aws-ses
   boomerang-rails
+  capybara-webkit
   carrierwave
   cucumber (~> 1.0.6)
   cucumber-rails (~> 1.0.5)
