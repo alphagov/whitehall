@@ -1,3 +1,6 @@
+h1.label {
+      @include sans-18;
+}
 .organisations_index_page {
     .alphabetical_list .alphabetical_row li {
       @include single-col-li;
@@ -80,11 +83,11 @@
 //      border-bottom-style: solid;
     }
     section {
-      padding-top: $gutter;
+      padding-top: $gutter-one-third;
     }
-    .label, .document_type, .published_or_updated {
+    /*.label, .document_type, .published_or_updated {
       text-transform: uppercase;
-    }
+    } */
   }
   .block-5 {
     width: 75%;
