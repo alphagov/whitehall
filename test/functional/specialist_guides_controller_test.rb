@@ -3,6 +3,8 @@ require "test_helper"
 class SpecialistGuidesControllerTest < ActionController::TestCase
   include DocumentViewAssertions
 
+  should_be_a_public_facing_controller
+
   test "shows link to each section in the markdown" do
     guide = create(:published_specialist_guide, body: %{
 ## First Section
