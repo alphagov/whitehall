@@ -284,4 +284,13 @@ class TopicTest < ActiveSupport::TestCase
     refute_includes topics, has_draft_specialist_guides
     refute_includes topics, has_nothing
   end
+
+  test 'should be retrievable in an alphabetically ordered list' do
+    cheese = create(:topic, name: "Cheese")
+    bananas = create(:topic, name: "Bananas")
+    dates = create(:topic, name: "Dates")
+    apples = create(:topic, name: "Apples")
+
+    assert_equal [apples, bananas, cheese, dates], Topic.alphabetical
+  end
 end
