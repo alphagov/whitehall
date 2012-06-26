@@ -29,7 +29,6 @@ end
 When /^I view the guide$/ do
   visit "/specialist"
   click_link "Specialist guide with pages"
-  save_and_open_page
 end
 
 Then /^I should see only the first page of the guide$/ do
