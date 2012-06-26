@@ -1,14 +1,12 @@
 <section class="alphabetical_list" id="topics">
     <h1 class="label">All topics</h1>
     <p>You can also view <%= link_to "all policies as a list", policies_path %>.</p>
-  <% topics.group_by {|t| t.name.first.upcase }.sort.in_groups_of(3, false) do |row| %>
-    <% row.each do |letter, topic_group| %>
-      <div class="alphabetical_row" id="topics_<%= letter.downcase %>">
-        <h2 class="alphabetical_list_letter"><%= letter %></h2>
-        <div class="inner">
-          <%= render partial: "list", locals: { topics: topic_group } %>
-        </div>
+  <% topics.group_by {|t| t.name.first.upcase }.sort.each do |letter, topics_for_letter| %>
+    <div class="alphabetical_row" id="topics_<%= letter.downcase %>">
+      <h2 class="alphabetical_list_letter"><%= letter %></h2>
+      <div class="inner">
+        <%= render partial: "list", locals: { topics: topics_for_letter } %>
       </div>
-    <% end %>
+    </div>
   <% end %>
 </section>
