@@ -40,6 +40,7 @@ class Topic < ActiveRecord::Base
   default_scope where('topics.state != "deleted"')
 
   scope :with_content, where("published_edition_count <> 0")
+  scope :alphabetical, order("name ASC")
 
   extend FriendlyId
   friendly_id :name, use: :slugged
