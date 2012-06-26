@@ -4,4 +4,6 @@
     <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
   </fieldset>
+
+  <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition } %>
 <% end %>
