@@ -47,6 +47,10 @@ module ActiveRecordLikeInterface
     false
   end
 
+  def to_param
+    id && id.to_s
+  end
+
   def self.included(into)
     into.extend ClassMethods
   end

@@ -24,7 +24,7 @@ end
 Given /^a published policy "([^"]*)" that does not apply to the nations:$/ do |policy_title, nation_names|
   policy = create(:published_policy, title: policy_title)
   nation_names.raw.flatten.each do |nation_name|
-    policy.inapplicable_nations << Nation.find_by_name!(nation_name)
+    policy.nation_inapplicabilities.create!(nation: Nation.find_by_name!(nation_name))
   end
 end
 

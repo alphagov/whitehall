@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120627095224) do
+ActiveRecord::Schema.define(:version => 20120627125808) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -227,10 +227,6 @@ ActiveRecord::Schema.define(:version => 20120627095224) do
 
   add_index "nation_inapplicabilities", ["edition_id"], :name => "index_nation_inapplicabilities_on_edition_id"
   add_index "nation_inapplicabilities", ["nation_id"], :name => "index_nation_inapplicabilities_on_nation_id"
-
-  create_table "nations", :force => true do |t|
-    t.string "name"
-  end
 
   create_table "organisation_roles", :force => true do |t|
     t.integer  "organisation_id"
