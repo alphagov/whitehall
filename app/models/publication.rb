@@ -10,6 +10,15 @@ class Publication < Edition
   validates :publication_date, presence: true
   validates :isbn, isbn_format: true, allow_blank: true
   validates :order_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :publication_type_id, presence: true
+
+  def publication_type
+    PublicationType.find_by_id(publication_type_id)
+  end
+
+  def publication_type=(publication_type)
+    self.publication_type_id = publication_type && publication_type.id
+  end
 
   def has_summary?
     true

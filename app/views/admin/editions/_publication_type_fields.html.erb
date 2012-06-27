@@ -1,0 +1,4 @@
+<fieldset>
+  <%= form.label :publication_type_id, 'Publication type' %>
+  <%= form.select :publication_type_id, grouped_options_for_select(publication_type_options, edition.publication_type_id), {}, class: 'chzn-select', data: { placeholder: "Choose publication type..."} %>
+</fieldset>

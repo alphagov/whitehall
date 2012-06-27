@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20120627125808) do
     t.boolean  "minor_change",             :default => false
     t.string   "video_url"
     t.integer  "policy_team_id"
+    t.integer  "publication_type_id"
     t.boolean  "national_statistic",       :default => false,   :null => false
   end
 

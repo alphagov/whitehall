@@ -110,6 +110,16 @@ class PublicationTest < ActiveSupport::TestCase
 
     assert_equal [attachment_2], publication.attachments
   end
+
+  test "should allow setting of publication type" do
+    publication = build(:publication, publication_type: PublicationType::PolicyPaper)
+    assert publication.valid?
+  end
+
+  test "should be invalid without a publication type" do
+    publication = build(:publication, publication_type: nil)
+    refute publication.valid?
+  end
 end
 
 class PublicationsInTopicsTest < ActiveSupport::TestCase
