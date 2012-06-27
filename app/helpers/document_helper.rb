@@ -15,4 +15,10 @@ module DocumentHelper
       'unknown_organisation'
     end
   end
+
+  def national_statistics_logo(edition)
+    if edition.national_statistic?
+      image_tag "/government/assets/national-statistics.png", alt: "National Statistic"
+    end
+  end
 end
