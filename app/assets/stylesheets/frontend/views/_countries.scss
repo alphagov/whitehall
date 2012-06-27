@@ -23,11 +23,19 @@
     width: 25%;
     li {
       list-style: none;
-//      border-bottom-width: 1px;
-//      border-bottom-style: solid;
     }
     section {
       padding-top: $gutter;
+    }
+  }
+    .sub_navigation_container {
+    li {
+      list-style: none;
+    }
+  }
+  .article_section {
+    h1 {
+      @include sans-18;
     }
   }
   @media (max-width: 768px) {
