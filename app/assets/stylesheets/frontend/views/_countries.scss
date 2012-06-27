@@ -29,9 +29,6 @@
     section {
       padding-top: $gutter;
     }
-    /*.label, .document_type, .published_or_updated {
-      //text-transform: uppercase;
-    }*/
   }
   @media (max-width: 768px) {
 
@@ -54,7 +51,7 @@
   .block-4 {
     width: 75%;
   }
-  
+
   .sub_navigation_container {
     top: 0;
     margin-bottom: 0;
