@@ -9,7 +9,7 @@ h1.label {
       padding-top: $gutter;
     }
     .inline {
-      overflow: hidden;    
+      overflow: hidden;
     }
     .inline li:first-child {
       padding-left: 0;
@@ -60,7 +60,7 @@ h1.label {
     border-left-style: solid;
     padding-left: $gutter*3;
   }
-  
+
   .img {
     img {
       height: 576px;
@@ -85,9 +85,6 @@ h1.label {
     section {
       padding-top: $gutter-one-third;
     }
-    /*.label, .document_type, .published_or_updated {
-      text-transform: uppercase;
-    } */
   }
   .block-5 {
     width: 75%;
@@ -123,7 +120,7 @@ h1.label {
   .block-4 {
     width: 75%;
   }
-  
+
   .sub_navigation_container {
     top: 0;
     margin-bottom: 0;

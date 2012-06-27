@@ -1,50 +1,50 @@
 
 .ministers-index {
-  
+
   .block-2 {
-    padding-bottom: $gutter*2;  
+    padding-bottom: $gutter*2;
   }
-    
+
   .block-2 .cab_ministers {
     overflow: hidden;
     padding-bottom: $gutter;
-    
+
     h1 {
       @include sans-15;
     }
-    
+
     h2 {
       position: relative;
       @include sans-15;
       padding-bottom: 0;
       padding-right: $gutter;
     }
-    
+
     .role {
       @include sans-15;
       padding-top: 0;
       padding-right: $gutter;
     }
-    
+
     li .inner {
       position: relative;
       overflow: hidden;
       padding: $gutter-half 0 0 20%;
     }
-    
+
     .image_holder {
       position: relative;
       float: left;
       display: inline;
       width: 25%;
       margin-left: -25%;
-      
+
       a {
         display: block;
         padding-top: $gutter-one-third;
         padding-right: $gutter-half;
       }
-      
+
       img {
         width: auto;
         max-width: 100%;
@@ -55,16 +55,16 @@
 
 
       @media (min-width: 768px) {
-      
+
       li {
         width: 33.3333%;
         float: left;
         display: inline;
-             
+
         .inner {
           padding-left: 33.33333%;
         }
-        
+
         .image_holder {
           width: 50%;
           margin-left: -50%;
@@ -105,9 +105,6 @@
     float: left;
     display: inline;
     width: 25%;
-    /*.label, .published_or_updated {
-      //text-transform: uppercase;
-    }*/
     li {
       list-style: none;
     }
@@ -119,7 +116,7 @@
   .block-3 {
     width: 50%;
   }
-  
+
   li.organisation {
     list-style: none;
   }
@@ -141,7 +138,7 @@
    margin: $gutter 0;
    overflow: hidden;
   }
-  
+
     @media (max-width: 768px) {
      .block-3, .block-4, .block-5, .image {
       clear: both;
