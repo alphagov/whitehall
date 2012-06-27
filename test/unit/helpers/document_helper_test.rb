@@ -11,4 +11,14 @@ class DocumentHelperTest < ActionView::TestCase
     edition = create(:edition)
     assert_equal 'unknown_organisation', edition_organisation_class(edition)
   end
+
+  test "should generate a national statistics logo for a national statistic" do
+    edition = create(:edition, national_statistic: true)
+    assert_match /National Statistic/, national_statistics_logo(edition)
+  end
+
+  test "should generate no national statistics logo for an edition that is not a national statistic" do
+    edition = create(:edition, national_statistic: false)
+    refute_match /National Statistic/, national_statistics_logo(edition)
+  end
 end

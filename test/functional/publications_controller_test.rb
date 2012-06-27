@@ -159,4 +159,11 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_select "p", text: "There are no matching publications."
   end
+
+  test "should show a National Statistic badge on the appropriate documents" do
+    publication = create(:published_publication, national_statistic: true)
+    get :show, id: publication.document
+
+    assert_match /National Statistic/, response.body
+  end
 end
