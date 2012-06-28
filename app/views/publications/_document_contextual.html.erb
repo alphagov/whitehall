@@ -9,9 +9,6 @@
   <% if edition.isbn.present? %>
     <p>ISBN: <span class="isbn"><%= edition.isbn %></span></p>
   <% end %>
-  <% if edition.research? %>
-    <p class="research">This is a research paper.</p>
-  <% end %>
   <% if edition.order_url.present? %>
     <p><%= link_to "Order a copy", edition.order_url, class: "order_url button", title: "Order a copy of the publication" %></p>
   <% end %>

@@ -6,7 +6,9 @@ FactoryGirl.define do
     publication_date { 10.days.ago }
     publication_type_id { PublicationType::PolicyPaper.id }
 
-    trait(:corporate) { corporate_publication true }
+    trait(:corporate) do
+      publication_type_id { PublicationType::CorporateReport.id }
+    end
   end
 
   factory :draft_publication, parent: :publication, traits: [:draft]
