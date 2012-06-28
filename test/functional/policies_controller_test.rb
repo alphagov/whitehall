@@ -47,6 +47,14 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
+  test "show adds the current class to the policy link in the policy navigation" do
+    policy = create(:published_policy)
+
+    get :show, id: policy.document
+
+    assert_select ".policy-navigation a.current[href='#{policy_path(policy.document)}']"
+  end
+
   test "show hides the link to supporting pages when there aren't any supporting pages" do
     policy = create(:published_policy)
 
@@ -184,6 +192,14 @@ That's all
       assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
       assert_select "a[href='#{activity_policy_path(policy.document)}']"
     end
+  end
+
+  test "activity adds the current class to the activity link in the policy navigation" do
+    policy = create(:published_policy)
+
+    get :activity, id: policy.document
+
+    assert_select ".policy-navigation a.current[href='#{activity_policy_path(policy.document)}']"
   end
 
   test "activity hides the link to supporting pages when there aren't any supporting pages" do

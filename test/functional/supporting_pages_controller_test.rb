@@ -34,6 +34,15 @@ class SupportingPagesControllerTest < ActionController::TestCase
     end
   end
 
+  test "show adds the current class to the supporting pages link in the policy navigation" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.document, id: supporting_page
+
+    assert_select ".policy-navigation a.current[href='#{policy_supporting_pages_path(policy.document)}']"
+  end
+
   test "shows the body using govspeak markup" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy, body: "body-in-govspeak")
