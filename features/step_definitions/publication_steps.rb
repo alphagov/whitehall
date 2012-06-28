@@ -117,13 +117,6 @@ Then /^I should see a thumbnail of the first page of the PDF$/ do
   assert page.has_css?(".attachment img[src*='attachment.pdf.png']") || page.has_css?("div.img img[src*='attachment.pdf.png']")
 end
 
-Then /^I can see links to the related published publications "([^"]*)" and "([^"]*)"$/ do |publication_title_1, publication_title_2|
-  publication_1 = Publication.published.find_by_title!(publication_title_1)
-  publication_2 = Publication.published.find_by_title!(publication_title_2)
-  assert has_css?("#{related_publications_selector} .publication a", text: publication_title_1)
-  assert has_css?("#{related_publications_selector} .publication a", text: publication_title_2)
-end
-
 Then /^I should see the summary of the publication "([^"]*)"$/ do |publication_title|
   publication = Publication.published.find_by_title!(publication_title)
   assert has_css?("#{record_css_selector(publication)} .summary", publication.summary)

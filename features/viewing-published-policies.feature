@@ -31,30 +31,6 @@ Scenario: Viewing a policy that is applicable to certain nations
   Then I should see that the policy does not apply to:
     | Northern Ireland | Wales |
 
-Scenario: Viewing a policy that has multiple publications associated
-  Given a published policy "What Makes A Beard" with related published publications "Standard Beard Lengths" and "Exotic Beard Lengths"
-  When I visit the published policy "What Makes A Beard"
-  Then I can see links to the related published publications "Standard Beard Lengths" and "Exotic Beard Lengths"
-
-Scenario: Viewing a policy that has multiple consultations associated
-  Given a published policy "What Makes A Beard" with related published consultations "Standard Beard Lengths" and "Exotic Beard Lengths"
-  When I visit the published policy "What Makes A Beard"
-  Then I can see links to the related published consultations "Standard Beard Lengths" and "Exotic Beard Lengths"
-
-Scenario: Viewing a policy that has multiple news articles associated
-  Given a published policy "What Makes A Beard" with related published news articles "Standard Beard Lengths" and "Exotic Beard Lengths"
-  When I visit the published policy "What Makes A Beard"
-  Then I can see links to the related published news articles "Standard Beard Lengths" and "Exotic Beard Lengths"
-
-Scenario: Viewing a policy that has draft publication associated
-  Given a published policy "What Makes A Beard" with related draft publication "Proposed Beard Lengths"
-  Then I should not see "Proposed Beard Lengths" from the "What Makes A Beard" policy
-
-Scenario: Viewing a policy that has been related to a speech
-  Given a published speech "Blah blah" with related published policies "Policy 1" and "Policy 2"
-  When I visit the published policy "Policy 1"
-  Then I can see links to the related published speech "Blah blah"
-
 Scenario: Viewing a policy that has multiple documents associated
   Given a published policy "What Makes A Beard" exists
   And a published publication "Standard Beard Lengths" related to the policy "What Makes A Beard"
