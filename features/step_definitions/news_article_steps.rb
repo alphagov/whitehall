@@ -62,11 +62,6 @@ When /^I unfeature the news article "([^"]*)"$/ do |title|
   end
 end
 
-Then /^I can see links to the related published news articles "([^"]*)" and "([^"]*)"$/ do |news_article_title_1, news_article_title_2|
-  assert has_css?("#{related_news_articles_selector} .news_article a", text: news_article_title_1)
-  assert has_css?("#{related_news_articles_selector} .news_article a", text: news_article_title_2)
-end
-
 Then /^I should see the notes to editors "([^"]*)" for the news article$/ do |notes_to_editors|
   assert has_css?("#{notes_to_editors_selector}", text: notes_to_editors)
 end
