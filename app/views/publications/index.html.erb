@@ -89,6 +89,7 @@
           <thead>
             <tr>
               <th class="title">Title</th>
+              <th class="publication-type">Publication type</th>
               <th class="organisations">By</th>
               <th class="table-summary">Summary</th>
               <th class="date">Publish date</th>
@@ -99,6 +100,9 @@
               <%= content_tag_for(:tr, publication) do %>
                 <td class="title article_title">
                   <%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %>
+                </td>
+                <td class="publication-type">
+                  <%= publication.publication_type.singular_name %>
                 </td>
                 <td class="organisations"><%= publication.organisations.map { |o| link_to(organisation_display_name(o), o) }.to_sentence.html_safe %></td>
                 <td class="table-summary summary"><%= publication_summary(publication) %></td>
