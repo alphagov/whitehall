@@ -47,13 +47,13 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "show replaces the link to the supporting pages with text when there aren't any supporting pages" do
-    published_edition = create(:published_policy)
+  test "show hides the link to supporting pages when there aren't any supporting pages" do
+    policy = create(:published_policy)
 
-    get :show, id: published_edition.document
+    get :show, id: policy.document
 
-    assert_select "nav" do
-      assert_select ".inactive", text: "Detail"
+    assert_select ".policy-navigation" do
+      refute_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
     end
   end
 
@@ -186,13 +186,13 @@ That's all
     end
   end
 
-  test "activity replaces the link to the supporting pages with text when there aren't any supporting pages" do
-    published_edition = create(:published_policy)
+  test "activity hides the link to supporting pages when there aren't any supporting pages" do
+    policy = create(:published_policy)
 
-    get :activity, id: published_edition.document
+    get :activity, id: policy.document
 
-    assert_select "nav" do
-      assert_select ".inactive", text: "Detail"
+    assert_select ".policy-navigation" do
+      refute_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
     end
   end
 
