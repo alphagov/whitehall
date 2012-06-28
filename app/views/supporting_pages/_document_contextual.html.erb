@@ -1,11 +1,6 @@
 <section class="contextual_info">
   <%= render partial: "policies/policy_navigation" %>
 
-  <h1>Policy definition</h1>
-  <nav class="policy_parts" role="navigation">
-    <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'top') %>
-  </nav>
-
   <% if (supporting_pages = @policy.supporting_pages).any? %>
     <h2>Supporting detail</h2>
     <nav class="supporting_pages" role="navigation">
