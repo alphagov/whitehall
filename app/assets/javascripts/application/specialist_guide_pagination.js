@@ -33,5 +33,5 @@ $(function() {
     })
   })
 
-  $("a.top").data("page", $(pages[0])).click(showSubPage).click();
+  $(".specialist_guide_parts li:first-child a").click();
 })
