@@ -1,7 +1,5 @@
 <section class="contextual_info">
-  <nav>
-    <%= link_to "View all Activity", activity_policy_path(@policy.document) %>
-  </nav>
+  <%= render partial: "policy_navigation" %>
 
   <h1>Jump to section</h1>
   <nav class="policy_parts" role="navigation">
@@ -14,13 +12,4 @@
       </ol>
     <% end %>
   </nav>
-
-  <% if (supporting_pages = @policy.supporting_pages).any? %>
-    <h2>Supporting detail</h2>
-    <nav class="supporting_pages" role="navigation">
-      <% supporting_pages.each do |supporting_page| %>
-        <%= link_to_with_current supporting_page.title, policy_supporting_page_path(@policy.document, supporting_page) %>
-      <% end %>
-    </nav>
-  <% end %>
 </section>

@@ -8,11 +8,6 @@ Scenario: Viewing a policy that appears in multiple topics
   When I visit the policy "Policy"
   Then I should see links to the "Education" and "Work and pensions" topics
 
-Scenario: Viewing a policy that has supporting pages
-  Given a published policy "Outlaw Moustaches" with supporting pages "Waxing Dangers" and "Hair Lip"
-  Then I can visit the supporting page "Waxing Dangers" from the "Outlaw Moustaches" policy
-  And I can visit the supporting page "Hair Lip" from the "Outlaw Moustaches" policy
-
 Scenario: Viewing a policy that has multiple responsible ministers
   Given a published policy "Policy" that's the responsibility of:
     | Ministerial Role  | Person          |

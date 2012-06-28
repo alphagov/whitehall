@@ -3,7 +3,11 @@ class SupportingPagesController < PublicFacingController
   before_filter :find_supporting_page, only: [:show]
 
   def index
-    @supporting_pages = @policy.supporting_pages
+    if @policy.supporting_pages.empty?
+      render text: "Not found", status: :not_found
+    else
+      redirect_to policy_supporting_page_path(@policy.document, @policy.supporting_pages.first)
+    end
   end
 
   def show

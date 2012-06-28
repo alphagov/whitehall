@@ -34,16 +34,26 @@ class PoliciesControllerTest < ActionController::TestCase
     refute_select inapplicable_nations_selector
   end
 
-  test "show lists supporting pages when there are some" do
+  test "show includes the main policy navigation" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, id: policy.document
+
+    assert_select ".policy-navigation" do
+      assert_select "a[href='#{policy_path(policy.document)}']"
+      assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
+      assert_select "a[href='#{activity_policy_path(policy.document)}']"
+    end
+  end
+
+  test "show replaces the link to the supporting pages with text when there aren't any supporting pages" do
     published_edition = create(:published_policy)
-    first_supporting_page = create(:supporting_page, edition: published_edition)
-    second_supporting_page = create(:supporting_page, edition: published_edition)
 
     get :show, id: published_edition.document
 
-    assert_select ".contextual_info nav.supporting_pages" do
-      assert_select "a[href='#{policy_supporting_page_path(published_edition.document, first_supporting_page)}']", text: first_supporting_page.title
-      assert_select "a[href='#{policy_supporting_page_path(published_edition.document, second_supporting_page)}']", text: second_supporting_page.title
+    assert_select "nav" do
+      assert_select ".inactive", text: "Detail"
     end
   end
 
@@ -53,14 +63,6 @@ class PoliciesControllerTest < ActionController::TestCase
 
     assert_select "section.contextual_info a.active",
       text: published_edition.title
-  end
-
-  test "doesn't show supporting pages list when empty" do
-    published_edition = create(:published_policy)
-
-    get :show, id: published_edition.document
-
-    refute_select supporting_pages_selector
   end
 
   test "should render the content using govspeak markup" do
@@ -169,6 +171,29 @@ That's all
     policy = create(:published_policy)
     get :show, id: policy.document
     assert_select "a[href=?]", activity_policy_path(policy.document)
+  end
+
+  test "activity includes the main policy navigation" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :activity, id: policy.document
+
+    assert_select ".policy-navigation" do
+      assert_select "a[href='#{policy_path(policy.document)}']"
+      assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
+      assert_select "a[href='#{activity_policy_path(policy.document)}']"
+    end
+  end
+
+  test "activity replaces the link to the supporting pages with text when there aren't any supporting pages" do
+    published_edition = create(:published_policy)
+
+    get :activity, id: published_edition.document
+
+    assert_select "nav" do
+      assert_select ".inactive", text: "Detail"
+    end
   end
 
   test "activity displays recently changed documents relating to the policy" do

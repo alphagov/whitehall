@@ -1,0 +1,11 @@
+<nav class="policy-navigation">
+  <ul>
+    <li><%= link_to_with_current "Policy", public_document_path(@policy) %></li>
+    <% if @policy.supporting_pages.any? %>
+      <li><%= link_to "Detail", policy_supporting_pages_path(@policy.document) %></li>
+    <% else %>
+      <li><span class="inactive">Detail</span></li>
+    <% end %>
+    <li><%= link_to "Activity", activity_policy_path(@policy.document) %></li>
+  </ul>
+</nav>
