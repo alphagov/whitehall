@@ -35,32 +35,28 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     assert_select "form#edition_new" do
       assert_select "select[name*='edition[publication_date']", count: 3
+      assert_select "select[name='edition[publication_type_id]']"
       assert_select "input[name='edition[unique_reference]'][type='text']"
       assert_select "input[name='edition[isbn]'][type='text']"
-      assert_select "input[name='edition[research]'][type='checkbox']"
       assert_select "input[name='edition[order_url]'][type='text']"
     end
   end
 
   test "create should create a new publication" do
-    first_policy = create(:published_policy)
-    second_policy = create(:published_policy)
-    attributes = attributes_for(:publication,
+    post :create, edition: controller_attributes_for(:publication,
       publication_date: Date.parse("1805-10-21"),
       unique_reference: "unique-reference",
       isbn: "0140621431",
-      research: true,
-      order_url: "http://example.com/order-path"
+      order_url: "http://example.com/order-path",
+      publication_type_id: PublicationType::ResearchAndAnalysis.id
     )
-
-    post :create, edition: attributes
 
     created_publication = Publication.last
     assert_equal Date.parse("1805-10-21"), created_publication.publication_date
     assert_equal "unique-reference", created_publication.unique_reference
     assert_equal "0140621431", created_publication.isbn
-    assert created_publication.research?
     assert_equal "http://example.com/order-path", created_publication.order_url
+    assert_equal PublicationType::ResearchAndAnalysis, created_publication.publication_type
   end
 
   test "edit displays publication fields" do
@@ -69,10 +65,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     get :edit, id: publication
 
     assert_select "form#edition_edit" do
+      assert_select "select[name='edition[publication_type_id]']"
       assert_select "select[name*='edition[publication_date']", count: 3
       assert_select "input[name='edition[unique_reference]'][type='text']"
       assert_select "input[name='edition[isbn]'][type='text']"
-      assert_select "input[name='edition[research]'][type='checkbox']"
       assert_select "input[name='edition[order_url]'][type='text']"
     end
   end
@@ -84,7 +80,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       publication_date: Date.parse("1815-06-18"),
       unique_reference: "new-reference",
       isbn: "0099532816",
-      research: true,
       order_url: "https://example.com/new-order-path"
     )
 
@@ -92,7 +87,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal Date.parse("1815-06-18"), saved_publication.publication_date
     assert_equal "new-reference", saved_publication.unique_reference
     assert_equal "0099532816", saved_publication.isbn
-    assert saved_publication.research?
     assert_equal "https://example.com/new-order-path", saved_publication.order_url
   end
 
@@ -101,17 +95,17 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       publication_date: Date.parse("1916-05-31"),
       unique_reference: "unique-reference",
       isbn: "0099532816",
-      research: true,
-      order_url: "http://example.com/order-path"
+      order_url: "http://example.com/order-path",
+      publication_type_id: PublicationType::ResearchAndAnalysis.id
     )
 
     get :show, id: publication
 
     assert_select ".document" do
+      assert_select ".publication_type", text: "Research and analysis"
       assert_select ".publication_date", text: "31 May 1916"
       assert_select ".unique_reference", text: "unique-reference"
       assert_select ".isbn", text: "0099532816"
-      assert_select ".research", text: "Yes"
       assert_select "a.order_url[href='http://example.com/order-path']"
     end
   end

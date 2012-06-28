@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120627125808) do
+ActiveRecord::Schema.define(:version => 20120628123047) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -151,10 +151,8 @@ ActiveRecord::Schema.define(:version => 20120627125808) do
     t.date     "publication_date"
     t.string   "unique_reference"
     t.string   "isbn"
-    t.boolean  "research",                 :default => false
     t.string   "order_url"
     t.text     "notes_to_editors"
-    t.boolean  "corporate_publication",    :default => false
     t.text     "summary"
     t.integer  "speech_type_id"
     t.integer  "consultation_document_id"
@@ -165,6 +163,7 @@ ActiveRecord::Schema.define(:version => 20120627125808) do
     t.boolean  "minor_change",             :default => false
     t.string   "video_url"
     t.integer  "policy_team_id"
+    t.integer  "publication_type_id"
     t.boolean  "national_statistic",       :default => false,   :null => false
   end
 

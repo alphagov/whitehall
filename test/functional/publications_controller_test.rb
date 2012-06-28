@@ -60,17 +60,17 @@ class PublicationsControllerTest < ActionController::TestCase
       publication_date: Date.parse("1916-05-31"),
       unique_reference: "unique-reference",
       isbn: "0099532816",
-      research: true,
-      order_url: "http://example.com/order-path"
+      order_url: "http://example.com/order-path",
+      publication_type_id: PublicationType::Form.id
     )
 
     get :show, id: publication.document
 
     assert_select ".contextual_info" do
+      assert_select ".publication_type", text: "Form"
       assert_select ".publication_date", text: "31 May 1916"
       assert_select ".unique_reference", text: "unique-reference"
       assert_select ".isbn", text: "0099532816"
-      assert_select ".research", text: "This is a research paper."
       assert_select "a.order_url[href='http://example.com/order-path']"
     end
   end
