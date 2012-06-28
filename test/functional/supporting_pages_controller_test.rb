@@ -40,30 +40,6 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_select "a[href='#{policy_path(policy.document)}#top']", text: policy.title
   end
 
-  test "shows link to each policy section in the markdown" do
-    policy = create(:published_policy, body: %{
-## First Section
-
-Some content
-
-## Another Bit
-
-More content
-
-## Final Part
-
-That's all
-})
-
-    supporting_page = create(:supporting_page, edition: policy)
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    assert_select_document_section_link policy, 'First Section', 'first-section'
-    assert_select_document_section_link policy, 'Another Bit', 'another-bit'
-    assert_select_document_section_link policy, 'Final Part', 'final-part'
-  end
-
   test "shows the body using govspeak markup" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy, body: "body-in-govspeak")
