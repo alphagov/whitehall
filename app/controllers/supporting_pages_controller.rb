@@ -7,7 +7,6 @@ class SupportingPagesController < PublicFacingController
   end
 
   def show
-    @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
     @document = @policy
   end
 

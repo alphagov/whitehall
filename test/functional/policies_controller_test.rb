@@ -34,67 +34,6 @@ class PoliciesControllerTest < ActionController::TestCase
     refute_select inapplicable_nations_selector
   end
 
-  test "show displays recently changed documents relating to the policy" do
-    policy = create(:published_policy)
-    publication = create(:published_publication, related_policies: [policy])
-    consultation = create(:published_consultation, related_policies: [policy])
-    news_article = create(:published_news_article, related_policies: [policy])
-    speech = create(:published_speech, related_policies: [policy])
-
-    get :show, id: policy.document
-
-    assert_select "#recently-changed" do
-      assert_select_object publication
-      assert_select_object consultation
-      assert_select_object news_article
-      assert_select_object speech
-    end
-  end
-
-  test "show displays metadata about the recently changed documents" do
-    published_at = Time.zone.now
-    policy = create(:published_policy)
-    speech = create(:published_speech, published_at: published_at, related_policies: [policy])
-
-    get :show, id: policy.document
-
-    assert_select "#recently-changed" do
-      assert_select_object speech do
-        assert_select ".metadata .document_type", text: "Speech"
-        assert_select ".metadata .published_at[title='#{published_at.iso8601}']"
-      end
-    end
-  end
-
-  test "show distinguishes between published and updated documents" do
-    policy = create(:published_policy)
-
-    first_edition = create(:published_news_article, related_policies: [policy])
-    updated_edition = create(:published_news_article, related_policies: [policy], published_at: Time.zone.now, first_published_at: 1.day.ago)
-
-    get :show, id: policy.document
-
-    assert_select_object first_edition do
-      assert_select '.metadata', text: /Published/
-    end
-
-    assert_select_object updated_edition do
-      assert_select '.metadata', text: /Updated/
-    end
-  end
-
-  test "show orders recently changed documents relating to the policy most recent first" do
-    policy = create(:published_policy)
-    publication = create(:published_publication, published_at: 4.weeks.ago, related_policies: [policy])
-    consultation = create(:published_consultation, published_at: 1.weeks.ago, related_policies: [policy])
-    news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
-
-    get :show, id: policy.document
-
-    assert_equal [consultation, speech, news_article, publication], assigns(:recently_changed_documents)
-  end
-
   test "show lists supporting pages when there are some" do
     published_edition = create(:published_policy)
     first_supporting_page = create(:supporting_page, edition: published_edition)
@@ -224,5 +163,72 @@ That's all
     policy = create(:published_policy)
     get :show, id: policy.document
     refute_select policy_team_selector
+  end
+
+  test "show links to the policy activity" do
+    policy = create(:published_policy)
+    get :show, id: policy.document
+    assert_select "a[href=?]", activity_policy_path(policy.document)
+  end
+
+  test "activity displays recently changed documents relating to the policy" do
+    policy = create(:published_policy)
+    publication = create(:published_publication, related_policies: [policy])
+    consultation = create(:published_consultation, related_policies: [policy])
+    news_article = create(:published_news_article, related_policies: [policy])
+    speech = create(:published_speech, related_policies: [policy])
+
+    get :activity, id: policy.document
+
+    assert_select "#recently-changed" do
+      assert_select_object publication
+      assert_select_object consultation
+      assert_select_object news_article
+      assert_select_object speech
+    end
+  end
+
+  test "activity displays metadata about the recently changed documents" do
+    published_at = Time.zone.now
+    policy = create(:published_policy)
+    speech = create(:published_speech, published_at: published_at, related_policies: [policy])
+
+    get :activity, id: policy.document
+
+    assert_select "#recently-changed" do
+      assert_select_object speech do
+        assert_select ".metadata .document_type", text: "Speech"
+        assert_select ".metadata .published_at[title='#{published_at.iso8601}']"
+      end
+    end
+  end
+
+  test "activity distinguishes between published and updated documents" do
+    policy = create(:published_policy)
+
+    first_edition = create(:published_news_article, related_policies: [policy])
+    updated_edition = create(:published_news_article, related_policies: [policy], published_at: Time.zone.now, first_published_at: 1.day.ago)
+
+    get :activity, id: policy.document
+
+    assert_select_object first_edition do
+      assert_select '.metadata', text: /Published/
+    end
+
+    assert_select_object updated_edition do
+      assert_select '.metadata', text: /Updated/
+    end
+  end
+
+  test "activity orders recently changed documents relating to the policy most recent first" do
+    policy = create(:published_policy)
+    publication = create(:published_publication, published_at: 4.weeks.ago, related_policies: [policy])
+    consultation = create(:published_consultation, published_at: 1.weeks.ago, related_policies: [policy])
+    news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
+
+    get :activity, id: policy.document
+
+    assert_equal [consultation, speech, news_article, publication], assigns(:recently_changed_documents)
   end
 end
