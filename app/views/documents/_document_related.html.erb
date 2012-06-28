@@ -1,6 +1,5 @@
 <%
 topics ||= nil
-recently_changed_documents ||= nil
 related_policies ||= nil
 %>
 
@@ -58,10 +57,6 @@ related_policies ||= nil
     <% end %>
     </ul>
   </section>
-<% end %>
-
-<% if recently_changed_documents %>
-  <%= render partial: "documents/recently_changed_documents", object: recently_changed_documents, locals: { title: "Latest on this #{document.type}" } %>
 <% end %>
 
 <% if related_policies %>

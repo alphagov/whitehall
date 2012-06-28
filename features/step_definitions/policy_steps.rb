@@ -174,6 +174,11 @@ When /^I visit the published policy "([^"]*)"$/ do |title|
   visit public_document_path(policy)
 end
 
+When /^I visit the activity of the published policy "([^"]*)"$/ do |title|
+  policy = Policy.published.find_by_title!(title)
+  visit activity_policy_path(policy.document)
+end
+
 When /^I delete the draft policy "([^"]*)"$/ do |title|
   policy = Policy.draft.find_by_title!(title)
   visit admin_edition_path(policy)

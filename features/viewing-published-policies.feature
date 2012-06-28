@@ -31,13 +31,13 @@ Scenario: Viewing a policy that is applicable to certain nations
   Then I should see that the policy does not apply to:
     | Northern Ireland | Wales |
 
-Scenario: Viewing a policy that has multiple documents associated
+Scenario: Viewing the activity around a policy
   Given a published policy "What Makes A Beard" exists
   And a published publication "Standard Beard Lengths" related to the policy "What Makes A Beard"
   And a published consultation "Measuring Beard Length" related to the policy "What Makes A Beard"
   And a published news article "Beards Give You Cancer" related to the policy "What Makes A Beard"
   And a published speech "My Kingdom For A Beard" related to the policy "What Makes A Beard"
-  When I visit the published policy "What Makes A Beard"
+  When I visit the activity of the published policy "What Makes A Beard"
   Then I can see links to the recently changed document "Standard Beard Lengths"
   And I can see links to the recently changed document "Measuring Beard Length"
   And I can see links to the recently changed document "Beards Give You Cancer"

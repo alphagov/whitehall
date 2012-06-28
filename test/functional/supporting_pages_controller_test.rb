@@ -211,4 +211,13 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     refute_select policy_team_selector
   end
+
+  test "show links to the policy activity" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.document, id: supporting_page
+
+    assert_select "a[href=?]", activity_policy_path(policy.document)
+  end
 end

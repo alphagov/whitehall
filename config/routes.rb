@@ -21,6 +21,9 @@ Whitehall::Application.routes.draw do
 
     resources :announcements, only: [:index], path: 'news-and-speeches'
     resources :policies, only: [:index, :show] do
+      member do
+        get :activity
+      end
       resources :supporting_pages, path: "supporting-pages", only: [:index, :show]
     end
     resources :news_articles, path: 'news', only: [:show, :index]
