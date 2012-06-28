@@ -1,7 +1,5 @@
 <section class="contextual_info">
-  <nav>
-    <%= link_to "View all Activity", activity_policy_path(@policy.document) %>
-  </nav>
+  <%= render partial: "policies/policy_navigation" %>
 
   <h1>Policy definition</h1>
   <nav class="policy_parts" role="navigation">

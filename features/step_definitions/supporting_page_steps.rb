@@ -93,15 +93,6 @@ Then /^I should see that the "([^"]*)" policy's "([^"]*)" supporting page has an
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Attachment Title")
 end
 
-Then /^I can visit the supporting page "([^"]*)" from the "([^"]*)" policy$/ do |supporting_title, policy_title|
-  policy = Policy.find_by_title!(policy_title)
-  visit public_document_path(policy)
-  assert has_css?(".contextual_info nav.supporting_pages a", text: supporting_title)
-  click_link supporting_title
-  supporting_page = policy.supporting_pages.find_by_title!(supporting_title)
-  assert has_css?(".document .body", text: supporting_page.body)
-end
-
 Then /^I should see in the list of draft documents that "([^"]*)" has supporting page "([^"]*)"$/ do |title, supporting_page_title|
   visit admin_editions_path(state: :draft)
   click_link "Show documents by everyone"

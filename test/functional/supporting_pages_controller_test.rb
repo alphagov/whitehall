@@ -5,39 +5,33 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-  test "index links to supporting pages" do
+  test "index redirects to the first supporting page" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, title: "supporting-page-title", edition: policy)
+    supporting_page_1 = create(:supporting_page, title: "supporting-page-1", edition: policy)
+    supporting_page_2 = create(:supporting_page, title: "supporting-page-2", edition: policy)
+
     get :index, policy_id: policy.document
-    path = policy_supporting_page_path(policy.document, supporting_page)
-    assert_select supporting_pages_selector do
-      assert_select_object supporting_page do
-        assert_select "a[href=#{path}]"
-        assert_select ".title", text: "supporting-page-title"
-      end
-    end
+
+    assert_redirected_to policy_supporting_page_path(policy.document, supporting_page_1)
   end
 
-  test "index only shows supporting pages for the parent policy" do
-    policy = create(:published_policy)
-    other_supporting_page = create(:supporting_page)
-    get :index, policy_id: policy.document
-    refute_select_object other_supporting_page
-  end
-
-  test "index doesn't display an empty list if there aren't any supporting pages" do
+  test "index should return a 404 response if there aren't any supporting pages" do
     policy = create(:published_policy)
     get :index, policy_id: policy.document
-    refute_select "#{supporting_pages_selector} ul"
+    assert_response 404
   end
 
-  test "shows link to policy overview" do
+  test "show includes the main policy navigation" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "a[href='#{policy_path(policy.document)}#top']", text: policy.title
+    assert_select ".policy-navigation" do
+      assert_select "a[href='#{policy_path(policy.document)}']"
+      assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
+      assert_select "a[href='#{activity_policy_path(policy.document)}']"
+    end
   end
 
   test "shows the body using govspeak markup" do
@@ -210,14 +204,5 @@ class SupportingPagesControllerTest < ActionController::TestCase
     get :show, policy_id: policy.document, id: supporting_page
 
     refute_select policy_team_selector
-  end
-
-  test "show links to the policy activity" do
-    policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    assert_select "a[href=?]", activity_policy_path(policy.document)
   end
 end
