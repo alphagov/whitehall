@@ -7,17 +7,14 @@
   h1 {
     @include sans-18;
   }
-  
   nav {
     margin-top: $gutter-one-third*-1;
     @include sans-15;
   }
-    
   a {
     position: relative;
     display: inline-block;
   }
-    
   p {
     @include sans-12;
   }
