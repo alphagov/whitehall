@@ -1,12 +1,12 @@
 <section class="contextual_info">
-  <h1>Chapters</h1>
-  <nav class="specialist_guide_parts" role="navigation">
-    <% if govspeak_headers(edition.body).any? %>
+  <% if govspeak_headers(edition.body).any? %>
+    <h1>Chapters</h1>
+    <nav class="specialist_guide_parts" role="navigation">
       <ol id="document_sections">
         <% govspeak_headers(edition.body).each do |header| %>
           <li><%= link_to header.text, public_document_path(edition, anchor: header.id) %></li>
         <% end %>
-    </ol>
-    <% end %>
-  </nav>
+      </ol>
+    </nav>
+  <% end %>
 </section>
