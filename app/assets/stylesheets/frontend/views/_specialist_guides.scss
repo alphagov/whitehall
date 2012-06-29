@@ -3,3 +3,12 @@
     margin-left: 1em;
   }
 }
+
+.specialist-guides-index {
+  h2 {
+    @include sans-18;
+  }
+  ul {
+    margin-bottom: $gutter;
+  }
+}

@@ -15,13 +15,15 @@
       <% @topics_and_published_specialist_guides.each do |topic| %>
         <%= content_tag_for(:div, topic) do %>
           <h2><%= topic.name %></h2>
-          <% topic.published_specialist_guides.each do |specialist_guide| %>
-            <%= content_tag_for(:article, specialist_guide, class: "specialist-guide") do %>
-              <h3><%= link_to specialist_guide.title, public_document_path(specialist_guide) %></h3>
+          <ul>
+            <% topic.published_specialist_guides.each do |specialist_guide| %>
+              <%= content_tag_for(:li, specialist_guide, class: "specialist-guide") do %>
+                <%= link_to specialist_guide.title, public_document_path(specialist_guide) %>
+              <% end %>
             <% end %>
-          <% end %>
+          </ul>
         <% end %>
-      <% end %> 
+      <% end %>
     </section>
   </div>
 </div>
