@@ -8,30 +8,44 @@ $(function() {
 
   $(pages[0]).prepend($(".specialistguide .summary"));
 
-  var showSubPage = function(e) {
-    e.preventDefault();
+  var showDefaultPage = function() {
     container.find(".page").hide();
     navigation.find(".pageNavigation").hide();
-    $(this).data("page").show();
-    if ($(this).data("pageNavigation")) {
-      $(this).data("pageNavigation").show();
-    }
+
+    pages.first().show();
+  }
+
+  var showPage = function(hash) {
+    container.find(".page").hide();
+    navigation.find(".pageNavigation").hide();
+
+    var heading = $(hash);
+    heading.parents(".page").show();
+
+    var anchor = $("a[href$='" + hash + "']");
+    var pageNavigation = anchor.parents(".pageNavigation").add(anchor.siblings(".pageNavigation"));
+    pageNavigation.show();
+
+    var newPosition = anchor.offset();
+    window.scrollTo(newPosition.left, newPosition.top);
   }
 
   pageLinks.each(function (i, pageLink) {
     pages.each(function(i, page) {
       if ($(page).find($(pageLink).attr("href")).length > 0) {
         var pageNavigation = $(page).navigationList("h3", "pageNavigation");
-
-        $(pageLink).data("page", $(page));
-        $(pageLink).data("pageNavigation", $(pageNavigation));
-
         $(pageLink).after(pageNavigation);
-
-        $(pageLink).click(showSubPage)
       }
     })
   })
 
-  $(".specialist_guide_parts li:first-child a").click();
+  $(window).hashchange(function() {
+    if ((location.hash == "") || (location.hash == "#undefined")) {
+      showDefaultPage();
+    } else {
+      showPage(location.hash);
+    }
+  })
+
+  $(window).hashchange();
 })
