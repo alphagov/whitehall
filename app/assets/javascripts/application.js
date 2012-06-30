@@ -8,3 +8,4 @@
 //= require_tree ./common
 //= require application/utils
 //= require_tree ./application
+//= require_tree ./vendor

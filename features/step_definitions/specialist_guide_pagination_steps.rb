@@ -76,3 +76,25 @@ Then /^I should see navigation for the headings within that specialist guide pag
   assert page.find("a[href='#page-2-section-1']").visible?
   assert page.find("a[href='#page-2-section-2']").visible?
 end
+
+Then /^I should see the URL fragment for the second page of the specialist guide in my browser address bar$/ do
+  assert_equal "page-2", URI.parse(evaluate_script("window.document.location.href")).fragment
+end
+
+When /^I navigate to a heading within the specialist guide page$/ do
+  click_link "Page 2, Section 2"
+end
+
+Then /^I should see the URL fragment for the specialist guide heading in my browser address bar$/ do
+  assert_equal "page-2-section-2", URI.parse(evaluate_script("window.document.location.href")).fragment
+end
+
+When /^I visit the URL for the second page of the specialist guide$/ do
+  specialist_guide = SpecialistGuide.find_by_title!("Specialist guide with pages")
+  visit specialist_guide_path(specialist_guide.document, anchor: "page-2")
+end
+
+When /^I visit the URL for a heading within the second page of the specialist guide$/ do
+  specialist_guide = SpecialistGuide.find_by_title!("Specialist guide with pages")
+  visit specialist_guide_path(specialist_guide.document, anchor: "page-2-section-2")
+end
