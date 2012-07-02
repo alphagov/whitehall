@@ -4,14 +4,14 @@ Feature: Paginating long specialist guides
   I want to be able to navigate easily around the content within a long guide
   So that I can digest it more easily
 
-  # Scenario: Break the guide up into pages
-  #   Given a specialist guide with section headings
-  #   When I view the specialist guide
-  #   Then I should see only the first page of the specialist guide
-  #
-  #   When I navigate to the second page of the specialist guide
-  #   Then I should see only the second page of the specialist guide
-  #   And I should see the URL fragment for the second page of the specialist guide in my browser address bar
+  Scenario: Break the guide up into pages
+    Given a specialist guide with section headings
+    When I view the specialist guide
+    Then I should see only the first page of the specialist guide
+
+    When I navigate to the second page of the specialist guide
+    Then I should see only the second page of the specialist guide
+    And I should see the URL fragment for the second page of the specialist guide in my browser address bar
 
   Scenario: Hide the summary on later pages
     Given a specialist guide with section headings
@@ -32,12 +32,12 @@ Feature: Paginating long specialist guides
     When I navigate to a heading within the specialist guide page
     Then I should see the URL fragment for the specialist guide heading in my browser address bar
 
-  # Scenario: Visiting bookmarked links to a page
-  #   Given a specialist guide with section headings
-  #   When I visit the URL for the second page of the specialist guide
-  #   Then I should see only the second page of the specialist guide
+  Scenario: Visiting bookmarked links to a page
+    Given a specialist guide with section headings
+    When I visit the URL for the second page of the specialist guide
+    Then I should see only the second page of the specialist guide
 
-  # Scenario: Visiting bookmarked links within a page
-  #   Given a specialist guide with section headings
-  #   When I visit the URL for a heading within the second page of the specialist guide
-  #   Then I should see only the second page of the specialist guide
+  Scenario: Visiting bookmarked links within a page
+    Given a specialist guide with section headings
+    When I visit the URL for a heading within the second page of the specialist guide
+    Then I should see only the second page of the specialist guide
