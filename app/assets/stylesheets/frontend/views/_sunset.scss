@@ -1,6 +1,5 @@
 
 .inside_gov_sunset {
-  
   .block-2 {
     h2 {
       margin-top: $gutter;
@@ -13,12 +12,10 @@
     }
   }
   
-  
   @media (min-width: 768px) {
     .block-1, .block-2 {
       margin: 0 auto;
       max-width: 70%;
     }
   }
-  
 }

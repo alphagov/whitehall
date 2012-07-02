@@ -2,66 +2,66 @@
 
 
 #global-nav {
-	position: relative;
-	margin: 0;
-	overflow: hidden;
+  position: relative;
+  margin: 0;
+  overflow: hidden;
 
-	@media (min-width: 768px) {
-		//position: fixed;
-		position: absolute;
-		top: 0;
-		left: 0;
-		//padding-top: 42px;
-		padding-top: 0;
-		width: 100%;
-		height: 40px;
-		background: rgba(255,255,255,0.8);
-		z-index: 100;
-	}
+  @media (min-width: 768px) {
+    //position: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    //padding-top: 42px;
+    padding-top: 0;
+    width: 100%;
+    height: 40px;
+    background: rgba(255,255,255,0.8);
+    z-index: 100;
+  }
 
-	.inner {
-		margin: 0 auto;
-		max-width: $max-site-width;
-		overflow: hidden;
-		background: #ddd;
-	}
+  .inner {
+    margin: 0 auto;
+    max-width: $max-site-width;
+    overflow: hidden;
+    background: #ddd;
+  }
 
-	li {
-		float: left;
-		display: inline;
+  li {
+    float: left;
+    display: inline;
 
-		a {
-		  display: block;
-			padding: 8px 8px;
-			padding: 0.8rem 0.8rem;
-			text-decoration: none;
-		}
+    a {
+      display: block;
+      padding: 8px 8px;
+      padding: 0.8rem 0.8rem;
+      text-decoration: none;
+    }
 
-		a:hover,
-		a:focus {
-			text-decoration: underline;
-		}
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+    }
 
-		.current {
-  		  margin-top: 0.4rem;
-  		  padding-top: 0.4rem;
-			background: #eee;
-		}
-	}
+    .current {
+        margin-top: 0.4rem;
+        padding-top: 0.4rem;
+      background: #eee;
+    }
+  }
 
-	#inside_gov_link a {
-		@include brand-13;
-		margin-top: 0;
-		margin-right: 8px;
-		padding: 12px 8px;
-		padding: 1.2rem 0.8rem;
-		background: #222;
-		color: #fff;
+  #inside_gov_link a {
+    @include brand-13;
+    margin-top: 0;
+    margin-right: 8px;
+    padding: 12px 8px;
+    padding: 1.2rem 0.8rem;
+    background: #222;
+    color: #fff;
 
-		@media (min-width: 768px) {
-			padding: 1.2rem 1.6rem;
-		}
-	}
+    @media (min-width: 768px) {
+      padding: 1.2rem 1.6rem;
+    }
+  }
 }
 
 .inner-block {

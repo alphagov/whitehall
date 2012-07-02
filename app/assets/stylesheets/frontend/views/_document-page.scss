@@ -1,150 +1,146 @@
 // Styles for Documents view
 
 .document_page {
+  
+  .block-2,
+  .block-3,
+  .block-4 {
+    padding-bottom: $gutter;
+  }
+
+  @media (min-width: 768px) {
+    .block-2 {
+      width: 20%;
+      float: left;
+      display: inline;
+    }
     
-    .block-2,
-    .block-3,
+    .block-3 {
+      width: 50%;
+      float: left;
+      display: inline;
+    }
+    
     .block-4 {
-      padding-bottom: $gutter;
+      width: 30%;
+      float: left;
+      display: inline;
     }
-
-   	@media (min-width: 768px) {
-      .block-2 {
-        width: 20%;
-        float: left;
-        display: inline;
-      }
-      
-      .block-3 {
-        width: 50%;
-        float: left;
-        display: inline;
-      }
-      
-      .block-4 {
-        width: 30%;
-        float: left;
-        display: inline;
-      }
-    }
-    
+  }
+  
+  .metadata {
+    @include sans-15;
+    display: block;
+    margin-bottom: $gutter-two-thirds*-1;
+  }
+  
+  @media (min-width: 768px) {
     .metadata {
-      @include sans-15;
-      display: block;
-      margin-bottom: $gutter-two-thirds*-1;
+      margin-bottom: 0;
     }
-   	
-   	@media (min-width: 768px) {
-      .metadata {
-        margin-bottom: 0;
+  }
+  
+  .change_notes_container {
+    @include sans-15;
+    margin-bottom: $gutter-one-third*-1;
+    position: relative;
+    
+    .change_notes {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 70%;
+      z-index: 10;
+      padding: $gutter-half $gutter;
+      color: #fff;
+      background: #333;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      
+      h1 {
+        @include sans-18;
+      }
+      
+      li {
+        @include sans-12;
       }
     }
-        
+  }
+  
+  @media (min-width: 768px) {
     .change_notes_container {
-      @include sans-15;
-      margin-bottom: $gutter-one-third*-1;
-      position: relative;
-      
+      margin-bottom: $gutter-one-third;
       .change_notes {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 70%;
-        z-index: 10;
-        padding: $gutter-half $gutter;
-        color: #fff;
-        background: #333;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.4);
-        
-        h1 {
-          @include sans-18;
-        }
-        
-        li {
-          @include sans-12;
-        }
+        width: 150%;
       }
     }
-         	
-    @media (min-width: 768px) {
-      .change_notes_container {
-        margin-bottom: $gutter-one-third;
-        .change_notes {
-          width: 150%;
-        }
-      }
-    }
+  }
+  
+  .contextual_info {
+    margin-bottom: $gutter-one-third*-1;
+    position: relative;
     
-    .contextual_info {
-      margin-bottom: $gutter-one-third*-1;
-      position: relative;
-      
-      ul {
-        list-style: none;
-      
-        li {
-          @include sans-15;
-        }
-      }
-    }
+    ul {
+      list-style: none;
     
-    .notice p {
-      @include sans-12;
-      padding: $gutter*0.333333;
-      margin-bottom: $gutter;
-      background: yellow;
-    }
-    
-    #document_organisations {
-      position: relative;
-      margin-bottom: $gutter;
-      padding: $gutter-one-third $gutter-one-third $gutter-one-third*0.5;
-      background: #eee;
-      
-      ul {
-        list-style: none;
-      }
-      
       li {
-        padding-bottom: 4px;
+        @include sans-15;
       }
-      
-      li + li {
-        padding-top: $gutter-half;
-      }
+    }
+  }
+  
+  .notice p {
+    @include sans-12;
+    padding: $gutter*0.333333;
+    margin-bottom: $gutter;
+    background: yellow;
+  }
+  
+  #document_organisations {
+    position: relative;
+    margin-bottom: $gutter;
+    padding: $gutter-one-third $gutter-one-third $gutter-one-third*0.5;
+    background: #eee;
+    
+    ul {
+      list-style: none;
     }
     
-    #document_ministers {
-      position: relative;
-      margin-bottom: $gutter;
-      padding: 0 $gutter-one-third;
-      background: #eee;
+    li {
+      padding-bottom: 4px;
+    }
+    
+    li + li {
+      padding-top: $gutter-half;
+    }
+  }
+  
+  #document_ministers {
+    position: relative;
+    margin-bottom: $gutter;
+    padding: 0 $gutter-one-third;
+    background: #eee;
+    
+    ul {
+      list-style: none;
+    }
+    
+    li {
       
-      ul {
-        list-style: none;
+      h3 {
+        @include sans-18;
+        margin-bottom: $gutter-two-thirds*-1;
       }
-      
-      li {
-        
-        h3 {
-          @include sans-18;
-          margin-bottom: $gutter-two-thirds*-1;
-        }
-        p {
-          @include sans-15;
-        }
+      p {
+        @include sans-15;
       }
     }
-        
-    #document_organisations + #document_ministers {
-      margin-top: $gutter*-1;
-      padding-top: $gutter;
-    }
+  }
+      
+  #document_organisations + #document_ministers {
+    margin-top: $gutter*-1;
+    padding-top: $gutter;
+  }
 }
-
-
-
-
 
 
 .organisation_logo_small {

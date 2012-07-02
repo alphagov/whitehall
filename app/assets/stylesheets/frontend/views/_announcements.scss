@@ -1,52 +1,52 @@
 
 .announcements-index {
     
-    .block-2 .announcements {
-      overflow: hidden;
+  .block-2 .announcements {
+    overflow: hidden;
+    padding-bottom: $gutter;
+    
+    article {
       padding-bottom: $gutter;
+    }
+    
+    img {
+      width: 100%;
+      height: auto;
+    }
+    
+    h2,
+    .summary {
+      @include sans-15;
+    }
+    
+    .meta .published_at,
+    .meta a {
+      @include sans-12;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        width: 25%;
+        float: left;
+        display: inline;
+      }
+      
+      .row {
+        width: 75%;
+        float: left;
+        display: inline;
+      }
       
       article {
-        padding-bottom: $gutter;
+        width: 33.33333%;
+        float: left;
+        display: inline;
       }
       
-      img {
-        width: 100%;
-        height: auto;
-      }
-      
-      h2,
-      .summary {
-        @include sans-15;
-      }
-      
-      .meta .published_at,
-      .meta a {
-        @include sans-12;
-      }
-
-      @media (min-width: 768px) {
-        h1 {
-          width: 25%;
-          float: left;
-          display: inline;
-        }
-        
-        .row {
-          width: 75%;
-          float: left;
-          display: inline;
-        }
-        
-        article {
-          width: 33.33333%;
-          float: left;
-          display: inline;
-        }
-        
-        .img,
-        .text {
-          padding-left: $gutter;
-        }
+      .img,
+      .text {
+        padding-left: $gutter;
       }
     }
+  }
 }

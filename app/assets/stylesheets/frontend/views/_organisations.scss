@@ -2,52 +2,50 @@ h1.label {
       @include sans-18;
 }
 .organisations_index_page {
-    .alphabetical_list .alphabetical_row li {
-      @include single-col-li;
-    }
-    .alphabetical_list .alphabetical_row li:first-child {
-      padding-top: $gutter;
-    }
-    .inline {
-      overflow: hidden;
-    }
-    .inline li:first-child {
-      padding-left: 0;
-    }
-    .inline li {
-      float: left;
-      display: inline;
-      padding: $gutter-one-third $gutter-half;
-    }
-
+  .alphabetical_list .alphabetical_row li {
+    @include single-col-li;
+  }
+  .alphabetical_list .alphabetical_row li:first-child {
+    padding-top: $gutter;
+  }
+  .inline {
+    overflow: hidden;
+  }
+  .inline li:first-child {
+    padding-left: 0;
+  }
+  .inline li {
+    float: left;
+    display: inline;
+    padding: $gutter-one-third $gutter-half;
+  }
 }
 
 .departments-index {
-
-    .block-2, .block-3 {
-      float: left;
-      display: inline;
-      width: 25%;
+  .block-2, .block-3 {
+    float: left;
+    display: inline;
+    width: 25%;
+  }
+  .block-3 {
+    width: 75%;
+  }
+  .block-2 li, .block-3 li {
+    list-style: none;
+  }
+  .block-3 li {
+    float: left;
+    display: inline;
+    margin: 0 1% 40px 0;
+    width: 30%;
+  }
+  @media (max-width: 768px) {
+    .block-2, .block-3, .block-3 li {
+    float: none;
+    display: block;
+    width: 100%;
     }
-    .block-3 {
-      width: 75%;
-    }
-    .block-2 li, .block-3 li {
-      list-style: none;
-    }
-    .block-3 li {
-      float: left;
-      display: inline;
-      margin: 0 1% 40px 0;
-      width: 30%;
-    }
-    @media (max-width: 768px) {
-      .block-2, .block-3, .block-3 li {
-      float: none;
-      display: block;
-      width: 100%;
-      }
-    }
+  }
 }
 
 
@@ -291,180 +289,180 @@ h1.label {
 
 // Organisation colours
 .treasury  {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $treasury;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $treasury;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $treasury;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $treasury;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $treasury;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $treasury;
+  }
 }
 .cabinet-office {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $cabinet-office;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $cabinet-office;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $cabinet-office;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $cabinet-office;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $cabinet-office;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $cabinet-office;
+  }
 }
 .department-for-education {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-education;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $department-for-education;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $department-for-education;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $department-for-education;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $department-for-education;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $department-for-education;
+  }
 }
 .department-of-transport {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-of-transport;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $department-of-transport;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $department-of-transport;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $department-of-transport;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $department-of-transport;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $department-of-transport;
+  }
 }
 .home-office {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $home-office;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $home-office;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $home-office;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $home-office;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $home-office;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $home-office;
+  }
 }
 .department-of-health {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-of-health;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $department-of-health;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $department-of-health;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $department-of-health;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $department-of-health;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $department-of-health;
+  }
 }
 .ministry-of-justice {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $ministry-of-justice;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $ministry-of-justice;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $ministry-of-justice;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $ministry-of-justice;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $ministry-of-justice;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $ministry-of-justice;
+  }
 }
 .ministry-of-defence {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $ministry-of-defence;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $ministry-of-defence;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $ministry-of-defence;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $ministry-of-defence;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $ministry-of-defence;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $ministry-of-defence;
+  }
 }
 .foreign-and-commonwealth-office {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $foreign-and-commonwealth-office;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $foreign-and-commonwealth-office;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $foreign-and-commonwealth-office;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $foreign-and-commonwealth-office;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $foreign-and-commonwealth-office;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $foreign-and-commonwealth-office;
+  }
 }
 .department-for-communities-and-local-government {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-communities-and-local-government;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $department-for-communities-and-local-government;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $department-for-communities-and-local-government;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $department-for-communities-and-local-government;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $department-for-communities-and-local-government;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $department-for-communities-and-local-government;
+  }
 }
 .department-for-energy-and-climate-change {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-energy-and-climate-change;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $department-for-energy-and-climate-change;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $department-for-energy-and-climate-change;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $department-for-energy-and-climate-change;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $department-for-energy-and-climate-change;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $department-for-energy-and-climate-change;
+  }
 }
 .department-for-culture-media-and-sport {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-culture-media-and-sport;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $department-for-culture-media-and-sport;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $department-for-culture-media-and-sport;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $department-for-culture-media-and-sport;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $department-for-culture-media-and-sport;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $department-for-culture-media-and-sport;
+  }
 }
 .department-for-environment-food-and-rural-affairs {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-environment-food-and-rural-affairs;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $department-for-environment-food-and-rural-affairs;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $department-for-environment-food-and-rural-affairs;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $department-for-environment-food-and-rural-affairs;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $department-for-environment-food-and-rural-affairs;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $department-for-environment-food-and-rural-affairs;
+  }
 }
 .department-for-work-and-pensions {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-work-and-pensions;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $department-for-work-and-pensions;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $department-for-work-and-pensions;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $department-for-work-and-pensions;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $department-for-work-and-pensions;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $department-for-work-and-pensions;
+  }
 }
 .department-for-business-innovation-and-skills {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-business-innovation-and-skills;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $department-for-business-innovation-and-skills;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $department-for-business-innovation-and-skills;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $department-for-business-innovation-and-skills;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $department-for-business-innovation-and-skills;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $department-for-business-innovation-and-skills;
+  }
 }
 .department-for-international-development {
-    span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-international-development;
-    }
-    .news_body, .slidecontrols li a {
-      background-color: $department-for-international-development;
-    }
-    .label, .document_type, .published_or_updated {
-      color: $department-for-international-development;
-    }
+  span, .sub_navigation_container li, .secondary-featured {
+    border-color: $department-for-international-development;
+  }
+  .news_body, .slidecontrols li a {
+    background-color: $department-for-international-development;
+  }
+  .label, .document_type, .published_or_updated {
+    color: $department-for-international-development;
+  }
 }
 /*.inactive_organisation span {
   border-color: lighten($department-for-culture-media-and-sport, 25%);

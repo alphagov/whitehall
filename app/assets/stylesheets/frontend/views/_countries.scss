@@ -1,10 +1,10 @@
 .countries-index {
-    .alphabetical_list .alphabetical_row li {
-      @include single-col-li;
-    }
-    .alphabetical_list .alphabetical_row li:first-child {
-      padding-top: $gutter;
-    }
+  .alphabetical_list .alphabetical_row li {
+    @include single-col-li;
+  }
+  .alphabetical_list .alphabetical_row li:first-child {
+    padding-top: $gutter;
+  }
 }
 
 .countries_homepage {
@@ -28,7 +28,7 @@
       padding-top: $gutter;
     }
   }
-    .sub_navigation_container {
+  .sub_navigation_container {
     li {
       list-style: none;
     }
@@ -39,17 +39,15 @@
     }
   }
   @media (max-width: 768px) {
-
     .block-4, .block-5, .block-6, .block-7 {
-    float: none;
-    display: block;
-    width: auto;
-  }
+      float: none;
+      display: block;
+      width: auto;
+    }
   }
 }
 
 .country_about {
-
   .block-3, .block-4 {
     float: left;
     display: inline;
