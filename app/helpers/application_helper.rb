@@ -80,15 +80,21 @@ module ApplicationHelper
   end
 
   def publication_type_options
-    {
-      "" => [""],
-      "Common types" => PublicationType.primary.map { |publication_type|
+    [
+      ["", [""]],
+      ["Common types", PublicationType.primary.map { |publication_type|
         [publication_type.singular_name, publication_type.id]
-      },
-      "Use discouraged" => PublicationType.use_discouraged.map { |publication_type|
+      }],
+      ["Less common types", PublicationType.less_common.map { |publication_type|
         [publication_type.singular_name, publication_type.id]
-      }
-    }
+      }],
+      ["Use discouraged", PublicationType.use_discouraged.map { |publication_type|
+        [publication_type.singular_name, publication_type.id]
+      }],
+      ["Legacy (need migration)", PublicationType.migration.map { |publication_type|
+        [publication_type.singular_name, publication_type.id]
+      }]
+    ]
   end
 
   def role_type_options
