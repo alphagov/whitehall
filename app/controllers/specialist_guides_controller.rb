@@ -2,7 +2,7 @@ class SpecialistGuidesController < DocumentsController
   layout "specialist"
 
   def index
-    @specialist_guides = SpecialistGuide.published
+    @topics_and_published_specialist_guides = Topic.joins(:published_specialist_guides).includes(:published_specialist_guides)
   end
 
 private
