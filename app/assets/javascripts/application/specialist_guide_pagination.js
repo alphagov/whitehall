@@ -26,8 +26,10 @@ $(function() {
     var pageNavigation = anchor.parents(".pageNavigation").add(anchor.siblings(".pageNavigation"));
     pageNavigation.show();
 
-    var newPosition = anchor.offset();
-    window.scrollTo(newPosition.left, newPosition.top);
+    if (anchor.length > 0) {
+      var newPosition = anchor.offset();
+      window.scrollTo(newPosition.left, newPosition.top);
+    }
   }
 
   pageLinks.each(function (i, pageLink) {
