@@ -2,6 +2,7 @@ Given /^a specialist guide with section headings$/ do
   create(:published_specialist_guide,
          title: "Specialist guide with pages",
          summary: "Here's the summary of the guide",
+         topics: [create(:topic)],
          body: <<-EOS
 ## Page 1
 

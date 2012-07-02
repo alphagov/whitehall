@@ -27,6 +27,11 @@ Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists 
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
+Given /^a submitted (publication|policy|news article|consultation|specialist guide) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
+  topic = Topic.find_by_name!(topic_name)
+  create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
+end
+
 Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
   topic = Topic.find_by_name!(topic_name)
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
