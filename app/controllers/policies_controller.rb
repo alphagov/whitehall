@@ -8,6 +8,7 @@ class PoliciesController < DocumentsController
   def show
     @policy = @document
     @countries = @policy.countries
+    @topics = @policy.topics
   end
 
   def activity

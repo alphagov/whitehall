@@ -28,6 +28,17 @@ That's all
     assert_select_document_section_link guide, 'Final Part', 'final-part'
   end
 
+  test "should link to topics related to the specialist guide" do
+    first_topic = create(:topic)
+    second_topic = create(:topic)
+    edition = create(:published_specialist_guide, topics: [first_topic, second_topic])
+
+    get :show, id: edition.document
+
+    assert_select "#document_topics li.topic a", text: first_topic.name
+    assert_select "#document_topics li.topic a", text: second_topic.name
+  end
+
   test "index shows all published specialist guides by topic" do
     earth = create(:topic, name: "Earth")
     wind = create(:topic, name: "Wind")
@@ -53,7 +64,7 @@ That's all
     guide1 = create(:published_specialist_guide, title: "One", topics: [earth])
 
     get :index
-    
+
     refute_select_object wind
   end
 end
