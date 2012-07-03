@@ -20,21 +20,6 @@ $baseline_in_px: 24 !default;
   margin-bottom: #{$vertical_rhythm}em;
 }
 
-@mixin type-60 {
-  /* 60px / 72px */
-  @include scaled_type(60, 72);
-}
-
-@mixin type-44 {
-  /* 44px / 48px */
-  @include scaled_type(44, 48);
-}
-
-@mixin type-46 {
-  /* 46px / 46px */
-  @include scaled_type(46, 46);
-}
-
 /* organisation 'logos' */
 @mixin type-32 {
   /* 32px / 48px */
@@ -61,11 +46,6 @@ $baseline_in_px: 24 !default;
   @include scaled_type(16);
 }
 
-@mixin type-14 {
-  /* 14px / 18px */
-  @include scaled_type(14, 18);
-}
-
 @mixin type-13 {
   /* 13px / 18px */
   @include scaled_type(13, 18);
@@ -74,14 +54,4 @@ $baseline_in_px: 24 !default;
 @mixin type-12 {
   /* 12px / 24px */
   @include scaled_type(12);
-}
-
-@mixin type-11 {
-  /* 11px / 24px */
-  @include scaled_type(11);
-}
-
-@mixin type-10 {
-  /* 10px / 24px */
-  @include scaled_type(10);
 }
