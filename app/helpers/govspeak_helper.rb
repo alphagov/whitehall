@@ -25,9 +25,22 @@ module GovspeakHelper
   end
 
   def govspeak_headers(text, level = 2)
+    level = (level..level) unless level.is_a?(Range)
     Govspeak::Document.new(text).headers.select do |header|
-      header.level == level
+      level.cover?(header.level)
     end
+  end
+
+  def govspeak_header_heirarchy(text)
+    headers = []
+    govspeak_headers(text, 2..3).each do |header|
+      if header.level == 2
+        headers << {header: header, children: []}
+      elsif header.level == 3
+        headers.last[:children] << header
+      end
+    end
+    headers
   end
 
   private
