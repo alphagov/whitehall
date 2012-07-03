@@ -21,6 +21,7 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
 // Mixins to be shared across gov.uk sites. Anything set in these
 // files can be used in the view files.
 
+@import "styleguide/_font-stacks.scss";
 @import "styleguide/_typography.scss";
 @import "styleguide/_colours.scss";
 @import "styleguide/_css3.scss";
