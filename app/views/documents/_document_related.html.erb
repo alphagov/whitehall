@@ -32,13 +32,6 @@ related_policies ||= nil
   </section>
 <% end %>
 
-<% if document.respond_to?(:topics) && document.topics.any? %>
-  <section id="document_topics" class="simple_list">
-    <h1 class="label">Topics</h1>
-    <%= render partial: "topics/list", locals: { topics: document.topics }  %>
-  </section>
-<% end %>
-
 <% if topics && topics.any? %>
   <section id="document_topics" class="simple_list">
     <h1 class="label">Topics</h1>

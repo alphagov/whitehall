@@ -5,6 +5,10 @@ class SpecialistGuidesController < DocumentsController
     @topics_and_published_specialist_guides = Topic.joins(:published_specialist_guides).includes(:published_specialist_guides)
   end
 
+  def show
+    @topics = @document.topics
+  end
+
 private
   def document_class
     SpecialistGuide
