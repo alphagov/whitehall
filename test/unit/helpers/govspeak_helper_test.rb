@@ -294,6 +294,24 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal [Govspeak::Header.new("Heading 2", 2, "heading-2")], headers
   end
 
+  test "should be able to extract header_heirarchy from level 2+3 headers" do
+    text = "# Heading 1\n\n## Heading 2a\n\n### Heading 3a\n\n### Heading 3b\n\n#### Ignored heading\n\n## Heading 2b"
+    headers = govspeak_header_heirarchy(text)
+    assert_equal [
+      {
+        header: Govspeak::Header.new("Heading 2a", 2, "heading-2a"),
+        children: [
+          Govspeak::Header.new("Heading 3a", 3, "heading-3a"),
+          Govspeak::Header.new("Heading 3b", 3, "heading-3b")
+        ]
+      },
+      {
+        header: Govspeak::Header.new("Heading 2b", 2, "heading-2b"),
+        children: []
+      }
+    ], headers
+  end
+
   private
 
   def assert_govspeak(expected, actual)
