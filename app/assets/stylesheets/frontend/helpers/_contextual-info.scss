@@ -5,11 +5,11 @@
   padding-bottom: $gutter-two-thirds;
   
   h1 {
-    @include sans-18;
+    @include core-19;
   }
   nav {
     margin-top: $gutter-one-third*-1;
-    @include sans-15;
+    @include core-14;
   }
   a {
     position: relative;
@@ -17,6 +17,6 @@
     vertical-align: top;
   }
   p {
-    @include sans-12;
+    @include core-14;
   }
 }
