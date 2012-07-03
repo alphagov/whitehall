@@ -12,3 +12,10 @@
     margin-bottom: $gutter;
   }
 }
+
+.specialist-guides-show {
+  .in-page-navigation li {
+    @include sans-15;
+    padding: 0;
+  }
+}

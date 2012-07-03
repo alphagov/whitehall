@@ -6,7 +6,7 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_attachments_for :specialist_guide
 
-  test "shows link to each section in the markdown" do
+  test "shows link to each section in the document navigation" do
     guide = create(:published_specialist_guide, body: %{
 ## First Section
 
@@ -23,9 +23,11 @@ That's all
 
     get :show, id: guide.document
 
-    assert_select_document_section_link guide, 'First Section', 'first-section'
-    assert_select_document_section_link guide, 'Another Bit', 'another-bit'
-    assert_select_document_section_link guide, 'Final Part', 'final-part'
+    assert_select "ol#document_sections" do
+      assert_select "li a[href='#{public_document_path(guide, anchor: 'first-section')}']", 'First Section'
+      assert_select "li a[href='#{public_document_path(guide, anchor: 'another-bit')}']", 'Another Bit'
+      assert_select "li a[href='#{public_document_path(guide, anchor: 'final-part')}']", 'Final Part'
+    end
   end
 
   test "should link to topics related to the specialist guide" do
@@ -37,6 +39,24 @@ That's all
 
     assert_select "#document_topics li.topic a", text: first_topic.name
     assert_select "#document_topics li.topic a", text: second_topic.name
+  end
+
+  test "shows link to subsections in the document navigation" do
+    guide = create(:published_specialist_guide, body: %{
+## First Section
+
+Some Content
+
+### Sub section title
+
+some more content
+})
+
+    get :show, id: guide.document
+
+    assert_select "ol#document_sections" do
+      assert_select "li ol li a[href='#{public_document_path(guide, anchor: 'sub-section-title')}']", 'Sub section title'
+    end
   end
 
   test "index shows all published specialist guides by topic" do
@@ -67,4 +87,6 @@ That's all
 
     refute_select_object wind
   end
+
+
 end

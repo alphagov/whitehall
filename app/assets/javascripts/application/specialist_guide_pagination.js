@@ -4,42 +4,37 @@ $(function() {
 
   container.splitIntoPages("h2");
   pages = container.find(".page");
-  pageLinks = navigation.find("a");
+  pages.hide();
 
   $(pages[0]).prepend($(".specialistguide .summary"));
 
   var showDefaultPage = function() {
-    container.find(".page").hide();
-    navigation.find(".pageNavigation").hide();
-
     pages.first().show();
   }
 
   var showPage = function(hash) {
-    container.find(".page").hide();
-    navigation.find(".pageNavigation").hide();
-
     var heading = $(hash);
-    heading.parents(".page").show();
 
-    var anchor = $("a[href$='" + hash + "']");
-    var pageNavigation = anchor.parents(".pageNavigation").add(anchor.siblings(".pageNavigation"));
-    pageNavigation.show();
-
-    if (anchor.length > 0) {
-      var newPosition = anchor.offset();
-      window.scrollTo(newPosition.left, newPosition.top);
+    if (heading.is(":visible")) {
+      return;
     }
+
+    pages.hide();
+    heading.parents(".page").show();
+    $('html, body').animate({scrollTop:heading.offset().top}, 0);
   }
 
-  pageLinks.each(function (i, pageLink) {
-    pages.each(function(i, page) {
-      if ($(page).find($(pageLink).attr("href")).length > 0) {
-        var pageNavigation = $(page).navigationList("h3", "pageNavigation");
-        $(pageLink).after(pageNavigation);
-      }
-    })
-  })
+  navigation.find(">li").each(function(el){
+    var li = $(this),
+        pageNav = li.find('>ol'),
+        chapterSelector = '#' + li.find('>a').attr('href').split('#')[1],
+        inPageNavigation = $("<div class='in-page-navigation'><h3>On this page</h3></div>");
+
+    if (pageNav.length > 0) {
+      inPageNavigation.append(pageNav);
+      $(chapterSelector).after(inPageNavigation);
+    }
+  });
 
   $(window).hashchange(function() {
     if ((location.hash == "") || (location.hash == "#undefined")) {
