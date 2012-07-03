@@ -154,9 +154,11 @@ That's all
 })
 
     get :show, id: policy.document
-    assert_select_document_section_link policy, 'First Section', 'first-section'
-    assert_select_document_section_link policy, 'Another Bit', 'another-bit'
-    assert_select_document_section_link policy, 'Final Part', 'final-part'
+    assert_select "ol#document_sections" do
+      assert_select "li a[href='#{public_document_path(policy, anchor: 'first-section')}']", 'First Section'
+      assert_select "li a[href='#{public_document_path(policy, anchor: 'another-bit')}']", 'Another Bit'
+      assert_select "li a[href='#{public_document_path(policy, anchor: 'final-part')}']", 'Final Part'
+    end
   end
 
   test "show displays the policy team responsible for this policy" do
