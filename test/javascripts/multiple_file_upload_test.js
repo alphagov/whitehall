@@ -1,6 +1,6 @@
 module("Uploading multiple files", {
   setup: function() {
-    this.fieldset = $('<fieldset class="multiple_file_uploads"></fieldset>');
+    this.fieldset = $('<fieldset id="attachment_fields" class="multiple_file_uploads"></fieldset>');
     var file_upload = $('<div class="file_upload"></div>');
     this.first_input = $('<input id="edition_edition_attachments_attributes_0_attachment_attributes_file" name="edition[edition_attachments_attributes][0][attachment_attributes][file]" type="file" />');
 
@@ -136,7 +136,7 @@ test("should set the text of the already_uploaded element to blank for each new 
 module("Uploading multiple files after file field validation error", {
   setup: function() {
     this.fieldset = $('\
-      <fieldset class="multiple_file_uploads">\
+      <fieldset id="attachment_fields" class="multiple_file_uploads">\
         <div class="file_upload">\
           <label for="edition_edition_attachments_attributes_0_attachment_attributes_title">Title</label>\
           <input id="edition_edition_attachments_attributes_0_attachment_attributes_title"\ name="edition[edition_attachments_attributes][0][attachment_attributes][title]" size="30" type="text" value="something" />\
