@@ -69,13 +69,13 @@ When /^I view a specialist guide page with internal headings$/ do
 end
 
 Then /^I should not see navigation for headings within other specialist guide pages$/ do
-  refute page.find("a[href='#page-2-section-1']").visible?
-  refute page.find("a[href='#page-2-section-2']").visible?
+  refute page.find("a[href$='#page-2-section-1']").visible?
+  refute page.find("a[href$='#page-2-section-2']").visible?
 end
 
 Then /^I should see navigation for the headings within that specialist guide page$/ do
-  assert page.find("a[href='#page-2-section-1']").visible?
-  assert page.find("a[href='#page-2-section-2']").visible?
+  assert page.find("a[href$='#page-2-section-1']").visible?
+  assert page.find("a[href$='#page-2-section-2']").visible?
 end
 
 Then /^I should see the URL fragment for the second page of the specialist guide in my browser address bar$/ do
