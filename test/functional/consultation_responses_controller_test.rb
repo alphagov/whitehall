@@ -2,7 +2,7 @@ require "test_helper"
 
 class ConsultationResponsesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
-  should_show_change_notes_on_action :consultation_response do |consultation_response|
+  should_show_change_notes_on_action :consultation_response, :show do |consultation_response|
     get :show, consultation_id: consultation_response.consultation.document
   end
 

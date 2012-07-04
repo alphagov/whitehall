@@ -1,0 +1,15 @@
+<div class="change_notes_container">
+  <p class="link-to-change-notes">Change notes</p>
+
+  <section class="change_notes">
+    <h1>Change notes</h1>
+    <ul>
+      <% document.change_history.each do |change| %>
+        <li class="group">
+          <p><%= change.note %></p>
+          <%= absolute_time(change.published_at, class: 'published_at') %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+</div>
