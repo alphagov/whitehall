@@ -226,13 +226,13 @@ module DocumentControllerTestHelpers
 
 
     def should_show_change_notes(document_type)
-      should_show_change_notes_on_action(document_type) do |edition|
+      should_show_change_notes_on_action(document_type, :show) do |edition|
         get :show, id: edition.document
       end
     end
 
-    def should_show_change_notes_on_action(document_type, &block)
-      test "show displays default change note for first edition" do
+    def should_show_change_notes_on_action(document_type, action, &block)
+      test "#{action} displays default change note for first edition" do
         first_edition = create("published_#{document_type}", change_note: nil, published_at: 1.month.ago)
 
         instance_exec(first_edition, &block)
@@ -243,7 +243,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "show does not display blank change notes in change history" do
+      test "#{action} does not display blank change notes in change history" do
         second_edition = create("published_#{document_type}", change_note: nil, minor_change: true, published_at: 1.months.ago)
         document = second_edition.document
         first_edition = create("archived_#{document_type}", change_note: "First effort.", document: document, published_at: 2.months.ago)
@@ -256,7 +256,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "show displays change history in reverse chronological order" do
+      test "#{action} displays change history in reverse chronological order" do
         editions = []
         editions << create("published_#{document_type}", change_note: "Third go.", published_at: 1.month.ago)
         document = editions.first.document

@@ -8,7 +8,20 @@ class PoliciesControllerTest < ActionController::TestCase
   should_show_the_countries_associated_with :policy
   should_display_inline_images_for :policy
   should_not_display_lead_image_for :policy
-  should_show_change_notes :policy
+  should_show_change_notes_on_action :policy, :show do |policy|
+    get :show, id: policy.document
+  end
+  should_show_change_notes_on_action :policy, :activity do |policy|
+    get :activity, id: policy.document
+  end
+
+  test "show displays the date that the policy was updated" do
+    policy = create(:published_policy)
+
+    get :show, id: policy.document
+
+    assert_select ".updated_at[title=#{policy.updated_at.iso8601}]"
+  end
 
   test "should show inapplicable nations" do
     published_policy = create(:published_policy)
@@ -181,6 +194,14 @@ That's all
     policy = create(:published_policy)
     get :show, id: policy.document
     assert_select "a[href=?]", activity_policy_path(policy.document)
+  end
+
+  test "activity displays the date that the policy was updated" do
+    policy = create(:published_policy)
+
+    get :activity, id: policy.document
+
+    assert_select ".updated_at[title=#{policy.updated_at.iso8601}]"
   end
 
   test "activity includes the main policy navigation" do

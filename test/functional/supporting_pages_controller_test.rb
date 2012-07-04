@@ -4,6 +4,10 @@ class SupportingPagesControllerTest < ActionController::TestCase
   include DocumentViewAssertions
 
   should_be_a_public_facing_controller
+  should_show_change_notes_on_action :policy, :show do |policy|
+    supporting_page = create(:supporting_page, edition: policy)
+    get :show, policy_id: policy.document, id: supporting_page
+  end
 
   test "index redirects to the first supporting page" do
     policy = create(:published_policy)
@@ -19,6 +23,15 @@ class SupportingPagesControllerTest < ActionController::TestCase
     policy = create(:published_policy)
     get :index, policy_id: policy.document
     assert_response 404
+  end
+
+  test "show displays the date that the policy was updated" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.document, id: supporting_page
+
+    assert_select ".updated_at[title=#{policy.updated_at.iso8601}]"
   end
 
   test "show includes the main policy navigation" do
