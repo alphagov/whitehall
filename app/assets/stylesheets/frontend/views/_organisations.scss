@@ -218,6 +218,10 @@ h1.label {
       font-weight: normal;
     }
   }
+  .document-type {
+    padding-top: $gutter-one-third;
+    font-weight: bold;
+  }
 
     @media (max-width: 768px) {
     height: auto;

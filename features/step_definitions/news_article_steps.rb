@@ -78,7 +78,7 @@ Then /^the news article "([^"]*)" should (not )?be featured on the homepage$/ do
   visit home_path
   news_article = NewsArticle.published.find_by_title!(title)
 
-  news_article_is_featured = has_css?("#featured-news-articles #{record_css_selector(news_article)}")
+  news_article_is_featured = has_css?("#{featured_news_articles_selector} #{record_css_selector(news_article)}")
   if should_not_be_featured
     refute news_article_is_featured
   else

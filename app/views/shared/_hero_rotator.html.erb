@@ -18,6 +18,7 @@
           <% unless news_article.summary.blank? %>
             <p class="summary"><%= truncate(news_article.summary, length: 150, separator: ' ') %></p>
           <% end %>
+          <div class="document-type"><%= human_friendly_edition_type(news_article) %></div>
         </div>
       <% end %>
     <% end %>

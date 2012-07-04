@@ -145,6 +145,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select_object news_article do
       assert_select ".img img[src$='#{lead_image.url}']"
+      assert_select ".document-type", 'News article'
     end
   end
 
