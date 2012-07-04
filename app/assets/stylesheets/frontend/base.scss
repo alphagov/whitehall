@@ -9,7 +9,7 @@
 
 $max-site-width: 1096px;
 
-$gutter:            24px;
+$gutter:            30px;
 $gutter-two-thirds: $gutter*0.666666; // equivalent to 16px
 $gutter-half:       $gutter*0.5; // equivalent to 12px
 $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
@@ -102,6 +102,6 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
 // DEBUG
 //#whitehall-wrapper {
 //  background-position: top left;
-//  background-image: -webkit-linear-gradient(transparent 7px,#E4E4E4 1px);
-//  background-size: 100% 8px;
+//  background-image: -webkit-linear-gradient(transparent 4px,#E4E4E4 1px);
+//  background-size: 100% 5px;
 //}

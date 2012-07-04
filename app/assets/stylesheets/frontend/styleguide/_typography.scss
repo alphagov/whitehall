@@ -64,6 +64,12 @@
   padding-top: 1.2rem;
   padding-bottom: 8px;
   padding-bottom: 0.8rem;
+  @media (max-width: 640px) {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    padding-top: 0.8rem;
+    padding-bottom: 0.7rem;
+  }
 }
 
 // Suitable for body headings
@@ -79,6 +85,12 @@
   padding-top: 0.3rem;
   padding-bottom: 2px;
   padding-bottom: 0.2rem;
+  @media (max-width: 640px) {
+    font-size: 1.9rem;
+    line-height: 1.3157894737;
+    padding-top: 0.7rem;
+    padding-bottom: 0.3rem;
+  }
 }
 
 // Suitable for short body copy
@@ -94,6 +106,12 @@
   padding-top: 0.3rem;
   padding-bottom: 2px;
   padding-bottom: 0.2rem;
+  @media (max-width: 640px) {
+    font-size: 1.7rem;
+    line-height: 1.4705882353;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+  }
 }
 
 // Suitable for long body copy
@@ -109,6 +127,12 @@
   padding-top: 0.7rem;
   padding-bottom: 3px;
   padding-bottom: 0.3rem;
+  @media (max-width: 640px) {
+    font-size: 1.3rem;
+    line-height: 1.5384615385;
+    padding-top: 0.6rem;
+    padding-bottom: 0.4rem;
+  }
 }
 
 // Suitable for captions, buttons etc
@@ -125,6 +149,12 @@
   padding-top: 0.6rem;
   padding-bottom: 4px;
   padding-bottom: 0.4rem;
+  @media (max-width: 640px) {
+    font-size: 1.2rem;
+    line-height: 1.25;
+    padding-top: 0.4rem;
+    padding-bottom: 0.1rem;
+  }
 }
 
 // DEPARTMENT LOGOS - HELVETICA

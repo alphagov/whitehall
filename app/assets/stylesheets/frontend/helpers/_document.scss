@@ -4,36 +4,36 @@
     p {
       margin-top: $gutter-one-third*-1;
       margin-bottom: $gutter-half;
-      @include sans-20;
+      @include core-19;
     }
   }
 
   .body,
   .govspeak {
     position: relative;
-    margin-top: $gutter-one-third*-1;
+    //margin-top: $gutter-half*-1;
+    margin-top: -13px;
     
     .govspeak {
       margin-top: 0;
     }
     
-    h2 {
-      @include sans-20;
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @include core-27;
       margin-top: $gutter;
-      font-weight: 700;
     }
     
     h2:first-child {
       margin-top: 0;
     }
     
-    h3 {
-      @include sans-20;
-      margin-top: $gutter;
-    }
-    
     p {
-      @include sans-20;
+      @include core-19;
+      margin: $gutter-half 0;
     }
     
     ol {
@@ -48,7 +48,7 @@
     
     li {
       width: 90%;
-      @include sans-20;
+      @include core-19;
       margin-left: $gutter*1.2;
       
       li {
@@ -65,7 +65,7 @@
     }
     
     strong, b {
-      font-weight: 700;
+      font-family: $NTA-Bold;
     }
     
     em, i {
@@ -102,7 +102,7 @@
       }
       
       figcaption {
-        @include sans-12;
+        @include core-14;
       }
     }
   }
