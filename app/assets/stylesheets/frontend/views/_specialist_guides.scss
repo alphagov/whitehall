@@ -14,7 +14,7 @@
 }
 
 .specialist-guides-show {
-  .in-page-navigation {
+  .in-page-navigation, .previous-next-navigation {
     h3 {
       @include core-19;
     }
