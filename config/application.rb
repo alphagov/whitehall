@@ -25,7 +25,7 @@ module Whitehall
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
     # Activate observers that should always be running.
-    unless ENV["PRECOMPILING_ASSETS"].present?
+    unless ENV["SKIP_OBSERVERS_FOR_ASSET_TASKS"].present?
       config.active_record.observers = :ministerial_role_search_index_observer, :supporting_page_search_index_observer
     end
 
