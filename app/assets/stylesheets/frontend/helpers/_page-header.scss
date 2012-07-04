@@ -5,24 +5,26 @@
   background-position: 0 8px;
 
   h1 {
-    @include brand-32;
-  }
-
-  @media (min-width: 768px) {
-    h1 {
-      @include brand-45;
+    @include core-48;
+    margin-left: -3px;
+    @media (max-width: 640px) {
+      margin-left: 0;
     }
   }
   
   h2 {
     position: relative;
-    @include brand-13;
+    @include core-14;
     margin-bottom: $gutter-two-thirds*-1;
+    @media (max-width: 640px) {
+      top: $gutter-one-third;
+      margin-bottom: 0;
+    }
   }
   
   .explanation {
     margin-top: $gutter-two-thirds*-1;
-    @include sans-15;
+    @include core-19;
   }
 }
 
