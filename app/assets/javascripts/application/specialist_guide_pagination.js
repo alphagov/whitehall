@@ -6,8 +6,6 @@ $(function() {
   pages = container.find(".page");
   pages.hide();
 
-  $(pages[0]).prepend($(".specialistguide .summary"));
-
   var showDefaultPage = function() {
     pages.first().show();
   }

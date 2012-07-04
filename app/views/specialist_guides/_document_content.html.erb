@@ -1,9 +1,4 @@
 <article class="document">
-  <% if @document.summary.present? %>
-    <div class="summary">
-      <p><%= @document.summary %></p>
-    </div>
-  <% end %>
   <div class="body">
     <% if @document.video_url.present? %>
       <figure class="video">

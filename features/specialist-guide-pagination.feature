@@ -13,13 +13,13 @@ Feature: Paginating long specialist guides
     Then I should see only the second page of the specialist guide
     And I should see the URL fragment for the second page of the specialist guide in my browser address bar
 
-  Scenario: Hide the summary on later pages
+  Scenario: Show the summary on all pages
     Given a specialist guide with section headings
     When I view the first page of the specialist guide
     Then I should see the specialist guide summary
 
     When I navigate to the second page of the specialist guide
-    Then I should not see the specialist guide summary
+    Then I should see the specialist guide summary
 
 #  Scenario: Navigate within a page
 #    Given a specialist guide with section headings
