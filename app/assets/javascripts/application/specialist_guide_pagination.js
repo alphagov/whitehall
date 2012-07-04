@@ -47,7 +47,7 @@ $(function() {
     var li = $(this),
         pageNav = li.find('>ol'),
         chapterSelector = '#' + li.find('>a').attr('href').split('#')[1],
-        inPageNavigation = $("<div class='in-page-navigation'><h3>On this page</h3></div>");
+        inPageNavigation = $("<div class='in-page-navigation'><h3>In this chapter</h3></div>");
 
     if (pageNav.length > 0) {
       inPageNavigation.append(pageNav);
