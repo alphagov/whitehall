@@ -10,6 +10,7 @@ FactoryGirl.define do
   factory :user do
     name
     email
+    permissions { Hash[GDS::SSO::Config.default_scope => ["signin"]] }
   end
 
   factory :policy_writer, parent: :user, aliases: [:author, :creator, :fact_check_requestor] do
