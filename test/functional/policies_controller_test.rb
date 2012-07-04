@@ -120,8 +120,8 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select "#topics li.topic a", text: first_topic.name
-    assert_select "#topics li.topic a", text: second_topic.name
+    assert_select ".topics li.topic a", text: first_topic.name
+    assert_select ".topics li.topic a", text: second_topic.name
   end
 
   test "should link to organisations related to the policy" do

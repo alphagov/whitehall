@@ -1,0 +1,59 @@
+.consultations-index, .publications-index {
+
+  .block-3, .block-4 {
+    float: left;
+    display: inline;
+    width: 25%;
+  }
+  .block-4 {
+    width: 75%;
+  }
+   @media (max-width: 768px) {
+    .block-3, .block-4 {
+      float: none;
+      display: block;
+      width: auto;
+    }
+   }
+}
+
+
+
+.table-sort {
+  table {
+    width: 100%;
+  }
+
+  th, td {
+    background-color: $charcoal-grey;
+    border-right: 1px solid $white;
+    color: $white;
+    font-weight: normal;
+    padding: $gutter-one-third $gutter-half;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td  {
+    background-color: $light-warm-grey;
+  }
+
+  td, th {
+    display: table-cell;
+  }
+
+  td {
+    background-color: $white;
+    color: #333;
+  }
+
+  .title {
+    width: 45%;
+  }
+  .table-summary {
+    width: 40%;
+  }
+  .date {
+    width: 15%;
+  }
+}

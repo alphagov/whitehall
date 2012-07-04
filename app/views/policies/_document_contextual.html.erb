@@ -1,6 +1,4 @@
 <section class="contextual_info">
-  <%= render partial: "policy_navigation" %>
-
   <h1>Jump to section</h1>
   <nav class="policy_parts" role="navigation">
     <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'top'), class: "active" %>

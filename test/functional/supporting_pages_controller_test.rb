@@ -136,8 +136,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "#topics li.topic a", text: first_topic.name
-    assert_select "#topics li.topic a", text: second_topic.name
+    assert_select ".topics li.topic a", text: first_topic.name
+    assert_select ".topics li.topic a", text: second_topic.name
   end
 
   test "should link to organisations from within the metadata navigation" do

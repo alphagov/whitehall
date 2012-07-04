@@ -12,7 +12,6 @@ class SupportingPagesController < PublicFacingController
 
   def show
     @document = @policy
-    @topics = @policy.topics
   end
 
   private
