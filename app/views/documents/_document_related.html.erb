@@ -1,5 +1,5 @@
 <%
-topics ||= nil
+topics ||= []
 related_policies ||= nil
 %>
 
@@ -32,12 +32,7 @@ related_policies ||= nil
   </section>
 <% end %>
 
-<% if topics && topics.any? %>
-  <section id="document_topics" class="simple_list">
-    <h1 class="label">Topics</h1>
-    <%= render partial: "topics/list", locals: { topics: topics }  %>
-  </section>
-<% end %>
+<%= render partial: 'documents/topics', locals: { topics: topics } %>
 
 <% if document.respond_to?(:countries) && document.countries.any? %>
   <section id="document_countries" class="simple_list">
