@@ -6,6 +6,20 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_attachments_for :specialist_guide
 
+  test "index <title> does not contain 'Inside Government'" do
+    get :index
+
+    refute_select "title", text: /Inside Government/
+  end
+
+  test "guide <title> contains Specialist guidance" do
+    guide = create(:published_specialist_guide)
+
+    get :show, id: guide.document
+
+    assert_select "title", text: /${guide.document.title} | Specialist guidance/
+  end
+
   test "shows link to each section in the document navigation" do
     guide = create(:published_specialist_guide, body: %{
 ## First Section
