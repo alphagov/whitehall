@@ -14,8 +14,13 @@
 }
 
 .specialist-guides-show {
-  .in-page-navigation li {
-    @include sans-15;
-    padding: 0;
+  .in-page-navigation {
+    h3 {
+      @include core-19;
+    }
+    li {
+      @include core-14;
+      padding: 0;
+    }
   }
 }
