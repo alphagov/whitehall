@@ -32,20 +32,26 @@ When /^I view the specialist guide$/ do
   click_link "Specialist guide with pages"
 end
 
-Then /^I should see only the first page of the specialist guide$/ do
-  assert page.find("h2#page-1").visible?
-  refute page.find("h2#page-2").visible?
-  refute page.find("h2#page-3").visible?
-end
-
 When /^I navigate to the second page of the specialist guide$/ do
   click_link "Page 2"
 end
 
-Then /^I should see only the second page of the specialist guide$/ do
-  refute page.find("h2#page-1").visible?
-  assert page.find("h2#page-2").visible?
-  refute page.find("h2#page-3").visible?
+When /^I navigate to the next page of the specialist guide$/ do
+  click_link "Next Chapter: Page 3"
+end
+
+Then /^I should see only the (\w*) page of the specialist guide$/ do |page_number|
+  {
+    first: 'page-1',
+    second: 'page-2',
+    third: 'page-3'
+  }.each do |page_name, page_id|
+    if page_number == page_name.to_s
+      assert page.find("h2##{page_id}").visible?, "Element h2##{page_id} is not visible"
+    else
+      refute page.find("h2##{page_id}").visible?, "Eelement h2##{page_id} is visible"
+    end
+  end
 end
 
 When /^I view the first page of the specialist guide$/ do
@@ -78,8 +84,13 @@ Then /^I should see navigation for the headings within that specialist guide pag
   assert page.find("a[href$='#page-2-section-2']").visible?
 end
 
-Then /^I should see the URL fragment for the second page of the specialist guide in my browser address bar$/ do
-  assert_equal "page-2", URI.parse(evaluate_script("window.document.location.href")).fragment
+Then /^I should see the URL fragment for the (\w+) page of the specialist guide in my browser address bar$/ do |page_name|
+  pages = {
+    first: 'page-1',
+    second: 'page-2',
+    third: 'page-3'
+  }
+  assert_equal pages[page_name.to_sym], URI.parse(evaluate_script("window.document.location.href")).fragment
 end
 
 When /^I navigate to a heading within the specialist guide page$/ do

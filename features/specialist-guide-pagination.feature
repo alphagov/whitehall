@@ -13,6 +13,10 @@ Feature: Paginating long specialist guides
    Then I should see only the second page of the specialist guide
    And I should see the URL fragment for the second page of the specialist guide in my browser address bar
 
+   When I navigate to the next page of the specialist guide
+   Then I should see only the third page of the specialist guide
+   And I should see the URL fragment for the third page of the specialist guide in my browser address bar
+
  Scenario: Show the summary on all pages
    Given a specialist guide with section headings
    When I view the first page of the specialist guide
