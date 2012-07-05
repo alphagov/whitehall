@@ -125,8 +125,11 @@
       right: 0;
     }
 
-    a{
+    a {
+      overflow: hidden;
+      p {
       @include button($turquoise);
+      }
     }
   }
 
