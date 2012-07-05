@@ -1,7 +1,5 @@
 <section class="contextual_info">
-
   <% if (supporting_pages = @policy.supporting_pages).any? %>
-    <h2>Supporting detail</h2>
     <nav class="supporting_pages" role="navigation">
       <% supporting_pages.each do |supporting_page| %>
         <% options = supporting_page == @supporting_page ? {class: "active"} : {} %>
