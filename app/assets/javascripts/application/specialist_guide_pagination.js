@@ -6,12 +6,13 @@ $(function() {
   pages = container.find(".page");
   pages.hide();
 
-  var showDefaultPage = function() {
-    pages.first().show();
-  }
+  var showPage = function() {
+    var heading = $(location.hash);
 
-  var showPage = function(hash) {
-    var heading = $(hash);
+    if (heading.length == 0) {
+      pages.first().show();
+      return;
+    }
 
     if (heading.is(":visible")) {
       return;
@@ -34,13 +35,6 @@ $(function() {
     }
   });
 
-  $(window).hashchange(function() {
-    if ((location.hash == "") || (location.hash == "#undefined")) {
-      showDefaultPage();
-    } else {
-      showPage(location.hash);
-    }
-  })
-
+  $(window).hashchange(showPage)
   $(window).hashchange();
 })
