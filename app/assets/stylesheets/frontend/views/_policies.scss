@@ -77,6 +77,17 @@
     width: 75%;
   }
 
+  .supporting-page-title {
+    @include core-27;
+    margin-bottom: $gutter;
+  }
+
+  .contextual_info {
+    nav {
+      margin-top: 0;
+    }
+  }
+
   #document_organisations, #document_ministers {
     background: none;
     margin: 0 0 0 25%;
@@ -114,8 +125,11 @@
       right: 0;
     }
 
-    a{
+    a {
+      overflow: hidden;
+      p {
       @include button($turquoise);
+      }
     }
   }
 
