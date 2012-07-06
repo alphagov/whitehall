@@ -136,7 +136,7 @@ end
 
 Then /^I should see the featured news articles in the "([^"]*)" organisation are:$/ do |name, expected_table|
   visit_organisation name
-  rows = find("#featured-news-articles").all('.news_article')
+  rows = find(featured_news_articles_selector).all('.news_article')
   table = rows.map { |r| r.all('a.title').map { |c| c.text.strip } }
   expected_table.diff!(table)
 end
