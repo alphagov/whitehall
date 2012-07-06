@@ -146,7 +146,7 @@
     h2 {
       position: relative;
     }
-    h2:before {
+    /*h2:before {
       content: "1";
       color: lighten($yellow, 10%);
       font-size: 23rem;
@@ -158,7 +158,7 @@
       width: 100%;
       z-index: -1;
     }
-    /*h2:nth-child(2) {
+    h2:nth-child(2) {
       color: red;
     }
     h2:nth-child(3) {
@@ -172,9 +172,7 @@
     }
     h2:nth-child(6) {
       color: purple;
-    } */
-
-
+    } 
     h2:nth-child(2):before {
       content: "2";
     }
@@ -189,7 +187,7 @@
     }
     h2:nth-child(6):before {
       content: "6";
-    }
+    }*/
   }
 
   .supporting_pages {
