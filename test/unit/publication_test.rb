@@ -66,7 +66,7 @@ class PublicationTest < ActiveSupport::TestCase
       publication_date: Date.parse("2010-01-01"),
       unique_reference: "ABC-123",
       isbn: "0099532816",
-      research: true,
+      publication_type_id: PublicationType::ResearchAndAnalysis.id,
       order_url: "http://example.com/order-url",
       attachments: [attachment]
     )
@@ -78,7 +78,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert_equal published_publication.publication_date, draft_publication.publication_date
     assert_equal published_publication.unique_reference, draft_publication.unique_reference
     assert_equal published_publication.isbn, draft_publication.isbn
-    assert_equal published_publication.research, draft_publication.research
+    assert_equal published_publication.publication_type, draft_publication.publication_type
     assert_equal published_publication.order_url, draft_publication.order_url
   end
 
@@ -109,6 +109,16 @@ class PublicationTest < ActiveSupport::TestCase
     publication.reload
 
     assert_equal [attachment_2], publication.attachments
+  end
+
+  test "should allow setting of publication type" do
+    publication = build(:publication, publication_type: PublicationType::PolicyPaper)
+    assert publication.valid?
+  end
+
+  test "should be invalid without a publication type" do
+    publication = build(:publication, publication_type: nil)
+    refute publication.valid?
   end
 end
 

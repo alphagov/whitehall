@@ -1,16 +1,10 @@
 <article class="document">
-  <% if @document.summary.present? %>
-    <div class="summary">
-      <p><%= @document.summary %></p>
-    </div>
-  <% end %>
   <div class="body">
     <% if @document.video_url.present? %>
       <figure class="video">
         <a href="<%= @document.video_url %>">Watch video</a>
       </figure>
     <% end %>
-    <%= render partial: 'shared/lead_image', locals: { image: @document.images.first } %>
     <%= govspeak_to_html @document.body, @document.images %>
   </div>
   <% if @document.notes_to_editors.present? %>

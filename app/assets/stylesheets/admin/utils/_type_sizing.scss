@@ -1,0 +1,57 @@
+$base_font_size_in_px: 16 !default;
+$baseline_in_px: 24 !default;
+
+@mixin scaled_type($size_in_px, $line_height_in_px: 24) {
+  $vertical_rhythm: ($baseline_in_px / $size_in_px);
+
+  margin: 0;
+  font-size: #{($size_in_px/$base_font_size_in_px)}em;
+  line-height: #{$vertical_rhythm * ($line_height_in_px / $baseline_in_px)}em;
+  @include scaled_margin_bottom($size_in_px, $line_height_in_px);
+}
+
+@mixin scaled_margin_top($size_in_px, $line_height_in_px: 24) {
+  $vertical_rhythm: ($line_height_in_px / $size_in_px);
+  margin-top: #{$vertical_rhythm}em;
+}
+
+@mixin scaled_margin_bottom($size_in_px, $line_height_in_px: 24) {
+  $vertical_rhythm: ($line_height_in_px / $size_in_px);
+  margin-bottom: #{$vertical_rhythm}em;
+}
+
+/* organisation 'logos' */
+@mixin type-32 {
+  /* 32px / 48px */
+  @include scaled_type(32, 48);
+}
+
+@mixin type-24 {
+  /* 24px / 24px */
+  @include scaled_type(24);
+}
+
+@mixin type-21 {
+  /* 21px / 24px */
+  @include scaled_type(21);
+}
+
+@mixin type-18 {
+  /* 18px / 24px */
+  @include scaled_type(18);
+}
+
+@mixin type-16 {
+  /* 16px / 24px */
+  @include scaled_type(16);
+}
+
+@mixin type-13 {
+  /* 13px / 18px */
+  @include scaled_type(13, 18);
+}
+
+@mixin type-12 {
+  /* 12px / 24px */
+  @include scaled_type(12);
+}

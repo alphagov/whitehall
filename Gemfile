@@ -1,8 +1,7 @@
 source 'http://rubygems.org'
 source 'https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/'
 
-gem 'rails', '3.1.3'
-gem 'rack', '1.3.5'
+gem 'rails', '3.1.6'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
@@ -49,7 +48,8 @@ group :test do
   gem 'mocha', :require => false
   gem 'test_track'
   gem 'timecop'
-  gem 'webmock'
+  gem 'webmock', require: false
+  gem 'capybara-webkit'
 end
 
 group :router do

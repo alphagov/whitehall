@@ -4,144 +4,56 @@ class SupportingPagesControllerTest < ActionController::TestCase
   include DocumentViewAssertions
 
   should_be_a_public_facing_controller
+  should_show_change_notes_on_action :policy, :show do |policy|
+    supporting_page = create(:supporting_page, edition: policy)
+    get :show, policy_id: policy.document, id: supporting_page
+  end
 
-  test "index links to supporting pages" do
+  test "index redirects to the first supporting page" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, title: "supporting-page-title", edition: policy)
+    supporting_page_1 = create(:supporting_page, title: "supporting-page-1", edition: policy)
+    supporting_page_2 = create(:supporting_page, title: "supporting-page-2", edition: policy)
+
     get :index, policy_id: policy.document
-    path = policy_supporting_page_path(policy.document, supporting_page)
-    assert_select supporting_pages_selector do
-      assert_select_object supporting_page do
-        assert_select "a[href=#{path}]"
-        assert_select ".title", text: "supporting-page-title"
-      end
+
+    assert_redirected_to policy_supporting_page_path(policy.document, supporting_page_1)
+  end
+
+  test "index should return a 404 response if there aren't any supporting pages" do
+    policy = create(:published_policy)
+    get :index, policy_id: policy.document
+    assert_response 404
+  end
+
+  test "show displays the date that the policy was updated" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.document, id: supporting_page
+
+    assert_select ".updated_at[title=#{policy.updated_at.iso8601}]"
+  end
+
+  test "show includes the main policy navigation" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.document, id: supporting_page
+
+    assert_select ".policy-navigation" do
+      assert_select "a[href='#{policy_path(policy.document)}']"
+      assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
+      assert_select "a[href='#{activity_policy_path(policy.document)}']"
     end
   end
 
-  test "index only shows supporting pages for the parent policy" do
-    policy = create(:published_policy)
-    other_supporting_page = create(:supporting_page)
-    get :index, policy_id: policy.document
-    refute_select_object other_supporting_page
-  end
-
-  test "index doesn't display an empty list if there aren't any supporting pages" do
-    policy = create(:published_policy)
-    get :index, policy_id: policy.document
-    refute_select "#{supporting_pages_selector} ul"
-  end
-
-  test "shows link to policy overview" do
+  test "show adds the current class to the supporting pages link in the policy navigation" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "a[href='#{policy_path(policy.document)}#top']", text: policy.title
-  end
-
-  test "shows link to each policy section in the markdown" do
-    policy = create(:published_policy, body: %{
-## First Section
-
-Some content
-
-## Another Bit
-
-More content
-
-## Final Part
-
-That's all
-})
-
-    supporting_page = create(:supporting_page, edition: policy)
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    assert_select_document_section_link policy, 'First Section', 'first-section'
-    assert_select_document_section_link policy, 'Another Bit', 'another-bit'
-    assert_select_document_section_link policy, 'Final Part', 'final-part'
-  end
-
-  test "show links to related news articles on parent policy if any" do
-    policy = create(:published_policy)
-    related_news_article = create(:published_news_article, title: "News about Voting Patterns",
-                                  related_policies: [policy])
-    supporting_page = create(:supporting_page, edition: policy)
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    assert_select_document_section_link policy, 'Related news', 'related-news-articles'
-  end
-
-  test "show doesn't link to related news articles on parent policy if none exist" do
-    policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    refute_select_document_section_list
-  end
-
-  test "show links to related speeches on parent policy if any" do
-    policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
-    related_speech = create(:published_speech, title: "Speech about Voting Patterns",
-                            related_policies: [policy])
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    assert_select_document_section_link policy, 'Related speeches', 'related-speeches'
-  end
-
-  test "show doesn't link to related speeches on parent policy if none exist" do
-    policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    refute_select_document_section_list
-  end
-
-  test "show links to related consultations on parent policy if any" do
-    policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
-    related_consultation = create(:published_consultation, title: "Consultation about Voting Patterns",
-                                  related_policies: [policy])
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    assert_select_document_section_link policy, 'Related consultations', 'related-consultations'
-  end
-
-  test "show doesn't link to related consultations on parent policy if none exist" do
-    policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    refute_select_document_section_list
-  end
-
-  test "show links to related publications on parent policy if any" do
-    policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
-    related_publication = create(:published_publication, title: "Consultation about Voting Patterns",
-                                 related_policies: [policy])
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    assert_select_document_section_link policy, 'Related publications', 'related-publications'
-  end
-
-  test "show doesn't link to related publications on parent policy if none exist" do
-    policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
-
-    get :show, policy_id: policy.document, id: supporting_page
-
-    refute_select_document_section_list
+    assert_select ".policy-navigation a.current[href='#{policy_supporting_pages_path(policy.document)}']"
   end
 
   test "shows the body using govspeak markup" do
@@ -224,8 +136,8 @@ That's all
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "#document_topics li.topic a", text: first_topic.name
-    assert_select "#document_topics li.topic a", text: second_topic.name
+    assert_select ".topics li.topic a", text: first_topic.name
+    assert_select ".topics li.topic a", text: second_topic.name
   end
 
   test "should link to organisations from within the metadata navigation" do

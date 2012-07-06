@@ -35,7 +35,7 @@ class Organisation < ActiveRecord::Base
   has_many :corporate_publications,
             through: :edition_organisations,
             class_name: "Publication",
-            conditions: { "editions.corporate_publication" => true },
+            conditions: { "editions.publication_type_id" => PublicationType::CorporateReport.id },
             source: :edition
   has_many :featured_editions,
             through: :featured_edition_organisations,

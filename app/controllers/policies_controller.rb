@@ -1,15 +1,17 @@
 class PoliciesController < DocumentsController
+  before_filter :find_document, only: [:show, :activity]
+
   def index
     @policies = Policy.published.by_published_at
   end
 
   def show
     @policy = @document
-    @related_publications = Publication.published.related_to(@policy)
-    @related_consultations = Consultation.published.related_to(@policy)
-    @related_news_articles = NewsArticle.published.related_to(@policy)
-    @related_speeches = Speech.published.related_to(@policy)
     @countries = @policy.countries
+  end
+
+  def activity
+    @policy = @document
     @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
   end
 

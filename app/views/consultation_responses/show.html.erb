@@ -15,7 +15,7 @@
   <div class="block-2">
     <div class="inner-block">
       <%= render partial: "document_metadata" %>
-      <%= render partial: "document_contextual" %>
+      <%= render partial: "document_contextual", locals: {edition: @document} %>
     </div>
   </div>
 

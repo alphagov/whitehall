@@ -3,15 +3,14 @@ class SupportingPagesController < PublicFacingController
   before_filter :find_supporting_page, only: [:show]
 
   def index
-    @supporting_pages = @policy.supporting_pages
+    if @policy.supporting_pages.empty?
+      render text: "Not found", status: :not_found
+    else
+      redirect_to policy_supporting_page_path(@policy.document, @policy.supporting_pages.first)
+    end
   end
 
   def show
-    @related_publications = Publication.published.related_to(@policy)
-    @related_consultations = Consultation.published.related_to(@policy)
-    @related_news_articles = NewsArticle.published.related_to(@policy)
-    @related_speeches = Speech.published.related_to(@policy)
-    @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
     @document = @policy
   end
 

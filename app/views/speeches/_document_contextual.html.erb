@@ -2,27 +2,27 @@
   <ul class="details">
     <li>
       <h1>Who</h1>
-      <div class="img speeches-img"><%= image_for_person @document.person %></div>
+      <div class="img speeches-img"><%= image_for_person edition.person %></div>
       <span class="role_appointment">
-        <span class="person"><%= link_to_person @document.role_appointment.person %></span>
-        <span class="role"><%= role_appointment(@document.role_appointment, true) %></span>
+        <span class="person"><%= link_to_person edition.role_appointment.person %></span>
+        <span class="role"><%= role_appointment(edition.role_appointment, true) %></span>
         in
-        <span class="organisations"><%= @document.role.organisations.map {|o| link_to(o.name, o)}.to_sentence %></span>
+        <span class="organisations"><%= edition.role.organisations.map {|o| link_to(o.name, o)}.to_sentence %></span>
       </span>
     </li>
     <li class="delivered_on">
       <h1>When</h1>
-      <%= @document.delivered_on.to_s(:long_ordinal) %>
+      <%= edition.delivered_on.to_s(:long_ordinal) %>
     </li>
-    <% if @document.location %>
+    <% if edition.location %>
       <li class="location">
         <h1>Where</h1>
-        <%= @document.location %>
+        <%= edition.location %>
       </li>
     <% end %>
-    <% if @document.explanation %>
+    <% if edition.explanation %>
       <li class="explanation">
-        <%= @document.explanation %>
+        <%= edition.explanation %>
       </li>
     <% end %>
   </ul>

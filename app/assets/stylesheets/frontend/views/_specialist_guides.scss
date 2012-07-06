@@ -3,3 +3,24 @@
     margin-left: 1em;
   }
 }
+
+.specialist-guides-index {
+  h2 {
+    @include sans-18;
+  }
+  ul {
+    margin-bottom: $gutter;
+  }
+}
+
+.specialist-guides-show {
+  .in-page-navigation, .previous-next-navigation {
+    h3 {
+      @include core-19;
+    }
+    li {
+      @include core-14;
+      padding: 0;
+    }
+  }
+}

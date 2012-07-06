@@ -1,0 +1,94 @@
+//  GOV.UK font stacks, referred to in typography.scss
+
+
+//  Font stack weirdness
+//
+//  To ensure embedded fonts fall back to appropriate
+//  system fonts (eg, bold embedded font falls back to
+//  bold system font, without anyone getting horrible
+//  artificially emboldened weights) we're setting
+//  the font-stack in a font-face declaration rather
+//  than with the usual font-family.
+
+
+
+
+// New Transport Light
+
+@font-face {
+  font-family: GDS-Regular;
+  src: local("NTA-Light"), 
+       local("HelveticaNeue"),
+       local("Helvetica Neue"),
+       local("Arial"),
+       local("Helvetica");
+}
+
+$NTA-Light:
+    "nta", 
+    "GDS-Regular", 
+    sans-serif;
+
+
+
+
+// New Transport Medium
+
+@font-face {
+  font-family: GDS-Bold;
+  src: local("NTA-Medium"),
+       local("UKTransportmed"),
+       local("UKTransportMed"),
+       local("HelveticaNeue-Bold"),
+       local("Helvetica Neue Bold"),
+       local("Arial-BoldMT"),
+       local("Arial Bold MT"),
+       local("Helvetica-Bold"),
+       local("Helvetica Bold"),
+       local("Arial");
+}
+
+$NTA-Bold:
+  "nta-bold", 
+  "GDS-Bold", 
+  sans-serif;
+
+
+
+
+// New Transport Bold
+
+@font-face {
+  font-family: GDS-Black;
+  src: local("NTA-Bold"),
+       local("UKTransportheavy"),
+       local("HelveticaNeue-Bold"),
+       local("Helvetica Neue Bold"),
+       local("Arial-BoldMT"),
+       local("Arial Bold MT"),
+       local("Helvetica-Bold"),
+       local("Helvetica Bold"),
+       local("Arial");
+}
+
+$NTA-Black:
+  "nta-black", 
+  "GDS-Black", 
+  sans-serif;
+
+
+
+
+// Helvetica Regular
+
+@font-face {
+  font-family: GDS-Logo;
+  src: local("HelveticaNeue"),
+       local("Helvetica Neue"),
+       local("Arial"),
+       local("Helvetica");
+}
+
+$Helvetica-Regular:
+    "GDS-Logo",
+    sans-serif;

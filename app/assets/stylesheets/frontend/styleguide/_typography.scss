@@ -12,17 +12,6 @@
 //  @mixin brand-45 {
 //  _ Style name refers to graphic style rather than semantic use
 //
-//      font-family:
-//          "Gill Sans W01 Book",
-//          "Gill Sans MT",
-//          "Gill Sans",
-//          "Helvetica Neue",
-//          Arial,
-//          Helvetica,
-//          sans-serif;
-//          _ Assume nothing about pre-exising CSS on the page, so  
-//            it's worth redeclairing the full font-stack each time
-//
 //      font-size: 45px;
 //      font-size: 4.5rem;
 //      _ Font-sizing in rems to avoid issues with relative sizing
@@ -53,12 +42,150 @@
 
 
 
-// Dumping this here as tried it in _alphabetical-list.scss btu it broke the site.
-// Doesn't belong here but works here technically.
-@mixin single-col-li {
-      padding: 0 0 $gutter-half 0;
-      float: none;
-      display: block;
+
+
+
+
+
+
+
+// CORE FONTS - NEW TRANSPORT
+
+// Suitable for page headings
+@mixin core-48 {
+  font-family: $NTA-Bold;
+  font-size: 48px;
+  font-size: 4.8rem;
+  line-height: 1.0416666667; /* 50px */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-top: 12px;
+  padding-top: 1.2rem;
+  padding-bottom: 8px;
+  padding-bottom: 0.8rem;
+  @media (max-width: 640px) {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    padding-top: 0.8rem;
+    padding-bottom: 0.7rem;
+  }
+}
+
+// Suitable for body headings
+@mixin core-27 {
+  font-family: $NTA-Bold;
+  font-size: 27px;
+  font-size: 2.7rem;
+  line-height: 1.1111111111; /* 30px */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-top: 3px;
+  padding-top: 0.3rem;
+  padding-bottom: 2px;
+  padding-bottom: 0.2rem;
+  @media (max-width: 640px) {
+    font-size: 1.9rem;
+    line-height: 1.3157894737;
+    padding-top: 0.7rem;
+    padding-bottom: 0.3rem;
+  }
+}
+
+// Suitable for short body copy
+@mixin core-24 {
+  font-family: $NTA-Light;
+  font-size: 24px;
+  font-size: 2.4rem;
+  line-height: 1.25; /* 30px */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-top: 3px;
+  padding-top: 0.3rem;
+  padding-bottom: 2px;
+  padding-bottom: 0.2rem;
+  @media (max-width: 640px) {
+    font-size: 1.7rem;
+    line-height: 1.4705882353;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+  }
+}
+
+// Suitable for long body copy
+@mixin core-19 {
+  font-family: $NTA-Light;
+  font-size: 19px;
+  font-size: 1.9rem;
+  line-height: 1.3157894737; /* 25px */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-top: 7px;
+  padding-top: 0.7rem;
+  padding-bottom: 3px;
+  padding-bottom: 0.3rem;
+  @media (max-width: 640px) {
+    font-size: 1.3rem;
+    line-height: 1.5384615385;
+    padding-top: 0.6rem;
+    padding-bottom: 0.4rem;
+  }
+}
+
+// Suitable for captions, buttons etc
+@mixin core-14 {
+  font-family: $NTA-Light;
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 1.4285714286; /* 20px */
+  font-weight: 400;
+  -webkit-font-smoothing: subpixel-antialiased;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-top: 6px;
+  padding-top: 0.6rem;
+  padding-bottom: 4px;
+  padding-bottom: 0.4rem;
+  @media (max-width: 640px) {
+    font-size: 1.2rem;
+    line-height: 1.25;
+    padding-top: 0.4rem;
+    padding-bottom: 0.1rem;
+  }
+}
+
+// DEPARTMENT LOGOS - HELVETICA
+
+@mixin logo-23 {
+  font-family: $Helvetica-Regular;
+  font-size: 23px;
+  font-size: 2.3rem;
+  line-height: 1.3043478261; /* 30px */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-top: 1px;
+  padding-top: 0.1rem;
+  padding-bottom: 4px;
+  padding-bottom: 0.4rem;
+}
+
+@mixin logo-13 {
+  font-family: $Helvetica-Regular;
+  font-size: 13px;
+  font-size: 1.3rem;
+  line-height: 1.5384615385; /* 20px */
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-top: 5px;
+  padding-top: 0.5rem;
+  padding-bottom: 5px;
+  padding-bottom: 0.5rem;
 }
 
 
@@ -66,10 +193,23 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+// OLDER STYLES - TO BE PHASED OUT
+
+
 // BRAND FONT: GILL SANS
 
 $font-brand:
-    "NTA",
     "Gill Sans W01 Book", 
     "Gill Sans MT", 
     "Gill Sans", 
@@ -155,9 +295,8 @@ $font-brand:
 // SANS: HELVETICA
 
 $font-sans:
-    "NTA",
-    //"Helvetica Neue", 
-    //"HelveticaNeue",
+    "Helvetica Neue", 
+    "HelveticaNeue",
     Arial, 
     Helvetica, 
     sans-serif;
@@ -174,8 +313,6 @@ $font-sans:
     padding-top: 1rem;
     padding-bottom: 10px;
     padding-bottom: 1rem;
-
-    font-weight: 300;
 }
 
 @mixin sans-18 {
@@ -207,8 +344,6 @@ $font-sans:
     padding-top: 0.6rem;
     padding-bottom: 10px;
     padding-bottom: 1rem;
-
-    font-weight: 300;
 }
 
 @mixin sans-12 { /* labels only */
@@ -222,8 +357,6 @@ $font-sans:
     padding-top: 0.3rem;
     padding-bottom: 5px;
     padding-bottom: 0.5rem;
-
-    font-weight: 300;
 }
 
 
@@ -252,4 +385,44 @@ $font-body:
     padding-top: 0.6rem;
     padding-bottom: 10px;
     padding-bottom: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Dumping this here as tried it in _alphabetical-list.scss btu it broke the site.
+// Doesn't belong here but works here technically.
+@mixin single-col-li {
+      padding: 0 0 $gutter-half 0;
+      float: none;
+      display: block;
 }

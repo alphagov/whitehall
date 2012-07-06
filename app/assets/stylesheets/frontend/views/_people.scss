@@ -1,8 +1,8 @@
 .people-list {
-    .alphabetical_list .alphabetical_row li {
-      @include single-col-li;
-    }
-    .alphabetical_list .alphabetical_row li:first-child {
-      padding-top: $gutter;
-    }
+  .alphabetical_list .alphabetical_row li {
+    @include single-col-li;
   }
+  .alphabetical_list .alphabetical_row li:first-child {
+    padding-top: $gutter;
+  }
+}

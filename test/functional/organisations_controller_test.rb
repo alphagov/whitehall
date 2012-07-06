@@ -115,6 +115,26 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:secondary_featured_editions).length
   end
 
+  test "display a secondary featured editions" do
+    organisation = create(:organisation)
+    # the first 3 are featured and the 4th will be our secondary featured
+    3.times do
+      edition = create(:published_edition)
+      create(:edition_organisation, edition: edition, organisation: organisation, featured: true)
+    end
+    edition = create(:published_edition, summary: "This is the summary of the edition")
+    create(:edition_organisation, edition: edition, organisation: organisation, featured: true)
+
+    get :show, id: organisation
+    assert_select ".secondary-featured .summary", text: edition.summary
+  end
+
+  test "should not display an empty secondary featured editions section" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    refute_select ".secondary-featured"
+  end
+
   test "shows organisation's featured news article with image" do
     lead_image = create(:image)
     news_article = create(:published_news_article, images: [lead_image])
@@ -125,6 +145,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select_object news_article do
       assert_select ".img img[src$='#{lead_image.url}']"
+      assert_select ".document-type", 'News article'
     end
   end
 

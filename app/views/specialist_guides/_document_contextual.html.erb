@@ -1,13 +1,21 @@
 <section class="contextual_info">
-  <h1>Jump to section</h1>
-  <nav class="specialist_guide_parts" role="navigation">
-    <%= link_to_with_current @document.title, public_document_path(@document, anchor: 'top'), class: "active top" %>
-    <% if govspeak_headers(@document.body).any? %>
+  <% if govspeak_headers(edition.body).any? %>
+    <h1>Chapters</h1>
+    <nav class="specialist_guide_parts" role="navigation">
       <ol id="document_sections">
-        <% govspeak_headers(@document.body).each do |header| %>
-          <li><%= link_to header.text, public_document_path(@document, anchor: header.id) %></li>
+        <% govspeak_header_heirarchy(edition.body).each do |header_record| %>
+          <li>
+            <%= link_to header_record[:header].text, public_document_path(edition, anchor: header_record[:header].id) %>
+            <% if header_record[:children].any? %>
+              <ol>
+                <% header_record[:children].each do |child| %>
+                  <li><%= link_to child.text, public_document_path(edition, anchor: child.id) %></li>
+                <% end %>
+              </ol>
+            <% end %>
+          </li>
         <% end %>
-    </ol>
-    <% end %>
-  </nav>
+      </ol>
+    </nav>
+  <% end %>
 </section>

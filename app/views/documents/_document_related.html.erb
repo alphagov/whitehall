@@ -1,6 +1,5 @@
 <%
-topics ||= nil
-recently_changed_documents ||= nil
+topics ||= []
 related_policies ||= nil
 %>
 
@@ -33,19 +32,7 @@ related_policies ||= nil
   </section>
 <% end %>
 
-<% if document.respond_to?(:topics) && document.topics.any? %>
-  <section id="document_topics" class="simple_list">
-    <h1 class="label">Topics</h1>
-    <%= render partial: "topics/list", locals: { topics: document.topics }  %>
-  </section>
-<% end %>
-
-<% if topics && topics.any? %>
-  <section id="document_topics" class="simple_list">
-    <h1 class="label">Topics</h1>
-    <%= render partial: "topics/list", locals: { topics: topics }  %>
-  </section>
-<% end %>
+<%= render partial: 'documents/topics', locals: { topics: topics } %>
 
 <% if document.respond_to?(:countries) && document.countries.any? %>
   <section id="document_countries" class="simple_list">
@@ -58,10 +45,6 @@ related_policies ||= nil
     <% end %>
     </ul>
   </section>
-<% end %>
-
-<% if recently_changed_documents %>
-  <%= render partial: "documents/recently_changed_documents", object: recently_changed_documents, locals: { title: "Latest on this #{document.type}" } %>
 <% end %>
 
 <% if related_policies %>

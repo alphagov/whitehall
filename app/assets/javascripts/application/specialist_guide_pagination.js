@@ -1,37 +1,55 @@
 $(function() {
-  var container = $(".specialistguide .govspeak");
-  var navigation = $(".specialistguide #document_sections");
+  var container = $(".specialistguide .govspeak"),
+      navigation = $(".specialistguide #document_sections"),
+      pages, headings;
 
   container.splitIntoPages("h2");
   pages = container.find(".page");
-  pageLinks = navigation.find("a");
+  headings = container.find('h2');
 
-  $(pages[0]).prepend($(".specialistguide .summary"));
+  var showPage = function() {
+    var page = $(location.hash).parents(".page");
 
-  var showSubPage = function(e) {
-    e.preventDefault();
-    container.find(".page").hide();
-    navigation.find(".pageNavigation").hide();
-    $(this).data("page").show();
-    if ($(this).data("pageNavigation")) {
-      $(this).data("pageNavigation").show();
+    pages.hide();
+
+    if (page.length == 0) {
+      pages.first().show();
+    } else {
+      page.show();
+      $('html, body').animate({scrollTop:page.offset().top}, 0);
     }
   }
 
-  pageLinks.each(function (i, pageLink) {
-    pages.each(function(i, page) {
-      if ($(page).find($(pageLink).attr("href")).length > 0) {
-        var pageNavigation = $(page).navigationList("h3", "pageNavigation");
+  pages.each(function(i, el){
+    var currentPage = $(el),
+        prevNextNavigation = [],
+        adjacentPage;
 
-        $(pageLink).data("page", $(page));
-        $(pageLink).data("pageNavigation", $(pageNavigation));
+    // if there is a previous page
+    if(i > 0){
+      adjacentPage = $(headings.get(i-1));
+      prevNextNavigation.push('<li><a href="#'+adjacentPage.attr('id')+'">Previous Chapter: <span>'+adjacentPage.text()+'</span></a></li>');
+    }
+    if(i < pages.length-1){
+      adjacentPage = $(headings.get(i+1));
+      prevNextNavigation.push('<li><a href="#'+adjacentPage.attr('id')+'">Next Chapter: <span>'+adjacentPage.text()+'</span></a></li>');
+    }
 
-        $(pageLink).after(pageNavigation);
+    currentPage.append('<ul class="previous-next-navigation">' + prevNextNavigation.join('') + '</ul>');
+  });
 
-        $(pageLink).click(showSubPage)
-      }
-    })
-  })
+  navigation.find(">li").each(function(el){
+    var li = $(this),
+        pageNav = li.find('>ol'),
+        chapterSelector = '#' + li.find('>a').attr('href').split('#')[1],
+        inPageNavigation = $("<div class='in-page-navigation'><h3>In this chapter</h3></div>");
 
-  $("a.top").data("page", $(pages[0])).click(showSubPage).click();
+    if (pageNav.length > 0) {
+      inPageNavigation.append(pageNav);
+      $(chapterSelector).after(inPageNavigation);
+    }
+  });
+
+  $(window).hashchange(showPage)
+  $(window).hashchange();
 })

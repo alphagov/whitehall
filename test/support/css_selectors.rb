@@ -33,18 +33,6 @@ module CssSelectors
     ".meta"
   end
 
-  def related_news_articles_selector
-    "#related-news-articles"
-  end
-
-  def related_consultations_selector
-    "#related-consultations"
-  end
-
-  def related_publications_selector
-    "#related-publications"
-  end
-
   def corporate_publications_selector
     "#corporate-publications"
   end

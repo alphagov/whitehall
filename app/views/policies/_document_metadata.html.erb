@@ -1,0 +1,9 @@
+<div class="meta-topic">
+  <p>Part of </p>
+  <%= render partial: "topics/list", locals: {topics: @document.topics} %>
+</div>
+
+<section class="meta">
+  <span class="metadata">Updated <%= absolute_time(@policy.updated_at, class: 'updated_at') %></span>
+  <%= render partial: 'documents/change_notes', locals: {document: @document} %>
+</section>

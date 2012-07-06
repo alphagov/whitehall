@@ -9,7 +9,7 @@
 
 $max-site-width: 1096px;
 
-$gutter:            24px;
+$gutter:            30px;
 $gutter-two-thirds: $gutter*0.666666; // equivalent to 16px
 $gutter-half:       $gutter*0.5; // equivalent to 12px
 $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
@@ -21,8 +21,11 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
 // Mixins to be shared across gov.uk sites. Anything set in these
 // files can be used in the view files.
 
+@import "styleguide/_font-stacks.scss";
 @import "styleguide/_typography.scss";
 @import "styleguide/_colours.scss";
+@import "styleguide/_css3.scss";
+@import "styleguide/_button.scss";
 
 
 
@@ -46,13 +49,16 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
 
 #whitehall-wrapper {
   @import "helpers/_alphabetical-list.scss";
+  @import "helpers/_browse.scss";
   @import "helpers/_contextual-info.scss";
   @import "helpers/_document.scss";
+  @import "helpers/_featured.scss";
+  @import "helpers/_filter.scss";
   @import "helpers/_page-header.scss";
   @import "helpers/_simple-list.scss";
-  @import "../shared/media-player/player-core.scss";
-  @import "../shared/media-player/player-theme.scss";
-  @import "../shared/media-player/player-fix.scss";
+  @import "../vendor/media-player/player-core.scss";
+  @import "../vendor/media-player/player-theme.scss";
+  @import "../vendor/media-player/player-fix.scss";
   @import "helpers/_slider-controls.scss"; // used in department image/content sliders
 }
 
@@ -63,12 +69,11 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
 // Styles scoped to each template in /views
 
 #whitehall-wrapper {
+  @import "views/_activity.scss";
   @import "views/_announcements.scss";
-  @import "views/_browse.scss";
   @import "views/_countries.scss";
   @import "views/_consultations.scss";
   @import "views/_document-page.scss";
-  @import "views/_featured.scss";
   @import "views/_layouts.scss";
   @import "views/_ministerial-roles.scss";
   @import "views/_news.scss";
@@ -82,7 +87,6 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
   @import "views/_search.scss";
   @import "views/_speeches.scss";
   @import "views/_sunset.scss";
-  @import "views/_filter.scss";
   @import "views/_specialist_guides.scss";
 }
 
@@ -100,6 +104,6 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
 // DEBUG
 //#whitehall-wrapper {
 //  background-position: top left;
-//  background-image: -webkit-linear-gradient(transparent 7px,#E4E4E4 1px);
-//  background-size: 100% 8px;
+//  background-image: -webkit-linear-gradient(transparent 4px,#E4E4E4 1px);
+//  background-size: 100% 5px;
 //}

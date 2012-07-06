@@ -1,13 +1,9 @@
 // Styles for Publications view
 
 .publications-index {
-
-    .page_header {
-
-        h1 {
-            @include brand-45;
-        }
-
+  .page_header {
+    h1 {
+      @include brand-45;
     }
-
+  }
 }

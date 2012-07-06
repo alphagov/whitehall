@@ -2,7 +2,7 @@ module ApplicationHelper
   def page_title(*title_parts)
     if title_parts.any?
       title_parts.push("Admin") if params[:controller] =~ /^admin\//
-      title_parts.push("Inside Government")
+      title_parts.push("Inside Government") if params[:controller] !~ /^specialist_guides/
       title_parts.push("GOV.UK Beta (Test)")
       @page_title = title_parts.reject { |p| p.blank? }.join(" | ")
     else
@@ -77,6 +77,24 @@ module ApplicationHelper
       parts << "(#{policy.topics.map(&:name).to_sentence})" if policy.topics.any?
       [policy.document_id, parts.join(" ")]
     end
+  end
+
+  def publication_type_options
+    [
+      ["", [""]],
+      ["Common types", PublicationType.primary.map { |publication_type|
+        [publication_type.singular_name, publication_type.id]
+      }],
+      ["Less common types", PublicationType.less_common.map { |publication_type|
+        [publication_type.singular_name, publication_type.id]
+      }],
+      ["Use discouraged", PublicationType.use_discouraged.map { |publication_type|
+        [publication_type.singular_name, publication_type.id]
+      }],
+      ["Legacy (need migration)", PublicationType.migration.map { |publication_type|
+        [publication_type.singular_name, publication_type.id]
+      }]
+    ]
   end
 
   def role_type_options

@@ -1,4 +1,4 @@
-<%= render partial: "page_title" %>
+<%= render partial: "page_title" if page_title.empty? %>
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
@@ -11,7 +11,7 @@
   <div class="block-2">
     <div class="inner-block">
       <%= render partial: "document_metadata" %>
-      <%= render partial: "document_contextual" %>
+      <%= render partial: "document_contextual", locals: {edition: @document} %>
       <%= national_statistics_logo(@document) %>
     </div>
   </div>

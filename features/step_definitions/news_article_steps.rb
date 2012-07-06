@@ -62,11 +62,6 @@ When /^I unfeature the news article "([^"]*)"$/ do |title|
   end
 end
 
-Then /^I can see links to the related published news articles "([^"]*)" and "([^"]*)"$/ do |news_article_title_1, news_article_title_2|
-  assert has_css?("#{related_news_articles_selector} .news_article a", text: news_article_title_1)
-  assert has_css?("#{related_news_articles_selector} .news_article a", text: news_article_title_2)
-end
-
 Then /^I should see the notes to editors "([^"]*)" for the news article$/ do |notes_to_editors|
   assert has_css?("#{notes_to_editors_selector}", text: notes_to_editors)
 end
@@ -83,7 +78,7 @@ Then /^the news article "([^"]*)" should (not )?be featured on the homepage$/ do
   visit home_path
   news_article = NewsArticle.published.find_by_title!(title)
 
-  news_article_is_featured = has_css?("#featured-news-articles #{record_css_selector(news_article)}")
+  news_article_is_featured = has_css?("#{featured_news_articles_selector} #{record_css_selector(news_article)}")
   if should_not_be_featured
     refute news_article_is_featured
   else
