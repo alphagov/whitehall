@@ -73,6 +73,20 @@ some more content
     end
   end
 
+  test "adds pagination behaviour to paginated guide" do
+    edition = create(:published_specialist_guide, paginate_body: true)
+    get :show, id: edition.document
+
+    assert_select ".document.js-paginate-document"
+  end
+
+  test "doesn't add pagination behaviour to non-paginated guide" do
+    edition = create(:published_specialist_guide, paginate_body: false)
+    get :show, id: edition.document
+
+    assert_select ".document.js-paginate-document", count: 0
+  end
+
   test "index shows all published specialist guides by topic" do
     earth = create(:topic, name: "Earth")
     wind = create(:topic, name: "Wind")

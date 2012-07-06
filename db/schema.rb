@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120703143952) do
+ActiveRecord::Schema.define(:version => 20120706133403) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20120703143952) do
     t.integer  "policy_team_id"
     t.integer  "publication_type_id"
     t.boolean  "national_statistic",       :default => false,   :null => false
+    t.boolean  "paginate_body",            :default => false
   end
 
   add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"

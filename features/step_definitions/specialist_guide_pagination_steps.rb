@@ -1,8 +1,9 @@
-Given /^a specialist guide with section headings$/ do
+Given /^a (non-)?paginated specialist guide with section headings$/ do |not_paginated|
   create(:published_specialist_guide,
          title: "Specialist guide with pages",
          summary: "Here's the summary of the guide",
          topics: [create(:topic)],
+         paginate_body: not_paginated.nil?,
          body: <<-EOS
 ## Page 1
 
@@ -51,6 +52,16 @@ Then /^I should see only the (\w*) page of the specialist guide$/ do |page_numbe
     else
       refute page.find("h2##{page_id}").visible?, "Eelement h2##{page_id} is visible"
     end
+  end
+end
+
+Then /^I should see all pages of the specialist guide$/ do
+  {
+    first: 'page-1',
+    second: 'page-2',
+    third: 'page-3'
+  }.each do |page_name, page_id|
+    assert page.find("h2##{page_id}").visible?, "Element h2##{page_id} is not visible"
   end
 end
 

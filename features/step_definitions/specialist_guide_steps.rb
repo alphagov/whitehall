@@ -5,6 +5,7 @@ end
 
 When /^I draft a new specialist guide "([^"]*)" in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
   begin_drafting_document type: 'specialist_guide', title: title
+  check "Split body into individual pages?"
   select first_topic, from: "Topics"
   select second_topic, from: "Topics"
   click_button "Save"
