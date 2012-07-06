@@ -26,7 +26,7 @@ module GovspeakHelper
 
   def govspeak_headers(text, level = 2)
     level = (level..level) unless level.is_a?(Range)
-    Govspeak::Document.new(text).headers.select do |header|
+    build_govspeak_document(text).headers.select do |header|
       level.cover?(header.level)
     end
   end
@@ -74,7 +74,7 @@ module GovspeakHelper
   end
 
   def markup_to_nokogiri_doc(text, images = [])
-    govspeak = Govspeak::Document.new(text).tap { |g| g.images = images }
+    govspeak = build_govspeak_document(text).tap { |g| g.images = images }
     html = content_tag(:div, govspeak.to_html.html_safe, class: 'govspeak')
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
@@ -130,5 +130,10 @@ module GovspeakHelper
 
   def normalise_host(host)
     Whitehall.public_host_for(host) || host
+  end
+
+  def build_govspeak_document(text)
+    hosts = [request.host, ActionController::Base.default_url_options[:host]]
+    Govspeak::Document.new(text, document_domains: hosts)
   end
 end
