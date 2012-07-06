@@ -23,12 +23,12 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should not alter urls to other sites in the admin preview" do
     html = govspeak_to_admin_html("no [change](http://external.example.com/page.html)")
-    assert_govspeak %{<p>no <a href="http://external.example.com/page.html">change</a></p>}, html
+    assert_govspeak %{<p>no #{external_link("change", "http://external.example.com/page.html")}</p>}, html
   end
 
   test "should not alter urls to other sites" do
     html = govspeak_to_html("no [change](http://external.example.com/page.html)")
-    assert_govspeak %{<p>no <a href="http://external.example.com/page.html">change</a></p>}, html
+    assert_govspeak %{<p>no #{external_link("change", "http://external.example.com/page.html")}</p>}, html
   end
 
   test "should not alter mailto urls in the admin preview" do
@@ -313,6 +313,10 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   private
+
+  def external_link(body, url)
+    %{<a rel="external" href="#{url}">#{body}</a>}
+  end
 
   def assert_govspeak(expected, actual)
     assert_equal %{<div class="govspeak">\n#{expected}\n</div>}, actual.strip
