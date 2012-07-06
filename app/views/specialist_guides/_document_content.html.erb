@@ -1,4 +1,4 @@
-<article class="document">
+<article class="document<%= ' js-paginate-document' if @document.paginate_body %>">
   <div class="body">
     <% if @document.video_url.present? %>
       <figure class="video">

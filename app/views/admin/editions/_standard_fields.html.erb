@@ -5,5 +5,8 @@
     <%= form.text_area :summary, rows: 2 %>
   <% end %>
   <%= form.text_area :body, "class" => "previewable" %>
+  <% if form.object.allows_body_to_be_paginated? %>
+    <%= form.check_box :paginate_body, label_text: 'Split body into individual pages?' %>
+  <% end %>
 </fieldset>
 <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
