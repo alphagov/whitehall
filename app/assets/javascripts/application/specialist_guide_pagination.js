@@ -5,24 +5,19 @@ $(function() {
 
   container.splitIntoPages("h2");
   pages = container.find(".page");
-  pages.hide();
   headings = container.find('h2');
 
   var showPage = function() {
-    var heading = $(location.hash);
-
-    if (heading.length == 0) {
-      pages.first().show();
-      return;
-    }
-
-    if (heading.is(":visible")) {
-      return;
-    }
+    var page = $(location.hash).parents(".page");
 
     pages.hide();
-    heading.parents(".page").show();
-    $('html, body').animate({scrollTop:heading.offset().top}, 0);
+
+    if (page.length == 0) {
+      pages.first().show();
+    } else {
+      page.show();
+      $('html, body').animate({scrollTop:page.offset().top}, 0);
+    }
   }
 
   pages.each(function(i, el){
