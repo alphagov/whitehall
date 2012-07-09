@@ -25,7 +25,7 @@ related_policies ||= nil
       <% document.ministerial_roles.each do |role| %>
         <li>
           <h3 class="current_appointee"><%= link_to  role.current_person_name, role, class: "minister" %></h3>
-          <p class="role"><%= role.name %></p>
+          <!--p class="role"><%#= role.name %></p-->
         </li>
       <% end %>
     </ul>

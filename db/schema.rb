@@ -165,7 +165,7 @@ ActiveRecord::Schema.define(:version => 20120706133403) do
     t.integer  "policy_team_id"
     t.integer  "publication_type_id"
     t.boolean  "national_statistic",       :default => false,   :null => false
-    t.boolean  "paginate_body",            :default => false
+    t.boolean  "paginate_body",            :default => true
   end
 
   add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"

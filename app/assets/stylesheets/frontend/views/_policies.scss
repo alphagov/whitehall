@@ -1,18 +1,18 @@
 .policies-index {
 
   .block-2 h1 {
-    @include sans-15;
+  //  @include sans-15;
   }
   .alphabetical_list .alphabetical_row {
     p {
-      @include sans-15;
+    //  @include sans-15;
     }
     .inner {
       padding-top: $gutter-one-third;
     }
     li {
       a {
-        @include sans-15;
+      //  @include sans-15;
       }
     }
     
@@ -39,33 +39,22 @@
     width: 15%;
   }
 
-  .meta {
-    float: right;
-    width: 35%;
-    span {
-      float: left;
-    }
-    div {
-      float: right;
-    }
-  }
   .meta-topic {
-    display: inline;
-    float: left;
-    width: 65%;
+    @include core-19;
+    @media (min-width: 768px) {
+      display: inline;
+      float: left;
+      width: 50%;
+    }
     p {
       display: inline;
       float: left;
       margin-right: $gutter-one-third;
     }
     ul, li {
-      list-style: none;
+      display: inline;
       margin: 0;
       padding: 0;
-    }
-    li {
-      display: inline;
-      float: left;
     }
     li:before {
       content: ",";
@@ -73,6 +62,40 @@
     }
     li:first-child:before {
       content: " ";
+    }
+  }
+
+  .meta {
+    @include core-19;
+    position: relative;
+    @media (min-width: 768px) {
+      float: right;
+      width: 50%;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .metadata {
+      display: inline;
+    }
+
+    .change_notes_container {
+      display: inline;
+      margin: 0;
+     .change_notes{
+        top: 100%;
+        margin-top: $gutter-half;
+        right: 0;
+      }
+      a {
+        position: relative;
+        @include button($yellow);
+        color: inherit;
+        margin: -0.376em 0 -0.375em;
+      }
+      .link-to-change-notes {
+        display: inline;
+      }
     }
   }
 
@@ -94,24 +117,27 @@
     }
   }
 
-  #document_organisations, #document_ministers {
+  #document_organisations + #document_ministers, #document_organisations {
     background: none;
     margin: 0 0 0 25%;
+    padding-left: 0;
+    padding-top: 0;
     h3 {
       @include sans-15;
     }
   }
 
   .current_appointee {
-    float: left;
     margin-right: $gutter-half;
   }
 
   .page_header {
+    padding: $gutter 0;
     h1 {
       clear: both;
-      margin-bottom: $gutter;
       text-align: center;
+      max-width: 18em;
+      margin: 0 auto;
     }
   }
 
@@ -123,21 +149,6 @@
   }
 
 
-
-  .change_notes_container {
-      position: relative;
-      top: -$gutter-one-third;
-    .change_notes{
-      right: 0;
-    }
-
-    a {
-      overflow: hidden;
-      p {
-      @include button($turquoise);
-      }
-    }
-  }
 
   .organisation_logo_small {
     background-position: 8px center;
@@ -152,48 +163,6 @@
     h2 {
       position: relative;
     }
-    /*h2:before {
-      content: "1";
-      color: lighten($yellow, 10%);
-      font-size: 23rem;
-      left: -50%;
-      line-height: 1;
-      position: absolute;
-      text-align: center;
-      top: -$gutter-half;
-      width: 100%;
-      z-index: -1;
-    }
-    h2:nth-child(2) {
-      color: red;
-    }
-    h2:nth-child(3) {
-      color: blue;
-    }
-    h2:nth-child(4) {
-      color: green;
-    }
-    h2:nth-child(5) {
-      color: yellow;
-    }
-    h2:nth-child(6) {
-      color: purple;
-    } 
-    h2:nth-child(2):before {
-      content: "2";
-    }
-    h2:nth-child(3):before {
-      content: "3";
-    }
-    h2:nth-child(4):before {
-      content: "4";
-    }
-    h2:nth-child(5):before {
-      content: "5";
-    }
-    h2:nth-child(6):before {
-      content: "6";
-    }*/
   }
 
   .supporting_pages {
@@ -217,46 +186,6 @@
     a:first-child.current {
       border-top-color: $white;
     }
-    a:before {
-      content: "1";
-      color: lighten($yellow, 20%);
-      font-size: 13rem;
-      width: 100%;
-      text-align: center;
-      font-weight: 700;
-      left: -40%;
-      line-height: 1;
-      position: absolute;
-      top: $gutter-one-third;
-      z-index: -1;
-    }
-    a:nth-child(2):before {
-      content: "2";
-    }
-    a:nth-child(3):before {
-      content: "3";
-    }
-    a:nth-child(4):before {
-      content: "4";
-    }
-    a:nth-child(5):before {
-      content: "5";
-    }
-    a:nth-child(6):before {
-      content: "6";
-    }
-    a:nth-child(7):before {
-      content: "7";
-    }
-    a:nth-child(8):before {
-      content: "8";
-    }
-    a:nth-child(9):before {
-      content: "9";
-    }
-    a:nth-child(10):before {
-      content: "10";
-    }
   }
 
   .policy-navigation {
@@ -265,32 +194,41 @@
     margin-top: 50px;
     width: auto;
     ul {
-      @include border-radius(0.3em);
+      @include border-radius(0.6em);
       background-color: $charcoal-grey;
       margin: -30px 0 $gutter 25%;
       overflow: hidden;
       padding: $gutter-half*0.4;
       width: 50%;
+         -moz-box-sizing: border-box;
+          -ms-box-sizing: border-box;
+           -o-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
       li {
         float: left;
         display: inline;
         margin-right: $gutter-half*0.4;
         width: 32.6%;
-        a, a.current {
-          @include border-radius(0.3em);
-          @include gradient(#ccc, #999);
+
+        a {
+          @include core-19;
+          font-family: $NTA-Bold;
           color: $white;
           display: block;
           padding: $gutter-one-third 0;
+          @include border-radius(0.3em);
           text-align: center;
           text-decoration: none;
           width: auto;
-          &:hover {
+          opacity: 0.75;
+          &.current {
+            opacity: 0.85;
             @include gradient(#bbb, #888);
           }
-        }
-        a {
-          background: none;
+          &:hover, &:focus {
+            opacity: 1;
+          }
         }
       }
       li:last-child {
