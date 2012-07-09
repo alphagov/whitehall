@@ -28,4 +28,12 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$from', endColorstr='$to',GradientType=0 ); // IE6-9
 }
 
+@mixin transition($property, $duration, $function) {
+  -webkit-transition: ($property $duration $function);
+     -moz-transition: ($property $duration $function);
+      -ms-transition: ($property $duration $function);
+       -o-transition: ($property $duration $function);
+          transition: ($property $duration $function);
+}
+
 

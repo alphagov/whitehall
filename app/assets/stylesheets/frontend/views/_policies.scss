@@ -89,7 +89,7 @@
       }
       a {
         position: relative;
-        @include button($yellow);
+        @include button($light-warm-grey);
         color: inherit;
         margin: -0.376em 0 -0.375em;
       }
@@ -166,40 +166,62 @@
   }
 
   .supporting_pages {
-    a {
-      background-color: $cool-grey;
+    li {
       border-style: solid;
-      border-color: $cool-grey $charcoal-grey $cool-grey $cool-grey;
+      border-color: lighten($cool-grey, 5%) $light-blue-grey $white lighten($cool-grey, 5%);
       border-width: 0 1px;
-      display: block;
-      min-height: 90px;
-      padding: $gutter-two-thirds;
-      overflow: hidden;
-      text-decoration: none;
-      z-index: 1;
+      padding: 0!important;
+        a {
+        background-color: lighten($cool-grey, 5%);
+        border-bottom: 1px solid $white;
+        display: block;
+        min-height: 50px;
+        padding: $gutter-two-thirds;
+        overflow: hidden;
+        text-decoration: none;
+        z-index: 1;
+        &:hover, &:focus {
+          background-color: lighten($cool-grey, 1%);
+          @include transition(background, 0.5s, ease)
+        }
+      }
     }
-    a.current {
-      background-color: $white;
-      border-color: $charcoal-grey $white $charcoal-grey $charcoal-grey;
+    li.active {
+        a {
+        background-color: $white;
+      }
+      border-color: $light-blue-grey $white $light-blue-grey $light-blue-grey;
       border-width: 1px;
     }
-    a:first-child.current {
+    li:first-child.active {
       border-top-color: $white;
     }
   }
 
+  #document_ministers {  
+    margin-bottom: $gutter;  
+    li {
+      h3 {
+        margin-bottom: 0;
+        }
+      }
+  }
+
+
   .policy-navigation {
-    border-top: 1px solid $charcoal-grey;
+    border-top: 1px solid $light-blue-grey;
     display: block;
     margin-top: 50px;
     width: auto;
     ul {
       @include border-radius(0.6em);
-      background-color: $charcoal-grey;
-      margin: -30px 0 $gutter 25%;
+      background-color: lighten($charcoal-grey, 10%);
+      display: inline-block;
+      margin: -30px auto $gutter 25%;
       overflow: hidden;
       padding: $gutter-half*0.4;
-      width: 50%;
+      position: relative;
+      //width: 50%;
          -moz-box-sizing: border-box;
           -ms-box-sizing: border-box;
            -o-box-sizing: border-box;
@@ -209,7 +231,7 @@
         float: left;
         display: inline;
         margin-right: $gutter-half*0.4;
-        width: 32.6%;
+        width: 12em;
 
         a {
           @include core-19;

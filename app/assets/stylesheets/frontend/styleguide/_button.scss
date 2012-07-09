@@ -10,13 +10,9 @@
       position: relative;
       text-decoration: none;
       text-shadow: 0 -0.063em 0.063em $color;
-      &:hover {
-        background: lighten($color, 10%);
-           -moz-transition: 0.3s ease background;
-            -ms-transition: 0.3s ease background;
-             -o-transition: 0.3s ease background;
-        -webkit-transition: 0.3s ease background;
-                transition: 0.3s ease background;
+      &:hover, &:focus {
+        background: lighten($color, 5%);
+        @include transition(background, 0.3s, ease)
       }
       &:active {
         top: 0.2em;
