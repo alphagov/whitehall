@@ -59,9 +59,11 @@ Whitehall::Application.configure do
   config.active_support.deprecation = :notify
 
   config.action_mailer.delivery_method = :ses
-  
+
   config.middleware.use ExceptionNotifier,
     email_prefix: "[Whitehall exception] ",
     sender_address: %{"Winston Smith-Churchill" <winston@alphagov.co.uk>},
     exception_recipients: %w{govuk-dev@digital.cabinet-office.gov.uk govuk@gofreerange.com}
+
+  config.slimmer.use_cache = true
 end
