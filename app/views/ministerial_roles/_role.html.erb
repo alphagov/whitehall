@@ -3,7 +3,7 @@
     <div class="image_holder">
       <%= link_to person.image, person %>
     </div>
-    <<%= hlevel %> class="current_appointee"><%= person.link %></<%= hlevel %>>
+    <<%= hlevel %> class="current-appointee"><%= person.link %></<%= hlevel %>>
     <p class="role">
       <%= roles.map { |role| role.link }.join(", ").html_safe %>
     </p>

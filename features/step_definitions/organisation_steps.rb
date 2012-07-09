@@ -151,7 +151,7 @@ Then /^I should see "([^"]*)" has the "([^"]*)" ministerial role$/ do |person_na
   person = find_person(person_name)
   ministerial_role = person.current_ministerial_roles.find_by_name!(role_name)
   assert page.has_css?(".ministerial_role", text: ministerial_role.name)
-  assert page.has_css?(".ministerial_role .current_appointee", text: person.name)
+  assert page.has_css?(".ministerial_role .current-appointee", text: person.name)
 end
 
 Then /^I should see that "([^"]*)" is responsible for "([^"]*)"$/ do |parent_org_name, child_org_name|

@@ -2,10 +2,10 @@ h1.label {
       @include sans-18;
 }
 .organisations_index_page {
-  .alphabetical_list .alphabetical_row li {
+  .alphabetical-list .alphabetical-row li {
     @include single-col-li;
   }
-  .alphabetical_list .alphabetical_row li:first-child {
+  .alphabetical-list .alphabetical-row li:first-child {
     padding-top: $gutter;
   }
   .inline {

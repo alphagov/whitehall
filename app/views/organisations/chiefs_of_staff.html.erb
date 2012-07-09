@@ -12,7 +12,7 @@
       <section id="military_roles">
         <%= render_list_of_roles(@organisation.military_roles, "military_roles") do |military_role| %>
           <h3><%= military_role.link %></h3>
-          <p class="current_appointee"><%= military_role.current_person_link %></p>
+          <p class="current-appointee"><%= military_role.current_person_link %></p>
         <% end %>
       </section>
     <% end %>

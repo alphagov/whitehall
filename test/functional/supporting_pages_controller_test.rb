@@ -109,7 +109,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select ".contextual_info nav.supporting_pages" do
+    assert_select ".contextual-info nav.supporting_pages" do
       assert_select "a[href='#{policy_supporting_page_path(policy.document, first_supporting_page)}']", text: first_supporting_page.title
       assert_select "a[href='#{policy_supporting_page_path(policy.document, second_supporting_page)}']", text: second_supporting_page.title
     end
@@ -148,8 +148,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "#document_organisations a", text: first_org.logo_formatted_name
-    assert_select "#document_organisations a", text: second_org.logo_formatted_name
+    assert_select "#document-organisations a", text: first_org.logo_formatted_name
+    assert_select "#document-organisations a", text: second_org.logo_formatted_name
   end
 
   test "should link to ministers from within the metadata navigation" do
@@ -160,7 +160,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "#document_ministers a.minister", text: "minister-name"
+    assert_select "#document-ministers a.minister", text: "minister-name"
   end
 
   test "should not apply active class to the parent policy page navigation heading" do
@@ -169,7 +169,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "section.contextual_info a.active",
+    assert_select "section.contextual-info a.active",
       text: policy.title,
       count: 0
   end
@@ -181,10 +181,10 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "section.contextual_info a.active",
+    assert_select "section.contextual-info a.active",
       text: supporting_page.title,
       count: 1
-    assert_select "section.contextual_info a.active",
+    assert_select "section.contextual-info a.active",
       text: other_supporting_page.title,
       count: 0
   end

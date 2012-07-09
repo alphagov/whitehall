@@ -39,11 +39,11 @@
     }
   }
   
-  .change_notes_container {
+  .change-notes-container {
     margin-bottom: $gutter-one-third*-1;
     position: relative;
     
-    .change_notes {
+    .change-notes {
       position: absolute;
       top: 100%;
       //left: 0;
@@ -65,15 +65,15 @@
   }
   
   @media (min-width: 768px) {
-    .change_notes_container {
+    .change-notes-container {
       margin-bottom: $gutter-one-third;
-      .change_notes {
+      .change-notes {
         width: 150%;
       }
     }
   }
   
-  .contextual_info {
+  .contextual-info {
     margin-bottom: $gutter-one-third*-1;
     position: relative;
     
@@ -93,7 +93,7 @@
     background: yellow;
   }
   
-  #document_organisations {
+  #document-organisations {
     position: relative;
     margin-bottom: $gutter;
     padding: $gutter-one-third $gutter-one-third $gutter-one-third*0.5;
@@ -112,7 +112,7 @@
     }
   }
   
-  #document_ministers {
+  #document-ministers {
     position: relative;
     margin-bottom: $gutter;
     padding: 0 $gutter-one-third;
@@ -134,14 +134,14 @@
     }
   }
       
-  #document_organisations + #document_ministers {
+  #document-organisations + #document-ministers {
     margin-top: $gutter*-1;
     padding-top: $gutter;
   }
 }
 
 
-.organisation_logo_small {
+.organisation-logo-small {
   position: relative;
   display: block;
   overflow: visible;

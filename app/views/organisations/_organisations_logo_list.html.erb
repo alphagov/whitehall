@@ -1,10 +1,10 @@
 <div id="organisations">
-  <div class="alphabetical_row">
+  <div class="alphabetical-row">
     <div>
       <ul class="organisations">
         <% organisations.each do |organisation| %>
           <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation, class: '')) do %>
-            <span class="organisation_logo_small">
+            <span class="organisation-logo-small">
               <% if organisation.active? %>
                 <%= link_to format_with_html_line_breaks(h(organisation.logo_formatted_name)), organisation_path(organisation) %>
               <% else %>

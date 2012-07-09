@@ -1,8 +1,8 @@
 .countries-index {
-  .alphabetical_list .alphabetical_row li {
+  .alphabetical-list .alphabetical-row li {
     @include single-col-li;
   }
-  .alphabetical_list .alphabetical_row li:first-child {
+  .alphabetical-list .alphabetical-row li:first-child {
     padding-top: $gutter;
   }
 }

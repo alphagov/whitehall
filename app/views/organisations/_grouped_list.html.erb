@@ -1,8 +1,8 @@
-<section class="alphabetical_list" id="organisations">
+<section class="alphabetical-list" id="organisations">
   <% organisations.group_by {|o| o.name_without_prefix.first.upcase }.sort.in_groups_of(3, false) do |row| %>
     <% row.each do |letter, organisations_group| %>
-      <div class="alphabetical_row" id="organisations_<%= letter.downcase %>">
-        <h2 class="alphabetical_list_letter"><%= letter %></h2>
+      <div class="alphabetical-row" id="organisations_<%= letter.downcase %>">
+        <h2 class="alphabetical-list-letter"><%= letter %></h2>
           <ul class="organisations">
             <%= render partial: "organisations/organisation", collection: organisations_group, locals: {list_item_class: ""} %>
           </ul>
