@@ -26,6 +26,8 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_not_link_to_public_version_when_not_published :news_article
   should_prevent_modification_of_unmodifiable :news_article
   should_allow_overriding_of_first_published_at_for :news_article
+  should_have_summary :news_article
+  should_have_notes_to_editors :news_article
 
   test "new displays news article fields" do
     get :new
@@ -33,36 +35,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_select "form#edition_new" do
       assert_select "textarea.previewable[name='edition[notes_to_editors]']"
     end
-  end
-
-  test "create should create a new news article" do
-    first_policy = create(:published_policy)
-    second_policy = create(:published_policy)
-    attributes = attributes_for(:news_article)
-
-    post :create, edition: attributes.merge(
-      summary: "news-article-summary",
-      notes_to_editors: "notes-to-editors",
-    )
-
-    created_news_article = NewsArticle.last
-    assert_equal "news-article-summary", created_news_article.summary
-    assert_equal "notes-to-editors", created_news_article.notes_to_editors
-  end
-
-  test "update should save modified news article attributes" do
-    first_policy = create(:published_policy)
-    second_policy = create(:published_policy)
-    news_article = create(:news_article)
-
-    put :update, id: news_article, edition: {
-      summary: "new-news-article-summary",
-      notes_to_editors: "new-notes-to-editors",
-    }
-
-    saved_news_article = news_article.reload
-    assert_equal "new-news-article-summary", saved_news_article.summary
-    assert_equal "new-notes-to-editors", saved_news_article.notes_to_editors
   end
 
   test "show renders the summary" do

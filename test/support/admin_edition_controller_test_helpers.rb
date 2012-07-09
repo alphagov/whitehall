@@ -28,6 +28,58 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_have_summary(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "create should create a new #{edition_type} with summary" do
+        attributes = attributes_for(edition_type)
+
+        post :create, edition: attributes.merge(
+          summary: "my summary",
+        )
+
+        created_edition = edition_class.last
+        assert_equal "my summary", created_edition.summary
+      end
+
+      test "update should save modified news article summary" do
+        edition = create(edition_type)
+
+        put :update, id: edition, edition: {
+          summary: "new-summary",
+        }
+
+        saved_edition = edition.reload
+        assert_equal "new-summary", edition.summary
+      end
+    end
+
+    def should_have_notes_to_editors(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "create should create a new #{edition_type} with notes to editors" do
+        attributes = attributes_for(edition_type)
+
+        post :create, edition: attributes.merge(
+          notes_to_editors: "notes-to-editors",
+        )
+
+        created_edition = edition_class.last
+        assert_equal "notes-to-editors", created_edition.notes_to_editors
+      end
+
+      test "update should save modified #{edition_type} notes to editors" do
+        edition = create(edition_type)
+
+        put :update, id: edition, edition: {
+          notes_to_editors: "new-notes-to-editors",
+        }
+
+        saved_edition = edition.reload
+        assert_equal "new-notes-to-editors", saved_edition.notes_to_editors
+      end
+    end
+
     def should_allow_creating_of(edition_type)
       edition_class = edition_class_for(edition_type)
 
