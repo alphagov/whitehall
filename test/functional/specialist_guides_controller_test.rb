@@ -51,8 +51,8 @@ That's all
 
     get :show, id: edition.document
 
-    assert_select "#topics li.topic a", text: first_topic.name
-    assert_select "#topics li.topic a", text: second_topic.name
+    assert_select ".topics a", text: first_topic.name
+    assert_select ".topics a", text: second_topic.name
   end
 
   test "shows link to subsections in the document navigation" do
