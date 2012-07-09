@@ -26,6 +26,12 @@ Scenario: Viewing a policy that is applicable to certain nations
   Then I should see that the policy does not apply to:
     | Northern Ireland | Wales |
 
+@javascript
+Scenario: Viewing a policy with a video link
+  Given a published policy "Policy" with a link "http://www.youtube.com/watch?v=OXHPWmnycno" in the body
+  When I visit the policy "Policy"
+  Then I should see that the policy "Outlaw Moustaches" includes an embedded media player
+
 Scenario: Viewing the activity around a policy
   Given a published policy "What Makes A Beard" exists
   And a published publication "Standard Beard Lengths" related to the policy "What Makes A Beard"
