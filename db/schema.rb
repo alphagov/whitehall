@@ -164,7 +164,6 @@ ActiveRecord::Schema.define(:version => 20120709093653) do
     t.string   "video_url"
     t.integer  "policy_team_id"
     t.integer  "publication_type_id"
-    t.boolean  "national_statistic",       :default => false,   :null => false
     t.boolean  "paginate_body",            :default => true
   end
 
