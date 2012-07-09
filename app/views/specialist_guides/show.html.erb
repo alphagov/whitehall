@@ -12,15 +12,10 @@
             } %>
           <% end %>
         </h2>
-        <%= render partial: "title" %>
-        <% if @topics.any? %>
-          <p class="topics">
-            See more specialist guidance on
-            <%= render partial: "topics/sentence_list", locals: {
-                topics: @topics
-            } %>
-          </p>
-        <% end %>
+        <%= render partial: "title", locals: {
+          topics: @topics,
+          document: @document
+        }%>
       </section>
     </div>
   </div>
