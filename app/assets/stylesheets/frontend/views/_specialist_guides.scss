@@ -14,6 +14,27 @@
 }
 
 .specialist-guides-show {
+  .page-header {
+    margin-top: 0;
+    .label {
+      @include core-19;
+      margin-bottom: 0;
+      max-width: 33em;
+      a {
+        white-space: nowrap;
+      }
+    }
+    .page_title {
+      margin-top: $gutter*2;
+    }
+    .summary {
+      display: inline;
+      p {
+        display: inline;
+      }
+    }
+  }
+
   .in-page-navigation, .previous-next-navigation {
     h3 {
       @include core-19;
