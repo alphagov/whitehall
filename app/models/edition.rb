@@ -185,6 +185,10 @@ class Edition < ActiveRecord::Base
     latest_edition == self
   end
 
+  def national_statistic?
+    false
+  end
+
   class << self
     def authored_by(user)
       joins(:edition_authors).where(edition_authors: {user_id: user}).group(:edition_id)
