@@ -161,7 +161,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "should show a National Statistic badge on the appropriate documents" do
-    publication = create(:published_publication, national_statistic: true)
+    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id)
     get :show, id: publication.document
 
     assert_match /National Statistic/, response.body

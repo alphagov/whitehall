@@ -13,12 +13,12 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test "should generate a national statistics logo for a national statistic" do
-    edition = create(:edition, national_statistic: true)
-    assert_match /National Statistic/, national_statistics_logo(edition)
+    publication = create(:publication, publication_type_id: PublicationType::NationalStatistics.id)
+    assert_match /National Statistic/, national_statistics_logo(publication)
   end
 
   test "should generate no national statistics logo for an edition that is not a national statistic" do
-    edition = create(:edition, national_statistic: false)
-    refute_match /National Statistic/, national_statistics_logo(edition)
+    publication = create(:publication)
+    refute_match /National Statistic/, national_statistics_logo(publication)
   end
 end

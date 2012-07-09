@@ -27,4 +27,8 @@ class Publication < Edition
   def self.published_in_reverse_chronological_order
     published.order(arel_table[:publication_date].desc)
   end
+
+  def national_statistic?
+    publication_type == PublicationType::NationalStatistics
+  end
 end
