@@ -1,0 +1,13 @@
+<article class="document">
+  <div class="summary">
+    <p><%= @document.summary %></p>
+  </div>
+  <div class="body">
+    <% if @document.video_url.present? %>
+      <figure class="video">
+        <a href="<%= @document.video_url %>">Watch video</a>
+      </figure>
+    <% end %>
+    <%= govspeak_to_html @document.body, @document.images %>
+  </div>
+</article>
