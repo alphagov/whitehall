@@ -15,9 +15,9 @@
 
 .specialist-guides-show {
   .page-header {
-    margin-top: 0;
+    padding-bottom: $gutter*3;
     .label {
-      @include core-19;
+      @include core-14;
       margin-bottom: 0;
       max-width: 33em;
       a {
@@ -25,10 +25,11 @@
       }
     }
     .page_title {
-      margin-top: $gutter*2;
+      margin: $gutter-two-thirds 0 $gutter-one-third;
     }
-    .summary {
-      display: inline;
+    .page-meta {
+      @include core-19;
+      max-width: 33em;
       p {
         display: inline;
       }
@@ -43,5 +44,9 @@
       @include core-14;
       padding: 0;
     }
+  }
+    
+  .document_page .block-3 {
+    width: 75%;
   }
 }
