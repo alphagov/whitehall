@@ -2,7 +2,7 @@
       background: $color ;
       border: 0.063em solid $color;
       @include border-radius(0.250em);
-      @include box-shadow(0 0.2em 0 darken($color, 9%));
+      @include box-shadow(0 0.2em 0 darken($color, 15%));
       color: #fff;
       cursor: pointer;
       display: inline-block;
@@ -11,7 +11,12 @@
       text-decoration: none;
       text-shadow: 0 -0.063em 0.063em $color;
       &:hover {
-        background: lighten($color, 5%);
+        background: lighten($color, 10%);
+           -moz-transition: 0.3s ease background;
+            -ms-transition: 0.3s ease background;
+             -o-transition: 0.3s ease background;
+        -webkit-transition: 0.3s ease background;
+                transition: 0.3s ease background;
       }
       &:active {
         top: 0.2em;
