@@ -40,7 +40,7 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     consultation = published_consultation_response.consultation
     consultation.organisations << organisation
     get :show, consultation_id: consultation.document
-    assert_select "#document_organisations a[href='#{organisation_path(organisation)}']"
+    assert_select "#document-organisations a[href='#{organisation_path(organisation)}']"
   end
 
   test "should display the ministers that the parent consultation is related to" do
@@ -49,7 +49,7 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     consultation.ministerial_roles << ministerial_role
     get :show, consultation_id: consultation.document
-    assert_select "#document_ministers a[href='#{ministerial_role_path(ministerial_role)}']"
+    assert_select "#document-ministers a[href='#{ministerial_role_path(ministerial_role)}']"
   end
 
   test "should display the national inapplicabilities that apply to the parent consultation" do

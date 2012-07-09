@@ -1,6 +1,6 @@
-<section class="contextual_info js-fixed-content-top">
+<section class="contextual-info js-fixed-content-top">
   <h1>Jump to section</h1>
-  <nav class="policy_parts" role="navigation">
+  <nav class="policy-parts" role="navigation">
     <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'top'), class: "active" %>
     <% if govspeak_headers(@policy.body).any? %>
       <ol id="document_sections">

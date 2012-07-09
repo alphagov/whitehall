@@ -334,7 +334,7 @@ end
 
 Then /^the change note "([^"]*)" should appear in the history for the policy "([^"]*)"$/ do |change_note, title|
   click_link title
-  assert page.has_css?(".change_notes", text: Regexp.new(change_note))
+  assert page.has_css?(".change-notes", text: Regexp.new(change_note))
 end
 
 Given /^a published publication "([^"]*)" associated with the policy$/ do |title|

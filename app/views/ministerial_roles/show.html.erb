@@ -3,18 +3,18 @@
 
   <div class="block-1">
     <div class="inner-block">
-      <header class="page_header ministerial_role minister">
+      <header class="page-header ministerial_role minister">
       <hgroup>
         <h1 class="role_name"><%= @ministerial_role.name %></h1>
         <h2 class="current_person_name"><%= @ministerial_role.current_person_link %></h2>
       </hgroup>
       </header>
-    <section id="document_organisations">
+    <section id="document-organisations">
       <h1 class="visuallyhidden">Organisations</h1>
       <ul class="organisations">
       <% @ministerial_role.organisations.each do |organisation| %>
         <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
-          <span class="organisation_logo_small">
+          <span class="organisation-logo-small">
             <%= link_to format_with_html_line_breaks(h(organisation.logo_formatted_name)), organisation_path(organisation) %>
           </span>
         <% end %>

@@ -1,6 +1,6 @@
 $(function() {
   var container = $(".document .govspeak"),
-      navigation = $(".contextual_info #document_sections"),
+      navigation = $(".contextual-info #document_sections"),
       pages, headings;
 
   var paginating = ($('.document.js-paginate-document').length > 0);

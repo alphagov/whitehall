@@ -82,7 +82,7 @@ class PoliciesControllerTest < ActionController::TestCase
     published_edition = create(:published_policy)
     get :show, id: published_edition.document
 
-    assert_select "section.contextual_info a.active",
+    assert_select "section.contextual-info a.active",
       text: published_edition.title
   end
 
@@ -131,8 +131,8 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select "#document_organisations li.organisation a", text: first_org.logo_formatted_name
-    assert_select "#document_organisations li.organisation a", text: second_org.logo_formatted_name
+    assert_select "#document-organisations li.organisation a", text: first_org.logo_formatted_name
+    assert_select "#document-organisations li.organisation a", text: second_org.logo_formatted_name
   end
 
   test "should link to ministers related to the policy" do
@@ -142,7 +142,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select "#document_ministers a.minister", text: "minister-name"
+    assert_select "#document-ministers a.minister", text: "minister-name"
   end
 
   test "shows link to policy overview" do

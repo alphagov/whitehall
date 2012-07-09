@@ -66,7 +66,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication.document
 
-    assert_select ".contextual_info" do
+    assert_select ".contextual-info" do
       assert_select ".publication_type", text: "Form"
       assert_select ".publication_date", text: "31 May 1916"
       assert_select ".unique_reference", text: "unique-reference"
@@ -80,7 +80,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication.document
 
-    assert_select ".contextual_info" do
+    assert_select ".contextual-info" do
       refute_select ".unique_reference"
     end
   end
@@ -90,7 +90,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication.document
 
-    assert_select ".contextual_info" do
+    assert_select ".contextual-info" do
       refute_select ".isbn"
     end
   end

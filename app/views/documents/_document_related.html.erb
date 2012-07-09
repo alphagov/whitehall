@@ -4,12 +4,12 @@ related_policies ||= nil
 %>
 
 <% if document.respond_to?(:organisations) && document.organisations.any? %>
-  <section id="document_organisations">
+  <section id="document-organisations">
     <h1 class="visuallyhidden">Organisations</h1>
     <ul class="organisations">
     <% document.organisations.each do |organisation| %>
       <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
-        <span class="organisation_logo_small">
+        <span class="organisation-logo-small">
           <%= link_to format_with_html_line_breaks(h(organisation.logo_formatted_name)), organisation_path(organisation) %>
         </span>
       <% end %>
@@ -19,12 +19,12 @@ related_policies ||= nil
 <% end %>
 
 <% if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any? %>
-  <section id="document_ministers">
+  <section id="document-ministers">
     <ul class="ministers">
       <h1 class="visuallyhidden">Ministers</h1>
       <% document.ministerial_roles.each do |role| %>
         <li>
-          <h3 class="current_appointee"><%= link_to  role.current_person_name, role, class: "minister" %></h3>
+          <h3 class="current-appointee"><%= link_to  role.current_person_name, role, class: "minister" %></h3>
           <p class="role"><%= role.name %></p>
         </li>
       <% end %>

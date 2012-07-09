@@ -5,8 +5,8 @@ jQuery(function($) {
   $('section.article_group').equalHeightHelper({selectorsToResize: ['article']});
   $('#featured-news-articles').equalHeightHelper({selectorsToResize: ['.img img']});
   $('.floated_list').equalHeightHelper({selectorsToResize: ['li']});
-  $('.alphabetical_row').equalHeightHelper({selectorsToResize: ['li']});
-  $('.change_notes').policyUpdateNotes({link:'.link-to-change-notes'});
+  $('.alphabetical-row').equalHeightHelper({selectorsToResize: ['li']});
+  $('.change-notes').policyUpdateNotes({link:'.link-to-change-notes'});
   $('#global-nav').each(function () {
     $(this).find('.inner ul').append($.li('', '.st'));
   }).navHelper({

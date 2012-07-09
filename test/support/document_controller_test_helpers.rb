@@ -237,7 +237,7 @@ module DocumentControllerTestHelpers
 
         instance_exec(first_edition, &block)
 
-        assert_select ".change_notes li" do
+        assert_select ".change-notes li" do
           assert_select ".published_at[title='#{first_edition.published_at.iso8601}']"
           assert_select "p", text: "First published."
         end
@@ -250,7 +250,7 @@ module DocumentControllerTestHelpers
 
         instance_exec(second_edition, &block)
 
-        assert_select ".change_notes li" do
+        assert_select ".change-notes li" do
           refute_select ".published_at[title='#{second_edition.published_at.iso8601}']"
           refute_select "p", text: ""
         end
@@ -265,7 +265,7 @@ module DocumentControllerTestHelpers
 
         instance_exec(editions.first, &block)
 
-        assert_select ".change_notes li" do |list_items|
+        assert_select ".change-notes li" do |list_items|
           list_items.each_with_index do |list_item, index|
             assert_select list_item, ".published_at[title='#{editions[index].published_at.iso8601}']"
             assert_select list_item, "p", text: editions[index].change_note

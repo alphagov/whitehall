@@ -3,7 +3,7 @@
   .block-2 h1 {
   //  @include sans-15;
   }
-  .alphabetical_list .alphabetical_row {
+  .alphabetical-list .alphabetical-row {
     p {
     //  @include sans-15;
     }
@@ -79,10 +79,10 @@
       display: inline;
     }
 
-    .change_notes_container {
+    .change-notes-container {
       display: inline;
       margin: 0;
-     .change_notes{
+     .change-notes{
         top: 100%;
         margin-top: $gutter-half;
         right: 0;
@@ -111,13 +111,13 @@
     margin-bottom: $gutter;
   }
 
-  .contextual_info {
+  .contextual-info {
     nav {
       margin-top: 0;
     }
   }
 
-  #document_organisations + #document_ministers, #document_organisations {
+  #document-organisations + #document-ministers, #document-organisations {
     background: none;
     margin: 0 0 0 25%;
     padding-left: 0;
@@ -127,11 +127,11 @@
     }
   }
 
-  .current_appointee {
+  .current-appointee {
     margin-right: $gutter-half;
   }
 
-  .page_header {
+  .page-header {
     padding: $gutter 0;
     h1 {
       clear: both;
@@ -141,7 +141,7 @@
     }
   }
 
-  .policy_parts {
+  .policy-parts {
     ol {
       list-style: decimal;
       margin-left: $gutter;
@@ -150,7 +150,7 @@
 
 
 
-  .organisation_logo_small {
+  .organisation-logo-small {
     background-position: 8px center;
     font-size: 2rem;
     height: 25px;
