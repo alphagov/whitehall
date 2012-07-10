@@ -127,6 +127,15 @@
     }
   }
 
+  #document_ministers {  
+    margin-bottom: $gutter;  
+    li {
+      h3 {
+        margin-bottom: 0;
+        }
+      }
+  }
+
   .current-appointee {
     margin-right: $gutter-half;
   }
@@ -197,16 +206,6 @@
       border-top-color: $white;
     }
   }
-
-  #document_ministers {  
-    margin-bottom: $gutter;  
-    li {
-      h3 {
-        margin-bottom: 0;
-        }
-      }
-  }
-
 
   .policy-navigation {
     border-top: 1px solid $light-blue-grey;
