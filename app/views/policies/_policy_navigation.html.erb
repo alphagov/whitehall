@@ -1,7 +1,7 @@
 <nav class="policy-navigation">
   <ul>
     <li><%= link_to_with_current "Policy", public_document_path(@policy) %></li>
-    <% if @policy.supporting_pages.any? or @policy.case_studies.any? %>
+    <% if @policy.supporting_pages.any? %>
       <li>
         <%= link_to_with_current "Detail",
               policy_supporting_pages_path(@policy.document),
