@@ -13,7 +13,6 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
 
   should_allow_related_policies_for :case_study
   should_allow_attached_images_for :case_study
-  should_allow_video_for :case_study
   should_be_rejectable :case_study
   should_be_publishable :case_study
   should_be_force_publishable :case_study
