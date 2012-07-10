@@ -40,4 +40,5 @@ jQuery(function($) {
     $(this).hide();
   });
 
+  $('.document .body').enhanceYoutubeVideoLinks();
 });

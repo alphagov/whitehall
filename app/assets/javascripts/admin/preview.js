@@ -26,6 +26,7 @@
       var showPreview = function() {
         textarea.hide();
         preview_link.hide();
+        preview.enhanceYoutubeVideoLinks();
         preview.show();
         edit_link.show();
       }
