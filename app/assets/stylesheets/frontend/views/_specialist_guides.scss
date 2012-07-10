@@ -36,6 +36,22 @@
     }
   }
 
+  .meta {
+    float: right;
+    @include core-14;
+    .link-to-change-notes {
+      @include button($orange);
+      margin-top: -4px;
+    }
+    .change-notes-container {
+      margin-top: $gutter-one-third;
+
+      .link-to-change-notes {
+        display: none;
+      }
+    }
+  }
+
   .in-page-navigation {
     h3 {
       @include core-19;

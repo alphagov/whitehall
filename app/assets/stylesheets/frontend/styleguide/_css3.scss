@@ -19,6 +19,7 @@
        -o-transform: translate($x, $y);
           transform: translate($x, $y);
 }
+
 @mixin gradient($from, $to) {
   background-color: $from; // fallback/image non-cover color
   background-image: -moz-linear-gradient($from, $to); // Firefox 3.6+

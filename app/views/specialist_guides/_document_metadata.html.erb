@@ -1,0 +1,4 @@
+<section class="meta">
+  <span class="metadata link-to-change-notes">Updated <%= absolute_time(@document.updated_at, class: 'updated_at') %></span>
+  <%= render partial: 'documents/change_notes', locals: {document: @document} %>
+</section>
