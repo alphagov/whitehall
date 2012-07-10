@@ -15,6 +15,14 @@ class PoliciesControllerTest < ActionController::TestCase
     get :activity, id: policy.document
   end
 
+  def should_show_supporting_navigation(policy)
+    assert_select ".policy-navigation" do
+      assert_select "a[href='#{policy_path(policy.document)}']"
+      assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
+      assert_select "a[href='#{activity_policy_path(policy.document)}']"
+    end
+  end
+
   test "show displays the date that the policy was updated" do
     policy = create(:published_policy)
 
@@ -53,11 +61,16 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: policy.document
 
-    assert_select ".policy-navigation" do
-      assert_select "a[href='#{policy_path(policy.document)}']"
-      assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
-      assert_select "a[href='#{activity_policy_path(policy.document)}']"
-    end
+    should_show_supporting_navigation policy
+  end
+
+  test "show includes case studies in policy navigation" do
+    policy = create(:published_policy)
+    case_study = create(:published_case_study, related_policies: [policy])
+
+    get :show, id: policy.document
+
+    should_show_supporting_navigation policy
   end
 
   test "show adds the current class to the policy link in the policy navigation" do
