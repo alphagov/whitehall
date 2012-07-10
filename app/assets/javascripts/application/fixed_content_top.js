@@ -1,5 +1,5 @@
 $(document).ready(function () {  
-  contents_container = $('.js-fixed-content-top')
+  var contents_container = $('.js-fixed-content-top')
   if (contents_container.length > 0) {
     var top = $('.js-fixed-content-top').offset().top - parseFloat($('.js-fixed-content-top').css('marginTop').replace(/auto/, 0));
     $(window).scroll(function (event) {
