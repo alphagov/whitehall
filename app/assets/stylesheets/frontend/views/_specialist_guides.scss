@@ -36,7 +36,7 @@
     }
   }
 
-  .in-page-navigation, .previous-next-navigation {
+  .in-page-navigation {
     h3 {
       @include core-19;
     }
@@ -45,6 +45,64 @@
       padding: 0;
     }
   }
+
+  .previous-next-navigation {
+    overflow: hidden;
+    background: $orange;
+    margin-top: $gutter*2;
+
+    li {
+      @include core-27;
+      font-weight: bold;
+      display: block;
+      float: left;
+      width: 45%;
+      padding: 0;
+      margin: 0;
+
+      &.next {
+        float: right;
+        text-align: right;
+
+        a {
+          padding: $gutter-half $gutter-half+30px $gutter-half 0;
+        }
+        a:before {
+          margin-right: -30px;
+          display: block;
+          float: right;
+          width: 30px;
+          content: "\2192";
+        }
+      }
+      &.previous {
+        a {
+          padding: $gutter-half 0 $gutter-half $gutter-half+30px;
+        }
+        a:before {
+          margin-left: -30px;
+          display: block;
+          float: left;
+          width: 30px;
+          content: "\2190";
+        }
+      }
+
+
+      a {
+        display: block;
+        color: $white;
+        text-decoration: none;
+
+        span {
+          display: block;
+          @include core-14;
+          color: $body-text;
+        }
+      }
+    }
+  }
+
     
   .document_page .block-3 {
     width: 75%;

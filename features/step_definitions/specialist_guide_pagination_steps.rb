@@ -38,7 +38,7 @@ When /^I navigate to the second page of the specialist guide$/ do
 end
 
 When /^I navigate to the next page of the specialist guide$/ do
-  click_link "Next page: Page 3"
+  click_link "Next page Page 3"
 end
 
 Then /^I should see only the (\w*) page of the specialist guide$/ do |page_number|
