@@ -41,4 +41,6 @@ jQuery(function($) {
   });
 
   $('.document .body').enhanceYoutubeVideoLinks();
+
+  $('.policy .contextual-info, .specialist-guides-show .contextual-info').stickAtTopWhenScrolling();
 });
