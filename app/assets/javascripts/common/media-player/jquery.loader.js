@@ -33,7 +33,6 @@ $(document).ready(function() {
    * (simple but potentially less flexible and extra load on the browser)
    */
   var $yt_links = $("a[href*='http://www.youtube.com/watch']");
-  var $vimeo_links = $("a[href*='http://vimeo.com/']");
 
   // Create players for our youtube links
   $.each($yt_links, function(i) {
