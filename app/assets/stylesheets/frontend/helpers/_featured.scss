@@ -1,39 +1,39 @@
 .featured {
-  overflow: hidden;
-  width: 80%;
-  margin-bottom: $gutter*2;
+	overflow: hidden;
+	width: 80%;
+	margin-bottom: $gutter*2;
    @media (max-width: 768px) {
-     width: 100%;
+   	width: 100%;
    }
 
-  h2 {
-    font-size: 2rem;
-  }
+	h2 {
+		font-size: 2rem;
+	}
 
-  img {
-    float: left;
-    margin-right: $gutter-two-thirds;
-    max-width: 45%;
+	img {
+		float: left;
+		margin-right: $gutter-two-thirds;
+		max-width: 45%;
    @media (max-width: 768px) {
-     display: block;
-     max-width: 100%;
-     margin-right: 0;
-     width: 100%;
+   	display: block;
+   	max-width: 100%;
+   	margin-right: 0;
+   	width: 100%;
    }
-  }
+	}
 }
 
 .thumbnail {
-  background-color: $light-blue-grey;
-  float: left;
-  margin-right: 2%;
-  padding: $gutter-two-thirds;
-  width: 25%;
+	background-color: $light-blue-grey;
+	float: left;
+	margin-right: 2%;
+	padding: $gutter-two-thirds;
+	width: 25%;
    @media (max-width: 768px) {
-     width: 15%;
+   	width: 15%;
    }
 }
 .thumbnail span {
-  display: block;
+	display: block;
 }
 

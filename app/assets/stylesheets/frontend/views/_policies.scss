@@ -82,11 +82,6 @@
     .change-notes-container {
       display: inline;
       margin: 0;
-     .change-notes{
-        top: 100%;
-        margin-top: $gutter-half;
-        right: 0;
-      }
       a {
         position: relative;
         @include button($light-warm-grey);
@@ -96,8 +91,37 @@
       .link-to-change-notes {
         display: inline;
       }
+     .change-notes{
+        top: 100%;
+        margin-top: $gutter-half;
+        right: 0;
+        text-align: left;
+        a {
+          background: $white ;
+          border: none;
+          @include border-radius(0);
+          @include box-shadow(0 0 0);
+          color: #000;
+          cursor: pointer;
+          display: inline-block;
+          padding: 0.1em 0.625em 0.25em;
+          position: absolute;
+          top: $gutter-two-thirds;
+          right: $gutter-two-thirds;
+          text-decoration: none;
+          text-shadow: 0 0 0;
+          &:hover, &:focus {
+            background: $white;
+          }
+          &:active {
+          background: darken($white, 10%) ;
+          @include box-shadow(0 0 0);
+          }
+        }
+      }
     }
-  }
+}
+
 
   .block-2 {
     width: 25%;
@@ -127,7 +151,6 @@
     }
   }
 
-
   #document-ministers {  
     margin-bottom: $gutter;  
     li {
@@ -152,6 +175,20 @@
   }
 
   .policy-parts {
+  .current_appointee {
+    float: left;
+    margin-right: $gutter-half;
+  }
+
+  .page_header {
+    h1 {
+      clear: both;
+      margin-bottom: $gutter*2;
+      text-align: center;
+    }
+  }
+
+  .policy_parts {
     ol {
       list-style: decimal;
       margin-left: $gutter;
@@ -178,11 +215,11 @@
   .supporting_pages {
     li {
       border-style: solid;
-      border-color: lighten($cool-grey, 5%) $light-blue-grey $white lighten($cool-grey, 5%);
+      border-color: $cool-grey $light-blue-grey $white $cool-grey;
       border-width: 0 1px;
       padding: 0!important;
         a {
-        background-color: lighten($cool-grey, 5%);
+        background-color: $cool-grey;
         border-bottom: 1px solid $white;
         display: block;
         min-height: 50px;
@@ -191,7 +228,7 @@
         text-decoration: none;
         z-index: 1;
         &:hover, &:focus {
-          background-color: lighten($cool-grey, 1%);
+          background-color: lighten($cool-grey, 5%);
           @include transition(background, 0.5s, ease)
         }
       }

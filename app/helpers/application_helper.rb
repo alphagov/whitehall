@@ -165,6 +165,12 @@ module ApplicationHelper
                 title: time.iso8601)
   end
 
+  def absolute_date(time, options = {})
+    content_tag(:abbr, time.to_date.to_s(:long),
+                class: [options[:class], "date"].compact.join(" "),
+                title: time.iso8601)
+  end
+
   def main_navigation_link_to(name, path, html_options = {}, &block)
     classes = (html_options[:class] || "").split
     if current_main_navigation_path(params) == path
