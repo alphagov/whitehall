@@ -1,7 +1,3 @@
-Given /^a topic called "([^"]*)"$/ do |name|
-  create(:topic, name: name)
-end
-
 Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
   create_topic(name: name, description: description)
 end
@@ -80,12 +76,6 @@ When /^I set the featured policies in the "([^"]*)" topic to:$/ do |name, table|
   click_button "Save"
 end
 
-Then /^I should see the "([^"]*)" topic description is "([^"]*)"$/ do |name, description|
-  visit topics_path
-  click_link name
-  assert page.has_css?(".description", text: description)
-end
-
 Then /^I should see in the admin the "([^"]*)" topic description is "([^"]*)"$/ do |name, description|
   visit admin_topics_path
   assert page.has_css?(".name", text: name)
@@ -152,11 +142,6 @@ end
 Then /^I should see a link to the related topic "([^"]*)"$/ do |related_name|
   related_topic = Topic.find_by_name(related_name)
   assert page.has_css?("#related_topics a[href='#{topic_path(related_topic)}']", text: related_name)
-end
-
-Then /^I should see a link to the topic "([^"]*)"$/ do |name|
-  topic = Topic.find_by_name(name)
-  assert page.has_css?("a[href='#{topic_path(topic)}']", text: name)
 end
 
 def create_topic(options = {})

@@ -2,10 +2,6 @@ Given /^a submitted policy titled "([^"]*)"$/ do |policy_title|
   create(:submitted_policy, title: policy_title)
 end
 
-Given /^I am on the policies admin page$/ do
-  visit admin_editions_path
-end
-
 Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
   Given %{I am a writer called "#{author}"}
 
@@ -90,10 +86,6 @@ When /^I edit the new edition$/ do
   click_button 'Save'
 end
 
-When /^I visit the new policy page$/ do
-  visit new_admin_policy_path
-end
-
 When /^I request that "([^"]*)" fact checks the policy "([^"]*)" with instructions "([^"]*)"$/ do |email, title, instructions|
   policy = Policy.find_by_title!(title)
   visit admin_editions_path(state: :draft)
@@ -167,11 +159,6 @@ When /^I publish the policy "([^"]*)" without a change note$/ do |title|
   policy = Policy.find_by_title!(title)
   visit_document_preview title
   publish(without_change_note: true)
-end
-
-When /^I visit the published policy "([^"]*)"$/ do |title|
-  policy = Policy.published.find_by_title!(title)
-  visit public_document_path(policy)
 end
 
 When /^I visit the activity of the published policy "([^"]*)"$/ do |title|
@@ -262,12 +249,6 @@ end
 Then /^I should see that the policy does not apply to:$/ do |nation_names|
   message = "This policy does not apply to #{nation_names.raw.flatten.sort.to_sentence}."
   assert page.has_css?("#{inapplicable_nations_selector} p", text: message)
-end
-
-Then /^I should not see "([^"]*)" from the "([^"]*)" policy$/ do |publication_title, policy_title|
-  policy = Policy.find_by_title!(policy_title)
-  visit public_document_path(policy)
-  refute has_css?("#related-documents .publication a", text: publication_title)
 end
 
 Then /^they should see the draft policy "([^"]*)"$/ do |title|
