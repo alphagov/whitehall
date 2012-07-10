@@ -362,8 +362,7 @@ When /^I draft a new policy "([^"]*)" with a link "([^"]*)" in the body$/ do |ti
 end
 
 Then /^I should see in the preview that "([^"]*)" includes an embedded media player$/ do |title|
-  assert page.has_css?(".player-container .video")
-  assert page.has_css?(".player-container .control-bar")
+  assert_video_player_exists
 end
 
 Given /^a published policy "([^"]*)" with a link "([^"]*)" in the body$/ do |title, url|
@@ -372,6 +371,5 @@ Given /^a published policy "([^"]*)" with a link "([^"]*)" in the body$/ do |tit
 end
 
 Then /^I should see that the policy "([^"]*)" includes an embedded media player$/ do |arg1|
-  assert page.has_css?(".player-container .video")
-  assert page.has_css?(".player-container .control-bar")
+  assert_video_player_exists
 end
