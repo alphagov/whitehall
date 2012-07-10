@@ -42,11 +42,6 @@ Then /^I should see that I am logged in as a "([^"]*)"$/ do |role|
   assert page.has_css?(".user .settings .role", text: role)
 end
 
-Then /^I should see that I am logged in as "([^"]*)"$/ do |name|
-  visit admin_user_path
-  assert page.has_css?("#session .current_user_name", text: name)
-end
-
 Then /^I should see my email address is "([^"]*)"$/ do |email_address|
   visit admin_user_path
   assert page.has_css?(".user .email", text: email_address)

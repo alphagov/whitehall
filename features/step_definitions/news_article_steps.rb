@@ -8,22 +8,6 @@ Given /^a published news article "([^"]*)" with notes to editors "([^"]*)"$/ do 
   create(:published_news_article, title: title, notes_to_editors: notes_to_editors)
 end
 
-Given /^a published featured news article "([^"]*)"$/ do |title|
-  create(:featured_news_article, title: title)
-end
-
-Given /^(\d+) published featured news articles$/ do |number|
-  number.to_i.times { create(:featured_news_article) }
-end
-
-When /^I visit the news and speeches page$/ do
-  visit announcements_path
-end
-
-When /^I visit the homepage$/ do
-  visit home_path
-end
-
 When /^I draft a new news article "([^"]*)"$/ do |title|
   begin_drafting_document type: "news_article", title: title
   fill_in "Summary", with: "here's a simple summary"
@@ -59,24 +43,4 @@ end
 
 Then /^I should see the notes to editors "([^"]*)" for the news article$/ do |notes_to_editors|
   assert has_css?("#{notes_to_editors_selector}", text: notes_to_editors)
-end
-
-Then /^I should see "([^"]*)" in the list of featured news articles$/ do |title|
-  assert has_css?("#{featured_news_articles_selector} .news_article a", text: title)
-end
-
-Then /^I should only see the most recent (\d+) in the list of featured news articles$/ do |number|
-  assert has_css?("#{featured_news_articles_selector} .news_article", count: number.to_i)
-end
-
-Then /^the news article "([^"]*)" should (not )?be featured on the homepage$/ do |title, should_not_be_featured|
-  visit home_path
-  news_article = NewsArticle.published.find_by_title!(title)
-
-  news_article_is_featured = has_css?("#{featured_news_articles_selector} #{record_css_selector(news_article)}")
-  if should_not_be_featured
-    refute news_article_is_featured
-  else
-    assert news_article_is_featured
-  end
 end

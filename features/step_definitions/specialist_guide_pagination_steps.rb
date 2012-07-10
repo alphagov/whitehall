@@ -75,10 +75,6 @@ Then /^I should see the specialist guide summary$/ do
   assert page.find(".summary").visible?
 end
 
-Then /^I should not see the specialist guide summary$/ do
-  refute page.find(".summary").visible?
-end
-
 When /^I view a specialist guide page with internal headings$/ do
   visit "/specialist"
   click_link "Specialist guide with pages"

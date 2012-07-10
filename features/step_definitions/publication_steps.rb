@@ -51,13 +51,6 @@ When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/
   click_button "Save"
 end
 
-When /^I draft a new corporate publication "([^"]*)" about the "([^"]*)"$/ do |title, organisation|
-  begin_drafting_publication(title)
-  select organisation, from: "Producing Organisations"
-  check "Corporate publication?"
-  click_button "Save"
-end
-
 When /^I visit the list of publications$/ do
   visit "/"
   click_link "Publications"
