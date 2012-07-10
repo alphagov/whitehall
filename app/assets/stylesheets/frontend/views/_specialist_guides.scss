@@ -99,6 +99,13 @@
           @include core-14;
           color: $body-text;
         }
+        &:focus span,
+        &:hover span {
+          text-decoration: underline;
+        }
+        &:active {
+          background: darken($orange, 10%);
+        }
       }
     }
   }
