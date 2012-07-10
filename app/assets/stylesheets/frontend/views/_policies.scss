@@ -151,6 +151,7 @@
     }
   }
 
+
   #document-ministers {  
     margin-bottom: $gutter;  
     li {
@@ -175,20 +176,6 @@
   }
 
   .policy-parts {
-  .current_appointee {
-    float: left;
-    margin-right: $gutter-half;
-  }
-
-  .page_header {
-    h1 {
-      clear: both;
-      margin-bottom: $gutter*2;
-      text-align: center;
-    }
-  }
-
-  .policy_parts {
     ol {
       list-style: decimal;
       margin-left: $gutter;
