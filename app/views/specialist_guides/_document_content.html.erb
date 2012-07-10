@@ -1,10 +1,5 @@
 <article class="document<%= ' js-paginate-document' if @document.paginate_body %>">
   <div class="body">
-    <% if @document.video_url.present? %>
-      <figure class="video">
-        <a href="<%= @document.video_url %>">Watch video</a>
-      </figure>
-    <% end %>
     <%= govspeak_to_html @document.body, @document.images %>
   </div>
   <% if @document.notes_to_editors.present? %>
