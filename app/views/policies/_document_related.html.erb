@@ -10,7 +10,7 @@ related_policies ||= nil
     <% document.organisations.each do |organisation| %>
       <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
         <span class="organisation-logo-small">
-          <%= link_to h(organisation.logo_formatted_name), organisation_path(organisation) %>
+          <%= link_to organisation.logo_formatted_name, organisation_path(organisation) %>
         </span>
       <% end %>
     <% end %>
