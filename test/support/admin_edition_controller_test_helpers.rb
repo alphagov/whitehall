@@ -1100,60 +1100,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_video_for(edition_type)
-      edition_class = edition_class_for(edition_type)
-
-      test "new should display edition video URL field" do
-        get :new
-
-        assert_select "form#edition_new" do
-          assert_select "input[name='edition[video_url]'][type='text']"
-        end
-      end
-
-      test "create should set video URL on edition" do
-        attributes = controller_attributes_for(edition_type)
-
-        post :create, edition: attributes.merge(
-          video_url: "http://www.youtube.com/watch?v=OXHPWmnycno"
-        )
-
-        edition = edition_class.last
-        assert_equal "http://www.youtube.com/watch?v=OXHPWmnycno", edition.video_url
-      end
-
-      test "edit should display edition video URL field" do
-        edition = create(edition_type, video_url: "http://www.youtube.com/watch?v=OXHPWmnycno")
-
-        get :edit, id: edition
-
-        assert_select "form#edition_edit" do
-          assert_select "input[name='edition[video_url]'][value='http://www.youtube.com/watch?v=OXHPWmnycno']"
-        end
-      end
-
-      test "update should set video URL on edition" do
-        edition = create(edition_type, video_url: "http://www.youtube.com/watch?v=OXHPWmnycno")
-
-        put :update, id: edition, edition: {
-          video_url: "http://www.youtube.com/watch?v=o8Ka17LIIfU"
-        }
-
-        edition.reload
-        assert_equal "http://www.youtube.com/watch?v=o8Ka17LIIfU", edition.video_url
-      end
-
-      test "shows the video" do
-        edition = create(edition_type, video_url: "http://www.youtube.com/watch?v=OXHPWmnycno")
-
-        get :show, id: edition
-
-        assert_select ".video" do
-          assert_select "a[href=?]", "http://www.youtube.com/watch?v=OXHPWmnycno"
-        end
-      end
-    end
-
     def should_allow_related_policies_for(document_type)
       edition_class = edition_class_for(document_type)
 

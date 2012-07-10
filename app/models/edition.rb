@@ -9,7 +9,6 @@ class Edition < ActiveRecord::Base
   include Edition::Images
   include Edition::AuditTrail
   include Edition::ActiveEditors
-  include Edition::Video
 
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper

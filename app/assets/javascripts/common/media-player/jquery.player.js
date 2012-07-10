@@ -886,7 +886,6 @@ var html5_methods = {
 			$self.html(player.$html);
 			
 			// If the player is wider than 580 add a class of player-wide to the container
-			console.log(player.$html.width());
 			if(player.$html.width()>580) {
 				player.$html.addClass('player-wide');
 			}

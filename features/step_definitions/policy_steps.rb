@@ -354,3 +354,22 @@ Then /^I should not see a link to "([^"]*)" in the list of related documents$/ d
   edition = Edition.find_by_title(title)
   refute page.has_css?("#inbound-links a", text: title), "unexpected link to '#{title}' found"
 end
+
+When /^I draft a new policy "([^"]*)" with a link "([^"]*)" in the body$/ do |title, url|
+  body = "A sentence with a [link](#{url}) in the middle."
+  begin_drafting_policy title: title, body: body
+  click_button "Save"
+end
+
+Then /^I should see in the preview that "([^"]*)" includes an embedded media player$/ do |title|
+  assert_video_player_exists
+end
+
+Given /^a published policy "([^"]*)" with a link "([^"]*)" in the body$/ do |title, url|
+  body = "A sentence with a [link](#{url}) in the middle."
+  create(:published_policy, title: title, body: body)
+end
+
+Then /^I should see that the policy "([^"]*)" includes an embedded media player$/ do |arg1|
+  assert_video_player_exists
+end
