@@ -302,7 +302,7 @@ That's all
 
     get :show, id: policy.document
 
-    assert_select "aside.case-studies"
+    assert_select "aside#case-studies"
     assert_select_object case_study
   end
 
