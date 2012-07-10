@@ -24,8 +24,14 @@ $(function() {
     pages = container.find(".page");
     headings = container.find('h2');
 
+    pages.hide();
+
     var showPage = function() {
       var page = $(location.hash).parents(".page");
+
+      if (page.is(":visible")) {
+        return true;
+      }
 
       pages.hide();
 
