@@ -1,4 +1,38 @@
 <% page_title @document.title, "Specialist guidance" %>
 <% page_class "specialist-guides-show" %>
 
-<%= render template: 'documents/show', locals: { header_title: "Specialist Guide" } %>
+<div class="document_page <%= @document.type.downcase %>">
+  <div class="block-1">
+    <div class="inner-block">
+      <section class="page-header icon">
+        <%= render partial: "document_metadata" %>
+        <h2 class="label">Guidance
+          <% if @document.organisations.any? %>
+            from <%= render partial: "organisations/sentence_list", locals: {
+              organisations: @document.organisations
+            } %>
+          <% end %>
+        </h2>
+        <%= render partial: "title", locals: {
+          topics: @topics,
+          document: @document
+        }%>
+      </section>
+    </div>
+  </div>
+  <div class="block-2">
+    <div class="inner-block">
+      <%= render partial: "document_contextual", locals: {edition: @document} %>
+      <%= national_statistics_logo(@document) %>
+    </div>
+  </div>
+  <div class="block-3">
+    <div class="inner-block">
+      <%= render partial: "document_content" %>
+    </div>
+  </div>
+  <div class="block-4">
+    <div class="inner-block">
+    </div>
+  </div>
+</div>

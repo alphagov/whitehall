@@ -19,6 +19,7 @@
        -o-transform: translate($x, $y);
           transform: translate($x, $y);
 }
+
 @mixin gradient($from, $to) {
   background-color: $from; // fallback/image non-cover color
   background-image: -moz-linear-gradient($from, $to); // Firefox 3.6+
@@ -26,6 +27,14 @@
   background-image: -webkit-linear-gradient($from, $to); // Safari 5.1+, Chrome 10+
   background-image: -o-linear-gradient($from, $to); // Opera 11.10+
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$from', endColorstr='$to',GradientType=0 ); // IE6-9
+}
+
+@mixin transition($property, $duration, $function) {
+  -webkit-transition: ($property $duration $function);
+     -moz-transition: ($property $duration $function);
+      -ms-transition: ($property $duration $function);
+       -o-transition: ($property $duration $function);
+          transition: ($property $duration $function);
 }
 
 

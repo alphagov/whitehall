@@ -1,6 +1,14 @@
-<h1 class="page_title has_meta"><%= @document.title %></h1>
-<% if @document.summary.present? %>
-  <div class="summary">
-    <p><%= @document.summary %></p>
-  </div>
-<% end %>
+<h1 class="page_title has_meta"><%= document.title %></h1>
+<div class="page-meta">
+  <% if document.summary.present? %>
+    <p class="summary"><%= document.summary %></p>
+  <% end %>
+  <% if topics.any? %>
+    <p class="topics">
+      See more specialist guidance on
+      <%= render partial: "topics/sentence_list", locals: {
+        topics: topics
+      } %>
+    </p>
+  <% end %>
+</div>

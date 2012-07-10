@@ -11,9 +11,9 @@
           _link = _link.parent();
         };
 
-        _link.click(function () {
+        _link.click(function (e) {
+          e.preventDefault();
           _this.fadeToggle();
-          return false;
         })
       };
     }

@@ -51,7 +51,6 @@ module Whitehall
 
     config.assets.prefix = Whitehall.router_prefix + config.assets.prefix
 
-    config.slimmer.logger = Rails.logger
     config.slimmer.prefix = Whitehall.router_prefix
     config.slimmer.wrapper_id = "whitehall-wrapper"
   end

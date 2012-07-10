@@ -24,8 +24,14 @@ $(function() {
     pages = container.find(".page");
     headings = container.find('h2');
 
+    pages.hide();
+
     var showPage = function() {
       var page = $(location.hash).parents(".page");
+
+      if (page.is(":visible")) {
+        return true;
+      }
 
       pages.hide();
 
@@ -45,11 +51,11 @@ $(function() {
       // if there is a previous page
       if(i > 0){
         adjacentPage = $(headings.get(i-1));
-        prevNextNavigation.push('<li><a href="#'+adjacentPage.attr('id')+'">Previous page: <span>'+adjacentPage.text()+'</span></a></li>');
+        prevNextNavigation.push('<li class="previous"><a href="#'+adjacentPage.attr('id')+'">Previous page <span>'+adjacentPage.text()+'</span></a></li>');
       }
       if(i < pages.length-1){
         adjacentPage = $(headings.get(i+1));
-        prevNextNavigation.push('<li><a href="#'+adjacentPage.attr('id')+'">Next page: <span>'+adjacentPage.text()+'</span></a></li>');
+        prevNextNavigation.push('<li class="next"><a href="#'+adjacentPage.attr('id')+'">Next page <span>'+adjacentPage.text()+'</span></a></li>');
       }
 
       currentPage.append('<ul class="previous-next-navigation">' + prevNextNavigation.join('') + '</ul>');

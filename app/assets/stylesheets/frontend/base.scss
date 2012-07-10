@@ -7,7 +7,7 @@
 // Whitespace values and maximum site width. These values can be
 // used in any file imported into this document.
 
-$max-site-width: 1096px;
+$max-site-width: 960px;
 
 $gutter:            30px;
 $gutter-two-thirds: $gutter*0.666666; // equivalent to 16px
@@ -40,7 +40,6 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
 // so as to override global styles being set by gov.uk chrome. When
 // gov.uk styles are scoped, will want to change these selectors to
 // body and *
-
 
 
 
@@ -91,6 +90,10 @@ $gutter-one-third:  $gutter*0.333333; // equivalent to 8px
 }
 
 
+// LAYOUTS
+// Styles scoped to a layout. Be careful.
+
+@import "layouts/specialist.scss";
 
 
 

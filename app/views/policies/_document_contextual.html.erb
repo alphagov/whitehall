@@ -1,7 +1,7 @@
 <section class="contextual-info js-fixed-content-top">
+    <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'top'), class: "active" %>
   <h1>Jump to section</h1>
   <nav class="policy-parts" role="navigation">
-    <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'top'), class: "active" %>
     <% if govspeak_headers(@policy.body).any? or @policy.case_studies.any? %>
       <ol id="document_sections">
         <% govspeak_headers(@policy.body).each do |header| %>

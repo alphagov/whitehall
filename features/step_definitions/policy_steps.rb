@@ -2,10 +2,6 @@ Given /^a submitted policy titled "([^"]*)"$/ do |policy_title|
   create(:submitted_policy, title: policy_title)
 end
 
-Given /^I am on the policies admin page$/ do
-  visit admin_editions_path
-end
-
 Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
   Given %{I am a writer called "#{author}"}
 
@@ -90,10 +86,6 @@ When /^I edit the new edition$/ do
   click_button 'Save'
 end
 
-When /^I visit the new policy page$/ do
-  visit new_admin_policy_path
-end
-
 When /^I request that "([^"]*)" fact checks the policy "([^"]*)" with instructions "([^"]*)"$/ do |email, title, instructions|
   policy = Policy.find_by_title!(title)
   visit admin_editions_path(state: :draft)
@@ -167,11 +159,6 @@ When /^I publish the policy "([^"]*)" without a change note$/ do |title|
   policy = Policy.find_by_title!(title)
   visit_document_preview title
   publish(without_change_note: true)
-end
-
-When /^I visit the published policy "([^"]*)"$/ do |title|
-  policy = Policy.published.find_by_title!(title)
-  visit public_document_path(policy)
 end
 
 When /^I visit the activity of the published policy "([^"]*)"$/ do |title|
@@ -264,12 +251,6 @@ Then /^I should see that the policy does not apply to:$/ do |nation_names|
   assert page.has_css?("#{inapplicable_nations_selector} p", text: message)
 end
 
-Then /^I should not see "([^"]*)" from the "([^"]*)" policy$/ do |publication_title, policy_title|
-  policy = Policy.find_by_title!(policy_title)
-  visit public_document_path(policy)
-  refute has_css?("#related-documents .publication a", text: publication_title)
-end
-
 Then /^they should see the draft policy "([^"]*)"$/ do |title|
   policy = Policy.draft.find_by_title!(title)
   assert page.has_css?('.document .title', text: policy.title)
@@ -353,4 +334,23 @@ end
 Then /^I should not see a link to "([^"]*)" in the list of related documents$/ do |title|
   edition = Edition.find_by_title(title)
   refute page.has_css?("#inbound-links a", text: title), "unexpected link to '#{title}' found"
+end
+
+When /^I draft a new policy "([^"]*)" with a link "([^"]*)" in the body$/ do |title, url|
+  body = "A sentence with a [link](#{url}) in the middle."
+  begin_drafting_policy title: title, body: body
+  click_button "Save"
+end
+
+Then /^I should see in the preview that "([^"]*)" includes an embedded media player$/ do |title|
+  assert_video_player_exists
+end
+
+Given /^a published policy "([^"]*)" with a link "([^"]*)" in the body$/ do |title, url|
+  body = "A sentence with a [link](#{url}) in the middle."
+  create(:published_policy, title: title, body: body)
+end
+
+Then /^I should see that the policy "([^"]*)" includes an embedded media player$/ do |arg1|
+  assert_video_player_exists
 end

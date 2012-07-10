@@ -14,7 +14,51 @@
 }
 
 .specialist-guides-show {
-  .in-page-navigation, .previous-next-navigation {
+  .page-header {
+    padding-bottom: $gutter*3;
+    .label {
+      @include core-14;
+      margin-bottom: 0;
+      max-width: 33em;
+      a {
+        white-space: nowrap;
+      }
+    }
+    .page_title {
+      margin: $gutter-two-thirds 0 $gutter-one-third;
+    }
+    .page-meta {
+      @include core-19;
+      max-width: 33em;
+      p {
+        display: inline;
+      }
+    }
+  }
+
+  .meta {
+    float: right;
+    @include core-14;
+    .link-to-change-notes {
+      @include button($orange);
+      margin-top: -4px;
+    }
+    .change-notes-container {
+      margin-top: $gutter-one-third;
+
+      .link-to-change-notes {
+        display: none;
+      }
+    }
+  }
+
+  .content-fixed {
+    position: fixed!important;
+    top: 0;
+    width: 13.25%;
+  }
+
+  .in-page-navigation {
     h3 {
       @include core-19;
     }
@@ -22,5 +66,74 @@
       @include core-14;
       padding: 0;
     }
+  }
+
+  .previous-next-navigation {
+    overflow: hidden;
+    background: $orange;
+    margin-top: $gutter*2;
+
+    li {
+      @include core-27;
+      font-weight: bold;
+      display: block;
+      float: left;
+      width: 45%;
+      padding: 0;
+      margin: 0;
+
+      &.next {
+        float: right;
+        text-align: right;
+
+        a {
+          padding: $gutter-half $gutter-half+30px $gutter-half 0;
+        }
+        a:before {
+          margin-right: -30px;
+          display: block;
+          float: right;
+          width: 30px;
+          content: "\2192";
+        }
+      }
+      &.previous {
+        a {
+          padding: $gutter-half 0 $gutter-half $gutter-half+30px;
+        }
+        a:before {
+          margin-left: -30px;
+          display: block;
+          float: left;
+          width: 30px;
+          content: "\2190";
+        }
+      }
+
+
+      a {
+        display: block;
+        color: $white;
+        text-decoration: none;
+
+        span {
+          display: block;
+          @include core-14;
+          color: $body-text;
+        }
+        &:focus span,
+        &:hover span {
+          text-decoration: underline;
+        }
+        &:active {
+          background: darken($orange, 10%);
+        }
+      }
+    }
+  }
+
+    
+  .document_page .block-3 {
+    width: 75%;
   }
 }

@@ -34,6 +34,11 @@ Scenario: Creating a new draft policy that applies to multiple nations
   Then I should see in the preview that "Outlaw Moustaches" does not apply to the nations:
     | Scotland | Wales |
 
+@javascript
+Scenario: Creating a new draft policy with a video link
+  When I draft a new policy "Outlaw Moustaches" with a link "http://www.youtube.com/watch?v=OXHPWmnycno" in the body
+  Then I should see in the preview that "Outlaw Moustaches" includes an embedded media player
+
 Scenario: Adding a supporting page to a draft policy
   Given a draft policy "Outlaw Moustaches" exists
   When I add a supporting page "Handlebar Waxing" to the "Outlaw Moustaches" policy

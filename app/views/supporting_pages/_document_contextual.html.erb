@@ -1,12 +1,15 @@
 <section class="contextual-info">
   <% if (supporting_pages = @policy.supporting_pages).any? %>
     <nav class="supporting_pages" role="navigation">
-      <% supporting_pages.each do |supporting_page| %>
-        <% options = supporting_page == @supporting_page ? {class: "active"} : {} %>
-        <%= link_to_with_current(supporting_page.title,
-              policy_supporting_page_path(@policy.document, supporting_page),
-              options) %>
-      <% end %>
+      <ul>
+        <% supporting_pages.each do |supporting_page| %>
+          <% options = supporting_page == @supporting_page ? {class: "active"} : {} %>
+          <%= content_tag :li, options do %>
+            <%= link_to_with_current(supporting_page.title,
+                policy_supporting_page_path(@policy.document, supporting_page)) %>
+          <% end %>
+        <% end %>
+      </ul>
     </nav>
   <% end %>
 </section>

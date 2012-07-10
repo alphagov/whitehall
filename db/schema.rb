@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120709093653) do
+ActiveRecord::Schema.define(:version => 20120710091651) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -161,7 +161,6 @@ ActiveRecord::Schema.define(:version => 20120709093653) do
     t.text     "change_note"
     t.boolean  "force_published"
     t.boolean  "minor_change",             :default => false
-    t.string   "video_url"
     t.integer  "policy_team_id"
     t.integer  "publication_type_id"
     t.boolean  "paginate_body",            :default => true

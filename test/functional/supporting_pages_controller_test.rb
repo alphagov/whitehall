@@ -169,7 +169,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "section.contextual-info a.active",
+    assert_select "section.contextual-info .active",
       text: policy.title,
       count: 0
   end
@@ -181,10 +181,10 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "section.contextual-info a.active",
+    assert_select "section.contextual-info .active",
       text: supporting_page.title,
       count: 1
-    assert_select "section.contextual-info a.active",
+    assert_select "section.contextual-info .active",
       text: other_supporting_page.title,
       count: 0
   end
