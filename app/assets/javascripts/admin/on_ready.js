@@ -6,4 +6,6 @@ jQuery(document).ready(function($) {
   $('fieldset.sortable legend').each(function () {
     $(this).append(' (drag up and down to re-order)');
   })
+
+  $('.document .body').enhanceYoutubeVideoLinks();
 })
