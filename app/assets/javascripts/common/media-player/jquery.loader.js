@@ -27,30 +27,30 @@ $(document).ready(function() {
  * There are many ways in which you can load the Accessible Media Player. The best method 
  * will vary depending on any implementation and/or CMS restrictions you might have.
  */
-    
-	/*
-	 * OR you could do a jQuery lookup for specific links/file types
-	 * (simple but potentially less flexible and extra load on the browser)
-	 */
-	var $yt_links = $("a[href*='http://www.youtube.com/watch']");
-    var $vimeo_links = $("a[href*='http://vimeo.com/']");
-    
-    // Create players for our youtube links
-    $.each($yt_links, function(i) {
-        var $holder = $('<span />');
-        $(this).parent().replaceWith($holder);
-        // Find the captions file if it exists
-        var $mycaptions = $(this).siblings('.captions');
-        // Work out if we have captions or not
-        var captionsf = $($mycaptions).length > 0 ? $($mycaptions).attr('href') : null;
-        // Ensure that we extract the last part of the youtube link (the video id)
-        // and pass it to the player() method
-        var link = $(this).attr('href').split("=")[1];
-        // Initialise the player
-        $holder.player({
-            id:'yt'+i,
-            media:link,
-			captions:captionsf
-        });
+
+  /*
+   * OR you could do a jQuery lookup for specific links/file types
+   * (simple but potentially less flexible and extra load on the browser)
+   */
+  var $yt_links = $("a[href*='http://www.youtube.com/watch']");
+  var $vimeo_links = $("a[href*='http://vimeo.com/']");
+
+  // Create players for our youtube links
+  $.each($yt_links, function(i) {
+    var $holder = $('<span />');
+    $(this).parent().replaceWith($holder);
+    // Find the captions file if it exists
+    var $mycaptions = $(this).siblings('.captions');
+    // Work out if we have captions or not
+    var captionsf = $($mycaptions).length > 0 ? $($mycaptions).attr('href') : null;
+    // Ensure that we extract the last part of the youtube link (the video id)
+    // and pass it to the player() method
+    var link = $(this).attr('href').split("=")[1];
+    // Initialise the player
+    $holder.player({
+      id:'yt'+i,
+      media:link,
+      captions:captionsf
     });
+  });
 });
