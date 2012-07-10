@@ -1,0 +1,10 @@
+<aside class="case-studies">
+  <h1>Case studies</h1>
+  <ul>
+    <% document.case_studies.each do |case_study| %>
+      <%= content_tag_for(:li, case_study) do %>
+        <%= link_to case_study.title, case_studies_path(case_study) %>
+      <% end %>
+    <% end %>
+  </ul>
+</aside>
