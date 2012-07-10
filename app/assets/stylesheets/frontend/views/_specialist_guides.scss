@@ -52,6 +52,12 @@
     }
   }
 
+  .content-fixed {
+    position: fixed!important;
+    top: 0;
+    width: 13.25%;
+  }
+
   .in-page-navigation {
     h3 {
       @include core-19;
