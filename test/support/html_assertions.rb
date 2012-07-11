@@ -1,3 +1,5 @@
+require 'support/css_selectors'
+
 module HtmlAssertions
   include CssSelectors
 
