@@ -20,6 +20,22 @@ module DocumentControllerTestHelpers
         end
       end
 
+      test "show information about accessibility" do
+        attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: true)
+        attachment_2 = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
+
+        edition = create("published_#{document_type}", attachments: [attachment_1, attachment_2])
+
+        get :show, id: edition.document
+
+        assert_select_object(attachment_1) do
+          refute_select '.accessibility-warning'
+        end
+        assert_select_object(attachment_2) do
+          assert_select '.accessibility-warning'
+        end
+      end
+
       test "show displays PDF attachment metadata" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attachment = create(:attachment, file: greenpaper_pdf)

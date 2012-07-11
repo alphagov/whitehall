@@ -4,5 +4,8 @@
     <span class="size"><%= number_to_human_size(attachment.file_size) %></span><% if attachment.number_of_pages.present? %>,
       <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
     <% end %>
+    <% unless attachment.accessible? %>
+      <strong class="accessibility-warning">This file may not be accessible</strong>
+    <% end %>
   </div>
 <% end %>
