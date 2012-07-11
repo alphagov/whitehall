@@ -3,12 +3,4 @@
   <% if document.summary.present? %>
     <p class="summary"><%= document.summary %></p>
   <% end %>
-  <% if topics.any? %>
-    <p class="topics">
-      See more specialist guidance on
-      <%= render partial: "topics/sentence_list", locals: {
-        topics: topics
-      } %>
-    </p>
-  <% end %>
 </div>

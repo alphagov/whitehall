@@ -31,6 +31,7 @@ Whitehall::Application.routes.draw do
       get '/by-topic/:topics', on: :collection,
         to: 'publications#by_topic', as: :by_topic
     end
+    resources :case_studies, path: 'case-studies', only: [:show, :index]
 
     resources :international_priorities, path: "international-priorities", only: [:index, :show]
     resources :consultations, only: [:index, :show] do
@@ -119,6 +120,7 @@ Whitehall::Application.routes.draw do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
         end
         resources :countries, only: [:index, :edit, :update]
+        resources :case_studies, path: "case-studies", except: [:index]
 
         match "preview" => "preview#preview", via: :post
       end

@@ -13,6 +13,7 @@ Mocha::Configuration.prevent(:stubbing_non_existent_method)
 class ActiveSupport::TestCase
   include Factory::Syntax::Methods
   include ModelStubbingHelpers
+  include HtmlAssertions
 
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
@@ -60,7 +61,7 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  include CssSelectors
+  include HtmlAssertions
   include AdminEditionControllerTestHelpers
   include AdminEditionCountriesBehaviour
   include DocumentControllerTestHelpers
@@ -83,21 +84,6 @@ class ActionController::TestCase
 
   def assert_login_required
     assert_redirected_to login_path
-  end
-
-  def assert_select_object(object, *args, &block)
-    assert_select record_css_selector(object), *args, &block
-  end
-
-  def refute_select(selector, *args)
-    options = args.last.is_a?(Hash) ? args.pop : {}
-    options.merge!(count: 0)
-    args.push(options)
-    assert_select selector, *args
-  end
-
-  def refute_select_object(object)
-    assert_select_object object, count: 0
   end
 end
 

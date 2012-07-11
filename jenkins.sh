@@ -1,5 +1,6 @@
 #!/bin/bash -x
 export DISPLAY=:99
+env
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 bundle exec rake db:create db:migrate db:test:prepare && \
 RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true bundle exec rake assets:clean --trace && \

@@ -2,10 +2,13 @@
     <%= link_to_with_current @policy.title, public_document_path(@policy, anchor: 'top'), class: "active" %>
   <h1>Jump to section</h1>
   <nav class="policy-parts" role="navigation">
-    <% if govspeak_headers(@policy.body).any? %>
+    <% if govspeak_headers(@policy.body).any? or @policy.case_studies.any? %>
       <ol id="document_sections">
         <% govspeak_headers(@policy.body).each do |header| %>
           <li><%= link_to header.text, public_document_path(@policy, anchor: header.id) %></li>
+        <% end %>
+        <% if @policy.case_studies.any? %>
+          <li><a href="#case-studies">Case studies</a></li>
         <% end %>
       </ol>
     <% end %>

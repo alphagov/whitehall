@@ -8,9 +8,7 @@
         <%= render partial: "document_metadata" %>
         <h2 class="label">Guidance
           <% if @document.organisations.any? %>
-            from <%= render partial: "organisations/sentence_list", locals: {
-              organisations: @document.organisations
-            } %>
+            from <%= list_of_external_links_to_organisations(@document.organisations) %>.
           <% end %>
         </h2>
         <%= render partial: "title", locals: {

@@ -1,3 +1,0 @@
-<% organisations.each_with_index do |organisation, index| %>
-  <%= link_to organisation.logo_formatted_name, organisation_path(organisation) %><%= (index == (organisations.length-1)) ? '.' : ' and ' %>
-<% end %>
