@@ -44,17 +44,6 @@ That's all
     end
   end
 
-  test "should link to topics related to the specialist guide" do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
-    edition = create(:published_specialist_guide, topics: [first_topic, second_topic])
-
-    get :show, id: edition.document
-
-    assert_select ".topics a", text: first_topic.name
-    assert_select ".topics a", text: second_topic.name
-  end
-
   test "shows link to subsections in the document navigation" do
     guide = create(:published_specialist_guide, body: %{
 ## First Section

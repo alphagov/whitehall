@@ -3,9 +3,4 @@
   <% if document.summary.present? %>
     <p class="summary"><%= document.summary %></p>
   <% end %>
-  <% if topics.any? %>
-    <p class="topics">
-      See more specialist guidance on <%= list_of_links_to_topics(topics) %>.
-    </p>
-  <% end %>
 </div>
