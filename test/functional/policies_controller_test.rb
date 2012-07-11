@@ -295,4 +295,22 @@ That's all
 
     assert_equal [consultation, speech, news_article, publication], assigns(:recently_changed_documents)
   end
+
+  test "supporting case studies are included in page" do
+    policy = create(:published_policy)
+    case_study = create(:published_case_study, related_policies: [policy])
+
+    get :show, id: policy.document
+
+    assert_select "aside#case-studies"
+    assert_select_object case_study
+  end
+
+  test "link to case studies are included in policy navigation" do
+    policy = create(:published_policy)
+    case_study = create(:published_case_study, related_policies: [policy])
+
+    get :show, id: policy.document
+    assert_select "#document_sections:last-child", text: "Case studies"
+  end
 end

@@ -12,6 +12,7 @@ module Edition::RelatedPolicies
     has_many :related_documents, through: :edition_relations, source: :document
     has_many :related_policies, through: :related_documents, source: :latest_edition
     has_many :published_related_policies, through: :related_documents, source: :published_edition, class_name: 'Policy'
+    has_many :topics, through: :published_related_policies, uniq: true
 
     define_method(:related_policies=) do |policies|
       self.related_documents = policies.map(&:document)
