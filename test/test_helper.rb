@@ -13,6 +13,7 @@ Mocha::Configuration.prevent(:stubbing_non_existent_method)
 class ActiveSupport::TestCase
   include Factory::Syntax::Methods
   include ModelStubbingHelpers
+  include HtmlAssertions
 
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)

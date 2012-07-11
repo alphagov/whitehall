@@ -158,5 +158,13 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_definite_article_skipped 'The National Archives'
   end
 
+  test 'list of links to organisations' do
+    organisation_1 = create(:organisation, logo_formatted_name: "Organisation One")
+    organisation_2 = create(:organisation, logo_formatted_name: "Organisation Two")
+    organisations = [organisation_1, organisation_2]
+
+    assert_select_within_html list_of_links_to_organisations(organisations), "a[href=?]", organisation_path(organisation_1), text: "Organisation One"
+    assert_select_within_html list_of_links_to_organisations(organisations), "a[href=?]", organisation_path(organisation_2), text: "Organisation Two"
+  end
 
 end
