@@ -104,7 +104,7 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_show_related_policies_and_topics_for(document_type)
+    def should_show_related_policies_for(document_type)
       test "show displays related published policies" do
         published_policy = create(:published_policy)
         edition = create("published_#{document_type}", related_policies: [published_policy])
@@ -118,6 +118,23 @@ module DocumentControllerTestHelpers
         get :show, id: edition.document
         refute_select_object draft_policy
       end
+
+      test "should not display policies unless they are related" do
+        unrelated_policy = create(:published_policy)
+        edition = create("published_#{document_type}", related_policies: [])
+        get :show, id: edition.document
+        refute_select_object unrelated_policy
+      end
+
+      test "should not display an empty list of related policies" do
+        edition = create("published_#{document_type}")
+        get :show, id: edition.document
+        refute_select "#related-policies"
+      end
+    end
+
+    def should_show_related_policies_and_topics_for(document_type)
+      should_show_related_policies_for document_type
 
       test "show infers topics from published policies" do
         topic = create(:topic)
@@ -134,19 +151,6 @@ module DocumentControllerTestHelpers
         edition = create("published_#{document_type}", related_policies: [published_policy_1, published_policy_2])
         get :show, id: edition.document
         assert_select_object topic, count: 1
-      end
-
-      test "should not display policies unless they are related" do
-        unrelated_policy = create(:published_policy)
-        edition = create("published_#{document_type}", related_policies: [])
-        get :show, id: edition.document
-        refute_select_object unrelated_policy
-      end
-
-      test "should not display an empty list of related policies" do
-        edition = create("published_#{document_type}")
-        get :show, id: edition.document
-        refute_select "#related-policies"
       end
     end
 

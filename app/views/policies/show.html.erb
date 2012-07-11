@@ -24,6 +24,9 @@
   <div class="block-3">
     <div class="inner-block">
       <%= render partial: "document_content" %>
+      <% if @document.case_studies.any? %>
+        <%= render partial: "case_studies", locals: {document: @document} %>
+      <% end %>
     </div>
   </div>
   <div class="block-4">
