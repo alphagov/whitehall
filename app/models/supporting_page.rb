@@ -8,7 +8,12 @@ class SupportingPage < ActiveRecord::Base
   has_many :supporting_page_attachments
   has_many :attachments, through: :supporting_page_attachments
 
-  accepts_nested_attributes_for :supporting_page_attachments, reject_if: -> da { da.fetch(:attachment_attributes, {}).values.all?(&:blank?) }, allow_destroy: true
+  accepts_nested_attributes_for :supporting_page_attachments, reject_if: :no_substantive_attachment_attributes?, allow_destroy: true
+
+  def no_substantive_attachment_attributes?(attrs)
+    attrs.fetch(:attachment_attributes, {}).except(:accessible).values.all?(&:blank?)
+  end
+  private :no_substantive_attachment_attributes?
 
   validates :title, :body, :edition, presence: true
 
