@@ -36,7 +36,9 @@
   }
 
   .meta {
-    float: right;
+    @media (min-width: 568px) {
+      float: right;
+    }
     @include core-14;
     .link-to-change-notes {
       @include button($light-warm-grey);
@@ -55,6 +57,20 @@
   .contextual-info {
     padding-top: $gutter-one-sixth;
 
+    ol li ol li {
+      list-style-type: decimal;
+      list-style-position: inside;
+      color: lighten($body-text, 40%);
+      a {
+        display: inline;
+        color: lighten($body-text, 40%);
+      }
+    }
+    li {
+      @media (max-width: 640px) {
+        padding-bottom: $gutter-one-sixth;
+      }
+    }
     a {
       text-decoration: none;
 
@@ -91,11 +107,13 @@
           padding: $gutter-half $gutter-half+30px;
         }
         a:before {
-          margin-right: -30px;
+          background: transparent url(/government/assets/arrow-sprite.png) no-repeat -102px -11px;
+          margin: -4px -32px 0 0;
           display: block;
           float: right;
           width: 30px;
-          content: "\2192";
+          height: 38px;
+          content: " ";
         }
       }
       &.previous {
@@ -103,11 +121,13 @@
           padding: $gutter-half $gutter-half+30px;
         }
         a:before {
-          margin-left: -30px;
+          background: transparent url(/government/assets/arrow-sprite.png) no-repeat -20px -11px;
+          margin: -4px 0 0 -32px;
           display: block;
           float: left;
           width: 30px;
-          content: "\2190";
+          height: 38px;
+          content: " ";
         }
       }
 

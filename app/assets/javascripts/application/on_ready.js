@@ -7,14 +7,14 @@ jQuery(function($) {
   $('.floated_list').equalHeightHelper({selectorsToResize: ['li']});
   $('.alphabetical-row').equalHeightHelper({selectorsToResize: ['li']});
   $('.change-notes').policyUpdateNotes({link:'.link-to-change-notes'});
-  $('#global-nav').each(function () {
+  $('.js-nav-helper').each(function () {
     $(this).find('.inner ul').append($.li('', '.st'));
   }).navHelper({
     breakpoints: [
       { width: 540, label: 'All sections', exclude: '.home, .current' },
       { width: 850, label: 'More sections', exclude: '.home, .current, .primary' }
     ],
-    appendTo: '#global-nav .inner li.st'
+    appendTo: '.js-nav-helper .inner li.st'
   });
 
   var inside_gov = $(".inside_gov_home");
