@@ -32,7 +32,11 @@
     display: block;
     margin-bottom: $gutter-two-thirds*-1;
   }
-  
+
+  .accessibility-warning {
+    display: block;
+  }
+
   @media (min-width: 768px) {
     .metadata {
       margin-bottom: 0;
