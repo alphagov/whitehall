@@ -13,7 +13,12 @@ module Edition::Attachable
     has_many :edition_attachments, foreign_key: "edition_id", dependent: :destroy
     has_many :attachments, through: :edition_attachments
 
-    accepts_nested_attributes_for :edition_attachments, reject_if: -> da { da.fetch(:attachment_attributes, {}).values.all?(&:blank?) }, allow_destroy: true
+    accepts_nested_attributes_for :edition_attachments, reject_if: :no_substantive_attachment_attributes?, allow_destroy: true
+
+    def no_substantive_attachment_attributes?(attrs)
+      attrs.fetch(:attachment_attributes, {}).except(:accessible).values.all?(&:blank?)
+    end
+    private :no_substantive_attachment_attributes?
 
     add_trait Trait
   end
