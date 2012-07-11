@@ -3,7 +3,7 @@ $(function() {
       navigation = $(".contextual-info #document_sections"),
       pages, headings;
 
-  var paginating = ($('.document.js-paginate-document').length > 0);
+  var paginating = ($('.document.js-paginate-document').length > 0 && $(window).width() > 768);
 
   navigation.find(">li").each(function(el){
     var li = $(this),
