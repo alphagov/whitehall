@@ -102,6 +102,8 @@ module OrganisationHelper
   end
 
   def list_of_external_links_to_organisations(organisations)
-    organisations.map { |o| link_to o.logo_formatted_name, o.url }.to_sentence.html_safe
+    organisations.map do |o|
+      o.url.present? ? link_to(o.logo_formatted_name, o.url) : o.logo_formatted_name
+    end.to_sentence.html_safe
   end
 end

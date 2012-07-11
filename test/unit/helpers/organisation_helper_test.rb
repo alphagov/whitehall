@@ -161,10 +161,16 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   test 'list of external links to organisations' do
     organisations = [
       build(:organisation, logo_formatted_name: "Organisation One", url: "http://organisation-1.com"),
-      build(:organisation, logo_formatted_name: "Organisation Two", url: "http://organisation-2.com")
+      build(:organisation, logo_formatted_name: "Organisation Two", url: nil),
+      build(:organisation, logo_formatted_name: "Organisation Three", url: "http://organisation-3.com")
     ]
-    assert_select_within_html list_of_external_links_to_organisations(organisations), "a[href=?]", "http://organisation-1.com", text: "Organisation One"
-    assert_select_within_html list_of_external_links_to_organisations(organisations), "a[href=?]", "http://organisation-2.com", text: "Organisation Two"
+
+    list = list_of_external_links_to_organisations(organisations)
+
+    assert_select_within_html list, "a[href=?]", "http://organisation-1.com", text: "Organisation One"
+    assert_match %r{Organisation Two}, list
+    refute_select_within_html list, "a", text: "Organisation Two"
+    assert_select_within_html list, "a[href=?]", "http://organisation-3.com", text: "Organisation Three"
   end
 
 end
