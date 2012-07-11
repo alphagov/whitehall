@@ -1,7 +1,7 @@
 (function ($) {
   var _stickAtTopWhenScrolling = function() {
     var element = $(this);
-    if (element.length > 0) {
+    if (element.length > 0 && $(window).width() > 768) {
       var elementVerticalPosition = element.offset().top - parseFloat(element.css('marginTop').replace(/auto/, 0));
       $(window).scroll(function (event) {
         var windowVerticalPosition = $(this).scrollTop();
