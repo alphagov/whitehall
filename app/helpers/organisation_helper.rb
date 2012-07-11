@@ -100,4 +100,8 @@ module OrganisationHelper
       concat account.service_name
     end
   end
+
+  def list_of_links_to_organisations(organisations)
+    organisations.map { |o| link_to o.logo_formatted_name, organisation_path(o) }.to_sentence.html_safe
+  end
 end

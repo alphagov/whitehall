@@ -1,3 +1,0 @@
-<% topics.each_with_index do |topic, index| %>
-  <%= link_to topic.name, topic_path(topic) %><%= (index == (topics.length-1)) ? '.' : ',' %>
-<% end %>

@@ -12,4 +12,8 @@ module Admin::TopicsHelper
                    class: "document_state")
     end
   end
+
+  def list_of_links_to_topics(topics)
+    topics.map { |t| link_to t.name, topic_path(t) }.to_sentence.html_safe
+  end
 end
