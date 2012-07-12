@@ -8,11 +8,15 @@ class PoliciesController < DocumentsController
   def show
     @policy = @document
     @countries = @policy.countries
+    @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
   end
 
   def activity
     @policy = @document
     @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
+    if @recently_changed_documents.empty?
+      render text: "Not found", status: :not_found
+    end
   end
 
   private

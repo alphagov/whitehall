@@ -11,9 +11,6 @@ class PoliciesControllerTest < ActionController::TestCase
   should_show_change_notes_on_action :policy, :show do |policy|
     get :show, id: policy.document
   end
-  should_show_change_notes_on_action :policy, :activity do |policy|
-    get :activity, id: policy.document
-  end
 
   test "show displays the date that the policy was updated" do
     policy = create(:published_policy)
@@ -56,26 +53,16 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select ".policy-navigation" do
       assert_select "a[href='#{policy_path(policy.document)}']"
       assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
-      assert_select "a[href='#{activity_policy_path(policy.document)}']"
     end
   end
 
   test "show adds the current class to the policy link in the policy navigation" do
     policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
 
     get :show, id: policy.document
 
     assert_select ".policy-navigation a.current[href='#{policy_path(policy.document)}']"
-  end
-
-  test "show hides the link to supporting pages when there aren't any supporting pages" do
-    policy = create(:published_policy)
-
-    get :show, id: policy.document
-
-    assert_select ".policy-navigation" do
-      refute_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
-    end
   end
 
   test "should apply an active class to the policy page navigation heading" do
@@ -190,14 +177,9 @@ That's all
     refute_select policy_team_selector
   end
 
-  test "show links to the policy activity" do
-    policy = create(:published_policy)
-    get :show, id: policy.document
-    assert_select "a[href=?]", activity_policy_path(policy.document)
-  end
-
   test "activity displays the date that the policy was updated" do
     policy = create(:published_policy)
+    publication = create(:published_publication, related_policies: [policy])
 
     get :activity, id: policy.document
 
@@ -207,6 +189,7 @@ That's all
   test "activity includes the main policy navigation" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
+    publication = create(:published_publication, related_policies: [policy])
 
     get :activity, id: policy.document
 
@@ -219,20 +202,11 @@ That's all
 
   test "activity adds the current class to the activity link in the policy navigation" do
     policy = create(:published_policy)
+    publication = create(:published_publication, related_policies: [policy])
 
     get :activity, id: policy.document
 
     assert_select ".policy-navigation a.current[href='#{activity_policy_path(policy.document)}']"
-  end
-
-  test "activity hides the link to supporting pages when there aren't any supporting pages" do
-    policy = create(:published_policy)
-
-    get :activity, id: policy.document
-
-    assert_select ".policy-navigation" do
-      refute_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
-    end
   end
 
   test "activity displays recently changed documents relating to the policy" do
@@ -315,5 +289,31 @@ That's all
     assert_select_object case_study do
       assert_select '.summary', text: case_study.summary
     end
+  end
+
+  test "activity link isn't shown on policies with no extra documents" do
+    policy = create(:published_policy)
+
+    get :show, id: policy.document
+    refute_select '.policy-navigation'
+  end
+
+  test "navigation is shown on pages with some supporting pages" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, id: policy.document
+
+    assert_select '.policy-navigation' do
+      assert_select "a[href='#{policy_path(policy.document)}']"
+      assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
+    end
+  end
+
+  test "activity 404s if there's no actual activity" do
+    policy = create(:published_policy)
+
+    get :activity, id: policy.document
+    assert_response :not_found
   end
 end
