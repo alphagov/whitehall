@@ -226,4 +226,31 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     refute_select policy_team_selector
   end
+
+  test "shows correct sub navigation when viewing supporting details" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.document, id: supporting_page
+
+    assert_select '.policy-navigation' do
+      assert_select "a[href='#{policy_path(policy.document)}']"
+      assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
+    end
+  end
+
+  test "shows activity link when viewing supporting details" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+    speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
+
+    get :show, policy_id: policy.document, id: supporting_page
+
+    assert_select '.policy-navigation' do
+      assert_select "a[href='#{policy_path(policy.document)}']"
+      assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
+      assert_select "a[href='#{activity_policy_path(policy.document)}']"
+    end
+  end
+
 end
