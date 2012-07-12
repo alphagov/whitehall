@@ -43,7 +43,6 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_select ".policy-navigation" do
       assert_select "a[href='#{policy_path(policy.document)}']"
       assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
-      assert_select "a[href='#{activity_policy_path(policy.document)}']"
     end
   end
 
