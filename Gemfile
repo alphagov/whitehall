@@ -35,7 +35,7 @@ group :development, :staging, :test do
   gem 'faker'
   gem 'thin'
   gem 'quiet_assets'
-  gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
+  gem 'rails-dev-boost', git: 'git://github.com/thedarkone/rails-dev-boost.git', require: 'rails_development_boost'
 end
 
 group :test do
@@ -45,7 +45,7 @@ group :test do
   gem 'factory_girl', '~> 2.2.0'
   gem 'launchy', '~> 2.0.5'
   gem 'hash_syntax'
-  gem 'mocha', :require => false
+  gem 'mocha', require: false
   gem 'test_track'
   gem 'timecop'
   gem 'webmock', require: false
@@ -53,5 +53,5 @@ group :test do
 end
 
 group :router do
-  gem 'router-client', '~> 3.0.1', :require => 'router'
+  gem 'router-client', '~> 3.0.1', require: 'router'
 end

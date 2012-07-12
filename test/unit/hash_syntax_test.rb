@@ -5,7 +5,7 @@ class HashSyntaxTest < ActiveSupport::TestCase
   IGNORED_FILES = %w(db/schema.rb app/uploaders/attachment_uploader.rb)
 
   test "should only allow Ruby v1.9 Hash syntax" do
-    files = Dir["#{Rails.root}/**/*.rb"]
+    files = Dir["#{Rails.root}/**/{*.rb,Gemfile}"]
     naughty_files = []
     files.each do |filename|
       relative_file = filename.gsub(%r{#{Rails.root}/}, "")
