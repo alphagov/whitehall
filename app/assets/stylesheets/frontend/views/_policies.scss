@@ -15,8 +15,8 @@
       //  @include sans-15;
       }
     }
-    
-    
+
+
     @media (min-width: 768px) {
       .inner {
         padding: $gutter-two-thirds 0 $gutter;
@@ -170,8 +170,8 @@
   }
 
 
-  #document-ministers {  
-    margin-bottom: $gutter;  
+  #document-ministers {
+    margin-bottom: $gutter;
     li {
       h3 {
         margin-bottom: 0;
@@ -318,7 +318,31 @@
 
   #case-studies {
     h1 {
+      // from _document.scss h2
       @include core-27;
+      color: lighten($body-text, 50%);
+      margin-top: $gutter;
+      @media (max-width: 640px) {
+        margin-top: $gutter-half;
+      }
+    }
+    li {
+      // from _document.scss li
+      width: 90%;
+      @include core-19;
+      margin-left: $gutter*1.2;
+
+      li {
+        margin-left: $gutter;
+      }
+
+      @media (min-width: 768px) {
+        margin-left: 0;
+
+        li {
+          margin-left: $gutter*2;
+        }
+      }
     }
   }
 
@@ -371,5 +395,3 @@
       }
     }
   }
-
-
