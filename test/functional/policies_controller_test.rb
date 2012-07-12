@@ -312,5 +312,8 @@ That's all
 
     get :show, id: policy.document
     assert_select "#document_sections:last-child", text: "Case studies"
+    assert_select_object case_study do
+      assert_select '.summary', text: case_study.summary
+    end
   end
 end
