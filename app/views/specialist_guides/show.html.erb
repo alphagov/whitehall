@@ -6,11 +6,11 @@
     <div class="inner-block">
       <section class="page-header icon">
         <%= render partial: "document_metadata" %>
-        <h2 class="label">Guidance
+        <p class="label">Guidance
           <% if @document.organisations.any? %>
             from <%= list_of_external_links_to_organisations(@document.organisations) %>.
           <% end %>
-        </h2>
+        </p>
         <%= render partial: "title", locals: {
           topics: @topics,
           document: @document

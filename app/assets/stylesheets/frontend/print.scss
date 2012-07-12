@@ -1,0 +1,43 @@
+// PRINT STYLESHEET COMPILER
+
+
+
+
+// DIMENSION UNITS
+// Whitespace values and maximum site width. These values can be
+// used in any file imported into this document.
+
+$gutter:            10px;
+$gutter-two-thirds: $gutter*0.666666; // equivalent to 16px
+$gutter-half:       $gutter*0.5; // equivalent to 12px
+$gutter-one-third:  $gutter*0.333333; // equivalent to 8px
+$gutter-one-sixth:  $gutter-one-third*0.5; // equivalent to 8px
+
+
+// STYLEGUIDE
+// Mixins to be shared across gov.uk sites. Anything set in these
+// files can be used in the view files.
+
+@import "styleguide/_font-stacks.scss";
+@import "styleguide/_typography.scss";
+@import "styleguide/_colours.scss";
+@import "styleguide/_css3.scss";
+@import "styleguide/_button.scss";
+
+html {
+  font-size: 62.5%;
+}
+    
+// HELPERS
+// Styles for comment page elements
+
+#whitehall-wrapper {
+  @import "helpers/_print.scss";
+}
+
+// VIEWS
+// Styles scoped to each templates in /views
+
+#whitehall-wrapper {
+  @import "views/_specialist_guides_print.scss";
+}

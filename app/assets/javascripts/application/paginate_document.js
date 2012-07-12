@@ -9,12 +9,12 @@ $(function() {
     var li = $(this),
         pageNav = li.find('>ol'),
         chapterSelector = '#' + li.find('>a').attr('href').split('#')[1],
-        inPageNavigation = $("<div class='in-page-navigation'><h3>On this page</h3></div>");
+        inPageNavigation = $("<div class='in-page-navigation'><nav role='navigation'><h3>On this page</h3></nav></div>");
 
     pageNav.remove();
 
     if (pageNav.length > 0 && paginating) {
-      inPageNavigation.append(pageNav);
+      inPageNavigation.find('nav').append(pageNav);
       $(chapterSelector).after(inPageNavigation);
     };
   });
@@ -24,7 +24,7 @@ $(function() {
     pages = container.find(".page");
     headings = container.find('h2');
 
-    pages.hide();
+    pages.addClass('hidden');
 
     var showPage = function() {
       var page = $(location.hash).parents(".page");
@@ -33,12 +33,12 @@ $(function() {
         return true;
       }
 
-      pages.hide();
+      pages.addClass('hidden');
 
       if (page.length == 0) {
-        pages.first().show();
+        pages.first().removeClass('hidden');
       } else {
-        page.show();
+        page.removeClass('hidden');
         $('html, body').animate({scrollTop:page.offset().top}, 0);
       }
     }
@@ -58,7 +58,7 @@ $(function() {
         prevNextNavigation.push('<li class="next"><a href="#'+adjacentPage.attr('id')+'">Next page <span>'+adjacentPage.text()+'</span></a></li>');
       }
 
-      currentPage.append('<ul class="previous-next-navigation">' + prevNextNavigation.join('') + '</ul>');
+      currentPage.append('<nav role="navigation"><ul class="previous-next-navigation">' + prevNextNavigation.join('') + '</ul></nav>');
     });
 
     $(window).hashchange(showPage);

@@ -1,0 +1,13 @@
+
+.specialist-guides-show {
+  .metadata {
+    @include core-14;
+  }
+  .page-header {
+    padding-bottom: $gutter*2;
+  }
+  .change-notes-container {
+    display: none;
+  }
+}
+

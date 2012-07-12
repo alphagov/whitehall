@@ -80,6 +80,10 @@
     }
   }
 
+  .page.hidden {
+    display: none;
+  }
+
   .in-page-navigation {
     h3, li {
       @include core-14;
@@ -168,7 +172,7 @@
     }
   }
 
-   @media (min-width: 768px) {
+  @media (min-width: 768px) {
     .page-header {
       padding-bottom: $gutter*3;
     }
