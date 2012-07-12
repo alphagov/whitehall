@@ -43,7 +43,7 @@ class RoleAppointment < ActiveRecord::Base
 
   scope :current, where(CURRENT_CONDITION)
 
-  scope :for_ministerial_roles, includes(role: :organisations).where("roles.type = ?", MinisterialRole.sti_name)
+  scope :for_ministerial_roles, includes(role: :organisations).merge(Role.ministerial)
 
   scope :alphabetical_by_person, includes(:person).order('people.surname', 'people.forename')
 

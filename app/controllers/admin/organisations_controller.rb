@@ -69,7 +69,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def load_organisation_ministerial_roles
-    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).where("roles.type = 'MinisterialRole'").order(:ordering)
+    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.ministerial).order(:ordering)
   end
 
   def default_arrays_of_ids_to_empty

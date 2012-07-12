@@ -10,6 +10,8 @@ class Role < ActiveRecord::Base
 
   scope :alphabetical_by_person, includes(:current_people, :organisations).order('people.surname', 'people.forename')
 
+  scope :ministerial, where(type: 'MinisterialRole')
+
   validates :name, presence: true
 
   before_destroy :prevent_destruction_unless_destroyable
