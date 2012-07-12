@@ -4,6 +4,9 @@
     <% document.case_studies.each do |case_study| %>
       <%= content_tag_for(:li, case_study) do %>
         <%= link_to case_study.title, public_document_path(case_study) %>
+        <% if case_study.summary %>
+          <p class="summary"><%= case_study.summary %></p>
+        <% end %>
       <% end %>
     <% end %>
   </ul>
