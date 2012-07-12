@@ -1,6 +1,11 @@
 module Edition::Featurable
   extend ActiveSupport::Concern
 
+  included do
+    scope :featured, where(featured: true)
+    scope :not_featured, where(featured: false)
+  end
+
   def featurable?
     published?
   end
@@ -11,15 +16,5 @@ module Edition::Featurable
 
   def unfeature
     update_attributes(featured: false)
-  end
-
-  module ClassMethods
-    def featured
-      where featured: true
-    end
-
-    def not_featured
-      where featured: false
-    end
   end
 end

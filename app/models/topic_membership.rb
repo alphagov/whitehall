@@ -8,6 +8,8 @@ class TopicMembership < ActiveRecord::Base
 
   default_scope order("topic_memberships.ordering ASC")
 
+  scope :featured, where(featured: true)
+
   class << self
     def published
       joins(:edition).where("editions.state" => "published")

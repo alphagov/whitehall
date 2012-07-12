@@ -44,6 +44,9 @@ class Topic < ActiveRecord::Base
   scope :with_content, where("published_edition_count <> 0")
   scope :alphabetical, order("name ASC")
 
+  scope :featured, where(featured: true)
+  scope :randomized, order('RAND()')
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 
@@ -81,17 +84,5 @@ class Topic < ActiveRecord::Base
 
   def search_link
     topic_path(slug)
-  end
-
-  private
-
-  class << self
-    def randomized
-      order('RAND()')
-    end
-
-    def featured
-      where(featured: true)
-    end
   end
 end

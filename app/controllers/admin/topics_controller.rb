@@ -67,7 +67,7 @@ class Admin::TopicsController < Admin::BaseController
     def breakdown
       published_policy_ids = policies.published.select("editions.id")
       {
-        "featured policy" => topic_memberships.where(featured: true).where("edition_id IN (?)", published_policy_ids).count,
+        "featured policy" => topic_memberships.featured.where("edition_id IN (?)", published_policy_ids).count,
         "published policy" => published_policy_ids.count,
         "published specialist guide" => specialist_guides.published.count
       }
