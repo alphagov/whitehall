@@ -7,11 +7,13 @@
       <section class="page-header">
         <%= render partial: "title" %>
       </section>
-      <section class="meta-three">
+      <section class="meta-three<% unless @show_navigation %> no-navigation<% end %>">
         <%= render partial: "document_related", locals: {
           document: @document
         } %>
-        <%= render partial: "policy_navigation" %>
+        <% if @show_navigation %>
+          <%= render partial: "policy_navigation" %>
+        <% end %>
     </section>
     </div>
   </div>

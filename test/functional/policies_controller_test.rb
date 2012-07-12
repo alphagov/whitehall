@@ -298,6 +298,13 @@ That's all
     refute_select '.policy-navigation'
   end
 
+  test "class is applied to policies page when navigation isn't shown" do
+    policy = create(:published_policy)
+
+    get :show, id: policy.document
+    assert_select ".no-navigation"
+  end
+
   test "navigation is shown on pages with some supporting pages" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)

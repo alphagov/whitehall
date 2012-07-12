@@ -249,6 +249,14 @@
     }
   }
 
+  // this is shown when there's no policy-navigation
+  .no-navigation {
+    border-bottom: 1px solid $light-blue-grey;
+    padding-bottom: 50px;
+    // this margin-bottom depends on font size, but we can't add ems and px
+    margin-bottom: $gutter + 34px;
+  }
+
   .policy-navigation {
     border-top: 1px solid $light-blue-grey;
     display: block;

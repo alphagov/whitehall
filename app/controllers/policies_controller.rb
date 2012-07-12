@@ -9,6 +9,7 @@ class PoliciesController < DocumentsController
     @policy = @document
     @countries = @policy.countries
     @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
+    @show_navigation = (@policy.supporting_pages.any? or @recently_changed_documents.any?)
   end
 
   def activity
