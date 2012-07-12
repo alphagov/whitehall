@@ -6,7 +6,7 @@
 //  These are a collection of graphic styles. They are deliberately 
 //  abstracted from semantic HTML context to enable flexible re-use.
 //  Although there is a lot of duplication within this file, as long
-//  as you GZIP your CSS it shouldn't cause any bloat.
+//  as you GZIP your CSS it shouldnt cause any bloat.
 //
 //
 //  @mixin brand-45 {
@@ -20,12 +20,12 @@
 //
 //      line-height: 1.1555555556;
 //      _ Unit-less, relative leading value.
-//        line-height (52px) ÷ font-size (45px) = relative line-height
+//        line-height (52px) / font-size (45px) = relative line-height
 //
 //      font-weight: 300;
 //      letter-spacing: 0.01em;
 //      text-transform: none;
-//      _ Again, we can't assume anything about pre-exising CSS on the 
+//      _ Again, we cant assume anything about pre-exising CSS on the 
 //        page, so setting these values (even if just resetting them 
 //        to default values) will increase the robustness of the style.
 //
@@ -53,7 +53,7 @@
 
 // Suitable for page headings
 @mixin core-48 {
-  font-family: $NTA-Bold;
+  font-family: $NTA-Light;
   font-size: 48px;
   font-size: 4.8rem;
   line-height: 1.0416666667; /* 50px */
@@ -74,7 +74,7 @@
 
 // Suitable for body headings
 @mixin core-27 {
-  font-family: $NTA-Bold;
+  font-family: $NTA-Light;
   font-size: 27px;
   font-size: 2.7rem;
   line-height: 1.1111111111; /* 30px */
