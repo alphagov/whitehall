@@ -173,4 +173,19 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_select_within_html list, "a[href=?]", "http://organisation-3.com", text: "Organisation Three"
   end
 
+  test 'list of external links to organisations marks links as external' do
+    organisation = build(:organisation, logo_formatted_name: "The Organisation", url: "http://the-organisation.com")
+
+    list = list_of_external_links_to_organisations([organisation])
+
+    assert_select_within_html list, "a[rel='external']", text: "The Organisation"
+  end
+
+  test 'list of external links to organisations makes it clear links are external' do
+    organisation = build(:organisation, logo_formatted_name: "The Organisation", url: "http://the-organisation.com")
+
+    list = list_of_external_links_to_organisations([organisation])
+
+    assert_select_within_html list, "a[title$='(external website)']", text: "The Organisation"
+  end
 end

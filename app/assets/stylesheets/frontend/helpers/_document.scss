@@ -18,13 +18,33 @@
       margin-top: 0;
     }
     
-    h2,
-    h3,
+    h2 {
+      @include core-27;
+      margin-top: $gutter;
+      @media (max-width: 640px) {
+        margin-top: $gutter-half;
+      }
+    }
+    h3 {
+      @include core-24;
+      font-family: $NTA-Bold;
+      margin-top: $gutter;
+      @media (max-width: 640px) {
+        margin-top: $gutter-half;
+      }
+    }
     h4,
     h5,
     h6 {
-      @include core-27;
+      @include core-19;
+      font-family: $NTA-Bold;
       margin-top: $gutter;
+      @media (max-width: 640px) {
+        margin-top: $gutter-half;
+      }
+    }
+    h5, h6 {
+      margin: 0;
     }
     
     h2:first-child {
@@ -34,6 +54,9 @@
     p {
       @include core-19;
       margin: $gutter-half 0;
+      @media (max-width: 640px) {
+        margin: $gutter-one-sixth 0;
+      }
     }
     
     ol {

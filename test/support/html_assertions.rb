@@ -18,13 +18,13 @@ module HtmlAssertions
     assert_select_object object, count: 0
   end
 
-  def assert_select_within_html(html, *args)
-    node = ::HTML::Document.new(html).root
-    assert_select(node, *args)
+  def assert_select_within_html(html, *args, &block)
+    node = ::HTML::Document.new(CGI.unescape(html)).root
+    assert_select(node, *args, &block)
   end
 
   def refute_select_within_html(html, *args)
-    node = ::HTML::Document.new(html).root
+    node = ::HTML::Document.new(CGI.unescape(html)).root
     refute_select(node, *args)
   end
 end

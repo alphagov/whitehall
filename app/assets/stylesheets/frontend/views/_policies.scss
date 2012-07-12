@@ -36,7 +36,11 @@
   .content-fixed {
     position: fixed!important;
     top: 0;
-    width: 15%;
+    width: 13.6%;
+    @media (max-width: 768px) {
+      position: relative!important;
+      width: 100%;
+    }
   }
 
   .meta-topic {
@@ -66,7 +70,7 @@
   }
 
   .meta {
-    @include core-19;
+    @include core-14;
     position: relative;
     @media (min-width: 768px) {
       float: right;
@@ -91,35 +95,40 @@
       .link-to-change-notes {
         display: inline;
       }
-     .change-notes{
+      .change-notes{
         top: 100%;
         margin-top: $gutter-half;
         right: 0;
         text-align: left;
+        p {
+          white-space: normal;
+          margin-bottom: $gutter-one-third;
+        }
         a {
-          background: $white ;
+          background: $charcoal-grey ;
           border: none;
           @include border-radius(0);
           @include box-shadow(0 0 0);
-          color: #000;
+          color: $white;
           cursor: pointer;
           display: inline-block;
-          padding: 0.1em 0.625em 0.25em;
+          font-size: 1.2em;
+          padding: 0.2em 0.5em 0.2em;
           position: absolute;
-          top: $gutter-two-thirds;
-          right: $gutter-two-thirds;
+          top: $gutter-one-third;
+          right: 0;
           text-decoration: none;
           text-shadow: 0 0 0;
           &:hover, &:focus {
-            background: $white;
+            background: lighten($charcoal-grey, 10%);
           }
           &:active {
-          background: darken($white, 10%) ;
+          background: lighten($charcoal-grey, 5%);
           @include box-shadow(0 0 0);
           }
         }
       }
-    }
+  }
 }
 
 
@@ -129,6 +138,15 @@
   .block-3 {
     width: 75%;
   }
+
+    @media (max-width: 768px) {
+      .block-1, .block-2, .block-3 {
+        display: block;
+        float: none;
+        width: 100%;
+      }
+    }
+
 
   .supporting-page-title {
     @include core-27;
@@ -187,7 +205,6 @@
   .organisation-logo-small {
     background-position: 8px center;
     font-size: 2rem;
-    height: 25px;
     line-height: 1;
     padding: 0px 0 0 46px;
   }
@@ -255,7 +272,7 @@
         float: left;
         display: inline;
         margin-right: $gutter-half*0.4;
-        width: 12em;
+        width: 11em;
 
         a {
           @include core-19;
@@ -279,6 +296,22 @@
       }
       li:last-child {
         margin-right: 0;
+      }
+    }
+    @media (max-width: 768px) {
+      ul {
+        //margin-left: 20%;
+        li {
+          width: 8em;
+        }
+      }
+    }
+    @media (max-width: 640px) {
+      ul {
+        margin: -$gutter-two-thirds auto $gutter 15%;
+        li {
+          width: 6em;
+        }
       }
     }
   }

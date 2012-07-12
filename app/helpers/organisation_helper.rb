@@ -103,7 +103,7 @@ module OrganisationHelper
 
   def list_of_external_links_to_organisations(organisations)
     organisations.map do |o|
-      o.url.present? ? link_to(o.logo_formatted_name, o.url) : o.logo_formatted_name
+      o.url.present? ? link_to(o.logo_formatted_name, o.url, title: "#{o.logo_formatted_name} (external website)", rel: "external") : o.logo_formatted_name
     end.to_sentence.html_safe
   end
 end

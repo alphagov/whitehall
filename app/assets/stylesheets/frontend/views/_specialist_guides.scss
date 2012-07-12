@@ -15,7 +15,6 @@
 
 .specialist-guides-show {
   .page-header {
-    padding-bottom: $gutter*3;
     .label {
       @include core-14;
       margin-bottom: 0;
@@ -40,7 +39,8 @@
     float: right;
     @include core-14;
     .link-to-change-notes {
-      @include button($orange);
+      @include button($light-warm-grey);
+      color: $body-text;
       margin-top: -4px;
     }
     .change-notes-container {
@@ -52,17 +52,20 @@
     }
   }
 
-  .content-fixed {
-    position: fixed!important;
-    top: 0;
-    width: 13.25%;
+  .contextual-info {
+    padding-top: $gutter-one-sixth;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .in-page-navigation {
-    h3 {
-      @include core-19;
-    }
-    li {
+    h3, li {
       @include core-14;
       padding: 0;
     }
@@ -70,24 +73,22 @@
 
   .previous-next-navigation {
     overflow: hidden;
-    background: $orange;
+    background: $light-blue;
     margin-top: $gutter*2;
 
     li {
       @include core-27;
       font-weight: bold;
       display: block;
-      float: left;
-      width: 45%;
       padding: 0;
       margin: 0;
+      width: 100%;
 
       &.next {
-        float: right;
         text-align: right;
 
         a {
-          padding: $gutter-half $gutter-half+30px $gutter-half 0;
+          padding: $gutter-half $gutter-half+30px;
         }
         a:before {
           margin-right: -30px;
@@ -99,7 +100,7 @@
       }
       &.previous {
         a {
-          padding: $gutter-half 0 $gutter-half $gutter-half+30px;
+          padding: $gutter-half $gutter-half+30px;
         }
         a:before {
           margin-left: -30px;
@@ -109,7 +110,6 @@
           content: "\2190";
         }
       }
-
 
       a {
         display: block;
@@ -126,14 +126,34 @@
           text-decoration: underline;
         }
         &:active {
-          background: darken($orange, 10%);
+          background: darken($light-blue, 10%);
         }
       }
+      @media (min-width: 768px) {
+        width: 45%;
+        float: left;
+        &.next {
+          float: right;
+          a {
+              padding: $gutter-half $gutter-half+30px $gutter-half 0;
+          }
+        }
+        &.previous {
+          a {
+              padding: $gutter-half 0 $gutter-half $gutter-half+30px;
+          }
+        }
+      }
+
     }
   }
 
-    
-  .document_page .block-3 {
-    width: 75%;
+   @media (min-width: 768px) {
+    .page-header {
+      padding-bottom: $gutter*3;
+    }
+    .document_page .block-3 {
+      width: 75%;
+    }
   }
 }
