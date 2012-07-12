@@ -45,6 +45,7 @@
           <%= link_to_filter 'Speeches', {type: 'speech'}, title: "Show only speeches" %>
           <%= link_to_filter 'Specialist guide', {type: 'specialist_guide'}, title: "Show only specialist guides" %>
           <%= link_to_filter 'International priorities', {type: 'international_priorities'}, title: "Show only international priorities" %>
+          <%= link_to_filter 'Case studies', {type: 'case_studies'}, title: "Show only case studies" %>
 
           <li class="nav-header">Filter by state</li>
           <% document_type = (params[:type] || "document").pluralize %>
