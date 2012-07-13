@@ -1,0 +1,26 @@
+<% page_title @policy_team.name, "Policy teams" %>
+<%= content_tag_for :div, @policy_team do %>
+  <div class="block-1">
+    <div class="inner-block">
+      <section class="page-header">
+        <h1><%= @policy_team.name %></h1>
+      </section>
+    </div>
+  </div>
+  <div class="block-2">
+    <div class="inner-block">
+      <h1 class="label">Contact details</h1>
+      <p class="email"><%= mail_to @policy_team.email, @policy_team.email %></p>
+      <% if @policies.any? %>
+        <h1 class="label">Policies</h1>
+        <ul>
+          <% @policies.each do |policy| %>
+            <%= content_tag_for :li, policy do %>
+              <% link_to policy.title, public_document_path(policy) %>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+<% end %>
