@@ -16,7 +16,6 @@
       }
     }
 
-
     @media (min-width: 768px) {
       .inner {
         padding: $gutter-two-thirds 0 $gutter;
@@ -157,7 +156,9 @@
     }
   }
 
-  #document-organisations + #document-ministers, #document-organisations {
+  #document-organisations + #document-ministers,
+  #policy_team,
+  #document-organisations {
     background: none;
     margin: 0 0 0 25%;
     padding-left: 0;
@@ -167,9 +168,15 @@
     }
   }
 
-  #document-ministers {  
+  #policy_team {
+    p {
+      @include sans-18;
+    }
+  }
+
+  #document-ministers {
     margin-bottom: $gutter;
-    overflow: hidden;  
+    overflow: hidden;
     @include core-14;
     .ministers {
       p {
@@ -195,9 +202,9 @@
       @media (max-width: 640px) {
         padding: $gutter-two-thirds 0 $gutter;
         h1 {
-        text-align: left;  
+        text-align: left;
         max-width: 100%;
-        } 
+        }
       }
   }
 

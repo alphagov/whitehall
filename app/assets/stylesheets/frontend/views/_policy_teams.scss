@@ -1,0 +1,21 @@
+.policy-teams {
+  @media (min-width: 768px) {
+    .block-2 {
+      width: 40%;
+      float: left;
+      display: inline;
+    }
+
+    .block-3 {
+      width: 60%;
+      float: left;
+      display: inline;
+    }
+  }
+
+  .block-3 {
+    li {
+      list-style: none;
+    }
+  }
+}
