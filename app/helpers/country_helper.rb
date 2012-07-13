@@ -6,4 +6,8 @@ module CountryHelper
   def current_country_navigation_path(params)
     url_for params.slice(:controller, :action, :id).merge(only_path: true)
   end
+
+  def list_of_links_to_countries(countries)
+    countries.map { |country| link_to country.nation.name, country.alternative_url, class: "country"  }.to_sentence.html_safe
+  end
 end

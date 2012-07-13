@@ -1,5 +1,8 @@
 <div class="meta-topic">
-  <p>Part of <%= list_of_links_to_topics(@document.topics) %></p>
+  <p>Part of <%= list_of_links_to_topics(@document.topics) %>.</p>
+  <% if @document.nation_inapplicabilities.any? %>
+  <%= render partial: 'policies/inapplicable_nations', locals: { document: @document } %>
+<% end %>
 </div>
 
 <section class="meta">

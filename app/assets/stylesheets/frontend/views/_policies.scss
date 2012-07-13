@@ -44,20 +44,26 @@
 
   .meta-topic {
     @include core-19;
-    @media (min-width: 768px) {
+    .notice {
       display: inline;
       float: left;
       width: 50%;
+      p {
+      background: none;
+      }
     }
     p {
       display: inline;
-      float: left;
-      margin-right: $gutter-one-third;
     }
     ul, li {
       display: inline;
       margin: 0;
       padding: 0;
+    }
+    @media (min-width: 768px) {
+      display: inline;
+      float: left;
+      width: 50%;
     }
   }
 

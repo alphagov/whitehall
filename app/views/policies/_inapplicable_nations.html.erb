@@ -1,0 +1,9 @@
+<% if document.nation_inapplicabilities.any? %>
+  <!--section id="inapplicable_nations" class="notice"-->
+    <p id="inapplicable_nations">Only applies to <%= document.applicable_nations.map(&:name).sort.to_sentence %> (see <%= document.class.name.downcase %> for  <%#= document.inapplicable_nations.map(&:name).sort.to_sentence %>
+    <% if document.nation_inapplicabilities.collect(&:alternative_url).any? %>
+      <%= list_of_links_to_countries(document.nation_inapplicabilities) %>)
+    <% end %>
+  </p>
+  <!--/section-->
+<% end %>

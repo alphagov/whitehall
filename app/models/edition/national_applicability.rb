@@ -22,6 +22,10 @@ module Edition::NationalApplicability
     nation_inapplicabilities.map(&:nation)
   end
 
+  def applicable_nations
+    Nation.all - inapplicable_nations
+  end
+
   def can_apply_to_subset_of_nations?
     true
   end
