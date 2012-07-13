@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120710091651) do
+ActiveRecord::Schema.define(:version => 20120711100426) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20120710091651) do
     t.integer  "file_size"
     t.integer  "number_of_pages"
     t.string   "title"
+    t.boolean  "accessible"
   end
 
   create_table "contact_numbers", :force => true do |t|

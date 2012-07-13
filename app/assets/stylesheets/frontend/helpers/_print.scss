@@ -1,0 +1,76 @@
+h1 {
+  @include core-27;
+  margin: $gutter 0;
+}
+h2 {
+  @include core-24;
+  margin: $gutter 0 0;
+}
+h3,
+h4,
+h5 {
+  @include core-19;
+  margin: $gutter 0 0;
+}
+h4 {
+  margin: $gutter-half 0 0;
+}
+h5 {
+  margin: 0;
+}
+p {
+  @include core-14;
+  margin: $gutter-half 0;
+}
+ol {
+  list-style: decimal;
+  list-style-position: outside;
+}
+ul {
+  list-style: disc;
+  list-style-position: outside;
+}
+li {
+  @include core-14;
+  margin-left: $gutter*1.2;
+  
+  li {
+    margin-left: $gutter;
+  }
+}
+strong, b {
+  font-family: $NTA-Bold;
+}
+em, i {
+  font-style: italic;
+}
+blockquote p {
+  text-indent: -0.45em;
+  padding-left: $gutter;
+  
+}
+hr {
+  margin-top: $gutter - 1px;
+  border-top: 1px solid #ccc;
+  margin-bottom: $gutter;
+}
+figure {
+  width: 100%;
+  clear: both;
+  overflow: hidden;
+  padding: $gutter-one-third 0 0;
+  
+  img {
+    display: inline;
+    text-align: center;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+  }
+  figcaption {
+    @include core-14;
+  }
+}
+.player-container {
+  display: none;
+}
