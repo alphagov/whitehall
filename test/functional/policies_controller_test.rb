@@ -165,16 +165,15 @@ That's all
     policy_team = create(:policy_team, name: 'policy-team', email: 'policy-team@example.com')
     policy = create(:published_policy, policy_team: policy_team)
     get :show, id: policy.document
-    assert_select policy_team_selector do
-      assert_select '.name', text: 'policy-team'
-      assert_select "a[href='mailto:policy-team@example.com']", text: 'policy-team@example.com'
+    assert_select_object policy_team do
+      assert_select "a[href='#{policy_team_path(policy_team)}']", text: 'policy-team'
     end
   end
 
   test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
     policy = create(:published_policy)
     get :show, id: policy.document
-    refute_select policy_team_selector
+    refute_select '#policy_team'
   end
 
   test "activity displays the date that the policy was updated" do

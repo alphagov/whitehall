@@ -34,7 +34,9 @@ related_policies ||= nil
 <% if document.respond_to?(:policy_team) && document.policy_team %>
   <section id="policy_team" class="simple_list">
     <h1 class="visuallyhidden">Who's working on this?</h1>
-    <p class="name"><%= link_to document.policy_team.name, document.policy_team %></p>
+    <%= content_tag_for :p, document.policy_team do %>
+      <%= link_to document.policy_team.name, document.policy_team %>
+    <% end %>
   </section>
 <% end %>
 

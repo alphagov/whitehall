@@ -17,7 +17,6 @@ class PolicyTeamsControllerTest < ActionController::TestCase
     published_policy = create(:published_policy, policy_team: policy_team)
     unpublished_policy = create(:draft_policy, policy_team: policy_team)
 
-
     get :show, id: policy_team
 
     assert_select_object published_policy
