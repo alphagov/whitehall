@@ -1,5 +1,5 @@
 <% page_title @policy_team.name, "Policy teams" %>
-<%= content_tag_for :div, @policy_team do %>
+<%= content_tag_for(:div, @policy_team, :class => "policy-teams") do %>
   <div class="block-1">
     <div class="inner-block">
       <section class="page-header">
@@ -11,7 +11,11 @@
     <div class="inner-block">
       <h1 class="label">Contact details</h1>
       <p class="email"><%= mail_to @policy_team.email, @policy_team.email %></p>
-      <% if @policies.any? %>
+    </div>
+  </div>
+  <% if @policies.any? %>
+    <div class="block-3">
+      <div class="inner-block">
         <h1 class="label">Policies</h1>
         <ul>
           <% @policies.each do |policy| %>
@@ -20,7 +24,7 @@
             <% end %>
           <% end %>
         </ul>
-      <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
