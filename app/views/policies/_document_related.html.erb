@@ -22,11 +22,7 @@ related_policies ||= nil
   <section id="document-ministers">
     <ul class="ministers">
       <h1 class="visuallyhidden">Ministers</h1>
-      <% document.ministerial_roles.each do |role| %>
-        <li>
-          <h3 class="current-appointee"><%= link_to  role.current_person_name, role, class: "minister" %></h3>
-        </li>
-      <% end %>
+      <p><%= list_of_links_to_ministers(document.ministerial_roles) %></p>
     </ul>
   </section>
 <% end %>

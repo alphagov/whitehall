@@ -1,6 +1,5 @@
 <div class="meta-topic">
-  <p>Part of </p>
-  <%= render partial: "topics/list", locals: {topics: @document.topics} %>
+  <p>Part of <%= list_of_links_to_topics(@document.topics) %></p>
 </div>
 
 <section class="meta">

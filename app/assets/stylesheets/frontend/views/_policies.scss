@@ -60,24 +60,13 @@
       margin: 0;
       padding: 0;
     }
-    li:before {
-      content: ",";
-      margin-right: $gutter*0.1;
-    }
-    li:first-child:before {
-      content: " ";
-    }
   }
 
   .meta {
     @include core-14;
     position: relative;
-    @media (min-width: 768px) {
-      float: right;
-      width: 50%;
-      text-align: right;
-      white-space: nowrap;
-    }
+    clear: both;
+    margin-top: $gutter-two-thirds;
 
     .metadata {
       display: inline;
@@ -129,6 +118,14 @@
         }
       }
   }
+    @media (min-width: 768px) {
+      clear: none;
+      float: right;
+      margin-top: $gutter-one-third;
+      width: 50%;
+      text-align: right;
+      white-space: nowrap;
+    }
 }
 
 
@@ -154,6 +151,7 @@
   }
 
   .contextual-info {
+      @include core-14;
     nav {
       margin-top: 0;
     }
@@ -164,19 +162,22 @@
     margin: 0 0 0 25%;
     padding-left: 0;
     padding-top: 0;
-    h3 {
-      @include sans-15;
+    @media (max-width: 640px) {
+      margin: 0;
     }
   }
 
-
-  #document-ministers {
+  #document-ministers {  
     margin-bottom: $gutter;
-    li {
-      h3 {
-        margin-bottom: 0;
+    overflow: hidden;  
+    @include core-14;
+    .ministers {
+      p {
+        a {
+          white-space: nowrap;
         }
       }
+    }
   }
 
   .current-appointee {
@@ -184,29 +185,35 @@
   }
 
   .page-header {
-    padding: $gutter 0;
+    padding: $gutter 0 40px;
     h1 {
       clear: both;
       text-align: center;
       max-width: 18em;
       margin: 0 auto;
     }
+      @media (max-width: 640px) {
+        padding: $gutter-two-thirds 0 $gutter;
+        h1 {
+        text-align: left;  
+        max-width: 100%;
+        } 
+      }
   }
 
   .policy-parts {
     ol {
       list-style: decimal;
-      margin-left: $gutter;
     }
   }
 
 
 
   .organisation-logo-small {
+    @include sans-20;
     background-position: 8px center;
-    font-size: 2rem;
     line-height: 1;
-    padding: 0px 0 0 46px;
+    padding: 2px 0 5px 46px;
   }
 
   .govspeak {
@@ -260,7 +267,7 @@
   .policy-navigation {
     border-top: 1px solid $light-blue-grey;
     display: block;
-    margin-top: 50px;
+    margin-top: 70px;
     width: auto;
     ul {
       @include border-radius(0.6em);
@@ -315,12 +322,15 @@
       }
     }
     @media (max-width: 640px) {
-      ul {
-        margin: -$gutter-two-thirds auto $gutter 15%;
-        li {
-          width: 6em;
+          margin: $gutter 0 $gutter-two-thirds;
+          border: none;
+        ul {
+          margin: 0;
+          width: 100%;
+          li {
+            width: 32%;
+          }
         }
-      }
     }
   }
 
@@ -375,23 +385,30 @@
           a, .metadata {
             float: left;
             display: inline;
-            width: 60%;
+            width: 70%;
             padding: 0;
           }
           .metadata {
             padding-top: $gutter-half;
             width: 30%;
+            .document_type {
+              float: right;
+            }
           }
         }
         li:first-child {
           border-width: 1px 0;
         }
         li:first-child, li:nth-child(2), li:nth-child(3) {
+          overflow: hidden;
           a {
             font-size: 3rem;
             display: block;
             float: none;
             width: 100%;
+            @media (max-width: 768px) {
+              font-size: 2rem;
+            }
           }
           .metadata {
             display: block;

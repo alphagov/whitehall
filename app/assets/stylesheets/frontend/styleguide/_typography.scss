@@ -313,6 +313,12 @@ $font-sans:
     padding-top: 1rem;
     padding-bottom: 10px;
     padding-bottom: 1rem;
+  @media (max-width: 640px) {
+    font-size: 1.6rem;
+    line-height: 1.5384615385;
+    padding-top: 0.1rem;
+    padding-bottom: 0.4rem;
+  }
 }
 
 @mixin sans-18 {
