@@ -6,15 +6,10 @@ related_policies ||= nil
 <% if document.respond_to?(:organisations) && document.organisations.any? %>
   <section id="document-organisations">
     <h1 class="visuallyhidden">Organisations</h1>
-    <ul class="organisations">
-    <% document.organisations.each do |organisation| %>
-      <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
-        <span class="organisation-logo-small">
-          <%= link_to format_with_html_line_breaks(h(organisation.logo_formatted_name)), organisation_path(organisation) %>
-        </span>
-      <% end %>
-    <% end %>
-    </ul>
+    <%= render  partial: 'organisations/organisations_logo_list',
+                locals: {
+                  organisations: document.organisations
+                } %>
   </section>
 <% end %>
 

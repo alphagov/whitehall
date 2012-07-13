@@ -36,7 +36,13 @@
             <div class="organisation_type">
               <section>
                 <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "label") %>
-                <%= render partial: "organisations_logo_list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
+                <div id="organisations">
+                  <div class="alphabetical-row">
+                    <div>
+                      <%= render partial: "organisations_logo_list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
+                    </div>
+                  </div>
+                </div>
               </section>
             </div>
           <% end %>
