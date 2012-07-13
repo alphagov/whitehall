@@ -31,6 +31,13 @@ related_policies ||= nil
   </section>
 <% end %>
 
+<% if document.respond_to?(:policy_team) && document.policy_team %>
+  <section id="policy_team" class="simple_list">
+    <h1 class="visuallyhidden">Who's working on this?</h1>
+    <p class="name"><%= link_to document.policy_team.name, document.policy_team %></p>
+  </section>
+<% end %>
+
 <%= render partial: 'documents/topics', locals: { topics: topics } %>
 
 <% if document.respond_to?(:countries) && document.countries.any? %>
@@ -48,12 +55,4 @@ related_policies ||= nil
 
 <% if related_policies %>
   <%= render partial: 'related_policies', object: related_policies %>
-<% end %>
-
-<% if document.respond_to?(:policy_team) && document.policy_team %>
-  <section id="policy_team" class="simple_list">
-    <h1 class="label">Who's working on this?</h1>
-    <p class="name"><%= document.policy_team.name %></p>
-    <p><%= mail_to document.policy_team.email, document.policy_team.email %></p>
-  </section>
 <% end %>
