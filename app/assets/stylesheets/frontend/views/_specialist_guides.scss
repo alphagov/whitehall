@@ -208,6 +208,11 @@
         .organisation {
           float: left;
           margin-right: $gutter;
+
+          a:after {
+            content: "";
+            margin: 0;
+          }
         }
       }
       .page_title {

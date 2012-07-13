@@ -9,7 +9,9 @@
         <%= render  partial: 'organisations/organisations_logo_list',
                     locals: {
                       organisations: @document.organisations,
-                      extra_class: 'single-line'
+                      extra_class: 'single-line',
+                      external_links: true,
+                      remove_line_breaks: true
                     } %>
         <%= render partial: "title", locals: {
           topics: @topics,
