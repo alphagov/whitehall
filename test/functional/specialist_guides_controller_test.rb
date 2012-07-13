@@ -12,12 +12,22 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
     refute_select "title", text: /Inside Government/
   end
 
+  test "index sets search action to search specialist guides" do
+    get :index
+    assert_equal search_specialist_guides_path, response.headers[Slimmer::SEARCH_PATH_HEADER]
+  end
+
   test "guide <title> contains Specialist guidance" do
     guide = create(:published_specialist_guide)
 
     get :show, id: guide.document
 
     assert_select "title", text: /${guide.document.title} | Specialist guidance/
+  end
+
+  test "show sets search action to search specialist guides" do
+    get :show, id: create(:published_specialist_guide).document
+    assert_equal search_specialist_guides_path, response.headers[Slimmer::SEARCH_PATH_HEADER]
   end
 
   test "shows link to each section in the document navigation" do
@@ -105,5 +115,28 @@ some more content
     refute_select_object wind
   end
 
+  test "search sets search action to search specialist guides" do
+    search_client = stub('search_client')
+    Whitehall::SearchClient.stubs(:new).returns(search_client)
+    search_client.stubs(:search).returns([])
+    get :search
+    assert_equal search_specialist_guides_path, response.headers[Slimmer::SEARCH_PATH_HEADER]
+  end
 
+  test "search lists each result returned from the client" do
+    search_client = stub('search_client')
+    Whitehall::SearchClient.stubs(:new).returns(search_client)
+    search_client.stubs(:search).with('query', 'specialist_guide').returns([{"title" => "title", "link" => "/specialist/guide-slug", "highlight" => "", "format" => "specialist_guide"}])
+    get :search, q: 'query'
+    assert_select ".search_results .specialist_guide a[href='/specialist/guide-slug']"
+  end
+
+  test "autocomplete returns the response from autocomplete as a string" do
+    search_client = stub('search_client')
+    Whitehall::SearchClient.stubs(:new).returns(search_client)
+    raw_rummager_response = "rummager-response-body-json"
+    search_client.stubs(:autocomplete).with("search-term", "specialist_guide").returns(raw_rummager_response)
+    get :autocomplete, q: "search-term"
+    assert_equal raw_rummager_response, @response.body
+  end
 end

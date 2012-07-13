@@ -1,0 +1,30 @@
+<% page_title "Search" %>
+<% page_class "search-index" %>
+
+<div class="block-1">
+  <div class="inner-block">
+    <header class="page-header search">
+      <h1 class="page_title title">Found <%= pluralize(@results.length, "results") %> for "<%= @search_term %>"</h1>
+    </header>
+  </div>
+</div>
+
+<div class="block-2">
+  <div class="inner-block">
+    <% if @results.any? %>
+      <ul class="search_results">
+        <% @results.each do |result| %>
+          <li class="<%= result["format"] %>">
+            <span class="document_format"><%= result['format'] && result["format"].humanize %></span>
+            <h2><%= link_to result["title"], result["link"] %></h2>
+            <% if result["highlight"] %>
+              <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="notfound">We can't find any results for "<%= @search_term %>".</p>
+    <% end %>
+  </div>
+</div>

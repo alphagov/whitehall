@@ -33,6 +33,18 @@ class SearchClientTest < ActiveSupport::TestCase
     assert_requested :get, /\?q=search-term/
   end
 
+  test "should add a format filter parameter to searches if provided" do
+    Whitehall::SearchClient.new.search "search-term", "specialist_guide"
+
+    assert_requested :get, /format_filter=specialist_guide/
+  end
+
+  test "should add a format filter parameter to autocomplete if provided" do
+    Whitehall::SearchClient.new.autocomplete "search-term", "specialist_guide"
+
+    assert_requested :get, /format_filter=specialist_guide/
+  end
+
   test "should escape characters that would otherwise be invalid in a URI" do
     Whitehall::SearchClient.new.search "search term with spaces"
 

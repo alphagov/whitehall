@@ -11,7 +11,12 @@ Whitehall::Application.routes.draw do
 
   root to: redirect("/")
 
-  resources :specialist_guides, path: 'specialist', only: [:show, :index]
+  resources :specialist_guides, path: 'specialist', only: [:show, :index] do
+    collection do
+      get :search
+      get :autocomplete
+    end
+  end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "site#sunset"
