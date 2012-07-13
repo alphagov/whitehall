@@ -3,6 +3,16 @@ require 'test_helper'
 class PolicyTeamsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
+  test "shows index" do
+    policy_team1 = create(:policy_team, name: "Team 1")
+    policy_team2 = create(:policy_team, name: "Team 2")
+
+    get :index
+
+    assert_select_object policy_team1
+    assert_select_object policy_team2
+  end
+
   test "show displays name and email" do
     policy_team = create(:policy_team)
 

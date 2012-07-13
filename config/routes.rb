@@ -72,7 +72,7 @@ Whitehall::Application.routes.draw do
       end
     end
 
-    resources :policy_teams, path: 'policy-team', only: [:show]
+    resources :policy_teams, path: 'policy-teams', only: [:index, :show]
 
     match "/search" => "search#index"
     match "/autocomplete" => "search#autocomplete"
