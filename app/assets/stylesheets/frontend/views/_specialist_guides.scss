@@ -15,6 +15,21 @@
 
 .specialist-guides-show {
   .page-header {
+    color: $light-blue;
+    border: 4px solid;
+    padding: $gutter-half $gutter-half $gutter-one-third;
+    margin-bottom: $gutter;
+
+    .organisations {
+      padding-bottom: $gutter-half;
+
+      li {
+        margin-bottom: $gutter-one-third;
+        list-style: none;
+        color: #000;
+      }
+    }
+
     .label {
       @include core-14;
       margin-bottom: 0;
@@ -24,7 +39,8 @@
       }
     }
     .page_title {
-      margin: $gutter-two-thirds 0 $gutter-one-third;
+      margin: 0 0 $gutter;
+      padding-top: 0;
     }
     .page-meta {
       @include core-19;
@@ -172,9 +188,31 @@
     }
   }
 
+  @media (max-width: 500px) {
+    .page-header .organisation-logo-small {
+      padding: 28px 0 0 8px;
+    }
+  }
   @media (min-width: 768px) {
+    .meta {
+      position: relative;
+      z-index: 101;
+      margin-top: -55px;
+    }
     .page-header {
-      padding-bottom: $gutter*3;
+      margin-top: $gutter-half;
+      padding: $gutter $gutter $gutter-one-third*2;
+
+      .organisations {
+        overflow: hidden;
+        .organisation {
+          float: left;
+          margin-right: $gutter;
+        }
+      }
+      .page_title {
+        margin: 0 0 $gutter*2;
+      }
     }
     .document_page .block-3 {
       width: 75%;
