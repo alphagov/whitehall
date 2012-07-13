@@ -213,9 +213,10 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select policy_team_selector do
-      assert_select "a[href='mailto:policy-team@example.com']", text: 'policy-team@example.com'
+    assert_select_object policy_team do
+      assert_select "a[href='#{policy_team_path(policy_team)}']", text: 'policy-team-name'
     end
+
   end
 
   test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
