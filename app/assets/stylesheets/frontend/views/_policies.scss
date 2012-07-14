@@ -44,6 +44,7 @@
 
   .meta-topic {
     @include core-19;
+    overflow: hidden;
     .notice {
       display: inline;
       float: left;
@@ -71,65 +72,21 @@
     @include core-14;
     position: relative;
     clear: both;
-    margin-top: $gutter-two-thirds;
+    margin-top: $gutter-one-third;
 
     .metadata {
       display: inline;
     }
+    .change-notes {
+      margin-left: $gutter-one-third;
+    }
 
-    .change-notes-container {
-      display: inline;
-      margin: 0;
-      a {
-        position: relative;
-        @include button($light-warm-grey);
-        color: inherit;
-        margin: -0.376em 0 -0.375em;
-      }
-      .link-to-change-notes {
-        display: inline;
-      }
-      .change-notes{
-        top: 100%;
-        margin-top: $gutter-half;
-        right: 0;
-        text-align: left;
-        p {
-          white-space: normal;
-          margin-bottom: $gutter-one-third;
-        }
-        a {
-          background: $charcoal-grey ;
-          border: none;
-          @include border-radius(0);
-          @include box-shadow(0 0 0);
-          color: $white;
-          cursor: pointer;
-          display: inline-block;
-          font-size: 1.2em;
-          padding: 0.2em 0.5em 0.2em;
-          position: absolute;
-          top: $gutter-one-third;
-          right: 0;
-          text-decoration: none;
-          text-shadow: 0 0 0;
-          &:hover, &:focus {
-            background: lighten($charcoal-grey, 10%);
-          }
-          &:active {
-          background: lighten($charcoal-grey, 5%);
-          @include box-shadow(0 0 0);
-          }
-        }
-      }
-  }
     @media (min-width: 768px) {
       clear: none;
       float: right;
-      margin-top: $gutter-one-third;
+      margin-top: 2px;
       width: 50%;
       text-align: right;
-      white-space: nowrap;
     }
 }
 

@@ -57,8 +57,6 @@
     }
     @include core-14;
     .link-to-change-notes {
-      @include button($light-warm-grey);
-      color: $body-text;
       margin-top: -4px;
     }
     .change-notes-container {

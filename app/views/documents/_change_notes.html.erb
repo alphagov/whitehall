@@ -1,16 +1,14 @@
-<div class="change-notes-container">
-  <p class="link-to-change-notes">Change notes</p>
-
-  <section class="change-notes" style="display: none;">
-  <p class="link-to-change-notes">&#215;</p>
-    <!--h1>Change notes</h1-->
-    <ul>
+<%
+  title ||= 'Change Notes'
+%>
+<section class="change-notes js-toggle-change-notes">
+  <h1><%= title %></h1>
+  <div class="overlay js-hidden" id="change-notes">
+    <dl>
       <% document.change_history.each do |change| %>
-        <li class="group">
-          <p><%= change.note %></p>
-          <%= absolute_time(change.published_at, class: 'published_at') %>
-        </li>
+        <dt><%= change.note %></dt>
+        <dd><%= absolute_time(change.published_at, class: 'published_at') %></dd>
       <% end %>
-    </ul>
-  </section>
-</div>
+    </dl>
+  </div>
+</section>
