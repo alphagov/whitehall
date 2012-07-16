@@ -335,4 +335,14 @@ class GovspeakHelperTest < ActionView::TestCase
     html = govspeak_to_html(document)
     refute_select_within_html html, ".attachment.embedded"
   end
+
+  test "should convert multiple attachments" do
+    text = "#heading\n\n!@1\n\n!@2"
+    attachment_1 = create(:attachment)
+    attachment_2 = create(:attachment)
+    document = create(:published_specialist_guide, body: text, attachments: [attachment_1, attachment_2])
+    html = govspeak_to_html(document)
+    assert_select_within_html html, "#attachment_#{attachment_1.id}"
+    assert_select_within_html html, "#attachment_#{attachment_2.id}"
+  end
 end
