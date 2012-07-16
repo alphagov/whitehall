@@ -1,0 +1,7 @@
+<ul id="related-policies">
+  <% policies.each do |policy| %>
+    <%= content_tag_for :li, policy do %>
+      <%= link_to "[Policy] #{policy.title_with_state}", admin_edition_path(policy) %>
+    <% end %>
+  <% end %>
+</ul>
