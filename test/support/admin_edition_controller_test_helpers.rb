@@ -1365,6 +1365,20 @@ module AdminEditionControllerTestHelpers
         edition.reload
         assert_equal [], edition.topics
       end
+
+      test "updating a stale document should render edit page with conflicting document and its related topics" do
+        topic = create(:topic)
+        edition = create(edition_type, topics: [topic])
+        lock_version = edition.lock_version
+        edition.touch
+
+        put :update, id: edition, edition: edition.attributes.merge(lock_version: lock_version, topic_ids: edition.topic_ids)
+
+        assert_select ".document.conflict" do
+          assert_select "h1", "Topics"
+          assert_select record_css_selector(topic)
+        end
+      end
     end
 
     def should_allow_ministerial_roles_for(edition_type)
