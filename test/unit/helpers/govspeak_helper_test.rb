@@ -307,4 +307,18 @@ class GovspeakHelperTest < ActionView::TestCase
     ], headers
   end
 
+  test "should convert single document to govspeak" do
+    document = create(:published_policy, body: "## test")
+    html = govspeak_to_html(document)
+    assert_select_within_html html, "h2"
+  end
+
+  test "should add inline attachments" do
+    text = "#Heading\n\n!@1"
+    document = create(:published_specialist_guide, body: text, attachments: [create(:attachment)])
+    html = govspeak_to_html(document)
+    assert_select_within_html html, "h1"
+    assert_select_within_html html, ".attachment.embedded"
+  end
+
 end
