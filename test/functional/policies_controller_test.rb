@@ -28,7 +28,7 @@ class PoliciesControllerTest < ActionController::TestCase
     get :show, id: published_policy.document
 
     assert_select inapplicable_nations_selector do
-      assert_select "p", "Only applies to England and Wales (see policy for  \n      Northern Ireland and Scotland)"
+      assert_select "p", "Only applies to England and Wales \n      (see policy for Northern Ireland and Scotland)"
       assert_select "a[href='http://northern-ireland.com/']"
     end
   end
