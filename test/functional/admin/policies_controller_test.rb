@@ -108,16 +108,17 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert policy.related_editions.include?(publication), "polcy and publication should still be related"
   end
 
-  test "updating a stale document should render edit page with conflicting document and its related policies" do
+  test "updating a stale document should render edit page with conflicting document and its related topics" do
     topic = create(:topic)
     policy = create(:policy, topics: [topic])
     lock_version = policy.lock_version
     policy.touch
 
-    put :update, id: policy, edition: policy.attributes.merge(lock_version: lock_version)
+    put :update, id: policy, edition: policy.attributes.merge(lock_version: lock_version, topic_ids: policy.topic_ids)
 
     assert_select ".document.conflict" do
       assert_select "h1", "Topics"
+      assert_select record_css_selector(topic)
     end
   end
 
