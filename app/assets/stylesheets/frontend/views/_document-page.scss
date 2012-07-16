@@ -156,6 +156,9 @@
   line-height: 1.25;
   background: url("/government/assets/coa-default-24.gif") no-repeat 8px -1px;
   
+  &.single-line {
+    padding: 2px 0 2px 46px;
+  }
   a {
     position: relative;
     bottom: -3px;

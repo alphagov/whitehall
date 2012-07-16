@@ -1,19 +1,27 @@
-<div id="organisations">
-  <div class="alphabetical-row">
-    <div>
-      <ul class="organisations">
-        <% organisations.each do |organisation| %>
-          <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation, class: '')) do %>
-            <span class="organisation-logo-small">
-              <% if organisation.active? %>
-                <%= link_to format_with_html_line_breaks(h(organisation.logo_formatted_name)), organisation_path(organisation) %>
-              <% else %>
-                <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
-              <% end %>
-            </span>
+<%
+  extra_class ||= ""
+  external_links ||= false
+  remove_line_breaks ||= false
+%>
+
+<ul class="organisations">
+  <% organisations.each do |organisation| %>
+    <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation, class: '')) do %>
+      <span class="organisation-logo-small <%= extra_class %>">
+        <% if external_links %>
+          <%= link_to remove_line_breaks ? organisation.logo_formatted_name : format_with_html_line_breaks(h(organisation.logo_formatted_name)),
+                organisation.url,
+                title: "#{organisation.logo_formatted_name} (external website)",
+                rel: "external" %>
+        <% else %>
+          <% if organisation.active? %>
+            <%= link_to remove_line_breaks ? organisation.logo_formatted_name : format_with_html_line_breaks(h(organisation.logo_formatted_name)),
+              organisation_path(organisation) %>
+          <% else %>
+            <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
           <% end %>
         <% end %>
-      </ul>
-    </div>
-  </div>
-</div>
+      </span>
+    <% end %>
+  <% end %>
+</ul>

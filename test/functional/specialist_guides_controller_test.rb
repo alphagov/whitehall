@@ -25,6 +25,17 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
     assert_select "title", text: /${guide.document.title} | Specialist guidance/
   end
 
+  test "organisation links are to their external site" do
+    organisation = create(:organisation, url: 'http://google.com', logo_formatted_name: 'The Organisation')
+    guide = create(:published_specialist_guide, organisations: [organisation])
+
+    get :show, id: guide.document
+
+    assert_select_object organisation do
+      assert_select 'a[rel=external][href=http://google.com]', text: 'The Organisation'
+    end
+  end
+
   test "show sets search action to search specialist guides" do
     get :show, id: create(:published_specialist_guide).document
     assert_equal search_specialist_guides_path, response.headers[Slimmer::SEARCH_PATH_HEADER]

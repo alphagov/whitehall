@@ -4,13 +4,15 @@
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
-      <section class="page-header icon">
-        <%= render partial: "document_metadata" %>
-        <p class="label">Guidance
-          <% if @document.organisations.any? %>
-            from <%= list_of_external_links_to_organisations(@document.organisations) %>.
-          <% end %>
-        </p>
+      <%= render partial: "document_metadata" %>
+      <section class="page-header">
+        <%= render  partial: 'organisations/organisations_logo_list',
+                    locals: {
+                      organisations: @document.organisations,
+                      extra_class: 'single-line',
+                      external_links: true,
+                      remove_line_breaks: true
+                    } %>
         <%= render partial: "title", locals: {
           topics: @topics,
           document: @document
