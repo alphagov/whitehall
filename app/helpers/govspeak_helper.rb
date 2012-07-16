@@ -89,7 +89,11 @@ module GovspeakHelper
   def markup_with_attachments_to_html(document)
     body = document.body.gsub(/^!@([0-9]+)\s*/) do
       attachment = document.attachments[$1.to_i - 1]
-      render partial: "documents/attachment", object: attachment
+      if attachment
+        render partial: "documents/attachment", object: attachment
+      else
+        ""
+      end
     end
   end
 

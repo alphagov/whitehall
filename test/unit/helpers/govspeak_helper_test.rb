@@ -321,4 +321,18 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".attachment.embedded"
   end
 
+  test "should ignore missing attachments" do
+    text = "#Heading\n\n!@2"
+    document = create(:published_specialist_guide, body: text, attachments: [create(:attachment)])
+    html = govspeak_to_html(document)
+    assert_select_within_html html, "h1"
+    refute_select_within_html html, ".attachment.embedded"
+  end
+
+  test "should not convert documents with no attachments" do
+    text = "#Heading\n\n!@2"
+    document = create(:published_specialist_guide, body: text)
+    html = govspeak_to_html(document)
+    refute_select_within_html html, ".attachment.embedded"
+  end
 end
