@@ -3,7 +3,7 @@ $(function() {
       navigation = $(".contextual-info #document_sections"),
       pages, headings, navigationLinks;
 
-  var paginating = ($('.document.js-paginate-document').length > 0 && $(window).width() > 768);
+  var paginating = ($('.js-paginate-document').length > 0 && $(window).width() > 768);
 
   navigation.find(">li").each(function(el){
     var li = $(this),
@@ -25,16 +25,10 @@ $(function() {
     headings = container.find('h2');
     navigationLinks = navigation.find('a');
 
-    pages.addClass('hidden');
-
     var showPage = function() {
       var page = $(location.hash).parents(".page");
 
-      if (page.is(":visible")) {
-        return true;
-      }
-
-      pages.addClass('hidden');
+      pages.not(page).addClass('hidden');
       navigationLinks.removeClass('active');
 
       if (page.length == 0) {
@@ -43,7 +37,7 @@ $(function() {
       } else {
         page.removeClass('hidden');
         navigationLinks.filter('a[href$='+location.hash+']').addClass('active');
-        $('html, body').animate({scrollTop:page.offset().top}, 0);
+        $('body').animate({scrollTop:0}, 0);
       }
     }
 
