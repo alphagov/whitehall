@@ -180,9 +180,9 @@ module DocumentControllerTestHelpers
         get :show, id: edition.document
 
         assert_select '#document_countries' do
-          assert_select_object first_country
-          assert_select_object second_country
-          refute_select_object third_country
+          assert_select "a[href='#{country_path(first_country)}']", text: first_country.name
+          assert_select "a[href='#{country_path(second_country)}']", text: second_country.name
+          assert_select "a[href='#{country_path(third_country)}']", count: 0
         end
       end
 
