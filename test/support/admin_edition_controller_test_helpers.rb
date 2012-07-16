@@ -1230,10 +1230,11 @@ module AdminEditionControllerTestHelpers
         lock_version = document.lock_version
         document.touch
 
-        put :update, id: document, edition: document.attributes.merge(lock_version: lock_version)
+        put :update, id: document, edition: document.attributes.merge(lock_version: lock_version, related_document_ids: document.related_document_ids)
 
         assert_select ".document.conflict" do
           assert_select "h1", "Related policies"
+          assert_select record_css_selector(policy)
         end
       end
 
