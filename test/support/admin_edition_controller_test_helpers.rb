@@ -13,9 +13,8 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_show_document_audit_trail_on(action)
+    def should_show_document_audit_trail_for(edition_type, action)
       test "should show who created the document and when on #{action}" do
-        edition_type = 'publication'
         tom = login_as(create(:author, name: "Tom", email: "tom@example.com"))
         draft_edition = create("draft_#{edition_type}")
 

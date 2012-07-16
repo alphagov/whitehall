@@ -11,6 +11,9 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
   should_allow_creating_of :case_study
   should_allow_editing_of :case_study
 
+  should_show_document_audit_trail_for :case_study, :show
+  should_show_document_audit_trail_for :case_study, :edit
+
   should_allow_related_policies_for :case_study
   should_allow_attached_images_for :case_study
   should_be_rejectable :case_study

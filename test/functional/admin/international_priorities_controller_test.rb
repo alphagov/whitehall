@@ -13,6 +13,9 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   should_allow_editing_of :international_priority
   should_allow_revision_of :international_priority
 
+  should_show_document_audit_trail_for :international_priority, :show
+  should_show_document_audit_trail_for :international_priority, :edit
+
   should_allow_association_between_countries_and :international_priority
   should_allow_attached_images_for :international_priority
   should_not_use_lead_image_for :international_priority

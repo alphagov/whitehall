@@ -12,8 +12,8 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
   should_allow_editing_of :specialist_guide
   should_allow_revision_of :specialist_guide
 
-  # should_show_document_audit_trail_on :show
-  # should_show_document_audit_trail_on :edit
+  should_show_document_audit_trail_for :specialist_guide, :show
+  should_show_document_audit_trail_for :specialist_guide, :edit
 
   should_allow_organisations_for :specialist_guide
   should_allow_association_with_topics :specialist_guide
