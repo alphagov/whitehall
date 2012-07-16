@@ -129,6 +129,41 @@
         @include core-14;
       }
     }
+
+    // inline attachment pullouts
+    .attachment {
+      $img-gutter: 99px;
+
+      border: 4px solid lighten($body-text, 50%);
+      background: $light-warm-grey;
+
+      padding: $gutter-one-third;
+
+      a {
+        // this is the download link
+        img {
+          float: left;
+          width: $img-gutter;
+          margin-right: 8px;
+        }
+      }
+
+      dl {
+        margin-left: $img-gutter + 8px;
+
+        dt {
+          float: left;
+          font-weight: bold;
+          width: 6em;
+        }
+
+        dd {
+          display: block;
+        }
+      }
+
+      overflow: hidden;
+    }
   }
     
   section {
