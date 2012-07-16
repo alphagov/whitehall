@@ -76,9 +76,17 @@
 
     .metadata {
       display: inline;
+      line-height: 35px;
     }
     .change-notes {
       margin-left: $gutter-one-third;
+
+      &.toggleable .overlay {
+        left: -100%;
+        .arrow {
+          left: 70%;
+        }
+      }
     }
 
     @media (min-width: 768px) {

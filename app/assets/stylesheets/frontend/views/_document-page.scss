@@ -60,6 +60,9 @@
       text-align: center;
       padding: 0.313em 1em 0.375em;
       border: 1px solid darken($light-warm-grey, 5%);
+      &:focus {
+        outline: none;
+      }
     }
     &.open h1 a {
       top: 0.2em;
@@ -71,8 +74,8 @@
       height: 0;
       position: absolute;
       top: -4px;
-      left: 50%;
-      margin-left: -5px;
+      left: 25%;
+      margin-left: -2px;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
       border-bottom: 5px solid $charcoal-grey;
@@ -98,7 +101,7 @@
       position: absolute;
       top: 130%;
       left: 0;
-      width: 100%;
+      width: 200%;
       z-index: 10;
     }
   }
