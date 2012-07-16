@@ -6,7 +6,11 @@ gem 'mysql2'
 gem 'jquery-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave'
-gem 'govspeak', '~> 0.8.16'
+if ENV['GOVSPEAK_DEV']
+  gem 'govspeak', path: '../govspeak'
+else
+  gem 'govspeak', '~> 0.8.16'
+end
 gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.0.beta14'
 gem 'nokogiri'
