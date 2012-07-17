@@ -18,19 +18,19 @@
           <div class="filter">
             <div class="filter-inner">
               <legend class="visuallyhidden">Filter publications</legend>
-              <label for="departments" class="visuallyhidden">Department</label>
+              <%= label_tag "departments", "Department", class: "visuallyhidden" %>
               <%= select_tag :departments, organisation_filter_options(@all_organisations, @selected_departments), size: 5, multiple: true, class: "multi-row-select" %>
             </div>
           </div>
           <div class="filter">
             <div class="filter-inner">
-              <label for="topics" class="visuallyhidden">Topic</label>
+              <%= label_tag "topics", "Topic", class: "visuallyhidden" %>
               <%= select_tag :topics, topic_filter_options(@all_topics, @selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
             </div>
           </div>
           <div class="filter">
             <div class="filter-inner">
-              <label>Contains</label>
+              <%= label_tag "keywords", "Contains" %>
               <%= text_field_tag :keywords, @keywords, placeholder: "keywords" %>
               <div class="submit">
                 <%= submit_tag "Refresh", class: "button" %>
