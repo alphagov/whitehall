@@ -43,7 +43,7 @@
   }
 
   .meta-topic {
-    @include core-19;
+    @include core-14;
     overflow: hidden;
     .notice {
       display: inline;
@@ -64,7 +64,7 @@
     @media (min-width: 768px) {
       display: inline;
       float: left;
-      width: 50%;
+      width: 47.5%;
     }
   }
 
@@ -73,6 +73,7 @@
     position: relative;
     clear: both;
     margin-top: $gutter-one-third;
+    white-space: nowrap;
 
     .metadata {
       display: inline;
@@ -93,7 +94,7 @@
       clear: none;
       float: right;
       margin-top: 2px;
-      width: 50%;
+      width: 47.5%;
       text-align: right;
     }
 }
