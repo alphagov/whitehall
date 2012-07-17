@@ -87,14 +87,14 @@ some more content
     edition = create(:published_specialist_guide, paginate_body: true)
     get :show, id: edition.document
 
-    assert_select ".document.js-paginate-document"
+    assert_select ".document_page.js-paginate-document"
   end
 
   test "doesn't add pagination behaviour to non-paginated guide" do
     edition = create(:published_specialist_guide, paginate_body: false)
     get :show, id: edition.document
 
-    assert_select ".document.js-paginate-document", count: 0
+    assert_select ".document_page.js-paginate-document", count: 0
   end
 
   test "index shows all published specialist guides by topic" do
