@@ -148,13 +148,14 @@
   .attachment {
     $img-gutter: 99px;
 
-    border: 4px solid lighten($body-text, 50%);
     background: $light-warm-grey;
 
     padding: $gutter-one-third;
 
     a {
       // this is the download link
+      @include core-19;
+
       img {
         float: left;
         width: $img-gutter;
@@ -164,10 +165,10 @@
 
     dl {
       margin-left: $img-gutter + 8px;
+      @include core-14;
 
       dt {
         float: left;
-        font-weight: bold;
         width: 6em;
       }
 
@@ -179,4 +180,3 @@
     overflow: hidden;
   }
 }
-
