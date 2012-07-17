@@ -7,6 +7,28 @@ class PublicationsController < DocumentsController
       @publications = @publications.with_content_containing(*@keywords)
     end
 
+    if params[:date].present?
+      @date = Date.parse(params[:date])
+    end
+
+    if params[:direction].present?
+      @direction = params[:direction]
+      if @date.present?
+        case @direction
+        when "before"
+          @publications = @publications.published_before(@date)
+        when "after"
+          @publications = @publications.published_after(@date)
+        end
+      end
+    end
+
+    if "after" == @direction
+      @publications = @publications.in_chronological_order
+    else
+      @publications = @publications.in_reverse_chronological_order
+    end
+
     @all_topics = Topic.with_content.order(:name)
     @selected_topics = []
     if params[:topics].present? && !params[:topics].include?("all")
@@ -30,7 +52,7 @@ class PublicationsController < DocumentsController
   end
 
   def all_publications
-    Publication.published_in_reverse_chronological_order.includes(:document, :organisations, :attachments)
+    Publication.published.includes(:document, :organisations, :attachments)
   end
 
   def document_class

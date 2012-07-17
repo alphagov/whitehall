@@ -30,6 +30,13 @@
           </div>
           <div class="filter">
             <div class="filter-inner">
+              <div class="date-range">
+                <%= label_tag "direction", "Before / After" %>
+                <%= select_tag :direction, date_direction_filter_options(@direction), include_blank: true %>
+                <p class="joiner"></p>
+                <%= label_tag "date", "Date", class: "visuallyhidden" %>
+                <%= select_tag :date, options_for_select(recent_month_filter_options(24, @date)), include_blank: true %>
+              </div>
               <%= label_tag "keywords", "Contains" %>
               <%= text_field_tag :keywords, @keywords, placeholder: "keywords" %>
               <div class="submit">

@@ -124,16 +124,6 @@ class PublicationsControllerTest < ActionController::TestCase
     assert 10 > count_queries { get :index }
   end
 
-  test "index displays the featured publication that was published most recently" do
-    older_featured_publication = create(:featured_publication, publication_date: 2.days.ago)
-    newer_featured_publication = create(:featured_publication, publication_date: 1.day.ago)
-
-    get :index
-
-    assert_select "#{record_css_selector(newer_featured_publication)}.featured"
-    refute_select "#{record_css_selector(older_featured_publication)}.featured"
-  end
-
   test "index can be filtered by the topic of the associated policy" do
     given_two_publications_in_two_topics
 
@@ -160,6 +150,26 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_select_object publication_with_keyword
     refute_select_object publication_without_keyword
+  end
+
+  test "index can be filtered after a date" do
+    publication_published_before_date = create(:published_publication, publication_date: 3.months.ago)
+    publication_published_after_date = create(:published_publication, publication_date: 1.month.ago)
+
+    get :index, direction: "after", date: 2.months.ago
+
+    refute_select_object publication_published_before_date
+    assert_select_object publication_published_after_date
+  end
+
+  test "index can be filtered before a date" do
+    publication_published_before_date = create(:published_publication, publication_date: 3.months.ago)
+    publication_published_after_date = create(:published_publication, publication_date: 1.month.ago)
+
+    get :index, direction: "before", date: 2.months.ago
+
+    assert_select_object publication_published_before_date
+    refute_select_object publication_published_after_date
   end
 
   test "index can be filtered by the union of multiple topics" do
@@ -246,6 +256,17 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "input[name='keywords'][value=?]", "olympics 2012"
   end
 
+  test "index displays selected date filter" do
+    get :index, direction: "before", date: "2010-01-01"
+
+    assert_select "select[name='direction']" do
+      assert_select "option[selected='selected'][value=?]", "before"
+    end
+    assert_select "select[name='date']" do
+      assert_select "option[selected='selected'][value=?]", "2010-01-01"
+    end
+  end
+
   test "index highlights all topics filter option by default" do
     given_two_publications_in_two_topics
 
@@ -272,6 +293,17 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "input[name='keywords'][placeholder=?]", "keywords"
   end
 
+  test "index does not select a date filter by default" do
+    get :index
+
+    assert_select "select[name='direction']" do
+      refute_select "option[selected='selected']"
+    end
+    assert_select "select[name='date']" do
+      refute_select "option[selected='selected']"
+    end
+  end
+
   test 'index should not use n+1 selects when filtering by topics' do
     policy = create(:published_policy)
     topic = create(:topic, policies: [policy])
@@ -288,6 +320,38 @@ class PublicationsControllerTest < ActionController::TestCase
   test 'index should not use n+1 selects when filtering by keywords' do
     15.times { |i| create(:published_publication, title: "keyword-#{i}") }
     assert 15 > count_queries { get :index, keywords: "keyword" }
+  end
+
+  test 'index should not use n+1 selects when filtering by date' do
+    15.times { |i| create(:published_publication, publication_date: i.months.ago) }
+    assert 15 > count_queries { get :index, direction: "after", date: 6.months.ago }
+  end
+
+  test "index lists publications in chronological order when filtered after a date" do
+    publication_published_second = create(:published_publication, publication_date: 1.month.ago)
+    publication_published_first = create(:published_publication, publication_date: 2.months.ago)
+
+    get :index, direction: "after", date: 3.months.ago
+
+    assert_equal [publication_published_first, publication_published_second], assigns[:publications]
+  end
+
+  test "index lists publications in reverse chronological order when filtered before a date" do
+    publication_published_first = create(:published_publication, publication_date: 3.months.ago)
+    publication_published_second = create(:published_publication, publication_date: 2.month.ago)
+
+    get :index, direction: "before", date: 1.month.ago
+
+    assert_equal [publication_published_second, publication_published_first], assigns[:publications]
+  end
+
+  test "index lists publications in reverse chronological order by default" do
+    publication_published_first = create(:published_publication, publication_date: 3.months.ago)
+    publication_published_second = create(:published_publication, publication_date: 2.month.ago)
+
+    get :index
+
+    assert_equal [publication_published_second, publication_published_first], assigns[:publications]
   end
 
   test "index should show a helpful message if there are no matching publications" do
