@@ -23,7 +23,7 @@ module GovspeakHelper
   def govspeak_to_html(text, images = [])
     if text.respond_to?(:images)
       markdown = markup_with_attachments_to_html(text)
-      markup_to_html_with_replaced_admin_links(markdown)
+      markup_to_html_with_replaced_admin_links(markdown, text.images)
     else
       markup_to_html_with_replaced_admin_links(text, images)
     end
