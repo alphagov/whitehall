@@ -30,6 +30,8 @@
           </div>
           <div class="filter">
             <div class="filter-inner">
+              <label>Contains</label>
+              <%= text_field_tag :keywords, @keywords, placeholder: "keywords" %>
               <div class="submit">
                 <%= submit_tag "Refresh", class: "button" %>
               </div>

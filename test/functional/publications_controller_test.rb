@@ -152,6 +152,16 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object @publication_in_organisation_2
   end
 
+  test "index can be filtered by a keyword" do
+    publication_without_keyword = create(:published_publication, body: "body that should not be found")
+    publication_with_keyword = create(:published_publication, body: "body containing keyword in the middle")
+
+    get :index, keywords: "keyword"
+
+    assert_select_object publication_with_keyword
+    refute_select_object publication_without_keyword
+  end
+
   test "index can be filtered by the union of multiple topics" do
     given_two_publications_in_two_topics
 
@@ -168,6 +178,16 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_select_object @publication_in_organisation_1
     assert_select_object @publication_in_organisation_2
+  end
+
+  test "index can be filtered by multiple keywords" do
+    publication_with_first_keyword = create(:published_publication, body: "this document is about muppets")
+    publication_with_second_keyword = create(:published_publication, body: "this document is about klingons")
+
+    get :index, keywords: "Klingons Muppets"
+
+    assert_select_object publication_with_first_keyword
+    assert_select_object publication_with_second_keyword
   end
 
   test "index only lists topics with associated published editions" do
@@ -220,6 +240,12 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index displays filter keywords" do
+    get :index, keywords: "olympics 2012"
+
+    assert_select "input[name='keywords'][value=?]", "olympics 2012"
+  end
+
   test "index highlights all topics filter option by default" do
     given_two_publications_in_two_topics
 
@@ -240,6 +266,12 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index shows filter keywords placeholder by default" do
+    get :index
+
+    assert_select "input[name='keywords'][placeholder=?]", "keywords"
+  end
+
   test 'index should not use n+1 selects when filtering by topics' do
     policy = create(:published_policy)
     topic = create(:topic, policies: [policy])
@@ -251,6 +283,11 @@ class PublicationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     15.times { create(:published_publication, organisations: [organisation]) }
     assert 15 > count_queries { get :index, departments: [organisation] }
+  end
+
+  test 'index should not use n+1 selects when filtering by keywords' do
+    15.times { |i| create(:published_publication, title: "keyword-#{i}") }
+    assert 15 > count_queries { get :index, keywords: "keyword" }
   end
 
   test "index should show a helpful message if there are no matching publications" do

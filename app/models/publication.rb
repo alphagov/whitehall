@@ -21,6 +21,11 @@ class Publication < Edition
 
   before_save :store_price_in_pence
 
+  scope :with_content_containing, -> *keywords {
+    pattern = "(#{keywords.join('|')})"
+    where("#{table_name}.title REGEXP :pattern OR #{table_name}.body REGEXP :pattern", pattern: pattern)
+  }
+
   def publication_type
     PublicationType.find_by_id(publication_type_id)
   end

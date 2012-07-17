@@ -2,6 +2,11 @@ class PublicationsController < DocumentsController
   def index
     @publications = all_publications
 
+    if params[:keywords].present?
+      @keywords = params[:keywords].split(/\s+/)
+      @publications = @publications.with_content_containing(*@keywords)
+    end
+
     @all_topics = Topic.with_content.order(:name)
     @selected_topics = []
     if params[:topics].present? && !params[:topics].include?("all")
