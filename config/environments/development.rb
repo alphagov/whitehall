@@ -40,6 +40,6 @@ Whitehall::Application.configure do
       end
     end
   end
-  
+
   config.middleware.swap Rails::Rack::Logger, Whitehall::QuietAssetLogger
 end
