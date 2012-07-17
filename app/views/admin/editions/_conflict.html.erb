@@ -24,9 +24,9 @@
     <section>
       <h1>Related policies</h1>
       <% if edition.related_policies.any? %>
-        <%= render partial: "topics/list", locals: {topics: edition.topics} %>
+        <%= render partial: "admin/editions/related_policies", locals: {policies: edition.related_policies} %>
       <% else %>
-        <p>This document isn't assigned to any topics.</p>
+        <p>This document doesn't have any related policies.</p>
       <% end %>
     </section>
   <% end %>
@@ -35,9 +35,9 @@
     <section>
       <h1>Topics</h1>
       <% if edition.topics.any? %>
-        <%= render partial: "admin/editions/related", locals: {related_editions: edition.related_policies} %>
+        <%= render partial: "topics/list", locals: {topics: edition.topics} %>
       <% else %>
-        <p>This document doesn't have any related policies.</p>
+        <p>This document isn't assigned to any topics.</p>
       <% end %>
     </section>
   <% end %>

@@ -12,6 +12,9 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_allow_editing_of :speech
   should_allow_revision_of :speech
 
+  should_show_document_audit_trail_for :speech, :show
+  should_show_document_audit_trail_for :speech, :edit
+
   should_allow_related_policies_for :speech
   should_allow_association_between_countries_and :speech
   should_allow_attached_images_for :speech

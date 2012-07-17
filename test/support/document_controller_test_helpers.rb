@@ -180,9 +180,9 @@ module DocumentControllerTestHelpers
         get :show, id: edition.document
 
         assert_select '#document_countries' do
-          assert_select_object first_country
-          assert_select_object second_country
-          refute_select_object third_country
+          assert_select "a[href='#{country_path(first_country)}']", text: first_country.name
+          assert_select "a[href='#{country_path(second_country)}']", text: second_country.name
+          assert_select "a[href='#{country_path(third_country)}']", count: 0
         end
       end
 
@@ -257,9 +257,9 @@ module DocumentControllerTestHelpers
 
         instance_exec(first_edition, &block)
 
-        assert_select ".change-notes li" do
+        assert_select ".change-notes" do
           assert_select ".published_at[title='#{first_edition.published_at.iso8601}']"
-          assert_select "p", text: "First published."
+          assert_select "dt", text: "First published."
         end
       end
 
@@ -270,9 +270,9 @@ module DocumentControllerTestHelpers
 
         instance_exec(second_edition, &block)
 
-        assert_select ".change-notes li" do
+        assert_select ".change-notes" do
           refute_select ".published_at[title='#{second_edition.published_at.iso8601}']"
-          refute_select "p", text: ""
+          refute_select "dt", text: ""
         end
       end
 
@@ -285,10 +285,14 @@ module DocumentControllerTestHelpers
 
         instance_exec(editions.first, &block)
 
-        assert_select ".change-notes li" do |list_items|
+        assert_select ".change-notes dd" do |list_items|
           list_items.each_with_index do |list_item, index|
             assert_select list_item, ".published_at[title='#{editions[index].published_at.iso8601}']"
-            assert_select list_item, "p", text: editions[index].change_note
+          end
+        end
+        assert_select ".change-notes dt" do |list_items|
+          list_items.each_with_index do |list_item, index|
+            assert_select list_item, 'dt', text: editions[index].change_note
           end
         end
       end

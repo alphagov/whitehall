@@ -246,9 +246,20 @@ Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
   assert page.has_css?(".document .body", text: policy_body)
 end
 
+Then /^I should see that the policy only applies to:$/ do |nation_names|
+  message = "Only applies to #{nation_names.raw.flatten.sort.to_sentence}"
+  assert page.has_css?("#{inapplicable_nations_selector}", text: message)
+end
+
 Then /^I should see that the policy does not apply to:$/ do |nation_names|
   message = "This policy does not apply to #{nation_names.raw.flatten.sort.to_sentence}."
-  assert page.has_css?("#{inapplicable_nations_selector} p", text: message)
+  assert page.has_css?("#{inapplicable_nations_selector}", text: message)
+end
+
+Then /^I should see that the policy links to policies for:$/ do |nation_names|
+  message = "see policy for"
+  assert page.has_css?("#{inapplicable_nations_selector}", text: message)
+  assert page.has_css?("#{inapplicable_nations_selector} a:nth-child(2)", text: nation_names.raw.flatten[0])
 end
 
 Then /^they should see the draft policy "([^"]*)"$/ do |title|
@@ -314,6 +325,7 @@ Then /^I can see links to the recently changed document "([^"]*)"$/ do |title|
 end
 
 Then /^the change note "([^"]*)" should appear in the history for the policy "([^"]*)"$/ do |change_note, title|
+  visit policies_path
   click_link title
   assert page.has_css?(".change-notes", text: Regexp.new(change_note))
 end

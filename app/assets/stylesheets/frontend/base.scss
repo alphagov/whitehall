@@ -48,6 +48,7 @@ $gutter-one-sixth:  $gutter-one-third*0.5; // equivalent to 8px
 // HELPERS
 // Styles for comment page elements
 
+@import "helpers/_global.scss";
 #whitehall-wrapper {
   @import "helpers/_alphabetical-list.scss";
   @import "helpers/_browse.scss";

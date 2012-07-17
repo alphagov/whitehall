@@ -1,6 +1,3 @@
-<% if @document.nation_inapplicabilities.any? %>
-  <%= render partial: 'documents/inapplicable_nations', locals: { document: @document } %>
-<% end %>
 <article class="document has_notice">
   <div class="body">
     <%= govspeak_to_html @supporting_page.body %>

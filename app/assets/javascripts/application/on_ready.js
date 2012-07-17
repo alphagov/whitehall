@@ -6,7 +6,7 @@ jQuery(function($) {
   $('#featured-news-articles').equalHeightHelper({selectorsToResize: ['.img img']});
   $('.floated_list').equalHeightHelper({selectorsToResize: ['li']});
   $('.alphabetical-row').equalHeightHelper({selectorsToResize: ['li']});
-  $('.change-notes').policyUpdateNotes({link:'.link-to-change-notes'});
+  $('.js-toggle-change-notes').toggleChangeNotes();
   $('.js-nav-helper').each(function () {
     $(this).find('.inner ul').append($.li('', '.st'));
   }).navHelper({

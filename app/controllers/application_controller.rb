@@ -1,7 +1,12 @@
+require "slimmer/headers"
+
 class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
+  include Slimmer::Headers
 
   protect_from_forgery
+
+  before_filter :set_proposition
 
   layout 'frontend'
 
@@ -16,5 +21,9 @@ class ApplicationController < ActionController::Base
 
   def skip_slimmer
     response.headers[Slimmer::SKIP_HEADER] = "true"
+  end
+
+  def set_proposition
+    set_slimmer_headers(proposition: "government")
   end
 end

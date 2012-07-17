@@ -13,9 +13,8 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_show_document_audit_trail_on(action)
+    def should_show_document_audit_trail_for(edition_type, action)
       test "should show who created the document and when on #{action}" do
-        edition_type = 'publication'
         tom = login_as(create(:author, name: "Tom", email: "tom@example.com"))
         draft_edition = create("draft_#{edition_type}")
 
@@ -1210,10 +1209,11 @@ module AdminEditionControllerTestHelpers
         lock_version = document.lock_version
         document.touch
 
-        put :update, id: document, edition: document.attributes.merge(lock_version: lock_version)
+        put :update, id: document, edition: document.attributes.merge(lock_version: lock_version, related_document_ids: document.related_document_ids)
 
         assert_select ".document.conflict" do
           assert_select "h1", "Related policies"
+          assert_select record_css_selector(policy)
         end
       end
 
@@ -1344,6 +1344,20 @@ module AdminEditionControllerTestHelpers
 
         edition.reload
         assert_equal [], edition.topics
+      end
+
+      test "updating a stale document should render edit page with conflicting document and its related topics" do
+        topic = create(:topic)
+        edition = create(edition_type, topics: [topic])
+        lock_version = edition.lock_version
+        edition.touch
+
+        put :update, id: edition, edition: edition.attributes.merge(lock_version: lock_version, topic_ids: edition.topic_ids)
+
+        assert_select ".document.conflict" do
+          assert_select "h1", "Topics"
+          assert_select record_css_selector(topic)
+        end
       end
     end
 

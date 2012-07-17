@@ -28,11 +28,8 @@ class PoliciesControllerTest < ActionController::TestCase
     get :show, id: published_policy.document
 
     assert_select inapplicable_nations_selector do
-      assert_select "p", "This policy does not apply to Northern Ireland and Scotland."
-      assert_select_object northern_ireland_inapplicability do
-        assert_select "a[href='http://northern-ireland.com/']"
-      end
-      refute_select_object scotland_inapplicability
+      assert_select "p", "Only applies to England and Wales \n      (see policy for Northern Ireland and Scotland)"
+      assert_select "a[href='http://northern-ireland.com/']"
     end
   end
 
@@ -63,14 +60,6 @@ class PoliciesControllerTest < ActionController::TestCase
     get :show, id: policy.document
 
     assert_select ".policy-navigation a.current[href='#{policy_path(policy.document)}']"
-  end
-
-  test "should apply an active class to the policy page navigation heading" do
-    published_edition = create(:published_policy)
-    get :show, id: published_edition.document
-
-    assert_select "section.contextual-info a.active",
-      text: published_edition.title
   end
 
   test "should render the content using govspeak markup" do
@@ -130,12 +119,6 @@ class PoliciesControllerTest < ActionController::TestCase
     get :show, id: edition.document
 
     assert_select "#document-ministers a.minister", text: "minister-name"
-  end
-
-  test "shows link to policy overview" do
-    policy = create(:published_policy)
-    get :show, id: policy.document
-    assert_select "a[href='#{policy_path(policy.document)}#top']", text: policy.title
   end
 
   test "shows link to each policy section in the markdown" do

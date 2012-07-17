@@ -1,7 +1,0 @@
-<ul id="related-documents">
-  <% related_editions.each do |related_edition| %>
-    <%= content_tag_for :li, related_edition do %>
-      <%= link_to "[#{related_edition.type.titleize}] #{related_edition.title_with_state}", admin_edition_path(related_edition) %>
-    <% end %>
-  <% end %>
-</ul>

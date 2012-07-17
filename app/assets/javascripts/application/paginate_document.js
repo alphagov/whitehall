@@ -1,9 +1,9 @@
 $(function() {
   var container = $(".document .govspeak"),
       navigation = $(".contextual-info #document_sections"),
-      pages, headings;
+      pages, headings, navigationLinks;
 
-  var paginating = ($('.document.js-paginate-document').length > 0 && $(window).width() > 768);
+  var paginating = ($('.js-paginate-document').length > 0 && $(window).width() > 768);
 
   navigation.find(">li").each(function(el){
     var li = $(this),
@@ -23,23 +23,21 @@ $(function() {
     container.splitIntoPages("h2");
     pages = container.find(".page");
     headings = container.find('h2');
-
-    pages.addClass('hidden');
+    navigationLinks = navigation.find('a');
 
     var showPage = function() {
       var page = $(location.hash).parents(".page");
 
-      if (page.is(":visible")) {
-        return true;
-      }
-
-      pages.addClass('hidden');
+      pages.not(page).addClass('hidden');
+      navigationLinks.removeClass('active');
 
       if (page.length == 0) {
         pages.first().removeClass('hidden');
+        navigationLinks.first().addClass('active')
       } else {
         page.removeClass('hidden');
-        $('html, body').animate({scrollTop:page.offset().top}, 0);
+        navigationLinks.filter('a[href$='+location.hash+']').addClass('active');
+        $('body').animate({scrollTop:0}, 0);
       }
     }
 

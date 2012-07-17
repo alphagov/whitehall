@@ -35,4 +35,8 @@ private
   def set_search_path
     response.headers[Slimmer::SEARCH_PATH_HEADER] = search_specialist_guides_path
   end
+
+  def set_proposition
+    set_slimmer_headers(proposition: "specialist")
+  end
 end

@@ -1,6 +1,10 @@
-<section class="contextual-info js-stick-at-top-when-scrolling">
+<section class="contextual-info">
   <% if govspeak_headers(edition.body).any? %>
-    <h1 class="visuallyhidden">In this guide</h1>
+    <% if @document.paginate_body %>
+      <h1 class="visuallyhidden">In this guide</h1>
+    <% else %>
+      <h1>Jump to section</h1>
+    <% end %>
     <nav class="specialist_guide_parts" role="navigation">
       <ol id="document_sections">
         <% govspeak_header_heirarchy(edition.body).each do |header_record| %>

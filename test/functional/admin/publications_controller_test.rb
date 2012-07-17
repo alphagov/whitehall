@@ -12,8 +12,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_editing_of :publication
   should_allow_revision_of :publication
 
-  should_show_document_audit_trail_on :show
-  should_show_document_audit_trail_on :edit
+  should_show_document_audit_trail_for :publication, :show
+  should_show_document_audit_trail_for :publication, :edit
 
   should_allow_related_policies_for :publication
   should_allow_organisations_for :publication

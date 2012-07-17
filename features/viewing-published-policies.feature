@@ -23,8 +23,8 @@ Scenario: Viewing a policy that is applicable to certain nations
   Given a published policy "Haggis for every meal" that does not apply to the nations:
     | Northern Ireland | Wales |
   When I visit the policy "Haggis for every meal"
-  Then I should see that the policy does not apply to:
-    | Northern Ireland | Wales |
+  Then I should see that the policy only applies to:
+    | England | Scotland |
 
 @javascript
 Scenario: Viewing a policy with a video link

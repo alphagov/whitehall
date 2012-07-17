@@ -233,8 +233,8 @@ end
 
 Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" and "([^"]*)" policies$/ do |title, related_policy_1, related_policy_2|
   visit_document_preview title
-  assert has_css?("#related-documents .policy", text: related_policy_1)
-  assert has_css?("#related-documents .policy", text: related_policy_2)
+  assert has_css?("#related-policies .policy", text: related_policy_1)
+  assert has_css?("#related-policies .policy", text: related_policy_2)
 end
 
 Then /^I should see in the preview that "([^"]*)" does (not )?have a public link to "([^"]*)"/ do |source_title, should_not_have_link, target_title|
