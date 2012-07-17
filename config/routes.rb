@@ -32,10 +32,7 @@ Whitehall::Application.routes.draw do
       resources :supporting_pages, path: "supporting-pages", only: [:index, :show]
     end
     resources :news_articles, path: 'news', only: [:show, :index]
-    resources :publications, only: [:index, :show] do
-      get '/by-topic/:topics', on: :collection,
-        to: 'publications#by_topic', as: :by_topic
-    end
+    resources :publications, only: [:index, :show]
     resources :case_studies, path: 'case-studies', only: [:show, :index]
 
     resources :international_priorities, path: "international-priorities", only: [:index, :show]
