@@ -4,9 +4,5 @@
     <div class="body">
       <%= govspeak_to_admin_html supporting_page.body %>
     </div>
-    <% if supporting_page.attachments.any? %>
-      <h3>Attachments:</h3>
-      <%= render partial: "documents/attachments", locals: { object_with_attachments: supporting_page } %>
-    <% end %>
   </article>
 </section>
