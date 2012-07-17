@@ -35,6 +35,7 @@
 
   .accessibility-warning {
     display: block;
+    @include core-14;
   }
 
   @media (min-width: 768px) {
