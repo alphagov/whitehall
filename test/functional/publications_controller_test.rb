@@ -143,6 +143,15 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object @published_in_second_topic
   end
 
+  test "index can be filtered by an organisation" do
+    given_two_publications_in_two_organisations
+
+    get :index, departments: [@organisation_1]
+
+    assert_select_object @publication_in_organisation_1
+    refute_select_object @publication_in_organisation_2
+  end
+
   test "index can be filtered by the union of multiple topics" do
     given_two_publications_in_two_topics
 
@@ -150,6 +159,15 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_select_object @published_publication
     assert_select_object @published_in_second_topic
+  end
+
+  test "index can be filtered by the union of multiple organisations" do
+    given_two_publications_in_two_organisations
+
+    get :index, departments: [@organisation_1, @organisation_2]
+
+    assert_select_object @publication_in_organisation_1
+    assert_select_object @publication_in_organisation_2
   end
 
   test "index only lists topics with associated published editions" do
@@ -171,6 +189,15 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal ["Aardvark protection", "Yak shaving"], assigns[:all_topics].map(&:name)
   end
 
+  test "index lists organisation filter options in alphabetical order ignoring prefix" do
+    organisation_1 = create(:organisation, name: "Department of yak shaving")
+    organisation_2 = create(:organisation, name: "Ministry of aardvark protection")
+
+    get :index
+
+    assert_equal ["Ministry of aardvark protection", "Department of yak shaving"], assigns[:all_organisations].map(&:name)
+  end
+
   test "index highlights selected topic filter options" do
     given_two_publications_in_two_topics
 
@@ -179,6 +206,17 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "select[name='topics[]']" do
       assert_select "option[selected='selected']", text: @topic_1.name
       assert_select "option[selected='selected']", text: @topic_2.name
+    end
+  end
+
+  test "index highlights selected organisation filter options" do
+    given_two_publications_in_two_organisations
+
+    get :index, departments: [@organisation_1, @organisation_2]
+
+    assert_select "select[name='departments[]']" do
+      assert_select "option[selected='selected']", text: @organisation_1.name
+      assert_select "option[selected='selected']", text: @organisation_2.name
     end
   end
 
@@ -192,21 +230,42 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index highlights all organisations filter options by default" do
+    given_two_publications_in_two_organisations
+
+    get :index
+
+    assert_select "select[name='departments[]']" do
+      assert_select "option[selected='selected']", text: "All departments"
+    end
+  end
+
   test 'index should not use n+1 selects when filtering by topics' do
     policy = create(:published_policy)
     topic = create(:topic, policies: [policy])
-    10.times { create(:published_publication, related_policies: [policy]) }
-    assert 10 > count_queries { get :index, topics: [topic] }
+    15.times { create(:published_publication, related_policies: [policy]) }
+    assert 15 > count_queries { get :index, topics: [topic] }
+  end
+
+  test 'index should not use n+1 selects when filtering by organisations' do
+    organisation = create(:organisation)
+    15.times { create(:published_publication, organisations: [organisation]) }
+    assert 15 > count_queries { get :index, departments: [organisation] }
   end
 
   test "index should show a helpful message if there are no matching publications" do
-    topic = create(:topic)
-    get :index, topics: [topic]
+    get :index
 
     assert_select "p", text: "There are no matching publications."
   end
 
   private
+
+  def given_two_publications_in_two_organisations
+    @organisation_1, @organisation_2 = create(:organisation), create(:organisation)
+    @publication_in_organisation_1 = create(:published_publication, organisations: [@organisation_1])
+    @publication_in_organisation_2 = create(:published_publication, organisations: [@organisation_2])
+  end
 
   def given_two_publications_in_two_topics
     @topic_1, @topic_2 = create(:topic), create(:topic)

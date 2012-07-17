@@ -1,4 +1,9 @@
 module OrganisationHelper
+  def organisation_filter_options(organisations, selected_organisations = [])
+    selected_values = selected_organisations.any? ? selected_organisations.map(&:slug) : ["all"]
+    options_for_select([["All departments", "all"]] + organisations.map{ |o| [o.name, o.slug] }, selected_values)
+  end
+
   def organisation_display_name(organisation)
     if organisation.acronym.present?
       content_tag(:abbr, organisation.acronym, title: organisation.name)

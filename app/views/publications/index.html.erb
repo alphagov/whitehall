@@ -17,6 +17,13 @@
         <fieldset>
           <div class="filter">
             <div class="filter-inner">
+              <legend class="visuallyhidden">Filter publications</legend>
+              <label for="departments" class="visuallyhidden">Department</label>
+              <%= select_tag :departments, organisation_filter_options(@all_organisations, @selected_departments), size: 5, multiple: true, class: "multi-row-select" %>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="filter-inner">
               <label for="topics" class="visuallyhidden">Topic</label>
               <%= select_tag :topics, topic_filter_options(@all_topics, @selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
             </div>
