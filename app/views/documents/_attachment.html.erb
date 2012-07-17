@@ -1,5 +1,5 @@
 <%= content_tag_for(:div, attachment, class: "attachment embedded") do %>
-  <%= link_to(attachment.url) do %>
+  <%= link_to(attachment.url, class: "title") do %>
     <% if attachment.pdf? %>
       <%= image_tag(attachment.url(:thumbnail), alt: "") %>
     <% else %>
@@ -9,12 +9,12 @@
   <% end %>
   <dl class="attachment-metadata">
     <dt>Type</dt>
-    <dd><%= humanized_content_type(attachment.file_extension) %></dd>
+    <dd class="type"><%= humanized_content_type(attachment.file_extension) %></dd>
     <dt>Size</dt>
-    <dd><%= number_to_human_size(attachment.file_size) %></dd>
+    <dd class="file-size"><%= number_to_human_size(attachment.file_size) %></dd>
     <% if attachment.number_of_pages.present? %>
       <dt>Length</dt>
-      <dd><%= pluralize(attachment.number_of_pages, "page") %></dd>
+      <dd class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></dd>
     <% end %>
   </dl>
   <% unless attachment.accessible? %>
