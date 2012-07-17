@@ -60,6 +60,46 @@ class PublicationTest < ActiveSupport::TestCase
     assert publication.valid?
   end
 
+  test 'should be valid if the price is nil' do
+    publication = build(:publication, price: nil)
+    assert publication.valid?
+  end
+
+  test 'should be valid if the price is blank' do
+    publication = build(:publication, price: '')
+    assert publication.valid?
+  end
+
+  test 'should be valid if the price appears to be in whole pounds' do
+    publication = build(:publication, price: "9", order_url: 'http://example.com')
+    assert publication.valid?
+  end
+
+  test 'should be valid if the price is in pounds and pence' do
+    publication = build(:publication, price: "1.23", order_url: 'http://example.com')
+    assert publication.valid?
+  end
+
+  test 'should be invalid if the price is non numeric' do
+    publication = build(:publication, price: 'free', order_url: 'http://example.com')
+    refute publication.valid?
+  end
+
+  test 'should be invalid if the price is zero' do
+    publication = build(:publication, price: "0", order_url: 'http://example.com')
+    refute publication.valid?
+  end
+
+  test 'should be invalid if the price is less than zero' do
+    publication = build(:publication, price: "-1.23", order_url: 'http://example.com')
+    refute publication.valid?
+  end
+
+  test 'should be invalid if a price is entered without an order url' do
+    publication = build(:publication, price: "123")
+    refute publication.valid?
+  end
+
   test "should build a draft copy of the existing publication" do
     attachment = create(:attachment)
     published_publication = create(:published_publication,
@@ -68,7 +108,8 @@ class PublicationTest < ActiveSupport::TestCase
       isbn: "0099532816",
       publication_type_id: PublicationType::ResearchAndAnalysis.id,
       order_url: "http://example.com/order-url",
-      attachments: [attachment]
+      attachments: [attachment],
+      price_in_pence: 123
     )
 
     draft_publication = published_publication.create_draft(create(:policy_writer))
@@ -80,6 +121,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert_equal published_publication.isbn, draft_publication.isbn
     assert_equal published_publication.publication_type, draft_publication.publication_type
     assert_equal published_publication.order_url, draft_publication.order_url
+    assert_equal published_publication.price_in_pence, draft_publication.price_in_pence
   end
 
   test "allows attachment" do
@@ -187,4 +229,44 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     assert_equal [published_publication], Publication.in_topic([topic_1_b]).all
   end
 
+  test "should save the price as price_in_pence" do
+    publication = create(:publication, price: "1.23", order_url: 'http://example.com')
+    publication.reload
+    assert_equal 123, publication.price_in_pence
+  end
+
+  test "should save the price as nil if an existing price_in_pence is being reset to blank" do
+    publication = create(:publication, price_in_pence: 999, order_url: 'http://example.com')
+    publication.price = ''
+    publication.save!
+    publication.reload
+    assert_equal nil, publication.price_in_pence
+  end
+
+  test "should not save a nil price as a zero price_in_pence" do
+    publication = create(:publication, price: nil, order_url: 'http://example.com')
+    publication.reload
+    assert_equal nil, publication.price_in_pence
+  end
+
+  test "should not save a blank price as a zero price_in_pence" do
+    publication = create(:publication, price: '', order_url: 'http://example.com')
+    publication.reload
+    assert_equal nil, publication.price_in_pence
+  end
+
+  test "should prefer the memoized price over price_in_pence" do
+    publication = build(:publication, price: "1.23", price_in_pence: 345)
+    assert_equal "1.23", publication.price
+  end
+
+  test "should convert price_in_pence to price in pounds when a new price hasn't been set" do
+    publication = build(:publication, price_in_pence: 345)
+    assert_equal 3.45, publication.price
+  end
+
+  test "should return nil if neither price nor price_in_pence are set" do
+    publication = build(:publication, price: nil, price_in_pence: nil)
+    assert_nil publication.price
+  end
 end

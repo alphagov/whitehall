@@ -10,6 +10,11 @@
     <p>ISBN: <span class="isbn"><%= edition.isbn %></span></p>
   <% end %>
   <% if edition.order_url.present? %>
-    <p><%= link_to "Order a copy", edition.order_url, class: "order_url button", title: "Order a copy of the publication" %></p>
+    <p>
+      <%= link_to "Order a copy", edition.order_url, class: "order_url button", title: "Order a copy of the publication" %>
+      <% if edition.price %>
+        <span class="price"><%= number_to_currency(edition.price, unit: "&pound;")%></span>
+      <% end %>
+    </p>
   <% end %>
 </section>

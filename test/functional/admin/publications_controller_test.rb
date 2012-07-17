@@ -39,6 +39,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       assert_select "input[name='edition[unique_reference]'][type='text']"
       assert_select "input[name='edition[isbn]'][type='text']"
       assert_select "input[name='edition[order_url]'][type='text']"
+      assert_select "input[name='edition[price]'][type='text']"
     end
   end
 
@@ -48,7 +49,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       unique_reference: "unique-reference",
       isbn: "0140621431",
       order_url: "http://example.com/order-path",
-      publication_type_id: PublicationType::ResearchAndAnalysis.id
+      publication_type_id: PublicationType::ResearchAndAnalysis.id,
+      price: "9.99"
     )
 
     created_publication = Publication.last
@@ -57,6 +59,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal "0140621431", created_publication.isbn
     assert_equal "http://example.com/order-path", created_publication.order_url
     assert_equal PublicationType::ResearchAndAnalysis, created_publication.publication_type
+    assert_equal 9.99, created_publication.price
   end
 
   test "edit displays publication fields" do
