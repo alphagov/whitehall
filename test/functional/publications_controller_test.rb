@@ -9,29 +9,13 @@ class PublicationsControllerTest < ActionController::TestCase
   should_not_display_lead_image_for :publication
   should_show_change_notes :publication
 
-  test "should only display published publications" do
-    archived_publication = create(:archived_publication)
-    published_publication = create(:published_publication)
-    draft_publication = create(:draft_publication)
-    get :index
-
-    assert_select_object(published_publication)
-    refute_select_object(archived_publication)
-    refute_select_object(draft_publication)
-  end
-
   test 'show displays published publications' do
     published_publication = create(:published_publication)
     get :show, id: published_publication.document
     assert_response :success
   end
 
-  test 'should avoid n+1 selects when showing index' do
-    10.times { create(:published_publication) }
-    assert 10 > count_queries { get :index }
-  end
-
-  test "should show inapplicable nations" do
+  test "show displays inapplicable nations" do
     published_publication = create(:published_publication)
     northern_ireland_inapplicability = published_publication.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
     scotland_inapplicability = published_publication.nation_inapplicabilities.create!(nation: Nation.scotland)
@@ -47,7 +31,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not explicitly say that publication applies to the whole of the UK" do
+  test "show should not explicitly say that publication applies to the whole of the UK" do
     published_publication = create(:published_publication)
 
     get :show, id: published_publication.document
@@ -55,7 +39,7 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select inapplicable_nations_selector
   end
 
-  test "should display publication metadata" do
+  test "show should display publication metadata" do
     publication = create(:published_publication,
       publication_date: Date.parse("1916-05-31"),
       unique_reference: "unique-reference",
@@ -77,7 +61,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not mention the unique reference if there isn't one" do
+  test "show should not mention the unique reference if there isn't one" do
     publication = create(:published_publication, unique_reference: '')
 
     get :show, id: publication.document
@@ -87,7 +71,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not mention the ISBN if there isn't one" do
+  test "show should not mention the ISBN if there isn't one" do
     publication = create(:published_publication, isbn: '')
 
     get :show, id: publication.document
@@ -97,7 +81,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not display an order link if no order url exists" do
+  test "show should not display an order link if no order url exists" do
     publication = create(:published_publication, order_url: nil)
 
     get :show, id: publication.document
@@ -117,8 +101,27 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  def assert_featured(doc)
-    assert_select "#{record_css_selector(doc)}.featured"
+  test "show should display a National Statistic badge on the appropriate documents" do
+    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id)
+    get :show, id: publication.document
+
+    assert_match /National Statistic/, response.body
+  end
+
+  test "index only displays published publications" do
+    archived_publication = create(:archived_publication)
+    published_publication = create(:published_publication)
+    draft_publication = create(:draft_publication)
+    get :index
+
+    assert_select_object(published_publication)
+    refute_select_object(archived_publication)
+    refute_select_object(draft_publication)
+  end
+
+  test 'index should not use n+1 selects' do
+    10.times { create(:published_publication) }
+    assert 10 > count_queries { get :index }
   end
 
   test "index displays the featured publication that was published most recently" do
@@ -130,6 +133,80 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(newer_featured_publication)}.featured"
     refute_select "#{record_css_selector(older_featured_publication)}.featured"
   end
+
+  test "index can be filtered by the topic of the associated policy" do
+    given_two_publications_in_two_topics
+
+    get :index, topics: [@topic_1]
+
+    assert_select_object @published_publication
+    refute_select_object @published_in_second_topic
+  end
+
+  test "index can be filtered by the union of multiple topics" do
+    given_two_publications_in_two_topics
+
+    get :index, topics: [@topic_1, @topic_2]
+
+    assert_select_object @published_publication
+    assert_select_object @published_in_second_topic
+  end
+
+  test "index only lists topics with associated published editions" do
+    given_two_publications_in_two_topics
+    another_topic = create(:topic, policies: [create(:draft_policy)])
+
+    get :index
+
+    refute assigns[:all_topics].include?(another_topic)
+  end
+
+  test "index lists topic filter options in alphabetical order" do
+    topic_1 = create(:topic, name: "Yak shaving")
+    topic_2 = create(:topic, name: "Aardvark protection")
+    create_publications_in(topic_1, topic_2)
+
+    get :index
+
+    assert_equal ["Aardvark protection", "Yak shaving"], assigns[:all_topics].map(&:name)
+  end
+
+  test "index highlights selected topic filter options" do
+    given_two_publications_in_two_topics
+
+    get :index, topics: [@topic_1, @topic_2]
+
+    assert_select "select[name='topics[]']" do
+      assert_select "option[selected='selected']", text: @topic_1.name
+      assert_select "option[selected='selected']", text: @topic_2.name
+    end
+  end
+
+  test "index highlights all topics filter option by default" do
+    given_two_publications_in_two_topics
+
+    get :index
+
+    assert_select "select[name='topics[]']" do
+      assert_select "option[selected='selected']", text: "All topics"
+    end
+  end
+
+  test 'index should not use n+1 selects when filtering by topics' do
+    policy = create(:published_policy)
+    topic = create(:topic, policies: [policy])
+    10.times { create(:published_publication, related_policies: [policy]) }
+    assert 10 > count_queries { get :index, topics: [topic] }
+  end
+
+  test "index should show a helpful message if there are no matching publications" do
+    topic = create(:topic)
+    get :index, topics: [topic]
+
+    assert_select "p", text: "There are no matching publications."
+  end
+
+  private
 
   def given_two_publications_in_two_topics
     @topic_1, @topic_2 = create(:topic), create(:topic)
@@ -146,82 +223,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "can filter by the topic of the associated policy" do
-    given_two_publications_in_two_topics
-
-    get :index, topics: [@topic_1]
-
-    assert_select_object @published_publication
-    refute_select_object @published_in_second_topic
-  end
-
-  test "can filter by the union of multiple topics" do
-    given_two_publications_in_two_topics
-
-    get :index, topics: [@topic_1, @topic_2]
-
-    assert_select_object @published_publication
-    assert_select_object @published_in_second_topic
-  end
-
-  test "only list topics with associated published editions" do
-    given_two_publications_in_two_topics
-    another_topic = create(:topic, policies: [create(:draft_policy)])
-
-    get :index
-
-    refute assigns[:all_topics].include?(another_topic)
-  end
-
-  test "list topic filter options in alphabetical order" do
-    topic_1 = create(:topic, name: "Yak shaving")
-    topic_2 = create(:topic, name: "Aardvark protection")
-    create_publications_in(topic_1, topic_2)
-
-    get :index
-
-    assert_equal ["Aardvark protection", "Yak shaving"], assigns[:all_topics].map(&:name)
-  end
-
-  test "highlight selected topic filter options" do
-    given_two_publications_in_two_topics
-
-    get :index, topics: [@topic_1, @topic_2]
-
-    assert_select "select[name='topics[]']" do
-      assert_select "option[selected='selected']", text: @topic_1.name
-      assert_select "option[selected='selected']", text: @topic_2.name
-    end
-  end
-
-  test "highlight all topics filter option by default" do
-    given_two_publications_in_two_topics
-
-    get :index
-
-    assert_select "select[name='topics[]']" do
-      assert_select "option[selected='selected']", text: "All topics"
-    end
-  end
-
-  test 'should avoid n+1 selects when filtering by topics' do
-    policy = create(:published_policy)
-    topic = create(:topic, policies: [policy])
-    10.times { create(:published_publication, related_policies: [policy]) }
-    assert 10 > count_queries { get :index, topics: [topic] }
-  end
-
-  test "should show a helpful message if there are no matching publications" do
-    topic = create(:topic)
-    get :index, topics: [topic]
-
-    assert_select "p", text: "There are no matching publications."
-  end
-
-  test "should show a National Statistic badge on the appropriate documents" do
-    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id)
-    get :show, id: publication.document
-
-    assert_match /National Statistic/, response.body
+  def assert_featured(doc)
+    assert_select "#{record_css_selector(doc)}.featured"
   end
 end
