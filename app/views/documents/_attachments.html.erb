@@ -1,13 +1,25 @@
 <% object_with_attachments.attachments.each do |attachment| %>
-  <%= content_tag_for(:div, attachment) do %>
-    <div class="img"><% if attachment.pdf? %>
-      <%= link_to(image_tag(attachment.url(:thumbnail)), attachment.url) %>
-    <% else %>
-      <%= link_to image_tag('pub-cover.png'), attachment.url %>
-    <% end %></div>
-
-    <div class="download_url attachment_title"><%= link_to attachment.title, attachment.url %></div>
-
-    <%= render partial: 'documents/attachment_meta', locals: {attachment: attachment} %>
+  <%= content_tag_for(:div, attachment, class: "attachment embedded") do %>
+    <%= link_to(url: attachment.url) do %>
+      <% if attachment.pdf? %>
+        <%= image_tag(attachment.url(:thumbnail), alt: "") %>
+      <% else %>
+        <%= image_tag('pub-cover.png', alt: "") %>
+      <% end %>
+      <span class="visuallyhidden">Download </span><%= attachment.title %>
+    <% end %>
+    <dl class="attachment-metadata">
+      <dt>Type</dt>
+      <dd><%= humanized_content_type(attachment.file_extension) %></dd>
+      <dt>Size</dt>
+      <dd><%= number_to_human_size(attachment.file_size) %></dd>
+      <% if attachment.number_of_pages.present? %>
+        <dt>Length</dt>
+        <dd><%= pluralize(attachment.number_of_pages, "page") %></dd>
+      <% end %>
+    </dl>
+    <% unless attachment.accessible? %>
+      <strong class="accessibility-warning">This file may not be accessible</strong>
+    <% end %>
   <% end %>
 <% end %>

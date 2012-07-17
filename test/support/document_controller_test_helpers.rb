@@ -6,17 +6,17 @@ module DocumentControllerTestHelpers
       test "show displays document attachments" do
         attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
         attachment_2 = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
-        edition = create("published_#{document_type}", attachments: [attachment_1, attachment_2])
+        edition = create("published_#{document_type}", body: "!@1\n\n!@2", attachments: [attachment_1, attachment_2])
 
         get :show, id: edition.document
 
         assert_select_object(attachment_1) do
-          assert_select '.attachment .attachment_title', text: attachment_1.title
-          assert_select '.attachment img[src$=?]', 'thumbnail_greenpaper.pdf.png'
+          assert_select '.title', text: attachment_1.title
+          assert_select '.title img[src$=?]', 'thumbnail_greenpaper.pdf.png'
         end
         assert_select_object(attachment_2) do
-          assert_select '.attachment .attachment_title', text: attachment_2.title
-          assert_select '.attachment img[src$=?]', 'pub-cover.png', message: 'should use default image for non-PDF attachments'
+          assert_select '.title', text: attachment_2.title
+          assert_select '.title img[src$=?]', 'pub-cover.png', message: 'should use default image for non-PDF attachments'
         end
       end
 
@@ -24,7 +24,7 @@ module DocumentControllerTestHelpers
         attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: true)
         attachment_2 = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
 
-        edition = create("published_#{document_type}", attachments: [attachment_1, attachment_2])
+        edition = create("published_#{document_type}", body: "!@1\n\n!@2", attachments: [attachment_1, attachment_2])
 
         get :show, id: edition.document
 
@@ -39,28 +39,28 @@ module DocumentControllerTestHelpers
       test "show displays PDF attachment metadata" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attachment = create(:attachment, file: greenpaper_pdf)
-        edition = create("published_#{document_type}", attachments: [attachment])
+        edition = create("published_#{document_type}", body: "!@1", attachments: [attachment])
 
         get :show, id: edition.document
 
         assert_select_object(attachment) do
           assert_select ".type", /PDF/
-          assert_select ".number_of_pages", "1 page"
-          assert_select ".size", "3.39 KB"
+          assert_select ".page-length", "1 page"
+          assert_select ".file-size", "3.39 KB"
         end
       end
 
       test "show displays non-PDF attachment metadata" do
         csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attachment = create(:attachment, file: csv)
-        edition = create("published_#{document_type}", attachments: [attachment])
+        edition = create("published_#{document_type}", body: "!@1", attachments: [attachment])
 
         get :show, id: edition.document
 
         assert_select_object(attachment) do
           assert_select ".type", /CSV/
-          refute_select ".number_of_pages"
-          assert_select ".size", "121 Bytes"
+          refute_select ".page-length"
+          assert_select ".file-size", "121 Bytes"
         end
       end
     end

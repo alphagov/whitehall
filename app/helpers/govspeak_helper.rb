@@ -21,7 +21,12 @@ module GovspeakHelper
   end
 
   def govspeak_to_html(text, images = [])
-    markup_to_html_with_replaced_admin_links(text, images)
+    if text.respond_to?(:images)
+      markdown = markup_with_attachments_to_html(text)
+      markup_to_html_with_replaced_admin_links(markdown, text.images)
+    else
+      markup_to_html_with_replaced_admin_links(text, images)
+    end
   end
 
   def govspeak_headers(text, level = 2)
@@ -79,6 +84,17 @@ module GovspeakHelper
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(html)
+  end
+
+  def markup_with_attachments_to_html(document)
+    body = document.body.gsub(/^!@([0-9]+)\s*/) do
+      attachment = document.attachments[$1.to_i - 1]
+      if attachment
+        render partial: "documents/attachment", object: attachment
+      else
+        ""
+      end
+    end
   end
 
   def is_internal_admin_link?(href)

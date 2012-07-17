@@ -1,0 +1,23 @@
+<%= content_tag_for(:div, attachment, class: "attachment embedded") do %>
+  <%= link_to(attachment.url, class: "title") do %>
+    <% if attachment.pdf? %>
+      <%= image_tag(attachment.url(:thumbnail), alt: "") %>
+    <% else %>
+      <%= image_tag('pub-cover.png', alt: "") %>
+    <% end %>
+    <%= attachment.title %>
+  <% end %>
+  <dl class="attachment-metadata">
+    <dt>Type</dt>
+    <dd class="type"><%= humanized_content_type(attachment.file_extension) %></dd>
+    <dt>Size</dt>
+    <dd class="file-size"><%= number_to_human_size(attachment.file_size) %></dd>
+    <% if attachment.number_of_pages.present? %>
+      <dt>Length</dt>
+      <dd class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></dd>
+    <% end %>
+  </dl>
+  <% unless attachment.accessible? %>
+    <strong class="accessibility-warning">This file may not be accessible</strong>
+  <% end %>
+<% end %>
