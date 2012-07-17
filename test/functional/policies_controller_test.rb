@@ -62,14 +62,6 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select ".policy-navigation a.current[href='#{policy_path(policy.document)}']"
   end
 
-  test "should apply an active class to the policy page navigation heading" do
-    published_edition = create(:published_policy)
-    get :show, id: published_edition.document
-
-    assert_select "section.contextual-info a.active",
-      text: published_edition.title
-  end
-
   test "should render the content using govspeak markup" do
     published_policy = create(:published_policy, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
@@ -127,12 +119,6 @@ class PoliciesControllerTest < ActionController::TestCase
     get :show, id: edition.document
 
     assert_select "#document-ministers a.minister", text: "minister-name"
-  end
-
-  test "shows link to policy overview" do
-    policy = create(:published_policy)
-    get :show, id: policy.document
-    assert_select "a[href='#{policy_path(policy.document)}#top']", text: policy.title
   end
 
   test "shows link to each policy section in the markdown" do

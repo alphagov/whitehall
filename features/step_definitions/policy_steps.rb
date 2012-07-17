@@ -325,6 +325,7 @@ Then /^I can see links to the recently changed document "([^"]*)"$/ do |title|
 end
 
 Then /^the change note "([^"]*)" should appear in the history for the policy "([^"]*)"$/ do |change_note, title|
+  visit policies_path
   click_link title
   assert page.has_css?(".change-notes", text: Regexp.new(change_note))
 end
