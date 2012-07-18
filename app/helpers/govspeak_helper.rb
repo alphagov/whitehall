@@ -2,15 +2,13 @@ require 'addressable/uri'
 
 module GovspeakHelper
 
+  def govspeak_edition_to_admin_html(edition)
+    images = edition.respond_to?(:images) ? edition.images : []
+    text = markup_with_attachments_to_html(edition)
+    govspeak_to_admin_html(text, images)
+  end
+
   def govspeak_to_admin_html(text, images = [])
-    if text.respond_to?(:attachments) || text.respond_to?(:images)
-      text = markup_with_attachments_to_html(text)
-    end
-
-    if text.respond_to?(:images)
-      images = text.images
-    end
-
     markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, edition|
       latest_edition = edition && edition.document.latest_edition
       if latest_edition.nil?
@@ -28,13 +26,14 @@ module GovspeakHelper
     end
   end
 
+  def govspeak_edition_to_html(edition)
+    images = edition.respond_to?(:images) ? edition.images : []
+    text = markup_with_attachments_to_html(edition)
+    govspeak_to_html(text, images)
+  end
+
   def govspeak_to_html(text, images = [])
-    if text.respond_to?(:images)
-      markdown = markup_with_attachments_to_html(text)
-      markup_to_html_with_replaced_admin_links(markdown, text.images)
-    else
-      markup_to_html_with_replaced_admin_links(text, images)
-    end
+    markup_to_html_with_replaced_admin_links(text, images)
   end
 
   def govspeak_headers(text, level = 2)

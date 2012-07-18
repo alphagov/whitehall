@@ -309,14 +309,14 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should convert single document to govspeak" do
     document = create(:published_policy, body: "## test")
-    html = govspeak_to_html(document)
+    html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h2"
   end
 
   test "should add inline attachments" do
     text = "#Heading\n\n!@1"
     document = create(:published_specialist_guide, body: text, attachments: [create(:attachment)])
-    html = govspeak_to_html(document)
+    html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     assert_select_within_html html, ".attachment.embedded"
   end
@@ -324,7 +324,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should ignore missing attachments" do
     text = "#Heading\n\n!@2"
     document = create(:published_specialist_guide, body: text, attachments: [create(:attachment)])
-    html = govspeak_to_html(document)
+    html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     refute_select_within_html html, ".attachment.embedded"
   end
@@ -332,7 +332,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should not convert documents with no attachments" do
     text = "#Heading\n\n!@2"
     document = create(:published_specialist_guide, body: text)
-    html = govspeak_to_html(document)
+    html = govspeak_edition_to_html(document)
     refute_select_within_html html, ".attachment.embedded"
   end
 
@@ -341,7 +341,7 @@ class GovspeakHelperTest < ActionView::TestCase
     attachment_1 = create(:attachment)
     attachment_2 = create(:attachment)
     document = create(:published_specialist_guide, body: text, attachments: [attachment_1, attachment_2])
-    html = govspeak_to_html(document)
+    html = govspeak_edition_to_html(document)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
     assert_select_within_html html, "#attachment_#{attachment_2.id}"
   end
