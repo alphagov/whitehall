@@ -92,11 +92,11 @@ When /^I unfeature the publication "([^"]*)"$/ do |publication_title|
 end
 
 When /^I fill in "([^"]*)" with "([^"]*)"$/ do |name, value|
-  fill_in :title, with: value
+  fill_in name, with: value
 end
 
 When /^I press "([^"]*)"$/ do |button|
-  click_button :button
+  click_button button
 end
 
 When /^I set the publication title to "([^"]*)" and save$/ do |title|
