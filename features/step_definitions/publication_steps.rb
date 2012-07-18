@@ -75,22 +75,6 @@ When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ d
   click_button "Save"
 end
 
-When /^I feature the publication "([^"]*)"$/ do |publication_title|
-  publication = Publication.find_by_title!(publication_title)
-  visit admin_editions_path(state: :published, type: 'publication')
-  within record_css_selector(publication) do
-    click_button "Feature"
-  end
-end
-
-When /^I unfeature the publication "([^"]*)"$/ do |publication_title|
-  publication = Publication.find_by_title!(publication_title)
-  visit admin_editions_path(state: :published, type: 'publication')
-  within record_css_selector(publication) do
-    click_button "No longer feature"
-  end
-end
-
 When /^I set the publication title to "([^"]*)" and save$/ do |title|
   fill_in "Title", with: title
   click_button "Save"

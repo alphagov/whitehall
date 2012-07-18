@@ -383,7 +383,4 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  def assert_featured(doc)
-    assert_select "#{record_css_selector(doc)}.featured"
-  end
 end

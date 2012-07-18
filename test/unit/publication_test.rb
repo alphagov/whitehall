@@ -3,8 +3,6 @@ require "test_helper"
 class PublicationTest < ActiveSupport::TestCase
   include DocumentBehaviour
 
-  should_be_featurable :publication
-
   test 'should be invalid without a publication date' do
     publication = build(:publication, publication_date: nil)
     refute publication.valid?

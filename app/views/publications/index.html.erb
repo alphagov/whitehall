@@ -50,38 +50,6 @@
   </div>
 </div>
 
-<div class="block-2">
-  <div class="inner-block">
-    <% if publication = @featured_publication %>
-      <%= content_tag_for(:div, publication, class: 'featured') do %>
-        <div class="thumbnail">
-          <%= edition_thumbnail_tag(publication) %>
-          <% if attachment = publication.thumbnailable_attachments.first || publication.attachments.first %>
-            <p>
-              <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>
-              <% if attachment.number_of_pages.present? %>
-                <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
-              <% end %>
-              <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
-            </p>
-          <% end %>
-        </div>
-        <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-        <p class="organisations"><%= publication.organisations.map { |o| link_to(organisation_name_with_acronym(o), o) }.to_sentence.html_safe %></p>
-        <% if publication.summary.present? %>
-          <p class="summary"><%= publication_summary(publication) %></p>
-        <% end %>
-        <p class="published_on">
-          Published on
-          <%= render_datetime_microformat(publication, :publication_date) {
-                publication.publication_date.to_s(:long_ordinal)
-          }%>
-        </p>
-      <% end %>
-    <% end %>
-  </div>
-</div>
-
 <div class="block-4">
   <div class="inner-block">
     <% if @publications.any? %>

@@ -6,7 +6,7 @@ class Admin::FeaturingsControllerTest < ActionController::TestCase
     request.env["HTTP_REFERER"] = "http://example.com"
   end
 
-  [:publication, :consultation, :news_article].each do |edition_type|
+  [:consultation, :news_article].each do |edition_type|
     test "featuring a published #{edition_type} sets the featured flag" do
       edition = create("published_#{edition_type}")
       post :create, edition_id: edition, edition: {}
@@ -32,7 +32,7 @@ class Admin::FeaturingsControllerTest < ActionController::TestCase
     end
   end
 
-  [:policy, :consultation_response, :international_priority, :speech].each do |edition_type|
+  [:publication, :policy, :consultation_response, :international_priority, :speech].each do |edition_type|
     test "should not allow featuring a #{edition_type}" do
       edition = create("published_#{edition_type}")
       refute edition.featurable?

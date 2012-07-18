@@ -43,7 +43,6 @@ class PublicationsController < DocumentsController
       @publications = @publications.in_organisation(@selected_departments)
     end
 
-    @featured_publication = @publications.select(&:featured).first
   end
 
   def show

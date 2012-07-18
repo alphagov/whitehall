@@ -5,7 +5,6 @@ class Publication < Edition
   include Edition::RelatedPolicies
   include Edition::Attachable
   include Edition::Countries
-  include Edition::Featurable
 
   validates :publication_date, presence: true
   validates :isbn, isbn_format: true, allow_blank: true
