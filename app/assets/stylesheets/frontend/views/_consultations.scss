@@ -1,4 +1,34 @@
 nav.consultations_scope {
+  li {
+    margin: 0;
+    font-size: 0.875em;
+    line-height: 1.286em;
+    margin-bottom: 1.286em;
+    list-style-type: none;
+    margin-bottom: 0.75em;
+    position: relative;
+    padding-left: 1.75em;
+  }
+  li a {
+    color: #444;
+  }
+  li a span {
+    background-color:  #CCC;
+    display: block;
+    height: 0.75em;
+    left: 0;
+    position: absolute;
+    top: 0.355em;
+    width: 0.75em;
+  }
+  li.selected a span, li:hover a span {
+    background-color:  #2E3191;
+  }
+  li.toggle a span {
+    background-color: inherit;
+    top: 0;
+  }
+
   a:first-child {
     margin-left: 0;
     background-color: #744260;

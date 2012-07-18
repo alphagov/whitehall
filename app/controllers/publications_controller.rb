@@ -21,6 +21,8 @@ class PublicationsController < DocumentsController
           @publications = @publications.published_after(@date)
         end
       end
+    else
+      @direction = "before"
     end
 
     if "after" == @direction
@@ -36,7 +38,7 @@ class PublicationsController < DocumentsController
       @publications = @publications.in_topic(@selected_topics)
     end
 
-    @all_organisations = Organisation.ordered_by_name_ignoring_prefix
+    @all_organisations = Organisation.joins(:published_publications).group(:name).ordered_by_name_ignoring_prefix
     @selected_departments = []
     if params[:departments].present? && !params[:departments].include?("all")
       @selected_departments = Organisation.where(slug: params[:departments])

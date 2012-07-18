@@ -42,7 +42,7 @@
 
 
 .announcements-index,
-.news, 
+.news,
 .newsarticle {
   .page-header {
     $width: 53px;
@@ -67,7 +67,7 @@
   }
 }
 
-.consultation-closed, 
+.consultation-closed,
 .consultation-responded {
   .page-header {
     $width: 60px;
@@ -84,7 +84,7 @@
   }
 }
 
-.countries-index {  
+.countries-index {
   .page-header {
     $width: 60px;
     padding-left: $width + $gutter-two-thirds;
@@ -108,7 +108,7 @@
   }
 }
 
-.policy, 
+.policy,
 .supporting_page {
   .page-header {
     $width: 35px;
@@ -123,15 +123,6 @@
     $width: 41px;
     padding-left: $width + $gutter-two-thirds;
     background-image: url(/government/assets/icons/48/topic.png);
-  }
-}
-
-.publications-index,
-.publication {
-  .page-header {
-    $width: 46px;
-    padding-left: $width + $gutter-two-thirds;
-    background-image: url(/government/assets/icons/48/publication.png);
   }
 }
 

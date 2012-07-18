@@ -344,57 +344,12 @@
 
 }
 
-  .policies-activities {
-    .policy {
-      .block-1, .block-2 {
-        display: block;
-        float: none;
-        width: 100%;
-      }
-      .latest_documents {
-        ul {
-          margin-top: 0;
-        li {
-          border: 1px solid $light-blue-grey;
-          border-width: 0 0 1px 0;
-          overflow: hidden;
-          margin-top: 0;
-          padding: $gutter-one-third 0;
-          a, .metadata {
-            float: left;
-            display: inline;
-            width: 70%;
-            padding: 0;
-          }
-          .metadata {
-            padding-top: $gutter-half;
-            width: 30%;
-            .document_type {
-              float: right;
-            }
-          }
-        }
-        li:first-child {
-          border-width: 1px 0;
-        }
-        li:first-child, li:nth-child(2), li:nth-child(3) {
-          overflow: hidden;
-          a {
-            font-size: 3rem;
-            display: block;
-            float: none;
-            width: 100%;
-            @media (max-width: 768px) {
-              font-size: 2rem;
-            }
-          }
-          .metadata {
-            display: block;
-            float: none;
-            width: 100%;
-          }
-        }
-      }
-      }
+.policies-activities {
+  .policy {
+    .block-1, .block-2 {
+      display: block;
+      float: none;
+      width: 100%;
     }
   }
+}

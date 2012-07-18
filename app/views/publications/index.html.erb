@@ -15,9 +15,9 @@
       <h2>Filter</h2>
       <%= form_tag publications_path, method: :get do %>
         <fieldset>
+          <legend class="visuallyhidden">Filter publications</legend>
           <div class="filter">
             <div class="filter-inner">
-              <legend class="visuallyhidden">Filter publications</legend>
               <%= label_tag "departments", "Department", class: "visuallyhidden" %>
               <%= select_tag :departments, organisation_filter_options(@all_organisations, @selected_departments), size: 5, multiple: true, class: "multi-row-select" %>
             </div>
@@ -30,15 +30,20 @@
           </div>
           <div class="filter">
             <div class="filter-inner">
-              <div class="date-range">
-                <%= label_tag "direction", "Before / After" %>
-                <%= select_tag :direction, date_direction_filter_options(@direction), include_blank: true %>
-                <p class="joiner"></p>
-                <%= label_tag "date", "Date", class: "visuallyhidden" %>
-                <%= select_tag :date, options_for_select(recent_month_filter_options(24, @date)), include_blank: true %>
-              </div>
-              <%= label_tag "keywords", "Contains" %>
+              <%= label_tag "keywords", "Contains", class: 'title' %>
               <%= text_field_tag :keywords, @keywords, placeholder: "keywords" %>
+
+              <div class="date-range">
+                <h3>Published</h3>
+                <% ['before', 'after'].each do |direction| %>
+                  <%= label_tag "direction_#{direction}", class: 'checkbox'  do %>
+                    <%= radio_button_tag :direction, direction, direction == @direction %>
+                    <%= direction.humanize %>
+                  <% end %>
+                <% end %>
+                <%= label_tag "date", "Date", class: "visuallyhidden" %>
+                <%= select_tag :date, options_for_select(recent_month_filter_options(24, @date)), include_blank: false %>
+              </div>
               <div class="submit">
                 <%= submit_tag "Refresh", class: "button" %>
               </div>
@@ -53,38 +58,26 @@
 <div class="block-4">
   <div class="inner-block">
     <% if @publications.any? %>
-      <div class="table-sort">
-        <table border="0">
-          <thead>
-            <tr>
-              <th class="title">Title</th>
-              <th class="publication-type">Publication type</th>
-              <th class="organisations">By</th>
-              <th class="table-summary">Summary</th>
-              <th class="date">Publish date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @publications.each do |publication| %>
-              <%= content_tag_for(:tr, publication) do %>
-                <td class="title article_title">
-                  <%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %>
-                </td>
-                <td class="publication-type">
-                  <%= publication.publication_type.singular_name %>
-                </td>
-                <td class="organisations"><%= publication.organisations.map { |o| link_to(organisation_display_name(o), o) }.to_sentence.html_safe %></td>
-                <td class="table-summary summary"><%= publication_summary(publication) %></td>
-                <td class="date published_on">
-                  <%= render_datetime_microformat(publication, :publication_date) {
-                        publication.publication_date.to_s(:long_ordinal)
-                  }%>
-                </td>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+      <ol class="document-list">
+        <% @publications.each_with_index do |publication, i| %>
+          <%= content_tag_for(:li, publication, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
+            <span class="title attribute">
+              <%= link_to publication.title, public_document_path(publication),
+                  title: "View #{publication.title}" %>
+              <em class="meta organisation"><%= publication.organisations.map { |o|
+                organisation_display_name(o) }.to_sentence.html_safe %></em>
+            </span>
+            <span class="date attribute">
+              <%= render_datetime_microformat(publication, :publication_date) {
+                    publication.publication_date.to_s(:long_ordinal)
+              }%>
+            </span>
+            <span class="type attribute">
+              <%= publication.publication_type.singular_name %>
+            </span>
+          <% end %>
+        <% end %>
+      </ol>
     <% else %>
       <p>There are no matching publications.</p>
     <% end %>

@@ -96,7 +96,7 @@ end
 
 Then /^I should see the summary of the publication "([^"]*)"$/ do |publication_title|
   publication = Publication.published.find_by_title!(publication_title)
-  assert has_css?("#{record_css_selector(publication)} .summary", publication.summary)
+  assert has_css?("#{record_css_selector(publication)} .title", publication.title)
 end
 
 Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |title, organisation|

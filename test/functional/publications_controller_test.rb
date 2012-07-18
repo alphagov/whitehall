@@ -219,9 +219,11 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal ["Aardvark protection", "Yak shaving"], assigns[:all_topics].map(&:name)
   end
 
-  test "index lists organisation filter options in alphabetical order ignoring prefix" do
+  test "index lists organisations with publicationsi in alphabetical order ignoring prefix" do
     organisation_1 = create(:organisation, name: "Department of yak shaving")
+    publication_1 = create(:published_publication, organisations: [organisation_1])
     organisation_2 = create(:organisation, name: "Ministry of aardvark protection")
+    publication_2 = create(:published_publication, organisations: [organisation_2])
 
     get :index
 
@@ -259,9 +261,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "index displays selected date filter" do
     get :index, direction: "before", date: "2010-01-01"
 
-    assert_select "select[name='direction']" do
-      assert_select "option[selected='selected'][value=?]", "before"
-    end
+    assert_select "input#direction_before[name='direction'][checked=checked]"
     assert_select "select[name='date']" do
       assert_select "option[selected='selected'][value=?]", "2010-01-01"
     end
@@ -296,9 +296,6 @@ class PublicationsControllerTest < ActionController::TestCase
   test "index does not select a date filter by default" do
     get :index
 
-    assert_select "select[name='direction']" do
-      refute_select "option[selected='selected']"
-    end
     assert_select "select[name='date']" do
       refute_select "option[selected='selected']"
     end

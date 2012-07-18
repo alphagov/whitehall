@@ -50,6 +50,11 @@ class Organisation < ActiveRecord::Base
             class_name: "SpecialistGuide",
             conditions: { "editions.state" => "published" },
             source: :edition
+  has_many :published_publications,
+            through: :edition_organisations,
+            class_name: "Publication",
+            conditions: { "editions.state" => "published" },
+            source: :edition
 
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles
