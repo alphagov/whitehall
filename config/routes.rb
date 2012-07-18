@@ -136,7 +136,6 @@ Whitehall::Application.routes.draw do
     match '/policy-topics' => redirect("/topics")
 
     match 'site/sha' => 'site#sha'
-    match 'site/headers' => 'site#headers'
     match 'site/grid' => 'site#grid'
     match '/home/grid' => 'home#show'
   end
