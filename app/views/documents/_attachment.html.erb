@@ -1,4 +1,4 @@
-<%= content_tag_for(:div, attachment, class: "attachment embedded") do %>
+<%= content_tag_for(:div, attachment, class: "embedded") do %>
   <%= link_to(attachment.url, class: "title") do %>
     <% if attachment.pdf? %>
       <%= image_tag(attachment.url(:thumbnail), alt: "") %>
