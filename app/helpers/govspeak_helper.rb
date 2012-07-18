@@ -3,6 +3,14 @@ require 'addressable/uri'
 module GovspeakHelper
 
   def govspeak_to_admin_html(text, images = [])
+    if text.respond_to?(:attachments) || text.respond_to?(:images)
+      text = markup_with_attachments_to_html(text)
+    end
+
+    if text.respond_to?(:images)
+      images = text.images
+    end
+
     markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, edition|
       latest_edition = edition && edition.document.latest_edition
       if latest_edition.nil?
