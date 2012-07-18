@@ -1,13 +1,3 @@
 <% object_with_attachments.attachments.each do |attachment| %>
-  <%= content_tag_for(:div, attachment) do %>
-    <div class="img"><% if attachment.pdf? %>
-      <%= link_to(image_tag(attachment.url(:thumbnail)), attachment.url) %>
-    <% else %>
-      <%= link_to image_tag('pub-cover.png'), attachment.url %>
-    <% end %></div>
-
-    <div class="download_url attachment_title"><%= link_to attachment.title, attachment.url %></div>
-
-    <%= render partial: 'documents/attachment_meta', locals: {attachment: attachment} %>
-  <% end %>
+  <%= render partial: "documents/attachment", object: attachment %>
 <% end %>

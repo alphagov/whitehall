@@ -87,12 +87,8 @@
         }
       }
     }
-    
-    strong, b {
-      font-family: $NTA-Bold;
-    }
-    
-    em, i {
+
+     em, i {
       font-style: italic;
     }
     
@@ -129,6 +125,8 @@
         @include core-14;
       }
     }
+
+
   }
     
   section {
@@ -142,5 +140,39 @@
       @include sans-15;
     }
   }
-}
+  // inline attachment pullouts
+  .attachment {
+    $img-gutter: 99px;
 
+    background: $light-warm-grey;
+
+    padding: $gutter-one-third;
+
+    a {
+      // this is the download link
+      @include core-19;
+
+      img {
+        float: left;
+        width: $img-gutter;
+        margin-right: 8px;
+      }
+    }
+
+    dl {
+      margin-left: $img-gutter + 8px;
+      @include core-14;
+
+      dt {
+        float: left;
+        width: 6em;
+      }
+
+      dd {
+        display: block;
+      }
+    }
+
+    overflow: hidden;
+  }
+}

@@ -21,6 +21,7 @@ Scenario: Preserving attachments on published documents
 
 Scenario: Remember uploaded file after validation failure
   Given I attempt to create an invalid publication with an attachment
-  When I set the publication title to "Validation Error Fixed" and save
+  When I fill in "Title" with "Validation error fixed"
+  When I fill in "Body" with "!@1"
+  When I press "Save"
   Then I should see a link to the PDF attachment
-  

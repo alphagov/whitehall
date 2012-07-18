@@ -2,6 +2,12 @@ require 'addressable/uri'
 
 module GovspeakHelper
 
+  def govspeak_edition_to_admin_html(edition)
+    images = edition.respond_to?(:images) ? edition.images : []
+    text = markup_with_attachments_to_html(edition)
+    govspeak_to_admin_html(text, images)
+  end
+
   def govspeak_to_admin_html(text, images = [])
     markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, edition|
       latest_edition = edition && edition.document.latest_edition
@@ -18,6 +24,12 @@ module GovspeakHelper
         safe_join [replacement_html, annotation], ' '
       end
     end
+  end
+
+  def govspeak_edition_to_html(edition)
+    images = edition.respond_to?(:images) ? edition.images : []
+    text = markup_with_attachments_to_html(edition)
+    govspeak_to_html(text, images)
   end
 
   def govspeak_to_html(text, images = [])
@@ -79,6 +91,17 @@ module GovspeakHelper
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(html)
+  end
+
+  def markup_with_attachments_to_html(document)
+    body = document.body.gsub(/^!@([0-9]+)\s*/) do
+      attachment = document.attachments[$1.to_i - 1]
+      if attachment
+        render partial: "documents/attachment", object: attachment
+      else
+        ""
+      end
+    end
   end
 
   def is_internal_admin_link?(href)
