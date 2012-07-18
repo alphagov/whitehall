@@ -19,10 +19,10 @@ Whitehall::Application.routes.draw do
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
-    root to: "site#sunset"
-    match '/home' => "site#index", as: :home
-    match 'feed.atom' => 'site#index', format: false, defaults: { format: 'atom' }, as: :atom_feed
-    match '/tour' => 'site#tour'
+    root to: "home#sunset"
+    match '/home' => "home#show", as: :home
+    match 'feed.atom' => 'home#show', format: false, defaults: { format: 'atom' }, as: :atom_feed
+    match '/tour' => 'home#tour'
 
     resources :announcements, only: [:index], path: 'news-and-speeches'
     resources :policies, only: [:index, :show] do

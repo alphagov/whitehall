@@ -1,11 +1,46 @@
-<% page_title "Latest" %>
+<div class="inside_gov_home">
+  <% page_title "" %>
+  <% page_class "inside_gov" %>
+  <div class="block-1">
+    <div class="inner-block">
+      <section class="page-header">
+        <h1 class="page_title">Welcome to <span>Inside Government</span>, the best place to find out how government works, see what it’s doing and get involved.</h1>
+      </section>
+    </div>
+  </div>
 
-<h1 class="page_title">Inside government</h1>
+  <div class="block-2">
+    <div class="inner-block">
+      <p class="introduction"><span>Inside Government</span> keeps you up to date with the UK government’s <%= link_to "news", announcements_path %>, <%= link_to "policies", topics_path %>, <%= link_to "publications", publications_path %> and <%= link_to "consultations", consultations_path %>. You can also find information about <%= link_to "government ministers", ministerial_roles_path %>, <%= link_to "departments and organisations", organisations_path %> and the UK’s interests and policies in the <%= link_to "rest of the world", countries_path %>.</p>
 
-<!--section>
-  <p>Information about all UK government organisations, including their policies, publications, speeches and the latest news.</p>
-</section-->
+      <p class="beta-site"><strong>BETA </strong>This is a live test site, with 10 departments keeping it up to date for 6 weeks.</p>
+      <p class="beta-site"><%= link_to "Take the tour", tour_path %> or <%= link_to "read the blog post", "http://digital.cabinetoffice.gov.uk/2012/02/28/introducing-the-next-phase-of-the-gov-uk-beta/" %></p>
+    </div>
+  </div>
 
-<ul class='grid'>
-  <%= render partial: 'headline', collection: @documents[0..15] %>
-</ul>
+  <div class="block-3">
+    <div class="inner-block">
+      <section class="simple_list">
+        <h1 class="label">Latest</h1>
+        <ul class='recently_updated'>
+
+          <% @recently_updated.each do |document| %>
+            <%= content_tag_for :li, document, class: edition_organisation_class(document) do %>
+
+              <div class="published_document"><%= link_to document.title, public_document_path(document), class: "title" %></div>
+              <% document.organisations[0,1].each do |organisation| %>
+                <%= content_tag_for :div, organisation do %> by
+                  <%= link_to organisation.logo_formatted_name, organisation_path(organisation) %>
+                <% end %>
+              <% end %>
+              <div class="metadata">
+                <span class="document_type"><%= human_friendly_edition_type(document) %></span>, <span class="published_or_updated"><%= published_or_updated(document).titleize %> <%= relative_time(document.published_at, class: 'published_at') %></span>
+              </div>
+            <% end %>
+          <% end %>
+        </ul>
+        <%= link_to image_tag('feed-icon.png'), atom_feed_path, class: 'feed_icon' %>
+      </section>
+    </div>
+  </div>
+</div>
