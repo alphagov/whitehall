@@ -62,7 +62,8 @@ class PublicationsControllerTest < ActionController::TestCase
       isbn: "0099532816",
       order_url: "http://example.com/order-path",
       publication_type_id: PublicationType::Form.id,
-      price_in_pence: 999
+      price_in_pence: 999,
+      command_paper_number: 'Cm. 1234'
     )
 
     get :show, id: publication.document
@@ -72,6 +73,7 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select ".publication_date", text: "31 May 1916"
       assert_select ".unique_reference", text: "unique-reference"
       assert_select ".isbn", text: "0099532816"
+      assert_select ".command_paper_number", text: "Cm. 1234"
       assert_select "a.order_url[href='http://example.com/order-path']"
       assert_select ".price", text: "&pound;9.99"
     end
@@ -114,6 +116,16 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_select ".contextual-info" do
       refute_select ".price"
+    end
+  end
+
+  test "should not display the command paper number if it hasn't been entered" do
+    publication = create(:published_publication, command_paper_number: nil)
+
+    get :show, id: publication.document
+
+    assert_select ".contextual-info" do
+      refute_select ".command_paper_number"
     end
   end
 
