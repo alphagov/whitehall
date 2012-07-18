@@ -5,17 +5,17 @@ end
 
 Given /^a draft publication "([^"]*)" with a PDF attachment$/ do |title|
   attachment = build(:attachment, file: pdf_attachment, title: "Attachment Title")
-  create(:draft_publication, title: title, attachments: [attachment])
+  create(:draft_publication, title: title, attachments: [attachment], body:"!@1")
 end
 
 Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
   attachment = build(:attachment, file: pdf_attachment, title: "Attachment Title")
-  create(:submitted_publication, title: title, attachments: [attachment])
+  create(:submitted_publication, title: title, attachments: [attachment], body: "!@1")
 end
 
 Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
   attachment = build(:attachment, file: pdf_attachment, title: "Attachment Title")
-  create(:published_publication, title: title, attachments: [attachment])
+  create(:published_publication, title: title, attachments: [attachment], body: "!@1")
 end
 
 Given /^I attempt to create an invalid publication with an attachment$/ do
@@ -91,18 +91,25 @@ When /^I unfeature the publication "([^"]*)"$/ do |publication_title|
   end
 end
 
+When /^I fill in "([^"]*)" with "([^"]*)"$/ do |name, value|
+  fill_in name, with: value
+end
+
+When /^I press "([^"]*)"$/ do |button|
+  click_button button
+end
+
 When /^I set the publication title to "([^"]*)" and save$/ do |title|
   fill_in "Title", with: title
   click_button "Save"
 end
 
 Then /^I should not see a link to the PDF attachment$/ do
-  assert page.has_no_css?(".attachment .attachment_title", text: "Attachment Title")
+  assert page.has_no_css?(".attachment .title", text: "Attachment Title")
   assert page.has_no_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
 end
 
 Then /^I should see a link to the PDF attachment$/ do
-  assert page.has_css?(".attachment .attachment_title", text: "Attachment Title")
   assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Attachment Title")
 end
 

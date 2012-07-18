@@ -1,5 +1,6 @@
 <fieldset id="attachment_fields" class="attachments multiple_file_uploads">
   <legend>Attachments</legend>
+  <% i = 0 %>
   <%= form.fields_for "#{parent_type}_attachments" do |edition_attachments_fields| %>
     <% if edition_attachments_fields.object.new_record? %>
       <div class="file_upload well">
@@ -27,6 +28,9 @@
         <% label_text = link_to_attachment(edition_attachments_fields.object.attachment) + " (uncheck to remove)" %>
         <% checkbox_args[0].merge!(label_text: label_text) %>
         <%= edition_attachments_fields.check_box :_destroy, *checkbox_args  %>
+      </p>
+      <p>Markdown to use:
+        <input type="text" readonly="readonly" value="!@<%= i += 1 %>" />
       </p>
     <% end %>
   <% end %>

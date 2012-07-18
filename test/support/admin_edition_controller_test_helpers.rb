@@ -405,6 +405,16 @@ module AdminEditionControllerTestHelpers
         end
       end
 
+      test 'edit shows markdown hint for first attachment' do
+        draft_edition = create("draft_#{edition_type}", attachments: [create(:attachment)])
+        get :edit, id: draft_edition
+
+        assert_select "fieldset.attachments" do |nodes|
+          assert_equal 1, nodes[0].select("input[readonly][value=!@1]").length
+        end
+
+      end
+
       test 'updating an edition should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         edition = create(edition_type)
@@ -542,36 +552,6 @@ module AdminEditionControllerTestHelpers
         refute_select ".errors"
         edition.reload
         assert_equal [attachment_2], edition.attachments
-      end
-
-      test "should display PDF attachment metadata" do
-        two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
-        attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
-        edition = create(edition_type, attachments: [attachment])
-
-        get :show, id: edition
-
-        assert_select_object(attachment) do
-          assert_select ".attachment_title a", text: "attachment-title"
-          assert_select ".type", /PDF/
-          assert_select ".number_of_pages", "2 pages"
-          assert_select ".size", "1.41 KB"
-        end
-      end
-
-      test "should display CSV attachment metadata" do
-        csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
-        attachment = create(:attachment, title: "attachment-title", file: csv)
-        edition = create(edition_type, attachments: [attachment])
-
-        get :show, id: edition
-
-        assert_select_object(attachment) do
-          assert_select ".attachment_title a", text: "attachment-title"
-          assert_select ".type", /CSV/
-          refute_select ".number_of_pages"
-          assert_select ".size", "121 Bytes"
-        end
       end
     end
 
