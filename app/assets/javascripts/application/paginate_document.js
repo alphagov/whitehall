@@ -25,8 +25,9 @@ $(function() {
     headings = container.find('h2');
     navigationLinks = navigation.find('a');
 
-    var showPage = function() {
+    var showPage = function(a) {
       var page = $(location.hash).parents(".page");
+      var pageId = $(page).find('h2').attr('id')
 
       pages.not(page).addClass('hidden');
       navigationLinks.removeClass('active');
@@ -36,7 +37,7 @@ $(function() {
         navigationLinks.first().addClass('active')
       } else {
         page.removeClass('hidden');
-        navigationLinks.filter('a[href$='+location.hash+']').addClass('active');
+        navigationLinks.filter('a[href$='+pageId+']').addClass('active');
         $('body').animate({scrollTop:0}, 0);
       }
     }
