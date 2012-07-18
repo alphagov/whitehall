@@ -1,19 +1,30 @@
 <% if recently_changed_documents.any? %>
   <section id="recently-changed" class="latest-documents">
     <h1 class="label"><%= title %></h1>
-    <ol class="document-list">
+    <table class="document-list">
+      <thead class="visuallyhidden">
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Date</th>
+          <th scope="col">Document Type</th>
+        </tr>
+      </thead>
+      <tbody>
       <% recently_changed_documents.each do |document| %>
-        <%= content_tag_for :li, document, class: 'document-row' do %>
-          <%= link_to document.title, public_document_path(document), class: "title attribute" %>
-          <span class="date attribute">
+        <%= content_tag_for :tr, document, class: 'document-row' do %>
+          <th scope="row" class="title attribute">
+            <%= link_to document.title, public_document_path(document)  %>
+          </th>
+          <td class="date attribute">
             <%= published_or_updated(document).titleize %>
             <%= relative_time(document.published_at, class: 'published_at') %>
-          </span>
-          <span class="type attribute">
+          </td>
+          <td class="type attribute">
             <%= human_friendly_edition_type(document) %>
-          </span>
+          </td>
         <% end %>
       <% end %>
-    </ol>
+      </tbody>
+    </table>
   </section>
 <% end %>

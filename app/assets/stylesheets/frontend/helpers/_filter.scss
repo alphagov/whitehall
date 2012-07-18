@@ -16,12 +16,15 @@
         width: 100%;
         float: left;
         .filter-inner {
-          padding: $gutter-half $gutter-half $gutter-half 0;
+          padding: $gutter-half $gutter-half 0 0;
         }
       }
       @media (min-width: 768px) {
         .filter {
           width: 33.33%;
+          .filter-inner {
+            padding: $gutter-half $gutter-half $gutter-half 0;
+          }
         }
       }
     }
@@ -76,8 +79,8 @@
   }
   .submit {
     border-top: 1px solid $light-blue-grey;
-    padding-top: $gutter-half;
-    margin-top: $gutter-half;
+    padding: $gutter-half 0;
+    margin: $gutter-half 0 0;
   }
   .button {
     margin-top: $gutter;
