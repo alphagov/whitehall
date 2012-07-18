@@ -38,7 +38,9 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       assert_select "select[name='edition[publication_type_id]']"
       assert_select "input[name='edition[unique_reference]'][type='text']"
       assert_select "input[name='edition[isbn]'][type='text']"
+      assert_select "input[name='edition[command_paper_number]'][type='text']"
       assert_select "input[name='edition[order_url]'][type='text']"
+      assert_select "input[name='edition[price]'][type='text']"
     end
   end
 
@@ -47,16 +49,20 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       publication_date: Date.parse("1805-10-21"),
       unique_reference: "unique-reference",
       isbn: "0140621431",
+      command_paper_number: "Cm. 1234",
       order_url: "http://example.com/order-path",
-      publication_type_id: PublicationType::ResearchAndAnalysis.id
+      publication_type_id: PublicationType::ResearchAndAnalysis.id,
+      price: "9.99"
     )
 
     created_publication = Publication.last
     assert_equal Date.parse("1805-10-21"), created_publication.publication_date
     assert_equal "unique-reference", created_publication.unique_reference
     assert_equal "0140621431", created_publication.isbn
+    assert_equal "Cm. 1234", created_publication.command_paper_number
     assert_equal "http://example.com/order-path", created_publication.order_url
     assert_equal PublicationType::ResearchAndAnalysis, created_publication.publication_type
+    assert_equal 9.99, created_publication.price
   end
 
   test "edit displays publication fields" do

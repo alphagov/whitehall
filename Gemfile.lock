@@ -164,6 +164,7 @@ GEM
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.2.1)
+    newrelic_rpm (3.3.4.1)
     nokogiri (1.5.0)
     null_logger (0.0.1)
     oauth2 (0.6.0)
@@ -312,6 +313,7 @@ DEPENDENCIES
   launchy (~> 2.0.5)
   mocha
   mysql2
+  newrelic_rpm
   nokogiri
   paper_trail
   pdf-reader

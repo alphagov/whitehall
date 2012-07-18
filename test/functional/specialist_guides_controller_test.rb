@@ -116,6 +116,25 @@ some more content
     end
   end
 
+  test "index optionally shows all published specialist guides by organisation" do
+    fire = create(:organisation, active: true, name: "Fire")
+    rain = create(:organisation, active: true, name: "Rain")
+    guide1 = create(:published_specialist_guide, title: "One", organisations: [fire])
+    guide2 = create(:published_specialist_guide, title: "Two", organisations: [fire, rain])
+
+    get :index, group_by: 'organisations'
+
+    assert_select_object fire do
+      assert_select "h2", text: "Fire"
+      assert_select_object guide1
+      assert_select_object guide2
+    end
+    assert_select_object rain do
+      assert_select "h2", text: "Rain"
+      assert_select_object guide2
+    end
+  end
+
   test "index hides topics which have no specialist guides" do
     earth = create(:topic, name: "Earth")
     wind = create(:topic, name: "Wind")

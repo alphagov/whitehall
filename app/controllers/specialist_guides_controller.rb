@@ -3,7 +3,11 @@ class SpecialistGuidesController < DocumentsController
   before_filter :set_search_path
 
   def index
-    @topics_and_published_specialist_guides = Topic.joins(:published_specialist_guides).includes(:published_specialist_guides)
+    if params[:group_by] == 'organisations'
+      @grouped_published_specialist_guides = Organisation.joins(:published_specialist_guides).includes(:published_specialist_guides)
+    else
+      @grouped_published_specialist_guides = Topic.joins(:published_specialist_guides).includes(:published_specialist_guides)
+    end
   end
 
   def show

@@ -3,10 +3,10 @@
   .block-3, .block-4 {
     float: left;
     display: inline;
-    width: 25%;
+    width: 20%;
   }
   .block-4 {
-    width: 75%;
+    width: 80%;
   }
    @media (max-width: 768px) {
     .block-3, .block-4 {
@@ -22,6 +22,7 @@
 .table-sort {
   table {
     width: 100%;
+    @include sans-15;
   }
 
   th, td {
@@ -29,7 +30,7 @@
     border-right: 1px solid $white;
     color: $white;
     font-weight: normal;
-    padding: $gutter-one-third $gutter-half;
+    padding: $gutter-one-third/2 $gutter-one-third;
     text-align: left;
     vertical-align: top;
   }
@@ -46,14 +47,21 @@
     background-color: $white;
     color: #333;
   }
-
-  .title {
-    width: 45%;
-  }
-  .table-summary {
-    width: 40%;
-  }
-  .date {
-    width: 15%;
+  tr {
+    .title {
+      width: 25%;
+    }
+    .publication-type {
+      width: 10%;
+    }
+    .organisations {
+      width: 20%;
+    }
+    .table-summary {
+      width: 20%;
+    }
+    .date {
+      width: 10%;
+    }
   }
 }
