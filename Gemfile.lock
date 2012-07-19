@@ -184,7 +184,7 @@ GEM
       rails (~> 3)
     pdf-reader (0.10.1)
       Ascii85 (~> 1.0.0)
-    plek (0.1.20)
+    plek (0.2.0)
       builder
     polyglot (0.3.3)
     quiet_assets (1.0.1)
