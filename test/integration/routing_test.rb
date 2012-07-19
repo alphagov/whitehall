@@ -66,4 +66,34 @@ class RoutingTest < ActionDispatch::IntegrationTest
     get_via_redirect tour_path
     assert_select "a[href=?]", "/feedback"
   end
+
+  test "admin is unreachable in preview from whitehall" do
+    host! 'whitehall.preview.alphagov.co.uk'
+    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
+    assert_raises(ActionController::RoutingError) do
+      get "/government/admin"
+    end
+  end
+
+  test "admin is reachable in preview from whitehall-admin" do
+    host! 'whitehall-admin.preview.alphagov.co.uk'
+    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
+    get "/government/admin"
+    assert_redirected_to "/government/admin/editions"
+  end
+
+  test "admin is unreachable in production from whitehall" do
+    host! 'whitehall.production.alphagov.co.uk'
+    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
+    assert_raises(ActionController::RoutingError) do
+      get "/government/admin"
+    end
+  end
+
+  test "admin is reachable in production from whitehall-admin" do
+    host! 'whitehall-admin.production.alphagov.co.uk'
+    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
+    get "/government/admin"
+    assert_redirected_to "/government/admin/editions"
+  end
 end
