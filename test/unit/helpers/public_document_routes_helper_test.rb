@@ -99,4 +99,18 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     supporting_page = create(:supporting_page, edition: edition)
     assert_equal "www.preview.alphagov.co.uk", URI.parse(public_supporting_page_url(edition, supporting_page)).host
   end
+
+  test 'returns public URL including host in preview admin environment' do
+    request.host = 'whitehall-admin.preview.alphagov.co.uk'
+    edition = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: edition)
+    assert_equal "www.preview.alphagov.co.uk", URI.parse(public_supporting_page_url(edition, supporting_page)).host
+  end
+
+  test 'returns public URL including host in production admin environment' do
+    request.host = 'whitehall-admin.production.alphagov.co.uk'
+    edition = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: edition)
+    assert_equal "www.gov.uk", URI.parse(public_supporting_page_url(edition, supporting_page)).host
+  end
 end

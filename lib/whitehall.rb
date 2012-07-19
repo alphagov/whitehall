@@ -8,7 +8,9 @@ module Whitehall
   class << self
     PUBLIC_HOSTS = {
       'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',
-      'whitehall.production.alphagov.co.uk' => 'www.gov.uk'
+      'whitehall.production.alphagov.co.uk' => 'www.gov.uk',
+      'whitehall-admin.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
+      'whitehall-admin.production.alphagov.co.uk' => 'www.gov.uk'
     }
 
     ADMIN_HOSTS = [
