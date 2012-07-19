@@ -75,22 +75,6 @@ When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ d
   click_button "Save"
 end
 
-When /^I feature the publication "([^"]*)"$/ do |publication_title|
-  publication = Publication.find_by_title!(publication_title)
-  visit admin_editions_path(state: :published, type: 'publication')
-  within record_css_selector(publication) do
-    click_button "Feature"
-  end
-end
-
-When /^I unfeature the publication "([^"]*)"$/ do |publication_title|
-  publication = Publication.find_by_title!(publication_title)
-  visit admin_editions_path(state: :published, type: 'publication')
-  within record_css_selector(publication) do
-    click_button "No longer feature"
-  end
-end
-
 When /^I fill in "([^"]*)" with "([^"]*)"$/ do |name, value|
   fill_in name, with: value
 end
@@ -119,7 +103,7 @@ end
 
 Then /^I should see the summary of the publication "([^"]*)"$/ do |publication_title|
   publication = Publication.published.find_by_title!(publication_title)
-  assert has_css?("#{record_css_selector(publication)} .summary", publication.summary)
+  assert has_css?("#{record_css_selector(publication)} .title", publication.title)
 end
 
 Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |title, organisation|

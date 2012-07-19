@@ -217,8 +217,8 @@ That's all
 
     assert_select "#recently-changed" do
       assert_select_object speech do
-        assert_select ".metadata .document_type", text: "Speech"
-        assert_select ".metadata .published_at[title='#{published_at.iso8601}']"
+        assert_select ".document-row .type", text: "Speech"
+        assert_select ".document-row .published_at[title='#{published_at.iso8601}']"
       end
     end
   end
@@ -232,11 +232,11 @@ That's all
     get :activity, id: policy.document
 
     assert_select_object first_edition do
-      assert_select '.metadata', text: /Published/
+      assert_select '.document-row', text: /Published/
     end
 
     assert_select_object updated_edition do
-      assert_select '.metadata', text: /Updated/
+      assert_select '.document-row', text: /Updated/
     end
   end
 

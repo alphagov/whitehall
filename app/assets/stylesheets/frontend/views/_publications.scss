@@ -2,10 +2,26 @@
 
 .publications-index {
   .page-header {
+    padding: $gutter-one-third*2 0;
+    margin: 0;
+
     h1 {
       @include brand-45;
     }
   }
+  .block-4 {
+    width: 100%;
+  }
+  .no-results {
+    padding: $gutter $gutter-half;
+    h2 {
+      @include core-27;
+    }
+    p {
+      @include core-19;
+    }
+  }
+
 }
 
 .publication {

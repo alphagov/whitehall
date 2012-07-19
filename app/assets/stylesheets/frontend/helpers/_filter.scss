@@ -1,36 +1,94 @@
-.filter-controls {
-  float: left;
-  display: inline;
-  margin-right: 1%;
+.filter-block {
+  background: $light-warm-grey;
 
-  li {
-    margin: 0;
-    font-size: 0.875em;
-    line-height: 1.286em;
-    margin-bottom: 1.286em;
-    list-style-type: none;
-    margin-bottom: 0.75em;
-    position: relative;
-    padding-left: 1.75em;
+  h2 {
+    @include core-19;
+    padding: $gutter-half;
+    padding-bottom: 0;
   }
-  li a {
-    color: #444;
+
+  form {
+    padding-left: $gutter-half;
+    fieldset {
+      position: relative;
+
+      .filter {
+        width: 100%;
+        float: left;
+        .filter-inner {
+          padding: $gutter-half $gutter-half 0 0;
+        }
+      }
+      @media (min-width: 768px) {
+        .filter {
+          width: 33.33%;
+          .filter-inner {
+            padding: $gutter-half $gutter-half $gutter-half 0;
+          }
+        }
+      }
+    }
   }
-  li a span {
-    background-color:  #CCC;
+
+  label.title {
+    @include core-14;
     display: block;
-    height: 0.75em;
-    left: 0;
-    position: absolute;
-    top: 0.355em;
-    width: 0.75em;
+    padding-top: 0;
   }
-  li.selected a span, li:hover a span {
-    background-color:  #2E3191;
+  input {
+    @include core-14;
+    background: $white;
+    width: 100%;
+    margin: 0;
+    padding: 4px 0;
+    text-indent: 4px;
+    border: 0;
   }
-  li.toggle a span {
-    background-color: inherit;
-    top: 0;
+  select {
+    @include core-14;
+    background: #fff;
+    line-height: 1.3;
   }
+  .multi-row-select {
+    border: 0;
+    padding: $gutter-one-third;
+    width: 100%;
+    padding-bottom: 0;
+    @media (min-width: 768px) {
+      height: 180px;
+    }
+  }
+  .checkbox input {
+    width: auto;
+  }
+  .date-range {
+    padding-top: $gutter-one-third;
 
+    h3 {
+      @include core-14;
+      display: inline;
+      padding-right: $gutter-half;
+    }
+    label {
+      @include core-14;
+      padding-right: $gutter-one-third;
+    }
+    select {
+      width: 100%;
+    }
+  }
+  .submit {
+    border-top: 1px solid $light-blue-grey;
+    padding: $gutter-half 0;
+    margin: $gutter-half 0 0;
+  }
+  .button {
+    margin-top: $gutter;
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    color: $white;
+    background: $charcoal-grey;
+  }
 }
+

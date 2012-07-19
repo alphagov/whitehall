@@ -201,32 +201,6 @@ class ApplicationHelperTest < ActionView::TestCase
     end
   end
 
-  test "should just return 'Publications' if there are no topics" do
-    assert_equal "Publications", publications_page_title([])
-  end
-
-  test "should generate publications page title for one topic" do
-    topic = create(:topic, name: "Farming")
-    assert_equal "Publications about farming",
-      publications_page_title([topic])
-  end
-
-  test "should generate publications page title for two topics" do
-    topics = [
-      "Farming", "Zombie preparedness"
-    ].map { |n| create(:topic, name: n) }
-    assert_equal "Publications about farming and zombie preparedness",
-      publications_page_title(topics)
-  end
-
-  test "should generate publications page title for three or more topics" do
-    topics = [
-      "Farming", "Zombie preparedness", "Cats"
-    ].map { |n| create(:topic, name: n) }
-    assert_equal "Publications about farming, zombie preparedness and cats",
-      publications_page_title(topics)
-  end
-
   test "generates related policy option as title without topics" do
     policy = create(:policy, title: "Policy title", topics: [])
     options = related_policy_options

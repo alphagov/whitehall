@@ -4,120 +4,94 @@
 <div class="block-1">
   <div class="inner-block">
     <header class="page-header publication">
-      <h1 class="page_title"><%= publications_page_title(@selected_topics) %></h1>
+      <h1 class="page_title">Publications</h1>
     </header>
   </div>
 </div>
 
 <div class="block-2">
   <div class="inner-block">
-    <% if publication = @featured_publication %>
-      <%= content_tag_for(:div, publication, class: 'featured') do %>
-        <div class="thumbnail">
-          <%= edition_thumbnail_tag(publication) %>
-          <% if attachment = publication.thumbnailable_attachments.first || publication.attachments.first %>
-            <p>
-              <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>
-              <% if attachment.number_of_pages.present? %>
-                <span class="number_of_pages"><%= pluralize(attachment.number_of_pages, "page") %></span>
-              <% end %>
-              <span class="size"><%= number_to_human_size(attachment.file_size) %></span>
-            </p>
-          <% end %>
-        </div>
-        <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-        <p class="organisations"><%= publication.organisations.map { |o| link_to(organisation_name_with_acronym(o), o) }.to_sentence.html_safe %></p>
-        <% if publication.summary.present? %>
-          <p class="summary"><%= publication_summary(publication) %></p>
-        <% end %>
-        <p class="published_on">
-          Published on
-          <%= render_datetime_microformat(publication, :publication_date) {
-                publication.publication_date.to_s(:long_ordinal)
-          }%>
-        </p>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+    <div class="filter-block">
+      <h2>Filter</h2>
+      <%= form_tag publications_path, method: :get do %>
+        <fieldset>
+          <legend class="visuallyhidden">Filter publications</legend>
+          <div class="filter">
+            <div class="filter-inner">
+              <%= label_tag "departments", "Department", class: "visuallyhidden" %>
+              <%= select_tag :departments, organisation_filter_options(@all_organisations, @selected_departments), size: 5, multiple: true, class: "multi-row-select" %>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="filter-inner">
+              <%= label_tag "topics", "Topic", class: "visuallyhidden" %>
+              <%= select_tag :topics, topic_filter_options(@all_topics, @selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="filter-inner">
+              <%= label_tag "keywords", "Contains", class: 'title' %>
+              <%= text_field_tag :keywords, @keywords, placeholder: "keywords" %>
 
-<div class="block-3">
-  <div class="inner-block">
-    <% if @all_publications.any? %>
-      <div class="filter">
-        <div class="filter-controls">
-          <h1>All publications</h1>
-          <h2>Filter by topic</h2>
-          <ul>
-            <% @all_topics.each do |topic| %>
-              <% css_classes = [] %>
-              <% css_classes << "selected" if @selected_topics.include?(topic) %>
-              <% style = (css_classes & %w{top selected}).size > 0 ? nil : "display: none" %>
-              <%= content_tag_for(:li, topic, class: css_classes.join(" "), style: style) do %>
-                <% if css_classes.include? "selected" %>
-                  <% title = "Remove '#{topic.name}' from filter" %>
-                  <% topics = @selected_topics - [topic] %>
-                <% else %>
-                  <% title = "Add '#{topic.name}' to filter" %>
-                  <% topics = @selected_topics + [topic] %>
+              <div class="date-range">
+                <h3>Published</h3>
+                <% ['before', 'after'].each do |direction| %>
+                  <%= label_tag "direction_#{direction}", class: 'checkbox'  do %>
+                    <%= radio_button_tag :direction, direction, direction == @direction %>
+                    <%= direction.humanize %>
+                  <% end %>
                 <% end %>
-                <% url = topics.any? ? by_topic_publications_path(topics.map(&:slug).sort.join("+")) : publications_path %>
-                <%= link_to url, title: title do %>
-                  <span></span>
-                  <%= topic.name %>
-                <% end %>
-              <% end %>
-            <% end %>
-            <li class="toggle">
-              <a href="#"><span>+</span>View all topics</a>
-            </li>
-            <% if @selected_topics.any? %>
-              <li>
-                View <%= link_to "all publications", publications_path %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
+                <%= label_tag "date", "Date", class: "visuallyhidden" %>
+                <%= select_tag :date, options_for_select(recent_month_filter_options(24, @date)), include_blank: false %>
+              </div>
+              <div class="submit">
+                <%= submit_tag "Refresh", class: "button" %>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <div class="block-4">
   <div class="inner-block">
-      <div class="table-sort">
-        <table border="0">
-          <thead>
-            <tr>
-              <th class="title">Title</th>
-              <th class="publication-type">Publication type</th>
-              <th class="organisations">By</th>
-              <th class="table-summary">Summary</th>
-              <th class="date">Publish date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @all_publications.each do |publication| %>
-              <%= content_tag_for(:tr, publication) do %>
-                <td class="title article_title">
-                  <%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %>
-                </td>
-                <td class="publication-type">
-                  <%= publication.publication_type.singular_name %>
-                </td>
-                <td class="organisations"><%= publication.organisations.map { |o| link_to(organisation_display_name(o), o) }.to_sentence.html_safe %></td>
-                <td class="table-summary summary"><%= publication_summary(publication) %></td>
-                <td class="date published_on">
-                  <%= render_datetime_microformat(publication, :publication_date) {
-                        publication.publication_date.to_s(:long_ordinal)
-                  }%>
-                </td>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+    <% if @publications.any? %>
+      <table class="document-list">
+        <thead class="visuallyhidden">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Publication Date</th>
+            <th scope="col">Publication Type</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @publications.each_with_index do |publication, i| %>
+          <%= content_tag_for(:tr, publication, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
+            <th scope="row" class="title attribute">
+              <%= link_to publication.title, public_document_path(publication),
+                  title: "View #{publication.title}" %>
+              <em class="meta organisation"><%= publication.organisations.map { |o|
+                organisation_display_name(o) }.to_sentence.html_safe %></em>
+            </th>
+            <td class="date attribute">
+              <%= render_datetime_microformat(publication, :publication_date) {
+                    publication.publication_date.to_s(:long_ordinal)
+              }%>
+            </td>
+            <td class="type attribute">
+              <%= publication.publication_type.singular_name %>
+            </td>
+          <% end %>
+        <% end %>
+        </tbody>
+      </table>
     <% else %>
-      <p>There are no matching publications.</p>
+      <div class="no-results">
+        <h2>There are no matching publications.</h2>
+        <p>Try making your search broader and try again.</p>
+      </div>
     <% end %>
   </div>
 </div>

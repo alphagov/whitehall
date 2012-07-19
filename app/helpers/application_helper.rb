@@ -259,16 +259,13 @@ module ApplicationHelper
     classes.join(" ")
   end
 
-  def publications_page_title(topics)
-    if topics.any?
-      "Publications about #{
-        topics.map { |t| t.name.downcase }.to_sentence }"
-    else
-      "Publications"
-    end
-  end
-
   def linked_author(author)
     link_to(author.name, admin_author_path(author))
+  end
+
+  def recent_month_filter_options(number_of_months, selected_date)
+    baseline = (Date.today + 1.month).beginning_of_month
+    months = (0...number_of_months).map { |i| baseline - i.months }
+    options_for_select(months.map { |m| [m.strftime("%B %Y"), m.to_s] }, selected_date.to_s)
   end
 end

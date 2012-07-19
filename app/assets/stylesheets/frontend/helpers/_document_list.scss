@@ -1,0 +1,52 @@
+.document-list {
+  width: 100%;
+  clear: both;
+  margin-top: $gutter-half;
+  border-top: 1px solid $light-warm-grey;
+
+  .document-row {
+    border-bottom: 1px solid $light-warm-grey;
+    overflow: hidden;
+    position: relative;
+    list-style: none;
+
+    .attribute {
+      @include core-14;
+      padding: 7px 0;
+      display: block;
+      float: left;
+    }
+    .title {
+      width: 64%;
+      text-align: left;
+
+      .meta {
+        font-style: normal;
+        color: #999;
+      }
+    }
+    .date, .type {
+      width: 18%;
+      text-align: right;
+    }
+
+    &:first-child, &:nth-child(2), &:nth-child(3),
+    &.recent {
+      .title {
+        @include core-24;
+        width: 100%;
+        padding-bottom: 4px;
+      }
+      .date {
+        padding-top: 0;
+        float: left;
+        margin-left: 64%
+      }
+      .type {
+        padding-top: 0;
+        float: right;
+      }
+    }
+
+  }
+}

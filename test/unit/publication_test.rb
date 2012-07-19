@@ -3,8 +3,6 @@ require "test_helper"
 class PublicationTest < ActiveSupport::TestCase
   include DocumentBehaviour
 
-  should_be_featurable :publication
-
   test 'should be invalid without a publication date' do
     publication = build(:publication, publication_date: nil)
     refute publication.valid?
@@ -292,5 +290,33 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
   test "should return nil if neither price nor price_in_pence are set" do
     publication = build(:publication, price: nil, price_in_pence: nil)
     assert_nil publication.price
+  end
+
+  test "should find publication with title containing keyword" do
+    publication_without_keyword = create(:publication, title: "title that should not be found")
+    publication_with_keyword = create(:publication, title: "title containing keyword in the middle")
+    assert_equal [publication_with_keyword], Publication.with_content_containing("keyword")
+  end
+
+  test "should find publication with body containing keyword" do
+    publication_without_keyword = create(:publication, body: "body that should not be found")
+    publication_with_keyword = create(:publication, body: "body containing keyword in the middle")
+    assert_equal [publication_with_keyword], Publication.with_content_containing("keyword")
+  end
+
+  test "should find publications containing any of the keywords" do
+    publication_with_first_keyword = create(:publication, body: "this document is about muppets")
+    publication_with_second_keyword = create(:publication, body: "this document is about klingons")
+    assert_equal [publication_with_first_keyword, publication_with_second_keyword], Publication.with_content_containing("klingons", "muppets")
+  end
+
+  test "should find publications containing keyword regardless of case" do
+    publication_with_keyword = create(:publication, body: "body containing Keyword in the middle")
+    assert_equal [publication_with_keyword], Publication.with_content_containing("keyword")
+  end
+
+  test "should find publications containing keyword as part of a word" do
+    publication_with_keyword = create(:publication, body: "body containing keyword in the middle")
+    assert_equal [publication_with_keyword], Publication.with_content_containing("key")
   end
 end
