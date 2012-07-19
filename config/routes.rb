@@ -1,6 +1,6 @@
 class AdminRequest
   def self.matches?(request)
-    not Whitehall.government_single_domain?(request)
+    Whitehall.admin_whitelist?(request)
   end
 end
 

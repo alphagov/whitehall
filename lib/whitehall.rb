@@ -11,12 +11,21 @@ module Whitehall
       'whitehall.production.alphagov.co.uk' => 'www.gov.uk'
     }
 
+    ADMIN_HOSTS = [
+      'whitehall-admin.preview.alphagov.co.uk',
+      'whitehall-admin.production.alphagov.co.uk'
+    ]
+
     def router_prefix
       "/government"
     end
 
     def government_single_domain?(request)
       PUBLIC_HOSTS.values.include?(request.host) || request.headers["HTTP_X_GOVUK_ROUTER_REQUEST"].present?
+    end
+
+    def admin_whitelist?(request)
+      !Rails.env.production? || ADMIN_HOSTS.include?(request.host)
     end
 
     def platform
