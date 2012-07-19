@@ -38,19 +38,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should block access to admin URLs for requests through the single domain router" do
-    assert_raises(ActionController::RoutingError) do
-      get "/government/admin", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
-    end
-  end
-
-  test "should block access to admin URLs for requests through the single domain host" do
-    assert_raises(ActionController::RoutingError) do
-      host! 'www.gov.uk'
-      get "/government/admin"
-    end
-  end
-
   test "admin links to open website points to router website in preview" do
     host! 'whitehall.preview.alphagov.co.uk'
     login_as_admin
