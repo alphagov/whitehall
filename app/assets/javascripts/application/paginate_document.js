@@ -38,7 +38,9 @@ $(function() {
       } else {
         page.removeClass('hidden');
         navigationLinks.filter('a[href$='+pageId+']').addClass('active');
-        $('body').animate({scrollTop:0}, 0);
+        if (location.hash == ('#' + pageId)) {
+          $('body').animate({scrollTop:0}, 0);
+        }
       }
     }
 
