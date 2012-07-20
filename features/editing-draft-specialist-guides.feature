@@ -12,6 +12,12 @@ Scenario: Creating a new draft specialist guide in multiple topics
   When I draft a new specialist guide "Outlaw Moustaches" in the "Facial Hair" and "Hirsuteness" topics
   Then I should see in the preview that "Outlaw Moustaches" should be in the "Facial Hair" and "Hirsuteness" topics
 
+Scenario: Creating a new draft specialist guide related to other specialist guides
+  Given a submitted specialist guide "Deep Sea Diving" exists
+  When I draft a new specialist guide "Plundering Treasure" related to the specialist guide "Deep Sea Diving"
+  Then I should see in the preview that "Plundering Treasure" is related to the specialist guide "Deep Sea Diving"
+  And I should see in the preview that "Deep Sea Diving" is related to the specialist guide "Plundering Treasure"
+
 @javascript
 Scenario: Adding multiple images
   Given I start drafting a new specialist guide

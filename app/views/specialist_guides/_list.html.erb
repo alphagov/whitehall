@@ -1,0 +1,7 @@
+<ul class="specialist_guides">
+  <% specialist_guides.each do |specialist_guide| %>
+    <%= content_tag_for(:li, specialist_guide, class: "g1") do %>
+      <%= link_to specialist_guide.title, public_document_path(specialist_guide), title: "View #{specialist_guide.title}", class: "title" %>
+    <% end %>
+  <% end %>
+</ul>
