@@ -29,32 +29,47 @@
         preview.enhanceYoutubeVideoLinks();
         preview.show();
         edit_link.show();
-      }
+      };
 
       var imageNodes = function() {
         return $("fieldset.images input[type=hidden][name^='edition[images_attributes]'][name$='[id]']");
-      }
+      };
+
+      var attachmentNodes = function() {
+        var selectors = [
+          "fieldset.attachments input[type=hidden][name^='edition[edition_attachments_attributes]'][name$='[attachment_attributes][id]']",
+          "fieldset.attachments input[type=hidden][name^='supporting_page[supporting_page_attachments_attributes]'][name$='[attachment_attributes][id]']"
+        ]
+        return $(selectors.join(','));
+      };
 
       var imageIds = function() {
         return $.map(imageNodes(), function(node) {
           return $(node).val();
         });
-      }
+      };
+
+      var attachmentIds = function() {
+        return $.map(attachmentNodes(), function(node) {
+          return $(node).val();
+        });
+      };
 
       var leadImageId = function() {
         var lead_image = imageNodes().filter(function() { return $(this).closest('.lead').length > 0;}).first();
         return lead_image.val();
-      }
+      };
 
       showEditor();
 
       preview_link.click(function() {
-        params = {
+        var params = {
           body: textarea.val(),
           authenticity_token: $("meta[name=csrf-token]").attr('content'),
           image_ids: imageIds(),
-          lead_image_id: leadImageId()
-        }
+          lead_image_id: leadImageId(),
+          attachment_ids: attachmentIds()
+        };
         loading_indicator.show();
         preview_link.hide();
         $.post("/government/admin/preview", params, function(data) {

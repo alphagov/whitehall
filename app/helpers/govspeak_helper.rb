@@ -2,13 +2,18 @@ require 'addressable/uri'
 
 module GovspeakHelper
 
+  def govspeak_body_to_admin_html(body, images, attachments)
+    text = govspeak_with_attachments_to_html(body, attachments)
+    govspeak_to_admin_html(text, images)
+  end
+
   def govspeak_edition_to_admin_html(edition)
     images = edition.respond_to?(:images) ? edition.images : []
     text = markup_with_attachments_to_html(edition)
     govspeak_to_admin_html(text, images)
   end
 
-  def govspeak_to_admin_html(text, images = [])
+  def govspeak_to_admin_html(text, images = [], attachments = [])
     markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, edition|
       latest_edition = edition && edition.document.latest_edition
       if latest_edition.nil?
@@ -93,15 +98,19 @@ module GovspeakHelper
     doc.fragment(html)
   end
 
-  def markup_with_attachments_to_html(document)
-    body = document.body.gsub(/^!@([0-9]+)\s*/) do
-      attachment = document.attachments[$1.to_i - 1]
+  def govspeak_with_attachments_to_html(text, attachments = [])
+    body = text.gsub(/^!@([0-9]+)\s*/) do
+      attachment = attachments[$1.to_i - 1]
       if attachment
         render partial: "documents/attachment", object: attachment
       else
         ""
       end
     end
+  end
+
+  def markup_with_attachments_to_html(document)
+    govspeak_with_attachments_to_html(document.body, document.respond_to?(:attachments) ? document.attachments : [])
   end
 
   def is_internal_admin_link?(href)

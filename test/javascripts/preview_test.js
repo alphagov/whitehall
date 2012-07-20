@@ -6,9 +6,13 @@ module("Previewing contents of a textarea", {
       '<div class="image lead"><input name="edition[images_attributes][0][id]" type="hidden" value="1"></div>' +
       '<div class="image"><input name="edition[images_attributes][1][id]" type="hidden" value="2"></div>' +
       '</fieldset>');
+    var attachment_inputs = $('<fieldset class="attachments">' +
+      '<input id="supporting_page_supporting_page_attachments_attributes_0_attachment_attributes_id" name="supporting_page[supporting_page_attachments_attributes][0][attachment_attributes][id]" type="hidden" value="276">' +
+      '</fieldset>');
     $('#qunit-fixture').append(textarea);
     $('#qunit-fixture').append(label);
     $('#qunit-fixture').append(image_inputs);
+    $('#qunit-fixture').append(attachment_inputs);
     textarea.enablePreview();
 
     this.stubbingPreviewAjax = function(callback, preventResponse) {
@@ -56,6 +60,15 @@ test("should include ids of any persisted images", function() {
   var callParams = jQuery.ajax.getCall(0).args[0];
   same(callParams.data.image_ids, ["1", "2"]);
 });
+
+test("should include ids of any persisted attachments", function() {
+  this.stubbingPreviewAjax(function() {
+    $("a.show-preview").click();
+  })
+
+  var callParams = jQuery.ajax.getCall(0).args[0];
+  same(callParams.data.attachment_ids, ["276"]);
+})
 
 
 test("should include lead_image_id of lead image", function() {

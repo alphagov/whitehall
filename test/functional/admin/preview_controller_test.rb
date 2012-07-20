@@ -20,6 +20,16 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     assert_select ".document .body figure.image.embedded img[src=?]", %r{#{image.url}}
   end
 
+  test "renders attached files if attachment_ids provided" do
+    attachment = create(:attachment)
+    edition = create(:published_specialist_guide, body: '!@1', attachments: [attachment])
+
+    post :preview, body: edition.body, attachment_ids: edition.attachments.map(&:id)
+    assert_select ".document .body" do
+      assert_select_object attachment
+    end
+  end
+
   test "renders lead image if provided" do
     edition = create(:news_article, images: [build(:image)])
 
