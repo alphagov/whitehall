@@ -28,9 +28,9 @@ The database.yml for this project is checked into source control so you'll need 
 There's a capistrano task which will download a dump of the mysql database and load it on your local machine:
 
     cap db:import                # Import data from DEPLOY_TO environment to loca...
-  
-To use it, go to the whitehall directory in alphagov-deployment and then do:
-    
+
+To use it, go to the `whitehall-admin` directory in `alphagov-deployment` and then do:
+
     $ DEPLOY_TO=production bundle exec cap db:import
 
 this will load data from production into your local database.
