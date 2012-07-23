@@ -30,7 +30,7 @@ class PublicationType
   def self.migration
     by_prevalence[:migration]
   end
-  
+
   PolicyPaper            = create(id: 1, singular_name: "Policy paper", plural_name: "Policy papers", prevalence: :primary)
   ImpactAssessment       = create(id: 2, singular_name: "Impact assessment", plural_name: "Impact assessments", prevalence: :primary)
   Guidance               = create(id: 3, singular_name: "Guidance", plural_name: "Guidance", prevalence: :primary)
@@ -47,11 +47,11 @@ class PublicationType
   IndependentReport      = create(id: 14, singular_name: "Independent report", plural_name: "Independent reports", prevalence: :less_common)
 
   # Use is discouraged
-  CircularNewsletterOrBulletin = 
+  CircularNewsletterOrBulletin =
                            create(id: 8 , singular_name: "Circular, newsletter or bulletin", plural_name: "Circulars, newsletters and bulletins", prevalence: :discouraged)
   OfficialLetterOrNotice = create(id: 9 , singular_name: "Official letter or notice", plural_name: "Official letters and notices", prevalence: :discouraged)
   PromotionalMaterial    = create(id: 13, singular_name: "Promotional material", plural_name: "Promotional material", prevalence: :discouraged)
 
   # Temporary to allow migration
-  Unknown                = create(id: 999, singular_name: "Unknown", plural_name: "Unknown", prevalence: :migration)
+  Unknown                = create(id: 999, singular_name: "Publication", plural_name: "Publication", prevalence: :migration)
 end
