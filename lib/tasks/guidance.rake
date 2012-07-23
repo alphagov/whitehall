@@ -25,6 +25,8 @@ namespace :guidance do
       # strip bold/strong markdown
       body = body.gsub(/\*\*([^\*]+)\*\*/, "\\1")
 
+      PaperTrail.whodunnit = creator
+
       existing_guide = SpecialistGuide.where(title: title).first
 
       if existing_guide
