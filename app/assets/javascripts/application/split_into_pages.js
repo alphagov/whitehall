@@ -13,5 +13,11 @@
     $(pages).each(function(i, page) {
       container.append(page);
     })
+    if (container.children().first()[0] != container.children(".page").first()[0]) {
+      container.children(".page").first().prepend(
+        container.children().first(),
+        container.children().first().nextUntil(".page")
+      );
+    }
   }
 })(jQuery);
