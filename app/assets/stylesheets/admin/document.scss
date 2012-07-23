@@ -81,10 +81,6 @@
        @include type-18;
     }
 
-    a[rel="external"] {
-      display: inline-block;
-    }
-
     a[rel="external"]:after {
       content: url("/government/assets/preview-external-link.png");
       margin-right: 0.2em;
