@@ -21,4 +21,15 @@ class DocumentHelperTest < ActionView::TestCase
     publication = create(:publication)
     refute_match /National Statistic/, national_statistics_logo(publication)
   end
+
+  test "should generate list of links to inapplicable nations with alternative URL" do
+    publication = create(:publication, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.scotland, alternative_url: "http://scotland.com")])
+    html = list_of_links_to_inapplicable_nations(publication)
+    assert_select_within_html html, "a[href='http://scotland.com']", text: "Scotland"
+  end
+
+  test "should generate list of inapplicable nations without alternative URL" do
+    publication = create(:publication, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.wales, alternative_url: nil)])
+    assert_equal "Wales", list_of_links_to_inapplicable_nations(publication)
+  end
 end
