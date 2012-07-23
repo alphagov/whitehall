@@ -89,6 +89,12 @@
     margin: 0 auto;
     color: $white;
     background: $charcoal-grey;
+    @include transition(opacity, 0.3s, ease)
+  }
+
+  .disabled {
+    opacity: 0.3;
+    cursor: default;
+    *background: lighten($charcoal-grey, 70%);
   }
 }
-
