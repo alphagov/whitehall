@@ -13,7 +13,7 @@
   <div class="inner-block">
     <div class="filter-block">
       <h2>Filter</h2>
-      <%= form_tag publications_path, method: :get do %>
+      <%= form_tag publications_path, method: :get, id: "publications-filter" do %><%# this ID used by Javascript %>
         <fieldset>
           <legend class="visuallyhidden">Filter publications</legend>
           <div class="filter">
@@ -56,9 +56,9 @@
 </div>
 
 <div class="block-4">
-  <div class="inner-block">
+  <div class="inner-block" id="publications-container" aria-live="polite"><%# this ID used by Javascript %>
     <% if @publications.any? %>
-      <table class="document-list">
+      <table class="document-list" id="publications-list"><%# this ID used by Javascript %>
         <thead class="visuallyhidden">
           <tr>
             <th scope="col">Title</th>
