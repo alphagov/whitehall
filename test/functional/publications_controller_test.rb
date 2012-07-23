@@ -15,6 +15,22 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "renders the publication summary from plain text" do
+    publication = create(:published_publication, summary: 'plain text & so on')
+    get :show, id: publication.document
+
+    assert_select ".summary", text: "plain text &amp; so on"
+  end
+
+  test "show renders the publication body using govspeak" do
+    publication = create(:published_publication, body: "body-in-govspeak")
+    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
+      get :show, id: publication.document
+    end
+
+    assert_select ".body", text: "body-in-html"
+  end
+
   test "show displays inapplicable nations" do
     published_publication = create(:published_publication)
     northern_ireland_inapplicability = published_publication.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
