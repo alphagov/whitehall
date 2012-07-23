@@ -1,7 +1,7 @@
 Given /^a published specialist guide "([^"]*)" related to published specialist guides "([^"]*)" and "([^"]*)"$/ do |title, first_related_title, second_related_title|
   first_related = create(:published_specialist_guide, title: first_related_title)
   second_related = create(:published_specialist_guide, title: second_related_title)
-  guide = create(:published_specialist_guide, title: title, outbound_related_documents: [first_related, second_related])
+  guide = create(:published_specialist_guide, title: title, outbound_related_documents: [first_related.document, second_related.document], topics: [create(:topic)])
 end
 
 When /^I draft a new specialist guide "([^"]*)"$/ do |title|
@@ -31,6 +31,18 @@ end
 When /^I select an image for the specialist guide$/ do
   within ".images" do
     attach_file "File", Rails.root.join("features/fixtures/minister-of-soul.jpg")
+  end
+end
+
+When /^I visit the specialist guide "([^"]*)"$/ do |name|
+  visit "/specialist"
+  click_link name
+end
+
+Then /^I can see links to the related specialist guides "([^"]*)" and "([^"]*)"$/ do |guide_1, guide_2|
+  within ".related_specialist_guides" do
+    assert has_css?("a", text: guide_1), "should have link to #{guide_1}"
+    assert has_css?("a", text: guide_2), "should have link to #{guide_2}"
   end
 end
 

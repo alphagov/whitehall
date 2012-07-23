@@ -94,44 +94,46 @@
           margin-left: $gutter-one-third;
         }
       }
-      li {
-        padding-bottom: 0;
-        list-style: none;
-        a {
-          padding: $gutter-one-third $gutter-one-third $gutter-half $gutter-one-third+1;
-          border-bottom: 1px solid $white;
-          display: block;
-          color: $white;
-          background: $light-blue;
-          text-decoration: none;
-          &:hover,
-          &:focus {
-            background: lighten($light-blue, 10%);
-          }
-          &:active {
-            background: lighten($light-blue, 15%);
-          }
-          &.active {
-            border-bottom: 0;
-            margin-top: -1px;
-            border-left: 1px solid $light-blue;
-            background: transparent;
-            color: $light-blue;
-            padding: $gutter-one-third+1px $gutter-one-third $gutter-half+1px;
+      nav {
+        li {
+          padding-bottom: 0;
+          list-style: none;
+          a {
+            padding: $gutter-one-third $gutter-one-third $gutter-half $gutter-one-third+1;
+            border-bottom: 1px solid $white;
+            display: block;
+            color: $white;
+            background: $light-blue;
+            text-decoration: none;
             &:hover,
             &:focus {
-              background: lighten($light-blue, 45%);
+              background: lighten($light-blue, 10%);
             }
             &:active {
-              background: lighten($light-blue, 40%);
+              background: lighten($light-blue, 15%);
+            }
+            &.active {
+              border-bottom: 0;
+              margin-top: -1px;
+              border-left: 1px solid $light-blue;
+              background: transparent;
+              color: $light-blue;
+              padding: $gutter-one-third+1px $gutter-one-third $gutter-half+1px;
+              &:hover,
+              &:focus {
+                background: lighten($light-blue, 45%);
+              }
+              &:active {
+                background: lighten($light-blue, 40%);
+              }
             }
           }
-        }
-        &:first-child a {
-          border-top-color: transparent;
-          &.active {
-            border-top: 1px solid $light-blue;
-            border-width: 1px 0 1px 1px;
+          &:first-child a {
+            border-top-color: transparent;
+            &.active {
+              border-top: 1px solid $light-blue;
+              border-width: 1px 0 1px 1px;
+            }
           }
         }
       }

@@ -34,6 +34,17 @@ psdjsds
     </section>
   <% end %>
 
+  <% if edition.respond_to?(:related_specialist_guides) %>
+    <section>
+      <h2>Specialist Guides</h2>
+      <% if edition.related_specialist_guides.any? %>
+        <%= render partial: "specialist_guides/list", locals: {specialist_guides: edition.related_specialist_guides} %>
+      <% else %>
+        <p>This document isn't assigned to any specialist guides.</p>
+      <% end %>
+    </section>
+  <% end %>
+
   <% if edition.can_be_associated_with_ministers? %>
     <section>
       <h2>Ministers</h2>
