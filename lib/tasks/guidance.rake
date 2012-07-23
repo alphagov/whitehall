@@ -16,6 +16,12 @@ namespace :guidance do
       title = row[0]
       body = row[1]
 
+      # strip HRs from the content
+      body = body.gsub(/\n([\*\s]{2,})\n/, "")
+
+      # strip "new window" text
+      body = body.gsub(/\s-\sOpens in a new window/, "")
+
       existing_guide = SpecialistGuide.where(title: title).first
 
       if existing_guide
