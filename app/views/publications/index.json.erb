@@ -1,0 +1,15 @@
+[
+<% if @publications.any? %>
+  <% @publications.each_with_index do |publication, i| %>{
+    "id": "<%= publication.id %>",
+    "title": "<%= publication.title %>",
+    "url": "<%= public_document_path(publication) %>",
+    "organisations": <%= publication.organisations.map { |o|
+                organisation_display_name(o) }.to_sentence.to_json.html_safe %>,
+    "published": <%= render_datetime_microformat(publication, :publication_date) {
+                    publication.publication_date.to_s(:long_ordinal)
+              }.to_json.html_safe %>,
+    "publication_type": "<%= publication.publication_type.singular_name %>"}<% if i < (@publications.length - 1) %>,<% end %>
+  <% end %>
+<% end %>
+]
