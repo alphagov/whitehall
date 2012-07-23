@@ -56,7 +56,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_select "#{notes_to_editors_selector}", text: /notes-to-editors-in-html/
   end
 
-  test "should exclude the notes to editors section if there aren't any" do
+  test "should exclude the notes to editors section if there are not any" do
     news_article = create(:news_article, notes_to_editors: "")
     get :show, id: news_article
     refute_select "#{notes_to_editors_selector}"

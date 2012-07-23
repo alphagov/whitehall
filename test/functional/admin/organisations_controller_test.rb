@@ -252,7 +252,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal organisation, assigns(:organisation)
   end
 
-  test "editing shouldn't show the current organisation in the list of parent organisations" do
+  test "editing should not show the current organisation in the list of parent organisations" do
     organisation = create(:organisation)
     get :edit, id: organisation
     refute_select "#{parent_organisations_list_selector} option[value='#{organisation.id}']"
@@ -334,7 +334,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [organisation_senior_ministerial_role, organisation_junior_ministerial_role], assigns(:ministerial_organisation_roles)
   end
 
-  test "editing doesn't display an empty ministerial roles section" do
+  test "editing does not display an empty ministerial roles section" do
     organisation = create(:organisation)
     get :edit, id: organisation
     refute_select "#minister_ordering"
@@ -392,7 +392,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_template "organisations/edit"
   end
 
-  test "updating with an empty contact shouldn't create that contact" do
+  test "updating with an empty contact should not create that contact" do
     organisation = create(:organisation, name: "Ministry of Sound")
     organisation_attributes = {
       name: "Ministry of Sound",

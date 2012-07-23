@@ -31,7 +31,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     assert_equal "editorial-remark-body", edition.editorial_remarks.first.body
   end
 
-  test "should explain why the editorial remark couldn't be saved" do
+  test "should explain why the editorial remark could not be saved" do
     edition = create(:submitted_consultation)
     post :create, edition_id: edition, editorial_remark: { body: "" }
     assert_template "new"

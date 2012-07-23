@@ -36,7 +36,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_select "a[href='#{new_admin_edition_supporting_page_path(draft_policy)}']"
   end
 
-  test "don't show the 'add supporting page' button for a published policy" do
+  test "do not show the 'add supporting page' button for a published policy" do
     published_policy = create(:published_policy)
 
     get :show, id: published_policy
@@ -61,7 +61,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "doesn't show supporting pages list when empty" do
+  test "does not show supporting pages list when empty" do
     draft_policy = create(:draft_policy)
 
     get :show, id: draft_policy
@@ -81,7 +81,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "show doesn't display the policy team section if no policy team is associated with the policy" do
+  test "show does not display the policy team section if no policy team is associated with the policy" do
     draft_policy = create(:draft_policy)
 
     get :show, id: draft_policy

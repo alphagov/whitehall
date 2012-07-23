@@ -324,7 +324,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute_select "td.featured"
   end
 
-  test "should not display the featured column on a filtered edition page where that edition isn't featureable" do
+  test "should not display the featured column on a filtered edition page where that edition is not featureable" do
     policy = create(:draft_policy)
     refute policy.featurable?
     get :index, state: :draft, type: "policy"

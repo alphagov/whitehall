@@ -265,7 +265,7 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_equal new_edition, assigns("featured_consultation")
   end
 
-  test "should not display the featured consultations list if there aren't featured consultations" do
+  test "should not display the featured consultations list if there are not featured consultations" do
     create("published_consultation")
     get :index
     refute_select featured_consultations_selector

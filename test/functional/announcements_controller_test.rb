@@ -54,7 +54,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not display #last_24_hours section if there aren't any announcements within that period" do
+  test "should not display #last_24_hours section if there are not any announcements within that period" do
     get :index
     refute_select '#last_24_hours'
   end

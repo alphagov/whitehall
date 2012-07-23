@@ -96,7 +96,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     assert_select "a[href='#{edit_admin_supporting_page_path(supporting_page)}']", text: 'Edit'
   end
 
-  test "doesn't show edit link if parent edition is published" do
+  test "does not show edit link if parent edition is published" do
     edition = create(:published_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
