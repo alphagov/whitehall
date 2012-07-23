@@ -41,6 +41,20 @@ Given /^"([^"]*)" drafts a new publication "([^"]*)"$/ do |user_name, title|
   end
 end
 
+When /^I select "([^"]*)" from "([^"]*)"$/ do |option, select|
+  select option, from: select
+  save_page
+end
+
+Given /^a published publication "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
+  organisation = create(:organisation, name: organisation)
+  create(:published_publication, title: title, organisations: [organisation])
+end
+
+Given /^a draft publication "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
+  organisation = create(:organisation, name: organisation)
+  create(:draft_publication, title: title, organisations: [organisation])
+end
 
 When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
   begin_drafting_publication(title)
@@ -126,4 +140,8 @@ Then /^the publication "([^"]*)" should (not )?be featured on the public publica
   else
     assert publication_is_featured
   end
+end
+
+Then /^I should see the no results message$/ do
+  assert has_css? '.no-results'
 end
