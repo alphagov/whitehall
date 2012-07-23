@@ -22,7 +22,7 @@ namespace :guidance do
         existing_guide.body = body
         existing_guide.save && updated_guides += 1
       else
-        guide = SpecialistGuide.new(title: title, body: body, state: "draft", topics: [topic], organisations: [organisation], creator: creator)
+        guide = SpecialistGuide.new(title: title, body: body, state: "draft", topics: [topic], organisations: [organisation], creator: creator, paginate_body: false)
         guide.save && new_guides += 1
       end
     end
