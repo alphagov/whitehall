@@ -10,7 +10,7 @@
     <% if @supporting_page.editable? %>
         <%= link_to 'Edit', edit_admin_supporting_page_path(@supporting_page), title: "Edit #{@supporting_page.title}", :class => "btn" %>
     <% else %>
-      <p>To edit this supporting page,
+      <p class="alert">To edit this supporting page,
         <% if !@supporting_page.edition.is_latest_edition? %>
           please <%= link_to "visit the most recent edition of '#{@supporting_page.document_title}'", admin_edition_path(@supporting_page.edition.latest_edition), title: "Go to most recent edition of #{@supporting_page.edition.title}" %>.
         <% else %>
