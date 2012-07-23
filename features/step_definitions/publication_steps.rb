@@ -43,8 +43,12 @@ end
 
 When /^I select "([^"]*)" from "([^"]*)"$/ do |option, select|
   select option, from: select
-  save_page
 end
+
+When /^I wait for Ajax$/ do
+  wait_until { page.evaluate_script("jQuery.active") == 0 }
+end
+
 
 Given /^a published publication "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
   organisation = create(:organisation, name: organisation)
