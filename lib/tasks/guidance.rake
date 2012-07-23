@@ -22,6 +22,9 @@ namespace :guidance do
       # strip "new window" text
       body = body.gsub(/\s-\sOpens in a new window/, "")
 
+      # strip bold/strong markdown
+      body = body.gsub(/\*\*([^\*]+)\*\*/, "\\1")
+
       existing_guide = SpecialistGuide.where(title: title).first
 
       if existing_guide
