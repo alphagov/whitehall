@@ -84,12 +84,10 @@ When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ d
   click_button "Save"
 end
 
-When /^I fill in "([^"]*)" with "([^"]*)"$/ do |name, value|
-  fill_in name, with: value
-end
-
-When /^I press "([^"]*)"$/ do |button|
-  click_button button
+When /^I correct the invalid information for the publication$/ do
+  fill_in "Title", with: "Validation error fixed"
+  fill_in "Body", with: "!@1"
+  click_button "Save"
 end
 
 When /^I filter publications to only those from the "([^"]*)" department$/ do |department|
