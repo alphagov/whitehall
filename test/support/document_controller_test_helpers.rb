@@ -261,7 +261,7 @@ module DocumentControllerTestHelpers
 
         assert_select ".change-notes" do
           assert_select ".published-at[title='#{first_edition.published_at.iso8601}']"
-          assert_select "p", text: "Published #{first_edition.published_at.to_s(:long_ordinal)}"
+          assert_select "p", text: "Published #{first_edition.published_at.to_date.to_s(:long_ordinal)}"
         end
       end
 
