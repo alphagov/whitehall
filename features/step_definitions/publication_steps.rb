@@ -41,15 +41,6 @@ Given /^"([^"]*)" drafts a new publication "([^"]*)"$/ do |user_name, title|
   end
 end
 
-When /^I select "([^"]*)" from "([^"]*)"$/ do |option, select|
-  select option, from: select
-end
-
-When /^I wait for Ajax$/ do
-  wait_until { page.evaluate_script("jQuery.active") == 0 }
-end
-
-
 Given /^a published publication "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
   organisation = create(:organisation, name: organisation)
   create(:published_publication, title: title, organisations: [organisation])
@@ -99,6 +90,19 @@ end
 
 When /^I press "([^"]*)"$/ do |button|
   click_button button
+end
+
+When /^I filter publications to only those from the "([^"]*)" department$/ do |department|
+  # This call to `unselect` doesn't work with capybara-webkit because it does
+  # not recognise the select as a multi-select.
+  # Here's the fix, waiting to be merged:
+  # https://github.com/thoughtbot/capybara-webkit/pull/361
+  # unselect "All departments", from: "Department"
+  page.evaluate_script(%{$("#departments option[value='all']").removeAttr("selected"); 1})
+
+  select department, from: "Department"
+  click_button "Refresh"
+  wait_until { page.evaluate_script("jQuery.active") == 0 }
 end
 
 When /^I set the publication title to "([^"]*)" and save$/ do |title|
