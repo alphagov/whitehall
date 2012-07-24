@@ -166,7 +166,7 @@ module ApplicationHelper
   end
 
   def absolute_date(time, options = {})
-    content_tag(:abbr, time.to_date.to_s(:long),
+    content_tag(:abbr, time.to_date.to_s(:long_ordinal),
                 class: [options[:class], "date"].compact.join(" "),
                 title: time.iso8601)
   end

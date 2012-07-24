@@ -1,9 +1,9 @@
 (function($) {
   $.fn.toggleChangeNotes = function (options) {
-    options = $.extend(options, {
-      header: 'h1',
+    options = $.extend({
+      header: '.toggle',
       content: '.overlay'
-    });
+    }, options);
     this.each(function(i, el){
       var wrapper = $(el),
           header = wrapper.find(options.header),
@@ -12,15 +12,13 @@
       if (header.length > 0 && overlay.length > 0) {
         wrapper.addClass('toggleable');
 
-        header.html('<a href="#' + overlay.attr('id') + '">'+ header.html() +'</a>');
-
-        overlay.hide();
+        overlay.addClass('visuallyhidden');
         overlay.prepend('<span class="arrow"></span>');
 
-        header.find('a').click(function (e) {
+        header.mouseup(function (e) {
           e.preventDefault();
           wrapper.toggleClass('open')
-          overlay.fadeToggle();
+          overlay.toggleClass('visuallyhidden');
         });
       };
     });

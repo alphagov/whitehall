@@ -51,10 +51,7 @@
     min-width: 160px;
     padding: 0;
     
-    h1 {
-      width: 100%;
-    }
-    h1 a {
+    .toggle {
       @include button($light-warm-grey);
       display: block;
       color: $body-text;
@@ -65,10 +62,15 @@
         outline: none;
       }
     }
-    &.open h1 a {
-      top: 0.2em;
-      background: lighten($light-warm-grey, 5%);
-      @include box-shadow(none);
+    &.open {
+      .toggle {
+        top: 0.2em;
+        background: lighten($light-warm-grey, 5%);
+        @include box-shadow(none);
+      }
+      &.toggleable .overlay {
+        opacity: 1;
+      }
     }
     .arrow {
       width: 0;
@@ -104,6 +106,9 @@
       left: 0;
       width: 200%;
       z-index: 10;
+      opacity: 0;
+      display: block;
+      @include transition(opacity, .5s, ease);
     }
   }
   

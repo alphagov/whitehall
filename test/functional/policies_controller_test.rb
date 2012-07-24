@@ -17,7 +17,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: policy.document
 
-    assert_select ".updated_at[title=#{policy.updated_at.iso8601}]"
+    assert_select ".published-at[title=#{policy.published_at.iso8601}]"
   end
 
   test "should show inapplicable nations" do
@@ -165,7 +165,7 @@ That's all
 
     get :activity, id: policy.document
 
-    assert_select ".updated_at[title=#{policy.updated_at.iso8601}]"
+    assert_select ".published-at[title=#{policy.published_at.iso8601}]"
   end
 
   test "activity includes the main policy navigation" do

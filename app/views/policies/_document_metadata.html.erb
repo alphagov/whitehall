@@ -12,7 +12,6 @@
 
 <section class="meta">
   <%= render partial: 'documents/change_notes', locals: {
-    document: @document,
-    title: "Updated #{absolute_date(@policy.updated_at, class: 'updated_at')}".html_safe
+    document: @document
   } %>
 </section>

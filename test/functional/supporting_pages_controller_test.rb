@@ -31,7 +31,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select ".updated_at[title=#{policy.updated_at.iso8601}]"
+    assert_select ".published-at[title=#{policy.published_at.iso8601}]"
   end
 
   test "show includes the main policy navigation" do

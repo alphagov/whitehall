@@ -253,41 +253,57 @@ module DocumentControllerTestHelpers
 
     def should_show_change_notes_on_action(document_type, action, &block)
       test "#{action} displays default change note for first edition" do
-        first_edition = create("published_#{document_type}", change_note: nil, published_at: 1.month.ago)
+        first_edition = create("published_#{document_type}",
+                               change_note: nil,
+                               published_at: 1.month.ago)
 
         instance_exec(first_edition, &block)
 
         assert_select ".change-notes" do
-          assert_select ".published_at[title='#{first_edition.published_at.iso8601}']"
-          assert_select "dt", text: "First published."
+          assert_select ".published-at[title='#{first_edition.published_at.iso8601}']"
+          assert_select "p", text: "Published #{first_edition.published_at.to_s(:long_ordinal)}"
         end
       end
 
       test "#{action} does not display blank change notes in change history" do
-        second_edition = create("published_#{document_type}", change_note: nil, minor_change: true, published_at: 1.months.ago)
+        second_edition = create("published_#{document_type}",
+                                change_note: nil,
+                                minor_change: true,
+                                published_at: 1.months.ago)
         document = second_edition.document
-        first_edition = create("archived_#{document_type}", change_note: "First effort.", document: document, published_at: 2.months.ago)
+        first_edition = create("archived_#{document_type}",
+                               change_note: "First effort.",
+                               document: document,
+                               published_at: 2.months.ago)
 
         instance_exec(second_edition, &block)
 
         assert_select ".change-notes" do
-          refute_select ".published_at[title='#{second_edition.published_at.iso8601}']"
+          refute_select ".published-at[title='#{second_edition.published_at.iso8601}']"
           refute_select "dt", text: ""
         end
       end
 
       test "#{action} displays change history in reverse chronological order" do
         editions = []
-        editions << create("published_#{document_type}", change_note: "Third go.", published_at: 1.month.ago)
+        editions << create("published_#{document_type}",
+                           change_note: "Third go.",
+                           published_at: 1.month.ago)
         document = editions.first.document
-        editions << create("archived_#{document_type}", change_note: "Second attempt.", document: document, published_at: 2.months.ago)
-        editions << create("archived_#{document_type}", change_note: "First effort.", document: document, published_at: 3.months.ago)
+        editions << create("archived_#{document_type}",
+                           change_note: "Second attempt.",
+                           document: document,
+                           published_at: 2.months.ago)
+        editions << create("archived_#{document_type}",
+                           change_note: "First effort.",
+                           document: document,
+                           published_at: 3.months.ago)
 
         instance_exec(editions.first, &block)
 
         assert_select ".change-notes dd" do |list_items|
           list_items.each_with_index do |list_item, index|
-            assert_select list_item, ".published_at[title='#{editions[index].published_at.iso8601}']"
+            assert_select list_item, ".published-at[title='#{editions[index].published_at.iso8601}']"
           end
         end
         assert_select ".change-notes dt" do |list_items|
