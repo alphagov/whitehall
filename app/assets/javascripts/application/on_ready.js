@@ -8,6 +8,7 @@ jQuery(function($) {
   $('.alphabetical-row').equalHeightHelper({selectorsToResize: ['li']});
   $('.js-toggle-change-notes').toggleChangeNotes();
   $('.meta-topic .topics').hideOtherLinks();
+  $('#document_countries').hideOtherLinks();
   $('.js-nav-helper').each(function () {
     $(this).find('.inner ul').append($.li('', '.st'));
   }).navHelper({
