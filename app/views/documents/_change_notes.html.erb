@@ -3,7 +3,7 @@
 %>
 <% if document.change_history.length == 1 %>
   <section class="change-notes">
-    <p>Published <%= absolute_time(most_recent_change, class: 'published-at') %></p>
+    <p>Published <%= absolute_date(most_recent_change, class: 'published-at') %></p>
   </section>
 <% else %>
   <section class="change-notes js-toggle-change-notes">
