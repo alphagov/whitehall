@@ -59,9 +59,13 @@ class Document < ActiveRecord::Base
   end
 
   def change_history
-    ever_published_editions.significant_change.by_published_at.
-      map { |e| Change.new(e.published_at, e.change_note) }.
-      tap { |h| h.last.set_as_first_change if h.last }
+    editions = ever_published_editions.significant_change.by_published_at
+
+    last = editions.pop
+    last = Change.new(last.first_published_at, last.change_note)
+    last.set_as_first_change
+
+    editions.map { |e| Change.new(e.published_at, e.change_note) }.push(last)
   end
 
   class << self

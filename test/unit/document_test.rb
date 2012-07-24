@@ -104,4 +104,13 @@ class DocumentTest < ActiveSupport::TestCase
     history = document.change_history
     assert_equal "First published.", history[0].note
   end
+
+  test "should replace first change note date with first published" do
+    original_edition = create(:published_edition, first_published_at: 4.days.ago, published_at: 3.days.ago, minor_change: false)
+    document = original_edition.document
+
+    history = document.change_history
+    assert_equal 4.days.ago, history[0].published_at
+  end
+
 end

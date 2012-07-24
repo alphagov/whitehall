@@ -269,12 +269,14 @@ module DocumentControllerTestHelpers
         second_edition = create("published_#{document_type}",
                                 change_note: nil,
                                 minor_change: true,
-                                published_at: 1.months.ago)
+                                published_at: 1.months.ago,
+                                first_published_at: 2.months.ago)
         document = second_edition.document
         first_edition = create("archived_#{document_type}",
                                change_note: "First effort.",
                                document: document,
-                               published_at: 2.months.ago)
+                               published_at: 2.months.ago,
+                               first_published_at: 2.months.ago)
 
         instance_exec(second_edition, &block)
 
@@ -288,16 +290,19 @@ module DocumentControllerTestHelpers
         editions = []
         editions << create("published_#{document_type}",
                            change_note: "Third go.",
-                           published_at: 1.month.ago)
+                           published_at: 1.month.ago,
+                           first_published_at: 3.months.ago)
         document = editions.first.document
         editions << create("archived_#{document_type}",
                            change_note: "Second attempt.",
                            document: document,
-                           published_at: 2.months.ago)
+                           published_at: 2.months.ago,
+                           first_published_at: 3.months.ago)
         editions << create("archived_#{document_type}",
                            change_note: "First effort.",
                            document: document,
-                           published_at: 3.months.ago)
+                           published_at: 3.months.ago,
+                           first_published_at: 3.months.ago)
 
         instance_exec(editions.first, &block)
 
