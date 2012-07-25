@@ -24,6 +24,14 @@
 
 }
 
+#page.publications-index .previous-next-navigation {
+  background: $light-warm-grey;
+
+  li a {
+    color: $charcoal-grey;
+  }
+}
+
 .publication {
   .contextual-info {
     a {
