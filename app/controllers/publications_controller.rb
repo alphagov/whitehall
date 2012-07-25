@@ -40,12 +40,6 @@ private
       @date = Date.parse(params[:date])
     end
 
-    if params[:page].present?
-      @publications = @publications.offset(page_size * (params[:page].to_i - 1))
-    end
-
-    @publications = @publications.limit(page_size)
-
     if params[:direction].present?
       @direction = params[:direction]
       if @date.present?
@@ -59,6 +53,15 @@ private
     else
       @direction = "before"
     end
+
+    @count = @publications.count
+
+    if params[:page].present?
+      @publications = @publications.offset(page_size * (params[:page].to_i - 1))
+    end
+
+    @publications = @publications.limit(page_size)
+
 
     if "after" == @direction
       @publications = @publications.in_chronological_order
