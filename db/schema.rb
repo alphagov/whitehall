@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120720112913) do
+ActiveRecord::Schema.define(:version => 20120723095757) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -424,6 +424,7 @@ ActiveRecord::Schema.define(:version => 20120720112913) do
     t.string   "uid"
     t.integer  "version"
     t.text     "permissions"
+    t.boolean  "remotely_signed_out", :default => false
   end
 
   add_index "users", ["organisation_id"], :name => "index_users_on_organisation_id"
