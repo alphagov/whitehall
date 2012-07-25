@@ -27,4 +27,5 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
   should_link_to_public_version_when_published :specialist_guide
   should_not_link_to_public_version_when_not_published :specialist_guide
   should_prevent_modification_of_unmodifiable :specialist_guide
+  should_allow_association_with_related_mainstream_content :specialist_guide
 end

@@ -21,6 +21,13 @@
           <p class="more-like-this"><a href="#more-like-this">related guidance</a></p>
         <% end %>
       </section>
+
+    <% if @document.has_related_mainstream_content? %>
+      <section class="related-mainstream-content">
+        <p>Too much information? Check out our quick guide: <%= link_to @document.related_mainstream_content_title, @document.related_mainstream_content_url %></p>
+      </section>
+    <% end %>
+
     </div>
   </div>
   <div class="block-2">

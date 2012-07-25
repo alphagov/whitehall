@@ -73,6 +73,10 @@
     }
   }
 
+  .related-mainstream-content {
+    margin-bottom: $gutter;
+  }
+
   .meta {
     @include core-14;
     @media (min-width: 568px) {
