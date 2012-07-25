@@ -22,7 +22,7 @@
         li.append(a);
         a.attr('href', data.next_page_url);
 
-        $(after).after(existingNav);
+        $(after).after(nav);
       }
     }
     function drawTable(data) {
