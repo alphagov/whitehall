@@ -14,6 +14,8 @@ class PublicationsController < DocumentsController
     @topics = @related_policies.map { |d| d.topics }.flatten.uniq
   end
 
+private
+
   def all_publications
     Publication.published.includes(:document, :organisations, :attachments)
   end
@@ -21,8 +23,6 @@ class PublicationsController < DocumentsController
   def document_class
     Publication
   end
-
-private
 
   def load_filtered_publications(params)
     @publications = all_publications
