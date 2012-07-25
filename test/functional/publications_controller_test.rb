@@ -390,7 +390,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "index should only show a certain number of publications by default" do
-    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
+    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}-index-default", publication_date: i.days.ago) }
 
     get :index
 
@@ -399,7 +399,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "index should show window of pagination" do
-    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
+    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}-window-pagination", publication_date: i.days.ago) }
 
     get :index, page: 2
 
