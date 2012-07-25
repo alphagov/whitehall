@@ -1,5 +1,5 @@
 <div class="meta-topic">
-  <p class="topics">Part of <%= list_of_links_to_topics(@document.topics) %>.</p>
+  <%= part_of_topics_paragraph(@document.topics) %>
 
 <% if @document.respond_to?(:countries) && @document.countries.any? %>
     <p id="document_countries">Applies to <%= list_of_links_to_countries(@document.countries) %>.</p>

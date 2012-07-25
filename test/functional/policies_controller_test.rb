@@ -96,8 +96,16 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select ".meta-topic a.topic", text: first_topic.name
-    assert_select ".meta-topic a.topic", text: second_topic.name
+    assert_select ".topics a.topic", text: first_topic.name
+    assert_select ".topics a.topic", text: second_topic.name
+  end
+
+  test "should not show topics where none exist" do
+    edition = create(:published_policy, topics: [])
+
+    get :show, id: edition.document
+
+    assert_select ".topics", count: 0
   end
 
   test "should link to organisations related to the policy" do

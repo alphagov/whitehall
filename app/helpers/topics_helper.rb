@@ -1,4 +1,9 @@
 module TopicsHelper
+  def part_of_topics_paragraph(topics)
+    if topics.any?
+      content_tag :p, "Part of ".html_safe + list_of_links_to_topics(@document.topics), class: 'topics'
+    end
+  end
 
   def list_of_links_to_topics(topics)
     topics.map { |topic| link_to topic.name, topic_path(topic), class: "topic" }.to_sentence.html_safe
