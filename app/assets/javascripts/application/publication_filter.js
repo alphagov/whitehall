@@ -64,9 +64,11 @@
             dataType:'json',
             data: params,
             success: function(data) {
-                drawTable(data);
-                // undo double-click protection
-                $('#publications-filter input[type=submit]').removeAttr('disabled').removeClass('disabled');
+              if (data.results) {
+                drawTable(data.results);
+              }
+              // undo double-click protection
+              $('#publications-filter input[type=submit]').removeAttr('disabled').removeClass('disabled');
             },
             error: function() {
                 $('#publications-filter input[type=submit]').removeAttr('disabled');
