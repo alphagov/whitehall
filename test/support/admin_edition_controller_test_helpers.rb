@@ -1522,6 +1522,58 @@ module AdminEditionControllerTestHelpers
         end
       end
     end
+
+    def should_allow_association_with_related_mainstream_content(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "new should display fields for related mainstream content" do
+        get :new
+
+        admin_editions_path = send("admin_#{edition_type}s_path")
+        assert_select "form#edition_new[action='#{admin_editions_path}']" do
+          assert_select "input[name*='edition[related_mainstream_content_url]']"
+          assert_select "input[name*='edition[related_mainstream_content_title]']"
+        end
+      end
+
+      test "edit should display fields for related mainstream content" do
+        edition = create(edition_type)
+        get :edit, id: edition
+
+        admin_editions_path = send("admin_#{edition_type}_path", edition)
+        assert_select "form#edition_edit[action='#{admin_editions_path}']" do
+          assert_select "input[name*='edition[related_mainstream_content_url]']"
+          assert_select "input[name*='edition[related_mainstream_content_title]']"
+        end
+      end
+
+      test "create should allow setting of a related mainstream content url and title" do
+        post :create, edition: controller_attributes_for(edition_type).merge(
+          related_mainstream_content_url: "http://mainstream/content",
+          related_mainstream_content_title: "Some Mainstream Content"
+        )
+
+        edition = edition_class.last
+        assert_equal "http://mainstream/content", edition.related_mainstream_content_url
+        assert_equal "Some Mainstream Content", edition.related_mainstream_content_title
+      end
+
+      test "update should allow setting of a related mainstream content url and title" do
+        edition = create(edition_type,
+          related_mainstream_content_url: "http://mainstream/content",
+          related_mainstream_content_title: "Some Mainstream Content"
+        )
+
+        put :update, id: edition, edition: controller_attributes_for(edition_type).merge(
+          related_mainstream_content_url: "http://mainstream/content2",
+          related_mainstream_content_title: "Some Other Mainstream Content"
+        )
+
+        edition.reload
+        assert_equal "http://mainstream/content2", edition.related_mainstream_content_url
+        assert_equal "Some Other Mainstream Content", edition.related_mainstream_content_title
+      end
+    end
   end
 
   def controller_attributes_for(edition_type, attributes = {})

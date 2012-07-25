@@ -27,7 +27,7 @@ module DocumentHelper
       ni.alternative_url.present?
     end
     if with_alternative_urls.any?
-      "(see #{edition.class.name.humanize.downcase} for ".html_safe + list_of_links_to_inapplicable_nations(with_alternative_urls) + ")".html_safe
+      " (see #{edition.format_name} for ".html_safe + list_of_links_to_inapplicable_nations(with_alternative_urls) + ")".html_safe
     end
   end
 

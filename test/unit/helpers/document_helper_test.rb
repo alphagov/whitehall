@@ -37,7 +37,7 @@ class DocumentHelperTest < ActionView::TestCase
     publication = create(:publication, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.scotland, alternative_url: "http://scotland.com")])
     html = see_alternative_urls_for_inapplicable_nations(publication)
     assert_select_within_html html, "a[href='http://scotland.com']", text: "Scotland"
-    assert html.starts_with?("(see publication for ")
+    assert html.starts_with?(" (see publication for ")
   end
 
   test "#see_alternative_urls_for_inapplicable_nations skips nations without alternative urls" do

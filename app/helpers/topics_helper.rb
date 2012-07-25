@@ -1,7 +1,7 @@
 module TopicsHelper
   def part_of_topics_paragraph(topics)
     if topics.any?
-      content_tag :p, "Part of ".html_safe + list_of_links_to_topics(@document.topics), class: 'topics'
+      content_tag :p, "Part of ".html_safe + list_of_links_to_topics(@document.topics) + ".".html_safe, class: 'topics'
     end
   end
 

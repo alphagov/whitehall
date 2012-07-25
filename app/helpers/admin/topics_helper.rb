@@ -8,7 +8,7 @@ module Admin::TopicsHelper
     topic.policies.map do |d|
       link_to(d.title, admin_edition_path(d)) + " " +
       content_tag(:span,
-                   %{(#{d.state} #{d.class.name.underscore.humanize.downcase})},
+                   %{(#{d.state} #{d.format_name})},
                    class: "document_state")
     end
   end
