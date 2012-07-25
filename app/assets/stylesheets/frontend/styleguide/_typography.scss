@@ -3,7 +3,7 @@
 
 //  ANATOMY OF A TYPE STYLE
 //  -----------------------
-//  These are a collection of graphic styles. They are deliberately 
+//  These are a collection of graphic styles. They are deliberately
 //  abstracted from semantic HTML context to enable flexible re-use.
 //  Although there is a lot of duplication within this file, as long
 //  as you GZIP your CSS it shouldnt cause any bloat.
@@ -15,7 +15,7 @@
 //      font-size: 45px;
 //      font-size: 4.5rem;
 //      _ Font-sizing in rems to avoid issues with relative sizing
-//        and DOM context. Font-size in pixels as fallback for 
+//        and DOM context. Font-size in pixels as fallback for
 //        older browsers.
 //
 //      line-height: 1.1555555556;
@@ -25,8 +25,8 @@
 //      font-weight: 300;
 //      letter-spacing: 0.01em;
 //      text-transform: none;
-//      _ Again, we cant assume anything about pre-exising CSS on the 
-//        page, so setting these values (even if just resetting them 
+//      _ Again, we cant assume anything about pre-exising CSS on the
+//        page, so setting these values (even if just resetting them
 //        to default values) will increase the robustness of the style.
 //
 //      padding-top: 7px;
@@ -34,8 +34,8 @@
 //      padding-bottom: 5px;
 //      padding-bottom: 0.5rem;
 //      _ Set top and bottom padding values to ensure an appropriate
-//        vertical measure before & after the text, ideally sitting it 
-//        on the 8px baseline grid. Rem sizing will allow the 
+//        vertical measure before & after the text, ideally sitting it
+//        on the 8px baseline grid. Rem sizing will allow the
 //        whitespace to scale proportionally along with the text.
 //  }
 
@@ -173,6 +173,49 @@
   padding-bottom: 0.4rem;
 }
 
+@mixin logo-19 {
+  font-family: $Helvetica-Regular;
+  font-size: 19px;
+  font-size: 1.9rem;
+  line-height: 1.053; /* 20px */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: none;
+
+  color: $black;
+  
+  padding-top: 26px;
+  padding-top: 2.6rem;
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
+  padding-left: 7px;
+  padding-left: 0.7rem;
+
+  display: block;
+
+  border-left: 2px solid #bbb;
+  background: url("/government/assets/coa-default-24.gif") no-repeat 8px 0;
+  span {
+    position: relative;
+    top: 2px;
+  }
+
+  &.single-line {
+    padding-top: 5px;
+    padding-top: 0.5rem;
+    padding-bottom: 5px;
+    padding-bottom: 0.5rem;
+    padding-left: 45px;
+    padding-left: 4.5rem;
+
+    background-position: 8px 50%;
+    span {
+      top: 0;
+    }
+  }
+}
+
 @mixin logo-13 {
   font-family: $Helvetica-Regular;
   font-size: 13px;
@@ -210,12 +253,12 @@
 // BRAND FONT: GILL SANS
 
 $font-brand:
-    "Gill Sans W01 Book", 
-    "Gill Sans MT", 
-    "Gill Sans", 
-    "Helvetica Neue", 
-    Arial, 
-    Helvetica, 
+    "Gill Sans W01 Book",
+    "Gill Sans MT",
+    "Gill Sans",
+    "Helvetica Neue",
+    Arial,
+    Helvetica,
     sans-serif;
 
 
@@ -295,10 +338,10 @@ $font-brand:
 // SANS: HELVETICA
 
 $font-sans:
-    "Helvetica Neue", 
+    "Helvetica Neue",
     "HelveticaNeue",
-    Arial, 
-    Helvetica, 
+    Arial,
+    Helvetica,
     sans-serif;
 
 
@@ -376,7 +419,7 @@ $font-sans:
 // BODY: GEORGIA
 
 $font-body:
-    Georgia, 
+    Georgia,
     serif;
 
 

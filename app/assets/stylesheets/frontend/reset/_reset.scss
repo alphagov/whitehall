@@ -8,7 +8,7 @@
   padding-top: 0;
   padding-bottom: $gutter;
   background: transparent;
-  color: #333;
+  color: $body-text;
   -webkit-font-smoothing: antialiased;
 
      @media (min-width: 768px) {
@@ -59,7 +59,13 @@
   }
 
   a {
-    color: black;
+    color: $link-text;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
   }
 
   a * {

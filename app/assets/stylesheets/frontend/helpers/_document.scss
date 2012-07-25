@@ -20,7 +20,7 @@
     
     h2 {
       @include core-27;
-      color: lighten($body-text, 50%);
+      color: lighten($body-text, 25%);
       margin-top: $gutter;
       @media (max-width: 640px) {
         margin-top: $gutter-half;
@@ -28,7 +28,7 @@
     }
     h3 {
       @include core-24;
-      color: lighten($body-text, 50%);
+      color: lighten($body-text, 25%);
       margin-top: $gutter;
       @media (max-width: 640px) {
         margin-top: $gutter-half;
@@ -38,7 +38,7 @@
     h5,
     h6 {
       @include core-19;
-      color: lighten($body-text, 50%);
+      color: lighten($body-text, 25%);
       margin-top: $gutter;
       @media (max-width: 640px) {
         margin-top: $gutter-half;

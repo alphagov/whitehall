@@ -30,10 +30,15 @@
     display: inline;
 
     a {
+      font-family: $NTA-Light;
+      font-size: 16px;
+      font-size: 1.6rem;
+      line-height: 1.5625; /* 25px */
       display: block;
       padding: 8px 8px;
       padding: 0.8rem 0.8rem;
       text-decoration: none;
+      color: $black;
     }
 
     a:hover,

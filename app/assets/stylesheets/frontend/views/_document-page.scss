@@ -181,22 +181,5 @@
 
 
 .organisation-logo-small {
-  position: relative;
-  display: block;
-  overflow: visible;
-  padding: 28px 0 0 8px;
-  border-left: 2px solid #bbb;
-  font-size: 16px;
-  font-size: 1.6rem;
-  line-height: 1.25;
-  background: url("/government/assets/coa-default-24.gif") no-repeat 8px -1px;
-  
-  &.single-line {
-    padding: 2px 0 2px 46px;
-  }
-  a {
-    position: relative;
-    bottom: -3px;
-    text-decoration: none;
-  }
+  @include logo-19;
 }

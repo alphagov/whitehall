@@ -195,15 +195,6 @@
     }
   }
 
-
-
-  .organisation-logo-small {
-    @include sans-20;
-    background-position: 8px center;
-    line-height: 1;
-    padding: 2px 0 5px 46px;
-  }
-
   .govspeak {
     margin-top: $gutter!important;
     h2 {
