@@ -120,7 +120,7 @@ GEM
       lrucache (~> 0.1.1)
       null_logger
       plek
-    gds-sso (0.7.9)
+    gds-sso (1.1.1)
       omniauth-gds (= 0.0.3)
       rack-accept (~> 0.4.4)
       rails (>= 3.0.0)
@@ -145,6 +145,8 @@ GEM
       thor (~> 0.14)
     json (1.7.3)
     json_pure (1.6.1)
+    jwt (0.1.5)
+      multi_json (>= 1.0)
     kramdown (0.13.7)
     launchy (2.0.5)
       addressable (~> 2.2.6)
@@ -167,18 +169,20 @@ GEM
     newrelic_rpm (3.3.4.1)
     nokogiri (1.5.0)
     null_logger (0.0.1)
-    oauth2 (0.6.0)
-      faraday (~> 0.7)
+    oauth2 (0.8.0)
+      faraday (~> 0.8)
       httpauth (~> 0.1)
+      jwt (~> 0.1.4)
       multi_json (~> 1.0)
+      rack (~> 1.2)
     object_regex (1.0.1)
     omniauth (1.1.0)
       hashie (~> 1.2)
       rack
     omniauth-gds (0.0.3)
       omniauth-oauth2 (~> 1.0)
-    omniauth-oauth2 (1.0.2)
-      oauth2 (~> 0.6.0)
+    omniauth-oauth2 (1.1.0)
+      oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     paper_trail (2.6.2)
       rails (~> 3)
@@ -305,7 +309,7 @@ DEPENDENCIES
   faker
   fog
   friendly_id (= 4.0.0.beta14)
-  gds-sso (= 0.7.9)
+  gds-sso (= 1.1.1)
   govspeak (~> 0.8.16)
   hash_syntax
   isbn_validation
