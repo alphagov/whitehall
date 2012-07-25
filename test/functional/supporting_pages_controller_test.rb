@@ -77,13 +77,13 @@ class SupportingPagesControllerTest < ActionController::TestCase
   test "should show inapplicable nations" do
     policy = create(:published_policy)
     northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
-    scotland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.scotland)
+    scotland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com")
     supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.document, id: supporting_page
 
     assert_select inapplicable_nations_selector do
-      assert_select "p", "Only applies to England and Wales \n      (see policy for Northern Ireland and Scotland)"
+      assert_select "p", "Only applies to England and Wales\n    (see policy for Northern Ireland and Scotland)"
       assert_select "a[href='http://northern-ireland.com/']"
     end
   end

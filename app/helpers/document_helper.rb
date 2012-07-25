@@ -22,8 +22,17 @@ module DocumentHelper
     end
   end
 
-  def list_of_links_to_inapplicable_nations(edition)
-    edition.nation_inapplicabilities.map { |i| link_to_inapplicable_nation(i) }.to_sentence.html_safe
+  def see_alternative_urls_for_inapplicable_nations(edition)
+    with_alternative_urls = edition.nation_inapplicabilities.select do |ni|
+      ni.alternative_url.present?
+    end
+    if with_alternative_urls.any?
+      "(see #{edition.class.name.humanize.downcase} for ".html_safe + list_of_links_to_inapplicable_nations(with_alternative_urls) + ")".html_safe
+    end
+  end
+
+  def list_of_links_to_inapplicable_nations(nation_inapplicabilities)
+    nation_inapplicabilities.map { |i| link_to_inapplicable_nation(i) }.to_sentence.html_safe
   end
 
   def link_to_inapplicable_nation(nation_inapplicability)
