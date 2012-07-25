@@ -5,6 +5,12 @@ class MinisterialRole < Role
   has_many :edition_ministerial_roles
   has_many :editions, through: :edition_ministerial_roles
   has_many :speeches, through: :current_role_appointments
+  has_many :policies, through: :edition_ministerial_roles, source: :edition, conditions: { "editions.type" => Policy }
+  has_many :news_articles, through: :edition_ministerial_roles, source: :edition, conditions: { "editions.type" => NewsArticle }
+
+  def published_policies
+    policies.latest_published_edition
+  end
 
   searchable title: :search_title, link: :search_link, content: :current_person_biography, format: 'minister'
 
