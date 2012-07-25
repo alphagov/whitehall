@@ -188,7 +188,15 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def format_name
+    self.class.format_name
+  end
+
   class << self
+    def format_name
+      @format_name ||= model_name.human.downcase
+    end
+
     def authored_by(user)
       joins(:edition_authors).where(edition_authors: {user_id: user}).group(:edition_id)
     end

@@ -3,6 +3,17 @@ require "test_helper"
 class EditionTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
+  test "returns downcased humanized class name as format name" do
+    assert_equal 'case study', CaseStudy.format_name
+    assert_equal 'publication', Publication.format_name
+    assert_equal 'consultation', Consultation.format_name
+  end
+
+  test "delegates format name to class" do
+    Edition.stubs(:format_name).returns('format name')
+    assert_equal 'format name', Edition.new.format_name
+  end
+
   test "adds a document before validation if none provided" do
     edition = build(:edition)
     edition.valid?

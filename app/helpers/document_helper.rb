@@ -21,4 +21,25 @@ module DocumentHelper
       image_tag "/government/assets/national-statistics.png", alt: "National Statistic"
     end
   end
+
+  def see_alternative_urls_for_inapplicable_nations(edition)
+    with_alternative_urls = edition.nation_inapplicabilities.select do |ni|
+      ni.alternative_url.present?
+    end
+    if with_alternative_urls.any?
+      " (see #{edition.format_name} for ".html_safe + list_of_links_to_inapplicable_nations(with_alternative_urls) + ")".html_safe
+    end
+  end
+
+  def list_of_links_to_inapplicable_nations(nation_inapplicabilities)
+    nation_inapplicabilities.map { |i| link_to_inapplicable_nation(i) }.to_sentence.html_safe
+  end
+
+  def link_to_inapplicable_nation(nation_inapplicability)
+    if nation_inapplicability.alternative_url.present?
+      link_to nation_inapplicability.nation.name, nation_inapplicability.alternative_url, class: "country", rel: "external"
+    else
+      nation_inapplicability.nation.name
+    end
+  end
 end

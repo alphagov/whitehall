@@ -17,8 +17,17 @@
           topics: @topics,
           document: @document
         }%>
-        <p class="more-like-this"><a href="#more-like-this">more like this</a></p>
+        <% if @document.published_related_specialist_guides.any? %>
+          <p class="more-like-this"><a href="#more-like-this">related guidance</a></p>
+        <% end %>
       </section>
+
+    <% if @document.has_related_mainstream_content? %>
+      <section class="related-mainstream-content">
+        <p>Too much information? Check out our quick guide: <%= link_to @document.related_mainstream_content_title, @document.related_mainstream_content_url %></p>
+      </section>
+    <% end %>
+
     </div>
   </div>
   <div class="block-2">
@@ -35,8 +44,8 @@
   <div class="block-4">
     <div class="inner-block">
       <% if @document.published_related_specialist_guides.any? %>
-        <section id="more-like-this" class="more-like-this">
-          <h1>Similar specialist guidance</h1>
+        <section id="more-like-this" class="related-guidance">
+          <h1>Related specialist guidance</h1>
           <ul class="related_specialist_guides">
             <% @document.published_related_specialist_guides.each do |specialist_guide| %>
               <%= content_tag_for(:li, specialist_guide) do %>

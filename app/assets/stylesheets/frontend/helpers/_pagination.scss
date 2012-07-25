@@ -50,7 +50,6 @@
       span {
         display: block;
         @include core-14;
-        color: $body-text;
       }
       &:focus span,
       &:hover span {

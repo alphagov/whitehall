@@ -10,8 +10,4 @@ module CountryHelper
   def list_of_links_to_countries(countries)
     countries.map { |country| link_to country.name, country_path(country), class: "country"  }.to_sentence.html_safe
   end
-
-  def list_of_links_to_inapplicable_nations(inapplicable_nations)
-    inapplicable_nations.map { |nation| link_to nation.nation.name, nation.alternative_url, class: "country", rel: "external"  }.to_sentence.html_safe
-  end
 end

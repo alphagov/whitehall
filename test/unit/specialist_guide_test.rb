@@ -42,4 +42,14 @@ class SpecialistGuideTest < ActiveSupport::TestCase
     latest_edition = published_guide.create_draft(create(:policy_writer))
     assert_equal [published_guide], guide.reload.published_related_specialist_guides
   end
+
+  test "can be associated with some content in the mainstream application" do
+    refute build(:specialist_guide).has_related_mainstream_content?
+    guide = build(:specialist_guide, related_mainstream_content_url: "http://mainstream/content", related_mainstream_content_title: "Name of content")
+    assert guide.has_related_mainstream_content?
+  end
+
+  test "should require a title if related mainstream content url is given" do
+    refute build(:specialist_guide, related_mainstream_content_url: "http://mainstream/content").valid?
+  end
 end
