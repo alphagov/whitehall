@@ -33,7 +33,7 @@ class DocumentHelperTest < ActionView::TestCase
     assert_equal "Wales", list_of_links_to_inapplicable_nations(publication.nation_inapplicabilities)
   end
 
-  test "#{}see_alternative_urls_for_inapplicable_nations lists names and links if any alternative urls exist" do
+  test "#see_alternative_urls_for_inapplicable_nations lists names and links if any alternative urls exist" do
     publication = create(:publication, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.scotland, alternative_url: "http://scotland.com")])
     html = see_alternative_urls_for_inapplicable_nations(publication)
     assert_select_within_html html, "a[href='http://scotland.com']", text: "Scotland"
