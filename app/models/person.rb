@@ -3,6 +3,8 @@ class Person < ActiveRecord::Base
 
   has_many :role_appointments
   has_many :current_role_appointments, class_name: 'RoleAppointment', conditions: RoleAppointment::CURRENT_CONDITION
+  has_many :speeches, through: :role_appointments
+  has_many :news_articles, through: :current_ministerial_roles
 
   has_many :roles, through: :role_appointments
   has_many :current_roles, class_name: 'Role', through: :current_role_appointments, source: :role
@@ -24,6 +26,14 @@ class Person < ActiveRecord::Base
   delegate :url, to: :image, prefix: :image
 
   before_destroy :prevent_destruction_if_appointed
+
+  def published_speeches
+    speeches.latest_published_edition.order("delivered_on desc")
+  end
+
+  def published_news_articles
+    news_articles.latest_published_edition.order("published_at desc")
+  end
 
   def destroyable?
     role_appointments.empty?

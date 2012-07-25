@@ -45,6 +45,47 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [], person.previous_role_appointments
   end
 
+  test 'can access speeches associated via role_appointments' do
+    person = create(:person)
+    speech1 = create(:speech)
+    speech2 = create(:speech)
+    create(:role_appointment, person: person, speeches: [speech1])
+    create(:role_appointment, person: person, speeches: [speech2])
+
+    assert_equal [speech1, speech2], person.speeches
+  end
+
+  test 'can access news_articles associated with ministerial roles of a person' do
+    person = create(:person)
+    news_articles = 2.times.map { create(:news_article) }
+
+    create(:ministerial_role_appointment, person: person).role.editions << news_articles[0]
+    create(:ministerial_role_appointment, person: person).role.editions << news_articles[1]
+
+    assert_equal news_articles, person.news_articles
+  end
+
+  test 'news_articles excludes articles associated with a previous ministerial role' do
+    person = create(:person)
+    news_articles = 2.times.map { create(:news_article) }
+
+    create(:ministerial_role_appointment, person: person).role.editions << news_articles[0]
+    create(:ministerial_role_appointment, person: person, started_at: 2.days.ago, ended_at: 1.day.ago)
+      .role.editions << news_articles[1]
+
+    assert_equal news_articles[0..0], person.news_articles
+  end
+
+  test 'published_news_articles only returns published news articles' do
+    person = create(:person)
+    news_articles = [create(:published_news_article), create(:draft_news_article)]
+
+    create(:ministerial_role_appointment, person: person).role.editions << news_articles[0]
+    create(:ministerial_role_appointment, person: person).role.editions << news_articles[1]
+
+    assert_equal news_articles[0..0], person.published_news_articles
+  end
+
   test "should not be destroyable when it has appointments" do
     person = create(:person, role_appointments: [create(:role_appointment)])
     refute person.destroyable?
