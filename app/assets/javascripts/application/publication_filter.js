@@ -7,6 +7,24 @@
 
 (function($) {
     "use strict";
+    function drawPagination(data, after) {
+      var existingNav = $('#show-more-publications');
+       if (existingNav.length > 0) {
+         existingNav.remove();
+       }
+      if (data.next_page_url) {
+        var nav = $('<nav id="show-more-publications" role="navigation" />'),
+            ul = $('<ul class="previous-next-navigation" />'),
+            li = $('<li class="next" />'),
+            a = $('<a>Show more</a>');
+        nav.append(ul);
+        ul.append(li);
+        li.append(a);
+        a.attr('href', data.next_page_url);
+
+        $(after).after(existingNav);
+      }
+    }
     function drawTable(data) {
         var container = $('#publications-container');
         if (data.results.length > 0) {
@@ -45,23 +63,8 @@
 
             $('#publications-list tbody').replaceWith(tBody);
 
-            if (data.next_page_url) {
-              var nextPage = $('<p id="show-more-publications" />'),
-                  nextLink = $('<a>Show more</a>');
-              nextLink.attr('href', data.next_page_url);
-              nextPage.append(nextLink);
-              if (document.getElementById('show-more-publications')) {
-                $('#show-more-publications').replaceWith(nextPage);
-              }
-              else {
-                tBody.parent().after(nextPage);
-              }
-            }
-            else {
-              if (document.getElementById('show-more-publications')) {
-                $('#show-more-publications').remove();
-              }
-            }
+            drawPagination(data, tBody.parent());
+
         }
         else {
             container.empty();

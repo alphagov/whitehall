@@ -88,7 +88,7 @@
         </tbody>
       </table>
       <% if @next_page %>
-        <nav role="navigation">
+        <nav id="show-more-publications" role="navigation">
           <ul class="previous-next-navigation">
             <li class="next"><%= link_to "Show more", url_for(params.merge(page: @next_page)) %></li>
           </ul>
