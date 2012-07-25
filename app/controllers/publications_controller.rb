@@ -24,6 +24,10 @@ private
     Publication
   end
 
+  def page_size
+    20
+  end
+
   def load_filtered_publications(params)
     @publications = all_publications
 
@@ -35,6 +39,12 @@ private
     if params[:date].present?
       @date = Date.parse(params[:date])
     end
+
+    if params[:page].present?
+      @publications = @publications.offset(page_size * (params[:page].to_i - 1))
+    end
+
+    @publications = @publications.limit(page_size)
 
     if params[:direction].present?
       @direction = params[:direction]
