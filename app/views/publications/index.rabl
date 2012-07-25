@@ -1,4 +1,16 @@
 object false
+node :count do
+  @count
+end
+node :current_page do
+  @page
+end
+node(:next_page, :if => lambda { |_| @next_page }) do
+  @next_page
+end
+node(:next_page_url, :if => lambda { |_| @next_page }) do
+  url_for params.merge(page: @next_page, "_" => nil)
+end
 node :results do
   @publications.map { |a| {
       id: a.id,

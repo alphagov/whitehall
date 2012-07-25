@@ -87,6 +87,9 @@
         <% end %>
         </tbody>
       </table>
+      <% if @next_page %>
+        <p id="show-more-publications"><%= link_to "Show more", url_for(params.merge(page: @next_page)) %></p>
+      <% end %>
     <% else %>
       <div class="no-results">
         <h2>There are no matching publications.</h2>

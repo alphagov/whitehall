@@ -54,15 +54,6 @@ private
       @direction = "before"
     end
 
-    @count = @publications.count
-
-    if params[:page].present?
-      @publications = @publications.offset(page_size * (params[:page].to_i - 1))
-    end
-
-    @publications = @publications.limit(page_size)
-
-
     if "after" == @direction
       @publications = @publications.in_chronological_order
     else
@@ -83,6 +74,23 @@ private
       @publications = @publications.in_organisation(@selected_departments)
     end
 
-  end
+    @count = @publications.count
 
+
+    if params[:page].present?
+      @publications = @publications.offset(page_size * (params[:page].to_i - 1))
+      @page = params[:page].to_i
+    else
+      @page = 1
+    end
+
+    @publications = @publications.limit(page_size)
+
+    total_pages = (@count / page_size).to_i
+    mod_pages = @count % page_size
+
+    if @page < total_pages || (@page == total_pages && mod_pages > 0)
+      @next_page = @page + 1
+    end
+  end
 end

@@ -407,6 +407,22 @@ class PublicationsControllerTest < ActionController::TestCase
     (20..24).to_a.each { |i| assert_select_object(publications[i]) }
   end
 
+  test "show more button should not appear by default" do
+    publications = (1..18).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
+
+    get :index
+
+    refute_select "#show-more-publications"
+  end
+
+  test "show more button should appear when there are more records" do
+    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
+
+    get :index
+
+    assert_select "#show-more-publications"
+  end
+
   private
 
   def given_two_publications_in_two_organisations
