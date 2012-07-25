@@ -9,7 +9,7 @@
     "use strict";
     function drawTable(data) {
         var container = $('#publications-container');
-        if (data.length > 0) {
+        if (data.results.length > 0) {
             var tBody, i, l;
             if (!document.getElementById('publications-list')) {
                 var table = $('<table id="publications-list" class="document-list" />'),
@@ -26,8 +26,8 @@
 
             tBody = $('<tbody />');
 
-            for (i=0, l=data.length; i<l; i++) {
-                var row = data[i],
+            for (i=0, l=data.results.length; i<l; i++) {
+                var row = data.results[i],
                     tableRow = $('<tr />'),
                     th = $('<th />'),
                     a = $('<a />');
@@ -44,6 +44,24 @@
             }
 
             $('#publications-list tbody').replaceWith(tBody);
+
+            if (data.next_page_url) {
+              var nextPage = $('<p id="show-more-publications" />'),
+                  nextLink = $('<a>Show more</a>');
+              nextLink.attr('href', data.next_page_url);
+              nextPage.append(nextLink);
+              if (document.getElementById('show-more-publications')) {
+                $('#show-more-publications').replaceWith(nextPage);
+              }
+              else {
+                tBody.parent().after(nextPage);
+              }
+            }
+            else {
+              if (document.getElementById('show-more-publications')) {
+                $('#show-more-publications').remove();
+              }
+            }
         }
         else {
             container.empty();
@@ -65,7 +83,7 @@
             data: params,
             success: function(data) {
               if (data.results) {
-                drawTable(data.results);
+                drawTable(data);
               }
               // undo double-click protection
               $('#publications-filter input[type=submit]').removeAttr('disabled').removeClass('disabled');
