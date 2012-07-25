@@ -92,5 +92,9 @@ private
     if @page < total_pages || (@page == total_pages && mod_pages > 0)
       @next_page = @page + 1
     end
+
+    if @page > 2
+      @prev_page = @page - 1
+    end
   end
 end

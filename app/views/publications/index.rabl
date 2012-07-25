@@ -8,6 +8,9 @@ end
 node(:next_page_url, :if => lambda { |_| @next_page }) do
   url_for params.merge(page: @next_page, "_" => nil)
 end
+node(:prev_page_url, :if => lambda { |_| @page > 1 }) do
+  url_for params.merge(page: (@page > 2 ? @page - 1 : nil), "_" => nil)
+end
 node :results do
   @publications.map { |a| {
       id: a.id,
