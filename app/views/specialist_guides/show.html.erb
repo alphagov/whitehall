@@ -17,7 +17,9 @@
           topics: @topics,
           document: @document
         }%>
-        <p class="more-like-this"><a href="#more-like-this">more like this</a></p>
+        <% if @document.published_related_specialist_guides.any? %>
+          <p class="more-like-this"><a href="#more-like-this">more like this</a></p>
+        <% end %>
       </section>
     </div>
   </div>
