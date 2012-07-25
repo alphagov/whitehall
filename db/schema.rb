@@ -426,6 +426,7 @@ ActiveRecord::Schema.define(:version => 20120725125857) do
     t.string   "uid"
     t.integer  "version"
     t.text     "permissions"
+    t.boolean  "remotely_signed_out", :default => false
   end
 
   add_index "users", ["organisation_id"], :name => "index_users_on_organisation_id"
