@@ -25,6 +25,20 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal "Treasury secretary", role.to_s
   end
 
+  test "should be able to get the current person" do
+    bob = create(:person, forename: "Bob")
+    role = create(:role)
+    create(:role_appointment, role: role, person: bob)
+    assert_equal bob, role.current_person
+  end
+
+  test "should be able to get previous appointments" do
+    role = create(:role)
+    create(:role_appointment, role: role, person: create(:person, forename: "Bob"), started_at: 1.day.ago, ended_at: nil)
+    previous = create(:role_appointment, role: role, person: create(:person, forename: "Jane"), started_at: 2.days.ago, ended_at: 1.day.ago)
+    assert_equal [previous], role.previous_appointments
+  end
+
   test "should return the person's name" do
     bob = create(:person, forename: "Bob")
     role = create(:role)

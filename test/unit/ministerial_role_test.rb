@@ -30,6 +30,32 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     assert_equal editions[1..1], ministerial_role.news_articles
   end
 
+  test "should be able to get published news_articles associated with the role" do
+    editions = [create(:draft_news_article), create(:published_news_article)]
+    ministerial_role = create(:ministerial_role, editions: editions)
+    assert_equal editions[1..1], ministerial_role.published_news_articles
+  end
+
+  test "should be able to get published speeches associated with the current appointee" do
+    appointment = create(:ministerial_role_appointment, 
+      started_at: 1.day.ago, 
+      ended_at: nil)
+    create(:published_speech, role_appointment: appointment)
+    create(:draft_speech, role_appointment: appointment)
+
+    assert appointment.role.published_speeches.all? {|s| s.published?}
+    assert_equal 1, appointment.role.published_speeches.count
+  end
+
+  test "published_speeches should not return speeches from previous appointees" do
+    appointment = create(:ministerial_role_appointment, 
+      started_at: 2.days.ago, 
+      ended_at: 1.day.ago)
+    create(:published_speech, role_appointment: appointment)
+
+    refute appointment.role.published_speeches.any?
+  end
+
   test "should not be destroyable when it is responsible for editions" do
     ministerial_role = create(:ministerial_role, editions: [create(:edition)])
     refute ministerial_role.destroyable?

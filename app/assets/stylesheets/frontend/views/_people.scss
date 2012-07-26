@@ -7,36 +7,65 @@
   }
 }
 
-.people-show {
-  header ul li {
-    color: $grey-63;
-    list-style: none;
-  }
+.biographical-page {
+  header.person {
+    ul li {
+      color: $grey-63;
+      list-style: none;
+    }
 
-  header ul.current-role li {
-    @include core-48;
-    margin-left: -3px;
-    @media (max-width: 640px) {
-      margin-left: 0;
+    ul.single li {
+      @include core-48;
+      margin-left: -3px;
+      @media (max-width: 640px) {
+        margin-left: 0;
+      }
     }
   }
+
+  .in-page-navigation {
+    @include core-14;
+    ul {
+      margin: 0 0 $gutter-half $gutter-half;
+    }
+  }
+
+  .previous-roles table.document-list td.date {
+    text-align: left;
+  }
+
+  .block-3 {
+    section:first-child {
+      margin-top: 0;
+    }
+
+    section { 
+      margin: $gutter 0 $gutter*2 0;
+      h1 {
+        @include core-27;
+        margin: 0 0 $gutter-half 0;
+      }
+
+      .read-more {
+        background-color: $light-warm-grey;
+        padding: 0.3em $gutter-half;
+      }
+    }
+  }
+}
+
+.people-show {
   .document-list .document-row  {
     .title { width: 70%; }
     .date { width: 30%; }
   }
 
-  .people-nav {
-    @include core-14;
-    ul {
-      margin: 0 0 $gutter-half $gutter-half;
-    }
-    figure.img {
-      margin: 0;
+  .in-page-navigation figure.img {
+    margin: 0;
+    width: 100%;
+    img { 
       width: 100%;
-      img { 
-        width: 100%;
-        max-width: 135px;
-      }
+      max-width: 135px;
     }
   }
 
@@ -44,24 +73,5 @@
     margin: 0 0 0 0;
   }
 
-  .block-3 section.biography {
-    margin-top: 0;
-  }
 
-  .block-3 section { 
-    margin: $gutter 0 $gutter*2 0;
-    h1 {
-      @include core-27;
-      margin: 0 0 $gutter-half 0;
-    }
-
-    .read-more {
-      background-color: $light-warm-grey;
-      padding: 0.3em $gutter-half;
-    }
-  }
-
-  .previous-roles table td.date {
-    text-align: left;
-  }
 }

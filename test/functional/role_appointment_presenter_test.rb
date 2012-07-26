@@ -11,8 +11,8 @@ class RoleAppointmentPresenterTest < PresenterTestCase
     assert_same @presenter.role.model, @appointment.role
   end
 
-  test 'link delegates to role#link' do
+  test 'role_link delegates to role#link' do
     @presenter.role.stubs(:link).returns(:link_from_role)
-    assert_equal :link_from_role, @presenter.link
+    assert_equal :link_from_role, @presenter.role_link
   end
 end

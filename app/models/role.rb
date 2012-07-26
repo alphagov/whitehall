@@ -28,12 +28,20 @@ class Role < ActiveRecord::Base
     super value
   end
 
+  def occupied?
+    current_role_appointments.any?
+  end
+
   def current_role_appointment
     current_role_appointments.first
   end
 
   def current_person
     current_people.first
+  end
+
+  def previous_appointments
+    role_appointments.where(["ended_at is not null AND ended_at < ?", Time.zone.now])
   end
 
   def current_person_name(default="No one is assigned to this role")

@@ -1,8 +1,18 @@
 class RoleAppointmentPresenter < Draper::Base
-  delegate :link, to: :role
+  def role_link
+    role.link
+  end
+
+  def person_link
+    person.link
+  end
 
   def role
     @role ||= RolePresenter.decorate(model.role)
+  end
+
+  def person
+    @person ||= PersonPresenter.decorate(model.person)
   end
 
   def date_range

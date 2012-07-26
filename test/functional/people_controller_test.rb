@@ -79,7 +79,7 @@ class PeopleControllerTest < ActionController::TestCase
   test "policy link hidden from in-page navigation if person has no policy" do
     get :show, id: @person
 
-    refute_select ".people-nav", text: "Policy"
+    refute_select ".in-page-navigation", text: "Policy"
   end
 
   def person_has_published_policy!
@@ -94,7 +94,7 @@ class PeopleControllerTest < ActionController::TestCase
 
     get :show, id: @person
 
-    assert_select ".people-nav li a", text: "Policy"
+    assert_select ".in-page-navigation li a", text: "Policy"
   end
 
   test "policy shown if person has policy associated with ministerial role" do

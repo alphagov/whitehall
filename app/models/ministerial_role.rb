@@ -11,7 +11,21 @@ class MinisterialRole < Role
   def published_policies(options = {})
     policies
       .latest_published_edition
-      .order(options[:order] || "published_at desc")
+      .order(options[:order] || "editions.published_at desc")
+      .limit(options[:limit])
+  end
+
+  def published_speeches(options = {})
+    speeches
+      .latest_published_edition
+      .order(options[:order] || "editions.delivered_on desc")
+      .limit(options[:limit])
+  end
+
+  def published_news_articles(options = {})
+    news_articles
+      .latest_published_edition
+      .order(options[:order] || "editions.published_at desc")
       .limit(options[:limit])
   end
 

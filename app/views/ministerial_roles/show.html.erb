@@ -1,104 +1,148 @@
 <% page_title @ministerial_role.name %>
-<%= content_tag_for :div, @ministerial_role, class: 'ministerial-department ministerial_role_page ' + ministerial_role_organisation_class(@ministerial_role) do %>
+<% page_class "ministerial-role-show" %>
 
+<%= content_tag_for :div, @ministerial_role, class: 'two-column-page biographical-page ministerial-department ' + ministerial_role_organisation_class(@ministerial_role) do %>
   <div class="block-1">
     <div class="inner-block">
-      <header class="page-header ministerial_role minister">
+      <header class="page-header person">
       <hgroup>
-        <h1 class="role_name"><%= @ministerial_role.name %></h1>
-        <h2 class="current_person_name"><%= @ministerial_role.current_person_link %></h2>
+        <h1 class="name"><%= @ministerial_role.name %></h1>
+        <ul class="current-person single">
+          <li><%= @ministerial_role.current_person.name %></li>
+        </ul>
       </hgroup>
       </header>
-    <section id="document-organisations">
-      <h1 class="visuallyhidden">Organisations</h1>
-      <ul class="organisations">
-      <% @ministerial_role.organisations.each do |organisation| %>
-        <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
-          <span class="organisation-logo-small">
-            <%= link_to format_with_html_line_breaks(h(organisation.logo_formatted_name)), organisation_path(organisation) %>
-          </span>
-        <% end %>
-      <% end %>
-      </ul>
-    </section>
     </div>
   </div>
 
   <div class="block-2">
-    <div class="inner-block">
-    <% unless @ministerial_role.responsibilities.blank? %>
-    <section class="responsibilities">
-      <h3 class="visuallyhidden">Responsibilities</h3>
-      <div class="content"><%= govspeak_to_html @ministerial_role.responsibilities %></div>
-    </section>
-    <% end %>
+    <div class="in-page-navigation js-stick-at-top-when-scrolling">
+      <div class="inner-block">
+        <nav role="navigation">
+          <ul>
+            <li><%= link_to "Responsibilities", '#responsibilities' %></li>
+            <% if @ministerial_role.occupied? %>
+              <li><%= link_to @ministerial_role.current_person.name, "#biography" %></li>
+            <% end %>
+            <% if @ministerial_role.announcements.any? %>
+              <li><%= link_to "Announcements", "#announcements" %></li>
+            <% end %>
+            <% if @ministerial_role.published_policies.any? %>
+              <li><%= link_to "Policy", "#policies" %></li>
+            <% end %>
+          </ul>
+        </nav>
+
+        <div class="image">
+          <%= render  partial: 'organisations/organisations_logo_list',
+                      locals: {
+                        organisations: @ministerial_role.organisations,
+                        external_links: true,
+                        remove_line_breaks: true
+                      } %>
+        </div>
+      </div>
     </div>
   </div>
 
-  <% if @announcements.any? %>
   <div class="block-3">
-    <div class="inner-block">
-    <div>
-      <section id="announcements" class="latest_documents">
-      <h1 class="label"><%= h "News & speeches" %></h1>
-      <ul class="news_and_speeches">
-        <% @announcements.each do |announcement| %>
-          <%= render partial: 'documents/document_li', locals: { document: announcement } %>
-        <% end %>
-      </ul>
-      </section>
-    </div>
-    </div>
-  </div>
-  <% end %>
+    <div class="inner-block" id="responsibilities">
+      <%= content_tag_for :section, @ministerial_role, class: "responsibilities" do %>
+        <%= @ministerial_role.responsibilities %>
+      <% end %>
 
-  <% if @policies.any? %>
-  <div class="block-4">
-    <div class="inner-block">
-        <section id="policies" class="latest_documents">
-        <h1 class="label">Policies</h1>
-        <ul class="policies">
-          <% @policies.each do |policy| %>
-            <%= render partial: 'documents/document_li', locals: { document: policy } %>
-          <% end %>
-        </ul>
-        </section>
-    </div>
-  </div>
-  <% end %>
-
-  <% if @publications.any? || @consultations.any? %>
-  <div class="block-5">
-    <div class="inner-block">
-      <% if @publications.any? %>
-        <section id="publications" class="latest_documents">
-        <h1 class="label">Publications</h1>
-        <ul class="publications">
-          <% @publications.each do |publication| %>
-            <%= render partial: 'documents/document_li', locals: { document: publication } %>
-          <% end %>
-        </ul>
+      <% if @ministerial_role.occupied? %>
+        <section class="biography" id="biography">
+          <h1><%= @ministerial_role.current_person.name %></h1>
+          <%= @ministerial_role.current_person.biography %>
+          <div class="read-more">
+            <%= link_to "Read more", @ministerial_role.current_person %>
+          </div>
         </section>
       <% end %>
-      <% if @consultations.any? %>
-        <section id="consultations" class="latest_documents">
-        <h1 class="label">Consultations</h1>
-        <ul class="consultations">
-          <% @consultations.each do |consultation| %>
-            <%= render partial: 'documents/document_li', locals: { document: consultation } %>
-          <% end %>
-        </ul>
+
+      <% if @ministerial_role.previous_appointments.any? %>
+        <section class="previous-roles" id="previous-holders-of-this-role">
+          <h1>Previous holders of this role</h1>
+
+          <table class="document-list">
+            <thead class="visuallyhidden">
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Title</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @ministerial_role.previous_appointments.each do |appointment| %>
+                <%= content_tag_for :tr, appointment, class: "document-row" do %>
+                  <td class="date attribute">
+                    <%= appointment.date_range %>
+                  </td>
+                  <th scope="row" class="title attribute"><%= appointment.person_link %></th>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </section>
+      <% end %>
+
+      <% if @ministerial_role.announcements.any? %>
+        <section class="announcements" id="announcements">
+          <h1>Announcements</h1>
+
+          <table class="document-list">
+            <thead class="visuallyhidden">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @ministerial_role.announcements.each do |announcement| %>
+                <%= content_tag_for :tr, announcement, class: "document-row" do %>
+                  <th scope="row" class="title attribute"><%= announcement.link %></th>
+                  <td class="date attribute"><%= announcement.display_date_microformat %></td>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+
+          <div class="read-more">
+            <%= link_to "View all announcements", :announcements %>
+          </div>
+        </section>
+      <% end %>
+
+      <% if @ministerial_role.published_policies.any? %>
+        <section class="policy" id="policies">
+          <h1>Policy</h1>
+          <p>under the responsibility of <%= @ministerial_role.name_with_definite_article %></p>
+
+          <table class="document-list">
+            <thead class="visuallyhidden">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @ministerial_role.published_policies.each do |policy| %> 
+                <%= content_tag_for :tr, policy, class: "document-row" do %>
+                  <th scope="row" class="title attribute"><%= policy.link %></th>
+                  <td class="date attribute"><%= policy.published_at %></td>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+
+          <div class="read-more">
+            <%= link_to "Read more", :policies %>
+          </div>
         </section>
       <% end %>
     </div>
   </div>
-  <% end %>
-
-  <% unless @announcements.any? || @policies.any? || @publications.any? || @consultations.any? %>
-  <div class="block-6">
-    <div class="inner-block">
-    <p class="nothing_related">At present we do not have any related content.</p>
-    </div>
-  </div>
-  <% end %>
 <% end %>

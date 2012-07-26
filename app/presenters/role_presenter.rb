@@ -9,6 +9,14 @@ class RolePresenter < Draper::Base
     end
   end
 
+  def announcements
+    return [] unless ministerial?
+    announcements = 
+      SpeechPresenter.decorate(model.published_speeches.limit(10)).to_a + 
+      NewsArticlePresenter.decorate(model.published_news_articles.limit(10)).to_a
+    announcements.sort_by { |a| a.display_date.to_datetime }.reverse[0..9]
+  end
+  
   def path
     if ministerial?
       h.ministerial_role_path model
@@ -31,6 +39,10 @@ class RolePresenter < Draper::Base
     PolicyPresenter.decorate(model.published_policies(limit: 10))
   end
 
+  def previous_appointments
+    RoleAppointmentPresenter.decorate model.previous_appointments
+  end
+  
   def responsibilities
     h.govspeak_to_html model.responsibilities
   end

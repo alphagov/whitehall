@@ -3,8 +3,6 @@ require "test_helper"
 class MinisterialRolesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_show_published_documents_associated_with :ministerial_role, :policies
-  should_show_published_documents_associated_with :ministerial_role, :publications
-  should_show_published_documents_associated_with :ministerial_role, :consultations
 
   test "shows cabinet roles in correct order" do
     nick_clegg = create(:person, forename: 'Nick', surname: 'Clegg')
@@ -83,17 +81,18 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
   test "shows only news and speeches associated with ministerial role" do
     ministerial_role = create(:ministerial_role)
-    another_ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
-    another_role_appointment = create(:role_appointment, role: another_ministerial_role)
     published_speech = create(:published_speech, role_appointment: role_appointment)
-    another_published_speech = create(:published_speech, role_appointment: another_role_appointment)
     published_news_article = create(:published_news_article, ministerial_roles: [ministerial_role])
+
+    another_ministerial_role = create(:ministerial_role)
+    another_role_appointment = create(:role_appointment, role: another_ministerial_role)
+    another_published_speech = create(:published_speech, role_appointment: another_role_appointment)
     another_published_news_article = create(:published_news_article, ministerial_roles: [another_ministerial_role])
 
     get :show, id: ministerial_role
 
-    assert_select ".news_and_speeches" do
+    assert_select ".announcements" do
       assert_select_object(published_speech)
       refute_select_object(another_published_speech)
       assert_select_object(published_news_article)
