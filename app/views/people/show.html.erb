@@ -67,9 +67,11 @@
             <h1 id="<%= appointment.role.name.parameterize%>"><%= appointment.role.name %></h1>
 
             <%= appointment.role.responsibilities %>
-            <div class="read-more">
-              <%= link_to "Read more", appointment.role %>
-            </div>
+            <% if appointment.role.ministerial? %>
+              <div class="read-more">
+                <%= link_to "Read more", appointment.role %>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
       </div>
