@@ -18,7 +18,7 @@
         padding: $gutter-half $gutter-half+30px;
       }
       a:before {
-        background: transparent url(/government/assets/arrow-sprite.png) no-repeat -102px -11px;
+        background: transparent image-url("arrow-sprite.png") no-repeat -102px -11px;
         margin: -4px -32px 0 0;
         display: block;
         float: right;
@@ -32,7 +32,7 @@
         padding: $gutter-half $gutter-half+30px;
       }
       a:before {
-        background: transparent url(/government/assets/arrow-sprite.png) no-repeat -20px -11px;
+        background: transparent image-url("arrow-sprite.png") no-repeat -20px -11px;
         margin: -4px 0 0 -32px;
         display: block;
         float: left;
