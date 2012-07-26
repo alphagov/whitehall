@@ -44,6 +44,14 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "new should allow users to assign an isbn to an attachment" do
+    get :new
+
+    assert_select "form#edition_new" do
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
+    end
+  end
+
   test "create should create a new publication" do
     post :create, edition: controller_attributes_for(:publication,
       publication_date: Date.parse("1805-10-21"),
@@ -65,6 +73,21 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal 9.99, created_publication.price
   end
 
+  test "create should create a new publication and attachment with additional publication metadata" do
+    post :create, edition: controller_attributes_for(:publication).merge({
+      edition_attachments_attributes: {
+        "0" => { attachment_attributes: attributes_for(:attachment,
+          title: "attachment-title",
+          file: fixture_file_upload('greenpaper.pdf', 'application/pdf'),
+          isbn: '0140621431')
+        }
+      }
+    })
+
+    created_publication = Publication.last
+    assert_equal '0140621431', created_publication.attachments.first.isbn
+  end
+
   test "edit displays publication fields" do
     publication = create(:publication)
 
@@ -76,6 +99,18 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       assert_select "input[name='edition[unique_reference]'][type='text']"
       assert_select "input[name='edition[isbn]'][type='text']"
       assert_select "input[name='edition[order_url]'][type='text']"
+    end
+  end
+
+  test "edit should allow users to assign an isbn to an attachment" do
+    publication = create(:publication)
+    attachment = create(:attachment)
+    publication.attachments << attachment
+
+    get :edit, id: publication
+
+    assert_select "form#edition_edit" do
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
     end
   end
 
