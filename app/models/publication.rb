@@ -9,7 +9,6 @@ class Publication < Edition
   VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.']
 
   validates :publication_date, presence: true
-  validates :isbn, isbn_format: true, allow_blank: true
   validates :command_paper_number, format: {
     with: /^(#{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join('|')}) ?\d+/,
     allow_blank: true,
