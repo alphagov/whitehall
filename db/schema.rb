@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726113325) do
+ActiveRecord::Schema.define(:version => 20120726133325) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
