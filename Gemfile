@@ -32,7 +32,7 @@ gem 'draper'
 gem 'newrelic_rpm'
 
 group :assets do
-  gem 'sass-rails', '~> 3.1.6'
+  gem 'sass-rails', '~> 3.1.0'
   gem 'uglifier'
 end
 
