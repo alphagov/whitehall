@@ -19,6 +19,9 @@ Whitehall::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+  
+  # Enable lograge
+  config.lograge.enabled = true
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH

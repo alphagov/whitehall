@@ -30,6 +30,7 @@ gem "paper_trail"
 gem 'aws-ses', require: 'aws/ses'
 gem 'draper'
 gem 'newrelic_rpm'
+gem 'lograge'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'

@@ -150,6 +150,9 @@ GEM
     kramdown (0.13.7)
     launchy (2.0.5)
       addressable (~> 2.2.6)
+    lograge (0.0.6)
+      actionpack
+      activesupport
     lrucache (0.1.3)
       PriorityQueue (~> 0.1.2)
     mail (2.3.3)
@@ -315,6 +318,7 @@ DEPENDENCIES
   isbn_validation
   jquery-rails
   launchy (~> 2.0.5)
+  lograge
   mocha
   mysql2
   newrelic_rpm
