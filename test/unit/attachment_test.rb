@@ -21,6 +21,31 @@ class AttachmentTest < ActiveSupport::TestCase
     refute attachment.valid?
   end
 
+  test 'should be valid without ISBN' do
+    attachment = build(:attachment, isbn: nil)
+    assert attachment.valid?
+  end
+
+  test 'should be valid with blank ISBN' do
+    attachment = build(:attachment, isbn: "")
+    assert attachment.valid?
+  end
+
+  test "should be invalid with an ISBN that's not in ISBN-10 or ISBN-13 format" do
+    attachment = build(:attachment, isbn: "invalid-isbn")
+    refute attachment.valid?
+  end
+
+  test 'should be valid with ISBN in ISBN-10 format' do
+    attachment = build(:attachment, isbn: "0261102737")
+    assert attachment.valid?
+  end
+
+  test 'should be valid with ISBN in ISBN-13 format' do
+    attachment = build(:attachment, isbn: "978-0261103207")
+    assert attachment.valid?
+  end
+
   test 'should return filename even after reloading' do
     attachment = create(:attachment)
     refute_nil attachment.filename

@@ -16,6 +16,10 @@
       <dt>Length</dt>
       <dd class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></dd>
     <% end %>
+    <% if attachment.isbn %>
+      <dt>ISBN</dt>
+      <dd class="isbn"><%= attachment.isbn %></dd>
+    <% end %>
   </dl>
   <% unless attachment.accessible? %>
     <strong class="accessibility-warning">This file may not be accessible</strong>

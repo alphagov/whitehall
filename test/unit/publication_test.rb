@@ -8,31 +8,6 @@ class PublicationTest < ActiveSupport::TestCase
     refute publication.valid?
   end
 
-  test 'should be valid without ISBN' do
-    publication = build(:publication, isbn: nil)
-    assert publication.valid?
-  end
-
-  test 'should be valid with blank ISBN' do
-    publication = build(:publication, isbn: "")
-    assert publication.valid?
-  end
-
-  test 'should be invalid with ISBN but not in ISBN-10 or ISBN-13 format' do
-    publication = build(:publication, isbn: "invalid-isbn")
-    refute publication.valid?
-  end
-
-  test 'should be valid with ISBN in ISBN-10 format' do
-    publication = build(:publication, isbn: "0261102737")
-    assert publication.valid?
-  end
-
-  test 'should be valid with ISBN in ISBN-13 format' do
-    publication = build(:publication, isbn: "978-0261103207")
-    assert publication.valid?
-  end
-
   test "should be valid without Command paper number" do
     publication = build(:publication, command_paper_number: nil)
     assert publication.valid?
@@ -127,7 +102,6 @@ class PublicationTest < ActiveSupport::TestCase
     published_publication = create(:published_publication,
       publication_date: Date.parse("2010-01-01"),
       unique_reference: "ABC-123",
-      isbn: "0099532816",
       publication_type_id: PublicationType::ResearchAndAnalysis.id,
       order_url: "http://example.com/order-url",
       attachments: [attachment],
@@ -140,7 +114,6 @@ class PublicationTest < ActiveSupport::TestCase
     assert_equal published_publication.attachments, draft_publication.attachments
     assert_equal published_publication.publication_date, draft_publication.publication_date
     assert_equal published_publication.unique_reference, draft_publication.unique_reference
-    assert_equal published_publication.isbn, draft_publication.isbn
     assert_equal published_publication.publication_type, draft_publication.publication_type
     assert_equal published_publication.order_url, draft_publication.order_url
     assert_equal published_publication.price_in_pence, draft_publication.price_in_pence

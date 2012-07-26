@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120725125857) do
+ActiveRecord::Schema.define(:version => 20120726154228) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20120725125857) do
     t.integer  "number_of_pages"
     t.string   "title"
     t.boolean  "accessible"
+    t.string   "isbn"
   end
 
   create_table "contact_numbers", :force => true do |t|
@@ -151,7 +152,6 @@ ActiveRecord::Schema.define(:version => 20120725125857) do
     t.datetime "first_published_at"
     t.date     "publication_date"
     t.string   "unique_reference"
-    t.string   "isbn"
     t.string   "order_url"
     t.text     "notes_to_editors"
     t.text     "summary"
