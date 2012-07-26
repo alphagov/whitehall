@@ -1,0 +1,23 @@
+
+.two-column-page {
+  
+  .block-2,
+  .block-3,
+  .block-4 {
+    padding-bottom: $gutter;
+  }
+
+  @media (min-width: 768px) {
+    .block-2 {
+      width: 20%;
+      float: left;
+      display: inline;
+    }
+    
+    .block-3 {
+      width: 80%;
+      float: left;
+      display: inline;
+    }
+  }
+}

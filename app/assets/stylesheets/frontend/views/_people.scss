@@ -6,3 +6,64 @@
     padding-top: $gutter;
   }
 }
+
+.people-show {
+  .content-fixed {
+    position: fixed!important;
+    top: 0;
+  }
+
+  header ul li {
+    color: $grey-63;
+    list-style: none;
+  }
+
+  header ul.current-role li {
+    @include core-48;
+    margin-left: -3px;
+    @media (max-width: 640px) {
+      margin-left: 0;
+    }
+  }
+  .document-list .document-row  {
+    .title { width: 70%; }
+    .date { width: 30%; }
+  }
+
+  .people-nav {
+    @include core-14;
+    ul {
+      margin: 0 0 $gutter-half $gutter-half;
+    }
+    figure.img {
+      margin: 0;
+      width: 100%;
+      img { width: 100%; }
+    }
+  }
+
+  ul.organisations {
+    margin: 0 0 0 0;
+  }
+
+  .block-3 section.biography {
+    margin-top: 0;
+  }
+
+  .block-3 section { 
+    margin: $gutter 0 $gutter*2 0;
+    h1 {
+      @include core-27;
+      margin: 0 0 $gutter-half 0;
+    }
+
+    .read-more {
+      background-color: $light-warm-grey;
+      padding: 0.3em $gutter-half;
+    }
+  }
+
+  .previous-roles table td.date {
+    text-align: left;
+  }
+}

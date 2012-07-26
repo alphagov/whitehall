@@ -53,6 +53,7 @@ $gutter-two-thirds: $gutter*(2/3); // equivalent to 20px
   @import "helpers/_alphabetical-list.scss";
   @import "helpers/_browse.scss";
   @import "helpers/_contextual-info.scss";
+  @import "helpers/_govspeak.scss";
   @import "helpers/_document.scss";
   @import "helpers/_document_list.scss";
   @import "helpers/_featured.scss";
@@ -101,6 +102,9 @@ $gutter-two-thirds: $gutter*(2/3); // equivalent to 20px
 
 @import "layouts/specialist.scss";
 
+#whitehall-wrapper {
+  @import "layouts/two_column_page.scss";
+}
 
 
 

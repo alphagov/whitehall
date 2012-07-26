@@ -179,7 +179,28 @@
   }
 }
 
+ul.organisations {
+  list-style: none;
 
-.organisation-logo-small {
-  @include logo-19;
+  .organisation-logo-small {
+    &.single-line {
+      padding: 2px 0 2px 46px;
+      line-height: 1.6;
+    }
+
+    @include logo-19;
+    line-height: 1.25;
+    position: relative;
+    display: block;
+    overflow: visible;
+    padding: 28px 0 0 8px;
+    border-left: 2px solid #bbb;
+    background: url("/government/assets/coa-default-24.gif") no-repeat 8px -1px;
+    
+    a {
+      position: relative;
+      bottom: -3px;
+      text-decoration: none;
+    }
+  }
 }

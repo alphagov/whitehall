@@ -54,7 +54,6 @@ Then /^I should see information about the person "([^"]*)"$/ do |name|
   person = find_person(name)
   assert page.has_css?(".name", text: person.name)
   assert page.has_css?(".biography", text: person.biography)
-  assert page.has_css?(".biography figure.img")
 end
 
 def visit_people_admin

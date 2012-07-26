@@ -37,4 +37,10 @@ class RolePresenterTest < PresenterTestCase
     @role.stubs(:current_person).returns(nil)
     assert_equal @presenter.current_person, RolePresenter::UnassignedPersonPresenter.new(nil)
   end
+
+  test 'responsibilities generates html from the original govspeak' do
+    @role.stubs(:responsibilities).returns("## Hello")
+    assert_select_from @presenter.responsibilities, '.govspeak h2', text: 'Hello'
+  end
+
 end

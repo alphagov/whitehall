@@ -23,6 +23,18 @@ class RolePresenter < Draper::Base
     end
   end
 
+  def name_with_definite_article
+    "The " + name
+  end
+
+  def policies
+    PolicyPresenter.decorate(model.published_policies.order("published_at desc").limit(10))
+  end
+
+  def responsibilities
+    h.govspeak_to_html model.responsibilities
+  end
+
   class UnassignedPersonPresenter < PersonPresenter
     def name
       "No one is assigned to this role"
