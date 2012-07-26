@@ -33,7 +33,7 @@ gem 'newrelic_rpm'
 gem 'lograge'
 
 group :assets do
-  gem 'sass-rails', '~> 3.1.0'
+  gem 'sass-rails', '3.1.4'
   gem 'uglifier'
 end
 
