@@ -23,9 +23,9 @@
       </section>
 
     <% if @document.has_related_mainstream_content? %>
-      <section class="related-mainstream-content">
+      <aside class="related-mainstream-content" role="complementary">
         <p>Too much information? Check out our quick guide: <%= link_to @document.related_mainstream_content_title, @document.related_mainstream_content_url %></p>
-      </section>
+      </aside>
     <% end %>
 
     </div>
