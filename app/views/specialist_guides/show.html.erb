@@ -18,7 +18,7 @@
           document: @document
         }%>
         <% if @document.published_related_specialist_guides.any? %>
-          <p class="more-like-this"><a href="#more-like-this">related guidance</a></p>
+          <!-- p class="more-like-this"><a href="#more-like-this">related guidance</a></p> -->
         <% end %>
       </section>
 
@@ -45,7 +45,7 @@
     <div class="inner-block">
       <% if @document.published_related_specialist_guides.any? %>
         <section id="more-like-this" class="related-guidance">
-          <h1>Related specialist guidance</h1>
+          <h1>Similar specialist guidance</h1>
           <ul class="related_specialist_guides">
             <% @document.published_related_specialist_guides.each do |specialist_guide| %>
               <%= content_tag_for(:li, specialist_guide) do %>
