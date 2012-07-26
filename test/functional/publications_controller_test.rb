@@ -423,6 +423,16 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "#show-more-publications"
   end
 
+  test "should show previous page link when not on the first page" do
+    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
+
+    get :index, page: 2
+
+    assert_select "#show-more-publications" do
+      assert_select ".previous", text: "Previous page"
+    end
+  end
+
   private
 
   def given_two_publications_in_two_organisations

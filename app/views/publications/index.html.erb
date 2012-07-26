@@ -87,10 +87,19 @@
         <% end %>
         </tbody>
       </table>
-      <% if @next_page %>
+      <% if @next_page || @prev_page %>
         <nav id="show-more-publications" role="navigation">
           <ul class="previous-next-navigation">
-            <li class="next"><%= link_to "Show more", url_for(params.merge(page: @next_page)) %></li>
+            <% if @prev_page %>
+              <% prev_page = @prev_page %>
+              <% if prev_page == 1 %>
+                <% prev_page = nil %>
+              <% end %>
+              <li class="previous"><%= link_to "Previous page", url_for(params.merge(page: prev_page)) %></li>
+            <% end %>
+            <% if @next_page %>
+              <li class="next"><%= link_to "Next page", url_for(params.merge(page: @next_page)) %></li>
+            <% end %>
           </ul>
         </nav>
       <% end %>

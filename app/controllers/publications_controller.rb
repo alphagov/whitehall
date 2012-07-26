@@ -93,7 +93,7 @@ private
       @next_page = @page + 1
     end
 
-    if @page > 2
+    if @page > 1
       @prev_page = @page - 1
     end
   end
