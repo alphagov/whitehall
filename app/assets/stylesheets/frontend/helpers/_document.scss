@@ -43,11 +43,16 @@
 
     dl {
       margin-left: $img-gutter + 8px;
-      @include core-14;
+      padding: 5px 0;
 
+      dt, dd {
+        @include core-14;
+        padding: 0;
+      }
       dt {
-        float: left;
+        position: relative;
         width: 6em;
+        float: left;
       }
 
       dd {

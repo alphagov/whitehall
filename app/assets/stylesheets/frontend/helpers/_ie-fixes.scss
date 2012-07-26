@@ -1,0 +1,11 @@
+
+.document_page .change-notes {
+  display: block;
+  .overlay {
+    position: static;
+    width: auto;
+    .arrow {
+      display: none;
+    }
+  }
+}

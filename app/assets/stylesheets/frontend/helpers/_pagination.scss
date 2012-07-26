@@ -1,7 +1,9 @@
 #page .previous-next-navigation {
+  position: relative;
   overflow: hidden;
   background: $light-blue;
   margin-top: $gutter*2;
+  width: 100%;
 
   li {
     @include core-27;
@@ -9,13 +11,15 @@
     display: block;
     padding: 0;
     margin: 0;
-    width: 100%;
+    width: 45%;
+    float: left;
 
     &.next {
+      float: right;
       text-align: right;
 
       a {
-        padding: $gutter-half $gutter-half+30px;
+        padding: $gutter-half $gutter-half+30px $gutter-half 0;
       }
       a:before {
         background: transparent url(/government/assets/arrow-sprite.png) no-repeat -102px -11px;
@@ -29,7 +33,7 @@
     }
     &.previous {
       a {
-        padding: $gutter-half $gutter-half+30px;
+          padding: $gutter-half 0 $gutter-half $gutter-half+30px;
       }
       a:before {
         background: transparent url(/government/assets/arrow-sprite.png) no-repeat -20px -11px;
@@ -59,13 +63,13 @@
         background: darken($light-blue, 10%);
       }
     }
-    @media (min-width: 768px) {
-      width: 45%;
-      float: left;
+    @media (max-width: 768px) {
+      width: 100%;
+      float: none;
       &.next {
-        float: right;
+        float: none;
         a {
-          padding: $gutter-half $gutter-half+30px $gutter-half 0;
+          padding: $gutter-half $gutter-half+30px;
         }
       }
       &.previous {
