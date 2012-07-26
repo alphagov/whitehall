@@ -429,7 +429,19 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, page: 2
 
     assert_select "#show-more-publications" do
-      assert_select ".previous", text: "Previous page"
+      assert_select ".previous"
+      refute_select ".next"
+    end
+  end
+
+  test "should show progress helpers in pagination links" do
+    publications = (1..45).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
+
+    get :index, page: 2
+
+    assert_select "#show-more-publications" do
+      assert_select ".previous span", text: "1 of 3"
+      assert_select ".next span", text: "3 of 3"
     end
   end
 

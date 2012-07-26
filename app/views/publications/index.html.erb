@@ -91,10 +91,14 @@
         <nav id="show-more-publications" role="navigation">
           <ul class="previous-next-navigation">
             <% if @prev_page %>
-              <li class="previous"><%= link_to "Previous page", url_for(params.merge(page: (@prev_page > 1 ? @prev_page : nil))) %></li>
+              <li class="previous"><%= link_to url_for(params.merge(page: (@prev_page > 1 ? @prev_page : nil))) do %>
+                  Previous Page <span><%= @prev_page %> of <%= @total_pages %></span>
+              <% end %></li>
             <% end %>
             <% if @next_page %>
-              <li class="next"><%= link_to "Next page", url_for(params.merge(page: @next_page)) %></li>
+              <li class="next"><%= link_to url_for(params.merge(page: @next_page)) do %>
+                  Next page <span><%= @next_page %> of <%= @total_pages %></span>
+              <% end %></li>
             <% end %>
           </ul>
         </nav>

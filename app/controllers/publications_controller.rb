@@ -86,15 +86,19 @@ private
 
     @publications = @publications.limit(page_size)
 
-    total_pages = (@count / page_size).to_i
+    @total_pages = (@count / page_size).to_i
     mod_pages = @count % page_size
 
-    if @page < total_pages || (@page == total_pages && mod_pages > 0)
+    if @page < @total_pages || (@page == @total_pages && mod_pages > 0)
       @next_page = @page + 1
     end
 
     if @page > 1
       @prev_page = @page - 1
+    end
+
+    if mod_pages > 0
+      @total_pages += 1
     end
   end
 end
