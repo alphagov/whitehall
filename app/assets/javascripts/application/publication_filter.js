@@ -7,9 +7,27 @@
 
 (function($) {
     "use strict";
+    function drawPagination(data, after) {
+      var existingNav = $('#show-more-publications');
+       if (existingNav.length > 0) {
+         existingNav.remove();
+       }
+      if (data.next_page_url) {
+        var nav = $('<nav id="show-more-publications" role="navigation" />'),
+            ul = $('<ul class="previous-next-navigation" />'),
+            li = $('<li class="next" />'),
+            a = $('<a>Show more</a>');
+        nav.append(ul);
+        ul.append(li);
+        li.append(a);
+        a.attr('href', data.next_page_url);
+
+        $(after).after(nav);
+      }
+    }
     function drawTable(data) {
         var container = $('#publications-container');
-        if (data.length > 0) {
+        if (data.results.length > 0) {
             var tBody, i, l;
             if (!document.getElementById('publications-list')) {
                 var table = $('<table id="publications-list" class="document-list" />'),
@@ -26,8 +44,8 @@
 
             tBody = $('<tbody />');
 
-            for (i=0, l=data.length; i<l; i++) {
-                var row = data[i],
+            for (i=0, l=data.results.length; i<l; i++) {
+                var row = data.results[i],
                     tableRow = $('<tr />'),
                     th = $('<th />'),
                     a = $('<a />');
@@ -44,6 +62,9 @@
             }
 
             $('#publications-list tbody').replaceWith(tBody);
+
+            drawPagination(data, tBody.parent());
+
         }
         else {
             container.empty();
@@ -64,9 +85,11 @@
             dataType:'json',
             data: params,
             success: function(data) {
+              if (data.results) {
                 drawTable(data);
-                // undo double-click protection
-                $('#publications-filter input[type=submit]').removeAttr('disabled').removeClass('disabled');
+              }
+              // undo double-click protection
+              $('#publications-filter input[type=submit]').removeAttr('disabled').removeClass('disabled');
             },
             error: function() {
                 $('#publications-filter input[type=submit]').removeAttr('disabled');

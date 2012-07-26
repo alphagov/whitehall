@@ -46,6 +46,11 @@ Given /^a published publication "([^"]*)" for the organisation "([^"]*)"$/ do |t
   create(:published_publication, title: title, organisations: [organisation])
 end
 
+Given /^(\d+) published publications for the organisation "([^"]+)"$/ do |count, organisation|
+  organisation = create(:organisation, name: organisation)
+  (1..count.to_i).to_a.map { |i| create(:published_publication, title: "keyword-#{i}", organisations: [organisation]) }
+end
+
 Given /^a draft publication "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
   organisation = create(:organisation, name: organisation)
   create(:draft_publication, title: title, organisations: [organisation])
@@ -150,4 +155,8 @@ end
 
 Then /^I should see the no results message$/ do
   assert has_css? '.no-results'
+end
+
+Then /^I should see a link to the next page of publications$/ do
+  assert has_css? '#show-more-publications'
 end

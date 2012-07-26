@@ -14,6 +14,8 @@ class PublicationsController < DocumentsController
     @topics = @related_policies.map { |d| d.topics }.flatten.uniq
   end
 
+private
+
   def all_publications
     Publication.published.includes(:document, :organisations, :attachments)
   end
@@ -22,7 +24,9 @@ class PublicationsController < DocumentsController
     Publication
   end
 
-private
+  def page_size
+    20
+  end
 
   def load_filtered_publications(params)
     @publications = all_publications
@@ -70,6 +74,27 @@ private
       @publications = @publications.in_organisation(@selected_departments)
     end
 
-  end
+    @count = @publications.count
 
+
+    if params[:page].present?
+      @publications = @publications.offset(page_size * (params[:page].to_i - 1))
+      @page = params[:page].to_i
+    else
+      @page = 1
+    end
+
+    @publications = @publications.limit(page_size)
+
+    total_pages = (@count / page_size).to_i
+    mod_pages = @count % page_size
+
+    if @page < total_pages || (@page == total_pages && mod_pages > 0)
+      @next_page = @page + 1
+    end
+
+    if @page > 2
+      @prev_page = @page - 1
+    end
+  end
 end

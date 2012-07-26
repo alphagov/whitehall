@@ -87,6 +87,13 @@
         <% end %>
         </tbody>
       </table>
+      <% if @next_page %>
+        <nav id="show-more-publications" role="navigation">
+          <ul class="previous-next-navigation">
+            <li class="next"><%= link_to "Show more", url_for(params.merge(page: @next_page)) %></li>
+          </ul>
+        </nav>
+      <% end %>
     <% else %>
       <div class="no-results">
         <h2>There are no matching publications.</h2>
