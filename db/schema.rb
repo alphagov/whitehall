@@ -138,9 +138,9 @@ ActiveRecord::Schema.define(:version => 20120725125857) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "lock_version",                    :default => 0
+    t.integer  "lock_version",                     :default => 0
     t.integer  "document_id"
-    t.string   "state",                           :default => "draft", :null => false
+    t.string   "state",                            :default => "draft", :null => false
     t.string   "type"
     t.integer  "role_appointment_id"
     t.string   "location"
@@ -157,14 +157,14 @@ ActiveRecord::Schema.define(:version => 20120725125857) do
     t.text     "summary"
     t.integer  "speech_type_id"
     t.integer  "consultation_document_id"
-    t.boolean  "featured",                        :default => false
-    t.boolean  "stub",                            :default => false
+    t.boolean  "featured",                         :default => false
+    t.boolean  "stub",                             :default => false
     t.text     "change_note"
     t.boolean  "force_published"
-    t.boolean  "minor_change",                    :default => false
+    t.boolean  "minor_change",                     :default => false
     t.integer  "policy_team_id"
     t.integer  "publication_type_id"
-    t.boolean  "paginate_body",                   :default => true
+    t.boolean  "paginate_body",                    :default => true
     t.integer  "price_in_pence"
     t.string   "command_paper_number"
     t.string   "related_mainstream_content_url"
