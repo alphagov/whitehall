@@ -109,6 +109,9 @@
       opacity: 0;
       display: block;
       @include transition(opacity, .5s, ease);
+      &.visuallyhidden {
+        left: -9999em;
+      }
     }
   }
   

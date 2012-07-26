@@ -87,11 +87,14 @@
     @include core-14;
     @media (min-width: 568px) {
       float: right;
-    }
-    .change-notes.toggleable .overlay {
-      left: -100%;
-      .arrow {
-        left: 70%;
+      .change-notes.toggleable .overlay {
+        left: -100%;
+        &.visuallyhidden {
+          left: -9999em;
+        }
+        .arrow {
+          left: 70%;
+        }
       }
     }
   }
