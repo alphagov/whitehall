@@ -1,6 +1,4 @@
-
 .two-column-page {
-  
   .block-2,
   .block-3,
   .block-4 {
@@ -9,13 +7,13 @@
 
   @media (min-width: 768px) {
     .block-2 {
-      width: 20%;
+      width: 33%;
       float: left;
       display: inline;
     }
     
     .block-3 {
-      width: 80%;
+      width: 66%;
       float: left;
       display: inline;
     }
