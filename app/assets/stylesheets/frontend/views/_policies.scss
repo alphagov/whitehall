@@ -42,15 +42,6 @@
     @include border-radius(0.250em)
   }
 
-  .content-fixed {
-    position: fixed!important;
-    top: 0;
-    @media (max-width: 768px) {
-      position: relative!important;
-      width: 100%;
-    }
-  }
-
   .meta-topic {
     @include core-14;
     overflow: hidden;
