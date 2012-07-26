@@ -15,3 +15,11 @@ Scenario: The list should add pagination dynamically
   When I visit the list of publications
   And I filter publications to only those from the "Big co." department
   Then I should see a link to the next page of publications
+
+@javascript
+Scenario: The list should tell me how far I am from the end
+  Given 25 published publications for the organisation "Big co."
+  And 20 published publications for the organisation "Acme"
+  When I visit the list of publications
+  And I filter publications to only those from the "Big co." department
+  Then I should see that the next page is 2 of 2

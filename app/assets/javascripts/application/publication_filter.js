@@ -7,20 +7,39 @@
 
 (function($) {
     "use strict";
+    function progressSpan(current, total) {
+        var span = $("<span />");
+        span.text(current + " of " + total);
+        return span;
+    }
     function drawPagination(data, after) {
       var existingNav = $('#show-more-publications');
        if (existingNav.length > 0) {
          existingNav.remove();
        }
-      if (data.next_page_url) {
+      if (data.next_page_url || data.prev_page_url) {
         var nav = $('<nav id="show-more-publications" role="navigation" />'),
             ul = $('<ul class="previous-next-navigation" />'),
-            li = $('<li class="next" />'),
-            a = $('<a>Show more</a>');
+            li, a;
         nav.append(ul);
-        ul.append(li);
-        li.append(a);
-        a.attr('href', data.next_page_url);
+        if (data.prev_page_url) {
+          li = $('<li class="previous" />');
+          a = $('<a>Previous page</a>');
+          a.attr('href', data.prev_page_url);
+          ul.append(li);
+          li.append(a);
+          a.append(" ");
+          a.append(progressSpan(data.prev_page, data.total_pages));
+        }
+        if (data.next_page_url) {
+          li = $('<li class="next" />');
+          a = $('<a>Next page</a>');
+          a.attr('href', data.next_page_url);
+          ul.append(li);
+          li.append(a);
+          a.append(" ");
+          a.append(progressSpan(data.next_page, data.total_pages));
+        }
 
         $(after).after(nav);
       }
