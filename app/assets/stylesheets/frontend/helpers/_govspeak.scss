@@ -1,0 +1,117 @@
+.govspeak {
+  position: relative;
+  //margin-top: $gutter-half*-1;
+  margin-top: -13px;
+  
+  .govspeak {
+    margin-top: 0;
+  }
+  
+  h2 {
+    @include core-27;
+    color: lighten($body-text, 25%);
+    margin-top: $gutter;
+    @media (max-width: 640px) {
+      margin-top: $gutter-half;
+    }
+  }
+  h3 {
+    @include core-24;
+    color: lighten($body-text, 25%);
+    margin-top: $gutter;
+    @media (max-width: 640px) {
+      margin-top: $gutter-half;
+    }
+  }
+  h4,
+  h5,
+  h6 {
+    @include core-19;
+    color: lighten($body-text, 25%);
+    margin-top: $gutter;
+    @media (max-width: 640px) {
+      margin-top: $gutter-half;
+    }
+  }
+  h5, h6 {
+    margin: 0;
+  }
+  
+  h2:first-child {
+    margin-top: 0;
+  }
+  
+  p {
+    @include core-19;
+    margin: $gutter-half 0;
+    @media (max-width: 640px) {
+      margin: $gutter-one-sixth 0;
+    }
+  }
+  
+  ol {
+    list-style: decimal;
+    list-style-position: outside;
+  }
+  
+  ul {
+    list-style: disc;
+    list-style-position: outside;
+  }
+  
+  li {
+    width: 90%;
+    @include core-19;
+    margin-left: $gutter*1.2;
+    
+    li {
+      margin-left: $gutter;
+    }
+    
+    @media (min-width: 768px) {
+      margin-left: 0;
+      
+      li {
+        margin-left: $gutter*2;
+      }
+    }
+  }
+
+   em, i {
+    font-style: italic;
+  }
+  
+  blockquote p {
+    text-indent: -0.45em;
+    padding-left: $gutter;
+    
+    @media (min-width: 768px) {
+      padding-right: $gutter;
+    }
+  }
+  
+  hr {
+    margin-top: $gutter - 1px;
+    border-top: 1px solid #ccc;
+    margin-bottom: $gutter;
+  }
+  
+  figure {
+    width: 100%;
+    clear: both;
+    overflow: hidden;
+    padding: $gutter-one-third 0 0;
+    
+    img {
+      display: inline;
+      text-align: center;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+    }
+    
+    figcaption {
+      @include core-14;
+    }
+  }
+}
