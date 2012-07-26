@@ -389,6 +389,40 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "h2", text: "There are no matching publications."
   end
 
+  test "index should only show a certain number of publications by default" do
+    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}-index-default", publication_date: i.days.ago) }
+
+    get :index
+
+    (0..19).to_a.each { |i| assert_select_object(publications[i]) }
+    (20..24).to_a.each { |i| refute_select_object(publications[i]) }
+  end
+
+  test "index should show window of pagination" do
+    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}-window-pagination", publication_date: i.days.ago) }
+
+    get :index, page: 2
+
+    (0..19).to_a.each { |i| refute_select_object(publications[i]) }
+    (20..24).to_a.each { |i| assert_select_object(publications[i]) }
+  end
+
+  test "show more button should not appear by default" do
+    publications = (1..18).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
+
+    get :index
+
+    refute_select "#show-more-publications"
+  end
+
+  test "show more button should appear when there are more records" do
+    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
+
+    get :index
+
+    assert_select "#show-more-publications"
+  end
+
   private
 
   def given_two_publications_in_two_organisations

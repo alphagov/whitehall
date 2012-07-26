@@ -1,0 +1,78 @@
+#page .previous-next-navigation {
+  overflow: hidden;
+  background: $light-blue;
+  margin-top: $gutter*2;
+
+  li {
+    @include core-27;
+    font-weight: bold;
+    display: block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+
+    &.next {
+      text-align: right;
+
+      a {
+        padding: $gutter-half $gutter-half+30px;
+      }
+      a:before {
+        background: transparent url(/government/assets/arrow-sprite.png) no-repeat -102px -11px;
+        margin: -4px -32px 0 0;
+        display: block;
+        float: right;
+        width: 30px;
+        height: 38px;
+        content: " ";
+      }
+    }
+    &.previous {
+      a {
+        padding: $gutter-half $gutter-half+30px;
+      }
+      a:before {
+        background: transparent url(/government/assets/arrow-sprite.png) no-repeat -20px -11px;
+        margin: -4px 0 0 -32px;
+        display: block;
+        float: left;
+        width: 30px;
+        height: 38px;
+        content: " ";
+      }
+    }
+
+    a {
+      display: block;
+      color: $white;
+      text-decoration: none;
+
+      span {
+        display: block;
+        @include core-14;
+      }
+      &:focus span,
+      &:hover span {
+        text-decoration: underline;
+      }
+      &:active {
+        background: darken($light-blue, 10%);
+      }
+    }
+    @media (min-width: 768px) {
+      width: 45%;
+      float: left;
+      &.next {
+        float: right;
+        a {
+          padding: $gutter-half $gutter-half+30px $gutter-half 0;
+        }
+      }
+      &.previous {
+        a {
+          padding: $gutter-half 0 $gutter-half $gutter-half+30px;
+        }
+      }
+    }
+  }
+}
