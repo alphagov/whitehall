@@ -91,7 +91,7 @@
         <nav id="show-more-publications" role="navigation">
           <ul class="previous-next-navigation">
             <% if @prev_page %>
-              <li class="previous"><%= link_to "Previous page", url_for(params.merge(page: (@prev_page > 1 ? @prev_pagepage : nil))) %></li>
+              <li class="previous"><%= link_to "Previous page", url_for(params.merge(page: (@prev_page > 1 ? @prev_page : nil))) %></li>
             <% end %>
             <% if @next_page %>
               <li class="next"><%= link_to "Next page", url_for(params.merge(page: @next_page)) %></li>
