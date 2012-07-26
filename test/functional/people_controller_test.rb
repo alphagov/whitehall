@@ -5,10 +5,12 @@ class PeopleControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-  def stub_role_appointment(role_type)
+  def stub_role_appointment(role_type, options = {})
     stub_record(:role_appointment, 
-      role: stub_record(role_type, organisations: []), 
-      person: stub_record(:person, organisations: [])
+      {
+        role: stub_record(role_type, organisations: []), 
+        person: stub_record(:person, organisations: [])
+      }.merge(options)
     )
   end
 
@@ -71,6 +73,37 @@ class PeopleControllerTest < ActionController::TestCase
       assert_select_object second_appointment do
         assert_select "a[href=#{ministerial_role_path(second_appointment.role)}]", text: second_appointment.role.name
       end
+    end
+  end
+
+  test "policy link hidden from in-page navigation if person has no policy" do
+    get :show, id: @person
+
+    refute_select ".people-nav", text: "Policy"
+  end
+
+  def person_has_published_policy!
+    @policy = stub_record(:published_policy, document: stub_record(:document))
+    @role = stub_record(:ministerial_role)
+    @role.stubs(:published_policies).returns([@policy])
+    @person.stubs(:current_ministerial_roles).returns([@role])
+  end    
+
+  test "policy link shown if person has policy associated with ministerial role" do
+    person_has_published_policy!
+
+    get :show, id: @person
+
+    assert_select ".people-nav li a", text: "Policy"
+  end
+
+  test "policy shown if person has policy associated with ministerial role" do
+    person_has_published_policy!
+
+    get :show, id: @person
+
+    assert_select "#policy" do
+      assert_select_object @policy
     end
   end
 

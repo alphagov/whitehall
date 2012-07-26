@@ -8,8 +8,11 @@ class MinisterialRole < Role
   has_many :policies, through: :edition_ministerial_roles, source: :edition, conditions: { "editions.type" => Policy }
   has_many :news_articles, through: :edition_ministerial_roles, source: :edition, conditions: { "editions.type" => NewsArticle }
 
-  def published_policies
-    policies.latest_published_edition
+  def published_policies(options = {})
+    policies
+      .latest_published_edition
+      .order(options[:order] || "published_at desc")
+      .limit(options[:limit])
   end
 
   searchable title: :search_title, link: :search_link, content: :current_person_biography, format: 'minister'

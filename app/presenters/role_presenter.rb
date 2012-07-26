@@ -27,8 +27,8 @@ class RolePresenter < Draper::Base
     "The " + name
   end
 
-  def policies
-    PolicyPresenter.decorate(model.published_policies.order("published_at desc").limit(10))
+  def published_policies
+    PolicyPresenter.decorate(model.published_policies(limit: 10))
   end
 
   def responsibilities

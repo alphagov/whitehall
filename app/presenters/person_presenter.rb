@@ -13,6 +13,10 @@ class PersonPresenter < Draper::Base
     RolePresenter.decorate person.current_ministerial_roles
   end
 
+  def has_policy_responsibilities?
+    person.current_ministerial_roles.any? { |role| role.published_policies.any? }
+  end
+
   def announcements
     announcements = 
       SpeechPresenter.decorate(person.published_speeches.limit(10)).to_a + 
