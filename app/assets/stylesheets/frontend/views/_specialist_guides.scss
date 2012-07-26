@@ -74,7 +74,13 @@
   }
 
   .related-mainstream-content {
-    margin-bottom: $gutter;
+    margin: $gutter 0;
+    background: $light-warm-grey url(/government/assets/information-icon.png) no-repeat 98% $gutter-two-thirds;
+    padding: $gutter-two-thirds 55px $gutter-two-thirds $gutter-two-thirds;
+    p {
+      margin: 0;
+      padding: 0;
+    }
   }
 
   .meta {
@@ -166,6 +172,7 @@
     h3, li {
       @include core-14;
       padding: 0;
+      list-style: disc;
     }
   }
 

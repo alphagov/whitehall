@@ -1,6 +1,7 @@
 $(function() {
   var container = $(".document .govspeak"),
       navigation = $(".contextual-info #document_sections"),
+      mainstreamAlternative = $('.related-mainstream-content'),
       pages, headings, navigationLinks;
 
   var paginating = ($('.js-paginate-document').length > 0 && $(window).width() > 768);
@@ -18,6 +19,11 @@ $(function() {
       $(chapterSelector).after(inPageNavigation);
     };
   });
+
+  if(mainstreamAlternative.length){
+    mainstreamAlternative.insertAfter(container.children().get(1));
+  }
+
 
   if (paginating) {
     container.splitIntoPages("h2");
