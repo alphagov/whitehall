@@ -4,6 +4,7 @@ class Attachment < ActiveRecord::Base
   delegate :url, to: :file, allow_nil: true
 
   validates :title, :file, presence: true
+  validates :isbn, isbn_format: true, allow_blank: true
 
   before_save :update_file_attributes
 

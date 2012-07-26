@@ -433,6 +433,28 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "show displays the ISBN of the attached document" do
+    attachment = create(:attachment, isbn: '0099532816')
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      assert_select ".isbn", "0099532816"
+    end
+  end
+
+  test "show doesn't display an empty ISBN if none exists for the attachment" do
+    attachment = create(:attachment, isbn: nil)
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      refute_select ".isbn"
+    end
+  end
+
   private
 
   def given_two_publications_in_two_organisations
