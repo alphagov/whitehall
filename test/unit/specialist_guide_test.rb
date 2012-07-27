@@ -15,6 +15,15 @@ class SpecialistGuideTest < ActiveSupport::TestCase
     assert build(:specialist_guide).has_summary?
   end
 
+  test "should use specialist guidance as its format name" do
+    assert_equal 'specialist guidance', SpecialistGuide.format_name
+  end
+
+  test "should use specialist guidance as rummageable search index format" do
+    guide = create(:specialist_guide)
+    assert_equal "specialist_guidance", guide.search_index["format"]
+  end
+
   test "can be related to another specialist guide" do
     related_guide = create(:specialist_guide)
     guide = create(:specialist_guide, outbound_related_documents: [related_guide.document])

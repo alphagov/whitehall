@@ -47,8 +47,15 @@ class Edition < ActiveRecord::Base
     changed - %w(state updated_at featured force_published)
   end
 
-  searchable title: :title, link: -> d { d.public_document_path(d) }, content: :indexable_content,
-    only: :published, index_after: [], unindex_after: []
+  searchable(
+    title: :title,
+    link: -> d { d.public_document_path(d) },
+    format: -> d { d.format_name.gsub(" ", "_") },
+    content: :indexable_content,
+    only: :published,
+    index_after: [],
+    unindex_after: []
+  )
 
   [:publish, :archive, :delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }

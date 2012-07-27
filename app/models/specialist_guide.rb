@@ -55,4 +55,10 @@ class SpecialistGuide < Edition
       errors.add(:related_mainstream_content_title, "cannot be blank if a related URL is given")
     end
   end
+
+  class << self
+    def format_name
+      'specialist guidance'
+    end
+  end
 end
