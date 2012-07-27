@@ -165,9 +165,9 @@ some more content
 
   test "search lists each result returned from the inside government client" do
     Whitehall.mainstream_search_client.stubs(:search).returns([])
-    Whitehall.search_client.stubs(:search).with('query', 'specialist_guide').returns([{"title" => "title", "link" => "/specialist/guide-slug", "highlight" => "", "format" => "specialist_guide"}])
+    Whitehall.search_client.stubs(:search).with('query', 'specialist_guidance').returns([{"title" => "title", "link" => "/specialist/guide-slug", "highlight" => "", "format" => "specialist_guidance"}])
     get :search, q: 'query'
-    assert_select ".search_results .specialist_guide a[href='/specialist/guide-slug']"
+    assert_select ".search_results .specialist_guidance a[href='/specialist/guide-slug']"
   end
 
   test "search lists 3 results returned from the mainstream search" do
@@ -207,7 +207,7 @@ some more content
   test "autocomplete returns the response from autocomplete as a string" do
     search_client = stub('search_client')
     raw_rummager_response = "rummager-response-body-json"
-    Whitehall.search_client.stubs(:autocomplete).with("search-term", "specialist_guide").returns(raw_rummager_response)
+    Whitehall.search_client.stubs(:autocomplete).with("search-term", "specialist_guidance").returns(raw_rummager_response)
     get :autocomplete, q: "search-term"
     assert_equal raw_rummager_response, @response.body
   end
