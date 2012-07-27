@@ -48,6 +48,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][command_paper_number]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
     end
   end
 
@@ -74,7 +75,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
           file: fixture_file_upload('greenpaper.pdf', 'application/pdf'),
           isbn: '0140621431',
           unique_reference: 'unique-reference',
-          command_paper_number: 'Cm. 1234')
+          command_paper_number: 'Cm. 1234',
+          order_url: 'http://example.com/publication')
         }
       }
     })
@@ -83,6 +85,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal '0140621431', created_publication.attachments.first.isbn
     assert_equal 'unique-reference', created_publication.attachments.first.unique_reference
     assert_equal 'Cm. 1234', created_publication.attachments.first.command_paper_number
+    assert_equal 'http://example.com/publication', created_publication.attachments.first.order_url
   end
 
   test "edit displays publication fields" do
@@ -108,6 +111,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][command_paper_number]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
     end
   end
 
