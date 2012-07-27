@@ -455,6 +455,28 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "show displays the Unique Reference Number of the attached document" do
+    attachment = create(:attachment, unique_reference: 'unique-reference')
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      assert_select ".unique_reference", "unique-reference"
+    end
+  end
+
+  test "show doesn't display an empty Unique Reference Number if none exists for the attachment" do
+    attachment = create(:attachment, unique_reference: nil)
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      refute_select ".unique_reference"
+    end
+  end
+
   private
 
   def given_two_publications_in_two_organisations

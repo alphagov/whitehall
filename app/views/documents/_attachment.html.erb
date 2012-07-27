@@ -20,6 +20,10 @@
       <dt>ISBN</dt>
       <dd class="isbn"><%= attachment.isbn %></dd>
     <% end %>
+    <% if attachment.unique_reference %>
+      <dt>Unique reference</dt>
+      <dd class="unique_reference"><%= attachment.unique_reference %></dd>
+    <% end %>
   </dl>
   <% unless attachment.accessible? %>
     <strong class="accessibility-warning">This file may not be accessible</strong>
