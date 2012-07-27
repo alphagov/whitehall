@@ -29,6 +29,12 @@ class HomeControllerTest < ActionController::TestCase
     draft_documents.each { |d| refute_select_object(d) }
   end
 
+  test "show avoids n+1 queries" do
+    5.times { create(:published_policy) }
+    assert 5 > count_queries { get :show }
+  end
+
+
   test "show shows only the lead (well, first) organisation responsible for each document" do
     lead_org = create(:organisation, name: "Department of Fun")
     other_org = create(:organisation, name: "Ministry of Unpleasantness")
