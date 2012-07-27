@@ -33,6 +33,7 @@
     a {
       // this is the download link
       @include core-19;
+      display: block;
 
       img {
         float: left;
@@ -42,22 +43,26 @@
     }
 
     dl {
-      margin-left: $img-gutter + 8px;
+      float: left;
       padding: 5px 0;
 
       dt, dd {
         @include core-14;
         padding: 0;
+        float: left;
       }
       dt {
+        clear: left;
         position: relative;
         width: 6em;
-        float: left;
       }
 
       dd {
         display: block;
       }
+    }
+    .accessibility-warning {
+      clear: both;
     }
 
     overflow: hidden;
