@@ -19,14 +19,23 @@
     </div>
   </div>
 
-  <div class="block-2">
-    <div class="in-page-navigation js-stick-at-top-when-scrolling">
-      <div class="inner-block">
+  <div class="block-2 ">
+    <div class="inner-block js-stick-at-top-when-scrolling">
+      <section class="contextual-info in-page-navigation ">
+        <h1>Jump to section</h1>
         <nav role="navigation">
           <ul>
-            <li><%= link_to @person.name, '#biography' %></li>
-            <% @person.current_role_appointments.each do |appointment| %>
-              <li><%= link_to appointment.role.name, "##{appointment.role.name.parameterize}" %></li>
+            <li><%= link_to "Biography", '#biography' %></li>
+            <% if @person.current_role_appointments.count == 1 %>
+              <li><%= link_to "Role", "##{@person.current_role_appointments.first.role.name.parameterize}" %></li>
+            <% else %>
+              <li>Roles
+                <ul>
+                  <% @person.current_role_appointments.each do |appointment| %>
+                    <li><%= link_to appointment.role.name, "##{appointment.role.name.parameterize}" %></li>
+                  <% end %>
+                </ul>
+              </li>
             <% end %>
             <% if @person.announcements.any? %>
               <li><%= link_to "Announcements", "#announcements" %></li>
@@ -42,7 +51,7 @@
             <%= @person.image %>
           </figure>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 
@@ -60,7 +69,7 @@
                         locals: {
                           organisations: appointment.role.organisations,
                           extra_class: 'single-line',
-                          external_links: true,
+                          external_links: false,
                           remove_line_breaks: true
                         } %>
             
@@ -105,6 +114,7 @@
       <% if @person.announcements.any? %>
         <section class="announcements" id="announcements">
           <h1>Announcements</h1>
+          <p>by <%= @person.name %></p>
 
           <table class="document-list">
             <thead class="visuallyhidden">

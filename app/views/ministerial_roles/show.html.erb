@@ -15,14 +15,15 @@
     </div>
   </div>
 
-  <div class="block-2">
-    <div class="in-page-navigation js-stick-at-top-when-scrolling">
-      <div class="inner-block">
+  <div class="block-2 ">
+    <div class="inner-block js-stick-at-top-when-scrolling">
+      <section class="contextual-info in-page-navigation ">
+        <h1>Jump to section</h1>
         <nav role="navigation">
           <ul>
             <li><%= link_to "Responsibilities", '#responsibilities' %></li>
             <% if @ministerial_role.occupied? %>
-              <li><%= link_to @ministerial_role.current_person.name, "#biography" %></li>
+              <li><%= link_to "Current role holder", "#biography" %></li>
             <% end %>
             <% if @ministerial_role.announcements.any? %>
               <li><%= link_to "Announcements", "#announcements" %></li>
@@ -37,26 +38,28 @@
           <%= render  partial: 'organisations/organisations_logo_list',
                       locals: {
                         organisations: @ministerial_role.organisations,
-                        external_links: true,
+                        external_links: false,
                         remove_line_breaks: true
                       } %>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 
   <div class="block-3">
     <div class="inner-block" id="responsibilities">
       <%= content_tag_for :section, @ministerial_role, class: "responsibilities" do %>
+        <h1>Responsibilities</h1>
         <%= @ministerial_role.responsibilities %>
       <% end %>
 
       <% if @ministerial_role.occupied? %>
         <section class="biography" id="biography">
-          <h1><%= @ministerial_role.current_person.name %></h1>
+          <h1>Current role holder</h1>
+          <h2><%= @ministerial_role.current_person.name %></h2>
           <%= @ministerial_role.current_person.biography %>
           <div class="read-more">
-            <%= link_to "Read more", @ministerial_role.current_person %>
+            <%= link_to "Read more about this person", @ministerial_role.current_person %>
           </div>
         </section>
       <% end %>
@@ -90,6 +93,7 @@
       <% if @ministerial_role.announcements.any? %>
         <section class="announcements" id="announcements">
           <h1>Announcements</h1>
+          <p>by the <%= @ministerial_role.name %></p>
 
           <table class="document-list">
             <thead class="visuallyhidden">
