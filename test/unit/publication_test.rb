@@ -8,31 +8,6 @@ class PublicationTest < ActiveSupport::TestCase
     refute publication.valid?
   end
 
-  test 'should be invalid with malformed order url' do
-    publication = build(:publication, order_url: "invalid-url")
-    refute publication.valid?
-  end
-
-  test 'should be valid with order url with HTTP protocol' do
-    publication = build(:publication, order_url: "http://example.com")
-    assert publication.valid?
-  end
-
-  test 'should be valid with order url with HTTPS protocol' do
-    publication = build(:publication, order_url: "https://example.com")
-    assert publication.valid?
-  end
-
-  test 'should be valid without order url' do
-    publication = build(:publication, order_url: nil)
-    assert publication.valid?
-  end
-
-  test 'should be valid with blank order url' do
-    publication = build(:publication, order_url: nil)
-    assert publication.valid?
-  end
-
   test 'should be valid if the price is nil' do
     publication = build(:publication, price: nil)
     assert publication.valid?
@@ -44,32 +19,27 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test 'should be valid if the price appears to be in whole pounds' do
-    publication = build(:publication, price: "9", order_url: 'http://example.com')
+    publication = build(:publication, price: "9")
     assert publication.valid?
   end
 
   test 'should be valid if the price is in pounds and pence' do
-    publication = build(:publication, price: "1.23", order_url: 'http://example.com')
+    publication = build(:publication, price: "1.23")
     assert publication.valid?
   end
 
   test 'should be invalid if the price is non numeric' do
-    publication = build(:publication, price: 'free', order_url: 'http://example.com')
+    publication = build(:publication, price: 'free')
     refute publication.valid?
   end
 
   test 'should be invalid if the price is zero' do
-    publication = build(:publication, price: "0", order_url: 'http://example.com')
+    publication = build(:publication, price: "0")
     refute publication.valid?
   end
 
   test 'should be invalid if the price is less than zero' do
-    publication = build(:publication, price: "-1.23", order_url: 'http://example.com')
-    refute publication.valid?
-  end
-
-  test 'should be invalid if a price is entered without an order url' do
-    publication = build(:publication, price: "123")
+    publication = build(:publication, price: "-1.23")
     refute publication.valid?
   end
 
@@ -78,7 +48,6 @@ class PublicationTest < ActiveSupport::TestCase
     published_publication = create(:published_publication,
       publication_date: Date.parse("2010-01-01"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id,
-      order_url: "http://example.com/order-url",
       attachments: [attachment],
       price_in_pence: 123
     )
@@ -89,7 +58,6 @@ class PublicationTest < ActiveSupport::TestCase
     assert_equal published_publication.attachments, draft_publication.attachments
     assert_equal published_publication.publication_date, draft_publication.publication_date
     assert_equal published_publication.publication_type, draft_publication.publication_type
-    assert_equal published_publication.order_url, draft_publication.order_url
     assert_equal published_publication.price_in_pence, draft_publication.price_in_pence
   end
 
@@ -199,13 +167,13 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
   end
 
   test "should save the price as price_in_pence" do
-    publication = create(:publication, price: "1.23", order_url: 'http://example.com')
+    publication = create(:publication, price: "1.23")
     publication.reload
     assert_equal 123, publication.price_in_pence
   end
 
   test "should save the price as nil if an existing price_in_pence is being reset to blank" do
-    publication = create(:publication, price_in_pence: 999, order_url: 'http://example.com')
+    publication = create(:publication, price_in_pence: 999)
     publication.price = ''
     publication.save!
     publication.reload
@@ -213,13 +181,13 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
   end
 
   test "should not save a nil price as a zero price_in_pence" do
-    publication = create(:publication, price: nil, order_url: 'http://example.com')
+    publication = create(:publication, price: nil)
     publication.reload
     assert_equal nil, publication.price_in_pence
   end
 
   test "should not save a blank price as a zero price_in_pence" do
-    publication = create(:publication, price: '', order_url: 'http://example.com')
+    publication = create(:publication, price: '')
     publication.reload
     assert_equal nil, publication.price_in_pence
   end

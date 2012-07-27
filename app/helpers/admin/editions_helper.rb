@@ -51,11 +51,6 @@ module Admin::EditionsHelper
     FILE_EXTENSION_VS_HUMANIZED_CONTENT_TYPE[file_extension.downcase] if file_extension.present?
   end
 
-  def order_link(edition)
-    return "" unless edition.order_url.present?
-    link_to edition.order_url, edition.order_url, class: "order_url"
-  end
-
   def standard_edition_form(edition, &blk)
     form_for [:admin, edition], as: :edition do |form|
       concat form.errors
