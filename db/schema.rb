@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120727103808) do
+ActiveRecord::Schema.define(:version => 20120727110830) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20120727103808) do
     t.boolean  "accessible"
     t.string   "isbn"
     t.string   "unique_reference"
+    t.string   "command_paper_number"
   end
 
   create_table "contact_numbers", :force => true do |t|

@@ -5,6 +5,11 @@ class Attachment < ActiveRecord::Base
 
   validates :title, :file, presence: true
   validates :isbn, isbn_format: true, allow_blank: true
+  validates :command_paper_number, format: {
+    with: /^(#{Publication::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join('|')}) ?\d+/,
+    allow_blank: true,
+    message: "is invalid. The number must start with one of #{Publication::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
+  }
 
   before_save :update_file_attributes
 

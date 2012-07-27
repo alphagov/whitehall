@@ -465,6 +465,28 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "show displays the Command Paper number of the attached document" do
+    attachment = create(:attachment, command_paper_number: 'Cm. 1234')
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      assert_select ".command_paper_number", "Cm. 1234"
+    end
+  end
+
+  test "show doesn't display an empty Command Paper number if none exists for the attachment" do
+    attachment = create(:attachment, command_paper_number: nil)
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      refute_select ".command_paper_number"
+    end
+  end
+
   private
 
   def given_two_publications_in_two_organisations
