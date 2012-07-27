@@ -187,5 +187,6 @@ ul.organisations {
 
   .organisation-logo-small {
     @include logo-19;
+    white-space: nowrap;
   }
 }
