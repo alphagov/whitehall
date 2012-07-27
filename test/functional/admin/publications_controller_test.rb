@@ -48,6 +48,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edition_new" do
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][command_paper_number]']"
     end
   end
 
@@ -75,7 +76,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
           title: "attachment-title",
           file: fixture_file_upload('greenpaper.pdf', 'application/pdf'),
           isbn: '0140621431',
-          unique_reference: 'unique-reference')
+          unique_reference: 'unique-reference',
+          command_paper_number: 'Cm. 1234')
         }
       }
     })
@@ -83,6 +85,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     created_publication = Publication.last
     assert_equal '0140621431', created_publication.attachments.first.isbn
     assert_equal 'unique-reference', created_publication.attachments.first.unique_reference
+    assert_equal 'Cm. 1234', created_publication.attachments.first.command_paper_number
   end
 
   test "edit displays publication fields" do
@@ -107,6 +110,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edition_edit" do
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][command_paper_number]']"
     end
   end
 
