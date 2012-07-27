@@ -7,11 +7,6 @@ class Publication < Edition
   include Edition::Countries
 
   validates :publication_date, presence: true
-  validates :order_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :order_url, presence: {
-    message: "must be entered as you've entered a price",
-    if: lambda { |publication| publication.price.present? }
-  }
   validates :publication_type_id, presence: true
   validates :price, numericality: {
     allow_blank: true, greater_than: 0

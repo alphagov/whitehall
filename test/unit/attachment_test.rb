@@ -70,6 +70,31 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.errors[:command_paper_number].include?(expected_message)
   end
 
+  test 'should be invalid with malformed order url' do
+    attachment = build(:attachment, order_url: "invalid-url")
+    refute attachment.valid?
+  end
+
+  test 'should be valid with order url with HTTP protocol' do
+    attachment = build(:attachment, order_url: "http://example.com")
+    assert attachment.valid?
+  end
+
+  test 'should be valid with order url with HTTPS protocol' do
+    attachment = build(:attachment, order_url: "https://example.com")
+    assert attachment.valid?
+  end
+
+  test 'should be valid without order url' do
+    attachment = build(:attachment, order_url: nil)
+    assert attachment.valid?
+  end
+
+  test 'should be valid with blank order url' do
+    attachment = build(:attachment, order_url: nil)
+    assert attachment.valid?
+  end
+
   test 'should return filename even after reloading' do
     attachment = create(:attachment)
     refute_nil attachment.filename

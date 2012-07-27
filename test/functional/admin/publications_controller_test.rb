@@ -36,7 +36,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edition_new" do
       assert_select "select[name*='edition[publication_date']", count: 3
       assert_select "select[name='edition[publication_type_id]']"
-      assert_select "input[name='edition[order_url]'][type='text']"
       assert_select "input[name='edition[price]'][type='text']"
     end
   end
@@ -48,20 +47,19 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][command_paper_number]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
     end
   end
 
   test "create should create a new publication" do
     post :create, edition: controller_attributes_for(:publication,
       publication_date: Date.parse("1805-10-21"),
-      order_url: "http://example.com/order-path",
       publication_type_id: PublicationType::ResearchAndAnalysis.id,
       price: "9.99"
     )
 
     created_publication = Publication.last
     assert_equal Date.parse("1805-10-21"), created_publication.publication_date
-    assert_equal "http://example.com/order-path", created_publication.order_url
     assert_equal PublicationType::ResearchAndAnalysis, created_publication.publication_type
     assert_equal 9.99, created_publication.price
   end
@@ -74,7 +72,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
           file: fixture_file_upload('greenpaper.pdf', 'application/pdf'),
           isbn: '0140621431',
           unique_reference: 'unique-reference',
-          command_paper_number: 'Cm. 1234')
+          command_paper_number: 'Cm. 1234',
+          order_url: 'http://example.com/publication')
         }
       }
     })
@@ -83,6 +82,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal '0140621431', created_publication.attachments.first.isbn
     assert_equal 'unique-reference', created_publication.attachments.first.unique_reference
     assert_equal 'Cm. 1234', created_publication.attachments.first.command_paper_number
+    assert_equal 'http://example.com/publication', created_publication.attachments.first.order_url
   end
 
   test "edit displays publication fields" do
@@ -93,7 +93,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edition_edit" do
       assert_select "select[name='edition[publication_type_id]']"
       assert_select "select[name*='edition[publication_date']", count: 3
-      assert_select "input[name='edition[order_url]'][type='text']"
     end
   end
 
@@ -108,6 +107,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][command_paper_number]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
     end
   end
 
@@ -115,19 +115,16 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = create(:publication)
 
     put :update, id: publication, edition: publication.attributes.merge(
-      publication_date: Date.parse("1815-06-18"),
-      order_url: "https://example.com/new-order-path"
+      publication_date: Date.parse("1815-06-18")
     )
 
     saved_publication = publication.reload
     assert_equal Date.parse("1815-06-18"), saved_publication.publication_date
-    assert_equal "https://example.com/new-order-path", saved_publication.order_url
   end
 
   test "should display publication attributes" do
     publication = create(:publication,
       publication_date: Date.parse("1916-05-31"),
-      order_url: "http://example.com/order-path",
       publication_type_id: PublicationType::ResearchAndAnalysis.id
     )
 
@@ -136,17 +133,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select ".document" do
       assert_select ".publication_type", text: "Research and analysis"
       assert_select ".publication_date", text: "31 May 1916"
-      assert_select "a.order_url[href='http://example.com/order-path']"
-    end
-  end
-
-  test "should not display an order link if no order url exists" do
-    publication = create(:publication, order_url: nil)
-
-    get :show, id: publication
-
-    assert_select ".document" do
-      refute_select "a.order_url"
     end
   end
 end

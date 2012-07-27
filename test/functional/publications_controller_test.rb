@@ -58,7 +58,6 @@ class PublicationsControllerTest < ActionController::TestCase
   test "show should display publication metadata" do
     publication = create(:published_publication,
       publication_date: Date.parse("1916-05-31"),
-      order_url: "http://example.com/order-path",
       publication_type_id: PublicationType::Form.id,
       price_in_pence: 999
     )
@@ -68,28 +67,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select ".contextual-info" do
       assert_select ".publication_type", text: "Form"
       assert_select ".publication_date", text: "31 May 1916"
-      assert_select "a.order_url[href='http://example.com/order-path']"
       assert_select ".price", text: "&pound;9.99"
-    end
-  end
-
-  test "show should not display an order link if no order url exists" do
-    publication = create(:published_publication, order_url: nil)
-
-    get :show, id: publication.document
-
-    assert_select ".body" do
-      refute_select "a.order_url"
-    end
-  end
-
-  test "should not display the price if there's an order url but the publication is free" do
-    publication = create(:published_publication, order_url: 'http://example.com', price_in_pence: nil)
-
-    get :show, id: publication.document
-
-    assert_select ".contextual-info" do
-      refute_select ".price"
     end
   end
 
@@ -472,6 +450,28 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_select_object(attachment) do
       refute_select ".command_paper_number"
+    end
+  end
+
+  test "show links to the url that the attachment can be ordered from" do
+    attachment = create(:attachment, order_url: 'http://example.com/order-path')
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      assert_select ".order_url", /order a copy/i
+    end
+  end
+
+  test "show doesn't display an empty order url if none exists for the attachment" do
+    attachment = create(:attachment, order_url: nil)
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      refute_select ".order_url"
     end
   end
 

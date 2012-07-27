@@ -3,12 +3,7 @@
   <% if edition.publication_type.present? %>
     <p>Publication type: <span class="publication_type"><%= edition.publication_type.singular_name %></span></p>
   <% end %>
-  <% if edition.order_url.present? %>
-    <p>
-      <%= link_to "Order a copy", edition.order_url, class: "order_url button", title: "Order a copy of the publication" %>
-      <% if edition.price %>
-        <span class="price"><%= number_to_currency(edition.price, unit: "&pound;")%></span>
-      <% end %>
-    </p>
+  <% if edition.price %>
+    <p class="price"><%= number_to_currency(edition.price, unit: "&pound;")%></p>
   <% end %>
 </section>

@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20120727151113) do
     t.string   "isbn"
     t.string   "unique_reference"
     t.string   "command_paper_number"
+    t.string   "order_url"
   end
 
   create_table "contact_numbers", :force => true do |t|
@@ -63,6 +64,58 @@ ActiveRecord::Schema.define(:version => 20120727151113) do
   end
 
   add_index "countries", ["slug"], :name => "index_countries_on_slug"
+
+  create_table "document_attachments", :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "attachment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "document_authors", :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "document_countries", :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "country_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "document_identities", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+    t.string   "document_type"
+  end
+
+  add_index "document_identities", ["slug", "document_type"], :name => "index_document_identities_on_slug_and_document_type", :unique => true
+
+  create_table "document_ministerial_roles", :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "ministerial_role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "document_organisations", :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "organisation_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "featured",        :default => false
+  end
+
+  create_table "document_relations", :force => true do |t|
+    t.integer  "document_id",          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "document_identity_id"
+  end
 
   create_table "documents", :force => true do |t|
     t.datetime "created_at"
@@ -153,7 +206,6 @@ ActiveRecord::Schema.define(:version => 20120727151113) do
     t.datetime "published_at"
     t.datetime "first_published_at"
     t.date     "publication_date"
-    t.string   "order_url"
     t.text     "notes_to_editors"
     t.text     "summary"
     t.integer  "speech_type_id"
@@ -233,6 +285,17 @@ ActiveRecord::Schema.define(:version => 20120727151113) do
   add_index "nation_inapplicabilities", ["edition_id"], :name => "index_nation_inapplicabilities_on_edition_id"
   add_index "nation_inapplicabilities", ["nation_id"], :name => "index_nation_inapplicabilities_on_nation_id"
 
+  create_table "nations", :force => true do |t|
+    t.string "name"
+  end
+
+  create_table "organisation_policy_areas", :force => true do |t|
+    t.integer  "organisation_id", :null => false
+    t.integer  "policy_area_id",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "organisation_roles", :force => true do |t|
     t.integer  "organisation_id"
     t.integer  "role_id"
@@ -302,6 +365,40 @@ ActiveRecord::Schema.define(:version => 20120727151113) do
 
   add_index "people", ["slug"], :name => "index_people_on_slug", :unique => true
 
+  create_table "phone_numbers", :force => true do |t|
+    t.integer "organisation_id"
+    t.string  "number"
+    t.string  "description"
+  end
+
+  create_table "policy_area_memberships", :force => true do |t|
+    t.integer  "policy_area_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "policy_id"
+    t.integer  "ordering"
+    t.boolean  "featured",       :default => false
+  end
+
+  create_table "policy_area_relations", :force => true do |t|
+    t.integer  "policy_area_id",         :null => false
+    t.integer  "related_policy_area_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "policy_areas", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "description"
+    t.string   "slug"
+    t.boolean  "featured",    :default => false
+    t.string   "state"
+  end
+
+  add_index "policy_areas", ["slug"], :name => "index_policy_areas_on_slug"
+
   create_table "policy_teams", :force => true do |t|
     t.string   "email"
     t.datetime "created_at"
@@ -355,6 +452,12 @@ ActiveRecord::Schema.define(:version => 20120727151113) do
   add_index "social_media_accounts", ["social_media_service_id"], :name => "index_social_media_accounts_on_social_media_service_id"
 
   create_table "social_media_services", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "speech_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

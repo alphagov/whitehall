@@ -12,6 +12,7 @@ class Attachment < ActiveRecord::Base
     allow_blank: true,
     message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
   }
+  validates :order_url, format: URI::regexp(%w(http https)), allow_blank: true
 
   before_save :update_file_attributes
 
