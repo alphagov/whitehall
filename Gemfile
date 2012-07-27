@@ -31,6 +31,7 @@ gem 'aws-ses', require: 'aws/ses'
 gem 'draper'
 gem 'newrelic_rpm'
 gem 'lograge'
+gem 'unicorn'
 
 group :assets do
   gem 'sass-rails', '3.1.4'
