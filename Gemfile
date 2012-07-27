@@ -16,7 +16,7 @@ gem 'friendly_id', '4.0.0.beta14'
 gem 'nokogiri'
 gem 'rake', '0.9.2'
 gem 'boomerang-rails'
-gem 'slimmer', '1.1.44'
+gem 'slimmer', '1.1.47'
 gem 'plek'
 gem 'fog'
 gem 'pdf-reader'
@@ -34,6 +34,7 @@ gem 'lograge'
 gem 'unicorn'
 
 group :assets do
+  gem 'sass', '3.2.0.alpha.274'
   gem 'sass-rails', '3.1.4'
   gem 'uglifier'
 end

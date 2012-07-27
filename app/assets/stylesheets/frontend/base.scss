@@ -2,7 +2,6 @@
 
 
 
-
 // DIMENSION UNITS
 // Whitespace values and maximum site width. These values can be
 // used in any file imported into this document.
@@ -28,7 +27,7 @@ $gutter-two-thirds: $gutter*(2/3); // equivalent to 20px
 @import "styleguide/_colours.scss";
 @import "styleguide/_css3.scss";
 @import "styleguide/_button.scss";
-
+@import "styleguide/_media-queries.scss";
 
 
 

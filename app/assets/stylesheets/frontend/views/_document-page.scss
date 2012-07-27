@@ -130,7 +130,7 @@
   
   .notice p {
     @include sans-12;
-    padding: $gutter*0.333333;
+    padding: $gutter-one-third;
     margin-bottom: $gutter;
     background: yellow;
   }
