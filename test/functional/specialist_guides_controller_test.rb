@@ -186,6 +186,16 @@ some more content
     assert_select ".mainstream_search_results .planner a[href='/d']", count: 0
   end
 
+  test "search includes a link to full mainstream results" do
+    Whitehall.search_client.stubs(:search).returns([])
+    Whitehall.mainstream_search_client.stubs(:search).with('query').returns([
+      {"title" => "a", "link" => "/a", "highlight" => "", "format" => "planner"}
+    ])
+    get :search, q: 'query'
+
+    assert_select 'a[href="/search?q=query"]'
+  end
+
   test "search hides mainstream results if none returned" do
     Whitehall.search_client.stubs(:search).returns([])
     Whitehall.mainstream_search_client.stubs(:search).with('query').returns([])

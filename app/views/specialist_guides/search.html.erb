@@ -32,19 +32,20 @@
 <% if @mainstream_results.any? %>
   <div class="block-3">
     <div class="inner-block">
-      <h2>Results from elsewhere on gov.uk</h2>
-
-        <ul class="mainstream_search_results">
-          <% @mainstream_results.each do |result| %>
-            <li class="<%= result["format"] %>">
-              <span class="document_format"><%= result['format'] && result["format"].humanize %></span>
-              <h2><%= link_to result["title"], result["link"] %></h2>
-              <% if result["highlight"] %>
-                <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
+      <h2>Top results from other sections of GOV.UK</h2>
+      <ul class="mainstream_search_results">
+        <% @mainstream_results.each do |result| %>
+          <li class="<%= result["format"] %>">
+            <span class="document_format"><%= result['format'] && result["format"].humanize %></span>
+            <h2><%= link_to result["title"], result["link"] %></h2>
+            <% if result["highlight"] %>
+              <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+      <p><%= citizen_search_link(%{More results for "#{params[:q]}" from other sections of GOV.UK.}, params[:q], title: %{More results for "#{params[:q]}" from other sections of GOV.UK.}) %>
+</p>
     </div>
   </div>
 <% end %>
