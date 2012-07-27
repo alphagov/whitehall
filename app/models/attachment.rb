@@ -3,8 +3,15 @@ class Attachment < ActiveRecord::Base
 
   delegate :url, to: :file, allow_nil: true
 
+  VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.']
+
   validates :title, :file, presence: true
   validates :isbn, isbn_format: true, allow_blank: true
+  validates :command_paper_number, format: {
+    with: /^(#{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join('|')}) ?\d+/,
+    allow_blank: true,
+    message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
+  }
 
   before_save :update_file_attributes
 

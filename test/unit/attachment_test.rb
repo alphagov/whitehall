@@ -46,6 +46,30 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.valid?
   end
 
+  test "should be valid without Command paper number" do
+    attachment = build(:attachment, command_paper_number: nil)
+    assert attachment.valid?
+  end
+
+  test "should be valid with blank Command paper number" do
+    attachment = build(:attachment, command_paper_number: '')
+    assert attachment.valid?
+  end
+
+  ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.'].each do |prefix|
+    test "should be valid when the Command paper number starts with '#{prefix}'" do
+      attachment = build(:attachment, command_paper_number: "#{prefix} 1234")
+      assert attachment.valid?
+    end
+  end
+
+  test "should be invalid when the command paper number starts with an unrecognised prefix" do
+    attachment = build(:attachment, command_paper_number: "NA 1234")
+    refute attachment.valid?
+    expected_message = "is invalid. The number must start with one of #{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
+    assert attachment.errors[:command_paper_number].include?(expected_message)
+  end
+
   test 'should return filename even after reloading' do
     attachment = create(:attachment)
     refute_nil attachment.filename

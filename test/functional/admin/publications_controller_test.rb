@@ -36,7 +36,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edition_new" do
       assert_select "select[name*='edition[publication_date']", count: 3
       assert_select "select[name='edition[publication_type_id]']"
-      assert_select "input[name='edition[command_paper_number]'][type='text']"
       assert_select "input[name='edition[order_url]'][type='text']"
       assert_select "input[name='edition[price]'][type='text']"
     end
@@ -48,13 +47,13 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edition_new" do
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][command_paper_number]']"
     end
   end
 
   test "create should create a new publication" do
     post :create, edition: controller_attributes_for(:publication,
       publication_date: Date.parse("1805-10-21"),
-      command_paper_number: "Cm. 1234",
       order_url: "http://example.com/order-path",
       publication_type_id: PublicationType::ResearchAndAnalysis.id,
       price: "9.99"
@@ -62,7 +61,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     created_publication = Publication.last
     assert_equal Date.parse("1805-10-21"), created_publication.publication_date
-    assert_equal "Cm. 1234", created_publication.command_paper_number
     assert_equal "http://example.com/order-path", created_publication.order_url
     assert_equal PublicationType::ResearchAndAnalysis, created_publication.publication_type
     assert_equal 9.99, created_publication.price
@@ -75,7 +73,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
           title: "attachment-title",
           file: fixture_file_upload('greenpaper.pdf', 'application/pdf'),
           isbn: '0140621431',
-          unique_reference: 'unique-reference')
+          unique_reference: 'unique-reference',
+          command_paper_number: 'Cm. 1234')
         }
       }
     })
@@ -83,6 +82,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     created_publication = Publication.last
     assert_equal '0140621431', created_publication.attachments.first.isbn
     assert_equal 'unique-reference', created_publication.attachments.first.unique_reference
+    assert_equal 'Cm. 1234', created_publication.attachments.first.command_paper_number
   end
 
   test "edit displays publication fields" do
@@ -107,6 +107,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edition_edit" do
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][command_paper_number]']"
     end
   end
 

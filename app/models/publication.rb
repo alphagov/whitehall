@@ -6,14 +6,7 @@ class Publication < Edition
   include Edition::Attachable
   include Edition::Countries
 
-  VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.']
-
   validates :publication_date, presence: true
-  validates :command_paper_number, format: {
-    with: /^(#{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join('|')}) ?\d+/,
-    allow_blank: true,
-    message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
-  }
   validates :order_url, format: URI::regexp(%w(http https)), allow_blank: true
   validates :order_url, presence: {
     message: "must be entered as you've entered a price",
