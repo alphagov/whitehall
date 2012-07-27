@@ -156,18 +156,34 @@ some more content
     refute_select_object wind
   end
 
-  test "search sets search action to search specialist guides" do
+  test "search sets search path header to search specialist guides" do
     search_client = stub('search_client')
     Whitehall.search_client.stubs(:search).returns([])
     get :search
     assert_equal search_specialist_guides_path, response.headers[Slimmer::SEARCH_PATH_HEADER]
   end
 
-  test "search lists each result returned from the client" do
-    search_client = stub('search_client')
+  test "search lists each result returned from the inside government client" do
+    Whitehall.mainstream_search_client.stubs(:search).returns([])
     Whitehall.search_client.stubs(:search).with('query', 'specialist_guide').returns([{"title" => "title", "link" => "/specialist/guide-slug", "highlight" => "", "format" => "specialist_guide"}])
     get :search, q: 'query'
     assert_select ".search_results .specialist_guide a[href='/specialist/guide-slug']"
+  end
+
+  test "search lists 3 results returned from the mainstream search" do
+    Whitehall.search_client.stubs(:search).returns([])
+    Whitehall.mainstream_search_client.stubs(:search).with('query').returns([
+      {"title" => "a", "link" => "/a", "highlight" => "", "format" => "planner"},
+      {"title" => "b", "link" => "/b", "highlight" => "", "format" => "planner"},
+      {"title" => "c", "link" => "/c", "highlight" => "", "format" => "planner"},
+      {"title" => "d", "link" => "/d", "highlight" => "", "format" => "planner"}
+    ])
+    get :search, q: 'query'
+
+    assert_select ".mainstream_search_results .planner a[href='/a']"
+    assert_select ".mainstream_search_results .planner a[href='/b']"
+    assert_select ".mainstream_search_results .planner a[href='/c']"
+    assert_select ".mainstream_search_results .planner a[href='/d']", count: 0
   end
 
   test "autocomplete returns the response from autocomplete as a string" do

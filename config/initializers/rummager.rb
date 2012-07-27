@@ -7,3 +7,6 @@ Whitehall.search_client = Whitehall::SearchClient.new(Rummageable.rummager_host 
 unless Rails.env.production? || ENV["RUMMAGER_HOST"]
   Rummageable.implementation = Rummageable::Fake.new
 end
+
+mainstream_rummager_host = ENV["MAINSTREAM_RUMMAGER_HOST"] || Plek.current.find('search')
+Whitehall.mainstream_search_client = Whitehall::SearchClient.new(mainstream_rummager_host)

@@ -6,6 +6,7 @@ module Whitehall
   autoload :SearchClient, 'whitehall/search_client'
 
   mattr_accessor :search_client
+  mattr_accessor :mainstream_search_client
 
   class << self
     PUBLIC_HOSTS = {
