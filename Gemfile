@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/'
 
-gem 'rails', '3.1.6'
+gem 'rails', '3.1.7'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
