@@ -57,7 +57,6 @@ module DocumentHelper
   def fill_in_publication_fields
     select_date "Publication date", with: "2010-01-01"
     select "Research and analysis", from: "Publication type"
-    fill_in "Unique reference", with: "ABC-123"
     fill_in "Order URL", with: "http://example.com/order-url"
     fill_in "Summary", with: "Some summary of the content"
   end

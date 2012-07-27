@@ -101,7 +101,6 @@ class PublicationTest < ActiveSupport::TestCase
     attachment = create(:attachment)
     published_publication = create(:published_publication,
       publication_date: Date.parse("2010-01-01"),
-      unique_reference: "ABC-123",
       publication_type_id: PublicationType::ResearchAndAnalysis.id,
       order_url: "http://example.com/order-url",
       attachments: [attachment],
@@ -113,7 +112,6 @@ class PublicationTest < ActiveSupport::TestCase
     assert_kind_of Attachment, published_publication.attachments.first
     assert_equal published_publication.attachments, draft_publication.attachments
     assert_equal published_publication.publication_date, draft_publication.publication_date
-    assert_equal published_publication.unique_reference, draft_publication.unique_reference
     assert_equal published_publication.publication_type, draft_publication.publication_type
     assert_equal published_publication.order_url, draft_publication.order_url
     assert_equal published_publication.price_in_pence, draft_publication.price_in_pence

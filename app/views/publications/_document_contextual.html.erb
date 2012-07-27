@@ -3,9 +3,6 @@
   <% if edition.publication_type.present? %>
     <p>Publication type: <span class="publication_type"><%= edition.publication_type.singular_name %></span></p>
   <% end %>
-  <% if edition.unique_reference.present? %>
-    <p>Unique reference: <span class="unique_reference"><%= edition.unique_reference %></span></p>
-  <% end %>
   <% if edition.command_paper_number.present? %>
     <p>Command paper number: <span class="command_paper_number"><%= edition.command_paper_number %></span></p>
   <% end %>
