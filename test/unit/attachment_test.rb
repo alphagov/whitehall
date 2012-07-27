@@ -66,7 +66,7 @@ class AttachmentTest < ActiveSupport::TestCase
   test "should be invalid when the command paper number starts with an unrecognised prefix" do
     attachment = build(:attachment, command_paper_number: "NA 1234")
     refute attachment.valid?
-    expected_message = "is invalid. The number must start with one of #{Publication::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
+    expected_message = "is invalid. The number must start with one of #{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
     assert attachment.errors[:command_paper_number].include?(expected_message)
   end
 

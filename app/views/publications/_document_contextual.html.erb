@@ -3,9 +3,6 @@
   <% if edition.publication_type.present? %>
     <p>Publication type: <span class="publication_type"><%= edition.publication_type.singular_name %></span></p>
   <% end %>
-  <% if edition.command_paper_number.present? %>
-    <p>Command paper number: <span class="command_paper_number"><%= edition.command_paper_number %></span></p>
-  <% end %>
   <% if edition.order_url.present? %>
     <p>
       <%= link_to "Order a copy", edition.order_url, class: "order_url button", title: "Order a copy of the publication" %>
