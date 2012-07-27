@@ -7,8 +7,7 @@ class SearchClientTest < ActiveSupport::TestCase
   end
 
   test "should raise an exception if the search service uri is not set" do
-    client = Whitehall::SearchClient.new(nil)
-    assert_raise(Whitehall::SearchClient::SearchUriNotSpecified) { client.search("query") }
+    assert_raise(Whitehall::SearchClient::SearchUriNotSpecified) { Whitehall::SearchClient.new(nil) }
   end
 
   test "should return the search deserialized from json" do
