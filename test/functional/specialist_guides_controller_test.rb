@@ -186,6 +186,14 @@ some more content
     assert_select ".mainstream_search_results .planner a[href='/d']", count: 0
   end
 
+  test "search hides mainstream results if none returned" do
+    Whitehall.search_client.stubs(:search).returns([])
+    Whitehall.mainstream_search_client.stubs(:search).with('query').returns([])
+    get :search, q: 'query'
+
+    assert_select ".mainstream_search_results", count: 0
+  end
+
   test "autocomplete returns the response from autocomplete as a string" do
     search_client = stub('search_client')
     raw_rummager_response = "rummager-response-body-json"
