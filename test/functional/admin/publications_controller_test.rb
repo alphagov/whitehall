@@ -43,11 +43,12 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "new should allow users to assign an isbn to an attachment" do
+  test "new should allow users to add publication metadata to an attachment" do
     get :new
 
     assert_select "form#edition_new" do
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
     end
   end
 
@@ -76,13 +77,15 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
         "0" => { attachment_attributes: attributes_for(:attachment,
           title: "attachment-title",
           file: fixture_file_upload('greenpaper.pdf', 'application/pdf'),
-          isbn: '0140621431')
+          isbn: '0140621431',
+          unique_reference: 'unique-reference')
         }
       }
     })
 
     created_publication = Publication.last
     assert_equal '0140621431', created_publication.attachments.first.isbn
+    assert_equal 'unique-reference', created_publication.attachments.first.unique_reference
   end
 
   test "edit displays publication fields" do
@@ -98,7 +101,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit should allow users to assign an isbn to an attachment" do
+  test "edit should allow users to assign publication metadata to an attachment" do
     publication = create(:publication)
     attachment = create(:attachment)
     publication.attachments << attachment
@@ -107,6 +110,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     assert_select "form#edition_edit" do
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
     end
   end
 
