@@ -23,7 +23,7 @@
           <ul>
             <li><%= link_to "Responsibilities", '#responsibilities' %></li>
             <% if @ministerial_role.occupied? %>
-              <li><%= link_to "Current role holder", "#biography" %></li>
+              <li><%= link_to "Current role holder", "#current-role-holder" %></li>
             <% end %>
             <% if @ministerial_role.announcements.any? %>
               <li><%= link_to "Announcements", "#announcements" %></li>
@@ -33,15 +33,6 @@
             <% end %>
           </ul>
         </nav>
-
-        <div class="image">
-          <%= render  partial: 'organisations/organisations_logo_list',
-                      locals: {
-                        organisations: @ministerial_role.organisations,
-                        external_links: false,
-                        remove_line_breaks: true
-                      } %>
-        </div>
       </section>
     </div>
   </div>
@@ -49,17 +40,23 @@
   <div class="block-3">
     <div class="inner-block" id="responsibilities">
       <%= content_tag_for :section, @ministerial_role, class: "responsibilities" do %>
+        <%= render  partial: 'organisations/organisations_logo_list',
+                    locals: {
+                      organisations: @ministerial_role.organisations,
+                      external_links: false,
+                      remove_line_breaks: false
+                    } %>
+
         <h1>Responsibilities</h1>
         <%= @ministerial_role.responsibilities %>
       <% end %>
 
       <% if @ministerial_role.occupied? %>
-        <section class="biography" id="biography">
-          <h1>Current role holder</h1>
-          <h2><%= @ministerial_role.current_person.name %></h2>
+        <section class="current-role-holder" id="current-role-holder">
+          <h1>Current role holder: <span class="name"><%= @ministerial_role.current_person.name %></span></h1>
           <%= @ministerial_role.current_person.biography %>
           <div class="read-more">
-            <%= link_to "Read more about this person", @ministerial_role.current_person %>
+            <%= link_to "More about this person", @ministerial_role.current_person %>
           </div>
         </section>
       <% end %>
@@ -143,7 +140,7 @@
           </table>
 
           <div class="read-more">
-            <%= link_to "Read more", :policies %>
+            <%= link_to "View all policies", :policies %>
           </div>
         </section>
       <% end %>

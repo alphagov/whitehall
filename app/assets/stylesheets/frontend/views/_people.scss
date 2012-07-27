@@ -12,10 +12,15 @@
     ul li {
       color: $grey-63;
       list-style: none;
+      @include core-27;
+    }
+
+    ul li + li:before {
+      content:"& ";
     }
 
     ul.single li {
-      @include core-27;
+      @include core-48;
       margin-left: -3px;
       @media (max-width: 640px) {
         margin-left: 0;
@@ -25,6 +30,13 @@
 
   .in-page-navigation {
     @include core-14;
+    margin-top: 0;
+    padding-top: 0;
+    nav, h1 {
+      padding-top: 0;
+      margin-top: 0;
+    }
+
     ul {
       margin: 0 0 $gutter-half $gutter-half;
       ul {
@@ -34,9 +46,7 @@
     ul.organisations {
       margin: 0;
     }
-    nav {
-      margin-top: 0;
-    }
+
   }
 
   .previous-roles table.document-list td.date {
@@ -44,20 +54,52 @@
   }
 
   .block-3 {
-    section:first-child {
+    .inner-block > :first-child {
       margin-top: 0;
+    }
+
+    .govspeak {
+      margin-top: $gutter-half;
     }
 
     section { 
       margin: $gutter 0 $gutter*2 0;
       h1 {
         @include core-27;
-        margin: 0 0 $gutter-half 0;
+        margin: 0 0 0 0;
       }
 
       .read-more {
+        margin-top: $gutter-half;
         background-color: $light-warm-grey;
-        padding: 0.3em $gutter-half;
+        padding: $gutter-one-sixth $gutter-one-third;
+      }
+    }
+
+    ul.organisations {
+      margin: 0 0 $gutter $gutter-half;
+      float: right;
+      min-width: 33.333333%;
+      position: relative;
+      top: 12px;
+      
+      li {
+        margin-left: $gutter-half;
+      }
+    }
+  }
+
+  .block-2, .block-3 {
+    .inner-block {
+      padding-top: $gutter-half;
+    }
+  }
+
+  .current-role-holder {
+    h1 {
+      color: $grey-63;
+      .name {
+        color: $body-text;
       }
     }
   }

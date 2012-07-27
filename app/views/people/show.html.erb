@@ -26,17 +26,7 @@
         <nav role="navigation">
           <ul>
             <li><%= link_to "Biography", '#biography' %></li>
-            <% if @person.current_role_appointments.count == 1 %>
-              <li><%= link_to "Role", "##{@person.current_role_appointments.first.role.name.parameterize}" %></li>
-            <% else %>
-              <li>Roles
-                <ul>
-                  <% @person.current_role_appointments.each do |appointment| %>
-                    <li><%= link_to appointment.role.name, "##{appointment.role.name.parameterize}" %></li>
-                  <% end %>
-                </ul>
-              </li>
-            <% end %>
+            <li><%= link_to (@person.current_role_appointments.count == 1 ? "Role" : "Roles"), "#current-roles" %></li>
             <% if @person.announcements.any? %>
               <li><%= link_to "Announcements", "#announcements" %></li>
             <% end %>
@@ -68,9 +58,8 @@
             <%= render  partial: 'organisations/organisations_logo_list',
                         locals: {
                           organisations: appointment.role.organisations,
-                          extra_class: 'single-line',
                           external_links: false,
-                          remove_line_breaks: true
+                          remove_line_breaks: false
                         } %>
             
             <h1 id="<%= appointment.role.name.parameterize%>"><%= appointment.role.name %></h1>
@@ -78,7 +67,7 @@
             <%= appointment.role.responsibilities %>
             <% if appointment.role.ministerial? %>
               <div class="read-more">
-                <%= link_to "Read more", appointment.role %>
+                <%= link_to "More about this role", appointment.role %>
               </div>
             <% end %>
           <% end %>
@@ -167,7 +156,7 @@
                 </table>
 
                 <div class="read-more">
-                  <%= link_to "Read more", :policies %>
+                  <%= link_to "View all policies", :policies %>
                 </div>
               </section>
             <% end %>
