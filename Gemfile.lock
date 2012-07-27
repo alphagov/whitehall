@@ -120,7 +120,7 @@ GEM
       lrucache (~> 0.1.1)
       null_logger
       plek
-    gds-sso (1.1.1)
+    gds-sso (1.2.1)
       omniauth-gds (= 0.0.3)
       rack-accept (~> 0.4.4)
       rails (>= 3.0.0)
@@ -324,7 +324,7 @@ DEPENDENCIES
   faker
   fog
   friendly_id (= 4.0.0.beta14)
-  gds-sso (= 1.1.1)
+  gds-sso (~> 1.2.1)
   govspeak (~> 0.8.18)
   hash_syntax
   isbn_validation
