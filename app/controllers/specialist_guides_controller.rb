@@ -17,21 +17,17 @@ class SpecialistGuidesController < DocumentsController
   def search
     @search_term = params[:q]
     if @search_term.present?
-      @results = search_client.search(@search_term, 'specialist_guide')
+      @results = Whitehall.search_client.search(@search_term, 'specialist_guide')
     else
       @results = []
     end
   end
 
   def autocomplete
-    render text: search_client.autocomplete(params[:q], 'specialist_guide')
+    render text: Whitehall.search_client.autocomplete(params[:q], 'specialist_guide')
   end
 
 private
-  def search_client
-    Whitehall::SearchClient.new
-  end
-
   def document_class
     SpecialistGuide
   end

@@ -5,6 +5,8 @@ module Whitehall
   autoload :QuietAssetLogger, 'whitehall/quiet_asset_logger'
   autoload :SearchClient, 'whitehall/search_client'
 
+  mattr_accessor :search_client
+
   class << self
     PUBLIC_HOSTS = {
       'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',

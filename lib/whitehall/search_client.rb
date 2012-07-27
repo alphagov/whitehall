@@ -2,7 +2,11 @@ module Whitehall
   class SearchClient
     class SearchUriNotSpecified < RuntimeError; end
 
-    cattr_accessor :search_uri
+    attr_accessor :search_uri
+
+    def initialize(search_uri)
+      self.search_uri = search_uri
+    end
 
     def search(query, format_filter = nil)
       raise SearchUriNotSpecified unless search_uri
