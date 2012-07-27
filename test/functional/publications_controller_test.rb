@@ -58,7 +58,6 @@ class PublicationsControllerTest < ActionController::TestCase
   test "show should display publication metadata" do
     publication = create(:published_publication,
       publication_date: Date.parse("1916-05-31"),
-      unique_reference: "unique-reference",
       order_url: "http://example.com/order-path",
       publication_type_id: PublicationType::Form.id,
       price_in_pence: 999,
@@ -70,20 +69,9 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select ".contextual-info" do
       assert_select ".publication_type", text: "Form"
       assert_select ".publication_date", text: "31 May 1916"
-      assert_select ".unique_reference", text: "unique-reference"
       assert_select ".command_paper_number", text: "Cm. 1234"
       assert_select "a.order_url[href='http://example.com/order-path']"
       assert_select ".price", text: "&pound;9.99"
-    end
-  end
-
-  test "show should not mention the unique reference if there isn't one" do
-    publication = create(:published_publication, unique_reference: '')
-
-    get :show, id: publication.document
-
-    assert_select ".contextual-info" do
-      refute_select ".unique_reference"
     end
   end
 
@@ -452,6 +440,28 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_select_object(attachment) do
       refute_select ".isbn"
+    end
+  end
+
+  test "show displays the Unique Reference Number of the attached document" do
+    attachment = create(:attachment, unique_reference: 'unique-reference')
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      assert_select ".unique_reference", "unique-reference"
+    end
+  end
+
+  test "show doesn't display an empty Unique Reference Number if none exists for the attachment" do
+    attachment = create(:attachment, unique_reference: nil)
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      refute_select ".unique_reference"
     end
   end
 
