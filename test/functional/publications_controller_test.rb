@@ -475,6 +475,28 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "show links to the url that the attachment can be ordered from" do
+    attachment = create(:attachment, order_url: 'http://example.com/order-path')
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      assert_select ".order_url", /order a copy/i
+    end
+  end
+
+  test "show doesn't display an empty order url if none exists for the attachment" do
+    attachment = create(:attachment, order_url: nil)
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      refute_select ".order_url"
+    end
+  end
+
   private
 
   def given_two_publications_in_two_organisations

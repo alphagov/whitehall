@@ -34,4 +34,10 @@
       top: -1px;
     }
   }
+  .attachment {
+    .order_url {
+      clear: both;
+      @include core-14;
+    }
+  }
 }

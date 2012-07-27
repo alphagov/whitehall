@@ -29,6 +29,9 @@
       <dd class="command_paper_number"><%= attachment.command_paper_number %></dd>
     <% end %>
   </dl>
+  <% if attachment.order_url %>
+    <p><%= link_to "Order a copy", attachment.order_url, class: "order_url", title: "Order a copy of the publication" %></p>
+  <% end %>
   <% unless attachment.accessible? %>
     <strong class="accessibility-warning">This file may not be accessible</strong>
   <% end %>
