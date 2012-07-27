@@ -40,6 +40,10 @@ class SpecialistGuide < Edition
     true
   end
 
+  def can_be_related_to_mainstream_content?
+    true
+  end
+
   def has_related_mainstream_content?
     related_mainstream_content_url.present?
   end

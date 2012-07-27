@@ -53,4 +53,17 @@
       <% end %>
     </section>
   <% end %>
+
+  <% if edition.can_be_related_to_mainstream_content? %>
+    <section>
+      <h2>Related Mainstream Content</h2>
+      <% if edition.related_mainstream_content_url %>
+        <ul>
+          <li><%= link_to edition.related_mainstream_content_title, edition.related_mainstream_content_url %></li>
+        </ul>
+      <% else %>
+        <p>This document doesn't have any related mainstream content.</p>
+      <% end %>
+    </section>
+  <% end %>
 </section>

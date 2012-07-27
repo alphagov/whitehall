@@ -95,6 +95,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def can_be_related_to_mainstream_content?
+    false
+  end
+
   def can_apply_to_subset_of_nations?
     false
   end
