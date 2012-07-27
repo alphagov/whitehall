@@ -9,6 +9,7 @@ module Whitehall
     end
 
     def search(query, format_filter = nil)
+      return [] unless query.present?
       raise SearchUriNotSpecified unless search_uri
       JSON.parse(search_response(:search, query, format_filter).body)
     end

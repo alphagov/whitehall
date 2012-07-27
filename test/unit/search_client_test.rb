@@ -8,19 +8,33 @@ class SearchClientTest < ActiveSupport::TestCase
 
   test "should raise an exception if the search service uri is not set" do
     client = Whitehall::SearchClient.new(nil)
-    assert_raise(Whitehall::SearchClient::SearchUriNotSpecified) { client.search("") }
+    assert_raise(Whitehall::SearchClient::SearchUriNotSpecified) { client.search("query") }
   end
 
-  test "should return the search results as a hash" do
-    search_results = {"title" => "document-title"}
+  test "should return the search deserialized from json" do
+    search_results = [{"title" => "document-title"}]
     stub_request(:get, /example.com\/search/).to_return(body: search_results.to_json)
-    results = Whitehall::SearchClient.new("http://example.com").search("")
+    results = Whitehall::SearchClient.new("http://example.com").search("query")
 
     assert_equal search_results, results
   end
 
+  test "should return an empty set of results without making request if query is empty" do
+    results = Whitehall::SearchClient.new("http://example.com").search("")
+
+    assert_equal [], results
+    assert_not_requested :get, /example.com/
+  end
+
+  test "should return an empty set of results without making request if query is nil" do
+    results = Whitehall::SearchClient.new("http://example.com").search(nil)
+
+    assert_equal [], results
+    assert_not_requested :get, /example.com/
+  end
+
   test "should request the search results in JSON format" do
-    Whitehall::SearchClient.new("http://example.com").search ""
+    Whitehall::SearchClient.new("http://example.com").search("query")
 
     assert_requested :get, /.*/, headers: {"Accept" => "application/json"}
   end

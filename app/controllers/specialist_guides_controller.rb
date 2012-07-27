@@ -16,11 +16,7 @@ class SpecialistGuidesController < DocumentsController
 
   def search
     @search_term = params[:q]
-    if @search_term.present?
-      @results = Whitehall.search_client.search(@search_term, 'specialist_guide')
-    else
-      @results = []
-    end
+    @results = Whitehall.search_client.search(@search_term, 'specialist_guide')
   end
 
   def autocomplete
