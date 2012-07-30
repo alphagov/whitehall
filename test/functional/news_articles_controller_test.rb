@@ -46,17 +46,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
     refute_select "#{notes_to_editors_selector}"
   end
 
-  test "shows when news article was first published" do
-    news_article = create(:published_news_article, published_at: 10.days.ago)
-
-    get :show, id: news_article.document
-
-    assert_select ".meta .metadata" do
-      assert_select ".first_published_at[title='#{news_article.first_published_at.iso8601}']"
-    end
-  end
-
-  test "shows when updated news article was last updated" do
+  test "shows when updated news article was first published and last updated" do
     news_article = create(:published_news_article, published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
@@ -66,8 +56,9 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
     get :show, id: updated_news_article.document
 
-    assert_select ".meta .metadata" do
-      assert_select ".published_at[title='#{updated_news_article.published_at.iso8601}']"
+    assert_select ".meta" do
+      assert_select ".published-at[title='#{news_article.first_published_at.iso8601}']"
+      assert_select ".published-at[title='#{updated_news_article.published_at.iso8601}']"
     end
   end
 end

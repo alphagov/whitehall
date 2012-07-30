@@ -260,8 +260,8 @@ module DocumentControllerTestHelpers
         instance_exec(first_edition, &block)
 
         assert_select ".change-notes" do
-          assert_select ".published-at[title='#{first_edition.published_at.iso8601}']"
-          assert_select "p", text: "Published #{first_edition.published_at.to_date.to_s(:long_ordinal)}"
+          assert_select ".published-at[title='#{first_edition.first_published_date.iso8601}']"
+          assert_select "p", text: "Published #{first_edition.first_published_date.to_date.to_s(:long_ordinal)}"
         end
       end
 
@@ -308,7 +308,11 @@ module DocumentControllerTestHelpers
 
         assert_select ".change-notes dd" do |list_items|
           list_items.each_with_index do |list_item, index|
-            assert_select list_item, ".published-at[title='#{editions[index].published_at.iso8601}']"
+            if index == ( list_items.length-1 )
+              assert_select list_item, ".published-at[title='#{editions[index].first_published_date.iso8601}']"
+            else
+              assert_select list_item, ".published-at[title='#{editions[index].published_at.iso8601}']"
+            end
           end
         end
         assert_select ".change-notes dt" do |list_items|

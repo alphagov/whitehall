@@ -58,12 +58,18 @@ class Document < ActiveRecord::Base
     published_edition.present?
   end
 
+  def first_published_date
+    published_edition.first_published_date if published?
+  end
+
   def change_history
     editions = ever_published_editions.significant_change.by_published_at
 
     last = editions.pop
-    last = Change.new(last.first_published_at, last.change_note)
-    last.set_as_first_change
+    if last
+      last = Change.new(first_published_date, last.change_note)
+      last.set_as_first_change
+    end
 
     editions.map { |e| Change.new(e.published_at, e.change_note) }.push(last)
   end

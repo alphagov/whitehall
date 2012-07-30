@@ -203,6 +203,10 @@ class Edition < ActiveRecord::Base
     self.class.format_name
   end
 
+  def first_published_date
+    first_published_at
+  end
+
   class << self
     def format_name
       @format_name ||= model_name.human.downcase

@@ -36,4 +36,8 @@ class Publication < Edition
   def national_statistic?
     publication_type == PublicationType::NationalStatistics
   end
+
+  def first_published_date
+    publication_date.to_date
+  end
 end

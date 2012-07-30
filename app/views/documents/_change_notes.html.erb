@@ -1,7 +1,8 @@
 <%
-  most_recent_change = document.change_history.first.published_at
+  history = document.change_history
+  most_recent_change = history.first.published_at
 %>
-<% if document.change_history.length == 1 %>
+<% if history.length == 1 %>
   <section class="change-notes">
     <p>Published <%= absolute_date(most_recent_change, class: 'published-at') %></p>
   </section>
@@ -10,7 +11,7 @@
     <p class="toggle">Updated <%= absolute_date(most_recent_change, class: 'published-at') %></p>
     <div class="overlay js-hidden" id="change-notes">
       <dl>
-        <% document.change_history.each do |change| %>
+        <% history.each do |change| %>
           <dt><%= change.note %></dt>
           <dd><%= absolute_time(change.published_at, class: 'published-at') %></dd>
         <% end %>

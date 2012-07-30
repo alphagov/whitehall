@@ -39,8 +39,8 @@ class CaseStudiesControllerTest < ActionController::TestCase
 
     get :show, id: updated_case_study.document
 
-    assert_select ".meta .metadata" do
-      assert_select ".published_at[title='#{updated_case_study.published_at.iso8601}']"
+    assert_select ".meta" do
+      assert_select ".published-at[title='#{updated_case_study.published_at.iso8601}']"
     end
   end
 end
