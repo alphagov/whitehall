@@ -80,9 +80,9 @@
   }
 
   .related-mainstream-content {
-    margin: $gutter 0;
+    margin: $gutter $gutter-half*-1;
     background: $light-warm-grey url(/government/assets/information-icon.png) no-repeat 98% $gutter-two-thirds;
-    padding: $gutter-two-thirds 55px $gutter-two-thirds $gutter-two-thirds;
+    padding: $gutter-one-third 55px $gutter-one-third $gutter-half;
     p {
       margin: 0;
       padding: 0;

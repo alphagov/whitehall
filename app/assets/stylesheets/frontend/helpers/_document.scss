@@ -29,7 +29,7 @@
     background: $light-warm-grey;
     position: relative;
     margin: 0 $gutter-half*-1;
-    padding: $gutter-one-third $gutter-half $gutter-one-third $img-gutter+$gutter;
+    padding: $gutter-one-sixth $gutter-half $gutter-half $img-gutter+$gutter;
 
     a {
       // this is the download link
@@ -40,13 +40,14 @@
         position: relative;
         float: left;
         width: $img-gutter;
+        margin-top: $gutter-one-sixth;
         margin-left: ($img-gutter+$gutter-half)*-1;
       }
     }
 
     dl {
-      float: left;
-      padding: 5px 0;
+      overflow: hidden;
+      padding: $gutter-one-third 0;
 
       dt, dd {
         @include core-14;
@@ -64,7 +65,7 @@
       }
     }
     .accessibility-warning {
-      clear: both;
+      @include core-14;
     }
 
     overflow: hidden;
