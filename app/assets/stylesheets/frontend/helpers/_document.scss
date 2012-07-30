@@ -28,7 +28,7 @@
 
     background: $light-warm-grey;
     position: relative;
-    margin: 0 $gutter-half*0.5;
+    margin: 0 $gutter-half*-1;
     padding: $gutter-one-third $gutter-half $gutter-one-third $img-gutter+$gutter;
 
     a {
@@ -40,7 +40,7 @@
         position: relative;
         float: left;
         width: $img-gutter;
-        margin-left: ($img-gutter+$gutter)*-1;
+        margin-left: ($img-gutter+$gutter-half)*-1;
       }
     }
 
