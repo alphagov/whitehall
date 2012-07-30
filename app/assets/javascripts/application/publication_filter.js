@@ -13,12 +13,12 @@
         return span;
     }
     function drawPagination(data, after) {
-      var existingNav = $('#show-more-publications');
+      var existingNav = $('#show-more-documents');
        if (existingNav.length > 0) {
          existingNav.remove();
        }
       if (data.next_page_url || data.prev_page_url) {
-        var nav = $('<nav id="show-more-publications" role="navigation" />'),
+        var nav = $('<nav id="show-more-documents" role="navigation" />'),
             ul = $('<ul class="previous-next-navigation" />'),
             li, a;
         nav.append(ul);

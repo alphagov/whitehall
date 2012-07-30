@@ -11,6 +11,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_not_display_lead_image_for :publication
   should_show_change_notes :publication
   should_show_inapplicable_nations :publication
+  should_paginate :publication
 
   test 'show displays published publications' do
     published_publication = create(:published_publication)
@@ -314,62 +315,6 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index
 
     assert_select "h2", text: "There are no matching publications."
-  end
-
-  test "index should only show a certain number of publications by default" do
-    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}-index-default", publication_date: i.days.ago) }
-
-    get :index
-
-    (0..19).to_a.each { |i| assert_select_object(publications[i]) }
-    (20..24).to_a.each { |i| refute_select_object(publications[i]) }
-  end
-
-  test "index should show window of pagination" do
-    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}-window-pagination", publication_date: i.days.ago) }
-
-    get :index, page: 2
-
-    (0..19).to_a.each { |i| refute_select_object(publications[i]) }
-    (20..24).to_a.each { |i| assert_select_object(publications[i]) }
-  end
-
-  test "show more button should not appear by default" do
-    publications = (1..18).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
-
-    get :index
-
-    refute_select "#show-more-publications"
-  end
-
-  test "show more button should appear when there are more records" do
-    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
-
-    get :index
-
-    assert_select "#show-more-publications"
-  end
-
-  test "should show previous page link when not on the first page" do
-    publications = (1..25).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
-
-    get :index, page: 2
-
-    assert_select "#show-more-publications" do
-      assert_select ".previous"
-      refute_select ".next"
-    end
-  end
-
-  test "should show progress helpers in pagination links" do
-    publications = (1..45).to_a.map { |i| create(:published_publication, title: "keyword-#{i}") }
-
-    get :index, page: 2
-
-    assert_select "#show-more-publications" do
-      assert_select ".previous span", text: "1 of 3"
-      assert_select ".next span", text: "3 of 3"
-    end
   end
 
   test "show displays the ISBN of the attached document" do
