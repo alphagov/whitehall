@@ -32,6 +32,7 @@ gem 'draper'
 gem 'newrelic_rpm'
 gem 'lograge'
 gem 'unicorn'
+gem 'kaminari'
 
 group :assets do
   gem 'sass', '3.2.0.alpha.274'

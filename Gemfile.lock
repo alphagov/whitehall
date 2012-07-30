@@ -147,6 +147,10 @@ GEM
     json_pure (1.6.1)
     jwt (0.1.5)
       multi_json (>= 1.0)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     kgio (2.7.4)
     kramdown (0.13.7)
     launchy (2.0.5)
@@ -325,6 +329,7 @@ DEPENDENCIES
   hash_syntax
   isbn_validation
   jquery-rails
+  kaminari
   launchy (~> 2.0.5)
   lograge
   mocha

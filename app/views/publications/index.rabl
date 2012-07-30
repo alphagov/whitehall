@@ -1,24 +1,24 @@
 object false
 node :count do
-  @count
+  @publications.count
 end
 node :current_page do
-  @page
+  @publications.current_page
 end
-node :next_page do
-  @next_page
+node :next_page, unless: lambda { |_| @publications.last_page? } do
+  @publications.current_page + 1
 end
-node :prev_page do
-  @prev_page
+node :prev_page, unless: lambda { |_| @publications.first_page? } do
+  @publications.current_page - 1
 end
 node :total_pages do
-  @total_pages
+  @publications.num_pages
 end
-node(:next_page_url, :if => lambda { |_| @next_page }) do
-  url_for params.merge(page: @next_page, "_" => nil)
+node(:next_page_url, unless: lambda { |_| @publications.last_page? }) do
+  url_for params.merge(page: (@publications.current_page + 1), "_" => nil)
 end
-node(:prev_page_url, :if => lambda { |_| @page > 1 }) do
-  url_for params.merge(page: (@page > 2 ? @page - 1 : nil), "_" => nil)
+node(:prev_page_url, unless: lambda { |_| @publications.first_page? }) do
+  url_for params.merge(page: (@publications.current_page - 1), "_" => nil)
 end
 node :results do
   @publications.map { |a| {

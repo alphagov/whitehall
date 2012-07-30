@@ -24,10 +24,6 @@ private
     Publication
   end
 
-  def page_size
-    20
-  end
-
   def load_filtered_publications(params)
     @publications = all_publications
 
@@ -74,31 +70,6 @@ private
       @publications = @publications.in_organisation(@selected_departments)
     end
 
-    @count = @publications.count
-
-
-    if params[:page].present?
-      @publications = @publications.offset(page_size * (params[:page].to_i - 1))
-      @page = params[:page].to_i
-    else
-      @page = 1
-    end
-
-    @publications = @publications.limit(page_size)
-
-    @total_pages = (@count / page_size).to_i
-    mod_pages = @count % page_size
-
-    if @page < @total_pages || (@page == @total_pages && mod_pages > 0)
-      @next_page = @page + 1
-    end
-
-    if @page > 1
-      @prev_page = @page - 1
-    end
-
-    if mod_pages > 0
-      @total_pages += 1
-    end
+    @publications = @publications.page(params[:page]).per(20)
   end
 end
