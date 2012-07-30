@@ -1,7 +1,7 @@
 // Styles for Documents view
 
 .document_page {
-  
+
   .block-2,
   .block-3,
   .block-4 {
@@ -14,20 +14,20 @@
       float: left;
       display: inline;
     }
-    
+
     .block-3 {
       width: 50%;
       float: left;
       display: inline;
     }
-    
+
     .block-4 {
       width: 30%;
       float: left;
       display: inline;
     }
   }
-  
+
   .metadata {
     display: block;
     margin-bottom: $gutter-two-thirds*-1;
@@ -43,14 +43,14 @@
       margin-bottom: 0;
     }
   }
-  
+
   .change-notes {
     display: inline-block;
     position: relative;
     @include core-14;
     min-width: 160px;
     padding: 0;
-    
+
     .toggle {
       @include button($light-warm-grey);
       display: block;
@@ -130,58 +130,68 @@
       }
     }
   }
-  
+
   .contextual-info {
     margin-bottom: $gutter-one-third*-1;
     position: relative;
-    
+
     ul {
       list-style: none;
-    
+
       li {
         @include sans-15;
       }
     }
   }
-  
+
+  .call-to-action {
+    margin: $gutter 0;
+    background: $cool-grey url(/government/assets/call-to-action-icon.png) no-repeat 98% $gutter-two-thirds;
+    padding: $gutter-two-thirds 55px $gutter-two-thirds $gutter-two-thirds;
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
   .notice p {
     @include sans-12;
     padding: $gutter-one-third;
     margin-bottom: $gutter;
     background: yellow;
   }
-  
+
   #document-organisations {
     position: relative;
     margin-bottom: $gutter;
     padding: $gutter-one-third $gutter-one-third $gutter-one-third*0.5;
     background: #eee;
-    
+
     ul {
       list-style: none;
     }
-    
+
     li {
       padding-bottom: 4px;
     }
-    
+
     li + li {
       padding-top: $gutter-half;
     }
   }
-  
+
   #document-ministers {
     position: relative;
     margin-bottom: $gutter;
     padding: 0 $gutter-one-third;
     background: #eee;
-    
+
     ul {
       list-style: none;
     }
-    
+
     li {
-      
+
       h3 {
         @include sans-18;
         margin-bottom: $gutter-two-thirds*-1;
@@ -191,7 +201,7 @@
       }
     }
   }
-      
+
   #document-organisations + #document-ministers {
     margin-top: $gutter*-1;
     padding-top: $gutter;
