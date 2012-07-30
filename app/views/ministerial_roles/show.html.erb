@@ -25,11 +25,11 @@
             <% if @ministerial_role.occupied? %>
               <li><%= link_to "Current role holder", "#current-role-holder" %></li>
             <% end %>
-            <% if @ministerial_role.announcements.any? %>
-              <li><%= link_to "Announcements", "#announcements" %></li>
-            <% end %>
             <% if @ministerial_role.published_policies.any? %>
               <li><%= link_to "Policy", "#policies" %></li>
+            <% end %>
+            <% if @ministerial_role.announcements.any? %>
+              <li><%= link_to "Announcements", "#announcements" %></li>
             <% end %>
           </ul>
         </nav>
@@ -87,35 +87,6 @@
         </section>
       <% end %>
 
-      <% if @ministerial_role.announcements.any? %>
-        <section class="announcements" id="announcements">
-          <h1>Announcements</h1>
-          <p>by the <%= @ministerial_role.name %></p>
-
-          <table class="document-list">
-            <thead class="visuallyhidden">
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Date</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% @ministerial_role.announcements.each do |announcement| %>
-                <%= content_tag_for :tr, announcement, class: "document-row" do %>
-                  <th scope="row" class="title attribute"><%= announcement.link %></th>
-                  <td class="date attribute"><%= announcement.display_date_microformat %></td>
-                <% end %>
-              <% end %>
-            </tbody>
-          </table>
-
-          <div class="read-more">
-            <%= link_to "View all announcements", :announcements %>
-          </div>
-        </section>
-      <% end %>
-
       <% if @ministerial_role.published_policies.any? %>
         <section class="policy" id="policies">
           <h1>Policy</h1>
@@ -141,6 +112,35 @@
 
           <div class="read-more">
             <%= link_to "View all policies", :policies %>
+          </div>
+        </section>
+      <% end %>
+
+      <% if @ministerial_role.announcements.any? %>
+        <section class="announcements" id="announcements">
+          <h1>Announcements</h1>
+          <p>by the <%= @ministerial_role.name %></p>
+
+          <table class="document-list">
+            <thead class="visuallyhidden">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @ministerial_role.announcements.each do |announcement| %>
+                <%= content_tag_for :tr, announcement, class: "document-row" do %>
+                  <th scope="row" class="title attribute"><%= announcement.link %></th>
+                  <td class="date attribute"><%= announcement.display_date_microformat %></td>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+
+          <div class="read-more">
+            <%= link_to "View all announcements", :announcements %>
           </div>
         </section>
       <% end %>
