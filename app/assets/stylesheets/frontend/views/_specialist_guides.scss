@@ -172,8 +172,11 @@
   }
 
   .in-page-navigation {
-    h3, li {
-      @include core-14;
+    h3 {
+      @include core-16;
+    }
+    li {
+      @include core-16;
       padding: 0;
       list-style: disc;
     }
