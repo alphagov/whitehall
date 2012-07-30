@@ -155,6 +155,11 @@ module("Uploading multiple files after file field validation error", {
   }
 });
 
+test("should add a new file input when a file is selected", function() {
+  fireChangeEventOnLastFileInputOf(this.fieldset);
+  equal(this.fieldset.children(".file_upload").length, 2);
+});
+
 test("should copy the file label without error wrapper for each set of new inputs added", function() {
   fireChangeEventOnLastFileInputOf(this.fieldset);
   equal(this.fieldset.find("label:contains('File'):last").parent().hasClass("field_with_errors"), false);

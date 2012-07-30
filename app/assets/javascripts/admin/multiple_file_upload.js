@@ -24,7 +24,7 @@
         });
         clone.children("input").val("");
         clone.children(".already_uploaded").text("");
-        $(this).parent().after(clone);
+        $(this).parents(".file_upload").after(clone);
       });
     })
   }
