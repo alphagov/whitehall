@@ -135,6 +135,27 @@
   }
 }
 
+// Suitable body pullouts and asides
+@mixin core-16 {
+  font-family: $NTA-Light;
+  font-size: 16px;
+  font-size: 1.6rem;
+  line-height: 1.25; /* 20px */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-top: 5px;
+  padding-top: 0.5rem;
+  padding-bottom: 5px;
+  padding-bottom: 0.5rem;
+  @media (max-width: 640px) {
+    font-size: 1.3rem;
+    line-height: 1.5384615385;
+    padding-top: 0.6rem;
+    padding-bottom: 0.4rem;
+  }
+}
+
 // Suitable for captions, buttons etc
 @mixin core-14 {
   font-family: $NTA-Light;
