@@ -107,11 +107,6 @@ $gutter-two-thirds: $gutter*(2/3); // equivalent to 20px
 }
 
 
-// IE fixes
-.lte-ie8 #whitehall-wrapper {
-  @import "helpers/_ie-fixes.scss";
-}
-
 
 
 

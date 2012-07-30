@@ -26,7 +26,9 @@ $is-ie: false !default;
 
 @mixin media($size) {
   @if $is-ie {
-    @content;
+    @if $ie-version > 6 {
+      @content;
+    }
   } @else {
     @if $size == desktop {
       @media (min-width: 768px){

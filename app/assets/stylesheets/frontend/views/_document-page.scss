@@ -113,6 +113,22 @@
         left: -9999em;
       }
     }
+    @include ie(6){
+      display: block;
+      .overlay {
+        display: none;
+        position: static;
+        width: auto;
+        .arrow {
+          display: none;
+        }
+      }
+      &.open {
+        .overlay {
+          display: block !important;
+        }
+      }
+    }
   }
   
   .contextual-info {

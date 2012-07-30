@@ -239,9 +239,11 @@
 
       .organisations {
         overflow: hidden;
+        width: 100%;
         .organisation {
           float: left;
           margin-right: $gutter;
+          position: relative;
 
           a:after {
             content: "";
