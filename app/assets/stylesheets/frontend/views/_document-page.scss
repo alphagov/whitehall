@@ -44,6 +44,18 @@
     }
   }
 
+  .inapplicable_nations {
+    margin: 0 $gutter-half*-1 $gutter $gutter-half*-1;
+    background: $light-tan url(/government/assets/information-icon.png) no-repeat 98% $gutter-two-thirds;
+    padding: $gutter-one-third 55px $gutter-one-third $gutter-half;
+    p {
+      margin-bottom: $gutter-half;
+    }
+    .nation_inapplicabilities {
+      list-style: none;
+    }
+  }
+
   .change-notes {
     display: inline-block;
     position: relative;
