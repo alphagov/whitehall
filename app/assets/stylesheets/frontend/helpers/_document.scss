@@ -27,8 +27,9 @@
     $img-gutter: 99px;
 
     background: $light-warm-grey;
-
-    padding: $gutter-one-third;
+    position: relative;
+    margin: 0 $gutter-half*0.5;
+    padding: $gutter-one-third $gutter-half $gutter-one-third $img-gutter+$gutter;
 
     a {
       // this is the download link
@@ -36,9 +37,10 @@
       display: block;
 
       img {
+        position: relative;
         float: left;
         width: $img-gutter;
-        margin-right: 8px;
+        margin-left: $img-gutter+$gutter*-1;
       }
     }
 
