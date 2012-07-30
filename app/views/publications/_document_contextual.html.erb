@@ -3,7 +3,4 @@
   <% if edition.publication_type.present? %>
     <p>Publication type: <span class="publication_type"><%= edition.publication_type.singular_name %></span></p>
   <% end %>
-  <% if edition.price %>
-    <p class="price"><%= number_to_currency(edition.price, unit: "&pound;")%></p>
-  <% end %>
 </section>

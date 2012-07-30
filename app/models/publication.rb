@@ -8,11 +8,7 @@ class Publication < Edition
 
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true
-  validates :price, numericality: {
-    allow_blank: true, greater_than: 0
-  }
 
-  before_save :store_price_in_pence
 
   scope :with_content_containing, -> *keywords {
     pattern = "(#{keywords.join('|')})"
@@ -39,24 +35,5 @@ class Publication < Edition
 
   def national_statistic?
     publication_type == PublicationType::NationalStatistics
-  end
-
-  def price
-    return @price if @price
-    return price_in_pence / 100.0 if price_in_pence
-  end
-
-  def price=(price_in_pounds)
-    @price = price_in_pounds
-  end
-
-  private
-
-  def store_price_in_pence
-    self.price_in_pence = if price && price.to_s.empty?
-      nil
-    elsif price
-      price.to_f * 100
-    end
   end
 end

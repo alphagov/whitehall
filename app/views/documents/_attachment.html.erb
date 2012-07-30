@@ -28,6 +28,10 @@
       <dt>Command paper number</dt>
       <dd class="command_paper_number"><%= attachment.command_paper_number %></dd>
     <% end %>
+    <% if attachment.price %>
+      <dt>Price</dt>
+      <dd class="price"><%= number_to_currency(attachment.price, unit: "&pound;") %></dd>
+    <% end %>
   </dl>
   <% if attachment.order_url %>
     <p><%= link_to "Order a copy", attachment.order_url, class: "order_url", title: "Order a copy of the publication" %></p>

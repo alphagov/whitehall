@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "test_helper"
 
 class PublicationsControllerTest < ActionController::TestCase
@@ -58,8 +60,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "show should display publication metadata" do
     publication = create(:published_publication,
       publication_date: Date.parse("1916-05-31"),
-      publication_type_id: PublicationType::Form.id,
-      price_in_pence: 999
+      publication_type_id: PublicationType::Form.id
     )
 
     get :show, id: publication.document
@@ -67,7 +68,6 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select ".contextual-info" do
       assert_select ".publication_type", text: "Form"
       assert_select ".publication_date", text: "31 May 1916"
-      assert_select ".price", text: "&pound;9.99"
     end
   end
 
@@ -472,6 +472,28 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_select_object(attachment) do
       refute_select ".order_url"
+    end
+  end
+
+  test "show displays the price of the purchasable attachment" do
+    attachment = create(:attachment, price: "1.23", order_url: 'http://example.com')
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      assert_select ".price", text: "£1.23"
+    end
+  end
+
+  test "show doesn't display an empty price if none exists for the attachment" do
+    attachment = create(:attachment, price: nil)
+    edition = create("published_publication", body: "!@1", attachments: [attachment])
+
+    get :show, id: edition.document
+
+    assert_select_object(attachment) do
+      refute_select ".price"
     end
   end
 

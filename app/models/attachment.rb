@@ -13,7 +13,15 @@ class Attachment < ActiveRecord::Base
     message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
   }
   validates :order_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :order_url, presence: {
+    message: "must be entered as you've entered a price",
+    if: lambda { |publication| publication.price.present? }
+  }
+  validates :price, numericality: {
+    allow_blank: true, greater_than: 0
+  }
 
+  before_save :store_price_in_pence
   before_save :update_file_attributes
 
   def filename
@@ -28,7 +36,24 @@ class Attachment < ActiveRecord::Base
     content_type == AttachmentUploader::PDF_CONTENT_TYPE
   end
 
+  def price
+    return @price if @price
+    return price_in_pence / 100.0 if price_in_pence
+  end
+
+  def price=(price_in_pounds)
+    @price = price_in_pounds
+  end
+
   private
+
+  def store_price_in_pence
+    self.price_in_pence = if price && price.to_s.empty?
+      nil
+    elsif price
+      price.to_f * 100
+    end
+  end
 
   def update_file_attributes
     if carrierwave_file.present? && carrierwave_file_changed?
