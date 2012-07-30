@@ -45,7 +45,8 @@ $(function() {
         page.removeClass('hidden');
         navigationLinks.filter('a[href$='+pageId+']').addClass('active');
         if (location.hash == ('#' + pageId)) {
-          $('body').animate({scrollTop:0}, 0);
+          // html and body selector for IE 8.
+          $('html, body').animate({scrollTop:0}, 0);
         }
       }
     }

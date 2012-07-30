@@ -14,7 +14,7 @@
 }
 
 .specialist-guides-show {
-  @media (min-width: 768px) {
+  @include media(desktop) {
     .block-2 {
       width: 25%;
     }
@@ -34,12 +34,18 @@
     overflow: hidden;
 
     .organisations {
-      padding-bottom: $gutter-half;
+      padding-bottom: $gutter-one-third;
+      @include media (640px) {
+        padding-bottom: $gutter-half;
+      }
 
       li {
-        margin-bottom: $gutter-one-third;
+        margin-bottom: 0;
         list-style: none;
         color: $body-text;
+        @include media (640px) {
+          margin-bottom: $gutter-one-third;
+        }
       }
     }
 
@@ -85,7 +91,7 @@
 
   .meta {
     @include core-14;
-    @media (min-width: 568px) {
+    @include media(desktop) {
       float: right;
       .change-notes.toggleable .overlay {
         left: -100%;
@@ -218,12 +224,10 @@
     }
   }
 
-  @media (max-width: 500px) {
-    .page-header .organisation-logo-small {
-      padding: 28px 0 0 8px;
+  @include media(desktop) {
+    @include ie(8){
+      padding-top: $gutter-half; // to fix margin-top floating sibling bug
     }
-  }
-  @media (min-width: 768px) {
     .meta {
       position: relative;
       z-index: 101;

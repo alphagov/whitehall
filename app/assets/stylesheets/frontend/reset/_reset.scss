@@ -11,11 +11,10 @@
   color: $body-text;
   -webkit-font-smoothing: antialiased;
 
-     @media (min-width: 768px) {
-       padding-top: 50px;
-       padding-bottom: $gutter*4;
-     }
-
+  @include media(desktop) {
+    padding-top: 50px;
+    padding-bottom: $gutter*4;
+  }
 }
 
 #whitehall-wrapper {

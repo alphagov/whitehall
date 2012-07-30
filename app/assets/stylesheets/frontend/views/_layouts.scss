@@ -6,7 +6,7 @@
   margin: 0;
   overflow: hidden;
 
-  @media (min-width: 768px) {
+  @include media(desktop) {
     //position: fixed;
     position: absolute;
     top: 0;

@@ -33,7 +33,7 @@ $is-ie: false !default;
         @content;
       }
     } @else {
-      @media ($size){
+      @media (min-width: $size){
         @content
       }
     }
