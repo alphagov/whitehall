@@ -1,34 +1,47 @@
 class CopyIsbnFromPublicationToAttachment < ActiveRecord::Migration
   def up
-    Document.where(document_type: 'Publication').each do |publication|
-      # Get the published edition of this publication
-      published_edition = publication.published_edition
+    connection = ActiveRecord::Base.connection
 
-      # Only proceed if there's a published edition with an ISBN
-      if published_edition && published_edition.isbn.present?
+    connection.select_values("SELECT id FROM documents WHERE document_type = 'Publication'").each do |document_id|
 
-        # If we don't have an attachment to copy the ISBN to then print the edition ID and
-        # ISBN so that we don't lose potentially useful data when we remove the ISBN
-        # from the editions table.
-        if published_edition.attachments.empty?
-          puts "*NOTE* Edition #{published_edition.id} has an ISBN (#{published_edition.isbn}) but no attachments to copy it to."
-        else
+      # Get the ID and ISBN of the published edition
+      connection.select_rows("SELECT id, isbn FROM editions WHERE document_id = #{document_id} AND state = 'published'").each do |(edition_id, edition_isbn)|
 
-          # If there's more than one attachment then print the edition ID as we'll need to check whether we've copied
-          # the ISBN to the correct attachment
-          if published_edition.attachments.length > 1
-            puts "*NOTE* Edition #{published_edition.id} has multiple attachments.  Manually check that we've copied the ISBN to the correct one."
-          end
+        # Only proceed if there's a published edition with an ISBN
+        if edition_id && edition_isbn.present?
 
-          first_attachment = published_edition.attachments.order(:created_at).first
+          attachments = connection.select_rows("SELECT attachments.id, attachments.isbn FROM attachments
+            INNER JOIN edition_attachments ON attachments.id = edition_attachments.attachment_id
+            INNER JOIN editions ON editions.id = edition_attachments.edition_id
+            WHERE editions.id = #{edition_id}
+            ORDER BY attachments.created_at ASC")
 
-          # Fail fast if we're trying to overwrite an existing ISBN with something different
-          if first_attachment.isbn.present? && first_attachment.isbn != published_edition.isbn
-            raise "The ISBN on the attachment is different from the one on the publication.  Aborting."
+          # If we don't have an attachment to copy the ISBN to then print the edition ID and
+          # ISBN so that we don't lose potentially useful data when we remove the ISBN
+          # from the editions table.
+          if attachments.length == 0
+            puts "*NOTE* Edition #{edition_id} has an ISBN (#{edition_isbn}) but no attachments to copy it to."
           else
-            first_attachment.update_attribute(:isbn, published_edition.isbn)
+
+            # If there's more than one attachment then print the edition ID as we'll need to check whether we've copied
+            # the ISBN to the correct attachment
+            if attachments.length > 1
+              puts "*NOTE* Edition #{edition_id} has multiple attachments.  Manually check that we've copied the ISBN to the correct one."
+            end
+
+            attachment_id, attachment_isbn = attachments.first
+
+            # Fail fast if we're trying to overwrite an existing ISBN with something different
+            if attachment_isbn.present? && attachment_isbn != edition_isbn
+              raise "The ISBN on the attachment is different from the one on the publication.  Aborting."
+            else
+              connection.update("UPDATE attachments SET isbn = '#{edition_isbn}' WHERE id = #{attachment_id}")
+              puts "*INFO* Set ISBN to '#{edition_isbn}' for attachment #{attachment_id} and edition #{edition_id}"
+            end
+
           end
         end
+
       end
     end
   end
