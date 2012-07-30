@@ -322,5 +322,23 @@ module DocumentControllerTestHelpers
         end
       end
     end
+
+    def should_show_inapplicable_nations(document_type)
+      test "show displays inapplicable nations" do
+        published_document = create("published_#{document_type}")
+        northern_ireland_inapplicability = published_document.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
+        scotland_inapplicability = published_document.nation_inapplicabilities.create!(nation: Nation.scotland)
+
+        get :show, id: published_document.document
+
+        assert_select inapplicable_nations_selector do
+          assert_select "p", "This #{published_document.format_name} does not apply to Northern Ireland and Scotland."
+          assert_select_object northern_ireland_inapplicability do
+            assert_select "a[href='http://northern-ireland.com/']"
+          end
+          refute_select_object scotland_inapplicability
+        end
+      end
+    end
   end
 end

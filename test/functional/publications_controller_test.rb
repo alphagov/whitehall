@@ -10,6 +10,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_display_inline_images_for :publication
   should_not_display_lead_image_for :publication
   should_show_change_notes :publication
+  should_show_inapplicable_nations :publication
 
   test 'show displays published publications' do
     published_publication = create(:published_publication)
@@ -31,22 +32,6 @@ class PublicationsControllerTest < ActionController::TestCase
     end
 
     assert_select ".body", text: "body-in-html"
-  end
-
-  test "show displays inapplicable nations" do
-    published_publication = create(:published_publication)
-    northern_ireland_inapplicability = published_publication.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
-    scotland_inapplicability = published_publication.nation_inapplicabilities.create!(nation: Nation.scotland)
-
-    get :show, id: published_publication.document
-
-    assert_select inapplicable_nations_selector do
-      assert_select "p", "This publication does not apply to Northern Ireland and Scotland."
-      assert_select_object northern_ireland_inapplicability do
-        assert_select "a[href='http://northern-ireland.com/']"
-      end
-      refute_select_object scotland_inapplicability
-    end
   end
 
   test "show should not explicitly say that publication applies to the whole of the UK" do
