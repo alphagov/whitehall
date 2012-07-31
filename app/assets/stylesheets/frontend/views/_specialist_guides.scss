@@ -4,6 +4,20 @@
   }
 }
 
+.specialist-guides-index {
+  .document-list {
+    .document-row {
+      .title {
+        width: 70%;
+      }
+      .topic {
+        width: 30%;
+        text-align: right;
+      }
+    }
+  }
+}
+
 .specialist-guides-show {
   @include media(desktop) {
     .block-2 {
