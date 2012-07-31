@@ -32,11 +32,6 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert_equal document_scope, Whitehall::DocumentFilter.new(document_scope).documents
   end
 
-  test "#documents returns documents reverse chronological order by default" do
-    document_scope.expects(:in_reverse_chronological_order).returns(document_scope)
-    Whitehall::DocumentFilter.new(document_scope).documents
-  end
-
   test "#by_topics filters the documents by topic using slugs" do
     filter = Whitehall::DocumentFilter.new(document_scope)
 

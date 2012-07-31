@@ -67,10 +67,12 @@ class Whitehall::DocumentFilter
     @documents = @documents.in_organisation(@selected_organisations) if @selected_organisations.any?
     @documents = @documents.with_content_containing(*@keywords) if @keywords.any?
 
-    @documents = if "after" == @direction
-      @documents.in_chronological_order
-    else
-      @documents.in_reverse_chronological_order
+    if @date
+      @documents = if "after" == @direction
+        @documents.in_chronological_order
+      else
+        @documents.in_reverse_chronological_order
+      end
     end
 
     if @page
