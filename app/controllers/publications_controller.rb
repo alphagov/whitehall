@@ -26,10 +26,11 @@ private
 
   def load_filtered_publications(params)
     @filter = Whitehall::DocumentFilter.new(all_publications)
-    @filter.by_topics(params[:topics])
-    @filter.by_organisations(params[:departments])
-    @filter.by_keywords(params[:keywords])
-    @filter.by_date(params[:date], params[:direction])
-    @filter.paginate(params[:page])
+    @filter.
+      by_topics(params[:topics]).
+      by_organisations(params[:departments]).
+      by_keywords(params[:keywords]).
+      by_date(params[:date], params[:direction]).
+      paginate(params[:page] || 1)
   end
 end

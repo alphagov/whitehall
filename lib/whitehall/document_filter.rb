@@ -1,8 +1,12 @@
 class Whitehall::DocumentFilter
-  attr_reader :selected_topics, :selected_organisations, :documents, :keywords, :date, :direction
+  attr_reader :selected_topics, :selected_organisations, :keywords, :date, :direction
 
   def initialize(documents)
     @documents = documents
+    @selected_topics = []
+    @selected_organisations = []
+    @keywords = []
+    @direction = "before"
   end
 
   def all_topics
@@ -14,26 +18,24 @@ class Whitehall::DocumentFilter
   end
 
   def by_topics(topic_slugs)
-    @selected_topics = []
     if topic_slugs.present? && !topic_slugs.include?("all")
       @selected_topics = Topic.where(slug: topic_slugs)
-      @documents = @documents.in_topic(@selected_topics)
     end
+    self
   end
 
   def by_organisations(organisation_slugs)
-    @selected_organisations = []
     if organisation_slugs.present? && !organisation_slugs.include?("all")
       @selected_organisations = Organisation.where(slug: organisation_slugs)
-      @documents = @documents.in_organisation(@selected_organisations)
     end
+    self
   end
 
   def by_keywords(keywords)
     if keywords.present?
       @keywords = keywords.split(/\s+/)
-      @documents = @documents.with_content_containing(*@keywords)
     end
+    self
   end
 
   def by_date(date, direction)
@@ -51,18 +53,30 @@ class Whitehall::DocumentFilter
           @documents = @documents.published_after(@date)
         end
       end
-    else
-      @direction = "before"
     end
-
-    if "after" == @direction
-      @documents = @documents.in_chronological_order
-    else
-      @documents = @documents.in_reverse_chronological_order
-    end
+    self
   end
 
   def paginate(page)
-    @documents = @documents.page(page).per(20)
+    @page = page
+    self
+  end
+
+  def documents
+    @documents = @documents.in_topic(@selected_topics) if @selected_topics.any?
+    @documents = @documents.in_organisation(@selected_organisations) if @selected_organisations.any?
+    @documents = @documents.with_content_containing(*@keywords) if @keywords.any?
+
+    @documents = if "after" == @direction
+      @documents.in_chronological_order
+    else
+      @documents.in_reverse_chronological_order
+    end
+
+    if @page
+      @documents.page(@page).per(20)
+    else
+      @documents
+    end
   end
 end
