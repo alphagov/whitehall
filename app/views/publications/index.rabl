@@ -1,27 +1,27 @@
 object false
 node :count do
-  @publications.count
+  @filter.documents.count
 end
 node :current_page do
-  @publications.current_page
+  @filter.documents.current_page
 end
-node :next_page, unless: lambda { |_| @publications.last_page? } do
-  @publications.current_page + 1
+node :next_page, unless: lambda { |_| @filter.documents.last_page? } do
+  @filter.documents.current_page + 1
 end
-node :prev_page, unless: lambda { |_| @publications.first_page? } do
-  @publications.current_page - 1
+node :prev_page, unless: lambda { |_| @filter.documents.first_page? } do
+  @filter.documents.current_page - 1
 end
 node :total_pages do
-  @publications.num_pages
+  @filter.documents.num_pages
 end
-node(:next_page_url, unless: lambda { |_| @publications.last_page? }) do
-  url_for params.merge(page: (@publications.current_page + 1), "_" => nil)
+node(:next_page_url, unless: lambda { |_| @filter.documents.last_page? }) do
+  url_for params.merge(page: (@filter.documents.current_page + 1), "_" => nil)
 end
-node(:prev_page_url, unless: lambda { |_| @publications.first_page? }) do
-  url_for params.merge(page: (@publications.current_page - 1), "_" => nil)
+node(:prev_page_url, unless: lambda { |_| @filter.documents.first_page? }) do
+  url_for params.merge(page: (@filter.documents.current_page - 1), "_" => nil)
 end
 node :results do
-  @publications.map { |a| {
+  @filter.documents.map { |a| {
       id: a.id,
       title: a.title,
       url: public_document_path(a),

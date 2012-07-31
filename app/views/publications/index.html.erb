@@ -19,30 +19,30 @@
           <div class="filter">
             <div class="filter-inner">
               <%= label_tag "departments", "Department", class: "visuallyhidden" %>
-              <%= select_tag :departments, organisation_filter_options(@all_organisations, @selected_departments), size: 5, multiple: true, class: "multi-row-select" %>
+              <%= select_tag :departments, organisation_filter_options(@filter.all_organisations, @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
             </div>
           </div>
           <div class="filter">
             <div class="filter-inner">
               <%= label_tag "topics", "Topic", class: "visuallyhidden" %>
-              <%= select_tag :topics, topic_filter_options(@all_topics, @selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
+              <%= select_tag :topics, topic_filter_options(@filter.all_topics, @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
             </div>
           </div>
           <div class="filter">
             <div class="filter-inner">
               <%= label_tag "keywords", "Contains", class: 'title' %>
-              <%= text_field_tag :keywords, @keywords, placeholder: "keywords" %>
+              <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
 
               <div class="date-range">
                 <h3>Published</h3>
                 <% ['before', 'after'].each do |direction| %>
                   <%= label_tag "direction_#{direction}", class: 'checkbox'  do %>
-                    <%= radio_button_tag :direction, direction, direction == @direction %>
+                    <%= radio_button_tag :direction, direction, direction == @filter.direction %>
                     <%= direction.humanize %>
                   <% end %>
                 <% end %>
                 <%= label_tag "date", "Date", class: "visuallyhidden" %>
-                <%= select_tag :date, options_for_select(recent_month_filter_options(24, @date)), include_blank: false %>
+                <%= select_tag :date, options_for_select(recent_month_filter_options(24, @filter.date)), include_blank: false %>
               </div>
               <div class="submit">
                 <%= submit_tag "Refresh", class: "button" %>
@@ -57,7 +57,7 @@
 
 <div class="block-4">
   <div class="inner-block" id="publications-container" aria-live="polite"><%# this ID used by Javascript %>
-    <% if @publications.any? %>
+    <% if @filter.documents.any? %>
       <table class="document-list emphasise-recent" id="publications-list"><%# this ID used by Javascript %>
         <thead class="visuallyhidden">
           <tr>
@@ -67,7 +67,7 @@
           </tr>
         </thead>
         <tbody>
-        <% @publications.each_with_index do |publication, i| %>
+        <% @filter.documents.each_with_index do |publication, i| %>
           <%= content_tag_for(:tr, publication, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
             <th scope="row" class="title attribute">
               <%= link_to publication.title, public_document_path(publication),
@@ -87,7 +87,7 @@
         <% end %>
         </tbody>
       </table>
-      <%= paginate @publications %>
+      <%= paginate @filter.documents %>
     <% else %>
       <div class="no-results">
         <h2>There are no matching publications.</h2>

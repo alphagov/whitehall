@@ -166,7 +166,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index
 
-    refute assigns[:all_topics].include?(another_topic)
+    refute assigns[:filter].all_topics.include?(another_topic)
   end
 
   test "index lists topic filter options in alphabetical order" do
@@ -176,10 +176,10 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal ["Aardvark protection", "Yak shaving"], assigns[:all_topics].map(&:name)
+    assert_equal ["Aardvark protection", "Yak shaving"], assigns[:filter].all_topics.map(&:name)
   end
 
-  test "index lists organisations with publicationsi in alphabetical order ignoring prefix" do
+  test "index lists organisations with publications in alphabetical order ignoring prefix" do
     organisation_1 = create(:organisation, name: "Department of yak shaving")
     publication_1 = create(:published_publication, organisations: [organisation_1])
     organisation_2 = create(:organisation, name: "Ministry of aardvark protection")
@@ -187,7 +187,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal ["Ministry of aardvark protection", "Department of yak shaving"], assigns[:all_organisations].map(&:name)
+    assert_equal ["Ministry of aardvark protection", "Department of yak shaving"], assigns[:filter].all_organisations.map(&:name)
   end
 
   test "index highlights selected topic filter options" do
@@ -290,7 +290,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, direction: "after", date: 3.months.ago
 
-    assert_equal [publication_published_first, publication_published_second], assigns[:publications]
+    assert_equal [publication_published_first, publication_published_second], assigns[:filter].documents
   end
 
   test "index lists publications in reverse chronological order when filtered before a date" do
@@ -299,7 +299,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, direction: "before", date: 1.month.ago
 
-    assert_equal [publication_published_second, publication_published_first], assigns[:publications]
+    assert_equal [publication_published_second, publication_published_first], assigns[:filter].documents
   end
 
   test "index lists publications in reverse chronological order by default" do
@@ -308,7 +308,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [publication_published_second, publication_published_first], assigns[:publications]
+    assert_equal [publication_published_second, publication_published_first], assigns[:filter].documents
   end
 
   test "index should show a helpful message if there are no matching publications" do
