@@ -1,9 +1,3 @@
-.specialistguide {
-  .pageNavigation {
-    margin-left: 1em;
-  }
-}
-
 .specialist-guides-index {
   .page-header {
     padding: 20px 0;
@@ -279,6 +273,88 @@
           margin-left: -$gutter;
           border-left: 1px solid $light-blue;
         }
+      }
+    }
+  }
+}
+
+.specialist-guides-search {
+  width: 100%;
+  padding-bottom: $gutter*4;
+  overflow: hidden;
+
+  @include media(desktop){
+    .block-1 .inner-block {
+      padding: 0;
+    }
+    .block-3 {
+      width: 30%;
+      float: left;
+      display: inline;
+      min-height: 100px;
+    }
+    .block-4 {
+      width: 70%;
+      float: left;
+      display: inline;
+    }
+  }
+  .search-form {
+    padding: $gutter*2 0;
+    label {
+      width: 30%;
+      display: block;
+      float: left;
+      text-align: right;
+      padding: 0.25em 0 0.25em $gutter-two-thirds;
+      line-height: 1.25;
+    }
+    .search-box {
+      width: 300px;
+    }
+    .button {
+      top: 0;
+    }
+  }
+
+  .filters {
+    li a {
+      @include core-16;
+      display: block;
+      padding: 3px 3px 3px 6px;
+      width: 100%;
+      overflow: hidden;
+      line-height: $gutter-two-thirds+6px;
+
+      &.active {
+        background: darken($light-warm-grey, 5%);
+      }
+      &:hover,
+      &:focus {
+        background: $light-warm-grey;
+      }
+      span {
+        display: block;
+        padding: 3px;
+        float: right;
+        line-height: $gutter-two-thirds;
+        background: $specialist-background;
+      }
+    }
+  }
+  .search-results {
+    .result {
+      margin-bottom: $gutter;
+      list-style: none;
+
+      h3 {
+        margin-bottom: $gutter-one-sixth;
+      }
+      .highlight {
+        margin-bottom: $gutter-one-third;
+      }
+      .meta {
+        @include core-16;
       }
     }
   }

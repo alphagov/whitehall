@@ -14,6 +14,7 @@ class SpecialistGuidesController < DocumentsController
     @search_term = params[:q]
     @results = Whitehall.search_client.search(@search_term, 'specialist_guidance')
     @mainstream_results = Whitehall.mainstream_search_client.search(@search_term).take(3)
+    @total_results = @results.length + @mainstream_results.length
   end
 
   def autocomplete

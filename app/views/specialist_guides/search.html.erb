@@ -1,51 +1,74 @@
 <% page_title "Search" %>
-<% page_class "search-index" %>
+<% page_class "specialist-guides-search" %>
 
 <div class="block-1">
   <div class="inner-block">
-    <header class="page-header search">
-      <h1 class="page_title title">Found <%= pluralize(@results.length, "results") %> for "<%= @search_term %>"</h1>
-    </header>
+    <%= form_tag search_specialist_guides_path, method: :get, id: 'search-form', class: 'search-form' do %>
+      <fieldset>
+        <legend class="visuallyhidden">Search gov.uk</legend>
+        <%= label_tag :q, results_count_for(@total_results) %>
+        <%= text_field_tag :q, @search_term, class: 'search-box' %>
+        <%= submit_tag "Search", class: 'button' %>
+      </fieldset>
+    <% end %>
   </div>
 </div>
 
 <div class="block-2">
   <div class="inner-block">
-    <% if @results.any? %>
-      <ul class="search_results">
-        <% @results.each do |result| %>
-          <li class="<%= result["format"] %>">
-            <span class="document_format"><%= result['format'] && result["format"].humanize %></span>
-            <h2><%= link_to result["title"], result["link"] %></h2>
-            <% if result["highlight"] %>
-              <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
-            <% end %>
+  </div>
+</div>
+
+<div class="block-3">
+  <div class="inner-block">
+    <% if @total_results > 0 %>
+      <aside class="filters group js-search-filter">
+        <h2 class="visuallyhidden">Filter by Section</h2>
+        <ul>
+          <li data-filter="*">
+          <a href="#" class="active">All results <span><%= @total_results %></span><span class="visuallyhidden"> results</span></a>
           </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p class="notfound">We can't find any results for "<%= @search_term %>".</p>
+          <% if @results.length %>
+            <li data-filter="js-section-guidance">
+              <a href="#">Specialist guidance <span><%= @results.length %></span><span class="visuallyhidden"> results</span></a>
+            </li>
+          <% end %>
+          <% if @mainstream_results.length %>
+            <li data-filter="js-section-mainstream">
+              <a href="#">Elsewhere on GOV.UK <span><%= @mainstream_results.length %></span><span class="visuallyhidden"> results</span></a>
+            </li>
+          <% end %>
+        </ul>
+      </aside>
     <% end %>
   </div>
 </div>
 
-<% if @mainstream_results.any? %>
-  <div class="block-3">
-    <div class="inner-block">
-      <h2>Top results from other sections of GOV.UK</h2>
-      <ul class="mainstream_search_results">
-        <% @mainstream_results.each do |result| %>
-          <li class="<%= result["format"] %>">
-            <span class="document_format"><%= result['format'] && result["format"].humanize %></span>
-            <h2><%= link_to result["title"], result["link"] %></h2>
+<div class="block-4">
+  <div class="inner-block">
+    <% if @total_results > 0 %>
+      <ul class="search-results">
+        <% @results.each do |result| %>
+          <li class="result js-search-result js-section-guidance <%= result["format"] %>">
+            <h3><%= link_to result["title"], result["link"] %></h3>
             <% if result["highlight"] %>
               <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
             <% end %>
+            <span class="meta"><%= result['format'] && result["format"].humanize %></span>
+          </li>
+        <% end %>
+        <% @mainstream_results.each do |result| %>
+          <li class="result js-search-result js-section-mainstream <%= result["format"] %>">
+            <h3><%= link_to result["title"], result["link"] %></h3>
+            <% if result["highlight"] %>
+              <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
+            <% end %>
+            <span class="meta"><%= result['format'] && result["format"].humanize %></span>
           </li>
         <% end %>
       </ul>
-      <p><%= citizen_search_link(%{More results for "#{params[:q]}" from other sections of GOV.UK.}, params[:q], title: %{More results for "#{params[:q]}" from other sections of GOV.UK.}) %>
-</p>
-    </div>
+    <% else %>
+      <p>We couldn't find any relevent results for you. Try making your search broader and try again</p>
+    <% end %>
   </div>
-<% end %>
+</div>

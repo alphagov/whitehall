@@ -180,7 +180,7 @@ some more content
     Whitehall.mainstream_search_client.stubs(:search).returns([])
     Whitehall.search_client.stubs(:search).with('query', 'specialist_guidance').returns([{"title" => "title", "link" => "/specialist/guide-slug", "highlight" => "", "format" => "specialist_guidance"}])
     get :search, q: 'query'
-    assert_select ".search_results .specialist_guidance a[href='/specialist/guide-slug']"
+    assert_select ".specialist_guidance a[href='/specialist/guide-slug']"
   end
 
   test "search lists 3 results returned from the mainstream search" do
@@ -193,28 +193,10 @@ some more content
     ])
     get :search, q: 'query'
 
-    assert_select ".mainstream_search_results .planner a[href='/a']"
-    assert_select ".mainstream_search_results .planner a[href='/b']"
-    assert_select ".mainstream_search_results .planner a[href='/c']"
-    assert_select ".mainstream_search_results .planner a[href='/d']", count: 0
-  end
-
-  test "search includes a link to full mainstream results" do
-    Whitehall.search_client.stubs(:search).returns([])
-    Whitehall.mainstream_search_client.stubs(:search).with('query').returns([
-      {"title" => "a", "link" => "/a", "highlight" => "", "format" => "planner"}
-    ])
-    get :search, q: 'query'
-
-    assert_select 'a[href="/search?q=query"]'
-  end
-
-  test "search hides mainstream results if none returned" do
-    Whitehall.search_client.stubs(:search).returns([])
-    Whitehall.mainstream_search_client.stubs(:search).with('query').returns([])
-    get :search, q: 'query'
-
-    assert_select ".mainstream_search_results", count: 0
+    assert_select ".planner a[href='/a']"
+    assert_select ".planner a[href='/b']"
+    assert_select ".planner a[href='/c']"
+    assert_select ".planner a[href='/d']", count: 0
   end
 
   test "autocomplete returns the response from autocomplete as a string" do
