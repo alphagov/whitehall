@@ -1,4 +1,9 @@
 class AddCabinetMemberToRoles < ActiveRecord::Migration
+  class Role < ActiveRecord::Base
+  end
+  class MinisterialRole < Role
+  end
+
   def change
     add_column :roles, :cabinet_member, :boolean, after: :permanent_secretary, default: false, null: false
 
