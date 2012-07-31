@@ -15,9 +15,9 @@ class DocumentFilterTest < ActiveSupport::TestCase
     final_scope.expects(:ordered_by_name_ignoring_prefix)
     scope = stub('organisation scope')
     scope.expects(:group).with(:name).returns(final_scope)
-    Organisation.expects(:joins).with(:published_publications).returns(scope)
+    Organisation.expects(:joins).with(:published_document_types).returns(scope)
 
-    Whitehall::DocumentFilter.new([]).all_organisations
+    Whitehall::DocumentFilter.new([]).all_organisations(:document_type)
   end
 
   test "#selected_topics returns an empty set by default" do
