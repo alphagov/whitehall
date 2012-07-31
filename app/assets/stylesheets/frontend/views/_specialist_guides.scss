@@ -79,16 +79,6 @@
     }
   }
 
-  .related-mainstream-content {
-    margin: $gutter 0 $gutter $gutter-half*-1;
-    background: $light-warm-grey url(/government/assets/information-icon.png) no-repeat 98% $gutter-two-thirds;
-    padding: $gutter-one-third 55px $gutter-one-third $gutter-half;
-    p {
-      margin: 0;
-      padding: 0;
-    }
-  }
-
   .meta {
     @include core-14;
     @include media(desktop) {
