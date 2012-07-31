@@ -98,3 +98,15 @@
     *background: lighten($charcoal-grey, 70%);
   }
 }
+
+.filter-results {
+  .no-results {
+    padding: $gutter $gutter-half;
+    h2 {
+      @include core-27;
+    }
+    p {
+      @include core-19;
+    }
+  }
+}

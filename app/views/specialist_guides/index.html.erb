@@ -3,7 +3,7 @@
 
 <div class="block-1">
   <div class="inner-block">
-    <header class="page-header specialist-guides icon">
+    <header class="page-header specialist-guides">
       <h1 class="page_title">Specialist guidance</h1>
     </header>
   </div>
@@ -45,7 +45,7 @@
 </div>
 
 <div class="block-4">
-  <div class="inner-block" id="specialist-guides-container" aria-live="polite"><%# this ID used by Javascript %>
+  <div class="inner-block filter-results" id="specialist-guides-container" aria-live="polite"><%# this ID used by Javascript %>
     <% if @filter.documents.any? %>
       <table class="document-list" id="specialist-guides-list"><%# this ID used by Javascript %>
         <thead class="visuallyhidden">

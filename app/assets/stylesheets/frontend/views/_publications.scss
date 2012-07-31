@@ -8,16 +8,6 @@
   .block-4 {
     width: 100%;
   }
-  .no-results {
-    padding: $gutter $gutter-half;
-    h2 {
-      @include core-27;
-    }
-    p {
-      @include core-19;
-    }
-  }
-
 }
 
 #page.publications-index .previous-next-navigation {

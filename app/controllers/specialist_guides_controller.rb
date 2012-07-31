@@ -1,5 +1,4 @@
 class SpecialistGuidesController < DocumentsController
-  layout "specialist"
   before_filter :set_search_path
 
   def index
@@ -8,6 +7,7 @@ class SpecialistGuidesController < DocumentsController
 
   def show
     @topics = @document.topics
+    render action: "show", layout: "specialist"
   end
 
   def search
