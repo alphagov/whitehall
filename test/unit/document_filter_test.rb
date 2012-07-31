@@ -32,6 +32,13 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert_equal document_scope, Whitehall::DocumentFilter.new(document_scope).documents
   end
 
+  test "#alphabetical returns the given set of documents ordered alphabetically" do
+    filter = Whitehall::DocumentFilter.new(document_scope)
+    document_scope.expects(:alphabetical)
+
+    filter.alphabetical.documents
+  end
+
   test "#by_topics filters the documents by topic using slugs" do
     filter = Whitehall::DocumentFilter.new(document_scope)
 

@@ -109,52 +109,64 @@ some more content
     assert_select ".document_page.js-paginate-document", count: 0
   end
 
-  test "index shows all published specialist guides by topic" do
-    earth = create(:topic, name: "Earth")
-    wind = create(:topic, name: "Wind")
-    guide1 = create(:published_specialist_guide, title: "One", topics: [earth])
-    guide2 = create(:published_specialist_guide, title: "Two", topics: [earth, wind])
+  test "index highlights selected topic filter options" do
+    given_two_specialist_guides_in_two_topics
 
-    get :index
+    get :index, topics: [@topic_1, @topic_2]
 
-    assert_select_object earth do
-      assert_select "h2", text: "Earth"
-      assert_select_object guide1
-      assert_select_object guide2
-    end
-    assert_select_object wind do
-      assert_select "h2", text: "Wind"
-      assert_select_object guide2
+    assert_select "select[name='topics[]']" do
+      assert_select "option[selected='selected']", text: @topic_1.name
+      assert_select "option[selected='selected']", text: @topic_2.name
     end
   end
 
-  test "index optionally shows all published specialist guides by organisation" do
-    fire = create(:organisation, active: true, name: "Fire")
-    rain = create(:organisation, active: true, name: "Rain")
-    guide1 = create(:published_specialist_guide, title: "One", organisations: [fire])
-    guide2 = create(:published_specialist_guide, title: "Two", organisations: [fire, rain])
+  test "index highlights selected organisation filter options" do
+    given_two_specialist_guides_in_two_organisations
 
-    get :index, group_by: 'organisations'
+    get :index, departments: [@organisation_1, @organisation_2]
 
-    assert_select_object fire do
-      assert_select "h2", text: "Fire"
-      assert_select_object guide1
-      assert_select_object guide2
-    end
-    assert_select_object rain do
-      assert_select "h2", text: "Rain"
-      assert_select_object guide2
+    assert_select "select[name='departments[]']" do
+      assert_select "option[selected='selected']", text: @organisation_1.name
+      assert_select "option[selected='selected']", text: @organisation_2.name
     end
   end
 
-  test "index hides topics which have no specialist guides" do
-    earth = create(:topic, name: "Earth")
-    wind = create(:topic, name: "Wind")
-    guide1 = create(:published_specialist_guide, title: "One", topics: [earth])
+  test "index displays filter keywords" do
+    get :index, keywords: "olympics 2012"
+
+    assert_select "input[name='keywords'][value=?]", "olympics 2012"
+  end
+
+  test "index highlights all topics filter option by default" do
+    given_two_specialist_guides_in_two_topics
 
     get :index
 
-    refute_select_object wind
+    assert_select "select[name='topics[]']" do
+      assert_select "option[selected='selected']", text: "All topics"
+    end
+  end
+
+  test "index highlights all organisations filter options by default" do
+    given_two_specialist_guides_in_two_organisations
+
+    get :index
+
+    assert_select "select[name='departments[]']" do
+      assert_select "option[selected='selected']", text: "All departments"
+    end
+  end
+
+  test "index shows filter keywords placeholder by default" do
+    get :index
+
+    assert_select "input[name='keywords'][placeholder=?]", "keywords"
+  end
+
+  test "index should show a helpful message if there are no matching specialist guides" do
+    get :index
+
+    assert_select "h2", text: "There are no matching specialist guides."
   end
 
   test "search sets search path header to search specialist guides" do
@@ -211,5 +223,24 @@ some more content
     Whitehall.search_client.stubs(:autocomplete).with("search-term", "specialist_guidance").returns(raw_rummager_response)
     get :autocomplete, q: "search-term"
     assert_equal raw_rummager_response, @response.body
+  end
+
+  private
+
+  def given_two_specialist_guides_in_two_organisations
+    @organisation_1, @organisation_2 = create(:organisation), create(:organisation)
+    @specialist_guide_in_organisation_1 = create(:published_specialist_guide, organisations: [@organisation_1])
+    @specialist_guide_in_organisation_2 = create(:published_specialist_guide, organisations: [@organisation_2])
+  end
+
+  def given_two_specialist_guides_in_two_topics
+    @topic_1, @topic_2 = create(:topic), create(:topic)
+    @published_specialist_guide, @published_in_second_topic = create_specialist_guides_in(@topic_1, @topic_2)
+  end
+
+  def create_specialist_guides_in(*topics)
+    topics.map do |topic|
+      create(:published_specialist_guide, topics: [topic])
+    end
   end
 end

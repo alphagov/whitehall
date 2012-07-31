@@ -57,6 +57,11 @@ class Whitehall::DocumentFilter
     self
   end
 
+  def alphabetical
+    @alphabetical = true
+    self
+  end
+
   def paginate(page)
     @page = page
     self
@@ -73,6 +78,10 @@ class Whitehall::DocumentFilter
       else
         @documents.in_reverse_chronological_order
       end
+    end
+
+    if @alphabetical
+      @documents = @documents.alphabetical
     end
 
     if @page

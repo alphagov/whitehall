@@ -20,6 +20,12 @@ class Edition < ActiveRecord::Base
 
   validates :title, :body, :creator, presence: true
 
+  scope :alphabetical, order("title ASC")
+  scope :with_content_containing, -> *keywords {
+    pattern = "(#{keywords.join('|')})"
+    where("#{table_name}.title REGEXP :pattern OR #{table_name}.body REGEXP :pattern", pattern: pattern)
+  }
+
   class UnmodifiableOncePublishedValidator < ActiveModel::Validator
     def validate(record)
       if record.unmodifiable?

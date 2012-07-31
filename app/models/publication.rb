@@ -9,12 +9,6 @@ class Publication < Edition
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true
 
-
-  scope :with_content_containing, -> *keywords {
-    pattern = "(#{keywords.join('|')})"
-    where("#{table_name}.title REGEXP :pattern OR #{table_name}.body REGEXP :pattern", pattern: pattern)
-  }
-
   scope :published_before, -> date { where(arel_table[:publication_date].lteq(date)) }
   scope :published_after,  -> date { where(arel_table[:publication_date].gteq(date)) }
 

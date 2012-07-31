@@ -3,11 +3,7 @@ class SpecialistGuidesController < DocumentsController
   before_filter :set_search_path
 
   def index
-    if params[:group_by] == 'organisations'
-      @grouped_published_specialist_guides = Organisation.joins(:published_specialist_guides).includes(:published_specialist_guides)
-    else
-      @grouped_published_specialist_guides = Topic.joins(:published_specialist_guides).includes(:published_specialist_guides)
-    end
+    load_filtered_specialist_guides(params)
   end
 
   def show
@@ -35,5 +31,15 @@ private
 
   def set_proposition
     set_slimmer_headers(proposition: "specialist")
+  end
+
+  def load_filtered_specialist_guides(params)
+    @filter = Whitehall::DocumentFilter.new(SpecialistGuide.published.includes(:document, :organisations, :topics))
+    @filter.
+      by_topics(params[:topics]).
+      by_organisations(params[:departments]).
+      by_keywords(params[:keywords]).
+      alphabetical.
+      paginate(params[:page] || 1)
   end
 end
