@@ -329,13 +329,15 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "show doesn't display an empty ISBN if none exists for the attachment" do
-    attachment = create(:attachment, isbn: nil)
-    edition = create("published_publication", body: "!@1", attachments: [attachment])
+    [nil, ""].each do |isbn|
+      attachment = create(:attachment, isbn: isbn)
+      edition = create("published_publication", body: "!@1", attachments: [attachment])
 
-    get :show, id: edition.document
+      get :show, id: edition.document
 
-    assert_select_object(attachment) do
-      refute_select ".isbn"
+      assert_select_object(attachment) do
+        refute_select ".isbn"
+      end
     end
   end
 
@@ -351,13 +353,15 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "show doesn't display an empty Unique Reference Number if none exists for the attachment" do
-    attachment = create(:attachment, unique_reference: nil)
-    edition = create("published_publication", body: "!@1", attachments: [attachment])
+    [nil, ""].each do |unique_reference|
+      attachment = create(:attachment, unique_reference: unique_reference)
+      edition = create("published_publication", body: "!@1", attachments: [attachment])
 
-    get :show, id: edition.document
+      get :show, id: edition.document
 
-    assert_select_object(attachment) do
-      refute_select ".unique_reference"
+      assert_select_object(attachment) do
+        refute_select ".unique_reference"
+      end
     end
   end
 
@@ -373,13 +377,15 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "show doesn't display an empty Command Paper number if none exists for the attachment" do
-    attachment = create(:attachment, command_paper_number: nil)
-    edition = create("published_publication", body: "!@1", attachments: [attachment])
+    [nil, ""].each do |command_paper_number|
+      attachment = create(:attachment, command_paper_number: command_paper_number)
+      edition = create("published_publication", body: "!@1", attachments: [attachment])
 
-    get :show, id: edition.document
+      get :show, id: edition.document
 
-    assert_select_object(attachment) do
-      refute_select ".command_paper_number"
+      assert_select_object(attachment) do
+        refute_select ".command_paper_number"
+      end
     end
   end
 
@@ -395,13 +401,15 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "show doesn't display an empty order url if none exists for the attachment" do
-    attachment = create(:attachment, order_url: nil)
-    edition = create("published_publication", body: "!@1", attachments: [attachment])
+    [nil, ""].each do |order_url|
+      attachment = create(:attachment, order_url: order_url)
+      edition = create("published_publication", body: "!@1", attachments: [attachment])
 
-    get :show, id: edition.document
+      get :show, id: edition.document
 
-    assert_select_object(attachment) do
-      refute_select ".order_url"
+      assert_select_object(attachment) do
+        refute_select ".order_url"
+      end
     end
   end
 
@@ -417,13 +425,15 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "show doesn't display an empty price if none exists for the attachment" do
-    attachment = create(:attachment, price: nil)
-    edition = create("published_publication", body: "!@1", attachments: [attachment])
+    [nil, ""].each do |price|
+      attachment = create(:attachment, price_in_pence: price)
+      edition = create("published_publication", body: "!@1", attachments: [attachment])
 
-    get :show, id: edition.document
+      get :show, id: edition.document
 
-    assert_select_object(attachment) do
-      refute_select ".price"
+      assert_select_object(attachment) do
+        refute_select ".price"
+      end
     end
   end
 
