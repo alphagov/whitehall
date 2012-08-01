@@ -332,7 +332,7 @@ module DocumentControllerTestHelpers
         get :show, id: published_document.document
 
         assert_select inapplicable_nations_selector do
-          assert_select "p", "This #{published_document.format_name} does not apply to Northern Ireland and Scotland."
+          assert_select "p", "Only applies to England and Wales (see #{published_document.format_name} for Northern Ireland)."
           assert_select_object northern_ireland_inapplicability do
             assert_select "a[href='http://northern-ireland.com/']"
           end

@@ -24,7 +24,7 @@ module DocumentHelper
 
   def only_applies_to_nations_paragraph(document)
     if document.respond_to?(:nation_inapplicabilities) and document.nation_inapplicabilities.any?
-      content_tag :p, "Only applies to #{document.applicable_nations.map(&:name).sort.to_sentence} #{see_alternative_urls_for_inapplicable_nations(document)}.".html_safe, class: 'inapplicable-nations'
+      content_tag :p, "Only applies to #{document.applicable_nations.map(&:name).sort.to_sentence}#{see_alternative_urls_for_inapplicable_nations(document)}.".html_safe, class: 'inapplicable-nations'
     end
   end
 
@@ -33,7 +33,7 @@ module DocumentHelper
       ni.alternative_url.present?
     end
     if with_alternative_urls.any?
-      "(see #{edition.format_name} for ".html_safe + list_of_links_to_inapplicable_nations(with_alternative_urls) + ")".html_safe
+      " (see #{edition.format_name} for ".html_safe + list_of_links_to_inapplicable_nations(with_alternative_urls) + ")".html_safe
     end
   end
 
@@ -43,7 +43,7 @@ module DocumentHelper
 
   def link_to_inapplicable_nation(nation_inapplicability)
     if nation_inapplicability.alternative_url.present?
-      link_to nation_inapplicability.nation.name, nation_inapplicability.alternative_url, class: "country", rel: "external"
+      link_to nation_inapplicability.nation.name, nation_inapplicability.alternative_url, class: "country", id: "nation_inapplicability_#{nation_inapplicability.id}", rel: "external"
     else
       nation_inapplicability.nation.name
     end

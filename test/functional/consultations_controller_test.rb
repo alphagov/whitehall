@@ -7,6 +7,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   should_display_inline_images_for :consultation
   should_not_display_lead_image_for :consultation
   should_show_change_notes :consultation
+  should_show_inapplicable_nations :consultation
 
   test "should avoid n+1 queries" do
     10.times { create(:published_consultation, featured: true) }
@@ -209,22 +210,6 @@ class ConsultationsControllerTest < ActionController::TestCase
     published_consultation = create(:published_consultation, opening_on: Date.new(2010, 1, 1), closing_on: Date.new(2011, 01, 01))
     get :show, id: published_consultation.document
     assert_select '.closing_on', text: 'Closed on 1 January 2011'
-  end
-
-  test "should show inapplicable nations" do
-    published_consultation = create(:published_consultation)
-    northern_ireland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
-    scotland_inapplicability = published_consultation.nation_inapplicabilities.create!(nation: Nation.scotland)
-
-    get :show, id: published_consultation.document
-
-    assert_select inapplicable_nations_selector do
-      assert_select "p", "This consultation does not apply to Northern Ireland and Scotland."
-      assert_select_object northern_ireland_inapplicability do
-        assert_select "a[href='http://northern-ireland.com/']"
-      end
-      refute_select_object scotland_inapplicability
-    end
   end
 
   test "should not explicitly say that consultation applies to the whole of the UK" do

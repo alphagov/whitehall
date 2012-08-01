@@ -8,6 +8,7 @@ class PoliciesControllerTest < ActionController::TestCase
   should_show_the_countries_associated_with :policy
   should_display_inline_images_for :policy
   should_not_display_lead_image_for :policy
+  should_show_inapplicable_nations :policy
   should_show_change_notes_on_action :policy, :show do |policy|
     get :show, id: policy.document
   end
@@ -18,19 +19,6 @@ class PoliciesControllerTest < ActionController::TestCase
     get :show, id: policy.document
 
     assert_select ".published-at[title=#{policy.published_at.iso8601}]"
-  end
-
-  test "should show inapplicable nations with alternative urls" do
-    published_policy = create(:published_policy)
-    northern_ireland_inapplicability = published_policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
-    scotland_inapplicability = published_policy.nation_inapplicabilities.create!(nation: Nation.scotland)
-
-    get :show, id: published_policy.document
-
-    assert_select inapplicable_nations_selector do
-      assert_select "p", "Only applies to England and Wales (see policy for Northern Ireland)."
-      assert_select "a[href='http://northern-ireland.com/']"
-    end
   end
 
   test "should not explicitly say that policy applies to the whole of the UK" do
