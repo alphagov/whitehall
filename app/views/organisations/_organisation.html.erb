@@ -1,7 +1,0 @@
-<%= content_tag_for(:li, organisation, class: list_item_class) do %>
-  <%= if organisation.active?
-        link_to organisation.name, organisation_path(organisation)
-      else
-        organisation.name
-      end %>
-<% end %>

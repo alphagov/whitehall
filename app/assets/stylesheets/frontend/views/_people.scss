@@ -43,7 +43,7 @@
         margin-bottom: 0;
       }
     }
-    ul.organisations {
+    ul.organisations-icon-list {
       margin: 0;
     }
 
@@ -62,7 +62,7 @@
       margin-top: $gutter-half;
     }
 
-    section { 
+    section {
       margin: $gutter 0 $gutter*2 0;
       h1 {
         @include core-27;
@@ -76,7 +76,7 @@
       }
     }
 
-    ul.organisations {
+    ul.organisations-icon-list {
       margin: 0 0 $gutter $gutter-half;
       float: right;
       min-width: 33.333333%;
@@ -114,13 +114,13 @@
   .in-page-navigation figure.img {
     margin: 0;
     width: 100%;
-    img { 
+    img {
       width: 100%;
       max-width: 135px;
     }
   }
 
-  ul.organisations {
+  ul.organisations-icon-list {
     margin: 0 0 0 0;
   }
 

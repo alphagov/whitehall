@@ -30,7 +30,8 @@
         <section class="alphabetical-list">
           <div class="alphabetical-row">
               <%= content_tag(:h2, letter, id: letter, class: "label") %>
-              <%= render partial: "list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
+              <%= render partial: 'organisations_name_list',
+                         locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
           </div>
         </section>
       </div>

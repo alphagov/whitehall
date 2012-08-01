@@ -240,11 +240,3 @@
   }
 }
 
-ul.organisations {
-  list-style: none;
-
-  .organisation-logo-small {
-    @include logo-19;
-    white-space: nowrap;
-  }
-}

@@ -38,7 +38,7 @@
     margin-bottom: $gutter;
     overflow: hidden;
 
-    .organisations {
+    .organisations-icon-list {
       padding-bottom: $gutter-one-third;
       @include media (640px) {
         padding-bottom: $gutter-half;
@@ -230,7 +230,7 @@
       margin-top: $gutter-half;
       padding: $gutter $gutter $gutter-two-thirds;
 
-      .organisations {
+      .organisations-icon-list {
         overflow: hidden;
         width: 100%;
         .organisation {

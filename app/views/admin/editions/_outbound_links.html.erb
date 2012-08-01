@@ -4,7 +4,7 @@
   <section>
     <h2>Organisations</h2>
     <% if edition.organisations.any? %>
-      <%= render partial: "admin/organisations/list", locals: {organisations: edition.organisations} %>
+      <%= render partial: "organisations/organisations_name_list", locals: {organisations: edition.organisations} %>
     <% else %>
       <p>This document isn't assigned to any organisations.</p>
     <% end %>

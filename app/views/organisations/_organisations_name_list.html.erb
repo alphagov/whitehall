@@ -1,0 +1,11 @@
+<ul class="organisations-name-list">
+  <% organisations.each do |organisation| %>
+    <%= content_tag_for(:li, organisation, class: 'organisation') do %>
+      <%= if organisation.active?
+        link_to organisation.name, organisation_path(organisation)
+      else
+        organisation.name
+      end %>
+    <% end %>
+  <% end %>
+</ul>

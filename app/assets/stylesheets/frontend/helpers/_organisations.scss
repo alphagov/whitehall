@@ -1,0 +1,56 @@
+.organisations-icon-list {
+  list-style: none;
+
+  .organisation-logo-small {
+    @include logo-19;
+  }
+
+  .treasury a {
+    border-color: $treasury;
+  }
+  .cabinet-office a {
+    border-color: $cabinet-office;
+  }
+  .department-for-education a {
+    border-color: $department-for-education;
+  }
+  .department-of-transport a {
+    border-color: $department-of-transport;
+  }
+  .home-office a {
+    border-color: $home-office;
+  }
+  .department-of-health a {
+    border-color: $department-of-health;
+  }
+  .ministry-of-justice a {
+    border-color: $ministry-of-justice;
+  }
+  .ministry-of-defence a {
+    border-color: $ministry-of-defence;
+  }
+  .foreign-and-commonwealth-office a {
+    border-color: $foreign-and-commonwealth-office;
+  }
+  .department-for-communities-and-local-government a {
+    border-color: $department-for-communities-and-local-government;
+  }
+  .department-for-energy-and-climate-change a {
+    border-color: $department-for-energy-and-climate-change;
+  }
+  .department-for-culture-media-and-sport a {
+    border-color: $department-for-culture-media-and-sport;
+  }
+  .department-for-environment-food-and-rural-affairs a {
+    border-color: $department-for-environment-food-and-rural-affairs;
+  }
+  .department-for-work-and-pensions a {
+    border-color: $department-for-work-and-pensions;
+  }
+  .department-for-business-innovation-and-skills a {
+    border-color: $department-for-business-innovation-and-skills;
+  }
+  .department-for-international-development a {
+    border-color: $department-for-international-development;
+  }
+}

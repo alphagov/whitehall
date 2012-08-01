@@ -4,7 +4,7 @@
   remove_line_breaks ||= false
 %>
 
-<ul class="organisations">
+<ul class="organisations-icon-list">
   <% organisations.each do |organisation| %>
     <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation, class: '')) do %>
       <% if external_links %>
