@@ -1574,64 +1574,6 @@ module AdminEditionControllerTestHelpers
         assert_equal "Some Other Mainstream Content", edition.related_mainstream_content_title
       end
     end
-
-    def should_paginate(edition_type)
-      test "index should only show a certain number of documents by default" do
-        documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", publication_date: i.days.ago) }
-
-        get :index
-
-        (0..19).to_a.each { |i| assert_select_object(documents[i]) }
-        (20..24).to_a.each { |i| refute_select_object(documents[i]) }
-      end
-
-      test "index should show window of pagination" do
-        documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-window-pagination", publication_date: i.days.ago) }
-
-        get :index, page: 2
-
-        (0..19).to_a.each { |i| refute_select_object(documents[i]) }
-        (20..24).to_a.each { |i| assert_select_object(documents[i]) }
-      end
-
-      test "show more button should not appear by default" do
-        documents = (1..18).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
-
-        get :index
-
-        refute_select "#show-more-documents"
-      end
-
-      test "show more button should appear when there are more records" do
-        documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
-
-        get :index
-
-        assert_select "#show-more-documents"
-      end
-
-      test "should show previous page link when not on the first page" do
-        documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
-
-        get :index, page: 2
-
-        assert_select "#show-more-documents" do
-          assert_select ".previous"
-          refute_select ".next"
-        end
-      end
-
-      test "should show progress helpers in pagination links" do
-        documents = (1..45).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
-
-        get :index, page: 2
-
-        assert_select "#show-more-documents" do
-          assert_select ".previous span", text: "1 of 3"
-          assert_select ".next span", text: "3 of 3"
-        end
-      end
-    end
   end
 
   def controller_attributes_for(edition_type, attributes = {})
