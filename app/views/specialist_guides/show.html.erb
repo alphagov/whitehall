@@ -17,7 +17,6 @@
           topics: @topics,
           document: @document
         }%>
-        <%= only_applies_to_nations_paragraph(@document) %>
         <% if @document.published_related_specialist_guides.any? %>
           <!-- p class="more-like-this"><a href="#more-like-this">related guidance</a></p> -->
         <% end %>

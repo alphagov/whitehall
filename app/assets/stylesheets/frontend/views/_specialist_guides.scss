@@ -85,9 +85,9 @@
       p {
         display: inline;
       }
-    }
-    .inapplicable-nations {
-      padding-top: $gutter-half;
+      .inapplicable-nations a {
+        text-decoration: underline;
+      }
     }
     .more-like-this {
       margin-top: $gutter-one-third;
