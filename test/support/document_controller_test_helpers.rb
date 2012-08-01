@@ -341,9 +341,10 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_paginate(edition_type)
+    def should_paginate(edition_type, options={})
       test "index should only show a certain number of documents by default" do
         documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", publication_date: i.days.ago) }
+        documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
         get :index
 
@@ -353,6 +354,7 @@ module DocumentControllerTestHelpers
 
       test "index should show window of pagination" do
         documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-window-pagination", publication_date: i.days.ago) }
+        documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
         get :index, page: 2
 

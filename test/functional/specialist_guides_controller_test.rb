@@ -6,6 +6,7 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_attachments_for :specialist_guide
   should_show_inapplicable_nations :specialist_guide
+  should_paginate :specialist_guide, sort_by: :title
   should_return_json_suitable_for_the_document_filter :specialist_guide
 
   test "index <title> does not contain 'Inside Government'" do
