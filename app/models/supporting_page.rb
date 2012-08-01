@@ -19,8 +19,12 @@ class SupportingPage < ActiveRecord::Base
 
   scope :published, joins(:edition).merge(Edition.published)
 
-  searchable title: :title, link: :search_link, content: :body_without_markup,
-    only: :published, index_after: false, unindex_after: false
+  searchable title: :title,
+             link: :search_link,
+             content: :body_without_markup,
+             only: :published,
+             index_after: false,
+             unindex_after: false
 
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: :edition

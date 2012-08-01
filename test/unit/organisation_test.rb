@@ -255,10 +255,28 @@ class OrganisationTest < ActiveSupport::TestCase
     results = Organisation.search_index
 
     assert_equal 4, results.length
-    assert_equal({ 'title' => 'Department for Culture and Sports', 'link' => '/government/organisations/department-for-culture-and-sports', 'indexable_content' => 'Sporty.', 'format' => 'organisation' }, results[0])
-    assert_equal({ 'title' => 'Department of Education', 'link' => '/government/organisations/department-of-education', 'indexable_content' => 'Bookish.', 'format' => 'organisation' }, results[1])
-    assert_equal({ 'title' => 'HMRC', 'link' => '/government/organisations/hmrc', 'indexable_content' => 'Taxing.', 'format' => 'organisation', 'boost_phrases' => 'hmrc' }, results[2])
-    assert_equal({ 'title' => 'Ministry of Defence', 'link' => '/government/organisations/ministry-of-defence', 'indexable_content' => 'Defensive.', 'format' => 'organisation', 'boost_phrases' => 'mod' }, results[3])
+    assert_equal({'title' => 'Department for Culture and Sports',
+                  'link' => '/government/organisations/department-for-culture-and-sports',
+                  'indexable_content' => 'Sporty.',
+                  'format' => 'organisation',
+                  'description' => ''}, results[0])
+    assert_equal({'title' => 'Department of Education',
+                  'link' => '/government/organisations/department-of-education',
+                  'indexable_content' => 'Bookish.',
+                  'format' => 'organisation',
+                  'description' => ''}, results[1])
+    assert_equal({'title' => 'HMRC',
+                  'link' => '/government/organisations/hmrc',
+                  'indexable_content' => 'Taxing.',
+                  'format' => 'organisation',
+                  'boost_phrases' => 'hmrc',
+                  'description' => ''}, results[2])
+    assert_equal({'title' => 'Ministry of Defence',
+                  'link' => '/government/organisations/ministry-of-defence',
+                  'indexable_content' => 'Defensive.',
+                  'format' => 'organisation',
+                  'boost_phrases' => 'mod',
+                  'description' => ''}, results[3])
   end
 
   test '#featured_editions returns featured editions by ordering' do

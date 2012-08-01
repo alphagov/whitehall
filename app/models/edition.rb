@@ -58,6 +58,7 @@ class Edition < ActiveRecord::Base
     link: -> d { d.public_document_path(d) },
     format: -> d { d.format_name.gsub(" ", "_") },
     content: :indexable_content,
+    description: :summary,
     only: :published,
     index_after: [],
     unindex_after: []

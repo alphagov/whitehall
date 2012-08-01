@@ -37,8 +37,8 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test "should be able to get published speeches associated with the current appointee" do
-    appointment = create(:ministerial_role_appointment, 
-      started_at: 1.day.ago, 
+    appointment = create(:ministerial_role_appointment,
+      started_at: 1.day.ago,
       ended_at: nil)
     create(:published_speech, role_appointment: appointment)
     create(:draft_speech, role_appointment: appointment)
@@ -48,8 +48,8 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test "published_speeches should not return speeches from previous appointees" do
-    appointment = create(:ministerial_role_appointment, 
-      started_at: 2.days.ago, 
+    appointment = create(:ministerial_role_appointment,
+      started_at: 2.days.ago,
       ended_at: 1.day.ago)
     create(:published_speech, role_appointment: appointment)
 
@@ -137,10 +137,26 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     results = MinisterialRole.search_index
 
     assert_equal 4, results.length
-    assert_equal({ 'title' => 'Nick Clegg (Deputy Prime Minister)', 'link' => '/government/ministers/deputy-prime-minister', 'indexable_content' => 'Cleggy.', 'format' => 'minister' }, results[0])
-    assert_equal({ 'title' => 'Jeremy Hunt (Secretary of State for Culture)', 'link' => '/government/ministers/secretary-of-state-for-culture', 'indexable_content' => 'Hunty.', 'format' => 'minister' }, results[1])
-    assert_equal({ 'title' => 'Edward Garnier (Solicitor General)', 'link' => '/government/ministers/solicitor-general', 'indexable_content' => 'Garnerian.', 'format' => 'minister' }, results[2])
-    assert_equal({ 'title' => 'David Cameron (Prime Minister)', 'link' => '/government/ministers/prime-minister', 'indexable_content' => 'Cameronian.', 'format' => 'minister' }, results[3])
+    assert_equal({'title' => 'Nick Clegg (Deputy Prime Minister)',
+                  'link' => '/government/ministers/deputy-prime-minister',
+                  'indexable_content' => 'Cleggy.',
+                  'format' => 'minister',
+                  'description' => ''}, results[0])
+    assert_equal({'title' => 'Jeremy Hunt (Secretary of State for Culture)',
+                  'link' => '/government/ministers/secretary-of-state-for-culture',
+                  'indexable_content' => 'Hunty.',
+                  'format' => 'minister',
+                  'description' => ''}, results[1])
+    assert_equal({'title' => 'Edward Garnier (Solicitor General)',
+                  'link' => '/government/ministers/solicitor-general',
+                  'indexable_content' => 'Garnerian.',
+                  'format' => 'minister',
+                  'description' => ''}, results[2])
+    assert_equal({'title' => 'David Cameron (Prime Minister)',
+                  'link' => '/government/ministers/prime-minister',
+                  'indexable_content' => 'Cameronian.',
+                  'format' => 'minister',
+                  'description' => ''}, results[3])
   end
 
   test 'prime minister should have seniority 1' do

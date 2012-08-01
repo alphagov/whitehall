@@ -355,11 +355,13 @@ class EditionTest < ActiveSupport::TestCase
   test "should return search index suitable for Rummageable" do
     policy = create(:published_policy, title: "policy-title")
     slug = policy.document.slug
+    summary = policy.summary
 
     assert_equal "policy-title", policy.search_index["title"]
     assert_equal "/government/policies/#{slug}", policy.search_index["link"]
     assert_equal policy.body, policy.search_index["indexable_content"]
     assert_equal "policy", policy.search_index["format"]
+    assert_equal summary, policy.search_index["description"]
   end
 
   test "#indexable_content should return the body without markup by default" do
@@ -374,17 +376,21 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should return search index data for all published editions" do
-    create(:published_policy, title: "policy-title", body: "this and that")
-    create(:published_publication, title: "publication-title", body: "stuff and things")
+    create(:published_policy, title: "policy-title", body: "this and that",
+           summary: "policy-summary")
+    create(:published_publication, title: "publication-title",
+           body: "stuff and things", summary: "publication-summary")
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
     results = Edition.search_index
 
     assert_equal 2, results.length
     assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title",
-                  "indexable_content"=>"this and that", "format" => "policy"}, results[0])
+                  "indexable_content"=>"this and that", "format" => "policy",
+                  "description" => "policy-summary"}, results[0])
     assert_equal({"title"=>"publication-title", "link"=>"/government/publications/publication-title",
-                  "indexable_content"=>"stuff and things", "format" => "publication"}, results[1])
+                  "indexable_content"=>"stuff and things", "format" => "publication",
+                  "description" => "publication-summary"}, results[1])
   end
 
   test "should add edition to search index on publishing" do

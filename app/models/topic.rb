@@ -3,7 +3,10 @@ class Topic < ActiveRecord::Base
   include Searchable
   include Rails.application.routes.url_helpers
 
-  searchable title: :name, link: :search_link, content: :description, format: 'topic'
+  searchable title: :name,
+             link: :search_link,
+             content: :description,
+             format: 'topic'
 
   state_machine do
     state :current

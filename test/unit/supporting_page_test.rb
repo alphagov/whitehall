@@ -119,10 +119,26 @@ class SupportingPageTest < ActiveSupport::TestCase
     results = SupportingPage.search_index
 
     assert_equal 4, results.length
-    assert_equal({ 'title' => 'Love all the people', 'link' => "/government/policies/#{policy_slug}/supporting-pages/love-all-the-people", 'indexable_content' => 'Thoughts on love and smoking.', 'format' => 'supporting_page' }, results[0])
-    assert_equal({ 'title' => 'Dangerous', 'link' => "/government/policies/#{policy_slug}/supporting-pages/dangerous", 'indexable_content' => 'I love my job.', 'format' => 'supporting_page' }, results[1])
-    assert_equal({ 'title' => 'Relentless', 'link' => "/government/policies/#{policy_slug}/supporting-pages/relentless", 'indexable_content' => 'Rockers against drugs suck.', 'format' => 'supporting_page' }, results[2])
-    assert_equal({ 'title' => 'Arizona Bay', 'link' => "/government/policies/#{policy_slug}/supporting-pages/arizona-bay", 'indexable_content' => 'Marketing and advertising.', 'format' => 'supporting_page' }, results[3])
+    assert_equal({'title' => 'Love all the people',
+                  'link' => "/government/policies/#{policy_slug}/supporting-pages/love-all-the-people",
+                  'indexable_content' => 'Thoughts on love and smoking.',
+                  'format' => 'supporting_page',
+                  'description' => ''}, results[0])
+    assert_equal({'title' => 'Dangerous',
+                  'link' => "/government/policies/#{policy_slug}/supporting-pages/dangerous",
+                  'indexable_content' => 'I love my job.',
+                  'format' => 'supporting_page',
+                  'description' => ''}, results[1])
+    assert_equal({'title' => 'Relentless',
+                  'link' => "/government/policies/#{policy_slug}/supporting-pages/relentless",
+                  'indexable_content' => 'Rockers against drugs suck.',
+                  'format' => 'supporting_page',
+                  'description' => ''}, results[2])
+    assert_equal({'title' => 'Arizona Bay',
+                  'link' => "/government/policies/#{policy_slug}/supporting-pages/arizona-bay",
+                  'indexable_content' => 'Marketing and advertising.',
+                  'format' => 'supporting_page',
+                  'description' => ''}, results[3])
   end
 
   test "should not change its slug when the parent policy is updated" do
