@@ -12,6 +12,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_show_change_notes :publication
   should_show_inapplicable_nations :publication
   should_paginate :publication
+  should_return_json_suitable_for_the_document_filter :publication
 
   test 'show displays published publications' do
     published_publication = create(:published_publication)
@@ -159,6 +160,28 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index
 
     assert_select "h2", text: "There are no matching publications."
+  end
+
+  test "index requested as JSON includes data for publications" do
+    org = create(:organisation, name: "org-name")
+    org2 = create(:organisation, name: "other-org")
+    publication = create(:published_publication, title: "publication-title",
+                         organisations: [org, org2],
+                         publication_date: Date.parse("2012-03-14"),
+                         publication_type: PublicationType::CorporateReport)
+
+    get :index, format: :json
+
+    results = ActiveSupport::JSON.decode(response.body)["results"]
+    assert_equal 1, results.length
+    json = results.first
+    assert_equal "publication", json["type"]
+    assert_equal "publication-title", json["title"]
+    assert_equal publication.id, json["id"]
+    assert_equal publication_path(publication.document), json["url"]
+    assert_equal "org-name and other-org", json["organisations"]
+    assert_equal "<abbr class=\"publication_date\" title=\"2012-03-14\">14 March 2012</abbr>", json["publication_date"]
+    assert_equal "Corporate report", json["publication_type"]
   end
 
   test "show displays the ISBN of the attached document" do

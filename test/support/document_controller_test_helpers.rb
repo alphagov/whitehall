@@ -398,5 +398,31 @@ module DocumentControllerTestHelpers
         end
       end
     end
+
+    def should_return_json_suitable_for_the_document_filter(document_type)
+      test "index requested as JSON includes a count" do
+        create(:"published_#{document_type}")
+
+        get :index, format: :json
+
+        assert_equal 1, ActiveSupport::JSON.decode(response.body)["count"]
+      end
+
+      test "index requested as JSON includes the total pages" do
+        25.times { create(:"published_#{document_type}") }
+
+        get :index, format: :json
+
+        assert_equal 2, ActiveSupport::JSON.decode(response.body)["total_pages"]
+      end
+
+      test "index requested as JSON includes the current page" do
+        create(:"published_#{document_type}")
+
+        get :index, format: :json
+
+        assert_equal 1, ActiveSupport::JSON.decode(response.body)["current_page"]
+      end
+    end
   end
 end

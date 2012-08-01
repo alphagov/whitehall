@@ -6,6 +6,7 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_attachments_for :specialist_guide
   should_show_inapplicable_nations :specialist_guide
+  should_return_json_suitable_for_the_document_filter :specialist_guide
 
   test "index <title> does not contain 'Inside Government'" do
     get :index
@@ -167,6 +168,26 @@ some more content
     get :index
 
     assert_select "h2", text: "There are no matching specialist guides."
+  end
+
+  test "index requested as JSON includes the specialist guides" do
+    org = create(:organisation, name: "org-name")
+    org2 = create(:organisation, name: "other-org")
+    topic = create(:topic, name: "topic-name")
+    other_topic = create(:topic, name: "other-topic")
+    guide = create(:published_specialist_guide, title: "guide-title", organisations: [org, org2], topics: [topic, other_topic])
+
+    get :index, format: :json
+
+    results = ActiveSupport::JSON.decode(response.body)["results"]
+    assert_equal 1, results.length
+    guide_json = results.first
+    assert_equal "specialist_guide", guide_json["type"]
+    assert_equal "guide-title", guide_json["title"]
+    assert_equal guide.id, guide_json["id"]
+    assert_equal specialist_guide_path(guide.document), guide_json["url"]
+    assert_equal "topic-name<br>other-topic", guide_json["topics"]
+    assert_equal "org-name and other-org", guide_json["organisations"]
   end
 
   test "search sets search path header to search specialist guides" do
