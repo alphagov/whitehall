@@ -182,20 +182,6 @@
     }
   }
 
-  .information-block,
-  .call-to-action {
-    margin: $gutter 0 $gutter $gutter-half*-1;
-    background: $light-warm-grey none no-repeat 98% $gutter-two-thirds;
-    padding: $gutter-one-third 55px $gutter-one-third $gutter-half;
-    p {
-      margin: 0;
-      padding: 0;
-    }
-  }
-  .information-block {
-    background-image: url(/government/assets/information-icon.png);
-  }
-
   .notice p {
     @include sans-12;
     padding: $gutter-one-third;

@@ -57,6 +57,8 @@
   ul {
     list-style: disc;
     list-style-position: outside;
+    padding: 0;
+    margin: 0;
   }
   
   li {
@@ -77,7 +79,7 @@
     }
   }
 
-   em, i {
+  em, i {
     font-style: italic;
   }
   
@@ -113,5 +115,79 @@
     figcaption {
       @include core-14;
     }
+  }
+  // inline attachment pullouts
+  .attachment {
+    $img-gutter: 99px;
+
+    background: $light-warm-grey;
+    position: relative;
+    margin: 0 0 0 $gutter-half*-1;
+    padding: $gutter-one-sixth $gutter-half $gutter-half $img-gutter+$gutter;
+
+    a {
+      // this is the download link
+      @include core-19;
+      display: block;
+
+      img {
+        position: relative;
+        float: left;
+        width: $img-gutter;
+        margin-top: $gutter-one-sixth;
+        margin-left: ($img-gutter+$gutter-half)*-1;
+      }
+    }
+
+    dl {
+      overflow: hidden;
+      padding: $gutter-one-third 0;
+      margin: 0;
+
+      dt, dd {
+        @include core-14;
+        padding: 0;
+        margin: 0;
+        float: left;
+      }
+      dt {
+        clear: left;
+        position: relative;
+        width: 6em;
+      }
+
+      dd {
+        display: block;
+      }
+    }
+    .download-button {
+      position: absolute;
+      top: $gutter-half;
+      right: $gutter-half;
+      width: 30px;
+      height: 25px;
+      display: block;
+      text-indent: -9999em;
+      background: transparent url(/government/assets/download-icon.png) no-repeat 0 0;
+    }
+    .accessibility-warning {
+      @include core-14;
+    }
+
+    overflow: hidden;
+  }
+
+  .information-block,
+  .call-to-action {
+    margin: $gutter 0 $gutter $gutter-half*-1;
+    background: $light-warm-grey none no-repeat 98% $gutter-two-thirds;
+    padding: $gutter-one-third 55px $gutter-one-third $gutter-half;
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .information-block {
+    background-image: url(/government/assets/information-icon.png);
   }
 }
