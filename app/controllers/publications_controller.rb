@@ -25,6 +25,7 @@ private
   end
 
   def load_filtered_publications(params)
+    params[:date] ||= Date.today.to_s
     @filter = Whitehall::DocumentFilter.new(all_publications)
     @filter.
       by_topics(params[:topics]).

@@ -122,6 +122,15 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index orders publications by publication date by default" do
+    publications = 5.times.map {|i| create(:published_publication, publication_date: (10 - i).days.ago) }
+
+    get :index
+
+    assert_equal "publication_#{publications.last.id}", css_select(".filter-results .document-row").first['id']
+    assert_equal "publication_#{publications.first.id}", css_select(".filter-results .document-row").last['id']
+  end
+
   test "index highlights all topics filter option by default" do
     given_two_publications_in_two_topics
 
