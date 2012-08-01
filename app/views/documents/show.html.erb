@@ -3,15 +3,18 @@
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
+      <%= render partial: "document_metadata", locals: {
+        document: @document,
+        header_title: header_title,
+        topics: @topics
+      } %>
       <section class="page-header icon">
-        <h2 class="label"><%= header_title %></h2>
         <%= render partial: "title" %>
       </section>
     </div>
   </div>
   <div class="block-2">
     <div class="inner-block">
-      <%= render partial: "document_metadata" %>
       <%= render partial: "document_contextual", locals: {edition: @document} %>
       <%= national_statistics_logo(@document) %>
     </div>

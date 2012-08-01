@@ -1,5 +1,5 @@
 <% if document.nation_inapplicabilities.any? %>
-  <section id="inapplicable_nations" class="inapplicable_nations">
+  <section id="inapplicable_nations" class="inapplicable-nations">
     <p>This <%= document.format_name %> does not apply to <%= document.inapplicable_nations.map(&:name).sort.to_sentence %>.</p>
     <% if document.nation_inapplicabilities.collect(&:alternative_url).any? %>
       <ul class="nation_inapplicabilities">

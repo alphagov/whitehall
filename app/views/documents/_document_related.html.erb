@@ -27,21 +27,6 @@ related_policies ||= nil
   </section>
 <% end %>
 
-<%= render partial: 'documents/topics', locals: { topics: topics } %>
-
-<% if document.respond_to?(:countries) && document.countries.any? %>
-  <section id="document_countries" class="simple_list">
-    <h1 class="label">UK &amp; the world</h1>
-    <ul class="countries">
-    <% document.countries.each do |country| %>
-      <li>
-        <%= link_to country.name, country_path(country), class: "country", id: dom_id(country) %>
-      </li>
-    <% end %>
-    </ul>
-  </section>
-<% end %>
-
 <% if related_policies %>
   <%= render partial: 'related_policies', object: related_policies %>
 <% end %>

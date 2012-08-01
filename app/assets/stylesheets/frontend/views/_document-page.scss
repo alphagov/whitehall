@@ -56,6 +56,21 @@
     }
   }
 
+  @include media(desktop){
+    .meta-changes,
+    .meta-context {
+      @include core-14;
+      width: 50%;
+      margin: 0;
+      float: left;
+    }
+    .meta-changes {
+      float: right;
+      text-align: right;
+    }
+  }
+
+
   .change-notes {
     display: inline-block;
     position: relative;
@@ -70,6 +85,7 @@
       text-align: center;
       padding: 0.313em 1em 0.375em;
       border: 1px solid darken($light-warm-grey, 5%);
+      white-space: nowrap;
       &:focus {
         outline: none;
       }
@@ -89,7 +105,7 @@
       height: 0;
       position: absolute;
       top: -4px;
-      left: 25%;
+      left: 70%;
       margin-left: -2px;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
@@ -115,7 +131,7 @@
     &.toggleable .overlay {
       position: absolute;
       top: 130%;
-      left: 0;
+      left: -100%;
       width: 200%;
       z-index: 10;
       opacity: 0;

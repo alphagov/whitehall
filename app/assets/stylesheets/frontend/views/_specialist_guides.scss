@@ -88,15 +88,6 @@
     @include core-14;
     @include media(desktop) {
       float: right;
-      .change-notes.toggleable .overlay {
-        left: -100%;
-        &.visuallyhidden {
-          left: -9999em;
-        }
-        .arrow {
-          left: 70%;
-        }
-      }
     }
   }
 
@@ -227,6 +218,13 @@
       position: relative;
       z-index: 101;
       margin-top: -55px;
+
+      .meta-changes {
+        width: auto;
+        float: none;
+        padding: 0;
+        margin: 0;
+      }
     }
     .page-header {
       margin-top: $gutter-half;

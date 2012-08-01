@@ -22,12 +22,18 @@ module DocumentHelper
     end
   end
 
+  def only_applies_to_nations_paragraph(document)
+    if document.respond_to?(:nation_inapplicabilities) and document.nation_inapplicabilities.any?
+      content_tag :p, "Only applies to #{document.applicable_nations.map(&:name).sort.to_sentence} #{see_alternative_urls_for_inapplicable_nations(document)}.".html_safe, class: 'inapplicable-nations'
+    end
+  end
+
   def see_alternative_urls_for_inapplicable_nations(edition)
     with_alternative_urls = edition.nation_inapplicabilities.select do |ni|
       ni.alternative_url.present?
     end
     if with_alternative_urls.any?
-      " (see #{edition.format_name} for ".html_safe + list_of_links_to_inapplicable_nations(with_alternative_urls) + ")".html_safe
+      "(see #{edition.format_name} for ".html_safe + list_of_links_to_inapplicable_nations(with_alternative_urls) + ")".html_safe
     end
   end
 

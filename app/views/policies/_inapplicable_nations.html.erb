@@ -1,4 +1,0 @@
-<% if document.nation_inapplicabilities.any? %>
-  <p id="inapplicable_nations">Only applies to <%= document.applicable_nations.map(&:name).sort.to_sentence %><%= see_alternative_urls_for_inapplicable_nations(document) %>.
-  </p>
-<% end %>

@@ -1,13 +1,7 @@
 <div class="meta-topic">
   <%= part_of_topics_paragraph(@document.topics) %>
-
-<% if @document.respond_to?(:countries) && @document.countries.any? %>
-    <p id="document_countries">Applies to <%= list_of_links_to_countries(@document.countries) %>.</p>
-<% end %>
-
-  <% if @document.nation_inapplicabilities.any? %>
-  <%= render partial: 'policies/inapplicable_nations', locals: { document: @document } %>
-<% end %>
+  <%= applies_to_countries_paragraph(@document) %>
+  <%= only_applies_to_nations_paragraph(@document) %>
 </div>
 
 <section class="meta">

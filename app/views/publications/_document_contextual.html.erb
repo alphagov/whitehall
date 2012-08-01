@@ -1,6 +1,0 @@
-<section class="contextual-info">
-  <p>Publication date: <span class="publication_date"><%= edition.publication_date.to_s(:long_ordinal) %></span></p>
-  <% if edition.publication_type.present? %>
-    <p>Publication type: <span class="publication_type"><%= edition.publication_type.singular_name %></span></p>
-  <% end %>
-</section>

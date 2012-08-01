@@ -38,7 +38,7 @@ module CssSelectors
   end
 
   def inapplicable_nations_selector
-    "#inapplicable_nations"
+    ".inapplicable-nations"
   end
 
   def notes_to_editors_selector

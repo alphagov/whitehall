@@ -51,9 +51,9 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication.document
 
-    assert_select ".contextual-info" do
-      assert_select ".publication_type", text: "Form"
-      assert_select ".publication_date", text: "31 May 1916"
+    assert_select ".meta" do
+      assert_select ".publication-type", text: "Form"
+      assert_select ".published-at", text: "31 May 1916"
     end
   end
 

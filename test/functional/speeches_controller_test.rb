@@ -47,7 +47,7 @@ class SpeechesControllerTest < ActionController::TestCase
       assert_select ".explanation",
         "This is a transcript of the speech, exactly as it was delivered."
     end
-    assert_select ".page-header .label", "Speech"
+    assert_select ".meta-context .label", "Speech"
   end
 
   test "should display details about a draft text" do
@@ -59,7 +59,7 @@ class SpeechesControllerTest < ActionController::TestCase
       assert_select ".explanation",
         "This is the text of the speech as drafted, which may differ slightly from the delivered version."
     end
-    assert_select ".page-header .label", "Speech"
+    assert_select ".meta-context .label", "Speech"
   end
 
   test "should display details about speaking notes" do
@@ -71,7 +71,7 @@ class SpeechesControllerTest < ActionController::TestCase
       assert_select ".explanation",
         "These are the speaker's notes, not a transcript of the speech as it was delivered."
     end
-    assert_select ".page-header .label", "Speech"
+    assert_select ".meta-context .label", "Speech"
   end
 
   test "should display details about a written statement" do
@@ -82,7 +82,7 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".details" do
       refute_select ".explanation"
     end
-    assert_select ".page-header .label", "Written statement"
+    assert_select ".meta-context .label", "Written statement"
   end
 
   test "should display details about an oral statement" do
@@ -93,7 +93,7 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".details" do
       refute_select ".explanation"
     end
-    assert_select ".page-header .label", "Oral statement"
+    assert_select ".meta-context .label", "Oral statement"
   end
 
   test "should omit location if not given" do
