@@ -10,6 +10,14 @@ class DocumentFilterTest < ActiveSupport::TestCase
     Whitehall::DocumentFilter.new([]).all_topics
   end
 
+  test "#all_topics_with returns all topics with content of a given type, alphabetically" do
+    scope = stub('topic scope')
+    scope.expects(:order).with(:name)
+    Topic.expects(:with_content_of_type).with(:policy).returns(scope)
+
+    Whitehall::DocumentFilter.new([]).all_topics_with(:policy)
+  end
+
   test "#all_organisations returns all organisations with content, alphabetically" do
     final_scope = stub('final scope')
     final_scope.expects(:ordered_by_name_ignoring_prefix)
@@ -17,7 +25,7 @@ class DocumentFilterTest < ActiveSupport::TestCase
     scope.expects(:group).with(:name).returns(final_scope)
     Organisation.expects(:joins).with(:published_document_types).returns(scope)
 
-    Whitehall::DocumentFilter.new([]).all_organisations(:document_type)
+    Whitehall::DocumentFilter.new([]).all_organisations_with(:document_type)
   end
 
   test "#selected_topics returns an empty set by default" do

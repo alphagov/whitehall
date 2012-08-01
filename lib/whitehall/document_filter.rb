@@ -13,7 +13,11 @@ class Whitehall::DocumentFilter
     Topic.with_content.order(:name)
   end
 
-  def all_organisations(type)
+  def all_topics_with(type)
+    Topic.with_content_of_type(type).order(:name)
+  end
+
+  def all_organisations_with(type)
     Organisation.joins(:"published_#{type}s").group(:name).ordered_by_name_ignoring_prefix
   end
 

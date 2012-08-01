@@ -42,6 +42,10 @@ class Topic < ActiveRecord::Base
   default_scope where('topics.state != "deleted"')
 
   scope :with_content, where("published_edition_count <> 0")
+  scope :with_content_of_type, lambda { |type|
+    klass = type.to_s.classify.constantize
+    includes(:published_editions).where("`editions`.`type` = ?", klass.sti_name)
+  }
   scope :alphabetical, order("name ASC")
 
   scope :featured, where(featured: true)
