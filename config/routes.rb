@@ -133,8 +133,6 @@ Whitehall::Application.routes.draw do
     match '/policy-topics' => redirect("/topics")
 
     match 'site/sha' => 'site#sha'
-    match 'site/grid' => 'site#grid'
-    match '/home/grid' => 'home#show'
   end
 
   VanityRedirector.new(Rails.root.join("app", "data", "vanity-redirects.csv")).each do |from, to|
