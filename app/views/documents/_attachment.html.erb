@@ -33,6 +33,7 @@
       <dd class="price"><%= number_to_currency(attachment.price, unit: "&pound;") %></dd>
     <% end %>
   </dl>
+  <%= link_to 'Download attachment', attachment.url, class: "download-button" %>
   <% if attachment.order_url.present? %>
     <p><%= link_to "Order a copy", attachment.order_url, class: "order_url", title: "Order a copy of the publication" %></p>
   <% end %>

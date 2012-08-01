@@ -64,6 +64,16 @@
         display: block;
       }
     }
+    .download-button {
+      position: absolute;
+      top: $gutter-half;
+      right: $gutter-half;
+      width: 30px;
+      height: 25px;
+      display: block;
+      text-indent: -9999em;
+      background: transparent url(/government/assets/download-icon.png) no-repeat 0 0;
+    }
     .accessibility-warning {
       @include core-14;
     }
