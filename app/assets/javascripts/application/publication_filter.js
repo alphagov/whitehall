@@ -44,17 +44,26 @@
         $(after).after(nav);
       }
     }
+    function importantAttribute(attribute) {
+      return ($.inArray(attribute, ["id", "title", "organisations", "url", "type"]) < 0);
+    }
+    function capitalize(attribute) {
+      return attribute.replace(/_/, " ").replace(/(^|\s)([a-z])/g, function(_,a,b){ return a+b.toUpperCase(); });
+    }
     function drawTable(data) {
-        var container = $('#publications-container');
+        var container = $('.filter-results');
         if (data.results.length > 0) {
             var tBody, i, l;
-            if (!document.getElementById('publications-list')) {
-                var table = $('<table id="publications-list" class="document-list" />'),
+            if (!document.getElementById('document-list')) {
+                var table = $('<table id="document-list" class="document-list" />'),
                     tHead = $('<thead class="visuallyhidden" />'),
                     tr = $('<tr />');
-                $(["Title", "Publicatoon Date", "Publication Type"]).each(function(title) {
-                    tr.append($('<tr scope="col">' + title + '</tr>'));
-                });
+                for(var attribute in data.results[0]) {
+                  if (importantAttribute(attribute)) {
+                    tr.append($('<tr scope="col">' + capitalize(attribute) + '</tr>'))
+                  }
+                }
+
                 tHead.append(tr);
                 table.append(tHead);
                 table.append('<tbody />');
@@ -68,33 +77,37 @@
                     tableRow = $('<tr />'),
                     th = $('<th />'),
                     a = $('<a />');
-                tableRow.attr('id', 'publication_' + row.id).addClass('document-row').addClass((i < 3 ? 'recent' : ''));
+                tableRow.attr('id', row.type + '_' + row.id).addClass('document-row').addClass((i < 3 ? 'recent' : ''));
                 th.attr('scope', 'row').addClass('title attribute');
                 a.attr('href', row.url).attr('title', "View " + row.title).text(row.title);
                 th.append(a);
                 th.append(' ');
                 th.append($('<em class="meta organisations">'+row.organisations+'</em>'));
                 tableRow.append(th);
-                tableRow.append($('<td class="data attribute">' + row.published + '</td>'));
-                tableRow.append($('<td class="type attribute">' + row.publication_type + '</td>'));
+                for(var attribute in row) {
+                  if (importantAttribute(attribute)) {
+                    tableRow.append($('<td class="' + attribute + ' attribute">' + row[attribute] + '</td>'));
+                  }
+                }
                 tBody.append(tableRow);
             }
 
-            $('#publications-list tbody').replaceWith(tBody);
+            $('.filter-results .document-list tbody').replaceWith(tBody);
 
             drawPagination(data, tBody.parent());
 
         }
         else {
+          console.log("no documents");
             container.empty();
-            container.append('<div class="no-results"><h2>There are no matching publications.</h2>' +
+            container.append('<div class="no-results"><h2>There are no matching documents.</h2>' +
                              '<p>Try making your search broader and try again.</p></div>');
         }
     }
 
-    $('form#publications-filter').submit(function(e) {
+    $('form#document-filter').submit(function(e) {
         e.preventDefault();
-        $('#publications-filter input[type=submit]').addClass('disabled');
+        $('#document-filter input[type=submit]').addClass('disabled');
         var $form = $(this),
             url = $(this).attr('action'),
             params = $(this).serializeArray();
@@ -108,10 +121,10 @@
                 drawTable(data);
               }
               // undo double-click protection
-              $('#publications-filter input[type=submit]').removeAttr('disabled').removeClass('disabled');
+              $('#document-filter input[type=submit]').removeAttr('disabled').removeClass('disabled');
             },
             error: function() {
-                $('#publications-filter input[type=submit]').removeAttr('disabled');
+                $('#document-filter input[type=submit]').removeAttr('disabled');
             }
         });
 

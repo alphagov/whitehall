@@ -13,7 +13,7 @@
   <div class="inner-block">
     <div class="filter-block">
       <h2>Filter</h2>
-      <%= form_tag specialist_guides_path, method: :get, id: "specialist-guides-filter" do %><%# this ID used by Javascript %>
+      <%= form_tag specialist_guides_path, method: :get, id: "document-filter" do %><%# this ID used by Javascript %>
         <fieldset>
           <legend class="visuallyhidden">Filter specialist guides</legend>
           <div class="filter">
@@ -45,9 +45,9 @@
 </div>
 
 <div class="block-4">
-  <div class="inner-block filter-results" id="specialist-guides-container" aria-live="polite"><%# this ID used by Javascript %>
+  <div class="inner-block filter-results" id="specialist-guides-container" aria-live="polite"><%# this class used by Javascript %>
     <% if @filter.documents.any? %>
-      <table class="document-list" id="specialist-guides-list"><%# this ID used by Javascript %>
+      <table class="document-list" id="document-list"><%# this ID used by Javascript %>
         <thead class="visuallyhidden">
           <tr>
             <th scope="col">Title</th>
@@ -63,8 +63,8 @@
               <em class="meta organisation"><%= specialist_guide.organisations.map { |o|
                 organisation_display_name(o) }.to_sentence.html_safe %></em>
             </th>
-            <td class="attribute topic">
-              <%= specialist_guide.topics.map(&:name).first %>
+            <td class="attribute topics">
+              <%= specialist_guide.topics.map(&:name).join("<br>").html_safe %>
             </td>
           <% end %>
         <% end %>

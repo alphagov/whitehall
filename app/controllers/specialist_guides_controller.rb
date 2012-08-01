@@ -4,6 +4,11 @@ class SpecialistGuidesController < DocumentsController
 
   def index
     load_filtered_specialist_guides(params)
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def show

@@ -4,6 +4,16 @@ Given /^a published specialist guide "([^"]*)" related to published specialist g
   guide = create(:published_specialist_guide, title: title, outbound_related_documents: [first_related.document, second_related.document], topics: [create(:topic)])
 end
 
+Given /^a published specialist guide "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
+  organisation = create(:organisation, name: organisation)
+  create(:published_specialist_guide, title: title, organisations: [organisation])
+end
+
+Given /^(\d+) published specialist guides for the organisation "([^"]*)"$/ do |count, organisation|
+  organisation = create(:organisation, name: organisation)
+  count.to_i.times { |i| create(:published_specialist_guide, title: "keyword-#{i}", organisations: [organisation]) }
+end
+
 When /^I draft a new specialist guide "([^"]*)"$/ do |title|
   begin_drafting_document type: 'specialist_guide', title: title
   click_button "Save"
@@ -37,6 +47,14 @@ end
 When /^I visit the specialist guide "([^"]*)"$/ do |name|
   visit "/specialist"
   click_link name
+end
+
+When /^I visit the list of specialist guides$/ do
+  visit "/specialist"
+end
+
+Then /^I should see a link to the next page of specialist guides$/ do
+  pending # express the regexp above with the code you wish you had
 end
 
 Then /^I can see links to the related specialist guides "([^"]*)" and "([^"]*)"$/ do |guide_1, guide_2|

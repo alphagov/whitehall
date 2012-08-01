@@ -23,16 +23,13 @@ end
 node :results do
   @filter.documents.map { |a| {
       id: a.id,
-      type: "publication",
+      type: "specialist_guide",
       title: a.title,
       url: public_document_path(a),
       organisations: a.organisations.map { |o|
         organisation_display_name(o)
       }.to_sentence.html_safe,
-      publication_date: render_datetime_microformat(a, :publication_date) {
-        a.publication_date.to_s(:long_ordinal)
-      }.html_safe,
-      publication_type: a.publication_type.singular_name
+      topics: a.topics.map(&:name).join("<br>").html_safe
     }
   }
 end
