@@ -39,6 +39,8 @@
     overflow: hidden;
 
     .organisations-icon-list {
+      overflow: hidden;
+      width: 100%;
       padding-bottom: $gutter-one-third;
       @include media (640px) {
         padding-bottom: $gutter-half;
@@ -48,9 +50,20 @@
         margin-bottom: 0;
         list-style: none;
         color: $body-text;
+        margin-bottom: $gutter-one-sixth;
         @include media (640px) {
           margin-bottom: $gutter-one-third;
         }
+        a:after {
+          content: "";
+          margin: 0;
+        }
+      }
+      .show-other-content {
+        float: left;
+        padding-left: $gutter-one-third;
+        padding-right: $gutter-one-third;
+        @include core-14;
       }
     }
 
@@ -237,11 +250,6 @@
           float: left;
           margin-right: $gutter;
           position: relative;
-
-          a:after {
-            content: "";
-            margin: 0;
-          }
         }
       }
       .page-meta {
