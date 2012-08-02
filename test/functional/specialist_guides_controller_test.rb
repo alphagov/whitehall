@@ -221,6 +221,30 @@ some more content
     assert_select ".planner a[href='/d']", count: 0
   end
 
+  test "search shows the description if available" do
+    Whitehall.search_client.stubs(:search).returns([
+      {"title" => "a", "link" => "/a", "description" => "description-text",
+       "highlight" => "highlight-text", "format" => "specialist_guide"}
+    ])
+    Whitehall.mainstream_search_client.stubs(:search).returns([])
+    get :search, q: 'query'
+
+    assert_select ".search-results .specialist_guide .description", "description-text"
+    assert_select ".search-results .specialist_guide .highlight", false
+  end
+
+  test "search shows the highlight if no description available" do
+    Whitehall.search_client.stubs(:search).returns([
+      {"title" => "a", "link" => "/a", "description" => "",
+       "highlight" => "highlight-text", "format" => "specialist_guide"}
+    ])
+    Whitehall.mainstream_search_client.stubs(:search).returns([])
+    get :search, q: 'query'
+
+    assert_select ".search-results .specialist_guide .description", false
+    assert_select ".search-results .specialist_guide .highlight", "&hellip;highlight-text&hellip;"
+  end
+
   test "autocomplete returns the response from autocomplete as a string" do
     search_client = stub('search_client')
     raw_rummager_response = "rummager-response-body-json"

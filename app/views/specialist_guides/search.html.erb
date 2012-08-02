@@ -51,7 +51,9 @@
         <% @results.each do |result| %>
           <li class="result js-search-result js-section-guidance <%= result["format"] %>">
             <h3><%= link_to result["title"], result["link"] %></h3>
-            <% if result["highlight"] %>
+            <% if result["description"].present? %>
+              <p class="description"><%= result["description"] %></p>
+            <% elsif result["highlight"] %>
               <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
             <% end %>
             <span class="meta"><%= result['format'] && result["format"].humanize %></span>
