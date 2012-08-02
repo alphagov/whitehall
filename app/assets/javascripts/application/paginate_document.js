@@ -6,6 +6,10 @@ $(function() {
 
   var paginating = ($('.js-paginate-document').length > 0 && $(window).width() > 768);
 
+  var escapeId = function(id) {
+    return id.replace(/(:|\.)/g,'\\$1');
+  }
+
   navigation.find(">li").each(function(el){
     var li = $(this),
         pageNav = li.find('>ol'),
@@ -24,7 +28,6 @@ $(function() {
     mainstreamAlternative.insertAfter(container.children().get(1));
   }
 
-
   if (paginating) {
     container.splitIntoPages("h2");
     pages = container.find(".page");
@@ -32,7 +35,7 @@ $(function() {
     navigationLinks = navigation.find('a');
 
     var showPage = function(a) {
-      var page = $(location.hash).parents(".page");
+      var page = $(escapeId(location.hash)).parents(".page");
       var pageId = $(page).find('h2').attr('id')
 
       pages.not(page).addClass('hidden');
@@ -47,6 +50,10 @@ $(function() {
         if (location.hash == ('#' + pageId)) {
           // html and body selector for IE 8.
           $('html, body').animate({scrollTop:0}, 0);
+        } else {
+          // This looks mad, but forces the browser to scroll to the anchor that may have been
+          // invisible when the link was first clicked.  A footnote, for example.
+          document.location = document.location
         }
       }
     }
