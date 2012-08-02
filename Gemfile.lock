@@ -127,7 +127,7 @@ GEM
       warden (~> 1.2)
     gherkin (2.4.21)
       json (>= 1.4.6)
-    govspeak (0.8.17)
+    govspeak (0.8.18)
       htmlentities (~> 4)
       kramdown (~> 0.13.3)
     hash_syntax (1.0.0)
@@ -325,7 +325,7 @@ DEPENDENCIES
   fog
   friendly_id (= 4.0.0.beta14)
   gds-sso (= 1.1.1)
-  govspeak (~> 0.8.17)
+  govspeak (~> 0.8.18)
   hash_syntax
   isbn_validation
   jquery-rails
