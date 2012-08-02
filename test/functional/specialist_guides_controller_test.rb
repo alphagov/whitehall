@@ -245,6 +245,17 @@ some more content
     assert_select ".search-results .specialist_guide .highlight", "&hellip;highlight-text&hellip;"
   end
 
+  test "search links to mainstream browse sections for mainstream results" do
+    Whitehall.search_client.stubs(:search).returns([])
+    Whitehall.mainstream_search_client.stubs(:search).returns([
+      {"title" => "a", "link" => "/a", "description" => "blah",
+       "highlight" => "", "section" => "money-and-tax", "format" => "thing"}
+    ])
+    get :search, q: 'query'
+
+    assert_select ".search-results .thing .section a[href='/browse/money-and-tax']", "Money and tax"
+  end
+
   test "autocomplete returns the response from autocomplete as a string" do
     search_client = stub('search_client')
     raw_rummager_response = "rummager-response-body-json"

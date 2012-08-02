@@ -364,8 +364,11 @@
       .highlight, .description {
         margin-bottom: $gutter-one-third;
       }
-      .meta {
+      .meta, .section {
         @include core-16;
+      }
+      .meta {
+        margin-right: $gutter-half;
       }
     }
   }
