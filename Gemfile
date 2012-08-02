@@ -9,7 +9,7 @@ gem 'carrierwave'
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'
 else
-  gem 'govspeak', '~> 0.8.18'
+  gem 'govspeak', '0.8.17'
 end
 gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.0.beta14'
