@@ -8,6 +8,8 @@ module Whitehall
   mattr_accessor :search_client
   mattr_accessor :mainstream_search_client
 
+  CURRENT_SHA = `git rev-parse HEAD`.strip
+
   class << self
     PUBLIC_HOSTS = {
       'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',

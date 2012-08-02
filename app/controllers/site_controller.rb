@@ -1,6 +1,6 @@
 class SiteController < PublicFacingController
   def sha
     skip_slimmer
-    render text: `git rev-parse HEAD`
+    render text: Whitehall::CURRENT_SHA
   end
 end
