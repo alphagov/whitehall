@@ -205,20 +205,41 @@ some more content
     assert_select ".specialist_guidance a[href='/specialist/guide-slug']"
   end
 
-  test "search lists 3 results returned from the mainstream search" do
+  test "search lists 5 results returned from the mainstream search" do
+    results = []
+    6.times do|i|
+      results << {"title" => "result#{i}", "link" => "/result-#{i}", "highlight" => "", "format" => "planner"}
+    end
     Whitehall.search_client.stubs(:search).returns([])
-    Whitehall.mainstream_search_client.stubs(:search).with('query').returns([
-      {"title" => "a", "link" => "/a", "highlight" => "", "format" => "planner"},
-      {"title" => "b", "link" => "/b", "highlight" => "", "format" => "planner"},
-      {"title" => "c", "link" => "/c", "highlight" => "", "format" => "planner"},
-      {"title" => "d", "link" => "/d", "highlight" => "", "format" => "planner"}
-    ])
+    Whitehall.mainstream_search_client.stubs(:search).with('query').returns(results)
     get :search, q: 'query'
 
-    assert_select ".planner a[href='/a']"
-    assert_select ".planner a[href='/b']"
-    assert_select ".planner a[href='/c']"
-    assert_select ".planner a[href='/d']", count: 0
+    5.times do |i|
+      assert_select ".planner a[href='/result-#{i}']"
+    end
+    assert_select ".planner a[href='/result-5']", count: 0
+  end
+
+  test "search lists 50 results maximum" do
+    mainstream_results = []
+    4.times do |i|
+      mainstream_results << {"title" => "result#{i}", "link" => "/mainstream-result-#{i}", "highlight" => "", "format" => "planner"}
+    end
+    whitehall_results = []
+    50.times do |i|
+      whitehall_results << {"title" => "result#{i}", "link" => "/whitehall-result-#{i}", "highlight" => "", "format" => "specialist_guide"}
+    end
+    Whitehall.search_client.stubs(:search).returns(whitehall_results)
+    Whitehall.mainstream_search_client.stubs(:search).returns(mainstream_results)
+    get :search, q: 'query'
+
+    4.times do |i|
+      assert_select ".search-results a[href='/mainstream-result-#{i}']"
+    end
+    46.times do |i|
+      assert_select ".search-results a[href='/whitehall-result-#{i}']"
+    end
+    assert_select ".seach-results a[href='whitehall-result-46']", count: 0
   end
 
   test "search shows the description if available" do

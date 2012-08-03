@@ -18,8 +18,8 @@ class SpecialistGuidesController < DocumentsController
 
   def search
     @search_term = params[:q]
-    @results = Whitehall.search_client.search(@search_term, 'specialist_guidance')
-    @mainstream_results = Whitehall.mainstream_search_client.search(@search_term).take(3)
+    @mainstream_results = Whitehall.mainstream_search_client.search(@search_term).take(5)
+    @results = Whitehall.search_client.search(@search_term, 'specialist_guidance').take(50 - @mainstream_results.length)
     @total_results = @results.length + @mainstream_results.length
   end
 
