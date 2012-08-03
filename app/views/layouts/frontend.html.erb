@@ -10,7 +10,7 @@
     <meta content='width=device-width, initial-scale=1' name='viewport'>
 
     <title><%= page_title %></title>
-    <%= stylesheet_link_tag "frontend/base.css" %>
+    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/base.css" %><!--<![endif]-->
     <!--[if IE 6]><%= stylesheet_link_tag "frontend/base-ie6.css" %><![endif]-->
     <!--[if IE 7]><%= stylesheet_link_tag "frontend/base-ie7.css" %><![endif]-->
     <!--[if IE 8]><%= stylesheet_link_tag "frontend/base-ie8.css" %><![endif]-->

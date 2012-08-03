@@ -196,7 +196,7 @@ GEM
       rails (~> 3)
     pdf-reader (0.10.1)
       Ascii85 (~> 1.0.0)
-    plek (0.2.0)
+    plek (0.3.0)
       builder
     polyglot (0.3.3)
     quiet_assets (1.0.1)
@@ -262,7 +262,7 @@ GEM
       ffi (>= 1.0.7)
       json_pure
       rubyzip
-    slimmer (1.1.47)
+    slimmer (1.2.1)
       gds-api-adapters (>= 0.0.33, < 0.3.0)
       json
       nokogiri (~> 1.5.0)
@@ -348,7 +348,7 @@ DEPENDENCIES
   rummageable!
   sass (= 3.2.0.alpha.274)
   sass-rails (= 3.1.4)
-  slimmer (= 1.1.47)
+  slimmer (= 1.2.1)
   test_track
   thin
   timecop
