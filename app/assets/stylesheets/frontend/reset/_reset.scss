@@ -1,7 +1,7 @@
 // flatten all browser defaults and styles inherited from gov.uk header
 
 #whitehall-wrapper {
-  @include core-19;
+  font-family: $NTA-Light;
   position: relative;
   overflow: hidden;
   margin: 0 auto;
