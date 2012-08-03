@@ -57,10 +57,11 @@
               <% elsif result["highlight"] %>
                 <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
               <% end %>
-              <span class="meta"><%= result['format'] && result["format"].humanize %></span>
-              <% if result["section"] %>
-                <span class="section"><%= link_to result["section"].underscore.humanize, "/browse/#{result['section']}" %></span>
-              <% end %>
+              <span class="meta"><%= result['format'] && result["format"].humanize %>
+                <% if result["section"] %>
+                  <span class="section"><%= link_to result["section"].underscore.humanize, "/browse/#{result['section']}" %></span>
+                <% end %>
+              </span>
             </li>
           <% end %>
         <% end %>

@@ -364,13 +364,15 @@
       .highlight, .description {
         margin-bottom: $gutter-one-third;
       }
-      .meta, .section {
+      .meta {
         @include core-16;
       }
       .meta {
-        margin-right: $gutter-half;
         display: block;
         padding: 0;
+        .section {
+          margin-left: $gutter-half;
+        }
       }
 
       &.guide {
