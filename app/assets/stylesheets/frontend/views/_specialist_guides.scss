@@ -369,6 +369,57 @@
       }
       .meta {
         margin-right: $gutter-half;
+        display: block;
+        padding: 0;
+      }
+
+      &.guide {
+        background-image: url(/government/assets/icons/mainstream/icon-guide-s.png);
+      }
+      &.answer,
+      &.calendar,
+      &.smart_answer,
+      &.calculator,
+      &.custom-application {
+        background-image: url(/government/assets/icons/mainstream/icon-answer-s.png);
+      }
+      &.local_transaction,
+      &.transaction,
+      &.place,
+      &.nearest,
+      &.service {
+        background-image: url(/government/assets/icons/mainstream/icon-service-s.png);
+      }
+      &.programme {
+        background-image: url(/government/assets/icons/mainstream/icon-programme-s.png);
+      }
+      &.licence {
+        background-image: url(/government/assets/icons/mainstream/icon-licence-s.png);
+      }
+      &.guide,
+      &.answer,
+      &.calendar,
+      &.licence,
+      &.smart_answer,
+      &.calculator,
+      &.custom-application,
+      &.local_transaction,
+      &.transaction,
+      &.place,
+      &.nearest,
+      &.service,
+      &.programme {
+        background-repeat: no-repeat;
+        background-position: 0 100%;
+        .meta {
+          text-indent: 30px;
+        }
+      }
+      &.specialist_guidance {
+        .meta {
+          border-left: 3px solid $light-blue;
+          padding-left: 10px;
+        }
       }
     }
   }

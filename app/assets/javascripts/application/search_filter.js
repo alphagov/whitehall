@@ -7,7 +7,7 @@
     $results = $('.js-search-result');
 
     $navigation.find('a').click(function(e){
-      var $link = $(e.target),
+      var $link = $(this),
           filter = $link.parent().data('filter'),
           $shownResults;
 
