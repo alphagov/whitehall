@@ -105,12 +105,15 @@
         }
     }
 
-    $('form#document-filter').submit(function(e) {
+    var $form = $('form#document-filter');
+
+    $form.submit(function(e) {
         e.preventDefault();
-        $('#document-filter input[type=submit]').addClass('disabled');
-        var $form = $(this),
-            url = $(this).attr('action'),
-            params = $(this).serializeArray();
+        var $submitButton = $form.find('input[type=submit]'),
+            url = $form.attr('action'),
+            params = $form.serializeArray();
+
+        $submitButton.addClass('disabled');
         // TODO: make a spinny updating thing
         $.ajax(url, {
             cache: false,
@@ -121,12 +124,15 @@
                 drawTable(data);
               }
               // undo double-click protection
-              $('#document-filter input[type=submit]').removeAttr('disabled').removeClass('disabled');
+              $submitButton.removeAttr('disabled').removeClass('disabled');
             },
             error: function() {
-                $('#document-filter input[type=submit]').removeAttr('disabled');
+              $submitButton.removeAttr('disabled');
             }
         });
 
+    });
+    $form.find('select').change(function(e){
+      $form.submit();
     });
 })(jQuery);
