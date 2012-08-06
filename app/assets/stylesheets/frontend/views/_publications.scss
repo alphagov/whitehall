@@ -8,29 +8,6 @@
   .block-4 {
     width: 100%;
   }
-
-  .document-list {
-    td.publication_date, td.publication_type {
-      width: 18%;
-      text-align: right;
-    }
-
-    &.emphasise-recent {
-      .document-row {
-        &.recent {
-          td.publication_date {
-            padding-top: 0;
-            float: left;
-            margin-left: 64%
-          }
-          td.publication_type {
-            padding-top: 0;
-            float: right;
-          }
-        }
-      }
-    }
-  }
 }
 
 #page.publications-index .previous-next-navigation {

@@ -23,6 +23,10 @@
         font-style: normal;
       }
     }
+    .date, .type {
+      width: 18%;
+      text-align: right;
+    }
   }
 
   &.emphasise-recent {
@@ -33,6 +37,15 @@
           @include core-24;
           width: 100%;
           padding-bottom: 4px;
+        }
+        .date {
+          padding-top: 0;
+          float: left;
+          margin-left: 64%
+        }
+        .type {
+          padding-top: 0;
+          float: right;
         }
       }
     }
