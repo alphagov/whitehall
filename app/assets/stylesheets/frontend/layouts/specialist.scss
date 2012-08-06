@@ -7,6 +7,12 @@ body.specialist {
   }
   #whitehall-wrapper #global-nav .inner {
     background: transparent;
+    
+    @media (max-width: 768px) {
+      ul {
+        margin-left: $gutter;
+      }
+    }
 
     #inside_gov_link a {
       background: $light-blue;
