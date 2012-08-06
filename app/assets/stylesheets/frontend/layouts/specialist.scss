@@ -4,17 +4,36 @@ body.specialist {
   #whitehall-wrapper {
     padding-bottom: 0;
     margin-bottom: 0;
-  }
-  #whitehall-wrapper #global-nav .inner {
-    background: transparent;
-    max-width: $max-site-width + $gutter*2;
-
-    ul {
-      margin-left: $gutter;
+   
+    #global-nav .inner {
+      background: transparent;
+      max-width: $max-site-width + $gutter*2;
+  
+      ul {
+        margin-left: $gutter;
+      }
+  
+      #inside_gov_link a {
+        background: $light-blue;
+      }
     }
-
-    #inside_gov_link a {
-      background: $light-blue;
+    
+    
+    #specialist-guides-container.filter-results {
+      margin: 0 $gutter;
+      padding: $gutter-two-thirds;
+      background: $white;
+      
+      @media (max-width: 640px) {
+        padding: $gutter-one-sixth;
+      }
+      
+      .previous-next-navigation {
+        margin-top: $gutter-two-thirds;
+      }
     }
+    
+    
   }
+
 }
