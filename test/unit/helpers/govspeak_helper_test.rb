@@ -160,6 +160,12 @@ class GovspeakHelperTest < ActionView::TestCase
       html = govspeak_to_html("this and [that](http://test.host#{admin_edition_path(edition)}) yeah?")
       assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
     end
+
+    test "should rewrite relative links to admin previews of published #{edition_class.name} as their public document" do
+      edition = create(:"published_#{edition_class.name.underscore}")
+      html = govspeak_to_html("this and [that](#{admin_edition_path(edition)}) yeah?")
+      assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
+    end
   end
 
   test "should rewrite absolute links to admin previews of published Speeches as their public document" do
