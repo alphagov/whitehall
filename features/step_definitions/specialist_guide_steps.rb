@@ -53,10 +53,6 @@ When /^I visit the list of specialist guides$/ do
   visit "/specialist"
 end
 
-Then /^I should see a link to the next page of specialist guides$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
 Then /^I can see links to the related specialist guides "([^"]*)" and "([^"]*)"$/ do |guide_1, guide_2|
   within ".related_specialist_guides" do
     assert has_css?("a", text: guide_1), "should have link to #{guide_1}"

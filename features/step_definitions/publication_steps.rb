@@ -51,11 +51,6 @@ Given /^(\d+) published publications for the organisation "([^"]+)"$/ do |count,
   count.to_i.times { |i| create(:published_publication, title: "keyword-#{i}", organisations: [organisation]) }
 end
 
-Given /^a draft publication "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
-  organisation = create(:organisation, name: organisation)
-  create(:draft_publication, title: title, organisations: [organisation])
-end
-
 When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
   begin_drafting_publication(title)
   nations.raw.flatten.each do |nation_name|
@@ -95,11 +90,6 @@ When /^I correct the invalid information for the publication$/ do
   click_button "Save"
 end
 
-When /^I set the publication title to "([^"]*)" and save$/ do |title|
-  fill_in "Title", with: title
-  click_button "Save"
-end
-
 Then /^I should not see a link to the PDF attachment$/ do
   assert page.has_no_css?(".attachment .title", text: "Attachment Title")
   assert page.has_no_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
@@ -126,16 +116,4 @@ end
 Then /^I should see that the publication is about "([^"]*)"$/ do |country_name|
   country = Country.find_by_name!(country_name)
   assert has_css?(".document-countries #{record_css_selector(country)}")
-end
-
-Then /^the publication "([^"]*)" should (not )?be featured on the public publications page$/ do |publication_title, should_not_be_featured|
-  visit publications_path
-  publication = Publication.published.find_by_title!(publication_title)
-
-  publication_is_featured = has_css?("#{record_css_selector(publication)}.featured")
-  if should_not_be_featured
-    refute publication_is_featured
-  else
-    assert publication_is_featured
-  end
 end

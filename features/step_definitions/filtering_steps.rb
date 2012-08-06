@@ -11,10 +11,6 @@ When /^I filter to only those from the "([^"]*)" department$/ do |department|
   wait_until { page.evaluate_script("jQuery.active") == 0 }
 end
 
-Then /^I should see the no results message$/ do
-  assert has_css? '.no-results'
-end
-
 Then /^I should see a link to the next page of documents$/ do
   assert has_css?('#show-more-documents li.next')
 end

@@ -251,17 +251,6 @@ Then /^I should see that the policy only applies to:$/ do |nation_names|
   assert page.has_css?("#{inapplicable_nations_selector}", text: message)
 end
 
-Then /^I should see that the policy does not apply to:$/ do |nation_names|
-  message = "This policy does not apply to #{nation_names.raw.flatten.sort.to_sentence}."
-  assert page.has_css?("#{inapplicable_nations_selector}", text: message)
-end
-
-Then /^I should see that the policy links to policies for:$/ do |nation_names|
-  message = "see policy for"
-  assert page.has_css?("#{inapplicable_nations_selector}", text: message)
-  assert page.has_css?("#{inapplicable_nations_selector} a:nth-child(2)", text: nation_names.raw.flatten[0])
-end
-
 Then /^they should see the draft policy "([^"]*)"$/ do |title|
   policy = Policy.draft.find_by_title!(title)
   assert page.has_css?('.document .title', text: policy.title)

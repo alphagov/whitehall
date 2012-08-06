@@ -135,11 +135,6 @@ Then /^I should see that "([^"]*)" is responsible for "([^"]*)"$/ do |parent_org
   assert page.has_css?("#child_organisations #{record_css_selector(child_org)}")
 end
 
-Then /^I should see that "([^"]*)" is the responsibility of "([^"]*)"$/ do |child_org_name, parent_org_name|
-  parent_org = Organisation.find_by_name!(parent_org_name)
-  assert page.has_css?(".parent_organisations a[href='#{organisation_path(parent_org)}']")
-end
-
 Then /^I should see the organisation navigation$/ do
   assert page.has_css?('.organisation nav')
 end

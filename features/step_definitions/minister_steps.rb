@@ -26,13 +26,6 @@ When /^I visit the minister page for "([^"]*)"$/ do |name|
   click_link name
 end
 
-Then /^I should see that the minister is responsible for the documents:$/ do |table|
-  table.raw.each do |(document_title)|
-    edition = Edition.find_by_title!(document_title)
-    assert page.has_css?(record_css_selector(edition), text: edition.title), "document '#{edition.title}' wasn't there"
-  end
-end
-
 Then /^I should see that the minister is associated with the "([^"]*)"$/ do |organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
   assert page.has_css?(record_css_selector(organisation)), "organisation was missing"
