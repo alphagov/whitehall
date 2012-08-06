@@ -120,10 +120,15 @@ module GovspeakHelper
       return false
     end
 
-    return false unless %w(http https).include?(uri.scheme)
-    truncated_link_uri = [normalise_host(uri.host), uri.path.split("/")[1,2]].join("/")
-    truncated_host_uri = [normalise_host(request.host) + Whitehall.router_prefix, "admin"].join("/")
-    truncated_link_uri == truncated_host_uri
+    admin_path = [Whitehall.router_prefix, "admin"].join("/")
+
+    if %w(http https).include?(uri.scheme)
+      truncated_link_uri = [normalise_host(uri.host), uri.path.split("/")[1,2]].join("/")
+      truncated_host_uri = [normalise_host(request.host) + admin_path].join("/")
+      truncated_link_uri == truncated_host_uri
+    else
+      uri.path.start_with?(admin_path)
+    end
   end
 
   def find_edition_and_supporting_page_from_uri(uri)
