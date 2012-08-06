@@ -46,26 +46,36 @@
 
 <div class="block-4">
   <div class="inner-block">
+    <h1 class="visuallyhidden">Search Results</h1>
     <% if @total_results > 0 %>
-      <ul class="search-results">
-        <% [[@results, "guidance"], [@mainstream_results, "mainstream"]].each do |(results, type)| %>
-          <% results.each do |result| %>
-            <li class="result js-search-result js-section-<%= type %> <%= result["format"] %>">
-              <h3><%= link_to result["title"], result["link"] %></h3>
-              <% if result["description"].present? %>
-                <p class="description"><%= result["description"] %></p>
-              <% elsif result["highlight"] %>
-                <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
-              <% end %>
-              <span class="meta"><%= result['format'] && result["format"].humanize %>
-                <% if result["section"] %>
-                  <span class="section"><%= link_to result["section"].underscore.humanize, "/browse/#{result['section']}" %></span>
+      <% [[@results, "guidance", 'Specialist guidance'],
+          [@mainstream_results, "mainstream", 'Elsewhere on GOV.UK']].each do |(results, type, title)| %>
+        <div class="result-block js-search-result js-section-<%= type %>">
+          <h2><%= title %></h2>
+          <ul class="search-results js-serach-result js-section-<%= type %>">
+            <% results.each do |result| %>
+              <li class="result <%= result["format"] %>">
+                <h3><%= link_to result["title"], result["link"] %></h3>
+                <% if result["description"].present? %>
+                  <p class="description"><%= result["description"] %></p>
+                <% elsif result["highlight"] %>
+                  <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
                 <% end %>
-              </span>
-            </li>
+                <span class="meta"><%= result['format'] && result["format"].humanize %>
+                  <% if result["section"] %>
+                    <span class="section"><%= link_to result["section"].underscore.humanize, "/browse/#{result['section']}" %></span>
+                  <% end %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+          <% if type == 'mainstream' and  @more_mainstream_results %>
+            <p class="more-results">
+              <%= link_to "More results from elsewhere on GOV.UK", "/search?q=#{@search_term}" %>
+            </p>
           <% end %>
-        <% end %>
-      </ul>
+        </div>
+      <% end %>
     <% else %>
       <p>We couldn't find any relevant results for you. Try making your search broader and try again</p>
     <% end %>

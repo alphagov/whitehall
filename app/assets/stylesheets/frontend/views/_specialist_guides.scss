@@ -368,6 +368,16 @@
       }
     }
   }
+  .result-block {
+    h2 {
+      @include core-24;
+      padding-top: 0;
+      margin-bottom: $gutter-half;
+    }
+    .more-results {
+      text-align: right;
+    }
+  }
   .search-results {
     .result {
       margin-bottom: $gutter;

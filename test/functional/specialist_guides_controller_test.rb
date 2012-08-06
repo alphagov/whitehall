@@ -205,7 +205,7 @@ some more content
     assert_select ".specialist_guidance a[href='/specialist/guide-slug']"
   end
 
-  test "search lists 5 results returned from the mainstream search" do
+  test "search lists only 5 results returned from the mainstream search with link to more" do
     results = []
     6.times do|i|
       results << {"title" => "result#{i}", "link" => "/result-#{i}", "highlight" => "", "format" => "planner"}
@@ -218,6 +218,9 @@ some more content
       assert_select ".planner a[href='/result-#{i}']"
     end
     assert_select ".planner a[href='/result-5']", count: 0
+    assert_select ".more-results" do
+      assert_select "a[href=/search?q=query]"
+    end
   end
 
   test "search lists 50 results maximum" do
