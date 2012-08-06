@@ -138,7 +138,7 @@
     margin: 0 0 0 $gutter-half*-1;
     padding: $gutter-one-sixth $gutter-half $gutter-half $img-gutter+$gutter;
 
-    a {
+    a.download {
       // this is the download link
       @include core-19;
       display: block;
@@ -152,26 +152,9 @@
       }
     }
 
-    dl {
-      overflow: hidden;
-      padding: $gutter-one-third 0;
+    p {
+      @include core-14;
       margin: 0;
-
-      dt, dd {
-        @include core-14;
-        padding: 0;
-        margin: 0;
-        float: left;
-      }
-      dt {
-        clear: left;
-        position: relative;
-        width: 6em;
-      }
-
-      dd {
-        display: block;
-      }
     }
     .download-button {
       position: absolute;

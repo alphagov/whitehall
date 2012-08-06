@@ -1,5 +1,5 @@
 <%= content_tag_for(:div, attachment, class: "embedded") do %>
-  <%= link_to(attachment.url, class: "title") do %>
+  <%= link_to(attachment.url, class: "title download") do %>
     <% if attachment.pdf? %>
       <%= image_tag(attachment.url(:thumbnail), alt: "") %>
     <% else %>
@@ -7,36 +7,32 @@
     <% end %>
     <%= attachment.title %>
   <% end %>
-  <dl class="attachment-metadata">
-    <dt>Type</dt>
-    <dd class="type"><%= humanized_content_type(attachment.file_extension) %></dd>
-    <dt>Size</dt>
-    <dd class="file-size"><%= number_to_human_size(attachment.file_size) %></dd>
-    <% if attachment.number_of_pages.present? %>
-      <dt>Length</dt>
-      <dd class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></dd>
-    <% end %>
+  <p>
+    <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>,
+    <span class="file-size"><%= number_to_human_size(attachment.file_size) %></span><% if attachment.number_of_pages.present? %>,
+      <span class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></span><% end %>.
+  </p>
+  <p>
     <% if attachment.isbn.present? %>
-      <dt>ISBN</dt>
-      <dd class="isbn"><%= attachment.isbn %></dd>
+      ISBN <span class="isbn"><%= attachment.isbn %></span>;
     <% end %>
     <% if attachment.unique_reference.present? %>
-      <dt>Unique reference</dt>
-      <dd class="unique_reference"><%= attachment.unique_reference %></dd>
+      Ref: <span class="unique_reference"><%= attachment.unique_reference %></span>;
     <% end %>
     <% if attachment.command_paper_number.present? %>
-      <dt>Command paper number</dt>
-      <dd class="command_paper_number"><%= attachment.command_paper_number %></dd>
+      <span class="command_paper_number"><%= attachment.command_paper_number %></span>;
     <% end %>
-    <% if attachment.price %>
-      <dt>Price</dt>
-      <dd class="price"><%= number_to_currency(attachment.price, unit: "&pound;") %></dd>
-    <% end %>
-  </dl>
-  <%= link_to 'Download attachment', attachment.url, class: "download-button" %>
+  </p>
   <% if attachment.order_url.present? %>
-    <p><%= link_to "Order a copy", attachment.order_url, class: "order_url", title: "Order a copy of the publication" %></p>
+    <p>
+      <%= link_to "Order a copy", attachment.order_url,
+          class: "order_url", title: "Order a copy of the publication" %>
+      <% if attachment.price %>
+        (<span class="price"><%= number_to_currency(attachment.price, unit: "&pound;") %></span>)
+      <% end %>
+    </p>
   <% end %>
+  <%= link_to 'Download attachment', attachment.url, class: "download-button" %>
   <% unless attachment.accessible? %>
     <strong class="accessibility-warning">This file may not be accessible</strong>
   <% end %>
