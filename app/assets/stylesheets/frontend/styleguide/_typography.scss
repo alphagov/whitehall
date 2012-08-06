@@ -203,8 +203,12 @@
   letter-spacing: 0;
   text-transform: none;
   text-decoration: none;
-
   color: $black;
+  
+  @media (max-width: 640px) {
+    font-size: 1.3rem;
+    line-height: 1.1538461538;
+  }
   
   padding-top: 26px;
   padding-top: 2.6rem;
