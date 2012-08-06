@@ -218,7 +218,7 @@ That's all
     assert_select "#recently-changed" do
       assert_select_object speech do
         assert_select ".document-row .type", text: "Speech"
-        assert_select ".document-row .published_at[title='#{published_at.iso8601}']"
+        assert_select ".document-row .published-at[title='#{published_at.iso8601}']"
       end
     end
   end
