@@ -2,6 +2,7 @@ html {
   // Required to set the css `rem` sise for the font stacks.
   font-size: 62.5%;
 }
+@import "../frontend/styleguide/_print.scss";
 @import "../frontend/styleguide/_dimensions.scss";
 @import "../frontend/styleguide/_font-stacks.scss";
 @import "../frontend/styleguide/_typography.scss";

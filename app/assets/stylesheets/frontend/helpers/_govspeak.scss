@@ -203,4 +203,73 @@
   .information-block {
     background-image: url(/government/assets/information-icon.png);
   }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: $gutter -1em $gutter -1em;
+    width: 100%;
+    @include core-19;
+
+    caption {
+      text-align:left;
+      font-weight: 300;
+      margin-bottom: 0.5em;
+      font-size:1.16em;
+      padding-left:1em;
+    }
+
+    th, td {
+      vertical-align: top;
+      line-height: 1.3em;
+      padding: 0.7em 0.5em 0.7em 1em;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #fff;
+    }
+
+    td {
+      background: #fafafa;
+      border:dotted 1px #bbb;
+    }
+
+    th {
+      line-height:1.25em;
+      text-align: left;
+      color:#000;
+      font-weight:normal;
+      background-color: #e1e8e8;
+      border:solid 1px #bbb;
+    }
+
+    td small{
+      font-size:1em;
+    }
+  }
+
+  @include print {
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: $gutter 0;
+
+      thead { 
+        display: table-header-group; 
+      }
+
+      tr {
+        th, td {
+          background-color: white;
+          border: 1pt solid rgb(125,125,125);
+          padding: 0.25em 0.5em;
+          text-align: left;
+        }
+
+        th {
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }
