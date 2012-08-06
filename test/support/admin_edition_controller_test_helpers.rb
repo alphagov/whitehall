@@ -1587,6 +1587,28 @@ module AdminEditionControllerTestHelpers
         assert_equal "http://mainstream/updated-additional-content", edition.additional_related_mainstream_content_url
         assert_equal "Some Updated Additional Mainstream Content", edition.additional_related_mainstream_content_title
       end
+
+      test "show should list the links to mainstream content" do
+        edition = create(edition_type,
+          related_mainstream_content_url: "http://mainstream/content",
+          related_mainstream_content_title: "Some Mainstream Content",
+          additional_related_mainstream_content_url: "http://mainstream/additional-content",
+          additional_related_mainstream_content_title: "Some Additional Mainstream Content"
+        )
+
+        get :show, id: edition
+
+        assert_select '.related_mainstream_content' do
+          assert_select "a[href='http://mainstream/content']", text: 'Some Mainstream Content'
+          assert_select "a[href='http://mainstream/additional-content']", text: 'Some Additional Mainstream Content'
+        end
+      end
+
+      test "show should indicate a lack of links to mainstream content" do
+        edition = create(edition_type)
+        get :show, id: edition
+        assert_select '.related_mainstream_content', text: /doesn't have any related mainstream content/
+      end
     end
   end
 

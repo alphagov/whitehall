@@ -55,11 +55,16 @@
   <% end %>
 
   <% if edition.can_be_related_to_mainstream_content? %>
-    <section>
+    <section class="related_mainstream_content">
       <h2>Related Mainstream Content</h2>
-      <% if edition.related_mainstream_content_url %>
+      <% if edition.related_mainstream_content_url.present? || edition.additional_related_mainstream_content_url.present? %>
         <ul>
-          <li><%= link_to edition.related_mainstream_content_title, edition.related_mainstream_content_url %></li>
+          <% if edition.related_mainstream_content_url.present? %>
+            <li><%= link_to edition.related_mainstream_content_title, edition.related_mainstream_content_url %></li>
+          <% end %>
+          <% if edition.additional_related_mainstream_content_url.present? %>
+            <li><%= link_to edition.additional_related_mainstream_content_title, edition.additional_related_mainstream_content_url %></li>
+          <% end %>
         </ul>
       <% else %>
         <p>This document doesn't have any related mainstream content.</p>
