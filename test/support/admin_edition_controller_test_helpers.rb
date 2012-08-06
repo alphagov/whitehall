@@ -1533,6 +1533,8 @@ module AdminEditionControllerTestHelpers
         assert_select "form#edition_new[action='#{admin_editions_path}']" do
           assert_select "input[name*='edition[related_mainstream_content_url]']"
           assert_select "input[name*='edition[related_mainstream_content_title]']"
+          assert_select "input[name*='edition[additional_related_mainstream_content_url]']"
+          assert_select "input[name*='edition[additional_related_mainstream_content_title]']"
         end
       end
 
@@ -1544,34 +1546,46 @@ module AdminEditionControllerTestHelpers
         assert_select "form#edition_edit[action='#{admin_editions_path}']" do
           assert_select "input[name*='edition[related_mainstream_content_url]']"
           assert_select "input[name*='edition[related_mainstream_content_title]']"
+          assert_select "input[name*='edition[additional_related_mainstream_content_url]']"
+          assert_select "input[name*='edition[additional_related_mainstream_content_title]']"
         end
       end
 
-      test "create should allow setting of a related mainstream content url and title" do
+      test "create should allow setting of related mainstream content urls and titles" do
         post :create, edition: controller_attributes_for(edition_type).merge(
           related_mainstream_content_url: "http://mainstream/content",
-          related_mainstream_content_title: "Some Mainstream Content"
+          related_mainstream_content_title: "Some Mainstream Content",
+          additional_related_mainstream_content_url: "http://mainstream/additional-content",
+          additional_related_mainstream_content_title: "Some Additional Mainstream Content"
         )
 
         edition = edition_class.last
         assert_equal "http://mainstream/content", edition.related_mainstream_content_url
         assert_equal "Some Mainstream Content", edition.related_mainstream_content_title
+        assert_equal "http://mainstream/additional-content", edition.additional_related_mainstream_content_url
+        assert_equal "Some Additional Mainstream Content", edition.additional_related_mainstream_content_title
       end
 
       test "update should allow setting of a related mainstream content url and title" do
         edition = create(edition_type,
           related_mainstream_content_url: "http://mainstream/content",
-          related_mainstream_content_title: "Some Mainstream Content"
+          related_mainstream_content_title: "Some Mainstream Content",
+          additional_related_mainstream_content_url: "http://mainstream/additional-content",
+          additional_related_mainstream_content_title: "Some Additional Mainstream Content"
         )
 
         put :update, id: edition, edition: controller_attributes_for(edition_type).merge(
-          related_mainstream_content_url: "http://mainstream/content2",
-          related_mainstream_content_title: "Some Other Mainstream Content"
+          related_mainstream_content_url: "http://mainstream/updated-content",
+          related_mainstream_content_title: "Some Updated Mainstream Content",
+          additional_related_mainstream_content_url: "http://mainstream/updated-additional-content",
+          additional_related_mainstream_content_title: "Some Updated Additional Mainstream Content"
         )
 
         edition.reload
-        assert_equal "http://mainstream/content2", edition.related_mainstream_content_url
-        assert_equal "Some Other Mainstream Content", edition.related_mainstream_content_title
+        assert_equal "http://mainstream/updated-content", edition.related_mainstream_content_url
+        assert_equal "Some Updated Mainstream Content", edition.related_mainstream_content_title
+        assert_equal "http://mainstream/updated-additional-content", edition.additional_related_mainstream_content_url
+        assert_equal "Some Updated Additional Mainstream Content", edition.additional_related_mainstream_content_title
       end
     end
   end

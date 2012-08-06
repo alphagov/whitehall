@@ -24,6 +24,7 @@ class SpecialistGuide < Edition
   add_trait Trait
 
   validate :related_mainstream_content_valid?
+  validate :additional_related_mainstream_content_valid?
 
   def related_specialist_guides
     (latest_outbound_related_specialist_guides + latest_inbound_related_specialist_guides).uniq
@@ -49,11 +50,21 @@ class SpecialistGuide < Edition
     related_mainstream_content_url.present?
   end
 
+  def has_additional_related_mainstream_content?
+    additional_related_mainstream_content_url.present?
+  end
+
   private
 
   def related_mainstream_content_valid?
     if related_mainstream_content_url.present? && related_mainstream_content_title.blank?
       errors.add(:related_mainstream_content_title, "cannot be blank if a related URL is given")
+    end
+  end
+
+  def additional_related_mainstream_content_valid?
+    if additional_related_mainstream_content_url.present? && additional_related_mainstream_content_title.blank?
+      errors.add(:additional_related_mainstream_content_title, "cannot be blank if an additional related URL is given")
     end
   end
 

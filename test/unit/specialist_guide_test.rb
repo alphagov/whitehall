@@ -58,7 +58,18 @@ class SpecialistGuideTest < ActiveSupport::TestCase
     assert guide.has_related_mainstream_content?
   end
 
+  test "can be associated with some additional content in the mainstream application" do
+    refute build(:specialist_guide).has_additional_related_mainstream_content?
+    guide = build(:specialist_guide, additional_related_mainstream_content_url: "http://mainstream/content", additional_related_mainstream_content_title: "Name of content")
+    assert guide.has_additional_related_mainstream_content?
+  end
+
   test "should require a title if related mainstream content url is given" do
     refute build(:specialist_guide, related_mainstream_content_url: "http://mainstream/content").valid?
+  end
+
+  test "should require a title if additional related mainstream content url is given" do
+    specialist_guide = build(:specialist_guide, additional_related_mainstream_content_url: "http://mainstream/additional-content")
+    refute specialist_guide.valid?
   end
 end

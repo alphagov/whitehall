@@ -25,8 +25,12 @@
     <% if @document.has_related_mainstream_content? %>
       <aside class="related-mainstream-content information-block" role="complementary">
         <p>
-          Too much information? Check out our quick guide:<br>
+          Too much information? Check out our quick guides:<br>
           <%= link_to @document.related_mainstream_content_title, @document.related_mainstream_content_url %>
+          <% if @document.has_additional_related_mainstream_content? %>
+            <br>
+            <%= link_to @document.additional_related_mainstream_content_title, @document.additional_related_mainstream_content_url %>
+          <% end %>
         </p>
       </aside>
     <% end %>

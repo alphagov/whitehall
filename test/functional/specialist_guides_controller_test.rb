@@ -89,12 +89,15 @@ some more content
   test "show includes any links to related mainstream content" do
     guide = create(:published_specialist_guide,
       related_mainstream_content_url: "http://mainstream/content",
-      related_mainstream_content_title: "Some related mainstream content"
+      related_mainstream_content_title: "Some related mainstream content",
+      additional_related_mainstream_content_url: "http://mainstream/additional-content",
+      additional_related_mainstream_content_title: "Some additional related mainstream content"
     )
 
     get :show, id: guide.document
 
     assert_select "a[href='http://mainstream/content']", "Some related mainstream content"
+    assert_select "a[href='http://mainstream/additional-content']", "Some additional related mainstream content"
   end
 
   test "adds pagination behaviour to paginated guide" do
