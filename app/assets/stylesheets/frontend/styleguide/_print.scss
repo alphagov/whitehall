@@ -1,0 +1,24 @@
+// Print helpers. These make producing print layouts
+// super easy.
+
+// The base css you write should be for screen. You can
+// then add print styles on top.
+//
+// Usage:
+//
+//   table th {
+//     border: 1px solid;
+//     background-color: #ddd;
+//
+//     @include print{
+//       background-color: white;
+//     }
+//   }
+
+$is-print: false !default;
+
+@mixin print {
+  @if $is-print {
+    @content;
+  }
+}
