@@ -5,6 +5,21 @@
     padding: 20px 0;
     margin: 0;
   }
+  
+  .filter-block {
+    .multi-row-select {
+      @media (min-width: 768px) {
+        height: 130px;
+      }
+    }
+    .button {
+      @include button($light-blue);
+      @include core-19;
+      padding-bottom: 7px;
+      padding-bottom: 0.7rem;
+    }
+  }
+  
   .document-list {
     .document-row {
       .title {

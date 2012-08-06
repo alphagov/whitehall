@@ -5,10 +5,16 @@
     @include core-19;
     padding: $gutter-half;
     padding-bottom: 0;
+    @media (min-width: 768px) {
+      padding: $gutter-half $gutter 0;
+    }
   }
 
   form {
     padding-left: $gutter-half;
+    @media (min-width: 768px) {
+      padding-right: $gutter-half;
+    }
     fieldset {
       position: relative;
 
@@ -23,8 +29,14 @@
         .filter {
           width: 33.33%;
           .filter-inner {
-            padding: $gutter-half $gutter-half $gutter-half 0;
+            padding: $gutter-half $gutter-half $gutter;
           }
+        }
+        .filter:nth-child(2) .filter-inner {
+          padding-right: 0;
+        }
+        .filter:nth-child(3) .filter-inner {
+          padding-left: 1px;
         }
       }
     }
@@ -55,7 +67,7 @@
     width: 100%;
     padding-bottom: 0;
     @media (min-width: 768px) {
-      height: 180px;
+      height: 190px;
     }
   }
   .checkbox input {
@@ -79,17 +91,21 @@
   }
   .submit {
     border-top: 1px solid $light-blue-grey;
-    padding: $gutter-half 0;
+    padding: $gutter-two-thirds 0 $gutter-one-third;
     margin: $gutter-half 0 0;
+    @media (min-width: 768px) {
+      padding-bottom: 0;
+    }
   }
   .button {
     margin-top: $gutter;
     display: block;
-    width: 70%;
     margin: 0 auto;
     color: $white;
-    background: $charcoal-grey;
-    @include transition(opacity, 0.3s, ease)
+    @include button($mellow-red);
+    @include core-19;
+    padding-bottom: 7px;
+    padding-bottom: 0.7rem;
   }
 
   .disabled {
