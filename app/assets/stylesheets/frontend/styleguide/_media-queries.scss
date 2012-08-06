@@ -34,6 +34,10 @@ $is-ie: false !default;
       @media (min-width: 768px){
         @content;
       }
+    } @else if $size == tablet {
+      @media (min-width: 640px){
+        @content;
+      }
     } @else {
       @media (min-width: $size){
         @content

@@ -83,12 +83,25 @@
     font-style: italic;
   }
   
-  blockquote p {
-    text-indent: -0.45em;
-    padding-left: $gutter;
-    
-    @media (min-width: 768px) {
-      padding-right: $gutter;
+  blockquote {
+    padding: 0;
+    margin: 0;
+    border: 0;
+
+    &:before {
+      content: "\201C";
+      float: left;
+      @include core-48;
+      padding-top: 0;
+    }
+    p {
+      padding-left: $gutter-half;
+      @include media(tablet) {
+        padding-left: $gutter;
+      }
+    }
+    & p:after {
+      content: "\201D";
     }
   }
   
