@@ -23,15 +23,32 @@
       }
     }
 
+    .extra-icons {
+      width: 100%;
+      overflow: hidden;
+      .organisation {
+        float: left;
+      }
+      .show-other-content {
+        float: left;
+        padding-left: $gutter-one-third;
+        padding-right: $gutter-one-third;
+        margin-left: $gutter-half;
+        @include core-14;
+      }
+    }
     .organisations-icon-list .organisation {
       margin-bottom: $gutter-one-third;
     }
     @include media(desktop) {
-      padding-bottom: $gutter*3;
     }
   }
   .contextual {
     padding-top: $gutter-half;
+    li {
+      @include core-14;
+      padding: 0;
+    }
   }
   .block-4 section {
     margin-bottom: $gutter;
@@ -62,7 +79,6 @@
     ul {
       background: $light-blue;
       padding: $gutter-one-third $gutter-half 5px;
-      margin: 0 (-$gutter-half);
 
       li {
         border-top: 1px solid $white;
@@ -80,7 +96,6 @@
     }
     .view-all {
       display: block;
-      margin: 0 (-$gutter-half);
       padding: 5px $gutter-half;
       background: darken($light-blue, 10%);
       color: $white;

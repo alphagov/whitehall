@@ -12,10 +12,12 @@
       hidden = hidden + 1;
       $($organisation.get(all-hidden)).hide();
     }
+    $organisations.addClass('extra-icons');
 
     $toggle.on('click', function(e) {
       e.preventDefault();
       $toggle.remove();
+      $organisations.removeClass('extra-icons');
       $organisation.filter(':hidden').show().focus();
     });
     $organisations.attr('aria-live', 'polite');

@@ -5,7 +5,7 @@
   <div class="inner-block">
     <section class="page-header">
       <h1><span class="label">Topic:</span> <span class="topic"><%= @topic.name %></span></h1>
-      <div class="meta">
+      <div class="meta js-hide-extra-logos">
         <%= render partial: 'organisations/organisations_logo_list',
                    locals: { organisations: @topic.organisations,
                              remove_line_breaks: true,

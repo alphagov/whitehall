@@ -147,3 +147,12 @@
     margin-right: $gutter-half;
   }
 }
+.show-other-content {
+  background: $light-warm-grey;
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+  padding: 0 2px;
+  margin-left: 0.3em;
+  @include border-radius(0.250em)
+}
