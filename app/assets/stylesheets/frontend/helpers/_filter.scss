@@ -6,14 +6,15 @@
     padding: $gutter-half;
     padding-bottom: 0;
     @media (min-width: 768px) {
-      padding: $gutter-half $gutter 0;
+      padding: $gutter-half $gutter-two-thirds 0;
     }
   }
 
   form {
     padding-left: $gutter-half;
     @media (min-width: 768px) {
-      padding-right: $gutter-half;
+      padding-left: $gutter-one-third;
+      padding-right: $gutter-one-third;
     }
     fieldset {
       position: relative;
@@ -29,7 +30,7 @@
         .filter {
           width: 33.33%;
           .filter-inner {
-            padding: $gutter-half $gutter-half $gutter;
+            padding: $gutter-half $gutter-one-third $gutter-two-thirds;
           }
         }
         .filter:nth-child(2) .filter-inner {
