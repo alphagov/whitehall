@@ -55,14 +55,14 @@
             <h2><%= title %></h2>
             <ul class="search-results js-serach-result js-section-<%= type %>">
               <% results.each do |result| %>
-                <li class="result <%= result["format"] %>">
+                <li class="result <%= result["presentation_format"] %>">
                   <h3><%= link_to result["title"], result["link"] %></h3>
                   <% if result["description"].present? %>
                     <p class="description"><%= result["description"] %></p>
                   <% elsif result["highlight"] %>
                     <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
                   <% end %>
-                  <span class="meta"><%= result['format'] && result["format"].humanize %>
+                  <span class="meta"><%= result['humanized_format'] %>
                     <% if result["section"] %>
                       <span class="section"><%= link_to result["section"].underscore.humanize, "/browse/#{result['section']}" %></span>
                     <% end %>

@@ -203,7 +203,7 @@ some more content
 
   test "search lists each result returned from the inside government client" do
     Whitehall.mainstream_search_client.stubs(:search).returns([])
-    Whitehall.search_client.stubs(:search).with('query', 'specialist_guidance').returns([{"title" => "title", "link" => "/specialist/guide-slug", "highlight" => "", "format" => "specialist_guidance"}])
+    Whitehall.search_client.stubs(:search).with('query', 'specialist_guidance').returns([{"title" => "title", "link" => "/specialist/guide-slug", "highlight" => "", "presentation_format" => "specialist_guidance"}])
     get :search, q: 'query'
     assert_select ".specialist_guidance a[href='/specialist/guide-slug']"
   end
@@ -211,7 +211,7 @@ some more content
   test "search lists only 5 results returned from the mainstream search with link to more" do
     results = []
     6.times do|i|
-      results << {"title" => "result#{i}", "link" => "/result-#{i}", "highlight" => "", "format" => "planner"}
+      results << {"title" => "result#{i}", "link" => "/result-#{i}", "highlight" => "", "presentation_format" => "planner"}
     end
     Whitehall.search_client.stubs(:search).returns([])
     Whitehall.mainstream_search_client.stubs(:search).with('query').returns(results)
@@ -229,11 +229,11 @@ some more content
   test "search lists 50 results maximum" do
     mainstream_results = []
     4.times do |i|
-      mainstream_results << {"title" => "result#{i}", "link" => "/mainstream-result-#{i}", "highlight" => "", "format" => "planner"}
+      mainstream_results << {"title" => "result#{i}", "link" => "/mainstream-result-#{i}", "highlight" => "", "presentation_format" => "planner"}
     end
     whitehall_results = []
     50.times do |i|
-      whitehall_results << {"title" => "result#{i}", "link" => "/whitehall-result-#{i}", "highlight" => "", "format" => "specialist_guide"}
+      whitehall_results << {"title" => "result#{i}", "link" => "/whitehall-result-#{i}", "highlight" => "", "presentation_format" => "specialist_guide"}
     end
     Whitehall.search_client.stubs(:search).returns(whitehall_results)
     Whitehall.mainstream_search_client.stubs(:search).returns(mainstream_results)
@@ -251,7 +251,7 @@ some more content
   test "search shows the description if available" do
     Whitehall.search_client.stubs(:search).returns([
       {"title" => "a", "link" => "/a", "description" => "description-text",
-       "highlight" => "highlight-text", "format" => "specialist_guide"}
+       "highlight" => "highlight-text", "presentation_format" => "specialist_guide"}
     ])
     Whitehall.mainstream_search_client.stubs(:search).returns([])
     get :search, q: 'query'
@@ -263,7 +263,7 @@ some more content
   test "search shows the highlight if no description available" do
     Whitehall.search_client.stubs(:search).returns([
       {"title" => "a", "link" => "/a", "description" => "",
-       "highlight" => "highlight-text", "format" => "specialist_guide"}
+       "highlight" => "highlight-text", "presentation_format" => "specialist_guide"}
     ])
     Whitehall.mainstream_search_client.stubs(:search).returns([])
     get :search, q: 'query'
@@ -276,11 +276,22 @@ some more content
     Whitehall.search_client.stubs(:search).returns([])
     Whitehall.mainstream_search_client.stubs(:search).returns([
       {"title" => "a", "link" => "/a", "description" => "blah",
-       "highlight" => "", "section" => "money-and-tax", "format" => "thing"}
+       "highlight" => "", "section" => "money-and-tax", "presentation_format" => "thing"}
     ])
     get :search, q: 'query'
 
     assert_select ".search-results .thing .section a[href='/browse/money-and-tax']", "Money and tax"
+  end
+
+  test "search shows format names for mainstream results" do
+    Whitehall.search_client.stubs(:search).returns([])
+    Whitehall.mainstream_search_client.stubs(:search).returns([
+      {"title" => "a", "link" => "/a", "description" => "blah",
+       "highlight" => "", "presentation_format" => "thing", "humanized_format" => "Bits and Bobs"}
+    ])
+    get :search, q: 'query'
+
+    assert_select ".search-results .thing .meta", "Bits and Bobs"
   end
 
   test "autocomplete returns the response from autocomplete as a string" do
