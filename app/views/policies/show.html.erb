@@ -5,7 +5,7 @@
     <div class="inner-block">
       <%= render partial: "document_metadata" %>
       <section class="page-header">
-        <%= render partial: "title" %>
+        <%= render partial: "title", locals: { document: @document } %>
       </section>
       <section class="meta-three<% unless @show_navigation %> no-navigation<% end %>">
         <%= render partial: "document_related", locals: {

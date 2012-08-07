@@ -1,1 +1,26 @@
 <h1 class="page_title has_meta"><%= @document.title %></h1>
+
+<% if document.respond_to?(:organisations) && document.organisations.any? %>
+  <section id="document-organisations">
+    <h1 class="visuallyhidden">Organisations</h1>
+    <%= render  partial: 'organisations/organisations_logo_list',
+                locals: {
+                  organisations: document.organisations,
+                  extra_class: 'single-line',
+                  remove_line_breaks: true
+                } %>
+  </section>
+<% end %>
+
+<% if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any? %>
+  <section id="document-ministers">
+    <ul class="ministers">
+      <h1 class="visuallyhidden">Ministers</h1>
+      <% document.ministerial_roles.each do |role| %>
+        <li class="current-appointee">
+          <%= link_to role.current_person_name, role, class: "minister" %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

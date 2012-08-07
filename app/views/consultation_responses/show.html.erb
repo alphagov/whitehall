@@ -10,7 +10,7 @@
         topics: @topics
       } %>
       <section class="page-header icon">
-        <%= render partial: "title" %>
+        <%= render partial: "title", locals: { document: @document.consultation } %>
       </section>
     </div>
   </div>

@@ -9,16 +9,14 @@
         topics: @topics
       } %>
       <section class="page-header icon">
-        <%= render partial: "title" %>
+        <%= render partial: "title", locals: { document: @document } %>
       </section>
     </div>
   </div>
-  <div class="block-2">
-    <div class="inner-block">
+
       <%= render partial: "document_contextual", locals: {edition: @document} %>
       <%= national_statistics_logo(@document) %>
-    </div>
-  </div>
+
   <div class="block-3">
     <div class="inner-block">
       <%= render partial: "document_content" %>

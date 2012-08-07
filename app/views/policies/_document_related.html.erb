@@ -3,27 +3,6 @@ topics ||= []
 related_policies ||= nil
 %>
 
-<% if document.respond_to?(:organisations) && document.organisations.any? %>
-  <section id="document-organisations">
-    <h1 class="visuallyhidden">Organisations</h1>
-    <%= render partial: 'organisations/organisations_logo_list',
-               locals: {
-                organisations: document.organisations,
-                extra_class: 'single-line',
-                remove_line_breaks: true
-              } %>
-  </section>
-<% end %>
-
-<% if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any? %>
-  <section id="document-ministers">
-    <ul class="ministers">
-      <h1 class="visuallyhidden">Ministers</h1>
-      <p><%= list_of_links_to_ministers(document.ministerial_roles) %></p>
-    </ul>
-  </section>
-<% end %>
-
 <% if document.respond_to?(:policy_team) && document.policy_team %>
   <section id="policy_team" class="simple_list">
     <h1 class="visuallyhidden">Who's working on this?</h1>

@@ -5,7 +5,7 @@
     <div class="inner-block">
       <%= render partial: "policies/document_metadata" %>
       <section class="page-header">
-        <%= render partial: "title" %>
+        <%= render partial: "documents/title", locals: { document: @document } %>
       </section>
       <section class="meta-three">
         <%= render partial: "policies/document_related", locals: {

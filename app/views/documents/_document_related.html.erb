@@ -3,30 +3,6 @@ topics ||= []
 related_policies ||= nil
 %>
 
-<% if document.respond_to?(:organisations) && document.organisations.any? %>
-  <section id="document-organisations">
-    <h1 class="visuallyhidden">Organisations</h1>
-    <%= render  partial: 'organisations/organisations_logo_list',
-                locals: {
-                  organisations: document.organisations
-                } %>
-  </section>
-<% end %>
-
-<% if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any? %>
-  <section id="document-ministers">
-    <ul class="ministers">
-      <h1 class="visuallyhidden">Ministers</h1>
-      <% document.ministerial_roles.each do |role| %>
-        <li>
-          <h3 class="current-appointee"><%= link_to  role.current_person_name, role, class: "minister" %></h3>
-          <p class="role"><%= role.name %></p>
-        </li>
-      <% end %>
-    </ul>
-  </section>
-<% end %>
-
 <% if related_policies %>
   <%= render partial: 'related_policies', object: related_policies %>
 <% end %>

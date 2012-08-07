@@ -32,32 +32,6 @@
 
 .policy {
 
-  .meta-topic {
-    @include core-14;
-    overflow: hidden;
-    .notice {
-      display: inline;
-      float: left;
-      width: 50%;
-      p {
-      background: none;
-      }
-    }
-    p {
-      display: inline;
-    }
-    ul, li {
-      display: inline;
-      margin: 0;
-      padding: 0;
-    }
-    @media (min-width: 768px) {
-      display: inline;
-      float: left;
-      width: 47.5%;
-    }
-  }
-
   .meta {
     @include core-14;
     position: relative;
@@ -86,7 +60,7 @@
       width: 47.5%;
       text-align: right;
     }
-}
+  }
 
 
   .block-2 {
@@ -120,7 +94,6 @@
   #document-organisations + #document-ministers,
   #policy_team,
   #document-organisations {
-    background: none;
     margin: 0 0 0 25%;
     padding-left: 0;
     padding-top: 0;
