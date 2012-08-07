@@ -23,8 +23,8 @@
       float: left;
       display: inline;
       min-width: 33.3333%;
-      color: $grey-63;
       padding-top: $gutter-one-sixth;
+      padding-bottom: 9px;
     }
     
 //  bit of a hack to add a gutter without box model issues
@@ -37,11 +37,13 @@
   .document-row:first-child {
     th {
       @include core-27;
+      padding-bottom: 0;
     }
   } 
   .document-row:nth-child(2) {
     th {
       @include core-24;
+      padding-bottom: 0;
     }
   }
 
