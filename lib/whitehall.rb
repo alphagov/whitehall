@@ -29,6 +29,10 @@ module Whitehall
       "/government"
     end
 
+    def admin_hosts
+      ADMIN_HOSTS
+    end
+
     def government_single_domain?(request)
       PUBLIC_HOSTS.values.include?(request.host) || request.headers["HTTP_X_GOVUK_ROUTER_REQUEST"].present?
     end

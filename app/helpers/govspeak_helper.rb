@@ -171,6 +171,7 @@ module GovspeakHelper
 
   def build_govspeak_document(text)
     hosts = [request.host, ActionController::Base.default_url_options[:host]]
+    hosts = hosts + Whitehall.admin_hosts
     Govspeak::Document.new(text, document_domains: hosts)
   end
 end

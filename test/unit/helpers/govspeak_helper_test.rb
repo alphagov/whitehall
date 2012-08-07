@@ -227,6 +227,15 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "a[href=?]", public_document_url(speech), text: "that"
   end
 
+  test "should not mark admin links as 'external'" do
+    request.host = "www.preview.alphagov.co.uk"
+    ActionController::Base.default_url_options[:host] = "whitehall-admin.preview.alphagov.co.uk"
+    speech = create(:published_speech)
+    govspeak = "this and [that](#{admin_speech_url(speech)}) yeah?"
+    html = govspeak_to_html(govspeak)
+    refute_select_within_html html, "a[rel='external']", text: "that"
+  end
+
   test "should rewrite absolute links to admin previews of SupportingPages as their public document on preview" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     policy = create(:published_policy)
