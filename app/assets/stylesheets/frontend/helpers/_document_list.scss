@@ -8,33 +8,42 @@
     overflow: hidden;
     position: relative;
     list-style: none;
+    text-align: left;
 
-    .attribute {
-      @include core-14;
-      padding: 7px 0;
-      display: block;
+    th {
+      @include core-19;
       float: left;
+      display: inline;
+      width: 100%;
+      padding-bottom: 0;
     }
-    .title {
-      width: 64%;
-      text-align: left;
-
-      .meta {
-        font-style: normal;
-      }
+    
+    td {
+      @include core-14;
+      float: left;
+      display: inline;
+      min-width: 33.3333%;
+      color: $grey-63;
+      padding-top: $gutter-one-sixth;
+    }
+    
+//  bit of a hack to add a gutter without box model issues
+    td+td {
+      position: relative;
+      left: $gutter-half;
+    }
+  }
+  
+  .document-row:first-child {
+    th {
+      @include core-27;
+    }
+  } 
+  .document-row:nth-child(2) {
+    th {
+      @include core-24;
     }
   }
 
-  &.emphasise-recent {
-    .document-row {
-      &:first-child, &:nth-child(2), &:nth-child(3),
-      &.recent {
-        .title {
-          @include core-24;
-          width: 100%;
-          padding-bottom: 4px;
-        }
-      }
-    }
-  }
+
 }
