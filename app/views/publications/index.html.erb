@@ -72,15 +72,17 @@
             <th scope="row" class="title attribute">
               <%= link_to publication.title, public_document_path(publication),
                   title: "View #{publication.title}" %>
-              <em class="meta organisation"><%= publication.organisations.map { |o|
-                organisation_display_name(o) }.to_sentence.html_safe %></em>
             </th>
-            <td class="date attribute">
+            <td class="attribute organisation">
+              <%= publication.organisations.map { |o|
+                organisation_display_name(o) }.to_sentence.html_safe %>
+            </td>
+            <td class="attribute publication_date">
               <%= render_datetime_microformat(publication, :publication_date) {
                     publication.publication_date.to_s(:long_ordinal)
               }%>
             </td>
-            <td class="type attribute">
+            <td class="publication_type attribute">
               <%= publication.publication_type.singular_name %>
             </td>
           <% end %>

@@ -45,7 +45,7 @@
       }
     }
     function importantAttribute(attribute) {
-      return ($.inArray(attribute, ["id", "title", "organisations", "url", "type"]) < 0);
+      return ($.inArray(attribute, ["id", "title", "url", "type"]) < 0);
     }
     function capitalize(attribute) {
       return attribute.replace(/_/, " ").replace(/(^|\s)([a-z])/g, function(_,a,b){ return a+b.toUpperCase(); });
@@ -81,8 +81,6 @@
                 th.attr('scope', 'row').addClass('title attribute');
                 a.attr('href', row.url).attr('title', "View " + row.title).text(row.title);
                 th.append(a);
-                th.append(' ');
-                th.append($('<em class="meta organisations">'+row.organisations+'</em>'));
                 tableRow.append(th);
                 for(var attribute in row) {
                   if (importantAttribute(attribute)) {
