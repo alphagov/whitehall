@@ -6,8 +6,8 @@ class TopicsControllerTest < ActionController::TestCase
   test "shows topic title and description" do
     topic = create(:topic)
     get :show, id: topic
-    assert_select ".page_title", text: topic.name
-    assert_select ".topic .document", text: topic.description
+    assert_select ".topic", text: topic.name
+    assert_select ".document", text: topic.description
   end
 
   test "shows published policies and their summaries" do
@@ -18,7 +18,7 @@ class TopicsControllerTest < ActionController::TestCase
 
     assert_select "#policies" do
       assert_select_object(published_policy) do
-        assert_select ".article_title", text: "policy-title"
+        assert_select "h2", text: "policy-title"
         assert_select ".summary", text: /policy-summary/
       end
     end
@@ -30,24 +30,9 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select "#specialist_guides" do
+    assert_select "#specialist-guidance" do
       assert_select_object(published_specialist_guide) do
-        assert_select ".article_title", text: "specialist-guide-title"
-      end
-    end
-  end
-
-  test "shows featured policies and their summaries" do
-    topic = create(:topic)
-    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
-    create(:topic_membership, topic: topic, policy: policy, featured: true)
-
-    get :show, id: topic
-
-    assert_select ".featured-policies" do
-      assert_select_object(policy) do
-        assert_select ".title", text: "policy-title"
-        assert_select ".summary", text: /policy-summary/
+        assert_select "li", text: "specialist-guide-title"
       end
     end
   end
@@ -84,7 +69,7 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select "#related_topics" do
+    assert_select "#related-topics" do
       assert_select_object related_topic_1 do
         assert_select "a[href='#{topic_path(related_topic_1)}']"
       end
@@ -100,7 +85,7 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select "#related_topics ul", count: 0
+    assert_select "#related-topics ul", count: 0
   end
 
   test "show displays recently changed documents relating to policies in the topic" do
@@ -131,7 +116,7 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select "#recently-changed li", count: 5
+    assert_select "#recently-changed tbody tr", count: 5
   end
 
   test "show displays metadata about the recently changed documents" do
@@ -145,8 +130,8 @@ class TopicsControllerTest < ActionController::TestCase
 
     assert_select "#recently-changed" do
       assert_select_object speech do
-        assert_select '.metadata .document_type', text: "Speech"
-        assert_select ".metadata .published_at[title='#{published_at.iso8601}']"
+        assert_select '.type', text: "Speech"
+        assert_select ".published-at[title='#{published_at.iso8601}']"
       end
     end
   end
@@ -178,11 +163,11 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select_object first_edition do
-      assert_select '.metadata', text: /Published/
+      assert_select '.date ', text: /Published/
     end
 
     assert_select_object updated_edition do
-      assert_select '.metadata', text: /Updated/
+      assert_select '.date', text: /Updated/
     end
   end
 
@@ -203,20 +188,6 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic)
     get :show, id: topic
     assert_select "#organisations", count: 0
-  end
-
-  test "should not show archived policies that were featured" do
-    policy_1 = create(:published_policy, title: "some-policy")
-    topic = create(:topic)
-    topic.update_attributes(topic_memberships_attributes: [
-      {topic_id: topic.id, featured: true, edition_id: policy_1.id}
-    ])
-    policy_1.publish_as(create(:user))
-    policy_1.create_draft(create(:user))
-
-    get :show, id: topic
-
-    assert_select ".featured_policy a", text: "some-policy", count: 1
   end
 
   test "should show list of topics with published content" do

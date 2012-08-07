@@ -1,53 +1,90 @@
-.topic {
+.topics-index {}
 
-  .block-2,
-  .block-3,
-  .block-4 {
-    padding-bottom: $gutter;
+.topics-show {
+
+  @include media(desktop) {
+    .block-3 {
+      float: left;
+      width: 30%;
+      display: inline;
+      min-height: 30px;
+    }
+    .block-4 {
+      width: 70%;
+      float: left;
+      display: inline;
+    }
   }
-
-  .block-3,
-  .block-4 {
+  .page-header {
     h1 {
-      @include sans-15;
+      @include core-48;
+      .label {
+        color: lighten($body-text, 30%);
+      }
     }
 
+    .organisations-icon-list .organisation {
+      margin-bottom: $gutter-one-third;
+    }
+    @include media(desktop) {
+      padding-bottom: $gutter*3;
+    }
+  }
+  .contextual {
+    padding-top: $gutter-half;
+  }
+  .block-4 section {
+    margin-bottom: $gutter;
+
+    h1 {
+      @include core-19;
+      margin: $gutter-one-third 0;
+    }
+  }
+  .policies {
     li {
       list-style: none;
-    }
-
-    article {
-      padding-bottom: $gutter;
-    }
-
-    h2 {
-      @include sans-20;
-      padding-bottom: 0;
-    }
-
-    .summary {
-      @include sans-20;
-      padding-top: 0;
+      padding-bottom: $gutter-half;
+      h2 {
+        @include core-24;
+      }
+      p {
+        @include core-19;
+        padding: 0;
+      }
     }
   }
 
-  @media (min-width: 768px) {
-    .block-2 {
-      max-width: 70%;
+  .specialist-guidance {
+    h1 {
+      color: $light-blue;
     }
+    ul {
+      background: $light-blue;
+      padding: $gutter-one-third $gutter-half 5px;
+      margin: 0 (-$gutter-half);
 
-    .block-3,
-    .block-4 {
-      clear: both;
-      float: left;
-      display: inline;
-      width: 70%;
+      li {
+        border-top: 1px solid $white;
+        list-style: none;
+        @include core-16;
+        padding: 5px 0;
+
+        &:first-child {
+          border-top: 0;
+        }
+        a {
+          color: $white;
+        }
+      }
     }
-
-    .block-5 {
-      float: left;
-      display: inline;
-      width: 30%;
+    .view-all {
+      display: block;
+      margin: 0 (-$gutter-half);
+      padding: 5px $gutter-half;
+      background: darken($light-blue, 10%);
+      color: $white;
     }
   }
 }
+

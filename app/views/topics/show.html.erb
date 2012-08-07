@@ -1,15 +1,15 @@
 <% page_title @topic.name, "Topics" %>
-<% page_class "topic" %>
+<% page_class "topics-show" %>
 
 <div class="block-1">
   <div class="inner-block">
-    <section class="page-header icon gutter">
-      <h2 class="label">Topic</h2>
-      <h1 class="page_title has_meta"><%= @topic.name %></h1>
+    <section class="page-header">
+      <h1><span class="label">Topic:</span> <span class="topic"><%= @topic.name %></span></h1>
       <div class="meta">
-        <% @topic.organisations.each do |organisation| %>
-          <%= link_to organisation_display_name(organisation), organisation_path(organisation), class: "organisation tag", id: dom_id(organisation) %>
-        <% end %>
+        <%= render partial: 'organisations/organisations_logo_list',
+                   locals: { organisations: @topic.organisations,
+                             remove_line_breaks: true,
+                             extra_class: 'single-line' } %>
       </div>
     </section>
   </div>
@@ -23,51 +23,55 @@
   </div>
 </div>
 
-<% if @featured_policies.any? %>
 <div class="block-3">
   <div class="inner-block">
-      <div class="group<%= @featured_policies.any? ? "" : " no_featured" %>">
-        <div class="priority_policies">
-          <section>
-            <h1 class="label">Featured policies in this topic</h1>
-            <ul class="featured-policies">
-              <% @featured_policies.each do |policy| %>
-                  <%= content_tag_for :li, policy, class: "featured_policy" do %>
-                  <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
-                  <p class="summary"><%= policy.summary %>&hellip;</p>
-                <% end %>
-              <% end %>
-            </ul>
-          </section>
-        </div>
-      </div>
+    <section class="contextual js-stick-at-top-when-scrolling">
+      <h2>Contents</h2>
+      <ol role="navigation">
+        <li><%= link_to 'Policies in this topic', '#policies'%></li>
+        <li><%= link_to 'Specialist guidance', '#specialist-guidance' %></li>
+        <li><%= link_to 'Latest updates', '#recently-changed' %></li>
+        <li><%= link_to 'Related topics', '#related-topics' %></li>
+      </ol>
+    </section>
   </div>
 </div>
-<% end %>
-
 
 <div class="block-4">
   <div class="inner-block">
     <% if @policies.any? %>
-      <div class="all_policies">
-        <%= render partial: "documents/policies", object: @policies, locals: {title: "All policies in this topic"} %>
-      </div>
+      <section id="policies" class="policies">
+        <h1>Policies in this topic:</h1>
+        <ul class="policies">
+          <% @policies.each do |policy| %>
+            <%= content_tag_for :li, policy, class: "featured_policy" do %>
+              <h2><%= link_to policy.title, public_document_path(policy),
+                              title: "View #{policy.title}" %></h2>
+              <p class="summary"><%= policy.summary %>&hellip;</p>
+            <% end %>
+          <% end %>
+        </ul>
+      </section>
     <% end %>
-  </div>
-</div>
-
-<div class="block-5">
-  <div class="inner-block">
-    <%= render partial: "documents/recently_changed_documents", object: @recently_changed_documents[0...5], locals: { title: "Latest in this topic" } %>
+    <% if @specialist_guides.any? %>
+      <section id="specialist-guidance" class="specialist-guidance">
+        <h1>Specialist guidance:</h1>
+        <ul>
+          <% @specialist_guides.each do |specialist_guide| %>
+            <%= content_tag_for :li, specialist_guide, class: "document-row" do %>
+              <%= link_to specialist_guide.title, public_document_path(specialist_guide),
+                          title: "View #{specialist_guide.title}"%>
+            <% end %>
+          <% end %>
+        </ul>
+        <%= link_to 'View all', specialist_guide_path, class: 'view-all' %>
+      </section>
+    <% end %>
+    <%= render partial: "documents/recently_changed_documents",
+              object: @recently_changed_documents[0...5],
+              locals: { title: "Latest updates" } %>
 
     <%= render partial: "related_topics", object: @related_topics %>
   </div>
 </div>
 
-<div class="block-4">
-  <div class="inner-block">
-    <div class="all_specialist_guides">
-      <%= render partial: "documents/specialist_guides", object: @specialist_guides, locals: {title: "All specialist guides in this topic"} %>
-    </div>
-  </div>
-</div>

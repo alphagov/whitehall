@@ -64,18 +64,6 @@ When /^I set the order of the policies in the "([^"]*)" topic to:$/ do |name, ta
   click_button "Save"
 end
 
-When /^I set the featured policies in the "([^"]*)" topic to:$/ do |name, table|
-  topic = Topic.find_by_name!(name)
-  visit edit_admin_topic_path(topic)
-  table.rows.each_with_index do |(policy_name), index|
-    policy = Policy.find_by_title(policy_name)
-    within record_css_selector(policy) do
-      check "Featured?"
-    end
-  end
-  click_button "Save"
-end
-
 Then /^I should see in the admin the "([^"]*)" topic description is "([^"]*)"$/ do |name, description|
   visit admin_topics_path
   assert page.has_css?(".name", text: name)
@@ -93,14 +81,6 @@ Then /^I should be able to delete the topic "([^"]*)"$/ do |name|
   visit admin_topics_path
   click_link name
   click_button 'Delete'
-end
-
-Then /^I should see the featured policies in the "([^"]*)" topic are:$/ do |name, expected_table|
-  topic = Topic.find_by_name!(name)
-  visit topic_path(topic)
-  rows = find("ul.featured-policies").all('li')
-  table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
-  expected_table.diff!(table)
 end
 
 Then /^I should see the order of the policies in the "([^"]*)" topic is:$/ do |name, expected_table|
@@ -141,7 +121,7 @@ end
 
 Then /^I should see a link to the related topic "([^"]*)"$/ do |related_name|
   related_topic = Topic.find_by_name(related_name)
-  assert page.has_css?("#related_topics a[href='#{topic_path(related_topic)}']", text: related_name)
+  assert page.has_css?("#related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
 end
 
 def create_topic(options = {})
