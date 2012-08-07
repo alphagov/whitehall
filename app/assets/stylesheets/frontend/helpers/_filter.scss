@@ -53,7 +53,7 @@
     background: $white;
     width: 100%;
     margin: 0;
-    padding: $gutter-one-third 0;
+    padding: 4px 0;
     text-indent: 4px;
     border: 0;
   }
@@ -91,8 +91,9 @@
     }
   }
   .submit {
+    border-top: 1px solid $light-blue-grey;
     padding: $gutter-two-thirds 0 $gutter-one-third;
-    margin: $gutter-one-sixth 0 0;
+    margin: $gutter-half 0 0;
     @media (min-width: 768px) {
       padding-bottom: 0;
     }
