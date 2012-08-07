@@ -53,7 +53,7 @@
         <% if results.any? %>
           <div class="result-block js-search-result js-section-<%= type %>">
             <h2><%= title %></h2>
-            <ul class="search-results js-serach-result js-section-<%= type %>">
+            <ul class="search-results js-search-result js-section-<%= type %>">
               <% results.each do |result| %>
                 <li class="result <%= result["presentation_format"] %>">
                   <h3><%= link_to result["title"], result["link"] %></h3>
