@@ -102,7 +102,7 @@ module GovspeakHelper
     body = text.gsub(/^!@([0-9]+)\s*/) do
       attachment = attachments[$1.to_i - 1]
       if attachment
-        render partial: "documents/attachment", object: attachment
+        render partial: "documents/attachment.html.erb", object: attachment
       else
         ""
       end

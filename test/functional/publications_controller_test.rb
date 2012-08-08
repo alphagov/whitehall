@@ -269,6 +269,23 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'index atom feed should include links to download attachments' do
+    attachment = build(:attachment)
+    publication = create(:published_publication, title: "publication-title",
+                         attachments: [attachment],
+                         body: "include the attachment:\n\n!@1")
+
+    get :index, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry' do
+        assert_select "content" do |content|
+          assert content[0].to_s.include?(attachment.url), "escaped publication body should include link to attachment"
+        end
+      end
+    end
+  end
+
   test "show displays the ISBN of the attached document" do
     attachment = create(:attachment, isbn: '0099532816')
     edition = create("published_publication", body: "!@1", attachments: [attachment])
