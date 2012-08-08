@@ -167,6 +167,16 @@ class DocumentFilterTest < ActiveSupport::TestCase
     filter.by_keywords('')
   end
 
+  test "#by_keywords doesn't error with leading or trailing spaces" do
+    filter = Whitehall::DocumentFilter.new(document_scope)
+    filtered_scope = stub_document_scope('filtered scope')
+    document_scope.expects(:with_content_containing).with("alpha", "beta").returns(filtered_scope)
+
+    filter.by_keywords(" alpha beta")
+
+    assert_equal filtered_scope, filter.documents
+  end
+
   test "#by_date can filter before a date" do
     filter = Whitehall::DocumentFilter.new(document_scope)
 
