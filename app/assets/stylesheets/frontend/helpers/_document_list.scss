@@ -27,12 +27,8 @@
       float: left;
       display: inline;
       padding-top: $gutter-one-sixth;
-      padding-left: $gutter-half;
-      padding-right: $gutter-half;
+      padding-right: $gutter;
       margin-bottom: $gutter-one-sixth;
-      &.organisations {
-        padding-left: 0;
-      }
     }
   }
   
