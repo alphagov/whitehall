@@ -71,7 +71,7 @@ When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |
   table.rows.each do |title|
     news_article = NewsArticle.find_by_title(title)
     within record_css_selector(news_article) do
-      click_button "Feature"
+      click_button "Make featured"
     end
   end
 end
