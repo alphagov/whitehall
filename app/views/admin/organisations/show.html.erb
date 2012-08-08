@@ -92,10 +92,10 @@
                       <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
                         <% if association.featured? %>
                           <%= f.hidden_field :featured, value: false %>
-                          <%= f.submit "No longer feature", class: "btn" %>
+                          <%= f.submit "Featured", class: "btn featured" %>
                         <% else %>
                           <%= f.hidden_field :featured, value: true %>
-                          <%= f.submit "Feature", class: "btn" %>
+                          <%= f.submit "Make featured", class: "btn make-featured" %>
                         <% end %>
                       <% end %>
                     </td>
