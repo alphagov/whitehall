@@ -15,9 +15,9 @@
       float: left;
       display: inline;
       width: 100%;
+      margin-top: $gutter-one-sixth;
       @media (min-width: 860px) {
         @include core-24;
-        padding-top: 8px;
       }
       padding-bottom: 0;
     }
@@ -26,10 +26,10 @@
       @include core-14;
       float: left;
       display: inline;
-      padding: $gutter-one-sixth $gutter-half 9px;
-      -moz-box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
+      padding-top: $gutter-one-sixth;
+      padding-left: $gutter-half;
+      padding-right: $gutter-half;
+      margin-bottom: $gutter-one-sixth;
       &.organisations {
         padding-left: 0;
       }
@@ -46,7 +46,6 @@
     th {
       @include core-24;
       padding-bottom: 0;
-      padding-top: 8px;
     }
   }
 
