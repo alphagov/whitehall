@@ -25,7 +25,7 @@ $(function() {
   });
 
   if(mainstreamAlternative.length){
-    mainstreamAlternative.insertAfter(container.children().get(1));
+    mainstreamAlternative.insertBefore(container.find('p').first().nextAll('p,h2,h3').first());
   }
 
   if (paginating) {
