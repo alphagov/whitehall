@@ -116,6 +116,10 @@
       margin-left: 1.1em;
       li {
         padding-bottom: 3px;
+        list-style-type: disc;
+        a {
+          display: block;
+        }
       }
     }
   }
