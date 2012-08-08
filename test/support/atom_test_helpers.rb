@@ -4,6 +4,6 @@ module AtomTestHelpers
   end
 
   def assert_select_autodiscovery_link(url)
-    assert_select 'head > link[rel=?][type=?][href=?]', 'alternate', 'application/atom+xml', url
+    assert_select 'head > link[rel=?][type=?][href=?]', 'alternate', 'application/atom+xml', ERB::Util.html_escape(url)
   end
 end
