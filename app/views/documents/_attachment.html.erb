@@ -10,17 +10,20 @@
   <p>
     <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>,
     <span class="file-size"><%= number_to_human_size(attachment.file_size) %></span><% if attachment.number_of_pages.present? %>,
-      <span class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></span><% end %>.
+      <span class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></span><% end %>
   </p>
   <p>
+    <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? %>
+      Ref:
+    <% end %>
     <% if attachment.isbn.present? %>
-      ISBN <span class="isbn"><%= attachment.isbn %></span>;
+      ISBN <span class="isbn"><%= attachment.isbn %></span>,
     <% end %>
     <% if attachment.unique_reference.present? %>
-      Ref: <span class="unique_reference"><%= attachment.unique_reference %></span>;
+      <span class="unique_reference"><%= attachment.unique_reference %></span>,
     <% end %>
     <% if attachment.command_paper_number.present? %>
-      <span class="command_paper_number"><%= attachment.command_paper_number %></span>;
+      <span class="command_paper_number"><%= attachment.command_paper_number %></span>
     <% end %>
   </p>
   <% if attachment.order_url.present? %>

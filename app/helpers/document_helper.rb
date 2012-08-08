@@ -48,4 +48,25 @@ module DocumentHelper
       nation_inapplicability.nation.name
     end
   end
+
+  MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document"
+  MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE = "MS Excel Spreadsheet"
+  MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE = "MS Powerpoint Presentation"
+
+  def humanized_content_type(file_extension)
+    file_extension_vs_humanized_content_type = {
+      "pdf" => content_tag(:abbr, 'PDF', title: 'Portable Document Format'),
+      "csv" => content_tag(:abbr, 'CSV', title: 'Comma-separated Values'),
+      "rtf" => content_tag(:abbr, 'RTF', title: 'Rich Text Format'),
+      "png" => content_tag(:abbr, 'PNG', title: 'Portable Network Graphic'),
+      "jpg" => "JPEG",
+      "doc" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
+      "docx" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
+      "xls" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
+      "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
+      "ppt" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
+      "pptx" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE
+    }
+    file_extension_vs_humanized_content_type[file_extension.downcase] if file_extension.present?
+  end
 end

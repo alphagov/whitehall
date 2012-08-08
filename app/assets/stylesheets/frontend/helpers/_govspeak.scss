@@ -82,6 +82,11 @@
   em, i {
     font-style: italic;
   }
+
+  abbr {
+    border-bottom: .1em dotted;
+    cursor: help;
+  }
   
   blockquote {
     padding: 0;
@@ -238,8 +243,8 @@
       width: 100%;
       margin: $gutter 0;
 
-      thead { 
-        display: table-header-group; 
+      thead {
+        display: table-header-group;
       }
 
       tr {
