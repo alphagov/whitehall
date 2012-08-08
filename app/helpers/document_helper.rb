@@ -69,4 +69,13 @@ module DocumentHelper
     }
     file_extension_vs_humanized_content_type[file_extension.downcase] if file_extension.present?
   end
+
+  def attachment_reference(attachment)
+    ref = []
+    ref << "ISBN "+ content_tag(:span, attachment.isbn, class: "isbn") if attachment.isbn.present?
+    ref << content_tag(:span, attachment.unique_reference, class: "unique_reference") if attachment.unique_reference.present?
+    ref << content_tag(:span, attachment.command_paper_number, class: "command_paper_number") if attachment.command_paper_number.present?
+
+    ref.join(', ').html_safe
+  end
 end
