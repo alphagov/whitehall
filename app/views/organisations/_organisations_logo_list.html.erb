@@ -23,7 +23,7 @@
           <% end %>
         <% else %>
           <span class="organisation-logo-small <%= extra_class %>">
-            <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
+            <span><%= remove_line_breaks ? organisation.logo_formatted_name : format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
           </span>
         <% end %>
       <% end %>

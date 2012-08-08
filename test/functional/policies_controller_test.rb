@@ -111,6 +111,21 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
+  test "should not link to inactive orgs" do
+    first_org = create(:organisation, logo_formatted_name: "first\nalso first", active: true)
+    second_org = create(:organisation, logo_formatted_name: "second", active: false)
+    edition = create(:published_policy, organisations: [first_org, second_org])
+
+    get :show, id: edition.document
+
+    assert_select_object first_org do
+      assert_select "a[href='#{organisation_path(first_org)}']", first_org.logo_formatted_name
+    end
+    assert_select_object second_org do
+      refute_select "a[href='#{organisation_path(second_org)}']", text: second_org.logo_formatted_name
+    end
+  end
+
   test "should link to ministers related to the policy" do
     role = create(:ministerial_role)
     appointment = create(:role_appointment, person: create(:person, forename: "minister-name"), role: role)
