@@ -231,7 +231,8 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select 'feed > title', 1
       assert_select 'feed > author, feed > entry > author'
       assert_select 'feed > updated', 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', atom_feed_url, 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
+                    publications_url(format: :atom, departments: [org]), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
 
       assert_select 'feed > entry' do |entries|

@@ -1,4 +1,4 @@
-atom_feed language: 'en-GB', url: atom_feed_url, root_url: root_url do |feed|
+atom_feed language: 'en-GB', root_url: root_url do |feed|
   feed.title 'Inside government'
   feed.subtitle 'Recent publications'
   feed.author do |author|
