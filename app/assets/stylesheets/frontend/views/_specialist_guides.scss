@@ -51,7 +51,6 @@
       }
 
       li {
-        margin-bottom: 0;
         list-style: none;
         color: $body-text;
         margin-bottom: $gutter-one-sixth;
@@ -261,6 +260,9 @@
           float: left;
           margin-right: $gutter;
           position: relative;
+        }
+        &.extra-icons .organisation {
+          margin-right: $gutter-one-third;
         }
       }
       .page-meta {
