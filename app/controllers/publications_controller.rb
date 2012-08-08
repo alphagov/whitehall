@@ -28,13 +28,12 @@ private
   end
 
   def load_filtered_publications(params)
-    params[:date] ||= Date.today.to_s
     @filter = Whitehall::DocumentFilter.new(all_publications)
     @filter.
       by_topics(params[:topics]).
       by_organisations(params[:departments]).
       by_keywords(params[:keywords]).
-      by_date(params[:date], params[:direction]).
+      by_date(params[:date] || Date.today.to_s, params[:direction]).
       paginate(params[:page] || 1)
   end
 end

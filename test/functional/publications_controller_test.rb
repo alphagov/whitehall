@@ -199,16 +199,16 @@ class PublicationsControllerTest < ActionController::TestCase
 
   test 'index has atom feed autodiscovery link' do
     get :index
-    assert_select_autodiscovery_link publications_url(format: "atom", date: Date.today)
+    assert_select_autodiscovery_link publications_url(format: "atom")
   end
 
   test 'index atom feed autodiscovery link includes any present filters' do
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, topics: [topic], departments: [organisation], date: "2012-05-23"
+    get :index, topics: [topic], departments: [organisation]
 
-    assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], departments: [organisation], date: "2012-05-23")
+    assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], departments: [organisation])
   end
 
   test "index can return an atom feed of documents matching the current filter" do
