@@ -190,7 +190,7 @@ some more content
     assert_equal "guide-title", guide_json["title"]
     assert_equal guide.id, guide_json["id"]
     assert_equal specialist_guide_path(guide.document), guide_json["url"]
-    assert_equal "topic-name<br>other-topic", guide_json["topics"]
+    assert_equal "topic-name, other-topic", guide_json["topics"]
     assert_equal "org-name and other-org", guide_json["organisations"]
   end
 

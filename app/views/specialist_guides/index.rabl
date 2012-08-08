@@ -29,7 +29,7 @@ node :results do
       organisations: a.organisations.map { |o|
         organisation_display_name(o)
       }.to_sentence.html_safe,
-      topics: a.topics.map(&:name).join("<br>").html_safe
+      topics: a.topics.map(&:name).join(", ").html_safe
     }
   }
 end
