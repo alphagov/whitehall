@@ -24,7 +24,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows published specialist guides" do
+  test "shows published specialist guides and links to more" do
     published_specialist_guide = create(:published_specialist_guide, title: "specialist-guide-title")
     topic = create(:topic, specialist_guides: [published_specialist_guide])
 
@@ -34,6 +34,7 @@ class TopicsControllerTest < ActionController::TestCase
       assert_select_object(published_specialist_guide) do
         assert_select "li", text: "specialist-guide-title"
       end
+      assert_select "a[href=#{specialist_guides_path("topics[]" => topic.slug)}]"
     end
   end
 
