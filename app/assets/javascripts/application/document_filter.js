@@ -96,7 +96,6 @@
 
         }
         else {
-          console.log("no documents");
             container.empty();
             container.append('<div class="no-results"><h2>There are no matching documents.</h2>' +
                              '<p>Try making your search broader and try again.</p></div>');
