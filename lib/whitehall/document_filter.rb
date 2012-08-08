@@ -37,7 +37,7 @@ class Whitehall::DocumentFilter
 
   def by_keywords(keywords)
     if keywords.present?
-      @keywords = keywords.split(/\s+/)
+      @keywords = keywords.strip.split(/\s+/)
     end
     self
   end
