@@ -15,6 +15,10 @@
       float: left;
       display: inline;
       width: 100%;
+      @media (min-width: 860px) {
+        @include core-24;
+        padding-top: 8px;
+      }
       padding-bottom: 0;
     }
     
@@ -22,15 +26,13 @@
       @include core-14;
       float: left;
       display: inline;
-      min-width: 33.3333%;
-      padding-top: $gutter-one-sixth;
-      padding-bottom: 9px;
-    }
-    
-//  bit of a hack to add a gutter without box model issues
-    td+td {
-      position: relative;
-      left: $gutter-half;
+      padding: $gutter-one-sixth $gutter-half 9px;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      &.organisations {
+        padding-left: 0;
+      }
     }
   }
   
@@ -44,6 +46,7 @@
     th {
       @include core-24;
       padding-bottom: 0;
+      padding-top: 8px;
     }
   }
 

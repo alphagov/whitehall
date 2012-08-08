@@ -12,7 +12,7 @@
 <div class="block-2">
   <div class="inner-block">
     <div class="filter-block">
-      <h2>Filter</h2>
+      <h2>Filter by organisation, topic or keyword</h2>
       <%= form_tag publications_path, method: :get, id: "document-filter" do %><%# this ID used by Javascript %>
         <fieldset>
           <legend class="visuallyhidden">Filter publications</legend>
@@ -73,7 +73,7 @@
               <%= link_to publication.title, public_document_path(publication),
                   title: "View #{publication.title}" %>
             </th>
-            <td class="attribute organisation">
+            <td class="attribute organisations">
               <%= publication.organisations.map { |o|
                 organisation_display_name(o) }.to_sentence.html_safe %>
             </td>
