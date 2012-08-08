@@ -6,7 +6,7 @@ module Admin::EditionsHelper
   end
 
   def admin_documents_header_link
-    admin_header_link "Documents", admin_editions_path, /^#{Whitehall.router_prefix}\/admin\/(documents|publications|policies|news_articles|consultations|speeches)/
+    admin_header_link "Documents", admin_editions_path, /^#{Whitehall.router_prefix}\/admin\/(editions|publications|policies|news_articles|consultations|speeches)/
   end
 
   def link_to_filter(link, options, html_options={})
