@@ -8,10 +8,10 @@
     overflow: hidden;
     position: relative;
     list-style: none;
-    text-align: left;
 
     th {
       @include core-19;
+      text-align: left;
       float: left;
       display: inline;
       width: 100%;
@@ -24,6 +24,7 @@
     
     td {
       @include core-14;
+      text-align: left;
       float: left;
       display: inline;
       padding-top: $gutter-one-sixth;
