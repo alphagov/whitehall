@@ -3,6 +3,10 @@
 require "test_helper"
 
 class PublicationsControllerTest < ActionController::TestCase
+  include ActionDispatch::Routing::UrlFor
+  include PublicDocumentRoutesHelper
+  default_url_options[:host] = 'test.host'
+
   should_be_a_public_facing_controller
   should_display_attachments_for :publication
   should_show_related_policies_and_topics_for :publication
@@ -191,6 +195,78 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal "org-name and other-org", json["organisations"]
     assert_equal "<abbr class=\"publication_date\" title=\"2012-03-14\">14 March 2012</abbr>", json["publication_date"]
     assert_equal "Corporate report", json["publication_type"]
+  end
+
+  test 'index has atom feed autodiscovery link' do
+    get :index
+    assert_select_autodiscovery_link publications_url(format: "atom", date: Date.today)
+  end
+
+  test 'index atom feed autodiscovery link includes any present filters' do
+    topic = create(:topic)
+    organisation = create(:organisation)
+
+    get :index, topics: [topic], departments: [organisation], date: "2012-05-23"
+
+    assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], departments: [organisation], date: "2012-05-23")
+  end
+
+  test "index can return an atom feed of documents matching the current filter" do
+    org = create(:organisation, name: "org-name")
+    other_org = create(:organisation, name: "other-org")
+    publication = create(:published_publication, title: "publication-title",
+                         organisations: [org],
+                         publication_date: Date.parse("2012-03-14"),
+                         publication_type: PublicationType::CorporateReport)
+    other_publication = create(:published_publication, title: "publication-title",
+                         organisations: [other_org],
+                         publication_date: Date.parse("2012-03-14"),
+                         publication_type: PublicationType::CorporateReport)
+
+
+    get :index, format: :atom, departments: [org]
+
+    assert_select_atom_feed do
+      assert_select 'feed > id', 1
+      assert_select 'feed > title', 1
+      assert_select 'feed > author, feed > entry > author'
+      assert_select 'feed > updated', 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', atom_feed_url, 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+
+      assert_select 'feed > entry' do |entries|
+        entries.each do |entry|
+          assert_select entry, 'entry > id', 1
+          assert_select entry, 'entry > published', 1
+          assert_select entry, 'entry > updated', 1
+          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
+          assert_select entry, 'entry > title', 1
+          assert_select entry, 'entry > content[type=?]', 'html', 1
+        end
+      end
+    end
+  end
+
+  test 'index atom feed shows a list of recently published publications' do
+    publication = create(:published_publication, title: "publication-title",
+                         published_at: Time.zone.parse("2012-04-10 11:00"))
+    other_publication = create(:published_publication, title: "publication-title",
+                         published_at: Time.zone.parse("2012-03-14 09:00"))
+
+    get :index, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > updated', text: Time.zone.parse("2012-04-10 11:00").iso8601
+
+      assert_select 'feed > entry' do |entries|
+        entries.zip([publication, other_publication]).each do |entry, document|
+          assert_select entry, 'entry > published', text: document.first_published_at.iso8601
+          assert_select entry, 'entry > updated', text: document.published_at.iso8601
+          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+          assert_select entry, 'entry > title', text: document.title
+        end
+      end
+    end
   end
 
   test "show displays the ISBN of the attached document" do

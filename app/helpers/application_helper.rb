@@ -14,6 +14,12 @@ module ApplicationHelper
     content_for(:page_class, css_class)
   end
 
+  def atom_discovery_link_tag(url=nil, title=nil)
+    @atom_discovery_link_url = url.html_safe if url.present?
+    @atom_discovery_link_title = title if title.present?
+    auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url, title: @atom_discovery_link_title || "Recent updates")
+  end
+
   def show_session_controls?
     params[:controller].split("/").first == "admin" ||
     params[:controller] == "sessions"

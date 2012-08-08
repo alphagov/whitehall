@@ -77,7 +77,7 @@ class HomeControllerTest < ActionController::TestCase
 
   test 'index has Atom feed autodiscovery link' do
     get :show
-    assert_select 'head > link[rel=?][type=?][href=?]', 'alternate', 'application/atom+xml', atom_feed_url
+    assert_select_autodiscovery_link atom_feed_url
   end
 
   test 'Atom feed has the right elements' do
@@ -137,10 +137,6 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   private
-
-  def assert_select_atom_feed(&block)
-    assert_select ':root > feed[xmlns="http://www.w3.org/2005/Atom"][xml:lang="en-GB"]', &block
-  end
 
   def create_published_documents
     5.downto(1) do |x|

@@ -17,7 +17,7 @@
     <%= stylesheet_link_tag "frontend/print.css", media: "print" %>
     <%= csrf_meta_tags %>
     <link href='/favicon.ico' rel='shortcut icon' type='image/x-icon'>
-    <%= auto_discovery_link_tag :atom, atom_feed_url, :title => 'Recent updates' %>
+    <%= atom_discovery_link_tag %>
 
   </head>
   <body class="website government specialist">
