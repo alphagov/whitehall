@@ -31,4 +31,20 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     edition.destroy
     refute EditionOrganisation.find_by_id(relation.id)
   end
+
+  test "in_organisation should return editions with all associated organisations loaded when includes has also been invoked" do
+    dfid = create(:organisation)
+    dwp = create(:organisation)
+    create(:draft_specialist_guide, title: "find-me", organisations: [dfid, dwp])
+    create(:draft_specialist_guide, title: "ignore-me", organisations: [dwp])
+
+    assert 3 > count_queries {
+      editions = SpecialistGuide.includes(:organisations).in_organisation([dfid])
+      assert_equal 1, editions.length
+      assert_equal "find-me", editions[0].title
+      assert_equal 0, count_queries {
+        assert_same_elements [dfid, dwp], editions[0].organisations
+      }, "loading organisations should not contact the database"
+    }, "organisations association wasn't eager-loaded"
+  end
 end
