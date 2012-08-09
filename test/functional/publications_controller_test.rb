@@ -197,7 +197,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal "Corporate report", json["publication_type"]
   end
 
-  test "index requested as JSON includes URL to that data including any filters" do
+  test "index requested as JSON includes URL to the atom feed including any filters" do
     create(:topic, name: "topic-1")
     create(:organisation, name: "organisation-1")
 
@@ -205,7 +205,17 @@ class PublicationsControllerTest < ActionController::TestCase
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["url"], publications_url(format: "json", topics: ["topic-1"], departments: ["organisation-1"])
+    assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"], departments: ["organisation-1"])
+  end
+
+  test "index requested as JSON includes atom feed URL without date parameters" do
+    create(:topic, name: "topic-1")
+
+    get :index, format: :json, date: "2012-01-01", direction: "before", topics: ["topic-1"]
+
+    json = ActiveSupport::JSON.decode(response.body)
+
+    assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"])
   end
 
   test 'index has atom feed autodiscovery link' do
@@ -222,6 +232,14 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], departments: [organisation])
   end
 
+  test 'index atom feed autodiscovery link does not include date filter' do
+    topic = create(:topic)
+
+    get :index, topics: [topic], date: "2012-01-01", direction: "after"
+
+    assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic])
+  end
+
   test 'index shows a link to the atom feed including any present filters' do
     topic = create(:topic)
     organisation = create(:organisation)
@@ -229,6 +247,15 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, topics: [topic], departments: [organisation]
 
     feed_url = ERB::Util.html_escape(publications_url(format: "atom", topics: [topic], departments: [organisation]))
+    assert_select "a.feed[href=?]", feed_url
+  end
+
+  test 'index shows a link to the atom feed without any date filters' do
+    organisation = create(:organisation)
+
+    get :index, date: "2012-01-01", direction: "before", departments: [organisation]
+
+    feed_url = ERB::Util.html_escape(publications_url(format: "atom", departments: [organisation]))
     assert_select "a.feed[href=?]", feed_url
   end
 

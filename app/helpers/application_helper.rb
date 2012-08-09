@@ -20,6 +20,10 @@ module ApplicationHelper
     auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url, title: @atom_discovery_link_title || "Recent updates")
   end
 
+  def publication_atom_feed_url
+    url_for(params.except(:utf8, :_, :date, :direction).merge(format: "atom", only_path: false))
+  end
+
   def show_session_controls?
     params[:controller].split("/").first == "admin" ||
     params[:controller] == "sessions"

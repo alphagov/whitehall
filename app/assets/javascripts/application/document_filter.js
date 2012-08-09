@@ -102,8 +102,8 @@
         }
     }
     function updateAtomFeed(data) {
-      if (data.url) {
-        $(".subscribe a.feed").attr("href", data.url.replace(".json", ".atom"));
+      if (data.atom_feed_url) {
+        $(".subscribe a.feed").attr("href", data.atom_feed_url);
       }
     }
 

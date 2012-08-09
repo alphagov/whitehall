@@ -1,6 +1,6 @@
 object false
-node :url do
-  url_for(params.except(:utf8, :_).merge(format: :json, only_path: false))
+node :atom_feed_url do
+  publication_atom_feed_url
 end
 node :count do
   @filter.documents.count
