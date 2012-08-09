@@ -1,5 +1,5 @@
 (function($) {
-  $.fn.toggleChangeNotes = function (options) {
+  $.fn.toggler = function (options) {
     options = $.extend({
       header: '.toggle',
       content: '.overlay'
