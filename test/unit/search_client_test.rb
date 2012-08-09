@@ -10,6 +10,27 @@ class SearchClientTest < ActiveSupport::TestCase
     assert_raise(Whitehall::SearchClient::SearchUriNotSpecified) { Whitehall::SearchClient.new(nil) }
   end
 
+  test "should raise an exception if the service at the search URI returns a 500" do
+    stub_request(:get, /example.com\/search/).to_return(status: [500, "Internal Server Error"])
+    assert_raise(Whitehall::SearchClient::SearchServiceError) do
+      Whitehall::SearchClient.new("http://example.com").search("query")
+    end
+  end
+
+  test "should raise an exception if the service at the search URI returns a 404" do
+    stub_request(:get, /example.com\/search/).to_return(status: [404, "Not Found"])
+    assert_raise(Whitehall::SearchClient::SearchServiceError) do
+      Whitehall::SearchClient.new("http://example.com").search("query")
+    end
+  end
+
+  test "should raise an exception if the service at the search URI times out" do
+    stub_request(:get, /example.com\/search/).to_timeout
+    assert_raise(Whitehall::SearchClient::SearchTimeout) do
+      Whitehall::SearchClient.new("http://example.com").search("query")
+    end
+  end
+
   test "should return the search deserialized from json" do
     search_results = [{"title" => "document-title"}]
     stub_request(:get, /example.com\/search/).to_return(body: search_results.to_json)
