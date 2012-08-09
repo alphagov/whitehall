@@ -216,11 +216,20 @@
   padding-bottom: 0rem;
   padding-left: 7px;
   padding-left: 0.7rem;
+  
+  @media (max-width: 640px) {
+    padding-top: 20px;
+    padding-top: 2rem;  
+  }
 
   display: block;
 
   border-left: 2px solid #bbb;
   background: url("/government/assets/coa-default-24.gif") no-repeat 8px 0;
+  
+  @media (max-width: 640px) {
+    background-image: url("/government/assets/coa-default-18.gif");  
+  }
   span {
     position: relative;
     top: 2px;
@@ -237,6 +246,15 @@
     background-position: 8px 50%;
     span {
       top: 0;
+    }
+    @media (max-width: 640px) {
+      padding-top: 1px;
+      padding-top: 0.1rem;
+      padding-bottom: 1px;
+      padding-bottom: 0.1rem;
+      padding-left: 31px;
+      padding-left: 3.1rem;
+      background-position: 5px 50%;
     }
   }
 }
