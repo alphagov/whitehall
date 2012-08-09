@@ -35,6 +35,10 @@ body.specialist {
     
     #page .document_page .previous-next-navigation {
       background: transparent;
+      margin-left: -45px;
+      @media (max-width: 640px) {
+        margin-left: 0;
+      }
       
       li {
         a {
