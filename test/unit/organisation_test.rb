@@ -17,6 +17,11 @@ class OrganisationTest < ActiveSupport::TestCase
     refute new_organisation.valid?
   end
 
+  test 'should be invalid with a badly formatted alternative_format_contact_email' do
+    new_organisation = build(:organisation, alternative_format_contact_email: "this@email@is@invalid")
+    refute new_organisation.valid?
+  end
+
   test "should be orderable ignoring common prefixes" do
     culture = create(:organisation, name: "Department for Culture and Sports")
     education = create(:organisation, name: "Department of Education")
