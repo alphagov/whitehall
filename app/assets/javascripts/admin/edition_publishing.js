@@ -40,17 +40,19 @@ jQuery(function($) {
       $count = $message.find('.count');
 
   $input.addClass('summary-length-input');
-  $input.bind('keyup', function(){
+  function checkLength(){
     var length = $input.val().split('').length;
 
     $count.text('Current length: '+length);
     if(length > 140){
-      $input.addClass('error');
-      $message.addClass('error');
+      $input.addClass('warning');
+      $message.addClass('warning');
       $message.show();
     } else {
-      $input.removeClass('error');
-      $message.removeClass('error');
+      $input.removeClass('warning');
+      $message.removeClass('warning');
     }
-  });
+  }
+  $input.bind('keyup', checkLength);
+  checkLength();
 }(jQuery));
