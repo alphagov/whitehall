@@ -107,35 +107,44 @@
       }
     }
 
-    var $form = $('form#document-filter');
+    var _enableDocumentFilter = function() {
+      var $form = $(this);
+      $form.submit(function(e) {
+          e.preventDefault();
+          var $submitButton = $form.find('input[type=submit]'),
+              url = $form.attr('action'),
+              params = $form.serializeArray();
 
-    $form.submit(function(e) {
-        e.preventDefault();
-        var $submitButton = $form.find('input[type=submit]'),
-            url = $form.attr('action'),
-            params = $form.serializeArray();
-
-        $submitButton.addClass('disabled');
-        // TODO: make a spinny updating thing
-        $.ajax(url, {
-            cache: false,
-            dataType:'json',
-            data: params,
-            success: function(data) {
-              updateAtomFeed(data);
-              if (data.results) {
-                drawTable(data);
+          $submitButton.addClass('disabled');
+          // TODO: make a spinny updating thing
+          $.ajax(url, {
+              cache: false,
+              dataType:'json',
+              data: params,
+              success: function(data) {
+                updateAtomFeed(data);
+                if (data.results) {
+                  drawTable(data);
+                }
+                // undo double-click protection
+                $submitButton.removeAttr('disabled').removeClass('disabled');
+              },
+              error: function() {
+                $submitButton.removeAttr('disabled');
               }
-              // undo double-click protection
-              $submitButton.removeAttr('disabled').removeClass('disabled');
-            },
-            error: function() {
-              $submitButton.removeAttr('disabled');
-            }
-        });
+          });
 
-    });
-    $form.find('select').change(function(e){
-      $form.submit();
+      });
+      $form.find('select').change(function(e){
+        $form.submit();
+      });
+    }
+
+    $.fn.extend({
+      enableDocumentFilter: _enableDocumentFilter
     });
 })(jQuery);
+
+jQuery(function($) {
+  $("form#document-filter").enableDocumentFilter();
+})

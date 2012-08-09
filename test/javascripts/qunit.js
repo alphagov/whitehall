@@ -16,3 +16,4 @@
 //= require split_into_pages_test
 //= require heading_navigation_test
 //= require hide_topics_link_test
+//= require document_filter_test

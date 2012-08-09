@@ -1,7 +1,7 @@
 Feature: Filtering published publications
 
 @javascript
-Scenario: The list should update without a full page refresh
+Scenario: The list should only display publications matching the filter
   Given a published publication "Lamb chops on baker's faces" for the organisation "Big co."
   And a published publication "Standard Beard Lengths" for the organisation "Acme"
   When I visit the list of publications
@@ -10,7 +10,7 @@ Scenario: The list should update without a full page refresh
   And I should not see the publication "Lamb chops on baker's faces"
 
 @javascript
-Scenario: The list should add pagination dynamically
+Scenario: The list should add pagination
   Given 25 published publications for the organisation "Big co."
   When I visit the list of publications
   And I filter to only those from the "Big co." department
