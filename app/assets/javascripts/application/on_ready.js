@@ -41,4 +41,6 @@ jQuery(function($) {
   $('.specialist-guides-show').trackExternalLinks();
 
   $('.js-stick-at-top-when-scrolling').stickAtTopWhenScrolling();
+
+  $('.accessibility-warning').toggleChangeNotes({header: "a.help-request", content: ".help-block"})
 });

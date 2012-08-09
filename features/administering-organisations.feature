@@ -17,3 +17,11 @@ Scenario: Featuring news on an organisation page
   Then I should see the featured news articles in the "Ministry of Pop" organisation are:
     |You must buy the X-Factor single, says Queen|
     |Bringing back the Charleston|
+
+Scenario: Requesting publications in alternative format
+  Given I am an admin called "Jane"
+  And the organisation "Ministry of Pop" exists
+  And I set the alternative format contact email of "Ministry of Pop" to "alternative.format@ministry-of-pop.gov.uk"
+  And a published publication "Charleston styles today" with a PDF attachment and alternative format provider "Ministry of Pop"
+  When I visit the publication "Charleston styles today"
+  Then I should see a mailto link for the alternative format contact email "alternative.format@ministry-of-pop.gov.uk"

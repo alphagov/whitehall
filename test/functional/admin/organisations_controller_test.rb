@@ -16,6 +16,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "should allow entry of new organisation data" do
     get :new
     assert_template "organisations/new"
+    assert_select "input[type=text][name='organisation[alternative_format_contact_email]']"
     assert_select "textarea[name='organisation[description]']"
     assert_select "textarea[name='organisation[about_us]'].previewable"
     assert_select "#govspeak_help"
@@ -57,7 +58,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "creating should create a new Organisation" do
     attributes = attributes_for(:organisation,
       description: "organisation-description",
-      about_us: "organisation-about-us"
+      about_us: "organisation-about-us",
+      alternative_format_contact_email: "alternative@example.com"
     )
 
     organisation_type = create(:organisation_type)
@@ -73,6 +75,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal attributes[:name], organisation.name
     assert_equal attributes[:description], organisation.description
     assert_equal attributes[:about_us], organisation.about_us
+    assert_equal attributes[:alternative_format_contact_email], organisation.alternative_format_contact_email
     assert_equal 1, organisation.contacts.count
     assert_equal "Enquiries", organisation.contacts[0].description
     assert_equal 1, organisation.contacts[0].contact_numbers.count

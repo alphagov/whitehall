@@ -29,7 +29,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_link_to_public_version_when_published :publication
   should_not_link_to_public_version_when_not_published :publication
   should_prevent_modification_of_unmodifiable :publication
-
+  should_allow_alternative_format_provider_for :publication
+  
   test "new displays publication fields" do
     get :new
 

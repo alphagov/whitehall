@@ -10,6 +10,7 @@
     <%= organisation_form.text_field :url %>
     <%= organisation_form.label :organisation_type_id, "Organisation type" %>
     <%= organisation_form.select :organisation_type_id, options_from_collection_for_select(OrganisationType.all, "id", "name", organisation.organisation_type_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the organisation type..." } %>
+    <%= organisation_form.text_field :alternative_format_contact_email %>
   </fieldset>
   <fieldset>
     <legend>Associations</legend>

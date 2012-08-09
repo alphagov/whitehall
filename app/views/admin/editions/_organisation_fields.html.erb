@@ -1,2 +1,6 @@
 <%= form.label :organisation_ids, 'Producing Organisations' %>
 <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', edition.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
+<% if form.object.respond_to?(:alternative_format_provider) %>
+<%= form.label :alternative_format_provider_id, 'Alternative Format Provider' %>
+<%= form.select :alternative_format_provider_id, options_for_select(Organisation.all.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]}, edition.alternative_format_provider_id), {include_blank: true, multiple: false}, class: 'chzn-select', data: { placeholder: "Choose which organisation will provide alternative formats..." } %>
+<% end %>

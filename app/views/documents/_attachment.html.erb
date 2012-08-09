@@ -1,3 +1,4 @@
+<% raise "alternative_format_contact_email not defined" unless defined?(alternative_format_contact_email) %>
 <%= content_tag_for(:div, attachment, class: "embedded") do %>
   <%= link_to(attachment.url, class: "title download") do %>
     <% if attachment.pdf? %>
@@ -28,7 +29,5 @@
     </p>
   <% end %>
   <%= link_to 'Download attachment', attachment.url, class: "download-button" %>
-  <% unless attachment.accessible? %>
-    <strong class="accessibility-warning">This file may not be accessible</strong>
-  <% end %>
+  <%= render partial: 'documents/attachment_accessibility_warning.html.erb', locals: {attachment: attachment, alternative_format_contact_email: alternative_format_contact_email} %>
 <% end %>
