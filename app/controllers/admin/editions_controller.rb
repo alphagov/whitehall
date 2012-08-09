@@ -172,7 +172,7 @@ class Admin::EditionsController < Admin::BaseController
         editions = editions.__send__(options[:state]) if options[:state]
         editions = editions.authored_by(author) if options[:author]
         editions = editions.in_organisation(organisation) if options[:organisation]
-        editions.includes(:authors).order("updated_at DESC")
+        editions.includes(:authors).order("editions.updated_at DESC")
       )
     end
 
