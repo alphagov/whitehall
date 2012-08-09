@@ -18,6 +18,11 @@ class PoliciesController < DocumentsController
     if @recently_changed_documents.empty?
       render text: "Not found", status: :not_found
     end
+
+    respond_to do |format|
+      format.html
+      format.atom
+    end
   end
 
   private
