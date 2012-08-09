@@ -211,6 +211,16 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], departments: [organisation])
   end
 
+  test 'index shows a link to the atom feed including any present filters' do
+    topic = create(:topic)
+    organisation = create(:organisation)
+
+    get :index, topics: [topic], departments: [organisation]
+
+    feed_url = ERB::Util.html_escape(publications_url(format: "atom", topics: [topic], departments: [organisation]))
+    assert_select "a.feed[href=?]", feed_url
+  end
+
   test "index can return an atom feed of documents matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")

@@ -4,6 +4,19 @@
   .page-header {
     padding: $gutter-one-third*2 0;
     margin: 0;
+    position: relative;
+
+    .subscribe {
+      position: absolute;
+      right: 0;
+      bottom: $gutter;
+    }
+
+    .feed {
+      padding-left: 24px;
+      height: 18px;
+      background: url(/government/assets/feed-icon-black.png) top left no-repeat;
+    }
   }
   .block-4 {
     width: 100%;

@@ -6,6 +6,10 @@
   <div class="inner-block">
     <header class="page-header publication">
       <h1 class="page_title">Publications</h1>
+      <div class="subscribe">
+        <span class="feed-icon"></span>
+        <%= link_to "feed", params.merge(format: "atom", only_path: false), class: "feed" %>
+      </div>
     </header>
   </div>
 </div>
