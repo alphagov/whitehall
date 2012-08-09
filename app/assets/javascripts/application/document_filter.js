@@ -101,6 +101,11 @@
                              '<p>Try making your search broader and try again.</p></div>');
         }
     }
+    function updateAtomFeed(data) {
+      if (data.url) {
+        $(".subscribe a.feed").attr("href", data.url.replace(".json", ".atom"));
+      }
+    }
 
     var $form = $('form#document-filter');
 
@@ -117,6 +122,7 @@
             dataType:'json',
             data: params,
             success: function(data) {
+              updateAtomFeed(data);
               if (data.results) {
                 drawTable(data);
               }

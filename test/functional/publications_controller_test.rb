@@ -197,6 +197,17 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal "Corporate report", json["publication_type"]
   end
 
+  test "index requested as JSON includes URL to that data including any filters" do
+    create(:topic, name: "topic-1")
+    create(:organisation, name: "organisation-1")
+
+    get :index, format: :json, topics: ["topic-1"], departments: ["organisation-1"]
+
+    json = ActiveSupport::JSON.decode(response.body)
+
+    assert_equal json["url"], publications_url(format: "json", topics: ["topic-1"], departments: ["organisation-1"])
+  end
+
   test 'index has atom feed autodiscovery link' do
     get :index
     assert_select_autodiscovery_link publications_url(format: "atom")

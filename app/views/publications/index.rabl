@@ -1,4 +1,7 @@
 object false
+node :url do
+  url_for(params.except(:utf8, :_).merge(format: :json, only_path: false))
+end
 node :count do
   @filter.documents.count
 end
