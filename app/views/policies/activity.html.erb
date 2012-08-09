@@ -1,5 +1,6 @@
 <% page_title @policy.title, "Activity" %>
 <% page_class "policies-activities" %>
+<% atom_discovery_link_tag activity_policy_url(@policy.document, format: "atom"), "Latest activity on \"#{@policy.title}\"" %>
 
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">

@@ -320,4 +320,52 @@ That's all
     get :activity, id: policy.document
     assert_response :not_found
   end
+
+  test 'activity has an atom feed autodiscovery link' do
+    policy = create(:published_policy)
+    publication = create(:published_publication, published_at: 4.weeks.ago, related_policies: [policy])
+    consultation = create(:published_consultation, published_at: 1.weeks.ago, related_policies: [policy])
+    news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
+
+    get :activity, id: policy.document
+
+    assert_select_autodiscovery_link activity_policy_url(policy.document, format: "atom")
+  end
+
+  test 'activity shows a link to the atom feed' do
+
+    policy = create(:published_policy)
+    publication = create(:published_publication, published_at: 4.weeks.ago, related_policies: [policy])
+    consultation = create(:published_consultation, published_at: 1.weeks.ago, related_policies: [policy])
+    news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
+
+    get :activity, id: policy.document
+
+    feed_url = ERB::Util.html_escape(activity_policy_url(policy.document, format: "atom"))
+    assert_select "a.feed[href=?]", feed_url
+  end
+
+  test 'activity atom feed shows activity documents' do
+    policy = create(:published_policy)
+    publication = create(:published_publication, published_at: 4.weeks.ago, related_policies: [policy])
+    consultation = create(:published_consultation, published_at: 1.weeks.ago, related_policies: [policy])
+    news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
+
+    get :activity, id: policy.document, format: "atom"
+
+    assert_select_atom_feed do
+      assert_select 'feed > id', 1
+      assert_select 'feed > title', 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', activity_policy_url(policy.document), 1
+
+      assert_select 'feed > entry' do |entries|
+        entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
+          assert_select entry, 'entry > title', text: document.title
+        end
+      end
+    end
+  end
 end
