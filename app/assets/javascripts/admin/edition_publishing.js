@@ -32,4 +32,25 @@
 
 jQuery(function($) {
   $("#edition_publishing").enableChangeNoteHighlighting();
-})
+});
+
+(function($){
+  var $input = $('#edition_summary'),
+      $message = $('.summary-length-info').hide(),
+      $count = $message.find('.count');
+
+  $input.addClass('summary-length-input');
+  $input.bind('keyup', function(){
+    var length = $input.val().split('').length;
+
+    $count.text('Current length: '+length);
+    if(length > 140){
+      $input.addClass('error');
+      $message.addClass('error');
+      $message.show();
+    } else {
+      $input.removeClass('error');
+      $message.removeClass('error');
+    }
+  });
+}(jQuery));

@@ -3,6 +3,7 @@
   <%= form.text_field :title %>
   <% if form.object.has_summary? %>
     <%= form.text_area :summary, rows: 2 %>
+    <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
   <% end %>
   <%= form.text_area :body, "class" => "previewable" %>
   <% if form.object.allows_body_to_be_paginated? %>
