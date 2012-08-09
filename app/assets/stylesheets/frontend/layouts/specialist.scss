@@ -33,6 +33,25 @@ body.specialist {
       }
     }
     
+    #page .document_page .previous-next-navigation {
+      background: transparent;
+      
+      li {
+        a {
+          color: #2B8CC4;          
+          &:active {
+            background: transparent;
+          }
+        }
+        &.next,
+        &.previous {
+          a:before {
+            background-image: image-url("arrow-sprite-2B8CC4.png")
+          }
+        }
+      }
+    }
+    
     
   }
 
