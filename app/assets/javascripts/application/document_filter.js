@@ -108,6 +108,9 @@
     }
 
     var _enableDocumentFilter = function() {
+      if (!History.enabled) {
+        return false;
+      }
       var $form = $(this);
       $form.submit(function(e) {
           e.preventDefault();
@@ -126,6 +129,7 @@
                 if (data.results) {
                   drawTable(data);
                 }
+                History.pushState(null, null, url + "?" + $form.serialize());
                 // undo double-click protection
                 $submitButton.removeAttr('disabled').removeClass('disabled');
               },
