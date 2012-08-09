@@ -318,6 +318,15 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'index atom feed should return a valid feed if there are no matching documents' do
+    get :index, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > updated', text: Time.zone.now.iso8601
+      assert_select 'feed > entry', count: 0
+    end
+  end
+
   test 'index atom feed should include links to download attachments' do
     attachment = build(:attachment)
     publication = create(:published_publication, title: "publication-title",
