@@ -36,8 +36,10 @@ body.specialist {
     #page .document_page .previous-next-navigation {
       background: transparent;
       margin-left: -45px;
+      width: auto;
       @media (max-width: 640px) {
         margin-left: 0;
+        width: 100%;
       }
       
       li {
@@ -51,6 +53,16 @@ body.specialist {
         &.previous {
           a:before {
             background-image: image-url("arrow-sprite-2B8CC4.png")
+          }
+        }
+        &.next {
+          a:before {
+            margin-right: -45px;
+          }
+        }
+        &.previous {
+          a:before {
+            margin-left: -45px;
           }
         }
       }
