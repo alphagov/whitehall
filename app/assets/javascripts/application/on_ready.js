@@ -42,5 +42,5 @@ jQuery(function($) {
 
   $('.js-stick-at-top-when-scrolling').stickAtTopWhenScrolling();
 
-  $('.accessibility-warning').toggleChangeNotes({header: "a.help-request", content: ".help-block"})
+  $('.js-accessibility-warning-toggle').toggleChangeNotes({header: ".toggler", content: ".help-block"})
 });
