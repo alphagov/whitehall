@@ -39,20 +39,22 @@ jQuery(function($) {
       $message = $('.summary-length-info').hide(),
       $count = $message.find('.count');
 
-  $input.addClass('summary-length-input');
-  function checkLength(){
-    var length = $input.val().split('').length;
+  if($input.length > 0){
+    $input.addClass('summary-length-input');
+    function checkLength(){
+      var length = $input.val().split('').length;
 
-    $count.text('Current length: '+length);
-    if(length > 140){
-      $input.addClass('warning');
-      $message.addClass('warning');
-      $message.show();
-    } else {
-      $input.removeClass('warning');
-      $message.removeClass('warning');
+      $count.text('Current length: '+length);
+      if(length > 140){
+        $input.addClass('warning');
+        $message.addClass('warning');
+        $message.show();
+      } else {
+        $input.removeClass('warning');
+        $message.removeClass('warning');
+      }
     }
+    $input.bind('keyup', checkLength);
+    checkLength();
   }
-  $input.bind('keyup', checkLength);
-  checkLength();
 }(jQuery));
