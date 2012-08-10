@@ -20,9 +20,11 @@
         <p><%= @document.summary %></p>
       </div>
 
-      <div class="govspeak">
-        <%= render partial: "documents/attachment", object: @document.attachments.first %>
-      </div>
+      <% if @document.attachments.present? %>
+        <div class="govspeak">
+          <%= render partial: "documents/attachment", object: @document.attachments.first %>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -51,7 +53,7 @@
     </div>
   </div>
 
-  <% if @document.attachments[1..-1].any? %>
+  <% if @document.attachments.present? && @document.attachments[1..-1].any? %>
     <div class="block-6">
       <div class="inner-block">
           <h1>Supporting documents</h1>
