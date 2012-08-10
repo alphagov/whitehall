@@ -360,4 +360,12 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
     assert_select_within_html html, "#attachment_#{attachment_2.id}"
   end
+
+  test "should not escape embedded attachment when attachment embed code only separated by one newline from a previous paragraph" do
+    text = "para\n!@1"
+    document = create(:published_specialist_guide, body: text, attachments: [create(:attachment)])
+    html = govspeak_edition_to_html(document)
+    refute html.include?("&lt;div"), "should not escape embedded attachment"
+    assert_select_within_html html, ".attachment.embedded"
+  end
 end

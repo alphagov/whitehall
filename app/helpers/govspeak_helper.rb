@@ -100,12 +100,12 @@ module GovspeakHelper
   end
 
   def govspeak_with_attachments_to_html(text, attachments = [], alternative_format_contact_email = nil)
-    body = text.gsub(/^!@([0-9]+)\s*/) do
+    body = text.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       attachment = attachments[$1.to_i - 1]
       if attachment
-        render partial: "documents/attachment.html.erb", object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email}
+        "\n\n" + (render partial: "documents/attachment.html.erb", object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email})
       else
-        ""
+        "\n\n"
       end
     end
   end
