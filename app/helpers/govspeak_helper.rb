@@ -2,9 +2,8 @@ require 'addressable/uri'
 
 module GovspeakHelper
 
-  # TODO: accept alternative_format_contact_email
-  def govspeak_body_to_admin_html(body, images, attachments)
-    text = govspeak_with_attachments_to_html(body, attachments)
+  def govspeak_body_to_admin_html(body, images, attachments, alternative_format_contact_email = nil)
+    text = govspeak_with_attachments_to_html(body, attachments, alternative_format_contact_email)
     govspeak_to_admin_html(text, images)
   end
 
