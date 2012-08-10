@@ -5,10 +5,6 @@
 <% if recently_changed_documents.any? %>
   <section id="recently-changed" class="latest-documents">
     <h1 class="label"><%= title %></h1>
-    <div class="subscribe">
-      <span class="feed-icon"></span>
-      <%= link_to "feed", activity_policy_url(@policy.document, format: "atom"), class: "feed" %>
-    </div>
     <table class="document-list <%= extra_class %>">
       <thead class="visuallyhidden">
         <tr>
