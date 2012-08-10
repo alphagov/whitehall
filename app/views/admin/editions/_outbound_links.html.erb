@@ -9,6 +9,25 @@
       <p>This document isn't assigned to any organisations.</p>
     <% end %>
   </section>
+  
+  <% if edition.respond_to?(:alternative_format_provider) %>
+    <section>
+      <h2>Alternative format provider</h2>
+        <% if edition.alternative_format_provider %>
+          <p>
+            <%= link_to edition.alternative_format_provider.name, organisation_path(edition.alternative_format_provider) %><br />
+            Contact email: 
+            <% if edition.alternative_format_contact_email.present? %>
+              <%= edition.alternative_format_contact_email %> - <%= link_to "edit", admin_organisation_path(edition.alternative_format_provider) %>
+            <% else %>
+              <strong>not set</strong> - <%= link_to "set here", admin_organisation_path(edition.alternative_format_provider) %>
+            <% end %>
+          </p>
+        <% else %>
+          <p><strong>not set</strong></p>
+        <% end %>
+    </section>
+  <% end %>
 
   <% if edition.can_be_associated_with_topics? %>
     <section>

@@ -1,4 +1,4 @@
-module("Toggle change notes", {
+module("Toggler", {
   setup: function() {
     $('#qunit-fixture').append('<div class="changes"><h1>updated 6 days ago</h1><div class="overlay"></div></div>');
     $.fx.off = true;
@@ -7,7 +7,7 @@ module("Toggle change notes", {
 
 function init_plugin(options) {
   options = $.extend({ header: 'h1', content: '.overlay' }, options);
-  $('.changes').toggleChangeNotes(options);
+  $('.changes').toggler(options);
 }
 
 test("Should be hidden on load", function () {

@@ -13,7 +13,7 @@
         <% end %>
         <%= response.title %>
       <% end %>
-      <%= render partial: 'attachment_meta', locals: {attachment: response_attachment} %>
+      <%= render partial: 'attachment_meta', locals: {attachment: response_attachment, alternative_format_contact_email: @document.alternative_format_contact_email} %>
     </div>
   </div>
 </section>

@@ -2,8 +2,8 @@ require 'addressable/uri'
 
 module GovspeakHelper
 
-  def govspeak_body_to_admin_html(body, images, attachments)
-    text = govspeak_with_attachments_to_html(body, attachments)
+  def govspeak_body_to_admin_html(body, images, attachments, alternative_format_contact_email = nil)
+    text = govspeak_with_attachments_to_html(body, attachments, alternative_format_contact_email)
     govspeak_to_admin_html(text, images)
   end
 
@@ -98,19 +98,19 @@ module GovspeakHelper
     doc.fragment(html)
   end
 
-  def govspeak_with_attachments_to_html(text, attachments = [])
-    body = text.gsub(/^!@([0-9]+)\s*/) do
+  def govspeak_with_attachments_to_html(text, attachments = [], alternative_format_contact_email = nil)
+    body = text.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       attachment = attachments[$1.to_i - 1]
       if attachment
-        render partial: "documents/attachment.html.erb", object: attachment
+        "\n\n" + (render partial: "documents/attachment.html.erb", object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email})
       else
-        ""
+        "\n\n"
       end
     end
   end
 
-  def markup_with_attachments_to_html(document)
-    govspeak_with_attachments_to_html(document.body, document.respond_to?(:attachments) ? document.attachments : [])
+  def markup_with_attachments_to_html(edition)
+    govspeak_with_attachments_to_html(edition.body, edition.respond_to?(:attachments) ? edition.attachments : [], edition.alternative_format_contact_email)
   end
 
   def is_internal_admin_link?(href)

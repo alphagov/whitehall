@@ -150,4 +150,12 @@ class SupportingPageTest < ActiveSupport::TestCase
     new_edition.reload.submit!
     assert_equal slug, new_edition.supporting_pages.first.slug
   end
+
+  test "should get an alternative format contact email from the associated edition" do
+    email_address = "alternative.format@example.com"
+    organisation = build(:organisation, alternative_format_contact_email: email_address)
+    edition = build(:published_policy, title: "Ban beards", alternative_format_provider: organisation)
+    supporting_page = build(:supporting_page, edition: edition)
+    assert_equal email_address, supporting_page.alternative_format_contact_email
+  end
 end

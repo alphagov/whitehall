@@ -36,6 +36,21 @@ module DocumentControllerTestHelpers
         end
       end
 
+      test "show alternative format contact email if given" do
+        attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: false)
+
+        organisation = create(:organisation, alternative_format_contact_email: "alternative@example.com")
+        edition = create("published_#{document_type}", body: "!@1", attachments: [attachment_1], alternative_format_provider: organisation)
+
+        get :show, id: edition.document
+
+        assert_select_object(attachment_1) do
+          assert_select '.accessibility-warning' do
+            assert_select 'a[href^="mailto:alternative@example.com"]'
+          end
+        end
+      end
+
       test "show displays PDF attachment metadata" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attachment = create(:attachment, file: greenpaper_pdf)

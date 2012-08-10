@@ -20,4 +20,8 @@ class ConsultationResponse < Edition
   def consultation_id=(id)
     self.consultation = Consultation.find(id)
   end
+
+  def alternative_format_contact_email
+    consultation && consultation.alternative_format_contact_email
+  end
 end
