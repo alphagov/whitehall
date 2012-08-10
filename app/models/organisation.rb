@@ -101,7 +101,7 @@ class Organisation < ActiveRecord::Base
   validates :logo_formatted_name, presence: true
   validates :alternative_format_contact_email, email_format: {allow_blank: true}
   validates :alternative_format_contact_email, presence: {
-    :if => :provides_alternative_formats?,
+    if: :provides_alternative_formats?,
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
 
   default_scope order(:name)
