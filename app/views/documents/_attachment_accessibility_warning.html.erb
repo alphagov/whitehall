@@ -1,0 +1,26 @@
+<% unless attachment.accessible? %>
+  <div class="accessibility-warning js-toggle-accessibility-warning">
+    <% help_block_id = "attachment-#{attachment.id}-accessibility-help" %>
+    <h3>This file may not be accessible,
+      <span class="toggler">need this in a different format?</span>
+    </h3>
+    <p class="help-block">To request this document in an alternative format such as braille or audio please email 
+      <%= alternative_format_order_link attachment, alternative_format_contact_email %>
+      quoting your address, telephone number and the title ("<%= attachment.title %>") 
+      <% if attachment.isbn.present? || attachment.unique_reference.present? || attachment.command_paper_number.present? %>,
+        and product code/ISBN (
+          <% if attachment.isbn.present? %> 
+            ISBN: <%= attachment.isbn %>
+          <% end %>
+          <% if attachment.unique_reference.present? %> 
+            Unique reference: <%= attachment.unique_reference %>
+          <% end %>
+          <% if attachment.command_paper_number.present? %> 
+            Command paper number: <%= attachment.command_paper_number %>
+          <% end %>
+        )
+      <% end %>
+      of the publication.
+    </p>
+  </div>
+<% end %>

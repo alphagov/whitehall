@@ -41,6 +41,10 @@ class SupportingPage < ActiveRecord::Base
   def allows_attachments?
   end
 
+  def alternative_format_contact_email
+    edition && edition.alternative_format_contact_email
+  end
+  
   after_save do
     edition.touch
   end

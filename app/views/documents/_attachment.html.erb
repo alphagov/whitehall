@@ -28,7 +28,5 @@
     </p>
   <% end %>
   <%= link_to 'Download attachment', attachment.url, class: "download-button" %>
-  <% unless attachment.accessible? %>
-    <strong class="accessibility-warning">This file may not be accessible</strong>
-  <% end %>
+  <%= render partial: 'documents/attachment_accessibility_warning.html.erb', locals: {attachment: attachment, alternative_format_contact_email: alternative_format_contact_email} %>
 <% end %>

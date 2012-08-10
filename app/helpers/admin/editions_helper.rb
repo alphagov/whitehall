@@ -29,8 +29,31 @@ module Admin::EditionsHelper
     !viewing_all_active_editions? && params[:type] && editions.any?(&:featurable?)
   end
 
+  class EditionFormBuilder < Whitehall::FormBuilder
+    def alternative_format_provider_select
+      if object.respond_to?(:alternative_format_provider)
+        select_options = @template.options_for_select(
+          Organisation.all.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]}, 
+          selected: object.alternative_format_provider_id,
+          disabled: Organisation.all.reject {|o| o.alternative_format_contact_email.present?}.map(&:id))
+        @template.content_tag(:div, class: 'control-group') do
+          label(:alternative_format_provider_id, 'Alternative Format Provider') +
+            @template.content_tag(:div, class: 'controls') do
+              select(
+                :alternative_format_provider_id, 
+                select_options, 
+                {include_blank: true, multiple: false},
+                class: 'chzn-select',
+                data: { placeholder: "Choose which organisation will provide alternative formats..." }
+              ) + @template.content_tag(:p, "Alternative format provider is not listed? It may not have an email address set yet.", class: 'help-block')
+            end
+        end
+      end
+    end
+  end
+
   def standard_edition_form(edition, &blk)
-    form_for [:admin, edition], as: :edition do |form|
+    form_for [:admin, edition], as: :edition, builder: EditionFormBuilder do |form|
       concat form.errors
       concat render(partial: "standard_fields",
                     locals: {form: form, edition: edition})
@@ -45,4 +68,5 @@ module Admin::EditionsHelper
       concat form.save_or_cancel
     end
   end
+
 end

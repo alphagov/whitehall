@@ -3,6 +3,9 @@ class Attachment < ActiveRecord::Base
 
   delegate :url, to: :file, allow_nil: true
 
+  has_many :edition_attachments
+  has_many :editions, through: :edition_attachments
+
   VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.']
 
   validates :title, :file, presence: true

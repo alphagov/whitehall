@@ -60,6 +60,9 @@
         return lead_image.val();
       };
 
+      var alternativeFormatProviderId = function() {
+        return $('select#edition_alternative_format_provider_id').val();
+      };
       showEditor();
 
       preview_link.click(function() {
@@ -68,7 +71,8 @@
           authenticity_token: $("meta[name=csrf-token]").attr('content'),
           image_ids: imageIds(),
           lead_image_id: leadImageId(),
-          attachment_ids: attachmentIds()
+          attachment_ids: attachmentIds(),
+          alternative_format_provider_id: alternativeFormatProviderId()
         };
         loading_indicator.show();
         preview_link.hide();

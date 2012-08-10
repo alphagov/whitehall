@@ -38,4 +38,14 @@
       @include core-14;
     }
   }
+  .alternative-formats {
+    h2 {
+      margin: $gutter 0 0 0;
+      color: lighten($body-text, 20%);
+      @include core-27;
+    }
+    p {
+      margin: $gutter-half 0;
+    }
+  }
 }
