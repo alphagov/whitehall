@@ -17,6 +17,11 @@ class PoliciesController < DocumentsController
     @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
     if @recently_changed_documents.empty?
       render text: "Not found", status: :not_found
+    else
+      respond_to do |format|
+        format.html
+        format.atom
+      end
     end
   end
 
