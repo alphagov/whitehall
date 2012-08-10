@@ -1,3 +1,7 @@
+THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|international priority|specialist guide) "([^"]*)"/) do |document_type, title|
+  document_class(document_type).latest_edition.find_by_title!(title)
+end
+
 module DocumentHelper
   def document_class(type)
     type = 'edition' if type == 'document'

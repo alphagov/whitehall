@@ -19,6 +19,7 @@
           <li><a href="#about-us" data-toggle="tab">About Us</a></li>
           <li><a href="#people" data-toggle="tab">People</a></li>
           <li><a href="#documents" data-toggle="tab">Documents</a></li>
+          <li><a href="#document_collections" data-toggle="tab">Document Collections</a></li>
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="details">
@@ -104,6 +105,9 @@
                 <% end %>
               </tbody>
             </table>
+          </div>
+          <div class="tab-pane" id="document_collections">
+            <%= link_to "New collection", new_admin_organisation_document_collection_path(@organisation) %>
           </div>
         </div>
       </div>

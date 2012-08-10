@@ -1,7 +1,3 @@
-THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|international priority|specialist guide) "([^"]*)"/) do |document_type, title|
-  document_class(document_type).latest_edition.find_by_title!(title)
-end
-
 Given /^a draft (document|publication|policy|news article|consultation|speech) "([^"]*)" exists$/ do |document_type, title|
   document_type = 'policy' if document_type == 'document'
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title)
@@ -82,7 +78,7 @@ Given /^a featured (publication|news article) "([^"]*)" exists$/ do |document_ty
   create("featured_#{document_class(document_type).name.underscore}", title: title)
 end
 
-When /^I view the (publication|policy|news article|consultation|speech) "([^"]*)"$/ do |document_type, title|
+When /^I view the (publication|policy|news article|consultation|speech|document) "([^"]*)"$/ do |document_type, title|
   click_link title
 end
 
@@ -118,6 +114,14 @@ end
 When /^I publish (#{THE_DOCUMENT})$/ do |edition|
   visit_document_preview edition.title
   publish
+end
+
+When /^someone publishes (#{THE_DOCUMENT})$/ do |edition|
+  random_editor = create(:departmental_editor)
+  as_user(random_editor) do
+    visit_document_preview edition.title
+    publish
+  end
 end
 
 When /^I delete (#{THE_DOCUMENT})$/ do |edition|

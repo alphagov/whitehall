@@ -28,6 +28,10 @@ Given /^I attempt to create an invalid publication with an attachment$/ do
   click_button "Save"
 end
 
+When /^I begin drafting a new publication "([^"]*)"$/ do |title|
+  begin_drafting_publication(title)
+end
+
 When /^I draft a new publication "([^"]*)"$/ do |title|
   begin_drafting_publication(title)
   click_button "Save"
@@ -69,6 +73,12 @@ When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)
   begin_drafting_publication(title)
   select first_policy, from: "Related policies"
   select second_policy, from: "Related policies"
+  click_button "Save"
+end
+
+When /^I draft a new publication "([^"]*)" in the "([^"]*)" collection$/ do |title, collection|
+  begin_drafting_publication(title)
+  select collection, from: "Collection"
   click_button "Save"
 end
 
