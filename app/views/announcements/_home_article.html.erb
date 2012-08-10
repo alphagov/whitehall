@@ -1,0 +1,17 @@
+<%= content_tag_for(:article, item) do %>
+  <div class="text">
+    <h2><%= link_to item.title, public_document_path(item), class: "title" %></h2>
+    <% if display != "compact" %>
+      <p class="summary">
+        <%= item.summary %>
+      </p>
+    <% end %>
+    <div class="meta">
+      <%= item.class.to_s.underscore.humanize %>
+      <span class="published_at">posted <%= relative_time(item.first_published_at, class: 'first_published_at') %></span>
+      <span class="organisations">by <% item.organisations.each do |org| %>
+        <%= link_to org.acronym, organisation_path(org) %>
+      <% end %></span>
+    </div>
+  </div>
+<% end %>

@@ -39,7 +39,7 @@ class AnnouncementPresenter
     home_news = news.limit(20)
     home_speeches = speeches.limit(20)
     results = home_news + home_speeches
-    results.sort_by(&:first_published_at).reverse.take(20)
+    results.sort_by(&:first_published_at).reverse.take(30)
   end
 
   def in_last_7_days
