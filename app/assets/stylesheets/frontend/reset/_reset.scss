@@ -74,4 +74,13 @@
   a:active {
     color: orange
   }
+
+  a[rel=external]:after {
+    content: '';
+  }
+  a[rel=external] {
+    padding-right: 18px;
+    margin-right: 2px;
+    background: transparent image-url('external-link.png') no-repeat 100% 50%;
+  }
 }
