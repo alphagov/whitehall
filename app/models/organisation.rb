@@ -100,6 +100,9 @@ class Organisation < ActiveRecord::Base
   validates :organisation_type_id, presence: true
   validates :logo_formatted_name, presence: true
   validates :alternative_format_contact_email, email_format: {allow_blank: true}
+  validates :alternative_format_contact_email, presence: {
+    :if => :provides_alternative_formats?,
+    message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
 
   default_scope order(:name)
 
@@ -202,6 +205,10 @@ class Organisation < ActiveRecord::Base
 
   def destroyable?
     child_organisations.none? && organisation_roles.none? && !new_record?
+  end
+
+  def provides_alternative_formats?
+    persisted? && Edition.where(alternative_format_provider_id: self.id).any?
   end
 
   private
