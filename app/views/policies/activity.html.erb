@@ -1,5 +1,6 @@
 <% page_title @policy.title, "Activity" %>
 <% page_class "policies-activities" %>
+<% atom_discovery_link_tag activity_policy_url(@policy.document, format: "atom"), %{Latest activity on "#{@policy.title}"} %>
 
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
@@ -18,6 +19,10 @@
   </div>
   <div class="block-2">
     <div class="inner-block">
+      <div class="subscribe">
+        <span class="feed-icon"></span>
+        <%= link_to "feed", activity_policy_url(@policy.document, format: "atom"), class: "feed" %>
+      </div>
       <%= render partial: "recently_changed_documents",
                 object: @recently_changed_documents,
                 locals: { title: "Latest on this policy" } %>

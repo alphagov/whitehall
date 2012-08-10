@@ -306,4 +306,13 @@
       width: 100%;
     }
   }
+
+  // see helpers/_feed.scss for the other styles
+  .subscribe {
+    float: right;
+  }
+
+  .label {
+    float: left;
+  }
 }
