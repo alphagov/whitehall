@@ -9,7 +9,6 @@ class PublicationsControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
   should_display_attachments_for :publication
-  should_show_related_policies_and_topics_for :publication
   should_show_the_countries_associated_with :publication
   should_display_inline_images_for :publication
   should_not_display_lead_image_for :publication
@@ -56,10 +55,8 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication.document
 
-    assert_select ".meta" do
-      assert_select ".publication-type", text: "Form"
-      assert_select ".published-at", text: "31 May 1916"
-    end
+    assert_select "h1 .publication-type", text: /Form/
+    assert_select ".change-notes .published-at", text: "31 May 1916"
   end
 
   def assert_featured(doc)

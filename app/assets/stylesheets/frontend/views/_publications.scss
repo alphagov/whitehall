@@ -26,18 +26,89 @@
   }
 }
 
+
+
 .publication {
+
+  a {
+    //color: $pink;
+  }
+
+  .block-1 {
+    margin-bottom: $gutter*2;
+    .govspeak {
+      clear: both;
+      margin: 0;
+      .attachment {
+        margin: 0;
+    padding-left: 26.5%;
+        a.download {
+          @include core-24;
+            img {
+            margin-left: -38%;
+            width: 20%;
+          }
+        }
+        .order_url {
+          clear: both;
+          @include core-14;
+        }
+      }
+    }
+  }
+  .block-2, .block-4, .block-6 {
+    float: left;
+    display: inline;
+    clear: both;
+    width: 25%;
+    margin-left: 0;
+    h1 {
+      @include core-24;
+    }
+  }
+  .block-5, .block-7 {
+    float: left;
+    display: inline;
+    margin: 0 0 $gutter*2 0;
+    width: 75%;
+  }
+
   .contextual-info {
     a {
       top: -1px;
     }
   }
-  .attachment {
-    .order_url {
-      clear: both;
-      @include core-14;
+
+  .page-header {
+    float: left;
+    display: inline;
+    margin-top: $gutter;
+    width: 75%;
+    h1 {
+      margin-top: 0;
+      padding: 0;
+    }
+    .label {
+      color: #76787B;
+    }
+    .meta-context {
+      width: 100%;
     }
   }
+
+  .meta-changes {
+    margin-top: $gutter;
+    width: 25%;
+  }
+
+  .summary {
+    clear: both;
+    margin-bottom: $gutter;
+    p {
+      @include core-19;
+    }
+  }
+
   .alternative-formats {
     h2 {
       margin: $gutter 0 0 0;
@@ -49,3 +120,7 @@
     }
   }
 }
+
+
+
+

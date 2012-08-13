@@ -1,2 +1,76 @@
 <% page_title @document.title, "Publications" %>
-<%= render template: 'documents/show', locals: { header_title: "Publication" } %>
+
+<div class="document_page <%= @document.type.downcase %>">
+  <div class="block-1">
+    <div class="inner-block">
+      <section class="page-header icon">
+        <%= render partial: "title", locals: { document: @document } %>
+        <div class="meta-context meta">
+          <%= part_of_topics_paragraph(@topics) %>
+          <%= applies_to_countries_paragraph(@document) %>
+          <%= only_applies_to_nations_paragraph(@document) %>
+        </div>
+      </section>
+
+      <div class="meta-changes">
+        <%= render partial: 'change_notes', locals: {document: @document} %>
+      </div>
+
+      <div class="summary">
+        <p><%= @document.summary %></p>
+      </div>
+
+      <% if @document.attachments.present? %>
+        <div class="govspeak">
+          <%= render partial: "documents/attachment", object: @document.attachments.first, locals: {alternative_format_contact_email: @document.alternative_format_contact_email} %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="block-2">
+    <div class="inner-block">
+        <h1>Publisher</h1>
+    </div>
+  </div>
+
+  <div class="block-3">
+    <div class="inner-block">
+        <%= render partial: "department", locals: { document: @document } %>
+    </div>
+  </div>
+
+  <div class="block-4">
+    <div class="inner-block">
+      <%= render partial: "document_contextual", locals: {edition: @document} %>
+      <%= national_statistics_logo(@document) %>
+    </div>
+  </div>
+  
+  <div class="block-5">
+    <div class="inner-block">
+      <%= render partial: "document_content" %>
+    </div>
+  </div>
+
+  <% if @document.attachments.present? && @document.attachments[1..-1].any? %>
+    <div class="block-6">
+      <div class="inner-block">
+          <h1>Supporting documents</h1>
+      </div>
+    </div>
+
+    <div class="block-7">
+      <div class="inner-block">
+        <div class="govspeak">
+          <% @document.attachments[1..-1].each do |attachment| %>
+            <%= render partial: "documents/attachment", object: attachment, locals: {alternative_format_contact_email: @document.alternative_format_contact_email} %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+
