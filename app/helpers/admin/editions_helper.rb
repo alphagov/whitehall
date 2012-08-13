@@ -37,7 +37,7 @@ module Admin::EditionsHelper
           selected: object.alternative_format_provider_id,
           disabled: Organisation.all.reject {|o| o.alternative_format_contact_email.present?}.map(&:id))
         @template.content_tag(:div, class: 'control-group') do
-          label(:alternative_format_provider_id, 'Alternative Format Provider') +
+          label(:alternative_format_provider_id, "Email address for ordering this #{object.format_name} in an alternative format") +
             @template.content_tag(:div, class: 'controls') do
               select(
                 :alternative_format_provider_id, 
@@ -45,7 +45,7 @@ module Admin::EditionsHelper
                 {include_blank: true, multiple: false},
                 class: 'chzn-select',
                 data: { placeholder: "Choose which organisation will provide alternative formats..." }
-              ) + @template.content_tag(:p, "Alternative format provider is not listed? It may not have an email address set yet.", class: 'help-block')
+              ) + @template.content_tag(:p, "If the email address you need isn't here, it should be added to the relevant Department or Agency", class: 'help-block')
             end
         end
       end

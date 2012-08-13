@@ -6,13 +6,13 @@
     </h3>
     <p class="help-block">To request this document in an alternative format such as braille or audio please email 
       <%= alternative_format_order_link attachment, alternative_format_contact_email %>
-      quoting your address, telephone number and the title ("<%= attachment.title %>") 
+      quoting your address, telephone number along with the document title ("<%= attachment.title %>") 
       <% if attachment.isbn.present? || attachment.unique_reference.present? || attachment.command_paper_number.present? %>,
-        and product code/ISBN (
-          <% if attachment.isbn.present? %> 
+        and its reference (
+          <% if attachment.isbn.present? %>
             ISBN: <%= attachment.isbn %>
           <% end %>
-          <% if attachment.unique_reference.present? %> 
+          <% if attachment.unique_reference.present? %>
             Unique reference: <%= attachment.unique_reference %>
           <% end %>
           <% if attachment.command_paper_number.present? %> 
