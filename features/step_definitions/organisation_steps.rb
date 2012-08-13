@@ -57,6 +57,19 @@ Given /^the organisation "([^"]*)" is associated with consultations "([^"]*)" an
   create(:published_consultation, title: consultation_2, organisations: [organisation])
 end
 
+Given /^a published publication "([^"]*)" with a PDF attachment and alternative format provider "([^"]*)"$/ do |title, organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  attachment = create(:attachment, file: pdf_attachment, title: "Attachment Title")
+  create(:published_publication, title: title, body: "!@1", attachments: [attachment], organisations: [organisation], alternative_format_provider: organisation)
+end
+
+Given /^I set the alternative format contact email of "([^"]*)" to "([^"]*)"$/ do |organisation_name, email|
+  organisation = Organisation.find_by_name!(organisation_name)
+  visit edit_admin_organisation_path(organisation)
+  fill_in "Alternative format contact email", with: email
+  click_button "Save"
+end
+
 When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
 end
@@ -164,4 +177,8 @@ def navigate_to_organisation(page_name)
   within('nav.sub_navigation') do
     click_link page_name
   end
+end
+
+Then /^I should see a mailto link for the alternative format contact email "([^"]*)"$/ do |email|
+  assert page.has_css?("a[href^=\"mailto:#{email}\"]")
 end

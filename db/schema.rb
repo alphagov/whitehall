@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(:version => 20120810092434) do
     t.string   "related_mainstream_content_title"
     t.string   "additional_related_mainstream_content_url"
     t.string   "additional_related_mainstream_content_title"
+    t.integer  "alternative_format_provider_id"
   end
 
   add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"
@@ -284,8 +285,9 @@ ActiveRecord::Schema.define(:version => 20120810092434) do
     t.text     "about_us"
     t.string   "acronym"
     t.string   "url"
-    t.boolean  "active",               :default => false, :null => false
+    t.boolean  "active",                           :default => false, :null => false
     t.text     "logo_formatted_name"
+    t.string   "alternative_format_contact_email"
   end
 
   add_index "organisations", ["organisation_type_id"], :name => "index_organisations_on_organisation_type_id"

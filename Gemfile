@@ -35,7 +35,7 @@ gem 'unicorn'
 gem 'kaminari'
 
 group :assets do
-  gem 'sass', '3.2.0.alpha.274'
+  gem 'sass', '3.2.0'
   gem 'sass-rails', '3.1.4'
   gem 'uglifier'
 end

@@ -1610,6 +1610,47 @@ module AdminEditionControllerTestHelpers
         assert_select '.related_mainstream_content', text: /doesn't have any related mainstream content/
       end
     end
+
+    def should_allow_alternative_format_provider_for(edition_type)
+      test "shows alternative format provider for #{edition_type}" do
+        organisation = create(:organisation, name: "Ministry of Pop")
+        draft = create(:"draft_#{edition_type}", alternative_format_provider: organisation)
+
+        get :show, id: draft
+
+        assert_select "#associations a", organisation.name
+      end
+
+      test "when creating allow selection of alternative format provider for #{edition_type}" do
+        get :new
+
+        assert_select "form#edition_new" do
+          assert_select "select[name='edition[alternative_format_provider_id]']"
+        end
+      end
+
+      test "when editing allow selection of alternative format provider for #{edition_type}" do
+        draft = create("draft_#{edition_type}")
+
+        get :edit, id: draft
+
+        assert_select "form#edition_edit" do
+          assert_select "select[name='edition[alternative_format_provider_id]']"
+        end
+      end
+
+      test "update should save modified #{edition_type} alternative format provider" do
+        organisation = create(:organisation)
+        edition = create(edition_type)
+
+        put :update, id: edition, edition: {
+          alternative_format_provider_id: organisation.id,
+        }
+
+        saved_edition = edition.reload
+        assert_equal organisation, saved_edition.alternative_format_provider
+      end
+    end
   end
 
   def controller_attributes_for(edition_type, attributes = {})

@@ -5,6 +5,7 @@ class Policy < Edition
   include Edition::FactCheckable
   include Edition::SupportingPages
   include Edition::Countries
+  include Edition::AlternativeFormatProvider
 
   has_many :edition_relations, through: :document
   has_many :related_editions, through: :edition_relations, source: :edition

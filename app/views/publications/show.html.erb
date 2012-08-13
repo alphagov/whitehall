@@ -22,7 +22,7 @@
 
       <% if @document.attachments.present? %>
         <div class="govspeak">
-          <%= render partial: "documents/attachment", object: @document.attachments.first %>
+          <%= render partial: "documents/attachment", object: @document.attachments.first, locals: {alternative_format_contact_email: @document.alternative_format_contact_email} %>
         </div>
       <% end %>
     </div>
@@ -64,7 +64,7 @@
       <div class="inner-block">
         <div class="govspeak">
           <% @document.attachments[1..-1].each do |attachment| %>
-            <%= render partial: "documents/attachment", object: attachment %>
+            <%= render partial: "documents/attachment", object: attachment, locals: {alternative_format_contact_email: @document.alternative_format_contact_email} %>
           <% end %>
         </div>
       </div>

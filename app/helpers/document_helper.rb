@@ -78,4 +78,20 @@ module DocumentHelper
 
     ref.join(', ').html_safe
   end
+
+  def alternative_format_order_link(attachment, alternative_format_contact_email)
+    attachment_info = []
+    attachment_info << "Title: #{attachment.title}"
+    attachment_info << "ISBN: #{attachment.isbn}" if attachment.isbn
+    attachment_info << "Unique reference: #{attachment.unique_reference}" if attachment.unique_reference
+    attachment_info << "Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number
+    mail_to alternative_format_contact_email, alternative_format_contact_email, 
+      subject: "Request for '#{attachment.title}' in an alternative format", 
+      body: %Q[
+        
+Details of document required:
+
+#{attachment_info.join("\n")}
+      ]
+  end
 end

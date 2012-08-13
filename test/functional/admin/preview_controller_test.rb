@@ -30,6 +30,19 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     end
   end
 
+  test "shows alternative_format_contact_email in attachment block if alternative_format_provider_id given" do
+    attachment = create(:attachment)
+    edition = create(:published_specialist_guide, body: '!@1', attachments: [attachment])
+    alternative_format_provider = create(:organisation, alternative_format_contact_email: "alternative@example.com")
+
+    post :preview, body: edition.body, attachment_ids: edition.attachments.map(&:id), alternative_format_provider_id: alternative_format_provider.id
+    assert_select ".document .body" do
+      assert_select_object attachment do
+        assert_select "a[href^=\"mailto:alternative@example.com\"]"
+      end
+    end
+  end
+
   test "renders lead image if provided" do
     edition = create(:news_article, images: [build(:image)])
 
