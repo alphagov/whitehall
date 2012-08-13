@@ -55,10 +55,8 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication.document
 
-    assert_select ".meta" do
-      assert_select ".publication-type", text: "Form"
-      assert_select ".published-at", text: "31 May 1916"
-    end
+    assert_select "h1 .publication-type", text: /Form/
+    assert_select ".change-notes .published-at", text: "31 May 1916"
   end
 
   def assert_featured(doc)
