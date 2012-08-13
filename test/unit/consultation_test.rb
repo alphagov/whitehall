@@ -4,6 +4,7 @@ class ConsultationTest < ActiveSupport::TestCase
   include DocumentBehaviour
 
   should_be_featurable :consultation
+  should_be_attachable :consultation
 
   test "should not be valid without an opening on date" do
     consultation = build(:consultation, opening_on: nil)
@@ -18,10 +19,6 @@ class ConsultationTest < ActiveSupport::TestCase
   test "should not be valid if the opening date is after the closing date" do
     consultation = build(:consultation, opening_on: 1.day.ago, closing_on: 2.days.ago)
     refute consultation.valid?
-  end
-
-  test "allows attachment" do
-    assert build(:consultation).allows_attachments?
   end
 
   test "should build a draft copy of the existing consultation with inapplicable nations" do

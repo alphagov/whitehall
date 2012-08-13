@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class ConsultationResponseTest < ActiveSupport::TestCase
+  include DocumentBehaviour
+
+  should_be_attachable :consultation_response
+
   test "should not be valid without an associated consultation" do
     consultation_response = build(:consultation_response, consultation: nil)
     refute consultation_response.valid?
