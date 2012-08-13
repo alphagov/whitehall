@@ -1,0 +1,7 @@
+<%= form_for [:admin, @document_collection.organisation, @document_collection] do |form| %>
+  <%= form.errors %>
+
+  <%= form.text_field :name %>
+
+  <%= form.save_or_cancel cancel: admin_organisation_path(@document_collection.organisation) %>
+<% end %>
