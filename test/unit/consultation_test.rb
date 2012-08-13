@@ -3,8 +3,8 @@ require "test_helper"
 class ConsultationTest < ActiveSupport::TestCase
   include DocumentBehaviour
 
-  should_be_featurable :consultation
-  should_be_attachable :consultation
+  should_be_featurable
+  should_be_attachable
 
   test "should not be valid without an opening on date" do
     consultation = build(:consultation, opening_on: nil)

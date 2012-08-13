@@ -3,7 +3,7 @@ require "test_helper"
 class SpecialistGuideTest < ActiveSupport::TestCase
   include DocumentBehaviour
 
-  should_be_attachable :specialist_guide
+  should_be_attachable
 
   test "should allow body to be paginated" do
     article = build(:specialist_guide)

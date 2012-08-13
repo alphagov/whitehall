@@ -4,7 +4,7 @@ class NewsArticleTest < ActiveSupport::TestCase
   include DocumentBehaviour
   include ActionDispatch::TestProcess
 
-  should_be_featurable :news_article
+  should_be_featurable
 
   test "should be able to relate to other editions" do
     article = build(:news_article)

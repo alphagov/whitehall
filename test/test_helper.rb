@@ -57,6 +57,10 @@ class ActiveSupport::TestCase
     def edition_class_for(document_type)
       document_type.to_s.classify.constantize
     end
+
+    def edition_class_from_test_name
+      name.sub(/Test$/, '').constantize
+    end
   end
 end
 

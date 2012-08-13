@@ -3,7 +3,7 @@ require "test_helper"
 class PublicationTest < ActiveSupport::TestCase
   include DocumentBehaviour
 
-  should_be_attachable :publication
+  should_be_attachable
 
   test 'should be invalid without a publication date' do
     publication = build(:publication, publication_date: nil)
