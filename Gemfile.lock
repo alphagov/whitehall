@@ -13,6 +13,13 @@ GIT
   specs:
     rails-dev-boost (0.1.1)
 
+GIT
+  remote: git@github.com:alphagov/kramdown.git
+  revision: cd933891d9ed9cdfec1692a085ca2cd694ee5c12
+  branch: add-gemspec
+  specs:
+    kramdown (0.13.7)
+
 GEM
   remote: http://rubygems.org/
   remote: https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/
@@ -167,7 +174,6 @@ GEM
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
     kgio (2.7.4)
-    kramdown (0.13.7)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     lograge (0.0.6)
@@ -353,6 +359,7 @@ DEPENDENCIES
   isbn_validation
   jquery-rails
   kaminari
+  kramdown!
   launchy (~> 2.0.5)
   lograge
   mocha
