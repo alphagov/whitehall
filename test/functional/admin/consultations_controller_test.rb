@@ -20,6 +20,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_organisations_for :consultation
   should_allow_ministerial_roles_for :consultation
   should_allow_attachments_for :consultation
+  should_show_inline_attachment_help_for :consultation
   should_allow_attached_images_for :consultation
   should_not_use_lead_image_for :consultation
   should_be_rejectable :consultation

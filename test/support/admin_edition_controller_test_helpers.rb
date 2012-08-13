@@ -405,16 +405,6 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test 'edit shows markdown hint for first attachment' do
-        draft_edition = create("draft_#{edition_type}", attachments: [create(:attachment)])
-        get :edit, id: draft_edition
-
-        assert_select "fieldset.attachments" do |nodes|
-          assert_equal 1, nodes[0].select("input[readonly][value=!@1]").length
-        end
-
-      end
-
       test 'updating an edition should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         edition = create(edition_type)
@@ -552,6 +542,32 @@ module AdminEditionControllerTestHelpers
         refute_select ".errors"
         edition.reload
         assert_equal [attachment_2], edition.attachments
+      end
+    end
+
+    def should_show_inline_attachment_help_for(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test 'edit shows markdown hint for first attachment' do
+        draft_edition = create("draft_#{edition_type}", attachments: [create(:attachment)])
+        get :edit, id: draft_edition
+
+        assert_select "fieldset.attachments" do |nodes|
+          assert_equal 1, nodes[0].select("input[readonly][value=!@1]").length
+        end
+      end
+
+      test 'new shows markdown help for inline attachments' do
+        get :new
+
+        assert_select "#govspeak_help", text: /Attachments/
+      end
+
+      test 'edit shows markdown help for inline attachments' do
+        draft_edition = create("draft_#{edition_type}")
+        get :edit, id: draft_edition
+
+        assert_select "#govspeak_help", text: /Attachments/
       end
     end
 
