@@ -571,6 +571,19 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_not_show_inline_attachment_help_for(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test 'edit does not show markdown hint for first attachment' do
+        draft_edition = create("draft_#{edition_type}", attachments: [create(:attachment)])
+        get :edit, id: draft_edition
+
+        assert_select "fieldset.attachments" do |nodes|
+          assert_equal 0, nodes[0].select("input[readonly][value=!@1]").length
+        end
+      end
+    end
+
     def should_allow_attached_images_for(edition_type)
       edition_class = edition_class_for(edition_type)
 

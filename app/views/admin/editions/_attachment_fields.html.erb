@@ -32,9 +32,11 @@
         <% checkbox_args[0].merge!(label_text: label_text) %>
         <%= edition_attachments_fields.check_box :_destroy, *checkbox_args  %>
       </p>
-      <p>Markdown to use:
-        <input type="text" readonly="readonly" value="!@<%= i += 1 %>" />
-      </p>
+      <% if edition.allows_inline_attachments? %>
+        <p>Markdown to use:
+          <input type="text" readonly="readonly" value="!@<%= i += 1 %>" />
+        </p>
+      <% end %>
     <% end %>
   <% end %>
 </fieldset>
