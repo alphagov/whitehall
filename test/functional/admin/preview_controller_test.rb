@@ -43,6 +43,13 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     end
   end
 
+  test "preview succeeds if alternative_format_provider_id is blank" do
+    edition = create(:published_specialist_guide, body: '!@1', attachments: [create(:attachment)])
+
+    post :preview, body: edition.body, attachment_ids: edition.attachments.map(&:id), alternative_format_provider_id: ""
+    assert_response :success
+  end
+
   test "renders lead image if provided" do
     edition = create(:news_article, images: [build(:image)])
 

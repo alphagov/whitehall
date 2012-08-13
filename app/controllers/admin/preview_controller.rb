@@ -23,5 +23,7 @@ class Admin::PreviewController < Admin::BaseController
   def find_alternative_format_provider
     @alternative_format_provider = Organisation.find(params[:alternative_format_provider_id]) if params[:alternative_format_provider_id]
     @alternative_format_contact_email = @alternative_format_provider && @alternative_format_provider.alternative_format_contact_email
+  rescue ActiveRecord::RecordNotFound
+    nil
   end
 end
