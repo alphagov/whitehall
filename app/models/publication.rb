@@ -17,6 +17,10 @@ class Publication < Edition
   scope :in_chronological_order, order(arel_table[:publication_date].asc)
   scope :in_reverse_chronological_order, order(arel_table[:publication_date].desc)
 
+  def allows_inline_attachments?
+    false
+  end
+
   def publication_type
     PublicationType.find_by_id(publication_type_id)
   end

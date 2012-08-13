@@ -62,6 +62,10 @@ class ActiveSupport::TestCase
       name.sub(/Test$/, '').constantize
     end
   end
+
+  def edition_class_from_test_name
+    self.class.edition_class_from_test_name
+  end
 end
 
 class ActionController::TestCase

@@ -4,6 +4,7 @@ class ConsultationResponseTest < ActiveSupport::TestCase
   include DocumentBehaviour
 
   should_be_attachable
+  should_allow_inline_attachments
 
   test "should not be valid without an associated consultation" do
     consultation_response = build(:consultation_response, consultation: nil)

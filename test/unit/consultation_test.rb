@@ -5,6 +5,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
   should_be_featurable
   should_be_attachable
+  should_allow_inline_attachments
 
   test "should not be valid without an opening on date" do
     consultation = build(:consultation, opening_on: nil)

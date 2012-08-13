@@ -27,6 +27,10 @@ module Edition::Attachable
     true
   end
 
+  def allows_inline_attachments?
+    true
+  end
+
   def has_thumbnail?
     thumbnailable_attachments.any?
   end

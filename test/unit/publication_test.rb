@@ -4,6 +4,7 @@ class PublicationTest < ActiveSupport::TestCase
   include DocumentBehaviour
 
   should_be_attachable
+  should_not_allow_inline_attachments
 
   test 'should be invalid without a publication date' do
     publication = build(:publication, publication_date: nil)

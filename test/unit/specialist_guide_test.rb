@@ -4,6 +4,7 @@ class SpecialistGuideTest < ActiveSupport::TestCase
   include DocumentBehaviour
 
   should_be_attachable
+  should_allow_inline_attachments
 
   test "should allow body to be paginated" do
     article = build(:specialist_guide)
