@@ -18,6 +18,7 @@ private
         announcements = announcements.by_type(["NewsArticle", "Speech"])
         announcements = announcements.published
         announcements = announcements.by_first_published_at
+        announcements.includes(:organisations)
       )
     end
   end
