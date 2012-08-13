@@ -9,7 +9,6 @@ class PublicationsControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
   should_display_attachments_for :publication
-  should_show_related_policies_and_topics_for :publication
   should_show_the_countries_associated_with :publication
   should_display_inline_images_for :publication
   should_not_display_lead_image_for :publication

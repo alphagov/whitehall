@@ -5,7 +5,7 @@
     <div class="inner-block">
       <section class="page-header icon">
         <%= render partial: "title", locals: { document: @document } %>
-        <div class="meta-context">
+        <div class="meta-context meta">
           <%= part_of_topics_paragraph(@topics) %>
           <%= applies_to_countries_paragraph(@document) %>
           <%= only_applies_to_nations_paragraph(@document) %>
