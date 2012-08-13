@@ -107,7 +107,16 @@
             </table>
           </div>
           <div class="tab-pane" id="document_collections">
-            <%= link_to "New collection", new_admin_organisation_document_collection_path(@organisation), class: "btn" %>
+            <%= link_to "New collection", new_admin_organisation_document_collection_path(@organisation), class: "btn pull-right" %>
+
+            <% if @organisation.document_collections.any? %>
+              <h2>Document Collections</h2>
+              <table class="table">
+                <% @organisation.document_collections.each do |document_collection| %>
+                  <tr><th><%= link_to document_collection.name, admin_organisation_document_collection_path(@organisation, document_collection) %></th><td><%= pluralize(document_collection.editions.count, "edition") %></tr>
+                <% end %>
+              </table>
+            <% end %>
           </div>
         </div>
       </div>

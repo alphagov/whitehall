@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120810161008) do
+ActiveRecord::Schema.define(:version => 20120813101515) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -112,6 +112,13 @@ ActiveRecord::Schema.define(:version => 20120810161008) do
 
   add_index "edition_countries", ["country_id"], :name => "index_edition_countries_on_country_id"
   add_index "edition_countries", ["edition_id"], :name => "index_edition_countries_on_edition_id"
+
+  create_table "edition_document_collections", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "document_collection_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "edition_ministerial_roles", :force => true do |t|
     t.integer  "edition_id"

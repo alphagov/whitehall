@@ -6,6 +6,7 @@ class Publication < Edition
   include Edition::Attachable
   include Edition::Countries
   include Edition::AlternativeFormatProvider
+  include Edition::DocumentCollections
 
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true

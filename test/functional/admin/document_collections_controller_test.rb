@@ -10,7 +10,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   test "new should show fields for creating a collection" do
     organisation = create(:organisation)
 
-    get :new, organisation_id: organisation.id
+    get :new, organisation_id: organisation
 
     assert_select "form[action=?]", admin_organisation_document_collections_path(organisation) do
       assert_select "input[type=text][name=?]", "document_collection[name]"
@@ -20,7 +20,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   test "create should save a new collection" do
     organisation = create(:organisation)
 
-    post :create, organisation_id: organisation.id, document_collection: {name: "collection-name"}
+    post :create, organisation_id: organisation, document_collection: {name: "collection-name"}
 
     assert_equal 1, organisation.document_collections.count
     document_collection = organisation.document_collections.first
@@ -31,7 +31,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   test "create should allow errors to be corrected" do
     organisation = create(:organisation)
 
-    post :create, organisation_id: organisation.id, document_collection: {name: ""}
+    post :create, organisation_id: organisation, document_collection: {name: ""}
 
     assert_response :success
     assert_equal 0, organisation.document_collections.count
@@ -40,12 +40,22 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     end
   end
 
+  test "show lists all associated editions" do
+    document_collection = create(:document_collection)
+    organisation = document_collection.organisation
+    edition = create(:published_publication, document_collections: [document_collection])
+
+    get :show, organisation_id: organisation, id: document_collection
+
+    assert_select_object(edition)
+  end
+
   test "edit should show a form for editing the collection" do
     document_collection = create(:document_collection)
     organisation = document_collection.organisation
 
-    get :edit, organisation_id: organisation.id,
-               id: document_collection.id
+    get :edit, organisation_id: organisation,
+               id: document_collection
 
     form_path = admin_organisation_document_collection_path(organisation, document_collection)
     assert_select "form[action=?]", form_path do
@@ -57,8 +67,8 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     document_collection = create(:document_collection, name: "old-name")
     organisation = document_collection.organisation
 
-    put :update, organisation_id: organisation.id,
-                 id: document_collection.id,
+    put :update, organisation_id: organisation,
+                 id: document_collection,
                  document_collection: {name: "new-name"}
 
     assert_equal "new-name", document_collection.reload.name
@@ -69,8 +79,8 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     document_collection = create(:document_collection, name: "old-name")
     organisation = document_collection.organisation
 
-    put :update, organisation_id: organisation.id,
-                 id: document_collection.id,
+    put :update, organisation_id: organisation,
+                 id: document_collection,
                  document_collection: {name: ""}
 
     assert_equal "old-name", document_collection.reload.name
