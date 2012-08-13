@@ -1651,6 +1651,38 @@ module AdminEditionControllerTestHelpers
         assert_equal organisation, saved_edition.alternative_format_provider
       end
     end
+
+    def should_allow_assignment_to_document_collections(edition_type)
+      test "when creating allows assignment to document collections" do
+        get :new
+
+        assert_select "form#edition_new" do
+          assert_select "select[name='edition[document_collection_ids][]']"
+        end
+      end
+
+      test "when editing allows assignment to document collections" do
+        collection = create(:document_collection)
+        edition = create(edition_type, document_collections: [collection])
+
+        get :edit, id: edition
+
+        assert_select "form#edition_edit" do
+          assert_select "select[name='edition[document_collection_ids][]']"
+        end
+      end
+
+      test "shows assigned document collections" do
+        collection = create(:document_collection)
+        edition = create(edition_type, document_collections: [collection])
+
+        get :show, id: edition
+
+        assert_select "#document_collections" do
+          assert_select_object(collection)
+        end
+      end
+    end
   end
 
   def controller_attributes_for(edition_type, attributes = {})

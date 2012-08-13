@@ -101,6 +101,23 @@
             <% end %>
           </section>
         <% end %>
+
+        <% if @edition.can_be_grouped_in_collections? %>
+          <section>
+            <h1>Document collections</h1>
+            <% if @edition.document_collections.any? %>
+              <ul id="document_collections">
+                <% @edition.document_collections.each do |document_collection| %>
+                  <%= content_tag_for :li, document_collection do %>
+                    <%= link_to document_collection.name, admin_organisation_document_collection_path(document_collection.organisation, document_collection) %>
+                  <% end %>
+                <% end %>
+              </ul>
+            <% else %>
+              <p>This document is not associated with any editions</p>
+            <% end %>
+          </section>
+        <% end %>
       </section>
     </div>
   </div>

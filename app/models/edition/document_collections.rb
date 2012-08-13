@@ -13,4 +13,8 @@ module Edition::DocumentCollections
 
     add_trait Trait
   end
+
+  def can_be_grouped_in_collections?
+    true
+  end
 end

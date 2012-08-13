@@ -141,6 +141,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def can_be_grouped_in_collections?
+    false
+  end
+
   def create_draft(user)
     unless published?
       raise "Cannot create new edition based on edition in the #{state} state"
