@@ -8,13 +8,13 @@ Given /^I create a collection called "([^"]*)" in the "([^"]*)" organisation$/ d
 end
 
 Given /^collections from several other organisations exist$/ do
-  create(:document_collection, organisation: alpha)
-  create(:document_collection, organisation: beta)
+  create(:document_collection)
+  create(:document_collection)
 end
 
 When /^I create a document called "([^"]*)" in the "([^"]*)" collection$/ do |title, collection|
   begin_drafting_publication(title)
-  select collection, from: "Collection"
+  select collection, from: "Document collection"
   click_button "Save"
 end
 
@@ -22,20 +22,21 @@ When /^I view the "([^"]*)" collection$/ do |collection_name|
   collection = DocumentCollection.find_by_name(collection_name)
   # It would be better to navigate to this, but at the moment we're not sure
   # where the collections will sit
-  visit organisation_collection_path(collection.organisation, collection)
+  visit organisation_document_collections_path(collection.organisation)
+  click_link collection_name
 end
 
 Then /^I should see links to all the documents in the "([^"]*)" collection$/ do |collection_name|
   collection = DocumentCollection.find_by_name(collection_name)
-  collection.documents.each do |document|
-    assert page.has_css?("a[href='#{public_document_path(document)}']", text: document.title)
+  collection.editions.each do |edition|
+    assert page.has_css?("a[href='#{public_document_path(edition)}']", text: edition.title)
   end
 end
 
 Then /^I should see links back to the "([^"]*)" collection$/ do |collection_name|
   collection = DocumentCollection.find_by_name(collection_name)
   organisation = collection.organisation
-  assert page.has_css?("a[href='#{organisation_collection_path(organisation, collection)}']")
+  assert page.has_css?("a[href='#{admin_organisation_document_collection_path(organisation, collection)}']")
 end
 
 Then /^I should see the collections from "([^"]*)" first in the collection list$/ do |organisation_name|

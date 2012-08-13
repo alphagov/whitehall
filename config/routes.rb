@@ -50,6 +50,7 @@ Whitehall::Application.routes.draw do
 
     resources :topics, path: "topics", only: [:index, :show]
     resources :organisations, only: [:index, :show] do
+      resources :document_collections, only: [:index, :show], path: 'document-collections'
       collection do
         get :alphabetical
       end

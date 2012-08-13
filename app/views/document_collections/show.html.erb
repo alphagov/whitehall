@@ -1,0 +1,29 @@
+<% page_title @document_collection.name, @organisation.name %>
+<% page_class "document-collection" %>
+
+<div class="block-1">
+  <div class="inner-block">
+    <header class="page-header">
+      <h1><%= @document_collection.name %></h1>
+      <p>A document collection from <%= link_to @organisation.name, organisation_path(@organisation) %>. Back to <%= link_to "all collections", organisation_document_collections_path(@organisation) %>.</p>
+    </header>
+  </div>
+</div>
+
+<div class="block-2">
+  <div class="inner-block">
+    <section id="document_collections" class="group">
+      <% if @document_collection.published_editions.any? %>
+        <ul>
+          <% @document_collection.published_editions.each do |edition| %>
+            <%= content_tag_for :li, edition do %>
+              <%= link_to edition.title, public_document_path(edition) %>
+            <% end %>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>There are no documents in this collection at the moment.</p>
+      <% end %>
+    </section>
+  </div>
+</div>
