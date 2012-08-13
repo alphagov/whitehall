@@ -9,9 +9,11 @@
     <div class="meta">
       <span class="type"><%= announcement_type(item) %></span>
       <span class="published_at">posted <%= relative_time(item.first_published_at, class: 'first_published_at') %></span>
-      <span class="organisations">by <% item.organisations.each do |org| %>
-        <%= link_to org.acronym, organisation_path(org) %>
-      <% end %></span>
+      <% if item.organisations.any? %>
+        <span class="organisations">by <% item.organisations.each do |org| %>
+            <%= link_to (org.acronym.blank? ? org.name : org.acronym), organisation_path(org) %>
+        <% end %></span>
+      <% end %>
     </div>
   </div>
 <% end %>
