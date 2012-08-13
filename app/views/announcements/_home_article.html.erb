@@ -7,7 +7,7 @@
       </p>
     <% end %>
     <div class="meta">
-      <%= item.class.to_s.underscore.humanize %>
+      <span class="type"><%= item.class.to_s.underscore.humanize %></span>
       <span class="published_at">posted <%= relative_time(item.first_published_at, class: 'first_published_at') %></span>
       <span class="organisations">by <% item.organisations.each do |org| %>
         <%= link_to org.acronym, organisation_path(org) %>
