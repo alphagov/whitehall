@@ -40,7 +40,5 @@ Then /^I should see links back to the "([^"]*)" collection$/ do |collection_name
 end
 
 Then /^I should see the collections from "([^"]*)" first in the collection list$/ do |organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
-  collections = organisation.document_collections
-  pending
+  assert page.has_css?("select optgroup:nth-child(1)[label='#{organisation_name}']")
 end

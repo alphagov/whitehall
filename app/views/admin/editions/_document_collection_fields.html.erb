@@ -1,2 +1,2 @@
 <%= form.label :document_collection_ids, 'Document collections' %>
-<%= form.select :document_collection_ids, options_from_collection_for_select(DocumentCollection.all, 'id', 'name', edition.document_collection_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose collections this document is a part of..." } %>
+<%= form.select :document_collection_ids, document_collection_select_options(edition, current_user), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose collections this document is a part of..." } %>
