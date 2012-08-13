@@ -1,4 +1,16 @@
 module AnnouncementsHelper
+  def announcement_type(announcement)
+    if announcement.type == 'NewsArticle'
+      announcement.class.to_s.underscore.humanize
+    else
+      if ["Written statement", "Oral statement"].include?(announcement.speech_type.name)
+        "Statement to parliament"
+      else
+        "Speech"
+      end
+    end
+  end
+
   def announcement_group(annoucements, options = {})
     capture do
       annoucements.in_groups_of(options[:groups_of], false) do |announcement_group|
