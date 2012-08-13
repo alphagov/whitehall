@@ -7,6 +7,7 @@
         <%= render partial: "title", locals: { document: @document } %>
         <div class="meta-context meta">
           <%= part_of_topics_paragraph(@topics) %>
+          <%= part_of_collections_paragraph(@document.document_collections) %>
           <%= applies_to_countries_paragraph(@document) %>
           <%= only_applies_to_nations_paragraph(@document) %>
         </div>
@@ -46,7 +47,7 @@
       <%= national_statistics_logo(@document) %>
     </div>
   </div>
-  
+
   <div class="block-5">
     <div class="inner-block">
       <%= render partial: "document_content" %>

@@ -11,7 +11,7 @@ Feature: Grouping documents into series and collections
   Scenario: Documents should link back to their collections
     When I create a document called "May 2012 Update" in the "Monthly Facial Topiary Update" collection
     And someone publishes the document "May 2012 Update"
-    When I view the document "May 2012 Update"
+    When I visit the publication "May 2012 Update"
     Then I should see links back to the "Monthly Facial Topiary Update" collection
 
   Scenario: Collections list all their documents

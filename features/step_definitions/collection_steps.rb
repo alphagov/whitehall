@@ -36,7 +36,7 @@ end
 Then /^I should see links back to the "([^"]*)" collection$/ do |collection_name|
   collection = DocumentCollection.find_by_name(collection_name)
   organisation = collection.organisation
-  assert page.has_css?("a[href='#{admin_organisation_document_collection_path(organisation, collection)}']")
+  assert page.has_css?("a[href='#{organisation_document_collection_path(organisation, collection)}']")
 end
 
 Then /^I should see the collections from "([^"]*)" first in the collection list$/ do |organisation_name|
