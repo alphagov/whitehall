@@ -120,6 +120,11 @@
       margin: $gutter-half 0;
     }
   }
+
+  .govspeak .attachment, .document .body .attachment {
+    margin: 0 0 10px 0;
+  }
+
 }
 
 
