@@ -27,7 +27,7 @@ class PublicationsControllerTest < ActionController::TestCase
     publication = create(:published_publication, summary: 'plain text & so on')
     get :show, id: publication.document
 
-    assert_select ".summary", text: "plain text &amp; so on"
+    assert_select ".extra-description", text: "plain text &amp; so on"
   end
 
   test "show renders the publication body using govspeak" do

@@ -17,14 +17,15 @@
         <%= render partial: 'change_notes', locals: {document: @document} %>
       </div>
 
-      <div class="summary">
-        <p><%= @document.summary %></p>
-      </div>
-
       <% if @document.attachments.present? %>
         <div class="govspeak">
-          <%= render partial: "documents/attachment", object: @document.attachments.first, locals: {alternative_format_contact_email: @document.alternative_format_contact_email} %>
+          <%= render partial: "documents/attachment",
+                    object: @document.attachments.first,
+                    locals: { alternative_format_contact_email: @document.alternative_format_contact_email,
+                              extra_description: @document.summary } %>
         </div>
+      <% else %>
+        <p class="extra-description"><%= @document.summary %></p>
       <% end %>
     </div>
   </div>

@@ -1,3 +1,6 @@
+<%
+  extra_description ||= ""
+%>
 <%= content_tag_for(:div, attachment, class: "embedded") do %>
   <%= link_to(attachment.url, class: "title download") do %>
     <% if attachment.pdf? %>
@@ -6,6 +9,9 @@
       <%= image_tag('pub-cover.png', alt: "") %>
     <% end %>
     <%= attachment.title %>
+  <% end %>
+  <% unless extra_description.empty? %>
+    <p class="extra-description"><%= extra_description %></p>
   <% end %>
   <p>
     <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>,
