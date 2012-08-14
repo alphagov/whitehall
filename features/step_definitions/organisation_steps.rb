@@ -66,7 +66,7 @@ end
 Given /^I set the alternative format contact email of "([^"]*)" to "([^"]*)"$/ do |organisation_name, email|
   organisation = Organisation.find_by_name!(organisation_name)
   visit edit_admin_organisation_path(organisation)
-  fill_in "Alternative format contact email", with: email
+  fill_in "organisation_alternative_format_contact_email", with: email
   click_button "Save"
 end
 
