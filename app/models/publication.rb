@@ -21,6 +21,10 @@ class Publication < Edition
     false
   end
 
+  def allows_attachment_references?
+    true
+  end
+
   def publication_type
     PublicationType.find_by_id(publication_type_id)
   end

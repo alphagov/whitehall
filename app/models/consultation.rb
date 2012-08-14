@@ -46,6 +46,10 @@ class Consultation < Edition
     ((response_published? && response_published_on) || (closed? && closing_on) || (open? && opening_on) || first_published_at).to_date
   end
 
+  def allows_attachment_references?
+    true
+  end
+
   private
 
   def closing_on_must_be_after_opening_on

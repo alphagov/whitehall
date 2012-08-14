@@ -24,4 +24,8 @@ class ConsultationResponse < Edition
   def alternative_format_contact_email
     consultation && consultation.alternative_format_contact_email
   end
+
+  def allows_attachment_references?
+    true
+  end
 end
