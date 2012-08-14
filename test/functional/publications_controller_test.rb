@@ -461,6 +461,15 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should display links to related policies" do
+    policy = create(:published_policy)
+    publication = create(:published_publication, related_policies: [policy])
+
+    get :show, id: publication.document
+
+    assert_select_object(policy)
+  end
+
   private
 
   def given_two_publications_in_two_organisations
