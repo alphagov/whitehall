@@ -46,12 +46,43 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index shows articles in reverse chronological order" do
-    news_article = create(:published_news_article, published_at: 4.days.ago)
     speech = create(:published_speech, published_at: 5.days.ago)
+    news_article = create(:published_news_article, published_at: 4.days.ago)
 
     get :index
 
     assert_select "#{record_css_selector(news_article)} + #{record_css_selector(speech)}"
+  end
+
+  def assert_documents_appear_in_order_within(containing_selector, expected_documents)
+    articles = css_select "#{containing_selector} article"
+    expected_document_ids = expected_documents.map { |doc| dom_id(doc) }
+    actual_document_ids = articles.map { |a| a["id"] }
+    assert_equal expected_document_ids, actual_document_ids
+  end
+
+  test "index shows only the first 20 news articles or speeches" do
+    news = (0...15).map { |n| create(:published_news_article, published_at: n.days.ago) }
+    speeches = (15...25).map { |n| create(:published_speech, published_at: n.days.ago) }
+
+    get :index
+
+    assert_documents_appear_in_order_within("section.announcements", news + speeches[0...5])
+    speeches[5..10].each do |speech|
+      refute_select_object(speech)
+    end
+  end
+
+  test "index shows the requested page" do
+    news = (0...15).map { |n| create(:published_news_article, published_at: n.days.ago) }
+    speeches = (15...25).map { |n| create(:published_speech, published_at: n.days.ago) }
+
+    get :index, page: 2
+
+    assert_documents_appear_in_order_within("section.announcements", speeches[5..10])
+    (news + speeches[0...5]).each do |speech|
+      refute_select_object(speech)
+    end    
   end
 
 end
