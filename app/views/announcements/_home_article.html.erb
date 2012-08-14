@@ -1,11 +1,9 @@
 <%= content_tag_for(:article, item) do %>
   <div class="text">
     <h2><%= link_to item.title, public_document_path(item), class: "title" %></h2>
-    <% if display != "compact" %>
-      <p class="summary">
-        <%= item.summary %>
-      </p>
-    <% end %>
+    <p class="summary">
+      <%= item.summary %>
+    </p>
     <div class="meta">
       <span class="type"><%= announcement_type(item) %></span>
       <span class="published_at">posted <%= relative_time(item.first_published_at, class: 'first_published_at') %></span>
