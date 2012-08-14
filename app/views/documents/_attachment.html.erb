@@ -13,16 +13,13 @@
   <% unless extra_description.empty? %>
     <p class="extra-description"><%= extra_description %></p>
   <% end %>
+  <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? %>
+    <p>Ref: <%= attachment_reference(attachment) %></p>
+  <% end %>
   <p>
     <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>,
     <span class="file-size"><%= number_to_human_size(attachment.file_size) %></span><% if attachment.number_of_pages.present? %>,
       <span class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></span><% end %>
-  </p>
-  <p>
-    <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? %>
-      Ref:
-    <% end %>
-    <%= attachment_reference(attachment) %>
   </p>
   <% if attachment.order_url.present? %>
     <p>

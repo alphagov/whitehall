@@ -158,6 +158,10 @@
       }
     }
 
+    p.extra-description {
+      max-width: 35em;
+    }
+
     p {
       @include core-14;
       margin: 0;
