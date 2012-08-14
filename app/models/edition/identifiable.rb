@@ -28,8 +28,12 @@ module Edition::Identifiable
   end
 
   module ClassMethods
+    def document_type
+      sti_name
+    end
+
     def published_as(slug)
-      document = Document.where(document_type: sti_name, slug: slug).first
+      document = Document.where(document_type: document_type, slug: slug).first
       document && document.published_edition
     end
   end

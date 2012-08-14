@@ -2,7 +2,17 @@ class Document < ActiveRecord::Base
   set_table_name :documents
 
   extend FriendlyId
-  friendly_id :sluggable_string, use: :scoped, scope: :document_type
+
+  class SlugGeneratorScopedByDocumentType < FriendlyId::SlugGenerator
+    def conflicts
+      super.with_equivalent_document_type_to(sluggable)
+    end
+  end
+  
+  friendly_id :sluggable_string do |config|
+    config.use :slugged
+    config.slug_generator_class = SlugGeneratorScopedByDocumentType
+  end
 
   after_destroy :destroy_all_editions
 
@@ -78,6 +88,20 @@ class Document < ActiveRecord::Base
     def published
       joins(:published_edition)
     end
+
+    def with_equivalent_document_type_to(edition)
+      where(document_type: if announcement_document_types.include?(edition.document_type)
+        announcement_document_types
+      else
+        edition.document_type
+      end)
+    end
+
+  private    
+    def announcement_document_types
+      [NewsArticle.document_type, Speech.document_type]
+    end
+
   end
 
   private
@@ -85,4 +109,6 @@ class Document < ActiveRecord::Base
   def destroy_all_editions
     Edition.unscoped.destroy_all(document_id: self.id)
   end
+
+
 end
