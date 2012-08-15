@@ -3,7 +3,6 @@ require "test_helper"
 class ConsultationTest < ActiveSupport::TestCase
   include DocumentBehaviour
 
-  should_be_featurable
   should_be_attachable
   should_allow_inline_attachments
 
@@ -33,12 +32,6 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal published_consultation.inapplicable_nations, draft_consultation.inapplicable_nations
     assert_equal "http://wales.gov.uk", draft_consultation.nation_inapplicabilities.find_by_nation_id(Nation.wales.id).alternative_url
     assert_equal "http://scot.gov.uk", draft_consultation.nation_inapplicabilities.find_by_nation_id(Nation.scotland.id).alternative_url
-  end
-
-  test "should build a draft copy of the existing consultation with the featured flag retained" do
-    consultation = create(:featured_consultation)
-    draft_consultation = consultation.create_draft(create(:policy_writer))
-    assert draft_consultation.featured?
   end
 
   test "#published_consultation_response provides access to the published response" do

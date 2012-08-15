@@ -265,7 +265,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to admin_editions_path(state: :draft)
   end
 
-  [:consultation, :news_article].each do |edition_type|
+  [:news_article].each do |edition_type|
     test "should display a form for featuring an unfeatured #{edition_type} without a featuring image" do
       edition = create("published_#{edition_type}")
       get :index, state: :published, type: edition_type

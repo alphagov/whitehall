@@ -5,7 +5,6 @@ class ConsultationsController < DocumentsController
   def index
     scope = Consultation
     @consultations = load_consultations_from_scope(scope)
-    @featured_consultation = @consultations.select(&:featured).sort_by {|c| c.published_at }.reverse.first
   end
 
   def open

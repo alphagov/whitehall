@@ -1,11 +1,3 @@
-Given /^a published featured consultation "([^"]*)"$/ do |title|
-  create(:featured_consultation, title: title)
-end
-
-Given /^(\d+) published featured consultations$/ do |number|
-  number.to_i.times { create(:featured_consultation) }
-end
-
 When /^I draft a new consultation "([^"]*)"$/ do |title|
   policy = create(:policy)
   begin_drafting_document type: 'consultation', title: title
@@ -25,14 +17,6 @@ end
 
 When /^I visit the consultations page$/ do
   visit consultations_path
-end
-
-Then /^I should see "([^"]*)" in the list of featured consultations$/ do |title|
-  assert has_css?("#{featured_consultations_selector} a", text: title)
-end
-
-Then /^I should only see the most recent (\d+) in the list of featured consultations$/ do |number|
-  assert has_css?(featured_consultations_selector, count: number.to_i)
 end
 
 Then /^I can see links to the consultations "([^"]*)" and "([^"]*)"$/ do |title_1, title_2|

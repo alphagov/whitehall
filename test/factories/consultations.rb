@@ -12,6 +12,4 @@ FactoryGirl.define do
   factory :published_consultation, parent: :consultation, traits: [:published]
   factory :deleted_consultation, parent: :consultation, traits: [:deleted]
   factory :archived_consultation, parent: :consultation, traits: [:archived]
-
-  factory :featured_consultation, parent: :consultation, traits: [:published, :featured]
 end

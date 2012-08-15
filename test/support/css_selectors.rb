@@ -69,10 +69,6 @@ module CssSelectors
     "#featured-news-articles"
   end
 
-  def featured_consultations_selector
-    ".consultation.featured"
-  end
-
   def countries_selector
     "#countries"
   end

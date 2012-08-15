@@ -219,49 +219,4 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     refute_select inapplicable_nations_selector
   end
-
-  test "should display the closing date of the featured consultation" do
-    closing_date = 20.days.from_now
-    consultation = create(:featured_consultation, closing_on: closing_date)
-    get :index
-    assert_select "#{featured_consultations_selector}#{record_css_selector(consultation)}" do
-      assert_select ".time_remaining", text: "Closes in 21 days"
-    end
-  end
-
-  test "should ignore unpublished featured consultations" do
-    draft_featured_edition = create("draft_consultation") do |edition|
-      edition.feature
-    end
-    get :index
-    assert_nil assigns("featured_consultation")
-  end
-
-  test "should ignore published non-featured consultations" do
-    published_edition = create("published_consultation")
-    get :index
-    assert_nil assigns("featured_consultation")
-  end
-
-  test "should show the featured consultation that was most recently published" do
-    old_edition = create("featured_consultation", published_at: 1.month.ago)
-    new_edition = create("featured_consultation", published_at: 1.day.ago)
-    get :index
-    assert_equal new_edition, assigns("featured_consultation")
-  end
-
-  test "should not display the featured consultations list if there are not featured consultations" do
-    create("published_consultation")
-    get :index
-    refute_select featured_consultations_selector
-  end
-
-  test "should display a link to the featured consultation" do
-    edition = create("featured_consultation")
-    get :index
-    assert_select "#{featured_consultations_selector}#{record_css_selector(edition)}" do
-      expected_path = consultation_path(edition.document)
-      assert_select "a[href=#{expected_path}]"
-    end
-  end
 end
