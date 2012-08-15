@@ -195,7 +195,7 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   when Publication
     click_link "Publications"
   when NewsArticle, Speech
-    click_link "News"
+    click_link "Announcements"
   when Consultation
     click_link "Consultations"
   when Policy

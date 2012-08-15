@@ -35,6 +35,13 @@ class AnnouncementPresenter
     @today = Set.new(news_today + speeches_today, @number_to_feature)
   end
 
+  def homepage
+    home_news = news.limit(20)
+    home_speeches = speeches.limit(20)
+    results = home_news + home_speeches
+    results.sort_by(&:first_published_at).reverse.take(30)
+  end
+
   def in_last_7_days
     return @in_last_7_days if @in_last_7_days
     this_week = 1.week.ago..1.day.ago
@@ -44,6 +51,14 @@ class AnnouncementPresenter
   end
 
   private
+
+  def news
+    NewsArticle.published.by_first_published_at.includes(:document, :edition_relations, :topics)
+  end
+
+  def speeches
+    Speech.published.by_first_published_at.includes(:document, role_appointment: [:person, :role])
+  end
 
   def candidate_news
     NewsArticle.published.not_featured.by_first_published_at.includes(:document, :edition_relations, :topics)

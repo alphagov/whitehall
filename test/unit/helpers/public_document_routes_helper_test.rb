@@ -27,9 +27,14 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal publication_path(publication.document), public_document_path(publication)
   end
 
-  test 'returns the news_article_path for NewsArticle instances' do
+  test 'returns the announcement_path for NewsArticle instances' do
     news_article = create(:news_article)
-    assert_equal news_article_path(news_article.document), public_document_path(news_article)
+    assert_equal announcement_path(news_article.document), public_document_path(news_article)
+  end
+
+  test 'returns the announcement_path for Speech instances' do
+    speech = create(:speech)
+    assert_equal announcement_path(speech.document), public_document_path(speech)
   end
 
   test 'returns the consultation_path for Consultation instances' do

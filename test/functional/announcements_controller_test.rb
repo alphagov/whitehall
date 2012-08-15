@@ -2,216 +2,90 @@ require "test_helper"
 
 class AnnouncementsControllerTest < ActionController::TestCase
   include ActionView::Helpers::DateHelper
+  extend ShowingSpeechesHelper
+  extend ShowingNewsArticlesHelper
 
   should_be_a_public_facing_controller
+  should_show_speeches
+  should_show_news_articles
 
-  test "index shows news and speeches from the last 24 hours" do
+  test "index shows a mix of news and speeches" do
     announced_today = [create(:published_news_article), create(:published_speech)]
-    AnnouncementPresenter.any_instance.stubs(:today).returns(AnnouncementPresenter::Set.new(announced_today))
 
     get :index
 
-    assert_select '#last_24_hours' do
-      announced_today.each do |announcement|
-        assert_select_object announcement
-      end
+    assert_select_object announced_today[0]
+    assert_select_object announced_today[1]
+  end
+
+  test "index shows which type a record is" do
+    announced_today = [create(:published_news_article), create(:published_speech)]
+
+    get :index
+
+    assert_select_object announced_today[0] do
+      assert_select ".type", text: "News article"
+    end
+    assert_select_object announced_today[1] do
+      assert_select ".type", text: "Speech"
     end
   end
 
-  test "index highlights first three announcements with images that have been published in the last 24 hours" do
-    featured = [create(:published_news_article), create(:published_speech), create(:published_news_article)]
-    unfeatured = [create(:published_news_article), create(:published_speech), create(:published_news_article),
-                  create(:published_news_article)]
-
-    today = stub("today", featured: featured, unfeatured: unfeatured, any?: true)
-    AnnouncementPresenter.any_instance.stubs(:today).returns(today)
-
-    get :index
-
-    assert_select '#last_24_hours' do
-      assert_select 'article', count: 7
-
-
-        assert_select 'article', count: 7
-        featured.each do |announcement|
-          assert_select_object announcement do
-            assert_select "a[href='#{announcement_path(announcement)}'] img"
-            assert_select_announcement_title announcement
-            assert_select_announcement_summary announcement
-            assert_select_announcement_metadata announcement
-          end
-        end
-  
-
-      unfeatured.each do |announcement|
-        assert_select_object announcement do
-          refute_select "img"
-          assert_select_announcement_title announcement
-          assert_select_announcement_summary announcement
-          assert_select_announcement_metadata announcement
-        end
-      end
-    end
-  end
-
-  test "should not display #last_24_hours section if there are not any announcements within that period" do
-    get :index
-    refute_select '#last_24_hours'
-  end
-
-  test "should display list of correctly formatted announcements for the last 7 days" do
-    announced_in_last_7_days = [
-      create(:published_news_article),
-      create(:published_speech),
-      create(:published_news_article)
-    ]
-    AnnouncementPresenter.any_instance.stubs(:in_last_7_days).returns(AnnouncementPresenter::Set.new(announced_in_last_7_days))
-
-    get :index
-
-    assert_select '#last_7_days' do
-      assert_select 'article', count: 3
-
-      announced_in_last_7_days.each do |announcement|
-        assert_select_object announcement do
-          refute_select "img"
-          assert_select_announcement_title announcement
-          assert_select_announcement_summary announcement
-          assert_select_announcement_metadata announcement
-        end
-      end
-    end
-  end
-
-  test "should not show images for any announcements in last 7 days if some exist in the last 24 hours" do
-    announced_today = [create(:published_news_article, published_at: Time.zone.now), create(:published_speech, published_at: (23.hours.ago + 59.minutes))]
-
-    announced_in_last_7_days = [
-      create(:published_news_article),
-      create(:published_speech),
-      create(:published_news_article)
-    ]
-    AnnouncementPresenter.any_instance.stubs(:today).returns(AnnouncementPresenter::Set.new(announced_today))
-    AnnouncementPresenter.any_instance.stubs(:in_last_7_days).returns(AnnouncementPresenter::Set.new(announced_in_last_7_days))
-
-    get :index
-
-    assert_select '#last_7_days' do
-
-      announced_in_last_7_days.each do |announcement|
-        assert_select_object announcement do
-          refute_select "img"
-        end
-      end
-    end
-  end
-
-  test "announcements in the last 7 days should show expanded view if there are no stories in the last 24 hours" do
-    unfeatured = [create(:published_news_article), create(:published_speech)]
-    featured = [create(:published_news_article)]
-
-    announced_in_last_7_days = stub("last_7_days", featured: featured, unfeatured: unfeatured, any?: true)
-
-    AnnouncementPresenter.any_instance.stubs(:today).returns(AnnouncementPresenter::Set.new([]))
-    AnnouncementPresenter.any_instance.stubs(:in_last_7_days).returns(announced_in_last_7_days)
-
-    get :index
-
-    refute_select '#last_24_hours'
-
-    assert_select '#last_7_days' do
-      assert_select 'article', count: 3
-    end
-  end
-
-  test "index shows unique related topics for each news article" do
-    first_topic = create(:topic, name: 'first-area')
-    second_topic = create(:topic, name: 'second-area')
-    policy_1 = create(:published_policy, topics: [first_topic, second_topic])
-    policy_2 = create(:published_policy, topics: [first_topic])
-    news_article = create(:published_news_article, published_at: 4.days.ago, related_policies: [policy_1, policy_2])
+  test "index shows related organisations for each type of article" do
+    first_org = create(:organisation, name: 'first-org', acronym: "FO")
+    second_org = create(:organisation, name: 'second-org', acronym: "SO")
+    news_article = create(:published_news_article, published_at: 4.days.ago, organisations: [first_org, second_org])
+    speech = create(:published_speech, published_at: 5.days.ago, organisations: [second_org])
 
     get :index
 
     assert_select_object news_article do
-      assert_select ".meta a[href='#{topic_path(first_topic)}']", text: first_topic.name, count: 1
-      assert_select ".meta a[href='#{topic_path(second_topic)}']", text: second_topic.name, count: 1
+      assert_select ".meta a[href='#{organisation_path(first_org)}']", text: first_org.acronym, count: 1
+      assert_select ".meta a[href='#{organisation_path(second_org)}']", text: second_org.acronym, count: 1
+    end
+
+    assert_select_object speech do
+      assert_select ".meta a[href='#{organisation_path(second_org)}']", text: second_org.acronym, count: 1
     end
   end
 
-  test "index shows featured news articles" do
-    a = create(:featured_news_article, published_at: 1.day.ago)
-    b = create(:featured_news_article, published_at: 2.days.ago)
-    c = create(:featured_news_article, published_at: 3.days.ago)
-    d = create(:featured_news_article, published_at: 4.days.ago)
+  test "index shows articles in reverse chronological order" do
+    speech = create(:published_speech, published_at: 5.days.ago)
+    news_article = create(:published_news_article, published_at: 4.days.ago)
 
     get :index
 
-    assert_select '#featured_news' do
-      assert_select_object a
-      assert_select_object b
-      assert_select_object c
-      refute_select_object d
-    end
+    assert_select "#{record_css_selector(news_article)} + #{record_css_selector(speech)}"
   end
 
-  test "featured news article should show images, title, summary and meta details" do
-    first_topic = create(:topic, name: 'first-area')
-    second_topic = create(:topic, name: 'second-area')
-    policy_1 = create(:published_policy, topics: [first_topic, second_topic])
-    policy_2 = create(:published_policy, topics: [first_topic])
-    featured_news = create(:featured_news_article, published_at: 1.day.ago, related_policies: [policy_1, policy_2])
+  def assert_documents_appear_in_order_within(containing_selector, expected_documents)
+    articles = css_select "#{containing_selector} article"
+    expected_document_ids = expected_documents.map { |doc| dom_id(doc) }
+    actual_document_ids = articles.map { |a| a["id"] }
+    assert_equal expected_document_ids, actual_document_ids
+  end
+
+  test "index shows only the first 20 news articles or speeches" do
+    news = (0...15).map { |n| create(:published_news_article, published_at: n.days.ago) }
+    speeches = (15...25).map { |n| create(:published_speech, published_at: n.days.ago) }
+
     get :index
 
-    assert_select '#featured_news' do
-      assert_select_object featured_news do
-        assert_select "a[href='#{announcement_path(featured_news)}'] img"
-        assert_select_announcement_title featured_news
-        assert_select_announcement_summary featured_news
-        assert_select_announcement_metadata featured_news
-        assert_select ".meta a[href='#{topic_path(first_topic)}']", text: first_topic.name, count: 1
-        assert_select ".meta a[href='#{topic_path(second_topic)}']", text: second_topic.name, count: 1
-      end
+    assert_documents_appear_in_order_within("section.announcements", news + speeches[0...5])
+    speeches[5..10].each do |speech|
+      refute_select_object(speech)
     end
   end
 
-  private
+  test "index shows the requested page" do
+    news = (0...15).map { |n| create(:published_news_article, published_at: n.days.ago) }
+    speeches = (15...25).map { |n| create(:published_speech, published_at: n.days.ago) }
 
-  def announcement_path(announcement)
-    if announcement.is_a?(NewsArticle)
-      news_article_path(announcement.document)
-    else
-      speech_path(announcement.document)
-    end
-  end
+    get :index, page: 2
 
-  def assert_select_announcement_title(announcement)
-    assert_select "h2 a[href='#{announcement_path(announcement)}']", text: announcement.title
-  end
-
-  def assert_select_announcement_summary(announcement)
-    assert_select "p.summary", text: announcement.summary
-  end
-
-  def assert_select_announcement_metadata(announcement)
-    if announcement.is_a?(Speech)
-      assert_select_speech_metadata(announcement)
-    else
-      assert_select_news_article_metadata(announcement)
-    end
-  end
-
-  def assert_select_speech_metadata(speech)
-    assert_select ".meta" do
-      time_string = speech.delivered_on.to_s(:long_ordinal)
-      assert_select "abbr.delivered_on[title='#{speech.delivered_on.iso8601}']", text: /#{time_string}/i
-      appointment = speech.role_appointment
-      assert_select "a.ministerial_role[href='#{ministerial_role_path(appointment.role)}']", text: appointment.person.name
-    end
-  end
-
-  def assert_select_news_article_metadata(news_article)
-    time_string = news_article.first_published_at.to_s(:long_ordinal)
-    assert_select ".meta abbr.first_published_at[title='#{news_article.first_published_at.iso8601}']", text: /#{time_string}/i
+    assert_documents_appear_in_order_within("section.announcements", speeches[5..10])
+    (news + speeches[0...5]).each do |speech|
+      refute_select_object(speech)
+    end    
   end
 end

@@ -81,7 +81,7 @@ module DocumentControllerTestHelpers
     end
 
     def should_display_inline_images_for(document_type)
-      test "show displays document with inline images" do
+      test "show displays #{document_type} with inline images" do
         images = [create(:image)]
         edition = create("published_#{document_type}", body: "!!1", images: images)
 
@@ -112,7 +112,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "show only displays image if there is one" do
+      test "show #{document_type} only displays image if there is one" do
         edition = create("published_#{document_type}", images: [])
 
         get :show, id: edition.document
@@ -124,7 +124,7 @@ module DocumentControllerTestHelpers
     end
 
     def should_not_display_lead_image_for(document_type)
-      test "show not show lead image, even if there are associated images" do
+      test "show does not show lead image, even if there are associated images for #{document_type}" do
         edition = create("published_#{document_type}", images: [build(:image)])
 
         get :show, id: edition.document
@@ -136,28 +136,28 @@ module DocumentControllerTestHelpers
     end
 
     def should_show_related_policies_for(document_type)
-      test "show displays related published policies" do
+      test "show displays related published policies for #{document_type}" do
         published_policy = create(:published_policy)
         edition = create("published_#{document_type}", related_policies: [published_policy])
         get :show, id: edition.document
         assert_select_object published_policy
       end
 
-      test "show doesn't display related unpublished policies" do
+      test "show doesn't display related unpublished policies for #{document_type}" do
         draft_policy = create(:draft_policy)
         edition = create("published_#{document_type}", related_policies: [draft_policy])
         get :show, id: edition.document
         refute_select_object draft_policy
       end
 
-      test "should not display policies unless they are related" do
+      test "should not display policies unless they are related for #{document_type}" do
         unrelated_policy = create(:published_policy)
         edition = create("published_#{document_type}", related_policies: [])
         get :show, id: edition.document
         refute_select_object unrelated_policy
       end
 
-      test "should not display an empty list of related policies" do
+      test "should not display an empty list of related policies for #{document_type}" do
         edition = create("published_#{document_type}")
         get :show, id: edition.document
         refute_select "#related-policies"
@@ -167,7 +167,7 @@ module DocumentControllerTestHelpers
     def should_show_related_policies_and_topics_for(document_type)
       should_show_related_policies_for document_type
 
-      test "show infers topics from published policies" do
+      test "show infers topics from published policies for #{document_type}" do
         topic = create(:topic)
         published_policy = create(:published_policy, topics: [topic])
         edition = create("published_#{document_type}", related_policies: [published_policy])
@@ -175,7 +175,7 @@ module DocumentControllerTestHelpers
         assert_select_object topic
       end
 
-      test "show doesn't display duplicate inferred topics" do
+      test "show doesn't display duplicate inferred topics for #{document_type}" do
         topic = create(:topic)
         published_policy_1 = create(:published_policy, topics: [topic])
         published_policy_2 = create(:published_policy, topics: [topic])
@@ -201,7 +201,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "should not display an empty list of countries" do
+      test "should not display an empty list of countries for #{document_type}" do
         edition = create("published_#{document_type}", countries: [])
 
         get :show, id: edition.document
@@ -267,7 +267,7 @@ module DocumentControllerTestHelpers
     end
 
     def should_show_change_notes_on_action(document_type, action, &block)
-      test "#{action} displays default change note for first edition" do
+      test "#{action} displays default change note for first edition of #{document_type}" do
         first_edition = create("published_#{document_type}",
                                change_note: nil,
                                published_at: 1.month.ago)
@@ -280,7 +280,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "#{action} does not display blank change notes in change history" do
+      test "#{action} does not display blank change notes in change history for #{document_type}" do
         second_edition = create("published_#{document_type}",
                                 change_note: nil,
                                 minor_change: true,
@@ -301,7 +301,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "#{action} displays change history in reverse chronological order" do
+      test "#{action} displays change history in reverse chronological order for #{document_type}" do
         editions = []
         editions << create("published_#{document_type}",
                            change_note: "Third go.",
@@ -339,7 +339,7 @@ module DocumentControllerTestHelpers
     end
 
     def should_show_inapplicable_nations(document_type)
-      test "show displays inapplicable nations" do
+      test "show displays inapplicable nations for #{document_type}" do
         published_document = create("published_#{document_type}")
         northern_ireland_inapplicability = published_document.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
         scotland_inapplicability = published_document.nation_inapplicabilities.create!(nation: Nation.scotland)
@@ -357,7 +357,7 @@ module DocumentControllerTestHelpers
     end
 
     def should_paginate(edition_type, options={})
-      test "index should only show a certain number of documents by default" do
+      test "index should only show a certain number of #{edition_type.to_s.pluralize} by default" do
         documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", publication_date: i.days.ago) }
         documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
@@ -367,7 +367,7 @@ module DocumentControllerTestHelpers
         (20..24).to_a.each { |i| refute_select_object(documents[i]) }
       end
 
-      test "index should show window of pagination" do
+      test "index should show window of pagination for #{edition_type}" do
         documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-window-pagination", publication_date: i.days.ago) }
         documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
@@ -377,7 +377,7 @@ module DocumentControllerTestHelpers
         (20..24).to_a.each { |i| assert_select_object(documents[i]) }
       end
 
-      test "show more button should not appear by default" do
+      test "show more button should not appear by default for #{edition_type}" do
         documents = (1..18).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         get :index
@@ -385,7 +385,7 @@ module DocumentControllerTestHelpers
         refute_select "#show-more-documents"
       end
 
-      test "show more button should appear when there are more records" do
+      test "show more button should appear when there are more records for #{edition_type}" do
         documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         get :index
@@ -393,7 +393,7 @@ module DocumentControllerTestHelpers
         assert_select "#show-more-documents"
       end
 
-      test "should show previous page link when not on the first page" do
+      test "should show previous page link when not on the first page for #{edition_type}" do
         documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         get :index, page: 2
@@ -404,7 +404,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "should show progress helpers in pagination links" do
+      test "should show progress helpers in pagination links for #{edition_type}" do
         documents = (1..45).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         get :index, page: 2

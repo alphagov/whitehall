@@ -1,46 +1,20 @@
-<% page_title "News & speeches" %>
-<% page_class "announcements-index" %>
+<% page_title "Announcements" %>
+<% page_class "news-index speeches-index" %>
 
 <div class="block-1">
   <div class="inner-block">
     <header class="page-header news-speech icon">
-        <h1 class="page_title"><%= h "News & speeches" %></h1>
+      <h1 class="page_title"><%= h "Announcements" %></h1>
     </header>
   </div>
 </div>
 
-
 <div class="block-2">
   <div class="inner-block">
-    <% if @announced.featured_news.any? %>
-      <section class="announcements featured_news" id="featured_news">
-        <h1 class="label">Featured</h1>
-        <%= announcement_group(@announced.featured_news, groups_of: 3, partial: "expanded") %>
-      </section>
-    <% end %>
-
-    <% if @announced.today.any? %>
-      <section class="announcements last_24_hours" id="last_24_hours">
-        <h1 class="label">In the last 24 hours</h1>
-        <%= announcement_group(@announced.today.featured, groups_of: 3, partial: "expanded") %>
-        <%= announcement_group(@announced.today.unfeatured, groups_of: 3, partial: "default") %>
-      </section>
-    <% end %>
-
-    <% if @announced.in_last_7_days.any? %>
-      <section class="announcements last_7_days" id="last_7_days">
-        <h1 class="label">In the last 7 days</h1>
-        <% if @announced.today.any? %>
-          <%= announcement_group(@announced.in_last_7_days, groups_of: 3, partial: "default") %>
-        <% else %>
-          <%= announcement_group(@announced.in_last_7_days.featured, groups_of: 3, partial: "expanded") %>
-          <%= announcement_group(@announced.in_last_7_days.unfeatured, groups_of: 3, partial: "default") %>
-        <% end %>
-      </section>
-    <% end %>
-
-    <section class="further_articles">
-      <p>View all <%= link_to "news", news_articles_path %> or <%= link_to "speeches", speeches_path %></p>
+    <section class="further_articles announcements group">
+      <%= announcement_group(@results, groups_of: 3, class: "", partial: "default") %>
     </section>
   </div>
 </div>
+
+<%= paginate @results %>
