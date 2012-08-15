@@ -41,7 +41,7 @@
 
         showHide.hide();
 
-        var toggle = $('<a href="#" class="show-other-content" title="Show additional links"><span class="plus">+</span> others</a>');
+        var toggle = $('<a href="#" class="show-other-content" title="Show additional links"><span class="plus">+&nbsp;</span>others</a>');
 
         toggle.on('click', function(e) {
           e.preventDefault();
