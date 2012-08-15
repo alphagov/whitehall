@@ -31,7 +31,7 @@ There's a capistrano task which will download a dump of the mysql database and l
 
 To use it, go to the `whitehall-admin` directory in `alphagov-deployment` and then do:
 
-    $ DEPLOY_TO=production bundle exec cap db:import
+    $ SSH_USER=$USER DEPLOY_TO=production bundle exec cap db:import
 
 this will load data from production into your local database.
 
