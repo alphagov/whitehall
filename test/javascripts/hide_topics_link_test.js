@@ -34,5 +34,5 @@ test("should preserve first link", function() {
   $('.meta-topic .topics').hideOtherLinks();
   equal($('.meta-topic .topics a:visible:first').text(), 'Topic A');
   notEqual($('.meta-topic .topics a:visible:eq(1)').text(), 'Topic B');
-  equal($('.meta-topic .topics a:visible:eq(1)').text(), '+ others');
+  equal($('.meta-topic .topics a:visible:eq(1)').text(), "+\xa0others");
 });
