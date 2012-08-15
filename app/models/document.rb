@@ -89,17 +89,16 @@ class Document < ActiveRecord::Base
       joins(:published_edition)
     end
 
+    def at_slug(document_types, slug)
+      where(document_type: document_types, slug: slug).first
+    end
+
     def with_equivalent_document_type_to(edition)
-      where(document_type: if announcement_document_types.include?(edition.document_type)
-        announcement_document_types
+      where(document_type: if Announcement.document_types.include?(edition.document_type)
+        Announcement.document_types
       else
         edition.document_type
       end)
-    end
-
-  private    
-    def announcement_document_types
-      [NewsArticle.document_type, Speech.document_type]
     end
 
   end

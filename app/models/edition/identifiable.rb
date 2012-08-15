@@ -24,7 +24,7 @@ module Edition::Identifiable
   end
 
   def propagate_type_to_document
-    document.document_type = type if document
+    document.document_type = self.class.document_type if document
   end
 
   module ClassMethods
@@ -33,7 +33,7 @@ module Edition::Identifiable
     end
 
     def published_as(slug)
-      document = Document.where(document_type: document_type, slug: slug).first
+      document = Document.at_slug(document_type, slug)
       document && document.published_edition
     end
   end

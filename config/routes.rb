@@ -24,14 +24,13 @@ Whitehall::Application.routes.draw do
     match 'feed.atom' => 'home#show', format: false, defaults: { format: 'atom' }, as: :atom_feed
     match '/tour' => 'home#tour'
 
-    resources :announcements, only: [:index], path: 'news-and-speeches'
+    resources :announcements, only: [:index, :show], path: 'news-and-speeches'
     resources :policies, only: [:index, :show] do
       member do
         get :activity
       end
       resources :supporting_pages, path: "supporting-pages", only: [:index, :show]
     end
-    resources :news_articles, path: 'news', only: [:show, :index]
     resources :publications, only: [:index, :show]
     resources :case_studies, path: 'case-studies', only: [:show, :index]
 
@@ -45,8 +44,6 @@ Whitehall::Application.routes.draw do
 
       resource :response, only: [:show], controller: :consultation_responses
     end
-
-    resources :speeches, only: [:index, :show]
 
     resources :topics, path: "topics", only: [:index, :show]
     resources :organisations, only: [:index, :show] do

@@ -25,6 +25,18 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal published_policy, document.reload.published_edition
   end
 
+  test "should be able to retrieve documents of a certain type at a particular slug" do
+    policy = create(:draft_policy)
+    assert_equal policy.document, Document.at_slug(policy.type, policy.document.slug)
+  end
+
+  test "should be able to retrieve documents of many types at a particular slug" do
+    news = create(:draft_news_article)
+    speech = create(:draft_speech)
+    assert_equal news.document, Document.at_slug([news.type, speech.type], news.document.slug)
+    assert_equal speech.document, Document.at_slug([news.type, speech.type], speech.document.slug)
+  end
+
   test "should be published if a published edition exists" do
     published_policy = create(:published_policy)
     assert published_policy.document.published?
