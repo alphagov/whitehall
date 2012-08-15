@@ -57,21 +57,34 @@
       }
     }
   }
-  .block-2, .block-4, .block-6 {
+  .block-2, .block-4, .block-6, .block-5, .block-7 {
+    float: none;
+    display: block;
+    clear: both;
+    margin-left: 0;
+    padding-bottom: 0;
+    width: 100%;
+    h1 {
+      @include core-24;
+    }
+    @include media(desktop){
     float: left;
     display: inline;
     clear: both;
     width: 25%;
-    margin-left: 0;
-    h1 {
-      @include core-24;
     }
   }
   .block-5, .block-7 {
-    float: left;
-    display: inline;
-    margin: 0 0 $gutter*2 0;
-    width: 75%;
+    clear: none;
+    @include media(desktop){
+      float: left;
+      display: inline;
+      margin: 0 0 $gutter*2 0;
+      width: 75%;
+    }
+    p:first-child {
+      margin-top: 0;
+    }
   }
 
   .contextual-info {
@@ -98,7 +111,7 @@
   }
 
   .meta-changes {
-    margin-top: $gutter;
+    margin: $gutter 0;
     width: 25%;
   }
 
@@ -121,9 +134,14 @@
     }
   }
 
-  .govspeak .attachment, .document .body .attachment {
-    margin: 0 0 10px 0;
+  .govspeak, .document .body {
+    margin: 0;
+      .attachment {
+      margin: 0 0 10px 0;
+    }
   }
+
+  #whitehall-wrapper .govspeak, #whitehall-wrapper .document .body
 
   .national-statistics-logo {
     margin-top: $gutter-one-third;
