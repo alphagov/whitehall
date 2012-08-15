@@ -6,7 +6,7 @@
       $toggle;
 
   if($organisations.height() > $organisation.outerHeight(true)){
-    $toggle = $('<li class="show-other-content"><a href="#" title="Show additional links">+ others</a></li>');
+    $toggle = $('<li class="show-other-content"><a href="#" title="Show additional links"><span class="plus">+</span> others</a></li>');
     $organisations.append($toggle);
     while(($organisations.height() > $organisation.outerHeight(true)) && (all - hidden > 1)){
       hidden = hidden + 1;

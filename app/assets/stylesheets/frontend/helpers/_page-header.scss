@@ -150,9 +150,13 @@
 .show-other-content {
   background: $light-warm-grey;
   text-decoration: none;
-  color: black;
   display: inline-block;
-  padding: 0 2px;
+  padding: 0 4px;
   margin-left: 0.3em;
-  @include border-radius(0.250em)
+  @include border-radius(0.250em);
+
+  .plus {
+    display: inline-block;
+    line-height: 0.5;
+  }
 }
