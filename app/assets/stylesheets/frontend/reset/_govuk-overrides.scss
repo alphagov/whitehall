@@ -3,6 +3,9 @@
 html {
   background: white;
 }
+body {
+  padding: 0;
+}
 
 // this rule overrides the sticky global header
 .js-enabled #global-header {
