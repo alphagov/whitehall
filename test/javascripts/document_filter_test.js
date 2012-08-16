@@ -1,6 +1,10 @@
 module("Document filter", {
   setup: function() {
     this.originalHistoryEnabled = History.enabled;
+    this.originalHistoryPushState = History.pushState;
+    History.pushState = function(state,title,url){
+      return true;
+    };
     
     this.filterForm = $('<form id="document-filter" action="/foo/bar"><input type="submit" /></form>');
     $('#qunit-fixture').append(this.filterForm);
@@ -10,6 +14,7 @@ module("Document filter", {
   },
   tearDown: function() {
     History.enabled = this.originalHistoryEnabled;
+    History.pushState = this.originalHistoryPushState;
   }
 });
 
@@ -59,6 +64,7 @@ test("should send filter form parameters in ajax request", function() {
 test("should generate table of results baed on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
 
+  var ajax = this.spy(jQuery, "ajax");
   var server = this.sandbox.useFakeServer();
   server.respondWith('{ "results": [ { "id": 1, "type": "document-type", "title": "document-title", "url": "/document-path", "organisations": "organisation-name-1, organisation-name-2", "topics": "topic-name-1, topic-name-2" } ] }')
 
@@ -72,6 +78,7 @@ test("should update browser location on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
 
   var historyPushState = this.spy(History, "pushState");
+  var ajax = this.spy(jQuery, "ajax");
   var server = this.sandbox.useFakeServer();
   server.respondWith('{ "results": [ { "id": 1, "type": "document-type", "title": "document-title", "url": "/document-path", "organisations": "organisation-name-1, organisation-name-2", "topics": "topic-name-1, topic-name-2" } ] }')
 
@@ -99,6 +106,7 @@ test("should not enable ajax filtering if browser does not support HTML5 History
   var ajax = this.spy(jQuery, "ajax");
   var server = this.sandbox.useFakeServer();
   
+  this.filterForm.attr('action', 'javascript:return false;');
   this.filterForm.submit();
   server.respond();
   
