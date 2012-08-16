@@ -27,10 +27,11 @@ class ConsultationResponseTest < ActiveSupport::TestCase
   end
 
   test "should not use the contact email of an unpublished draft of the consultation" do
-    consultation = create(:published_consultation, alternative_format_provider: nil)
-    organisation = create(:organisation, alternative_format_contact_email: "alternative@example.com")
-    draft_consultation = create(:draft_consultation, alternative_format_provider: organisation, document: consultation.document)
+    defra = create(:organisation, alternative_format_contact_email: "alternative@defra.gov.uk")
+    consultation = create(:published_consultation, alternative_format_provider: defra)
+    mod = create(:organisation, alternative_format_contact_email: "alternative@mod.gov.uk")
+    create(:draft_consultation, alternative_format_provider: mod, document: consultation.document)
     consultation_response = create(:published_consultation_response, consultation_document: consultation.document)
-    assert_equal nil, consultation_response.alternative_format_contact_email
+    assert_equal "alternative@defra.gov.uk", consultation_response.alternative_format_contact_email
   end
 end

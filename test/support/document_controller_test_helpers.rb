@@ -51,6 +51,20 @@ module DocumentControllerTestHelpers
         end
       end
 
+      test "show fall back to govuk-feedback if alternative_format_contact_email missing" do
+        attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: false)
+
+        edition = create("published_#{document_type}", body: "!@1", attachments: [attachment_1], alternative_format_provider: nil)
+
+        get :show, id: edition.document
+
+        assert_select_object(attachment_1) do
+          assert_select '.accessibility-warning' do
+            assert_select 'a[href^="mailto:govuk-feedback@digital.cabinet-office.gov.uk"]'
+          end
+        end
+      end
+
       test "show displays PDF attachment metadata" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attachment = create(:attachment, file: greenpaper_pdf)
