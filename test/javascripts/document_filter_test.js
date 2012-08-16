@@ -106,7 +106,7 @@ test("should not enable ajax filtering if browser does not support HTML5 History
   var ajax = this.spy(jQuery, "ajax");
   var server = this.sandbox.useFakeServer();
   
-  this.filterForm.attr('action', 'javascript:return false;');
+  this.filterForm.attr('action', 'javascript:void(0)');
   this.filterForm.submit();
   server.respond();
   
