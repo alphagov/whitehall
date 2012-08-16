@@ -8,7 +8,8 @@ module ShowingSpeechesHelper
 
     test "should display generic details about the speech" do
       home_office = create(:organisation, name: "Home Office")
-      home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
+      mod = create(:organisation, name: 'MOD')
+      home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office, mod])
       theresa_may = create(:person, forename: "Theresa", surname: "May", image: fixture_file_upload('minister-of-funk.jpg'))
       theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may)
       speech_type = SpeechType::Transcript
@@ -17,6 +18,10 @@ module ShowingSpeechesHelper
       get :show, id: published_speech.document
 
       assert_select ".details .role_appointment .person", "Theresa May" # \s* as \s* Secretary of State \s* in \s* Home Office/
+      assert_select ".organisations" do
+        assert_select "a[href='#{organisation_path(home_office)}']"
+        assert_select "a[href='#{organisation_path(mod)}']"
+      end
       assert_select ".details .delivered_on", /1 June 2011/
       assert_select ".details .location", /The Guidhall/
     end

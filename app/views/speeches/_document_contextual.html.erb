@@ -7,7 +7,7 @@
         <span class="person"><%= link_to_person edition.role_appointment.person %></span>
         <span class="role"><%= role_appointment(edition.role_appointment, true) %></span>
         in
-        <span class="organisations"><%= edition.role.organisations.map {|o| link_to(o.name, o)}.to_sentence %></span>
+        <span class="organisations"><%= edition.role.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
       </span>
     </li>
     <li class="delivered_on">
