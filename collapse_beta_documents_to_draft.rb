@@ -53,3 +53,19 @@ Edition.where(type: document_types).update_all(state: "draft", first_published_a
 Topic.update_all(published_edition_count: 0)
 
 puts "Finished; now #{Edition.published.where(type: document_types).count} published editions"
+
+puts "Updating search index..."
+
+# Consultation response assumes that there will be an associated, *published*
+# Consultation edition, but at this point, that is no longer true at this point
+require "consultation_response"
+class ConsultationResponse < Edition
+  def consultation
+    consultation_document && consultation_document.editions.first
+  end
+end
+
+Edition.where(type: document_types).each(&:refresh_index_if_required)
+Rummageable.commit
+
+puts "Search index updated. Done!"
