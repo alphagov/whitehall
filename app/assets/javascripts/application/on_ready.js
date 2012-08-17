@@ -43,4 +43,6 @@ jQuery(function($) {
   $('.js-stick-at-top-when-scrolling').stickAtTopWhenScrolling();
 
   $('.js-toggle-accessibility-warning').toggler({header: ".toggler", content: ".help-block"})
+
+  GOVUK.paginateDocument();
 });
