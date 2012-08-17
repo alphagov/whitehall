@@ -18,6 +18,7 @@ module Whitehall
     end
 
     def autocomplete(query, format_filter = nil)
+      return [] unless query.present?
       search_response(:autocomplete, query, format_filter).body
     end
 
