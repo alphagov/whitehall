@@ -8,7 +8,7 @@ class Document < ActiveRecord::Base
       super.with_equivalent_document_type_to(sluggable)
     end
   end
-  
+
   friendly_id :sluggable_string do |config|
     config.use :slugged
     config.slug_generator_class = SlugGeneratorScopedByDocumentType
@@ -75,11 +75,9 @@ class Document < ActiveRecord::Base
   def change_history
     editions = ever_published_editions.significant_change.by_published_at
 
-    last = editions.pop
-    if last
-      last = Change.new(first_published_date, last.change_note)
-      last.set_as_first_change
-    end
+    first_edition = editions.pop
+    last = Change.new(first_published_date, first_edition ? first_edition.change_note : nil)
+    last.set_as_first_change
 
     editions.map { |e| Change.new(e.published_at, e.change_note) }.push(last)
   end
