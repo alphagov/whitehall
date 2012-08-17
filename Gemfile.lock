@@ -276,7 +276,7 @@ GEM
     ruby_parser (2.3.1)
       sexp_processor (~> 3.0)
     rubyzip (0.9.4)
-    sass (3.2.0)
+    sass (3.2.1)
     sass-rails (3.1.4)
       actionpack (~> 3.1.0)
       railties (~> 3.1.0)
@@ -376,7 +376,7 @@ DEPENDENCIES
   rake (= 0.9.2)
   router-client (~> 3.0.1)
   rummageable!
-  sass (= 3.2.0)
+  sass (= 3.2.1)
   sass-rails (= 3.1.4)
   slimmer (= 1.2.3)
   test_track
