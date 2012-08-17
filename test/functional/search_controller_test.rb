@@ -73,6 +73,12 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal raw_rummager_response, @response.body
   end
 
+  test "should return an empty autocomplete list on an empty query" do
+    get :autocomplete
+
+    assert_equal "[]", @response.body
+  end
+
   test "should display a link to search the citizen proposition" do
     client = stub("search", search: [])
     Whitehall.stubs(:search_client).returns(client)
