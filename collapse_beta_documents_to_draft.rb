@@ -49,7 +49,7 @@ latest_editions.each.with_index do |latest_edition, i|
   puts " reset to draft."
 end
 
-Edition.where(type: document_types).update_all(state: "draft", first_published_at: nil, published_at: nil)
+Edition.where(type: document_types).update_all(state: "draft", first_published_at: nil, published_at: nil, force_published: nil)
 Topic.update_all(published_edition_count: 0)
 
 puts "Finished; now #{Edition.published.where(type: document_types).count} published editions"
