@@ -1,7 +1,7 @@
 class DocumentSeries < ActiveRecord::Base
   belongs_to :organisation
 
-  has_many :editions
+  has_many :editions, order: 'published_at desc'
 
   validates :name, presence: true
 

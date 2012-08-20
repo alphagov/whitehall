@@ -19,6 +19,13 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     assert_equal [published_publication], series.published_editions
   end
 
+  test 'published_editions should be ordered by most recent first' do
+    series = create(:document_series)
+    old_publication = create(:published_publication, document_series: series, published_at: 2.days.ago)
+    new_publication = create(:published_publication, document_series: series, published_at: 1.day.ago)
+    assert_equal [new_publication, old_publication], series.published_editions
+  end
+
   test 'should not be destroyable if editions are associated' do
     series = create(:document_series)
     publication = create(:draft_publication, document_series: series)
