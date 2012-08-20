@@ -7,6 +7,9 @@ class DocumentSeries < ActiveRecord::Base
 
   before_destroy { |dc| dc.destroyable? }
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   def published_editions
     editions.published
   end
