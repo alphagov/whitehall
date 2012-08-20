@@ -65,8 +65,9 @@ Then /^I should be able to select another image for the specialist guide$/ do
 end
 
 When /^I select an attachment for the specialist guide$/ do
+  @attachment_filename = "attachment.pdf"
   within ".attachments" do
-    attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
+    attach_file "File", Rails.root.join("features/fixtures", @attachment_filename)
   end
 end
 

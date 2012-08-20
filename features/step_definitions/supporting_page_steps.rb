@@ -49,9 +49,11 @@ When /^I add a supporting page "([^"]*)" with an attachment to the "([^"]*)" pol
   click_link "Add supporting page"
   fill_in "Title", with: title
   fill_in "Body", with: "Some supporting information\n\n!@1"
+  @attachment_title = "Attachment Title"
+  @attachment_filename = "attachment.pdf"
   within ".attachments" do
-    fill_in "Title", with: "Attachment Title"
-    attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
+    fill_in "Title", with: @attachment_title
+    attach_file "File", Rails.root.join("features/fixtures", @attachment_filename)
   end
   click_button "Save"
 end
@@ -83,7 +85,7 @@ end
 Then /^I should see that the "([^"]*)" policy's "([^"]*)" supporting page has an attachment$/ do |title, supporting_title|
   visit_document_preview title
   click_link supporting_title
-  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Attachment Title")
+  assert page.has_css?(".attachment a[href*='#{@attachment_filename}']", text: @attachment_title)
 end
 
 Then /^I should see in the list of draft documents that "([^"]*)" has supporting page "([^"]*)"$/ do |title, supporting_page_title|

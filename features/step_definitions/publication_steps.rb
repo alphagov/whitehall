@@ -4,25 +4,30 @@ Given /^a published publication "([^"]*)" exists that is about "([^"]*)"$/ do |p
 end
 
 Given /^a draft publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = build(:attachment, file: pdf_attachment, title: "Attachment Title")
-  create(:draft_publication, title: title, attachments: [attachment], body:"!@1")
+  publication = create(:draft_publication, :with_attachment, title: title, body:"!@1")
+  @attachment_title = publication.attachments.first.title
+  @attachment_filename = publication.attachments.first.filename
 end
 
 Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = build(:attachment, file: pdf_attachment, title: "Attachment Title")
-  create(:submitted_publication, title: title, attachments: [attachment], body: "!@1")
+  publication = create(:submitted_publication, :with_attachment, title: title, body: "!@1")
+  @attachment_title = publication.attachments.first.title
+  @attachment_filename = publication.attachments.first.filename
 end
 
 Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
-  attachment = build(:attachment, file: pdf_attachment, title: "Attachment Title")
-  create(:published_publication, title: title, attachments: [attachment], body: "!@1")
+  publication = create(:published_publication, :with_attachment, title: title, body: "!@1")
+  @attachment_title = publication.attachments.first.title
+  @attachment_filename = publication.attachments.first.filename
 end
 
 Given /^I attempt to create an invalid publication with an attachment$/ do
   begin_drafting_publication("")
   file = pdf_attachment
+  @attachment_title = "Attachment Title"
+  @attachment_file = File.basename(file.path)
   within ".attachments" do
-    fill_in "Title", with: "Attachment Title"
+    fill_in "Title", with: @attachment_title
     attach_file "File", file.path
   end
   click_button "Save"
@@ -101,16 +106,16 @@ When /^I correct the invalid information for the publication$/ do
 end
 
 Then /^I should not see a link to the PDF attachment$/ do
-  assert page.has_no_css?(".attachment .title", text: "Attachment Title")
-  assert page.has_no_css?(".attachment a[href*='attachment.pdf']", text: "Download attachment")
+  assert page.has_no_css?(".attachment .title", text: @attachment_title)
+  assert page.has_no_css?(".attachment a[href*='#{@attachment_filename}']", text: "Download attachment")
 end
 
 Then /^I should see a link to the PDF attachment$/ do
-  assert page.has_css?(".attachment a[href*='attachment.pdf']", text: "Attachment Title")
+  assert page.has_css?(".attachment a[href*='#{@attachment_filename}']", text: @attachment_title)
 end
 
 Then /^I should see a thumbnail of the first page of the PDF$/ do
-  assert page.has_css?(".attachment img[src*='attachment.pdf.png']") || page.has_css?("div.img img[src*='attachment.pdf.png']")
+  assert page.has_css?(".attachment img[src*='#{@attachment_filename}.png']") || page.has_css?("div.img img[src*='#{@attachment_filename}.png']")
 end
 
 Then /^I should see the summary of the publication "([^"]*)"$/ do |publication_title|

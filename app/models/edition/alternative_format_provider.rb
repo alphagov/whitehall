@@ -6,8 +6,11 @@ module Edition::AlternativeFormatProvider
   end
 
   def alternative_format_contact_email
-    (alternative_format_provider && alternative_format_provider.alternative_format_contact_email) || 
+    if alternative_format_provider && alternative_format_provider.alternative_format_contact_email.present? 
+      alternative_format_provider.alternative_format_contact_email
+    else
       default_alternative_format_contact_email
+    end
   end
 
   def default_alternative_format_contact_email

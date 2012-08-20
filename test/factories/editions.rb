@@ -28,6 +28,15 @@ FactoryGirl.define do
     trait(:deleted) { state "deleted" }
     trait(:archived) { state "archived" }
     trait(:featured) { featured true }
+
+    trait(:with_alternative_format_provider) do
+      association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
+    end
+
+    trait(:with_attachment) do
+      association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
+      attachments { FactoryGirl.build_list :attachment, 1 }
+    end
   end
 
   factory :draft_edition, parent: :edition, traits: [:draft]

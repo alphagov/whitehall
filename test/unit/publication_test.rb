@@ -12,11 +12,10 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the existing publication" do
-    attachment = create(:attachment)
-    published_publication = create(:published_publication,
+    published_publication = create(:published_publication, 
+      :with_attachment,
       publication_date: Date.parse("2010-01-01"),
-      publication_type_id: PublicationType::ResearchAndAnalysis.id,
-      attachments: [attachment]
+      publication_type_id: PublicationType::ResearchAndAnalysis.id
     )
 
     draft_publication = published_publication.create_draft(create(:policy_writer))

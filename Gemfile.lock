@@ -116,8 +116,8 @@ GEM
     excon (0.7.6)
     execjs (1.2.4)
       multi_json (~> 1.0)
-    factory_girl (2.2.0)
-      activesupport
+    factory_girl (2.6.4)
+      activesupport (>= 2.3.9)
     faker (1.0.1)
       i18n (~> 0.4)
     faraday (0.8.1)
@@ -349,7 +349,7 @@ DEPENDENCIES
   database_cleaner (~> 0.5.2)
   draper
   exception_notification
-  factory_girl (~> 2.2.0)
+  factory_girl (~> 2.6.0)
   faker
   fog
   friendly_id (= 4.0.0.beta14)

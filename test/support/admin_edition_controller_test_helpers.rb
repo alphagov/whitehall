@@ -391,7 +391,7 @@ module AdminEditionControllerTestHelpers
       test 'edit displays edition attachment fields' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
         attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
-        edition = create(edition_type, attachments: [attachment])
+        edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
 
         get :edit, id: edition
 
@@ -527,7 +527,7 @@ module AdminEditionControllerTestHelpers
       test 'updating should allow removal of attachments' do
         attachment_1 = create(:attachment)
         attachment_2 = create(:attachment)
-        edition = create(edition_type)
+        edition = create(edition_type, :with_alternative_format_provider)
         edition_attachment_1 = create(:edition_attachment, edition: edition, attachment: attachment_1)
         edition_attachment_2 = create(:edition_attachment, edition: edition, attachment: attachment_2)
 
@@ -597,7 +597,7 @@ module AdminEditionControllerTestHelpers
       edition_class = edition_class_for(edition_type)
 
       test 'edit shows markdown hint for first attachment' do
-        draft_edition = create("draft_#{edition_type}", attachments: [create(:attachment)])
+        draft_edition = create("draft_#{edition_type}", :with_attachment)
         get :edit, id: draft_edition
 
         assert_select "fieldset.attachments" do |nodes|
@@ -623,7 +623,7 @@ module AdminEditionControllerTestHelpers
       edition_class = edition_class_for(edition_type)
 
       test 'edit does not show markdown hint for first attachment' do
-        draft_edition = create("draft_#{edition_type}", attachments: [create(:attachment)])
+        draft_edition = create("draft_#{edition_type}", :with_attachment)
         get :edit, id: draft_edition
 
         assert_select "fieldset.attachments" do |nodes|
