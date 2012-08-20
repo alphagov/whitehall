@@ -2,12 +2,8 @@ require "test_helper"
 
 class AnnouncementsControllerTest < ActionController::TestCase
   include ActionView::Helpers::DateHelper
-  extend ShowingSpeechesHelper
-  extend ShowingNewsArticlesHelper
 
   should_be_a_public_facing_controller
-  should_show_speeches
-  should_show_news_articles
 
   test "index shows a mix of news and speeches" do
     announced_today = [create(:published_news_article), create(:published_speech)]
