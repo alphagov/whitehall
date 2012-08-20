@@ -13,7 +13,7 @@
   <div class="inner-block">
     <div class="filter-block">
       <h2>Filter by organisation, topic or keyword</h2>
-      <%= form_tag specialist_guides_path, method: :get, id: "document-filter" do %><%# this ID used by Javascript %>
+      <%= form_tag specialist_guides_path, method: :get, id: "document-filter", class: 'js-document-filter' do %>
         <fieldset>
           <legend class="visuallyhidden">Filter specialist guides</legend>
           <div class="filter">
