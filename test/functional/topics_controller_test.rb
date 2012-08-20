@@ -22,6 +22,7 @@ class TopicsControllerTest < ActionController::TestCase
         assert_select ".summary", text: /policy-summary/
       end
     end
+    assert_select "a[href=?]", "#policies"
   end
 
   test "shows 5 published specialist guides and links to more" do
@@ -42,6 +43,7 @@ class TopicsControllerTest < ActionController::TestCase
       refute_select_object(published_specialist_guides[5])
       assert_select "a[href=#{specialist_guides_path("topics[]" => topic.slug)}]"
     end
+    assert_select "a[href=?]", "#specialist-guidance"
   end
 
   test "doesn't show unpublished policies" do
@@ -62,10 +64,18 @@ class TopicsControllerTest < ActionController::TestCase
     refute_select_object(draft_specialist_guide)
   end
 
+  test "should not display an empty specialist guides section" do
+    topic = create(:topic)
+    get :show, id: topic
+    refute_select "#specialist-guides"
+    refute_select "a[href=?]", "#specialist-guidance"
+  end
+
   test "should not display an empty published policies section" do
     topic = create(:topic)
     get :show, id: topic
     refute_select "#policies"
+    refute_select "a[href=?]", "#policies"
   end
 
   test "show displays links to related topics" do
@@ -85,6 +95,7 @@ class TopicsControllerTest < ActionController::TestCase
       end
       assert_select_object unrelated_topic, count: 0
     end
+    assert_select "a[href=?]", "#related-topics"
   end
 
   test "show does not display empty related topics section" do
@@ -93,6 +104,7 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select "#related-topics ul", count: 0
+    refute_select "a[href=?]", "#related-topics"
   end
 
   test "show displays recently changed documents relating to policies in the topic" do
@@ -114,6 +126,7 @@ class TopicsControllerTest < ActionController::TestCase
       assert_select_object publication
       assert_select_object speech
     end
+    assert_select "a[href=?]", "#recently-changed"
   end
 
   test "show displays a maximum of 5 recently changed documents" do
@@ -124,6 +137,13 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select "#recently-changed tbody tr", count: 5
+  end
+
+  test "show does not display empty recently changed section" do
+    topic = create(:topic)
+    get :show, id: topic
+    refute_select "#recently-changed ul"
+    refute_select "a[href=?]", "#recently-changed"
   end
 
   test "show displays metadata about the recently changed documents" do
