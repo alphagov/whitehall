@@ -78,4 +78,21 @@
       }
     }
   }
+  &.infinite {
+    background: transparent;
+    li {
+      text-align: left;
+      float: none;
+      padding-left: 40px;
+      margin: 0 auto;
+      width: 240px;
+      a {
+        padding: 15px 0;
+        color: $body-text;
+      }
+    }
+    &.loading li {
+      background: transparent image-url("loading-2b2c2d.gif") no-repeat 0 50%;
+    }
+  }
 }

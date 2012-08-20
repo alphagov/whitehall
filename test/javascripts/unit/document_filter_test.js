@@ -50,17 +50,11 @@ test("should create pagination from ajax data", function() {
 
   var $pagination = GOVUK.documentFilter.drawPagination(data);
   ok($pagination.find('a[href="/next-page-url"]').length > 0);
-  ok($pagination.find('a[href="/prev-page-url"]').length > 0);
 
   delete data.next_page_url;
   var $pagination = GOVUK.documentFilter.drawPagination(data);
   equals($pagination.find('a[href="/next-page-url"]').length, 0);
-  ok($pagination.find('a[href="/prev-page-url"]').length > 0);
 
-  delete data.prev_page_url;
-  var $pagination = GOVUK.documentFilter.drawPagination(data);
-  equals($pagination.find('a[href="/next-page-url"]').length, 0);
-  equals($pagination.find('a[href="/prev-page-url"]').length, 0);
 });
 
 test("should identify important attributes", function(){
@@ -124,6 +118,19 @@ test("should make an ajax request on form submission to obtain filtered results"
   sinon.assert.calledOnce(ajax);
 })
 
+test("should make an ajax request to load more results inline", function() {
+  this.filterForm.enableDocumentFilter();
+  this.filterResults.append(GOVUK.documentFilter.drawPagination(this.ajaxData));
+
+  var ajax = this.spy(jQuery, "ajax");
+  var server = this.sandbox.useFakeServer();
+
+  GOVUK.documentFilter.loadMoreInline();
+  server.respond();
+
+  sinon.assert.calledOnce(ajax);
+})
+
 test("should send ajax request using url in form action", function() {
   this.filterForm.enableDocumentFilter();
 
@@ -167,6 +174,23 @@ test("should generate table of results baed on successful ajax response", functi
   equals(this.filterResults.find("table tbody tr").length, 2)
 })
 
+test("should add extra results to table results", function() {
+  this.filterForm.enableDocumentFilter();
+
+  var server = this.sandbox.useFakeServer();
+  server.respondWith(JSON.stringify(this.ajaxData))
+
+  this.filterForm.submit();
+  server.respond();
+
+  equals(this.filterResults.find("table tbody tr").length, 2)
+
+  GOVUK.documentFilter.loadMoreInline();
+  server.respond();
+
+  equals(this.filterResults.find("table tbody tr").length, 4)
+})
+
 test("should update browser location on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
 
@@ -204,5 +228,4 @@ test("should not enable ajax filtering if browser does not support HTML5 History
 
   sinon.assert.callCount(ajax, 0);
 })
-
 

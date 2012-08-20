@@ -18,3 +18,12 @@ end
 Then /^I should see that the (next|previous) page is (\d+) of (\d+)$/ do |css_class, next_page, total_pages|
   assert has_css?("#show-more-documents .#{css_class} span", text: "#{next_page} of #{total_pages}")
 end
+
+Then /^I should see (\d+) documents$/ do |count|
+  assert has_css?("#document-list tbody tr", count: count.to_i), "Expecting #{count.to_i} rows of results"
+end
+
+Then /^I scroll to the bottom of the page$/ do
+  page.execute_script "window.scrollBy(0,10000)"
+  wait_until { page.evaluate_script("jQuery.active") == 0 }
+end
