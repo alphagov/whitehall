@@ -1,0 +1,92 @@
+require "test_helper"
+
+class Admin::DocumentSeriesControllerTest < ActionController::TestCase
+  setup do
+    login_as :policy_writer
+  end
+
+  should_be_an_admin_controller
+
+  test "new should show fields for creating a series" do
+    organisation = create(:organisation)
+
+    get :new, organisation_id: organisation
+
+    assert_select "form[action=?]", admin_organisation_document_series_index_path(organisation) do
+      assert_select "input[type=text][name=?]", "document_series[name]"
+    end
+  end
+
+  test "create should save a new series" do
+    organisation = create(:organisation)
+
+    post :create, organisation_id: organisation, document_series: {name: "series-name"}
+
+    assert_equal 1, organisation.document_series.count
+    document_series = organisation.document_series.first
+    assert_equal "series-name", document_series.name
+    assert_redirected_to admin_organisation_document_series_path(organisation, document_series)
+  end
+
+  test "create should allow errors to be corrected" do
+    organisation = create(:organisation)
+
+    post :create, organisation_id: organisation, document_series: {name: ""}
+
+    assert_response :success
+    assert_equal 0, organisation.document_series.count
+    assert_select "form" do
+      assert_select ".field_with_errors input[name=?]", "document_series[name]"
+    end
+  end
+
+  test "show lists all associated editions" do
+    document_series = create(:document_series)
+    organisation = document_series.organisation
+    edition = create(:published_publication, document_series: document_series)
+
+    get :show, organisation_id: organisation, id: document_series
+
+    assert_select_object(edition)
+  end
+
+  test "edit should show a form for editing the series" do
+    document_series = create(:document_series)
+    organisation = document_series.organisation
+
+    get :edit, organisation_id: organisation,
+               id: document_series
+
+    form_path = admin_organisation_document_series_path(organisation, document_series)
+    assert_select "form[action=?]", form_path do
+      assert_select "input[type=text][name=?]", "document_series[name]"
+    end
+  end
+
+  test "update should update a series" do
+    document_series = create(:document_series, name: "old-name")
+    organisation = document_series.organisation
+
+    put :update, organisation_id: organisation,
+                 id: document_series,
+                 document_series: {name: "new-name"}
+
+    assert_equal "new-name", document_series.reload.name
+    assert_redirected_to admin_organisation_document_series_path(organisation, document_series)
+  end
+
+  test "update should show errors updating a series" do
+    document_series = create(:document_series, name: "old-name")
+    organisation = document_series.organisation
+
+    put :update, organisation_id: organisation,
+                 id: document_series,
+                 document_series: {name: ""}
+
+    assert_equal "old-name", document_series.reload.name
+
+    assert_select "form" do
+      assert_select ".field_with_errors input[name=?]", "document_series[name]"
+    end
+  end
+end

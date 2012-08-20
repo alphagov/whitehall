@@ -56,7 +56,7 @@ class Organisation < ActiveRecord::Base
             conditions: { "editions.state" => "published" },
             source: :edition
 
-  has_many :document_collections
+  has_many :document_series
 
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles

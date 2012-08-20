@@ -1,0 +1,19 @@
+<% page_title "#{@document_series.name}", "Document series" %>
+
+<%= link_to "Back to #{@document_series.organisation.name}", admin_organisation_path(@document_series.organisation) %>
+
+<h1><%= @document_series.name %></h1>
+
+<% if @document_series.editions.any? %>
+  <ul>
+    <% @document_series.editions.each do |edition| %>
+      <%= content_tag_for :li, edition do %>
+        <%= document_series_edition_with_state(edition) %>
+      <% end %>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No associated editions</p>
+<% end %>
+
+<%= link_to "Edit", edit_admin_organisation_document_series_path(@document_series.organisation, @document_series), class: "btn" %>

@@ -7,7 +7,7 @@
         <%= render partial: "title", locals: { document: @document } %>
         <div class="meta-context meta">
           <%= part_of_policy_paragraph(@related_policies) %>
-          <%= part_of_collections_paragraph(@document.document_collections) %>
+          <%= part_of_series_paragraph([@document.document_series]) %>
           <%= applies_to_countries_paragraph(@document) %>
           <%= only_applies_to_nations_paragraph(@document) %>
         </div>

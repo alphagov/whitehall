@@ -1,8 +1,7 @@
-class DocumentCollection < ActiveRecord::Base
+class DocumentSeries < ActiveRecord::Base
   belongs_to :organisation
 
-  has_many :edition_document_collections
-  has_many :editions, through: :edition_document_collections
+  has_many :editions
 
   validates :name, presence: true
 
@@ -15,6 +14,6 @@ class DocumentCollection < ActiveRecord::Base
   protected
 
   def destroyable?
-    edition_document_collections.empty?
+    editions.empty?
   end
 end

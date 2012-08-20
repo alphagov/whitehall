@@ -19,7 +19,7 @@
           <li><a href="#about-us" data-toggle="tab">About Us</a></li>
           <li><a href="#people" data-toggle="tab">People</a></li>
           <li><a href="#documents" data-toggle="tab">Documents</a></li>
-          <li><a href="#document_collections" data-toggle="tab">Document Collections</a></li>
+          <li><a href="#document_series" data-toggle="tab">Document Series</a></li>
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="details">
@@ -106,14 +106,14 @@
               </tbody>
             </table>
           </div>
-          <div class="tab-pane" id="document_collections">
-            <%= link_to "New collection", new_admin_organisation_document_collection_path(@organisation), class: "btn pull-right" %>
+          <div class="tab-pane" id="document_series">
+            <%= link_to "New series", new_admin_organisation_document_series_path(@organisation), class: "btn pull-right" %>
 
-            <% if @organisation.document_collections.any? %>
-              <h2>Document Collections</h2>
+            <% if @organisation.document_series.any? %>
+              <h2>Document Series</h2>
               <table class="table">
-                <% @organisation.document_collections.each do |document_collection| %>
-                  <tr><th><%= link_to document_collection.name, admin_organisation_document_collection_path(@organisation, document_collection) %></th><td><%= pluralize(document_collection.editions.count, "edition") %></tr>
+                <% @organisation.document_series.each do |document_series| %>
+                  <tr><th><%= link_to document_series.name, admin_organisation_document_series_path(@organisation, document_series) %></th><td><%= pluralize(document_series.editions.count, "edition") %></tr>
                 <% end %>
               </table>
             <% end %>

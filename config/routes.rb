@@ -47,7 +47,7 @@ Whitehall::Application.routes.draw do
 
     resources :topics, path: "topics", only: [:index, :show]
     resources :organisations, only: [:index, :show] do
-      resources :document_collections, only: [:index, :show], path: 'document-collections'
+      resources :document_series, only: [:index, :show], path: 'series'
       collection do
         get :alphabetical
       end
@@ -84,7 +84,7 @@ Whitehall::Application.routes.draw do
         resource :user, only: [:show, :edit, :update]
         resources :authors, only: [:show]
         resources :organisations do
-          resources :document_collections
+          resources :document_series
         end
         resources :policy_teams, except: [:show]
         resources :edition_organisations, only: [:update]

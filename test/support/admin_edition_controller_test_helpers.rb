@@ -1729,35 +1729,33 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_assignment_to_document_collections(edition_type)
-      test "when creating allows assignment to document collections" do
+    def should_allow_assignment_to_document_series(edition_type)
+      test "when creating allows assignment to document series" do
         get :new
 
         assert_select "form#edition_new" do
-          assert_select "select[name='edition[document_collection_ids][]']"
+          assert_select "select[name='edition[document_series_id]']"
         end
       end
 
-      test "when editing allows assignment to document collections" do
-        collection = create(:document_collection)
-        edition = create(edition_type, document_collections: [collection])
+      test "when editing allows assignment to document series" do
+        series = create(:document_series)
+        edition = create(edition_type, document_series: series)
 
         get :edit, id: edition
 
         assert_select "form#edition_edit" do
-          assert_select "select[name='edition[document_collection_ids][]']"
+          assert_select "select[name='edition[document_series_id]']"
         end
       end
 
-      test "shows assigned document collections" do
-        collection = create(:document_collection)
-        edition = create(edition_type, document_collections: [collection])
+      test "shows assigned document series" do
+        series = create(:document_series)
+        edition = create(edition_type, document_series: series)
 
         get :show, id: edition
 
-        assert_select "#document_collections" do
-          assert_select_object(collection)
-        end
+        assert_select_object(series)
       end
     end
   end
