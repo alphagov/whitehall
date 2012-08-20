@@ -3,16 +3,7 @@ class Document < ActiveRecord::Base
 
   extend FriendlyId
 
-  class SlugGeneratorScopedByDocumentType < FriendlyId::SlugGenerator
-    def conflicts
-      super.with_equivalent_document_type_to(sluggable)
-    end
-  end
-
-  friendly_id :sluggable_string do |config|
-    config.use :slugged
-    config.slug_generator_class = SlugGeneratorScopedByDocumentType
-  end
+  friendly_id :sluggable_string, use: :scoped, scope: :document_type
 
   after_destroy :destroy_all_editions
 
@@ -90,15 +81,6 @@ class Document < ActiveRecord::Base
     def at_slug(document_types, slug)
       where(document_type: document_types, slug: slug).first
     end
-
-    def with_equivalent_document_type_to(edition)
-      where(document_type: if Announcement.document_types.include?(edition.document_type)
-        Announcement.document_types
-      else
-        edition.document_type
-      end)
-    end
-
   end
 
   private
@@ -106,6 +88,4 @@ class Document < ActiveRecord::Base
   def destroy_all_editions
     Edition.unscoped.destroy_all(document_id: self.id)
   end
-
-
 end

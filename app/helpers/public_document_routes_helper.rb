@@ -1,7 +1,7 @@
 module PublicDocumentRoutesHelper
   def public_document_path(edition, options = {})
     options.merge!(document_url_options(edition))
-    polymorphic_path(route_name(edition), options)
+    polymorphic_path(model_name(edition), options)
   end
 
   def public_document_url(edition, options={})
@@ -9,7 +9,7 @@ module PublicDocumentRoutesHelper
     if host = Whitehall.public_host_for(request.host)
       options.merge!(host: host)
     end
-    polymorphic_url(route_name(edition), options)
+    polymorphic_url(model_name(edition), options)
   end
 
   def public_supporting_page_path(edition, supporting_page, options = {})
@@ -47,15 +47,6 @@ module PublicDocumentRoutesHelper
       {consultation_id: edition.consultation.document}
     else
       {id: edition.document}
-    end
-  end
-
-  def route_name(edition)
-    case edition
-    when NewsArticle, Speech then
-      "announcement"
-    else
-      model_name(edition)
     end
   end
 

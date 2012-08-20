@@ -21,18 +21,18 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     refute_equal policy_1.document.slug, policy_2.document.slug
   end
 
-  test "should not allow the same slug to be used for a news article and a speech" do
-    same_title = "same-title"
-    policy_1 = create(:news_article, title: same_title)
-    policy_2 = create(:speech, title: same_title)
-
-    refute_equal policy_1.document.slug, policy_2.document.slug
-  end
-
   test "should allow the same slug to be used again for another document type" do
     same_title = "same-title"
     policy = create(:policy, title: same_title)
     publication = create(:publication, title: same_title)
+
+    assert_equal policy.document.slug, publication.document.slug
+  end
+
+  test "should allow the same slug to be used for a news article and a speech" do
+    same_title = "same-title"
+    policy = create(:news_article, title: same_title)
+    publication = create(:speech, title: same_title)
 
     assert_equal policy.document.slug, publication.document.slug
   end
