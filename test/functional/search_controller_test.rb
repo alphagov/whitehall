@@ -64,6 +64,18 @@ class SearchControllerTest < ActionController::TestCase
     assert_select ".search_results .publication"
   end
 
+  test "should be capable of responding with JSON results" do
+    results = [
+      {"title" => "document-title-1", "link" => "/document-slug-1"},
+      {"title" => "document-title-2", "link" => "/document-slug-2"}
+    ]
+    client = stub("search", search: results)
+    Whitehall.stubs(:search_client).returns(client)
+    get :index, q: "search-term", format: :json
+    data = JSON.parse(response.body)
+    assert_equal results, data
+  end
+
   test "should return the response from autocomplete as a string" do
     client = stub("search")
     Whitehall.stubs(:search_client).returns(client)

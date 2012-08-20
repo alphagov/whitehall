@@ -3,7 +3,10 @@ class SearchController < PublicFacingController
     @search_term = params[:q]
     if @search_term.present?
       @results = Whitehall.search_client.search(@search_term)
-      render action: :results
+      respond_to do |format|
+        format.html { render action: :results }
+        format.json { render json: @results }
+      end
     end
   end
 
