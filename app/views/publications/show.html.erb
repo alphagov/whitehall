@@ -7,7 +7,6 @@
         <%= render partial: "title", locals: { document: @document } %>
         <div class="meta-context meta">
           <%= part_of_policy_paragraph(@related_policies) %>
-          <%= part_of_series_paragraph([@document.document_series]) %>
           <%= applies_to_countries_paragraph(@document) %>
           <%= only_applies_to_nations_paragraph(@document) %>
         </div>
@@ -26,6 +25,11 @@
         </div>
       <% else %>
         <p class="extra-description summary"><%= @document.summary %></p>
+      <% end %>
+      <% if @document.part_of_series? %>
+        <p class="document-series">
+          <span>This publication is part of a series:</span> <%= link_to @document.document_series.name, organisation_document_series_path(@document.document_series.organisation, @document.document_series) %>
+        </p>
       <% end %>
     </div>
   </div>

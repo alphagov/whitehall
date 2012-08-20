@@ -16,4 +16,8 @@ module Edition::DocumentSeries
   def can_be_grouped_in_series?
     true
   end
+
+  def part_of_series?
+    document_series.present?
+  end
 end
