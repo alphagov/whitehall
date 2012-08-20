@@ -1,0 +1,28 @@
+<% if person.announcements.any? %>
+  <section class="announcements" id="announcements">
+    <h1>Announcements</h1>
+    <p>by the <%= person.name %></p>
+
+    <table class="document-list">
+      <thead class="visuallyhidden">
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% person.announcements.each do |announcement| %>
+          <%= content_tag_for :tr, announcement, class: "document-row" do %>
+            <th scope="row" class="title attribute"><%= announcement.link %></th>
+            <td class="date attribute"><%= announcement.display_date_microformat %></td>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="read-more">
+      <%= link_to "View all announcements", :announcements %>
+    </div>
+  </section>
+<% end %>

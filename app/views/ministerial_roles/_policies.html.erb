@@ -1,0 +1,19 @@
+<table class="document-list">
+  <thead class="visuallyhidden">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% role.published_policies.each do |policy| %>
+      <%= content_tag_for :tr, policy, class: "document-row" do %>
+        <th scope="row" class="title attribute"><%= policy.link %></th>
+        <td class="date attribute"><%= policy.published_at %></td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<div class="read-more">
+  <%= link_to "View all policies", :policies %>
+</div>
