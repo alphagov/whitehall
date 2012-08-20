@@ -23,6 +23,10 @@ class SpecialistGuidesController < DocumentsController
     @more_mainstream_results = mainstream_results.length > 5
     @results = Whitehall.search_client.search(@search_term, 'specialist_guidance').take(50 - @mainstream_results.length)
     @total_results = @results.length + @mainstream_results.length
+    respond_to do |format|
+      format.html
+      format.json { render json: @results }
+    end
   end
 
   def autocomplete

@@ -294,6 +294,18 @@ some more content
     assert_select ".search-results .thing .meta", "Bits and Bobs"
   end
 
+  test "should be capable of responding with JSON results" do
+    results = [
+      {"title" => "document-title-1", "link" => "/document-slug-1"},
+      {"title" => "document-title-2", "link" => "/document-slug-2"}
+    ]
+    Whitehall.search_client.stubs(:search).returns(results)
+    Whitehall.mainstream_search_client.stubs(:search).returns([])
+    get :search, q: "search-term", format: :json
+    data = JSON.parse(response.body)
+    assert_equal results, data
+  end
+
   test "autocomplete returns the response from autocomplete as a string" do
     search_client = stub('search_client')
     raw_rummager_response = "rummager-response-body-json"
