@@ -2,13 +2,17 @@
   extra_description ||= ""
 %>
 <%= content_tag_for(:div, attachment, class: "embedded") do %>
-  <%= link_to(attachment.url, class: "title download") do %>
-    <% if attachment.pdf? %>
-      <%= image_tag(attachment.url(:thumbnail), alt: "") %>
-    <% else %>
-      <%= image_tag('pub-cover.png', alt: "") %>
-    <% end %>
+    <%= link_to(attachment.url, class: "title download") do %>
+  <% if defined?(hide_thumbnail) && hide_thumbnail %>
     <%= attachment.title %>
+  <% else %>
+      <% if attachment.pdf? %>
+        <%= image_tag(attachment.url(:thumbnail), alt: "") %>
+      <% else %>
+        <%= image_tag('pub-cover.png', alt: "") %>
+      <% end %>
+      <%= attachment.title %>
+    <% end %>
   <% end %>
   <% unless extra_description.empty? %>
     <p class="extra-description"><%= extra_description %></p>
