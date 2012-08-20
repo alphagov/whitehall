@@ -13,14 +13,24 @@
 <div class="block-2">
   <div class="inner-block">
     <section id="document_series" class="group">
-      <% if @document_series.published_editions.any? %>
-        <ul>
-          <% @document_series.published_editions.each do |edition| %>
-            <%= content_tag_for :li, edition do %>
-              <%= link_to edition.title, public_document_path(edition) %>
+      <% if @published_editions.any? %>
+        <table class="document-list">
+          <thead class="visuallyhidden">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @published_editions.each do |edition| %>
+              <%= content_tag_for :tr, edition, class: "document-row" do %>
+                <th scope="row" class="title attribute"><%= edition.link %></th>
+                <td class="date attribute"><%= edition.display_date_microformat %></td>
+              <% end %>
             <% end %>
-          <% end %>
-        </ul>
+          </tbody>
+        </table>
       <% else %>
         <p>There are no documents in this series at the moment.</p>
       <% end %>
