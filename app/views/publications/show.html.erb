@@ -22,6 +22,18 @@
                     object: @document.attachments.first,
                     locals: { alternative_format_contact_email: @document.alternative_format_contact_email,
                               extra_description: @document.summary } %>
+
+  <% if @document.attachments.present? && @document.attachments[1..-1].any? %>
+      <div class="no-thumbnail">
+        <h1>Supporting documents</h1>
+          <div class="govspeak">
+            <% @document.attachments[1..-1].each do |attachment| %>
+              <%= render partial: "documents/attachment", object: attachment, locals: {hide_thumbnail: true, alternative_format_contact_email: @document.alternative_format_contact_email} %>
+            <% end %>
+          </div>
+      </div>
+  <% end %>
+
         </div>
       <% else %>
         <p class="extra-description summary"><%= @document.summary %></p>
@@ -59,23 +71,6 @@
     </div>
   </div>
 
-  <% if @document.attachments.present? && @document.attachments[1..-1].any? %>
-    <div class="block-6">
-      <div class="inner-block">
-          <h1>Supporting documents</h1>
-      </div>
-    </div>
-
-    <div class="block-7">
-      <div class="inner-block">
-        <div class="govspeak">
-          <% @document.attachments[1..-1].each do |attachment| %>
-            <%= render partial: "documents/attachment", object: attachment, locals: {alternative_format_contact_email: @document.alternative_format_contact_email} %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
 </div>
 
 

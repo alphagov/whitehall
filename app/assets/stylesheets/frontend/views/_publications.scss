@@ -56,6 +56,32 @@
         }
       }
     }
+    .no-thumbnail {
+      background: $light-warm-grey;
+      margin-bottom: $gutter;
+      overflow: hidden;
+      padding-top: $gutter-half;
+      width: 100%;
+      h1 {
+        float: left;
+        display: inline;
+        padding: $gutter-one-third 0 0 3%;
+        width: 23%;
+        @include media(desktop){
+        padding: $gutter-one-third 0 0 13px;
+        width: 25%;
+        }
+      }
+      .govspeak {
+        clear: none;
+        float: left;
+        display: inline;
+        width: 73.3%;
+      }
+      .attachment {
+        padding-left: 0;
+      }
+    }
   }
   .block-2, .block-4, .block-6, .block-5, .block-7 {
     float: none;
@@ -162,12 +188,12 @@
     }
   }
 
-  #whitehall-wrapper .govspeak, #whitehall-wrapper .document .body
-
   .national-statistics-logo {
     margin-top: $gutter-one-third;
     width: $gutter;
   }
+
+
 }
 
 
