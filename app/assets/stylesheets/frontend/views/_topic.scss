@@ -3,19 +3,26 @@
 .topics-show {
 
   @include media(desktop) {
+    .block-2 .govspeak p {
+      max-width: 40em; 
+    }
     .block-3 {
       float: left;
-      width: 30%;
+      width: 25%;
       display: inline;
       min-height: 30px;
     }
     .block-4 {
-      width: 70%;
+      width: 66.66666%;
       float: left;
       display: inline;
     }
   }
   .page-header {
+    @include media(desktop){
+      min-height: 180px;
+    }
+
     h1 {
       @include core-48;
       .label {

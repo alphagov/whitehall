@@ -1,6 +1,6 @@
 .page-header {
   clear: both;
-  margin-top: $gutter-half;
+  margin-top: 0;
   padding-bottom: $gutter-half;
   background-repeat: no-repeat;
   background-position: 0 8px;
@@ -31,7 +31,7 @@
 
 @media (min-width: 768px) {
   .page-header {
-    margin-top: $gutter;
+    margin-top: 0;
     padding-bottom: $gutter*2;
   }
 }

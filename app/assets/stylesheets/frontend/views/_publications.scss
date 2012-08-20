@@ -2,14 +2,14 @@
 
 .publications-index {
   .page-header {
-    padding: $gutter-one-third*2 0;
+    padding: 0 0 ($gutter + $gutter-one-third);
     margin: 0;
     position: relative;
 
     .subscribe {
       position: absolute;
       right: 0;
-      bottom: $gutter;
+      bottom: ($gutter + $gutter-two-thirds);
     }
 
   }
@@ -96,11 +96,9 @@
   .page-header {
     float: left;
     display: inline;
-    margin-top: $gutter;
     width: 75%;
     h1 {
       margin-top: 0;
-      padding: 0;
     }
     .label {
       color: #76787B;
@@ -108,10 +106,13 @@
     .meta-context {
       width: 100%;
     }
+    @include media(desktop){
+      min-height: 210px;
+    }
   }
 
   .meta-changes {
-    margin: $gutter 0;
+    margin: $gutter-one-third 0;
     width: 25%;
   }
 
