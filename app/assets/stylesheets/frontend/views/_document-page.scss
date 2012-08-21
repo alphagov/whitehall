@@ -262,3 +262,175 @@
   }
 }
 
+
+// The code below is for publicartions and consultations document pages so I think it lives here,
+// I also think as it applies to the document page it should use the .document_page class.
+// But because other sections that use the .document_page class i.e. news etc would break with the below styles
+// I have decided to stay with the section classes for now.
+// Russ (inside gov team)
+.publication, .consultation {
+
+  .block-1, .block-6 {
+    margin-bottom: $gutter*2;
+    overflow: hidden;
+    .govspeak {
+      clear: both;
+      margin: 0;
+      .attachment {
+        margin: 0;
+        padding-left: 26.5%;
+        a.download {
+          @include core-24;
+          padding-right: 20%;
+            img {
+            margin-left: -43%;
+            width: 25%;
+          }
+        }
+        .order_url {
+          clear: both;
+          @include core-14;
+        }
+      }
+    }
+    .no-thumbnail {
+      background: $light-warm-grey;
+      overflow: hidden;
+      padding-top: $gutter-half;
+      width: 100%;
+      h1 {
+        @include core-14;
+        float: left;
+        display: inline;
+        padding: $gutter-one-third 0 0 3%;
+        width: 23%;
+        @include media(desktop){
+        padding: $gutter-one-third 0 0 13px;
+        width: 24.5%;
+        }
+      }
+      .govspeak {
+        clear: none;
+        float: left;
+        display: inline;
+        width: 73.3%;
+      }
+      .attachment {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .block-2, .block-4, .block-5, .block-6 {
+    float: none;
+    display: block;
+    clear: both;
+    margin-left: 0;
+    padding-bottom: 0;
+    width: 100%;
+    h1 {
+      @include core-24;
+    }
+    @include media(desktop){
+    float: left;
+    display: inline;
+    clear: both;
+    width: 25%;
+    }
+  }
+  .block-6 {
+    width: 100%;
+  }
+  .block-5, .block-7 {
+    clear: none;
+    @include media(desktop){
+      float: left;
+      display: inline;
+      margin: 0 0 $gutter*2 0;
+      width: 75%;
+    }
+    p:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .contextual-info {
+    a {
+      top: -1px;
+    }
+  }
+
+  .page-header {
+    float: left;
+    display: inline;
+    width: 75%;
+    h1 {
+      margin-top: 0;
+    }
+    .label {
+      color: #76787B;
+    }
+    .meta-context {
+      width: 100%;
+    }
+  }
+
+  .meta-changes {
+    margin: $gutter-one-third 0;
+    width: 25%;
+  }
+
+  .document-series {
+    background-color: $light-blue;
+    color: white;
+    padding: $gutter-one-third $gutter-one-third $gutter-half 26.5%;
+
+    span, a {
+      display: block;
+    }
+
+    span {
+      @include core-19;
+    }
+
+    a {
+      @include core-27;
+      color: white;
+      text-decoration: underline;
+    }
+  }
+
+  .summary {
+    clear: both;
+    margin-bottom: $gutter;
+    p {
+      @include core-19;
+    }
+  }
+
+  .alternative-formats {
+    h2 {
+      margin: $gutter 0 0 0;
+      color: lighten($body-text, 20%);
+      @include core-27;
+    }
+    p {
+      margin: $gutter-half 0;
+    }
+  }
+
+  .govspeak, .document .body {
+    margin: 0;
+      .attachment {
+      margin: 0 0 10px 0;
+    }
+  }
+
+  .national-statistics-logo {
+    margin-top: $gutter-one-third;
+    width: $gutter;
+  }
+
+
+}
+

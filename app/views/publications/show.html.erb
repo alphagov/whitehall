@@ -3,41 +3,8 @@
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
-      <section class="page-header icon">
-        <%= render partial: "title", locals: { document: @document } %>
-        <div class="meta-context meta">
-          <%= part_of_policy_paragraph(@related_policies) %>
-          <%= applies_to_countries_paragraph(@document) %>
-          <%= only_applies_to_nations_paragraph(@document) %>
-        </div>
-      </section>
-
-      <div class="meta-changes">
-        <%= render partial: 'change_notes', locals: {document: @document} %>
-      </div>
-
-      <% if @document.attachments.present? %>
-        <div class="govspeak">
-          <%= render partial: "documents/attachment",
-                    object: @document.attachments.first,
-                    locals: { alternative_format_contact_email: @document.alternative_format_contact_email,
-                              extra_description: @document.summary } %>
-
-  <% if @document.attachments.present? && @document.attachments[1..-1].any? %>
-      <div class="no-thumbnail">
-        <h1>Supporting documents</h1>
-          <div class="govspeak">
-            <% @document.attachments[1..-1].each do |attachment| %>
-              <%= render partial: "documents/attachment", object: attachment, locals: {hide_thumbnail: true, alternative_format_contact_email: @document.alternative_format_contact_email} %>
-            <% end %>
-          </div>
-      </div>
-  <% end %>
-
-        </div>
-      <% else %>
-        <p class="extra-description summary"><%= @document.summary %></p>
-      <% end %>
+        <%= render partial: "documents/header_publication_consultation" %>        
+        <%= render partial: "documents/attachment_publication_consultation" %>        
       <% if @document.part_of_series? %>
         <p class="document-series">
           <span>This publication is part of a series:</span> <%= link_to @document.document_series.name, organisation_document_series_path(@document.document_series.organisation, @document.document_series) %>

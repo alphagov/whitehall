@@ -1,0 +1,12 @@
+<section class="page-header icon">
+  <%= render partial: "title", locals: { document: @document } %>
+  <div class="meta-context meta">
+    <%= part_of_policy_paragraph(@related_policies) %>
+    <%= applies_to_countries_paragraph(@document) %>
+    <%= only_applies_to_nations_paragraph(@document) %>
+  </div>
+</section>
+
+<div class="meta-changes">
+  <%= render partial: 'change_notes', locals: {document: @document} %>
+</div>
