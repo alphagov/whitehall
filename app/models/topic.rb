@@ -27,7 +27,7 @@ class Topic < ActiveRecord::Base
   has_many :organisation_topics
   has_many :organisations, through: :organisation_topics
 
-  has_many :published_policies, through: :topic_memberships, class_name: "Policy", conditions: { state: "published" }, source: :policy
+  has_many :published_policies, through: :topic_memberships, class_name: "Policy", conditions: { "editions.state" => "published" }, source: :policy
   has_many :archived_policies, through: :topic_memberships, class_name: "Policy", conditions: { state: "archived" }, source: :policy
 
   has_many :published_editions, through: :topic_memberships, conditions: { "editions.state" => "published" }, source: :edition
@@ -56,6 +56,10 @@ class Topic < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :name, use: :slugged
+
+  def self.with_related_publications
+    includes(:published_policies).select { |t| t.published_policies.map(&:published_related_publication_count).sum > 0 }
+  end
 
   def update_counts
     update_attribute(:published_edition_count, published_editions.count)

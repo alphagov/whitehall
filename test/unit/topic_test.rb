@@ -277,7 +277,9 @@ class TopicTest < ActiveSupport::TestCase
     create(:draft_policy, topics: [has_draft_policies = create(:topic)])
     create(:draft_specialist_guide, topics: [has_draft_specialist_guides = create(:topic)])
     create(:published_specialist_guide, topics: [has_published_specialist_guides = create(:topic)])
+
     topics = Topic.with_content.all
+
     assert_includes topics, has_published_policies
     assert_includes topics, has_published_specialist_guides
     refute_includes topics, has_draft_policies
@@ -290,10 +292,30 @@ class TopicTest < ActiveSupport::TestCase
     create(:published_policy, topics: [has_published_policies = create(:topic)])
     create(:draft_policy, topics: [has_draft_policies = create(:topic)])
     create(:published_specialist_guide, topics: [has_published_specialist_guides = create(:topic)])
+
     topics = Topic.with_content_of_type(:policy).all
+
     assert_includes topics, has_published_policies
     refute_includes topics, has_published_specialist_guides
     refute_includes topics, has_draft_policies
+    refute_includes topics, has_nothing
+  end
+
+  test 'should filter out topics without any published publications related via published policies' do
+    has_nothing = create(:topic)
+    create(:published_policy, topics: [has_published_policy = create(:topic)])
+    create(:draft_publication, related_policies: [create(:published_policy, topics: [has_draft_publication_via_published_policy = create(:topic)])])
+    create(:published_publication, related_policies: [create(:draft_policy, topics: [has_published_publication_via_draft_policy = create(:topic)])])
+    create(:published_consultation, related_policies: [create(:published_policy, topics: [has_published_consultation_via_published_policy = create(:topic)])])
+    create(:published_publication, related_policies: [create(:published_policy, topics: [has_published_publication_via_published_policy = create(:topic)])])
+
+    topics = Topic.with_related_publications
+
+    assert_includes topics, has_published_publication_via_published_policy
+    refute_includes topics, has_published_consultation_via_published_policy
+    refute_includes topics, has_published_publication_via_draft_policy
+    refute_includes topics, has_draft_publication_via_published_policy
+    refute_includes topics, has_published_policy
     refute_includes topics, has_nothing
   end
 

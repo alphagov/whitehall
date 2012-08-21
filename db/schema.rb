@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821091308) do
+ActiveRecord::Schema.define(:version => 20120822093508) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(:version => 20120821091308) do
     t.string   "additional_related_mainstream_content_title"
     t.integer  "alternative_format_provider_id"
     t.integer  "document_series_id"
+    t.integer  "published_related_publication_count",                             :default => 0,       :null => false
   end
 
   add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"

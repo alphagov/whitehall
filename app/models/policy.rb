@@ -10,6 +10,7 @@ class Policy < Edition
   has_many :edition_relations, through: :document
   has_many :related_editions, through: :edition_relations, source: :edition
   has_many :published_related_editions, through: :edition_relations, source: :edition, conditions: {editions: {state: 'published'}}
+  has_many :published_related_publications, through: :edition_relations, source: :edition, conditions: {editions: {type: 'Publication', state: 'published'}}
   has_many :case_studies, through: :edition_relations, source: :edition, conditions: {editions: {type: 'CaseStudy', state: 'published'}}
 
   belongs_to :policy_team
@@ -32,6 +33,10 @@ class Policy < Edition
 
   def has_summary?
     true
+  end
+
+  def update_published_related_publication_count
+    update_attribute(:published_related_publication_count, published_related_publications.count)
   end
 
   private

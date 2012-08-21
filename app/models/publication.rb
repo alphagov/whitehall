@@ -17,6 +17,8 @@ class Publication < Edition
   scope :in_chronological_order, order(arel_table[:publication_date].asc)
   scope :in_reverse_chronological_order, order(arel_table[:publication_date].desc)
 
+  after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
+
   def allows_inline_attachments?
     false
   end
