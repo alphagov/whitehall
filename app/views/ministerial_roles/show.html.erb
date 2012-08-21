@@ -1,7 +1,7 @@
 <% page_title @ministerial_role.name %>
-<% page_class "ministerial-role-show" %>
+<% page_class "ministerial-role-show biographical-page" %>
 
-<%= content_tag_for :div, @ministerial_role, class: 'two-column-page biographical-page ministerial-department ' + ministerial_role_organisation_class(@ministerial_role) do %>
+<%= content_tag_for :div, @ministerial_role, class: 'two-column-page ministerial-department ' + ministerial_role_organisation_class(@ministerial_role) do %>
   <div class="block-1">
     <div class="inner-block">
       <header class="page-header person">
@@ -92,58 +92,14 @@
           <h1>Policy</h1>
           <p>under the responsibility of <%= @ministerial_role.name_with_definite_article %></p>
 
-          <table class="document-list">
-            <thead class="visuallyhidden">
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Date</th>
-              </tr>
-            </thead>
+          <%= render partial: 'ministerial_roles/policies',
+                      locals: { role: @ministerial_role } %>
 
-            <tbody>
-              <% @ministerial_role.published_policies.each do |policy| %> 
-                <%= content_tag_for :tr, policy, class: "document-row" do %>
-                  <th scope="row" class="title attribute"><%= policy.link %></th>
-                  <td class="date attribute"><%= policy.published_at %></td>
-                <% end %>
-              <% end %>
-            </tbody>
-          </table>
-
-          <div class="read-more">
-            <%= link_to "View all policies", :policies %>
-          </div>
         </section>
       <% end %>
 
-      <% if @ministerial_role.announcements.any? %>
-        <section class="announcements" id="announcements">
-          <h1>Announcements</h1>
-          <p>by the <%= @ministerial_role.name %></p>
-
-          <table class="document-list">
-            <thead class="visuallyhidden">
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Date</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% @ministerial_role.announcements.each do |announcement| %>
-                <%= content_tag_for :tr, announcement, class: "document-row" do %>
-                  <th scope="row" class="title attribute"><%= announcement.link %></th>
-                  <td class="date attribute"><%= announcement.display_date_microformat %></td>
-                <% end %>
-              <% end %>
-            </tbody>
-          </table>
-
-          <div class="read-more">
-            <%= link_to "View all announcements", :announcements %>
-          </div>
-        </section>
-      <% end %>
+      <%= render partial: 'people/announcment_list',
+                  locals: { person: @ministerial_role } %>
     </div>
   </div>
 <% end %>

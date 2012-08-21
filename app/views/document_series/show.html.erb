@@ -1,0 +1,39 @@
+<% page_title @document_series.name, @organisation.name %>
+<% page_class "document-series" %>
+
+<div class="block-1">
+  <div class="inner-block">
+    <header class="page-header">
+      <h1><%= @document_series.name %></h1>
+      <p>A document series from <%= link_to @organisation.name, organisation_path(@organisation) %>.</p>
+    </header>
+  </div>
+</div>
+
+<div class="block-2">
+  <div class="inner-block">
+    <section id="document_series" class="group">
+      <% if @published_editions.any? %>
+        <table class="document-list">
+          <thead class="visuallyhidden">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @published_editions.each do |edition| %>
+              <%= content_tag_for :tr, edition, class: "document-row" do %>
+                <th scope="row" class="title attribute"><%= edition.link %></th>
+                <td class="date attribute"><%= edition.display_date_microformat %></td>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>There are no documents in this series at the moment.</p>
+      <% end %>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+<%= form.label :document_series_id, 'Document series' %>
+<%= form.select :document_series_id, document_series_select_options(edition, current_user), {allow_blank: true}, {class: 'chzn-select', data: { placeholder: "Choose series this document is a part of..." }} %>

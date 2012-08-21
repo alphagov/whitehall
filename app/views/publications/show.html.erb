@@ -7,7 +7,6 @@
         <%= render partial: "title", locals: { document: @document } %>
         <div class="meta-context meta">
           <%= part_of_policy_paragraph(@related_policies) %>
-          <%= part_of_collections_paragraph(@document.document_collections) %>
           <%= applies_to_countries_paragraph(@document) %>
           <%= only_applies_to_nations_paragraph(@document) %>
         </div>
@@ -23,25 +22,57 @@
                     object: @document.attachments.first,
                     locals: { alternative_format_contact_email: @document.alternative_format_contact_email,
                               extra_description: @document.summary } %>
+
+  <% if @document.attachments.present? && @document.attachments[1..-1].any? %>
+      <div class="no-thumbnail">
+        <h1>Supporting documents</h1>
+          <div class="govspeak">
+            <% @document.attachments[1..-1].each do |attachment| %>
+              <%= render partial: "documents/attachment", object: attachment, locals: {hide_thumbnail: true, alternative_format_contact_email: @document.alternative_format_contact_email} %>
+            <% end %>
+          </div>
+      </div>
+  <% end %>
+
         </div>
       <% else %>
         <p class="extra-description summary"><%= @document.summary %></p>
       <% end %>
+      <% if @document.part_of_series? %>
+        <p class="document-series">
+          <span>This publication is part of a series:</span> <%= link_to @document.document_series.name, organisation_document_series_path(@document.document_series.organisation, @document.document_series) %>
+        </p>
+      <% end %>
     </div>
   </div>
 
-  <div class="block-2">
-    <div class="inner-block">
-        <h1>Published by</h1>
+  <% if @document.respond_to?(:organisations) && @document.organisations.any? %>
+    <div class="block-2">
+      <div class="inner-block">
+          <h1>Published by</h1>
+      </div>
     </div>
-  </div>
 
-  <div class="block-3">
-    <div class="inner-block">
-        <%= render partial: "department", locals: { document: @document } %>
+    <div class="block-3">
+      <div class="inner-block">
+        <section id="document-organisations">
+          <h1 class="visuallyhidden">Organisations</h1>
+          <%= render  partial: 'organisations/organisations_logo_list',
+                      locals: {
+                        organisations: @document.organisations,
+                        extra_class: 'single-line',
+                        remove_line_breaks: true
+                      } %>
+        </section>
+        <%= national_statistics_logo(@document) %>
+      </div>
+    </div>
+  <% else %>
+    <div class="block-3">
       <%= national_statistics_logo(@document) %>
-    </div>
-  </div>
+    </diV>
+  <% end %>
+
 
   <div class="block-4">
     <div class="inner-block">
@@ -55,23 +86,6 @@
     </div>
   </div>
 
-  <% if @document.attachments.present? && @document.attachments[1..-1].any? %>
-    <div class="block-6">
-      <div class="inner-block">
-          <h1>Supporting documents</h1>
-      </div>
-    </div>
-
-    <div class="block-7">
-      <div class="inner-block">
-        <div class="govspeak">
-          <% @document.attachments[1..-1].each do |attachment| %>
-            <%= render partial: "documents/attachment", object: attachment, locals: {alternative_format_contact_email: @document.alternative_format_contact_email} %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
 </div>
 
 

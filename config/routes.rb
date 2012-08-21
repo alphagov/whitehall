@@ -24,15 +24,19 @@ Whitehall::Application.routes.draw do
     match 'feed.atom' => 'home#show', format: false, defaults: { format: 'atom' }, as: :atom_feed
     match '/tour' => 'home#tour'
 
-    resources :announcements, only: [:index, :show], path: 'announcements'
+    resources :announcements, only: [:index], path: 'announcements'
     resources :policies, only: [:index, :show] do
       member do
         get :activity
       end
       resources :supporting_pages, path: "supporting-pages", only: [:index, :show]
     end
+    resources :news_articles, path: 'news', only: [:show]
+    match "/news" => redirect("/announcements")
     resources :publications, only: [:index, :show]
     resources :case_studies, path: 'case-studies', only: [:show, :index]
+    resources :speeches, only: [:show]
+    match "/speeches" => redirect("/announcements")
 
     resources :international_priorities, path: "international-priorities", only: [:index, :show]
     resources :consultations, only: [:index, :show] do
@@ -47,7 +51,7 @@ Whitehall::Application.routes.draw do
 
     resources :topics, path: "topics", only: [:index, :show]
     resources :organisations, only: [:index, :show] do
-      resources :document_collections, only: [:index, :show], path: 'document-collections'
+      resources :document_series, only: [:index, :show], path: 'series'
       collection do
         get :alphabetical
       end
@@ -84,7 +88,7 @@ Whitehall::Application.routes.draw do
         resource :user, only: [:show, :edit, :update]
         resources :authors, only: [:show]
         resources :organisations do
-          resources :document_collections
+          resources :document_series
         end
         resources :policy_teams, except: [:show]
         resources :edition_organisations, only: [:update]

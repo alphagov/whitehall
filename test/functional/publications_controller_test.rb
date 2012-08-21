@@ -325,9 +325,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'index atom feed should include links to download attachments' do
-    attachment = build(:attachment)
-    publication = create(:published_publication, title: "publication-title",
-                         attachments: [attachment],
+    publication = create(:published_publication, :with_attachment, title: "publication-title",
                          body: "include the attachment:\n\n!@1")
 
     get :index, format: :atom
@@ -335,7 +333,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_atom_feed do
       assert_select 'feed > entry' do
         assert_select "content" do |content|
-          assert content[0].to_s.include?(attachment.url), "escaped publication body should include link to attachment"
+          assert content[0].to_s.include?(publication.attachments.first.url), "escaped publication body should include link to attachment"
         end
       end
     end
@@ -343,7 +341,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   test "show displays the ISBN of the attached document" do
     attachment = create(:attachment, isbn: '0099532816')
-    edition = create("published_publication", body: "!@1", attachments: [attachment])
+    edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
     get :show, id: edition.document
 
@@ -355,7 +353,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "show doesn't display an empty ISBN if none exists for the attachment" do
     [nil, ""].each do |isbn|
       attachment = create(:attachment, isbn: isbn)
-      edition = create("published_publication", body: "!@1", attachments: [attachment])
+      edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
       get :show, id: edition.document
 
@@ -367,7 +365,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   test "show displays the Unique Reference Number of the attached document" do
     attachment = create(:attachment, unique_reference: 'unique-reference')
-    edition = create("published_publication", body: "!@1", attachments: [attachment])
+    edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
     get :show, id: edition.document
 
@@ -379,7 +377,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "show doesn't display an empty Unique Reference Number if none exists for the attachment" do
     [nil, ""].each do |unique_reference|
       attachment = create(:attachment, unique_reference: unique_reference)
-      edition = create("published_publication", body: "!@1", attachments: [attachment])
+      edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
       get :show, id: edition.document
 
@@ -391,7 +389,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   test "show displays the Command Paper number of the attached document" do
     attachment = create(:attachment, command_paper_number: 'Cm. 1234')
-    edition = create("published_publication", body: "!@1", attachments: [attachment])
+    edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
     get :show, id: edition.document
 
@@ -403,7 +401,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "show doesn't display an empty Command Paper number if none exists for the attachment" do
     [nil, ""].each do |command_paper_number|
       attachment = create(:attachment, command_paper_number: command_paper_number)
-      edition = create("published_publication", body: "!@1", attachments: [attachment])
+      edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
       get :show, id: edition.document
 
@@ -415,7 +413,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   test "show links to the url that the attachment can be ordered from" do
     attachment = create(:attachment, order_url: 'http://example.com/order-path')
-    edition = create("published_publication", body: "!@1", attachments: [attachment])
+    edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
     get :show, id: edition.document
 
@@ -427,7 +425,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "show doesn't display an empty order url if none exists for the attachment" do
     [nil, ""].each do |order_url|
       attachment = create(:attachment, order_url: order_url)
-      edition = create("published_publication", body: "!@1", attachments: [attachment])
+      edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
       get :show, id: edition.document
 
@@ -439,7 +437,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   test "show displays the price of the purchasable attachment" do
     attachment = create(:attachment, price: "1.23", order_url: 'http://example.com')
-    edition = create("published_publication", body: "!@1", attachments: [attachment])
+    edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
     get :show, id: edition.document
 
@@ -451,7 +449,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "show doesn't display an empty price if none exists for the attachment" do
     [nil, ""].each do |price|
       attachment = create(:attachment, price_in_pence: price)
-      edition = create("published_publication", body: "!@1", attachments: [attachment])
+      edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
       get :show, id: edition.document
 

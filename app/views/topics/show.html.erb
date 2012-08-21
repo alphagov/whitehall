@@ -28,10 +28,18 @@
     <section class="contextual js-stick-at-top-when-scrolling">
       <h2>Contents</h2>
       <ol role="navigation">
-        <li><%= link_to 'Policies in this topic', '#policies'%></li>
-        <li><%= link_to 'Specialist guidance', '#specialist-guidance' %></li>
-        <li><%= link_to 'Latest updates', '#recently-changed' %></li>
-        <li><%= link_to 'Related topics', '#related-topics' %></li>
+        <% if @policies.any? %>
+          <li><%= link_to 'Policies in this topic', '#policies'%></li>
+        <% end %>
+        <% if @specialist_guides.any? %>
+          <li><%= link_to 'Specialist guidance', '#specialist-guidance' %></li>
+        <% end %>
+        <% if @recently_changed_documents.any? %>
+          <li><%= link_to 'Latest updates', '#recently-changed' %></li>
+        <% end %>
+        <% if @related_topics.any? %>
+          <li><%= link_to 'Related topics', '#related-topics' %></li>
+        <% end %>
       </ol>
     </section>
   </div>

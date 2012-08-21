@@ -59,8 +59,9 @@ end
 
 Given /^a published publication "([^"]*)" with a PDF attachment and alternative format provider "([^"]*)"$/ do |title, organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
-  attachment = create(:attachment, file: pdf_attachment, title: "Attachment Title")
-  create(:published_publication, title: title, body: "!@1", attachments: [attachment], organisations: [organisation], alternative_format_provider: organisation)
+  publication = create(:published_publication, :with_attachment, title: title, body: "!@1", organisations: [organisation], alternative_format_provider: organisation)
+  @attachment_title = publication.attachments.first.title
+  @attachment_filename = publication.attachments.first.filename
 end
 
 Given /^I set the alternative format contact email of "([^"]*)" to "([^"]*)"$/ do |organisation_name, email|

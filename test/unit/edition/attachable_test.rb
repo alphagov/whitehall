@@ -11,16 +11,34 @@ class Edition::AttachableTest < ActiveSupport::TestCase
     attachment_1 = create(:attachment)
     attachment_2 = create(:attachment)
 
-    publication = create(:publication, attachments: [attachment_1, attachment_2])
+    publication = create(:publication, :with_attachment, attachments: [attachment_1, attachment_2])
 
     assert_equal [attachment_1, attachment_2], publication.attachments
+  end
+
+  test "should be invalid if an edition has an attachment but no alternative format provider" do
+    attachment = build(:attachment)
+    publication = build(:publication, attachments: [attachment], alternative_format_provider: nil)
+    refute publication.valid?
+  end
+
+  test "should be invalid if an edition has an attachment but alternative format provider has no email address set" do
+    attachment = build(:attachment)
+    organisation = build(:organisation, alternative_format_contact_email: nil)
+    publication = build(:publication, attachments: [attachment], alternative_format_provider: organisation)
+    refute publication.valid?
+  end
+
+  test "should be valid without alternative format provider if no attachments" do
+    publication = build(:publication, attachments: [])
+    assert publication.valid?
   end
 
   test "should allow deletion of attachments via nested attributes" do
     attachment_1 = create(:attachment)
     attachment_2 = create(:attachment)
 
-    publication = create(:publication, attachments: [attachment_1, attachment_2])
+    publication = create(:publication, :with_attachment, attachments: [attachment_1, attachment_2])
 
     edition_attachments_attributes = publication.edition_attachments.inject({}) do |h, da|
       h[da.id] = da.attributes.merge("_destroy" => (da.attachment == attachment_1 ? "1" : "0"))
@@ -81,7 +99,7 @@ class Edition::AttachableTest < ActiveSupport::TestCase
   end
 
   test "#destroy should also remove the relationship to any attachments" do
-    edition = create(:draft_publication, attachments: [create(:attachment)])
+    edition = create(:draft_publication, :with_attachment)
     relation = edition.edition_attachments.first
     edition.destroy
     refute EditionAttachment.find_by_id(relation.id)

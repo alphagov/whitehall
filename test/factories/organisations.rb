@@ -8,4 +8,8 @@ FactoryGirl.define do
   factory :ministerial_department, parent: :organisation do
     organisation_type factory: :ministerial_organisation_type
   end
+
+  factory :organisation_with_alternative_format_contact_email, parent: :organisation do
+    alternative_format_contact_email "alternative@example.com"
+  end
 end

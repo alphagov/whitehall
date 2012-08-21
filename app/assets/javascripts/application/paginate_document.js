@@ -1,4 +1,7 @@
-$(function() {
+var GOVUK = GOVUK || {}
+
+GOVUK.paginateDocument = function() {
+
   var container = $(".document .govspeak"),
       navigation = $(".contextual-info #document_sections"),
       mainstreamAlternative = $('.related-mainstream-content'),
@@ -32,9 +35,11 @@ $(function() {
     container.splitIntoPages("h2");
     pages = container.find(".page");
     headings = container.find('h2');
+
     navigationLinks = navigation.find('a');
 
     var showPage = function(a) {
+
       var page = $(escapeId(location.hash)).parents(".page");
       var pageId = $(page).find('h2').attr('id')
 
@@ -46,7 +51,8 @@ $(function() {
         navigationLinks.first().addClass('active')
       } else {
         page.removeClass('hidden');
-        navigationLinks.filter('a[href$='+pageId+']').addClass('active');
+
+        navigationLinks.filter('a[href$=#'+pageId+']').addClass('active');
         if (location.hash == ('#' + pageId)) {
           // html and body selector for IE 8.
           $('html, body').animate({scrollTop:0}, 0);
@@ -79,4 +85,4 @@ $(function() {
     $(window).hashchange(showPage);
     $(window).hashchange();
   }
-})
+};

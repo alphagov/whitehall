@@ -1,18 +1,8 @@
-class AnnouncementsController < DocumentsController
+class AnnouncementsController < PublicFacingController
 
   def index
     announced = AnnouncementsFilter.new(valid_types, params_filters)
     @results = announced.announcements
-  end
-
-  def show
-    prefer_loading_views_for(@document.type)
-    @related_policies = @document.published_related_policies
-    @topics = @related_policies.map { |d| d.topics }.flatten.uniq
-  end
-
-  def document_class
-    Announcement
   end
 
 private
@@ -28,10 +18,6 @@ private
   def sanitized_filters(filters)
     filters.delete(:type) unless filters[:type].nil? || valid_types.include?(filters[:type].to_s)
     filters
-  end
-
-  def prefer_loading_views_for(document_type)
-    _prefixes.insert(0, document_type.underscore.pluralize)
   end
 
   class AnnouncementsFilter

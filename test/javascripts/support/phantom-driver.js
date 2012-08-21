@@ -26,6 +26,8 @@ page.onConsoleMessage = function(msg) {
   }
 };
 
+page.viewportSize = { width: 800, height: 600 }
+
 page.open(url, function(status){
   if (status !== "success") {
     console.log("Unable to access network: " + status);

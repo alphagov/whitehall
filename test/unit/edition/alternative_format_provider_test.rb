@@ -21,4 +21,11 @@ class Edition::AlternativeFormatProviderTest < ActiveSupport::TestCase
     edition = EditionWithAlternativeFormat.new
     assert_equal "govuk-feedback@digital.cabinet-office.gov.uk", edition.alternative_format_contact_email
   end
+
+  test "should use govuk-feedback if blank" do
+    edition = EditionWithAlternativeFormat.new
+    edition.alternative_format_provider = build(:organisation, alternative_format_contact_email: "")
+    assert_equal "govuk-feedback@digital.cabinet-office.gov.uk", edition.alternative_format_contact_email
+  end
+
 end

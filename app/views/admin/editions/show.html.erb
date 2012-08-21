@@ -102,19 +102,15 @@
           </section>
         <% end %>
 
-        <% if @edition.can_be_grouped_in_collections? %>
+        <% if @edition.can_be_grouped_in_series? %>
           <section>
-            <h1>Document collections</h1>
-            <% if @edition.document_collections.any? %>
-              <ul id="document_collections">
-                <% @edition.document_collections.each do |document_collection| %>
-                  <%= content_tag_for :li, document_collection do %>
-                    <%= link_to document_collection.name, admin_organisation_document_collection_path(document_collection.organisation, document_collection) %>
-                  <% end %>
-                <% end %>
-              </ul>
+            <h1>Document series</h1>
+            <% if document_series = @edition.document_series %>
+              <%= content_tag_for :p, document_series do %>
+                <%= link_to document_series.name, admin_organisation_document_series_path(document_series.organisation, document_series) %>
+              <% end %>
             <% else %>
-              <p>This document is not associated with any editions</p>
+              <p>This document is not associated with any series.</p>
             <% end %>
           </section>
         <% end %>

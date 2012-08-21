@@ -87,7 +87,7 @@ class SearchClientTest < ActiveSupport::TestCase
   test "should pass autocomplete responses back as-is" do
     search_results_json = {"title" => "document-title"}.to_json
     stub_request(:get, /example.com\/autocomplete/).to_return(body: search_results_json)
-    results = Whitehall::SearchClient.new("http://example.com").autocomplete("")
+    results = Whitehall::SearchClient.new("http://example.com").autocomplete("test")
 
     assert_equal search_results_json, results
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120813101515) do
+ActiveRecord::Schema.define(:version => 20120821091308) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -66,12 +66,15 @@ ActiveRecord::Schema.define(:version => 20120813101515) do
 
   add_index "countries", ["slug"], :name => "index_countries_on_slug"
 
-  create_table "document_collections", :force => true do |t|
+  create_table "document_series", :force => true do |t|
     t.string   "name"
     t.integer  "organisation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "document_series", ["slug"], :name => "index_document_series_on_slug"
 
   create_table "documents", :force => true do |t|
     t.datetime "created_at"
@@ -112,13 +115,6 @@ ActiveRecord::Schema.define(:version => 20120813101515) do
 
   add_index "edition_countries", ["country_id"], :name => "index_edition_countries_on_country_id"
   add_index "edition_countries", ["edition_id"], :name => "index_edition_countries_on_edition_id"
-
-  create_table "edition_document_collections", :force => true do |t|
-    t.integer  "edition_id"
-    t.integer  "document_collection_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "edition_ministerial_roles", :force => true do |t|
     t.integer  "edition_id"
@@ -186,6 +182,7 @@ ActiveRecord::Schema.define(:version => 20120813101515) do
     t.string   "additional_related_mainstream_content_url"
     t.string   "additional_related_mainstream_content_title"
     t.integer  "alternative_format_provider_id"
+    t.integer  "document_series_id"
   end
 
   add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"

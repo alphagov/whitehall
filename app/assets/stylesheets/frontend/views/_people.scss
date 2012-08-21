@@ -21,9 +21,9 @@
 
     ul.single li {
       @include core-48;
-      margin-left: -3px;
-      @media (max-width: 640px) {
-        margin-left: 0;
+      margin-left: 0;
+      @include media(desktop){
+        margin-left: -3px;
       }
     }
   }
@@ -46,7 +46,14 @@
     ul.organisations-icon-list {
       margin: 0;
     }
-
+    figure.img {
+      margin: 0;
+      width: 100%;
+      img {
+        width: 100%;
+        max-width: 135px;
+      }
+    }
   }
 
   .previous-roles table.document-list td.date {
@@ -60,13 +67,14 @@
 
     .govspeak {
       margin-top: $gutter-half;
+      display: inline;
     }
 
     section {
-      margin: $gutter 0 $gutter*2 0;
+      margin: $gutter 0 $gutter*2;
       h1 {
         @include core-27;
-        margin: 0 0 0 0;
+        margin: 0;
       }
 
       .read-more {
@@ -77,11 +85,9 @@
     }
 
     ul.organisations-icon-list {
-      margin: 0 0 $gutter $gutter-half;
+      margin: 12px 0 $gutter $gutter-half;
       float: right;
       min-width: 33.333333%;
-      position: relative;
-      top: 12px;
       
       li {
         margin-left: $gutter-half;
@@ -103,26 +109,4 @@
       }
     }
   }
-}
-
-.people-show {
-  .document-list .document-row  {
-    .title { width: 70%; }
-    .date { width: 30%; }
-  }
-
-  .in-page-navigation figure.img {
-    margin: 0;
-    width: 100%;
-    img {
-      width: 100%;
-      max-width: 135px;
-    }
-  }
-
-  ul.organisations-icon-list {
-    margin: 0 0 0 0;
-  }
-
-
 }

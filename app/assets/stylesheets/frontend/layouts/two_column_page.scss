@@ -5,7 +5,7 @@
     padding-bottom: $gutter;
   }
 
-  @media (min-width: 768px) {
+  @include media(desktop) {
     .block-2 {
       width: 25%;
       float: left;

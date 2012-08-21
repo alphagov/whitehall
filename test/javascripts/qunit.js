@@ -3,3 +3,5 @@
 // TEST SRC DIR :: test/javascripts
 //
 //= require_tree ./unit
+
+sinon.config.useFakeTimers = false

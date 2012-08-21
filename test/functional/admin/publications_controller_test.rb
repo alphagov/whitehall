@@ -32,7 +32,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_not_link_to_public_version_when_not_published :publication
   should_prevent_modification_of_unmodifiable :publication
   should_allow_alternative_format_provider_for :publication
-  should_allow_assignment_to_document_collections :publication
+  should_allow_assignment_to_document_series :publication
 
   test "new displays publication fields" do
     get :new
@@ -64,7 +64,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new publication and attachment with additional publication metadata" do
-    post :create, edition: controller_attributes_for(:publication).merge({
+    post :create, edition: controller_attributes_for(:publication, :with_alternative_format_provider).merge({
       edition_attachments_attributes: {
         "0" => { attachment_attributes: attributes_for(:attachment,
           title: "attachment-title",
@@ -92,9 +92,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "edit should allow users to assign publication metadata to an attachment" do
-    publication = create(:publication)
-    attachment = create(:attachment)
-    publication.attachments << attachment
+    publication = create(:publication, :with_attachment)
+    attachment = publication.attachments.first
 
     get :edit, id: publication
 

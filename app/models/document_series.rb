@@ -1,12 +1,14 @@
-class DocumentCollection < ActiveRecord::Base
+class DocumentSeries < ActiveRecord::Base
   belongs_to :organisation
 
-  has_many :edition_document_collections
-  has_many :editions, through: :edition_document_collections
+  has_many :editions, order: 'published_at desc'
 
   validates :name, presence: true
 
   before_destroy { |dc| dc.destroyable? }
+
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   def published_editions
     editions.published
@@ -15,6 +17,6 @@ class DocumentCollection < ActiveRecord::Base
   protected
 
   def destroyable?
-    edition_document_collections.empty?
+    editions.empty?
   end
 end

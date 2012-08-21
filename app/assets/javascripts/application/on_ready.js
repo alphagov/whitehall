@@ -45,4 +45,6 @@ jQuery(function($) {
   $('.js-toggle-accessibility-warning').toggler({header: ".toggler", content: ".help-block"})
 
   $(".js-document-filter").enableDocumentFilter();
+
+  GOVUK.paginateDocument();
 });

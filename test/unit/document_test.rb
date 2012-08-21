@@ -78,6 +78,14 @@ class DocumentTest < ActiveSupport::TestCase
     refute ConsultationResponse.find_by_id(consultation_response.id)
   end
 
+  test "should list change history when only one edition with a minor change exists" do
+    edition = create(:published_policy, published_at: 1.day.ago, minor_change: true)
+
+    history = edition.change_history
+    assert_equal 1, history.length
+    assert_equal "First published.", history.first.note
+  end
+
   test "should list change history for published editions" do
     original_edition = create(:archived_edition, published_at: 3.days.ago, change_note: "first version")
     document = original_edition.document

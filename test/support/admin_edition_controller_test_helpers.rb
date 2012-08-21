@@ -391,7 +391,7 @@ module AdminEditionControllerTestHelpers
       test 'edit displays edition attachment fields' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
         attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
-        edition = create(edition_type, attachments: [attachment])
+        edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
 
         get :edit, id: edition
 
@@ -527,7 +527,7 @@ module AdminEditionControllerTestHelpers
       test 'updating should allow removal of attachments' do
         attachment_1 = create(:attachment)
         attachment_2 = create(:attachment)
-        edition = create(edition_type)
+        edition = create(edition_type, :with_alternative_format_provider)
         edition_attachment_1 = create(:edition_attachment, edition: edition, attachment: attachment_1)
         edition_attachment_2 = create(:edition_attachment, edition: edition, attachment: attachment_2)
 
@@ -597,7 +597,7 @@ module AdminEditionControllerTestHelpers
       edition_class = edition_class_for(edition_type)
 
       test 'edit shows markdown hint for first attachment' do
-        draft_edition = create("draft_#{edition_type}", attachments: [create(:attachment)])
+        draft_edition = create("draft_#{edition_type}", :with_attachment)
         get :edit, id: draft_edition
 
         assert_select "fieldset.attachments" do |nodes|
@@ -623,7 +623,7 @@ module AdminEditionControllerTestHelpers
       edition_class = edition_class_for(edition_type)
 
       test 'edit does not show markdown hint for first attachment' do
-        draft_edition = create("draft_#{edition_type}", attachments: [create(:attachment)])
+        draft_edition = create("draft_#{edition_type}", :with_attachment)
         get :edit, id: draft_edition
 
         assert_select "fieldset.attachments" do |nodes|
@@ -1729,35 +1729,33 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_assignment_to_document_collections(edition_type)
-      test "when creating allows assignment to document collections" do
+    def should_allow_assignment_to_document_series(edition_type)
+      test "when creating allows assignment to document series" do
         get :new
 
         assert_select "form#edition_new" do
-          assert_select "select[name='edition[document_collection_ids][]']"
+          assert_select "select[name='edition[document_series_id]']"
         end
       end
 
-      test "when editing allows assignment to document collections" do
-        collection = create(:document_collection)
-        edition = create(edition_type, document_collections: [collection])
+      test "when editing allows assignment to document series" do
+        series = create(:document_series)
+        edition = create(edition_type, document_series: series)
 
         get :edit, id: edition
 
         assert_select "form#edition_edit" do
-          assert_select "select[name='edition[document_collection_ids][]']"
+          assert_select "select[name='edition[document_series_id]']"
         end
       end
 
-      test "shows assigned document collections" do
-        collection = create(:document_collection)
-        edition = create(edition_type, document_collections: [collection])
+      test "shows assigned document series" do
+        series = create(:document_series)
+        edition = create(edition_type, document_series: series)
 
         get :show, id: edition
 
-        assert_select "#document_collections" do
-          assert_select_object(collection)
-        end
+        assert_select_object(series)
       end
     end
   end

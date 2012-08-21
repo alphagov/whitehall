@@ -2,14 +2,14 @@
 
 .publications-index {
   .page-header {
-    padding: $gutter-one-third*2 0;
+    padding: 0 0 ($gutter + $gutter-one-third);
     margin: 0;
     position: relative;
 
     .subscribe {
       position: absolute;
       right: 0;
-      bottom: $gutter;
+      bottom: ($gutter + $gutter-two-thirds);
     }
 
   }
@@ -45,6 +45,32 @@
           clear: both;
           @include core-14;
         }
+      }
+    }
+    .no-thumbnail {
+      background: $light-warm-grey;
+      margin-bottom: $gutter;
+      overflow: hidden;
+      padding-top: $gutter-half;
+      width: 100%;
+      h1 {
+        float: left;
+        display: inline;
+        padding: $gutter-one-third 0 0 3%;
+        width: 23%;
+        @include media(desktop){
+        padding: $gutter-one-third 0 0 13px;
+        width: 24.5%;
+        }
+      }
+      .govspeak {
+        clear: none;
+        float: left;
+        display: inline;
+        width: 73.3%;
+      }
+      .attachment {
+        padding-left: 0;
       }
     }
   }
@@ -87,11 +113,9 @@
   .page-header {
     float: left;
     display: inline;
-    margin-top: $gutter;
     width: 75%;
     h1 {
       margin-top: 0;
-      padding: 0;
     }
     .label {
       color: #76787B;
@@ -99,11 +123,34 @@
     .meta-context {
       width: 100%;
     }
+    @include media(desktop){
+      min-height: 210px;
+    }
   }
 
   .meta-changes {
-    margin: $gutter 0;
+    margin: $gutter-one-third 0;
     width: 25%;
+  }
+
+  .document-series {
+    background-color: $light-blue;
+    color: white;
+    padding: $gutter-one-third $gutter-one-third $gutter-half 26.5%;
+
+    span, a {
+      display: block;
+    }
+
+    span {
+      @include core-19;
+    }
+
+    a {
+      @include core-27;
+      color: white;
+      text-decoration: underline;
+    }
   }
 
   .summary {
@@ -132,12 +179,12 @@
     }
   }
 
-  #whitehall-wrapper .govspeak, #whitehall-wrapper .document .body
-
   .national-statistics-logo {
     margin-top: $gutter-one-third;
     width: $gutter;
   }
+
+
 }
 
 
