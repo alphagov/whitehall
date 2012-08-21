@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/alphagov/kramdown.git
+  remote: https://github.com/alphagov/kramdown.git
   revision: cd933891d9ed9cdfec1692a085ca2cd694ee5c12
   branch: add-gemspec
   specs:

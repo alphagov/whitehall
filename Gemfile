@@ -11,7 +11,7 @@ if ENV['GOVSPEAK_DEV']
 else
   gem 'govspeak', '~> 0.8.18'
 end
-gem 'kramdown', git: 'git://github.com/alphagov/kramdown.git', branch: "add-gemspec"
+gem 'kramdown', git: 'https://github.com/alphagov/kramdown.git', branch: "add-gemspec"
 gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.0.beta14'
 gem 'nokogiri'
