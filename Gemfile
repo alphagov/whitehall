@@ -23,7 +23,7 @@ gem 'fog'
 gem 'pdf-reader'
 gem 'isbn_validation'
 gem 'gds-sso', '~> 1.2.1'
-gem 'rummageable', git: 'git://github.com/alphagov/rummageable.git'
+gem 'rummageable', git: 'https://github.com/alphagov/rummageable.git'
 gem 'addressable'
 gem 'exception_notification', require: 'exception_notifier'
 gem 'rabl'
@@ -45,7 +45,7 @@ group :development, :staging, :test do
   gem 'faker'
   gem 'thin'
   gem 'quiet_assets'
-  gem 'rails-dev-boost', git: 'git://github.com/thedarkone/rails-dev-boost.git', require: 'rails_development_boost'
+  gem 'rails-dev-boost', git: 'https://github.com/thedarkone/rails-dev-boost.git', require: 'rails_development_boost'
   gem 'brakeman'
 end
 

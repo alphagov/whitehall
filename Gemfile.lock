@@ -6,7 +6,7 @@ GIT
     kramdown (0.13.7)
 
 GIT
-  remote: git://github.com/alphagov/rummageable.git
+  remote: https://github.com/alphagov/rummageable.git
   revision: 944e4d7c73e94b7b4a04fc9bfd3fc94d942fe2c6
   specs:
     rummageable (0.2.0)
@@ -15,7 +15,7 @@ GIT
       rest-client
 
 GIT
-  remote: git://github.com/thedarkone/rails-dev-boost.git
+  remote: https://github.com/thedarkone/rails-dev-boost.git
   revision: c648d229fa981c5f9bcbd8ac6baa520582c248c6
   specs:
     rails-dev-boost (0.1.1)
