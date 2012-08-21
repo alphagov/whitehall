@@ -187,19 +187,21 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
 
   var enableDocumentFilter = function() {
-    if (History.enabled) {
-      var $form = $(this);
-      documentFilter.$form = $form;
+    this.each(function(){
+      if (History.enabled) {
+        var $form = $(this);
+        documentFilter.$form = $form;
 
-      $form.submit(documentFilter.submitFilters);
-      $form.find('select').change(function(e){
-        $form.submit();
-      });
-    }
-    if($('#show-more-documents .previous').length === 0){
-      documentFilter.initScroll();
-    }
-
+        $form.submit(documentFilter.submitFilters);
+        $form.find('select').change(function(e){
+          $form.submit();
+        });
+      }
+      if($('#show-more-documents .previous').length === 0){
+        documentFilter.initScroll();
+      }
+    });
+    return this;
   }
 
   $.fn.extend({
