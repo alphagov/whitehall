@@ -46,18 +46,33 @@
     </div>
   </div>
 
-  <div class="block-2">
-    <div class="inner-block">
-        <h1>Published by</h1>
+  <% if @document.respond_to?(:organisations) && @document.organisations.any? %>
+    <div class="block-2">
+      <div class="inner-block">
+          <h1>Published by</h1>
+      </div>
     </div>
-  </div>
 
-  <div class="block-3">
-    <div class="inner-block">
-        <%= render partial: "department", locals: { document: @document } %>
-      <%= national_statistics_logo(@document) %>
+    <div class="block-3">
+      <div class="inner-block">
+        <section id="document-organisations">
+          <h1 class="visuallyhidden">Organisations</h1>
+          <%= render  partial: 'organisations/organisations_logo_list',
+                      locals: {
+                        organisations: @document.organisations,
+                        extra_class: 'single-line',
+                        remove_line_breaks: true
+                      } %>
+        </section>
+        <%= national_statistics_logo(@document) %>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="block-3">
+      <%= national_statistics_logo(@document) %>
+    </diV>
+  <% end %>
+
 
   <div class="block-4">
     <div class="inner-block">
