@@ -483,11 +483,8 @@ class PublicationsControllerTest < ActionController::TestCase
 
   def create_publications_in(*topics)
     topics.map do |topic|
-      policy = create(:published_policy)
-      topic.policies << policy
-      publication = create(:published_publication, related_policies: [policy])
-      topic.update_counts
-      publication
+      policy = create(:published_policy, topics: [topic])
+      create(:published_publication, related_policies: [policy])
     end
   end
 
