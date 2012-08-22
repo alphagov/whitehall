@@ -26,12 +26,15 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         $nav = $('<nav id="show-more-documents" role="navigation" />').append($ul);
         if (data.next_page_url) {
           $li = $('<li class="next" />');
-          $a = $('<a>Load more</a>').attr('href', data.next_page_url);
+          $a = $('<a>Next page '+ documentFilter.progressSpan(data.next_page, data.total_pages) +'</a>').attr('href', data.next_page_url);
           $ul.append($li);
           $li.append($a);
         }
       }
       return $nav;
+    },
+    progressSpan: function(current, total) {
+      return '<span>' + current + " of " + total + '</span>';
     },
     importantAttribute: function(attribute) {
       return ($.inArray(attribute, ["id", "title", "url", "type"]) < 0);

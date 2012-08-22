@@ -14,6 +14,9 @@
       <% if @edition.allows_supporting_pages? %>
         <li><a href="#supporting_pages" data-toggle="tab">Supporting pages <span class="badge"><%= @edition.supporting_pages.count %></span></a></li>
       <% end %>
+      <% if @edition.allows_attachments? %>
+        <li><a href="#attachments" data-toggle="tab">Attachments <span class="badge"><%= @edition.attachments.count %></span></a></li>
+      <% end %>
       <li><a href="#associations" data-toggle="tab">Associations</a></li>
     </ul>
     <div class="tab-content">
@@ -54,6 +57,22 @@
               <p><%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %></p>
               <%= render partial: "admin/supporting_pages/supporting_page", object: supporting_page %>
             <% end %>
+          <% end %>
+        </section>
+      <% end %>
+      <% if @edition.allows_attachments? %>
+        <section class="tab-pane" id="attachments">
+          <h1>Attachments</h1>
+          <% if @edition.attachments.any? %>
+            <ul>
+              <% @edition.attachments.each do |attachment| %>
+                <%= content_tag_for :li, attachment do %>
+                  <%= attachment.title %>
+                <% end %>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>No attachments</p>
           <% end %>
         </section>
       <% end %>

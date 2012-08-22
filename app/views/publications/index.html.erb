@@ -30,7 +30,7 @@
           <div class="filter">
             <div class="filter-inner">
               <%= label_tag "topics", "Topic", class: "visuallyhidden" %>
-              <%= select_tag :topics, topic_filter_options(@filter.all_topics, @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
+              <%= select_tag :topics, topic_filter_options(@filter.all_topics_with(:publication), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
             </div>
           </div>
           <div class="filter">

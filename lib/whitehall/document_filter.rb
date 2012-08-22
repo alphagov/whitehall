@@ -14,7 +14,11 @@ class Whitehall::DocumentFilter
   end
 
   def all_topics_with(type)
-    Topic.with_content_of_type(type).order(:name)
+    if type == :publication
+      Topic.with_related_publications.sort_by(&:name)
+    else
+      Topic.with_content_of_type(type).order(:name)
+    end
   end
 
   def all_organisations_with(type)

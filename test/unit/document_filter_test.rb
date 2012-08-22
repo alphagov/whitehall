@@ -18,6 +18,15 @@ class DocumentFilterTest < ActiveSupport::TestCase
     Whitehall::DocumentFilter.new([]).all_topics_with(:policy)
   end
 
+  test "#all_topics_with returns all topics with publications, alphabetically" do
+    aardvark = build(:topic, name: "aardvark")
+    zebra = build(:topic, name: "zebra")
+    topics = [zebra, aardvark]
+    Topic.expects(:with_related_publications).returns(topics)
+
+    assert_equal [aardvark, zebra], Whitehall::DocumentFilter.new([]).all_topics_with(:publication)
+  end
+
   test "#all_organisations returns all organisations with content, alphabetically" do
     final_scope = stub('final scope')
     final_scope.expects(:ordered_by_name_ignoring_prefix)
