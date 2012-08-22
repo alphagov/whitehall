@@ -18,6 +18,8 @@ module("Document filter", {
     this.ajaxData = {
       "next_page_url": '/next-page-url',
       "prev_page_url": '/prev-page-url',
+      "next_page": 2,
+      "total_pages": 5,
       "atom_feed_url": '/atom-feed',
       "results": [
         {
@@ -50,6 +52,7 @@ test("should create pagination from ajax data", function() {
 
   var $pagination = GOVUK.documentFilter.drawPagination(data);
   ok($pagination.find('a[href="/next-page-url"]').length > 0);
+  equal($pagination.find('a[href="/next-page-url"] span').text(), '2 of 5');
 
   delete data.next_page_url;
   var $pagination = GOVUK.documentFilter.drawPagination(data);
