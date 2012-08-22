@@ -23,3 +23,12 @@ Scenario: The list should tell me how far I am from the end
   When I visit the list of publications
   And I filter to only those from the "Big co." department
   Then I should see that the next page is 2 of 2
+
+@javascript
+Scenario: The list should load more when I scroll to the end
+  Given 41 published specialist guides for the organisation "Big co."
+  When I visit the list of specialist guides
+  And I filter to only those from the "Big co." department
+  Then I should see 20 documents
+  And I scroll to the bottom of the page
+  Then I should see 40 documents

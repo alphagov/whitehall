@@ -16,7 +16,8 @@ Then /^I should see a link to the next page of documents$/ do
 end
 
 Then /^I should see that the (next|previous) page is (\d+) of (\d+)$/ do |css_class, next_page, total_pages|
-  assert has_css?("#show-more-documents .#{css_class} span", text: "#{next_page} of #{total_pages}")
+  assert has_css?("#show-more-documents .#{css_class} span", text: "#{next_page} of #{total_pages}"),
+         "showing page is #{page.find("#show-more-documents .#{css_class} span").text}"
 end
 
 Then /^I should see (\d+) documents$/ do |count|
