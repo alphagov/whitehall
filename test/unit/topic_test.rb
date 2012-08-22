@@ -327,4 +327,22 @@ class TopicTest < ActiveSupport::TestCase
 
     assert_equal [apples, bananas, cheese, dates], Topic.alphabetical
   end
+
+  test "should update count of published editions" do
+    topic = create(:topic)
+    assert_equal 0, topic.published_edition_count
+
+    policy = create(:published_policy)
+    topic_membership = create(:topic_membership, topic: topic, policy: policy)
+    assert_equal 1, topic.reload.published_edition_count
+
+    policy.update_attributes(state: :draft)
+    assert_equal 0, topic.reload.published_edition_count
+
+    policy.update_attributes(state: :published)
+    assert_equal 1, topic.reload.published_edition_count
+
+    topic_membership.reload.destroy
+    assert_equal 0, topic.reload.published_edition_count
+  end
 end

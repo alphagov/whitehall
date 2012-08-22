@@ -10,6 +10,9 @@ class TopicMembership < ActiveRecord::Base
 
   scope :featured, where(featured: true)
 
+  after_create :update_topic_counts
+  after_destroy :update_topic_counts
+
   class << self
     def published
       joins(:edition).where("editions.state" => "published")
@@ -18,5 +21,11 @@ class TopicMembership < ActiveRecord::Base
     def for_type(type)
       joins(:edition).where("editions.type" => type)
     end
+  end
+
+  private
+
+  def update_topic_counts
+    topic.update_counts
   end
 end

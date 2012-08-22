@@ -12,8 +12,7 @@ module Edition::Topics
   included do
     has_many :topic_memberships, dependent: :destroy, foreign_key: :edition_id
     has_many :topics, through: :topic_memberships
-    after_save :update_topic_counts
-    before_destroy :update_topic_counts
+    after_update :update_topic_counts
 
     add_trait Trait
   end
