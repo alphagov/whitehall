@@ -6,7 +6,7 @@
     }
 
     elementVerticalPosition = element.offset().top - parseFloat(element.css('marginTop').replace(/auto/, 0));
-        
+
     function adaptStickiness() {
       var windowVerticalPosition = $(window).scrollTop();
       if ($(window).width() > 768 && windowVerticalPosition >= elementVerticalPosition) {
@@ -17,7 +17,7 @@
       } else {
         element.removeClass('content-fixed');
         element.css('width', '');
-      }      
+      }
     }
 
     $(window).scroll(adaptStickiness);
