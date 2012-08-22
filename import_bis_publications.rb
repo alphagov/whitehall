@@ -52,8 +52,16 @@ download_attachments(base_directory, csv_data.map { |r| r["Attachment"] })
 log "Processing attachment files"
 process_filetypes(base_directory)
 
-bis = Organisation.find_by_acronym("BIS")
-user = User.find_by_name("Automatic Data Importer")
+unless bis = Organisation.find_by_acronym("BIS")
+  puts "This script assumes that the 'BIS' organisation exists.  Please create it and re-run the script."
+  exit 1
+end
+
+unless user = User.find_by_name("Automatic Data Importer")
+  puts "This script assumes that the 'Automatic Data Importer' user exists.  Please create it and re-run the script."
+  exit 1
+end
+
 PaperTrail.whodunnit = user
 
 log "Creating publications"
