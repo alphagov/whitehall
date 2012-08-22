@@ -41,6 +41,8 @@
     padding: $gutter-half $gutter-half $gutter-one-third;
     margin-bottom: $gutter;
     overflow: hidden;
+    width: auto;
+    float: none;
 
     .organisations-icon-list {
       overflow: hidden;

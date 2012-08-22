@@ -16,7 +16,7 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
 
     get :show, id: priority.document
 
-    assert_select ".page_title", "priority-title"
+    assert_select ".title", "priority-title"
     assert_select ".body", "priority-body"
   end
 

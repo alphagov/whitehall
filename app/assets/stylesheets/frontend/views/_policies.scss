@@ -31,6 +31,12 @@
 }
 
 .policy {
+  @include media(desktop){
+    .meta-topic {
+      float: left;
+      width: 50%;
+    }
+  }
 
   .meta {
     @include core-14;
@@ -126,6 +132,8 @@
   }
 
   .page-header {
+    width: 100%;
+    float: none;
     padding: $gutter 0 40px;
     h1 {
       clear: both;

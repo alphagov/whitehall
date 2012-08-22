@@ -1,14 +1,6 @@
-<%
-  header_title ||= ""
-%>
 <section class="meta">
-  <% unless header_title.empty? %>
+  <% if local_assigns.include?(:topics) && local_assigns.include?(:document) %>
     <div class="meta-context">
-      <p class="label">
-        <%= header_title %><% if document.respond_to?(:publication_type) %>, type:
-          <span class="publication-type"><%= document.publication_type.singular_name %></span>.
-        <% end %>
-      </p>
       <%= part_of_topics_paragraph(topics) %>
       <%= applies_to_countries_paragraph(document) %>
       <%= only_applies_to_nations_paragraph(document) %>

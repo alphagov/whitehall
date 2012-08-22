@@ -1,15 +1,13 @@
 .page-header {
   clear: both;
   margin-top: 0;
-  padding-bottom: $gutter-half;
   background-repeat: no-repeat;
   background-position: 0 8px;
 
   h1 {
     @include core-48;
-    margin-left: -3px;
-    @media (max-width: 640px) {
-      margin-left: 0;
+    .label {
+      color: lighten($body-text, 30%);
     }
   }
 
@@ -27,113 +25,26 @@
     margin-top: $gutter-two-thirds*-1;
     @include core-19;
   }
-}
 
-@media (min-width: 768px) {
-  .page-header {
-    margin-top: 0;
-    padding-bottom: $gutter*2;
+  .extra-icons {
+    width: 100%;
+    overflow: hidden;
+    .organisation {
+      float: left;
+    }
+    .show-other-content {
+      float: left;
+      padding-left: $gutter-one-third;
+      padding-right: $gutter-one-third;
+      margin-left: $gutter-half;
+      @include core-14;
+    }
+  }
+  .organisations-icon-list .organisation {
+    margin-bottom: $gutter-one-third;
   }
 }
 
-
-
-
-
-
-.announcements-index,
-.news,
-.newsarticle {
-  .page-header {
-    $width: 53px;
-    padding-left: $width + $gutter-two-thirds;
-    background-image: image-url("icons/48/news.png");
-  }
-}
-
-.consultations-index {
-  .page-header {
-    $width: 60px;
-    padding-left: $width + $gutter-two-thirds;
-    background-image: image-url("icons/48/consultation-open.png");
-  }
-}
-
-.consultation-open {
-  .page-header {
-//  $width: 60px;
-//  padding-left: $width + $gutter-two-thirds;
-//  background-image: image-url("icons/48/consultation-open.png");
-  }
-}
-
-.consultation-closed,
-.consultation-responded {
-  .page-header {
-//  $width: 60px;
-//  padding-left: $width + $gutter-two-thirds;
-//  background-image: image-url("icons/48/consultation-closed.png");
-  }
-}
-
-.consultation-response {
-  .page-header {
-//  $width: 60px;
-//  padding-left: $width + $gutter-two-thirds;
-//  background-image: image-url("icons/48/consultation-responded.png");
-  }
-}
-
-.countries-index {
-  .page-header {
-    $width: 60px;
-    padding-left: $width + $gutter-two-thirds;
-    background-image: image-url("icons/48/uk_and_the_world.png");
-  }
-}
-
-.organisations_index_page {
-  .page-header {
-    $width: 60px;
-    padding-left: $width + $gutter-two-thirds;
-    background-image: image-url("icons/48/departments.png");
-  }
-}
-
-.policy,
-.supporting_page {
-  .page-header {
-    $width: 35px;
-    //background-image: url(/government/assets/icons/48/policy.png);
-    //padding-left: $width + $gutter-two-thirds;
-  }
-}
-
-.topics-index,
-.topic {
-  .page-header {
-    $width: 41px;
-    padding-left: $width + $gutter-two-thirds;
-    background-image: image-url("icons/48/topic.png");
-  }
-}
-
-.search-index {
-  .page-header {
-    $width: 60px;
-    //padding-left: $width + $gutter-two-thirds;
-    background-image: image-url("icons/48/search.png");
-  }
-}
-
-.speeches-index,
-.speech {
-  .page-header {
-    $width: 51px;
-    padding-left: $width + $gutter-two-thirds;
-    background-image: image-url("icons/48/speech.png");
-  }
-}
 
 .beta_disclaimer {
   color: #000;

@@ -3,14 +3,19 @@
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
-      <%= render partial: "document_metadata", locals: {
-        document: @document,
-        header_title: header_title,
-        topics: @topics
-      } %>
       <section class="page-header icon">
-        <%= render partial: "title", locals: { document: @document } %>
+      <%= render  partial: "title",
+                  locals: {
+                    document: @document,
+                    header_title: header_title,
+                    hide_extra_organisations: true
+                  } %>
       </section>
+      <%= render  partial: "document_metadata",
+                  locals: {
+                    document: @document,
+                    topics: @topics
+                  } %>
     </div>
   </div>
 

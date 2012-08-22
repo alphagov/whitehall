@@ -1,7 +1,16 @@
-<h1 class="page_title has_meta"><%= @document.title %></h1>
+<%
+  header_title ||= ""
+  hide_extra_organisations ||= false
+%>
+<h1 class="page_title">
+  <% unless header_title.empty? %>
+    <span class="label"><%= header_title %>:</span>
+  <% end %>
+  <span class="title"><%= @document.title %></span>
+</h1>
 
 <% if document.respond_to?(:organisations) && document.organisations.any? %>
-  <section id="document-organisations">
+  <section id="document-organisations" <% if hide_extra_organisations %>class="js-hide-extra-logos"<% end %>>
     <h1 class="visuallyhidden">Organisations</h1>
     <%= render  partial: 'organisations/organisations_logo_list',
                 locals: {

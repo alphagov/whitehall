@@ -4,7 +4,7 @@
 
   @include media(desktop) {
     .block-2 .govspeak p {
-      max-width: 40em; 
+      max-width: 40em;
     }
     .block-3 {
       float: left;
@@ -21,33 +21,6 @@
   .page-header {
     @include media(desktop){
       min-height: 180px;
-    }
-
-    h1 {
-      @include core-48;
-      .label {
-        color: lighten($body-text, 30%);
-      }
-    }
-
-    .extra-icons {
-      width: 100%;
-      overflow: hidden;
-      .organisation {
-        float: left;
-      }
-      .show-other-content {
-        float: left;
-        padding-left: $gutter-one-third;
-        padding-right: $gutter-one-third;
-        margin-left: $gutter-half;
-        @include core-14;
-      }
-    }
-    .organisations-icon-list .organisation {
-      margin-bottom: $gutter-one-third;
-    }
-    @include media(desktop) {
     }
   }
   .contextual {

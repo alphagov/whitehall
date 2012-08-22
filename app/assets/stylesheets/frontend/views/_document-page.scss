@@ -2,6 +2,7 @@
 
 .document_page {
 
+  .block-1,
   .block-2,
   .block-3,
   .block-4 {
@@ -9,7 +10,14 @@
   }
 
   @include media(desktop) {
+    .block-1:after {
+      content: " ";
+      display: block;
+      clear: both;
+      visibility: hidden;
+    }
     .block-2 {
+      clear: both;
       width: 25%;
       float: left;
       display: inline;
@@ -29,12 +37,19 @@
     }
   }
 
-  .metadata {
-    display: block;
-    margin-bottom: $gutter-two-thirds*-1;
+  @include media(desktop){
+    .page-header,
+    .meta-context {
+      width: 75%;
+      float: left;
+    }
+    .meta-changes {
+      text-align: right;
+    }
   }
 
-  .meta-topic, .meta-context {
+  .meta-topic,
+  .meta-context {
     @include core-14;
     overflow: hidden;
     .notice {
@@ -42,7 +57,7 @@
       float: left;
       width: 50%;
       p {
-      background: none;
+        background: none;
       }
     }
     p {
@@ -52,11 +67,6 @@
       display: inline;
       margin: 0;
       padding: 0;
-    }
-    @media (min-width: 768px) {
-      display: inline;
-      float: left;
-      width: 47.5%;
     }
   }
 
@@ -68,39 +78,6 @@
     display: block;
     @include core-14;
   }
-
-  @include media(desktop) {
-    .metadata {
-      margin-bottom: 0;
-    }
-  }
-
-  .inapplicable_nations {
-    margin: 0 $gutter-half*-1 $gutter $gutter-half*-1;
-    background: $light-tan url(/government/assets/information-icon.png) no-repeat 98% $gutter-two-thirds;
-    padding: $gutter-one-third 55px $gutter-one-third $gutter-half;
-    p {
-      margin-bottom: $gutter-half;
-    }
-    .nation_inapplicabilities {
-      list-style: none;
-    }
-  }
-
-  @include media(desktop){
-    .meta-changes,
-    .meta-context {
-      @include core-14;
-      width: 50%;
-      margin: 0;
-      float: left;
-    }
-    .meta-changes {
-      float: right;
-      text-align: right;
-    }
-  }
-
 
   .change-notes {
     display: inline-block;
@@ -208,57 +185,6 @@
     padding: $gutter-one-third;
     margin-bottom: $gutter;
     background: yellow;
-  }
-
-  #document-organisations + #document-ministers,
-  #policy_team,
-  #document-organisations {
-    background: none;
-    margin: 0;
-    padding-left: 0;
-    padding-top: 0;
-    @media (max-width: 640px) {
-      margin: 0;
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    li {
-      padding-bottom: 4px;
-    }
-
-    li + li {
-      padding-top: $gutter-half;
-    }
-  }
-
-  #document-ministers {
-    position: relative;
-    margin-bottom: $gutter;
-    padding: 0 $gutter-one-third;
-    background: #eee;
-
-    ul {
-      list-style: none;
-    }
-
-    li {
-
-      h3 {
-        @include sans-18;
-        margin-bottom: $gutter-two-thirds*-1;
-      }
-      p {
-        @include sans-15;
-      }
-    }
-  }
-
-  #document-organisations + #document-ministers {
-    margin-top: $gutter*-1;
-    padding-top: $gutter;
   }
 }
 
