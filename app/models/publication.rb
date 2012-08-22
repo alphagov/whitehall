@@ -5,7 +5,6 @@ class Publication < Edition
   include Edition::RelatedPolicies
   include Edition::Attachable
   include Edition::Countries
-  include Edition::AlternativeFormatProvider
   include Edition::DocumentSeries
 
   validates :publication_date, presence: true

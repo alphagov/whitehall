@@ -1,5 +1,6 @@
 module Edition::Attachable
   extend ActiveSupport::Concern
+  include Edition::AlternativeFormatProvider
 
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
@@ -15,9 +16,6 @@ module Edition::Attachable
 
     accepts_nested_attributes_for :edition_attachments, reject_if: :no_substantive_attachment_attributes?, allow_destroy: true
 
-    validates :alternative_format_provider, presence: true, if: :has_attachments?
-    validate :alternative_format_provider_has_contact_email, if: :has_attachments?
-
     def no_substantive_attachment_attributes?(attrs)
       attrs.fetch(:attachment_attributes, {}).except(:accessible).values.all?(&:blank?)
     end
@@ -26,7 +24,7 @@ module Edition::Attachable
     add_trait Trait
   end
 
-  def has_attachments?
+  def alternative_format_provider_required?
     attachments.any?
   end
 

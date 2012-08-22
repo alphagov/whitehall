@@ -1,6 +1,5 @@
 class ConsultationResponse < Edition
   include Edition::Attachable
-  include Edition::AlternativeFormatProvider
 
   belongs_to :consultation_document, foreign_key: :consultation_document_id, class_name: 'Document'
 
