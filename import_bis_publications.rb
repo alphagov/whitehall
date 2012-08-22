@@ -33,17 +33,21 @@ unless user = User.find_by_name("Automatic Data Importer")
 end
 
 def download_attachments(directory, urls)
-  urls.reject { |u| u.nil? || u.strip == "" || u =~ /createsend/ }.each.with_index do |url, index|
+  urls.each.with_index do |url, index|
     attachment_directory = "#{directory}/#{index}"
     FileUtils.mkdir_p(attachment_directory)
-    if Dir["#{attachment_directory}/*"].empty?
-      log "Downloading: #{url} to #{attachment_directory}"
-      `cd #{attachment_directory} && wget -q --content-disposition #{url}`
-      unless $?.success?
-        log "Failed to download #{url}"
-      end
+    if url.nil? || url.strip == '' || url =~ /createsend/
+      log "Skipping invalid URL: #{url.inspect}"
     else
-      # log "Skipping #{url}, file already exists in #{attachment_directory}"
+      if Dir["#{attachment_directory}/*"].empty?
+        log "Downloading: #{url} to #{attachment_directory}"
+        `cd #{attachment_directory} && wget -q --content-disposition #{url}`
+        unless $?.success?
+          log "Failed to download #{url}"
+        end
+      else
+        log "Skipping #{url}, as at least one file already exists in #{attachment_directory}"
+      end
     end
   end
 end
@@ -95,9 +99,9 @@ csv_data.each_with_index do |row, index|
       unique_reference: row["URN"]
     }
     publication_attributes[:edition_attachments_attributes] = {"0" => {attachment_attributes: attachment_attributes}}
-    log "\tadded attachment data"
+    log "\tAdded attachment data from #{File.join(download_directory, index.to_s)}"
   else
-    log "\tno attachment data in #{File.join(download_directory, index.to_s)}"
+    log "\tNo attachment data in #{File.join(download_directory, index.to_s)}"
   end
   publication = Publication.new(publication_attributes)
   if publication.save
