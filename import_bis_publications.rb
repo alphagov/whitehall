@@ -2,6 +2,12 @@
 require 'csv'
 require 'fileutils'
 
+csv_filename = ARGV.shift
+unless csv_filename && File.exists?(csv_filename)
+  puts "Usage: script/rails r #{__FILE__} /path/to/publications.csv"
+  exit 1
+end
+
 def log(message)
   puts message
 end
@@ -39,7 +45,7 @@ end
 
 base_directory = "public/system/tmp_bis_publications"
 
-csv_data = CSV.readlines(ARGV[0], headers: true)
+csv_data = CSV.readlines(csv_filename, headers: true)
 
 log "Downloading pending attachments"
 download_attachments(base_directory, csv_data.map { |r| r["Attachment"] })
