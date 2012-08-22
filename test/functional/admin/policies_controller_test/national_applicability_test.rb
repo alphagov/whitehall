@@ -15,5 +15,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     def edition_class
       Policy
     end
+
+    def attributes_for_edition(attributes = {})
+      default_attributes = {alternative_format_provider_id: 
+        create(:organisation_with_alternative_format_contact_email).id}
+      default_attributes.merge(
+        attributes_for(edition_class.name.underscore, attributes))
+    end
   end
 end

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :policy, class: Policy, parent: :edition do
+  factory :policy, class: Policy, traits: [:with_alternative_format_provider], parent: :edition do
     title   "policy-title"
     body    "policy-body"
     summary "policy-summary"

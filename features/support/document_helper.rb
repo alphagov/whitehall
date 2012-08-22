@@ -16,8 +16,10 @@ module DocumentHelper
   end
 
   def begin_drafting_policy(options)
+    organisation = create(:organisation, name: "Ministry of Silly", alternative_format_contact_email: "alternatives@silly.gov.uk")
     begin_drafting_document(options.merge(type: "policy"))
     fill_in "Summary", with: options[:summary] || "Policy summary"
+    select organisation.name, from: "edition_alternative_format_provider_id"
   end
 
   def begin_editing_document(title)

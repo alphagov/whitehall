@@ -1690,7 +1690,7 @@ module AdminEditionControllerTestHelpers
 
     def should_allow_alternative_format_provider_for(edition_type)
       test "shows alternative format provider for #{edition_type}" do
-        organisation = create(:organisation, name: "Ministry of Pop")
+        organisation = create(:organisation_with_alternative_format_contact_email, name: "Ministry of Pop")
         draft = create(:"draft_#{edition_type}", alternative_format_provider: organisation)
 
         get :show, id: draft
@@ -1717,7 +1717,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should save modified #{edition_type} alternative format provider" do
-        organisation = create(:organisation)
+        organisation = create(:organisation_with_alternative_format_contact_email)
         edition = create(edition_type)
 
         put :update, id: edition, edition: {

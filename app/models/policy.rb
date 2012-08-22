@@ -31,6 +31,10 @@ class Policy < Edition
     title
   end
 
+  def alternative_format_provider_required?
+    true
+  end
+  
   def has_summary?
     true
   end

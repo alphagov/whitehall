@@ -23,4 +23,14 @@ module Edition::AlternativeFormatProvider
   def default_alternative_format_contact_email
     "govuk-feedback@digital.cabinet-office.gov.uk"
   end
+
+  private
+
+  def alternative_format_provider_has_contact_email
+    if alternative_format_provider
+      if alternative_format_provider.alternative_format_contact_email.blank?
+        errors.add(:alternative_format_provider, "must have an email address set")
+      end
+    end
+  end
 end
