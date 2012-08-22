@@ -1,5 +1,6 @@
 class ConsultationResponse < Edition
   include Edition::Attachable
+  include Edition::AlternativeFormatProvider
 
   belongs_to :consultation_document, foreign_key: :consultation_document_id, class_name: 'Document'
 
@@ -19,10 +20,6 @@ class ConsultationResponse < Edition
 
   def consultation_id=(id)
     self.consultation = Consultation.find(id)
-  end
-
-  def alternative_format_contact_email
-    consultation && consultation.alternative_format_contact_email
   end
 
   def allows_attachment_references?

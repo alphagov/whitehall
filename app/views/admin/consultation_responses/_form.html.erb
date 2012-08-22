@@ -1,4 +1,5 @@
 <%= standard_edition_form(edition) do |form| %>
   <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition }%>
   <%= form.hidden_field :consultation_id %>
+  <%= form.alternative_format_provider_select %>
 <% end %>

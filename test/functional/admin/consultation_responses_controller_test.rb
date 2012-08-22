@@ -7,6 +7,8 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
+  should_allow_attachments_for :consultation_response
+  should_allow_alternative_format_provider_for :consultation_response
 
   test 'new displays consultation response form' do
     get :new, edition: {consultation_id: @consultation}
@@ -47,5 +49,9 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
     consultation_response = create(:published_consultation_response, consultation: @consultation)
     get :show, id: consultation_response
     assert_select "a[href='#{consultation_response_url(@consultation.document)}']"
+  end
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super(edition_type, attributes.merge(consultation_id: @consultation.id))
   end
 end
