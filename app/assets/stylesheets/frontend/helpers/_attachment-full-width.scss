@@ -1,0 +1,27 @@
+.attachment-full-width {
+  clear: both;
+  background: $light-warm-grey;
+  padding-left: 26.5%;
+  overflow: hidden;
+  .govspeak {
+    .attachment {
+      padding-left: 0;
+      margin: 0;
+      overflow: visible;
+      a.download {
+        @include core-24;
+        img {
+          margin-left: -39%;
+          width: 25%;
+        }
+      }
+    }
+    .attachment-without-thumbnail {
+      clear: both;
+      padding-top: $gutter-half;
+      .supporting-doucment-title {
+        @include core-14;
+      }
+    }
+  }
+}

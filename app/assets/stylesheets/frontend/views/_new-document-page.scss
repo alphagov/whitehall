@@ -9,52 +9,6 @@
     margin-bottom: $gutter*2;
     padding-bottom: 0;
     overflow: hidden;
-    .govspeak {
-      clear: both;
-      margin: 0;
-      .attachment {
-        margin: 0;
-        padding-left: 26.5%;
-        a.download {
-          @include core-24;
-          padding-right: 20%;
-            img {
-            margin-left: -43%;
-            width: 25%;
-          }
-        }
-        .order_url {
-          clear: both;
-          @include core-14;
-        }
-      }
-    }
-    .no-thumbnail {
-      background: $light-warm-grey;
-      overflow: hidden;
-      padding-top: $gutter-half;
-      width: 100%;
-      h1 {
-        @include core-14;
-        float: left;
-        display: inline;
-        padding: $gutter-one-third 0 0 3%;
-        width: 23%;
-        @include media(desktop){
-        padding: $gutter-one-third 0 0 13px;
-        width: 24.5%;
-        }
-      }
-      .govspeak {
-        clear: none;
-        float: left;
-        display: inline;
-        width: 73.3%;
-      }
-      .attachment {
-        padding-left: 0;
-      }
-    }
   }
 
   .block-2, .block-4, .block-5, .block-6 {

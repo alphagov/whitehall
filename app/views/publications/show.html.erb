@@ -3,8 +3,9 @@
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
-        <%= render partial: "documents/header_publication_consultation" %>        
-        <%= render partial: "documents/attachment_publication_consultation" %>        
+      <%= render partial: "documents/header_publication_consultation" %>
+      <%= render partial: "documents/attachment_full_width",
+                locals: { document: @document } %>
       <% if @document.part_of_series? %>
         <p class="document-series">
           <span>This publication is part of a series:</span> <%= link_to @document.document_series.name, organisation_document_series_path(@document.document_series.organisation, @document.document_series) %>
