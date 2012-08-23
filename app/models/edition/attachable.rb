@@ -25,7 +25,7 @@ module Edition::Attachable
   end
 
   def alternative_format_provider_required?
-    attachments.any?
+    attachments.any? || edition_attachments.any? {|ea| ea.attachment.present? }
   end
 
   def allows_attachments?

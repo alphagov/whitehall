@@ -64,7 +64,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new publication and attachment with additional publication metadata" do
-    post :create, edition: controller_attributes_for(:publication, :with_alternative_format_provider).merge({
+    post :create, edition: controller_attributes_for(:publication).merge({
+      alternative_format_provider_id: create(:alternative_format_provider).id,
       edition_attachments_attributes: {
         "0" => { attachment_attributes: attributes_for(:attachment,
           title: "attachment-title",

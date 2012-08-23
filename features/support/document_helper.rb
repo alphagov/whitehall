@@ -13,13 +13,14 @@ module DocumentHelper
     click_link "Create #{options[:type].titleize}"
     fill_in "Title", with: options[:title]
     fill_in "Body", with: options[:body] || "Any old iron"
+    if options[:alternative_format_provider]
+      select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
+    end
   end
 
   def begin_drafting_policy(options)
-    organisation = create(:organisation, name: "Ministry of Silly", alternative_format_contact_email: "alternatives@silly.gov.uk")
-    begin_drafting_document(options.merge(type: "policy"))
+    begin_drafting_document(options.merge(type: "policy", alternative_format_provider: create(:alternative_format_provider)))
     fill_in "Summary", with: options[:summary] || "Policy summary"
-    select organisation.name, from: "edition_alternative_format_provider_id"
   end
 
   def begin_editing_document(title)
@@ -34,7 +35,7 @@ module DocumentHelper
 
   def begin_drafting_publication(title)
     policy = create(:policy)
-    begin_drafting_document type: 'publication', title: title
+    begin_drafting_document type: 'publication', title: title, alternative_format_provider: create(:alternative_format_provider)
     fill_in_publication_fields
     select policy.title, from: "Related policies"
   end

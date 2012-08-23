@@ -283,6 +283,7 @@ module AdminEditionControllerTestHelpers
       test 'creating an edition should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(edition_type)
+        attributes[:alternative_format_provider_id] = create(:alternative_format_provider).id
         attributes[:edition_attachments_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
         }
@@ -296,6 +297,17 @@ module AdminEditionControllerTestHelpers
         assert_equal "greenpaper.pdf", attachment.carrierwave_file
         assert_equal "application/pdf", attachment.content_type
         assert_equal greenpaper_pdf.size, attachment.file_size
+      end
+
+      test "creating an edition with an attachment but no alternative_format_provider will get a validation error" do
+        post :create, edition: controller_attributes_for(edition_type,
+          alternative_format_provider_id: "",
+          edition_attachments_attributes: {
+            "0" => { attachment_attributes: attributes_for(:attachment) }
+          }
+        )
+
+        assert_select ".errors li", "Alternative format provider can't be blank"
       end
 
       test "creating an edition should result in a single instance of the uploaded file being cached" do
@@ -352,7 +364,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test 'creating an edition with invalid data should not show any existing attachment info' do
-        attributes = controller_attributes_for(edition_type)
+        attributes = controller_attributes_for(edition_type, alternative_format_provider_id: create(:alternative_format_provider).id)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
         attributes[:edition_attachments_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
@@ -367,6 +379,7 @@ module AdminEditionControllerTestHelpers
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attributes = controller_attributes_for(edition_type)
+        attributes[:alternative_format_provider_id] = create(:alternative_format_provider).id
         attributes[:edition_attachments_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
           "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
@@ -410,6 +423,7 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type)
 
         put :update, id: edition, edition: edition.attributes.merge(
+          alternative_format_provider_id: create(:alternative_format_provider).id,
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
@@ -424,12 +438,26 @@ module AdminEditionControllerTestHelpers
         assert_equal greenpaper_pdf.size, attachment.file_size
       end
 
+      test "updating an edition with an attachment but no alternative_format_provider will get a validation error" do
+        edition = create(edition_type)
+
+        put :update, id: edition, edition: edition.attributes.merge(
+          alternative_format_provider_id: "",
+          edition_attachments_attributes: {
+            "0" => { attachment_attributes: attributes_for(:attachment) }
+          }
+        )
+
+        assert_select ".errors li", "Alternative format provider can't be blank"
+      end
+
       test 'updating an edition should attach multiple files' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         edition = create(edition_type)
 
         put :update, id: edition, edition: edition.attributes.merge(
+          alternative_format_provider_id: create(:alternative_format_provider).id,
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
             "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
@@ -560,6 +588,7 @@ module AdminEditionControllerTestHelpers
 
       test "create should create a new edition and attachment with additional publication metadata" do
         post :create, edition: controller_attributes_for(edition_type).merge({
+          alternative_format_provider_id: create(:alternative_format_provider).id,
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment,
               title: "attachment-title",

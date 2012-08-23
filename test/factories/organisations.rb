@@ -9,7 +9,7 @@ FactoryGirl.define do
     organisation_type factory: :ministerial_organisation_type
   end
 
-  factory :organisation_with_alternative_format_contact_email, parent: :organisation do
+  factory :organisation_with_alternative_format_contact_email, parent: :organisation, aliases: [:alternative_format_provider] do
     alternative_format_contact_email "alternative@example.com"
   end
 end
