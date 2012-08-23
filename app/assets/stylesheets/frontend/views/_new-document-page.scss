@@ -68,10 +68,10 @@
       @include core-24;
     }
     @include media(desktop){
-    float: left;
-    display: inline;
-    clear: both;
-    width: 25%;
+      float: left;
+      display: inline;
+      clear: both;
+      width: 25%;
     }
   }
   .block-6 {
@@ -113,7 +113,6 @@
 
   .meta-changes {
     margin: $gutter-one-third 0;
-    width: 25%;
   }
 
   .document-series {
