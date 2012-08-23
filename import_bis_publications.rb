@@ -75,7 +75,7 @@ csv_data = CSV.readlines(csv_filename, headers: true)
 
 log "Downloading pending attachments"
 attachment_urls = csv_data.map { |r| r["Attachment"] }.reject { |url| url.nil? || url.strip == '' }
-# download_attachments(download_directory, attachment_urls)
+download_attachments(download_directory, attachment_urls)
 log "Processing attachment files"
 process_filetypes(download_directory)
 
