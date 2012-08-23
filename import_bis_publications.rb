@@ -106,9 +106,9 @@ csv_data.each_with_index do |row, index|
         unique_reference: row["URN"]
       }
       publication_attributes[:edition_attachments_attributes] = {"0" => {attachment_attributes: attachment_attributes}}
-      log "\tAdded attachment data from #{File.join(download_directory, index.to_s)}"
+      log "\tAdded attachment data from #{File.join(download_directory, attachment_directory_for(url))}"
     else
-      log "\tNo attachment data in #{File.join(download_directory, index.to_s)}"
+      log "\tNo attachment data in #{File.join(download_directory, attachment_directory_for(url))}"
     end
   else
     log "\tNo attachment URL."
