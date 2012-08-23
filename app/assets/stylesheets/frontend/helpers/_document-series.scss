@@ -1,0 +1,19 @@
+.document-series {
+  background-color: $light-blue;
+  color: white;
+  padding: $gutter-one-third $gutter-one-third $gutter-half 26.5%;
+
+  span, a {
+    display: block;
+  }
+
+  span {
+    @include core-19;
+  }
+
+  a {
+    @include core-27;
+    color: white;
+    text-decoration: underline;
+  }
+}

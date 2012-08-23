@@ -8,23 +8,19 @@
   .block-1, .block-6 {
     margin-bottom: $gutter*2;
     padding-bottom: 0;
-    overflow: hidden;
   }
 
   .block-2, .block-4, .block-5, .block-6 {
-    float: none;
-    display: block;
     clear: both;
-    margin-left: 0;
     padding-bottom: 0;
     width: 100%;
+    margin: 0;
     h1 {
       @include core-24;
     }
     @include media(desktop){
       float: left;
       display: inline;
-      clear: both;
       width: 25%;
     }
   }
@@ -34,8 +30,6 @@
   .block-5, .block-7 {
     clear: none;
     @include media(desktop){
-      float: left;
-      display: inline;
       margin: 0 0 $gutter*2 0;
       width: 75%;
     }
@@ -44,82 +38,10 @@
     }
   }
 
-  .contextual-info {
-    a {
-      top: -1px;
-    }
-  }
-
-  .page-header {
-    float: left;
-    display: inline;
-    width: 75%;
-    h1 {
-      margin-top: 0;
-    }
-    .label {
-      color: #76787B;
-    }
-    .meta-context {
-      width: 100%;
-    }
-  }
-
-  .meta-changes {
-    margin: $gutter-one-third 0;
-  }
-
-  .document-series {
-    background-color: $light-blue;
-    color: white;
-    padding: $gutter-one-third $gutter-one-third $gutter-half 26.5%;
-
-    span, a {
-      display: block;
-    }
-
-    span {
-      @include core-19;
-    }
-
-    a {
-      @include core-27;
-      color: white;
-      text-decoration: underline;
-    }
-  }
-
-  .summary {
-    clear: both;
-    margin-bottom: $gutter;
-    p {
-      @include core-19;
-    }
-  }
-
-  .alternative-formats {
-    h2 {
-      margin: $gutter 0 0 0;
-      color: lighten($body-text, 20%);
-      @include core-27;
-    }
-    p {
-      margin: $gutter-half 0;
-    }
-  }
-
-  .govspeak, .document .body {
-    margin: 0;
-      .attachment {
-      margin: 0 0 10px 0;
-    }
-  }
 
   .national-statistics-logo {
     margin-top: $gutter-one-third;
     width: $gutter;
   }
-
-
 }
 
