@@ -58,6 +58,7 @@ end
 
 def process_filetypes(directory)
   Dir["#{directory}/**/*"].select { |p| File.file?(p) }.each do |original_path|
+    next if File.basename(original_path) == "metadata.json"
     path = ensure_utf8(original_path)
     FileUtils.mv(original_path, path) unless original_path == path
     file_type = `file -e cdf -b "#{path}"`.strip
@@ -103,30 +104,61 @@ csv_data.each_with_index do |row, index|
     organisations: [bis],
     alternative_format_provider: bis
   }
-  url = row["Attachment"]
-  if url && url.strip != ''
-    attachment_path = Dir[File.join(download_directory, attachment_directory_for(url), "*")].first
-    if attachment_path
-      attachment_attributes = {
-        file: File.open(attachment_path),
-        title: row["Filename"],
-        order_url: row["Order URL"],
-        price: row["Price"],
-        unique_reference: row["URN"]
-      }
-      publication_attributes[:edition_attachments_attributes] = {"0" => {attachment_attributes: attachment_attributes}}
-      log "\tAdded attachment data from #{File.join(download_directory, attachment_directory_for(url))}"
-    else
-      log "\tNo attachment data in #{File.join(download_directory, attachment_directory_for(url))}"
-    end
-  else
-    log "\tNo attachment URL."
-  end
   publication = Publication.new(publication_attributes)
   if publication.save
     log "\tCreated publication #{publication.id} (#{index}/#{csv_data.length})"
+    url = row["Attachment"]
+    if url && url.strip != ''
+      attachment_path = Dir[File.join(download_directory, attachment_directory_for(url), "*")].first
+      if attachment_path
+        File.open(File.join(download_directory, attachment_directory_for(url), "metadata.json"), "w") do |f|
+          f.write ActiveSupport::JSON.encode(
+            publication_id: publication.id,
+            title: row["Filename"],
+            order_url: row["Order URL"],
+            price: row["Price"],
+            unique_reference: row["URN"]
+          )
+        end
+        log "\tStored publication ID against attachment for later processing: #{File.join(download_directory, attachment_directory_for(url), "publication_id")}"
+      else
+        log "\tNo attachment downloaded; skipping ID"
+      end
+    else
+      log "\tNo attachment URL."
+    end
   else
     log "\tCouldn't save publication:"
     log publication.errors.full_messages
+  end
+end
+
+
+Dir[File.join(download_directory, "*")].each do |attachment_directory|
+  log "Considering attachment #{attachment_directory}"
+  files = Dir[File.join(attachment_directory, "*")]
+  metadata_path = files.delete(File.join(attachment_directory, "metadata.json"))
+  attachment_path = files.first
+  if metadata_path && attachment_path
+    metadata = ActiveSupport::JSON.decode(File.read(metadata_path))
+    log "\tBuilding attachment for publication #{metadata["publication_id"]}"
+    edition_attachment = EditionAttachment.new(
+      edition_id: metadata["publication_id"],
+      attachment_attributes: {
+        file: File.open(attachment_path),
+        title: metadata["title"],
+        order_url: metadata["order_url"],
+        price: metadata["price"],
+        unique_reference: metadata["unique_reference"]
+      }
+    )
+    if edition_attachment.save
+      log "\tAdded attachment data from #{attachment_directory}"
+    else
+      log "\tCouldn't save attachment:"
+      log edition_attachment.errors.full_messages
+    end
+  else
+    log "\tNo attachment data in #{attachment_directory}"
   end
 end
