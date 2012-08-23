@@ -57,7 +57,9 @@ def download_attachments(directory, urls)
 end
 
 def process_filetypes(directory)
-  Dir["#{directory}/**/*"].select { |p| File.file?(p) }.each do |path|
+  Dir["#{directory}/**/*"].select { |p| File.file?(p) }.each do |original_path|
+    path = ensure_utf8(original_path)
+    FileUtils.mv(original_path, path) unless original_path == path
     file_type = `file -e cdf -b "#{path}"`.strip
     case file_type
     when /^PDF /
@@ -69,6 +71,13 @@ def process_filetypes(directory)
       log "UNKNOWN FILE: #{path}" if File.extname(path) == ""
     end
   end
+end
+
+require 'iconv'
+
+def ensure_utf8(str)
+  ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+  ic.iconv(str + ' ')[0..-2]
 end
 
 csv_data = CSV.parse(File.read(csv_filename), headers: true)
