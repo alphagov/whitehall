@@ -75,7 +75,7 @@ csv_data = CSV.readlines(csv_filename, headers: true)
 
 log "Downloading pending attachments"
 attachment_urls = csv_data.map { |r| r["Attachment"] }.reject { |url| url.nil? || url.strip == '' }
-download_attachments(download_directory, attachment_urls)
+# download_attachments(download_directory, attachment_urls)
 log "Processing attachment files"
 process_filetypes(download_directory)
 
@@ -94,19 +94,24 @@ csv_data.each_with_index do |row, index|
     organisations: [bis],
     alternative_format_provider: bis
   }
-  attachment_path = Dir[File.join(download_directory, attachment_directory_for(row["Attachment"]), "*")].first
-  if attachment_path
-    attachment_attributes = {
-      file: File.open(attachment_path),
-      title: row["Filename"],
-      order_url: row["Order URL"],
-      price: row["Price"],
-      unique_reference: row["URN"]
-    }
-    publication_attributes[:edition_attachments_attributes] = {"0" => {attachment_attributes: attachment_attributes}}
-    log "\tAdded attachment data from #{File.join(download_directory, index.to_s)}"
+  url = row["Attachment"]
+  if url && url.strip != ''
+    attachment_path = Dir[File.join(download_directory, attachment_directory_for(url), "*")].first
+    if attachment_path
+      attachment_attributes = {
+        file: File.open(attachment_path),
+        title: row["Filename"],
+        order_url: row["Order URL"],
+        price: row["Price"],
+        unique_reference: row["URN"]
+      }
+      publication_attributes[:edition_attachments_attributes] = {"0" => {attachment_attributes: attachment_attributes}}
+      log "\tAdded attachment data from #{File.join(download_directory, index.to_s)}"
+    else
+      log "\tNo attachment data in #{File.join(download_directory, index.to_s)}"
+    end
   else
-    log "\tNo attachment data in #{File.join(download_directory, index.to_s)}"
+    log "\tNo attachment URL."
   end
   publication = Publication.new(publication_attributes)
   if publication.save
