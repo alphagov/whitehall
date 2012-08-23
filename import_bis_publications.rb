@@ -45,7 +45,7 @@ def download_attachments(directory, urls)
     else
       if Dir["#{attachment_directory}/*"].empty?
         log "Downloading: #{url} to #{attachment_directory}"
-        `cd #{attachment_directory} && wget -q --content-disposition #{url}`
+        `cd #{attachment_directory} && wget -q --content-disposition "#{url}"`
         unless $?.success?
           log "Failed to download #{url}"
         end
