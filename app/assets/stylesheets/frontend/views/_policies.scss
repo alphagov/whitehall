@@ -40,10 +40,11 @@
 
   .meta {
     @include core-14;
-    position: relative;
-    clear: both;
-    margin-top: $gutter-one-third;
-
+      clear: none;
+      float: right;
+      margin-top: 2px;
+      width: 47.5%;
+      text-align: right;
     .metadata {
       display: inline;
       line-height: 35px;
@@ -59,12 +60,9 @@
       }
     }
 
-    @media (min-width: 768px) {
-      clear: none;
-      float: right;
-      margin-top: 2px;
-      width: 47.5%;
-      text-align: right;
+    @include media(desktop){
+    position: relative;
+    margin-top: $gutter-one-third;
     }
   }
 

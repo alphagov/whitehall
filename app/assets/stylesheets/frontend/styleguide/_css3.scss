@@ -21,12 +21,12 @@
 }
 
 @mixin gradient($from, $to) {
-  background-color: $from; // fallback/image non-cover color
+  background-color: $to; // fallback/image non-cover color
   background-image: -moz-linear-gradient($from, $to); // Firefox 3.6+
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to)); // Safari 4+, Chrome 1+
   background-image: -webkit-linear-gradient($from, $to); // Safari 5.1+, Chrome 10+
   background-image: -o-linear-gradient($from, $to); // Opera 11.10+
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$from', endColorstr='$to',GradientType=0 ); // IE6-9
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$from}', endColorstr='#{$to}',GradientType=0 ); // IE6-9
 }
 
 @mixin transition($property, $duration, $function) {
