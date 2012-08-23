@@ -26,6 +26,10 @@
     @include core-19;
   }
 
+  .ministers .minister {
+    list-style: none;
+  }
+
   .extra-icons {
     width: 100%;
     overflow: hidden;
