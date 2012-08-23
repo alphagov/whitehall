@@ -23,8 +23,8 @@
 
 <% if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any? %>
   <section id="document-ministers">
+    <h1 class="visuallyhidden">Ministers</h1>
     <ul class="ministers">
-      <h1 class="visuallyhidden">Ministers</h1>
       <% document.ministerial_roles.each do |role| %>
         <li class="current-appointee">
           <%= link_to role.current_person_name, role, class: "minister" %>
