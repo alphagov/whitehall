@@ -83,7 +83,7 @@ PaperTrail.whodunnit = user
 
 log "Creating publications"
 csv_data.each_with_index do |row, index|
-  log "\tGenerating '#{row["Title"]}'"
+  log "Generating '#{row["Title"]}'"
   publication_attributes = {
     state: "draft",
     creator: user,
@@ -115,9 +115,9 @@ csv_data.each_with_index do |row, index|
   end
   publication = Publication.new(publication_attributes)
   if publication.save
-    log "Created publication #{publication.id} (#{index}/#{csv_data.length})"
+    log "\tCreated publication #{publication.id} (#{index}/#{csv_data.length})"
   else
-    log "Couldn't save publication:"
+    log "\tCouldn't save publication:"
     log publication.errors.full_messages
   end
 end
