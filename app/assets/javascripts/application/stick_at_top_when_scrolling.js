@@ -10,14 +10,25 @@
     function adaptStickiness() {
       var windowVerticalPosition = $(window).scrollTop();
       if ($(window).width() > 768 && windowVerticalPosition >= elementVerticalPosition) {
-        if (!element.hasClass('content-fixed')) {
-          element.css('width', element.width() + "px");
-          element.addClass('content-fixed');
-        }
+        makeSticky(element);
       } else {
-        element.removeClass('content-fixed');
-        element.css('width', '');
+        makeNormal(element);
       }
+    }
+
+    function makeSticky(element) {
+      if (!element.hasClass('content-fixed')) {
+        element.before(
+          $('<div class="shim" style="width: '+ element.width() + 'px; height: ' + element.height() + 'px">&nbsp;</div>'));
+        element.css('width', element.width() + "px");
+        element.addClass('content-fixed');
+      }
+    }
+
+    function makeNormal(element) {
+      element.removeClass('content-fixed');
+      element.css('width', '');
+      element.siblings('.shim').remove();
     }
 
     $(window).scroll(adaptStickiness);
