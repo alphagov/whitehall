@@ -32,11 +32,15 @@ unless user = User.find_by_name("Automatic Data Importer")
   exit 1
 end
 
+def attachment_directory_for(url)
+  Digest::SHA1.hexdigest(url)
+end
+
 def download_attachments(directory, urls)
-  urls.each.with_index do |url, index|
-    attachment_directory = "#{directory}/#{index}"
+  urls.each do |url|
+    attachment_directory = "#{directory}/#{attachment_directory_for(url)}"
     FileUtils.mkdir_p(attachment_directory)
-    if url.nil? || url.strip == '' || url =~ /createsend/
+    if url =~ /createsend/
       log "Skipping invalid URL: #{url.inspect}"
     else
       if Dir["#{attachment_directory}/*"].empty?
@@ -70,7 +74,8 @@ end
 csv_data = CSV.readlines(csv_filename, headers: true)
 
 log "Downloading pending attachments"
-download_attachments(download_directory, csv_data.map { |r| r["Attachment"] })
+attachment_urls = csv_data.map { |r| r["Attachment"] }.reject { |url| url.nil? || url.strip == '' }
+download_attachments(download_directory, attachment_urls)
 log "Processing attachment files"
 process_filetypes(download_directory)
 
@@ -89,7 +94,7 @@ csv_data.each_with_index do |row, index|
     organisations: [bis],
     alternative_format_provider: bis
   }
-  attachment_path = Dir[File.join(download_directory, index.to_s, "*")].first
+  attachment_path = Dir[File.join(download_directory, attachment_directory_for(row["Attachment"]), "*")].first
   if attachment_path
     attachment_attributes = {
       file: File.open(attachment_path),
