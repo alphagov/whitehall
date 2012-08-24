@@ -67,7 +67,14 @@
             <ul>
               <% @edition.attachments.each do |attachment| %>
                 <%= content_tag_for :li, attachment do %>
-                  <%= attachment.title %>
+                  <%= link_to(attachment.url) do %>
+                    <% if attachment.pdf? %>
+                      <%= image_tag(attachment.url(:thumbnail), alt: "") %>
+                    <% else %>
+                      <%= image_tag('pub-cover.png', alt: "") %>
+                    <% end %>
+                    <%= attachment.title %>
+                  <% end %>
                 <% end %>
               <% end %>
             </ul>

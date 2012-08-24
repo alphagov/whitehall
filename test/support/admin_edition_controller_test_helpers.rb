@@ -401,6 +401,22 @@ module AdminEditionControllerTestHelpers
         assert_equal csv_file.size, attachment_2.file_size
       end
 
+      test 'show displays edition attachments' do
+        two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
+        attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
+        edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
+
+        get :show, id: edition
+
+        assert_select "#attachments" do
+          assert_select_object attachment do
+            assert_select "a[href=?]", attachment.url do
+              assert_select "img[src=?]", attachment.url(:thumbnail)
+            end
+          end
+        end
+      end
+
       test 'edit displays edition attachment fields' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
         attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
