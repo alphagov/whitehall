@@ -61,6 +61,9 @@ group :test do
   gem 'timecop'
   gem 'webmock', require: false
   gem 'capybara-webkit'
+  gem 'simplecov'
+  gem 'simplecov-rcov'
+  gem 'ci_reporter'
 end
 
 group :router do

@@ -10,3 +10,5 @@
 /config/whitehall_secrets.yml
 .powrc
 .rbenv-version
+/coverage
+/test/reports

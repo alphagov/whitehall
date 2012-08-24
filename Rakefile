@@ -7,5 +7,6 @@
 ENV["DISABLE_LOGGING_IN_TEST"] = "true"
 
 require File.expand_path('../config/application', __FILE__)
+require 'ci/reporter/rake/minitest' if Rails.env.development? or Rails.env.test?
 
 Whitehall::Application.load_tasks

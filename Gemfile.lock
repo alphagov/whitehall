@@ -90,6 +90,8 @@ GEM
       activesupport (~> 3.0)
     childprocess (0.2.2)
       ffi (~> 1.0.6)
+    ci_reporter (1.7.1)
+      builder (>= 2.1.2)
     crack (0.3.1)
     cucumber (1.0.6)
       builder (>= 2.1.2)
@@ -289,6 +291,12 @@ GEM
       json_pure
       rubyzip
     sexp_processor (3.2.0)
+    simplecov (0.6.4)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
+    simplecov-rcov (0.2.3)
+      simplecov (>= 0.4.1)
     slimmer (1.2.3)
       gds-api-adapters (>= 0.0.33, < 0.3.0)
       json
@@ -344,6 +352,7 @@ DEPENDENCIES
   brakeman
   capybara-webkit
   carrierwave
+  ci_reporter
   cucumber (~> 1.0.6)
   cucumber-rails (~> 1.0.5)
   database_cleaner (~> 0.5.2)
@@ -378,6 +387,8 @@ DEPENDENCIES
   rummageable!
   sass (= 3.2.1)
   sass-rails (= 3.1.4)
+  simplecov
+  simplecov-rcov
   slimmer (= 1.2.3)
   test_track
   thin
