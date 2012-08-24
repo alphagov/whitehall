@@ -56,14 +56,14 @@ group :test do
   gem 'factory_girl', '~> 2.6.0'
   gem 'launchy', '~> 2.0.5'
   gem 'hash_syntax'
-  gem 'mocha', require: false
+  gem 'mocha', '0.10.0', require: false
   gem 'test_track'
   gem 'timecop'
   gem 'webmock', require: false
   gem 'capybara-webkit'
   gem 'simplecov'
   gem 'simplecov-rcov'
-  gem 'minitest'
+  gem 'minitest', '2.5.1'
   gem 'ci_reporter'
 end
 

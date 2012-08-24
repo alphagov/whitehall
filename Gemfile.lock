@@ -190,7 +190,7 @@ GEM
     metaclass (0.0.1)
     mime-types (1.19)
     minitest (2.5.1)
-    mocha (0.12.3)
+    mocha (0.10.0)
       metaclass (~> 0.0.1)
     multi_json (1.0.4)
     multipart-post (1.1.5)
@@ -372,8 +372,8 @@ DEPENDENCIES
   kramdown!
   launchy (~> 2.0.5)
   lograge
-  minitest
-  mocha
+  minitest (= 2.5.1)
+  mocha (= 0.10.0)
   mysql2
   newrelic_rpm
   nokogiri
