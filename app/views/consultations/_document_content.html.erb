@@ -19,16 +19,21 @@
 </section>
 <% end %>
 
-<section class="notice events">
-  <% if @document.not_yet_open? %>
+<section class="events heading-block">
+  <h1>Events</h1>
+  <div class="content">
     <div class="event opening_on"><%= consultation_opening_phrase(@document) %></div>
-  <% else %>
     <div class="event closing_on"><%= consultation_closing_phrase(@document) %></div>
-  <% end %>
+  </div>
 </section>
 
-<article class="document has_notice">
-  <div class="body">
-    <%= govspeak_edition_to_html @document %>
+<section class="heading-block">
+  <h1>Detail</h1>
+  <div class="content">
+    <article>
+      <div class="body">
+        <%= govspeak_edition_to_html @document %>
+      </div>
+    </article>
   </div>
-</article>
+</section>

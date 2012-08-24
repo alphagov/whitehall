@@ -1,8 +1,6 @@
 <% page_title @document.title, "Consultations" %>
 <% page_class consultation_css_class(@document) %>
 
-<%#= render template: 'documents/show', locals: { header_title: consultation_header_title(@document) } %>
-
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
@@ -12,36 +10,22 @@
 
   <div class="block-2">
     <div class="inner-block">
+      <section id="document-organisations" class="heading-block">
         <h1>Published by</h1>
-    </div>
-  </div>
-
-  <div class="block-3">
-    <div class="inner-block">
-      <section id="document-organisations">
-        <h1 class="visuallyhidden">Organisations</h1>
-        <%= render  partial: 'organisations/organisations_logo_list',
-                    locals: {
-                      organisations: @document.organisations,
-                      extra_class: 'single-line',
-                      remove_line_breaks: true
-                    } %>
+        <div class="content">
+          <%= render  partial: 'organisations/organisations_logo_list',
+                      locals: {
+                        organisations: @document.organisations,
+                        extra_class: 'single-line',
+                        remove_line_breaks: true
+                      } %>
+        <%= national_statistics_logo(@document) %>
+        </div>
       </section>
-      <%= national_statistics_logo(@document) %>
-    </div>
-  </div>
-
-  <div class="block-4">
-    <div class="inner-block">
-      <%= render partial: "document_contextual", locals: {edition: @document} %>
-    </div>
-  </div>
-
-  <div class="block-5">
-    <div class="inner-block">
       <%= render partial: "document_content" %>
     </div>
   </div>
+
 
   <div class="block-6">
     <div class="inner-block">

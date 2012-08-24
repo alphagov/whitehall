@@ -14,47 +14,34 @@
     </div>
   </div>
 
-  <% if @document.respond_to?(:organisations) && @document.organisations.any? %>
     <div class="block-2">
       <div class="inner-block">
-          <h1>Published by</h1>
-      </div>
-    </div>
-
-    <div class="block-3">
-      <div class="inner-block">
-        <section id="document-organisations">
-          <h1 class="visuallyhidden">Organisations</h1>
-          <%= render  partial: 'organisations/organisations_logo_list',
-                      locals: {
-                        organisations: @document.organisations,
-                        extra_class: 'single-line',
-                        remove_line_breaks: true
-                      } %>
+        <% if @document.respond_to?(:organisations) && @document.organisations.any? %>
+          <section id="document-organisations" class="heading-block">
+            <h1>Published by</h1>
+            <div class="content">
+              <%= render  partial: 'organisations/organisations_logo_list',
+                          locals: {
+                            organisations: @document.organisations,
+                            extra_class: 'single-line',
+                            remove_line_breaks: true
+                          } %>
+              <%= national_statistics_logo(@document) %>
+            </div>
+          </section>
+        <% else %>
+            <%= national_statistics_logo(@document) %>
+        <% end %>
+        <section id="details" class="heading-block">
+          <h1>Detail</h1>
+          <div class="content">
+            <article>
+              <div class="body">
+                <%= govspeak_edition_to_html @document %>
+              </div>
+            </article>
+          </div>
         </section>
-        <%= national_statistics_logo(@document) %>
-      </div>
-    </div>
-  <% else %>
-    <div class="block-3">
-      <%= national_statistics_logo(@document) %>
-    </diV>
-  <% end %>
-
-
-  <div class="block-4">
-    <div class="inner-block">
-      <h1>Detail</h1>
     </div>
   </div>
-
-  <div class="block-5">
-    <div class="inner-block">
-      <%= render partial: "document_content" %>
-    </div>
-  </div>
-
 </div>
-
-
-

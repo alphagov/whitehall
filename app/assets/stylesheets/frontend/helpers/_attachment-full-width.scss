@@ -13,7 +13,8 @@
       a.download {
         @include core-24;
         img {
-          margin-left: -39%;
+          margin-left: -38%;
+          margin-bottom: $gutter-half;
           width: 25%;
         }
       }
@@ -28,7 +29,7 @@
   }
   .summary {
     clear: both;
-    margin-bottom: $gutter;
+    margin: $gutter 0;
     p {
       @include core-19;
     }

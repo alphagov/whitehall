@@ -1,0 +1,20 @@
+
+.heading-block {
+  margin-bottom: $gutter;
+  overflow: hidden;
+
+  h1 {
+    @include core-24;
+  }
+  @include media(desktop){
+    h1 {
+      float: left;
+      clear: both;
+      width: 25%;
+    }
+    .content {
+      float: left;
+      width: 75%;
+    }
+  }
+}
