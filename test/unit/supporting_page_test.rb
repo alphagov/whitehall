@@ -158,4 +158,8 @@ class SupportingPageTest < ActiveSupport::TestCase
     supporting_page = build(:supporting_page, edition: edition)
     assert_equal email_address, supporting_page.alternative_format_contact_email
   end
+
+  test "should allow inline attachments" do
+    assert build(:supporting_page).allows_inline_attachments?
+  end
 end

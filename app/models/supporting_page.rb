@@ -45,10 +45,14 @@ class SupportingPage < ActiveRecord::Base
     false
   end
 
+  def allows_inline_attachments?
+    true
+  end
+
   def alternative_format_contact_email
     edition && edition.alternative_format_contact_email
   end
-  
+
   after_save do
     edition.touch
   end
