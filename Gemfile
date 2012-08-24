@@ -63,6 +63,7 @@ group :test do
   gem 'capybara-webkit'
   gem 'simplecov'
   gem 'simplecov-rcov'
+  gem 'minitest'
   gem 'ci_reporter'
 end
 
