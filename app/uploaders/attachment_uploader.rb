@@ -6,6 +6,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
 
   PDF_CONTENT_TYPE = 'application/pdf'
+  FALLBACK_THUMBNAIL_PDF = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
 
   process :set_content_type
   after :retrieve_from_cache, :set_content_type
@@ -37,10 +38,15 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   def get_first_page_as_png(width, height)
-    output = `convert -resize #{width}x#{height} "#{path}[0]" "#{path}" 2>&1`
-    unless $?.success?
-      raise "Error thumbnailing PDF. Output: #{output}; Exit status: #{$?.exitstatus}"
+    output = `#{pdf_thumbnail_command(width, height)}`
+    if !$?.success?
+      Rails.logger.warn "Error thumbnailing PDF. Exit status: #{$?.exitstatus}; Output: #{output}"
+      FileUtils.cp(FALLBACK_THUMBNAIL_PDF, path)
     end
+  end
+
+  def pdf_thumbnail_command(width, height)
+    %{convert -resize #{width}x#{height} "#{path}[0]" "#{path}" 2>&1}
   end
 
   def extension_white_list

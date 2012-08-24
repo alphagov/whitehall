@@ -66,4 +66,18 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
     assert (width == "105" || height == "140"), "geometry should be proportional scaled, but was #{geometry}"
   end
+
+  test "should use a generic thumbnail if conversion fails" do
+    model = stub("AR Model", id: 1)
+    @uploader = AttachmentUploader.new(model, "mounted-as")
+    @uploader.thumbnail.stubs(:pdf_thumbnail_command).returns("false")
+
+    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
+
+    assert @uploader.thumbnail.path.ends_with?(".png"), "should be a png"
+    generic_thumbnail_path = File.expand_path("app/assets/images/pub-cover.png")
+    assert_equal File.binread(generic_thumbnail_path),
+                 File.binread(@uploader.thumbnail.path),
+                 "Thumbnailing when PDF conversion fails should use default image."
+  end
 end
