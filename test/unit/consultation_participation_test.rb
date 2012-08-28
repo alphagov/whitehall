@@ -20,4 +20,14 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
     participation = build(:consultation_participation, link_url: nil)
     assert participation.valid?
   end
+
+  test 'should be invalid with malformed email' do
+    participation = build(:consultation_participation, email: "invalid-email")
+    refute participation.valid?
+  end
+
+  test 'should be valid without an email' do
+    participation = build(:consultation_participation, email: nil)
+    assert participation.valid?
+  end
 end

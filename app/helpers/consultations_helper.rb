@@ -65,4 +65,8 @@ module ConsultationsHelper
   def link_to_consultation_participation(consultation, *args)
     link_to consultation.consultation_participation.link_text, consultation.consultation_participation.link_url, *args
   end
+
+  def mail_to_consultation_participation(consultation, *args)
+    mail_to consultation.consultation_participation.email, *args
+  end
 end

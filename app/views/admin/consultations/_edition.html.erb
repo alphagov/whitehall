@@ -7,8 +7,17 @@
   <p class="closing_on"><%= consultation_closing_phrase(edition) %></p>
 
   <% if edition.has_consultation_participation? %>
-    <p class="participation">
-      <%= link_to_consultation_participation(edition) %>
-    </p>
+    <div class="participation">
+      <% if edition.consultation_participation.has_link? %>
+        <p class="online">
+          <%= link_to_consultation_participation(edition) %>
+        </p>
+      <% end %>
+      <% if edition.consultation_participation.has_email? %>
+        <p class="email">
+          <%= mail_to_consultation_participation(edition) %>
+        </p>
+      <% end %>
+    </div>
   <% end %>
 </article>

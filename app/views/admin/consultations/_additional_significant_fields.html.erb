@@ -3,5 +3,6 @@
   <%= form.fields_for :consultation_participation, edition.consultation_participation || edition.build_consultation_participation do |participation_fields| %>
     <%= participation_fields.text_field :link_url, label_text: 'Link URL' %>
     <%= participation_fields.text_field :link_text %>
+    <%= participation_fields.text_field :email %>
   <% end %>
 </fieldset>
