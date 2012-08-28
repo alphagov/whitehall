@@ -16,7 +16,6 @@
     @include core-14;
     margin-bottom: $gutter-two-thirds*-1;
     @media (max-width: 640px) {
-      top: $gutter-one-third;
       margin-bottom: 0;
     }
   }

@@ -232,31 +232,4 @@ class TopicsControllerTest < ActionController::TestCase
 
     refute_select ".topics"
   end
-
-  test "shows a featured topic if one exists" do
-    topic = create(:featured_topic)
-
-    get :index
-
-    assert_select "#featured-topics" do
-      assert_select_object(topic)
-    end
-  end
-
-  test "shows maximum of three featured topics by most recently updated" do
-    older = create(:featured_topic, updated_at: 3.day.ago)
-    newest = create(:featured_topic, updated_at: 1.day.ago)
-    oldest = create(:featured_topic, updated_at: 4.day.ago)
-    newer = create(:featured_topic, updated_at: 2.day.ago)
-
-    get :index
-
-    assert_select "#featured-topics .topic", count: 3
-    assert_select "#featured-topics" do
-      assert_select_object newest
-      assert_select_object newer
-      assert_select_object older
-      refute_select_object oldest
-    end
-  end
 end
