@@ -1,0 +1,43 @@
+<div class="filter-block">
+  <h2>Filter by organisation, topic or keyword</h2>
+  <%= form_tag send(:"#{document_type.to_s.pluralize}_path"), method: :get, id: "document-filter", class: 'js-document-filter' do %>
+    <fieldset>
+      <legend class="visuallyhidden">Filter <%= document_type.to_s.pluralize %></legend>
+      <div class="filter">
+        <div class="filter-inner">
+          <%= label_tag "departments", "Department", class: "visuallyhidden" %>
+          <%= select_tag :departments, organisation_filter_options(@filter.all_organisations_with(document_type), @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
+        </div>
+      </div>
+      <div class="filter">
+        <div class="filter-inner">
+          <%= label_tag "topics", "Topic", class: "visuallyhidden" %>
+          <%= select_tag :topics, topic_filter_options(@filter.all_topics_with(document_type), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
+        </div>
+      </div>
+      <div class="filter">
+        <div class="filter-inner">
+          <%= label_tag "keywords", "Contains", class: 'title' %>
+          <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
+
+          <% if defined?(filter_by_date) and filter_by_date %>
+            <div class="date-range">
+              <h3>Published</h3>
+              <% ['before', 'after'].each do |direction| %>
+                <%= label_tag "direction_#{direction}", class: 'checkbox'  do %>
+                  <%= radio_button_tag :direction, direction, direction == @filter.direction %>
+                  <%= direction.humanize %>
+                <% end %>
+              <% end %>
+              <%= label_tag "date", "Date", class: "visuallyhidden" %>
+              <%= select_tag :date, options_for_select(recent_month_filter_options(24, @filter.date)), include_blank: false %>
+            </div>
+          <% end %>
+          <div class="submit">
+            <%= submit_tag "Refresh", class: "button" %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  <% end %>
+</div>

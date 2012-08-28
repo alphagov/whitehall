@@ -11,36 +11,7 @@
 
 <div class="block-2">
   <div class="inner-block">
-    <div class="filter-block">
-      <h2>Filter by organisation, topic or keyword</h2>
-      <%= form_tag specialist_guides_path, method: :get, id: "document-filter", class: 'js-document-filter' do %>
-        <fieldset>
-          <legend class="visuallyhidden">Filter specialist guides</legend>
-          <div class="filter">
-            <div class="filter-inner">
-              <%= label_tag "departments", "Department", class: "visuallyhidden" %>
-              <%= select_tag :departments, organisation_filter_options(@filter.all_organisations_with(:specialist_guide), @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
-            </div>
-          </div>
-          <div class="filter">
-            <div class="filter-inner">
-              <%= label_tag "topics", "Topic", class: "visuallyhidden" %>
-              <%= select_tag :topics, topic_filter_options(@filter.all_topics_with(:specialist_guide), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
-            </div>
-          </div>
-          <div class="filter">
-            <div class="filter-inner">
-              <%= label_tag "keywords", "Contains", class: 'title' %>
-              <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
-
-              <div class="submit">
-                <%= submit_tag "Refresh", class: "button" %>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      <% end %>
-    </div>
+    <%= render partial: "documents/filter_form", locals: {document_type: :specialist_guide} %>
   </div>
 </div>
 
