@@ -146,4 +146,11 @@ class ConsultationTest < ActiveSupport::TestCase
     create(:published_consultation_response, consultation: consultation, first_published_at: 1.day.ago)
     assert_equal 1.day.ago.to_date, consultation.last_significantly_changed_on
   end
+
+  test "should destroy associated consultation participation when destroyed" do
+    consultation_participation = create(:consultation_participation, link_url: "http://example.com", link_text: "Respond here")
+    consultation = create(:consultation, consultation_participation: consultation_participation)
+    consultation.destroy
+    assert_nil ConsultationParticipation.find_by_id(consultation_participation.id)
+  end
 end

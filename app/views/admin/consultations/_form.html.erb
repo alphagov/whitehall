@@ -9,6 +9,14 @@
   </fieldset>
 
   <fieldset>
+    <legend>Participation</legend>
+    <%= form.fields_for :consultation_participation, edition.consultation_participation || edition.build_consultation_participation do |participation_fields| %>
+      <%= participation_fields.text_field :link_url, label_text: 'Participation link URL' %>
+      <%= participation_fields.text_field :link_text, label_text: 'Participation link text' %>
+    <% end %>
+  </fieldset>
+
+  <fieldset>
     <legend>Associations</legend>
     <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>

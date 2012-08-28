@@ -218,4 +218,22 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     refute_select inapplicable_nations_selector
   end
+
+  test 'show displays consultation participation link' do
+    consultation_participation = create(:consultation_participation,
+      link_url: "http://telluswhatyouthink.com",
+      link_text: "Tell us what you think"
+    )
+    published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
+    get :show, id: published_consultation.document
+    assert_select ".participation" do
+      assert_select "a[href=?]", "http://telluswhatyouthink.com", text: "Tell us what you think"
+    end
+  end
+
+  test 'show does not display consultation participation link if none available' do
+    published_consultation = create(:published_consultation)
+    get :show, id: published_consultation.document
+    refute_select ".participation"
+  end
 end

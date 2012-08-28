@@ -21,4 +21,9 @@
   <% else %>
     <p class="extra-description summary"><%= @document.summary %></p>
   <% end %>
+  <% if document.has_consultation_participation? %>
+    <p class="participation">
+      <%= link_to_consultation_participation(document) %>
+    </p>
+  <% end %>
 </div>
