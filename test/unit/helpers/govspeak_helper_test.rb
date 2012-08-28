@@ -329,19 +329,21 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should add inline attachments" do
-    text = "#Heading\n\n!@1"
+    text = "#Heading\n\n!@1\n\n##Subheading"
     document = create(:published_specialist_guide, :with_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     assert_select_within_html html, ".attachment.embedded"
+    assert_select_within_html html, "h2"
   end
 
   test "should ignore missing attachments" do
-    text = "#Heading\n\n!@2"
+    text = "#Heading\n\n!@2\n\n##Subheading"
     document = create(:published_specialist_guide, :with_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     refute_select_within_html html, ".attachment.embedded"
+    assert_select_within_html html, "h2"
   end
 
   test "should not convert documents with no attachments" do
