@@ -3,7 +3,6 @@ class NewsArticle < Edition
   include Edition::FactCheckable
   include Edition::RelatedPolicies
   include Edition::Countries
-  include Edition::Featurable
 
   def has_summary?
     true

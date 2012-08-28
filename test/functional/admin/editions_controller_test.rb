@@ -265,57 +265,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to admin_editions_path(state: :draft)
   end
 
-  [:news_article].each do |edition_type|
-    test "should display a form for featuring an unfeatured #{edition_type} without a featuring image" do
-      edition = create("published_#{edition_type}")
-      get :index, state: :published, type: edition_type
-      expected_url = send("admin_edition_featuring_path", edition)
-      assert_select ".featured form.feature[action=#{expected_url}]" do
-        refute_select "input[name=_method]"
-        refute_select "input[name='edition[featuring_image]']"
-        assert_select "input[type=submit][value='Feature']"
-      end
-    end
-
-    test "should display a form for unfeaturing a featured #{edition_type} without a featuring image" do
-      edition = create("featured_#{edition_type}")
-      get :index, state: :published, type: edition_type
-      expected_url = send("admin_edition_featuring_path", edition)
-      assert_select ".featured form.unfeature[action=#{expected_url}]" do
-        assert_select "input[name=_method][value=delete]"
-        refute_select "input[name='edition[featuring_image]']"
-      end
-    end
-
-    test "should not show featuring image on a featured #{edition_type} because they do not allow a featuring image" do
-      edition = create("featured_#{edition_type}")
-      get :index, state: :published, type: edition_type
-      assert_select ".featured" do
-        refute_select "img"
-      end
-    end
-  end
-
-  test "should display a form for featuring an unfeatured news article" do
-    news_article = create(:published_news_article)
-    get :index, state: :published, type: :news_article
-    expected_url = send("admin_edition_featuring_path", news_article)
-    assert_select ".featured form.feature[action=#{expected_url}]" do
-      refute_select "input[name=_method]"
-      assert_select "input[type=submit][value='Feature']"
-    end
-  end
-
-  test "should display a form for unfeaturing a featured news article" do
-    news_article = create(:featured_news_article)
-    get :index, state: :published, type: :news_article
-    expected_url = send("admin_edition_featuring_path", news_article)
-    assert_select ".featured form.unfeature[action=#{expected_url}]" do
-      assert_select "input[name=_method][value=delete]"
-      assert_select "input[type=submit][value='No longer feature']"
-    end
-  end
-
   test "should not display the featured column on the 'all edition' page" do
     policy = create(:draft_policy)
     refute policy.featurable?
