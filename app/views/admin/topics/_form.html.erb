@@ -21,7 +21,6 @@
           <%= [pluralize(Publication.published.related_to(policy).count, "publication"),
                pluralize(NewsArticle.published.related_to(policy).count, "news article")].to_sentence %>
         </p>
-        <%= topic_membership_form.check_box :featured, label_text: "Featured?" %>
       </div>
     <% end %>
   </fieldset>

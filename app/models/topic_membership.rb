@@ -8,8 +8,6 @@ class TopicMembership < ActiveRecord::Base
 
   default_scope order("topic_memberships.ordering ASC")
 
-  scope :featured, where(featured: true)
-
   after_create :update_topic_counts
   after_destroy :update_topic_counts
 
