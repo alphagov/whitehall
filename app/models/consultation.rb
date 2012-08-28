@@ -8,6 +8,7 @@ class Consultation < Edition
   validates :opening_on, presence: true
   validates :closing_on, presence: true
   validate :closing_on_must_be_after_opening_on
+  validates :consultation_participation_link_url, format: URI::regexp(%w(http https)), allow_blank: true
 
   has_many :consultation_responses, through: :document
   has_one :published_consultation_response, through: :document
@@ -46,6 +47,10 @@ class Consultation < Edition
 
   def allows_attachment_references?
     true
+  end
+
+  def has_consultation_participation_link?
+    consultation_participation_link_url.present? && consultation_participation_link_text.present?
   end
 
   private

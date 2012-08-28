@@ -5,4 +5,8 @@
 
   <p class="opening_on"><%= consultation_opening_phrase(edition) %></p>
   <p class="closing_on"><%= consultation_closing_phrase(edition) %></p>
+
+  <p class="consultation_participation">
+    <%= link_to edition.consultation_participation_link_text, edition.consultation_participation_link_url %>
+  </p>
 </article>

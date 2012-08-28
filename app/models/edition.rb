@@ -226,6 +226,10 @@ class Edition < ActiveRecord::Base
     nil
   end
 
+  def has_consultation_participation_link?
+    false
+  end
+
   class << self
     def format_name
       @format_name ||= model_name.human.downcase

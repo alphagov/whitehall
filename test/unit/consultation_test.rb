@@ -21,6 +21,26 @@ class ConsultationTest < ActiveSupport::TestCase
     refute consultation.valid?
   end
 
+  test 'should be invalid with malformed participation url' do
+    consultation = build(:consultation, consultation_participation_link_url: "invalid-url")
+    refute consultation.valid?
+  end
+
+  test 'should be valid with participation url with HTTP protocol' do
+    consultation = build(:consultation, consultation_participation_link_url: "http://example.com")
+    assert consultation.valid?
+  end
+
+  test 'should be valid with participation url with HTTPS protocol' do
+    consultation = build(:consultation, consultation_participation_link_url: "https://example.com")
+    assert consultation.valid?
+  end
+
+  test 'should be valid without participation url' do
+    consultation = build(:consultation, consultation_participation_link_url: nil)
+    assert consultation.valid?
+  end
+
   test "should build a draft copy of the existing consultation with inapplicable nations" do
     published_consultation = create(:published_consultation, nation_inapplicabilities_attributes: [
       {nation: Nation.wales, alternative_url: "http://wales.gov.uk"},
