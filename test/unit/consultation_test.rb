@@ -21,26 +21,6 @@ class ConsultationTest < ActiveSupport::TestCase
     refute consultation.valid?
   end
 
-  test 'should be invalid with malformed participation url' do
-    consultation = build(:consultation, consultation_participation_link_url: "invalid-url")
-    refute consultation.valid?
-  end
-
-  test 'should be valid with participation url with HTTP protocol' do
-    consultation = build(:consultation, consultation_participation_link_url: "http://example.com")
-    assert consultation.valid?
-  end
-
-  test 'should be valid with participation url with HTTPS protocol' do
-    consultation = build(:consultation, consultation_participation_link_url: "https://example.com")
-    assert consultation.valid?
-  end
-
-  test 'should be valid without participation url' do
-    consultation = build(:consultation, consultation_participation_link_url: nil)
-    assert consultation.valid?
-  end
-
   test "should build a draft copy of the existing consultation with inapplicable nations" do
     published_consultation = create(:published_consultation, nation_inapplicabilities_attributes: [
       {nation: Nation.wales, alternative_url: "http://wales.gov.uk"},
@@ -165,5 +145,12 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation = create(:published_consultation, first_published_at: 4.days.ago, opening_on: 3.days.ago, closing_on: 2.day.ago)
     create(:published_consultation_response, consultation: consultation, first_published_at: 1.day.ago)
     assert_equal 1.day.ago.to_date, consultation.last_significantly_changed_on
+  end
+
+  test "should destroy associated consultation participation when destroyed" do
+    consultation_participation = create(:consultation_participation, link_url: "http://example.com", link_text: "Respond here")
+    consultation = create(:consultation, consultation_participation: consultation_participation)
+    consultation.destroy
+    assert_nil ConsultationParticipation.find_by_id(consultation_participation.id)
   end
 end

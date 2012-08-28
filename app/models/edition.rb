@@ -226,7 +226,7 @@ class Edition < ActiveRecord::Base
     nil
   end
 
-  def has_consultation_participation_link?
+  def has_consultation_participation?
     false
   end
 

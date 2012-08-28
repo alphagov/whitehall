@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120828103013) do
+ActiveRecord::Schema.define(:version => 20120828122423) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(:version => 20120828103013) do
     t.string   "command_paper_number"
     t.string   "order_url"
     t.integer  "price_in_pence"
+  end
+
+  create_table "consultation_participations", :force => true do |t|
+    t.integer  "edition_id"
+    t.string   "link_url"
+    t.string   "link_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "contact_numbers", :force => true do |t|
@@ -184,8 +192,6 @@ ActiveRecord::Schema.define(:version => 20120828103013) do
     t.integer  "alternative_format_provider_id"
     t.integer  "document_series_id"
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
-    t.string   "consultation_participation_link_url"
-    t.string   "consultation_participation_link_text"
   end
 
   add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"

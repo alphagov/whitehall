@@ -10,8 +10,10 @@
 
   <fieldset>
     <legend>Participation</legend>
-    <%= form.text_field :consultation_participation_link_url, label_text: 'Participation link URL' %>
-    <%= form.text_field :consultation_participation_link_text, label_text: 'Participation link text' %>
+    <%= form.fields_for :consultation_participation, edition.build_consultation_participation do |participation_fields| %>
+      <%= participation_fields.text_field :link_url, label_text: 'Participation link URL' %>
+      <%= participation_fields.text_field :link_text, label_text: 'Participation link text' %>
+    <% end %>
   </fieldset>
 
   <fieldset>
