@@ -162,27 +162,44 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       }
     },
     initScroll: function(){
-      var scrolled = false;
+      documentFilter.scrolled = false;
+      $('#show-more-documents .previous-next-navigation').addClass('infinite');
 
       $(window).scroll(function(){
-        scrolled = true;
+        documentFilter.scrolled = true;
       });
-      var $nav = $('#show-more-documents .previous-next-navigation').addClass('infinite');
 
-      var scrollInterval = window.setInterval(function(){
-        if(scrolled){
-          scrolled = false;
-          var $window = $(window),
-              $nav = $('.previous-next-navigation'),
-              bottomOfWindow = $window.scrollTop() + $window.height(),
-              navOffset = $nav.offset();
+      var scrollInterval = window.setInterval(documentFilter.onScroll, 250);
+    },
+    onScroll: function(){
+      if(documentFilter.scrolled){
+        documentFilter.scrolled = false;
+        var $window = $(window),
+            $nav = $('.previous-next-navigation'),
+            bottomOfWindow = $window.scrollTop() + $window.height(),
+            navOffset = $nav.offset();
 
-          $nav.addClass('loading').find('.next a').text('Loading more...');
-          if(navOffset && (bottomOfWindow + 100 > navOffset.top)){
-            documentFilter.loadMoreInline();
-          }
+        documentFilter.hideFooter();
+        $nav.addClass('loading').find('.next a').text('Loading more...');
+        if(navOffset && (bottomOfWindow + 100 > navOffset.top)){
+          documentFilter.loadMoreInline();
+        } else {
+          documentFilter.showFooter();
         }
-      }, 250);
+      }
+    },
+    hideFooter: function(){
+      if(documentFilter.footerHidden !== true){
+        $('#footer').addClass('visuallyhidden');
+        documentFilter.footerHidden = false;
+      }
+    },
+    showFooter: function(){
+      var $next = $('#show-more-documents .next a');
+
+      if($next.length === 0){
+        $('#footer').removeClass('visuallyhidden');
+      }
     }
   };
   window.GOVUK.documentFilter = documentFilter;

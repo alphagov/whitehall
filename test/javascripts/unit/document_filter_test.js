@@ -108,6 +108,27 @@ test("should update the atom feed url", function() {
   equals(this.atomLink.find('a[href="/atom-feed"]').length, 1);
 });
 
+test("should visually hide the footer", function(){
+  $('#qunit-fixture').append('<div id="footer"></div>');
+
+  equals($('#footer.visuallyhidden').length, 0);
+  GOVUK.documentFilter.hideFooter();
+  equals($('#footer.visuallyhidden').length, 1);
+});
+
+test("should visually show the footer", function(){
+  $('#qunit-fixture').append('<div id="footer"></div><div id="show-more-documents"><i class="next"><a>next</a></i></div>');
+
+  GOVUK.documentFilter.hideFooter();
+  equals($('#footer.visuallyhidden').length, 1);
+
+  GOVUK.documentFilter.showFooter();
+  equals($('#footer.visuallyhidden').length, 1);
+
+  $('#show-more-documents').remove();
+  GOVUK.documentFilter.showFooter();
+  equals($('#footer.visuallyhidden').length, 0);
+});
 
 test("should make an ajax request on form submission to obtain filtered results", function() {
   this.filterForm.enableDocumentFilter();
