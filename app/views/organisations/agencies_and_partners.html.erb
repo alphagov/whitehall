@@ -31,11 +31,7 @@
               <% organisation_group.each do |organisation| %>
                 <ul>
                   <%= content_tag_for(:li, organisation) do %>
-                    <%= if organisation.active?
-                          link_to organisation.name, organisation_path(organisation)
-                        else
-                          organisation.name
-                        end %>
+                    <%= link_to organisation.name, organisation_path(organisation) %>
                   <% end %>
                 </ul>
               <% end %>

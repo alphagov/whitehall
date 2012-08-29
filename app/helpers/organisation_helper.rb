@@ -92,7 +92,6 @@ module OrganisationHelper
     classes = [
       organisation.slug,
       organisation_type_class(organisation.organisation_type),
-      (organisation.active? ? 'active_organisation' : 'inactive_organisation'),
       options[:class]
     ]
     classes.compact.join(" ").strip

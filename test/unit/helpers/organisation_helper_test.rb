@@ -63,18 +63,11 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_equal 'ministerial-department', organisation_type_class(organisation_type)
   end
 
-  test 'given an organisation should return suitable org-identifying class names for an inactive department' do
+  test 'given an organisation should return suitable org-identifying class names' do
     organisation_type = build(:organisation_type, name: "Ministerial department")
     organisation =  build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene", organisation_type: organisation_type)
 
-    assert_equal 'organisation-slug-yeah ministerial-department inactive_organisation', organisation_logo_classes(organisation)
-  end
-
-  test 'given an organisation should return suitable org-identifying class names for an active department' do
-    organisation_type = build(:organisation_type, name: "Ministerial department")
-    organisation =  build(:organisation, active: true, slug: "organisation-slug-yeah", name: "Building Law and Hygiene", organisation_type: organisation_type)
-
-    assert_equal 'organisation-slug-yeah ministerial-department active_organisation', organisation_logo_classes(organisation)
+    assert_equal 'organisation-slug-yeah ministerial-department', organisation_logo_classes(organisation)
   end
 end
 

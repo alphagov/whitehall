@@ -12,11 +12,6 @@ Given /^the organisation "([^"]*)" exists$/ do |name|
   create(:ministerial_department, name: name)
 end
 
-Given /^the organisation "([^"]*)" is inactive/ do |name|
-  organisation = Organisation.find_by_name(name) || create(:ministerial_department, name: name)
-  organisation.update_column(:active, false)
-end
-
 Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation, second_organisation|
   create(:organisation, name: first_organisation)
   create(:organisation, name: second_organisation)
@@ -168,10 +163,6 @@ end
 
 Then /^I should see an organisation called "([^"]*)"$/ do |name|
   assert page.has_css?(".organisation", text: name)
-end
-
-Then /^I should not see a link to the organisation called "([^"]*)"$/ do |text|
-  refute page.has_css?(".organisation a", text: text)
 end
 
 def navigate_to_organisation(page_name)

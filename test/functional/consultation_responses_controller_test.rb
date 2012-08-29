@@ -35,7 +35,7 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
   end
 
   test "should display the organisations that the parent consultation is related to" do
-    organisation = create(:organisation, active: true)
+    organisation = create(:organisation)
     published_consultation_response = create(:published_consultation_response)
     consultation = published_consultation_response.consultation
     consultation.organisations << organisation

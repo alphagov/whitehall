@@ -170,17 +170,6 @@ class Organisation < ActiveRecord::Base
     ministerial_roles.map { |mr| mr.speeches.published }.flatten.uniq
   end
 
-  def calculate_active?
-    !!(organisation_type && organisation_type.department?)
-  end
-
-  def update_cached_active_state!
-    new_active_state = calculate_active?
-    if new_active_state != active?
-      update_column :active, calculate_active?
-    end
-  end
-
   def department?
     organisation_type.department?
   end

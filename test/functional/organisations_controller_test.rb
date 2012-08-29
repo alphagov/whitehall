@@ -7,13 +7,13 @@ class OrganisationsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   test "should display the disclaimer on active organisations" do
-    organisation = create(:organisation, active: true, url: "url-of-main-website-for-organisation")
+    organisation = create(:organisation, url: "url-of-main-website-for-organisation")
     get :show, id: organisation
     assert_disclaimer_present(organisation)
   end
 
   test "should display the disclaimer on inactive organisations" do
-    organisation = create(:organisation, active: false, url: "url-of-main-website-for-organisation")
+    organisation = create(:organisation, url: "url-of-main-website-for-organisation")
     get :show, id: organisation
     assert_disclaimer_present(organisation)
   end
@@ -182,14 +182,14 @@ class OrganisationsControllerTest < ActionController::TestCase
   # TODO: this section is moving to a separate view
   # test "should link to the active child organisations" do
   #   parent_organisation = create(:organisation)
-  #   child_organisation = create(:organisation, parent_organisations: [parent_organisation], active: true)
+  #   child_organisation = create(:organisation, parent_organisations: [parent_organisation])
   #   get :show, id: parent_organisation
   #   assert_select "#child_organisations a[href='#{organisation_path(child_organisation)}']"
   # end
 
   # test "should just list but not link to inactive child organisations" do
   #   parent_organisation = create(:organisation)
-  #   child_organisation = create(:organisation, parent_organisations: [parent_organisation], active: false)
+  #   child_organisation = create(:organisation, parent_organisations: [parent_organisation])
   #   get :show, id: parent_organisation
   #   refute_select "#child_organisations a[href='#{organisation_path(child_organisation)}']"
   #   assert_select "#child_organisations li", text: child_organisation.name

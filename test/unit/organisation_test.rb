@@ -355,30 +355,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_nil user.reload.organisation_id
   end
 
-  test 'should be active if it is a department' do
-    type = create(:organisation_type, name: "Ministerial department")
-    assert type.department?
-    organisation = create(:organisation, organisation_type: type)
-    assert organisation.calculate_active?
-  end
-
-  test 'should be inactive if it is not a department' do
-    type = create(:organisation_type, name: "Executive agency")
-    organisation = create(:organisation, organisation_type: type)
-    refute organisation.calculate_active?
-  end
-
-  test 'should update cached active state' do
-    organisation = create(:organisation)
-    organisation.update_cached_active_state!
-    refute organisation.reload.active?
-
-    type = create(:organisation_type, name: "Ministerial department")
-    organisation.organisation_type = type
-    organisation.update_cached_active_state!
-    assert organisation.reload.active?
-  end
-
   test 'should use full name as display_name if acronym is an empty string' do
     assert_equal 'Blah blah', build(:organisation, acronym: '', name: 'Blah blah').display_name
   end

@@ -26,7 +26,6 @@
             <table class="table">
               <tr><th>Type</th><td><%= @organisation.organisation_type.name %></td></tr>
               <tr><th>Acronym</th><td><%= @organisation.acronym %></td></tr>
-              <tr><th>Active?</th><td><%= yes_or_no(@organisation.active?) %></td></tr>
               <tr><th>URL</th><td><%= link_to @organisation.url, @organisation.url %></td></tr>
               <tr><th>Description</th><td><%= govspeak_to_html @organisation.description %></td></tr>
               <tr><th>Email address for ordering publications or consultations in alternative formats</th><td><%= @organisation.alternative_format_contact_email %></td></tr>
