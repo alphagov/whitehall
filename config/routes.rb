@@ -65,7 +65,6 @@ Whitehall::Application.routes.draw do
         get :chiefs_of_staff, path: 'chiefs-of-staff'
         get :agencies_and_partners, path: 'agencies-and-partners'
         get :policies
-        get :publications
       end
     end
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]

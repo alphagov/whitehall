@@ -160,7 +160,6 @@ Then /^I should see the "([^"]*)" organisation's (.*) page$/ do |organisation_na
     when 'news'     then "News"
     when 'home'     then organisation_name
     when 'policies' then  "Policies"
-    when 'publications' then "Publications"
     end
 
   assert page.has_css?('title', text: title)
