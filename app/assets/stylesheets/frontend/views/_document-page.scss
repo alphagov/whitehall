@@ -147,7 +147,8 @@
       display: block;
       @include transition(opacity, .5s, ease);
       &.visuallyhidden {
-        left: -9999em;
+        left: -9999em!important;
+        position: absolute;
       }
     }
     @include ie(6){

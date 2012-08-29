@@ -66,21 +66,22 @@
     }
   }
 
-
-  .block-2 {
-    width: 25%;
-  }
-  .block-3 {
-    width: 75%;
-  }
-
-    @media (max-width: 768px) {
-      .block-1, .block-2, .block-3 {
-        display: block;
-        float: none;
-        width: 100%;
-      }
+    .block-1, .block-2, .block-3 {
+      display: block;
+      float: none;
+      width: 100%;
     }
+
+  @include media(desktop){
+    .block-2, .block-3 {
+      float: left;
+      display: inline;
+      width: 25%;
+    }
+    .block-3 {
+      width: 75%;
+    }
+  }
 
 
   .supporting-page-title {
@@ -98,11 +99,11 @@
   #document-organisations + #document-ministers,
   #policy_team,
   #document-organisations {
-    margin: 0 0 0 25%;
+    margin: 0;
     padding-left: 0;
     padding-top: 0;
-    @media (max-width: 640px) {
-      margin: 0;
+    @include media(desktop){
+      margin: 0 0 0 25%;
     }
   }
 
@@ -132,20 +133,20 @@
   .page-header {
     width: 100%;
     float: none;
-    padding: $gutter 0 40px;
+    padding: $gutter-two-thirds 0 $gutter;
     h1 {
+      text-align: left;
+      max-width: 100%;
+    }
+    @include media(desktop){
+      padding: $gutter 0 40px;
+      h1 {
       clear: both;
       text-align: center;
       max-width: 18em;
       margin: 0 auto;
-    }
-      @media (max-width: 640px) {
-        padding: $gutter-two-thirds 0 $gutter;
-        h1 {
-        text-align: left;
-        max-width: 100%;
-        }
       }
+    }
   }
 
   .policy-parts {
@@ -203,29 +204,39 @@
   }
 
   .policy-navigation {
+//     border: none;
+//   ul {
+//     margin: 0;
+//     width: 100%;
+//     li {
+//       width: 32%;
+//     }
+//   }
+
+
     border-top: 1px solid $light-blue-grey;
     display: block;
-    margin-top: 70px;
-    width: auto;
+    margin: $gutter 0 $gutter-two-thirds;
+    width: 100%;
     ul {
       @include border-radius(0.6em);
       background-color: lighten($charcoal-grey, 10%);
       display: inline-block;
-      margin: -30px auto $gutter 25%;
+      margin: 0;
       overflow: hidden;
       padding: $gutter-half*0.4;
       position: relative;
-      //width: 50%;
          -moz-box-sizing: border-box;
           -ms-box-sizing: border-box;
            -o-box-sizing: border-box;
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
+      width: 100%;
       li {
         float: left;
         display: inline;
         margin-right: $gutter-half*0.4;
-        width: 11em;
+        width: 32%;
 
         a {
           @include core-19;
@@ -251,25 +262,34 @@
         margin-right: 0;
       }
     }
-    @media (max-width: 768px) {
+
+    @include media(tablet){
+      margin: $gutter 0 $gutter-two-thirds;
+      width: auto;
       ul {
-        //margin-left: 20%;
+        margin: -30px auto $gutter 20%;
+        width: auto;
         li {
           width: 8em;
         }
       }
     }
-    @media (max-width: 640px) {
-          margin: $gutter 0 $gutter-two-thirds;
-          border: none;
-        ul {
-          margin: 0;
-          width: 100%;
-          li {
-            width: 32%;
-          }
+
+    @include media(desktop){
+    display: block;
+    margin-top: 70px;
+    width: auto;
+      ul {
+        margin: -30px auto $gutter 25%;
+        width: auto;
+        li {
+          width: 11em;
         }
+      }
     }
+
+
+
   }
 
   #case-studies {
