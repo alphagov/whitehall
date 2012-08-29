@@ -38,9 +38,6 @@ Scenario: Navigating between pages for an organisation
   When I navigate to the "Cabinet Office" organisation's Policies page
   Then I should see the "Cabinet Office" organisation's policies page
   And I should see the organisation navigation
-  When I navigate to the "Cabinet Office" organisation's Publications page
-  Then I should see the "Cabinet Office" organisation's publications page
-  And I should see the organisation navigation
   When I navigate to the "Cabinet Office" organisation's Home page
   Then I should see the "Cabinet Office" organisation's home page
   When I navigate to the "Cabinet Office" organisation's Agencies & partners page

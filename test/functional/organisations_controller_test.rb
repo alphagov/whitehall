@@ -2,7 +2,7 @@ require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
 
-  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :announcements, :consultations, :contact_details, :management_team, :ministers, :policies, :publications]
+  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :announcements, :consultations, :contact_details, :management_team, :ministers, :policies]
 
   should_be_a_public_facing_controller
 
@@ -73,7 +73,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "nav" do
       refute_select "a[href=?]", announcements_organisation_path(organisation)
       refute_select "a[href=?]", policies_organisation_path(organisation)
-      refute_select "a[href=?]", publications_organisation_path(organisation)
+      refute_select "a[href=?]", publications_path(departments: [organisation])
       refute_select "a[href=?]", consultations_organisation_path(organisation)
       refute_select "a[href=?]", ministers_organisation_path(organisation)
     end
@@ -341,30 +341,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [later_consultation, earlier_consultation], assigns(:consultations)
   end
 
-  test "should display all published corporate and non-corporate publications for the organisation" do
-    organisation = create(:organisation)
-    published_publication = create(:published_publication, organisations: [organisation])
-    draft_publication = create(:draft_publication, organisations: [organisation])
-    published_corporate_publication = create(:published_corporate_publication, organisations: [organisation])
-
-    get :publications, id: organisation
-
-    assert_equal [published_publication, published_corporate_publication].to_set, assigns(:publications).to_set
-  end
-
-  test "should order publications by publication date" do
-    organisation = create(:organisation)
-    older_publication = create(:published_publication, title: "older", publication_date: 3.days.ago, organisations: [organisation])
-    newest_publication = create(:published_publication, title: "newest", publication_date: 1.day.ago, organisations: [organisation])
-    oldest_publication = create(:published_publication, title: "oldest", publication_date: 4.days.ago, organisations: [organisation])
-
-    get :publications, id: organisation
-
-    assert_select "#publications" do
-      assert_select "#{record_css_selector(newest_publication)}+#{record_css_selector(older_publication)}+#{record_css_selector(oldest_publication)}"
-    end
-  end
-
   test "should display an about-us page for the organisation" do
     organisation = create(:organisation,
       name: "unformatted & name",
@@ -600,7 +576,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department)
 
-    [:show, :about, :consultations, :contact_details, :management_team, :ministers, :policies, :publications].each do |page|
+    [:show, :about, :consultations, :contact_details, :management_team, :ministers, :policies].each do |page|
       get page, id: organisation
       assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
     end

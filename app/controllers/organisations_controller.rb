@@ -1,7 +1,7 @@
 class OrganisationsController < PublicFacingController
   before_filter :load_organisation,
     only: [:show, :about, :contact_details, :announcements, :consultations,
-           :ministers, :management_team, :policies, :publications,
+           :ministers, :management_team, :policies,
            :agencies_and_partners, :chiefs_of_staff]
 
   def index
@@ -44,10 +44,6 @@ class OrganisationsController < PublicFacingController
     @ministerial_roles = @organisation.ministerial_roles.order("organisation_roles.ordering").map do |role|
       RolePresenter.new(role)
     end
-  end
-
-  def publications
-    @publications = Publication.published.in_organisation(@organisation).order("publication_date DESC")
   end
 
   def management_team

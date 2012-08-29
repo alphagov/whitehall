@@ -8,7 +8,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
 
     get :index, organisation_id: organisation
 
-    assert_redirected_to publications_organisation_path(organisation)
+    assert_redirected_to publications_path(departments: [organisation])
   end
 
   test 'show should display published documents within a series' do

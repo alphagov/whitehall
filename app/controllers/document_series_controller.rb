@@ -2,7 +2,7 @@ class DocumentSeriesController < PublicFacingController
   before_filter :load_organisation
 
   def index
-    redirect_to publications_organisation_path(@organisation)
+    redirect_to publications_path(departments: [@organisation])
   end
 
   def show
