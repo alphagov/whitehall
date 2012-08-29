@@ -1,4 +1,7 @@
 .content-fixed {
   position: fixed!important;
   top: 0;
+  @include media(tablet){
+    position: relative;
+  }
 }
