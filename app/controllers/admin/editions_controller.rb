@@ -7,14 +7,13 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :detect_other_active_editors, only: [:edit]
 
   def index
-    if params_filters.any?
-      @filter = EditionFilter.new(edition_class, params_filters)
+    if filter && filter.valid?
       session[:document_filters] = params_filters
       render :index
     elsif session_filters.any?
-       redirect_to session_filters
+      redirect_to session_filters
     else
-       redirect_to default_filters
+      redirect_to default_filters
     end
   rescue ActionController::RoutingError
     redirect_to state: :draft
@@ -147,6 +146,10 @@ class Admin::EditionsController < Admin::BaseController
     filters
   end
 
+  def filter
+    @filter ||= params_filters.any? && EditionFilter.new(edition_class, params_filters)
+  end
+
   def detect_other_active_editors
     RecentEditionOpening.expunge! if rand(10) == 0
     @recent_openings = @edition.active_edition_openings.except_editor(current_user)
@@ -178,6 +181,14 @@ class Admin::EditionsController < Admin::BaseController
 
     def page_title(current_user)
       "#{ownership(current_user)} #{edition_state} #{document_type.humanize.pluralize.downcase}".squeeze(' ')
+    end
+
+    def valid?
+      author
+      organisation
+      true
+    rescue ActiveRecord::RecordNotFound
+      false
     end
 
     private
