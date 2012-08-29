@@ -4,8 +4,6 @@ class NewsArticleTest < ActiveSupport::TestCase
   include DocumentBehaviour
   include ActionDispatch::TestProcess
 
-  should_be_featurable
-
   test "should be able to relate to other editions" do
     article = build(:news_article)
     assert article.can_be_related_to_policies?
