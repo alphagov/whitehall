@@ -1,4 +1,41 @@
-.topics-index {}
+.topics-index {
+  @include media(desktop){
+    .page-header {
+      width: 75%;
+    }
+    .all-topics {
+      margin-left: 25%;
+    }
+  }
+
+  .page-header {
+    padding: $gutter-half 0;
+
+    .title, .label {
+      padding: 0;
+      margin: 0;
+    }
+    .label {
+      @include core-48;;
+      color: lighten($body-text, 30%);
+    }
+    @include media(desktop){
+      padding: $gutter 0
+    }
+  }
+
+  .all-topics {
+    h3 {
+      @include core-19;
+    }
+    .topic  {
+      list-style: none;
+      border-bottom: 1px solid $light-warm-grey;
+      @include core-19;
+    }
+  }
+}
+
 
 .topics-show {
 

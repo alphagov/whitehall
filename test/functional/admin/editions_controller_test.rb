@@ -71,6 +71,16 @@ class Admin::EditionsController
       assert_equal expected_queries.length, query_count
     end
 
+    test "should be invalid if author can't be found" do
+      filter = EditionFilter.new(Edition, author: 'invalid')
+      refute filter.valid?
+    end
+
+    test "should be invalid if organisation can't be found" do
+      filter = EditionFilter.new(Edition, organisation: 'invalid')
+      refute filter.valid?
+    end
+
     test "should generate page title when there are no filter options" do
       filter = EditionFilter.new(Edition)
       assert_equal "Everyone's documents", filter.page_title(build(:user))
@@ -246,6 +256,14 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation: organisation)
   end
 
+  test "index should redirect to remembered filtered options if selected filter is invalid" do
+    organisation = create(:organisation)
+    session[:document_filters] = { state: :submitted, author: current_user.to_param, organisation: organisation.to_param }
+    stub_edition_filter valid?: false
+    get :index, author: 'invalid'
+    assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation: organisation)
+  end
+
   test "index should redirect to submitted in my department if logged an editor has no remembered filters" do
     organisation = create(:organisation)
     editor = login_as create(:departmental_editor, organisation: organisation)
@@ -387,7 +405,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   def stub_edition_filter(attributes = {})
     default_attributes = {
-      editions: [], page_title: '', edition_state: ''
+      editions: [], page_title: '', edition_state: '', valid?: true
     }
     stub('edition filter', default_attributes.merge(attributes))
   end

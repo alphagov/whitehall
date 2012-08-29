@@ -128,41 +128,6 @@ def create_publications(csv_data, download_directory, creator, organisation)
   end
 end
 
-def create_attachments(download_directory)
-  Dir[File.join(download_directory, "*")].each do |attachment_directory|
-    log "Considering attachment #{attachment_directory}"
-    files = Dir[File.join(attachment_directory, "*")]
-    metadata_path = files.delete(File.join(attachment_directory, "metadata.json"))
-    attachment_path = files.first
-    if metadata_path && attachment_path
-      metadata = ActiveSupport::JSON.decode(File.read(metadata_path))
-      log "\tBuilding attachment for publication #{metadata["publication_id"]}"
-      if EditionAttachment.where(edition_id: metadata["publication_id"]).exists?
-        log "\tSkipping; attachment already exists"
-      else
-        edition_attachment = EditionAttachment.new(
-          edition_id: metadata["publication_id"],
-          attachment_attributes: {
-            file: File.open(attachment_path),
-            title: metadata["title"],
-            order_url: metadata["order_url"],
-            price: metadata["price"],
-            unique_reference: metadata["unique_reference"]
-          }
-        )
-        if edition_attachment.save
-          log "\tAdded attachment data from #{attachment_directory}"
-        else
-          log "\tCouldn't save attachment:"
-          log edition_attachment.errors.full_messages
-        end
-      end
-    else
-      log "\tNo attachment data in #{attachment_directory}"
-    end
-  end
-end
-
 csv_data = CSV.parse(File.read(csv_filename), headers: true)
 
 log "Downloading pending attachments"
@@ -172,4 +137,3 @@ log "Processing attachment files"
 process_filetypes(download_directory)
 
 create_publications(csv_data, download_directory, user, bis)
-create_attachments(download_directory)

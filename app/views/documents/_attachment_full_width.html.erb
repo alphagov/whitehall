@@ -21,4 +21,18 @@
   <% else %>
     <p class="extra-description summary"><%= @document.summary %></p>
   <% end %>
+  <% if document.has_consultation_participation? %>
+    <div class="participation">
+      <% if document.consultation_participation.has_link? %>
+        <p class="online">
+          <%= link_to_consultation_participation(document) %>
+        </p>
+      <% end %>
+      <% if document.consultation_participation.has_email? %>
+        <p class="email">
+          <%= mail_to_consultation_participation(document) %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
 </div>

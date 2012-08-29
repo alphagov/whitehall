@@ -218,4 +218,35 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     refute_select inapplicable_nations_selector
   end
+
+  test 'show displays consultation participation link and email' do
+    consultation_participation = create(:consultation_participation,
+      link_url: "http://telluswhatyouthink.com",
+      link_text: "Tell us what you think",
+      email: "contact@example.com"
+    )
+    published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
+    get :show, id: published_consultation.document
+    assert_select ".participation" do
+      assert_select ".online a[href=?]", "http://telluswhatyouthink.com", text: "Tell us what you think"
+      assert_select ".email a[href=?]", "mailto:contact@example.com", text: "contact@example.com"
+    end
+  end
+
+  test 'show does not display consultation participation link if none available' do
+    consultation_participation = create(:consultation_participation, email: "contact@example.com")
+    published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
+    get :show, id: published_consultation.document
+    refute_select ".participation .online"
+  end
+
+  test 'show does not display consultation participation email if none available' do
+    consultation_participation = create(:consultation_participation,
+      link_url: "http://telluswhatyouthink.com",
+      link_text: "Tell us what you think"
+    )
+    published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
+    get :show, id: published_consultation.document
+    refute_select ".participation .email"
+  end
 end
