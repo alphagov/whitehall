@@ -80,9 +80,12 @@ namespace :guidance do
           found_urls += results.length.to_i
           results.each do |result|
             old_body = result.body
-            body = old_body.gsub(/\([^\)]+topicId=#{topic_id}[^\)]*\)/, "(#{admin_edition_url(new_record, :host => args[:host])})")
-            result.body = body
-            result.save && edited_guides += 1
+            to_match = /\([^\)]+topicId=#{topic_id}[^\0-9)]*\)/
+            if to_match.match old_body
+              body = old_body.gsub(to_match, "(#{admin_edition_url(new_record, :host => args[:host])})")
+              result.body = body
+              result.save && edited_guides += 1
+            end
           end
         end
       end
