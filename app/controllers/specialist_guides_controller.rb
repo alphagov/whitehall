@@ -7,7 +7,9 @@ class SpecialistGuidesController < DocumentsController
 
     respond_to do |format|
       format.html
-      format.json
+      format.json do
+        render json: SpecialistGuideFilterJsonPresenter.new(@filter).json
+      end
     end
   end
 

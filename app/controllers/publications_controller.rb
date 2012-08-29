@@ -5,7 +5,9 @@ class PublicationsController < DocumentsController
 
     respond_to do |format|
       format.html
-      format.json
+      format.json do
+        render json: PublicationFilterJsonPresenter.new(@filter).json
+      end
       format.atom do
         @publications = @filter.documents.by_published_at
       end

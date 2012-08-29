@@ -1,5 +1,8 @@
 class Whitehall::DocumentFilter
+  extend Forwardable
   attr_reader :selected_topics, :selected_organisations, :keywords, :date, :direction
+
+  delegate [:count, :current_page, :num_pages, :last_page?, :first_page?] => :documents
 
   def initialize(documents)
     @documents = documents

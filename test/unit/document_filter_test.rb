@@ -56,16 +56,27 @@ class DocumentFilterTest < ActiveSupport::TestCase
     filter.alphabetical.documents
   end
 
+  def stub_topic(slug)
+    topic = stub("topic-#{slug}", slug: slug, name: slug.humanize)
+    Topic.stubs(:where).with(slug: [slug]).returns([topic])
+    topic
+  end
+
+  def stub_organisation(slug)
+    organisation = stub("organisation-#{slug}", slug: slug, name: slug.humanize)
+    Organisation.stubs(:where).with(slug: [slug]).returns([organisation])
+    organisation
+  end
+
   test "#by_topics filters the documents by topic using slugs" do
     filter = Whitehall::DocumentFilter.new(document_scope)
 
-    topic = stub('topic')
-    Topic.expects(:where).with({slug: ['topic-slug']}).returns([topic])
+    topic = stub_topic("car-tax")
 
     filtered_scope = stub_document_scope('filtered_scope')
     document_scope.expects(:in_topic).with([topic]).returns(filtered_scope)
 
-    filter.by_topics(['topic-slug'])
+    filter.by_topics([topic.slug])
 
     assert_equal filtered_scope, filter.documents
   end
@@ -73,13 +84,12 @@ class DocumentFilterTest < ActiveSupport::TestCase
   test "#by_topics sets #selected_topics" do
     filter = Whitehall::DocumentFilter.new(document_scope)
 
-    topic = stub('topic')
-    Topic.stubs(:where).returns([topic])
+    topic = stub_topic("car-tax")
 
     filtered_scope = stub_document_scope('filtered_scope')
     document_scope.stubs(:in_topic).with([topic]).returns(filtered_scope)
 
-    filter.by_topics(['topic-slug'])
+    filter.by_topics([topic.slug])
 
     assert_equal [topic], filter.selected_topics
   end
@@ -258,14 +268,13 @@ class DocumentFilterTest < ActiveSupport::TestCase
 
     organisation = stub('organisation')
     Organisation.stubs(:where).returns([organisation])
-    topic = stub('topic')
-    Topic.stubs(:where).returns([topic])
+    topic = stub_topic("car-tax")
 
     document_scope.expects(:in_organisation).with([organisation]).returns(document_scope)
     document_scope.expects(:in_topic).with([topic]).returns(document_scope)
     document_scope.expects(:page).with(2).returns(document_scope)
 
-    filter.by_organisations(['organisation-slug']).by_topics(['topic-slug']).paginate(2).documents
+    filter.by_organisations(['organisation-slug']).by_topics([topic.slug]).paginate(2).documents
 
     assert_equal [organisation], filter.selected_organisations
     assert_equal [topic], filter.selected_topics
@@ -294,21 +303,35 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert 3 > count_queries { Whitehall::DocumentFilter.new(Publication.published).by_date("2012-01-01 12:23:45", "before").documents }
   end
 
+  def self.test_delegates_to_documents(method)
+    test "delegates ##{method} to documents" do
+      document_scope.expects(method)
+      Whitehall::DocumentFilter.new(document_scope).send(method)
+    end
+  end
+
+  test_delegates_to_documents(:count)
+  test_delegates_to_documents(:num_pages)
+  test_delegates_to_documents(:current_page)
+  test_delegates_to_documents(:last_page?)
+  test_delegates_to_documents(:first_page?)
+
   private
 
   def document_scope
-    return @document_scope if @document_scope
-    @document_scope = stub_document_scope('document scope')
-    @document_scope
+    @document_scope ||= stub_document_scope('document scope')
   end
 
   def stub_document_scope(name)
-    stub = stub(name)
-    stub.stubs(:in_reverse_chronological_order).returns(stub)
-    stub.stubs(:in_topic).returns(stub)
-    stub.stubs(:in_organisation).returns(stub)
-    stub.stubs(:page).returns(stub)
-    stub.stubs(:per).returns(stub)
-    stub
+    stub(name,
+      in_reverse_chronological_order: stub,
+      in_topic: stub,
+      in_organisation: stub,
+      page: stub_everything,
+      per: stub,
+      count: stub_everything,
+      current_page: stub_everything,
+      num_pages: stub_everything
+    )
   end
 end
