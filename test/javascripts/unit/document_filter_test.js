@@ -215,6 +215,20 @@ test("should add extra results to table results", function() {
   equals(this.filterResults.find("table tbody tr").length, 4)
 })
 
+test("should fire analytics on successful ajax response", function() {
+  this.filterForm.enableDocumentFilter();
+  window._gaq = [];
+
+  var analytics = this.spy(_gaq, "push");
+  var server = this.sandbox.useFakeServer();
+  server.respondWith(JSON.stringify(this.ajaxData))
+
+  this.filterForm.submit();
+  server.respond();
+
+  sinon.assert.callCount(analytics, 1);
+});
+
 test("should update browser location on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
 

@@ -130,7 +130,9 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           if (data.results) {
             documentFilter.drawTable(data);
           }
-          History.pushState(null, null, url + "?" + $form.serialize());
+          var newUrl = url + "?" + $form.serialize()
+          History.pushState(null, null, newUrl);
+          window._gaq && _gaq.push(['_trackPageview', newUrl]);
           // undo double-click protection
           $submitButton.removeAttr('disabled').removeClass('disabled');
         },
