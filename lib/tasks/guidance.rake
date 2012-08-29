@@ -8,12 +8,9 @@ namespace :guidance do
     topic = Topic.where(slug: args[:topic]).first
     organisation = Organisation.where(slug: args[:organisation]).first
     creator = User.where(email: args[:creator]).first
-    unless topic && organisation && creator
+    unless topic && creator
       unless topic
         puts "Must provide a valid topic slug"
-      end
-      unless organisation
-        puts "Must provide a valid organisation slug"
       end
       unless creator
         puts "Must provide a valid creator email"
@@ -46,7 +43,10 @@ namespace :guidance do
         existing_guide.body = body
         existing_guide.save && updated_guides += 1
       else
-        guide = SpecialistGuide.new(title: title, body: body, state: "draft", topics: [topic], organisations: [organisation], creator: creator, paginate_body: false)
+        guide = SpecialistGuide.new(title: title, body: body, state: "draft", topics: [topic], creator: creator, paginate_body: false)
+        if organisation
+          guide.organisations = [organisation]
+        end
         guide.save && new_guides += 1
       end
     end
