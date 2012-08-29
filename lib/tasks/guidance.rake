@@ -22,9 +22,9 @@ namespace :guidance do
     new_guides = 0
     updated_guides = 0
 
-    CSV.foreach(args[:file], {:headers => true}) do |row|
-      title = row[0]
-      body = row[1]
+    CSV.foreach(args[:file], {:headers => true, :header_converters => :symbol}) do |row|
+      title = row[:title]
+      body = row[:markdown]
 
       # strip HRs from the content
       body = body.gsub(/\n([\*\s]{2,})\n/, "")
@@ -66,9 +66,9 @@ namespace :guidance do
     edited_guides = 0
 
 
-    CSV.foreach(args[:file], {:headers => true}) do |row|
-      business_link_url = row[0]
-      old_title = row[1]
+    CSV.foreach(args[:file], {:headers => true, :header_converters => :symbol}) do |row|
+      business_link_url = row[:link]
+      old_title = row[:title]
 
       parts = CGI::parse(business_link_url)
       topic_id = parts['topicId'][0]
