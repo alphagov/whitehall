@@ -1,5 +1,7 @@
 require 'logger'
 require 'cgi'
+require 'set'
+require 'uri'
 
 namespace :guidance do
 
@@ -65,24 +67,39 @@ namespace :guidance do
     found_urls = 0
     edited_guides = 0
 
+    records_from_csv = Set.new
+    other_records = {}
 
     CSV.foreach(args[:file], {:headers => true, :header_converters => :symbol}) do |row|
       business_link_url = row[:link]
       old_title = row[:title]
 
-      parts = CGI::parse(business_link_url)
+      parts = CGI::parse(URI(business_link_url).query)
       topic_id = parts['topicId'][0]
+
       PaperTrail.whodunnit = creator
+
       new_record = SpecialistGuide.where(title: old_title).first
-      if new_record
+
+      if topic_id and new_record
+
+        records_from_csv.add new_record.title
         results = SpecialistGuide.where("body LIKE ?", "%topicId=#{topic_id}%").all
+
         if results
           found_urls += results.length.to_i
           results.each do |result|
             old_body = result.body
-            to_match = /\([^\)]+topicId=#{topic_id}[^\0-9)]*\)/
-            if to_match.match old_body
-              body = old_body.gsub(to_match, "(#{admin_edition_url(new_record, :host => args[:host])})")
+            to_match = /\([^\)]+topicId=#{topic_id}[^\\d)]*\)/
+            matched = to_match.match old_body
+            if matched
+              title = result.title
+              new_url = admin_edition_url(new_record, :host => args[:host])
+              if ! other_records[title]
+                other_records[title] = Set.new
+              end
+              other_records[title].add [topic_id, matched[0], new_url]
+              body = old_body.gsub(to_match, "(#{new_url})")
               result.body = body
               result.save && edited_guides += 1
             end
@@ -94,7 +111,15 @@ namespace :guidance do
       puts "#{found_urls} URLs found"
     end
     if edited_guides > 0
-      puts "#{edited_guides} guides updated"
+      puts "#{other_records.keys.to_set.length} guides updated"
+      puts ""
+      puts "The following guides not in the CSV were updated:"
+      (other_records.keys.to_set - records_from_csv).each do |title|
+        puts " - #{title}:"
+        other_records[title].each do |link|
+          puts " --- #{link}"
+        end
+      end
     end
   end
 
