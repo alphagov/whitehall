@@ -3,9 +3,21 @@ class DocumentsController < PublicFacingController
 
   private
 
+  def preview?
+    params[:preview] && user_signed_in?
+  end
+
   def find_document
-    unless @document = document_class.published_as(params[:id])
+    unless @document = find_document_or_edition
       render text: "Not found", status: :not_found
+    end
+  end
+
+  def find_document_or_edition
+    if preview?
+      document_class.find(params[:preview])
+    else
+      document_class.published_as(params[:id])
     end
   end
 

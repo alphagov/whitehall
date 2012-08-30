@@ -74,6 +74,12 @@ When /^I visit the list of publications$/ do
   click_link "Publications"
 end
 
+When /^I visit the latest edition of publication "([^"]*)"$/ do |title|
+  publication = Publication.find_by_title!(title)
+  puts preview_document_path(publication)
+  visit preview_document_path(publication)
+end
+
 When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_publication(title)
   select first_policy, from: "Related policies"
@@ -123,6 +129,11 @@ Then /^I should see the summary of the publication "([^"]*)"$/ do |publication_t
   assert has_css?("#{record_css_selector(publication)} .title", publication.title)
 end
 
+Then /^I should see the summary of the draft publication "([^"]*)"$/ do |publication_title|
+  publication = Publication.find_by_title!(publication_title)
+  assert has_css?("h1 .topic", publication.title)
+end
+
 Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |title, organisation|
   visit_organisation organisation
   assert has_css?("#{corporate_publications_selector}, .publication a", text: title)
@@ -131,4 +142,8 @@ end
 Then /^I should see that the publication is about "([^"]*)"$/ do |country_name|
   country = Country.find_by_name!(country_name)
   assert has_css?(".document-countries #{record_css_selector(country)}")
+end
+
+Then /^I should get a "([^"]*)" error$/ do |error_code|
+  assert_equal error_code.to_i, page.status_code
 end

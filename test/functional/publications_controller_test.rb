@@ -468,6 +468,13 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_object(policy)
   end
 
+  test "preview should be hidden from public" do
+    publication = create(:draft_publication)
+    get :show, id: publication.document, preview: publication.id
+
+    assert_response 404
+  end
+
   private
 
   def given_two_publications_in_two_organisations
