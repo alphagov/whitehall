@@ -1,7 +1,6 @@
 require "test_helper"
 
-class NewsArticleTest < ActiveSupport::TestCase
-  include DocumentBehaviour
+class NewsArticleTest < EditionTestCase
   include ActionDispatch::TestProcess
 
   test "should be able to relate to other editions" do

@@ -1,7 +1,6 @@
 require "test_helper"
 
-class CaseStudyTest < ActiveSupport::TestCase
-  include DocumentBehaviour
+class CaseStudyTest < EditionTestCase
   include ActionDispatch::TestProcess
 
   test "should be able to relate to policies" do

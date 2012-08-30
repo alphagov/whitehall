@@ -1,8 +1,6 @@
 require "test_helper"
 
-class SpecialistGuideTest < ActiveSupport::TestCase
-  include DocumentBehaviour
-
+class SpecialistGuideTest < EditionTestCase
   should_be_attachable
   should_allow_inline_attachments
 

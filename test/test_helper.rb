@@ -146,3 +146,7 @@ class PresenterTestCase < ActionView::TestCase
     assert_select HTML::Document.new(text).root, *args, &block
   end
 end
+
+class EditionTestCase < ActiveSupport::TestCase
+  include DocumentBehaviour
+end

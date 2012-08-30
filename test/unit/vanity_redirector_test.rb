@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SpeechTest < ActiveSupport::TestCase
+class VanityRedirectorTest < ActiveSupport::TestCase
   setup do
     @redirector = VanityRedirector.new(Rails.root.join("test", "fixtures", "vanity-redirects.csv"))
   end

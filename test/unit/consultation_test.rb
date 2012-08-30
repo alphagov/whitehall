@@ -1,8 +1,6 @@
 require "test_helper"
 
-class ConsultationTest < ActiveSupport::TestCase
-  include DocumentBehaviour
-
+class ConsultationTest < EditionTestCase
   should_be_attachable
   should_allow_inline_attachments
 
