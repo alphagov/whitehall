@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def publication_atom_feed_url
-    url_for(params.except(:utf8, :_, :date, :direction).merge(format: "atom", only_path: false))
+    url_for(params.except(:utf8, :_, :date, :direction, :page).merge(format: "atom", only_path: false))
   end
 
   def show_session_controls?

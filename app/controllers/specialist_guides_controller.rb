@@ -3,8 +3,9 @@ class SpecialistGuidesController < DocumentsController
   before_filter :set_search_path
 
   def index
-    load_filtered_specialist_guides(params)
-
+    params[:page] ||= 1
+    params[:direction] = "alphabetical"
+    @filter = Whitehall::DocumentFilter.new(all_specialist_guides, params)
     respond_to do |format|
       format.html
       format.json do
@@ -40,6 +41,10 @@ private
     SpecialistGuide
   end
 
+  def all_specialist_guides
+    SpecialistGuide.published.includes(:document, :organisations, :topics)
+  end
+
   def set_search_path
     response.headers[Slimmer::SEARCH_PATH_HEADER] = search_specialist_guides_path
   end
@@ -48,13 +53,4 @@ private
     set_slimmer_headers(proposition: "specialist")
   end
 
-  def load_filtered_specialist_guides(params)
-    @filter = Whitehall::DocumentFilter.new(SpecialistGuide.published.includes(:document, :organisations, :topics))
-    @filter.
-      by_topics(params[:topics]).
-      by_organisations(params[:departments]).
-      by_keywords(params[:keywords]).
-      alphabetical.
-      paginate(params[:page] || 1)
-  end
 end

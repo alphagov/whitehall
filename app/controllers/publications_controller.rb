@@ -1,7 +1,9 @@
 class PublicationsController < DocumentsController
 
   def index
-    load_filtered_publications(params)
+    params[:page] ||= 1
+    params[:direction] ||= "before"
+    @filter = Whitehall::DocumentFilter.new(all_publications, params)
 
     respond_to do |format|
       format.html
@@ -27,15 +29,5 @@ private
 
   def document_class
     Publication
-  end
-
-  def load_filtered_publications(params)
-    @filter = Whitehall::DocumentFilter.new(all_publications)
-    @filter.
-      by_topics(params[:topics]).
-      by_organisations(params[:departments]).
-      by_keywords(params[:keywords]).
-      by_date(params[:date] || Date.today.to_s, params[:direction]).
-      paginate(params[:page] || 1)
   end
 end

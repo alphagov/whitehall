@@ -1,15 +1,18 @@
 class Whitehall::DocumentFilter
   extend Forwardable
-  attr_reader :selected_topics, :selected_organisations, :keywords, :date, :direction
+  attr_reader :documents
 
   delegate [:count, :current_page, :num_pages, :last_page?, :first_page?] => :documents
 
-  def initialize(documents)
+  def initialize(documents, params = {})
     @documents = documents
-    @selected_topics = []
-    @selected_organisations = []
-    @keywords = []
-    @direction = "before"
+    @params = params
+    filter_by_topics!
+    filter_by_departments!
+    filter_by_keywords!
+    filter_by_date!
+    paginate!
+    apply_sort_direction!
   end
 
   def all_topics
@@ -28,77 +31,80 @@ class Whitehall::DocumentFilter
     Organisation.joins(:"published_#{type}s").group(:name).ordered_by_name_ignoring_prefix
   end
 
-  def by_topics(topic_slugs)
-    if topic_slugs.present? && !topic_slugs.include?("all")
-      @selected_topics = Topic.where(slug: topic_slugs)
-    end
-    self
+  def selected_topics
+    find_by_slug(Topic, @params[:topics])
   end
 
-  def by_organisations(organisation_slugs)
-    if organisation_slugs.present? && !organisation_slugs.include?("all")
-      @selected_organisations = Organisation.where(slug: organisation_slugs)
-    end
-    self
+  def selected_organisations
+    find_by_slug(Organisation, @params[:departments])
   end
 
-  def by_keywords(keywords)
-    if keywords.present?
-      @keywords = keywords.strip.split(/\s+/)
-    end
-    self
-  end
-
-  def by_date(date, direction)
-    if date.present?
-      @date = Date.parse(date)
-    end
-
-    if direction.present?
-      @direction = direction
-      if @date.present?
-        case @direction
-        when "before"
-          @documents = @documents.published_before(@date)
-        when "after"
-          @documents = @documents.published_after(@date)
-        end
-      end
-    end
-    self
-  end
-
-  def alphabetical
-    @alphabetical = true
-    self
-  end
-
-  def paginate(page)
-    @page = page
-    self
-  end
-
-  def documents
-    @documents = @documents.in_topic(@selected_topics) if @selected_topics.any?
-    @documents = @documents.in_organisation(@selected_organisations) if @selected_organisations.any?
-    @documents = @documents.with_content_containing(*@keywords) if @keywords.any?
-
-    if @date
-      @documents = if "after" == @direction
-        @documents.in_chronological_order
-      else
-        @documents.in_reverse_chronological_order
-      end
-    end
-
-    if @alphabetical
-      @documents = @documents.alphabetical
-    end
-
-    if @page
-      @documents.page(@page).per(20)
+  def keywords
+    if @params[:keywords].present?
+      @params[:keywords].strip.split(/\s+/)
     else
-      @documents
+      []
+    end
+  end
+
+  def direction
+    @params[:direction]
+  end
+
+  def date
+    Date.parse(@params[:date]) if @params[:date].present?
+  end
+
+private
+
+  def find_by_slug(klass, slugs)
+    @selected ||= {}
+    @selected[klass] ||= if slugs.present? && !slugs.include?("all")
+      klass.where(slug: slugs)
+    else
+      []
+    end
+  end
+
+  def filter_by_topics!
+    @documents = @documents.in_topic(selected_topics) if selected_topics.any?
+  end
+
+  def filter_by_departments!
+    @documents = @documents.in_organisation(selected_organisations) if selected_organisations.any?
+  end
+
+  def filter_by_keywords!
+    @documents = @documents.with_content_containing(*keywords) if keywords.any?
+  end
+
+  def filter_by_date!
+    if date.present? && direction.present?
+      case direction
+      when "before"
+        @documents = @documents.published_before(date)
+      when "after"
+        @documents = @documents.published_after(date)
+      end
+    end
+  end
+
+  def paginate!
+    if @params[:page].present?
+      @documents = @documents.page(@params[:page]).per(20)
+    end
+  end
+
+  def apply_sort_direction!
+    if direction.present?
+      case direction
+      when "before"
+        @documents = @documents.in_reverse_chronological_order
+      when "after"
+        @documents = @documents.in_chronological_order
+      when "alphabetical"
+        @documents = @documents.alphabetical
+      end
     end
   end
 end
