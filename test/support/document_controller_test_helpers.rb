@@ -12,11 +12,11 @@ module DocumentControllerTestHelpers
 
         assert_select_object(attachment_1) do
           assert_select '.title', text: attachment_1.title
-          assert_select '.title img[src$=?]', 'thumbnail_greenpaper.pdf.png'
+          assert_select 'img[src$=?]', 'thumbnail_greenpaper.pdf.png'
         end
         assert_select_object(attachment_2) do
           assert_select '.title', text: attachment_2.title
-          assert_select '.title img[src$=?]', 'pub-cover.png', message: 'should use default image for non-PDF attachments'
+          assert_select 'img[src$=?]', 'pub-cover.png', message: 'should use default image for non-PDF attachments'
         end
       end
 
@@ -50,7 +50,7 @@ module DocumentControllerTestHelpers
           end
         end
       end
-      
+
       test "show displays PDF attachment metadata" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attachment = create(:attachment, file: greenpaper_pdf)

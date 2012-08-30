@@ -2,10 +2,8 @@
   extra_description ||= ""
 %>
 <%= content_tag_for(:div, attachment, class: "embedded") do %>
-  <%= link_to(attachment.url, class: "title download") do %>
-    <%= attachment_thumbnail(attachment) unless defined?(hide_thumbnail) && hide_thumbnail %>
-    <%= attachment.title %>
-  <% end %>
+  <%= link_to attachment_thumbnail(attachment), attachment.url, class: 'thumbnail' unless defined?(hide_thumbnail) && hide_thumbnail %>
+  <h3><%= link_to attachment.title, attachment.url, class: 'title' %></h3>
   <% unless extra_description.empty? %>
     <p class="extra-description"><%= extra_description %></p>
   <% end %>

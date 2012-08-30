@@ -2,11 +2,11 @@
   position: relative;
   //margin-top: $gutter-half*-1;
   margin-top: -13px;
-  
+
   .govspeak {
     margin-top: 0;
   }
-  
+
   h2 {
     @include core-27;
     color: lighten($body-text, 20%);
@@ -36,11 +36,11 @@
   h5, h6 {
     margin: 0;
   }
-  
+
   h2:first-child {
     margin-top: 0;
   }
-  
+
   p {
     @include core-19;
     margin: $gutter-half 0;
@@ -48,31 +48,31 @@
       margin: $gutter-one-sixth 0;
     }
   }
-  
+
   ol {
     list-style: decimal;
     list-style-position: outside;
   }
-  
+
   ul {
     list-style: disc;
     list-style-position: outside;
     padding: 0;
     margin: 0;
   }
-  
+
   li {
     width: 90%;
     @include core-19;
     margin-left: $gutter*1.2;
-    
+
     li {
       margin-left: $gutter;
     }
-    
+
     @media (min-width: 768px) {
       margin-left: 0;
-      
+
       li {
         margin-left: $gutter*2;
       }
@@ -87,7 +87,7 @@
     border-bottom: .1em dotted;
     cursor: help;
   }
-  
+
   blockquote {
     padding: 0;
     margin: 0;
@@ -109,19 +109,19 @@
       content: "\201D";
     }
   }
-  
+
   hr {
     margin-top: $gutter - 1px;
     border-top: 1px solid #ccc;
     margin-bottom: $gutter;
   }
-  
+
   figure {
     width: 100%;
     clear: both;
     overflow: hidden;
     padding: $gutter-one-third 0 0;
-    
+
     img {
       display: inline;
       text-align: center;
@@ -129,7 +129,7 @@
       height: auto;
       max-width: 100%;
     }
-    
+
     figcaption {
       @include core-14;
     }
@@ -140,22 +140,19 @@
 
     background: $light-warm-grey;
     position: relative;
-    margin: 0 0 0 $gutter-half*-1;
-    padding: $gutter-one-sixth $gutter-half $gutter-half $img-gutter+$gutter;
+    margin: 0;
+    padding: $gutter-half;
 
-    a.download {
-      // this is the download link
+
+    a.thumbnail {
+      float: left;
+      width: $img-gutter;
+    }
+
+    h3 {
       @include core-19;
-      display: block;
-      padding-right: 60px;
-
-      img {
-        position: relative;
-        float: left;
-        width: $img-gutter;
-        margin-top: $gutter-one-sixth;
-        margin-left: ($img-gutter+$gutter-half)*-1;
-      }
+      margin-top: 0;
+      padding: 0 32px 0 0;
     }
 
     p.extra-description {
