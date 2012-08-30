@@ -1,7 +1,4 @@
-class Speech < Edition
-  include Edition::RelatedPolicies
-  include Edition::Countries
-
+class Speech < Announcement
   belongs_to :role_appointment
 
   validates :role_appointment, :speech_type_id, :delivered_on, presence: true
@@ -17,10 +14,6 @@ class Speech < Edition
 
   def speech_type=(speech_type)
     self.speech_type_id = speech_type && speech_type.id
-  end
-
-  def has_summary?
-    true
   end
 
   def person

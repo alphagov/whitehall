@@ -33,7 +33,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def announcements
-    @announcements = Announcement.by_first_published_at(NewsArticle.in_organisation(@organisation).published + @organisation.published_speeches)
+    @announcements = Announcement.sort_by_first_published_at(NewsArticle.in_organisation(@organisation).published + @organisation.published_speeches)
   end
 
   def consultations

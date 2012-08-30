@@ -1,12 +1,6 @@
-class NewsArticle < Edition
+class NewsArticle < Announcement
   include Edition::Ministers
   include Edition::FactCheckable
-  include Edition::RelatedPolicies
-  include Edition::Countries
-
-  def has_summary?
-    true
-  end
 
   def lead_image
     images.first
