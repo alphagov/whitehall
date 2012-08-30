@@ -26,6 +26,20 @@ class Edition < ActiveRecord::Base
     where("#{table_name}.title REGEXP :pattern OR #{table_name}.body REGEXP :pattern", pattern: pattern)
   }
 
+  def self.published_before(date)
+    where(arel_table[:first_published_at].lteq(date))
+  end
+  def self.published_after(date)
+    where(arel_table[:first_published_at].gteq(date))
+  end
+
+  def self.in_chronological_order
+    order(arel_table[:first_published_at].asc)
+  end
+  def self.in_reverse_chronological_order
+    order(arel_table[:first_published_at].desc)
+  end
+
   class UnmodifiableOncePublishedValidator < ActiveModel::Validator
     def validate(record)
       if record.unmodifiable?
