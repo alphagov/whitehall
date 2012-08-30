@@ -15,6 +15,10 @@ module Edition::Identifiable
     document.published?
   end
 
+  def previewable?
+    !document.published_edition.is_latest_edition?
+  end
+
   def ensure_presence_of_document
     self.document ||= Document.new(sluggable_string: self.sluggable_title)
   end
