@@ -106,7 +106,7 @@ class Organisation < ActiveRecord::Base
     if: :provides_alternative_formats?,
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
 
-  default_scope order(:name)
+  default_scope order(organisations: :name)
 
   searchable title: :name,
              link: :search_link,

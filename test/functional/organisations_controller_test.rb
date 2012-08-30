@@ -562,6 +562,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_object(organisation_2)
   end
 
+  test "index avoids n+1 selects" do
+    10.times { create(:organisation) }
+    queries_used = count_queries { get :index }
+    assert 10 > queries_used, "Expected less than 10 queries, #{queries_used} were counted"
+  end
+
   test "should display orgsanisations in alphabetical order" do
     organisation_c = create(:organisation, name: 'C')
     organisation_a = create(:organisation, name: 'A')
