@@ -1,6 +1,7 @@
 require "test_helper"
 
 class PolicyTest < EditionTestCase
+  should_allow_image_attachments
 
   test "does not allow attachment" do
     refute build(:policy).allows_attachments?

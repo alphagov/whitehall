@@ -2,6 +2,14 @@ module DocumentBehaviour
   extend ActiveSupport::Concern
 
   module ClassMethods
+    def should_allow_image_attachments
+      test "should include the Images behaviour module" do
+        # *NOTE*. The Edition::Images module is tested separately so it
+        # should be enough to just test its inclusion here.
+        assert edition_class_from_test_name.ancestors.include?(Edition::Images)
+      end
+    end
+
     def should_be_attachable
       test "should include the Attachable behaviour module" do
         # *NOTE*. The Edition::Attachable module is tested separately so it

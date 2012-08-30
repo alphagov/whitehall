@@ -1,6 +1,7 @@
 require "test_helper"
 
 class PublicationTest < EditionTestCase
+  should_allow_image_attachments
   should_be_attachable
   should_not_allow_inline_attachments
 

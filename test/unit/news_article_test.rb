@@ -3,6 +3,8 @@ require "test_helper"
 class NewsArticleTest < EditionTestCase
   include ActionDispatch::TestProcess
 
+  should_allow_image_attachments
+
   test "should be able to relate to other editions" do
     article = build(:news_article)
     assert article.can_be_related_to_policies?
