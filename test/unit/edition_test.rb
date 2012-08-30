@@ -347,11 +347,6 @@ class EditionTest < ActiveSupport::TestCase
     refute build(:edition).featurable?
   end
 
-  test "should have no lead image even if an associated image exists" do
-    article = build(:edition, images: [build(:image)])
-    assert_nil article.lead_image
-  end
-
   test "should return search index suitable for Rummageable" do
     policy = create(:published_policy, title: "policy-title")
     slug = policy.document.slug
