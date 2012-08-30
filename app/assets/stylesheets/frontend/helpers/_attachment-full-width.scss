@@ -11,15 +11,16 @@
       padding: 0;
       margin: 1.5%;
       overflow: visible;
-      a.thumbnail {
-        img {
-          float: left;
-          width: 20%;
-        }
-      }
 
       h3, p, div {
         margin-left: 26%;
+      }
+
+      a.thumbnail {
+        width: 18%;
+        img {
+          width: 100%;
+        }
       }
 
       .download-button {
