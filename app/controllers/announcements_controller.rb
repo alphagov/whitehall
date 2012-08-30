@@ -1,42 +1,26 @@
 class AnnouncementsController < PublicFacingController
 
   def index
-    announced = AnnouncementsFilter.new(valid_types, params_filters)
-    @results = announced.announcements
+    params[:page] ||= 1
+    params[:direction] ||= "before"
+    @filter = Whitehall::DocumentFilter.new(all_announcements, params)
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: AnnouncementFilterJsonPresenter.new(@filter).json
+      end
+      format.atom do
+        @publications = @filter.documents.by_published_at
+      end
+    end
   end
 
 private
 
-  def params_filters
-    sanitized_filters(params.slice(:page, :type))
+  def all_announcements
+    Announcement.published
+      .by_first_published_at
+      .includes(:document, :organisations)
   end
 
-  def valid_types
-    %w[ news_article speech ]
-  end
-
-  def sanitized_filters(filters)
-    filters.delete(:type) unless filters[:type].nil? || valid_types.include?(filters[:type].to_s)
-    filters
-  end
-
-  class AnnouncementsFilter
-    def initialize(valid_types, options={})
-      @valid_types, @options = valid_types, options
-    end
-
-    def valid_types
-      @valid_types
-    end
-
-    def announcements
-      @announcements ||= (
-        announcements = Edition
-        announcements = announcements.by_type(@options[:type] ? @options[:type].classify : valid_types.collect {|c| c.classify })
-        announcements = announcements.published
-        announcements = announcements.by_first_published_at
-        announcements.includes(:organisations).page(@options[:page] || 1).per(20)
-      )
-    end
-  end
 end

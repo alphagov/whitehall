@@ -42,13 +42,30 @@ class Topic < ActiveRecord::Base
 
   accepts_nested_attributes_for :topic_memberships
 
-  default_scope where('topics.state != "deleted"')
+  default_scope where(arel_table[:state].not_eq("deleted"))
 
   scope :with_content, where("published_edition_count <> 0")
-  scope :with_content_of_type, lambda { |type|
-    klass = type.to_s.classify.constantize
-    includes(:published_editions).where("`editions`.`type` = ?", klass.sti_name)
-  }
+
+  def self.with_related_specialist_guides
+    joins(:published_specialist_guides).group(arel_table[:id])
+  end
+
+  def self.with_related_announcements
+    joins(:published_policies).where("EXISTS (
+        SELECT * FROM edition_relations er_check
+        JOIN editions announcement_check
+          ON announcement_check.id=er_check.edition_id
+            AND announcement_check.state='published'
+        WHERE
+          er_check.document_id=editions.document_id AND
+          announcement_check.type in (?)
+          )", Announcement.sti_names)
+  end
+
+  def self.with_related_publications
+    includes(:published_policies).select { |t| t.published_policies.map(&:published_related_publication_count).sum > 0 }
+  end
+
   scope :alphabetical, order("name ASC")
 
   scope :featured, where(featured: true)
@@ -56,10 +73,6 @@ class Topic < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :name, use: :slugged
-
-  def self.with_related_publications
-    includes(:published_policies).select { |t| t.published_policies.map(&:published_related_publication_count).sum > 0 }
-  end
 
   def update_counts
     update_attribute(:published_edition_count, published_editions.count)

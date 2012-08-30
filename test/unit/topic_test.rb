@@ -287,17 +287,15 @@ class TopicTest < ActiveSupport::TestCase
     refute_includes topics, has_nothing
   end
 
-  test 'should filter out topics without any published policies or documents of a specific type' do
+  test 'should filter out topics without any published specialist guides related directly via topics' do
     has_nothing = create(:topic)
-    create(:published_policy, topics: [has_published_policies = create(:topic)])
-    create(:draft_policy, topics: [has_draft_policies = create(:topic)])
-    create(:published_specialist_guide, topics: [has_published_specialist_guides = create(:topic)])
+    create(:draft_specialist_guide, topics: [has_draft_specialist_guide = create(:topic)])
+    create(:published_specialist_guide, topics: [has_published_specialist_guide = create(:topic)])
 
-    topics = Topic.with_content_of_type(:policy).all
+    topics = Topic.with_related_specialist_guides
 
-    assert_includes topics, has_published_policies
-    refute_includes topics, has_published_specialist_guides
-    refute_includes topics, has_draft_policies
+    assert_includes topics, has_published_specialist_guide
+    refute_includes topics, has_draft_specialist_guide
     refute_includes topics, has_nothing
   end
 
@@ -315,6 +313,30 @@ class TopicTest < ActiveSupport::TestCase
     refute_includes topics, has_published_consultation_via_published_policy
     refute_includes topics, has_published_publication_via_draft_policy
     refute_includes topics, has_draft_publication_via_published_policy
+    refute_includes topics, has_published_policy
+    refute_includes topics, has_nothing
+  end
+
+  test 'should filter out topics without any published announcements related via published policies' do
+    has_nothing = create(:topic)
+    create(:published_policy, topics: [has_published_policy = create(:topic)])
+    create(:draft_news_article, related_policies: [create(:published_policy, topics: [has_draft_news_article_via_published_policy = create(:topic)])])
+    create(:draft_speech, related_policies: [create(:published_policy, topics: [has_draft_speech_via_published_policy = create(:topic)])])
+    create(:published_news_article, related_policies: [create(:draft_policy, topics: [has_published_news_article_via_draft_policy = create(:topic)])])
+    create(:published_speech, related_policies: [create(:draft_policy, topics: [has_published_speech_via_draft_policy = create(:topic)])])
+    create(:published_consultation, related_policies: [create(:published_policy, topics: [has_published_consultation_via_published_policy = create(:topic)])])
+    create(:published_news_article, related_policies: [create(:published_policy, topics: [has_published_news_article_via_published_policy = create(:topic)])])
+    create(:published_speech, related_policies: [create(:published_policy, topics: [has_published_speech_via_published_policy = create(:topic)])])
+
+    topics = Topic.with_related_announcements
+
+    assert_includes topics, has_published_speech_via_published_policy
+    assert_includes topics, has_published_news_article_via_published_policy
+    refute_includes topics, has_published_consultation_via_published_policy
+    refute_includes topics, has_published_news_article_via_draft_policy
+    refute_includes topics, has_published_speech_via_draft_policy
+    refute_includes topics, has_draft_news_article_via_published_policy
+    refute_includes topics, has_draft_speech_via_published_policy
     refute_includes topics, has_published_policy
     refute_includes topics, has_nothing
   end

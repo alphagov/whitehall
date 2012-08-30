@@ -4,6 +4,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
   include ActionView::Helpers::DateHelper
 
   should_be_a_public_facing_controller
+  should_return_json_suitable_for_the_document_filter :news_article
+  should_return_json_suitable_for_the_document_filter :speech
 
   test "index shows a mix of news and speeches" do
     announced_today = [create(:published_news_article), create(:published_speech)]
@@ -15,15 +17,22 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index shows which type a record is" do
-    announced_today = [create(:published_news_article), create(:published_speech)]
+    announced_today = [
+      create(:published_news_article),
+      create(:published_speech),
+      create(:published_speech, speech_type: SpeechType::WrittenStatement),
+    ]
 
     get :index
 
     assert_select_object announced_today[0] do
-      assert_select ".type", text: "News article"
+      assert_select ".announcement_type", text: "News article"
     end
     assert_select_object announced_today[1] do
-      assert_select ".type", text: "Speech"
+      assert_select ".announcement_type", text: "Speech"
+    end
+    assert_select_object announced_today[2] do
+      assert_select ".announcement_type", text: "Statement to parliament"
     end
   end
 
@@ -36,12 +45,11 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object news_article do
-      assert_select ".meta a[href='#{organisation_path(first_org)}']", text: first_org.acronym, count: 1
-      assert_select ".meta a[href='#{organisation_path(second_org)}']", text: second_org.acronym, count: 1
+      assert_select ".organisations", text: "#{first_org.acronym} and #{second_org.acronym}", count: 1
     end
 
     assert_select_object speech do
-      assert_select ".meta a[href='#{organisation_path(second_org)}']", text: second_org.acronym, count: 1
+      assert_select ".organisations", text: second_org.acronym, count: 1
     end
   end
 
@@ -55,7 +63,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
-    articles = css_select "#{containing_selector} article"
+    articles = css_select "#{containing_selector} tr.document-row"
     expected_document_ids = expected_documents.map { |doc| dom_id(doc) }
     actual_document_ids = articles.map { |a| a["id"] }
     assert_equal expected_document_ids, actual_document_ids
@@ -67,7 +75,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_documents_appear_in_order_within("section.announcements", news + speeches[0...5])
+    assert_documents_appear_in_order_within("#announcements-container", news + speeches[0...5])
     speeches[5..10].each do |speech|
       refute_select_object(speech)
     end
@@ -79,7 +87,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     get :index, page: 2
 
-    assert_documents_appear_in_order_within("section.announcements", speeches[5..10])
+    assert_documents_appear_in_order_within("#announcements-container", speeches[5..10])
     (news + speeches[0...5]).each do |speech|
       refute_select_object(speech)
     end    

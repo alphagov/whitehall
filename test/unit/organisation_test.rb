@@ -312,6 +312,19 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_same_elements [gamma, beta, delta], organisation.published_specialist_guides
   end
 
+  test '#published_announcements returns published news or speeches' do
+    organisation = create(:organisation)
+    create(:draft_speech, organisations: [organisation], title: "One")
+    create(:draft_news_article, organisations: [organisation], title: "Two")
+    create(:published_consultation, organisations: [organisation], title: "Three")
+    expected_documents = [
+      create(:published_speech, organisations: [organisation], title: "Alpha"),
+      create(:published_news_article, organisations: [organisation], title: "Beta")
+    ]
+
+    assert_same_elements expected_documents, organisation.published_announcements
+  end
+
   test '#destroy removes parent relationships' do
     child = create(:organisation)
     parent = create(:organisation, child_organisations: [child])

@@ -20,10 +20,13 @@ class Whitehall::DocumentFilter
   end
 
   def all_topics_with(type)
-    if type == :publication
+    case type
+    when :publication
       Topic.with_related_publications.sort_by(&:name)
-    else
-      Topic.with_content_of_type(type).order(:name)
+    when :specialist_guide
+      Topic.with_related_specialist_guides.order(:name)
+    when :announcement
+      Topic.with_related_announcements.order(:name)
     end
   end
 

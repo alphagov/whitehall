@@ -11,10 +11,50 @@
 
 <div class="block-2">
   <div class="inner-block">
-    <section class="further_articles announcements group">
-      <%= announcement_group(@results, groups_of: 3, class: "", partial: "default") %>
-    </section>
+    <%= render partial: "documents/filter_form", locals: {document_type: :announcement, filter_by_date: true} %>
   </div>
 </div>
 
-<%= paginate @results %>
+<div class="block-4">
+  <div class="inner-block filter-results" id="announcements-container" aria-live="polite"><%# this class used by Javascript %>
+    <% if @filter.documents.any? %>
+      <table class="document-list emphasise-recent" id="document-list"><%# this class used by Javascript %>
+        <thead class="visuallyhidden">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Publication Date</th>
+            <th scope="col">Announcement Type</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @filter.documents.each_with_index do |announcement, i| %>
+          <%= content_tag_for(:tr, announcement, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
+            <th scope="row" class="title attribute">
+              <%= link_to announcement.title, public_document_path(announcement),
+                  title: "View #{announcement.title}" %>
+            </th>
+            <td class="attribute organisations">
+              <%= announcement.organisations.map { |o|
+                organisation_display_name(o) }.to_sentence.html_safe %>
+            </td>
+            <td class="attribute first_published_at">
+              <%= render_datetime_microformat(announcement, :first_published_at) {
+                    announcement.first_published_at.to_s(:long_ordinal)
+              }%>
+            </td>
+            <td class="announcement_type attribute">
+              <%= announcement_type(announcement) %>
+            </td>
+          <% end %>
+        <% end %>
+        </tbody>
+      </table>
+      <%= paginate @filter.documents %>
+    <% else %>
+      <div class="no-results">
+        <h2>There are no matching announcements.</h2>
+        <p>Try making your search broader and try again.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -11,11 +11,24 @@ class Policy < Edition
   has_many :related_editions, through: :edition_relations, source: :edition
   has_many :published_related_editions, through: :edition_relations, source: :edition, conditions: {editions: {state: 'published'}}
   has_many :published_related_publications, through: :edition_relations, source: :edition, conditions: {editions: {type: 'Publication', state: 'published'}}
+  has_many :published_related_announcements, through: :edition_relations, source: :edition, conditions: {document: {editions: {type: Announcement.sti_names, state: 'published'}}}
   has_many :case_studies, through: :edition_relations, source: :edition, conditions: {editions: {type: 'CaseStudy', state: 'published'}}
 
   belongs_to :policy_team
 
   validates :summary, presence: true
+
+  def self.having_announcements
+    where("EXISTS (
+      SELECT * FROM edition_relations er_check
+      JOIN editions announcement_check
+        ON announcement_check.id=er_check.edition_id
+          AND announcement_check.state='published'
+      WHERE
+        er_check.document_id=editions.document_id AND
+        announcement_check.type in (?)
+        )", Announcement.sti_names)
+  end
 
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)

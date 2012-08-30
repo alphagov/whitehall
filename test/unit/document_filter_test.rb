@@ -10,15 +10,15 @@ class DocumentFilterTest < ActiveSupport::TestCase
     Whitehall::DocumentFilter.new([]).all_topics
   end
 
-  test "#all_topics_with returns all topics with content of a given type, alphabetically" do
+  test "#all_topics_with :announcement returns all topics with announcements, alphabetically" do
     scope = stub('topic scope')
     scope.expects(:order).with(:name)
-    Topic.expects(:with_content_of_type).with(:policy).returns(scope)
+    Topic.expects(:with_related_announcements).returns(scope)
 
-    Whitehall::DocumentFilter.new([]).all_topics_with(:policy)
+    Whitehall::DocumentFilter.new([]).all_topics_with(:announcement)
   end
 
-  test "#all_topics_with returns all topics with publications, alphabetically" do
+  test "#all_topics_with :publication returns all topics with publications, alphabetically" do
     aardvark = build(:topic, name: "aardvark")
     zebra = build(:topic, name: "zebra")
     topics = [zebra, aardvark]
@@ -225,6 +225,17 @@ class DocumentFilterTest < ActiveSupport::TestCase
   test 'does not use n+1 selects when filtering by date' do
     3.times { |i| create(:published_publication, publication_date: i.months.ago) }
     assert 3 > count_queries { Whitehall::DocumentFilter.new(Publication.published, date: "2012-01-01 12:23:45", direction: "before").documents }
+  end
+
+  test "can filter announcements by topic" do
+    policy = create(:published_policy)
+    topic = create(:topic, policies: [policy])
+    create(:published_speech, related_policies: [policy])
+    create(:published_news_article, related_policies: [policy])
+    create(:published_speech)
+    create(:published_news_article)
+    unfiltered_announcements = Announcement.published
+    assert_equal 2, Whitehall::DocumentFilter.new(unfiltered_announcements, topics: [topic.slug]).documents.count
   end
 
   def self.test_delegates_to_documents(method)
