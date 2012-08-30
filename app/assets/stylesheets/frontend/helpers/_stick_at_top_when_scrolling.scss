@@ -1,7 +1,13 @@
 .content-fixed {
-  position: fixed!important;
+  position: relative;
   top: 0;
-  @include media(tablet){
-    position: relative;
+  @include media(desktop){
+  position: fixed;
+  }
+}
+.shim {
+  display: none;
+  @include media(desktop){
+    display: block;
   }
 }
