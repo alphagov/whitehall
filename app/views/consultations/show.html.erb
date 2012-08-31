@@ -23,18 +23,21 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <div class="consultation-block">
+      <div class="consultation-block <%= consultation_css_class(@document) %>">
+        <% if @document.response_published? or @document.closed? %>
+          <p class="run-time">This consultation ran between <%= absolute_date(@document.opening_on) %> - <%= absolute_date(@document.closing_on) %></p>
+        <% end %>
         <% if @document.response_published? %>
+          <h2><%= link_to "Download the government response", @document.published_consultation_response.attachments.first.url %></h2>
           <%= render partial: "documents/attachment_full_width",
                     locals: { document: @document.published_consultation_response,
                               summary: @document.published_consultation_response.body } %>
         <% elsif @document.closed? %>
-          <p>This consultation ran between <%= absolute_date(@document.opening_on) %> - <%= absolute_date(@document.closing_on) %></p>
           <h2>We are anaylsing youre responses</h2>
           <p>Visit this page again soon to download the outcome to this public feedback.</p>
         <% elsif @document.open? %>
           <h2>This consultation closes on <%= absolute_date(@document.closing_on) %></h2>
-          <a href="#download" class="jump">Jump to consulation download</a>
+          <p class="jump"><a href="#download">Jump to consulation download</a></p>
         <% end %>
       </div>
 
