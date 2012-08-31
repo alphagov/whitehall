@@ -26,4 +26,8 @@ module Edition::Images
   def lead_image
     nil
   end
+
+  def allows_image_attachments?
+    true
+  end
 end

@@ -1,4 +1,5 @@
 class Publication < Edition
+  include Edition::Images
   include Edition::NationalApplicability
   include Edition::Ministers
   include Edition::FactCheckable

@@ -1,4 +1,5 @@
 class Announcement < Edition
+  include Edition::Images
   include Edition::RelatedPolicies
   include Edition::Countries
   self.abstract_class = true

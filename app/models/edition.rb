@@ -1,12 +1,13 @@
 class Edition < ActiveRecord::Base
   include Edition::Traits
 
+  include Edition::NullImages
+
   include Edition::Identifiable
   include Edition::AccessControl
   include Edition::Workflow
   include Edition::Organisations
   include Edition::Publishing
-  include Edition::Images
   include Edition::AuditTrail
   include Edition::ActiveEditors
 

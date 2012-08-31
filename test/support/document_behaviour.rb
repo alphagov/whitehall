@@ -10,6 +10,25 @@ module DocumentBehaviour
       end
     end
 
+    def should_not_allow_image_attachments
+      test "should quack like something that includes the Images behaviour module" do
+        assert edition_class_from_test_name.new.respond_to?(:images), "should respond to #images"
+        assert edition_class_from_test_name.new.respond_to?(:lead_image), "should respond to #lead_image"
+      end
+
+      test "should return an empty array when asked for its images" do
+        assert_equal [], edition_class_from_test_name.new.images
+      end
+
+      test "should return nil when asked for its lead_image" do
+        assert_nil edition_class_from_test_name.new.lead_image
+      end
+
+      test "should indicate that it does not allow image attachments" do
+        refute edition_class_from_test_name.new.allows_image_attachments?
+      end
+    end
+
     def should_be_attachable
       test "should include the Attachable behaviour module" do
         # *NOTE*. The Edition::Attachable module is tested separately so it

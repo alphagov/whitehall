@@ -11,4 +11,7 @@
   <% end %>
   <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
 </fieldset>
-<%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
+
+<% if form.object.allows_image_attachments? %>
+  <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
+<% end %>

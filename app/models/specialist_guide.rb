@@ -1,4 +1,5 @@
 class SpecialistGuide < Edition
+  include Edition::Images
   include Edition::NationalApplicability
   include Edition::Topics
   include Edition::Attachable

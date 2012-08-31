@@ -58,14 +58,4 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     get :show, consultation_id: consultation.document
     refute_select "#inapplicable_nations"
   end
-
-  test "should display document with inline images" do
-    images = [create(:image)]
-    published_consultation_response = create(:published_consultation_response, body: "!!1", images: images)
-    consultation = published_consultation_response.consultation
-    get :show, consultation_id: consultation.document
-
-    assert_select 'article .body figure.image.embedded img'
-  end
-
 end

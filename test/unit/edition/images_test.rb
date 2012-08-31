@@ -89,6 +89,10 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     assert_nil edition.lead_image
   end
 
+  test "should indicate that it allows image attachments" do
+    assert EditionWithImages.new.allows_image_attachments?
+  end
+
   private
 
   def valid_edition_attributes
