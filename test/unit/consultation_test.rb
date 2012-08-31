@@ -4,6 +4,7 @@ class ConsultationTest < EditionTestCase
   should_allow_image_attachments
   should_be_attachable
   should_allow_inline_attachments
+  should_allow_a_summary_to_be_written
 
   test "should not be valid without an opening on date" do
     consultation = build(:consultation, opening_on: nil)
