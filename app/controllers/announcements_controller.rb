@@ -19,7 +19,6 @@ private
 
   def all_announcements
     Announcement.published
-      .by_first_published_at
       .includes(:document, :organisations)
   end
 

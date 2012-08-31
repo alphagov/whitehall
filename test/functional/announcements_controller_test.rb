@@ -54,12 +54,21 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index shows articles in reverse chronological order" do
-    speech = create(:published_speech, published_at: 5.days.ago)
-    news_article = create(:published_news_article, published_at: 4.days.ago)
+    oldest = create(:published_speech, published_at: 5.days.ago)
+    newest = create(:published_news_article, published_at: 4.days.ago)
 
     get :index
 
-    assert_select "#{record_css_selector(news_article)} + #{record_css_selector(speech)}"
+    assert_select "#{record_css_selector(newest)} + #{record_css_selector(oldest)}"
+  end
+
+  test "index shows articles in chronological order if date filter is 'after' a given date" do
+    oldest = create(:published_speech, published_at: 5.days.ago)
+    newest = create(:published_news_article, published_at: 4.days.ago)
+
+    get :index, direction: 'after', date: 6.days.ago.to_s
+
+    assert_select "#{record_css_selector(oldest)} + #{record_css_selector(newest)}"
   end
 
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
