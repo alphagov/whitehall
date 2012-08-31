@@ -51,7 +51,9 @@ class Topic < ActiveRecord::Base
   end
 
   def self.with_related_announcements
-    joins(:published_policies).where("EXISTS (
+    joins(:published_policies).
+      group(arel_table[:id]).
+      where("EXISTS (
         SELECT * FROM edition_relations er_check
         JOIN editions announcement_check
           ON announcement_check.id=er_check.edition_id

@@ -341,6 +341,25 @@ class TopicTest < ActiveSupport::TestCase
     refute_includes topics, has_nothing
   end
 
+  test 'should not have duplicate topics in list of topics with announcements' do
+    topic = create(:topic)
+    policy1 = create(:published_policy, topics: [topic])
+    policy2 = create(:published_policy, topics: [topic])
+    create(:published_speech, related_policies: [policy1])
+    create(:published_speech, related_policies: [policy1])
+    create(:published_speech, related_policies: [policy2])
+
+    assert_equal [topic], Topic.with_related_announcements
+  end
+
+  test 'should not have duplicate topics in list of topics with specialist guides' do
+    topic = create(:topic)
+    create(:published_specialist_guide, topics: [topic])
+    create(:published_specialist_guide, topics: [topic])
+
+    assert_equal [topic], Topic.with_related_specialist_guides
+  end
+
   test 'should be retrievable in an alphabetically ordered list' do
     cheese = create(:topic, name: "Cheese")
     bananas = create(:topic, name: "Bananas")
