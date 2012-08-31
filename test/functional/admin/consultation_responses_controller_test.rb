@@ -8,6 +8,7 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
   should_allow_attachments_for :consultation_response
+  should_not_show_inline_attachment_help_for :consultation_response
   should_allow_alternative_format_provider_for :consultation_response
 
   test 'new displays consultation response form' do

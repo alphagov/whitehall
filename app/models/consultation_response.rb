@@ -24,4 +24,8 @@ class ConsultationResponse < Edition
   def allows_attachment_references?
     true
   end
+
+  def allows_inline_attachments?
+    false
+  end
 end

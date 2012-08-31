@@ -3,7 +3,7 @@ require 'test_helper'
 class ConsultationResponseTest < EditionTestCase
   should_not_allow_image_attachments
   should_be_attachable
-  should_allow_inline_attachments
+  should_not_allow_inline_attachments
 
   test "should not be valid without an associated consultation" do
     consultation_response = build(:consultation_response, consultation: nil)
