@@ -61,5 +61,11 @@ module DocumentBehaviour
       end
     end
 
+    def should_allow_a_body_to_be_written
+      test "should allow a body to be written" do
+        assert edition_class_from_test_name.new.can_have_body?
+      end
+    end
+
   end
 end

@@ -5,6 +5,7 @@ class PublicationTest < EditionTestCase
   should_be_attachable
   should_not_allow_inline_attachments
   should_allow_a_summary_to_be_written
+  should_allow_a_body_to_be_written
 
   test 'should be invalid without a publication date' do
     publication = build(:publication, publication_date: nil)
