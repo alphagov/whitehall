@@ -1,10 +1,10 @@
-<% if news_articles.any? %>
+<% if editions.any? %>
   <section class="<%= featured_carousel_classes(options) %>" id="featured-news-articles">
-    <% news_articles.each do |news_article| %>
-      <%= content_tag_for(:article, news_article, nil, class: edition_organisation_class(news_article)) do %>
+    <% editions.each do |edition| %>
+      <%= content_tag_for(:article, edition, nil, class: edition_organisation_class(edition)) do %>
         <div class="img">
-          <% if news_article.lead_image.present? %>
-            <%= image_tag(news_article.lead_image.url) %>
+          <% if edition.lead_image.present? %>
+            <%= image_tag(edition.lead_image.url) %>
           <% else %>
             <%= image_tag('generic_image.jpg') %>
           <% end %>
@@ -12,13 +12,13 @@
         <div class="news_body">
           <div class="meta">
             Posted
-            <%= relative_time(news_article.published_at, class: 'published_at') %>
+            <%= relative_time(edition.published_at, class: 'published_at') %>
           </div>
-          <h2><%= link_to news_article.title, public_document_path(news_article), class: "title" %></h2>
-          <% unless news_article.summary.blank? %>
-            <p class="summary"><%= truncate(news_article.summary, length: 150, separator: ' ') %></p>
+          <h2><%= link_to edition.title, public_document_path(edition), class: "title" %></h2>
+          <% unless edition.summary.blank? %>
+            <p class="summary"><%= truncate(edition.summary, length: 150, separator: ' ') %></p>
           <% end %>
-          <div class="document-type"><%= human_friendly_edition_type(news_article) %></div>
+          <div class="document-type"><%= human_friendly_edition_type(edition) %></div>
         </div>
       <% end %>
     <% end %>
