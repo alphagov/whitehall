@@ -10,6 +10,7 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
   should_allow_attachments_for :consultation_response
   should_not_show_inline_attachment_help_for :consultation_response
   should_allow_alternative_format_provider_for :consultation_response
+  should_have_summary :consultation_response
 
   test 'new displays consultation response form' do
     get :new, edition: {consultation_id: @consultation}

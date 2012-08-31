@@ -29,6 +29,10 @@ class ConsultationResponse < Edition
     false
   end
 
+  def can_have_summary?
+    true
+  end
+
   private
 
   def body_required?

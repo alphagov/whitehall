@@ -31,7 +31,7 @@ module AdminEditionControllerTestHelpers
       edition_class = edition_class_for(edition_type)
 
       test "create should create a new #{edition_type} with summary" do
-        attributes = attributes_for(edition_type)
+        attributes = controller_attributes_for(edition_type)
 
         post :create, edition: attributes.merge(
           summary: "my summary",
