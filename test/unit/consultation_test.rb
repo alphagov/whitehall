@@ -150,6 +150,12 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal 1.day.ago.to_date, consultation.last_significantly_changed_on
   end
 
+  test "should not create a participation if all participation fields are blank" do
+    attributes = {link_url: nil, link_text: nil, consultation_response_form_attributes: {title: nil, file: nil}}
+    consultation = create(:consultation, consultation_participation_attributes: attributes)
+    assert consultation.consultation_participation.blank?
+  end
+
   test "should preserve original participation when creating new edition" do
     consultation_participation = create(:consultation_participation, link_url: "http://example.com", link_text: "Respond here")
     consultation = create(:published_consultation, consultation_participation: consultation_participation)
