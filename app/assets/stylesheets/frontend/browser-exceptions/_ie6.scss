@@ -1,0 +1,37 @@
+#whitehall-wrapper {
+
+  .biographical-page {
+    .in-page-navigation {
+      figure.img {
+        img {
+          width: expression(document.body.clientWidth < 137? "135px" : document.body.clientWidth > 137? "135px" : "auto");
+        }
+      }
+    }
+  }
+
+  .publication, .biographical-page {
+    .organisations-icon-list {
+      .organisation-logo-small {
+        span {
+          top: -60px;
+        }
+        &.single-line {
+          span {
+          top: -75px;
+          }
+        }
+      }
+    }
+  }
+
+  .attachment-full-width .govspeak .attachment .download-button, .attachment-full-width .document .body .attachment .download-button, .document .attachment-full-width .body .attachment .download-button {
+    right: $gutter+$gutter-half;
+  }
+
+  .attachment-full-width .govspeak .attachment a.download img, .attachment-full-width .document .body .attachment a.download img, .document .attachment-full-width .body .attachment a.download img {
+    margin-left: -25%;
+  }
+
+
+}
