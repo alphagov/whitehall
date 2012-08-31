@@ -26,6 +26,9 @@
       .download-button {
         top: 6px;
         right: 0px;
+        @include ie(6) {
+          right: $gutter+$gutter-half;
+        }
       }
     }
     .attachment-without-thumbnail {
