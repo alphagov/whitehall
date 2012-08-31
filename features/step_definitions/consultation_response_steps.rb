@@ -19,5 +19,5 @@ end
 Then /^the consultation "([^"]*)" should show the response "([^"]*)"$/ do |consultation_title, response_title|
   consultation = Consultation.find_by_title!(consultation_title)
   visit consultation_path(consultation.document)
-  assert has_css?("a[href='#{consultation_response_path(consultation.document)}']")
+  assert has_css?(".response-summary h2", text: consultation.published_consultation_response.title)
 end
