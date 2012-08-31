@@ -61,6 +61,12 @@ nav.consultations_scope {
 }
 
 .consultation {
+  &.consultation-closed,
+  &.consultation-responded {
+    .heading-block {
+      color: lighten($body-text, 20%);
+    }
+  }
   .consultation-block {
     background: $light-blue;
     color: $white;
