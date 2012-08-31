@@ -14,12 +14,16 @@
       text-align: left;
       float: left;
       display: inline;
-      width: 85%;
+      width: 100%;
       margin-top: $gutter-one-sixth;
       @media (min-width: 860px) {
         @include core-24;
       }
       padding-bottom: 0;
+
+      @include ie(6) {
+        width: 85%;
+      }
     }
     
     td {
