@@ -33,6 +33,10 @@ class ConsultationResponse < Edition
     true
   end
 
+  def can_have_body?
+    false
+  end
+
   private
 
   def body_required?

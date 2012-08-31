@@ -1,14 +1,21 @@
 <fieldset>
   <%= form.hidden_field :lock_version %>
+
   <%= form.text_field :title %>
+
   <% if form.object.can_have_summary? %>
     <%= form.text_area :summary, rows: 2 %>
     <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
   <% end %>
-  <%= form.text_area :body, "class" => "previewable" %>
+
+  <% if form.object.can_have_body? %>
+    <%= form.text_area :body, "class" => "previewable" %>
+  <% end %>
+
   <% if form.object.allows_body_to_be_paginated? %>
     <%= form.check_box :paginate_body, label_text: 'Create a page for each top level heading?' %>
   <% end %>
+
   <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
 </fieldset>
 
