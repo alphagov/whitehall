@@ -71,27 +71,29 @@
 
       <% if @document.open? && @document.has_consultation_participation? %>
         <section id="response-formats" class="participation">
-          <p>This consultation closes <%= absolute_date(@document.closing_on) %></p>
-          <% if @document.consultation_participation.has_link? %>
-            <p class="online">
-              <%= link_to_consultation_participation(@document) %>
-            </p>
-          <% end %>
-          <% if @document.consultation_participation.has_email? %>
-            <p>or</p>
-            <ol>
-              <li>
-                <p>Download and complete the response form</p>
-              </li>
-              <li>
-                <p>Return the form to us by:</p>
-                <dl>
-                  <dt>email</dt>
-                  <dd class="email"><%= mail_to_consultation_participation(@document) %></dd>
-                </dl>
-              </li>
-            </ol>
-          <% end %>
+          <div class="content">
+            <p>This consultation closes <%= absolute_date(@document.closing_on) %></p>
+            <% if @document.consultation_participation.has_link? %>
+              <p class="online">
+                <%= link_to_consultation_participation(@document) %>
+              </p>
+            <% end %>
+            <% if @document.consultation_participation.has_email? %>
+              <p class="or">or</p>
+              <ol>
+                <li>
+                  <p>Download and complete the response form</p>
+                </li>
+                <li>
+                  <p>Return the form to us by:</p>
+                  <dl>
+                    <dt>email</dt>
+                    <dd class="email"><%= mail_to_consultation_participation(@document) %></dd>
+                  </dl>
+                </li>
+              </ol>
+            <% end %>
+          </div>
         </section>
       <% end %>
     </div>

@@ -61,7 +61,6 @@ nav.consultations_scope {
 }
 
 .consultation {
-
   .consultation-block {
     background: $light-blue;
     color: $white;
@@ -178,6 +177,32 @@ nav.consultations_scope {
         }
       }
     }
+  }
+  .participation {
+    background: $light-warm-grey;
+    @include core-19;
 
+    .content {
+      padding: $gutter-half;
+    }
+    @include media(desktop){
+      padding-left: 25%;
+      .content {
+        padding: 0 $gutter 0 0;
+      }
+    }
+
+    .online {
+      @include core-48;
+      margin: 0 0 $gutter-two-thirds;
+    }
+    ol li {
+      list-style: decimal;
+      margin: $gutter-two-thirds 0;
+    }
+    dl dt {
+      @include core-16;
+      margin-top: $gutter-one-third;
+    }
   }
 }
