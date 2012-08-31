@@ -3,27 +3,29 @@
 %>
 <%= content_tag_for(:div, attachment, class: "embedded") do %>
   <%= link_to attachment_thumbnail(attachment), attachment.url, class: 'thumbnail' unless defined?(hide_thumbnail) && hide_thumbnail %>
-  <h3><%= link_to attachment.title, attachment.url, class: 'title' %></h3>
-  <% unless extra_description.empty? %>
-    <p class="extra-description"><%= extra_description %></p>
-  <% end %>
-  <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? %>
-    <p>Ref: <%= attachment_reference(attachment) %></p>
-  <% end %>
-  <p>
-    <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>,
-    <span class="file-size"><%= number_to_human_size(attachment.file_size) %></span><% if attachment.number_of_pages.present? %>,
-      <span class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></span><% end %>
-  </p>
-  <% if attachment.order_url.present? %>
-    <p>
-      <%= link_to "Order a copy", attachment.order_url,
-          class: "order_url", title: "Order a copy of the publication" %>
-      <% if attachment.price %>
-        (<span class="price"><%= number_to_currency(attachment.price, unit: "&pound;") %></span>)
-      <% end %>
+  <div class="attachment-details">
+    <h3 class="title"><%= link_to attachment.title, attachment.url %></h3>
+    <% unless extra_description.empty? %>
+      <p class="extra-description"><%= extra_description %></p>
+    <% end %>
+    <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? %>
+      <p class="references">Ref: <%= attachment_reference(attachment) %></p>
+    <% end %>
+    <p class="metadata">
+      <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>,
+      <span class="file-size"><%= number_to_human_size(attachment.file_size) %></span><% if attachment.number_of_pages.present? %>,
+        <span class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></span><% end %>
     </p>
-  <% end %>
-  <%= link_to 'Download attachment', attachment.url, class: "download-button" %>
-  <%= render partial: 'documents/attachment_accessibility_warning.html.erb', locals: {attachment: attachment, alternative_format_contact_email: alternative_format_contact_email} %>
+    <% if attachment.order_url.present? %>
+      <p>
+        <%= link_to "Order a copy", attachment.order_url,
+            class: "order_url", title: "Order a copy of the publication" %>
+        <% if attachment.price %>
+          (<span class="price"><%= number_to_currency(attachment.price, unit: "&pound;") %></span>)
+        <% end %>
+      </p>
+    <% end %>
+    <%= link_to 'Download attachment', attachment.url, class: "download-button" %>
+    <%= render partial: 'documents/attachment_accessibility_warning.html.erb', locals: {attachment: attachment, alternative_format_contact_email: alternative_format_contact_email} %>
+  </div>
 <% end %>
