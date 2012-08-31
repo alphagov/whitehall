@@ -28,4 +28,10 @@ class ConsultationResponse < Edition
   def allows_inline_attachments?
     false
   end
+
+  private
+
+  def body_required?
+    false
+  end
 end

@@ -19,7 +19,8 @@ class Edition < ActiveRecord::Base
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
 
-  validates :title, :body, :creator, presence: true
+  validates :title, :creator, presence: true
+  validates :body, presence: true, if: :body_required?
 
   scope :alphabetical, order("title ASC")
   scope :with_content_containing, -> *keywords {
@@ -278,5 +279,11 @@ class Edition < ActiveRecord::Base
     def latest_published_edition
       published.where("NOT EXISTS (SELECT 1 FROM editions e2 WHERE e2.document_id = editions.document_id AND e2.id > editions.id AND e2.state = 'published')")
     end
+  end
+
+  private
+
+  def body_required?
+    true
   end
 end
