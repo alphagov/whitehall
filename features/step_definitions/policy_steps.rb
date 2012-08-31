@@ -274,6 +274,12 @@ Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |p
   assert has_css?(".actions .public_version a", href: public_document_path(policy)), "Link to public version of policy not found"
 end
 
+Then /^I should see a link to the preview version of the policy "([^"]*)"$/ do |policy_title|
+  policy = Policy.find_by_title!(policy_title)
+  visit admin_edition_path(policy)
+  assert has_css?(".actions .preview_version a", href: preview_document_path(policy)), "Link to preview version of policy not found"
+end
+
 Then /^I should see the policy titled "([^"]*)" in the list of documents that need work$/ do |policy_title|
   visit admin_editions_path
   click_link "Show only rejected documents"

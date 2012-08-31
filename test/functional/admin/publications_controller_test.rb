@@ -30,6 +30,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_be_able_to_delete_an_edition :publication
   should_link_to_public_version_when_published :publication
   should_not_link_to_public_version_when_not_published :publication
+  should_link_to_preview_version_when_not_published :publication
   should_prevent_modification_of_unmodifiable :publication
   should_allow_alternative_format_provider_for :publication
   should_allow_assignment_to_document_series :publication

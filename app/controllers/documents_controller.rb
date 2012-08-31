@@ -4,7 +4,11 @@ class DocumentsController < PublicFacingController
   private
 
   def preview?
-    params[:preview] && user_signed_in?
+    params[:preview]
+  end
+
+  def current_user_can_preview?
+    preview? && current_user
   end
 
   def find_document
@@ -14,7 +18,7 @@ class DocumentsController < PublicFacingController
   end
 
   def find_document_or_edition
-    if preview?
+    if current_user_can_preview?
       document_class.find(params[:preview])
     else
       document_class.published_as(params[:id])

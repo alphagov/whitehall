@@ -1175,6 +1175,14 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_link_to_preview_version_when_not_published(edition_type)
+      test "should link to preview version when not published" do
+        draft_edition = create("draft_#{edition_type}")
+        get :show, id: draft_edition
+        assert_select link_to_preview_version_selector
+      end
+    end
+
     def should_be_rejectable(edition_type)
       document_type_class = edition_type.to_s.classify.constantize
 

@@ -4,6 +4,11 @@
       <p>View <%= link_to edition.title, public_document_url(edition) %> on public website</p>
     </div>
   <% end %>
+  <% if edition.previewable? %>
+    <div class="preview_version">
+      <p>Preview <%= link_to edition.title, preview_document_url(edition) %> on public website</p>
+    </div>
+  <% end %>
   <% if edition.force_published? %>
     <div class="alert alert-error force_published">
       <p>This edition was force published, and has not yet been reviewed by a

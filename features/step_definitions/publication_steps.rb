@@ -74,12 +74,6 @@ When /^I visit the list of publications$/ do
   click_link "Publications"
 end
 
-When /^I visit the latest edition of publication "([^"]*)"$/ do |title|
-  publication = Publication.find_by_title!(title)
-  puts preview_document_path(publication)
-  visit preview_document_path(publication)
-end
-
 When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_publication(title)
   select first_policy, from: "Related policies"
