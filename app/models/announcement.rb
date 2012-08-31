@@ -4,7 +4,7 @@ class Announcement < Edition
   include Edition::Countries
   self.abstract_class = true
 
-  def has_summary?
+  def can_have_summary?
     true
   end
 

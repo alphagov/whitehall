@@ -1,7 +1,7 @@
 <fieldset>
   <%= form.hidden_field :lock_version %>
   <%= form.text_field :title %>
-  <% if form.object.has_summary? %>
+  <% if form.object.can_have_summary? %>
     <%= form.text_area :summary, rows: 2 %>
     <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
   <% end %>

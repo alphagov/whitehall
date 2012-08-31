@@ -156,7 +156,7 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def has_summary?
+  def can_have_summary?
     false
   end
 

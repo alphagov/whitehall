@@ -35,7 +35,7 @@ class SpecialistGuide < Edition
     (published_outbound_related_specialist_guides + published_inbound_related_specialist_guides).uniq
   end
 
-  def has_summary?
+  def can_have_summary?
     true
   end
 

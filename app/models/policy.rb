@@ -49,7 +49,7 @@ class Policy < Edition
     true
   end
   
-  def has_summary?
+  def can_have_summary?
     true
   end
 

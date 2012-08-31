@@ -41,7 +41,7 @@ class Consultation < Edition
     closing_on < Date.today
   end
 
-  def has_summary?
+  def can_have_summary?
     true
   end
 

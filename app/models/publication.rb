@@ -42,7 +42,7 @@ class Publication < Edition
     self.publication_type_id = publication_type && publication_type.id
   end
 
-  def has_summary?
+  def can_have_summary?
     true
   end
 

@@ -88,7 +88,7 @@ module AdminEditionControllerTestHelpers
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
         assert_select "form#edition_new[action='#{admin_editions_path}']" do
           assert_select "input[name='edition[title]'][type='text']"
-          assert_select "textarea[name='edition[summary]']" if edition_class.new.has_summary?
+          assert_select "textarea[name='edition[summary]']" if edition_class.new.can_have_summary?
           assert_select "textarea[name='edition[body]']"
           assert_select "input[type='submit']"
         end

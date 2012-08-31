@@ -51,13 +51,13 @@ module DocumentBehaviour
 
     def should_allow_a_summary_to_be_written
       test "should allow a summary to be written" do
-        assert edition_class_from_test_name.new.has_summary?
+        assert edition_class_from_test_name.new.can_have_summary?
       end
     end
 
     def should_not_allow_a_summary_to_be_written
       test "should not allow a summary to be written" do
-        refute edition_class_from_test_name.new.has_summary?
+        refute edition_class_from_test_name.new.can_have_summary?
       end
     end
 
