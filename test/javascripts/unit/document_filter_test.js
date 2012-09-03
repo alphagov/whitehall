@@ -140,7 +140,7 @@ test("should make an ajax request on form submission to obtain filtered results"
   server.respond();
 
   sinon.assert.calledOnce(ajax);
-})
+});
 
 test("should make an ajax request to load more results inline", function() {
   this.filterForm.enableDocumentFilter();
@@ -153,7 +153,7 @@ test("should make an ajax request to load more results inline", function() {
   server.respond();
 
   sinon.assert.calledOnce(ajax);
-})
+});
 
 test("should send ajax request using url in form action", function() {
   this.filterForm.enableDocumentFilter();
@@ -161,14 +161,14 @@ test("should send ajax request using url in form action", function() {
   var ajax = this.spy(jQuery, "ajax");
   var server = this.sandbox.useFakeServer();
 
-  $(this.filterForm).attr("action", "/specialist")
+  $(this.filterForm).attr("action", "/specialist");
 
   this.filterForm.submit();
   server.respond();
 
   var url = jQuery.ajax.getCall(0).args[0];
   equals(url, "/specialist");
-})
+});
 
 test("should send filter form parameters in ajax request", function() {
   this.filterForm.enableDocumentFilter();
@@ -176,7 +176,7 @@ test("should send filter form parameters in ajax request", function() {
   var ajax = this.spy(jQuery, "ajax");
   var server = this.sandbox.useFakeServer();
 
-  $(this.filterForm).append($('<select name="foo"><option value="bar" /></select>'))
+  $(this.filterForm).append($('<select name="foo"><option value="bar" /></select>'));
 
   this.filterForm.submit();
   server.respond();
@@ -184,36 +184,36 @@ test("should send filter form parameters in ajax request", function() {
   var settings = jQuery.ajax.getCall(0).args[1];
   equals(settings["data"][0]["name"], "foo");
   equals(settings["data"][0]["value"], "bar");
-})
+});
 
 test("should generate table of results baed on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
 
   var server = this.sandbox.useFakeServer();
-  server.respondWith(JSON.stringify(this.ajaxData))
+  server.respondWith(JSON.stringify(this.ajaxData));
 
   this.filterForm.submit();
   server.respond();
 
-  equals(this.filterResults.find("table tbody tr").length, 2)
-})
+  equals(this.filterResults.find("table tbody tr").length, 2);
+});
 
 test("should add extra results to table results", function() {
   this.filterForm.enableDocumentFilter();
 
   var server = this.sandbox.useFakeServer();
-  server.respondWith(JSON.stringify(this.ajaxData))
+  server.respondWith(JSON.stringify(this.ajaxData));
 
   this.filterForm.submit();
   server.respond();
 
-  equals(this.filterResults.find("table tbody tr").length, 2)
+  equals(this.filterResults.find("table tbody tr").length, 2);
 
   GOVUK.documentFilter.loadMoreInline();
   server.respond();
 
-  equals(this.filterResults.find("table tbody tr").length, 4)
-})
+  equals(this.filterResults.find("table tbody tr").length, 4);
+});
 
 test("should fire analytics on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
@@ -221,7 +221,7 @@ test("should fire analytics on successful ajax response", function() {
 
   var analytics = this.spy(_gaq, "push");
   var server = this.sandbox.useFakeServer();
-  server.respondWith(JSON.stringify(this.ajaxData))
+  server.respondWith(JSON.stringify(this.ajaxData));
 
   this.filterForm.submit();
   server.respond();
@@ -234,10 +234,10 @@ test("should update browser location on successful ajax response", function() {
 
   var historyPushState = this.spy(History, "pushState");
   var server = this.sandbox.useFakeServer();
-  server.respondWith(JSON.stringify(this.ajaxData))
+  server.respondWith(JSON.stringify(this.ajaxData));
 
-  $(this.filterForm).attr("action", "/specialist")
-  $(this.filterForm).append($('<select name="foo"><option value="bar" /></select>'))
+  $(this.filterForm).attr("action", "/specialist");
+  $(this.filterForm).append($('<select name="foo"><option value="bar" /></select>'));
 
   this.filterForm.submit();
   server.respond();
@@ -250,7 +250,7 @@ test("should update browser location on successful ajax response", function() {
 
   var path = historyPushState.getCall(0).args[2];
   equals(path, "/specialist?foo=bar", "Bookmarkable URL path");
-})
+});
 
 test("should not enable ajax filtering if browser does not support HTML5 History API", function() {
   History.enabled = false;
@@ -265,5 +265,5 @@ test("should not enable ajax filtering if browser does not support HTML5 History
   server.respond();
 
   sinon.assert.callCount(ajax, 0);
-})
+});
 
