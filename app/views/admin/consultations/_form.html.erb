@@ -2,13 +2,6 @@
   <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition }%>
 
   <fieldset>
-    <%= form.label :opening_on, 'Opening Date' %>
-    <%= form.date_select :opening_on, { include_blank: true }, { :class => "date" } %>
-    <%= form.label :closing_on, 'Closing Date' %>
-    <%= form.date_select :closing_on, { include_blank: true }, { :class => "date" } %>
-  </fieldset>
-
-  <fieldset>
     <legend>Associations</legend>
     <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
