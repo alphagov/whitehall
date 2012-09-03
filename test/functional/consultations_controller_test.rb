@@ -283,4 +283,18 @@ class ConsultationsControllerTest < ActionController::TestCase
     refute_select ".participation .online"
     refute_select ".participation .email"
   end
+
+  test 'show displays the postal address for participation' do
+    address = %q{123 Example Street
+London N123}
+    consultation_participation = create(:consultation_participation,
+                                        postal_address: address
+                                        )
+    published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
+    get :show, id: published_consultation.document
+
+    assert_select ".participation" do
+      assert_select ".postal-address", html: "123 Example Street<br />London N123"
+    end
+  end
 end

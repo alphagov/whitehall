@@ -56,7 +56,24 @@ module ConsultationsHelper
     if consultation_participation.has_link?
       options << content_tag(:p, link_to(consultation_participation.link_text, consultation_participation.link_url), class: "online")
     end
-    if consultation_participation.has_email?
+    if consultation_participation.has_email? || consultation_participation.has_postal_address?
+      respond_by = ""
+      if consultation_participation.has_email?
+        respond_by << content_tag(:dl, "email")
+        respond_by << content_tag(:dd, mail_to(consultation_participation.email), class: "email")
+      end
+      if consultation_participation.has_postal_address?
+        respond_by << content_tag(:dl, "post")
+        respond_by << content_tag(:dd, format_with_html_line_breaks(consultation_participation.postal_address), class: "postal-address")
+      end
+      if consultation_participation.has_response_form?
+        header = "Return the form to us by#{consultation_participation.has_postal_address? && consultation_participation.has_email? ? ' either': ''}:"
+      else
+        header = "Contact us by#{consultation_participation.has_postal_address? && consultation_participation.has_email? ? ' either': ''}:"
+      end
+      respond_by = content_tag(:dl,
+        respond_by.html_safe
+      )
       if consultation_participation.has_response_form?
         options << content_tag(:ol,
           content_tag(:li, content_tag(:p,
@@ -65,15 +82,13 @@ module ConsultationsHelper
                     consultation_participation.consultation_response_form.file.url)
           ) +
           content_tag(:li,
-            content_tag(:p, "Return the form to us by:") +
-            content_tag(:dl,
-              content_tag(:dt, "email") +
-              content_tag(:dd, mail_to(consultation_participation.email), class: "email")
-            )
+                      content_tag(:p, header) +
+            respond_by
           )
         )
       else
-        options << content_tag(:p, ("Contact us by email at: " + content_tag(:span, mail_to(consultation_participation.email))).html_safe, class: "email")
+        options << content_tag(:div,
+                               content_tag(:p, header) + respond_by)
       end
     end
     options.join(content_tag(:p, "or", class: "or")).html_safe
