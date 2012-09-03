@@ -19,6 +19,10 @@ class ConsultationParticipation < ActiveRecord::Base
     consultation_response_form.present?
   end
 
+  def has_postal_address?
+    postal_address.present?
+  end
+
   after_destroy :destroy_form_if_required
 
   private

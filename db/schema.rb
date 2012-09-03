@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20120904144149) do
     t.datetime "updated_at"
     t.string   "email"
     t.integer  "consultation_response_form_id"
+    t.text     "postal_address"
   end
 
   create_table "consultation_response_forms", :force => true do |t|

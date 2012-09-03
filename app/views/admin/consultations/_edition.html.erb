@@ -22,6 +22,11 @@
           <%= mail_to_consultation_participation(edition) %>
         </p>
       <% end %>
+      <% if edition.consultation_participation.has_postal_address? %>
+        <div class="postal-address">
+          <%= format_with_html_line_breaks(edition.consultation_participation.postal_address) %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </article>

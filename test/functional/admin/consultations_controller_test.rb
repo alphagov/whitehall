@@ -147,6 +147,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "show displays consultation postal address" do
+    consultation_participation = create(:consultation_participation,
+      postal_address: "Test street"
+    )
+    consultation = create(:consultation, consultation_participation: consultation_participation)
+    get :show, id: consultation
+    assert_select '.participation' do
+      assert_select '.postal-address', text: 'Test street'
+    end
+  end
+
   test "edit displays consultation fields" do
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)
@@ -161,6 +172,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_text]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
+      assert_select "textarea[name='edition[consultation_participation_attributes][postal_address]']"
       assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][id]'][value=?]", response_form.id
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][title]']"
       assert_select "input[type='file'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][file]']"
