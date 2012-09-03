@@ -475,6 +475,14 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_response 404
   end
 
+  test "preview should be visible for logged in users" do
+    login_as create(:departmental_editor)
+    publication = create(:draft_publication)
+    get :show, id: publication.document, preview: publication.id
+
+    assert_response 200
+  end
+
   private
 
   def given_two_publications_in_two_organisations

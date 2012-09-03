@@ -8,7 +8,7 @@ class DocumentsController < PublicFacingController
   end
 
   def current_user_can_preview?
-    preview? && current_user
+    preview? && user_signed_in?
   end
 
   def find_document

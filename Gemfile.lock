@@ -122,7 +122,7 @@ GEM
       activesupport (>= 2.3.9)
     faker (1.0.1)
       i18n (~> 0.4)
-    faraday (0.8.1)
+    faraday (0.8.4)
       multipart-post (~> 1.1)
     fastercsv (1.5.5)
     ffi (1.0.9)
@@ -142,7 +142,7 @@ GEM
       lrucache (~> 0.1.1)
       null_logger
       plek
-    gds-sso (1.2.1)
+    gds-sso (1.2.2)
       omniauth-gds (= 0.0.3)
       rack-accept (~> 0.4.4)
       rails (>= 3.0.0)
@@ -363,7 +363,7 @@ DEPENDENCIES
   faker
   fog
   friendly_id (= 4.0.0.beta14)
-  gds-sso (~> 1.2.1)
+  gds-sso (~> 1.2.2)
   govspeak (~> 0.8.18)
   hash_syntax
   isbn_validation
