@@ -6,6 +6,12 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     get :show, consultation_id: consultation_response.consultation.document
   end
 
+  test 'show displays the summary of the consultation response' do
+    published_consultation_response = create(:published_consultation_response, summary: 'consultation-response-summary')
+    get :show, consultation_id: published_consultation_response.consultation.document
+    assert_select '.summary', 'consultation-response-summary'
+  end
+
   test 'show displays published consultations' do
     published_consultation_response = create(:published_consultation_response)
     consultation = published_consultation_response.consultation
