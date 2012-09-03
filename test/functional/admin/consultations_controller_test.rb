@@ -147,7 +147,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "edit displays consultation fields" do
-    consultation = create(:consultation)
+    response_form = create(:consultation_response_form)
+    participation = create(:consultation_participation, consultation_response_form: response_form)
+    consultation = create(:consultation, consultation_participation: participation)
 
     get :edit, id: consultation
 
@@ -158,6 +160,22 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_text]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
+      assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][id]'][value=?]", response_form.id
+      assert_select "input[type='text'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][title]']"
+      assert_select "input[type='file'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][file]']"
+      assert_select "input[type='checkbox'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][_destroy]']"
+    end
+  end
+
+  test "edit shows any existing consultation response form" do
+    response_form = create(:consultation_response_form, title: "response-form-title", file: fixture_file_upload('two-pages.pdf'))
+    participation = create(:consultation_participation, consultation_response_form: response_form)
+    consultation = create(:consultation, consultation_participation: participation)
+
+    get :edit, id: consultation
+
+    assert_select "form#edition_edit" do
+      assert_select "a[href='#{response_form.file.url}']", File.basename(response_form.file.path)
     end
   end
 
@@ -198,5 +216,25 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     consultation.reload
     assert_nil consultation.consultation_participation
+  end
+
+  test 'updating should allow removal of consultation response forms' do
+    response_form = create(:consultation_response_form)
+    participation = create(:consultation_participation, consultation_response_form: response_form)
+    consultation = create(:consultation, consultation_participation: participation)
+
+    attributes = consultation.attributes.merge(
+      consultation_participation_attributes: {
+        id: participation.id,
+        consultation_response_form_attributes: {
+          id: response_form.id, _destroy: "1"
+        }
+      }
+    )
+    put :update, id: consultation, edition: attributes
+
+    refute_select ".errors"
+    participation.reload
+    assert_nil participation.consultation_response_form
   end
 end

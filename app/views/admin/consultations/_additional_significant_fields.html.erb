@@ -11,6 +11,12 @@
         <span class="already_uploaded"><%= File.basename(response_form_fields.object.file_cache) %> already uploaded</span>
       <% end %>
       <%= response_form_fields.hidden_field :file_cache %>
+      <% unless response_form_fields.object.new_record? %>
+        <p>Uploaded file: <%= link_to File.basename(response_form_fields.object.file.path), response_form_fields.object.file.url %></p>
+        <% checkbox_args = nested_attribute_destroy_checkbox_options(response_form_fields) %>
+        <% checkbox_args[0].merge!(label_text: "(uncheck to remove)") %>
+        <%= response_form_fields.check_box :_destroy, *checkbox_args  %>
+      <% end %>
     <% end %>
   <% end %>
 </fieldset>
