@@ -1,12 +1,22 @@
 module("Document filter", {
   setup: function() {
-    this.originalHistoryEnabled = History.enabled;
-    this.originalHistoryPushState = History.pushState;
-    History.pushState = function(state,title,url){
+    this.originalHistoryEnabled = window.GOVUK.support.history;
+    this.originalHistoryPushState = history.pushState;
+    history.pushState = function(state,title,url){
       return true;
     };
 
-    this.filterForm = $('<form id="document-filter" action="/foo/bar"><input type="submit" /></form>');
+    this.filterForm = $('<form id="document-filter" action="/foo/bar">' +
+      '<input type="submit" />' +
+      '<select id="departments" multiple="multiple">' +
+      '<option value="all" selected="selected">All</option>' +
+      '<option value="dept1">Dept1</option>' +
+      '<option value="dept2">Dept2</option>' +
+      '</select>' +
+      '<input type="radio" id="direction_before">' +
+      '<input type="radio" id="direction_after" checked="checked"> ' +
+      '<input type="text" id="keywords" value=""> ' +
+      '</form>');
     $('#qunit-fixture').append(this.filterForm);
 
     this.filterResults = $('<div class="filter-results" />');
@@ -42,8 +52,8 @@ module("Document filter", {
     };
   },
   tearDown: function() {
-    History.enabled = this.originalHistoryEnabled;
-    History.pushState = this.originalHistoryPushState;
+    window.GOVUK.support.history = this.originalHistoryEnabled;
+    history.pushState = this.originalHistoryPushState;
   }
 });
 
@@ -186,7 +196,7 @@ test("should send filter form parameters in ajax request", function() {
   equals(settings["data"][0]["value"], "bar");
 });
 
-test("should generate table of results baed on successful ajax response", function() {
+test("should generate table of results based on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
 
   var server = this.sandbox.useFakeServer();
@@ -229,10 +239,62 @@ test("should fire analytics on successful ajax response", function() {
   sinon.assert.callCount(analytics, 1);
 });
 
+test("currentPageState should include the current results", function() {
+  this.filterForm.enableDocumentFilter();
+  var resultsContent = '<p>Test content</p>';
+  this.filterResults.html(resultsContent);
+  equals(GOVUK.documentFilter.currentPageState().html, resultsContent);
+});
+
+test("currentPageState should include the state of any select boxes", function() {
+  this.filterForm.enableDocumentFilter();
+  deepEqual(GOVUK.documentFilter.currentPageState().selected, [{id: "departments", value: ["all"]}]);
+});
+
+test("currentPageState should include the state of any radio buttons", function() {
+  this.filterForm.enableDocumentFilter();
+  deepEqual(GOVUK.documentFilter.currentPageState().checked, ["direction_after"]);
+});
+
+test("currentPageState should include the state of any text inputs", function() {
+  this.filterForm.enableDocumentFilter();
+  var searchText = "my example search";
+  this.filterForm.find('#keywords').val(searchText)
+  deepEqual(GOVUK.documentFilter.currentPageState().text, [{id: "keywords", value: searchText}]);
+});
+
+test("onPopState should restore the state as specified in the event", function() {
+  this.filterForm.enableDocumentFilter();
+  var event = {
+    state: {
+      html: "<p>Old content</p>",
+      selected: [{id: "departments", value: ["dept1"]}],
+      text: [{id: "keywords", value: ["some search"]}],
+      checked: ["direction_before"]
+    }
+  };
+  GOVUK.documentFilter.onPopState(event);
+  equals(this.filterResults.html(), event.state.html, 'filter results updated to previous value');
+  deepEqual(this.filterForm.find('#departments').val(), ["dept1"], 'old department selected');
+  equals(this.filterForm.find('#keywords').val(), "some search", 'filter results updated to previous value');
+  ok(this.filterForm.find('#direction_before:checked'), "date 'before' radio checked");
+});
+
+test("should record initial page state in browser history", function() {
+  window.GOVUK.documentFilter.currentPageState = function() { return "INITIALSTATE"; }
+  var historyReplaceState = this.spy(history, "replaceState");
+  this.filterForm.enableDocumentFilter();
+
+  var data = historyReplaceState.getCall(0).args[0];
+  equals(data, "INITIALSTATE", "Initial state is stored in history data");
+});
+
 test("should update browser location on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
 
-  var historyPushState = this.spy(History, "pushState");
+  window.GOVUK.documentFilter.currentPageState = function() { return "CURRENTSTATE"; }
+
+  var historyPushState = this.spy(history, "pushState");
   var server = this.sandbox.useFakeServer();
   server.respondWith(JSON.stringify(this.ajaxData));
 
@@ -243,7 +305,7 @@ test("should update browser location on successful ajax response", function() {
   server.respond();
 
   var data = historyPushState.getCall(0).args[0];
-  equals(data, null, "No need to store any data in history");
+  equals(data, "CURRENTSTATE", "Current state is stored in history data");
 
   var title = historyPushState.getCall(0).args[1];
   equals(title, null, "Setting this to null means title stays the same");
@@ -253,7 +315,7 @@ test("should update browser location on successful ajax response", function() {
 });
 
 test("should not enable ajax filtering if browser does not support HTML5 History API", function() {
-  History.enabled = false;
+  window.GOVUK.support.history = function() {return false;}
 
   this.filterForm.enableDocumentFilter();
 
@@ -266,4 +328,3 @@ test("should not enable ajax filtering if browser does not support HTML5 History
 
   sinon.assert.callCount(ajax, 0);
 });
-
