@@ -4,12 +4,62 @@
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
-      <%= render partial: "documents/header_publication_consultation" %>
+      <section class="page-header icon">
+        <h1>
+          <span class="label"><%= consultation_header_title(@document) %>:</span>
+          <span class="topic"><%= @document.title %></span>
+        </h1>
+        <div class="meta-context meta">
+          <%= part_of_policy_paragraph(@related_policies) %>
+          <%= applies_to_countries_paragraph(@document) %>
+          <%= only_applies_to_nations_paragraph(@document) %>
+        </div>
+      </section>
+      <div class="meta-changes">
+        <%= render partial: 'change_notes', locals: {document: @document} %>
+      </div>
     </div>
   </div>
 
   <div class="block-2">
     <div class="inner-block">
+      <div class="consultation-block <%= consultation_css_class(@document) %>">
+        <% if @document.response_published? or @document.closed? %>
+          <p class="run-time">
+            This consultation ran between <%= absolute_date(@document.opening_on, class: 'opening-on') %> - <%= absolute_date(@document.closing_on, class: 'closing-on') %>
+          </p>
+        <% end %>
+        <% if @document.response_published? %>
+          <% if @document.published_consultation_response.attachments.any? %>
+            <h2><%= link_to "Download the government response", @document.published_consultation_response.attachments.first.url %></h2>
+            <%= render partial: "documents/attachment_full_width",
+                      locals: { document: @document.published_consultation_response,
+                                summary: @document.published_consultation_response.summary } %>
+          <% else %>
+            <div class="response-summary">
+              <h2 class="title"><%= @document.published_consultation_response.title %></h2>
+              <p class="summary"><%= @document.published_consultation_response.summary %></p>
+            </div>
+          <% end %>
+        <% elsif @document.closed? %>
+          <h2>We are anaylsing your responses</h2>
+          <p>Visit this page again soon to download the outcome to this public feedback.</p>
+        <% elsif @document.open? %>
+          <h2>This consultation closes on <%= absolute_date(@document.closing_on, class: 'closing-on') %></h2>
+          <p class="jump"><a href="#download">Jump to consulation download</a></p>
+        <% end %>
+      </div>
+
+      <section class="heading-block">
+        <h1>Detail</h1>
+        <div class="content">
+          <article>
+            <div class="body">
+              <%= govspeak_edition_to_html @document %>
+            </div>
+          </article>
+        </div>
+      </section>
       <section id="document-organisations" class="heading-block">
         <h1>Published by</h1>
         <div class="content">
@@ -22,16 +72,39 @@
         <%= national_statistics_logo(@document) %>
         </div>
       </section>
-      <%= render partial: "document_content" %>
+
+      <section id="download">
+        <%= render partial: "documents/attachment_full_width",
+                  locals: { document: @document } %>
+      </section>
+
+      <% if @document.open? && @document.has_consultation_participation? %>
+        <section id="response-formats" class="participation">
+          <div class="content">
+            <p>This consultation closes <%= absolute_date(@document.closing_on) %></p>
+            <% if @document.consultation_participation.has_link? %>
+              <p class="online">
+                <%= link_to_consultation_participation(@document) %>
+              </p>
+            <% end %>
+            <% if @document.consultation_participation.has_email? %>
+              <p class="or">or</p>
+              <ol>
+                <li>
+                  <p>Download and complete the response form</p>
+                </li>
+                <li>
+                  <p>Return the form to us by:</p>
+                  <dl>
+                    <dt>email</dt>
+                    <dd class="email"><%= mail_to_consultation_participation(@document) %></dd>
+                  </dl>
+                </li>
+              </ol>
+            <% end %>
+          </div>
+        </section>
+      <% end %>
     </div>
   </div>
-
-
-  <div class="block-6">
-    <div class="inner-block">
-      <%= render partial: "documents/attachment_full_width",
-                locals: { document: @document } %>
-    </div>
-  </div>
-  
 </div>
