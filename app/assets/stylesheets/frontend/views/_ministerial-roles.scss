@@ -26,10 +26,17 @@
       padding-right: $gutter;
     }
 
-    li .inner {
-      position: relative;
-      overflow: hidden;
-      padding: $gutter-half 0 0 20%;
+    li {
+      list-style: none;
+      .inner {
+        position: relative;
+        overflow: hidden;
+        padding: $gutter-half 0 0 20%;
+        @include ie(6) {
+          height: 140px;
+          margin-bottom: $gutter;
+        }
+      }
     }
 
     .image_holder {
@@ -38,6 +45,10 @@
       display: inline;
       width: 25%;
       margin-left: -25%;
+      @include ie(6) {
+        margin-left: -20%;
+        width: 5%;
+      }
 
       a {
         display: block;
@@ -49,6 +60,9 @@
         width: auto;
         max-width: 100%;
         height: auto;
+        @include ie(6) {
+          width: expression(document.body.clientWidth < 102? "100px" : document.body.clientWidth > 102? "100px" : "auto");
+        }
       }
     }
 

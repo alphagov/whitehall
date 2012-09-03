@@ -118,6 +118,8 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def build_image
+    return unless @edition.allows_image_attachments?
+
     unless @edition.images.any?(&:new_record?)
       image = @edition.images.build
       image.build_image_data

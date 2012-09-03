@@ -1,12 +1,13 @@
 When /^I filter to only those from the "([^"]*)" department$/ do |department|
-  # This call to `unselect` doesn't work with capybara-webkit because it does
-  # not recognise the select as a multi-select.
-  # Here's the fix, waiting to be merged:
-  # https://github.com/thoughtbot/capybara-webkit/pull/361
-  # unselect "All departments", from: "Department"
-  page.evaluate_script(%{$("#departments option[value='all']").removeAttr("selected"); 1})
-
+  deselect_all 'select#departments'
   select department, from: "Department"
+  click_button "Refresh"
+  wait_until { page.evaluate_script("jQuery.active") == 0 }
+end
+
+When /^I filter to only those from the "([^"]*)" topic$/ do |topic|
+  deselect_all 'select#topics'
+  select topic, from: "Topic"
   click_button "Refresh"
   wait_until { page.evaluate_script("jQuery.active") == 0 }
 end

@@ -27,11 +27,37 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_not_have_a_body(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "should not include a body field in the 'new' form" do
+        get :new
+
+        refute_select "*[name='edition[body]']"
+      end
+
+      test "should not include a body field in the 'edit' form" do
+        edition = create(edition_type)
+
+        get :edit, id: edition
+
+        refute_select "*[name='edition[body]']"
+      end
+
+      test "should not include the body container in the 'show' template" do
+        edition = create(edition_type)
+
+        get :show, id: edition
+
+        refute_select ".body"
+      end
+    end
+
     def should_have_summary(edition_type)
       edition_class = edition_class_for(edition_type)
 
       test "create should create a new #{edition_type} with summary" do
-        attributes = attributes_for(edition_type)
+        attributes = controller_attributes_for(edition_type)
 
         post :create, edition: attributes.merge(
           summary: "my summary",
@@ -88,7 +114,7 @@ module AdminEditionControllerTestHelpers
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
         assert_select "form#edition_new[action='#{admin_editions_path}']" do
           assert_select "input[name='edition[title]'][type='text']"
-          assert_select "textarea[name='edition[summary]']" if edition_class.new.has_summary?
+          assert_select "textarea[name='edition[summary]']" if edition_class.new.can_have_summary?
           assert_select "textarea[name='edition[body]']"
           assert_select "input[type='submit']"
         end

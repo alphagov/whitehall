@@ -40,7 +40,7 @@ jQuery(function($) {
 
   $('.specialist-guides-show').trackExternalLinks();
 
-  $('.js-stick-at-top-when-scrolling').stickAtTopWhenScrolling();
+  GOVUK.stickAtTopWhenScrolling.init();
 
   $('.js-toggle-accessibility-warning').toggler({header: ".toggler", content: ".help-block"})
 

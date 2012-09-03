@@ -55,6 +55,11 @@ class Organisation < ActiveRecord::Base
             class_name: "Publication",
             conditions: { "editions.state" => "published" },
             source: :edition
+  has_many :published_announcements,
+            through: :edition_organisations,
+            class_name: "Announcement",
+            conditions: { "editions.state" => "published"},
+            source: :edition
 
   has_many :document_series
 
@@ -106,7 +111,7 @@ class Organisation < ActiveRecord::Base
     if: :provides_alternative_formats?,
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
 
-  default_scope order(:name)
+  default_scope order(organisations: :name)
 
   searchable title: :name,
              link: :search_link,

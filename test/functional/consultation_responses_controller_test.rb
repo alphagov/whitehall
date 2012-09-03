@@ -6,6 +6,12 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     get :show, consultation_id: consultation_response.consultation.document
   end
 
+  test 'show displays the summary of the consultation response' do
+    published_consultation_response = create(:published_consultation_response, summary: 'consultation-response-summary')
+    get :show, consultation_id: published_consultation_response.consultation.document
+    assert_select '.summary', 'consultation-response-summary'
+  end
+
   test 'show displays published consultations' do
     published_consultation_response = create(:published_consultation_response)
     consultation = published_consultation_response.consultation
@@ -58,14 +64,4 @@ class ConsultationResponsesControllerTest < ActionController::TestCase
     get :show, consultation_id: consultation.document
     refute_select "#inapplicable_nations"
   end
-
-  test "should display document with inline images" do
-    images = [create(:image)]
-    published_consultation_response = create(:published_consultation_response, body: "!!1", images: images)
-    consultation = published_consultation_response.consultation
-    get :show, consultation_id: consultation.document
-
-    assert_select 'article .body figure.image.embedded img'
-  end
-
 end

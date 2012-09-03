@@ -2,9 +2,12 @@ require "test_helper"
 
 class ConsultationTest < ActiveSupport::TestCase
   include DocumentBehaviour
+  include ActionDispatch::TestProcess
 
   should_be_attachable
   should_allow_inline_attachments
+  should_allow_a_summary_to_be_written
+  should_allow_a_body_to_be_written
 
   test "should not be valid without an opening on date" do
     consultation = build(:consultation, opening_on: nil)
@@ -145,6 +148,24 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation = create(:published_consultation, first_published_at: 4.days.ago, opening_on: 3.days.ago, closing_on: 2.day.ago)
     create(:published_consultation_response, consultation: consultation, first_published_at: 1.day.ago)
     assert_equal 1.day.ago.to_date, consultation.last_significantly_changed_on
+  end
+
+  test "should not create a participation if all participation fields are blank" do
+    attributes = {link_url: nil, link_text: nil, consultation_response_form_attributes: {title: nil, file: nil}}
+    consultation = create(:consultation, consultation_participation_attributes: attributes)
+    assert consultation.consultation_participation.blank?
+  end
+
+  test "should preserve original participation when creating new edition" do
+    consultation_participation = create(:consultation_participation, link_url: "http://example.com", link_text: "Respond here")
+    consultation = create(:published_consultation, consultation_participation: consultation_participation)
+
+    new_draft = consultation.create_draft(create(:policy_writer))
+    new_draft.consultation_participation.update_attributes(link_text: "You can respond here")
+
+    assert_equal new_draft.consultation_participation.link_url, consultation_participation.link_url, "link attribute should be copied"
+    assert_equal "Respond here", consultation_participation.reload.link_text, "original link text should not be modified"
+    assert_equal "You can respond here", new_draft.consultation_participation.link_text
   end
 
   test "should destroy associated consultation participation when destroyed" do

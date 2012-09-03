@@ -1,4 +1,5 @@
 class SpecialistGuide < Edition
+  include Edition::Images
   include Edition::NationalApplicability
   include Edition::Topics
   include Edition::Attachable
@@ -34,7 +35,7 @@ class SpecialistGuide < Edition
     (published_outbound_related_specialist_guides + published_inbound_related_specialist_guides).uniq
   end
 
-  def has_summary?
+  def can_have_summary?
     true
   end
 

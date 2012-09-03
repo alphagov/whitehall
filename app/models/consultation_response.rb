@@ -24,4 +24,22 @@ class ConsultationResponse < Edition
   def allows_attachment_references?
     true
   end
+
+  def allows_inline_attachments?
+    false
+  end
+
+  def can_have_summary?
+    true
+  end
+
+  def can_have_body?
+    false
+  end
+
+  private
+
+  def body_required?
+    false
+  end
 end

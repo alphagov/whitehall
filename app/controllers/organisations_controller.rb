@@ -5,7 +5,7 @@ class OrganisationsController < PublicFacingController
            :agencies_and_partners, :chiefs_of_staff]
 
   def index
-    @organisations_by_type = Organisation.in_listing_order.group_by(&:organisation_type)
+    @organisations_by_type = Organisation.includes(:organisation_type).in_listing_order.group_by(&:organisation_type)
   end
 
   def alphabetical
@@ -33,7 +33,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def announcements
-    @announcements = Announcement.by_first_published_at(NewsArticle.in_organisation(@organisation).published + @organisation.published_speeches)
+    @announcements = Announcement.sort_by_first_published_at(NewsArticle.in_organisation(@organisation).published + @organisation.published_speeches)
   end
 
   def consultations

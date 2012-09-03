@@ -1,8 +1,29 @@
 <fieldset>
+  <%= form.label :opening_on, 'Opening Date' %>
+  <%= form.date_select :opening_on, { include_blank: true }, { :class => "date" } %>
+  <%= form.label :closing_on, 'Closing Date' %>
+  <%= form.date_select :closing_on, { include_blank: true }, { :class => "date" } %>
+</fieldset>
+
+<fieldset>
   <legend>Ways to respond</legend>
   <%= form.fields_for :consultation_participation, edition.consultation_participation || edition.build_consultation_participation do |participation_fields| %>
     <%= participation_fields.text_field :link_url, label_text: 'Link URL' %>
     <%= participation_fields.text_field :link_text %>
     <%= participation_fields.text_field :email %>
+    <%= participation_fields.fields_for :consultation_response_form, participation_fields.object.consultation_response_form || participation_fields.object.build_consultation_response_form do |response_form_fields| %>
+      <%= response_form_fields.text_field :title, label_text: "Downloadable response form title" %>
+      <%= response_form_fields.file_field :file %>
+      <% if response_form_fields.object.file_cache.present? %>
+        <span class="already_uploaded"><%= File.basename(response_form_fields.object.file_cache) %> already uploaded</span>
+      <% end %>
+      <%= response_form_fields.hidden_field :file_cache %>
+      <% unless response_form_fields.object.new_record? %>
+        <p>Uploaded file: <%= link_to File.basename(response_form_fields.object.file.path), response_form_fields.object.file.url %></p>
+        <% checkbox_args = nested_attribute_destroy_checkbox_options(response_form_fields) %>
+        <% checkbox_args[0].merge!(label_text: "(uncheck to remove)") %>
+        <%= response_form_fields.check_box :_destroy, *checkbox_args  %>
+      <% end %>
+    <% end %>
   <% end %>
 </fieldset>

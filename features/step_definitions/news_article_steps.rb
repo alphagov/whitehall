@@ -8,6 +8,16 @@ Given /^a published news article "([^"]*)" with notes to editors "([^"]*)"$/ do 
   create(:published_news_article, title: title, notes_to_editors: notes_to_editors)
 end
 
+Given /^a published news article "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
+  organisation = create(:organisation, name: organisation)
+  create(:published_news_article, title: title, organisations: [organisation])
+end
+
+Given /^a published news article "([^"]*)" for the policy "([^"]*)"$/ do |title, policy_name|
+  policy = Policy.find_by_title(policy_name) || create(:policy, title: policy_name)
+  create(:published_news_article, title: title, related_policies: [policy])
+end
+
 When /^I draft a new news article "([^"]*)"$/ do |title|
   begin_drafting_document type: "news_article", title: title
   fill_in "Summary", with: "here's a simple summary"

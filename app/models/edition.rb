@@ -1,12 +1,13 @@
 class Edition < ActiveRecord::Base
   include Edition::Traits
 
+  include Edition::NullImages
+
   include Edition::Identifiable
   include Edition::AccessControl
   include Edition::Workflow
   include Edition::Organisations
   include Edition::Publishing
-  include Edition::Images
   include Edition::AuditTrail
   include Edition::ActiveEditors
 
@@ -18,13 +19,28 @@ class Edition < ActiveRecord::Base
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
 
-  validates :title, :body, :creator, presence: true
+  validates :title, :creator, presence: true
+  validates :body, presence: true, if: :body_required?
 
   scope :alphabetical, order("title ASC")
   scope :with_content_containing, -> *keywords {
     pattern = "(#{keywords.join('|')})"
     where("#{table_name}.title REGEXP :pattern OR #{table_name}.body REGEXP :pattern", pattern: pattern)
   }
+
+  def self.published_before(date)
+    where(arel_table[:first_published_at].lteq(date))
+  end
+  def self.published_after(date)
+    where(arel_table[:first_published_at].gteq(date))
+  end
+
+  def self.in_chronological_order
+    order(arel_table[:first_published_at].asc)
+  end
+  def self.in_reverse_chronological_order
+    order(arel_table[:first_published_at].desc)
+  end
 
   class UnmodifiableOncePublishedValidator < ActiveModel::Validator
     def validate(record)
@@ -141,8 +157,12 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def has_summary?
+  def can_have_summary?
     false
+  end
+
+  def can_have_body?
+    true
   end
 
   def can_be_grouped_in_series?
@@ -259,5 +279,11 @@ class Edition < ActiveRecord::Base
     def latest_published_edition
       published.where("NOT EXISTS (SELECT 1 FROM editions e2 WHERE e2.document_id = editions.document_id AND e2.id > editions.id AND e2.state = 'published')")
     end
+  end
+
+  private
+
+  def body_required?
+    true
   end
 end

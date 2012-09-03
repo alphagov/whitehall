@@ -1,6 +1,10 @@
 require "test_helper"
 
-class SpeechTest < ActiveSupport::TestCase
+class SpeechTest < EditionTestCase
+  should_allow_image_attachments
+  should_allow_a_summary_to_be_written
+  should_allow_a_body_to_be_written
+
   test "should be able to relate to other editions" do
     article = build(:speech)
     assert article.can_be_related_to_policies?

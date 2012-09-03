@@ -20,6 +20,10 @@
         @include core-24;
       }
       padding-bottom: 0;
+
+      @include ie(6) {
+        width: 85%;
+      }
     }
     
     td {

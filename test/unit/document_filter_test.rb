@@ -10,15 +10,15 @@ class DocumentFilterTest < ActiveSupport::TestCase
     Whitehall::DocumentFilter.new([]).all_topics
   end
 
-  test "#all_topics_with returns all topics with content of a given type, alphabetically" do
+  test "#all_topics_with :announcement returns all topics with announcements, alphabetically" do
     scope = stub('topic scope')
     scope.expects(:order).with(:name)
-    Topic.expects(:with_content_of_type).with(:policy).returns(scope)
+    Topic.expects(:with_related_announcements).returns(scope)
 
-    Whitehall::DocumentFilter.new([]).all_topics_with(:policy)
+    Whitehall::DocumentFilter.new([]).all_topics_with(:announcement)
   end
 
-  test "#all_topics_with returns all topics with publications, alphabetically" do
+  test "#all_topics_with :publication returns all topics with publications, alphabetically" do
     aardvark = build(:topic, name: "aardvark")
     zebra = build(:topic, name: "zebra")
     topics = [zebra, aardvark]
@@ -49,232 +49,156 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert_equal document_scope, Whitehall::DocumentFilter.new(document_scope).documents
   end
 
-  test "#alphabetical returns the given set of documents ordered alphabetically" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
+  test "alphabetical direction returns the given set of documents ordered alphabetically" do
     document_scope.expects(:alphabetical)
-
-    filter.alphabetical.documents
+    Whitehall::DocumentFilter.new(document_scope, direction: "alphabetical").documents
   end
 
-  def stub_topic(slug)
-    topic = stub("topic-#{slug}", slug: slug, name: slug.humanize)
-    Topic.stubs(:where).with(slug: [slug]).returns([topic])
-    topic
-  end
-
-  def stub_organisation(slug)
-    organisation = stub("organisation-#{slug}", slug: slug, name: slug.humanize)
-    Organisation.stubs(:where).with(slug: [slug]).returns([organisation])
-    organisation
-  end
-
-  test "#by_topics filters the documents by topic using slugs" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
+  test "topics param filters the documents by topic using slugs" do
     topic = stub_topic("car-tax")
 
     filtered_scope = stub_document_scope('filtered_scope')
     document_scope.expects(:in_topic).with([topic]).returns(filtered_scope)
 
-    filter.by_topics([topic.slug])
+    filter = Whitehall::DocumentFilter.new(document_scope, topics: [topic.slug])
 
     assert_equal filtered_scope, filter.documents
   end
 
-  test "#by_topics sets #selected_topics" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
+  test "topics param sets #selected_topics" do
     topic = stub_topic("car-tax")
 
     filtered_scope = stub_document_scope('filtered_scope')
     document_scope.stubs(:in_topic).with([topic]).returns(filtered_scope)
 
-    filter.by_topics([topic.slug])
+    filter = Whitehall::DocumentFilter.new(document_scope, topics: [topic.slug])
 
     assert_equal [topic], filter.selected_topics
   end
 
-  test "#by_topics does not filter if topics are not present" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
+  test "topics param does not filter if topics are not present" do
     document_scope.expects(:in_topic).never
 
-    filter.by_topics(nil)
+    filter = Whitehall::DocumentFilter.new(document_scope, topics: "")
 
     assert_equal document_scope, filter.documents
   end
 
-  test "#by_topics does not filter if topic is 'all'" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
+  test "topics param does not filter if topic is 'all'" do
 
     document_scope.expects(:in_topic).never
 
-    filter.by_topics(['all'])
+    filter = Whitehall::DocumentFilter.new(document_scope, topics: ['all'])
 
     assert_equal document_scope, filter.documents
   end
 
-  test "#by_organisations filters the documents by organisation using slugs" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
+  test "departments param filters the documents by organisation using slugs" do
 
-    organisation = stub('organisation')
-    Organisation.expects(:where).with({slug: ['organisation-slug']}).returns([organisation])
+    organisation = stub_organisation('defra')
 
     filtered_scope = stub_document_scope('filtered_scope')
-    document_scope.expects(:in_organisation).with([organisation]).returns(filtered_scope)
+    document_scope.stubs(:in_organisation).with([organisation]).returns(filtered_scope)
 
-    filter.by_organisations(['organisation-slug'])
+    filter = Whitehall::DocumentFilter.new(document_scope, departments: [organisation.slug])
 
     assert_equal filtered_scope, filter.documents
   end
 
-  test "#by_organisations sets #selected_organisations" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
+  test "departments param sets #selected_organisations" do
 
-    organisation = stub('organisation')
-    Organisation.stubs(:where).returns([organisation])
+    organisation = stub_organisation('defra')
 
-    filter.by_organisations(['organisation-slug'])
+    filter = Whitehall::DocumentFilter.new(document_scope, departments: [organisation.slug])
 
     assert_equal [organisation], filter.selected_organisations
   end
 
-  test "#by_organisations does not filter if organisations are not present" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
-    document_scope.expects(:in_topic).never
-
-    filter.by_organisations(nil)
-
-    assert_equal document_scope, filter.documents
+  test "does not filter if departments are not present" do
+    document_scope.expects(:in_organisation).never
+    Whitehall::DocumentFilter.new(document_scope, departments: "")
   end
 
-  test "#by_organisations does not filter if organisations is 'all'" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
-    document_scope.expects(:in_topic).never
-
-    filter.by_organisations(['all'])
-
-    assert_equal document_scope, filter.documents
+  test "does not filter if departments is 'all'" do
+    document_scope.expects(:in_organisation).never
+    Whitehall::DocumentFilter.new(document_scope, departments: ['all'])
   end
 
-  test "#by_keywords filters by content containing each keyword" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
+  test "keywords param filters by content containing each keyword" do
     filtered_scope = stub_document_scope('filtered scope')
     document_scope.expects(:with_content_containing).with("alpha", "beta").returns(filtered_scope)
 
-    filter.by_keywords("alpha beta")
+    filter = Whitehall::DocumentFilter.new(document_scope, keywords: "alpha beta")
 
     assert_equal filtered_scope, filter.documents
   end
 
-  test "#by_keywords sets the keywords" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-    document_scope.stubs(:with_content_containing)
-
-    filter.by_keywords("alpha beta")
-
+  test "keywords param sets the keywords attribute" do
+    filter = Whitehall::DocumentFilter.new(document_scope, keywords: "alpha beta")
     assert_equal %w(alpha beta), filter.keywords
   end
 
-  test "#by_keywords does not filter if no keywords were given" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
+  test "keywords param does not filter if no keywords were given" do
     document_scope.expects(:with_content_containing).never
-
-    filter.by_keywords('')
+    Whitehall::DocumentFilter.new(document_scope, keywords: '')
   end
 
-  test "#by_keywords doesn't error with leading or trailing spaces" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
+  test "strips leading and trailing spaces from keywords" do
     filtered_scope = stub_document_scope('filtered scope')
     document_scope.expects(:with_content_containing).with("alpha", "beta").returns(filtered_scope)
 
-    filter.by_keywords(" alpha beta")
+    filter = Whitehall::DocumentFilter.new(document_scope, keywords: " alpha   beta ")
 
     assert_equal filtered_scope, filter.documents
   end
 
-  test "#by_date can filter before a date" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
+  test "date and direction param allows filtering before a date" do
     document_scope.expects(:published_before).with(Date.parse("2012-01-01 12:23:45")).returns(document_scope)
-
-    filter.by_date("2012-01-01 12:23:45", "before")
+    Whitehall::DocumentFilter.new(document_scope, date: "2012-01-01 12:23:45", direction: "before").documents
   end
 
-  test "#by_date before a date returns documents in reverse chronological order" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
-    document_scope.stubs(:published_before).returns(document_scope)
+  test "direction before a date returns documents in reverse chronological order" do
     document_scope.expects(:in_reverse_chronological_order).returns(document_scope)
-
-    filter.by_date("2012-01-01 12:23:45", "before").documents
+    Whitehall::DocumentFilter.new(document_scope, date: "2012-01-01 12:23:45", direction: "before").documents
   end
 
-  test "#by_date can filter after a date" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
+  test "direction param sets direction attribute" do
+    assert_equal "before", Whitehall::DocumentFilter.new(document_scope, direction: "before").direction
+  end
 
+  test "date param sets date attribute" do
+    assert_equal Date.parse("2012-01-01 12:23:45"), Whitehall::DocumentFilter.new(document_scope, date: "2012-01-01 12:23:45").date
+  end
+
+  test "can filter after a date" do
     document_scope.expects(:published_after).with(Date.parse("2012-01-01 12:23:45")).returns(document_scope)
-
-    filter.by_date("2012-01-01 12:23:45", "after")
+    Whitehall::DocumentFilter.new(document_scope, date: "2012-01-01 12:23:45", direction: "after").documents
   end
 
-  test "#by_date after a date returns documents in chronological order" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
-    document_scope.stubs(:published_after).returns(document_scope)
+  test "filtering after a date returns documents in chronological order" do
     document_scope.expects(:in_chronological_order).returns(document_scope)
-
-    filter.by_date("2012-01-01 12:23:45", "after").documents
+    Whitehall::DocumentFilter.new(document_scope, date: "2012-01-01 12:23:45", direction: "after").documents
   end
 
-  test "paginate returns a page of documents" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
-    final_page_scope = stub_document_scope('final page scope')
-    paginated_scope = stub_document_scope('paginated scope')
-    paginated_scope.stubs(:per).returns(final_page_scope)
-    document_scope.stubs(:page).with(3).returns(paginated_scope)
-
-    filter.paginate(3)
-
-    assert_equal final_page_scope, filter.documents
+  test "if page param given, returns a page of documents using page size of 20" do
+    document_scope.expects(:page).with(3).returns(document_scope)
+    document_scope.expects(:per).with(20).returns(document_scope)
+    Whitehall::DocumentFilter.new(document_scope, page: 3).documents
   end
 
-  test "paginate selects the given page" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
-    document_scope.expects(:page).with(1).returns(stub_everything)
-
-    filter.paginate(1)
-    filter.documents
-  end
-
-  test "paginate uses a page size of 20" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
-    paginated_scope = stub_document_scope('paginated scope')
-    document_scope.stubs(:page).returns(paginated_scope)
-    paginated_scope.expects(:per).with(20)
-
-    filter.paginate(3)
-    filter.documents
-  end
-
-  test "allows chaining of filter options" do
-    filter = Whitehall::DocumentFilter.new(document_scope)
-
-    organisation = stub('organisation')
-    Organisation.stubs(:where).returns([organisation])
+  test "allows combination of filter options" do
+    organisation = stub_organisation('defra')
     topic = stub_topic("car-tax")
 
     document_scope.expects(:in_organisation).with([organisation]).returns(document_scope)
     document_scope.expects(:in_topic).with([topic]).returns(document_scope)
     document_scope.expects(:page).with(2).returns(document_scope)
 
-    filter.by_organisations(['organisation-slug']).by_topics([topic.slug]).paginate(2).documents
+    filter = Whitehall::DocumentFilter.new(document_scope, 
+      departments: [organisation.slug], 
+      topics: [topic.slug],
+      page: 2)
+    filter.documents
 
     assert_equal [organisation], filter.selected_organisations
     assert_equal [topic], filter.selected_topics
@@ -284,23 +208,34 @@ class DocumentFilterTest < ActiveSupport::TestCase
     policy = create(:published_policy)
     topic = create(:topic, policies: [policy])
     3.times { create(:published_publication, related_policies: [policy]) }
-    assert 3 > count_queries { Whitehall::DocumentFilter.new(Publication.published).by_topics([topic.slug]).documents }
+    assert 3 > count_queries { Whitehall::DocumentFilter.new(Publication.published, topics: [topic.slug]).documents }
   end
 
   test 'does not use n+1 selects when filtering by organisations' do
     organisation = create(:organisation)
     3.times { create(:published_publication, organisations: [organisation]) }
-    assert 3 > count_queries { Whitehall::DocumentFilter.new(Publication.published).by_organisations([organisation.slug]).documents }
+    assert 3 > count_queries { Whitehall::DocumentFilter.new(Publication.published, departments: [organisation.slug]).documents }
   end
 
   test 'does not use n+1 selects when filtering by keywords' do
     3.times { |i| create(:published_publication, title: "keyword-#{i}") }
-    assert 3 > count_queries { Whitehall::DocumentFilter.new(Publication.published).by_keywords("keyword").documents }
+    assert 3 > count_queries { Whitehall::DocumentFilter.new(Publication.published, keywords: "keyword").documents }
   end
 
   test 'does not use n+1 selects when filtering by date' do
     3.times { |i| create(:published_publication, publication_date: i.months.ago) }
-    assert 3 > count_queries { Whitehall::DocumentFilter.new(Publication.published).by_date("2012-01-01 12:23:45", "before").documents }
+    assert 3 > count_queries { Whitehall::DocumentFilter.new(Publication.published, date: "2012-01-01 12:23:45", direction: "before").documents }
+  end
+
+  test "can filter announcements by topic" do
+    policy = create(:published_policy)
+    topic = create(:topic, policies: [policy])
+    create(:published_speech, related_policies: [policy])
+    create(:published_news_article, related_policies: [policy])
+    create(:published_speech)
+    create(:published_news_article)
+    unfiltered_announcements = Announcement.published
+    assert_equal 2, Whitehall::DocumentFilter.new(unfiltered_announcements, topics: [topic.slug]).documents.count
   end
 
   def self.test_delegates_to_documents(method)
@@ -316,22 +251,40 @@ class DocumentFilterTest < ActiveSupport::TestCase
   test_delegates_to_documents(:last_page?)
   test_delegates_to_documents(:first_page?)
 
-  private
+private
 
   def document_scope
-    @document_scope ||= stub_document_scope('document scope')
+    @document_scope ||= stub_document_scope('unfiltered document scope')
   end
 
   def stub_document_scope(name)
-    stub(name,
-      in_reverse_chronological_order: stub,
-      in_topic: stub,
-      in_organisation: stub,
-      page: stub_everything,
-      per: stub,
+    document_scope = stub(name,
       count: stub_everything,
       current_page: stub_everything,
       num_pages: stub_everything
     )
+    document_scope.stubs(:in_reverse_chronological_order).returns(document_scope)
+    document_scope.stubs(:in_chronological_order).returns(document_scope)
+    document_scope.stubs(:with_content_containing).returns(document_scope)
+    document_scope.stubs(:published_before).returns(document_scope)
+    document_scope.stubs(:published_after).returns(document_scope)
+    document_scope.stubs(:alphabetical).returns(document_scope)
+    document_scope.stubs(:in_topic).returns(document_scope)
+    document_scope.stubs(:in_organisation).returns(document_scope)
+    document_scope.stubs(:per).returns(document_scope)
+    document_scope.stubs(:page).returns(document_scope)
+    document_scope
+  end
+
+  def stub_topic(slug)
+    topic = stub("topic-#{slug}", slug: slug, name: slug.humanize)
+    Topic.stubs(:where).with(slug: [slug]).returns([topic])
+    topic
+  end
+
+  def stub_organisation(slug)
+    organisation = stub("organisation-#{slug}", slug: slug, name: slug.humanize)
+    Organisation.stubs(:where).with(slug: [slug]).returns([organisation])
+    organisation
   end
 end

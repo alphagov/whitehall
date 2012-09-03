@@ -10,6 +10,7 @@
     .attachment {
       padding: 0;
       overflow: visible;
+
       a.thumbnail {
         img {
           float: left;
@@ -21,9 +22,13 @@
       .attachment-details {
         margin-left: 25%;
       }
+
       .download-button {
         top: 6px;
         right: $gutter-half;
+        @include ie(6) {
+          right: $gutter+$gutter-half;
+        }
       }
     }
     .attachment-without-thumbnail {

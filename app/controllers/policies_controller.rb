@@ -2,7 +2,7 @@ class PoliciesController < DocumentsController
   before_filter :find_document, only: [:show, :activity]
 
   def index
-    @policies = Policy.published.by_published_at
+    @policies = Policy.published.includes(:document).by_published_at
   end
 
   def show

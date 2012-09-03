@@ -29,7 +29,7 @@ namespace :guidance do
       body = row[:markdown]
 
       # strip HRs from the content
-      body = body.gsub(/\n([\*\s]{2,})\n/, "")
+      body = body.gsub(/\n(\*{2,})\n/, "")
 
       # strip "new window" text
       body = body.gsub(/\s-\sOpens in a new window/, "")
@@ -91,8 +91,7 @@ namespace :guidance do
           results.each do |result|
             old_body = result.body
             to_match = /\([^\)]+topicId=#{topic_id}[^\\d)]*\)/
-            matched = to_match.match old_body
-            if matched
+            to_match.match(old_body) do |matched|
               title = result.title
               new_url = admin_edition_url(new_record, :host => args[:host])
               if ! other_records[title]

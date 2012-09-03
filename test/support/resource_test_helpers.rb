@@ -33,6 +33,12 @@ module ResourceTestHelpers
         get :index
         refute_select "##{plural} ul"
       end
+
+      test "index avoids n+1 selects" do
+        10.times { create(:"published_#{type}") }
+        queries_used = count_queries { get :index }
+        assert 10 > queries_used, "Expected less than 10 queries, #{queries_used} were counted"
+      end
     end
   end
 end

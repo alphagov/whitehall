@@ -1,10 +1,11 @@
 require "test_helper"
 
-class PublicationTest < ActiveSupport::TestCase
-  include DocumentBehaviour
-
+class PublicationTest < EditionTestCase
+  should_allow_image_attachments
   should_be_attachable
   should_not_allow_inline_attachments
+  should_allow_a_summary_to_be_written
+  should_allow_a_body_to_be_written
 
   test 'should be invalid without a publication date' do
     publication = build(:publication, publication_date: nil)
@@ -35,6 +36,33 @@ class PublicationTest < ActiveSupport::TestCase
     publication = build(:publication, publication_type: nil)
     refute publication.valid?
   end
+
+  test "#in_chronological_order returns docs order in ascending order of publication_date" do
+    jan = create(:publication, publication_date: Date.parse("2011-01-01"))
+    mar = create(:publication, publication_date: Date.parse("2011-03-01"))
+    feb = create(:publication, publication_date: Date.parse("2011-02-01"))
+    assert_equal [jan, feb, mar], Publication.in_chronological_order.all
+  end
+
+  test "#in_reverse_chronological_order returns docs order in descending order of publication_date" do
+    jan = create(:publication, publication_date: Date.parse("2011-01-01"))
+    mar = create(:publication, publication_date: Date.parse("2011-03-01"))
+    feb = create(:publication, publication_date: Date.parse("2011-02-01"))
+    assert_equal [mar, feb, jan], Publication.in_reverse_chronological_order.all
+  end
+
+  test "#published_before returns editions whose publication_date is before the given date" do
+    jan = create(:publication, publication_date: Date.parse("2011-01-01"))
+    feb = create(:publication, publication_date: Date.parse("2011-02-01"))
+    assert_equal [jan], Publication.published_before("2011-01-29").all
+  end
+
+  test "#published_after returns editions whose publication_date is after the given date" do
+    jan = create(:publication, publication_date: Date.parse("2011-01-01"))
+    feb = create(:publication, publication_date: Date.parse("2011-02-01"))
+    assert_equal [feb], Publication.published_after("2011-01-29").all
+  end
+
 end
 
 class PublicationsInTopicsTest < ActiveSupport::TestCase

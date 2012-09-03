@@ -8,14 +8,16 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
   should_allow_attachments_for :consultation_response
+  should_not_show_inline_attachment_help_for :consultation_response
   should_allow_alternative_format_provider_for :consultation_response
+  should_have_summary :consultation_response
+  should_not_have_a_body :consultation_response
 
   test 'new displays consultation response form' do
     get :new, edition: {consultation_id: @consultation}
 
     assert_select "form[action='#{admin_consultation_responses_path}']" do
       assert_select "input[name='edition[title]'][type='text']"
-      assert_select "textarea[name='edition[body]']"
       assert_select "input[type='submit']"
     end
   end
@@ -36,7 +38,6 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
     get :show, id: consultation_response
 
     assert_select ".title", consultation_response.title
-    assert_select ".body", consultation_response.body
   end
 
   test 'show links back to consultation' do

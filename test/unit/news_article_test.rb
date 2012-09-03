@@ -1,8 +1,11 @@
 require "test_helper"
 
-class NewsArticleTest < ActiveSupport::TestCase
-  include DocumentBehaviour
+class NewsArticleTest < EditionTestCase
   include ActionDispatch::TestProcess
+
+  should_allow_image_attachments
+  should_allow_a_summary_to_be_written
+  should_allow_a_body_to_be_written
 
   test "should be able to relate to other editions" do
     article = build(:news_article)

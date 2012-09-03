@@ -1,4 +1,5 @@
 class Consultation < Edition
+  include Edition::Images
   include Edition::NationalApplicability
   include Edition::Ministers
   include Edition::FactCheckable
@@ -13,7 +14,7 @@ class Consultation < Edition
   has_many :consultation_responses, through: :document
   has_one :published_consultation_response, through: :document
 
-  accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank
+  accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
 
   add_trait do
     def process_associations_after_save(edition)
@@ -40,7 +41,7 @@ class Consultation < Edition
     closing_on < Date.today
   end
 
-  def has_summary?
+  def can_have_summary?
     true
   end
 
@@ -69,6 +70,16 @@ class Consultation < Edition
   def closing_on_must_be_after_opening_on
     if closing_on && opening_on && closing_on.to_date <= opening_on.to_date
       errors.add :closing_on,  "must be after the opening on date"
+    end
+  end
+
+  def all_blank_or_empty_hashes(attributes)
+    hash_with_blank_values?(attributes)
+  end
+
+  def hash_with_blank_values?(hash)
+    hash.values.inject(true) do |result, value|
+      result && (value.is_a?(Hash) ? hash_with_blank_values?(value) : value.blank?)
     end
   end
 

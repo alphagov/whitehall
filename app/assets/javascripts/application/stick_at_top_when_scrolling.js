@@ -1,41 +1,62 @@
-(function ($) {
-  var _stickAtTopWhenScrolling = function() {
-    var element = $(this), elementVerticalPosition;
-    if (element.length == 0) {
-      return;
-    }
+(function () {
+  "use strict"
+  var root = this,
+      $ = root.jQuery;
+  if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
 
-    elementVerticalPosition = element.offset().top - parseFloat(element.css('marginTop').replace(/auto/, 0));
+  var sticky = {
+    _hasScrolled: false,
+    _scrollTimeout: false,
 
-    function adaptStickiness() {
-      var windowVerticalPosition = $(window).scrollTop();
-      if ($(window).width() > 768 && windowVerticalPosition >= elementVerticalPosition) {
-        makeSticky(element);
-      } else {
-        makeNormal(element);
+    init: function(){
+      var $els = $('.js-stick-at-top-when-scrolling');
+
+      if($els.length > 0){
+        sticky.$els = $els;
+
+        if(sticky._scrollTimeout === false) {
+          $(window).scroll(sticky.onScroll);
+          sticky._scrollTimeout = window.setInterval(sticky.checkScroll, 50);
+        }
+        $(window).resize(sticky.onResize);
+      }
+    },
+    onScroll: function(){
+      sticky._hasScrolled = true;
+    },
+    checkScroll: function(){
+      if(sticky._hasScrolled === true){
+        sticky._hasScrolled = false;
+
+        var windowVerticalPosition = $(window).scrollTop();
+        sticky.$els.each(function(i, el){
+          var $el = $(el),
+              scrolledFrom = $el.data('scrolled-from');
+
+          if (scrolledFrom && windowVerticalPosition < scrolledFrom){
+            sticky.release($el);
+          } else if($(window).width() > 768 && windowVerticalPosition >= $el.offset().top) {
+            sticky.stick($el);
+          } else {
+            sticky.release($el);
+          }
+        });
+      }
+    },
+    stick: function($el){
+      if (!$el.hasClass('content-fixed')) {
+        $el.data('scrolled-from', $el.offset().top);
+        $el.before('<div class="shim" style="width: '+ $el.width() + 'px; height: ' + $el.height() + 'px">&nbsp;</div>');
+        $el.css('width', $el.width() + "px").addClass('content-fixed');
+      }
+    },
+    release: function($el){
+      if($el.hasClass('content-fixed')){
+        $el.data('scrolled-from', false);
+        $el.removeClass('content-fixed').css('width', '');
+        $el.siblings('.shim').remove();
       }
     }
-
-    function makeSticky(element) {
-      if (!element.hasClass('content-fixed')) {
-        element.before(
-          $('<div class="shim" style="width: '+ element.width() + 'px; height: ' + element.height() + 'px">&nbsp;</div>'));
-        element.css('width', element.width() + "px");
-        element.addClass('content-fixed');
-      }
-    }
-
-    function makeNormal(element) {
-      element.removeClass('content-fixed');
-      element.css('width', '');
-      element.siblings('.shim').remove();
-    }
-
-    $(window).scroll(adaptStickiness);
-    $(window).resize(adaptStickiness);
   }
-
-  $.fn.extend({
-    stickAtTopWhenScrolling: _stickAtTopWhenScrolling
-  });
-})(jQuery);
+  root.GOVUK.stickAtTopWhenScrolling = sticky;
+}).call(this);

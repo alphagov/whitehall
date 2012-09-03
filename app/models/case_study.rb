@@ -1,8 +1,9 @@
 class CaseStudy < Edition
+  include Edition::Images
   include Edition::RelatedPolicies
   include Edition::FactCheckable
 
-  def has_summary?
+  def can_have_summary?
     true
   end
 end
