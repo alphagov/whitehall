@@ -34,11 +34,11 @@
             <h2><%= link_to "Download the government response", @document.published_consultation_response.attachments.first.url %></h2>
             <%= render partial: "documents/attachment_full_width",
                       locals: { document: @document.published_consultation_response,
-                                summary: @document.published_consultation_response.body } %>
+                                summary: @document.published_consultation_response.summary } %>
           <% else %>
             <div class="response-summary">
-              <h2><%= @document.published_consultation_response.title %></h2>
-              <p><%= @document.published_consultation_response.body %></p>
+              <h2 class="title"><%= @document.published_consultation_response.title %></h2>
+              <p class="summary"><%= @document.published_consultation_response.summary %></p>
             </div>
           <% end %>
         <% elsif @document.closed? %>

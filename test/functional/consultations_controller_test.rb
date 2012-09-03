@@ -199,6 +199,27 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'show displays the summary of the published consultation response when there are response attachments' do
+    closed_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
+    response_attachment = create(:attachment)
+    organisation = create(:organisation_with_alternative_format_contact_email)
+    published_consultation_response = create(:published_consultation_response, title: 'response-title', summary: 'response-summary', consultation: closed_consultation, attachments: [response_attachment], alternative_format_provider: organisation)
+
+    get :show, id: closed_consultation.document
+
+    assert_select '.attachment-details .extra-description', text: 'response-summary'
+  end
+
+  test 'show displays the title and summary of the published consultation response when there are no response attachments' do
+    closed_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
+    published_consultation_response = create(:published_consultation_response, title: 'response-title', summary: 'response-summary', consultation: closed_consultation)
+
+    get :show, id: closed_consultation.document
+
+    assert_select '.response-summary .title', text: 'response-title'
+    assert_select '.response-summary .summary', text: 'response-summary'
+  end
+
   test 'show displays consultation dates when consultation has finished' do
     published_consultation = create(:published_consultation, opening_on: Date.new(2011, 8, 10), closing_on: Date.new(2011, 11, 1))
     get :show, id: published_consultation.document
