@@ -42,7 +42,7 @@
             </div>
           <% end %>
         <% elsif @document.closed? %>
-          <h2>We are anaylsing youre responses</h2>
+          <h2>We are anaylsing your responses</h2>
           <p>Visit this page again soon to download the outcome to this public feedback.</p>
         <% elsif @document.open? %>
           <h2>This consultation closes on <%= absolute_date(@document.closing_on, class: 'closing-on') %></h2>
