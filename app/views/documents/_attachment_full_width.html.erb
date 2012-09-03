@@ -1,38 +1,28 @@
+<%
+  summary = document.summary unless local_assigns.include?(:summary)
+%>
 <div class="attachment-full-width">
   <% if document.attachments.present? %>
     <div class="govspeak">
-      <%= render partial: "documents/attachment",
-                object: document.attachments.first,
-                locals: { alternative_format_contact_email: document.alternative_format_contact_email,
-                          extra_description: document.summary } %>
-
-      <% if @document.attachments.present? && @document.attachments[1..-1].any? %>
+      <div class="first-attachment">
+        <%= render partial: "documents/attachment",
+                  object: document.attachments.first,
+                  locals: { alternative_format_contact_email: document.alternative_format_contact_email,
+                            extra_description: summary } %>
+      </div>
+      <% if document.attachments.present? && document.attachments[1..-1].any? %>
         <div class="attachment-without-thumbnail">
           <h1 class="supporting-documents-title">Supporting documents</h1>
-          <% @document.attachments[1..-1].each do |attachment| %>
+          <% document.attachments[1..-1].each do |attachment| %>
             <%= render partial: "documents/attachment",
                       object: attachment,
                       locals: { hide_thumbnail: true,
-                                alternative_format_contact_email: @document.alternative_format_contact_email } %>
+                                alternative_format_contact_email: document.alternative_format_contact_email } %>
           <% end %>
         </div>
       <% end %>
     </div>
   <% else %>
-    <p class="extra-description summary"><%= @document.summary %></p>
-  <% end %>
-  <% if document.has_consultation_participation? %>
-    <div class="participation">
-      <% if document.consultation_participation.has_link? %>
-        <p class="online">
-          <%= link_to_consultation_participation(document) %>
-        </p>
-      <% end %>
-      <% if document.consultation_participation.has_email? %>
-        <p class="email">
-          <%= mail_to_consultation_participation(document) %>
-        </p>
-      <% end %>
-    </div>
+    <p class="extra-description summary"><%= summary %></p>
   <% end %>
 </div>

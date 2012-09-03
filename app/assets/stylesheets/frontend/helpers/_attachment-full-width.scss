@@ -1,5 +1,5 @@
 .attachment-full-width {
-  padding: 0;
+  padding: $gutter-half 0;
   margin: 0;
   clear: both;
   background: $light-warm-grey;
@@ -9,39 +9,37 @@
 
     .attachment {
       padding: 0;
-      margin: 1.5%;
       overflow: visible;
 
-      h3, p, div {
-        margin-left: 26%;
+      a.thumbnail {
+        img {
+          float: left;
+          width: 20%;
+          padding-left: $gutter-half;
+        }
       }
 
-      a.thumbnail {
-        width: 18%;
-        img {
-          width: 100%;
-        }
+      .attachment-details {
+        margin-left: 25%;
       }
 
       .download-button {
         top: 6px;
-        right: 0px;
+        right: $gutter-half;
         @include ie(6) {
           right: $gutter+$gutter-half;
         }
       }
     }
     .attachment-without-thumbnail {
-      margin: 1.5%;
       clear: both;
       padding-top: $gutter-half;
 
       .attachment {
         margin: 0;
       }
-
       .supporting-documents-title {
-        margin-left: 26%;
+        margin-left: 25%;
         @include core-14;
       }
     }

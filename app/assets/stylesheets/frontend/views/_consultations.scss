@@ -61,7 +61,154 @@ nav.consultations_scope {
 }
 
 .consultation {
-  .page-header {
-    padding-bottom: 0;
+  &.consultation-closed,
+  &.consultation-responded {
+    .heading-block {
+      color: lighten($body-text, 20%);
+    }
+  }
+  .consultation-block {
+    background: $light-blue;
+    color: $white;
+    overflow: hidden;
+    margin-bottom: $gutter;
+
+    &.consultation-open {
+      padding: $gutter-one-third 0;
+
+      h2, .jump {
+        @include core-27;
+        padding: 0 $gutter-one-third;
+      }
+      abbr {
+        display: block;
+        @include core-48;
+        padding: 0;
+        margin: 0;
+      }
+
+      .jump {
+        display: block;
+        margin: 0;
+        border-top: 1px solid $white;
+        padding-top: $gutter-half;
+
+        a {
+          color: $white;
+          background: transparent image-url("down-arrow.png") no-repeat $gutter-one-third 100%;
+          padding-left: $gutter-one-third + 40px;
+        }
+      }
+      @include media(desktop){
+        padding: 0 $gutter-half;
+
+        h2, .jump {
+          @include core-19;
+          padding: $gutter-half 0;
+        }
+        h2 {
+          float: left;
+          width: 69%;
+          border-right: 1px solid $white;
+        }
+        .jump {
+          float: left;
+          border-top: 0;
+          width: 30%;
+
+          a {
+            display: block;
+            padding: 0 $gutter 0 $gutter + 40px;
+            margin-left: $gutter-half;
+            min-height: 75px;
+          }
+        }
+      }
+    }
+
+    &.consultation-closed {
+      padding: $gutter-one-third;
+      @include core-19;
+
+      h2 {
+        @include core-48;
+        padding-top: 8px;
+      }
+
+      @include media(desktop){
+        padding: $gutter-half;
+      }
+    }
+
+    &.consultation-responded {
+      .attachment-full-width,
+      .attachment {
+        background: transparent;
+      }
+
+      h2 {
+        @include core-48;
+        padding: 0 $gutter-half $gutter-half;
+      }
+      .run-time {
+        @include core-19;
+        padding: $gutter-half $gutter-half 0;
+      }
+      a {
+        color: $white;
+        text-decoration: underline;
+      }
+      .attachment-without-thumbnail {
+        .attachment {
+          .title, .metadata {
+            display: inline;
+          }
+          .title {
+            padding: 0;
+
+            &:after {
+              content: '.';
+              color: #fff;
+            }
+          }
+        }
+      }
+      .accessibility-warning {
+        padding: 0;
+        h3, a, .toggler {
+          color: #fff;
+        }
+        .toggler {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  .participation {
+    background: $light-warm-grey;
+    @include core-19;
+
+    .content {
+      padding: $gutter-half;
+    }
+    @include media(desktop){
+      padding-left: 25%;
+      .content {
+        padding: 0 $gutter 0 0;
+      }
+    }
+
+    .online {
+      @include core-48;
+      margin: 0 0 $gutter-two-thirds;
+    }
+    ol li {
+      list-style: decimal;
+      margin: $gutter-two-thirds 0;
+    }
+    dl dt {
+      @include core-16;
+      margin-top: $gutter-one-third;
+    }
   }
 }
