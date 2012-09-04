@@ -15,6 +15,9 @@ class ConsultationParticipation < ActiveRecord::Base
     email.present?
   end
 
+  def has_response_form?
+    consultation_response_form.present?
+  end
 
   after_destroy :destroy_form_if_required
 

@@ -62,4 +62,32 @@ module ConsultationsHelper
   def mail_to_consultation_participation(consultation, *args)
     mail_to consultation.consultation_participation.email, *args
   end
+
+  def consultation_participation_options(consultation_participation)
+    options = []
+    if consultation_participation.has_link?
+      options << content_tag(:p, link_to(consultation_participation.link_text, consultation_participation.link_url), class: "online")
+    end
+    if consultation_participation.has_email?
+      if consultation_participation.has_response_form?
+        options << content_tag(:ol,
+          content_tag(:li, content_tag(:p,
+            "Download and complete the response form:") +
+            link_to(consultation_participation.consultation_response_form.title,
+                    consultation_participation.consultation_response_form.file.url)
+          ) +
+          content_tag(:li,
+            content_tag(:p, "Return the form to us by:") +
+            content_tag(:dl,
+              content_tag(:dt, "email") +
+              content_tag(:dd, mail_to(consultation_participation.email), class: "email")
+            )
+          )
+        )
+      else
+        options << content_tag(:p, ("Contact us by email at: " + content_tag(:span, mail_to(consultation_participation.email))).html_safe, class: "email")
+      end
+    end
+    options.join(content_tag(:p, "or", class: "or")).html_safe
+  end
 end
