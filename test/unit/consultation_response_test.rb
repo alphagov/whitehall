@@ -18,4 +18,10 @@ class ConsultationResponseTest < EditionTestCase
     consultation.publish_as(create(:departmental_editor), force: true)
     assert_equal consultation, consultation_response.reload.consultation
   end
+
+  test "should return the latest edition of a consultation if no published edition exists" do
+    consultation = create(:draft_consultation, change_note: "change-note")
+    consultation_response = create(:consultation_response, consultation: consultation)
+    assert_equal consultation, consultation_response.reload.consultation
+  end
 end

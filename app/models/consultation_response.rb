@@ -6,7 +6,7 @@ class ConsultationResponse < Edition
   validates_presence_of :consultation
 
   def consultation
-    consultation_document && consultation_document.published_edition
+    consultation_document && (consultation_document.published_edition || consultation_document.latest_edition)
   end
 
   def consultation=(c)
