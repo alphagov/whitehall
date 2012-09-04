@@ -65,12 +65,16 @@ class Document < ActiveRecord::Base
 
   def change_history
     editions = ever_published_editions.significant_change.by_published_at
+    if published_consultation_response.present?
+      consultation_response_proxy = OpenStruct.new(published_at: published_consultation_response.published_at, change_note: "Government response added")
+      editions = (editions + [consultation_response_proxy]).sort_by(&:published_at).reverse
+    end
 
     first_edition = editions.pop
-    last = Change.new(first_published_date, first_edition ? first_edition.change_note : nil)
-    last.set_as_first_change
+    oldest_change = Change.new(first_published_date, first_edition ? first_edition.change_note : nil)
+    oldest_change.set_as_first_change
 
-    editions.map { |e| Change.new(e.published_at, e.change_note) }.push(last)
+    editions.map { |e| Change.new(e.published_at, e.change_note) }.push(oldest_change)
   end
 
   class << self
