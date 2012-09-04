@@ -143,15 +143,27 @@
     padding: $gutter-half;
 
 
-    a.thumbnail {
+    .attachment-details {
+      margin-left: 25%;
+      padding-right: 32px;
+    }
+
+    .thumbnail {
       float: left;
-      width: $img-gutter;
+      display: block;
+      width: 18%;
+
+      img {
+        width: 100%;
+        max-width: 105px;
+        max-height: 140px;
+      }
     }
 
     h3 {
       @include core-19;
       margin-top: 0;
-      padding: 0 32px 0 0;
+      padding: 0;
     }
 
     p.extra-description {

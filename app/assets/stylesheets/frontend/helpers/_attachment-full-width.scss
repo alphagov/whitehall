@@ -11,33 +11,22 @@
       padding: 0;
       overflow: visible;
 
-      a.thumbnail {
-        img {
-          float: left;
-          width: 20%;
-          padding-left: $gutter-half;
-        }
+      .attachment-details {
+        padding-right: 50px;
       }
 
-      .attachment-details {
-        margin-left: 25%;
+      img {
+        margin-left: $gutter-half;
       }
 
       .download-button {
         top: 6px;
-        right: $gutter-half;
-        @include ie(6) {
-          right: $gutter+$gutter-half;
-        }
       }
     }
     .attachment-without-thumbnail {
       clear: both;
       padding-top: $gutter-half;
 
-      .attachment {
-        margin: 0;
-      }
       .supporting-documents-title {
         margin-left: 25%;
         @include core-14;
