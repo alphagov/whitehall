@@ -46,10 +46,10 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
     assert_select "a[href='#{admin_consultation_path(@consultation)}']", text: @consultation.title
   end
 
-  test 'show displays link to public view of published consultation response' do
+  test 'show displays link to public view of published consultation' do
     consultation_response = create(:published_consultation_response, consultation: @consultation)
     get :show, id: consultation_response
-    assert_select "a[href='#{consultation_response_url(@consultation.document)}']"
+    assert_select "a[href='#{consultation_url(@consultation.document)}']"
   end
 
   def controller_attributes_for(edition_type, attributes = {})
