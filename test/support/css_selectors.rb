@@ -89,6 +89,10 @@ module CssSelectors
     ".actions .public_version"
   end
 
+  def link_to_preview_version_selector
+    ".actions .preview_version"
+  end
+
   def policy_team_selector
     "#policy_team"
   end

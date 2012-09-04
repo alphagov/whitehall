@@ -88,6 +88,10 @@ class ActionController::TestCase
 
   attr_reader :current_user
 
+  setup do
+    request.env['warden'] = stub(authenticate!: false, authenticated?: false, user: nil)
+  end
+
   def login_as(role_or_user)
     @current_user = role_or_user.is_a?(Symbol) ? create(role_or_user) : role_or_user
     request.env['warden'] = stub(authenticate!: true, authenticated?: true, user: @current_user)

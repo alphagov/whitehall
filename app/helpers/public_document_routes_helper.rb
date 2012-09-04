@@ -7,6 +7,14 @@ module PublicDocumentRoutesHelper
     end
   end
 
+  def preview_document_path(edition, options={})
+    query = {
+      preview: edition.latest_edition.id,
+      cachebust: Time.zone.now.getutc.to_i
+    }
+    public_document_path(edition, options.merge(query))
+  end
+
   def public_document_url(edition, options={})
     if host = Whitehall.public_host_for(request.host)
       options.merge!(host: host)
@@ -17,6 +25,14 @@ module PublicDocumentRoutesHelper
     else
       polymorphic_url(model_name(edition), options.merge(id: edition.document))
     end
+  end
+
+  def preview_document_url(edition, options={})
+    query = {
+      preview: edition.latest_edition.id,
+      cachebust: Time.zone.now.getutc.to_i
+    }
+    public_document_url(edition, options.merge(query))
   end
 
   def public_supporting_page_path(edition, supporting_page, options = {})
