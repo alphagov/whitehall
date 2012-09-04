@@ -11,18 +11,6 @@ module ConsultationsHelper
     end
   end
 
-  def consultation_last_significant_change(consultation)
-    if consultation.response_published?
-      "Response published on #{consultation.response_published_on.to_s(:long_ordinal)}"
-    elsif consultation.closed?
-      "Closed on #{consultation.closing_on.to_s(:long_ordinal)}"
-    elsif consultation.open?
-      "Opened on #{consultation.opening_on.to_s(:long_ordinal)}"
-    else
-      ""
-    end
-  end
-
   def consultation_opening_phrase(consultation)
     date = render_datetime_microformat(consultation, :opening_on) { consultation.opening_on.to_s(:long_ordinal) }
     (((consultation.opening_on < Date.today) ? "Opened on " : "Opens on ") + date).html_safe
