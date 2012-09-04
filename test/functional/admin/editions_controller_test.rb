@@ -354,8 +354,9 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   def stub_edition_filter(attributes = {})
     default_attributes = {
-      editions: [], page_title: '', edition_state: '', valid?: true
+      editions: Kaminari.paginate_array(attributes[:editions] || []).page(1),
+      page_title: '', edition_state: '', valid?: true
     }
-    stub('edition filter', default_attributes.merge(attributes))
+    stub('edition filter', default_attributes.merge(attributes.except(:editions)))
   end
 end

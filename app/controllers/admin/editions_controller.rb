@@ -139,7 +139,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def params_filters
-    sanitized_filters(params.slice(:type, :state, :organisation, :author))
+    sanitized_filters(params.slice(:type, :state, :organisation, :author, :page))
   end
 
   def sanitized_filters(filters)
@@ -178,11 +178,15 @@ class Admin::EditionsController < Admin::BaseController
         editions = editions.authored_by(author) if options[:author]
         editions = editions.in_organisation(organisation) if options[:organisation]
         editions.includes(:authors).order("editions.updated_at DESC")
-      )
+      ).page(options[:page]).per(page_size)
     end
 
     def page_title(current_user)
       "#{ownership(current_user)} #{edition_state} #{document_type.humanize.pluralize.downcase}".squeeze(' ')
+    end
+
+    def page_size
+      50
     end
 
     def valid?

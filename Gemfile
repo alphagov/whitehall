@@ -34,6 +34,7 @@ gem 'newrelic_rpm'
 gem 'lograge'
 gem 'unicorn'
 gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 
 group :assets do
   gem 'sass', '3.2.1'

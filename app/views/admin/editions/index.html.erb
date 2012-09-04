@@ -60,6 +60,7 @@
     <div class="collection span10">
       <h1><%= @filter.page_title(current_user) %></h1>
 
+      <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -120,6 +121,7 @@
           <% end %>
         </tbody>
       </table>
+      <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
     </div>
   </div>
 </section>
