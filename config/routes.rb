@@ -45,8 +45,6 @@ Whitehall::Application.routes.draw do
         get :closed
         get :upcoming
       end
-
-      resource :response, only: [:show], controller: :consultation_responses
     end
 
     resources :topics, path: "topics", only: [:index, :show]
