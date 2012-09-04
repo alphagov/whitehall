@@ -90,12 +90,7 @@ Whitehall::Application.routes.draw do
         resources :policy_teams, except: [:show]
         resources :edition_organisations, only: [:update]
         resources :edition_countries, only: [:update]
-        resources :topics, path: "topics", except: [:show] do
-          member do
-            post :feature
-            post :unfeature
-          end
-        end
+        resources :topics, path: "topics", except: [:show]
 
         resources :editions, only: [:index] do
           member do

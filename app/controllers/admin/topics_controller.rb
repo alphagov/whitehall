@@ -31,22 +31,6 @@ class Admin::TopicsController < Admin::BaseController
     end
   end
 
-  def feature
-    @topic = Topic.find(params[:id])
-    if @topic.published_policies.any?
-      @topic.feature
-      redirect_to admin_topics_path, notice: "The topic #{@topic.name} is now featured"
-    else
-      redirect_to admin_topics_path, alert: "The topic #{@topic.name} cannot be featured because it has no published policies"
-    end
-  end
-
-  def unfeature
-    @topic = Topic.find(params[:id])
-    @topic.unfeature
-    redirect_to admin_topics_path, notice: "The topic #{@topic.name} is no longer featured"
-  end
-
   def destroy
     @topic = Topic.find(params[:id])
     @topic.delete!

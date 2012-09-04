@@ -78,16 +78,6 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 1, second_association.reload.ordering
   end
 
-  test ".featured includes all featured topics" do
-    topic = create(:topic, featured: true)
-    assert Topic.featured.include?(topic)
-  end
-
-  test ".featured excludes unfeatured topics" do
-    topic = create(:topic, featured: false)
-    refute Topic.featured.include?(topic)
-  end
-
   test "return published editions relating to policies in the topic" do
     policy = create(:published_policy)
     publication_1 = create(:published_publication, related_policies: [policy])

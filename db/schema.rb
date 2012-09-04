@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831142535) do
+ActiveRecord::Schema.define(:version => 20120904144149) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -444,9 +444,8 @@ ActiveRecord::Schema.define(:version => 20120831142535) do
     t.datetime "updated_at"
     t.text     "description"
     t.string   "slug"
-    t.boolean  "featured",                :default => false
     t.string   "state"
-    t.integer  "published_edition_count", :default => 0,     :null => false
+    t.integer  "published_edition_count", :default => 0, :null => false
   end
 
   add_index "topics", ["slug"], :name => "index_policy_areas_on_slug"
