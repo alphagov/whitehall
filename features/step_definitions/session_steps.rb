@@ -15,3 +15,14 @@ Given /^I am a writer in the organisation "([^"]*)"$/ do |organisation|
   user = create(:policy_writer, organisation: organisation)
   login_as user
 end
+
+Given /^I am a visitor$/ do
+  User.stubs(:first).returns(nil)
+end
+
+Around("@use_real_sso") do |scenario, block|
+  current_sso_env = ENV['GDS_SSO_MOCK_INVALID']
+  ENV['GDS_SSO_MOCK_INVALID'] = "1"
+  block.call
+  ENV['GDS_SSO_MOCK_INVALID'] = current_sso_env
+end

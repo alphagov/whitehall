@@ -106,6 +106,11 @@ When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do
   visit public_document_path(edition)
 end
 
+When /^I preview the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
+  edition = document_class(document_type).find_by_title!(title)
+  visit preview_document_path(edition)
+end
+
 When /^I submit (#{THE_DOCUMENT})$/ do |edition|
   visit_document_preview edition.title
   click_button "Submit to 2nd pair of eyes"
@@ -285,4 +290,8 @@ end
 
 Then /^there should not be a document called "([^"]*)"$/ do |title|
   refute Edition.find_by_title(title)
+end
+
+Then /^I should see the title "([^"]*)"$/ do |title|
+  assert page.has_css?('h1 .title', value: title)
 end
