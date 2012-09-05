@@ -1,6 +1,8 @@
 require "test_helper"
 
 class ConsultationTest < EditionTestCase
+  include ActionDispatch::TestProcess
+
   should_allow_image_attachments
   should_be_attachable
   should_allow_inline_attachments
@@ -198,5 +200,20 @@ class ConsultationTest < EditionTestCase
     consultation.destroy
 
     assert_nil Response.find_by_id(response.id)
+  end
+
+  test "should copy the response summary and link to the original attachments when creating a new draft" do
+    consultation = create(:published_consultation)
+    response = consultation.create_response! summary: 'response-summary'
+    attachment = response.attachments.create! title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf')
+
+    new_draft = consultation.create_draft(build(:user))
+    new_draft.reload
+
+    assert_equal 'response-summary', new_draft.response.summary
+    assert_not_equal response, new_draft.response
+    assert_equal 1, new_draft.response.attachments.length
+    assert_equal 'attachment-title', new_draft.response.attachments.first.title
+    assert_equal attachment, new_draft.response.attachments.first
   end
 end

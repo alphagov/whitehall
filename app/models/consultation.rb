@@ -25,6 +25,14 @@ class Consultation < Edition
         attributes = @edition.consultation_participation.attributes.except("id", "edition_id")
         edition.create_consultation_participation(attributes)
       end
+
+      if @edition.response.present?
+        response_attributes = @edition.response.attributes.except('edition_id')
+        new_response = edition.create_response(response_attributes)
+        @edition.response.attachments.each do |attachment|
+          new_response.consultation_response_attachments.create(attachment: attachment)
+        end
+      end
     end
   end
 
