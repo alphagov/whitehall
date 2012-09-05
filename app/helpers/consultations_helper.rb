@@ -59,11 +59,11 @@ module ConsultationsHelper
     if consultation_participation.has_email? || consultation_participation.has_postal_address?
       respond_by = ""
       if consultation_participation.has_email?
-        respond_by << content_tag(:dl, "email")
+        respond_by << content_tag(:dt, "email")
         respond_by << content_tag(:dd, mail_to(consultation_participation.email), class: "email")
       end
       if consultation_participation.has_postal_address?
-        respond_by << content_tag(:dl, "post")
+        respond_by << content_tag(:dt, "post")
         respond_by << content_tag(:dd, format_with_html_line_breaks(consultation_participation.postal_address), class: "postal-address")
       end
       if consultation_participation.has_response_form?
