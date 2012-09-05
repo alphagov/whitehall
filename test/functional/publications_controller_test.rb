@@ -14,6 +14,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_not_display_lead_image_for :publication
   should_show_change_notes :publication
   should_show_inapplicable_nations :publication
+  should_be_previewable :publication
   should_paginate :publication
   should_return_json_suitable_for_the_document_filter :publication
 
@@ -466,21 +467,6 @@ class PublicationsControllerTest < ActionController::TestCase
     get :show, id: publication.document
 
     assert_select_object(policy)
-  end
-
-  test "preview should be hidden from public" do
-    publication = create(:draft_publication)
-    get :show, id: publication.document, preview: publication.id
-
-    assert_response 404
-  end
-
-  test "preview should be visible for logged in users" do
-    login_as create(:departmental_editor)
-    publication = create(:draft_publication)
-    get :show, id: publication.document, preview: publication.id
-
-    assert_response 200
   end
 
   private

@@ -266,6 +266,35 @@ module DocumentControllerTestHelpers
       end
     end
 
+    def should_be_previewable(document_type)
+      test "#{document_type} preview should be visible for logged in users" do
+        first_edition = create("published_#{document_type}",
+                               published_at: 1.months.ago,
+                               first_published_at: 2.months.ago)
+        document = first_edition.document
+        draft_edition = create("draft_#{document_type}",
+                               document: document,
+                               body: "Draft information")
+
+        login_as create(:departmental_editor)
+        get :show, id: document.id, preview: draft_edition.id
+        assert_response 200
+      end
+
+      test "#{document_type} preview should be hidden from public" do
+        first_edition = create("published_#{document_type}",
+                               published_at: 1.months.ago,
+                               first_published_at: 2.months.ago)
+        document = first_edition.document
+        draft_edition = create("draft_#{document_type}",
+                               document: document,
+                               body: "Draft information")
+
+        get :show, id: document.id, preview: draft_edition.id
+        assert_response 404
+      end
+    end
+
     def should_show_change_notes_on_action(document_type, action, &block)
       test "#{action} displays default change note for first edition of #{document_type}" do
         first_edition = create("published_#{document_type}",

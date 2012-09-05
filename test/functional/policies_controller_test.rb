@@ -9,6 +9,7 @@ class PoliciesControllerTest < ActionController::TestCase
   should_display_inline_images_for :policy
   should_not_display_lead_image_for :policy
   should_show_inapplicable_nations :policy
+  should_be_previewable :policy
   should_show_change_notes_on_action :policy, :show do |policy|
     get :show, id: policy.document
   end
