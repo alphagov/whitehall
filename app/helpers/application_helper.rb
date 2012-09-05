@@ -247,16 +247,6 @@ module ApplicationHelper
     end
   end
 
-  def in_columns(collection, num_columns, &block)
-    items = collection.to_a
-    n = items.length
-    a = n / num_columns
-    b = n % num_columns
-    num_columns.times.map { |i|
-      yield items.shift(a + (i < b ? 1 : 0))
-    }
-  end
-
   def featured_carousel_classes(options = {})
     classes = ["featured_carousel"]
     classes << "organisation_news" if options[:organisational_context]

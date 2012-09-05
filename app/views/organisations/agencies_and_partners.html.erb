@@ -26,7 +26,7 @@
     <div class="inner-block">
       <% if @organisation.child_organisations.any? %>
         <section id="child_organisations" class="info">
-          <% in_columns(@organisation.child_organisations, 3) do |organisation_group| %>
+          <% @organisation.child_organisations.in_groups_of(3, false).each do |organisation_group| %>
             <div>
               <% organisation_group.each do |organisation| %>
                 <ul>
