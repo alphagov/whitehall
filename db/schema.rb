@@ -68,6 +68,28 @@ ActiveRecord::Schema.define(:version => 20120907114928) do
 
   add_index "contacts", ["organisation_id"], :name => "index_contacts_on_organisation_id"
 
+  create_table "corporate_information_page_attachments", :force => true do |t|
+    t.integer  "corporate_information_page_id"
+    t.integer  "attachment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "corporate_information_page_attachments", ["attachment_id"], :name => "corporate_information_page_attachments_a_id"
+  add_index "corporate_information_page_attachments", ["corporate_information_page_id"], :name => "corporate_information_page_attachments_ci_id"
+
+  create_table "corporate_information_pages", :force => true do |t|
+    t.integer  "lock_version"
+    t.integer  "organisation_id"
+    t.integer  "type_id"
+    t.text     "summary"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "corporate_information_pages", ["organisation_id", "type_id"], :name => "index_corporate_information_pages_on_organisation_id_and_type_id", :unique => true
+
   create_table "countries", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
