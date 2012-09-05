@@ -249,11 +249,7 @@
     background-position: 8px 50%;
     span {
       top: 0;
-      @include ie(6) {
-        top: -75px; // I think these logos need revisiting as they're a pain in the arse in IE6
-                    // They need to be simplified! Russ inside gov
-                    // I'm happy to revisit/rebuild these if I get time after cleaning up IE6 bugs
-      }
+      position: static;
     }
     @media (max-width: 640px) {
       padding-top: 1px;
@@ -266,6 +262,7 @@
     }
   }
 }
+
 
 @mixin logo-13 {
   font-family: $Helvetica-Regular;
