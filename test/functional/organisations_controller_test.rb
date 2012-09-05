@@ -109,6 +109,30 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:secondary_featured_editions).length
   end
 
+  test "showing a live organisation renders the show template" do
+    organisation = create(:organisation, govuk_status: 'live')
+
+    get :show, id: organisation
+
+    assert_template 'show'
+  end
+
+  test "showing a joining organisation renders the external template" do
+    organisation = create(:organisation, govuk_status: 'joining')
+
+    get :show, id: organisation
+
+    assert_template 'external'
+  end
+
+  test "showing an exempt organisation renders the external template" do
+    organisation = create(:organisation, govuk_status: 'exempt')
+
+    get :show, id: organisation
+
+    assert_template 'external'
+  end
+
   test "display a secondary featured editions" do
     organisation = create(:organisation)
     # the first 3 are featured and the 4th will be our secondary featured
@@ -582,7 +606,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows 10 most recently published editions associated with organisation" do
+  test "shows 4 most recently published editions associated with organisation" do
     editions = 3.times.map { |n| create(:published_policy, published_at: n.days.ago) } +
                 3.times.map { |n| create(:published_publication, published_at: (3 + n).days.ago) } +
                 3.times.map { |n| create(:published_consultation, published_at: (6 + n).days.ago) } +

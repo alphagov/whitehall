@@ -40,14 +40,14 @@
     </div>
   </div>
 
-  <div class="block-5">
-    <div class="inner-block">
-      <% if @recently_updated.present? %>
-        <section id="recently_updated" class="latest_documents">
-          <h1 class="label">Recent mentions on gov.uk</h1>
-          <%= render partial: "shared/recently_updated", locals: {recently_updated: @recently_updated} %>
-        </section>
-      <% end %>
+  <% if @recently_updated.present? %>
+    <div class="block-5">
+      <div class="inner-block">
+          <section id="recently_updated" class="latest_documents">
+            <h1 class="label">Recent mentions on gov.uk</h1>
+            <%= render partial: "shared/recently_updated", locals: {recently_updated: @recently_updated} %>
+          </section>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
