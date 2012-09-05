@@ -1,0 +1,14 @@
+<%= form_for [:admin, organisation, corporate_information_page] do |form| %>
+  <%= form.hidden_field :lock_version %>
+
+  <%= form.text_area :summary, label_text: "Summary", "class" => "previewable" %>
+
+  <%= form.text_area :body, label_text: "Body", "class" => "previewable" %>
+  
+  <% unless form.object.persisted? %>
+    <%= form.label :type_id, 'Type' %>
+    <%= form.select :type_id, corporate_information_page_types, {allow_blank: true}, {class: 'chzn-select', data: { placeholder: "Type of page..." }} %>
+  <% end %>
+  
+  <%= form.save_or_cancel cancel: (corporate_information_page.new_record? ? admin_organisation_path(@organisation) : admin_organisation_corporate_information_page_path(organisation, corporate_information_page))%>
+<% end %>

@@ -1,0 +1,15 @@
+<% page_title "New corporate information page for " + @organisation.name %>
+
+<h1>Add new corporate information page to <%= link_to @organisation.name, admin_organisation_path(@organisation) %></h1>
+
+<div class="row-fluid">
+  <div class="span8">
+    <section>
+      <%= render partial: "form", locals: {organisation: @organisation, corporate_information_page: @corporate_information_page} %>
+    </section>
+  </div>
+
+  <div class="span4">
+    <%= simple_formatting_sidebar %>
+  </div>
+</div>

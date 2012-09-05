@@ -263,4 +263,8 @@ module ApplicationHelper
     months = (0...number_of_months).map { |i| baseline - i.months }
     options_for_select(months.map { |m| [m.strftime("%B %Y"), m.to_s] }, selected_date.to_s)
   end
+
+  def corporate_information_page_types
+    CorporateInformationPageType.all.map {|c| [c.title, c.id]}
+  end
 end

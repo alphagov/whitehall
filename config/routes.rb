@@ -89,6 +89,7 @@ Whitehall::Application.routes.draw do
         resources :authors, only: [:show]
         resources :organisations do
           resources :document_series
+          resources :corporate_information_pages
         end
         resources :policy_teams, except: [:show]
         resources :edition_organisations, only: [:update]
