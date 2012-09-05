@@ -170,4 +170,33 @@ class ConsultationTest < EditionTestCase
     consultation.destroy
     assert_nil ConsultationParticipation.find_by_id(consultation_participation.id)
   end
+
+  test "should accept nested attributes for the consultation response" do
+    consultation = build(:consultation)
+    consultation.response_attributes = {
+      summary: 'response-summary'
+    }
+    consultation.save!
+
+    assert_equal 'response-summary', consultation.response.summary
+  end
+
+  test "should not build an empty consultation response if the attributes are blank" do
+    consultation = build(:consultation)
+    consultation.response_attributes = {
+      summary: nil
+    }
+    consultation.save!
+
+    assert_nil consultation.response
+  end
+
+  test "should destroy the consultation response when the consultation is destroyed" do
+    consultation = create(:consultation)
+    response = consultation.create_response!
+
+    consultation.destroy
+
+    assert_nil Response.find_by_id(response.id)
+  end
 end

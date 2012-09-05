@@ -374,6 +374,13 @@ ActiveRecord::Schema.define(:version => 20120907114928) do
 
   add_index "recent_edition_openings", ["edition_id", "editor_id"], :name => "index_recent_edition_openings_on_edition_id_and_editor_id", :unique => true
 
+  create_table "responses", :force => true do |t|
+    t.integer  "edition_id"
+    t.text     "summary"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "role_appointments", :force => true do |t|
     t.integer  "role_id"
     t.integer  "person_id"

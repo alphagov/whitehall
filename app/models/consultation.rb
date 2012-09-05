@@ -14,7 +14,10 @@ class Consultation < Edition
   has_many :consultation_responses, through: :document
   has_one :published_consultation_response, through: :document
 
+  has_one :response, foreign_key: :edition_id, dependent: :destroy
+
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
+  accepts_nested_attributes_for :response, reject_if: :all_blank
 
   add_trait do
     def process_associations_after_save(edition)
