@@ -24,11 +24,6 @@ module ApplicationHelper
     url_for(params.except(:utf8, :_, :date, :direction, :page).merge(format: "atom", only_path: false))
   end
 
-  def show_session_controls?
-    params[:controller].split("/").first == "admin" ||
-    params[:controller] == "sessions"
-  end
-
   def labelled_check_box(object_name, attribute, text)
     for_attribute = [object_name, attribute].map(&:to_s).join("_")
     label_tag "", {for: for_attribute, class: "for_checkbox"} do

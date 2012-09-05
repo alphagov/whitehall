@@ -1,9 +1,0 @@
-<div id="session" class="session_info">
-  <% if user_signed_in? %>
-    <p class="navbar-text">
-      You are logged in as
-      <span class="current_user_name"><%= link_to current_user.name, admin_user_path, id: "#user_settings" %></span>
-    </p>
-    <%#= button_to "Logout", logout_path, class: 'link' %>
-  <% end %>
-</div>
