@@ -6,13 +6,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-  test "should display the disclaimer on active organisations" do
-    organisation = create(:organisation, url: "url-of-main-website-for-organisation")
-    get :show, id: organisation
-    assert_disclaimer_present(organisation)
-  end
-
-  test "should display the disclaimer on inactive organisations" do
+  test "show displays the beta disclaimer on all organisations" do
     organisation = create(:organisation, url: "url-of-main-website-for-organisation")
     get :show, id: organisation
     assert_disclaimer_present(organisation)
