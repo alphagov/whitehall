@@ -140,20 +140,27 @@
     background: $light-warm-grey;
     position: relative;
     margin: 0;
-    padding: $gutter-half;
-
+    padding: $gutter-half 0;
+    width: 100%;
 
     .attachment-details {
-      margin-left: 25%;
-      padding-right: 32px;
+      width: 75%;
+      float: right;
+      position: relative;
+      .attachment-details-wrapper {
+        margin-right: $gutter-half + 30px;
+      }
     }
 
     .thumbnail {
       float: left;
       display: block;
       width: 18%;
+      position: relative;
+      margin-left: $gutter-half;
 
       img {
+        position: relative;
         width: 100%;
         max-width: 105px;
         max-height: 140px;
@@ -178,6 +185,7 @@
       position: absolute;
       top: $gutter-half;
       right: $gutter-half;
+      z-index:30;
       width: 30px;
       height: 25px;
       display: block;
