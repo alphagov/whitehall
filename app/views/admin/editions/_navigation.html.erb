@@ -6,7 +6,7 @@
   <% end %>
   <% if edition.previewable? %>
     <div class="preview_version">
-      <p>Preview <%= link_to edition.title, preview_document_url(edition) %> on public website</p>
+      <p>Preview <%= link_to edition.title, preview_document_path(edition) %> on public website</p>
     </div>
   <% end %>
   <% if edition.force_published? %>

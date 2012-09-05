@@ -1,5 +1,5 @@
 module PublicDocumentRoutesHelper
-  def public_document_path(edition, options = {})
+  def document_path(edition, options={})
     if edition.is_a?(ConsultationResponse)
       consultation_path(edition.consultation.document)
     else
@@ -7,19 +7,20 @@ module PublicDocumentRoutesHelper
     end
   end
 
+  def public_document_path(edition, options = {})
+    document_path(edition, options)
+  end
+
   def preview_document_path(edition, options={})
     query = {
       preview: edition.latest_edition.id,
       cachebust: Time.zone.now.getutc.to_i
     }
-    public_document_path(edition, options.merge(query))
+
+    document_path(edition, options.merge(query))
   end
 
-  def public_document_url(edition, options={})
-    if host = Whitehall.public_host_for(request.host)
-      options.merge!(host: host)
-    end
-
+  def document_url(edition, options={})
     if edition.is_a?(ConsultationResponse)
       consultation_url(edition.consultation.document, options)
     else
@@ -27,12 +28,20 @@ module PublicDocumentRoutesHelper
     end
   end
 
+  def public_document_url(edition, options={})
+    if host = Whitehall.public_host_for(request.host)
+      options.merge!(host: host)
+    end
+
+    document_url(edition, options)
+  end
+
   def preview_document_url(edition, options={})
     query = {
       preview: edition.latest_edition.id,
       cachebust: Time.zone.now.getutc.to_i
     }
-    public_document_url(edition, options.merge(query))
+    document_url(edition, options.merge(query))
   end
 
   def public_supporting_page_path(edition, supporting_page, options = {})
