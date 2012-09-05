@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(:version => 20120907114928) do
     t.text     "postal_address"
   end
 
+  create_table "consultation_response_attachments", :force => true do |t|
+    t.integer  "response_id"
+    t.integer  "attachment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "consultation_response_forms", :force => true do |t|
     t.string   "carrierwave_file"
     t.string   "title"
