@@ -1,21 +1,27 @@
-<%
-  history = document.change_history
-  most_recent_change = history.first.published_at
-%>
-<% if history.length == 1 %>
+<% if document.state == 'draft' %>
   <section class="change-notes">
-    <p><% if document.state == 'draft' %>Draft<% else %>Published <%= absolute_date(most_recent_change, class: 'published-at') %><% end %></p>
+    <p>Preview</p>
   </section>
 <% else %>
-  <section class="change-notes js-toggle-change-notes">
-    <p class="toggle">Updated <%= absolute_date(most_recent_change, class: 'published-at') %></p>
-    <div class="overlay js-hidden" id="change-notes">
-      <dl>
-        <% history.each do |change| %>
-          <dt><%= change.note %></dt>
-          <dd><%= absolute_time(change.published_at, class: 'published-at') %></dd>
-        <% end %>
-      </dl>
-    </div>
-  </section>
+  <%-
+    history = document.change_history
+    most_recent_change = history.first.published_at
+  -%>
+  <% if history.length == 1 %>
+    <section class="change-notes">
+      <p>Published <%= absolute_date(most_recent_change, class: 'published-at') %></p>
+    </section>
+  <% else %>
+    <section class="change-notes js-toggle-change-notes">
+      <p class="toggle">Updated <%= absolute_date(most_recent_change, class: 'published-at') %></p>
+      <div class="overlay js-hidden" id="change-notes">
+        <dl>
+          <% history.each do |change| %>
+            <dt><%= change.note %></dt>
+            <dd><%= absolute_time(change.published_at, class: 'published-at') %></dd>
+          <% end %>
+        </dl>
+      </div>
+    </section>
+  <% end %>
 <% end %>
