@@ -210,6 +210,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal organisation, assigns(:organisation)
   end
 
+  test "showing displays the govuk status" do
+    organisation = create(:organisation, govuk_status: 'exempt')
+    get :show, id: organisation
+    assert_select 'td', text: 'Exempt'
+  end
+
   test "showing should allow featured published news articles to be unfeatured" do
     published_news_article = create(:published_news_article)
     organisation = create(:organisation)
