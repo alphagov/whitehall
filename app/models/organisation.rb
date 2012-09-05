@@ -98,6 +98,8 @@ class Organisation < ActiveRecord::Base
   has_many :contacts, dependent: :destroy
   has_many :social_media_accounts, dependent: :destroy
 
+  has_many :corporate_information_pages, dependent: :destroy
+
   accepts_nested_attributes_for :contacts, reject_if: :contact_and_contact_numbers_are_blank
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
   accepts_nested_attributes_for :organisation_roles
