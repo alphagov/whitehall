@@ -110,6 +110,7 @@ class Organisation < ActiveRecord::Base
   validates :alternative_format_contact_email, presence: {
     if: :provides_alternative_formats?,
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
+  validates :govuk_status, inclusion: {in: %w{live joining exempt}}
 
   default_scope order(organisations: :name)
 
@@ -133,6 +134,14 @@ class Organisation < ActiveRecord::Base
 
   def self.in_listing_order
     joins(:organisation_type).all.sort_by { |o| o.organisation_type.listing_order }
+  end
+
+  def live?
+    govuk_status == 'live'
+  end
+
+  def joining?
+    govuk_status == 'joining'
   end
 
   def topics_with_content

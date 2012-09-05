@@ -23,6 +23,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select parent_organisations_list_selector
     assert_select organisation_type_list_selector
     assert_select organisation_topics_list_selector
+    assert_select organisation_govuk_status_selector
     assert_select "input[type=text][name='organisation[contacts_attributes][0][description]']"
     assert_select "textarea[name='organisation[contacts_attributes][0][address]']"
     assert_select "input[type=text][name='organisation[contacts_attributes][0][postcode]']"
@@ -153,6 +154,15 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     )
     created_organisation = Organisation.last
     assert_equal organisation_type, created_organisation.organisation_type
+  end
+
+  test "creating with a govuk status" do
+    attributes = attributes_for(:organisation)
+    post :create, organisation: attributes.merge(
+      govuk_status: 'exempt',
+      organisation_type_id: create(:organisation_type).id
+    )
+    assert_equal 'exempt', Organisation.last.govuk_status
   end
 
   test "creating with blank numbers ignores blank numbers" do

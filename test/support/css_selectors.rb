@@ -57,6 +57,10 @@ module CssSelectors
     "select[name='organisation[topic_ids][]']"
   end
 
+  def organisation_govuk_status_selector
+    "select[name='organisation[govuk_status]']"
+  end
+
   def permanent_secretary_board_members_selector
     "#permanent_secretary_board_members"
   end

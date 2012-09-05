@@ -14,12 +14,16 @@ class OrganisationsController < PublicFacingController
 
   def show
     @recently_updated = @organisation.published_editions.by_published_at.limit(4)
-    @news_articles = NewsArticle.published.in_organisation(@organisation)
-    @primary_featured_editions = @organisation.featured_editions.limit(3)
-    @secondary_featured_editions = @organisation.featured_editions.limit(3).offset(3)
-    @top_ministerial_role = @organisation.top_ministerial_role && RolePresenter.decorate(@organisation.top_ministerial_role)
-    @top_civil_servant = @organisation.top_civil_servant && RolePresenter.decorate(@organisation.top_civil_servant)
-    @top_military_role = @organisation.top_military_role && RolePresenter.decorate(@organisation.top_military_role)
+    if @organisation.live?
+      @news_articles = NewsArticle.published.in_organisation(@organisation)
+      @primary_featured_editions = @organisation.featured_editions.limit(3)
+      @secondary_featured_editions = @organisation.featured_editions.limit(3).offset(3)
+      @top_ministerial_role = @organisation.top_ministerial_role && RolePresenter.decorate(@organisation.top_ministerial_role)
+      @top_civil_servant = @organisation.top_civil_servant && RolePresenter.decorate(@organisation.top_civil_servant)
+      @top_military_role = @organisation.top_military_role && RolePresenter.decorate(@organisation.top_military_role)
+    else
+      render action: 'external'
+    end
   end
 
   def about

@@ -22,6 +22,26 @@ class OrganisationTest < ActiveSupport::TestCase
     refute new_organisation.valid?
   end
 
+  test 'should be valid if govuk status is live' do
+    new_organisation = build(:organisation, govuk_status: 'live')
+    assert new_organisation.valid?
+  end
+
+  test 'should be valid if govuk status is joining' do
+    new_organisation = build(:organisation, govuk_status: 'joining')
+    assert new_organisation.valid?
+  end
+
+  test 'should be valid if govuk status is exempt' do
+    new_organisation = build(:organisation, govuk_status: 'exempt')
+    assert new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk status is not active, coming or exempt' do
+    new_organisation = build(:organisation, govuk_status: 'something-elese')
+    refute new_organisation.valid?
+  end
+
   test 'should be invalid with a blank alternative_format_contact_email if it is used as a alternative_format_provider' do
     organisation = create(:organisation, alternative_format_contact_email: "alternative@example.com")
     create(:draft_publication, alternative_format_provider: organisation)
