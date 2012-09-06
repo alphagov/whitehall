@@ -1,9 +1,14 @@
 <%
   extra_description ||= ""
 %>
-<%= content_tag_for(:div, attachment, class: "embedded") do %>
-  <%= link_to attachment_thumbnail(attachment), attachment.url, class: 'thumbnail' unless defined?(hide_thumbnail) && hide_thumbnail %>
-  <div class="attachment-details"><div class="attachment-details-wrapper">
+<%= content_tag_for(:section, attachment, class: "embedded") do %>
+  <div class="attachment-thumb">
+    <%= link_to attachment.url, class: 'thumbnail' do %>
+      <h2 class="download-button">Attachment Download</h2>
+      <%= attachment_thumbnail(attachment) unless defined?(hide_thumbnail) && hide_thumbnail %>
+    <% end %>
+  </div>
+  <div class="attachment-details">
     <h3 class="title"><%= link_to attachment.title, attachment.url %></h3>
     <% unless extra_description.empty? %>
       <p class="extra-description"><%= extra_description %></p>
@@ -25,7 +30,6 @@
         <% end %>
       </p>
     <% end %>
-    <%= link_to 'Download attachment', attachment.url, class: "download-button" %>
     <%= render partial: 'documents/attachment_accessibility_warning.html.erb', locals: {attachment: attachment, alternative_format_contact_email: alternative_format_contact_email} %>
-  </div></div>
+  </div>
 <% end %>

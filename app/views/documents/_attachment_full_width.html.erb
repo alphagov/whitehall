@@ -1,9 +1,10 @@
 <%
   summary = document.summary unless local_assigns.include?(:summary)
 %>
-<div class="attachment-full-width">
+<section class="attachment-full-width">
   <% if document.attachments.present? %>
     <div class="govspeak">
+      <h1>Documents</h1>
       <div class="first-attachment">
         <%= render partial: "documents/attachment",
                   object: document.attachments.first,
@@ -12,7 +13,7 @@
       </div>
       <% if document.attachments.present? && document.attachments[1..-1].any? %>
         <div class="attachment-without-thumbnail">
-          <h1 class="supporting-documents-title">Supporting documents</h1>
+          <h2 class="supporting-documents-title">Supporting documents</h2>
           <% document.attachments[1..-1].each do |attachment| %>
             <%= render partial: "documents/attachment",
                       object: attachment,
@@ -25,4 +26,4 @@
   <% else %>
     <p class="extra-description summary"><%= summary %></p>
   <% end %>
-</div>
+</section>

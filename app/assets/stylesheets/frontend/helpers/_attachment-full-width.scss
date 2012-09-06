@@ -1,5 +1,5 @@
 .attachment-full-width {
-  padding: $gutter-half 0;
+  padding: $gutter-one-third 0;
   margin: 0;
   clear: both;
   background: $light-warm-grey;
@@ -7,21 +7,27 @@
   .govspeak {
     margin: 0;
 
+    h1 {
+      @include core-24;
+      padding-left: $gutter-half;
+      padding-bottom: $gutter-one-third;
+    }
+
     .attachment {
       padding: 0;
       overflow: visible;
 
-      .download-button {
-        top: 6px;
-      }
     }
     .attachment-without-thumbnail {
       clear: both;
       padding-top: $gutter-half;
 
+      .attachment .attachment-details .title {
+        @include core-16;
+      }
       .supporting-documents-title {
         margin-left: 25%;
-        @include core-14;
+        @include core-24;
       }
     }
   }

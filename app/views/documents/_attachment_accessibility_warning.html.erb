@@ -2,13 +2,12 @@
   <div class="accessibility-warning js-toggle-accessibility-warning">
     <% help_block_id = "attachment-#{attachment.id}-accessibility-help" %>
     <h3>This file may not be accessible.
-      <span class="toggler">Need this in a different format?</span>
+      <span class="toggler">Request a different format.</span>
     </h3>
     <p class="help-block">
-
       To request this document in an alternative format such as braille, audio
-      or a different file type please email 
-        <%= alternative_format_order_link attachment, alternative_format_contact_email %> 
+      or a different file type please email
+      <%= alternative_format_order_link attachment, alternative_format_contact_email %>
       quoting your address, telephone number along with the title of the
       publication ("<%= attachment.title %>")<%= attachment_references(attachment) %>.
     </p>

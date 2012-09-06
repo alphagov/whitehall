@@ -135,69 +135,77 @@
   }
   // inline attachment pullouts
   .attachment {
-    $img-gutter: 99px;
-
     background: $light-warm-grey;
     position: relative;
     margin: 0;
     padding: $gutter-half 0;
     width: 100%;
+    overflow: hidden;
+
+    .attachment-thumb {
+      position: relative;
+      width: 25%;
+      float: left;
+      text-align: center;
+      min-height: 25px;
+      margin-top: 7px;
+
+      a {
+        background: $white;
+        margin: 0 $gutter-half;
+      }
+      .download-button {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 30px;
+        height: 25px;
+        margin: 0 0 0 -15px;
+        z-index:3;
+        text-indent: -9999em;
+        background: transparent url(/government/assets/download-icon.png) no-repeat 0 0;
+        @include media(desktop){
+          top: 50%;
+          margin-top: -12.5px;
+        }
+      }
+      .thumbnail {
+        display: block;
+
+        img {
+          position: relative;
+          width: 100%;
+          max-width: 105px;
+          max-height: 140px;
+          display: none;
+          @include media(desktop){
+            display: inline;
+          }
+        }
+      }
+    }
 
     .attachment-details {
       width: 75%;
       float: right;
       position: relative;
-      .attachment-details-wrapper {
-        margin-right: $gutter-half + 30px;
+
+      .title {
+        @include core-24;
       }
-    }
-
-    .thumbnail {
-      float: left;
-      display: block;
-      width: 18%;
-      position: relative;
-      margin-left: $gutter-half;
-
-      img {
-        position: relative;
-        width: 100%;
-        max-width: 105px;
-        max-height: 140px;
+      .extra-description {
+        max-width: 35em;
+        @include core-16;
       }
-    }
-
-    h3 {
-      @include core-19;
-      margin-top: 0;
-      padding: 0;
-    }
-
-    p.extra-description {
-      max-width: 35em;
-    }
-
-    p {
-      @include core-14;
-      margin: 0;
-    }
-    .download-button {
-      position: absolute;
-      top: $gutter-half;
-      right: $gutter-half;
-      z-index:30;
-      width: 30px;
-      height: 25px;
-      display: block;
-      text-indent: -9999em;
-      background: transparent url(/government/assets/download-icon.png) no-repeat 0 0;
+      h3, p {
+        @include core-14;
+        padding: 0 $gutter-half 0 0;
+        margin: 0;
+      }
     }
     .accessibility-warning {
-      @include core-14;
-
       h3 {
-        @include core-14;
-        margin: 0;
         color: $body-text;
         .toggler {
           color: $link-text;
@@ -208,8 +216,6 @@
         }
       }
     }
-
-    overflow: hidden;
   }
 
   .information-block,
