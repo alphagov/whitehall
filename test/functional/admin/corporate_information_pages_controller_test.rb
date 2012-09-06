@@ -33,7 +33,8 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     post :create, organisation_id: @organisation.id, corporate_information_page: corporate_information_page_attributes
     @organisation.reload
     assert_redirected_to admin_organisation_path(@organisation)
-    assert_equal "Corporate information page created successfully", flash[:notice]
+    type = CorporateInformationPageType.find_by_id(corporate_information_page_attributes[:type_id])
+    assert_equal "#{type.title} created successfully", flash[:notice]
   end
 
   test "POST :create should redisplay form with error message on fail" do
@@ -62,7 +63,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     corporate_information_page.reload
     assert_equal new_attributes[:body], corporate_information_page.body
     assert_equal new_attributes[:summary], corporate_information_page.summary
-    assert_equal "Corporate information page updated successfully", flash[:notice]
+    assert_equal "#{corporate_information_page.title} updated successfully", flash[:notice]
     assert_redirected_to admin_organisation_path(@organisation)
   end
 
@@ -80,11 +81,12 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     end
   end
 
-  # test "if creation fails then error message shown" do
-  #   post :create, organisation_id: @organisation.id, corporate_information_page: {}
-
-  #   assert_equal '', flash[:notice]
-  # end
+  test "PUT :delete should delete the page and redirect to the organisation" do
+    corporate_information_page = create(:corporate_information_page, organisation: @organisation)
+    put :destroy, organisation_id: @organisation.id, id: corporate_information_page.id
+    assert_equal "#{corporate_information_page.title} deleted successfully", flash[:notice]
+    assert_redirected_to admin_organisation_path(@organisation)
+  end
 
   def corporate_information_page_attributes(overrides = {})
     {

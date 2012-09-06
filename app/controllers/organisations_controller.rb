@@ -5,7 +5,7 @@ class OrganisationsController < PublicFacingController
            :agencies_and_partners, :chiefs_of_staff]
 
   def index
-    @organisations_by_type = Organisation.includes(:organisation_type).in_listing_order.group_by(&:organisation_type)
+    @organisations_by_type = Organisation.includes(:organisation_type, :corporate_information_pages).in_listing_order.group_by(&:organisation_type)
   end
 
   def alphabetical

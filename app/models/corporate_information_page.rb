@@ -7,6 +7,7 @@ class CorporateInformationPage < ActiveRecord::Base
   has_many :attachments, through: :corporate_information_page_attachments
 
   validates :organisation, :body, :type, presence: true
+  validates :type_id, uniqueness: {scope: :organisation_id, message: "already exists for this organisation"}
 
   def type
     CorporateInformationPageType.find_by_id(type_id)

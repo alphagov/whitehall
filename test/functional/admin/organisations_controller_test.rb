@@ -538,4 +538,39 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal 2, edition_association_2.reload.ordering
     assert_equal 1, edition_association_3.reload.ordering
   end
+
+  test "shows a list of corporate information pages" do
+    corporate_information_page = create(:corporate_information_page)
+    organisation = create(:organisation, corporate_information_pages: [corporate_information_page])
+
+    get :show, id: organisation
+
+    assert_select "#corporate_information_pages" do
+      assert_select "tr td a[href='#{edit_admin_organisation_corporate_information_page_path(organisation, corporate_information_page)}']", corporate_information_page.title
+    end
+  end
+
+  test "link to create a new corporate_information_page" do
+    organisation = create(:organisation)
+
+    get :show, id: organisation
+
+    assert_select "#corporate_information_pages" do
+      assert_select "a[href='#{new_admin_organisation_corporate_information_page_path(organisation)}']"
+    end
+  end
+
+  test "no link to create corporate_information_page if all types already exist" do
+    organisation = create(:organisation)
+    CorporateInformationPageType.all.each do |type| 
+      organisation.corporate_information_pages << create(:corporate_information_page, type: type, body: "The body")
+    end
+    organisation.save
+
+    get :show, id: organisation
+
+    assert_select "#corporate_information_pages" do
+      refute_select "a[href='#{new_admin_organisation_corporate_information_page_path(organisation)}']"
+    end
+  end
 end

@@ -417,4 +417,11 @@ class OrganisationTest < ActiveSupport::TestCase
     assert Organisation.find(organisation.id)
   end
 
+  test "should be able to list unused corporate information types" do
+    organisation = create(:organisation)
+    types = CorporateInformationPageType.all
+    t = create(:corporate_information_page, type: types.pop, organisation: organisation)
+    organisation.reload
+    assert_equal types, organisation.unused_corporate_information_page_types
+  end
 end

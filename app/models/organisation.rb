@@ -219,6 +219,10 @@ class Organisation < ActiveRecord::Base
     persisted? && Edition.where(alternative_format_provider_id: self.id).any?
   end
 
+  def unused_corporate_information_page_types
+    CorporateInformationPageType.all - corporate_information_pages.map(&:type)
+  end
+
   private
 
   def contact_and_contact_numbers_are_blank(attributes)

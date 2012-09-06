@@ -1,0 +1,23 @@
+<div class="tab-pane" id="corporate_information_pages">
+  <h2>Corporate information pages</h2>
+  <% if @organisation.corporate_information_pages.any? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <% @organisation.corporate_information_pages.each do |corporate_information_page| %>
+      <tr>
+        <td><%= link_to corporate_information_page.title, edit_admin_organisation_corporate_information_page_path(@organisation, corporate_information_page) %></td>
+        <td><%= button_to "delete", [:admin, @organisation, corporate_information_page], method: :delete, class: "btn btn-danger", confirm: "Really delete #{corporate_information_page.title} from #{@organisation.name}? This cannot be undone." %></td>
+      </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p>No corporate information pages exist yet.</p>
+  <% end %>
+  <% if @organisation.unused_corporate_information_page_types.any? %>
+    <%= link_to "New corporate information page", new_admin_organisation_corporate_information_page_path(@organisation), class: "btn"%>
+  <% end %>
+</div>
