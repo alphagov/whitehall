@@ -27,8 +27,10 @@
         <thead class="visuallyhidden">
           <tr>
             <th scope="col">Title</th>
+            <th scope="col">Publication Organisations</th>
             <th scope="col">Publication Date</th>
             <th scope="col">Publication Type</th>
+            <th scope="col">Publication Series</th>
           </tr>
         </thead>
         <tbody>
@@ -49,6 +51,11 @@
             </td>
             <td class="publication_type attribute">
               <%= publication.publication_type.singular_name %>
+            </td>
+            <td class="publication_series attribute">
+              <% if publication.part_of_series? %>
+                Part of a series: <%= link_to publication.document_series.name, organisation_document_series_path(publication.document_series.organisation, publication.document_series) %>
+              <% end %>
             </td>
           <% end %>
         <% end %>
