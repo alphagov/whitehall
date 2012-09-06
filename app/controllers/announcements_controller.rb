@@ -1,14 +1,11 @@
 class AnnouncementsController < PublicFacingController
+  respond_to :html, :json
+
   def index
     params[:page] ||= 1
     params[:direction] ||= "before"
     @filter = Whitehall::DocumentFilter.new(all_announcements, params)
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: AnnouncementFilterJsonPresenter.new(@filter)
-      end
-    end
+    respond_with AnnouncementFilterJsonPresenter.new(@filter)
   end
 
 private

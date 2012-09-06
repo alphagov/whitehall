@@ -2,16 +2,13 @@ class SpecialistGuidesController < DocumentsController
   layout "specialist"
   before_filter :set_search_path
 
+  respond_to :html, :json
+
   def index
     params[:page] ||= 1
     params[:direction] = "alphabetical"
     @filter = Whitehall::DocumentFilter.new(all_specialist_guides, params)
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: SpecialistGuideFilterJsonPresenter.new(@filter)
-      end
-    end
+    respond_with SpecialistGuideFilterJsonPresenter.new(@filter)
   end
 
   def show
@@ -26,10 +23,7 @@ class SpecialistGuidesController < DocumentsController
     @more_mainstream_results = mainstream_results.length > 5
     @results = Whitehall.search_client.search(@search_term, 'specialist_guidance').take(50 - @mainstream_results.length)
     @total_results = @results.length + @mainstream_results.length
-    respond_to do |format|
-      format.html
-      format.json { render json: @results }
-    end
+    respond_with @results
   end
 
   def autocomplete

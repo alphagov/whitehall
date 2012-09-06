@@ -1,5 +1,4 @@
 class PublicationsController < DocumentsController
-
   def index
     params[:page] ||= 1
     params[:direction] ||= "before"
