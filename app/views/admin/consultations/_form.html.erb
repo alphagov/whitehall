@@ -1,5 +1,5 @@
 <%= standard_edition_form(edition) do |form| %>
-  <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition }%>
+  <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition, show_inline_attachment_help: edition.allows_inline_attachments? }%>
 
   <fieldset>
     <legend>Associations</legend>
@@ -13,22 +13,7 @@
     <legend>Consultation response</legend>
     <%= form.fields_for :response do |response_fields| %>
       <%= response_fields.text_area :summary, rows: 2 %>
-      <%= response_fields.fields_for :consultation_response_attachments do |response_attachments_fields| %>
-        <%= response_attachments_fields.fields_for :attachment do |attachment_fields| %>
-          <%= attachment_fields.hidden_field :file_cache %>
-          <%= attachment_fields.text_field :title %>
-          <%= attachment_fields.file_field :file %>
-          <% if attachment_fields.object.file_cache.present? %>
-            <span class="already_uploaded"><%= File.basename(attachment_fields.object.file_cache) %> already uploaded</span>
-          <% end %>
-          <% unless attachment_fields.object.new_record? %>
-            <p>Uploaded file: <%= link_to File.basename(attachment_fields.object.file.path), attachment_fields.object.file.url %></p>
-            <% checkbox_args = nested_attribute_destroy_checkbox_options(response_attachments_fields) %>
-            <% checkbox_args[0].merge!(label_text: "(uncheck to remove)") %>
-            <%= response_attachments_fields.check_box :_destroy, *checkbox_args  %>
-          <% end %>
-        <% end %>
-      <% end %>
+      <%= render partial: 'attachment_fields', locals: { form: response_fields, edition: edition, parent_type: :consultation_response, show_inline_attachment_help: false }%>
     <% end %>
   </fieldset>
 <% end %>
