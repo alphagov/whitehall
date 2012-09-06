@@ -1,0 +1,12 @@
+<div class="tab-pane" id="document_series">
+  <%= link_to "New series", new_admin_organisation_document_series_path(@organisation), class: "btn pull-right" %>
+
+  <% if @organisation.document_series.any? %>
+    <h2>Document Series</h2>
+    <table class="table">
+      <% @organisation.document_series.each do |document_series| %>
+        <tr><th><%= link_to document_series.name, admin_organisation_document_series_path(@organisation, document_series) %></th><td><%= pluralize(document_series.editions.count, "edition") %></tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>

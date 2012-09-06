@@ -1,0 +1,7 @@
+<div class="tab-pane" id="people">
+  <table class="table">
+    <% @organisation.roles.each do |role| %>
+      <tr><th><%= link_to role.name, [:edit, :admin, role.becomes(Role)] %></th><td><%= role.current_people.map { |p| link_to(p.name, [:edit, :admin, p]) }.to_sentence.html_safe %></td></tr>
+    <% end %>
+  </table>
+</div>

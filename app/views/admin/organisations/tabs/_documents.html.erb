@@ -1,0 +1,34 @@
+<div class="tab-pane" id="documents">
+  <h2>Published documents (<%= link_to "View all", admin_editions_path(organisation: @organisation.slug, state: :active)%>)</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Title</th>
+        <th>Published</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @editions.each do |edition| %>
+        <%= content_tag_for :tr, edition do %>
+          <td class="type"><%= edition.type.titleize %></td>
+          <td><%= link_to edition.title, admin_edition_path(edition) %></td>
+          <td><%=l edition.published_at.to_date %></td>
+          <td>
+            <% association = edition.association_with_organisation(@organisation) %>
+            <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
+              <% if association.featured? %>
+                <%= f.hidden_field :featured, value: false %>
+                <%= f.submit "Featured", class: "btn featured" %>
+              <% else %>
+                <%= f.hidden_field :featured, value: true %>
+                <%= f.submit "Make featured", class: "btn make-featured" %>
+              <% end %>
+            <% end %>
+          </td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

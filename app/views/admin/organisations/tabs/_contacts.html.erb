@@ -1,0 +1,13 @@
+<div class="tab-pane" id="contacts">
+  <% @organisation.contacts.each do |contact| %>
+    <h3><%= contact.description %></h3>
+    <dl class="dl-horizontal">
+      <dt>Address</dt><dd><%= contact.address %></dd>
+      <dt>Postcode</dt><dd><%= contact.postcode %></dd>
+      <dt>Email</dt><dd><%= contact.email.present? ? mail_to(contact.email) : 'None' %></dd>
+      <% contact.contact_numbers.each do |cn| %>
+        <dt><%= cn.label %></dt><dd><%= cn.number %></dd>
+      <% end %>
+    </dl>
+  <% end %>
+</div>
