@@ -2,7 +2,8 @@
  browser: true,
  white: true,
  plusplus: true,
- vars: true */
+ vars: true,
+ nomen: true */
 /*global jQuery */
 
 
@@ -37,11 +38,16 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     progressSpan: function(current, total) {
       return '<span>' + current + " of " + total + '</span>';
     },
+    importantAttributes: ["id", "title", "url", "type"],
     importantAttribute: function(attribute) {
-      return ($.inArray(attribute, ["id", "title", "url", "type"]) < 0);
+      return ($.inArray(attribute, documentFilter.importantAttributes) < 0);
     },
     capitalize: function(attribute) {
       return attribute.replace(/_/, " ").replace(/(^|\s)([a-z])/g, function(_,a,b){ return a+b.toUpperCase(); });
+    },
+    drawTableCell: function(attributeName, attributeValue) {
+      var inner = attributeValue;
+      return '<td class="' + attributeName + ' attribute">' + inner + '</td>';
     },
     drawTableRows: function(results) {
       var $tBody = $('<tbody />'), i,l;
@@ -57,7 +63,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         $tableRow.append($th);
         for(var attribute in row) {
           if (documentFilter.importantAttribute(attribute)) {
-            $tableRow.append($('<td class="' + attribute + ' attribute">' + row[attribute] + '</td>'));
+            $tableRow.append($(documentFilter.drawTableCell(attribute, row[attribute])));
           }
         }
         $tBody.append($tableRow);
@@ -148,11 +154,11 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         selected: $.map(documentFilter.$form.find('select'), function(n) {
           var $n = $(n);
           return {id: $n.attr('id'), value: $n.val()};
-        }), 
+        }),
         text: $.map(documentFilter.$form.find('input[type=text]'), function(n) {
           var $n = $(n);
           return {id: $n.attr('id'), value: $n.val()};
-        }), 
+        }),
         checked: $.map(documentFilter.$form.find('input[type=radio]:checked'), function(n) {
           return $(n).attr('id');
         })

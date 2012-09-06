@@ -340,6 +340,32 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'index should show relevant document series information' do
+    organisation = create(:organisation)
+    series = create(:document_series, organisation: organisation)
+    publication = create(:published_publication, document_series: series)
+
+    get :index
+
+    assert_select_object(publication) do
+      assert_select ".publication_series a[href=?]", organisation_document_series_path(organisation, series)
+    end
+  end
+
+  test 'index requested as JSON includes document series information' do
+    organisation = create(:organisation)
+    series = create(:document_series, organisation: organisation)
+    publication = create(:published_publication, document_series: series)
+
+    get :index, format: :json
+
+    json = ActiveSupport::JSON.decode(response.body)
+
+    result = json['results'].first
+
+    assert_equal "Part of a series: <a href=\"#{organisation_document_series_path(organisation, series)}\">#{series.name}</a>", result['publication_series']
+  end
+
   test "show displays the ISBN of the attached document" do
     attachment = create(:attachment, isbn: '0099532816')
     edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])

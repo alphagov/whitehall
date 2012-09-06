@@ -32,3 +32,12 @@ Scenario: The list should load more when I scroll to the end
   Then I should see 20 documents
   And I scroll to the bottom of the page
   Then I should see 40 documents
+
+@javascript
+Scenario: Publication series are included in publication list
+  Given a series "Test Series" for the organisation "Acme"
+    And a published publication "May 2012 update" in the series "Test Series"
+    And 25 published publications for the organisation "Big co."
+  When I visit the list of publications
+    And I filter to only those from the "Acme" department
+  Then I should see the publication "May 2012 Update" belongs to the "Test Series" series
