@@ -9,6 +9,7 @@ class Country < ActiveRecord::Base
   has_many :editions, through: :edition_countries
   has_many :featured_news_articles, through: :edition_countries, class_name: "NewsArticle", source: :edition, conditions: { "edition_countries.featured" => true, "editions.state" => "published" }
 
+  validates_with SafeHtmlValidator
   validates :name, presence: true
 
   extend FriendlyId

@@ -13,6 +13,7 @@ class Role < ActiveRecord::Base
   scope :ministerial, where(type: 'MinisterialRole')
 
   validates :name, presence: true
+  validates_with SafeHtmlValidator
 
   before_destroy :prevent_destruction_unless_destroyable
 

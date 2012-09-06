@@ -9,7 +9,7 @@ gem 'carrierwave'
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'
 else
-  gem 'govspeak', '~> 0.8.18'
+  gem 'govspeak', '~> 1.0.1'
 end
 gem 'kramdown', git: 'https://github.com/alphagov/kramdown.git', branch: "add-gemspec"
 gem 'validates_email_format_of'

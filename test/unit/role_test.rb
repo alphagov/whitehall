@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class RoleTest < ActiveSupport::TestCase
+  should_protect_against_xss_and_content_attacks_on :responsibilities
+
   test "should be invalid without a name" do
     role = build(:role, name: nil)
     refute role.valid?

@@ -37,6 +37,7 @@ class Topic < ActiveRecord::Base
     TopicRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
   }
 
+  validates_with SafeHtmlValidator
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 
