@@ -1,5 +1,4 @@
 class AnnouncementsController < PublicFacingController
-
   def index
     params[:page] ||= 1
     params[:direction] ||= "before"
@@ -8,9 +7,6 @@ class AnnouncementsController < PublicFacingController
       format.html
       format.json do
         render json: AnnouncementFilterJsonPresenter.new(@filter)
-      end
-      format.atom do
-        @publications = @filter.documents.by_published_at
       end
     end
   end
@@ -21,5 +17,4 @@ private
     Announcement.published
       .includes(:document, :organisations)
   end
-
 end
