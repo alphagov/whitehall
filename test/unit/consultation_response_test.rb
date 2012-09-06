@@ -6,6 +6,7 @@ class ConsultationResponseTest < EditionTestCase
   should_not_allow_inline_attachments
   should_allow_a_summary_to_be_written
   should_not_allow_a_body_to_be_written
+  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
   test "should not be valid without an associated consultation" do
     consultation_response = build(:consultation_response, consultation: nil)

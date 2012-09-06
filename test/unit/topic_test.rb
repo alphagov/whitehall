@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
+  should_protect_against_xss_and_content_attacks_on :name, :description
+
   test "should default to the 'current' state" do
     topic = Topic.new
     assert topic.current?

@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class CountryTest < ActiveSupport::TestCase
+  should_protect_against_xss_and_content_attacks_on :name, :about
+
   test 'should be invalid without a name' do
     country = build(:country, name: nil)
     refute country.valid?

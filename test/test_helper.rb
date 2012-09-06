@@ -23,6 +23,7 @@ class ActiveSupport::TestCase
   include Factory::Syntax::Methods
   include ModelStubbingHelpers
   include HtmlAssertions
+  extend GovspeakValidationTestHelper
 
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
@@ -70,10 +71,18 @@ class ActiveSupport::TestCase
     def edition_class_from_test_name
       name.sub(/Test$/, '').constantize
     end
+
+    def factory_name_from_test
+      name.sub(/Test$/, '').underscore.to_sym
+    end
   end
 
   def edition_class_from_test_name
     self.class.edition_class_from_test_name
+  end
+
+  def factory_name_from_test
+    self.class.factory_name_from_test
   end
 end
 
