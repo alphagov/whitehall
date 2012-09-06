@@ -33,6 +33,20 @@ class ResponseTest < ActiveSupport::TestCase
     assert_equal 0, response.consultation_response_attachments.length
   end
 
+  test 'should not build an empty consultation response attachment if the only non-blank attribute is the accessible flag' do
+    response = build(:response)
+    response.consultation_response_attachments_attributes = {
+      '0' => {
+        attachment_attributes: {
+          accessible: '0'
+        }
+      }
+    }
+    response.save!
+
+    assert_equal 0, response.consultation_response_attachments.length
+  end
+
   test 'should allow the consultation response attachment join model to be deleted through nested attributes' do
     response = create(:response)
     attachment = create(:attachment)
