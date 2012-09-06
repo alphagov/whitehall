@@ -90,7 +90,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_nil consultation.consultation_participation
   end
 
-  test "creating an consultation with invalid data but valid form file should still display the cached form file" do
+  test "creating a consultation with invalid data but valid form file should still display the cached form file" do
     attributes = attributes_for(:consultation,
       consultation_participation_attributes: {
         link_url: nil,
