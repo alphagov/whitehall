@@ -2,7 +2,9 @@ class Response < ActiveRecord::Base
   has_many :consultation_response_attachments, dependent: :destroy
   has_many :attachments, through: :consultation_response_attachments
 
-  accepts_nested_attributes_for :consultation_response_attachments, reject_if: :all_blank_or_empty_hashes
+  accepts_nested_attributes_for :consultation_response_attachments,
+                                reject_if: :all_blank_or_empty_hashes,
+                                allow_destroy: true
 
   private
 

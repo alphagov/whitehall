@@ -33,6 +33,19 @@ class ResponseTest < ActiveSupport::TestCase
     assert_equal 0, response.consultation_response_attachments.length
   end
 
+  test 'should allow the consultation response attachment join model to be deleted through nested attributes' do
+    response = create(:response)
+    attachment = create(:attachment)
+    response_attachment = create(:consultation_response_attachment, response: response, attachment: attachment)
+
+    response.update_attributes(consultation_response_attachments_attributes: {
+      id: response_attachment.id,
+      _destroy: '1'
+    })
+
+    assert response.reload.consultation_response_attachments.empty?
+  end
+
   test 'should destroy consultation response attachments when the response is destroyed' do
     response = create(:response)
     response_attachment = response.consultation_response_attachments.create!
