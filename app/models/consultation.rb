@@ -17,7 +17,7 @@ class Consultation < Edition
   has_one :response, foreign_key: :edition_id, dependent: :destroy
 
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
-  accepts_nested_attributes_for :response, reject_if: :all_blank
+  accepts_nested_attributes_for :response, reject_if: :all_blank_or_empty_hashes
 
   add_trait do
     def process_associations_after_save(edition)

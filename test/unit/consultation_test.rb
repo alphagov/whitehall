@@ -193,6 +193,24 @@ class ConsultationTest < EditionTestCase
     assert_nil consultation.response
   end
 
+  test "should not build an empty consultation response if the response attachment attributes are all blank" do
+    consultation = build(:consultation)
+    consultation.response_attributes = {
+      summary: '',
+      consultation_response_attachments_attributes: {
+        '0' => {
+          attachment_attributes: {
+            title: '',
+            file: ''
+          }
+        }
+      }
+    }
+    consultation.save!
+
+    assert_nil consultation.response
+  end
+
   test "should destroy the consultation response when the consultation is destroyed" do
     consultation = create(:consultation)
     response = consultation.create_response!
