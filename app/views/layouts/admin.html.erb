@@ -38,6 +38,7 @@
                   <p class="navbar-text">
                     You are logged in as
                     <span class="current_user_name"><%= link_to current_user.name, admin_user_path, id: "#user_settings" %></span>
+                    <span class="logout"><%= link_to "Logout", "/auth/gds/sign_out" %></span>
                   </p>
                 <% end %>
               </div>

@@ -17,4 +17,10 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     get admin_people_path
     assert_response :success
   end
+
+  test "should allow logged in users to log out" do
+    login_as_admin
+    get admin_people_path
+    assert_select "a[href=?]", "/auth/gds/sign_out"
+  end
 end
