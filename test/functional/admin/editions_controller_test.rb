@@ -49,6 +49,13 @@ class Admin::EditionsController
       assert_equal [policy], EditionFilter.new(Edition, type: 'policy', state: 'draft', organisation: organisation.to_param).editions
     end
 
+    test "should filter by title" do
+      specialist = create(:policy, title: "Test mcTest")
+      policy = create(:policy, title: "A policy")
+
+      assert_equal [specialist], EditionFilter.new(Edition, title: "test").editions
+    end
+
     test "should return the editions ordered by most recent first" do
       older_policy = create(:draft_policy, updated_at: 3.days.ago)
       newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
@@ -136,6 +143,11 @@ class Admin::EditionsController
       user = create(:user, name: 'John Doe')
       filter = EditionFilter.new(Edition, state: 'rejected', type: 'speech', author: user.to_param)
       assert_equal "John Doe's rejected speeches", filter.page_title(build(:user))
+    end
+
+    test "should generate page title when filtering by title" do
+      filter = EditionFilter.new(Edition, title: 'test')
+      assert_equal "Everyone's documents that match 'test'", filter.page_title(build(:user))
     end
   end
 end
@@ -247,6 +259,11 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test "should remember state filter options" do
     get :index, state: :draft
     assert_equal 'draft', session[:document_filters][:state]
+  end
+
+  test "should remember title filter options" do
+    get :index, title: "test"
+    assert_equal "test", session[:document_filters][:title]
   end
 
   test "index should redirect to remembered filtered options if available" do

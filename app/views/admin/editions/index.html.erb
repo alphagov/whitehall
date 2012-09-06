@@ -21,6 +21,14 @@
 
       <nav class="well" style="padding: 8px 0;">
         <ul class="nav nav-list">
+          <li class="nav-header">Filter by Title</li>
+          <%= form_tag("", method: :get, class: "pull-left") do %>
+            <%= hidden_field_tag :organisation, params[:organisation_id] if params[:organisation_id] %>
+            <%= hidden_field_tag :type, params[:type] if params[:type] %>
+            <%= hidden_field_tag :state, params[:state] if params[:state] %>
+            <%= hidden_field_tag :author, params[:author] if params[:author] %>
+            <input type="search" id="search_title" name="title" value="<%= params[:title] %>" placeholder="Search title">
+          <% end %>
           <li class="nav-header">Filter by Author</li>
           <%= link_to_filter('Me', {author: current_user, organisation: nil}, title: "Show documents by me") %>
           <%= link_to_filter('My department', {author: nil, organisation: current_user.organisation}, title: "Show documents by my department") %>

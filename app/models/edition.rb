@@ -29,6 +29,11 @@ class Edition < ActiveRecord::Base
     where("#{table_name}.title REGEXP :pattern OR #{table_name}.body REGEXP :pattern", pattern: pattern)
   }
 
+  scope :with_title_containing, -> *keywords {
+    pattern = "(#{keywords.join('|')})"
+    where("#{table_name}.title REGEXP :pattern", pattern: pattern)
+  }
+
   def self.published_before(date)
     where(arel_table[:first_published_at].lteq(date))
   end

@@ -10,7 +10,7 @@ module Admin::EditionsHelper
   end
 
   def link_to_filter(link, options, html_options={})
-    content_tag(:li, link_to(link, url_for(params.slice('state', 'type', 'author', 'organisation').merge(options)), html_options), class: filter_class(options))
+    content_tag(:li, link_to(link, url_for(params.slice('state', 'type', 'author', 'organisation', 'title').merge(options)), html_options), class: filter_class(options))
   end
 
   def filter_class(options)
@@ -33,15 +33,15 @@ module Admin::EditionsHelper
     def alternative_format_provider_select
       if object.respond_to?(:alternative_format_provider)
         select_options = @template.options_for_select(
-          Organisation.all.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]}, 
+          Organisation.all.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]},
           selected: object.alternative_format_provider_id,
           disabled: Organisation.all.reject {|o| o.alternative_format_contact_email.present?}.map(&:id))
         @template.content_tag(:div, class: 'control-group') do
           label(:alternative_format_provider_id, "Email address for ordering this #{object.format_name} in an alternative format") +
             @template.content_tag(:div, class: 'controls') do
               select(
-                :alternative_format_provider_id, 
-                select_options, 
+                :alternative_format_provider_id,
+                select_options,
                 {include_blank: true, multiple: false},
                 class: 'chzn-select',
                 data: { placeholder: "Choose which organisation will provide alternative formats..." }
