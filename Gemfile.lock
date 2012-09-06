@@ -152,9 +152,10 @@ GEM
       warden (~> 1.2)
     gherkin (2.4.21)
       json (>= 1.4.6)
-    govspeak (0.8.18)
+    govspeak (1.0.1)
       htmlentities (~> 4)
       kramdown (~> 0.13.3)
+      sanitize (= 2.0.3)
     haml (3.1.6)
     hash_syntax (1.0.0)
       object_regex (~> 1.0.1)
@@ -282,6 +283,8 @@ GEM
     ruby_parser (2.3.1)
       sexp_processor (~> 3.0)
     rubyzip (0.9.4)
+    sanitize (2.0.3)
+      nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.1)
     sass-rails (3.1.4)
       actionpack (~> 3.1.0)
@@ -368,7 +371,7 @@ DEPENDENCIES
   fog
   friendly_id (= 4.0.0.beta14)
   gds-sso (~> 1.2.2)
-  govspeak (~> 0.8.18)
+  govspeak (~> 1.0.1)
   hash_syntax
   isbn_validation
   jquery-rails

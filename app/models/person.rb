@@ -19,6 +19,7 @@ class Person < ActiveRecord::Base
   has_many :organisations, through: :organisation_roles
 
   validates :name, presence: true
+  validates_with SafeHtmlValidator
 
   extend FriendlyId
   friendly_id :slug_name, use: :slugged

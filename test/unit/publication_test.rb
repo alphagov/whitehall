@@ -6,6 +6,7 @@ class PublicationTest < EditionTestCase
   should_not_allow_inline_attachments
   should_allow_a_summary_to_be_written
   should_allow_a_body_to_be_written
+  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
   test 'should be invalid without a publication date' do
     publication = build(:publication, publication_date: nil)
@@ -13,7 +14,7 @@ class PublicationTest < EditionTestCase
   end
 
   test "should build a draft copy of the existing publication" do
-    published_publication = create(:published_publication, 
+    published_publication = create(:published_publication,
       :with_attachment,
       publication_date: Date.parse("2010-01-01"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id
