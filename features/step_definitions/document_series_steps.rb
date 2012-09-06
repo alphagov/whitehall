@@ -41,3 +41,21 @@ end
 Then /^I should see the series from "([^"]*)" first in the series list$/ do |organisation_name|
   assert page.has_css?("select optgroup:nth-child(1)[label='#{organisation_name}']")
 end
+
+Given /^a series "([^"]*)" for the organisation "([^"]*)"$/ do |series_name, organisation_name|
+  organisation = create(:organisation, name: organisation_name)
+  series = create(:document_series, name: series_name, organisation: organisation)
+end
+
+Given /^a published publication "([^"]*)" in the series "([^"]*)"$/ do |publication_name, series_name|
+  series = DocumentSeries.find_by_name(series_name)
+  publication = create(:published_publication, title: publication_name, document_series: series, organisations: [series.organisation])
+end
+
+Then /^I should see the publication "([^"]*)" belongs to the "([^"]*)" series$/ do |publication_name, series_name|
+  publication = Publication.find_by_title(publication_name)
+  series = DocumentSeries.find_by_name(series_name)
+  within record_css_selector(publication) do
+    assert page.has_css? "a[href='#{organisation_document_series_path(series.organisation, series)}']", text: series.name
+  end
+end
