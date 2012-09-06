@@ -43,4 +43,20 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page = build(:corporate_information_page, type: CorporateInformationPageType::TermsOfReference)
     assert_equal "terms-of-reference", corporate_information_page.slug
   end
+
+  test "to_param should derive from slug" do
+    corporate_information_page = build(:corporate_information_page, type: CorporateInformationPageType::TermsOfReference)
+    assert_equal "terms-of-reference", corporate_information_page.to_param
+  end
+
+  test "can find type by slug" do
+    assert_equal CorporateInformationPageType::TermsOfReference, CorporateInformationPageType.find('terms-of-reference')
+  end
+
+  test "when finding type by slug, raises if not found" do
+    assert_raises ActiveRecord::RecordNotFound do
+      CorporateInformationPageType.find('does-not-exist')
+    end
+  end
+
 end

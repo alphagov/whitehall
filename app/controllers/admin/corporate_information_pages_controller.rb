@@ -41,7 +41,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
 private
 
   def find_corporate_information_page
-    @corporate_information_page = @organisation.corporate_information_pages.find(params[:id])
+    @corporate_information_page = @organisation.corporate_information_pages.for_slug(params[:id])
   end
 
   def build_corporate_information_page

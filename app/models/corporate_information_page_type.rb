@@ -3,6 +3,10 @@ class CorporateInformationPageType
 
   attr_accessor :id, :title, :slug
 
+  def self.find(slug)
+    all.find {|type| type.slug == slug} or raise ActiveRecord::RecordNotFound
+  end
+
   PersonalInformationCharter = create(
     id: 1, title: "Personal information charter", slug: "personal-information-charter"
   )
