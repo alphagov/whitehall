@@ -48,6 +48,24 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'new displays consultation response fields' do
+    get :new
+
+    assert_select "form#edition_new" do
+      assert_select "textarea[name='edition[response_attributes][summary]']"
+      assert_select "input[type='text'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][title]']"
+      assert_select "input[type='file'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][file]']"
+    end
+  end
+
+  test 'new builds a response and a single attachment ready for populating' do
+    get :new
+
+    consultation = assigns(:edition)
+    assert_equal 1, consultation.response.consultation_response_attachments.length
+    assert_not_nil consultation.response.consultation_response_attachments.first.attachment
+  end
+
   test "create should create a new consultation" do
     attributes = attributes_for(:consultation,
       consultation_participation_attributes: {
@@ -70,6 +88,96 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal "countmein@participation.com", consultation.consultation_participation.email
     assert_equal "the title of the response form", consultation.consultation_participation.consultation_response_form.title
     assert consultation.consultation_participation.consultation_response_form.file.present?
+  end
+
+  test "create should create a new consultation and a response with attachments" do
+    attributes = attributes_for(:consultation,
+      response_attributes: {
+        summary: 'response-summary',
+        consultation_response_attachments_attributes: {
+          '0' => {
+            attachment_attributes: {
+              title: 'attachment-title',
+              file: fixture_file_upload('greenpaper.pdf')
+            }
+          }
+        }
+      }
+    )
+
+    post :create, edition: attributes
+
+    consultation = Consultation.last
+    assert_equal 'response-summary', consultation.response.summary
+    assert_equal 1, consultation.response.attachments.length
+    assert_equal 'attachment-title', consultation.response.attachments.first.title
+    assert consultation.response.attachments.first.file.present?
+  end
+
+  test "create should show the cached response attachment that's been uploaded if the consultation creation fails" do
+    post :create, edition: {
+      title: '',
+      response_attributes: {
+        consultation_response_attachments_attributes: {
+          '0' => {
+            attachment_attributes: {
+              title: 'attachment-title',
+              file: fixture_file_upload('greenpaper.pdf')
+            }
+          }
+        }
+      }
+    }
+
+    assert_select "form#edition_new" do
+      assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+      assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
+    end
+  end
+
+  test "create should build a response with a single attachment ready for populating if the form was posted without any response or attachment data and the consultation creation failed" do
+    post :create, edition: {
+      title: '',
+      response_attributes: {}
+    }
+
+    consultation = assigns(:edition)
+    assert_equal 1, consultation.response.consultation_response_attachments.length
+    assert consultation.response.consultation_response_attachments.first.attachment.new_record?
+  end
+
+  test "create should build a single attachment ready for populating if the form was posted without any attachment data and the consultation creation failed" do
+    post :create, edition: {
+      title: '',
+      response_attributes: {
+        consultation_response_attachments_attributes: {
+          '0' => {}
+        }
+      }
+    }
+
+    consultation = assigns(:edition)
+    assert_equal 1, consultation.response.consultation_response_attachments.length
+    assert consultation.response.consultation_response_attachments.first.attachment.new_record?
+  end
+
+  test "create should not build a new response attachment if the first attachment could not be saved and the consultation creation failed" do
+    post :create, edition: {
+      title: '',
+      response_attributes: {
+        consultation_response_attachments_attributes: {
+          '0' => {
+            attachment_attributes: {
+              title: ''
+            }
+          }
+        }
+      }
+    }
+
+    consultation = assigns(:edition)
+    assert_equal 1, consultation.response.consultation_response_attachments.length
+    assert consultation.response.consultation_response_attachments.first.attachment.new_record?
   end
 
   test "create should create a new consultation without consultation participation if participation fields are all blank" do
@@ -152,6 +260,20 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "show displays the response details and links to attachments" do
+    consultation = create(:consultation)
+    response = consultation.create_response!(summary: 'response-summary')
+    attachment = response.attachments.create!(title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf'))
+
+    get :show, id: consultation
+
+    assert_select '.consultation_response' do
+      assert_select '.summary', text: 'response-summary'
+      assert_select '.attachments .attachment .title', text: 'attachment-title'
+      assert_select 'a[href=?]', attachment.file.url
+    end
+  end
+
   test "edit displays consultation fields" do
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)
@@ -185,6 +307,58 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'edit builds a response and a single attachment ready for populating if there is no response saved for the attachment' do
+    get :edit, id: create(:consultation)
+
+    consultation = assigns(:edition)
+    assert_equal 1, consultation.response.consultation_response_attachments.length
+    assert consultation.response.consultation_response_attachments.first.attachment.new_record?
+  end
+
+  test 'edit does not build a new response if the consultation has a saved response' do
+    consultation = create(:consultation)
+    response = consultation.create_response!
+
+    get :edit, id: consultation
+
+    assert_equal response, assigns(:edition).response
+  end
+
+  test 'edit builds a single attachment ready for populating if the consultation has a response but no attachment' do
+    get :edit, id: create(:consultation, response: build(:response))
+
+    consultation = assigns(:edition)
+    assert_equal 1, consultation.response.consultation_response_attachments.length
+    assert consultation.response.consultation_response_attachments.first.attachment.new_record?
+  end
+
+  test 'edit builds a new attachment if the consultation has a saved response and a saved attachment' do
+    consultation = create(:consultation)
+    response = consultation.create_response!
+    response.attachments << create(:attachment)
+
+    get :edit, id: consultation
+
+    consultation = assigns(:edition)
+    assert_equal 2, consultation.response.consultation_response_attachments.length
+    assert consultation.response.consultation_response_attachments.last.attachment.new_record?
+  end
+
+  test "edit shows the details of the response and response attachments" do
+    consultation = create(:consultation)
+    consultation_response = consultation.create_response!(summary: 'response-summary')
+    attachment = consultation_response.attachments.create!(title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf'))
+
+    get :edit, id: consultation
+
+    assert_select "form#edition_edit" do
+      assert_select "textarea[name='edition[response_attributes][summary]']", text: 'response-summary'
+      assert_select "input[type='text'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
+      assert_select "input[type='checkbox'][name='edition[response_attributes][consultation_response_attachments_attributes][0][_destroy]']"
+      assert_select "a[href='#{attachment.file.url}']", File.basename(attachment.file.path)
+    end
+  end
+
   test "update should save modified consultation attributes" do
     consultation = create(:consultation)
 
@@ -204,6 +378,80 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal 50.days.from_now.to_date, consultation.closing_on
     assert_equal "http://consult.com", consultation.consultation_participation.link_url
     assert_equal "tell-us-what-you-think@gov.uk", consultation.consultation_participation.email
+  end
+
+  test "update should build a response with a single attachment ready for populating if the form was posted without any response or attachment data and the consultation update failed" do
+    consultation = create(:consultation)
+
+    put :update, id: consultation, edition: {
+      title: '',
+      response_attributes: {}
+    }
+
+    consultation = assigns(:edition)
+    assert_equal 1, consultation.response.consultation_response_attachments.length
+    assert consultation.response.consultation_response_attachments.first.attachment.new_record?
+  end
+
+  test "update should build a single attachment ready for populating if the form was posted without any attachment data and the consultation update failed" do
+    consultation = create(:consultation)
+
+    put :update, id: consultation, edition: {
+      title: '',
+      response_attributes: {
+        consultation_response_attachments_attributes: {
+          '0' => {}
+        }
+      }
+    }
+
+    consultation = assigns(:edition)
+    assert_equal 1, consultation.response.consultation_response_attachments.length
+    assert consultation.response.consultation_response_attachments.first.attachment.new_record?
+  end
+
+  test "update should not build a new response attachment if the first attachment could not be saved and the consultation update failed" do
+    consultation = create(:consultation)
+
+    put :update, id: consultation, edition: {
+      title: '',
+      response_attributes: {
+        consultation_response_attachments_attributes: {
+          '0' => {
+            attachment_attributes: {
+              title: ''
+            }
+          }
+        }
+      }
+    }
+
+    consultation = assigns(:edition)
+    assert_equal 1, consultation.response.consultation_response_attachments.length
+    assert consultation.response.consultation_response_attachments.first.attachment.new_record?
+  end
+
+  test "update should show the cached response attachment that's been uploaded if the consultation update fails" do
+    consultation = create(:consultation)
+
+    put :update, id: consultation, edition: {
+      title: '',
+      response_attributes: {
+        consultation_response_attachments_attributes: {
+          '0' => {
+            attachment_attributes: {
+              title: 'attachment-title',
+              file: fixture_file_upload('greenpaper.pdf')
+            }
+          }
+        }
+      }
+    }
+
+    assert_select "form#edition_edit" do
+      assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+      assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
+    end
   end
 
   test "update should save consultation without consultation participation if participation fields are all blank" do
