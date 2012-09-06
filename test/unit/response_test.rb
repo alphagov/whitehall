@@ -21,7 +21,12 @@ class ResponseTest < ActiveSupport::TestCase
   test 'should not build an empty consultation response attachment if the attributes are blank' do
     response = build(:response)
     response.consultation_response_attachments_attributes = {
-      '0' => {}
+      '0' => {
+        attachment_attributes: {
+          title: '',
+          file: ''
+        }
+      }
     }
     response.save!
 
