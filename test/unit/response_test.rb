@@ -13,7 +13,7 @@ class ResponseTest < ActiveSupport::TestCase
         }
       }
     }
-    response.save
+    response.save!
 
     assert_equal 1, response.consultation_response_attachments.length
   end
@@ -30,7 +30,7 @@ class ResponseTest < ActiveSupport::TestCase
 
   test 'should destroy consultation response attachments when the response is destroyed' do
     response = create(:response)
-    response_attachment = create(:consultation_response_attachment, response: response)
+    response_attachment = response.consultation_response_attachments.create!
 
     response.destroy
 
