@@ -7,7 +7,7 @@ class AnnouncementsController < PublicFacingController
     respond_to do |format|
       format.html
       format.json do
-        render json: AnnouncementFilterJsonPresenter.new(@filter).json
+        render json: AnnouncementFilterJsonPresenter.new(@filter)
       end
       format.atom do
         @publications = @filter.documents.by_published_at

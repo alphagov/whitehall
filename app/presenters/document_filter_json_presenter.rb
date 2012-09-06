@@ -1,5 +1,5 @@
 class DocumentFilterJsonPresenter < Draper::Base
-  def data
+  def as_json(options = nil)
     data = {
       count: model.count,
       current_page: model.current_page,
@@ -15,10 +15,6 @@ class DocumentFilterJsonPresenter < Draper::Base
       data[:prev_page_url] = url(page: model.current_page - 1)
     end
     data
-  end
-
-  def json
-    data.to_json
   end
 
   def url(override_params)
