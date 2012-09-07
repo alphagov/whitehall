@@ -1,13 +1,8 @@
 <% page_title @country.name, "UK and the world" %>
 <% page_class "countries_homepage" %>
 <%= content_tag_for(:div, @country) do %>
-  <div class="block-1">
-    <div class="inner-block">
-      <%= render "beta_warning", country: @country %>
-    </div>
-  </div>
 
-  <div class="block-2">
+  <div class="block-1">
     <div class="inner-block">
       <header class="page-header countries <% if @featured_news_articles.any? %>with_featured<% end %>">
         <h1 class="country name page_title"><%= @country.name %></h1>
@@ -16,14 +11,14 @@
   </div>
 
   <% if @featured_news_articles.any? %>
-  <div class="block-3">
+  <div class="block-2">
     <div class="inner-block">
     <%= render partial: "shared/hero_rotator", locals: {editions: @featured_news_articles, options: {country_context: true}} %>
     </div>
   </div>
   <% end %>
 
-  <div class="block-4">
+  <div class="block-3">
     <div class="inner-block">
       <div class="sidebar <% if @featured_news_articles.any? %>sub_navigation_container<% end %>">
         <%= render 'navigation', country: @country %>
@@ -38,7 +33,7 @@
     </div>
   </div>
 
-  <div class="block-5">
+  <div class="block-4">
     <div class="inner-block">
       <% if @news_articles.any? %>
             <%= article_section("News", @news_articles, {id: 'news_articles', class: 'latest_documents'}) do |news_article| %>
@@ -51,7 +46,7 @@
     </div>
   </div>
 
-  <div class="block-6">
+  <div class="block-5">
     <div class="inner-block">
       <% if @international_priorities.any? %>
           <%= article_section("Priorities", @international_priorities, {id: 'international_priorities', class: 'latest_documents', article_wrapper_class: ''}) do |international_priorities| %>
@@ -91,7 +86,7 @@
     </div>
   </div>
 
-  <div class="block-7">
+  <div class="block-6">
     <div class="inner-block">
       <% if @country.embassy_address.present? %>
         <section class="vcard info embassy_contact_details">

@@ -4,19 +4,13 @@
 
   <div class="block-1">
     <div class="inner-block">
-      <%= render "beta_warning", organisation: @organisation %>
-    </div>
-  </div>
-
-  <div class="block-2">
-    <div class="inner-block">
       <div>
         <%= render 'header', organisation: @organisation %>
       </div>
     </div>
   </div>
 
-  <div class="block-3">
+  <div class="block-2">
     <div class="inner-block">
       <div>
         <%= render partial: "shared/hero_rotator", locals: {editions: @primary_featured_editions, options: {organisational_context: true}} %>
@@ -24,7 +18,7 @@
     </div>
   </div>
 
-  <div class="block-4">
+  <div class="block-3">
     <div class="inner-block">
       <div class="sidebar<% if @primary_featured_editions.any? %> sub_navigation_container<% end %>">
         <%= render 'sidebar', organisation: @organisation %>
@@ -32,7 +26,7 @@
     </div>
   </div>
 
-  <div class="block-5">
+  <div class="block-4">
     <div class="inner-block">
       <% if @secondary_featured_editions.any? %>
       <ul class="secondary-featured">
@@ -56,7 +50,7 @@
     </div>
   </div>
 
-  <div class="block-6">
+  <div class="block-5">
     <div class="inner-block">
       <section id="recently_updated" class="latest_documents">
           <h1 class="label">Latest</h1>
@@ -67,7 +61,7 @@
     </div>
   </div>
 
-  <div class="block-7">
+  <div class="block-6">
     <div class="inner-block">
       <section id="who">
         <h1 class="label">People</h1>
@@ -118,13 +112,13 @@
     </div>
   </div>
 
-  <div class="block-8">
+  <div class="block-7">
     <div class="inner-block">
       <%= render partial: "documents/topics", object: @organisation.topics_with_content, title: "Our topics" %>
     </div>
   </div>
 
-  <div class="block-9">
+  <div class="block-8">
     <div class="inner-block">
       <ul>
         <li><a href="https://jobsstatic.civilservice.gov.uk/csjobs.html" rel="external">Jobs</a></li>

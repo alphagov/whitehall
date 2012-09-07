@@ -1,13 +1,8 @@
 <% page_title "About #{@country.name}" %>
 <% page_class "country_about" %>
 <%= content_tag_for(:div, @country) do %>
-  <div class="block-1">
-    <div class="inner-block">
-      <%= render "beta_warning", country: @country %>
-    </div>
-  </div>
 
-  <div class="block-2">
+  <div class="block-1">
     <div class="inner-block">
       <header class="page-header countries">
         <h1 class="country name page_title"><%= @country.name %></h1>
@@ -15,7 +10,7 @@
     </div>
   </div>
 
-  <div class="block-3">
+  <div class="block-2">
     <div class="inner-block">
       <div class="sidebar sub_navigation_container">
         <%= render 'navigation', country: @country %>
@@ -30,7 +25,7 @@
     </div>
   </div>
 
-  <div class="block-4">
+  <div class="block-3">
     <div class="inner-block">
       <div class="document_page">
         <div class="document_view">

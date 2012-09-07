@@ -71,7 +71,7 @@ h1.label {
 }
 
 .organisation_homepage {
-  .block-4, .block-5, .block-6, .block-7, .block-8 {
+  .block-3, .block-4, .block-5, .block-6, .block-7 {
     float: left;
     display: inline;
     width: 25%;
@@ -84,13 +84,13 @@ h1.label {
       padding-top: $gutter-one-third;
     }
   }
-  .block-5 {
+  .block-4 {
     width: 75%;
     .inner-block {
       padding: 0;
     }
   }
-  .block-9 {
+  .block-8 {
     clear: both;
     ul li {
       list-style: none;
@@ -123,13 +123,13 @@ h1.label {
 
 .organisation_subpages {
 
-  .block-3, .block-4 {
+  .block-2, .block-3 {
     float: left;
     display: inline;
     width: 25%;
   }
 
-  .block-4 {
+  .block-3 {
     width: 75%;
   }
 
@@ -199,7 +199,7 @@ h1.label {
       top: 0;
       right: 0;
     }
-}
+  }
 }
 
 
@@ -235,7 +235,7 @@ h1.label {
     padding: $gutter-one-third $gutter;
     position: relative;
     width: auto;
-}
+  }
 }
 
 .sub_navigation_container {
@@ -491,17 +491,17 @@ h1.label {
     }
   }
 
-  .block-2 { 
+  .block-1 { 
     margin-bottom: $gutter*2;
   }
 
-  .block-4 {
+  .block-3 {
     @include media(desktop) {
       margin-bottom: $gutter*3;
     }
   }
 
-  .block-3, .block-4, .block-5 {
+  .block-2, .block-3, .block-4 {
     .inner-block {
       @include media(desktop) {
         padding-left: 25%;

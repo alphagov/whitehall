@@ -1,20 +1,14 @@
 <% page_title "Publications", @organisation.name %>
 <% page_class "organisation_subpages" %>
 
-  <div class="block-1">
-    <div class="inner-block">
-      <%= render "beta_warning", organisation: @organisation %>
-    </div>
-  </div>
-
 <%= organisation_wrapper(@organisation, class: "") do %>
-  <div class="block-2">
+  <div class="block-1">
     <div class="inner-block">
       <%= render 'header', organisation: @organisation, title: "Publications" %>
     </div>
   </div>
 
-  <div class="block-3">
+  <div class="block-2">
     <div class="inner-block">
       <div class="sidebar sub_navigation_container">
         <%= render 'sidebar', organisation: @organisation %>
@@ -22,7 +16,7 @@
     </div>
   </div>
 
-  <div class="block-4">
+  <div class="block-3">
     <div class="inner-block">
       <% if @publications.any? %>
         <div id="publications">

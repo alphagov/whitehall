@@ -4,19 +4,13 @@
 
   <div class="block-1">
     <div class="inner-block">
-      <%= render "beta_warning", organisation: @organisation %>
-    </div>
-  </div>
-
-  <div class="block-2">
-    <div class="inner-block">
       <div>
         <%= render 'header', organisation: @organisation %>
       </div>
     </div>
   </div>
 
-  <div class="block-3">
+  <div class="block-2">
     <div class="inner-block">
       <div>
         <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
@@ -25,7 +19,7 @@
     </div>
   </div>
 
-  <div class="block-4 govspeak">
+  <div class="block-3 govspeak">
     <div class="inner-block">
       <aside class="govuk-status information-block">
         <% if @organisation.joining? %>
@@ -41,7 +35,7 @@
   </div>
 
   <% if @recently_updated.present? %>
-    <div class="block-5">
+    <div class="block-4">
       <div class="inner-block">
           <section id="recently_updated" class="latest_documents">
             <h1 class="label">Recent mentions on gov.uk</h1>
