@@ -330,6 +330,14 @@ h1.label {
     }
   }
 
+  .parent_organisations {
+    margin-bottom: $gutter-half;
+  }
+
+  h1.label {
+    @include core-19;
+  } 
+
   .information-block {
     padding-top: $gutter-two-thirds;
     padding-bottom: $gutter-two-thirds;
