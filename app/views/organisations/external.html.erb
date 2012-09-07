@@ -1,5 +1,5 @@
 <% page_title @organisation.name %>
-<% page_class "organisation_homepage" %>
+<% page_class "organisation_homepage non-govuk" %>
 <%= organisation_wrapper(@organisation, class: "hcard group") do %>
 
   <div class="block-1">
@@ -25,15 +25,15 @@
     </div>
   </div>
 
-  <div class="block-4">
+  <div class="block-4 govspeak">
     <div class="inner-block">
-      <div class="govuk-status">
+      <aside class="govuk-status information-block">
         <% if @organisation.joining? %>
         This organisation currently has a separate website but will soon be incorporated into GOV.UK
         <% else %>
         This organisation has a separate website
         <% end %>
-      </div>
+      </aside>
       <div class="url">
         Go to: <%= link_to @organisation.url %>
       </div>
