@@ -72,7 +72,7 @@
             <% end %>
           <% end %>
         </ul>
-        <%= link_to 'View all', specialist_guides_path("topics[]" => @topic.slug), class: 'view-all' %>
+        <%= link_to 'View all', specialist_guides_filter_path(@topic), class: 'view-all' %>
       </section>
     <% end %>
     <%= render partial: "documents/recently_changed_documents",

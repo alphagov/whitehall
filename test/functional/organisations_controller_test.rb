@@ -65,7 +65,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, organisation_type: create(:organisation_type, name: "Other"))
     get :show, id: organisation
     assert_select "nav" do
-      refute_select "a[href=?]", announcements_organisation_path(organisation)
+      refute_select "a[href=?]", announcements_path(departments: [organisation])
       refute_select "a[href=?]", policies_organisation_path(organisation)
       refute_select "a[href=?]", publications_path(departments: [organisation])
       refute_select "a[href=?]", consultations_organisation_path(organisation)

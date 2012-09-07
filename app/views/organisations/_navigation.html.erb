@@ -3,9 +3,9 @@
     <li><%= organisation_navigation_link_to 'Home', organisation_path(organisation) %></li>
     <li><%= organisation_navigation_link_to 'About', about_organisation_path(organisation) %></li>
     <% if organisation.department? %>
-      <li><%= organisation_navigation_link_to 'News & speeches', announcements_organisation_path(organisation) %></li>
+      <li><%= link_to 'Announcements', announcements_filter_path(organisation) %></li>
       <li><%= organisation_navigation_link_to 'Policies', policies_organisation_path(organisation) %></li>
-      <li><%= link_to 'Publications', publications_path(departments: [organisation.slug]) %></li>
+      <li><%= link_to 'Publications', publications_filter_path(organisation) %></li>
       <li><%= organisation_navigation_link_to 'Consultations', consultations_organisation_path(organisation) %></li>
       <li><%= organisation_navigation_link_to 'Agencies & partners', agencies_and_partners_organisation_path(organisation) %></li>
       <li><%= organisation_navigation_link_to 'Ministers', ministers_organisation_path(organisation) %></li>
