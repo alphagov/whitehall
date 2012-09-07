@@ -11,9 +11,9 @@
 
     <title><%= page_title %></title>
     <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/base.css" %><!--<![endif]-->
-    <!--[if IE 6]><%= stylesheet_link_tag "frontend/base-ie6.css" %><![endif]-->
-    <!--[if IE 7]><%= stylesheet_link_tag "frontend/base-ie7.css" %><![endif]-->
-    <!--[if IE 8]><%= stylesheet_link_tag "frontend/base-ie8.css" %><![endif]-->
+    <!--[if IE 6]><%= stylesheet_link_tag "frontend/base-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
+    <!--[if IE 7]><%= stylesheet_link_tag "frontend/base-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
+    <!--[if IE 8]><%= stylesheet_link_tag "frontend/base-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
     <%= stylesheet_link_tag "frontend/print.css", media: "print" %>
     <%= csrf_meta_tags %>
     <link href='/favicon.ico' rel='shortcut icon' type='image/x-icon'>
