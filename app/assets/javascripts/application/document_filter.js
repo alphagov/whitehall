@@ -244,6 +244,9 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
   window.GOVUK.documentFilter = documentFilter;
 
   var enableDocumentFilter = function() {
+    if (window.ieVersion && ieVersion === 6) {
+      return;
+    }
     this.each(function(){
       if (window.GOVUK.support.history()) {
         var $form = $(this);
