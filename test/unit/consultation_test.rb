@@ -150,25 +150,22 @@ class ConsultationTest < EditionTestCase
   end
 
   test "should not create a participation if all participation fields are blank" do
-    attributes = {link_url: nil, link_text: nil, consultation_response_form_attributes: {title: nil, file: nil}}
+    attributes = {link_url: nil, consultation_response_form_attributes: {title: nil, file: nil}}
     consultation = create(:consultation, consultation_participation_attributes: attributes)
     assert consultation.consultation_participation.blank?
   end
 
   test "should preserve original participation when creating new edition" do
-    consultation_participation = create(:consultation_participation, link_url: "http://example.com", link_text: "Respond here")
+    consultation_participation = create(:consultation_participation, link_url: "http://example.com")
     consultation = create(:published_consultation, consultation_participation: consultation_participation)
 
     new_draft = consultation.create_draft(create(:policy_writer))
-    new_draft.consultation_participation.update_attributes(link_text: "You can respond here")
 
     assert_equal new_draft.consultation_participation.link_url, consultation_participation.link_url, "link attribute should be copied"
-    assert_equal "Respond here", consultation_participation.reload.link_text, "original link text should not be modified"
-    assert_equal "You can respond here", new_draft.consultation_participation.link_text
   end
 
   test "should destroy associated consultation participation when destroyed" do
-    consultation_participation = create(:consultation_participation, link_url: "http://example.com", link_text: "Respond here")
+    consultation_participation = create(:consultation_participation, link_url: "http://example.com")
     consultation = create(:consultation, consultation_participation: consultation_participation)
     consultation.destroy
     assert_nil ConsultationParticipation.find_by_id(consultation_participation.id)

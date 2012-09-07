@@ -9,7 +9,6 @@
   <legend>Ways to respond</legend>
   <%= form.fields_for :consultation_participation, edition.consultation_participation || edition.build_consultation_participation do |participation_fields| %>
     <%= participation_fields.text_field :link_url, label_text: 'Link URL' %>
-    <%= participation_fields.text_field :link_text %>
     <%= participation_fields.text_field :email %>
     <%= participation_fields.text_area :postal_address, rows: "4", style: "width: auto" %>
     <%= participation_fields.fields_for :consultation_response_form, participation_fields.object.consultation_response_form || participation_fields.object.build_consultation_response_form do |response_form_fields| %>

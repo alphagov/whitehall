@@ -42,7 +42,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "select[name*='edition[opening_on']", count: 3
       assert_select "select[name*='edition[closing_on']", count: 3
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
-      assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_text]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][title]']"
       assert_select "input[type='file'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][file]']"
@@ -53,7 +52,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     attributes = attributes_for(:consultation,
       consultation_participation_attributes: {
         link_url: "http://participation.com",
-        link_text: "Respond online",
         email: "countmein@participation.com",
         consultation_response_form_attributes: {
           title: "the title of the response form",
@@ -69,7 +67,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal attributes[:opening_on].to_date, consultation.opening_on
     assert_equal attributes[:closing_on].to_date, consultation.closing_on
     assert_equal "http://participation.com", consultation.consultation_participation.link_url
-    assert_equal "Respond online", consultation.consultation_participation.link_text
     assert_equal "countmein@participation.com", consultation.consultation_participation.email
     assert_equal "the title of the response form", consultation.consultation_participation.consultation_response_form.title
     assert consultation.consultation_participation.consultation_response_form.file.present?
@@ -79,7 +76,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     attributes = attributes_for(:consultation,
       consultation_participation_attributes: {
         link_url: nil,
-        link_text: nil,
         email: nil,
         consultation_response_form_attributes: {
           title: nil,
@@ -98,7 +94,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     attributes = attributes_for(:consultation,
       consultation_participation_attributes: {
         link_url: nil,
-        link_text: nil,
         email: nil,
         consultation_response_form_attributes: {
           title: nil,
@@ -136,7 +131,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "show displays consultation participation link" do
     consultation_participation = create(:consultation_participation,
       link_url: "http://participation.com",
-      link_text: "Respond online",
       email: "respond@consultations-r-us.com"
     )
     consultation = create(:consultation, consultation_participation: consultation_participation)
@@ -170,7 +164,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "select[name*='edition[opening_on']", count: 3
       assert_select "select[name*='edition[closing_on']", count: 3
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
-      assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_text]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
       assert_select "textarea[name='edition[consultation_participation_attributes][postal_address]']"
       assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][id]'][value=?]", response_form.id
@@ -201,7 +194,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       closing_on: 50.days.from_now,
       consultation_participation_attributes: {
         link_url: "http://consult.com",
-        link_text: "Tell us what you think",
         email: "tell-us-what-you-think@gov.uk"
       }
     }
@@ -211,18 +203,15 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal 1.day.ago.to_date, consultation.opening_on
     assert_equal 50.days.from_now.to_date, consultation.closing_on
     assert_equal "http://consult.com", consultation.consultation_participation.link_url
-    assert_equal "Tell us what you think", consultation.consultation_participation.link_text
     assert_equal "tell-us-what-you-think@gov.uk", consultation.consultation_participation.email
   end
 
   test "update should save consultation without consultation participation if participation fields are all blank" do
-    consultation_participation = create(:consultation_participation, link_url: "http://example.com", link_text: "Feedback")
     consultation = create(:consultation)
 
     put :update, id: consultation, edition: consultation.attributes.merge({
       consultation_participation_attributes: {
         link_url: nil,
-        link_text: nil,
         email: nil
       }
     })

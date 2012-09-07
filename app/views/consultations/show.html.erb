@@ -87,7 +87,7 @@
           <div class="content">
             <h2>Contact us by <%= absolute_date(@document.closing_on) %></h2>
             <% if @document.consultation_participation.has_link? %>
-              <p class="online"><%= link_to 'Repond online', @document.consultation_participation.link_url %></p>
+              <p class="online"><%= link_to 'Respond online', @document.consultation_participation.link_url %></p>
             <% end %>
             <% if @document.consultation_participation.has_link? and (@document.consultation_participation.has_postal_address? or @document.consultation_participation.has_email?) %>
               <p class="or">or</p>

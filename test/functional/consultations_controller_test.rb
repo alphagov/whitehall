@@ -244,13 +244,12 @@ class ConsultationsControllerTest < ActionController::TestCase
   test 'show displays consultation participation link and email' do
     consultation_participation = create(:consultation_participation,
       link_url: "http://telluswhatyouthink.com",
-      link_text: "Tell us what you think",
       email: "contact@example.com"
     )
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
     get :show, id: published_consultation.document
     assert_select ".participation" do
-      assert_select ".online a[href=?]", "http://telluswhatyouthink.com"
+      assert_select ".online a[href=?]", "http://telluswhatyouthink.com", text: "Respond online"
       assert_select ".email a[href=?]", "mailto:contact@example.com", text: "contact@example.com"
     end
   end
@@ -264,8 +263,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test 'show does not display consultation participation email if none available' do
     consultation_participation = create(:consultation_participation,
-      link_url: "http://telluswhatyouthink.com",
-      link_text: "Tell us what you think"
+      link_url: "http://telluswhatyouthink.com"
     )
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
     get :show, id: published_consultation.document
@@ -275,8 +273,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   test 'show does not display consultation participation link if consultation finished' do
     consultation_participation = create(:consultation_participation,
       email: "contact@example.com",
-      link_url: "http://telluswhatyouthink.com",
-      link_text: "Tell us what you think"
+      link_url: "http://telluswhatyouthink.com"
     )
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation, opening_on: 4.days.ago, closing_on: 2.days.ago)
     get :show, id: published_consultation.document

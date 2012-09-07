@@ -8,7 +8,7 @@ class ConsultationParticipation < ActiveRecord::Base
   validates :email, email_format: { allow_blank: true }
 
   def has_link?
-    link_url.present? && link_text.present?
+    link_url.present?
   end
 
   def has_email?

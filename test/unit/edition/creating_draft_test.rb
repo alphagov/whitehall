@@ -95,7 +95,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy with copies of consultation participation" do
-    consultation_participation = create(:consultation_participation, link_url: "http://link.com", link_text: "text")
+    consultation_participation = create(:consultation_participation, link_url: "http://link.com")
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
     draft_consultation = published_consultation.create_draft(create(:policy_writer))
 
@@ -104,7 +104,6 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert new_consultation_participation = draft_consultation.consultation_participation
     refute_equal consultation_participation, new_consultation_participation
     assert_equal consultation_participation.link_url, new_consultation_participation.link_url
-    assert_equal consultation_participation.link_text, new_consultation_participation.link_text
   end
 
   test "should build a draft copy with references to related policies" do

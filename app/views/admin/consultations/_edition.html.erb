@@ -14,7 +14,7 @@
     <div class="participation">
       <% if edition.consultation_participation.has_link? %>
         <p class="online">
-          <%= link_to edition.consultation_participation.link_text, edition.consultation_participation.link_url %>
+          <%= link_to 'Respond online', edition.consultation_participation.link_url %>
         </p>
       <% end %>
       <% if edition.consultation_participation.has_email? %>
