@@ -12,6 +12,16 @@
       bottom: ($gutter + $gutter-two-thirds);
     }
   }
+
+  @include ie(6) {
+    .block-2,
+    .block-3,
+    .block-4 {
+      position: relative;
+      zoom: 1;
+    }
+  }
+
   .block-4 {
     width: 100%;
   }
@@ -22,4 +32,3 @@
     padding-bottom: $gutter;
   }
 }
-
