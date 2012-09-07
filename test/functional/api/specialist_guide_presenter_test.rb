@@ -22,12 +22,6 @@ class Api::SpecialistGuidesPresenterTest < PresenterTestCase
     assert_equal 'html-body', @presenter.as_json[:details][:body]
   end
 
-  test "json includes associated organisation names" do
-    organisations = [stub_record(:organisation, organisation_type: nil), stub_record(:organisation, organisation_type: nil)]
-    @guide.stubs(:organisations).returns(organisations)
-    assert_equal organisations.map(&:name), @presenter.as_json[:details][:organisations]
-  end
-
   test "json includes related specialist guides as related artefacts" do
     related_guide = stub_document(:specialist_guide)
     @guide.stubs(:published_related_specialist_guides).returns([related_guide])

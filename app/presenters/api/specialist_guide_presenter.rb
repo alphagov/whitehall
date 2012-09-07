@@ -4,8 +4,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
       title: model.title,
       web_url: h.specialist_guide_url(model.document),
       details: {
-        body: h.govspeak_edition_to_html(model),
-        organisations: model.organisations.map(&:name)
+        body: h.govspeak_edition_to_html(model)
       },
       related_artefacts: related_artefacts_json
     }
