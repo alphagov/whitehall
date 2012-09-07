@@ -160,30 +160,46 @@ nav.consultations_scope {
     }
   }
   .participation {
-    background: $light-warm-grey;
+    background: $light-blue;
+    color: $white;
     @include core-19;
 
     .content {
-      padding: $gutter-half;
+      margin: 0 $gutter-one-third $gutter-half;
+    }
+    p {
+      margin: $gutter-one-third 0;
+    }
+    a {
+      color: $white;
+      text-decoration: underline;
+    }
+    h2, .online {
+      @include core-24;
+    }
+    dl {
+      dt {
+        @include core-16;
+      }
+      dd {
+        margin-bottom: $gutter-one-third;
+      }
     }
     @include media(desktop){
       padding-left: 25%;
-      .content {
-        padding: 0 $gutter 0 0;
-      }
-    }
 
-    .online {
-      @include core-48;
-      margin: 0 0 $gutter-two-thirds;
-    }
-    ol li {
-      list-style: decimal;
-      margin: $gutter-two-thirds 0;
-    }
-    dl dt {
-      @include core-16;
-      margin-top: $gutter-one-third;
+      .content {
+        margin: $gutter-one-third 0 $gutter-half;
+      }
+      h2 {
+        margin: 0 0 $gutter-half;
+      }
+      .online {
+        margin: $gutter-half 0;
+      }
+      p {
+        margin: $gutter-half 0;
+      }
     }
   }
 }

@@ -14,12 +14,12 @@
     <div class="participation">
       <% if edition.consultation_participation.has_link? %>
         <p class="online">
-          <%= link_to_consultation_participation(edition) %>
+          <%= link_to edition.consultation_participation.link_text, edition.consultation_participation.link_url %>
         </p>
       <% end %>
       <% if edition.consultation_participation.has_email? %>
         <p class="email">
-          <%= mail_to_consultation_participation(edition) %>
+          <%= mail_to edition.consultation_participation.email %>
         </p>
       <% end %>
       <% if edition.consultation_participation.has_postal_address? %>

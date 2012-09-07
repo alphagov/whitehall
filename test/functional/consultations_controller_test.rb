@@ -250,7 +250,7 @@ class ConsultationsControllerTest < ActionController::TestCase
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
     get :show, id: published_consultation.document
     assert_select ".participation" do
-      assert_select ".online a[href=?]", "http://telluswhatyouthink.com", text: "Tell us what you think"
+      assert_select ".online a[href=?]", "http://telluswhatyouthink.com"
       assert_select ".email a[href=?]", "mailto:contact@example.com", text: "contact@example.com"
     end
   end
