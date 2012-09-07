@@ -94,6 +94,15 @@
         outline: none;
       }
     }
+
+    @include ie(6) {
+      &,
+      .overlay {
+        zoom: 1;
+        position: relative;
+      }
+    }
+
     &.open {
       .toggle {
         top: 0.2em;
