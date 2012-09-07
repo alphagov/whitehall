@@ -18,6 +18,12 @@ Whitehall::Application.routes.draw do
     end
   end
 
+  scope 'specialist' do
+    namespace 'api' do
+      resources :specialist_guides, path: 'specialist', only: [:show, :index]
+    end
+  end
+
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "home#sunset"
     match '/home' => "home#show", as: :home

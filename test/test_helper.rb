@@ -155,6 +155,10 @@ class PresenterTestCase < ActionView::TestCase
     Draper::ViewContext.current = @controller.view_context
   end
 
+  def stubs_helper_method(*args)
+    Draper::ViewContext.current.stubs(*args)
+  end
+
   def assert_select_from(text, *args, &block)
     assert_select HTML::Document.new(text).root, *args, &block
   end

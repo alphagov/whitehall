@@ -6,9 +6,9 @@ class PeopleControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   def stub_role_appointment(role_type, options = {})
-    stub_record(:role_appointment, 
+    stub_record(:role_appointment,
       {
-        role: stub_record(role_type, organisations: []), 
+        role: stub_record(role_type, organisations: []),
         person: stub_record(:person, organisations: [])
       }.merge(options)
     )
@@ -83,11 +83,11 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   def person_has_published_policy!
-    @policy = stub_record(:published_policy, document: stub_record(:document), alternative_format_provider_id: next_record_id)
+    @policy = stub_document(:published_policy, alternative_format_provider_id: next_record_id)
     @role = stub_record(:ministerial_role)
     @role.stubs(:published_policies).returns([@policy])
     @person.stubs(:current_ministerial_roles).returns([@role])
-  end    
+  end
 
   test "policy link shown if person has policy associated with ministerial role" do
     person_has_published_policy!
