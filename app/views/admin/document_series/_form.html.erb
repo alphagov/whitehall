@@ -2,6 +2,7 @@
   <%= form.errors %>
 
   <%= form.text_field :name %>
+  <%= form.text_area :description %>
 
   <%= form.save_or_cancel cancel: admin_organisation_path(@document_series.organisation) %>
 <% end %>
