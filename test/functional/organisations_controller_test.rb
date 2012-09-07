@@ -2,7 +2,7 @@ require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
 
-  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :announcements, :consultations, :contact_details, :management_team, :ministers, :policies]
+  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations, :contact_details, :management_team, :ministers, :policies]
 
   should_be_a_public_facing_controller
 
@@ -235,7 +235,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should display a link to the announcements page for department organisations" do
     organisation = create(:ministerial_department)
     get :show, id: organisation
-    assert_select "nav a[href='#{announcements_organisation_path(organisation)}']"
+    assert_select "nav a[href='#{announcements_path(departments: [organisation])}']"
   end
 
   test "presents the contact details of the organisation using hcard" do
@@ -280,46 +280,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, contacts_attributes: [{description: "Main", latitude: 51.498772, longitude: -0.130974}])
     get :contact_details, id: organisation
     assert_select "a[href='http://maps.google.co.uk/maps?q=51.498772,-0.130974']"
-  end
-
-  test "should show only published news articles associated with organisation" do
-    published_news_article = create(:published_news_article)
-    draft_news_article = create(:draft_news_article)
-    another_published_news_article = create(:published_news_article)
-    organisation = create(:organisation, editions: [published_news_article, draft_news_article])
-
-    get :announcements, id: organisation
-
-    assert_select_object(published_news_article)
-    refute_select_object(draft_news_article)
-    refute_select_object(another_published_news_article)
-  end
-
-  test "should show only published speeches associated with organisation" do
-    organisation = create(:organisation)
-    role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:ministerial_role_appointment, role: role)
-    published_speech = create(:published_speech, role_appointment: role_appointment)
-    draft_speech = create(:draft_speech, role_appointment: role_appointment)
-    another_published_speech = create(:published_speech)
-
-    get :announcements, id: organisation
-
-    assert_select_object(published_speech)
-    refute_select_object(draft_speech)
-    refute_select_object(another_published_speech)
-  end
-
-  test "should order news articles and speeches in order of first publication date with most recent first" do
-    organisation = create(:organisation)
-    role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:ministerial_role_appointment, role: role)
-    earlier_news_article = create(:published_news_article, first_published_at: 4.days.ago, organisations: [organisation])
-    later_speech = create(:published_speech, first_published_at: 3.days.ago, role_appointment: role_appointment)
-
-    get :announcements, id: organisation
-
-    assert_equal [later_speech, earlier_news_article], assigns(:announcements)
   end
 
   test "should show published consultations associated with the organisation" do

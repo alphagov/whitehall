@@ -1,6 +1,6 @@
 class OrganisationsController < PublicFacingController
   before_filter :load_organisation,
-    only: [:show, :about, :contact_details, :announcements, :consultations,
+    only: [:show, :about, :contact_details, :consultations,
            :ministers, :management_team, :policies,
            :agencies_and_partners, :chiefs_of_staff]
 
@@ -34,10 +34,6 @@ class OrganisationsController < PublicFacingController
   end
 
   def contact_details
-  end
-
-  def announcements
-    @announcements = Announcement.sort_by_first_published_at(NewsArticle.in_organisation(@organisation).published + @organisation.published_speeches)
   end
 
   def consultations
