@@ -66,7 +66,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
       id: h.api_specialist_guide_url(model.document),
       web_url: h.specialist_guide_url(model.document),
       details: {
-        body: h.govspeak_edition_to_html(model)
+        body: h.bare_govspeak_edition_to_html(model)
       },
       format: model.type.underscore,
       related: related_json

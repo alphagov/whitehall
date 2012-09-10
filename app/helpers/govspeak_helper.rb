@@ -13,7 +13,7 @@ module GovspeakHelper
     govspeak_to_admin_html(text, images)
   end
 
-  def govspeak_to_admin_html(text, images = [], attachments = [])
+  def bare_govspeak_to_admin_html(text, images = [], attachments = [])
     markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, edition|
       latest_edition = edition && edition.document.latest_edition
       if latest_edition.nil?
@@ -31,14 +31,26 @@ module GovspeakHelper
     end
   end
 
-  def govspeak_edition_to_html(edition)
-    images = edition.respond_to?(:images) ? edition.images : []
-    text = markup_with_attachments_to_html(edition)
-    govspeak_to_html(text, images)
+  def govspeak_to_admin_html(*args)
+    content_tag(:div, bare_govspeak_to_admin_html(*args).html_safe, class: 'govspeak')
   end
 
-  def govspeak_to_html(text, images = [])
+  def bare_govspeak_edition_to_html(edition)
+    images = edition.respond_to?(:images) ? edition.images : []
+    text = markup_with_attachments_to_html(edition)
+    bare_govspeak_to_html(text, images)
+  end
+
+  def govspeak_edition_to_html(*args)
+    content_tag(:div, bare_govspeak_edition_to_html(*args), class: 'govspeak')
+  end
+
+  def bare_govspeak_to_html(text, images = [])
     markup_to_html_with_replaced_admin_links(text, images)
+  end
+
+  def govspeak_to_html(*args)
+    content_tag(:div, bare_govspeak_to_html(*args).html_safe, class: 'govspeak')
   end
 
   def govspeak_headers(text, level = 2)
@@ -92,10 +104,9 @@ module GovspeakHelper
 
   def markup_to_nokogiri_doc(text, images = [])
     govspeak = build_govspeak_document(text).tap { |g| g.images = images }
-    html = content_tag(:div, govspeak.to_html.html_safe, class: 'govspeak')
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
-    doc.fragment(html)
+    doc.fragment(govspeak.to_html)
   end
 
   def govspeak_with_attachments_to_html(text, attachments = [], alternative_format_contact_email = nil)

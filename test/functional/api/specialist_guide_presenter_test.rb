@@ -30,9 +30,9 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     assert_equal specialist_guide_url(@guide.document), @presenter.as_json[:web_url]
   end
 
-  test "json includes the document body as html" do
-    stubs_helper_method(:govspeak_edition_to_html).with(@guide).returns('html-body')
-    assert_equal 'html-body', @presenter.as_json[:details][:body]
+  test "json includes the document body (without govspeak wrapper div) as html" do
+    @guide.stubs(:body).returns("govspeak-body")
+    assert_equal '<p>govspeak-body</p>', @presenter.as_json[:details][:body]
   end
 
   test "json includes related specialist guides as related" do
