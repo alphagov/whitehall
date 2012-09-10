@@ -40,6 +40,10 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     }
     assert_equal [guide_json], @presenter.as_json[:related_artefacts]
   end
+
+  test "json includes type as format" do
+    assert_equal "specialist_guide", @presenter.as_json[:format]
+  end
 end
 
 class Api::SpecialistGuidePresenter::PagePresenterTest < PresenterTestCase

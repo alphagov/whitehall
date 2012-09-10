@@ -65,6 +65,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
       details: {
         body: h.govspeak_edition_to_html(model)
       },
+      format: model.type.underscore,
       related_artefacts: related_artefacts_json
     }
   end
