@@ -59,4 +59,13 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     end
   end
 
+  test "#alternative_format_contact_email delegates to organisation" do
+    email = stub("email")
+    organisation = build(:organisation)
+    organisation.expects(:alternative_format_contact_email).returns(email)
+    corporate_information_page = build(:corporate_information_page, organisation: organisation)
+
+    assert_equal email, corporate_information_page.alternative_format_contact_email
+  end
+
 end

@@ -346,6 +346,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_object(published_corporate_publication)
   end
 
+  test "should display link to corporate information pages on about-us page" do
+    organisation = create(:organisation)
+    corporate_information_page = create(:corporate_information_page, organisation: organisation)
+    get :about, id: organisation
+    assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page)}']"
+  end
+
   test "shows ministerial roles in the specified order" do
     junior_role = create(:ministerial_role)
     senior_role = create(:ministerial_role)

@@ -67,7 +67,9 @@ Whitehall::Application.routes.draw do
         get :agencies_and_partners, path: 'agencies-and-partners'
         get :policies
       end
+      resources :corporate_information_pages, only: [:show], path: 'about'
     end
+    
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
     resources :people, only: [:index, :show]
     resources :countries, path: 'world', only: [:index, :show] do

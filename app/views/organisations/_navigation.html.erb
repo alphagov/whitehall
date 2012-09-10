@@ -2,6 +2,9 @@
   <ul>
     <li><%= organisation_navigation_link_to 'Home', organisation_path(organisation) %></li>
     <li><%= organisation_navigation_link_to 'About', about_organisation_path(organisation) %></li>
+    <% organisation.corporate_information_pages.each do |corporate_information_page| %>
+      <li>- <%= organisation_navigation_link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page) %></li>
+    <% end %>    
     <% if organisation.department? %>
       <li><%= link_to 'Announcements', announcements_filter_path(organisation) %></li>
       <li><%= organisation_navigation_link_to 'Policies', policies_organisation_path(organisation) %></li>
