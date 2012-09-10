@@ -26,6 +26,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
 
     def as_json(options = {})
       {
+        _response_info: {status: "ok"},
         results: model.map(&:as_json),
         previous_page_url: previous_page_url,
         next_page_url: next_page_url
@@ -60,6 +61,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
 
   def as_json(options = nil)
     {
+      _response_info: { status: "ok" },
       title: model.title,
       id: h.api_specialist_guide_url(model.document),
       web_url: h.specialist_guide_url(model.document),

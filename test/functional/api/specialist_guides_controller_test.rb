@@ -19,6 +19,7 @@ class Api::SpecialistGuidesControllerTest < ActionController::TestCase
     SpecialistGuide.stubs(:published_as).returns(nil)
     get :show, id: 'unknown'
     assert_response :not_found
+    assert_equal ActiveSupport::JSON.encode({_response_info: {status: "not found"}}), response.body
   end
 
   test "index paginates published specialist guides" do
