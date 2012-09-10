@@ -22,6 +22,10 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     assert_equal 'guide-title', @presenter.as_json[:title]
   end
 
+  test "json includes the API url as id" do
+    assert_equal api_specialist_guide_url(@guide.document), @presenter.as_json[:id]
+  end
+
   test "json includes the main guide url as web_url" do
     assert_equal specialist_guide_url(@guide.document), @presenter.as_json[:web_url]
   end

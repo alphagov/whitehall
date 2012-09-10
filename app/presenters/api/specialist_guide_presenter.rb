@@ -61,6 +61,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
   def as_json(options = nil)
     {
       title: model.title,
+      id: h.api_specialist_guide_url(model.document),
       web_url: h.specialist_guide_url(model.document),
       details: {
         body: h.govspeak_edition_to_html(model)
