@@ -35,14 +35,14 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     assert_equal 'html-body', @presenter.as_json[:details][:body]
   end
 
-  test "json includes related specialist guides as related artefacts" do
+  test "json includes related specialist guides as related" do
     related_guide = stub_edition(:specialist_guide)
     @guide.stubs(:published_related_specialist_guides).returns([related_guide])
     guide_json = {
       title: related_guide.title,
       web_url: specialist_guide_url(related_guide.document)
     }
-    assert_equal [guide_json], @presenter.as_json[:related_artefacts]
+    assert_equal [guide_json], @presenter.as_json[:related]
   end
 
   test "json includes type as format" do
