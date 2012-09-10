@@ -75,7 +75,11 @@ class Api::SpecialistGuidePresenter < Draper::Base
 
   def related_json
     model.published_related_specialist_guides.map do |guide|
-      {title: guide.title, web_url: h.specialist_guide_url(guide.document)}
+      {
+        id: h.api_specialist_guide_url(guide.document),
+        title: guide.title,
+        web_url: h.specialist_guide_url(guide.document)
+      }
     end
   end
 end

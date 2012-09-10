@@ -39,6 +39,7 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     related_guide = stub_edition(:specialist_guide)
     @guide.stubs(:published_related_specialist_guides).returns([related_guide])
     guide_json = {
+      id: api_specialist_guide_url(related_guide.document),
       title: related_guide.title,
       web_url: specialist_guide_url(related_guide.document)
     }
