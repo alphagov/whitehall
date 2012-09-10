@@ -27,7 +27,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
     def as_json(options = {})
       {
         _response_info: {status: "ok"},
-        results: model.map(&:as_json),
+        results: model.map { |m| m.as_json(in_collection: true) },
         previous_page_url: previous_page_url,
         next_page_url: next_page_url
       }.reject {|k, v| v.nil? }
@@ -59,9 +59,8 @@ class Api::SpecialistGuidePresenter < Draper::Base
     end
   end
 
-  def as_json(options = nil)
-    {
-      _response_info: { status: "ok" },
+  def as_json(options = {})
+    data = {
       title: model.title,
       id: h.api_specialist_guide_url(model.document),
       web_url: h.specialist_guide_url(model.document),
@@ -71,6 +70,11 @@ class Api::SpecialistGuidePresenter < Draper::Base
       format: model.type.underscore,
       related: related_json
     }
+    if options[:in_collection]
+      data
+    else
+      data.merge(_response_info: { status: "ok" })
+    end
   end
 
   private
