@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::SpecialistGuidePresenterTest < PresenterTestCase
   setup do
-    @guide = stub_document(:specialist_guide)
+    @guide = stub_edition(:specialist_guide)
     @guide.stubs(:organisations).returns([])
     @guide.stubs(:published_related_specialist_guides).returns([])
     @presenter = Api::SpecialistGuidePresenter.decorate(@guide)
@@ -32,7 +32,7 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
   end
 
   test "json includes related specialist guides as related artefacts" do
-    related_guide = stub_document(:specialist_guide)
+    related_guide = stub_edition(:specialist_guide)
     @guide.stubs(:published_related_specialist_guides).returns([related_guide])
     guide_json = {
       title: related_guide.title,
