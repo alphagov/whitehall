@@ -9,7 +9,7 @@ class Api::SpecialistGuidesControllerTest < ActionController::TestCase
     SpecialistGuide.stubs(:published_as).with(specialist_guide.slug).returns(specialist_guide)
     presenter = Api::SpecialistGuidePresenter.decorate(specialist_guide)
     presenter.stubs(:as_json).returns(json: :representation)
-    Api::SpecialistGuidePresenter.stubs(:decorate).with(specialist_guide).returns(presenter)
+    Api::SpecialistGuidePresenter.stubs(:new).with(specialist_guide).returns(presenter)
 
     get :show, id: specialist_guide.slug, format: 'json'
     assert_equal ActiveSupport::JSON.encode(json: :representation), response.body
@@ -19,5 +19,15 @@ class Api::SpecialistGuidesControllerTest < ActionController::TestCase
     SpecialistGuide.stubs(:published_as).returns(nil)
     get :show, id: 'unknown'
     assert_response :not_found
+  end
+
+  test "index paginates published specialist guides" do
+    presenter = Api::SpecialistGuidePresenter::PagePresenter.new([])
+    presenter.stubs(:as_json).returns(paged: :representation)
+    Api::SpecialistGuidePresenter.stubs(:paginate).with(SpecialistGuide.published.alphabetical).returns(presenter)
+
+    get :index, format: 'json'
+
+    assert_equal ActiveSupport::JSON.encode(paged: :representation), response.body
   end
 end

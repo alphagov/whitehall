@@ -5,7 +5,7 @@ class HackableUrlTest < ActiveSupport::TestCase
     all_routes = Rails.application.routes.routes
 
     resource_routes = all_routes.reject do |route|
-      admin_route?(route) || auth_route?(route) || non_public_controller?(route)
+      admin_route?(route) || auth_route?(route) || non_public_controller?(route) || api_route?(route)
     end
 
     resource_routes.each do |resource_route|
@@ -28,6 +28,10 @@ class HackableUrlTest < ActiveSupport::TestCase
     route.path.match(/\/auth\//)
   end
 
+  def api_route?(route)
+    route.path.match(/\/api\//)
+  end
+
   def all_possible_hackings_of(path)
     parts = path.split("/")
     (1...parts.size).map do |num_parts|
@@ -42,6 +46,6 @@ class HackableUrlTest < ActiveSupport::TestCase
   def assert_path_recognized(path, message)
     env = Rack::MockRequest.env_for(path, {method: "GET"})
     request = ActionDispatch::Request.new(env)
-    assert Rails.application.routes.set.recognize(request), message 
+    assert Rails.application.routes.set.recognize(request), message
   end
 end
