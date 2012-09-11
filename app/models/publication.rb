@@ -16,19 +16,6 @@ class Publication < Edition
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
-  def self.published_before(date)
-    where(arel_table[:publication_date].lteq(date))
-  end
-  def self.published_after(date)
-    where(arel_table[:publication_date].gteq(date))
-  end
-  def self.in_chronological_order
-    order(arel_table[:publication_date].asc)
-  end
-  def self.in_reverse_chronological_order
-    order(arel_table[:publication_date].desc)
-  end
-
   def allows_inline_attachments?
     false
   end
@@ -55,5 +42,9 @@ class Publication < Edition
 
   def first_published_date
     publication_date.to_date
+  end
+
+  def set_timestamp_for_sorting
+    self.timestamp_for_sorting = publication_date
   end
 end

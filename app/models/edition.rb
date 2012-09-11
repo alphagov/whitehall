@@ -35,17 +35,17 @@ class Edition < ActiveRecord::Base
   }
 
   def self.published_before(date)
-    where(arel_table[:first_published_at].lteq(date))
+    where(arel_table[:timestamp_for_sorting].lteq(date))
   end
   def self.published_after(date)
-    where(arel_table[:first_published_at].gteq(date))
+    where(arel_table[:timestamp_for_sorting].gteq(date))
   end
 
   def self.in_chronological_order
-    order(arel_table[:first_published_at].asc)
+    order(arel_table[:timestamp_for_sorting].asc)
   end
   def self.in_reverse_chronological_order
-    order(arel_table[:first_published_at].desc)
+    order(arel_table[:timestamp_for_sorting].desc)
   end
 
   class UnmodifiableOncePublishedValidator < ActiveModel::Validator
@@ -59,6 +59,8 @@ class Edition < ActiveRecord::Base
   end
 
   validates_with UnmodifiableOncePublishedValidator
+
+  before_save :set_timestamp_for_sorting
 
   UNMODIFIABLE_STATES = %w(published archived deleted).freeze
   FROZEN_STATES = %w(archived deleted).freeze
@@ -287,5 +289,9 @@ class Edition < ActiveRecord::Base
 
   def body_required?
     true
+  end
+
+  def set_timestamp_for_sorting
+    self.timestamp_for_sorting = first_published_at
   end
 end

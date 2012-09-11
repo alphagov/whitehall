@@ -230,6 +230,7 @@ ActiveRecord::Schema.define(:version => 20120912134556) do
     t.integer  "alternative_format_provider_id"
     t.integer  "document_series_id"
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
+    t.datetime "timestamp_for_sorting"
   end
 
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
@@ -238,6 +239,7 @@ ActiveRecord::Schema.define(:version => 20120912134556) do
   add_index "editions", ["role_appointment_id"], :name => "index_editions_on_role_appointment_id"
   add_index "editions", ["speech_type_id"], :name => "index_editions_on_speech_type_id"
   add_index "editions", ["state"], :name => "index_editions_on_state"
+  add_index "editions", ["timestamp_for_sorting"], :name => "index_editions_on_timestamp_for_sorting"
   add_index "editions", ["type"], :name => "index_editions_on_type"
 
   create_table "editorial_remarks", :force => true do |t|
