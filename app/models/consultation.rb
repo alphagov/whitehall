@@ -36,10 +36,6 @@ class Consultation < Edition
     end
   end
 
-  def latest_consultation_response
-    consultation_responses.order("id DESC").first
-  end
-
   def not_yet_open?
     opening_on > Date.today
   end
