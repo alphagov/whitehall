@@ -133,18 +133,22 @@ module API
       refute_includes a[1].keys, "number_of_pages"
     end
 
-    test "json should list consultation responses" do
+    test "json should list consultation response and attachments" do
       consultation = create(:published_consultation)
-      consultation_response = create(:published_consultation_response,
-        title: "RESPONSE",
-        consultation: consultation
-      )
+      consultation_response = consultation.create_response!(summary: "summary-of-response")
+      attachment = consultation_response.attachments.create! title: 'attachment-title', file: fixture_file_upload('two-pages.pdf')
 
       get :show, id: consultation.slug, format: :json
       data = JSON.parse(response.body)
 
-      cr = data["consultation_response"]
-      assert_equal "RESPONSE", cr["title"]
+      cr = data["response"]
+      assert_equal "summary-of-response", cr["summary"]
+
+      a = cr['attachments']
+      assert_equal "application/pdf", a[0]["content_type"]
+      assert_equal 1446,              a[0]["file_size"]
+      assert_equal 2,                 a[0]["number_of_pages"]
+      assert_match %r{/two-pages\.pdf$}, a[0]["url"]
     end
   end
 end

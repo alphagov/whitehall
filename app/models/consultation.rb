@@ -11,8 +11,6 @@ class Consultation < Edition
   validate :closing_on_must_be_after_opening_on
 
   has_one :consultation_participation, foreign_key: :edition_id, dependent: :destroy
-  has_many :consultation_responses, through: :document
-  has_one :published_consultation_response, through: :document
 
   has_one :response, foreign_key: :edition_id, dependent: :destroy
 
@@ -52,12 +50,16 @@ class Consultation < Edition
     true
   end
 
+  def published_consultation_response
+    response if response && response.published?
+  end
+
   def response_published?
-    closed? && published_consultation_response.present?
+    closed? && published_consultation_response
   end
 
   def response_published_on
-    published_consultation_response.first_published_at.to_date
+    response.published_on
   end
 
   def last_significantly_changed_on

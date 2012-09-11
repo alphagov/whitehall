@@ -9,8 +9,12 @@ child :nation_inapplicabilities => :nation_inapplicabilities do
   node :alternative_url, if: lambda { |o| o.alternative_url.present? }, &:alternative_url
 end
 
-child :published_consultation_response,
-  if: :published_consultation_response.to_proc do
+child :published_consultation_response do
   object @document.published_consultation_response
-  extends "documents/show"
+  attributes :summary
+
+  child :attachments => :attachments do
+    attributes :title, :content_type, :file_size, :url
+    node :number_of_pages, if: :number_of_pages.to_proc, &:number_of_pages
+  end
 end

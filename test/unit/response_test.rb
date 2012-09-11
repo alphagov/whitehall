@@ -68,4 +68,39 @@ class ResponseTest < ActiveSupport::TestCase
 
     assert_nil ConsultationResponseAttachment.find_by_id(response_attachment.id)
   end
+
+  test "should not be published if there are no attachments" do
+    refute build(:response).published?
+  end
+
+  test "should be published if there is at least one attachment" do
+    response = create(:response)
+    response.attachments.create! title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf')
+
+    assert response.published?
+  end
+
+  test "should use the date that the earliest response attachment was created as the date the response was published" do
+    response = create(:response)
+    attachment = create(:attachment)
+    latest_response_attachment = response.consultation_response_attachments.create!(attachment: attachment, created_at: 1.day.ago)
+    earliest_response_attachment = response.consultation_response_attachments.create!(attachment: attachment, created_at: 1.month.ago)
+
+    assert_equal earliest_response_attachment.created_at, response.published_on
+  end
+
+  test "should return nil if the response isn't published" do
+    response = create(:response)
+    response.stubs(:published?).returns(false)
+
+    assert_equal nil, response.published_on
+  end
+
+  test "should return the alternative_format_contact_email of the consultation" do
+    organisation = create(:organisation_with_alternative_format_contact_email)
+    consultation = create(:consultation, alternative_format_provider: organisation)
+    response = consultation.create_response!
+
+    assert_equal organisation.alternative_format_contact_email, response.alternative_format_contact_email
+  end
 end

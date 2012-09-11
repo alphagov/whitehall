@@ -158,7 +158,8 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test 'closed lists consultations with most recent response appearing before most recently closed' do
     consultation_with_response = create(:published_consultation, opening_on: 4.days.ago, closing_on: 3.days.ago)
-    create(:published_consultation_response, consultation: consultation_with_response, published_at: 1.day.ago)
+    response = consultation_with_response.create_response!
+    response.attachments.create! title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf')
     consultation_without_response = create(:published_consultation, opening_on: 3.days.ago, closing_on: 2.days.ago)
 
     get :closed
@@ -202,22 +203,12 @@ class ConsultationsControllerTest < ActionController::TestCase
   test 'show displays the summary of the published consultation response when there are response attachments' do
     closed_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
     response_attachment = create(:attachment)
-    organisation = create(:organisation_with_alternative_format_contact_email)
-    published_consultation_response = create(:published_consultation_response, title: 'response-title', summary: 'response-summary', consultation: closed_consultation, attachments: [response_attachment], alternative_format_provider: organisation)
+    response = closed_consultation.create_response!(summary: 'response-summary')
+    response.attachments << response_attachment
 
     get :show, id: closed_consultation.document
 
     assert_select '.attachment-details .extra-description', text: 'response-summary'
-  end
-
-  test 'show displays the title and summary of the published consultation response when there are no response attachments' do
-    closed_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
-    published_consultation_response = create(:published_consultation_response, title: 'response-title', summary: 'response-summary', consultation: closed_consultation)
-
-    get :show, id: closed_consultation.document
-
-    assert_select '.response-summary .title', text: 'response-title'
-    assert_select '.response-summary .summary', text: 'response-summary'
   end
 
   test 'show displays consultation dates when consultation has finished' do

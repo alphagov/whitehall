@@ -40,13 +40,20 @@ class ConsultationTest < EditionTestCase
 
   test "#published_consultation_response provides access to the published response" do
     consultation = create(:published_consultation)
-    consultation_response = create(:published_consultation_response, consultation: consultation)
-    assert_equal consultation_response, consultation.published_consultation_response
+    published_response = consultation.create_response!
+    published_response.stubs(:published?).returns(true)
+    assert_equal published_response, consultation.published_consultation_response
   end
 
-  test "#published_consultation_response excludes draft responses" do
+  test "#published_consultation_response returns nil if there is no response for this consultation" do
     consultation = create(:published_consultation)
-    consultation_response = create(:draft_consultation_response, consultation: consultation)
+    assert_nil consultation.published_consultation_response
+  end
+
+  test "#published_consultation_response returns nil if the response isn't published" do
+    consultation = create(:published_consultation)
+    published_response = consultation.create_response!
+    published_response.stubs(:published?).returns(false)
     assert_nil consultation.published_consultation_response
   end
 
@@ -124,9 +131,11 @@ class ConsultationTest < EditionTestCase
     assert_equal 1.day.ago.to_date, consultation.last_significantly_changed_on
   end
 
-  test "should have last significant change on respone first published date for consultation with response" do
+  test "should have last significant change on response first published date for consultation with response" do
     consultation = create(:published_consultation, first_published_at: 4.days.ago, opening_on: 3.days.ago, closing_on: 2.day.ago)
-    create(:published_consultation_response, consultation: consultation, first_published_at: 1.day.ago)
+    response = consultation.create_response!
+    response.stubs(:published?).returns(true)
+    response.stubs(:published_on).returns(1.day.ago)
     assert_equal 1.day.ago.to_date, consultation.last_significantly_changed_on
   end
 
@@ -212,5 +221,34 @@ class ConsultationTest < EditionTestCase
     assert_equal 1, new_draft.response.attachments.length
     assert_equal 'attachment-title', new_draft.response.attachments.first.title
     assert_equal attachment, new_draft.response.attachments.first
+  end
+
+  test "should report that the response has not been published if the consultation is still open" do
+    consultation = create(:consultation, opening_on: 1.day.ago, closing_on: 1.month.from_now)
+
+    refute consultation.response_published?
+  end
+
+  test "should report that the response has not been published if the consultation is closed and there is no response" do
+    consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
+
+    refute consultation.response_published?
+  end
+
+  test "should report that the response has been published if the consultation is closed and the response is published" do
+    consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
+    response = consultation.create_response! summary: 'response-summary'
+    response.stubs(:published?).returns(true)
+
+    assert consultation.response_published?
+  end
+
+  test "should return the published_on date of the response" do
+    today = Date.today
+    consultation = create(:consultation)
+    response = consultation.create_response!
+    response.stubs(:published_on).returns(today)
+
+    assert_equal today, consultation.response_published_on
   end
 end
