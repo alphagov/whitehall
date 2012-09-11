@@ -2,10 +2,11 @@ class Api::SpecialistGuidesController < PublicFacingController
   respond_to :json
 
   def show
-    if @guide = SpecialistGuide.published_as(params[:id])
+    @guide = SpecialistGuide.published_as(params[:id])
+    if @guide
       respond_with Api::SpecialistGuidePresenter.new(@guide)
     else
-      render json: 'Not Found', status: :not_found
+      render json: { _response_info: { status: "not found" } }, status: :not_found
     end
   end
 

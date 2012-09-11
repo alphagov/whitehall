@@ -14,17 +14,22 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
 
     assert_select "form[action=?]", admin_organisation_document_series_index_path(organisation) do
       assert_select "input[type=text][name=?]", "document_series[name]"
+      assert_select "textarea[name=?]", "document_series[description]"
     end
   end
 
   test "create should save a new series" do
     organisation = create(:organisation)
 
-    post :create, organisation_id: organisation, document_series: {name: "series-name"}
+    post :create, organisation_id: organisation, document_series: {
+      name: "series-name",
+      description: "series-description"
+    }
 
     assert_equal 1, organisation.document_series.count
     document_series = organisation.document_series.first
     assert_equal "series-name", document_series.name
+    assert_equal "series-description", document_series.description
     assert_redirected_to admin_organisation_document_series_path(organisation, document_series)
   end
 
@@ -38,6 +43,22 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     assert_select "form" do
       assert_select ".field_with_errors input[name=?]", "document_series[name]"
     end
+  end
+
+  test 'show should display document series attributes' do
+    organisation = create(:organisation, name: "organisation-name")
+    series = create(:document_series,
+      organisation: organisation,
+      name: "series-name",
+      description: "description-in-govspeak"
+    )
+
+    govspeak_transformation_fixture "description-in-govspeak" => "description-in-html" do
+      get :show, organisation_id: organisation, id: series
+    end
+
+    assert_select "h1", "series-name"
+    assert_select ".description", "description-in-html"
   end
 
   test "show lists all associated editions" do
@@ -60,6 +81,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     form_path = admin_organisation_document_series_path(organisation, document_series)
     assert_select "form[action=?]", form_path do
       assert_select "input[type=text][name=?]", "document_series[name]"
+      assert_select "textarea[name=?]", "document_series[description]"
     end
   end
 
@@ -67,11 +89,13 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     document_series = create(:document_series, name: "old-name")
     organisation = document_series.organisation
 
-    put :update, organisation_id: organisation,
-                 id: document_series,
-                 document_series: {name: "new-name"}
+    put :update, organisation_id: organisation, id: document_series, document_series: {
+      name: "new-name",
+      description: "new-description"
+    }
 
     assert_equal "new-name", document_series.reload.name
+    assert_equal "new-description", document_series.reload.description
     assert_redirected_to admin_organisation_document_series_path(organisation, document_series)
   end
 

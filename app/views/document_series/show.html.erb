@@ -7,6 +7,9 @@
       <h1><%= @document_series.name %></h1>
       <p>A document series from <%= link_to @organisation.name, organisation_path(@organisation) %>.</p>
     </header>
+    <div class="description">
+      <%= govspeak_to_html @document_series.description %>
+    </div>
   </div>
 </div>
 

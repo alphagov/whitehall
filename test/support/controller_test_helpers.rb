@@ -16,7 +16,7 @@ module ControllerTestHelpers
   end
 
   def govspeak_transformation_fixture(transformation, &block)
-    methods_to_stub = %w{govspeak_to_html govspeak_to_admin_html}
+    methods_to_stub = %w{bare_govspeak_to_html bare_govspeak_to_admin_html}
     begin
       methods_to_stub.each do |method_name|
         GovspeakHelper.send(:alias_method, "orig_#{method_name}".to_sym, method_name.to_sym)

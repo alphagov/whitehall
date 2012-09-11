@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::SpecialistGuidePresenterTest < PresenterTestCase
   setup do
-    @guide = stub_document(:specialist_guide)
+    @guide = stub_edition(:specialist_guide)
     @guide.stubs(:organisations).returns([])
     @guide.stubs(:published_related_specialist_guides).returns([])
     @presenter = Api::SpecialistGuidePresenter.decorate(@guide)
@@ -22,23 +22,36 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     assert_equal 'guide-title', @presenter.as_json[:title]
   end
 
+  test "json includes the API url as id" do
+    assert_equal api_specialist_guide_url(@guide.document), @presenter.as_json[:id]
+  end
+
   test "json includes the main guide url as web_url" do
     assert_equal specialist_guide_url(@guide.document), @presenter.as_json[:web_url]
   end
 
-  test "json includes the document body as html" do
-    stubs_helper_method(:govspeak_edition_to_html).with(@guide).returns('html-body')
-    assert_equal 'html-body', @presenter.as_json[:details][:body]
+  test "json includes the document body (without govspeak wrapper div) as html" do
+    @guide.stubs(:body).returns("govspeak-body")
+    assert_equal '<p>govspeak-body</p>', @presenter.as_json[:details][:body]
   end
 
-  test "json includes related specialist guides as related artefacts" do
-    related_guide = stub_document(:specialist_guide)
+  test "json includes related specialist guides as related" do
+    related_guide = stub_edition(:specialist_guide)
     @guide.stubs(:published_related_specialist_guides).returns([related_guide])
     guide_json = {
+      id: api_specialist_guide_url(related_guide.document),
       title: related_guide.title,
       web_url: specialist_guide_url(related_guide.document)
     }
-    assert_equal [guide_json], @presenter.as_json[:related_artefacts]
+    assert_equal [guide_json], @presenter.as_json[:related]
+  end
+
+  test "json includes type as format" do
+    assert_equal "specialist_guide", @presenter.as_json[:format]
+  end
+
+  test "json includes _response_info ok if the edition was found" do
+    assert_equal "ok", @presenter.as_json[:_response_info][:status]
   end
 end
 
@@ -50,6 +63,10 @@ class Api::SpecialistGuidePresenter::PagePresenterTest < PresenterTestCase
     @page = Kaminari.paginate_array([@first_result, @second_result]).page(1).per(10)
     @page.stubs(last_page?: false, first_page?: false, current_page: 2)
     @presenter = Api::SpecialistGuidePresenter::PagePresenter.new(@page)
+  end
+
+  test "json includes _response_info ok" do
+    assert_equal "ok", @presenter.as_json[:_response_info][:status]
   end
 
   test "json includes each result in page" do

@@ -6,7 +6,7 @@ module ModelStubbingHelpers
     result
   end
 
-  def stub_document(type, options = {})
+  def stub_edition(type, options = {})
     document = stub_record(:document)
     document.stubs(:to_param).returns(document.slug)
     stub_record(type, options.merge(document: document))

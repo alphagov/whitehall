@@ -5,7 +5,7 @@ class Api::SpecialistGuidesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   test "show responds with JSON representation of found guide" do
-    specialist_guide = stub_document(:specialist_guide)
+    specialist_guide = stub_edition(:specialist_guide)
     SpecialistGuide.stubs(:published_as).with(specialist_guide.slug).returns(specialist_guide)
     presenter = Api::SpecialistGuidePresenter.decorate(specialist_guide)
     presenter.stubs(:as_json).returns(json: :representation)
@@ -19,6 +19,7 @@ class Api::SpecialistGuidesControllerTest < ActionController::TestCase
     SpecialistGuide.stubs(:published_as).returns(nil)
     get :show, id: 'unknown'
     assert_response :not_found
+    assert_equal ActiveSupport::JSON.encode({_response_info: {status: "not found"}}), response.body
   end
 
   test "index paginates published specialist guides" do

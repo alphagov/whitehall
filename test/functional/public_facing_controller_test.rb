@@ -30,6 +30,14 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
+  test "all public facing requests should block WAP requests" do
+    with_routing_to_test_action do
+      @request.env['HTTP_ACCEPT'] = 'application/vnd.wap.xhtml+xml'
+      get :test
+      assert_equal 406, response.status
+    end
+  end
+
   def with_routing_to_test_action(&block)
     with_routing do |map|
       map.draw do

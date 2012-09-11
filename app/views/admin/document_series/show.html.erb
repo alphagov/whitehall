@@ -4,6 +4,8 @@
 
 <h1><%= @document_series.name %></h1>
 
+<div class="description"><%= govspeak_to_html @document_series.description %></div>
+
 <% if @document_series.editions.any? %>
   <ul>
     <% @document_series.editions.each do |edition| %>

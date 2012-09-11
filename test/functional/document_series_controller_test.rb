@@ -22,4 +22,20 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     assert_select_object(publication)
     refute_select_object(draft_publication)
   end
+
+  test 'show should display document series attributes' do
+    organisation = create(:organisation)
+    series = create(:document_series,
+      organisation: organisation,
+      name: "series-name",
+      description: "description-in-govspeak"
+    )
+
+    govspeak_transformation_fixture "description-in-govspeak" => "description-in-html" do
+      get :show, organisation_id: organisation, id: series
+    end
+
+    assert_select "h1", "series-name"
+    assert_select ".description", "description-in-html"
+  end
 end

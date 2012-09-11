@@ -83,7 +83,7 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   def person_has_published_policy!
-    @policy = stub_document(:published_policy, alternative_format_provider_id: next_record_id)
+    @policy = stub_edition(:published_policy, alternative_format_provider_id: next_record_id)
     @role = stub_record(:ministerial_role)
     @role.stubs(:published_policies).returns([@policy])
     @person.stubs(:current_ministerial_roles).returns([@role])
