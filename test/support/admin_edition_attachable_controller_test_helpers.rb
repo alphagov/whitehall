@@ -2,6 +2,54 @@ module AdminEditionAttachableControllerTestHelpers
   extend ActiveSupport::Concern
 
   module ClassMethods
+    def should_require_alternative_format_provider_for(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "creating an edition with an attachment but no alternative_format_provider will get a validation error" do
+        post :create, edition: controller_attributes_for(edition_type,
+          alternative_format_provider_id: "",
+          edition_attachments_attributes: {
+            "0" => { attachment_attributes: attributes_for(:attachment) }
+          }
+        )
+
+        assert_select ".errors li", "Alternative format provider can't be blank"
+      end
+
+      test "updating an edition with an attachment but no alternative_format_provider will get a validation error" do
+        edition = create(edition_type)
+
+        put :update, id: edition, edition: edition.attributes.merge(
+          alternative_format_provider_id: "",
+          edition_attachments_attributes: {
+            "0" => { attachment_attributes: attributes_for(:attachment) }
+          }
+        )
+
+        assert_select ".errors li", "Alternative format provider can't be blank"
+      end
+    end
+
+    def show_should_display_attachments_for(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test 'show displays edition attachments' do
+        two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
+        attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
+        edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
+
+        get :show, id: edition
+
+        assert_select "#attachments" do
+          assert_select_object attachment do
+            assert_select "a[href=?]", attachment.url do
+              assert_select "img[src=?]", attachment.url(:thumbnail)
+            end
+          end
+        end
+      end
+    end
+
     def should_allow_attachments_for(edition_type)
       edition_class = edition_class_for(edition_type)
 
@@ -31,17 +79,6 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal "greenpaper.pdf", attachment.carrierwave_file
         assert_equal "application/pdf", attachment.content_type
         assert_equal greenpaper_pdf.size, attachment.file_size
-      end
-
-      test "creating an edition with an attachment but no alternative_format_provider will get a validation error" do
-        post :create, edition: controller_attributes_for(edition_type,
-          alternative_format_provider_id: "",
-          edition_attachments_attributes: {
-            "0" => { attachment_attributes: attributes_for(:attachment) }
-          }
-        )
-
-        assert_select ".errors li", "Alternative format provider can't be blank"
       end
 
       test "creating an edition should result in a single instance of the uploaded file being cached" do
@@ -135,22 +172,6 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal csv_file.size, attachment_2.file_size
       end
 
-      test 'show displays edition attachments' do
-        two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
-        attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
-        edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
-
-        get :show, id: edition
-
-        assert_select "#attachments" do
-          assert_select_object attachment do
-            assert_select "a[href=?]", attachment.url do
-              assert_select "img[src=?]", attachment.url(:thumbnail)
-            end
-          end
-        end
-      end
-
       test 'edit displays edition attachment fields' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
         attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
@@ -186,19 +207,6 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal "greenpaper.pdf", attachment.carrierwave_file
         assert_equal "application/pdf", attachment.content_type
         assert_equal greenpaper_pdf.size, attachment.file_size
-      end
-
-      test "updating an edition with an attachment but no alternative_format_provider will get a validation error" do
-        edition = create(edition_type)
-
-        put :update, id: edition, edition: edition.attributes.merge(
-          alternative_format_provider_id: "",
-          edition_attachments_attributes: {
-            "0" => { attachment_attributes: attributes_for(:attachment) }
-          }
-        )
-
-        assert_select ".errors li", "Alternative format provider can't be blank"
       end
 
       test 'updating an edition should attach multiple files' do
