@@ -1,15 +1,11 @@
-class Publication < Edition
+class Publication < Publicationesque
   include Edition::Images
   include Edition::NationalApplicability
   include Edition::Ministers
   include Edition::FactCheckable
-  include Edition::RelatedPolicies
-  include ::Attachable
   include Edition::AlternativeFormatProvider
   include Edition::Countries
   include Edition::DocumentSeries
-
-  attachable :edition
 
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true

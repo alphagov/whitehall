@@ -71,7 +71,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_match /National Statistic/, response.body
   end
 
-  test "index only displays published publications" do
+  test "index only displays *published* publications" do
     archived_publication = create(:archived_publication)
     published_publication = create(:published_publication)
     draft_publication = create(:draft_publication)
@@ -82,8 +82,20 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object(draft_publication)
   end
 
+  test "index only displays *published* consultations" do
+    archived_consultation = create(:archived_consultation)
+    published_consultation = create(:published_consultation)
+    draft_consultation = create(:draft_consultation)
+    get :index
+
+    assert_select_object(published_consultation)
+    refute_select_object(archived_consultation)
+    refute_select_object(draft_consultation)
+  end
+
   test 'index should not use n+1 selects' do
-    10.times { create(:published_publication) }
+    5.times { create(:published_publication) }
+    5.times { create(:published_consultation) }
     assert 10 > count_queries { get :index }
   end
 

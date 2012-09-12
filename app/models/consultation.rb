@@ -1,13 +1,9 @@
-class Consultation < Edition
+class Consultation < Publicationesque
   include Edition::Images
   include Edition::NationalApplicability
   include Edition::Ministers
   include Edition::FactCheckable
-  include Edition::RelatedPolicies
-  include ::Attachable
   include Edition::AlternativeFormatProvider
-
-  attachable :edition
 
   validates :opening_on, presence: true
   validates :closing_on, presence: true

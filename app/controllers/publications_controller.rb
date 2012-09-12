@@ -23,7 +23,7 @@ class PublicationsController < DocumentsController
 private
 
   def all_publications
-    Publication.published.includes(:document, :organisations, :attachments)
+    Publicationesque.published.includes(:document, :organisations, :attachments)
   end
 
   def document_class

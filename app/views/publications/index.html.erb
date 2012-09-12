@@ -34,25 +34,25 @@
           </tr>
         </thead>
         <tbody>
-        <% @filter.each_document_with_index do |publication, i| %>
-          <%= content_tag_for(:tr, publication, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
+        <% @filter.each_document_with_index do |document, i| %>
+          <%= content_tag_for(:tr, document, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
             <th scope="row" class="title attribute">
-              <%= link_to publication.title, public_document_path(publication.publication),
-                  title: "View #{publication.title}" %>
+              <%= link_to document.title, public_document_path(document.model),
+                  title: "View #{document.title}" %>
             </th>
             <td class="attribute organisations">
-              <%= publication.organisations.map { |o|
+              <%= document.organisations.map { |o|
                 organisation_display_name(o) }.to_sentence.html_safe %>
             </td>
             <td class="attribute publication_date">
-              <%= publication.display_date_microformat %>
+              <%= document.display_date_microformat %>
             </td>
             <td class="publication_type attribute">
-              <%= publication.display_publication_type %>
+              <%= document.display_publication_type %>
             </td>
             <td class="publication_series attribute">
-              <% if publication.part_of_series? %>
-                Part of a series: <%= link_to publication.document_series.name, organisation_document_series_path(publication.document_series.organisation, publication.document_series) %>
+              <% if document.part_of_series? %>
+                Part of a series: <%= link_to document.document_series.name, organisation_document_series_path(document.document_series.organisation, document.document_series) %>
               <% end %>
             </td>
           <% end %>

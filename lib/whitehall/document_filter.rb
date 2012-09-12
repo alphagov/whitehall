@@ -20,6 +20,8 @@ class Whitehall::DocumentFilter
       decorated = case document
       when Publication
         PublicationPresenter.decorate(document)
+      when Consultation
+        ConsultationPresenter.decorate(document)
       else
         document
       end
