@@ -42,16 +42,6 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal consultation_path(consultation.document), public_document_path(consultation)
   end
 
-  test 'returns the consultation_path for ConsultationResponse instances' do
-    consultation_response = create(:consultation_response)
-    assert_equal consultation_path(consultation_response.consultation.document), public_document_path(consultation_response)
-  end
-
-  test 'returns the consultation_url for ConsultationResponse instances' do
-    consultation_response = create(:consultation_response)
-    assert_equal consultation_url(consultation_response.consultation.document), public_document_url(consultation_response)
-  end
-
   test 'uses the document to generate the supporting page route' do
     policy = create(:policy)
     supporting_page = create(:supporting_page, edition: policy)

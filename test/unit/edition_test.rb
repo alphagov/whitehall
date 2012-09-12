@@ -332,15 +332,13 @@ class EditionTest < ActiveSupport::TestCase
     publication = create(:publication)
     news = create(:news_article)
     speech = create(:speech)
-    consultation_response = create(:consultation_response)
-    consultation = consultation_response.consultation
+    consultation = create(:consultation)
 
     assert_equal [policy], Edition.by_type('Policy')
     assert_equal [publication], Edition.by_type('Publication')
     assert_equal [news], Edition.by_type('NewsArticle')
     assert_equal [speech], Edition.by_type('Speech')
     assert_equal [consultation], Edition.by_type('Consultation')
-    assert_equal [consultation_response], Edition.by_type('ConsultationResponse')
   end
 
   test "should not be featurable" do

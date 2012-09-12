@@ -6,7 +6,7 @@ class Admin::FeaturingsControllerTest < ActionController::TestCase
     request.env["HTTP_REFERER"] = "http://example.com"
   end
 
-  [:news_article, :consultation, :publication, :policy, :consultation_response, :international_priority, :speech].each do |edition_type|
+  [:news_article, :consultation, :publication, :policy, :international_priority, :speech].each do |edition_type|
     test "should not allow featuring a #{edition_type}" do
       edition = create("published_#{edition_type}")
       refute edition.featurable?

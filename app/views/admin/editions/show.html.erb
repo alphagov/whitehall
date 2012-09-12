@@ -169,15 +169,7 @@
   <%= render partial: "rejected_by", locals: { edition: @edition } %>
   <%= render partial: 'navigation', locals: { edition: @edition } %>
 
-  <% if @edition.is_a?(ConsultationResponse) %>
-    <section>
-      <h1>Consultation</h1>
-      <%= content_tag_for :p, @edition.consultation do %>
-        This is a response to the consultation
-        <%= link_to @edition.consultation.title, admin_consultation_path(@edition.consultation) %>
-      <% end %>
-    </section>
-  <% elsif @edition.is_a?(Speech) %>
+  <% if @edition.is_a?(Speech) %>
     <p class="details">
       <span class="type"><%= @edition.speech_type.name %></span>
       for speech delivered by

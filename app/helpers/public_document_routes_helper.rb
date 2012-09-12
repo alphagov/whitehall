@@ -1,10 +1,6 @@
 module PublicDocumentRoutesHelper
   def document_path(edition, options={})
-    if edition.is_a?(ConsultationResponse)
-      consultation_path(edition.consultation.document)
-    else
-      polymorphic_path(model_name(edition), options.merge(id: edition.document))
-    end
+    polymorphic_path(model_name(edition), options.merge(id: edition.document))
   end
 
   def public_document_path(edition, options = {})
@@ -21,11 +17,7 @@ module PublicDocumentRoutesHelper
   end
 
   def document_url(edition, options={})
-    if edition.is_a?(ConsultationResponse)
-      consultation_url(edition.consultation.document, options)
-    else
-      polymorphic_url(model_name(edition), options.merge(id: edition.document))
-    end
+    polymorphic_url(model_name(edition), options.merge(id: edition.document))
   end
 
   def public_document_url(edition, options={})
