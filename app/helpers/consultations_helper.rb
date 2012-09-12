@@ -35,9 +35,9 @@ module ConsultationsHelper
     if consultation.response_published?
       "Consultation outcome"
     elsif consultation.closed?
-      "Closed Consultation"
+      "Closed consultation"
     elsif consultation.open?
-      "Open Consultation"
+      "Open consultation"
     else
       "Consultation"
     end
