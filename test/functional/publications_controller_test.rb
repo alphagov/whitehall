@@ -122,7 +122,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "index highlights selected organisation filter options" do
-    given_two_publications_in_two_organisations
+    given_two_documents_in_two_organisations
 
     get :index, departments: [@organisation_1, @organisation_2]
 
@@ -167,7 +167,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "index highlights all organisations filter options by default" do
-    given_two_publications_in_two_organisations
+    given_two_documents_in_two_organisations
 
     get :index
 
@@ -520,10 +520,10 @@ class PublicationsControllerTest < ActionController::TestCase
 
   private
 
-  def given_two_publications_in_two_organisations
+  def given_two_documents_in_two_organisations
     @organisation_1, @organisation_2 = create(:organisation), create(:organisation)
-    @publication_in_organisation_1 = create(:published_publication, organisations: [@organisation_1])
-    @publication_in_organisation_2 = create(:published_publication, organisations: [@organisation_2])
+    create(:published_publication, organisations: [@organisation_1])
+    create(:published_consultation, organisations: [@organisation_2])
   end
 
   def given_two_documents_in_two_topics

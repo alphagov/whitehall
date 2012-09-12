@@ -52,7 +52,7 @@ class Organisation < ActiveRecord::Base
             source: :edition
   has_many :published_publications,
             through: :edition_organisations,
-            class_name: "Publication",
+            class_name: "Publicationesque",
             conditions: { "editions.state" => "published" },
             source: :edition
   has_many :published_announcements,
