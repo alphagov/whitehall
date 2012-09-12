@@ -1,7 +1,8 @@
-<%= form_for [:admin, @edition, supporting_page] do |form| %>
+<%= form_for supporting_page, url: supporting_page.persisted? ? admin_edition_supporting_page_path(@edition, supporting_page) : admin_edition_supporting_pages_path(@edition), as: disabled ? :disabled_supporting_page : :supporting_page do |form| %>
+  <%= form.errors %>
   <%= form.hidden_field :lock_version %>
   <%= form.text_field :title, disabled: disabled %>
-  <%= form.text_area :body, disabled: disabled, "class" => "previewable" %>
+  <%= form.text_area :body, disabled: disabled, "class" => disabled ? "" : "previewable" %>
 
   <%= render partial: "admin/editions/attachment_fields", locals: { form: form, edition: supporting_page, parent_type: :supporting_page, show_inline_attachment_help: supporting_page.allows_inline_attachments? } %>
 

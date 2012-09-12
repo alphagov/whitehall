@@ -1,7 +1,7 @@
 class Admin::SupportingPagesController < Admin::BaseController
   include PublicDocumentRoutesHelper
 
-  before_filter :find_edition, only: [:new, :create]
+  before_filter :find_edition
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -14,6 +14,7 @@ class Admin::SupportingPagesController < Admin::BaseController
     if @supporting_page.save
       redirect_to admin_edition_path(@edition), notice: "The supporting page was added successfully"
     else
+      build_attachment
       flash[:alert] = "There was a problem: #{@supporting_page.errors.full_messages.to_sentence}"
       render :new
     end
@@ -31,12 +32,14 @@ class Admin::SupportingPagesController < Admin::BaseController
       redirect_to admin_supporting_page_path(@supporting_page), notice: "The supporting page was updated successfully"
     else
       flash[:alert] = "There was a problem: #{@supporting_page.errors.full_messages.to_sentence}"
+      build_attachment
       render :edit
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = %{This page has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}
     @conflicting_supporting_page = SupportingPage.find(params[:id])
     @supporting_page.lock_version = @conflicting_supporting_page.lock_version
+    build_attachment
     render action: "edit"
   end
 
@@ -57,7 +60,7 @@ class Admin::SupportingPagesController < Admin::BaseController
   end
 
   def find_supporting_page
-    @supporting_page = SupportingPage.where(edition_id: params[:edition_id]).find(params[:id])
+    @supporting_page = @edition.supporting_pages.find(params[:id])
   end
 
   def build_attachment

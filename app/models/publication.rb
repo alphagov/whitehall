@@ -4,9 +4,12 @@ class Publication < Edition
   include Edition::Ministers
   include Edition::FactCheckable
   include Edition::RelatedPolicies
-  include Edition::Attachable
+  include ::Attachable
+  include Edition::AlternativeFormatProvider
   include Edition::Countries
   include Edition::DocumentSeries
+
+  attachable :edition
 
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true

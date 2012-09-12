@@ -2,8 +2,11 @@ class SpecialistGuide < Edition
   include Edition::Images
   include Edition::NationalApplicability
   include Edition::Topics
-  include Edition::Attachable
+  include ::Attachable
+  include Edition::AlternativeFormatProvider
   include Edition::FactCheckable
+
+  attachable :edition
 
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)

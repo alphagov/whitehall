@@ -8,6 +8,20 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
+  should_allow_attachments_for :supporting_page
+  
+  def process(action, parameters, session, flash, method)
+    parameters ||= {}
+    if !parameters.has_key?(:edition_id)
+      edition = if parameters[:id]
+        parameters[:id].edition
+      else
+        create(:draft_policy)
+      end
+      parameters = parameters.merge(edition_id: edition)
+    end
+    super(action, parameters, session, flash, method)
+  end
 
   test "new form has title and body inputs" do
     edition = create(:draft_policy)
