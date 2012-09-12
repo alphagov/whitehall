@@ -7,7 +7,6 @@ class ConsultationTest < EditionTestCase
   should_be_attachable
   should_allow_inline_attachments
   should_allow_a_summary_to_be_written
-  should_allow_a_body_to_be_written
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
   test "should not be valid without an opening on date" do

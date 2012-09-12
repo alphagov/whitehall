@@ -8,9 +8,7 @@
     <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
   <% end %>
 
-  <% if form.object.can_have_body? %>
-    <%= form.text_area :body, "class" => "previewable" %>
-  <% end %>
+  <%= form.text_area :body, "class" => "previewable" %>
 
   <% if form.object.allows_body_to_be_paginated? %>
     <%= form.check_box :paginate_body, label_text: 'Create a page for each top level heading?' %>
