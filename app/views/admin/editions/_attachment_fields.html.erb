@@ -1,5 +1,5 @@
 <fieldset id="<%= parent_type %>_attachment_fields" class="attachments multiple_file_uploads">
-  <legend>Attachments</legend>
+  <legend><%= defined?(legend) ? legend : "Attachments" %></legend>
   <% i = 0 %>
   <%= form.fields_for "#{parent_type}_attachments" do |edition_attachments_fields| %>
     <% if edition_attachments_fields.object.new_record? %>

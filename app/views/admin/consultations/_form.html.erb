@@ -1,5 +1,8 @@
 <%= standard_edition_form(edition) do |form| %>
-  <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition, show_inline_attachment_help: edition.allows_inline_attachments? }%>
+  <%= render partial: 'attachment_fields', locals: {
+              form: form, edition: edition, parent_type: :edition,
+              show_inline_attachment_help: edition.allows_inline_attachments?,
+              legend: 'Attachments - Consultation documents' } %>
 
   <fieldset>
     <legend>Associations</legend>
@@ -13,7 +16,9 @@
     <legend>Consultation response</legend>
     <%= form.fields_for :response do |response_fields| %>
       <%= response_fields.text_area :summary, rows: 2 %>
-      <%= render partial: 'attachment_fields', locals: { form: response_fields, edition: edition, parent_type: :consultation_response, show_inline_attachment_help: false }%>
+      <%= render partial: 'attachment_fields', locals: {
+                  form: response_fields, edition: edition, parent_type: :consultation_response,
+                  show_inline_attachment_help: false, legend: 'Attachments - Consultation response documents' } %>
     <% end %>
   </fieldset>
 <% end %>
