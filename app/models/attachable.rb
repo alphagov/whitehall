@@ -19,10 +19,12 @@ module Attachable
       end
       accepts_nested_attributes_for attachment_join_table_name, reject_if: no_substantive_attachment_attributes, allow_destroy: true
 
-      add_trait do
-        def process_associations_after_save(edition)
-          @edition.attachments.each do |a|
-            edition.send(edition.class.attachment_join_table_name).create(attachment_id: a.id)
+      if respond_to?(:add_trait)
+        add_trait do
+          def process_associations_after_save(edition)
+            @edition.attachments.each do |a|
+              edition.send(edition.class.attachment_join_table_name).create(attachment_id: a.id)
+            end
           end
         end
       end
@@ -35,6 +37,10 @@ module Attachable
 
   def allows_attachments?
     true
+  end
+
+  def allows_attachment_references?
+    false
   end
 
   def allows_inline_attachments?

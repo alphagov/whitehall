@@ -2,18 +2,11 @@ class SupportingPage < ActiveRecord::Base
   include Searchable
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
+  include ::Attachable
 
   belongs_to :edition
 
-  has_many :supporting_page_attachments
-  has_many :attachments, through: :supporting_page_attachments
-
-  accepts_nested_attributes_for :supporting_page_attachments, reject_if: :no_substantive_attachment_attributes?, allow_destroy: true
-
-  def no_substantive_attachment_attributes?(attrs)
-    attrs.fetch(:attachment_attributes, {}).except(:accessible).values.all?(&:blank?)
-  end
-  private :no_substantive_attachment_attributes?
+  attachable :supporting_page
 
   validates :title, :body, :edition, presence: true
 
@@ -36,17 +29,6 @@ class SupportingPage < ActiveRecord::Base
   def normalize_friendly_id(value)
     value = value.gsub(/'/, '') if value
     super value
-  end
-
-  def allows_attachments?
-  end
-
-  def allows_attachment_references?
-    false
-  end
-
-  def allows_inline_attachments?
-    true
   end
 
   def alternative_format_contact_email
