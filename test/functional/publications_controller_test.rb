@@ -323,21 +323,8 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "a.feed[href=?]", feed_url
   end
 
-  test "index can return an atom feed of documents matching the current filter" do
+  test "index generates an atom feed for the current filter" do
     org = create(:organisation, name: "org-name")
-    other_org = create(:organisation, name: "other-org")
-    create(:published_publication,
-      title: "publication-title",
-      organisations: [org],
-      publication_date: Date.parse("2012-03-14"),
-      publication_type: PublicationType::CorporateReport
-    )
-    create(:published_publication,
-      title: "publication-title",
-      organisations: [other_org],
-      publication_date: Date.parse("2012-03-14"),
-      publication_type: PublicationType::CorporateReport
-    )
 
     get :index, format: :atom, departments: [org.to_param]
 
@@ -349,7 +336,40 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
                     publications_url(format: :atom, departments: [org.to_param]), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+    end
+  end
 
+  test "index generates an atom feed entries for publications matching the current filter" do
+    org = create(:organisation, name: "org-name")
+    other_org = create(:organisation, name: "other-org")
+    create(:published_publication, organisations: [org])
+    create(:published_publication, organisations: [other_org])
+
+    get :index, format: :atom, departments: [org.to_param]
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 1 do |entries|
+        entries.each do |entry|
+          assert_select entry, 'entry > id', 1
+          assert_select entry, 'entry > published', 1
+          assert_select entry, 'entry > updated', 1
+          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
+          assert_select entry, 'entry > title', 1
+          assert_select entry, 'entry > content[type=?]', 'html', 1
+        end
+      end
+    end
+  end
+
+  test "index generates an atom feed entries for consultations matching the current filter" do
+    org = create(:organisation, name: "org-name")
+    other_org = create(:organisation, name: "other-org")
+    create(:published_consultation, organisations: [org])
+    create(:published_consultation, organisations: [other_org])
+
+    get :index, format: :atom, departments: [org.to_param]
+
+    assert_select_atom_feed do
       assert_select 'feed > entry', count: 1 do |entries|
         entries.each do |entry|
           assert_select entry, 'entry > id', 1
