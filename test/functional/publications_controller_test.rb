@@ -157,6 +157,27 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal "publication_#{publications.first.id}", css_select(".filter-results .document-row").last['id']
   end
 
+  test "index orders consultations by first_published_at date by default" do
+    consultations = 5.times.map {|i| create(:published_consultation, first_published_at: (10 - i).days.ago) }
+
+    get :index
+
+    assert_equal "consultation_#{consultations.last.id}", css_select(".filter-results .document-row").first['id']
+    assert_equal "consultation_#{consultations.first.id}", css_select(".filter-results .document-row").last['id']
+  end
+
+  test "index orders documents by appropriate timestamp by default" do
+    documents = [
+      consultation = create(:published_consultation, first_published_at: 5.days.ago),
+      publication = create(:published_publication, publication_date: 4.days.ago)
+    ]
+
+    get :index
+
+    assert_equal "publication_#{publication.id}", css_select(".filter-results .document-row").first['id']
+    assert_equal "consultation_#{consultation.id}", css_select(".filter-results .document-row").last['id']
+  end
+
   test "index highlights all topics filter option by default" do
     given_two_documents_in_two_topics
 
@@ -215,8 +236,29 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal publication.id, json["id"]
     assert_equal publication_path(publication.document), json["url"]
     assert_equal "org-name and other-org", json["organisations"]
-    assert_equal "<abbr class=\"publication_date\" title=\"2012-03-14\">14 March 2012</abbr>", json["publication_date"]
+    assert_equal %{<abbr class="publication_date" title="2012-03-14">14 March 2012</abbr>}, json["publication_date"]
     assert_equal "Corporate report", json["publication_type"]
+  end
+
+  test "index requested as JSON includes data for consultations" do
+    org = create(:organisation, name: "org-name")
+    org2 = create(:organisation, name: "other-org")
+    consultation = create(:published_consultation, title: "consultation-title",
+                         organisations: [org, org2],
+                         first_published_at: Time.zone.parse("2012-03-14"))
+
+    get :index, format: :json
+
+    results = ActiveSupport::JSON.decode(response.body)["results"]
+    assert_equal 1, results.length
+    json = results.first
+    assert_equal "consultation", json["type"]
+    assert_equal "consultation-title", json["title"]
+    assert_equal consultation.id, json["id"]
+    assert_equal consultation_path(consultation.document), json["url"]
+    assert_equal "org-name and other-org", json["organisations"]
+    assert_equal %{<abbr class="first_published_at" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["publication_date"]
+    assert_equal "Open consultation", json["publication_type"]
   end
 
   test "index requested as JSON includes URL to the atom feed including any filters" do
