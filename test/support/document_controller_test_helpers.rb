@@ -386,8 +386,10 @@ module DocumentControllerTestHelpers
     end
 
     def should_paginate(edition_type, options={})
+      options.reverse_merge!(timestamp_key: :first_published_at)
+
       test "index should only show a certain number of #{edition_type.to_s.pluralize} by default" do
-        documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", publication_date: i.days.ago) }
+        documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", options[:timestamp_key] => i.days.ago) }
         documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
         get :index
@@ -397,7 +399,7 @@ module DocumentControllerTestHelpers
       end
 
       test "index should show window of pagination for #{edition_type}" do
-        documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-window-pagination", publication_date: i.days.ago) }
+        documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
         documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
         get :index, page: 2

@@ -15,7 +15,8 @@ class PublicationsControllerTest < ActionController::TestCase
   should_show_change_notes :publication
   should_show_inapplicable_nations :publication
   should_be_previewable :publication
-  should_paginate :publication
+  should_paginate :publication, timestamp_key: :publication_date
+  should_paginate :consultation
   should_return_json_suitable_for_the_document_filter :publication
   should_return_json_suitable_for_the_document_filter :consultation
 
