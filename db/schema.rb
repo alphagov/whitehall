@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912105635) do
+ActiveRecord::Schema.define(:version => 20120912134556) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -215,7 +215,6 @@ ActiveRecord::Schema.define(:version => 20120912105635) do
     t.text     "notes_to_editors"
     t.text     "summary"
     t.integer  "speech_type_id"
-    t.integer  "consultation_document_id"
     t.boolean  "featured",                                                        :default => false
     t.boolean  "stub",                                                            :default => false
     t.text     "change_note"
@@ -233,7 +232,6 @@ ActiveRecord::Schema.define(:version => 20120912105635) do
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
   end
 
-  add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
   add_index "editions", ["first_published_at"], :name => "index_editions_on_first_published_at"
   add_index "editions", ["publication_date"], :name => "index_editions_on_publication_date"
