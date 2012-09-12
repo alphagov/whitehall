@@ -4,7 +4,7 @@ class Publication < Edition
   include Edition::Ministers
   include Edition::FactCheckable
   include Edition::RelatedPolicies
-  include Edition::Attachable
+  include ::Attachable
   include Edition::Countries
   include Edition::DocumentSeries
 

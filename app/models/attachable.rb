@@ -1,4 +1,4 @@
-module Edition::Attachable
+module Attachable
   extend ActiveSupport::Concern
   include Edition::AlternativeFormatProvider
 

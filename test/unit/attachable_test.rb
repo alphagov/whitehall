@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Edition::AttachableTest < ActiveSupport::TestCase
+class AttachableTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test "allows attachment" do

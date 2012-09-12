@@ -4,7 +4,7 @@ class Consultation < Edition
   include Edition::Ministers
   include Edition::FactCheckable
   include Edition::RelatedPolicies
-  include Edition::Attachable
+  include ::Attachable
 
   validates :opening_on, presence: true
   validates :closing_on, presence: true

@@ -2,7 +2,7 @@ class SpecialistGuide < Edition
   include Edition::Images
   include Edition::NationalApplicability
   include Edition::Topics
-  include Edition::Attachable
+  include ::Attachable
   include Edition::FactCheckable
 
   class Trait < Edition::Traits::Trait
