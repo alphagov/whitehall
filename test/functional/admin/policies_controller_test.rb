@@ -117,12 +117,4 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     refute_select "article.document .image img"
   end
-
-  def controller_attributes_for(edition_type, attributes = {})
-    if edition_type == :policy
-      organisation = create(:organisation_with_alternative_format_contact_email)
-      attributes = {alternative_format_provider_id: organisation.id}.merge(attributes)
-    end
-    super(edition_type, attributes)
-  end
 end

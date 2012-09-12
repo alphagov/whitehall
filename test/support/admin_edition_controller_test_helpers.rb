@@ -1517,8 +1517,4 @@ module AdminEditionControllerTestHelpers
       end
     end
   end
-
-  def controller_attributes_for(edition_type, attributes = {})
-    attributes_for(edition_type, attributes)
-  end
 end
