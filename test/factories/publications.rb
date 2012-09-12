@@ -3,7 +3,7 @@ FactoryGirl.define do
     title "publication-title"
     body  "publication-body"
     summary "publication-summary"
-    publication_date { 10.days.ago }
+    publication_date { 10.days.ago.to_date }
     publication_type_id { PublicationType::PolicyPaper.id }
 
     trait(:corporate) do

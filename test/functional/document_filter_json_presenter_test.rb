@@ -86,7 +86,7 @@ class PublicationFilterJsonPresenterTest < PresenterTestCase
     @filter.stubs(:documents).returns([publication])
     json = JSON.parse(PublicationFilterJsonPresenter.new(@filter).to_json)
     assert_equal 1, json['results'].size
-    assert_equal "<abbr class=\"publication_date\" title=\"2011-11-01T11:11:11+00:00\">1 November 2011 11:11</abbr>", json['results'].first["publication_date"]
+    assert_equal %{<abbr class="publication_date" title="2011-11-01">1 November 2011</abbr>}, json['results'].first["publication_date"]
     assert_equal "Policy paper", json['results'].first["publication_type"]
   end
 end
