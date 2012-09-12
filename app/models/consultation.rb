@@ -11,8 +11,6 @@ class Consultation < Publicationesque
 
   has_one :consultation_participation, foreign_key: :edition_id, dependent: :destroy
 
-  has_one :response, foreign_key: :edition_id, dependent: :destroy
-
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes

@@ -94,10 +94,20 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object(draft_consultation)
   end
 
-  test 'index should not use n+1 selects' do
-    5.times { create(:published_publication) }
-    5.times { create(:published_consultation) }
-    assert 10 > count_queries { get :index }
+  test 'index should not use n+1 selects for publications' do
+    15.times { create(:published_publication) }
+    number_of_queries = count_queries { get :index }
+    assert number_of_queries < 15
+  end
+
+  test 'index should not use n+1 selects for consultations with outcomes' do
+    15.times do
+      consultation = create(:published_consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
+      response = consultation.create_response!
+      response.attachments << build(:attachment)
+    end
+    number_of_queries = count_queries { get :index }
+    assert number_of_queries < 15
   end
 
   test "index highlights selected topic filter options" do
