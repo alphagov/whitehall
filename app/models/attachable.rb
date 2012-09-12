@@ -1,6 +1,5 @@
 module Attachable
   extend ActiveSupport::Concern
-  include Edition::AlternativeFormatProvider
 
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)

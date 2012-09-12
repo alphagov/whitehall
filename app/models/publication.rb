@@ -5,6 +5,7 @@ class Publication < Edition
   include Edition::FactCheckable
   include Edition::RelatedPolicies
   include ::Attachable
+  include Edition::AlternativeFormatProvider
   include Edition::Countries
   include Edition::DocumentSeries
 

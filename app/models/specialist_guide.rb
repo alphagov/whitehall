@@ -3,6 +3,7 @@ class SpecialistGuide < Edition
   include Edition::NationalApplicability
   include Edition::Topics
   include ::Attachable
+  include Edition::AlternativeFormatProvider
   include Edition::FactCheckable
 
   class Trait < Edition::Traits::Trait
