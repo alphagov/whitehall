@@ -20,15 +20,6 @@ class Document < ActiveRecord::Base
            class_name: 'Edition',
            conditions: { state: %w[ published archived ] }
 
-  has_many :consultation_responses,
-           class_name: 'ConsultationResponse',
-           foreign_key: :consultation_document_id,
-           dependent: :destroy
-  has_one  :published_consultation_response,
-           class_name: 'ConsultationResponse',
-           foreign_key: :consultation_document_id,
-           conditions: { state: 'published' }
-
   has_one  :latest_edition,
            class_name: 'Edition',
            conditions: %{
@@ -65,10 +56,6 @@ class Document < ActiveRecord::Base
 
   def change_history
     editions = ever_published_editions.significant_change.by_published_at
-    if published_consultation_response.present?
-      consultation_response_proxy = OpenStruct.new(published_at: published_consultation_response.published_at, change_note: "Government response added")
-      editions = (editions + [consultation_response_proxy]).sort_by(&:published_at).reverse
-    end
 
     first_edition = editions.pop
     oldest_change = Change.new(first_published_date, first_edition ? first_edition.change_note : nil)

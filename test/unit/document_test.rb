@@ -70,14 +70,6 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal nil, EditionRelation.find_by_id(relationship.id)
   end
 
-  test "#destroy also destroys related consultation responses" do
-    consultation = create(:published_consultation)
-    consultation_response = create(:published_consultation_response, consultation: consultation)
-    document = consultation.document
-    document.destroy
-    refute ConsultationResponse.find_by_id(consultation_response.id)
-  end
-
   test "should list change history when only one edition with a minor change exists" do
     edition = create(:published_policy, published_at: 1.day.ago, minor_change: true)
 
@@ -131,19 +123,5 @@ class DocumentTest < ActiveSupport::TestCase
 
     history = document.change_history
     assert_equal 4.days.ago, history[0].published_at
-  end
-
-  test "should add an entry to the parent consultation's change history when a response is published for said consultation" do
-    consultation_publication_date = 1.month.ago
-    consultation_response_publication_date = 2.weeks.ago
-    consultation = create(:published_consultation, published_at: consultation_publication_date)
-    consultation_response = create(:published_consultation_response, consultation: consultation, published_at: consultation_response_publication_date)
-
-    newest_change_note, oldest_change_note = consultation.document.change_history
-
-    assert_equal "Government response added", newest_change_note.note
-    assert_equal consultation_response_publication_date, newest_change_note.published_at
-    assert_equal "First published.", oldest_change_note.note
-    assert_equal consultation_publication_date, oldest_change_note.published_at
   end
 end
