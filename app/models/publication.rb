@@ -9,6 +9,8 @@ class Publication < Edition
   include Edition::Countries
   include Edition::DocumentSeries
 
+  attachable :edition
+
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true
 

@@ -1,30 +1,36 @@
 module Attachable
   extend ActiveSupport::Concern
 
-  class Trait < Edition::Traits::Trait
-    def process_associations_after_save(edition)
-      @edition.attachments.each do |a|
-        edition.edition_attachments.create(attachment_id: a.id)
+  module ClassMethods
+    class Trait < Edition::Traits::Trait
+      def process_associations_after_save(edition)
+        edition.related_editions = @edition.related_editions
+      end
+    end
+
+    def attachable(class_name)
+      self.attachment_join_table_name = "#{class_name}_attachments".to_sym
+
+      has_many attachment_join_table_name, foreign_key: "#{class_name}_id", dependent: :destroy
+      has_many :attachments, through: attachment_join_table_name
+
+      no_substantive_attachment_attributes = ->(attrs) do
+        attrs.fetch(:attachment_attributes, {}).except(:accessible).values.all?(&:blank?)
+      end
+      accepts_nested_attributes_for attachment_join_table_name, reject_if: no_substantive_attachment_attributes, allow_destroy: true
+
+      add_trait do
+        def process_associations_after_save(edition)
+          @edition.attachments.each do |a|
+            edition.send(edition.class.attachment_join_table_name).create(attachment_id: a.id)
+          end
+        end
       end
     end
   end
 
   included do
-    has_many :edition_attachments, foreign_key: "edition_id", dependent: :destroy
-    has_many :attachments, through: :edition_attachments
-
-    accepts_nested_attributes_for :edition_attachments, reject_if: :no_substantive_attachment_attributes?, allow_destroy: true
-
-    def no_substantive_attachment_attributes?(attrs)
-      attrs.fetch(:attachment_attributes, {}).except(:accessible).values.all?(&:blank?)
-    end
-    private :no_substantive_attachment_attributes?
-
-    add_trait Trait
-  end
-
-  def alternative_format_provider_required?
-    attachments.any? || edition_attachments.any? {|ea| ea.attachment.present? }
+    class_attribute :attachment_join_table_name
   end
 
   def allows_attachments?

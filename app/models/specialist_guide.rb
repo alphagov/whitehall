@@ -6,6 +6,8 @@ class SpecialistGuide < Edition
   include Edition::AlternativeFormatProvider
   include Edition::FactCheckable
 
+  attachable :edition
+
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
       edition.outbound_related_documents = @edition.outbound_related_documents

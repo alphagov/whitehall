@@ -2,6 +2,8 @@ class ConsultationResponse < Edition
   include ::Attachable
   include Edition::AlternativeFormatProvider
 
+  attachable :edition
+
   belongs_to :consultation_document, foreign_key: :consultation_document_id, class_name: 'Document'
 
   validates_presence_of :consultation
