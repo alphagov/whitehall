@@ -31,7 +31,7 @@ class ConsultationsController < DocumentsController
 
   def load_consultations_from_scope(scope)
     scope.published.includes(
-      :document, :attachments, :published_consultation_response, :organisations
+      :document, :attachments, :response, :organisations
     ).sort_by { |c|
       [c.last_significantly_changed_on, c.first_published_at]
     }.reverse

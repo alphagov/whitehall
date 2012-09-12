@@ -50,7 +50,8 @@ class ConsultationsHelperTest < ActionView::TestCase
 
   test "#consultation_time_remaining_phrase when response published" do
     consultation = build(:consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
-    response = build(:consultation_response, consultation: consultation, first_published_at: Date.new(2011, 10, 10))
+    response = consultation.create_response!
+    response.attachments << build(:attachment)
     consultation.stubs(:published_consultation_response).returns(response)
     assert_equal "", consultation_time_remaining_phrase(consultation)
   end

@@ -3,10 +3,10 @@ require 'test_helper'
 class Admin::EditionsController
   class EditionFilterTest < ActiveSupport::TestCase
     test "should filter by edition type" do
-      policy = create(:consultation_response)
+      policy = create(:policy)
       another_edition = create(:publication)
 
-      assert_equal [policy], EditionFilter.new(Edition, type: 'consultation_response').editions
+      assert_equal [policy], EditionFilter.new(Edition, type: 'policy').editions
     end
 
     test "should filter by edition state" do

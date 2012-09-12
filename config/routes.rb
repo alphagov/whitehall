@@ -118,7 +118,6 @@ Whitehall::Application.routes.draw do
         resources :international_priorities, path: "international-priorities", except: [:index]
         resources :news_articles, path: 'news', except: [:index]
         resources :consultations, except: [:index]
-        resources :consultation_responses, path: 'responses', except: [:index]
         resources :speeches, except: [:index]
         resources :specialist_guides, path: "specialist-guides", except: [:index]
         resources :people, except: [:show]

@@ -39,11 +39,6 @@
             <%= render partial: "documents/attachment_full_width",
                       locals: { document: @document.published_consultation_response,
                                 title: "Download the consultation outcome" } %>
-          <% else %>
-            <div class="response-summary">
-              <h2 class="title"><%= @document.published_consultation_response.title %></h2>
-              <p class="summary"><%= @document.published_consultation_response.summary %></p>
-            </div>
           <% end %>
         <% elsif @document.closed? %>
           <h2>We are analysing your responses</h2>

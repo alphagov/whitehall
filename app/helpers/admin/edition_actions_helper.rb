@@ -48,22 +48,6 @@ module Admin::EditionActionsHelper
     button_to 'Delete', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?", class: "btn btn-danger"
   end
 
-  def show_or_add_consultation_response_button(consultation)
-    if consultation.latest_consultation_response
-      show_consultation_response_button(consultation)
-    else
-      add_consultation_response_button(consultation)
-    end
-  end
-
-  def add_consultation_response_button(consultation)
-    link_to 'Add response', new_admin_consultation_response_path(edition: {consultation_id: consultation}), title: "Add response", class: "btn"
-  end
-
-  def show_consultation_response_button(consultation)
-    link_to 'Show response', admin_consultation_response_path(consultation.latest_consultation_response), title: "Show response", class: "btn"
-  end
-
   private
 
   def publish_edition_alerts(edition, force)

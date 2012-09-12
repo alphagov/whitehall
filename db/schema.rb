@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120907132752) do
+ActiveRecord::Schema.define(:version => 20120912134556) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(:version => 20120907132752) do
     t.string   "email"
     t.integer  "consultation_response_form_id"
     t.text     "postal_address"
+  end
+
+  create_table "consultation_response_attachments", :force => true do |t|
+    t.integer  "response_id"
+    t.integer  "attachment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "consultation_response_forms", :force => true do |t|
@@ -208,7 +215,6 @@ ActiveRecord::Schema.define(:version => 20120907132752) do
     t.text     "notes_to_editors"
     t.text     "summary"
     t.integer  "speech_type_id"
-    t.integer  "consultation_document_id"
     t.boolean  "featured",                                                        :default => false
     t.boolean  "stub",                                                            :default => false
     t.text     "change_note"
@@ -226,7 +232,6 @@ ActiveRecord::Schema.define(:version => 20120907132752) do
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
   end
 
-  add_index "editions", ["consultation_document_id"], :name => "index_editions_on_consultation_document_id"
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
   add_index "editions", ["first_published_at"], :name => "index_editions_on_first_published_at"
   add_index "editions", ["publication_date"], :name => "index_editions_on_publication_date"
@@ -374,6 +379,13 @@ ActiveRecord::Schema.define(:version => 20120907132752) do
   end
 
   add_index "recent_edition_openings", ["edition_id", "editor_id"], :name => "index_recent_edition_openings_on_edition_id_and_editor_id", :unique => true
+
+  create_table "responses", :force => true do |t|
+    t.integer  "edition_id"
+    t.text     "summary"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "role_appointments", :force => true do |t|
     t.integer  "role_id"

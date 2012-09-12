@@ -14,10 +14,11 @@ class Consultation < Edition
   validate :closing_on_must_be_after_opening_on
 
   has_one :consultation_participation, foreign_key: :edition_id, dependent: :destroy
-  has_many :consultation_responses, through: :document
-  has_one :published_consultation_response, through: :document
+
+  has_one :response, foreign_key: :edition_id, dependent: :destroy
 
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
+  accepts_nested_attributes_for :response, reject_if: :all_blank_or_empty_hashes
 
   add_trait do
     def process_associations_after_save(edition)
@@ -25,11 +26,15 @@ class Consultation < Edition
         attributes = @edition.consultation_participation.attributes.except("id", "edition_id")
         edition.create_consultation_participation(attributes)
       end
-    end
-  end
 
-  def latest_consultation_response
-    consultation_responses.order("id DESC").first
+      if @edition.response.present?
+        response_attributes = @edition.response.attributes.except('edition_id')
+        new_response = edition.create_response(response_attributes)
+        @edition.response.attachments.each do |attachment|
+          new_response.consultation_response_attachments.create(attachment: attachment)
+        end
+      end
+    end
   end
 
   def not_yet_open?
@@ -48,12 +53,16 @@ class Consultation < Edition
     true
   end
 
+  def published_consultation_response
+    response if response && response.published?
+  end
+
   def response_published?
-    closed? && published_consultation_response.present?
+    closed? && published_consultation_response
   end
 
   def response_published_on
-    published_consultation_response.first_published_at.to_date
+    response.published_on
   end
 
   def last_significantly_changed_on

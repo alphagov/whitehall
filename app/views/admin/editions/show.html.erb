@@ -22,6 +22,25 @@
     <div class="tab-content">
       <section class="document_page tab-pane active" id="document">
         <%= render partial: 'edition', locals: { edition: @edition } %>
+
+        <% if @edition.is_a?(Consultation) && @edition.response.present? %>
+          <section class="consultation_response">
+            <h1>Consultation response</h1>
+            <% if @edition.response.summary.present? %>
+              <span class="summary"><%= @edition.response.summary %></span>
+            <% end %>
+            <% if @edition.response.attachments.any? %>
+              <ul class="attachments">
+                <% @edition.response.attachments.each do |attachment| %>
+                  <li class="attachment">
+                    <%= link_to attachment.title, attachment.file.url, class: 'title' %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </section>
+        <% end %>
+
       </section>
       <% if @edition.change_note_required? %>
         <section id="change-note" class="tab-pane">
@@ -150,15 +169,7 @@
   <%= render partial: "rejected_by", locals: { edition: @edition } %>
   <%= render partial: 'navigation', locals: { edition: @edition } %>
 
-  <% if @edition.is_a?(ConsultationResponse) %>
-    <section>
-      <h1>Consultation</h1>
-      <%= content_tag_for :p, @edition.consultation do %>
-        This is a response to the consultation
-        <%= link_to @edition.consultation.title, admin_consultation_path(@edition.consultation) %>
-      <% end %>
-    </section>
-  <% elsif @edition.is_a?(Speech) %>
+  <% if @edition.is_a?(Speech) %>
     <p class="details">
       <span class="type"><%= @edition.speech_type.name %></span>
       for speech delivered by

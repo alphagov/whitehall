@@ -30,7 +30,8 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test 'index lists consultations with most recent significant change first' do
     consultation_1 = create(:published_consultation, first_published_at: 7.days.ago, opening_on: 6.days.ago, closing_on: 5.days.ago)
-    create(:published_consultation_response, consultation: consultation_1, first_published_at: 4.days.ago)
+    response = consultation_1.create_response!
+    response.consultation_response_attachments.create!(attachment: build(:attachment), created_at: 4.days.ago)
     consultation_2 = create(:published_consultation, first_published_at: 5.days.ago, opening_on: 4.days.ago, closing_on: 3.days.ago)
     consultation_3 = create(:published_consultation, first_published_at: 3.days.ago, opening_on: 2.days.ago, closing_on: 1.day.from_now)
     consultation_4 = create(:published_consultation, first_published_at: 1.day.ago, opening_on: 1.day.from_now, closing_on: 2.days.from_now)
@@ -45,7 +46,6 @@ class ConsultationsControllerTest < ActionController::TestCase
     consultation_2 = create(:published_consultation, first_published_at: 2.days.ago, opening_on: 1.day.ago, closing_on: 1.day.from_now)
     consultation_3 = create(:published_consultation, first_published_at: 3.days.ago, opening_on: 2.days.ago, closing_on: 1.day.ago)
     consultation_4 = create(:published_consultation, first_published_at: 4.days.ago, opening_on: 3.days.ago, closing_on: 2.day.ago)
-    create(:published_consultation_response, consultation: consultation_4, first_published_at: 1.day.ago)
 
     get :index
 
@@ -146,10 +146,12 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test 'closed lists consultations with most recent response first' do
     opening_on, closing_on = 4.days.ago, 3.days.ago
-    consultation_with_less_recent_response = create(:published_consultation, opening_on: opening_on, closing_on: closing_on)
-    create(:published_consultation_response, consultation: consultation_with_less_recent_response, published_at: 2.days.ago)
     consultation_with_more_recent_response = create(:published_consultation, opening_on: opening_on, closing_on: closing_on)
-    create(:published_consultation_response, consultation: consultation_with_more_recent_response, published_at: 1.days.ago)
+    response = consultation_with_more_recent_response.create_response!
+    response.consultation_response_attachments.create!(attachment: build(:attachment), created_at: 1.day.ago)
+    consultation_with_less_recent_response = create(:published_consultation, opening_on: opening_on, closing_on: closing_on)
+    response = consultation_with_less_recent_response.create_response!
+    response.consultation_response_attachments.create!(attachment: build(:attachment), created_at: 2.days.ago)
 
     get :closed
 
@@ -158,7 +160,8 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test 'closed lists consultations with most recent response appearing before most recently closed' do
     consultation_with_response = create(:published_consultation, opening_on: 4.days.ago, closing_on: 3.days.ago)
-    create(:published_consultation_response, consultation: consultation_with_response, published_at: 1.day.ago)
+    response = consultation_with_response.create_response!
+    response.attachments.create! title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf')
     consultation_without_response = create(:published_consultation, opening_on: 3.days.ago, closing_on: 2.days.ago)
 
     get :closed
@@ -175,11 +178,9 @@ class ConsultationsControllerTest < ActionController::TestCase
     assert_equal [more_recently_published, less_recently_published], assigns(:consultations)
   end
 
-  test 'closed lists consultations with most recently published first if response on same date' do
-    less_recently_published = create(:published_consultation, first_published_at: 5.days.ago, opening_on: 3.day.ago, closing_on: 2.days.ago)
-    create(:published_consultation_response, consultation: less_recently_published, first_published_at: 1.day.ago)
+  test "closed lists consultations with most recently published first if there aren't any responses" do
     more_recently_published = create(:published_consultation, first_published_at: 4.days.ago, opening_on: 3.days.ago, closing_on: 2.days.ago)
-    create(:published_consultation_response, consultation: more_recently_published, first_published_at: 1.day.ago)
+    less_recently_published = create(:published_consultation, first_published_at: 5.days.ago, opening_on: 3.day.ago, closing_on: 2.days.ago)
 
     get :closed
 
@@ -202,22 +203,12 @@ class ConsultationsControllerTest < ActionController::TestCase
   test 'show displays the summary of the published consultation response when there are response attachments' do
     closed_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
     response_attachment = create(:attachment)
-    organisation = create(:organisation_with_alternative_format_contact_email)
-    published_consultation_response = create(:published_consultation_response, title: 'response-title', summary: 'response-summary', consultation: closed_consultation, attachments: [response_attachment], alternative_format_provider: organisation)
+    response = closed_consultation.create_response!(summary: 'response-summary')
+    response.attachments << response_attachment
 
     get :show, id: closed_consultation.document
 
     assert_select '.attachment-details .extra-description', text: 'response-summary'
-  end
-
-  test 'show displays the title and summary of the published consultation response when there are no response attachments' do
-    closed_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
-    published_consultation_response = create(:published_consultation_response, title: 'response-title', summary: 'response-summary', consultation: closed_consultation)
-
-    get :show, id: closed_consultation.document
-
-    assert_select '.response-summary .title', text: 'response-title'
-    assert_select '.response-summary .summary', text: 'response-summary'
   end
 
   test 'show displays consultation dates when consultation has finished' do
