@@ -1,12 +1,13 @@
 class CorporateInformationPage < ActiveRecord::Base
   extend Forwardable
+  include ::Attachable
 
   delegate [:title, :slug] => :type
   delegate [:alternative_format_contact_email] => :organisation
 
   belongs_to :organisation
-  has_many :corporate_information_page_attachments
-  has_many :attachments, through: :corporate_information_page_attachments
+
+  attachable :corporate_information_page
 
   validates :organisation, :body, :type, presence: true
   validates :type_id, uniqueness: {scope: :organisation_id, message: "already exists for this organisation"}

@@ -1,14 +1,17 @@
-<%= form_for [:admin, organisation, corporate_information_page] do |form| %>
+<%= form_for [:admin, organisation, corporate_information_page], as: disabled ? :disabled_corporate_information_page : :corporate_information_page do |form| %>
   <%= form.hidden_field :lock_version %>
+  <%= form.errors %>
   
   <% unless form.object.persisted? %>
     <%= form.label :type_id, 'Type' %>
-    <%= form.select :type_id, corporate_information_page_types, {disabled: organisation.corporate_information_pages.map(&:type_id), allow_blank: true}, {class: 'chzn-select', data: { placeholder: "Type of page..." }} %>
+    <%= form.select :type_id, corporate_information_page_types, {disabled: organisation.corporate_information_pages.map(&:type_id), allow_blank: true}, {class: 'chzn-select', data: { placeholder: "Type of page..." }, disabled: disabled} %>
   <% end %>
 
-  <%= form.text_area :summary, label_text: "Summary", "class" => "previewable", rows: 3 %>
+  <%= form.text_area :summary, label_text: "Summary", "class" => "previewable", rows: 3, disabled: disabled %>
 
-  <%= form.text_area :body, label_text: "Body", "class" => "previewable" %>
+  <%= form.text_area :body, label_text: "Body", "class" => "previewable", disabled: disabled %>
+
+  <%= render partial: "admin/editions/attachment_fields", locals: { form: form, edition: corporate_information_page, parent_type: :corporate_information_page } %>
   
   <%= form.save_or_cancel cancel: admin_organisation_path(@organisation) %>
 <% end %>

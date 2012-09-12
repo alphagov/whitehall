@@ -80,6 +80,7 @@ module AdminEditionAttachableControllerTestHelpers
 
         post :create, edition_base_class_name => attributes
 
+        assert_equal [], css_select('.errors')
         assert edition = edition_class.last
         assert_equal 1, edition.attachments.length
         attachment = edition.attachments.first
@@ -102,7 +103,7 @@ module AdminEditionAttachableControllerTestHelpers
       end
 
       test "creating an edition with invalid data should still show attachment fields" do
-        post :create, edition_base_class_name => controller_attributes_for(edition_type, title: "")
+        post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type))
 
         assert_select "form##{edition_base_class_name}_new" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][type='text']"
@@ -113,12 +114,11 @@ module AdminEditionAttachableControllerTestHelpers
       test "creating an edition with invalid data should only allow a single attachment to be selected for upload" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        post :create, edition_base_class_name => controller_attributes_for(edition_type,
-          title: "",
+        post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
           attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
-        )
+        ))
 
         assert_select "form##{edition_base_class_name}_new" do
           assert_select "input[name*='#{edition_base_class_name}[#{attachment_join_attributes}]'][type='file']", count: 1
@@ -128,12 +128,11 @@ module AdminEditionAttachableControllerTestHelpers
       test "creating an edition with invalid data but valid attachment data should still display the attachment data" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        post :create, edition_base_class_name => controller_attributes_for(edition_type,
-          title: "",
+        post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
           attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
-        )
+        ))
 
         assert_select "form##{edition_base_class_name}_new" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][value='attachment-title']"
@@ -149,7 +148,7 @@ module AdminEditionAttachableControllerTestHelpers
           "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
         }
 
-        post :create, edition_base_class_name => attributes.merge(title: '')
+        post :create, edition_base_class_name => make_invalid(attributes)
 
         refute_select "p.attachment"
       end
@@ -243,7 +242,7 @@ module AdminEditionAttachableControllerTestHelpers
 
       test "updating an edition with invalid data should still allow attachment to be selected for upload" do
         edition = create(edition_type)
-        put :update, id: edition, edition_base_class_name => edition.attributes.merge(title: "")
+        put :update, id: edition, edition_base_class_name => make_invalid(edition.attributes)
 
         assert_select "form##{edition_base_class_name}_edit" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file]'][type='file']"
@@ -254,12 +253,11 @@ module AdminEditionAttachableControllerTestHelpers
         edition = create(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        put :update, id: edition, edition_base_class_name => controller_attributes_for(edition_type,
-          title: "",
+        put :update, id: edition, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
           attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
-        )
+        ))
 
         assert_select "form##{edition_base_class_name}_edit" do
           assert_select "input[name*='#{edition_base_class_name}[#{attachment_join_attributes}]'][type='file']", count: 1
@@ -270,12 +268,11 @@ module AdminEditionAttachableControllerTestHelpers
         edition = create(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        put :update, id: edition, edition_base_class_name => controller_attributes_for(edition_type,
-          title: "",
+        put :update, id: edition, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
           attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
-        )
+        ))
 
         assert_select "form##{edition_base_class_name}_edit" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][value='attachment-title']"
@@ -285,7 +282,7 @@ module AdminEditionAttachableControllerTestHelpers
       end
 
       test "updating a stale edition should still display attachment fields" do
-        edition = create("draft_#{edition_type}")
+        edition = create_draft(edition_type)
         lock_version = edition.lock_version
         edition.touch
 
@@ -299,7 +296,7 @@ module AdminEditionAttachableControllerTestHelpers
 
       test "updating a stale edition should only allow a single attachment to be selected for upload" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-        edition = create("draft_#{edition_type}")
+        edition = create_draft(edition_type)
         lock_version = edition.lock_version
         edition.touch
 
@@ -335,5 +332,13 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal [attachment_2], edition.attachments
       end
     end
+  end
+
+  def create_draft(edition_type)
+    create("draft_#{edition_type}")
+  end
+
+  def make_invalid(controller_attributes)
+    controller_attributes.merge(title: "")
   end
 end

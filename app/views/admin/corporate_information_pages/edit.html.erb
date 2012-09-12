@@ -5,7 +5,18 @@
 <div class="row-fluid">
   <div class="span8">
     <section>
-      <%= render partial: "form", locals: {organisation: @organisation, corporate_information_page: @corporate_information_page} %>
+      <% if @conflicting_corporate_information_page %>
+        <div class="row-fluid">
+          <div class="conflicting new span6">
+            <%= render partial: "form", locals: {disabled: false, organisation: @organisation, corporate_information_page: @corporate_information_page} %>
+          </div>
+          <div class="conflicting latest span6">
+            <%= render partial: "form", locals: {disabled: true, organisation: @organisation, corporate_information_page: @conflicting_corporate_information_page} %>
+          </div>
+        </div>
+      <% else %>
+        <%= render partial: "form", locals: {disabled: false, organisation: @organisation, corporate_information_page: @corporate_information_page} %>
+      <% end %>
     </section>
   </div>
 

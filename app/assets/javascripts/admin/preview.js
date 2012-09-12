@@ -38,7 +38,8 @@
       var attachmentNodes = function() {
         var selectors = [
           "fieldset.attachments input[type=hidden][name^='edition[edition_attachments_attributes]'][name$='[attachment_attributes][id]']",
-          "fieldset.attachments input[type=hidden][name^='supporting_page[supporting_page_attachments_attributes]'][name$='[attachment_attributes][id]']"
+          "fieldset.attachments input[type=hidden][name^='supporting_page[supporting_page_attachments_attributes]'][name$='[attachment_attributes][id]']",
+          "fieldset.attachments input[type=hidden][name^='corporate_information_page[corporate_information_page_attachments_attributes]'][name$='[attachment_attributes][id]']"
         ]
         return $(selectors.join(','));
       };

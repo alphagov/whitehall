@@ -2,12 +2,6 @@ module Attachable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    class Trait < Edition::Traits::Trait
-      def process_associations_after_save(edition)
-        edition.related_editions = @edition.related_editions
-      end
-    end
-
     def attachable(class_name)
       self.attachment_join_table_name = "#{class_name}_attachments".to_sym
 

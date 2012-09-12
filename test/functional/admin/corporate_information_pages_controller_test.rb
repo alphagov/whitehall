@@ -7,6 +7,28 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   end
 
   should_be_an_admin_controller
+  should_allow_attachments_for :corporate_information_page
+
+  def process(action, parameters, session, flash, method)
+    parameters ||= {}
+    if !parameters.has_key?(:organisation_id)
+      organisation = if parameters[:id]
+        parameters[:id].organisation
+      else
+        create(:organisation_with_alternative_format_contact_email)
+      end
+      parameters = parameters.merge(organisation_id: organisation)
+    end
+    super(action, parameters, session, flash, method)
+  end
+
+  def make_invalid(controller_attributes)
+    controller_attributes.merge(body: "")
+  end
+
+  def create_draft(edition_type)
+    create(edition_type)
+  end
 
   test "GET :new should display form" do
     get :new, organisation_id: @organisation
