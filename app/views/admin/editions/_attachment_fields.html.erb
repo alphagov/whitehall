@@ -1,4 +1,4 @@
-<fieldset id="attachment_fields" class="attachments multiple_file_uploads">
+<fieldset id="<%= parent_type %>_attachment_fields" class="attachments multiple_file_uploads">
   <legend>Attachments</legend>
   <% i = 0 %>
   <%= form.fields_for "#{parent_type}_attachments" do |edition_attachments_fields| %>
