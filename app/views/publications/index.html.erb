@@ -34,10 +34,10 @@
           </tr>
         </thead>
         <tbody>
-        <% @filter.each_document_with_index do |document, i| %>
+        <% @filter.documents.each_with_index do |document, i| %>
           <%= content_tag_for(:tr, document, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
             <th scope="row" class="title attribute">
-              <%= link_to document.title, public_document_path(document.model),
+              <%= link_to document.title, public_document_path(document),
                   title: "View #{document.title}" %>
             </th>
             <td class="attribute organisations">

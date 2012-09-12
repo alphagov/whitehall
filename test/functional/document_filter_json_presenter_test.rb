@@ -83,7 +83,7 @@ class PublicationFilterJsonPresenterTest < PresenterTestCase
     document.stubs(:to_param).returns('some-doc')
     organisation = stub_record(:organisation, name: "Ministry of Silly", organisation_type: stub_record(:organisation_type))
     publication = stub_record("publication", document: document, organisations: [organisation])
-    @filter.stubs(:documents).returns([publication])
+    @filter.stubs(:documents).returns(PublicationesquePresenter.decorate([publication]))
     json = JSON.parse(PublicationFilterJsonPresenter.new(@filter).to_json)
     assert_equal 1, json['results'].size
     assert_equal %{<abbr class="publication_date" title="2011-11-01">1 November 2011</abbr>}, json['results'].first["publication_date"]

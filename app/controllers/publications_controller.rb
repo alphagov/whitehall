@@ -1,8 +1,15 @@
 class PublicationsController < DocumentsController
+  class PublicationesqueDecorator < SimpleDelegator
+    def documents
+      PublicationesquePresenter.decorate(__getobj__.documents)
+    end
+  end
+
   def index
     params[:page] ||= 1
     params[:direction] ||= "before"
-    @filter = Whitehall::DocumentFilter.new(all_publications, params)
+    document_filter = Whitehall::DocumentFilter.new(all_publications, params)
+    @filter = PublicationesqueDecorator.new(document_filter)
 
     respond_to do |format|
       format.html

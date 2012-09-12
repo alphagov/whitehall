@@ -15,20 +15,6 @@ class Whitehall::DocumentFilter
     apply_sort_direction!
   end
 
-  def each_document_with_index
-    @documents.each_with_index do |document, index|
-      decorated = case document
-      when Publication
-        PublicationPresenter.decorate(document)
-      when Consultation
-        ConsultationPresenter.decorate(document)
-      else
-        document
-      end
-      yield(decorated, index)
-    end
-  end
-
   def all_topics
     Topic.with_content.order(:name)
   end

@@ -67,6 +67,7 @@ module PublicDocumentRoutesHelper
   private
 
   def model_name(edition)
-    edition.class.name.split("::").first.underscore
+    klass = edition.is_a?(Draper::Base) ? edition.model.class : edition.class
+    klass.name.split("::").first.underscore
   end
 end

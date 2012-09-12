@@ -17,6 +17,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_be_previewable :publication
   should_paginate :publication
   should_return_json_suitable_for_the_document_filter :publication
+  should_return_json_suitable_for_the_document_filter :consultation
 
   test 'show displays published publications' do
     published_publication = create(:published_publication)

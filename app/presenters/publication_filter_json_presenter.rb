@@ -5,10 +5,8 @@ class PublicationFilterJsonPresenter < DocumentFilterJsonPresenter
 
   def document_hash(document)
     to_merge = {
-      publication_date: h.render_datetime_microformat(document, :publication_date) {
-        document.publication_date.to_s(:long_ordinal)
-      }.html_safe,
-      publication_type: document.publication_type.singular_name,
+      publication_date: document.display_date_microformat,
+      publication_type: document.display_publication_type,
       publication_series: ""
     }
     if document.part_of_series?
