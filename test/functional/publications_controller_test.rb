@@ -326,17 +326,20 @@ class PublicationsControllerTest < ActionController::TestCase
   test "index can return an atom feed of documents matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
-    publication = create(:published_publication, title: "publication-title",
-                         organisations: [org],
-                         publication_date: Date.parse("2012-03-14"),
-                         publication_type: PublicationType::CorporateReport)
-    other_publication = create(:published_publication, title: "publication-title",
-                         organisations: [other_org],
-                         publication_date: Date.parse("2012-03-14"),
-                         publication_type: PublicationType::CorporateReport)
+    create(:published_publication,
+      title: "publication-title",
+      organisations: [org],
+      publication_date: Date.parse("2012-03-14"),
+      publication_type: PublicationType::CorporateReport
+    )
+    create(:published_publication,
+      title: "publication-title",
+      organisations: [other_org],
+      publication_date: Date.parse("2012-03-14"),
+      publication_type: PublicationType::CorporateReport
+    )
 
-
-    get :index, format: :atom, departments: [org]
+    get :index, format: :atom, departments: [org.to_param]
 
     assert_select_atom_feed do
       assert_select 'feed > id', 1
@@ -344,10 +347,10 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select 'feed > author, feed > entry > author'
       assert_select 'feed > updated', 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-                    publications_url(format: :atom, departments: [org]), 1
+                    publications_url(format: :atom, departments: [org.to_param]), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
 
-      assert_select 'feed > entry' do |entries|
+      assert_select 'feed > entry', count: 1 do |entries|
         entries.each do |entry|
           assert_select entry, 'entry > id', 1
           assert_select entry, 'entry > published', 1
