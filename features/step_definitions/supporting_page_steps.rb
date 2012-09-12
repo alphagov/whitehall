@@ -72,7 +72,7 @@ end
 
 Then /^I should see the conflict between the supporting page titles "([^"]*)" and "([^"]*)"$/ do |new_title, latest_title|
   assert page.has_css?(".conflicting.new #supporting_page_title", value: new_title)
-  assert page.has_css?(".conflicting.latest #supporting_page_title[disabled]", value: latest_title)
+  assert page.has_css?(".conflicting.latest #disabled_supporting_page_title[disabled]", value: latest_title)
 end
 
 Then /^I should see in the preview that "([^"]*)" includes the "([^"]*)" supporting page$/ do |title, supporting_title|

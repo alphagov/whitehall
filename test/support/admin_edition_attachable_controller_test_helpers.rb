@@ -4,11 +4,14 @@ module AdminEditionAttachableControllerTestHelpers
   module ClassMethods
     def should_require_alternative_format_provider_for(edition_type)
       edition_class = edition_class_for(edition_type)
+      edition_base_class_name = edition_class.base_class.name.underscore
+      attachment_join_table = edition_class.reflect_on_association(:attachments).through_reflection.table_name
+      attachment_join_attributes = "#{attachment_join_table}_attributes".to_sym
 
       test "creating an edition with an attachment but no alternative_format_provider will get a validation error" do
-        post :create, edition: controller_attributes_for(edition_type,
+        post :create, edition_base_class_name => controller_attributes_for(edition_type,
           alternative_format_provider_id: "",
-          edition_attachments_attributes: {
+          attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment) }
           }
         )
@@ -19,9 +22,9 @@ module AdminEditionAttachableControllerTestHelpers
       test "updating an edition with an attachment but no alternative_format_provider will get a validation error" do
         edition = create(edition_type)
 
-        put :update, id: edition, edition: edition.attributes.merge(
+        put :update, id: edition, edition_base_class_name => edition.attributes.merge(
           alternative_format_provider_id: "",
-          edition_attachments_attributes: {
+          attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment) }
           }
         )
@@ -32,6 +35,9 @@ module AdminEditionAttachableControllerTestHelpers
 
     def show_should_display_attachments_for(edition_type)
       edition_class = edition_class_for(edition_type)
+      edition_base_class_name = edition_class.base_class.name.underscore
+      attachment_join_table = edition_class.reflect_on_association(:attachments).through_reflection.table_name
+      attachment_join_attributes = "#{attachment_join_table}_attributes".to_sym
 
       test 'show displays edition attachments' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
@@ -52,25 +58,27 @@ module AdminEditionAttachableControllerTestHelpers
 
     def should_allow_attachments_for(edition_type)
       edition_class = edition_class_for(edition_type)
+      edition_base_class_name = edition_class.base_class.name.underscore
+      attachment_join_table = edition_class.reflect_on_association(:attachments).through_reflection.table_name
+      attachment_join_attributes = "#{attachment_join_table}_attributes".to_sym
 
       test "new displays edition attachment fields" do
         get :new
 
-        assert_select "form#edition_new" do
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+        assert_select "form##{edition_base_class_name}_new" do
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file]'][type='file']"
         end
       end
 
       test 'creating an edition should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(edition_type)
-        attributes[:alternative_format_provider_id] = create(:alternative_format_provider).id
-        attributes[:edition_attachments_attributes] = {
+        attributes[attachment_join_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
         }
 
-        post :create, edition: attributes
+        post :create, edition_base_class_name => attributes
 
         assert edition = edition_class.last
         assert_equal 1, edition.attachments.length
@@ -84,64 +92,64 @@ module AdminEditionAttachableControllerTestHelpers
       test "creating an edition should result in a single instance of the uploaded file being cached" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(edition_type)
-        attributes[:edition_attachments_attributes] = {
+        attributes[attachment_join_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
         }
 
         Attachment.any_instance.expects(:file=).once
 
-        post :create, edition: attributes
+        post :create, edition_base_class_name => attributes
       end
 
       test "creating an edition with invalid data should still show attachment fields" do
-        post :create, edition: controller_attributes_for(edition_type, title: "")
+        post :create, edition_base_class_name => controller_attributes_for(edition_type, title: "")
 
-        assert_select "form#edition_new" do
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+        assert_select "form##{edition_base_class_name}_new" do
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file]'][type='file']"
         end
       end
 
       test "creating an edition with invalid data should only allow a single attachment to be selected for upload" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        post :create, edition: controller_attributes_for(edition_type,
+        post :create, edition_base_class_name => controller_attributes_for(edition_type,
           title: "",
-          edition_attachments_attributes: {
+          attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
         )
 
-        assert_select "form#edition_new" do
-          assert_select "input[name*='edition[edition_attachments_attributes]'][type='file']", count: 1
+        assert_select "form##{edition_base_class_name}_new" do
+          assert_select "input[name*='#{edition_base_class_name}[#{attachment_join_attributes}]'][type='file']", count: 1
         end
       end
 
       test "creating an edition with invalid data but valid attachment data should still display the attachment data" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        post :create, edition: controller_attributes_for(edition_type,
+        post :create, edition_base_class_name => controller_attributes_for(edition_type,
           title: "",
-          edition_attachments_attributes: {
+          attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
 
-        assert_select "form#edition_new" do
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+        assert_select "form##{edition_base_class_name}_new" do
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][value='attachment-title']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
           assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
 
       test 'creating an edition with invalid data should not show any existing attachment info' do
-        attributes = controller_attributes_for(edition_type, alternative_format_provider_id: create(:alternative_format_provider).id)
+        attributes = controller_attributes_for(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-        attributes[:edition_attachments_attributes] = {
+        attributes[attachment_join_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
         }
 
-        post :create, edition: attributes.merge(title: '')
+        post :create, edition_base_class_name => attributes.merge(title: '')
 
         refute_select "p.attachment"
       end
@@ -150,13 +158,12 @@ module AdminEditionAttachableControllerTestHelpers
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attributes = controller_attributes_for(edition_type)
-        attributes[:alternative_format_provider_id] = create(:alternative_format_provider).id
-        attributes[:edition_attachments_attributes] = {
+        attributes[attachment_join_attributes] = {
           "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
           "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
         }
 
-        post :create, edition: attributes
+        post :create, edition_base_class_name => attributes
 
         assert edition = edition_class.last
         assert_equal 2, edition.attachments.length
@@ -179,23 +186,22 @@ module AdminEditionAttachableControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][type='text'][value='attachment-title']"
+        assert_select "form##{edition_base_class_name}_edit" do
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][type='text'][value='attachment-title']"
           assert_select ".attachment" do
             assert_select "a", text: %r{two-pages.pdf$}
           end
-          assert_select "input[name='edition[edition_attachments_attributes][1][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='edition[edition_attachments_attributes][1][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][1][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][1][attachment_attributes][file]'][type='file']"
         end
       end
 
       test 'updating an edition should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-        edition = create(edition_type)
+        edition = create(edition_type, :with_alternative_format_provider)
 
-        put :update, id: edition, edition: edition.attributes.merge(
-          alternative_format_provider_id: create(:alternative_format_provider).id,
-          edition_attachments_attributes: {
+        put :update, id: edition, edition_base_class_name => edition.attributes.merge(
+          attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
@@ -212,11 +218,10 @@ module AdminEditionAttachableControllerTestHelpers
       test 'updating an edition should attach multiple files' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
-        edition = create(edition_type)
+        edition = create(edition_type, :with_alternative_format_provider)
 
-        put :update, id: edition, edition: edition.attributes.merge(
-          alternative_format_provider_id: create(:alternative_format_provider).id,
-          edition_attachments_attributes: {
+        put :update, id: edition, edition_base_class_name => edition.attributes.merge(
+          attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
             "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
           }
@@ -238,10 +243,10 @@ module AdminEditionAttachableControllerTestHelpers
 
       test "updating an edition with invalid data should still allow attachment to be selected for upload" do
         edition = create(edition_type)
-        put :update, id: edition, edition: edition.attributes.merge(title: "")
+        put :update, id: edition, edition_base_class_name => edition.attributes.merge(title: "")
 
-        assert_select "form#edition_edit" do
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+        assert_select "form##{edition_base_class_name}_edit" do
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -249,15 +254,15 @@ module AdminEditionAttachableControllerTestHelpers
         edition = create(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        put :update, id: edition, edition: controller_attributes_for(edition_type,
+        put :update, id: edition, edition_base_class_name => controller_attributes_for(edition_type,
           title: "",
-          edition_attachments_attributes: {
+          attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
         )
 
-        assert_select "form#edition_edit" do
-          assert_select "input[name*='edition[edition_attachments_attributes]'][type='file']", count: 1
+        assert_select "form##{edition_base_class_name}_edit" do
+          assert_select "input[name*='#{edition_base_class_name}[#{attachment_join_attributes}]'][type='file']", count: 1
         end
       end
 
@@ -265,16 +270,16 @@ module AdminEditionAttachableControllerTestHelpers
         edition = create(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        put :update, id: edition, edition: controller_attributes_for(edition_type,
+        put :update, id: edition, edition_base_class_name => controller_attributes_for(edition_type,
           title: "",
-          edition_attachments_attributes: {
+          attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
           }
         )
 
-        assert_select "form#edition_edit" do
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+        assert_select "form##{edition_base_class_name}_edit" do
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][value='attachment-title']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
           assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
@@ -284,11 +289,11 @@ module AdminEditionAttachableControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, id: edition, edition: edition.attributes.merge(lock_version: lock_version)
+        put :update, id: edition, edition_base_class_name => edition.attributes.merge(lock_version: lock_version)
 
-        assert_select "form#edition_edit" do
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='edition[edition_attachments_attributes][0][attachment_attributes][file]'][type='file']"
+        assert_select "form##{edition_base_class_name}_edit" do
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][type='text']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file]'][type='file']"
         end
       end
 
@@ -298,15 +303,15 @@ module AdminEditionAttachableControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, id: edition, edition: edition.attributes.merge(
+        put :update, id: edition, edition_base_class_name => edition.attributes.merge(
           lock_version: lock_version,
-          edition_attachments_attributes: {
+          attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
           }
         )
 
-        assert_select "form#edition_edit" do
-          assert_select "input[name*='edition[edition_attachments_attributes]'][type='file']", count: 1
+        assert_select "form##{edition_base_class_name}_edit" do
+          assert_select "input[name*='#{edition_base_class_name}[#{attachment_join_attributes}]'][type='file']", count: 1
         end
       end
 
@@ -314,11 +319,11 @@ module AdminEditionAttachableControllerTestHelpers
         attachment_1 = create(:attachment)
         attachment_2 = create(:attachment)
         edition = create(edition_type, :with_alternative_format_provider)
-        edition_attachment_1 = create(:edition_attachment, edition: edition, attachment: attachment_1)
-        edition_attachment_2 = create(:edition_attachment, edition: edition, attachment: attachment_2)
+        edition_attachment_1 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_1)
+        edition_attachment_2 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_2)
 
-        put :update, id: edition, edition: edition.attributes.merge(
-          edition_attachments_attributes: {
+        put :update, id: edition, edition_base_class_name => edition.attributes.merge(
+          attachment_join_attributes => {
             "0" => { id: edition_attachment_1.id.to_s, _destroy: "1" },
             "1" => { id: edition_attachment_2.id.to_s, _destroy: "0" },
             "2" => { attachment_attributes: { file_cache: "" } }
@@ -330,9 +335,5 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal [attachment_2], edition.attachments
       end
     end
-  end
-  
-  def controller_attributes_for(edition_type, attributes = {})
-    attributes_for(edition_type, attributes)
   end
 end
