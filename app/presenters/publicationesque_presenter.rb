@@ -25,15 +25,4 @@ class PublicationesquePresenter < Draper::Base
       raise "Unexpected type: #{publicationesque.type}"
     end
   end
-
-  def part_of_series?
-    case publicationesque
-    when Publication
-      publicationesque.part_of_series?
-    when Consultation
-      false
-    else
-      raise "Unexpected type: #{publicationesque.type}"
-    end
-  end
 end

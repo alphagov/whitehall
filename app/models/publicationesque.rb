@@ -9,6 +9,10 @@ class Publicationesque < Edition
   def self.sti_names
     ([self] + descendants).map { |model| model.sti_name }
   end
+
+  def part_of_series?
+    false
+  end
 end
 
 require_relative 'publication'
