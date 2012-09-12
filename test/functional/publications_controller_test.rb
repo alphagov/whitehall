@@ -101,7 +101,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "index highlights selected topic filter options" do
-    given_two_publications_in_two_topics
+    given_two_documents_in_two_topics
 
     get :index, topics: [@topic_1, @topic_2]
 
@@ -147,7 +147,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "index highlights all topics filter option by default" do
-    given_two_publications_in_two_topics
+    given_two_documents_in_two_topics
 
     get :index
 
@@ -516,9 +516,12 @@ class PublicationsControllerTest < ActionController::TestCase
     @publication_in_organisation_2 = create(:published_publication, organisations: [@organisation_2])
   end
 
-  def given_two_publications_in_two_topics
+  def given_two_documents_in_two_topics
     @topic_1, @topic_2 = create(:topic), create(:topic)
-    @published_publication, @published_in_second_topic = create_publications_in(@topic_1, @topic_2)
+    policy_1 = create(:published_policy, topics: [@topic_1])
+    create(:published_publication, related_policies: [policy_1])
+    policy_2 = create(:published_policy, topics: [@topic_2])
+    create(:published_consultation, related_policies: [policy_2])
   end
 
   def create_publications_in(*topics)

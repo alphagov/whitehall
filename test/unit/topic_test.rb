@@ -291,20 +291,24 @@ class TopicTest < ActiveSupport::TestCase
     refute_includes topics, has_nothing
   end
 
-  test 'should filter out topics without any published publications related via published policies' do
+  test 'should filter out topics without any published publications or consultations related via published policies' do
     has_nothing = create(:topic)
     create(:published_policy, topics: [has_published_policy = create(:topic)])
     create(:draft_publication, related_policies: [create(:published_policy, topics: [has_draft_publication_via_published_policy = create(:topic)])])
+    create(:draft_consultation, related_policies: [create(:published_policy, topics: [has_draft_consultation_via_published_policy = create(:topic)])])
     create(:published_publication, related_policies: [create(:draft_policy, topics: [has_published_publication_via_draft_policy = create(:topic)])])
+    create(:published_consultation, related_policies: [create(:draft_policy, topics: [has_published_consultation_via_draft_policy = create(:topic)])])
     create(:published_consultation, related_policies: [create(:published_policy, topics: [has_published_consultation_via_published_policy = create(:topic)])])
     create(:published_publication, related_policies: [create(:published_policy, topics: [has_published_publication_via_published_policy = create(:topic)])])
 
     topics = Topic.with_related_publications
 
     assert_includes topics, has_published_publication_via_published_policy
-    refute_includes topics, has_published_consultation_via_published_policy
+    assert_includes topics, has_published_consultation_via_published_policy
     refute_includes topics, has_published_publication_via_draft_policy
+    refute_includes topics, has_published_consultation_via_draft_policy
     refute_includes topics, has_draft_publication_via_published_policy
+    refute_includes topics, has_draft_consultation_via_published_policy
     refute_includes topics, has_published_policy
     refute_includes topics, has_nothing
   end
