@@ -34,10 +34,10 @@
           </tr>
         </thead>
         <tbody>
-        <% @filter.documents.each_with_index do |publication, i| %>
+        <% @filter.each_document_with_index do |publication, i| %>
           <%= content_tag_for(:tr, publication, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
             <th scope="row" class="title attribute">
-              <%= link_to publication.title, public_document_path(publication),
+              <%= link_to publication.title, public_document_path(publication.publication),
                   title: "View #{publication.title}" %>
             </th>
             <td class="attribute organisations">
@@ -45,12 +45,10 @@
                 organisation_display_name(o) }.to_sentence.html_safe %>
             </td>
             <td class="attribute publication_date">
-              <%= render_datetime_microformat(publication, :publication_date) {
-                    publication.publication_date.to_s(:long_ordinal)
-              }%>
+              <%= publication.display_date_microformat %>
             </td>
             <td class="publication_type attribute">
-              <%= publication.publication_type.singular_name %>
+              <%= publication.display_publication_type %>
             </td>
             <td class="publication_series attribute">
               <% if publication.part_of_series? %>
