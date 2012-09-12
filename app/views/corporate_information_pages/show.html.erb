@@ -1,39 +1,31 @@
 <% page_title @corporate_information_page.title %>
 
-<div class="corporate-information-page <%= @corporate_information_page.slug %>">
-  <div class="block-1">
+<%= content_tag_for(:div, @corporate_information_page) do %>
+  <%= content_tag_for(:div, @corporate_information_page.organisation, class: "block-1") do %>
     <div class="inner-block">
       <section class="page-header icon">
-        <h1 class="page_title">
-          <span class="title"><%= @corporate_information_page.title %></span>
+        <h1 class="page_title name">
+          <span class="title"><%= @corporate_information_page.organisation.name %> &ndash; <%= @corporate_information_page.title %></span>
         </h1>
       </section>
     </div>
-  </div>
-
-    <div class="block-2">
-      <div class="inner-block">
-        <section id="document-organisations" class="heading-block">
-          <h1>Published by</h1>
-          <div class="content">
-            <%= render  partial: 'organisations/organisations_logo_list',
-                        locals: {
-                          organisations: [@corporate_information_page.organisation],
-                          extra_class: 'single-line',
-                          remove_line_breaks: true
-                        } %>
-          </div>
-        </section>
-        <section id="details" class="heading-block">
-          <h1>Detail</h1>
-          <div class="content">
-            <article>
-              <div class="body">
-                <%= govspeak_edition_to_html @corporate_information_page %>
+  <% end %>
+  <div class="block-2">
+    <div class="inner-block">
+      <section id="details">
+        <div class="content">
+          <article>
+            <% if @corporate_information_page.summary.present? %>
+              <div class="summary">
+                <%= @corporate_information_page.summary %>
               </div>
-            </article>
-          </div>
-        </section>
+            <% end %>
+            <div class="body">
+              <%= govspeak_edition_to_html @corporate_information_page %>
+            </div>
+          </article>
+        </div>
+      </section>
     </div>
   </div>
-</div>
+<% end %>
