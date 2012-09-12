@@ -4,6 +4,6 @@ class PublicationPresenter < Draper::Base
   decorates :publication
 
   def display_date_attribute_name
-    :published_at
+    :publication_date
   end
 end
