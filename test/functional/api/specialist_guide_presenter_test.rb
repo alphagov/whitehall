@@ -49,10 +49,6 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
   test "json includes format name" do
     assert_equal "specialist guidance", @presenter.as_json[:format]
   end
-
-  test "json includes _response_info ok if the edition was found" do
-    assert_equal "ok", @presenter.as_json[:_response_info][:status]
-  end
 end
 
 class Api::SpecialistGuidePresenter::PagePresenterTest < PresenterTestCase
@@ -63,10 +59,6 @@ class Api::SpecialistGuidePresenter::PagePresenterTest < PresenterTestCase
     @page = Kaminari.paginate_array([@first_result, @second_result]).page(1).per(10)
     @page.stubs(last_page?: false, first_page?: false, current_page: 2)
     @presenter = Api::SpecialistGuidePresenter::PagePresenter.new(@page)
-  end
-
-  test "json includes _response_info ok" do
-    assert_equal "ok", @presenter.as_json[:_response_info][:status]
   end
 
   test "json includes each result in page" do
