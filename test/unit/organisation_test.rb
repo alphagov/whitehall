@@ -52,6 +52,14 @@ class OrganisationTest < ActiveSupport::TestCase
     refute organisation.valid?
   end
 
+  test 'should be invalid with a URL that doesnt start with a protocol' do
+    assert build(:organisation, url: nil).valid?
+    assert build(:organisation, url: '').valid?
+    refute build(:organisation, url: "blah").valid?
+    refute build(:organisation, url: "www.example.com").valid?
+    assert build(:organisation, url: "http://www.example.com").valid?
+  end
+
   test "should be orderable ignoring common prefixes" do
     culture = create(:organisation, name: "Department for Culture and Sports")
     education = create(:organisation, name: "Department of Education")
