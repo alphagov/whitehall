@@ -28,4 +28,12 @@ class WhitehallTest < ActiveSupport::TestCase
     ENV['FACTER_govuk_platform'] = nil
     assert_equal 'test', Whitehall.platform
   end
+
+  test 'public host for public-api preview requests is main preview host' do
+    assert_equal 'www.preview.alphagov.co.uk', Whitehall.public_host_for('public-api.preview.alphagov.co.uk')
+  end
+
+  test 'public host for public-api preview is www.gov.uk' do
+    assert_equal 'www.gov.uk', Whitehall.public_host_for('public-api.production.alphagov.co.uk')
+  end
 end

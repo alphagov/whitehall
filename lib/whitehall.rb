@@ -17,7 +17,9 @@ module Whitehall
       'whitehall-admin.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
       'whitehall-admin.production.alphagov.co.uk' => 'www.gov.uk',
       'whitehall-frontend.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
-      'whitehall-frontend.production.alphagov.co.uk' => 'www.gov.uk'
+      'whitehall-frontend.production.alphagov.co.uk' => 'www.gov.uk',
+      'public-api.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
+      'public-api.production.alphagov.co.uk' => 'www.gov.uk'
     }
 
     ADMIN_HOSTS = [

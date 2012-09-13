@@ -62,7 +62,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
     data = {
       title: model.title,
       id: h.api_specialist_guide_url(model.document),
-      web_url: h.specialist_guide_url(model.document),
+      web_url: h.public_document_url(model),
       details: {
         body: h.bare_govspeak_edition_to_html(model)
       },
@@ -78,7 +78,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
       {
         id: h.api_specialist_guide_url(guide.document),
         title: guide.title,
-        web_url: h.specialist_guide_url(guide.document)
+        web_url: h.public_document_url(guide)
       }
     end
   end
