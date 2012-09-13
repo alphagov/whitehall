@@ -12,8 +12,9 @@
             <%= attachment_fields.text_field :isbn, label_text: 'ISBN' %>
             <%= attachment_fields.text_field :unique_reference %>
             <%= attachment_fields.text_field :command_paper_number %>
+            <%= attachment_fields.text_field :order_url, label_text: 'Order URL' %>
+            <%= attachment_fields.text_field :price, label_text: "Price in £s" %>
           <% end %>
-          <%= render partial: 'additional_attachment_fields', locals: {attachment_fields_form: attachment_fields} %>
 
           <%= attachment_fields.label :file %>
           <%= attachment_fields.file_field :file %>
@@ -32,8 +33,9 @@
           <%= attachment_fields.text_field :isbn, label_text: 'ISBN' %>
           <%= attachment_fields.text_field :unique_reference %>
           <%= attachment_fields.text_field :command_paper_number %>
+          <%= attachment_fields.text_field :order_url, label_text: 'Order URL' %>
+          <%= attachment_fields.text_field :price, label_text: "Price in £s" %>
         <% end %>
-        <%= render partial: 'additional_attachment_fields', locals: {attachment_fields_form: attachment_fields} %>
         <%= attachment_fields.check_box :accessible, label_text: "Attachment is accessible" %>
       <% end %>
       <p class="attachment">

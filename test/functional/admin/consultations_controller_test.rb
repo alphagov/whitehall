@@ -72,6 +72,15 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_not_nil consultation.response.consultation_response_attachments.first.attachment
   end
 
+  test "new should allow users to add consultation metadata to an attachment" do
+    get :new
+
+    assert_select "form#edition_new" do
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
+      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][price]']"
+    end
+  end
+
   test "create should create a new consultation" do
     attributes = attributes_for(:consultation,
       consultation_participation_attributes: {
