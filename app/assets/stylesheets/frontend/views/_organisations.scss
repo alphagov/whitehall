@@ -481,31 +481,48 @@ h1.label {
   }
 
   .block-1, .block-2, .block-3, .block-4, .block-5 {
-    clear: both;
     display: block;
-    float: none;
     margin-bottom: $gutter;
-    width: 100%;
     .inner-block {
       padding: 0 $gutter;
     }
   }
 
-  .block-1 { 
+  .block-1, .block-5 {
+    clear: both;
+    float: none;
+    width: 100%;
+  }
+
+  .block-1 {
     margin-bottom: $gutter*2;
   }
 
   .block-3 {
     @include media(desktop) {
+      float: left;
+      width: 34%;
+    }
+
+    .thumbnail {
+      img {
+        box-shadow: 3px 3px 4px #999;
+      }
+    }
+  }
+
+  .block-4 {
+    @include media(desktop) {
+      float: left;
+      width: 66%;
+
       margin-bottom: $gutter*3;
     }
   }
 
-  .block-2, .block-3, .block-4 {
-    .inner-block {
-      @include media(desktop) {
-        padding-left: 25%;
-      }
+  .block-2, .block-5 {
+    @include media(desktop) {
+      padding-left: 34%;
     }
   }
 
@@ -515,7 +532,7 @@ h1.label {
 
   h1.label {
     @include core-19;
-  } 
+  }
 
   .information-block {
     padding-top: $gutter-two-thirds;
@@ -526,5 +543,4 @@ h1.label {
     @include core-24;
     margin-top: $gutter-half;
   }
-
 }

@@ -127,6 +127,30 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'external'
   end
 
+  test "shows a thumbnail link of the organisation site when joining" do
+    organisation = create(:organisation, govuk_status: 'joining', url: 'http://example.com')
+
+    get :show, id: organisation
+
+    assert_select ".thumbnail" do
+      assert_select "a[href=?]", organisation.url do
+        assert_select "img[src$=?]", "#{organisation.slug}.png"
+      end
+    end
+  end
+
+  test "shows a thumbnail link of the organisation site when exempt" do
+    organisation = create(:organisation, govuk_status: 'exempt', url: 'http://example.com')
+
+    get :show, id: organisation
+
+    assert_select ".thumbnail" do
+      assert_select "a[href=?]", organisation.url do
+        assert_select "img[src$=?]", "#{organisation.slug}.png"
+      end
+    end
+  end
+
   test "display a secondary featured editions" do
     organisation = create(:organisation)
     # the first 3 are featured and the 4th will be our secondary featured

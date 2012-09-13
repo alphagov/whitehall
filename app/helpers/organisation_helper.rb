@@ -104,4 +104,8 @@ module OrganisationHelper
       concat account.service_name
     end
   end
+
+  def organisation_site_thumbnail_path(organisation)
+    image_path("organisation_screenshots/#{organisation.slug}.png")
+  end
 end

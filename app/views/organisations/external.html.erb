@@ -19,7 +19,15 @@
     </div>
   </div>
 
-  <div class="block-3 govspeak">
+  <div class="block-3">
+    <div class="inner-block">
+      <section class="thumbnail">
+        <%= link_to image_tag(organisation_site_thumbnail_path(@organisation)), @organisation.url %>
+      </section>
+    </div>
+  </div>
+
+  <div class="block-4 govspeak">
     <div class="inner-block">
       <aside class="govuk-status information-block">
         <% if @organisation.joining? %>
@@ -35,7 +43,7 @@
   </div>
 
   <% if @recently_updated.present? %>
-    <div class="block-4">
+    <div class="block-5">
       <div class="inner-block">
           <section id="recently_updated" class="latest_documents">
             <h1 class="label">Recent mentions on gov.uk</h1>
