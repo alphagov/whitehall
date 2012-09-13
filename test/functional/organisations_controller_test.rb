@@ -2,13 +2,13 @@ require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
 
-  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations, :contact_details, :management_team, :ministers, :policies]
+  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations, :contact_details, :management_team, :policies]
 
   should_be_a_public_facing_controller
 
   test "shows organisation name and description" do
     organisation = create(:organisation,
-      name: "unformatted name",
+      logo_formatted_name: "unformatted name",
       description: "organisation-description"
     )
     get :show, id: organisation
@@ -63,7 +63,6 @@ class OrganisationsControllerTest < ActionController::TestCase
       refute_select "a[href=?]", policies_organisation_path(organisation)
       refute_select "a[href=?]", publications_path(departments: [organisation])
       refute_select "a[href=?]", consultations_organisation_path(organisation)
-      refute_select "a[href=?]", ministers_organisation_path(organisation)
     end
   end
 
@@ -244,10 +243,55 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should display the count of published guides and policies with topics" do
+    topic_1 = create(:topic)
+    topic_2 = create(:topic)
+    organisation = create(:organisation, topics: [topic_1, topic_2])
+    create(:published_policy, organisations: [organisation], topics: [topic_1])
+    create(:published_specialist_guide, organisations: [organisation], topics: [topic_2])
+    create(:published_policy, organisations: [organisation], topics: [topic_2])
+    create(:published_policy, organisations: [organisation], topics: [topic_2])
+
+    get :show, id: organisation
+
+    assert_select '#topics' do
+      assert_select_object topic_1 do
+        assert_select '.policies', text: '1 policy'
+        refute_select '.guides'
+      end
+      assert_select_object topic_2 do
+        assert_select '.guides', text: '1 guide'
+        assert_select '.policies', text: '2 policies'
+      end
+    end
+  end
+
   test "should not display an empty topics section" do
     organisation = create(:organisation)
     get :show, id: organisation
     assert_select "#topics", count: 0
+  end
+
+  test "should display the organisation's policies with content" do
+    organisation = create(:organisation)
+    policies = [0, 1, 2].map { |n| create(:published_policy, organisations: [organisation]) }
+    get :show, id: organisation
+    assert_select "#policies" do
+      assert_select_object policies[1]
+      assert_select_object policies[2]
+      assert_select_object policies[0]
+    end
+  end
+
+  test "should display the organisation's publications with content" do
+    organisation = create(:organisation)
+    publications = [0, 1, 2].map { |n| create(:published_publication, organisations: [organisation]) }
+    get :show, id: organisation
+    assert_select "#publications" do
+      assert_select_object publications[1]
+      assert_select_object publications[2]
+      assert_select_object publications[0]
+    end
   end
 
   test "should display a link to the announcements page for department organisations" do
@@ -496,17 +540,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_object chief_of_staff
   end
 
-  test "should link to the organisation's ministers page" do
-    organisation = create(:organisation)
-    role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:ministerial_role_appointment, role: role)
-    speech = create(:published_speech, role_appointment: role_appointment)
-
-    get :show, id: organisation
-
-    assert_select '#ministers a[href=?]', ministers_organisation_path(organisation)
-  end
-
   test "should link to the organisation's management team page" do
     organisation = create(:organisation)
     create(:board_member_role, organisations: [organisation])
@@ -569,7 +602,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department)
 
-    [:show, :about, :consultations, :contact_details, :management_team, :ministers, :policies].each do |page|
+    [:show, :about, :consultations, :contact_details, :management_team, :policies].each do |page|
       get page, id: organisation
       assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
     end

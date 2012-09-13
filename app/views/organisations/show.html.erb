@@ -15,18 +15,15 @@
       <div>
         <%= render partial: "shared/hero_rotator", locals: {editions: @primary_featured_editions, options: {organisational_context: true}} %>
       </div>
+      <p>
+        <% if @organisation.department? %>
+        <%= link_to "See all our announcements", announcements_filter_path(@organisation) %>
+        <% end %>
+      </p>
     </div>
   </div>
 
-  <div class="block-3">
-    <div class="inner-block">
-      <div class="sidebar<% if @primary_featured_editions.any? %> sub_navigation_container<% end %>">
-        <%= render 'sidebar', organisation: @organisation %>
-      </div>
-    </div>
-  </div>
-
-  <div class="block-4">
+    <div class="block-3">
     <div class="inner-block">
       <% if @secondary_featured_editions.any? %>
       <ul class="secondary-featured">
@@ -50,7 +47,7 @@
     </div>
   </div>
 
-  <div class="block-5">
+  <div class="block-4">
     <div class="inner-block">
       <section id="recently_updated" class="latest_documents">
           <h1 class="label">Latest</h1>
@@ -61,26 +58,86 @@
     </div>
   </div>
 
+  <div class="block-5">
+    <div class="inner-block">
+      <h1 class="label">What we do</h1>
+      <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
+      <p class="description"><%= @organisation.description %></p>
+      <p><%= organisation_navigation_link_to "Read more about #{@organisation.acronym}", about_organisation_path(@organisation) %></p>
+      <p>
+      <% if @organisation.department? %>
+        <%= organisation_navigation_link_to 'See all of our agencies & partners', agencies_and_partners_organisation_path(@organisation) %>
+      <% end %>
+      </p>
+    </div>
+  </div>
+
   <div class="block-6">
     <div class="inner-block">
-      <section id="who">
-        <h1 class="label">People</h1>
-        <% if @top_ministerial_role %>
-          <section id="ministers">
-            <h1 class="visuallyhidden">Minister</h1>
-            <%= content_tag_for(:article, @top_ministerial_role) do %>
-              <div class="image_holder">
-                <%= @top_ministerial_role.current_person_image %>
-              </div>
-              <h3 class="current-appointee"><%= @top_ministerial_role.current_person_link %></h3>
-              <p class="role"><%= @top_ministerial_role.link %></p>
+      <% if @topics.any? %>
+        <section id="topics">
+          <h1 class="label">We focus on these topics</h1>
+          <%= render partial: "topics/list_description", locals: {topics: @topics} %>
+        </section>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="block-7">
+    <div class="inner-block">
+      <% if @policies.any? %>
+        <section id="policies" class="simple_list">
+          <h1 class="label">Our policies</h1>
+          <%= render partial: "policies/list_description", locals: {policies: @policies} %>
+          <p>
+            <% if @organisation.department? %>
+            <%= organisation_navigation_link_to 'See all of our policies', policies_organisation_path(@organisation) %>
             <% end %>
-            <p class="view_all"><%= link_to 'View all ministers', ministers_organisation_path(@organisation) %></p>
+          </p>
+        </section>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="block-8">
+    <div class="inner-block">
+      <% if @publications.any? %>
+        <section id="publications" class="simple_list">
+          <h1 class="label">Our publications</h1>
+          <%= render partial: "publications/list_description", locals: {publications: @publications} %>
+          <p>
+            <% if @organisation.department? %>
+            <%= link_to 'See all of our publications', publications_filter_path(@organisation) %>
+            <% end %>
+          </p>
+        </section>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="block-9">
+    <div class="inner-block">
+      <section id="who">
+        <h1 class="label">Our ministers</h1>
+        <% if @ministers.any? %>
+          <section id="ministers">
+            <ul>
+              <% @ministers.each do |minister| %>
+                <%= content_tag_for(:li, minister) do %>
+                  <h1 class="visuallyhidden">Minister</h1>
+                  <div class="image_holder">
+                    <%= minister.current_person_image %>
+                  </div>
+                  <h3 class="current-appointee"><%= minister.current_person_link %></h3>
+                  <p class="role"><%= minister.link %></p>
+                <% end %>
+              <% end %>
+            </ul>
           </section>
         <% end %>
         <% if @organisation.board_member_roles.any? %>
           <section id="management">
-            <h1 class="visuallyhidden">Management</h1>
+            <h1 class="label">Management</h1>
             <% if @top_civil_servant %>
               <%= content_tag_for(:article, @top_civil_servant) do %>
                 <div class="image_holder">
@@ -95,7 +152,7 @@
         <% end %>
         <% if @organisation.military_roles.any? %>
           <section id="military">
-            <h1 class="visuallyhidden">Military</h1>
+            <h1 class="label">Military</h1>
             <% if @top_military_role %>
               <%= content_tag_for(:article, @top_military_role) do %>
                 <div class="image_holder">
@@ -112,17 +169,18 @@
     </div>
   </div>
 
-  <div class="block-7">
+  <div class="block-10">
     <div class="inner-block">
-      <%= render partial: "documents/topics", object: @organisation.topics_with_content, title: "Our topics" %>
+      <div class="social-media">
+        <%= render 'social_media_accounts', organisation: @organisation %>
+      </div>
     </div>
   </div>
 
-  <div class="block-8">
+  <div class="block-11">
     <div class="inner-block">
-      <ul>
-        <li><a href="https://jobsstatic.civilservice.gov.uk/csjobs.html" rel="external">Jobs</a></li>
-      </ul>
+      <%= render 'navigation', organisation: @organisation %>
     </div>
   </div>
+
 <% end %>
