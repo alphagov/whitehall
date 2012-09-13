@@ -10,6 +10,8 @@
     <tr>
       <th>Acronym</th>
       <th>Name</th>
+      <th>Status</th>
+      <th>URL</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +23,8 @@
           <% end %>
         </td>
         <td class="name"><%= link_to organisation.name, admin_organisation_path(organisation), title: "View #{organisation.name}" %></td>
+        <td><%= organisation.govuk_status %></td>
+        <td><%= link_to organisation.url %></td>
       <% end %>
     <% end %>
     <% if @organisations.empty? %>
