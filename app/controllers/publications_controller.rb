@@ -17,7 +17,7 @@ class PublicationsController < DocumentsController
         render json: PublicationFilterJsonPresenter.new(@filter)
       end
       format.atom do
-        @publications = @filter.documents.by_published_at
+        @publications = @filter.documents
       end
     end
   end

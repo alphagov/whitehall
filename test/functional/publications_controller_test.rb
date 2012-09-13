@@ -383,22 +383,82 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index atom feed shows a list of recently published publications' do
-    publication = create(:published_publication, title: "publication-title",
-                         published_at: Time.zone.parse("2012-04-10 11:00"))
-    other_publication = create(:published_publication, title: "publication-title",
-                         published_at: Time.zone.parse("2012-03-14 09:00"))
+  test 'index atom feed uses publication_date for published and updated fields of a publication' do
+    publication_date = 15.days.ago
+    create(:published_publication, published_at: 1.day.ago, publication_date: publication_date)
 
     get :index, format: :atom
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: Time.zone.parse("2012-04-10 11:00").iso8601
+      formatted_publication_date = publication_date.to_date.to_time.iso8601
+      assert_select 'feed > updated', text: formatted_publication_date
 
       assert_select 'feed > entry' do |entries|
-        entries.zip([publication, other_publication]).each do |entry, document|
-          assert_select entry, 'entry > published', text: document.first_published_at.iso8601
-          assert_select entry, 'entry > updated', text: document.published_at.iso8601
-          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+        assert_select entries.first, 'entry > published', text: formatted_publication_date
+        assert_select entries.first, 'entry > updated', text: formatted_publication_date
+      end
+    end
+  end
+
+  test 'index atom feed uses first_published_at for published and updated fields of a consultation' do
+    first_published_at = 15.days.ago
+    create(:published_consultation, published_at: 1.day.ago, first_published_at: first_published_at)
+
+    get :index, format: :atom
+
+    assert_select_atom_feed do
+      formatted_publication_date = first_published_at.iso8601
+      assert_select 'feed > updated', text: formatted_publication_date
+
+      assert_select 'feed > entry' do |entries|
+        assert_select entries.first, 'entry > published', text: formatted_publication_date
+        assert_select entries.first, 'entry > updated', text: formatted_publication_date
+      end
+    end
+  end
+
+  test 'index atom feed orders publications according to publication_date (newest first)' do
+    oldest = create(:published_publication, published_at: 1.days.ago, publication_date: 5.days.ago, title: "oldest")
+    newest = create(:published_publication, published_at: 5.days.ago, publication_date: 1.days.ago, title: "newest")
+    middle = create(:published_publication, published_at: 8.days.ago, publication_date: 3.days.ago, title: "middle")
+
+    get :index, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry' do |entries|
+        entries.zip([newest, middle, oldest]).each do |entry, document|
+          assert_select entry, 'entry > title', text: document.title
+        end
+      end
+    end
+  end
+
+  test 'index atom feed orders consultations according to first_published_at (newest first)' do
+    oldest = create(:published_consultation, published_at: 1.days.ago, first_published_at: 5.days.ago, title: "oldest")
+    newest = create(:published_consultation, published_at: 5.days.ago, first_published_at: 1.days.ago, title: "newest")
+    middle = create(:published_consultation, published_at: 8.days.ago, first_published_at: 3.days.ago, title: "middle")
+
+    get :index, format: :atom
+    
+    assert_select_atom_feed do
+      assert_select 'feed > entry' do |entries|
+        entries.zip([newest, middle, oldest]).each do |entry, document|
+          assert_select entry, 'entry > title', text: document.title
+        end
+      end
+    end
+  end
+
+  test 'index atom feed orders mixed publications and consultations according to publication_date or first_published_at (newest first)' do
+    oldest = create(:published_publication, published_at: 1.days.ago, publication_date: 5.days.ago, title: "oldest")
+    newest = create(:published_consultation, published_at: 5.days.ago, first_published_at: 1.days.ago, title: "newest")
+    middle = create(:published_publication, published_at: 8.days.ago, publication_date: 3.days.ago, title: "middle")
+
+    get :index, format: :atom
+    
+    assert_select_atom_feed do
+      assert_select 'feed > entry' do |entries|
+        entries.zip([newest, middle, oldest]).each do |entry, document|
           assert_select entry, 'entry > title', text: document.title
         end
       end
