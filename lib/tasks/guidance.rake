@@ -1,7 +1,14 @@
+# encoding: UTF-8
 require 'logger'
 require 'cgi'
 require 'set'
 require 'uri'
+require 'iconv'
+
+def ensure_utf8(str)
+  ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+  ic.iconv(str + ' ')[0..-2]
+end
 
 namespace :guidance do
 
@@ -26,8 +33,8 @@ namespace :guidance do
     unsaved_guides = 0
 
     CSV.foreach(args[:file], {:headers => true, :header_converters => :symbol}) do |row|
-      title = row[:title]
-      body = row[:markdown]
+      title = ensure_utf8(row[:title])
+      body = ensure_utf8(row[:markdown])
 
       # strip HRs from the content
       body = body.gsub(/\n(\*{2,})\n/, "")
