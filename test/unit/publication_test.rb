@@ -157,4 +157,10 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     publication_with_keyword = create(:publication, body: "body containing keyword in the middle")
     assert_equal [publication_with_keyword], Publication.with_content_containing("key")
   end
+
+  test "should find publications containing keyword in summary" do
+    publication_with_first_keyword = create(:publication, body: "this document is about muppets", summary: "klingons")
+    publication_without_first_keyword = create(:publication, body: "this document is about klingons")
+    assert_equal [publication_with_first_keyword], Publication.with_summary_containing("klingons")
+  end
 end

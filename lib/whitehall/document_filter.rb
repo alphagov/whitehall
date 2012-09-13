@@ -78,7 +78,7 @@ private
   end
 
   def filter_by_keywords!
-    @documents = @documents.with_content_containing(*keywords) if keywords.any?
+    @documents = @documents.with_summary_containing(*keywords) if keywords.any?
   end
 
   def filter_by_date!
