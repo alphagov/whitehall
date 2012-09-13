@@ -67,7 +67,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
       details: {
         body: h.bare_govspeak_edition_to_html(model)
       },
-      format: model.type.underscore,
+      format: model.format_name,
       related: related_json
     }
     if options[:in_collection]

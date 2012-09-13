@@ -46,8 +46,8 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     assert_equal [guide_json], @presenter.as_json[:related]
   end
 
-  test "json includes type as format" do
-    assert_equal "specialist_guide", @presenter.as_json[:format]
+  test "json includes format name" do
+    assert_equal "specialist guidance", @presenter.as_json[:format]
   end
 
   test "json includes _response_info ok if the edition was found" do
