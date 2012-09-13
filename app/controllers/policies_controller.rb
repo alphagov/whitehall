@@ -3,9 +3,13 @@ class PoliciesController < DocumentsController
 
   respond_to :html
   respond_to :atom, only: :activity
+  respond_to :json, only: :index
 
   def index
-    @policies = Policy.published.includes(:document).by_published_at
+    params[:page] ||= 1
+    params[:direction] ||= "alphabetical"
+    @filter = Whitehall::DocumentFilter.new(policies, params)
+    respond_with PolicyFilterJsonPresenter.new(@filter)
   end
 
   def show
@@ -27,5 +31,9 @@ class PoliciesController < DocumentsController
 
   def document_class
     Policy
+  end
+
+  def policies
+    Policy.published.includes(:document)
   end
 end
