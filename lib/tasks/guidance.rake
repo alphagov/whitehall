@@ -23,6 +23,7 @@ namespace :guidance do
 
     new_guides = 0
     updated_guides = 0
+    unsaved_guides = 0
 
     CSV.foreach(args[:file], {:headers => true, :header_converters => :symbol}) do |row|
       title = row[:title]
@@ -39,20 +40,32 @@ namespace :guidance do
 
       PaperTrail.whodunnit = creator
 
-      existing_guide = SpecialistGuide.where(title: title).first
+      guide = SpecialistGuide.where(title: title).last
 
-      if existing_guide
-        existing_guide.body = body
-        existing_guide.save && updated_guides += 1
+      if guide
+        guide = guide.create_draft(creator) if guide.published?
+        guide.body = body
+        guide.topics = [topic] if topic
+        guide.organisations = [organisation] if organisation
       else
         guide = SpecialistGuide.new(title: title, body: body, state: "draft", topics: [topic], creator: creator, paginate_body: false)
         if organisation
           guide.organisations = [organisation]
         end
-        guide.save && new_guides += 1
+      end
+
+      if guide.save
+        if guide.new_record?
+          new_guides += 1
+        else
+          updated_guides += 1
+        end
+      else
+        unsaved_guides += 1
+        puts "Problem saving #{guide.title}: #{guide.errors.full_messages.to_sentence}"
       end
     end
-    puts "#{new_guides} created and #{updated_guides} updated"
+    puts "#{new_guides} created, #{updated_guides} updated and #{unsaved_guides} failed to save"
 
   end
 
