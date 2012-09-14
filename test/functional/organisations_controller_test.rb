@@ -237,12 +237,11 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display the count of published guides and policies with topics" do
+  test "should display the count of published policies with topics" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     organisation = create(:organisation, topics: [topic_1, topic_2])
     create(:published_policy, organisations: [organisation], topics: [topic_1])
-    create(:published_specialist_guide, organisations: [organisation], topics: [topic_2])
     create(:published_policy, organisations: [organisation], topics: [topic_2])
     create(:published_policy, organisations: [organisation], topics: [topic_2])
 
@@ -251,10 +250,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select '#topics' do
       assert_select_object topic_1 do
         assert_select '.policies', text: '1 policy'
-        refute_select '.guides'
       end
       assert_select_object topic_2 do
-        assert_select '.guides', text: '1 guide'
         assert_select '.policies', text: '2 policies'
       end
     end
@@ -286,12 +283,6 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select_object publications[2]
       assert_select_object publications[0]
     end
-  end
-
-  test "should display a link to the announcements page for department organisations" do
-    organisation = create(:ministerial_department)
-    get :show, id: organisation
-    assert_select "nav a[href='#{announcements_path(departments: [organisation])}']"
   end
 
   test "presents the contact details of the organisation using hcard" do
@@ -357,18 +348,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :consultations, id: organisation
 
     assert_equal [later_consultation, earlier_consultation], assigns(:consultations)
-  end
-
-  test "should display an about-us page for the organisation" do
-    organisation = create(:organisation,
-      name: "unformatted & name",
-      about_us: "organisation-about-us"
-    )
-
-    get :about, id: organisation
-
-    assert_select ".page_title", text: "unformatted &amp; name &mdash; About"
-    assert_select ".body", text: "organisation-about-us"
   end
 
   SUBPAGE_ACTIONS.each do |action|
