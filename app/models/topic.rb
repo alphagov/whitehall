@@ -69,6 +69,10 @@ class Topic < ActiveRecord::Base
     includes(:published_policies).select { |t| t.published_policies.map(&:published_related_publication_count).sum > 0 }
   end
 
+  def self.with_related_policies
+    joins(:published_policies).group(arel_table[:id])
+  end
+
   scope :alphabetical, order("name ASC")
 
   scope :featured, where(featured: true)

@@ -4,7 +4,7 @@ class PoliciesControllerTest < ActionController::TestCase
   include DocumentViewAssertions
 
   should_be_a_public_facing_controller
-  should_render_a_list_of :policies
+
   should_show_the_countries_associated_with :policy
   should_display_inline_images_for :policy
   should_not_display_lead_image_for :policy
@@ -13,6 +13,7 @@ class PoliciesControllerTest < ActionController::TestCase
   should_show_change_notes_on_action :policy, :show do |policy|
     get :show, id: policy.document
   end
+  should_return_json_suitable_for_the_document_filter :policy
 
   test "show displays the date that the policy was updated" do
     policy = create(:published_policy)

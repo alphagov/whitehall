@@ -10,9 +10,49 @@
   </div>
 </div>
 
-
 <div class="block-2">
   <div class="inner-block">
-    <%= render partial: "grouped_list", locals: {policies: @policies} %>
+    <%= render partial: "documents/filter_form", locals: {document_type: :policy} %>
+  </div>
+</div>
+
+<div class="block-3">
+  <div class="inner-block filter-results" aria-live="polite">
+    <% if @filter.documents.any? %>
+      <table class="document-list emphasise-recent" id="document-list">
+        <thead class="visuallyhidden">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Orgnisations</th>
+            <th scope="col">First published at</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @filter.documents.each_with_index do |policy, i| %>
+            <%= content_tag_for(:tr, policy, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
+              <th scope="row" class="title attribute">
+                <%= link_to policy.title, public_document_path(policy),
+                    title: "View #{policy.title}" %>
+              </th>
+              <td class="attribute organisations">
+                <%= policy.organisations.map { |o|
+                      organisation_display_name(o) }.to_sentence.html_safe %>
+              </td>
+              <td class="attribute first_published_at">
+                <%= render_datetime_microformat(policy, :first_published_at) {
+                    policy.first_published_at.to_s(:long_ordinal)
+              }%>
+              </td>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @filter.documents %>
+    <% else %>
+      <div class="no-results">
+        <h2>There are no matching policies.</h2>
+        <p>Try making your search broader and try again.</p>
+      </div>
+    <% end %>
   </div>
 </div>

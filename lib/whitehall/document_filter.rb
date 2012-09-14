@@ -27,11 +27,13 @@ class Whitehall::DocumentFilter
       Topic.with_related_specialist_guides.order(:name)
     when :announcement
       Topic.with_related_announcements.order(:name)
+    when :policy
+      Topic.with_related_policies.order(:name)
     end
   end
 
   def all_organisations_with(type)
-    Organisation.joins(:"published_#{type}s").group(:name).ordered_by_name_ignoring_prefix
+    Organisation.joins(:"published_#{type.to_s.pluralize}").group(:name).ordered_by_name_ignoring_prefix
   end
 
   def selected_topics
