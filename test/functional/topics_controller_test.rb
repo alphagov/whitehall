@@ -284,6 +284,22 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'Atom feed only shows the last 10 recently changed documents' do
+    document = create(:document)
+    recent_documents = Array.new(20) {
+      build(:published_policy, document: document)
+    }
+    topic = build(:topic, id: 1)
+    topic.stubs(:recently_changed_documents).returns(recent_documents)
+    Topic.stubs(:find).returns(topic)
+
+    get :show, id: topic, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', 10
+    end
+  end
+
   test "should show list of topics with published content" do
     topics = [0, 1, 2].map { |n| create(:topic, published_edition_count: n) }
 
