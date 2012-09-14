@@ -1,4 +1,8 @@
 module PublicDocumentRoutesHelper
+  def public_host
+    Whitehall.public_host_for(request.host)
+  end
+
   def document_path(edition, options={})
     polymorphic_path(model_name(edition), options.merge(id: edition.document))
   end
@@ -21,11 +25,7 @@ module PublicDocumentRoutesHelper
   end
 
   def public_document_url(edition, options={})
-    if host = Whitehall.public_host_for(request.host)
-      options.merge!(host: host)
-    end
-
-    document_url(edition, options)
+    document_url edition, options.merge(host: public_host)
   end
 
   def preview_document_url(edition, options={})
@@ -41,11 +41,7 @@ module PublicDocumentRoutesHelper
   end
 
   def public_supporting_page_url(edition, supporting_page, options={})
-    if host = Whitehall.public_host_for(request.host)
-      policy_supporting_page_url(edition.document, supporting_page, options.merge(host: host))
-    else
-      public_supporting_page_path(edition, supporting_page, options)
-    end
+    policy_supporting_page_url(edition.document, supporting_page, options.merge(host: public_host))
   end
 
   def edit_admin_supporting_page_path(supporting_page, options={})

@@ -190,7 +190,7 @@ class GovspeakHelperTest < ActionView::TestCase
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
     html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
-    assert_select_within_html html, "a[href=?]", public_supporting_page_path(policy, supporting_page), text: "that"
+    assert_select_within_html html, "a[href=?]", public_supporting_page_url(policy, supporting_page), text: "that"
   end
 
   test "should rewrite absolute links to old-style admin previews of published SupportingPages as their document" do
@@ -198,7 +198,7 @@ class GovspeakHelperTest < ActionView::TestCase
     supporting_page = create(:supporting_page, edition: policy)
     old_style_supporting_page_url = admin_supporting_page_url(supporting_page).gsub(/editions/, "documents")
     html = govspeak_to_html("this and [that](#{old_style_supporting_page_url}) yeah?")
-    assert_select_within_html html, "a[href=?]", public_supporting_page_path(policy, supporting_page), text: "that"
+    assert_select_within_html html, "a[href=?]", public_supporting_page_url(policy, supporting_page), text: "that"
   end
 
   test 'should rewrite admin link to an archived edition with a published edition' do

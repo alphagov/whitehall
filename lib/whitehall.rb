@@ -48,11 +48,7 @@ module Whitehall
     end
 
     def public_host_for(request_host)
-      if PUBLIC_HOSTS.values.include?(request_host)
-        request_host
-      else
-        PUBLIC_HOSTS[request_host]
-      end
+      PUBLIC_HOSTS[request_host] || request_host
     end
 
     def secrets
