@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912165319) do
+ActiveRecord::Schema.define(:version => 20120914092814) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -231,6 +231,7 @@ ActiveRecord::Schema.define(:version => 20120912165319) do
     t.integer  "document_series_id"
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
     t.datetime "timestamp_for_sorting"
+    t.integer  "mainstream_category_id"
   end
 
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
@@ -285,6 +286,18 @@ ActiveRecord::Schema.define(:version => 20120912165319) do
 
   add_index "images", ["edition_id"], :name => "index_images_on_edition_id"
   add_index "images", ["image_data_id"], :name => "index_images_on_image_data_id"
+
+  create_table "mainstream_categories", :force => true do |t|
+    t.string   "slug"
+    t.string   "identifier"
+    t.string   "title"
+    t.string   "parent_title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "mainstream_categories", ["identifier"], :name => "index_mainstream_categories_on_identifier", :unique => true
+  add_index "mainstream_categories", ["slug"], :name => "index_mainstream_categories_on_slug", :unique => true
 
   create_table "nation_inapplicabilities", :force => true do |t|
     t.integer  "nation_id"

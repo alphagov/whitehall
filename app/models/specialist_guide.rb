@@ -5,6 +5,7 @@ class SpecialistGuide < Edition
   include ::Attachable
   include Edition::AlternativeFormatProvider
   include Edition::FactCheckable
+  include Edition::MainstreamCategory
 
   attachable :edition
 

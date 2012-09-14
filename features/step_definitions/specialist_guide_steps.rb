@@ -79,3 +79,21 @@ Then /^I should see in the preview that "([^"]*)" is related to the specialist g
   visit_document_preview title
   assert has_css?(".specialist_guide", text: related_title)
 end
+
+Given /^a mainstream category "([^"]*)" exists$/ do |title|
+  create(:mainstream_category, title: title, identifier: "http://example.com/tags/#{title.parameterize}.json", parent_title: "Some parent")
+end
+
+Given /^a submitted specialist guide "([^"]*)" exists in the "([^"]*)" mainstream category$/ do |title, category_title|
+  category = MainstreamCategory.find_by_title!(category_title)
+  create(:submitted_specialist_guide, title: title, mainstream_category: category)
+end
+
+Then /^the specialist guide "([^"]*)" should be visible to the public in the mainstream category "([^"]*)"$/ do |title, category_title|
+  category = MainstreamCategory.find_by_title!(category_title)
+  specialist_guide = SpecialistGuide.latest_edition.find_by_title!(title)
+
+  visit url_for(category)
+  assert page.has_css?(record_css_selector(specialist_guide))
+end
+

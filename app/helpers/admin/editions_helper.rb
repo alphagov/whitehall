@@ -69,4 +69,10 @@ module Admin::EditionsHelper
     end
   end
 
+  def mainstream_category_options(edition)
+    grouped_options = MainstreamCategory.all.group_by {|c| c.parent_title}.map do |group, members|
+      [group, members.map {|c| [c.title, c.id]}]
+    end
+    grouped_options_for_select(grouped_options, edition.mainstream_category_id, "")
+  end
 end

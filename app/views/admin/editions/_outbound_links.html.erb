@@ -9,14 +9,14 @@
       <p>This document isn't assigned to any organisations.</p>
     <% end %>
   </section>
-  
+
   <% if edition.respond_to?(:alternative_format_provider) %>
     <section>
       <h2>Alternative format provider</h2>
         <% if edition.alternative_format_provider %>
           <p>
             <%= link_to edition.alternative_format_provider.name, organisation_path(edition.alternative_format_provider) %><br />
-            Contact email: 
+            Contact email:
             <% if edition.alternative_format_contact_email.present? %>
               <%= edition.alternative_format_contact_email %> - <%= link_to "edit", admin_organisation_path(edition.alternative_format_provider) %>
             <% else %>
@@ -39,6 +39,18 @@
       <% end %>
     </section>
   <% end %>
+
+  <% if edition.respond_to?(:mainstream_category) %>
+    <section>
+      <h2>Mainstream category</h2>
+      <% if edition.mainstream_category.present? %>
+        <p><%= edition.mainstream_category.parent_title %> &gt; <%= link_to edition.mainstream_category.title, edition.mainstream_category %></p>
+      <% else %>
+        <p>This document isn't assigned to any topics.</p>
+      <% end %>
+    </section>
+  <% end %>
+
 
   <% if edition.respond_to?(:related_specialist_guides) %>
     <section>

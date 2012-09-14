@@ -11,6 +11,7 @@ Whitehall::Application.routes.draw do
 
   root to: redirect("/")
 
+  resources :mainstream_categories, only: [:show], path: 'specialist/browse'
   resources :specialist_guides, path: 'specialist', only: [:show, :index] do
     collection do
       get :search
@@ -68,7 +69,7 @@ Whitehall::Application.routes.draw do
       end
       resources :corporate_information_pages, only: [:show], path: 'about'
     end
-    
+
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
     resources :people, only: [:index, :show]
     resources :countries, path: 'world', only: [:index, :show] do
