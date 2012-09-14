@@ -1,18 +1,9 @@
+<h1 class="label">Other key links</h1>
 <nav class="group sub_navigation" role="navigation">
   <ul>
-    <li><%= organisation_navigation_link_to 'Home', organisation_path(organisation) %></li>
-    <li><%= organisation_navigation_link_to 'About', about_organisation_path(organisation) %></li>
     <% organisation.corporate_information_pages.each do |corporate_information_page| %>
       <li>- <%= organisation_navigation_link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page) %></li>
-    <% end %>    
-    <% if organisation.department? %>
-      <li><%= link_to 'Announcements', announcements_filter_path(organisation) %></li>
-      <li><%= organisation_navigation_link_to 'Policies', policies_organisation_path(organisation) %></li>
-      <li><%= link_to 'Publications', publications_filter_path(organisation) %></li>
-      <li><%= organisation_navigation_link_to 'Consultations', consultations_organisation_path(organisation) %></li>
-      <li><%= organisation_navigation_link_to 'Agencies & partners', agencies_and_partners_organisation_path(organisation) %></li>
-      <li><%= organisation_navigation_link_to 'Ministers', ministers_organisation_path(organisation) %></li>
     <% end %>
-    <li><%= organisation_navigation_link_to 'Contact', contact_details_organisation_path(organisation) %></li>
+    <li><a href="https://jobsstatic.civilservice.gov.uk/csjobs.html" rel="external">Jobs</a></li>
   </ul>
 </nav>

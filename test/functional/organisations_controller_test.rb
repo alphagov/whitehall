@@ -2,13 +2,13 @@ require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
 
-  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations, :contact_details, :management_team, :ministers, :policies]
+  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations, :contact_details, :management_team, :policies]
 
   should_be_a_public_facing_controller
 
   test "shows organisation name and description" do
     organisation = create(:organisation,
-      name: "unformatted name",
+      logo_formatted_name: "unformatted name",
       description: "organisation-description"
     )
     get :show, id: organisation
@@ -63,7 +63,6 @@ class OrganisationsControllerTest < ActionController::TestCase
       refute_select "a[href=?]", policies_organisation_path(organisation)
       refute_select "a[href=?]", publications_path(departments: [organisation])
       refute_select "a[href=?]", consultations_organisation_path(organisation)
-      refute_select "a[href=?]", ministers_organisation_path(organisation)
     end
   end
 
@@ -227,12 +226,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#parent_organisations"
   end
 
-  test "should display a link to the about-us page for the organisation" do
-    organisation = create(:organisation)
-    get :show, id: organisation
-    assert_select ".sub_navigation a[href='#{about_organisation_path(organisation)}']"
-  end
-
   test "should display the organisation's topics with content" do
     topics = [0, 1, 2].map { |n| create(:topic, published_edition_count: n) }
     organisation = create(:organisation, topics: topics)
@@ -244,16 +237,52 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should display the count of published policies with topics" do
+    topic_1 = create(:topic)
+    topic_2 = create(:topic)
+    organisation = create(:organisation, topics: [topic_1, topic_2])
+    create(:published_policy, organisations: [organisation], topics: [topic_1])
+    create(:published_policy, organisations: [organisation], topics: [topic_2])
+    create(:published_policy, organisations: [organisation], topics: [topic_2])
+
+    get :show, id: organisation
+
+    assert_select '#topics' do
+      assert_select_object topic_1 do
+        assert_select '.policies', text: '1 policy'
+      end
+      assert_select_object topic_2 do
+        assert_select '.policies', text: '2 policies'
+      end
+    end
+  end
+
   test "should not display an empty topics section" do
     organisation = create(:organisation)
     get :show, id: organisation
     assert_select "#topics", count: 0
   end
 
-  test "should display a link to the announcements page for department organisations" do
-    organisation = create(:ministerial_department)
+  test "should display the organisation's policies with content" do
+    organisation = create(:organisation)
+    policies = [0, 1, 2].map { |n| create(:published_policy, organisations: [organisation]) }
     get :show, id: organisation
-    assert_select "nav a[href='#{announcements_path(departments: [organisation])}']"
+    assert_select "#policies" do
+      assert_select_object policies[1]
+      assert_select_object policies[2]
+      assert_select_object policies[0]
+    end
+  end
+
+  test "should display the organisation's publications with content" do
+    organisation = create(:organisation)
+    publications = [0, 1, 2].map { |n| create(:published_publication, organisations: [organisation]) }
+    get :show, id: organisation
+    assert_select "#publications" do
+      assert_select_object publications[1]
+      assert_select_object publications[2]
+      assert_select_object publications[0]
+    end
   end
 
   test "presents the contact details of the organisation using hcard" do
@@ -321,18 +350,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [later_consultation, earlier_consultation], assigns(:consultations)
   end
 
-  test "should display an about-us page for the organisation" do
-    organisation = create(:organisation,
-      name: "unformatted & name",
-      about_us: "organisation-about-us"
-    )
-
-    get :about, id: organisation
-
-    assert_select ".page_title", text: "unformatted &amp; name &mdash; About"
-    assert_select ".body", text: "organisation-about-us"
-  end
-
   SUBPAGE_ACTIONS.each do |action|
     test "should show social media accounts on organisation #{action} subpage" do
       social_media_account = create(:social_media_account)
@@ -384,7 +401,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
 
-    get :ministers, id: organisation
+    get :show, id: organisation
 
     assert_equal [senior_role, junior_role], assigns(:ministerial_roles).collect(&:model)
   end
@@ -399,7 +416,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, ministerial_roles: [ministerial_role_1, ministerial_role_2])
     minister_in_another_organisation = create(:ministerial_role)
 
-    get :ministers, id: organisation
+    get :show, id: organisation
 
     assert_select_object(ministerial_role_1) do
       assert_select ".current-appointee a[href=#{person_path(person_1)}]", "Fred"
@@ -416,7 +433,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     minister = create(:ministerial_role, people: [])
     organisation = create(:organisation, ministerial_roles: [minister])
 
-    get :ministers, id: organisation
+    get :show, id: organisation
 
     assert_select_object(minister)
   end
@@ -426,7 +443,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
     create(:role_appointment, person: person, role: ministerial_role)
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
-    get :ministers, id: organisation
+    get :show, id: organisation
     assert_select "img[src*=minister-of-funk.jpg]"
   end
 
@@ -435,7 +452,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     person = create(:person)
     create(:role_appointment, person: person, role: ministerial_role)
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
-    get :ministers, id: organisation
+    get :show, id: organisation
     assert_select "img[src*=blank-person.png]"
   end
 
@@ -494,17 +511,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :chiefs_of_staff, id: organisation
 
     assert_select_object chief_of_staff
-  end
-
-  test "should link to the organisation's ministers page" do
-    organisation = create(:organisation)
-    role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:ministerial_role_appointment, role: role)
-    speech = create(:published_speech, role_appointment: role_appointment)
-
-    get :show, id: organisation
-
-    assert_select '#ministers a[href=?]', ministers_organisation_path(organisation)
   end
 
   test "should link to the organisation's management team page" do
@@ -569,7 +575,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department)
 
-    [:show, :about, :consultations, :contact_details, :management_team, :ministers, :policies].each do |page|
+    [:show, :about, :consultations, :contact_details, :management_team, :policies].each do |page|
       get page, id: organisation
       assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
     end

@@ -355,6 +355,15 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_same_elements expected_documents, organisation.published_announcements
   end
 
+  test "#published_policies returns published policies" do
+    organisation = create(:organisation)
+    one = create(:published_policy, organisations: [organisation], title: "One")
+    two = create(:draft_policy, organisations: [organisation], title: "Two")
+    three = create(:published_policy, organisations: [organisation], title: "Three")
+
+    assert_same_elements [one, three], organisation.published_policies
+  end
+
   test '#destroy removes parent relationships' do
     child = create(:organisation)
     parent = create(:organisation, child_organisations: [child])

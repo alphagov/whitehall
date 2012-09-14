@@ -1,6 +1,6 @@
 <% if organisation.social_media_accounts.any? %>
   <section>
-    <h1 class="label">Connect with <%= organisation.display_name %></h1>
+    <h1 class="label">Get in touch with <%= organisation.display_name %></h1>
     <ul class="social_media_accounts">
       <% organisation.social_media_accounts.each do |account| %>
         <%= content_tag_for(:li, account) do %>
@@ -8,5 +8,6 @@
         <% end %>
       <% end %>
     </ul>
+    <p><%= organisation_navigation_link_to 'Contact', contact_details_organisation_path(@organisation) %></p>
   </section>
 <% end %>

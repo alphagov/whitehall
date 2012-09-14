@@ -1,0 +1,19 @@
+<ul class="topics group">
+  <% topics.each do |topic| %>
+    <%= content_tag_for(:li, topic, class: 'topic') do %>
+      <h2><%= link_to topic.name, topic_path(topic) %></h2>
+      <% if topic.published_specialist_guides.any? or topic.published_policies.any? %>
+        <ul class="publication-count">
+          <% if topic.published_policies.any? %>
+            <li class="policies">
+              <%= pluralize(topic.published_policies.length, "policy") do |count, suffix| %>
+                <span><%= count %></span> <%= suffix %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <%= govspeak_to_html topic.description %>
+    <% end %>
+  <% end %>
+</ul>

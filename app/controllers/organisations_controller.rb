@@ -21,6 +21,10 @@ class OrganisationsController < PublicFacingController
       @top_ministerial_role = @organisation.top_ministerial_role && RolePresenter.decorate(@organisation.top_ministerial_role)
       @top_civil_servant = @organisation.top_civil_servant && RolePresenter.decorate(@organisation.top_civil_servant)
       @top_military_role = @organisation.top_military_role && RolePresenter.decorate(@organisation.top_military_role)
+      @policies = @organisation.published_policies.by_published_at.limit(3)
+      @topics = @organisation.topics_with_content
+      @publications = @organisation.published_publications.by_published_at.limit(3)
+      @ministers = ministers
     else
       render action: 'external'
     end
@@ -40,12 +44,6 @@ class OrganisationsController < PublicFacingController
     @consultations = Consultation.in_organisation(@organisation).published.by_published_at
   end
 
-  def ministers
-    @ministerial_roles = @organisation.ministerial_roles.order("organisation_roles.ordering").map do |role|
-      RolePresenter.new(role)
-    end
-  end
-
   def management_team
   end
 
@@ -57,6 +55,12 @@ class OrganisationsController < PublicFacingController
   end
 
   private
+
+  def ministers
+    @ministerial_roles = @organisation.ministerial_roles.order("organisation_roles.ordering").map do |role|
+      RolePresenter.new(role)
+    end
+  end
 
   def load_organisation
     @organisation = Organisation.find(params[:id])

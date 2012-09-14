@@ -118,9 +118,8 @@ Then /^I should see the top civil servant for the "([^"]*)" organisation$/ do |n
   assert page.has_css?(record_css_selector(organisation.top_civil_servant))
 end
 
-Then /^I should be able to view all ministers for the "([^"]*)" organisation on a separate page$/ do |name|
+Then /^I should be able to view all ministers for the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)
-  navigate_to_organisation('Ministers')
   organisation.ministerial_roles.each do |role|
     assert page.has_css?(record_css_selector(role))
   end

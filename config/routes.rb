@@ -61,7 +61,6 @@ Whitehall::Application.routes.draw do
         get :about
         get :consultations
         get :contact_details, path: 'contact-details'
-        get :ministers
         get :management_team, path: 'management-team'
         get :chiefs_of_staff, path: 'chiefs-of-staff'
         get :agencies_and_partners, path: 'agencies-and-partners'
