@@ -47,7 +47,13 @@ class Api::SpecialistGuidePresenter < Draper::Base
     private
 
     def url(override_params)
-      h.url_for(h.params.merge(override_params.merge(only_path: false)))
+      h.url_for(h.params.merge(
+        override_params.merge(only_path: false, host: public_host)
+      ))
+    end
+
+    def public_host
+      Whitehall.public_host_for(h.request.host) || h.request.host
     end
   end
 
@@ -61,7 +67,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
   def as_json(options = {})
     data = {
       title: model.title,
-      id: h.api_specialist_guide_url(model.document),
+      id: specialist_guide_url(model),
       web_url: h.public_document_url(model),
       details: {
         body: h.bare_govspeak_edition_to_html(model)
@@ -73,10 +79,18 @@ class Api::SpecialistGuidePresenter < Draper::Base
 
   private
 
+  def public_host
+    Whitehall.public_host_for(h.request.host) || h.request.host
+  end
+
+  def specialist_guide_url(guide)
+    h.api_specialist_guide_url guide.document, host: public_host
+  end
+
   def related_json
     model.published_related_specialist_guides.map do |guide|
       {
-        id: h.api_specialist_guide_url(guide.document),
+        id: specialist_guide_url(guide),
         title: guide.title,
         web_url: h.public_document_url(guide)
       }

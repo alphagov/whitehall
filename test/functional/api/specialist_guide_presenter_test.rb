@@ -22,8 +22,9 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     assert_equal 'guide-title', @presenter.as_json[:title]
   end
 
-  test "json includes the API url as id" do
-    assert_equal api_specialist_guide_url(@guide.document), @presenter.as_json[:id]
+  test "json includes the public API url as id" do
+    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
+    assert_equal api_specialist_guide_url(@guide.document, host: 'govuk.example.com'), @presenter.as_json[:id]
   end
 
   test "json includes public guide url as web_url" do
@@ -41,7 +42,7 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     related_guide = stub_edition(:specialist_guide)
     @guide.stubs(:published_related_specialist_guides).returns([related_guide])
     guide_json = {
-      id: api_specialist_guide_url(related_guide.document),
+      id: api_specialist_guide_url(related_guide.document, host: 'govuk.example.com'),
       title: related_guide.title,
       web_url: specialist_guide_url(related_guide.document, host: 'govuk.example.com')
     }
