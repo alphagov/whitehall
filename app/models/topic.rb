@@ -116,4 +116,8 @@ class Topic < ActiveRecord::Base
   def search_link
     topic_path(slug)
   end
+
+  def recently_changed_documents
+    (policies.published + published_related_editions).sort_by(&:published_at).reverse
+  end
 end

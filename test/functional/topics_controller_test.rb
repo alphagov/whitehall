@@ -1,6 +1,9 @@
 require "test_helper"
 
 class TopicsControllerTest < ActionController::TestCase
+  include ActionDispatch::Routing::UrlFor
+  include PublicDocumentRoutesHelper
+
   should_be_a_public_facing_controller
 
   test "shows topic title and description" do
@@ -215,6 +218,70 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic)
     get :show, id: topic
     assert_select "#organisations", count: 0
+  end
+
+  test 'show has Atom feed autodiscovery link' do
+    topic = build(:topic, id: 1)
+    Topic.stubs(:find).returns(topic)
+    get :show, id: topic
+    assert_select_autodiscovery_link topic_url(topic, format: 'atom')
+  end
+
+  test 'Atom feed has the right elements' do
+    document = create(:document)
+    topic = build(:topic, id: 1)
+    topic.stubs(:recently_changed_documents).returns([build(:published_policy, document: document)])
+    Topic.stubs(:find).returns(topic)
+
+    get :show, id: topic, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > id', 1
+      assert_select 'feed > title', 1
+      assert_select 'feed > author, feed > entry > author'
+      assert_select 'feed > updated', 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', topic_url(topic, format: 'atom'), 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', topic_url(topic), 1
+
+      assert_select 'feed > entry' do |entries|
+        entries.each do |entry|
+          assert_select entry, 'entry > id', 1
+          assert_select entry, 'entry > published', 1
+          assert_select entry, 'entry > updated', 1
+          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
+          assert_select entry, 'entry > title', 1
+          assert_select entry, 'entry > content[type=?]', 'html', 1
+        end
+      end
+    end
+  end
+
+  test 'Atom feed shows a list of recently published documents' do
+    document = create(:document)
+    recent_documents = [
+      newer_edition = build(:published_policy, document: document, published_at: 1.day.ago),
+      older_edition = build(:published_policy, document: document, published_at: 1.month.ago)
+    ]
+    topic = build(:topic, id: 1)
+    topic.stubs(:recently_changed_documents).returns(recent_documents)
+    Topic.stubs(:find).returns(topic)
+
+    get :show, id: topic, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > updated', text: newer_edition.published_at.iso8601
+
+      assert_select 'feed > entry' do |entries|
+        entries.zip(recent_documents) do |entry, document|
+          assert_select entry, 'entry > published', text: document.first_published_at.iso8601
+          assert_select entry, 'entry > updated', text: document.published_at.iso8601
+          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+          assert_select entry, 'entry > title', text: document.title
+          assert_select entry, 'entry > summary', text: document.summary
+          assert_select entry, 'entry > content', text: /#{document.body}/
+        end
+      end
+    end
   end
 
   test "should show list of topics with published content" do

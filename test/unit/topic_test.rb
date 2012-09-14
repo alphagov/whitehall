@@ -382,4 +382,14 @@ class TopicTest < ActiveSupport::TestCase
     topic_membership.reload.destroy
     assert_equal 0, topic.reload.published_edition_count
   end
+
+  test "should return all published policies and their published related editions in reverse chronological order of published_at" do
+    topic = create(:topic)
+    old_published_policy = create(:published_policy, topics: [topic], published_at: 1.month.ago)
+    new_published_policy = create(:published_policy, topics: [topic], published_at: 1.day.ago)
+    news_article = create(:published_news_article, related_policies: [old_published_policy], published_at: 1.week.ago)
+    publication = create(:published_publication, related_policies: [new_published_policy], published_at: 2.weeks.ago)
+
+    assert_equal [new_published_policy, news_article, publication, old_published_policy], topic.recently_changed_documents
+  end
 end
