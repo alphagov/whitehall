@@ -390,7 +390,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, format: :atom
 
     assert_select_atom_feed do
-      formatted_publication_date = publication_date.to_date.to_time.iso8601
+      formatted_publication_date = publication_date.to_date.xmlschema
       assert_select 'feed > updated', text: formatted_publication_date
 
       assert_select 'feed > entry' do |entries|
@@ -407,7 +407,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, format: :atom
 
     assert_select_atom_feed do
-      formatted_publication_date = first_published_at.iso8601
+      formatted_publication_date = first_published_at.xmlschema
       assert_select 'feed > updated', text: formatted_publication_date
 
       assert_select 'feed > entry' do |entries|
@@ -439,7 +439,7 @@ class PublicationsControllerTest < ActionController::TestCase
     middle = create(:published_consultation, published_at: 8.days.ago, first_published_at: 3.days.ago, title: "middle")
 
     get :index, format: :atom
-    
+
     assert_select_atom_feed do
       assert_select 'feed > entry' do |entries|
         entries.zip([newest, middle, oldest]).each do |entry, document|
@@ -455,7 +455,7 @@ class PublicationsControllerTest < ActionController::TestCase
     middle = create(:published_publication, published_at: 8.days.ago, publication_date: 3.days.ago, title: "middle")
 
     get :index, format: :atom
-    
+
     assert_select_atom_feed do
       assert_select 'feed > entry' do |entries|
         entries.zip([newest, middle, oldest]).each do |entry, document|
