@@ -226,12 +226,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#parent_organisations"
   end
 
-  test "should display a link to the about-us page for the organisation" do
-    organisation = create(:organisation)
-    get :show, id: organisation
-    assert_select ".sub_navigation a[href='#{about_organisation_path(organisation)}']"
-  end
-
   test "should display the organisation's topics with content" do
     topics = [0, 1, 2].map { |n| create(:topic, published_edition_count: n) }
     organisation = create(:organisation, topics: topics)
@@ -428,7 +422,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
 
-    get :ministers, id: organisation
+    get :show, id: organisation
 
     assert_equal [senior_role, junior_role], assigns(:ministerial_roles).collect(&:model)
   end
@@ -443,7 +437,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, ministerial_roles: [ministerial_role_1, ministerial_role_2])
     minister_in_another_organisation = create(:ministerial_role)
 
-    get :ministers, id: organisation
+    get :show, id: organisation
 
     assert_select_object(ministerial_role_1) do
       assert_select ".current-appointee a[href=#{person_path(person_1)}]", "Fred"
@@ -460,7 +454,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     minister = create(:ministerial_role, people: [])
     organisation = create(:organisation, ministerial_roles: [minister])
 
-    get :ministers, id: organisation
+    get :show, id: organisation
 
     assert_select_object(minister)
   end
@@ -470,7 +464,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
     create(:role_appointment, person: person, role: ministerial_role)
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
-    get :ministers, id: organisation
+    get :show, id: organisation
     assert_select "img[src*=minister-of-funk.jpg]"
   end
 
@@ -479,7 +473,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     person = create(:person)
     create(:role_appointment, person: person, role: ministerial_role)
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
-    get :ministers, id: organisation
+    get :show, id: organisation
     assert_select "img[src*=blank-person.png]"
   end
 
