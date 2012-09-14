@@ -6,6 +6,7 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     @guide.stubs(:organisations).returns([])
     @guide.stubs(:published_related_specialist_guides).returns([])
     @presenter = Api::SpecialistGuidePresenter.decorate(@guide)
+    stubs_helper_method(:params).returns(format: :json)
   end
 
   test ".paginate returns a decorated page of results" do
@@ -24,7 +25,7 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
 
   test "json includes the public API url as id" do
     Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal api_specialist_guide_url(@guide.document, host: 'govuk.example.com'), @presenter.as_json[:id]
+    assert_equal api_specialist_guide_url(@guide.document, host: 'govuk.example.com', format: :json), @presenter.as_json[:id]
   end
 
   test "json includes public guide url as web_url" do
@@ -42,7 +43,7 @@ class Api::SpecialistGuidePresenterTest < PresenterTestCase
     related_guide = stub_edition(:specialist_guide)
     @guide.stubs(:published_related_specialist_guides).returns([related_guide])
     guide_json = {
-      id: api_specialist_guide_url(related_guide.document, host: 'govuk.example.com'),
+      id: api_specialist_guide_url(related_guide.document, host: 'govuk.example.com', format: :json),
       title: related_guide.title,
       web_url: specialist_guide_url(related_guide.document, host: 'govuk.example.com')
     }
