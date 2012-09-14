@@ -6,7 +6,7 @@
         <ul class="publication-count">
           <% if topic.published_policies.any? %>
             <li class="policies">
-              <%= pluralize(topic.published_policies.length, "Policy") do |count, suffix| %>
+              <%= pluralize(topic.published_policies.length, "policy") do |count, suffix| %>
                 <span><%= count %></span> <%= suffix %>
               <% end %>
             </li>
