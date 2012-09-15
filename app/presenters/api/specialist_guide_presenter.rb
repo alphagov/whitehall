@@ -76,7 +76,7 @@ class Api::SpecialistGuidePresenter < Draper::Base
   private
 
   def specialist_guide_url(guide)
-    h.api_specialist_guide_url guide.document, host: h.public_host, format: h.params[:format]
+    h.api_specialist_guide_url guide.document, host: h.public_host
   end
 
   def related_json

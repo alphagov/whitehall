@@ -20,7 +20,7 @@ Whitehall::Application.routes.draw do
   end
 
   namespace 'api' do
-    resources :specialist_guides, path: 'specialist', only: [:show, :index]
+    resources :specialist_guides, path: 'specialist', only: [:show, :index], defaults: { format: :json }
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
