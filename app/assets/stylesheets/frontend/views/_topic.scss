@@ -59,6 +59,11 @@
     @include media(desktop){
       min-height: 180px;
     }
+    .subscribe {
+      position: absolute;
+      top: 90px;
+      right: 30px;
+    }
   }
   .contextual {
     padding-top: $gutter-half;

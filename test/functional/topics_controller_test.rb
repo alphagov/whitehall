@@ -227,6 +227,13 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link topic_url(topic, format: 'atom')
   end
 
+  test 'show links to the atom feed' do
+    topic = build(:topic, id: 1)
+    Topic.stubs(:find).returns(topic)
+    get :show, id: topic
+    assert_select "a.feed[href=?]", topic_url(topic, format: 'atom')
+  end
+
   test 'Atom feed has the right elements' do
     document = create(:document)
     topic = build(:topic, id: 1)
