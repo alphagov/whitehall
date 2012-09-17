@@ -1,8 +1,10 @@
 .policies-index {
-
-  .block-2 h1 {
-  //  @include sans-15;
+  .page-header {
+    padding: 0 0 ($gutter + $gutter-one-third);
+    margin: 0;
+    position: relative;
   }
+
   .alphabetical-list .alphabetical-row {
     p {
     //  @include sans-15;
@@ -27,10 +29,6 @@
         display: block;
       }
     }
-  }
-
-  .filter-results {
-    margin: $gutter 0;
   }
 }
 
