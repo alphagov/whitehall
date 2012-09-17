@@ -269,13 +269,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
     assert_select "#policies" do
       assert_select_object policies[1] do
-        assert_select '.summary', text: policies[1].summary.truncate(150, separator: ' ')
+        assert_select '.summary', text: policies[1].summary
       end
       assert_select_object policies[2] do
-        assert_select '.summary', text: policies[2].summary.truncate(150, separator: ' ')
+        assert_select '.summary', text: policies[2].summary
       end
       assert_select_object policies[0] do
-        assert_select '.summary', text: policies[0].summary.truncate(150, separator: ' ')
+        assert_select '.summary', text: policies[0].summary
       end
     end
   end

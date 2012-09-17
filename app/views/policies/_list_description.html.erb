@@ -3,7 +3,7 @@
     <%= content_tag_for(:li, policy, class: "g1") do %>
       <h2><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
       <% unless policy.summary.blank? %>
-        <p class="summary"><%= truncate(policy.summary, length: 150, separator: ' ') %></p>
+        <p class="summary"><%= policy.summary %></p>
       <% end %>
     <% end %>
   <% end %>
