@@ -2,15 +2,15 @@
 <div class="row-fluid organisation-header">
   <div class="span8">
     <h1><%= @organisation.name %></h1>
+    <%= link_to "View on website", organisation_path(@organisation) %>
   </div>
   <div class="span4">
     <%= link_to "Edit", edit_admin_organisation_path(@organisation), class: "btn btn-large btn-primary pull-right"%>
-    <%= link_to "View on website", organisation_path(@organisation) %>
   </div>
 </div>
 
 <div class="row-fluid">
-  <div class="span8 organisation-details">
+  <div class="span12 organisation-details">
     <section>
       <div class="tabbable">
         <ul class="nav nav-tabs">
@@ -18,7 +18,7 @@
           <li><a href="#contacts" data-toggle="tab">Contacts</a></li>
           <li><a href="#about-us" data-toggle="tab">About Us</a></li>
           <li><a href="#people" data-toggle="tab">People</a></li>
-          <li><a href="#documents" data-toggle="tab">Documents</a></li>
+          <li><a href="#documents" data-toggle="tab">Featured documents</a></li>
           <li><a href="#document_series" data-toggle="tab">Document Series</a></li>
           <li><a href="#corporate_information_pages" data-toggle="tab">Corporate Information Pages</a></li>
         </ul>
@@ -32,22 +32,6 @@
           <%= render partial: "admin/organisations/tabs/corporate_information_pages" %>
         </div>
       </div>
-    </section>
-  </div>
-
-  <div class="span4">
-    <section id="featured-news-articles">
-      <h1>Featured documents</h1>
-      <%= form_for [:admin, @organisation], as: :organisation do |form| %>
-        <fieldset class="sortable">
-          <%= form.fields_for :edition_organisations, @organisation.featured_edition_organisations do |fe_form| %>
-            <div class="well">
-              <%= fe_form.text_field :ordering, label_text: link_to(fe_form.object.edition.title, admin_edition_path(fe_form.object.edition)), class: "ordering" %>
-            </div>
-          <% end %>
-        </fieldset>
-        <%= form.submit "Save", class: "btn" %>
-      <% end %>
     </section>
   </div>
 </div>
