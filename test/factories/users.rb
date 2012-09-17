@@ -14,10 +14,9 @@ FactoryGirl.define do
   end
 
   factory :policy_writer, parent: :user, aliases: [:author, :creator, :fact_check_requestor] do
-    departmental_editor false
   end
 
   factory :departmental_editor, parent: :user do
-    departmental_editor true
+    permissions { Hash[GDS::SSO::Config.default_scope => ["signin", "Editor"]] }
   end
 end
