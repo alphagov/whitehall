@@ -91,7 +91,7 @@
           <%= render partial: "policies/list_description", locals: {policies: @policies} %>
           <p>
             <% if @organisation.department? %>
-            <%= organisation_navigation_link_to 'See all of our policies', policies_organisation_path(@organisation) %>
+            <%= organisation_navigation_link_to 'See all of our policies', policies_filter_path(@organisation) %>
             <% end %>
           </p>
         </section>
