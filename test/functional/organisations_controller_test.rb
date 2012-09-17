@@ -268,9 +268,15 @@ class OrganisationsControllerTest < ActionController::TestCase
     policies = [0, 1, 2].map { |n| create(:published_policy, organisations: [organisation]) }
     get :show, id: organisation
     assert_select "#policies" do
-      assert_select_object policies[1]
-      assert_select_object policies[2]
-      assert_select_object policies[0]
+      assert_select_object policies[1] do
+        assert_select '.summary', text: policies[1].summary.truncate(150, separator: ' ')
+      end
+      assert_select_object policies[2] do
+        assert_select '.summary', text: policies[2].summary.truncate(150, separator: ' ')
+      end
+      assert_select_object policies[0] do
+        assert_select '.summary', text: policies[0].summary.truncate(150, separator: ' ')
+      end
     end
   end
 
@@ -279,9 +285,15 @@ class OrganisationsControllerTest < ActionController::TestCase
     publications = [0, 1, 2].map { |n| create(:published_publication, organisations: [organisation]) }
     get :show, id: organisation
     assert_select "#publications" do
-      assert_select_object publications[1]
-      assert_select_object publications[2]
-      assert_select_object publications[0]
+      assert_select_object publications[1] do
+        assert_select '.summary', text: publications[1].summary.truncate(150, separator: ' ')
+      end
+      assert_select_object publications[2] do
+        assert_select '.summary', text: publications[2].summary.truncate(150, separator: ' ')
+      end
+      assert_select_object publications[0] do
+        assert_select '.summary', text: publications[0].summary.truncate(150, separator: ' ')
+      end
     end
   end
 
