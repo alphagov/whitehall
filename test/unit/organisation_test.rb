@@ -69,6 +69,14 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [culture, defence, education, hmrc], Organisation.ordered_by_name_ignoring_prefix
   end
 
+  test "should be ordered by name by default" do
+    b = create(:organisation, name: 'B')
+    c = create(:organisation, name: 'C')
+    a = create(:organisation, name: 'A')
+
+    assert_equal [a, b, c], Organisation.all
+  end
+
   test "#child_organisations should return the parent's children organisations" do
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)

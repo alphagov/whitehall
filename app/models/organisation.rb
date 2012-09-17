@@ -121,7 +121,7 @@ class Organisation < ActiveRecord::Base
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
   validates :govuk_status, inclusion: {in: %w{live joining exempt}}
 
-  default_scope order(organisations: :name)
+  default_scope order(arel_table[:name])
 
   searchable title: :name,
              link: :search_link,
