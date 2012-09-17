@@ -23,8 +23,10 @@ class PublicationsController < DocumentsController
   end
 
   def show
-    @related_policies = @document.published_related_policies
-    @topics = @related_policies.map { |d| d.topics }.flatten.uniq
+    unless @document.statistics?
+      @related_policies = @document.published_related_policies
+    end
+    @topics = @document.published_related_policies.map { |d| d.topics }.flatten.uniq
   end
 
 private

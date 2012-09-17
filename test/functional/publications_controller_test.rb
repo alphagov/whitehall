@@ -73,6 +73,20 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_match /National Statistic/, response.body
   end
 
+  test "show not link policies to national statistics publications" do
+    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id, related_policies: [create(:published_policy)])
+    get :show, id: publication.document
+
+    refute_select ".policies"
+  end
+
+  test "show not link policies to general statistics publications" do
+    publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id, related_policies: [create(:published_policy)])
+    get :show, id: publication.document
+
+    refute_select ".policies"
+  end
+
   test "index only displays *published* publications" do
     archived_publication = create(:archived_publication)
     published_publication = create(:published_publication)
