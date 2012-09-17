@@ -19,10 +19,7 @@
   </div>
   <div class="block-2">
     <div class="inner-block">
-      <div class="subscribe">
-        <span class="feed-icon"></span>
-        <%= link_to "feed", activity_policy_url(@policy.document, format: "atom"), class: "feed" %>
-      </div>
+      <%= link_to_feed activity_policy_url(@policy.document, format: "atom") %>
       <%= render partial: "recently_changed_documents",
                 object: @recently_changed_documents,
                 locals: { title: "Latest on this policy" } %>

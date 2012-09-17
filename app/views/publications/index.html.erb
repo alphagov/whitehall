@@ -6,10 +6,7 @@
   <div class="inner-block">
     <header class="page-header publication">
       <h1 class="page_title">Publications</h1>
-      <div class="subscribe">
-        <span class="feed-icon"></span>
-        <%= link_to "feed", publication_atom_feed_url, class: "feed" %>
-      </div>
+      <%= link_to_feed publication_atom_feed_url %>
     </header>
   </div>
 </div>

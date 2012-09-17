@@ -80,6 +80,11 @@ class HomeControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link atom_feed_url
   end
 
+  test 'activity shows a link to the atom feed' do
+    get :show
+    assert_select "a.feed[href=?]", atom_feed_url
+  end
+
   test 'Atom feed has the right elements' do
     create_published_documents
 
