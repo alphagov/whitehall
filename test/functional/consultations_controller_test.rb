@@ -9,7 +9,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   should_show_inapplicable_nations :consultation
 
   test "should avoid n+1 queries" do
-    10.times { create(:published_consultation, featured: true) }
+    10.times { create(:published_consultation) }
     assert 10 > count_queries { get :index }
   end
 

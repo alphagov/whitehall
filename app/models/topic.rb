@@ -22,8 +22,6 @@ class Topic < ActiveRecord::Base
   has_many :specialist_guides, through: :topic_memberships
   has_many :published_specialist_guides, through: :topic_memberships, class_name: "SpecialistGuide", conditions: { "editions.state" => "published" }, source: :specialist_guide
 
-  has_many :featured_policies, through: :topic_memberships, class_name: "Policy", conditions: { "topic_memberships.featured" => true, "editions.state" => "published" }, source: :policy
-
   has_many :organisation_topics
   has_many :organisations, through: :organisation_topics
 
@@ -75,7 +73,6 @@ class Topic < ActiveRecord::Base
 
   scope :alphabetical, order("name ASC")
 
-  scope :featured, where(featured: true)
   scope :randomized, order('RAND()')
 
   extend FriendlyId
@@ -103,14 +100,6 @@ class Topic < ActiveRecord::Base
   def destroyable?
     non_archived_policies = policies - archived_policies
     non_archived_policies.blank?
-  end
-
-  def feature
-    update_attributes(featured: true)
-  end
-
-  def unfeature
-    update_attributes(featured: false)
   end
 
   def search_link

@@ -79,7 +79,7 @@ class Edition < ActiveRecord::Base
   end
 
   def significant_changed_attributes
-    changed - %w(state updated_at featured force_published)
+    changed - %w(state updated_at force_published)
   end
 
   searchable(
