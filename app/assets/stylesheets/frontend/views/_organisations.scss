@@ -205,6 +205,7 @@ h1.label {
     h1, ul, p {
       li {
         border-bottom: 1px solid $grey-88;
+        clear: both;
       }
       @include media(desktop) {
         float: right;
