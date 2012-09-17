@@ -17,9 +17,6 @@
           topics: @topics,
           document: @document
         }%>
-        <% if @document.published_related_specialist_guides.any? %>
-          <!-- p class="more-like-this"><a href="#more-like-this">related guidance</a></p> -->
-        <% end %>
       </section>
 
     <% if @document.has_related_mainstream_content? %>
