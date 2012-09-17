@@ -108,6 +108,9 @@ h1.label {
       display: inline;
       width: 66%;
     }
+    .govspeak {
+      float: right;
+    }
     ul {
       @include core-19;
       list-style: none;
@@ -120,6 +123,7 @@ h1.label {
         span {
           @include core-48;
           display: block;
+          padding-bottom: 0;
         }
       }
     }
