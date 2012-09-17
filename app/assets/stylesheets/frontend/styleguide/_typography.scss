@@ -257,10 +257,10 @@
   display: block;
 
   border-left: 2px solid #bbb;
-  background: url("/government/assets/coa-default-24.gif") no-repeat 8px 0;
+  background: image-url("coa-default-24.gif") no-repeat 8px 0;
 
   @media (max-width: 640px) {
-    background-image: url("/government/assets/coa-default-18.gif");
+    background-image: image-url("coa-default-18.gif");
   }
   span {
     position: relative;
