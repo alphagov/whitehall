@@ -194,6 +194,38 @@
   padding-bottom: 0.4rem;
 }
 
+@mixin logo-48 {
+  font-family: $Helvetica-Regular;
+  font-size: 48px;
+  font-size: 4.8rem;
+  line-height: 1.0416666667; /* 50px */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: none;
+  color: $black;
+
+  padding-top: 50px;
+  padding-top: 5.0rem;
+  padding-bottom: 0;
+  padding-left: 7px;
+  padding-left: 0.7rem;
+
+  display: block;
+
+  border-left: 5px solid #bbb;
+
+  background: image-url("coa-default-48.gif") no-repeat 8px 0;
+
+  span {
+    position: relative;
+    top: 2px;
+    @include ie(6) {
+      top: -60px;
+    }
+  }
+}
+
 @mixin logo-19 {
   font-family: $Helvetica-Regular;
   font-size: 19px;
@@ -204,31 +236,31 @@
   text-transform: none;
   text-decoration: none;
   color: $black;
-  
+
   @media (max-width: 640px) {
     font-size: 1.3rem;
     line-height: 1.1538461538;
   }
-  
+
   padding-top: 26px;
   padding-top: 2.6rem;
   padding-bottom: 0px;
   padding-bottom: 0rem;
   padding-left: 7px;
   padding-left: 0.7rem;
-  
+
   @media (max-width: 640px) {
     padding-top: 20px;
-    padding-top: 2rem;  
+    padding-top: 2rem;
   }
 
   display: block;
 
   border-left: 2px solid #bbb;
   background: url("/government/assets/coa-default-24.gif") no-repeat 8px 0;
-  
+
   @media (max-width: 640px) {
-    background-image: url("/government/assets/coa-default-18.gif");  
+    background-image: url("/government/assets/coa-default-18.gif");
   }
   span {
     position: relative;
@@ -424,7 +456,7 @@ $font-sans:
     padding-bottom: 12px;
     padding-bottom: 1.2rem;
     text-decoration: none;
-    
+
     a {
       text-decoration: none;
     }
