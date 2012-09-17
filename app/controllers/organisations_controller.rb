@@ -1,7 +1,7 @@
 class OrganisationsController < PublicFacingController
   before_filter :load_organisation,
     only: [:show, :about, :contact_details, :consultations,
-           :ministers, :management_team, :policies,
+           :ministers, :management_team,
            :agencies_and_partners, :chiefs_of_staff]
 
   def index
@@ -48,10 +48,6 @@ class OrganisationsController < PublicFacingController
   end
 
   def chiefs_of_staff
-  end
-
-  def policies
-    @policies = Policy.published.in_organisation(@organisation)
   end
 
   private

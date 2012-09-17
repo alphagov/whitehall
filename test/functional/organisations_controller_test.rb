@@ -2,9 +2,11 @@ require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
 
-  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations, :contact_details, :management_team, :policies]
+  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations, :contact_details, :management_team]
 
   should_be_a_public_facing_controller
+
+  include FilterRoutesHelper
 
   test "shows organisation name and description" do
     organisation = create(:organisation,
@@ -60,7 +62,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
     assert_select "nav" do
       refute_select "a[href=?]", announcements_path(departments: [organisation])
-      refute_select "a[href=?]", policies_organisation_path(organisation)
       refute_select "a[href=?]", publications_path(departments: [organisation])
       refute_select "a[href=?]", consultations_organisation_path(organisation)
     end
@@ -254,6 +255,22 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select_object topic_2 do
         assert_select '.policies', text: '2 policies'
       end
+    end
+  end
+
+  test "should display link to policies filter if there are many policies" do
+    topic_1 = create(:topic)
+    topic_2 = create(:topic)
+    organisation = create(:organisation, topics: [topic_1, topic_2])
+    create(:published_policy, organisations: [organisation], topics: [topic_1])
+    create(:published_policy, organisations: [organisation], topics: [topic_2])
+    create(:published_policy, organisations: [organisation], topics: [topic_2])
+    create(:published_policy, organisations: [organisation], topics: [topic_1])
+
+    get :show, id: organisation
+
+    assert_select '#policies' do
+      assert_select "a[href='#{policies_filter_path(organisation)}']"
     end
   end
 
@@ -547,19 +564,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select 'a[href=?]', chiefs_of_staff_organisation_path(organisation)
   end
 
-  test "shows only published policies associated with organisation on policies page" do
-    published_policy = create(:published_policy)
-    draft_policy = create(:draft_policy)
-    unrelated_policy = create(:published_policy)
-    organisation = create(:organisation, editions: [published_policy, draft_policy])
-
-    get :policies, id: organisation
-
-    assert_select_object(published_policy)
-    refute_select_object(draft_policy)
-    refute_select_object(unrelated_policy)
-  end
-
   test "should display a list of organisations" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
@@ -590,7 +594,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department)
 
-    [:show, :about, :consultations, :contact_details, :management_team, :policies].each do |page|
+    [:show, :about, :consultations, :contact_details, :management_team].each do |page|
       get page, id: organisation
       assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
     end
