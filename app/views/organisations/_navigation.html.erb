@@ -2,7 +2,7 @@
 <nav class="group sub_navigation" role="navigation">
   <ul>
     <% organisation.corporate_information_pages.each do |corporate_information_page| %>
-      <li>- <%= organisation_navigation_link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page) %></li>
+      <li><%= organisation_navigation_link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page) %></li>
     <% end %>
     <li><a href="https://jobsstatic.civilservice.gov.uk/csjobs.html" rel="external">Jobs</a></li>
   </ul>

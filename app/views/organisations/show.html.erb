@@ -89,7 +89,7 @@
         <section id="policies" class="simple_list">
           <h1 class="label">Our policies</h1>
           <%= render partial: "policies/list_description", locals: {policies: @policies} %>
-          <p>
+          <p class="see-all">
             <% if @organisation.department? %>
             <%= organisation_navigation_link_to 'See all of our policies', policies_filter_path(@organisation) %>
             <% end %>
@@ -105,7 +105,7 @@
         <section id="publications" class="simple_list">
           <h1 class="label">Our publications</h1>
           <%= render partial: "publications/list_description", locals: {publications: @publications} %>
-          <p>
+          <p class="see-all">
             <% if @organisation.department? %>
             <%= link_to 'See all of our publications', publications_filter_path(@organisation) %>
             <% end %>

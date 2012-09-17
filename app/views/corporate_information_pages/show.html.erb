@@ -1,31 +1,33 @@
 <% page_title @corporate_information_page.title %>
+<%= organisation_wrapper(@organisation, class: "hcard group") do %>
 
-<%= content_tag_for(:div, @corporate_information_page) do %>
-  <%= content_tag_for(:div, @corporate_information_page.organisation, class: "block-1") do %>
-    <div class="inner-block">
-      <section class="page-header icon">
-        <h1 class="page_title name">
-          <span class="title"><%= @corporate_information_page.organisation.name %> &ndash; <%= @corporate_information_page.title %></span>
-        </h1>
-      </section>
+  <%= content_tag_for(:div, @corporate_information_page) do %>
+    <%= content_tag_for(:div, @corporate_information_page.organisation, class: "block-1") do %>
+      <div class="inner-block">
+        <section class="page-header icon">
+          <h1 class="page_title name">
+            <span class="title"><%= @corporate_information_page.organisation.name %> &ndash; <%= @corporate_information_page.title %></span>
+          </h1>
+        </section>
+      </div>
+    <% end %>
+    <div class="block-2">
+      <div class="inner-block">
+        <section id="details">
+          <div class="content">
+            <article>
+              <% if @corporate_information_page.summary.present? %>
+                <div class="summary">
+                  <%= @corporate_information_page.summary %>
+                </div>
+              <% end %>
+              <div class="body">
+                <%= govspeak_edition_to_html @corporate_information_page %>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
     </div>
   <% end %>
-  <div class="block-2">
-    <div class="inner-block">
-      <section id="details">
-        <div class="content">
-          <article>
-            <% if @corporate_information_page.summary.present? %>
-              <div class="summary">
-                <%= @corporate_information_page.summary %>
-              </div>
-            <% end %>
-            <div class="body">
-              <%= govspeak_edition_to_html @corporate_information_page %>
-            </div>
-          </article>
-        </div>
-      </section>
-    </div>
-  </div>
 <% end %>

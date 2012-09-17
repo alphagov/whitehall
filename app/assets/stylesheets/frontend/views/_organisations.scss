@@ -107,19 +107,23 @@ h1.label {
     margin-bottom: $gutter-half;
     overflow: hidden;
     ul, .govspeak {
-      float: right;
+      float: left;
       display: inline;
-      width: 75%;
+      width: 66%;
     }
     ul {
       @include core-19;
-      float: left;
       list-style: none;
       text-align: center;
-      width: 25%;
-      span {
-        @include core-48;
-        display: block;
+      width: 33%;
+      li {
+        float: left;
+        display: inline;
+        width: 50%;
+        span {
+          @include core-48;
+          display: block;
+        }
       }
     }
     h2 a {
@@ -127,8 +131,9 @@ h1.label {
     }
     .publication-count {
       padding-top: 0;
-      .policies {
+      .policies, .guides {
         @include core-14;
+        text-transform: capitalize;
       }
     }
   }
@@ -202,7 +207,7 @@ h1.label {
 
   #policies,
   #publications {
-    h1, ul, p {
+    h1, .publications, .policies, .see-all {
       li {
         border-bottom: 1px solid $grey-88;
         clear: both;
@@ -220,17 +225,11 @@ h1.label {
         width: 33%;
       }
       .metadata {
-        margin-top: 0;
-        clear: both;
-        width: auto;
-        display: block;
-        float: none;
-
         @include core-16;
-
+        padding-top: $gutter-one-third;
+        clear: both;
         li {
           float: none;
-          padding: 0;
           display: inline-block;
           width: 40%;
           border: 0;
@@ -540,6 +539,22 @@ h1.label {
     margin-top: $gutter-half;
   }
 }
+
+
+// Corporate information pages
+.corporate_information_page {
+
+  .summary {
+    @include core-19;
+    margin: $gutter 0 $gutter 25%;
+  }
+
+  p, ul, h2 {
+    margin-left: 25%;
+  }
+
+}
+
 
 // Organisation colours
 .treasury  {
