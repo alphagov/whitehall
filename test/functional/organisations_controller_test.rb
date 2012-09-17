@@ -286,17 +286,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
     assert_select "#publications" do
       assert_select_object publications[1] do
-        assert_select '.summary', text: publications[1].summary.truncate(150, separator: ' ')
         assert_select '.publication-date'
         assert_select '.document-type'
       end
       assert_select_object publications[2] do
-        assert_select '.summary', text: publications[2].summary.truncate(150, separator: ' ')
         assert_select '.publication-date'
         assert_select '.document-type'
       end
       assert_select_object publications[0] do
-        assert_select '.summary', text: publications[0].summary.truncate(150, separator: ' ')
         assert_select '.publication-date'
         assert_select '.document-type'
       end

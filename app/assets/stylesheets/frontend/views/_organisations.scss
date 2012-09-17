@@ -220,13 +220,17 @@ h1.label {
         width: 33%;
       }
       .metadata {
-        margin-top: 5px;
+        margin-top: 0;
         clear: both;
+        width: auto;
+        display: block;
+        float: none;
 
         @include core-16;
 
         li {
           float: none;
+          padding: 0;
           display: inline-block;
           width: 40%;
           border: 0;

@@ -2,9 +2,6 @@
   <% publications.each do |publication| %>
     <%= content_tag_for(:li, publication) do %>
       <h2><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}", class: "title" %></h2>
-      <% unless publication.summary.blank? %>
-        <p class="summary"><%= truncate(publication.summary, length: 150, separator: ' ') %></p>
-      <% end %>
       <ul class="metadata">
         <li class="publication-date"><%= publication.display_date_microformat %></li>
         <li class="document-type"><%= publication.display_publication_type %></li>
