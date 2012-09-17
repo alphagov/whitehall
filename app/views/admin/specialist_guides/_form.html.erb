@@ -2,8 +2,8 @@
   <fieldset>
     <legend>Associations</legend>
     <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
-    <%= form.label :mainstream_category_id, 'Mainstream category' %>
-    <%= form.select :mainstream_category_id, mainstream_category_options(edition), {}, class: 'chzn-select', data: { placeholder: "Choose a mainstream category..."} %>
+    <%= form.label :mainstream_category_id, 'Browse category' %>
+    <%= form.select :mainstream_category_id, mainstream_category_options(edition), {}, class: 'chzn-select', data: { placeholder: "Choose a browse category..."} %>
     <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
     <%= form.label :outbound_related_document_ids, 'Related guides' %>
     <%= form.select :outbound_related_document_ids, options_from_collection_for_select(SpecialistGuide.order(:title).latest_edition.active, :document_id, :title, edition.outbound_related_document_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related specialist guides..."} %>
