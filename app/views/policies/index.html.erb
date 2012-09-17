@@ -23,8 +23,8 @@
         <thead class="visuallyhidden">
           <tr>
             <th scope="col">Title</th>
-            <th scope="col">Orgnisations</th>
-            <th scope="col">First published at</th>
+            <th scope="col">Organisations</th>
+            <th scope="col">Topic</th>
           </tr>
         </thead>
         <tbody>
@@ -38,10 +38,8 @@
                 <%= policy.organisations.map { |o|
                       organisation_display_name(o) }.to_sentence.html_safe %>
               </td>
-              <td class="attribute first_published_at">
-                <%= render_datetime_microformat(policy, :first_published_at) {
-                    policy.first_published_at.to_s(:long_ordinal)
-              }%>
+              <td class="attribute topics">
+                <%= policy.topics.map(&:name).join(", ").html_safe %>
               </td>
             <% end %>
           <% end %>
