@@ -200,7 +200,8 @@ h1.label {
     }
   }
 
-  #policies, #publications {
+  #policies,
+  #publications {
     h1, ul, p {
       li {
         border-bottom: 1px solid $grey-88;
@@ -216,6 +217,21 @@ h1.label {
       h1 {
         float: left;
         width: 33%;
+      }
+      .metadata {
+        margin-top: 5px;
+        clear: both;
+
+        @include core-16;
+
+        li {
+          float: none;
+          display: inline-block;
+          width: 40%;
+          border: 0;
+          text-transform: none;
+
+        }
       }
     }
   }
