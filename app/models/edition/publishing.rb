@@ -24,10 +24,6 @@ module Edition::Publishing
     end
   end
 
-  def publishable_by?(user, options = {})
-    reason_to_prevent_publication_by(user, options).nil?
-  end
-
   def first_edition?
     first_published_at && first_published_at == published_at
   end
@@ -48,7 +44,19 @@ module Edition::Publishing
     end
   end
 
-  def reason_to_prevent_publication_by(user, options = {})
+  def publishable_by?(user, options = {})
+    reason_to_prevent_publication_by(user, options).nil?
+  end
+
+  def schedulable_by?(user, options = {})
+    reason_to_prevent_scheduling_by(user, options).nil?
+  end
+
+  def approvable_by?(user, options = {})
+    reason_to_prevent_approval_by(user, options).nil?
+  end
+
+  def reason_to_prevent_approval_by(user, options = {})
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
     elsif published?
@@ -68,6 +76,20 @@ module Edition::Publishing
     end
   end
 
+  def reason_to_prevent_publication_by(user, options = {})
+    reason_to_prevent_approval_by(user, options) or if scheduled_publication.present?
+      if !scheduled? or Time.zone.now < scheduled_publication
+        "This edition is scheduled for publication on #{scheduled_publication.to_s}, and may not be published before"
+      end
+    end
+  end
+
+  def reason_to_prevent_scheduling_by(user, options = {})
+    reason_to_prevent_approval_by(user, options) or if scheduled_publication.blank?
+      "This edition is does not have a scheduled publication date set"
+    end
+  end
+
   def publish_as(user, options = {})
     if publishable_by?(user, options)
       self.published_at = if self.minor_change && latest_published_edition
@@ -81,6 +103,17 @@ module Edition::Publishing
       true
     else
       errors.add(:base, reason_to_prevent_publication_by(user, options))
+      false
+    end
+  end
+
+  def schedule_as(user, options = {})
+    if schedulable_by?(user, options)
+      self.force_published = options[:force]
+      schedule!
+      true
+    else
+      errors.add(:base, reason_to_prevent_scheduling_by(user, options))
       false
     end
   end

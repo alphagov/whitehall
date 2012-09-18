@@ -6,6 +6,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     edition = create(:edition)
     assert edition.draft?
     refute edition.submitted?
+    refute edition.scheduled?
     refute edition.published?
   end
 
@@ -13,6 +14,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     edition = create(:submitted_edition)
     refute edition.draft?
     assert edition.submitted?
+    refute edition.scheduled?
     refute edition.published?
   end
 
@@ -21,6 +23,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     edition.publish_as(create(:departmental_editor))
     refute edition.draft?
     assert edition.published?
+    refute edition.scheduled?
     refute edition.force_published?
   end
 
@@ -30,7 +33,17 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     edition.publish_as(editor, force: true)
     refute edition.draft?
     assert edition.published?
+    refute edition.scheduled?
     assert edition.force_published?
+  end
+
+  test "when scheduled" do
+    edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
+    edition.schedule_as(create(:departmental_editor))
+    refute edition.draft?
+    refute edition.published?
+    assert edition.scheduled?
+    refute edition.force_published?
   end
 
   test "rejecting a submitted edition transitions it into the rejected state" do
@@ -39,7 +52,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert submitted_edition.rejected?
   end
 
-  [:draft, :published, :archived, :deleted].each do |state|
+  [:draft, :scheduled, :published, :archived, :deleted].each do |state|
     test "should prevent a #{state} edition being rejected" do
       edition = create("#{state}_edition")
       edition.reject! rescue nil
@@ -55,7 +68,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:published, :archived, :deleted].each do |state|
+  [:scheduled, :published, :archived, :deleted].each do |state|
     test "should prevent a #{state} edition being submitted" do
       edition = create("#{state}_edition")
       edition.submit! rescue nil
@@ -63,7 +76,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :submitted, :rejected].each do |state|
+  [:scheduled, :draft, :submitted, :rejected].each do |state|
     test "deleting a #{state} edition transitions it into the deleted state" do
       edition = create("#{state}_edition")
       edition.delete!
@@ -104,7 +117,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     refute second_edition.deleted?
   end
 
-  [:draft, :submitted].each do |state|
+  [:draft, :submitted, :scheduled].each do |state|
     test "publishing a #{state} edition transitions it into the published state" do
       edition = create("#{state}_edition", published_at: 1.day.ago, first_published_at: 1.day.ago)
       edition.publish!
@@ -120,7 +133,26 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :submitted, :rejected, :deleted].each do |state|
+  test "should prevent a submitted edition from being published if it has a scheduled date" do
+    edition = create("submitted_edition", published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: 1.day.from_now)
+    edition.publish!
+    refute edition.published?
+  end
+
+  test "should allow a submitted edition to be scheduled if it has a scheduled date" do
+    edition = create("submitted_edition", published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: 1.day.from_now)
+    edition.schedule!
+    refute edition.published?
+    assert edition.scheduled?
+  end
+
+  test "should prevent a submitted edition from being scheduled if it does not have a scheduled date" do
+    edition = create("submitted_edition", published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: nil)
+    edition.schedule!
+    refute edition.scheduled?
+  end
+
+  [:draft, :submitted, :scheduled, :rejected, :deleted].each do |state|
     test "should prevent a #{state} edition being archived" do
       edition = create("#{state}_edition")
       edition.archive! rescue nil
@@ -142,7 +174,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:published, :archived, :deleted].each do |state|
+  [:scheduled, :published, :archived, :deleted].each do |state|
     test "should not be editable when #{state}" do
       edition = create("#{state}_edition")
       edition.title = "new-title"

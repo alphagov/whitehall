@@ -67,7 +67,7 @@ class Edition < ActiveRecord::Base
 
   before_save :set_timestamp_for_sorting
 
-  UNMODIFIABLE_STATES = %w(published archived deleted).freeze
+  UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
   FROZEN_STATES = %w(archived deleted).freeze
 
   def skip_main_validation?
