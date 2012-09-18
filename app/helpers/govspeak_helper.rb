@@ -60,7 +60,7 @@ module GovspeakHelper
     end
   end
 
-  def govspeak_header_heirarchy(text)
+  def govspeak_header_hierarchy(text)
     headers = []
     govspeak_headers(text, 2..3).each do |header|
       if header.level == 2

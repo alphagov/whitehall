@@ -7,7 +7,7 @@
     <% end %>
     <nav class="specialist_guide_parts" role="navigation">
       <ol id="document_sections">
-        <% govspeak_header_heirarchy(edition.body).each do |header_record| %>
+        <% govspeak_header_hierarchy(edition.body).each do |header_record| %>
           <li>
             <%= link_to header_record[:header].text, public_document_path(edition, anchor: header_record[:header].id) %>
             <% if header_record[:children].any? %>
