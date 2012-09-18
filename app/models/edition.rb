@@ -219,6 +219,14 @@ class Edition < ActiveRecord::Base
     Govspeak::Document.new(body).to_text
   end
 
+  def other_editions
+    if self.persisted?
+      document.editions.where(self.class.arel_table[:id].not_eq(self.id))
+    else
+      document.editions
+    end
+  end
+
   def only_edition?
     document.editions.count == 1
   end

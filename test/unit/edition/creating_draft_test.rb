@@ -40,7 +40,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     published_edition = create(:published_edition, change_note: "change-note")
     draft_edition = published_edition.create_draft(create(:policy_writer))
 
-    refute_equal published_edition.change_note, draft_edition.change_note
+    assert draft_edition.change_note.nil?
   end
 
   test "should not copy minor change flag when creating draft" do
@@ -85,6 +85,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     published_policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: published_policy)
     draft_policy = published_policy.create_draft(create(:policy_writer))
+    draft_policy.change_note = 'change-note'
 
     assert draft_policy.valid?
 
@@ -98,6 +99,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     consultation_participation = create(:consultation_participation, link_url: "http://link.com")
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
     draft_consultation = published_consultation.create_draft(create(:policy_writer))
+    draft_consultation.change_note = 'change-note'
 
     assert draft_consultation.valid?
 
@@ -112,6 +114,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     publication = create(:published_publication, related_policies: [policy_1, policy_2])
 
     draft = publication.create_draft(create(:policy_writer))
+    draft.change_note = 'change-note'
     assert draft.valid?
 
     assert draft.related_policies.include?(policy_1)

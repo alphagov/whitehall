@@ -119,6 +119,7 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
   test "should consider the topics of the latest published edition of a policy" do
     user = create(:departmental_editor)
     policy_1_b = @policy_1.create_draft(user)
+    policy_1_b.change_note = 'change-note'
     topic_1_b = create(:topic, policies: [policy_1_b])
     published_publication = create(:published_publication, related_policies: [policy_1_b])
 

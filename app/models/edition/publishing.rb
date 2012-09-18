@@ -3,6 +3,7 @@ module Edition::Publishing
 
   included do
     validates :published_at, :first_published_at, presence: true, if: -> edition { edition.published? }
+    validate :change_note_present!, if: :change_note_required?
 
     scope :first_published_since, -> time { where(arel_table[:first_published_at].gt(time)) }
     scope :first_published_during, -> period { where(first_published_at: period) }
@@ -32,8 +33,19 @@ module Edition::Publishing
   end
 
   def change_note_required?
-    return false if new_record?
-    document.published_edition.present?
+    if deleted?
+      false
+    elsif draft? && new_record?
+      false
+    else
+      other_editions.published.any?
+    end
+  end
+
+  def change_note_present!
+    if change_note.blank? and !minor_change
+      errors[:change_note] = "can't be blank"
+    end
   end
 
   def reason_to_prevent_publication_by(user, options = {})
@@ -53,8 +65,6 @@ module Edition::Publishing
       "You are not the second set of eyes"
     elsif !user.departmental_editor?
       "Only departmental editors can publish"
-    elsif change_note_required? && change_note.blank? && !minor_change && !options[:assuming_presence_of_change_note]
-      "Change note can't be blank"
     end
   end
 

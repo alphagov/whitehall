@@ -7,6 +7,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     create(:edition_organisation, featured: true, edition: news_article, organisation: organisation)
 
     new_edition = news_article.create_draft(create(:policy_writer))
+    new_edition.change_note = 'change-note'
     new_edition.publish_as(create(:departmental_editor), force: true)
 
     edition_organisation = new_edition.edition_organisations.first
@@ -19,6 +20,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     create(:edition_organisation, featured: false, edition: news_article, organisation: organisation)
 
     new_edition = news_article.create_draft(create(:policy_writer))
+    new_edition.change_note = 'change-note'
     new_edition.publish_as(create(:departmental_editor), force: true)
 
     edition_organisation = new_edition.edition_organisations.first

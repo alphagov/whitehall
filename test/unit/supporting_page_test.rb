@@ -147,7 +147,9 @@ class SupportingPageTest < ActiveSupport::TestCase
     supporting_page = create(:supporting_page, edition: edition, title: "Proscribed facial hair styles")
     slug = supporting_page.slug
     new_edition = edition.create_draft(user)
-    new_edition.reload.submit!
+    new_edition.reload
+    new_edition.change_note = 'change-note'
+    new_edition.submit!
     assert_equal slug, new_edition.supporting_pages.first.slug
   end
 

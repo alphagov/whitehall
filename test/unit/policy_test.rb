@@ -36,6 +36,7 @@ class PolicyTest < EditionTestCase
     speech = create(:published_speech, related_policies: [published_policy])
 
     draft_policy = published_policy.create_draft(create(:policy_writer))
+    draft_policy.change_note = 'change-note'
     assert draft_policy.valid?
 
     assert draft_policy.related_editions.include?(speech)

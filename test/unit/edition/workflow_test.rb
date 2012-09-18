@@ -87,6 +87,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     first_edition = create(:published_edition)
     user = create(:user)
     second_edition = first_edition.create_draft(user)
+    second_edition.minor_change = true
     second_edition.publish!
     second_edition.delete!
     refute second_edition.deleted?
@@ -96,6 +97,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     first_edition = create(:published_edition)
     user = create(:user)
     second_edition = first_edition.create_draft(user)
+    second_edition.minor_change = true
     second_edition.publish!
     second_edition.archive!
     second_edition.delete!

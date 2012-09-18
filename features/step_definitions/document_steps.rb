@@ -280,6 +280,11 @@ Then /^my attempt to publish "([^"]*)" should succeed$/ do |title|
   assert edition.published?
 end
 
+Then /^my attempt to save it should fail with error "([^"]*)"/ do |error_message|
+  click_button "Save"
+  assert page.has_css?(".errors li", error_message)
+end
+
 Then /^the published document "([^"]*)" should still link to the "([^"]*)" document$/ do |source_title, target_title|
   source_edition = Edition.find_by_title!(source_title)
   target_edition = Edition.find_by_title!(target_title)

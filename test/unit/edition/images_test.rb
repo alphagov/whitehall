@@ -34,6 +34,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
       images:             [image]
     ))
     draft_edition = published_edition.create_draft(build(:user))
+    draft_edition.change_note = 'change-note'
 
     assert draft_edition.valid?
 

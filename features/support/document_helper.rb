@@ -13,6 +13,7 @@ module DocumentHelper
     click_link "Create #{options[:type].titleize}"
     fill_in "Title", with: options[:title]
     fill_in "Body", with: options[:body] || "Any old iron"
+    fill_in_change_note_if_required
     if options[:alternative_format_provider]
       select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
     end

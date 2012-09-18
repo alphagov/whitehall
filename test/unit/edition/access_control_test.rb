@@ -70,6 +70,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     first_edition = create(:published_edition)
     user = create(:user)
     second_edition = first_edition.create_draft(user)
+    second_edition.change_note = 'change-note'
     second_edition.publish!
     refute second_edition.reload.deletable?
   end

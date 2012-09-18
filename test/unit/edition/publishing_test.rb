@@ -79,63 +79,45 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert_equal "This edition has been deleted", edition.reason_to_prevent_publication_by(editor)
   end
 
-  test "requires change note on publication of new edition if published edition already exists" do
+  test "a draft is valid without change note when first saved even if a published edition already exists" do
     published_edition = create(:published_edition)
-    edition = create(:submitted_edition, document: published_edition.document)
-    assert edition.change_note_required?
+    edition = build(:draft_edition, change_note: nil, minor_change: false, document: published_edition.document)
+    assert edition.valid?
   end
 
-  test "does not require change note on publication of new edition if no published edition already exists" do
-    edition = create(:submitted_edition)
-    refute edition.change_note_required?
-  end
-
-  test "is publishable without change note when no previous published edition exists" do
-    editor = create(:departmental_editor)
-    edition = create(:submitted_edition, change_note: nil)
-    assert edition.publishable_by?(editor, force: true)
-    assert edition.publishable_by?(editor)
-  end
-
-  test "is not publishable without change note when previous published edition exists" do
-    editor = create(:departmental_editor)
+  test "a draft is invalid without change note once saved if a published edition already exists" do
     published_edition = create(:published_edition)
-    edition = create(:submitted_edition, change_note: nil, document: published_edition.document)
-    refute edition.publishable_by?(editor, force: true)
-    refute edition.publishable_by?(editor)
-    assert_equal "Change note can't be blank", edition.reason_to_prevent_publication_by(editor)
+    edition = create(:draft_edition, change_note: nil, minor_change: false, document: published_edition.document)
+    refute edition.valid?
   end
 
-  test "is publishable with change note when previous published edition exists" do
-    editor = create(:departmental_editor)
+  test "a draft is valid without change note if deleting" do
     published_edition = create(:published_edition)
-    edition = create(:submitted_edition, change_note: "change-note", document: published_edition.document)
-    assert edition.publishable_by?(editor, force: true)
-    assert edition.publishable_by?(editor)
+    edition = create(:draft_edition, change_note: nil, minor_change: false, document: published_edition.document)
+    edition.delete!
+    assert edition.valid?
   end
 
-  test "is publishable as minor change when previous published edition exists" do
-    editor = create(:departmental_editor)
-    published_edition = create(:published_edition)
-    edition = create(:submitted_edition, change_note: nil, minor_change: true, document: published_edition.document)
-    assert edition.publishable_by?(editor, force: true)
-    assert edition.publishable_by?(editor)
+  test "is valid without change note if no published edition already exists" do
+    edition = create(:draft_edition, change_note: nil, minor_change: false)
+    assert edition.valid?
   end
 
-  test "is publishable without change note when previous published edition exists if presence of change note is assumed" do
-    editor = create(:departmental_editor)
-    published_edition = create(:published_edition)
-    edition = create(:submitted_edition, change_note: nil, document: published_edition.document)
-    assert edition.publishable_by?(editor, force: true, assuming_presence_of_change_note: true)
-    assert edition.publishable_by?(editor, assuming_presence_of_change_note: true)
+  test "is valid without change note if it is the only published edition that exists" do
+    published_edition = create(:published_edition, change_note: nil, minor_change: false)
+    assert published_edition.valid?
   end
 
-  test "is not publishable without change note when previous published edition exists if presence of change note is not assumed" do
-    editor = create(:departmental_editor)
+  test "is valid with minor change when previous published edition exists" do
     published_edition = create(:published_edition)
-    edition = create(:submitted_edition, change_note: nil, document: published_edition.document)
-    refute edition.publishable_by?(editor, force: true, assuming_presence_of_change_note: false)
-    refute edition.publishable_by?(editor, assuming_presence_of_change_note: false)
+    edition = build(:draft_edition, change_note: nil, minor_change: true, document: published_edition.document)
+    assert edition.valid?
+  end
+
+  test "is valid with change note when previous published edition exists" do
+    published_edition = create(:published_edition)
+    edition = build(:draft_edition, change_note: 'something', minor_change: false, document: published_edition.document)
+    assert edition.valid?
   end
 
   test "publication marks edition as published" do

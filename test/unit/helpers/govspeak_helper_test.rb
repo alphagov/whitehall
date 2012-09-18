@@ -206,6 +206,7 @@ class GovspeakHelperTest < ActionView::TestCase
     writer = create(:policy_writer)
     editor = create(:departmental_editor)
     new_draft = edition.create_draft(writer)
+    new_draft.change_note = 'change-note'
     new_draft.save_as(writer)
     new_draft.submit!
     new_draft.publish_as(editor)
@@ -218,6 +219,7 @@ class GovspeakHelperTest < ActionView::TestCase
     edition = create(:published_policy)
     writer = create(:policy_writer)
     new_draft = edition.create_draft(writer)
+    new_draft.change_note = 'change-note'
     new_draft.save_as(writer)
 
     html = govspeak_to_html("this and [that](http://test.host#{admin_edition_path(new_draft)}) yeah?")

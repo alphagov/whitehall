@@ -762,6 +762,7 @@ module AdminEditionControllerTestHelpers
         user = create(:user)
         previous_edition = create("published_#{edition_type}")
         published_edition = previous_edition.create_draft(user)
+        published_edition.change_note = 'change-note'
         published_edition.publish!
 
         get :show, id: published_edition
@@ -783,6 +784,7 @@ module AdminEditionControllerTestHelpers
         user = create(:user)
         previous_edition = create("published_#{edition_type}")
         archived_edition = previous_edition.create_draft(user)
+        archived_edition.change_note = 'change-note'
         archived_edition.publish!
         archived_edition.archive!
 

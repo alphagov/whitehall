@@ -15,6 +15,7 @@ FactoryGirl.define do
     creator
     title "edition-title"
     body "edition-body"
+    change_note "change-note"
 
     trait(:draft) { state "draft" }
     trait(:submitted) { state "submitted" }
