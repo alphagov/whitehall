@@ -57,7 +57,7 @@
             <%= content_tag_for :li, policy, class: "featured_policy" do %>
               <h2><%= link_to policy.title, public_document_path(policy),
                               title: "View #{policy.title}" %></h2>
-              <p class="summary"><%= policy.summary %>&hellip;</p>
+              <p class="summary"><%= policy.summary %></p>
             <% end %>
           <% end %>
         </ul>
