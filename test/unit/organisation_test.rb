@@ -304,9 +304,9 @@ class OrganisationTest < ActiveSupport::TestCase
   test '#featured_editions returns featured editions by ordering' do
     organisation = create(:organisation)
     alpha = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Alpha"))
-    beta = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Beta"), featured: true, ordering: 1)
-    gamma = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Gamma"), featured: true, ordering: 0)
-    delta = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Delta"), featured: true, ordering: 2)
+    beta = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Beta"), featured: true, ordering: 1, image: build(:edition_organisation_image_data))
+    gamma = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Gamma"), featured: true, ordering: 0, image: build(:edition_organisation_image_data))
+    delta = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Delta"), featured: true, ordering: 2, image: build(:edition_organisation_image_data))
 
     assert_equal [gamma.edition, beta.edition, delta.edition], organisation.featured_editions
   end

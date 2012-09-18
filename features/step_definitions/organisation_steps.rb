@@ -62,15 +62,19 @@ When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
 end
 
-When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |name, table|
-  organisation = Organisation.find_by_name!(name)
+When /^I feature the news article "([^"]*)" for "([^"]*)"$/ do |news_article_title, organisation_name|
+  When %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-soul.jpg"%
+end
+
+When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |news_article_title, organisation_name, image_filename|
+  organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
-  table.rows.each do |title|
-    news_article = NewsArticle.find_by_title(title)
-    within record_css_selector(news_article) do
-      click_button "Make featured"
-    end
+  news_article = NewsArticle.find_by_title(news_article_title)
+  within record_css_selector(news_article) do
+    click_link "Make featured"
   end
+  attach_file "Image", Rails.root.join("features/fixtures/#{image_filename}")
+  click_button "Save"
 end
 
 When /^I order the featured items in the "([^"]*)" organisation as:$/ do |name, table|
@@ -109,7 +113,12 @@ end
 Then /^I should see the featured news articles in the "([^"]*)" organisation are:$/ do |name, expected_table|
   visit_organisation name
   rows = find(featured_news_articles_selector).all('.news_article')
-  table = rows.map { |r| r.all('a.title').map { |c| c.text.strip } }
+  table = rows.collect do |row|
+    [
+      row.find('a.title').text.strip,
+      File.basename(row.find('.featured-image')['src'])
+    ]
+  end
   expected_table.diff!(table)
 end
 

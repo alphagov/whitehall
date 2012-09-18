@@ -1,0 +1,11 @@
+<% page_title "Featured document" %>
+
+<%= form_for [:admin, @edition_organisation], builder: Whitehall::FormBuilder do |form| %>
+  <%= form.errors %>
+  <%= form.hidden_field :featured %>
+  <%= form.fields_for :image do |image_fields| %>
+    <%= image_fields.label :file, 'Image' %>
+    <%= image_fields.file_field :file %>
+  <% end %>
+  <%= form.submit 'Save' %>
+<% end %>

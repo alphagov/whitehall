@@ -45,8 +45,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     news_article = create(:published_news_article)
     policy = create(:published_policy)
-    create(:edition_organisation, edition: news_article, organisation: organisation, featured: true, ordering: 1)
-    create(:edition_organisation, edition: policy, organisation: organisation, featured: true, ordering: 0)
+    create(:edition_organisation, edition: news_article, organisation: organisation, featured: true, ordering: 1, image: build(:edition_organisation_image_data))
+    create(:edition_organisation, edition: policy, organisation: organisation, featured: true, ordering: 0, image: build(:edition_organisation_image_data))
 
     get :show, id: organisation
 
@@ -57,7 +57,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     4.times do
       edition = create(:published_edition)
-      create(:edition_organisation, edition: edition, organisation: organisation, featured: true)
+      create(:edition_organisation, edition: edition, organisation: organisation, featured: true, image: build(:edition_organisation_image_data))
     end
 
     get :show, id: organisation
@@ -69,7 +69,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     7.times do
       edition = create(:published_edition)
-      create(:edition_organisation, edition: edition, organisation: organisation, featured: true)
+      create(:edition_organisation, edition: edition, organisation: organisation, featured: true, image: build(:edition_organisation_image_data))
     end
 
     get :show, id: organisation
@@ -130,10 +130,10 @@ class OrganisationsControllerTest < ActionController::TestCase
     # the first 3 are featured and the 4th will be our secondary featured
     3.times do
       edition = create(:published_edition)
-      create(:edition_organisation, edition: edition, organisation: organisation, featured: true)
+      create(:edition_organisation, edition: edition, organisation: organisation, featured: true, image: build(:edition_organisation_image_data))
     end
     edition = create(:published_edition, summary: "This is the summary of the edition")
-    create(:edition_organisation, edition: edition, organisation: organisation, featured: true)
+    create(:edition_organisation, edition: edition, organisation: organisation, featured: true, image: build(:edition_organisation_image_data))
 
     get :show, id: organisation
     assert_select ".secondary-featured .summary", text: edition.summary
@@ -146,28 +146,16 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows organisation's featured news article with image" do
-    lead_image = create(:image)
-    news_article = create(:published_news_article, images: [lead_image])
-    organisation = create(:organisation)
-    create(:edition_organisation, edition: news_article, organisation: organisation, featured: true)
-
-    get :show, id: organisation
-
-    assert_select_object news_article do
-      assert_select ".img img[src$='#{lead_image.url}']"
-      assert_select ".document-type", 'News article'
-    end
-  end
-
-  test "shows organisation's featured news article with a blank image where no image has been supplied" do
+    featured_image = create(:edition_organisation_image_data)
     news_article = create(:published_news_article)
     organisation = create(:organisation)
-    create(:edition_organisation, edition: news_article, organisation: organisation, featured: true)
+    create(:edition_organisation, edition: news_article, organisation: organisation, featured: true, image: featured_image)
 
     get :show, id: organisation
 
     assert_select_object news_article do
-      assert_select ".img img[src$='generic_image.jpg']"
+      assert_select ".img img[src$='#{featured_image.file.url}']"
+      assert_select ".document-type", 'News article'
     end
   end
 

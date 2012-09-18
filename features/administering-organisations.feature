@@ -3,15 +3,17 @@ Feature: Administering Organisations
 Scenario: Featuring news on an organisation page
   Given the organisation "Ministry of Pop" exists
   And a published news article "You must buy the X-Factor single, says Queen" was produced by the "Ministry of Pop" organisation
-  And a published news article "Simon Cowell to receive dubious honour" was produced by the "Ministry of Pop" organisation
-  And a published news article "Bringing back the Charleston" was produced by the "Ministry of Pop" organisation
+  When I feature the news article "You must buy the X-Factor single, says Queen" for "Ministry of Pop" with image "minister-of-soul.jpg"
+  Then I should see the featured news articles in the "Ministry of Pop" organisation are:
+    | You must buy the X-Factor single, says Queen | minister-of-soul.jpg |
 
-  When I set the featured news articles in the "Ministry of Pop" organisation to:
-    |News Article|
-    |Bringing back the Charleston|
-    |You must buy the X-Factor single, says Queen|
-  And I order the featured items in the "Ministry of Pop" organisation as:
-    |News Article|
+Scenario: Defining the order of featured news on an organisation page
+  Given the organisation "Ministry of Pop" exists
+  And a published news article "You must buy the X-Factor single, says Queen" was produced by the "Ministry of Pop" organisation
+  And a published news article "Bringing back the Charleston" was produced by the "Ministry of Pop" organisation
+  And I feature the news article "Bringing back the Charleston" for "Ministry of Pop"
+  And I feature the news article "You must buy the X-Factor single, says Queen" for "Ministry of Pop"
+  When I order the featured items in the "Ministry of Pop" organisation as:
     |You must buy the X-Factor single, says Queen|
     |Bringing back the Charleston|
   Then I should see the featured news articles in the "Ministry of Pop" organisation are:

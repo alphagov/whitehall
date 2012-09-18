@@ -93,7 +93,7 @@ Whitehall::Application.routes.draw do
           resources :corporate_information_pages
         end
         resources :policy_teams, except: [:show]
-        resources :edition_organisations, only: [:update]
+        resources :edition_organisations, only: [:edit, :update]
         resources :edition_countries, only: [:update]
         resources :topics, path: "topics", except: [:show]
 

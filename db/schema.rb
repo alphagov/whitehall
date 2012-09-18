@@ -173,13 +173,20 @@ ActiveRecord::Schema.define(:version => 20120919074734) do
   add_index "edition_ministerial_roles", ["edition_id"], :name => "index_edition_ministerial_roles_on_edition_id"
   add_index "edition_ministerial_roles", ["ministerial_role_id"], :name => "index_edition_ministerial_roles_on_ministerial_role_id"
 
+  create_table "edition_organisation_image_data", :force => true do |t|
+    t.string   "carrierwave_image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "edition_organisations", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "organisation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "featured",        :default => false
+    t.boolean  "featured",                           :default => false
     t.integer  "ordering"
+    t.integer  "edition_organisation_image_data_id"
   end
 
   add_index "edition_organisations", ["edition_id", "organisation_id"], :name => "index_edition_organisations_on_edition_id_and_organisation_id", :unique => true

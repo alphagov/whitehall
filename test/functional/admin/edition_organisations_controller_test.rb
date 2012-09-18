@@ -3,16 +3,68 @@ require 'test_helper'
 class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
-  test "should allow featuring of the edition organisation" do
-    edition_organisation = create(:edition_organisation, featured: false)
+  setup do
     login_as :departmental_editor
-    post :update, id: edition_organisation, edition_organisation: {featured: true}
-    assert edition_organisation.reload.featured?
+  end
+
+  test "should build a new image ready for populating" do
+    edition_organisation = create(:edition_organisation)
+
+    get :edit, id: edition_organisation
+
+    assert assigns(:edition_organisation).image.is_a?(EditionOrganisationImageData)
+    assert assigns(:edition_organisation).image.new_record?
+  end
+
+  test "should mark the edition as featured" do
+    edition_organisation = create(:edition_organisation)
+
+    get :edit, id: edition_organisation
+
+    assert assigns(:edition_organisation).featured?
+  end
+
+  test "should feature the edition for this organisation and store the featured image" do
+    edition_organisation = create(:edition_organisation, featured: false)
+
+    post :update, id: edition_organisation, edition_organisation: {
+      featured: true,
+      image_attributes: {
+        file: fixture_file_upload('minister-of-funk.jpg')
+      }
+    }
+
+    edition_organisation.reload
+    assert edition_organisation.featured?
+    assert_match /minister-of-funk/, edition_organisation.image.file.url
+  end
+
+  test "should display the form with errors if the image couldn't be saved" do
+    edition_organisation = create(:edition_organisation)
+
+    post :update, id: edition_organisation, edition_organisation: {
+      featured: true,
+      image_attributes: {}
+    }
+
+    assert_response :success
+    assert_select '.form-errors'
+  end
+
+  test "should build a new image ready for populating if the update fails" do
+    edition_organisation = create(:edition_organisation)
+
+    post :update, id: edition_organisation, edition_organisation: {
+      featured: true,
+      image_attributes: {}
+    }
+
+    assert assigns(:edition_organisation).image.is_a?(EditionOrganisationImageData)
+    assert assigns(:edition_organisation).image.new_record?
   end
 
   test "should allow unfeaturing of the edition organisation" do
-    edition_organisation = create(:edition_organisation, featured: true)
-    login_as :departmental_editor
+    edition_organisation = create(:edition_organisation, featured: true, image: build(:edition_organisation_image_data))
     post :update, id: edition_organisation, edition_organisation: {featured: false}
     refute edition_organisation.reload.featured?
   end
@@ -20,7 +72,6 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
   test "should redirect back to the organisation's admin page" do
     organisation = create(:organisation)
     edition_organisation = create(:edition_organisation, organisation: organisation)
-    login_as :departmental_editor
     post :update, id: edition_organisation, edition_organisation: {}
     assert_redirected_to admin_organisation_path(organisation)
   end

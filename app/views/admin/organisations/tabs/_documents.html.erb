@@ -29,14 +29,13 @@
           <td><%=l edition.published_at.to_date %></td>
           <td>
             <% association = edition.association_with_organisation(@organisation) %>
-            <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
-              <% if association.featured? %>
+            <% if association.featured? %>
+              <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
                 <%= f.hidden_field :featured, value: false %>
                 <%= f.submit "Featured", class: "btn featured" %>
-              <% else %>
-                <%= f.hidden_field :featured, value: true %>
-                <%= f.submit "Make featured", class: "btn make-featured" %>
               <% end %>
+            <% else %>
+              <%= link_to "Make featured", edit_admin_edition_organisation_path(association) %>
             <% end %>
           </td>
         <% end %>
