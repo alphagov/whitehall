@@ -316,7 +316,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal [Govspeak::Header.new("Heading 2", 2, "heading-2")], headers
   end
 
-  test "should be able to extract header_hierarchy from level 2+3 headers" do
+  test "should extract header hierarchy from level 2+3 headings" do
     text = "# Heading 1\n\n## Heading 2a\n\n### Heading 3a\n\n### Heading 3b\n\n#### Ignored heading\n\n## Heading 2b"
     headers = govspeak_header_hierarchy(text)
     assert_equal [
@@ -332,6 +332,11 @@ class GovspeakHelperTest < ActionView::TestCase
         children: []
       }
     ], headers
+  end
+
+  test "should raise exception when extracting header hierarchy with orphaned level 3 headings" do
+    e = assert_raises(OrphanedHeadingError) { govspeak_header_hierarchy("### Heading 3") }
+    assert_equal "Heading 3", e.heading
   end
 
   test "should convert single document to govspeak" do

@@ -31,6 +31,17 @@ class SpecialistGuide < Edition
   validate :related_mainstream_content_valid?
   validate :additional_related_mainstream_content_valid?
 
+  class HeadingHierarchyValidator < ActiveModel::Validator
+    include GovspeakHelper
+    def validate(record)
+      govspeak_header_hierarchy(record.body)
+    rescue OrphanedHeadingError => e
+      record.errors.add(:body, "must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): '#{e.heading}'")
+    end
+  end
+
+  validates_with HeadingHierarchyValidator
+
   def related_specialist_guides
     (latest_outbound_related_specialist_guides + latest_inbound_related_specialist_guides).uniq
   end

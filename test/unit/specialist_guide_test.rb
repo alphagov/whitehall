@@ -74,4 +74,17 @@ class SpecialistGuideTest < EditionTestCase
     specialist_guide = build(:specialist_guide, additional_related_mainstream_content_url: "http://mainstream/additional-content")
     refute specialist_guide.valid?
   end
+
+  test "should be valid if all level-3 headings have a parent level-2 heading" do
+    body = "## Parent1\n\n### Child1\n\n### Child2\n\n## Parent2\n\n### Child3"
+    specialist_guide = build(:specialist_guide, body: body)
+    assert specialist_guide.valid?
+  end
+
+  test "should not be valid if level-3 heading has no parent level-2 heading" do
+    body = "### Orphan\n\n## Uncle\n\n## Aunt"
+    specialist_guide = build(:specialist_guide, body: body)
+    refute specialist_guide.valid?
+    assert_equal ["must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): 'Orphan'"], specialist_guide.errors[:body]
+  end
 end
