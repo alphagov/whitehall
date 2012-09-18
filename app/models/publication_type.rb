@@ -47,9 +47,8 @@ class PublicationType
   IndependentReport      = create(id: 14, singular_name: "Independent report", plural_name: "Independent reports", prevalence: :less_common)
 
   # Use is discouraged
-  CircularNewsletterOrBulletin =
-                           create(id: 8 , singular_name: "Circular, newsletter or bulletin", plural_name: "Circulars, newsletters and bulletins", prevalence: :discouraged)
-  OfficialLetterOrNotice = create(id: 9 , singular_name: "Official letter or notice", plural_name: "Official letters and notices", prevalence: :discouraged)
+  CircularLetterOrBulletin =
+                           create(id: 8 , singular_name: "Circular, letter or bulletin", plural_name: "Circulars, letters and bulletins", prevalence: :discouraged)
   PromotionalMaterial    = create(id: 13, singular_name: "Promotional material", plural_name: "Promotional material", prevalence: :discouraged)
 
   # Temporary to allow migration
