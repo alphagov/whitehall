@@ -504,6 +504,7 @@ ActiveRecord::Schema.define(:version => 20120917155735) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "departmental_editor", :default => false
     t.string   "email"
     t.integer  "organisation_id"
     t.string   "uid"
