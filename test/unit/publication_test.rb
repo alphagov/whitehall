@@ -129,38 +129,4 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     topic_1_b.reload
     assert_equal [published_publication], Publication.in_topic([topic_1_b]).all
   end
-
-  test "should find publication with title containing keyword" do
-    publication_without_keyword = create(:publication, title: "title that should not be found")
-    publication_with_keyword = create(:publication, title: "title containing keyword in the middle")
-    assert_equal [publication_with_keyword], Publication.with_content_containing("keyword")
-  end
-
-  test "should find publication with body containing keyword" do
-    publication_without_keyword = create(:publication, body: "body that should not be found")
-    publication_with_keyword = create(:publication, body: "body containing keyword in the middle")
-    assert_equal [publication_with_keyword], Publication.with_content_containing("keyword")
-  end
-
-  test "should find publications containing any of the keywords" do
-    publication_with_first_keyword = create(:publication, body: "this document is about muppets")
-    publication_with_second_keyword = create(:publication, body: "this document is about klingons")
-    assert_equal [publication_with_first_keyword, publication_with_second_keyword], Publication.with_content_containing("klingons", "muppets")
-  end
-
-  test "should find publications containing keyword regardless of case" do
-    publication_with_keyword = create(:publication, body: "body containing Keyword in the middle")
-    assert_equal [publication_with_keyword], Publication.with_content_containing("keyword")
-  end
-
-  test "should find publications containing keyword as part of a word" do
-    publication_with_keyword = create(:publication, body: "body containing keyword in the middle")
-    assert_equal [publication_with_keyword], Publication.with_content_containing("key")
-  end
-
-  test "should find publications containing keyword in summary" do
-    publication_with_first_keyword = create(:publication, body: "this document is about muppets", summary: "klingons")
-    publication_without_first_keyword = create(:publication, body: "this document is about klingons")
-    assert_equal [publication_with_first_keyword], Publication.with_summary_containing("klingons")
-  end
 end

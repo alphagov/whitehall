@@ -473,4 +473,37 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [feb], Edition.published_after("2011-01-29").all
   end
 
+  test "should find edition with title containing keyword" do
+    edition_without_keyword = create(:edition, title: "title that should not be found")
+    edition_with_keyword = create(:edition, title: "title containing keyword in the middle")
+    assert_equal [edition_with_keyword], Edition.with_content_containing("keyword")
+  end
+
+  test "should find edition with body containing keyword" do
+    edition_without_keyword = create(:edition, body: "body that should not be found")
+    edition_with_keyword = create(:edition, body: "body containing keyword in the middle")
+    assert_equal [edition_with_keyword], Edition.with_content_containing("keyword")
+  end
+
+  test "should find editions containing any of the keywords" do
+    edition_with_first_keyword = create(:edition, body: "this document is about muppets")
+    edition_with_second_keyword = create(:edition, body: "this document is about klingons")
+    assert_equal [edition_with_first_keyword, edition_with_second_keyword], Edition.with_content_containing("klingons", "muppets")
+  end
+
+  test "should find editions containing keyword regardless of case" do
+    edition_with_keyword = create(:edition, body: "body containing Keyword in the middle")
+    assert_equal [edition_with_keyword], Edition.with_content_containing("keyword")
+  end
+
+  test "should find editions containing keyword as part of a word" do
+    edition_with_keyword = create(:edition, body: "body containing keyword in the middle")
+    assert_equal [edition_with_keyword], Edition.with_content_containing("key")
+  end
+
+  test "should find editions containing keyword in summary" do
+    edition_with_first_keyword = create(:edition, body: "this document is about muppets", summary: "klingons")
+    edition_without_first_keyword = create(:edition, body: "this document is about klingons")
+    assert_equal [edition_with_first_keyword], Edition.with_summary_containing("klingons")
+  end
 end
