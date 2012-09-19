@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
     departmental_editor? ? "Departmental Editor" : "Policy Writer"
   end
 
+  def departmental_editor?
+    has_permission?(GDS::SSO::Config.default_scope, 'Editor')
+  end
+
   def organisation_name
     organisation ? organisation.name : nil
   end

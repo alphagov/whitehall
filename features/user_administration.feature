@@ -22,11 +22,6 @@ Scenario: Logged in users should be able to set their organisation
   When I set the organisation for "John Smith" to "Department of Beards"
   Then I should see my organisation is "Department of Beards"
 
-Scenario: Logged in users should be able to set their role
-  Given I am a writer called "John Smith"
-  When I set the role for "John Smith" to departmental editor
-  Then I should see that I am a departmental editor
-
 Scenario: Logged in users should be able to see other users' contact details
   Given I am a writer
   And there is a user called "John Smith" with email address "johnsmith@example.com"
