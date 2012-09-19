@@ -5,5 +5,6 @@ class EditionOrganisation < ActiveRecord::Base
 
   accepts_nested_attributes_for :image, reject_if: :all_blank
 
+  validates :edition, :organisation, presence: true
   validates :image, :alt_text, presence: true, if: :featured?
 end

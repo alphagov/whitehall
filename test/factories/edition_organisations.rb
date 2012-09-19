@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :edition_organisation do
+    edition
     organisation
   end
   factory :featured_edition_organisation, parent: :edition_organisation do
