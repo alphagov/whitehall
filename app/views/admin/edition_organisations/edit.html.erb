@@ -7,5 +7,6 @@
     <%= image_fields.label :file, 'Image' %>
     <%= image_fields.file_field :file %>
   <% end %>
+  <%= form.text_field :alt_text, label_text: 'Alt text' %>
   <%= form.submit 'Save' %>
 <% end %>

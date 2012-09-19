@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120919074734) do
+ActiveRecord::Schema.define(:version => 20120919121359) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(:version => 20120919074734) do
     t.boolean  "featured",                           :default => false
     t.integer  "ordering"
     t.integer  "edition_organisation_image_data_id"
+    t.string   "alt_text"
   end
 
   add_index "edition_organisations", ["edition_id", "organisation_id"], :name => "index_edition_organisations_on_edition_id_and_organisation_id", :unique => true

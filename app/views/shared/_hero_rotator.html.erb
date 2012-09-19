@@ -3,14 +3,14 @@
     <% editions.each do |edition| %>
       <%= content_tag_for(:article, edition, nil, class: edition_organisation_class(edition)) do %>
         <div class="img">
-          <% image = if defined?(organisation) %>
+          <% image, alt_text = if defined?(organisation) %>
             <% edition_organisation = EditionOrganisation.find_by_edition_id_and_organisation_id(edition.id, @organisation.id) %>
-            <% edition_organisation.image && edition_organisation.image.file %>
+            <% [edition_organisation.image && edition_organisation.image.file, edition_organisation.alt_text] %>
           <% else %>
-            <% edition.lead_image %>
+            <% [edition.lead_image, edition.lead_image && edition.lead_image.alt_text] %>
           <% end %>
           <% if image.present? %>
-            <%= image_tag(image.url, class: 'featured-image') %>
+            <%= image_tag(image.url, class: 'featured-image', alt: alt_text) %>
           <% else %>
             <%= image_tag('generic_image.jpg') %>
           <% end %>

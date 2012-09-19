@@ -74,6 +74,7 @@ When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
     click_link "Make featured"
   end
   attach_file "Image", Rails.root.join("features/fixtures/#{image_filename}")
+  fill_in :alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
 

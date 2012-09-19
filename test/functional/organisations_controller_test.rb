@@ -149,12 +149,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     featured_image = create(:edition_organisation_image_data)
     news_article = create(:published_news_article)
     organisation = create(:organisation)
-    create(:featured_edition_organisation, edition: news_article, organisation: organisation, image: featured_image)
+    create(:featured_edition_organisation, edition: news_article, organisation: organisation, image: featured_image, alt_text: "alt-text")
 
     get :show, id: organisation
 
     assert_select_object news_article do
-      assert_select ".img img[src$='#{featured_image.file.url}']"
+      assert_select ".img img[src$='#{featured_image.file.url}'][alt=?]", "alt-text"
       assert_select ".document-type", 'News article'
     end
   end

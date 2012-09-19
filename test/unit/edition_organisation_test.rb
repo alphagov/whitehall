@@ -9,6 +9,12 @@ class EditionOrganisationTest < ActiveSupport::TestCase
     assert edition_organisation.errors[:image].present?
   end
 
+  test "should be invalid if the edition has been marked as featured but no alt text has been specified" do
+    edition_organisation = build(:featured_edition_organisation, alt_text: nil)
+    refute edition_organisation.valid?
+    assert edition_organisation.errors[:alt_text].present?
+  end
+
   test "should build an image using nested attributes" do
     edition_organisation = build(:edition_organisation)
     edition_organisation.image_attributes = {

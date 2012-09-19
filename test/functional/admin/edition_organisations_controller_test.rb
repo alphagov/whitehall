@@ -24,11 +24,24 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     assert assigns(:edition_organisation).featured?
   end
 
-  test "should feature the edition for this organisation and store the featured image" do
+  test "edit displays edition organisation fields" do
+    edition_organisation = create(:edition_organisation)
+
+    get :edit, id: edition_organisation
+
+    assert_select "form[action='#{admin_edition_organisation_path(edition_organisation)}']" do
+      assert_select "input[type='hidden'][name='edition_organisation[featured]']"
+      assert_select "input[type='file'][name='edition_organisation[image_attributes][file]']"
+      assert_select "input[type='text'][name='edition_organisation[alt_text]']"
+    end
+  end
+
+  test "should feature the edition for this organisation and store the featured image and alt text" do
     edition_organisation = create(:edition_organisation, featured: false)
 
     post :update, id: edition_organisation, edition_organisation: {
       featured: true,
+      alt_text: "new-alt-text",
       image_attributes: {
         file: fixture_file_upload('minister-of-funk.jpg')
       }
@@ -36,7 +49,23 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
 
     edition_organisation.reload
     assert edition_organisation.featured?
+    assert_equal "new-alt-text", edition_organisation.alt_text
     assert_match /minister-of-funk/, edition_organisation.image.file.url
+  end
+
+  test "should display the form with errors if the edition organisation couldn't be saved" do
+    edition_organisation = create(:edition_organisation)
+
+    post :update, id: edition_organisation, edition_organisation: {
+      featured: true,
+      alt_text: nil,
+      image_attributes: {
+        file: fixture_file_upload('minister-of-funk.jpg')
+      }
+    }
+
+    assert_response :success
+    assert_select '.form-errors'
   end
 
   test "should display the form with errors if the image couldn't be saved" do
@@ -44,6 +73,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
 
     post :update, id: edition_organisation, edition_organisation: {
       featured: true,
+      alt_text: "new-alt-text",
       image_attributes: {}
     }
 

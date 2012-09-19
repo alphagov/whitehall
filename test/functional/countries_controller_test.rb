@@ -94,7 +94,7 @@ class CountriesControllerTest < ActionController::TestCase
   end
 
   test "shows country's featured news article with image" do
-    lead_image = create(:image)
+    lead_image = create(:image, alt_text: "alt-text")
     news_article = create(:published_news_article, images: [lead_image])
     country = create(:country)
     create(:edition_country, edition: news_article, country: country, featured: true)
@@ -102,7 +102,7 @@ class CountriesControllerTest < ActionController::TestCase
     get :show, id: country
 
     assert_select_object news_article do
-      assert_select ".img img[src$='#{lead_image.url}']"
+      assert_select ".img img[src$='#{lead_image.url}'][alt=?]", "alt-text"
     end
   end
 
