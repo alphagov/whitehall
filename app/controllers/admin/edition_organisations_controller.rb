@@ -13,7 +13,7 @@ class Admin::EditionOrganisationsController < Admin::BaseController
       attributes[:alt_text] = nil
     end
     if @edition_organisation.update_attributes(attributes)
-      redirect_to admin_organisation_path(@edition_organisation.organisation)
+      redirect_to admin_organisation_path(@edition_organisation.organisation, anchor: "documents")
     else
       @edition_organisation.build_image unless @edition_organisation.image.present?
       render :edit
