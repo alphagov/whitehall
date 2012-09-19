@@ -212,6 +212,35 @@
   }
 }
 
+@mixin logo-27 {
+  font-family: $Helvetica-Regular;
+  font-size: 27px;
+  font-size: 2.7rem;
+  line-height: (30/27); /* 30px */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: none;
+  color: $black;
+
+  padding-top: 40px;
+  padding-top: 4.0rem;
+  padding-bottom: 0;
+  padding-left: 7px;
+  padding-left: 0.7rem;
+
+  display: block;
+
+  border-left: 3px solid #bbb;
+
+  background: image-url("coa-default-27.png") no-repeat 8px 0;
+
+  span {
+    position: relative;
+    top: 2px;
+  }
+}
+
 @mixin logo-23 {
   font-family: $Helvetica-Regular;
   font-size: 23px;
