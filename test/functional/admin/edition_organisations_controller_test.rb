@@ -17,7 +17,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should mark the edition as featured" do
-    edition_organisation = create(:edition_organisation, featured: false)
+    edition_organisation = create(:edition_organisation, featured: "false")
 
     get :edit, id: edition_organisation
 
@@ -37,10 +37,10 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should feature the edition for this organisation and store the featured image and alt text" do
-    edition_organisation = create(:edition_organisation, featured: false)
+    edition_organisation = create(:edition_organisation, featured: "false")
 
     post :update, id: edition_organisation, edition_organisation: {
-      featured: true,
+      featured: "true",
       alt_text: "new-alt-text",
       image_attributes: {
         file: fixture_file_upload('minister-of-funk.jpg')
@@ -57,7 +57,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     edition_organisation = create(:edition_organisation)
 
     post :update, id: edition_organisation, edition_organisation: {
-      featured: true,
+      featured: "true",
       alt_text: nil,
       image_attributes: {
         file: fixture_file_upload('minister-of-funk.jpg')
@@ -72,7 +72,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     edition_organisation = create(:edition_organisation)
 
     post :update, id: edition_organisation, edition_organisation: {
-      featured: true,
+      featured: "true",
       alt_text: "new-alt-text",
       image_attributes: {}
     }
@@ -85,7 +85,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     edition_organisation = create(:edition_organisation)
 
     post :update, id: edition_organisation, edition_organisation: {
-      featured: true,
+      featured: "true",
       image_attributes: {}
     }
 
@@ -95,8 +95,11 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
 
   test "should allow unfeaturing of the edition organisation" do
     edition_organisation = create(:featured_edition_organisation)
-    post :update, id: edition_organisation, edition_organisation: {featured: false}
-    refute edition_organisation.reload.featured?
+    post :update, id: edition_organisation, edition_organisation: {featured: "false"}
+    edition_organisation.reload
+    refute edition_organisation.featured?
+    assert edition_organisation.image.blank?
+    assert edition_organisation.alt_text.blank?
   end
 
   test "should redirect back to the organisation's admin page" do
