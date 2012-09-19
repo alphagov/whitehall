@@ -57,5 +57,17 @@
     </fieldset>
   <% end %>
 
+  <% if @board_member_organisation_roles.any? %>
+    <fieldset id="board_member_ordering" class="sortable">
+      <legend>Board member ordering</legend>
+      <%= organisation_form.fields_for :organisation_roles, @board_member_organisation_roles do |organisation_role_form| %>
+        <div class="well">
+          <%= organisation_role_form.text_field :ordering, label_text: "#{organisation_role_form.object.role.name}, #{organisation_role_form.object.role.current_person_name}", class: "ordering" %>
+        </div>
+      <% end %>
+    </fieldset>
+  <% end %>
+
+
   <%= organisation_form.save_or_cancel(cancel: (@organisation.persisted? ? admin_organisation_path(@organisation) : admin_organisations_path)) %>
 <% end %>

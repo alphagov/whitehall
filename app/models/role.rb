@@ -11,6 +11,7 @@ class Role < ActiveRecord::Base
   scope :alphabetical_by_person, includes(:current_people, :organisations).order('people.surname', 'people.forename')
 
   scope :ministerial, where(type: 'MinisterialRole')
+  scope :board_member, where(type: 'BoardMemberRole')
 
   validates :name, presence: true
   validates_with SafeHtmlValidator

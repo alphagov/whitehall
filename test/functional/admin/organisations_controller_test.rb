@@ -317,7 +317,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "input[type=text][name='organisation[social_media_accounts_attributes][0][url]']"
   end
 
-  test "editing only shows ministerial roles for ordering" do
+  test "editing shows roles for ordering in separate lists" do
     ministerial_role = create(:ministerial_role)
     board_member_role = create(:board_member_role)
     organisation = create(:organisation)
@@ -328,6 +328,9 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
     refute_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
+
+    assert_select "#board_member_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
+    refute_select "#board_member_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
   end
 
   test "editing shows ministerial role and current person's name" do
@@ -351,6 +354,18 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     get :edit, id: organisation
 
     assert_equal [organisation_senior_ministerial_role, organisation_junior_ministerial_role], assigns(:ministerial_organisation_roles)
+  end
+
+  test "editing shows board member roles in their currently specified order" do
+    junior_board_member_role = create(:board_member_role)
+    senior_board_member_role = create(:board_member_role)
+    organisation = create(:organisation)
+    organisation_junior_board_member_role = create(:organisation_role, organisation: organisation, role: junior_board_member_role, ordering: 2)
+    organisation_senior_board_member_role = create(:organisation_role, organisation: organisation, role: senior_board_member_role, ordering: 1)
+
+    get :edit, id: organisation
+
+    assert_equal [organisation_senior_board_member_role, organisation_junior_board_member_role], assigns(:board_member_organisation_roles)
   end
 
   test "editing does not display an empty ministerial roles section" do
@@ -562,7 +577,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "no link to create corporate_information_page if all types already exist" do
     organisation = create(:organisation)
-    CorporateInformationPageType.all.each do |type| 
+    CorporateInformationPageType.all.each do |type|
       organisation.corporate_information_pages << create(:corporate_information_page, type: type, body: "The body")
     end
     organisation.save

@@ -1,6 +1,6 @@
 class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_organisation, only: [:new]
-  before_filter :build_ministerial_organisation_roles, only: [:new]
+  before_filter :build_organisation_roles, only: [:new]
   before_filter :load_organisation, only: [:show, :edit, :update, :destroy]
   before_filter :build_social_media_account, only: [:new, :edit]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
@@ -19,7 +19,7 @@ class Admin::OrganisationsController < Admin::BaseController
     if @organisation.save
       redirect_to admin_organisations_path
     else
-      build_ministerial_organisation_roles
+      build_organisation_roles
       build_social_media_account
       render action: "new"
     end
@@ -30,14 +30,14 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def edit
-    load_organisation_ministerial_roles
+    load_organisation_roles
   end
 
   def update
     if @organisation.update_attributes(params[:organisation])
       redirect_to admin_organisation_path(@organisation)
     else
-      load_organisation_ministerial_roles
+      load_organisation_roles
       build_social_media_account
       render action: "edit"
     end
@@ -54,8 +54,9 @@ class Admin::OrganisationsController < Admin::BaseController
     @organisation = Organisation.new
   end
 
-  def build_ministerial_organisation_roles
+  def build_organisation_roles
     @ministerial_organisation_roles = []
+    @board_member_organisation_roles = []
   end
 
   def load_organisation
@@ -68,8 +69,9 @@ class Admin::OrganisationsController < Admin::BaseController
     end
   end
 
-  def load_organisation_ministerial_roles
+  def load_organisation_roles
     @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.ministerial).order(:ordering)
+    @board_member_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.board_member).order(:ordering)
   end
 
   def default_arrays_of_ids_to_empty
