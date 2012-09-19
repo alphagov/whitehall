@@ -1,1 +1,0 @@
-Rails.application.assets.logger = Logger.new('/dev/null')
