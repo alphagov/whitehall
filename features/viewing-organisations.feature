@@ -11,9 +11,8 @@ Scenario: Organisation page should show consultations
   When I visit the "Attorney General's Office" organisation
   Then I can see links to the consultations "More tea vicar?" and "Cake or biscuit?"
 
-Scenario: Organisation page should show the top minister
+Scenario: Organisation page should show the ministers
   Given the "Attorney General's Office" organisation is associated with several ministers and civil servants
   When I visit the "Attorney General's Office" organisation
-  Then I should see the top minister for the "Attorney General's Office" organisation
   And I should see the top civil servant for the "Attorney General's Office" organisation
   And I should be able to view all ministers for the "Attorney General's Office" organisation

@@ -31,19 +31,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show links to the top minister" do
-    cabinet_minister = create(:ministerial_role)
-    person = create(:person)
-    create(:role_appointment, role: cabinet_minister, person: person)
-    organisation = create(:organisation, ministerial_roles: [cabinet_minister])
-
-    get :show, id: organisation
-
-    assert_select_object cabinet_minister do
-      assert_select "a[href=?]", person_path(person), text: person.name
-    end
-  end
-
   test "#show links to the chief of the defence staff" do
     chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)
     person = create(:person)
@@ -436,6 +423,19 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_equal [senior_role, junior_role], assigns(:ministerial_roles).collect(&:model)
+  end
+
+  test "shows links to ministers people pages" do
+    minister = create(:ministerial_role)
+    person = create(:person)
+    create(:role_appointment, role: minister, person: person)
+    organisation = create(:organisation, ministerial_roles: [minister])
+
+    get :show, id: organisation
+
+    assert_select_object minister do
+      assert_select "a[href=?]", person_path(person), text: person.name
+    end
   end
 
   test "shows names and roles of those ministers associated with organisation" do

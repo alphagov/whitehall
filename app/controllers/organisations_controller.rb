@@ -18,7 +18,6 @@ class OrganisationsController < PublicFacingController
       @news_articles = NewsArticle.published.in_organisation(@organisation)
       @primary_featured_editions = @organisation.featured_editions.limit(3)
       @secondary_featured_editions = @organisation.featured_editions.limit(3).offset(3)
-      @top_ministerial_role = @organisation.top_ministerial_role && RolePresenter.decorate(@organisation.top_ministerial_role)
       @top_civil_servant = @organisation.top_civil_servant && RolePresenter.decorate(@organisation.top_civil_servant)
       @top_military_role = @organisation.top_military_role && RolePresenter.decorate(@organisation.top_military_role)
       @policies = PolicyPresenter.decorate(@organisation.published_policies.by_published_at.limit(3))
