@@ -6,6 +6,10 @@
   <%= form.fields_for :image do |image_fields| %>
     <%= image_fields.label :file, 'Image' %>
     <%= image_fields.file_field :file %>
+    <% if image_fields.object.file_cache.present? %>
+      <span class="already_uploaded"><%= File.basename(image_fields.object.file_cache) %> already uploaded</span>
+    <% end %>
+    <%= image_fields.hidden_field :file_cache %>
   <% end %>
   <%= form.text_field :alt_text, label_text: 'Alt text' %>
   <%= form.submit 'Save' %>

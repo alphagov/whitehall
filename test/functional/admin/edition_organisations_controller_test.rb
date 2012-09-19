@@ -81,6 +81,23 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     assert_select '.form-errors'
   end
 
+  test "should show the cached image file that was uploaded if the update fails" do
+    edition_organisation = create(:edition_organisation)
+
+    post :update, id: edition_organisation, edition_organisation: {
+      featured: "true",
+      alt_text: nil,
+      image_attributes: {
+        file: fixture_file_upload('minister-of-funk.jpg')
+      }
+    }
+
+    assert_select "form" do
+      assert_select "input[name='edition_organisation[image_attributes][file_cache]'][value$='minister-of-funk.jpg']"
+      assert_select ".already_uploaded", text: "minister-of-funk.jpg already uploaded"
+    end
+  end
+
   test "should build a new image ready for populating if the update fails" do
     edition_organisation = create(:edition_organisation)
 
