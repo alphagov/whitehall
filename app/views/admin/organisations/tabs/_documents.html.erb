@@ -19,6 +19,7 @@
         <th>Title</th>
         <th>Published</th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -27,15 +28,16 @@
           <td class="type"><%= edition.type.titleize %></td>
           <td><%= link_to edition.title, admin_edition_path(edition) %></td>
           <td><%=l edition.published_at.to_date %></td>
+          <% association = edition.association_with_organisation(@organisation) %>
+          <td><%= "Featured" if association.featured? %></td>
           <td>
-            <% association = edition.association_with_organisation(@organisation) %>
             <% if association.featured? %>
               <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
                 <%= f.hidden_field :featured, value: false %>
-                <%= f.submit "Featured", class: "btn featured" %>
+                <%= f.submit "Unfeature", class: "btn btn-danger" %>
               <% end %>
             <% else %>
-              <%= link_to "Make featured", edit_admin_edition_organisation_path(association) %>
+              <%= link_to "Feature", edit_admin_edition_organisation_path(association), class: "btn" %>
             <% end %>
           </td>
         <% end %>

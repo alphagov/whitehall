@@ -260,7 +260,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select "a[href=?]", edit_admin_edition_organisation_path(edition_organisation), text: "Make featured"
+    assert_select "a[href=?]", edit_admin_edition_organisation_path(edition_organisation), text: "Feature"
   end
 
   test "editing should load the requested organisation" do
