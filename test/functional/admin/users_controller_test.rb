@@ -32,7 +32,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_user_path}']" do
       assert_select "input[name='user[email]'][type='text'][value='user@example.com']"
       assert_select "select[name='user[organisation_id]']"
-      assert_select "input[type='checkbox'][name='user[departmental_editor]']"
       assert_select "input[type='submit'][value='Save']"
     end
   end

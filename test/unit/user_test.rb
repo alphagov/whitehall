@@ -15,4 +15,14 @@ class UserTest < ActiveSupport::TestCase
     user = build(:user, email: nil)
     assert user.valid?
   end
+
+  test 'should be a departmental editor if has whitehall Editor role' do
+    user = build(:user, email: nil, permissions: {'Whitehall' => ['Editor']})
+    assert user.departmental_editor?
+  end
+
+  test 'should not be a departmental editor if does not have has whitehall Editor role' do
+    user = build(:user, email: nil, permissions: {'Whitehall' => []})
+    refute user.departmental_editor?
+  end
 end
