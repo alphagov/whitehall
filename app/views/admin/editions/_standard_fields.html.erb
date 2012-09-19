@@ -10,10 +10,6 @@
 
   <%= form.text_area :body, "class" => "previewable" %>
 
-  <% if form.object.allows_body_to_be_paginated? %>
-    <%= form.check_box :paginate_body, label_text: 'Create a page for each top level heading?' %>
-  <% end %>
-
   <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
 </fieldset>
 

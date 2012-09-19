@@ -162,10 +162,6 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def allows_body_to_be_paginated?
-    false
-  end
-
   def has_supporting_pages?
     false
   end

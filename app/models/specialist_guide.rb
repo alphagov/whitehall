@@ -54,10 +54,6 @@ class SpecialistGuide < Edition
     true
   end
 
-  def allows_body_to_be_paginated?
-    true
-  end
-
   def can_be_related_to_mainstream_content?
     true
   end

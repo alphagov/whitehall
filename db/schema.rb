@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120918101920) do
+ActiveRecord::Schema.define(:version => 20120919074734) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -221,7 +221,6 @@ ActiveRecord::Schema.define(:version => 20120918101920) do
     t.boolean  "minor_change",                                                    :default => false
     t.integer  "policy_team_id"
     t.integer  "publication_type_id"
-    t.boolean  "paginate_body",                                                   :default => true
     t.string   "related_mainstream_content_url"
     t.string   "related_mainstream_content_title"
     t.string   "additional_related_mainstream_content_url"

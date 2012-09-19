@@ -55,7 +55,7 @@ namespace :guidance do
         guide.topics = [topic] if topic
         guide.organisations = [organisation] if organisation
       else
-        guide = SpecialistGuide.new(title: title, body: body, state: "draft", topics: [topic], creator: creator, paginate_body: false)
+        guide = SpecialistGuide.new(title: title, body: body, state: "draft", topics: [topic], creator: creator)
         if organisation
           guide.organisations = [organisation]
         end

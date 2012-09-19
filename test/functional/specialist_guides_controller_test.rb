@@ -101,20 +101,6 @@ some more content
     assert_select "a[href='http://mainstream/additional-content']", "Some additional related mainstream content"
   end
 
-  test "adds pagination behaviour to paginated guide" do
-    edition = create(:published_specialist_guide, paginate_body: true)
-    get :show, id: edition.document
-
-    assert_select ".document_page.js-paginate-document"
-  end
-
-  test "doesn't add pagination behaviour to non-paginated guide" do
-    edition = create(:published_specialist_guide, paginate_body: false)
-    get :show, id: edition.document
-
-    assert_select ".document_page.js-paginate-document", count: 0
-  end
-
   test "index highlights selected topic filter options" do
     given_two_specialist_guides_in_two_topics
 

@@ -7,11 +7,6 @@ class SpecialistGuideTest < EditionTestCase
   should_allow_a_summary_to_be_written
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
-  test "should allow body to be paginated" do
-    article = build(:specialist_guide)
-    assert article.allows_body_to_be_paginated?
-  end
-
   test "should be able to relate to topics" do
     article = build(:specialist_guide)
     assert article.can_be_associated_with_topics?
