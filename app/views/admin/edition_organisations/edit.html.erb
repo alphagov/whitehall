@@ -9,7 +9,7 @@
       <%= form.hidden_field :featured %>
       <%= form.fields_for :image do |image_fields| %>
         <div class="control-group">
-          <%= image_fields.label :file, 'Image', class: "control-label" %>
+          <%= image_fields.label :file, 'Select an image to be shown when featuring', class: "control-label" %>
           <div class="controls">
             <%= image_fields.file_field :file %>
             <% if image_fields.object.file_cache.present? %>
@@ -19,7 +19,7 @@
           </div>
         </div>
       <% end %>
-      <%= form.text_field :alt_text, horizontal: true %>
+      <%= form.text_field :alt_text, horizontal: true, label_text: "Image description (alt text)" %>
       <%= form.save_or_cancel cancel: admin_organisation_path(@edition_organisation.organisation) %>
     <% end %>
   </div>

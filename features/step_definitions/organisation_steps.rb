@@ -73,7 +73,7 @@ When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
   within record_css_selector(news_article) do
     click_link "Feature"
   end
-  attach_file "Image", Rails.root.join("features/fixtures/#{image_filename}")
+  attach_file "Select an image to be shown when featuring", Rails.root.join("features/fixtures/#{image_filename}")
   fill_in :alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
