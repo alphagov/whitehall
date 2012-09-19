@@ -63,9 +63,9 @@ That's all
     get :show, id: guide.document
 
     assert_select "ol#document_sections" do
-      assert_select "li a[href='#{public_document_path(guide, anchor: 'first-section')}']", 'First Section'
-      assert_select "li a[href='#{public_document_path(guide, anchor: 'another-bit')}']", 'Another Bit'
-      assert_select "li a[href='#{public_document_path(guide, anchor: 'final-part')}']", 'Final Part'
+      assert_select "li a[href='#first-section']", 'First Section'
+      assert_select "li a[href='#another-bit']", 'Another Bit'
+      assert_select "li a[href='#final-part']", 'Final Part'
     end
   end
 
@@ -83,7 +83,7 @@ some more content
     get :show, id: guide.document
 
     assert_select "ol#document_sections" do
-      assert_select "li ol li a[href='#{public_document_path(guide, anchor: 'sub-section-title')}']", 'Sub section title'
+      assert_select "li ol li a[href='#sub-section-title']", 'Sub section title'
     end
   end
 

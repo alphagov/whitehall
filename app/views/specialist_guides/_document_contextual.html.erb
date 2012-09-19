@@ -5,11 +5,11 @@
       <ol id="document_sections">
         <% govspeak_header_hierarchy(edition.body).each do |header_record| %>
           <li>
-            <%= link_to header_record[:header].text, public_document_path(edition, anchor: header_record[:header].id) %>
+            <%= link_to header_record[:header].text, "##{header_record[:header].id}" %>
             <% if header_record[:children].any? %>
               <ol>
                 <% header_record[:children].each do |child| %>
-                  <li><%= link_to child.text, public_document_path(edition, anchor: child.id) %></li>
+                  <li><%= link_to child.text, "##{child.id}" %></li>
                 <% end %>
               </ol>
             <% end %>
