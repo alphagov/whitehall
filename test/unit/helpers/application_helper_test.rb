@@ -102,13 +102,9 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal announcements_path, current_main_navigation_path(controller: "speeches", action: "show")
   end
 
-  test "policy-related pages should be related to topics main navigation" do
+  test "topic-related pages should be related to topics main navigation" do
     assert_equal topics_path, current_main_navigation_path(controller: "topics", action: "index")
     assert_equal topics_path, current_main_navigation_path(controller: "topics", action: "show")
-    assert_equal topics_path, current_main_navigation_path(controller: "policies", action: "index")
-    assert_equal topics_path, current_main_navigation_path(controller: "policies", action: "show")
-    assert_equal topics_path, current_main_navigation_path(controller: "supporting_pages", action: "index")
-    assert_equal topics_path, current_main_navigation_path(controller: "supporting_pages", action: "show")
   end
 
   test "publication-related pages should be related to publications main navigation" do
@@ -141,6 +137,14 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal countries_path, current_main_navigation_path(controller: "countries", action: "show")
     assert_equal countries_path, current_main_navigation_path(controller: "international_priorities", action: "index")
     assert_equal countries_path, current_main_navigation_path(controller: "international_priorities", action: "show")
+  end
+
+  test "policy pages should be related to policy main navigation" do
+    assert_equal policies_path, current_main_navigation_path(controller: "policies", action: "index")
+    assert_equal policies_path, current_main_navigation_path(controller: "policies", action: "show")
+    assert_equal policies_path, current_main_navigation_path(controller: "policies", action: "activity")
+    assert_equal policies_path, current_main_navigation_path(controller: "supporting_pages", action: "index")
+    assert_equal policies_path, current_main_navigation_path(controller: "supporting_pages", action: "show")
   end
 
   test "search result pages should not be related to main navigation" do

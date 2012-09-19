@@ -190,7 +190,7 @@ module ApplicationHelper
       home_path
     when "announcements", "news_articles", "speeches"
       announcements_path
-    when "topics", "policies", "supporting_pages"
+    when "topics"
       topics_path
     when "publications"
       publications_path
@@ -202,6 +202,8 @@ module ApplicationHelper
       organisations_path
     when "countries", "international_priorities"
       countries_path
+    when "policies", "supporting_pages"
+      policies_path
     end
   end
 
