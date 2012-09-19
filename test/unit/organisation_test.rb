@@ -134,26 +134,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [], organisation.ministerial_roles
   end
 
-  test "#top_civil_servant returns the permanent secretary" do
-    civil_servant = create(:board_member_role, permanent_secretary: false)
-    permanent_secretary = create(:board_member_role, permanent_secretary: true)
-    organisation = create(:organisation, roles:  [civil_servant, permanent_secretary])
-    assert_equal permanent_secretary, organisation.top_civil_servant
-  end
-
-  test "#top_civil_servant returns nil if there aren't any permanent secretary" do
-    civil_servant = create(:board_member_role, permanent_secretary: false)
-    organisation = create(:organisation, roles:  [civil_servant])
-    assert_nil organisation.top_civil_servant
-  end
-
-  test "#top_civil_servant never returns a ministerial role" do
-    minister = create(:ministerial_role)
-    cabinet_minister = create(:ministerial_role, cabinet_member: true)
-    organisation = create(:organisation, roles:  [minister, cabinet_minister])
-    assert_equal nil, organisation.top_civil_servant
-  end
-
   test "#top_military_role returns the first role marked as the chief_of_the_defence_staff" do
     chief_of_staff = create(:military_role, chief_of_the_defence_staff: false)
     chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)

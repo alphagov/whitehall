@@ -177,10 +177,6 @@ class Organisation < ActiveRecord::Base
     organisation_path(slug)
   end
 
-  def top_civil_servant
-    board_member_roles.where(permanent_secretary: true).first
-  end
-
   def top_military_role
     military_roles.where(chief_of_the_defence_staff: true).first
   end

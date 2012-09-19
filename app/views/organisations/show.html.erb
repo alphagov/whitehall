@@ -131,19 +131,21 @@
             </ul>
           </section>
         <% end %>
-        <% if @organisation.board_member_roles.any? %>
+        <h1 class="label">Management team</h1>
+        <% if @civil_servants.any? %>
           <section id="management">
-            <h1 class="label">Management</h1>
-            <% if @top_civil_servant %>
-              <%= content_tag_for(:article, @top_civil_servant) do %>
-                <div class="image_holder">
-                  <%= @top_civil_servant.current_person_image %>
-                </div>
-                <h3 class="current-appointee"><%= @top_civil_servant.current_person_link %></h3>
-                <p class="role"><%= @top_civil_servant.link %></p>
+            <ul>
+              <% @civil_servants.each do |civil_servant| %>
+                <%= content_tag_for(:li, civil_servant) do %>
+                  <h1 class="visuallyhidden">Board member</h1>
+                  <div class="image_holder">
+                    <%= civil_servant.current_person_image %>
+                  </div>
+                  <h3 class="current-appointee"><%= civil_servant.current_person_link %></h3>
+                  <p class="role"><%= civil_servant.link %></p>
+                <% end %>
               <% end %>
-            <% end %>
-            <p class="view_all"><%= link_to 'View management team', management_team_organisation_path(@organisation) %></p>
+            </ul>
           </section>
         <% end %>
         <% if @organisation.military_roles.any? %>

@@ -18,12 +18,12 @@ class OrganisationsController < PublicFacingController
       @news_articles = NewsArticle.published.in_organisation(@organisation)
       @primary_featured_editions = @organisation.featured_editions.limit(3)
       @secondary_featured_editions = @organisation.featured_editions.limit(3).offset(3)
-      @top_civil_servant = @organisation.top_civil_servant && RolePresenter.decorate(@organisation.top_civil_servant)
       @top_military_role = @organisation.top_military_role && RolePresenter.decorate(@organisation.top_military_role)
       @policies = PolicyPresenter.decorate(@organisation.published_policies.by_published_at.limit(3))
       @topics = @organisation.topics_with_content
       @publications = PublicationesquePresenter.decorate(@organisation.published_publications.by_published_at.limit(3))
       @ministers = ministers
+      @civil_servants = civil_servants
     else
       render action: 'external'
     end
@@ -53,6 +53,12 @@ class OrganisationsController < PublicFacingController
 
   def ministers
     @ministerial_roles = @organisation.ministerial_roles.order("organisation_roles.ordering").map do |role|
+      RolePresenter.new(role)
+    end
+  end
+
+  def civil_servants
+    @civil_servant_roles = @organisation.board_member_roles.order("organisation_roles.ordering").map do |role|
       RolePresenter.new(role)
     end
   end

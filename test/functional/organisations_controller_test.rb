@@ -18,19 +18,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".organisation .description", text: "organisation-description"
   end
 
-  test "show links to the top civil servant" do
-    permanent_secretary = create(:board_member_role, permanent_secretary: true)
-    person = create(:person)
-    create(:role_appointment, role: permanent_secretary, person: person)
-    organisation = create(:organisation, board_member_roles: [permanent_secretary])
-
-    get :show, id: organisation
-
-    assert_select_object permanent_secretary do
-      assert_select "a[href=?]", person_path(person), text: person.name
-    end
-  end
-
   test "#show links to the chief of the defence staff" do
     chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)
     person = create(:person)
@@ -543,15 +530,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :chiefs_of_staff, id: organisation
 
     assert_select_object chief_of_staff
-  end
-
-  test "should link to the organisation's management team page" do
-    organisation = create(:organisation)
-    create(:board_member_role, organisations: [organisation])
-
-    get :show, id: organisation
-
-    assert_select '#management a[href=?]', management_team_organisation_path(organisation)
   end
 
   test "should link to the organisation's chiefs of staff page" do
