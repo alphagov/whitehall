@@ -57,10 +57,13 @@ group :test do
   gem 'test_track'
   gem 'timecop'
   gem 'webmock', require: false
-  gem 'simplecov'
-  gem 'simplecov-rcov'
   gem 'minitest', '2.5.1'
   gem 'ci_reporter'
+end
+
+group :test_coverage do
+  gem 'simplecov'
+  gem 'simplecov-rcov'
 end
 
 group :cucumber do
