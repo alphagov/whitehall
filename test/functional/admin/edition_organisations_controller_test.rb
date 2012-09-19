@@ -17,7 +17,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should mark the edition as featured" do
-    edition_organisation = create(:edition_organisation)
+    edition_organisation = create(:edition_organisation, featured: false)
 
     get :edit, id: edition_organisation
 
@@ -64,7 +64,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should allow unfeaturing of the edition organisation" do
-    edition_organisation = create(:edition_organisation, featured: true, image: build(:edition_organisation_image_data))
+    edition_organisation = create(:featured_edition_organisation)
     post :update, id: edition_organisation, edition_organisation: {featured: false}
     refute edition_organisation.reload.featured?
   end

@@ -219,7 +219,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "showing should allow featured published news articles to be unfeatured" do
     published_news_article = create(:published_news_article)
     organisation = create(:organisation)
-    edition_organisation = create(:edition_organisation, organisation: organisation, edition: published_news_article, featured: true, image: build(:edition_organisation_image_data))
+    edition_organisation = create(:featured_edition_organisation, organisation: organisation, edition: published_news_article)
 
     get :show, id: organisation
 
@@ -535,9 +535,9 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "updating should allow ordering of featured editions" do
     organisation = create(:organisation)
-    edition_association_1 = create(:edition_organisation, organisation: organisation, featured: true, image: build(:edition_organisation_image_data))
-    edition_association_2 = create(:edition_organisation, organisation: organisation, featured: true, image: build(:edition_organisation_image_data))
-    edition_association_3 = create(:edition_organisation, organisation: organisation, featured: true, image: build(:edition_organisation_image_data))
+    edition_association_1 = create(:featured_edition_organisation, organisation: organisation)
+    edition_association_2 = create(:featured_edition_organisation, organisation: organisation)
+    edition_association_3 = create(:featured_edition_organisation, organisation: organisation)
 
     put :update, id: organisation, organisation: {
       edition_organisations_attributes: {

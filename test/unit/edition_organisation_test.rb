@@ -4,7 +4,7 @@ class EditionOrganisationTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test "should be invalid if the edition has been marked as featured but no image has been uploaded" do
-    edition_organisation = build(:edition_organisation, featured: true)
+    edition_organisation = build(:featured_edition_organisation, image: false)
     refute edition_organisation.valid?
     assert edition_organisation.errors[:image].present?
   end

@@ -4,8 +4,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
   test "new edition of document featured in organisation should remain featured in that organisation" do
     news_article = create(:published_news_article)
     organisation = create(:organisation)
-    image = create(:edition_organisation_image_data)
-    create(:edition_organisation, featured: true, edition: news_article, organisation: organisation, image: image)
+    create(:featured_edition_organisation, edition: news_article, organisation: organisation)
 
     new_edition = news_article.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'
