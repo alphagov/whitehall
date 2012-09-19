@@ -42,7 +42,7 @@
 
   <% if edition.respond_to?(:mainstream_category) %>
     <section>
-      <h2>Browse category</h2>
+      <h2>Detailed guidance category</h2>
       <% if edition.mainstream_category.present? %>
         <p><%= edition.mainstream_category.parent_title %> &gt; <%= link_to edition.mainstream_category.title, edition.mainstream_category %></p>
       <% else %>
