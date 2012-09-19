@@ -4,10 +4,7 @@ module Edition::Organisations
   class Trait < Edition::Traits::Trait
     def process_associations_before_save(edition)
       @edition.edition_organisations.each do |association|
-        edition.edition_organisations.build(
-          organisation: association.organisation,
-          featured: association.featured?
-        )
+        edition.edition_organisations.build(association.attributes.except("id"))
       end
     end
   end
