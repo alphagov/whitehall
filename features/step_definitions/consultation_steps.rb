@@ -19,10 +19,6 @@ When /^I draft a new consultation "([^"]*)"$/ do |title|
   click_button "Save"
 end
 
-When /^I visit the consultations page$/ do
-  visit consultations_path
-end
-
 Then /^I can see links to the consultations "([^"]*)" and "([^"]*)"$/ do |title_1, title_2|
   assert has_css?(".consultation a", text: title_1)
   assert has_css?(".consultation a", text: title_2)

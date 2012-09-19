@@ -194,12 +194,6 @@ When /^I publish a new edition of the policy "([^"]*)" with the new title "([^"]
   publish(force: true)
 end
 
-When /^I create a new edition of the policy "([^"]*)" without a change note$/ do |policy_title|
-  policy = Policy.latest_edition.find_by_title!(policy_title)
-  visit admin_edition_path(policy)
-  click_button "Create new edition"
-end
-
 When /^I publish a new edition of the policy "([^"]*)" as a minor change$/ do |policy_title|
   policy = Policy.latest_edition.find_by_title!(policy_title)
   visit admin_edition_path(policy)

@@ -33,14 +33,6 @@ Given /^the "([^"]*)" organisation is associated with several ministers and civi
   end
 end
 
-Given /^that "([^"]*)" is responsible for "([^"]*)" and "([^"]*)"$/ do |parent_org_name, child_org_1_name, child_org_2_name|
-  child_organisations = [
-    create(:organisation, name: child_org_1_name),
-    create(:organisation, name: child_org_2_name)
-  ]
-  create(:ministerial_department, name: parent_org_name, child_organisations: child_organisations)
-end
-
 Given /^a submitted corporate publication "([^"]*)" about the "([^"]*)"$/ do |publication_title, organisation_name|
   organisation = Organisation.find_by_name(organisation_name)
   create(:submitted_corporate_publication, title: publication_title, organisations: [organisation])
@@ -70,10 +62,6 @@ When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
 end
 
-When /^I visit the organisations page$/ do
-  visit organisations_path
-end
-
 When /^I set the featured news articles in the "([^"]*)" organisation to:$/ do |name, table|
   organisation = Organisation.find_by_name!(name)
   visit admin_organisation_path(organisation)
@@ -92,10 +80,6 @@ When /^I order the featured items in the "([^"]*)" organisation as:$/ do |name, 
     fill_in title, with: index
   end
   click_button "Save"
-end
-
-When /^I navigate to the "([^"]*)" organisation's (.*) page$/ do |organisation_name, page_name|
-  navigate_to_organisation(page_name)
 end
 
 When /^I delete the organisation "([^"]*)"$/ do |name|
@@ -138,15 +122,6 @@ Then /^I should only see published policies belonging to the "([^"]*)" organisat
   assert editions.all? { |edition| organisation.editions.published.include?(edition) }
 end
 
-Then /^I should see that "([^"]*)" is responsible for "([^"]*)"$/ do |parent_org_name, child_org_name|
-  child_org = Organisation.find_by_name!(child_org_name)
-  assert page.has_css?("#child_organisations #{record_css_selector(child_org)}")
-end
-
-Then /^I should see the organisation navigation$/ do
-  assert page.has_css?('.organisation nav')
-end
-
 Then /^I should see the "([^"]*)" organisation's (.*) page$/ do |organisation_name, page_name|
   title =
     case page_name
@@ -157,10 +132,6 @@ Then /^I should see the "([^"]*)" organisation's (.*) page$/ do |organisation_na
     end
 
   assert page.has_css?('title', text: title)
-end
-
-Then /^I should see an organisation called "([^"]*)"$/ do |name|
-  assert page.has_css?(".organisation", text: name)
 end
 
 def navigate_to_organisation(page_name)

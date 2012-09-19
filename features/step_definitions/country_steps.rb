@@ -7,11 +7,6 @@ Given /^the country "([^"]*)" is inactive/ do |name|
   country.update_column(:active, false)
 end
 
-When /^I view the list of countries$/ do
-  visit home_path
-  click_link "UK & the world"
-end
-
 When /^I view the country "([^"]*)"$/ do |name|
   country = Country.find_by_name!(name)
   visit country_path(country)
@@ -58,11 +53,6 @@ Then /^I should see the featured news articles of the country "([^"]*)" are:$/ d
   rows = find(featured_news_articles_selector).all('.news_article')
   table = rows.map { |r| r.all('a.title').map { |c| c.text.strip } }
   expected_table.diff!(table)
-end
-
-Then /^I should see the country "([^"]*)"$/ do |name|
-  country = Country.find_by_name!(name)
-  assert page.has_css?(record_css_selector(country))
 end
 
 Then /^I should see contact details for the embassy in "([^"]*)"$/ do |name|

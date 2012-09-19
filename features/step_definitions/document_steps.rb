@@ -74,10 +74,6 @@ Given /^a published (publication|policy|news article|consultation|speech) "([^"]
   end
 end
 
-Given /^a featured (publication|news article) "([^"]*)" exists$/ do |document_type, title|
-  create("featured_#{document_class(document_type).name.underscore}", title: title)
-end
-
 When /^I view the (publication|policy|news article|consultation|speech|document) "([^"]*)"$/ do |document_type, title|
   click_link title
 end
@@ -295,8 +291,4 @@ end
 
 Then /^there should not be a document called "([^"]*)"$/ do |title|
   refute Edition.find_by_title(title)
-end
-
-Then /^I should see the title "([^"]*)"$/ do |title|
-  assert page.has_css?('h1 .title', value: title)
 end

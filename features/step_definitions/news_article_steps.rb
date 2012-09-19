@@ -35,22 +35,6 @@ When /^I draft a new news article "([^"]*)" relating it to "([^"]*)" and "([^"]*
   click_button "Save"
 end
 
-When /^I feature the news article "([^"]*)"$/ do |title|
-  news_article = NewsArticle.find_by_title!(title)
-  visit admin_editions_path(state: :published, type: 'news_article')
-  within record_css_selector(news_article) do
-    click_button "Feature"
-  end
-end
-
-When /^I unfeature the news article "([^"]*)"$/ do |title|
-  news_article = NewsArticle.find_by_title!(title)
-  visit admin_editions_path(state: :published, type: 'news_article')
-  within record_css_selector(news_article) do
-    click_button "No longer feature"
-  end
-end
-
 Then /^I should see the notes to editors "([^"]*)" for the news article$/ do |notes_to_editors|
   assert has_css?("#{notes_to_editors_selector}", text: notes_to_editors)
 end

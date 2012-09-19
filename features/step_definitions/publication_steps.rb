@@ -81,12 +81,6 @@ When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)
   click_button "Save"
 end
 
-When /^I draft a new publication "([^"]*)" in the "([^"]*)" collection$/ do |title, collection|
-  begin_drafting_publication(title)
-  select collection, from: "Collection"
-  click_button "Save"
-end
-
 When /^I remove the attachment from the publication "([^"]*)"$/ do |title|
   begin_editing_document title
   uncheck "edition_edition_attachments_attributes_0__destroy"
