@@ -160,6 +160,13 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert published_edition.reload.archived?
   end
 
+  test "publication archives previous published versions, even if first edition has no change note" do
+    first_edition = create(:published_edition, change_note: nil, minor_change: false)
+    edition = create(:submitted_edition, change_note: "change-note", document: first_edition.document)
+    edition.publish_as(create(:departmental_editor))
+    assert first_edition.reload.archived?
+  end
+
   test "publication fails if not publishable by user" do
     editor = create(:departmental_editor)
     edition = create(:submitted_edition)
