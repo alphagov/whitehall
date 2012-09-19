@@ -1,16 +1,22 @@
-<% page_title "Featured document" %>
+<% page_title "Feature document" %>
+
+<h2>Feature '<%= @edition_organisation.edition.title %>' within '<%= @edition_organisation.organisation.name %>'</h2>
 
 <%= form_for [:admin, @edition_organisation], builder: Whitehall::FormBuilder do |form| %>
   <%= form.errors %>
   <%= form.hidden_field :featured %>
   <%= form.fields_for :image do |image_fields| %>
-    <%= image_fields.label :file, 'Image' %>
-    <%= image_fields.file_field :file %>
-    <% if image_fields.object.file_cache.present? %>
-      <span class="already_uploaded"><%= File.basename(image_fields.object.file_cache) %> already uploaded</span>
-    <% end %>
-    <%= image_fields.hidden_field :file_cache %>
+    <div class="control-group">
+      <%= image_fields.label :file, 'Image', class: "control-label" %>
+      <div class="controls">
+        <%= image_fields.file_field :file %>
+        <% if image_fields.object.file_cache.present? %>
+          <span class="already_uploaded"><%= File.basename(image_fields.object.file_cache) %> already uploaded</span>
+        <% end %>
+        <%= image_fields.hidden_field :file_cache %>
+      </div>
+    </div>
   <% end %>
-  <%= form.text_field :alt_text, label_text: 'Alt text' %>
-  <%= form.submit 'Save' %>
+  <%= form.text_field :alt_text, horizontal: true %>
+  <%= form.save_or_cancel cancel: admin_organisation_path(@edition_organisation.organisation) %>
 <% end %>
