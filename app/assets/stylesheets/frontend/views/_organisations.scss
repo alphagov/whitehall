@@ -140,7 +140,7 @@ h1.label {
     }
   }
 
-  .ministerial_role, #management article, #military article {
+  .ministerial_role, .board_member_role, #military article {
     float: left;
     display: inline;
     margin: 0 3% $gutter 0;

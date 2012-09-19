@@ -114,9 +114,9 @@
   <div class="block-9">
     <div class="inner-block">
       <section id="who">
-        <h1 class="label">Our ministers</h1>
         <% if @ministers.any? %>
           <section id="ministers">
+            <h1 class="label">Our ministers</h1>
             <ul>
               <% @ministers.each do |minister| %>
                 <%= content_tag_for(:li, minister) do %>
@@ -131,9 +131,9 @@
             </ul>
           </section>
         <% end %>
-        <h1 class="label">Management team</h1>
         <% if @civil_servants.any? %>
           <section id="management">
+            <h1 class="label">Management team</h1>
             <ul>
               <% @civil_servants.each do |civil_servant| %>
                 <%= content_tag_for(:li, civil_servant) do %>
