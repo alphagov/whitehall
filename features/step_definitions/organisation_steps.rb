@@ -113,7 +113,7 @@ end
 
 Then /^I should see the featured news articles in the "([^"]*)" organisation are:$/ do |name, expected_table|
   visit_organisation name
-  rows = find(featured_news_articles_selector).all('.news_article')
+  rows = find(featured_documents_selector).all('.news_article')
   table = rows.collect do |row|
     [
       row.find('a.title').text.strip,

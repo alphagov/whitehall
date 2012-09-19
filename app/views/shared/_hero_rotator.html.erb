@@ -1,5 +1,5 @@
 <% if editions.any? %>
-  <section class="<%= featured_carousel_classes(options) %>" id="featured-news-articles">
+  <section class="<%= featured_carousel_classes(options) %>" id="featured-documents">
     <% editions.each do |edition| %>
       <%= content_tag_for(:article, edition, nil, class: edition_organisation_class(edition)) do %>
         <div class="img">

@@ -50,7 +50,7 @@ end
 Then /^I should see the featured news articles of the country "([^"]*)" are:$/ do |name, expected_table|
   country = Country.find_by_name!(name)
   visit country_path(country)
-  rows = find(featured_news_articles_selector).all('.news_article')
+  rows = find(featured_documents_selector).all('.news_article')
   table = rows.map { |r| r.all('a.title').map { |c| c.text.strip } }
   expected_table.diff!(table)
 end

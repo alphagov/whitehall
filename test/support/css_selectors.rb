@@ -69,8 +69,8 @@ module CssSelectors
     "#other_board_members"
   end
 
-  def featured_news_articles_selector
-    "#featured-news-articles"
+  def featured_documents_selector
+    "#featured-documents"
   end
 
   def countries_selector
