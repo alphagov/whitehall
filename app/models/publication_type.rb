@@ -8,7 +8,7 @@ class PublicationType
   attr_accessor :id, :singular_name, :plural_name, :prevalence
 
   def slug
-    name.downcase.gsub(/[^a-z]+/, "-")
+    plural_name.downcase.gsub(/[^a-z]+/, "-")
   end
 
   def self.by_prevalence
@@ -41,7 +41,7 @@ class PublicationType
   CorporateReport        = create(id: 7, singular_name: "Corporate report", plural_name: "Corporate reports", prevalence: :primary)
 
   # Less common
-  TransparencyData       = create(id: 10, singular_name: "Transparency data", prevalence: :less_common)
+  TransparencyData       = create(id: 10, singular_name: "Transparency data", plural_name: "Transparency data", prevalence: :less_common)
   Treaty                 = create(id: 11, singular_name: "Treaty", plural_name: "Treaties", prevalence: :less_common)
   FoiRelease             = create(id: 12, singular_name: "FOI release", plural_name: "FOI releases", prevalence: :less_common)
   IndependentReport      = create(id: 14, singular_name: "Independent report", plural_name: "Independent reports", prevalence: :less_common)
