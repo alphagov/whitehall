@@ -8,6 +8,7 @@ class Edition < ActiveRecord::Base
   include Edition::Workflow
   include Edition::Organisations
   include Edition::Publishing
+  include Edition::ScheduledPublishing
   include Edition::AuditTrail
   include Edition::ActiveEditors
 
