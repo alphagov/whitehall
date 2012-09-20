@@ -68,11 +68,14 @@
     width: 100%;
     padding-bottom: 0;
     @media (min-width: 768px) {
-      height: 190px;
+      height: 243px;
     }
   }
   .checkbox input {
     width: auto;
+  }
+  .publication-type {
+    padding-bottom: $gutter-one-third;
   }
   .date-range {
     padding-top: $gutter-one-third;

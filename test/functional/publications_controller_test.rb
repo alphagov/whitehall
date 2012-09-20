@@ -146,6 +146,17 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index highlights selected publication type filter options" do
+    create(:published_publication, publication_type_id: PublicationType::PolicyPaper)
+    create(:published_publication, publication_type_id: PublicationType::Form)
+
+    get :index, publication_type: PublicationType::Form.slug
+
+    assert_select "select[name='publication_type']" do
+      assert_select "option[selected='selected']", text: PublicationType::Form.plural_name
+    end
+  end
+
   test "index displays filter keywords" do
     get :index, keywords: "olympics 2012"
 

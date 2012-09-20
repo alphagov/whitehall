@@ -11,6 +11,7 @@ class Whitehall::DocumentFilter
     filter_by_departments!
     filter_by_keywords!
     filter_by_date!
+    filter_by_publication_type!
     paginate!
     apply_sort_direction!
   end
@@ -36,12 +37,20 @@ class Whitehall::DocumentFilter
     Organisation.joins(:"published_#{type.to_s.pluralize}").group(:name).ordered_by_name_ignoring_prefix
   end
 
+  def all_publication_types
+    PublicationType.ordered_by_prevalence
+  end
+
   def selected_topics
     find_by_slug(Topic, @params[:topics])
   end
 
   def selected_organisations
     find_by_slug(Organisation, @params[:departments])
+  end
+
+  def selected_publication_type
+    PublicationType.find_by_slug(@params[:publication_type])
   end
 
   def keywords
@@ -92,6 +101,10 @@ private
         @documents = @documents.published_after(date)
       end
     end
+  end
+
+  def filter_by_publication_type!
+    @documents = @documents.where(publication_type_id: selected_publication_type.id) if selected_publication_type
   end
 
   def paginate!

@@ -17,6 +17,13 @@
       </div>
       <div class="filter">
         <div class="filter-inner">
+          <% if defined?(filter_by_publication_type) && filter_by_publication_type %>
+            <div class="publication-type">
+              <%= label_tag "publication_type", "Publication type", class: "title" %>
+              <%= select_tag :publication_type, publication_type_filter_options(@filter.all_publication_types, @filter.selected_publication_type) %>
+            </div>
+          <% end %>
+
           <%= label_tag "keywords", "Contains", class: 'title' %>
           <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
 

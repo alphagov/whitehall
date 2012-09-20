@@ -37,12 +37,21 @@ class DocumentFilterTest < ActiveSupport::TestCase
     Whitehall::DocumentFilter.new([]).all_organisations_with(:document_type)
   end
 
+  test "#all_publication_types returns all publication types" do
+    publication_types = Whitehall::DocumentFilter.new([]).all_publication_types
+    assert_equal PublicationType.ordered_by_prevalence, publication_types
+  end
+
   test "#selected_topics returns an empty set by default" do
     assert_equal [], Whitehall::DocumentFilter.new(document_scope).selected_topics
   end
 
   test "#selected_organisations returns an empty set by default" do
     assert_equal [], Whitehall::DocumentFilter.new(document_scope).selected_organisations
+  end
+
+  test "#selected_publication_type returns nil by default" do
+    assert_nil Whitehall::DocumentFilter.new(document_scope).selected_publication_type
   end
 
   test "#documents returns the given set of documents when unfiltered" do
@@ -85,7 +94,6 @@ class DocumentFilterTest < ActiveSupport::TestCase
   end
 
   test "topics param does not filter if topic is 'all'" do
-
     document_scope.expects(:in_topic).never
 
     filter = Whitehall::DocumentFilter.new(document_scope, topics: ['all'])
@@ -94,7 +102,6 @@ class DocumentFilterTest < ActiveSupport::TestCase
   end
 
   test "departments param filters the documents by organisation using slugs" do
-
     organisation = stub_organisation('defra')
 
     filtered_scope = stub_document_scope('filtered_scope')
@@ -106,7 +113,6 @@ class DocumentFilterTest < ActiveSupport::TestCase
   end
 
   test "departments param sets #selected_organisations" do
-
     organisation = stub_organisation('defra')
 
     filter = Whitehall::DocumentFilter.new(document_scope, departments: [organisation.slug])
@@ -178,6 +184,25 @@ class DocumentFilterTest < ActiveSupport::TestCase
   test "filtering after a date returns documents in chronological order" do
     document_scope.expects(:in_chronological_order).returns(document_scope)
     Whitehall::DocumentFilter.new(document_scope, date: "2012-01-01 12:23:45", direction: "after").documents
+  end
+
+  test "publication_type param filters by publication type" do
+    publication_type = stub_publication_type("statistics", id: 123)
+
+    filtered_scope = stub_document_scope('filtered_scope')
+    document_scope.expects(:where).with(publication_type_id: 123).returns(filtered_scope)
+
+    filter = Whitehall::DocumentFilter.new(document_scope, publication_type: publication_type.slug)
+
+    assert_equal filtered_scope, filter.documents
+  end
+
+  test "publication_type param sets #selected_publication_type" do
+    publication_type = stub_publication_type("statistics", id: 234)
+
+    filter = Whitehall::DocumentFilter.new(document_scope, publication_type: publication_type.slug)
+
+    assert_equal publication_type, filter.selected_publication_type
   end
 
   test "if page param given, returns a page of documents using page size of 20" do
@@ -271,6 +296,7 @@ private
     document_scope.stubs(:alphabetical).returns(document_scope)
     document_scope.stubs(:in_topic).returns(document_scope)
     document_scope.stubs(:in_organisation).returns(document_scope)
+    document_scope.stubs(:where).with(has_entry(:publication_type_id, anything)).returns(document_scope)
     document_scope.stubs(:per).returns(document_scope)
     document_scope.stubs(:page).returns(document_scope)
     document_scope
@@ -286,5 +312,11 @@ private
     organisation = stub("organisation-#{slug}", slug: slug, name: slug.humanize)
     Organisation.stubs(:where).with(slug: [slug]).returns([organisation])
     organisation
+  end
+
+  def stub_publication_type(slug, attributes={})
+    publication_type = stub("publication-type-#{slug}", {slug: slug, pluralized_name: slug.humanize.pluralize}.merge(attributes))
+    PublicationType.stubs(:find_by_slug).with(slug).returns(publication_type)
+    publication_type
   end
 end
