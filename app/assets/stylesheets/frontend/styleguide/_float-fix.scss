@@ -1,0 +1,16 @@
+// helpers for containing floats
+
+@import "_media-queries";
+
+%contain-floats {
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+  @include ie-lte(7) {
+    zoom: 1;
+  }
+}

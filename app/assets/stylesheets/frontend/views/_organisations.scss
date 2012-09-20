@@ -139,7 +139,13 @@ h1.label {
     }
   }
 
-  .ministerial_role, #management article, #military article {
+  #ministers ul {
+    @extend %contain-floats;
+  }
+
+  .ministerial_role,
+  #management article,
+  #military article {
     float: left;
     display: inline;
     margin: 0 3% $gutter 0;
@@ -152,6 +158,10 @@ h1.label {
         clear: both;
       }
     }
+  }
+
+  .js-hidden {
+    display: none;
   }
 
   #management, #military {
