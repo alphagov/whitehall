@@ -46,5 +46,12 @@ jQuery(function($) {
 
   $(".js-document-filter").enableDocumentFilter();
 
+  $('.js-hide-extra-logos .organisations-icon-list .organisation').hideExtraRows({
+    appendToParent: true,
+    showWrapper: $('<li class="show-other-content" />')
+  });
+
+  $('.organisation_homepage #ministers .ministerial_role').hideExtraRows();
+
   GOVUK.paginateDocument();
 });
