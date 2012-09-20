@@ -32,11 +32,4 @@ class NewsArticleTest < EditionTestCase
     news_article = create(:news_article, related_policies: [first_related_policy, second_related_policy])
     assert_equal [topic], news_article.topics
   end
-
-  test "uses first image as lead image" do
-    news_article = build(:news_article)
-    image = create(:image, edition: news_article)
-    assert_equal image, news_article.lead_image
-  end
-
 end

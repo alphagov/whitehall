@@ -22,7 +22,6 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
   show_should_display_attachments_for :specialist_guide
   should_show_inline_attachment_help_for :specialist_guide
   should_allow_attached_images_for :specialist_guide
-  should_not_use_lead_image_for :specialist_guide
   should_be_rejectable :specialist_guide
   should_be_publishable :specialist_guide
   should_be_force_publishable :specialist_guide

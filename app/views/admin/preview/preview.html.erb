@@ -1,7 +1,6 @@
 <section class="document_page">
   <article class="document">
     <div class="body">
-      <%= render partial: 'shared/lead_image', locals: {image: @lead_image} %>
       <%= govspeak_body_to_admin_html params[:body], @images, @attachments, @alternative_format_contact_email %>
     </div>
   </article>

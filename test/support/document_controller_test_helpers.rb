@@ -91,50 +91,6 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_display_lead_image_for(document_type)
-      test "show displays the image for the #{document_type}" do
-        news_article = create("published_#{document_type}", images: [build(:image)])
-        get :show, id: news_article.document
-
-        assert_select ".body" do
-          assert_select "figure.image.lead img[src='#{news_article.images.first.url}'][alt='#{news_article.images.first.alt_text}']"
-        end
-      end
-
-      test "show displays the image caption for the #{document_type}" do
-        portas_review_jpg = fixture_file_upload('portas-review.jpg')
-        edition = create("published_#{document_type}", images: [build(:image, caption: "image caption")])
-
-        get :show, id: edition.document
-
-        assert_select ".body" do
-          assert_select "figure.image.lead figcaption", "image caption"
-        end
-      end
-
-      test "show #{document_type} only displays image if there is one" do
-        edition = create("published_#{document_type}", images: [])
-
-        get :show, id: edition.document
-
-        assert_select ".body" do
-          refute_select "figure.image.lead"
-        end
-      end
-    end
-
-    def should_not_display_lead_image_for(document_type)
-      test "show does not show lead image, even if there are associated images for #{document_type}" do
-        edition = create("published_#{document_type}", images: [build(:image)])
-
-        get :show, id: edition.document
-
-        assert_select ".body" do
-          refute_select "figure.image.lead"
-        end
-      end
-    end
-
     def should_show_related_policies_for(document_type)
       test "show displays related published policies for #{document_type}" do
         published_policy = create(:published_policy)

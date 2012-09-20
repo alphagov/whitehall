@@ -47,12 +47,4 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     post :preview, body: edition.body, attachment_ids: edition.attachments.map(&:id), alternative_format_provider_id: ""
     assert_response :success
   end
-
-  test "renders lead image if provided" do
-    edition = create(:news_article, images: [build(:image)])
-
-    post :preview, body: edition.body, lead_image_id: edition.lead_image
-    assert_select ".document .body figure.image.lead img[src=?]", edition.lead_image.url
-  end
-
 end

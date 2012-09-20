@@ -3,7 +3,6 @@
     <p><%= @document.summary %></p>
   </div>
   <div class="body">
-    <%= render partial: 'shared/lead_image', locals: { image: @document.images.first } %>
     <%= govspeak_to_html @document.body, @document.images %>
   </div>
   <% if @document.notes_to_editors.present? %>

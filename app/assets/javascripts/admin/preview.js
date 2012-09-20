@@ -56,11 +56,6 @@
         });
       };
 
-      var leadImageId = function() {
-        var lead_image = imageNodes().filter(function() { return $(this).closest('.lead').length > 0;}).first();
-        return lead_image.val();
-      };
-
       var alternativeFormatProviderId = function() {
         return $('select#edition_alternative_format_provider_id').val();
       };
@@ -71,7 +66,6 @@
           body: textarea.val(),
           authenticity_token: $("meta[name=csrf-token]").attr('content'),
           image_ids: imageIds(),
-          lead_image_id: leadImageId(),
           attachment_ids: attachmentIds(),
           alternative_format_provider_id: alternativeFormatProviderId()
         };

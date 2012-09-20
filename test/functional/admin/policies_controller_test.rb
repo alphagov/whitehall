@@ -19,7 +19,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   should_allow_association_between_countries_and :policy
   should_allow_association_with_topics :policy
   should_allow_attached_images_for :policy
-  should_not_use_lead_image_for :policy
   should_be_rejectable :policy
   should_be_publishable :policy
   should_be_force_publishable :policy

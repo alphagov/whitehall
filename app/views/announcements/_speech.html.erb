@@ -1,13 +1,4 @@
 <%= content_tag_for(:article, speech, class: "speech") do %>
-  <% if display == "expanded" %>
-    <div class="img">
-      <% if speech.lead_image.present? %>
-        <%= link_to(image_tag(speech.lead_image.url, alt: speech.lead_image.alt_text), public_document_path(speech)) %>
-      <% else %>
-        <%= link_to(image_tag('evil_placeholder.png'), public_document_path(speech)) %>
-      <% end %>
-    </div>
-  <% end %>
   <div class="text">
     <h2><%= link_to speech.title, public_document_path(speech), class: "title", title: "View #{speech.title}" %></h2>
     <% if display != "compact" %>

@@ -9,7 +9,7 @@ module("Previewing contents of a textarea", {
     var attachment_inputs = $('<fieldset class="attachments">' +
       '<input id="supporting_page_supporting_page_attachments_attributes_0_attachment_attributes_id" name="supporting_page[supporting_page_attachments_attributes][0][attachment_attributes][id]" type="hidden" value="276">' +
       '</fieldset>');
-    var alternative_format_provider_select =$('<select id="edition_alternative_format_provider_id">' + 
+    var alternative_format_provider_select =$('<select id="edition_alternative_format_provider_id">' +
       '<option value="1">Ministry of Song</option>' +
       '<option value="2" selected="selected">Ministry of Silly Walks</option>' +
       '</select>');
@@ -82,15 +82,6 @@ test("should include alternative_format_provider_id", function() {
 
   var callParams = jQuery.ajax.getCall(0).args[0];
   same(callParams.data.alternative_format_provider_id, "2");
-});
-
-test("should include lead_image_id of lead image", function() {
-  this.stubbingPreviewAjax(function() {
-    $("a.show-preview").click();
-  })
-
-  var callParams = jQuery.ajax.getCall(0).args[0];
-  same(callParams.data.lead_image_id, "1");
 });
 
 test("should indicate that the preview is loading", function() {

@@ -19,7 +19,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_ministerial_roles_for :news_article
   should_allow_association_between_countries_and :news_article
   should_allow_attached_images_for :news_article
-  should_use_lead_image_for :news_article
   should_be_rejectable :news_article
   should_be_publishable :news_article
   should_be_force_publishable :news_article
@@ -61,21 +60,5 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     news_article = create(:news_article, notes_to_editors: "")
     get :show, id: news_article
     refute_select "#{notes_to_editors_selector}"
-  end
-
-  test "show displays the image caption for the news article" do
-    news_article = create(:published_news_article, images: [build(:image, caption: "image caption")])
-
-    get :show, id: news_article
-
-    assert_select "figure.image figcaption", "image caption"
-  end
-
-  test "show only displays image if there is one" do
-    news_article = create(:news_article, images: [])
-
-    get :show, id: news_article
-
-    refute_select "figure.image img"
   end
 end

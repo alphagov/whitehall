@@ -1,8 +1,0 @@
-<% if image.present? %>
-  <figure class="image lead">
-    <div class="img"><%= image_tag(image.url, alt: image.alt_text) %></div>
-    <% if image.caption.present? %>
-      <figcaption><%= image.caption %></figcaption>
-    <% end %>
-  </figure>
-<% end %>

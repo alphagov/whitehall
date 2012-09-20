@@ -85,11 +85,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     refute Image.find_by_id(image.id)
   end
 
-  test "should have no lead image even if an associated image exists" do
-    edition = EditionWithImages.new(valid_edition_attributes.merge(images: [build(:image)]))
-    assert_nil edition.lead_image
-  end
-
   test "should indicate that it allows image attachments" do
     assert EditionWithImages.new.allows_image_attachments?
   end

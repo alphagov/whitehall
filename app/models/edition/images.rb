@@ -23,10 +23,6 @@ module Edition::Images
     add_trait Trait
   end
 
-  def lead_image
-    nil
-  end
-
   def allows_image_attachments?
     true
   end

@@ -92,29 +92,4 @@ class CountriesControllerTest < ActionController::TestCase
 
     assert_equal 3, assigns(:featured_news_articles).length
   end
-
-  test "shows country's featured news article with image" do
-    lead_image = create(:image, alt_text: "alt-text")
-    news_article = create(:published_news_article, images: [lead_image])
-    country = create(:country)
-    create(:edition_country, edition: news_article, country: country, featured: true)
-
-    get :show, id: country
-
-    assert_select_object news_article do
-      assert_select ".img img[src$='#{lead_image.url}'][alt=?]", "alt-text"
-    end
-  end
-
-  test "shows country's featured news article with a blank image where no image has been supplied" do
-    news_article = create(:published_news_article)
-    country = create(:country)
-    create(:edition_country, edition: news_article, country: country, featured: true)
-
-    get :show, id: country
-
-    assert_select_object news_article do
-      assert_select ".img img[src$='generic_image.jpg']"
-    end
-  end
 end

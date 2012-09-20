@@ -677,56 +677,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_use_lead_image_for(edition_type)
-      test "showing should display the lead image" do
-        draft_edition = create("draft_#{edition_type}", images: [build(:image)])
-
-        get :show, id: draft_edition
-
-        assert_select "article.document .body figure.image.lead"
-      end
-
-      test 'edit indicates that first image is lead image' do
-        draft_edition = create("draft_#{edition_type}", images: [build(:image)])
-
-        get :edit, id: draft_edition
-
-        message = "This will automatically be used as the lead image. No markdown required."
-
-        assert_select "fieldset.images .image p", text: message
-      end
-
-      test 'edit shows markdown hint for second image' do
-        draft_edition = create("draft_#{edition_type}", images: [build(:image), build(:image)])
-
-        get :edit, id: draft_edition
-
-        assert_select "fieldset.images .image p" do |nodes|
-          assert_equal 1, nodes[1].select("input[readonly][value=!!2]").length
-        end
-      end
-    end
-
-    def should_not_use_lead_image_for(edition_type)
-      test "showing should not display the lead image" do
-        draft_edition = create("draft_#{edition_type}", images: [build(:image)])
-
-        get :show, id: draft_edition
-
-        assert_select "article.document .body figure.image.lead", count: 0
-      end
-
-      test 'edit shows markdown hint for first image' do
-        draft_edition = create("draft_#{edition_type}", images: [build(:image)])
-
-        get :edit, id: draft_edition
-
-        assert_select "fieldset.images .image p", text: "Markdown to use:" do |nodes|
-          assert_equal 1, nodes[0].select("input[readonly][value=!!1]").length
-        end
-      end
-    end
-
     def should_be_able_to_delete_an_edition(edition_type)
       test "show displays the delete button for draft editions" do
         draft_edition = create("draft_#{edition_type}")

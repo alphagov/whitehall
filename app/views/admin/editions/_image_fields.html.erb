@@ -18,8 +18,7 @@
       </div>
     <% else %>
       <% i += 1 %>
-      <% is_lead_image = (edition.lead_image == images_fields.object) %>
-      <div class="image <%= is_lead_image && 'lead' %>">
+      <div class="image">
         <%= images_fields.hidden_field :id %>
         <div class="image-container">
           <%= image_tag(images_fields.object.url) %>
@@ -31,13 +30,9 @@
           <% checkbox_args[0].merge!(label_text: "(uncheck to remove)") %>
           <%= images_fields.check_box :_destroy, *checkbox_args  %>
         </div>
-        <% if is_lead_image %>
-          <p><b>This will automatically be used as the lead image. No markdown required.</b></p>
-        <% else %>
           <p>Markdown to use:
             <input type="text" readonly="readonly" value="!!<%= i %>" />
           </p>
-        <% end %>
       </div>
     <% end %>
   <% end %>
