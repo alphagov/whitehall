@@ -11,7 +11,7 @@ class PublicFacingController < ApplicationController
   end
 
   def set_search_path
-    response.headers[Slimmer::SEARCH_PATH_HEADER] = search_path
+    response.headers[Slimmer::Headers::SEARCH_PATH_HEADER] = search_path
   end
 
   def error(status_code)

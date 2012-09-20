@@ -18,7 +18,7 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
 
   test "index sets search action to search specialist guides" do
     get :index
-    assert_equal search_specialist_guides_path, response.headers[Slimmer::SEARCH_PATH_HEADER]
+    assert_equal search_specialist_guides_path, response.headers[Slimmer::Headers::SEARCH_PATH_HEADER]
   end
 
   test "guide <title> contains Specialist guidance" do
@@ -42,7 +42,7 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
 
   test "show sets search action to search specialist guides" do
     get :show, id: create(:published_specialist_guide).document
-    assert_equal search_specialist_guides_path, response.headers[Slimmer::SEARCH_PATH_HEADER]
+    assert_equal search_specialist_guides_path, response.headers[Slimmer::Headers::SEARCH_PATH_HEADER]
   end
 
   test "shows link to each section in the document navigation" do
@@ -185,7 +185,7 @@ some more content
     search_client = stub('search_client')
     Whitehall.search_client.stubs(:search).returns([])
     get :search
-    assert_equal search_specialist_guides_path, response.headers[Slimmer::SEARCH_PATH_HEADER]
+    assert_equal search_specialist_guides_path, response.headers[Slimmer::Headers::SEARCH_PATH_HEADER]
   end
 
   test "search lists each result returned from the inside government client" do

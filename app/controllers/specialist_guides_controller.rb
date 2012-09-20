@@ -39,7 +39,7 @@ private
   end
 
   def set_search_path
-    response.headers[Slimmer::SEARCH_PATH_HEADER] = search_specialist_guides_path
+    response.headers[Slimmer::Headers::SEARCH_PATH_HEADER] = search_specialist_guides_path
   end
 
   def set_proposition
