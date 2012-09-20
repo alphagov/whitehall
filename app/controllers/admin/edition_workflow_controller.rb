@@ -10,6 +10,12 @@ class Admin::EditionWorkflowController < Admin::BaseController
     redirect_to admin_edition_path(@edition), alert: "This document has been edited since you viewed it; you are now viewing the latest version"
   end
 
+  rescue_from ActiveRecord::RecordInvalid do
+    redirect_to admin_edition_path(@edition),
+      alert: "Unable to #{params[:action]} this edition because it is invalid (#{@edition.errors.full_messages.to_sentence}). " +
+             "Please edit it and try again."
+  end
+
   def submit
     @edition.submit!
     redirect_to admin_edition_path(@edition),
