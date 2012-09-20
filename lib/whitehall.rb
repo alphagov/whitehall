@@ -7,7 +7,12 @@ module Whitehall
   mattr_accessor :search_client
   mattr_accessor :mainstream_search_client
 
-  CURRENT_SHA = `git rev-parse HEAD`.strip
+  revision_file = "#{Rails.root}/REVISION"
+  if File.exists?(revision_file)
+    CURRENT_RELEASE_SHA = File.read(revision_file).chomp
+  else
+    CURRENT_RELEASE_SHA = "development"
+  end
 
   class << self
     PUBLIC_HOSTS = {
