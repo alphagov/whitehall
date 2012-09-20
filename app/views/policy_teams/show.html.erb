@@ -13,18 +13,24 @@
       <p class="email"><%= mail_to @policy_team.email, @policy_team.email %></p>
     </div>
   </div>
-  <% if @policies.any? %>
-    <div class="block-3">
-      <div class="inner-block">
+  <div class="block-3">
+    <div class="inner-block">
+      <% if @policy_team.description.present? %>
+        <h1 class="label">About us</h1>
+        <div class="description">
+          <%= govspeak_to_html @policy_team.description %>
+        </div>
+      <% end %>
+      <% if @policies.any? %>
         <h1 class="label">Policies</h1>
-        <ul>
+        <ul class="policies">
           <% @policies.each do |policy| %>
             <%= content_tag_for :li, policy do %>
               <% link_to policy.title, public_document_path(policy) %>
             <% end %>
           <% end %>
         </ul>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 <% end %>

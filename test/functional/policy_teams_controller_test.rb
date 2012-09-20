@@ -22,6 +22,16 @@ class PolicyTeamsControllerTest < ActionController::TestCase
     assert_select ".email a", text: policy_team.email
   end
 
+  test "shows description using govspeak" do
+    policy_team = create(:policy_team, description: "description [with link](http://example.com).")
+
+    get :show, id: policy_team
+
+    assert_select ".description" do
+      assert_select "a[href='http://example.com']", "with link"
+    end
+  end
+
   test "show policies being worked on by the team" do
     policy_team = create(:policy_team)
     published_policy = create(:published_policy, policy_team: policy_team)

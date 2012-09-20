@@ -39,15 +39,17 @@ class Admin::PolicyTeamsControllerTest < ActionController::TestCase
     assert_select "form[action=#{admin_policy_teams_path}]" do
       assert_select "input[name='policy_team[name]']"
       assert_select "input[name='policy_team[email]']"
+      assert_select "textarea[name='policy_team[description]']"
     end
   end
 
   test "create should create a new policy team" do
-    post :create, policy_team: { name: "the-a-team", email: "the-a-team@example.com" }
+    post :create, policy_team: { name: "the-a-team", email: "the-a-team@example.com", description: "guns for hire" }
 
     refute_nil policy_team = PolicyTeam.last
     assert_equal "the-a-team", policy_team.name
     assert_equal "the-a-team@example.com", policy_team.email
+    assert_equal "guns for hire", policy_team.description
   end
 
   test "create should redirect to policy team list on success" do
@@ -66,23 +68,25 @@ class Admin::PolicyTeamsControllerTest < ActionController::TestCase
   end
 
   test "edit should display policy team form" do
-    policy_team = create(:policy_team, name: "a-team", email: "a-team@example.com")
+    policy_team = create(:policy_team, name: "a-team", email: "a-team@example.com", description: "guns for hire")
 
     get :edit, id: policy_team
 
     assert_select "form[action=#{admin_policy_team_path(policy_team)}]" do
       assert_select "input[name='policy_team[name]'][value='a-team']"
       assert_select "input[name='policy_team[email]'][value='a-team@example.com']"
+      assert_select "textarea[name='policy_team[description]']", "guns for hire"
     end
   end
 
   test "udpate should modify policy team" do
-    policy_team = create(:policy_team, name: "original", email: "original@example.com")
+    policy_team = create(:policy_team, name: "original", email: "original@example.com", description: "original description")
 
-    put :update, id: policy_team, policy_team: { name: "new", email: "new@example.com" }
+    put :update, id: policy_team, policy_team: { name: "new", email: "new@example.com", description: "new description" }
 
     policy_team.reload
     assert_equal "new", policy_team.name
     assert_equal "new@example.com", policy_team.email
+    assert_equal "new description", policy_team.description
   end
 end
