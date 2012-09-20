@@ -34,7 +34,7 @@
                 <% end %>
               <% end %>
               <div class="metadata">
-                <span class="document_type"><%= human_friendly_edition_type(document) %></span>, <span class="published_or_updated"><%= published_or_updated(document).titleize %> <%= relative_time(document.published_at, class: 'published_at') %></span>
+                <span class="document_type"><%= document.format_name.titleize %></span>, <span class="published_or_updated"><%= published_or_updated(document).titleize %> <%= relative_time(document.published_at, class: 'published_at') %></span>
               </div>
             <% end %>
           <% end %>

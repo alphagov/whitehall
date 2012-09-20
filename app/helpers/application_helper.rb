@@ -146,10 +146,6 @@ module ApplicationHelper
     request.path =~ path_matcher ? 'current' : ''
   end
 
-  def human_friendly_edition_type(edition)
-    edition.type.tableize.singularize.humanize
-  end
-
   def yes_or_no(boolean)
     boolean ? "Yes" : "No"
   end

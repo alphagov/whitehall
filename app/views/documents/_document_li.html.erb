@@ -5,6 +5,6 @@
   </div>
   <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
   <div class="metadata">
-    <span class="document_type"><%= human_friendly_edition_type(document) %></span>
+    <span class="document_type"><%= document.format_name.titleize %></span>
   </div>
 <% end %>

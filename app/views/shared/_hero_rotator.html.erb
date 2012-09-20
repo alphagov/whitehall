@@ -22,7 +22,7 @@
           <% unless edition.summary.blank? %>
             <p class="summary"><%= truncate(edition.summary, length: 150, separator: ' ') %></p>
           <% end %>
-          <div class="document-type"><%= human_friendly_edition_type(edition) %></div>
+          <div class="document-type"><%= edition.format_name.titleize %></div>
         </div>
       <% end %>
     <% end %>

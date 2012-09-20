@@ -24,7 +24,7 @@
             <%= relative_time(document.published_at, class: 'published-at') %>
           </td>
           <td class="type attribute">
-            <%= human_friendly_edition_type(document) %>
+            <%= document.format_name.titleize %>
           </td>
         <% end %>
       <% end %>

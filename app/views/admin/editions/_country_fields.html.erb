@@ -1,2 +1,2 @@
-<%= form.label :country_ids, "Select the international locations this #{human_friendly_edition_type(edition).downcase} is about" %>
+<%= form.label :country_ids, "Select the international locations this #{edition.format_name.titleize.downcase} is about" %>
 <%= form.select :country_ids, options_from_collection_for_select(Country.all, 'id', 'name', edition.country_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "International locations..."} %>

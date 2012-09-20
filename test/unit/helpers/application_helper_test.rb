@@ -82,14 +82,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_select_in_html(html, "abbr.created_at[title='#{created_at.iso8601}']", text: "human-friendly")
   end
 
-  test "should return the main type of the edition" do
-    assert_equal "Consultation", human_friendly_edition_type(build(:consultation))
-    assert_equal "News article", human_friendly_edition_type(build(:news_article))
-    assert_equal "Policy", human_friendly_edition_type(build(:policy))
-    assert_equal "Publication", human_friendly_edition_type(build(:publication))
-    assert_equal "Speech", human_friendly_edition_type(build(:speech))
-  end
-
   test "home page should be related to home main navigation" do
     assert_equal home_path, current_main_navigation_path(controller: "site", action: "index")
   end
