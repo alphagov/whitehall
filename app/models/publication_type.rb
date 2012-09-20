@@ -15,6 +15,14 @@ class PublicationType
     all.group_by { |pt| pt.prevalence }
   end
 
+  def self.ordered_by_prevalence
+    primary + less_common + use_discouraged + migration
+  end
+
+  def self.find_by_slug(slug)
+    all.find { |pt| pt.slug == slug }
+  end
+
   def self.primary
     by_prevalence[:primary]
   end
