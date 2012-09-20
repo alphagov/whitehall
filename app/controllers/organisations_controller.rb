@@ -16,8 +16,8 @@ class OrganisationsController < PublicFacingController
     @recently_updated = @organisation.published_editions.by_published_at.limit(4)
     if @organisation.live?
       @news_articles = NewsArticle.published.in_organisation(@organisation)
-      @primary_featured_editions = @organisation.featured_editions.limit(3)
-      @secondary_featured_editions = @organisation.featured_editions.limit(3).offset(3)
+      @primary_featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(3))
+      @secondary_featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(3).offset(3))
       @top_military_role = @organisation.top_military_role && RolePresenter.decorate(@organisation.top_military_role)
       @policies = PolicyPresenter.decorate(@organisation.published_policies.by_published_at.limit(3))
       @topics = @organisation.topics_with_content

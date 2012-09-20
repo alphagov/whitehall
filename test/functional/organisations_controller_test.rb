@@ -50,7 +50,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [policy, news_article], assigns(:primary_featured_editions)
+    assert_equal [policy, news_article], assigns(:primary_featured_editions).collect(&:model)
   end
 
   test "shows a maximum of 3 primary featured editions" do

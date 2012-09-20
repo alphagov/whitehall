@@ -1,0 +1,22 @@
+<% if editions.any? %>
+  <section class="organisation_news" id="featured-documents">
+    <% editions.each do |edition| %>
+      <%= content_tag_for(:article, edition, nil, class: edition_organisation_class(edition)) do %>
+        <div class="img">
+          <%= edition.image_tag %>
+        </div>
+        <div class="news_body">
+          <div class="meta">
+            Posted
+            <%= relative_time(edition.published_at, class: 'published_at') %>
+          </div>
+          <h2><%= link_to edition.title, public_document_path(edition), class: "title" %></h2>
+          <% unless edition.summary.blank? %>
+            <p class="summary"><%= truncate(edition.summary, length: 150, separator: ' ') %></p>
+          <% end %>
+          <div class="document-type"><%= edition.format_name.capitalize %></div>
+        </div>
+      <% end %>
+    <% end %>
+  </section>
+<% end %>

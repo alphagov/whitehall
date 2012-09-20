@@ -13,10 +13,9 @@
   <div class="block-2">
     <div class="inner-block">
       <div>
-        <%= render partial: "shared/hero_rotator", locals: {
-          editions: @primary_featured_editions,
-          organisation: @organisation,
-          options: {organisational_context: true}} %>
+        <%= render partial: 'hero_rotator', locals: {
+          editions: @primary_featured_editions
+        } %>
       </div>
       <p>
         <% if @organisation.department? %>
