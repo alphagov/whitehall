@@ -206,9 +206,6 @@
   span {
     position: relative;
     top: 2px;
-    @include ie(6) {
-      top: -60px;
-    }
   }
 }
 
@@ -295,9 +292,6 @@
   span {
     position: relative;
     top: 2px;
-    @include ie(6) {
-      top: -60px;
-    }
   }
 
   &.single-line {
