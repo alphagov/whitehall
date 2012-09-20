@@ -29,7 +29,6 @@
   }
 
   li {
-    float: left;
     display: inline;
 
     a {
@@ -38,6 +37,7 @@
       font-size: 1.6rem;
       line-height: 1.5625; /* 25px */
       display: block;
+      float: left;
       padding: 8px 8px;
       padding: 0.8rem 0.8rem;
       text-decoration: none;
@@ -50,8 +50,8 @@
     }
 
     .current {
-        margin-top: 0.4rem;
-        padding-top: 0.4rem;
+      margin-top: 4px;
+      padding-top: 4px;
       background: #eee;
     }
   }
