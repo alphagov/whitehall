@@ -1,5 +1,6 @@
 class Admin::EditionsController < Admin::BaseController
   before_filter :remove_blank_parameters
+  before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
@@ -160,6 +161,17 @@ class Admin::EditionsController < Admin::BaseController
   def remove_blank_parameters
     params.keys.each do |k|
       params.delete(k) if params[k] == ""
+    end
+  end
+
+  def clear_scheduled_publication_if_not_activated
+    if params[:scheduled_publication_active].to_i == 0
+      params[:edition].keys.each do |key|
+        if key =~ /^scheduled_publication(\([0-9]i\))?/
+          params[:edition].delete(key)
+        end
+      end
+      params[:edition][:scheduled_publication] = nil
     end
   end
 
