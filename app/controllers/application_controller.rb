@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def skip_slimmer
-    response.headers[Slimmer::SKIP_HEADER] = "true"
+    response.headers[Slimmer::Headers::SKIP_HEADER] = "true"
   end
 
   def set_proposition
