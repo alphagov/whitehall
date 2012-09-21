@@ -26,16 +26,9 @@
             </div>
           </article>
         </div>
-        <div>
-          <nav role="navigation">
-            <ul>
-              <li>View <%= link_to "management team", management_team_organisation_path(@organisation)%></li>
-            </ul>
-          </nav>
-        </div>
         <% if @corporate_publications.any? %>
           <div>
-          </div>  
+          </div>
           <div>
           <h1>Corporate publications</h1>
           <% @corporate_publications.each do |publication| %>

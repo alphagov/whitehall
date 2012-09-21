@@ -43,9 +43,6 @@ class OrganisationsController < PublicFacingController
     @consultations = Consultation.in_organisation(@organisation).published.by_published_at
   end
 
-  def management_team
-  end
-
   def chiefs_of_staff
   end
 

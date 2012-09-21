@@ -2,7 +2,7 @@ require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
 
-  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations, :contact_details, :management_team]
+  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations, :contact_details]
 
   should_be_a_public_facing_controller
 
@@ -463,51 +463,33 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "img[src*=blank-person.png]"
   end
 
-  test "shows leading management team members with links to person pages" do
+  test "shows management team members with links to person pages" do
     permanent_secretary = create(:board_member_role, permanent_secretary: true)
-    person = create(:person)
-    create(:role_appointment, role: permanent_secretary, person: person)
-    organisation = create(:organisation, board_member_roles: [permanent_secretary])
+    senior_person = create(:person)
+    create(:role_appointment, role: permanent_secretary, person: senior_person)
+    junior = create(:board_member_role)
+    junior_person = create(:person)
+    create(:role_appointment, role: junior, person: junior_person)
+    organisation = create(:organisation, board_member_roles: [permanent_secretary, junior])
 
-    get :management_team, id: organisation
+    get :show, id: organisation
 
-    assert_select permanent_secretary_board_members_selector do
+    assert_select management_selector do
       assert_select_object(permanent_secretary) do
-        assert_select "a[href='#{person_path(person)}']"
+        assert_select "a[href='#{person_path(senior_person)}']"
       end
-    end
-  end
-
-  test "should not display an empty leading management team section" do
-    junior = create(:board_member_role)
-    organisation = create(:organisation, board_member_roles: [junior])
-
-    get :management_team, id: organisation
-
-    refute_select permanent_secretary_board_members_selector
-  end
-
-  test "shows non-leading management team members with links to person pages" do
-    junior = create(:board_member_role)
-    person = create(:person)
-    create(:role_appointment, role: junior, person: person)
-    organisation = create(:organisation, board_member_roles: [junior])
-
-    get :management_team, id: organisation
-
-    assert_select other_board_members_selector do
       assert_select_object(junior) do
-        assert_select "a[href='#{person_path(person)}']", text: person.name
+        assert_select "a[href='#{person_path(junior_person)}']"
       end
     end
   end
 
-  test "should not display an empty non-leading management team section" do
-    organisation = create(:organisation)
+  test "should not display an empty management team section" do
+    organisation = create(:organisation, board_member_roles: [])
 
-    get :management_team, id: organisation
+    get :show, id: organisation
 
-    refute_select other_board_members_selector
+    refute_select management_selector
   end
 
   test "should display all chiefs of staff" do
@@ -560,7 +542,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department)
 
-    [:show, :about, :consultations, :contact_details, :management_team].each do |page|
+    [:show, :about, :consultations, :contact_details].each do |page|
       get page, id: organisation
       assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
     end

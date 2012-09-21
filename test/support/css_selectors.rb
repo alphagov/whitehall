@@ -61,12 +61,8 @@ module CssSelectors
     "select[name='organisation[govuk_status]']"
   end
 
-  def permanent_secretary_board_members_selector
-    "#permanent_secretary_board_members"
-  end
-
-  def other_board_members_selector
-    "#other_board_members"
+  def management_selector
+    "#management"
   end
 
   def featured_documents_selector
