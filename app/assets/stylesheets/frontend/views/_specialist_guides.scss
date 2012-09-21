@@ -210,7 +210,7 @@
       border-top: 4px solid $light-blue;
     }
 
-    .related-guidance {
+    section {
       padding-top: $gutter-half;
       padding-bottom: $gutter;
       color: $light-blue;
@@ -287,7 +287,7 @@
         margin: 0 $gutter;
         overflow: hidden;
         padding: 0 0 $gutter*2 25%;
-        .related-guidance {
+        section {
           padding: $gutter-two-thirds 0 $gutter-one-third $gutter;
           margin-left: -$gutter;
           border-left: 1px solid $light-blue;

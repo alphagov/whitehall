@@ -301,6 +301,15 @@ some more content
     assert_equal raw_rummager_response, @response.body
   end
 
+  test "show mainstream categories for a specialist guide" do
+    category = create(:mainstream_category)
+    guide = create(:published_specialist_guide, mainstream_category: category)
+
+    get :show, id: guide.document
+
+    assert_select_object category
+  end
+
   private
 
   def given_two_specialist_guides_in_two_organisations

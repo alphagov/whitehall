@@ -47,6 +47,18 @@
   </div>
   <div class="block-4">
     <div class="inner-block">
+      <% if @categories.any? %>
+        <section id="guide-categories">
+          <h1>All detailed guidance about</h1>
+          <ul>
+            <% @categories.each do |category| %>
+              <%= content_tag_for(:li, category) do %>
+                <%= link_to category.title, mainstream_category_path(category) %>
+              <% end %>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
       <% if @document.published_related_specialist_guides.any? %>
         <section id="more-like-this" class="related-guidance">
           <h1>Similar specialist guidance</h1>
