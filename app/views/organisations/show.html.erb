@@ -12,16 +12,44 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <div>
-        <%= render partial: 'hero_rotator', locals: {
-          editions: @primary_featured_editions
-        } %>
-      </div>
-      <p>
-        <% if @organisation.department? %>
-        <%= link_to "See all our announcements", announcements_filter_path(@organisation) %>
-        <% end %>
-      </p>
+      <% if @primary_featured_editions.any? %>
+        <section class="organisation_news" id="featured-documents">
+          <%= content_tag_for(:article, @primary_featured_editions.first, nil, class: "#{edition_organisation_class(@primary_featured_editions.first)} primary-first") do %>
+            <div class="img">
+              <%= @primary_featured_editions.first.image_tag %>
+            </div>
+            <div class="news_body">
+              <h2><%= link_to @primary_featured_editions.first.title, public_document_path(@primary_featured_editions.first), class: "title" %></h2>
+              <% unless @primary_featured_editions.first.summary.blank? %>
+                <p class="summary"><%= truncate(@primary_featured_editions.first.summary, length: 150, separator: ' ') %></p>
+              <% end %>
+              <div class="meta">
+                Posted
+                <%= relative_time(@primary_featured_editions.first.published_at, class: 'published_at') %>
+              </div>
+              <div class="document-type"><%= @primary_featured_editions.first.format_name.capitalize %></div>
+            </div>
+          <% end %>
+
+          <div class="primary-secondary">
+            <% @primary_featured_editions.to_a.from(1).each do |edition| %>
+              <%= content_tag_for(:article, edition, nil, class: edition_organisation_class(edition)) do %>
+                <div class="img">
+                  <%= edition.image_tag %>
+                </div>
+                <div class="news_body">
+                  <h2><%= link_to edition.title, public_document_path(edition), class: "title" %></h2>
+                  <div class="meta">
+                    Posted
+                    <%= relative_time(edition.published_at, class: 'published_at') %>
+                  </div>
+                  <div class="document-type"><%= edition.format_name.capitalize %></div>
+                </div>
+              <% end %>
+            <% end %>
+        </div>
+        </section>
+      <% end %>
     </div>
   </div>
 
@@ -79,7 +107,7 @@
       <% if @topics.any? %>
         <section id="topics">
           <h1 class="label">We focus on these topics</h1>
-          <%= render partial: "topics/list_description", locals: {topics: @topics} %>
+          <%= render partial: "topics/list_description", locals: {topics: @topics, organisation: @organisation} %>
         </section>
       <% end %>
     </div>
@@ -110,6 +138,11 @@
           </p>
         </section>
       <% end %>
+      <p>
+        <% if @organisation.department? %>
+        <%= link_to "See all our announcements", announcements_filter_path(@organisation) %>
+        <% end %>
+      </p>      
     </div>
   </div>
 

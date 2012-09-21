@@ -73,17 +73,19 @@ h1.label {
 
   .img {
     img {
-      height: 576px;
       width: 100%;
-    @media (max-width: 768px) {
-        height: auto;
-      }
     }
   }
 }
 
 
 .organisation_homepage {
+
+  .block-2, .block-3 {
+    margin: $gutter 0;
+    overflow: hidden;
+  }
+
 
   .block-7 .simple_list a, .block-8 .simple_list a, .block-10 {
     @include core-19;
@@ -95,6 +97,54 @@ h1.label {
   .block-11 {
     clear: both;
   }
+
+
+  .organisation_news {
+
+    .img {
+      margin: 0 0 $gutter-one-third 0;
+      padding: 0;
+    }
+
+    .news_body {
+      h2 {
+        @include core-27;
+        padding-top: 0;
+      }
+      a {
+        text-decoration: none;
+      }
+      .summary {
+        @include core-19;
+      }
+      .meta, .document-type {
+        float: left;
+        display: inline;
+        margin-right: $gutter-half;
+      }
+      .document-type {
+        margin: 0 $gutter-half $gutter 0;
+      }
+    }
+
+    .primary-first, .primary-secondary {
+      float: left;
+      display: inline;
+      margin-right: $gutter;
+      width: 66%;
+    }
+    .primary-secondary {
+      float: right;
+      margin-right: 0;
+      width: 30%;
+      h2 {
+        @include core-19;
+        padding-top: 0;
+      }
+    }
+
+  }
+
 
   .description {
     margin: $gutter-half 0;
@@ -489,41 +539,6 @@ h1.label {
 }
 
 
-
-.news_body {
-  bottom: 7px;
-  color: $white;
-  height: 200px;
-  padding: $gutter-one-third $gutter $gutter-one-third 25%;
-  position: absolute;
-  width: 50%;
-  h2 {
-    @include brand-32;
-  }
-  a {
-    color: $white;
-    text-decoration: none;
-  }
-  .meta {
-    font-weight: bold;
-    text-transform: uppercase;
-    abbr {
-      font-weight: normal;
-    }
-  }
-  .document-type {
-    padding-top: $gutter-one-third;
-    font-weight: bold;
-  }
-
-    @media (max-width: 768px) {
-    height: auto;
-    padding: $gutter-one-third $gutter;
-    position: relative;
-    width: auto;
-}
-}
-
 .sub_navigation_container {
   background-color: $white;
   position: relative;
@@ -669,7 +684,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $treasury;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $treasury;
   }
   a, .published_or_updated {
@@ -680,7 +695,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $cabinet-office;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $cabinet-office;
   }
   a, .published_or_updated {
@@ -691,7 +706,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $department-for-education;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $department-for-education;
   }
   a, .published_or_updated {
@@ -702,7 +717,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $department-of-transport;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $department-of-transport;
   }
   a, .published_or_updated {
@@ -713,7 +728,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $home-office;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $home-office;
   }
   a, .published_or_updated {
@@ -724,7 +739,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $department-of-health;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $department-of-health;
   }
   a, .published_or_updated {
@@ -735,7 +750,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $ministry-of-justice;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $ministry-of-justice;
   }
   a, .published_or_updated {
@@ -746,7 +761,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $ministry-of-defence;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $ministry-of-defence;
   }
   a, .published_or_updated {
@@ -757,7 +772,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $foreign-and-commonwealth-office;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $foreign-and-commonwealth-office;
   }
   a, .published_or_updated {
@@ -768,7 +783,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $department-for-communities-and-local-government;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $department-for-communities-and-local-government;
   }
   a, .published_or_updated {
@@ -779,7 +794,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $department-for-energy-and-climate-change;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $department-for-energy-and-climate-change;
   }
   a, .published_or_updated {
@@ -790,7 +805,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $department-for-culture-media-and-sport;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $department-for-culture-media-and-sport;
   }
   a, .published_or_updated {
@@ -801,7 +816,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $department-for-environment-food-and-rural-affairs;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $department-for-environment-food-and-rural-affairs;
   }
   a, .published_or_updated {
@@ -812,7 +827,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $department-for-work-and-pensions;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $department-for-work-and-pensions;
   }
   a, .published_or_updated {
@@ -823,7 +838,7 @@ h1.label {
   .page_title, span, .sub_navigation_container li, .secondary-featured {
     border-color: $department-for-business-innovation-and-skills;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $department-for-business-innovation-and-skills;
   }
   a, .published_or_updated {
@@ -834,7 +849,7 @@ h1.label {
   .page_title, span, .secondary-featured {
     border-color: $department-for-international-development;
   }
-  .news_body, .slidecontrols li a {
+  .slidecontrols li a {
     background-color: $department-for-international-development;
   }
   a, .published_or_updated {

@@ -1,4 +1,4 @@
-<ol class="topics group <%= (topics.length > 8 ? 'ultra-wide' : (topics.length > 3 ? 'wide' : '')) %>">
+<ol class="topics group <%= (topics.length > 8 ? 'ultra-wide' : (topics.length > 4 ? 'wide' : '')) %>">
   <% topics.each do |topic| %>
     <%= content_tag_for(:li, topic, class: 'topic') do %>
     <div class="container">
@@ -9,7 +9,7 @@
           <ul class="publication-count">
             <% if topic.published_policies.any? %>
               <li class="policies">
-                Contains <%= pluralize(topic.published_policies.length, "policy") %>
+                <%= link_to "Contains #{pluralize(topic.published_policies.length, "policy")}", policies_filter_path(topic, organisation) %>
               </li>
             <% end %>
           </ul>
