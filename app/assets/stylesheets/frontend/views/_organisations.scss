@@ -151,9 +151,7 @@ h1.label {
           position:absolute;
           top: $gutter-one-third;
           left:0;
-          -webkit-box-sizing:border-box;
-             -moz-box-sizing:border-box;
-                  box-sizing:border-box;
+          @include box-sizing(border);
           width:2em;
         }
       }

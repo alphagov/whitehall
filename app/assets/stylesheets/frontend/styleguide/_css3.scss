@@ -37,4 +37,8 @@
           transition: ($property $duration $function);
 }
 
-
+@mixin box-sizing($type) { // Acceptable values are border, content, and padding - content is the default W3C model
+  -webkit-box-sizing: #{$type}-box;
+     -moz-box-sizing: #{$type}-box;
+          box-sizing: #{$type}-box;
+}
