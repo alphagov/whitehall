@@ -1,6 +1,10 @@
 module Edition::ScheduledPublishing
   extend ActiveSupport::Concern
 
+  included do
+    validate :scheduled_publication_must_be_in_the_future
+  end
+
   module InstanceMethods
     def schedulable_by?(user, options = {})
       reason_to_prevent_scheduling_by(user, options).nil?
@@ -28,6 +32,14 @@ module Edition::ScheduledPublishing
         if !scheduled? or Time.zone.now < scheduled_publication
           "This edition is scheduled for publication on #{scheduled_publication.to_s}, and may not be published before"
         end
+      end
+    end
+
+    private
+
+    def scheduled_publication_must_be_in_the_future
+      if scheduled_publication.present? && scheduled_publication < Time.zone.now
+        errors[:scheduled_publication] << "date must be in the future"
       end
     end
   end

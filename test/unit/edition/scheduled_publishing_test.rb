@@ -1,6 +1,13 @@
 require "test_helper"
 
 class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
+  test "is not valid if scheduled_publication date is in the past" do
+    editor = build(:departmental_editor)
+    edition = build(:submitted_edition, scheduled_publication: 1.minute.ago)
+    edition.stubs(:reason_to_prevent_approval_by).returns(nil)
+    refute edition.valid?
+    assert edition.errors[:scheduled_publication].include?("date must be in the future")
+  end
 
   test "is publishable if submitted without scheduled_publication date and there is no reason to prevent approval" do
     editor = build(:departmental_editor)
