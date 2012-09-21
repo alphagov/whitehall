@@ -12,8 +12,7 @@ class SpecialistGuidesController < DocumentsController
   end
 
   def show
-    @topics = @document.topics
-    render action: "show"
+    @categories = @document.mainstream_category.nil? ? [] : [@document.mainstream_category]
   end
 
   def search
