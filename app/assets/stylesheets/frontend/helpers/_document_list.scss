@@ -8,6 +8,9 @@
     overflow: hidden;
     position: relative;
     list-style: none;
+    @include ie(6) {
+      position: static;
+    }
 
     th {
       @include core-19;

@@ -212,10 +212,10 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select '#topics' do
       assert_select_object topic_1 do
-        assert_select '.policies', text: '1 policy'
+        assert_select '.policies', text: 'Contains 1 policy'
       end
       assert_select_object topic_2 do
-        assert_select '.policies', text: '2 policies'
+        assert_select '.policies', text: 'Contains 2 policies'
       end
     end
   end

@@ -135,7 +135,7 @@
         <% end %>
         <% if @civil_servants.any? %>
           <section id="management">
-            <h1 class="label">Management team</h1>
+            <h1 class="label">Our management</h1>
             <ul>
               <% @civil_servants.each do |civil_servant| %>
                 <%= content_tag_for(:li, civil_servant) do %>
@@ -146,6 +146,7 @@
                   <h3 class="current-appointee"><%= civil_servant.current_person_link %></h3>
                   <p class="role"><%= civil_servant.link %></p>
                 <% end %>
+
               <% end %>
             </ul>
           </section>

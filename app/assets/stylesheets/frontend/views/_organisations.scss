@@ -100,45 +100,143 @@ h1.label {
     margin: $gutter-half 0;
   }
 
-  .topic {
-    display: block;
-    margin-bottom: $gutter-half;
-    overflow: hidden;
-    ul, .govspeak {
-      float: left;
-      display: inline;
-      width: 66%;
-    }
-    .govspeak {
-      float: right;
-    }
-    ul {
-      @include core-19;
+  .topics {
+    counter-reset:li;
+    .topic {
+      @include core-27;
+      margin-bottom: $gutter-half;
+      position:relative;
       list-style: none;
-      text-align: center;
-      width: 33%;
-      li {
-        float: left;
-        display: inline;
-        width: 50%;
-        span {
-          @include core-48;
-          display: block;
-          padding-bottom: 0;
+      .summary {
+        border-top: 1px solid $grey-88;
+        display: table-cell;
+        float: right;
+        padding-bottom: $gutter-one-third;
+        width: 94%;
+        @include ie(6) {
+          float: right;
+          width: 66%;
+        }
+        ul {
+          @include core-19;
+          list-style: none;
+          padding-top: 0;
+        }
+        .govspeak {
+          margin-top: 0;
+          p {
+            margin: 0;
+            padding: $gutter-one-third 0;
+          }
+        }
+      }
+      h2 {
+        border-top: 1px solid $grey-88;
+        display: table-cell;
+        padding: 40px 0 $gutter-one-third;
+        position: relative;
+        vertical-align: top;
+        width: 30%;
+        @include ie(6) {
+          padding-top: $gutter-one-third;
+          position: absolute;
+          top: 3px;
+        }
+        a {
+        width: 100%;
+        }
+        &:before {
+          content:counter(li, decimal-leading-zero);
+          counter-increment:li;
+          position:absolute;
+          top: $gutter-one-third;
+          left:0;
+          -webkit-box-sizing:border-box;
+             -moz-box-sizing:border-box;
+                  box-sizing:border-box;
+          width:2em;
+        }
+      }
+      .publication-count {
+        padding-top: 0;
+        .policies, .guides {
+          @include core-14;
+          text-transform: capitalize;
+        }
+      }
+      .container {
+        display: table-row;
+      }
+      &:last-child {
+        h2, .summary {
+          border-bottom: 1px solid $grey-88;
         }
       }
     }
-    h2 a {
-      @include core-48;
-    }
-    .publication-count {
-      padding-top: 0;
-      .policies, .guides {
-        @include core-14;
-        text-transform: capitalize;
+  }
+
+  @include media(desktop) {
+  .wide { // for > 4 topics on an orgs page
+    border-bottom: 1px solid $grey-88;
+    .topic {
+      float: left;
+      display: inline;
+      margin-right: $gutter;
+      width: 48.1%;
+      .summary, h2 {
+        float: none;
+        display: block;
+        width: 100%;
+      }
+      .summary {
+        border-top: none;
+      }
+      &:nth-child(2n+1) {
+        clear: both;
+      }
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+      &:last-child {
+        .summary, h2 {
+          border-bottom: none;
+        }
       }
     }
   }
+
+  .ultra-wide { // for > 8 topics on an orgs page
+    border-bottom: 1px solid $grey-88;
+    .topic {
+      float: left;
+      display: inline;
+      margin-right: $gutter;
+      width: 30.8%;
+      .summary, h2 {
+        float: none;
+        display: block;
+        width: 100%;
+      }
+      .summary {
+        border-top: none;
+      }
+
+      &:nth-child(3n+1) {
+        clear: both;
+      }
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+      &:last-child {
+        .summary, h2 {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+
+
 
   #ministers ul {
     @extend %contain-floats;
