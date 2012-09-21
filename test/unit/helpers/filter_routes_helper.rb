@@ -1,24 +1,22 @@
 require 'test_helper'
 
 class FilterRoutesHelperTest < ActionView::TestCase
-  test 'uses the organisation to generate the route to publications filter' do
-    organisation = create(:organisation)
-    assert_equal publications_path(departments: [organisation.slug]), publications_filter_path(organisation)
-  end
+  [:announcements, :publications, :policies, :specialist_guides].each do |filter|
+    test "uses the organisation to generate the route to #{filter} filter" do
+      organisation = create(:organisation)
+      assert_equal send("#{filter}_path", departments: [organisation.slug]), send("#{filter}_filter_path", organisation)
+    end
 
-  test 'uses the organisation to generate the route to announcment filter' do
-    organisation = create(:organisation)
-    assert_equal announcements_path(departments: [organisation.slug]), announcements_filter_path(organisation)
-  end
+    test "uses the topic to generate the route to #{filter} filter" do
+      topic = create(:topic)
+      assert_equal send("#{filter}_path", topics: [topic.slug]), send("#{filter}_filter_path", topic)
+    end
 
-  test 'uses the organisation to generate the route to specialist filter' do
-    organisation = create(:organisation)
-    assert_equal specialist_guides_path(departments: [organisation.slug]), specialist_guides_filter_path(organisation)
-  end
-
-  test 'uses the topic to generate the route to specialist filter' do
-    topic = create(:topic)
-    assert_equal specialist_guides_path(topics: [topic.slug]), specialist_guides_filter_path(topic)
+    test "uses the organisation and topic to generate the route to #{filter} filter" do
+      organisation = create(:organisation)
+      topic = create(:topic)
+      assert_equal send("#{filter}_path", departments: [organisation.slug], topics: [topic.slug]), send("#{filter}_filter_path", organisation, topic)
+    end
   end
 
 end

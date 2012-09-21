@@ -1,27 +1,30 @@
 module FilterRoutesHelper
-  def announcements_filter_path(obj)
-    if obj.is_a? Organisation
-      announcements_path(departments: [obj.slug])
-    end
+  def announcements_filter_path(*objects)
+    announcements_path(path_arguments(objects))
   end
 
-  def publications_filter_path(obj)
-    if obj.is_a? Organisation
-      publications_path(departments: [obj.slug])
-    end
+  def publications_filter_path(*objects)
+    publications_path(path_arguments(objects))
   end
 
-  def policies_filter_path(obj)
-    if obj.is_a? Organisation
-      policies_path(departments: [obj.slug])
-    end
+  def policies_filter_path(*objects)
+    policies_path(path_arguments(objects))
   end
 
-  def specialist_guides_filter_path(obj)
-    if obj.is_a? Organisation
-      specialist_guides_path(departments: [obj.slug])
-    elsif obj.is_a? Topic
-      specialist_guides_path(topics: [obj.slug])
+  def specialist_guides_filter_path(*objects)
+    specialist_guides_path(path_arguments(objects))
+  end
+
+  private
+
+  def path_arguments(objects)
+    objects.inject({}) do |out, obj|
+      if obj.is_a? Organisation
+        out[:departments] = [obj.slug]
+      elsif obj.is_a? Topic
+        out[:topics] = [obj.slug]
+      end
+      out
     end
   end
 end
