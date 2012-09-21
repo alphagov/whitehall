@@ -2,12 +2,14 @@ When /^I filter to only those from the "([^"]*)" department$/ do |department|
   deselect_all 'select#departments'
   select department, from: "Department"
   click_button "Refresh"
+  wait_until { page.evaluate_script("jQuery.active") == 0 }
 end
 
 When /^I filter to only those from the "([^"]*)" topic$/ do |topic|
   deselect_all 'select#topics'
   select topic, from: "Topic"
   click_button "Refresh"
+  wait_until { page.evaluate_script("jQuery.active") == 0 }
 end
 
 Then /^I should see a link to the next page of documents$/ do
@@ -25,4 +27,5 @@ end
 
 Then /^I scroll to the bottom of the page$/ do
   page.execute_script "window.scrollBy(0,10000)"
+  wait_until { page.evaluate_script("jQuery.active") == 0 }
 end
