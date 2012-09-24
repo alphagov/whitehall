@@ -54,5 +54,4 @@ jQuery(function($) {
 
   $('.organisation_homepage #ministers .ministerial_role').hideExtraRows();
 
-  GOVUK.paginateDocument();
 });

@@ -3,16 +3,9 @@
     <h1>Contents</h1>
     <nav class="specialist_guide_parts" role="navigation">
       <ol id="document_sections">
-        <% govspeak_header_hierarchy(edition.body).each do |header_record| %>
+        <% govspeak_headers(edition.body).each do |header_record| %>
           <li>
-            <%= link_to header_record[:header].text, "##{header_record[:header].id}" %>
-            <% if header_record[:children].any? %>
-              <ol>
-                <% header_record[:children].each do |child| %>
-                  <li><%= link_to child.text, "##{child.id}" %></li>
-                <% end %>
-              </ol>
-            <% end %>
+            <%= link_to header_record.text, "##{header_record.id}" %>
           </li>
         <% end %>
         <li class="more-like-this">

@@ -69,24 +69,6 @@ That's all
     end
   end
 
-  test "shows link to subsections in the document navigation" do
-    guide = create(:published_specialist_guide, body: %{
-## First Section
-
-Some Content
-
-### Sub section title
-
-some more content
-})
-
-    get :show, id: guide.document
-
-    assert_select "ol#document_sections" do
-      assert_select "li ol li a[href='#sub-section-title']", 'Sub section title'
-    end
-  end
-
   test "show includes any links to related mainstream content" do
     guide = create(:published_specialist_guide,
       related_mainstream_content_url: "http://mainstream/content",
