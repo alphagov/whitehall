@@ -19,6 +19,15 @@
       <% end %>
     </div>
   <% end %>
+  <% if edition.scheduled_publication.present? %>
+    <div class="alert alert-info">
+      <% if edition.scheduled? %>
+        <p>Scheduled for publication on <%= l edition.scheduled_publication, format: :long %>. </p>
+      <% else %>
+        <p>Will be scheduled for publication on <%= l edition.scheduled_publication, format: :long %>. </p>
+      <% end %>
+    </div>
+  <% end %>
 
   <% if !edition.is_latest_edition? %>
     <%= most_recent_edition_button(edition) %>
@@ -28,6 +37,11 @@
     <%= redraft_edition_button(edition) %>
   <% end %>
 
+  <% if @edition.schedulable_by?(current_user) %>
+    <%= schedule_edition_form(@edition) %>
+  <% elsif @edition.schedulable_by?(current_user, force: true) %>
+    <%= schedule_edition_form(@edition, force: true) %>
+  <% end %>
   <% if @edition.publishable_by?(current_user, assuming_presence_of_change_note: true) %>
     <%= publish_edition_form(@edition) %>
   <% elsif @edition.publishable_by?(current_user, force: true, assuming_presence_of_change_note: true) %>

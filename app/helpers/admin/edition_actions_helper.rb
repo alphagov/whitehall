@@ -44,6 +44,16 @@ module Admin::EditionActionsHelper
     button_to button_text, url, confirm: confirm, title: button_title, class: css_classes.join(" ")
   end
 
+  def schedule_edition_form(edition, options = {})
+    url = schedule_admin_edition_path(edition, options.slice(:force).merge(lock_version: edition.lock_version))
+    button_text = options[:force] ? "Force Schedule" : "Schedule"
+    button_title = "Schedule #{edition.title}"
+    confirm = schedule_edition_alerts(edition, options[:force])
+    css_classes = ["btn"]
+    css_classes << (options[:force] ? "btn-warning" : "btn-success")
+    button_to button_text, url, confirm: confirm, title: button_title, class: css_classes.join(" ")
+  end
+
   def delete_edition_button(edition)
     button_to 'Delete', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?", class: "btn btn-danger"
   end
@@ -53,9 +63,22 @@ module Admin::EditionActionsHelper
   def publish_edition_alerts(edition, force)
     alerts = []
     alerts << "Are you sure you want to force publish this document?" if force
-    if edition.has_supporting_pages?
-      alerts << "Have you checked the #{edition.supporting_pages.count} supporting pages?"
-    end
+    alerts += supporting_pages_alerts(edition)
     alerts.join(" ")
+  end
+
+  def schedule_edition_alerts(edition, force)
+    alerts = []
+    alerts << "Are you sure you want to force schedule this document for publication?" if force
+    alerts += supporting_pages_alerts(edition)
+    alerts.join(" ")
+  end
+
+  def supporting_pages_alerts(edition)
+    if edition.has_supporting_pages?
+      ["Have you checked the #{edition.supporting_pages.count} supporting pages?"]
+    else
+      []
+    end
   end
 end

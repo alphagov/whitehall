@@ -85,6 +85,14 @@ module CssSelectors
     "form[action=#{CGI::escapeHTML(reject_admin_edition_path(document, lock_version: document.lock_version))}] input[type=submit][value=Reject]"
   end
 
+  def schedule_button_selector(document)
+    "form[action=#{CGI::escapeHTML(schedule_admin_edition_path(document, lock_version: document.lock_version))}] input[type=submit][value=Schedule]"
+  end
+
+  def force_schedule_button_selector(document)
+    "form[action=#{CGI::escapeHTML(schedule_admin_edition_path(document, force: true, lock_version: document.lock_version))}] input[type=submit][value='Force Schedule']"
+  end
+
   def link_to_public_version_selector
     ".actions .public_version"
   end

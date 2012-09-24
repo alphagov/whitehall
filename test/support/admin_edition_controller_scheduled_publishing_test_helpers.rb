@@ -13,6 +13,8 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
   module ClassMethods
     def should_allow_scheduled_publication_of(edition_type)
+      document_type_class = edition_type.to_s.classify.constantize
+
       test "new displays scheduled_publication date and time fields" do
         get :new
 
@@ -20,6 +22,41 @@ module AdminEditionControllerScheduledPublishingTestHelpers
           assert_select "input[type=checkbox][name='scheduled_publication_active']"
           assert_select "select[name*='edition[scheduled_publication']", count: 5
         end
+      end
+
+      test "should display the 'Schedule' button for a submitted edition with schedule" do
+        edition = create(edition_type, :submitted, scheduled_publication: 1.day.from_now)
+        edition.stubs(:schedulable_by?).returns(true)
+        document_type_class.stubs(:find).with(edition.to_param).returns(edition)
+        get :show, id: edition
+        assert_select schedule_button_selector(edition), count: 1
+        assert_select '.alert', /Will be scheduled for publication on/
+      end
+
+      test "should display the 'Force Schedule' button for a submitted edition with schedule" do
+        edition = create(edition_type, :submitted, scheduled_publication: 1.day.from_now)
+        edition.stubs(:schedulable_by?).returns(false)
+        edition.stubs(:schedulable_by?).with(anything, has_entry(force:true)).returns(true)
+        document_type_class.stubs(:find).with(edition.to_param).returns(edition)
+        get :show, id: edition
+        assert_select force_schedule_button_selector(edition), count: 1
+        assert_select '.alert', "Will be scheduled for publication on #{I18n.localize edition.scheduled_publication, format: :long}."
+      end
+
+      test "should not display the 'Schedule' button if not schedulable" do
+        edition = create(edition_type, :published)
+        edition.stubs(:schedulable_by?).returns(false)
+        document_type_class.stubs(:find).with(edition.to_param).returns(edition)
+        get :show, id: edition
+        refute_select schedule_button_selector(edition)
+        refute_select force_schedule_button_selector(edition)
+      end
+
+      test "should indicate publishing schedule if scheduled" do
+        edition = create(edition_type, :scheduled)
+        document_type_class.stubs(:find).with(edition.to_param).returns(edition)
+        get :show, id: edition
+        assert_select '.alert', "Scheduled for publication on #{I18n.localize edition.scheduled_publication, format: :long}."
       end
 
       test "create should not set scheduled_publication if scheduled_publication_active is not checked" do
@@ -46,7 +83,6 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         created_publication = Publication.last
         assert_equal selected_time, created_publication.scheduled_publication
       end
-
 
       test "edit displays scheduled_publication date and time fields" do
         publication = create(edition_type, scheduled_publication: Time.zone.parse('2060-06-03 10:30'))
