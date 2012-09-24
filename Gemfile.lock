@@ -141,6 +141,10 @@ GEM
       ruby-hmac
     formatador (0.2.1)
     friendly_id (4.0.0.beta14)
+    gds-api-adapters (2.5.0)
+      lrucache (~> 0.1.1)
+      null_logger
+      plek
     gds-sso (1.2.2)
       omniauth-gds (= 0.0.3)
       rack-accept (~> 0.4.4)
@@ -366,6 +370,7 @@ DEPENDENCIES
   faker
   fog
   friendly_id (= 4.0.0.beta14)
+  gds-api-adapters
   gds-sso (~> 1.2.2)
   govspeak (~> 1.0.1)
   hash_syntax
