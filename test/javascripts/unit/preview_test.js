@@ -148,3 +148,19 @@ test("should show the editor when clicking edit again", function() {
   var editor = $("textarea").parent();
   ok(editor.is(":visible"));
 })
+
+test("should show an alert if the response was not 200", function() {
+  var ajax = this.spy(jQuery, "ajax");
+  var server = this.sandbox.useFakeServer();
+  server.respondWith("POST", "/government/admin/preview",
+                     [403, { "Content-Type": "text/html" },
+                      'Some error message']);
+
+  var alertStub = this.stub(window, "alert", function(msg) { return false; } );
+
+  $("a.show-preview").click();
+  server.respond();
+
+  equals(1, alertStub.callCount, "showing preview should have invoked alert one time");
+  equals("Some error message", alertStub.getCall(0).args[0], "alert should have shown error from server");
+})

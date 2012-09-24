@@ -47,4 +47,9 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     post :preview, body: edition.body, attachment_ids: edition.attachments.map(&:id), alternative_format_provider_id: ""
     assert_response :success
   end
+
+  test "preview returns a 403 if the content contains potential XSS exploits" do
+    post :preview, body: "<script>alert('woah');</script>"
+    assert_response :forbidden
+  end
 end

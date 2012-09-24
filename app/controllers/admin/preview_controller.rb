@@ -4,7 +4,11 @@ class Admin::PreviewController < Admin::BaseController
   before_filter :find_alternative_format_provider, only: :preview
 
   def preview
-    render layout: false
+    if Govspeak::HtmlValidator.new(params[:body]).valid?
+      render layout: false
+    else
+      render text: "Content contains possible XSS exploits", status: :forbidden
+    end
   end
 
   def find_images

@@ -71,11 +71,20 @@
         };
         loading_indicator.show();
         preview_link.hide();
-        $.post("/government/admin/preview", params, function(data) {
-          loading_indicator.hide();
-          preview.html(data);
-          showPreview();
-        });
+        $.ajax({
+          type: 'POST',
+          url: "/government/admin/preview",
+          data: params,
+          success: function(data) {
+            loading_indicator.hide();
+            preview.html(data);
+            showPreview();
+          },
+          error: function(data) {
+            alert(data.responseText);
+            showEditor();
+          }
+        })
         return false;
       })
 
