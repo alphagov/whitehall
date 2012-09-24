@@ -1,6 +1,11 @@
+require 'gds_api/helpers'
+require 'gds_api/content_api'
+
 class SpecialistGuidesController < DocumentsController
+  include GdsApi::Helpers
   layout "specialist"
   before_filter :set_search_path
+  before_filter :set_artefact, :only => [:show]
 
   respond_to :html, :json
 
@@ -13,6 +18,8 @@ class SpecialistGuidesController < DocumentsController
 
   def show
     @categories = @document.mainstream_categories
+    @topics = @document.topics
+    render action: "show"
   end
 
   def search
@@ -44,6 +51,33 @@ private
 
   def set_proposition
     set_slimmer_headers(proposition: "specialist")
+  end
+
+  def set_artefact
+    if (cat = @categories.first)
+      parents = content_api.tag(cat.parent_tag).to_hash
+      fake_json = {
+        title: @document.title,
+        format: 'detailedguidance',
+        web_url: specialist_guides_url(@document),
+        tags: [
+               {
+                 title: cat.title,
+                 id: cat.path,
+                 web_url: nil,
+                 details: {
+                   type: 'section'
+                 },
+                 content_with_tag: {
+                   id: cat.path,
+                   web_url: mainstream_category_path(cat),
+                 },
+                 parent: parents
+               }
+              ]
+      }
+      set_slimmer_artefact fake_json
+    end
   end
 
 end
