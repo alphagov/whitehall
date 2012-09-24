@@ -137,9 +137,9 @@
 
         a {
           border-bottom: 0;
-          padding: $gutter-one-sixth;
+          padding: $gutter-one-sixth $gutter-one-sixth+32px $gutter-one-sixth $gutter-one-sixth;
           color: $white;
-          background: transparent image-url("down-arrow.png") no-repeat 100% 100%;
+          background: transparent image-url("down-arrow-small.png") no-repeat 100% 100%;
         }
       }
       a {
@@ -171,9 +171,12 @@
   }
 
   .related-mainstream-content {
-    float: right;
-    width: 33.33%;
-    padding: 0 0 $gutter $gutter;
+    @include media(desktop){
+      float: right;
+      width: 33.33%;
+      padding: 0 0 $gutter $gutter;
+    }
+
     position: relative;
     z-index:1;
 
@@ -221,7 +224,7 @@
         color: $light-blue;
 
         li {
-          margin-left: 1.2em;
+          margin-left: 1.15em;
         }
       }
     }
