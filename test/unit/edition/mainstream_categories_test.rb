@@ -12,6 +12,15 @@ class Edition::MainstreamCategoriesTest < ActiveSupport::TestCase
                  edition.mainstream_categories
   end
 
+  test "edition is not valid with the same category in primary and other" do
+    mainstream_category = create(:mainstream_category)
+    edition = build(:draft_specialist_guide, primary_mainstream_category: mainstream_category,
+                     other_mainstream_categories: [mainstream_category])
+
+    refute edition.valid?
+    assert edition.errors[:other_mainstream_categories].include?("should not contain the primary mainstream category")
+  end
+
   test "#destroy should also remove the relationship" do
     mainstream_category = create(:mainstream_category)
     edition = create(:draft_specialist_guide, other_mainstream_categories: [mainstream_category])

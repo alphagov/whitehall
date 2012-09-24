@@ -18,9 +18,19 @@ module Edition::MainstreamCategory
              source: :mainstream_category
 
     add_trait Trait
+
+    validate :avoid_duplication_between_primary_and_other_mainstream_categories
   end
 
   def mainstream_categories
     [primary_mainstream_category] + other_mainstream_categories
+  end
+
+  private
+
+  def avoid_duplication_between_primary_and_other_mainstream_categories
+    if other_mainstream_categories.include?(primary_mainstream_category)
+      errors[:other_mainstream_categories] << "should not contain the primary mainstream category"
+    end
   end
 end
