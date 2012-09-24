@@ -24,7 +24,7 @@
       <% if edition.scheduled? %>
         <p>Scheduled for publication on <%= l edition.scheduled_publication, format: :long %>. </p>
       <% else %>
-        <p>Will be scheduled for publication on <%= l edition.scheduled_publication, format: :long %>. </p>
+        <p>Scheduled publication proposed for <%= l edition.scheduled_publication, format: :long %>. </p>
       <% end %>
     </div>
   <% end %>
@@ -37,6 +37,9 @@
     <%= redraft_edition_button(edition) %>
   <% end %>
 
+  <% if @edition.unschedulable_by?(current_user) %>
+    <%= unschedule_edition_button(@edition) %>
+  <% end %>
   <% if @edition.schedulable_by?(current_user) %>
     <%= schedule_edition_form(@edition) %>
   <% elsif @edition.schedulable_by?(current_user, force: true) %>

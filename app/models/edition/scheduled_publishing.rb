@@ -31,6 +31,27 @@ module Edition::ScheduledPublishing
       end
     end
 
+    def unschedulable_by?(user)
+      reason_to_prevent_unscheduling_by(user).nil?
+    end
+
+    def reason_to_prevent_unscheduling_by(user)
+      if !scheduled?
+        "This edition is not scheduled for publication"
+      end
+    end
+
+    def unschedule_as(user)
+      if unschedulable_by?(user)
+        self.force_published = false
+        unschedule!
+        true
+      else
+        errors.add(:base, reason_to_prevent_unscheduling_by(user))
+        false
+      end
+    end
+
     def reason_to_prevent_publication_by(user, options = {})
       super or if scheduled_publication.present?
         if !scheduled? or Time.zone.now < scheduled_publication

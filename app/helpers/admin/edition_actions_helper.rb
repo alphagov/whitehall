@@ -47,11 +47,20 @@ module Admin::EditionActionsHelper
   def schedule_edition_form(edition, options = {})
     url = schedule_admin_edition_path(edition, options.slice(:force).merge(lock_version: edition.lock_version))
     button_text = options[:force] ? "Force Schedule" : "Schedule"
-    button_title = "Schedule #{edition.title}"
+    button_title = "Schedule #{edition.title} for publication on #{l edition.scheduled_publication, format: :long}"
     confirm = schedule_edition_alerts(edition, options[:force])
     css_classes = ["btn"]
     css_classes << (options[:force] ? "btn-warning" : "btn-success")
     button_to button_text, url, confirm: confirm, title: button_title, class: css_classes.join(" ")
+  end
+
+  def unschedule_edition_button(edition)
+    confirm = "Are you sure you want to unschedule this edition and return it to the submitted state?"
+    button_to "Unschedule",
+      unschedule_admin_edition_path(edition, lock_version: edition.lock_version),
+      title: "Unschedule this edition to allow changes or prevent automatic publication on #{l edition.scheduled_publication, format: :long}",
+      class: "btn btn-warning",
+      confirm: confirm
   end
 
   def delete_edition_button(edition)

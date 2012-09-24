@@ -30,7 +30,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         document_type_class.stubs(:find).with(edition.to_param).returns(edition)
         get :show, id: edition
         assert_select schedule_button_selector(edition), count: 1
-        assert_select '.alert', /Will be scheduled for publication on/
+        assert_select '.alert', /Scheduled publication proposed for/
       end
 
       test "should display the 'Force Schedule' button for a submitted edition with schedule" do
@@ -40,7 +40,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         document_type_class.stubs(:find).with(edition.to_param).returns(edition)
         get :show, id: edition
         assert_select force_schedule_button_selector(edition), count: 1
-        assert_select '.alert', "Will be scheduled for publication on #{I18n.localize edition.scheduled_publication, format: :long}."
+        assert_select '.alert', "Scheduled publication proposed for #{I18n.localize edition.scheduled_publication, format: :long}."
       end
 
       test "should not display the 'Schedule' button if not schedulable" do
@@ -50,6 +50,12 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         get :show, id: edition
         refute_select schedule_button_selector(edition)
         refute_select force_schedule_button_selector(edition)
+      end
+
+      test "should display the 'Unschedule' button for a scheduled publication" do
+        edition = create(edition_type, :scheduled)
+        get :show, id: edition
+        assert_select unschedule_button_selector(edition)
       end
 
       test "should indicate publishing schedule if scheduled" do

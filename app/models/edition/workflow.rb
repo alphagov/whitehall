@@ -53,6 +53,10 @@ module Edition::Workflow
           guard: lambda { |edition| edition.scheduled_publication.present? }
       end
 
+      event :unschedule do
+        transitions from: :scheduled, to: :submitted
+      end
+
       event :publish, success: -> edition { edition.run_callbacks(:publish) } do
         transitions from: [:draft, :submitted], to: :published,
           guard: lambda { |edition| edition.scheduled_publication.blank? }

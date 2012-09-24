@@ -89,6 +89,10 @@ module CssSelectors
     "form[action=#{CGI::escapeHTML(schedule_admin_edition_path(document, lock_version: document.lock_version))}] input[type=submit][value=Schedule]"
   end
 
+  def unschedule_button_selector(document)
+    "form[action=#{CGI::escapeHTML(unschedule_admin_edition_path(document, lock_version: document.lock_version))}] input[type=submit][value=Unschedule]"
+  end
+
   def force_schedule_button_selector(document)
     "form[action=#{CGI::escapeHTML(schedule_admin_edition_path(document, force: true, lock_version: document.lock_version))}] input[type=submit][value='Force Schedule']"
   end
