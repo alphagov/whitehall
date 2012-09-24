@@ -114,20 +114,48 @@
 
   .contextual-info {
     padding-top: $gutter-one-sixth;
+
+    h1 {
+      @include core-19;
+    }
+
     ol {
-      margin-left: 1.1em;
+      border-top: 1px solid $light-blue-grey;
+      @include core-16;
+      padding: 0;
+      margin: 0;
+
       li {
-        padding-bottom: 3px;
-        list-style-type: disc;
+        display: inline;
+      }
+      .more-like-this {
+        display: block;
+        margin-top: $gutter;
+        background: $light-blue;
+        padding: $gutter-one-sixth;
+
         a {
-          display: block;
+          border-bottom: 0;
+          padding: $gutter-one-sixth;
+          color: $white;
+          background: transparent image-url("down-arrow.png") no-repeat 100% 100%;
         }
       }
+      a {
+        display: block;
+        padding: $gutter-one-sixth 0;
+        border-bottom: 1px solid $light-blue-grey;
+      }
     }
-  }
 
-  .page.hidden {
-    display: none;
+
+  }
+  .back-to-content {
+    position: fixed;
+    top: $gutter-half;
+    a {
+      display: block;
+    }
   }
 
   .in-page-navigation {
@@ -226,9 +254,6 @@
     }
     .block-4 {
       .inner-block {
-        margin: 0 $gutter;
-        overflow: hidden;
-        padding: 0 0 $gutter*2 25%;
         section {
           padding: $gutter-two-thirds 0 $gutter-one-third $gutter;
           margin-left: -$gutter;

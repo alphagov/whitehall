@@ -41,6 +41,7 @@ jQuery(function($) {
   $('.specialist-guides-show').trackExternalLinks();
 
   GOVUK.stickAtTopWhenScrolling.init();
+  GOVUK.backToContent.init();
 
   $('.js-toggle-accessibility-warning').toggler({header: ".toggler", content: ".help-block"})
 
