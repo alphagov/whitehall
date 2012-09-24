@@ -26,6 +26,24 @@ class MainstreamCategoryTest < ActiveSupport::TestCase
     refute @category.valid?
   end
 
+  test "is not valid with an identifier that doesn't start with http(s?)://" do
+    @category.identifier = "example.com/tags/blah.json"
+    refute @category.valid?
+    assert @category.errors[:identifier].include?("must start with http or https")
+  end
+
+  test "is not valid with an identifier that doesn't contain /tags/" do
+    @category.identifier = "http://example.com/blah.json"
+    refute @category.valid?
+    assert @category.errors[:identifier].include?("must contain /tags/")
+  end
+
+  test "is not valid with an identifier that doesn't end in .json" do
+    @category.identifier = "https://example.com/tags/blah"
+    refute @category.valid?
+    assert @category.errors[:identifier].include?("must end with .json")
+  end
+
   test "slug is generated from last path part of the identifier" do
     @category.identifier = "http://some.thing/tags/category%2Fsubcategory.json"
     assert_equal "subcategory", @category.generate_slug

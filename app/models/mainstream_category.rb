@@ -9,6 +9,9 @@ class MainstreamCategory < ActiveRecord::Base
 
   validates :title, :identifier, :parent_title, presence: true
   before_save :update_slug!
+  validates :identifier, format: {with: /^http(s?):\/\//, message: "must start with http or https"}
+  validates :identifier, format: {with: /\.json$/, message: "must end with .json"}
+  validates :identifier, format: {with: /\/tags\//, message: "must contain /tags/"}
 
   def specialist_guides
     primary_specialist_guides + other_specialist_guides
