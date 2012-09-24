@@ -70,6 +70,18 @@ class SpecialistGuideTest < EditionTestCase
     refute specialist_guide.valid?
   end
 
+  test "should build a draft copy of the existing specialist with the same mainstream categories" do
+    primary_mainstream_category = create(:mainstream_category)
+    other_mainstream_category = create(:mainstream_category)
+    published_guide = create(:published_specialist_guide,
+                             primary_mainstream_category: primary_mainstream_category,
+                             other_mainstream_categories: [other_mainstream_category])
+
+    draft_guide = published_guide.create_draft(create(:policy_writer))
+
+    assert_equal published_guide.mainstream_categories, draft_guide.mainstream_categories
+  end
+
   test "should be valid if all level-3 headings have a parent level-2 heading" do
     body = "## Parent1\n\n### Child1\n\n### Child2\n\n## Parent2\n\n### Child3"
     specialist_guide = build(:specialist_guide, body: body)
