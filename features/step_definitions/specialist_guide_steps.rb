@@ -85,7 +85,7 @@ end
 
 Given /^a submitted specialist guide "([^"]*)" exists in the "([^"]*)" mainstream category$/ do |title, category_title|
   category = MainstreamCategory.find_by_title!(category_title)
-  create(:submitted_specialist_guide, title: title, mainstream_category: category)
+  create(:submitted_specialist_guide, title: title, primary_mainstream_category: category)
 end
 
 Then /^the specialist guide "([^"]*)" should be visible to the public in the mainstream category "([^"]*)"$/ do |title, category_title|

@@ -42,7 +42,7 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#edition_new[action='#{admin_specialist_guides_path}']" do
-      assert_select "select[name='edition[mainstream_category_id]']" do
+      assert_select "select[name='edition[primary_mainstream_category_id]']" do
         assert_select "optgroup[label='#{funk.parent_title}']" do
           assert_select "option[value='#{funk.id}']", funk.title
         end
@@ -56,11 +56,11 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
       identifier: "http://example.com/tags/funk.json",
       parent_title: "Musical style")
 
-    attributes = controller_attributes_for(:specialist_guide, mainstream_category_id: funk.id)
+    attributes = controller_attributes_for(:specialist_guide, primary_mainstream_category_id: funk.id)
 
     post :create, edition: attributes
 
-    assert_equal funk, SpecialistGuide.first.mainstream_category
+    assert_equal funk, SpecialistGuide.first.primary_mainstream_category
   end
 
   test "show displays association with mainstream category" do
@@ -69,7 +69,7 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
       identifier: "http://example.com/tags/funk.json",
       parent_title: "Musical style")
 
-    specialist_guide = create(:specialist_guide, mainstream_category: funk)
+    specialist_guide = create(:specialist_guide, primary_mainstream_category: funk)
 
     get :show, id: specialist_guide
 

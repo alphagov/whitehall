@@ -40,11 +40,11 @@
     </section>
   <% end %>
 
-  <% if edition.respond_to?(:mainstream_category) %>
+  <% if edition.respond_to?(:primary_mainstream_category) %>
     <section>
       <h2>Detailed guidance category</h2>
-      <% if edition.mainstream_category.present? %>
-        <p><%= edition.mainstream_category.parent_title %> &gt; <%= link_to edition.mainstream_category.title, edition.mainstream_category %></p>
+      <% if edition.primary_mainstream_category.present? %>
+        <p><%= edition.primary_mainstream_category.parent_title %> &gt; <%= link_to edition.primary_mainstream_category.title, edition.primary_mainstream_category %></p>
       <% else %>
         <p>This document isn't assigned to any topics.</p>
       <% end %>

@@ -1,7 +1,7 @@
 require 'cgi'
 
 class MainstreamCategory < ActiveRecord::Base
-  has_many :specialist_guides
+  has_many :specialist_guides, foreign_key: "primary_mainstream_category_id"
 
   validates :title, :identifier, :parent_title, presence: true
   before_save :update_slug!

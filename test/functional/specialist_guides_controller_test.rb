@@ -285,7 +285,7 @@ That's all
 
   test "show mainstream categories for a specialist guide" do
     category = create(:mainstream_category)
-    guide = create(:published_specialist_guide, mainstream_category: category)
+    guide = create(:published_specialist_guide, primary_mainstream_category: category)
 
     get :show, id: guide.document
 
