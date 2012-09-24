@@ -33,7 +33,7 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
   should_allow_association_with_related_mainstream_content :specialist_guide
   should_allow_alternative_format_provider_for :specialist_guide
 
-  test "new allows selection of mainstream category" do
+  test "new allows selection of mainstream categories" do
     funk = create(:mainstream_category,
       title: "Funk",
       identifier: "http://example.com/tags/funk.json",
@@ -48,13 +48,18 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
         end
       end
     end
+
+    assert_select "form#edition_new[action='#{admin_specialist_guides_path}']" do
+      assert_select "select[name='edition[other_mainstream_category_ids][]']" do
+        assert_select "optgroup[label='#{funk.parent_title}']" do
+          assert_select "option[value='#{funk.id}']", funk.title
+        end
+      end
+    end
   end
 
-  test "create records chosen mainstream category" do
-    funk = create(:mainstream_category,
-      title: "Funk",
-      identifier: "http://example.com/tags/funk.json",
-      parent_title: "Musical style")
+  test "create records chosen primary mainstream category" do
+    funk = create(:mainstream_category)
 
     attributes = controller_attributes_for(:specialist_guide, primary_mainstream_category_id: funk.id)
 
@@ -63,18 +68,29 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
     assert_equal funk, SpecialistGuide.first.primary_mainstream_category
   end
 
-  test "show displays association with mainstream category" do
-    funk = create(:mainstream_category,
-      title: "Funk",
-      identifier: "http://example.com/tags/funk.json",
-      parent_title: "Musical style")
+  test "create records chosen other mainstream categories" do
+    funk = create(:mainstream_category, title: "Funk")
+    soul = create(:mainstream_category, title: "Soul")
 
-    specialist_guide = create(:specialist_guide, primary_mainstream_category: funk)
+    attributes = controller_attributes_for(:specialist_guide, primary_mainstream_category_id: funk.id,
+                                           other_mainstream_category_ids: [soul.id])
+
+    post :create, edition: attributes
+
+    assert_equal [soul], SpecialistGuide.first.other_mainstream_categories
+  end
+
+  test "show displays association with mainstream categories" do
+    funk = create(:mainstream_category, title: "Funk")
+    soul = create(:mainstream_category, title: "Soul")
+
+    specialist_guide = create(:specialist_guide, primary_mainstream_category: funk, other_mainstream_categories: [soul])
 
     get :show, id: specialist_guide
 
     assert_select '#associations' do
       assert_select 'a', funk.title
+      assert_select 'a', soul.title
     end
   end
 end

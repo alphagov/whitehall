@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :mainstream_category do
     title "Mainstream category"
-    identifier  "https://contentapi.production.alphagov.co.uk/tags/mainstream-parent-category%2Fmainstream-category.json"
+    sequence(:identifier) { |n| "https://example.com/tags/category-#{n}.json" }
     parent_title "Mainstream parent category"
   end
 end

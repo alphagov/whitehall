@@ -40,13 +40,17 @@
     </section>
   <% end %>
 
-  <% if edition.respond_to?(:primary_mainstream_category) %>
+  <% if edition.respond_to?(:mainstream_categories) %>
     <section>
       <h2>Detailed guidance category</h2>
-      <% if edition.primary_mainstream_category.present? %>
-        <p><%= edition.primary_mainstream_category.parent_title %> &gt; <%= link_to edition.primary_mainstream_category.title, edition.primary_mainstream_category %></p>
+      <% if edition.mainstream_categories.any? %>
+        <ul>
+          <% edition.mainstream_categories.each do |mainstream_category| %>
+            <li><%= mainstream_category.parent_title %> &gt; <%= link_to mainstream_category.title, mainstream_category %></li>
+          <% end %>
+        </ul>
       <% else %>
-        <p>This document isn't assigned to any topics.</p>
+        <p>This document isn't assigned to any mainstream categories.</p>
       <% end %>
     </section>
   <% end %>

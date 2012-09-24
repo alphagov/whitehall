@@ -12,7 +12,7 @@ class SpecialistGuidesController < DocumentsController
   end
 
   def show
-    @categories = @document.primary_mainstream_category.nil? ? [] : [@document.primary_mainstream_category]
+    @categories = @document.mainstream_categories
   end
 
   def search
