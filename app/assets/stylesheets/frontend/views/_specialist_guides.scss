@@ -169,6 +169,23 @@
     }
   }
 
+  .related-mainstream-content {
+    float: right;
+    width: 33.33%;
+    padding: 0 0 $gutter $gutter;
+    position: relative;
+    z-index:1;
+
+    .inner {
+      padding: $gutter-one-third;
+      background: $light-warm-grey none no-repeat 98% $gutter-two-thirds;
+
+      h4 {
+        margin-bottom: $gutter-one-sixth;
+      }
+    }
+  }
+
   .document .body {
     margin-top: -2px;
   }

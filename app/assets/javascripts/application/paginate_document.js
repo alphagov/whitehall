@@ -2,9 +2,7 @@ var GOVUK = GOVUK || {}
 
 GOVUK.paginateDocument = function() {
 
-  var container = $(".document .govspeak"),
-      navigation = $(".contextual-info #document_sections"),
-      mainstreamAlternative = $('.related-mainstream-content');
+  var navigation = $(".contextual-info #document_sections");
 
   navigation.find(">li").each(function(el){
     var li = $(this),
@@ -12,8 +10,4 @@ GOVUK.paginateDocument = function() {
 
     pageNav.remove();
   });
-
-  if(mainstreamAlternative.length){
-    mainstreamAlternative.insertBefore(container.find('p').first().nextAll('p,h2,h3').first());
-  }
 };

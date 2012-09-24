@@ -19,19 +19,6 @@
         }%>
       </section>
 
-    <% if @document.has_related_mainstream_content? %>
-      <aside class="related-mainstream-content information-block" role="complementary">
-        <p>
-          Too much information? Check out our quick guides:<br>
-          <%= link_to @document.related_mainstream_content_title, @document.related_mainstream_content_url %>
-          <% if @document.has_additional_related_mainstream_content? %>
-            <br>
-            <%= link_to @document.additional_related_mainstream_content_title, @document.additional_related_mainstream_content_url %>
-          <% end %>
-        </p>
-      </aside>
-    <% end %>
-
     </div>
   </div>
   <div class="block-2">
@@ -42,6 +29,20 @@
   </div>
   <div class="block-3">
     <div class="inner-block">
+      <% if @document.has_related_mainstream_content? %>
+        <aside class="related-mainstream-content information-block" role="complementary">
+          <div class="inner">
+            <h4>Too much detail?<br>See these quick guides</h4>
+            <p>
+              <%= link_to @document.related_mainstream_content_title, @document.related_mainstream_content_url %>
+              <% if @document.has_additional_related_mainstream_content? %>
+                <br>
+                <%= link_to @document.additional_related_mainstream_content_title, @document.additional_related_mainstream_content_url %>
+              <% end %>
+            </p>
+          </div>
+        </aside>
+      <% end %>
       <%= render partial: "document_content" %>
     </div>
   </div>
