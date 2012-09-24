@@ -53,7 +53,7 @@ When /^I visit the list of specialist guides$/ do
 end
 
 Then /^I can see links to the related specialist guides "([^"]*)" and "([^"]*)"$/ do |guide_1, guide_2|
-  within ".related_specialist_guides" do
+  within ".related-specialist-guides" do
     assert has_css?("a", text: guide_1), "should have link to #{guide_1}"
     assert has_css?("a", text: guide_2), "should have link to #{guide_2}"
   end

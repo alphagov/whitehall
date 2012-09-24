@@ -32,6 +32,7 @@
     .block-4 {
       width: 100%;
       margin: 0;
+      padding-bottom: $gutter*2;
     }
   }
 
@@ -190,31 +191,66 @@
     margin-top: -2px;
   }
 
-  .block-4 {
-    padding-bottom: 0;
+  .aside-more-like-this {
+    margin: 0 -$gutter;
 
-    .inner-block {
-      border-top: 4px solid $light-blue;
+    h1 {
+      @include core-27;
+      background: $light-blue;
+      color: $white;
+      margin: $gutter;
+      padding: $gutter-one-third;
     }
 
     section {
-      padding-top: $gutter-half;
-      padding-bottom: $gutter;
-      color: $light-blue;
-      a {
-      color: $light-blue;
+      @include media(desktop){
+        width: 75%;
+        float: left;
       }
 
-      h1 {
-        @include core-27;
-        //color: lighten($body-text, 50%);
+      .inner {
+        margin: 0 $gutter;
       }
+
+      h2 {
+        @include core-27;
+      }
+
       ul {
         @include core-19;
+        color: $light-blue;
+
         li {
           margin-left: 1.2em;
         }
       }
+    }
+
+    .categories {
+      @include media(desktop){
+        width: 25%;
+      }
+
+      .inner {
+        background: $light-warm-grey;
+        padding: 0 $gutter-one-third $gutter-one-third;
+      }
+
+      h2 {
+        @include core-19;
+        color: $body-text;
+      }
+
+      ul {
+        @include core-16;
+      }
+    }
+
+    section {
+      a {
+        color: $light-blue;
+      }
+
     }
   }
 
@@ -253,30 +289,9 @@
       .page-meta {
         margin-right: 190px;
       }
-      .more-like-this {
-        float: right;
-        padding: $gutter-two-thirds $gutter;
-        border-left: 1px solid $light-blue;
-        margin-top: -49px;
-        margin-right: -$gutter;
-        margin-bottom: -$gutter-two-thirds;
-        a {
-          padding-bottom: 3px;
-          display: block;
-        }
-      }
     }
     .document_page .block-3 {
       width: 75%;
-    }
-    .block-4 {
-      .inner-block {
-        section {
-          padding: $gutter-two-thirds 0 $gutter-one-third $gutter;
-          margin-left: -$gutter;
-          border-left: 1px solid $light-blue;
-        }
-      }
     }
   }
 }
