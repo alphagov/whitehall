@@ -36,6 +36,14 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
+  test "is not schedulable if already scheduled" do
+    editor = build(:departmental_editor)
+    edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
+    assert_equal "This edition is already scheduled for publication", edition.reason_to_prevent_scheduling_by(editor)
+    refute edition.schedulable_by?(editor)
+    refute edition.schedulable_by?(editor, force: true)
+  end
+
   test "is publishable if scheduled, there is no reason to prevent approval and the scheduled_publication date has passed" do
     editor = build(:departmental_editor)
     edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
