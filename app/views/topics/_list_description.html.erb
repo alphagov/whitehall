@@ -1,4 +1,4 @@
-<ol class="topics group <%= (topics.length > 8 ? 'ultra-wide' : (topics.length > 4 ? 'wide' : '')) %>">
+<ol class="topics group <%= (topics.length > 8 ? 'ultra-wide' : (topics.length > 3 ? 'wide' : '')) %>">
   <% topics.each do |topic| %>
     <%= content_tag_for(:li, topic, class: 'topic') do %>
     <div class="container">
