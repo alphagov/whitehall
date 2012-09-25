@@ -185,6 +185,13 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
+  test "should be able to change published_at and first_published_at when scheduled" do
+    edition = create(:edition, :scheduled)
+    edition.first_published_at = Time.zone.now
+    edition.published_at = Time.zone.now
+    assert edition.valid?
+  end
+
   test "#edit_as updates the edition" do
     attributes = stub(:attributes)
     edition = create(:policy)
