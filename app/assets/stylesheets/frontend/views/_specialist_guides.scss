@@ -44,6 +44,7 @@
     overflow: hidden;
     width: auto;
     float: none;
+    position: relative;
 
     .organisations-icon-list {
       overflow: hidden;
@@ -102,6 +103,24 @@
       a {
         color: $light-blue;
         text-decoration: none;
+      }
+    }
+
+    .replaces-businesslink {
+      position: absolute;
+      bottom: $gutter;
+      right: $gutter;
+
+      p {
+        color: $body-text;
+      }
+
+      .businesslink-logo {
+        background-image: image-url("businesslink-logo.png");
+        width: 84px;
+        height: 24px;
+        margin-top: 0.5em;
+        padding: 0;
       }
     }
   }
@@ -186,18 +205,6 @@
       h4 {
         margin-bottom: $gutter-one-sixth;
       }
-    }
-  }
-
-  .replaces-businesslink {
-    margin-top: $gutter;
-
-    .businesslink-logo {
-      background-image: image-url("businesslink-logo.png");
-      width: 84px;
-      height: 24px;
-      margin-top: 0.5em;
-      padding: 0;
     }
   }
 
