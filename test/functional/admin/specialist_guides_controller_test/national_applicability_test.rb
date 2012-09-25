@@ -15,5 +15,9 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
     def edition_class
       SpecialistGuide
     end
+
+    def attributes_for_edition(attributes = {})
+      super.except(:primary_mainstream_category).reverse_merge(primary_mainstream_category_id: create(:mainstream_category).id)
+    end
   end
 end

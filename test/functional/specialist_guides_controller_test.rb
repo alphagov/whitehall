@@ -2,6 +2,7 @@ require "test_helper"
 
 class SpecialistGuidesControllerTest < ActionController::TestCase
   include DocumentViewAssertions
+  include ContentApiStubs
 
   should_be_a_public_facing_controller
   should_display_attachments_for :specialist_guide
@@ -10,12 +11,7 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
   should_be_previewable :specialist_guide
   should_return_json_suitable_for_the_document_filter :specialist_guide
 
-  def stub_content_api_request
-    stub_request(:get, "https://contentapi.test.alphagov.co.uk/tags/business%2Ftax.json").
-      with(headers: {'Accept'=>'application/json', 'Content-Type' => 'application/json', 'User-Agent' => 'GDS Api Client v. 2.7.0'}).
-      to_return(status: 200, body: "{}", headers: {})
-  end
-
+  setup { stub_content_api_request }
 
   test "index <title> does not contain 'Inside Government'" do
     get :index
@@ -301,7 +297,6 @@ That's all
   test "show mainstream categories for a specialist guide" do
     category = create(:mainstream_category)
     guide = create(:published_specialist_guide, primary_mainstream_category: category)
-    stub_content_api_request
     get :show, id: guide.document
 
     assert_select_object category
@@ -310,7 +305,6 @@ That's all
   test "show sets breadcrumb trail" do
     category = create(:mainstream_category)
     specialist_guide = create(:published_specialist_guide, primary_mainstream_category: category)
-    stub_content_api_request
 
     get :show, id: specialist_guide.document
 

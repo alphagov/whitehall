@@ -94,4 +94,10 @@ class SpecialistGuideTest < EditionTestCase
     refute specialist_guide.valid?
     assert_equal ["must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): 'Orphan'"], specialist_guide.errors[:body]
   end
+
+  test "should not be valid without a primary mainstream category" do
+    specialist_guide = build(:specialist_guide, primary_mainstream_category: nil)
+    refute specialist_guide.valid?
+    assert specialist_guide.errors[:primary_mainstream_category]
+  end
 end

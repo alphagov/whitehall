@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :specialist_guide, class: SpecialistGuide, parent: :edition do
     title "specialist-guide-title"
     body  "specialist-guide-body"
+    primary_mainstream_category { FactoryGirl.build(:mainstream_category) }
   end
 
   factory :draft_specialist_guide, parent: :specialist_guide, traits: [:draft]

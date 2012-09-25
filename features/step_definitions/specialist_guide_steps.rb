@@ -15,26 +15,30 @@ Given /^(\d+) published specialist guides for the organisation "([^"]*)"$/ do |c
 end
 
 When /^I draft a new specialist guide "([^"]*)"$/ do |title|
-  begin_drafting_document type: 'specialist_guide', title: title
+  category = create(:mainstream_category)
+  begin_drafting_document type: 'specialist_guide', title: title, primary_mainstream_category: category
   click_button "Save"
 end
 
 When /^I draft a new specialist guide "([^"]*)" in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
-  begin_drafting_document type: 'specialist_guide', title: title
+  category = create(:mainstream_category)
+  begin_drafting_document type: 'specialist_guide', title: title, primary_mainstream_category: category
   select first_topic, from: "Topics"
   select second_topic, from: "Topics"
   click_button "Save"
 end
 
 When /^I draft a new specialist guide "([^"]*)" related to the specialist guide "([^"]*)"$/ do |title, related_title|
+  category = create(:mainstream_category)
   related_guide = SpecialistGuide.find_by_title!(related_title)
-  begin_drafting_document type: 'specialist_guide', title: title
+  begin_drafting_document type: 'specialist_guide', title: title, primary_mainstream_category: category
   select related_title, from: "Related guides"
   click_button "Save"
 end
 
 Given /^I start drafting a new specialist guide$/ do
-  begin_drafting_document type: 'specialist_guide', title: "Specialist Guide"
+  category = create(:mainstream_category)
+  begin_drafting_document type: 'specialist_guide', title: "Specialist Guide", primary_mainstream_category: category
 end
 
 When /^I select an image for the specialist guide$/ do

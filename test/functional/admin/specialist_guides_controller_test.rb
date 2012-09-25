@@ -93,4 +93,10 @@ class Admin::SpecialistGuidesControllerTest < ActionController::TestCase
       assert_select 'a', soul.title
     end
   end
+
+  private
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.except(:primary_mainstream_category).reverse_merge(primary_mainstream_category_id: create(:mainstream_category).id)
+  end
 end
