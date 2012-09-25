@@ -38,7 +38,7 @@ class Whitehall::DocumentFilter
   end
 
   def all_publication_types
-    PublicationType.ordered_by_prevalence
+    PublicationType.ordered_by_prevalence - [PublicationType::Unknown]
   end
 
   def selected_topics

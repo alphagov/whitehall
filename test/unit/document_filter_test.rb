@@ -37,9 +37,10 @@ class DocumentFilterTest < ActiveSupport::TestCase
     Whitehall::DocumentFilter.new([]).all_organisations_with(:document_type)
   end
 
-  test "#all_publication_types returns all publication types" do
+  test "#all_publication_types returns all publication types except generic 'Publication'" do
     publication_types = Whitehall::DocumentFilter.new([]).all_publication_types
-    assert_equal PublicationType.ordered_by_prevalence, publication_types
+    publication_types_without_unknown = PublicationType.ordered_by_prevalence - [PublicationType::Unknown]
+    assert_equal publication_types_without_unknown, publication_types
   end
 
   test "#selected_topics returns an empty set by default" do
