@@ -347,6 +347,9 @@ h1.label {
     @include media(tablet) {
       height: auto;
       width: 22%;
+      &:nth-child(2n+1) {
+        clear: none;
+      }
       &:nth-child(4n+1) {
         clear: both;
       }
