@@ -96,7 +96,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     ministerial_role.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, '/government')
 
     ministerial_role.save
   end
@@ -106,7 +106,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     ministerial_role.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, '/government')
 
     ministerial_role.name = 'Ministry of Junk'
     ministerial_role.save
@@ -114,7 +114,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test 'should remove ministerial role from search index on destroying' do
     ministerial_role = create(:ministerial_role)
-    Rummageable.expects(:delete).with("/government/ministers/#{ministerial_role.slug}")
+    Rummageable.expects(:delete).with("/government/ministers/#{ministerial_role.slug}", '/government')
     ministerial_role.destroy
   end
 

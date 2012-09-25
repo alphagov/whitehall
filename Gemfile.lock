@@ -7,11 +7,12 @@ GIT
 
 GIT
   remote: https://github.com/alphagov/rummageable.git
-  revision: 944e4d7c73e94b7b4a04fc9bfd3fc94d942fe2c6
+  revision: c63d580663bbf0b54dfc660d242e2b3289a1a49c
+  branch: allow-access-to-more-than-one-index
   specs:
-    rummageable (0.2.0)
+    rummageable (0.4.0)
       json
-      plek
+      plek (>= 0.5.0)
       rest-client
 
 GIT
@@ -224,7 +225,7 @@ GEM
       rails (~> 3)
     pdf-reader (0.10.1)
       Ascii85 (~> 1.0.0)
-    plek (0.4.0)
+    plek (0.5.0)
       builder
     polyglot (0.3.3)
     quiet_assets (1.0.1)

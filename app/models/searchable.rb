@@ -60,11 +60,15 @@ module Searchable
     end
 
     def update_in_search_index
-      Rummageable.index(search_index)
+      Rummageable.index(search_index, index)
     end
 
     def remove_from_search_index
-      Rummageable.delete(searchable_options[:link].call(self))
+      Rummageable.delete(searchable_options[:link].call(self), index)
+    end
+
+    def index
+      is_a?(SpecialistGuide) ? '/specialist' : '/government'
     end
 
     module ClassMethods
