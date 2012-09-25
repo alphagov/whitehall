@@ -2,7 +2,41 @@ module Edition::ScheduledPublishing
   extend ActiveSupport::Concern
 
   included do
-    validate :scheduled_publication_must_be_in_the_future
+    validate :scheduled_publication_must_be_in_the_future, if: -> { draft? || submitted? }
+  end
+
+  module ClassMethods
+    def scheduled_publishing_robot
+      User.where(name: "Scheduled Publishing Robot", uid: nil).first || create_scheduled_publishing_robot
+    end
+
+    def publish_all_due_editions_as(user, logger = Rails.logger)
+      error_count = 0
+      due_for_publication.each do |edition|
+        if edition.publish_as(user)
+          logger.info("Published #{edition.title} automatically")
+        else
+          error_count += 1
+          logger.error("Unable to publish '#{edition.title}' because '#{edition.errors.full_messages.to_sentence}'")
+        end
+      end
+      error_count == 0
+    end
+
+    def due_for_publication
+      scheduled.where(arel_table[:scheduled_publication].lteq(Time.zone.now))
+    end
+
+  private
+    def create_scheduled_publishing_robot
+      permissions = {
+        GDS::SSO::Config.default_scope => [
+          User::Permissions::SIGNIN,
+          User::Permissions::PUBLISH_SCHEDULED_EDITIONS
+        ]
+      }
+      User.create!(name: "Scheduled Publishing Robot", uid: nil, permissions: permissions)
+    end
   end
 
   module InstanceMethods
@@ -53,10 +87,18 @@ module Edition::ScheduledPublishing
     end
 
     def reason_to_prevent_publication_by(user, options = {})
-      super or if scheduled_publication.present?
-        if !scheduled? or Time.zone.now < scheduled_publication
+      if scheduled?
+        if Time.zone.now < scheduled_publication
           "This edition is scheduled for publication on #{scheduled_publication.to_s}, and may not be published before"
+        elsif !valid?
+          "Can't publish invalid scheduled publication"
+        elsif !user.can_publish_scheduled_editions?
+          "User must have permission to publish scheduled publications"
         end
+      elsif scheduled_publication.present?
+        "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date."
+      else
+        super
       end
     end
 

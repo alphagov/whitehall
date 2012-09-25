@@ -1,12 +1,18 @@
 require "test_helper"
 
 class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
-  test "is not valid if scheduled_publication date is in the past" do
+  test "draft or submitted edition is not valid if scheduled_publication date is in the past" do
     editor = build(:departmental_editor)
-    edition = build(:submitted_edition, scheduled_publication: 1.minute.ago)
-    edition.stubs(:reason_to_prevent_approval_by).returns(nil)
-    refute edition.valid?
-    assert edition.errors[:scheduled_publication].include?("date must be in the future")
+    Edition.state_machine.states.each do |state|
+      edition = build(:edition, state.name, scheduled_publication: 1.minute.ago)
+      edition.stubs(:reason_to_prevent_approval_by).returns(nil)
+      if [:draft, :submitted].include?(state.name)
+        refute edition.valid?, "#{state.name} edition should be invalid"
+        assert edition.errors[:scheduled_publication].include?("date must be in the future")
+      else
+        assert edition.valid?, "#{state.name} edition should be valid"
+      end
+    end
   end
 
   test "is publishable if submitted without scheduled_publication date and there is no reason to prevent approval" do
@@ -22,7 +28,7 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     edition.stubs(:reason_to_prevent_approval_by).returns(nil)
     refute edition.publishable_by?(editor)
     refute edition.publishable_by?(editor, force: true)
-    assert_equal "This edition is scheduled for publication on #{1.day.from_now.to_s}, and may not be published before", edition.reason_to_prevent_publication_by(editor)
+    assert_equal "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date.", edition.reason_to_prevent_publication_by(editor)
   end
 
   test "is never publishable if scheduled, but the scheduled_publication date has not yet arrived" do
@@ -44,10 +50,9 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     refute edition.schedulable_by?(editor, force: true)
   end
 
-  test "is publishable if scheduled, there is no reason to prevent approval and the scheduled_publication date has passed" do
-    editor = build(:departmental_editor)
+  test "is publishable by scheduled publishing robot if scheduled and the scheduled_publication date has passed" do
+    editor = build(:scheduled_publishing_robot)
     edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
-    edition.stubs(:reason_to_prevent_approval_by).returns(nil)
     Timecop.freeze(edition.scheduled_publication) do
       assert_equal nil, edition.reason_to_prevent_publication_by(editor)
       assert edition.publishable_by?(editor)
@@ -121,5 +126,45 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     edition.stubs(:reason_to_prevent_unscheduling_by).returns('a spurious reason')
     edition.unschedule_as(author)
     assert_equal ['a spurious reason'], edition.errors.full_messages
+  end
+
+  test "can find editions due for publication" do
+    due_in_one_day = create(:edition, :scheduled, scheduled_publication: 1.day.from_now)
+    due_in_two_days = create(:edition, :scheduled, scheduled_publication: 2.days.from_now)
+    already_published = create(:edition, :published, scheduled_publication: 1.day.from_now)
+    Timecop.freeze 1.day.from_now do
+      assert_equal [due_in_one_day], Edition.due_for_publication
+    end
+    Timecop.freeze 2.days.from_now do
+      assert_equal [due_in_one_day, due_in_two_days], Edition.due_for_publication
+    end
+  end
+
+  test "publish_all_due_publications publishes all due publications using a robot user account and returns true" do
+    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
+    robot_user = create(:scheduled_publishing_robot)
+    assert_equal true, Edition.publish_all_due_editions_as(robot_user)
+    edition.reload
+    assert edition.published?
+  end
+
+  test "publish_all_due_publications returns false on failure" do
+    edition = build(:edition, title: "My doc")
+    Edition.stubs(:due_for_publication).returns([edition])
+
+    robot_user = stub("robot user", can_publish_scheduled_editions?: true)
+    edition.stubs(:publish_as).returns(false)
+    assert_equal false, Edition.publish_all_due_editions_as(robot_user)
+  end
+
+  test "scheduled_publishing_robot creates a scheduled publishing robot user account if none exists" do
+    assert_difference "User.count", 1 do
+      Edition.scheduled_publishing_robot
+    end
+    assert_difference "User.count", 0 do
+      Edition.scheduled_publishing_robot
+    end
+    assert_equal nil, Edition.scheduled_publishing_robot.uid
+    assert Edition.scheduled_publishing_robot.can_publish_scheduled_editions?
   end
 end
