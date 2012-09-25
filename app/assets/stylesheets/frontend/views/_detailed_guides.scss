@@ -208,9 +208,17 @@
     }
   }
 
-  .document .body {
-    margin-top: -2px;
+  .document {
+    display: inline;
+    .body {
+      margin-top: -2px;
+    }
+    .body,
+    .govspeak {
+      display: inline;
+    }
   }
+
 
   .aside-more-like-this {
     margin: 0 -$gutter;
