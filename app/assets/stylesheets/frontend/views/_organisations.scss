@@ -331,7 +331,6 @@ h1.label {
   }
 }
 
-
   #ministers ul {
     @extend %contain-floats;
   }
@@ -365,8 +364,19 @@ h1.label {
   }
 
 
-  .js-hidden {
-    display: none;
+  #ministers,
+  #management,
+  #military,
+  #management {
+    .js-hidden {
+      display: none;
+    }
+  }
+
+  .show-other-content {
+    clear: both;
+    float: right;
+    margin: 0 $gutter $gutter;
   }
 
   #management, #military {

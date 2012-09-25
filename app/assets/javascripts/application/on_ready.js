@@ -54,4 +54,8 @@ jQuery(function($) {
 
   $('.organisation_homepage #ministers .ministerial_role').hideExtraRows();
 
+  $('.organisation_homepage #management .board_member_role').hideExtraRows();
+
+  $('.organisation_homepage #military .military_role').hideExtraRows();
+
 });

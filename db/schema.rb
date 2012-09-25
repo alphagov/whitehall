@@ -307,6 +307,7 @@ ActiveRecord::Schema.define(:version => 20120924174744) do
     t.string   "parent_title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "parent_tag"
   end
 
   add_index "mainstream_categories", ["identifier"], :name => "index_mainstream_categories_on_identifier", :unique => true
