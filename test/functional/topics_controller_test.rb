@@ -28,25 +28,25 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "a[href=?]", "#policies"
   end
 
-  test "shows 5 published specialist guides and links to more" do
-    published_specialist_guides = []
+  test "shows 5 published detailed guides and links to more" do
+    published_detailed_guides = []
     6.times do |i|
-      published_specialist_guides << create(:published_specialist_guide, title: "specialist-guide-title-#{i}")
+      published_detailed_guides << create(:published_detailed_guide, title: "detailed-guide-title-#{i}")
     end
-    topic = create(:topic, specialist_guides: published_specialist_guides)
+    topic = create(:topic, detailed_guides: published_detailed_guides)
 
     get :show, id: topic
 
-    assert_select "#specialist-guidance" do
-      published_specialist_guides.take(5).each do |guide|
+    assert_select "#detailed-guidance" do
+      published_detailed_guides.take(5).each do |guide|
         assert_select_object(guide) do
           assert_select "li", text: guide.title
         end
       end
-      refute_select_object(published_specialist_guides[5])
-      assert_select "a[href=#{specialist_guides_path("topics[]" => topic.slug)}]"
+      refute_select_object(published_detailed_guides[5])
+      assert_select "a[href=#{detailed_guides_path("topics[]" => topic.slug)}]"
     end
-    assert_select "a[href=?]", "#specialist-guidance"
+    assert_select "a[href=?]", "#detailed-guidance"
   end
 
   test "doesn't show unpublished policies" do
@@ -58,20 +58,20 @@ class TopicsControllerTest < ActionController::TestCase
     refute_select_object(draft_policy)
   end
 
-  test "doesn't show unpublished specialist guides" do
-    draft_specialist_guide = create(:draft_specialist_guide)
-    topic = create(:topic, specialist_guides: [draft_specialist_guide])
+  test "doesn't show unpublished detailed guides" do
+    draft_detailed_guide = create(:draft_detailed_guide)
+    topic = create(:topic, detailed_guides: [draft_detailed_guide])
 
     get :show, id: topic
 
-    refute_select_object(draft_specialist_guide)
+    refute_select_object(draft_detailed_guide)
   end
 
-  test "should not display an empty specialist guides section" do
+  test "should not display an empty detailed guides section" do
     topic = create(:topic)
     get :show, id: topic
-    refute_select "#specialist-guides"
-    refute_select "a[href=?]", "#specialist-guidance"
+    refute_select "#detailed-guides"
+    refute_select "a[href=?]", "#detailed-guidance"
   end
 
   test "should not display an empty published policies section" do

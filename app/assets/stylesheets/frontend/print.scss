@@ -30,7 +30,7 @@ $is-print: true;
 html {
   font-size: 62.5%;
 }
-    
+
 // HELPERS
 // Styles for comment page elements
 
@@ -43,5 +43,5 @@ html {
 // Styles scoped to each templates in /views
 
 #whitehall-wrapper {
-  @import "views/_specialist_guides_print.scss";
+  @import "views/_detailed_guides_print.scss";
 }

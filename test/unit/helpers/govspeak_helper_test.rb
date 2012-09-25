@@ -349,7 +349,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should add inline attachments" do
     text = "#Heading\n\n!@1\n\n##Subheading"
-    document = create(:published_specialist_guide, :with_attachment, body: text)
+    document = create(:published_detailed_guide, :with_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     assert_select_within_html html, ".attachment.embedded"
@@ -358,7 +358,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should ignore missing attachments" do
     text = "#Heading\n\n!@2\n\n##Subheading"
-    document = create(:published_specialist_guide, :with_attachment, body: text)
+    document = create(:published_detailed_guide, :with_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     refute_select_within_html html, ".attachment.embedded"
@@ -367,7 +367,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should not convert documents with no attachments" do
     text = "#Heading\n\n!@2"
-    document = create(:published_specialist_guide, body: text)
+    document = create(:published_detailed_guide, body: text)
     html = govspeak_edition_to_html(document)
     refute_select_within_html html, ".attachment.embedded"
   end
@@ -376,7 +376,7 @@ class GovspeakHelperTest < ActionView::TestCase
     text = "#heading\n\n!@1\n\n!@2"
     attachment_1 = create(:attachment)
     attachment_2 = create(:attachment)
-    document = create(:published_specialist_guide, :with_attachment, body: text, attachments: [attachment_1, attachment_2])
+    document = create(:published_detailed_guide, :with_attachment, body: text, attachments: [attachment_1, attachment_2])
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
     assert_select_within_html html, "#attachment_#{attachment_2.id}"
@@ -384,7 +384,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should not escape embedded attachment when attachment embed code only separated by one newline from a previous paragraph" do
     text = "para\n!@1"
-    document = create(:published_specialist_guide, :with_attachment, body: text)
+    document = create(:published_detailed_guide, :with_attachment, body: text)
     html = govspeak_edition_to_html(document)
     refute html.include?("&lt;div"), "should not escape embedded attachment"
     assert_select_within_html html, ".attachment.embedded"

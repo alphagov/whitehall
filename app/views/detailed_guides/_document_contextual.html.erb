@@ -1,0 +1,17 @@
+<nav class="contextual-info" id="page-navigation">
+  <% if govspeak_headers(edition.body).any? %>
+    <h1>Contents</h1>
+    <nav class="detailed_guide_parts" role="navigation">
+      <ol id="document_sections">
+        <% govspeak_headers(edition.body).each do |header_record| %>
+          <li>
+            <%= link_to header_record.text, "##{header_record.id}" %>
+          </li>
+        <% end %>
+        <li class="more-like-this">
+          <%= link_to "See more like this", "#more-like-this" %>
+        </li>
+      </ol>
+    </nav>
+  <% end %>
+</nav>
