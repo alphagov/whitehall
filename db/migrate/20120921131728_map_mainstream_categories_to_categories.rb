@@ -1,4 +1,7 @@
 class MapMainstreamCategoriesToCategories < ActiveRecord::Migration
+  class MainstreamCategory < ActiveRecord::Base
+  end
+
   def up
     add_column :mainstream_categories, :parent_tag, :string
     MainstreamCategory.reset_column_information
