@@ -90,14 +90,16 @@ h1.label {
   .block-7 .simple_list a, .block-8 .simple_list a, .block-10 {
     @include core-19;
   }
+
   .block-10, .block-11 {
+    clear: both;
     overflow: hidden;
     padding: $gutter 0;
   }
+
   .block-11 {
     clear: both;
   }
-
 
   .organisation_news {
 
@@ -118,31 +120,72 @@ h1.label {
         @include core-19;
       }
       .meta, .document-type {
+        @include core-16;
         float: left;
         display: inline;
-        margin-right: $gutter-half;
+        margin: 0 $gutter-half 0 0;
+        padding: 0;
+        text-align: left;
+        width: auto;
       }
       .document-type {
-        margin: 0 $gutter-half $gutter 0;
+        margin: 0 0 $gutter 0;
+        width: 30%;
       }
     }
 
     .primary-first, .primary-secondary {
-      float: left;
-      display: inline;
-      margin-right: $gutter;
-      width: 66%;
+      @include media(tablet) {
+        float: left;
+        display: inline;
+        width: 66%;
+      }
     }
     .primary-secondary {
-      float: right;
-      margin-right: 0;
-      width: 30%;
+      clear: both;
+      @include media(tablet) {
+        clear: none;
+        float: right;
+        margin-right: 0;
+        width: 31.3%;
+      }
+      article {
+        overflow: hidden;
+      }
       h2 {
         @include core-19;
         padding-top: 0;
       }
     }
 
+  }
+
+  .secondary-featured {
+    li {
+      list-style: none;
+      .summary, h2 {
+        @include core-19;
+        float: none;
+        display: block;
+        width: 100%;
+      }
+      .summary {
+        @include core-16;
+      }
+        @include media(tablet) {
+        float: left;
+        display: inline;
+        margin-right: 3%;
+        width: 31.3%;
+        &:nth-child(3n+1) {
+          clear: both;
+        }
+        &:nth-child(3n) {
+          float: right;
+          margin-right: 0;
+        }
+      }
+    }
   }
 
 
@@ -258,8 +301,8 @@ h1.label {
     .topic {
       float: left;
       display: inline;
-      margin-right: $gutter;
-      width: 30.8%;
+      margin-right: 3%;
+      width: 31.3%;
       .summary, h2 {
         float: none;
         display: block;
@@ -285,19 +328,22 @@ h1.label {
 }
 
 
-
   #ministers ul {
     @extend %contain-floats;
   }
 
   .ministerial_role,
   #management article,
-  #military article {
+  #military article,
+  #management li {
     float: left;
     display: inline;
     margin: 0 3% $gutter 0;
     height: 20em;
     width: 45%;
+    &:nth-child(2n+1) {
+      clear: both;
+    }
     @include media(tablet) {
       height: auto;
       width: 22%;
@@ -306,6 +352,11 @@ h1.label {
       }
     }
   }
+
+  #management li {
+    height: auto;
+  }
+
 
   .js-hidden {
     display: none;
@@ -369,15 +420,18 @@ h1.label {
       li {
         border-bottom: 1px solid $grey-88;
         clear: both;
+        ul li {
+          border: none;
+        }
       }
-      @include media(desktop) {
+      @include media(tablet) {
         float: right;
         display: inline;
         padding-top: 0;
         width: 66%;
       }
     }
-    @include media(desktop) {
+    @include media(tablet) {
       h1 {
         float: left;
         width: 33%;
@@ -426,7 +480,7 @@ h1.label {
     }
   }
 
-  @include media(desktop) {
+  @include media(tablet) {
 
     .block-5 {
       @include core-19;
@@ -687,7 +741,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $treasury;
   }
-  a, .published_or_updated {
+  a {
     color: $treasury;
   }
 }
@@ -698,7 +752,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $cabinet-office;
   }
-  a, .published_or_updated {
+  a {
     color: $cabinet-office;
   }
 }
@@ -709,7 +763,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $department-for-education;
   }
-  a, .published_or_updated {
+  a {
     color: $department-for-education;
   }
 }
@@ -720,7 +774,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $department-of-transport;
   }
-  a, .published_or_updated {
+  a {
     color: $department-of-transport;
   }
 }
@@ -731,7 +785,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $home-office;
   }
-  a, .published_or_updated {
+  a {
     color: $home-office;
   }
 }
@@ -742,7 +796,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $department-of-health;
   }
-  a, .published_or_updated {
+  a {
     color: $department-of-health;
   }
 }
@@ -753,7 +807,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $ministry-of-justice;
   }
-  a, .published_or_updated {
+  a {
     color: $ministry-of-justice;
   }
 }
@@ -764,7 +818,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $ministry-of-defence;
   }
-  a, .published_or_updated {
+  a {
     color: $ministry-of-defence;
   }
 }
@@ -775,7 +829,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $foreign-and-commonwealth-office;
   }
-  a, .published_or_updated {
+  a {
     color: $foreign-and-commonwealth-office;
   }
 }
@@ -786,7 +840,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $department-for-communities-and-local-government;
   }
-  a, .published_or_updated {
+  a {
     color: $department-for-communities-and-local-government;
   }
 }
@@ -797,7 +851,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $department-for-energy-and-climate-change;
   }
-  a, .published_or_updated {
+  a {
     color: $department-for-energy-and-climate-change;
   }
 }
@@ -808,7 +862,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $department-for-culture-media-and-sport;
   }
-  a, .published_or_updated {
+  a {
     color: $department-for-culture-media-and-sport;
   }
 }
@@ -819,7 +873,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $department-for-environment-food-and-rural-affairs;
   }
-  a, .published_or_updated {
+  a {
     color: $department-for-environment-food-and-rural-affairs;
   }
 }
@@ -830,7 +884,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $department-for-work-and-pensions;
   }
-  a, .published_or_updated {
+  a {
     color: $department-for-work-and-pensions;
   }
 }
@@ -841,7 +895,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $department-for-business-innovation-and-skills;
   }
-  a, .published_or_updated {
+  a {
     color: $department-for-business-innovation-and-skills;
   }
 }
@@ -852,7 +906,7 @@ h1.label {
   .slidecontrols li a {
     background-color: $department-for-international-development;
   }
-  a, .published_or_updated {
+  a {
     color: $department-for-international-development;
   }
 }

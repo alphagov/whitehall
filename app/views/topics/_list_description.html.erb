@@ -5,15 +5,6 @@
       <h2><%= link_to topic.name, topic_path(topic) %></h2>
       <div class="summary">
         <%= govspeak_to_html topic.description %>
-        <% if topic.published_specialist_guides.any? or topic.published_policies.any? %>
-          <ul class="publication-count">
-            <% if topic.published_policies.any? %>
-              <li class="policies">
-                <%= link_to "Contains #{pluralize(topic.published_policies.length, "policy")}", policies_filter_path(topic, organisation) %>
-              </li>
-            <% end %>
-          </ul>
-        <% end %>
       </div>
     </div>
     <% end %>

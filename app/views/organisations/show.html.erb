@@ -60,14 +60,15 @@
         <% @secondary_featured_editions.each do |document| %>
           <%= content_tag_for :li, document, class: edition_organisation_class(document) do %>
             <div class="feature-inner">
-              <div class="metadata published_or_updated">
-                <%= published_or_updated(document) %>
-                <%= relative_time(document.published_at, class: 'published_at') %>
-              </div>
-              <div><%= link_to document.title, public_document_path(document), class: "title" %></div>
+                <div class="img">
+                  <%= document.image_tag %>
+                </div>
+              <h2><%= link_to document.title, public_document_path(document), class: "title" %></h2>
               <div class="summary"><%= document.summary %></div>
-              <div class="metadata">
-                <span class="document_type"><%= document.format_name.titleize %></span>
+              <div class="metadata published_or_updated">
+                <%= published_or_updated(document).capitalize %>
+                <%= relative_time(document.published_at, class: 'published_at') %>
+                <span class="document_type"><%= document.format_name.capitalize %></span>
               </div>
             </div>
           <% end %>
@@ -138,13 +139,21 @@
           </p>
         </section>
       <% end %>
-      <p>
-        <% if @organisation.department? %>
-        <%= link_to "See all our announcements", announcements_filter_path(@organisation) %>
-        <% end %>
-      </p>      
     </div>
   </div>
+
+
+  <div class="block-9">
+    <div class="inner-block">
+        <% if @organisation.department? %>
+        <h1 class="label">Our Announcements</h1>
+        <p>
+        <%= link_to "See all of our announcements", announcements_filter_path(@organisation) %>
+        </p>
+        <% end %>
+    </div>
+  </div>
+
 
   <div class="block-9">
     <div class="inner-block">
@@ -173,9 +182,9 @@
               <% @civil_servants.each do |civil_servant| %>
                 <%= content_tag_for(:li, civil_servant) do %>
                   <h1 class="visuallyhidden">Board member</h1>
-                  <div class="image_holder">
-                    <%= civil_servant.current_person_image %>
-                  </div>
+                  <!--div class="image_holder">
+                    <%#= civil_servant.current_person_image %>
+                  </div-->
                   <h3 class="current-appointee"><%= civil_servant.current_person_link %></h3>
                   <p class="role"><%= civil_servant.link %></p>
                 <% end %>

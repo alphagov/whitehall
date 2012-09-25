@@ -200,26 +200,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display the count of published policies with topics" do
-    topic_1 = create(:topic)
-    topic_2 = create(:topic)
-    organisation = create(:organisation, topics: [topic_1, topic_2])
-    create(:published_policy, organisations: [organisation], topics: [topic_1])
-    create(:published_policy, organisations: [organisation], topics: [topic_2])
-    create(:published_policy, organisations: [organisation], topics: [topic_2])
-
-    get :show, id: organisation
-
-    assert_select '#topics' do
-      assert_select_object topic_1 do
-        assert_select '.policies', text: 'Contains 1 policy'
-      end
-      assert_select_object topic_2 do
-        assert_select '.policies', text: 'Contains 2 policies'
-      end
-    end
-  end
-
   test "should display link to policies filter if there are many policies" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
