@@ -370,11 +370,7 @@ DEPENDENCIES
   faker
   fog
   friendly_id (= 4.0.0.beta14)
-<<<<<<< HEAD
-  gds-api-adapters
-=======
   gds-api-adapters (= 2.7.0)
->>>>>>> Add gds-api-adapters Gem
   gds-sso (~> 1.2.2)
   govspeak (~> 1.0.1)
   hash_syntax
