@@ -46,6 +46,15 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     refute edition.force_published?
   end
 
+  test "indicates pre-publication status" do
+    pre, post = Edition.state_machine.states.map(&:name).partition do |state|
+      build(:edition, state).pre_publication?
+    end
+
+    assert_equal [:draft, :submitted, :rejected, :scheduled], pre
+    assert_equal [:published, :archived, :deleted], post
+  end
+
   test "rejecting a submitted edition transitions it into the rejected state" do
     submitted_edition = create(:submitted_edition)
     submitted_edition.reject!

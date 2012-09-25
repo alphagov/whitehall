@@ -72,6 +72,10 @@ module Edition::Workflow
     validates_with EditionHasNoOtherPublishedEditionsValidator, on: :create
   end
 
+  def pre_publication?
+    [:draft, :submitted, :rejected, :scheduled].include?(state.to_sym)
+  end
+
   def archive_previous_editions
     document.editions.published.each do |edition|
       edition.archive! unless edition == self

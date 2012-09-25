@@ -84,7 +84,9 @@ module Edition::Publishing
         Time.zone.now
       end
       self.first_published_at ||= published_at
-      self.force_published = options[:force]
+      if ! scheduled?
+        self.force_published = options[:force]
+      end
       publish!
       true
     else

@@ -19,8 +19,8 @@
       <% end %>
     </div>
   <% end %>
-  <% if edition.scheduled_publication.present? %>
-    <div class="alert alert-info">
+  <% if edition.pre_publication? && edition.scheduled_publication.present? %>
+    <div class="alert alert-info scheduled-publication">
       <% if edition.scheduled? %>
         <p>Scheduled for publication on <%= l edition.scheduled_publication, format: :long %>. </p>
       <% else %>

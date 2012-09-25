@@ -59,6 +59,15 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
+  test "publishing a force-scheduled edition does not clear the force_published flag" do
+    robot_user = create(:scheduled_publishing_robot)
+    edition = create(:scheduled_edition, scheduled_publication: 1.day.from_now, force_published: true)
+    Timecop.freeze(edition.scheduled_publication) do
+      edition.publish_as(robot_user)
+    end
+    assert_equal true, edition.reload.force_published
+  end
+
   test "is not schedulable if there is a reason to prevent approval" do
     edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
     arbitrary_reason = "Because I said so"
