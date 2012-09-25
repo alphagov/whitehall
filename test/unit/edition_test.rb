@@ -230,6 +230,27 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal editor, publication.published_by
   end
 
+  test "#scheduled_by uses information from the audit trail" do
+    editor = create(:departmental_editor)
+    publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
+    acting_as(editor) { publication.schedule_as(editor, force: true) }
+    assert_equal editor, publication.scheduled_by
+  end
+
+  test "#scheduled_by ignores activity on previous editions" do
+    editor = create(:departmental_editor)
+    robot = create(:scheduled_publishing_robot)
+    publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
+    acting_as(editor) { publication.schedule_as(editor, force: true) }
+    Timecop.freeze publication.scheduled_publication do
+      acting_as(robot) { publication.publish_as(robot) }
+      acting_as(editor) do
+        new_draft = publication.create_draft(editor)
+        assert_equal nil, new_draft.scheduled_by
+      end
+    end
+  end
+
   test ".by_published_at orders by published_at descending" do
     policy = create(:policy, published_at: 2.hours.ago)
     publication = create(:publication, published_at: 4.hours.ago)

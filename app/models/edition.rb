@@ -211,6 +211,11 @@ class Edition < ActiveRecord::Base
     published_event && published_event.actor
   end
 
+  def scheduled_by
+    scheduled_event = last_audit_trail_version_event('scheduled')
+    scheduled_event && scheduled_event.actor
+  end
+
   def title_with_state
     "#{title} (#{state})"
   end

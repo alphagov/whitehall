@@ -97,7 +97,7 @@
               <td class="title">
                 <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
                 <% if edition.force_published? %>
-                  <span class="force_published label label-important">force published</span>
+                  <span class="force_published label label-important">not reviewed</span>
                 <% end %>
                 <% if edition.has_supporting_pages? %>
                   <div class="supporting_pages additional_information well">
