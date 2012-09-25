@@ -10,6 +10,13 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
   should_be_previewable :specialist_guide
   should_return_json_suitable_for_the_document_filter :specialist_guide
 
+  def stub_content_api_request
+    stub_request(:get, "https://contentapi.test.alphagov.co.uk/tags/business%2Ftax.json").
+      with(:headers => {'Accept'=>'application/json', 'Content-Type'=>'application/json', 'User-Agent'=>'GDS Api Client v. 2.7.0'}).
+      to_return(:status => 200, :body => "{}", :headers => {})
+  end
+
+
   test "index <title> does not contain 'Inside Government'" do
     get :index
 
@@ -43,6 +50,14 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
   test "show sets search action to search specialist guides" do
     get :show, id: create(:published_specialist_guide).document
     assert_equal search_specialist_guides_path, response.headers[Slimmer::Headers::SEARCH_PATH_HEADER]
+  end
+
+  test "show sets breadcrumb trail" do
+    category = create(:mainstream_category)
+    specialist_guide = create(:published_specialist_guide, primary_mainstream_category: category)
+    stub_content_api_request
+
+    get :show, id: specialist_guide.document
   end
 
   test "shows link to each section in the document navigation" do
@@ -286,7 +301,7 @@ That's all
   test "show mainstream categories for a specialist guide" do
     category = create(:mainstream_category)
     guide = create(:published_specialist_guide, primary_mainstream_category: category)
-
+    stub_content_api_request
     get :show, id: guide.document
 
     assert_select_object category
