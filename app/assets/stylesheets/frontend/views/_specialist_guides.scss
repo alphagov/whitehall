@@ -148,9 +148,8 @@
         border-bottom: 1px solid $light-blue-grey;
       }
     }
-
-
   }
+
   .back-to-content {
     position: fixed;
     top: $gutter-half;
@@ -187,6 +186,18 @@
       h4 {
         margin-bottom: $gutter-one-sixth;
       }
+    }
+  }
+
+  .replaces-businesslink {
+    margin-top: $gutter;
+
+    .businesslink-logo {
+      background-image: image-url("businesslink-logo.png");
+      width: 84px;
+      height: 24px;
+      margin-top: 0.5em;
+      padding: 0;
     }
   }
 

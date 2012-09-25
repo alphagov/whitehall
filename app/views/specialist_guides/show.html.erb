@@ -5,6 +5,7 @@
   <div class="block-1">
     <div class="inner-block">
       <%= render partial: "document_metadata" %>
+
       <section class="page-header js-hide-extra-logos">
         <%= render  partial: 'organisations/organisations_logo_list',
                     locals: {
@@ -25,6 +26,14 @@
     <div class="inner-block">
       <%= render partial: "document_contextual", locals: {edition: @document} %>
       <%= national_statistics_logo(@document) %>
+
+      <% if @document.replaces_businesslink? %>
+        <div class="replaces-businesslink">
+          <p>This replaces</p>
+          <p class="businesslink-logo"><span class="visuallyhidden">Business Link</span></p>
+        </div>
+      <% end %>
+
     </div>
   </div>
   <div class="block-3">

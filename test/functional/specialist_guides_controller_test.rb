@@ -90,6 +90,14 @@ That's all
     assert_select "a[href='http://mainstream/additional-content']", "Some additional related mainstream content"
   end
 
+  test "show indicates when a guide replaced businesslink content" do
+    guide = create(:published_specialist_guide, replaces_businesslink: true)
+
+    get :show, id: guide.document
+
+    assert_select ".replaces-businesslink"
+  end
+
   test "index highlights selected topic filter options" do
     given_two_specialist_guides_in_two_topics
 

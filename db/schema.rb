@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120924174744) do
+ActiveRecord::Schema.define(:version => 20120925175731) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -245,6 +245,7 @@ ActiveRecord::Schema.define(:version => 20120924174744) do
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
     t.datetime "timestamp_for_sorting"
     t.integer  "primary_mainstream_category_id"
+    t.boolean  "replaces_businesslink",                                           :default => false
   end
 
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
