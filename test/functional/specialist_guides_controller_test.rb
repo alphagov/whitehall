@@ -52,14 +52,6 @@ class SpecialistGuidesControllerTest < ActionController::TestCase
     assert_equal search_specialist_guides_path, response.headers[Slimmer::Headers::SEARCH_PATH_HEADER]
   end
 
-  test "show sets breadcrumb trail" do
-    category = create(:mainstream_category)
-    specialist_guide = create(:published_specialist_guide, primary_mainstream_category: category)
-    stub_content_api_request
-
-    get :show, id: specialist_guide.document
-  end
-
   test "shows link to each section in the document navigation" do
     guide = create(:published_specialist_guide, body: %{
 ## First Section
@@ -305,6 +297,18 @@ That's all
     get :show, id: guide.document
 
     assert_select_object category
+  end
+
+  test "show sets breadcrumb trail" do
+    category = create(:mainstream_category)
+    specialist_guide = create(:published_specialist_guide, primary_mainstream_category: category)
+    stub_content_api_request
+
+    get :show, id: specialist_guide.document
+
+    artefact_headers = ActiveSupport::JSON.decode(response.headers[Slimmer::Headers::ARTEFACT_HEADER])
+
+    assert_equal category.title, artefact_headers['tags'].first['title']
   end
 
   private
