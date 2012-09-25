@@ -92,8 +92,8 @@
   <div class="block-5">
     <div class="inner-block">
       <h1 class="label">What we do</h1>
-      <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
       <p class="description"><%= @organisation.description %></p>
+      <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
       <p><%= organisation_navigation_link_to "Read more about #{@organisation.acronym}", about_organisation_path(@organisation) %></p>
       <p>
       <% if @organisation.department? %>

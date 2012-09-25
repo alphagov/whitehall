@@ -149,9 +149,6 @@ h1.label {
         margin-right: 0;
         width: 31.3%;
       }
-      article {
-        overflow: hidden;
-      }
       h2 {
         @include core-19;
         padding-top: 0;
@@ -163,6 +160,7 @@ h1.label {
   .secondary-featured {
     li {
       list-style: none;
+      margin-bottom: $gutter;
       .summary, h2 {
         @include core-19;
         float: none;
@@ -183,6 +181,12 @@ h1.label {
         &:nth-child(3n) {
           float: right;
           margin-right: 0;
+        }
+      }
+      .img {
+        display: none;
+        @include media(tablet) {
+          display: block;
         }
       }
     }
