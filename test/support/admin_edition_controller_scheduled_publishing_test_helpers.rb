@@ -60,7 +60,6 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
       test "should indicate publishing schedule if scheduled" do
         edition = create(edition_type, :scheduled)
-        document_type_class.stubs(:find).with(edition.to_param).returns(edition)
         get :show, id: edition
         assert_select '.alert', "Scheduled for publication on #{I18n.localize edition.scheduled_publication, format: :long}."
       end
