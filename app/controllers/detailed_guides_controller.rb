@@ -50,7 +50,7 @@ private
   end
 
   def set_proposition
-    set_slimmer_headers(proposition: "detailed-guidance")
+    set_slimmer_headers(proposition: "specialist")
   end
 
   def set_artefact
