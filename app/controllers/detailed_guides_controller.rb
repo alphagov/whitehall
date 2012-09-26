@@ -54,8 +54,8 @@ private
   end
 
   def set_artefact
-    if (cat = @document.mainstream_categories.first)
-      parents = content_api.tag(cat.parent_tag).to_hash
+    if (cat = @document.mainstream_categories.first) && (parent_tag = cat.parent_tag)
+      parents = content_api.tag(parent_tag).to_hash
       fake_json = {
         title: @document.title,
         format: 'detailedguidance',
