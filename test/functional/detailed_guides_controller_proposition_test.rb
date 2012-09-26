@@ -15,6 +15,6 @@ class DetailedGuidesControllerPropositionTest < ActionController::TestCase
       @controller.stubs(:search_detailed_guides_path)
       get :test
     end
-    assert_equal "detailed-guidance", response.headers["X-Slimmer-Proposition"]
+    assert_equal "specialist", response.headers["X-Slimmer-Proposition"]
   end
 end
