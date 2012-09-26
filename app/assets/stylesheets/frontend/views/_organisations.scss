@@ -358,41 +358,55 @@ h1.label {
     @extend %contain-floats;
   }
 
-  .ministerial_role,
-  #management article,
-  #military article,
-  #management li {
-    float: left;
-    display: inline;
-    margin: 0 3% $gutter 0;
-    height: 20em;
-    width: 45%;
-    &:nth-child(2n+1) {
-      clear: both;
-    }
-    @include media(tablet) {
-      height: auto;
-      width: 22%;
-      &:nth-child(2n+1) {
-        clear: none;
-      }
-      &:nth-child(4n+1) {
-        clear: both;
-      }
-    }
-  }
-
-  #management li {
-    height: auto;
-  }
-
-
   #ministers,
-  #management,
   #military,
   #management {
+     clear: both;
+    li {
+      float: left;
+      display: inline;
+      margin: 0 3% $gutter 0;
+      height: 20em;
+      width: 45%;
+      &:nth-child(2n+1) {
+        clear: both;
+      }
+      @include media(tablet) {
+        height: auto;
+        width: 22%;
+        &:nth-child(2n+1) {
+          clear: none;
+        }
+        &:nth-child(4n+1) {
+          clear: both;
+        }
+      }
+    }
     .js-hidden {
       display: none;
+    }
+    .management-secondary {
+      li {
+        height: auto;
+      }
+      @include media(tablet) {
+        float: left;
+        display: inline;
+        width: 75%;
+        li {
+          margin-bottom: $gutter-half;
+          width: 30.5%;
+          &:nth-child(3n) {
+            margin-right: 0;
+          }
+          &:nth-child(3n+1) {
+            clear: both;
+          }
+          &:nth-child(4n+1) {
+            clear: none;
+          }
+        }
+      }
     }
   }
 
@@ -402,15 +416,15 @@ h1.label {
     margin: 0 $gutter $gutter;
   }
 
-  #management, #military {
-    clear: both;
-  }
+
 
   .current-appointee {
     @include core-16;
+    padding-top: 0;
   }
   .role {
     @include core-14;
+    padding-top: 0;
   }
 
   .image_holder {

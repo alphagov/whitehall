@@ -175,35 +175,49 @@
             </ul>
           </section>
         <% end %>
+
+
         <% if @civil_servants.any? %>
           <section id="management">
             <h1 class="label">Our management</h1>
             <ul>
-              <% @civil_servants.each do |civil_servant| %>
+                <%= content_tag_for(:li, @civil_servants.first) do %>
+                  <h1 class="visuallyhidden">Board member</h1>
+                  <div class="image_holder">
+                    <%= @civil_servants.first.current_person_image %>
+                  </div>
+                  <h3 class="current-appointee"><%= @civil_servants.first.current_person_link %></h3>
+                  <p class="role"><%= @civil_servants.first.link %></p>
+                <% end %>
+            </ul>
+
+            <ul class="management-secondary">
+              <% @civil_servants.to_a.from(1).each do |civil_servant| %>
                 <%= content_tag_for(:li, civil_servant) do %>
                   <h1 class="visuallyhidden">Board member</h1>
-                  <!--div class="image_holder">
-                    <%#= civil_servant.current_person_image %>
-                  </div-->
                   <h3 class="current-appointee"><%= civil_servant.current_person_link %></h3>
                   <p class="role"><%= civil_servant.link %></p>
                 <% end %>
-
               <% end %>
             </ul>
+
           </section>
         <% end %>
+
+
         <% if @organisation.military_roles.any? %>
           <section id="military">
             <h1 class="label">Military</h1>
             <% if @top_military_role %>
-              <%= content_tag_for(:article, @top_military_role) do %>
-                <div class="image_holder">
-                  <%= @top_military_role.current_person_image %>
-                </div>
-                <h3 class="current-appointee"><%= @top_military_role.current_person_link %></h3>
-                <p class="role"><%= @top_military_role.link %></p>
-              <% end %>
+              <ul>
+                <%= content_tag_for(:li, @top_military_role) do %>
+                  <div class="image_holder">
+                    <%= @top_military_role.current_person_image %>
+                  </div>
+                  <h3 class="current-appointee"><%= @top_military_role.current_person_link %></h3>
+                  <p class="role"><%= @top_military_role.link %></p>
+                <% end %>
+              </ul>
             <% end %>
             <p class="view_all"><%= link_to "View all chiefs of staff", chiefs_of_staff_organisation_path(@organisation) %></p>
           </section>
