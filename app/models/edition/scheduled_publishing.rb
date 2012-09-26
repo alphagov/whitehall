@@ -11,16 +11,12 @@ module Edition::ScheduledPublishing
     end
 
     def publish_all_due_editions_as(user, logger = Rails.logger)
-      error_count = 0
-      due_for_publication.each do |edition|
-        if edition.publish_as(user)
-          logger.info("Published #{edition.title} automatically")
-        else
-          error_count += 1
-          logger.error("Unable to publish '#{edition.title}' because '#{edition.errors.full_messages.to_sentence}'")
-        end
+      publishable_ids = due_for_publication.map(&:id).shuffle
+      acting_as(user) do
+        publishable_ids.map do |id|
+          publish_atomically_as(user, id, logger)
+        end.all?
       end
-      error_count == 0
     end
 
     def due_for_publication
@@ -37,9 +33,37 @@ module Edition::ScheduledPublishing
       }
       User.create!(name: "Scheduled Publishing Robot", uid: nil, permissions: permissions)
     end
+
+    def publish_atomically_as(user, edition_id, logger = Rails.logger)
+      acting_as(user) do
+        Edition.connection.execute "set transaction isolation level serializable"
+        Edition.connection.transaction do
+          edition = Edition.find(edition_id)
+          if edition.publish_as(user)
+            logger.info("Published #{edition.title} automatically")
+            return true
+          else
+            logger.error("Unable to publish edition id '#{edition_id}' because '#{edition.errors.full_messages.to_sentence}'")
+            return false
+          end
+        end
+      end
+    rescue => e
+      logger.error("Unable to publish edition id '#{edition_id}' because '#{e}'")
+      false
+    end
+
+    def acting_as(user)
+      original_user = PaperTrail.whodunnit
+      PaperTrail.whodunnit = user
+      yield
+    ensure
+      PaperTrail.whodunnit = original_user
+    end
   end
 
   module InstanceMethods
+
     def schedulable_by?(user, options = {})
       reason_to_prevent_scheduling_by(user, options).nil?
     end

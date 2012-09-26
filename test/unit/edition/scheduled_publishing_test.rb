@@ -149,23 +149,6 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
-  test "publish_all_due_publications publishes all due publications using a robot user account and returns true" do
-    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
-    robot_user = create(:scheduled_publishing_robot)
-    assert_equal true, Edition.publish_all_due_editions_as(robot_user)
-    edition.reload
-    assert edition.published?
-  end
-
-  test "publish_all_due_publications returns false on failure" do
-    edition = build(:edition, title: "My doc")
-    Edition.stubs(:due_for_publication).returns([edition])
-
-    robot_user = stub("robot user", can_publish_scheduled_editions?: true)
-    edition.stubs(:publish_as).returns(false)
-    assert_equal false, Edition.publish_all_due_editions_as(robot_user)
-  end
-
   test "scheduled_publishing_robot creates a scheduled publishing robot user account if none exists" do
     assert_difference "User.count", 1 do
       Edition.scheduled_publishing_robot
@@ -176,4 +159,43 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     assert_equal nil, Edition.scheduled_publishing_robot.uid
     assert Edition.scheduled_publishing_robot.can_publish_scheduled_editions?
   end
+end
+
+class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
+  self.use_transactional_fixtures = false
+
+  setup do
+    DatabaseCleaner.clean_with :truncation
+  end
+
+  teardown do
+    DatabaseCleaner.clean_with :truncation
+  end
+
+  test "#publish_all_due_editions_as publishes all due publications using the specified account and returns true" do
+    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
+    robot_user = create(:scheduled_publishing_robot)
+    assert_equal true, Edition.publish_all_due_editions_as(robot_user)
+    edition.reload
+    assert edition.published?
+  end
+
+  test "#publish_all_due_editions_as returns false on failure" do
+    edition = build(:edition, title: "My doc")
+    Edition.stubs(:due_for_publication).returns([edition])
+
+    robot_user = stub("robot user", can_publish_scheduled_editions?: true)
+    edition.stubs(:publish_as).returns(false)
+    assert_equal false, Edition.publish_all_due_editions_as(robot_user)
+  end
+
+  test "#publish_all_due_editions_as rescues exceptions raised by publish_as" do
+    edition = build(:edition, title: "My doc")
+    Edition.stubs(:due_for_publication).returns([edition])
+
+    robot_user = stub("robot user", can_publish_scheduled_editions?: true)
+    edition.stubs(:publish_as).raises("oh dear")
+    assert_equal false, Edition.publish_all_due_editions_as(robot_user)
+  end
+
 end
