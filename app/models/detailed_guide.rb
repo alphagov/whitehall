@@ -66,6 +66,19 @@ class DetailedGuide < Edition
     additional_related_mainstream_content_url.present?
   end
 
+  def to_artefact_hash(content_api)
+    parent_tag = primary_mainstream_category.parent_tag
+    return unless parent_tag.present?
+    parents_hash = content_api.tag(parent_tag).to_hash
+    category_hash = primary_mainstream_category.to_artefact_hash
+    {
+      title: title,
+      format: 'detailedguidance',
+      web_url: public_document_path(self),
+      tags: [category_hash.merge(parent: parents_hash)]
+    }
+  end
+
   private
 
   def related_mainstream_content_valid?

@@ -54,15 +54,8 @@ private
   end
 
   def set_artefact
-    if (cat = @document.primary_mainstream_category) && (parent_tag = cat.parent_tag)
-      parents = content_api.tag(parent_tag).to_hash
-      fake_json = {
-        title: @document.title,
-        format: 'detailedguidance',
-        web_url: detailed_guides_url(@document),
-        tags: [cat.to_artefact_hash.merge(parent: parents)]
-      }
-      set_slimmer_artefact fake_json
+    if artefact_hash = @document.to_artefact_hash(content_api)
+      set_slimmer_artefact artefact_hash
     end
   end
 
