@@ -42,7 +42,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   test "create should create a new speech" do
     role_appointment = create(:role_appointment)
     speech_type = SpeechType::Transcript
-    attributes = controller_attributes_for(:speech, speech_type: speech_type, role_appointment: role_appointment)
+    attributes = controller_attributes_for(:speech, speech_type: speech_type, role_appointment_id: role_appointment.id)
 
     post :create, edition: attributes
 
@@ -98,11 +98,9 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   private
 
   def controller_attributes_for(edition_type, attributes = {})
-    role_appointment = attributes.delete(:role_appointment) || create(:role_appointment)
-    speech_type = attributes.delete(:speech_type) || SpeechType::Transcript
-    attributes_for(edition_type, attributes.merge(
-      role_appointment_id: role_appointment.id,
-      speech_type_id: speech_type.id
-    ))
+    super.except(:role_appointment, :speech_type).reverse_merge(
+      role_appointment_id: create(:role_appointment).id,
+      speech_type_id: SpeechType::Transcript
+    )
   end
 end

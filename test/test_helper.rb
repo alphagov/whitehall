@@ -115,13 +115,6 @@ class ActionController::TestCase
   def assert_login_required
     assert_redirected_to login_path
   end
-
-  def controller_attributes_for(edition_type, attributes = {})
-    if !attributes.has_key?(:alternative_format_provider_id) && self.class.edition_class_for(edition_type).reflect_on_association(:alternative_format_provider).present?
-      attributes = {alternative_format_provider_id: create(:alternative_format_provider).id}.merge(attributes)
-    end
-    attributes_for(edition_type, attributes)
-  end
 end
 
 class ActionDispatch::IntegrationTest

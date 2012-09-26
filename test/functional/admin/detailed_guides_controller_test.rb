@@ -94,10 +94,12 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     end
   end
 
-
   private
 
   def controller_attributes_for(edition_type, attributes = {})
-    super.except(:primary_mainstream_category).reverse_merge(primary_mainstream_category_id: create(:mainstream_category).id)
+    super.except(:primary_mainstream_category, :alternative_format_provider).reverse_merge(
+      primary_mainstream_category_id: create(:mainstream_category).id,
+      alternative_format_provider_id: create(:alternative_format_provider).id
+    )
   end
 end
