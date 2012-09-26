@@ -35,7 +35,7 @@ gem 'lograge'
 gem 'unicorn'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'gds-api-adapters', '2.7.0'
+gem 'gds-api-adapters', '2.8.1'
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.1.0'
