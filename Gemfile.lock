@@ -93,6 +93,7 @@ GEM
       activesupport (~> 3.0)
     childprocess (0.2.2)
       ffi (~> 1.0.6)
+    chronic (0.6.7)
     ci_reporter (1.7.1)
       builder (>= 2.1.2)
     crack (0.3.1)
@@ -347,6 +348,9 @@ GEM
     webmock (1.7.8)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
+    whenever (0.7.3)
+      activesupport (>= 2.3.4)
+      chronic (~> 0.6.3)
     xml-simple (1.1.1)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -411,3 +415,4 @@ DEPENDENCIES
   unicorn
   validates_email_format_of
   webmock
+  whenever (= 0.7.3)
