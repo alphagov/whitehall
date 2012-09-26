@@ -34,6 +34,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_not_link_to_public_version_when_not_published :consultation
   should_prevent_modification_of_unmodifiable :consultation
   should_allow_alternative_format_provider_for :consultation
+  should_allow_scheduled_publication_of :consultation
 
   test 'new displays consultation fields' do
     get :new

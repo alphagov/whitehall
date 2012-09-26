@@ -32,6 +32,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   should_prevent_modification_of_unmodifiable :detailed_guide
   should_allow_association_with_related_mainstream_content :detailed_guide
   should_allow_alternative_format_provider_for :detailed_guide
+  should_allow_scheduled_publication_of :detailed_guide
 
   test "new allows selection of mainstream categories" do
     funk = create(:mainstream_category,

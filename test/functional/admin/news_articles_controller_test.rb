@@ -30,6 +30,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_overriding_of_first_published_at_for :news_article
   should_have_summary :news_article
   should_have_notes_to_editors :news_article
+  should_allow_scheduled_publication_of :news_article
 
   test "new displays news article fields" do
     get :new

@@ -78,8 +78,8 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
         post :create, {scheduled_publication_active: "0", edition: edition_attributes}
 
-        created_publication = Publication.last
-        assert_equal nil, created_publication.scheduled_publication
+        created_edition = document_type_class.last
+        assert_equal nil, created_edition.scheduled_publication
       end
 
       test "create should set scheduled_publication if scheduled_publication_active is checked" do
@@ -91,14 +91,14 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
         post :create, {scheduled_publication_active: "1", edition: edition_attributes}
 
-        created_publication = Publication.last
-        assert_equal selected_time, created_publication.scheduled_publication
+        created_edition = document_type_class.last
+        assert_equal selected_time, created_edition.scheduled_publication
       end
 
       test "edit displays scheduled_publication date and time fields" do
-        publication = create(edition_type, scheduled_publication: Time.zone.parse('2060-06-03 10:30'))
+        edition = create(edition_type, scheduled_publication: Time.zone.parse('2060-06-03 10:30'))
 
-        get :edit, id: publication
+        get :edit, id: edition
 
         assert_select "form#edition_edit" do
           assert_select "input[type=checkbox][name='scheduled_publication_active'][checked='checked']"
@@ -111,10 +111,10 @@ module AdminEditionControllerScheduledPublishingTestHelpers
       end
 
       test "edit displays scheduled_publication date and time fields when scheduled_publication is nil, defaulting to 09:30 today" do
-        publication = create(edition_type, scheduled_publication: nil)
+        edition = create(edition_type, scheduled_publication: nil)
 
         Timecop.freeze(Time.zone.parse('2012-03-01 11:00')) do
-          get :edit, id: publication
+          get :edit, id: edition
         end
 
         assert_select "form#edition_edit" do
@@ -130,31 +130,31 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
       test "update should clear scheduled_publication if scheduled_publication_active not checked" do
         selected_time = Time.zone.now
-        publication = create(edition_type, scheduled_publication: selected_time)
+        edition = create(edition_type, scheduled_publication: selected_time)
 
-        edition_attributes = publication.attributes
+        edition_attributes = edition.attributes
           .merge(publication_date: Date.parse("1815-06-18"))
           .merge(scheduled_publication_attributes(selected_time))
 
-        put :update, id: publication, edition: edition_attributes, scheduled_publication_active: "0"
+        put :update, id: edition, edition: edition_attributes, scheduled_publication_active: "0"
 
-        saved_publication = publication.reload
-        assert_equal nil, saved_publication.scheduled_publication
+        saved_edition = edition.reload
+        assert_equal nil, saved_edition.scheduled_publication
       end
 
       test "update should set scheduled_publication if scheduled_publication_active checked" do
-        publication = create(edition_type, scheduled_publication: nil)
+        edition = create(edition_type, scheduled_publication: nil)
         selected_time = Time.zone.parse("2012-07-03 09:30")
 
-        edition_attributes = publication.attributes
+        edition_attributes = edition.attributes
           .merge(publication_date: Date.parse("1815-06-18"))
           .merge(scheduled_publication_attributes(selected_time))
-        put :update, id: publication,
+        put :update, id: edition,
           edition: edition_attributes,
           scheduled_publication_active: "1"
 
-        saved_publication = publication.reload
-        assert_equal selected_time, saved_publication.scheduled_publication
+        saved_edition = edition.reload
+        assert_equal selected_time, saved_edition.scheduled_publication
       end
     end
   end
