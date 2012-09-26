@@ -1,4 +1,8 @@
 en:
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category: "Primary detailed guidance category"
   errors:
     messages:
       carrierwave_integrity_error: is not an allowed file type

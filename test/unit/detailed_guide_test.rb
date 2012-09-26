@@ -98,6 +98,6 @@ class DetailedGuideTest < EditionTestCase
   test "should not be valid without a primary mainstream category" do
     detailed_guide = build(:detailed_guide, primary_mainstream_category: nil)
     refute detailed_guide.valid?
-    assert detailed_guide.errors[:primary_mainstream_category]
+    assert detailed_guide.errors.full_messages.include?("Primary detailed guidance category can't be blank")
   end
 end
