@@ -88,14 +88,14 @@ class DetailedGuideTest < EditionTestCase
     assert detailed_guide.valid?
   end
 
-  test "should not be valid if level-3 heading has no parent level-2 heading" do
+  test "should be invalid if level-3 heading has no parent level-2 heading" do
     body = "### Orphan\n\n## Uncle\n\n## Aunt"
     detailed_guide = build(:detailed_guide, body: body)
     refute detailed_guide.valid?
     assert_equal ["must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): 'Orphan'"], detailed_guide.errors[:body]
   end
 
-  test "should not be valid without a primary mainstream category" do
+  test "should be invalid without a primary mainstream category" do
     detailed_guide = build(:detailed_guide, primary_mainstream_category: nil)
     refute detailed_guide.valid?
     assert detailed_guide.errors.full_messages.include?("Primary detailed guidance category can't be blank")

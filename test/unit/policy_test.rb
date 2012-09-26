@@ -9,11 +9,11 @@ class PolicyTest < EditionTestCase
     refute build(:policy).allows_attachments?
   end
 
-  test "should not be valid without a summary" do
+  test "should be invalid without a summary" do
     refute build(:policy, summary: nil).valid?
   end
 
-  test "should not be valid without an alternative format provider" do
+  test "should be invalid without an alternative format provider" do
     refute build(:policy, alternative_format_provider: nil).valid?
   end
 
