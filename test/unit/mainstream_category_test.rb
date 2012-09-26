@@ -5,34 +5,34 @@ class MainstreamCategoryTest < ActiveSupport::TestCase
     @category = build(:mainstream_category)
   end
 
-  test "is invalid without title" do
+  test "should be invalid without title" do
     @category.title = nil
     refute @category.valid?
   end
 
-  test "is invalid without identifier" do
+  test "should be invalid without identifier" do
     @category.identifier = nil
     refute @category.valid?
   end
 
-  test "is invalid without parent_title" do
+  test "should be invalid without parent_title" do
     @category.parent_title = nil
     refute @category.valid?
   end
 
-  test "is not valid with an identifier that doesn't start with http(s?)://" do
+  test "should be invalid with an identifier that doesn't start with http(s?)://" do
     @category.identifier = "example.com/tags/blah.json"
     refute @category.valid?
     assert @category.errors[:identifier].include?("must start with http or https")
   end
 
-  test "is not valid with an identifier that doesn't contain /tags/" do
+  test "should be invalid with an identifier that doesn't contain /tags/" do
     @category.identifier = "http://example.com/blah.json"
     refute @category.valid?
     assert @category.errors[:identifier].include?("must contain /tags/")
   end
 
-  test "is not valid with an identifier that doesn't end in .json" do
+  test "should be invalid with an identifier that doesn't end in .json" do
     @category.identifier = "https://example.com/tags/blah"
     refute @category.valid?
     assert @category.errors[:identifier].include?("must end with .json")
