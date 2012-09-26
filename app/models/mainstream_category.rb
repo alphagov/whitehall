@@ -1,6 +1,8 @@
 require 'cgi'
 
 class MainstreamCategory < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+
   has_many :primary_detailed_guides, class_name: "DetailedGuide",
            foreign_key: "primary_mainstream_category_id"
   has_many :edition_mainstream_categories
@@ -35,5 +37,20 @@ class MainstreamCategory < ActiveRecord::Base
 
   def path
     CGI::unescape(identifier.match(%r{^https?://[^/]+/tags/([^/]+)\.json$})[1])
+  end
+
+  def to_artefact_hash
+    {
+      title: title,
+      id: path,
+      web_url: nil,
+      details: {
+        type: 'section'
+      },
+      content_with_tag: {
+        id: path,
+        web_url: mainstream_category_path(self)
+      }
+    }
   end
 end

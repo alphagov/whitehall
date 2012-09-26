@@ -60,21 +60,7 @@ private
         title: @document.title,
         format: 'detailedguidance',
         web_url: detailed_guides_url(@document),
-        tags: [
-               {
-                 title: cat.title,
-                 id: cat.path,
-                 web_url: nil,
-                 details: {
-                   type: 'section'
-                 },
-                 content_with_tag: {
-                   id: cat.path,
-                   web_url: mainstream_category_path(cat),
-                 },
-                 parent: parents
-               }
-              ]
+        tags: [cat.to_artefact_hash.merge(parent: parents)]
       }
       set_slimmer_artefact fake_json
     end

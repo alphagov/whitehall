@@ -81,4 +81,22 @@ class MainstreamCategoryTest < ActiveSupport::TestCase
                           published_other_detailed_guide],
                          @category.published_detailed_guides
   end
+
+  test "should build artefact hash in a suitable format for slimmer to convert into breadcrumb links" do
+    identifier = "https://contentapi.preview.alphagov.co.uk/tags/business%2Ftax.json"
+    category = create(:mainstream_category, title: "category-title", identifier: identifier)
+    expected_hash = {
+      title: "category-title",
+      id: "business/tax",
+      web_url: nil,
+      details: {
+        type: "section"
+      },
+      content_with_tag: {
+        id: "business/tax",
+        web_url: "/specialist/browse/tax"
+      }
+    }
+    assert_equal expected_hash, category.to_artefact_hash
+  end
 end
