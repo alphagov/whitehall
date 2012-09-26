@@ -197,7 +197,7 @@ h1.label {
     }
   }
 
-  // this singular class gets add to .secondary-featured ul when there's only li
+  // this singular class gets added to .secondary-featured ul when there's only li
   @include media(tablet) {
     .singular {
     li {
@@ -497,10 +497,9 @@ h1.label {
         li {
           float: none;
           display: inline-block;
-          width: 40%;
           border: 0;
+          margin-right: $gutter;
           text-transform: none;
-
         }
       }
     }
