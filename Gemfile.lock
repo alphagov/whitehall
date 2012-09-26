@@ -7,8 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/alphagov/rummageable.git
-  revision: c63d580663bbf0b54dfc660d242e2b3289a1a49c
-  branch: allow-access-to-more-than-one-index
+  revision: b5de26b730d04062a6da91eb1343fdb8dc035191
   specs:
     rummageable (0.4.0)
       json
