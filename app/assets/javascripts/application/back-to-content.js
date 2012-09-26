@@ -31,18 +31,46 @@
         backToContent._hasScrolled = false;
 
         var windowVerticalPosition = $(window).scrollTop();
+
         backToContent.$els.each(function(i, el){
           var $el = $(el),
-              $nav = $($el.find('a').attr('href')),
-              padding = 100;
+              padding = 50,
+              start = $el.data('backToContent-start'),
+              stop = $el.data('backToContent-stop'),
+              offset = $el.data('backToContent-offset'),
+              $nav;
 
-          if ($nav.height() + $nav.offset().top + padding < windowVerticalPosition){
+          if(!start) {
+            $nav = $($el.find('a').attr('href'));
+            start = $nav.height() + $nav.offset().top + padding;
+            $el.data('backToContent-start', start);
+
+            offset = $('#whitehall-wrapper').offset().top - 15; // 15px from the $gutter-half in the css
+            $el.data('backToContent-offset', offset);
+
+            // yes this is brittle. sorry.
+            stop =  $('.block-4').offset().top - padding;
+            $el.data('backToContent-stop', stop);
+          }
+
+          if (start < windowVerticalPosition){
             backToContent.show($el);
           } else {
             backToContent.hide($el);
           }
+          if(stop < windowVerticalPosition){
+            backToContent.stick($el, stop - offset);
+          } else {
+            backToContent.unstick($el);
+          }
         });
       }
+    },
+    stick: function($el, position){
+      $el.css({ 'position': 'absolute', 'top': position });
+    },
+    unstick: function($el){
+      $el.css({ 'position': '', 'top': '' });
     },
     hide: function($el){
       $el.addClass('visuallyhidden');
