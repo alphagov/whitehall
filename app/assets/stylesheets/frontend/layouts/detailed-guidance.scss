@@ -1,0 +1,74 @@
+body.detailed {
+  background: $detailed-guidance-background;
+
+  #whitehall-wrapper {
+    padding-bottom: 0;
+    margin-bottom: 0;
+
+    #global-nav .inner {
+      background: transparent;
+      max-width: $max-site-width + $gutter*2;
+
+      ul {
+        margin-left: $gutter;
+      }
+
+      #inside_gov_link a {
+        background: $light-blue;
+      }
+    }
+
+
+    #detailed-guides-container.filter-results {
+      margin: 0 $gutter;
+      padding: $gutter-two-thirds;
+      background: $white;
+
+      @media (max-width: 640px) {
+        padding: $gutter-one-sixth;
+      }
+
+      .previous-next-navigation {
+        margin-top: $gutter-two-thirds;
+      }
+    }
+
+    #page .document_page .previous-next-navigation {
+      background: transparent;
+      margin-left: -45px;
+      width: auto;
+      @media (max-width: 640px) {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      li {
+        a {
+          color: #2B8CC4;
+          &:active {
+            background: transparent;
+          }
+        }
+        &.next,
+        &.previous {
+          a:before {
+            background-image: image-url("arrow-sprite-2B8CC4.png")
+          }
+        }
+        &.next {
+          a:before {
+            margin-right: -45px;
+          }
+        }
+        &.previous {
+          a:before {
+            margin-left: -45px;
+          }
+        }
+      }
+    }
+
+
+  }
+
+}

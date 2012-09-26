@@ -8,6 +8,7 @@ class MakeAttachmentsInline < ActiveRecord::Migration
   class Consultation < Edition; end
   class ConsultationResponse < Edition; end
   class Consultation < Edition; end
+  class SpecialistGuide < Edition; end
 
   class SupportingPage < ActiveRecord::Base
     has_many :supporting_page_attachments, foreign_key: :supporting_page_id

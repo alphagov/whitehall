@@ -24,8 +24,8 @@ class Whitehall::DocumentFilter
     case type
     when :publication
       Topic.with_related_publications.sort_by(&:name)
-    when :specialist_guide
-      Topic.with_related_specialist_guides.order(:name)
+    when :detailed_guide
+      Topic.with_related_detailed_guides.order(:name)
     when :announcement
       Topic.with_related_announcements.order(:name)
     when :policy

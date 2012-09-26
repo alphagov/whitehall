@@ -82,7 +82,7 @@
   @import "views/_search.scss";
   @import "views/_speeches.scss";
   @import "views/_sunset.scss";
-  @import "views/_specialist_guides.scss";
+  @import "views/_detailed_guides.scss";
   @import "views/_policy_teams.scss";
 }
 
@@ -90,7 +90,7 @@
 // LAYOUTS
 // Styles scoped to a layout. Be careful.
 
-@import "layouts/specialist.scss";
+@import "layouts/detailed-guidance.scss";
 
 #whitehall-wrapper {
   @import "layouts/two_column_page.scss";

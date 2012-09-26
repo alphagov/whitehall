@@ -91,7 +91,7 @@ class PublicationFilterJsonPresenterTest < PresenterTestCase
   end
 end
 
-class SpecialistGuideFilterJsonPresenterTest < PresenterTestCase
+class DetailedGuideFilterJsonPresenterTest < PresenterTestCase
   setup do
     @filter = stub_everything("Whitehall::DocumentFilter",
       count: 1,
@@ -99,16 +99,16 @@ class SpecialistGuideFilterJsonPresenterTest < PresenterTestCase
       num_pages: 1,
       documents: [])
     self.params[:action] = :index
-    self.params[:controller] = :specialist_guides
+    self.params[:controller] = :detailed_guides
   end
 
   test 'json document list includes topics' do
     document = stub_record(:document)
     document.stubs(:to_param).returns('some-doc')
     topic = stub_record(:topic, name: "Tax")
-    specialist_guide = stub_record(:specialist_guide, document: document, organisations: [], topics: [topic])
-    @filter.stubs(:documents).returns([specialist_guide])
-    json = JSON.parse(SpecialistGuideFilterJsonPresenter.new(@filter).to_json)
+    detailed_guide = stub_record(:detailed_guide, document: document, organisations: [], topics: [topic])
+    @filter.stubs(:documents).returns([detailed_guide])
+    json = JSON.parse(DetailedGuideFilterJsonPresenter.new(@filter).to_json)
     assert_equal 1, json['results'].size
   end
 end

@@ -11,8 +11,8 @@ module FilterRoutesHelper
     policies_path(path_arguments(objects))
   end
 
-  def specialist_guides_filter_path(*objects)
-    specialist_guides_path(path_arguments(objects))
+  def detailed_guides_filter_path(*objects)
+    detailed_guides_path(path_arguments(objects))
   end
 
   private

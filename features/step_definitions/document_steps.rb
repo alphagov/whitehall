@@ -23,7 +23,7 @@ Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists 
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
-Given /^a submitted (publication|policy|news article|consultation|specialist guide) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
+Given /^a submitted (publication|policy|news article|consultation|detailed guide) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
   topic = Topic.find_by_name!(topic_name)
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
@@ -53,7 +53,7 @@ Given /^a published (publication|policy|news article|consultation) "([^"]*)" exi
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, countries: [country])
 end
 
-Given /^a submitted (publication|policy|news article|consultation|speech|international priority|specialist guide) "([^"]*)" exists$/ do |document_type, title|
+Given /^a submitted (publication|policy|news article|consultation|speech|international priority|detailed guide) "([^"]*)" exists$/ do |document_type, title|
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
@@ -201,8 +201,8 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
     click_link "Consultations"
   when Policy
     visit policies_path
-  when SpecialistGuide
-    visit specialist_guides_path
+  when DetailedGuide
+    visit detailed_guides_path
   when InternationalPriority
     visit international_priorities_path
   else

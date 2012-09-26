@@ -41,13 +41,13 @@ class Organisation < ActiveRecord::Base
             through: :featured_edition_organisations,
             source: :edition,
             order: "edition_organisations.ordering ASC"
-  has_many :specialist_guides,
+  has_many :detailed_guides,
             through: :edition_organisations,
-            class_name: "SpecialistGuide",
+            class_name: "DetailedGuide",
             source: :edition
-  has_many :published_specialist_guides,
+  has_many :published_detailed_guides,
             through: :edition_organisations,
-            class_name: "SpecialistGuide",
+            class_name: "DetailedGuide",
             conditions: { "editions.state" => "published" },
             source: :edition
   has_many :published_publications,
