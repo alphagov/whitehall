@@ -102,6 +102,8 @@ h1.label {
   }
 
   .organisation_news {
+    border-bottom: 1px solid $grey-88;
+    overflow: hidden;
 
     .img {
       margin: 0 0 $gutter-one-third 0;
@@ -157,7 +159,10 @@ h1.label {
 
   }
 
+
   .secondary-featured {
+    border-bottom: 1px solid $grey-88;
+    overflow: hidden;
     li {
       list-style: none;
       margin-bottom: $gutter;
@@ -187,6 +192,24 @@ h1.label {
         display: none;
         @include media(tablet) {
           display: block;
+        }
+      }
+    }
+  }
+
+  // this singular class gets add to .secondary-featured ul when there's only li
+  @include media(tablet) {
+    .singular {
+    li {
+        width: 66%;
+      h2 {
+        padding-top: 0;
+      }
+      .img {
+          float: left;
+          display: inline;
+          margin-right: $gutter;
+          width: 47%;
         }
       }
     }

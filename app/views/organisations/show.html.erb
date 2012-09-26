@@ -56,7 +56,7 @@
     <div class="block-3">
     <div class="inner-block">
       <% if @secondary_featured_editions.any? %>
-      <ul class="secondary-featured">
+      <ul class="secondary-featured <%= (@secondary_featured_editions.length == 1 ? 'singular' : '') %>">
         <% @secondary_featured_editions.each do |document| %>
           <%= content_tag_for :li, document, class: edition_organisation_class(document) do %>
             <div class="feature-inner">
