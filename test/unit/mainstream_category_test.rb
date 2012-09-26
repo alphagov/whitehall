@@ -2,13 +2,7 @@ require 'test_helper'
 
 class MainstreamCategoryTest < ActiveSupport::TestCase
   setup do
-    @category = MainstreamCategory.new(title: "Hirsuteness",
-      identifier: "http://some.thing/tags/hirsuteness.json",
-      parent_title: "Grooming")
-  end
-
-  test "is valid with a title, identifier, parent_title" do
-    assert @category.valid?
+    @category = build(:mainstream_category)
   end
 
   test "is invalid without title" do
