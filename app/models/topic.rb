@@ -19,8 +19,8 @@ class Topic < ActiveRecord::Base
 
   has_many :topic_memberships
   has_many :policies, through: :topic_memberships
-  has_many :specialist_guides, through: :topic_memberships
-  has_many :published_specialist_guides, through: :topic_memberships, class_name: "SpecialistGuide", conditions: { "editions.state" => "published" }, source: :specialist_guide
+  has_many :detailed_guides, through: :topic_memberships
+  has_many :published_detailed_guides, through: :topic_memberships, class_name: "DetailedGuide", conditions: { "editions.state" => "published" }, source: :detailed_guide
 
   has_many :organisation_topics
   has_many :organisations, through: :organisation_topics
@@ -45,8 +45,8 @@ class Topic < ActiveRecord::Base
 
   scope :with_content, where("published_edition_count <> 0")
 
-  def self.with_related_specialist_guides
-    joins(:published_specialist_guides).group(arel_table[:id])
+  def self.with_related_detailed_guides
+    joins(:published_detailed_guides).group(arel_table[:id])
   end
 
   def self.with_related_announcements

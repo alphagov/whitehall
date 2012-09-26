@@ -1,0 +1,85 @@
+<% page_title "Search" %>
+<% page_class "detailed-guides-search" %>
+
+<div class="block-1">
+  <div class="inner-block">
+    <%= form_tag search_detailed_guides_path, method: :get, id: 'search-form', class: 'search-form' do %>
+      <fieldset>
+        <legend class="visuallyhidden">Search gov.uk</legend>
+        <%= label_tag :q, results_count_for(@total_results) %>
+        <%= text_field_tag :q, @search_term, class: 'search-box' %>
+        <%= submit_tag "Search", class: 'button' %>
+      </fieldset>
+    <% end %>
+  </div>
+</div>
+
+<div class="block-2">
+  <div class="inner-block">
+  </div>
+</div>
+
+<div class="block-3">
+  <div class="inner-block">
+    <% if @total_results > 0 %>
+      <aside class="filters group js-search-filter">
+        <h2 class="visuallyhidden">Filter by Section</h2>
+        <ul>
+          <li data-filter="*">
+          <a href="#" class="active">All results <span><%= @total_results %></span><span class="visuallyhidden"> results</span></a>
+          </li>
+          <% if @results.any? %>
+            <li data-filter="js-section-guidance">
+              <a href="#">Detailed guidance <span><%= @results.length %></span><span class="visuallyhidden"> results</span></a>
+            </li>
+          <% end %>
+          <% if @mainstream_results.any? %>
+            <li data-filter="js-section-mainstream">
+              <a href="#">Elsewhere on GOV.UK <span><%= @mainstream_results.length %></span><span class="visuallyhidden"> results</span></a>
+            </li>
+          <% end %>
+        </ul>
+      </aside>
+    <% end %>
+  </div>
+</div>
+
+<div class="block-4">
+  <div class="inner-block">
+    <h1 class="visuallyhidden">Search Results</h1>
+    <% if @total_results > 0 %>
+      <% [[@results, "guidance", 'Detailed guidance'],
+          [@mainstream_results, "mainstream", 'Elsewhere on GOV.UK']].each do |(results, type, title)| %>
+        <% if results.any? %>
+          <div class="result-block js-search-result js-section-<%= type %>">
+            <h2><%= title %></h2>
+            <ul class="search-results js-search-result js-section-<%= type %>">
+              <% results.each do |result| %>
+                <li class="result <%= result["presentation_format"] %>">
+                  <h3><%= link_to result["title"], result["link"] %></h3>
+                  <% if result["description"].present? %>
+                    <p class="description"><%= result["description"] %></p>
+                  <% elsif result["highlight"] %>
+                    <p class="highlight"><%= search_highlight(result["highlight"]) %></p>
+                  <% end %>
+                  <span class="meta"><%= result['humanized_format'] %>
+                    <% if result["section"] %>
+                      <span class="section"><%= link_to result["section"].underscore.humanize, "/browse/#{result['section']}" %></span>
+                    <% end %>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+            <% if type == 'mainstream' and  @more_mainstream_results %>
+              <p class="more-results">
+                <%= link_to "More results from elsewhere on GOV.UK", "/search?q=#{@search_term}" %>
+              </p>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>We couldn't find any relevant results for you. Try making your search broader and try again</p>
+    <% end %>
+  </div>
+</div>

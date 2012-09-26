@@ -52,7 +52,7 @@ class Admin::TopicsController < Admin::BaseController
       published_policy_ids = policies.published.select("editions.id")
       {
         "published policy" => published_policy_ids.count,
-        "published specialist guide" => specialist_guides.published.count
+        "published detailed guide" => detailed_guides.published.count
       }
     end
   end

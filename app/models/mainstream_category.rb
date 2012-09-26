@@ -1,11 +1,11 @@
 require 'cgi'
 
 class MainstreamCategory < ActiveRecord::Base
-  has_many :primary_specialist_guides, class_name: "SpecialistGuide",
+  has_many :primary_detailed_guides, class_name: "DetailedGuide",
            foreign_key: "primary_mainstream_category_id"
   has_many :edition_mainstream_categories
-  has_many :other_specialist_guides, through: :edition_mainstream_categories,
-           source: :edition, class_name: "SpecialistGuide"
+  has_many :other_detailed_guides, through: :edition_mainstream_categories,
+           source: :edition, class_name: "DetailedGuide"
 
   validates :title, :identifier, :parent_title, presence: true
   before_save :update_slug!
@@ -13,12 +13,12 @@ class MainstreamCategory < ActiveRecord::Base
   validates :identifier, format: {with: /\.json$/, message: "must end with .json"}
   validates :identifier, format: {with: /\/tags\//, message: "must contain /tags/"}
 
-  def specialist_guides
-    primary_specialist_guides + other_specialist_guides
+  def detailed_guides
+    primary_detailed_guides + other_detailed_guides
   end
 
-  def published_specialist_guides
-    primary_specialist_guides.published + other_specialist_guides.published
+  def published_detailed_guides
+    primary_detailed_guides.published + other_detailed_guides.published
   end
 
   def to_param

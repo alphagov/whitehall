@@ -38,7 +38,7 @@ jQuery(function($) {
 
   $('.document .body').enhanceYoutubeVideoLinks();
 
-  $('.specialist-guides-show').trackExternalLinks();
+  $('.detailed-guides-show').trackExternalLinks();
 
   GOVUK.stickAtTopWhenScrolling.init();
   GOVUK.backToContent.init();

@@ -15,7 +15,7 @@ Scenario: Visiting a topic page
   And I should see a link to the related topic "Scientific Research"
 
 Scenario: Visiting a topic page
-  Given the topic "Higher Education" contains a published and a draft specialist guide
-  And the topic "Science and Innovation" contains a published and a draft specialist guide
+  Given the topic "Higher Education" contains a published and a draft detailed guide
+  And the topic "Science and Innovation" contains a published and a draft detailed guide
   When I visit the "Higher Education" topic
-  Then I should only see published specialist guides belonging to the "Higher Education" topic
+  Then I should only see published detailed guides belonging to the "Higher Education" topic
