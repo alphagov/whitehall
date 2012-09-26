@@ -1,24 +1,11 @@
-body.detailed {
+body.detailed-guidance {
   background: $detailed-guidance-background;
 
   #whitehall-wrapper {
     padding-bottom: 0;
     margin-bottom: 0;
 
-    #global-nav .inner {
-      background: transparent;
-      max-width: $max-site-width + $gutter*2;
-
-      ul {
-        margin-left: $gutter;
-      }
-
-      #inside_gov_link a {
-        background: $light-blue;
-      }
-    }
-
-
+    // What is this doing here? this should be in the view stylesheet not the layout stylesheet
     #detailed-guides-container.filter-results {
       margin: 0 $gutter;
       padding: $gutter-two-thirds;
@@ -33,6 +20,7 @@ body.detailed {
       }
     }
 
+    // What is this doing here? this should be in the view stylesheet not the layout stylesheet
     #page .document_page .previous-next-navigation {
       background: transparent;
       margin-left: -45px;
