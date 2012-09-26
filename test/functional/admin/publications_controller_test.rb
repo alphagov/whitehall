@@ -130,4 +130,12 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       assert_select ".publication_date", text: "31 May 1916"
     end
   end
+
+  private
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.except(:alternative_format_provider).reverse_merge(
+      alternative_format_provider_id: create(:alternative_format_provider).id
+    )
+  end
 end

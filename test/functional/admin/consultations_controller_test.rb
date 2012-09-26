@@ -501,4 +501,12 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation.reload
     assert_nil participation.consultation_response_form
   end
+
+  private
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.except(:alternative_format_provider).reverse_merge(
+      alternative_format_provider_id: create(:alternative_format_provider).id
+    )
+  end
 end

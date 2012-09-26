@@ -116,4 +116,12 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     refute_select "article.document .image img"
   end
+
+  private
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.except(:alternative_format_provider).reverse_merge(
+      alternative_format_provider_id: create(:alternative_format_provider).id
+    )
+  end
 end
