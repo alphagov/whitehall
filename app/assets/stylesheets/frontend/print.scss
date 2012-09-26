@@ -21,9 +21,9 @@ $gutter-one-sixth:  $gutter-one-third*0.5; // equivalent to 8px
 $is-print: true;
 
 // From the https://github.com/alphagov/govuk_frontend_toolkit
-@import "../_colours.scss";
-@import "../_conditionals.scss";
-@import "../_css3.scss";
+@import "_colours.scss";
+@import "_conditionals.scss";
+@import "_css3.scss";
 
 @import "styleguide/_font-stacks.scss";
 @import "styleguide/_typography.scss";
