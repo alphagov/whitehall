@@ -388,6 +388,7 @@ h1.label {
     .management-secondary {
       li {
         height: auto;
+        min-height: 70px;
       }
       @include media(tablet) {
         float: left;
@@ -396,14 +397,14 @@ h1.label {
         li {
           margin-bottom: $gutter-half;
           width: 30.5%;
+          &:nth-child(4n+1) {
+            clear: none;
+          }
           &:nth-child(3n) {
             margin-right: 0;
           }
           &:nth-child(3n+1) {
             clear: both;
-          }
-          &:nth-child(4n+1) {
-            clear: none;
           }
         }
       }
