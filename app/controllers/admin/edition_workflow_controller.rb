@@ -42,6 +42,22 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
+  def schedule
+    if @edition.schedule_as(current_user, force: params[:force].present?)
+      redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"
+    else
+      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
+    end
+  end
+
+  def unschedule
+    if @edition.unschedule_as(current_user)
+      redirect_to admin_editions_path(state: :submitted), notice: "The document #{@edition.title} has been unscheduled"
+    else
+      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
+    end
+  end
+
   def approve_retrospectively
     if @edition.approve_retrospectively_as(current_user)
       redirect_to admin_edition_path(@edition),

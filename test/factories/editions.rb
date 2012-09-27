@@ -29,6 +29,10 @@ FactoryGirl.define do
     trait(:deleted) { state "deleted" }
     trait(:archived) { state "archived" }
     trait(:featured) { featured true }
+    trait(:scheduled) {
+      state "scheduled"
+      scheduled_publication 7.days.from_now
+    }
 
     trait(:with_alternative_format_provider) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
@@ -46,4 +50,5 @@ FactoryGirl.define do
   factory :published_edition, parent: :edition, traits: [:published]
   factory :deleted_edition, parent: :edition, traits: [:deleted]
   factory :archived_edition, parent: :edition, traits: [:archived]
+  factory :scheduled_edition, parent: :edition, traits: [:scheduled]
 end

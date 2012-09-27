@@ -34,6 +34,19 @@ jQuery(function($) {
   $("#edition_publishing").enableChangeNoteHighlighting();
 });
 
+(function($) {
+  var hideScheduledPublication = function() {
+    if ($('input#scheduled_publication_active').prop('checked')) {
+      $('.scheduled_publication').show();
+    } else {
+      $('.scheduled_publication').hide();
+    }
+  }
+
+  $('input#scheduled_publication_active').change(hideScheduledPublication)
+  hideScheduledPublication();
+})(jQuery);
+
 (function($){
   var $input = $('#edition_summary'),
       $message = $('.summary-length-info').hide(),

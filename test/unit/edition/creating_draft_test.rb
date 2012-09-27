@@ -57,6 +57,13 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     refute draft_edition.force_published
   end
 
+  test "should not copy scheduled_publication date when creating draft" do
+    published_edition = create(:published_edition, scheduled_publication: 1.day.from_now)
+    draft_edition = published_edition.create_draft(create(:policy_writer))
+
+    assert draft_edition.scheduled_publication.nil?
+  end
+
   test "should copy time of first publication when creating draft" do
     published_edition = create(:published_edition, first_published_at: 1.week.ago)
     Timecop.travel 1.hour.from_now

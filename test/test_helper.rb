@@ -88,6 +88,7 @@ class ActionController::TestCase
   include HtmlAssertions
   include AdminEditionControllerTestHelpers
   include AdminEditionAttachableControllerTestHelpers
+  include AdminEditionControllerScheduledPublishingTestHelpers
   include AdminEditionCountriesBehaviour
   include DocumentControllerTestHelpers
   include ControllerTestHelpers

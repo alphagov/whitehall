@@ -10,13 +10,17 @@ FactoryGirl.define do
   factory :user do
     name
     email
-    permissions { Hash[GDS::SSO::Config.default_scope => ["signin"]] }
+    permissions { Hash[GDS::SSO::Config.default_scope => [User::Permissions::SIGNIN]] }
   end
 
   factory :policy_writer, parent: :user, aliases: [:author, :creator, :fact_check_requestor] do
   end
 
   factory :departmental_editor, parent: :user do
-    permissions { Hash[GDS::SSO::Config.default_scope => ["signin", "Editor"]] }
+    permissions { Hash[GDS::SSO::Config.default_scope => [User::Permissions::SIGNIN, User::Permissions::DEPARTMENTAL_EDITOR]] }
+  end
+
+  factory :scheduled_publishing_robot, parent: :user do
+    permissions { Hash[GDS::SSO::Config.default_scope => [User::Permissions::SIGNIN, User::Permissions::PUBLISH_SCHEDULED_EDITIONS]] }
   end
 end

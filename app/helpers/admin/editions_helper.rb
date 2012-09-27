@@ -65,6 +65,8 @@ module Admin::EditionsHelper
           form.check_box(:minor_change, label_text:
                          "Minor change? (for typos and other minor corrections, nothing will appear on public site)"))
       end
+      concat render(partial: "scheduled_publication_fields",
+                    locals: {form: form, edition: edition})
       concat form.save_or_cancel
     end
   end

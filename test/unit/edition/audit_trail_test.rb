@@ -83,6 +83,16 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     assert_equal previous_events, doc.audit_trail[0..-2]
   end
 
+  test "can request audit trail for one edition" do
+    doc = create(:published_edition)
+    policy_writer = create(:policy_writer)
+    PaperTrail.whodunnit = policy_writer
+    edition = doc.create_draft(policy_writer)
+    assert_equal 1, doc.edition_audit_trail.size
+    assert_equal "edition", edition.audit_trail.last.event
+    assert_equal policy_writer, edition.audit_trail.last.actor
+  end
+
   test "editorial remark appears as an audit event" do
     Timecop.freeze(Time.zone.now - 2.days)
     doc = create(:draft_edition)
