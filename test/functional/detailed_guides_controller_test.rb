@@ -173,14 +173,14 @@ That's all
 
   test "search sets search path header to search detailed guides" do
     search_client = stub('search_client')
-    Whitehall.specialist_search_client.stubs(:search).returns([])
+    Whitehall.detailed_guidance_search_client.stubs(:search).returns([])
     get :search
     assert_equal search_detailed_guides_path, response.headers[Slimmer::Headers::SEARCH_PATH_HEADER]
   end
 
   test "search lists each result returned from the inside government client" do
     Whitehall.mainstream_search_client.stubs(:search).returns([])
-    Whitehall.specialist_search_client.stubs(:search).with('query').returns([{"title" => "title", "link" => "/detailed/guide-slug", "highlight" => "", "presentation_format" => "detailed_guidance"}])
+    Whitehall.detailed_guidance_search_client.stubs(:search).with('query').returns([{"title" => "title", "link" => "/detailed/guide-slug", "highlight" => "", "presentation_format" => "detailed_guidance"}])
     get :search, q: 'query'
     assert_select ".detailed_guidance a[href='/detailed/guide-slug']"
   end
@@ -190,7 +190,7 @@ That's all
     6.times do|i|
       results << {"title" => "result#{i}", "link" => "/result-#{i}", "highlight" => "", "presentation_format" => "planner"}
     end
-    Whitehall.specialist_search_client.stubs(:search).returns([])
+    Whitehall.detailed_guidance_search_client.stubs(:search).returns([])
     Whitehall.mainstream_search_client.stubs(:search).with('query').returns(results)
     get :search, q: 'query'
 
@@ -212,7 +212,7 @@ That's all
     50.times do |i|
       whitehall_results << {"title" => "result#{i}", "link" => "/whitehall-result-#{i}", "highlight" => "", "presentation_format" => "detailed_guide"}
     end
-    Whitehall.specialist_search_client.stubs(:search).returns(whitehall_results)
+    Whitehall.detailed_guidance_search_client.stubs(:search).returns(whitehall_results)
     Whitehall.mainstream_search_client.stubs(:search).returns(mainstream_results)
     get :search, q: 'query'
 
@@ -226,7 +226,7 @@ That's all
   end
 
   test "search shows the description if available" do
-    Whitehall.specialist_search_client.stubs(:search).returns([
+    Whitehall.detailed_guidance_search_client.stubs(:search).returns([
       {"title" => "a", "link" => "/a", "description" => "description-text",
        "highlight" => "highlight-text", "presentation_format" => "detailed_guide"}
     ])
@@ -238,7 +238,7 @@ That's all
   end
 
   test "search shows the highlight if no description available" do
-    Whitehall.specialist_search_client.stubs(:search).returns([
+    Whitehall.detailed_guidance_search_client.stubs(:search).returns([
       {"title" => "a", "link" => "/a", "description" => "",
        "highlight" => "highlight-text", "presentation_format" => "detailed_guide"}
     ])
@@ -250,7 +250,7 @@ That's all
   end
 
   test "search links to mainstream browse sections for mainstream results" do
-    Whitehall.specialist_search_client.stubs(:search).returns([])
+    Whitehall.detailed_guidance_search_client.stubs(:search).returns([])
     Whitehall.mainstream_search_client.stubs(:search).returns([
       {"title" => "a", "link" => "/a", "description" => "blah",
        "highlight" => "", "section" => "money-and-tax", "presentation_format" => "thing"}
@@ -261,7 +261,7 @@ That's all
   end
 
   test "search shows format names for mainstream results" do
-    Whitehall.specialist_search_client.stubs(:search).returns([])
+    Whitehall.detailed_guidance_search_client.stubs(:search).returns([])
     Whitehall.mainstream_search_client.stubs(:search).returns([
       {"title" => "a", "link" => "/a", "description" => "blah",
        "highlight" => "", "presentation_format" => "thing", "humanized_format" => "Bits and Bobs"}
@@ -276,7 +276,7 @@ That's all
       {"title" => "document-title-1", "link" => "/document-slug-1"},
       {"title" => "document-title-2", "link" => "/document-slug-2"}
     ]
-    Whitehall.specialist_search_client.stubs(:search).returns(results)
+    Whitehall.detailed_guidance_search_client.stubs(:search).returns(results)
     Whitehall.mainstream_search_client.stubs(:search).returns([])
     get :search, q: "search-term", format: :json
     data = JSON.parse(response.body)
@@ -285,7 +285,7 @@ That's all
 
   test "autocomplete returns the response from autocomplete as a string" do
     raw_rummager_response = "rummager-response-body-json"
-    Whitehall.specialist_search_client.stubs(:autocomplete).with("search-term").returns(raw_rummager_response)
+    Whitehall.detailed_guidance_search_client.stubs(:autocomplete).with("search-term").returns(raw_rummager_response)
     get :autocomplete, q: "search-term"
     assert_equal raw_rummager_response, @response.body
   end

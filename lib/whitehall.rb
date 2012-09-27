@@ -5,7 +5,7 @@ module Whitehall
 
   mattr_accessor :government_search_client
   mattr_accessor :mainstream_search_client
-  mattr_accessor :specialist_search_client
+  mattr_accessor :detailed_guidance_search_client
   mattr_accessor :mainstream_content_api
 
   revision_file = "#{Rails.root}/REVISION"

@@ -23,13 +23,13 @@ class DetailedGuidesController < DocumentsController
     mainstream_results = Whitehall.mainstream_search_client.search(@search_term)
     @mainstream_results = mainstream_results.take(5)
     @more_mainstream_results = mainstream_results.length > 5
-    @results = Whitehall.specialist_search_client.search(@search_term).take(50 - @mainstream_results.length)
+    @results = Whitehall.detailed_guidance_search_client.search(@search_term).take(50 - @mainstream_results.length)
     @total_results = @results.length + @mainstream_results.length
     respond_with @results
   end
 
   def autocomplete
-    render text: Whitehall.specialist_search_client.autocomplete(params[:q])
+    render text: Whitehall.detailed_guidance_search_client.autocomplete(params[:q])
   end
 
 private
