@@ -2,43 +2,37 @@ require 'test_helper'
 
 class MainstreamCategoryTest < ActiveSupport::TestCase
   setup do
-    @category = MainstreamCategory.new(title: "Hirsuteness",
-      identifier: "http://some.thing/tags/hirsuteness.json",
-      parent_title: "Grooming")
+    @category = build(:mainstream_category)
   end
 
-  test "is valid with a title, identifier, parent_title" do
-    assert @category.valid?
-  end
-
-  test "is invalid without title" do
+  test "should be invalid without title" do
     @category.title = nil
     refute @category.valid?
   end
 
-  test "is invalid without identifier" do
+  test "should be invalid without identifier" do
     @category.identifier = nil
     refute @category.valid?
   end
 
-  test "is invalid without parent_title" do
+  test "should be invalid without parent_title" do
     @category.parent_title = nil
     refute @category.valid?
   end
 
-  test "is not valid with an identifier that doesn't start with http(s?)://" do
+  test "should be invalid with an identifier that doesn't start with http(s?)://" do
     @category.identifier = "example.com/tags/blah.json"
     refute @category.valid?
     assert @category.errors[:identifier].include?("must start with http or https")
   end
 
-  test "is not valid with an identifier that doesn't contain /tags/" do
+  test "should be invalid with an identifier that doesn't contain /tags/" do
     @category.identifier = "http://example.com/blah.json"
     refute @category.valid?
     assert @category.errors[:identifier].include?("must contain /tags/")
   end
 
-  test "is not valid with an identifier that doesn't end in .json" do
+  test "should be invalid with an identifier that doesn't end in .json" do
     @category.identifier = "https://example.com/tags/blah"
     refute @category.valid?
     assert @category.errors[:identifier].include?("must end with .json")
@@ -60,25 +54,43 @@ class MainstreamCategoryTest < ActiveSupport::TestCase
     assert_equal "my-slug", @category.to_param
   end
 
-  test "has many specialist guides via primary and other relationships" do
-    primary_specialist_guide_a = create(:draft_specialist_guide, primary_mainstream_category: @category)
-    primary_specialist_guide_b = create(:draft_specialist_guide, primary_mainstream_category: @category)
-    other_specialist_guide_a = create(:draft_specialist_guide, other_mainstream_categories: [@category])
-    other_specialist_guide_b = create(:draft_specialist_guide, other_mainstream_categories: [@category])
+  test "has many detailed guides via primary and other relationships" do
+    primary_detailed_guide_a = create(:draft_detailed_guide, primary_mainstream_category: @category)
+    primary_detailed_guide_b = create(:draft_detailed_guide, primary_mainstream_category: @category)
+    other_detailed_guide_a = create(:draft_detailed_guide, other_mainstream_categories: [@category])
+    other_detailed_guide_b = create(:draft_detailed_guide, other_mainstream_categories: [@category])
 
-    assert_same_elements [primary_specialist_guide_a, primary_specialist_guide_b,
-                          other_specialist_guide_a, other_specialist_guide_b],
-                         @category.specialist_guides
+    assert_same_elements [primary_detailed_guide_a, primary_detailed_guide_b,
+                          other_detailed_guide_a, other_detailed_guide_b],
+                         @category.detailed_guides
   end
 
-  test "can return only published specialist guides" do
-    draft_primary_specialist_guide = create(:draft_specialist_guide, primary_mainstream_category: @category)
-    published_primary_specialist_guide = create(:published_specialist_guide, primary_mainstream_category: @category)
-    draft_other_specialist_guide = create(:draft_specialist_guide, other_mainstream_categories: [@category])
-    published_other_specialist_guide = create(:published_specialist_guide, other_mainstream_categories: [@category])
+  test "can return only published detailed guides" do
+    draft_primary_detailed_guide = create(:draft_detailed_guide, primary_mainstream_category: @category)
+    published_primary_detailed_guide = create(:published_detailed_guide, primary_mainstream_category: @category)
+    draft_other_detailed_guide = create(:draft_detailed_guide, other_mainstream_categories: [@category])
+    published_other_detailed_guide = create(:published_detailed_guide, other_mainstream_categories: [@category])
 
-    assert_same_elements [published_primary_specialist_guide,
-                          published_other_specialist_guide],
-                         @category.published_specialist_guides
+    assert_same_elements [published_primary_detailed_guide,
+                          published_other_detailed_guide],
+                         @category.published_detailed_guides
+  end
+
+  test "should build artefact hash in a suitable format for slimmer to convert into breadcrumb links" do
+    identifier = "https://contentapi.preview.alphagov.co.uk/tags/business%2Ftax.json"
+    category = create(:mainstream_category, title: "category-title", identifier: identifier)
+    expected_hash = {
+      title: "category-title",
+      id: "business/tax",
+      web_url: nil,
+      details: {
+        type: "section"
+      },
+      content_with_tag: {
+        id: "business/tax",
+        web_url: "/specialist/browse/tax"
+      }
+    }
+    assert_equal expected_hash, category.to_artefact_hash
   end
 end

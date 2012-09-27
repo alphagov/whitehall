@@ -37,27 +37,27 @@ class PublicationTest < EditionTestCase
     refute publication.valid?
   end
 
-  test "#in_chronological_order returns docs order in ascending order of publication_date" do
+  test ".in_chronological_order returns docs order in ascending order of publication_date" do
     jan = create(:publication, publication_date: Date.parse("2011-01-01"))
     mar = create(:publication, publication_date: Date.parse("2011-03-01"))
     feb = create(:publication, publication_date: Date.parse("2011-02-01"))
     assert_equal [jan, feb, mar], Publication.in_chronological_order.all
   end
 
-  test "#in_reverse_chronological_order returns docs order in descending order of publication_date" do
+  test ".in_reverse_chronological_order returns docs order in descending order of publication_date" do
     jan = create(:publication, publication_date: Date.parse("2011-01-01"))
     mar = create(:publication, publication_date: Date.parse("2011-03-01"))
     feb = create(:publication, publication_date: Date.parse("2011-02-01"))
     assert_equal [mar, feb, jan], Publication.in_reverse_chronological_order.all
   end
 
-  test "#published_before returns editions whose publication_date is before the given date" do
+  test ".published_before returns editions whose publication_date is before the given date" do
     jan = create(:publication, publication_date: Date.parse("2011-01-01"))
     feb = create(:publication, publication_date: Date.parse("2011-02-01"))
     assert_equal [jan], Publication.published_before("2011-01-29").all
   end
 
-  test "#published_after returns editions whose publication_date is after the given date" do
+  test ".published_after returns editions whose publication_date is after the given date" do
     jan = create(:publication, publication_date: Date.parse("2011-01-01"))
     feb = create(:publication, publication_date: Date.parse("2011-02-01"))
     assert_equal [feb], Publication.published_after("2011-01-29").all

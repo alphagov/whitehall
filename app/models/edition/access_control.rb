@@ -26,6 +26,8 @@ module Edition::AccessControl
       "This document has not been force-published"
     elsif !user.departmental_editor?
       "Only departmental editors can retrospectively approve a force-published document"
+    elsif scheduled_by && user == scheduled_by
+      "You are not allowed to retrospectively approve this document, since you force-scheduled it"
     elsif user == published_by
       "You are not allowed to retrospectively approve this document, since you force-published it"
     end

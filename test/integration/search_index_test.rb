@@ -24,7 +24,7 @@ class SearchIndexTest < ActiveSupport::TestCase
   end
 
   test "Whitehall.specialist_search_index includes guidance" do
-    SpecialistGuide.stubs(:search_index).returns([:guidance])
+    DetailedGuide.stubs(:search_index).returns([:guidance])
     assert Whitehall.specialist_search_index.include?(:guidance)
   end
 end

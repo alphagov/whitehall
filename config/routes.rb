@@ -12,7 +12,7 @@ Whitehall::Application.routes.draw do
   root to: redirect("/")
 
   resources :mainstream_categories, only: [:show], path: 'specialist/browse'
-  resources :specialist_guides, path: 'specialist', only: [:show, :index] do
+  resources :detailed_guides, path: 'specialist', only: [:show, :index] do
     collection do
       get :search
       get :autocomplete
@@ -20,7 +20,7 @@ Whitehall::Application.routes.draw do
   end
 
   namespace 'api' do
-    resources :specialist_guides, path: 'specialist', only: [:show, :index], defaults: { format: :json }
+    resources :detailed_guides, path: 'specialist', only: [:show, :index], defaults: { format: :json }
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
@@ -103,6 +103,8 @@ Whitehall::Application.routes.draw do
             post :approve_retrospectively, to: 'edition_workflow#approve_retrospectively'
             post :reject, to: 'edition_workflow#reject'
             post :publish, to: 'edition_workflow#publish'
+            post :schedule, to: 'edition_workflow#schedule'
+            post :unschedule, to: 'edition_workflow#unschedule'
           end
           resource :featuring, only: [:create, :update, :destroy]
           resources :supporting_pages, path: "supporting-pages", except: [:index]
@@ -117,7 +119,7 @@ Whitehall::Application.routes.draw do
         resources :news_articles, path: 'news', except: [:index]
         resources :consultations, except: [:index]
         resources :speeches, except: [:index]
-        resources :specialist_guides, path: "specialist-guides", except: [:index]
+        resources :detailed_guides, path: "detailed-guides", except: [:index]
         resources :people, except: [:show]
         resources :roles, except: [:show] do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true

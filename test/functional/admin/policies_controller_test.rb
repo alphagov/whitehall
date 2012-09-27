@@ -28,6 +28,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   should_link_to_preview_version_when_not_published :policy
   should_prevent_modification_of_unmodifiable :policy
   should_allow_alternative_format_provider_for :policy
+  should_allow_scheduled_publication_of :policy
 
   test "show the 'add supporting page' button for an unpublished edition" do
     draft_policy = create(:draft_policy)
@@ -115,5 +116,13 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     get :show, id: policy
 
     refute_select "article.document .image img"
+  end
+
+  private
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.except(:alternative_format_provider).reverse_merge(
+      alternative_format_provider_id: create(:alternative_format_provider).id
+    )
   end
 end

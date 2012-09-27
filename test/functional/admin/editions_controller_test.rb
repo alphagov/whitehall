@@ -50,10 +50,10 @@ class Admin::EditionsController
     end
 
     test "should filter by title" do
-      specialist = create(:policy, title: "Test mcTest")
+      detailed = create(:policy, title: "Test mcTest")
       policy = create(:policy, title: "A policy")
 
-      assert_equal [specialist], EditionFilter.new(Edition, title: "test").editions
+      assert_equal [detailed], EditionFilter.new(Edition, title: "test").editions
     end
 
     test "should return the editions ordered by most recent first" do

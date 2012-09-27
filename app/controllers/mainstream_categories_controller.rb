@@ -1,8 +1,8 @@
 class MainstreamCategoriesController < PublicFacingController
-  layout "specialist"
+  layout "detailed-guidance"
 
   def show
     @mainstream_category = MainstreamCategory.find_by_slug(params[:id])
-    @specialist_guides = @mainstream_category.published_specialist_guides
+    @detailed_guides = @mainstream_category.published_detailed_guides
   end
 end

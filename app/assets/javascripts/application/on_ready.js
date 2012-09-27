@@ -38,7 +38,7 @@ jQuery(function($) {
 
   $('.document .body').enhanceYoutubeVideoLinks();
 
-  $('.specialist-guides-show').trackExternalLinks();
+  $('.detailed-guides-show').trackExternalLinks();
 
   GOVUK.stickAtTopWhenScrolling.init();
   GOVUK.backToContent.init();
@@ -53,5 +53,9 @@ jQuery(function($) {
   });
 
   $('.organisation_homepage #ministers .ministerial_role').hideExtraRows();
+
+  $('.organisation_homepage .management-secondary .board_member_role').hideExtraRows();
+
+  $('.organisation_homepage #military .military_role').hideExtraRows();
 
 });

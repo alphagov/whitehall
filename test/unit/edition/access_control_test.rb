@@ -100,4 +100,41 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     editor = create(:departmental_editor)
     refute edition.approvable_retrospectively_by?(editor)
   end
+
+  test "should allow another editor to retrospectively approve a force-scheduled document" do
+    editor, other_editor = create(:departmental_editor), create(:departmental_editor)
+    edition = create(:submitted_publication, scheduled_publication: 1.day.from_now)
+    acting_as(editor) { edition.schedule_as(editor, force: true) }
+    assert edition.approvable_retrospectively_by?(other_editor)
+  end
+
+  test "should not allow the same editor to retrospectively approve a force-scheduled document" do
+    editor = create(:departmental_editor)
+    edition = create(:submitted_policy, scheduled_publication: 1.day.from_now)
+    acting_as(editor) { assert edition.schedule_as(editor, force: true) }
+    refute edition.approvable_retrospectively_by?(editor)
+  end
+
+  test "should not allow the same editor to retrospectively approve a force-scheduled document, even after publication" do
+    editor = create(:departmental_editor)
+    robot = create(:scheduled_publishing_robot)
+    edition = create(:submitted_policy, scheduled_publication: 1.day.from_now)
+    acting_as(editor) { assert edition.schedule_as(editor, force: true) }
+    Timecop.freeze edition.scheduled_publication do
+      acting_as(robot) { assert edition.publish_as(robot) }
+      refute edition.approvable_retrospectively_by?(editor)
+    end
+  end
+
+  test "should not allow a writer to retrospectively approve a force-scheduled document" do
+    edition = create(:scheduled_edition, force_published: true)
+    policy_writer = create(:policy_writer)
+    refute edition.approvable_retrospectively_by?(policy_writer)
+  end
+
+  test "should not allow a document that was not force-scheduled to be retrospectively approved" do
+    edition = create(:scheduled_edition, force_published: false)
+    editor = create(:departmental_editor)
+    refute edition.approvable_retrospectively_by?(editor)
+  end
 end

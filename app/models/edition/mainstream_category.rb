@@ -20,6 +20,7 @@ module Edition::MainstreamCategory
     add_trait Trait
 
     validate :avoid_duplication_between_primary_and_other_mainstream_categories
+    validates :primary_mainstream_category, presence: true
   end
 
   def mainstream_categories

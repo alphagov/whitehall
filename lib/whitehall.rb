@@ -6,6 +6,7 @@ module Whitehall
   mattr_accessor :government_search_client
   mattr_accessor :mainstream_search_client
   mattr_accessor :specialist_search_client
+  mattr_accessor :mainstream_content_api
 
   revision_file = "#{Rails.root}/REVISION"
   if File.exists?(revision_file)
@@ -72,12 +73,12 @@ module Whitehall
     end
 
     def government_search_index
-      edition_classes = Edition.subclasses - [SpecialistGuide] - SpecialistGuide.subclasses
+      edition_classes = Edition.subclasses - [DetailedGuide] - DetailedGuide.subclasses
       (edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic]).map(&:search_index).sum([])
     end
 
     def specialist_search_index
-      [SpecialistGuide].map(&:search_index).sum([])
+      [DetailedGuide].map(&:search_index).sum([])
     end
 
     private

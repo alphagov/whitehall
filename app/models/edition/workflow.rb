@@ -30,12 +30,13 @@ module Edition::Workflow
       state :draft
       state :submitted
       state :rejected
+      state :scheduled
       state :published
       state :archived
       state :deleted
 
       event :delete, success: -> edition { edition.run_callbacks(:delete) } do
-        transitions from: [:draft, :submitted, :rejected, :published, :archived], to: :deleted,
+        transitions from: [:draft, :submitted, :rejected, :scheduled, :published, :archived], to: :deleted,
           guard: lambda { |d| d.deletable? }
       end
 
@@ -47,8 +48,19 @@ module Edition::Workflow
         transitions from: :submitted, to: :rejected
       end
 
+      event :schedule do
+        transitions from: [:draft, :submitted], to: :scheduled,
+          guard: lambda { |edition| edition.scheduled_publication.present? }
+      end
+
+      event :unschedule do
+        transitions from: :scheduled, to: :submitted
+      end
+
       event :publish, success: -> edition { edition.run_callbacks(:publish) } do
-        transitions from: [:draft, :submitted], to: :published
+        transitions from: [:draft, :submitted], to: :published,
+          guard: lambda { |edition| edition.scheduled_publication.blank? }
+        transitions from: [:scheduled], to: :published
       end
 
       event :archive, success: -> edition { edition.run_callbacks(:archive) } do
@@ -58,6 +70,10 @@ module Edition::Workflow
 
     validates_with EditionHasNoUnpublishedEditionsValidator, on: :create
     validates_with EditionHasNoOtherPublishedEditionsValidator, on: :create
+  end
+
+  def pre_publication?
+    [:draft, :submitted, :rejected, :scheduled].include?(state.to_sym)
   end
 
   def archive_previous_editions

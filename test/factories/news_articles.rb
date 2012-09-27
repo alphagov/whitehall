@@ -11,4 +11,5 @@ FactoryGirl.define do
   factory :published_news_article, parent: :news_article, traits: [:published]
   factory :deleted_news_article, parent: :news_article, traits: [:deleted]
   factory :archived_news_article, parent: :news_article, traits: [:archived]
+  factory :scheduled_news_article, parent: :news_article, traits: [:scheduled]
 end

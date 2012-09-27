@@ -56,13 +56,13 @@
   <% end %>
 
 
-  <% if edition.respond_to?(:related_specialist_guides) %>
+  <% if edition.respond_to?(:related_detailed_guides) %>
     <section>
-      <h2>Specialist Guides</h2>
-      <% if edition.related_specialist_guides.any? %>
-        <%= render partial: "specialist_guides/list", locals: {specialist_guides: edition.related_specialist_guides} %>
+      <h2>Detailed Guides</h2>
+      <% if edition.related_detailed_guides.any? %>
+        <%= render partial: "detailed_guides/list", locals: {detailed_guides: edition.related_detailed_guides} %>
       <% else %>
-        <p>This document isn't assigned to any specialist guides.</p>
+        <p>This document isn't assigned to any detailed guides.</p>
       <% end %>
     </section>
   <% end %>

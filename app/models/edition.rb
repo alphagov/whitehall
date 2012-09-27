@@ -8,6 +8,7 @@ class Edition < ActiveRecord::Base
   include Edition::Workflow
   include Edition::Organisations
   include Edition::Publishing
+  include Edition::ScheduledPublishing
   include Edition::AuditTrail
   include Edition::ActiveEditors
 
@@ -53,21 +54,31 @@ class Edition < ActiveRecord::Base
     order(arel_table[:timestamp_for_sorting].desc)
   end
 
-  class UnmodifiableOncePublishedValidator < ActiveModel::Validator
+  class UnmodifiableValidator < ActiveModel::Validator
     def validate(record)
-      if record.unmodifiable?
-        record.significant_changed_attributes.each do |attribute|
-          record.errors.add(attribute, "cannot be modified when edition is in the #{record.state} state")
-        end
+      significant_changed_attributes(record).each do |attribute|
+        record.errors.add(attribute, "cannot be modified when edition is in the #{record.state} state")
+      end
+    end
+
+    def significant_changed_attributes(record)
+      record.changed - modifiable_attributes(record.state_was)
+    end
+
+    def modifiable_attributes(previous_state)
+      if previous_state == 'scheduled'
+        %w{state updated_at force_published published_at first_published_at}
+      else
+        %w{state updated_at force_published}
       end
     end
   end
 
-  validates_with UnmodifiableOncePublishedValidator
+  validates_with UnmodifiableValidator, if: :unmodifiable?
 
   before_save :set_timestamp_for_sorting
 
-  UNMODIFIABLE_STATES = %w(published archived deleted).freeze
+  UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
   FROZEN_STATES = %w(archived deleted).freeze
 
   def skip_main_validation?
@@ -76,10 +87,6 @@ class Edition < ActiveRecord::Base
 
   def unmodifiable?
     persisted? && UNMODIFIABLE_STATES.include?(state_was)
-  end
-
-  def significant_changed_attributes
-    changed - %w(state updated_at force_published)
   end
 
   searchable(
@@ -178,7 +185,8 @@ class Edition < ActiveRecord::Base
     unless published?
       raise "Cannot create new edition based on edition in the #{state} state"
     end
-    draft_attributes = attributes.except(*%w{id type state created_at updated_at change_note minor_change force_published})
+    draft_attributes = attributes.except(*%w{id type state created_at updated_at change_note
+      minor_change force_published scheduled_publication})
     self.class.new(draft_attributes.merge('state' => 'draft', 'creator' => user)).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }
       if draft.valid? || !draft.errors.keys.include?(:base)
@@ -201,6 +209,11 @@ class Edition < ActiveRecord::Base
   def published_by
     published_event = last_audit_trail_version_event('published')
     published_event && published_event.actor
+  end
+
+  def scheduled_by
+    scheduled_event = last_audit_trail_version_event('scheduled')
+    scheduled_event && scheduled_event.actor
   end
 
   def title_with_state

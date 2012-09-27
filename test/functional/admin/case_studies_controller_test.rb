@@ -25,5 +25,6 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
   should_not_link_to_public_version_when_not_published :case_study
   should_prevent_modification_of_unmodifiable :case_study
   should_have_summary :case_study
+  should_allow_scheduled_publication_of :case_study
 
 end

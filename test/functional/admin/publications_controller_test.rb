@@ -35,6 +35,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_prevent_modification_of_unmodifiable :publication
   should_allow_alternative_format_provider_for :publication
   should_allow_assignment_to_document_series :publication
+  should_allow_scheduled_publication_of :publication
 
   test "new displays publication fields" do
     get :new
@@ -129,5 +130,13 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       assert_select ".publication_type", text: "Research and analysis"
       assert_select ".publication_date", text: "31 May 1916"
     end
+  end
+
+  private
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.except(:alternative_format_provider).reverse_merge(
+      alternative_format_provider_id: create(:alternative_format_provider).id
+    )
   end
 end

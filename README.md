@@ -86,3 +86,11 @@ To use a local copy of Rummager you'll need to:
 
 To use a local copy of Solr - see the instruction in the Rummager
 [README.md](https://github.com/alphagov/rummager).
+
+## Specifying a different endpoint for the GDS Content API
+
+You need to set the following environment variables :-
+
+    CONTENT_API_ENDPOINT_URL # e.g. https://contentapi.preview.alphagov.co.uk
+    CONTENT_API_USERNAME
+    CONTENT_API_PASSWORD

@@ -104,6 +104,95 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
+  test 'schedule schedules the given edition on behalf of the current user' do
+    @edition.expects(:schedule_as).with(@user, force: false).returns(true)
+    post :schedule, id: @edition, lock_version: 1
+  end
+
+  test 'schedule reports that the document has been scheduled' do
+    @edition.stubs(:schedule_as).returns(true)
+    post :schedule, id: @edition, lock_version: 1
+    assert_equal "The document #{@edition.title} has been scheduled for publication", flash[:notice]
+  end
+
+  test 'schedule redirects back to the scheduled edition index' do
+    @edition.stubs(:schedule_as).returns(true)
+    post :schedule, id: @edition, lock_version: 1
+    assert_redirected_to admin_editions_path(state: :scheduled)
+  end
+
+  test 'schedule passes through the force flag' do
+    @edition.expects(:schedule_as).with(@user, force: true).returns(true)
+    post :schedule, id: @edition, force: true, lock_version: 1
+  end
+
+  test 'schedule redirects back to the edition with an error message if scheduling reports a failure' do
+    @edition.stubs(:schedule_as).returns(false)
+    @edition.errors.add(:base, 'Edition could not be scheduled')
+    post :schedule, id: @edition, lock_version: 1
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'Edition could not be scheduled', flash[:alert]
+  end
+
+  test 'schedule sets lock version on edition before attempting to schedule to guard against stale objects' do
+    lock_before_scheduling = sequence('lock-before-scheduling')
+    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_scheduling)
+    @edition.expects(:schedule_as).in_sequence(lock_before_scheduling).returns(true)
+    post :schedule, id: @edition, lock_version: 92
+  end
+
+  test 'schedule redirects back to the edition with an error message if a stale object error is thrown' do
+    @edition.stubs(:schedule_as).raises(ActiveRecord::StaleObjectError)
+    post :schedule, id: @edition, lock_version: 1
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
+  end
+
+  test 'schedule responds with 422 if missing a lock version' do
+    post :schedule, id: @edition
+    assert_equal 422, response.status
+    assert_equal 'All workflow actions require a lock version', response.body
+  end
+
+  test 'unschedule unschedules the given edition on behalf of the current user' do
+    @edition.expects(:unschedule_as).with(@user).returns(true)
+    post :unschedule, id: @edition, lock_version: 1
+  end
+
+  test 'unschedule redirects back to the submitted edition index' do
+    @edition.stubs(:unschedule_as).returns(true)
+    post :unschedule, id: @edition, lock_version: 1
+    assert_redirected_to admin_editions_path(state: :submitted)
+  end
+
+  test 'unschedule redirects back to the edition with an error message if unscheduling reports a failure' do
+    @edition.stubs(:unschedule_as).returns(false)
+    @edition.errors.add(:base, 'Edition could not be unscheduled')
+    post :unschedule, id: @edition, lock_version: 1
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'Edition could not be unscheduled', flash[:alert]
+  end
+
+  test 'unschedule sets lock version on edition before attempting to unschedule to guard against stale objects' do
+    lock_before_unscheduling = sequence('lock-before-unscheduling')
+    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_unscheduling)
+    @edition.expects(:unschedule_as).in_sequence(lock_before_unscheduling).returns(true)
+    post :unschedule, id: @edition, lock_version: 92
+  end
+
+  test 'unschedule redirects back to the edition with an error message if a stale object error is thrown' do
+    @edition.stubs(:unschedule_as).raises(ActiveRecord::StaleObjectError)
+    post :unschedule, id: @edition, lock_version: 1
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
+  end
+
+  test 'unschedule responds with 422 if missing a lock version' do
+    post :unschedule, id: @edition
+    assert_equal 422, response.status
+    assert_equal 'All workflow actions require a lock version', response.body
+  end
+
   test 'submit submits the edition' do
     @edition.expects(:submit!)
     post :submit, id: @edition, lock_version: 1

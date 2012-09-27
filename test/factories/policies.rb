@@ -11,4 +11,5 @@ FactoryGirl.define do
   factory :published_policy, parent: :policy, traits: [:published]
   factory :deleted_policy, parent: :policy, traits: [:deleted]
   factory :archived_policy, parent: :policy, traits: [:archived]
+  factory :scheduled_policy, parent: :policy, traits: [:scheduled]
 end

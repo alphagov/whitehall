@@ -34,6 +34,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_not_link_to_public_version_when_not_published :consultation
   should_prevent_modification_of_unmodifiable :consultation
   should_allow_alternative_format_provider_for :consultation
+  should_allow_scheduled_publication_of :consultation
 
   test 'new displays consultation fields' do
     get :new
@@ -500,5 +501,13 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     refute_select ".errors"
     participation.reload
     assert_nil participation.consultation_response_form
+  end
+
+  private
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.except(:alternative_format_provider).reverse_merge(
+      alternative_format_provider_id: create(:alternative_format_provider).id
+    )
   end
 end

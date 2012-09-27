@@ -11,11 +11,20 @@
   <% end %>
   <% if edition.force_published? %>
     <div class="alert alert-error force_published">
-      <p>This edition was force published, and has not yet been reviewed by a
-      second pair of eyes. </p>
+      <p>This edition has not yet been reviewed by a
+        second pair of eyes. </p>
 
       <% if edition.approvable_retrospectively_by?(current_user) %>
         <%= approve_retrospectively_edition_button(edition) %>
+      <% end %>
+    </div>
+  <% end %>
+  <% if edition.pre_publication? && edition.scheduled_publication.present? %>
+    <div class="alert alert-info scheduled-publication">
+      <% if edition.scheduled? %>
+        <p>Scheduled for publication on <%= l edition.scheduled_publication, format: :long %>. </p>
+      <% else %>
+        <p>Scheduled publication proposed for <%= l edition.scheduled_publication, format: :long %>. </p>
       <% end %>
     </div>
   <% end %>
@@ -28,6 +37,14 @@
     <%= redraft_edition_button(edition) %>
   <% end %>
 
+  <% if @edition.unschedulable_by?(current_user) %>
+    <%= unschedule_edition_button(@edition) %>
+  <% end %>
+  <% if @edition.schedulable_by?(current_user) %>
+    <%= schedule_edition_form(@edition) %>
+  <% elsif @edition.schedulable_by?(current_user, force: true) %>
+    <%= schedule_edition_form(@edition, force: true) %>
+  <% end %>
   <% if @edition.publishable_by?(current_user, assuming_presence_of_change_note: true) %>
     <%= publish_edition_form(@edition) %>
   <% elsif @edition.publishable_by?(current_user, force: true, assuming_presence_of_change_note: true) %>

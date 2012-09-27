@@ -1,4 +1,4 @@
-THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|international priority|specialist guide|announcement) "([^"]*)"/) do |document_type, title|
+THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|international priority|detailed guide|announcement) "([^"]*)"/) do |document_type, title|
   document_class(document_type).latest_edition.find_by_title!(title)
 end
 
@@ -16,6 +16,9 @@ module DocumentHelper
     fill_in_change_note_if_required
     if options[:alternative_format_provider]
       select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
+    end
+    if options[:primary_mainstream_category]
+      select options[:primary_mainstream_category].title, from: "Primary detailed guidance category"
     end
   end
 

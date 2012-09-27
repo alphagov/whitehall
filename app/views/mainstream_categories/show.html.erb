@@ -1,17 +1,17 @@
-<% page_title "Specialist guidance - #{@mainstream_category.title}" %>
+<% page_title "Detailed guidance - #{@mainstream_category.title}" %>
 <% page_class "mainstream-category-show" %>
 
 <div class="block-1">
   <div class="inner-block">
-    <header class="page-header specialist-guides">
+    <header class="page-header detailed-guides">
       <h1 class="page_title">Detailed guidance from government on <%= @mainstream_category.title %></h1>
     </header>
   </div>
 </div>
 
 <div class="block-4">
-  <div class="inner-block" id="specialist-guides-container" aria-live="polite">
-    <% if @specialist_guides.any? %>
+  <div class="inner-block" id="detailed-guides-container" aria-live="polite">
+    <% if @detailed_guides.any? %>
       <table class="document-list">
         <thead class="visuallyhidden">
           <tr>
@@ -19,14 +19,14 @@
           </tr>
         </thead>
         <tbody>
-        <% @specialist_guides.each do |specialist_guide| %>
-          <%= content_tag_for(:tr, specialist_guide, class: "document-row") do %>
+        <% @detailed_guides.each do |detailed_guide| %>
+          <%= content_tag_for(:tr, detailed_guide, class: "document-row") do %>
             <th scope="row" class="attribute title">
-              <%= link_to specialist_guide.title, public_document_path(specialist_guide),
-                  title: "View #{specialist_guide.title}" %>
+              <%= link_to detailed_guide.title, public_document_path(detailed_guide),
+                  title: "View #{detailed_guide.title}" %>
             </th>
             <td class="attribute organisations">
-              <%= specialist_guide.organisations.map { |o|
+              <%= detailed_guide.organisations.map { |o|
                 organisation_display_name(o) }.to_sentence.html_safe %>
             </td>
           <% end %>

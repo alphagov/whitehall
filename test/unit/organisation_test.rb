@@ -311,14 +311,14 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [gamma.edition, beta.edition, delta.edition], organisation.featured_editions
   end
 
-  test '#published_specialist_guides returns published specialist guides' do
+  test '#published_detailed_guides returns published detailed guides' do
     organisation = create(:organisation)
-    alpha = create(:draft_specialist_guide, organisations: [organisation], title: "Alpha")
-    beta = create(:published_specialist_guide, organisations: [organisation], title: "Beta")
-    gamma = create(:published_specialist_guide, organisations: [organisation], title: "Gamma")
-    delta = create(:published_specialist_guide, organisations: [organisation], title: "Delta")
+    alpha = create(:draft_detailed_guide, organisations: [organisation], title: "Alpha")
+    beta = create(:published_detailed_guide, organisations: [organisation], title: "Beta")
+    gamma = create(:published_detailed_guide, organisations: [organisation], title: "Gamma")
+    delta = create(:published_detailed_guide, organisations: [organisation], title: "Delta")
 
-    assert_same_elements [gamma, beta, delta], organisation.published_specialist_guides
+    assert_same_elements [gamma, beta, delta], organisation.published_detailed_guides
   end
 
   test '#published_announcements returns published news or speeches' do

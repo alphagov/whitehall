@@ -12,7 +12,7 @@ end
 
 namespace :guidance do
 
-  desc "Upload CSVs of Specialist Guidance content to the database"
+  desc "Upload CSVs of Detailed Guidance content to the database"
   task :import_csv, [:file, :topic, :organisation, :creator] => [:environment] do |t, args|
     topic = Topic.where(slug: args[:topic]).first
     organisation = Organisation.where(slug: args[:organisation]).first
@@ -47,7 +47,7 @@ namespace :guidance do
 
       PaperTrail.whodunnit = creator
 
-      guide = SpecialistGuide.where(title: title).last
+      guide = DetailedGuide.where(title: title).last
 
       if guide
         guide = guide.create_draft(creator) if guide.published?
@@ -55,7 +55,7 @@ namespace :guidance do
         guide.topics = [topic] if topic
         guide.organisations = [organisation] if organisation
       else
-        guide = SpecialistGuide.new(title: title, body: body, state: "draft", topics: [topic], creator: creator)
+        guide = DetailedGuide.new(title: title, body: body, state: "draft", topics: [topic], creator: creator)
         if organisation
           guide.organisations = [organisation]
         end
@@ -99,12 +99,12 @@ namespace :guidance do
 
       PaperTrail.whodunnit = creator
 
-      new_record = SpecialistGuide.where(title: old_title).first
+      new_record = DetailedGuide.where(title: old_title).first
 
       if topic_id and new_record
 
         records_from_csv.add new_record.title
-        results = SpecialistGuide.where("body LIKE ?", "%topicId=#{topic_id}%").all
+        results = DetailedGuide.where("body LIKE ?", "%topicId=#{topic_id}%").all
 
         if results
           found_urls += results.length.to_i

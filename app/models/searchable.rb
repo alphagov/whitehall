@@ -68,7 +68,7 @@ module Searchable
     end
 
     def index
-      is_a?(SpecialistGuide) ? '/specialist' : '/government'
+      is_a?(DetailedGuide) ? '/specialist' : '/government'
     end
 
     module ClassMethods

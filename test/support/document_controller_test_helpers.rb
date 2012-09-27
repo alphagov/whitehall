@@ -429,4 +429,10 @@ module DocumentControllerTestHelpers
       end
     end
   end
+
+  private
+
+  def controller_attributes_for(edition_type, attributes = {})
+    attributes_for(edition_type, attributes)
+  end
 end

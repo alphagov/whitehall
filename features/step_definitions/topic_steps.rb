@@ -8,9 +8,9 @@ Given /^the topic "([^"]*)" contains some policies$/ do |topic_name|
   2.times do create(:draft_policy,     topics: [topic]); end
 end
 
-Given /^the topic "([^"]*)" contains a published and a draft specialist guide$/ do |topic_name|
-  specialist_guides = [build(:published_specialist_guide), build(:draft_specialist_guide)]
-  create(:topic, name: topic_name, specialist_guides: specialist_guides)
+Given /^the topic "([^"]*)" contains a published and a draft detailed guide$/ do |topic_name|
+  detailed_guides = [build(:published_detailed_guide), build(:draft_detailed_guide)]
+  create(:topic, name: topic_name, detailed_guides: detailed_guides)
 end
 
 Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic|
@@ -98,10 +98,10 @@ Then /^I should only see published policies belonging to the "([^"]*)" topic$/ d
   assert_equal expected_editions, actual_editions
 end
 
-Then /^I should only see published specialist guides belonging to the "([^"]*)" topic$/ do |name|
+Then /^I should only see published detailed guides belonging to the "([^"]*)" topic$/ do |name|
   topic = Topic.find_by_name!(name)
-  actual_editions = records_from_elements(Edition, page.all(".specialist_guide")).sort_by(&:id)
-  expected_editions = topic.specialist_guides.published.all.sort_by(&:id)
+  actual_editions = records_from_elements(Edition, page.all(".detailed_guide")).sort_by(&:id)
+  expected_editions = topic.detailed_guides.published.all.sort_by(&:id)
   assert_equal expected_editions, actual_editions
 end
 

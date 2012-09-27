@@ -6,7 +6,7 @@ class TopicsController < PublicFacingController
   def show
     @topic = Topic.find(params[:id])
     @policies = @topic.policies.published
-    @specialist_guides = @topic.specialist_guides.published.limit(5)
+    @detailed_guides = @topic.detailed_guides.published.limit(5)
     @related_topics = @topic.related_topics
     @recently_changed_documents = @topic.recently_changed_documents
 

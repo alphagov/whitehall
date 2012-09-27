@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='content-type'>
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+
+    <!-- http://t.co/dKP3o1e -->
+    <meta content='True' name='HandheldFriendly'>
+    <meta content='320' name='MobileOptimized'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'>
+
+    <title><%= page_title %></title>
+    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/base.css" %><!--<![endif]-->
+    <!--[if IE 6]><%= stylesheet_link_tag "frontend/base-ie6.css" %><![endif]-->
+    <!--[if IE 7]><%= stylesheet_link_tag "frontend/base-ie7.css" %><![endif]-->
+    <!--[if IE 8]><%= stylesheet_link_tag "frontend/base-ie8.css" %><![endif]-->
+    <%= stylesheet_link_tag "frontend/print.css", media: "print" %>
+    <%= csrf_meta_tags %>
+    <link href='/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <%= atom_discovery_link_tag %>
+
+  </head>
+  <body class="website government detailed-guidance">
+    <div id="whitehall-wrapper">
+      <div id="content"></div>
+      <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
+        <%= yield %>
+      </div>
+    </div>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
+    <%= javascript_include_tag "application", defer: true %>
+  </body>
+</html>

@@ -41,11 +41,11 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal [topic], policy.reload.topics
   end
 
-  test "should allow association with specialist guides" do
-    specialist_guide = create(:draft_specialist_guide)
-    topic = create(:topic, specialist_guides: [specialist_guide])
+  test "should allow association with detailed guides" do
+    detailed_guide = create(:draft_detailed_guide)
+    topic = create(:topic, detailed_guides: [detailed_guide])
 
-    assert_equal [topic], specialist_guide.reload.topics
+    assert_equal [topic], detailed_guide.reload.topics
   end
 
   test "should set a slug from the topic name" do
@@ -267,27 +267,27 @@ class TopicTest < ActiveSupport::TestCase
     has_nothing = create(:topic)
     create(:published_policy, topics: [has_published_policies = create(:topic)])
     create(:draft_policy, topics: [has_draft_policies = create(:topic)])
-    create(:draft_specialist_guide, topics: [has_draft_specialist_guides = create(:topic)])
-    create(:published_specialist_guide, topics: [has_published_specialist_guides = create(:topic)])
+    create(:draft_detailed_guide, topics: [has_draft_detailed_guides = create(:topic)])
+    create(:published_detailed_guide, topics: [has_published_detailed_guides = create(:topic)])
 
     topics = Topic.with_content.all
 
     assert_includes topics, has_published_policies
-    assert_includes topics, has_published_specialist_guides
+    assert_includes topics, has_published_detailed_guides
     refute_includes topics, has_draft_policies
-    refute_includes topics, has_draft_specialist_guides
+    refute_includes topics, has_draft_detailed_guides
     refute_includes topics, has_nothing
   end
 
-  test 'should filter out topics without any published specialist guides related directly via topics' do
+  test 'should filter out topics without any published detailed guides related directly via topics' do
     has_nothing = create(:topic)
-    create(:draft_specialist_guide, topics: [has_draft_specialist_guide = create(:topic)])
-    create(:published_specialist_guide, topics: [has_published_specialist_guide = create(:topic)])
+    create(:draft_detailed_guide, topics: [has_draft_detailed_guide = create(:topic)])
+    create(:published_detailed_guide, topics: [has_published_detailed_guide = create(:topic)])
 
-    topics = Topic.with_related_specialist_guides
+    topics = Topic.with_related_detailed_guides
 
-    assert_includes topics, has_published_specialist_guide
-    refute_includes topics, has_draft_specialist_guide
+    assert_includes topics, has_published_detailed_guide
+    refute_includes topics, has_draft_detailed_guide
     refute_includes topics, has_nothing
   end
 
@@ -348,12 +348,12 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal [topic], Topic.with_related_announcements
   end
 
-  test 'should not have duplicate topics in list of topics with specialist guides' do
+  test 'should not have duplicate topics in list of topics with detailed guides' do
     topic = create(:topic)
-    create(:published_specialist_guide, topics: [topic])
-    create(:published_specialist_guide, topics: [topic])
+    create(:published_detailed_guide, topics: [topic])
+    create(:published_detailed_guide, topics: [topic])
 
-    assert_equal [topic], Topic.with_related_specialist_guides
+    assert_equal [topic], Topic.with_related_detailed_guides
   end
 
   test 'should be retrievable in an alphabetically ordered list' do

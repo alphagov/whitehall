@@ -6,13 +6,16 @@
 // Mixins to be shared across gov.uk sites. Anything set in these
 // files can be used in the view files.
 
+// From the https://github.com/alphagov/govuk_frontend_toolkit
+@import "_colours.scss";
+@import "_conditionals.scss";
+@import "_css3.scss";
+
 @import "styleguide/_dimensions.scss";
 @import "styleguide/_font-stacks.scss";
 @import "styleguide/_typography.scss";
 @import "styleguide/_colours.scss";
-@import "styleguide/_css3.scss";
 @import "styleguide/_button.scss";
-@import "styleguide/_media-queries.scss";
 @import "styleguide/_print.scss";
 @import "styleguide/_float-fix.scss";
 
@@ -82,7 +85,7 @@
   @import "views/_search.scss";
   @import "views/_speeches.scss";
   @import "views/_sunset.scss";
-  @import "views/_specialist_guides.scss";
+  @import "views/_detailed_guides.scss";
   @import "views/_policy_teams.scss";
 }
 
@@ -90,7 +93,7 @@
 // LAYOUTS
 // Styles scoped to a layout. Be careful.
 
-@import "layouts/specialist.scss";
+@import "layouts/detailed-guidance.scss";
 
 #whitehall-wrapper {
   @import "layouts/two_column_page.scss";

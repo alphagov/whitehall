@@ -14,4 +14,5 @@ FactoryGirl.define do
   factory :published_speech, parent: :speech, traits: [:published]
   factory :deleted_speech, parent: :speech, traits: [:deleted]
   factory :archived_speech, parent: :speech, traits: [:archived]
+  factory :scheduled_speech, parent: :speech, traits: [:scheduled]
 end

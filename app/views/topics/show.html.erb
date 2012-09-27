@@ -33,8 +33,8 @@
         <% if @policies.any? %>
           <li><%= link_to 'Policies in this topic', '#policies'%></li>
         <% end %>
-        <% if @specialist_guides.any? %>
-          <li><%= link_to 'Specialist guidance', '#specialist-guidance' %></li>
+        <% if @detailed_guides.any? %>
+          <li><%= link_to 'Detailed guidance', '#detailed-guidance' %></li>
         <% end %>
         <% if @recently_changed_documents.any? %>
           <li><%= link_to 'Latest updates', '#recently-changed' %></li>
@@ -63,18 +63,18 @@
         </ul>
       </section>
     <% end %>
-    <% if @specialist_guides.any? %>
-      <section id="specialist-guidance" class="specialist-guidance">
-        <h1>Specialist guidance:</h1>
+    <% if @detailed_guides.any? %>
+      <section id="detailed-guidance" class="detailed-guidance">
+        <h1>Detailed guidance:</h1>
         <ul>
-          <% @specialist_guides.each do |specialist_guide| %>
-            <%= content_tag_for :li, specialist_guide, class: "document-row" do %>
-              <%= link_to specialist_guide.title, public_document_path(specialist_guide),
-                          title: "View #{specialist_guide.title}"%>
+          <% @detailed_guides.each do |detailed_guide| %>
+            <%= content_tag_for :li, detailed_guide, class: "document-row" do %>
+              <%= link_to detailed_guide.title, public_document_path(detailed_guide),
+                          title: "View #{detailed_guide.title}"%>
             <% end %>
           <% end %>
         </ul>
-        <%= link_to 'View all', specialist_guides_filter_path(@topic), class: 'view-all' %>
+        <%= link_to 'View all', detailed_guides_filter_path(@topic), class: 'view-all' %>
       </section>
     <% end %>
     <%= render partial: "documents/recently_changed_documents",

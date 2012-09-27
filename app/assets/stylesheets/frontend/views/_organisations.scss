@@ -102,6 +102,8 @@ h1.label {
   }
 
   .organisation_news {
+    border-bottom: 1px solid $grey-88;
+    overflow: hidden;
 
     .img {
       margin: 0 0 $gutter-one-third 0;
@@ -149,9 +151,6 @@ h1.label {
         margin-right: 0;
         width: 31.3%;
       }
-      article {
-        overflow: hidden;
-      }
       h2 {
         @include core-19;
         padding-top: 0;
@@ -160,9 +159,13 @@ h1.label {
 
   }
 
+
   .secondary-featured {
+    border-bottom: 1px solid $grey-88;
+    overflow: hidden;
     li {
       list-style: none;
+      margin-bottom: $gutter;
       .summary, h2 {
         @include core-19;
         float: none;
@@ -183,6 +186,30 @@ h1.label {
         &:nth-child(3n) {
           float: right;
           margin-right: 0;
+        }
+      }
+      .img {
+        display: none;
+        @include media(tablet) {
+          display: block;
+        }
+      }
+    }
+  }
+
+  // this singular class gets added to .secondary-featured ul when there's only li
+  @include media(tablet) {
+    .singular {
+    li {
+        width: 66%;
+      h2 {
+        padding-top: 0;
+      }
+      .img {
+          float: left;
+          display: inline;
+          margin-right: $gutter;
+          width: 47%;
         }
       }
     }
@@ -327,53 +354,78 @@ h1.label {
   }
 }
 
-
   #ministers ul {
     @extend %contain-floats;
   }
 
-  .ministerial_role,
-  #management article,
-  #military article,
-  #management li {
-    float: left;
-    display: inline;
-    margin: 0 3% $gutter 0;
-    height: 20em;
-    width: 45%;
-    &:nth-child(2n+1) {
-      clear: both;
-    }
-    @include media(tablet) {
-      height: auto;
-      width: 22%;
+  #ministers,
+  #military,
+  #management {
+     clear: both;
+    li {
+      float: left;
+      display: inline;
+      margin: 0 3% $gutter 0;
+      height: 20em;
+      width: 45%;
       &:nth-child(2n+1) {
-        clear: none;
-      }
-      &:nth-child(4n+1) {
         clear: both;
       }
+      @include media(tablet) {
+        height: auto;
+        width: 22%;
+        &:nth-child(2n+1) {
+          clear: none;
+        }
+        &:nth-child(4n+1) {
+          clear: both;
+        }
+      }
+    }
+    .js-hidden {
+      display: none;
+    }
+    .management-secondary {
+      li {
+        height: auto;
+        min-height: 70px;
+      }
+      @include media(tablet) {
+        float: left;
+        display: inline;
+        width: 75%;
+        li {
+          margin-bottom: $gutter-half;
+          width: 30.5%;
+          &:nth-child(4n+1) {
+            clear: none;
+          }
+          &:nth-child(3n) {
+            margin-right: 0;
+          }
+          &:nth-child(3n+1) {
+            clear: both;
+          }
+        }
+      }
     }
   }
 
-  #management li {
-    height: auto;
-  }
-
-
-  .js-hidden {
-    display: none;
-  }
-
-  #management, #military {
+  .show-other-content {
     clear: both;
+    float: right;
+    margin: 0 $gutter $gutter;
   }
+
+
 
   .current-appointee {
     @include core-16;
+    padding-top: 0;
   }
   .role {
     @include core-14;
+    padding-top: 0;
   }
 
   .image_holder {
@@ -446,10 +498,9 @@ h1.label {
         li {
           float: none;
           display: inline-block;
-          width: 40%;
           border: 0;
+          margin-right: $gutter;
           text-transform: none;
-
         }
       }
     }

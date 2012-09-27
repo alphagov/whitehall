@@ -10,4 +10,5 @@ FactoryGirl.define do
   factory :published_international_priority, parent: :international_priority, traits: [:published]
   factory :deleted_international_priority, parent: :international_priority, traits: [:deleted]
   factory :archived_international_priority, parent: :international_priority, traits: [:archived]
+  factory :scheduled_international_priority, parent: :international_priority, traits: [:scheduled]
 end
