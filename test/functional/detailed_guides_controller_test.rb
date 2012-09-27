@@ -2,7 +2,6 @@ require "test_helper"
 
 class DetailedGuidesControllerTest < ActionController::TestCase
   include DocumentViewAssertions
-  include ContentApiStubs
 
   should_be_a_public_facing_controller
   should_display_attachments_for :detailed_guide
@@ -10,8 +9,6 @@ class DetailedGuidesControllerTest < ActionController::TestCase
   should_paginate :detailed_guide, sort_by: :title
   should_be_previewable :detailed_guide
   should_return_json_suitable_for_the_document_filter :detailed_guide
-
-  setup { stub_content_api_request }
 
   test "index <title> does not contain 'Inside Government'" do
     get :index
