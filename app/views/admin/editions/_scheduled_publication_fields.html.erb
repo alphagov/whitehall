@@ -6,6 +6,6 @@
   <% end %>
   <div class="scheduled_publication">
     <%= form.label :scheduled_publication %>
-    <%= form.datetime_select :scheduled_publication, {default: Time.zone.parse(Time.zone.now.strftime("%Y-%m-%d 09:30"))}, {class: :date} %>
+    <%= form.datetime_select :scheduled_publication, {default: Time.zone.parse(Time.zone.now.strftime("%Y-%m-%d 09:30")), minute_step: 15}, {class: :date} %>
   </div>
 </fieldset>
