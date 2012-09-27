@@ -68,7 +68,7 @@ module Searchable
     end
 
     def index
-      is_a?(DetailedGuide) ? '/specialist' : '/government'
+      is_a?(DetailedGuide) ? Whitehall.detailed_guidance_search_index_name : Whitehall.government_search_index_name
     end
 
     module ClassMethods

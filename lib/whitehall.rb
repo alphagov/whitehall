@@ -72,6 +72,14 @@ module Whitehall
       !Rails.env.test? && aws_access_key_id && aws_secret_access_key
     end
 
+    def government_search_index_name
+      '/government'
+    end
+
+    def detailed_guidance_search_index_name
+      '/specialist'
+    end
+
     def government_search_index
       edition_classes = Edition.subclasses - [DetailedGuide] - DetailedGuide.subclasses
       (edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic]).map(&:search_index).sum([])
