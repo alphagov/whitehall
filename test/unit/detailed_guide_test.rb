@@ -88,16 +88,47 @@ class DetailedGuideTest < EditionTestCase
     assert detailed_guide.valid?
   end
 
-  test "should not be valid if level-3 heading has no parent level-2 heading" do
+  test "should be invalid if level-3 heading has no parent level-2 heading" do
     body = "### Orphan\n\n## Uncle\n\n## Aunt"
     detailed_guide = build(:detailed_guide, body: body)
     refute detailed_guide.valid?
     assert_equal ["must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): 'Orphan'"], detailed_guide.errors[:body]
   end
 
-  test "should not be valid without a primary mainstream category" do
+  test "should be invalid without a primary mainstream category" do
     detailed_guide = build(:detailed_guide, primary_mainstream_category: nil)
     refute detailed_guide.valid?
     assert detailed_guide.errors.full_messages.include?("Primary detailed guidance category can't be blank")
+  end
+
+  test "should build artefact hash in a suitable format for slimmer to convert into breadcrumb links" do
+    detailed_guide = create(:detailed_guide, title: "detailed-guide-title")
+    content_api = stub("content-api")
+    content_api.stubs(:tag).with("business/tax").returns(parents_hash: true)
+    detailed_guide.primary_mainstream_category.stubs(:to_artefact_hash).returns(category_hash: true)
+
+    artefact_hash = detailed_guide.to_artefact_hash(content_api)
+
+    assert_equal "detailed-guide-title", artefact_hash[:title]
+    assert_equal "detailedguidance", artefact_hash[:format]
+    assert_equal routes_helper.public_document_path(detailed_guide), artefact_hash[:web_url]
+    assert_equal [{parent: {parents_hash: true}, category_hash: true}], artefact_hash[:tags]
+  end
+
+  test "should not return an artefact hash if primary mainstream category has no parent tag" do
+    category = create(:mainstream_category, parent_tag: nil)
+    detailed_guide = create(:detailed_guide, primary_mainstream_category: category)
+    content_api = stub("content-api", tag: {})
+
+    assert_nil detailed_guide.to_artefact_hash(content_api)
+  end
+
+  private
+
+  def routes_helper
+    Class.new do
+      include Rails.application.routes.url_helpers
+      include PublicDocumentRoutesHelper
+    end.new
   end
 end

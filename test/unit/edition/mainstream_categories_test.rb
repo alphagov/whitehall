@@ -12,7 +12,7 @@ class Edition::MainstreamCategoriesTest < ActiveSupport::TestCase
                  edition.mainstream_categories
   end
 
-  test "edition is not valid with the same category in primary and other" do
+  test "edition should be invalid with the same category in primary and other" do
     mainstream_category = create(:mainstream_category)
     edition = build(:draft_detailed_guide, primary_mainstream_category: mainstream_category,
                      other_mainstream_categories: [mainstream_category])
