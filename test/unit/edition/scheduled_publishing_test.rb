@@ -180,6 +180,17 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
     assert edition.published?
   end
 
+  test "#publish_all_due_editions_as sets transaction isolation level to SERIALIZABLE to ensure atomic update" do
+    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
+    robot_user = build(:scheduled_publishing_robot)
+
+    atomic_publishing = sequence('atomic publishing')
+    Edition.connection.expects(:execute).with("set transaction isolation level serializable").in_sequence(atomic_publishing)
+    Edition.connection.expects(:transaction).returns(true).in_sequence(atomic_publishing)
+
+    Edition.publish_all_due_editions_as(robot_user)
+  end
+
   test "#publish_all_due_editions_as returns false on failure" do
     edition = build(:edition, title: "My doc")
     Edition.stubs(:due_for_publication).returns([edition])
