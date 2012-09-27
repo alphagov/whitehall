@@ -9,7 +9,7 @@ namespace :rummager do
     end
 
     task :specialist => :environment do
-      Rummageable.index(Whitehall.specialist_search_index, "/specialist")
+      Rummageable.index(Whitehall.detailed_guidance_search_index, "/specialist")
       Rummageable.commit("/specialist")
     end
   end

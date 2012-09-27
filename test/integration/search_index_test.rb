@@ -23,8 +23,8 @@ class SearchIndexTest < ActiveSupport::TestCase
     assert Whitehall.government_search_index.include?(:supporting_pages)
   end
 
-  test "Whitehall.specialist_search_index includes guidance" do
+  test "Whitehall.detailed_guidance_search_index includes guidance" do
     DetailedGuide.stubs(:search_index).returns([:guidance])
-    assert Whitehall.specialist_search_index.include?(:guidance)
+    assert Whitehall.detailed_guidance_search_index.include?(:guidance)
   end
 end

@@ -77,7 +77,7 @@ module Whitehall
       (edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic]).map(&:search_index).sum([])
     end
 
-    def specialist_search_index
+    def detailed_guidance_search_index
       [DetailedGuide].map(&:search_index).sum([])
     end
 
