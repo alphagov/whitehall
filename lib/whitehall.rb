@@ -77,7 +77,7 @@ module Whitehall
     end
 
     def detailed_guidance_search_index_name
-      '/specialist'
+      '/detailed'
     end
 
     def government_search_index
