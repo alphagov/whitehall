@@ -95,17 +95,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit shows" do
-    publication = create(:publication)
-
-    get :edit, id: publication
-
-    assert_select "form#edition_edit" do
-      assert_select "select[name='edition[publication_type_id]']"
-      assert_select "select[name*='edition[publication_date']", count: 3
-    end
-  end
-
   test "edit should allow users to assign publication metadata to an attachment" do
     publication = create(:publication, :with_attachment)
     attachment = publication.attachments.first
