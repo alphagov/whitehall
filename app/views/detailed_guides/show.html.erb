@@ -21,8 +21,12 @@
 
         <% if @document.replaces_businesslink? %>
           <div class="replaces-businesslink">
-            <p>This replaces</p>
-            <p class="businesslink-logo"><span class="visuallyhidden">Business Link</span></p>
+            <p>
+              This replaces
+              <span class="businesslink-logo">
+                <span class="visuallyhidden">Business Link</span>
+              </span>
+            </p>
           </div>
         <% end %>
       </section>
