@@ -2,7 +2,7 @@ module Edition::ScheduledPublishing
   extend ActiveSupport::Concern
 
   included do
-    validate :scheduled_publication_must_be_in_the_future, if: -> { draft? || submitted? }
+    validate :scheduled_publication_is_in_the_future, if: :scheduled_publication_must_be_in_the_future?
   end
 
   module ClassMethods
@@ -126,10 +126,14 @@ module Edition::ScheduledPublishing
 
     private
 
-    def scheduled_publication_must_be_in_the_future
+    def scheduled_publication_is_in_the_future
       if scheduled_publication.present? && scheduled_publication < Time.zone.now
         errors[:scheduled_publication] << "date must be in the future"
       end
+    end
+
+    def scheduled_publication_must_be_in_the_future?
+      draft? || submitted? || (state_was == 'rejected' && rejected?)
     end
   end
 end

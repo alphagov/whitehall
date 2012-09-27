@@ -15,6 +15,26 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
+  test "scheduled_publication can be in the past when rejecting" do
+    editor = create(:departmental_editor)
+    edition = create(:edition, :submitted, scheduled_publication: 1.minute.from_now)
+    Timecop.freeze(2.minutes.from_now) do
+      assert edition.reject!
+      assert edition.rejected?
+      assert edition.reload.rejected?
+    end
+  end
+
+  test "scheduled_publication must be in the future if editing a rejected document" do
+    editor = create(:departmental_editor)
+    edition = create(:edition, :rejected, scheduled_publication: 1.minute.from_now)
+    Timecop.freeze(2.minutes.from_now) do
+      refute edition.valid?
+      edition.scheduled_publication = 1.minute.from_now
+      assert edition.valid?
+    end
+  end
+
   test "is publishable if submitted without scheduled_publication date and there is no reason to prevent approval" do
     editor = build(:departmental_editor)
     edition = build(:submitted_edition, scheduled_publication: nil)
