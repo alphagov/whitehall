@@ -5,20 +5,24 @@ module Edition::AuditTrail
     has_paper_trail meta: {state: :state}
   end
 
+  def edition_audit_trail(edition_serial_number = 1)
+    versions = self.versions.map { |v|
+      VersionAuditEntry.new(edition_serial_number, self, v)
+    }
+    editorial_remarks = self.editorial_remarks.map { |r|
+      EditorialRemarkAuditEntry.new(edition_serial_number, self, r)
+    }
+    (versions + editorial_remarks).sort
+  end
+
   def audit_trail
     document.editions.order("created_at asc").map.with_index do |edition, i|
-      versions = edition.versions.map { |v|
-        VersionAuditEntry.new(i, edition, v)
-      }
-      editorial_remarks = edition.editorial_remarks.map { |r|
-        EditorialRemarkAuditEntry.new(i, edition, r)
-      }
-      (versions + editorial_remarks).sort
+      edition.edition_audit_trail(i)
     end.flatten
   end
 
   def last_audit_trail_version_event(state)
-    audit_trail.reverse.find { |at| at.respond_to?(:version) && at.version.state == state }
+    edition_audit_trail.reverse.find { |at| at.respond_to?(:version) && at.version.state == state }
   end
 
   class AuditEntry

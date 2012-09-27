@@ -35,6 +35,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_prevent_modification_of_unmodifiable :publication
   should_allow_alternative_format_provider_for :publication
   should_allow_assignment_to_document_series :publication
+  should_allow_scheduled_publication_of :publication
 
   test "new displays publication fields" do
     get :new
@@ -84,6 +85,17 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "edit displays publication fields" do
+    publication = create(:publication)
+
+    get :edit, id: publication
+
+    assert_select "form#edition_edit" do
+      assert_select "select[name='edition[publication_type_id]']"
+      assert_select "select[name*='edition[publication_date']", count: 3
+    end
+  end
+
+  test "edit shows" do
     publication = create(:publication)
 
     get :edit, id: publication

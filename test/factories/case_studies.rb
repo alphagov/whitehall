@@ -11,4 +11,5 @@ FactoryGirl.define do
   factory :published_case_study, parent: :case_study, traits: [:published]
   factory :deleted_case_study, parent: :case_study, traits: [:deleted]
   factory :archived_case_study, parent: :case_study, traits: [:archived]
+  factory :scheduled_case_study, parent: :case_study, traits: [:scheduled]
 end

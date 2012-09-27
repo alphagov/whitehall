@@ -103,6 +103,8 @@ Whitehall::Application.routes.draw do
             post :approve_retrospectively, to: 'edition_workflow#approve_retrospectively'
             post :reject, to: 'edition_workflow#reject'
             post :publish, to: 'edition_workflow#publish'
+            post :schedule, to: 'edition_workflow#schedule'
+            post :unschedule, to: 'edition_workflow#unschedule'
           end
           resource :featuring, only: [:create, :update, :destroy]
           resources :supporting_pages, path: "supporting-pages", except: [:index]

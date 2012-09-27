@@ -24,10 +24,6 @@ module Edition::Publishing
     end
   end
 
-  def publishable_by?(user, options = {})
-    reason_to_prevent_publication_by(user, options).nil?
-  end
-
   def first_edition?
     first_published_at && first_published_at == published_at
   end
@@ -48,7 +44,15 @@ module Edition::Publishing
     end
   end
 
-  def reason_to_prevent_publication_by(user, options = {})
+  def publishable_by?(user, options = {})
+    reason_to_prevent_publication_by(user, options).nil?
+  end
+
+  def approvable_by?(user, options = {})
+    reason_to_prevent_approval_by(user, options).nil?
+  end
+
+  def reason_to_prevent_approval_by(user, options = {})
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
     elsif published?
@@ -68,6 +72,10 @@ module Edition::Publishing
     end
   end
 
+  def reason_to_prevent_publication_by(user, options = {})
+    reason_to_prevent_approval_by(user, options)
+  end
+
   def publish_as(user, options = {})
     if publishable_by?(user, options)
       self.published_at = if self.minor_change && latest_published_edition
@@ -76,7 +84,9 @@ module Edition::Publishing
         Time.zone.now
       end
       self.first_published_at ||= published_at
-      self.force_published = options[:force]
+      if ! scheduled?
+        self.force_published = options[:force]
+      end
       publish!
       true
     else
