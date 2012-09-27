@@ -1,8 +1,4 @@
-require 'gds_api/helpers'
-require 'gds_api/content_api'
-
 class DetailedGuidesController < DocumentsController
-  include GdsApi::Helpers
   layout "detailed-guidance"
   before_filter :set_search_path
   before_filter :set_artefact, only: [:show]
@@ -54,6 +50,7 @@ private
   end
 
   def set_artefact
+    content_api = Whitehall.mainstream_content_api
     if artefact_hash = @document.to_artefact_hash(content_api)
       set_slimmer_artefact artefact_hash
     end

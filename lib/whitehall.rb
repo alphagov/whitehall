@@ -5,6 +5,7 @@ module Whitehall
 
   mattr_accessor :search_client
   mattr_accessor :mainstream_search_client
+  mattr_accessor :mainstream_content_api
 
   revision_file = "#{Rails.root}/REVISION"
   if File.exists?(revision_file)
