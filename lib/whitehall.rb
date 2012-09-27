@@ -80,6 +80,10 @@ module Whitehall
       '/detailed'
     end
 
+    def mainstream_search_index_name
+      '/rummager'
+    end
+
     def government_search_index
       edition_classes = Edition.subclasses - [DetailedGuide] - DetailedGuide.subclasses
       (edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic]).map(&:search_index).sum([])

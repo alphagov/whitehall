@@ -5,12 +5,12 @@ namespace :rummager do
   namespace :index do
     task :government => :environment do
       Rummageable.index(Whitehall.government_search_index, Whitehall.government_search_index_name)
-      Rummageable.commit("/government")
+      Rummageable.commit(Whitehall.government_search_index_name)
     end
 
     task :specialist => :environment do
       Rummageable.index(Whitehall.detailed_guidance_search_index, Whitehall.detailed_guidance_search_index_name)
-      Rummageable.commit("/specialist")
+      Rummageable.commit(Whitehall.detailed_guidance_search_index_name)
     end
   end
 end
