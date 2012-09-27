@@ -209,4 +209,13 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
     assert_equal false, Edition.publish_all_due_editions_as(robot_user)
   end
 
+  test "#publish_all_due_editions_as updates the audit trail to indicate that the robot user published the edition" do
+    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
+    robot_user = create(:scheduled_publishing_robot)
+    Edition.publish_all_due_editions_as(robot_user)
+    publishing_event = edition.reload.edition_audit_trail.last
+    assert_equal "publish", publishing_event.event
+    assert_equal robot_user, publishing_event.actor
+  end
+
 end

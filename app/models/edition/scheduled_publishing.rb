@@ -12,11 +12,9 @@ module Edition::ScheduledPublishing
 
     def publish_all_due_editions_as(user, logger = Rails.logger)
       publishable_ids = due_for_publication.map(&:id).shuffle
-      acting_as(user) do
-        publishable_ids.map do |id|
-          publish_atomically_as(user, id, logger)
-        end.all?
-      end
+      publishable_ids.map do |id|
+        publish_atomically_as(user, id, logger)
+      end.all?
     end
 
     def due_for_publication
