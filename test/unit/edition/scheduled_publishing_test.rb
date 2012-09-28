@@ -169,7 +169,7 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
-  test "scheduled_publishing_robot creates a scheduled publishing robot user account if none exists" do
+  test ".scheduled_publishing_robot creates a scheduled publishing robot user account if none exists" do
     assert_difference "User.count", 1 do
       Edition.scheduled_publishing_robot
     end
@@ -192,12 +192,25 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
     DatabaseCleaner.clean_with :truncation
   end
 
-  test "#publish_all_due_editions_as publishes all due publications using the specified account and returns true" do
+  test "#publish_all_due_editions_as publishes all due publications using the specified account" do
     edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
     robot_user = create(:scheduled_publishing_robot)
-    assert_equal true, Edition.publish_all_due_editions_as(robot_user)
+    Edition.publish_all_due_editions_as(robot_user)
     edition.reload
     assert edition.published?
+  end
+
+  test "#publish_all_due_editions_as records number of due publications to statsd" do
+    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
+    robot_user = create(:scheduled_publishing_robot)
+    stats_collector = stub_everything("stats_collector")
+    seq = sequence("publishing")
+    stats_collector.expects(:gauge).with("scheduled_publishing.due", 1).in_sequence(seq)
+    stats_collector.expects(:increment).with("scheduled_publishing.published").in_sequence(seq)
+    stats_collector.expects(:gauge).with("scheduled_publishing.due", 0).in_sequence(seq)
+    with_service(:stats_collector, stats_collector) do
+      Edition.publish_all_due_editions_as(robot_user)
+    end
   end
 
   test "#publish_all_due_editions_as sets transaction isolation level to SERIALIZABLE to ensure atomic update" do
@@ -211,22 +224,12 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
     Edition.publish_all_due_editions_as(robot_user)
   end
 
-  test "#publish_all_due_editions_as returns false on failure" do
-    edition = build(:edition, title: "My doc")
-    Edition.stubs(:due_for_publication).returns([edition])
-
-    robot_user = stub("robot user", can_publish_scheduled_editions?: true)
-    edition.stubs(:publish_as).returns(false)
-    assert_equal false, Edition.publish_all_due_editions_as(robot_user)
-  end
-
   test "#publish_all_due_editions_as rescues exceptions raised by publish_as" do
     edition = build(:edition, title: "My doc")
     Edition.stubs(:due_for_publication).returns([edition])
 
     robot_user = stub("robot user", can_publish_scheduled_editions?: true)
-    edition.stubs(:publish_as).raises("oh dear")
-    assert_equal false, Edition.publish_all_due_editions_as(robot_user)
+    edition.stubs(:publish_as).raises(ActiveRecord::StatementInvalid)
   end
 
   test "#publish_all_due_editions_as updates the audit trail to indicate that the robot user published the edition" do
@@ -238,4 +241,11 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
     assert_equal robot_user, publishing_event.actor
   end
 
+  test "#publish_all_due_editions_as increments call_count statsd counter" do
+    stats_collector = stub_everything("stats_collector")
+    stats_collector.expects(:increment).with("scheduled_publishing.call_count").once
+    with_service(:stats_collector, stats_collector) do
+      Edition.publish_all_due_editions_as(stub("robot user"))
+    end
+  end
 end

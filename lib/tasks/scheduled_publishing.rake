@@ -25,7 +25,7 @@ namespace :publishing do
 
     desc "Publish all editions due for publication"
     task :publish => :environment do
-      Edition.publish_all_due_editions_as(Edition.scheduled_publishing_robot) or raise "Unable to publish some editions, check logs"
+      Edition.publish_all_due_editions_as(Edition.scheduled_publishing_robot)
     end
   end
 end

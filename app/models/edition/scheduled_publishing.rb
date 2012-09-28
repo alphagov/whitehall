@@ -11,10 +11,12 @@ module Edition::ScheduledPublishing
     end
 
     def publish_all_due_editions_as(user, logger = Rails.logger)
-      publishable_ids = due_for_publication.map(&:id).shuffle
-      publishable_ids.map do |id|
-        publish_atomically_as(user, id, logger)
-      end.all?
+      Whitehall.stats_collector.increment("scheduled_publishing.call_count")
+      Whitehall.stats_collector.gauge("scheduled_publishing.due", due_for_publication.count)
+      due_for_publication.shuffle.each do |edition|
+        publish_atomically_as(user, edition.id, logger)
+      end
+      Whitehall.stats_collector.gauge("scheduled_publishing.due", due_for_publication.reload.count)
     end
 
     def due_for_publication
@@ -38,6 +40,7 @@ module Edition::ScheduledPublishing
         Edition.connection.transaction do
           edition = Edition.find(edition_id)
           if edition.publish_as(user)
+            Whitehall.stats_collector.increment("scheduled_publishing.published")
             logger.info("Published #{edition.title} automatically")
             return true
           else

@@ -54,12 +54,16 @@ class ActiveSupport::TestCase
     ActiveSupport::Notifications.unsubscribe(subscriber)
   end
 
-  def with_mainstream_content_api(content_api)
-    original_content_api = Whitehall.mainstream_content_api
-    Whitehall.mainstream_content_api = content_api
+  def with_service(service_name, service, &block)
+    original_service = Whitehall.send(service_name)
+    Whitehall.send(:"#{service_name}=", service)
     yield
   ensure
-    Whitehall.mainstream_content_api = original_content_api
+    Whitehall.send(:"#{service_name}=", original_service)
+  end
+
+  def with_mainstream_content_api(content_api, &block)
+    with_service(:mainstream_content_api, content_api, &block)
   end
 
   class << self
