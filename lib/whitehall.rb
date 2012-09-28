@@ -3,8 +3,9 @@ module Whitehall
   autoload :RandomKey, 'whitehall/random_key'
   autoload :FormBuilder, 'whitehall/form_builder'
 
-  mattr_accessor :search_client
+  mattr_accessor :government_search_client
   mattr_accessor :mainstream_search_client
+  mattr_accessor :detailed_guidance_search_client
   mattr_accessor :mainstream_content_api
 
   revision_file = "#{Rails.root}/REVISION"
@@ -71,8 +72,25 @@ module Whitehall
       !Rails.env.test? && aws_access_key_id && aws_secret_access_key
     end
 
-    def search_index
-      [Edition, MinisterialRole, Organisation, SupportingPage, Topic].map(&:search_index).sum([])
+    def government_search_index_name
+      '/government'
+    end
+
+    def detailed_guidance_search_index_name
+      '/detailed'
+    end
+
+    def mainstream_search_index_name
+      '/rummager'
+    end
+
+    def government_search_index
+      edition_classes = Edition.subclasses - [DetailedGuide] - DetailedGuide.subclasses
+      (edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic]).map(&:search_index).sum([])
+    end
+
+    def detailed_guidance_search_index
+      [DetailedGuide].map(&:search_index).sum([])
     end
 
     private

@@ -224,7 +224,7 @@ class TopicTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     topic.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     topic.save
   end
@@ -234,7 +234,7 @@ class TopicTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     topic.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     topic.name = 'different topic name'
     topic.save
@@ -242,13 +242,13 @@ class TopicTest < ActiveSupport::TestCase
 
   test 'should remove topic from search index on destroying' do
     topic = create(:topic)
-    Rummageable.expects(:delete).with("/government/topics/#{topic.slug}")
+    Rummageable.expects(:delete).with("/government/topics/#{topic.slug}", Whitehall.government_search_index_name)
     topic.destroy
   end
 
   test 'should remove topic from search index on deleting' do
     topic = create(:topic)
-    Rummageable.expects(:delete).with("/government/topics/#{topic.slug}")
+    Rummageable.expects(:delete).with("/government/topics/#{topic.slug}", Whitehall.government_search_index_name)
     topic.delete!
   end
 
