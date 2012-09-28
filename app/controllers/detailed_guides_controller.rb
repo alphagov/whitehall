@@ -1,6 +1,6 @@
 class DetailedGuidesController < DocumentsController
   layout "detailed-guidance"
-  before_filter :set_search_path
+  before_filter :set_search_index
   before_filter :set_artefact, only: [:show]
 
   respond_to :html, :json
@@ -41,8 +41,8 @@ private
     DetailedGuide.published.includes(:document, :organisations, :topics)
   end
 
-  def set_search_path
-    response.headers[Slimmer::Headers::SEARCH_PATH_HEADER] = search_detailed_guides_path
+  def set_search_index
+    response.headers[Slimmer::Headers::SEARCH_INDEX_HEADER] = 'detailed'
   end
 
   def set_proposition
