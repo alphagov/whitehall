@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/'
 
-gem 'statsd-ruby', '1.0.0', :require => "statsd"
+gem 'statsd-ruby', '1.0.0', require: "statsd"
 gem 'rails', '3.1.7'
 gem 'mysql2'
 gem 'jquery-rails'
