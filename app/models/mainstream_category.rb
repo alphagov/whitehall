@@ -39,18 +39,4 @@ class MainstreamCategory < ActiveRecord::Base
     CGI::unescape(identifier.match(%r{^https?://[^/]+/tags/([^/]+)\.json$})[1])
   end
 
-  def to_artefact_hash
-    {
-      title: title,
-      id: path,
-      web_url: nil,
-      details: {
-        type: 'section'
-      },
-      content_with_tag: {
-        id: path,
-        web_url: mainstream_category_path(self)
-      }
-    }
-  end
 end

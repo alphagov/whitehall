@@ -54,6 +54,14 @@ class ActiveSupport::TestCase
     ActiveSupport::Notifications.unsubscribe(subscriber)
   end
 
+  def with_mainstream_content_api(content_api)
+    original_content_api = Whitehall.mainstream_content_api
+    Whitehall.mainstream_content_api = content_api
+    yield
+  ensure
+    Whitehall.mainstream_content_api = original_content_api
+  end
+
   class << self
     def disable_database_queries
       self.use_transactional_fixtures = false

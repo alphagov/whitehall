@@ -50,10 +50,8 @@ private
   end
 
   def set_artefact
-    content_api = Whitehall.mainstream_content_api
-    if artefact_hash = @document.to_artefact_hash(content_api)
-      set_slimmer_artefact artefact_hash
-    end
+    breadcrumb_trail = BreadcrumbTrail.for(@document)
+    set_slimmer_artefact breadcrumb_trail if breadcrumb_trail.valid?
   end
 
 end

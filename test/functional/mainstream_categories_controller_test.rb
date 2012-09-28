@@ -23,4 +23,16 @@ class MainstreamCategoriesControllerTest < ActionController::TestCase
     refute_select_object detailed_guide
   end
 
+  test "show sets breadcrumb trail" do
+    category = create(:mainstream_category)
+    sentinel = stub("breadcrumb", valid?: true, to_hash: {"this_is_just_a_placeholder" => true})
+    BreadcrumbTrail.stubs(:for).with(category).returns(sentinel)
+
+    get :show, id: category
+
+    artefact_headers = ActiveSupport::JSON.decode(response.headers[Slimmer::Headers::ARTEFACT_HEADER])
+
+    assert_equal sentinel.to_hash, artefact_headers
+  end
+
 end
