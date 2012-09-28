@@ -11,7 +11,7 @@ module Edition::ScheduledPublishing
     end
 
     def publish_all_due_editions_as(user, logger = Rails.logger)
-      Whitehall.stats_collector.increment("scheduled_publishing.call_count")
+      Whitehall.stats_collector.increment("scheduled_publishing.call_rate")
       Whitehall.stats_collector.gauge("scheduled_publishing.due", due_for_publication.count)
       due_for_publication.shuffle.each do |edition|
         publish_atomically_as(user, edition.id, logger)

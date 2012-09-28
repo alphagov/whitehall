@@ -243,7 +243,7 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
 
   test "#publish_all_due_editions_as increments call_count statsd counter" do
     stats_collector = stub_everything("stats_collector")
-    stats_collector.expects(:increment).with("scheduled_publishing.call_count").once
+    stats_collector.expects(:increment).with("scheduled_publishing.call_rate").once
     with_service(:stats_collector, stats_collector) do
       Edition.publish_all_due_editions_as(stub("robot user"))
     end
