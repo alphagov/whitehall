@@ -13,18 +13,21 @@ end
 namespace :guidance do
 
   desc "Upload CSVs of Detailed Guidance content to the database"
-  task :import_csv, [:file, :topic, :organisation, :creator] => [:environment] do |t, args|
+  task :import_csv, [:file, :topic, :primary_mainstream_category, :organisation, :creator] => [:environment] do |t, args|
     topic = Topic.where(slug: args[:topic]).first
+    primary_mainstream_category = MainstreamCategory.where(slug: args[:primary_mainstream_category]).first
     organisation = Organisation.where(slug: args[:organisation]).first
     creator = User.where(email: args[:creator]).first
-    unless topic && creator
+    unless topic && creator && primary_mainstream_category
       unless topic
         puts "Must provide a valid topic slug"
       end
       unless creator
         puts "Must provide a valid creator email"
       end
-
+      unless primary_mainstream_category
+        puts "Must provide a primary mainstream category"
+      end
       next
     end
 
@@ -59,10 +62,12 @@ namespace :guidance do
         if organisation
           guide.organisations = [organisation]
         end
+        guide.primary_mainstream_category = primary_mainstream_category
       end
 
+      was_new = guide.new_record?
       if guide.save
-        if guide.new_record?
+        if was_new
           new_guides += 1
         else
           updated_guides += 1

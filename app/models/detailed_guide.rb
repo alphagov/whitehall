@@ -1,3 +1,5 @@
+require "edition/mainstream_category"
+
 class DetailedGuide < Edition
   include Edition::Images
   include Edition::NationalApplicability
