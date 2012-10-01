@@ -4,20 +4,10 @@
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
-      <section class="page-header icon">
-        <h1>
-          <span class="label"><%= consultation_header_title(@document) %>:</span>
-          <span class="topic"><%= @document.title %></span>
-        </h1>
-        <div class="meta-context meta">
-          <%= part_of_policy_paragraph(@related_policies) %>
-          <%= applies_to_countries_paragraph(@document) %>
-          <%= only_applies_to_nations_paragraph(@document) %>
-        </div>
-      </section>
-      <div class="meta-changes">
-        <%= render partial: 'change_notes', locals: {document: @document} %>
-      </div>
+          <%= render partial: "documents/header", locals: { 
+          document: @document, 
+          header_title: consultation_header_title(@document),
+          hide_header_organisation: true} %>
     </div>
   </div>
 

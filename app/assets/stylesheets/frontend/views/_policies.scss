@@ -40,32 +40,9 @@
     }
   }
 
-  .meta {
-    @include core-14;
-      clear: none;
-      float: right;
-      margin-top: 2px;
-      width: 47.5%;
-      text-align: right;
-    .metadata {
-      display: inline;
-      line-height: 35px;
-    }
-    .change-notes {
-      margin-left: $gutter-one-third;
-
-      &.toggleable .overlay {
-        left: -100%;
-        .arrow {
-          left: 70%;
-        }
-      }
-    }
-
-    @include media(desktop){
-    position: relative;
-    margin-top: $gutter-one-third;
-    }
+  .meta-three {
+    clear: both;
+    padding: $gutter*2 0 $gutter;
   }
 
     .block-1, .block-2, .block-3 {
@@ -104,9 +81,6 @@
     margin: 0;
     padding-left: 0;
     padding-top: 0;
-    @include media(desktop){
-      margin: 0 0 0 25%;
-    }
   }
 
   #policy_team {
@@ -130,25 +104,6 @@
 
   .current-appointee {
     margin-right: $gutter-half;
-  }
-
-  .page-header {
-    width: 100%;
-    float: none;
-    padding: $gutter-two-thirds 0 $gutter;
-    h1 {
-      text-align: left;
-      max-width: 100%;
-    }
-    @include media(desktop){
-      padding: $gutter 0 40px;
-      h1 {
-      clear: both;
-      text-align: center;
-      max-width: 18em;
-      margin: 0 auto;
-      }
-    }
   }
 
   .policy-parts {
@@ -206,54 +161,39 @@
   }
 
   .policy-navigation {
-//     border: none;
-//   ul {
-//     margin: 0;
-//     width: 100%;
-//     li {
-//       width: 32%;
-//     }
-//   }
 
-
-    border-top: 1px solid $light-blue-grey;
+    border-bottom: 1px solid $light-blue-grey;
     display: block;
-    margin: $gutter 0 $gutter-two-thirds;
+    //margin: $gutter 0 $gutter-two-thirds;
     width: 100%;
     ul {
-      @include border-radius(0.6em);
-      background-color: lighten($charcoal-grey, 10%);
-      display: inline-block;
       margin: 0;
       overflow: hidden;
-      padding: $gutter-half*0.4;
       position: relative;
-         -moz-box-sizing: border-box;
-          -ms-box-sizing: border-box;
-           -o-box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-              box-sizing: border-box;
+      @include box-sizing(border);
       width: 100%;
       li {
         float: left;
         display: inline;
-        margin-right: $gutter-half*0.4;
+        margin-right: 1px;
         width: 32%;
 
         a {
           @include core-19;
-          font-family: $NTA-Bold;
-          color: $white;
+          background-color: $grey-88;
+          color: $link-text;
           display: block;
+          opacity: 0.8;
           padding: $gutter-one-third 0;
-          @include border-radius(0.3em);
           text-align: center;
           text-decoration: none;
           width: auto;
-          opacity: 0.75;
           &.current {
-            opacity: 0.85;
-            @include gradient(#bbb, #888);
+            border: 1px solid $light-blue-grey;
+            border-bottom: none;
+            background-color: $white;
+            color: $body-text;
+            opacity: 1;
           }
           &:hover, &:focus {
             opacity: 1;
@@ -269,7 +209,7 @@
       margin: $gutter 0 $gutter-two-thirds;
       width: auto;
       ul {
-        margin: -30px auto $gutter 20%;
+        margin: 0 auto -1px 20%;
         width: auto;
         li {
           width: 8em;
@@ -279,10 +219,9 @@
 
     @include media(desktop){
     display: block;
-    margin-top: 70px;
     width: auto;
       ul {
-        margin: -30px auto $gutter 25%;
+        margin: 0 auto -1px 25%;
         width: auto;
         li {
           width: 11em;
@@ -290,9 +229,9 @@
       }
     }
 
-
-
   }
+
+
 
   #case-studies {
     h1 {
@@ -338,10 +277,6 @@
   // see helpers/_feed.scss for the other styles
   .subscribe {
     float: right;
-  }
-
-  .label {
-    float: left;
   }
 
   .document-list .document-row td {

@@ -3,7 +3,7 @@
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
-      <%= render partial: "documents/header_publication_consultation" %>
+      <%= render partial: "documents/header" %>
       <%= render partial: "documents/attachment_full_width",
                 locals: { document: @document } %>
       <% if @document.part_of_series? %>

@@ -8,6 +8,7 @@
     @include core-48;
     .label {
       color: lighten($body-text, 30%);
+      display: block;
     }
   }
 

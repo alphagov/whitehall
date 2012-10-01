@@ -1,0 +1,21 @@
+<%
+  header_title ||= ""
+  show_topics ||= false
+  hide_header_organisation ||= false
+%>
+<section class="page-header">
+  <%= render partial: "title", 
+             locals: { document: @document, header_title: header_title, hide_header_organisation: hide_header_organisation } %>
+  <div class="meta-context meta meta-topic">
+    <% if show_topics %>
+      <%= part_of_topics_paragraph(@document.topics) %>
+    <% end %>
+    <%= part_of_policy_paragraph(@related_policies) %>
+    <%= applies_to_countries_paragraph(@document) %>
+    <%= only_applies_to_nations_paragraph(@document) %>
+  </div>
+</section>
+
+<div class="meta-changes">
+  <%= render partial: 'change_notes', locals: {document: @document} %>
+</div>
