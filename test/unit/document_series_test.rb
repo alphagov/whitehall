@@ -1,6 +1,8 @@
 require "test_helper"
 
 class DocumentSeriesTest < ActiveSupport::TestCase
+  should_protect_against_xss_and_content_attacks_on :name, :description
+
   test 'should be invalid without a name' do
     series = build(:document_series, name: nil)
     refute series.valid?

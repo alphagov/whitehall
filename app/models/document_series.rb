@@ -3,6 +3,7 @@ class DocumentSeries < ActiveRecord::Base
 
   has_many :editions, order: 'publication_date desc'
 
+  validates_with SafeHtmlValidator
   validates :name, presence: true
 
   before_destroy { |dc| dc.destroyable? }
