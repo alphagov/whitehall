@@ -10,7 +10,6 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
 
     with_mainstream_content_api(content_api) do
       breadcrumb_trail = BreadcrumbTrail.for(detailed_guide)
-      breadcrumb_trail.content_api = content_api
       assert breadcrumb_trail.valid?
 
       assert_equal "detailed-guide-title", breadcrumb_trail.to_hash[:title]
@@ -48,7 +47,6 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
 
     with_mainstream_content_api(content_api) do
       breadcrumb_trail = BreadcrumbTrail.for(mainstream_category)
-      breadcrumb_trail.content_api = content_api
       assert breadcrumb_trail.valid?
 
       artefact_hash = breadcrumb_trail.to_hash

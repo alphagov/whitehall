@@ -2,10 +2,6 @@ class BreadcrumbTrail
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
 
-  cattr_accessor :content_api do
-    Whitehall.mainstream_content_api
-  end
-
   def valid?
     to_hash.present?
   end
@@ -48,7 +44,7 @@ private
         id: mainstream_category.path,
         web_url: mainstream_category_path(mainstream_category)
       },
-      parent: self.content_api.tag(mainstream_category.parent_tag).to_hash
+      parent: Whitehall.mainstream_content_api.tag(mainstream_category.parent_tag).to_hash
     }
   end
 
@@ -66,7 +62,7 @@ class MainstreamCategoryBreadcrumbTrail < BreadcrumbTrail
       format: 'section',
       web_url: mainstream_category_path(@mainstream_category),
       id: @mainstream_category.identifier,
-      tags: [self.content_api.tag(@mainstream_category.parent_tag).to_hash]
+      tags: [Whitehall.mainstream_content_api.tag(@mainstream_category.parent_tag).to_hash]
     }
   end
 end
