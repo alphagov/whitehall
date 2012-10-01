@@ -82,7 +82,7 @@ module Whitehall
     end
 
     def mainstream_search_index_name
-      '/rummager'
+      '/mainstream'
     end
 
     def government_search_index
