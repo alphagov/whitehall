@@ -1,25 +1,58 @@
 
 .inside_gov_sunset {
-  .block-1 {
-    h2 {
-      margin-top: $gutter;
-      @include sans-20;
-      font-weight: 700;
+
+  h1 {
+    @include core-48;
+    margin: $gutter 0 $gutter*2;
+    @include media(desktop) {
+      margin-top: 0;
     }
-    
-    p.intro {
-      @include core-27;
+  }
+
+  .block-2, .block-3 {
+    float: none;
+    display: block;
+    width: 100%;
+  }
+
+  .block-2 {
+    margin-bottom: $gutter;
+    img {
+      width: 100%;
     }
+    .first {
+      margin: 0 25%;
+      width: 50%;
+    }
+  }
+
+  .block-3 {
 
     p {
       @include core-19;
       margin-bottom: $gutter-half;
+      &:nth-child(2) {
+        margin-bottom: $gutter;
+      }
     }
+
+    p.intro {
+      @include core-27;
+    }
+
   }
   
-  @include media(desktop) {
-    .block-1, .block-2 {
-      margin: 0 auto;
+  @include media(tablet) {
+    .block-2, .block-3 {
+      float: left;
+      display: inline;
+      width: 50%;
+    }
+    .block-2 {
+      .first {
+        margin: 0;
+        width: 100%;
+      }
     }
   }
 }
