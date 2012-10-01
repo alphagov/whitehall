@@ -31,7 +31,9 @@ module Edition::ScheduledPublishing
           User::Permissions::PUBLISH_SCHEDULED_EDITIONS
         ]
       }
-      User.create!(name: "Scheduled Publishing Robot", uid: nil, permissions: permissions)
+      User.create!(name: "Scheduled Publishing Robot", uid: nil) do |user|
+        user.permissions = permissions
+      end
     end
 
     def publish_atomically_as(user, edition_id, logger = Rails.logger)

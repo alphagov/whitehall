@@ -25,4 +25,16 @@ class UserTest < ActiveSupport::TestCase
     user = build(:user, email: nil, permissions: {'Whitehall' => []})
     refute user.departmental_editor?
   end
+
+  test 'should not normally allow mass assignment of permissions' do
+    user = build(:user, email: nil, permissions: {'Whitehall' => []})
+    user.assign_attributes(permissions: {'Whitehall' => ['Superuser']})
+    assert_equal [], user.permissions['Whitehall']
+  end
+
+  test 'should not allow gds-sso to mass assign permissions' do
+    user = build(:user, email: nil, permissions: {'Whitehall' => []})
+    user.assign_attributes({permissions: {'Whitehall' => ['Superuser']}}, as: :oauth)
+    assert_equal ['Superuser'], user.permissions['Whitehall']
+  end
 end
