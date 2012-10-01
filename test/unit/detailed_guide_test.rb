@@ -100,13 +100,4 @@ class DetailedGuideTest < EditionTestCase
     refute detailed_guide.valid?
     assert detailed_guide.errors.full_messages.include?("Primary detailed guidance category can't be blank")
   end
-
-  private
-
-  def routes_helper
-    Class.new do
-      include Rails.application.routes.url_helpers
-      include PublicDocumentRoutesHelper
-    end.new
-  end
 end
