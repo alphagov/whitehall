@@ -1,21 +1,25 @@
 
 .inside_gov_sunset {
-  .block-2 {
+  .block-1 {
     h2 {
       margin-top: $gutter;
       @include sans-20;
       font-weight: 700;
     }
     
+    p.intro {
+      @include core-27;
+    }
+
     p {
-      @include sans-20;
+      @include core-19;
+      margin-bottom: $gutter-half;
     }
   }
   
-  @media (min-width: 768px) {
+  @include media(desktop) {
     .block-1, .block-2 {
       margin: 0 auto;
-      max-width: 70%;
     }
   }
 }
