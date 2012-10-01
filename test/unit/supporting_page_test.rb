@@ -1,6 +1,8 @@
 require "test_helper"
 
 class SupportingPageTest < ActiveSupport::TestCase
+  should_protect_against_xss_and_content_attacks_on :title, :body
+
   test "should be invalid without a title" do
     supporting_page = build(:supporting_page, title: nil)
     refute supporting_page.valid?

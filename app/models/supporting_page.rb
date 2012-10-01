@@ -8,6 +8,7 @@ class SupportingPage < ActiveRecord::Base
 
   attachable :supporting_page
 
+  validates_with SafeHtmlValidator
   validates :title, :body, :edition, presence: true
 
   scope :published, joins(:edition).merge(Edition.published)
