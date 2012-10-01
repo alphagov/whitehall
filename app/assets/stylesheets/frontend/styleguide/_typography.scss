@@ -72,6 +72,27 @@
   }
 }
 
+// Suitable for page headings
+@mixin core-36 {
+  font-family: $NTA-Light;
+  font-size: 36px;
+  font-size: 3.6rem;
+  line-height: (40/36);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-top: 6px;
+  padding-top: 0.6rem;
+  padding-bottom: 9px;
+  padding-bottom: 0.9rem;
+  @media (max-width: 640px) {
+    font-size: 2.4rem;
+    line-height: (25/24);
+    padding-top: 0.8rem;
+    padding-bottom: 0.7rem;
+  }
+}
+
 // Suitable for body headings
 @mixin core-27 {
   font-family: $NTA-Light;
