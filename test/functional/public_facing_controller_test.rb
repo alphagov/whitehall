@@ -30,11 +30,24 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "all public facing requests should block WAP requests" do
-    with_routing_to_test_action do
-      @request.env['HTTP_ACCEPT'] = 'application/vnd.wap.xhtml+xml'
-      get :test
-      assert_equal 406, response.status
+  test "all public facing requests should block all requests with formats we don't support" do
+    good_mime_types = ["*/*", "text/html", "application/json", "application/xml", "application/atom+xml"]
+    bad_mime_types = ["application/vnd.wap.xhtml+xml", '']
+
+    good_mime_types.each do |type|
+      with_routing_to_test_action do
+        @request.env['HTTP_ACCEPT'] = type
+        get :test
+        assert_equal 200, response.status, "mime type #{type} should be acceptable"
+      end
+    end
+
+    bad_mime_types.each do |type|
+      with_routing_to_test_action do
+        @request.env['HTTP_ACCEPT'] = type
+        get :test
+        assert_equal 406, response.status, "mime type #{type} should not be acceptable"
+      end
     end
   end
 

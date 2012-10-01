@@ -2,7 +2,7 @@ class PublicFacingController < ApplicationController
   helper :all
   before_filter :set_cache_control_headers
   before_filter :set_search_path
-  before_filter :deny_wap_requests
+  before_filter :restrict_request_formats
 
   private
 
@@ -18,7 +18,8 @@ class PublicFacingController < ApplicationController
     render status: status_code, text: "#{status_code} error"
   end
 
-  def deny_wap_requests
-    request.format.to_sym == :wap ? error(406) : return
+  def restrict_request_formats
+    allowed_formats = [Mime::HTML, Mime::JSON, Mime::XML, Mime::ATOM, Mime::ALL]
+    error(406) unless allowed_formats.include?(request.format)
   end
 end
