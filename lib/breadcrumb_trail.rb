@@ -1,6 +1,7 @@
 class BreadcrumbTrail
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
+  include MainstreamCategoryRoutesHelper
 
   def valid?
     to_hash.present?

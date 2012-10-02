@@ -46,7 +46,7 @@
       <% if edition.mainstream_categories.any? %>
         <ul>
           <% edition.mainstream_categories.each do |mainstream_category| %>
-            <li><%= mainstream_category.parent_title %> &gt; <%= link_to mainstream_category.title, mainstream_category %></li>
+            <li><%= mainstream_category.parent_title %> &gt; <%= link_to mainstream_category.title, mainstream_category_path(mainstream_category) %></li>
           <% end %>
         </ul>
       <% else %>

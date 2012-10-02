@@ -95,7 +95,6 @@ end
 Then /^the detailed guide "([^"]*)" should be visible to the public in the mainstream category "([^"]*)"$/ do |title, category_title|
   category = MainstreamCategory.find_by_title!(category_title)
   detailed_guide = DetailedGuide.latest_edition.find_by_title!(title)
-
-  visit url_for(category)
+  visit "/browse/#{category.parent_tag}/#{category.slug}"
   assert page.has_css?(record_css_selector(detailed_guide))
 end

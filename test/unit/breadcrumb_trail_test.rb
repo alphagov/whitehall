@@ -1,7 +1,6 @@
 require "test_helper"
 
 class BreadcrumbTrailTest < ActiveSupport::TestCase
-
   test "should build hash suitable for slimmer from detailed guide" do
     mainstream_category = create(:mainstream_category, parent_tag: "business/tax")
     detailed_guide = create(:detailed_guide, title: "detailed-guide-title", primary_mainstream_category: mainstream_category)
@@ -64,6 +63,7 @@ private
     Class.new do
       include Rails.application.routes.url_helpers
       include PublicDocumentRoutesHelper
+      include MainstreamCategoryRoutesHelper
     end.new
   end
 
