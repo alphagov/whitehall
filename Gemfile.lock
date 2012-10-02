@@ -402,8 +402,8 @@ DEPENDENCIES
   sass-rails (= 3.1.4)
   simplecov
   simplecov-rcov
-  statsd-ruby (= 1.0.0)
   slimmer (= 3.6.1)
+  statsd-ruby (= 1.0.0)
   test_track
   thin
   timecop
