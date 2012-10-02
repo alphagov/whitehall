@@ -21,7 +21,11 @@ Whitehall::Application.routes.draw do
   match '/browse/*parent_tag/:id', to: 'mainstream_categories#show'
 
   namespace 'api' do
-    resources :detailed_guides, path: 'specialist', only: [:show, :index], defaults: { format: :json }
+    resources :detailed_guides, path: 'specialist', only: [:show, :index], defaults: { format: :json } do
+      collection do
+        get :tags
+      end
+    end
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
