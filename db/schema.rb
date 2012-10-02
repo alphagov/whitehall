@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925210027) do
+ActiveRecord::Schema.define(:version => 20121002141523) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -304,7 +304,6 @@ ActiveRecord::Schema.define(:version => 20120925210027) do
 
   create_table "mainstream_categories", :force => true do |t|
     t.string   "slug"
-    t.string   "identifier"
     t.string   "title"
     t.string   "parent_title"
     t.datetime "created_at"
@@ -312,7 +311,6 @@ ActiveRecord::Schema.define(:version => 20120925210027) do
     t.string   "parent_tag"
   end
 
-  add_index "mainstream_categories", ["identifier"], :name => "index_mainstream_categories_on_identifier", :unique => true
   add_index "mainstream_categories", ["slug"], :name => "index_mainstream_categories_on_slug", :unique => true
 
   create_table "nation_inapplicabilities", :force => true do |t|

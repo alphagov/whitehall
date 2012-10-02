@@ -10,8 +10,8 @@ class MainstreamCategoryTest < ActiveSupport::TestCase
     refute @category.valid?
   end
 
-  test "should be invalid without identifier" do
-    @category.identifier = nil
+  test "should be invalid without slug" do
+    @category.title = nil
     refute @category.valid?
   end
 
@@ -20,33 +20,15 @@ class MainstreamCategoryTest < ActiveSupport::TestCase
     refute @category.valid?
   end
 
-  test "should be invalid with an identifier that doesn't start with http(s?)://" do
-    @category.identifier = "example.com/tags/blah.json"
+  test "should be invalid without parent_tag" do
+    @category.parent_tag = nil
     refute @category.valid?
-    assert @category.errors[:identifier].include?("must start with http or https")
   end
 
-  test "should be invalid with an identifier that doesn't contain /tags/" do
-    @category.identifier = "http://example.com/blah.json"
-    refute @category.valid?
-    assert @category.errors[:identifier].include?("must contain /tags/")
-  end
-
-  test "should be invalid with an identifier that doesn't end in .json" do
-    @category.identifier = "https://example.com/tags/blah"
-    refute @category.valid?
-    assert @category.errors[:identifier].include?("must end with .json")
-  end
-
-  test "slug is generated from last path part of the identifier" do
-    @category.identifier = "http://some.thing/tags/category%2Fsubcategory.json"
-    assert_equal "subcategory", @category.generate_slug
-  end
-
-  test "slug is set automatically on save" do
-    @category.expects(:generate_slug).returns("my-slug")
-    @category.save!
-    assert_equal 'my-slug', @category.reload.slug
+  test "path is generated from parent_tag and slug" do
+    @category.parent_tag = "category/subcategory"
+    @category.slug = "subsubcategory"
+    assert_equal "category/subcategory/subsubcategory", @category.path
   end
 
   test "slug is used for to_param" do

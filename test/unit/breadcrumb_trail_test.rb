@@ -59,7 +59,7 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
       assert_equal mainstream_category.title, artefact_hash[:title]
       assert_equal "section", artefact_hash[:format]
       assert_equal routes_helper.mainstream_category_path(mainstream_category), artefact_hash[:web_url]
-      assert_equal mainstream_category.identifier, artefact_hash[:id]
+      assert_equal mainstream_category.path, artefact_hash[:id]
 
       assert_equal [business_tax_tag.to_hash], artefact_hash[:tags]
     end

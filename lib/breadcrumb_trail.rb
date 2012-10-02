@@ -63,7 +63,7 @@ class MainstreamCategoryBreadcrumbTrail < BreadcrumbTrail
       title: @mainstream_category.title,
       format: 'section',
       web_url: mainstream_category_path(@mainstream_category),
-      id: @mainstream_category.identifier,
+      id: @mainstream_category.path,
       tags: [Whitehall.mainstream_content_api.tag(@mainstream_category.parent_tag).to_hash]
     }
   end

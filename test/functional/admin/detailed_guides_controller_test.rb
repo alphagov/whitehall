@@ -37,8 +37,9 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   test "new allows selection of mainstream categories" do
     funk = create(:mainstream_category,
       title: "Funk",
-      identifier: "http://example.com/tags/funk.json",
-      parent_title: "Musical style")
+      slug: "funk",
+      parent_title: "Musical style",
+      parent_tag: "music/70s")
 
     get :new
 

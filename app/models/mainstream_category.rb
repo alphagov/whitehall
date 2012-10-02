@@ -9,11 +9,7 @@ class MainstreamCategory < ActiveRecord::Base
   has_many :other_detailed_guides, through: :edition_mainstream_categories,
            source: :edition, class_name: "DetailedGuide"
 
-  validates :title, :identifier, :parent_title, presence: true
-  before_save :update_slug!
-  validates :identifier, format: {with: /^http(s?):\/\//, message: "must start with http or https"}
-  validates :identifier, format: {with: /\.json$/, message: "must end with .json"}
-  validates :identifier, format: {with: /\/tags\//, message: "must contain /tags/"}
+  validates :title, :parent_title, :parent_tag, :slug, presence: true
 
   def detailed_guides
     primary_detailed_guides + other_detailed_guides
@@ -27,16 +23,8 @@ class MainstreamCategory < ActiveRecord::Base
     slug
   end
 
-  def update_slug!
-    self.slug = generate_slug
-  end
-
-  def generate_slug
-    path.split("/").last
-  end
-
   def path
-    CGI::unescape(identifier.match(%r{^https?://[^/]+/tags/([^/]+)\.json$})[1])
+    parent_tag + "/" + slug
   end
 
 end
