@@ -84,7 +84,7 @@ Then /^I should see in the preview that "([^"]*)" is related to the detailed gui
 end
 
 Given /^a mainstream category "([^"]*)" exists$/ do |title|
-  create(:mainstream_category, title: title, identifier: "http://example.com/tags/#{title.parameterize}.json", parent_title: "Some parent")
+  create(:mainstream_category, title: title, slug: title.parameterize, parent_title: "Some parent", parent_tag: "some/parent")
 end
 
 Given /^a submitted detailed guide "([^"]*)" exists in the "([^"]*)" mainstream category$/ do |title, category_title|
