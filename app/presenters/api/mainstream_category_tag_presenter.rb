@@ -1,6 +1,7 @@
 class Api::MainstreamCategoryTagPresenter
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
+  include MainstreamCategoryRoutesHelper
 
   def initialize(categories)
     @categories = categories
@@ -29,17 +30,4 @@ class Api::MainstreamCategoryTagPresenter
     }
   end
 
-  def detailed_guide_url(guide)
-    h.api_detailed_guide_url guide.document, host: h.public_host
-  end
-
-  def related_json
-    model.published_related_detailed_guides.map do |guide|
-      {
-        id: detailed_guide_url(guide),
-        title: guide.title,
-        web_url: h.public_document_url(guide)
-      }
-    end
-  end
-end
+ end
