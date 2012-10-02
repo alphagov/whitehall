@@ -1,15 +1,21 @@
 <%
   extra_description ||= ""
+  help_block_id = "attachment-#{attachment.id}-accessibility-help"
+  if attachment.accessible?
+    attachment_link_options = {}
+  else
+    attachment_link_options = { "aria-describedby" => help_block_id }
+  end
 %>
 <%= content_tag_for(:section, attachment, class: "embedded") do %>
   <div class="attachment-thumb">
-    <%= link_to attachment.url, class: 'thumbnail' do %>
+    <%= link_to attachment.url, attachment_link_options.merge({ class: 'thumbnail' }) do %>
       <h2 class="download-button">Attachment Download</h2>
       <%= attachment_thumbnail(attachment) unless defined?(hide_thumbnail) && hide_thumbnail %>
     <% end %>
   </div>
   <div class="attachment-details">
-    <h3 class="title"><%= link_to attachment.title, attachment.url %></h3>
+    <h3 class="title"><%= link_to attachment.title, attachment.url, attachment_link_options %></h3>
     <% unless extra_description.empty? %>
       <p class="extra-description"><%= extra_description %></p>
     <% end %>
@@ -30,6 +36,19 @@
         <% end %>
       </p>
     <% end %>
-    <%= render partial: 'documents/attachment_accessibility_warning.html.erb', locals: {attachment: attachment, alternative_format_contact_email: alternative_format_contact_email} %>
+    <% unless attachment.accessible? %>
+      <div class="accessibility-warning js-toggle-accessibility-warning" id="<%= help_block_id %>">
+        <h3>This file may not be accessible.
+          <span class="toggler">Request a different format.</span>
+        </h3>
+        <p class="help-block">
+          To request this document in an alternative format such as braille, audio
+          or a different file type please email
+          <%= alternative_format_order_link attachment, alternative_format_contact_email %>
+          quoting your address, telephone number along with the title of the
+          publication ("<%= attachment.title %>")<%= attachment_references(attachment) %>.
+        </p>
+      </div>
+    <% end %>
   </div>
 <% end %>
