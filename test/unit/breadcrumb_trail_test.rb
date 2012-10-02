@@ -28,6 +28,13 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
     end
   end
 
+  test "should build hash from detailed guide even when content API has no metadata" do
+    detailed_guide = create(:detailed_guide)
+    with_mainstream_content_api(stub("content-api", tag: nil)) do
+      assert BreadcrumbTrail.for(detailed_guide).to_hash[:tags][0][:parent].empty?
+    end
+  end
+
   test "should be invalid if no parent tag" do
     category = build(:mainstream_category, parent_tag: nil)
     detailed_guide = build(:detailed_guide, primary_mainstream_category: category)
