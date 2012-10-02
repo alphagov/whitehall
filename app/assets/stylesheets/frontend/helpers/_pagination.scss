@@ -1,7 +1,7 @@
 #page .previous-next-navigation {
   position: relative;
   overflow: hidden;
-  background: $light-blue;
+  background: $detailed-guidance-brand;
   margin-top: $gutter*2;
   width: 100%;
 
@@ -59,7 +59,7 @@
         text-decoration: underline;
       }
       &:active {
-        background: darken($light-blue, 10%);
+        background: darken($detailed-guidance-brand, 10%);
       }
     }
     @media (max-width: 768px) {

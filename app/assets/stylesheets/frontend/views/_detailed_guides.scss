@@ -13,7 +13,7 @@
       }
     }
     .button {
-      @include button($light-blue);
+      @include button($detailed-guidance-brand);
       @include core-19;
       padding-bottom: 7px;
       padding-bottom: 0.7rem;
@@ -37,7 +37,7 @@
   }
 
   .page-header {
-    color: $light-blue;
+    color: $detailed-guidance-brand;
     border: 4px solid;
     padding: $gutter-half $gutter-half $gutter-one-third;
     margin-bottom: $gutter;
@@ -99,9 +99,9 @@
     .more-like-this {
       margin-top: $gutter-one-third;
       padding-top: $gutter-one-sixth;
-      border-top: 1px solid $light-blue;
+      border-top: 1px solid $detailed-guidance-brand;
       a {
-        color: $light-blue;
+        color: $detailed-guidance-brand;
         text-decoration: none;
       }
     }
@@ -151,7 +151,7 @@
       .more-like-this {
         display: block;
         margin-top: $gutter;
-        background: $light-blue;
+        background: $detailed-guidance-brand;
         padding: $gutter-one-sixth;
 
         a {
@@ -225,7 +225,7 @@
 
     h1 {
       @include core-27;
-      background: $light-blue;
+      background: $detailed-guidance-brand;
       color: $white;
       margin: $gutter;
       padding: $gutter-one-third;
@@ -247,7 +247,7 @@
 
       ul {
         @include core-19;
-        color: $light-blue;
+        color: $detailed-guidance-brand;
 
         li {
           margin-left: 1.15em;
@@ -277,7 +277,7 @@
 
     section {
       a {
-        color: $light-blue;
+        color: $detailed-guidance-brand;
       }
 
     }
@@ -465,7 +465,7 @@
       }
       &.detailed_guidance {
         .meta {
-          border-left: 3px solid $light-blue;
+          border-left: 3px solid $detailed-guidance-brand;
           padding-left: 10px;
         }
       }

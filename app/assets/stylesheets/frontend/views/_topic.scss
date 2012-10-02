@@ -96,10 +96,10 @@
 
   .detailed-guidance {
     h1 {
-      color: $light-blue;
+      color: $detailed-guidance-brand;
     }
     ul {
-      background: $light-blue;
+      background: $detailed-guidance-brand;
       padding: $gutter-one-third $gutter-half 5px;
 
       li {
@@ -119,7 +119,7 @@
     .view-all {
       display: block;
       padding: 5px $gutter-half;
-      background: darken($light-blue, 10%);
+      background: darken($detailed-guidance-brand, 10%);
       color: $white;
     }
   }
