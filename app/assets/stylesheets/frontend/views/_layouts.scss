@@ -2,46 +2,18 @@
 
 
 #global-nav {
-  position: relative;
-  margin: 0;
-  overflow: hidden;
-
-  @include media(desktop) {
-    //position: fixed;
-    position: absolute;
-    top: 0;
-    left: 0;
-    //padding-top: 42px;
-    padding-top: 0;
-    width: 100%;
-    height: 40px;
-    z-index: 100;
-  }
-
-  .inner {
-    margin: 0 auto;
-    max-width: $max-site-width;
-    overflow: hidden;
-    background: #ddd;
-    @include ie(6) {
-      height: 40px;
-    }
-  }
+  margin: 0 30px;
+  text-align: right;
+  border-bottom: 2px solid $inside-gov-brand;
 
   li {
     display: inline;
 
     a {
-      font-family: $NTA-Light;
-      font-size: 16px;
-      font-size: 1.6rem;
-      line-height: 1.5625; /* 25px */
-      display: block;
-      float: left;
-      padding: 8px 8px;
-      padding: 0.8rem 0.8rem;
+      @include core-16;
+      display: inline-block;
+      padding: 10px 8px;
       text-decoration: none;
-      color: $black;
     }
 
     a:hover,
@@ -57,17 +29,9 @@
   }
 
   #inside_gov_link a {
-    @include brand-13;
-    margin-top: 0;
-    margin-right: 8px;
-    padding: 12px 8px;
-    padding: 1.2rem 0.8rem;
-    background: #222;
-    color: #fff;
-
-    @media (min-width: 768px) {
-      padding: 1.2rem 1.6rem;
-    }
+    float: left;
+    padding-left: 0;
+    text-transform: capitalize;
   }
 }
 

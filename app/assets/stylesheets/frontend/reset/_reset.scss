@@ -12,7 +12,6 @@
   -webkit-font-smoothing: antialiased;
 
   @include media(desktop) {
-    padding-top: 50px;
     padding-bottom: $gutter*4;
   }
 }
