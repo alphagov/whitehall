@@ -27,4 +27,16 @@ class MainstreamCategory < ActiveRecord::Base
     parent_tag + "/" + slug
   end
 
+  def section
+    parent_tag.split("/").first
+  end
+
+  def subsection
+    parent_tag.split("/").last
+  end
+
+  def subsubsection
+    slug
+  end
+
 end
