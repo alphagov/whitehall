@@ -2,7 +2,7 @@
 
 require 'carrierwave/processing/mime_types'
 
-class AttachmentUploader < CarrierWave::Uploader::Base
+class AttachmentUploader < WhitehallUploader
   include CarrierWave::MimeTypes
 
   PDF_CONTENT_TYPE = 'application/pdf'
@@ -23,10 +23,6 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     def set_correct_content_type(ignore_argument)
       @file.content_type = "image/png"
     end
-  end
-
-  def store_dir
-    "system/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
   def generate_thumbnail

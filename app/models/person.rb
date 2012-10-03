@@ -1,5 +1,5 @@
 class Person < ActiveRecord::Base
-  mount_uploader :image, PersonImageUploader, mount_on: :carrierwave_image
+  mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
 
   has_many :role_appointments
   has_many :current_role_appointments, class_name: 'RoleAppointment', conditions: RoleAppointment::CURRENT_CONDITION
