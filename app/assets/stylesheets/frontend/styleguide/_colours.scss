@@ -4,11 +4,18 @@
 // https://github.com/alphagov/govuk_frontend_toolkit/blob/master/app/assets/stylesheets/_colours.scss
 // These are our custom extras
 
-// Text colours
-$body-text: #2B2C2D;
-$link-text: #2577a7;
-
 $detailed-guidance-brand: $light-blue;
 $detailed-guidance-background: #fafafa;
 
-$inside-gov-brand: $light-blue;
+$inside-gov-brand: $fuschia;
+
+// Text colours
+$body-text: #2B2C2D;
+$link-text: $inside-gov-brand;
+
+// Keyline colours
+$light-keyline: $light-blue-grey;
+
+// Background colours
+$info-background: $light-warm-grey;
+$info-background-hover: darken($light-warm-grey, 5%);

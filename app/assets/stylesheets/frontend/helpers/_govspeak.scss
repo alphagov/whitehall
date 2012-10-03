@@ -135,7 +135,7 @@
   }
   // inline attachment pullouts
   .attachment {
-    background: $light-warm-grey;
+    background: $info-background;
     position: relative;
     margin: 0;
     padding: $gutter-half 0;
@@ -221,7 +221,7 @@
   .information-block,
   .call-to-action {
     margin: $gutter 0 $gutter $gutter-half*-1;
-    background: $light-warm-grey none no-repeat 98% $gutter-two-thirds;
+    background: $info-background none no-repeat 98% $gutter-two-thirds;
     padding: $gutter-one-third 55px $gutter-one-third $gutter-half;
     p {
       margin: 0;

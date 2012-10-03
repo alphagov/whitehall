@@ -4,7 +4,7 @@
   margin-top: $gutter-half;
 
   .document-row {
-    border-bottom: 1px solid $light-warm-grey;
+    border-bottom: 1px solid $light-keyline;
     overflow: hidden;
     position: relative;
     list-style: none;
@@ -45,7 +45,7 @@
       @include core-27;
       padding-bottom: 0;
     }
-  } 
+  }
   .document-row:nth-child(2) {
     th {
       @include core-24;

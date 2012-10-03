@@ -83,12 +83,12 @@
     padding: 0;
 
     .toggle {
-      @include button($light-warm-grey);
+      @include button($info-background);
       display: block;
       color: $body-text;
       text-align: center;
       padding: 0.313em 1em 0.375em;
-      border: 1px solid darken($light-warm-grey, 5%);
+      border: 1px solid darken($info-background, 5%);
       white-space: nowrap;
       &:focus {
         outline: none;
@@ -106,7 +106,7 @@
     &.open {
       .toggle {
         top: 0.2em;
-        background: lighten($light-warm-grey, 5%);
+        background: darken($info-background, 5%);
         @include box-shadow(none);
       }
       &.toggleable .overlay {

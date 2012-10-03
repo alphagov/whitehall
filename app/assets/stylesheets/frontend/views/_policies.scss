@@ -119,42 +119,39 @@
     }
   }
 
-  .supporting_pages {
+  .contextual-info .supporting_pages {
     li {
+      border-width: 0 1px 0 0;
       border-style: solid;
-      border-color: $cool-grey $light-blue-grey $white $cool-grey;
-      border-width: 0 1px;
-      padding: 0!important;
-        a {
-        background-color: $cool-grey;
-        border-bottom: 1px solid $white;
+      border-color: $light-keyline;
+      padding: 0;
+      a {
+        background-color: $info-background;
         display: block;
         min-height: 50px;
+        border-bottom: 1px solid $white;
         padding: $gutter-two-thirds;
         overflow: hidden;
         text-decoration: none;
         z-index: 1;
-        &:hover, &:focus {
-          background-color: lighten($cool-grey, 5%);
+        &:hover,
+        &:focus {
+          background-color: $info-background-hover;
           @include transition(background, 0.5s, ease)
         }
       }
     }
     li.active {
-        a {
+      a {
         background-color: $white;
       }
-      border-color: $light-blue-grey $white $light-blue-grey $light-blue-grey;
-      border-width: 1px;
-    }
-    li:first-child.active {
-      border-top-color: $white;
+      border-width: 1px 0 1px 1px;
     }
   }
 
   // this is shown when there's no policy-navigation
   .no-navigation {
-    border-bottom: 1px solid $light-blue-grey;
+    border-bottom: 1px solid $light-keyline;
     padding-bottom: 50px;
     // this margin-bottom depends on font size, but we can't add ems and px
     margin-bottom: $gutter + 34px;
@@ -162,7 +159,7 @@
 
   .policy-navigation {
 
-    border-bottom: 1px solid $light-blue-grey;
+    border-bottom: 1px solid $light-keyline;
     display: block;
     //margin: $gutter 0 $gutter-two-thirds;
     width: 100%;
@@ -180,23 +177,21 @@
 
         a {
           @include core-19;
-          background-color: $grey-88;
+          background-color: $info-background;
           color: $link-text;
           display: block;
-          opacity: 0.8;
           padding: $gutter-one-third 0;
           text-align: center;
           text-decoration: none;
           width: auto;
           &.current {
-            border: 1px solid $light-blue-grey;
+            border: 1px solid $light-keyline;
             border-bottom: none;
             background-color: $white;
             color: $body-text;
-            opacity: 1;
           }
           &:hover, &:focus {
-            opacity: 1;
+            background-color: $info-background-hover;
           }
         }
       }

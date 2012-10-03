@@ -12,7 +12,7 @@
   text-shadow: 0 -0.063em 0.063em $color;
   &:hover,
   &:focus {
-    background: lighten($color, 5%);
+    background: darken($color, 5%);
     @include transition(background, 0.3s, ease)
   }
   &:active {
