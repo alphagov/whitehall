@@ -1,4 +1,10 @@
 .mainstream-category-show {
+  margin-bottom: 120px;
+
+  a {
+    color: $detailed-guidance-link-text;
+  }
+
   .page-header,
   .guides {
     background: #fff;
