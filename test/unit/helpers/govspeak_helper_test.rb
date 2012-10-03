@@ -389,4 +389,10 @@ class GovspeakHelperTest < ActionView::TestCase
     refute html.include?("&lt;div"), "should not escape embedded attachment"
     assert_select_within_html html, ".attachment.embedded"
   end
+
+  test "should identify internal admin links" do
+    assert is_internal_admin_link?( [Whitehall.router_prefix, "admin", "test"].join("/") )
+    refute is_internal_admin_link?( 'http://www.google.com/' )
+    refute is_internal_admin_link?( nil )
+  end
 end

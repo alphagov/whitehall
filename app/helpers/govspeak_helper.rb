@@ -133,6 +133,7 @@ module GovspeakHelper
   end
 
   def is_internal_admin_link?(href)
+    return false unless href.is_a? String
     begin
       uri = Addressable::URI.parse(href)
     rescue Addressable::URI::InvalidURIError
