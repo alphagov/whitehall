@@ -10,18 +10,18 @@
     padding-bottom: $gutter;
 
     h1 {
-      @include sans-15;
+      @include core-16;
     }
 
     h2 {
       position: relative;
-      @include sans-15;
+      @include core-16;
       padding-bottom: 0;
       padding-right: $gutter;
     }
 
     .role {
-      @include sans-15;
+      @include core-16;
       padding-top: 0;
       padding-right: $gutter;
     }

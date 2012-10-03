@@ -15,11 +15,11 @@
     padding-top: $gutter-one-third;
   
     h1 {
-      @include sans-18;
+      @include core-19;
     }
     
     li {
-      @include sans-15;
+      @include core-16;
     }
   }
 }

@@ -1,19 +1,19 @@
 .topics-index {
 
   .block-2 h1 {
-    @include sans-15;
+    @include core-16;
   }
 
   .alphabetical-list .alphabetical-row {
     p {
-      @include sans-15;
+      @include core-16;
     }
     .inner {
       padding-top: $gutter-one-third;
     }
     li {
       a {
-        @include sans-15;
+        @include core-16;
       }
     }
     @media (min-width: 768px) {

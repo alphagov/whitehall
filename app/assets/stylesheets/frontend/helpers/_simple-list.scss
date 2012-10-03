@@ -5,7 +5,7 @@
   padding-bottom: $gutter-two-thirds;
   
   h1 {
-    @include sans-18;
+    @include core-19;
   }
   
   ul, ol {
@@ -18,7 +18,7 @@
       .metadata {
         position: relative;
         display: block;
-        @include sans-12;
+        @include core-14;
         text-transform: lowercase;
         
         span {
@@ -36,7 +36,7 @@
   a {
     position: relative;
     display: inline-block;
-    @include sans-15;
+    @include core-16;
   }
   
   .published_document a {

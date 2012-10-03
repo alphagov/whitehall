@@ -181,13 +181,13 @@
       list-style: none;
 
       li {
-        @include sans-15;
+        @include core-16;
       }
     }
   }
 
   .notice p {
-    @include sans-12;
+    @include core-16;
     padding: $gutter-one-third;
     margin-bottom: $gutter;
     background: yellow;

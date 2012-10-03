@@ -6,16 +6,8 @@
   }
 
   .alphabetical-list .alphabetical-row {
-    p {
-    //  @include sans-15;
-    }
     .inner {
       padding-top: $gutter-one-third;
-    }
-    li {
-      a {
-      //  @include sans-15;
-      }
     }
 
     @media (min-width: 768px) {
@@ -85,7 +77,7 @@
 
   #policy_team {
     p {
-      @include sans-18;
+      @include core-19;
     }
   }
 

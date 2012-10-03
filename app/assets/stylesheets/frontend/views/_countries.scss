@@ -35,7 +35,7 @@
   }
   .article_section {
     h1 {
-      @include sans-18;
+      @include core-16;
     }
   }
   @media (max-width: 768px) {
