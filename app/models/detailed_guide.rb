@@ -9,6 +9,8 @@ class DetailedGuide < Edition
   include Edition::FactCheckable
   include Edition::MainstreamCategory
 
+  delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true
+
   attachable :edition
 
   class Trait < Edition::Traits::Trait
