@@ -12,3 +12,66 @@ body {
 header .open_website {
   margin-right: 4em;
 }
+
+@include ie(6){
+  .navbar-fixed-top, .navbar-fixed-bottom {
+    position: absolute;
+  }
+  .navbar .nav li {
+    display: block;
+    float: left;
+
+    a {
+      display: block;
+      float: none;
+      padding: 9px 10px 11px;
+    }
+  }
+  .session_info .navbar-text {
+    span {
+      display: inline;
+    }
+    a {
+      padding: 0;
+      display: inline !important;
+    }
+  }
+
+  .row-fluid .collection {
+    width: 81%;
+  }
+  .span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12  {
+    float:left;
+    display:inline;
+  }
+
+  .nav-tabs {
+    li {
+      float: left;
+      a {
+        display: block;
+        padding: 8px 12px;
+        line-height: 18px;
+        border: 1px solid #fff;
+        margin-right: 2px;
+      }
+      &.active {
+        background: transparent;
+        a {
+          background: transparent;
+          border-color: #ddd #ddd #fff;
+          color: #555;
+        }
+      }
+    }
+  }
+  .tab-content {
+    .tab-pane {
+      display: none;
+      background: #fff;
+    }
+    .active {
+      display: block;
+    }
+  }
+}

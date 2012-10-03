@@ -50,6 +50,18 @@ form {
     &.date {
       width: auto;
     }
+    @include ie-lte(7){
+      height: 100px;
+    }
+  }
+
+  .checkbox {
+    input {
+      @include ie(6){
+        width: auto;
+        float: left;
+      }
+    }
   }
 
   .field_with_errors {

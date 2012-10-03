@@ -69,4 +69,29 @@
       }
     }
   }
+
+  @include ie(6){
+    .nav-list {
+      li {
+        display: inline;
+        background: transparent;
+
+        a {
+          display: block;
+          padding: 3px 15px;
+          margin: 0 -15px;
+        }
+        &.active {
+          a {
+            color: #fff;
+            background-color: #08C;
+
+            &:hover {
+              background-color: #08C;
+            }
+          }
+        }
+      }
+    }
+  }
 }
