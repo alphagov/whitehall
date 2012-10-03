@@ -100,4 +100,19 @@ class DetailedGuideTest < EditionTestCase
     refute detailed_guide.valid?
     assert detailed_guide.errors.full_messages.include?("Primary detailed guidance category can't be blank")
   end
+
+  test "should include breadcrumb metadata in search index" do
+    category = create(:mainstream_category,
+      slug: "manufactured-goods-trade-compliance",
+      parent_tag: "business/international-trade"
+    )
+    detailed_guide = create(:published_detailed_guide,
+      primary_mainstream_category: category
+    )
+
+    index = detailed_guide.search_index
+    assert_equal "business", index["section"]
+    assert_equal "international-trade", index["subsection"]
+    assert_equal "manufactured-goods-trade-compliance", index["subsubsection"]
+  end
 end

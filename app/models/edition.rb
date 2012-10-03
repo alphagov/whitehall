@@ -95,6 +95,9 @@ class Edition < ActiveRecord::Base
     format: -> d { d.format_name.gsub(" ", "_") },
     content: :indexable_content,
     description: :summary,
+    section: -> d { d.section },
+    subsection: -> d { d.subsection },
+    subsubsection: -> d { d.subsubsection },
     only: :published,
     index_after: [],
     unindex_after: []
@@ -226,6 +229,18 @@ class Edition < ActiveRecord::Base
 
   def indexable_content
     body_without_markup
+  end
+
+  def section
+    nil
+  end
+
+  def subsection
+    nil
+  end
+
+  def subsubsection
+    nil
   end
 
   def body_without_markup

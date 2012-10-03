@@ -19,7 +19,7 @@ module Searchable
       self.searchable_options[:index_after] = [self.searchable_options[:index_after]].flatten.select { |e| e }
       self.searchable_options[:unindex_after] = [self.searchable_options[:unindex_after]].flatten.select { |e| e }
 
-      [:title, :link, :content, :format, :only, :boost_phrases, :description].each do |name|
+      [:title, :link, :content, :section, :subsection, :subsubsection, :format, :only, :boost_phrases, :description].each do |name|
         value = searchable_options[name]
         searchable_options[name] =
           if value.respond_to?(:call)
@@ -51,7 +51,7 @@ module Searchable
     }
 
     def search_index
-      [:title, :link, :format, :content, :boost_phrases, :description].inject({}) do |result, name|
+      [:title, :link, :format, :content, :section, :subsection, :subsubsection, :boost_phrases, :description].inject({}) do |result, name|
         value = searchable_options[name].call(self)
         key = KEY_MAPPING[name] || name.to_s
         result[key] = value unless value.nil?
