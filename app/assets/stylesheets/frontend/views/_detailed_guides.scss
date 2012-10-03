@@ -1,3 +1,9 @@
+.detailed-guides-index,
+.detailed-guides-show {
+  a {
+    color: $detailed-guidance-link-text;
+  }
+}
 .detailed-guides-index {
   margin-bottom: 120px;
 
