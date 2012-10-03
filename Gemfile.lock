@@ -395,7 +395,7 @@ DEPENDENCIES
   nokogiri
   paper_trail
   pdf-reader
-  plek
+  plek (= 0.5.0)
   quiet_assets
   rabl
   rails (= 3.1.7)
