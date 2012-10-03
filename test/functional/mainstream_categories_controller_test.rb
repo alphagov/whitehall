@@ -3,6 +3,17 @@ require "test_helper"
 class MainstreamCategoriesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
+  test "show orders guides alphabetically by title" do
+    category = create(:mainstream_category)
+    detailed_guide_a = create(:published_detailed_guide, primary_mainstream_category: category, title: "guide-a")
+    detailed_guide_c = create(:published_detailed_guide, primary_mainstream_category: category, title: "guide-c")
+    detailed_guide_b = create(:published_detailed_guide, primary_mainstream_category: category, title: "guide-b")
+
+    get :show, parent_tag: category.parent_tag, id: category
+
+    assert_equal [detailed_guide_a, detailed_guide_b, detailed_guide_c], assigns(:detailed_guides)
+  end
+
   test "show category lists all published detailed guides in that category" do
     category = create(:mainstream_category)
     detailed_guide = create(:published_detailed_guide, primary_mainstream_category: category)
