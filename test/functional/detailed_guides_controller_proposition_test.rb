@@ -12,7 +12,6 @@ class DetailedGuidesControllerPropositionTest < ActionController::TestCase
       map.draw do
         match '/test', to: 'detailed_guides_controller_proposition_test/test#test'
       end
-      @controller.stubs(:search_detailed_guides_path)
       get :test
     end
     assert_equal "specialist", response.headers["X-Slimmer-Proposition"]
