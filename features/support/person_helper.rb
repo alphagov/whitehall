@@ -19,15 +19,20 @@ module PersonHelper
     fill_in "Letters", with: name_parts[:letters]
   end
 
+  def person_image_path
+    page.find("fieldset.image img")[:src]
+  end
+
   private
-    def split_person_name(name)
-      if match = /^(\w+)\s*(.*?)$/.match(name)
-        forename, surname = match.captures
-        { title: nil, forename: forename, surname: surname, letters: nil }
-      else
-        raise "couldn't split \"#{name}\""
-      end
+
+  def split_person_name(name)
+    if match = /^(\w+)\s*(.*?)$/.match(name)
+      forename, surname = match.captures
+      { title: nil, forename: forename, surname: surname, letters: nil }
+    else
+      raise "couldn't split \"#{name}\""
     end
+  end
 end
 
 World(PersonHelper)

@@ -16,3 +16,11 @@ Scenario: Removing a person
   Given a person called "Liam Fixx"
   When I remove the person "Liam Fixx"
   Then I should not be able to see "Liam Fixx" in the list of people
+
+@quarantine-files
+Scenario: Images are virus-checked before publication
+  When I add a new person called "Dave Cameroon"
+  When I check the image for the new person
+  Then the image will be quarantined for virus checking
+  When the image has been virus-checked
+  Then the virus checked image will be available for viewing
