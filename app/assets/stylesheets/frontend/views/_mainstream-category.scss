@@ -6,9 +6,14 @@
   }
 
   .page-header,
-  .guides {
+  .guides,
+  .no-results {
     background: #fff;
     padding: 0 $gutter;
+  }
+
+  .no-results {
+    margin: $gutter 0;
   }
 
   .page-header {
