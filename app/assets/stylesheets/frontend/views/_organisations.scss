@@ -1,12 +1,3 @@
-// I have included this to fix an IE6 issue
-// hasLayout in social_media_accounts li float: left
-// as found in a google seach of hasLayout.
-// Yeah there's probably a better way round it but this works and isn't that offensive (Russ Inside Gov)
-@include ie(6) {
- * {zoom: 1;}
-}
-
-
 h1.label {
       @include core-27;
       padding-bottom: $gutter-half;
