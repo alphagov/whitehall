@@ -44,7 +44,6 @@ class TopicsControllerTest < ActionController::TestCase
         end
       end
       refute_select_object(published_detailed_guides[5])
-      assert_select "a[href=#{detailed_guides_path("topics[]" => topic.slug)}]"
     end
     assert_select "a[href=?]", "#detailed-guidance"
   end

@@ -192,6 +192,7 @@ end
 
 Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   visit homepage
+  css_selector = record_css_selector(edition)
   case edition
   when Publication
     click_link "Publications"
@@ -202,13 +203,14 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   when Policy
     visit policies_path
   when DetailedGuide
-    visit detailed_guides_path
+    visit detailed_guide_path(edition.document)
+    css_selector = 'h1.page_title'
   when InternationalPriority
     visit international_priorities_path
   else
     raise "Don't know what to click on for #{edition.class.name}s"
   end
-  assert page.has_css?(record_css_selector(edition), text: edition.title)
+  assert page.has_css?(css_selector, text: edition.title)
 end
 
 Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
