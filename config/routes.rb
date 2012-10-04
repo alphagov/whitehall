@@ -11,12 +11,7 @@ Whitehall::Application.routes.draw do
 
   root to: redirect("/")
 
-  resources :detailed_guides, path: 'specialist', only: [:show, :index] do
-    collection do
-      get :search
-      get :autocomplete
-    end
-  end
+  resources :detailed_guides, path: 'specialist', only: [:show, :index]
 
   match '/browse/*parent_tag/:id', to: 'mainstream_categories#show'
 
