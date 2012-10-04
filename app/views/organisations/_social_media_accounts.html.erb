@@ -1,10 +1,13 @@
 <% if organisation.social_media_accounts.any? %>
   <section>
     <h1 class="label">Get in touch with <%= organisation.display_name %></h1>
-    <ul class="social_media_accounts">
+    <ul class="social-media-accounts">
       <% organisation.social_media_accounts.each do |account| %>
         <%= content_tag_for(:li, account) do %>
-          <%= social_media_account_link(account) %>
+          <%= link_to account.service_name,
+                      account.url,
+                      title: "Connect with #{account.organisation.display_name} on #{account.service_name}",
+                      class: "social-media-link #{account.service_name.downcase}" %>
         <% end %>
       <% end %>
     </ul>

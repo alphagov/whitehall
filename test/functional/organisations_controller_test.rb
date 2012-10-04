@@ -329,7 +329,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       social_media_account = create(:social_media_account)
       organisation = create(:organisation, social_media_accounts: [social_media_account])
       get action, id: organisation
-      assert_select ".social_media_accounts"
+      assert_select ".social-media-accounts"
     end
 
     test "should show description on organisation #{action} subpage" do
@@ -562,10 +562,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select ".social_media_accounts" do
-      assert_select_object twitter_account
-      assert_select_object flickr_account
-    end
+    assert_select_object twitter_account
+    assert_select_object flickr_account
   end
 
   test "should not show list of links to social media accounts if there are none" do
@@ -573,7 +571,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    refute_select ".social_media_accounts"
+    refute_select ".social-media-accounts"
   end
 
   private

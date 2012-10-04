@@ -1,9 +1,9 @@
 h1.label {
-      @include core-27;
-      padding-bottom: $gutter-half;
-      @include ie(6) {
-        margin-bottom: $gutter-one-third;
-      }
+  @include core-27;
+  padding-bottom: $gutter-half;
+  @include ie(6) {
+    margin-bottom: $gutter-one-third;
+  }
 }
 
 .organisations_index_page {
@@ -512,7 +512,7 @@ h1.label {
     ul, p {
       float: left;
     }
-    .social_media_accounts {
+    .social-media-accounts {
       overflow: hidden;
       li {
         float: left;
@@ -682,12 +682,20 @@ h1.label {
   clear: both;
 }
 
-.social_media_accounts {
+.social-media-accounts {
   li {
     border: none;
-    img {
-      margin-right: 5px;
+
+    a {
+      display: inline-block;
+      background: transparent none no-repeat 0 0;
+      line-height: 16px;
+      padding-left: 22px;
     }
+    .twitter  { background-image: image-url("icons/16/twitter.png"); }
+    .youtube  { background-image: image-url("icons/16/youtube.png"); }
+    .flickr   { background-image: image-url("icons/16/flickr.png"); }
+    .facebook { background-image: image-url("icons/16/facebook.png"); }
   }
 }
 
