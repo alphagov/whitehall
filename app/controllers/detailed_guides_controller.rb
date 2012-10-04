@@ -6,13 +6,6 @@ class DetailedGuidesController < DocumentsController
 
   respond_to :html, :json
 
-  def index
-    params[:page] ||= 1
-    params[:direction] = "alphabetical"
-    @filter = Whitehall::DocumentFilter.new(all_detailed_guides, params)
-    respond_with DetailedGuideFilterJsonPresenter.new(@filter)
-  end
-
   def show
     @categories = @document.mainstream_categories
     @topics = @document.topics
@@ -22,10 +15,6 @@ class DetailedGuidesController < DocumentsController
 private
   def document_class
     DetailedGuide
-  end
-
-  def all_detailed_guides
-    DetailedGuide.published.includes(:document, :organisations, :topics)
   end
 
   def set_search_index

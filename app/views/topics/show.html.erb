@@ -74,7 +74,6 @@
             <% end %>
           <% end %>
         </ul>
-        <%= link_to 'View all', detailed_guides_filter_path(@topic), class: 'view-all' %>
       </section>
     <% end %>
     <%= render partial: "documents/recently_changed_documents",
@@ -84,4 +83,3 @@
     <%= render partial: "related_topics", object: @related_topics %>
   </div>
 </div>
-
