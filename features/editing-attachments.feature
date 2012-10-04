@@ -24,3 +24,17 @@ Scenario: Remember uploaded file after validation failure
 
   When I correct the invalid information for the publication
   Then I should see a link to the PDF attachment
+
+@quarantine-files
+Scenario: Attachments are virus-checked before publication
+  Given a published publication "Legalise beards" with a PDF attachment
+  When I visit the publication "Legalise beards"
+  Then I should see a placeholder thumbnail whilst the attachment is being virus checked
+  Then clicking on the attachment redirects me to an explanatory page
+
+@quarantine-files
+Scenario: Attachments are viewable after being virus-checked
+  Given a published publication "Legalise beards" with a PDF attachment
+  And the attachment has been virus-checked
+  And I visit the publication "Legalise beards"
+  Then I can see the attachment thumbnail and download it

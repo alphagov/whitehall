@@ -5,7 +5,7 @@ class HackableUrlTest < ActiveSupport::TestCase
     all_routes = Rails.application.routes.routes
 
     resource_routes = all_routes.reject do |route|
-      admin_route?(route) || auth_route?(route) || non_public_controller?(route) || api_route?(route) || browse_route?(route)
+      admin_route?(route) || auth_route?(route) || non_public_controller?(route) || api_route?(route) || browse_route?(route) || asset_route?(route)
     end
 
     resource_routes.each do |resource_route|
@@ -34,6 +34,10 @@ class HackableUrlTest < ActiveSupport::TestCase
 
   def browse_route?(route)
     route.path.match(/\/browse\//)
+  end
+
+  def asset_route?(route)
+    route.path.match(/\/system\//)
   end
 
   def all_possible_hackings_of(path)

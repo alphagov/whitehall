@@ -134,6 +134,8 @@ Whitehall::Application.routes.draw do
     match '/policy-topics' => redirect("/topics")
 
     match 'site/sha' => 'site#sha'
+
+    match '/placeholder' => 'placeholder#show', as: :placeholder
   end
 
   VanityRedirector.new(Rails.root.join("app", "data", "vanity-redirects.csv")).each do |from, to|
@@ -142,4 +144,7 @@ Whitehall::Application.routes.draw do
   end
 
   mount TestTrack::Engine => "test" if Rails.env.test?
+
+  match '/system/uploads/attachment/*path.png' => redirect("/assets/thumbnail-virus-checking.png")
+  match '/system/uploads/attachment/*path' => redirect("/placeholder"), as: :attachment_placeholder
 end
