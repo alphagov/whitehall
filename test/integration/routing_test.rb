@@ -96,4 +96,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
     get "/government/admin"
     assert_redirected_to "/government/admin/editions"
   end
+
+  test "visiting a detailed guidance document redirects you to the slug at root" do
+    get "/specialist/vat-tax-rates"
+    assert_redirected_to "/vat-tax-rates"
+  end
 end

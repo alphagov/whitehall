@@ -30,7 +30,7 @@ end
 
 When /^I draft a new detailed guide "([^"]*)" related to the detailed guide "([^"]*)"$/ do |title, related_title|
   category = create(:mainstream_category)
-  related_guide = DetailedGuide.find_by_title!(related_title)
+  related_guide = DetailedGuide.latest_edition.find_by_title!(related_title)
   begin_drafting_document type: 'detailed_guide', title: title, primary_mainstream_category: category
   select related_title, from: "Related guides"
   click_button "Save"
@@ -48,12 +48,8 @@ When /^I select an image for the detailed guide$/ do
 end
 
 When /^I visit the detailed guide "([^"]*)"$/ do |name|
-  visit "/specialist"
-  click_link name
-end
-
-When /^I visit the list of detailed guides$/ do
-  visit "/specialist"
+  guide = DetailedGuide.find_by_title!(name)
+  visit detailed_guide_path(guide.document)
 end
 
 Then /^I can see links to the related detailed guides "([^"]*)" and "([^"]*)"$/ do |guide_1, guide_2|

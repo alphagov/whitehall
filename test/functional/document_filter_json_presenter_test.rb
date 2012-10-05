@@ -90,25 +90,3 @@ class PublicationFilterJsonPresenterTest < PresenterTestCase
     assert_equal "Policy paper", json['results'].first["publication_type"]
   end
 end
-
-class DetailedGuideFilterJsonPresenterTest < PresenterTestCase
-  setup do
-    @filter = stub_everything("Whitehall::DocumentFilter",
-      count: 1,
-      current_page: 1,
-      num_pages: 1,
-      documents: [])
-    self.params[:action] = :index
-    self.params[:controller] = :detailed_guides
-  end
-
-  test 'json document list includes topics' do
-    document = stub_record(:document)
-    document.stubs(:to_param).returns('some-doc')
-    topic = stub_record(:topic, name: "Tax")
-    detailed_guide = stub_record(:detailed_guide, document: document, organisations: [], topics: [topic])
-    @filter.stubs(:documents).returns([detailed_guide])
-    json = JSON.parse(DetailedGuideFilterJsonPresenter.new(@filter).to_json)
-    assert_equal 1, json['results'].size
-  end
-end
