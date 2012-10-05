@@ -55,8 +55,12 @@ class AttachableTest < ActiveSupport::TestCase
 
     publication = create(:publication, :with_attachment, attachments: [attachment])
 
+    invalid_attribute_combination = {"price" => "123", "order_url" => ""}
+
     edition_attachments_attributes = publication.edition_attachments.inject({}) do |h, da|
-      h[da.id] = da.attributes.merge(attachment_attributes: da.attachment.attributes.merge("price" => "123"))
+      h[da.id] = da.attributes.merge(
+        attachment_attributes: da.attachment.attributes.merge(invalid_attribute_combination)
+      )
       h
     end
     publication.assign_attributes(edition_attachments_attributes: edition_attachments_attributes)
