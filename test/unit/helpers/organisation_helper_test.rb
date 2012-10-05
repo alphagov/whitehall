@@ -60,8 +60,11 @@ class OrganisationHelperTest < ActionView::TestCase
 
   test 'given an organisation should return suitable org-identifying class names' do
     organisation_type = build(:organisation_type, name: "Ministerial department")
-    organisation =  build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene", organisation_type: organisation_type)
 
+    organisation =  build(:organisation, slug: "organisation-slug-hmm", organisation_type: organisation_type)
+    assert_equal 'organisation-slug-hmm ministerial-department single-identity', organisation_logo_classes(organisation, use_single_identity_branding: true)
+
+    organisation =  build(:organisation, slug: "organisation-slug-yeah", organisation_type: organisation_type, use_single_identity_branding: false)
     assert_equal 'organisation-slug-yeah ministerial-department', organisation_logo_classes(organisation)
   end
 end

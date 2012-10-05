@@ -59,9 +59,14 @@ h1.label {
 // Styles for Department homepages
 .organisation {
   .page_title {
-    margin-top: $gutter-two-thirds;
-    @include logo-27;
     margin-bottom: $gutter;
+    margin-top: $gutter-two-thirds;
+
+    @include core-27;
+
+    &.single-identity {
+      @include logo-27;
+    }
   }
 
   .img {
