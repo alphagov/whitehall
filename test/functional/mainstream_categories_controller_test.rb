@@ -60,4 +60,12 @@ class MainstreamCategoriesControllerTest < ActionController::TestCase
     assert_equal sentinel.to_hash, artefact_headers
   end
 
+  test "show displays category description" do
+    category = create(:mainstream_category)
+
+    get :show, parent_tag: category.parent_tag, id: category
+
+    assert_select 'h1.page-title + p', text: category.description
+  end
+
 end
