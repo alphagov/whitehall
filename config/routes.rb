@@ -148,6 +148,8 @@ Whitehall::Application.routes.draw do
   # Detailed guidance lives at the root
   match ':id' => 'detailed_guides#show', constraints: {id: /[A-z0-9\-]+/}, as: 'detailed_guide'
 
+  get 'healthcheck' => 'healthcheck#check'
+
   mount TestTrack::Engine => "test" if Rails.env.test?
 
   match '/system/uploads/*path.:extension' => redirect("/assets/thumbnail-virus-checking.png"), constraints: { extension: /(jpe?g|gif|png)/ }
