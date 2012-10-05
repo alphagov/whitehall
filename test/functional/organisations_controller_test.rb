@@ -528,7 +528,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows 4 most recently published editions associated with organisation" do
+  test "shows 3 most recently published editions associated with organisation" do
     editions = 3.times.map { |n| create(:published_policy, published_at: n.days.ago) } +
                 3.times.map { |n| create(:published_publication, published_at: (3 + n).days.ago) } +
                 3.times.map { |n| create(:published_consultation, published_at: (6 + n).days.ago) } +
@@ -538,11 +538,11 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select "h1", "Latest"
-    editions[0,4].each do |edition|
-      assert_select_object edition
+    editions[0,3].each do |edition|
+      assert_select_prefix_object edition, :recent
     end
-    editions[10,2].each do |edition|
-      refute_select_object edition
+    editions[3,9].each do |edition|
+      refute_select_prefix_object edition, :recent
     end
   end
 

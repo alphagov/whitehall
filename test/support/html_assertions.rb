@@ -14,8 +14,16 @@ module HtmlAssertions
     assert_select record_css_selector(object), *args, &block
   end
 
+  def assert_select_prefix_object(object, prefix = nil, *args, &block)
+    assert_select record_css_selector(object, prefix), *args, &block
+  end
+
   def refute_select_object(object)
     assert_select_object object, count: 0
+  end
+
+  def refute_select_prefix_object(object, prefix = nil)
+    assert_select_prefix_object object, prefix, count: 0
   end
 
   def assert_select_within_html(html, *args, &block)

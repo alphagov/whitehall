@@ -1,8 +1,8 @@
 module CssSelectors
   include ActionController::RecordIdentifier
 
-  def record_css_selector(object)
-    '#' + dom_id(object)
+  def record_css_selector(object, prefix = nil)
+    '#' + dom_id(object, prefix)
   end
 
   def record_id_from(element)

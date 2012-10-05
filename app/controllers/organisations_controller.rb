@@ -13,7 +13,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def show
-    @recently_updated = @organisation.published_editions.by_published_at.limit(4)
+    @recently_updated = @organisation.published_editions.by_published_at.limit(3)
     if @organisation.live?
       @news_articles = NewsArticle.published.in_organisation(@organisation)
       @primary_featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(3))
