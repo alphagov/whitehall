@@ -70,7 +70,9 @@ module Whitehall
     end
 
     def asset_storage_mechanism
-      if %w{preview production}.include?(platform)
+      if Rails.env.test?
+        :file
+      elsif %w{preview production}.include?(platform)
         :quarantined_file
       else
         :file

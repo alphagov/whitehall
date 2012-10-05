@@ -3,17 +3,18 @@ require 'test_helper'
 class WhitehallTest < ActiveSupport::TestCase
   test 'use quarantined file store in preview' do
     Whitehall.stubs(:platform).returns('preview')
+    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new('not-test-environment'))
     assert_equal :quarantined_file, Whitehall.asset_storage_mechanism
   end
 
   test 'use quarantined file store in production' do
     Whitehall.stubs(:platform).returns('production')
+    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new('not-test-environment'))
     assert_equal :quarantined_file, Whitehall.asset_storage_mechanism
   end
 
-  test 'never use S3 storage in test environment' do
-    Whitehall.stubs(:aws_access_key_id).returns('an-id')
-    Whitehall.stubs(:aws_secret_access_key).returns('private-key')
+  test 'always uses file storage in test environment' do
+    Whitehall.stubs(:platform).returns('production')
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new('test'))
     assert_equal :file, Whitehall.asset_storage_mechanism
   end
