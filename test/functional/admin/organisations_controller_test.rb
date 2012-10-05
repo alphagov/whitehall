@@ -29,6 +29,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "input[type=text][name='organisation[contacts_attributes][0][postcode]']"
     assert_select "input[type=text][name='organisation[contacts_attributes][0][contact_numbers_attributes][0][label]']"
     assert_select "input[type=text][name='organisation[contacts_attributes][0][contact_numbers_attributes][0][number]']"
+    assert_select "input[type=checkbox][name='organisation[use_single_identity_branding]']"
   end
 
   test "should display social media account fields for new organisation" do
@@ -70,6 +71,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       organisation_type_id: organisation_type.id,
       topic_ids: [topic.id],
       contacts_attributes: [{description: "Enquiries", contact_numbers_attributes: [{label: "Fax", number: "020712435678"}]}],
+      use_single_identity_branding: false
     )
 
     assert organisation = Organisation.last
@@ -83,6 +85,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal "Fax", organisation.contacts[0].contact_numbers[0].label
     assert_equal "020712435678", organisation.contacts[0].contact_numbers[0].number
     assert_equal topic, organisation.topics.first
+    refute organisation.use_single_identity_branding?
   end
 
   test "creating should be able to create a new social media account for the organisation" do
