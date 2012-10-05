@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-  <% recently_updated.each do |document| %>
+  <% recently_updated.first(3).each do |document| %>
     <%= content_tag_for :tr, document, class: [edition_organisation_class(document), 'document-row'].join(" ") do %>
       <th scope="row" class="Title"><%= link_to document.title, public_document_path(document), class: "title" %></th>
       <td class="published-date">
