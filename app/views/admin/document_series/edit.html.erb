@@ -1,5 +1,16 @@
 <% page_title "Edit document series" %>
 
-<h1>Edit document series</h1>
+<div class="span8">
+  <section>
+    <h1>Edit document series</h1>
+    <%= render partial: "form" %>
+  </section>
+</div>
 
-<%= render partial: "form" %>
+<div class="span4">
+  <%= sidebar_tabs govspeak_help: "Formatting Help" do |tabs| %>
+    <%= tabs.pane id: "govspeak_help" do %>
+      <%= render partial: "admin/editions/govspeak_help" %>
+    <% end %>
+  <% end %>
+</div>
