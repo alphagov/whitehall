@@ -57,4 +57,41 @@ class MainstreamCategoryTest < ActiveSupport::TestCase
                           published_other_detailed_guide],
                          @category.published_detailed_guides
   end
+
+  test "can limit categories returned to only those with published content" do
+    @category_with_drafts = create(:mainstream_category)
+    @empty_category = create(:mainstream_category)
+
+    create(:published_detailed_guide, primary_mainstream_category: @category)
+    create(:draft_detailed_guide, primary_mainstream_category: @category_with_drafts)
+
+    assert_same_elements [@category], MainstreamCategory.with_published_content
+  end
+
+  test "with_published_content includes non primary categories" do
+    @other_category = create(:mainstream_category)
+
+    create(:published_detailed_guide, primary_mainstream_category: @category,
+           other_mainstream_categories: [@other_category])
+
+    assert_same_elements [@category, @other_category], MainstreamCategory.with_published_content
+  end
+
+  test "with_published_content should allow additional filtering" do
+    @other_category = create(:mainstream_category, parent_tag: "some/parent/tag")
+
+    create(:published_detailed_guide, primary_mainstream_category: @category)
+    create(:published_detailed_guide, primary_mainstream_category: @other_category)
+
+    assert_same_elements [@other_category], MainstreamCategory.with_published_content.where(parent_tag: "some/parent/tag")
+  end
+
+  test "with_published_content only returns each category once" do
+    @other_category = create(:mainstream_category, parent_tag: "some/parent/tag")
+
+    create(:published_detailed_guide, primary_mainstream_category: @category)
+    create(:published_detailed_guide, primary_mainstream_category: @other_category, other_mainstream_categories: [@category])
+
+    assert_same_elements [@category, @other_category], MainstreamCategory.with_published_content
+  end
 end

@@ -19,7 +19,7 @@ class Api::DetailedGuidesController < PublicFacingController
   end
 
   def tags
-    @results = MainstreamCategory.where(parent_tag: params[:parent_id])
+    @results = MainstreamCategory.with_published_content.where(parent_tag: params[:parent_id])
     if @results.any?
       respond_with Api::MainstreamCategoryTagPresenter.new(@results)
     else
