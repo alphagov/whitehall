@@ -5,18 +5,18 @@ class WhitehallTest < ActiveSupport::TestCase
     Whitehall.stubs(:aws_access_key_id).returns('an-id')
     Whitehall.stubs(:aws_secret_access_key).returns('private-key')
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new('anything-other-than-test'))
-    assert Whitehall.use_s3?
+    assert_equal :s3, Whitehall.asset_storage_mechanism
   end
 
   test 'never use S3 storage in test environment' do
     Whitehall.stubs(:aws_access_key_id).returns('an-id')
     Whitehall.stubs(:aws_secret_access_key).returns('private-key')
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new('test'))
-    refute Whitehall.use_s3?
+    assert_equal :file, Whitehall.asset_storage_mechanism
   end
 
   test 'use file storage if no access details set' do
-    refute Whitehall.use_s3?
+    assert_equal :file, Whitehall.asset_storage_mechanism
   end
 
   test '.platform returns FACTER_govuk_platform if set' do

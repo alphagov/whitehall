@@ -12,3 +12,4 @@
 .rbenv-version
 /coverage
 /test/reports
+/incoming-uploads

@@ -3,7 +3,7 @@ Around("@quarantine-files") do |scenario, block|
     config.reset_config
     config.storage Whitehall::QuarantinedFileStorage
     config.incoming_root Rails.root + "test-quarantine"
-    config.clean_root Rails.root + "public/system/uploads/test"
+    config.clean_root Rails.root + "public/government/uploads/test"
   end
 
   block.call

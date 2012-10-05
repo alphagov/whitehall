@@ -69,8 +69,14 @@ module Whitehall
       secrets["aws_secret_access_key"]
     end
 
-    def use_s3?
-      !Rails.env.test? && aws_access_key_id && aws_secret_access_key
+    def asset_storage_mechanism
+      if platform == 'preview'
+        :quarantined_file
+      elsif !Rails.env.test? && aws_access_key_id && aws_secret_access_key
+        :s3
+      else
+        :file
+      end
     end
 
     def government_search_index_name

@@ -152,6 +152,6 @@ Whitehall::Application.routes.draw do
 
   mount TestTrack::Engine => "test" if Rails.env.test?
 
-  match '/system/uploads/*path.:extension' => redirect("/assets/thumbnail-virus-checking.png"), constraints: { extension: /(jpe?g|gif|png)/ }
-  match '/system/uploads/*path' => redirect("/placeholder"), as: :attachment_placeholder
+  match '/government/uploads/*path.:extension' => redirect("/assets/thumbnail-virus-checking.png"), constraints: { extension: /(jpe?g|gif|png)/i }
+  match '/government/uploads/*path' => redirect("/placeholder"), as: :attachment_placeholder
 end

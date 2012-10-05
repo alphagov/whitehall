@@ -37,7 +37,7 @@ class HackableUrlTest < ActiveSupport::TestCase
   end
 
   def asset_route?(route)
-    route.path.match(/\/system\//)
+    route.path.match(/\/government\/uploads\//)
   end
 
   def all_possible_hackings_of(path)
