@@ -28,8 +28,8 @@ EOS
 end
 
 When /^I view the detailed guide$/ do
-  visit "/specialist"
-  click_link "Detailed guide with pages"
+  guide = DetailedGuide.find_by_title!("Detailed guide with pages")
+  visit detailed_guide_path(guide.document)
 end
 
 Then /^I should see all pages of the detailed guide$/ do
