@@ -24,7 +24,6 @@ class Attachment < ActiveRecord::Base
     allow_blank: true, greater_than: 0
   }
 
-  before_save :store_price_in_pence
   before_save :update_file_attributes
 
   def filename
@@ -46,6 +45,7 @@ class Attachment < ActiveRecord::Base
 
   def price=(price_in_pounds)
     @price = price_in_pounds
+    store_price_in_pence
   end
 
   private
