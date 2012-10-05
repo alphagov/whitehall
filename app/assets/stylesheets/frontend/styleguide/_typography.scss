@@ -355,13 +355,3 @@
   padding-bottom: 5px;
   padding-bottom: 0.5rem;
 }
-
-
-
-// Dumping this here as tried it in _alphabetical-list.scss btu it broke the site.
-// Doesn't belong here but works here technically.
-@mixin single-col-li {
-      padding: 0 0 $gutter-half 0;
-      float: none;
-      display: block;
-}
