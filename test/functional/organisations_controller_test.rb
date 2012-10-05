@@ -41,6 +41,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "#show indicates when an organisation is part of the single identity branding" do
+    organisation = create(:organisation, use_single_identity_branding: true)
+    get :show, id: organisation
+    assert_select ".page-header .single-identity"
+  end
+
+  test "#show indicates when an organisation is not part of the single identity branding" do
+    organisation = create(:organisation, use_single_identity_branding: false)
+    get :show, id: organisation
+    refute_select ".single-identity"
+  end
+
   test "shows primary featured editions in ordering defined by association" do
     organisation = create(:organisation)
     news_article = create(:published_news_article)
