@@ -1,4 +1,7 @@
 Around("@quarantine-files") do |scenario, block|
+  FileUtils.mkdir_p Rails.root.join("test-quarantine")
+  FileUtils.mkdir_p Rails.root.join("public/government/uploads")
+
   CarrierWave.configure do |config|
     config.reset_config
     config.storage Whitehall::QuarantinedFileStorage
