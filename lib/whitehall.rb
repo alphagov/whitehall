@@ -70,10 +70,8 @@ module Whitehall
     end
 
     def asset_storage_mechanism
-      if platform == 'preview'
+      if %w{preview production}.include?(platform)
         :quarantined_file
-      elsif !Rails.env.test? && aws_access_key_id && aws_secret_access_key
-        :s3
       else
         :file
       end
