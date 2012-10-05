@@ -22,6 +22,7 @@ class Api::MainstreamCategoryTagPresenter
       web_url: nil,
       details: {
         type: 'section',
+        description: mainstream_category.description
       },
       content_with_tag: {
         id: mainstream_category.path,

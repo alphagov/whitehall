@@ -5,7 +5,7 @@
   <div class="inner-block">
     <header class="page-header detailed-guides">
       <h1 class="page-title"><%= @mainstream_category.title %></h1>
-      <p>Additional detailed guidance from government departments</p>
+      <p><% if @mainstream_category.description %><%= @mainstream_category.description %><% else %>Additional detailed guidance from government departments<% end %></p>
     </header>
   </div>
 </div>
