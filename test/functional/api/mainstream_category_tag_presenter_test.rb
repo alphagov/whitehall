@@ -24,4 +24,13 @@ class Api::MainstreamCategoryTagPresenterTest < ActiveSupport::TestCase
     assert_equal category.title, json[:title]
     assert_equal mainstream_category_path(category), json[:content_with_tag][:web_url]
   end
+
+  test "json result includes description" do
+    category = create(:mainstream_category)
+    results = [category]
+    results = Api::MainstreamCategoryTagPresenter.new(results)
+    json = results.as_json[:results].first
+
+    assert_equal category.description, json[:details][:description]
+  end
 end
