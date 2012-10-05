@@ -142,13 +142,13 @@ Whitehall::Application.routes.draw do
     match from.upcase, to: redirect(to)
   end
 
+  get 'healthcheck' => 'healthcheck#check'
+
   # XXX: we use a blank prefix here because redirect has been
   # overridden further up in the routes
   match '/specialist/:id', constraints: {id: /[A-z0-9\-]+/}, to: redirect("/%{id}", prefix: '')
   # Detailed guidance lives at the root
   match ':id' => 'detailed_guides#show', constraints: {id: /[A-z0-9\-]+/}, as: 'detailed_guide'
-
-  get 'healthcheck' => 'healthcheck#check'
 
   mount TestTrack::Engine => "test" if Rails.env.test?
 
