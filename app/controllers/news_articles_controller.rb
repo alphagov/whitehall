@@ -5,7 +5,6 @@ class NewsArticlesController < DocumentsController
 
   def show
     @related_policies = @document.published_related_policies
-    @topics = @document.topics
   end
 
   private

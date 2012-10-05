@@ -1,0 +1,85 @@
+.newsarticle {
+  @include media(desktop){
+    .block-3 {
+      float: left;
+      width: 33%;
+      min-height: 100px;
+    }
+    .block-4 {
+      float: left;
+      width: 66%;
+      min-height: 100px;
+    }
+  }
+  .page-header {
+    @extend %contain-floats;
+
+    h1 {
+      margin-top: $gutter-one-sixth;
+      @include media(desktop){
+        margin-bottom: $gutter;
+        width: 75%;
+        float: left;
+      }
+
+      .inner {
+        @include media(desktop){
+          display: block;
+          padding-right:$gutter-half;
+        }
+      }
+    }
+    .meta {
+      display: inline;
+      
+      dl {
+        display: inline;
+        @include core-16;
+
+        dt {
+          width: 7em;
+          float: left;
+          clear: left;
+        }
+        dd {
+          float: left;
+        }
+
+        dd.organisations {
+          @include media(desktop){
+            margin-top: $gutter*2.5;
+            float: left;
+            width: 25%;
+          }
+
+          .organisations-icon-list {
+            @include media(desktop){
+              margin-left: $gutter-half;
+            }
+          }
+        }
+
+        .change-notes {
+          @include media(desktop){
+            clear: both;
+          }
+        }
+      }
+    }
+  }
+
+  .summary {
+    margin-top: $gutter;
+
+    p {
+      @include core-24;
+    }
+  }
+
+  .document {
+    padding-top: $gutter;
+  }
+
+
+
+}
