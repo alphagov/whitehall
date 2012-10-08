@@ -1,66 +1,233 @@
-.organisations-icon-list {
-  list-style: none;
+// small logos - used across the site
 
-  .organisation-logo-small {
-    @include core-19;
-    font-family: $Helvetica-Regular;
-    line-height: (20/19);
-    display:block;
-    padding: $gutter-one-sixth 0;
-    color: $black;
+.organisation {
+  overflow: hidden;
+}
+
+.organisation-logo-small {
+  font-family: $Helvetica-Regular;
+  font-size: 14px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: (15/14);
+  float: left;
+  display:block;
+  padding-top: 2px;
+  padding-top: 0.2rem;
+  padding-bottom: 3px;
+  padding-bottom: 0.3rem;
+  color: $black;
+  background: none;
+  
+  @media (max-width: 640px) {
+    font-size: 1.3rem;
+    line-height: (15/13);
+  }
+  
+  &[rel="external"] {
     background: none;
   }
+  
+  &:active {
+    color: $black;
+  }
+}
 
-  .single-identity .organisation-logo-small {
-    @include logo-19;
+.single-identity .organisation-logo-small {
+  padding-top: 20px;
+  padding-top: 2rem;
+  padding-bottom: 0px;
+  padding-left: 5px;
+  border-left-width: 2px;
+  border-left-style: solid;
+  background: image-url("coa-default-20.gif") no-repeat 4px 0;
+  
+  span {
+    position: relative;
+    top: 2px;
   }
+  
+  @media (max-width: 640px) {
+    padding-top: 20px;
+    padding-top: 2rem;
+    background-image: image-url("coa-default-18.gif");
+    
+    span {
+      top: 3px;
+    }
+  }
+  
+  &.single-line {
+    padding-top: 2px;
+    padding-top: 0.2rem;
+    padding-bottom: 3px;
+    padding-bottom: 0.3rem;
+    padding-left: 35px;
+    background-position: 4px 50%;
+  
+    span {
+      top: 0;
+      position: static;
+    }
+    
+    @media (max-width: 640px) {
+      padding-top: 1px;
+      padding-top: 0.1rem;
+      padding-bottom: 1px;
+      padding-bottom: 0.1rem;
+      padding-left: 31px;
+      padding-left: 3.1rem;
+      background-position: 5px 50%;
+    }
+  }
+}
 
-  .treasury a {
-    border-color: $treasury;
+
+
+
+// large logos - used on org pages
+
+.organisation-logo-large {
+  font-family: $Helvetica-Regular;
+  font-size: 27px;
+  font-size: 2.7rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: (30/26.8); /* 30px */
+  float: left;
+  display:block;
+  padding-top: 3px;
+  padding-top: 0.3rem;
+  padding-bottom: 2px;
+  padding-bottom: 0.2rem;
+  color: $black;
+  background: none;
+  
+  @media (max-width: 640px) {
+    font-size: 1.4rem;
+    line-height: (15/14);
   }
-  .cabinet-office a {
-    border-color: $cabinet-office;
+  
+  &[rel="external"] {
+    background: none;
   }
-  .department-for-education a {
-    border-color: $department-for-education;
+  
+  &:active {
+    color: $black;
   }
-  .department-of-transport a {
-    border-color: $department-of-transport;
+}
+
+.single-identity .organisation-logo-large {
+  padding-top: 40px;
+  padding-top: 4.0rem;
+  padding-bottom: 0;
+  padding-left: 10px;
+  border-left-width: 3px;
+  border-left-style: solid;
+  background: image-url("coa-default-27.png") no-repeat 10px 0;
+  
+  span {
+    position: relative;
+    top: 5px;
   }
-  .home-office a {
-    border-color: $home-office;
+  
+  @media (max-width: 640px) {
+    padding-top: 20px;
+    padding-top: 2rem;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    border-left-width: 2px;
+    border-left-style: solid;
+    background: image-url("coa-default-20.gif") no-repeat 4px 0;
+    
+    span {
+      top: 2px;
+    }
   }
-  .department-of-health a {
-    border-color: $department-of-health;
+  
+  &.single-line {
+    padding-top: 3px;
+    padding-top: 0.3rem;
+    padding-bottom: 2px;
+    padding-bottom: 0.2rem;
+    padding-left: 70px;
+    background-position: 10px 50%;
+  
+    span {
+      top: 0;
+      position: static;
+    }
+    
+    @media (max-width: 640px) {
+      padding-top: 2px;
+      padding-top: 0.2rem;
+      padding-bottom: 3px;
+      padding-bottom: 0.3rem;
+      padding-left: 35px;
+      background-position: 4px 50%;
+    }
   }
-  .ministry-of-justice a {
-    border-color: $ministry-of-justice;
-  }
-  .ministry-of-defence a {
-    border-color: $ministry-of-defence;
-  }
-  .foreign-and-commonwealth-office a {
-    border-color: $foreign-and-commonwealth-office;
-  }
-  .department-for-communities-and-local-government a {
-    border-color: $department-for-communities-and-local-government;
-  }
-  .department-for-energy-and-climate-change a {
-    border-color: $department-for-energy-and-climate-change;
-  }
-  .department-for-culture-media-and-sport a {
-    border-color: $department-for-culture-media-and-sport;
-  }
-  .department-for-environment-food-and-rural-affairs a {
-    border-color: $department-for-environment-food-and-rural-affairs;
-  }
-  .department-for-work-and-pensions a {
-    border-color: $department-for-work-and-pensions;
-  }
-  .department-for-business-innovation-and-skills a {
-    border-color: $department-for-business-innovation-and-skills;
-  }
-  .department-for-international-development a {
-    border-color: $department-for-international-development;
-  }
+}
+
+
+
+
+
+
+
+
+
+
+// logo colors
+
+.treasury a {
+  border-color: $treasury;
+}
+.cabinet-office a {
+  border-color: $cabinet-office;
+}
+.department-for-education a {
+  border-color: $department-for-education;
+}
+.department-of-transport a {
+  border-color: $department-of-transport;
+}
+.home-office a {
+  border-color: $home-office;
+}
+.department-of-health a {
+  border-color: $department-of-health;
+}
+.ministry-of-justice a {
+  border-color: $ministry-of-justice;
+}
+.ministry-of-defence a {
+  border-color: $ministry-of-defence;
+}
+.foreign-and-commonwealth-office a {
+  border-color: $foreign-and-commonwealth-office;
+}
+.department-for-communities-and-local-government a {
+  border-color: $department-for-communities-and-local-government;
+}
+.department-for-energy-and-climate-change a {
+  border-color: $department-for-energy-and-climate-change;
+}
+.department-for-culture-media-and-sport a {
+  border-color: $department-for-culture-media-and-sport;
+}
+.department-for-environment-food-and-rural-affairs a {
+  border-color: $department-for-environment-food-and-rural-affairs;
+}
+.department-for-work-and-pensions a {
+  border-color: $department-for-work-and-pensions;
+}
+.department-for-business-innovation-and-skills a {
+  border-color: $department-for-business-innovation-and-skills;
+}
+.department-for-international-development a {
+  border-color: $department-for-international-development;
 }

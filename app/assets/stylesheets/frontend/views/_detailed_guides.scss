@@ -41,6 +41,11 @@
       padding-bottom: $gutter*2;
     }
   }
+  
+  .organisation-logo-large,
+  .organisation-logo-small {
+    color: $black;
+  }
 
   .page-header {
     color: $detailed-guidance-brand;
