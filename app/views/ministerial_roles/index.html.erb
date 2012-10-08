@@ -26,7 +26,7 @@
   <div class="inner-block">
     <section class="other">
       <h1 class="label">Other ministers</h1>
-      <section class="alphabetical-list" id="ministerial_roles">
+      <section class="simple-alphabetical-list" id="ministerial_roles">
         <% @ministerial_roles.group_by { |p,r| (p.surname || '-').first.upcase }.each do |letter, entries| %>
           <div class="alphabetical-row" id="ministerial_roles_<%= letter.downcase %>">
             <h2 class="alphabetical-list-letter"><%= letter %></h2>

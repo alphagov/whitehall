@@ -1,91 +1,161 @@
 
 .ministers-index {
 
-  .block-2 {
-    padding-bottom: $gutter*2;
-  }
-
-  .block-2 .cab_ministers {
-    overflow: hidden;
-    padding-bottom: $gutter;
-
-    h1 {
-      @include core-16;
-    }
-
-    h2 {
-      position: relative;
-      @include core-16;
+  .block-1 {
+    padding-top: $gutter-one-sixth;
+    
+    .page_title {
+      color: $low-contrast;
       padding-bottom: 0;
-      padding-right: $gutter;
     }
-
-    .role {
-      @include core-16;
+  }
+  
+  .block-2 {
+    h1.label {
+      @include core-48;
       padding-top: 0;
-      padding-right: $gutter;
     }
-
-    li {
+    
+    #cabinet {
+      margin: 0 ($gutter-half*-1);
+      padding-top: ($gutter+$gutter-one-sixth);
+      overflow: hidden;
+    }
+    
+    .ministerial_role {
       list-style: none;
+      
+      @include media(tablet) {
+        float: left;
+        width: 25%;
+      
+        &:nth-child(4n+1) {
+          clear: both;
+        }
+      }
+      
       .inner {
+        padding: 0 $gutter-half $gutter-half;
+      }
+      
+      .image_holder {
+        float: none;
+        margin: 0;
+        width: 100%;
+        
+        img {
+          display: block;
+          min-height: 50px;
+        }
+      }
+      
+      .current-appointee {
+        @include core-19;
+        padding-top: 0;
+        
+        a {
+          &:hover,
+          &:focus,
+          &:active {
+            text-decoration: none;
+            
+            strong {
+              text-decoration: underline;
+            }
+          }
+        }
+        
+        span {
+          display: block;
+          @include core-14;
+          color: $low-contrast;
+          margin-bottom: ($gutter-one-sixth*-1)
+        }
+      }
+      
+      .role {
+        @include core-14;
+        padding-top: 2px;
+        padding-top: 0.2rem;
+        
+        a {
+          color: $body-text;
+        }
+      }
+      
+    }
+  }
+  
+  .block-3 {
+    padding-top: ($gutter*2);
+  
+    h1.label {
+      @include core-48;
+    }
+    
+    .simple-alphabetical-list {
+      padding-top: $gutter;
+    
+      .alphabetical-row {
+        list-style: none;
+        display: block;
         position: relative;
         overflow: hidden;
-        padding: $gutter-half 0 0 20%;
-        @include ie(6) {
-          height: 140px;
-          margin-bottom: $gutter;
-        }
-      }
-    }
-
-    .image_holder {
-      position: relative;
-      float: left;
-      display: inline;
-      width: 25%;
-      margin-left: -25%;
-      @include ie(6) {
-        margin-left: -20%;
-        width: 5%;
-      }
-
-      a {
-        display: block;
-        padding-top: $gutter-one-third;
-        padding-right: $gutter-half;
-      }
-
-      img {
         width: auto;
-        max-width: 100%;
-        height: auto;
-        @include ie(6) {
-          width: expression(document.body.clientWidth < 102? "100px" : document.body.clientWidth > 102? "100px" : "auto");
+        padding-left: 50px;
+
+        @include media(tablet) {
+          width: 75%;
+          padding-left: 25%;
         }
-      }
-    }
-
-    @media (min-width: 768px) {
-
-      li {
-        width: 33.3333%;
-        float: left;
-        display: inline;
-
-        .inner {
-          padding-left: 33.33333%;
-        }
-
+        
         .image_holder {
-          width: 50%;
-          margin-left: -50%;
+          display: none;
         }
-      }
+      
+        h2 {
+          position: relative;
+          float: left;
+          display: inline;
+          width: 50px;
+          margin-left: -50px;
+          text-align: center;
+          @include core-48;
+          color: $low-contrast;
 
-      li:nth-child(3n+1) {
-        clear: both;
-      }
+          @include media(tablet) {
+            float: right;
+            width: 1em;
+            margin-right: -100%;
+            right: 200%;
+            padding: 0 $gutter-half;
+            padding-top: 4px;
+            padding-top: 0.4rem;
+          }
+        }
+      
+        ul {
+          padding: 0 $gutter-half;
+          
+          .current-appointee {
+            @include core-19;
+            padding-bottom: 0;
+          }
+        
+          .role {
+            @include core-14;
+            padding-top: 0;
+            
+            a {
+              color: $body-text;
+            }
+          }
+          
+        }
+        
+      } // simple-alphabetical-list      
+        
     }
   }
+
 }

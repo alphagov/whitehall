@@ -17,7 +17,7 @@
     }
     .label {
       @include core-48;;
-      color: lighten($body-text, 30%);
+      color: $low-contrast;
     }
     @include media(desktop){
       padding: $gutter 0
