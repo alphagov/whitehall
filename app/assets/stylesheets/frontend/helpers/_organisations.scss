@@ -3,7 +3,12 @@
 
   .organisation-logo-small {
     @include core-19;
+    font-family: $Helvetica-Regular;
+    line-height: (20/19);
+    display:block;
+    padding: $gutter-one-sixth 0;
     color: $black;
+    background: none;
   }
 
   .single-identity .organisation-logo-small {
