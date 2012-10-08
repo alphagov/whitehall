@@ -1,0 +1,98 @@
+.change-notes {
+  display: inline-block;
+  position: relative;
+  @include core-14;
+  min-width: 160px;
+  padding: 0;
+
+  .toggle {
+    display: inline-block;
+    color: $body-text;
+    white-space: nowrap;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  @include ie(6) {
+    &,
+    .overlay {
+      zoom: 1;
+      position: relative;
+    }
+  }
+
+  &.open {
+    .toggle {
+      top: 0.2em;
+      @include box-shadow(none);
+    }
+    &.toggleable .overlay {
+      opacity: 1;
+    }
+  }
+  .arrow {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -4px;
+    left: 20%;
+    margin-left: -2px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid $charcoal-grey;
+  }
+  #change-notes {
+    color: $white;
+    background: $charcoal-grey;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    padding: $gutter-one-third 0;
+    text-align: left;
+
+    dt, dd {
+      float: none;
+      @include core-14;
+      padding: 0 $gutter-one-third;
+    }
+    dd {
+      margin-bottom: 3px;
+      color: darken($white, 40%);
+      &:before {
+        content: '- ';
+      }
+    }
+  }
+  &.toggleable .overlay {
+    position: absolute;
+    top: 130%;
+    left: -$gutter*3;
+    @include media(desktop){
+      left: 0;
+    }
+    width: 200%;
+    z-index: 10;
+    opacity: 0;
+    display: block;
+    @include transition(opacity, .5s, ease);
+    &.visuallyhidden {
+      left: -9999em!important;
+      position: absolute;
+    }
+  }
+  @include ie(6){
+    display: block;
+    .overlay {
+      display: none;
+      position: static;
+      width: auto;
+      .arrow {
+        display: none;
+      }
+    }
+    &.open {
+      .overlay {
+        display: block !important;
+      }
+    }
+  }
+}

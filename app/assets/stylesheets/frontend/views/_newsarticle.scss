@@ -59,7 +59,7 @@
           }
         }
 
-        .change-notes {
+        .change-notes-title {
           @include media(desktop){
             clear: both;
           }
@@ -73,6 +73,18 @@
 
     p {
       @include core-24;
+    }
+  }
+
+  .pullout-image {
+    padding-top: $gutter;
+
+    img {
+      padding-top: $gutter-one-third;
+      max-width: 100%;
+    }
+    p {
+      @include core-16;
     }
   }
 
