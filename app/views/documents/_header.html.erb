@@ -1,21 +1,44 @@
 <%
   header_title ||= ""
-  show_topics ||= false
-  hide_header_organisation ||= false
 %>
-<section class="page-header">
-  <%= render partial: "title", 
-             locals: { document: @document, header_title: header_title, hide_header_organisation: hide_header_organisation } %>
-  <div class="meta-context meta meta-topic">
-    <% if show_topics %>
-      <%= part_of_topics_paragraph(@document.topics) %>
-    <% end %>
-    <%= part_of_policy_paragraph(@related_policies) %>
-    <%= applies_to_countries_paragraph(@document) %>
-    <%= only_applies_to_nations_paragraph(@document) %>
-  </div>
+<section class="document-page-header">
+  <h1 class="page_title">
+    <span class="inner">
+      <span class="label"><%= header_title %></span> <%= document.title %>
+    </span>
+  </h1>
+  <aside class="meta">
+    <dl>
+      <dt class="organisations visuallyhidden">Organisations:</dt>
+      <dd class="organisations">
+        <%= render  partial: 'organisations/organisations_logo_list',
+                    locals: { organisations: document.organisations } %>
+      </dd>
+      <%= render  partial: 'document_extra_metadata',
+                  locals: { document: document } %>
+      <%= render  partial: 'documents/change_notes',
+                  locals: { document: document } %>
+      <% if local_assigns.include?(:policies) && policies.any? %>
+        <dt><%= policies.length == 1 ? "Policy" : "Policies" %>:</dt>
+        <dd><%= list_of_links_to_policies(policies) %></dd>
+      <% end %>
+      <% if local_assigns.include?(:topics) && topics.any? %>
+        <dt><%= topics.length == 1 ? "Topic" : "Topics" %>:</dt>
+        <dd><%= list_of_links_to_topics(topics) %></dd>
+      <% end %>
+      <% if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any? %>
+        <dt><%= document.ministerial_roles.length == 1 ? "Minister" : "Ministers" %>:</dt>
+        <dd><%= list_of_links_to_ministers(document.ministerial_roles) %></dd>
+      <% end %>
+      <% if document.respond_to?(:person) && document.person %>
+        <dt>Minister:</dt>
+        <dd><%= link_to_person document.person %></dd>
+      <% end %>
+      <% if document.respond_to?(:countries) && document.countries.any? %>
+        <dt><%= document.countries.length == 1 ? "Country" : "Countries" %>:</dt>
+        <dd><%= list_of_links_to_countries(document) %></dd>
+      <% end %>
+    </dl>
+    <%= national_statistics_logo(document) %>
+  </aside>
 </section>
-
-<div class="meta-changes">
-  <%= render partial: 'change_notes', locals: {document: @document} %>
-</div>

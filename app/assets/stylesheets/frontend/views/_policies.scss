@@ -61,41 +61,10 @@
   }
 
   .contextual-info {
-      @include core-14;
+    @include core-14;
     nav {
       margin-top: 0;
     }
-  }
-
-  #document-organisations + #document-ministers,
-  #policy_team,
-  #document-organisations {
-    margin: 0;
-    padding-left: 0;
-    padding-top: 0;
-  }
-
-  #policy_team {
-    p {
-      @include core-19;
-    }
-  }
-
-  #document-ministers {
-    margin-bottom: $gutter;
-    overflow: hidden;
-    @include core-14;
-    .ministers {
-      p {
-        a {
-          white-space: nowrap;
-        }
-      }
-    }
-  }
-
-  .current-appointee {
-    margin-right: $gutter-half;
   }
 
   .policy-parts {

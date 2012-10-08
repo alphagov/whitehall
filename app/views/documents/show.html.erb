@@ -1,44 +1,33 @@
 <% page_title @document.title, "Documents" if page_title.empty? %>
 
-<div class="document_page <%= @document.type.downcase %>">
+<div class="document-page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
-      <section class="page-header icon">
-      <%= render  partial: "title",
+      <%= render  partial: 'header',
                   locals: {
-                    document: @document,
                     header_title: header_title,
-                    hide_extra_organisations: true
-                  } %>
-      </section>
-      <%= render  partial: "document_metadata",
-                  locals: {
                     document: @document,
-                    topics: @topics
+                    policies: @related_policies
                   } %>
     </div>
   </div>
 
   <div class="block-2 ">
     <div class="inner-block">
-      <%= render partial: "document_contextual", locals: {edition: @document} %>
-      <%= national_statistics_logo(@document) %>
+      <%= render partial: "document_summary", locals: { document: @document } %>
     </div>
   </div>
   
   <div class="block-3">
     <div class="inner-block">
-      <%= render partial: "document_content" %>
+      <%= render partial: "document_sidebar", locals: { document: @document } %>
     </div>
   </div>
   <div class="block-4">
     <div class="inner-block">
-      <%= render partial: "documents/document_related", locals: {
-        document: @document,
-        recently_changed_documents: @recently_changed_documents,
-        topics: @topics,
-        related_policies: @related_policies
-      } %>
+      <div class="document">
+        <%= govspeak_to_html @document.body, @document.images %>
+      </div>
     </div>
   </div>
 </div>

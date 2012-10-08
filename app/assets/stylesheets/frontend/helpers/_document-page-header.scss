@@ -1,0 +1,62 @@
+.document-page-header {
+  @extend %contain-floats;
+
+  h1 {
+    @include core-48;
+    margin-top: $gutter-one-sixth;
+    @include media(desktop){
+      margin-bottom: $gutter;
+      width: 75%;
+      float: left;
+    }
+
+    .inner {
+      @include media(desktop){
+        display: block;
+        padding-right:$gutter-half;
+      }
+
+      .label {
+        color: lighten($body-text, 30%);
+        display: block;
+      }
+    }
+  }
+  .meta {
+    display: inline;
+    
+    dl {
+      display: inline;
+      @include core-16;
+
+      dt {
+        width: 7em;
+        float: left;
+        clear: left;
+      }
+      dd {
+        float: left;
+      }
+
+      dd.organisations {
+        @include media(desktop){
+          margin-top: $gutter*2.5;
+          float: left;
+          width: 25%;
+        }
+
+        .organisations-icon-list {
+          @include media(desktop){
+            margin-left: $gutter-half;
+          }
+        }
+      }
+
+      .change-notes-title {
+        @include media(desktop){
+          clear: both;
+        }
+      }
+    }
+  }
+}

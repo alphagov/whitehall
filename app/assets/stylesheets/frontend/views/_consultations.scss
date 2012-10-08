@@ -71,7 +71,7 @@ nav.consultations_scope {
     background: $inside-gov-brand;
     color: $white;
     overflow: hidden;
-    margin-bottom: $gutter;
+    margin: $gutter 0;
 
     &.consultation-open {
       padding: $gutter-one-third 0;

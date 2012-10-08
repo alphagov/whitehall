@@ -1,22 +1,37 @@
-// The code below is for publicartions and consultations document pages.
-// I also think as it applies to the document page it should use the .document_page class.
-// But because other sections that use the .document_page class i.e. news etc would break with the below styles
-// I have decided to stay with the section classes for now.
-// Russ (inside gov team)
-.publication, .consultation {
-
-  .block-1 {
-    margin-bottom: $gutter*2;
-    padding-bottom: 0;
+.document-page {
+  @include media(desktop){
+    .block-3 {
+      float: left;
+      width: 33%;
+      min-height: 100px;
+    }
+    .block-4 {
+      float: left;
+      width: 66%;
+      min-height: 100px;
+    }
   }
 
-  .block-2 {
-    width: 100%;
+  .summary {
+    margin-top: $gutter;
+
+    p {
+      @include core-24;
+    }
   }
 
-  .national-statistics-logo {
-    margin-top: $gutter-one-third;
-    width: $gutter;
+  .sidebar {
+    padding-top: $gutter+$gutter-one-third;
+
+    p {
+      @include core-16;
+    }
   }
+
+  .document {
+    padding-top: $gutter;
+  }
+
+
+
 }
-
