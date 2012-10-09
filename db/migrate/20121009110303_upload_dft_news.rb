@@ -3,7 +3,6 @@ require 'csv'
 class UploadDftNews < ActiveRecord::Migration
   def up
     creator = User.find_by_name!("Automatic Data Importer")
-    return unless creator
     data.each do |row|
       organisation = Organisation.find_by_name(row['Organisation'])
       if organisation.nil?
