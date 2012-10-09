@@ -124,7 +124,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_equal policy, assigns(:policy)
   end
 
-  test "should link to topics from within the metadata navigation" do
+  test "should link to topics" do
     first_topic = create(:topic)
     second_topic = create(:topic)
     policy = create(:published_policy, topics: [first_topic, second_topic])
@@ -132,8 +132,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select ".meta-topic a.topic", text: first_topic.name
-    assert_select ".meta-topic a.topic", text: second_topic.name
+    assert_select "a.topic", text: first_topic.name
+    assert_select "a.topic", text: second_topic.name
   end
 
   test "should link to organisations from within the metadata navigation" do
@@ -160,7 +160,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "#document-ministers a.minister", text: "minister-name"
+    assert_select "a.minister", text: "minister-name"
   end
 
   test "should not apply active class to the parent policy page navigation heading" do

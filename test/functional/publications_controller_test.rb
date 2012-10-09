@@ -13,6 +13,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_display_inline_images_for :publication
   should_show_change_notes :publication
   should_show_inapplicable_nations :publication
+  should_show_related_policies_for :publication
   should_be_previewable :publication
   should_paginate :publication, timestamp_key: :publication_date
   should_paginate :consultation
@@ -57,7 +58,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication.document
 
-    assert_select "h1 .publication-type", text: /Form/
+    assert_select ".label", text: /Form/
     assert_select ".change-notes .published-at", text: "31 May 1916"
   end
 
@@ -657,15 +658,6 @@ class PublicationsControllerTest < ActionController::TestCase
         refute_select ".price"
       end
     end
-  end
-
-  test "should display links to related policies" do
-    policy = create(:published_policy)
-    publication = create(:published_publication, related_policies: [policy])
-
-    get :show, id: publication.document
-
-    assert_select_object(policy)
   end
 
   private

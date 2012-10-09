@@ -92,6 +92,6 @@ Then /^the published speech should remain unchanged$/ do
 end
 
 Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |delivered_on, location|
-  assert page.has_css?('.contextual-info .details .delivered_on', text: delivered_on)
-  assert page.has_css?('.contextual-info .details .location', text: location)
+  assert page.has_css?('.delivered-on', text: delivered_on)
+  assert page.has_css?('.location', text: location)
 end

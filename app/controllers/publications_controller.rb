@@ -23,7 +23,7 @@ class PublicationsController < DocumentsController
   end
 
   def show
-    @related_policies = @document.statistics? ? @document.published_related_policies : []
+    @related_policies = @document.statistics? ? [] : @document.published_related_policies
   end
 
 private

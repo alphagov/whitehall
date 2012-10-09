@@ -1,9 +1,11 @@
 <div class="summary">
   <p>
     <%= document.summary %>
-    Originally given at <%= document.location %>.
+    <% if document.location %>
+      Originally given at <span class="location"><%= document.location %></span>.
+    <% end %>
     <% if document.explanation %>
-      <%= document.explanation %>
+      <span class="explanation"><%= document.explanation %></span>
     <% end %>
   </p>
 </div>

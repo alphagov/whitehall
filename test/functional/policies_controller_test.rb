@@ -85,8 +85,8 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select ".topics a.topic", text: first_topic.name
-    assert_select ".topics a.topic", text: second_topic.name
+    assert_select "a.topic", text: first_topic.name
+    assert_select "a.topic", text: second_topic.name
   end
 
   test "should not show topics where none exist" do
@@ -119,7 +119,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select "#document-ministers a.minister", text: "minister-name"
+    assert_select "a.minister", text: "minister-name"
   end
 
   test "shows link to each policy section in the markdown" do

@@ -8,13 +8,10 @@
                     header_title: 'Policy',
                     topics: @document.topics } %>
       <section class="meta-three<% unless @show_navigation %> no-navigation<% end %>">
-        <%= render partial: "document_related", locals: {
-          document: @document
-        } %>
         <% if @show_navigation %>
           <%= render partial: "policy_navigation" %>
         <% end %>
-    </section>
+      </section>
     </div>
   </div>
   <div class="block-2">
@@ -29,10 +26,6 @@
       <% if @document.case_studies.any? %>
         <%= render partial: "case_studies", locals: {document: @document} %>
       <% end %>
-    </div>
-  </div>
-  <div class="block-4">
-    <div class="inner-block">
     </div>
   </div>
 </div>

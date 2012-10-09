@@ -3,7 +3,7 @@ require "test_helper"
 class SpeechesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   # should_render_a_list_of :speeches, :first_published_at
-  should_show_related_policies_and_topics_for :speech
+  should_show_related_policies_for :speech
   should_show_the_countries_associated_with :speech
   should_display_inline_images_for :speech
   should_show_change_notes :speech
@@ -18,9 +18,9 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
 
-    assert_select ".details .role_appointment .person", "Theresa May" # \s* as \s* Secretary of State \s* in \s* Home Office/
-    assert_select ".details .delivered_on", /1 June 2011/
-    assert_select ".details .location", /The Guidhall/
+    assert_select ".person", "Theresa May" # \s* as \s* Secretary of State \s* in \s* Home Office/
+    assert_select ".delivered-on", /1 June 2011/
+    assert_select ".location", /The Guidhall/
   end
 
   test "should display who gave the speech even if they are not appointed to the same position anymore" do
@@ -34,7 +34,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
 
-    assert_select ".details .role_appointment .person", "Theresa May"
+    assert_select ".person", "Theresa May"
   end
 
   test "should display details about a transcript" do
@@ -42,10 +42,7 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, speech_type: speech_type)
 
     get :show, id: published_speech.document
-    assert_select ".details" do
-      assert_select ".explanation",
-        "This is a transcript of the speech, exactly as it was delivered."
-    end
+    assert_select ".explanation", "This is a transcript of the speech, exactly as it was delivered."
     assert_select ".label", "Speech"
   end
 
@@ -54,10 +51,7 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, speech_type: speech_type)
 
     get :show, id: published_speech.document
-    assert_select ".details" do
-      assert_select ".explanation",
-        "This is the text of the speech as drafted, which may differ slightly from the delivered version."
-    end
+    assert_select ".explanation", "This is the text of the speech as drafted, which may differ slightly from the delivered version."
     assert_select ".label", "Speech"
   end
 
@@ -66,10 +60,7 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, speech_type: speech_type)
 
     get :show, id: published_speech.document
-    assert_select ".details" do
-      assert_select ".explanation",
-        "These are the speaker's notes, not a transcript of the speech as it was delivered."
-    end
+    assert_select ".explanation", "These are the speaker's notes, not a transcript of the speech as it was delivered."
     assert_select ".label", "Speech"
   end
 
@@ -78,9 +69,7 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, speech_type: speech_type)
 
     get :show, id: published_speech.document
-    assert_select ".details" do
-      refute_select ".explanation"
-    end
+    refute_select ".explanation"
     assert_select ".label", "Written statement"
   end
 
@@ -89,9 +78,7 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, speech_type: speech_type)
 
     get :show, id: published_speech.document
-    assert_select ".details" do
-      refute_select ".explanation"
-    end
+    refute_select ".explanation"
     assert_select ".label", "Oral statement"
   end
 
@@ -99,8 +86,6 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, location: nil)
 
     get :show, id: published_speech.document
-    assert_select ".details" do
-      refute_select ".location"
-    end
+    refute_select ".location"
   end
 end

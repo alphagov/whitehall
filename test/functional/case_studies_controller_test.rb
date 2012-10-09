@@ -27,7 +27,7 @@ class CaseStudiesControllerTest < ActionController::TestCase
       get :show, id: case_study.document
     end
 
-    assert_select ".body", text: "body-in-html"
+    assert_select ".document", text: "body-in-html"
   end
 
   test "shows when it was last updated" do

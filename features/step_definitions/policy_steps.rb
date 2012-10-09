@@ -257,8 +257,8 @@ Then /^they should see the supporting page "([^"]*)"$/ do |title|
 end
 
 Then /^I can see links to the related published policies "([^"]*)" and "([^"]*)"$/ do |policy_title_1, policy_title_2|
-  assert has_css?("#related-policies .policy a", text: policy_title_1)
-  assert has_css?("#related-policies .policy a", text: policy_title_2)
+  assert has_css?(".policies a", text: policy_title_1)
+  assert has_css?(".policies a", text: policy_title_2)
 end
 
 Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |policy_title|
