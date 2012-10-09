@@ -14,7 +14,7 @@ module Whitehall
     end
 
     test "finds all migrations in the specified directory" do
-      assert_equal ['20100101120000-migrate_some_data.rb'], @migrator.migrations.map(&:filename)
+      assert_equal ['20100101120000_migrate_some_data.rb'], @migrator.migrations.map(&:filename)
       assert @migrator.migrations.first.is_a?(Whitehall::DataMigration)
     end
 
@@ -36,7 +36,7 @@ module Whitehall
     end
 
     test "#due returns all migrations except those which have already been run" do
-      assert_equal ['20100101120000-migrate_some_data.rb'], @migrator.due.map(&:filename)
+      assert_equal ['20100101120000_migrate_some_data.rb'], @migrator.due.map(&:filename)
       DataMigrationRecord.create!(version: "20100101120000")
       assert_equal [], @migrator.due.map(&:filename)
     end
