@@ -7,11 +7,14 @@
 
   .toggle {
     display: inline-block;
-    color: $body-text;
+    color: $inside-gov-brand;
     white-space: nowrap;
-    &:focus {
+    &:focus,
+    &:hover {
+      text-decoration: underline;
       outline: none;
     }
+
   }
 
   @include ie(6) {
@@ -69,7 +72,7 @@
     @include media(desktop){
       left: 0;
     }
-    width: 200%;
+    width: 30em;
     z-index: 10;
     opacity: 0;
     display: block;

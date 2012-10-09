@@ -47,6 +47,25 @@
     color: $black;
   }
 
+  .change-notes {
+    .toggle {
+      color: $detailed-guidance-brand;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+    @include media(desktop) {
+      &.toggleable .overlay {
+        left: -100%;
+      }
+    }
+    .arrow {
+      left: 70%;
+    }
+  }
+
   .page-header {
     color: $detailed-guidance-brand;
     border: 4px solid;
