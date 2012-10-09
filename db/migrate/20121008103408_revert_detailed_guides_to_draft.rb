@@ -8,6 +8,9 @@ class RevertDetailedGuidesToDraft < ActiveRecord::Migration
       next unless guide
 
       latest_edition = guide.latest_edition
+
+      next unless latest_edition
+
       all_editions_including_deleted = Edition.unscoped.where(document_id: guide)
 
       other_editions = all_editions_including_deleted - [latest_edition]
