@@ -1,5 +1,5 @@
 .mainstream-category-show {
-  margin-bottom: 120px;
+  margin-bottom: $gutter;
 
   a {
     color: $detailed-guidance-link-text;
@@ -12,7 +12,8 @@
   }
 
   .no-results {
-    padding: $gutter;
+    background: $white;
+    padding: $gutter $gutter $gutter*2 $gutter;
   }
 
   .page-header {
