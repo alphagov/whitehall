@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009110303) do
+ActiveRecord::Schema.define(:version => 20121009145317) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -111,6 +111,12 @@ ActiveRecord::Schema.define(:version => 20121009110303) do
   end
 
   add_index "countries", ["slug"], :name => "index_countries_on_slug"
+
+  create_table "data_migration_records", :force => true do |t|
+    t.string "version"
+  end
+
+  add_index "data_migration_records", ["version"], :name => "index_data_migration_records_on_version", :unique => true
 
   create_table "document_series", :force => true do |t|
     t.string   "name"
