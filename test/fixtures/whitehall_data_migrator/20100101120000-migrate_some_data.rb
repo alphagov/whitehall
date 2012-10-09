@@ -1,0 +1,1 @@
+MyData.migrate!
