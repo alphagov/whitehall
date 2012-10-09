@@ -6,7 +6,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.stubs(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     person.forename = 'Jim'
     person.save
@@ -18,7 +18,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
     Rummageable.stubs(:index) # ignore the update to the organisation index
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.stubs(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     organisation.name = 'Ministry of Funk'
     organisation.save
@@ -29,7 +29,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     role_appointment.save
   end
@@ -40,7 +40,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     role_appointment.person = person
     role_appointment.save
@@ -51,7 +51,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     role_appointment.destroy
   end
@@ -61,7 +61,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     organisation_role.save
   end
@@ -72,7 +72,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     organisation_role.organisation = organisation
     organisation_role.save
@@ -83,7 +83,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     organisation_role.destroy
   end
