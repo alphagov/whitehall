@@ -16,7 +16,7 @@
         <section class="organisation_news" id="featured-documents">
           <%= content_tag_for(:article, @primary_featured_editions.first, nil, class: "#{edition_organisation_class(@primary_featured_editions.first)} primary-first") do %>
             <div class="img">
-              <%= @primary_featured_editions.first.image_tag %>
+              <%= link_to @primary_featured_editions.first.image_tag, public_document_path(@primary_featured_editions.first) %>
             </div>
             <div class="news_body">
               <h2><%= link_to @primary_featured_editions.first.title, public_document_path(@primary_featured_editions.first), class: "title" %></h2>
@@ -35,7 +35,7 @@
             <% @primary_featured_editions.to_a.from(1).each do |edition| %>
               <%= content_tag_for(:article, edition, nil, class: edition_organisation_class(edition)) do %>
                 <div class="img">
-                  <%= edition.image_tag %>
+                  <%= link_to edition.image_tag, public_document_path(edition) %>
                 </div>
                 <div class="news_body">
                   <h2><%= link_to edition.title, public_document_path(edition), class: "title" %></h2>
