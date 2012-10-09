@@ -1,6 +1,7 @@
 class RevertDetailedGuidesToDraft < ActiveRecord::Migration
   def up
     user = User.find_by_name("Automatic Data Importer")
+    return unless user
     PaperTrail.enabled = false
     data.each do |row|
       guide = Document.at_slug(DetailedGuide, row[0])
