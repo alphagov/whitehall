@@ -16,9 +16,16 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_select "script[src=?]", "#{Whitehall.router_prefix}/assets/application.js"
   end
 
-  test "visiting / redirects to #{Whitehall.router_prefix}" do
+  test "visiting / on frontend redirects to #{Whitehall.router_prefix}" do
+    host! 'whitehall-frontend.production.alphagov.co.uk'
     get "/"
     assert_redirected_to "#{Whitehall.router_prefix}/"
+  end
+
+  test "visiting / on an admin host redirects to #{Whitehall.router_prefix}/admin" do
+    host! 'whitehall-admin.production.alphagov.co.uk'
+    get "/"
+    assert_redirected_to "#{Whitehall.router_prefix}/admin/"
   end
 
   test "visiting unknown route should respond with 404 not found" do

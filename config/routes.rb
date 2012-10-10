@@ -9,7 +9,9 @@ Whitehall::Application.routes.draw do
     super(options[:prefix] + path)
   end
 
-  root to: redirect("/admin"), constraints: AdminRequest
+  root to: redirect("/admin/"), constraints: lambda { |request|
+    ::Whitehall.admin_hosts.include?(request.host)
+  }
   root to: redirect("/")
 
   match '/browse/*parent_tag/:id', to: 'mainstream_categories#show'
