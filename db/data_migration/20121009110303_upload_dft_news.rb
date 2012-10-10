@@ -2,7 +2,8 @@ require 'csv'
 
 data = CSV.read(
   File.dirname(__FILE__) + '/20121009110303_upload_dft_news.csv',
-  headers: true)
+  headers: true,
+  encoding: "UTF-8")
 
 creator = User.find_by_name!("Automatic Data Importer")
 data.each do |row|
