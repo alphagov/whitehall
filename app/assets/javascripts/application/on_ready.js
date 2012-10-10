@@ -52,6 +52,7 @@ jQuery(function($) {
     showWrapper: $('<li class="show-other-content" />')
   });
 
+  // FIXME: use the `js-` prefix instead
   $('.organisation_homepage #ministers .ministerial_role').hideExtraRows();
 
   $('.organisation_homepage .management-secondary .board_member_role').hideExtraRows();
