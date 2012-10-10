@@ -21,15 +21,15 @@
                   locals: { document: document } %>
       <% if local_assigns.include?(:policies) && policies && policies.any? %>
         <dt><%= policies.length == 1 ? "Policy" : "Policies" %>:</dt>
-        <dd class="policies"><%= list_of_links_to_policies(policies) %></dd>
+        <dd class="policies js-hide-other-links"><%= list_of_links_to_policies(policies) %></dd>
       <% end %>
       <% if local_assigns.include?(:topics) && topics.any? %>
         <dt><%= topics.length == 1 ? "Topic" : "Topics" %>:</dt>
-        <dd><%= list_of_links_to_topics(topics) %></dd>
+        <dd class="js-hide-other-links"><%= list_of_links_to_topics(topics) %></dd>
       <% end %>
       <% if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any? %>
         <dt><%= document.ministerial_roles.length == 1 ? "Minister" : "Ministers" %>:</dt>
-        <dd><%= list_of_links_to_ministers(document.ministerial_roles) %></dd>
+        <dd class="js-hide-other-links"><%= list_of_links_to_ministers(document.ministerial_roles) %></dd>
       <% end %>
       <% if document.respond_to?(:person) && document.person %>
         <dt>Minister:</dt>
@@ -37,7 +37,7 @@
       <% end %>
       <% if document.respond_to?(:countries) && document.countries.any? %>
         <dt><%= document.countries.length == 1 ? "Country" : "Countries" %>:</dt>
-        <dd class="document-countries"><%= list_of_links_to_countries(document.countries) %></dd>
+        <dd class="document-countries js-hide-other-links"><%= list_of_links_to_countries(document.countries) %></dd>
       <% end %>
       <% if document.respond_to?(:inapplicable_nations) && document.inapplicable_nations.any? %>
         <dt>Applies to:</dt>
