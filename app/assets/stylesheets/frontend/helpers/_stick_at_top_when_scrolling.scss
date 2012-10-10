@@ -2,7 +2,7 @@
   position: relative;
   top: 0;
   @include media(desktop){
-  position: fixed;
+    position: fixed;
   }
 }
 .shim {
