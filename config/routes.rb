@@ -9,6 +9,7 @@ Whitehall::Application.routes.draw do
     super(options[:prefix] + path)
   end
 
+  root to: redirect("/admin"), constraints: AdminRequest
   root to: redirect("/")
 
   match '/browse/*parent_tag/:id', to: 'mainstream_categories#show'
