@@ -158,7 +158,7 @@
         margin: 0 0 0 -15px;
         z-index:3;
         text-indent: -9999em;
-        background: transparent url(/government/assets/download-icon.png) no-repeat 0 0;
+        background: transparent image-url('download-icon.png') no-repeat 0 0;
         @include media(desktop){
           top: 50%;
           margin-top: -12.5px;
@@ -223,7 +223,7 @@
     }
   }
   .information-block {
-    background-image: url(/government/assets/information-icon.png);
+    background-image: image-url('information-icon.png');
   }
 
   table {

@@ -41,7 +41,7 @@
       padding-bottom: $gutter*2;
     }
   }
-  
+
   .organisation-logo-large,
   .organisation-logo-small {
     color: $black;
@@ -452,27 +452,27 @@
       }
 
       &.guide {
-        background-image: url(/government/assets/icons/mainstream/icon-guide-s.png);
+        background-image: image-url('mainstream/icon-guide-s.png');
       }
       &.answer,
       &.calendar,
       &.smart_answer,
       &.calculator,
       &.custom-application {
-        background-image: url(/government/assets/icons/mainstream/icon-answer-s.png);
+        background-image: image-url('mainstream/icon-answer-s.png');
       }
       &.local_transaction,
       &.transaction,
       &.place,
       &.nearest,
       &.service {
-        background-image: url(/government/assets/icons/mainstream/icon-service-s.png);
+        background-image: image-url('mainstream/icon-service-s.png');
       }
       &.programme {
-        background-image: url(/government/assets/icons/mainstream/icon-programme-s.png);
+        background-image: image-url('mainstream/icon-programme-s.png');
       }
       &.licence {
-        background-image: url(/government/assets/icons/mainstream/icon-licence-s.png);
+        background-image: image-url('mainstream/icon-licence-s.png');
       }
       &.guide,
       &.answer,
@@ -502,4 +502,3 @@
     }
   }
 }
-
