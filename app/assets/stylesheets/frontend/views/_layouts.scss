@@ -4,7 +4,7 @@
 #global-nav {
   margin: 0 30px;
   text-align: right;
-  border-bottom: 2px solid $inside-gov-brand;
+  border-bottom: 5px solid lighten($inside-gov-nav, 35%);
 
   li {
     display: inline;
@@ -12,9 +12,9 @@
     a {
       @include core-16;
       display: inline-block;
-      padding: 10px 8px 8px;
+      padding: 11px 8px 9px;
       text-decoration: none;
-      color: $inside-gov-brand;
+      color: $inside-gov-nav;
     }
 
     a:hover,
@@ -23,8 +23,8 @@
     }
 
     .current {
-      margin-top: 4px;
-      padding-top: 4px;
+      margin-top: 2px;
+      padding-top: 8px;
       background: #eee;
     }
   }
