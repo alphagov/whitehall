@@ -1,6 +1,6 @@
 require 'csv'
 
-data = CSV.read(__FILE__.gsub(/\.rb/, '.csv'), headers: true)
+data = CSV.read(__FILE__.gsub(/\.rb/, '.csv'), headers: true, encoding: "UTF-8")
 
 creator = User.find_by_name!("Automatic Data Importer")
 data.each do |row|
@@ -22,8 +22,5 @@ data.each do |row|
     else
       $stderr.puts "Found #{docs.count} instances of '#{row['Title']}'"
     end
-  # rescue => e
-  #   $stderr.puts "Unable to save because #{e}"
-  #   $stderr.puts "  " + e.backtrace.join("\n  ")
   end
 end
