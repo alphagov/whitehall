@@ -224,6 +224,14 @@ module DocumentControllerTestHelpers
       end
     end
 
+    def should_set_expiry_headers(document_type)
+      test "#{document_type} should set an expiry of 30 minutes" do
+        edition = create("published_#{document_type}")
+        get :show, id: edition.document
+        assert_equal 'max-age=1800, public', response.headers['Cache-Control']
+      end
+    end
+
     def should_be_previewable(document_type)
       test "#{document_type} preview should be visible for logged in users" do
         first_edition = create("published_#{document_type}",
