@@ -6,6 +6,7 @@
 //
 //= require jquery_ujs
 //= require_tree ./common
+//= require govuk_toolkit
 //= require application/utils
 //= require_tree ./application
 //= require_tree ./vendor

@@ -20,6 +20,11 @@
         }
         $(window).resize(sticky.onResize);
       }
+      if(root.GOVUK.stopScrollingAtFooter){
+        $els.each(function(i,el){
+          root.GOVUK.stopScrollingAtFooter.addEl($(el), $(el).height());
+        });
+      }
     },
     onScroll: function(){
       sticky._hasScrolled = true;
