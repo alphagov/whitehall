@@ -3,6 +3,7 @@ class DetailedGuidesController < DocumentsController
   skip_before_filter :set_search_path
   before_filter :set_search_index
   before_filter :set_artefact, only: [:show]
+  before_filter :set_expiry, only: [:show]
 
   respond_to :html, :json
 

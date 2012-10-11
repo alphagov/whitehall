@@ -22,4 +22,11 @@ class PublicFacingController < ApplicationController
     allowed_formats = [Mime::HTML, Mime::JSON, Mime::XML, Mime::ATOM, Mime::ALL]
     error(406) unless allowed_formats.include?(request.format)
   end
+
+  def set_expiry(duration = 30.minutes)
+    unless Rails.env.development?
+      expires_in(duration, public: true)
+    end
+  end
+
 end
