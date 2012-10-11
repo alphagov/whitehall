@@ -87,6 +87,31 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select ".policies"
   end
 
+  test "show should show ministers linked to publications" do
+    minister = create(:ministerial_role)
+    publication = create(:published_publication, ministerial_roles: [minister])
+    get :show, id: publication.document
+
+    assert_select_object minister
+  end
+
+  test "show not link ministers to national statistics publications" do
+    minister = create(:ministerial_role)
+    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id, ministerial_roles: [minister])
+    get :show, id: publication.document
+
+    refute_select_object minister
+  end
+
+  test "show not link ministers to general statistics publications" do
+    minister = create(:ministerial_role)
+    publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id, ministerial_roles: [minister])
+    get :show, id: publication.document
+
+    refute_select_object minister
+  end
+
+
   test "index only displays *published* publications" do
     archived_publication = create(:archived_publication)
     published_publication = create(:published_publication)

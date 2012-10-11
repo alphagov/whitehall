@@ -8,6 +8,11 @@ module MinisterialRolesHelper
   end
 
   def list_of_links_to_ministers(ministers)
-    ministers.map { |minister| link_to minister.current_person_name, minister, class: "minister" }.to_sentence.html_safe
+    ministers.map do |minister|
+      link_to minister.current_person_name,
+        minister,
+        class: "minister",
+        id: "#{minister.class.name.underscore}_#{minister.id}"
+      end.to_sentence.html_safe
   end
 end
