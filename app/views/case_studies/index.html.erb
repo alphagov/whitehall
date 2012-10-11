@@ -1,22 +1,23 @@
 <% page_title "Case Studies" %>
-<% page_class "case-studies-index" %>
+<% page_class "case-studies-index index-list-page" %>
 
 <div class="block-1">
   <div class="inner-block">
     <header class="page-header case-study icon">
-      <h1 class="page_title">Case Studies</h1>
+      <h1 class="title">Case Studies</h1>
+        <h2 class="label">Government research&nbsp;into&hellip;</h2>
     </header>
   </div>
 </div>
 
 <div class="block-2">
   <div class="inner-block">
-    <section id="case_studies" class="announcements group">
+    <section id="case_studies" class="announcements group index-list-container">
       <% if @case_studies.any? %>
         <ul>
           <% @case_studies.each do |case_study| %>
-            <%= content_tag_for(:div, case_study) do %>
-              <h2 class="title"><%= link_to case_study.title, public_document_path(case_study) %></h2>
+            <%= content_tag_for(:li, case_study) do %>
+            <%= link_to case_study.title, public_document_path(case_study) %>
             <% end %>
           <% end %>
         </ul>

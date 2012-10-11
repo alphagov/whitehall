@@ -1,5 +1,5 @@
 <% page_title "Topics" %>
-<% page_class "topics-index" %>
+<% page_class "topics-index index-list-page" %>
 
 
 <div class="block-1">
@@ -13,9 +13,8 @@
 
 <div class="block-2">
   <div class="inner-block">
-    <div class="all-topics">
+    <div class="all-topics index-list-container">
       <% if @topics.any? %>
-        <h3>All Topics</h3>
         <%= render partial: "list", locals: { topics: @topics } %>
       <% else %>
         <p>We don't have any topics with published documents at present.</p>

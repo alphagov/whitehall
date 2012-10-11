@@ -1,4 +1,4 @@
-<ul class="topics group">
+<ul class="topics group index-list">
   <% topics.each do |topic| %>
     <%= content_tag_for(:li, topic, class: 'topic') do %>
       <%= link_to topic.name, topic_path(topic) %>

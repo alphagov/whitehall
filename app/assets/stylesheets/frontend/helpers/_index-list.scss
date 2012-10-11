@@ -1,0 +1,39 @@
+.index-list-page {
+
+  .page-header {
+    padding: $gutter-half 0;
+
+    .title, .label {
+      padding: 0;
+      margin: 0;
+    }
+
+    .label {
+      @include core-48;
+      color: $low-contrast;
+    }
+
+    @include media(desktop){
+      padding: $gutter 0;
+      width: 75%;
+    }
+
+  }
+
+  .index-list-container {
+    margin-left: 25%;
+    
+    h3 {
+      @include core-19;
+    }
+
+    ul {
+      li {
+        list-style: none;
+        border-bottom: 1px solid $light-keyline;
+        @include core-19;
+      }
+    }
+  }
+
+}
