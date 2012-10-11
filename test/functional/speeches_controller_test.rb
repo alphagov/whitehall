@@ -83,7 +83,7 @@ class SpeechesControllerTest < ActionController::TestCase
   end
 
   test "should omit location if not given" do
-    published_speech = create(:published_speech, location: nil)
+    published_speech = create(:published_speech, location: '')
 
     get :show, id: published_speech.document
     refute_select ".location"

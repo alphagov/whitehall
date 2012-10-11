@@ -1,7 +1,7 @@
 <div class="summary">
   <p>
     <%= document.summary %>
-    <% if document.location %>
+    <% if document.location && !document.location.empty? %>
       Originally given at <span class="location"><%= document.location %></span>.
     <% end %>
     <% if document.explanation %>
