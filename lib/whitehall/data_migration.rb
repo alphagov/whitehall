@@ -33,6 +33,7 @@ module Whitehall
           @logger.info "Migration complete"
         rescue => e
           @logger.error "Migration failed due to #{e}"
+          @logger.error "  " + e.backtrace.join("\n  ")
         end
         @logger.info "============================================="
         @logger.info "\n"
