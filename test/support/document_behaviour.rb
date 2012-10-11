@@ -10,6 +10,14 @@ module DocumentBehaviour
       end
     end
 
+    def should_allow_a_role_appointment
+      test "should include the RoleAppointment module" do
+        # *NOTE*. The Edition::Appointment module is tested separately so it
+        # should be enough to just test its inclusion here.
+        assert edition_class_from_test_name.ancestors.include?(Edition::Appointment)
+      end
+    end
+
     def should_be_attachable
       test "should include the Attachable behaviour module" do
         # *NOTE*. The ::Attachable module is tested separately so it
