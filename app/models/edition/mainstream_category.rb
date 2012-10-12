@@ -27,6 +27,10 @@ module Edition::MainstreamCategory
     [primary_mainstream_category] + other_mainstream_categories
   end
 
+  def can_be_associated_with_mainstream_categories?
+    true
+  end
+
   private
 
   def avoid_duplication_between_primary_and_other_mainstream_categories
