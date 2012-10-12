@@ -18,6 +18,13 @@ Given /^a published news article "([^"]*)" for the policy "([^"]*)"$/ do |title,
   create(:published_news_article, title: title, related_policies: [policy])
 end
 
+
+Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title, appointee|
+  person = find_person(appointee)
+  appointment = find_person(appointee).current_role_appointments.last
+  create(:published_news_article, title: title, role_appointments: [appointment])
+end
+
 When /^I draft a new news article "([^"]*)"$/ do |title|
   begin_drafting_document type: "news_article", title: title
   fill_in "Summary", with: "here's a simple summary"
@@ -56,4 +63,14 @@ Then /^the news article tag is the same as the person in the text$/ do
   click_button "Create new edition"
   appointment = NewsArticle.last.role_appointments.first
   assert has_css?("select#edition_role_appointment_ids option[value='#{appointment.id}'][selected=selected]")
+end
+
+Then /^I should see both the news articles for the Deputy Prime Minister role$/ do
+  assert has_css?(".news_article", text: "News from Don, Deputy PM")
+  assert has_css?(".news_article", text: "News from Harriet, Deputy PM")
+end
+
+Then /^I should see both the news articles for Harriet Home$/ do
+  assert has_css?(".news_article", text: "News from Harriet, Deputy PM")
+  assert has_css?(".news_article", text: "News from Harriet, Home Sec")
 end

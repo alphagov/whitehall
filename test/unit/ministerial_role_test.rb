@@ -26,13 +26,15 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test "should be able to get news_articles associated with a role" do
     editions = [create(:published_policy), create(:published_news_article)]
-    ministerial_role = create(:ministerial_role, editions: editions)
+    ministerial_role = create(:ministerial_role)
+    appointment = create(:role_appointment, role: ministerial_role, editions: editions)
     assert_equal editions[1..1], ministerial_role.news_articles
   end
 
   test "should be able to get published news_articles associated with the role" do
     editions = [create(:draft_news_article), create(:published_news_article)]
-    ministerial_role = create(:ministerial_role, editions: editions)
+    ministerial_role = create(:ministerial_role)
+    appointment = create(:role_appointment, role: ministerial_role, editions: editions)
     assert_equal editions[1..1], ministerial_role.published_news_articles
   end
 
@@ -53,7 +55,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
       ended_at: 1.day.ago)
     create(:published_speech, role_appointment: appointment)
 
-    refute appointment.role.published_speeches.any?
+    assert_equal 1, appointment.role.published_speeches.count
   end
 
   test "should not be destroyable when it is responsible for editions" do

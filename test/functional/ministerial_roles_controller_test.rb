@@ -68,7 +68,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     role_appointment = create(:role_appointment, role: ministerial_role)
     published_speech = create(:published_speech, role_appointment: role_appointment)
     draft_speech = create(:draft_speech, role_appointment: role_appointment)
-    published_news_article = create(:published_news_article, ministerial_roles: [ministerial_role])
+    published_news_article = create(:published_news_article, role_appointments: [role_appointment])
     draft_news_article = create(:draft_news_article, ministerial_roles: [ministerial_role])
 
     get :show, id: ministerial_role
@@ -83,12 +83,12 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
     published_speech = create(:published_speech, role_appointment: role_appointment)
-    published_news_article = create(:published_news_article, ministerial_roles: [ministerial_role])
+    published_news_article = create(:published_news_article, role_appointments: [role_appointment])
 
     another_ministerial_role = create(:ministerial_role)
     another_role_appointment = create(:role_appointment, role: another_ministerial_role)
     another_published_speech = create(:published_speech, role_appointment: another_role_appointment)
-    another_published_news_article = create(:published_news_article, ministerial_roles: [another_ministerial_role])
+    another_published_news_article = create(:published_news_article, role_appointments: [another_role_appointment])
 
     get :show, id: ministerial_role
 
