@@ -4,7 +4,7 @@
     <div class="container">
       <h2><%= link_to topic.name, topic_path(topic) %></h2>
       <div class="summary">
-        <%= govspeak_to_html topic.description %>
+        <p><%= topic.description %> <%= link_to "Read more", topic_path(topic) %></p>
       </div>
     </div>
     <% end %>

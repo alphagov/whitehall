@@ -239,6 +239,10 @@
         content: "10.";
         display: block;
       }
+      
+      .summary p {
+        @include core-19;
+      }
     
       @include media(tablet) {
         margin-top: $gutter-two-thirds;
@@ -256,10 +260,14 @@
           width: 45%;
           margin-left: -50%;
           margin-top: $gutter-one-sixth;
+          margin-bottom: $gutter-one-third;
         }
         
         .summary {
           padding-left: $gutter-half;
+          a {
+            white-space: nowrap;
+          }
         }
       }
     }
@@ -274,6 +282,7 @@
           display: inline;
           width: 50%;
           padding-left: 0;
+          padding-bottom: $gutter-two-thirds;
           border-top: none;
           
           &:nth-child(2n+1) {
@@ -286,6 +295,7 @@
           
           h2 {
             width: 100%;
+            float: none;
             margin-left: 0;
             margin-top: 0;
           }
@@ -308,6 +318,7 @@
           display: inline;
           width: 33.333333%;
           padding-left: 0;
+          padding-bottom: $gutter-two-thirds;
           border-top: none;
           
           &:nth-child(3n+1) {
@@ -320,13 +331,13 @@
           
           h2 {
             width: 100%;
+            float: none;
             margin-left: 0;
             margin-top: 0;
           }
           
           .summary {
             padding-left: 0;
-            @include core-16;
           }
         }
       }
