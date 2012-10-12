@@ -22,3 +22,40 @@ $light-keyline: $light-blue-grey;
 // Background colours
 $info-background: $light-warm-grey;
 $info-background-hover: darken($light-warm-grey, 5%);
+
+
+// Usage:
+//
+//   html:
+//
+//     <a href="..." class="cabinet-office">Cabinet Office</a>
+//
+//   css:
+//     a {
+//       border-width: 2px;
+//       border-style: solid;
+//       @include department-colours(border-color);
+//     }
+
+@mixin department-colours($property) {
+  &.treasury { #{$property}: $treasury; }
+  &.cabinet-office { #{$property}: $cabinet-office; }
+  &.department-for-education { #{$property}: $department-for-education; }
+  &.department-for-transport { #{$property}: $department-for-transport; }
+  &.home-office { #{$property}: $home-office; }
+  &.department-of-health { #{$property}: $department-of-health; }
+  &.ministry-of-justice { #{$property}: $ministry-of-justice; }
+  &.ministry-of-defence { #{$property}: $ministry-of-defence; }
+  &.foreign-and-commonwealth-office { #{$property}: $foreign-and-commonwealth-office; }
+  &.department-for-communities-and-local-government { #{$property}: $department-for-communities-and-local-government; }
+  &.department-for-energy-and-climate-change { #{$property}: $department-for-energy-and-climate-change; }
+  &.department-for-culture-media-and-sport { #{$property}: $department-for-culture-media-and-sport; }
+  &.department-for-environment-food-and-rural-affairs { #{$property}: $department-for-environment-food-and-rural-affairs; }
+  &.department-for-work-and-pensions { #{$property}: $department-for-work-and-pensions; }
+  &.department-for-business-innovation-and-skills { #{$property}: $department-for-business-innovation-and-skills; }
+  &.department-for-international-development { #{$property}: $department-for-international-development; }
+  &.government-equalities-office { #{$property}: $government-equalities-office; }
+  &.attorney-generals-office { #{$property}: $attorney-generals-office; }
+  &.scotland-office { #{$property}: $scotland-office; }
+  &.wales-office { #{$property}: $wales-office; }
+}
