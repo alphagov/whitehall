@@ -206,13 +206,6 @@ ActiveRecord::Schema.define(:version => 20121012140741) do
   add_index "edition_organisations", ["edition_id", "organisation_id"], :name => "index_edition_organisations_on_edition_id_and_organisation_id", :unique => true
   add_index "edition_organisations", ["organisation_id"], :name => "index_edition_organisations_on_organisation_id"
 
-  create_table "edition_people", :force => true do |t|
-    t.integer  "edition_id"
-    t.integer  "person_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "edition_relations", :force => true do |t|
     t.integer  "edition_id",  :null => false
     t.datetime "created_at"
