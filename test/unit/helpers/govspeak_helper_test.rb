@@ -126,9 +126,16 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should allow attached images to be embedded in admin html" do
-    images = [OpenStruct.new(alt_text: "My Alt", url: "http://example.com/image.jpg")]
+    images = [OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")]
     html = govspeak_to_admin_html("!!1", images)
-    assert_select_within_html html, ".govspeak figure.image.embedded img"
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src=/image.jpg]"
+  end
+
+  test "prefixes embedded image urls with asset host if present" do
+    Whitehall.stubs(:asset_host).returns("https://some.cdn.com")
+    images = [OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")]
+    html = govspeak_to_admin_html("!!1", images)
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src=https://some.cdn.com/image.jpg]"
   end
 
   # public govspeak helper tests
