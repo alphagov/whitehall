@@ -6,7 +6,7 @@ class MinisterialRole < Role
   has_many :editions, through: :edition_ministerial_roles
   has_many :speeches, through: :role_appointments
   has_many :policies, through: :edition_ministerial_roles, source: :edition, conditions: { "editions.type" => Policy }
-  has_many :news_articles, through: :role_appointments, conditions: { "editions.type" => NewsArticle }
+  has_many :news_articles, through: :role_appointments, conditions: { "editions.type" => NewsArticle }, uniq: true
 
   def published_policies(options = {})
     policies
