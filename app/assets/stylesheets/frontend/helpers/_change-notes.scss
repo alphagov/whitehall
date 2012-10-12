@@ -1,20 +1,20 @@
 .change-notes {
   display: inline-block;
   position: relative;
-  @include core-14;
+  @include core-16;
   min-width: 160px;
   padding: 0;
 
   .toggle {
     display: inline-block;
-    color: $inside-gov-brand;
+    color: $link-text;
     white-space: nowrap;
+
     &:focus,
     &:hover {
       text-decoration: underline;
       outline: none;
     }
-
   }
 
   @include ie(6) {
@@ -53,6 +53,7 @@
     text-align: left;
 
     dt, dd {
+      width: auto;
       float: none;
       @include core-14;
       padding: 0 $gutter-one-third;
