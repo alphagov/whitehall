@@ -15,7 +15,7 @@
           currentlyAppending = shownElements;
 
       $($el.contents()).each(function(i, el) {
-        if (el.nodeValue && el.nodeValue === ".") {
+        if (el.nodeValue && (el.nodeValue === "." || el.nodeValue === ' ')) {
           return;
         }
         currentlyAppending.push(el);

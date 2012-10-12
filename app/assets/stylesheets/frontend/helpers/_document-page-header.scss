@@ -38,7 +38,9 @@
         float: left;
         width: 60%;
       }
-
+      dt.organisations {
+        clear: none;
+      }
       dd.organisations {
         @include media(desktop){
           margin-top: $gutter*2.5;
