@@ -164,12 +164,14 @@
             <ul>
               <% @ministers.each do |minister| %>
                 <%= content_tag_for(:li, minister) do %>
-                  <h1 class="visuallyhidden">Minister</h1>
-                  <div class="image_holder">
-                    <%= minister.current_person_image %>
+                  <div class="inner">
+                    <h1 class="visuallyhidden">Minister</h1>
+                    <div class="image_holder">
+                      <%= minister.current_person_image %>
+                    </div>
+                    <h3 class="current-appointee"><%= minister.current_person_link %></h3>
+                    <p class="role"><%= minister.link %></p>
                   </div>
-                  <h3 class="current-appointee"><%= minister.current_person_link %></h3>
-                  <p class="role"><%= minister.link %></p>
                 <% end %>
               <% end %>
             </ul>
@@ -182,21 +184,25 @@
             <h1 class="label">Our management</h1>
             <ul>
                 <%= content_tag_for(:li, @civil_servants.first) do %>
-                  <h1 class="visuallyhidden">Board member</h1>
-                  <div class="image_holder">
-                    <%= @civil_servants.first.current_person_image %>
+                  <div class="inner">
+                    <h1 class="visuallyhidden">Board member</h1>
+                    <div class="image_holder">
+                      <%= @civil_servants.first.current_person_image %>
+                    </div>
+                    <h3 class="current-appointee"><%= @civil_servants.first.current_person_link %></h3>
+                    <p class="role"><%= @civil_servants.first.link %></p>
                   </div>
-                  <h3 class="current-appointee"><%= @civil_servants.first.current_person_link %></h3>
-                  <p class="role"><%= @civil_servants.first.link %></p>
                 <% end %>
             </ul>
 
             <ul class="management-secondary">
               <% @civil_servants.to_a.from(1).each do |civil_servant| %>
                 <%= content_tag_for(:li, civil_servant) do %>
-                  <h1 class="visuallyhidden">Board member</h1>
-                  <h3 class="current-appointee"><%= civil_servant.current_person_link %></h3>
-                  <p class="role"><%= civil_servant.link %></p>
+                  <div class="inner">
+                    <h1 class="visuallyhidden">Board member</h1>
+                    <h3 class="current-appointee"><%= civil_servant.current_person_link %></h3>
+                    <p class="role"><%= civil_servant.link %></p>
+                  </div>
                 <% end %>
               <% end %>
             </ul>
@@ -211,11 +217,13 @@
             <% if @top_military_role %>
               <ul>
                 <%= content_tag_for(:li, @top_military_role) do %>
-                  <div class="image_holder">
-                    <%= @top_military_role.current_person_image %>
+                  <div class="inner">
+                    <div class="image_holder">
+                      <%= @top_military_role.current_person_image %>
+                    </div>
+                    <h3 class="current-appointee"><%= @top_military_role.current_person_link %></h3>
+                    <p class="role"><%= @top_military_role.link %></p>
                   </div>
-                  <h3 class="current-appointee"><%= @top_military_role.current_person_link %></h3>
-                  <p class="role"><%= @top_military_role.link %></p>
                 <% end %>
               </ul>
             <% end %>
@@ -228,8 +236,58 @@
 
   <div class="block-10">
     <div class="inner-block">
-      <div class="social-media">
-        <%= render 'social_media_accounts', organisation: @organisation %>
+      <h1 class="label">Contact <%= @organisation.display_name %></h1>
+      <div id="org-contacts">
+        <% addresses = @organisation.contacts.select { |c| c.address.present? } %>
+        <% others = @organisation.contacts - addresses %>
+        <div class="addresses">
+          <% addresses.each do |contact| %>
+            <div class="organisation_contact">
+              <h2><%= contact.description %></h2>
+              <% if contact.address.present? %>
+                <div class="adr">
+                  <p class="fn org name"><%= @organisation.name %></p>
+                  <% if @organisation.acronym.present? %>
+                    <p class="nickname"><%= @organisation.acronym %></p>
+                  <% end %>
+                  <p class="street-address"><%= format_with_html_line_breaks(contact.address) %></p>
+                  <p class="postal-code"><%= contact.postcode %></p>
+                </div>
+              <% end %>
+              <% if contact.email.present? %>
+                <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
+              <% end %>
+              <% contact.contact_numbers.each do |number| %>
+                <p class="tel"><span class="type"><%= number.label %></span> <%= number.number %></p>
+              <% end %>
+              <% if contact.mappable? %>
+                <p><%= link_to_google_map(contact) %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+  
+        <div class="other-contacts">
+          <% others.each do |contact| %>
+            <div class="organisation_contact">
+              <h2><%= contact.description %></h2>
+              <% if contact.email.present? %>
+                <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
+              <% end %>
+              <% contact.contact_numbers.each do |number| %>
+                <p class="tel"><%= number.number %><span class="type"> <%= number.label %> </span></p>
+              <% end %>
+              <% if contact.mappable? %>
+                <p><%= link_to_google_map(contact) %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="social-media">
+          <%= render 'social_media_accounts', organisation: @organisation %>
+        </div>
+
       </div>
     </div>
   </div>

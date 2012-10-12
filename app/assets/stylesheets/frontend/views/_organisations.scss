@@ -1,971 +1,791 @@
-h1.label {
-  @include core-27;
-  padding-bottom: $gutter-half;
-  @include ie(6) {
-    margin-bottom: $gutter-one-third;
-  }
-}
-
-.organisations_index_page {
-  .alphabetical-list .alphabetical-row li {
-    padding: 0 0 $gutter-half 0;
-    float: none;
-    display: block;
-  }
-  .alphabetical-list .alphabetical-row li:first-child {
-    padding-top: $gutter;
-  }
-  .inline {
-    overflow: hidden;
-  }
-  .inline li:first-child {
-    padding-left: 0;
-  }
-  .inline li {
-    float: left;
-    display: inline;
-    padding: $gutter-one-third $gutter-half;
-  }
-}
-
-.departments-index {
-  .block-2, .block-3 {
-    float: left;
-    display: inline;
-    width: 25%;
-  }
-  .block-3 {
-    width: 75%;
-  }
-  .block-2 li, .block-3 li {
-    list-style: none;
-  }
-  .block-3 li {
-    float: left;
-    display: inline;
-    margin: 0 1% 40px 0;
-    width: 30%;
-  }
-  @media (max-width: 768px) {
-    .block-2, .block-3, .block-3 li {
-    float: none;
-    display: block;
-    width: 100%;
-    }
-  }
-}
-
-
-// Styles for Department homepages
-.organisation {
-  .page_title {
-    display: block;
-    overflow: hidden;
-    margin-bottom: $gutter;
-    margin-top: $gutter-two-thirds;
-  }
-
-  .img {
-    img {
-      width: 100%;
-    }
-  }
-}
-
-
 .organisation_homepage {
-
-  .block-2, .block-3 {
-    margin: $gutter 0;
-    overflow: hidden;
-  }
-
-
-  .block-7 .simple_list a, .block-8 .simple_list a, .block-10 {
-    @include core-19;
-  }
-
-  .block-10, .block-11 {
-    clear: both;
-    overflow: hidden;
-    padding: $gutter 0;
-  }
-
+  
+  .block-1,
+  .block-2,
+  .block-3,
+  .block-4,
+  .block-5,
+  .block-6,
+  .block-7,
+  .block-8,
+  .block-9,
+  .block-10,
   .block-11 {
+    display: block;
     clear: both;
-  }
-
-  .organisation_news {
-    border-bottom: 1px solid $light-keyline;
     overflow: hidden;
+    padding-bottom: $gutter-half;
 
-    .img {
-      margin: 0 0 $gutter-one-third 0;
-      padding: 0;
+    @include media(tablet) {
+      padding-bottom: $gutter*2;
     }
-
-    .news_body {
+  }
+  
+  .block-1 {
+    padding-top: $gutter-one-third;
+    padding-bottom: 0;
+  }
+  
+  @include media(tablet) {
+    .block-4 {
+      float: left;
+      display: inline;
+      width: 33.333333%;
+      margin-right: -100%;
+      margin-left: 0;
+    }
+    
+    .block-5 {
+      float: left;
+      display: inline;
+      clear: none;
+      width: 66.6666666%;
+      margin-right: -100%;
+      margin-left: 33.333333%;
+    }
+  }
+  
+  h1.label,
+  .topic h2 {
+    @include core-27;
+    margin-bottom: $gutter-two-thirds;
+  }
+  
+  .page-header h1 {
+    overflow: hidden;
+    padding: $gutter-two-thirds 0 $gutter-one-third;
+  }
+  
+  .organisation_news {
+  
+    .primary-first {
       h2 {
         @include core-27;
-        padding-top: 0;
       }
-      a {
-        text-decoration: none;
-      }
+      
       .summary {
         @include core-19;
       }
+      
       .meta, .document-type {
+        float: left;
+        padding-right: $gutter-one-third;
+        white-space: nowrap;
         @include core-16;
-        float: left;
-        display: inline;
-        margin: 0 $gutter-half 0 0;
-        padding: 0;
-        text-align: left;
-        width: auto;
+        color: $low-contrast;
       }
-      .document-type {
-        margin: 0 0 $gutter 0;
-        width: 30%;
-      }
-    }
-
-    .primary-first, .primary-secondary {
+      
       @include media(tablet) {
         float: left;
         display: inline;
-        width: 66%;
+        width: 66.666666%;
+        margin-right: -100%;
+        margin-left: 0;
+        
+        .img, .news_body {
+          padding-right: $gutter-half;
+        }
       }
     }
+  
     .primary-secondary {
-      clear: both;
-      @include media(tablet) {
-        clear: none;
-        float: right;
-        margin-right: 0;
-        width: 31.3%;
+      article {
+        margin: $gutter-two-thirds 0;
       }
+    
       h2 {
         @include core-19;
-        padding-top: 0;
       }
-    }
-
-  }
-
-
-  .secondary-featured {
-    border-bottom: 1px solid $light-keyline;
-    overflow: hidden;
-    li {
-      list-style: none;
-      margin-bottom: $gutter;
-      .summary, h2 {
-        @include core-19;
-        float: none;
-        display: block;
-        width: 100%;
-      }
+      
       .summary {
         @include core-16;
       }
-        @include media(tablet) {
+      
+      .meta, .document-type {
+        float: left;
+        padding-right: $gutter-one-third;
+        white-space: nowrap;
+        @include core-16;
+        color: $low-contrast;
+      }
+      
+      @include media(tablet) {
         float: left;
         display: inline;
-        margin-right: 3%;
-        width: 31.3%;
-        &:nth-child(3n+1) {
-          clear: both;
-        }
-        &:nth-child(3n) {
-          float: right;
-          margin-right: 0;
-        }
-      }
-      .img {
-        display: none;
-        @include media(tablet) {
-          display: block;
+        width: 33.333333%;
+        margin-right: -100%;
+        margin-left: 66.666666%;
+        
+        .img, .news_body {
+          padding-left: $gutter-half;
         }
       }
     }
   }
-
-  // this singular class gets added to .secondary-featured ul when there's only li
-  @include media(tablet) {
-    .singular {
-    li {
-        width: 66%;
-      h2 {
-        padding-top: 0;
+  
+  .secondary-featured {
+    overflow: hidden;
+    
+    h2 {
+      @include core-19;
+    }
+      
+    .summary {
+      @include core-16;
+    }
+    
+    .metadata {
+      @include core-16;
+      color: $low-contrast;
+    }
+    
+    .document_type {
+      white-space: nowrap;
+    }
+    
+    @include media(tablet) {
+      margin: 0 ($gutter-half*-0.5);
+    
+      li {
+        float: left;
+        display: inline;
+        width: 33.333333%;
+        
+        .feature-inner {
+          padding: 0 $gutter-half;
+        }
       }
-      .img {
+    }
+  }
+  
+  .document-list .document-row {
+    @include core-14;
+    border-bottom: none;
+    
+    th {
+      @include core-14;
+      margin: $gutter-one-third 0 0 0;
+      padding: 0;
+    }
+    
+    td {
+      margin: 0;
+      padding: 0 $gutter-one-third 0 0;
+      color: $low-contrast;
+    }
+  }
+  
+  .block-5 {
+    p {
+      @include core-19;
+    }
+  
+    .parent_organisations {
+      margin-bottom: $gutter-one-third;
+    }
+  }
+  
+  .simple_list {
+    ol, ul {
+      margin-top: 0;
+    }
+  }
+  
+        
+  #topics {
+    .topic {
+        
+      &:nth-child(1) h2:before {
+        content: "01.";
+        display: block;
+      }
+      &:nth-child(2) h2:before {
+        content: "02.";
+        display: block;
+      }
+      &:nth-child(3) h2:before {
+        content: "03.";
+        display: block;
+      }
+      &:nth-child(4) h2:before {
+        content: "04.";
+        display: block;
+      }
+      &:nth-child(5) h2:before {
+        content: "05.";
+        display: block;
+      }
+      &:nth-child(6) h2:before {
+        content: "06.";
+        display: block;
+      }
+      &:nth-child(7) h2:before {
+        content: "07.";
+        display: block;
+      }
+      &:nth-child(8) h2:before {
+        content: "08.";
+        display: block;
+      }
+      &:nth-child(9) h2:before {
+        content: "09.";
+        display: block;
+      }
+      &:nth-child(10) h2:before {
+        content: "10.";
+        display: block;
+      }
+    
+      @include media(tablet) {
+        margin-top: $gutter-two-thirds;
+        padding-top: $gutter-one-third;
+        padding-left: 33.333333%;
+        
+        h2 {
+          position: relative;
+          float: left;
+          width: 50%;
+          margin-left: -50%;
+        }
+        
+        .summary {
+          padding-left: $gutter-half;
+        }
+      }
+    }
+    
+    ol.wide {
+      margin: 0 ($gutter-half*-1);
+      
+      .topic {
+        @include media(tablet) {
+          margin-top: 0;
           float: left;
           display: inline;
-          margin-right: $gutter;
-          width: 47%;
-        }
-      }
-    }
-  }
-
-
-  .description {
-    margin: $gutter-half 0;
-  }
-
-  .topics {
-    counter-reset:li;
-    .topic {
-      @include core-27;
-      margin-bottom: $gutter-half;
-      position:relative;
-      list-style: none;
-      .summary {
-        border-top: 1px solid $light-keyline;
-        display: table-cell;
-        float: right;
-        padding-bottom: $gutter-one-third;
-        width: 94%;
-        @include ie(6) {
-          float: right;
-          width: 66%;
-        }
-        ul {
-          @include core-19;
-          list-style: none;
-          padding-top: 0;
-        }
-        .govspeak {
-          margin-top: 0;
-          p {
-            margin: 0;
-            padding: $gutter-one-third 0;
+          width: 50%;
+          padding-left: 0;
+          
+          &:nth-child(2n+1) {
+            clear: both;
+          }
+          
+          .container {
+            padding: 0 $gutter-half;
+          }
+          
+          h2 {
+            width: 100%;
+            margin-left: 0;
+          }
+          
+          .summary {
+            padding-left: 0;
           }
         }
       }
-      h2 {
-        border-top: 1px solid $light-keyline;
-        display: table-cell;
-        padding: 40px 0 $gutter-one-third;
-        position: relative;
-        vertical-align: top;
-        width: 30%;
-        @include ie(6) {
-          padding-top: $gutter-one-third;
-          position: absolute;
-          top: 3px;
-        }
-        a {
-        width: 100%;
-        }
-        &:before {
-          content:counter(li, decimal-leading-zero);
-          counter-increment:li;
-          position:absolute;
-          top: $gutter-one-third;
-          left:0;
-          @include box-sizing(border);
-          width:2em;
-        }
-      }
-      .publication-count {
-        padding-top: 0;
-        .policies, .guides {
-          @include core-14;
-          text-transform: capitalize;
-        }
-      }
-      .container {
-        display: table-row;
-      }
-      &:last-child {
-        h2, .summary {
-          border-bottom: 1px solid $light-keyline;
-        }
-      }
     }
-  }
-
-  @include media(desktop) {
     
-  .wide { // for > 4 topics on an orgs page
-    border-bottom: 1px solid $light-keyline;
-    .topic {
-      float: left;
-      display: inline;
-      margin-right: $gutter;
-      width: 48.1%;
-      .summary, h2 {
-        float: none;
-        display: block;
-        width: 100%;
-      }
-      .summary {
-        border-top: none;
-      }
-      &:nth-child(2n+1) {
-        clear: both;
-      }
-      &:nth-child(2n) {
-        margin-right: 0;
-      }
-      &:last-child {
-        .summary, h2 {
-          border-bottom: none;
+    ol.ultra-wide {
+      margin: 0 ($gutter-half*-1);
+
+      .topic {
+        @include media(tablet) {
+          margin-top: 0;
+          float: left;
+          display: inline;
+          width: 33.333333%;
+          padding-left: 0;
+          
+          &:nth-child(3n+1) {
+            clear: both;
+          }
+          
+          .container {
+            padding: 0 $gutter-half;
+          }
+          
+          h2 {
+            width: 100%;
+            margin-left: 0;
+          }
+          
+          .summary {
+            padding-left: 0;
+            @include core-16;
+          }
         }
       }
     }
-  }
 
-  .ultra-wide { // for > 8 topics on an orgs page
-    border-bottom: 1px solid $light-keyline;
-    .topic {
-      float: left;
+  } // .topic
+    
+    
+  #policies,
+  #publications,
+  #announcements {
+    .policy,
+    .publication {
+      padding: 0 0 $gutter-half;
+    }
+  
+    h2 a {
+      @include core-19;
+    }
+    
+    p, .metadata {
+      @include core-14;
+      padding-top: 1px;
+    }
+    
+    .metadata li {
       display: inline;
-      margin-right: 3%;
-      width: 31.3%;
-      .summary, h2 {
-        float: none;
-        display: block;
-        width: 100%;
+      padding-right: $gutter-one-third;
+    }
+    
+    .see-all a {
+      @include core-19;
+    }
+  }
+    
+  @include media(tablet) {
+    #policies,
+    #publications,
+    #announcements {
+      padding-left: 33.333333%;
+      
+      h1.label {
+        position: relative;
+        float: left;
+        width: 50%;
+        margin-left: -50%;
       }
-      .summary {
-        border-top: none;
-      }
-
-      &:nth-child(3n+1) {
-        clear: both;
-      }
-      &:nth-child(3n) {
-        margin-right: 0;
-      }
-      &:last-child {
-        .summary, h2 {
-          border-bottom: none;
-        }
+      
+      .policies,
+      .publications,
+      .see-all {
+        padding-left: $gutter-half;
       }
     }
   }
-}
-
-  #ministers ul {
-    @extend %contain-floats;
-  }
-
-  #ministers,
-  #military,
-  #management {
-     clear: both;
-    li {
-      float: left;
-      display: inline;
-      margin: 0 3% $gutter 0;
-      height: 20em;
-      width: 45%;
-      &:nth-child(2n+1) {
-        clear: both;
-      }
+  
+  #who {
+    #ministers,
+    #management,
+    #military {
+      display: block;
+      clear: both;
+      overflow: hidden;
+    }
+    
+    #management,
+    #military {
+      padding-top: $gutter-half;
       @include media(tablet) {
-        height: auto;
-        width: 22%;
-        &:nth-child(2n+1) {
-          clear: none;
-        }
+        padding-top: $gutter*2;
+      }
+    }
+    
+    ul {
+      position: relative;
+      overflow: hidden;
+      margin: 0 ($gutter-half*-1);
+    }
+  
+    .ministerial_role,
+    .board_member_role,
+    .military_role {
+      list-style: none;
+      
+      @include media(tablet) {
+        float: left;
+        width: 25%;
+      
         &:nth-child(4n+1) {
           clear: both;
         }
       }
-    }
-    .js-hidden {
-      display: none;
-    }
-    .management-secondary {
-      li {
-        height: auto;
-        min-height: 70px;
+      
+      .inner {
+        padding: 0 $gutter-half $gutter-half;
       }
-      @include media(tablet) {
-        float: left;
-        display: inline;
-        width: 75%;
-        li {
-          margin-bottom: $gutter-half;
-          width: 30.5%;
-          &:nth-child(4n+1) {
-            clear: none;
-          }
-          &:nth-child(3n) {
-            margin-right: 0;
-          }
-          &:nth-child(3n+1) {
-            clear: both;
-          }
+      
+      .image_holder {
+        float: none;
+        margin: 0;
+        width: 100%;
+        
+        img {
+          display: block;
+          width: 100%;
+          height: auto;
+          min-height: 50px;
         }
       }
-    }
-  }
-
-  .show-other-content {
-    clear: both;
-    float: right;
-    margin: 0 $gutter $gutter;
-  }
-
-
-
-  .current-appointee {
-    @include core-16;
-    padding-top: 0;
-  }
-  .role {
-    @include core-14;
-    padding-top: 0;
-  }
-
-  .image_holder {
-    display: block;
-    margin-bottom: $gutter-one-third;
-    float: none;
-    overflow: hidden;
-    width: 100%;
-    @include media(tablet) {
-      height: 10em;
-      img {
-        position: relative;
-        top: -20%;
+      
+      .current-appointee {
+        @include core-19;
+        padding-top: 0;
+        
+        a {
+          &:hover,
+          &:focus,
+          &:active {
+            text-decoration: none;
+            
+            strong {
+              text-decoration: underline;
+            }
+          }
+        }
+        
+        span {
+          display: block;
+          @include core-14;
+          color: $low-contrast;
+          margin-bottom: ($gutter-one-sixth*-1)
+        }
       }
-    }
-    @include ie(6) {
-      img {
-        width: 50%;
-      }
-    }
-  }
-
-  .document-list {
-    margin-top: 0;
-    th, td {
-      padding-top: 0;
-      padding-bottom: 0;
-      @include media(desktop) {
-        clear: both;
-      }
-    }
-    .document-row {
-      border-bottom: none;
-      th,
-      &:first-child th,
-      &:nth-child(2) th {
+      
+      .role {
         @include core-14;
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-    }
-  }
-
-  #policies,
-  #publications {
-    h1, .publications, .policies, .see-all {
-      li {
-        border-bottom: 1px solid $light-keyline;
-        clear: both;
-        ul li {
-          border: none;
+        padding-top: 2px;
+        padding-top: 0.2rem;
+        
+        a {
+          color: $body-text;
         }
       }
+    }
+    
+    #management {
       @include media(tablet) {
-        float: right;
-        display: inline;
-        padding-top: 0;
-        width: 66%;
-      }
-    }
-    @include media(tablet) {
-      h1 {
-        float: left;
-        width: 33%;
-      }
-      .metadata {
-        @include core-16;
-        padding-top: $gutter-one-third;
-        clear: both;
-        li {
-          float: none;
-          display: inline-block;
-          border: 0;
-          margin-right: $gutter;
-          text-transform: none;
+        // some minus margin juggling here to align the columns
+        margin: 0 ($gutter-half*-1);
+
+        h1,
+        .show-other-content {
+          margin-left: $gutter-half;
+        }
+
+        ul {
+          position: relative;
+          float: left;
+          width: 25%;
+          margin-right: -100%;
+          margin-left: 0;
+          li {
+            width: 100%;
+          }
+        }
+        ul.management-secondary {
+          position: relative;
+          float: left;
+          width: 75%;
+          margin-right: -100%;
+          margin-left: 25%;
+          li {
+            width: 33.333333%;
+                  
+            &:nth-child(4n+1) {
+              clear: none;
+            }
+                  
+            &:nth-child(3n+1) {
+              clear: both;
+            }
+          }
         }
       }
     }
-  }
-
-  .sub_navigation {
-    clear: both;
-    li {
-      border: none;
-      list-style: none;
-      a {
-        @include core-24;
-      }
-    }
-  }
-
-  .social-media {
-    ul, p {
+    
+    .show-other-content {
       float: left;
-    }
-    .social-media-accounts {
-      overflow: hidden;
-      li {
-        float: left;
-        display: inline;
-        margin-right: $gutter-two-thirds;
-        @include ie(6) {
-          width: 70px;
-        }
-      }
-    }
-  }
-
-  @include media(tablet) {
-
-    .block-5 {
-      @include core-19;
-      .inner-block {
-        padding-left: $gutter-one-third;
-      }
-    }
-    .block-4, .block-5 {
-      float: right;
-      display: inline;
-      padding: $gutter 0;
-      width: 66%;
-    }
-    .block-4 {
-      float: left;
-      width: 33%;
-    }
-
-    .block-6, .block-7, .block-8, .block-9 {
       clear: both;
-      padding: $gutter 0;
-      overflow: hidden;
+      margin-right: -100%;
+      margin-left: 0;
     }
-
+    
+  } // end #who
+  
+  #org-contacts {
+  
+    h2 {
+      @include core-24;
+    }
+    
+    .organisation_contact h2 {
+      margin-bottom: $gutter-half;
+    }
+    
+    .addresses {
+      p {
+        margin: 0 0 $gutter-one-third;
+        .type {
+          display: block;
+        }
+      }
+      
+      .adr {
+        margin: 0 0 $gutter-one-third;
+        p {
+          margin: 0;
+        }
+      }
+    }
+  
+    @include media(tablet) {
+      .addresses {
+        float: left;
+        clear: both;
+        margin-right: -100%;
+        margin-left: 0;
+        width: 66.666666%;
+        
+        .organisation_contact {
+          position: relative;
+          overflow: hidden;
+          padding-left: 50%;
+          
+          h2, .adr {
+            position: relative;
+            margin-left: -100%;
+            width: 100%;
+          }
+          
+          p {
+            padding-left: $gutter-half;
+          }
+          
+          .adr {
+            display: inline;
+            float: left;
+            
+            p {
+              padding-left: 0;
+            }
+          }
+        }
+      }
+      
+      .social-media {
+        float: left;
+        clear: none;
+        margin-right: -100%;
+        margin-left: 66.666666%;
+        width: 33.333333%;
+      }
+    }
   }
-
-}
-
-
-
-.organisation_subpages {
-
-  .block-3, .block-4 {
-    float: left;
-    display: inline;
-    width: 25%;
-  }
-
-  .block-4 {
-    width: 75%;
-  }
-
-  .sub_navigation_container {
-    top: 0;
-    margin-bottom: 0;
+  
+  .social-media-accounts {
     li {
-      list-style: none;
+      clear: both;
+      overflow: hidden;
+      margin: $gutter-half 0;
+      @include core-16;
+      padding: 0;
+      line-height: ($gutter-two-thirds+$gutter-one-sixth);
     }
-  }
-
-  .ministerial_role {
-    float: left;
-    display: inline;
-    overflow: hidden;
-    padding-right: 3%;
-    margin-bottom: $gutter;
-    width: 30%;
-    .role {
-      margin-left: 72px;
-    }
-  }
-
-  .ministerial_role:nth-child(3n-1) {
-    clear: both;
-  }
-
-  .about_page {
-    nav {
-      position: absolute;
-      right: $gutter;
-      top: 200px;
-      li {
-        list-style: none;
-      }
-    }
-  }
-
-  .item, .board_member_role {
-    list-style: none;
-    margin: $gutter-half 0;
-    padding: $gutter-half $gutter-two-thirds;
-  }
-  .item:nth-child(odd), .board_member_role:nth-child(odd)  {
-    background-color: $info-background;
-  }
-
-  #permanent_secretary_board_members .board_member_role {
-    background-color: $white;
-    padding-top: 0;
-    margin-top: 0;
-  }
-
-  .organisation_contact {
-    margin-bottom: $gutter;
-  }
-      @media (max-width: 768px) {
-
-    .block-3, .block-4, .ministerial_role {
-      float: none;
-      display: block;
-      width: auto;
-    }
-
-    .about_page nav {
-      position: relative;
-      top: 0;
-      right: 0;
-    }
-  }
-}
-
-
-.sub_navigation_container {
-  background-color: $white;
-  position: relative;
-  padding-right: $gutter-one-third;
-  //margin-bottom: -217px;
-  //top: -217px;
-  ul {
-    margin-bottom: $gutter;
-  }
-  li {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    a {
-      text-decoration: none;
-      display: block;
-      padding: $gutter-one-third*0.5 0;
-      &:hover {
-        color: inherit;
-      }
-    }
-  }
-  li:last-child {
-    border-bottom: none;
-  }
-   @media (max-width: 768px) {
-    margin-bottom: 0;
-    top: 0;
- }
-
-}
-
-.image_holder {
-    float: left;
-    margin: 0 $gutter-half 0 0;
-    width: 25%;
-    img {
-    width: 100%;
-  }
-}
-
-.view_all {
-  clear: both;
-}
-
-.social-media-accounts {
-  li {
-    border: none;
-
-    a {
-      display: inline-block;
-      background: transparent none no-repeat 0 0;
-      line-height: 16px;
-      padding-left: 22px;
-    }
-    .twitter  { background-image: image-url("icons/16/twitter.png"); }
-    .youtube  { background-image: image-url("icons/16/youtube.png"); }
-    .flickr   { background-image: image-url("icons/16/flickr.png"); }
-    .facebook { background-image: image-url("icons/16/facebook.png"); }
-  }
-}
-
-.non-govuk {
-
-  .label, .document_type, .published_or_updated {
-    color: $body-text;
-  }
-
-  .block-1, .block-2, .block-3, .block-4, .block-5 {
-    display: block;
-    margin-bottom: $gutter;
-    .inner-block {
-      padding: 0 $gutter;
-    }
-  }
-
-  .block-1, .block-5 {
-    clear: both;
-    float: none;
-    width: 100%;
-  }
-
-  .block-1 {
-    margin-bottom: $gutter*2;
-  }
-
-  .block-3 {
-    @include media(desktop) {
+    
+    .connect {
       float: left;
-      width: 34%;
+      display: inline;
+      width: ($gutter-two-thirds+$gutter-one-sixth);
+      height: ($gutter-two-thirds+$gutter-one-sixth);
+      text-indent: -5000%;
+      overflow: hidden;
+      margin-right: $gutter-one-third;
+      background-image: image-url("social-icons-white.png");
+      background-repeat: no-repeat;
     }
-
-    .thumbnail {
-      img {
-        box-shadow: 3px 3px 4px #999;
-      }
+    
+    .facebook .connect {
+      background-position: -2px -2px;
+    }
+    
+    .twitter .connect {
+      background-position: -2px -32px;
+    }
+    
+    .youtube .connect {
+      background-position: -2px -62px;
+    }
+    
+    .flickr .connect {
+      background-position: -2px -92px;
     }
   }
-
-  .block-4 {
-    @include media(desktop) {
-      float: left;
-      width: 66%;
-
-      margin-bottom: $gutter*3;
-    }
-  }
-
-  .block-2, .block-5 {
-    @include media(desktop) {
-      padding-left: 34%;
-    }
-  }
-
-  .parent_organisations {
-    margin-bottom: $gutter-half;
-  }
-
-  h1.label {
-    @include core-19;
-  }
-
-  .information-block {
-    padding-top: $gutter-two-thirds;
-    padding-bottom: $gutter-two-thirds;
-  }
-
-  .title, .url {
-    @include core-24;
-    margin-top: $gutter-half;
-  }
+  
 }
 
 
-// Corporate information pages
-.corporate_information_page {
-
-  .summary {
-    @include core-19;
-    margin: $gutter 0 $gutter 25%;
-  }
-
-  p, ul, h2 {
-    margin-left: 25%;
-  }
-
-}
 
 
 // Organisation colours
 .organisation_homepage {
   .treasury  {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $treasury;
-    }
-    .slidecontrols li a {
-      background-color: $treasury;
-    }
     a {
       color: $treasury;
     }
-  }
-  .cabinet-office {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $cabinet-office;
+    .organisation-logo-large {
+      border-color: $treasury;
     }
-    .slidecontrols li a {
-      background-color: $cabinet-office;
-    }
-    a {
-      color: $cabinet-office;
+    .social-media-link .connect {
+      background-color: $treasury;
     }
   }
   .department-for-education {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-education;
-    }
-    .slidecontrols li a {
-      background-color: $department-for-education;
-    }
     a {
       color: $department-for-education;
     }
+    .organisation-logo-large {
+      border-color: $department-for-education;
+    }
+    .social-media-link .connect {
+      background-color: $department-for-education;
+    }
   }
   .department-for-transport {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-transport;
-    }
-    .slidecontrols li a {
-      background-color: $department-for-transport;
-    }
     a {
       color: $department-for-transport;
     }
+    .organisation-logo-large {
+      border-color: $department-for-transport;
+    }
+    .social-media-link .connect {
+      background-color: $department-for-transport;
+    }
   }
   .home-office {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $home-office;
-    }
-    .slidecontrols li a {
-      background-color: $home-office;
-    }
     a {
       color: $home-office;
     }
+    .organisation-logo-large {
+      border-color: $home-office;
+    }
+    .social-media-link .connect {
+      background-color: $home-office;
+    }
   }
   .department-of-health {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-of-health;
-    }
-    .slidecontrols li a {
-      background-color: $department-of-health;
-    }
     a {
       color: $department-of-health;
     }
+    .organisation-logo-large {
+      border-color: $department-of-health;
+    }
+    .social-media-link .connect {
+      background-color: $department-of-health;
+    }
   }
   .ministry-of-justice {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $ministry-of-justice;
-    }
-    .slidecontrols li a {
-      background-color: $ministry-of-justice;
-    }
     a {
       color: $ministry-of-justice;
     }
+    .organisation-logo-large {
+      border-color: $ministry-of-justice;
+    }
+    .social-media-link .connect {
+      background-color: $ministry-of-justice;
+    }
   }
   .ministry-of-defence {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $ministry-of-defence;
-    }
-    .slidecontrols li a {
-      background-color: $ministry-of-defence;
-    }
     a {
       color: $ministry-of-defence;
     }
+    .organisation-logo-large {
+      border-color: $ministry-of-defence;
+    }
+    .social-media-link .connect {
+      background-color: $ministry-of-defence;
+    }
   }
   .foreign-and-commonwealth-office {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $foreign-and-commonwealth-office;
-    }
-    .slidecontrols li a {
-      background-color: $foreign-and-commonwealth-office;
-    }
     a {
       color: $foreign-and-commonwealth-office;
     }
+    .organisation-logo-large {
+      border-color: $foreign-and-commonwealth-office;
+    }
+    .social-media-link .connect {
+      background-color: $foreign-and-commonwealth-office;
+    }
   }
   .department-for-communities-and-local-government {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-communities-and-local-government;
-    }
-    .slidecontrols li a {
-      background-color: $department-for-communities-and-local-government;
-    }
     a {
       color: $department-for-communities-and-local-government;
     }
+    .organisation-logo-large {
+      border-color: $department-for-communities-and-local-government;
+    }
+    .social-media-link .connect {
+      background-color: $department-for-communities-and-local-government;
+    }
   }
   .department-for-energy-and-climate-change {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-energy-and-climate-change;
-    }
-    .slidecontrols li a {
-      background-color: $department-for-energy-and-climate-change;
-    }
     a {
       color: $department-for-energy-and-climate-change;
     }
+    .organisation-logo-large {
+      border-color: $department-for-energy-and-climate-change;
+    }
+    .social-media-link .connect {
+      background-color: $department-for-energy-and-climate-change;
+    }
   }
   .department-for-culture-media-and-sport {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-culture-media-and-sport;
-    }
-    .slidecontrols li a {
-      background-color: $department-for-culture-media-and-sport;
-    }
     a {
       color: $department-for-culture-media-and-sport;
     }
+    .organisation-logo-large {
+      border-color: $department-for-culture-media-and-sport;
+    }
+    .social-media-link .connect {
+      background-color: $department-for-culture-media-and-sport;
+    }
   }
   .department-for-environment-food-and-rural-affairs {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-environment-food-and-rural-affairs;
-    }
-    .slidecontrols li a {
-      background-color: $department-for-environment-food-and-rural-affairs;
-    }
     a {
       color: $department-for-environment-food-and-rural-affairs;
     }
+    .organisation-logo-large {
+      border-color: $department-for-environment-food-and-rural-affairs;
+    }
+    .social-media-link .connect {
+      background-color: $department-for-environment-food-and-rural-affairs;
+    }
   }
   .department-for-work-and-pensions {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-work-and-pensions;
-    }
-    .slidecontrols li a {
-      background-color: $department-for-work-and-pensions;
-    }
     a {
       color: $department-for-work-and-pensions;
     }
+    .organisation-logo-large {
+      border-color: $department-for-work-and-pensions;
+    }
+    .social-media-link .connect {
+      background-color: $department-for-work-and-pensions;
+    }
   }
   .department-for-business-innovation-and-skills {
-    .page_title, span, .sub_navigation_container li, .secondary-featured {
-      border-color: $department-for-business-innovation-and-skills;
-    }
-    .slidecontrols li a {
-      background-color: $department-for-business-innovation-and-skills;
-    }
     a {
       color: $department-for-business-innovation-and-skills;
     }
+    .organisation-logo-large {
+      border-color: $department-for-business-innovation-and-skills;
+    }
+    .social-media-link .connect {
+      background-color: $department-for-business-innovation-and-skills;
+    }
   }
   .department-for-international-development {
-    .page_title, span, .secondary-featured {
-      border-color: $department-for-international-development;
-    }
-    .slidecontrols li a {
-      background-color: $department-for-international-development;
-    }
     a {
       color: $department-for-international-development;
+    }
+    .organisation-logo-large {
+      border-color: $department-for-international-development;
+    }
+    .social-media-link .connect {
+      background-color: $department-for-international-development;
     }
   }
 }
