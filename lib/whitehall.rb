@@ -33,6 +33,10 @@ module Whitehall
       'whitehall-admin.production.alphagov.co.uk'
     ]
 
+    def asset_host
+      ENV['GOVUK_ASSET_HOST']
+    end
+
     def router_prefix
       "/government"
     end
