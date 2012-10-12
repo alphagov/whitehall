@@ -37,8 +37,5 @@
 }
 
 .inner-block {
-    padding: 0 $gutter-half;
-  @include media(desktop) {
     padding: 0 $gutter;
-  }
 }
