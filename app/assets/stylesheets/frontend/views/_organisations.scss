@@ -90,6 +90,7 @@
         width: 66.666666%;
         margin-right: -100%;
         margin-left: 0;
+        margin-top: $gutter-two-thirds;
         
         .img, .news_body {
           padding-right: $gutter-half;
@@ -100,6 +101,7 @@
     .primary-secondary {
       article {
         margin: $gutter-two-thirds 0;
+        overflow: hidden;
       }
     
       h2 {
