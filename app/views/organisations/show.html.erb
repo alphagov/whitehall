@@ -94,7 +94,7 @@
       <h1 class="label">What we do</h1>
       <p class="description"><%= @organisation.description %></p>
       <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
-      <p><%= organisation_navigation_link_to "Read more about #{@organisation.acronym}", about_organisation_path(@organisation) %></p>
+      <p><%= organisation_navigation_link_to "Read about how #{@organisation.acronym} work", about_organisation_path(@organisation) %></p>
       <p>
       <% if @organisation.department? %>
         <%= organisation_navigation_link_to 'See all of our agencies & partners', agencies_and_partners_organisation_path(@organisation) %>

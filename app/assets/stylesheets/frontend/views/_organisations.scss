@@ -42,6 +42,10 @@
       width: 66.6666666%;
       margin-right: -100%;
       margin-left: 33.333333%;
+      
+      .inner-block {
+        padding-left: $gutter-two-thirds;
+      }
     }
   }
   
@@ -144,7 +148,7 @@
     }
     
     @include media(tablet) {
-      margin: 0 ($gutter-half*-0.5);
+      margin: 0 ($gutter-half*-1);
     
       li {
         float: left;
@@ -240,12 +244,18 @@
         margin-top: $gutter-two-thirds;
         padding-top: $gutter-one-third;
         padding-left: 33.333333%;
+        border-top: 1px solid $light-keyline;
+        
+        &:first-child {
+          border-top: none;
+        }
         
         h2 {
           position: relative;
           float: left;
-          width: 50%;
+          width: 45%;
           margin-left: -50%;
+          margin-top: $gutter-one-sixth;
         }
         
         .summary {
@@ -255,15 +265,16 @@
     }
     
     ol.wide {
-      margin: 0 ($gutter-half*-1);
-      
-      .topic {
-        @include media(tablet) {
+      @include media(tablet) {
+        margin: 0 ($gutter-half*-1);
+        
+        .topic {
           margin-top: 0;
           float: left;
           display: inline;
           width: 50%;
           padding-left: 0;
+          border-top: none;
           
           &:nth-child(2n+1) {
             clear: both;
@@ -276,6 +287,7 @@
           h2 {
             width: 100%;
             margin-left: 0;
+            margin-top: 0;
           }
           
           .summary {
@@ -283,6 +295,7 @@
           }
         }
       }
+
     }
     
     ol.ultra-wide {
@@ -295,6 +308,7 @@
           display: inline;
           width: 33.333333%;
           padding-left: 0;
+          border-top: none;
           
           &:nth-child(3n+1) {
             clear: both;
@@ -307,6 +321,7 @@
           h2 {
             width: 100%;
             margin-left: 0;
+            margin-top: 0;
           }
           
           .summary {
@@ -324,8 +339,11 @@
   #publications,
   #announcements {
     .policy,
-    .publication {
-      padding: 0 0 $gutter-half;
+    .publication,
+    .consultation {
+      padding: 0 0 $gutter-one-sixth;
+      margin-bottom: $gutter-one-third;
+      border-bottom: 1px solid $light-keyline;
     }
   
     h2 a {
@@ -540,13 +558,23 @@
         margin-right: -100%;
         margin-left: 0;
         width: 66.666666%;
+        padding-right: $gutter;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
         
         .organisation_contact {
           position: relative;
           overflow: hidden;
           padding-left: 50%;
           
-          h2, .adr {
+          h2 {
+            position: relative;
+            margin-left: -100%;
+            width: 200%;
+          }
+          
+          .adr {
             position: relative;
             margin-left: -100%;
             width: 100%;
@@ -615,6 +643,17 @@
       background-position: -2px -92px;
     }
   }
+  
+  
+    
+  // org color bands
+  
+  #topics h1, #ministers h1, #management h1, #military h1, #org-contacts h2 {
+    border-bottom: 5px solid;
+    @include department-colours(border-color);
+  }
+
+  
   
 }
 
