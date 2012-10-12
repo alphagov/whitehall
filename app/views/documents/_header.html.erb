@@ -35,6 +35,10 @@
         <dt>Minister:</dt>
         <dd class="person"><%= link_to_person document.person %></dd>
       <% end %>
+      <% if document.respond_to?(:role_appointments) && document.role_appointments.any? %>
+        <dt><%= document.role_appointments.length == 1 ? "Minister" : "Ministers" %>:</dt>
+        <dd><%= list_of_links_to_role_appointments(document.role_appointments) %></dd>
+      <% end %>
       <% if document.respond_to?(:countries) && document.countries.any? %>
         <dt><%= document.countries.length == 1 ? "Country" : "Countries" %>:</dt>
         <dd class="document-countries"><%= list_of_links_to_countries(document.countries) %></dd>

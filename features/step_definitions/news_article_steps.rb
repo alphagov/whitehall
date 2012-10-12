@@ -38,3 +38,22 @@ end
 Then /^I should see the notes to editors "([^"]*)" for the news article$/ do |notes_to_editors|
   assert has_css?("#{notes_to_editors_selector}", text: notes_to_editors)
 end
+
+When /^I publish a news article "([^"]*)" associated with "([^"]*)"$/ do |title, person_name|
+  begin_drafting_document type: "News Article", title: title
+  select person_name, from: "Ministers"
+  click_button "Save"
+  click_button "Force Publish"
+end
+
+Then /^the article mentions "([^"]*)" and links to their bio page$/ do |person_name|
+  visit document_path(NewsArticle.last)
+  assert has_css?("a.person[href*='#{person_path(find_person(person_name))}']", text: person_name)
+end
+
+Then /^the news article tag is the same as the person in the text$/ do
+  visit admin_edition_path(NewsArticle.last)
+  click_button "Create new edition"
+  appointment = NewsArticle.last.role_appointments.first
+  assert has_css?("select#edition_role_appointment_ids option[value='#{appointment.id}'][selected=selected]")
+end
