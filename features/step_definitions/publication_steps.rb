@@ -70,7 +70,7 @@ When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/
 end
 
 When /^I visit the list of publications$/ do
-  visit "/"
+  visit homepage
   click_link "Publications"
 end
 
