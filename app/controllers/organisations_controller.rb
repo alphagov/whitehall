@@ -6,7 +6,7 @@ class OrganisationsController < PublicFacingController
 
   def index
     ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
-    @ministerial_departments = Organisation.where(organisation_type_id: ministerial_department_type).all(include: { child_organisations: :organisation_type})
+    @ministerial_departments = Organisation.where(organisation_type_id: ministerial_department_type).all(include: [:organisation_type, { child_organisations: :organisation_type}])
     @all_other_organisations = Organisation.where('organisation_type_id != ?', ministerial_department_type.id).ordered_by_name_ignoring_prefix
   end
 
