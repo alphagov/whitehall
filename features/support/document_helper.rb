@@ -78,7 +78,7 @@ module DocumentHelper
 
   def fill_in_change_note_if_required
     if has_css?("textarea[name='edition[change_note]']")
-      fill_in "Change note", with: "changes"
+      fill_in "edition_change_note", with: "changes"
     end
   end
 

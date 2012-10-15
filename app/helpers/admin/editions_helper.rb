@@ -58,21 +58,18 @@ module Admin::EditionsHelper
       concat render(partial: "standard_fields",
                     locals: {form: form, edition: edition})
       yield(form)
+      concat render(partial: "scheduled_publication_fields",
+                    locals: {form: form, edition: edition})
       concat standard_edition_publishing_controls(form, edition)
     end
   end
 
   def standard_edition_publishing_controls(form, edition)
-    content_tag(:div, class: "publishing-controls") do
+    content_tag(:div, class: "publishing-controls well") do
       if edition.change_note_required?
-        concat content_tag(:fieldset,
-          form.text_area(:change_note, rows: 4, label_text:
-                         "Change note (will appear on public site and in Atom feeds)") +
-          form.check_box(:minor_change, label_text:
-                         "Minor change? (for typos and other minor corrections, nothing will appear on public site)"))
-      end
-      concat render(partial: "scheduled_publication_fields",
+      concat render(partial: "change_notes",
                     locals: {form: form, edition: edition})
+      end
       concat form.save_or_cancel
     end
   end

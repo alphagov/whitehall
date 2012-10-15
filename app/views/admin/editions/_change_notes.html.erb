@@ -1,0 +1,7 @@
+<fieldset>
+  <h3>Change notes</h3>
+          <%= form.text_area(:change_note, rows: 4, label_text:"<strong>Substantive change (publicly viewable).</strong> Tell the user how this document has changed. Be specific and use past tense eg 'Updated the list of actions to include new 10m investment'. Appears on the site, in atom feeds and in email alerts.".html_safe) %>
+
+  <p><strong>Minor change</strong></p>
+  <%= form.check_box(:minor_change, label_text: "Exclude your changes from the public document history. Only for corrections to typos, style points and broken links") %> 
+</fieldset>

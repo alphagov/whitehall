@@ -198,7 +198,7 @@ When /^I publish a new edition of the policy "([^"]*)" as a minor change$/ do |p
   policy = Policy.latest_edition.find_by_title!(policy_title)
   visit admin_edition_path(policy)
   click_button "Create new edition"
-  check "Minor change"
+  check "edition_minor_change"
   click_button "Save"
   publish(force: true, ignore_errors: true)
 end
@@ -207,7 +207,7 @@ When /^I publish a new edition of the policy "([^"]*)" with a change note "([^"]
   policy = Policy.latest_edition.find_by_title!(policy_title)
   visit admin_edition_path(policy)
   click_button "Create new edition"
-  fill_in "Change note", with: change_note
+  fill_in "edition_change_note", with: change_note
   click_button "Save"
   publish(force: true)
 end
