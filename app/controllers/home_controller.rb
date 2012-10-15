@@ -1,5 +1,4 @@
 class HomeController < PublicFacingController
-  layout 'home', only: [:sunset]
   before_filter :set_search_path_home, only: [:sunset]
 
   def show
@@ -7,6 +6,7 @@ class HomeController < PublicFacingController
   end
 
   def sunset
+    render layout: 'home'
   end
 
   def tour
