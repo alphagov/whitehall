@@ -19,7 +19,7 @@ module Admin::AuditTrailHelper
 
   def make_past_tense(verb_in_present_tense)
     suffix = case verb_in_present_tense
-    when /[aeiou]t$/ then 'ted'
+    when /[aeiou]t$/ then 'ed'
     when /e$/ then 'd'
     else 'ed'
     end

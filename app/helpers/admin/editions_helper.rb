@@ -58,6 +58,12 @@ module Admin::EditionsHelper
       concat render(partial: "standard_fields",
                     locals: {form: form, edition: edition})
       yield(form)
+      concat standard_edition_publishing_controls(form, edition)
+    end
+  end
+
+  def standard_edition_publishing_controls(form, edition)
+    content_tag(:div, class: "publishing-controls") do
       if edition.change_note_required?
         concat content_tag(:fieldset,
           form.text_area(:change_note, rows: 4, label_text:
