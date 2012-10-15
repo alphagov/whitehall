@@ -5,4 +5,4 @@ require File.expand_path('../application', __FILE__)
 Whitehall::Application.initialize!
 
 # Register WAP request types
-Mime::Type.register 'application/vnd.wap.xhtml+xml', :wap
+Mime::Type.register 'application/vnd.wap.xhtml+xml', :html
