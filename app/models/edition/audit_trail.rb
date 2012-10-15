@@ -90,7 +90,14 @@ module Edition::AuditTrail
     private
 
     def make_present_tense(event)
-      event.gsub(/t?ted$/, 't').gsub(/ed$/, '')
+      case event.downcase
+      when 'published' then 'publish'
+      when 'rejected' then 'reject'
+      when 'submitted' then 'submit'
+      when 'deleted' then 'delete'
+      else
+        event
+      end
     end
   end
 
