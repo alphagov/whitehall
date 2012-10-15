@@ -318,7 +318,8 @@
         
   #topics {
     .topic {
-        
+      list-style: none;
+
       &:nth-child(1) h2:before {
         content: "01.";
         display: block;
