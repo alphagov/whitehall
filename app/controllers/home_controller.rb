@@ -1,4 +1,5 @@
 class HomeController < PublicFacingController
+  layout 'frontend'
   before_filter :set_search_path_home, only: [:sunset]
 
   def show
