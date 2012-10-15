@@ -5,7 +5,9 @@ class OrganisationsController < PublicFacingController
            :agencies_and_partners, :chiefs_of_staff]
 
   def index
-    @organisations_by_type = Organisation.includes(:organisation_type, :corporate_information_pages).in_listing_order.group_by(&:organisation_type)
+    ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
+    @ministerial_departments = Organisation.where(organisation_type_id: ministerial_department_type).all(include: [:organisation_type, { child_organisations: :organisation_type}])
+    @all_other_organisations = Organisation.where('organisation_type_id != ?', ministerial_department_type.id).ordered_by_name_ignoring_prefix
   end
 
   def alphabetical

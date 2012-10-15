@@ -20,6 +20,13 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     assert_equal @user, doc.audit_trail.first.actor
   end
 
+  test "deletion appears as a deletion event" do
+    edition = create(:draft_edition)
+    edition.delete!
+    edition.update_attributes!(state: 'draft')
+    assert_equal "delete", edition.audit_trail.second.event
+  end
+
   test "saving without any changes does not get recorded as an event" do
     doc = create(:draft_edition)
     doc.save!

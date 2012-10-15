@@ -59,4 +59,6 @@ jQuery(function($) {
 
   $('.organisation_homepage #military .military_role').hideExtraRows();
 
+  GOVUK.hideDepartmentChildren.init();
+
 });
