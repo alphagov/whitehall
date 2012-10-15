@@ -112,7 +112,7 @@ module GovspeakHelper
   end
 
   def markup_to_nokogiri_doc(text, images = [])
-    govspeak = build_govspeak_document(text, images)
+    govspeak = build_govspeak_document(text).tap { |g| g.images = images }
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(govspeak.to_html)
@@ -189,28 +189,10 @@ module GovspeakHelper
     Whitehall.public_host_for(host) || host
   end
 
-  def build_govspeak_document(text, images = [])
+  def build_govspeak_document(text)
     request_host = respond_to?(:request) ? request.host : nil
     hosts = [request_host, ActionController::Base.default_url_options[:host]].compact
     hosts = hosts + Whitehall.admin_hosts
-    Govspeak::Document.new(text, document_domains: hosts).tap do |document|
-      document.images = images.map {|i| ImageAssetHostDecorator.new(i, Whitehall.asset_host)}
-    end
-  end
-
-  class ImageAssetHostDecorator
-    extend Forwardable
-
-    attr_reader :image
-    delegate [:alt_text, :caption] => :image
-
-    def initialize(image, asset_host)
-      @image = image
-      @asset_host = asset_host || ""
-    end
-
-    def url
-      @asset_host + image.url.to_s
-    end
+    Govspeak::Document.new(text, document_domains: hosts)
   end
 end
