@@ -11,6 +11,11 @@ class SpeechType
     @genus || @name
   end
 
+  def self.find_by_name(name)
+    all.find { |pt| pt.name == name }
+  end
+
+
   Transcript = create(
     id: 1, name: "Transcript", genus: "Speech",
     explanation: "This is a transcript of the speech, exactly as it was delivered."
