@@ -1,10 +1,12 @@
 // small logos - used across the site
 
-.organisation {
-  overflow: hidden;
-  list-style: none;
-  padding-bottom: $gutter-one-third;
-// stops descenders being cropped off
+.organisations-icon-list {
+  .organisation {
+    overflow: hidden;
+    list-style: none;
+    padding-bottom: $gutter-one-third;
+  // stops descenders being cropped off
+  }
 }
 
 .organisation-logo-small {

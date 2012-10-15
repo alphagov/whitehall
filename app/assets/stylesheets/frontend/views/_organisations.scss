@@ -6,11 +6,6 @@
       width: 70%;
     }
   }
-  h3 {
-    @include core-14;
-    border-bottom: 1px solid $light-keyline;
-  }
-
   .heading-block {
     h1 {
       @include core-19;
@@ -29,6 +24,7 @@
     .department {
       @extend %contain-floats;
       padding: $gutter-one-third 0;
+      list-style: none;
       border-bottom: 1px solid $light-keyline;
 
       h2 {
@@ -80,15 +76,23 @@
       .child-inner {
         padding: $gutter-half;
       }
+      h3 {
+        @include core-14;
+        border-bottom: 1px solid $light-keyline;
+      }
       ol {
         overflow: hidden;
-        margin: 0 (-$gutter-one-third);
+        margin: 0 (-$gutter-one-third) $gutter-one-third;
         li {
           @include core-16;
           display: block;
           @include media(desktop){
             width: 33%;
             float: left;
+          }
+
+          &:nth-child(3n+1) {
+            clear: left;
           }
 
           a {
@@ -107,7 +111,7 @@
     }
   }
 }
-.organisation_homepage {
+.organisation-show {
   
   .block-1,
   .block-2,
@@ -780,10 +784,54 @@
     @include department-colours(border-color);
   }
 
-  
-  
 }
 
+.organisations-external {
+  @include media(desktop){
+    .block-2 {
+      width: 66%;
+      float: right;
+    }
+    .block-3 {
+      clear: both;
+      width: 33%;
+      float: left;
+    }
+    .block-4 {
+      width: 66%;
+      float: right;
+    }
+    .block-5 {
+      clear: both;
+      width: 66%;
+      float: right;
+    }
+  }
+
+  .page-header {
+    padding: $gutter-half 0;
+  }
+  .description {
+    margin-bottom: $gutter;
+    p {
+      @include core-19;
+    }
+  }
+  .thumbnail {
+    img {
+      box-shadow: 3px 3px 4px #999;
+      width: 100%;
+      max-width: 287px;
+    }
+  }
+  .url {
+    @include core-24;
+  }
+  .information-block {
+    padding: $gutter-two-thirds $gutter-one-third;
+    margin-top: 0;
+  }
+}
 
 
 

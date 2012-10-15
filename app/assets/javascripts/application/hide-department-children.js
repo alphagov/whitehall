@@ -7,7 +7,6 @@
   root.GOVUK.hideDepartmentChildren = {
     init: function(){
       var $departments = $('.js-hide-department-children .department');
-      console.log($departments.html());
 
       $departments.each(function(i, el){
         var $department = $(el),
