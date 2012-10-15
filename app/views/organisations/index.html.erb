@@ -14,29 +14,31 @@
       <div class="heading-block ministerial-departments js-hide-department-children">
         <h1>Ministerial departments</h1>
         <div class="content">
-          <% @ministerial_departments.each do |ministerial_department| %>
-            <%= content_tag_for :li, ministerial_department, class: 'department' do %>
-              <h2 class="<%= organisation_logo_classes(ministerial_department) %>">
-                <%= link_to ministerial_department.logo_formatted_name, organisation_path(ministerial_department),
-                            class: "organisation-logo-small single-line" %>
-              </h2>
-              <% if ministerial_department.child_organisations.any? %>
-                <p class="works-with">Works with <%= ministerial_department.child_organisations.length %> agencies &amp; public bodies</p>
-                <div class="child-organisations"><div class="child-inner">
-                  <% ministerial_department.child_organisations_by_type.each do |type,departments| %>
-                    <h3><%= type.name %></h3>
-                    <ol>
-                      <% departments.each do |department| %>
-                        <%= content_tag_for :li, department do %>
-                          <%= link_to department.name, organisation_path(department) %>
+          <ol>
+            <% @ministerial_departments.each do |ministerial_department| %>
+              <%= content_tag_for :li, ministerial_department, class: 'department' do %>
+                <h2 class="<%= organisation_logo_classes(ministerial_department) %>">
+                  <%= link_to ministerial_department.logo_formatted_name, organisation_path(ministerial_department),
+                              class: "organisation-logo-small single-line" %>
+                </h2>
+                <% if ministerial_department.child_organisations.any? %>
+                  <p class="works-with">Works with <%= ministerial_department.child_organisations.length %> agencies &amp; public bodies</p>
+                  <div class="child-organisations"><div class="child-inner">
+                    <% ministerial_department.child_organisations_by_type.each do |type,departments| %>
+                      <h3><%= type.name %></h3>
+                      <ol>
+                        <% departments.each do |department| %>
+                          <%= content_tag_for :li, department do %>
+                            <%= link_to department.name, organisation_path(department) %>
+                          <% end %>
                         <% end %>
-                      <% end %>
-                    </ol>
-                  <% end %>
-                </div></div>
+                      </ol>
+                    <% end %>
+                  </div></div>
+                <% end %>
               <% end %>
             <% end %>
-          <% end %>
+          </ol>
         </div>
       </div>
       <div class="heading-block ministerial-departments">

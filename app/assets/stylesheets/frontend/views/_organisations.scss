@@ -6,11 +6,6 @@
       width: 70%;
     }
   }
-  h3 {
-    @include core-14;
-    border-bottom: 1px solid $light-keyline;
-  }
-
   .heading-block {
     h1 {
       @include core-19;
@@ -29,6 +24,7 @@
     .department {
       @extend %contain-floats;
       padding: $gutter-one-third 0;
+      list-style: none;
       border-bottom: 1px solid $light-keyline;
 
       h2 {
@@ -80,15 +76,23 @@
       .child-inner {
         padding: $gutter-half;
       }
+      h3 {
+        @include core-14;
+        border-bottom: 1px solid $light-keyline;
+      }
       ol {
         overflow: hidden;
-        margin: 0 (-$gutter-one-third);
+        margin: 0 (-$gutter-one-third) $gutter-one-third;
         li {
           @include core-16;
           display: block;
           @include media(desktop){
             width: 33%;
             float: left;
+          }
+
+          &:nth-child(3n+1) {
+            clear: left;
           }
 
           a {
