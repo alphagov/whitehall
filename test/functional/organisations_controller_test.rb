@@ -505,7 +505,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should display a list of organisations" do
-    organisation_1 = create(:organisation)
+    ministerial_org = create(:ministerial_organisation_type)
+    organisation_1 = create(:organisation, organisation_type_id: ministerial_org.id)
     organisation_2 = create(:organisation)
 
     get :index
@@ -515,7 +516,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "index avoids n+1 selects" do
-    10.times { create(:organisation) }
+    ministerial_org = create(:ministerial_organisation_type)
+    10.times { create(:organisation, organisation_type_id: ministerial_org.id) }
     queries_used = count_queries { get :index }
     assert 10 > queries_used, "Expected less than 10 queries, #{queries_used} were counted"
   end

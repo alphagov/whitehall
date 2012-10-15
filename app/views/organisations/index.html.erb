@@ -15,7 +15,7 @@
         <h1>Ministerial departments</h1>
         <div class="content">
           <% @ministerial_departments.each do |ministerial_department| %>
-            <div class="department">
+            <%= content_tag_for :li, ministerial_department, class: 'department' do %>
               <h2 class="<%= organisation_logo_classes(ministerial_department) %>">
                 <%= link_to ministerial_department.logo_formatted_name, organisation_path(ministerial_department),
                             class: "organisation-logo-small single-line" %>
@@ -33,9 +33,9 @@
                       <% end %>
                     </ol>
                   <% end %>
-              </div></div>
+                </div></div>
               <% end %>
-            </div>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -44,13 +44,13 @@
         <div class="content">
           <ol class="index-list">
             <% @all_other_organisations.each do |organisation| %>
-              <li>
+              <%= content_tag_for :li, organisation do %>
                 <%= link_to organisation.name, organisation_path(organisation) %>
-              </li>
+              <% end %>
             <% end %>
           </ol>
         </div>
-
+      </div>
     </div>
   </div>
 </div>
