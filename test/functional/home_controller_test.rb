@@ -141,6 +141,12 @@ class HomeControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "sunset homepage points search to main site search" do
+    get :sunset
+
+    assert_equal "/search", response.headers["X-Slimmer-Search-Path"]
+  end
+
   private
 
   def create_published_documents

@@ -3,19 +3,21 @@
 
   h1 {
     @include core-48;
-    margin: $gutter 0 $gutter*2;
+    margin: 0 0 $gutter;
     @include media(desktop) {
       margin-top: 0;
+      padding-top: 0;
     }
   }
 
-  .block-2, .block-3 {
+  .block-1, .block-2 {
     float: none;
     display: block;
     width: 100%;
+    margin-top: $gutter*2;
   }
 
-  .block-2 {
+  .block-1 {
     margin-bottom: $gutter;
     img {
       width: 100%;
@@ -26,7 +28,7 @@
     }
   }
 
-  .block-3 {
+  .block-2 {
 
     p {
       @include core-19;
@@ -41,14 +43,14 @@
     }
 
   }
-  
+
   @include media(tablet) {
-    .block-2, .block-3 {
+    .block-1, .block-2 {
       float: left;
       display: inline;
       width: 50%;
     }
-    .block-2 {
+    .block-1 {
       .first {
         margin: 0;
         width: 100%;
