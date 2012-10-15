@@ -21,21 +21,65 @@
   }
 
   .ministerial-departments {
+    margin-bottom: $gutter*2;
+
+    h1 {
+      padding-top: 0;
+    }
     .department {
+      @extend %contain-floats;
       padding: $gutter-one-third 0;
       border-bottom: 1px solid $light-keyline;
 
       h2 {
         padding: $gutter-one-third 0;
+        overflow: hidden;
+      }
+      .works-with,
+      .view-all {
+        display: block;
+        float: left;
+        @include core-16;
       }
       .works-with {
-        @include core-16;
+        @include media(desktop){
+          min-width: 18em;
+        }
+      }
+      .view-all {
+        background: $info-background;
+        @include border-radius(3px);
+        padding: 2px $gutter-one-sixth;
+        margin: 3px $gutter-half 10px;
+
+        &:after {
+          display: inline-block;
+          font-size: 8px;
+          height: 8px;
+          padding-left: 5px;
+          vertical-align: middle;
+          content: " \25B2";
+        }
+      }
+
+      &.js-hiding-children {
+        .view-all:after {
+          content: " \25BC";
+        }
+
+        .child-organisations {
+          display: none;
+        }
       }
     }
     .child-organisations {
-      padding: $gutter-half;
+      clear: both;
+      margin: 0 (-15px);
       background: $info-background;
 
+      .child-inner {
+        padding: $gutter-half;
+      }
       ol {
         overflow: hidden;
         margin: 0 (-$gutter-one-third);

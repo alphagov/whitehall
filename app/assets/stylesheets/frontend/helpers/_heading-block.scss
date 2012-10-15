@@ -1,7 +1,7 @@
 
 .heading-block {
   margin-bottom: $gutter;
-  overflow: hidden;
+  @extend %contain-floats;
 
   h1 {
     @include core-24;

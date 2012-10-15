@@ -11,7 +11,7 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <div class="heading-block ministerial-departments">
+      <div class="heading-block ministerial-departments js-hide-department-children">
         <h1>Ministerial departments</h1>
         <div class="content">
           <% @ministerial_departments.each do |ministerial_department| %>
@@ -22,7 +22,7 @@
               </h2>
               <% if ministerial_department.child_organisations.any? %>
                 <p class="works-with">Works with <%= ministerial_department.child_organisations.length %> agencies &amp; public bodies</p>
-                <div class="child-organisations">
+                <div class="child-organisations"><div class="child-inner">
                   <% ministerial_department.child_organisations_by_type.each do |type,departments| %>
                     <h3><%= type.name %></h3>
                     <ol>
@@ -33,7 +33,7 @@
                       <% end %>
                     </ol>
                   <% end %>
-                </div>
+              </div></div>
               <% end %>
             </div>
           <% end %>
