@@ -31,8 +31,8 @@ class PublicFacingControllerTest < ActionController::TestCase
   end
 
   test "all public facing requests should block all requests with formats we don't support" do
-    good_mime_types = ["*/*", "text/html", "application/json", "application/xml", "application/atom+xml", "application/vnd.wap.xhtml+xml"]
-    bad_mime_types = ["application/vnd.ms-powerpoint", '']
+    good_mime_types = ["*/*", "text/html", "application/json", "application/xml", "application/atom+xml"]
+    bad_mime_types = ["application/vnd.wap.xhtml+xml", '']
 
     good_mime_types.each do |type|
       with_routing_to_test_action do
