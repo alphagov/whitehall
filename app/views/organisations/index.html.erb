@@ -1,68 +1,56 @@
 <% page_title "Departments, agencies & public bodies" %>
-<% page_class "departments-index" %>
 
-
-<div class="organisations_index_page">
+<div class="organisations-index">
   <div class="block-1">
     <div class="inner-block">
       <header class="page-header">
-        <h1 class="page_title">Departments, agencies &amp; public bodies</h1>
+        <h1 class="page_title">Departments, agencies &amp; public bodies.</h1>
       </header>
     </div>
   </div>
 
   <div class="block-2">
     <div class="inner-block">
-        <nav class="organisations_type_links" role="navigation">
-          View departments &amp; agencies by:
-          <ul class="jump_list">
-          <% @organisations_by_type.each do |type, _| %>
-            <li>
-              <%= link_to "#{type.name.pluralize}", organisations_path(anchor: type.name.pluralize.downcase.gsub(/\s/, "_")) %>
-            </li>
-          <% end %>
-          </ul>
-          <p>You can also
-            <%= link_to "view alphabetically", alphabetical_organisations_path %>.
-          </p>
-        </nav>
-    </div>
-  </div>
-
-  <div class="block-3">
-    <div class="inner-block">
-        <% @organisations_by_type.each do |type, organisations| %>
-          <% if type.ministerial_department? %>
-            <div class="organisation_type">
-              <section>
-                <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "label") %>
-                <div id="organisations">
-                  <div class="alphabetical-row">
-                    <div>
-                      <%= render partial: "organisations_logo_list", locals: { organisations: organisations.sort_by(&:name_without_prefix) } %>
-                    </div>
-                  </div>
+      <div class="heading-block ministerial-departments">
+        <h1>Ministerial departments</h1>
+        <div class="content">
+          <% @ministerial_departments.each do |ministerial_department| %>
+            <div class="department">
+              <h2 class="<%= organisation_logo_classes(ministerial_department) %>">
+                <%= link_to ministerial_department.logo_formatted_name, organisation_path(ministerial_department),
+                            class: "organisation-logo-small single-line" %>
+              </h2>
+              <% if ministerial_department.child_organisations.any? %>
+                <p class="works-with">Works with <%= ministerial_department.child_organisations.length %> agencies &amp; public bodies</p>
+                <div class="child-organisations">
+                  <% ministerial_department.child_organisations_by_type.each do |type,departments| %>
+                    <h3><%= type.name %></h3>
+                    <ol>
+                      <% departments.each do |department| %>
+                        <%= content_tag_for :li, department do %>
+                          <%= link_to department.name, organisation_path(department) %>
+                        <% end %>
+                      <% end %>
+                    </ol>
+                  <% end %>
                 </div>
-              </section>
+              <% end %>
             </div>
           <% end %>
-        <% end %>
-    </div>
-  </div>
-
-  <div class="block-4">
-    <div class="inner-block">
-      <div class="non_ministerial_departments">
-        <% @organisations_by_type.each do |type, organisations| %>
-          <% if !type.ministerial_department? %>
-            <div class="organisation_type">
-                <%= content_tag(:h1, type.name.pluralize, id: type.name.pluralize.downcase.gsub(/\s/, "_"), class: "label") %>
-                <%= render partial: "grouped_list", locals: { organisations: organisations } %>
-            </div>
-          <% end %>
-        <% end %>
+        </div>
       </div>
+      <div class="heading-block ministerial-departments">
+        <h1>All others</h1>
+        <div class="content">
+          <ol class="index-list">
+            <% @all_other_organisations.each do |organisation| %>
+              <li>
+                <%= link_to organisation.name, organisation_path(organisation) %>
+              </li>
+            <% end %>
+          </ol>
+        </div>
+
     </div>
   </div>
-
 </div>

@@ -1,3 +1,68 @@
+.organisations-index {
+  .page-header {
+    padding: $gutter 0;
+
+    @include media(desktop){
+      width: 70%;
+    }
+  }
+  h3 {
+    @include core-14;
+    border-bottom: 1px solid $light-keyline;
+  }
+
+  .heading-block {
+    h1 {
+      @include core-19;
+    }
+    .content {
+      border-top: 2px solid $black;
+    }
+  }
+
+  .ministerial-departments {
+    .department {
+      padding: $gutter-one-third 0;
+      border-bottom: 1px solid $light-keyline;
+
+      h2 {
+        padding: $gutter-one-third 0;
+      }
+      .works-with {
+        @include core-16;
+      }
+    }
+    .child-organisations {
+      padding: $gutter-half;
+      background: $info-background;
+
+      ol {
+        overflow: hidden;
+        margin: 0 (-$gutter-one-third);
+        li {
+          @include core-16;
+          display: block;
+          @include media(desktop){
+            width: 33%;
+            float: left;
+          }
+
+          a {
+            display: block;
+            padding: 0 $gutter-one-third;
+          }
+        }
+      }
+    }
+    .index-list {
+      li {
+        list-style: none;
+        border-bottom: 1px solid $light-keyline;
+        @include core-19;
+      }
+    }
+  }
+}
 .organisation_homepage {
   
   .block-1,

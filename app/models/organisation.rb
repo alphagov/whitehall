@@ -145,6 +145,10 @@ class Organisation < ActiveRecord::Base
     joins(:organisation_type).all.sort_by { |o| o.organisation_type.listing_order }
   end
 
+  def child_organisations_by_type
+    child_organisations.group_by(&:organisation_type).sort_by { |type,department| type.listing_order }
+  end
+
   def live?
     govuk_status == 'live'
   end
