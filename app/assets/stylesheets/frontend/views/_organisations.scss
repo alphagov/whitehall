@@ -111,7 +111,7 @@
     }
   }
 }
-.organisation_homepage {
+.organisation-show {
   
   .block-1,
   .block-2,
@@ -784,10 +784,54 @@
     @include department-colours(border-color);
   }
 
-  
-  
 }
 
+.organisations-external {
+  @include media(desktop){
+    .block-2 {
+      width: 66%;
+      float: right;
+    }
+    .block-3 {
+      clear: both;
+      width: 33%;
+      float: left;
+    }
+    .block-4 {
+      width: 66%;
+      float: right;
+    }
+    .block-5 {
+      clear: both;
+      width: 66%;
+      float: right;
+    }
+  }
+
+  .page-header {
+    padding: $gutter-half 0;
+  }
+  .description {
+    margin-bottom: $gutter;
+    p {
+      @include core-19;
+    }
+  }
+  .thumbnail {
+    img {
+      box-shadow: 3px 3px 4px #999;
+      width: 100%;
+      max-width: 287px;
+    }
+  }
+  .url {
+    @include core-24;
+  }
+  .information-block {
+    padding: $gutter-two-thirds $gutter-one-third;
+    margin-top: 0;
+  }
+}
 
 
 
