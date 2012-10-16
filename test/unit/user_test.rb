@@ -32,7 +32,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal [], user.permissions['Whitehall']
   end
 
-  test 'should not allow gds-sso to mass assign permissions' do
+  test 'should allow gds-sso to mass assign permissions' do
     user = build(:user, email: nil, permissions: {'Whitehall' => []})
     user.assign_attributes({permissions: {'Whitehall' => ['Superuser']}}, as: :oauth)
     assert_equal ['Superuser'], user.permissions['Whitehall']
