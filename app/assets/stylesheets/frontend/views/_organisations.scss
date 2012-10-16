@@ -739,6 +739,7 @@
   
   .social-media-accounts {
     li {
+      list-style: none;
       clear: both;
       overflow: hidden;
       margin: $gutter-half 0;
