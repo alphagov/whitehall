@@ -53,11 +53,11 @@ jQuery(function($) {
   });
 
   // FIXME: use the `js-` prefix instead
-  $('.organisation_homepage #ministers .ministerial_role').hideExtraRows();
+  $('.organisations-show #ministers .ministerial_role').hideExtraRows();
 
-  $('.organisation_homepage .management-secondary .board_member_role').hideExtraRows();
+  $('.organisations-show .management-secondary .board_member_role').hideExtraRows();
 
-  $('.organisation_homepage #military .military_role').hideExtraRows();
+  $('.organisations-show #military .military_role').hideExtraRows();
 
   GOVUK.hideDepartmentChildren.init();
 
