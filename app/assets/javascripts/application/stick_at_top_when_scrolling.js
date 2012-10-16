@@ -22,7 +22,16 @@
       }
       if(root.GOVUK.stopScrollingAtFooter){
         $els.each(function(i,el){
-          root.GOVUK.stopScrollingAtFooter.addEl($(el), $(el).height());
+          var $img = $(el).find('img');
+          if($img.length > 0){
+            var image = new Image();
+            image.onload = function(){
+              root.GOVUK.stopScrollingAtFooter.addEl($(el), $(el).height());
+            };
+            image.src = $img.attr('src');
+          } else {
+            root.GOVUK.stopScrollingAtFooter.addEl($(el), $(el).height());
+          }
         });
       }
     },
