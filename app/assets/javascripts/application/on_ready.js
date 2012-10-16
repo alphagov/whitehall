@@ -36,7 +36,7 @@ jQuery(function($) {
     });
   });
 
-  $('.document .body').enhanceYoutubeVideoLinks();
+  $('.document.body').enhanceYoutubeVideoLinks();
 
   $('.detailed-guides-show').trackExternalLinks();
 
