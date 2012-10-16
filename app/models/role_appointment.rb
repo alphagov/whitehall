@@ -2,6 +2,9 @@ class RoleAppointment < ActiveRecord::Base
   CURRENT_CONDITION = {ended_at: nil}
 
   has_many :speeches
+  has_many :edition_role_appointments
+  has_many :editions, through: :edition_role_appointments
+  has_many :news_articles, through: :edition_role_appointments, source: :edition, conditions: { "editions.type" => NewsArticle }
 
   belongs_to :role
   belongs_to :person

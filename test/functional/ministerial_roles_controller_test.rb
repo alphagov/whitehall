@@ -68,8 +68,8 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     role_appointment = create(:role_appointment, role: ministerial_role)
     published_speech = create(:published_speech, role_appointment: role_appointment)
     draft_speech = create(:draft_speech, role_appointment: role_appointment)
-    published_news_article = create(:published_news_article, ministerial_roles: [ministerial_role])
-    draft_news_article = create(:draft_news_article, ministerial_roles: [ministerial_role])
+    published_news_article = create(:published_news_article, role_appointments: [role_appointment])
+    draft_news_article = create(:draft_news_article, role_appointments: [role_appointment])
 
     get :show, id: ministerial_role
 
@@ -83,12 +83,12 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
     published_speech = create(:published_speech, role_appointment: role_appointment)
-    published_news_article = create(:published_news_article, ministerial_roles: [ministerial_role])
+    published_news_article = create(:published_news_article, role_appointments: [role_appointment])
 
     another_ministerial_role = create(:ministerial_role)
     another_role_appointment = create(:role_appointment, role: another_ministerial_role)
     another_published_speech = create(:published_speech, role_appointment: another_role_appointment)
-    another_published_news_article = create(:published_news_article, ministerial_roles: [another_ministerial_role])
+    another_published_news_article = create(:published_news_article, role_appointments: [another_role_appointment])
 
     get :show, id: ministerial_role
 
@@ -98,19 +98,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
       assert_select_object(published_news_article)
       refute_select_object(another_published_news_article)
     end
-  end
-
-  test "shows most recent news and speeches at the top" do
-    ministerial_role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: ministerial_role)
-    newer_speech = create(:published_speech, role_appointment: role_appointment, first_published_at: 1.hour.ago)
-    older_speech = create(:published_speech, role_appointment: role_appointment, first_published_at: 4.hours.ago)
-    newer_news_article = create(:published_news_article, ministerial_roles: [ministerial_role], first_published_at: 2.hours.ago)
-    older_news_article = create(:published_news_article, ministerial_roles: [ministerial_role], first_published_at: 3.hours.ago)
-
-    get :show, id: ministerial_role
-
-    assert_equal [newer_speech, newer_news_article, older_news_article, older_speech], assigns(:announcements)
   end
 
   test "should not display an empty published speeches section" do

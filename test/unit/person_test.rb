@@ -61,30 +61,29 @@ class PersonTest < ActiveSupport::TestCase
     person = create(:person)
     news_articles = 2.times.map { create(:news_article) }
 
-    create(:ministerial_role_appointment, person: person).role.editions << news_articles[0]
-    create(:ministerial_role_appointment, person: person).role.editions << news_articles[1]
+    create(:ministerial_role_appointment, person: person).editions << news_articles[0]
+    create(:ministerial_role_appointment, person: person).editions << news_articles[1]
 
     assert_equal news_articles, person.news_articles
   end
 
-  test 'news_articles excludes articles associated with a previous ministerial role' do
+  test 'news_articles includes articles associated with a previous ministerial role' do
     person = create(:person)
     news_articles = 2.times.map { create(:news_article) }
 
-    create(:ministerial_role_appointment, person: person).role.editions << news_articles[0]
+    create(:ministerial_role_appointment, person: person).editions << news_articles[0]
     create(:ministerial_role_appointment, person: person, started_at: 2.days.ago, ended_at: 1.day.ago)
-      .role.editions << news_articles[1]
+      .editions << news_articles[1]
 
-    assert_equal news_articles[0..0], person.news_articles
+    assert_equal news_articles, person.news_articles
   end
 
   test 'published_news_articles only returns published news articles' do
     person = create(:person)
     news_articles = [create(:published_news_article), create(:draft_news_article)]
 
-    create(:ministerial_role_appointment, person: person).role.editions << news_articles[0]
-    create(:ministerial_role_appointment, person: person).role.editions << news_articles[1]
-
+    create(:ministerial_role_appointment, person: person).editions << news_articles[0]
+    create(:ministerial_role_appointment, person: person).editions << news_articles[1]
     assert_equal news_articles[0..0], person.published_news_articles
   end
 

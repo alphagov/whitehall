@@ -1,12 +1,10 @@
 class Speech < Announcement
-  belongs_to :role_appointment
+  include Edition::Appointment
 
-  validates :role_appointment, :speech_type_id, :delivered_on, presence: true
-
+  validates :speech_type_id, :delivered_on, presence: true
   before_save :populate_organisations_based_on_role_appointment
 
   delegate :genus, :explanation, to: :speech_type
-  delegate :role, to: :role_appointment
 
   def speech_type
     SpeechType.find_by_id(speech_type_id)
@@ -14,10 +12,6 @@ class Speech < Announcement
 
   def speech_type=(speech_type)
     self.speech_type_id = speech_type && speech_type.id
-  end
-
-  def person
-    role_appointment.person
   end
 
   private
