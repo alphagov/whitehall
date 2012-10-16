@@ -271,6 +271,24 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should display 3 announcements with a link to announcements filter if there are many announcements" do
+    organisation = create(:organisation)
+    news_1 = create(:published_news_article, organisations: [organisation])
+    news_2 = create(:published_news_article, organisations: [organisation])
+    news_3 = create(:published_news_article, organisations: [organisation])
+    news_4 = create(:published_news_article, organisations: [organisation])
+
+    get :show, id: organisation
+
+    assert_select '#announcements' do
+      assert_select_object(news_1)
+      assert_select_object(news_2)
+      assert_select_object(news_3)
+      refute_select_object(news_4)
+      assert_select "a[href='#{announcements_filter_path(organisation)}']"
+    end
+  end
+
   test "presents the contact details of the organisation using hcard" do
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department,

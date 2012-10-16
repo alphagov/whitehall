@@ -23,6 +23,7 @@ class OrganisationsController < PublicFacingController
       @policies = PolicyPresenter.decorate(@organisation.published_policies.by_published_at.limit(3))
       @topics = @organisation.topics_with_content
       @publications = PublicationesquePresenter.decorate(@organisation.published_publications.by_published_at.limit(3))
+      @announcements = @organisation.published_announcements.limit(3)
       @ministers = ministers
       @civil_servants = civil_servants
     else

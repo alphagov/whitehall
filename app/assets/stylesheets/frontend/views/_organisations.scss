@@ -289,13 +289,6 @@
     }
   }
   
-  .simple_list {
-    ol, ul {
-      margin-top: 0;
-    }
-  }
-  
-        
   #topics {
     .topic {
       list-style: none;
@@ -447,18 +440,24 @@
   } // .topic
     
     
-  #policies,
-  #publications,
-  #announcements {
-    .policy,
-    .publication,
-    .consultation {
-      padding: 0 0 $gutter-one-sixth;
-      margin-bottom: $gutter-one-third;
-      border-bottom: 1px solid $light-keyline;
+  .heading-block {
+    .label {
+      width: 33%;
+    }
+    .content {
+      width: 66%;
+    }
+    .documents-list {
+      .document {
+        list-style: none;
+        padding: 0 0 $gutter-one-sixth;
+        margin-bottom: $gutter-one-third;
+        border-bottom: 1px solid $light-keyline;
+      }
     }
   
     h2 a {
+      display: block;
       @include core-19;
     }
     
@@ -474,27 +473,6 @@
     
     .see-all a {
       @include core-19;
-    }
-  }
-    
-  @include media(tablet) {
-    #policies,
-    #publications,
-    #announcements {
-      padding-left: 33.333333%;
-      
-      h1.label {
-        position: relative;
-        float: left;
-        width: 50%;
-        margin-left: -50%;
-      }
-      
-      .policies,
-      .publications,
-      .see-all {
-        padding-left: $gutter-half;
-      }
     }
   }
   

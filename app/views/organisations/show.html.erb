@@ -93,39 +93,37 @@
   <div class="block-7">
     <div class="inner-block">
       <% if @policies.any? %>
-        <section id="policies" class="simple_list">
+        <section id="policies" class="heading-block">
           <h1 class="label">Our policies</h1>
-          <%= render partial: "policies/list_description", locals: {policies: @policies} %>
-          <p class="see-all">
-            <%= link_to 'See all of our policies', policies_filter_path(@organisation) %>
-          </p>
+          <div class="content">
+            <%= render partial: "policies/list_description", locals: {policies: @policies} %>
+            <p class="see-all">
+              <%= link_to 'See all of our policies', policies_filter_path(@organisation) %>
+            </p>
+          </div>
         </section>
       <% end %>
-    </div>
-  </div>
-
-  <div class="block-8">
-    <div class="inner-block">
       <% if @publications.any? %>
-        <section id="publications" class="simple_list">
+        <section id="publications" class="heading-block">
           <h1 class="label">Our publications</h1>
-          <%= render partial: "publications/list_description", locals: {publications: @publications} %>
-          <p class="see-all">
-            <%= link_to 'See all of our publications', publications_filter_path(@organisation) %>
-          </p>
+          <div class="content">
+            <%= render partial: "publications/list_description", locals: {publications: @publications} %>
+            <p class="see-all">
+              <%= link_to 'See all of our publications', publications_filter_path(@organisation) %>
+            </p>
+          </div>
         </section>
       <% end %>
-    </div>
-  </div>
-
-
-  <div class="block-9">
-    <div class="inner-block">
-        <% if @organisation.department? %>
-        <h1 class="label">Our Announcements</h1>
-        <p>
-        <%= link_to "See all of our announcements", announcements_filter_path(@organisation) %>
-        </p>
+      <% if @announcements.any? %>
+        <section id="announcements" class="heading-block">
+          <h1 class="label">Our Announcements</h1>
+          <div class="content">
+            <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
+            <p class="see-all">
+              <%= link_to "See all of our announcements", announcements_filter_path(@organisation) %>
+            </p>
+          </div>
+        </section>
         <% end %>
     </div>
   </div>
