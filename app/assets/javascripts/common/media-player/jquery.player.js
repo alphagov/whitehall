@@ -22,7 +22,7 @@
 **/
 
 // Bind function to resize event of the window/viewport
-$(document).ready(function() {
+jQuery(function($) {
 	$(window).resize(function(){
         $('.player-container').each(function() {
             if($(this).width()>580) {
@@ -59,11 +59,8 @@ var PlayerManager = function(){
 	* @return {bool}: True if the player was added to the list, false if it already exists within the list
 	*---------------------------------------------------------*/
 	this.addPlayer = function(player){
-		if(players[player.config.id] == undefined){
-			players[player.config.id] = player;
-			return true;
-		}
-		return false;
+		players[player.config.id] = player;
+		return true;
 	};
 	/*
 	* Use this method for removing a player from the player list
@@ -71,6 +68,7 @@ var PlayerManager = function(){
 	*---------------------------------------------------------*/
 	this.removePlayer = function(playerID){
 		if(players[playerID] != undefined){
+			players[playerID].destroy();
 			delete players[playerID];
 		}
 	};
@@ -100,19 +98,13 @@ var html5_methods = {
 		ffwd : function(){var time = this.getCurrentTime() + this.config.player_skip;this.seek(time);},
 		rewd : function(){var time = this.getCurrentTime() - this.config.player_skip;if(time < 0){time = 0;}this.seek(time);},
 		mute : function(){var $button = this.$html.find('button.mute');if(this.player.muted){this.player.muted = false;if($button.hasClass('muted')){$button.removeClass('muted');}}else{this.player.muted = true;$button.addClass('muted');}},
-		volup : function(){var vol = this.player.volume * 100;if(vol < (100 - this.config.volume_step)){vol += this.config.volume_step;}else{vol = 100;}this.player.volume = (vol/100);this.updateVolume(Math.round(vol));},
-		voldwn : function(){var vol = this.player.volume * 100;if(vol > this.config.volume_step){vol -= this.config.volume_step;}else{vol = 0;}this.player.volume = (vol/100);this.updateVolume(Math.round(vol));},
+		volup : function(){var vol = this.player.volume * 100;if(vol < (100 - this.config.volumeStep)){vol += this.config.volumeStep;}else{vol = 100;}this.player.volume = (vol/100);this.updateVolume(Math.round(vol));},
+		voldwn : function(){var vol = this.player.volume * 100;if(vol > this.config.volumeStep){vol -= this.config.volumeStep;}else{vol = 0;}this.player.volume = (vol/100);this.updateVolume(Math.round(vol));},
 		getDuration : function(){return this.player.duration;},
 		getCurrentTime : function(){return this.player.currentTime;},
 		getBytesLoaded : function(){return this.player.buffered.end(0);},
-		getBytesTotal : function(){
-			if(this.player.seekable != undefined){	
-				return this.player.seekable.end();
-			}else{
-				// Some browsers (Firefox 4) will not always have the seekable property
-				// If not, just return the duration 
+		getBytesTotal : function(){ 
 				return this.player.duration;
-			}
 		},
 		seek : function(time){this.player.currentTime = time;},
 		cue : function(){return;}	// No queueing required for html5 video, just return
@@ -135,7 +127,7 @@ var html5_methods = {
 		// Define the default config settings for the plugin
 		var defaults = {
 			id: 'media_player',	// The base string used for the player id.  Will end up with an integer appended to it e.g. 'ytplayer0', 'ytplayer1' etc
-			url: 'https://www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid=',
+			url: 'http://www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid=',
 			media: '8LiQ-bLJaM4',
 			repeat: false,	// loop the flash video true/false
             captions: null, // caption XML URL link for caption content 
@@ -552,9 +544,11 @@ var html5_methods = {
 			*---------------------------------------------------------*/
 			setSliderTimeout : function(){
 				var self = this;
-				self.sliderInterval = setInterval(function() { 
-					self.updateSlider();
-				}, self.config.sliderTimeout);
+				if(self.sliderInterval == undefined){	
+					self.sliderInterval = setInterval(function() { 
+						self.updateSlider();
+					}, self.config.sliderTimeout);
+				}			
 			},
 			/*
 			* Method for clearing the timeout function for updating the 
@@ -800,6 +794,28 @@ var html5_methods = {
 				}
 			},
 			/*
+			* Method for destroying the 3rd party
+			* media player instance. Not all providers
+			* apis allow us to do this. So provide overridable
+			* method stub.
+			*/
+			destroyPlayerInstance: function(){
+				// Youtube does not allow us to destroy
+				// the player instance right now. Just return false
+				return false;
+			},
+			/*
+			* Method for destroying the player
+			* Delegates to 'destroyPlayerInstance'
+			* for destroying the 3rd party player instance
+			*/
+			destroy: function(){
+				this.clearSliderTimeout();
+				this.clearCaptionTimeout();
+				this.destroyPlayerInstance();
+				this.$html.remove();
+			},			
+			/*
 			* Set the timeout for updating captions.  Set to half a second since
 			* we get some annoying floating point issues.  This is related to
 			* a degree of lag because of time taken for traversal.
@@ -881,7 +897,7 @@ var html5_methods = {
 			var $self = $(this);
 			// Create a new media player object
 			var player = new mediaplayer(i);
-			
+
 			// Replace the HTML with that generated by this plugin 
 			$self.html(player.$html);
 			
