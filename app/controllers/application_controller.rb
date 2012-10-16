@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
   def load_published_documents_in_scope(&block)
     @policies = yield(Policy.published)
     @publications = yield(Publication.published)
-    @news_articles = yield(NewsArticle.published)
     @consultations = yield(Consultation.published)
   end
 

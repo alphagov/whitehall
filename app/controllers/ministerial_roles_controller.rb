@@ -11,9 +11,8 @@ class MinisterialRolesController < PublicFacingController
 
   def show
     @ministerial_role = RolePresenter.decorate(MinisterialRole.find(params[:id]))
-    load_published_documents_in_scope { |scope| scope.in_ministerial_role(@ministerial_role).by_published_at }
-    speeches = @ministerial_role.speeches.published
-
-    @announcements = Announcement.sort_by_first_published_at(@news_articles + speeches)
+    load_published_documents_in_scope do |scope|
+      scope.in_ministerial_role(@ministerial_role).by_published_at
+    end
   end
 end
