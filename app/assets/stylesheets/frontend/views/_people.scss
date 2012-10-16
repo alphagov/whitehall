@@ -1,3 +1,9 @@
+.person {
+  span:after {
+    content: " ";
+  }
+}
+
 .people-list {
   .alphabetical-list .alphabetical-row li {
     padding: 0 0 $gutter-half 0;
