@@ -8,7 +8,7 @@
   </fieldset>
 
   <fieldset>
-    <%= form.text_area :notes_to_editors, "class" => "previewable" %>
+    <%= form.text_area :notes_to_editors, rows: 4, "class" => "previewable" %>
   </fieldset>
 
   <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
