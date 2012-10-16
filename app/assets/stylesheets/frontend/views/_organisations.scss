@@ -811,6 +811,7 @@
     border-bottom-style: solid;
   }
   @include department-colours("h1", border-color);
+  @include department-colours("h2", border-color);
   @include department-colours(".social-media-link .connect", background-color);
   @include department-colours("a", color);
 
