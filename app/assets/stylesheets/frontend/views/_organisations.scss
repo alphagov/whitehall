@@ -684,21 +684,31 @@
     }
   
     @include media(tablet) {
+      position: relative;
+      overflow: hidden;
+      margin: 0 ($gutter*-0.5);
+    
       .addresses {
         float: left;
         clear: both;
         margin-right: -100%;
         margin-left: 0;
         width: 66.666666%;
-        padding-right: $gutter;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
         
         .organisation_contact {
-          position: relative;
-          overflow: hidden;
-          padding-left: 50%;
+          padding-bottom: $gutter-two-thirds;
+        }
+        
+        .complex {
+          padding: 0 $gutter-half $gutter-two-thirds;
+          
+          .contact-inner {
+            position: relative;
+            overflow: hidden;
+            float: none;
+            display: block;
+            padding-left: 50%;
+          }
           
           h2 {
             position: relative;
@@ -725,6 +735,17 @@
             }
           }
         }
+          
+        .simple {
+          float: left;
+          display: inline;
+          width: 50%;
+          
+          .contact-inner {
+            padding: 0 $gutter-half;
+          }
+        }
+        
       }
       
       .social-media {
@@ -733,6 +754,10 @@
         margin-right: -100%;
         margin-left: 66.666666%;
         width: 33.333333%;
+        
+        section {
+          padding: 0 $gutter-half;
+        }
       }
     }
   }
