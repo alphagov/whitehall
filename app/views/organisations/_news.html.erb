@@ -1,0 +1,18 @@
+<%
+  extra_class ||= ""
+%>
+<%= content_tag_for(:article, edition, nil, class: "#{edition_organisation_class(edition)} #{extra_class}") do %>
+  <div class="img">
+    <%= link_to edition.image_tag, public_document_path(edition) %>
+  </div>
+  <div class="body">
+    <h2><%= link_to edition.title, public_document_path(edition), class: "title" %></h2>
+    <% unless edition.summary.blank? %>
+      <p class="summary"><%= truncate(edition.summary, length: 150, separator: ' ') %></p>
+    <% end %>
+    <div class="meta">
+      Posted <%= relative_time(edition.published_at, class: 'published_at') %>
+    </div>
+    <div class="document-type"><%= edition.format_name.capitalize %></div>
+  </div>
+<% end %>
