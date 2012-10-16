@@ -2,7 +2,7 @@ require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
 
-  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations, :contact_details]
+  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations]
 
   should_be_a_public_facing_controller
 
@@ -284,7 +284,7 @@ class OrganisationsControllerTest < ActionController::TestCase
         ]
       }]
     )
-    get :contact_details, id: organisation
+    get :show, id: organisation
 
     assert_select ".organisation.hcard" do
       assert_select ".fn.org", "Ministry of Pomp"
@@ -301,17 +301,9 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should use html line breaks when displaying the address" do
-    organisation = create(:organisation, contacts_attributes: [{description: "Main", address: "Line 1\nLine 2"}])
-    get :contact_details, id: organisation
-    assert_select ".street-address", /Line 1/
-    assert_select ".street-address", /Line 2/
-    assert_select ".street-address br", count: 1
-  end
-
   test "should link to a google map" do
     organisation = create(:organisation, contacts_attributes: [{description: "Main", latitude: 51.498772, longitude: -0.130974}])
-    get :contact_details, id: organisation
+    get :show, id: organisation
     assert_select "a[href='http://maps.google.co.uk/maps?q=51.498772,-0.130974']"
   end
 
@@ -536,7 +528,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department)
 
-    [:show, :about, :consultations, :contact_details].each do |page|
+    [:show, :about, :consultations].each do |page|
       get page, id: organisation
       assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
     end

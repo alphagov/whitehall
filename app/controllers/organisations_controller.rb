@@ -1,7 +1,6 @@
 class OrganisationsController < PublicFacingController
   before_filter :load_organisation,
-    only: [:show, :about, :contact_details, :consultations,
-           :ministers, :management_team,
+    only: [:show, :about, :consultations, :ministers, :management_team,
            :agencies_and_partners, :chiefs_of_staff]
 
   def index
@@ -36,9 +35,6 @@ class OrganisationsController < PublicFacingController
   end
 
   def agencies_and_partners
-  end
-
-  def contact_details
   end
 
   def consultations
