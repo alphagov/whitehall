@@ -90,12 +90,11 @@ module OrganisationHelper
   end
 
   def organisation_logo_classes(organisation, options={})
-    classes = [
-      organisation.slug,
-      organisation_type_class(organisation.organisation_type),
-      organisation_branding_class(organisation),
-      options[:class]
-    ]
+    classes = []
+    classes << organisation.slug
+    classes << organisation_type_class(organisation.organisation_type)
+    classes << organisation_branding_class(organisation) unless options[:no_single_identity]
+    classes << options[:class] if options[:class]
     classes.compact.join(" ").strip
   end
 

@@ -8,13 +8,18 @@
         <%= render partial: 'change_notes', locals: {document: @document} %>
       </div>
       <section class="page-header js-hide-extra-logos">
-        <%= render  partial: 'organisations/organisations_logo_list',
-                    locals: {
-                      organisations: @document.organisations,
-                      extra_class: 'single-line',
-                      external_links: true,
-                      remove_line_breaks: true
-                    } %>
+        <ul class="organisations-icon-list">
+          <% @document.organisations.each do |organisation| %>
+            <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
+              <%= link_to organisation.url,
+                    title: "#{organisation.logo_formatted_name} (external website)",
+                    class: "organisation-logo-small single-line",
+                    rel: "external" do %>
+                <span><%= organisation.logo_formatted_name %></span>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
         <%= render partial: "title", locals: {
           topics: @topics,
           document: @document

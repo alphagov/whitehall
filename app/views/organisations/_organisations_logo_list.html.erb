@@ -5,21 +5,20 @@
 %>
 
 <ul class="organisations-icon-list">
+  <% if organisations.length > 1 %>
+    <li class="single-identity organisation">
+      <span class="organisation-logo-small">
+        <span><%= remove_line_breaks ? "HM Government" : "HM<br>Government".html_safe %></span>
+      </span>
+    </li>
+  <% end %>
   <% organisations.each do |organisation| %>
-    <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation, class: '')) do %>
-      <% if external_links %>
-        <%= link_to organisation.url,
-              title: "#{organisation.logo_formatted_name} (external website)",
-              class: "organisation-logo-small #{extra_class}",
-              rel: "external" do %>
-                <span><%= remove_line_breaks ? organisation.logo_formatted_name : format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
-        <% end %>
-      <% else %>
-        <%= link_to organisation_path(organisation),
+    <%= content_tag_for(:li, organisation,
+          class: organisation_logo_classes(organisation, no_single_identity: (organisations.length > 1))) do %>
+      <%= link_to organisation_path(organisation),
             title: organisation.logo_formatted_name,
             class: "organisation-logo-small #{extra_class}" do %>
-              <span><%= remove_line_breaks ? organisation.logo_formatted_name : format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
-        <% end %>
+        <span><%= remove_line_breaks ? organisation.logo_formatted_name : format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
       <% end %>
     <% end %>
   <% end %>
