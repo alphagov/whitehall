@@ -26,6 +26,10 @@ Given /^a published speech "([^"]*)" with related published policies "([^"]*)" a
   create(:published_speech, title: speech_title, related_policies: [policy_1, policy_2])
 end
 
+Given /^a published video speech "([^"]*)"$/ do |speech_title|
+  create(:published_speech, title: speech_title, body: "[Test video](http://www.youtube.com/watch?v=EwTZ2xpQwpA)")
+end
+
 Given /^a published speech "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
   organisation = create(:organisation, name: organisation)
   create(:published_speech, title: title, organisations: [organisation])
@@ -94,4 +98,8 @@ end
 Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |delivered_on, location|
   assert page.has_css?('.delivered-on', text: delivered_on)
   assert page.has_css?('.location', text: location)
+end
+
+Then /^I should be able to see a video player$/ do
+  assert page.has_css?('span.player-container .video')
 end

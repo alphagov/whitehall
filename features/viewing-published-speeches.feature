@@ -12,3 +12,9 @@ Scenario: Viewing a published speech with related policies
   Given a published speech "Things I Have Thought" with related published policies "Policy 1" and "Policy 2"
   When I visit the speech "Things I Have Thought"
   Then I can see links to the related published policies "Policy 1" and "Policy 2"
+
+@javascript
+Scenario: Viewing a published speech shows a video player
+  Given a published video speech "Speech with video"
+  When I visit the speech "Speech with video"
+  Then I should be able to see a video player
