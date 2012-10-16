@@ -63,6 +63,10 @@ module Edition::Workflow
         transitions from: [:scheduled], to: :published
       end
 
+      event :unpublish do
+        transitions from: :published, to: :draft
+      end
+
       event :archive, success: -> edition { edition.run_callbacks(:archive) } do
         transitions from: :published, to: :archived
       end

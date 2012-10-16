@@ -142,6 +142,20 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
+  test "unpublishing a published edition transitions it into the draft state" do
+    edition = create(:published_edition)
+    edition.unpublish!
+    assert edition.draft?
+  end
+
+  [:submitted, :scheduled, :rejected, :archived, :deleted].each do |state|
+    test "should prevent a #{state} edition being unpublished" do
+      edition = create("#{state}_edition")
+      edition.unpublish! rescue nil
+      refute edition.draft?
+    end
+  end
+
   test "should prevent a submitted edition from being published if it has a scheduled date" do
     edition = create("submitted_edition", published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: 1.day.from_now)
     edition.publish!

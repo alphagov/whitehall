@@ -5,6 +5,14 @@ Rails.application.routes.url_helpers.module_eval do
     "/government/generic-editions/#{id}"
   end
 
+  def admin_generic_edition_path(edition)
+    "/government/admin/generic-editions/#{edition.to_param}"
+  end
+
+  def edit_admin_generic_edition_path(edition)
+    "/government/admin/generic-editions/#{edition.to_param}/edit"
+  end
+
   def admin_generic_edition_editorial_remarks_path(*args)
     admin_edition_editorial_remarks_path(*args)
   end

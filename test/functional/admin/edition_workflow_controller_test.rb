@@ -340,4 +340,44 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
+  test 'unpublish unpublishes the edition' do
+    @edition.expects(:unpublish_as).with(@user)
+    post :unpublish, id: @edition, lock_version: 1
+  end
+
+  test 'unpublish redirects back to the edition with a message' do
+    @edition.stubs(:unpublish_as).returns(true)
+    post :unpublish, id: @edition, lock_version: 1
+
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal "This document has been unpublished and will no longer appear on the public website", flash[:notice]
+  end
+
+  test 'unpublish redirects back to the edition with an error message on validation error' do
+    @edition.stubs(:unpublish_as).returns(false)
+    @edition.errors.add(:base, 'Could not unpublish')
+    post :unpublish, id: @edition, lock_version: 1
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'Could not unpublish', flash[:alert]
+  end
+
+  test 'unpublish sets lock version on edition before attempting to unpublish to guard against unpublishing stale objects' do
+    lock_before_unpublishing = sequence('lock-before-unpublishing')
+    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_unpublishing)
+    @edition.expects(:unpublish_as).in_sequence(lock_before_unpublishing).returns(true)
+    post :unpublish, id: @edition, lock_version: 92
+  end
+
+  test 'unpublish redirects back to the edition with an error message if a stale object error is thrown' do
+    @edition.stubs(:unpublish_as).raises(ActiveRecord::StaleObjectError)
+    post :unpublish, id: @edition, lock_version: 1
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
+  end
+
+  test 'unpublish responds with 422 if missing a lock version' do
+    post :unpublish, id: @edition
+    assert_equal 422, response.status
+    assert_equal 'All workflow actions require a lock version', response.body
+  end
 end

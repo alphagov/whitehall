@@ -67,6 +67,10 @@ module Admin::EditionActionsHelper
     button_to 'Delete', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?", class: "btn btn-danger"
   end
 
+  def unpublish_edition_button(edition)
+    button_to 'Un-publish', unpublish_admin_edition_path(edition, lock_version: edition.lock_version), title: "Un-publish", confirm: "Are you sure you want to un-publish the document?", class: "btn btn-danger"
+  end
+
   private
 
   def publish_edition_alerts(edition, force)

@@ -48,6 +48,10 @@ module Edition::Publishing
     reason_to_prevent_publication_by(user, options).nil?
   end
 
+  def unpublishable_by?(user)
+    reasons_to_prevent_unpublication_by(user).empty?
+  end
+
   def approvable_by?(user, options = {})
     reason_to_prevent_approval_by(user, options).nil?
   end
@@ -76,6 +80,13 @@ module Edition::Publishing
     reason_to_prevent_approval_by(user, options)
   end
 
+  def reasons_to_prevent_unpublication_by(user)
+    errors = []
+    errors << "Only GDS editors can un-publish" unless user.gds_editor?
+    errors << "This edition has not been published" unless published?
+    errors
+  end
+
   def publish_as(user, options = {})
     if publishable_by?(user, options)
       self.published_at = if self.minor_change && latest_published_edition
@@ -91,6 +102,17 @@ module Edition::Publishing
       true
     else
       errors.add(:base, reason_to_prevent_publication_by(user, options))
+      false
+    end
+  end
+
+  def unpublish_as(user)
+    if unpublishable_by?(user)
+      unpublish!
+    else
+      reasons_to_prevent_unpublication_by(user).each do |reason|
+        errors.add(:base, reason)
+      end
       false
     end
   end

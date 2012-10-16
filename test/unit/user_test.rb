@@ -26,6 +26,16 @@ class UserTest < ActiveSupport::TestCase
     refute user.departmental_editor?
   end
 
+  test 'should be a GDS editor if has whitehall GDS Editor role' do
+    user = build(:user, permissions: {'Whitehall' => [User::Permissions::GDS_EDITOR]})
+    assert user.gds_editor?
+  end
+
+  test 'should not be a GDS editor if does not have has whitehall GDS Editor role' do
+    user = build(:user, permissions: {'Whitehall' => []})
+    refute user.gds_editor?
+  end
+
   test 'should not normally allow mass assignment of permissions' do
     user = build(:user, permissions: {'Whitehall' => []})
     user.assign_attributes(permissions: {'Whitehall' => ['Superuser']})

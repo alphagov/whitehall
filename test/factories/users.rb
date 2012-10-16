@@ -23,4 +23,8 @@ FactoryGirl.define do
   factory :scheduled_publishing_robot, parent: :user do
     permissions { Hash[GDS::SSO::Config.default_scope => [User::Permissions::SIGNIN, User::Permissions::PUBLISH_SCHEDULED_EDITIONS]] }
   end
+
+  factory :gds_editor, parent: :user do
+    permissions { Hash[GDS::SSO::Config.default_scope => [User::Permissions::SIGNIN, User::Permissions::GDS_EDITOR]] }
+  end
 end

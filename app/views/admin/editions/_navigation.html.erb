@@ -54,4 +54,5 @@
   <%= submit_edition_button(edition) if edition.submittable? %>
   <%= reject_edition_button(edition) if edition.rejectable_by?(current_user) %>
   <%= delete_edition_button(edition) if edition.deletable? %>
+  <%= unpublish_edition_button(edition) if edition.unpublishable_by?(current_user) %>
 </nav>

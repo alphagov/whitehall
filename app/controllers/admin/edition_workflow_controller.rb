@@ -42,6 +42,15 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
+  def unpublish
+    if @edition.unpublish_as(current_user)
+      redirect_options = {notice: "This document has been unpublished and will no longer appear on the public website"}
+    else
+      redirect_options = {alert: @edition.errors.full_messages.to_sentence}
+    end
+    redirect_to admin_edition_path(@edition), redirect_options
+  end
+
   def schedule
     if @edition.schedule_as(current_user, force: params[:force].present?)
       redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"

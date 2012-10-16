@@ -95,6 +95,69 @@ class Edition::PublishingControlsTest < ActiveSupport::TestCase
   end
 end
 
+class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
+  test "is un-publishable if the edition is published and the user is a GDS editor" do
+    edition = build(:published_edition)
+    gds_editor = build(:gds_editor)
+    assert edition.unpublishable_by?(gds_editor)
+  end
+
+  test "is not un-publishable if the edition is not published" do
+    non_published_edition = build(:edition)
+    gds_editor = build(:gds_editor)
+    refute non_published_edition.unpublishable_by?(gds_editor)
+  end
+
+  test "is not un-publishable if the user is not a GDS editor" do
+    edition = build(:published_edition)
+    departmental_editor = build(:departmental_editor)
+    refute edition.unpublishable_by?(departmental_editor)
+  end
+
+  test "sets the state back to draft if the edition is unpublishable by the user" do
+    user = build(:user)
+    edition = build(:published_edition)
+    edition.stubs(:unpublishable_by?).with(user).returns(true)
+    edition.unpublish_as(user)
+    assert edition.draft?
+  end
+
+  test "returns true if the edition is unpublishable by the user" do
+    user = build(:user)
+    edition = build(:published_edition)
+    edition.stubs(:unpublishable_by?).with(user).returns(true)
+    assert edition.unpublish_as(user)
+  end
+
+  test "does not set the state back to draft if the edition is not unpublishable by the user" do
+    user = build(:user)
+    edition = build(:published_edition)
+    edition.stubs(:unpublishable_by?).with(user).returns(false)
+    edition.unpublish_as(user)
+    refute edition.draft?
+  end
+
+  test "returns false if the edition is not unpublishable by the user" do
+    user = build(:user)
+    edition = build(:published_edition)
+    edition.stubs(:unpublishable_by?).with(user).returns(false)
+    refute edition.unpublish_as(user)
+  end
+
+  test "adds a suitable error message if the edition is not published" do
+    edition = build(:edition)
+    edition.unpublish_as(build(:user))
+    assert edition.errors[:base].include?("This edition has not been published")
+  end
+
+  test "adds a suitable error message if the user is not a GDS editor" do
+    non_gds_editor = build(:user)
+    edition = build(:edition)
+    edition.unpublish_as(non_gds_editor)
+    assert edition.errors[:base].include?("Only GDS editors can un-publish")
+  end
+end
+
 class Edition::PublishingChangeNoteTest < ActiveSupport::TestCase
   test "a draft is valid without change note when first saved even if a published edition already exists" do
     published_edition = create(:published_edition)

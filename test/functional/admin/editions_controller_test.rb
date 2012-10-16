@@ -159,6 +159,26 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
+  test "should display un-publish button" do
+    edition = create(:edition)
+    edition.stubs(:unpublishable_by?).returns(true)
+    Edition.stubs(:find).returns(edition)
+
+    get :show, id: edition
+
+    assert_select "form[action=?]", unpublish_admin_edition_path(edition, lock_version: edition.lock_version)
+  end
+
+  test "should not display un-publish button if edition is not unpublishable" do
+    edition = create(:edition)
+    edition.stubs(:unpublishable_by?).returns(false)
+    Edition.stubs(:find).returns(edition)
+
+    get :show, id: edition
+
+    refute_select "form[action=?]", unpublish_admin_edition_path(edition)
+  end
+
   test 'should pass filter parameters to an edition filter' do
     stub_filter = stub_edition_filter
     Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)

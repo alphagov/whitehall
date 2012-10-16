@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   module Permissions
     SIGNIN = 'signin'
     DEPARTMENTAL_EDITOR = 'Editor'
+    GDS_EDITOR = 'GDS Editor'
     PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'
   end
 
@@ -21,6 +22,10 @@ class User < ActiveRecord::Base
 
   def departmental_editor?
     has_permission?(GDS::SSO::Config.default_scope, Permissions::DEPARTMENTAL_EDITOR)
+  end
+
+  def gds_editor?
+    has_permission?(GDS::SSO::Config.default_scope, Permissions::GDS_EDITOR)
   end
 
   def can_publish_scheduled_editions?
