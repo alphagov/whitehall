@@ -1122,6 +1122,67 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_role_appointments_for(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "new should display edition role appointments field" do
+        get :new
+
+        assert_select "form#edition_new" do
+          assert_select "select[name*='edition[role_appointment_ids]']"
+        end
+      end
+
+      test "create should associate role appointments with edition" do
+        first_appointment = create(:role_appointment)
+        second_appointment = create(:role_appointment)
+        attributes = controller_attributes_for(edition_type)
+
+        post :create, edition: attributes.merge(
+          role_appointment_ids: [first_appointment.id, second_appointment.id]
+        )
+
+        edition = edition_class.last
+        assert_equal [first_appointment, second_appointment], edition.role_appointments
+      end
+
+      test "edit should display edition role appointments field" do
+        edition = create(edition_type)
+
+        get :edit, id: edition
+
+        assert_select "form#edition_edit" do
+          assert_select "select[name*='edition[role_appointment_ids]']"
+        end
+      end
+
+      test "update should associate role appointments with editions" do
+        first_appointment = create(:role_appointment)
+        second_appointment = create(:role_appointment)
+
+        edition = create(edition_type, role_appointments: [first_appointment])
+
+        put :update, id: edition, edition: {
+          role_appointment_ids: [second_appointment.id]
+        }
+
+        edition.reload
+        assert_equal [second_appointment], edition.role_appointments
+      end
+
+      test "update should remove all role appointments if none specified" do
+        appointment = create(:role_appointment)
+
+        edition = create(edition_type, role_appointments: [appointment])
+
+        put :update, id: edition, edition: {}
+
+        edition.reload
+        assert_equal [], edition.role_appointments
+      end
+    end
+
+
     def should_allow_ministerial_roles_for(edition_type)
       edition_class = edition_class_for(edition_type)
 

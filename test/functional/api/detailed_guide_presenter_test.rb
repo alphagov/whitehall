@@ -3,6 +3,7 @@ require 'test_helper'
 class Api::DetailedGuidePresenterTest < PresenterTestCase
   setup do
     @guide = stub_edition(:detailed_guide)
+    @guide.stubs(:images).returns([])
     @guide.stubs(:organisations).returns([])
     @guide.stubs(:published_related_detailed_guides).returns([])
     @presenter = Api::DetailedGuidePresenter.decorate(@guide)

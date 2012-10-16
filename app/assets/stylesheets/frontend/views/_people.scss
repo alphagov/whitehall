@@ -53,9 +53,9 @@
       width: 100%;
       img {
         width: 100%;
-        max-width: 135px;
+        max-width: 216px;
         @include ie(6) {
-          width: expression(document.body.clientWidth < 137? "135px" : document.body.clientWidth > 137? "135px" : "auto");
+          width: 216px;
         }
       }
     }
