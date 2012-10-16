@@ -1,37 +1,30 @@
-/**
-*    The Nomensa accessible media player is a flexible multimedia solution for websites and intranets.  
-*    The core player consists of JavaScript wrapper responsible for generating an accessible HTML toolbar 
-*    for interacting with a media player of your choice. We currently provide support for YouTube (default),
-*    Vimeo and JWPlayer although it should be possible to integrate the player with almost any media player on
-*    the web (provided a JavaScript api for the player in question is available).
-*    
-*    Copyright (C) 2012  Nomensa Ltd
-*
-*    This program is free software: you can redistribute it and/or modify
-*    it under the terms of the GNU General Public License as published by
-*    the Free Software Foundation, either version 3 of the License, or
-*    (at your option) any later version.
-*
-*    This program is distributed in the hope that it will be useful,
-*    but WITHOUT ANY WARRANTY; without even the implied warranty of
-*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*    GNU General Public License for more details.
-*
-*    You should have received a copy of the GNU General Public License
-*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-**/
+/*
+ * Nomensa Media Player
+ * http://player.nomensa.com
+ *
+ * http://www.nomensa.com
+ *
+ * Theme Styling:
+ * inc : DEFAULT LAYOUT;
+ * inc : WIDE LAYOUT;
+*/
 
 /* DEFAULT LAYOUT (under 650px)
 ---------------------------------------------------------------------*/
 /* PLAYER CONTAINER */
+
 .player-container {
     background-color: #fff;
     font: 13px Helvetica, Arial, sans-serif;
-    color: #000; }
-    
+    color: #000;
+    margin-bottom: 1.5em;
+ }
+.player-container.player-wide .control-bar .logo, .player-container .control-bar .logo { display: none; }
+.player-container .ui-helper-hidden-accessible { position: absolute; text-indent: -9999px; }
+
 .player-container span, .player-container object {font-size: 90%; }
-    
-.player-container .video {background: #000; position:relative;z-index:3000;}
+
+.player-container .video {background: #fff; position:relative;z-index:3000; border: #ccc 1px solid; }
 .player-container-ie .video{height:1%;}
 
 .player-container .video .caption{position:absolute;bottom:0;background-color:#000;font-size:1.2em;font-weight:bold;color:#FFF;padding:10px 0;line-height:1.5em;width:100%;text-align:center;}
@@ -39,36 +32,36 @@
 
 /* CONTROL BAR */
 .player-container .control-bar {
-    background: #ccc url(../images/bg.gif) top center no-repeat;
-    border-width: 1px;
+    background: #f2f2f2;
+border-width: 1px;
     border-style: solid;
-    border-color: #fafafa #cdcdcd #9f9f9f #cdcdcd; }
-    
+    border-color: #ccc; }
+
 .player-container .ui-state-default {
     background: none;
     border: none;
     color: #333; }
-    
+
 .player-container a:focus, .player-container a:active, .player-container .ui-state-default {outline: none; }
 
 .player-container .control-bar .logo {
     text-indent: -9999em;
-    display: block;
     width: 16px;
     height: 17px;
     left: 10px;
     top: 7px;
     float: left;
-    background: url(../images/nomensa-logo-small.gif) no-repeat 0 0;
     position: absolute; }
-    
-.player-container .control-bar .logo:hover, .player-container .control-bar .logo:focus {background: url(../images/nomensa-logo-small.gif) no-repeat -16px 0; }
-    
+
+
 .player-container .ui-corner-bottom {
-    -moz-border-radius-bottomleft: 5px;
+    /*
+-moz-border-radius-bottomleft: 5px;
     -moz-border-radius-bottomright: 5px;
     -webkit-border-radius-bottomleft: 5px;
-    -webkit-border-right-radius: 5px; }
+    -webkit-border-right-radius: 5px;
+*/
+}
 
 /* BUTTONS */
 .player-container .control-bar button {
@@ -77,43 +70,43 @@
     font-size: 1.1em;
     background-repeat: no-repeat;
     background-position: 50% 5px; }
-    
-.player-container .stop {background-image: url(../images/button-restart.gif); }
-    
-.player-container .rewind {background-image: url(../images/button-rewind.gif); }
-    
-.player-container .play {background-image: url(../images/button-play.gif); }
-    
-.player-container .pause {background-image: url(../images/button-pause.gif); }
-    
-.player-container .forward {background-image: url(../images/button-forward.gif); }
 
-.player-container .mute {background-image: url(../images/button-volon.gif); }
+.player-container .stop {background-image: image-url("media-player/button-restart.gif"); }
 
-.player-container .vol-down {background-image: url(../images/button-voldown.gif); }
+.player-container .rewind {background-image: image-url("media-player/button-rewind.gif"); }
 
-.player-container .vol-up {background-image: url(../images/button-volup.gif); }
+.player-container .play {background-image: image-url("media-player/button-play.gif"); }
 
-.player-container .captions {background-image: url(../images/button-cc.gif); }
+.player-container .pause {background-image: image-url("media-player/button-pause.gif"); }
+
+.player-container .forward {background-image: image-url("media-player/button-forward.gif"); }
+
+.player-container .mute {background-image: image-url("media-player/button-volon.gif"); }
+
+.player-container .vol-down {background-image: image-url("media-player/button-voldown.gif"); }
+
+.player-container .vol-up {background-image: image-url("media-player/button-volup.gif"); }
+
+.player-container .captions {background-image: image-url("media-player/button-cc.gif"); }
 
 .player-container .control-bar .ui-state-hover, .player-container .control-bar .ui-state-focus {background-position: 50% -107px; }
 
 .player-container .control-bar .ui-state-active {
     background-position: 50% -219px;
     color: #777; }
-	
+
 .player-container .control-bar .captions-off {
-	background-image: url(../images/button-cc-off.gif); 
+	background-image: image-url("media-player/button-cc-off.gif");
 }
 
 .player-container .control-bar .volume-controls .ui-state-active {
     color: #333;
     background-position: 50% 5px;
-    background-image: url(../images/button-volmute.gif); }
+    background-image: image-url("media-player/button-volmute.gif"); }
 
 .player-container .control-bar .volume-controls .muted{
 	background-position: 50% 0;
-    background-image: url(../images/button-volmute.gif);
+    background-image: image-url("media-player/button-volmute.gif");
 }
 
 .player-container .control-bar .volume-controls .ui-state-hover, .player-container .control-bar .volume-controls .ui-state-focus {background-position: 50% -107px; }
@@ -123,12 +116,12 @@
     border-width: 1px;
     border-style: solid;
     border-color: #c0c0c0 #bebebe;
-    background: #fff url(../images/timeline-bg.gif) repeat-x top left; }
+    background: #fff image-url("media-player/timeline-bg.gif") repeat-x top left; }
 
 /* SLIDER BAR */
 .player-container .control-bar .ui-slider .ui-slider-handle {
     border: none;
-    background: #000 url(../images/timeline-point.gif) no-repeat 50% 0;
+    background: #000 image-url("media-player/timeline-point.gif") no-repeat 50% 0;
     font-size: 1em; }
 
 .player-container .control-bar .ui-slider .ui-state-hover, .player-container .control-bar .ui-slider .ui-state-focus {background-position: 50% 0;}
@@ -137,21 +130,18 @@
     border: none;
     background: none; }
 
-.player-container .timer-bar .progress-bar {background: #969696 url(../images/timeline-played.gif) repeat-x 0 0; z-index: 2; }
+.player-container .timer-bar .progress-bar {background: #969696 image-url("media-player/timeline-played.gif") repeat-x 0 0; z-index: 2; }
 
-.player-container .timer-bar .loaded-bar {background: #E1E1E1 url(../images/timeline-loaded.gif) repeat-x 0 0; z-index: 0; }
+.player-container .timer-bar .loaded-bar {background: #E1E1E1 image-url("media-player/timeline-loaded.gif") repeat-x 0 0; z-index: 0; }
 
 
 /* WIDE LAYOUT (over 500px with label text)
 ---------------------------------------------------------------------*/
 /* CONTROL BAR */
 .player-container.player-wide .control-bar .logo {
-    width: 89px; 
+    width: 89px;
     height: 26px;
-    background: url(../images/nomensa-logo.gif) no-repeat -0 0;
     top: 12px; }
-
-.player-container.player-wide .control-bar .logo:hover, .player-container.player-wide .control-bar .logo:focus {background: url(../images/nomensa-logo.gif) no-repeat -90px 0; }
 
 /* BUTTONS */
 .player-container.player-wide .control-bar button {background-position: 50% 0; }
@@ -163,10 +153,10 @@
 .player-container.player-wide .control-bar .volume-controls .ui-state-active {
     color: #333;
     background-position: 50% 0;
-    background-image: url(../images/button-volmute.gif); }
+    background-image: image-url("media-player/button-volmute.gif"); }
 
 .player-container.player-wide .control-bar .volume-controls .ui-state-hover, .player-container.player-wide .control-bar .volume-controls .ui-state-focus {background-position: 50% -112px; }
-    
+
 /* SLIDER BAR */
 .player-container.player-wide .control-bar .ui-slider .ui-state-hover, .player-container.player-wide .control-bar .ui-slider .ui-state-focus {background-position: 50% 0; }
 
@@ -179,7 +169,7 @@
 .player-container-ie .timer-bar {padding-left: 0;text-align: left; }
 .player-container-ie .control-bar .ui-slider {margin-left: 5.8em;height: 10px; }
 .player-container-ie .control-bar .ui-slider .ui-slider-handle {background-position: 50% 0; }
-.player-container-ie.player-wide .control-bar {padding-top: 5px; }  
+.player-container-ie.player-wide .control-bar {padding-top: 5px; }
 .player-container-ie.player-wide .functional-controls {width: 95%;text-align: center;margin: 0; }
 .player-container-ie.player-wide .control-bar button {padding: 17px 0 0; }
 .player-container-ie.player-wide .functional-controls button {float: none; }
@@ -191,7 +181,6 @@
 .player-container-ie.player-wide .control-bar .volume-controls .ui-state-hover, .player-container-ie.player-wide .control-bar .volume-controls .ui-state-focus {background-position: 50% -107px; }
 .player-container-ie.player-wide .control-bar .ui-slider-handle {background-position: 50% 0; }
 .player-container-ie.player-wide .control-bar .volume-controls span {padding-top: 20px;display: block; }
-	
+
 /* IE 6 STYLES */
 .player-container-ie-6 .control-bar .ui-slider {overflow: hidden; }
-
