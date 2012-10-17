@@ -693,7 +693,7 @@
             }
           }
         }
-          
+
         .simple {
           float: left;
           display: inline;
@@ -703,7 +703,17 @@
             padding: 0 $gutter-half;
           }
         }
-        
+
+        .js-hidden {
+          display: none;
+        }
+
+      }
+
+      .show-other-content {
+        position: absolute;
+        bottom: 0;
+        left: $gutter-one-third;
       }
       
       .social-media {

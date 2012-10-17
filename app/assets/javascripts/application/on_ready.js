@@ -59,6 +59,8 @@ jQuery(function($) {
 
   $('.organisations-show #military .military_role').hideExtraRows();
 
+  $('.organisations-show .addresses .organisation_contact').hideExtraRows();
+
   GOVUK.hideDepartmentChildren.init();
 
 });
