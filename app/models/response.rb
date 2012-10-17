@@ -12,8 +12,10 @@ class Response < ActiveRecord::Base
     attachments.any?
   end
 
-  def published_on
-    consultation_response_attachments.order("created_at ASC").first.created_at if published?
+  def published_on_or_default
+    if published?
+      published_on || consultation_response_attachments.order("created_at ASC").first.created_at
+    end
   end
 
   def alternative_format_contact_email

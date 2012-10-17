@@ -1,6 +1,7 @@
 <%
   title = "Documents" unless local_assigns.include?(:title)
   summary = document.summary unless local_assigns.include?(:summary)
+  published_on = '' unless local_assigns.include?(:published_on)
 %>
 <section class="attachment-full-width">
   <% if document.attachments.present? %>
@@ -10,7 +11,8 @@
         <%= render partial: "documents/attachment",
                   object: document.attachments.first,
                   locals: { alternative_format_contact_email: document.alternative_format_contact_email,
-                            extra_description: summary } %>
+                    extra_description: summary,
+                    published_on: published_on } %>
       </div>
       <% if document.attachments.present? && document.attachments[1..-1].any? %>
         <div class="attachment-without-thumbnail">

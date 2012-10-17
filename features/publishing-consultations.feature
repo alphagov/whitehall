@@ -11,6 +11,13 @@ Scenario: Adding a response to a consultation
   Given I am an editor
   And a published consultation "Beard Length Review" exists
   When I add a response to the consultation
-  And I publish the amended consultation
+  And I save and publish the amended consultation
   Then the consultation response should be viewable
+
+Scenario: Specifying published date of consultation
+  Given I am an editor
+  And a published consultation "Beard Length Review" exists
+  When I add a response to the consultation
+  And I specify the published response date of the consultation
+  Then the published date should be visible on save
 

@@ -58,7 +58,7 @@ class Consultation < Publicationesque
   end
 
   def response_published_on
-    response.published_on
+    response.published_on_or_default
   end
 
   def last_significantly_changed_on
