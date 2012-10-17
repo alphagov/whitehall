@@ -18,8 +18,8 @@ class PersonPresenter < Draper::Base
   end
 
   def announcements
-    announcements = 
-      SpeechPresenter.decorate(person.published_speeches.limit(10)).to_a + 
+    announcements =
+      SpeechPresenter.decorate(person.published_speeches.limit(10)).to_a +
       NewsArticlePresenter.decorate(person.published_news_articles.limit(10)).to_a
     announcements.sort_by { |a| a.display_date.to_datetime }.reverse[0..9]
   end
@@ -34,7 +34,7 @@ class PersonPresenter < Draper::Base
 
   def link
     name = ""
-    name << "<span class='person-title'>#{title}</span>" if title
+    name << "<span class='person-title'>#{title}</span> " if title
     name << "<strong>#{forename} #{surname} #{letters}</strong>"
     h.link_to name.html_safe, path
   end

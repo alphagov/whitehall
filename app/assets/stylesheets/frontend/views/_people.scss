@@ -1,9 +1,3 @@
-.person {
-  span:after {
-    content: " ";
-  }
-}
-
 .people-list {
   .alphabetical-list .alphabetical-row li {
     padding: 0 0 $gutter-half 0;
@@ -99,7 +93,7 @@
       margin: 12px 0 $gutter $gutter-half;
       float: right;
       min-width: 33.333333%;
-      
+
       li {
         margin-left: $gutter-half;
       }
