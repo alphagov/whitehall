@@ -60,6 +60,21 @@ class SpeechTest < EditionTestCase
     assert_equal 1, new_draft.edition_organisations.count
   end
 
+  test "editing a speech should reassign organisations based on role_appointment" do
+    organisation_1 = create(:organisation)
+    organisation_2 = create(:organisation)
+    ministerial_role_1 = create(:ministerial_role, organisations: [organisation_1])
+    ministerial_role_2 = create(:ministerial_role, organisations: [organisation_2])
+
+    role_appointment_1 = create(:role_appointment, role: ministerial_role_1)
+    role_appointment_2 = create(:role_appointment, role: ministerial_role_2)
+
+    speech = create(:speech, role_appointment: role_appointment_1)
+    speech.update_attributes!(role_appointment: role_appointment_2)
+
+    assert_equal [organisation_2], speech.organisations(true)
+  end
+
   test "#person should return the person who gave the speech" do
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])

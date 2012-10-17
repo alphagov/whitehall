@@ -17,13 +17,7 @@ class Speech < Announcement
   private
 
   def populate_organisations_based_on_role_appointment
-    organisation_associations = role_appointment.role.organisations.map do |organisation|
-      if existing = edition_organisations.detect {|candidate| candidate.organisation_id = organisation.id }
-        existing
-      else
-        edition_organisations.build organisation: organisation
-      end
-    end
-    self.edition_organisations = organisation_associations
+    self.edition_organisations = []
+    self.organisations = role_appointment.role.organisations
   end
 end
