@@ -11,6 +11,10 @@ Scenario: Logged in editors should see their role
   Given I am an editor
   Then I should see that I am logged in as a "Departmental Editor"
 
+Scenario: Logged in GDS editors should see their role
+  Given I am a GDS editor
+  Then I should see that I am logged in as a "GDS Editor"
+
 Scenario: Logged in users should be able to set their email address
   Given I am a writer called "John Smith"
   When I set the email address for "John Smith" to "writer@example.com"

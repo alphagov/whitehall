@@ -17,7 +17,9 @@ class User < ActiveRecord::Base
   end
 
   def role
-    departmental_editor? ? "Departmental Editor" : "Policy Writer"
+    return "GDS Editor" if gds_editor?
+    return "Departmental Editor" if departmental_editor?
+    "Policy Writer"
   end
 
   def departmental_editor?
