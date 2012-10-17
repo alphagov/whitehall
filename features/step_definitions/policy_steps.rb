@@ -240,7 +240,7 @@ Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
 end
 
 Then /^I should see that the policy only applies to:$/ do |nation_names|
-  message = "Only applies to #{nation_names.raw.flatten.sort.to_sentence}"
+  message = "#{nation_names.raw.flatten.sort.to_sentence}"
   assert page.has_css?("#{inapplicable_nations_selector}", text: message)
 end
 
