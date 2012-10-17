@@ -15,20 +15,19 @@ module Edition::Workflow
 
     define_model_callbacks :publish, :unpublish, :archive, :delete, only: :after
 
-    set_callback :publish, :after do
+    after_publish do
       notify_observers :after_publish
+      archive_previous_editions
     end
-    set_callback :unpublish, :after do
+    after_unpublish do
       notify_observers :after_unpublish
     end
-    set_callback :archive, :after do
+    after_archive do
       notify_observers :after_archive
     end
-    set_callback :delete, :after do
+    after_delete do
       notify_observers :after_delete
     end
-
-    after_publish :archive_previous_editions
 
     state_machine auto_scopes: true do
       state :draft
