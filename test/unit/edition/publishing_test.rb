@@ -122,6 +122,17 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
     assert edition.draft?
   end
 
+  test "adds an editorial remark stating that this edition has been set back to draft if the edition is unpublishable by the user" do
+    user = build(:user)
+    edition = build(:published_edition)
+    edition.stubs(:unpublishable_by?).with(user).returns(true)
+
+    edition.unpublish_as(user)
+
+    assert_equal "Reset to draft", edition.editorial_remarks.last.body
+    assert_equal user, edition.editorial_remarks.last.author
+  end
+
   test "returns true if the edition is unpublishable by the user" do
     user = build(:user)
     edition = build(:published_edition)

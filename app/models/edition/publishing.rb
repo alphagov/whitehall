@@ -109,6 +109,7 @@ module Edition::Publishing
   def unpublish_as(user)
     if unpublishable_by?(user)
       unpublish!
+      editorial_remarks.create!(author: user, body: "Reset to draft")
     else
       reasons_to_prevent_unpublication_by(user).each do |reason|
         errors.add(:base, reason)
