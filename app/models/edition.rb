@@ -78,6 +78,8 @@ class Edition < ActiveRecord::Base
 
   before_save :set_timestamp_for_sorting
 
+  after_unpublish :reset_force_published_flag
+
   UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
   FROZEN_STATES = %w(archived deleted).freeze
 
@@ -297,6 +299,10 @@ class Edition < ActiveRecord::Base
 
   def has_consultation_participation?
     false
+  end
+
+  def reset_force_published_flag
+    update_attribute(:force_published, false)
   end
 
   class << self

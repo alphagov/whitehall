@@ -148,6 +148,12 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert edition.draft?
   end
 
+  test "unpublishing a force published edition removes the force published flag" do
+    edition = create(:published_edition, force_published: true)
+    edition.unpublish!
+    refute edition.force_published?
+  end
+
   [:submitted, :scheduled, :rejected, :archived, :deleted].each do |state|
     test "should prevent a #{state} edition being unpublished" do
       edition = create("#{state}_edition")
