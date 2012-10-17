@@ -436,6 +436,15 @@ class EditionTest < ActiveSupport::TestCase
     new_draft_policy.delete!
   end
 
+  test "should remove published edition from search index when it's unpublished" do
+    policy = create(:published_policy)
+    slug = policy.document.slug
+
+    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_name)
+
+    policy.unpublish_as(create(:gds_editor))
+  end
+
   test "should remove published edition from search index when it's deleted" do
     policy = create(:published_policy)
     slug = policy.document.slug

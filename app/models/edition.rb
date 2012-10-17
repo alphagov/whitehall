@@ -103,7 +103,7 @@ class Edition < ActiveRecord::Base
     unindex_after: []
   )
 
-  [:publish, :archive, :delete].each do |event|
+  [:publish, :unpublish, :archive, :delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }
   end
 

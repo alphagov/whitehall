@@ -13,9 +13,13 @@ module Edition::Workflow
 
     default_scope where(arel_table[:state].not_eq('deleted'))
 
-    define_model_callbacks :publish, :archive, :delete, only: :after
+    define_model_callbacks :publish, :unpublish, :archive, :delete, only: :after
+
     set_callback :publish, :after do
       notify_observers :after_publish
+    end
+    set_callback :unpublish, :after do
+      notify_observers :after_unpublish
     end
     set_callback :archive, :after do
       notify_observers :after_archive
@@ -63,7 +67,7 @@ module Edition::Workflow
         transitions from: [:scheduled], to: :published
       end
 
-      event :unpublish do
+      event :unpublish, success: -> edition { edition.run_callbacks(:unpublish) } do
         transitions from: :published, to: :draft
       end
 
