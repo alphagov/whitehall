@@ -30,23 +30,36 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "all public facing requests should block all requests with formats we don't support" do
-    good_mime_types = ["*/*", "text/html", "application/json", "application/xml", "application/atom+xml"]
-    bad_mime_types = ["application/vnd.wap.xhtml+xml", '']
+  test "all public facing requests for any html content type should respond with html" do
+    html_mime_types = ["text/html", "application/xhtml+xml"]
 
-    good_mime_types.each do |type|
+    html_mime_types.each do |type|
       with_routing_to_test_action do
         @request.env['HTTP_ACCEPT'] = type
         get :test
         assert_equal 200, response.status, "mime type #{type} should be acceptable"
+        assert_equal Mime::HTML, response.content_type
       end
     end
+  end
 
-    bad_mime_types.each do |type|
+  test "all public facing requests for wap content should respond with html (considered better than nothing)" do
+    with_routing_to_test_action do
+      @request.env['HTTP_ACCEPT'] = "application/vnd.wap.xhtml+xml"
+      get :test
+      assert_equal 200, response.status, "mime type application/vnd.wap.xhtml+xml should be acceptable"
+      assert_equal Mime::HTML, response.content_type
+    end
+  end
+
+  test "all public facing requests for atom, json and content should respond with their respective types" do
+    types = ["application/json", "application/xml", "application/atom+xml"]
+    types.each do |type|
       with_routing_to_test_action do
         @request.env['HTTP_ACCEPT'] = type
         get :test
-        assert_equal 406, response.status, "mime type #{type} should not be acceptable"
+        assert_equal 200, response.status, "mime type #{type} should be acceptable"
+        assert_equal type, response.content_type
       end
     end
   end

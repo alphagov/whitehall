@@ -28,5 +28,4 @@ class PublicFacingController < ApplicationController
       expires_in(duration, public: true)
     end
   end
-
 end

@@ -18,5 +18,4 @@ class HomeController < PublicFacingController
   def set_search_path_home
     response.headers[Slimmer::Headers::SEARCH_PATH_HEADER] = "/search"
   end
-
 end
