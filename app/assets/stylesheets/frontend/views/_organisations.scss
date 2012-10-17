@@ -280,45 +280,9 @@
   #topics {
     .topic {
       list-style: none;
-
-      &:nth-child(1) h2:before {
-        content: "01.";
-        display: block;
-      }
-      &:nth-child(2) h2:before {
-        content: "02.";
-        display: block;
-      }
-      &:nth-child(3) h2:before {
-        content: "03.";
-        display: block;
-      }
-      &:nth-child(4) h2:before {
-        content: "04.";
-        display: block;
-      }
-      &:nth-child(5) h2:before {
-        content: "05.";
-        display: block;
-      }
-      &:nth-child(6) h2:before {
-        content: "06.";
-        display: block;
-      }
-      &:nth-child(7) h2:before {
-        content: "07.";
-        display: block;
-      }
-      &:nth-child(8) h2:before {
-        content: "08.";
-        display: block;
-      }
-      &:nth-child(9) h2:before {
-        content: "09.";
-        display: block;
-      }
-      &:nth-child(10) h2:before {
-        content: "10.";
+      counter-increment: headings 1;  
+      h2:before {
+        content: counter(headings, decimal-leading-zero) "."; 
         display: block;
       }
       
