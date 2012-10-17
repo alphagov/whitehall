@@ -10,6 +10,11 @@ module("Hide department children", {
     + '</div>');
 
     $('#qunit-fixture').append(this.$departments);
+    this.oldWindowHash = window.location.hash;
+    window.location.hash = '#department-name';
+  },
+  teardown: function(){
+    window.location.hash = this.oldWindowHash;
   }
 });
 
@@ -26,3 +31,10 @@ test("should toggle class when clicking view all link", function() {
   ok(!this.$departments.find('.department').hasClass('js-hiding-children'));
 });
 
+test("should not toggle class of department with id in window hash", function(){
+  this.$departments.find('.child-organisations').append('<span id="department-name"></span>');
+
+  GOVUK.hideDepartmentChildren.init();
+
+  ok(!this.$departments.find('.department').hasClass('js-hiding-children'));
+});
