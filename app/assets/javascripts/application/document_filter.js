@@ -249,7 +249,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
   var enableDocumentFilter = function() {
     if (window.ieVersion && ieVersion === 6) {
-      return;
+      return this;
     }
     this.each(function(){
       if (window.GOVUK.support.history()) {
