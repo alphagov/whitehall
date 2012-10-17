@@ -4,7 +4,7 @@
 <%= content_tag_for(:article, edition, nil, class: "#{edition_organisation_class(edition)} #{extra_class}") do %>
   <div class="content">
     <%= link_to public_document_path(edition) do %>
-      <%= edition.image_tag %>
+      <span class="img"><%= edition.image_tag %></span>
       <h2><%= edition.title %></h2>
     <% end %>
     <% unless edition.summary.blank? %>

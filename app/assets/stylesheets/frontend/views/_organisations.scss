@@ -211,8 +211,21 @@
         padding-right: $gutter-half;
       }
     }
+    &.items-4 {
+      @include media(desktop) {
+        .item-2 {
+          width: 66%;
+
+          .img {
+            display: block;
+            float: left;
+            width: 33%;
+          }
+        }
+      }
+    }
     .secondary {
-      margin: $gutter-two-thirds 0;
+      margin: $gutter-two-thirds 0 0;
       @include media(tablet){
         width: 33%;
       }
@@ -724,6 +737,7 @@
       text-indent: -5000%;
       overflow: hidden;
       margin-right: $gutter-one-third;
+      background-color: $inside-gov-brand;
       background-image: image-url("social-icons-white.png");
       background-repeat: no-repeat;
     }
@@ -749,7 +763,7 @@
     
   // org color bands
   
-  #topics h1, #ministers h1, #management h1, #military h1, #org-contacts h2 {
+  #topics h1, #ministers h1, #management h1, #military h1, #org-contacts h2, #recently_updated h1, #what-we-do h1 {
     border-bottom-width: 5px;
     border-bottom-style: solid;
   }

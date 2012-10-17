@@ -13,7 +13,7 @@
   <% if @featured_editions.any? %>
     <div class="block-2">
       <div class="inner-block">
-        <section class="organisation-news" id="featured-documents">
+        <section class="organisation-news items-<%= @featured_editions.length %>" id="featured-documents">
           <%= render partial: 'news',
                     locals: { edition: @featured_editions.first,
                               extra_class: 'first' } %>
@@ -40,15 +40,17 @@
 
   <div class="block-5">
     <div class="inner-block">
-      <h1 class="label">What we do</h1>
-      <p class="description"><%= @organisation.description %></p>
-      <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
-      <p><%= organisation_navigation_link_to "See #{@organisation.acronym}'s priorities, business plan and more", about_organisation_path(@organisation) %></p>
-      <p>
-      <% if @organisation.department? %>
-        <%= organisation_navigation_link_to 'See all of our agencies & partners', agencies_and_partners_organisation_path(@organisation) %>
-      <% end %>
-      </p>
+      <section id="what-we-do">
+        <h1 class="label">What we do</h1>
+        <p class="description"><%= @organisation.description %></p>
+        <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
+        <p><%= organisation_navigation_link_to "See #{@organisation.acronym}'s priorities, business plan and more", about_organisation_path(@organisation) %></p>
+        <% if @organisation.department? %>
+          <p>
+            <%= organisation_navigation_link_to 'See all of our agencies & partners', agencies_and_partners_organisation_path(@organisation) %>
+          </p>
+        <% end %>
+      </div>
     </div>
   </div>
 
