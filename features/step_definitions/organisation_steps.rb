@@ -116,7 +116,7 @@ Then /^I should see the featured news articles in the "([^"]*)" organisation are
   rows = find(featured_documents_selector).all('.news_article')
   table = rows.collect do |row|
     [
-      row.find('a.title').text.strip,
+      row.find('h2').text.strip,
       File.basename(row.find('.featured-image')['src'])
     ]
   end
