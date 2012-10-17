@@ -2,7 +2,7 @@ require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
 
-  SUBPAGE_ACTIONS = [:about, :agencies_and_partners, :consultations]
+  SUBPAGE_ACTIONS = [:about, :consultations]
 
   should_be_a_public_facing_controller
 

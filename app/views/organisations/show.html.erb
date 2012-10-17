@@ -47,7 +47,7 @@
         <p><%= organisation_navigation_link_to "See #{@organisation.acronym}'s priorities, business plan and more", about_organisation_path(@organisation) %></p>
         <% if @organisation.department? %>
           <p>
-            <%= organisation_navigation_link_to 'See all of our agencies & partners', agencies_and_partners_organisation_path(@organisation) %>
+            <%= organisation_navigation_link_to 'See all of our agencies & partners', organisations_path(anchor: @organisation.slug) %>
           </p>
         <% end %>
       </section>

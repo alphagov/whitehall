@@ -17,7 +17,7 @@
           <ol>
             <% @ministerial_departments.each do |ministerial_department| %>
               <%= content_tag_for :li, ministerial_department, class: 'department' do %>
-                <h2 class="<%= organisation_logo_classes(ministerial_department) %>">
+                <h2 id="<%= ministerial_department.slug %>" class="<%= organisation_logo_classes(ministerial_department) %>">
                   <%= link_to ministerial_department.logo_formatted_name, organisation_path(ministerial_department),
                               class: "organisation-logo-medium single-line" %>
                 </h2>

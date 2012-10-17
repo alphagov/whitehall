@@ -1,7 +1,6 @@
 class OrganisationsController < PublicFacingController
   before_filter :load_organisation,
-    only: [:show, :about, :consultations, :ministers, :management_team,
-           :agencies_and_partners, :chiefs_of_staff]
+    only: [:show, :about, :consultations, :ministers, :management_team, :chiefs_of_staff]
 
   def index
     ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
@@ -32,9 +31,6 @@ class OrganisationsController < PublicFacingController
 
   def about
     @corporate_publications = @organisation.corporate_publications.published
-  end
-
-  def agencies_and_partners
   end
 
   def consultations

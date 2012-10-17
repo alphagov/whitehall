@@ -63,7 +63,6 @@ Whitehall::Application.routes.draw do
         get :about
         get :consultations
         get :chiefs_of_staff, path: 'chiefs-of-staff'
-        get :agencies_and_partners, path: 'agencies-and-partners'
       end
       resources :corporate_information_pages, only: [:show], path: 'about'
     end
