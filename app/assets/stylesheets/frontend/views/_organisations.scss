@@ -429,13 +429,19 @@
     
     
   .heading-block {
-    .label {
-      width: 33%;
-    }
-    .content {
-      width: 66%;
+    @include media(desktop){
+      .label {
+        width: 33.3%;
+      }
+      .content {
+        width: 66.6%;
+      }
     }
     .documents-list {
+      @include media(desktop){
+        padding-left: $gutter-half;
+      }
+
       .document {
         list-style: none;
         padding: 0 0 $gutter-one-sixth;
@@ -459,8 +465,11 @@
       padding-right: $gutter-one-third;
     }
     
-    .see-all a {
+    .see-all {
       @include core-19;
+      @include media(desktop) {
+        padding-left: $gutter-half;
+      }
     }
   }
   
