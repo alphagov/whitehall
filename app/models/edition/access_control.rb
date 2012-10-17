@@ -2,7 +2,7 @@ module Edition::AccessControl
   extend ActiveSupport::Concern
 
   def deletable?
-    draft? || submitted? || rejected? || only_edition?
+    draft? || submitted? || rejected?
   end
 
   def editable?

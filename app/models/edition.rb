@@ -265,10 +265,6 @@ class Edition < ActiveRecord::Base
     end
   end
 
-  def only_edition?
-    document.editions.count == 1
-  end
-
   def latest_edition
     document.editions.latest_edition.first
   end

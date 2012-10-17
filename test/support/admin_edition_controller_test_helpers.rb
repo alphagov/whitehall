@@ -699,21 +699,8 @@ module AdminEditionControllerTestHelpers
         assert_select "input[type='submit'][value='Delete']"
       end
 
-      test "show displays the delete button for published editions with no previous editions" do
+      test "show does not display the delete button for published editions" do
         published_edition = create("published_#{edition_type}")
-
-        get :show, id: published_edition
-
-        destroy_path = send("admin_#{edition_type}_path", published_edition)
-        assert_select "input[type='submit'][value='Delete']"
-      end
-
-      test "show does not display the delete button for published editions with previous editions" do
-        user = create(:user)
-        previous_edition = create("published_#{edition_type}")
-        published_edition = previous_edition.create_draft(user)
-        published_edition.change_note = 'change-note'
-        published_edition.publish!
 
         get :show, id: published_edition
 
@@ -721,22 +708,8 @@ module AdminEditionControllerTestHelpers
         refute_select "input[type='submit'][value='Delete']"
       end
 
-      test "show displays the delete button for archived editions with no previous editions" do
+      test "show does not display the delete button for archived editions" do
         archived_edition = create("archived_#{edition_type}")
-
-        get :show, id: archived_edition
-
-        destroy_path = send("admin_#{edition_type}_path", archived_edition)
-        assert_select "input[type='submit'][value='Delete']"
-      end
-
-      test "show does not display the delete button for archived editions with previous editions" do
-        user = create(:user)
-        previous_edition = create("published_#{edition_type}")
-        archived_edition = previous_edition.create_draft(user)
-        archived_edition.change_note = 'change-note'
-        archived_edition.publish!
-        archived_edition.archive!
 
         get :show, id: archived_edition
 

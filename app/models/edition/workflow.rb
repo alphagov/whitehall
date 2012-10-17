@@ -39,7 +39,7 @@ module Edition::Workflow
       state :deleted
 
       event :delete, success: -> edition { edition.run_callbacks(:delete) } do
-        transitions from: [:draft, :submitted, :rejected, :scheduled, :published, :archived], to: :deleted,
+        transitions from: [:draft, :submitted, :rejected], to: :deleted,
           guard: lambda { |d| d.deletable? }
       end
 

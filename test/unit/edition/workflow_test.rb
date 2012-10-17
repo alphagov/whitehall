@@ -85,7 +85,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:scheduled, :draft, :submitted, :rejected].each do |state|
+  [:draft, :submitted, :rejected].each do |state|
     test "deleting a #{state} edition transitions it into the deleted state" do
       edition = create("#{state}_edition")
       edition.delete!
@@ -93,37 +93,12 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  test "should delete a single published edition" do
-    edition = create(:published_edition)
-    edition.delete!
-    assert edition.reload.deleted?
-  end
-
-  test "should delete a single archived edition" do
-    edition = create(:archived_edition)
-    edition.delete!
-    assert edition.reload.deleted?
-  end
-
-  test "should prevent a published edition with previous editions from being deleted" do
-    first_edition = create(:published_edition)
-    user = create(:user)
-    second_edition = first_edition.create_draft(user)
-    second_edition.minor_change = true
-    second_edition.publish!
-    second_edition.delete!
-    refute second_edition.deleted?
-  end
-
-  test "should prevent an archived edition with previous editions from being deleted" do
-    first_edition = create(:published_edition)
-    user = create(:user)
-    second_edition = first_edition.create_draft(user)
-    second_edition.minor_change = true
-    second_edition.publish!
-    second_edition.archive!
-    second_edition.delete!
-    refute second_edition.deleted?
+  [:scheduled, :published, :archived].each do |state|
+    test "should prevent a #{state} edition being deleted" do
+      edition = create("#{state}_edition")
+      edition.delete! rescue nil
+      refute edition.deleted?
+    end
   end
 
   [:draft, :submitted, :scheduled].each do |state|

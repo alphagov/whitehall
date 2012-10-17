@@ -125,11 +125,6 @@ When /^someone publishes (#{THE_DOCUMENT})$/ do |edition|
   end
 end
 
-When /^I delete (#{THE_DOCUMENT})$/ do |edition|
-  visit_document_preview edition.title
-  click_button "Delete"
-end
-
 When /^I force publish (#{THE_DOCUMENT})$/ do |edition|
   visit_document_preview edition.title, :draft
   click_link "Edit"
@@ -289,8 +284,4 @@ Then /^the published document "([^"]*)" should still link to the "([^"]*)" docum
   visit policy_path(source_edition.document)
   target_url = policy_url(target_edition.document)
   assert has_link?(target_title, href: target_url)
-end
-
-Then /^there should not be a document called "([^"]*)"$/ do |title|
-  refute Edition.find_by_title(title)
 end

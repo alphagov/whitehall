@@ -54,25 +54,11 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     end
   end
 
-  test "should not be deletable if deleted" do
-    edition = create(:deleted_edition)
-    refute edition.deletable?
-  end
-
-  [:published, :archived].each do |state|
-    test "should be deletable if #{state} and there is only one edition" do
-      edition = create("#{state}_edition")
-      assert edition.deletable?
+  [:scheduled, :published, :archived, :deleted].each do |state|
+    test "should not be deletable if #{state}" do
+      document = create("#{state}_edition")
+      refute document.deletable?
     end
-  end
-
-  test "should not be deletable if published and there are previous editions" do
-    first_edition = create(:published_edition)
-    user = create(:user)
-    second_edition = first_edition.create_draft(user)
-    second_edition.change_note = 'change-note'
-    second_edition.publish!
-    refute second_edition.reload.deletable?
   end
 
   test "should allow another editor to retrospectively approve a force-published document" do
