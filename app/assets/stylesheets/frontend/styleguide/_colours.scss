@@ -38,6 +38,7 @@ $info-background-hover: darken($light-warm-grey, 5%);
 //     }
 
 @mixin department-colours($selector, $property) {
+  .hm-government #{$selector} { #{$property}: $hm-government; }
   .treasury #{$selector} { #{$property}: $treasury; }
   .cabinet-office #{$selector} { #{$property}: $cabinet-office; }
   .department-for-education #{$selector} { #{$property}: $department-for-education; }

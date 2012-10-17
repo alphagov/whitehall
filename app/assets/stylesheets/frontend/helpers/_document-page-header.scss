@@ -1,11 +1,12 @@
 .document-page-header {
   @extend %contain-floats;
+  padding-bottom: $gutter-half;
 
   h1 {
     @include core-48;
-    margin-top: $gutter-one-sixth;
-    @include media(desktop){
-      margin-bottom: $gutter;
+    margin-top: $gutter-one-third;
+    @include media(tablet){
+      margin-bottom: ($gutter - $gutter-one-sixth);
       width: 75%;
       float: left;
     }
@@ -42,14 +43,28 @@
         clear: none;
       }
       dd.organisations {
-        @include media(desktop){
+        width: 100%;
+        padding: $gutter-half 0;
+        
+        @include media(tablet){
           margin-top: $gutter*2.5;
-          float: left;
+          float: right;
           width: 25%;
+          padding: 0;
+        }
+        
+        li {
+          float: left;
+          margin-right: $gutter-half;
+        
+          @include media(tablet) {
+            float: none;
+            margin-right: 0;
+          }
         }
 
         .organisations-icon-list {
-          @include media(desktop){
+          @include media(tablet){
             margin-left: $gutter-half;
           }
         }
@@ -57,7 +72,7 @@
 
       .change-notes-title {
         @include media(desktop){
-          clear: both;
+          clear: left;
         }
       }
     }

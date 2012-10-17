@@ -21,7 +21,7 @@ module DocumentHelper
 
   def only_applies_to_nations_paragraph(document)
     if document.respond_to?(:nation_inapplicabilities) and document.nation_inapplicabilities.any?
-      content_tag :p, "Only applies to #{document.applicable_nations.map(&:name).sort.to_sentence}#{see_alternative_urls_for_inapplicable_nations(document)}.".html_safe, class: 'inapplicable-nations'
+      content_tag :p, " #{document.applicable_nations.map(&:name).sort.to_sentence}#{see_alternative_urls_for_inapplicable_nations(document)}.".html_safe, class: 'inapplicable-nations'
     end
   end
 

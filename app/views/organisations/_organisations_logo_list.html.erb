@@ -4,11 +4,11 @@
   remove_line_breaks ||= false
 %>
 
-<ul class="organisations-icon-list">
+<ul class="organisations-icon-list<%= " multiple-orgs" if organisations.length > 1 %>">
   <% if organisations.length > 1 %>
-    <li class="single-identity organisation">
+    <li class="single-identity organisation hm-government">
       <span class="organisation-logo-small">
-        <span><%= remove_line_breaks ? "HM Government" : "HM<br>Government".html_safe %></span>
+        <span><%= remove_line_breaks ? "HM Government" : "HM Government".html_safe %></span>
       </span>
     </li>
   <% end %>

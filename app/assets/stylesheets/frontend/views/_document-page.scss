@@ -37,7 +37,7 @@
     }
   }
 
-  @include media(desktop){
+  @include media(tablet){
     .page-header,
     .meta-context {
       width: 75%;
