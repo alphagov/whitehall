@@ -56,12 +56,16 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         var row = results[i],
             $tableRow = $('<tr class="document-row" />'),
             $th = $('<th scope="row" class="title attribute"/>'),
-            $a = $('<a href="'+ row.url +'" title="View '+ row.title +'">'+ row.title +'</a>');
+            $a = $('<a href="'+ row.url +'" />'),
+            attribute;
+
+        $a.text(row.title);
+        $a.attr('href', row.url);
 
         $tableRow.attr('id', row.type + '_' + row.id).addClass((i < 3 ? ' recent' : ''));
         $th.append($a);
         $tableRow.append($th);
-        for(var attribute in row) {
+        for(attribute in row) {
           if (documentFilter.importantAttribute(attribute)) {
             $tableRow.append($(documentFilter.drawTableCell(attribute, row[attribute])));
           }
