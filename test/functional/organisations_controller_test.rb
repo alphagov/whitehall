@@ -62,31 +62,31 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [policy, news_article], assigns(:primary_featured_editions).collect(&:model)
+    assert_equal [policy, news_article], assigns(:featured_editions).collect(&:model)
   end
 
-  test "shows a maximum of 3 primary featured editions" do
+  test "shows a maximum of 6 featured editions" do
     organisation = create(:organisation)
-    4.times do
-      edition = create(:published_edition)
-      create(:featured_edition_organisation, edition: edition, organisation: organisation)
+    editions = []
+    7.times do |i|
+      edition = create(:published_news_article, published_at: i.days.ago)
+      editions << create(:featured_edition_organisation, edition: edition, organisation: organisation)
     end
 
     get :show, id: organisation
-
-    assert_equal 3, assigns(:primary_featured_editions).length
+    editions.take(6).each do |edition|
+      assert_select_object edition.edition do
+        assert_select "img[src$='#{edition.image.file.url}'][alt=?]", edition.alt_text
+        assert_select ".document-type", 'News article'
+      end
+    end
+    refute_select_object editions.last.edition
   end
 
-  test "shows a maximum of 3 secondary featured editions" do
+  test "should not display an empty featured editions section" do
     organisation = create(:organisation)
-    7.times do
-      edition = create(:published_edition)
-      create(:featured_edition_organisation, edition: edition, organisation: organisation)
-    end
-
     get :show, id: organisation
-
-    assert_equal 3, assigns(:secondary_featured_editions).length
+    refute_select "#featured-documents"
   end
 
   test "showing a live organisation renders the show template" do
@@ -137,39 +137,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "display a secondary featured editions" do
-    organisation = create(:organisation)
-    # the first 3 are featured and the 4th will be our secondary featured
-    3.times do
-      edition = create(:published_edition)
-      create(:featured_edition_organisation, edition: edition, organisation: organisation)
-    end
-    edition = create(:published_edition, summary: "This is the summary of the edition")
-    create(:featured_edition_organisation, edition: edition, organisation: organisation)
-
-    get :show, id: organisation
-    assert_select ".secondary-featured .summary", text: edition.summary
-  end
-
-  test "should not display an empty secondary featured editions section" do
-    organisation = create(:organisation)
-    get :show, id: organisation
-    refute_select ".secondary-featured"
-  end
-
-  test "shows organisation's featured news article with image" do
-    featured_image = create(:edition_organisation_image_data)
-    news_article = create(:published_news_article)
-    organisation = create(:organisation)
-    create(:featured_edition_organisation, edition: news_article, organisation: organisation, image: featured_image, alt_text: "alt-text")
-
-    get :show, id: organisation
-
-    assert_select_object news_article do
-      assert_select ".img img[src$='#{featured_image.file.url}'][alt=?]", "alt-text"
-      assert_select ".document-type", 'News article'
-    end
-  end
 
   test "should not display an empty published policies section" do
     organisation = create(:organisation)

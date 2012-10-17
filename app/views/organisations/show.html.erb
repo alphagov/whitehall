@@ -10,49 +10,22 @@
     </div>
   </div>
 
-  <div class="block-2">
-    <div class="inner-block">
-      <% if @primary_featured_editions.any? %>
+  <% if @featured_editions.any? %>
+    <div class="block-2">
+      <div class="inner-block">
         <section class="organisation-news" id="featured-documents">
           <%= render partial: 'news',
-                    locals: { edition: @primary_featured_editions.first,
-                              extra_class: 'primary' } %>
-          <div class="primary-secondary">
-            <% @primary_featured_editions.to_a.from(1).each do |edition| %>
-              <%= render partial: 'news',
-                        locals: { edition: edition,
-                                  extra_class: 'primary-secondary' } %>
-            <% end %>
-        </div>
-        </section>
-      <% end %>
-    </div>
-  </div>
-
-    <div class="block-3">
-    <div class="inner-block">
-      <% if @secondary_featured_editions.any? %>
-      <ul class="secondary-featured <%= (@secondary_featured_editions.length == 1 ? 'singular' : '') %>">
-        <% @secondary_featured_editions.each do |document| %>
-          <%= content_tag_for :li, document, class: edition_organisation_class(document) do %>
-            <div class="feature-inner">
-                <div class="img">
-                  <%= document.image_tag %>
-                </div>
-              <h2><%= link_to document.title, public_document_path(document), class: "title" %></h2>
-              <div class="summary"><%= document.summary %></div>
-              <div class="metadata published_or_updated">
-                <%= published_or_updated(document).capitalize %>
-                <%= relative_time(document.published_at, class: 'published_at') %>
-                <span class="document_type"><%= document.format_name.capitalize %></span>
-              </div>
-            </div>
+                    locals: { edition: @featured_editions.first,
+                              extra_class: 'first' } %>
+          <% @featured_editions.to_a.from(1).each_with_index do |edition, i| %>
+            <%= render partial: 'news',
+                      locals: { edition: edition,
+                                extra_class: "secondary item-#{i}" } %>
           <% end %>
-        <% end %>
-      </ul>
-    <% end %>
+        </section>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="block-4">
     <div class="inner-block">
