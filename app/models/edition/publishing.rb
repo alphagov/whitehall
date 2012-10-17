@@ -82,7 +82,7 @@ module Edition::Publishing
 
   def reasons_to_prevent_unpublication_by(user)
     errors = []
-    errors << "Only GDS editors can un-publish" unless user.gds_editor?
+    errors << "Only GDS editors can unpublish" unless user.gds_editor?
     errors << "This edition has not been published" unless published?
     errors
   end

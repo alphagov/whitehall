@@ -68,7 +68,7 @@ module Admin::EditionActionsHelper
   end
 
   def unpublish_edition_button(edition)
-    button_to 'Un-publish', unpublish_admin_edition_path(edition, lock_version: edition.lock_version), title: "Un-publish", confirm: "Are you sure you want to un-publish the document?", class: "btn btn-danger"
+    button_to 'Unpublish', unpublish_admin_edition_path(edition, lock_version: edition.lock_version), title: "Unpublish", confirm: "Are you sure you want to unpublish the document?", class: "btn btn-danger"
   end
 
   private

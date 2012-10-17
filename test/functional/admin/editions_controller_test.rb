@@ -159,7 +159,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "should display un-publish button" do
+  test "should display unpublish button" do
     edition = create(:edition)
     edition.stubs(:unpublishable_by?).returns(true)
     Edition.stubs(:find).returns(edition)
@@ -169,7 +169,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "form[action=?]", unpublish_admin_edition_path(edition, lock_version: edition.lock_version)
   end
 
-  test "should not display un-publish button if edition is not unpublishable" do
+  test "should not display unpublish button if edition is not unpublishable" do
     edition = create(:edition)
     edition.stubs(:unpublishable_by?).returns(false)
     Edition.stubs(:find).returns(edition)

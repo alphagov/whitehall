@@ -96,19 +96,19 @@ class Edition::PublishingControlsTest < ActiveSupport::TestCase
 end
 
 class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
-  test "is un-publishable if the edition is published and the user is a GDS editor" do
+  test "is unpublishable if the edition is published and the user is a GDS editor" do
     edition = build(:published_edition)
     gds_editor = build(:gds_editor)
     assert edition.unpublishable_by?(gds_editor)
   end
 
-  test "is not un-publishable if the edition is not published" do
+  test "is not unpublishable if the edition is not published" do
     non_published_edition = build(:edition)
     gds_editor = build(:gds_editor)
     refute non_published_edition.unpublishable_by?(gds_editor)
   end
 
-  test "is not un-publishable if the user is not a GDS editor" do
+  test "is not unpublishable if the user is not a GDS editor" do
     edition = build(:published_edition)
     departmental_editor = build(:departmental_editor)
     refute edition.unpublishable_by?(departmental_editor)
@@ -154,7 +154,7 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
     non_gds_editor = build(:user)
     edition = build(:edition)
     edition.unpublish_as(non_gds_editor)
-    assert edition.errors[:base].include?("Only GDS editors can un-publish")
+    assert edition.errors[:base].include?("Only GDS editors can unpublish")
   end
 end
 
