@@ -123,7 +123,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       e.preventDefault();
       var $form = documentFilter.$form,
           $submitButton = $form.find('input[type=submit]'),
-          url = $form.attr('action'),
+          url = $form.attr('action') + ".json",
           params = $form.serializeArray();
 
       $submitButton.addClass('disabled');

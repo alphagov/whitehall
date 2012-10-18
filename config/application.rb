@@ -51,5 +51,7 @@ module Whitehall
 
     config.assets.prefix = Whitehall.router_prefix + config.assets.prefix
     config.slimmer.wrapper_id = "whitehall-wrapper"
+
+    config.action_dispatch.ignore_accept_header = true
   end
 end

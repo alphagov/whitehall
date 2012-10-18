@@ -30,10 +30,10 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "all public facing requests for any html content type should respond with html" do
-    html_mime_types = ["text/html", "application/xhtml+xml"]
+  test "all public facing requests without a format parameter should respond with html" do
+    mime_types = ["text/html", "application/xhtml+xml", "application/json", "application/xml", "application/atom+xml"]
 
-    html_mime_types.each do |type|
+    mime_types.each do |type|
       with_routing_to_test_action do
         @request.env['HTTP_ACCEPT'] = type
         get :test
@@ -43,23 +43,17 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "all public facing requests for wap content should respond with html (considered better than nothing)" do
-    with_routing_to_test_action do
-      @request.env['HTTP_ACCEPT'] = "application/vnd.wap.xhtml+xml"
-      get :test
-      assert_equal 200, response.status, "mime type application/vnd.wap.xhtml+xml should be acceptable"
-      assert_equal Mime::HTML, response.content_type
-    end
-  end
+  test "all public facing requests with a format parameter should respond with their respective format" do
+    mime_types = {
+      html: "text/html", json: "application/json", xml: "application/xml", atom: "application/atom+xml"
+    }
 
-  test "all public facing requests for atom, json and content should respond with their respective types" do
-    types = ["application/json", "application/xml", "application/atom+xml"]
-    types.each do |type|
+    mime_types.each do |format, type|
       with_routing_to_test_action do
         @request.env['HTTP_ACCEPT'] = type
-        get :test
+        get :test, format: format
         assert_equal 200, response.status, "mime type #{type} should be acceptable"
-        assert_equal type, response.content_type
+        assert_equal Mime::Type.lookup_by_extension(format), response.content_type
       end
     end
   end
