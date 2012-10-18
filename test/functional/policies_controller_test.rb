@@ -183,6 +183,16 @@ That's all
     end
   end
 
+  test "activity displays the policy's topics" do
+    topic = create(:topic)
+    policy = create(:published_policy, topics: [topic])
+    publication = create(:published_publication, related_policies: [policy])
+
+    get :activity, id: policy.document
+
+    assert_select_object topic
+  end
+
   test "activity adds the current class to the activity link in the policy navigation" do
     policy = create(:published_policy)
     publication = create(:published_publication, related_policies: [policy])
