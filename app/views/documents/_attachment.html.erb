@@ -1,5 +1,6 @@
 <%
   extra_description ||= ""
+  published_on ||= ""
   help_block_id = "attachment-#{attachment.id}-accessibility-help"
   if attachment.accessible?
     attachment_link_options = {}
@@ -21,6 +22,9 @@
     <% end %>
     <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? %>
       <p class="references">Ref: <%= attachment_reference(attachment) %></p>
+    <% end %>
+    <% unless published_on.blank? %>
+      <p>Published: <span class="date"><%= absolute_date(published_on) %></span></p>
     <% end %>
     <p class="metadata">
       <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>,

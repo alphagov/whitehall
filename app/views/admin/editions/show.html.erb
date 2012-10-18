@@ -26,6 +26,7 @@
         <% if @edition.is_a?(Consultation) && @edition.response.present? %>
           <section class="consultation_response">
             <h1>Consultation response</h1>
+            <p class='published_date'><%= consultation_response_published_phrase(@edition.response) %></p>
             <% if @edition.response.summary.present? %>
               <span class="summary"><%= @edition.response.summary %></span>
             <% end %>
