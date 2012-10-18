@@ -317,8 +317,8 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should show list of topics with published content" do
-    topics = [0, 1, 2].map { |n| create(:topic, published_edition_count: n) }
+  test "should show list of topics with published policies" do
+    topics = [0, 1, 2].map { |n| create(:topic, published_policies_count: n) }
 
     get :index
 

@@ -1,6 +1,6 @@
 class TopicsController < PublicFacingController
   def index
-    @topics = Topic.with_content.alphabetical.all
+    @topics = Topic.with_policies.alphabetical.all
   end
 
   def show
