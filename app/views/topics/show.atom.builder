@@ -4,7 +4,12 @@ atom_feed language: 'en-GB', root_url: topic_url(@topic) do |feed|
     author.name 'HM Government'
   end
 
-  feed.updated @recently_changed_documents.first.published_at
+  if @recently_changed_documents.any?
+    feed.updated @recently_changed_documents.first.published_at
+  else
+    feed.updated @topic.created_at
+  end
+
   @recently_changed_documents.each do |document|
     feed.entry(document, url: public_document_url(document), published: document.first_published_at, updated: document.published_at) do |entry|
       entry.title document.title
