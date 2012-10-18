@@ -15,6 +15,8 @@
   <fieldset>
     <legend>Consultation response</legend>
     <%= form.fields_for :response do |response_fields| %>
+      <%= response_fields.label :published_on, 'Response published date (leave blank to use the time the first attachment was uploaded)' %>
+      <%= response_fields.date_select :published_on, { include_blank: true }, { class: 'date' } %>
       <%= response_fields.text_area :summary, rows: 2 %>
       <%= render partial: 'attachment_fields', locals: {
                   form: response_fields, edition: edition, parent_type: :consultation_response,

@@ -92,6 +92,13 @@ module DocumentHelper
       refute_flash_alerts_exist
     end
   end
+
+  def add_attachment(title, filename, section)
+    within section do
+      fill_in "Title", with: title
+      attach_file "File", Rails.root.join("features/fixtures", filename)
+    end
+  end
 end
 
 World(DocumentHelper)

@@ -86,14 +86,21 @@ class ResponseTest < ActiveSupport::TestCase
     latest_response_attachment = response.consultation_response_attachments.create!(attachment: attachment, created_at: 1.day.ago)
     earliest_response_attachment = response.consultation_response_attachments.create!(attachment: attachment, created_at: 1.month.ago)
 
-    assert_equal earliest_response_attachment.created_at, response.published_on
+    assert_equal earliest_response_attachment.created_at, response.published_on_or_default
   end
 
   test "should return nil if the response isn't published" do
     response = create(:response)
     response.stubs(:published?).returns(false)
 
-    assert_equal nil, response.published_on
+    assert_equal nil, response.published_on_or_default
+  end
+
+  test "should return the published_on date if set and the response is published" do
+    published_date = Date.parse('2012-03-03')
+    response = create(:response, published_on: published_date)
+    response.stubs(:published?).returns(true)
+    assert_equal published_date, response.published_on_or_default
   end
 
   test "should return the alternative_format_contact_email of the consultation" do
