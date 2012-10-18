@@ -56,9 +56,6 @@ Whitehall::Application.routes.draw do
     resources :topics, path: "topics", only: [:index, :show]
     resources :organisations, only: [:index, :show] do
       resources :document_series, only: [:index, :show], path: 'series'
-      collection do
-        get :alphabetical
-      end
       member do
         get :about
         get :consultations

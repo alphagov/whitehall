@@ -501,16 +501,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert 10 > queries_used, "Expected less than 10 queries, #{queries_used} were counted"
   end
 
-  test "should display orgsanisations in alphabetical order" do
-    organisation_c = create(:organisation, name: 'C')
-    organisation_a = create(:organisation, name: 'A')
-    organisation_b = create(:organisation, name: 'B')
-
-    get :alphabetical
-
-    assert_equal [organisation_a, organisation_b, organisation_c], assigns(:organisations)
-  end
-
   test "should place organisation specific css class on every organisation sub page" do
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department)

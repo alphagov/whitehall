@@ -8,10 +8,6 @@ class OrganisationsController < PublicFacingController
     @all_other_organisations = Organisation.where('organisation_type_id != ?', ministerial_department_type.id).ordered_by_name_ignoring_prefix
   end
 
-  def alphabetical
-    @organisations = Organisation.ordered_by_name_ignoring_prefix
-  end
-
   def show
     @recently_updated = @organisation.published_editions.by_published_at.limit(3)
     if @organisation.live?
