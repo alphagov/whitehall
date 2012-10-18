@@ -44,6 +44,7 @@ class Topic < ActiveRecord::Base
   default_scope where(arel_table[:state].not_eq("deleted"))
 
   scope :with_content, where("published_edition_count <> 0")
+  scope :with_policies, where("published_policies_count <> 0")
 
   def self.with_related_detailed_guides
     joins(:published_detailed_guides).group(arel_table[:id])
@@ -80,6 +81,7 @@ class Topic < ActiveRecord::Base
 
   def update_counts
     update_attribute(:published_edition_count, published_editions.count)
+    update_attribute(:published_policies_count, published_policies.count)
   end
 
   def should_generate_new_friendly_id?

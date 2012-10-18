@@ -383,6 +383,24 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 0, topic.reload.published_edition_count
   end
 
+  test "should update count of published policies" do
+    topic = create(:topic)
+    assert_equal 0, topic.published_policies_count
+
+    policy = create(:published_policy)
+    topic_membership = create(:topic_membership, topic: topic, policy: policy)
+    assert_equal 1, topic.reload.published_policies_count
+
+    policy.update_attributes(state: :draft)
+    assert_equal 0, topic.reload.published_policies_count
+
+    policy.update_attributes(state: :published)
+    assert_equal 1, topic.reload.published_policies_count
+
+    topic_membership.reload.destroy
+    assert_equal 0, topic.reload.published_policies_count
+  end
+
   test "should return all published policies and their published related editions in reverse chronological order of published_at" do
     topic = create(:topic)
     old_published_policy = create(:published_policy, topics: [topic], published_at: 1.month.ago)
