@@ -262,8 +262,8 @@ module ApplicationHelper
     options_for_select(months.map { |m| [m.strftime("%B %Y"), m.to_s] }, selected_date.to_s)
   end
 
-  def corporate_information_page_types
-    CorporateInformationPageType.all.map {|c| [c.title, c.id]}
+  def corporate_information_page_types(organisation)
+    CorporateInformationPageType.all.map {|c| [c.title(organisation), c.id]}
   end
 
   def mainstream_category_path(category)

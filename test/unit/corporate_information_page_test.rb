@@ -39,6 +39,18 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_equal "Terms of reference", corporate_information_page.title
   end
 
+  test "should derive title from type and interpolate orgnisation acronym" do
+    organisation = build(:organisation, acronym: "DCLG")
+    corporate_information_page = build(:corporate_information_page, organisation: organisation, type: CorporateInformationPageType::Recruitment)
+    assert_equal "Working for DCLG", corporate_information_page.title
+  end
+
+  test "should derive title from type and interpolate orgnisation name if no acronym" do
+    organisation = build(:organisation, acronym: nil, name: "Department for Communities and Local Government")
+    corporate_information_page = build(:corporate_information_page, organisation: organisation, type: CorporateInformationPageType::Recruitment)
+    assert_equal "Working for the Department for Communities and Local Government", corporate_information_page.title
+  end
+
   test "should derive slug from type" do
     corporate_information_page = build(:corporate_information_page, type: CorporateInformationPageType::TermsOfReference)
     assert_equal "terms-of-reference", corporate_information_page.slug
