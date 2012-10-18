@@ -15,21 +15,21 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
   test "should be invalid if same type already exists for this organisation" do
     organisation = create(:organisation)
-    first = create(:corporate_information_page, 
-      type: CorporateInformationPageType::TermsOfReference, 
+    first = create(:corporate_information_page,
+      type: CorporateInformationPageType::TermsOfReference,
       organisation: organisation)
-    second = build(:corporate_information_page, 
-      type: CorporateInformationPageType::TermsOfReference, 
+    second = build(:corporate_information_page,
+      type: CorporateInformationPageType::TermsOfReference,
       organisation: organisation)
     refute second.valid?
   end
 
   test "should be valid if same type already exists for another organisation" do
-    first = create(:corporate_information_page, 
-      type: CorporateInformationPageType::TermsOfReference, 
+    first = create(:corporate_information_page,
+      type: CorporateInformationPageType::TermsOfReference,
       organisation: create(:organisation))
-    second = build(:corporate_information_page, 
-      type: CorporateInformationPageType::TermsOfReference, 
+    second = build(:corporate_information_page,
+      type: CorporateInformationPageType::TermsOfReference,
       organisation: create(:organisation))
     assert second.valid?
   end
