@@ -29,7 +29,8 @@
           <% if @document.published_consultation_response.attachments.any? %>
             <%= render partial: "documents/attachment_full_width",
                       locals: { document: @document.published_consultation_response,
-                                title: "Download the consultation outcome" } %>
+                        title: "Download the consultation outcome",
+                        published_on: @document.response_published_on } %>
           <% end %>
         <% elsif @document.closed? %>
           <h2>We are analysing your responses</h2>

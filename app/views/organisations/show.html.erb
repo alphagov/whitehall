@@ -43,13 +43,11 @@
       <section id="what-we-do">
         <h1 class="label">What we do</h1>
         <p class="description"><%= @organisation.description %></p>
-        <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
-        <p><%= organisation_navigation_link_to "See #{@organisation.acronym}'s priorities, business plan and more", about_organisation_path(@organisation) %></p>
-        <% if @organisation.department? %>
-          <p>
-            <%= organisation_navigation_link_to 'See all of our agencies & partners', organisations_path(anchor: @organisation.slug) %>
-          </p>
-        <% end %>
+        <p class="parent_organisations">
+          <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.department? %>,
+          supported by <%= link_to "#{@organisation.child_organisations.count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.  <% end %>
+        </p>
+        <p><%= organisation_navigation_link_to "Read more about what we do", about_organisation_path(@organisation) %></p>
       </section>
     </div>
   </div>
@@ -118,7 +116,9 @@
                     <div class="image_holder">
                       <%= minister.current_person_image %>
                     </div>
-                    <h3 class="current-appointee"><%= minister.current_person_link %></h3>
+                    <h3 class="current-appointee<%= " privy_counsellor" if minister.current_person.privy_counsellor? %>">
+                      <%= minister.current_person_link %>
+                    </h3>
                     <p class="role"><%= minister.link %></p>
                   </div>
                 <% end %>

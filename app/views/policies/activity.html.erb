@@ -5,14 +5,11 @@
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">
-        <%= render partial: "documents/header", locals: { 
-          document: @document, 
+        <%= render partial: "documents/header", locals: {
+          document: @document,
           header_title: 'Policy',
-          show_topics: true } %>
+          topics: @document.topics } %>
       <section class="meta-three">
-        <%= render partial: "document_related", locals: {
-          document: @document
-        } %>
         <%= render partial: "policy_navigation" %>
     </section>
     </div>

@@ -102,7 +102,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child = create(:organisation, acronym: "BLAH",
       name: "Building Law and Hygiene", parent_organisations: [parent],
       organisation_type: create(:organisation_type, name: "Executive agencies"))
-    expected = %{Building Law and Hygiene (BLAH) is an executive agency of the Department of Building Regulation}
+    expected = %{BLAH is an executive agency of the Department of Building Regulation}
     assert_display_name_text child, expected
   end
 
@@ -111,14 +111,14 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child = create(:organisation, acronym: "B&B",
       name: "Banking & Business", parent_organisations: [parent],
       organisation_type: create(:organisation_type, name: "Executive & important agencies"))
-    expected = %{Banking &amp; Business (B&amp;B) is an executive &amp; important agency of the Department of Economy &amp; Trade}
+    expected = %{B&amp;B is an executive &amp; important agency of the Department of Economy &amp; Trade}
     assert_display_name_text child, expected
     assert organisation_display_name_and_parental_relationship(child).html_safe?
   end
 
   test 'description of parent organisations' do
     parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
-    expected = %{Department of Building Regulation (DBR) is a ministerial department}
+    expected = %{DBR is a ministerial department}
     assert_display_name_text parent, expected
   end
 

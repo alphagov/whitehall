@@ -165,7 +165,7 @@ test("should make an ajax request to load more results inline", function() {
   sinon.assert.calledOnce(ajax);
 });
 
-test("should send ajax request using url in form action", function() {
+test("should send ajax request using json form of url in form action", function() {
   this.filterForm.enableDocumentFilter();
 
   var ajax = this.spy(jQuery, "ajax");
@@ -177,7 +177,7 @@ test("should send ajax request using url in form action", function() {
   server.respond();
 
   var url = jQuery.ajax.getCall(0).args[0];
-  equals(url, "/specialist");
+  equals(url, "/specialist.json");
 });
 
 test("should send filter form parameters in ajax request", function() {

@@ -55,8 +55,8 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     post :create, organisation_id: @organisation, corporate_information_page: corporate_information_page_attributes
     @organisation.reload
     assert_redirected_to admin_organisation_path(@organisation)
-    type = CorporateInformationPageType.find_by_id(corporate_information_page_attributes[:type_id])
-    assert_equal "#{type.title} created successfully", flash[:notice]
+    page = @organisation.corporate_information_pages.last
+    assert_equal "#{page.title} created successfully", flash[:notice]
   end
 
   test "POST :create should redisplay form with error message on fail" do

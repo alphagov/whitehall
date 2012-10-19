@@ -41,7 +41,7 @@ class Person < ActiveRecord::Base
   end
 
   def name
-    [title, forename, surname, letters].compact.join(' ')
+    [("The Rt Hon" if privy_counsellor?), title, forename, surname, letters].compact.join(' ')
   end
 
   def previous_role_appointments

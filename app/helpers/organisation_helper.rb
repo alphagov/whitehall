@@ -27,7 +27,7 @@ module OrganisationHelper
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
-    name = organisation_name_with_acronym(organisation)
+    name = organisation_display_name(organisation)
     relationship = add_indefinite_article(organisation_type_name(organisation))
     parent = organisation.parent_organisations.first
     params = [ERB::Util.h(name), ERB::Util.h(relationship)]

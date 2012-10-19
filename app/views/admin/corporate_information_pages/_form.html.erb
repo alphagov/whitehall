@@ -4,7 +4,7 @@
   
   <% unless form.object.persisted? %>
     <%= form.label :type_id, 'Type' %>
-    <%= form.select :type_id, corporate_information_page_types, {disabled: organisation.corporate_information_pages.map(&:type_id), allow_blank: true}, {class: 'chzn-select', data: { placeholder: "Type of page..." }, disabled: disabled} %>
+    <%= form.select :type_id, corporate_information_page_types(organisation), {disabled: organisation.corporate_information_pages.map(&:type_id), allow_blank: true}, {class: 'chzn-select', data: { placeholder: "Type of page..." }, disabled: disabled} %>
   <% end %>
 
   <%= form.text_area :summary, label_text: "Summary", rows: 2, disabled: disabled %>

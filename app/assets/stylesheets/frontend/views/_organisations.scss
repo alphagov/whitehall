@@ -280,9 +280,9 @@
   #topics {
     .topic {
       list-style: none;
-      counter-increment: headings 1;  
+      counter-increment: headings 1;
       h2:before {
-        content: counter(headings, decimal-leading-zero) "."; 
+        content: counter(headings, decimal-leading-zero) ".";
         display: block;
       }
       
@@ -492,9 +492,7 @@
       }
       
       .current-appointee {
-        @include core-19;
         padding-top: 0;
-        
         a {
           &:hover,
           &:focus,
@@ -510,16 +508,21 @@
         span {
           display: block;
           @include core-14;
+          padding-bottom: 0;
           color: $low-contrast;
-          margin-bottom: ($gutter-one-sixth*-1)
+        }
+        strong {
+          display: block;
+          @include core-19;
+        }
+        &.privy_counsellor strong {
+          padding-top: 0;
         }
       }
-      
       .role {
         @include core-14;
         padding-top: 2px;
         padding-top: 0.2rem;
-        
         a {
           color: $body-text;
         }

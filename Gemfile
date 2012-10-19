@@ -40,7 +40,7 @@ gem 'gds-api-adapters', '2.8.1'
 gem 'whenever', '0.7.3', require: false
 
 group :assets do
-  gem 'govuk_frontend_toolkit', '0.6.3'
+  gem 'govuk_frontend_toolkit', '0.6.4'
   gem 'sass', '3.2.1'
   gem 'sass-rails', '3.1.4'
   gem 'uglifier'

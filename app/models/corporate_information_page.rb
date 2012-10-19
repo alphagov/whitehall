@@ -2,7 +2,7 @@ class CorporateInformationPage < ActiveRecord::Base
   extend Forwardable
   include ::Attachable
 
-  delegate [:title, :slug] => :type
+  delegate [:slug] => :type
   delegate [:alternative_format_contact_email] => :organisation
 
   belongs_to :organisation
@@ -29,4 +29,7 @@ class CorporateInformationPage < ActiveRecord::Base
     slug
   end
 
+  def title
+    type.title(organisation)
+  end
 end

@@ -246,7 +246,7 @@ class ConsultationTest < EditionTestCase
     today = Date.today
     consultation = create(:consultation)
     response = consultation.create_response!
-    response.stubs(:published_on).returns(today)
+    response.stubs(:published_on_or_default).returns(today)
 
     assert_equal today, consultation.response_published_on
   end
