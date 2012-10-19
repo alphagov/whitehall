@@ -92,4 +92,16 @@ html {
   pre.body {
     @include type-13;
   }
+
+
+}
+
+
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+
+.row-fluid .countries-edit-span {
+  width: 47%;
 }

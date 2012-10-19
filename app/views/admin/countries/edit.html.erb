@@ -1,6 +1,6 @@
 <% page_title "Edit " + @country.name %>
 
-<div class="span8">
+<div class="span8 countries-edit-span">
   <section>
     <h1>Edit country</h1>
     <%= form_for([:admin, @country]) do |form| %>
@@ -25,7 +25,7 @@
   </section>
 </div>
 
-<div class="span4">
+<div class="span4 countries-edit-span">
   <%= sidebar_tabs news_articles: "News articles", govspeak_help: "Formatting Help" do |tabs| %>
     <%= tabs.pane id: "news_articles" do %>
       <% if @news_articles.any? %>
@@ -33,8 +33,8 @@
         <table class="table table-striped table-condensed">
           <thead>
             <tr>
-              <th>Title</th>
-              <th>Published</th>
+              <th width="75%">Title</th>
+              <th width="16%">Published</th>
               <th></th>
             </tr>
           </thead>

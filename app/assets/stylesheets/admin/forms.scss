@@ -168,3 +168,21 @@ fieldset.contact_number {
     padding-bottom: 0;
   }
 }
+
+.form-horizontal {
+  .control-label, .controls {
+    float: none;
+    display: block;
+    clear: both;
+    padding: 0;
+    margin: 0;
+    width: auto;
+    text-align: left;
+  }
+  legend + .control-group {
+    margin-top: 0;
+  }
+}
+
+
+
