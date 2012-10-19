@@ -389,6 +389,14 @@ module DocumentControllerTestHelpers
         assert_select "#show-more-documents"
       end
 
+      test "infinite pagination link should appear when there are more records for #{edition_type}" do
+        documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+
+        get :index
+
+        assert_select "link[rel='next-infinite']"
+      end
+
       test "should show previous page link when not on the first page for #{edition_type}" do
         documents = (1..25).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
