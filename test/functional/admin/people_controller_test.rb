@@ -11,6 +11,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form[action='#{admin_people_path}']" do
+      assert_select "input[name='person[privy_counsellor]'][type=checkbox]"
       assert_select "input[name='person[title]'][type=text]"
       assert_select "input[name='person[forename]'][type=text]"
       assert_select "input[name='person[surname]'][type=text]"

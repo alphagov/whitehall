@@ -116,7 +116,9 @@
                     <div class="image_holder">
                       <%= minister.current_person_image %>
                     </div>
-                    <h3 class="current-appointee"><%= minister.current_person_link %></h3>
+                    <h3 class="current-appointee<%= " privy_counsellor" if minister.current_person.privy_counsellor? %>">
+                      <%= minister.current_person_link %>
+                    </h3>
                     <p class="role"><%= minister.link %></p>
                   </div>
                 <% end %>
