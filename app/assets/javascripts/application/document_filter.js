@@ -123,13 +123,14 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       e.preventDefault();
       var $form = documentFilter.$form,
           $submitButton = $form.find('input[type=submit]'),
-          url = $form.attr('action') + ".json",
+          url = $form.attr('action'),
+          jsonUrl = url + ".json",
           params = $form.serializeArray();
 
       $submitButton.addClass('disabled');
       documentFilter.loading = true;
       // TODO: make a spinny updating thing
-      $.ajax(url, {
+      $.ajax(jsonUrl, {
         cache: false,
         dataType:'json',
         data: params,

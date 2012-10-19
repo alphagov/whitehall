@@ -311,7 +311,7 @@ test("should update browser location on successful ajax response", function() {
   equals(title, null, "Setting this to null means title stays the same");
 
   var path = historyPushState.getCall(0).args[2];
-  equals(path, "/specialist.json?foo=bar", "Bookmarkable URL path");
+  equals(path, "/specialist?foo=bar", "Bookmarkable URL path");
 });
 
 test("should not enable ajax filtering if browser does not support HTML5 History API", function() {
