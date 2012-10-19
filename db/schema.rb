@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017134138) do
+ActiveRecord::Schema.define(:version => 20121019110948) do
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -399,10 +399,10 @@ ActiveRecord::Schema.define(:version => 20121017134138) do
     t.string   "letters"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "privy_councillor",  :default => false
     t.string   "carrierwave_image"
     t.text     "biography"
     t.string   "slug"
+    t.boolean  "privy_counsellor",  :default => false
   end
 
   add_index "people", ["slug"], :name => "index_people_on_slug", :unique => true

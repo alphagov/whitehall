@@ -34,8 +34,8 @@ class PersonPresenter < Draper::Base
 
   def link
     name = ""
-    name << "<span class='person-title'>#{title}</span> " if title
-    name << "<strong>#{forename} #{surname} #{letters}</strong>"
+    name << "<span class='person-title'>The Rt Hon</span> " if privy_counsellor?
+    name << "<strong>#{title} #{forename} #{surname} #{letters}</strong>"
     h.link_to name.html_safe, path
   end
 
