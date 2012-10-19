@@ -2,6 +2,7 @@
   <%= person_form.errors %>
 
   <fieldset>
+    <%= person_form.check_box :privy_counsellor, label_text: 'Rt Hon?' %>
     <%= person_form.text_field :title %>
     <%= person_form.text_field :forename %>
     <%= person_form.text_field :surname %>
