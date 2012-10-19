@@ -135,3 +135,18 @@ end
 Then /^I should get a "([^"]*)" error$/ do |error_code|
   assert_equal error_code.to_i, page.status_code
 end
+
+When /^I update the attachment metadata from a new draft of the publication$/ do
+  visit edit_admin_publication_path(Publication.last)
+  click_button "Create new edition"
+  within "#edition_attachment_fields" do
+    fill_in "Title", with: "changed title not to be published yet"
+  end
+  fill_in_change_note_if_required
+  click_button "Save"
+end
+
+Then /^the metadata changes should not be public until the draft is published$/ do
+  click_link(Edition.last.title)
+  page.should have_css(".attachment-details .title", text: @attachment_title)
+end
