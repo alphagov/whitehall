@@ -16,6 +16,11 @@ module Whitehall
     CURRENT_RELEASE_SHA = "development"
   end
 
+  asset_host_override = Rails.root.join("config/initializers/asset_host.rb")
+  if File.exist?(asset_host_override)
+    load asset_host_override
+  end
+
   class << self
     PUBLIC_HOSTS = {
       'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',
