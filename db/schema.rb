@@ -525,7 +525,8 @@ ActiveRecord::Schema.define(:version => 20121019110948) do
     t.text     "description"
     t.string   "slug"
     t.string   "state"
-    t.integer  "published_edition_count", :default => 0, :null => false
+    t.integer  "published_edition_count",  :default => 0, :null => false
+    t.integer  "published_policies_count", :default => 0, :null => false
   end
 
   add_index "topics", ["slug"], :name => "index_policy_areas_on_slug"
