@@ -394,7 +394,7 @@ module DocumentControllerTestHelpers
 
         get :index
 
-        assert_select "link[rel='next-infinite']"
+        assert_select "link[rel='next'][type='application/json']"
       end
 
       test "should show previous page link when not on the first page for #{edition_type}" do
