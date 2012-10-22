@@ -4,8 +4,11 @@ module DocumentControllerTestHelpers
   module ClassMethods
     def should_display_attachments_for(document_type)
       test "show displays document attachments" do
-        attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
-        attachment_2 = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
+        attachment_1_data = create(:attachment_data, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
+        attachment_1 = create(:attachment, attachment_data: attachment_1_data)
+
+        attachment_2_data = create(:attachment_data, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
+        attachment_2 = create(:attachment, attachment_data: attachment_2_data)
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1\n\n!@2", attachments: [attachment_1, attachment_2])
 
         get :show, id: edition.document
@@ -21,8 +24,8 @@ module DocumentControllerTestHelpers
       end
 
       test "show information about accessibility" do
-        attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: true)
-        attachment_2 = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
+        attachment_1 = create(:attachment, attachment_data: create(:attachment_data, file: fixture_file_upload('greenpaper.pdf', 'application/pdf')), accessible: true)
+        attachment_2 = create(:attachment, attachment_data: create(:attachment_data, file: fixture_file_upload('sample-from-excel.csv', 'text/csv')))
 
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1\n\n!@2", attachments: [attachment_1, attachment_2])
 
@@ -39,7 +42,7 @@ module DocumentControllerTestHelpers
       end
 
       test "show alternative format contact email if given" do
-        attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: false)
+        attachment_1 = create(:attachment, attachment_data: create(:attachment_data, file: fixture_file_upload('greenpaper.pdf', 'application/pdf')), accessible: false)
 
         organisation = create(:organisation, alternative_format_contact_email: "alternative@example.com")
         edition = create("published_#{document_type}", body: "!@1", attachments: [attachment_1], alternative_format_provider: organisation)
@@ -55,7 +58,7 @@ module DocumentControllerTestHelpers
 
       test "show displays PDF attachment metadata" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-        attachment = create(:attachment, file: greenpaper_pdf)
+        attachment = create(:attachment, attachment_data: create(:attachment_data, file: greenpaper_pdf))
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1", attachments: [attachment])
 
         get :show, id: edition.document
@@ -69,7 +72,7 @@ module DocumentControllerTestHelpers
 
       test "show displays non-PDF attachment metadata" do
         csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
-        attachment = create(:attachment, file: csv)
+        attachment = create(:attachment, attachment_data: create(:attachment_data, file: csv))
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1", attachments: [attachment])
 
         get :show, id: edition.document

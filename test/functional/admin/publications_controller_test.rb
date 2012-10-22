@@ -72,9 +72,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       edition_attachments_attributes: {
         "0" => { attachment_attributes: attributes_for(:attachment,
           title: "attachment-title",
-          file: fixture_file_upload('greenpaper.pdf', 'application/pdf'),
           order_url: 'http://example.com/publication',
-          price: "1.23")
+          price: "1.23").merge(attachment_data_attributes: {
+            file: fixture_file_upload('greenpaper.pdf', 'application/pdf')
+          })
         }
       }
     })

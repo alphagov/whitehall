@@ -7,7 +7,9 @@ class ConsultationResponseAttachmentTest < ActiveSupport::TestCase
     response_attachment = build(:consultation_response_attachment)
     response_attachment.attachment_attributes = {
       title: 'attachment-title',
-      file:  fixture_file_upload('greenpaper.pdf')
+      attachment_data_attributes: {
+        file:  fixture_file_upload('greenpaper.pdf')
+      }
     }
     response_attachment.save!
 

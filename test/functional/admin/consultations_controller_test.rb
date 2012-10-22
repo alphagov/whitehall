@@ -60,7 +60,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "input[type='text'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][unique_reference]']"
       assert_select "input[type='text'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][command_paper_number]']"
       assert_select "input[type='checkbox'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][accessible]']"
-      assert_select "input[type='file'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][file]']"
+      assert_select "input[type='file'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][attachment_data_attributes][file]']"
     end
   end
 
@@ -113,7 +113,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
           '0' => {
             attachment_attributes: {
               title: 'attachment-title',
-              file: fixture_file_upload('greenpaper.pdf')
+              attachment_data_attributes: {
+                file: fixture_file_upload('greenpaper.pdf')
+              }
             }
           }
         }
@@ -137,7 +139,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
           '0' => {
             attachment_attributes: {
               title: 'attachment-title',
-              file: fixture_file_upload('greenpaper.pdf')
+              attachment_data_attributes: {
+                file: fixture_file_upload('greenpaper.pdf')
+              }
             }
           }
         }
@@ -145,7 +149,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     }
 
     assert_select "form#edition_new" do
-      assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+      assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][attachment_data_attributes][file_cache]'][value$='greenpaper.pdf']"
       assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
     end
   end
@@ -278,7 +282,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "show displays the response details and links to attachments" do
     consultation = create(:consultation)
     response = consultation.create_response!(summary: 'response-summary')
-    attachment = response.attachments.create!(title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf'))
+    attachment = response.attachments.create!(title: 'attachment-title', attachment_data: create(:attachment_data,  file: fixture_file_upload('greenpaper.pdf')))
 
     get :show, id: consultation
 
@@ -362,7 +366,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "edit shows the details of the response and response attachments" do
     consultation = create(:consultation)
     consultation_response = consultation.create_response!(summary: 'response-summary')
-    attachment = consultation_response.attachments.create!(title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf'))
+    attachment = consultation_response.attachments.create!(title: 'attachment-title', attachment_data: create(:attachment_data, file: fixture_file_upload('greenpaper.pdf')))
 
     get :edit, id: consultation
 
@@ -456,7 +460,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
           '0' => {
             attachment_attributes: {
               title: 'attachment-title',
-              file: fixture_file_upload('greenpaper.pdf')
+              attachment_data_attributes: {
+                file: fixture_file_upload('greenpaper.pdf')
+              }
             }
           }
         }
@@ -464,7 +470,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     }
 
     assert_select "form#edition_edit" do
-      assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+      assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][attachment_data_attributes][file_cache]'][value$='greenpaper.pdf']"
       assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
     end
   end

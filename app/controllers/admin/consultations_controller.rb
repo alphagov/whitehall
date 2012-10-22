@@ -21,6 +21,7 @@ class Admin::ConsultationsController < Admin::EditionsController
 
     @edition.response.consultation_response_attachments.each do |response_attachment|
       response_attachment.build_attachment unless response_attachment.attachment.present?
+      response_attachment.attachment.build_attachment_data unless response_attachment.attachment.attachment_data.present?
     end
   end
 

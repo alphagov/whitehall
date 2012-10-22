@@ -287,10 +287,11 @@ module AdminEditionControllerTestHelpers
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment,
               title: "attachment-title",
-              file: fixture_file_upload('greenpaper.pdf', 'application/pdf'),
               isbn: '0140621431',
               unique_reference: 'unique-reference',
-              command_paper_number: 'Cm. 1234')
+              command_paper_number: 'Cm. 1234').merge(attachment_data_attributes: {
+                file: fixture_file_upload('greenpaper.pdf', 'application/pdf')
+              })
             }
           }
         })
@@ -1402,7 +1403,7 @@ module AdminEditionControllerTestHelpers
       test "show should indicate a lack of links to mainstream content" do
         edition = create(edition_type)
         get :show, id: edition
-        assert_select '.related_mainstream_content', text: /doesn't have any related mainstream content/
+        assert_select '.related_mainstream_content', text: %r{doesn't have any related mainstream content}
       end
     end
 

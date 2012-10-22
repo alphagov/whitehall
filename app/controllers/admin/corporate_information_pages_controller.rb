@@ -70,6 +70,7 @@ private
     unless @corporate_information_page.corporate_information_page_attachments.any?(&:new_record?)
       corporate_information_page_attachment = @corporate_information_page.corporate_information_page_attachments.build
       corporate_information_page_attachment.build_attachment
+      corporate_information_page_attachment.attachment.build_attachment_data
     end
   end
 end

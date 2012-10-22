@@ -41,7 +41,8 @@ module AdminEditionAttachableControllerTestHelpers
 
       test 'show displays edition attachments' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
-        attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
+        attachment_data = create(:attachment_data, file: two_page_pdf)
+        attachment = create(:attachment, title: "attachment-title", attachment_data: attachment_data)
         edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
 
         get :show, id: edition
@@ -67,7 +68,7 @@ module AdminEditionAttachableControllerTestHelpers
 
         assert_select "form##{edition_base_class_name}_new" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][attachment_data_attributes][file]'][type='file']"
         end
       end
 
@@ -75,7 +76,11 @@ module AdminEditionAttachableControllerTestHelpers
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(edition_type)
         attributes[attachment_join_attributes] = {
-          "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
+          "0" => {
+            attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
+              file: greenpaper_pdf
+            })
+          }
         }
 
         post :create, edition_base_class_name => attributes
@@ -85,7 +90,7 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal 1, edition.attachments.length
         attachment = edition.attachments.first
         assert_equal "attachment-title", attachment.title
-        assert_equal "greenpaper.pdf", attachment.carrierwave_file
+        assert_equal "greenpaper.pdf", attachment.attachment_data.carrierwave_file
         assert_equal "application/pdf", attachment.content_type
         assert_equal greenpaper_pdf.size, attachment.file_size
       end
@@ -94,10 +99,14 @@ module AdminEditionAttachableControllerTestHelpers
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(edition_type)
         attributes[attachment_join_attributes] = {
-          "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
+          "0" => {
+            attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
+              file: greenpaper_pdf
+            })
+          }
         }
 
-        Attachment.any_instance.expects(:file=).once
+        AttachmentData.any_instance.expects(:file=).once
 
         post :create, edition_base_class_name => attributes
       end
@@ -107,7 +116,7 @@ module AdminEditionAttachableControllerTestHelpers
 
         assert_select "form##{edition_base_class_name}_new" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][attachment_data_attributes][file]'][type='file']"
         end
       end
 
@@ -116,7 +125,11 @@ module AdminEditionAttachableControllerTestHelpers
 
         post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
           attachment_join_attributes => {
-            "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
+            "0" => {
+              attachment_attributes: attributes_for(:attachment).merge(attachment_data_attributes: {
+                file: greenpaper_pdf
+              })
+            }
           }
         ))
 
@@ -130,13 +143,17 @@ module AdminEditionAttachableControllerTestHelpers
 
         post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
           attachment_join_attributes => {
-            "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
+            "0" => {
+              attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
+                file: greenpaper_pdf
+              })
+            }
           }
         ))
 
         assert_select "form##{edition_base_class_name}_new" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][value='attachment-title']"
-          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][attachment_data_attributes][file_cache]'][value$='greenpaper.pdf']"
           assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
@@ -145,7 +162,11 @@ module AdminEditionAttachableControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
         attributes[attachment_join_attributes] = {
-          "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
+          "0" => {
+            attachment_attributes: attributes_for(:attachment).merge(attachment_data_attributes: {
+              file: greenpaper_pdf
+            })
+          }
         }
 
         post :create, edition_base_class_name => make_invalid(attributes)
@@ -158,8 +179,16 @@ module AdminEditionAttachableControllerTestHelpers
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attributes = controller_attributes_for(edition_type)
         attributes[attachment_join_attributes] = {
-          "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
-          "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
+          "0" => {
+            attachment_attributes: attributes_for(:attachment, title: "attachment-1-title").merge(attachment_data_attributes: {
+              file: greenpaper_pdf
+            })
+          },
+          "1" => {
+            attachment_attributes: attributes_for(:attachment, title: "attachment-2-title").merge(attachment_data_attributes: {
+              file: csv_file
+            })
+          }
         }
 
         post :create, edition_base_class_name => attributes
@@ -168,19 +197,20 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal 2, edition.attachments.length
         attachment_1 = edition.attachments.first
         assert_equal "attachment-1-title", attachment_1.title
-        assert_equal "greenpaper.pdf", attachment_1.carrierwave_file
+        assert_equal "greenpaper.pdf", attachment_1.attachment_data.carrierwave_file
         assert_equal "application/pdf", attachment_1.content_type
         assert_equal greenpaper_pdf.size, attachment_1.file_size
         attachment_2 = edition.attachments.last
         assert_equal "attachment-2-title", attachment_2.title
-        assert_equal "sample-from-excel.csv", attachment_2.carrierwave_file
+        assert_equal "sample-from-excel.csv", attachment_2.attachment_data.carrierwave_file
         assert_equal "text/csv", attachment_2.content_type
         assert_equal csv_file.size, attachment_2.file_size
       end
 
       test 'edit displays edition attachment fields' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
-        attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
+        attachment_data = create(:attachment_data, file: two_page_pdf)
+        attachment = create(:attachment, title: "attachment-title", attachment_data: attachment_data)
         edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
 
         get :edit, id: edition
@@ -191,7 +221,7 @@ module AdminEditionAttachableControllerTestHelpers
             assert_select "a", text: %r{two-pages.pdf$}
           end
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][1][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][1][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][1][attachment_attributes][attachment_data_attributes][file]'][type='file']"
         end
       end
 
@@ -201,7 +231,11 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => edition.attributes.merge(
           attachment_join_attributes => {
-            "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
+            "0" => {
+              attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
+                file: greenpaper_pdf
+              })
+            }
           }
         )
 
@@ -209,7 +243,7 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal 1, edition.attachments.length
         attachment = edition.attachments.first
         assert_equal "attachment-title", attachment.title
-        assert_equal "greenpaper.pdf", attachment.carrierwave_file
+        assert_equal "greenpaper.pdf", attachment.attachment_data.carrierwave_file
         assert_equal "application/pdf", attachment.content_type
         assert_equal greenpaper_pdf.size, attachment.file_size
       end
@@ -221,8 +255,16 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => edition.attributes.merge(
           attachment_join_attributes => {
-            "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-1-title", file: greenpaper_pdf) },
-            "1" => { attachment_attributes: attributes_for(:attachment, title: "attachment-2-title", file: csv_file) }
+            "0" => {
+              attachment_attributes: attributes_for(:attachment, title: "attachment-1-title").merge(attachment_data_attributes: {
+                file: greenpaper_pdf
+              })
+            },
+            "1" => {
+              attachment_attributes: attributes_for(:attachment, title: "attachment-2-title").merge(attachment_data_attributes: {
+                file: csv_file
+              })
+            }
           }
         )
 
@@ -230,12 +272,12 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal 2, edition.attachments.length
         attachment_1 = edition.attachments.first
         assert_equal "attachment-1-title", attachment_1.title
-        assert_equal "greenpaper.pdf", attachment_1.carrierwave_file
+        assert_equal "greenpaper.pdf", attachment_1.attachment_data.carrierwave_file
         assert_equal "application/pdf", attachment_1.content_type
         assert_equal greenpaper_pdf.size, attachment_1.file_size
         attachment_2 = edition.attachments.last
         assert_equal "attachment-2-title", attachment_2.title
-        assert_equal "sample-from-excel.csv", attachment_2.carrierwave_file
+        assert_equal "sample-from-excel.csv", attachment_2.attachment_data.carrierwave_file
         assert_equal "text/csv", attachment_2.content_type
         assert_equal csv_file.size, attachment_2.file_size
       end
@@ -245,7 +287,7 @@ module AdminEditionAttachableControllerTestHelpers
         put :update, id: edition, edition_base_class_name => make_invalid(edition.attributes)
 
         assert_select "form##{edition_base_class_name}_edit" do
-          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][attachment_data_attributes][file]'][type='file']"
         end
       end
 
@@ -255,7 +297,11 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
           attachment_join_attributes => {
-            "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
+            "0" => {
+              attachment_attributes: attributes_for(:attachment).merge(attachment_data_attributes: {
+                file: greenpaper_pdf
+              })
+            }
           }
         ))
 
@@ -270,13 +316,17 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
           attachment_join_attributes => {
-            "0" => { attachment_attributes: attributes_for(:attachment, title: "attachment-title", file: greenpaper_pdf) }
+            "0" => {
+              attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
+                file: greenpaper_pdf
+              })
+            }
           }
         ))
 
         assert_select "form##{edition_base_class_name}_edit" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][value='attachment-title']"
-          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][attachment_data_attributes][file_cache]'][value$='greenpaper.pdf']"
           assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
         end
       end
@@ -290,7 +340,7 @@ module AdminEditionAttachableControllerTestHelpers
 
         assert_select "form##{edition_base_class_name}_edit" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][type='text']"
-          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][file]'][type='file']"
+          assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][attachment_data_attributes][file]'][type='file']"
         end
       end
 
@@ -303,7 +353,11 @@ module AdminEditionAttachableControllerTestHelpers
         put :update, id: edition, edition_base_class_name => edition.attributes.merge(
           lock_version: lock_version,
           attachment_join_attributes => {
-            "0" => { attachment_attributes: attributes_for(:attachment, file: greenpaper_pdf) }
+            "0" => {
+              attachment_attributes: attributes_for(:attachment).merge(attachment_data_attributes: {
+                file: greenpaper_pdf
+              })
+            }
           }
         )
 
@@ -323,7 +377,11 @@ module AdminEditionAttachableControllerTestHelpers
           attachment_join_attributes => {
             "0" => { id: edition_attachment_1.id.to_s, _destroy: "1" },
             "1" => { id: edition_attachment_2.id.to_s, _destroy: "0" },
-            "2" => { attachment_attributes: { file_cache: "" } }
+            "2" => {
+              attachment_attributes: {
+                attachment_data_attributes: { file_cache: "" }
+              }
+            }
           }
         )
 
