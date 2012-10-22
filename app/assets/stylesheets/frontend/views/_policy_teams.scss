@@ -1,6 +1,6 @@
 .policy-teams {
 
-  h1 {
+  .page-header h1 {
     @include core-48;
     margin-top: $gutter-one-third;
     @include media(tablet){
