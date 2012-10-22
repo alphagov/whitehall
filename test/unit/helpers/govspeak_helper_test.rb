@@ -12,7 +12,7 @@ class GovspeakHelperTest < ActionView::TestCase
   attr_reader :request
 
   test "should wrap admin output with a govspeak class" do
-    html = govspeak_body_to_admin_html("govspeak-text")
+    html = govspeak_to_admin_html("govspeak-text")
     assert_select_within_html html, ".govspeak", text: "govspeak-text"
   end
 
@@ -23,12 +23,12 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should mark the admin govspeak output as html safe" do
-    html = govspeak_body_to_admin_html("govspeak-text")
+    html = govspeak_to_admin_html("govspeak-text")
     assert html.html_safe?
   end
 
   test "should not alter urls to other sites in the admin preview" do
-    html = govspeak_body_to_admin_html("no [change](http://external.example.com/page.html)")
+    html = govspeak_to_admin_html("no [change](http://external.example.com/page.html)")
     assert_select_within_html html, "a[href=?]", "http://external.example.com/page.html", text: "change"
   end
 
@@ -38,7 +38,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should not alter mailto urls in the admin preview" do
-    html = govspeak_body_to_admin_html("no [change](mailto:dave@example.com)")
+    html = govspeak_to_admin_html("no [change](mailto:dave@example.com)")
     assert_select_within_html html, "a[href=?]", "mailto:dave@example.com", text: "change"
   end
 
@@ -53,7 +53,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should not alter partial urls in the admin preview" do
-    html = govspeak_body_to_admin_html("no [change](http://)")
+    html = govspeak_to_admin_html("no [change](http://)")
     assert_select_within_html html, "a[href=?]", "http://", text: "change"
   end
 
@@ -64,42 +64,42 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should rewrite link to draft edition in admin preview" do
     publication = create(:draft_publication)
-    html = govspeak_body_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(publication), text: "draft"
   end
 
   test "should not alter unicode when replacing links" do
     publication = create(:published_publication)
-    html = govspeak_body_to_admin_html("the [☃](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("the [☃](#{admin_publication_url(publication)})")
     assert_select_within_html html, "a[href=?]", public_document_url(publication), text: "☃"
   end
 
   test "should rewrite link to deleted edition in admin preview" do
     publication = create(:deleted_publication)
-    html = govspeak_body_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_select_within_html html, "del", text: "that"
   end
 
   test "should rewrite link to missing edition in admin preview" do
-    html = govspeak_body_to_admin_html("this and [that](#{admin_publication_url('missing-id')})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url('missing-id')})")
     assert_select_within_html html, "del", text: "that"
   end
 
   test "should rewrite link to destroyed supporting page in admin preview" do
-    html = govspeak_body_to_admin_html("this and [that](#{admin_edition_supporting_page_url("doesnt-exist", "missing-id")})")
+    html = govspeak_to_admin_html("this and [that](#{admin_edition_supporting_page_url("doesnt-exist", "missing-id")})")
     assert_select_within_html html, "del", text: "that"
   end
 
   test "should rewrite link to published edition in admin preview" do
     publication = create(:published_publication)
-    html = govspeak_body_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_select_within_html html, "a[href=?]", public_document_url(publication), text: "that"
   end
 
   test "should rewrite link to published edition with a newer draft in admin preview" do
     publication = create(:published_publication)
     new_draft = publication.create_draft(create(:policy_writer))
-    html = govspeak_body_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(new_draft), text: "draft"
   end
 
@@ -112,7 +112,7 @@ class GovspeakHelperTest < ActionView::TestCase
     new_edition.save_as(writer)
     new_edition.submit!
     new_edition.publish_as(editor)
-    html = govspeak_body_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(new_edition), text: "published"
   end
 
@@ -121,20 +121,20 @@ class GovspeakHelperTest < ActionView::TestCase
     new_draft = publication.create_draft(create(:policy_writer))
     new_draft.delete!
     deleted_edition = new_draft
-    html = govspeak_body_to_admin_html("this and [that](#{admin_publication_url(deleted_edition)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(deleted_edition)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(publication), text: "published"
   end
 
   test "should allow attached images to be embedded in admin html" do
     images = [OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")]
-    html = govspeak_body_to_admin_html("!!1", images)
+    html = govspeak_to_admin_html("!!1", images)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src=/image.jpg]"
   end
 
   test "prefixes embedded image urls with asset host if present" do
     Whitehall.stubs(:asset_host).returns("https://some.cdn.com")
     images = [OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")]
-    html = govspeak_body_to_admin_html("!!1", images)
+    html = govspeak_to_admin_html("!!1", images)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src=https://some.cdn.com/image.jpg]"
   end
 

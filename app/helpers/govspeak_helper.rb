@@ -10,8 +10,8 @@ module GovspeakHelper
     end
   end
 
-  def govspeak_body_to_admin_html(body, images=[], attachments=[], alternative_format_contact_email = nil)
-    text = govspeak_with_attachments_and_alt_format_information(body, attachments, alternative_format_contact_email)
+  def govspeak_to_admin_html(govspeak, images=[], attachments=[], alternative_format_contact_email = nil)
+    text = govspeak_with_attachments_and_alt_format_information(govspeak, attachments, alternative_format_contact_email)
     wrapped_in_govspeak_div(bare_govspeak_to_admin_html(text, images))
   end
 
