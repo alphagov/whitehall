@@ -22,28 +22,42 @@ class ExtractAttachmentDataFromAttachment < ActiveRecord::Migration
     belongs_to :attachment_data
   end
 
+  def move_files(old_id, new_id)
+    old_dir = "#{Rails.root}/public/system/uploads/attachment/file/#{old_id}"
+    new_dir = "#{Rails.root}/public/system/uploads/attachment_data/file/#{new_id}"
+    cmd = "[ -e #{old_dir} ] && mkdir -p #{new_dir} && mv -f #{old_dir}/* #{new_dir}/"
+    system cmd
+  end
+
   def extract_attachment_data_from(klass)
-    old = []
+    attachment_to_data_map = {}
     puts "Extracting attachment data from #{klass}"
+    system "mkdir -p #{Rails.root}/public/system/uploads/attachment_data/"
     klass.all.each do |row|
       old_attachment = row.attachment
       if (old_attachment)
-        old << old_attachment.id
         row.create_attachment!(old_attachment.attributes)
-        row.attachment.create_attachment_data!(
-          carrierwave_file: old_attachment.carrierwave_file,
-          content_type: old_attachment.content_type,
-          file_size: old_attachment.file_size,
-          number_of_pages: old_attachment.number_of_pages
-        )
+        if (attachment_to_data_map[old_attachment.id])
+          row.attachment.attachment_data = attachment_to_data_map[old_attachment.id]
+        else
+          attachment_to_data_map[old_attachment.id] =
+            row.attachment.create_attachment_data!(
+              carrierwave_file: old_attachment.carrierwave_file,
+              content_type: old_attachment.content_type,
+              file_size: old_attachment.file_size,
+              number_of_pages: old_attachment.number_of_pages
+            )
+          move_files(old_attachment.id, row.attachment.attachment_data.id)
+        end
         row.attachment.save!
         row.save!
+
       else
         row.update_attributes(attachment_id: nil)
       end
     end
     puts "Destroying old attachments"
-    klass.delete_all(id: old)
+    klass.delete_all(id: attachment_to_data_map.keys)
   end
 
   def up
