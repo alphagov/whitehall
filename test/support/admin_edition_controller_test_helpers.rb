@@ -287,10 +287,11 @@ module AdminEditionControllerTestHelpers
           edition_attachments_attributes: {
             "0" => { attachment_attributes: attributes_for(:attachment,
               title: "attachment-title",
-              file: fixture_file_upload('greenpaper.pdf', 'application/pdf'),
               isbn: '0140621431',
               unique_reference: 'unique-reference',
-              command_paper_number: 'Cm. 1234')
+              command_paper_number: 'Cm. 1234').merge(attachment_data_attributes: {
+                file: fixture_file_upload('greenpaper.pdf', 'application/pdf')
+              })
             }
           }
         })

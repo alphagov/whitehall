@@ -160,7 +160,10 @@ class ConsultationsControllerTest < ActionController::TestCase
   test 'closed lists consultations with most recent response appearing before most recently closed' do
     consultation_with_response = create(:published_consultation, opening_on: 4.days.ago, closing_on: 3.days.ago)
     response = consultation_with_response.create_response!
-    response.attachments.create! title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf')
+    attachment = response.attachments.create! title: 'attachment-title'
+    attachment.create_attachment_data! file: fixture_file_upload('greenpaper.pdf')
+    attachment.save!
+
     consultation_without_response = create(:published_consultation, opening_on: 3.days.ago, closing_on: 2.days.ago)
 
     get :closed

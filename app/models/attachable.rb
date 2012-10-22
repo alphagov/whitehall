@@ -9,7 +9,9 @@ module Attachable
       has_many :attachments, through: attachment_join_table_name
 
       no_substantive_attachment_attributes = ->(attrs) do
-        attrs.fetch(:attachment_attributes, {}).except(:accessible).values.all?(&:blank?)
+        att_attrs = attrs.fetch(:attachment_attributes, {})
+        att_attrs.except(:accessible, :attachment_data_attributes).values.all?(&:blank?) &&
+          att_attrs.fetch(:attachment_data_attributes, {}).values.all?(&:blank?)
       end
       accepts_nested_attributes_for attachment_join_table_name, reject_if: no_substantive_attachment_attributes, allow_destroy: true
 
@@ -17,7 +19,8 @@ module Attachable
         add_trait do
           def process_associations_after_save(edition)
             @edition.attachments.each do |a|
-              edition.send(edition.class.attachment_join_table_name).create(attachment_id: a.id)
+              attachment = Attachment.create(a.attributes)
+              edition.send(edition.class.attachment_join_table_name).create(attachment: attachment)
             end
           end
         end

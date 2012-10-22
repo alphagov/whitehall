@@ -3,21 +3,8 @@ require 'test_helper'
 class AttachmentTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  setup do
-    AttachmentUploader.enable_processing = true
-  end
-
-  teardown do
-    AttachmentUploader.enable_processing = false
-  end
-
   test 'should be invalid without a title' do
     attachment = build(:attachment, title: nil)
-    refute attachment.valid?
-  end
-
-  test 'should be invalid without a file' do
-    attachment = build(:attachment, file: nil)
     refute attachment.valid?
   end
 
@@ -135,137 +122,6 @@ class AttachmentTest < ActiveSupport::TestCase
     refute attachment.valid?
   end
 
-  test 'should return filename even after reloading' do
-    attachment = create(:attachment)
-    refute_nil attachment.filename
-    assert_equal attachment.filename, Attachment.find(attachment.id).filename
-  end
-
-  test "should save content type and file size on create" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-    attachment = create(:attachment, file: greenpaper_pdf)
-    attachment.reload
-    assert_equal "greenpaper.pdf", attachment.filename
-    assert_equal "application/pdf", attachment.content_type
-    assert_equal greenpaper_pdf.size, attachment.file_size
-  end
-
-  test "should save content type and file size on update" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-    whitepaper_pdf = fixture_file_upload('whitepaper.pdf', 'application/pdf')
-    attachment = create(:attachment, file: greenpaper_pdf)
-    attachment.update_attributes!(file: whitepaper_pdf)
-    attachment.reload
-    assert_equal "whitepaper.pdf", attachment.filename
-    assert_equal "application/pdf", attachment.content_type
-    assert_equal whitepaper_pdf.size, attachment.file_size
-  end
-
-  test "should set content type based on file extension when browser supplies octet-stream content type" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/octet-stream')
-    attachment = create(:attachment, file: greenpaper_pdf)
-    attachment.reload
-    assert_equal "application/pdf", attachment.content_type
-  end
-
-  test "should set content type based on file extension when browser supplies no content type" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', nil)
-    attachment = create(:attachment, file: greenpaper_pdf)
-    attachment.reload
-    assert_equal "application/pdf", attachment.content_type
-  end
-
-  test "should set page count for PDF on create" do
-    two_pages_pdf = fixture_file_upload('two-pages.pdf')
-    attachment = create(:attachment, file: two_pages_pdf)
-    attachment.reload
-    assert_equal 2, attachment.number_of_pages
-  end
-
-  test "should set page count for PDF on update" do
-    two_pages_pdf = fixture_file_upload('two-pages.pdf')
-    three_pages_pdf = fixture_file_upload('three-pages.pdf')
-    attachment = create(:attachment, file: two_pages_pdf)
-    attachment.update_attributes!(file: three_pages_pdf)
-    attachment.reload
-    assert_equal 3, attachment.number_of_pages
-  end
-
-  test "should save attachment even if parsing the PDF raises an exception" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-    PDF::Reader.stubs(:new).raises
-    assert_nothing_raised { create(:attachment, file: greenpaper_pdf) }
-  end
-
-  test "should allow CSV file types as attachments" do
-    sample_from_excel_csv = fixture_file_upload('sample-from-excel.csv')
-    attachment = create(:attachment, file: sample_from_excel_csv)
-    attachment.reload
-    assert_equal "text/csv", attachment.content_type
-  end
-
-  test "should not set page count for non-PDF" do
-    sample_from_excel_csv = fixture_file_upload('sample-from-excel.csv')
-    attachment = create(:attachment, file: sample_from_excel_csv)
-    attachment.reload
-    assert_nil attachment.number_of_pages
-  end
-
-  test "should be a PDF if underlying content type is application/pdf" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-    attachment = create(:attachment, file: greenpaper_pdf)
-    attachment.reload
-    assert attachment.pdf?
-  end
-
-  test "should not be a PDF if underlying content type is not application/pdf" do
-    sample_csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
-    attachment = create(:attachment, file: sample_csv)
-    attachment.reload
-    refute attachment.pdf?
-  end
-
-  test "should return the url to a PNG for PDF thumbnails" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-    attachment = create(:attachment, file: greenpaper_pdf)
-    attachment.reload
-    assert attachment.url(:thumbnail).ends_with?("thumbnail_greenpaper.pdf.png"), "unexpected url ending: #{attachment.url(:thumbnail)}"
-  end
-
-  test "should successfully create PNG thumbnail from the file_cache after a validation failure" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-    attachment = build(:attachment, title: nil, file: greenpaper_pdf)
-    refute attachment.valid?
-    second_attempt_attachment = build(:attachment, title: "title", file: nil, file_cache: attachment.file_cache)
-    assert second_attempt_attachment.save
-    type = `file -b --mime-type "#{second_attempt_attachment.file.thumbnail.path}"`
-    assert_equal "image/png", type.strip
-  end
-
-  test "should return nil file extension when no uploader present" do
-    attachment = build(:attachment)
-    attachment.stubs(file: nil)
-    assert_nil attachment.file_extension
-  end
-
-  test "should return nil file extension when uploader url not present" do
-    attachment = build(:attachment)
-    attachment.stubs(file: stub("uploader", url: nil))
-    assert_nil attachment.file_extension
-  end
-
-  test "should return file extension if URL present but file empty" do
-    attachment = build(:attachment)
-    attachment.stubs(file: stub("uploader", empty?: true, url: "greenpaper.pdf"))
-    assert_equal "pdf", attachment.file_extension
-  end
-
-  test "should return file extension if file present" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-    attachment = build(:attachment, file: greenpaper_pdf)
-    assert_equal "pdf", attachment.file_extension
-  end
-
   test "should save the price as price_in_pence" do
     attachment = create(:attachment, price: "1.23", order_url: 'http://example.com')
     attachment.reload
@@ -305,5 +161,40 @@ class AttachmentTest < ActiveSupport::TestCase
   test "should return nil if neither price nor price_in_pence are set" do
     attachment = build(:attachment, price: nil, price_in_pence: nil)
     assert_nil attachment.price
+  end
+
+  test "does not destroy attachment_data when more attachments are associated" do
+    attachment = create(:attachment)
+    attachment_data = attachment.attachment_data
+    other_attachment = create(:attachment, attachment_data: attachment_data)
+
+    attachment_data.expects(:destroy).never
+    attachment.destroy
+  end
+
+  test "destroys attachment_data when no attachments are associated" do
+    attachment = create(:attachment)
+    attachment_data = attachment.attachment_data
+
+    attachment_data.expects(:destroy)
+    attachment.destroy
+  end
+
+  def assert_delegated attachment, method
+     attachment.attachment_data.expects(method).returns(method.to_s)
+     assert_equal method.to_s, attachment.send(method)
+  end
+
+  test "asks data for file specific information" do
+    attachment = build(:attachment)
+
+    assert_delegated attachment, :url
+    assert_delegated attachment, :content_type
+    assert_delegated attachment, :pdf?
+    assert_delegated attachment, :file_extension
+    assert_delegated attachment, :file_size
+    assert_delegated attachment, :number_of_pages
+    assert_delegated attachment, :file
+    assert_delegated attachment, :filename
   end
 end
