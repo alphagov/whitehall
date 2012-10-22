@@ -468,27 +468,27 @@ class EditionTest < ActiveSupport::TestCase
     refute EditorialRemark.find_by_id(relation.id)
   end
 
-  test "#in_chronological_order returns docs order in ascending order of first_published_at" do
+  test ".in_chronological_order returns editions in ascending order of first_published_at" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     mar = create(:edition, first_published_at: Date.parse("2011-03-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
     assert_equal [jan, feb, mar], Edition.in_chronological_order.all
   end
 
-  test "#in_reverse_chronological_order returns docs order in descending order of first_published_at" do
+  test ".in_reverse_chronological_order returns editions in descending order of first_published_at" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     mar = create(:edition, first_published_at: Date.parse("2011-03-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
     assert_equal [mar, feb, jan], Edition.in_reverse_chronological_order.all
   end
 
-  test "#published_before returns editions whose first_published_at is before the given date" do
+  test ".published_before returns editions whose first_published_at is before the given date" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
     assert_equal [jan], Edition.published_before("2011-01-29").all
   end
 
-  test "#published_after returns editions whose first_published_at is after the given date" do
+  test ".published_after returns editions whose first_published_at is after the given date" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
     assert_equal [feb], Edition.published_after("2011-01-29").all

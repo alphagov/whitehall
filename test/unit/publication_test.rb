@@ -37,14 +37,14 @@ class PublicationTest < EditionTestCase
     refute publication.valid?
   end
 
-  test ".in_chronological_order returns docs order in ascending order of publication_date" do
+  test ".in_chronological_order returns publications in ascending order of publication_date" do
     jan = create(:publication, publication_date: Date.parse("2011-01-01"))
     mar = create(:publication, publication_date: Date.parse("2011-03-01"))
     feb = create(:publication, publication_date: Date.parse("2011-02-01"))
     assert_equal [jan, feb, mar], Publication.in_chronological_order.all
   end
 
-  test ".in_reverse_chronological_order returns docs order in descending order of publication_date" do
+  test ".in_reverse_chronological_order returns publications in descending order of publication_date" do
     jan = create(:publication, publication_date: Date.parse("2011-01-01"))
     mar = create(:publication, publication_date: Date.parse("2011-03-01"))
     feb = create(:publication, publication_date: Date.parse("2011-02-01"))
