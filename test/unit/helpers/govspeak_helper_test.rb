@@ -16,12 +16,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".govspeak", text: "govspeak-text"
   end
 
-  test "should optionally not wrap admin html output in a govspeak class" do
-    html = bare_govspeak_to_admin_html("govspeak-text")
-    assert_select_within_html html, ".govspeak", false
-    assert_select_within_html html, "p", "govspeak-text"
-  end
-
   test "should mark the admin govspeak output as html safe" do
     html = govspeak_to_admin_html("govspeak-text")
     assert html.html_safe?
@@ -143,12 +137,6 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should wrap output with a govspeak class" do
     html = govspeak_to_html("govspeak-text")
     assert_select_within_html html, ".govspeak", text: "govspeak-text"
-  end
-
-  test "should optionally not wrap output in a govspeak class" do
-    html = bare_govspeak_to_html("govspeak-text")
-    assert_select_within_html html, ".govspeak", false
-    assert_select_within_html html, "p", "govspeak-text"
   end
 
   test "should mark the govspeak output as html safe" do
@@ -352,6 +340,13 @@ class GovspeakHelperTest < ActionView::TestCase
     document = create(:published_policy, body: "## test")
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h2"
+  end
+
+  test "should optionally not wrap output in a govspeak class" do
+    document = create(:published_policy, body: "govspeak-text")
+    html = bare_govspeak_edition_to_html(document)
+    assert_select_within_html html, ".govspeak", false
+    assert_select_within_html html, "p", "govspeak-text"
   end
 
   test "should add inline attachments" do
