@@ -108,10 +108,14 @@ module API
 
     test "json should list attachments" do
       pdf = create(:attachment,
-        file: fixture_file_upload("two-pages.pdf")
+        attachment_data: create(:attachment_data,
+          file: fixture_file_upload("two-pages.pdf")
+        )
       )
       csv = create(:attachment,
-        file: fixture_file_upload("sample-from-excel.csv")
+        attachment_data: create(:attachment_data,
+          file: fixture_file_upload("sample-from-excel.csv")
+        )
       )
 
       consultation = create(:published_consultation)
@@ -136,7 +140,9 @@ module API
     test "json should list consultation response and attachments" do
       consultation = create(:published_consultation)
       consultation_response = consultation.create_response!(summary: "summary-of-response")
-      attachment = consultation_response.attachments.create! title: 'attachment-title', file: fixture_file_upload('two-pages.pdf')
+      attachment = consultation_response.attachments.create! title: 'attachment-title'
+      attachment.create_attachment_data! file: fixture_file_upload('two-pages.pdf')
+      attachment.save!
 
       get :show, id: consultation.slug, format: :json
       data = JSON.parse(response.body)

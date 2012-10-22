@@ -22,7 +22,8 @@ class PublicationTest < EditionTestCase
     draft_publication = published_publication.create_draft(create(:policy_writer))
 
     assert_kind_of Attachment, published_publication.attachments.first
-    assert_equal published_publication.attachments, draft_publication.attachments
+    assert_not_equal published_publication.attachments, draft_publication.attachments
+    assert_equal published_publication.attachments.first.attachment_data, draft_publication.attachments.first.attachment_data
     assert_equal published_publication.publication_date, draft_publication.publication_date
     assert_equal published_publication.publication_type, draft_publication.publication_type
   end

@@ -27,7 +27,7 @@ class Consultation < Publicationesque
         response_attributes = @edition.response.attributes.except('edition_id')
         new_response = edition.create_response(response_attributes)
         @edition.response.attachments.each do |attachment|
-          new_response.consultation_response_attachments.create(attachment: attachment)
+          new_response.consultation_response_attachments.create(attachment: Attachment.create(attachment.attributes))
         end
       end
     end

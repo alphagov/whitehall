@@ -9,7 +9,9 @@ class ResponseTest < ActiveSupport::TestCase
       '0' => {
         attachment_attributes: {
           title: 'attachment-title',
-          file:  fixture_file_upload('greenpaper.pdf')
+          attachment_data_attributes: {
+            file:  fixture_file_upload('greenpaper.pdf')
+          }
         }
       }
     }
@@ -75,7 +77,7 @@ class ResponseTest < ActiveSupport::TestCase
 
   test "should be published if there is at least one attachment" do
     response = create(:response)
-    response.attachments.create! title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf')
+    response.attachments.create! title: 'attachment-title', attachment_data: create(:attachment_data,  file: fixture_file_upload('greenpaper.pdf'))
 
     assert response.published?
   end

@@ -13,18 +13,23 @@
 
 ActiveRecord::Schema.define(:version => 20121023105500) do
 
+  create_table "attachment_data", :force => true do |t|
+    t.string   "carrierwave_file"
+    t.string   "content_type"
+    t.integer  "file_size"
+    t.integer  "number_of_pages"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "attachment_sources", :force => true do |t|
     t.integer "attachment_id"
     t.string  "url"
   end
 
   create_table "attachments", :force => true do |t|
-    t.string   "carrierwave_file"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "content_type"
-    t.integer  "file_size"
-    t.integer  "number_of_pages"
     t.string   "title"
     t.boolean  "accessible"
     t.string   "isbn"
@@ -32,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20121023105500) do
     t.string   "command_paper_number"
     t.string   "order_url"
     t.integer  "price_in_pence"
+    t.integer  "attachment_data_id"
   end
 
   create_table "consultation_participations", :force => true do |t|
@@ -266,8 +272,8 @@ ActiveRecord::Schema.define(:version => 20121023105500) do
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
     t.datetime "timestamp_for_sorting"
     t.integer  "primary_mainstream_category_id"
-    t.boolean  "replaces_businesslink",                                           :default => false
     t.datetime "scheduled_publication"
+    t.boolean  "replaces_businesslink",                                           :default => false
   end
 
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
