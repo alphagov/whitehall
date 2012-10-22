@@ -46,7 +46,7 @@ module GovspeakHelper
   end
 
   def govspeak_edition_to_html(*args)
-    content_tag(:div, bare_govspeak_edition_to_html(*args), class: 'govspeak')
+    wrapped_in_govspeak_div(bare_govspeak_edition_to_html(*args))
   end
 
   def bare_govspeak_to_html(text, images = [])
@@ -54,7 +54,7 @@ module GovspeakHelper
   end
 
   def govspeak_to_html(*args)
-    content_tag(:div, bare_govspeak_to_html(*args).html_safe, class: 'govspeak')
+    wrapped_in_govspeak_div(bare_govspeak_to_html(*args))
   end
 
   def govspeak_headers(text, level = 2)
