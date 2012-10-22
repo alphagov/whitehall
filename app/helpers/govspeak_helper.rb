@@ -1,4 +1,5 @@
 require 'addressable/uri'
+require 'delegate'
 
 module GovspeakHelper
   def govspeak_to_html(govspeak, images=[])
@@ -91,7 +92,7 @@ module GovspeakHelper
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
     govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if attachment = attachments[$1.to_i - 1]
-        "\n\n" + render(partial: "documents/attachment.html.erb", object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
+        "\n\n" + render(partial: "documents/attachment.html.erb", object: AssetHostDecorator.new(attachment), locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
       else
         "\n\n"
       end
@@ -165,23 +166,13 @@ module GovspeakHelper
     hosts = [request_host, ActionController::Base.default_url_options[:host]].compact
     hosts = hosts + Whitehall.admin_hosts
     Govspeak::Document.new(govspeak, document_domains: hosts).tap do |document|
-      document.images = images.map {|i| ImageAssetHostDecorator.new(i, Whitehall.asset_host)}
+      document.images = images.map {|i| AssetHostDecorator.new(i)}
     end
   end
 
-  class ImageAssetHostDecorator
-    extend Forwardable
-
-    attr_reader :image
-    delegate [:alt_text, :caption] => :image
-
-    def initialize(image, asset_host)
-      @image = image
-      @asset_host = asset_host || ""
-    end
-
-    def url
-      @asset_host + image.url.to_s
+  class AssetHostDecorator < SimpleDelegator
+    def url(*args)
+      (Whitehall.asset_host || "") + super(*args)
     end
   end
 end

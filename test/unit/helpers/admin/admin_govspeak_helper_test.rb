@@ -107,8 +107,9 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
 
   test "prefixes embedded image urls with asset host if present" do
     Whitehall.stubs(:asset_host).returns("https://some.cdn.com")
-    images = [OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")]
-    html = govspeak_to_admin_html("!!1", images)
+    edition = build(:published_news_article, body: "!!1")
+    edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")])
+    html = govspeak_edition_to_admin_html(edition)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src=https://some.cdn.com/image.jpg]"
   end
 end

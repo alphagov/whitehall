@@ -297,8 +297,16 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "prefixes embedded image urls with asset host if present" do
     Whitehall.stubs(:asset_host).returns("https://some.cdn.com")
-    images = [OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")]
-    html = govspeak_to_html("!!1", images)
+    edition = build(:published_news_article, body: "!!1")
+    edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")])
+    html = govspeak_edition_to_html(edition)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src=https://some.cdn.com/image.jpg]"
+  end
+
+  test "prefixes embedded attachment urls with asset host if present" do
+    Whitehall.stubs(:asset_host).returns("https://some.cdn.com")
+    edition = build(:published_publication, :with_attachment, body: "!@1")
+    html = govspeak_edition_to_html(edition)
+    assert_select_within_html html, ".govspeak .attachment.embedded a[href^='https://some.cdn.com/']"
   end
 end
