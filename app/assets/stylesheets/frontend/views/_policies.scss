@@ -127,7 +127,7 @@
       margin: 0;
       overflow: hidden;
       position: relative;
-      @include box-sizing(border);
+      @include box-sizing(border-box);
       width: 100%;
       li {
         float: left;
