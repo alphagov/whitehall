@@ -10,15 +10,15 @@ module GovspeakHelper
     end
   end
 
-  def govspeak_body_to_admin_html(body, images, attachments, alternative_format_contact_email = nil)
+  def govspeak_body_to_admin_html(body, images=[], attachments=[], alternative_format_contact_email = nil)
     text = govspeak_with_attachments_to_html(body, attachments, alternative_format_contact_email)
-    govspeak_to_admin_html(text, images)
+    wrapped_in_govspeak_div(bare_govspeak_to_admin_html(text, images))
   end
 
   def govspeak_edition_to_admin_html(edition)
     images = edition.respond_to?(:images) ? edition.images : []
     text = markup_with_attachments_to_html(edition)
-    govspeak_to_admin_html(text, images)
+    wrapped_in_govspeak_div(bare_govspeak_to_admin_html(text, images))
   end
 
   def bare_govspeak_to_admin_html(text, images = [], attachments = [])
@@ -37,10 +37,6 @@ module GovspeakHelper
         safe_join [replacement_html, annotation], ' '
       end
     end
-  end
-
-  def govspeak_to_admin_html(*args)
-    content_tag(:div, bare_govspeak_to_admin_html(*args).html_safe, class: 'govspeak')
   end
 
   def bare_govspeak_edition_to_html(edition)
@@ -82,6 +78,10 @@ module GovspeakHelper
   end
 
   private
+
+  def wrapped_in_govspeak_div(text)
+    content_tag(:div, text.html_safe, class: 'govspeak')
+  end
 
   def markup_to_html_with_replaced_admin_links(text, images = [], &block)
     markup_to_nokogiri_doc(text, images).tap do |nokogiri_doc|
