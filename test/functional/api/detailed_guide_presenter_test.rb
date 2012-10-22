@@ -39,10 +39,6 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
     assert_equal '<p>govspeak-body</p>', @presenter.as_json[:details][:body]
   end
 
-  test "json includes absolute URLs for attachments referenced in the body" do
-
-  end
-
   test "json includes related detailed guides as related" do
     Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     related_guide = stub_edition(:detailed_guide)
