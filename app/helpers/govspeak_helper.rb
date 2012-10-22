@@ -2,14 +2,6 @@ require 'addressable/uri'
 
 module GovspeakHelper
 
-  class OrphanedHeadingError < StandardError
-    attr_reader :heading
-    def initialize(heading)
-      @heading = heading
-      super("Parent heading missing for: #{heading}")
-    end
-  end
-
   def govspeak_to_admin_html(govspeak, images=[], attachments=[], alternative_format_contact_email = nil)
     text = govspeak_with_attachments_and_alt_format_information(govspeak, attachments, alternative_format_contact_email)
     wrapped_in_govspeak_div(bare_govspeak_to_admin_html(text, images))
@@ -57,6 +49,14 @@ module GovspeakHelper
     level = (level..level) unless level.is_a?(Range)
     build_govspeak_document(govspeak).headers.select do |header|
       level.cover?(header.level)
+    end
+  end
+
+  class OrphanedHeadingError < StandardError
+    attr_reader :heading
+    def initialize(heading)
+      @heading = heading
+      super("Parent heading missing for: #{heading}")
     end
   end
 
