@@ -22,11 +22,20 @@ class ExtractAttachmentDataFromAttachment < ActiveRecord::Migration
     belongs_to :attachment_data
   end
 
-  def move_files(old_id, new_id)
-    old_dir = "#{Rails.root}/public/system/uploads/attachment/file/#{old_id}"
-    new_dir = "#{Rails.root}/public/system/uploads/attachment_data/file/#{new_id}"
-    cmd = "[ -e #{old_dir} ] && mkdir -p #{new_dir} && mv -f #{old_dir}/* #{new_dir}/"
+  def move_files(old_id, new_id, path)
+    old_dir = "#{path}/attachment/file/#{old_id}"
+    new_dir = "#{path}/attachment_data/file/#{new_id}"
+    cmd = "[ -e #{old_dir} ] && mkdir -p #{new_dir} && cp -f #{old_dir}/* #{new_dir}/"
     system cmd
+  end
+
+  def move_attachments(old_id, new_id)
+    if (Rails.env.production?)
+      move_files(old_id, new_id, Rails.root.join('public/government/uploads'))
+      move_files(old_id, new_id, Rails.root.join('incoming-uploads'))
+    else
+      move_files(old_id, new_id, Rails.root.join('public/system/uploads'))
+    end
   end
 
   def extract_attachment_data_from(klass)
@@ -47,7 +56,7 @@ class ExtractAttachmentDataFromAttachment < ActiveRecord::Migration
               file_size: old_attachment.file_size,
               number_of_pages: old_attachment.number_of_pages
             )
-          move_files(old_attachment.id, row.attachment.attachment_data.id)
+          move_attachments(old_attachment.id, row.attachment.attachment_data.id)
         end
         row.attachment.save!
         row.save!
