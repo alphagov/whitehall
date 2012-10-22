@@ -40,11 +40,13 @@ class Publication < Publicationesque
     publication_date.to_date
   end
 
-  def set_timestamp_for_sorting
-    self.timestamp_for_sorting = publication_date
-  end
-
   def statistics?
     [PublicationType::Statistics, PublicationType::NationalStatistics].include?(publication_type)
+  end
+
+  private
+
+  def set_timestamp_for_sorting
+    self.timestamp_for_sorting = publication_date
   end
 end
