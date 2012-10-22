@@ -11,14 +11,14 @@ module GovspeakHelper
   end
 
   def govspeak_body_to_admin_html(body, images=[], attachments=[], alternative_format_contact_email = nil)
-    text = govspeak_with_attachments_to_html(body, attachments, alternative_format_contact_email)
+    text = govspeak_with_attachments_and_alt_format_information(body, attachments, alternative_format_contact_email)
     wrapped_in_govspeak_div(bare_govspeak_to_admin_html(text, images))
   end
 
   def govspeak_edition_to_admin_html(edition)
     images = edition.respond_to?(:images) ? edition.images : []
-    text = markup_with_attachments_to_html(edition)
-    wrapped_in_govspeak_div(bare_govspeak_to_admin_html(text, images))
+    partially_processed_govspeak = edition_body_with_attachments_and_alt_format_information(edition)
+    wrapped_in_govspeak_div(bare_govspeak_to_admin_html(partially_processed_govspeak, images))
   end
 
   def bare_govspeak_to_admin_html(text, images = [], attachments = [])
@@ -41,32 +41,32 @@ module GovspeakHelper
 
   def bare_govspeak_edition_to_html(edition)
     images = edition.respond_to?(:images) ? edition.images : []
-    text = markup_with_attachments_to_html(edition)
-    bare_govspeak_to_html(text, images)
+    partially_processed_govspeak = edition_body_with_attachments_and_alt_format_information(edition)
+    bare_govspeak_to_html(partially_processed_govspeak, images)
   end
 
   def govspeak_edition_to_html(*args)
     wrapped_in_govspeak_div(bare_govspeak_edition_to_html(*args))
   end
 
-  def bare_govspeak_to_html(text, images = [])
-    markup_to_html_with_replaced_admin_links(text, images)
+  def bare_govspeak_to_html(govspeak, images = [])
+    markup_to_html_with_replaced_admin_links(govspeak, images)
   end
 
   def govspeak_to_html(*args)
     wrapped_in_govspeak_div(bare_govspeak_to_html(*args))
   end
 
-  def govspeak_headers(text, level = 2)
+  def govspeak_headers(govspeak, level = 2)
     level = (level..level) unless level.is_a?(Range)
-    build_govspeak_document(text).headers.select do |header|
+    build_govspeak_document(govspeak).headers.select do |header|
       level.cover?(header.level)
     end
   end
 
-  def govspeak_header_hierarchy(text)
+  def govspeak_header_hierarchy(govspeak)
     headers = []
-    govspeak_headers(text, 2..3).each do |header|
+    govspeak_headers(govspeak, 2..3).each do |header|
       if header.level == 2
         headers << {header: header, children: []}
       elsif header.level == 3
@@ -79,12 +79,12 @@ module GovspeakHelper
 
   private
 
-  def wrapped_in_govspeak_div(text)
-    content_tag(:div, text.html_safe, class: 'govspeak')
+  def wrapped_in_govspeak_div(html_string)
+    content_tag(:div, html_string.html_safe, class: 'govspeak')
   end
 
-  def markup_to_html_with_replaced_admin_links(text, images = [], &block)
-    markup_to_nokogiri_doc(text, images).tap do |nokogiri_doc|
+  def markup_to_html_with_replaced_admin_links(html_string, images = [], &block)
+    markup_to_nokogiri_doc(html_string, images).tap do |nokogiri_doc|
       replace_internal_admin_links_in nokogiri_doc, &block
     end.to_html.html_safe
   end
@@ -111,15 +111,15 @@ module GovspeakHelper
     end
   end
 
-  def markup_to_nokogiri_doc(text, images = [])
-    govspeak = build_govspeak_document(text, images)
+  def markup_to_nokogiri_doc(govspeak, images = [])
+    govspeak = build_govspeak_document(govspeak, images)
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(govspeak.to_html)
   end
 
-  def govspeak_with_attachments_to_html(text, attachments = [], alternative_format_contact_email = nil)
-    text.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
+  def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
+    govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if attachment = attachments[$1.to_i - 1]
         "\n\n" + render(partial: "documents/attachment.html.erb", object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
       else
@@ -128,8 +128,9 @@ module GovspeakHelper
     end
   end
 
-  def markup_with_attachments_to_html(edition)
-    govspeak_with_attachments_to_html(edition.body, edition.respond_to?(:attachments) ? edition.attachments : [], edition.alternative_format_contact_email)
+  def edition_body_with_attachments_and_alt_format_information(edition)
+    attachments = edition.respond_to?(:attachments) ? edition.attachments : []
+    govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.alternative_format_contact_email)
   end
 
   def is_internal_admin_link?(href)
@@ -189,11 +190,11 @@ module GovspeakHelper
     Whitehall.public_host_for(host) || host
   end
 
-  def build_govspeak_document(text, images = [])
+  def build_govspeak_document(govspeak, images = [])
     request_host = respond_to?(:request) ? request.host : nil
     hosts = [request_host, ActionController::Base.default_url_options[:host]].compact
     hosts = hosts + Whitehall.admin_hosts
-    Govspeak::Document.new(text, document_domains: hosts).tap do |document|
+    Govspeak::Document.new(govspeak, document_domains: hosts).tap do |document|
       document.images = images.map {|i| ImageAssetHostDecorator.new(i, Whitehall.asset_host)}
     end
   end
