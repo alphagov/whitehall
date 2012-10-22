@@ -48,6 +48,7 @@
   padding-bottom: 0.3rem;
   color: $black;
   background: none;
+  text-decoration: none;
   
   @media (max-width: 640px) {
     font-size: 1.3rem;
@@ -134,6 +135,7 @@
   padding-bottom: 0.3rem;
   color: $black;
   background: none;
+  text-decoration: none;
   
   @media (max-width: 640px) {
     font-size: 1.3rem;
@@ -198,7 +200,7 @@
   }
 }
 
-
+@include department-colours('.organisation-logo-medium', border-color);
 
 
 // large logos - used on org pages
@@ -218,6 +220,7 @@
   padding-bottom: 0.2rem;
   color: $black;
   background: none;
+  text-decoration: none;
   
   @media (max-width: 640px) {
     font-size: 1.4rem;
