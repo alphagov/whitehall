@@ -294,4 +294,11 @@ class GovspeakHelperTest < ActionView::TestCase
     refute is_internal_admin_link?( 'http://www.google.com/' )
     refute is_internal_admin_link?( nil )
   end
+
+  test "prefixes embedded image urls with asset host if present" do
+    Whitehall.stubs(:asset_host).returns("https://some.cdn.com")
+    images = [OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")]
+    html = govspeak_to_html("!!1", images)
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src=https://some.cdn.com/image.jpg]"
+  end
 end
