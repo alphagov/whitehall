@@ -1,6 +1,6 @@
 .policy-teams {
 
-    h1 {
+  h1 {
     @include core-48;
     margin-top: $gutter-one-third;
     @include media(tablet){
@@ -8,7 +8,8 @@
       width: 75%;
       float: left;
     }
-    
+  }
+  
   @media (min-width: 768px) {
     .block-2, .block-3 {
       width: 33%;
