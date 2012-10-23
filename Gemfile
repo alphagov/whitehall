@@ -55,7 +55,7 @@ group :development, :staging, :test do
 end
 
 group :test do
-  gem 'factory_girl', '~> 2.6.0'
+  gem 'factory_girl'
   gem 'hash_syntax'
   gem 'mocha', '0.10.0', require: false
   gem 'test_track'

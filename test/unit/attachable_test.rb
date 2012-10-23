@@ -73,7 +73,7 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test 'should say a edition does not have a thumbnail when it has no thumbnailable attachments' do
-    sample_csv = build(:attachment, attachment_data: build(:attachment_data, file: fixture_file_upload('sample-from-excel.csv', 'text/csv')))
+    sample_csv = build(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
 
     edition = build(:publication)
     edition.attachments << sample_csv
@@ -82,9 +82,9 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   def build_edition_with_three_attachments
-    @sample_csv = create(:attachment, attachment_data: create(:attachment_data, file: fixture_file_upload('sample-from-excel.csv', 'text/csv')))
-    @greenpaper_pdf = create(:attachment, attachment_data: create(:attachment_data, file: fixture_file_upload('greenpaper.pdf', 'application/pdf')))
-    @two_pages_pdf = create(:attachment, attachment_data: create(:attachment_data, file: fixture_file_upload('two-pages.pdf')))
+    @sample_csv = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
+    @greenpaper_pdf = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
+    @two_pages_pdf = create(:attachment, file: fixture_file_upload('two-pages.pdf'))
 
     edition = create(:publication)
     edition.attachments << @sample_csv
