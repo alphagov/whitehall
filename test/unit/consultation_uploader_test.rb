@@ -68,7 +68,8 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
   test "raises if ministerial roles in csv" do
     uploader = ConsultationUploader.new(
       import_as: create(:user),
-      csv_data: csv_sample("minister 1" => "some-ministerial-role")
+      csv_data: csv_sample("minister 1" => "some-ministerial-role"),
+      logger: @logger
     )
     assert_raises RuntimeError do
       uploader.upload
@@ -78,7 +79,8 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
   test "a response is added if a reponse date is specified in the csv" do
     uploader = ConsultationUploader.new(
       import_as: create(:user),
-      csv_data: csv_sample("response date" => "1/25/2012")
+      csv_data: csv_sample("response date" => "1/25/2012"),
+      logger: @logger
     )
     uploader.upload
     assert consultation = Consultation.first
