@@ -10,6 +10,10 @@ module NavigationHelpers
     home_path
   end
 
+  def ministers_page
+    ministerial_roles_path
+  end
+
   def path_to(page_name)
     case page_name
 

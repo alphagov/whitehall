@@ -21,8 +21,7 @@ Given /^the role "([^"]*)" has the responsibilities "([^"]*)"$/ do |role_name, r
 end
 
 When /^I visit the minister page for "([^"]*)"$/ do |name|
-  visit homepage
-  click_link "Ministers"
+  visit ministers_page
   click_link name
 end
 

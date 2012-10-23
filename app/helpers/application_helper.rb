@@ -180,6 +180,15 @@ module ApplicationHelper
     link_to(name, path, html_options.merge(class: classes.join(" ")), &block)
   end
 
+  def main_navigation_documents_class
+    document_paths = [publications_path, consultations_path, announcements_path]
+    if document_paths.include? current_main_navigation_path(params)
+      "current"
+    else
+      ""
+    end
+  end
+
   def current_main_navigation_path(parameters)
     case parameters[:controller]
     when "site"

@@ -2,7 +2,8 @@
   $.fn.toggler = function (options) {
     options = $.extend({
       header: '.toggle',
-      content: '.overlay'
+      content: '.overlay',
+      showArrow: true
     }, options);
     this.each(function(i, el){
       var wrapper = $(el),
@@ -19,13 +20,19 @@
         wrapper.addClass('toggleable');
 
         overlay.addClass('visuallyhidden');
-        overlay.prepend('<span class="arrow"></span>');
+        if (options.showArrow){
+          overlay.prepend('<span class="arrow"></span>');
+        }
 
         header.keyup(function(e) {
           if (e.which == 13) {
             e.preventDefault();
             toggle();
           }
+        });
+
+        header.click(function (e) {
+          e.preventDefault();
         });
 
         header.mouseup(function (e) {
