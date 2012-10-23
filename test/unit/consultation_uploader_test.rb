@@ -99,7 +99,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
   end
 
   test "attachments listed in the attachment columns in the CSV get downloaded and associated with the created edition" do
-    stub_request(:get, "http://example.com/beard_length_consultation.pdf").to_return(body: "some-data", status: 200)
+    stub_request(:get, "http://example.com/beard_length_consultation.pdf").to_return(body: "some-data".force_encoding("ASCII-8BIT"), status: 200)
 
     uploader = ConsultationUploader.new(
       import_as: create(:user),
@@ -118,8 +118,23 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     assert_equal "Beard length consultation", attachment.title
   end
 
+  test "source url is recorded for attachments" do
+    stub_request(:get, "http://example.com/beard_length_consultation.pdf").to_return(body: "some-data".force_encoding("ASCII-8BIT"), status: 200)
+
+    uploader = ConsultationUploader.new(
+      import_as: create(:user),
+      csv_data: csv_sample(
+        "attachment_1" => "http://example.com/beard_length_consultation.pdf",
+        "attachment_1_title" => "Beard length consultation"
+      ),
+      logger: @logger
+    )
+    uploader.upload
+    assert_equal "http://example.com/beard_length_consultation.pdf", Consultation.first.attachments.first.attachment_source.url
+  end
+
   test "attachments listed in the response attachment columns get downloaded and associated with the response" do
-    stub_request(:get, "http://example.com/beard_length_consultation_response.pdf").to_return(body: "some-response-data", status: 200)
+    stub_request(:get, "http://example.com/beard_length_consultation_response.pdf").to_return(body: "some-response-data".force_encoding("ASCII-8BIT"), status: 200)
 
     uploader = ConsultationUploader.new(
       import_as: create(:user),
@@ -139,8 +154,23 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     assert_equal "Beard length consultation response", attachment.title
   end
 
+  test "source url is recorded for response attachments" do
+    stub_request(:get, "http://example.com/beard_length_consultation_response.pdf").to_return(body: "some-data".force_encoding("ASCII-8BIT"), status: 200)
+
+    uploader = ConsultationUploader.new(
+      import_as: create(:user),
+      csv_data: csv_sample(
+        "response_1" => "http://example.com/beard_length_consultation_response.pdf",
+        "response_1_title" => "Beard length consultation response"
+      ),
+      logger: @logger
+    )
+    uploader.upload
+    assert_equal "http://example.com/beard_length_consultation_response.pdf", Consultation.first.response.attachments.first.attachment_source.url
+  end
+
   test "response attachments added even if no response date" do
-    stub_request(:get, "http://example.com/beard_length_consultation_response.pdf").to_return(body: "some-response-data", status: 200)
+    stub_request(:get, "http://example.com/beard_length_consultation_response.pdf").to_return(body: "some-response-data".force_encoding("ASCII-8BIT"), status: 200)
 
     uploader = ConsultationUploader.new(
       import_as: create(:user),
@@ -172,14 +202,15 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     assert_equal "title2", consultation.title
   end
 
-  test "timeout when fetching an attachment logs an error and skips the consultation" do
+  test "timeout when fetching an attachment logs an error and skips the attachment" do
     stub_request(:get, "http://example.com/beard_length_consultation.pdf").to_timeout
     data = csv_sample(
       {
+        "title" => "title",
         "attachment_1" => "http://example.com/beard_length_consultation.pdf",
         "attachment_1_title" => "Beard length consultation"
       },
-      [{"title" => "title2"}])
+      [{"old_url" => "http://example.com/2", "title" => "title2"}])
 
     uploader = ConsultationUploader.new(
       import_as: create(:user),
@@ -188,12 +219,14 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     )
     @logger.expects(:error)
     uploader.upload
-    assert_equal 1, Consultation.count
-    assert consultation = Consultation.first
-    assert_equal "title2", consultation.title
+    assert_equal 2, Consultation.count
+    c1, c2 = Consultation.all
+    assert_equal "title", c1.title
+    assert_equal 0, c1.attachments.count
+    assert_equal "title2", c2.title
   end
 
-  test "connection refused when fetching an attachment logs an error and skips the consultation" do
+  test "connection refused when fetching an attachment logs an error and skips the attachment" do
     url = "http://example.com/beard_length_consultation.pdf"
     stub_request(:get, url).to_raise(Errno::ECONNREFUSED)
     data = csv_sample("attachment_1" => url, "attachment_1_title" => "blc")
@@ -204,10 +237,11 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     )
     @logger.expects(:error)
     uploader.upload
-    assert_equal 0, Consultation.count
+    assert_equal 1, Consultation.count
+    assert_equal 0, Consultation.first.attachments.size
   end
 
-  test "connection reset when fetching an attachment logs an error and skips the consultation" do
+  test "connection reset when fetching an attachment logs an error and skips the attachment" do
     url = "http://example.com/beard_length_consultation.pdf"
     stub_request(:get, url).to_raise(Errno::ECONNRESET)
     data = csv_sample("attachment_1" => url, "attachment_1_title" => "blc")
@@ -218,7 +252,23 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     )
     @logger.expects(:error)
     uploader.upload
-    assert_equal 0, Consultation.count
+    assert_equal 1, Consultation.count
+    assert_equal 0, Consultation.first.attachments.size
+  end
+
+  test "404 when fetching an attachment logs an error and skips the attachment" do
+    url = "http://example.com/beard_length_consultation.pdf"
+    stub_request(:get, url).to_return(body: "not-found".force_encoding("ASCII-8BIT"), status: 404)
+    data = csv_sample("attachment_1" => url, "attachment_1_title" => "blc")
+    uploader = ConsultationUploader.new(
+      import_as: create(:user),
+      csv_data: data,
+      logger: @logger
+    )
+    @logger.expects(:error).with(regexp_matches(/404/))
+    uploader.upload
+    assert_equal 1, Consultation.count
+    assert_equal 0, Consultation.first.attachments.size
   end
 
   test "site-relative urls in the summary or body get prefixed with the original domain" do

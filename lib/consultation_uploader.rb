@@ -4,7 +4,7 @@ class ConsultationUploader
   def initialize(options = {})
     @csv_data = options[:csv_data]
     @creator = options[:import_as] || User.find_by_name!("Automatic Data Importer")
-    @logger = options[:logger] || Logger.new($stderr)
+    @logger = options[:logger] || Logger.new($stdout)
   end
 
   def upload
@@ -31,6 +31,7 @@ class ConsultationUploader
           @logger.warn("Document '#{source_url}' '#{title}' already uploaded, skipping")
           return
         end
+        @logger.info("\nBuilding '#{title}'...")
 
         opening_date = Date.strptime(row['opening_date'], "%m/%d/%Y")
         closing_date = Date.strptime(row['closing_date'], "%m/%d/%Y")
@@ -58,7 +59,11 @@ class ConsultationUploader
           attachments: fetch_and_create_attachments('attachment')
         )
         consultation.save!
-        DocumentSource.create!(document: consultation.document, url: row['old_url'])
+        response_description = if consultation.response.present?
+          " and a response with #{consultation.response.attachments.count} attachments"
+        end
+        @logger.info("#{consultation.id}: created '#{title}' with #{consultation.attachments.count} attachments" + response_description.to_s)
+        DocumentSource.create!(document: consultation.document, url: source_url)
       end
     rescue ActiveRecord::RecordInvalid, UnavailableAttachment => e
       @logger.error "Unable to upload '#{title}' because #{e}"
@@ -124,21 +129,40 @@ class ConsultationUploader
     def fetch_and_create_attachments(prefix)
       row.headers.grep(%r{#{prefix}_\d+$}).select { |h| row[h].present? }.map do |header|
         fetch_and_create_attachment(row[header], row["#{header}_title"])
-      end
+      end.compact
     end
 
     def fetch_and_create_attachment(url, attachment_title)
       uri = URI.parse(url)
+      @logger.info "Fetching #{url}"
       response = Net::HTTP.get_response(uri)
-      Dir.mktmpdir do |dir|
-        filename = File.basename(uri.path)
-        File.open(File.join(dir, filename), 'w') do |file|
-          file.write(response.body)
-          Attachment.create!(file: file, title: attachment_title)
+      if response.is_a?(Net::HTTPOK)
+        attachment = Dir.mktmpdir do |dir|
+          filename = File.basename(uri.path)
+          File.open(File.join(dir, filename), 'w', encoding: 'ASCII-8BIT') do |file|
+            file.write(response.body)
+            Attachment.create!(file: file, title: attachment_title)
+          end
         end
+        AttachmentSource.create!(attachment: attachment, url: url)
+        @logger.info "Got #{human_readable_size(response.body.size)} to #{attachment.file.path}"
+        attachment
+      else
+        @logger.error "Unable to fetch attachment '#{url}' for '#{title}', got response status #{response.code}.'"
+        nil
       end
     rescue Timeout::Error, Errno::ECONNREFUSED, Errno::ECONNRESET => e
-      raise UnavailableAttachment, "Unable to fetch attachment '#{url}' due to #{e.class}: '#{e.message}'", caller
+      @logger.error "Unable to fetch attachment '#{url}' for '#{title}' due to #{e.class}: '#{e.message}'"
+      nil
+    end
+
+    def human_readable_size(bytes)
+      count = 0
+      while bytes >= 1024 and count < 4
+        bytes /= 1024.0
+        count += 1
+      end
+      format("%.1f", bytes) + %w(B K M G T)[count]
     end
 
     def already_uploaded?
