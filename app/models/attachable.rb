@@ -65,4 +65,17 @@ module Attachable
   def indexable_attachment_content
     attachments.all.map { |a| "Attachment: #{a.title}" }.join(". ")
   end
+
+  module JoinModel
+    extend ActiveSupport::Concern
+
+    module ClassMethods
+      def attachable_join_model_for(class_name)
+        belongs_to :attachment, dependent: :destroy
+        belongs_to class_name
+
+        accepts_nested_attributes_for :attachment, reject_if: :all_blank
+      end
+    end
+  end
 end
