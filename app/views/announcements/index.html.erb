@@ -38,12 +38,10 @@
                 organisation_display_name(o) }.to_sentence.html_safe %>
             </td>
             <td class="attribute first_published_at">
-              <%= render_datetime_microformat(announcement, :first_published_at) {
-                    announcement.first_published_at.to_s(:long_ordinal)
-              }%>
+              <%= announcement.display_date_microformat %>
             </td>
             <td class="announcement_type attribute">
-              <%= announcement_type(announcement) %>
+              <%= announcement.display_announcement_type %>
             </td>
           <% end %>
         <% end %>

@@ -243,7 +243,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
     announcement_1 = create(:published_news_article, organisations: [organisation], published_at: 2.days.ago)
-    announcement_2 = create(:published_speech, role_appointment: role_appointment, published_at: 3.days.ago)
+    announcement_2 = create(:published_speech, role_appointment: role_appointment, delivered_on: 3.days.ago)
     announcement_3 = create(:published_news_article, organisations: [organisation], published_at: 4.days.ago)
     announcement_4 = create(:published_news_article, organisations: [organisation], published_at: 1.days.ago)
 
@@ -255,6 +255,34 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select_object(announcement_4)
       refute_select_object(announcement_3)
       assert_select "a[href='#{announcements_filter_path(organisation)}']"
+    end
+  end
+
+  test "should display the date on which a speech was delivered and its announcement type" do
+    organisation = create(:organisation)
+    role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:ministerial_role_appointment, role: role)
+    delivered_on = Date.parse("1999-12-31")
+    speech = create(:published_speech, role_appointment: role_appointment, delivered_on: delivered_on, speech_type: SpeechType::WrittenStatement)
+
+    get :show, id: organisation
+
+    assert_select_object(speech) do
+      assert_select "abbr.delivered_on[title=?]", delivered_on.iso8601
+      assert_select ".announcement-type", "Statement to parliament"
+    end
+  end
+
+  test "should display when a news article was first published and its announcement type" do
+    first_published_at = Time.zone.parse("2001-01-01 01:01")
+    organisation = create(:organisation)
+    news_article = create(:published_news_article, organisations: [organisation], published_at: first_published_at)
+
+    get :show, id: organisation
+
+    assert_select_object(news_article) do
+      assert_select "abbr.first_published_at[title=?]", first_published_at.iso8601
+      assert_select ".announcement-type", "News article"
     end
   end
 

@@ -36,13 +36,35 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index shows the date on which a speech was delivered" do
+    delivered_on = Date.parse("1999-12-31")
+    speech = create(:published_speech, delivered_on: delivered_on)
+
+    get :index
+
+    assert_select_object(speech) do
+     assert_select "abbr.delivered_on[title=?]", delivered_on.iso8601
+    end
+  end
+
+  test "index shows the time when a news article was first published" do
+    first_published_at = Time.zone.parse("2001-01-01 01:01")
+    news_article = create(:published_news_article, published_at: first_published_at)
+
+    get :index
+
+    assert_select_object(news_article) do
+     assert_select "abbr.first_published_at[title=?]", first_published_at.iso8601
+    end
+  end
+
   test "index shows related organisations for each type of article" do
     first_org = create(:organisation, name: 'first-org', acronym: "FO")
     second_org = create(:organisation, name: 'second-org', acronym: "SO")
     news_article = create(:published_news_article, published_at: 4.days.ago, organisations: [first_org, second_org])
     role = create(:ministerial_role, organisations: [second_org])
     role_appointment = create(:ministerial_role_appointment, role: role)
-    speech = create(:published_speech, published_at: 5.days.ago, role_appointment: role_appointment)
+    speech = create(:published_speech, delivered_on: 5.days.ago, role_appointment: role_appointment)
 
     get :index
 
@@ -56,7 +78,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index shows articles in reverse chronological order" do
-    oldest = create(:published_speech, published_at: 5.days.ago)
+    oldest = create(:published_speech, delivered_on: 5.days.ago)
     newest = create(:published_news_article, published_at: 4.days.ago)
 
     get :index
@@ -65,7 +87,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index shows articles in chronological order if date filter is 'after' a given date" do
-    oldest = create(:published_speech, published_at: 5.days.ago)
+    oldest = create(:published_speech, delivered_on: 5.days.ago)
     newest = create(:published_news_article, published_at: 4.days.ago)
 
     get :index, direction: 'after', date: 6.days.ago.to_s
@@ -82,7 +104,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index shows only the first 20 news articles or speeches" do
     news = (0...15).map { |n| create(:published_news_article, published_at: n.days.ago) }
-    speeches = (15...25).map { |n| create(:published_speech, published_at: n.days.ago) }
+    speeches = (15...25).map { |n| create(:published_speech, delivered_on: n.days.ago) }
 
     get :index
 
@@ -94,13 +116,13 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index shows the requested page" do
     news = (0...15).map { |n| create(:published_news_article, published_at: n.days.ago) }
-    speeches = (15...25).map { |n| create(:published_speech, published_at: n.days.ago) }
+    speeches = (15...25).map { |n| create(:published_speech, delivered_on: n.days.ago) }
 
     get :index, page: 2
 
     assert_documents_appear_in_order_within("#announcements-container", speeches[5..10])
     (news + speeches[0...5]).each do |speech|
       refute_select_object(speech)
-    end    
+    end
   end
 end
