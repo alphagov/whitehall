@@ -32,6 +32,7 @@ class ConsultationUploader
           return
         end
         @logger.info("\nBuilding '#{title}'...")
+        @logger.info("  (originally scraped from #{source_url})")
 
         opening_date = Date.strptime(row['opening_date'], "%m/%d/%Y")
         closing_date = Date.strptime(row['closing_date'], "%m/%d/%Y")
