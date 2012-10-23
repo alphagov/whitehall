@@ -6,7 +6,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.stubs(:index).with(search_index_data, Whitehall.government_search_index_name)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     person.forename = 'Jim'
     person.save
@@ -18,7 +18,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
     Rummageable.stubs(:index) # ignore the update to the organisation index
-    Rummageable.stubs(:index).with(search_index_data, Whitehall.government_search_index_name)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
 
     organisation.name = 'Ministry of Funk'
     organisation.save
