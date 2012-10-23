@@ -238,7 +238,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display 3 announcements with a link to announcements filter if there are many announcements" do
+  test "should display announcements in reverse chronological order" do
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
@@ -249,11 +249,25 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
+    assert_equal [announcement_4, announcement_1, announcement_2], assigns[:announcements]
+  end
+
+  test "should display 3 announcements with a link to announcements filter if there are many announcements" do
+    organisation = create(:organisation)
+    role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:ministerial_role_appointment, role: role)
+    announcement_1 = create(:published_news_article, organisations: [organisation], published_at: 1.days.ago)
+    announcement_2 = create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago)
+    announcement_3 = create(:published_news_article, organisations: [organisation], published_at: 3.days.ago)
+    announcement_4 = create(:published_news_article, organisations: [organisation], published_at: 4.days.ago)
+
+    get :show, id: organisation
+
     assert_select '#announcements' do
       assert_select_object(announcement_1)
       assert_select_object(announcement_2)
-      assert_select_object(announcement_4)
-      refute_select_object(announcement_3)
+      assert_select_object(announcement_3)
+      refute_select_object(announcement_4)
       assert_select "a[href='#{announcements_filter_path(organisation)}']"
     end
   end
