@@ -107,16 +107,8 @@ module API
     end
 
     test "json should list attachments" do
-      pdf = create(:attachment,
-        attachment_data: create(:attachment_data,
-          file: fixture_file_upload("two-pages.pdf")
-        )
-      )
-      csv = create(:attachment,
-        attachment_data: create(:attachment_data,
-          file: fixture_file_upload("sample-from-excel.csv")
-        )
-      )
+      pdf = create(:attachment, file: fixture_file_upload("two-pages.pdf"))
+      csv = create(:attachment, file: fixture_file_upload("sample-from-excel.csv"))
 
       consultation = create(:published_consultation)
       consultation.attachments << pdf

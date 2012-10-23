@@ -41,8 +41,7 @@ module AdminEditionAttachableControllerTestHelpers
 
       test 'show displays edition attachments' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
-        attachment_data = create(:attachment_data, file: two_page_pdf)
-        attachment = create(:attachment, title: "attachment-title", attachment_data: attachment_data)
+        attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
         edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
 
         get :show, id: edition
@@ -209,8 +208,7 @@ module AdminEditionAttachableControllerTestHelpers
 
       test 'edit displays edition attachment fields' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
-        attachment_data = create(:attachment_data, file: two_page_pdf)
-        attachment = create(:attachment, title: "attachment-title", attachment_data: attachment_data)
+        attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
         edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
 
         get :edit, id: edition
