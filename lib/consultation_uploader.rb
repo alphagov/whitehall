@@ -141,6 +141,10 @@ class ConsultationUploader
           filename = File.basename(uri.path)
           File.open(File.join(dir, filename), 'w', encoding: 'ASCII-8BIT') do |file|
             file.write(response.body)
+            if attachment_title.blank?
+              attachment_title = "Unknown"
+              @logger.warn "Attachment #{url} missing a title, set to '#{attachment_title}'"
+            end
             Attachment.create!(file: file, title: attachment_title)
           end
         end

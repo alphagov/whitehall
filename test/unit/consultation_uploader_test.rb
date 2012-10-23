@@ -118,6 +118,23 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     assert_equal "Beard length consultation", attachment.title
   end
 
+  test "attachment missing a title is still uploaded with warning" do
+    stub_request(:get, "http://example.com/beard_length_consultation.pdf").to_return(body: "some-data".force_encoding("ASCII-8BIT"), status: 200)
+
+    uploader = ConsultationUploader.new(
+      import_as: create(:user),
+      csv_data: csv_sample(
+        "attachment_1" => "http://example.com/beard_length_consultation.pdf",
+        "attachment_1_title" => ""
+      ),
+      logger: @logger
+    )
+    @logger.expects(:warn)
+    uploader.upload
+    assert attachment = Consultation.first.attachments.first
+    assert_equal "Unknown", attachment.title
+  end
+
   test "source url is recorded for attachments" do
     stub_request(:get, "http://example.com/beard_length_consultation.pdf").to_return(body: "some-data".force_encoding("ASCII-8BIT"), status: 200)
 
