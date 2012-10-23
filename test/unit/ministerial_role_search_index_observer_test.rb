@@ -24,6 +24,20 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     organisation.save
   end
 
+  test 'should not reindex all ministerial roles when an organisation is updated if observer is disabled' do
+    organisation = create(:organisation)
+
+    search_index_data = stub('search index data')
+    MinisterialRole.stubs(:search_index).returns(search_index_data)
+    Rummageable.stubs(:index).with(has_entry("format" => "organisation"), anything) # ignore the update to the organisation index
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name).never
+
+    organisation.name = 'Ministry of Funk'
+    MinisterialRoleSearchIndexObserver.while_disabled do
+      organisation.save
+    end
+  end
+
   test 'should reindex all ministerial roles when a role appointment is created' do
     role_appointment = build(:ministerial_role_appointment)
 
