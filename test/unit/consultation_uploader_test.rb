@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'test_helper'
 
 class ConsultationUploaderTest < ActiveSupport::TestCase
@@ -305,6 +307,19 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     assert consultation = Consultation.first
     assert_equal "[Summary link](http://example.com/summary/) [Absolute link](http://other.com/)", consultation.summary
     assert_equal "[Body link](http://example.com/body/)", consultation.body
+  end
+
+  test "ISO-8859-1 encoded file is recoded to UTF-8" do
+    uploader = ConsultationUploader.new(
+      import_as: create(:user),
+      csv_data: File.open(File.dirname(__FILE__) + "/../fixtures/consultation_uploader_test_sample_iso_8859_1.csv", encoding: "ISO-8859-1"),
+      logger: @logger
+    )
+    uploader.upload
+    assert consultation = Consultation.first
+    assert_equal "Café", consultation.title
+    assert_equal 5, consultation.title.bytesize
+    assert_equal Encoding.find("UTF-8"), consultation.title.encoding
   end
 
 private
