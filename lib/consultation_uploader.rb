@@ -8,7 +8,7 @@ class ConsultationUploader
   end
 
   def upload
-    data = CSV.new(@csv_data, headers: true, encoding: "UTF-8")
+    data = CSV.new(@csv_data, headers: true)
     data.each do |row|
       RowUploader.new(row, @creator, @logger).upload
     end
