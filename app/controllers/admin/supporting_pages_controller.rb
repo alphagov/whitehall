@@ -64,10 +64,6 @@ class Admin::SupportingPagesController < Admin::BaseController
   end
 
   def build_attachment
-    unless @supporting_page.supporting_page_attachments.any?(&:new_record?)
-      supporting_page_attachment = @supporting_page.supporting_page_attachments.build
-      supporting_page_attachment.build_attachment
-      supporting_page_attachment.attachment.build_attachment_data
-    end
+    @supporting_page.build_empty_attachment
   end
 end

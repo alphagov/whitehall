@@ -11,10 +11,6 @@ module Admin::EditionsController::Attachments
   end
 
   def build_edition_attachment
-    unless @edition.edition_attachments.any?(&:new_record?)
-      edition_attachment = @edition.edition_attachments.build
-      edition_attachment.build_attachment
-      edition_attachment.attachment.build_attachment_data
-    end
+    @edition.build_empty_attachment
   end
 end
