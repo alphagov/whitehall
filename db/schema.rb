@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019110948) do
+ActiveRecord::Schema.define(:version => 20121023105500) do
+
+  create_table "attachment_sources", :force => true do |t|
+    t.integer "attachment_id"
+    t.string  "url"
+  end
 
   create_table "attachments", :force => true do |t|
     t.string   "carrierwave_file"
@@ -128,6 +133,11 @@ ActiveRecord::Schema.define(:version => 20121019110948) do
   end
 
   add_index "document_series", ["slug"], :name => "index_document_series_on_slug"
+
+  create_table "document_sources", :force => true do |t|
+    t.integer "document_id"
+    t.string  "url"
+  end
 
   create_table "documents", :force => true do |t|
     t.datetime "created_at"
