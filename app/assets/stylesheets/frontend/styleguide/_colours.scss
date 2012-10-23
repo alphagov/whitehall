@@ -12,7 +12,7 @@ $inside-gov-nav: #333;
 $inside-gov-nav-dropdown: #888;
 
 // Text colours
-$body-text: #2B2C2D;
+$body-text: #0B0C0C;
 $low-contrast: lighten($body-text, 50%);
 $link-text: $inside-gov-brand;
 $detailed-guidance-link-text: $detailed-guidance-brand;
@@ -23,6 +23,38 @@ $light-keyline: $light-blue-grey;
 // Background colours
 $info-background: $light-warm-grey;
 $info-background-hover: darken($light-warm-grey, 5%);
+
+
+
+
+
+// Web safe department colours
+
+$department-for-environment-food-and-rural-affairs-websafe: #67650f;
+$department-for-transport-websafe: #398373;
+$department-of-health-websafe: #39836e;
+$department-for-communities-and-local-government-websafe: #37836e;
+$department-for-work-and-pensions-websafe: #37807b;
+$department-for-energy-and-climate-change-websafe: #2b7cac;
+$department-for-business-innovation-and-skills-websafe: #347da4;
+$cabinet-office-websafe: #347da4;
+$hm-government-websafe: #347da4;
+$department-for-education-websafe: #347ca9;
+$foreign-and-commonwealth-office-websafe: #406e97;
+$scotland-office-websafe: #405c8a;
+$department-for-international-development-websafe: #405e9a;
+$home-office-websafe: #9440b2;
+$government-equalities-office-websafe: #9440b2;
+$attorney-generals-office-websafe: #a03a88;
+$ministry-of-defence-websafe: #5A5C92;
+$department-for-culture-media-and-sport-websafe: #a03155;
+$wales-office-websafe: #7a242a;
+$ministry-of-justice-websafe: #5A5C92;
+$treasury-websafe: #832322;
+
+
+
+
 
 
 // Usage:
@@ -39,25 +71,49 @@ $info-background-hover: darken($light-warm-grey, 5%);
 //     }
 
 @mixin department-colours($selector, $property) {
-  .hm-government #{$selector} { #{$property}: $hm-government; }
-  .treasury #{$selector} { #{$property}: $treasury; }
-  .cabinet-office #{$selector} { #{$property}: $cabinet-office; }
-  .department-for-education #{$selector} { #{$property}: $department-for-education; }
-  .department-for-transport #{$selector} { #{$property}: $department-for-transport; }
-  .home-office #{$selector} { #{$property}: $home-office; }
-  .department-of-health #{$selector} { #{$property}: $department-of-health; }
-  .ministry-of-justice #{$selector} { #{$property}: $ministry-of-justice; }
-  .ministry-of-defence #{$selector} { #{$property}: $ministry-of-defence; }
-  .foreign-and-commonwealth-office #{$selector} { #{$property}: $foreign-and-commonwealth-office; }
-  .department-for-communities-and-local-government #{$selector} { #{$property}: $department-for-communities-and-local-government; }
-  .department-for-energy-and-climate-change #{$selector} { #{$property}: $department-for-energy-and-climate-change; }
-  .department-for-culture-media-and-sport #{$selector} { #{$property}: $department-for-culture-media-and-sport; }
   .department-for-environment-food-and-rural-affairs #{$selector} { #{$property}: $department-for-environment-food-and-rural-affairs; }
+  .department-for-transport #{$selector} { #{$property}: $department-for-transport; }
+  .department-of-health #{$selector} { #{$property}: $department-of-health; }
+  .department-for-communities-and-local-government #{$selector} { #{$property}: $department-for-communities-and-local-government; }
   .department-for-work-and-pensions #{$selector} { #{$property}: $department-for-work-and-pensions; }
+  .department-for-energy-and-climate-change #{$selector} { #{$property}: $department-for-energy-and-climate-change; }
   .department-for-business-innovation-and-skills #{$selector} { #{$property}: $department-for-business-innovation-and-skills; }
+  .cabinet-office #{$selector} { #{$property}: $cabinet-office; }
+  .hm-government #{$selector} { #{$property}: $hm-government; }
+  .department-for-education #{$selector} { #{$property}: $department-for-education; }
+  .foreign-and-commonwealth-office #{$selector} { #{$property}: $foreign-and-commonwealth-office; }
+  .scotland-office #{$selector} { #{$property}: $scotland-office; }
   .department-for-international-development #{$selector} { #{$property}: $department-for-international-development; }
+  .home-office #{$selector} { #{$property}: $home-office; }
   .government-equalities-office #{$selector} { #{$property}: $government-equalities-office; }
   .attorney-generals-office #{$selector} { #{$property}: $attorney-generals-office; }
-  .scotland-office #{$selector} { #{$property}: $scotland-office; }
+  .ministry-of-defence #{$selector} { #{$property}: $ministry-of-defence; }
+  .department-for-culture-media-and-sport #{$selector} { #{$property}: $department-for-culture-media-and-sport; }
   .wales-office #{$selector} { #{$property}: $wales-office; }
+  .ministry-of-justice #{$selector} { #{$property}: $ministry-of-justice; }
+  .treasury #{$selector} { #{$property}: $treasury; }
+}
+
+@mixin websafe-department-colours($selector, $property) {
+  .department-for-environment-food-and-rural-affairs #{$selector} { #{$property}: $department-for-environment-food-and-rural-affairs-websafe; }
+  .department-for-transport #{$selector} { #{$property}: $department-for-transport-websafe; }
+  .department-of-health #{$selector} { #{$property}: $department-of-health-websafe; }
+  .department-for-communities-and-local-government #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
+  .department-for-work-and-pensions #{$selector} { #{$property}: $department-for-work-and-pensions-websafe; }
+  .department-for-energy-and-climate-change #{$selector} { #{$property}: $department-for-energy-and-climate-change-websafe; }
+  .department-for-business-innovation-and-skills #{$selector} { #{$property}: $department-for-business-innovation-and-skills-websafe; }
+  .cabinet-office #{$selector} { #{$property}: $cabinet-office-websafe; }
+  .hm-government #{$selector} { #{$property}: $hm-government-websafe; }
+  .department-for-education #{$selector} { #{$property}: $department-for-education-websafe; }
+  .foreign-and-commonwealth-office #{$selector} { #{$property}: $foreign-and-commonwealth-office-websafe; }
+  .scotland-office #{$selector} { #{$property}: $scotland-office-websafe; }
+  .department-for-international-development #{$selector} { #{$property}: $department-for-international-development-websafe; }
+  .home-office #{$selector} { #{$property}: $home-office-websafe; }
+  .government-equalities-office #{$selector} { #{$property}: $government-equalities-office-websafe; }
+  .attorney-generals-office #{$selector} { #{$property}: $attorney-generals-office-websafe; }
+  .ministry-of-defence #{$selector} { #{$property}: $ministry-of-defence-websafe; }
+  .department-for-culture-media-and-sport #{$selector} { #{$property}: $department-for-culture-media-and-sport-websafe; }
+  .wales-office #{$selector} { #{$property}: $wales-office-websafe; }
+  .ministry-of-justice #{$selector} { #{$property}: $ministry-of-justice-websafe; }
+  .treasury #{$selector} { #{$property}: $treasury-websafe; }
 }
