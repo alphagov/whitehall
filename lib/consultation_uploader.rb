@@ -8,13 +8,26 @@ class ConsultationUploader
   end
 
   def upload
-    data = CSV.new(@csv_data, headers: true)
+    data = CSV.new(read_and_validate_input(@csv_data), headers: true)
     data.each do |row|
       RowUploader.new(row, @creator, @logger).upload
     end
   end
 
+  def csv_data
+    validate_encoding()
+  end
+
+  def read_and_validate_input(csv_data)
+    csv_string = csv_data.respond_to?(:read) ? csv_data.read : csv_data
+    if ! csv_string.valid_encoding?
+      raise InvalidEncoding, "Invalid character encoding in CSV input", caller
+    end
+    csv_string
+  end
+
   class UnavailableAttachment < RuntimeError; end
+  class InvalidEncoding < RuntimeError; end
 
   class RowUploader
     attr_reader :row

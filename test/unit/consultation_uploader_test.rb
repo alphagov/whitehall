@@ -322,6 +322,16 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     assert_equal Encoding.find("UTF-8"), consultation.title.encoding
   end
 
+  test "Error raised if encoding is invalid" do
+    assert_raises ConsultationUploader::InvalidEncoding do
+      ConsultationUploader.new(
+        import_as: create(:user),
+        csv_data: StringIO.new("\xA0", 'r'),
+        logger: @logger
+      ).upload
+    end
+  end
+
 private
   def csv_sample(additional_fields = {}, extra_rows = [])
     data = default_row.merge(additional_fields)
