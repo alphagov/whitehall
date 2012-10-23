@@ -40,7 +40,7 @@ class ActiveSupport::TestCase
   end
 
   def assert_same_elements(array1, array2)
-    assert_equal array1.sort, array2.sort, "Different elements in #{array1.inspect} and #{array2}.inspect"
+    assert_equal array1.to_set, array2.to_set, "Different elements in #{array1.inspect} and #{array2}.inspect"
   end
 
   def count_queries
