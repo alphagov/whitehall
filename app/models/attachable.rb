@@ -32,6 +32,15 @@ module Attachable
     class_attribute :attachment_join_table_name
   end
 
+  def build_empty_attachment
+    attachment_join_model_instances = send(self.class.attachment_join_table_name)
+    unless attachment_join_model_instances.any?(&:new_record?)
+      join_model_instance = attachment_join_model_instances.build
+      attachment_instance = join_model_instance.build_attachment
+      attachment_instance.build_attachment_data
+    end
+  end
+
   def allows_attachments?
     true
   end
