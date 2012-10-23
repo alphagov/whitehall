@@ -146,7 +146,9 @@ class ConsultationUploader
               attachment_title = "Unknown"
               @logger.warn "Attachment #{url} missing a title, set to '#{attachment_title}'"
             end
-            Attachment.create!(file: file, title: attachment_title)
+            attachment = Attachment.create!(title: attachment_title)
+            attachment.create_attachment_data!(file: file)
+            attachment
           end
         end
         AttachmentSource.create!(attachment: attachment, url: url)
