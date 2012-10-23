@@ -95,4 +95,18 @@ class SpeechTest < EditionTestCase
 
     assert_equal person, speech.person
   end
+
+  test ".in_chronological_order returns speeches in ascending order of delivered_on" do
+    jan = create(:speech, delivered_on: Date.parse("2011-01-01"))
+    mar = create(:speech, delivered_on: Date.parse("2011-03-01"))
+    feb = create(:speech, delivered_on: Date.parse("2011-02-01"))
+    assert_equal [jan, feb, mar], Speech.in_chronological_order.all
+  end
+
+  test ".in_reverse_chronological_order returns speeches in descending order of delivered_on" do
+    jan = create(:speech, delivered_on: Date.parse("2011-01-01"))
+    mar = create(:speech, delivered_on: Date.parse("2011-03-01"))
+    feb = create(:speech, delivered_on: Date.parse("2011-02-01"))
+    assert_equal [mar, feb, jan], Speech.in_reverse_chronological_order.all
+  end
 end

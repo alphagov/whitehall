@@ -20,4 +20,8 @@ class Speech < Announcement
     self.edition_organisations = []
     self.organisations = role_appointment.role.organisations
   end
+
+  def set_timestamp_for_sorting
+    self.timestamp_for_sorting = delivered_on
+  end
 end
