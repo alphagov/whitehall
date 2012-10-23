@@ -5,6 +5,7 @@ class Attachment < ActiveRecord::Base
 
   has_many :edition_attachments
   has_many :editions, through: :edition_attachments
+  has_one :attachment_source
 
   VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.']
 
