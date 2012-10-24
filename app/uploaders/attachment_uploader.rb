@@ -10,6 +10,7 @@ class AttachmentUploader < WhitehallUploader
 
   process :set_content_type
   after :retrieve_from_cache, :set_content_type
+  before :cache, :validate_zipfile_contents!
 
   version :thumbnail, if: :pdf? do
     def full_filename(for_file)
@@ -46,6 +47,39 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def extension_white_list
-    %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx)
+    %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip)
   end
+
+  class ZipFile
+    def initialize(zip_path)
+      @zip_path = zip_path
+    end
+
+    def filenames
+      @filenames ||= `#{Whitehall.system_binaries[:zipinfo]} -1 "#{@zip_path}"`.split(/[\r\n]+/)
+    end
+
+    def extensions
+      filenames.map do |f|
+        if match = f.match(/\.([^\.]+)\Z/)
+          match[1]
+        else
+          nil
+        end
+      end.compact
+    end
+  end
+
+  def validate_zipfile_contents!(new_file)
+    extension = new_file.extension.to_s
+    return unless extension == 'zip'
+    present_extensions = ZipFile.new(new_file.path).extensions.uniq
+    whitelist = extension_white_list - ['zip']
+    illegal_extensions = present_extensions - whitelist
+    if illegal_extensions.any?
+      raise CarrierWave::IntegrityError, "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{extension_white_list.inspect}"
+    end
+  end
+
+
 end

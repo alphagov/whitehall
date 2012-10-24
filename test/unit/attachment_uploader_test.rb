@@ -3,9 +3,9 @@ require 'test_helper'
 class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test 'should only allow PDF, CSV, RTF, PNG, JPG, DOC, DOCX, XLS, XLSX, PPT, PPTX attachments' do
+  test 'should only allow PDF, CSV, RTF, PNG, JPG, DOC, DOCX, XLS, XLSX, PPT, PPTX, ZIP attachments' do
     uploader = AttachmentUploader.new
-    assert_equal %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx), uploader.extension_white_list
+    assert_equal %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip), uploader.extension_white_list
   end
 
   test "should store uploads in a directory that persists across deploys" do
@@ -24,6 +24,26 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     assert_nil uploader.thumbnail.path
 
     AttachmentUploader.enable_processing = false
+  end
+
+  test "should be able to attach a zip file" do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader.store!(fixture_file_upload('sample_attachment.zip'))
+    assert uploader.file.present?
+  end
+
+  test "zip file containing a non-whitelisted format should be rejected" do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    assert_raises CarrierWave::IntegrityError do
+      uploader.store!(fixture_file_upload('sample_attachment_containing_exe.zip'))
+    end
+  end
+
+  test "zip file containing a zip file should be rejected" do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    assert_raises CarrierWave::IntegrityError do
+      uploader.store!(fixture_file_upload('sample_attachment_containing_zip.zip'))
+    end
   end
 end
 
