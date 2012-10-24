@@ -8,8 +8,9 @@
 
     .subscribe {
       position: absolute;
-      right: 0;
-      bottom: ($gutter + $gutter-two-thirds);
+      right: $gutter-two-thirds;
+      bottom: -320px;
+      z-index:3;
     }
   }
 
