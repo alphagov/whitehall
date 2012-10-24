@@ -26,6 +26,7 @@ class OrganisationsController < PublicFacingController
 
   def about
     @corporate_publications = @organisation.corporate_publications.published
+    @corporate_information_pages = @organisation.corporate_information_pages
   end
 
   def consultations

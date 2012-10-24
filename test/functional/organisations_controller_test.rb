@@ -358,13 +358,6 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   SUBPAGE_ACTIONS.each do |action|
-    test "should show social media accounts on organisation #{action} subpage" do
-      social_media_account = create(:social_media_account)
-      organisation = create(:organisation, social_media_accounts: [social_media_account])
-      get action, id: organisation
-      assert_select ".social-media-accounts"
-    end
-
     test "should show description on organisation #{action} subpage" do
       organisation = create(:organisation, description: "organisation-description")
       get action, id: organisation

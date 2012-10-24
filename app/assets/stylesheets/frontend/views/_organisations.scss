@@ -748,7 +748,6 @@
   @include websafe-department-colours(".social-media-link .connect", background-color);
   @include websafe-department-colours("a", color);
 }
-
 .organisations-external {
   @include media(desktop){
     .block-2 {
@@ -795,4 +794,85 @@
     margin-top: 0;
   }
 }
+.organisations-about {
+  @include department-colours('a', color);
+
+  @include media(desktop){
+    .block-1 {
+      width: 33%;
+      float: left;
+    }
+    .block-2 {
+      width: 66%;
+      float: right;
+    }
+  }
+
+  .page-header {
+    padding: $gutter-half 0;
+  }
+
+  nav {
+    @include core-14;
+    padding: $gutter 0;
+    ol {
+      li {
+        list-style: disc;
+        margin-left: 1.2em;
+      }
+    }
+  }
+  .main {
+    @include core-48;
+
+    @include media(desktop){
+      margin-top: $gutter*2;
+    }
+  }
+  .description {
+    @include core-27;
+  }
+  .body {
+    h2 {
+      border-bottom: 1px solid $light-keyline;
+    }
+  }
+  .corporate-info {
+    padding-top: $gutter-half;
+
+    h1 {
+      @include core-27;
+      border-bottom: 4px solid;
+    }
+    h2 {
+      @include core-16;
+      padding-top: $gutter-two-thirds;
+    }
+
+    ul {
+      li {
+        list-style: none;
+        border-bottom: 1px solid $light-keyline;
+        padding: $gutter-one-sixth 0;
+
+        h3 {
+          @include core-19;
+          padding: 0;
+        }
+        .metadata {
+          @include core-14;
+          padding: 0;
+        }
+      }
+    }
+    .transparancy {
+      a {
+        @include core-19;
+      }
+    }
+  }
+  @include department-colours('.corporate-info h1', border-color);
+}
+
+
 
