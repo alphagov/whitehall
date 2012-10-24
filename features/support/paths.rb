@@ -7,7 +7,8 @@ module NavigationHelpers
   #
 
   def homepage
-    home_path
+    # temporary substitute for the real home page until it has proper navigation links
+    organisations_path
   end
 
   def ministers_page
