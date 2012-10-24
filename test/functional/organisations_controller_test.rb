@@ -112,11 +112,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'external'
   end
 
-  test "shows a thumbnail link of the organisation site when joining" do
+  test "shows a link and thumbnail link of the organisation site when joining" do
     organisation = create(:organisation, govuk_status: 'joining', url: 'http://example.com')
 
     get :show, id: organisation
 
+    assert_select ".url a[href=?]", organisation.url
     assert_select ".thumbnail" do
       assert_select "a[href=?]", organisation.url do
         assert_select "img[src$=?]", "#{organisation.slug}.png"
@@ -124,18 +125,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows a thumbnail link of the organisation site when exempt" do
+  test "shows a link and thumbnail link of the organisation site when exempt" do
     organisation = create(:organisation, govuk_status: 'exempt', url: 'http://example.com')
 
     get :show, id: organisation
 
+    assert_select ".url a[href=?]", organisation.url
     assert_select ".thumbnail" do
       assert_select "a[href=?]", organisation.url do
         assert_select "img[src$=?]", "#{organisation.slug}.png"
       end
     end
   end
-
 
   test "should not display an empty published policies section" do
     organisation = create(:organisation)
