@@ -150,6 +150,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           documentFilter.updateAtomFeed(data);
           if (data.results) {
             documentFilter.drawTable(data);
+            documentFilter.liveResultSummary(data, documentFilter.currentPageState());
           }
           var newUrl = url + "?" + $form.serialize();
           history.pushState(documentFilter.currentPageState(), null, newUrl);
@@ -162,12 +163,36 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         }
       });
     },
+    liveResultSummary: function(data, formStatus){
+      $(".selections").html("");
+      $(".results .count span").text(data.total_count);
+
+
+      $(".selections").html("<span class='publication_type-selections chosen'></span> in <span class='topics-selections chosen'></span> and published by <span class='departments-selections chosen'></span>");
+
+      var i = formStatus.selected.length;
+
+      while(i--){
+        var j = formStatus.selected[i].title.length;
+        while(j--){
+          $("."+formStatus.selected[i].id+"-selections")
+            .append("<span>"+formStatus.selected[i].title[j]+" <a href='' title='Remove this filter'>x</a></span> ");
+        }
+      }  
+      
+
+    },
     currentPageState: function() {
       return {
         html: $('.filter-results').html(),
         selected: $.map(documentFilter.$form.find('select'), function(n) {
           var $n = $(n);
-          return {id: $n.attr('id'), value: $n.val()};
+          var id = $n.attr('id');
+          var titles = [];
+          $("#" + id  + " option:selected").each(function(){
+            titles.push($(this).text());
+          });
+          return {id: id, value: $n.val(), title: titles};
         }),
         text: $.map(documentFilter.$form.find('input[type=text]'), function(n) {
           var $n = $(n);

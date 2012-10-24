@@ -18,7 +18,31 @@
     }
     fieldset {
       position: relative;
-
+      .results{
+        background-color:white;
+        clear:both;
+        margin-left:-1em;
+        margin-right:-1em;
+        padding:0 0 0 $gutter;
+        .count{
+          @include core-27;          
+        }
+        .selections{
+          clear:both;
+          padding-top:$gutter-one-third;
+        }
+        input{
+          width: 30%;
+          float:left;
+          margin-right:$gutter;
+        }
+        .chosen span,
+        .chosen span{
+          background-color: $info-background;
+          padding:0 $gutter-one-third;
+          display: inline-block;
+        }
+      }
       .filter {
         width: 100%;
         float: left;
