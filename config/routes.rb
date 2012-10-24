@@ -27,7 +27,7 @@ Whitehall::Application.routes.draw do
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "home#sunset"
     match '/home' => redirect("")
-    match '/feed' => 'home#show', constraints: { format: :atom }, as: :atom_feed
+    match '/feed' => 'home#feed', constraints: { format: :atom }, as: :atom_feed
     match '/tour' => redirect("/tour", prefix: "")
 
     resources :announcements, only: [:index], path: 'announcements'

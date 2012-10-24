@@ -10,7 +10,7 @@ class HomeControllerTest < ActionController::TestCase
   test 'Atom feed has the right elements' do
     create_published_documents
 
-    get :show, format: :atom
+    get :feed, format: :atom
 
     assert_select_atom_feed do
       assert_select 'feed > id', 1
@@ -37,7 +37,7 @@ class HomeControllerTest < ActionController::TestCase
     create_published_documents
     draft_documents = create_draft_documents
 
-    get :show, format: :atom
+    get :feed, format: :atom
 
     documents = Edition.published.by_published_at
     recent_documents = documents[0...10]

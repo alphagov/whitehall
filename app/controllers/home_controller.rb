@@ -2,7 +2,7 @@ class HomeController < PublicFacingController
   layout 'frontend'
   before_filter :set_search_path_home, only: [:sunset]
 
-  def show
+  def feed
     @recently_updated = Edition.published.by_published_at.includes(:document, :organisations).limit(10)
   end
 
