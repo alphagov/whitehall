@@ -40,6 +40,9 @@ class PublicationType
   end
 
   PolicyPaper            = create(id: 1, singular_name: "Policy paper", plural_name: "Policy papers", prevalence: :primary)
+
+  Consultation           = create(id: 16, singular_name: "Consultation", plural_name: "Consultations", prevalence: :primary)
+
   ImpactAssessment       = create(id: 2, singular_name: "Impact assessment", plural_name: "Impact assessments", prevalence: :primary)
   Guidance               = create(id: 3, singular_name: "Guidance", plural_name: "Guidance", prevalence: :primary)
   Form                   = create(id: 4, singular_name: "Form", plural_name: "Forms", prevalence: :primary)

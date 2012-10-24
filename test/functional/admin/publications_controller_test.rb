@@ -46,6 +46,14 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "new doesn't allow consultation to be chosen as the type" do
+    get :new
+
+    assert_select "select[name='edition[publication_type_id]']" do
+      assert_select "option", text: PublicationType::Consultation.singular_name, count: 0
+    end
+  end
+
   test "new should allow users to add publication metadata to an attachment" do
     get :new
 
