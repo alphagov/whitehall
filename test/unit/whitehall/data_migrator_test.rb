@@ -35,6 +35,18 @@ module Whitehall
       @migrator.run
     end
 
+    test "#run runs data migrations in timestamp order" do
+      earlier_migration = stub("earlier-migration", version: "20100101120000")
+      later_migration = stub("later-migration", version: "20100101120001")
+      chronological_order = sequence("chronological-order")
+      @migrator.stubs(:due).returns([later_migration, earlier_migration])
+
+      earlier_migration.expects(:run).in_sequence(chronological_order)
+      later_migration.expects(:run).in_sequence(chronological_order)
+
+      @migrator.run
+    end
+
     test "#due returns all migrations except those which have already been run" do
       assert_equal ['20100101120000_migrate_some_data.rb'], @migrator.due.map(&:filename)
       DataMigrationRecord.create!(version: "20100101120000")
