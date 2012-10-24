@@ -195,7 +195,7 @@
       }
     }
     .content {
-      padding: $gutter-half $gutter-half 0;
+      padding: $gutter-half $gutter-half $gutter-one-third;
     }
     h2 {
       @include core-27;
