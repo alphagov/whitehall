@@ -38,6 +38,12 @@ module Whitehall
       'whitehall-admin.production.alphagov.co.uk'
     ]
 
+    def system_binaries
+      {
+        zipinfo: "/usr/bin/zipinfo"
+      }
+    end
+
     def asset_host
       ENV['GOVUK_ASSET_HOST']
     end
