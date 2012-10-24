@@ -15,6 +15,10 @@
     text-decoration: none;
     color: $inside-gov-nav;
 
+    @include media(desktop){
+      display: inline-block;
+    }
+
     &:hover,
     &:focus {
       text-decoration: underline;
@@ -82,7 +86,7 @@
       position: relative;
 
       @include media(desktop){
-        display: inline-block;
+        display: inline;
       }
 
       .subtype {
@@ -93,6 +97,9 @@
           position: absolute;
           right: 0;
           z-index: 1;
+          @include ie(7){
+            top: 40px;
+          }
 
           li {
             width: 100%;

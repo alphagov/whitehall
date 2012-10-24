@@ -3,7 +3,8 @@
     options = $.extend({
       header: '.toggle',
       content: '.overlay',
-      showArrow: true
+      showArrow: true,
+      actLikeLightbox: false
     }, options);
     this.each(function(i, el){
       var wrapper = $(el),
@@ -41,6 +42,13 @@
           e.preventDefault();
           toggle();
         });
+        if(options.actLikeLightbox) {
+          $(document).click(function(e){
+            if($(e.target).closest(wrapper).length === 0 && wrapper.hasClass('open')){
+              toggle();
+            }
+          });
+        }
       };
     });
     return this;
