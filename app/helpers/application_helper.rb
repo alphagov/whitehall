@@ -17,7 +17,7 @@ module ApplicationHelper
   def atom_discovery_link_tag(url=nil, title=nil)
     @atom_discovery_link_url = url if url.present?
     @atom_discovery_link_title = title if title.present?
-    auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url, title: @atom_discovery_link_title || "Recent updates")
+    auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url(format: :atom), title: @atom_discovery_link_title || "Recent updates")
   end
 
   def publication_atom_feed_url

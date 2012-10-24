@@ -76,12 +76,12 @@ class HomeControllerTest < ActionController::TestCase
 
   test 'index has Atom feed autodiscovery link' do
     get :show
-    assert_select_autodiscovery_link atom_feed_url
+    assert_select_autodiscovery_link atom_feed_url(format: :atom)
   end
 
   test 'activity shows a link to the atom feed' do
     get :show
-    assert_select "a.feed[href=?]", atom_feed_url
+    assert_select "a.feed[href=?]", atom_feed_url(format: :atom)
   end
 
   test 'Atom feed has the right elements' do
@@ -94,7 +94,7 @@ class HomeControllerTest < ActionController::TestCase
       assert_select 'feed > title', 1
       assert_select 'feed > author, feed > entry > author'
       assert_select 'feed > updated', 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', atom_feed_url, 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', atom_feed_url(format: :atom), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
 
       assert_select 'feed > entry' do |entries|
