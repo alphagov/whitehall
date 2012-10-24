@@ -42,6 +42,7 @@ Whitehall::Application.routes.draw do
     resources :publications, only: [:index, :show]
     resources :case_studies, path: 'case-studies', only: [:show, :index]
     resources :speeches, only: [:show]
+    resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]
     match "/speeches" => redirect("/announcements")
 
     resources :international_priorities, path: "international-priorities", only: [:index, :show]

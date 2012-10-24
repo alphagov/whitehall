@@ -42,6 +42,11 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal consultation_path(consultation.document), public_document_path(consultation)
   end
 
+  test 'returns the statistical_data_set_path for StatisticalDataSet instances' do
+    statistical_data_set = create(:statistical_data_set)
+    assert_equal statistical_data_set_path(statistical_data_set.document), public_document_path(statistical_data_set)
+  end
+
   test 'uses the document to generate the supporting page route' do
     policy = create(:policy)
     supporting_page = create(:supporting_page, edition: policy)

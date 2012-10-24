@@ -15,6 +15,14 @@ class DocumentSeries < ActiveRecord::Base
     editions.published
   end
 
+  def published_publications
+    published_editions.where(type: Publication.name)
+  end
+
+  def published_statistical_data_sets
+    published_editions.where(type: StatisticalDataSet.name)
+  end
+
   protected
 
   def destroyable?

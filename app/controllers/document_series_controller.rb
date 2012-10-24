@@ -7,7 +7,8 @@ class DocumentSeriesController < PublicFacingController
 
   def show
     @document_series = @organisation.document_series.find(params[:id])
-    @published_editions = PublicationesquePresenter.decorate(@document_series.published_editions)
+    @published_publications = PublicationesquePresenter.decorate(@document_series.published_publications)
+    @published_statistical_data_sets = StatisticalDataSetPresenter.decorate(@document_series.published_statistical_data_sets)
   end
 
   private

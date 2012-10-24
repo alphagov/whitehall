@@ -1,0 +1,10 @@
+.statistical-data-sets-list {
+  .alphabetical-list .alphabetical-row li {
+    padding: 0 0 $gutter-half 0;
+    float: none;
+    display: block;
+  }
+  .alphabetical-list .alphabetical-row li:first-child {
+    padding-top: $gutter;
+  }
+}

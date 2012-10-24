@@ -16,27 +16,53 @@
 <div class="block-2">
   <div class="inner-block">
     <section id="document_series" class="group">
-      <% if @published_editions.any? %>
-        <table class="document-list">
-          <thead class="visuallyhidden">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Date</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @published_editions.each do |edition| %>
-              <%= content_tag_for :tr, edition, class: "document-row" do %>
-                <th scope="row" class="title attribute"><%= edition.link %></th>
-                <td class="date attribute"><%= edition.display_date_microformat %></td>
+      <div class="publications">
+        <% if @published_publications.any? %>
+          <h1>Publications</h1>
+          <table class="document-list">
+            <thead class="visuallyhidden">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @published_publications.each do |publication| %>
+                <%= content_tag_for :tr, publication, class: "document-row" do %>
+                  <th scope="row" class="title attribute"><%= publication.link %></th>
+                  <td class="date attribute"><%= publication.display_date_microformat %></td>
+                <% end %>
               <% end %>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p>There are no documents in this series at the moment.</p>
-      <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>There are no publications in this series at the moment.</p>
+        <% end %>
+      </div>
+
+      <div class="statistical-data-sets">
+        <% if @published_statistical_data_sets.any? %>
+          <h1>Statistical data sets</h1>
+          <table class="document-list statistical-data-sets">
+            <thead class="visuallyhidden">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @published_statistical_data_sets.each do |statistical_data_set| %>
+                <%= content_tag_for :tr, statistical_data_set, class: "document-row" do %>
+                  <th scope="row" class="title attribute"><%= statistical_data_set.link %></th>
+                  <td class="date attribute"><%= statistical_data_set.display_date_microformat %></td>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>There are no statistical data sets in this series at the moment.</p>
+        <% end %>
+      </div>
     </section>
   </div>
 </div>
