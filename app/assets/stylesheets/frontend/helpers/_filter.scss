@@ -21,18 +21,19 @@
       .results{
         background-color:white;
         clear:both;
-        margin-left:-1em;
-        margin-right:-1em;
-        padding:0 0 0 $gutter;
+        margin-left:-$gutter-one-third;
+        margin-right:-$gutter-one-third;
+        padding:0 0 0 $gutter-two-thirds;
         .count{
-          @include core-27;          
+          @include core-27;  
+          padding-top: $gutter-one-third;        
         }
         .selections{
           clear:both;
           padding-top:$gutter-one-third;
         }
         input{
-          width: 30%;
+          width: 31%;
           float:left;
           margin-right:$gutter;
         }
@@ -92,7 +93,7 @@
     width: 100%;
     padding-bottom: 0;
     @include media (desktop) {
-      height: 243px;
+      height: 205px;
     }
   }
   .checkbox input {

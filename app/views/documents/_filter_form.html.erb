@@ -1,5 +1,5 @@
 <div class="filter-block">
-  <h2>Filter by organisation, topic or keyword</h2>
+  <h2>You can use the filters to show only results that match your interests</h2>
   <%= form_tag send(:"#{document_type.to_s.pluralize}_path"), method: :get, id: "document-filter", class: 'js-document-filter' do %>
     <fieldset>
       <legend class="visuallyhidden">Filter <%= document_type.to_s.pluralize %></legend>

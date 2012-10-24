@@ -13,19 +13,21 @@
 
 <div class="block-2">
   <div class="inner-block">
+    
     <%= render partial: "documents/filter_form", locals: {document_type: :publication, filter_by_date: true, filter_by_publication_type: true} %>
   </div>
 </div>
 
 <div class="block-4">
   <div class="inner-block filter-results" id="publications-container" aria-live="polite"><%# this class used by Javascript %>
+    
     <% if @filter.documents.any? %>
       <table class="document-list emphasise-recent" id="document-list"><%# this class used by Javascript %>
         <thead class="visuallyhidden">
           <tr>
             <th scope="col">Title</th>
-            <th scope="col">Publication Organisations</th>
             <th scope="col">Publication Date</th>
+            <th scope="col">Publication Organisations</th>
             <th scope="col">Publication Type</th>
             <th scope="col">Publication Series</th>
           </tr>
@@ -37,12 +39,12 @@
               <%= link_to document.title, public_document_path(document),
                   title: "View #{document.title}" %>
             </th>
+            <td class="attribute publication_date">
+              <%= document.display_date_microformat %>
+            </td>
             <td class="attribute organisations">
               <%= document.organisations.map { |o|
                 organisation_display_name(o) }.to_sentence.html_safe %>
-            </td>
-            <td class="attribute publication_date">
-              <%= document.display_date_microformat %>
             </td>
             <td class="publication_type attribute">
               <%= document.display_publication_type %>
