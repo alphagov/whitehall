@@ -167,7 +167,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       $(".selections").html("");
       $(".results .count span").text(data.total_count);
 
-      $(".selections").html("<span class='publication_type-selections chosen'></span> in <span class='topics-selections chosen'></span> and published by <span class='departments-selections chosen'></span>");
+      $(".selections").html("Results in <span class='topics-selections chosen'></span> and published by <span class='departments-selections chosen'></span>");
 
       var i = formStatus.selected.length;
 
