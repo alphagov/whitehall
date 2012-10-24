@@ -117,6 +117,7 @@ Whitehall::Application.routes.draw do
         resources :news_articles, path: 'news', except: [:index]
         resources :consultations, except: [:index]
         resources :speeches, except: [:index]
+        resources :statistical_data_sets, path: 'statistical-data-sets', except: [:index]
         resources :detailed_guides, path: "detailed-guides", except: [:index]
         resources :people, except: [:show]
         resources :roles, except: [:show] do

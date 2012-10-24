@@ -1,0 +1,8 @@
+<%= standard_edition_form(edition) do |form| %>
+  <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition, show_inline_attachment_help: edition.allows_inline_attachments? } %>
+  <fieldset>
+    <legend>Associations</legend>
+    <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+  </fieldset>
+<% end %>

@@ -7,7 +7,6 @@ class HomeControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-
   test "show shows a list of recently published documents" do
     create_published_documents
     draft_documents = create_draft_documents
