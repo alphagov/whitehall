@@ -135,12 +135,6 @@ class HomeControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display a page describing a tour around the site" do
-    get :tour
-
-    assert_response :success
-  end
-
   test "sunset homepage points search to main site search" do
     get :sunset
 

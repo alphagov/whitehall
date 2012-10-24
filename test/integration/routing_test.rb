@@ -59,19 +59,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_select "a.open_website[href=?]", "http://www.gov.uk/government/home"
   end
 
-  test "should link to whitehall tour from home page" do
-    get_via_redirect "/government/home"
-    assert_select "a[href=?]", tour_path
-  end
-
-  test "should route to whitehall tour page" do
-    get_via_redirect tour_path
-    assert_response :success
-  end
-
-  test "whitehall tour page links to generic feedback link" do
-    get_via_redirect tour_path
-    assert_select "a[href=?]", "/feedback"
+  test "should redirect from old tour page to mainstream tour page" do
+    get "/government/tour"
+    assert_redirected_to "/tour"
   end
 
   test "admin is unreachable in preview from whitehall" do

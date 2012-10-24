@@ -10,9 +10,6 @@ class HomeController < PublicFacingController
     render layout: 'home'
   end
 
-  def tour
-  end
-
   private
 
   def set_search_path_home

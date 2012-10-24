@@ -28,7 +28,7 @@ Whitehall::Application.routes.draw do
     root to: "home#sunset"
     match '/home' => "home#show", as: :home
     match 'feed.atom' => 'home#show', format: false, defaults: { format: 'atom' }, as: :atom_feed
-    match '/tour' => 'home#tour'
+    match '/tour' => redirect("/tour", prefix: "")
 
     resources :announcements, only: [:index], path: 'announcements'
     resources :policies, only: [:index, :show] do
