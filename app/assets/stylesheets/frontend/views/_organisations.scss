@@ -180,18 +180,22 @@
 
   .organisation-news {
     margin: 0 (-$gutter-half);
+    padding-top: $gutter-two-thirds;
+
+    .first h2 {
+      margin-top: $gutter-one-sixth;
+    }
 
     article {
       @include media(tablet) {
         float: left;
         width: 66%;
         display: inline;
-        margin-top: $gutter-two-thirds;
         overflow: hidden;
       }
     }
     .content {
-      padding: $gutter-half;
+      padding: $gutter-half $gutter-half 0;
     }
     h2 {
       @include core-27;
@@ -225,7 +229,6 @@
       }
     }
     .secondary {
-      margin: $gutter-two-thirds 0 0;
       @include media(tablet){
         width: 33%;
       }

@@ -77,7 +77,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     editions.take(6).each do |edition|
       assert_select_object edition.edition do
         assert_select "img[src$='#{edition.image.file.url}'][alt=?]", edition.alt_text
-        assert_select ".document-type", 'News article'
       end
     end
     refute_select_object editions.last.edition

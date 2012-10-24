@@ -10,9 +10,5 @@
     <% unless edition.summary.blank? %>
       <p class="summary"><%= truncate(edition.summary, length: 150, separator: ' ') %></p>
     <% end %>
-    <div class="meta">
-      Posted <%= relative_time(edition.published_at, class: 'published_at') %>
-    </div>
-    <div class="document-type"><%= edition.format_name.capitalize %></div>
   </div>
 <% end %>

@@ -1,16 +1,22 @@
 .index-list-page {
 
   .page-header {
+    @include core-48;
     padding: $gutter-half 0;
 
-    .title, .label {
+    .title {
       padding: 0;
       margin: 0;
+      padding-top: 12px;
+      padding-top: 1.2rem;
     }
 
     .label {
-      @include core-48;
       color: $low-contrast;
+      padding: 0;
+      margin: 0;
+      padding-bottom: 8px;
+      padding-bottom: 0.8rem;
     }
 
     @include media(desktop){
