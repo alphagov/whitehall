@@ -20,6 +20,8 @@
         wrapper.addClass('toggleable');
 
         overlay.addClass('visuallyhidden');
+        overlay.removeClass('js-hidden');
+
         if (options.showArrow){
           overlay.prepend('<span class="arrow"></span>');
         }
