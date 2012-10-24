@@ -8,4 +8,14 @@
   .block-4 {
     width: 100%;
   }
+  .block-1{
+    .inner-block header{
+      background: $info-background;
+      margin-bottom:0;
+      padding-bottom:0;
+      h1{
+        padding-left:$gutter-half;
+      }
+    }
+  }
 }
