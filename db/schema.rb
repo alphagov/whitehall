@@ -279,6 +279,7 @@ ActiveRecord::Schema.define(:version => 20121101094252) do
     t.integer  "primary_mainstream_category_id"
     t.boolean  "replaces_businesslink",                                           :default => false
     t.datetime "scheduled_publication"
+    t.boolean  "access_limited"
   end
 
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"

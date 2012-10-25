@@ -198,6 +198,18 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def can_limit_access?
+    false
+  end
+
+  def access_limited?
+    false
+  end
+
+  def accessible_by?(user)
+    true
+  end
+
   def create_draft(user)
     unless published?
       raise "Cannot create new edition based on edition in the #{state} state"
