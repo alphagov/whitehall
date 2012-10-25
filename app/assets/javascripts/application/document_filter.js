@@ -183,8 +183,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     },
     filterEvents: function(){
       $(".chosen span a").on("click", function(){
-        var value = $(this).attr("data-val");
-        documentFilter.removeFilters(value);
+        documentFilter.removeFilters($(this).attr("data-val"));
         $(this).parent().remove();  
         return false;
       });
@@ -314,9 +313,10 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
         history.replaceState(documentFilter.currentPageState(), null);
         $form.submit(documentFilter.submitFilters);
-        $form.find('select').change(function(e){
+        $form.find('select, input[name=direction]:radio').change(function(e){
           $form.submit();
         });
+        // add update form on wait if typing in keywords happens
       }
       if($('#show-more-documents .previous').length === 0){
         documentFilter.initScroll();
