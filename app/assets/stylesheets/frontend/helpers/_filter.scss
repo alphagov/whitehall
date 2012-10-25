@@ -89,7 +89,7 @@
     width: 100%;
     padding-bottom: 0;
     @include media (desktop) {
-      height: 255px;
+      height: 205px;
     }
   }
   .checkbox input {
@@ -152,4 +152,6 @@
   }
 }
 
-
+.js-enabled .filter-block{
+  display:none
+}
