@@ -31,8 +31,8 @@
         <aside class="corporate-info" id="corporate-information">
           <h1>Corporate information</h1>
           <% if @corporate_information_pages.any? %>
-            <h2>Transparancy</h2>
-            <ul class="transparancy">
+            <h2>Transparency</h2>
+            <ul class="transparency">
               <% @corporate_information_pages.each do |page| %>
                 <li><%= link_to page.title, organisation_corporate_information_page_path(@organisation, page) %></li>
               <% end %>
