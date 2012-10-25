@@ -132,4 +132,14 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     topic_1_b.reload
     assert_equal [published_publication], Publication.in_topic([topic_1_b]).all
   end
+
+  test "access_limited flag is ignored for non-stats types" do
+    e = build(:draft_publication, publication_type: PublicationType::PolicyPaper, access_limited: true)
+    refute e.access_limited?
+  end
+
+  test "persisted value of access_limited flag is nil for non-stats types" do
+    e = create(:draft_publication, publication_type: PublicationType::PolicyPaper, access_limited: true)
+    assert e.reload.read_attribute(:access_limited).nil?
+  end
 end
