@@ -28,6 +28,13 @@ class StatisticalDataSetsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
+  test "show links to the document series that the statistical data set belongs to" do
+    document_series = create(:document_series)
+    statistical_data_set = create(:published_statistical_data_set, document_series: document_series)
+    get :show, id: statistical_data_set.document
+    assert_select ".document-series a[href=?]", organisation_document_series_path(document_series.organisation, document_series)
+  end
+
   test 'index should display a list of all published statistical data sets' do
     create(:published_statistical_data_set)
     create(:draft_statistical_data_set)
