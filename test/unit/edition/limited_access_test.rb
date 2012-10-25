@@ -4,6 +4,10 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
   class LimitedAccessEdition < Edition
     include Edition::LimitedAccess
+
+    def can_limit_access?
+      true
+    end
   end
 
   FactoryGirl.define do
