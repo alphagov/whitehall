@@ -111,7 +111,6 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object minister
   end
 
-
   test "index only displays *published* publications" do
     archived_publication = create(:archived_publication)
     published_publication = create(:published_publication)
