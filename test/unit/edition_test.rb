@@ -548,4 +548,10 @@ class EditionTest < ActiveSupport::TestCase
     edition_with_nasty_characters = create(:edition, title: "title with [stuff in brackets]")
     assert_equal [edition_with_nasty_characters], Edition.with_title_containing("[stuff")
   end
+
+  test "cannot limit access to an ordinary edition" do
+    refute build(:edition).can_limit_access?
+    refute build(:edition).access_limited?
+    assert build(:edition).accessible_by?(nil)
+  end
 end
