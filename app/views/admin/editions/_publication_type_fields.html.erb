@@ -1,4 +1,10 @@
 <fieldset>
   <%= form.label :publication_type_id, 'Publication type' %>
-  <%= form.select :publication_type_id, grouped_options_for_select(publication_type_options, edition.publication_type_id), {}, class: 'chzn-select', data: { placeholder: "Choose publication type..."} %>
+  <%= form.select :publication_type_id, grouped_options_for_select(publication_type_options, edition.publication_type_id), {}, class: ['chzn-select', 'js-toggle-access-limited-checkbox'], data: { placeholder: "Choose publication type..."} %>
+  <% if form.object.can_limit_access? %>
+    <%= hidden_field_tag "edition[access_limited]", "0", id: nil %>
+    <%= label_tag "edition[access_limited]", nil, class: [:checkbox] do %>
+      <%= check_box_tag "edition[access_limited]", "1", (params[:edition] && params[:edition][:access_limited] == "1") || (form.object.persisted? && form.object.publication_type.can_limit_access? ? form.object.access_limited? : true) %> Limit access to producing organisations prior to publication (Statistics publications only)
+    <% end %>
+  <% end %>
 </fieldset>
