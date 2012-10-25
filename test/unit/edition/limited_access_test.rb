@@ -51,4 +51,21 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert e.accessible_by?(user1)
     refute e.accessible_by?(user2)
   end
+
+  test "can select all editions accessible to a particular user" do
+    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    user = create(:user, organisation: my_organisation)
+    accessible = [
+      create(:draft_policy),
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation]),
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation])
+    ]
+    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+
+    accessible.each do |edition|
+      assert Edition.accessible_to(user).include?(edition)
+    end
+    refute Edition.accessible_to(user).include?(inaccessible)
+  end
+
 end
