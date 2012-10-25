@@ -159,7 +159,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def filter
-    @filter ||= params_filters.any? && EditionFilter.new(edition_class, params_filters)
+    @filter ||= params_filters.any? && EditionFilter.new(edition_class, current_user, params_filters)
   end
 
   def detect_other_active_editors
@@ -187,8 +187,8 @@ class Admin::EditionsController < Admin::BaseController
   class EditionFilter
     attr_reader :options
 
-    def initialize(source, options={})
-      @source, @options = source, options
+    def initialize(source, current_user, options={})
+      @source, @current_user, @options = source, current_user, options
     end
 
     def editions
@@ -203,8 +203,8 @@ class Admin::EditionsController < Admin::BaseController
       ).page(options[:page]).per(page_size)
     end
 
-    def page_title(current_user)
-      "#{ownership(current_user)} #{edition_state} #{document_type.humanize.pluralize.downcase}#{title_matches}".squeeze(' ')
+    def page_title
+      "#{ownership} #{edition_state} #{document_type.humanize.pluralize.downcase}#{title_matches}".squeeze(' ')
     end
 
     def page_size
@@ -221,12 +221,12 @@ class Admin::EditionsController < Admin::BaseController
 
     private
 
-    def ownership(current_user)
-      if author && author == current_user
+    def ownership
+      if author && author == @current_user
         "My"
       elsif author
         "#{author.name}'s"
-      elsif organisation && organisation == current_user.organisation
+      elsif organisation && organisation == @current_user.organisation
         "My department's"
       elsif organisation
         "#{organisation.name}'s"
