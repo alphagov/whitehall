@@ -157,7 +157,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           history.pushState(documentFilter.currentPageState(), null, newUrl);
           window._gaq && _gaq.push(['_trackPageview', newUrl]);
           // undo double-click protection
-          $submitButton.removeAttr('disabled').removeClass('disabled');
+          //$submitButton.removeAttr('disabled').removeClass('disabled');
 
         },
         error: function() {
