@@ -19,15 +19,15 @@
       padding-bottom: 0.8rem;
     }
 
-    @include media(desktop){
-      padding: $gutter 0;
-      width: 75%;
+    @include media(tablet){
+      padding: $gutter*2 0 $gutter;
+      width: 80%;
     }
 
   }
 
   .index-list-container {
-    margin-left: 25%;
+    margin-left: 33.333%;
     
     h3 {
       @include core-19;

@@ -4,17 +4,24 @@
   @extend %contain-floats;
 
   h1 {
-    @include core-24;
+    @include core-27;
   }
-  @include media(desktop){
+  @include media(tablet){
     h1 {
       float: left;
       clear: both;
       width: 25%;
+      margin-top: $gutter-half;
     }
     .content {
-      float: left;
-      width: 75%;
+      float: right;
+      width: 66.666%;
+      article {
+        padding-left: $gutter-half;
+      }
+      .documents-list {
+        margin-top: $gutter-half;
+      }
     }
   }
 }

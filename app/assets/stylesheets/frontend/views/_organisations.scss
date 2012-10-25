@@ -1,17 +1,10 @@
 .organisations-index {
   .page-header {
-    padding: $gutter 0;
+    padding: $gutter-half 0;
 
-    @include media(desktop){
-      width: 70%;
-    }
-  }
-  .heading-block {
-    h1 {
-      @include core-19;
-    }
-    .content {
-      border-top: 2px solid $black;
+    @include media(tablet){
+      width: 75%;
+      padding: $gutter*2 0 $gutter;
     }
   }
 

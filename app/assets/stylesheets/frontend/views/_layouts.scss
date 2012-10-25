@@ -2,5 +2,8 @@
 
 
 .inner-block {
+  padding: 0 $gutter-half;
+  @include media(tablet){
     padding: 0 $gutter;
+  }
 }

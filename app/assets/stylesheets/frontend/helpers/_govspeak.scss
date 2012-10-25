@@ -76,7 +76,6 @@
   }
 
   abbr {
-    border-bottom: .1em dotted;
     cursor: help;
   }
 
@@ -131,14 +130,18 @@
   .attachment {
     background: $info-background;
     position: relative;
-    margin: 0;
+    margin: 0 ($gutter*-1);
     padding: $gutter-half 0;
     width: 100%;
     overflow: hidden;
+    
+    @include media(tablet){
+      margin: 0;
+    }
 
     .attachment-thumb {
       position: relative;
-      width: 25%;
+      width: 33.333%;
       float: left;
       text-align: center;
       min-height: 25px;
@@ -181,8 +184,8 @@
     }
 
     .attachment-details {
-      width: 75%;
-      float: right;
+      width: 66.666%;
+      float: left;
       position: relative;
 
       .title {
@@ -195,10 +198,11 @@
       h3, p {
         @include core-14;
         padding: 0 $gutter-half 0 0;
-        margin: 0;
+        margin: 0 0 0 $gutter-half;
       }
     }
     .accessibility-warning {
+      padding-top: $gutter-one-third;
       h3 {
         color: $body-text;
         .toggler {

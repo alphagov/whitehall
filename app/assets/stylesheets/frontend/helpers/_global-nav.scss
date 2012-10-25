@@ -1,8 +1,12 @@
 #global-nav {
-  margin: 4px $gutter 0;
+  margin: 4px $gutter-half 0;
   border-bottom: 4px solid $inside-gov-nav;
   @extend %contain-floats;
 
+  @include media(tablet){
+    margin: 4px $gutter 0;
+  }
+  
   @include media(desktop){
     text-align: right;
   }

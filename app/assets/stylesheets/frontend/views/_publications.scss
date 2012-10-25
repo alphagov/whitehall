@@ -28,21 +28,31 @@
 }
 
 .publication {
-  @include media(desktop){
+  @include media(tablet){
     .block-3 {
       width: 100%;
     }
   }
   .attachment-full-width {
-    margin-top: $gutter;
+    margin: $gutter ($gutter*-0.5) 0;
+    @include media(tablet){
+      margin: $gutter 0 0;
+    }
   }
   .document-series {
     background-color: $inside-gov-brand;
     color: white;
-    padding: $gutter-one-third $gutter-one-third $gutter-half 26.5%;
+    padding: $gutter-one-third $gutter-one-third $gutter-half 33.333%;
+    margin: 0 ($gutter*-0.5);
+        
+    @include media(tablet){
+      margin: 0;
+    }
+
 
     span, a {
       display: block;
+      margin-left: $gutter-half;
     }
 
     span {
