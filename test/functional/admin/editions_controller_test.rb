@@ -393,6 +393,24 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select_object(draft_edition) { refute_select ".state" }
   end
 
+  test "index should not display limited access editions which I don't have access to" do
+    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    login_as(create(:user, organisation: my_organisation))
+    accessible = [
+      create(:draft_policy),
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation]),
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation])
+    ]
+    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+
+    get :index, state: :active
+
+    accessible.each do |edition|
+      assert_select_object(edition)
+    end
+    refute_select_object(inaccessible)
+  end
+
   def stub_edition_filter(attributes = {})
     default_attributes = {
       editions: Kaminari.paginate_array(attributes[:editions] || []).page(1),

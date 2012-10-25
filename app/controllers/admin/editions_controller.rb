@@ -194,6 +194,7 @@ class Admin::EditionsController < Admin::BaseController
     def editions
       @editions ||= (
         editions = @source
+        editions = editions.accessible_to(@current_user)
         editions = editions.by_type(options[:type].classify) if options[:type]
         editions = editions.__send__(options[:state]) if options[:state]
         editions = editions.authored_by(author) if options[:author]
