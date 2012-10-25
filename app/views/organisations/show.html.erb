@@ -108,7 +108,7 @@
         <% if @ministers.any? %>
           <section id="ministers">
             <h1 class="label">Our ministers</h1>
-            <ul>
+            <ul class="js-hide-extra-rows">
               <% @ministers.each do |minister| %>
                 <%= content_tag_for(:li, minister) do %>
                   <div class="inner">
@@ -144,7 +144,7 @@
                 <% end %>
             </ul>
 
-            <ul class="management-secondary">
+            <ul class="management-secondary js-hide-extra-rows-2">
               <% @civil_servants.to_a.from(1).each do |civil_servant| %>
                 <%= content_tag_for(:li, civil_servant) do %>
                   <div class="inner">
@@ -155,7 +155,6 @@
                 <% end %>
               <% end %>
             </ul>
-
           </section>
         <% end %>
 
@@ -164,7 +163,7 @@
           <section id="military">
             <h1 class="label">Military</h1>
             <% if @top_military_role %>
-              <ul>
+              <ul class="js-hide-extra-rows">
                 <%= content_tag_for(:li, @top_military_role) do %>
                   <div class="inner">
                     <div class="image_holder">
@@ -189,7 +188,7 @@
       <div id="org-contacts">
         <% addresses = @organisation.contacts.select { |c| c.address.present? } %>
         <% others = @organisation.contacts - addresses %>
-        <div class="addresses">
+        <div class="addresses js-hide-extra-rows">
           <% addresses.each do |contact| %>
             <div class="organisation_contact complex">
               <div class="contact-inner">
