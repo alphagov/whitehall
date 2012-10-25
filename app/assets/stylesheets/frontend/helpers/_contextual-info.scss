@@ -8,7 +8,23 @@
     @include core-16;
   }
   nav {
+    overflow: hidden;
     @include core-16;
+    
+    li {
+      float: left;
+      list-style-position: inside;
+      padding-right: $gutter-half;
+    }
+    
+    @include media(tablet){
+      overflow: visible;
+      li {
+        float: none;
+        list-style-position: outside;
+        padding-right: 0;
+      }
+    }
   }
   a {
     position: relative;

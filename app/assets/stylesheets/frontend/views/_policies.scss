@@ -43,11 +43,18 @@
     }
   }
 
-    .block-1, .block-2, .block-3 {
-      display: block;
-      float: none;
-      width: 100%;
+  .block-1, .block-2, .block-3 {
+    display: block;
+    float: none;
+    width: 100%;
+  }
+  
+  .block-1 {
+    padding-bottom: 0;
+    @include media(tablet){
+      padding-bottom: $gutter;
     }
+  }
 
   @include media(desktop){
     .block-2 {
