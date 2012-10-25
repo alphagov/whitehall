@@ -7,11 +7,13 @@ class Publication < Publicationesque
   include Edition::Countries
   include Edition::DocumentSeries
   include Edition::StatisticalDataSets
+  include Edition::LimitedAccess
 
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
+  before_save ->(record) { record.access_limited = nil unless record.publication_type.can_limit_access? }
 
   def allows_inline_attachments?
     false
