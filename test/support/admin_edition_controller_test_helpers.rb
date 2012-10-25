@@ -371,7 +371,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test 'creating an edition should attach image' do
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text", caption: "longer-caption-for-image",
@@ -388,7 +388,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition should result in a single instance of the uploaded image file being cached" do
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -411,7 +411,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition with invalid data should only allow a single image to be selected for upload" do
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -426,7 +426,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition with invalid data but valid image data should still display the image data" do
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -437,13 +437,13 @@ module AdminEditionControllerTestHelpers
 
         assert_select "form#edition_new" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text'][value='some-alt-text']"
-          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='portas-review.jpg']"
-          assert_select ".already_uploaded", text: "portas-review.jpg already uploaded"
+          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='minister-of-funk.960x640.jpg']"
+          assert_select ".already_uploaded", text: "minister-of-funk.960x640.jpg already uploaded"
         end
       end
 
       test 'creating an edition with invalid data should not show any existing image info' do
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -456,7 +456,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition with multiple images should attach all files" do
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => {alt_text: "some-alt-text",
@@ -475,8 +475,21 @@ module AdminEditionControllerTestHelpers
         assert_equal "more-alt-text", image_2.alt_text
       end
 
+      test 'creating an edition with an invalid image should show an error' do
+        attributes = controller_attributes_for(edition_type)
+        invalid_image = fixture_file_upload('horrible-image.64x96.jpg')
+
+        post :create, edition: attributes.merge(
+          images_attributes: {
+            "0" => { alt_text: "alt-text", image_data_attributes: attributes_for(:image_data, file: invalid_image) }
+          }
+        )
+
+        assert_select ".errors", text: "Images image data file must be 960px wide and 640px tall"
+      end
+
       test 'edit displays edition image fields' do
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         edition = create(edition_type)
         image = create(:image, alt_text: "blah", edition: edition,
                        image_data_attributes: attributes_for(:image_data, file: image))
@@ -486,7 +499,7 @@ module AdminEditionControllerTestHelpers
         assert_select "form#edition_edit" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text'][value='blah']"
           assert_select ".image" do
-            assert_select "img[src$='portas-review.jpg']"
+            assert_select "img[src$='minister-of-funk.960x640.jpg']"
           end
           assert_select "input[name='edition[images_attributes][1][alt_text]'][type='text']"
           assert_select "textarea[name='edition[images_attributes][1][caption]']"
@@ -495,7 +508,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test 'updating an edition should attach an image' do
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         edition = create(edition_type)
 
         put :update, id: edition, edition: edition.attributes.merge(
@@ -544,7 +557,7 @@ module AdminEditionControllerTestHelpers
 
       test 'updating an edition should attach multiple images' do
         edition = create(edition_type)
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = edition.attributes
         attributes[:images_attributes] = {
           "0" => {alt_text: "some-alt-text",
@@ -574,7 +587,7 @@ module AdminEditionControllerTestHelpers
 
       test "updating an edition with invalid data should only allow a single image to be selected for upload" do
         edition = create(edition_type)
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = edition.attributes.merge(title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -590,7 +603,7 @@ module AdminEditionControllerTestHelpers
 
       test "updating an edition with invalid data and valid image data should display the image data" do
         edition = create(edition_type)
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = edition.attributes.merge(title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -601,8 +614,8 @@ module AdminEditionControllerTestHelpers
 
         assert_select "form#edition_edit" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][value='some-alt-text']"
-          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='portas-review.jpg']"
-          assert_select ".already_uploaded", text: "portas-review.jpg already uploaded"
+          assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='minister-of-funk.960x640.jpg']"
+          assert_select ".already_uploaded", text: "minister-of-funk.960x640.jpg already uploaded"
         end
       end
 
@@ -622,7 +635,7 @@ module AdminEditionControllerTestHelpers
 
       test "updating a stale edition should only allow a single image to be selected for upload" do
         edition = create(edition_type)
-        image = fixture_file_upload('portas-review.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg')
         lock_version = edition.lock_version
         edition.touch
         attributes = edition.attributes.merge(title: "", lock_version: lock_version)

@@ -422,11 +422,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display the minister's picture if available" do
     ministerial_role = create(:ministerial_role)
-    person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
+    person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.960x640.jpg')))
     create(:role_appointment, person: person, role: ministerial_role)
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
     get :show, id: organisation
-    assert_select "img[src*=minister-of-funk.jpg]"
+    assert_select "img[src*=minister-of-funk.960x640.jpg]"
   end
 
   test "should display a generic image if the minister doesn't have their own picture" do

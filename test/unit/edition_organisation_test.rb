@@ -30,7 +30,7 @@ class EditionOrganisationTest < ActiveSupport::TestCase
   test "should build an image using nested attributes" do
     edition_organisation = build(:edition_organisation)
     edition_organisation.image_attributes = {
-      file: fixture_file_upload('minister-of-funk.jpg')
+      file: fixture_file_upload('minister-of-funk.960x640.jpg')
     }
     edition_organisation.save!
 

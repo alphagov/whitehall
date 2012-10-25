@@ -62,7 +62,7 @@ module DocumentHelper
   end
 
   def jpg_image
-    File.open(Rails.root.join("features/fixtures/portas-review.jpg"))
+    File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg"))
   end
 
   def fill_in_publication_fields
