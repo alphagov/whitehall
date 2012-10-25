@@ -41,13 +41,13 @@
               <%= select_tag :date, options_for_select(recent_month_filter_options(24, @filter.date)), include_blank: false %>
             </div>
           <% end %>
-          
+          <div class="submit">
+          <%= submit_tag "Refresh results", class: "button" %>
+        </div>
         </div>
       </div>
       <div class="results">
-        <div class="submit">
-          <%= submit_tag "Refresh results", class: "button" %>
-        </div>
+        
         <p class="count"><span><%= @filter.documents.total_count %></span> results</p>
         <p class="selections"></p>
       </div>

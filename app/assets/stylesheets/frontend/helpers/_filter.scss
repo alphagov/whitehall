@@ -33,11 +33,6 @@
           clear:both;
           padding-top:$gutter-one-third;
         }
-        input{
-          width: 31%;
-          float:left;
-          margin-right:$gutter;
-        }
         .chosen span,
         .chosen span{
           background-color: $info-background;
@@ -94,7 +89,7 @@
     width: 100%;
     padding-bottom: 0;
     @include media (desktop) {
-      height: 205px;
+      height: 255px;
     }
   }
   .checkbox input {
@@ -122,6 +117,7 @@
   .submit {
     padding: $gutter-two-thirds 0 $gutter-one-third;
     margin: $gutter-one-sixth 0 0;
+
     @include media (desktop) {
       padding-bottom: 0;
     }
