@@ -21,8 +21,9 @@
       .results{
         background-color:white;
         clear:both;
-        margin-left:-$gutter-one-third;
-        margin-right:-$gutter-one-third;
+        margin-left:-$gutter-two-thirds;
+        margin-right:-$gutter-two-thirds;
+        margin-top: $gutter-half;
         padding:0 0 0 $gutter-two-thirds;
         .count{
           @include core-27;  
