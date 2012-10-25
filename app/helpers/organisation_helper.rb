@@ -58,21 +58,6 @@ module OrganisationHelper
     'aeiou'.include?(word_or_phrase.downcase[0])
   end
 
-  def organisation_navigation_link_to(body, path)
-    if (current_organisation_navigation_path(params) == path) ||
-       (params[:action] == "management_team" && path == current_organisation_navigation_path(params.merge(action: "about")))
-      css_class = 'current'
-    else
-      css_class = nil
-    end
-
-    link_to body, path, class: css_class
-  end
-
-  def current_organisation_navigation_path(params)
-    url_for params.slice(:controller, :action, :id).merge(only_path: true)
-  end
-
   def organisation_view_all_tag(organisation, kind)
     path = send(:"#{kind}_organisation_path", @organisation)
     text = (kind == :announcements) ? "news & speeches" : kind

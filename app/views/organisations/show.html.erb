@@ -47,7 +47,7 @@
           <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.department? %>,
           supported by <%= link_to "#{@organisation.child_organisations.count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.  <% end %>
         </p>
-        <p><%= organisation_navigation_link_to "Read more about what we do", about_organisation_path(@organisation) %></p>
+        <p><%= link_to "Read more about what we do", about_organisation_path(@organisation) %></p>
       </section>
     </div>
   </div>
@@ -245,7 +245,15 @@
 
   <div class="block-11">
     <div class="inner-block">
-      <%= render 'navigation', organisation: @organisation %>
+      <h1 class="label">Other key links</h1>
+      <nav class="group sub_navigation" role="navigation">
+        <ul>
+          <% @organisation.corporate_information_pages.each do |corporate_information_page| %>
+            <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(@organisation, corporate_information_page) %></li>
+          <% end %>
+          <li><a href="https://jobsstatic.civilservice.gov.uk/csjobs.html" rel="external">Jobs</a></li>
+        </ul>
+      </nav>
     </div>
   </div>
 

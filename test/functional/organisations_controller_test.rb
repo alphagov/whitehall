@@ -2,8 +2,6 @@ require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
 
-  SUBPAGE_ACTIONS = [:about, :consultations]
-
   should_be_a_public_facing_controller
 
   include FilterRoutesHelper
@@ -336,33 +334,10 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "a[href='http://maps.google.co.uk/maps?q=51.498772,-0.130974']"
   end
 
-  test "should show published consultations associated with the organisation" do
-    published_consultation = create(:published_consultation)
-    draft_consultation = create(:draft_consultation)
-    organisation = create(:organisation, editions: [published_consultation, draft_consultation])
-
-    get :consultations, id: organisation
-
-    assert_select_object(published_consultation)
-    refute_select_object(draft_consultation)
-  end
-
-  test "should show consultations in order of publication date" do
-    earlier_consultation = create(:published_consultation, published_at: 2.days.ago)
-    later_consultation = create(:published_consultation, published_at: 1.days.ago)
-    organisation = create(:organisation, editions: [earlier_consultation, later_consultation])
-
-    get :consultations, id: organisation
-
-    assert_equal [later_consultation, earlier_consultation], assigns(:consultations)
-  end
-
-  SUBPAGE_ACTIONS.each do |action|
-    test "should show description on organisation #{action} subpage" do
-      organisation = create(:organisation, description: "organisation-description")
-      get action, id: organisation
-      assert_select ".description", text: "organisation-description"
-    end
+  test "should show description on organisation about subpage" do
+    organisation = create(:organisation, description: "organisation-description")
+    get :about, id: organisation
+    assert_select ".description", text: "organisation-description"
   end
 
   test "should render the about-us content using govspeak markup" do
@@ -498,16 +473,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select management_selector
   end
 
-  test "should display all chiefs of staff" do
-    chief_of_staff = create(:military_role)
-    chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)
-    organisation = create(:organisation, roles: [chief_of_staff, chief_of_the_defence_staff])
-
-    get :chiefs_of_staff, id: organisation
-
-    assert_select_object chief_of_staff
-  end
-
   test "should link to the organisation's chiefs of staff page" do
     organisation = create(:organisation)
     role = create(:military_role, organisations: [organisation])
@@ -540,7 +505,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department)
 
-    [:show, :about, :consultations].each do |page|
+    [:show, :about].each do |page|
       get page, id: organisation
       assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
     end
