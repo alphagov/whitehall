@@ -135,9 +135,22 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should not mark admin links as 'external'" do
     request.host = "www.preview.alphagov.co.uk"
-    ActionController::Base.default_url_options[:host] = "whitehall-admin.preview.alphagov.co.uk"
     speech = create(:published_speech)
-    govspeak = "this and [that](#{admin_speech_url(speech)}) yeah?"
+    govspeak = "this and [that](#{admin_speech_url(speech, host: request.host)}) yeah?"
+    html = govspeak_to_html(govspeak)
+    refute_select_within_html html, "a[rel='external']", text: "that"
+  end
+
+  test "should not mark public preview links as 'external'" do
+    speech = create(:published_speech)
+    govspeak = "this and [that](#{admin_speech_url(speech, host: "www.preview.alphagov.co.uk")}) yeah?"
+    html = govspeak_to_html(govspeak)
+    refute_select_within_html html, "a[rel='external']", text: "that"
+  end
+
+  test "should not mark main site links as 'external'" do
+    speech = create(:published_speech)
+    govspeak = "this and [that](#{admin_speech_url(speech, host: "www.gov.uk")}) yeah?"
     html = govspeak_to_html(govspeak)
     refute_select_within_html html, "a[rel='external']", text: "that"
   end
