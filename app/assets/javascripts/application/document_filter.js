@@ -313,9 +313,22 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
         history.replaceState(documentFilter.currentPageState(), null);
         $form.submit(documentFilter.submitFilters);
-        $form.find('select, input[name=direction]:radio, input[name=keywords]').change(function(e){
+        $form.find('select, input[name=direction]:radio').change(function(e){
           $form.submit();
         });
+
+        $form.find('input[name=keywords]').keyup(function () {
+          delay(function () {
+            $form.submit();
+          }, 600);
+        });
+        var delay = (function(){
+          var timer = 0;
+          return function(callback, ms){
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+          }  
+        })();
       }
       if($('#show-more-documents .previous').length === 0){
         documentFilter.initScroll();
