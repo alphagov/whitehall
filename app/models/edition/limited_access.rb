@@ -1,19 +1,21 @@
 module Edition::LimitedAccess
   extend ActiveSupport::Concern
 
-  def can_limit_access?
-    true
+  included do
+    before_save ->(record) { record.access_limited = nil unless record.can_limit_access? }
   end
 
-  def access_limited?
-    read_attribute(:access_limited)
-  end
+  module InstanceMethods
+    def access_limited?
+      self.can_limit_access? && read_attribute(:access_limited)
+    end
 
-  def accessible_by?(user)
-    if access_limited?
-      organisations.include?(user.organisation)
-    else
-      true
+    def accessible_by?(user)
+      if access_limited?
+        organisations.include?(user.organisation)
+      else
+        true
+      end
     end
   end
 end

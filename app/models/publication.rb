@@ -47,6 +47,14 @@ class Publication < Publicationesque
     [PublicationType::Statistics, PublicationType::NationalStatistics].include?(publication_type)
   end
 
+  def can_limit_access?
+    true
+  end
+
+  def access_limited?
+    statistics? && super
+  end
+
   private
 
   def set_timestamp_for_sorting

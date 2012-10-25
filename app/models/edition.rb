@@ -5,6 +5,7 @@ class Edition < ActiveRecord::Base
 
   include Edition::Identifiable
   include Edition::AccessControl
+  include Edition::LimitedAccess
   include Edition::Workflow
   include Edition::Organisations
   include Edition::Publishing
@@ -200,14 +201,6 @@ class Edition < ActiveRecord::Base
 
   def can_limit_access?
     false
-  end
-
-  def access_limited?
-    false
-  end
-
-  def accessible_by?(user)
-    true
   end
 
   def create_draft(user)
