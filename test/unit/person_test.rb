@@ -113,4 +113,22 @@ class PersonTest < ActiveSupport::TestCase
     person = Person.new(forename: 'Hercule', surname: 'Poirot')
     assert_equal 'poirot hercule', person.sort_key
   end
+
+  test '#ministerial_roles_at returns the ministerial roles held by the person at the date specified' do
+    person = create(:person)
+    oldest_role = create(:ministerial_role)
+    older_role = create(:ministerial_role)
+    newer_role = create(:ministerial_role)
+    newest_role = create(:ministerial_role)
+    current_non_ministerial_role = create(:board_member_role)
+    create(:role_appointment, person: person, role: oldest_role, started_at: 12.months.ago, ended_at: 8.months.ago)
+    create(:role_appointment, person: person, role: older_role, started_at: 8.months.ago, ended_at: 5.months.ago)
+    create(:role_appointment, person: person, role: newer_role, started_at: 7.months.ago, ended_at: 4.months.ago)
+    create(:role_appointment, person: person, role: newest_role, started_at: 4.months.ago, ended_at: nil)
+    create(:role_appointment, person: person, role: current_non_ministerial_role, started_at: 1.month.ago, ended_at: nil)
+
+    assert_equal [oldest_role], person.ministerial_roles_at(9.months.ago)
+    assert_equal [older_role, newer_role], person.ministerial_roles_at(6.months.ago)
+    assert_equal [newest_role], person.ministerial_roles_at(1.month.ago)
+  end
 end
