@@ -50,13 +50,15 @@
     }
 
   @include media(desktop){
-    .block-2, .block-3 {
+    .block-2 {
       float: left;
       display: inline;
-      width: 25%;
+      width: 33.333%;
     }
     .block-3 {
-      width: 75%;
+      float: left;
+      display: inline;
+      width: 66.666%;
     }
   }
 
@@ -139,7 +141,7 @@
       a {
         display: block;
         @include core-24;
-        padding: $gutter-half 0 $gutter-half $gutter-half;
+        padding: $gutter-half 0 $gutter-half ($gutter-half + 2px);
         margin: 0 2px;
         background: $light-warm-grey;
         color: $body-text;
@@ -156,7 +158,7 @@
           position: relative;
           margin-bottom: -1px;
           @include core-24;
-          padding: $gutter-half 0 ($gutter-half + 4px) ($gutter-half - 1px);
+          padding: $gutter-half 0 ($gutter-half + 4px) ($gutter-half + 1px);
           border: 1px solid $light-keyline;
           border-bottom: none;
           background: $white;
@@ -213,9 +215,5 @@
   // see helpers/_feed.scss for the other styles
   .subscribe {
     float: right;
-  }
-
-  .document-list .document-row td {
-    width: 22%;
   }
 }

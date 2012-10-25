@@ -5,10 +5,10 @@
   padding-bottom: $gutter-two-thirds;
   
   h1 {
-    @include core-14;
+    @include core-16;
   }
   nav {
-    @include core-14;
+    @include core-16;
   }
   a {
     position: relative;
@@ -16,6 +16,6 @@
     vertical-align: top;
   }
   p {
-    @include core-14;
+    @include core-16;
   }
 }
