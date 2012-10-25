@@ -11,11 +11,8 @@
   }
 
   form {
-    padding-left: $gutter-half;
-    @include media (desktop) {
-      padding-left: $gutter-one-third;
-      padding-right: $gutter-one-third;
-    }
+    padding-left: $gutter-one-third;
+    
     fieldset {
       position: relative;
       .results{
@@ -24,14 +21,15 @@
         margin-left:-$gutter-two-thirds;
         margin-right:-$gutter-two-thirds;
         margin-top: $gutter-half;
-        padding:0 0 0 $gutter-two-thirds;
+        padding:$gutter-one-third 0 0 $gutter-one-third;
         .count{
           @include core-27;  
-          padding-top: $gutter-one-third;        
+          padding-top: $gutter-one-third;       
         }
         .selections{
           clear:both;
           padding-top:$gutter-one-third;
+
         }
         .chosen span,
         .chosen span{
