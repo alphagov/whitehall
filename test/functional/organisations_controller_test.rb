@@ -328,12 +328,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should link to a google map" do
-    organisation = create(:organisation, contacts_attributes: [{description: "Main", latitude: 51.498772, longitude: -0.130974}])
-    get :show, id: organisation
-    assert_select "a[href='http://maps.google.co.uk/maps?q=51.498772,-0.130974']"
-  end
-
   test "should show description on organisation about subpage" do
     organisation = create(:organisation, description: "organisation-description")
     get :about, id: organisation

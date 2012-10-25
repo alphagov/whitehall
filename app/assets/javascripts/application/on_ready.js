@@ -38,19 +38,13 @@ jQuery(function($) {
 
   $(".js-document-filter").enableDocumentFilter();
 
-  $('.js-hide-extra-logos .organisations-icon-list .organisation').hideExtraRows({
+  $('.js-hide-extra-logos .organisations-icon-list').hideExtraRows({
     appendToParent: true,
     showWrapper: $('<li class="show-other-content" />')
   });
-
-  // FIXME: use the `js-` prefix instead
-  $('.organisations-show #ministers .ministerial_role').hideExtraRows();
-
-  $('.organisations-show .management-secondary .board_member_role').hideExtraRows();
-
-  $('.organisations-show #military .military_role').hideExtraRows();
-
-  $('.organisations-show .addresses .organisation_contact').hideExtraRows();
+  $('.js-hide-extra-rows').hideExtraRows();
+  $('.js-hide-extra-rows-2').hideExtraRows({ rows: 2 });
+  $('.js-hide-extra-rows-3').hideExtraRows({ rows: 3 });
 
   GOVUK.hideDepartmentChildren.init();
 
