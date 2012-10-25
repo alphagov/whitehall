@@ -38,6 +38,7 @@ gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'gds-api-adapters', '2.8.1'
 gem 'whenever', '0.7.3', require: false
+gem 'mini_magick'
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.7.0'

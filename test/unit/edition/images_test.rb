@@ -12,10 +12,10 @@ class Edition::ImagesTest < ActiveSupport::TestCase
       images_attributes: [
       {alt_text: "Something about this image",
        caption: "Text to be visible along with the image",
-       image_data_attributes: {file: fixture_file_upload('portas-review.jpg')}},
+       image_data_attributes: {file: fixture_file_upload('minister-of-funk.960x640.jpg')}},
       {alt_text: "alt-text-2",
        caption: "caption-2",
-       image_data_attributes: {file: fixture_file_upload('portas-review.jpg')}}
+       image_data_attributes: {file: fixture_file_upload('minister-of-funk.960x640.jpg')}}
     ]))
 
     assert_equal 2, edition.images.count
@@ -67,7 +67,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         alt_text: "alt-text",
         caption: "original-caption",
         image_data_attributes: {
-          file: fixture_file_upload('portas-review.jpg')
+          file: fixture_file_upload('minister-of-funk.960x640.jpg')
         }
       }]
     ))
