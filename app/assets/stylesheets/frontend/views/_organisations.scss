@@ -141,7 +141,9 @@
 
   .block-1 {
     padding-top: $gutter-one-third;
-    padding-bottom: 0;
+    @include media(tablet) {
+      padding-bottom: $gutter;
+    }
   }
 
   @include media(tablet) {
@@ -180,7 +182,6 @@
 
   .organisation-news {
     margin: 0 (-$gutter-half);
-    padding-top: $gutter-two-thirds;
 
     .first h2 {
       margin-top: $gutter-one-sixth;
@@ -266,7 +267,6 @@
     td {
       margin: 0;
       padding: 0 $gutter-one-third 0 0;
-      color: $low-contrast;
     }
   }
 
@@ -412,7 +412,6 @@
       .document {
         list-style: none;
         padding: 0 0 $gutter-one-sixth;
-        margin-bottom: $gutter-one-third;
         border-bottom: 1px solid $light-keyline;
       }
     }
@@ -429,7 +428,7 @@
 
     .metadata li {
       display: inline;
-      padding-right: $gutter-one-third;
+      padding-right: $gutter;
     }
 
     .see-all {
