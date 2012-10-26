@@ -411,6 +411,27 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute_select_object(inaccessible)
   end
 
+  test "should prevent viewing or modification of limited access editions which I don't have access to" do
+    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    login_as(create(:user, organisation: my_organisation))
+    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+
+    get :show, id: inaccessible
+    assert_response 403
+
+    get :edit, id: inaccessible
+    assert_response 403
+
+    put :update, id: inaccessible, edition: {summary: "new-summary"}
+    assert_response 403
+
+    post :revise, id: inaccessible
+    assert_response 403
+
+    delete :destroy, id: inaccessible
+    assert_response 403
+  end
+
   def stub_edition_filter(attributes = {})
     default_attributes = {
       editions: Kaminari.paginate_array(attributes[:editions] || []).page(1),
