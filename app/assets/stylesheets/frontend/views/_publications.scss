@@ -52,17 +52,19 @@
   .document-series {
     background-color: $inside-gov-brand;
     color: white;
-    padding: $gutter-one-third $gutter-one-third $gutter-half 33.333%;
+    padding: $gutter-one-third $gutter-half $gutter-half;
     margin: 0 ($gutter*-0.5);
         
     @include media(tablet){
+      padding: $gutter-one-third $gutter-one-third $gutter-half 33.333%;
       margin: 0;
     }
 
-
     span, a {
       display: block;
-      margin-left: $gutter-half;
+      @include media(tablet){
+        margin-left: $gutter-half;
+      }
     }
 
     span {

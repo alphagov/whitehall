@@ -1,9 +1,13 @@
 .attachment-full-width {
-  padding: $gutter-one-third 0 $gutter-half;
-  margin: 0;
+  padding: $gutter-one-third 0 $gutter;
+  margin: 0 ($gutter-half*-1);
   clear: both;
   background: $info-background;
   overflow: hidden;
+  @include media(tablet){
+    margin: 0;
+  }
+  
   .govspeak {
     margin: 0;
 
@@ -26,8 +30,14 @@
         @include core-16;
       }
       .supporting-documents-title {
-        margin-left: 25%;
+        // this is really scrappy
+        margin: $gutter 0 $gutter-one-third $gutter-half;
         @include core-24;
+        @include media(tablet){
+          position: relative;
+          margin-left: 33.333%;
+          left: $gutter-half;
+        }
       }
     }
   }
