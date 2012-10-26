@@ -203,7 +203,7 @@ module ApplicationHelper
       consultations_path
     when "ministerial_roles"
       ministerial_roles_path
-    when "organisations"
+    when "organisations", "corporate_information_pages"
       organisations_path
     when "countries", "international_priorities"
       countries_path
