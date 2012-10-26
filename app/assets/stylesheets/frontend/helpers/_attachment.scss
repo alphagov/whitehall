@@ -1,0 +1,99 @@
+.attachment,
+.attachment-full-width {
+  position: relative;
+  margin: 0 ($gutter-half*-1);
+  padding: $gutter-one-third $gutter-half;
+  background: $info-background;
+  //background: red;
+  
+  @include media(tablet){
+    margin: 0;
+    padding: $gutter-two-thirds $gutter-half;
+  }
+  
+  .attachment {
+    margin: 0;
+    padding: $gutter-half 0 0 (99px + $gutter-half);
+    background: transparent;
+    @extend %contain-floats;
+
+    @include media(tablet){
+      padding-left: (99px + $gutter);
+    }
+  }
+  
+  h1, h2, .attachment-details h3 {
+    @include core-27;
+    margin: 0;
+  }
+  
+  .attachment-without-thumbnail {
+    margin-top: $gutter;
+  }
+  
+  .attachment-thumb {
+    position: relative;
+    float: left;
+    margin-top: $gutter-one-sixth;
+    margin-left: (-99px - $gutter-half);
+    padding-bottom: $gutter-half;
+    @include media(tablet){
+      margin-left: (-99px - $gutter);
+    }
+  
+    img {
+      display: block;
+      width: 99px;
+      height: 140px;
+      background: white;
+      @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
+    }
+    .download-button {
+      position: absolute;
+      left: -5000px;
+    }
+  }
+  
+  .attachment-details {
+    .extra-description {
+      @include core-19;
+      margin: 0;
+    }
+    
+    .metadata {
+      @include core-14;
+      margin: 0;
+      .changed,
+      .references {
+        display: block;
+      }
+    }
+  }
+  
+  .accessibility-warning {
+    h3 {
+      @include core-14;
+      margin: 0;
+      color: $body-text;
+    }
+    .toggler {
+      color: $link-text;
+      cursor: pointer;
+      &:hover,
+      &:focus {
+        outline: none;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.attachment-full-width {
+  @include media(tablet){
+    padding-left: 34.8%;
+    
+    .attachment {
+      padding-left: 0;
+    }
+  }
+}

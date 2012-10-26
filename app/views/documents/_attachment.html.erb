@@ -20,13 +20,13 @@
     <% unless extra_description.empty? %>
       <p class="extra-description"><%= extra_description %></p>
     <% end %>
-    <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? %>
-      <p class="references">Ref: <%= attachment_reference(attachment) %></p>
-    <% end %>
-    <% unless published_on.blank? %>
-      <p>Published: <span class="date"><%= absolute_date(published_on) %></span></p>
-    <% end %>
     <p class="metadata">
+      <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? %>
+        <span class="references">Ref: <%= attachment_reference(attachment) %></span>
+      <% end %>
+      <% unless published_on.blank? %>
+        <span class="changed">Published: <%= absolute_date(published_on) %></span>
+      <% end %>
       <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>,
       <span class="file-size"><%= number_to_human_size(attachment.file_size) %></span><% if attachment.number_of_pages.present? %>,
         <span class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></span><% end %>

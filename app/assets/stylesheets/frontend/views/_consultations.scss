@@ -74,6 +74,11 @@ nav.consultations_scope {
     @include media(tablet){
       margin: $gutter 0 0;
     }
+    
+    &+.consultation-block {
+      padding-top: 0;
+      margin-top: 0;
+    }
 
     &.consultation-open {
       padding: $gutter-one-third 0;
@@ -146,10 +151,6 @@ nav.consultations_scope {
     }
 
     &.consultation-responded {
-      .attachment-full-width {
-        color: $body-text;
-      }
-
       h2 {
       }
       .run-time {
@@ -211,11 +212,6 @@ nav.consultations_scope {
       }
     }
   }
-
-  .attachment-full-width {
-    margin: 0;
-  }
-  
 
   .block-2 .heading-block {
     padding-top: $gutter;
