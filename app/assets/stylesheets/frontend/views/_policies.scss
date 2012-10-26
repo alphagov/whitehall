@@ -4,7 +4,16 @@
     margin: 0;
     position: relative;
   }
-
+  .block-1{
+    .inner-block header{
+      background: $info-background;
+      margin-bottom:0;
+      padding-bottom:0;
+      h1{
+        padding-left:$gutter-half;
+      }
+    }
+  }
   .alphabetical-list .alphabetical-row {
     .inner {
       padding-top: $gutter-one-third;

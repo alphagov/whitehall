@@ -4,6 +4,7 @@ class DocumentFilterJsonPresenter < Draper::Base
       count: model.count,
       current_page: model.current_page,
       total_pages: model.num_pages,
+      total_count: model.total_count,
       results: model.documents.map { |d| document_hash(d) }
     }
     unless model.last_page?
