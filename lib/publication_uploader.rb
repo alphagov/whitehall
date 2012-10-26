@@ -8,32 +8,62 @@ class PublicationUploader
   end
 
   def upload
-    data = CSV.new(@csv_data, headers: true)
-    data.each do |row|
-      publication_date  = PublicationDateParser.parse(row['publication_date'], @logger, data.lineno)
-      publication_type  = PublicationTypeFinder.find(row['pub type'], @logger, data.lineno)
-      policies          = PoliciesFinder.find(row['policy 1'], row['policy 2'], row['policy 3'], @logger, data.lineno)
-      organisations     = OrganisationFinder.find(row['org'], @logger, data.lineno)
-      document_series   = DocumentSeriesFinder.find(row['doc series'], @logger, data.lineno)
-      ministerial_roles = MinisterialRoleFinder.find(publication_date, row['minister 1'], row['minister 2'], @logger, data.lineno)
+    uploader = Whitehall::Uploader::Csv.new(@csv_data, PublicationRow, Publication, @logger)
+    uploader.import_as(@creator)
+  end
 
-      publication = Publication.new(
-        title:             row['title'],
-        summary:           row['summary'],
-        body:              row['body'],
-        creator:           @creator,
-        publication_date:  publication_date,
-        publication_type:  publication_type,
-        related_policies:  policies,
-        organisations:     organisations,
-        document_series:   document_series,
-        ministerial_roles: ministerial_roles
-      )
+  class PublicationRow
+    attr_reader :row
 
-      if publication.save
-        DocumentSource.create!(document: publication.document, url: row['old_url'])
-      else
-        @logger.warn "Row #{data.lineno}: Publication couldn't be saved for the following reasons: #{publication.errors.full_messages}"
+    def initialize(row, line_number, logger = Logger.new($stdout))
+      @row = row
+      @line_number
+      @logger = logger
+    end
+
+    def title
+      row['title']
+    end
+
+    def summary
+      row['summary']
+    end
+
+    def body
+      row['body']
+    end
+
+    def legacy_url
+      row['old_url']
+    end
+
+    def publication_date
+      PublicationDateParser.parse(row['publication_date'], @logger, @line_number)
+    end
+
+    def publication_type
+      PublicationTypeFinder.find(row['pub type'], @logger, @line_number)
+    end
+
+    def related_policies
+      PoliciesFinder.find(row['policy 1'], row['policy 2'], row['policy 3'], @logger, @line_number)
+    end
+
+    def organisations
+      OrganisationFinder.find(row['org'], @logger, @line_number)
+    end
+
+    def document_series
+      DocumentSeriesFinder.find(row['doc series'], @logger, @line_number)
+    end
+
+    def ministerial_roles
+      MinisterialRoleFinder.find(publication_date, row['minister 1'], row['minister 2'], @logger, @line_number)
+    end
+
+    def attributes
+      [:title, :summary, :body, :publication_date, :publication_type, :related_policies, :organisations, :document_series, :ministerial_roles].map.with_object({}) do |name, result|
+        result[name] = __send__(name)
       end
     end
   end

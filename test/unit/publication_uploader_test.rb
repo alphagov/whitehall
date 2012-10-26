@@ -19,7 +19,7 @@ class PublicationUploaderTest < ActiveSupport::TestCase
 
     uploader.upload
 
-    assert_match /Publication couldn't be saved for the following reasons/, @log_buffer.string
+    assert_match /couldn't be saved for the following reasons/, @log_buffer.string
   end
 
   test "a minimally valid publication is created and the document_source is recorded" do
