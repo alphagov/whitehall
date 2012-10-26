@@ -60,9 +60,12 @@ jQuery(function($) {
     }
   }
 
-  publicationTypeChooser.change(hideAccessLimited)
-  hideAccessLimited();
+  if (publicationTypeChooser.size() > 0) {
+    publicationTypeChooser.change(hideAccessLimited)
+    hideAccessLimited();
+  }
 })(jQuery);
+
 
 (function($){
   var $input = $('#edition_summary'),
