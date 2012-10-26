@@ -28,7 +28,7 @@ module("Document filter", {
     this.resultsCount = $('<div class="results"><div class="count"><span></span></div></div>');
     $('#qunit-fixture').append(this.resultsCount);
 
-    this.selections = $('<div class="selection"></div>');
+    this.selections = $('<div class="selections"></div>');
     $('#qunit-fixture').append(this.selections);
 
     this.ajaxData = {

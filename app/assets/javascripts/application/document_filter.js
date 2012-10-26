@@ -166,7 +166,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       });
     },
     liveResultSummary: function(data, formStatus){
-      var $selections = $('.selection');
+      var $selections = $('.selections');
       $selections.html("");
       $(".results .count span").text(data.total_count);
 
@@ -186,7 +186,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       }
     },
     filterEvents: function(){
-      $(".selection .chosen span a").on("click", function(){
+      $(".selections .chosen span a").on("click", function(){
         documentFilter.removeFilters($(this).attr("data-val"));
         $(this).parent().remove();
         return false;
