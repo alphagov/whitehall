@@ -43,7 +43,7 @@ end
 
 When /^I select an image for the detailed guide$/ do
   within ".images" do
-    attach_file "File", Rails.root.join("features/fixtures/minister-of-soul.jpg")
+    attach_file "File", Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")
   end
 end
 

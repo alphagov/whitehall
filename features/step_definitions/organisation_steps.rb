@@ -63,7 +63,7 @@ When /^I visit the "([^"]*)" organisation$/ do |name|
 end
 
 When /^I feature the news article "([^"]*)" for "([^"]*)"$/ do |news_article_title, organisation_name|
-  When %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-soul.jpg"%
+  When %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-funk.960x640.jpg"%
 end
 
 When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |news_article_title, organisation_name, image_filename|
@@ -73,7 +73,7 @@ When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
   within record_css_selector(news_article) do
     click_link "Feature"
   end
-  attach_file "Select an image to be shown when featuring", Rails.root.join("features/fixtures/#{image_filename}")
+  attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
   fill_in :alt_text, with: "An accessible description of the image"
   click_button "Save"
 end

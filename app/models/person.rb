@@ -21,6 +21,8 @@ class Person < ActiveRecord::Base
   validates :name, presence: true
   validates_with SafeHtmlValidator
 
+  validate :image_must_be_960px_by_640px, if: :image_changed?
+
   extend FriendlyId
   friendly_id :slug_name, use: :slugged
 
@@ -60,6 +62,17 @@ class Person < ActiveRecord::Base
   end
 
   private
+
+  def image_changed?
+    changes["carrierwave_image"].present?
+  end
+
+  def image_must_be_960px_by_640px
+    image_file = image && image.path && MiniMagick::Image.open(image.path)
+    unless image_file.nil? || (image_file[:width] == 960 && image_file[:height] == 640)
+      errors.add(:image, "must be 960px wide and 640px tall")
+    end
+  end
 
   def slug_name
     prefix = forename.present? ? forename : title

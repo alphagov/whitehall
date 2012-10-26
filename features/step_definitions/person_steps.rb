@@ -21,7 +21,7 @@ When /^I add a new person called "([^"]*)"$/ do |name|
   click_link "Create Person"
   fill_in_person_name name
   fill_in "Biography", with: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  attach_file "Image", Rails.root.join("features/fixtures/minister-of-soul.jpg")
+  attach_file "Image", Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")
   click_button "Save"
 end
 

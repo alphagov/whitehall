@@ -8,6 +8,17 @@ class PersonTest < ActiveSupport::TestCase
     refute person.valid?
   end
 
+  test "should be invalid if image isn't 960x640px" do
+    person = build(:person, image: File.open('test/fixtures/horrible-image.64x96.jpg'))
+    refute person.valid?
+  end
+
+  test "should be valid if legacy image isn't 960x640px" do
+    person = build(:person, image: File.open('test/fixtures/horrible-image.64x96.jpg'))
+    person.save(validate: false)
+    assert person.reload.valid?
+  end
+
   test '#ministerial_roles includes all ministerial roles' do
     minister = create(:ministerial_role)
     person = create(:person)

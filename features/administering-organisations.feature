@@ -3,9 +3,9 @@ Feature: Administering Organisations
 Scenario: Featuring news on an organisation page
   Given the organisation "Ministry of Pop" exists
   And a published news article "You must buy the X-Factor single, says Queen" was produced by the "Ministry of Pop" organisation
-  When I feature the news article "You must buy the X-Factor single, says Queen" for "Ministry of Pop" with image "minister-of-soul.jpg"
+  When I feature the news article "You must buy the X-Factor single, says Queen" for "Ministry of Pop" with image "minister-of-funk.960x640.jpg"
   Then I should see the featured news articles in the "Ministry of Pop" organisation are:
-    | You must buy the X-Factor single, says Queen | minister-of-soul.jpg |
+    | You must buy the X-Factor single, says Queen | minister-of-funk.960x640.jpg |
 
 Scenario: Defining the order of featured news on an organisation page
   Given the organisation "Ministry of Pop" exists
