@@ -6,7 +6,7 @@
   <div class="inner-block">
     <header class="page-header publication">
       <h1 class="page_title">Publications</h1>
-      <%= link_to_feed publication_atom_feed_url %>
+      
     </header>
   </div>
 </div>
@@ -15,6 +15,7 @@
   <div class="inner-block">
     
     <%= render partial: "documents/filter_form", locals: {document_type: :publication, filter_by_date: true, filter_by_publication_type: true} %>
+    <%= link_to_feed publication_atom_feed_url %>
   </div>
 </div>
 

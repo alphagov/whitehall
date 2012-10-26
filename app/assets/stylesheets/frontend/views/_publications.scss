@@ -6,11 +6,7 @@
     margin: 0;
     position: relative;
 
-    .subscribe {
-      position: absolute;
-      right: $gutter-two-thirds;
-      bottom: 0;
-    }
+    
   }
 
   @include ie(6) {
@@ -21,9 +17,13 @@
       zoom: 1;
     }
   }
+  .subscribe {
+    float:right;
 
+  }
   .block-4 {
     width: 100%;
+
   }
   .block-1{
     .inner-block header{
