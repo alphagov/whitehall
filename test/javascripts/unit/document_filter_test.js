@@ -25,6 +25,12 @@ module("Document filter", {
     this.atomLink = $('<div class="subscribe"><a class="feed">feed</a></div>');
     $('#qunit-fixture').append(this.atomLink);
 
+    this.resultsCount = $('<div class="results"><div class="count"><span></span></div></div>');
+    $('#qunit-fixture').append(this.resultsCount);
+
+    this.selections = $('<div class="selection"></div>');
+    $('#qunit-fixture').append(this.selections);
+
     this.ajaxData = {
       "next_page_url": '/next-page-url',
       "prev_page_url": '/prev-page-url',
@@ -248,7 +254,7 @@ test("currentPageState should include the current results", function() {
 
 test("currentPageState should include the state of any select boxes", function() {
   this.filterForm.enableDocumentFilter();
-  deepEqual(GOVUK.documentFilter.currentPageState().selected, [{id: "departments", value: ["all"]}]);
+  deepEqual(GOVUK.documentFilter.currentPageState().selected, [{id: "departments", value: ["all"], title: ["All"]}]);
 });
 
 test("currentPageState should include the state of any radio buttons", function() {
@@ -328,3 +334,59 @@ test("should not enable ajax filtering if browser does not support HTML5 History
 
   sinon.assert.callCount(ajax, 0);
 });
+
+test("should create live count value", function(){
+  var data = { total_count: 1337 };
+
+  window.GOVUK.documentFilter.liveResultSummary(data, {});
+  equals(this.resultsCount.find('span').text(), '1337');
+});
+
+test("should update selections to match filters", function(){
+  var data = { total_count: 1337 },
+      formStatus = {
+        selected: [
+          {
+            title: ['my-title'],
+            id: 'topics',
+            value: ['my-value']
+          }
+        ]
+      };
+
+  window.GOVUK.documentFilter.liveResultSummary(data, formStatus);
+
+  equals(this.selections.find('.topics-selections span').text(), 'my-title x');
+  equals(this.selections.find('.topics-selections span a').attr('data-val'), 'my-value');
+});
+
+test("should remove item from chosen list and request removal from document filters", function(){
+  this.selections.append('<div class="chosen"><span><a data-val="something">hello</a></span></div>');
+
+  var stub = sinon.stub(GOVUK.documentFilter, "removeFilters");
+
+  GOVUK.documentFilter.filterEvents();
+  this.selections.find('a').click();
+
+  equal(stub.getCall(0).args[0], 'something')
+  equal(this.selections.find('span').length, 0);
+  stub.restore();
+});
+
+test("should remove selection from apropriate filter", function(){
+  this.filterForm.find('option[value="dept1"]').attr('selected', 'selected');
+
+  equal(this.filterForm.find('select option[value="dept1"]:selected').length, 1, 'selected to start');
+  GOVUK.documentFilter.removeFilters('dept1');
+  equal(this.filterForm.find('select option[value="dept1"]:selected').length, 0, 'selection removed');
+});
+
+test("should select first item in filter if no item would be selected", function(){
+  this.filterForm.find('option').removeAttr('selected');
+  this.filterForm.find('option[value="dept1"]').attr('selected', 'selected');
+
+  equal(this.filterForm.find('select option:selected').length, 1);
+  GOVUK.documentFilter.removeFilters('dept1');
+  equal(this.filterForm.find('select option:first-child:selected').length, 1);
+});
+

@@ -1,20 +1,21 @@
 <div class="filter-block">
-  <h2>Filter by organisation, topic or keyword</h2>
+  <h2>You can use the filters to show only results that match your interests</h2>
   <%= form_tag send(:"#{document_type.to_s.pluralize}_path"), method: :get, id: "document-filter", class: 'js-document-filter' do %>
     <fieldset>
       <legend class="visuallyhidden">Filter <%= document_type.to_s.pluralize %></legend>
-      <div class="filter">
-        <div class="filter-inner">
-          <%= label_tag "departments", "Department", class: "visuallyhidden" %>
-          <%= select_tag :departments, organisation_filter_options(@filter.all_organisations_with(document_type), @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
-        </div>
-      </div>
       <div class="filter">
         <div class="filter-inner">
           <%= label_tag "topics", "Topic", class: "visuallyhidden" %>
           <%= select_tag :topics, topic_filter_options(@filter.all_topics_with(document_type), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
         </div>
       </div>
+      <div class="filter">
+        <div class="filter-inner">
+          <%= label_tag "departments", "Department", class: "visuallyhidden" %>
+          <%= select_tag :departments, organisation_filter_options(@filter.all_organisations_with(document_type), @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
+        </div>
+      </div>
+      
       <div class="filter">
         <div class="filter-inner">
           <% if defined?(filter_by_publication_type) && filter_by_publication_type %>
@@ -41,9 +42,13 @@
             </div>
           <% end %>
           <div class="submit">
-            <%= submit_tag "Refresh", class: "button" %>
-          </div>
+          <%= submit_tag "Refresh results", class: "button" %>
         </div>
+        </div>
+      </div>
+      <div class="results">
+        <p class="count"><span><%= @filter.documents.total_count %></span> results</p>
+        <p class="selections"></p>
       </div>
     </fieldset>
   <% end %>

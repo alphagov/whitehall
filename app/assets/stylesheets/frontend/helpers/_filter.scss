@@ -11,14 +11,33 @@
   }
 
   form {
-    padding-left: $gutter-half;
-    @include media (desktop) {
-      padding-left: $gutter-one-third;
-      padding-right: $gutter-one-third;
-    }
+    padding-left: $gutter-one-third;
+    
     fieldset {
       position: relative;
+      .results{
+        background-color:white;
+        clear:both;
+        margin-left:-$gutter-two-thirds;
+        margin-right:-$gutter-two-thirds;
+        margin-top: $gutter-half;
+        padding:$gutter-one-third 0 0 $gutter-one-third;
+        .count{
+          @include core-27;  
+          padding-top: $gutter-one-third;       
+        }
+        .selections{
+          clear:both;
+          padding-top:$gutter-one-third;
 
+        }
+        .chosen span,
+        .chosen span{
+          background-color: $info-background;
+          padding:0 $gutter-one-third;
+          display: inline-block;
+        }
+      }
       .filter {
         width: 100%;
         float: left;
@@ -68,7 +87,7 @@
     width: 100%;
     padding-bottom: 0;
     @include media (desktop) {
-      height: 243px;
+      height: 205px;
     }
   }
   .checkbox input {
@@ -96,6 +115,7 @@
   .submit {
     padding: $gutter-two-thirds 0 $gutter-one-third;
     margin: $gutter-one-sixth 0 0;
+
     @include media (desktop) {
       padding-bottom: 0;
     }
@@ -129,3 +149,4 @@
     }
   }
 }
+
