@@ -147,11 +147,11 @@
     background-position: center;
     height: $gutter;
     width: $gutter;
-    display: block;
     position: absolute;
+    overflow: hidden;
     top: $gutter-two-thirds;
     right: $gutter-two-thirds;
-    @include border-radius(30px);
+    @include border-radius($gutter);
   }
 
   @include ie-lte(7) {
