@@ -79,6 +79,8 @@ class Whitehall::Uploader::PublicationRow
       begin
         if date =~ /^\d{1,2}\-[A-Za-z]{3}\-\d{2}/
           Date.strptime(date, '%d-%b-%y')
+        elsif date =~ /\d{4}\-\d{2}\-\d{2}/
+          Date.strptime(date, '%Y-%m-%d')
         else
           Date.strptime(date, '%m/%d/%Y')
         end
