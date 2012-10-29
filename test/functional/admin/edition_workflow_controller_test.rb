@@ -380,4 +380,25 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 422, response.status
     assert_equal 'All workflow actions require a lock version', response.body
   end
+
+  test "should prevent access to inaccessible editions" do
+    protected_edition = stub("protected edition", id: "1")
+    protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
+    Edition.stubs(:find).with("1").returns(protected_edition)
+
+    post :submit, id: protected_edition.id
+    assert_response 403
+    post :approve_retrospectively, id: protected_edition.id
+    assert_response 403
+    post :reject, id: protected_edition.id
+    assert_response 403
+    post :publish, id: protected_edition.id
+    assert_response 403
+    post :unpublish, id: protected_edition.id
+    assert_response 403
+    post :schedule, id: protected_edition.id
+    assert_response 403
+    post :unschedule, id: protected_edition.id
+    assert_response 403
+  end
 end
