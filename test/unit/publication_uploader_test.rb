@@ -120,6 +120,36 @@ class PublicationUploaderTest < ActiveSupport::TestCase
     assert_equal [role_1, role_2], publication.ministerial_roles
   end
 
+  test "attachments are downloaded and associated to the publication" do
+    stub_download("http://example.com/attachment-1.pdf", "two-pages.pdf")
+    stub_download("http://example.com/attachment-2.csv", "sample-from-excel.csv")
+    create(:organisation, name: "Department of Stuff", alternative_format_contact_email: "someone@example.com")
+
+    uploader = PublicationUploader.new(
+      import_as: create(:user),
+      csv_data: csv_sample(
+        "org" => "Department of Stuff",
+        "attachment 1 title" => "first attachment",
+        "attachment 1 url" => "http://example.com/attachment-1.pdf",
+        "attachment 2 title" => "second attachment",
+        "attachment 2 url" => "http://example.com/attachment-2.csv"
+      ),
+      logger: @logger
+    )
+
+    uploader.upload
+
+    assert publication = Publication.first
+    assert attachments = publication.attachments
+    assert_equal 2, attachments.count
+    assert_equal "first attachment", attachments[0].title
+    assert_equal "http://example.com/attachment-1.pdf", attachments[0].attachment_source.url
+    assert_equal File.read(Rails.root.join("test", "fixtures", "two-pages.pdf")), File.read(attachments[0].file.path)
+    assert_equal "second attachment", attachments[1].title
+    assert_equal "http://example.com/attachment-2.csv", attachments[1].attachment_source.url
+    assert_equal File.read(Rails.root.join("test", "fixtures", "sample-from-excel.csv")), File.read(attachments[1].file.path)
+  end
+
 private
   def csv_sample(additional_fields = {}, extra_rows = [])
     data = minimally_valid_row.merge(additional_fields)
@@ -130,6 +160,11 @@ private
       lines << CSV.generate_line(default_row.merge(row).values, encoding: "UTF-8")
     end
     lines.join
+  end
+
+  def stub_download(url, fixture_file_name)
+    file = File.new(Rails.root.join("test", "fixtures", fixture_file_name))
+    stub_request(:get, url).to_return(body: file, status: 200)
   end
 
   def minimally_valid_row

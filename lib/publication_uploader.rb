@@ -8,7 +8,7 @@ class PublicationUploader
   end
 
   def upload
-    uploader = Whitehall::Uploader::Csv.new(@csv_data, PublicationRow, Publication, @logger)
+    uploader = Whitehall::Uploader::Csv.new(@csv_data, Whitehall::Uploader::PublicationRow, Publication, @logger)
     uploader.import_as(@creator)
   end
 end

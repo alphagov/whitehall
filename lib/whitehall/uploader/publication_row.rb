@@ -60,8 +60,14 @@ class Whitehall::Uploader::PublicationRow
     end.compact
   end
 
+  def alternative_format_provider
+    organisations.first
+  end
+
   def attributes
-    [:title, :summary, :body, :publication_date, :publication_type, :related_policies, :organisations, :document_series, :ministerial_roles].map.with_object({}) do |name, result|
+    [:title, :summary, :body, :publication_date, :publication_type,
+     :related_policies, :organisations, :document_series,
+     :ministerial_roles, :attachments, :alternative_format_provider].map.with_object({}) do |name, result|
       result[name] = __send__(name)
     end
   end
@@ -76,8 +82,8 @@ class Whitehall::Uploader::PublicationRow
         File.open(File.join(dir, filename), 'w', encoding: 'ASCII-8BIT') do |file|
           file.write(response.body)
         end
+        File.open(File.join(dir, filename), 'r')
       end
-      result
     else
       @logger.error "Unable to fetch attachment '#{url}' for '#{title}', got response status #{response.code}.'"
       nil

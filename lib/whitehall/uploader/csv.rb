@@ -16,7 +16,8 @@ class Whitehall::Uploader::Csv
       if DocumentSource.find_by_url(row.legacy_url)
         @logger.warn "Row #{ix + 2} '#{row.legacy_url}' has already been imported"
       else
-        model = model_class.new(row.attributes.merge(creator: creator))
+        attributes = row.attributes.merge(creator: creator)
+        model = model_class.new(attributes)
         if model.save
           DocumentSource.create!(document: model.document, url: row.legacy_url)
         else
