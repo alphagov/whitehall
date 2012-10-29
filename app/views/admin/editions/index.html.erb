@@ -103,6 +103,9 @@
                 <% if edition.force_published? %>
                   <span class="force_published label label-important">not reviewed</span>
                 <% end %>
+                <% if edition.access_limited? %>
+                  <span class="access_limited label label-important">limited access</span>
+                <% end %>
                 <% if edition.has_supporting_pages? %>
                   <div class="supporting_pages additional_information well">
                     <h4>Supporting Pages</h4>
