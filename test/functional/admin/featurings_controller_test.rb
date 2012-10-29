@@ -16,4 +16,16 @@ class Admin::FeaturingsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should prevent access to inaccessible editions" do
+    protected_edition = stub("protected edition", id: "1")
+    protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
+    Edition.stubs(:find).with("1").returns(protected_edition)
+
+    get :create, edition_id: "1"
+    assert_response 403
+    get :update, edition_id: "1"
+    assert_response 403
+    get :destroy, edition_id: "1"
+    assert_response 403
+  end
 end
