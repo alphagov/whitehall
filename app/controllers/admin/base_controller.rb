@@ -8,7 +8,7 @@ class Admin::BaseController < ApplicationController
 
   def limit_edition_access!
     unless @edition.accessible_by?(current_user)
-      render :forbidden, status: 403
+      render "admin/editions/forbidden", status: 403
     end
   end
 end
