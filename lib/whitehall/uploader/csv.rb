@@ -13,17 +13,20 @@ class Whitehall::Uploader::Csv
   def import_as(creator)
     @csv.each_with_index do |data_row, ix|
       row = row_class.new(data_row.to_hash, ix + 1, @logger)
-      if DocumentSource.find_by_url(row.legacy_url)
-        @logger.warn "Row #{ix + 2} '#{row.legacy_url}' has already been imported"
-      else
-        attributes = row.attributes.merge(creator: creator)
-        model = model_class.new(attributes)
-        if model.save
-          DocumentSource.create!(document: model.document, url: row.legacy_url)
-          row.cleanup
+      begin
+        if DocumentSource.find_by_url(row.legacy_url)
+          @logger.warn "Row #{ix + 2} '#{row.legacy_url}' has already been imported"
         else
-          @logger.warn "Row #{ix + 2} '#{row.legacy_url}' couldn't be saved for the following reasons: #{model.errors.full_messages}"
+          attributes = row.attributes.merge(creator: creator)
+          model = model_class.new(attributes)
+          if model.save
+            DocumentSource.create!(document: model.document, url: row.legacy_url)
+          else
+            @logger.warn "Row #{ix + 2} '#{row.legacy_url}' couldn't be saved for the following reasons: #{model.errors.full_messages}"
+          end
         end
+      ensure
+        row.cleanup
       end
     end
   end

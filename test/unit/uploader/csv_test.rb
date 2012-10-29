@@ -39,6 +39,14 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
     Whitehall::Uploader::Csv.new(@data, @row_class, @model_class).import_as(@user)
   end
 
+  test 'instructs row to cleanup any temporary data if save unsuccessful' do
+    @model.stubs(:save).returns(false)
+    errors = stub('errors', full_messages: "Feeling funky")
+    @model.stubs(:errors).returns(errors)
+    @row.expects(:cleanup)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, Logger.new(@log_buffer)).import_as(@user)
+  end
+
   test 'skips row import if url already uploaded' do
     DocumentSource.unstub(:create!)
     DocumentSource.stubs(:find_by_url).with('row-legacy-url').returns('document')
