@@ -26,7 +26,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def show
-    @editions = Edition.published.in_organisation(@organisation).by_first_published_at
+    @editions = Edition.accessible_to(current_user).published.in_organisation(@organisation).by_first_published_at
   end
 
   def edit
