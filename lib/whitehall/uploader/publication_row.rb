@@ -49,14 +49,7 @@ class Whitehall::Uploader::PublicationRow
 
   def attachments
     1.upto(50).map do |number|
-      if title = row["attachment #{number} title"]
-        if file = download_from_url(row["attachment #{number} url"])
-          attachment_data = AttachmentData.new(file: file)
-          attachment = Attachment.new(title: title, attachment_data: attachment_data)
-          attachment.build_attachment_source(url: row["attachment #{number} url"])
-          attachment
-        end
-      end
+      AttachmentDownloader.build(row["attachment #{number} title"], row["attachment #{number} url"], @logger, @line_number)
     end.compact
   end
 
@@ -70,27 +63,6 @@ class Whitehall::Uploader::PublicationRow
      :ministerial_roles, :attachments, :alternative_format_provider].map.with_object({}) do |name, result|
       result[name] = __send__(name)
     end
-  end
-
-  def download_from_url(url)
-    uri = URI.parse(url)
-    @logger.info "Fetching #{url}"
-    response = Net::HTTP.get_response(uri)
-    if response.is_a?(Net::HTTPOK)
-      result = Dir.mktmpdir do |dir|
-        filename = File.basename(uri.path)
-        File.open(File.join(dir, filename), 'w', encoding: 'ASCII-8BIT') do |file|
-          file.write(response.body)
-        end
-        File.open(File.join(dir, filename), 'r')
-      end
-    else
-      @logger.error "Unable to fetch attachment '#{url}' for '#{title}', got response status #{response.code}.'"
-      nil
-    end
-  rescue Timeout::Error, Errno::ECONNREFUSED, Errno::ECONNRESET => e
-    @logger.error "Unable to fetch attachment '#{url}' for '#{title}' due to #{e.class}: '#{e.message}'"
-    nil
   end
 
   class PublicationDateParser
@@ -178,6 +150,39 @@ class Whitehall::Uploader::PublicationRow
         logger.warn "Row #{line_number}: Unable to find a Role for '#{person.slug}' at '#{date}'/" if ministerial_roles.empty?
         ministerial_roles
       end.flatten
+    end
+  end
+
+  class AttachmentDownloader
+    def self.build(title, url, logger, line_number)
+      return unless title.present? && url.present?
+      if file = download_from_url(url, logger, line_number)
+        attachment_data = AttachmentData.new(file: file)
+        attachment = Attachment.new(title: title, attachment_data: attachment_data)
+        attachment.build_attachment_source(url: url)
+        attachment
+      end
+    end
+
+    def self.download_from_url(url, logger, line_number)
+      uri = URI.parse(url)
+      logger.info "Row #{line_number}: Fetching #{url}"
+      response = Net::HTTP.get_response(uri)
+      if response.is_a?(Net::HTTPOK)
+        result = Dir.mktmpdir do |dir|
+          filename = File.basename(uri.path)
+          File.open(File.join(dir, filename), 'w', encoding: 'ASCII-8BIT') do |file|
+            file.write(response.body)
+          end
+          File.open(File.join(dir, filename), 'r')
+        end
+      else
+        logger.error "Row #{line_number}: Unable to fetch attachment '#{url}', got response status #{response.code}.'"
+        nil
+      end
+    rescue Timeout::Error, Errno::ECONNREFUSED, Errno::ECONNRESET => e
+      logger.error "Row #{line_number}: Unable to fetch attachment '#{url}' due to #{e.class}: '#{e.message}'"
+      nil
     end
   end
 end

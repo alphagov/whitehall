@@ -73,7 +73,7 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     row = Whitehall::Uploader::PublicationRow.new({
       "attachment 1 title" => "first title",
       "attachment 1 url" => "http://example.com/attachment.pdf"
-    }, 1)
+    }, 1, Logger.new(StringIO.new))
 
     attachment = Attachment.new(title: "first title")
     assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
@@ -246,5 +246,54 @@ class Whitehall::Uploader::PublicationRow::MinisterialRoleFinderTest < ActiveSup
     person = create(:person)
     Whitehall::Uploader::PublicationRow::MinisterialRoleFinder.find(Date.today, person.slug, @log, @line_number)
     assert_match /Unable to find a Role for '#{person.slug}' at '#{Date.today}'/, @log_buffer.string
+  end
+end
+
+class Whitehall::Uploader::PublicationRow::AttachmentDownloaderTest < ActiveSupport::TestCase
+  def setup
+    @log_buffer = StringIO.new
+    @log = Logger.new(@log_buffer)
+    @line_number = 1
+
+    @url = "http://example.com/attachment.pdf"
+    stub_request(:get, @url).to_return(body: "some-data".force_encoding("ASCII-8BIT"), status: 200)
+    @title = "attachment title"
+  end
+
+  test "downloads an attachment from the URL given" do
+    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @log, @line_number)
+    assert attachment.file.present?
+  end
+
+  test "stores the attachment title" do
+    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @log, @line_number)
+    assert_equal "attachment title", attachment.title
+  end
+
+  test "ignores rows with blank URLs" do
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, nil, @log, @line_number)
+  end
+
+  test "ignores rows with blank titles" do
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(nil, @uel, @log, @line_number)
+  end
+
+  test "stores the original URL against the attachment source" do
+    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @log, @line_number)
+    assert_equal @url, attachment.attachment_source.url
+  end
+
+  test "logs a warning and returns nil if the download didn't return a 200" do
+    url = "http://example.com/attachment.pdf"
+    stub_request(:get, url).to_return(body: "", status: 404)
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @log, @line_number)
+    assert_match /Row 1: Unable to fetch attachment .* got response status 404/, @log_buffer.string
+  end
+
+  test "logs a warning and returns nil if the download times out" do
+    url = "http://example.com/attachment.pdf"
+    stub_request(:get, url).to_timeout
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @log, @line_number)
+    assert_match /Row 1: Unable to fetch attachment .* due to Timeout/, @log_buffer.string
   end
 end
