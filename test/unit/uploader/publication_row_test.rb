@@ -297,3 +297,31 @@ class Whitehall::Uploader::PublicationRow::AttachmentDownloaderTest < ActiveSupp
     assert_match /Row 1: Unable to fetch attachment .* due to Timeout/, @log_buffer.string
   end
 end
+
+class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < ActiveSupport::TestCase
+  def setup
+    @attachment = stub_everything('attachment')
+  end
+
+  test "does nothing if there are no attachments" do
+    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(nil, "order-url", "isbn", "urn", "command-paper-number")
+  end
+
+  test "does nothing if no attributes are set" do
+    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, nil, nil, nil)
+  end
+
+  test "sets all attributes if given" do
+    @attachment.expects(:order_url=).with("order-url")
+    @attachment.expects(:isbn=).with("ISBN")
+    @attachment.expects(:unique_reference=).with("unique-reference")
+    @attachment.expects(:command_paper_number=).with("command-paper-number")
+    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, "order-url", "ISBN", "unique-reference", "command-paper-number")
+  end
+
+  test "sets any subset of attributes that are given" do
+    @attachment.expects(:isbn=).with("ISBN")
+    @attachment.expects(:command_paper_number=).with("command-paper-number")
+    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, "ISBN", nil, "command-paper-number")
+  end
+end

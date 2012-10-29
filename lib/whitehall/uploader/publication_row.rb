@@ -48,9 +48,13 @@ class Whitehall::Uploader::PublicationRow
   end
 
   def attachments
-    1.upto(50).map do |number|
-      AttachmentDownloader.build(row["attachment #{number} title"], row["attachment #{number} url"], @logger, @line_number)
-    end.compact
+    if @attachments.nil?
+      @attachments = 1.upto(50).map do |number|
+        AttachmentDownloader.build(row["attachment #{number} title"], row["attachment #{number} url"], @logger, @line_number)
+      end.compact
+      AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["ISBN"], row["URN"], row["command_paper_number"])
+    end
+    @attachments
   end
 
   def alternative_format_provider
@@ -183,6 +187,16 @@ class Whitehall::Uploader::PublicationRow
     rescue Timeout::Error, Errno::ECONNREFUSED, Errno::ECONNRESET => e
       logger.error "Row #{line_number}: Unable to fetch attachment '#{url}' due to #{e.class}: '#{e.message}'"
       nil
+    end
+  end
+
+  class AttachmentMetadataBuilder
+    def self.build(attachment, order_url, isbn, unique_reference, command_paper_number)
+      return unless attachment && (order_url || isbn || unique_reference || command_paper_number)
+      attachment.order_url = order_url
+      attachment.isbn = isbn
+      attachment.unique_reference = unique_reference
+      attachment.command_paper_number = command_paper_number
     end
   end
 end

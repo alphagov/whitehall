@@ -150,6 +150,40 @@ class PublicationUploaderTest < ActiveSupport::TestCase
     assert_equal File.read(Rails.root.join("test", "fixtures", "sample-from-excel.csv")), File.read(attachments[1].file.path)
   end
 
+  test "attachments metadata is set on the first attachment" do
+    stub_download("http://example.com/attachment-1.pdf", "two-pages.pdf")
+    stub_download("http://example.com/attachment-2.csv", "sample-from-excel.csv")
+    create(:organisation, name: "Department of Stuff", alternative_format_contact_email: "someone@example.com")
+
+    uploader = PublicationUploader.new(
+      import_as: create(:user),
+      csv_data: csv_sample(
+        "org" => "Department of Stuff",
+        "attachment 1 title" => "first attachment",
+        "attachment 1 url" => "http://example.com/attachment-1.pdf",
+        "attachment 2 title" => "second attachment",
+        "attachment 2 url" => "http://example.com/attachment-2.csv",
+        "order_url" => "http://example.com/order-url",
+        "ISBN" => "9781848640795",
+        "URN" => "unique-reference",
+        "command_paper_number" => "C. 123456"
+      ),
+      logger: @logger
+    )
+
+    uploader.upload
+
+    assert publication = Publication.first
+    assert attachments = publication.attachments
+    assert_equal 2, attachments.count
+    assert_equal "first attachment", attachments[0].title
+    assert_equal "http://example.com/order-url", attachments[0].order_url
+    assert_equal "9781848640795", attachments[0].isbn
+    assert_equal "unique-reference", attachments[0].unique_reference
+    assert_equal "C. 123456", attachments[0].command_paper_number
+    assert_equal nil, attachments[1].order_url
+  end
+
 private
   def csv_sample(additional_fields = {}, extra_rows = [])
     data = minimally_valid_row.merge(additional_fields)
