@@ -104,7 +104,8 @@ class Whitehall::Uploader::PublicationRow
       'promotional-material'            => PublicationType::PromotionalMaterial,
       'research-and-analysis'           => PublicationType::ResearchAndAnalysis,
       'statistics'                      => PublicationType::Statistics,
-      'transparency-data'               => PublicationType::TransparencyData
+      'transparency-data'               => PublicationType::TransparencyData,
+      'statistics-national-statistics'  => PublicationType::NationalStatistics
     }
     def self.find(slug, logger, line_number)
       type = PublicationTypeMap[slug]
@@ -120,9 +121,8 @@ class Whitehall::Uploader::PublicationRow
         if document = Document.find_by_slug(slug)
           if document.published_edition
             document.published_edition
-          else
-            logger.warn "Row #{line_number}: Unable to find a published edition for the Document with slug '#{slug}'"
-            nil
+          elsif document.latest_edition
+            document.latest_edition
           end
         else
           logger.warn "Row #{line_number}: Unable to find Document with slug '#{slug}'"
