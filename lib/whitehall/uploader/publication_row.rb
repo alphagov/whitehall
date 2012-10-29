@@ -156,7 +156,7 @@ class Whitehall::Uploader::PublicationRow
 
       people.map do |person|
         ministerial_roles = person.ministerial_roles_at(date)
-        logger.warn "Row #{line_number}: Unable to find a Role for '#{person.slug}' at '#{date}'/" if ministerial_roles.empty?
+        logger.warn "Row #{line_number}: Unable to find a Role for '#{person.slug}' at '#{date}'" if ministerial_roles.empty?
         ministerial_roles
       end.flatten
     end
