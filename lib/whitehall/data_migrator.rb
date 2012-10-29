@@ -8,7 +8,12 @@ module Whitehall
     end
 
     def migrations
-      Dir["#{@path}/*_*.rb"].map do |f|
+      files = if ENV["VERSION"]
+        Dir["#{@path}/#{ENV["VERSION"]}_*.rb"]
+      else
+        Dir["#{@path}/*_*.rb"]
+      end
+      files.map do |f|
         DataMigration.new(f, logger: @logger)
       end
     end
