@@ -313,7 +313,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     )
     get :show, id: organisation
 
-    assert_select ".organisation.hcard" do
+    assert_select ".vcard" do
       assert_select ".fn.org", "Ministry of Pomp"
       assert_select ".adr" do
         assert_select ".street-address", "1 Smashing Place, London"
