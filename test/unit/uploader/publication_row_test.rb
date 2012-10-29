@@ -302,6 +302,12 @@ class Whitehall::Uploader::PublicationRow::AttachmentDownloaderTest < ActiveSupp
     assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
     assert_match /Row 1: Unable to fetch attachment .* due to Timeout/, @log_buffer.string
   end
+
+  test "logs a warning and returns nil if the url is not valid" do
+    url = "http://this is not a valid url"
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
+    assert_match /Row 1: Unable to fetch attachment .* due to invalid URL/, @log_buffer.string
+  end
 end
 
 class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < ActiveSupport::TestCase

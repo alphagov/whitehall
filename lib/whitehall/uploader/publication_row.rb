@@ -191,6 +191,9 @@ class Whitehall::Uploader::PublicationRow
     rescue Timeout::Error, Errno::ECONNREFUSED, Errno::ECONNRESET => e
       logger.error "Row #{line_number}: Unable to fetch attachment '#{url}' due to #{e.class}: '#{e.message}'"
       nil
+    rescue URI::InvalidURIError => e
+      logger.error "Row #{line_number}: Unable to fetch attachment '#{url}' due to invalid URL - #{e.class}: '#{e.message}'"
+      nil
     end
   end
 
