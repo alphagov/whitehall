@@ -1,6 +1,7 @@
 class Admin::PreviewController < Admin::BaseController
   before_filter :find_images, only: :preview
   before_filter :find_attachments, only: :preview
+  before_filter :limit_access_to_attachments!, only: :preview
   before_filter :find_alternative_format_provider, only: :preview
 
   def preview
@@ -24,5 +25,12 @@ class Admin::PreviewController < Admin::BaseController
     @alternative_format_contact_email = @alternative_format_provider && @alternative_format_provider.alternative_format_contact_email
   rescue ActiveRecord::RecordNotFound
     nil
+  end
+
+private
+  def limit_access_to_attachments!
+    unless @attachments.all? {|a| a.accessible_by?(current_user)}
+      render "admin/editions/forbidden", status: 403
+    end
   end
 end
