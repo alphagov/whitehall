@@ -2,6 +2,7 @@ class Admin::SupportingPagesController < Admin::BaseController
   include PublicDocumentRoutesHelper
 
   before_filter :find_edition
+  before_filter :limit_edition_access!
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
 
   def new
