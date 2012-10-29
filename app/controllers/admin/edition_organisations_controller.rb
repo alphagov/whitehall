@@ -1,12 +1,13 @@
 class Admin::EditionOrganisationsController < Admin::BaseController
+  before_filter :find_edition_organisation
+  before_filter :limit_edition_organisation_access!
+
   def edit
-    @edition_organisation = EditionOrganisation.find(params[:id])
     @edition_organisation.featured = true
     @edition_organisation.build_image
   end
 
   def update
-    @edition_organisation = EditionOrganisation.find(params[:id])
     attributes = params[:edition_organisation]
     if attributes[:featured] == "false"
       attributes[:image] = nil
@@ -19,4 +20,17 @@ class Admin::EditionOrganisationsController < Admin::BaseController
       render :edit
     end
   end
+
+private
+
+  def find_edition_organisation
+    @edition_organisation = EditionOrganisation.find(params[:id])
+  end
+
+  def limit_edition_organisation_access!
+    unless @edition_organisation.edition.accessible_by?(current_user)
+      render "admin/editions/forbidden", status: 403
+    end
+  end
+
 end
