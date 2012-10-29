@@ -170,6 +170,11 @@ class Whitehall::Uploader::PublicationRow::PoliciesFinderTest < ActiveSupport::T
   test "returns an empty array if the document for the given slug that cannot be found" do
     assert_equal [], Whitehall::Uploader::PublicationRow::PoliciesFinder.find('made-up-policy-slug', @log, @line_number)
   end
+
+  test "ignores duplicate related policies" do
+    policy_1 = create(:published_policy, title: "Policy 1")
+    assert_equal [policy_1], Whitehall::Uploader::PublicationRow::PoliciesFinder.find(policy_1.slug, policy_1.slug, @log, @line_number)
+  end
 end
 
 class Whitehall::Uploader::PublicationRow::OrganisationFinderTest < ActiveSupport::TestCase

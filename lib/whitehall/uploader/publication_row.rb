@@ -116,7 +116,7 @@ class Whitehall::Uploader::PublicationRow
 
   class PoliciesFinder
     def self.find(*slugs, logger, line_number)
-      slugs = slugs.reject { |slug| slug.blank? }
+      slugs = slugs.reject { |slug| slug.blank? }.uniq
       slugs.collect do |slug|
         if document = Document.find_by_slug(slug)
           if document.published_edition
