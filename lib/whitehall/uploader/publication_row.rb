@@ -5,6 +5,11 @@ class Whitehall::Uploader::PublicationRow
     @row = row
     @line_number = line_number
     @logger = logger
+    @tmpdir = Dir.mktmpdir
+  end
+
+  def cleanup
+    FileUtils.remove_dir(@tmpdir, true)
   end
 
   def title
@@ -50,7 +55,7 @@ class Whitehall::Uploader::PublicationRow
   def attachments
     if @attachments.nil?
       @attachments = 1.upto(50).map do |number|
-        AttachmentDownloader.build(row["attachment #{number} title"], row["attachment #{number} url"], @logger, @line_number)
+        AttachmentDownloader.build(row["attachment #{number} title"], row["attachment #{number} url"], @tmpdir, @logger, @line_number)
       end.compact
       AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["ISBN"], row["URN"], row["command_paper_number"])
     end
@@ -158,9 +163,9 @@ class Whitehall::Uploader::PublicationRow
   end
 
   class AttachmentDownloader
-    def self.build(title, url, logger, line_number)
+    def self.build(title, url, tmpdir, logger, line_number)
       return unless title.present? && url.present?
-      if file = download_from_url(url, logger, line_number)
+      if file = download_from_url(url, tmpdir, logger, line_number)
         attachment_data = AttachmentData.new(file: file)
         attachment = Attachment.new(title: title, attachment_data: attachment_data)
         attachment.build_attachment_source(url: url)
@@ -168,18 +173,17 @@ class Whitehall::Uploader::PublicationRow
       end
     end
 
-    def self.download_from_url(url, logger, line_number)
+    def self.download_from_url(url, tmpdir, logger, line_number)
       uri = URI.parse(url)
-      logger.info "Row #{line_number}: Fetching #{url}"
       response = Net::HTTP.get_response(uri)
       if response.is_a?(Net::HTTPOK)
-        result = Dir.mktmpdir do |dir|
-          filename = File.basename(uri.path)
-          File.open(File.join(dir, filename), 'w', encoding: 'ASCII-8BIT') do |file|
-            file.write(response.body)
-          end
-          File.open(File.join(dir, filename), 'r')
+        filename = File.basename(uri.path)
+        local_path = File.join(tmpdir, filename)
+        logger.info "Row #{line_number}: Fetching #{url} to #{local_path}"
+        File.open(local_path, 'w', encoding: 'ASCII-8BIT') do |file|
+          file.write(response.body)
         end
+        File.open(local_path, 'r')
       else
         logger.error "Row #{line_number}: Unable to fetch attachment '#{url}', got response status #{response.code}.'"
         nil

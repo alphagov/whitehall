@@ -20,6 +20,7 @@ class Whitehall::Uploader::Csv
         model = model_class.new(attributes)
         if model.save
           DocumentSource.create!(document: model.document, url: row.legacy_url)
+          row.cleanup
         else
           @logger.warn "Row #{ix + 2} '#{row.legacy_url}' couldn't be saved for the following reasons: #{model.errors.full_messages}"
         end

@@ -254,46 +254,52 @@ class Whitehall::Uploader::PublicationRow::AttachmentDownloaderTest < ActiveSupp
     @log_buffer = StringIO.new
     @log = Logger.new(@log_buffer)
     @line_number = 1
+    @tmpdir = Rails.root.join("tmp", "attachment-downloader-test")
+    FileUtils.mkdir_p(@tmpdir)
 
     @url = "http://example.com/attachment.pdf"
     stub_request(:get, @url).to_return(body: "some-data".force_encoding("ASCII-8BIT"), status: 200)
     @title = "attachment title"
   end
 
+  def teardown
+    FileUtils.remove_dir(@tmpdir, true)
+  end
+
   test "downloads an attachment from the URL given" do
-    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @log, @line_number)
+    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @tmpdir, @log, @line_number)
     assert attachment.file.present?
   end
 
   test "stores the attachment title" do
-    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @log, @line_number)
+    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @tmpdir, @log, @line_number)
     assert_equal "attachment title", attachment.title
   end
 
   test "ignores rows with blank URLs" do
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, nil, @log, @line_number)
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, nil, @tmpdir, @log, @line_number)
   end
 
   test "ignores rows with blank titles" do
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(nil, @uel, @log, @line_number)
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(nil, @url, @tmpdir, @log, @line_number)
   end
 
   test "stores the original URL against the attachment source" do
-    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @log, @line_number)
+    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @tmpdir, @log, @line_number)
     assert_equal @url, attachment.attachment_source.url
   end
 
   test "logs a warning and returns nil if the download didn't return a 200" do
     url = "http://example.com/attachment.pdf"
     stub_request(:get, url).to_return(body: "", status: 404)
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @log, @line_number)
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
     assert_match /Row 1: Unable to fetch attachment .* got response status 404/, @log_buffer.string
   end
 
   test "logs a warning and returns nil if the download times out" do
     url = "http://example.com/attachment.pdf"
     stub_request(:get, url).to_timeout
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @log, @line_number)
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
     assert_match /Row 1: Unable to fetch attachment .* due to Timeout/, @log_buffer.string
   end
 end
