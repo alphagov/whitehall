@@ -52,16 +52,16 @@
     </div>
   </div>
 
-  <div class="block-6">
-    <div class="inner-block">
-      <% if @topics.any? %>
+  <% if @topics.any? %>
+    <div class="block-6">
+      <div class="inner-block">
         <section id="topics">
           <h1 class="label">We focus on these topics</h1>
           <%= render partial: "topics/list_description", locals: {topics: @topics, organisation: @organisation} %>
         </section>
-      <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="block-7">
     <div class="inner-block">
