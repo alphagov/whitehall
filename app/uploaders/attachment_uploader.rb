@@ -51,12 +51,20 @@ class AttachmentUploader < WhitehallUploader
   end
 
   class ZipFile
+    class NonUTF8ContentsError < RuntimeError; end
+
     def initialize(zip_path)
       @zip_path = zip_path
     end
 
     def filenames
-      @filenames ||= `#{Whitehall.system_binaries[:zipinfo]} -1 "#{@zip_path}"`.split(/[\r\n]+/)
+      unless @filenames
+        zipinfo_output = `#{Whitehall.system_binaries[:zipinfo]} -1 "#{@zip_path}"`
+        @filenames = zipinfo_output.split(/[\r\n]+/)
+      end
+      @filenames
+    rescue ArgumentError => e
+      raise NonUTF8ContentsError, "Some filenames in zip aren't UTF-8: #{zipinfo_output}"
     end
 
     def extensions
@@ -79,6 +87,8 @@ class AttachmentUploader < WhitehallUploader
     if illegal_extensions.any?
       raise CarrierWave::IntegrityError, "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{extension_white_list.inspect}"
     end
+  rescue AttachmentUploader::ZipFile::NonUTF8ContentsError
+    raise CarrierWave::IntegrityError, "Your zipfile must not contain filenames that aren't encoded in UTF-8"
   end
 
 

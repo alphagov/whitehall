@@ -45,6 +45,14 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
       uploader.store!(fixture_file_upload('sample_attachment_containing_zip.zip'))
     end
   end
+
+  test "zip file containing files with non-UTF-8 filenames should be rejected" do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).raises(AttachmentUploader::ZipFile::NonUTF8ContentsError)
+    assert_raises CarrierWave::IntegrityError do
+      uploader.store!(fixture_file_upload('sample_attachment.zip'))
+    end
+  end
 end
 
 class AttachmentUploaderPDFTest < ActiveSupport::TestCase
