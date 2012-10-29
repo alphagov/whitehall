@@ -91,24 +91,11 @@ class Whitehall::Uploader::PublicationRow
   end
 
   class PublicationTypeFinder
-    PublicationTypeMap = {
-      'circulars-letters-and-bulletins' => PublicationType::CircularLetterOrBulletin,
-      'corporate-reports'               => PublicationType::CorporateReport,
-      'foi-releases'                    => PublicationType::FoiRelease,
-      'forms'                           => PublicationType::Form,
-      'guidance'                        => PublicationType::Guidance,
-      'Impact assessment'               => PublicationType::ImpactAssessment,
-      'impact-assessments'              => PublicationType::ImpactAssessment,
-      'independent-reports'             => PublicationType::IndependentReport,
-      'policy-papers'                   => PublicationType::PolicyPaper,
-      'promotional-material'            => PublicationType::PromotionalMaterial,
-      'research-and-analysis'           => PublicationType::ResearchAndAnalysis,
-      'statistics'                      => PublicationType::Statistics,
-      'transparency-data'               => PublicationType::TransparencyData,
-      'statistics-national-statistics'  => PublicationType::NationalStatistics
+    PublicationTypeSpecialCases = {
+      'Impact assessment' => PublicationType::ImpactAssessment
     }
     def self.find(slug, logger, line_number)
-      type = PublicationTypeMap[slug]
+      type = PublicationType.find_by_slug(slug) || PublicationTypeSpecialCases[slug]
       logger.warn "Row #{line_number}: Unable to find Publication type with slug '#{slug}'" unless type
       type
     end
