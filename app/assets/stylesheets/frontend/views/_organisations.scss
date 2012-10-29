@@ -785,7 +785,7 @@
     @include core-24;
   }
   .information-block {
-    padding: $gutter-two-thirds $gutter-one-third;
+    padding: $gutter-two-thirds $gutter*2 $gutter-two-thirds $gutter-one-third;
     margin-top: 0;
   }
 }
