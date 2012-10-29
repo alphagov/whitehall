@@ -9,6 +9,10 @@ class Admin::FactCheckRequestsController < Admin::BaseController
 
   def create
     @edition = Edition.unscoped.find(params[:edition_id])
+    unless @edition.accessible_by?(current_user)
+      render "admin/editions/forbidden", status: 403
+      return
+    end
     attributes = params[:fact_check_request].merge(requestor: current_user)
     fact_check_request = @edition.fact_check_requests.build(attributes)
     if @edition.deleted?

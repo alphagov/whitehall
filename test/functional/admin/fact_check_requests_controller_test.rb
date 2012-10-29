@@ -196,6 +196,16 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     assert_equal @requestor, fact_check_request.requestor
   end
 
+  test "should prevent creation of a fact check request if edition is not accessible to the current user" do
+    author = create(:user, organisation: create(:organisation))
+    @edition = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [author.organisation])
+    refute @edition.accessible_by?(@requestor)
+
+    post :create, edition_id: @edition.id, fact_check_request: @attributes
+
+    assert_response 403
+  end
+
   test "should send an email when a fact check has been requested" do
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
