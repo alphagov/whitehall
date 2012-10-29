@@ -11,7 +11,10 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
     @model_class = stub('model-class', new: @model)
 
     @user = stub('user')
+    DocumentSource.stubs(:find_by_url).returns(nil)
     DocumentSource.stubs(:create!)
+
+    @log_buffer = StringIO.new
   end
 
   test 'builds row class with each csv row' do
@@ -30,13 +33,20 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
     Whitehall::Uploader::Csv.new(@data, @row_class, @model_class).import_as(@user)
   end
 
+  test 'skips row import if url already uploaded' do
+    DocumentSource.unstub(:create!)
+    DocumentSource.stubs(:find_by_url).with('row-legacy-url').returns('document')
+    DocumentSource.expects(:create!).never
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, Logger.new(@log_buffer)).import_as(@user)
+    assert_match /'row-legacy-url' has already been imported/, @log_buffer.string
+  end
+
   test 'logs failure if save unsuccessful' do
     @errors = stub('errors', full_messages: "Feeling funky")
     @model.stubs(:save).returns(false)
     @model.stubs(:errors).returns(@errors)
 
-    log_buffer = StringIO.new
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, Logger.new(log_buffer)).import_as(@user)
-    assert_match /Row 2 'row-legacy-url' couldn't be saved for the following reasons: Feeling funky/, log_buffer.string
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, Logger.new(@log_buffer)).import_as(@user)
+    assert_match /Row 2 'row-legacy-url' couldn't be saved for the following reasons: Feeling funky/, @log_buffer.string
   end
 end
