@@ -42,6 +42,10 @@ class Attachment < ActiveRecord::Base
     store_price_in_pence
   end
 
+  def accessible_by?(user)
+    editions.all? { |e| e.accessible_by?(user) }
+  end
+
   private
 
   def store_price_in_pence
