@@ -37,7 +37,7 @@ class Whitehall::Uploader::PublicationRow
   end
 
   def related_policies
-    PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], @logger, @line_number)
+    PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], row["policy_4"], @logger, @line_number)
   end
 
   def organisations
@@ -78,7 +78,7 @@ class Whitehall::Uploader::PublicationRow
     def self.parse(date, logger, line_number)
       begin
         Date.strptime(date, '%m/%d/%Y')
-      rescue ArgumentError
+      rescue
         logger.warn "Row #{line_number}: Unable to parse the date '#{date}'"
       end
     end

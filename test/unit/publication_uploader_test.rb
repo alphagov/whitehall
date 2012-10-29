@@ -30,7 +30,7 @@ class PublicationUploaderTest < ActiveSupport::TestCase
       "summary"          => "summary",
       "body"             => "body",
       'publication_date' => '11/16/2011',
-      'pub type'         => 'foi-releases'
+      'publication_type'         => 'foi-releases'
     )
     uploader = PublicationUploader.new(
       import_as: importer,
@@ -50,16 +50,18 @@ class PublicationUploaderTest < ActiveSupport::TestCase
     assert_equal "http://example.com", publication.document.document_source.url
   end
 
-  test "up to 3 policies specified by slug are associated with the edition" do
+  test "up to 4 policies specified by slug are associated with the edition" do
     policy_1 = create(:published_policy, title: "Policy 1")
     policy_2 = create(:published_policy, title: "Policy 2")
     policy_3 = create(:published_policy, title: "Policy 3")
+    policy_4 = create(:published_policy, title: "Policy 4")
     uploader = PublicationUploader.new(
       import_as: create(:user),
       csv_data: csv_sample(
-        "policy 1" => policy_1.slug,
-        "policy 2" => policy_2.slug,
-        "policy 3" => policy_3.slug
+        "policy_1" => policy_1.slug,
+        "policy_2" => policy_2.slug,
+        "policy_3" => policy_3.slug,
+        "policy_4" => policy_4.slug
       ),
       logger: @logger
     )
@@ -67,14 +69,14 @@ class PublicationUploaderTest < ActiveSupport::TestCase
     uploader.upload
 
     assert publication = Publication.first
-    assert_equal [policy_1, policy_2, policy_3], publication.related_policies
+    assert_equal [policy_1, policy_2, policy_3, policy_4], publication.related_policies
   end
 
   test "organisation specified by name is associated with the edition" do
     organisation = create(:organisation)
     uploader = PublicationUploader.new(
       import_as: create(:user),
-      csv_data: csv_sample("org" => organisation.name),
+      csv_data: csv_sample("organisation" => organisation.name),
       logger: @logger
     )
 
@@ -88,7 +90,7 @@ class PublicationUploaderTest < ActiveSupport::TestCase
     document_series = create(:document_series)
     uploader = PublicationUploader.new(
       import_as: create(:user),
-      csv_data: csv_sample("doc series" => document_series.slug),
+      csv_data: csv_sample("document_series" => document_series.slug),
       logger: @logger
     )
 
@@ -108,8 +110,8 @@ class PublicationUploaderTest < ActiveSupport::TestCase
     uploader = PublicationUploader.new(
       import_as: create(:user),
       csv_data: csv_sample(
-        "minister 1" => minister_1.slug,
-        "minister 2" => minister_2.slug
+        "minister_1" => minister_1.slug,
+        "minister_2" => minister_2.slug
       ),
       logger: @logger
     )
@@ -128,11 +130,11 @@ class PublicationUploaderTest < ActiveSupport::TestCase
     uploader = PublicationUploader.new(
       import_as: create(:user),
       csv_data: csv_sample(
-        "org" => "Department of Stuff",
-        "attachment 1 title" => "first attachment",
-        "attachment 1 url" => "http://example.com/attachment-1.pdf",
-        "attachment 2 title" => "second attachment",
-        "attachment 2 url" => "http://example.com/attachment-2.csv"
+        "organisation" => "Department of Stuff",
+        "attachment_1_title" => "first attachment",
+        "attachment_1_url" => "http://example.com/attachment-1.pdf",
+        "attachment_2_title" => "second attachment",
+        "attachment_2_url" => "http://example.com/attachment-2.csv"
       ),
       logger: @logger
     )
@@ -158,11 +160,11 @@ class PublicationUploaderTest < ActiveSupport::TestCase
     uploader = PublicationUploader.new(
       import_as: create(:user),
       csv_data: csv_sample(
-        "org" => "Department of Stuff",
-        "attachment 1 title" => "first attachment",
-        "attachment 1 url" => "http://example.com/attachment-1.pdf",
-        "attachment 2 title" => "second attachment",
-        "attachment 2 url" => "http://example.com/attachment-2.csv",
+        "organisation" => "Department of Stuff",
+        "attachment_1_title" => "first attachment",
+        "attachment_1_url" => "http://example.com/attachment-1.pdf",
+        "attachment_2_title" => "second attachment",
+        "attachment_2_url" => "http://example.com/attachment-2.csv",
         "order_url" => "http://example.com/order-url",
         "ISBN" => "9781848640795",
         "URN" => "unique-reference",
@@ -208,7 +210,7 @@ private
       "summary"          => "summary",
       "body"             => "body",
       "publication_date" => "11/16/2011",
-      "pub type"         => "foi-releases"
+      "publication_type" => "foi-releases"
     }
   end
 end
