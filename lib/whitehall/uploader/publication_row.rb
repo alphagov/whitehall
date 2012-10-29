@@ -33,29 +33,29 @@ class Whitehall::Uploader::PublicationRow
   end
 
   def publication_type
-    PublicationTypeFinder.find(row['pub type'], @logger, @line_number)
+    PublicationTypeFinder.find(row['publication_type'], @logger, @line_number)
   end
 
   def related_policies
-    PoliciesFinder.find(row['policy 1'], row['policy 2'], row['policy 3'], @logger, @line_number)
+    PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], @logger, @line_number)
   end
 
   def organisations
-    OrganisationFinder.find(row['org'], @logger, @line_number)
+    OrganisationFinder.find(row['organisation'], @logger, @line_number)
   end
 
   def document_series
-    DocumentSeriesFinder.find(row['doc series'], @logger, @line_number)
+    DocumentSeriesFinder.find(row['document_series'], @logger, @line_number)
   end
 
   def ministerial_roles
-    MinisterialRoleFinder.find(publication_date, row['minister 1'], row['minister 2'], @logger, @line_number)
+    MinisterialRoleFinder.find(publication_date, row['minister_1'], row['minister_2'], @logger, @line_number)
   end
 
   def attachments
     if @attachments.nil?
       @attachments = 1.upto(50).map do |number|
-        AttachmentDownloader.build(row["attachment #{number} title"], row["attachment #{number} url"], @tmpdir, @logger, @line_number)
+        AttachmentDownloader.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @tmpdir, @logger, @line_number)
       end.compact
       AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["ISBN"], row["URN"], row["command_paper_number"])
     end
