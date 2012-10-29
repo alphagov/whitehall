@@ -3,7 +3,7 @@ class Whitehall::Uploader::PublicationRow
 
   def initialize(row, line_number, logger = Logger.new($stdout))
     @row = row
-    @line_number
+    @line_number = line_number
     @logger = logger
   end
 
