@@ -77,7 +77,11 @@ class Whitehall::Uploader::PublicationRow
   class PublicationDateParser
     def self.parse(date, logger, line_number)
       begin
-        Date.strptime(date, '%m/%d/%Y')
+        if date =~ /^\d{1,2}\-[A-Za-z]{3}\-\d{2}/
+          Date.strptime(date, '%d-%b-%y')
+        else
+          Date.strptime(date, '%m/%d/%Y')
+        end
       rescue
         logger.warn "Row #{line_number}: Unable to parse the date '#{date}'"
       end
