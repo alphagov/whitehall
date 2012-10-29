@@ -308,6 +308,12 @@ class Whitehall::Uploader::PublicationRow::AttachmentDownloaderTest < ActiveSupp
     assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
     assert_match /Row 1: Unable to fetch attachment .* due to invalid URL/, @log_buffer.string
   end
+
+  test "logs a warning and returns nil if the url is not an http URL" do
+    url = "this-is-not-even-http"
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
+    assert_match /Row 1: Unable to fetch attachment .* url not understood to be HTTP/, @log_buffer.string
+  end
 end
 
 class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < ActiveSupport::TestCase

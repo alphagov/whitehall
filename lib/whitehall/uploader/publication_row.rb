@@ -175,17 +175,22 @@ class Whitehall::Uploader::PublicationRow
 
     def self.download_from_url(url, tmpdir, logger, line_number)
       uri = URI.parse(url)
-      response = Net::HTTP.get_response(uri)
-      if response.is_a?(Net::HTTPOK)
-        filename = File.basename(uri.path)
-        local_path = File.join(tmpdir, filename)
-        logger.info "Row #{line_number}: Fetching #{url} to #{local_path}"
-        File.open(local_path, 'w', encoding: 'ASCII-8BIT') do |file|
-          file.write(response.body)
+      if uri.is_a?(URI::HTTP)
+        response = Net::HTTP.get_response(uri)
+        if response.is_a?(Net::HTTPOK)
+          filename = File.basename(uri.path)
+          local_path = File.join(tmpdir, filename)
+          logger.info "Row #{line_number}: Fetching #{url} to #{local_path}"
+          File.open(local_path, 'w', encoding: 'ASCII-8BIT') do |file|
+            file.write(response.body)
+          end
+          File.open(local_path, 'r')
+        else
+          logger.error "Row #{line_number}: Unable to fetch attachment '#{url}', got response status #{response.code}.'"
+          nil
         end
-        File.open(local_path, 'r')
       else
-        logger.error "Row #{line_number}: Unable to fetch attachment '#{url}', got response status #{response.code}.'"
+        logger.error "Row #{line_number}: Unable to fetch attachment '#{url}', url not understood to be HTTP"
         nil
       end
     rescue Timeout::Error, Errno::ECONNREFUSED, Errno::ECONNRESET => e
