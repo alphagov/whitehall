@@ -411,6 +411,18 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute_select_object(inaccessible)
   end
 
+  test "index should indicate the protected status of limited access editions which I do have access to" do
+    my_organisation = create(:organisation)
+    login_as(create(:user, organisation: my_organisation))
+    publication = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation])
+
+    get :index, state: :active
+
+    assert_select_object(publication) do
+      assert_select "span", "limited access"
+    end
+  end
+
   test "should prevent viewing or modification of limited access editions which I don't have access to" do
     my_organisation, other_organisation = create(:organisation), create(:organisation)
     login_as(create(:user, organisation: my_organisation))
