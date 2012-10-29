@@ -125,4 +125,17 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     post :update, id: edition_organisation, edition_organisation: {}
     assert_redirected_to admin_organisation_path(organisation, anchor: "documents")
   end
+
+  test "should prevent access to editon_organisations of inaccessible editions" do
+    protected_edition = stub("protected edition")
+    protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
+    edition_organisation = build(:edition_organisation)
+    edition_organisation.stubs(:edition).returns(protected_edition)
+    EditionOrganisation.stubs(:find).with("1").returns(edition_organisation)
+
+    get :edit, id: "1"
+    assert_response 403
+    get :update, id: "1"
+    assert_response 403
+  end
 end
