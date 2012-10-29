@@ -316,7 +316,14 @@ class Edition < ActiveRecord::Base
     end
 
     def authored_by(user)
-      joins(:edition_authors).where(edition_authors: {user_id: user}).group(:edition_id)
+      if user && user.id
+        where("EXISTS (
+          SELECT * FROM edition_authors ea_authorship_check
+          WHERE
+            ea_authorship_check.edition_id=editions.id
+            AND ea_authorship_check.user_id=?
+          )", user.id)
+      end
     end
 
     def by_type(type)
