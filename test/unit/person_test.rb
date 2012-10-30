@@ -142,4 +142,16 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [older_role, newer_role], person.ministerial_roles_at(6.months.ago)
     assert_equal [newest_role], person.ministerial_roles_at(1.month.ago)
   end
+
+  test '#role_appointments_at returns the role appointments held by the person at the date specified' do
+    person = create(:person)
+    oldest_role_appointment = create(:role_appointment, person: person, started_at: 12.months.ago, ended_at: 8.months.ago)
+    overlapping_role_appointment_1 = create(:role_appointment, person: person, started_at: 8.months.ago, ended_at: 5.months.ago)
+    overlapping_role_appointment_2 = create(:role_appointment, person: person, started_at: 7.months.ago, ended_at: 4.months.ago)
+    current_role_appointment = create(:role_appointment, person: person, started_at: 4.months.ago, ended_at: nil)
+
+    assert_equal [oldest_role_appointment], person.role_appointments_at(9.months.ago)
+    assert_equal [overlapping_role_appointment_1, overlapping_role_appointment_2], person.role_appointments_at(6.months.ago)
+    assert_equal [current_role_appointment], person.role_appointments_at(1.month.ago)
+  end
 end
