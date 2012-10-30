@@ -339,6 +339,13 @@ class Whitehall::Uploader::PublicationRow::AttachmentDownloaderTest < ActiveSupp
     assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
     assert_match /Row 1: Unable to fetch attachment .* url not understood to be HTTP/, @log_buffer.string
   end
+
+  test "adds a PDF extension if the file is detected as a PDF but has no extension" do
+    url = "http://example.com/attachment"
+    stub_request(:get, url).to_return(body: File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")), status: 200)
+    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
+    assert_equal "attachment.pdf", File.basename(attachment.file.path)
+  end
 end
 
 class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < ActiveSupport::TestCase

@@ -177,6 +177,13 @@ class Whitehall::Uploader::PublicationRow
           File.open(local_path, 'w', encoding: 'ASCII-8BIT') do |file|
             file.write(response.body)
           end
+          if File.extname(local_path) == ""
+            file_type = `file -e cdf -b "#{local_path}"`.strip
+            if file_type =~ /^PDF /
+              FileUtils.mv(local_path, local_path + ".pdf")
+              local_path = local_path + ".pdf"
+            end
+          end
           File.open(local_path, 'r')
         else
           logger.error "Row #{line_number}: Unable to fetch attachment '#{url}', got response status #{response.code}.'"
