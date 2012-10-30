@@ -16,7 +16,7 @@
       <%= render partial: "document_summary", locals: { document: @document } %>
       <% if @document.part_of_series? %>
         <p class="document-series">
-          <span>This publication is part of a series:</span> <%= link_to @document.document_series.name, organisation_document_series_path(@document.document_series.organisation, @document.document_series) %>
+          <span>This statistical data is part of a series:</span> <%= link_to @document.document_series.name, organisation_document_series_path(@document.document_series.organisation, @document.document_series) %>
         </p>
       <% end %>
     </div>
