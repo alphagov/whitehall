@@ -72,6 +72,7 @@ $treasury-websafe: #832322;
 
 @mixin department-colours($selector, $property) {
   .building-regulations-advisory-committee #{$selector} { #{$property}: $department-for-communities-and-local-government; }
+  .planning-inspectorate #{$selector} { #{$property}: $department-for-communities-and-local-government; }
   .department-for-environment-food-and-rural-affairs #{$selector} { #{$property}: $department-for-environment-food-and-rural-affairs; }
   .department-for-transport #{$selector} { #{$property}: $department-for-transport; }
   .driving-standards-agency #{$selector} { #{$property}: $department-for-transport; }
@@ -98,6 +99,7 @@ $treasury-websafe: #832322;
 
 @mixin websafe-department-colours($selector, $property) {
   .building-regulations-advisory-committee #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
+  .planning-inspectorate #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
   .department-for-environment-food-and-rural-affairs #{$selector} { #{$property}: $department-for-environment-food-and-rural-affairs-websafe; }
   .department-for-transport #{$selector} { #{$property}: $department-for-transport-websafe; }
   .driving-standards-agency #{$selector} { #{$property}: $department-for-transport-websafe; }
