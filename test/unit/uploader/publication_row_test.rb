@@ -189,6 +189,11 @@ class Whitehall::Uploader::PublicationRow::OrganisationFinderTest < ActiveSuppor
     assert_equal [organisation], Whitehall::Uploader::PublicationRow::OrganisationFinder.find(organisation.name, @log, @line_number)
   end
 
+  test "returns a single element array containing the organisation identified by slug" do
+    organisation = create(:organisation)
+    assert_equal [organisation], Whitehall::Uploader::PublicationRow::OrganisationFinder.find(organisation.slug, @log, @line_number)
+  end
+
   test "returns an empty array if the name is blank" do
     assert_equal [], Whitehall::Uploader::PublicationRow::OrganisationFinder.find('', @log, @line_number)
   end
