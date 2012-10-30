@@ -18,14 +18,26 @@
         margin-right:-$gutter-two-thirds;
         margin-top: $gutter-half;
         padding:$gutter-one-third 0 0 $gutter-one-third;
+        @extend %contain-floats;
         .count{
-          @include core-27;  
-          padding-top: $gutter-one-third;       
+          @include core-36;  
+          padding-top: $gutter-one-third;
+          @include media (desktop) {
+            float: left;
+            width: 33.333%;
+            text-indent: $gutter-half;
+            white-space: nowrap;
+          }
         }
         .selections{
-          clear:both;
-          padding-top:$gutter-one-third;
-
+          position: relative;
+          @include core-14;  
+          padding-top:$gutter-two-thirds;
+          @include media (desktop) {
+            left: $gutter-half;
+            float: right;
+            width: 66.666%;
+          }
         }
         .chosen span,
         .chosen span{
@@ -159,7 +171,8 @@
 
 .filter-results {
   .no-results {
-    padding: $gutter $gutter-half;
+    padding: $gutter 0 $gutter-half;
+    border-bottom: 1px solid $light-keyline;
     h2 {
       @include core-27;
     }

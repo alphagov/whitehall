@@ -222,7 +222,8 @@
 
 .policies-activities {
   .policy {
-    .block-1, .block-2 {
+    .block-1, .block-2 {  
+      position: relative;
       display: block;
       float: none;
       width: 100%;
@@ -231,6 +232,8 @@
 
   // see helpers/_feed.scss for the other styles
   .subscribe {
-    float: right;
+    position: absolute;
+    right: $gutter;
+    bottom: $gutter*-1;
   }
 }

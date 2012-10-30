@@ -13,13 +13,17 @@
     .block-2,
     .block-3,
     .block-4 {
-      position: relative;
       zoom: 1;
     }
   }
+  
+  .block-2 {
+    position: relative;
+  }
   .subscribe {
-    float:right;
-
+    position: absolute;
+    right: $gutter;
+    bottom: $gutter*-1;
   }
   .block-4 {
     width: 100%;
