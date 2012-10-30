@@ -10,7 +10,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic)
     get :show, id: topic
     assert_select ".topic", text: topic.name
-    assert_select ".document", text: topic.description
+    assert_select ".govspeak", text: topic.description
   end
 
   test "shows published policies and their summaries" do
@@ -25,7 +25,66 @@ class TopicsControllerTest < ActionController::TestCase
         assert_select ".summary", text: /policy-summary/
       end
     end
-    assert_select "a[href=?]", "#policies"
+  end
+
+  test "shows 3 published publications and links to more" do
+    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
+    topic = create(:topic, policies: [policy])
+    published = []
+    4.times do |i|
+      published << create(:published_publication, title: "title-#{i}", related_policies: [policy])
+    end
+
+    get :show, id: topic
+
+    assert_select "#publications" do
+      published.take(3).each do |edition|
+        assert_select_object(edition) do
+          assert_select ".title", text: edition.title
+        end
+      end
+      refute_select_object(published[3])
+    end
+  end
+
+  test "doesn't show unpublished publications" do
+    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
+    topic = create(:topic, policies: [policy])
+    draft_publication = create(:draft_publication, related_policies: [policy])
+
+    get :show, id: topic
+
+    refute_select_object(draft_publication)
+  end
+
+  test "shows 3 published announcement and links to more" do
+    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
+    topic = create(:topic, policies: [policy])
+    published = []
+    4.times do |i|
+      published << create(:published_news_article, title: "title-#{i}", related_policies: [policy], published_at: i.days.ago)
+    end
+
+    get :show, id: topic
+
+    assert_select "#announcements" do
+      published.take(3).each do |edition|
+        assert_select_object(edition) do
+          assert_select ".title", text: edition.title
+        end
+      end
+      refute_select_object(published[3])
+    end
+  end
+
+  test "doesn't show unpublished announcements" do
+    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
+    topic = create(:topic, policies: [policy])
+    draft_article = create(:draft_news_article, related_policies: [policy])
+
+    get :show, id: topic
+
+    refute_select_object(draft_article)
   end
 
   test "shows 5 published detailed guides and links to more" do
@@ -45,7 +104,6 @@ class TopicsControllerTest < ActionController::TestCase
       end
       refute_select_object(published_detailed_guides[5])
     end
-    assert_select "a[href=?]", "#detailed-guidance"
   end
 
   test "doesn't show unpublished policies" do
@@ -97,7 +155,6 @@ class TopicsControllerTest < ActionController::TestCase
       end
       assert_select_object unrelated_topic, count: 0
     end
-    assert_select "a[href=?]", "#related-topics"
   end
 
   test "show does not display empty related topics section" do
@@ -106,46 +163,39 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select "#related-topics ul", count: 0
-    refute_select "a[href=?]", "#related-topics"
   end
 
   test "show displays recently changed documents relating to policies in the topic" do
     policy_1 = create(:published_policy)
-    publication = create(:published_publication, related_policies: [policy_1])
     news_article = create(:published_news_article, related_policies: [policy_1])
 
     policy_2 = create(:published_policy)
-    speech = create(:published_speech, related_policies: [policy_2])
 
     topic = create(:topic, policies: [policy_1, policy_2])
 
     get :show, id: topic
 
-    assert_select "#recently-changed" do
-      assert_select_object policy_1
-      assert_select_object policy_2
-      assert_select_object news_article
-      assert_select_object publication
-      assert_select_object speech
+    assert_select "#recently-updated" do
+      assert_select_prefix_object policy_1, prefix="recent"
+      assert_select_prefix_object policy_2, prefix="recent"
+      assert_select_prefix_object news_article, prefix="recent"
     end
-    assert_select "a[href=?]", "#recently-changed"
   end
 
-  test "show displays a maximum of 5 recently changed documents" do
+  test "show displays a maximum of 3 recently changed documents" do
     policy = create(:published_policy)
-    6.times { create(:published_news_article, related_policies: [policy]) }
+    4.times { create(:published_news_article, related_policies: [policy]) }
     topic = create(:topic, policies: [policy])
 
     get :show, id: topic
 
-    assert_select "#recently-changed tbody tr", count: 5
+    assert_select "#recently-updated tbody tr", count: 3
   end
 
   test "show does not display empty recently changed section" do
     topic = create(:topic)
     get :show, id: topic
-    refute_select "#recently-changed ul"
-    refute_select "a[href=?]", "#recently-changed"
+    refute_select "#recently-updated .document-list"
   end
 
   test "show displays metadata about the recently changed documents" do
@@ -157,8 +207,8 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select "#recently-changed" do
-      assert_select_object speech do
+    assert_select "#recently-updated" do
+      assert_select_prefix_object speech, prefix="recent" do
         assert_select '.type', text: "Speech"
         assert_select ".published-at[title='#{published_at.iso8601}']"
       end
@@ -168,17 +218,13 @@ class TopicsControllerTest < ActionController::TestCase
   test "show displays recently changed documents including the policy in order of the edition's publication date with most recent first" do
     policy_1 = create(:published_policy, published_at: 2.weeks.ago)
     publication_1 = create(:published_publication, published_at: 6.weeks.ago, related_policies: [policy_1])
-    news_article_1 = create(:published_news_article, published_at: 1.week.ago, related_policies: [policy_1])
-
     policy_2 = create(:published_policy, published_at: 5.weeks.ago)
-    news_article_2 = create(:published_news_article, published_at: 4.weeks.ago, related_policies: [policy_2])
-    publication_2 = create(:published_publication, published_at: 3.weeks.ago, related_policies: [policy_2])
 
     topic = create(:topic, policies: [policy_1, policy_2])
 
     get :show, id: topic
 
-    expected = [news_article_1, policy_1, publication_2, news_article_2, policy_2, publication_1]
+    expected = [policy_1, policy_2, publication_1]
     actual = assigns(:recently_changed_documents)
     assert_equal expected, actual
   end
@@ -191,12 +237,12 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select_object first_edition do
-      assert_select '.date ', text: /Published/
+    assert_select_prefix_object first_edition, prefix="recent" do
+      assert_select '.published-date ', text: /published/
     end
 
-    assert_select_object updated_edition do
-      assert_select '.date', text: /Updated/
+    assert_select_prefix_object updated_edition, prefix="recent" do
+      assert_select '.published-date', text: /updated/
     end
   end
 

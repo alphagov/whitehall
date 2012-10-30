@@ -1,0 +1,117 @@
+.collection-list {
+  @extend %contain-floats;
+
+  .collection-item {
+    @include core-19;
+    list-style: none;
+    counter-increment: headings 1;
+
+    h2:before {
+      content: counter(headings, decimal-leading-zero) ".";
+      display: block;
+    }
+
+    .summary a {
+      white-space: nowrap;
+    }
+  }
+
+  &.one-column {
+    .collection-item {
+      @extend %contain-floats;
+
+      @include media(tablet) {
+        clear: both;
+        margin-top: $gutter-two-thirds;
+        padding-top: $gutter-one-third;
+        border-top: 1px solid $light-keyline;
+
+        &:first-child {
+          border-top: none;
+        }
+
+        h2 {
+          position: relative;
+          float: left;
+          width: 33.3%;
+          margin-top: $gutter-one-sixth;
+        }
+
+        .summary {
+          float: left;
+          width: 66.6%;
+          padding-top: 8px;
+
+          p {
+            padding-left: $gutter-half;
+          }
+        }
+      }
+    }
+  }
+
+  &.two-columns {
+    @include media(tablet) {
+      margin: 0 ($gutter-half*-1);
+
+      .collection-item {
+        margin-top: 0;
+        float: left;
+        width: 50%;
+        padding-bottom: $gutter-two-thirds;
+        border-top: none;
+
+        &:nth-child(2n+1) {
+          clear: both;
+        }
+
+        .container {
+          padding: 0 $gutter-half;
+        }
+
+        h2 {
+          width: 100%;
+          margin-left: 0;
+          margin-top: 0;
+        }
+
+        .summary {
+          width: 100%;
+
+          p {
+            padding-left: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &.three-columns {
+    @include media(tablet){
+      margin: 0 ($gutter-half*-1);
+
+      .collection-item {
+        margin-top: 0;
+        float: left;
+        display: inline;
+        width: 33%;
+        padding-bottom: $gutter-two-thirds;
+        border-top: none;
+
+        &:nth-child(3n+1) {
+          clear: both;
+        }
+
+        .container {
+          padding: 0 $gutter-half;
+        }
+
+        h2 {
+          width: 100%;
+          margin-left: 0;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}

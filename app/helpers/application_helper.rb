@@ -278,4 +278,14 @@ module ApplicationHelper
   def mainstream_category_path(category)
     url_for(controller: '/mainstream_categories', action: :show, id: category, parent_tag: category.parent_tag, only_path: true)
   end
+
+  def collection_list_class(items, minimum_columns=1)
+    if items.length > 8 || minimum_columns == 3
+      "three-columns"
+    elsif items.length > 3 || minimum_columns == 2
+      "two-columns"
+    else
+      "one-column"
+    end
+  end
 end
