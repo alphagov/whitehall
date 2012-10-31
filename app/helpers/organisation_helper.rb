@@ -86,7 +86,7 @@ module OrganisationHelper
   def organisation_site_thumbnail_path(organisation)
     begin
       image_path("organisation_screenshots/#{organisation.slug}.png")
-    rescue ActionView::Template::Error
+    rescue Sprockets::Helpers::RailsHelper::AssetPaths::AssetNotPrecompiledError
       image_path("thumbnail-placeholder.png")
     end
   end

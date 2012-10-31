@@ -130,7 +130,7 @@ class OrganisationSiteThumbnailPathTest < ActionView::TestCase
 
   test 'organisation_site_thumbnail_path uses the placeholder image if the file does not exist' do
     organisation = stub('organisation', slug: 'slug')
-    stubs(:image_path).raises(ActionView::Template::Error.new(self, {}, Exception.new)).then.returns("return_path")
+    stubs(:image_path).raises(Sprockets::Helpers::RailsHelper::AssetPaths::AssetNotPrecompiledError).then.returns("return_path")
     assert_equal "return_path", organisation_site_thumbnail_path(organisation)
   end
 end
