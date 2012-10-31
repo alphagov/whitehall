@@ -1,0 +1,92 @@
+
+.inside_gov_how-gov-works {
+  .full-width-section{
+    clear:both
+  }
+  .thirds-width-section{
+    clear:both;
+    div{
+      float:left;
+      margin: 0 0 $gutter 0;
+    }
+    .two-thirds{
+      width:66%;
+    }
+    .one-third{
+      width:33%;
+    }
+  }
+  .halves-width-section{
+    clear:both;
+    div{
+      float:left;
+    }
+    .one-half{
+      width:50%;
+    }
+  }
+  .two-thirds, .one-third, .one-half{
+
+  }
+  a{
+    text-decoration: underline;
+  }
+  h1 {
+    @include core-48;
+    margin: 0 0 $gutter;
+    @include media(desktop) {
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+  h2{
+    @include core-36;
+    border-bottom: 3px solid purple;
+    margin: 0 0 $gutter;
+    clear:both;
+  }
+  h3{
+    @include core-27;
+    a{
+      text-decoration:none;
+    }
+  }
+  h4{
+    @include core-24;
+  }
+  .block-1, .block-2 {
+    float: none;
+    display: block;
+    width: 100%;
+    margin-top: $gutter*2;
+  }
+
+  .block-1 {
+
+    p {
+      @include core-19;
+      margin-bottom: $gutter-half;
+      &:nth-child(2) {
+        margin-bottom: $gutter;
+      }
+    }
+
+    p.intro {
+      @include core-27;
+    }
+
+  }
+
+  .block-2 {
+    margin-bottom: $gutter;
+    img {
+      width: 100%;
+    }
+    .first {
+      margin: 0 25%;
+      width: 50%;
+    }
+  }
+
+  
+}
