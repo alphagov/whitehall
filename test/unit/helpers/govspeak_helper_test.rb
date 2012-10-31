@@ -84,26 +84,13 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test 'should rewrite admin link to an archived edition as a link to its published edition' do
-    edition = create(:published_policy)
-    writer = create(:policy_writer)
-    editor = create(:departmental_editor)
-    new_draft = edition.create_draft(writer)
-    new_draft.change_note = 'change-note'
-    new_draft.save_as(writer)
-    new_draft.submit!
-    new_draft.publish_as(editor)
-
-    assert_rewrites_link(from: admin_edition_url(edition), to: public_document_url(edition))
+    archived_edition, published_edition = create_archived_policy_with_published_edition
+    assert_rewrites_link(from: admin_edition_url(archived_edition), to: public_document_url(published_edition))
   end
 
   test 'should rewrite admin link to a draft edition as a link to its published edition' do
-    edition = create(:published_policy)
-    writer = create(:policy_writer)
-    new_draft = edition.create_draft(writer)
-    new_draft.change_note = 'change-note'
-    new_draft.save_as(writer)
-
-    assert_rewrites_link(from: admin_edition_url(new_draft), to: public_document_url(edition))
+    published_edition, new_draft = create_draft_policy_with_published_edition
+    assert_rewrites_link(from: admin_edition_url(new_draft), to: public_document_url(published_edition))
   end
 
   test "should rewrite absolute link to an admin page for a speech as a link to its public page on the internal preview host" do
@@ -332,5 +319,26 @@ class GovspeakHelperTest < ActionView::TestCase
 
   def old_style_admin_supporting_page_url(supporting_page)
     admin_supporting_page_url(supporting_page).gsub(/editions/, "documents")
+  end
+
+  def create_archived_policy_with_published_edition
+    edition = create(:published_policy)
+    writer = create(:policy_writer)
+    editor = create(:departmental_editor)
+    new_draft = edition.create_draft(writer)
+    new_draft.change_note = 'change-note'
+    new_draft.save_as(writer)
+    new_draft.submit!
+    new_draft.publish_as(editor)
+    [edition, new_draft]
+  end
+
+  def create_draft_policy_with_published_edition
+    edition = create(:published_policy)
+    writer = create(:policy_writer)
+    new_draft = edition.create_draft(writer)
+    new_draft.change_note = 'change-note'
+    new_draft.save_as(writer)
+    [edition, new_draft]
   end
 end
