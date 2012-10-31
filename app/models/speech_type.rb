@@ -4,7 +4,7 @@ class SpeechType
   attr_accessor :id, :name, :genus, :explanation
 
   def slug
-    name.downcase.gsub(/[^a-z]+/, "_")
+    name.downcase.gsub(/[^a-z]+/, "-")
   end
 
   def genus
@@ -15,6 +15,9 @@ class SpeechType
     all.find { |pt| pt.name == name }
   end
 
+  def self.find_by_slug(slug)
+    all.find { |type| type.slug == slug }
+  end
 
   Transcript = create(
     id: 1, name: "Transcript", genus: "Speech",
