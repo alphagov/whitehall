@@ -6,18 +6,17 @@
 
 <ul class="organisations-icon-list<%= " multiple-orgs" if organisations.length > 1 %> js-hide-extra-rows-3">
   <% if organisations.length > 1 %>
-    <li class="single-identity organisation hm-government">
-      <span class="organisation-logo-small">
+    <li class="organisation hm-government">
+      <span class="organisation-logo-stacked-single-identity">
         <span><%= remove_line_breaks ? "HM Government" : "HM Government".html_safe %></span>
       </span>
     </li>
   <% end %>
   <% organisations.each do |organisation| %>
-    <%= content_tag_for(:li, organisation,
-          class: organisation_logo_classes(organisation, no_single_identity: (organisations.length > 1))) do %>
+    <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
       <%= link_to organisation_path(organisation),
             title: organisation.logo_formatted_name,
-            class: "organisation-logo-small #{extra_class}" do %>
+            class: organisation_logo_classes(organisation, {stacked: true, use_identity: (organisations.length == 1)}) do %>
         <span><%= remove_line_breaks ? organisation.logo_formatted_name : format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
       <% end %>
     <% end %>

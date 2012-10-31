@@ -3,6 +3,8 @@ FactoryGirl.define do
     sequence(:name) { |index| "organisation-#{index}" }
     sequence(:logo_formatted_name) { |index| "organisation-#{index} logo text".split(" ").join("\n") }
     organisation_type
+
+    organisation_logo_type_id { OrganisationLogoType::SingleIdentity.id }
   end
 
   factory :ministerial_department, parent: :organisation do

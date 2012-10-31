@@ -10,10 +10,10 @@
       <section class="page-header js-hide-extra-logos">
         <ul class="organisations-icon-list">
           <% @document.organisations.each do |organisation| %>
-            <%= content_tag_for(:li, organisation, :class => organisation_logo_classes(organisation)) do %>
+            <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
               <%= link_to organisation.url,
                     title: "#{organisation.logo_formatted_name} (external website)",
-                    class: "organisation-logo-small single-line",
+                    class: organisation_logo_classes(organisation, size: 'medium'),
                     rel: "external" do %>
                 <span><%= organisation.logo_formatted_name %></span>
               <% end %>

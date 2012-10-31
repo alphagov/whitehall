@@ -65,22 +65,25 @@ module OrganisationHelper
   end
 
   def organisation_wrapper(organisation, options = {}, &block)
-    content_tag_for :div, organisation, class: organisation_logo_classes(organisation, options) do
+    content_tag_for :div, organisation, class: organisation.slug do
       block.call
     end
   end
 
-  def organisation_type_class(organisation_type)
-    organisation_type.name.downcase.gsub(/\s/, '-') if organisation_type && organisation_type.name.present?
-  end
-
   def organisation_logo_classes(organisation, options={})
-    classes = []
-    classes << organisation.slug
-    classes << organisation_type_class(organisation.organisation_type)
-    classes << organisation_branding_class(organisation) unless options[:no_single_identity]
-    classes << options[:class] if options[:class]
-    classes.compact.join(" ").strip
+    logo_class = [ 'organisation-logo' ]
+    logo_class << 'stacked' if options[:stacked]
+    if options.include?(:use_identity) && options[:use_identity] == false
+      logo_class << 'no-identity'
+    else
+      logo_class << organisation.organisation_logo_type.class_name
+    end
+    logo_class = logo_class.compact.join('-')
+
+    classes = [ 'organisation-logo' ]
+    classes << logo_class
+    classes << "#{logo_class}-#{options[:size]}" if options[:size]
+    classes.join(" ").strip
   end
 
   def organisation_site_thumbnail_path(organisation)
