@@ -9,7 +9,7 @@ creator = User.find_by_name!("Automatic Data Importer")
 organisation = Organisation.find_by_name('Department for Communities & Local Government')
 raise "Organisation not found" unless organisation
 
-puts "ID,Title,Old URL,Errors"
+puts "ID,First published,Title,Old URL,Errors"
 data.each do |row|
   errors = []
 
@@ -70,6 +70,6 @@ data.each do |row|
   rescue => e
     errors << e
   ensure
-    puts [n.id || 'Unsaved', title, source_url, errors.join('. ')].to_csv
+    puts [n.id || 'Unsaved', first_published_at, title, source_url, errors.join('. ')].to_csv
   end
 end
