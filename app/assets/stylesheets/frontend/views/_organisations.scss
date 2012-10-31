@@ -638,6 +638,7 @@
   @include department-colours('nav a', color);
   @include department-colours('.body a', color);
   @include department-colours('.body .attachment .accessibility-warning h3 .toggler', color);
+  @include department-colours('.corporate-info a', color);
 
   @include media(desktop){
     .block-1 {
@@ -655,10 +656,11 @@
   }
 
   nav {
-    @include core-14;
-    padding: $gutter 0;
+    @include core-16;
+    padding: ($gutter - $gutter-one-third) 0 $gutter;
     ol {
       li {
+        padding-top: $gutter-one-sixth;
         list-style: disc;
         margin-left: 1.2em;
       }
@@ -668,7 +670,7 @@
     @include core-48;
 
     @include media(desktop){
-      margin-top: $gutter*2;
+      margin: ($gutter*3 + $gutter-half) 0 $gutter-half;
     }
   }
   .description {
