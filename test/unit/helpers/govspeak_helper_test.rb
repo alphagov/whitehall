@@ -61,6 +61,31 @@ class GovspeakHelperTest < ActionView::TestCase
     refute_select_within_html html, "a"
   end
 
+  test "should not mark admin links as 'external'" do
+    request.host = public_preview_host
+    speech = create(:published_speech)
+    url = admin_speech_url(speech, host: request.host)
+    govspeak = "this and [that](#{url}) yeah?"
+    html = govspeak_to_html(govspeak)
+    refute_select_within_html html, "a[rel='external']", text: "that"
+  end
+
+  test "should not mark public preview links as 'external'" do
+    speech = create(:published_speech)
+    url = admin_speech_url(speech, host: public_preview_host)
+    govspeak = "this and [that](#{url}) yeah?"
+    html = govspeak_to_html(govspeak)
+    refute_select_within_html html, "a[rel='external']", text: "that"
+  end
+
+  test "should not mark main site links as 'external'" do
+    speech = create(:published_speech)
+    url = admin_speech_url(speech, host: public_production_host)
+    govspeak = "this and [that](#{url}) yeah?"
+    html = govspeak_to_html(govspeak)
+    refute_select_within_html html, "a[rel='external']", text: "that"
+  end
+
   test "should rewrite absolute link to an admin page for a published speech as link to its public page" do
     speech = create(:published_speech)
     assert_rewrites_link(from: admin_edition_url(speech), to: public_document_url(speech))
@@ -104,31 +129,6 @@ class GovspeakHelperTest < ActionView::TestCase
     ActionController::Base.default_url_options[:host] = internal_preview_host
     speech = create(:published_speech)
     assert_rewrites_link(from: admin_speech_url(speech), to: public_document_url(speech))
-  end
-
-  test "should not mark admin links as 'external'" do
-    request.host = public_preview_host
-    speech = create(:published_speech)
-    url = admin_speech_url(speech, host: request.host)
-    govspeak = "this and [that](#{url}) yeah?"
-    html = govspeak_to_html(govspeak)
-    refute_select_within_html html, "a[rel='external']", text: "that"
-  end
-
-  test "should not mark public preview links as 'external'" do
-    speech = create(:published_speech)
-    url = admin_speech_url(speech, host: public_preview_host)
-    govspeak = "this and [that](#{url}) yeah?"
-    html = govspeak_to_html(govspeak)
-    refute_select_within_html html, "a[rel='external']", text: "that"
-  end
-
-  test "should not mark main site links as 'external'" do
-    speech = create(:published_speech)
-    url = admin_speech_url(speech, host: public_production_host)
-    govspeak = "this and [that](#{url}) yeah?"
-    html = govspeak_to_html(govspeak)
-    refute_select_within_html html, "a[rel='external']", text: "that"
   end
 
   test "should rewrite absolute link to an admin page for a supporting page as a link to its public page on the internal preview host" do
