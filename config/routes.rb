@@ -153,6 +153,6 @@ Whitehall::Application.routes.draw do
 
   mount TestTrack::Engine => "test" if Rails.env.test?
 
-  match '/government/uploads/*path.:extension' => "placeholder#virus_checking_placeholder_image", constraints: { extension: /(jpe?g|gif|png)/i }
+  match '/government/uploads/*path.:extension' => "placeholder#placeholder_image", constraints: { extension: /(jpe?g|gif|png)/i }
   match '/government/uploads/*path' => redirect("/placeholder"), as: :attachment_placeholder
 end
