@@ -136,7 +136,7 @@
         <% end %>
 
         <% if @edition.images.any? %>
-          <section class="images image_feature_mask">
+          <section class="images">
             <h1>Images</h1>
             <% @edition.images.each do |image| %>
               <%= image_tag image.url, id: dom_id(image) %>
