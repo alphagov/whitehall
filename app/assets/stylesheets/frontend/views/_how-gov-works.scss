@@ -22,9 +22,6 @@
     }
   }
 
-  a{
-    text-decoration: underline;
-  }
   h1 {
     @include core-48;
     margin: 0 0 $gutter;
@@ -42,9 +39,6 @@
   h3{
     @include core-27;
     margin: 0 0 $gutter-half;
-    a{
-      text-decoration:none;
-    }
   }
   h4{
     @include core-24;
