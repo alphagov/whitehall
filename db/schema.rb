@@ -272,8 +272,8 @@ ActiveRecord::Schema.define(:version => 20121030174704) do
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
     t.datetime "timestamp_for_sorting"
     t.integer  "primary_mainstream_category_id"
-    t.datetime "scheduled_publication"
     t.boolean  "replaces_businesslink",                                           :default => false
+    t.datetime "scheduled_publication"
   end
 
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
