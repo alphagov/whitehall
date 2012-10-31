@@ -61,18 +61,18 @@ class GovspeakHelperTest < ActionView::TestCase
     refute_select_within_html html, "a"
   end
 
-  test "should rewrite absolute link to an admin page for a published edition as link to its public page" do
-    edition = create(:published_edition)
-    url = admin_edition_url(edition)
+  test "should rewrite absolute link to an admin page for a published speech as link to its public page" do
+    speech = create(:published_speech)
+    url = admin_edition_url(speech)
     html = govspeak_to_html("this and [that](#{url}) yeah?")
-    assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
+    assert_select_within_html html, "a[href=?]", public_document_url(speech), text: "that"
   end
 
-  test "should rewrite relative link to an admin page for a published edition as link to its public page" do
-    edition = create(:published_edition)
-    path = admin_edition_path(edition)
+  test "should rewrite relative link to an admin page for a published speech as link to its public page" do
+    speech = create(:published_speech)
+    path = admin_edition_path(speech)
     html = govspeak_to_html("this and [that](#{path}) yeah?")
-    assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
+    assert_select_within_html html, "a[href=?]", public_document_url(speech), text: "that"
   end
 
   test "should rewrite absolute link to an admin page for a published supporting page as link to its public page" do
