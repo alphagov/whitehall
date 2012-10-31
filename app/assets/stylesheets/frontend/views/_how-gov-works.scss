@@ -3,7 +3,8 @@
   .full-width-section{
     clear:both
   }
-  .thirds-width-section{
+  .thirds-width-section,
+  .halves-width-section{
     margin-left:-$gutter;
     margin-right:-$gutter;
     clear:both;
@@ -16,21 +17,11 @@
     .one-third{
       width:33%;
     }
-  }
-  .halves-width-section{
-    margin-left:-$gutter;
-    margin-right:-$gutter;
-    clear:both;
-    div{
-      float:left;
-    }
     .one-half{
       width:50%;
     }
   }
-  .two-thirds, .one-third, .one-half{
-    
-  }
+
   a{
     text-decoration: underline;
   }
@@ -44,7 +35,7 @@
   }
   h2{
     @include core-36;
-    border-bottom: 3px solid purple;
+    border-bottom: 3px solid $inside-gov-brand;
     margin: 0 0 $gutter;
     clear:both;
   }
