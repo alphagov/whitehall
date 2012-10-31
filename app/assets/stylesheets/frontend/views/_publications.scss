@@ -47,34 +47,6 @@
       width: 100%;
     }
   }
-  .document-series {
-    background-color: $inside-gov-brand;
-    color: white;
-    padding: $gutter-one-third $gutter-half $gutter-half;
-    margin: 0 ($gutter*-0.5);
-        
-    @include media(tablet){
-      padding: $gutter-one-third $gutter-one-third $gutter-half 33.333%;
-      margin: 0;
-    }
-
-    span, a {
-      display: block;
-      @include media(tablet){
-        margin-left: $gutter-half;
-      }
-    }
-
-    span {
-      @include core-19;
-    }
-
-    a {
-      @include core-27;
-      color: white;
-      text-decoration: underline;
-    }
-  }
 
   #details {
     padding-top: $gutter;
