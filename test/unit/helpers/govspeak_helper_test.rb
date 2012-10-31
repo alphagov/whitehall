@@ -48,40 +48,46 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should not link to draft editions with no published edition" do
     publication = create(:draft_publication)
-    html = govspeak_to_html("this and [that](#{admin_publication_url(publication)})")
+    url = admin_publication_url(publication)
+    html = govspeak_to_html("this and [that](#{url})")
     refute_select_within_html html, "a"
   end
 
   test "should not link to deleted editions with no published edition" do
     publication = create(:deleted_publication)
-    html = govspeak_to_html("this and [that](#{admin_publication_url(publication)})")
+    url = admin_publication_url(publication)
+    html = govspeak_to_html("this and [that](#{url})")
     refute_select_within_html html, "a"
   end
 
   [Policy, Publication, NewsArticle, Consultation].each do |edition_class|
     test "should rewrite absolute links to admin previews of published #{edition_class.name} as their public document" do
       edition = create(:"published_#{edition_class.name.underscore}")
-      html = govspeak_to_html("this and [that](#{admin_edition_url(edition)}) yeah?")
+      url = admin_edition_url(edition)
+      html = govspeak_to_html("this and [that](#{url}) yeah?")
       assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
     end
 
     test "should rewrite relative links to admin previews of published #{edition_class.name} as their public document" do
       edition = create(:"published_#{edition_class.name.underscore}")
-      html = govspeak_to_html("this and [that](#{admin_edition_path(edition)}) yeah?")
+      path = admin_edition_path(edition)
+      html = govspeak_to_html("this and [that](#{path}) yeah?")
       assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
     end
   end
 
   test "should rewrite absolute links to admin previews of published Speeches as their public document" do
     speech = create(:published_speech)
-    html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
+    url = admin_speech_url(speech)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_document_url(speech), text: "that"
   end
 
   test "should rewrite absolute links to admin previews of published SupportingPages as their public document" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
+    url = admin_supporting_page_url(supporting_page)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_supporting_page_url(policy, supporting_page), text: "that"
   end
 
@@ -103,7 +109,8 @@ class GovspeakHelperTest < ActionView::TestCase
     new_draft.submit!
     new_draft.publish_as(editor)
 
-    html = govspeak_to_html("this and [that](#{admin_edition_url(edition)}) yeah?")
+    url = admin_edition_url(edition)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
   end
 
@@ -114,14 +121,16 @@ class GovspeakHelperTest < ActionView::TestCase
     new_draft.change_note = 'change-note'
     new_draft.save_as(writer)
 
-    html = govspeak_to_html("this and [that](#{admin_edition_url(new_draft)}) yeah?")
+    url = admin_edition_url(new_draft)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
   end
 
   test "should rewrite absolute links to admin previews of Speeches as their public document on preview" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     speech = create(:published_speech)
-    html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
+    url = admin_speech_url(speech)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_document_url(speech), text: "that"
   end
 
@@ -129,28 +138,32 @@ class GovspeakHelperTest < ActionView::TestCase
     request.host = "www.preview.alphagov.co.uk"
     ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     speech = create(:published_speech)
-    html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
+    url = admin_speech_url(speech)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_document_url(speech), text: "that"
   end
 
   test "should not mark admin links as 'external'" do
     request.host = "www.preview.alphagov.co.uk"
     speech = create(:published_speech)
-    govspeak = "this and [that](#{admin_speech_url(speech, host: request.host)}) yeah?"
+    url = admin_speech_url(speech, host: request.host)
+    govspeak = "this and [that](#{url}) yeah?"
     html = govspeak_to_html(govspeak)
     refute_select_within_html html, "a[rel='external']", text: "that"
   end
 
   test "should not mark public preview links as 'external'" do
     speech = create(:published_speech)
-    govspeak = "this and [that](#{admin_speech_url(speech, host: "www.preview.alphagov.co.uk")}) yeah?"
+    url = admin_speech_url(speech, host: "www.preview.alphagov.co.uk")
+    govspeak = "this and [that](#{url}) yeah?"
     html = govspeak_to_html(govspeak)
     refute_select_within_html html, "a[rel='external']", text: "that"
   end
 
   test "should not mark main site links as 'external'" do
     speech = create(:published_speech)
-    govspeak = "this and [that](#{admin_speech_url(speech, host: "www.gov.uk")}) yeah?"
+    url = admin_speech_url(speech, host: "www.gov.uk")
+    govspeak = "this and [that](#{url}) yeah?"
     html = govspeak_to_html(govspeak)
     refute_select_within_html html, "a[rel='external']", text: "that"
   end
@@ -159,7 +172,8 @@ class GovspeakHelperTest < ActionView::TestCase
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
+    url = admin_supporting_page_url(supporting_page)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_supporting_page_url(policy, supporting_page, host: "www.preview.alphagov.co.uk"), text: "that"
   end
 
@@ -168,14 +182,16 @@ class GovspeakHelperTest < ActionView::TestCase
     ActionController::Base.default_url_options[:host] = "whitehall.preview.alphagov.co.uk"
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
+    url = admin_supporting_page_url(supporting_page)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_supporting_page_url(policy, supporting_page, host: "www.preview.alphagov.co.uk"), text: "that"
   end
 
   test "should rewrite absolute links to admin previews of Speeches as their public document on production" do
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     speech = create(:published_speech)
-    html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
+    url = admin_speech_url(speech)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_document_url(speech), text: "that"
   end
 
@@ -183,7 +199,8 @@ class GovspeakHelperTest < ActionView::TestCase
     request.host = "www.gov.uk"
     ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     speech = create(:published_speech)
-    html = govspeak_to_html("this and [that](#{admin_speech_url(speech)}) yeah?")
+    url = admin_speech_url(speech)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_document_url(speech), text: "that"
   end
 
@@ -191,7 +208,8 @@ class GovspeakHelperTest < ActionView::TestCase
     request.host = ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
+    url = admin_supporting_page_url(supporting_page)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_supporting_page_url(policy, supporting_page, host: "www.gov.uk"), text: "that"
   end
 
@@ -200,14 +218,16 @@ class GovspeakHelperTest < ActionView::TestCase
     ActionController::Base.default_url_options[:host] = "whitehall.production.alphagov.co.uk"
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
+    url = admin_supporting_page_url(supporting_page)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     assert_select_within_html html, "a[href=?]", public_supporting_page_url(policy, supporting_page, host: "www.gov.uk"), text: "that"
   end
 
   test "should not link to SupportingPages whose editions are not published" do
     policy = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
+    url = admin_supporting_page_url(supporting_page)
+    html = govspeak_to_html("this and [that](#{url}) yeah?")
     refute_select_within_html html, "a"
   end
 
