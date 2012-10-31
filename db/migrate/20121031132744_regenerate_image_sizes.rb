@@ -5,7 +5,7 @@ class RegenerateImageSizes < ActiveRecord::Migration
         image_data.file.recreate_versions!
       rescue => e
         $stderr.puts "ERROR recreating image data for #{image_data.id} -> #{e.to_s}"
-        raise e
+        raise e unless Rails.env.development?
       end
     end
   end
