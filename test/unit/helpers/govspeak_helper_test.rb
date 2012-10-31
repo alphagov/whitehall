@@ -60,7 +60,7 @@ class GovspeakHelperTest < ActionView::TestCase
     refute_select_within_html html, "a"
   end
 
-  [Policy, Publication, NewsArticle, Consultation].each do |edition_class|
+  [Policy, Publication, NewsArticle, Consultation, Speech].each do |edition_class|
     test "should rewrite absolute links to admin previews of published #{edition_class.name} as their public document" do
       edition = create(:"published_#{edition_class.name.underscore}")
       url = admin_edition_url(edition)
@@ -74,13 +74,6 @@ class GovspeakHelperTest < ActionView::TestCase
       html = govspeak_to_html("this and [that](#{path}) yeah?")
       assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
     end
-  end
-
-  test "should rewrite absolute links to admin previews of published Speeches as their public document" do
-    speech = create(:published_speech)
-    url = admin_speech_url(speech)
-    html = govspeak_to_html("this and [that](#{url}) yeah?")
-    assert_select_within_html html, "a[href=?]", public_document_url(speech), text: "that"
   end
 
   test "should rewrite absolute links to admin previews of published SupportingPages as their public document" do
