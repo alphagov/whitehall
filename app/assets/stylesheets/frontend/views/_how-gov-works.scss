@@ -4,29 +4,31 @@
     clear:both
   }
   .thirds-width-section{
+    margin:0 -$gutter-half;
     clear:both;
     div{
       float:left;
       margin: 0 0 $gutter 0;
     }
     .two-thirds{
-      width:66%;
+      width:62%;
     }
     .one-third{
-      width:33%;
+      width:30%;
     }
   }
   .halves-width-section{
+    margin:0 -$gutter-half;
     clear:both;
     div{
       float:left;
     }
     .one-half{
-      width:50%;
+      width:46%;
     }
   }
   .two-thirds, .one-third, .one-half{
-
+    padding:0 $gutter-half;
   }
   a{
     text-decoration: underline;
@@ -47,6 +49,7 @@
   }
   h3{
     @include core-27;
+    margin: 0 0 $gutter-half;
     a{
       text-decoration:none;
     }
