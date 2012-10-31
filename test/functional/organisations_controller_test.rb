@@ -39,16 +39,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "#show indicates when an organisation is part of the single identity branding" do
-    organisation = create(:organisation, use_single_identity_branding: true)
+  test "#show uses the correct logo type branding" do
+    organisation = create(:organisation)
     get :show, id: organisation
-    assert_select ".page-header .single-identity"
+    assert_select ".organisation-logo-stacked-single-identity"
   end
 
   test "#show indicates when an organisation is not part of the single identity branding" do
-    organisation = create(:organisation, use_single_identity_branding: false)
+    organisation = create(:organisation, organisation_logo_type_id: OrganisationLogoType::NoIdentity.id)
     get :show, id: organisation
-    refute_select ".single-identity"
+    assert_select ".organisation-logo-stacked-no-identity"
   end
 
   test "shows primary featured editions in ordering defined by association" do
@@ -501,7 +501,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     [:show, :about].each do |page|
       get page, id: organisation
-      assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
+      assert_select "##{dom_id(organisation)}.#{organisation.slug}"
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031144058) do
+ActiveRecord::Schema.define(:version => 20121101094252) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -407,7 +407,7 @@ ActiveRecord::Schema.define(:version => 20121031144058) do
     t.text     "logo_formatted_name"
     t.string   "alternative_format_contact_email"
     t.string   "govuk_status",                     :default => "live", :null => false
-    t.boolean  "use_single_identity_branding",     :default => true
+    t.integer  "organisation_logo_type_id",        :default => 2
   end
 
   add_index "organisations", ["organisation_type_id"], :name => "index_organisations_on_organisation_type_id"

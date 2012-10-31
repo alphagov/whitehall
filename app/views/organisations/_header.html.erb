@@ -2,13 +2,13 @@
   link_to_organisation ||= false
 %>
 <header class="page-header">
-  <h1 class="page_title name <%= organisation_branding_class(organisation) %>">
+  <h1 class="page_title name">
     <% if link_to_organisation %>
-      <%= link_to organisation_path(organisation), class: 'organisation-logo-large' do %>
+      <%= link_to organisation_path(organisation), class: organisation_logo_classes(organisation, size: 'large', stacked: true) do %>
         <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
       <% end %>
     <% else %>
-      <span class="organisation-logo-large">
+      <span class="<%= organisation_logo_classes(organisation, size: 'large', stacked: true) %>">
         <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
       </span>
     <% end %>
