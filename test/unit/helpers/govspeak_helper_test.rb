@@ -61,7 +61,7 @@ class GovspeakHelperTest < ActionView::TestCase
   [Policy, Publication, NewsArticle, Consultation].each do |edition_class|
     test "should rewrite absolute links to admin previews of published #{edition_class.name} as their public document" do
       edition = create(:"published_#{edition_class.name.underscore}")
-      html = govspeak_to_html("this and [that](http://test.host#{admin_edition_path(edition)}) yeah?")
+      html = govspeak_to_html("this and [that](#{admin_edition_url(edition)}) yeah?")
       assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
     end
 
@@ -103,7 +103,7 @@ class GovspeakHelperTest < ActionView::TestCase
     new_draft.submit!
     new_draft.publish_as(editor)
 
-    html = govspeak_to_html("this and [that](http://test.host#{admin_edition_path(edition)}) yeah?")
+    html = govspeak_to_html("this and [that](#{admin_edition_url(edition)}) yeah?")
     assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
   end
 
@@ -114,7 +114,7 @@ class GovspeakHelperTest < ActionView::TestCase
     new_draft.change_note = 'change-note'
     new_draft.save_as(writer)
 
-    html = govspeak_to_html("this and [that](http://test.host#{admin_edition_path(new_draft)}) yeah?")
+    html = govspeak_to_html("this and [that](#{admin_edition_url(new_draft)}) yeah?")
     assert_select_within_html html, "a[href=?]", public_document_url(edition), text: "that"
   end
 
@@ -207,7 +207,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should not link to SupportingPages whose editions are not published" do
     policy = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    html = govspeak_to_html("this and [that](http://test.host#{admin_supporting_page_path(supporting_page)}) yeah?")
+    html = govspeak_to_html("this and [that](#{admin_supporting_page_url(supporting_page)}) yeah?")
     refute_select_within_html html, "a"
   end
 
