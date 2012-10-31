@@ -18,6 +18,12 @@ Scenario: Creating a new draft publication that applies to multiple nations
   Then I should see in the preview that "Standard Beard Lengths" does not apply to the nations:
     | Scotland | Wales |
 
+Scenario: Creating a new draft publication that references statistical data sets
+    Given I am an editor
+    Given a published statistical data set "Historical Beard Lengths"
+    When I draft a new publication "Beard Lengths 2012" referencing the data set "Historical Beard Lengths"
+    Then I should see in the preview that "Beard Lengths 2012" is taken from the live data in "Historical Beard Lengths"
+
 Scenario: Submitting a draft publication to a second pair of eyes
   Given a draft publication "Standard Beard Lengths" exists
   When I submit the publication "Standard Beard Lengths"

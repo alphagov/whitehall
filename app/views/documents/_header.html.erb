@@ -59,6 +59,10 @@
         <dt>Series:</dt>
         <dd><%= link_to document.document_series.name, organisation_document_series_path(document.document_series.organisation, document.document_series) %></dd>
       <% end %>
+      <% if document.respond_to?(:statistical_data_sets) && document.statistical_data_sets.any? %>
+        <dt>Live data:</dt>
+        <dd class='live-data'><%= list_of_linked_to_statistical_data_sets(document.statistical_data_sets) %></dd>
+      <% end %>
     </dl>
     <%= national_statistics_logo(document) %>
   </aside>

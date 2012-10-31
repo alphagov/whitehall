@@ -6,6 +6,7 @@ class Publication < Publicationesque
   include Edition::AlternativeFormatProvider
   include Edition::Countries
   include Edition::DocumentSeries
+  include Edition::StatisticalDataSets
 
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true

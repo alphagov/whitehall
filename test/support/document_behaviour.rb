@@ -10,6 +10,14 @@ module DocumentBehaviour
       end
     end
 
+    def should_allow_referencing_of_statistical_data_sets
+      test "should include the StatisticalDataSets module" do
+        # *NOTE*. The Edition::StatisticalDataSet module is tested separately so it
+        # should be enough to just test its inclusion here.
+        assert edition_class_from_test_name.ancestors.include?(Edition::StatisticalDataSets)
+      end
+    end
+
     def should_allow_a_role_appointment
       test "should include the RoleAppointment module" do
         # *NOTE*. The Edition::Appointment module is tested separately so it

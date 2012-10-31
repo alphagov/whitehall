@@ -89,6 +89,19 @@
     </section>
   <% end %>
 
+  <% if edition.can_be_associated_with_statistical_data_sets? %>
+    <section>
+      <h2>Statistical data sets</h2>
+      <% if edition.statistical_data_sets.any? %>
+        <ul>
+          <%= render partial: "admin/statistical_data_sets/list", collection: edition.statistical_data_sets %>
+        </ul>
+      <% else %>
+        <p>This document isn't associated with any statistical data sets.</p>
+      <% end %>
+    </section>
+  <% end %>
+
   <% if edition.can_be_related_to_mainstream_content? %>
     <section class="related_mainstream_content">
       <h2>Related Mainstream Content</h2>

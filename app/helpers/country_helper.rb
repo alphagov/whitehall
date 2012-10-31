@@ -16,4 +16,8 @@ module CountryHelper
   def list_of_links_to_countries(countries)
     countries.map { |country| link_to country.name, country_path(country), class: "country", id: "country_#{country.id}"  }.to_sentence.html_safe
   end
+
+  def list_of_linked_to_statistical_data_sets(data_sets)
+    data_sets.map { |data_set| link_to data_set.title, statistical_data_set_path(data_set) }.to_sentence.html_safe
+  end
 end

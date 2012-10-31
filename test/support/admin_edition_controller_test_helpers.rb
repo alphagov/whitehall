@@ -975,6 +975,65 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_references_to_statistical_data_sets_for(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "new should display statistical data sets field" do
+        get :new
+
+        assert_select "form#edition_new" do
+          assert_select "select[name*='edition[statistical_data_set_ids]']"
+        end
+      end
+
+      test "create should associate statistical data sets with edition" do
+        first_data_set = create(:statistical_data_set)
+        second_data_set = create(:statistical_data_set)
+        attributes = controller_attributes_for(edition_type)
+
+        post :create, edition: attributes.merge(
+          statistical_data_set_ids: [first_data_set.id, second_data_set.id]
+        )
+
+        edition = edition_class.last
+        assert_equal [first_data_set, second_data_set], edition.statistical_data_sets
+      end
+
+      test "edit should display edition statistical data sets field" do
+        edition = create(edition_type)
+
+        get :edit, id: edition
+
+        assert_select "form#edition_edit" do
+          assert_select "select[name*='edition[statistical_data_set_ids]']"
+        end
+      end
+
+      test "update should associate statistical data sets with editions" do
+        first_data_set = create(:statistical_data_set)
+        second_data_set = create(:statistical_data_set)
+
+        edition = create(edition_type, statistical_data_sets: [first_data_set])
+
+        put :update, id: edition, edition: {
+          statistical_data_set_ids: [second_data_set.id]
+        }
+
+        edition.reload
+        assert_equal [second_data_set], edition.statistical_data_sets
+      end
+
+      test "update should remove all statistical data sets if none specified" do
+        data_set = create(:statistical_data_set)
+        edition = create(edition_type, statistical_data_sets: [data_set])
+
+        put :update, id: edition, edition: {}
+
+        edition.reload
+        assert_equal [], edition.statistical_data_sets
+      end
+    end
+
     def should_allow_organisations_for(edition_type)
       edition_class = edition_class_for(edition_type)
 

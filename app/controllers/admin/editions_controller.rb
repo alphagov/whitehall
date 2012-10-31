@@ -109,6 +109,9 @@ class Admin::EditionsController < Admin::BaseController
     if @edition.can_be_associated_with_role_appointments?
       params[:edition][:role_appointment_ids] ||= []
     end
+    if @edition.can_be_associated_with_statistical_data_sets?
+      params[:edition][:statistical_data_set_ids] ||= []
+    end
     if @edition.can_be_related_to_policies?
       params[:edition][:related_document_ids] ||= []
     end

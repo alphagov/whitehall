@@ -70,6 +70,12 @@ module ApplicationHelper
     end
   end
 
+  def statistical_data_set_options
+    StatisticalDataSet.published.map do |data_set|
+      [data_set.id, data_set.title]
+    end
+  end
+
   def ministerial_role_options
     MinisterialRole.alphabetical_by_person.map do |role|
       [role.id, "#{role.name}, in #{role.organisations.collect(&:name).to_sentence} (#{role.current_person_name})"]
