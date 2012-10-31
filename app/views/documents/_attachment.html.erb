@@ -11,7 +11,6 @@
 <%= content_tag_for(:section, attachment, class: "embedded") do %>
   <div class="attachment-thumb">
     <%= link_to attachment.url, attachment_link_options.merge({ class: 'thumbnail' }) do %>
-      <h2 class="download-button">Attachment Download</h2>
       <%= attachment_thumbnail(attachment) unless defined?(hide_thumbnail) && hide_thumbnail %>
     <% end %>
   </div>

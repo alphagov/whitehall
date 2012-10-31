@@ -71,8 +71,11 @@ $treasury-websafe: #832322;
 //     }
 
 @mixin department-colours($selector, $property) {
+  .building-regulations-advisory-committee #{$selector} { #{$property}: $department-for-communities-and-local-government; }
+  .planning-inspectorate #{$selector} { #{$property}: $department-for-communities-and-local-government; }
   .department-for-environment-food-and-rural-affairs #{$selector} { #{$property}: $department-for-environment-food-and-rural-affairs; }
   .department-for-transport #{$selector} { #{$property}: $department-for-transport; }
+  .driving-standards-agency #{$selector} { #{$property}: $department-for-transport; }
   .department-of-health #{$selector} { #{$property}: $department-of-health; }
   .department-for-communities-and-local-government #{$selector} { #{$property}: $department-for-communities-and-local-government; }
   .department-for-work-and-pensions #{$selector} { #{$property}: $department-for-work-and-pensions; }
@@ -95,8 +98,11 @@ $treasury-websafe: #832322;
 }
 
 @mixin websafe-department-colours($selector, $property) {
+  .building-regulations-advisory-committee #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
+  .planning-inspectorate #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
   .department-for-environment-food-and-rural-affairs #{$selector} { #{$property}: $department-for-environment-food-and-rural-affairs-websafe; }
   .department-for-transport #{$selector} { #{$property}: $department-for-transport-websafe; }
+  .driving-standards-agency #{$selector} { #{$property}: $department-for-transport-websafe; }
   .department-of-health #{$selector} { #{$property}: $department-of-health-websafe; }
   .department-for-communities-and-local-government #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
   .department-for-work-and-pensions #{$selector} { #{$property}: $department-for-work-and-pensions-websafe; }

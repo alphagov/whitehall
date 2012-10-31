@@ -1,6 +1,6 @@
 .policies-index {
   .page-header {
-    padding: 0 0 ($gutter + $gutter-one-third);
+    padding: $gutter-one-third 0 0;
     margin: 0;
     position: relative;
   }
@@ -11,6 +11,7 @@
       padding-bottom:0;
       h1{
         padding-left:$gutter-half;
+        padding-bottom: 3px;
       }
     }
   }
@@ -104,32 +105,14 @@
   }
 
   .contextual-info .supporting_pages {
+    margin-top: $gutter-half*-1;
     li {
-      border-width: 0 1px 0 0;
-      border-style: solid;
-      border-color: $light-keyline;
-      padding: 0;
-      a {
-        background-color: $info-background;
-        display: block;
-        min-height: 50px;
-        border-bottom: 1px solid $white;
-        padding: $gutter-two-thirds;
-        overflow: hidden;
-        text-decoration: none;
-        z-index: 1;
-        &:hover,
-        &:focus {
-          background-color: $info-background-hover;
-          @include transition(background, 0.5s, ease)
-        }
+      @include media(desktop){
+        margin-bottom: $gutter-one-third;
       }
-    }
-    li.active {
-      a {
-        background-color: $white;
+      &.active a {
+        color: $body-text;
       }
-      border-width: 1px 0 1px 1px;
     }
   }
 
@@ -221,7 +204,8 @@
 
 .policies-activities {
   .policy {
-    .block-1, .block-2 {
+    .block-1, .block-2 {  
+      position: relative;
       display: block;
       float: none;
       width: 100%;
@@ -230,6 +214,8 @@
 
   // see helpers/_feed.scss for the other styles
   .subscribe {
-    float: right;
+    position: absolute;
+    right: $gutter;
+    bottom: $gutter*-1;
   }
 }

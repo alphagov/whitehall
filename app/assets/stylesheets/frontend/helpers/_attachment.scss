@@ -1,30 +1,15 @@
-.attachment,
-.attachment-full-width {
+$thumbnail-width: 99px;
+
+.attachment {
   position: relative;
-  margin: 0 ($gutter-half*-1);
-  padding: $gutter-one-third $gutter-half;
+  margin: $gutter ($gutter-half*-1);
+  padding: $gutter-half 0 0 ($thumbnail-width + $gutter);
   background: $info-background;
-  //background: red;
+  @extend %contain-floats;
   
   @include media(tablet){
-    margin: 0;
-    padding: $gutter-two-thirds $gutter-half;
-  }
-  
-  .attachment {
-    margin: 0;
-    padding: $gutter-half 0 0 (99px + $gutter-half);
-    background: transparent;
-    @extend %contain-floats;
-
-    @include media(tablet){
-      padding-left: (99px + $gutter);
-    }
-  }
-  
-  h1, h2, .attachment-details h3 {
-    @include core-27;
-    margin: 0;
+    margin: $gutter 0;
+    padding: $gutter-half 0 0 ($thumbnail-width + $gutter);
   }
   
   .attachment-without-thumbnail {
@@ -35,10 +20,10 @@
     position: relative;
     float: left;
     margin-top: $gutter-one-sixth;
-    margin-left: (-99px - $gutter-half);
+    margin-left: ($thumbnail-width*-1 - $gutter-half);
     padding-bottom: $gutter-half;
     @include media(tablet){
-      margin-left: (-99px - $gutter);
+      margin-left: ($thumbnail-width*-1 - $gutter-half);
     }
   
     img {
@@ -48,13 +33,14 @@
       background: white;
       @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
     }
-    .download-button {
-      position: absolute;
-      left: -5000px;
-    }
   }
   
   .attachment-details {
+    h1, h2, h3 {
+      @include core-27;
+      margin: 0;
+    }
+    
     .extra-description {
       @include core-19;
       margin: 0;
@@ -89,11 +75,26 @@
 }
 
 .attachment-full-width {
+  margin: $gutter ($gutter-half*-1);
+  padding: $gutter-half;
+  background: $info-background;
+  @extend %contain-floats;
+  
+  .attachment {
+    margin-top: 0;
+    margin-bottom: 0;
+    background: transparent;
+  }
+  
   @include media(tablet){
-    padding-left: 34.8%;
-    
+    margin: $gutter 0;
+    padding: $gutter-half $gutter-half  $gutter-half 34.8%;
     .attachment {
       padding-left: 0;
+      
+      .attachment-thumb {
+        margin-left: ($thumbnail-width*-1 - $gutter);
+      }
     }
   }
 }

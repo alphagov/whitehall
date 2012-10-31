@@ -3,10 +3,10 @@
   padding-bottom: $gutter-half;
 
   h1 {
-    @include core-48;
-    margin-top: $gutter-one-third;
+    @include core-36;
+    margin-top: ($gutter - $gutter-one-sixth);
     @include media(tablet){
-      margin-bottom: ($gutter - $gutter-one-sixth);
+      margin-bottom: ($gutter + $gutter-one-third);
       width: 75%;
       float: left;
     }

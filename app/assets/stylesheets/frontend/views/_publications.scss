@@ -2,7 +2,7 @@
 
 .publications-index {
   .page-header {
-    padding: 0 0 ($gutter + $gutter-one-third);
+    padding: $gutter-one-third 0 0;
     margin: 0;
     position: relative;
 
@@ -13,13 +13,17 @@
     .block-2,
     .block-3,
     .block-4 {
-      position: relative;
       zoom: 1;
     }
   }
+  
+  .block-2 {
+    position: relative;
+  }
   .subscribe {
-    float:right;
-
+    position: absolute;
+    right: $gutter;
+    bottom: $gutter*-1;
   }
   .block-4 {
     width: 100%;
@@ -29,9 +33,9 @@
     .inner-block header{
       background: $info-background;
       margin-bottom:0;
-      padding-bottom:0;
-      h1{
+      h1 {
         padding-left:$gutter-half;
+        padding-bottom: 3px;
       }
     }
   }
@@ -41,12 +45,6 @@
   @include media(tablet){
     .block-3 {
       width: 100%;
-    }
-  }
-  .attachment-full-width {
-    margin: $gutter ($gutter*-0.5) 0;
-    @include media(tablet){
-      margin: $gutter 0 0;
     }
   }
   .document-series {

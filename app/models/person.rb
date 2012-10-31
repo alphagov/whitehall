@@ -31,10 +31,14 @@ class Person < ActiveRecord::Base
   before_destroy :prevent_destruction_if_appointed
 
   def ministerial_roles_at(date)
+    role_appointments_at(date).map(&:role).select { |role| role.is_a?(MinisterialRole) }
+  end
+
+  def role_appointments_at(date)
     role_appointments.where([
       ":date >= started_at AND (:date <= ended_at OR ended_at IS NULL)",
       {date: date}
-    ]).map(&:role).select { |role| role.is_a?(MinisterialRole) }
+    ])
   end
 
   def published_speeches
