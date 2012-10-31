@@ -1,16 +1,34 @@
-.statistical-data-sets-list {
-  .alphabetical-list .alphabetical-row li {
-    padding: 0 0 $gutter-half 0;
-    float: none;
-    display: block;
-  }
-  .alphabetical-list .alphabetical-row li:first-child {
-    padding-top: $gutter;
-  }
-}
+.statistical-data-set {
 
-.statisticaldataset {
-  .block-3 {
-    width: 100%;
+  .document-page .document {
+    padding-top: 0;
   }
+
+  .statistical-data-sets-list {
+    .alphabetical-list .alphabetical-row li {
+      padding: 0 0 $gutter-half 0;
+      float: none;
+      display: block;
+    }
+    .alphabetical-list .alphabetical-row li:first-child {
+      padding-top: $gutter;
+    }
+  }
+
+  .statisticaldataset {
+    .block-2, .block-3 {
+      float: left;
+      display: inline;
+      width: 33%;
+    }
+    .block-3 {
+      float: right;
+      width: 66%;
+    }
+  }
+
+  .summary {
+    margin-bottom: $gutter;
+  }
+
 }
