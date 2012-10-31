@@ -5,8 +5,16 @@ Rails.application.routes.url_helpers.module_eval do
     "/government/generic-editions/#{options[:id].to_param}"
   end
 
+  def generic_edition_url(options = {})
+    options[:host] + generic_edition_path(options)
+  end
+
   def admin_generic_edition_path(edition)
     "/government/admin/generic-editions/#{edition.to_param}"
+  end
+
+  def admin_generic_edition_url(edition)
+    "http://test.host" + admin_generic_edition_path(edition)
   end
 
   def edit_admin_generic_edition_path(edition)
