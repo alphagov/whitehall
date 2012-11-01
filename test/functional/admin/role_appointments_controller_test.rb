@@ -82,7 +82,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
 
   test "edit should show speeches associated with this appointment" do
     appointment = create(:role_appointment)
-    appointment.speeches << create(:speech, title: "Some Speech")
+    create(:speech, title: "Some Speech", role_appointment: appointment)
     get :edit, id: appointment.id
     assert_select '.speeches', text: /Some Speech/
   end

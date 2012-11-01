@@ -133,7 +133,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "provides delete buttons for destroyable roles" do
-    destroyable_role = create(:role)
+    destroyable_role = create(:role_without_organisations)
     edition = create(:edition)
     indestructable_role = create(:ministerial_role, editions: [edition])
 
@@ -279,7 +279,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "should be able to destroy a destroyable role" do
-    role = create(:role, name: "Prime Minister")
+    role = create(:role_without_organisations, name: "Prime Minister")
 
     delete :destroy, id: role.id
 

@@ -17,10 +17,11 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     end
 
     def attributes_for_edition(attributes = {})
-      default_attributes = {alternative_format_provider_id: 
+      default_attributes = {alternative_format_provider_id:
         create(:organisation_with_alternative_format_contact_email).id}
-      default_attributes.merge(
-        attributes_for(edition_class.name.underscore, attributes))
+      default_attributes
+        .merge(attributes_for(edition_class.name.underscore, attributes))
+        .merge(organisation_ids: [(Organisation.first || create(:organisation)).id])
     end
   end
 end

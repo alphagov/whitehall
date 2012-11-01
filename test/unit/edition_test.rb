@@ -285,7 +285,8 @@ class EditionTest < ActiveSupport::TestCase
     submitted_edition = create(:submitted_edition)
     rejected_edition = create(:rejected_edition)
     published_edition = create(:published_edition)
-    deleted_edition = create(:deleted_edition)
+    deleted_edition = create(:draft_edition)
+    deleted_edition.delete!
     archived_edition = create(:archived_edition)
     assert_same_elements [draft_edition, submitted_edition, rejected_edition, published_edition], Edition.active
   end
@@ -309,6 +310,12 @@ class EditionTest < ActiveSupport::TestCase
   test "should still be valid if has no image and no alt text" do
     article = build(:news_article, images: [])
     assert article.valid?
+  end
+
+  test "should be invalid if has no organisation" do
+    edition = build(:edition)
+    edition.organisations = []
+    refute edition.valid?
   end
 
   test "should still be archivable if alt text validation would normally fail" do

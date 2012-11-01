@@ -87,7 +87,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     soul = create(:mainstream_category, title: "Soul")
     existing_edition = create(:detailed_guide, primary_mainstream_category: funk, other_mainstream_categories: [soul])
 
-    attributes = existing_edition.attributes
+    attributes = controller_attributes_for_instance(existing_edition)
     attributes.delete(:other_mainstream_category_ids)
 
     put :update,

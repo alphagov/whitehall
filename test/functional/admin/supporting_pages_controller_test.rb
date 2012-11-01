@@ -236,4 +236,8 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
     assert_response 403
   end
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.reject { |k,_| k == :organisation_ids }
+  end
 end

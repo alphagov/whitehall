@@ -8,7 +8,8 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test '#edition_organisation_class returns "no_organisation" if doc has no organisation' do
-    edition = create(:edition)
+    edition = build(:edition)
+    edition.organisations = []
     assert_equal 'unknown_organisation', edition_organisation_class(edition)
   end
 

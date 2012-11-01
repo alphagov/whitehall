@@ -13,6 +13,8 @@ module Edition::Organisations
     has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy
     has_many :organisations, through: :edition_organisations
 
+    validate :at_least_one_organisation
+
     add_trait Trait
   end
 
@@ -31,5 +33,12 @@ module Edition::Organisations
 
   def association_with_organisation(organisation)
     edition_organisations.where(organisation_id: organisation.id).first
+  end
+
+private
+  def at_least_one_organisation
+    unless edition_organisations.any? || organisations.any?
+      errors[:organisations] = "at least one required"
+    end
   end
 end

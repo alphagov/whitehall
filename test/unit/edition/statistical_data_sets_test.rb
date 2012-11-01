@@ -11,7 +11,8 @@ class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
     {
       title:   'edition-title',
       body:    'edition-body',
-      creator: create(:user)
+      creator: create(:user),
+      organisations: [create(:organisation)]
     }
   end
 

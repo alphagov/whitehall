@@ -11,7 +11,8 @@ class Edition::RoleAppointmentsTest < ActiveSupport::TestCase
     {
       title:   'edition-title',
       body:    'edition-body',
-      creator: build(:user)
+      creator: build(:user),
+      organisations: [build(:organisation)]
     }
   end
 

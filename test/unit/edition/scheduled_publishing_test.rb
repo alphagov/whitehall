@@ -1,16 +1,18 @@
 require "test_helper"
 
 class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
-  test "draft or submitted edition is not valid if scheduled_publication date is in the past" do
+  test "draft, submitted or rejected edition is not valid if scheduled_publication date is in the past" do
     editor = build(:departmental_editor)
     Edition.state_machine.states.each do |state|
-      edition = build(:edition, state.name, scheduled_publication: 1.minute.ago)
-      edition.stubs(:reason_to_prevent_approval_by).returns(nil)
-      if [:draft, :submitted].include?(state.name)
-        refute edition.valid?, "#{state.name} edition should be invalid"
-        assert edition.errors[:scheduled_publication].include?("date must be in the future")
-      else
-        assert edition.valid?, "#{state.name} edition should be valid"
+      edition = create(:edition, state.name, scheduled_publication: 1.minute.from_now)
+      Timecop.freeze(2.minutes.from_now) do
+        edition.stubs(:reason_to_prevent_approval_by).returns(nil)
+        if [:draft, :submitted, :rejected].include?(state.name)
+          refute edition.valid?, "#{state.name} edition should be invalid"
+          assert edition.errors[:scheduled_publication].include?("date must be in the future")
+        else
+          assert edition.valid?, "#{state.name} edition should be valid, but #{edition.errors.full_messages.inspect}"
+        end
       end
     end
   end

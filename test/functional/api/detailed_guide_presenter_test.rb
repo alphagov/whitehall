@@ -2,9 +2,9 @@ require 'test_helper'
 
 class Api::DetailedGuidePresenterTest < PresenterTestCase
   setup do
-    @guide = stub_edition(:detailed_guide)
+    @organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
+    @guide = stub_edition(:detailed_guide, organisations: [@organisation])
     @guide.stubs(:images).returns([])
-    @guide.stubs(:organisations).returns([])
     @guide.stubs(:published_related_detailed_guides).returns([])
     @presenter = Api::DetailedGuidePresenter.decorate(@guide)
     stubs_helper_method(:params).returns(format: :json)
@@ -41,7 +41,7 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
 
   test "json includes related detailed guides as related" do
     Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    related_guide = stub_edition(:detailed_guide)
+    related_guide = stub_edition(:detailed_guide, organisations: [@organisation])
     @guide.stubs(:published_related_detailed_guides).returns([related_guide])
     guide_json = {
       id: api_detailed_guide_url(related_guide.document, host: 'govuk.example.com'),
