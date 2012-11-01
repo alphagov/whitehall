@@ -32,7 +32,7 @@ class StatisticalDataSetsControllerTest < ActionController::TestCase
     document_series = create(:document_series)
     statistical_data_set = create(:published_statistical_data_set, document_series: document_series)
     get :show, id: statistical_data_set.document
-    assert_select ".document-series a[href=?]", organisation_document_series_path(document_series.organisation, document_series)
+    assert_select "a[href=?]", organisation_document_series_path(document_series.organisation, document_series)
   end
 
   test 'index should display a list of all published statistical data sets' do

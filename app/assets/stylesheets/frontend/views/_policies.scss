@@ -86,7 +86,6 @@
   }
 
   .contextual-info {
-    @include core-14;
     nav {
       margin-top: 0;
     }
@@ -109,6 +108,9 @@
     li {
       @include media(desktop){
         margin-bottom: $gutter-one-third;
+        a {
+          max-width: 16.5em;
+        }
       }
       &.active a {
         color: $body-text;

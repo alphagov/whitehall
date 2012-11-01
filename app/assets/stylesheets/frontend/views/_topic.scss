@@ -9,7 +9,12 @@
       float: left;
     }
     .block-4 {
+      padding-top: $gutter;
       clear: both;
+    }
+    .block-6 {
+      padding-top: $gutter;
+      @extend %contain-floats;
     }
   }
   .block {
@@ -88,8 +93,20 @@
   }
 
   .what {
-    .govspeak p {
-      margin: 0;
+    .govspeak {
+      margin-top: ($gutter + $gutter-one-third);
+      p {
+        @include core-24;
+        margin: 0;
+      }
+    }
+  }
+      
+  .collection-list {
+    padding-top: $gutter-two-thirds;
+    .collection-item h2 {
+      @include core-24;
+      margin-bottom: $gutter-one-sixth;
     }
   }
 

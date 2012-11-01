@@ -12,6 +12,10 @@ Given /^a published statistical data set "([^"]*)" that's part of the "([^"]*)" 
   create(:published_statistical_data_set, title: data_set_title, document_series: document_series)
 end
 
+Given /^a published statistical data set "([^"]*)"$/ do |data_set_title|
+  create(:published_statistical_data_set, title: data_set_title)
+end
+
 When /^I follow the link to the "([^"]*)" document series$/ do |document_series_name|
   within('.publication_series') do
     click_link document_series_name

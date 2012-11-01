@@ -81,6 +81,19 @@ When /^I draft a new publication "([^"]*)" relating it to "([^"]*)" and "([^"]*)
   click_button "Save"
 end
 
+When /^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/ do |title, data_set_name|
+  begin_drafting_publication(title)
+  select data_set_name, from: "Related statistical data sets"
+  click_button "Save"
+end
+
+Then /^I should see in the preview that "([^"]*)" is taken from the live data in "([^"]*)"$/ do |title, data_set_name|
+  click_on "Force Publish"
+  click_on title
+  click_on title
+  assert has_css?(".live-data a", text: data_set_name)
+end
+
 When /^I remove the attachment from the publication "([^"]*)"$/ do |title|
   begin_editing_document title
   uncheck "edition_edition_attachments_attributes_0__destroy"

@@ -1,4 +1,5 @@
 <% page_title @document.title, "Statistical data sets" %>
+<% page_class "statistical-data-set" %>
 
 <div class="document-page <%= @document.type.downcase %>">
   <div class="block-1">
@@ -9,16 +10,21 @@
                     document: @document,
                     policies: @related_policies
                   } %>
+      <%= render partial: "document_summary", locals: { document: @document } %>
     </div>
   </div>
   <div class="block-2 ">
     <div class="inner-block">
-      <%= render partial: "document_summary", locals: { document: @document } %>
-      <% if @document.part_of_series? %>
-        <p class="document-series">
-          <span>Part of a series:</span> <%= link_to @document.document_series.name, organisation_document_series_path(@document.document_series.organisation, @document.document_series) %>
-        </p>
-      <% end %>
+      <div class="contextual-info js-stick-at-top-when-scrolling">
+        <nav>
+          <h1>Contents</h1>
+          <ol>
+            <% govspeak_headers(@document.body).each do |header| %>
+              <li><%= link_to header.text, "##{header.id}" %></li>
+            <% end %>
+          </ol>
+        </nav>
+      </div>
     </div>
   </div>
 
@@ -30,3 +36,5 @@
     </div>
   </div>
 </div>
+
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030174704) do
+ActiveRecord::Schema.define(:version => 20121031144058) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -237,6 +237,11 @@ ActiveRecord::Schema.define(:version => 20121030174704) do
     t.integer "role_appointment_id"
   end
 
+  create_table "edition_statistical_data_sets", :force => true do |t|
+    t.integer "edition_id"
+    t.integer "statistical_data_set_id"
+  end
+
   create_table "editions", :force => true do |t|
     t.string   "title"
     t.text     "body",                                        :limit => 16777215
@@ -272,8 +277,8 @@ ActiveRecord::Schema.define(:version => 20121030174704) do
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
     t.datetime "timestamp_for_sorting"
     t.integer  "primary_mainstream_category_id"
-    t.datetime "scheduled_publication"
     t.boolean  "replaces_businesslink",                                           :default => false
+    t.datetime "scheduled_publication"
   end
 
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"

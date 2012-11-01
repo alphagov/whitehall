@@ -37,7 +37,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     example_policy = create(:published_policy, title: "Example policy")
     uploader = ConsultationUploader.new(
       import_as: create(:user),
-      csv_data: csv_sample("policy 1" => "example-policy"),
+      csv_data: csv_sample("policy_1" => "example-policy"),
       logger: @logger
     )
     uploader.upload
@@ -45,10 +45,10 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     assert_equal [example_policy], consultation.related_policies
   end
 
-  test "organisation specified by name is associated with the edition" do
+  test "organisation specified by slug is associated with the edition" do
     uploader = ConsultationUploader.new(
       import_as: create(:user),
-      csv_data: csv_sample("organisation" => "Example organisation"),
+      csv_data: csv_sample("organisation" => @example_organisation.slug),
       logger: @logger
     )
     uploader.upload
@@ -59,7 +59,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
   test "alternative format provider is set from organisation" do
     uploader = ConsultationUploader.new(
       import_as: create(:user),
-      csv_data: csv_sample("organisation" => "Example organisation"),
+      csv_data: csv_sample("organisation" => @example_organisation.slug),
       logger: @logger
     )
     uploader.upload
@@ -81,7 +81,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
   test "a response is added if a reponse date is specified in the csv" do
     uploader = ConsultationUploader.new(
       import_as: create(:user),
-      csv_data: csv_sample("response date" => "1/25/2012"),
+      csv_data: csv_sample("response_date" => "25-Jan-2012"),
       logger: @logger
     )
     uploader.upload
@@ -108,7 +108,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     uploader = ConsultationUploader.new(
       import_as: create(:user),
       csv_data: csv_sample(
-        "attachment_1" => "http://example.com/beard_length_consultation.pdf",
+        "attachment_1_url" => "http://example.com/beard_length_consultation.pdf",
         "attachment_1_title" => "Beard length consultation"
       ),
       logger: @logger
@@ -128,7 +128,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     uploader = ConsultationUploader.new(
       import_as: create(:user),
       csv_data: csv_sample(
-        "attachment_1" => "http://example.com/beard_length_consultation.pdf",
+        "attachment_1_url" => "http://example.com/beard_length_consultation.pdf",
         "attachment_1_title" => ""
       ),
       logger: @logger
@@ -145,7 +145,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     uploader = ConsultationUploader.new(
       import_as: create(:user),
       csv_data: csv_sample(
-        "attachment_1" => "http://example.com/beard_length_consultation.pdf",
+        "attachment_1_url" => "http://example.com/beard_length_consultation.pdf",
         "attachment_1_title" => "Beard length consultation"
       ),
       logger: @logger
@@ -160,14 +160,16 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     uploader = ConsultationUploader.new(
       import_as: create(:user),
       csv_data: csv_sample(
-        "response date" => "01/19/2010",
-        "response_1" => "http://example.com/beard_length_consultation_response.pdf",
+        "response_date" => "13-Jul-2012",
+        "response_summary" => "Response summary",
+        "response_1_url" => "http://example.com/beard_length_consultation_response.pdf",
         "response_1_title" => "Beard length consultation response"
       ),
       logger: @logger
     )
     uploader.upload
     assert consultation = Consultation.first
+    assert_equal "Response summary", consultation.response.summary
     assert attachment = consultation.response.attachments.first
     assert_equal "beard_length_consultation_response.pdf", attachment.filename
     assert attachment.file.present?
@@ -181,7 +183,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     uploader = ConsultationUploader.new(
       import_as: create(:user),
       csv_data: csv_sample(
-        "response_1" => "http://example.com/beard_length_consultation_response.pdf",
+        "response_1_url" => "http://example.com/beard_length_consultation_response.pdf",
         "response_1_title" => "Beard length consultation response"
       ),
       logger: @logger
@@ -196,8 +198,8 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     uploader = ConsultationUploader.new(
       import_as: create(:user),
       csv_data: csv_sample(
-        "response date" => "",
-        "response_1" => "http://example.com/beard_length_consultation_response.pdf",
+        "response_date" => "",
+        "response_1_url" => "http://example.com/beard_length_consultation_response.pdf",
         "response_1_title" => "Beard length consultation response"
       ),
       logger: @logger
@@ -228,7 +230,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
     data = csv_sample(
       {
         "title" => "title",
-        "attachment_1" => "http://example.com/beard_length_consultation.pdf",
+        "attachment_1_url" => "http://example.com/beard_length_consultation.pdf",
         "attachment_1_title" => "Beard length consultation"
       },
       [{"old_url" => "http://example.com/2", "title" => "title2"}])
@@ -250,7 +252,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
   test "connection refused when fetching an attachment logs an error and skips the attachment" do
     url = "http://example.com/beard_length_consultation.pdf"
     stub_request(:get, url).to_raise(Errno::ECONNREFUSED)
-    data = csv_sample("attachment_1" => url, "attachment_1_title" => "blc")
+    data = csv_sample("attachment_1_url" => url, "attachment_1_title" => "blc")
     uploader = ConsultationUploader.new(
       import_as: create(:user),
       csv_data: data,
@@ -265,7 +267,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
   test "connection reset when fetching an attachment logs an error and skips the attachment" do
     url = "http://example.com/beard_length_consultation.pdf"
     stub_request(:get, url).to_raise(Errno::ECONNRESET)
-    data = csv_sample("attachment_1" => url, "attachment_1_title" => "blc")
+    data = csv_sample("attachment_1_url" => url, "attachment_1_title" => "blc")
     uploader = ConsultationUploader.new(
       import_as: create(:user),
       csv_data: data,
@@ -280,7 +282,7 @@ class ConsultationUploaderTest < ActiveSupport::TestCase
   test "404 when fetching an attachment logs an error and skips the attachment" do
     url = "http://example.com/beard_length_consultation.pdf"
     stub_request(:get, url).to_return(body: "not-found".force_encoding("ASCII-8BIT"), status: 404)
-    data = csv_sample("attachment_1" => url, "attachment_1_title" => "blc")
+    data = csv_sample("attachment_1_url" => url, "attachment_1_title" => "blc")
     uploader = ConsultationUploader.new(
       import_as: create(:user),
       csv_data: data,
@@ -352,7 +354,7 @@ private
       "body" => "body",
       "opening_date" => "9/25/2009",
       "closing_date" => "12/24/2009",
-      "organisation" => "Example organisation"
+      "organisation" => @example_organisation.slug
     }
   end
 end
