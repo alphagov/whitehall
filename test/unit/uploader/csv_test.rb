@@ -16,32 +16,33 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
 
     @log_buffer = StringIO.new
     @error_csv_path = Rails.root.join("tmp", "error_import.csv")
+    @attachment_cache = stub('attachment cache')
   end
 
   teardown do
     File.unlink(@error_csv_path) if File.exist?(@error_csv_path)
   end
 
-  test 'builds row class with each csv row' do
-    @row_class.expects(:new).with({'header-a' => 'a1', 'header-b' => 'b1', 'header-c' => 'c1'}, 1, anything).returns(@row)
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class).import_as(@user)
+  test 'builds row class with each csv row and the attachment cache' do
+    @row_class.expects(:new).with({'header-a' => 'a1', 'header-b' => 'b1', 'header-c' => 'c1'}, 1, @attachment_cache, anything).returns(@row)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache).import_as(@user)
   end
 
   test 'builds model with attributes from each row' do
     @model_class.expects(:new).with(row: :one, creator: @user).returns(@model)
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class).import_as(@user)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache).import_as(@user)
   end
 
   test 'records model import if save successful' do
     @model.stubs(:save).returns(true)
     DocumentSource.expects(:create!).with(document: @document, url: 'row-legacy-url')
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class).import_as(@user)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache).import_as(@user)
   end
 
   test 'instructs row to cleanup any temporary data if save successful' do
     @model.stubs(:save).returns(true)
     @row.expects(:cleanup)
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class).import_as(@user)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache).import_as(@user)
   end
 
   test 'instructs row to cleanup any temporary data if save unsuccessful' do
@@ -49,14 +50,14 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
     errors = stub('errors', full_messages: "Feeling funky")
     @model.stubs(:errors).returns(errors)
     @row.expects(:cleanup)
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
   end
 
   test 'skips row import if url already uploaded' do
     DocumentSource.unstub(:create!)
     DocumentSource.stubs(:find_by_url).with('row-legacy-url').returns('document')
     DocumentSource.expects(:create!).never
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
     assert_match /'row-legacy-url' has already been imported/, @log_buffer.string
   end
 
@@ -65,7 +66,7 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
     @model.stubs(:save).returns(false)
     @model.stubs(:errors).returns(@errors)
 
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
     assert_match /Row 2 'row-legacy-url' couldn't be saved for the following reasons: Feeling funky/, @log_buffer.string
   end
 
@@ -74,7 +75,7 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
     @model.stubs(:save).returns(false)
     @model.stubs(:errors).returns(@errors)
 
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
 
     error_csv = CSV.read(@error_csv_path, headers: true)
     assert_equal 1, error_csv.length
@@ -87,7 +88,7 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
   test 'stores CSV of failure rows which raise exceptions' do
     @model.stubs(:save).raises("Something awful happened")
 
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
 
     error_csv = CSV.read(@error_csv_path, headers: true)
     assert_equal 1, error_csv.length
@@ -98,7 +99,7 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
   end
 
   test "doesn't output any errors if there weren't any" do
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
     refute File.exist?(@error_csv_path)
   end
 end
