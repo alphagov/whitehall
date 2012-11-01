@@ -7,11 +7,7 @@ gem 'mysql2'
 gem 'jquery-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave'
-if ENV['GOVSPEAK_DEV']
-  gem 'govspeak', path: '../govspeak'
-else
-  gem 'govspeak', '~> 1.0.1'
-end
+gem 'govspeak', '~> 1.0.1'
 gem 'kramdown', git: 'https://github.com/alphagov/kramdown.git', branch: "add-gemspec"
 gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.0.beta14'
