@@ -197,8 +197,10 @@ module ApplicationHelper
 
   def current_main_navigation_path(parameters)
     case parameters[:controller]
+    when "home"
+      how_government_works_path
     when "site"
-      root_path
+        root_path
     when "announcements", "news_articles", "speeches"
       announcements_path
     when "topics"
