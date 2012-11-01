@@ -6,7 +6,7 @@ class ChangeEditionStatisticalDataSetsToPointToDocument < ActiveRecord::Migratio
     remove_column :edition_statistical_data_sets, :statistical_data_set_id
   end
 
-
+  def down
     add_column :edition_statistical_data_sets, :statistical_data_set_id, :integer
     remove_column :edition_statistical_data_sets, :document_id
   end
