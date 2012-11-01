@@ -16,14 +16,16 @@
   }
 
   .statisticaldataset {
-    .block-2, .block-3 {
-      float: left;
-      display: inline;
-      width: 33%;
-    }
-    .block-3 {
-      float: right;
-      width: 66%;
+    @include media(desktop) {
+      .block-2, .block-3 {
+        float: left;
+        display: inline;
+        width: 33%;
+      }
+      .block-3 {
+        float: right;
+        width: 66%;
+      }
     }
   }
 
