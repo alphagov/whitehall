@@ -23,25 +23,25 @@
   }
   .feature-ministers{
     p{
-      color: $info-background;
+      color: #999;
       @include core-48;
     }
     span.circle{
       background-color:$info-background;
       border:1px solid $info-background;
-      width:200px;
-      height:200px;
-      -moz-border-radius: 100px;
-      -webkit-border-radius: 100px;
-      border-radius: 100px;
+      width:4em;
+      height:4em;
+      -moz-border-radius: 2em;
+      -webkit-border-radius: 2em;
+      border-radius: 5em;
       display:inline-block;
       text-align:center;
       padding:0;
       vertical-align: middle;
 
       .count{
-        font-size:4.5em;
-        padding-top:0.5em;
+        font-size:1.9em;
+        padding-top:0.4em;
         padding-bottom:0;
         margin:0;
         color:purple;
@@ -86,32 +86,14 @@
     margin-top: $gutter*2;
   }
 
-  .block-1 {
-
-    p {
-      @include core-19;
-      margin-bottom: $gutter-half;
-      &:nth-child(2) {
-        margin-bottom: $gutter;
-      }
-    }
-
-    p.intro {
-      @include core-27;
-    }
-
+  
+  p.intro {
+    @include core-27;
   }
 
-  .block-2 {
-    margin-bottom: $gutter;
-    img {
-      width: 100%;
-    }
-    .first {
-      margin: 0 25%;
-      width: 50%;
-    }
-  }
+  
+
+  
 
   
 }
