@@ -4,8 +4,9 @@ namespace :publishing do
     task :list => :environment do
       previous = nil
       puts "%6s  %-25s  %s" % ["ID", "Scheduled date", "Title"]
+      now = Time.zone.now
       Edition.scheduled.order("scheduled_publication asc").each do |edition|
-        if previous && previous.scheduled_publication < Time.zone.now && edition.scheduled_publication >= Time.zone.now
+        if previous && previous.scheduled_publication < now && edition.scheduled_publication >= now
           puts "----NOW----"
         end
         puts "%6s  %-25s  %s" % [edition.id, edition.scheduled_publication.to_s, edition.title]
