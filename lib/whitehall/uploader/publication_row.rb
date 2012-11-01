@@ -30,30 +30,30 @@ module Whitehall::Uploader
     end
 
     def publication_type
-      PublicationTypeFinder.find(row['publication_type'], @logger, @line_number)
+      Finders::PublicationTypeFinder.find(row['publication_type'], @logger, @line_number)
     end
 
     def related_policies
-      PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], row["policy_4"], @logger, @line_number)
+      Finders::PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], row["policy_4"], @logger, @line_number)
     end
 
     def organisations
-      OrganisationFinder.find(row['organisation'], @logger, @line_number)
+      Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number)
     end
 
     def document_series
-      DocumentSeriesFinder.find(row['document_series'], @logger, @line_number)
+      Finders::DocumentSeriesFinder.find(row['document_series'], @logger, @line_number)
     end
 
     def ministerial_roles
-      MinisterialRoleFinder.find(publication_date, row['minister_1'], row['minister_2'], @logger, @line_number)
+      Finders::MinisterialRolesFinder.find(publication_date, row['minister_1'], row['minister_2'], @logger, @line_number)
     end
 
     def attachments
       if @attachments.nil?
         @attachments = 1.upto(50).map do |number|
           next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
-          AttachmentDownloader.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
+          Builders::AttachmentBuilder.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
         end.compact
         AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["ISBN"], row["URN"], row["command_paper_number"])
       end
@@ -69,85 +69,6 @@ module Whitehall::Uploader
        :related_policies, :organisations, :document_series,
        :ministerial_roles, :attachments, :alternative_format_provider].map.with_object({}) do |name, result|
         result[name] = __send__(name)
-      end
-    end
-
-    class PublicationTypeFinder
-      PublicationTypeSpecialCases = {
-        'Impact assessment' => PublicationType::ImpactAssessment
-      }
-      def self.find(slug, logger, line_number)
-        type = PublicationType.find_by_slug(slug) || PublicationTypeSpecialCases[slug]
-        logger.warn "Row #{line_number}: Unable to find Publication type with slug '#{slug}'" unless type
-        type
-      end
-    end
-
-    class PoliciesFinder
-      def self.find(*slugs, logger, line_number)
-        slugs = slugs.reject { |slug| slug.blank? }.uniq
-        slugs.collect do |slug|
-          if document = Document.find_by_slug(slug)
-            if document.published_edition
-              document.published_edition
-            elsif document.latest_edition
-              document.latest_edition
-            end
-          else
-            logger.warn "Row #{line_number}: Unable to find Document with slug '#{slug}'"
-            nil
-          end
-        end.compact
-      end
-    end
-
-    class OrganisationFinder
-      def self.find(name_or_slug, logger, line_number)
-        return [] if name_or_slug.blank?
-        organisation = Organisation.find_by_name(name_or_slug) || Organisation.find_by_slug(name_or_slug)
-        logger.warn "Row #{line_number}: Unable to find Organisation named '#{name_or_slug}'" unless organisation
-        [organisation].compact
-      end
-    end
-
-    class DocumentSeriesFinder
-      def self.find(slug, logger, line_number)
-        return if slug.blank?
-        document_series = DocumentSeries.find_by_slug(slug)
-        logger.warn "Row #{line_number}: Unable to find Document series with slug '#{slug}'" unless document_series
-        document_series
-      end
-    end
-
-    class MinisterialRoleFinder
-      def self.find(date, *slugs, logger, line_number)
-        slugs = slugs.reject { |slug| slug.blank? }
-
-        people = slugs.map do |slug|
-          person = Person.find_by_slug(slug)
-          logger.warn "Unable to find Person with slug '#{slug}'" unless person
-          person
-        end.compact
-
-        people.map do |person|
-          ministerial_roles = person.ministerial_roles_at(date)
-          logger.warn "Row #{line_number}: Unable to find a Role for '#{person.slug}' at '#{date}'" if ministerial_roles.empty?
-          ministerial_roles
-        end.flatten
-      end
-    end
-
-    class AttachmentDownloader
-      def self.build(title, url, cache, logger, line_number)
-        begin
-          file = cache.fetch(url)
-        rescue Whitehall::Uploader::AttachmentCache::RetrievalError => e
-          logger.error "Row #{line_number}: Unable to fetch attachment '#{url}' - #{e.to_s}"
-        end
-        attachment_data = AttachmentData.new(file: file)
-        attachment = Attachment.new(title: title, attachment_data: attachment_data)
-        attachment.build_attachment_source(url: url)
-        attachment
       end
     end
 
