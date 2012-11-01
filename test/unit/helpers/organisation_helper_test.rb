@@ -29,7 +29,7 @@ class OrganisationHelperTest < ActionView::TestCase
     organisation =  build(:organisation, slug: "organisation-slug-hmm", organisation_type: organisation_type)
     assert_equal 'organisation-logo organisation-logo-single-identity', organisation_logo_classes(organisation)
 
-    organisation =  build(:organisation, slug: "organisation-slug-yeah", organisation_type: organisation_type, organisation_logo_type_id: OrganisationLogoType::NoIdentity.id)
+    organisation =  build(:organisation, slug: "organisation-slug-yeah", organisation_type: organisation_type, organisation_logo_type: OrganisationLogoType::NoIdentity)
     assert_equal 'organisation-logo organisation-logo-no-identity', organisation_logo_classes(organisation)
   end
 end

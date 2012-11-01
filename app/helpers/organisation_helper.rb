@@ -67,17 +67,17 @@ module OrganisationHelper
   def organisation_logo_classes(organisation, options={})
     logo_class = [ 'organisation-logo' ]
     logo_class << 'stacked' if options[:stacked]
-    if options.include?(:use_identity) && options[:use_identity] == false
+    if options[:use_identity] == false
       logo_class << 'no-identity'
     else
       logo_class << organisation.organisation_logo_type.class_name
     end
-    logo_class = logo_class.compact.join('-')
+    logo_class = logo_class.join('-')
 
     classes = [ 'organisation-logo' ]
     classes << logo_class
     classes << "#{logo_class}-#{options[:size]}" if options[:size]
-    classes.join(" ").strip
+    classes.join(" ")
   end
 
   def organisation_site_thumbnail_path(organisation)

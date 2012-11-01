@@ -71,7 +71,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       organisation_type_id: organisation_type.id,
       topic_ids: [topic.id],
       contacts_attributes: [{description: "Enquiries", contact_numbers_attributes: [{label: "Fax", number: "020712435678"}]}],
-      organisation_logo_type_id: 3
+      organisation_logo_type_id: OrganisationLogoType::BusinessInnovationSkills.id
     )
 
     assert organisation = Organisation.last
@@ -85,7 +85,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal "Fax", organisation.contacts[0].contact_numbers[0].label
     assert_equal "020712435678", organisation.contacts[0].contact_numbers[0].number
     assert_equal topic, organisation.topics.first
-    assert_equal 3, organisation.organisation_logo_type_id
+    assert_equal OrganisationLogoType::BusinessInnovationSkills, organisation.organisation_logo_type
   end
 
   test "creating should be able to create a new social media account for the organisation" do

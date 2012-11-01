@@ -60,6 +60,11 @@ class OrganisationTest < ActiveSupport::TestCase
     assert build(:organisation, url: "http://www.example.com").valid?
   end
 
+  test 'should be invalid without a organisation logo type' do
+    organisation = build(:organisation, organisation_logo_type: nil)
+    refute organisation.valid?
+  end
+
   test "should be orderable ignoring common prefixes" do
     culture = create(:organisation, name: "Department for Culture and Sports")
     education = create(:organisation, name: "Department of Education")
