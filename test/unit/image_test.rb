@@ -13,6 +13,14 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal "http://example.com/file.jpg", image.url
   end
 
+  test "#url accepts similar arguments to file url" do
+    data = stub("Image data")
+    image = build(:image)
+    image.stubs(:image_data).returns(data)
+    data.expects(:file_url).with(:s216)
+    image.url(:s216)
+  end
+
   test "does not destroy image data when other images are associated with it" do
     image = create(:image)
     image_data = image.image_data
