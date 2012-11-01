@@ -192,6 +192,24 @@ class PublicationUploaderTest < ActiveSupport::TestCase
     assert_equal nil, attachments[1].order_url
   end
 
+  test "nothing is created if the attachments cannot be downloaded" do
+    stub_request(:get, "http://example.com/missing").to_timeout
+
+    uploader = PublicationUploader.new(
+      import_as: create(:user),
+      csv_data: csv_sample(
+        "attachment_1_url" => "http://example.com/missing",
+        "attachment_1_title" => "missing"
+      ),
+      logger: @logger,
+      error_csv_path: @error_csv_path
+    )
+
+    uploader.upload
+
+    refute Publication.any?
+  end
+
 private
   def csv_sample(additional_fields = {}, extra_rows = [])
     data = minimally_valid_row.merge(additional_fields)

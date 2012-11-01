@@ -54,6 +54,7 @@ class Whitehall::Uploader::PublicationRow
   def attachments
     if @attachments.nil?
       @attachments = 1.upto(50).map do |number|
+        next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
         AttachmentDownloader.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
       end.compact
       AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["ISBN"], row["URN"], row["command_paper_number"])
@@ -158,15 +159,15 @@ class Whitehall::Uploader::PublicationRow
 
   class AttachmentDownloader
     def self.build(title, url, cache, logger, line_number)
-      return unless title.present? && url.present?
-      file = cache.fetch(url)
+      begin
+        file = cache.fetch(url)
+      rescue Whitehall::Uploader::AttachmentCache::RetrievalError => e
+        logger.error "Row #{line_number}: Unable to fetch attachment '#{url}' - #{e.to_s}"
+      end
       attachment_data = AttachmentData.new(file: file)
       attachment = Attachment.new(title: title, attachment_data: attachment_data)
       attachment.build_attachment_source(url: url)
       attachment
-    rescue Whitehall::Uploader::AttachmentCache::RetrievalError => e
-      logger.error "Row #{line_number}: Unable to fetch attachment '#{url}' - #{e.to_s}"
-      nil
     end
   end
 

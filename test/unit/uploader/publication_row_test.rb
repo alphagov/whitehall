@@ -307,22 +307,14 @@ class Whitehall::Uploader::PublicationRow::AttachmentDownloaderTest < ActiveSupp
     assert_equal "attachment title", attachment.title
   end
 
-  test "ignores rows with blank URLs" do
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, nil, @cache, @log, @line_number)
-  end
-
-  test "ignores rows with blank titles" do
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(nil, @url, @cache, @log, @line_number)
-  end
-
   test "stores the original URL against the attachment source" do
     attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @cache, @log, @line_number)
     assert_equal @url, attachment.attachment_source.url
   end
 
-  test "logs a warning and returns nil if cache couldn't find the attachment" do
+  test "logs a warning if cache couldn't find the attachment" do
     @cache.stubs(:fetch).raises(Whitehall::Uploader::AttachmentCache::RetrievalError.new("some error to do with attachment retrieval"))
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @cache, @log, @line_number)
+    Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @cache, @log, @line_number)
     assert_match /Row 1: Unable to fetch attachment .* some error to do with attachment retrieval/, @log_buffer.string
   end
 end
