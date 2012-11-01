@@ -239,7 +239,7 @@ ActiveRecord::Schema.define(:version => 20121101094252) do
 
   create_table "edition_statistical_data_sets", :force => true do |t|
     t.integer "edition_id"
-    t.integer "statistical_data_set_id"
+    t.integer "document_id"
   end
 
   create_table "editions", :force => true do |t|

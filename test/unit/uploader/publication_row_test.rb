@@ -3,34 +3,38 @@
 require 'test_helper'
 
 class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
+  setup do
+    @attachment_cache = stub('attachment cache')
+  end
+
   test "takes title from the title column" do
-    row = Whitehall::Uploader::PublicationRow.new({"title" => "a-title"}, 1)
+    row = Whitehall::Uploader::PublicationRow.new({"title" => "a-title"}, 1, @attachment_cache)
     assert_equal "a-title", row.title
   end
 
   test "takes summary from the summary column" do
-    row = Whitehall::Uploader::PublicationRow.new({"summary" => "a-summary"}, 1)
+    row = Whitehall::Uploader::PublicationRow.new({"summary" => "a-summary"}, 1, @attachment_cache)
     assert_equal "a-summary", row.summary
   end
 
   test "takes body from the body column" do
-    row = Whitehall::Uploader::PublicationRow.new({"body" => "Some body goes here"}, 1)
+    row = Whitehall::Uploader::PublicationRow.new({"body" => "Some body goes here"}, 1, @attachment_cache)
     assert_equal "Some body goes here", row.body
   end
 
   test "takes legacy url from the old_url column" do
-    row = Whitehall::Uploader::PublicationRow.new({"old_url" => "http://example.com/old-url"}, 1)
+    row = Whitehall::Uploader::PublicationRow.new({"old_url" => "http://example.com/old-url"}, 1, @attachment_cache)
     assert_equal "http://example.com/old-url", row.legacy_url
   end
 
   test "finds document series by slug in doc_series column" do
     document_series = create(:document_series)
-    row = Whitehall::Uploader::PublicationRow.new({"document_series" => document_series.slug}, 1)
+    row = Whitehall::Uploader::PublicationRow.new({"document_series" => document_series.slug}, 1, @attachment_cache)
     assert_equal document_series, row.document_series
   end
 
   test "finds publication type by slug in the pub type column" do
-    row = Whitehall::Uploader::PublicationRow.new({"publication_type" => "guidance"}, 1)
+    row = Whitehall::Uploader::PublicationRow.new({"publication_type" => "guidance"}, 1, @attachment_cache)
     assert_equal PublicationType::Guidance, row.publication_type
   end
 
@@ -45,7 +49,7 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
       "minister_1" => minister_1.slug,
       "minister_2" => minister_2.slug,
       "publication_date" => "11/16/2011"
-    }, 1)
+    }, 1, @attachment_cache)
     assert_equal [role_1, role_2], row.ministerial_roles
   end
 
@@ -58,24 +62,24 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
       "policy_2" => policy_2.slug,
       "policy_3" => policy_3.slug,
       "policy_4" => policy_4.slug
-    }, 1)
+    }, 1, @attachment_cache)
 
     assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_policies
   end
 
   test "finds organisation by name in org column" do
     organisation = create(:organisation)
-    row = Whitehall::Uploader::PublicationRow.new({"organisation" => organisation.name}, 1)
+    row = Whitehall::Uploader::PublicationRow.new({"organisation" => organisation.name}, 1, @attachment_cache)
     assert_equal [organisation], row.organisations
   end
 
   test "finds up to 42 attachments in columns attachment 1 title, attachement 1 url..." do
-    stub_request(:get, "http://example.com/attachment.pdf").to_return(body: "attachment-1-data", status: 200)
+    @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
     row = Whitehall::Uploader::PublicationRow.new({
       "attachment_1_title" => "first title",
       "attachment_1_url" => "http://example.com/attachment.pdf"
-    }, 1, Logger.new(StringIO.new))
+    }, 1, @attachment_cache, Logger.new(StringIO.new))
 
     attachment = Attachment.new(title: "first title")
     assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
@@ -96,6 +100,10 @@ class Whitehall::Uploader::PublicationRow::PublicationDateParserTest < ActiveSup
 
   test "can parse dates in dd-MMM-yy format" do
     assert_equal Date.parse('2012-05-23'), Whitehall::Uploader::PublicationRow::PublicationDateParser.parse('23-May-12', @log, @line_number)
+  end
+
+  test "can parse dates in dd-MMM-yyyy format" do
+    assert_equal Date.parse('2013-07-10'), Whitehall::Uploader::PublicationRow::PublicationDateParser.parse('10-Jul-2013', @log, @line_number)
   end
 
   test "can parse dates in yyyy-mm-dd format" do
@@ -279,72 +287,43 @@ class Whitehall::Uploader::PublicationRow::AttachmentDownloaderTest < ActiveSupp
     @log_buffer = StringIO.new
     @log = Logger.new(@log_buffer)
     @line_number = 1
-    @tmpdir = Rails.root.join("tmp", "attachment-downloader-test")
-    FileUtils.mkdir_p(@tmpdir)
+
+    @cache = stub(:attachment_cache)
+    tmp_attachment_path = Rails.root.join("test", "fixtures", "two-pages.pdf")
+    @cache.stubs(:fetch).returns(File.open(tmp_attachment_path))
 
     @url = "http://example.com/attachment.pdf"
     stub_request(:get, @url).to_return(body: "some-data".force_encoding("ASCII-8BIT"), status: 200)
     @title = "attachment title"
   end
 
-  def teardown
-    FileUtils.remove_dir(@tmpdir, true)
-  end
-
   test "downloads an attachment from the URL given" do
-    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @tmpdir, @log, @line_number)
+    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @cache, @log, @line_number)
     assert attachment.file.present?
   end
 
   test "stores the attachment title" do
-    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @tmpdir, @log, @line_number)
+    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @cache, @log, @line_number)
     assert_equal "attachment title", attachment.title
   end
 
   test "ignores rows with blank URLs" do
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, nil, @tmpdir, @log, @line_number)
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, nil, @cache, @log, @line_number)
   end
 
   test "ignores rows with blank titles" do
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(nil, @url, @tmpdir, @log, @line_number)
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(nil, @url, @cache, @log, @line_number)
   end
 
   test "stores the original URL against the attachment source" do
-    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @tmpdir, @log, @line_number)
+    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @cache, @log, @line_number)
     assert_equal @url, attachment.attachment_source.url
   end
 
-  test "logs a warning and returns nil if the download didn't return a 200" do
-    url = "http://example.com/attachment.pdf"
-    stub_request(:get, url).to_return(body: "", status: 404)
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
-    assert_match /Row 1: Unable to fetch attachment .* got response status 404/, @log_buffer.string
-  end
-
-  test "logs a warning and returns nil if the download times out" do
-    url = "http://example.com/attachment.pdf"
-    stub_request(:get, url).to_timeout
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
-    assert_match /Row 1: Unable to fetch attachment .* due to Timeout/, @log_buffer.string
-  end
-
-  test "logs a warning and returns nil if the url is not valid" do
-    url = "http://this is not a valid url"
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
-    assert_match /Row 1: Unable to fetch attachment .* due to invalid URL/, @log_buffer.string
-  end
-
-  test "logs a warning and returns nil if the url is not an http URL" do
-    url = "this-is-not-even-http"
-    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
-    assert_match /Row 1: Unable to fetch attachment .* url not understood to be HTTP/, @log_buffer.string
-  end
-
-  test "adds a PDF extension if the file is detected as a PDF but has no extension" do
-    url = "http://example.com/attachment"
-    stub_request(:get, url).to_return(body: File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")), status: 200)
-    attachment = Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, url, @tmpdir, @log, @line_number)
-    assert_equal "attachment.pdf", File.basename(attachment.file.path)
+  test "logs a warning and returns nil if cache couldn't find the attachment" do
+    @cache.stubs(:fetch).raises(Whitehall::Uploader::AttachmentCache::RetrievalError.new("some error to do with attachment retrieval"))
+    assert_equal nil, Whitehall::Uploader::PublicationRow::AttachmentDownloader.build(@title, @url, @cache, @log, @line_number)
+    assert_match /Row 1: Unable to fetch attachment .* some error to do with attachment retrieval/, @log_buffer.string
   end
 end
 

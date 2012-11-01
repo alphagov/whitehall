@@ -47,7 +47,7 @@ group :development, :staging, :test do
   gem 'faker'
   gem 'thin'
   gem 'quiet_assets'
-  gem 'rails-dev-boost', git: 'https://github.com/thedarkone/rails-dev-boost.git', require: 'rails_development_boost'
+  gem 'rails-dev-boost', '~> 0.2.1'
   gem 'brakeman'
 end
 

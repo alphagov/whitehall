@@ -11,16 +11,19 @@ class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
     {
       title:   'edition-title',
       body:    'edition-body',
-      creator: build(:user)
+      creator: create(:user)
     }
   end
 
   def statistical_data_sets
-    @statistical_data_sets ||= [build(:statistical_data_set), build(:statistical_data_set)]
+    @statistical_data_sets ||= [
+      create(:statistical_data_set, document: create(:document)),
+      create(:statistical_data_set, document: create(:document))
+    ]
   end
 
   setup do
-    @edition = EditionWithStatisticalDataSets.new(valid_edition_attributes.merge(statistical_data_sets: statistical_data_sets))
+    @edition = EditionWithStatisticalDataSets.create(valid_edition_attributes.merge(statistical_data_sets: statistical_data_sets))
   end
 
   test "edition can be created with statistical data sets" do
@@ -28,11 +31,20 @@ class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
   end
 
   test "edition does not require data sets" do
-    assert EditionWithStatisticalDataSets.new(valid_edition_attributes).valid?
+    assert EditionWithStatisticalDataSets.create(valid_edition_attributes).valid?
   end
 
-  test "copies the data sets over to a new draft" do
-    published = build :published_publication, statistical_data_sets: statistical_data_sets
-    assert_equal statistical_data_sets, published.create_draft(build(:user)).statistical_data_sets
+  test "copies the data sets over to a create draft" do
+    published = create :published_publication, statistical_data_sets: statistical_data_sets
+    assert_equal statistical_data_sets, published.create_draft(create(:user)).statistical_data_sets
+  end
+
+  test "returns published data sets" do
+    published_data_set = create :published_statistical_data_set, document: create(:document)
+    draft_data_set = create :draft_statistical_data_set, document: create(:document)
+
+    publication = EditionWithStatisticalDataSets.create!(valid_edition_attributes.merge(statistical_data_sets: [published_data_set, draft_data_set]))
+
+    assert_equal [published_data_set], publication.published_statistical_data_sets
   end
 end

@@ -71,8 +71,8 @@ module ApplicationHelper
   end
 
   def statistical_data_set_options
-    StatisticalDataSet.published.map do |data_set|
-      [data_set.id, data_set.title]
+    StatisticalDataSet.latest_edition.map do |data_set|
+      [data_set.document_id, data_set.title]
     end
   end
 
