@@ -168,6 +168,10 @@
     margin-bottom: $gutter-two-thirds;
   }
 
+  p a {
+    text-decoration: underline;
+  }
+
   .page-header h1 {
     overflow: hidden;
     padding: $gutter 0 $gutter-one-third;
