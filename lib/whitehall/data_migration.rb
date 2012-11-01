@@ -34,6 +34,7 @@ module Whitehall
         rescue => e
           @logger.error "Migration failed due to #{e}"
           @logger.error "  " + e.backtrace.join("\n  ")
+          raise ActiveRecord::Rollback
         end
         @logger.info "============================================="
         @logger.info "\n"
