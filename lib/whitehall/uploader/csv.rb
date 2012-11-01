@@ -31,12 +31,10 @@ class Whitehall::Uploader::Csv
         store_error(data_row, e.to_s)
       ensure
         row.cleanup
-        if @error_csv
-          @error_csv.close
-          @logger.warn "Errors written to #{@error_csv_path}"
-        end
       end
     end
+  ensure
+    write_error_file
   end
 
   private
@@ -48,5 +46,12 @@ class Whitehall::Uploader::Csv
     @error_csv ||= CSV.open(@error_csv_path, "wb", write_headers: true, headers: @error_csv_headers)
     row[ERROR_MESSAGE_HEADER] = error_messages
     @error_csv << row.fields(*@error_csv_headers)
+  end
+
+  def write_error_file
+    if @error_csv
+      @error_csv.close
+      @logger.warn "Errors written to #{@error_csv_path}"
+    end
   end
 end
