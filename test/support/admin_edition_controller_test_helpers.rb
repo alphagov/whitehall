@@ -982,17 +982,17 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#edition_new" do
-          assert_select "select[name*='edition[statistical_data_set_ids]']"
+          assert_select "select[name*='edition[statistical_data_set_document_ids]']"
         end
       end
 
       test "create should associate statistical data sets with edition" do
-        first_data_set = create(:statistical_data_set)
-        second_data_set = create(:statistical_data_set)
+        first_data_set = create(:statistical_data_set, document: create(:document))
+        second_data_set = create(:statistical_data_set, document: create(:document))
         attributes = controller_attributes_for(edition_type)
 
         post :create, edition: attributes.merge(
-          statistical_data_set_ids: [first_data_set.id, second_data_set.id]
+          statistical_data_set_document_ids: [first_data_set.document.id, second_data_set.document.id]
         )
 
         edition = edition_class.last
@@ -1005,18 +1005,18 @@ module AdminEditionControllerTestHelpers
         get :edit, id: edition
 
         assert_select "form#edition_edit" do
-          assert_select "select[name*='edition[statistical_data_set_ids]']"
+          assert_select "select[name*='edition[statistical_data_set_document_ids]']"
         end
       end
 
       test "update should associate statistical data sets with editions" do
-        first_data_set = create(:statistical_data_set)
-        second_data_set = create(:statistical_data_set)
+        first_data_set = create(:statistical_data_set, document: create(:document))
+        second_data_set = create(:statistical_data_set, document: create(:document))
 
         edition = create(edition_type, statistical_data_sets: [first_data_set])
 
         put :update, id: edition, edition: {
-          statistical_data_set_ids: [second_data_set.id]
+          statistical_data_set_document_ids: [second_data_set.document.id]
         }
 
         edition.reload
@@ -1024,7 +1024,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should remove all statistical data sets if none specified" do
-        data_set = create(:statistical_data_set)
+        data_set = create(:statistical_data_set, document: create(:document))
         edition = create(edition_type, statistical_data_sets: [data_set])
 
         put :update, id: edition, edition: {}

@@ -26,6 +26,12 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should assign statistical data sets' do
+    published_publication = create(:published_publication, statistical_data_sets: [create(:published_statistical_data_set, title: "My data set")] )
+    get :show, id: published_publication.document
+    assert_select ".statistical-data-sets", text: /My data set/
+  end
+
   test "renders the publication summary from plain text" do
     publication = create(:published_publication, summary: 'plain text & so on')
     get :show, id: publication.document

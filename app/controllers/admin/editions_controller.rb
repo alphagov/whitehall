@@ -110,7 +110,7 @@ class Admin::EditionsController < Admin::BaseController
       params[:edition][:role_appointment_ids] ||= []
     end
     if @edition.can_be_associated_with_statistical_data_sets?
-      params[:edition][:statistical_data_set_ids] ||= []
+      params[:edition][:statistical_data_set_document_ids] ||= []
     end
     if @edition.can_be_related_to_policies?
       params[:edition][:related_document_ids] ||= []
