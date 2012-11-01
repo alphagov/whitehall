@@ -144,7 +144,7 @@ GEM
       warden (~> 1.2)
     gherkin (2.4.21)
       json (>= 1.4.6)
-    govspeak (1.0.1)
+    govspeak (1.2.2)
       htmlentities (~> 4)
       kramdown (~> 0.13.3)
       sanitize (= 2.0.3)
@@ -378,7 +378,7 @@ DEPENDENCIES
   friendly_id (= 4.0.0.beta14)
   gds-api-adapters (= 2.8.1)
   gds-sso (~> 1.2.2)
-  govspeak (~> 1.0.1)
+  govspeak (~> 1.2.2)
   govuk_frontend_toolkit (= 0.7.0)
   hash_syntax
   isbn_validation
