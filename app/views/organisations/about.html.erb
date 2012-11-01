@@ -9,16 +9,18 @@
               organisation: @organisation,
               link_to_organisation: true
             } %>
-        <nav>
-          <h1>About us</h1>
-          <ol>
-            <li><%= link_to "What we do", "#what-we-do" %></li>
-            <% govspeak_headers(@organisation.about_us).each do |header| %>
-              <li><%= link_to header.text, "##{header.id}" %></li>
-            <% end %>
-            <li><%= link_to "Corporate information", "#corporate-information" %></li>
-          </ol>
-        </nav>
+        <div class="contextual-info js-stick-at-top-when-scrolling">
+          <nav>
+            <h1>About us</h1>
+            <ol>
+              <li><%= link_to "What we do", "#what-we-do" %></li>
+              <% govspeak_headers(@organisation.about_us).each do |header| %>
+                <li><%= link_to header.text, "##{header.id}" %></li>
+              <% end %>
+              <li><%= link_to "Corporate information", "#corporate-information" %></li>
+            </ol>
+          </nav>
+        </div>
       </div>
     </div>
     <div class="block-2">
