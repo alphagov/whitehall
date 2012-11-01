@@ -14,10 +14,6 @@ class ConsultationUploader
     end
   end
 
-  def csv_data
-    validate_encoding()
-  end
-
   def read_and_validate_input(csv_data)
     csv_string = csv_data.respond_to?(:read) ? csv_data.read : csv_data
     if ! csv_string.valid_encoding?
