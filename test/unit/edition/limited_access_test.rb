@@ -41,15 +41,18 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert e.accessible_by?(nil)
   end
 
-  test "when access is limited, edition is accessible only by a person in the one of the edition's departments" do
-    org1, org2 = build(:organisation), build(:organisation)
-    e = build(:limited_access_edition, organisations: [org1], access_limited: true)
+  test "when access is limited, edition is accessible only by a person in the one of the edition's departments, or an author" do
+    org1, org2, org3 = build(:organisation), build(:organisation), build(:organisation)
 
-    user1 = build(:user, organisation: org1)
-    user2 = build(:user, organisation: org2)
+    user_in_org1 = build(:user, organisation: org1)
+    user_in_org2 = build(:user, organisation: org2)
+    author = build(:user, organisation: org3)
 
-    assert e.accessible_by?(user1)
-    refute e.accessible_by?(user2)
+    e = build(:limited_access_edition, organisations: [org1], access_limited: true, authors: [author])
+
+    assert e.accessible_by?(author)
+    assert e.accessible_by?(user_in_org1)
+    refute e.accessible_by?(user_in_org2)
   end
 
   test "can select all editions accessible to a particular user" do
@@ -58,12 +61,13 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     accessible = [
       create(:draft_policy),
       create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation]),
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation], authors: [user]),
       create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation])
     ]
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
-    accessible.each do |edition|
-      assert Edition.accessible_to(user).include?(edition)
+    accessible.each.with_index do |edition, i|
+      assert Edition.accessible_to(user).include?(edition), "doc #{i} should be accessible"
     end
     refute Edition.accessible_to(user).include?(inaccessible)
   end
