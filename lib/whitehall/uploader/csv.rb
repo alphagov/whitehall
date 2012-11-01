@@ -30,8 +30,6 @@ class Whitehall::Uploader::Csv
         end
       rescue => e
         store_error(data_row, e.to_s)
-      ensure
-        row.cleanup
       end
     end
   ensure

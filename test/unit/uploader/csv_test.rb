@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
   setup do
-    @row = stub('row', attributes: {row: :one}, legacy_url: 'row-legacy-url', cleanup: nil)
+    @row = stub('row', attributes: {row: :one}, legacy_url: 'row-legacy-url')
     @row_class = stub('row-class', new: @row)
     @data = "header-a,header-b,header-c\na1,b1,c1"
 
@@ -37,20 +37,6 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
     @model.stubs(:save).returns(true)
     DocumentSource.expects(:create!).with(document: @document, url: 'row-legacy-url')
     Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache).import_as(@user)
-  end
-
-  test 'instructs row to cleanup any temporary data if save successful' do
-    @model.stubs(:save).returns(true)
-    @row.expects(:cleanup)
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache).import_as(@user)
-  end
-
-  test 'instructs row to cleanup any temporary data if save unsuccessful' do
-    @model.stubs(:save).returns(false)
-    errors = stub('errors', full_messages: "Feeling funky")
-    @model.stubs(:errors).returns(errors)
-    @row.expects(:cleanup)
-    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
   end
 
   test 'skips row import if url already uploaded' do

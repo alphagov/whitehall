@@ -8,9 +8,6 @@ class Whitehall::Uploader::PublicationRow
     @attachment_cache = attachment_cache
   end
 
-  def cleanup
-  end
-
   def title
     row['title']
   end
