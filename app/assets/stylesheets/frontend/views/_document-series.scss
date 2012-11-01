@@ -1,13 +1,35 @@
 .document-series-page {
+
+  h1 {
+    @include core-27;
+    clear: both;
+    float: left;
+    display: inline;
+    width: 33%;
+  }
+
+  .content {
+    float: right;
+    width: 66%;
+  }
+
+  .document-page-header .meta dl dd.organisations {
+    margin-top: $gutter;
+  }
+
+  .document-series-page .description {
+    margin-top: 0;
+  }
+
+  .publications {
+    clear: both;
+    overflow: hidden;
+    padding: $gutter*2 0;
+  }
+
   section#document_series {
-    h1 {
-      font-size: 1.5em;
-    }
     .document-list {
       margin-top: 0;
-    }
-    div.statistical-data-sets {
-      margin-top: 2em;
     }
   }
 }
