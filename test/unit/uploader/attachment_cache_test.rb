@@ -70,11 +70,11 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
     end
   end
 
-  # test "adds a PDF extension if the file is detected as a PDF but has no extension" do
-  #   @cache.stubs(:fetch).returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
-  #   attachment = @cache.fetch(url)
-  #   assert_equal "attachment.pdf", File.basename(attachment.file.path)
-  # end
+  test "adds a PDF extension if the file is detected as a PDF but has no extension" do
+    url = "http://example.com/attachment"
+    stub_request(:get, url).to_return(body: File.open(@pdf_path), status: 200)
+    assert_equal "attachment.pdf", File.basename(@cache.fetch(url).path)
+  end
 
   private
 
