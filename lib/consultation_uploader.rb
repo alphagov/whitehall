@@ -89,6 +89,7 @@ class ConsultationUploader
       if attachments.any? || response_date.present?
         Response.new(
           published_on: response_date,
+          summary: response_summary,
           attachments: attachments
         )
       else
@@ -97,9 +98,13 @@ class ConsultationUploader
     end
 
     def response_date
-      if row['response date'].present?
-        Date.strptime(row['response date'], "%m/%d/%Y")
+      if row['response_date'].present?
+        Date.strptime(row['response_date'], '%d-%b-%Y')
       end
+    end
+
+    def response_summary
+      row['response_summary']
     end
 
     def title
@@ -123,11 +128,11 @@ class ConsultationUploader
     end
 
     def organisation
-      @organisation ||= Organisation.find_by_name(row['organisation'])
+      @organisation ||= Organisation.find_by_slug(row['organisation'])
     end
 
     def policies
-      policy_slugs = [row['policy 1'], row['policy 2'], row['policy 3'], row['policy 4']]
+      policy_slugs = [row['policy_1'], row['policy_2'], row['policy_3'], row['policy_4']]
       policy_slugs.map do |slug|
         next if slug.blank?
         doc = Document.find_by_slug(slug)
@@ -141,8 +146,9 @@ class ConsultationUploader
     end
 
     def fetch_and_create_attachments(prefix)
-      row.headers.grep(%r{#{prefix}_\d+$}).select { |h| row[h].present? }.map do |header|
-        fetch_and_create_attachment(row[header], row["#{header}_title"])
+      row.headers.grep(%r{#{prefix}_\d+_url$}).select { |h| row[h].present? }.map do |header|
+        title_header = header.sub(/_url/, '_title')
+        fetch_and_create_attachment(row[header], row[title_header])
       end.compact
     end
 
