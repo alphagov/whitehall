@@ -1,10 +1,4 @@
 module OrganisationHelper
-  def organisation_branding_class(organisation)
-    if organisation.use_single_identity_branding?
-      "single-identity"
-    end
-  end
-
   def organisation_display_name(organisation)
     if organisation.acronym.present?
       content_tag(:abbr, organisation.acronym, title: organisation.name)
