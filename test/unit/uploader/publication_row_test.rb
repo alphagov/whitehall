@@ -98,6 +98,10 @@ class Whitehall::Uploader::PublicationRow::PublicationDateParserTest < ActiveSup
     assert_equal Date.parse('2012-05-23'), Whitehall::Uploader::PublicationRow::PublicationDateParser.parse('23-May-12', @log, @line_number)
   end
 
+  test "can parse dates in dd-MMM-yyyy format" do
+    assert_equal Date.parse('2013-07-10'), Whitehall::Uploader::PublicationRow::PublicationDateParser.parse('10-Jul-2013', @log, @line_number)
+  end
+
   test "can parse dates in yyyy-mm-dd format" do
     assert_equal Date.parse('2001-10-31'), Whitehall::Uploader::PublicationRow::PublicationDateParser.parse('2001-10-31', @log, @line_number)
   end
