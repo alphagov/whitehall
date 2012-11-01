@@ -77,6 +77,7 @@ Whitehall::Application.routes.draw do
 
     match "/search" => "search#index"
     match "/autocomplete" => "search#autocomplete"
+    match "/how-government-works" => "home#how-government-works", as: 'how_government_works'
 
     constraints(AdminRequest) do
       namespace :admin do
