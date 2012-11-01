@@ -3,17 +3,18 @@ require 'csv'
 class Whitehall::Uploader::Csv
   attr_reader :row_class, :model_class
 
-  def initialize(data, row_class, model_class, logger = Logger.new($stdout), error_csv_path=nil)
+  def initialize(data, row_class, model_class, attachment_cache, logger = Logger.new($stdout), error_csv_path=nil)
     @csv = CSV.new(data, headers: true)
     @row_class = row_class
     @model_class = model_class
     @logger = logger
+    @attachment_cache = attachment_cache
     @error_csv_path = error_csv_path || "#{Time.zone.now.to_s(:number)}_import_errors.csv"
   end
 
   def import_as(creator)
     @csv.each_with_index do |data_row, ix|
-      row = row_class.new(data_row.to_hash, ix + 1, @logger)
+      row = row_class.new(data_row.to_hash, ix + 1, @attachment_cache, @logger)
       begin
         if DocumentSource.find_by_url(row.legacy_url)
           @logger.warn "Row #{ix + 2} '#{row.legacy_url}' has already been imported"

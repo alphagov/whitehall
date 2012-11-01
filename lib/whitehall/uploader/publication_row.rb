@@ -1,15 +1,14 @@
 class Whitehall::Uploader::PublicationRow
   attr_reader :row
 
-  def initialize(row, line_number, logger = Logger.new($stdout))
+  def initialize(row, line_number, attachment_cache, logger = Logger.new($stdout))
     @row = row
     @line_number = line_number
     @logger = logger
-    @tmpdir = Dir.mktmpdir
+    @attachment_cache = attachment_cache
   end
 
   def cleanup
-    FileUtils.remove_dir(@tmpdir, true)
   end
 
   def title
@@ -55,7 +54,7 @@ class Whitehall::Uploader::PublicationRow
   def attachments
     if @attachments.nil?
       @attachments = 1.upto(50).map do |number|
-        AttachmentDownloader.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @tmpdir, @logger, @line_number)
+        AttachmentDownloader.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
       end.compact
       AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["ISBN"], row["URN"], row["command_paper_number"])
     end
@@ -158,48 +157,15 @@ class Whitehall::Uploader::PublicationRow
   end
 
   class AttachmentDownloader
-    def self.build(title, url, tmpdir, logger, line_number)
+    def self.build(title, url, cache, logger, line_number)
       return unless title.present? && url.present?
-      if file = download_from_url(url, tmpdir, logger, line_number)
-        attachment_data = AttachmentData.new(file: file)
-        attachment = Attachment.new(title: title, attachment_data: attachment_data)
-        attachment.build_attachment_source(url: url)
-        attachment
-      end
-    end
-
-    def self.download_from_url(url, tmpdir, logger, line_number)
-      uri = URI.parse(url)
-      if uri.is_a?(URI::HTTP)
-        response = Net::HTTP.get_response(uri)
-        if response.is_a?(Net::HTTPOK)
-          filename = File.basename(uri.path)
-          local_path = File.join(tmpdir, filename)
-          logger.info "Row #{line_number}: Fetching #{url} to #{local_path}"
-          File.open(local_path, 'w', encoding: 'ASCII-8BIT') do |file|
-            file.write(response.body)
-          end
-          if File.extname(local_path) == ""
-            file_type = `file -e cdf -b "#{local_path}"`.strip
-            if file_type =~ /^PDF /
-              FileUtils.mv(local_path, local_path + ".pdf")
-              local_path = local_path + ".pdf"
-            end
-          end
-          File.open(local_path, 'r')
-        else
-          logger.error "Row #{line_number}: Unable to fetch attachment '#{url}', got response status #{response.code}.'"
-          nil
-        end
-      else
-        logger.error "Row #{line_number}: Unable to fetch attachment '#{url}', url not understood to be HTTP"
-        nil
-      end
-    rescue Timeout::Error, Errno::ECONNREFUSED, Errno::ECONNRESET => e
-      logger.error "Row #{line_number}: Unable to fetch attachment '#{url}' due to #{e.class}: '#{e.message}'"
-      nil
-    rescue URI::InvalidURIError => e
-      logger.error "Row #{line_number}: Unable to fetch attachment '#{url}' due to invalid URL - #{e.class}: '#{e.message}'"
+      file = cache.fetch(url)
+      attachment_data = AttachmentData.new(file: file)
+      attachment = Attachment.new(title: title, attachment_data: attachment_data)
+      attachment.build_attachment_source(url: url)
+      attachment
+    rescue Whitehall::Uploader::AttachmentCache::RetrievalError => e
+      logger.error "Row #{line_number}: Unable to fetch attachment '#{url}' - #{e.to_s}"
       nil
     end
   end
