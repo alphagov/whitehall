@@ -36,7 +36,8 @@ class PublicationUploaderTest < ActiveSupport::TestCase
       "summary"          => "summary",
       "body"             => "body",
       'publication_date' => '11/16/2011',
-      'publication_type'         => 'foi-releases'
+      'publication_type' => 'foi-releases',
+      'organisation'     => sample_organisation.slug
     )
     uploader = PublicationUploader.new(
       import_as: importer,
@@ -234,7 +235,12 @@ private
       "summary"          => "summary",
       "body"             => "body",
       "publication_date" => "11/16/2011",
-      "publication_type" => "foi-releases"
+      "publication_type" => "foi-releases",
+      "organisation"     => sample_organisation.slug
     }
+  end
+
+  def sample_organisation
+    @sample_organisation ||= (Organisation.first || create(:organisation))
   end
 end

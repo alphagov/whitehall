@@ -55,7 +55,7 @@ module AdminEditionCountriesBehaviour
         lock_version = document.lock_version
         document.touch
 
-        put :update, id: document, edition: document.attributes.merge(lock_version: lock_version)
+        put :update, id: document, edition: controller_attributes_for_instance(document, lock_version: lock_version)
 
         assert_select ".document.conflict" do
           assert_select "h1", "Countries"

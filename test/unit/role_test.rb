@@ -23,7 +23,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the role name when organisations are missing" do
-    role = create(:role, name: "Treasury secretary", people: [], organisations: [])
+    role = create(:role_without_organisations, name: "Treasury secretary", people: [], organisations: [])
     assert_equal "Treasury secretary", role.to_s
   end
 
@@ -94,7 +94,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should be destroyable when it has no appointments or organisations" do
-    role = create(:role, role_appointments: [], organisations: [])
+    role = create(:role_without_organisations, role_appointments: [], organisations: [])
     assert role.destroyable?
     assert role.destroy
   end

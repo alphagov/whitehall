@@ -22,7 +22,7 @@ module AdminEditionAttachableControllerTestHelpers
       test "updating an edition with an attachment but no alternative_format_provider will get a validation error" do
         edition = create(edition_type)
 
-        put :update, id: edition, edition_base_class_name => edition.attributes.merge(
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           alternative_format_provider_id: "",
           attachment_join_attributes => {
             "0" => { attachment_attributes: attributes_for(:attachment) }
@@ -227,7 +227,7 @@ module AdminEditionAttachableControllerTestHelpers
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         edition = create(edition_type, :with_alternative_format_provider)
 
-        put :update, id: edition, edition_base_class_name => edition.attributes.merge(
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           attachment_join_attributes => {
             "0" => {
               attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
@@ -251,7 +251,7 @@ module AdminEditionAttachableControllerTestHelpers
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         edition = create(edition_type, :with_alternative_format_provider)
 
-        put :update, id: edition, edition_base_class_name => edition.attributes.merge(
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           attachment_join_attributes => {
             "0" => {
               attachment_attributes: attributes_for(:attachment, title: "attachment-1-title").merge(attachment_data_attributes: {
@@ -282,7 +282,7 @@ module AdminEditionAttachableControllerTestHelpers
 
       test "updating an edition with invalid data should still allow attachment to be selected for upload" do
         edition = create(edition_type)
-        put :update, id: edition, edition_base_class_name => make_invalid(edition.attributes)
+        put :update, id: edition, edition_base_class_name => make_invalid(controller_attributes_for_instance(edition))
 
         assert_select "form##{edition_base_class_name}_edit" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][attachment_data_attributes][file]'][type='file']"
@@ -334,7 +334,7 @@ module AdminEditionAttachableControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, id: edition, edition_base_class_name => edition.attributes.merge(lock_version: lock_version)
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition, lock_version: lock_version)
 
         assert_select "form##{edition_base_class_name}_edit" do
           assert_select "input[name='#{edition_base_class_name}[#{attachment_join_attributes}][0][attachment_attributes][title]'][type='text']"
@@ -348,7 +348,7 @@ module AdminEditionAttachableControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, id: edition, edition_base_class_name => edition.attributes.merge(
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           lock_version: lock_version,
           attachment_join_attributes => {
             "0" => {
@@ -371,7 +371,7 @@ module AdminEditionAttachableControllerTestHelpers
         edition_attachment_1 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_1)
         edition_attachment_2 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_2)
 
-        put :update, id: edition, edition_base_class_name => edition.attributes.merge(
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           attachment_join_attributes => {
             "0" => { id: edition_attachment_1.id.to_s, _destroy: "1" },
             "1" => { id: edition_attachment_2.id.to_s, _destroy: "0" },

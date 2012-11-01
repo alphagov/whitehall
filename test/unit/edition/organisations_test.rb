@@ -3,9 +3,13 @@ require "test_helper"
 class Edition::OrganisationsTest < ActiveSupport::TestCase
   test "new edition of document featured in organisation should remain featured in that organisation with image and alt text" do
     featured_image = create(:edition_organisation_image_data)
-    news_article = create(:published_news_article)
     organisation = create(:organisation)
-    create(:featured_edition_organisation, edition: news_article, organisation: organisation, image: featured_image, alt_text: "alt-text")
+    news_article = create(:published_news_article, organisations: [organisation])
+    association = news_article.association_with_organisation(organisation)
+    association.image = featured_image
+    association.alt_text = "alt-text"
+    association.featured = true
+    association.save!
 
     new_edition = news_article.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'

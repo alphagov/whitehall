@@ -33,6 +33,10 @@ FactoryGirl.define do
     body "edition-body"
     change_note "change-note"
 
+    after :build do |edition, evaluator|
+      edition.organisations = FactoryGirl.build_list(:organisation, 1) unless evaluator.organisations.any?
+    end
+
     trait(:draft) { state "draft" }
     trait(:submitted) { state "submitted" }
     trait(:rejected) { state "rejected" }
@@ -42,7 +46,12 @@ FactoryGirl.define do
       first_published_at { published_at }
       force_published { false }
     end
-    trait(:deleted) { state "deleted" }
+    trait(:deleted) {
+      state "draft"
+      after :create do |edition|
+        edition.delete!
+      end
+    }
     trait(:archived) { state "archived" }
     trait(:featured) { featured true }
     trait(:scheduled) {

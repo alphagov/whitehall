@@ -26,6 +26,10 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     controller_attributes.merge(body: "")
   end
 
+  def controller_attributes_for(edition_type, attributes = {})
+    attributes_for(edition_type, attributes)
+  end
+
   def create_draft(edition_type)
     create(edition_type)
   end

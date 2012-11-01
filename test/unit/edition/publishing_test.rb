@@ -74,7 +74,8 @@ class Edition::PublishingControlsTest < ActiveSupport::TestCase
 
   test "is never approvable when deleted" do
     editor = create(:departmental_editor)
-    edition = create(:deleted_edition)
+    edition = create(:draft_edition)
+    edition.delete!
     refute edition.approvable_by?(editor)
     refute edition.approvable_by?(editor, force: true)
     assert_equal "This edition has been deleted", edition.reason_to_prevent_approval_by(editor)

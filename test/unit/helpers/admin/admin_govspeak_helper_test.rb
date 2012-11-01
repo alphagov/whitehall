@@ -49,7 +49,8 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   end
 
   test "should rewrite link to deleted edition in admin preview" do
-    publication = create(:deleted_publication)
+    publication = create(:draft_publication)
+    publication.delete!
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_select_within_html html, "del", text: "that"
   end

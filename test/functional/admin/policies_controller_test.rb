@@ -104,7 +104,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     publication = create(:draft_publication, related_policies: [policy])
     assert policy.related_editions.include?(publication), "policy and publication should be related"
 
-    put :update, id: policy, edition: {title: "another title"}
+    put :update, id: policy, edition: controller_attributes_for_instance(policy, title: "another title")
 
     policy.reload
     assert policy.related_editions.include?(publication), "polcy and publication should still be related"

@@ -8,7 +8,10 @@ FactoryGirl.define do
   end
 
   factory :ministerial_department, parent: :organisation do
-    organisation_type factory: :ministerial_organisation_type
+    organisation_type {
+      type = FactoryGirl.build(:ministerial_organisation_type)
+      OrganisationType.find_by_name(type.name) || FactoryGirl.create(:ministerial_organisation_type)
+    }
   end
 
   factory :organisation_with_alternative_format_contact_email, parent: :organisation, aliases: [:alternative_format_provider] do

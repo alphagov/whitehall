@@ -5,7 +5,8 @@ class Api::DetailedGuidesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   test "show responds with JSON representation of found guide" do
-    detailed_guide = stub_edition(:detailed_guide)
+    organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
+    detailed_guide = stub_edition(:detailed_guide, organisations: [organisation])
     DetailedGuide.stubs(:published_as).with(detailed_guide.slug).returns(detailed_guide)
     presenter = Api::DetailedGuidePresenter.decorate(detailed_guide)
     presenter.stubs(:as_json).returns(guide: :representation)
@@ -16,7 +17,8 @@ class Api::DetailedGuidesControllerTest < ActionController::TestCase
   end
 
   test "show includes _response_info in response" do
-    detailed_guide = stub_edition(:detailed_guide)
+    organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
+    detailed_guide = stub_edition(:detailed_guide, organisations: [organisation])
     DetailedGuide.stubs(:published_as).with(detailed_guide.slug).returns(detailed_guide)
     presenter = Api::DetailedGuidePresenter.decorate(detailed_guide)
     presenter.stubs(:as_json).returns(json: :representation)

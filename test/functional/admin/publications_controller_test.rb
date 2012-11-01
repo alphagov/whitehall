@@ -152,7 +152,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test "update should save modified publication attributes" do
     publication = create(:publication)
 
-    put :update, id: publication, edition: publication.attributes.merge(
+    put :update, id: publication, edition: controller_attributes_for_instance(publication,
       publication_date: Date.parse("1815-06-18")
     )
 

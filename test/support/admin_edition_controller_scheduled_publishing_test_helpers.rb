@@ -132,9 +132,9 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         selected_time = Time.zone.now
         edition = create(edition_type, scheduled_publication: selected_time)
 
-        edition_attributes = edition.attributes
-          .merge(publication_date: Date.parse("1815-06-18"))
-          .merge(scheduled_publication_attributes(selected_time))
+        edition_attributes = controller_attributes_for_instance(edition,
+          {publication_date: Date.parse("1815-06-18")}.merge(scheduled_publication_attributes(selected_time))
+        )
 
         put :update, id: edition, edition: edition_attributes, scheduled_publication_active: "0"
 
@@ -146,9 +146,9 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         edition = create(edition_type, scheduled_publication: nil)
         selected_time = Time.zone.parse("2012-07-03 09:30")
 
-        edition_attributes = edition.attributes
-          .merge(publication_date: Date.parse("1815-06-18"))
-          .merge(scheduled_publication_attributes(selected_time))
+        edition_attributes = controller_attributes_for_instance(edition,
+          {publication_date: Date.parse("1815-06-18")}.merge(scheduled_publication_attributes(selected_time))
+        )
         put :update, id: edition,
           edition: edition_attributes,
           scheduled_publication_active: "1"

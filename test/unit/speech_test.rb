@@ -41,11 +41,10 @@ class SpeechTest < EditionTestCase
   end
 
   test "save should populate organisations based on the role_appointment that delivered the speech" do
-    speech = create(:speech)
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:role_appointment, role: ministerial_role)
-    speech.update_attributes!(role_appointment: role_appointment)
+    speech = create(:speech, role_appointment: role_appointment)
 
     assert_equal [organisation], speech.organisations
   end
