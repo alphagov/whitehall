@@ -6,6 +6,11 @@ class PublicationUploaderTest < ActiveSupport::TestCase
   setup do
     @log_buffer = StringIO.new
     @logger = Logger.new(@log_buffer)
+    @error_csv_path = Rails.root.join("tmp", "csv_errors.csv")
+  end
+
+  teardown do
+    File.delete(@error_csv_path) if File.exist?(@error_csv_path)
   end
 
   test "should log a warning if the publication couldn't be saved" do
@@ -14,7 +19,8 @@ class PublicationUploaderTest < ActiveSupport::TestCase
       csv_data: csv_sample(
         "body" => ""
       ),
-      logger: @logger
+      logger: @logger,
+      error_csv_path: @error_csv_path
     )
 
     uploader.upload
