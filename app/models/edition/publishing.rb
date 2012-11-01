@@ -95,6 +95,7 @@ module Edition::Publishing
         Time.zone.now
       end
       self.first_published_at ||= published_at
+      self.access_limited = nil
       if ! scheduled?
         self.force_published = options[:force]
       end
