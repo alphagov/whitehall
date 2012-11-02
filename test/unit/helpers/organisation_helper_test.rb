@@ -102,7 +102,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_relationship_type_is_described_as('Tribunal non-departmental public bodies', 'a tribunal non-departmental public body')
     assert_relationship_type_is_described_as('Public corporations', 'a public corporation')
     assert_relationship_type_is_described_as('Independent monitoring bodies', 'an independent monitoring body')
-    assert_relationship_type_is_described_as('Others', 'a public body')
+    assert_relationship_type_is_described_as('Others', 'a body')
   end
 
   test 'definite article skipped for certain parent organisations' do

@@ -13,8 +13,8 @@
   <div class="block-2">
     <div class="inner-block">
       <div class="description">
-        <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
         <p><%= @organisation.description %></p>
+        <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@
     <div class="block-5">
       <div class="inner-block">
           <section id="recently_updated" class="latest_documents">
-            <h1 class="label">Recent mentions on gov.uk</h1>
+            <h1 class="label">Mentions on GOV.UK</h1>
             <%= render partial: "shared/recently_updated", locals: {recently_updated: @recently_updated} %>
           </section>
       </div>

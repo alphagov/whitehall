@@ -17,7 +17,7 @@ module OrganisationHelper
 
   def organisation_type_name(organisation)
     type_name = ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
-    type_name == 'other' ? 'public body' : type_name
+    type_name == 'other' ? 'body' : type_name
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
