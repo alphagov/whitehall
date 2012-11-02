@@ -150,3 +150,24 @@ end
 Then /^I should see a mailto link for the alternative format contact email "([^"]*)"$/ do |email|
   assert page.has_css?("a[href^=\"mailto:#{email}\"]")
 end
+
+Then /^I cannot see links to FOI releases or Transparency data on the "([^"]*)" about page$/ do |name|
+  visit_organisation_about_page name
+  refute page.has_css?('a', text: 'FOI releases')
+  refute page.has_css?('a', text: 'Transparency data')
+end
+
+When /^I associate an FOI release to the "([^"]*)"$/ do |name|
+  organisation = Organisation.find_by_name!(name)
+  publication = create(:published_publication, :foi_release, organisations: [organisation])
+end
+
+Then /^I can see a link to "([^"]*)" on the "([^"]*)" about page$/ do |link_text, name|
+  visit_organisation_about_page name
+  assert page.has_css?('a', text: link_text)
+end
+
+When /^I associate a Transparency data publication to the "([^"]*)"$/ do |name|
+  organisation = Organisation.find_by_name!(name)
+  publication = create(:published_publication, :transparency_data, organisations: [organisation])
+end

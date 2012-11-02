@@ -16,3 +16,11 @@ Scenario: Organisation page should show the ministers
   When I visit the "Attorney General's Office" organisation
   And I should be able to view all civil servants for the "Attorney General's Office" organisation
   And I should be able to view all ministers for the "Attorney General's Office" organisation
+
+Scenario: Organisation pages links to any FOI releases and transparency data publications
+  Given the organisation "Cabinet Office" exists
+  Then I cannot see links to FOI releases or Transparency data on the "Cabinet Office" about page
+  When I associate an FOI release to the "Cabinet Office"
+  Then I can see a link to "FOI releases" on the "Cabinet Office" about page
+  When I associate a Transparency data publication to the "Cabinet Office"
+  Then I can see a link to "Transparency data" on the "Cabinet Office" about page

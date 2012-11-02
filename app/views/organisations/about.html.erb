@@ -35,11 +35,17 @@
 
         <aside class="corporate-info" id="corporate-information">
           <h1>Corporate information</h1>
-          <% if @corporate_information_pages.any? %>
+          <% if has_any_transparency_pages?(@organisation) %>
             <h2>Transparency</h2>
             <ul class="transparency">
-              <% @corporate_information_pages.each do |page| %>
+              <% @organisation.corporate_information_pages.each do |page| %>
                 <li><%= link_to page.title, organisation_corporate_information_page_path(@organisation, page) %></li>
+              <% end %>
+              <% if @organisation.has_published_publications_of_type?(PublicationType::TransparencyData) %>
+                <li><%= link_to "Transparency data", publications_path(publication_type: 'transparency-data', :'departments[]' => @organisation.slug) %></li>
+              <% end %>
+              <% if @organisation.has_published_publications_of_type?(PublicationType::FoiRelease) %>
+                <li><%= link_to "FOI releases", publications_path(publication_type: 'foi-releases', :'departments[]' => @organisation.slug) %></li>
               <% end %>
             </ul>
           <% end %>

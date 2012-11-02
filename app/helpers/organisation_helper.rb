@@ -87,4 +87,10 @@ module OrganisationHelper
       image_path("thumbnail-placeholder.png")
     end
   end
+
+  def has_any_transparency_pages?(organisation)
+    @organisation.corporate_information_pages.any? ||
+      @organisation.has_published_publications_of_type?(PublicationType::FoiRelease) ||
+      @organisation.has_published_publications_of_type?(PublicationType::TransparencyData)
+  end
 end

@@ -234,6 +234,10 @@ class Organisation < ActiveRecord::Base
     CorporateInformationPageType.all - corporate_information_pages.map(&:type)
   end
 
+  def has_published_publications_of_type?(publication_type)
+    published_publications.where("editions.publication_type_id" => publication_type.id).any?
+  end
+
   private
 
   def contact_and_contact_numbers_are_blank(attributes)

@@ -443,4 +443,10 @@ class OrganisationTest < ActiveSupport::TestCase
     end
   end
 
+  test "can report whether any published publications of a particular type are available" do
+    organisation = create(:organisation)
+    refute organisation.has_published_publications_of_type?(PublicationType::FoiRelease)
+    create(:published_publication, :foi_release, organisations: [organisation])
+    assert organisation.has_published_publications_of_type?(PublicationType::FoiRelease)
+  end
 end

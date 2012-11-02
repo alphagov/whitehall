@@ -9,6 +9,14 @@ FactoryGirl.define do
     trait(:corporate) do
       publication_type_id { PublicationType::CorporateReport.id }
     end
+
+    trait(:foi_release) do
+      publication_type_id { PublicationType::FoiRelease.id }
+    end
+
+    trait(:transparency_data) do
+      publication_type_id { PublicationType::TransparencyData.id }
+    end
   end
 
   factory :draft_publication, parent: :publication, traits: [:draft]
