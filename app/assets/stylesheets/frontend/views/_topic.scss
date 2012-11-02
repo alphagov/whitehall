@@ -58,7 +58,8 @@
         float: left;
       }
       .subscribe {
-        float: right;
+        float: left;
+        margin-left: $gutter-half;
         padding-top: 8px;
       }
     }
