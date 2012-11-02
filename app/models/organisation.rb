@@ -82,6 +82,10 @@ class Organisation < ActiveRecord::Base
             class_name: 'MilitaryRole',
             through: :organisation_roles,
             source: :role
+  has_many :traffic_commissioner_roles,
+            class_name: 'TrafficCommissionerRole',
+            through: :organisation_roles,
+            source: :role
   has_many :permanent_secretary_board_member_roles,
             class_name: 'BoardMemberRole',
             through: :organisation_roles,

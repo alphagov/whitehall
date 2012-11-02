@@ -158,7 +158,6 @@
           </section>
         <% end %>
 
-
         <% if @organisation.military_roles.any? %>
           <section id="military">
             <h1 class="label">Military</h1>
@@ -176,6 +175,26 @@
               </ul>
             <% end %>
             <p class="view_all"><%= link_to "View all chiefs of staff", chiefs_of_staff_organisation_path(@organisation) %></p>
+          </section>
+        <% end %>
+
+        <% if @traffic_commissioner_roles.any? %>
+          <section id="traffic_commissioners">
+            <h1 class="label">Traffic commissioners</h1>
+            <ul class="js-hide-extra-rows">
+              <% @traffic_commissioner_roles.each do |traffic_commissioner_role| %>
+                <%= content_tag_for(:li, traffic_commissioner_role) do %>
+                  <div class="inner">
+                    <h1 class="visuallyhidden">Traffic commissioner</h1>
+                    <div class="image_holder">
+                      <%= traffic_commissioner_role.current_person_image %>
+                    </div>
+                    <h3 class="current-appointee"><%= traffic_commissioner_role.current_person_link %></h3>
+                    <p class="role"><%= traffic_commissioner_role.link %></p>
+                  </div>
+                <% end %>
+              <% end %>
+            </ul>
           </section>
         <% end %>
       </section>

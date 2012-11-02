@@ -14,8 +14,13 @@ Scenario: Organisation page should show consultations
 Scenario: Organisation page should show the ministers
   Given the "Attorney General's Office" organisation is associated with several ministers and civil servants
   When I visit the "Attorney General's Office" organisation
-  And I should be able to view all civil servants for the "Attorney General's Office" organisation
+  Then I should be able to view all civil servants for the "Attorney General's Office" organisation
   And I should be able to view all ministers for the "Attorney General's Office" organisation
+
+Scenario: Organisation page should show any traffic commissioners
+  Given the "Department for Transport" organisation is associated with traffic commissioners
+  When I visit the "Department for Transport" organisation
+  Then I should be able to view all traffic commissioners for the "Department for Transport" organisation
 
 Scenario: Organisation pages links to any FOI releases and transparency data publications
   Given the organisation "Cabinet Office" exists

@@ -18,6 +18,7 @@ class OrganisationsController < PublicFacingController
       @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(3))
       @ministers = ministers
       @civil_servants = civil_servants
+      @traffic_commissioners = traffic_commissioners
     else
       render action: 'external'
     end
@@ -37,6 +38,12 @@ class OrganisationsController < PublicFacingController
 
   def civil_servants
     @civil_servant_roles = @organisation.board_member_roles.order("organisation_roles.ordering").map do |role|
+      RolePresenter.new(role)
+    end
+  end
+
+  def traffic_commissioners
+    @traffic_commissioner_roles = @organisation.traffic_commissioner_roles.order("organisation_roles.ordering").map do |role|
       RolePresenter.new(role)
     end
   end

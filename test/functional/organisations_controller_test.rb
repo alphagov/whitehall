@@ -375,6 +375,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [senior_role, junior_role], assigns(:ministerial_roles).collect(&:model)
   end
 
+  test "shows traffic commissioner roles in the specified order" do
+    junior_role = create(:traffic_commissioner_role)
+    senior_role = create(:traffic_commissioner_role)
+    organisation = create(:organisation)
+    create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
+    create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
+
+    get :show, id: organisation
+
+    assert_equal [senior_role, junior_role], assigns(:traffic_commissioner_roles).collect(&:model)
+  end
+
   test "shows links to ministers people pages" do
     minister = create(:ministerial_role)
     person = create(:person)

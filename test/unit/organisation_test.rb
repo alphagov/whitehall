@@ -139,6 +139,18 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [], organisation.ministerial_roles
   end
 
+  test "#traffic_commissioner_roles includes all traffic commissioner roles" do
+    traffic_commissioner = create(:traffic_commissioner_role)
+    organisation = create(:organisation, roles: [traffic_commissioner])
+    assert_equal [traffic_commissioner], organisation.traffic_commissioner_roles
+  end
+
+  test "#traffic_commissioner_roles excludes all non traffic commissioner roles" do
+    permanent_secretary = create(:board_member_role)
+    organisation = create(:organisation, roles:  [permanent_secretary])
+    assert_equal [], organisation.traffic_commissioner_roles
+  end
+
   test "#top_military_role returns the first role marked as the chief_of_the_defence_staff" do
     chief_of_staff = create(:military_role, chief_of_the_defence_staff: false)
     chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)

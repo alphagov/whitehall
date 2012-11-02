@@ -281,14 +281,16 @@
   #who {
     #ministers,
     #management,
-    #military {
+    #military,
+    #traffic_commissioners {
       display: block;
       clear: both;
       overflow: hidden;
     }
 
     #management,
-    #military {
+    #military,
+    #traffic_commissioners {
       padding-top: $gutter-half;
       @include media(tablet) {
         padding-top: $gutter*2;
@@ -303,7 +305,9 @@
 
     .ministerial_role,
     .board_member_role,
-    .military_role {
+    .military_role,
+    .traffic_commissioner_role
+    {
       list-style: none;
 
       @include media(tablet) {
@@ -589,7 +593,14 @@
 
   // org color bands
 
-  #topics h1, #ministers h1, #management h1, #military h1, #org-contacts h2, #recently_updated h1, #what-we-do h1 {
+  #topics h1,
+  #ministers h1,
+  #management h1,
+  #military h1,
+  #traffic_commissioners h1,
+  #org-contacts h2,
+  #recently_updated h1,
+  #what-we-do h1 {
     border-bottom-width: 5px;
     border-bottom-style: solid;
   }
