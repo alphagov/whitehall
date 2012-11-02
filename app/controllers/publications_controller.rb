@@ -24,7 +24,6 @@ class PublicationsController < DocumentsController
 
   def show
     @related_policies = @document.statistics? ? [] : @document.published_related_policies
-    @related_statistical_data_sets = StatisticalDataSetPresenter.decorate(@document.published_statistical_data_sets)
   end
 
 private

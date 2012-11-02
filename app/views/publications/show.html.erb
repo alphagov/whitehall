@@ -30,30 +30,6 @@
           </article>
         </div>
       </section>
-      <% if @related_statistical_data_sets.any? %>
-        <section id="related_statistical_data" class="heading-block">
-          <h1>Statistical data sets</h1>
-          <div class="content">
-            <table class="document-list statistical-data-sets">
-              <thead class="visuallyhidden">
-                <tr>
-                  <th scope="col">Title</th>
-                  <th scope="col">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @related_statistical_data_sets.each do |statistical_data_set| %>
-                  <%= content_tag_for :tr, statistical_data_set, class: "document-row" do %>
-                    <th scope="row" class="title attribute"><%= statistical_data_set.link %></th>
-                    <td class="date attribute"><%= statistical_data_set.display_date_microformat %></td>
-                  <% end %>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </section>
-      <% end %>
     </div>
   </div>
-
 </div>

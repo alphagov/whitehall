@@ -41,4 +41,7 @@ class CorporateInformationPageType
   Membership = create(
     id: 10, title_template: "Membership", slug: "membership"
   )
+  WelshLanguageScheme = create(
+    id: 11, title_template: "Welsh language scheme", slug: "welsh-language-scheme"
+  )
 end
