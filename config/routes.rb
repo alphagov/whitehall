@@ -25,7 +25,7 @@ Whitehall::Application.routes.draw do
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
-    root to: "home#sunset"
+    root to: "home#home"
     match '/home' => "home#show", as: :home
     match 'feed.atom' => 'home#show', format: false, defaults: { format: 'atom' }, as: :atom_feed
     match '/tour' => 'home#tour'
