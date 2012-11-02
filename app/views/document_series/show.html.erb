@@ -24,17 +24,44 @@
   </div>
 </div>
 
-<div class="block-2">
+<div class="block-2 ">
   <div class="inner-block">
-    <h1>In this series</h1>
-    <div class="description content">
-      <%= govspeak_to_html @document_series.description %>
+    <div class="contextual-info js-stick-at-top-when-scrolling">
+      <nav>
+        <h1>Contents</h1>
+        <ol>
+          <% unless @document_series.description.blank? %>
+            <li><a href="#this-series">In this series</a></li>
+          <% end %>
+          <% govspeak_headers(@document_series.description).each do |header| %>
+            <li><%= link_to header.text, "##{header.id}" %></li>
+          <% end %>
+          <% if @published_publications.any? %>
+            <li><a href="#publications">Publications</a></li>
+          <% end %>
+          <% if @published_statistical_data_sets.any? %>
+            <li><a href="#statistical-data-sets">Statistical data sets</a></li>
+          <% end %>
+        </ol>
+      </nav>
     </div>
+  </div>
+</div>
+
+<div class="block-3">
+  <div class="inner-block">
     <section id="document_series" class="group">
+
+    <% unless @document_series.description.blank? %>
+      <div class="description">
+        <h2 id="this-series">In this series</h2>
+        <%= govspeak_to_html @document_series.description %>
+      </div>
+    <% end %>
+
       <div class="publications">
         <% if @published_publications.any? %>
-          <h1>Publications</h1>
-          <div class="content">
+            <h2 id="publications">Publications</h2>
             <table class="document-list">
               <thead class="visuallyhidden">
                 <tr>
@@ -51,7 +78,6 @@
                 <% end %>
               </tbody>
             </table>
-          </div>
         <% else %>
           <p>There are no publications in this series at the moment.</p>
         <% end %>
@@ -59,8 +85,7 @@
 
       <div class="statistical-data-sets">
         <% if @published_statistical_data_sets.any? %>
-          <h1>Statistical data sets</h1>
-          <div class="content">
+            <h2 id="statistical-data-sets">Statistical data sets</h2>
             <table class="document-list statistical-data-sets">
               <thead class="visuallyhidden">
                 <tr>
@@ -77,9 +102,9 @@
                 <% end %>
               </tbody>
             </table>
-          </div>
         <% end %>
       </div>
+
     </section>
   </div>
 </div>

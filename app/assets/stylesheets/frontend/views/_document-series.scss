@@ -1,16 +1,11 @@
 .document-series-page {
 
-  h1 {
+  h2 {
     @include core-27;
-    clear: both;
-    float: left;
-    display: inline;
-    width: 33%;
   }
 
-  .content {
-    float: right;
-    width: 66%;
+  .page_title {
+    @include core-36;
   }
 
   .document-page-header .meta dl dd.organisations {
@@ -24,7 +19,7 @@
   .publications {
     clear: both;
     overflow: hidden;
-    padding: $gutter*2 0;
+    padding: 0 0 $gutter*2 0;
   }
 
   section#document_series {
@@ -32,4 +27,20 @@
       margin-top: 0;
     }
   }
+
+  .govspeak {
+    padding-bottom: $gutter;
+  }
+
+  @include media(desktop) {
+    .block-2, .block-3 {
+      float: left;
+      display: inline;
+      width: 33%;
+    }
+    .block-3 {
+      width: 66%;
+    }
+  }
+
 }

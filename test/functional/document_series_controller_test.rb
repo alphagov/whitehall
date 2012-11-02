@@ -48,6 +48,6 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     end
 
     assert_select "h1 .title", "series-name"
-    assert_select ".description", "description-in-html"
+    assert_select ".description", "In this series\n        description-in-html"
   end
 end
