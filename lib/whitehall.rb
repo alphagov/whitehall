@@ -119,8 +119,12 @@ module Whitehall
       [DetailedGuide].map(&:search_index).sum([])
     end
 
+    def edition_classes
+      Edition.descendants - [Publicationesque, Announcement]
+    end
+
     def government_edition_classes
-      Edition.descendants - [Publicationesque, Announcement] - [DetailedGuide] - DetailedGuide.descendants
+      edition_classes - [DetailedGuide] - DetailedGuide.descendants
     end
 
     private

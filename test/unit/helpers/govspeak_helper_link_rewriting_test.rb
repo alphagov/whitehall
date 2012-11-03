@@ -28,6 +28,15 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     assert_rewrites_link(from: admin_supporting_page_url(supporting_page), to: public_supporting_page_url(policy, supporting_page))
   end
 
+  test "should rewrite link without confusing supporting pages with the same title on different documents" do
+    policy_1 = create(:policy)
+    supporting_page_1 = create(:supporting_page, edition: policy_1, title: "supporting-page-title")
+    policy_1.delete
+    policy_2 = create(:published_policy)
+    supporting_page_2 = create(:supporting_page, edition: policy_2, title: "supporting-page-title")
+    assert_rewrites_link(from: admin_supporting_page_url(supporting_page_2), to: public_supporting_page_url(policy_2, supporting_page_2))
+  end
+
   test 'should rewrite admin link to an archived edition as a link to its published edition' do
     archived_edition, published_edition = create_archived_policy_with_published_edition
     assert_rewrites_link(from: admin_edition_url(archived_edition), to: public_document_url(published_edition))

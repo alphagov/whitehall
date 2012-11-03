@@ -124,29 +124,26 @@ module GovspeakHelper
   end
 
   def find_edition_and_supporting_page_from_uri(uri)
-    id = uri[/\/([^\/]+)$/, 1]
-    if uri =~ /\/supporting\-pages\//
-      begin
-        supporting_page = SupportingPage.find(id)
-      rescue ActiveRecord::RecordNotFound
-        supporting_page = nil
-      end
-      if supporting_page
-        edition = supporting_page.edition
-      else
-        edition = nil
-      end
-    else
-      edition = Edition.send(:with_exclusive_scope) do
-        begin
-          Edition.find(id)
-        rescue ActiveRecord::RecordNotFound
-          nil
-        end
-      end
-      supporting_page = nil
+    hash = recognize_path(uri)
+    edition_id, supporting_page_id = nil
+    if admin_edition_controller_names.include?(hash[:controller])
+      edition_id = hash[:id]
+    elsif "admin/supporting_pages" == hash[:controller]
+      edition_id, supporting_page_id = hash[:edition_id], hash[:id]
     end
+    edition = edition_id && Edition.send(:with_exclusive_scope) { Edition.where(id: edition_id).first }
+    supporting_page = supporting_page_id && edition && edition.supporting_pages.where(slug: supporting_page_id).first
     [edition, supporting_page]
+  end
+
+  def recognize_path(uri)
+    Rails.application.routes.recognize_path(uri, method: :get)
+  rescue ActionController::RoutingError
+    {}
+  end
+
+  def admin_edition_controller_names
+    @admin_edition_controller_names ||= Whitehall.edition_classes.map(&:sti_name).map(&:tableize).map { |name| "admin/#{name}"}
   end
 
   def rewritten_href_for_edition(edition, supporting_page)
