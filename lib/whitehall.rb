@@ -112,12 +112,15 @@ module Whitehall
     end
 
     def government_search_index
-      edition_classes = Edition.subclasses - [DetailedGuide] - DetailedGuide.subclasses
-      (edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic]).map(&:search_index).sum([])
+      (government_edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic]).map(&:search_index).sum([])
     end
 
     def detailed_guidance_search_index
       [DetailedGuide].map(&:search_index).sum([])
+    end
+
+    def government_edition_classes
+      Edition.descendants - [Publicationesque, Announcement] - [DetailedGuide] - DetailedGuide.descendants
     end
 
     private
