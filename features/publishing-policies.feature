@@ -35,7 +35,7 @@ Scenario: Publishing a first edition without a change note
 Scenario: Publishing a subsequent edition without a change note
   Given a published policy "Ban Beards" exists
   When I create a new edition of the published policy "Ban Beards"
-  Then my attempt to save it should fail with error "Change note required"
+  Then my attempt to save it should fail with error "Change note can't be blank"
 
 Scenario: Publishing a subsequent edition as a minor edit
   Given a published policy "Ban Beards" exists
