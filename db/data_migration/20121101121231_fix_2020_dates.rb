@@ -10,9 +10,12 @@ affected_files.each do |affected_file|
     begin
       if source = DocumentSource.find_by_url(row.legacy_url)
         document = source.document
-        edition = document.latest_edition
-        edition.update_attribute :publication_date, row.publication_date
-        logger.info "Row #{ix + 2} '#{row.legacy_url}' updated edition #{edition.id} to #{row.publication_date}"
+        if edition = document.latest_edition
+          edition.update_attribute :publication_date, row.publication_date
+          logger.info "Row #{ix + 2} '#{row.legacy_url}' updated edition #{edition.id} to #{row.publication_date}"
+        else
+          logger.warn "Row #{ix + 2} '#{row.legacy_url}' did not have a latest edition"
+        end
       else
         logger.warn "Row #{ix + 2} '#{row.legacy_url}' could not be located"
       end
