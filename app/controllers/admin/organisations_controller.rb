@@ -57,6 +57,7 @@ class Admin::OrganisationsController < Admin::BaseController
   def build_organisation_roles
     @ministerial_organisation_roles = []
     @board_member_organisation_roles = []
+    @traffic_commissioner_organisation_roles = []
   end
 
   def load_organisation
@@ -72,6 +73,7 @@ class Admin::OrganisationsController < Admin::BaseController
   def load_organisation_roles
     @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.ministerial).order(:ordering)
     @board_member_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.board_member).order(:ordering)
+    @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.traffic_commissioner).order(:ordering)
   end
 
   def default_arrays_of_ids_to_empty

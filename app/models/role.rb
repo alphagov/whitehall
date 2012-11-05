@@ -12,6 +12,7 @@ class Role < ActiveRecord::Base
 
   scope :ministerial, where(type: 'MinisterialRole')
   scope :board_member, where(type: 'BoardMemberRole')
+  scope :traffic_commissioner, where(type: 'TrafficCommissionerRole')
 
   validates :name, presence: true
   validates_with SafeHtmlValidator
