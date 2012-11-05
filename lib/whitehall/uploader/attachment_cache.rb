@@ -1,3 +1,5 @@
+require 'net/https'
+
 class Whitehall::Uploader::AttachmentCache
   class RetrievalError < RuntimeError; end
 
@@ -31,7 +33,9 @@ class Whitehall::Uploader::AttachmentCache
   def download(url)
     uri = URI.parse(url)
     if uri.is_a?(URI::HTTP)
-      response = Net::HTTP.get_response(uri)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = (uri.is_a?(URI::HTTPS))
+      response = http.request_get(uri.path)
       if response.is_a?(Net::HTTPOK)
         filename = File.basename(uri.path)
         FileUtils.mkdir_p(cache_path(url))
