@@ -222,6 +222,35 @@
   }
 }
 
+// HM Coastguard
+.organisation-logo-coastguard {
+  @extend .organisation-logo-identity;
+
+  padding: 5px 0 5px 26px;
+  background-image: image-url("crests/coastguard_13px.png");
+  background-position: 5px center;
+  background-size: auto 25px;
+}
+.organisation-logo-stacked-coastguard {
+  @extend .organisation-logo-identity;
+
+  padding: 25px 0 0 6px;
+  background-image: image-url("crests/coastguard_13px.png");
+  background-position: 5px top;
+  background-size: auto 25px;
+}
+.organisation-logo-stacked-coastguard span {
+  display: block;
+  top: 3px;
+  position: relative;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-coastguard,
+  .organisation-logo-stacked-coastguard {
+    background-image: image-url("crests/coastguard_13px_x2.png");
+  }
+}
+
 
 // Non-cornforming Medium
 .organisation-logo-no-identity-medium {
@@ -433,6 +462,39 @@
     .organisation-logo-wales-medium,
     .organisation-logo-stacked-wales-medium {
       background-image: image-url("crests/wales_crest_18px_x2.png");
+    }
+  }
+}
+
+// HM Coastguard Medium
+.organisation-logo-coastguard-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 8px 0 7px 35px;
+    background-image: image-url("crests/coastguard_18px.png");
+    background-position: 6px center;
+    background-size: auto 35px;
+  }
+}
+.organisation-logo-stacked-coastguard-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 35px 0 0 7px;
+    background-image: image-url("crests/coastguard_18px.png");
+    background-position: 6px top;
+    background-size: auto 35px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-coastguard-medium span {
+    display: block;
+    top: 3px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-coastguard-medium,
+    .organisation-logo-stacked-coastguard-medium {
+      background-image: image-url("crests/coastguard_18px_x2.png");
     }
   }
 }
@@ -649,6 +711,39 @@
     .organisation-logo-wales-large,
     .organisation-logo-stacked-wales-large {
       background-image: image-url("crests/wales_crest_27px_x2.png");
+    }
+  }
+}
+
+// HM Coastguard Large
+.organisation-logo-coastguard-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 10px 0 10px 51px;
+    background-image: image-url("crests/coastguard_27px.png");
+    background-position: 9px center;
+    background-size: auto 50px;
+  }
+}
+.organisation-logo-stacked-coastguard-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 50px 0 0 10px;
+    background-image: image-url("crests/coastguard_27px.png");
+    background-position: 9px top;
+    background-size: auto 50px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-coastguard-large span {
+    display: block;
+    top: 5px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-coastguard-large,
+    .organisation-logo-stacked-coastguard-large {
+      background-image: image-url("crests/coastguard_27px_x2.png");
     }
   }
 }
