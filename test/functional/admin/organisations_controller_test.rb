@@ -27,6 +27,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "input[type=text][name='organisation[contacts_attributes][0][description]']"
     assert_select "textarea[name='organisation[contacts_attributes][0][address]']"
     assert_select "input[type=text][name='organisation[contacts_attributes][0][postcode]']"
+    assert_select "input[type=text][name='organisation[contacts_attributes][0][email]']"
     assert_select "input[type=text][name='organisation[contacts_attributes][0][contact_numbers_attributes][0][label]']"
     assert_select "input[type=text][name='organisation[contacts_attributes][0][contact_numbers_attributes][0][number]']"
     assert_select "select[name='organisation[organisation_logo_type_id]']"
