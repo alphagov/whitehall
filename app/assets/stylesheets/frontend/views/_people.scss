@@ -10,7 +10,15 @@
 }
 
 .biographical-page {
+  .page-header {
+    margin: ($gutter - $gutter-one-sixth) 0 $gutter;
+  }
+
   header.person {
+    h1 {
+      padding-bottom: 0;
+    }
+    
     ul li {
       color: $grey-63;
       list-style: none;
@@ -24,6 +32,7 @@
     ul.single li {
       @include core-48;
       margin-left: 0;
+      padding-top: 0;
       @include media(desktop){
         margin-left: -3px;
       }
@@ -31,9 +40,11 @@
   }
 
   .in-page-navigation {
-    @include core-14;
     margin-top: 0;
     padding-top: 0;
+    .image {
+      padding: $gutter-one-sixth 0 $gutter-two-thirds;
+    }
     nav, h1 {
       padding-top: 0;
       margin-top: 0;
@@ -83,9 +94,7 @@
       }
 
       .read-more {
-        margin-top: $gutter-half;
-        background-color: $light-keyline;
-        padding: $gutter-one-sixth $gutter-one-third;
+        @include core-19;
       }
     }
 
