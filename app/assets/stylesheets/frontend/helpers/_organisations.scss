@@ -255,7 +255,7 @@
 // Non-cornforming Medium
 .organisation-logo-no-identity-medium {
   @extend .organisation-logo-no-identity;
-  @include media(desktop){
+  @include media(tablet){
     font-size: 18px;
     line-height: 20px;
     padding: 3px 0 2px 0;
@@ -263,7 +263,7 @@
 }
 .organisation-logo-identity-medium {
   @extend .organisation-logo-no-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     border-left: 2px solid;
   }
 }
@@ -271,7 +271,7 @@
 // Single identity Medium
 .organisation-logo-single-identity-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 3px 0 2px 44px;
     background-image: image-url("crests/org_crest_18px.png");
     background-position: 6px center;
@@ -280,14 +280,14 @@
 }
 .organisation-logo-stacked-single-identity-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 25px 0 0 7px;
     background-image: image-url("crests/org_crest_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-single-identity-medium span {
       display: block;
       top: 3px;
@@ -304,7 +304,7 @@
 // BIS Medium
 .organisation-logo-bis-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 3px 0 2px 38px;
     background-image: image-url("crests/bis_crest_18px.png");
     background-position: 6px center;
@@ -313,14 +313,14 @@
 }
 .organisation-logo-stacked-bis-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 25px 0 0 7px;
     background-image: image-url("crests/bis_crest_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-bis-medium span {
     display: block;
     top: 3px;
@@ -337,7 +337,7 @@
 // Scotland Office Medium
 .organisation-logo-so-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 3px 0 2px 45px;
     background-image: image-url("crests/so_crest_18px.png");
     background-position: 6px center;
@@ -346,14 +346,14 @@
 }
 .organisation-logo-stacked-so-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 25px 0 0 7px;
     background-image: image-url("crests/so_crest_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-so-medium span {
     display: block;
     top: 3px;
@@ -370,7 +370,7 @@
 // Home Office Medium
 .organisation-logo-ho-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 8px 0 7px 32px;
     background-image: image-url("crests/ho_crest_18px.png");
     background-position: 6px center;
@@ -379,14 +379,14 @@
 }
 .organisation-logo-stacked-ho-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 35px 0 0 7px;
     background-image: image-url("crests/ho_crest_18px.png");
     background-position: 6px top;
     background-size: auto 35px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-ho-medium span {
     display: block;
     top: 3px;
@@ -403,7 +403,7 @@
 // MOD Medium
 .organisation-logo-mod-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 8px 0 7px 36px;
     background-image: image-url("crests/mod_crest_18px.png");
     background-position: 6px center;
@@ -412,14 +412,14 @@
 }
 .organisation-logo-stacked-mod-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 35px 0 0 7px;
     background-image: image-url("crests/mod_crest_18px.png");
     background-position: 6px top;
     background-size: auto 35px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-mod-medium span {
     display: block;
     top: 3px;
@@ -436,7 +436,7 @@
 // Wales Medium
 .organisation-logo-wales-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 8px 0 7px 35px;
     background-image: image-url("crests/wales_crest_18px.png");
     background-position: 6px center;
@@ -445,14 +445,14 @@
 }
 .organisation-logo-stacked-wales-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 35px 0 0 7px;
     background-image: image-url("crests/wales_crest_18px.png");
     background-position: 6px top;
     background-size: auto 35px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-wales-medium span {
     display: block;
     top: 3px;
@@ -469,7 +469,7 @@
 // HM Coastguard Medium
 .organisation-logo-coastguard-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 8px 0 7px 35px;
     background-image: image-url("crests/coastguard_18px.png");
     background-position: 6px center;
@@ -478,14 +478,14 @@
 }
 .organisation-logo-stacked-coastguard-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(desktop){
+  @include media(tablet){
     padding: 35px 0 0 7px;
     background-image: image-url("crests/coastguard_18px.png");
     background-position: 6px top;
     background-size: auto 35px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-coastguard-medium span {
     display: block;
     top: 3px;
@@ -504,7 +504,7 @@
 // Non-conforming Largr
 .organisation-logo-no-identity-large {
   @extend .organisation-logo-no-identity;
-  @include media(desktop){
+  @include media(tablet){
     font-size: 27px;
     line-height: 30px;
     padding: 5px 0 5px 0;
@@ -512,7 +512,7 @@
 }
 .organisation-logo-identity-large {
   @extend .organisation-logo-no-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     border-left: 3px solid;
   }
 }
@@ -520,7 +520,7 @@
 // Single Identity Large
 .organisation-logo-single-identity-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 5px 0 5px 65px;
     background-image: image-url("crests/org_crest_27px.png");
     background-position: 9px center;
@@ -529,14 +529,14 @@
 }
 .organisation-logo-stacked-single-identity-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 40px 0 0 10px;
     background-image: image-url("crests/org_crest_27px.png");
     background-position: 9px top;
     background-size: auto 40px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-single-identity-large span {
     display: block;
     top: 5px;
@@ -553,7 +553,7 @@
 // BIS Large
 .organisation-logo-bis-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 5px 0 5px 56px;
     background-image: image-url("crests/bis_crest_27px.png");
     background-position: 9px center;
@@ -562,14 +562,14 @@
 }
 .organisation-logo-stacked-bis-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 40px 0 0 10px;
     background-image: image-url("crests/bis_crest_27px.png");
     background-position: 9px top;
     background-size: auto 40px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-bis-large span {
     display: block;
     top: 5px;
@@ -586,7 +586,7 @@
 // Scotland Office Large
 .organisation-logo-so-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 5px 0 5px 67px;
     background-image: image-url("crests/so_crest_27px.png");
     background-position: 9px center;
@@ -595,14 +595,14 @@
 }
 .organisation-logo-stacked-so-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 40px 0 0 10px;
     background-image: image-url("crests/so_crest_27px.png");
     background-position: 9px top;
     background-size: auto 40px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-so-large span {
     display: block;
     top: 5px;
@@ -619,7 +619,7 @@
 // Home Office Large
 .organisation-logo-ho-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 10px 0 10px 46px;
     background-image: image-url("crests/ho_crest_27px.png");
     background-position: 9px center;
@@ -628,14 +628,14 @@
 }
 .organisation-logo-stacked-ho-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 50px 0 0 10px;
     background-image: image-url("crests/ho_crest_27px.png");
     background-position: 9px top;
     background-size: auto 50px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-ho-large span {
     display: block;
     top: 5px;
@@ -652,7 +652,7 @@
 // MOD Large
 .organisation-logo-mod-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 10px 0 10px 53px;
     background-image: image-url("crests/mod_crest_27px.png");
     background-position: 9px center;
@@ -661,14 +661,14 @@
 }
 .organisation-logo-stacked-mod-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 50px 0 0 10px;
     background-image: image-url("crests/mod_crest_27px.png");
     background-position: 9px top;
     background-size: auto 50px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-mod-large span {
     display: block;
     top: 5px;
@@ -685,7 +685,7 @@
 // Wales Large
 .organisation-logo-wales-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 10px 0 10px 51px;
     background-image: image-url("crests/wales_crest_27px.png");
     background-position: 9px center;
@@ -694,14 +694,14 @@
 }
 .organisation-logo-stacked-wales-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 50px 0 0 10px;
     background-image: image-url("crests/wales_crest_27px.png");
     background-position: 9px top;
     background-size: auto 50px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-wales-large span {
     display: block;
     top: 5px;
@@ -718,7 +718,7 @@
 // HM Coastguard Large
 .organisation-logo-coastguard-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 10px 0 10px 51px;
     background-image: image-url("crests/coastguard_27px.png");
     background-position: 9px center;
@@ -727,14 +727,14 @@
 }
 .organisation-logo-stacked-coastguard-large {
   @extend .organisation-logo-identity-large;
-  @include media(desktop){
+  @include media(tablet){
     padding: 50px 0 0 10px;
     background-image: image-url("crests/coastguard_27px.png");
     background-position: 9px top;
     background-size: auto 50px;
   }
 }
-@include media(desktop){
+@include media(tablet){
   .organisation-logo-stacked-coastguard-large span {
     display: block;
     top: 5px;
