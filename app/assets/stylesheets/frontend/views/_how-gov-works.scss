@@ -3,6 +3,9 @@
   .full-width-section{
     clear:both;
   }
+  p, li{
+    @include core-19;
+  }
   .thirds-width-section,
   .halves-width-section{
     overflow:visible;
@@ -31,7 +34,7 @@
 
   .gov-types, .ministers, .cabinet, .coalition, .policy, .civil-service{
     h3{
-      border-top:1px solid #000;
+      border-top:1px solid $light-keyline;
       padding-top:$gutter-half;
     }
   }
@@ -40,7 +43,27 @@
     .two-thirds{
       margin-top:-$gutter*2;
     }
-    
+    table {
+      margin-bottom:$gutter-half;
+      margin-top:$gutter-half;
+      tr{
+        border-bottom:1px solid $light-keyline;
+        td{
+          padding-right:$gutter;
+        }
+      }
+    }
+  }
+  .civil-pie{
+    display:block;
+    height:10em;
+    width:15.5em;
+    padding-top:6em;
+    background-color:#fff;
+    vertical-align:middle;
+    text-align:center;
+    background-image: image-url("how-gov-works/Civil_Service_Info.png");
+    background-repeat:no-repeat;
   }
   .feature-value{
     font-size:5em;
