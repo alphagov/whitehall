@@ -10,7 +10,7 @@ class DclgConsultationImportTest < ActiveSupport::TestCase
     stub_request(:get, "http://www.example.com/documents/response/first-responder.pdf").to_return(body: "response-content")
 
     data = File.read("test/fixtures/dclg_consultation_import_test.csv")
-    NewConsultationUploader.new(csv_data: data).upload
+    ConsultationUploader.new(csv_data: data).upload
 
     consultation = Consultation.first
     refute_nil consultation
