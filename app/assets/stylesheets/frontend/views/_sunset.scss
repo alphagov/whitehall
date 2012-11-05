@@ -1,11 +1,5 @@
 .inside_gov_homepage {
 
-  /*
-  .block-1, .block-2, .block-3 {
-    width: 100%;
-  }
-  */
-
   @include media(desktop) {
     .block-1 {
       width: 33%;
@@ -55,18 +49,6 @@
     @include core-27;
   }
 
-  // this duplicates code from helpers/_index-list.scss
-  // perhaps we could remove the containing .index-list-page class
-  // from the original?
-
-  ul.index-list {
-    li {
-      list-style: none;
-      border-bottom: 1px solid $light-keyline;
-      @include core-19;
-    }
-  }
-
   .intro-section {
     clear: both;
     margin: $gutter 0 ($gutter*2) 0;
@@ -75,7 +57,7 @@
 
     @include media(desktop) {
       margin: ($gutter*2) 0;
-      background: transparent url(inside-gov.png) no-repeat 90% 100%;
+      background: transparent image-url("inside-gov-homepage.png") no-repeat 90% 100%;
     }
   }
 
@@ -107,7 +89,7 @@
     margin-bottom: ($gutter*2);
 
     .departments, .agencies {
-      padding: 0 $gutter-half;
+      padding: 0 $gutter-half $gutter $gutter-half;
       clear: both;
 
       .inner-block {
@@ -117,10 +99,14 @@
           padding: 0 $gutter-half;
         }
       }
+
+      h3 {
+        padding: 0;
+        margin: 0;
+      }
     }
 
     .organisation-count {
-
       @include core-24;
 
       @include media(desktop) {
