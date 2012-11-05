@@ -40,6 +40,15 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
     assert_equal File.read(@pdf_path), second_result.read
   end
 
+  test "follows 301 redirect and downloads attachment from new location" do
+    old_url = "http://example.com/old.pdf"
+    new_url = "http://example.com/new.pdf"
+    stub_request(:get, old_url).to_return(body: "", status: 301, headers: {Location: new_url})
+    stub_request(:get, new_url).to_return(body: File.open(@pdf_path), status: 200)
+    result = @cache.fetch(old_url)
+    assert_equal File.read(@pdf_path), result.read
+  end
+
   test "raises an error if the download didn't return a 200" do
     url = "http://example.com/attachment.pdf"
     stub_request(:get, url).to_return(body: "", status: 404)
