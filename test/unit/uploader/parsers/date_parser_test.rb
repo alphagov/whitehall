@@ -23,6 +23,10 @@ class Whitehall::Uploader::Parsers::DateParserTest < ActiveSupport::TestCase
     assert_equal Date.parse('2001-10-31'), Whitehall::Uploader::Parsers::DateParser.parse('2001-10-31', @log, @line_number)
   end
 
+  test "returns nil if passed string is empty" do
+    assert_nil Whitehall::Uploader::Parsers::DateParser.parse('', @log, @line_number)
+  end
+
   test "logs a warning if the date could'nt be parsed" do
     Whitehall::Uploader::Parsers::DateParser.parse('11/012012', @log, @line_number)
     assert_match /Unable to parse the date '11\/012012'/, @log_buffer.string

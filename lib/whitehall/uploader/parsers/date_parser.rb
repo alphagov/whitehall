@@ -1,5 +1,6 @@
 class Whitehall::Uploader::Parsers::DateParser
   def self.parse(date, logger, line_number)
+    return nil if date.blank?
     begin
       if date =~ /^\d{1,2}\-[A-Za-z]{3}\-\d{4}/
         Date.strptime(date, '%d-%b-%Y')

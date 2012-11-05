@@ -1,3 +1,5 @@
+require 'whitehall/uploader/builders'
+
 class Whitehall::Uploader::Builders::AttachmentBuilder
   def self.build(title, url, cache, logger, line_number)
     begin
